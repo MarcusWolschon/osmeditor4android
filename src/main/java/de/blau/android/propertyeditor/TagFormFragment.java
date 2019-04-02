@@ -214,7 +214,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         focusOnAddress = (Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS);
         focusTag = getArguments().getString(FOCUS_TAG);
         askForName = (Boolean) getArguments().getSerializable(ASK_FOR_NAME);
-        // Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
 
         if (getUserVisibleHint()) { // don't request focus if we are not visible
             Log.d(DEBUG_TAG, "is visible");
@@ -999,8 +998,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     }
                 } else {
                     final TagCheckGroupRow row = (TagCheckGroupRow) inflater.inflate(R.layout.tag_form_checkgroup_row, rowLayout, false);
-                    row.keyView.setText(hint);
-                    row.keyView.setTag(key);
+                    row.getKeyView().setText(hint);
+                    row.getKeyView().setTag(key);
                     OnStateChangedListener onStateChangeListener = new OnStateChangedListener() {
                         @Override
                         public void onStateChanged(IndeterminateCheckBox checkBox, Boolean state) {
@@ -1064,43 +1063,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 row.setPreset(preset);
                 row.setSelectedValues(keyValues);
                 row.valueView.setHint(R.string.tag_dialog_value_hint);
-
-                row.setOnClickListener(new OnClickListener() {
-                    @SuppressLint("NewApi")
+                row.setOnClickListener(new ShowDialogOnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        final View finalView = v;
-                        finalView.setEnabled(false); // debounce
-                        final AlertDialog dialog = buildCheckGroupDialog(hint, key, row, preset);
-                        final Object tag = finalView.getTag();
-                        dialog.setOnShowListener(new OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface d) {
-                                if (tag instanceof String) {
-                                    scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
-                                }
-                            }
-                        });
-                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                finalView.setEnabled(true);
-                            }
-                        });
-                        dialog.show();
-                        // the following is one big awful hack to stop the button dismissing the dialog
-                        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                LinearLayout valueGroup = (LinearLayout) dialog.findViewById(R.id.valueGroup);
-                                for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
-                                    View c = valueGroup.getChildAt(pos);
-                                    if (c instanceof AppCompatCheckBox) {
-                                        ((AppCompatCheckBox) c).setChecked(false);
-                                    }
-                                }
-                            }
-                        });
+                    public AlertDialog buildDialog() {
+                        return buildCheckGroupDialog(hint, key, row, preset);
                     }
                 });
                 rowLayout.addView(row);
@@ -1279,8 +1245,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private TagMultiselectRow getMultiselectRow(@NonNull final LinearLayout rowLayout, @NonNull final PresetItem preset, @Nullable final String hint,
             final String key, @Nullable final ArrayList<String> values, @Nullable ArrayAdapter<?> adapter) {
         final TagMultiselectRow row = (TagMultiselectRow) inflater.inflate(R.layout.tag_form_multiselect_row, rowLayout, false);
-        row.keyView.setText(hint != null ? hint : key);
-        row.keyView.setTag(key);
+        row.getKeyView().setText(hint != null ? hint : key);
+        row.getKeyView().setTag(key);
         if (adapter != null) {
             row.setDelimiter(preset.getDelimiter(key));
             CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -1610,51 +1576,64 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
             row.setValue(selectedValues);
             row.valueView.setHint(R.string.tag_dialog_value_hint);
-
-            row.setOnClickListener(new OnClickListener() {
-                @SuppressLint("NewApi")
+            row.setOnClickListener(new ShowDialogOnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    final View finalView = v;
-                    finalView.setEnabled(false); // debounce
-                    final AlertDialog dialog = buildMultiselectDialog(hint != null ? hint : key, key, adapter, row, preset);
-                    final Object tag = finalView.getTag();
-                    dialog.setOnShowListener(new OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface d) {
-                            if (tag instanceof String) {
-                                scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
-                            }
-                        }
-                    });
-                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            finalView.setEnabled(true);
-                        }
-                    });
-                    dialog.show();
-                    // the following is one big awful hack to stop the button dismissing the dialog
-                    dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            LinearLayout valueGroup = (LinearLayout) dialog.findViewById(R.id.valueGroup);
-                            for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
-                                View c = valueGroup.getChildAt(pos);
-                                if (c instanceof AppCompatCheckBox) {
-                                    ((AppCompatCheckBox) c).setChecked(false);
-                                }
-                            }
-                        }
-                    });
-
+                public AlertDialog buildDialog() {
+                    return buildMultiselectDialog(hint != null ? hint : key, key, adapter, row, preset);
                 }
             });
         }
         return row;
     }
 
+    abstract class ShowDialogOnClickListener implements OnClickListener {
+
+        /**
+         * Get the AlertDialog to display
+         * 
+         * @return an AlertDialog
+         */
+        public abstract AlertDialog buildDialog();
+
+        @SuppressLint("NewApi")
+        @Override
+        public void onClick(View v) {
+            final AlertDialog dialog = buildDialog();
+            View finalView = v;
+            finalView.setEnabled(false); // debounce
+            final Object tag = finalView.getTag();
+            dialog.setOnShowListener(new OnShowListener() {
+                @Override
+                public void onShow(DialogInterface d) {
+                    if (tag instanceof String) {
+                        scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
+                    }
+                }
+            });
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    finalView.setEnabled(true);
+                }
+            });
+            dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LinearLayout valueGroup = (LinearLayout) dialog.findViewById(R.id.valueGroup);
+                    for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
+                        View c = valueGroup.getChildAt(pos);
+                        if (c instanceof AppCompatCheckBox) {
+                            ((AppCompatCheckBox) c).setChecked(false);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
     /**
+     * 
      * Build a dialog for selecting a single value of none via a scrollable list of radio buttons
      * 
      * @param hint a description to display
@@ -1804,7 +1783,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 if (v == null || "".equals(v)) {
                     continue;
                 }
-                addCheck(getActivity(), valueGroup, swd, values != null ? values.contains(v) : false, icon, buttonLayoutParams);
+                addCheck(getActivity(), valueGroup, swd, values != null && values.contains(v), icon, buttonLayoutParams);
             }
         }
         builder.setNeutralButton(R.string.clear, new DialogInterface.OnClickListener() {
@@ -2374,6 +2353,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
 
         /**
+         * Set the value to s and don't touch the description
+         * 
+         * @param s the value to set
+         */
+        public void setValueOnly(String s) {
+            value = s;
+        }
+
+        /**
          * Get the value for this row
          * 
          * @return the value as a String
@@ -2430,13 +2418,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Row that displays opening_hours values and allows changing them via a dialog
      */
-    public static class TagFormOpeningHoursDialogRow extends TagFormDialogRow {
+    public static class TagFormOpeningHoursDialogRow extends TagFormMultiselectDialogRow {
 
-        OnClickListener listener;
-
-        LinearLayout         valueList;
-        final LayoutInflater inflater;
-        int                  errorTextColor = ContextCompat.getColor(getContext(),
+        int errorTextColor = ContextCompat.getColor(getContext(),
                 ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
 
         /**
@@ -2446,7 +2430,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          */
         public TagFormOpeningHoursDialogRow(Context context) {
             super(context);
-            inflater = LayoutInflater.from(context);
         }
 
         /**
@@ -2457,28 +2440,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          */
         public TagFormOpeningHoursDialogRow(Context context, AttributeSet attrs) {
             super(context, attrs);
-            inflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        protected void onFinishInflate() {
-            super.onFinishInflate();
-            valueList = (LinearLayout) findViewById(R.id.valueList);
-
-        }
-
-        /**
-         * Set the onclicklistener for every value
-         */
-        @Override
-        public void setOnClickListener(final OnClickListener listener) {
-            this.listener = listener;
-            for (int pos = 0; pos < valueList.getChildCount(); pos++) {
-                View v = valueList.getChildAt(pos);
-                if (v instanceof TextView) {
-                    ((TextView) v).setOnClickListener(listener);
-                }
-            }
         }
 
         /**
@@ -2534,7 +2495,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     }
                 }
             }
-            super.value = ohValue;
+            super.setValueOnly(ohValue);
             setOnClickListener(listener);
         }
     }
@@ -2577,7 +2538,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
 
         /**
-         * Set the onclicklistener for every value
+         * Set the OnClickListener for every value
          */
         @Override
         public void setOnClickListener(final OnClickListener listener) {
@@ -2634,10 +2595,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * Inline multiselect value display with checkboxes
      */
     public static class TagMultiselectRow extends LinearLayout {
-        private TextView     keyView;
-        private LinearLayout valueLayout;
-        private Context      context;
-        private char         delimiter;
+        private TextView       keyView;
+        protected LinearLayout valueLayout;
+        protected Context      context;
+        private char           delimiter;
 
         /**
          * Construct a row that will multiple values to be selected
@@ -2738,6 +2699,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             valueLayout.addView(check);
             check.setOnCheckedChangeListener(listener);
             return check;
+        }
+
+        /**
+         * Get the TExtView for the key
+         * 
+         * @return the TextView for the key
+         */
+        public TextView getKeyView() {
+            return keyView;
         }
     }
 
@@ -2858,12 +2828,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Inline CheckGroup row with tri-state checkboxes
      */
-    public static class TagCheckGroupRow extends LinearLayout {
-        private TextView     keyView;
-        private LinearLayout valueLayout;
-        private Context      context;
-        private char         delimiter;
-
+    public static class TagCheckGroupRow extends TagMultiselectRow {
         /**
          * Construct a row that will multiple values to be selected
          * 
@@ -2871,7 +2836,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          */
         public TagCheckGroupRow(Context context) {
             super(context);
-            this.context = context;
         }
 
         /**
@@ -2882,61 +2846,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          */
         public TagCheckGroupRow(Context context, AttributeSet attrs) {
             super(context, attrs);
-            this.context = context;
-        }
-
-        @Override
-        protected void onFinishInflate() {
-            super.onFinishInflate();
-            if (isInEditMode()) {
-                return; // allow visual editor to work
-            }
-            keyView = (TextView) findViewById(R.id.textKey);
-            valueLayout = (LinearLayout) findViewById(R.id.valueGroup);
-        }
-
-        /**
-         * Return the OSM key value
-         * 
-         * @return the key as a String
-         */
-        public String getKey() {
-            return (String) keyView.getTag();
-        }
-
-        /**
-         * Get the Layout containing the CheckBoxes for the values
-         * 
-         * @return a LinearLayout
-         */
-        public LinearLayout getValueGroup() {
-            return valueLayout;
-        }
-
-        /**
-         * Return all checked values concatenated with the required delimiter
-         * 
-         * @return a String containg an OSM style list of values
-         */
-        public String getValue() {
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < valueLayout.getChildCount(); i++) {
-                AppCompatCheckBox check = (AppCompatCheckBox) valueLayout.getChildAt(i);
-                if (check.isChecked()) {
-                    if (result.length() > 0) { // not the first entry
-                        result.append(delimiter);
-                    }
-                    result.append(valueLayout.getChildAt(i).getTag());
-                }
-            }
-            return result.toString();
         }
 
         /**
          * Add a CheckBox to this row
          * 
          * @param description the description to display
-         * @param state if true/false the CheckBox will be checekd/unchecked, if null it will be set to indetermiante
+         * @param state if true/false the CheckBox will be checked/unchecked, if null it will be set to indetermiante
          *            state,
          * @param listener a listener to call when the CheckBox is clicked
          * @return the CheckBox for further use
@@ -2954,12 +2870,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Row that displays checkgroup keys and values and allows changing them via a dialog
      */
-    public static class TagFormCheckGroupDialogRow extends TagFormDialogRow {
-
-        OnClickListener listener;
-
-        LinearLayout         valueList;
-        final LayoutInflater inflater;
+    public static class TagFormCheckGroupDialogRow extends TagFormMultiselectDialogRow {
 
         Map<String, String> keyValues;
 
@@ -2970,38 +2881,17 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          */
         public TagFormCheckGroupDialogRow(Context context) {
             super(context);
-            inflater = LayoutInflater.from(context);
         }
 
         /**
-         * Construct a row that will show a dialog that allows multiple values to be selected when clicked
+         * Construct a row that will show a dialog that allows multiple values that represent tags to be selected when
+         * clicked
          * 
          * @param context Android Context
          * @param attrs an AttributeSet
          */
         public TagFormCheckGroupDialogRow(Context context, AttributeSet attrs) {
             super(context, attrs);
-            inflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        protected void onFinishInflate() {
-            super.onFinishInflate();
-            valueList = (LinearLayout) findViewById(R.id.valueList);
-        }
-
-        /**
-         * Set the onclicklistener for every value
-         */
-        @Override
-        public void setOnClickListener(final OnClickListener listener) {
-            this.listener = listener;
-            for (int pos = 0; pos < valueList.getChildCount(); pos++) {
-                View v = valueList.getChildAt(pos);
-                if (v instanceof TextView) {
-                    ((TextView) v).setOnClickListener(listener);
-                }
-            }
         }
 
         /**
