@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2019-03-28 09:46+0100\n"
-"PO-Revision-Date: 2019-03-28 08:51+0000\n"
+"POT-Creation-Date: 2019-03-28 13:20+0100\n"
+"PO-Revision-Date: 2019-03-29 11:09+0000\n"
 "Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -409,7 +409,7 @@ msgstr "Levegőminőség"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Aircraft"
-msgstr ""
+msgstr "Légi jármű"
 
 #: master_preset.xml:3311(group:name|group:Airport)
 msgid "Airport"
@@ -661,7 +661,7 @@ msgstr "Régészeti lelőhely"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Archaeological site"
-msgstr ""
+msgstr "Régészeti lelőhely"
 
 #: master_preset.xml:5639(item:name|group:Sport|preset:Archery)
 msgid "Archery"
@@ -804,7 +804,7 @@ msgstr "Check_date automatikus létrehozása"
 #: master_preset.xml:5110(combo:display_values|group:Clubs|preset:Club|key:club)
 #: master_preset.xml:5129(item:name|group:Clubs|preset:Automobile)
 msgid "Automobile"
-msgstr ""
+msgstr "Autós"
 
 #: master_preset.xml:221(list_entry:short_description|value:yes)
 #: master_preset.xml:432(combo:display_values|key:internet_access)
@@ -821,7 +821,7 @@ msgstr "Avant (Finnország)"
 
 #: master_preset.xml:3823(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Aviary"
-msgstr ""
+msgstr "Röpde"
 
 #: master_preset.xml:4816(list_entry:short_description|group:Health|preset:Alternative_medicine|value:ayurveda)
 msgid "Ayurveda"
@@ -1169,7 +1169,7 @@ msgstr "Bioüzemanyag-generátor"
 
 #: master_preset.xml:2830(check:text|group:Car|preset:Fuel|key:fuel:biogas)
 msgid "Biogas"
-msgstr ""
+msgstr "Biogáz"
 
 #: master_preset.xml:6584(item:name|group:Power_Generator|preset:Biogas_Power_Generator)
 msgid "Biogas Power Generator"
@@ -1191,7 +1191,7 @@ msgstr "Madárles"
 
 #: master_preset.xml:3823(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Birds"
-msgstr ""
+msgstr "Madárbemutató"
 
 #: master_preset.xml:4799(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:birthing_center)
 msgid "Birthing center"
@@ -1353,7 +1353,7 @@ msgstr "Történelmi határkő"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Boundary stone"
-msgstr ""
+msgstr "Határkő"
 
 #: master_preset.xml:8926(combo:text|group:Relations|preset:Boundary|key:boundary)
 msgid "Boundary type"
@@ -1599,7 +1599,7 @@ msgstr "Hentes"
 #: master_preset.xml:3823(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 #: master_preset.xml:3856(list_entry:display_value|group:Leisure|preset:Animals|value:butterfly)
 msgid "Butterfly"
-msgstr "Lepke"
+msgstr "Lepkebemutató"
 
 #: master_preset.xml:1630(check:text|group:Waypoints|preset:Traffic_Signal|key:button_operated)
 #: master_preset.xml:1670(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:button_operated)
@@ -1880,7 +1880,7 @@ msgstr "Faszén"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Charcoal pile"
-msgstr ""
+msgstr "Szénégető boksa"
 
 #: master_preset.xml:2847(item:name|group:Car|preset:Charging_Station)
 msgid "Charging Station"
@@ -1889,7 +1889,7 @@ msgstr "Elektromos töltőállomás"
 #: master_preset.xml:5110(combo:display_values|group:Clubs|preset:Club|key:club)
 #: master_preset.xml:7843(item:name|group:Other|preset:Charity)
 msgid "Charity"
-msgstr "Jótékonysági bolt"
+msgstr "Jótékonysági"
 
 #: master_preset.xml:9028(combo:display_values|preset:Enforcement|key:enforcement)
 msgid "Check"
@@ -2023,7 +2023,7 @@ msgstr "Városnév"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Citywalls"
-msgstr ""
+msgstr "Városfal"
 
 #: master_preset.xml:49(combo:display_values|key:surface)
 msgid "Clay"
@@ -2087,11 +2087,11 @@ msgstr "Klub"
 
 #: master_preset.xml:5110(combo:text|group:Clubs|preset:Club|key:club)
 msgid "Club type"
-msgstr ""
+msgstr "Klub típusa"
 
 #: master_preset.xml:5105(group:name|group:Clubs)
 msgid "Clubs"
-msgstr ""
+msgstr "Klubok"
 
 #: master_preset.xml:6603(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
@@ -3211,7 +3211,7 @@ msgstr "Emu"
 
 #: master_preset.xml:3823(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Enclosure"
-msgstr ""
+msgstr "Kifutó"
 
 #: master_preset.xml:8903(list_entry:display_value|group:Relations|preset:Relations|value:enforcement)
 #: master_preset.xml:9024(item:name|preset:Enforcement)
@@ -3342,11 +3342,11 @@ msgstr "Fair Trade (méltányos kereskedelem)"
 
 #: master_preset.xml:3823(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Falconry"
-msgstr ""
+msgstr "Ragadozómadár-röpde"
 
 #: master_preset.xml:5110(combo:display_values|group:Clubs|preset:Club|key:club)
 msgid "Fan"
-msgstr ""
+msgstr "Rajongói"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 #: master_preset.xml:8286(item:name|group:Places|preset:Farm)
@@ -3691,7 +3691,7 @@ msgstr "Ingyen kerékpárpumpa"
 
 #: master_preset.xml:5110(combo:display_values|group:Clubs|preset:Club|key:club)
 msgid "Freemasonry"
-msgstr ""
+msgstr "Szabadkőműves"
 
 #: master_preset.xml:404(multiselect:display_values|key:cuisine)
 #: master_preset.xml:960(multiselect:display_values|key:language)
@@ -4337,7 +4337,7 @@ msgstr "Történelmi helyek és objektumok"
 
 #: master_preset.xml:6952(item:name|group:Historic_Places_&_Objects|preset:Historic_object)
 msgid "Historic object"
-msgstr ""
+msgstr "Történelmi objektum"
 
 #: master_preset.xml:8776(text:text|group:Addresses_and_Contact|preset:Name|key:old_name)
 msgid "Historical name"
@@ -4353,7 +4353,7 @@ msgstr "Apartman"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Hollow way"
-msgstr ""
+msgstr "Mélyút"
 
 #: master_preset.xml:7413(group:name|group:Home_furnishing_and_decoration)
 msgid "Home furnishing and decoration"
@@ -5677,7 +5677,7 @@ msgstr "Bánya"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Mine shaft"
-msgstr ""
+msgstr "Bányaakna"
 
 #: master_preset.xml:6311(item:name|group:Man_Made|preset:Mineshaft)
 msgid "Mineshaft"
@@ -7011,7 +7011,7 @@ msgstr "Busz- és taxisávok →"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Pa"
-msgstr ""
+msgstr "Pā (erődített maori falu)"
 
 #: master_preset.xml:7815(item:name|group:Other|preset:Paint)
 msgid "Paint"
@@ -7266,7 +7266,7 @@ msgstr "Olajkút"
 
 #: master_preset.xml:3823(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Petting zoo"
-msgstr ""
+msgstr "Állatsimogató"
 
 #: master_preset.xml:4771(item:name|group:Health|preset:Pharmacy)
 msgid "Pharmacy"
@@ -8285,7 +8285,7 @@ msgstr "Autószerelő"
 #: master_preset.xml:5394(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:5409(multiselect:display_values|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Reptile"
-msgstr "Hüllő"
+msgstr "Hüllőbemutató"
 
 #: master_preset.xml:9953(item:name|group:Offices|preset:Research)
 msgid "Research"
@@ -8449,7 +8449,7 @@ msgstr "Római katolikus"
 
 #: master_preset.xml:6957(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Roman road"
-msgstr ""
+msgstr "Római út"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Romanian"
@@ -8636,7 +8636,7 @@ msgstr "Nyeregkészítő"
 
 #: master_preset.xml:3823(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Safari park"
-msgstr ""
+msgstr "Szafaripark"
 
 #: master_preset.xml:6022(item:name|group:Motorsport|preset:Safety_Training)
 msgid "Safety Training"
@@ -8771,7 +8771,7 @@ msgstr "Roller"
 #: master_preset.xml:5110(combo:display_values|group:Clubs|preset:Club|key:club)
 #: master_preset.xml:5122(item:name|group:Clubs|preset:Scouts)
 msgid "Scouts"
-msgstr ""
+msgstr "Cserkész"
 
 #: master_preset.xml:5271(check:text|group:Facilities|preset:Recycling_Container|key:recycling:scrap_metal)
 #: master_preset.xml:5302(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:scrap_metal)
@@ -9250,7 +9250,7 @@ msgstr "Labdarúgás"
 
 #: master_preset.xml:5110(combo:display_values|group:Clubs|preset:Club|key:club)
 msgid "Social"
-msgstr ""
+msgstr "Társasági"
 
 #: master_preset.xml:5011(item:name|group:Social_Facilities|preset:Social_Centre)
 msgid "Social Centre"
@@ -9382,7 +9382,7 @@ msgstr "Sportmászás"
 
 #: master_preset.xml:5114(item:name|group:Clubs|preset:Sport_club)
 msgid "Sport club"
-msgstr ""
+msgstr "Sportegyesület"
 
 #: master_preset.xml:421(list_entry:short_description|value:sports)
 #: master_preset.xml:5473(group:name|group:Sports)
@@ -10731,7 +10731,7 @@ msgstr ""
 
 #: master_preset.xml:5110(combo:display_values|group:Clubs|preset:Club|key:club)
 msgid "Veterans"
-msgstr ""
+msgstr "Veterán"
 
 #: master_preset.xml:4788(item:name|group:Health|preset:Veterinary)
 msgid "Veterinary"
@@ -11171,7 +11171,7 @@ msgstr "Vadon élő állatok"
 
 #: master_preset.xml:3823(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Wildlife park"
-msgstr ""
+msgstr "Vadaspark őshonos állatoknak"
 
 #: master_preset.xml:6726(item:name|group:Power_Generator|preset:Wind_Turbine)
 msgid "Wind Turbine"
@@ -14414,8 +14414,8 @@ msgstr "Tűzcsap helye"
 
 #: master_preset.xml:4923(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:green)
 msgctxt "hydrant_position"
-msgid "Greem"
-msgstr ""
+msgid "Green"
+msgstr "Zöld"
 
 #: master_preset.xml:4919(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:position)
 msgctxt "hydrant_position"

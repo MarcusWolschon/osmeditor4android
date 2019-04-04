@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2019-03-28 09:46+0100\n"
-"PO-Revision-Date: 2019-03-28 08:51+0000\n"
-"Last-Translator: Constable\n"
+"POT-Creation-Date: 2019-03-28 13:20+0100\n"
+"PO-Revision-Date: 2019-04-02 07:16+0000\n"
+"Last-Translator: Marco <marcxosm@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4685,7 +4685,7 @@ msgstr ""
 #: master_preset.xml:2324(check:text|group:Water|preset:Water|key:intermittent)
 #: master_preset.xml:2343(check:text|group:Water|preset:Riverbank|key:intermittent)
 msgid "Is the water body intermittent (doesn't permanently contain water)?"
-msgstr ""
+msgstr "La massa acquatica è intermittente (non ha sempre dell'acqua al suo interno)?"
 
 #: master_preset.xml:1677(combo:display_values|group:Traffic_Calming|preset:Traffic_Calming|key:traffic_calming)
 msgid "Island"
@@ -7157,7 +7157,7 @@ msgstr ""
 
 #: master_preset.xml:8114(item:name|group:Money|preset:Payment_terminal)
 msgid "Payment terminal"
-msgstr ""
+msgstr "Terminale di pagamento"
 
 #: master_preset.xml:8589(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Peach trees"
@@ -10742,7 +10742,7 @@ msgstr "Veterinario"
 #: master_preset.xml:3230(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:via)
 #: master_preset.xml:812(text:text|key:via)
 msgid "Via (intermediate stops)"
-msgstr ""
+msgstr "Via (fermata intermedia)"
 
 #: master_preset.xml:769(list_entry:display_value|value:victim)
 msgid "Victims"
@@ -10992,7 +10992,7 @@ msgstr ""
 
 #: master_preset.xml:1595(group:name|group:Waypoints)
 msgid "Waypoints"
-msgstr ""
+msgstr "Punti di passaggio"
 
 #: master_preset.xml:1458(group:name|group:Ways)
 msgid "Ways"
@@ -14416,8 +14416,8 @@ msgstr "Posizione idrante"
 
 #: master_preset.xml:4923(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:green)
 msgctxt "hydrant_position"
-msgid "Greem"
-msgstr ""
+msgid "Green"
+msgstr "Verde"
 
 #: master_preset.xml:4919(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:position)
 msgctxt "hydrant_position"
@@ -14646,7 +14646,7 @@ msgstr ""
 #: master_preset.xml:5826(combo:text|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
 msgid "Grooming"
-msgstr ""
+msgstr "Terreno"
 
 #: master_preset.xml:5826(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"

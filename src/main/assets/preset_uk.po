@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2019-03-28 09:46+0100\n"
-"PO-Revision-Date: 2019-03-28 08:51+0000\n"
+"POT-Creation-Date: 2019-03-28 13:20+0100\n"
+"PO-Revision-Date: 2019-03-29 21:12+0000\n"
 "Last-Translator: Andrey Golovin\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openstreetmap/presets/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -2138,7 +2138,7 @@ msgstr ""
 
 #: master_preset.xml:4935(combo:text|group:Emergency|preset:Fire_Hydrant|key:colour)
 msgid "Colour"
-msgstr ""
+msgstr "Колір"
 
 #: master_preset.xml:9260(text:text|preset:Destination_Sign|key:colour:back)
 msgid "Colour of background"
@@ -5007,7 +5007,7 @@ msgstr ""
 #: master_preset.xml:1404(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 #: master_preset.xml:1422(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 msgid "Left"
-msgstr ""
+msgstr "Ліворуч"
 
 #: master_preset.xml:1379(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left;through)
 #: master_preset.xml:1405(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left;through)
@@ -5811,7 +5811,7 @@ msgstr ""
 
 #: master_preset.xml:2487(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
-msgstr ""
+msgstr "Гідрометеорологічний буй"
 
 #: master_preset.xml:3890(list_entry:display_value|group:Leisure|preset:Animals|value:moose)
 msgid "Moose"
@@ -8364,7 +8364,7 @@ msgstr ""
 #: master_preset.xml:1412(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1430(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr ""
+msgstr "Праворуч"
 
 #: master_preset.xml:1385(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right;through)
 #: master_preset.xml:1411(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right;through)
@@ -14414,8 +14414,8 @@ msgstr ""
 
 #: master_preset.xml:4923(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:green)
 msgctxt "hydrant_position"
-msgid "Greem"
-msgstr ""
+msgid "Green"
+msgstr "на газоні"
 
 #: master_preset.xml:4919(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:position)
 msgctxt "hydrant_position"

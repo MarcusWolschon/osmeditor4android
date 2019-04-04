@@ -16,7 +16,7 @@
 
 ### Завантаження даних OSM
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Оберіть або значок ![Передача](../images/menu_transfer.png) або меню "Передача". Ви побачите сім пунктів:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*

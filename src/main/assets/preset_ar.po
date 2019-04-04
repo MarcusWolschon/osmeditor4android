@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2019-03-28 09:46+0100\n"
-"PO-Revision-Date: 2019-03-28 08:51+0000\n"
+"POT-Creation-Date: 2019-03-28 13:20+0100\n"
+"PO-Revision-Date: 2019-04-02 13:03+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@hotmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -3260,7 +3260,7 @@ msgstr ""
 
 #: master_preset.xml:1587(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
-msgstr ""
+msgstr "سلم كهربائي"
 
 #: master_preset.xml:1312(item:name|group:Streets|preset:Escape)
 msgid "Escape"
@@ -14412,8 +14412,8 @@ msgstr ""
 
 #: master_preset.xml:4923(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:green)
 msgctxt "hydrant_position"
-msgid "Greem"
-msgstr ""
+msgid "Green"
+msgstr "أخضر"
 
 #: master_preset.xml:4919(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:position)
 msgctxt "hydrant_position"
