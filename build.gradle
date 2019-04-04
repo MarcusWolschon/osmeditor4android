@@ -409,7 +409,7 @@ tasks.whenTaskAdded { task ->
 }
 
 ext {
-    okHttpVersion = "3.13.1"
+    okHttpVersion = "3.12.2" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
     signpostVersion = "1.2.1.2"
     supportLibVersion = "27.1.1"
     legacySupportLibVersion = "25.3.1"
