@@ -457,6 +457,7 @@ dependencies {
     implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
     implementation 'de.ruedigermoeller:fst:2.57'
     implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.47'
+    implementation 'com.zaxxer:SparseBitSet:1.1'
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
 
