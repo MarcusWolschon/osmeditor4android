@@ -482,6 +482,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case R.id.tag_menu_locale:
             // add locale to any name keys present
             LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
+            if (allTags == null) {
+                Log.e(DEBUG_TAG, "getKeyValueMapSingle returned null");
+                return true;
+            }
             LinkedHashMap<String, String> result = new LinkedHashMap<>();
             Locale locale = Locale.getDefault();
             List<String> i18nKeys = getI18nKeys(tagListener.getBestPreset());
@@ -987,9 +991,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param allTags the other tags for this object
      */
     private void addCheckGroupRow(@Nullable final LinearLayout rowLayout, @NonNull final PresetCheckGroupField field,
-            @NonNull final Map<String, String> keyValues, @NonNull PresetItem preset, Map<String, String> allTags) {
+            @Nullable final Map<String, String> keyValues, @NonNull PresetItem preset, Map<String, String> allTags) {
         final String key = field.getKey();
-        if (rowLayout != null) {
+        if (rowLayout != null && keyValues != null) {
             if (field.size() <= maxInlineValues) {
                 String hint = preset.getHint(key);
                 if (hint == null) { // simply display as individual checks
@@ -1072,7 +1076,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 rowLayout.addView(row);
             }
         } else {
-            Log.e(DEBUG_TAG, "addRow rowLayout null");
+            Log.e(DEBUG_TAG, "addRow rowLayout " + rowLayout + " keyValues " + keyValues + " for " + field.getKey());
         }
     }
 
@@ -2879,7 +2883,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * 
          * @param context Android Context
          */
-        public TagFormCheckGroupDialogRow(Context context) {
+        public TagFormCheckGroupDialogRow(@NonNull Context context) {
             super(context);
         }
 
@@ -2890,7 +2894,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * @param context Android Context
          * @param attrs an AttributeSet
          */
-        public TagFormCheckGroupDialogRow(Context context, AttributeSet attrs) {
+        public TagFormCheckGroupDialogRow(@NonNull Context context, AttributeSet attrs) {
             super(context, attrs);
         }
 
@@ -2899,7 +2903,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * 
          * @param keyValues a Map of the current keys and values for this check group
          */
-        public void setSelectedValues(Map<String, String> keyValues) {
+        public void setSelectedValues(@NonNull Map<String, String> keyValues) {
             this.keyValues = keyValues;
             int childCount = valueList.getChildCount();
             for (int pos = 0; pos < childCount; pos++) { // don^t delete first child, just clear
