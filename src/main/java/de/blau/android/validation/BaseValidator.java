@@ -178,8 +178,8 @@ public class BaseValidator implements Validator {
                 }
             }
             try {
-                checkNearbyWays(w, logic, layer, w.getFirstNode());
-                checkNearbyWays(w, logic, layer, w.getLastNode());
+                checkNearbyWays(Tags.KEY_HIGHWAY, w, logic, layer, w.getFirstNode());
+                checkNearbyWays(Tags.KEY_HIGHWAY, w, logic, layer, w.getLastNode());
             } catch (Exception ex) {
                 // ignored
             }
@@ -208,23 +208,56 @@ public class BaseValidator implements Validator {
     /**
      * Check if the node is too near any ways within the tolerance
      * 
+     * The warning is suppressed if the node is connected to the nearby way via a (single) further way 
+     * 
+     * @param tagKey tag key the ways need to have to be candidates
      * @param w the Way we are validating
      * @param logic the current Logic instance
      * @param layer the layer of w
      * @param n the Node we are checking for
+     * 
      * @throws OsmException if something goes wrong creating the bounding box
      */
-    private void checkNearbyWays(@NonNull Way w, @NonNull Logic logic, int layer, @NonNull Node n) throws OsmException {
+    private void checkNearbyWays(@NonNull String tagKey, @NonNull Way w, @NonNull Logic logic, int layer, @NonNull Node n) throws OsmException {
         BoundingBox box = GeoMath.createBoundingBoxForCoordinates(n.getLat() / 1E7D, n.getLon() / 1E7D, tolerance, false);
         List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(box);
+        List<Way> connectedWays = new ArrayList<>();
+        BoundingBox bb = w.getBounds();
+        for (Way maybeConnected : new ArrayList<>(nearbyWays)) {
+            if (!maybeConnected.hasTagKey(tagKey) || maybeConnected.equals(w)) {
+                nearbyWays.remove(maybeConnected);
+                continue;
+            }
+            if (bb.intersects(maybeConnected.getBounds()) && maybeConnected.hasCommonNode(w)) {
+                connectedWays.add(maybeConnected);
+                nearbyWays.remove(maybeConnected);
+            }
+        }
         for (Way nearbyWay : nearbyWays) {
-            if (!w.equals(nearbyWay) && nearbyWay.hasTagKey(Tags.KEY_HIGHWAY) && layer == getLayer(nearbyWay)) {
+            if (!hasConnection(nearbyWay, connectedWays) && layer == getLayer(nearbyWay)) {
                 connectedValidation(logic, tolerance, nearbyWay, n);
                 if (n.getCachedProblems() == Validator.UNCONNECTED_END_NODE) {
                     break;
                 }
             }
         }
+    }
+
+    /**
+     * Check if a way has a connection to one of a List of ways
+     * 
+     * @param way the way
+     * @param candidateWays the list of candidates
+     * @return true if we have a common node with one of the ways
+     */
+    private boolean hasConnection(@NonNull Way way, @NonNull List<Way> candidateWays) {
+        BoundingBox bb = way.getBounds();
+        for (Way c : candidateWays) {
+            if (bb.intersects(c.getBounds()) && way.hasCommonNode(c)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
