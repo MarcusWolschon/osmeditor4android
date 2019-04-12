@@ -278,7 +278,8 @@
   <string name="toast_invalid_readonlyurl">URL invalido per le API in sola lettura</string>
   <string name="toast_invalid_filter_regexp">Espressione regolare non valida nel filtro con key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_no_coverage">%1$s non ha copertura qua</string>
-  <string name="toast_needs_resurvey">L\'oggetto potrebbe essere non aggiornato</string>
+  <string name="toast_needs_resurvey">L\'oggetto potrebbe non essere aggiornato</string>
+  <string name="toast_missing_key">%1$s chiave mancante</string>
   <string name="toast_invalid_object">Oggetto non valido</string>
   <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
