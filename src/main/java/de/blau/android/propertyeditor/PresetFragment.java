@@ -386,7 +386,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             inflater.inflate(R.menu.preset_menu, menu);
             menuView.setVisibility(View.GONE);
             if (enablePresetFeedback) {
-                menu.findItem(R.id.menu_preset_feedback).setVisible(false);
+                menu.findItem(R.id.menu_preset_feedback).setVisible(true);
             }
         }
     }
