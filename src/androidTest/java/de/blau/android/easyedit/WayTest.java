@@ -137,7 +137,7 @@ public class WayTest {
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         Assert.assertTrue(way.hasParentRelation(6490362L));
-        Assert.assertEquals(1,way.getParentRelations());
+        Assert.assertEquals(1,way.getParentRelations().size());
         List<Node> nodes = way.getNodes();
         Assert.assertEquals(origWayNodes.size(), nodes.size());
         for (int i = 0; i < nodes.size(); i++) {
