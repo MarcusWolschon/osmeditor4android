@@ -171,7 +171,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         loadMembers(membersVerticalLayout, members);
-
+        setIcons(membersVerticalLayout);
         CheckBox headerCheckBox = (CheckBox) relationMembersLayout.findViewById(R.id.header_member_selected);
         headerCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
@@ -217,7 +217,15 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * Loop over the the members and set the connection icon
      */
     void setIcons() {
-        LinearLayout rowLayout = (LinearLayout) getOurView();
+        setIcons((LinearLayout) getOurView());
+    }
+
+    /**
+     * Loop over the the members and set the connection icon
+     *
+     * @param rowLayout the layout holding the rows
+     */
+    void setIcons(@NonNull LinearLayout rowLayout) {
         int s = rowLayout.getChildCount();
         Connected[] status = new Connected[s];
         int ringStart = 0;
