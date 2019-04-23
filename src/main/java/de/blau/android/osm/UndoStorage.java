@@ -788,7 +788,6 @@ public class UndoStorage implements Serializable {
         public boolean restore() {
             boolean ok = super.restore();
             ((Relation) element).members.clear();
-            ((Relation) element).members.addAll(members);
             for (RelationMember rm : members) {
                 OsmElement rmElement = rm.getElement();
                 if (rmElement == null || currentStorage.contains(rmElement)) {
