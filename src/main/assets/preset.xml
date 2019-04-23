@@ -485,8 +485,8 @@
     </chunk>
     <chunk id="sport">
         <combo key="sport" text="Sport" 
-            values="multi,archery,athletics,american_football,australian_football,baseball,basketball,beachvolleyball,billiards,boules,bowls,canadian_football,canoe,climbing,cricket,croquet,cycling,dog_racing,equestrian,field_hockey,gaelic_games,golf,gymnastics,handball,horse_racing,ice_hockey,karting,martial_arts,model_aerodrome,motocross,motor,pelota,racquet,rc_car,rowing,rugby_league,rugby_union,running,safety_training,shooting,skateboard,skating,roller_skating,ice_skating,soccer,swimming,table_tennis,tennis,volleyball,9pin,10pin" 
-            display_values="Multiple,Archery,Athletics,American football,Australian football,Baseball,Basketball,Beach volleyball,Billiards,Boules,Bowls,Canadian football,Canoe,Climbing,Cricket,Croquet,Cycling,Dog racing,Equestrian,Field hockey,Gaelic games,Golf,Gymnastics,Handball,Horse racing,Ice hockey,Karting,Martial arts,Model aerodrome,Motocross,Motor,Pelota,Racquet,RC car,Rowing,Rugby league,Rugby union,Running,Safety training,Shooting,Skateboard,Skating,Roller skating,Ice skating,Soccer,Swimming,Table tennis,Tennis,Volleyball,9pin,10pin" values_context="sport"/>
+            values="multi,archery,athletics,american_football,australian_football,baseball,basketball,beachvolleyball,billiards,boules,bowls,canadian_football,canoe,climbing,cricket,croquet,cycling,dog_racing,equestrian,field_hockey,fitness,gaelic_games,golf,gymnastics,handball,horse_racing,ice_hockey,karting,martial_arts,model_aerodrome,motocross,motor,pelota,racquet,rc_car,rowing,rugby_league,rugby_union,running,safety_training,shooting,skateboard,skating,roller_skating,ice_skating,soccer,swimming,table_tennis,tennis,volleyball,9pin,10pin" 
+            display_values="Multiple,Archery,Athletics,American football,Australian football,Baseball,Basketball,Beach volleyball,Billiards,Boules,Bowls,Canadian football,Canoe,Climbing,Cricket,Croquet,Cycling,Dog racing,Equestrian,Field hockey,Fitness,Gaelic games,Golf,Gymnastics,Handball,Horse racing,Ice hockey,Karting,Martial arts,Model aerodrome,Motocross,Motor,Pelota,Racquet,RC car,Rowing,Rugby league,Rugby union,Running,Safety training,Shooting,Skateboard,Skating,Roller skating,Ice skating,Soccer,Swimming,Table tennis,Tennis,Volleyball,9pin,10pin" values_context="sport"/>
     </chunk>
     <chunk id="bin">
         <combo key="bin" text="Bin" values="yes,no" display_values="Yes,No" default=""/>
@@ -997,7 +997,17 @@
       <combo key="fee" text="Fee" value_type="opening_hours_mixed" values="yes,no,Sa-Su 08:00-20:00"/>
       <reference ref="facility_access"/>
     </optional>
-   </chunk>
+  </chunk>
+  <chunk id="diplomatic">
+    <text key="country" text="Country" />
+    <text key="name" text="Name"/>
+    <text key="target" text="Target" />
+    <checkgroup text="Services">
+        <check key="diplomatic:services:non-immigrant_visas" text="Non-immigrant visas" />
+        <check key="diplomatic:services:immigrant_visas" text="Immigrant visas" />
+        <check key="diplomatic:services:citizen_services" text="Citizen services" /> 
+    </checkgroup>
+  </chunk>
   <!--  Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
     <group name="Streets" icon="icons/png/highway_highway_sp.png" items_sort="false" >
@@ -2740,6 +2750,14 @@
                 <text key="aerialway:duration" text="Typical journey time in minutes"/>
             </optional>
         </item> <!-- Goods -->
+        <item name="Zip Line" icon="icons/png/transport_zip_line_10005.png" type="way" preset_name_label="true">
+            <link wiki="Tag:aerialway=zip_line"/>
+            <space/>
+            <key key="aerialway" value="zip_line"/>
+            <reference ref="name_ref"/>
+            <reference ref="oh"/>
+            <reference ref="facility_access" />
+        </item> <!-- Zip Line -->
         <separator/>
         <item name="Station" name_context="aerialway" icon="icons/png/transport_aerialway_station_10010.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:aerialway=station"/>
@@ -4005,7 +4023,7 @@
             <space/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Beach Resort -->
-        <item name="Swimming Pool" icon="icons/png/sport_swimming_outdoor.png" type="node,closedway" preset_name_label="true">
+        <item name="Swimming Pool" icon="icons/png/sport_swimming_outdoor.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=swimming_pool"/>
             <key key="leisure" value="swimming_pool"/>
             <space/>
@@ -4013,6 +4031,12 @@
             <space/>
             <reference ref="facility_access"/>
         </item> <!-- Swimming Pool -->
+        <item name="Swimming Area" icon="icons/png/sport_swimming_outdoor.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:leisure=swimming_area"/>
+            <key key="leisure" value="swimming_area"/>
+            <space/>
+            <reference ref="facility_access"/>
+        </item> <!-- Swimming Area -->
         <item name="Fitness Station" icon="icons/png/sport_fitness_station_21009.png" type="node,closedway,multipolygon" preset_name_label="true">
 			<link wiki="Tag:leisure=fitness_station"/>
 			<space/>
@@ -4570,7 +4594,7 @@
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Community Centre -->
-        <item name="Embassy" icon="icons/png/poi_embassy.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Embassy" icon="icons/png/poi_embassy.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
             <link wiki="Tag:amenity=embassy"/>
             <space/>
             <key key="amenity" value="embassy"/>
@@ -7805,6 +7829,14 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Trade supplies -->
+        <item name="Wholesale" icon="icons/png/shopping_wholesale.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=wholesale"/>
+            <space/>
+            <key key="shop" value="wholesale"/>
+            <combo key="wholesale" text="Type" values="general,food,supermarket,electrical,sanitary,paper,florist,pharmacy,seafood,clothes" display_values="General,Food,Supermarket,Electrical,Sanitary,Paper,Florist,Pharmacy,Seafood,Clothes"/>
+            <reference ref="name_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Trade supplies -->
         <item name="Gas" icon="icons/png/shopping_gas_29070.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=gas"/>
             <space/>
@@ -9807,7 +9839,34 @@
             <key key="office" value="advertising_agency"/>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
-        </item> <!-- Advertising agency -->
+        </item> <!-- Advertising agency -->  
+        <item name="Embassy" icon="icons/png/office_government_25006.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=diplomatic"/>
+            <key key="office" value="diplomatic"/>
+            <key key="diplomatic" value="embassy"/>           
+            <combo key="embassy" text="Type" values="branch_embassy,delegation,high_commission,interests_section,mission,nunciature,residence" display_values="Branch embassy,Delegation,High commission,Interests section,Mission,Nunciature,Residence" />
+            <reference ref="diplomatic"/>
+            <reference ref="oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Embassy -->
+        <item name="Consulate" icon="icons/png/office_government_25006.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=diplomatic"/>
+            <key key="office" value="diplomatic"/>
+            <key key="diplomatic" value="consulate"/>
+            <combo key="consulate" text="Type" values="consular_agency,consular_office,consulate_general,honorary_consul" display_values="Consular agency,Consular office,Consulate general,Honorary consul" />
+            <reference ref="diplomatic"/>
+            <reference ref="oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Consulate -->
+        <item name="Liason" icon="icons/png/office_government_25006.png" type="node,closedway,multipolygon">
+            <link wiki="Tag:office=diplomatic"/>
+            <key key="office" value="diplomatic"/>
+            <key key="diplomatic" value="liason"/>
+            <combo key="liason" text="Type" values="liaison_office,representative_office,subnational" display_values="Liaison office,Representative office,Subnational" />
+            <reference ref="diplomatic"/>
+            <reference ref="oh_wheelchair_level"/>
+            <reference ref="link_contact_address"/>
+        </item> <!-- Consulate -->
         <item name="Employment agency" icon="icons/png/office_employment_agency_25003.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=employment_agency"/>
             <space/>
