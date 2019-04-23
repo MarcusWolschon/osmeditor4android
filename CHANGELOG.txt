@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+13.0.2: Fix regression when undoing relations, fix relation handling when splitting a closed way, set icons on initial layout, update preset, imagery and translations.
+
 13.0.1: Add some topological analysis during unconnected way node validation, update imagery and translations.
 
 13.0.0: Improve restoring individual checkpoints, disable maproulette tasks by default, downgrade OkHttp version as 3.13 breaks backwards compatibility, update imagery and translations, bug fixes.
