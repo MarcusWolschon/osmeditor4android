@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-11 02:42+0000\n"
+"PO-Revision-Date: 2019-04-23 00:02+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -1742,7 +1742,7 @@ msgstr "容量 (總額)"
 
 #: master_preset.xml:2403(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "岬角"
 
 #: master_preset.xml:2777(group:name|group:Car)
 #: master_preset.xml:2881(check:text|group:Car|preset:Charging_Station|key:car)
@@ -3543,7 +3543,7 @@ msgstr ""
 #: master_preset.xml:4260(item:name|preset:Fishing)
 #: master_preset.xml:7740(item:name|group:Sports_and_hobbies|preset:Fishing)
 msgid "Fishing"
-msgstr ""
+msgstr "釣魚"
 
 #: master_preset.xml:5515(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
@@ -5383,7 +5383,7 @@ msgstr ""
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "製造者"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8138,7 +8138,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "建議"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -9116,7 +9116,7 @@ msgstr ""
 
 #: master_preset.xml:8513(item:name|group:Nature|preset:Shingle)
 msgid "Shingle"
-msgstr ""
+msgstr "礫灘"
 
 #: master_preset.xml:572(combo:display_values|key:religion)
 #: master_preset.xml:581(combo:display_values|key:religion)
@@ -9293,7 +9293,7 @@ msgstr ""
 
 #: master_preset.xml:2509(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr ""
+msgstr "船台"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Slovak"
@@ -10523,7 +10523,7 @@ msgstr ""
 
 #: master_preset.xml:2005(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "旋轉門"
 
 #: master_preset.xml:2647(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -11040,7 +11040,7 @@ msgstr ""
 
 #: master_preset.xml:6711(item:name|group:Power_Generator|preset:Water_Turbine)
 msgid "Water Turbine"
-msgstr ""
+msgstr "水利渦輪"
 
 #: master_preset.xml:6441(item:name|group:Man_Made|preset:Water_Well)
 msgid "Water Well"
@@ -11310,7 +11310,7 @@ msgstr ""
 
 #: master_preset.xml:3387(item:name|group:Airport|preset:Windsock)
 msgid "Windsock"
-msgstr ""
+msgstr "風向袋"
 
 #: master_preset.xml:7274(item:name|group:Food|preset:Wine)
 msgid "Wine"

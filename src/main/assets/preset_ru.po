@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
-"Last-Translator: d1g <acroq3@gmail.com>\n"
+"PO-Revision-Date: 2019-04-20 18:42+0000\n"
+"Last-Translator: Yury Lebedev\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -9550,7 +9550,7 @@ msgstr ""
 #: master_preset.xml:7088(text:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:start_date)
 #: master_preset.xml:8208(text:text|group:Boundaries|preset:Protected_Area|key:start_date)
 msgid "Start date"
-msgstr ""
+msgstr "Дата открытия"
 
 #: master_preset.xml:3135(role:text|group:Public_Transport|preset:Stop_Area|key:)
 msgid "Station or amenities"

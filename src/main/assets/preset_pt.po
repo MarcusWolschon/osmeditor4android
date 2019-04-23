@@ -1,7 +1,7 @@
 # 
 # Translators:
 # Duarte Carreira <dncarreira@gmail.com>, 2017
-# Nuno Caldeira <hello@iamnunocaldeira.com>, 2017-2018
+# Nuno Caldeira <hello@iamnunocaldeira.com>, 2017-2019
 # Nuno Caldeira <hello@iamnunocaldeira.com>, 2017
 # Rui <xymarior@yandex.com>, 2016-2019
 # Rui <xymarior@yandex.com>, 2016
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
-"Last-Translator: Tiago Correia <ti4go@outlook.pt>\n"
+"PO-Revision-Date: 2019-04-18 10:51+0000\n"
+"Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -211,11 +211,11 @@ msgstr "Um corpo persistente de gelo denso que se encontra em movimento constant
 msgid ""
 "A pillar hydrant where the barrel is pressurized at all times, with "
 "individual valves for each outlet."
-msgstr ""
+msgstr "Marco de água em que a coluna está sempre pressurizada e existe válvula individual para cada saída."
 
 #: master_preset.xml:4951(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:dry_barrel)
 msgid "A pillar hydrant where the water shutoff valve is below ground."
-msgstr ""
+msgstr "Marco de água em que a válvula de fecho está localizada no subsolo"
 
 #: master_preset.xml:2243(label:text|group:Water|preset:Spring)
 msgid ""
@@ -824,7 +824,7 @@ msgstr "Avant (fi)"
 
 #: master_preset.xml:3841(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Aviary"
-msgstr ""
+msgstr "Aviário"
 
 #: master_preset.xml:4840(list_entry:short_description|group:Health|preset:Alternative_medicine|value:ayurveda)
 msgid "Ayurveda"
@@ -1194,7 +1194,7 @@ msgstr "Observação de aves"
 
 #: master_preset.xml:3841(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Birds"
-msgstr ""
+msgstr "Passáros"
 
 #: master_preset.xml:4823(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:birthing_center)
 msgid "Birthing center"
@@ -2050,27 +2050,27 @@ msgstr "Falésia / arriba"
 
 #: master_preset.xml:5718(item:name|group:Sport|preset:Climbing_route)
 msgid "Climbing route"
-msgstr ""
+msgstr "Vias de escalada"
 
 #: master_preset.xml:993(check:text|key:indoor)
 msgid "Climbing routes indoor"
-msgstr ""
+msgstr "Vias de escalada indoor"
 
 #: master_preset.xml:994(check:text|key:outdoor)
 msgid "Climbing routes outdoor"
-msgstr ""
+msgstr "Vias de escalada ao ar livre"
 
 #: master_preset.xml:5690(item:name|group:Sport|preset:Climbing_site)
 msgid "Climbing site"
-msgstr ""
+msgstr "Local de escalada"
 
 #: master_preset.xml:976(checkgroup:text)
 msgid "Climbing styles"
-msgstr ""
+msgstr "Tipo de escalada"
 
 #: master_preset.xml:975(label:text)
 msgid "Climbing styles:"
-msgstr ""
+msgstr "Tipo de escalada:"
 
 #: master_preset.xml:4769(item:name|group:Health|preset:Clinic)
 msgid "Clinic"
@@ -2166,11 +2166,11 @@ msgstr "Cor do texto"
 
 #: master_preset.xml:4961(combo:text|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgid "Colour of the caps"
-msgstr ""
+msgstr "Cor das presas"
 
 #: master_preset.xml:4960(combo:text|group:Emergency|preset:Fire_Hydrant|key:bonnet:colour)
 msgid "Colour of the top section (bonnet)"
-msgstr ""
+msgstr "Cor do topo do sector (amarração)"
 
 #: master_preset.xml:7042(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Columbarium"
@@ -2186,7 +2186,7 @@ msgstr "Comédia"
 
 #: master_preset.xml:8685(item:name|group:Land_use|preset:Common)
 msgid "Common"
-msgstr "Baldio"
+msgstr "Terrenos comunitários"
 
 #: master_preset.xml:8814(text:text|group:Addresses_and_Contact|preset:Name|key:short_name)
 msgid "Common name abbreviation"
@@ -3718,7 +3718,7 @@ msgstr "Raposa"
 
 #: master_preset.xml:990(combo:display_values|key:climbing:quality)
 msgid "Fragile"
-msgstr ""
+msgstr "Frágil"
 
 #: master_preset.xml:7494(item:name|group:Home_furnishing_and_decoration|preset:Frame)
 msgid "Frame"
@@ -3911,7 +3911,7 @@ msgstr "Género"
 
 #: master_preset.xml:7836(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
 msgid "General"
-msgstr "Clínica geral"
+msgstr "Geral"
 
 #: master_preset.xml:2137(item:name|group:Access_Restrictions|preset:General_access)
 #: master_preset.xml:510(combo:display_values|key:access)
@@ -5081,7 +5081,7 @@ msgstr "Corrimão à esquerda"
 
 #: master_preset.xml:9031(item:name|group:Turn_Restrictions|preset:Left_turn_only)
 msgid "Left turn only"
-msgstr ""
+msgstr "Apenas virar à esquerda"
 
 #: master_preset.xml:3153(checkgroup:text|group:Public_Transport|preset:Stop_Position)
 msgid "Legacy stop types"
@@ -5635,7 +5635,7 @@ msgstr "Mediterrânica"
 
 #: master_preset.xml:990(combo:display_values|key:climbing:quality)
 msgid "Medium"
-msgstr ""
+msgstr "Médio"
 
 #: master_preset.xml:3906(list_entry:display_value|group:Leisure|preset:Animals|value:meerkat)
 msgid "Meerkat"
@@ -5785,7 +5785,7 @@ msgstr "Sem classif. oficial"
 
 #: master_preset.xml:9847(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Mission"
-msgstr ""
+msgstr "Missão"
 
 #: master_preset.xml:4561(combo:display_values|group:Place_of_Worship|preset:Monastery|key:community:gender)
 #: master_preset.xml:559(combo:display_values|key:leaf_type)
@@ -6455,7 +6455,7 @@ msgstr "Não"
 
 #: master_preset.xml:9023(item:name|group:Turn_Restrictions|preset:No_U_turn)
 msgid "No U turn"
-msgstr ""
+msgstr "Proibida inversão de marcha"
 
 #: master_preset.xml:238(list_entry:short_description|value:no)
 #: master_preset.xml:250(list_entry:short_description|value:no)
@@ -6475,7 +6475,7 @@ msgstr "Proibido virar à esquerda"
 #: master_preset.xml:8917(item:name|group:Annotation|preset:No_name)
 #: master_preset.xml:8918(check:text|group:Annotation|preset:No_name|key:noname)
 msgid "No name"
-msgstr ""
+msgstr "Sem nome"
 
 #: master_preset.xml:9003(combo:display_values|group:Turn_Restrictions|preset:Turn_Restriction|key:restriction)
 #: master_preset.xml:9015(item:name|group:Turn_Restrictions|preset:No_right_turn)
@@ -6630,7 +6630,7 @@ msgstr "Número de quartos acessíveis a cadeiras de rodas"
 
 #: master_preset.xml:5697(text:text|group:Sport|preset:Climbing_site|key:climbing:routes)
 msgid "Number of routes"
-msgstr ""
+msgstr "Número de vias"
 
 #: master_preset.xml:3823(text:text|group:Leisure|preset:Movie_Theater/Cinema|key:screen)
 msgid "Number of screens"
@@ -8141,7 +8141,7 @@ msgstr "Caixa de leitura"
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "Recomendado"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"

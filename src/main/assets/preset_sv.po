@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
+"PO-Revision-Date: 2019-04-20 12:58+0000\n"
 "Last-Translator: Magnus Österlund\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -5247,7 +5247,7 @@ msgstr "Plats för övergång"
 #: master_preset.xml:2235(check:text|group:Water|preset:Canal|key:lock)
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lock"
-msgstr ""
+msgstr "Sluss"
 
 #: master_preset.xml:2500(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
@@ -5384,7 +5384,7 @@ msgstr "Manuellt"
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Tillverkare"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8139,7 +8139,7 @@ msgstr "Läsningslåda"
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "Rekommenderas"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -9939,7 +9939,7 @@ msgstr ""
 
 #: master_preset.xml:1004(text:text|key:target)
 msgid "Target"
-msgstr ""
+msgstr "Riktas mot"
 
 #: master_preset.xml:3937(list_entry:display_value|group:Leisure|preset:Animals|value:tasmanian_devil)
 msgid "Tasmanian devil"

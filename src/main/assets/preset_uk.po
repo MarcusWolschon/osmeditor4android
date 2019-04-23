@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
+"PO-Revision-Date: 2019-04-22 13:50+0000\n"
 "Last-Translator: Andrey Golovin\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openstreetmap/presets/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -3543,7 +3543,7 @@ msgstr ""
 #: master_preset.xml:4260(item:name|preset:Fishing)
 #: master_preset.xml:7740(item:name|group:Sports_and_hobbies|preset:Fishing)
 msgid "Fishing"
-msgstr ""
+msgstr "Риболовля"
 
 #: master_preset.xml:5515(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
@@ -5246,7 +5246,7 @@ msgstr ""
 #: master_preset.xml:2235(check:text|group:Water|preset:Canal|key:lock)
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lock"
-msgstr ""
+msgstr "Шлюз"
 
 #: master_preset.xml:2500(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
@@ -5383,7 +5383,7 @@ msgstr ""
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Виробник"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8138,7 +8138,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "Бажане"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -9938,7 +9938,7 @@ msgstr ""
 
 #: master_preset.xml:1004(text:text|key:target)
 msgid "Target"
-msgstr ""
+msgstr "Представництво"
 
 #: master_preset.xml:3937(list_entry:display_value|group:Leisure|preset:Animals|value:tasmanian_devil)
 msgid "Tasmanian devil"
@@ -10523,7 +10523,7 @@ msgstr ""
 
 #: master_preset.xml:2005(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "Турнікет"
 
 #: master_preset.xml:2647(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -11448,7 +11448,7 @@ msgstr ""
 
 #: master_preset.xml:2753(item:name|group:Aerialway|preset:Zip_Line)
 msgid "Zip Line"
-msgstr ""
+msgstr "Тиролька"
 
 #: master_preset.xml:6523(combo:text|group:Man_Made|preset:Surveillance_Camera|key:surveillance:zone)
 msgid "Zone"

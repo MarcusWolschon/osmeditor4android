@@ -22,6 +22,7 @@
   <string name="forbidden_login_title">Acceso prohibido</string>
   <string name="not_found_title">Elemento non atopado</string>
   <string name="unknown_error_title">Erro descoñecido</string>
+  <string name="no_data_title">Sen datos</string>
   <string name="go_to_openstreetmap">Ir ó openstreetmap.org</string>
   <string name="data_conflict_title">Conflito de versión</string>
   <string name="invalid_bounding_box_title">Caixa de límite non válida</string>
@@ -70,10 +71,21 @@
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarefa descoñecida</string>
   <string name="openstreetbug_not_supported">%1$s non está suportado.</string>
+  <string name="note_description">Nota: %1$s - %2$s</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="generic_bug">Erro</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Personalizado</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_element_1">%1$s (non baixado) #%2$d</string>
+  <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Coidado!</string>
   <string name="unsaved_data_proceed">Desbotar e continuar</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">Desprazamento das imaxes</string>
   <string name="imagery_offset_description">Descrición</string>
   <string name="imagery_offset_not_found">Desprazamentos non atopados en 10km de raio!</string>
   <string name="imagery_offset_author">Autor</string>
@@ -81,18 +93,22 @@
   <string name="imagery_offset_date">Creado</string>
   <string name="imagery_offset_zoom">Achegamento</string>
   <string name="imagery_offset_distance">Distancia</string>
+  <string name="zoom_and_offset">Z %1$d desprazamento %2$s/%3$s</string>
   <string name="set_position_datum_label">Datum xeodésico</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Nome suxerido</string>
   <!--Search/Find dialog-->
   <string name="search_results_title">Resultados da procura</string>
+  <string name="search_online">Procurar en liña</string>
   <string name="find_message">Insira a cadea de procura</string>
   <string name="geocoder_prompt">con</string>
   <!---->
   <string name="preset_search_hint">Cadea de procura predefinida</string>
   <string name="search">Procurar</string>
   <string name="no_valid_preset">Non válido agora!</string>
+  <string name="save_file">Gardar en</string>
   <!--element information dialog-->
+  <string name="id">ID</string>
   <string name="nodes">Nós</string>
   <string name="relation_membership">Relación dos membros</string>
   <string name="problem">Problema</string>
@@ -101,32 +117,52 @@
   <string name="version">Versión</string>
   <string name="length_m">Lonxitude (m)</string>
   <string name="not_downloaded">Non baixado</string>
+  <string name="empty_role">Rol baleiro</string>
   <string name="last_edited">Última edición</string>
   <string name="original">Orixinal</string>
   <string name="current">Actual</string>
+  <string name="goto_element">Ir ó elemento</string>
   <!--GeoJSON feature display dialog-->
   <!---->
+  <string name="error">Erro</string>
+  <string name="warning">Advertencia</string>
+  <string name="minor_issue">Problema menor</string>
+  <string name="unknown_error_level">Nivel do erro descoñecido</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Esta operación afecta aos obxectos anexos filtrados!</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_continue">Dacordo, segue amosando</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_stop">Dacordo, rexeitar</string>
   <!--debug dialog-->
+  <string name="send_debug_information">Enviar información de depuración</string>
   <!--JS console dialog-->
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo en directo!</string>
   <string name="js_console_msg_debug">Modo correxir erros!</string>
   <!--Validator dialogs-->
   <string name="validator_title">Coxunto de regras do validador %1$s</string>
+  <string name="edit_resurvey_title">Editar entrada de re-revisión</string>
+  <string name="add_resurvey_title">Engadir entrada de re-revisión</string>
+  <string name="edit_check_title">Editar entrada de comprobación</string>
+  <string name="add_check_title">Engadir entrada de comprobación</string>
   <string name="max_age">Idade máxima</string>
   <string name="age">Idade</string>
+  <string name="check_opt">Requirido\obrigatorio</string>
+  <string name="check_optional">Requirir opcional</string>
+  <string name="add_resurvey_entry">Engadir entrada de re-revisión</string>
+  <string name="add_check_entry">Engadir entrada de comprobación</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Relación baleira</string>
   <string name="add_members">Engadir membros</string>
   <string name="leave_empty">Deixar baleiro</string>
   <!--GPX waypoint dialog-->
+  <string name="waypoint_title">Punto de ruta GPX</string>
   <string name="waypoint_description">WPT: %1$s</string>
   <string name="description">Descrición</string>
   <string name="created">Creado</string>
   <string name="altitude">Altitude</string>
+  <string name="create_osm_object">Crear obxecto OSM</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imaxes persoalizadas</string>
   <string name="oam_layer_title">Imaxes do OAM</string>
@@ -142,6 +178,7 @@
   <string name="delete_layer">Eliminar capa?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Estilo da capa</string>
+  <string name="layer_style_stroke_width">Anchura do trazado</string>
   <string name="layer_style_color">Cor</string>
   <string name="layer_style_label">Etiqueta</string>
   <string name="json_object_not_displayed">Obxecto JSON (non amosado)</string>
@@ -152,12 +189,21 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Imaxes</string>
   <string name="layer_tasks">Tarefas</string>
+  <string name="layer_data">Datos OSM</string>
+  <string name="layer_data_name">%1$s datos</string>
   <string name="layer_flush_tile_cache">Limpa-la caché das teselas</string>
   <string name="layer_change_style">Mudar estilo</string>
   <string name="layer_select_imagery">Escoller imaxes</string>
   <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">Achegamento mín.</string>
+  <string name="layer_info_max_zoom">Achegamento máx.</string>
+  <string name="layer_info_start_date">Data de comezo</string>
+  <string name="layer_info_end_date">Data de remate</string>
+  <string name="layer_info_terms">Termos</string>
+  <string name="layer_info_privacy_policy">Política de privacidade</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
+  <string name="undo_redo_title">Desfacer - refacer</string>
   <string name="undo_all">Desfacer tódolos puntos de control posteriores (seguro)</string>
   <string name="redo_all">Refacer tódolos puntos de control anteriores (seguro)</string>
   <!--Feedback activity-->
@@ -169,18 +215,28 @@
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">Vespucci</string>
+  <string name="default_channel_description">Canle predeterminada do Vespucci</string>
+  <string name="qa_channel_name">Vespucci QA</string>
+  <string name="qa_channel_description">Canle de avisos do Vespucci QA</string>
   <!--Toaster-->
+  <string name="toast_name_empty">Escolle un nome</string>
+  <string name="toast_url_empty">Insire unha URL</string>
   <string name="toast_no_changes">Aínda non mudou ren...</string>
   <string name="clear_anyway">Eliminar de todos xeitos?</string>
   <string name="toast_unlock_to_edit">Desbloquear a edición</string>
+  <string name="toast_save_done">Gardado</string>
   <string name="toast_export_success">Exportado a %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - actual sobreescritas etiqueta(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobreescritas etiqueta(s)</string>
   <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexíbel</string>
+  <string name="read_mail">Lido</string>
   <string name="toast_photo_indexing_started">Iniciar dixitalización xeo referenciada de imaxes</string>
   <string name="toast_photo_indexing_finished">Dixitalización rematada para xeo referenciado de imaxes</string>
   <string name="toast_download_failed">A baixada non vai con código de erro  %1$d, mensaxe %2$s</string>
   <string name="toast_unsurveyed_road">Estrada non medida</string>
+  <string name="toast_untagged_way">Vía sen etiquetaxe</string>
+  <string name="toast_untagged_relation">Relación sen etiquetaxe</string>
   <string name="toast_oauth">Por favor permite o acceso de OAuth á túa conta de OSM.</string>
   <string name="toast_no_oauth">Non hai dispoñibilidade de configuración OAuth para a API actual, por favor, configure o inicio de sesión e o contrasinal.</string>
   <string name="toast_oauth_not_enabled">OAuth non está habilitado para a API actual.</string>
@@ -201,6 +257,7 @@
   <string name="toast_invalid_filter_regexp">Invalid regular expression in filter with key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_no_coverage">%1$s non ten cobertura aquí</string>
   <string name="toast_needs_resurvey">O obxecto pode estar desactualizado</string>
+  <string name="toast_invalid_object">Obxecto non válido</string>
   <string name="toast_openinghours_invalid">Valor de horas de apertura non válido para %1$s</string>
   <string name="toast_null_island">Non engada elementos a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Cadea demasiado longa (%1$d caracteres), truncados!</string>

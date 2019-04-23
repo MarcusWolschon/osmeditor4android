@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-12 09:18+0000\n"
+"PO-Revision-Date: 2019-04-18 14:04+0000\n"
 "Last-Translator: Julien Lepiller <transifex@lepiller.eu>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -5385,7 +5385,7 @@ msgstr "Manuellement"
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Fabricant"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8140,7 +8140,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "recommandées"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -9118,7 +9118,7 @@ msgstr "Shiatsu"
 
 #: master_preset.xml:8513(item:name|group:Nature|preset:Shingle)
 msgid "Shingle"
-msgstr ""
+msgstr "Galets"
 
 #: master_preset.xml:572(combo:display_values|key:religion)
 #: master_preset.xml:581(combo:display_values|key:religion)
@@ -10525,7 +10525,7 @@ msgstr ""
 
 #: master_preset.xml:2005(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "Tourniquet"
 
 #: master_preset.xml:2647(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -11312,7 +11312,7 @@ msgstr ""
 
 #: master_preset.xml:3387(item:name|group:Airport|preset:Windsock)
 msgid "Windsock"
-msgstr ""
+msgstr "Manche à air"
 
 #: master_preset.xml:7274(item:name|group:Food|preset:Wine)
 msgid "Wine"

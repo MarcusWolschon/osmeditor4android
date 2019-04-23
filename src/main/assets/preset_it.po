@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-11 08:57+0000\n"
-"Last-Translator: Marco <marcxosm@gmail.com>\n"
+"PO-Revision-Date: 2019-04-22 17:39+0000\n"
+"Last-Translator: Manuel Tassi <manueltassi91@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1745,7 +1745,7 @@ msgstr "Capienza (massima)"
 
 #: master_preset.xml:2403(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "Capo"
 
 #: master_preset.xml:2777(group:name|group:Car)
 #: master_preset.xml:2881(check:text|group:Car|preset:Charging_Station|key:car)
@@ -3610,7 +3610,7 @@ msgstr ""
 #: master_preset.xml:799(list_entry:display_value|value:flush)
 #: master_preset.xml:805(list_entry:display_value|value:flush)
 msgid "Flush"
-msgstr "Sciacquone"
+msgstr "Rasoterra"
 
 #: master_preset.xml:7106(group:name|group:Food)
 #: master_preset.xml:7836(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -5253,7 +5253,7 @@ msgstr "Serratura"
 
 #: master_preset.xml:2500(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
-msgstr ""
+msgstr "Porta di una chiusa"
 
 #: master_preset.xml:5386(check:text|group:Facilities|preset:Hunting_Stand|key:lockable)
 msgid "Lockable"
@@ -5386,7 +5386,7 @@ msgstr "Manuale"
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Costruttore"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8141,7 +8141,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "Consigliata"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -10526,7 +10526,7 @@ msgstr "Corsie di svolta nel senso opposto al percorso"
 
 #: master_preset.xml:2005(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "Tornello"
 
 #: master_preset.xml:2647(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"

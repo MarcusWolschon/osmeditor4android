@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-11 23:41+0000\n"
+"PO-Revision-Date: 2019-04-23 03:08+0000\n"
 "Last-Translator: Shu Higashi <higa432@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -1740,7 +1740,7 @@ msgstr ""
 
 #: master_preset.xml:2403(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "岬"
 
 #: master_preset.xml:2777(group:name|group:Car)
 #: master_preset.xml:2881(check:text|group:Car|preset:Charging_Station|key:car)
@@ -5381,7 +5381,7 @@ msgstr ""
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "メーカー"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8136,7 +8136,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "予約推奨"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -9114,7 +9114,7 @@ msgstr ""
 
 #: master_preset.xml:8513(item:name|group:Nature|preset:Shingle)
 msgid "Shingle"
-msgstr ""
+msgstr "小石浜"
 
 #: master_preset.xml:572(combo:display_values|key:religion)
 #: master_preset.xml:581(combo:display_values|key:religion)
@@ -9291,7 +9291,7 @@ msgstr ""
 
 #: master_preset.xml:2509(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr ""
+msgstr "進水所"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Slovak"
@@ -10521,7 +10521,7 @@ msgstr ""
 
 #: master_preset.xml:2005(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "回転ゲート"
 
 #: master_preset.xml:2647(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -11308,7 +11308,7 @@ msgstr ""
 
 #: master_preset.xml:3387(item:name|group:Airport|preset:Windsock)
 msgid "Windsock"
-msgstr ""
+msgstr "吹流し"
 
 #: master_preset.xml:7274(item:name|group:Food|preset:Wine)
 msgid "Wine"

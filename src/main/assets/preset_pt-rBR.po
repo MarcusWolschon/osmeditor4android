@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
+"PO-Revision-Date: 2019-04-19 16:54+0000\n"
 "Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -1743,7 +1743,7 @@ msgstr ""
 
 #: master_preset.xml:2403(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "Capa"
 
 #: master_preset.xml:2777(group:name|group:Car)
 #: master_preset.xml:2881(check:text|group:Car|preset:Charging_Station|key:car)
@@ -3544,7 +3544,7 @@ msgstr ""
 #: master_preset.xml:4260(item:name|preset:Fishing)
 #: master_preset.xml:7740(item:name|group:Sports_and_hobbies|preset:Fishing)
 msgid "Fishing"
-msgstr ""
+msgstr "Pescaria"
 
 #: master_preset.xml:5515(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
@@ -5251,7 +5251,7 @@ msgstr "Cadeado"
 
 #: master_preset.xml:2500(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
-msgstr ""
+msgstr "Portão de Dique"
 
 #: master_preset.xml:5386(check:text|group:Facilities|preset:Hunting_Stand|key:lockable)
 msgid "Lockable"
@@ -5384,7 +5384,7 @@ msgstr "Manualmente"
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Fabricante"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8139,7 +8139,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "Recomendado"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -9117,7 +9117,7 @@ msgstr ""
 
 #: master_preset.xml:8513(item:name|group:Nature|preset:Shingle)
 msgid "Shingle"
-msgstr ""
+msgstr "Telha"
 
 #: master_preset.xml:572(combo:display_values|key:religion)
 #: master_preset.xml:581(combo:display_values|key:religion)
@@ -10524,7 +10524,7 @@ msgstr ""
 
 #: master_preset.xml:2005(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "Tornquete"
 
 #: master_preset.xml:2647(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -11041,7 +11041,7 @@ msgstr ""
 
 #: master_preset.xml:6711(item:name|group:Power_Generator|preset:Water_Turbine)
 msgid "Water Turbine"
-msgstr ""
+msgstr "Turbina de Água"
 
 #: master_preset.xml:6441(item:name|group:Man_Made|preset:Water_Well)
 msgid "Water Well"
@@ -11311,7 +11311,7 @@ msgstr ""
 
 #: master_preset.xml:3387(item:name|group:Airport|preset:Windsock)
 msgid "Windsock"
-msgstr ""
+msgstr "Biruta"
 
 #: master_preset.xml:7274(item:name|group:Food|preset:Wine)
 msgid "Wine"

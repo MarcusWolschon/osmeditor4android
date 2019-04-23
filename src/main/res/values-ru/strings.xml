@@ -51,6 +51,7 @@
   <string name="invalid_data_received_title">Получены некорректные данные</string>
   <string name="invalid_data_received_message">Если вы считаете, что делали всё правильно, пожалуйста, сообщите об ошибке разработчикам.</string>
   <string name="invalid_data_read_title">Получены некорректные данные</string>
+  <string name="invalid_data_read_message">Пожалуйста, обратитесь к документации о поддерживаемых форматах файлов и обязательных полях данных.</string>
   <string name="file_write_failed_title">Не удалось записать в файл.</string>
   <string name="file_write_failed_message">Vespucci не смог изменить или сохранить файл.</string>
   <string name="welcome_title">Добро пожаловать</string>
@@ -88,6 +89,7 @@
   <string name="upload_comment_label">Комментарий:</string>
   <string name="upload_source_label">Источник:</string>
   <string name="upload_close_changeset_label">Закрыть набор изменений:</string>
+  <string name="upload_request_review_label">Проверить мои изменения:</string>
   <!---->
   <string name="upload_gpx_description_label">Описание</string>
   <string name="upload_gpx_tags_label">Теги</string>
@@ -239,6 +241,9 @@
   <string name="layer_change_style">Изменить стиль</string>
   <string name="layer_select_imagery">Выберите источник</string>
   <!--Layer info dialog-->
+  <string name="layer_info_start_date">Дата открытия</string>
+  <string name="layer_info_end_date">Дата закрытия</string>
+  <string name="layer_info_privacy_policy">Политика конфиденциальности</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Контрольные точки</string>
   <string name="undo_redo_title">Отмена - Повтор</string>
@@ -246,9 +251,11 @@
   <string name="undo_all">Отменить все предыдущие контрольные точки (безопасно)</string>
   <string name="redo_all">Повторить все предыдущие контрольные точки (безопасно)</string>
   <!--Feedback activity-->
+  <string name="feedback_title">Отзыв для разработчиков</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Скачать данные OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">Завершить запись трека и удалить все его сохранённые точки без возможности восстановления.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -266,6 +273,7 @@
   <string name="toast_unsaved_changes">Сначала передайте ваши несохранённые изменения.</string>
   <string name="clear_anyway">Очистить все равно?</string>
   <string name="toast_upload_success">Передано на сервер OSM.</string>
+  <string name="toast_not_in_edit_range">Пожалуйста, увеличьте масштаб для редактирования (Громкость ↑/↓ или \"Линза\")</string>
   <string name="toast_unlock_to_edit">Разблокируйте для редактирования</string>
   <string name="toast_save_done">Сохранено</string>
   <string name="toast_save_failed">Не удалось сохранить</string>
@@ -291,9 +299,14 @@
   <string name="toast_unsurveyed_road">Необследованная дорога</string>
   <string name="toast_noname">У дороги нет ни имени, ни индекса</string>
   <string name="toast_notype">У отношения нет типа</string>
+  <string name="toast_untagged_way">Линия без тегов</string>
+  <string name="toast_untagged_relation">Отношение без тегов</string>
+  <string name="toast_oauth_retry">Повторите передачу после разрешения OAuth-доступа в вашем профиле OSM.</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
   <string name="toast_no_oauth">Нет доступной конфигурации OAuth для текущего API, пожалуйста, укажите логин и пароль.</string>
   <string name="toast_oauth_not_enabled">Для текущего API не включён OAuth.</string>
+  <string name="toast_oauth_timeout">Превышено время ожидания идентификации, повторите попытку.</string>
+  <string name="toast_oauth_communication">Ошибка соединения во время идентификации, повторите попытку.</string>
   <string name="toast_timeout">Сервер не отвечает</string>
   <string name="coordinates_out_of_range">Долгота должна быть в пределах от -180° до +180°, широта от -85° до +85°</string>
   <string name="toast_nothing_found">Ничего не найдено</string>
@@ -333,6 +346,7 @@
   <string name="toast_file_exists">Файл %1$s уже существует.</string>
   <string name="toast_needs_resurvey">Объект может быть устаревшим</string>
   <string name="toast_missing_key">Нужен ключ %1$s</string>
+  <string name="toast_invalid_object">Некорректный объект</string>
   <string name="toast_openinghours_invalid">Неверное значение времени работы для %1$s</string>
   <string name="toast_openinghours_autocorrected">Время работы для %1$s было скорректировано</string>
   <string name="toast_exit_multiselect">Дважды нажмите на пустом пространстве или стрелку ← для выхода</string>
@@ -360,6 +374,8 @@
   <string name="toast_merged">Объединено</string>
   <string name="toast_long_press_simple_mode">Долгое нажатие недоступно в \"простом\" режиме</string>
   <!--Error messages-->
+  <string name="error_pbf_no_version">В PBF-файле нет информации о версии</string>
+  <string name="error_pbf_unknown_relation_member_type">Неизвестный тип участника отношения %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -459,11 +475,14 @@
   <string name="location_radius">%1$d м</string>
   <string name="location_last_text">Последняя определенная позиция:</string>
   <string name="location_current_text">Текущая позиция:</string>
+  <string name="location_text_unknown">Неизвестно</string>
   <string name="location_last_text_parameterized">Последняя определенная позиция: %1$s</string>
   <string name="location_current_text_parameterized">Текущая позиция: %1$s</string>
   <string name="location_text_metadata_location">
 Широта %1$4g, долгота %2$4g
 %3$s %4$s назад</string>
+  <string name="location_text_metadata_accuracy">Точность %1$2.0f метра, </string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">По координатам:</string>
   <string name="location_lat_label">Широта:</string>
   <string name="location_lon_label">Долгота:</string>
@@ -510,11 +529,16 @@
   <string name="menu_transfer_download_current">Загрузить текущее место</string>
   <string name="menu_transfer_download_current_add">Добавить текущее место к загруженному</string>
   <string name="menu_transfer_download_other">Загрузить другое место</string>
+  <string name="menu_transfer_load_current">Загрузить текущее место</string>
+  <string name="menu_transfer_load_current_add">Добавить текущее место к данным</string>
+  <string name="menu_transfer_load_other">Загрузить другое место</string>
   <string name="menu_transfer_upload">Передать данные на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
   <string name="menu_transfer_file">Файл...</string>
   <string name="menu_transfer_export">Экспорт изменений в файл OSC</string>
+  <string name="menu_transfer_apply_osc_file">Применить изменения из OSC-файла</string>
   <string name="menu_transfer_read_file">Прочесть из файла JOSM...</string>
+  <string name="menu_transfer_read_pbf_file">Загрузить из PBF-файла</string>
   <string name="menu_transfer_save_file">Сохранить в файл JOSM...</string>
   <string name="menu_transfer_bugs_upload">Передать всё</string>
   <string name="menu_transfer_bugs_clear">Очистить</string>
@@ -547,12 +571,21 @@
   <string name="menu_tools_background_properties">Свойства фона</string>
   <string name="menu_tools_update_imagery_configuration">Обновить конфигурацию слоя снимков</string>
   <string name="menu_tools_zoom_to_layer_extent">Приблизить к нижнему слою</string>
+  <string name="menu_tools_clear_clipboard">Очистить буфер обмена</string>
   <!---->
+  <string name="menu_simple_actions">Простой режим</string>
+  <string name="menu_feedback">Написать отзыв</string>
+  <string name="menu_preset_feedback">Написать отзыв о заготовке</string>
   <string name="menu_privacy">Конфиденциальность</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Выровнять подложку</string>
   <string name="menu_tools_background_align_reset">Сбросить</string>
   <string name="menu_tools_background_align_zero">Ноль</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Из базы</string>
+  <string name="menu_tools_background_align_retrieve_from_device">С устройства</string>
+  <string name="menu_tools_background_align_save_db">Сохранить в базу</string>
+  <string name="menu_tools_background_align_save_device">Сохранить на устройство</string>
+  <string name="menu_tools_background_align_apply2all">Применить (все масштабы)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f м</string>
   <string name="distance_km">%1$.3f км</string>
@@ -574,10 +607,18 @@
   <string name="menu_history">История</string>
   <string name="menu_merge">Объединить</string>
   <string name="menu_reverse">Изменить направление</string>
+  <string name="notreversable_description">Линия имеет теги, которые зависят от её направления. Попытка ее развернуть испортит тегирование.</string>
   <string name="reverse_anyway">Всё равно изменить направление</string>
+  <string name="deleteway_description">Вы собираетесь удалить линию.\n\nВы можете оставить все ее точки или удалить только те точки, которые принадлежат этой линии и не имеют тегов.</string>
+  <string name="deleteway_relation_description">Вы собираетесь удалить линию, участвующую в одном или нескольких отношениях. Удаление линии из отношения может сделать его некорректным.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Линия содержит точки за пределами загруженной области и не может быть корректно удалена. Загрузите все ее точки и повторите попытку.</string>
+  <string name="deleteway_wayonly">Удалить только линию</string>
   <string name="deleteway_wayandnodes">Удалить линию</string>
+  <string name="deletenode_relation_description">Вы собираетесь удалить точку, участвующую в одном или нескольких отношениях. Удаление точки из отношения может сделать его некорректным.</string>
   <string name="deletenode">Удалить точку</string>
   <string name="split_all_ways">Разделить все линии</string>
+  <string name="delete_note_description">Удалённую заметку нельзя будет восстановить!</string>
+  <string name="delete_note">Удалить заметку</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Выбрана линия</string>
   <string name="actionmode_nodeselect">Выбрана точка</string>
@@ -593,6 +634,12 @@
   <string name="actionmode_restriction_restart_via">Повторно выбрать сегмент \"via\"</string>
   <string name="actionmode_restriction_to">Добавить отрезок \"to\"</string>
   <string name="actionmode_restriction_restart_to">Повторно выбрать отрезок \"to\"</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 объект</item>
+    <item quantity="few">%1$d объекта</item>
+    <item quantity="many">%1$d объектов</item>
+    <item quantity="other">%1$d объектов</item>
+  </plurals>
   <string name="actionmode_rotateway">Повернуть линию</string>
   <!--Simple Action Mode-->
   <!--Preferences-->
@@ -659,6 +706,7 @@
   <!--Server Settings-->
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_loginbutton_title">Учётная запись</string>
+  <string name="config_username_summary">Эта настройка необходима для передачи данных на сервер OSM без использования OAuth-доступа. Зарегистрируйтесь на http://www.openstreetmap.org/user/new</string>
   <string name="config_geocoderbutton_title">Геокодирование</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Загрузка и сохранение слоёв</string>
