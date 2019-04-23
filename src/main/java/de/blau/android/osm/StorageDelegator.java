@@ -1121,24 +1121,7 @@ public class StorageDelegator implements Serializable, Exportable {
             }
             insertElementUnsafe(newWay);
 
-            // check for relation membership
-            if (way.hasParentRelations()) {
-                ArrayList<Relation> relations = new ArrayList<>(way.getParentRelations()); // copy !
-                dirty = true;
-                /* iterate through relations, add the new way to the relation, for now simply after the old way */
-                for (Relation r : relations) {
-                    Log.d(DEBUG_TAG, "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size() + ") " + r.getDescription());
-                    RelationMember rm = r.getMember(way);
-                    undo.save(r);
-                    // no role specific code for now
-                    RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-                    r.addMemberAfter(rm, newMember);
-                    newWay.addParentRelation(r);
-                    r.updateState(OsmElement.STATE_MODIFIED);
-                    apiStorage.insertElementSafe(r);
-                    changedElements.add(r);
-                }
-            }
+            addSplitWayToRelations(way, true, newWay, changedElements);
 
             onElementChanged(null, changedElements);
             Way[] result = new Way[2];
@@ -1206,83 +1189,7 @@ public class StorageDelegator implements Serializable, Exportable {
             newWay.addNodes(nodesForNewWay, false);
             insertElementUnsafe(newWay);
 
-            // check for relation membership
-            if (way.getParentRelations() != null) {
-                Set<Relation> relations = new HashSet<>(way.getParentRelations()); // copy and only unique relations!
-                dirty = true;
-                /*
-                 * iterate through relations, for all except restrictions add the new way to the relation, for now
-                 * simply after the old way
-                 */
-                for (Relation r : relations) {
-                    Log.d(DEBUG_TAG, "splitAtNode processing relation (#" + r.getOsmId() + "/" + relations.size() + ") " + r.getDescription());
-                    List<RelationMember> members = r.getAllMembers(way);
-                    if (members.isEmpty()) {
-                        Log.d(DEBUG_TAG, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
-                        ACRAHelper.nocrashReport(null, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
-                        continue;
-                    }
-                    undo.save(r);
-                    for (RelationMember rm : members) {
-                        Log.d(DEBUG_TAG, "splitAtNode member " + rm);
-                        int memberPos = r.getPosition(rm);
-                        String type = r.getTagWithKey(Tags.KEY_TYPE);
-
-                        // attempt to handle turn restrictions correctly, if element is the via way, copying relation
-                        // membership to both is ok
-                        if (Tags.VALUE_RESTRICTION.equals(type) && !rm.getRole().equals(Tags.VALUE_VIA)) {
-                            // check if the old way has a node in common with the via relation member, if no assume the
-                            // new way has
-                            List<RelationMember> rl = r.getMembersWithRole(Tags.VALUE_VIA);
-                            boolean foundVia = false;
-                            for (int j = 0; j < rl.size(); j++) {
-                                RelationMember viaRm = rl.get(j);
-                                OsmElement viaE = viaRm.getElement();
-                                if (viaE instanceof Node) {
-                                    if (((Way) rm.getElement()).hasNode((Node) viaE)) {
-                                        foundVia = true;
-                                    }
-                                } else if (viaE instanceof Way) {
-                                    if (((Way) rm.getElement()).hasCommonNode((Way) viaE)) {
-                                        foundVia = true;
-                                    }
-                                }
-                            }
-                            Log.d(DEBUG_TAG, "splitAtNode foundVia " + foundVia);
-                            if (!foundVia) {
-                                // remove way from relation, add newWay to it
-                                RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-                                r.replaceMember(rm, newMember);
-                                way.removeParentRelation(r); // way is dirty and will be changes anyway
-                                newWay.addParentRelation(r);
-                            }
-                        } else {
-                            RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-                            RelationMember prevMember = r.getMemberAt(memberPos - 1);
-                            RelationMember nextMember = r.getMemberAt(memberPos + 1);
-                            /*
-                             * We need to determine if to insert the new way before or after the existing member If the
-                             * new way has a common node with the previous member or if the existing way has a common
-                             * node with the following member we insert before, otherwise we insert after the existing
-                             * member.
-                             * 
-                             * FIXME To do this really properly we would have to download the previous and next elements
-                             */
-                            if (prevMember != null && prevMember.getElement() instanceof Way && newWay.hasCommonNode((Way) prevMember.getElement())) {
-                                r.addMemberBefore(rm, newMember);
-                            } else if (nextMember != null && nextMember.getElement() instanceof Way && way.hasCommonNode((Way) nextMember.getElement())) {
-                                r.addMemberBefore(rm, newMember);
-                            } else {
-                                r.addMemberAfter(rm, newMember);
-                            }
-                            newWay.addParentRelation(r);
-                        }
-                    }
-                    r.updateState(OsmElement.STATE_MODIFIED);
-                    apiStorage.insertElementSafe(r);
-                    changedElements.add(r);
-                }
-            }
+            addSplitWayToRelations(way, false, newWay, changedElements);
             onElementChanged(null, changedElements);
             return newWay;
         } catch (StorageException e) {
@@ -1290,6 +1197,120 @@ public class StorageDelegator implements Serializable, Exportable {
             Log.e(DEBUG_TAG, "splitAtNode got " + e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * Given the existing relation membership of a way, add a split off way to the same ones
+     * 
+     * @param way the existing Way
+     * @param wasClosed indicate if the existing way was closed
+     * @param newWay the new Way
+     * @param changedElements add changed Relations to this
+     * @throws StorageException
+     */
+    private void addSplitWayToRelations(@NonNull final Way way, boolean wasClosed, @NonNull Way newWay, @NonNull ArrayList<OsmElement> changedElements)
+            throws StorageException {
+        // check for relation membership
+        if (way.getParentRelations() != null) {
+            Set<Relation> relations = new HashSet<>(way.getParentRelations()); // copy and only unique relations!
+            dirty = true;
+            /*
+             * iterate through relations, for all except restrictions add the new way to the relation, for now simply
+             * after the old way
+             */
+            for (Relation r : relations) {
+                Log.d(DEBUG_TAG, "addSplitWayToRelations processing relation (#" + r.getOsmId() + "/" + relations.size() + ") " + r.getDescription());
+                List<RelationMember> members = r.getAllMembers(way);
+                if (members.isEmpty()) {
+                    Log.d(DEBUG_TAG, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
+                    ACRAHelper.nocrashReport(null, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
+                    continue;
+                }
+                undo.save(r);
+                for (RelationMember rm : members) {
+                    Log.d(DEBUG_TAG, "addSplitWayToRelations member " + rm);
+                    int memberPos = r.getPosition(rm);
+                    String type = r.getTagWithKey(Tags.KEY_TYPE);
+
+                    // attempt to handle turn restrictions correctly, if element is the via way, copying relation
+                    // membership to both is ok
+                    boolean isVia = Tags.ROLE_VIA.equals(rm.getRole());
+                    boolean isRestriction = Tags.VALUE_RESTRICTION.equals(type);
+                    if (isRestriction && !isVia) {
+                        // check if the old way has a node in common with the via relation member, if no assume the
+                        // new way has
+                        List<RelationMember> rl = r.getMembersWithRole(Tags.ROLE_VIA);
+                        boolean foundVia = false;
+                        for (int j = 0; j < rl.size(); j++) {
+                            RelationMember viaRm = rl.get(j);
+                            OsmElement viaE = viaRm.getElement();
+                            if (viaE instanceof Node) {
+                                if (((Way) rm.getElement()).hasNode((Node) viaE)) {
+                                    foundVia = true;
+                                }
+                            } else if (viaE instanceof Way) {
+                                if (((Way) rm.getElement()).hasCommonNode((Way) viaE)) {
+                                    foundVia = true;
+                                }
+                            }
+                        }
+                        Log.d(DEBUG_TAG, "addSplitWayToRelations foundVia " + foundVia);
+                        if (!foundVia) {
+                            replaceMemberWay(r, rm, way, newWay);
+                        }
+                    } else if (isRestriction && isVia && wasClosed) {
+                        // very rough check
+                        List<RelationMember> fromMembers = r.getMembersWithRole(Tags.ROLE_FROM);
+                        if (fromMembers != null && fromMembers.size() == 1) {
+                            OsmElement fromElement = fromMembers.get(0).getElement();
+                            if (fromElement instanceof Way) {
+                                if (((Way) fromElement).hasNode(newWay.getFirstNode())) { // swap
+                                    replaceMemberWay(r, rm, way, newWay);
+                                }
+                            }
+                        }
+                    } else {
+                        RelationMember newMember = new RelationMember(rm.getRole(), newWay);
+                        RelationMember prevMember = r.getMemberAt(memberPos - 1);
+                        RelationMember nextMember = r.getMemberAt(memberPos + 1);
+                        /*
+                         * We need to determine if to insert the new way before or after the existing member If the new
+                         * way has a common node with the previous member or if the existing way has a common node with
+                         * the following member we insert before, otherwise we insert after the existing member.
+                         * 
+                         * FIXME To do this really properly we would have to download the previous and next elements
+                         */
+                        if (prevMember != null && prevMember.getElement() instanceof Way && newWay.hasCommonNode((Way) prevMember.getElement())) {
+                            r.addMemberBefore(rm, newMember);
+                        } else if (nextMember != null && nextMember.getElement() instanceof Way && way.hasCommonNode((Way) nextMember.getElement())) {
+                            r.addMemberBefore(rm, newMember);
+                        } else {
+                            r.addMemberAfter(rm, newMember);
+                        }
+                        newWay.addParentRelation(r);
+                    }
+                }
+                r.updateState(OsmElement.STATE_MODIFIED);
+                apiStorage.insertElementSafe(r);
+                changedElements.add(r);
+            }
+        }
+    }
+
+    /**
+     * Replace a member way with a different one
+     * 
+     * @param r the Relation
+     * @param rm the original ReleationMember
+     * @param way original member way
+     * @param newWay new member way
+     */
+    private void replaceMemberWay(@NonNull Relation r, @NonNull RelationMember rm, @NonNull final Way way, @NonNull Way newWay) {
+        // remove way from relation, add newWay to it
+        RelationMember newMember = new RelationMember(rm.getRole(), newWay);
+        r.replaceMember(rm, newMember);
+        way.removeParentRelation(r); // way is dirty and will be changed anyway
+        newWay.addParentRelation(r);
     }
 
     /**
@@ -2165,7 +2186,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     changedElements.add(r);
                     mergeInto.updateState(OsmElement.STATE_MODIFIED);
                     apiStorage.insertElementSafe(mergeInto);
-                    changedElements.add(mergeInto);                    
+                    changedElements.add(mergeInto);
                 }
             }
             onElementChanged(null, new ArrayList<>(changedElements));

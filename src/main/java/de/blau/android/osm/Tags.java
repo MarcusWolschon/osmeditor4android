@@ -123,7 +123,9 @@ public final class Tags {
     public static final String KEY_TYPE           = "type";
     public static final String VALUE_RESTRICTION  = "restriction";
     public static final String VALUE_NO_U_TURN    = "no_u_turn";
-    public static final String VALUE_VIA          = "via";
+    public static final String ROLE_FROM          = "from";
+    public static final String ROLE_VIA           = "via";
+    public static final String ROLE_TO            = "to";
     public static final String VALUE_BUILDING     = "building";
     public static final String VALUE_ROUTE        = "route";
     public static final String ROLE_FORWARD       = "forward";
