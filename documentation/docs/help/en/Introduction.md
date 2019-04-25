@@ -124,11 +124,11 @@ You can copy or cut selected nodes and ways, and then paste once or multiple tim
 
 #### Efficiently Adding Addresses
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* in the property editor.
 
 House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
 

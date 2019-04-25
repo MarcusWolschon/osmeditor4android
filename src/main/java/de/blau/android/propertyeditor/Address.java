@@ -201,6 +201,11 @@ public final class Address implements Serializable {
         // Log.d(DEBUG_TAG,"set side to " + side);
     }
 
+    /**
+     * Get the side of the street this address is on
+     * 
+     * @return a Side value
+     */
     private Side getSide() {
         return side;
     }
@@ -214,7 +219,7 @@ public final class Address implements Serializable {
      * @param context Android context
      * @param elementType element type (node, way, relation)
      * @param elementOsmId osm object id
-     * @param es
+     * @param es ElementSearch instance for finding street and place names
      * @param current current tags
      * @param maxRank determines how far away from the nearest street the last address street can be, 0 will always use
      *            the nearest, higher numbers will provide some hysteresis
@@ -610,12 +615,14 @@ public final class Address implements Serializable {
     /**
      * Add an address from OSM data to the address cache
      * 
-     * @param street
-     * @param streetId
-     * @param e
-     * @param addresses
+     * @param context Android Context
+     * @param street the street name
+     * @param streetId the osm id of the street
+     * @param e the OsmElement
+     * @param addresses the list of addresses
      */
-    private static void seedAddressList(Context context, String street, long streetId, OsmElement e, LinkedList<Address> addresses) {
+    private static void seedAddressList(@NonNull Context context, @NonNull String street, long streetId, @NonNull OsmElement e,
+            @NonNull LinkedList<Address> addresses) {
         if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
             Address seed = new Address(e, getAddressTags(context, new LinkedHashMap<>(Util.getArrayListMap(e.getTags()))));
             if (streetId > 0) {
@@ -629,7 +636,15 @@ public final class Address implements Serializable {
         }
     }
 
-    private static LinkedHashMap<String, ArrayList<String>> getAddressTags(Context context, LinkedHashMap<String, ArrayList<String>> sortedMap) {
+    /**
+     * Retrieve address tags from a map of tags taking the address preferences in to account
+     * 
+     * @param context Android Context
+     * @param sortedMap LinkedHashMap containing the tags
+     * @return a LinkedHashMap containg only the relevant address tags
+     */
+    private static LinkedHashMap<String, ArrayList<String>> getAddressTags(@NonNull Context context,
+            @NonNull LinkedHashMap<String, ArrayList<String>> sortedMap) {
         LinkedHashMap<String, ArrayList<String>> result = new LinkedHashMap<>();
         Preferences prefs = new Preferences(context);
         Set<String> addressTags = prefs.addressTags();
@@ -652,8 +667,13 @@ public final class Address implements Serializable {
         lastAddresses = null;
     }
 
-    static synchronized void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String, ArrayList<String>> tags) {
-        // save any address tags for "last address tags"
+    /**
+     * Update and save any address tags to persistent storage
+     * 
+     * @param caller calling TagEditorFragment
+     * @param tags current tags
+     */
+    static synchronized void updateLastAddresses(@NonNull TagEditorFragment caller, @NonNull LinkedHashMap<String, ArrayList<String>> tags) {
         LinkedHashMap<String, ArrayList<String>> addressTags = getAddressTags(caller.getContext(), tags);
         // this needs to be done after the edit again in case the street name of what ever has changed
         if (addressTags.size() > 0) {
@@ -679,17 +699,27 @@ public final class Address implements Serializable {
                 }
             }
             lastAddresses.addFirst(current);
-            savingHelperAddress.save(caller.getActivity(), ADDRESS_TAGS_FILE, lastAddresses, false);
+            saveLastAddresses(caller.getActivity());
         }
     }
 
-    static synchronized void saveLastAddresses(Context context) {
+    /**
+     * Save the address list to persistent storage
+     * 
+     * @param context Android Context
+     */
+    static synchronized void saveLastAddresses(@NonNull Context context) {
         if (lastAddresses != null) {
             savingHelperAddress.save(context, ADDRESS_TAGS_FILE, lastAddresses, false);
         }
     }
 
-    static synchronized void loadLastAddresses(Context context) {
+    /**
+     * Read the address list from persistent storage
+     * 
+     * @param context Android Context
+     */
+    static synchronized void loadLastAddresses(@NonNull Context context) {
         if (lastAddresses == null) {
             try {
                 lastAddresses = savingHelperAddress.load(context, ADDRESS_TAGS_FILE, false);

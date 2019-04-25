@@ -64,7 +64,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         menu = replaceMenu(menu, mode, this);
 
         super.onPrepareActionMode(mode, menu);
-        if (((Node) element).getTags().containsKey(Tags.KEY_ENTRANCE) && !((Node) element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+        if (!((Node) element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
             menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
         }
         if (logic.isEndNode((Node) element)) {
