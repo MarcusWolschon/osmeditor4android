@@ -3086,7 +3086,7 @@ public class Logic {
                     if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
                         return new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
                     } else {
-                        return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, ce.getMessage());
+                        return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     }
                 } catch (ParserConfigurationException e) {
                     // crash and burn
