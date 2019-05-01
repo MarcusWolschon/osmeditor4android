@@ -55,6 +55,7 @@ import de.blau.android.tasks.NoteComment;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
@@ -227,7 +228,7 @@ public class Server {
 
         // if we have a tiled OSM data source, open
         Uri readOnlyUri = Uri.parse(getReadOnlyUrl());
-        if ("file".equals(readOnlyUri.getScheme())) {
+        if (FileUtil.FILE_SCHEME.equals(readOnlyUri.getScheme())) {
             MBTileProviderDataBase tempDB = null;
             try {
                 tempDB = new MBTileProviderDataBase(context, readOnlyUri, 1);

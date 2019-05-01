@@ -1795,6 +1795,7 @@ public class Main extends FullScreenAppCompatActivity
             } catch (Exception ex) {
                 try {
                     Snack.barError(this, getResources().getString(R.string.toast_camera_error, ex.getMessage()));
+                    Log.e(DEBUG_TAG, ex.getMessage());
                 } catch (Exception e) {
                     // protect against translation errors
                 }
@@ -2046,7 +2047,7 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public boolean save(Uri fileUri) {
-                    App.getLogic().writeOsmFile(Main.this, fileUri.getPath(), null);
+                    App.getLogic().writeOsmFile(Main.this, fileUri, null);
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2093,7 +2094,7 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public boolean save(Uri fileUri) {
-                    TransferTasks.writeOsnFile(Main.this, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri.getPath(), null);
+                    TransferTasks.writeOsnFile(Main.this, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri, null);
                     SelectFile.savePref(prefs, R.string.config_notesPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2121,7 +2122,7 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public boolean save(Uri fileUri) {
-                    TransferTasks.writeCustomBugFile(Main.this, fileUri.getPath(), null);
+                    TransferTasks.writeCustomBugFile(Main.this, fileUri, null);
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     return true;
                 }

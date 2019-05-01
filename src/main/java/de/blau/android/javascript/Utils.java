@@ -3,7 +3,6 @@ package de.blau.android.javascript;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +14,6 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -267,6 +265,11 @@ public final class Utils {
 
                                         @Override
                                         public boolean save(Uri fileUri) {
+                                            fileUri = FileUtil.contentUriToFileUri(activity, fileUri);
+                                            if (fileUri == null) {
+                                                Log.e(DEBUG_TAG, "Couldn't convert " + fileUri);
+                                                return false;
+                                            }
                                             writeScriptFile(activity, fileUri.getPath(), input.getText().toString(), null);
                                             SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
                                             return true;
@@ -382,16 +385,9 @@ public final class Utils {
 
             @Override
             protected String doInBackground(Void... arg) {
-                InputStream is = null;
                 ByteArrayOutputStream result = null;
                 String r = null;
-                try {
-                    if ("file".equals(uri.getScheme())) {
-                        is = new FileInputStream(new File(uri.getPath()));
-                    } else {
-                        ContentResolver cr = activity.getContentResolver();
-                        is = cr.openInputStream(uri);
-                    }
+                try (InputStream is = activity.getContentResolver().openInputStream(uri)) {
                     result = new ByteArrayOutputStream();
                     byte[] buffer = new byte[1024];
                     int length;
@@ -403,7 +399,6 @@ public final class Utils {
                     Log.e(DEBUG_TAG, "Problem reading", e);
                 } finally {
                     SavingHelper.close(result);
-                    SavingHelper.close(is);
                 }
                 return r;
             }

@@ -44,6 +44,7 @@ import android.widget.ListView;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -344,7 +345,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             // WebViewClient is slightly bizarre because there is no way to indicate to the webview that you would like
             // if to process the url in its default way, its either handling it yourself or loading it directly into the
             // webview
-            if (url != null && url.startsWith("file:")) {
+            if (url != null && url.startsWith(FileUtil.FILE_SCHEME_PREFIX)) {
                 Log.d(DEBUG_TAG, "orig " + url);
                 getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
                 if (url.endsWith(".md")) { // on device we have pre-generated html
@@ -361,7 +362,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            if (url.startsWith("file:")) {
+            if (url.startsWith(FileUtil.FILE_SCHEME_PREFIX)) {
                 getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
             }
         }

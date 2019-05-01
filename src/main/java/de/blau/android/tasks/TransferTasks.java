@@ -3,7 +3,6 @@ package de.blau.android.tasks;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,7 +22,6 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -64,9 +62,6 @@ public class TransferTasks {
 
     /** Maximum closed age to display: 7 days. */
     private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
-
-    /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
-    private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 
     /** maximum of tasks per request */
     private static final int MAX_PER_REQUEST = 1000;
@@ -543,9 +538,23 @@ public class TransferTasks {
      * @param activity activity that called this
      * @param all if true write all notes, if false just those that have been modified
      * @param fileName file to write to
+     * @param postWrite handler to execute after the AsyncTask has finished
      */
-    public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName) {
-        writeOsnFile(activity, all, fileName, null);
+    public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final String fileName,
+            @Nullable final PostAsyncActionHandler postWrite) {
+        try {
+            File outfile = FileUtil.openFileForWriting(fileName);
+            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
+            writeOsnFile(activity, all, new BufferedOutputStream(new FileOutputStream(outfile)), postWrite);
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Problem writing", e);
+            if (postWrite != null) {
+                postWrite.onError();
+            }
+            if (!activity.isFinishing()) {
+                ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
+            }
+        }
     }
 
     /**
@@ -555,10 +564,35 @@ public class TransferTasks {
      * 
      * @param activity activity that called this
      * @param all if true write all notes, if false just those that have been modified
-     * @param fileName file to write to
+     * @param uri Uri to write to
      * @param postWrite handler to execute after the AsyncTask has finished
      */
-    public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName,
+    public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final Uri uri,
+            @Nullable final PostAsyncActionHandler postWrite) {
+        try {
+            writeOsnFile(activity, all, new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri)), postWrite);
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Problem writing", e);
+            if (postWrite != null) {
+                postWrite.onError();
+            }
+            if (!activity.isFinishing()) {
+                ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
+            }
+        }
+    }
+
+    /**
+     * Write Notes to a file in (J)OSM compatible format
+     * 
+     * If fileName contains directories these are created, otherwise it is stored in the standard public dir
+     * 
+     * @param activity activity that called this
+     * @param all if true write all notes, if false just those that have been modified
+     * @param out OutputStream to write to
+     * @param postWrite handler to execute after the AsyncTask has finished
+     */
+    private static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, @NonNull final OutputStream out,
             @Nullable final PostAsyncActionHandler postWrite) {
         new AsyncTask<Void, Void, Integer>() {
 
@@ -572,9 +606,7 @@ public class TransferTasks {
                 final List<Task> queryResult = App.getTaskStorage().getTasks();
                 int result = 0;
                 try {
-                    File outfile = FileUtil.openFileForWriting(fileName);
-                    Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-                    final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
+
                     try {
                         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
                         serializer.setOutput(out, OsmXml.UTF_8);
@@ -645,21 +677,12 @@ public class TransferTasks {
      * @throws FileNotFoundException
      */
     public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add,
-            @Nullable final PostAsyncActionHandler postLoad) {
-        InputStream is = null;
-        try {
-            if (uri.getScheme().equals("file")) {
-                is = new FileInputStream(new File(uri.getPath()));
-            } else {
-                ContentResolver cr = activity.getContentResolver();
-                is = cr.openInputStream(uri);
-            }
+            @Nullable final PostAsyncActionHandler postLoad) {        
+        try (InputStream is = activity.getContentResolver().openInputStream(uri)){
             readCustomBugs(activity, is, add, postLoad);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem parsing", e);
-        } finally {
-            SavingHelper.close(is);
-        }
+        } 
     }
 
     /**
@@ -742,21 +765,55 @@ public class TransferTasks {
      * 
      * @param activity activity that called this
      * @param fileName file to write to
-     */
-    public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName) {
-        writeCustomBugFile(activity, fileName, null);
-    }
-
-    /**
-     * Write CustomBugs to a file
-     * 
-     * If fileName contains directories these are created, otherwise it is stored in the standard public dir
-     * 
-     * @param activity activity that called this
-     * @param fileName file to write to
      * @param postWrite TODO
      */
     public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName,
+            @Nullable final PostAsyncActionHandler postWrite) {
+        try {
+            File outfile = FileUtil.openFileForWriting(fileName);
+            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
+            writeCustomBugFile(activity, new FileOutputStream(outfile), postWrite);
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Problem writing", e);
+            if (postWrite != null) {
+                postWrite.onError();
+            }
+            if (!activity.isFinishing()) {
+                ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
+            }           
+        }
+    }
+    
+    /**
+     * Write CustomBugs to an uri
+     * 
+     * @param activity activity that called this
+     * @param uri uri to write to
+     * @param postWrite TODO
+     */
+    public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri,
+            @Nullable final PostAsyncActionHandler postWrite) {
+        try {
+            writeCustomBugFile(activity, activity.getContentResolver().openOutputStream(uri), postWrite);
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Problem writing", e);
+            if (postWrite != null) {
+                postWrite.onError();
+            }
+            if (!activity.isFinishing()) {
+                ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
+            }           
+        }
+    }
+
+    /**
+     * Write CustomBugs to an OutputStream
+     * 
+     * @param activity activity that called this
+     * @param fileOut OutputStream to write to
+     * @param postWrite TODO
+     */
+    private static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut,
             @Nullable final PostAsyncActionHandler postWrite) {
         new AsyncTask<Void, Void, Integer>() {
 
@@ -770,9 +827,7 @@ public class TransferTasks {
                 final List<Task> queryResult = App.getTaskStorage().getTasks();
                 int result = 0;
                 try {
-                    File outfile = FileUtil.openFileForWriting(fileName);
-                    Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-                    final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
+                    final OutputStream out = new BufferedOutputStream(fileOut);
                     try {
                         out.write("{".getBytes());
                         out.write(CustomBug.headerToJSON().getBytes());

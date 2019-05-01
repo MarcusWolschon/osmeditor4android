@@ -2,7 +2,6 @@ package de.blau.android.layer.geojson;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,7 +33,6 @@ import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -466,13 +464,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @throws IOException
      */
     public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri) throws IOException {
-        InputStream is = null;
-        if (uri.getScheme().equals("file")) {
-            is = new FileInputStream(new File(uri.getPath()));
-        } else {
-            ContentResolver cr = ctx.getContentResolver();
-            is = cr.openInputStream(uri);
-        }
+        InputStream is = ctx.getContentResolver().openInputStream(uri);
         name = uri.getLastPathSegment();
         return loadGeoJsonFile(ctx, is);
     }

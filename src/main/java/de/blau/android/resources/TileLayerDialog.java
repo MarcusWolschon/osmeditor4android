@@ -27,6 +27,7 @@ import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.util.DatabaseUtil;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
@@ -175,6 +176,12 @@ public class TileLayerDialog {
                         @Override
                         public boolean read(Uri fileUri) {
                             try {
+                                // rewrite content: Uris
+                                fileUri = FileUtil.contentUriToFileUri(activity, fileUri);
+                                if (fileUri == null) {
+                                    Snack.toastTopError(activity, R.string.not_found_title);
+                                    return false;
+                                }
                                 if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
                                     throw new SQLiteException("Not a SQLite database file");
                                 }
@@ -306,8 +313,8 @@ public class TileLayerDialog {
                 }
                 if (!existing) {
                     TileLayerServer layer = new TileLayerServer(activity, layerId, name, tileUrl, "tms", isOverlay, false, provider, null, null, null, null,
-                            minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, finalStartDate, finalEndDate, null, null,
-                            null, null, true);
+                            minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, finalStartDate, finalEndDate, null, null, null,
+                            null, true);
                     TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
                 } else {
                     existingLayer.setProvider(provider);

@@ -33,6 +33,7 @@ import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
 import de.blau.android.util.DatabaseUtil;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
@@ -242,7 +243,12 @@ public class APIEditorActivity extends URLListEditActivity {
                     private static final long serialVersionUID = 1L;
 
                     @Override
-                    public boolean read(Uri fileUri) {
+                    public boolean read(Uri uri) {
+                        Uri fileUri = FileUtil.contentUriToFileUri(APIEditorActivity.this, uri);
+                        if (fileUri == null) {
+                            Snack.toastTopError(APIEditorActivity.this, R.string.not_found_title);
+                            return false;
+                        }
                         try {
                             if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
                                 throw new SQLiteException("Not a SQLite database file");
@@ -284,7 +290,7 @@ public class APIEditorActivity extends URLListEditActivity {
                 // validate entries
                 validAPIURL = Patterns.WEB_URL.matcher(apiURL).matches();
                 if (!"".equals(readOnlyAPIURL)) {
-                    validReadOnlyAPIURL = Patterns.WEB_URL.matcher(readOnlyAPIURL).matches() || readOnlyAPIURL.startsWith("file:");
+                    validReadOnlyAPIURL = Patterns.WEB_URL.matcher(readOnlyAPIURL).matches() || readOnlyAPIURL.startsWith(FileUtil.FILE_SCHEME_PREFIX);
                 } else {
                     readOnlyAPIURL = null;
                 }

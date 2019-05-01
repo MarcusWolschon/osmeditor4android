@@ -23,6 +23,7 @@ import android.util.Log;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.MBTileConstants;
+import de.blau.android.util.SelectFile;
 
 /**
  * @author Simon Poole
@@ -72,9 +73,9 @@ public class MBTileProviderDataBase {
      * @param maxThreads if larger than 0 this will be used for determining how many prepared statements to create
      */
     public MBTileProviderDataBase(@NonNull final Context context, @NonNull Uri mbTilesUri, int maxThreads) {
-        Log.i(DEBUG_TAG, "Creating database instance for " + mbTilesUri.getPath());
-        String path = mbTilesUri.getPath();
-        mDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);        
+        Log.i(DEBUG_TAG, "Creating database instance for " + mbTilesUri.toString());
+        String path = SelectFile.getPath(context, mbTilesUri);
+        mDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         if (maxThreads <= 0) {
             Preferences prefs = new Preferences(context);
             maxThreads = prefs.getMaxTileDownloadThreads();

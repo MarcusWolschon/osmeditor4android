@@ -701,7 +701,7 @@ public class TileLayerServer implements Serializable {
         //
         this.id = this.id.toUpperCase(Locale.US);
 
-        if (originalUrl.startsWith("file:")) { // mbtiles no further processing needed
+        if (originalUrl.startsWith(FileUtil.FILE_SCHEME_PREFIX)) { // mbtiles no further processing needed
             readOnly = true;
         }
 
