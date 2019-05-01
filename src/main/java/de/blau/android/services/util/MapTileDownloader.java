@@ -214,17 +214,9 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                             MapTileDownloader.this.mMapTileFSProvider.markAsInvalid(mTile);
                         }
                         mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, reason);
-                    } catch (RemoteException re) {
+                    } catch (RemoteException | NullPointerException | IOException e) {
                         Log.e(DEBUGTAG,
-                                "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + re,
-                                ioe);
-                    } catch (NullPointerException npe) {
-                        Log.e(DEBUGTAG,
-                                "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + npe,
-                                ioe);
-                    } catch (IOException ioe2) {
-                        Log.e(DEBUGTAG,
-                                "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + ioe2,
+                                "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + e,
                                 ioe);
                     }
                     if (!(ioe instanceof FileNotFoundException)) {
