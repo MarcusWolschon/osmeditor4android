@@ -74,12 +74,12 @@ public class MBTileProviderDataBase {
     public MBTileProviderDataBase(@NonNull final Context context, @NonNull Uri mbTilesUri, int maxThreads) {
         Log.i(DEBUG_TAG, "Creating database instance for " + mbTilesUri.getPath());
         String path = mbTilesUri.getPath();
-        mDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
-        getStatements = new Pools.SynchronizedPool<SQLiteStatement>(maxThreads);
+        mDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);        
         if (maxThreads <= 0) {
             Preferences prefs = new Preferences(context);
             maxThreads = prefs.getMaxTileDownloadThreads();
         }
+        getStatements = new Pools.SynchronizedPool<SQLiteStatement>(maxThreads);
         Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {
             getStatements.release(mDatabase.compileStatement(T_MBTILES_GET));
