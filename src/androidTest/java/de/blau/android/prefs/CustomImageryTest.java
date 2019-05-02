@@ -18,11 +18,14 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.Until;
 import android.view.View;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerDialogTest;
 import de.blau.android.resources.TileLayerDatabase;
 
 /**
@@ -101,7 +104,7 @@ public class CustomImageryTest {
 
         Assert.assertTrue(TestUtils.clickButton("de.blau.android:id/menu_config", true));
 
-        PrefEditor prefEditor = (PrefEditor) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
+        instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
 
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true));
 
@@ -125,5 +128,10 @@ public class CustomImageryTest {
 
         Assert.assertTrue(TestUtils.clickUp(device));
 
+        UiObject2 extentButton = TestUtils.getLayerButton(device, "My Map", LayerDialogTest.EXTENT_BUTTON);
+        extentButton.clickAndWait(Until.newWindow(), 2000);
+
+        Assert.assertTrue(main.getMap().getBackgroundLayer().getTileProvider().connected()); // check that the service
+                                                                                             // is still running
     }
 }

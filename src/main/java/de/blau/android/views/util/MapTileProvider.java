@@ -79,7 +79,13 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     // Constructors
     // ===========================================================
 
-    public MapTileProvider(final Context ctx, final Handler aDownloadFinishedListener) {
+    /**
+     * Create a new MapTileProvider instance
+     * 
+     * @param ctx Android Context
+     * @param aDownloadFinishedListener handler to call when a tile download is complete
+     */
+    public MapTileProvider(@NonNull final Context ctx, @NonNull final Handler aDownloadFinishedListener) {
         mCtx = ctx;
         mTileCache = new MapTileCache();
 
@@ -117,6 +123,15 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     // ===========================================================
     // Methods
     // ===========================================================
+
+    /**
+     * Check if we are connected to the service
+     * 
+     * @return true if connected
+     */
+    public boolean connected() {
+        return mTileService != null;
+    }
 
     /**
      * Clear out memory related to tracking map tiles.
@@ -224,6 +239,9 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
      * @param rendererId the provider to flush or if null all
      */
     public void flushCache(@Nullable String rendererId) {
+        if (mTileService == null) {
+            Log.e(DEBUG_TAG, "tile service is disconnected");
+        }
         try {
             mTileService.flushCache(rendererId);
         } catch (RemoteException e) {
@@ -238,6 +256,9 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
      * Tell the tile provider service to reread the database of TileLayerServers
      */
     public void update() {
+        if (mTileService == null) {
+            Log.e(DEBUG_TAG, "tile service is disconnected");
+        }
         try {
             mTileService.update();
         } catch (RemoteException e) {

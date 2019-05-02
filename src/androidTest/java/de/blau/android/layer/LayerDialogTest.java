@@ -2,7 +2,6 @@ package de.blau.android.layer;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -17,13 +16,10 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
@@ -47,7 +43,7 @@ import de.blau.android.resources.TileLayerServer;
 public class LayerDialogTest {
 
     private static final int VISIBLE_BUTTON = 0;
-    private static final int EXTENT_BUTTON  = 1;
+    public static final int EXTENT_BUTTON  = 1;
     private static final int MENU_BUTTON    = 3;
 
     Context              context         = null;
@@ -124,7 +120,7 @@ public class LayerDialogTest {
     public void dataLayer() {
         TestUtils.zoomToLevel(main, 21);
         String dataLayerName = map.getDataLayer().getName();
-        UiObject2 extentButton = getLayerButton(dataLayerName, EXTENT_BUTTON);
+        UiObject2 extentButton = TestUtils.getLayerButton(device, dataLayerName, EXTENT_BUTTON);
         extentButton.clickAndWait(Until.newWindow(), 2000);
         BoundingBox box = map.getViewBox();
         // <bounds minlat='47.3881338' minlon='8.3863771' maxlat='47.3908067' maxlon='8.3911514' origin='CGImap 0.6.0
@@ -134,14 +130,14 @@ public class LayerDialogTest {
         Assert.assertEquals(8.3911514, box.getRight() / 1E7D, 0.003);
         Assert.assertEquals(8.3863771, box.getLeft() / 1E7D, 0.003);
         //
-        UiObject2 visibleButton = getLayerButton(dataLayerName, VISIBLE_BUTTON);
+        UiObject2 visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
         TestUtils.clickText(device, true, context.getString(R.string.done), false);
         Assert.assertFalse(map.getDataLayer().isVisible());
         TestUtils.unlock();
         TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, false);
         Assert.assertFalse(TestUtils.clickText(device, false, "Toilets", false)); // nothing should happen
-        visibleButton = getLayerButton(dataLayerName, VISIBLE_BUTTON);
+        visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
         TestUtils.clickText(device, true, context.getString(R.string.done), false);
         Assert.assertTrue(map.getDataLayer().isVisible());
@@ -152,7 +148,7 @@ public class LayerDialogTest {
      */
     @Test
     public void taskLayer() {
-        UiObject2 menuButton = getLayerButton(context.getString(R.string.layer_tasks), MENU_BUTTON);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, context.getString(R.string.layer_tasks), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.disable), true));
         Preferences prefs = new Preferences(context);
@@ -172,9 +168,9 @@ public class LayerDialogTest {
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        UiObject2 extentButton = getLayerButton(context.getString(R.string.layer_geojson), EXTENT_BUTTON);
+        UiObject2 extentButton = TestUtils.getLayerButton(device, context.getString(R.string.layer_geojson), EXTENT_BUTTON);
         extentButton.click();
-        UiObject2 menuButton = getLayerButton(context.getString(R.string.layer_geojson), MENU_BUTTON);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, context.getString(R.string.layer_geojson), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.discard), true));
         Assert.assertFalse(map.getGeojsonLayer().isEnabled());
@@ -185,28 +181,11 @@ public class LayerDialogTest {
      */
     @Test
     public void backgroundLayer() {
-        UiObject2 menuButton = getLayerButton("OpenStreetMap (Standard)", MENU_BUTTON);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, "OpenStreetMap (Standard)", MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.layer_select_imagery), true));
         TestUtils.clickText(device, true, context.getString(R.string.none), true);
         Preferences prefs = new Preferences(context);
         Assert.assertEquals(TileLayerServer.LAYER_NONE, prefs.backgroundLayer());
-    }
-
-    /**
-     * Get one of the buttons for a specific layer
-     * 
-     * @param layer the name of the layer
-     * @param buttonIndex the index of the button in the TableRow
-     * @return an UiObject2 for the button in question
-     */
-    private UiObject2 getLayerButton(@NonNull String layer, int buttonIndex) {
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/layers", true));
-        BySelector bySelector = By.text(layer);
-        UiObject2 layerName = device.wait(Until.findObject(bySelector), 500);
-        UiObject2 tableRow = layerName.getParent();
-        List<UiObject2> tableCells = tableRow.getChildren();
-        UiObject2 extentButton = tableCells.get(buttonIndex);
-        return extentButton;
     }
 }

@@ -869,4 +869,23 @@ public class TestUtils {
         SavingHelper.close(is);
         SavingHelper.close(os);
     }
+
+    /**
+     * Get one of the buttons for a specific layer
+     * 
+     * @param device the current UIDevice
+     * @param layer the name of the layer
+     * @param buttonIndex the index of the button in the TableRow
+     * 
+     * @return an UiObject2 for the button in question
+     */
+    public static UiObject2 getLayerButton(UiDevice device, @NonNull String layer, int buttonIndex) {
+        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/layers", true));
+        BySelector bySelector = By.text(layer);
+        UiObject2 layerName = device.wait(Until.findObject(bySelector), 500);
+        UiObject2 tableRow = layerName.getParent();
+        List<UiObject2> tableCells = tableRow.getChildren();
+        UiObject2 extentButton = tableCells.get(buttonIndex);
+        return extentButton;
+    }
 }
