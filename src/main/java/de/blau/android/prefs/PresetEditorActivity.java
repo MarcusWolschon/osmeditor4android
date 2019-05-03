@@ -25,6 +25,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -567,7 +568,9 @@ public class PresetEditorActivity extends URLListEditActivity {
         if (item != null && item.id.equals(LISTITEM_ID_DEFAULT)) {
             // name and value are not editable
             editName.setInputType(InputType.TYPE_NULL);
-            editName.setBackground(null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                editName.setBackground(null);
+            }
             editValue.setEnabled(false);
             fileButton.setEnabled(false);
         }
