@@ -116,7 +116,8 @@ public class NodeTest {
         Assert.assertTrue(TestUtils.findText(device, false, "8.3878200"));
         Assert.assertTrue(TestUtils.findText(device, false, "47.3903390"));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.cancel), true));
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.delete), false, true));
+        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.delete), true));
         Assert.assertEquals(OsmElement.STATE_DELETED, node.getState());
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
