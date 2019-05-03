@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.prefs.Preferences;
 
@@ -20,15 +21,30 @@ public class NotificationCache implements Serializable {
     private ArrayList<Integer>  cache;
     private int                 size             = 5;
 
-    public NotificationCache(Context ctx) {
+    /**
+     * Construct a new cache getting the size from the preferences
+     * 
+     * @param ctx Android Context
+     */
+    public NotificationCache(@NonNull Context ctx) {
         Preferences prefs = new Preferences(ctx);
         init(prefs.getNotificationCacheSize());
     }
 
+    /**
+     * Construct a new cache with a specific size
+     * 
+     * @param size size of the cache
+     */
     public NotificationCache(int size) {
         init(size);
     }
 
+    /**
+     * Initialize the cache
+     * 
+     * @param size the size of the cache
+     */
     private void init(int size) {
         Log.d(DEBUG_TAG, "new notification cache size " + size);
         if (size <= 1) {
@@ -41,37 +57,31 @@ public class NotificationCache implements Serializable {
     /**
      * Save notification id, canceling and removing the oldest notification if cache is full
      * 
-     * @param mNotificationManager
-     * @param id
+     * @param manager a NotificationManager instance
+     * @param id the id to save
      */
-    synchronized void save(NotificationManager mNotificationManager, int id) {
-        // Log.d(DEBUG_TAG, "saving " + id + " " + cache.size() + " of " + size);
+    synchronized void save(@NonNull NotificationManager manager, int id) {
         if (cache.size() >= size) {
-            remove(mNotificationManager);
+            remove(manager);
         }
         cache.add(0, id);
     }
 
     /**
-     * Remove id from cache and cancel it
+     * Remove notification id from cache and cancel it
      * 
-     * @param manager
-     * @param id
+     * @param manager a NotificationManager instance
+     * @param id the id to remove
      */
-    synchronized void remove(NotificationManager manager, int id) {
-        for (int i = 0; i < cache.size(); i++) {
-            if (cache.get(i) == id) {
-                cache.remove(i);
-                break;
-            }
-        }
+    synchronized void remove(@NonNull NotificationManager manager, int id) {
+        remove(id);
         manager.cancel(id); // cancel even if not found
     }
 
     /**
-     * Remove id from cache
+     * Remove notification if from cache
      * 
-     * @param id
+     * @param id the id of the notification to remove
      */
     synchronized void remove(int id) {
         for (int i = 0; i < cache.size(); i++) {
@@ -84,19 +94,22 @@ public class NotificationCache implements Serializable {
 
     /**
      * Remove oldest notification from cache and cancel it
+     * 
+     * @param manager a NotificationManager instance
      */
-    private synchronized void remove(NotificationManager manager) {
+    private synchronized void remove(@NonNull NotificationManager manager) {
         // remove notification
         int last = cache.size() - 1;
         if (last >= 0) {
-            // Log.d(DEBUG_TAG, "removing oldest alert " + cache.get(last));
             manager.cancel(cache.get(last));
             cache.remove(last);
         }
     }
 
     /**
+     * Check if the cache is empty
      * 
+     * @return true is empty
      */
     public boolean isEmpty() {
         return cache == null || cache.isEmpty();
@@ -104,8 +117,10 @@ public class NotificationCache implements Serializable {
 
     /**
      * Reduce or expand cache size
+     * 
+     * @param ctx Android Context
      */
-    public synchronized void trim(Context ctx) {
+    public synchronized void trim(@NonNull Context ctx) {
 
         Preferences prefs = new Preferences(ctx);
         int prefSize = prefs.getNotificationCacheSize();
