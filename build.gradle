@@ -282,7 +282,7 @@ android {
             targetSdkVersion 27
             applicationIdSuffix ""
             versionNameSuffix ""
-            resValue "string", "content_provider", "de.blau.android.osmeditor4android.provider"
+            resValue "string", "content_provider", "de.blau.android.provider"
         }
         legacy {
             dimension "api"
@@ -290,7 +290,7 @@ android {
             targetSdkVersion 25
             applicationIdSuffix ".legacy"
             versionNameSuffix "-legacy"
-            resValue "string", "content_provider", "de.blau.android.osmeditor4android.legacy.provider"
+            resValue "string", "content_provider", "de.blau.android.legacy.provider"
         }
     }
 

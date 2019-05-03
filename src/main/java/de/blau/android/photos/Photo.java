@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.ExtendedExifInterface;
 import de.blau.android.util.rtree.BoundedObject;
@@ -166,10 +167,10 @@ public class Photo implements BoundedObject {
      * @param context Android context
      * @return ref as content Uri
      */
-    public Uri getRefUri(Context context) {
+    public Uri getRefUri(@NonNull Context context) {
         try {
             Log.d(DEBUG_TAG, "getRef ref is " + ref);
-            return FileProvider.getUriForFile(context, "de.blau.android.osmeditor4android.provider", new File(ref));
+            return FileProvider.getUriForFile(context, context.getString(R.string.content_provider), new File(ref));
         } catch (Exception ex) {
             Log.d(DEBUG_TAG, "getRef Problem with Uri for ref " + ref + " " + ex);
             return null;

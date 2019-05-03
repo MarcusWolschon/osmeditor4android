@@ -1786,7 +1786,7 @@ public class Main extends FullScreenAppCompatActivity
             Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             try {
                 imageFile = getImageFile();
-                Uri photoUri = FileProvider.getUriForFile(this, "de.blau.android.osmeditor4android.provider", imageFile);
+                Uri photoUri = FileProvider.getUriForFile(this, getString(R.string.content_provider), imageFile);
                 if (photoUri != null) {
                     startCamera.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     startCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
