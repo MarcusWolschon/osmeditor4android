@@ -28,6 +28,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
@@ -887,5 +888,37 @@ public class TestUtils {
         List<UiObject2> tableCells = tableRow.getChildren();
         UiObject2 extentButton = tableCells.get(buttonIndex);
         return extentButton;
+    }
+
+    /**
+     * Select a file from the file picker
+     * 
+     * @param device the current UiDevice
+     * @param fileName the name of the file
+     */
+    public static void selectFile(@NonNull UiDevice device, @NonNull String fileName) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            TestUtils.clickMenuButton("Show roots", false, true);
+            TestUtils.clickText(device, false, "Android", true);
+            UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
+            try {
+                appView.scrollIntoView(new UiSelector().text("Vespucci"));
+            } catch (UiObjectNotFoundException e) {
+                // if there is no scrollable then this will fail
+            }
+            TestUtils.clickText(device, false, "Vespucci", true);
+        }
+        UiScrollable appView;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
+        } else {
+            appView = new UiScrollable(new UiSelector().scrollable(true));
+        }
+        try {
+            appView.scrollIntoView(new UiSelector().text(fileName));
+        } catch (UiObjectNotFoundException e) {
+            // if there is no scrollable then this will fail
+        }
+        TestUtils.clickText(device, false, fileName, true);
     }
 }

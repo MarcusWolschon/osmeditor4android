@@ -19,9 +19,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiScrollable;
-import android.support.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -109,20 +106,20 @@ public class ApplyOSCTest {
         Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392992L));
         Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392993L));
         Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392996L));
-        
-        Way w = (Way) delegator.getOsmElement(Way.NAME,210558045L);
+
+        Way w = (Way) delegator.getOsmElement(Way.NAME, 210558045L);
         Assert.assertNotNull(w);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, w.getState());
         Assert.assertTrue(w.hasTag("addr:housenumber", "4"));
-        
-        Node n = (Node) delegator.getOsmElement(Node.NAME,416426220L);
+
+        Node n = (Node) delegator.getOsmElement(Node.NAME, 416426220L);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
         System.out.println("Lat " + n.getLat());
-        Assert.assertEquals(47.3898033D, n.getLat()/1E7D, 0.00000001); 
-        Assert.assertEquals(8.3888382D, n.getLon()/1E7D, 0.00000001);
-                
-        Relation r =  (Relation) delegator.getOsmElement(Relation.NAME,1638705L);
+        Assert.assertEquals(47.3898033D, n.getLat() / 1E7D, 0.00000001);
+        Assert.assertEquals(8.3888382D, n.getLon() / 1E7D, 0.00000001);
+
+        Relation r = (Relation) delegator.getOsmElement(Relation.NAME, 1638705L);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
         Assert.assertNotNull(r.getMember(Way.NAME, 119104094L));
 
@@ -131,13 +128,7 @@ public class ApplyOSCTest {
         TestUtils.clickText(mDevice, false, "File", false);
         TestUtils.clickText(mDevice, false, "Apply changes from OSC file", false);
         //
-        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
-        try {
-            appView.scrollIntoView(new UiSelector().text(OSC_FILE));
-        } catch (UiObjectNotFoundException e) {
-            // if there is no scrollable then this will fail
-        }
-        TestUtils.clickText(mDevice, false, OSC_FILE, true);
+        TestUtils.selectFile(mDevice, OSC_FILE);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
@@ -156,34 +147,34 @@ public class ApplyOSCTest {
         Assert.assertEquals(OsmElement.STATE_DELETED, delegator.getApiStorage().getOsmElement(Node.NAME, 2206392993L).getState());
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Node.NAME, 2206392996L));
         Assert.assertEquals(OsmElement.STATE_DELETED, delegator.getApiStorage().getOsmElement(Node.NAME, 2206392996L).getState());
-        
+
         // placeholder ids are renumbered on input so we need to find the Way some other way
-        List<Way> ways = delegator.getCurrentStorage().getWays(new BoundingBox(8.3891745,47.3899902,8.3894486,47.3901275));
-        for (Way way:ways) {
+        List<Way> ways = delegator.getCurrentStorage().getWays(new BoundingBox(8.3891745, 47.3899902, 8.3894486, 47.3901275));
+        for (Way way : ways) {
             if (way.getOsmId() < 0) {
                 w = way;
             }
         }
         Assert.assertNotNull(w);
-        Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Way.NAME, w.getOsmId()));        
+        Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Way.NAME, w.getOsmId()));
         Assert.assertEquals(OsmElement.STATE_CREATED, w.getState());
         Assert.assertEquals(4, w.getNodes().size());
         Assert.assertTrue(w.isClosed());
         Assert.assertTrue(w.hasTag("name", "new"));
-        
-        w = (Way) delegator.getApiStorage().getOsmElement(Way.NAME,210558045L);
+
+        w = (Way) delegator.getApiStorage().getOsmElement(Way.NAME, 210558045L);
         Assert.assertNotNull(w);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, w.getState());
         Assert.assertTrue(w.hasTag("addr:housenumber", "444"));
-        
-        n = (Node) delegator.getApiStorage().getOsmElement(Node.NAME,416426220L);
+
+        n = (Node) delegator.getApiStorage().getOsmElement(Node.NAME, 416426220L);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
-        Assert.assertEquals(47.3898126D, n.getLat()/1E7D, 0.00000001); 
-        Assert.assertEquals(8.3894851D, n.getLon()/1E7D, 0.00000001);
-        
-        r =  (Relation) delegator.getOsmElement(Relation.NAME,1638705L);
+        Assert.assertEquals(47.3898126D, n.getLat() / 1E7D, 0.00000001);
+        Assert.assertEquals(8.3894851D, n.getLon() / 1E7D, 0.00000001);
+
+        r = (Relation) delegator.getOsmElement(Relation.NAME, 1638705L);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, r.getState());
-        Assert.assertNull(r.getMember(Way.NAME, 119104094L));        
+        Assert.assertNull(r.getMember(Way.NAME, 119104094L));
     }
 }

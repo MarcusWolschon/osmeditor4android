@@ -92,13 +92,7 @@ public class MapSplitSourceTest {
         TestUtils.longClickText(mDevice, "OpenStreetMap");
         TestUtils.clickText(mDevice, false, "Edit", true);
         TestUtils.clickButton("de.blau.android:id/listedit_file_button", true);
-        appView = new UiScrollable(new UiSelector().scrollable(true));
-        try {
-            appView.scrollIntoView(new UiSelector().text(MSF_FILE));
-            TestUtils.clickText(mDevice, false, MSF_FILE, true);
-        } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
-        }
+        TestUtils.selectFile(mDevice, MSF_FILE);
         TestUtils.clickText(mDevice, false, "OK", true);
         TestUtils.clickMenuButton("Navigate up", false, true);
         TestUtils.clickMenuButton("Navigate up", false, true);

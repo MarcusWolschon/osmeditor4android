@@ -15,9 +15,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiScrollable;
-import android.support.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
@@ -57,7 +54,7 @@ public class ReadPbf {
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        App.getDelegator().reset(false);;
+        App.getDelegator().reset(false);
     }
 
     /**
@@ -73,23 +70,17 @@ public class ReadPbf {
     @Test
     public void pbfRead() {
         TestUtils.clickMenuButton("Transfer", false, false);
-        TestUtils.clickText(mDevice, false, "File",  false);
-        TestUtils.clickText(mDevice, false, "Read from PBF file",  false);
+        TestUtils.clickText(mDevice, false, "File", false);
+        TestUtils.clickText(mDevice, false, "Read from PBF file", false);
         //
-        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
-        try {
-            appView.scrollIntoView(new UiSelector().text(PBF_FILE));
-        } catch (UiObjectNotFoundException e) {
-            // if there is no scrollable then this will fail
-        }
-        TestUtils.clickText(mDevice, false, PBF_FILE, true);
+        TestUtils.selectFile(mDevice, PBF_FILE);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
         }
         StorageDelegator delegator = App.getDelegator();
         Assert.assertNotNull(delegator.getOsmElement(Relation.NAME, 1252853L));
-        Assert.assertNotNull(delegator.getOsmElement(Way.NAME,243055643L));
+        Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 243055643L));
         Storage current = delegator.getCurrentStorage();
         Assert.assertEquals(3404, current.getNodes().size());
         Assert.assertEquals(391, current.getWays().size());
