@@ -81,13 +81,26 @@ public class SavingHelper<T extends Serializable> {
         final Context               context;
         boolean                     result    = false;
 
-        SaveThread(Context context, String fn, T obj, boolean c) {
+        /**
+         * Construct a new SaveThread
+         * 
+         * @param context Android Context
+         * @param fn the name of the file to save to
+         * @param obj the object to save
+         * @param c if true compress
+         */
+        SaveThread(@NonNull Context context, @NonNull String fn, @NonNull T obj, boolean c) {
             filename = fn;
             object = obj;
             compress = c;
             this.context = context;
         }
 
+        /**
+         * Check if the save was successful
+         * 
+         * @return true if the save was successful
+         */
         public boolean getResult() {
             return result;
         }
@@ -129,15 +142,26 @@ public class SavingHelper<T extends Serializable> {
      * Loads and deserializes a single object from the given file Original version was running out of stack, fixed by
      * moving to a thread
      * 
+     * @param context Android Context
      * @param filename filename of the save file
      * @param compressed true if the output is gzip-compressed, false if it is uncompressed
      * @return the deserialized object if successful, null if loading/deserialization/casting failed
      */
-    public synchronized T load(Context context, String filename, boolean compressed) {
+    public synchronized T load(@NonNull Context context, @NonNull String filename, boolean compressed) {
         return load(context, filename, compressed, false);
     }
 
-    private synchronized T load(Context context, String filename, boolean compressed, boolean deleteOnFail) {
+    /**
+     * Loads and deserializes a single object from the given file Original version was running out of stack, fixed by
+     * moving to a thread
+     * 
+     * @param context Android Context
+     * @param filename filename of the save file
+     * @param compressed true if the output is gzip-compressed, false if it is uncompressed
+     * @param deleteOnFail if true delete the file we tried to load (because it is likely corrupted)
+     * @return the deserialized object if successful, null if loading/deserialization/casting failed
+     */
+    private synchronized T load(@NonNull Context context, @NonNull String filename, boolean compressed, boolean deleteOnFail) {
         try {
             Log.d(DEBUG_TAG, "preparing to load " + filename);
             LoadThread r = new LoadThread(context, filename, compressed, deleteOnFail);
@@ -162,13 +186,26 @@ public class SavingHelper<T extends Serializable> {
         final Context               context;
         T                           result;
 
-        LoadThread(Context context, String fn, boolean c, boolean deleteOnFail) {
+        /**
+         * Create a new LoadThread
+         * 
+         * @param context Android Context
+         * @param fn the filename of the file to load
+         * @param c if true compress
+         * @param deleteOnFail if true delete if the file can't be read
+         */
+        LoadThread(@NonNull Context context, @NonNull String fn, boolean c, boolean deleteOnFail) {
             filename = fn;
             compressed = c;
             this.deleteOnFail = deleteOnFail;
             this.context = context;
         }
 
+        /**
+         * Get the loaded class
+         * 
+         * @return the loaded class
+         */
         public T getResult() {
             return result;
         }

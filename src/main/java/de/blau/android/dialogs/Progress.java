@@ -92,6 +92,7 @@ public class Progress extends ImmersiveDialogFragment {
      * @param activity the calling FragmentActivity
      * @param dialogType an int indicating which heading to show tag a string to differentiate between multiple similar
      *            spinners
+     * @param tag a String identifying the dialog we want to dismiss or null
      */
     public static void dismissDialog(@NonNull FragmentActivity activity, int dialogType, @Nullable String tag) {
         tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
@@ -103,7 +104,7 @@ public class Progress extends ImmersiveDialogFragment {
      * 
      * @param activity the calling FragmentActivity
      */
-    public static void dismissAll(FragmentActivity activity) {
+    public static void dismissAll(@NonNull FragmentActivity activity) {
         dismissDialog(activity, PROGRESS_LOADING);
         dismissDialog(activity, PROGRESS_DOWNLOAD);
         dismissDialog(activity, PROGRESS_DELETING);

@@ -515,53 +515,80 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * Get the current GPS/GNSS source
+     * 
+     * @return a String with the source name
      */
     public String getGpsSource() {
         return gpsSource;
     }
 
     /**
-     * @return
+     * Get the current GPS/GNSS tcp source
+     * 
+     * @return a String with the source name
      */
     public String getGpsTcpSource() {
         return gpsTcpSource;
     }
 
     /**
-     * @return interval between GPS location fixes in miliseconds
+     * Get the configured minimum time between GPS/GNSS location fixes
+     * 
+     * @return interval between GPS/GNSS location fixes in miliseconds
      */
     public int getGpsInterval() {
         return gpsInterval;
     }
 
     /**
-     * @return
+     * Get the configured minimum distance between GPS/GNSS location fixes
+     * 
+     * @return distance between GPS/GNSS location fixes in meters
      */
     public float getGpsDistance() {
         return gpsDistance;
     }
 
+    /**
+     * Check if we are allowed to fall back to Network locations
+     * 
+     * @return true if the fallback is allowed
+     */
     public boolean isNetworkLocationFallbackAllowed() {
         return allowFallbackToNetworkLocation;
     }
 
+    /**
+     * Always show the selection context menu if more than one element is in the click tolerance
+     * 
+     * @return true if we should always show the context menu
+     */
     public boolean getForceContextMenu() {
         return forceContextMenu;
     }
 
+    /**
+     * Check if we should use the name suggestion index
+     * 
+     * @return true if we should use the index
+     */
     public boolean getEnableNameSuggestions() {
         return enableNameSuggestions;
     }
 
     /**
-     * @return
+     * Get the configured download radius for data
+     * 
+     * @return the radius in meters
      */
     public int getDownloadRadius() {
         return downloadRadius;
     }
 
     /**
+     * Get the configured maximum speed up to which we still auto-download data
+     * 
      * @return the maximum speed for autodownloads
      */
     public float getMaxDownloadSpeed() {
@@ -578,10 +605,20 @@ public class Preferences {
         prefs.edit().putInt(r.getString(R.string.config_maxDownloadSpeed_key), (int) maxDownloadSpeed).commit();
     }
 
+    /**
+     * Get the configured download radius for tasks
+     * 
+     * @return the radius in meters
+     */
     public int getBugDownloadRadius() {
         return bugDownloadRadius;
     }
 
+    /**
+     * Get the configured maximum speed up to which we still auto-download tasks
+     * 
+     * @return the maximum speed for autodownloads
+     */
     public float getMaxBugDownloadSpeed() {
         return maxBugDownloadSpeed;
     }
@@ -629,12 +666,17 @@ public class Preferences {
         return closeChangesetOnSave;
     }
 
+    /**
+     * Check if we should split the action bar
+     * 
+     * @return true if we should show the action bar at top and bottom of the screen
+     */
     public boolean splitActionBarEnabled() {
         return splitActionBarEnabled;
     }
 
     /**
-     * Get the configured offeset database server
+     * Get the configured offset database server
      * 
      * @return base url for the server
      */
@@ -679,6 +721,11 @@ public class Preferences {
         prefs.edit().putString(r.getString(R.string.config_taginfoServer_key), url).commit();
     }
 
+    /**
+     * Check if we should show a camera button on hte main map screen
+     * 
+     * @return true if the camera button should be shown
+     */
     public boolean showCameraAction() {
         return showCameraAction;
     }
