@@ -241,6 +241,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     public void flushCache(@Nullable String rendererId) {
         if (mTileService == null) {
             Log.e(DEBUG_TAG, "tile service is disconnected");
+            return;
         }
         try {
             mTileService.flushCache(rendererId);
@@ -258,6 +259,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     public void update() {
         if (mTileService == null) {
             Log.e(DEBUG_TAG, "tile service is disconnected");
+            return;
         }
         try {
             mTileService.update();
@@ -370,6 +372,11 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
         return mNoTilesTile;
     }
 
+    /**
+     * Get some information on cache usage
+     * 
+     * @return a String with cache usage information suitable for display 
+     */
     public String getCacheUsageInfo() {
         return mTileCache.getCacheUsageInfo();
     }
