@@ -23,6 +23,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pools.SimplePool;
 import de.blau.android.App;
@@ -311,39 +312,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         List<Way> ways = delegator.getCurrentStorage().getWays(viewBox);
 
         // get relations for all nodes and ways
-        if (!filterMode) {
-            for (Node n : paintNodes) {
-                if (n.hasParentRelations()) {
-                    paintRelations.addAll(n.getParentRelations());
-                }
-            }
-            for (Way w : ways) {
-                if (w.hasParentRelations()) {
-                    paintRelations.addAll(w.getParentRelations());
-                }
-            }
-        } else {
-            for (Node n : paintNodes) {
-                List<Relation> rels = n.getParentRelations();
-                if (rels != null) {
-                    for (Relation rel : rels) {
-                        if (tmpFilter.include(rel, false)) {
-                            paintRelations.add(rel);
-                        }
-                    }
-                }
-            }
-            for (Way w : ways) {
-                List<Relation> rels = w.getParentRelations();
-                if (rels != null) {
-                    for (Relation rel : rels) {
-                        if (tmpFilter.include(rel, false)) {
-                            paintRelations.add(rel);
-                        }
-                    }
-                }
-            }
-
+        for (Node n : paintNodes) {
+            addRelations(filterMode, n.getParentRelations(), paintRelations);
+        }
+        for (Way w : ways) {
+            addRelations(filterMode, w.getParentRelations(), paintRelations);
         }
 
         // draw MPs first
@@ -438,6 +411,27 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     }
 
     /**
+     * Add relations to list of relations to paint
+     * 
+     * @param filterMode if we need to use a filter
+     * @param rels the new relations
+     * @param toPaint List of relations to paint
+     */
+    private void addRelations(final boolean filterMode, @Nullable final List<Relation> rels, final @NonNull Set<Relation> toPaint) {
+        if (rels != null) {
+            if (!filterMode) {
+                toPaint.addAll(rels);
+            } else {
+                for (Relation rel : rels) {
+                    if (tmpFilter.include(rel, false)) {
+                        toPaint.add(rel);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * For ordering according to layer value and draw lines on top of areas in the same layer
      */
     private Comparator<Way> layerComparator = new Comparator<Way>() {
@@ -488,7 +482,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             style = DataStyle.matchStyle(rel);
         }
 
-        if (zoomLevel < style.getMinVisibleZoom()) {
+        if (zoomLevel < style.getMinVisibleZoom() || style.dontRender()) {
             return;
         }
 

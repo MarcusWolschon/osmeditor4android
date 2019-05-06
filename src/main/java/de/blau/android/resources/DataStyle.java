@@ -1510,8 +1510,6 @@ public final class DataStyle extends DefaultHandler {
     /**
      * Determine the style to use for way and cache it in the way object
      * 
-     * If the way is untagged or a style can't be determined, we return a style for any relations the way is a member of
-     * 
      * @param element way we need the style for
      * @param <T> an OsmElement the implements StyleableFeature
      * @return the style
