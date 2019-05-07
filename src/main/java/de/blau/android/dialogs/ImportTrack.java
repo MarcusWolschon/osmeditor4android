@@ -109,7 +109,7 @@ public class ImportTrack extends ImmersiveDialogFragment {
                 if (main != null) {
                     main.getTracker().stopTracking(true);
                     try {
-                        main.getTracker().importGPXFile(main, uri);
+                        main.getTracker().importGPXFile(main, uri, null);
                     } catch (FileNotFoundException e) {
                         try {
                             Snack.barError(main, main.getResources().getString(R.string.toast_file_not_found, uri.toString()));
@@ -127,7 +127,7 @@ public class ImportTrack extends ImmersiveDialogFragment {
                 if (main != null) {
                     main.getTracker().stopTracking(false);
                     try {
-                        main.getTracker().importGPXFile(main, uri);
+                        main.getTracker().importGPXFile(main, uri, null);
                     } catch (FileNotFoundException e) {
                         try {
                             Snack.barError(main, main.getResources().getString(R.string.toast_file_not_found, uri.toString()));

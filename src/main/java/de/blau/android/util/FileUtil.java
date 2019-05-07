@@ -118,4 +118,18 @@ public abstract class FileUtil {
         }
         return null;
     }
+    
+    /**
+     * Get the extension of the file, aka the last . separated bit
+     * 
+     * @param path the path including the filename and extension
+     * @return the extension or the full path
+     */
+    @NonNull
+    public static String getExtension(@Nullable String path) {
+        if (path == null) {
+            return "";
+        }
+        return path.substring(path.lastIndexOf(".") + 1);
+    }
 }

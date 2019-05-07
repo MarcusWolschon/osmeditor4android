@@ -1,8 +1,6 @@
 package de.blau.android.services;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +13,6 @@ import java.util.Locale;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.GpsStatus.NmeaListener;
@@ -42,7 +39,9 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.osm.BoundingBox;
@@ -57,7 +56,6 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
 import de.blau.android.validation.Validator;
@@ -368,6 +366,7 @@ public class TrackerService extends Service implements Exportable {
      * 
      * @return a List of TrackPoint
      */
+    @NonNull
     public List<TrackPoint> getTrackPoints() {
         return track.getTrackPoints();
     }
@@ -418,7 +417,7 @@ public class TrackerService extends Service implements Exportable {
 
     @Override
     public String exportExtension() {
-        return "gpx";
+        return FileExtensions.GPX;
     }
 
     @Override
@@ -442,7 +441,10 @@ public class TrackerService extends Service implements Exportable {
         @Override
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
-                return; // ignore updates from device
+                return; // ignore
+                        // updates
+                        // from
+                        // device
             }
 
             // Only use GPS provided locations for generating tracks
@@ -479,18 +481,23 @@ public class TrackerService extends Service implements Exportable {
         @Override
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
-                return; // ignore updates from device
+                return; // ignore
+                        // updates
+                        // from
+                        // device
             }
             if (lastLocation != null) {
                 boolean lastIsGpsLocation = LocationManager.GPS_PROVIDER.equals(lastLocation.getProvider());
                 if (lastIsGpsLocation) {
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
                         if (location.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos() < staleGPSNano) {
-                            return; // ignore - last GPS time is still reasonably current
+                            // ignore - last GPS time is still reasonably current
+                            return;
                         }
                     } else {
                         if (location.getTime() - lastLocation.getTime() < staleGPSMilli) {
-                            return; // this is not as reliable as the above but likely still OK
+                            return; // this is not as reliable as the above
+                                    // but likely still OK
                         }
                     }
                     Snack.toastTopInfo(TrackerService.this, R.string.toast_using_network_location);
@@ -664,12 +671,12 @@ public class TrackerService extends Service implements Exportable {
     /**
      * Read a file in GPX format from device
      * 
-     * @param activity activity this was called from, if null no messages will be displayed, and menus will not be
-     *            updated
+     * @param activity activity this was called from
      * @param uri Uri for the file to read
+     * @param handler handler to use after the file has been loaded if not null
      * @throws FileNotFoundException if we couldn't locate the file
      */
-    public void importGPXFile(@Nullable final FragmentActivity activity, final Uri uri) throws FileNotFoundException {
+    public void importGPXFile(@NonNull final FragmentActivity activity, final Uri uri, @Nullable PostAsyncActionHandler handler) throws FileNotFoundException {
 
         new AsyncTask<Void, Void, Integer>() {
 
@@ -686,7 +693,7 @@ public class TrackerService extends Service implements Exportable {
             @Override
             protected Integer doInBackground(Void... arg) {
                 int result = OK;
-                try (InputStream is = getContentResolver().openInputStream(uri); BufferedInputStream in = new BufferedInputStream(is)) {
+                try (InputStream is = activity.getContentResolver().openInputStream(uri); BufferedInputStream in = new BufferedInputStream(is)) {
                     track.importFromGPX(in);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "Error reading file: ", e);
@@ -698,18 +705,23 @@ public class TrackerService extends Service implements Exportable {
             @Override
             protected void onPostExecute(Integer result) {
                 try {
-                    if (activity != null) {
-                        Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+                    Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+                    if (result == OK) {
+                        if (handler != null) {
+                            handler.onSuccess();
+                        }
                         int trackPointCount = track.getTrackPoints() != null ? track.getTrackPoints().size() : 0;
                         int wayPointCount = track.getWayPoints() != null ? track.getWayPoints().length : 0;
                         String message = activity.getResources().getQuantityString(R.plurals.toast_imported_track_points, wayPointCount, trackPointCount,
                                 wayPointCount);
                         Snack.barInfo(activity, message);
-                        activity.supportInvalidateOptionsMenu();
-                        if (result == FILENOTFOUND) {
-                            Snack.barError(activity, R.string.toast_file_not_found);
+                    } else {
+                        if (handler != null) {
+                            handler.onError();
                         }
+                        Snack.barError(activity, R.string.toast_file_not_found);
                     }
+                    activity.supportInvalidateOptionsMenu();
                 } catch (IllegalStateException e) {
                     // Avoid crash if activity is paused
                     Log.e(DEBUG_TAG, "onPostExecute", e);
@@ -717,6 +729,7 @@ public class TrackerService extends Service implements Exportable {
             }
 
         }.execute();
+
     }
 
     /**

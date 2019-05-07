@@ -188,6 +188,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * 
      * @return an array of TrackPoint
      */
+    @NonNull
     public List<TrackPoint> getTrackPoints() {
         return new ArrayList<>(currentTrack);
     }
