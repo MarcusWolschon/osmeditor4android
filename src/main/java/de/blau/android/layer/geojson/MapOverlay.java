@@ -461,12 +461,17 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param ctx Android Context
      * @param uri an URI for the file
      * @return true if successful
-     * @throws IOException
+     * @throws IOException if reading the uri goes wrong
      */
     public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri) throws IOException {
         InputStream is = ctx.getContentResolver().openInputStream(uri);
-        name = uri.getLastPathSegment();
-        return loadGeoJsonFile(ctx, is);
+        try {
+            readingLock.lock();
+            name = uri.getLastPathSegment();
+            return loadGeoJsonFile(ctx, is);
+        } finally {
+            readingLock.unlock();
+        }
     }
 
     /**
@@ -475,7 +480,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param ctx Android Context
      * @param is the InputStream to read from
      * @return true if successful
-     * @throws IOException
+     * @throws IOException if reading the InputStream fails
      */
     public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is) throws IOException {
         boolean successful = false;
@@ -487,7 +492,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         while ((cp = rd.read()) != -1) {
             sb.append((char) cp);
         }
-
         try {
             data = new RTree(2, 12);
             String json = sb.toString();
@@ -515,6 +519,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             }
             setVisible(true); // enable too
             successful = true;
+            saved = false;
         } catch (com.google.gson.JsonSyntaxException jsex) {
             data = null;
             Snack.toastTopError(ctx, jsex.getLocalizedMessage());
@@ -524,8 +529,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             data = null;
             Snack.toastTopError(ctx, e.getLocalizedMessage());
             Log.e(DEBUG_TAG, "Exception " + e.getMessage());
+            e.printStackTrace();
         }
-        saved = false;
         // re-enable drawing
         setVisible(true);
         return successful;
@@ -898,6 +903,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 readingLock.unlock();
             }
         }
+        map.invalidate();
     }
 
     @Override
