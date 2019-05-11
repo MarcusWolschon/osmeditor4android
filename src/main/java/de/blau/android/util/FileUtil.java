@@ -7,13 +7,16 @@ import java.io.InputStream;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.contract.Paths;
 
 public abstract class FileUtil {
-
-    private static final String DEBUG_TAG = FileUtil.class.getSimpleName();
+    private static final String DEBUG_TAG          = FileUtil.class.getSimpleName();
+    public static final String  FILE_SCHEME        = "file";
+    public static final String  FILE_SCHEME_PREFIX = "file:";
 
     /**
      * Get our public directory, creating it if it doesn't exist
@@ -98,5 +101,21 @@ public abstract class FileUtil {
             SavingHelper.close(in);
             SavingHelper.close(out);
         }
+    }
+
+    /**
+     * Try to convert a content Uri to a file Uri (will handle file uris gracefully)
+     * 
+     * @param ctx Android Context
+     * @param uri the content Uri
+     * @return the converted Uri or null
+     */
+    @Nullable
+    public static Uri contentUriToFileUri(@NonNull Context ctx, @NonNull Uri uri) {
+        String path = SelectFile.getPath(ctx, uri);
+        if (path != null) {
+            return Uri.parse(FILE_SCHEME_PREFIX + path);
+        }
+        return null;
     }
 }

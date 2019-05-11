@@ -3037,14 +3037,7 @@ public class Logic {
     public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add, final PostAsyncActionHandler postLoad)
             throws FileNotFoundException {
 
-        final InputStream is;
-
-        if (uri.getScheme().equals("file")) {
-            is = new FileInputStream(new File(uri.getPath()));
-        } else {
-            ContentResolver cr = activity.getContentResolver();
-            is = cr.openInputStream(uri);
-        }
+        final InputStream is = activity.getContentResolver().openInputStream(uri);
         readOsmFile(activity, is, add, postLoad);
     }
 
@@ -3100,7 +3093,7 @@ public class Logic {
             }
         }.execute(add);
     }
-
+    
     /**
      * Write data to a file in (J)OSM compatible format, if fileName contains directories these are created, otherwise
      * it is stored in the standard public dir
@@ -3110,6 +3103,49 @@ public class Logic {
      * @param postSaveHandler if not null executes code after saving
      */
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
+        try {
+            File outfile = FileUtil.openFileForWriting(fileName);
+            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath()); 
+            writeOsmFile(activity, new FileOutputStream(outfile), postSaveHandler);
+        } catch (IOException e) {
+            if (!activity.isFinishing()) {
+                ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
+            }
+            if (postSaveHandler != null) {
+                postSaveHandler.onError();
+            }
+        }        
+    }
+
+    /**
+     * Write data to an URI in (J)OSM compatible format
+     * 
+     * @param activity the calling FragmentActivity
+     * @param uri URI to save to
+     * @param postSaveHandler if not null executes code after saving
+     */
+    public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postSaveHandler) {
+        try {
+            writeOsmFile(activity, activity.getContentResolver().openOutputStream(uri), postSaveHandler);
+        } catch (IOException e) {
+            if (!activity.isFinishing()) {
+                ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
+            }
+            if (postSaveHandler != null) {
+                postSaveHandler.onError();
+            }
+        }        
+    }
+    
+    /**
+     * Write data to an OutputStream in (J)OSM compatible format, if fileName contains directories these are created, otherwise
+     * it is stored in the standard public dir
+     * 
+     * @param activity the calling FragmentActivity
+     * @param fout OutputStream to write to
+     * @param postSaveHandler if not null executes code after saving
+     */
+    private void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fout, @Nullable final PostAsyncActionHandler postSaveHandler) {
 
         new AsyncTask<Void, Void, Integer>() {
 
@@ -3122,12 +3158,8 @@ public class Logic {
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
                 try {
-                    File outfile = FileUtil.openFileForWriting(fileName);
-                    Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-                    FileOutputStream fout = null;
                     OutputStream out = null;
-                    try {
-                        fout = new FileOutputStream(outfile);
+                    try {   
                         out = new BufferedOutputStream(fout);
                         OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
@@ -3186,14 +3218,7 @@ public class Logic {
      * @throws FileNotFoundException when the selected file could not be found
      */
     public void readPbfFile(@NonNull final FragmentActivity activity, @NonNull Uri uri, boolean add) throws FileNotFoundException {
-        final InputStream is;
-
-        if (uri.getScheme().equals("file")) {
-            is = new FileInputStream(new File(uri.getPath()));
-        } else {
-            ContentResolver cr = activity.getContentResolver();
-            is = cr.openInputStream(uri);
-        }
+        final InputStream is = activity.getContentResolver().openInputStream(uri);
         readPbfFile(activity, is, add, null);
     }
 
@@ -3206,7 +3231,7 @@ public class Logic {
      *            ones)
      * @param postLoad callback to execute once stream has been loaded
      */
-    public void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+    private void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
         new ReadAsyncClass(activity, is, add, postLoad) {
@@ -3247,14 +3272,7 @@ public class Logic {
     public void applyOscFile(@NonNull FragmentActivity activity, @NonNull Uri fileUri, @Nullable final PostAsyncActionHandler postLoad)
             throws FileNotFoundException {
 
-        final InputStream is;
-
-        if (fileUri.getScheme().equals("file")) {
-            is = new FileInputStream(new File(fileUri.getPath()));
-        } else {
-            ContentResolver cr = activity.getContentResolver();
-            is = cr.openInputStream(fileUri);
-        }
+        final InputStream is = activity.getContentResolver().openInputStream(fileUri);
 
         new ReadAsyncClass(activity, is, false, postLoad) {
             @Override

@@ -40,7 +40,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -55,6 +54,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
@@ -296,7 +296,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             protected Integer doInBackground(Void... args) {
                 int loadResult = RESULT_TOTAL_SUCCESS;
                 Uri uri = Uri.parse(item.value);
-                if ("file".equals(uri.getScheme())) {
+                if (FileUtil.FILE_SCHEME.equals(uri.getScheme())) {
                     loadResult = load(uri, Preset.PRESETXML);
                 } else {
                     loadResult = download(item.value, Preset.PRESETXML);
@@ -386,7 +386,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             /**
              * Load a Preset from a local file
              * 
-             * @param uri the file uri to load from
+             * @param uri the uri to load from
              * @param filename A filename where to save the file.
              * @return code indicating result
              */
@@ -396,7 +396,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                     Log.d(DEBUG_TAG, "detected zip file");
                     filename = FILE_NAME_TEMPORARY_ARCHIVE;
                 }
-                try (InputStream loadStream = new FileInputStream(new File(uri.getPath()));
+                try (InputStream loadStream = getContentResolver().openInputStream(uri);
                         OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));) {
                     Log.d(DEBUG_TAG, "Loading " + uri + " to " + presetDir + "/" + filename);
                     StreamUtils.copy(loadStream, fileStream);
@@ -608,6 +608,11 @@ public class PresetEditorActivity extends URLListEditActivity {
 
                     @Override
                     public boolean read(Uri fileUri) {
+                        fileUri = FileUtil.contentUriToFileUri(PresetEditorActivity.this, fileUri);
+                        if (fileUri == null) {
+                            Snack.toastTopError(PresetEditorActivity.this, R.string.not_found_title);
+                            return false;
+                        }
                         editValue.setText(fileUri.toString());
                         SelectFile.savePref(new Preferences(PresetEditorActivity.this), R.string.config_presetsPreferredDir_key, fileUri);
                         return true;
@@ -638,7 +643,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                 }
 
                 // save or display toast, exception for localhost is needed for testing
-                if (validPresetURL || URLUtil.isFileUrl(presetURL) || (url != null && "localhost".equals(url.getHost()))
+                if (validPresetURL || presetURL.startsWith(FileUtil.FILE_SCHEME_PREFIX) || (url != null && "localhost".equals(url.getHost()))
                         || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
                     if (item == null) {
                         // new item

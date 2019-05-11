@@ -20,7 +20,7 @@ public abstract class ReadFile implements Serializable {
     public abstract boolean read(Uri fileUri);
 
     /**
-     * Read multiple files, empty defaul implementation
+     * Read multiple files, empty default implementation
      * 
      * @param uris List of Uri to read
      */

@@ -436,7 +436,7 @@ dependencies {
     legacyImplementation "com.android.support:design:$legacySupportLibVersion"
     legacyImplementation "com.android.support:support-annotations:$legacySupportLibVersion"
     legacyImplementation "com.android.support:support-compat:$legacySupportLibVersion"
-    implementation "com.nononsenseapps:filepicker:3.0.0"
+    implementation "com.nononsenseapps:filepicker:4.2.1"
     implementation "oauth.signpost:signpost-core:$signpostVersion"
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"

@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -684,24 +685,12 @@ public class TrackerService extends Service implements Exportable {
 
             @Override
             protected Integer doInBackground(Void... arg) {
-                InputStream is = null;
-                BufferedInputStream in = null;
                 int result = OK;
-                try {
-                    if (uri.getScheme().equals("file")) {
-                        is = new FileInputStream(new File(uri.getPath()));
-                    } else {
-                        ContentResolver cr = getContentResolver();
-                        is = cr.openInputStream(uri);
-                    }
-                    in = new BufferedInputStream(is);
+                try (InputStream is = getContentResolver().openInputStream(uri); BufferedInputStream in = new BufferedInputStream(is)) {
                     track.importFromGPX(in);
-                } catch (FileNotFoundException e) {
-                    Log.e(DEBUG_TAG, "File not found: ", e);
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, "Error reading file: ", e);
                     result = FILENOTFOUND;
-                } finally {
-                    SavingHelper.close(in);
-                    SavingHelper.close(is);
                 }
                 return result;
             }
