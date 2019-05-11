@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
+"PO-Revision-Date: 2019-05-02 12:58+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@hotmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -667,7 +667,7 @@ msgstr ""
 
 #: master_preset.xml:9949(item:name|group:Offices|preset:Architect)
 msgid "Architect"
-msgstr ""
+msgstr "مهندس معماري"
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Architecture"
@@ -5381,7 +5381,7 @@ msgstr ""
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "الصانع"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -6512,7 +6512,7 @@ msgstr ""
 #: master_preset.xml:1429(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
 #: master_preset.xml:2902(check:text|group:Car|preset:Charging_Station|key:authentication:none)
 msgid "None"
-msgstr ""
+msgstr "لا يوجد"
 
 #: master_preset.xml:404(multiselect:display_values|key:cuisine)
 msgid "Noodle"
@@ -7125,7 +7125,7 @@ msgstr ""
 
 #: master_preset.xml:5573(text:text|group:Golf|preset:Hole|key:par)
 msgid "Par"
-msgstr ""
+msgstr "بار"
 
 #: master_preset.xml:4049(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:parallel_bars)
 msgid "Parallel bars"
@@ -12139,7 +12139,7 @@ msgstr ""
 #: master_preset.xml:114(list_entry:short_description|value:no)
 msgctxt "sidewalk"
 msgid "None"
-msgstr ""
+msgstr "لا يوجد"
 
 #: master_preset.xml:112(list_entry:short_description|value:left)
 msgctxt "sidewalk"
@@ -14826,7 +14826,7 @@ msgstr "رئيسي"
 #: master_preset.xml:6213(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"
 msgid "None"
-msgstr ""
+msgstr "لا يوجد"
 
 #: master_preset.xml:6213(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"

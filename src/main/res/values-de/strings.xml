@@ -551,7 +551,7 @@
   <string name="menu_transfer_export">Änderungen in eine OSC-Datei exportieren</string>
   <string name="menu_transfer_apply_osc_file">Änderungen von OSC-Datei anwenden</string>
   <string name="menu_transfer_read_file">JOSM-Datei einlesen...</string>
-  <string name="menu_transfer_read_pbf_file">Einlesen von PDF-Datei</string>
+  <string name="menu_transfer_read_pbf_file">Einlesen von PBF-Datei</string>
   <string name="menu_transfer_save_file">Daten in JOSM-Datei speichern...</string>
   <string name="menu_transfer_bugs">Aufgaben…</string>
   <string name="menu_transfer_bugs_download_current">Aufgaben für die aktuelle Ansicht herunterladen</string>

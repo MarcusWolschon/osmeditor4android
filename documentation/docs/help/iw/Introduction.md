@@ -146,13 +146,13 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 
 ### וספוצ׳י במצב נעול
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+כשהמנעול האדום מוצג כל הפעולות שאינן כרוכות בעריכה זמינות. בנוסף, לחיצה ארוכה על או ליד פריט תציג את מסך פירוט אם מדובר בפריט OSM.
 
 ### שמירת השינויים שערכת
 
 *(נדרש חיבור לרשת)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+נא לבחור את אותו הכפתור או הפריט בתפריט לטובת ההורדה ועתה לבחור ב־„העלאת נתונים לשרת OSM”.
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 
@@ -219,7 +219,7 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 * **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
 * **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**מפתח** ו**ערך** מאומתים מול תגיות _קיימות_ של הפריטים המבוקשים.
 
 #### רשומות בדיקה
 

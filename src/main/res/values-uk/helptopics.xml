@@ -2,6 +2,7 @@
 <resources>
     <string name="help_introduction">Вступ</string>
     <string name="help_main">Екран з мапою</string>
+    <string name="help_simple_actions">Звичайні дії</string>
     <string name="help_addrelationmember">Виділений звʼязок</string>
     <string name="help_multiselect">Мультивиділення</string>
     <string name="help_longclick">Створення нових обʼєктів</string>
@@ -11,6 +12,8 @@
     <string name="help_wayselection">Виділена лінія</string>
     <string name="help_aligningbackgroundiamgery">Вирівнювання фонового зображення</string>
     <string name="help_propertyeditor">Редактор властивостей</string>
+    <string name="help_preferences">Налаштування</string>
+    <string name="help_advanced_preferences">Додаткові налаштування</string>
     <string name="help_presets">Заготовки</string>
     <string name="help_conflictresolution">Розвʼязання конфліктів</string>
     <string name="help_gpssources">Джерела GPS</string>
@@ -18,11 +21,21 @@
     <string name="help_tagfilter">Фільтр теґів</string>
     <string name="help_presetfilter">Фільтр заготовок</string>
     <string name="help_opening_hours">Часи роботи</string>
+    <string name="help_voice_commands">Голосові команди</string>
     <string name="help_upgrade">Інформація про випуск</string>
+    <string name="help_upgrade_121">12.1 Примітки до випуску</string>
+    <string name="help_upgrade_120">12.0 Примітки до випуску</string>
+    <string name="help_upgrade_112">11.2 Примітки до випуску</string>
+    <string name="help_upgrade_111">11.1 Примітки до випуску</string>
+    <string name="help_upgrade_110">11.0 Примітки до випуску</string>
+    <string name="help_upgrade_102">10.2 Примітки до випуску</string>
+    <string name="help_upgrade_101">10.1 Примітки до випуску</string>
+    <string name="help_upgrade_100">10.0 Примітки до випуску</string>
     <string name="help_upgrade_099">0.9.9 Примітки до випуску</string>
     <string name="help_upgrade_098">0.9.8 Примітки до випуску</string>
     <string name="help_upgrade_097">0.9.7 Примітки до випуску</string>
     <string name="help_upgrade_096">0.9.6 Примітки до випуску</string>
+    <string name="help_privacy">Конфіденційність</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-18 18:56+0000\n"
+"PO-Revision-Date: 2019-05-02 12:46+0000\n"
 "Last-Translator: Ignacio L'Episcopo\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -4041,7 +4041,7 @@ msgstr "Gobierno"
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "Graffiti"
 
 #: master_preset.xml:991(combo:display_values|key:climbing:rock)
 msgid "Granite"

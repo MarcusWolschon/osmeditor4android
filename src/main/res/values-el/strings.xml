@@ -29,6 +29,10 @@
   <string name="no_data_title">Χωρίς δεδομένα</string>
   <string name="go_to_openstreetmap">Πηγαίνετε στο openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Η περιοχή λήψης είναι πολύ μεγάλη</string>
+  <string name="welcome_title">Καλώς ήλθατε</string>
+  <string name="read_introduction">Διαβάστε την εισαγωγή</string>
+  <string name="upgrade_title">Αυτή είναι μια νέα έκδοση Vespucci</string>
+  <string name="upgrade_message">Τα νέα χαρακτηριστικά και η συμπεριφορά αναλύονται στις σημειώσεις έκδοσης.</string>
   <string name="read_upgrade">Διαβάστε για τη νέα έκδοση</string>
   <string name="progress_title">Φόρτωση</string>
   <string name="progress_message">Φόρτωση δεδομένων στη μνήμη…</string>
@@ -57,7 +61,10 @@
   <string name="upload_validation_error_empty_comment">Το σχόλιο δεν πρέπει να είναι άδειο</string>
   <string name="upload_validation_error_empty_source">Η πηγή δεν πρέπει να είναι άδεια</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Νέα σημείωση</string>
   <string name="openstreetbug_bug_title">Ζήτημα</string>
+  <string name="openstreetbug_new_nodeway">Δημιουργία κόμβου/διαδρομής </string>
+  <string name="openstreetbug_edit_title"> Επεξεργασία σημείωσης</string>
   <string name="openstreetbug_comment_label">Σχόλιο:</string>
   <string name="openstreetbug_unknown_task_type">Άγνωστος τύπος εργασίας</string>
   <string name="openstreetbug_not_supported">%1$s δεν υποστηρίζεται.</string>
@@ -70,6 +77,7 @@
   <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s(δεν κατέβηκε) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_explanations">Επεξηγήσεις</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Προσοχή!</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
@@ -94,6 +102,7 @@
   <string name="search">Αναζήτηση</string>
   <string name="no_valid_preset">Μη έγκυρη προεπιλογή!</string>
   <!--element information dialog-->
+  <string name="element_information">Πληροφορία στοιχείου</string>
   <string name="nodes">Κόμβοι</string>
   <string name="relation_membership">Σχέση μέλους</string>
   <string name="problem">Πρόβλημα</string>
@@ -108,6 +117,9 @@
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Αντιγραφή ιδιοτήτων</string>
   <!---->
+  <string name="error">Σφάλμα</string>
+  <string name="warning">Προειδοποίηση</string>
+  <string name="minor_issue">Δευτερεύον ζήτημα</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Αυτή η λειτουργία επηρεάζει τα φιλτραρισμένα αντικείμενα!</string>
   <!--This concerns a shown message-->
@@ -161,12 +173,17 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Φωτογραφίες</string>
   <string name="layer_tasks">Καθήκοντα</string>
+  <string name="layer_data">Δεδομένα OSM</string>
+  <string name="layer_data_name">%1$s δεδομένα</string>
   <string name="layer_flush_tile_cache">Ξέπλυμα πλακιδίων μνήμης</string>
   <string name="layer_change_style">Αλλαγή στυλ</string>
   <string name="layer_select_imagery">Επιλογή εικόνας</string>
   <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">Ελάχιστη εστίαση</string>
+  <string name="layer_info_max_zoom">Ανώτερη εστίαση</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Σημεία ελέγχου</string>
+  <string name="undo_redo_title">Αναίρεση - επανάληψη</string>
   <string name="undo_all">Αναίρεση όλων των επόμενων σημείων ελέγχου (ασφαλές)</string>
   <string name="redo_all">Επαναλάβετε όλα τα προηγούμενα σημεία ελέγχου (ασφαλές)</string>
   <!--Feedback activity-->

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-22 13:50+0000\n"
+"PO-Revision-Date: 2019-05-09 09:22+0000\n"
 "Last-Translator: Andrey Golovin\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openstreetmap/presets/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -504,7 +504,7 @@ msgstr ""
 
 #: master_preset.xml:5016(item:name|group:Social_Facilities|preset:Ambulatory_Care)
 msgid "Ambulatory Care"
-msgstr ""
+msgstr "Амбулаторія"
 
 #: master_preset.xml:404(multiselect:display_values|key:cuisine)
 msgid "American"
@@ -1562,7 +1562,7 @@ msgstr "Шпурбус"
 
 #: master_preset.xml:3312(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
-msgstr ""
+msgstr "Автобусна платформа"
 
 #: master_preset.xml:3295(item:name|group:Public_Transport_(Legacy)|preset:Bus_Station)
 msgid "Bus Station"
@@ -1594,7 +1594,7 @@ msgstr ""
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Bust"
-msgstr ""
+msgstr "Бюст"
 
 #: master_preset.xml:7138(item:name|group:Food|preset:Butcher)
 msgid "Butcher"
@@ -1742,7 +1742,7 @@ msgstr ""
 
 #: master_preset.xml:2403(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "Мис"
 
 #: master_preset.xml:2777(group:name|group:Car)
 #: master_preset.xml:2881(check:text|group:Car|preset:Charging_Station|key:car)
@@ -1864,7 +1864,7 @@ msgstr ""
 
 #: master_preset.xml:2691(item:name|group:Aerialway|preset:Chair_Lift)
 msgid "Chair Lift"
-msgstr ""
+msgstr "Крісельний витяг"
 
 #: master_preset.xml:3470(item:name|group:Accommodation|preset:Chalet)
 msgid "Chalet"
@@ -2307,7 +2307,7 @@ msgstr ""
 
 #: master_preset.xml:9852(item:name|group:Offices|preset:Consulate)
 msgid "Consulate"
-msgstr ""
+msgstr "Консульство"
 
 #: master_preset.xml:9856(combo:display_values|group:Offices|preset:Consulate|key:consulate)
 msgid "Consulate general"
@@ -2482,7 +2482,7 @@ msgstr ""
 
 #: master_preset.xml:2634(item:name|group:Railway|preset:Crossing)
 msgid "Crossing"
-msgstr ""
+msgstr "Пішохідний перехід"
 
 #: master_preset.xml:1642(combo:text|group:Waypoints|preset:Traffic_Signal|key:supervised)
 #: master_preset.xml:1675(combo:text|group:Waypoints|preset:Pedestrian_Crossing|key:supervised)
@@ -3005,7 +3005,7 @@ msgstr ""
 
 #: master_preset.xml:2721(item:name|group:Aerialway|preset:Drag_Lift)
 msgid "Drag Lift"
-msgstr ""
+msgstr "Бугельний витяг"
 
 #: master_preset.xml:2724(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Drag lift (generic)"
@@ -3496,7 +3496,7 @@ msgstr "Вогнегасник"
 
 #: master_preset.xml:4902(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
-msgstr ""
+msgstr " Пожежний рукав"
 
 #: master_preset.xml:4911(item:name|group:Emergency|preset:Fire_Hydrant)
 msgid "Fire Hydrant"
@@ -3592,7 +3592,7 @@ msgstr ""
 
 #: master_preset.xml:9471(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "Укладання підлог"
 
 #: master_preset.xml:7795(item:name|group:Other|preset:Florist)
 #: master_preset.xml:7836(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -4036,7 +4036,7 @@ msgstr ""
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "Графіті"
 
 #: master_preset.xml:991(combo:display_values|key:climbing:rock)
 msgid "Granite"
@@ -4818,7 +4818,7 @@ msgstr ""
 
 #: master_preset.xml:9519(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
-msgstr ""
+msgstr "Столяр"
 
 #: master_preset.xml:5532(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:judo)
 msgid "Judo"
@@ -5250,7 +5250,7 @@ msgstr "Шлюз"
 
 #: master_preset.xml:2500(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
-msgstr ""
+msgstr "Шлюз"
 
 #: master_preset.xml:5386(check:text|group:Facilities|preset:Hunting_Stand|key:lockable)
 msgid "Lockable"
@@ -5792,7 +5792,7 @@ msgstr "Змішана"
 
 #: master_preset.xml:2711(item:name|group:Aerialway|preset:Mixed_Lift)
 msgid "Mixed Lift"
-msgstr ""
+msgstr "Змішаний витяг"
 
 #: master_preset.xml:983(check:text|key:climbing:mixed)
 msgid "Mixed climbing"
@@ -5808,7 +5808,7 @@ msgstr ""
 
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Moat"
-msgstr ""
+msgstr "Замковий рів"
 
 #: master_preset.xml:7394(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
@@ -7262,7 +7262,7 @@ msgstr ""
 
 #: master_preset.xml:1667(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr ""
+msgstr "Пішохідний перехід"
 
 #: master_preset.xml:1529(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -8748,7 +8748,7 @@ msgstr ""
 
 #: master_preset.xml:2010(item:name|group:Barriers|preset:Sally_Port)
 msgid "Sally Port"
-msgstr ""
+msgstr "Вилазка"
 
 #: master_preset.xml:8645(item:name|group:Land_use|preset:Salt_Pond)
 msgid "Salt Pond"
@@ -9116,7 +9116,7 @@ msgstr ""
 
 #: master_preset.xml:8513(item:name|group:Nature|preset:Shingle)
 msgid "Shingle"
-msgstr ""
+msgstr "Галечник"
 
 #: master_preset.xml:572(combo:display_values|key:religion)
 #: master_preset.xml:581(combo:display_values|key:religion)
@@ -9293,7 +9293,7 @@ msgstr ""
 
 #: master_preset.xml:2509(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr ""
+msgstr "Стапель"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Slovak"
@@ -11310,7 +11310,7 @@ msgstr ""
 
 #: master_preset.xml:3387(item:name|group:Airport|preset:Windsock)
 msgid "Windsock"
-msgstr ""
+msgstr "Вітровказ"
 
 #: master_preset.xml:7274(item:name|group:Food|preset:Wine)
 msgid "Wine"
@@ -13928,7 +13928,7 @@ msgstr "Видимість"
 #: master_preset.xml:1562(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Crossing"
-msgstr ""
+msgstr "Пішохідний перехід"
 
 #: master_preset.xml:1562(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -14180,7 +14180,7 @@ msgstr ""
 #: master_preset.xml:3379(item:name|group:Airport|preset:Beacon)
 msgctxt "airmark"
 msgid "Beacon"
-msgstr ""
+msgstr "Сигнальний вогонь"
 
 #: master_preset.xml:3400(item:name|group:Airport|preset:Gate)
 msgctxt "airport"
@@ -14873,7 +14873,7 @@ msgstr "Вміст"
 #: master_preset.xml:6457(item:name|group:Man_Made|preset:Beacon)
 msgctxt "man_made"
 msgid "Beacon"
-msgstr ""
+msgstr "Сигнальний вогонь"
 
 #: master_preset.xml:6462(item:name|group:Man_Made|preset:Dolphin)
 msgctxt "man_made"
@@ -15084,7 +15084,7 @@ msgstr "Положення"
 #: master_preset.xml:7062(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Bust"
-msgstr ""
+msgstr "Бюст"
 
 #: master_preset.xml:7062(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"

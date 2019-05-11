@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
-"Last-Translator: Nemigo Galiza <lescamposines@gmail.com>\n"
+"PO-Revision-Date: 2019-05-10 20:28+0000\n"
+"Last-Translator: Ivan Seoane\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8483,7 +8483,7 @@ msgstr "Río"
 
 #: master_preset.xml:2348(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
-msgstr ""
+msgstr "Beira do río"
 
 #: master_preset.xml:1333(item:name|group:Streets|preset:Road_(Unknown_Type))
 msgid "Road (Unknown Type)"
@@ -9894,7 +9894,7 @@ msgstr ""
 #: master_preset.xml:7364(item:name|group:Clothes|preset:Tailor)
 #: master_preset.xml:9687(item:name|group:Crafts|preset:Tailor)
 msgid "Tailor"
-msgstr ""
+msgstr "Xastraría"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Tajik"
@@ -10319,7 +10319,7 @@ msgstr "Tráfico"
 #: master_preset.xml:1683(group:name|group:Traffic_Calming)
 #: master_preset.xml:1684(item:name|group:Traffic_Calming|preset:Traffic_Calming)
 msgid "Traffic Calming"
-msgstr ""
+msgstr "Acougo de tráfico"
 
 #: master_preset.xml:1780(item:name|preset:Traffic_Mirror)
 msgid "Traffic Mirror"

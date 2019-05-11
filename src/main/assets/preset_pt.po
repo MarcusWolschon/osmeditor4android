@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-18 10:51+0000\n"
+"PO-Revision-Date: 2019-04-27 19:12+0000\n"
 "Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -935,7 +935,7 @@ msgstr "Churrasco"
 
 #: master_preset.xml:4956(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Barcelona"
-msgstr ""
+msgstr "Barcelona"
 
 #: master_preset.xml:8559(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
@@ -1024,7 +1024,7 @@ msgstr "Baía"
 
 #: master_preset.xml:4956(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Bayonet"
-msgstr ""
+msgstr "Baioneta"
 
 #: master_preset.xml:2382(item:name|group:Water|preset:Beach)
 msgid "Beach"
@@ -1172,7 +1172,7 @@ msgstr "Energia a biofuel"
 
 #: master_preset.xml:2848(check:text|group:Car|preset:Fuel|key:fuel:biogas)
 msgid "Biogas"
-msgstr ""
+msgstr "Biogás"
 
 #: master_preset.xml:6608(item:name|group:Power_Generator|preset:Biogas_Power_Generator)
 msgid "Biogas Power Generator"
@@ -1376,7 +1376,7 @@ msgstr "Ramo"
 
 #: master_preset.xml:9847(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Branch embassy"
-msgstr ""
+msgstr "Missão operacional de embaixada"
 
 #: master_preset.xml:631(text:text|key:branch)
 #: master_preset.xml:657(text:text|key:branch)
@@ -1393,11 +1393,11 @@ msgstr "Marca"
 
 #: master_preset.xml:344(text:text|key:brand:wikidata)
 msgid "Brand wikidata entry"
-msgstr ""
+msgstr "Página da marca na Wikidata"
 
 #: master_preset.xml:343(text:text|key:brand:wikipedia)
 msgid "Brand wikipedia entry"
-msgstr ""
+msgstr "Página da marca na Wikipédia"
 
 #: master_preset.xml:2273(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
@@ -1722,7 +1722,7 @@ msgstr "Latas"
 #: master_preset.xml:581(combo:display_values|key:religion)
 #: master_preset.xml:590(combo:display_values|key:religion)
 msgid "Caodaism"
-msgstr ""
+msgstr "Caodaísmo"
 
 #: master_preset.xml:2801(text:text|group:Car|preset:Parking_Space|key:capacity)
 #: master_preset.xml:2875(combo:text|group:Car|preset:Charging_Station|key:capacity)
@@ -1991,7 +1991,7 @@ msgstr "Igreja"
 #: master_preset.xml:575(combo:display_values|key:denomination)
 #: master_preset.xml:596(combo:display_values|key:denomination)
 msgid "Church of Scotland"
-msgstr ""
+msgstr "Igreja da Escócia"
 
 #: master_preset.xml:8034(list_entry:short_description|preset:Vending_Machine|value:cigarettes)
 msgid "Cigarettes"
@@ -2294,7 +2294,7 @@ msgstr "Centro de Conferências"
 #: master_preset.xml:581(combo:display_values|key:religion)
 #: master_preset.xml:590(combo:display_values|key:religion)
 msgid "Confucian"
-msgstr ""
+msgstr "Confucionismo"
 
 #: master_preset.xml:575(combo:display_values|key:denomination)
 msgid "Conservative"
@@ -2302,11 +2302,11 @@ msgstr "Judaísmo conservador"
 
 #: master_preset.xml:9856(combo:display_values|group:Offices|preset:Consulate|key:consulate)
 msgid "Consular agency"
-msgstr ""
+msgstr "Agência consular"
 
 #: master_preset.xml:9856(combo:display_values|group:Offices|preset:Consulate|key:consulate)
 msgid "Consular office"
-msgstr ""
+msgstr "Posto consular"
 
 #: master_preset.xml:9852(item:name|group:Offices|preset:Consulate)
 msgid "Consulate"
@@ -2314,7 +2314,7 @@ msgstr "Consulado"
 
 #: master_preset.xml:9856(combo:display_values|group:Offices|preset:Consulate|key:consulate)
 msgid "Consulate general"
-msgstr ""
+msgstr "Consulado geral"
 
 #: master_preset.xml:10026(item:name|group:Offices|preset:Consulting)
 msgid "Consulting"
@@ -2388,11 +2388,11 @@ msgstr "Distrito / condado"
 
 #: master_preset.xml:4957(text:text|group:Emergency|preset:Fire_Hydrant|key:couplings:diameters)
 msgid "Coupling diameters (separated by ;)"
-msgstr ""
+msgstr "Diâmetros das bocas separados por ;"
 
 #: master_preset.xml:4956(combo:text|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Coupling standard"
-msgstr ""
+msgstr "Boca padrão"
 
 #: master_preset.xml:4604(item:name|group:Public_Building|preset:Courthouse)
 msgid "Courthouse"
@@ -2666,7 +2666,7 @@ msgstr "Defensivo"
 
 #: master_preset.xml:9847(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Delegation"
-msgstr ""
+msgstr "Delegação"
 
 #: master_preset.xml:7173(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -3380,7 +3380,7 @@ msgstr "Comércio justo"
 
 #: master_preset.xml:3841(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Falconry"
-msgstr ""
+msgstr "Falcoaria"
 
 #: master_preset.xml:5134(combo:display_values|group:Clubs|preset:Club|key:club)
 msgid "Fan"
@@ -4417,11 +4417,11 @@ msgstr "Homeopatia"
 
 #: master_preset.xml:9856(combo:display_values|group:Offices|preset:Consulate|key:consulate)
 msgid "Honorary consul"
-msgstr ""
+msgstr "Cônsul honorário"
 
 #: master_preset.xml:6728(list_entry:short_description|group:Power_Generator|preset:Tidal_Water_Turbine|value:horizontal_axis)
 msgid "Horizontal axis"
-msgstr ""
+msgstr "Eixo horizontal"
 
 #: master_preset.xml:4047(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:horizontal_bar)
 msgid "Horizontal bar"
@@ -4587,7 +4587,7 @@ msgstr "Islandês"
 #: master_preset.xml:575(combo:display_values|key:denomination)
 #: master_preset.xml:596(combo:display_values|key:denomination)
 msgid "Iglesia ni cristo"
-msgstr ""
+msgstr "Iglesia ni cristo"
 
 #: master_preset.xml:8859(text:text|group:Addresses_and_Contact|preset:Contact|key:image)
 #: master_preset.xml:8872(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:image)
@@ -4738,7 +4738,7 @@ msgstr "Taxa de acesso à Internet"
 
 #: master_preset.xml:817(combo:text|key:interval)
 msgid "Interval (M, MM, HH:MM, or HH:MM:SS)"
-msgstr ""
+msgstr "Intervalo (M, MM, HH:MM, ou HH:MM:SS)"
 
 #: master_preset.xml:2334(check:text|group:Water|preset:Water|key:intermittent)
 #: master_preset.xml:2353(check:text|group:Water|preset:Riverbank|key:intermittent)
@@ -6510,7 +6510,7 @@ msgstr ""
 #: master_preset.xml:596(combo:display_values|key:denomination)
 #: master_preset.xml:599(combo:display_values|key:denomination)
 msgid "Nondenominational"
-msgstr ""
+msgstr "Não denominativa"
 
 #: master_preset.xml:1385(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:none)
 #: master_preset.xml:1411(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
@@ -6592,7 +6592,7 @@ msgstr "Número de circuitos"
 
 #: master_preset.xml:4955(combo:text|group:Emergency|preset:Fire_Hydrant|key:couplings)
 msgid "Number of couplings"
-msgstr ""
+msgstr "Número de bocas"
 
 #: master_preset.xml:693(combo:text|key:devices)
 msgid "Number of devices"
@@ -6952,7 +6952,7 @@ msgstr "Orgânico (em desuso)"
 
 #: master_preset.xml:989(combo:text|key:climbing:orientation)
 msgid "Orientation"
-msgstr ""
+msgstr "Orientação"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Oriya"
@@ -8549,7 +8549,7 @@ msgstr "Romeno"
 #: master_preset.xml:575(combo:display_values|key:denomination)
 #: master_preset.xml:596(combo:display_values|key:denomination)
 msgid "Romanian orthodox"
-msgstr ""
+msgstr "Ortodoxa romena"
 
 #: master_preset.xml:8980(role:text|group:Relations|preset:Building|key:edge)
 msgid "Roof edge"
@@ -8615,7 +8615,7 @@ msgstr "Rede de rotas"
 
 #: master_preset.xml:5727(combo:text|group:Sport|preset:Climbing_route|key:climbing:length)
 msgid "Route length (m)"
-msgstr ""
+msgstr "Comprimento da rota (m)"
 
 #: master_preset.xml:8927(list_entry:display_value|group:Relations|preset:Relations|value:route_master)
 msgid "Route master"
@@ -8727,7 +8727,7 @@ msgstr "Seleiro"
 
 #: master_preset.xml:3841(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Safari park"
-msgstr ""
+msgstr "Parque de safaris"
 
 #: master_preset.xml:6046(item:name|group:Motorsport|preset:Safety_Training)
 msgid "Safety Training"
@@ -9010,7 +9010,7 @@ msgstr "Sérvio"
 #: master_preset.xml:575(combo:display_values|key:denomination)
 #: master_preset.xml:596(combo:display_values|key:denomination)
 msgid "Serbian orthodox"
-msgstr ""
+msgstr "Ortodoxa sérvia"
 
 #: master_preset.xml:209(combo:text|key:service_times)
 msgid "Service Times"
@@ -10315,7 +10315,7 @@ msgstr "Medicina tradicional chinesa"
 
 #: master_preset.xml:980(check:text|key:climbing:trad)
 msgid "Traditional climbing"
-msgstr ""
+msgstr "Escalada tradicional"
 
 #: master_preset.xml:6487(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:traffic)
 msgid "Traffic"
@@ -10676,17 +10676,17 @@ msgstr "Unidade / suite"
 #: master_preset.xml:581(combo:display_values|key:religion)
 #: master_preset.xml:590(combo:display_values|key:religion)
 msgid "Unitarian universalist"
-msgstr ""
+msgstr "Unitário-universalismo"
 
 #: master_preset.xml:575(combo:display_values|key:denomination)
 #: master_preset.xml:596(combo:display_values|key:denomination)
 msgid "United"
-msgstr ""
+msgstr "Unida"
 
 #: master_preset.xml:575(combo:display_values|key:denomination)
 #: master_preset.xml:596(combo:display_values|key:denomination)
 msgid "United methodist"
-msgstr ""
+msgstr "Metodista unida"
 
 #: master_preset.xml:4706(item:name|group:Education|preset:University)
 msgid "University"
@@ -10841,7 +10841,7 @@ msgstr "Versão"
 
 #: master_preset.xml:6730(list_entry:short_description|group:Power_Generator|preset:Tidal_Water_Turbine|value:vertical_axis)
 msgid "Vertical axis"
-msgstr ""
+msgstr "Eixo vertical"
 
 #: master_preset.xml:5134(combo:display_values|group:Clubs|preset:Club|key:club)
 msgid "Veterans"
@@ -11289,7 +11289,7 @@ msgstr "Vida selvagem"
 
 #: master_preset.xml:3841(combo:display_values|group:Leisure|preset:Zoo|key:zoo)
 msgid "Wildlife park"
-msgstr ""
+msgstr "Parque de vida selvagem"
 
 #: master_preset.xml:6750(item:name|group:Power_Generator|preset:Wind_Turbine)
 msgid "Wind Turbine"
@@ -12842,7 +12842,7 @@ msgstr "Denominação religiosa"
 #: master_preset.xml:602(combo:display_values|key:denomination)
 msgctxt "jewish"
 msgid "Nondenominational"
-msgstr ""
+msgstr "Não denominativa"
 
 #: master_preset.xml:602(combo:display_values|key:denomination)
 msgctxt "jewish"
@@ -14016,17 +14016,17 @@ msgstr "Utilização"
 #: master_preset.xml:4924(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: master_preset.xml:4924(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: master_preset.xml:4924(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "8"
-msgstr ""
+msgstr "8"
 
 #: master_preset.xml:4917(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:underground)
 msgctxt "pipeline"
@@ -14072,12 +14072,12 @@ msgstr "Pressão (em bares)"
 #: master_preset.xml:4924(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "Pressurized"
-msgstr ""
+msgstr "Pressurizado"
 
 #: master_preset.xml:4924(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "Suction"
-msgstr ""
+msgstr "Sucção"
 
 #: master_preset.xml:4915(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:type)
 msgctxt "pipeline"
@@ -14148,7 +14148,7 @@ msgstr ""
 #: master_preset.xml:3017(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Informal"
-msgstr ""
+msgstr "Informal"
 
 #: master_preset.xml:3017(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"

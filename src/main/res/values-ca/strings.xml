@@ -15,21 +15,51 @@
   <string name="upload_problem_message">Algunes dades no s\'han pujat. Torneu-ho a intentar més tard.</string>
   <string name="bad_request_message">L\'API ha respost amb un error, si us plau, guardeu les vostres dades i informeu el problema:\n\n</string>
   <string name="upload_conflict_title">Actualitzant conflicte</string>
+  <string name="upload_conflict_message_version">%1$s \n és la versió local%2$d \ni el servidor %3$d</string>
+  <string name="upload_conflict_message_deleted">%1$s \n és la versió local%2$d \n i es va suprimir del servidor</string>
+  <string name="upload_conflict_message_referential">%1$s \ns\'ha suprimit localment, però té referències al servidor</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \n ja estava suprimit al servidor</string>
   <string name="use_local_version">Usa la versió local</string>
   <string name="use_server_version">Usa la versió del servidor</string>
   <string name="no_login_data_title">No s\'ha pogut autenticar</string>
+  <string name="no_login_data_message">Si estás utilitzant OAuth, probablement s’està produint un error, envia un informe de problema, si utilitzes el nom d\'usuari i la contrasenya (no es recomana), comprova que s’han introduït correctament.</string>
   <string name="no_connection_title">No hi ha connexió amb el servidor</string>
+  <string name="no_connection_message">No s’ha pogut connectar ara al servidor OSM. Comprova que estás connectat a Internet o torna-ho a provar.</string>
+  <string name="ssl_handshake_failed">No s’ha pogut connectar amb el servidor OSM perquè la negociació HTTPS ha fallat. Intenta canviar a una connexió no xifrada a les preferències de l’API.</string>
+  <string name="wrong_login_data_title">No s’ha pogut autenticar </string>
+  <string name="wrong_login_data_message">Si utilitzes OAuth, torna a autenticar-te i torna-ho a provar. si utilitzes el nom d\'usuari i la contrasenya (no es recomana), comprova que s’han introduït correctament</string>
   <string name="wrong_login_data_re_authenticate">Torna a autenticar</string>
+  <string name="forbidden_login_title">Entrada prohibida</string>
   <string name="not_found_title">No s\'ha trobat l\'element</string>
+  <string name="not_found_message">L’API no ha pogut trobar un element existent ni un conjunt de canvis amb l’identificador especificat. id.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Error desconegut</string>
+  <string name="unknown_error_message">El codi d\'error retornat des de l\'API o el missatge no s\'ha pogut processar. .&lt;br&gt;&lt;br&gt;</string>
+  <string name="no_data_title">No hi ha informació</string>
+  <string name="no_data_message">La font de dades configurada no té cobertura aquí. </string>
   <string name="go_to_openstreetmap">Aneu a openstreetmap.org</string>
   <string name="data_conflict_title">Conflicte de versions</string>
+  <string name="data_conflict_message">Les dades de la baixada entraran en conflicte amb les teves modificacions. Puja les teves dades abans de tornar-ho a provar.</string>
+  <string name="invalid_bounding_box_title">Quadre de delimitació no vàlid </string>
+  <string name="invalid_bounding_box_message">L’àrea seleccionada no s’ajusta a les restriccions de l’API, tria\'n una altra.</string>
   <string name="bounding_box_too_large_title">Àrea de descàrrega massa gran</string>
+  <string name="bounding_box_too_large_message">L’àrea que intentes baixar és massa gran o conté massa dades.\n\n Tria una àrea més petita i torna-ho a provar.</string>
+  <string name="api_offline_title">API fora de línia </string>
+  <string name="api_offline_message">L\'API està actualment fora de línia, no es poden recuperar ni escriure dades. </string>
+  <string name="out_of_memory_title">Sense memòria </string>
+  <string name="out_of_memory_message">Vespucci no va poder carregar les dades sol·licitades. Comença de nou i carrega una àrea més petita.</string>
+  <string name="out_of_memory_dirty_message">Vespucci no va poder carregar les dades sol·licitades. Desa les teves modificacions, comença de nou i carrega una àrea més petita.</string>
+  <string name="invalid_data_received_title">Les dades rebudes no són vàlides </string>
+  <string name="invalid_data_received_message">Si no has causat l’error, envia un informe d’error.</string>
+  <string name="invalid_data_read_title">Dades llegides no vàlides </string>
+  <string name="invalid_data_read_message">Consulta la documentació sobre els formats de fitxer admesos i els camps de dades necessaris.</string>
   <string name="file_write_failed_title">No s\'ha pogut escriure en el fitxer</string>
   <string name="file_write_failed_message">Vespucci no pot canviar ni desar el fitxer.</string>
   <string name="welcome_title">Us donem la benvinguda</string>
+  <string name="welcome_message">Gràcies per instal·lar Vespucci\n&lt;br&gt;&lt;br&gt;Per començar has de conèixer tres coses\n&lt;ul&gt;&lt;li&gt;si toques la icona de bloqueig a la cantonada superior esquerra es canviarà entre bloquejat (sense edició ) i el mode desbloquejat,,&lt;/li&gt;&lt;li&gt; per editar OpenStreetMap necessites baixar-te les dades de la zona que vols canviar (amplia abans de fer-ho),&lt;/li&gt;&lt;li&gt; per afegir un objecte nou: toca el botó verd gran i selecciona el que vols afegir i, a continuació, toca la posició que vulguis localitzar. &lt;/li&gt;&lt;/ul&gt;\nComença a mapejar i diverteix-te !</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;El teu dispositiu té \"tecles programables\" ocultes. Llisca des d\'abaix per mostrar-les de nou.</string>
   <string name="read_introduction">Llegiu la introducció</string>
   <string name="upgrade_title">Aquesta és una versió de Vespucci nova</string>
+  <string name="upgrade_message">Les noves funcions i el comportament es detallen a les notes de la versió. </string>
   <string name="read_upgrade">Llegeix sobre la nova versió</string>
   <string name="progress_title">Carregant</string>
   <string name="progress_message">S\'està carregant a la memòria...</string>
@@ -42,6 +72,8 @@
   <string name="progress_preset_message">S\'està baixant la preconfiguració</string>
   <string name="progress_running_message">S\'està executant...</string>
   <string name="progress_oauth">S\'està carregant el vostre compte d\'openstreemap.org per a l\'autorització Oath...</string>
+  <string name="progress_building_imagery_database">Creant base de dades d\'imatges ...</string>
+  <string name="progress_query_oam">Consultant OAM ...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">S\'ha suprmit «%1$s»</string>
   <string name="changes_changed">S\'ha canviat «%1$s»</string>
@@ -55,12 +87,16 @@
   <string name="upload_comment_label">Comentari:</string>
   <string name="upload_source_label">Origen:</string>
   <string name="upload_close_changeset_label">Tanca el conjunt de canvis:</string>
+  <string name="upload_request_review_label">Sol·licitud de revisió: </string>
   <!---->
   <string name="upload_gpx_description_label">Descripció</string>
   <string name="upload_gpx_tags_label">Etiquetes</string>
   <string name="upload_gpx_visibility_label">Visibilitat</string>
+  <string name="upload_validation_error_empty_comment">El comentari no hauria de ser buit .</string>
+  <string name="upload_validation_error_empty_source">La font no hauria de ser buida. </string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nota nova</string>
+  <string name="openstreetbug_new_bug">Informar d\'un problema</string>
   <string name="openstreetbug_bug_title">Problema</string>
   <string name="openstreetbug_new_nodeway">Crea un node o via</string>
   <string name="openstreetbug_edit_title">Edita la nota</string>
@@ -68,38 +104,55 @@
   <string name="openstreetbug_commit_ok">S\'han desat els canvis en la tasca</string>
   <string name="openstreetbug_commit_fail">No s\'han pogut desar els canvis en la tasca</string>
   <string name="openstreetbug_unknown_task_type">Tipus de tasca desconegut</string>
+  <string name="openstreetbug_not_supported">%1$s no és compatible.</string>
   <string name="note_description">Nota: %1$s - %2$s</string>
   <string name="bug_description">%1$s: %2$s - %3$s</string>
   <string name="generic_bug">Error</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Personalitzat</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;darrera actualització:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_element_1">%1$s (no baixat) # %2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">Tasca de MapRoulette</string>
   <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
   <string name="maproulette_task_explanations">Explicacions</string>
+  <string name="maproulette_task_set_apikey">Establir la clau d\'API de MapRoulette</string>
+  <string name="maproulette_task_apikey_not_set">No s\'ha pogut desar la clau d\'API de MapRoulette</string>
+  <string name="maproulette_task_apikey_set"> Clau d\'API de MapRoulette desada</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenció!</string>
+  <string name="unsaved_data_message">Els canvis no desats es descartaran si procedeixes.</string>
   <string name="unsaved_data_proceed">Descarta i continua</string>
   <!--Imagery offset dialog-->
   <string name="imagery_offset_title">Desplaçament de la imatge</string>
   <string name="imagery_offset_description">Descripció</string>
+  <string name="imagery_offset_not_found">No es troben compensacions en un radi de 10 km.</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_offset">Deplaçament</string>
   <string name="imagery_offset_date">Creat</string>
   <string name="imagery_offset_zoom">Escala</string>
   <string name="imagery_offset_distance">Distància</string>
+  <string name="zoom_and_offset">Z %1$d offset %2$s/%3$s</string>
+  <string name="set_position_datum_label">Dades geodèsiques</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Suggeriment del nom</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">Aquest suggeriment pot substituir alguns valors d’etiquetes amb altres més populars.</string>
   <string name="search_results_title">Resultats de la cerca</string>
   <string name="search_online">Cerca en línia</string>
   <string name="find_message">Introduïu la cadena a cercar</string>
   <string name="geocoder_prompt">amb</string>
+  <string name="geocoder_limit_label">a vista</string>
   <!---->
+  <string name="preset_search_hint">Cadena de cerca predefinida</string>
   <string name="preset_autopreset">Preconfiguració automàtica</string>
   <string name="search">Cercar</string>
   <string name="no_valid_preset">Preconfiguració no valida</string>
   <string name="save_file">Desa a</string>
+  <string name="existing_track_title">Dades de la pista GPX existents</string>
+  <string name="existing_track_message">Ja tens dades de la pista GPX existents. És possible que vulguis cancel·lar i desar primer.</string>
+  <string name="delete_tags">Vols eliminar totes les etiquetes de l’objecte \"%1$s\"?</string>
   <!--element information dialog-->
   <string name="element_information">Informació de l\'element</string>
   <string name="id">ID</string>
@@ -115,7 +168,9 @@
   <string name="last_edited">Darrera modificació</string>
   <string name="original">Original</string>
   <string name="current">Actual</string>
+  <string name="goto_element">Anar a l\'ítem</string>
   <!--GeoJSON feature display dialog-->
+  <string name="feature_information">Informació de característica de GeoJSON</string>
   <string name="copy_properties">Copia les propietats</string>
   <!---->
   <string name="error">Error</string>
@@ -124,30 +179,42 @@
   <string name="unknown_error_level">Nivell d\'error desconegut</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Aquesta operació afecta a objectes filtrats!</string>
+  <string name="attached_object_warning_message">L’objecte modificat està connectat a elements ocults que canviaran amb ell.</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_continue">D\'acord, continua mostrant</string>
   <!--This concerns a shown message-->
   <string name="attached_object_warning_stop">D\'acord, descarta-ho</string>
   <!--debug dialog-->
   <string name="send_debug_information">Envia la informació de depuració</string>
   <!--JS console dialog-->
   <string name="evaluate">Avalua</string>
+  <string name="js_console_msg_live">Mode en directe.</string>
   <string name="js_console_msg_debug">Mode depuració!</string>
   <!--Validator dialogs-->
+  <string name="validator_title">Tauler de regles del validador%1$s</string>
+  <string name="edit_resurvey_title">Editar entrada del resondeig</string>
+  <string name="add_resurvey_title">Afegir entrada del resondeig</string>
   <string name="edit_check_title">Edita l\'entrada de control</string>
   <string name="add_check_title">Afegeix una entrada de control</string>
   <string name="max_age">Edat màx.</string>
   <string name="age">Edat</string>
+  <string name="check_opt">Requereix\n opcional</string>
+  <string name="check_optional">Requereix opcional</string>
+  <string name="add_resurvey_entry">Afegir entrada del resondeig</string>
   <string name="add_check_entry">Afegeix una entrada de control</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relació buida</string>
+  <string name="empty_relation_message">La relació %1$s no té membres.\n\nDeixant-la tal i com està la convertirà en no editable a Vespucci.</string>
   <string name="add_members">Afegeix-hi membres</string>
   <string name="leave_empty">Deixa-ho buit</string>
   <!--GPX waypoint dialog-->
+  <string name="waypoint_title">Punt GPX</string>
   <string name="waypoint_description">WPT: %1$s</string>
   <string name="description">Descripció</string>
   <string name="created">Creació</string>
   <string name="altitude">Altitud</string>
   <string name="create_osm_object">Crea un objecte OSM</string>
+  <string name="create_osm_object_search">Crear un objecte OSM des de la cerca predefinida</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imatges pesonalitzades</string>
   <string name="oam_layer_title">Imatges OAM</string>
@@ -159,11 +226,15 @@
   <string name="coverage_left">Esquerra</string>
   <string name="coverage_right">Dreta</string>
   <string name="coverage_bottom">Part inferior</string>
+  <string name="toast_invalid_box">Quadre de delimitació no vàlid o incomplet</string>
   <string name="delete_layer">Voleu suprimir la capa?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Estil de la capa</string>
+  <string name="layer_style_stroke_width">Amplada del traç</string>
   <string name="layer_style_color">Color</string>
   <string name="layer_style_label">Etiqueta</string>
+  <string name="json_object_not_displayed">Objecte JSON (no es mostra)</string>
+  <string name="json_array_not_displayed">Matriu JSON (no es mostra)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_grid">Graella</string>
@@ -171,15 +242,31 @@
   <string name="layer_photos">Fotos</string>
   <string name="layer_tasks">Tasques</string>
   <string name="layer_data">Dades OSM</string>
+  <string name="layer_data_name">dades %1$s</string>
+  <string name="layer_flush_tile_cache">Alliberar la memòria cau de tessel·les</string>
   <string name="layer_change_style">Canvia l\'estil</string>
   <string name="layer_select_imagery">Seleccioneu la imatgeria</string>
   <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">Ampliació mínima</string>
+  <string name="layer_info_max_zoom">Ampliació màxima</string>
+  <string name="layer_info_start_date">Data d\'inici</string>
+  <string name="layer_info_end_date">Data de finalització</string>
+  <string name="layer_info_terms">Termes</string>
+  <string name="layer_info_privacy_policy">Política de privacitat</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punts de control</string>
   <string name="undo_redo_title">Desfés - refés</string>
+  <string name="undo_redo_one">Només el punt de control seleccionat (no segur)</string>
+  <string name="undo_all">Desfer tots els punts de control posteriors (segur)</string>
+  <string name="redo_all">Refer tots els punts de control anteriors (segur)</string>
   <!--Feedback activity-->
+  <string name="feedback_with_displayname">Enviar amb el teu nom d\'usuari d\'OpenStreetMap</string>
+  <string name="feedback_displayname_hint">El nom d\'usuari d’OpenStreetMap encara no s’ha recuperat</string>
+  <string name="feedback_title">Comentaris pels desenvolupadors</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Baixar dades d\'OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">Atura el seguiment i suprimeix els punts de seguiment emmagatzemats. Això no es pot desfer.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -192,7 +279,9 @@
   <!--Toaster-->
   <string name="toast_name_empty">Trieu un nom</string>
   <string name="toast_url_empty">Introduïu un URL</string>
+  <string name="toast_min_zoom">Estableix un zoom mínim inferior al màxim</string>
   <string name="toast_no_changes">No heu canviat res encara...</string>
+  <string name="toast_unsaved_changes">Penja els teus canvis sense desar primer.</string>
   <string name="clear_anyway">Voleu buidar-ho igualment?</string>
   <string name="toast_upload_success">Pujat al servidor OSM.</string>
   <string name="toast_not_in_edit_range">Apropeu-vos per a editar (volum ↑/↓)</string>
@@ -201,14 +290,27 @@
   <string name="toast_save_failed">No s\'ha pogut desar</string>
   <string name="toast_export_failed">No s\'ha pogut exportar</string>
   <string name="toast_export_success">S\'ha exportat a %1$s</string>
+  <string name="toast_preset_overwrote_tags">Nota: les predefinicions sobreescriuen les etiquetes</string>
+  <string name="toast_oneway_reversed">Has invertit l\'orientació d\'un carrer o una via amb etiquetes direccionals. Comprova les etiquetes i corregeix-les si cal.</string>
+  <string name="toast_merge_tag_conflict">Has fusionat elements amb valors d’etiquetes contradictoris, direccionals o amb diferents rols en la mateixa relació. Comprova les etiquetes i rols i corregeix-los si cal.</string>
+  <string name="toast_potential_merge_tag_conflict">Intentes fusionar elements amb valors d’etiquetes conflictius.\n\nComprova les etiquetes i corregeix-les abans de tornar-ho a provar.</string>
+  <string name="toast_state_file_failed">Fitxer no vàlid o corromput.</string>
   <string name="toast_way_nodes_moved">%1$d nodes en la via moguda</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Teniu un missatge OSM per llegir</item>
     <item quantity="other">Teniu %1$d missatges OSM per llegir</item>
   </plurals>
   <string name="read_mail">Llegeix</string>
+  <string name="toast_photo_indexing_started">Comença l\'escaneig de fotos geo-referenciades</string>
+  <string name="toast_photo_indexing_finished">Acaba l\'escaneig de fotos geo-referenciades</string>
+  <string name="toast_download_failed">Baixada fallida amb codi d\'error %1$d, missatge %2$s</string>
+  <string name="toast_unsurveyed_road">Carretera no revisada</string>
   <string name="toast_noname">Manca el nom o la referència a la carretera</string>
   <string name="toast_notype">Manca el tipus de relació</string>
+  <string name="toast_untagged_way">via no etiquetada</string>
+  <string name="toast_untagged_relation">relació no etiquetada</string>
+  <string name="toast_unconnected_end_node">El node està a prop d’element al qual podria connectar-se</string>
+  <string name="toast_oauth_retry">Intenta pujar de nou després de permetre l’accés a OAuth al teu compte d\'OSM.</string>
   <string name="toast_timeout">Temps esgotat del servidor</string>
   <string name="coordinates_out_of_range">La longitud ha de ser un valor entre -180° i +180°, i la latitud entre -85° i 85°</string>
   <string name="toast_nothing_found">No s\'han trobat resultats</string>
@@ -538,14 +640,22 @@
   <string name="listedit_use_translations">Usa les traduccions</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualitza la preconfiguració</string>
+  <string name="preset_download_missing_images">Arxiu de predefinits baixat. Tanmateix, algunes icones desaparegudes no hi són.</string>
+  <string name="preset_download_title">Baixador de predefinits</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Afegeix una preconfiguració</string>
   <string name="urldialog_preset_exists">Aquesta preconfiguració ja existeix</string>
+  <string name="urldialog_preset_download_successful">Predefinits baixats</string>
+  <string name="urldialog_api_exists">Un API amb aquest URL ja existeix. Tanmateix, pots afegir-ne un altre (p. ex. per canviar de comptes fàcilment).</string>
   <string name="urldialog_add_api">Afegeix una API</string>
   <string name="urldialog_nodata_text">L\'URL de configuració no conté dades vàlides.</string>
+  <string name="urldialog_add_geocoder">Afegir geocodificador</string>
   <!--API configuration-->
   <string name="api_name">Nom de l\'API</string>
   <string name="api_url">URL de l\'API</string>
+  <string name="readonly_url">URL de l\'API de Només Lectura (opcional)</string>
+  <string name="notes_url">URL de l\'API de Notes (opcional)</string>
+  <string name="copy_of">Còpia de %1$s</string>
   <!--common terms-->
   <string name="add">Afegeix</string>
   <string name="edit">Edita</string>
@@ -557,12 +667,17 @@
   <string name="state">Estat</string>
   <!---->
   <string name="empty_list">Sense resultats</string>
+  <string name="geocoder_type">Tipus de geocodificador</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Preconfiguració</string>
   <string name="api">API</string>
   <string name="undo">Desfés</string>
   <string name="redo">Refés</string>
   <string name="undo_nothing">no hi ha res a desfer</string>
+  <string name="tracking_active_title">Servei en segon pla de Vespucci</string>
+  <string name="tracking_active_title_short">Servei en segon pla actiu</string>
+  <string name="tracking_active_text">Gravar una pista GPX o autobaixant.</string>
+  <string name="tracking_long_text">Vespucci està gravant una pista GPX o autobaixant. Per sortir completament, prem el botó de sota o el botó Enrere de l’app.</string>
   <string name="gps_failure">No s\'ha pogut habilitar el GPS</string>
   <!--element description-->
   <string name="address_housenumber">Direcció %1$s</string>
@@ -579,6 +694,7 @@
   <string name="undo_action_split_ways">Divisió de vies</string>
   <string name="undo_action_split_way">Divisió de via</string>
   <string name="undo_action_merge_ways">Fusió de vies</string>
+  <string name="undo_action_reverse_way">Inversió de via</string>
   <string name="undo_action_set_tags">Etiquetatge</string>
   <string name="undo_action_join">Unió</string>
   <string name="undo_action_unjoin_ways">Separació de vies</string>
@@ -588,9 +704,14 @@
   <string name="undo_action_cut">Retalla</string>
   <string name="undo_action_paste">Enganxa</string>
   <string name="undo_action_rotateway">Rotació de via</string>
+  <string name="undo_action_orthogonalize">Quadratura per a la via</string>
+  <string name="undo_action_circulize">Organitzar en cercle</string>
   <string name="undo_action_fix_conflict">Resolució de conflicte</string>
   <string name="undo_action_extract_node">Extracció de node</string>
+  <string name="undo_action_apply_osc">Aplicar fitxer OSC</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci ha deixat de funcionar o es va trobar amb un problema greu la darrera vegada que es va executar\n\nAjuda\'ns fent clic a \'D\'acord\' per enviar un informe d\'error.\n</string>
+  <string name="crash_dialog_comment_prompt">Afegeix qualsevol informació addicional que creguis que pot ajudar i (opcionalment) la teva adreça de correu electrònic si vols rebre comentaris.\n\nGràcies.</string>
   <string name="report_success">S\'ha reportat.</string>
   <string name="report_failure">No s\'ha pogut enviar l\'informe.</string>
   <!--Exceptions messages-->
@@ -617,8 +738,35 @@
   <string name="position">Posició</string>
   <string name="type">Tipus</string>
   <string name="object">Objecte</string>
+  <string name="deleterelation_relation_description">Estàs a punt de suprimir una relació que és membre d’una o més relacions. L’eliminació d’aquesta relació d\'altres relacions pot fer que el renderitzat no sigui correcte.</string>
   <string name="deleterelation">Suprimeix la relació</string>
+  <string name="delete_from_relation_description">Estàs a punt de suprimir aquest element d\'una relació.</string>
+  <string name="unset_relation_type">Esborrar el tipus de relació</string>
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 dia</item>
+    <item quantity="other">%1$d dies</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 hora</item>
+    <item quantity="other">%1$d hores</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 minut</item>
+    <item quantity="other">%1$d minuts</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 segon</item>
+    <item quantity="other">%1$d segons</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 km</item>
+    <item quantity="other">%1$d kms</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 metre</item>
+    <item quantity="other">%1$d metres</item>
+  </plurals>
   <!--Help system-->
   <string name="toast_nohelp">No hi ha cap ajuda.</string>
   <!--Arrays-->
@@ -628,6 +776,7 @@
     <item>rastrejable</item>
     <item>identificable</item>
   </string-array>
+  <string-array name="gps_source"/>
   <string-array name="bug_state">
     <item>Obert</item>
     <item>Tancat</item>
@@ -662,6 +811,7 @@
     <item>Força</item>
     <item>Sense barra d\'estat</item>
   </string-array>
+  <string-array name="map_orientation_entries"/>
   <string-array name="tagfilter_type_entries">
     <item>Tot</item>
     <item>Nodes</item>

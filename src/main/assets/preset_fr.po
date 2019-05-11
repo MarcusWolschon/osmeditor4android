@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-18 14:04+0000\n"
+"PO-Revision-Date: 2019-05-09 09:15+0000\n"
 "Last-Translator: Julien Lepiller <transifex@lepiller.eu>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3498,7 +3498,7 @@ msgstr "Extincteur d'incendie"
 
 #: master_preset.xml:4902(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
-msgstr ""
+msgstr "Tuyau d'incendie"
 
 #: master_preset.xml:4911(item:name|group:Emergency|preset:Fire_Hydrant)
 msgid "Fire Hydrant"
@@ -3594,7 +3594,7 @@ msgstr ""
 
 #: master_preset.xml:9471(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "Poseur de sol"
 
 #: master_preset.xml:7795(item:name|group:Other|preset:Florist)
 #: master_preset.xml:7836(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -4038,7 +4038,7 @@ msgstr "Gouvernement"
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "Graffiti"
 
 #: master_preset.xml:991(combo:display_values|key:climbing:rock)
 msgid "Granite"
@@ -4820,7 +4820,7 @@ msgstr "Juive"
 
 #: master_preset.xml:9519(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
-msgstr ""
+msgstr "Menuisier"
 
 #: master_preset.xml:5532(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:judo)
 msgid "Judo"
@@ -5810,7 +5810,7 @@ msgstr "Lu-Di 12:00-22:00"
 
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Moat"
-msgstr ""
+msgstr "Douves"
 
 #: master_preset.xml:7394(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
@@ -8750,7 +8750,7 @@ msgstr ""
 
 #: master_preset.xml:2010(item:name|group:Barriers|preset:Sally_Port)
 msgid "Sally Port"
-msgstr ""
+msgstr "Entrée fortifiée"
 
 #: master_preset.xml:8645(item:name|group:Land_use|preset:Salt_Pond)
 msgid "Salt Pond"
@@ -9295,7 +9295,7 @@ msgstr ""
 
 #: master_preset.xml:2509(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr ""
+msgstr "Cale de mise à l'eau"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Slovak"

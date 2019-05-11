@@ -244,6 +244,7 @@
   <string name="layer_photos">תמונות</string>
   <string name="layer_tasks">משימות</string>
   <string name="layer_data">נתוני OSM</string>
+  <string name="layer_data_name">נתוני %1$s</string>
   <string name="layer_flush_tile_cache">פינוי מטמון האריחים</string>
   <string name="layer_change_style">שינוי סגנון</string>
   <string name="layer_select_imagery">בחירת תמונת רקע</string>
@@ -328,6 +329,12 @@
   <string name="toast_missing_filemanager">נא להתקין מנהל קבצים.</string>
   <string name="toast_outside_of_download">יש להוריד נתונים נוספים כדי לערוך את האזור הזה.</string>
   <string name="toast_file_not_found">%1$s לא נמצא.</string>
+  <plurals name="toast_imported_track_points">
+    <item quantity="one">יובאו %1$d נקודות מסלול GPX ונקודת דרך אחת.</item>
+    <item quantity="two">יובאו %1$d נקודות מסלול GPX ו־%2$d נקודות דרך.</item>
+    <item quantity="many">יובאו %1$d נקודות מסלול GPX ו־%2$d נקודות דרך.</item>
+    <item quantity="other">יובאו %1$d נקודות מסלול GPX ו־%2$d נקודות דרך.</item>
+  </plurals>
   <string name="toast_unknown_voice_command">נכון לעכשיו, הביטוי „%1$s” אינו מובן, עמך הסליחה.</string>
   <string name="toast_inconsistent_state">התגלה מצב בלתי אחיד, נא לשלוח דיווח על תקלות.</string>
   <string name="toast_camera_error">לא ניתן להפעיל את יישומון המצלמה: %1$s</string>
@@ -388,6 +395,7 @@
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
   <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>
+  <string name="error_pbf_unknown_relation_member_type">סוג החבר %1$s ביחס אינו ידוע</string>
   <!--Some generic labels/buttons-->
   <string name="yes">כן</string>
   <string name="no">לא</string>
@@ -902,10 +910,19 @@
   <string name="address_housenumber_street">כתובת %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">מפרק הועבר</string>
+  <string name="undo_action_moveway">דרך הועברה</string>
+  <string name="undo_action_moveobjects">פריטים הועברו</string>
   <string name="undo_action_add">הוספה</string>
   <string name="undo_action_append">הוספה לדרך</string>
   <string name="undo_action_deletenode">מחיקת מפרק</string>
+  <string name="undo_action_deleteway">מחיקת דרך</string>
+  <string name="undo_action_delete_objects">פריטים נמחקו</string>
+  <string name="undo_action_split_ways">דרכים התפצלו</string>
+  <string name="undo_action_split_way">דרך התפצלה</string>
+  <string name="undo_action_merge_ways">מיזוג דרך</string>
+  <string name="undo_action_reverse_way">היפוך דרך</string>
   <string name="undo_action_set_tags">תיוג</string>
+  <string name="undo_action_join">צירוף</string>
   <string name="undo_action_unjoin_ways">הפרדת דרכים</string>
   <string name="undo_action_create_relation">יצירת יחס</string>
   <string name="undo_action_delete_relation">מחיקת יחס</string>

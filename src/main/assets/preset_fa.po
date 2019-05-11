@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-09 11:33+0000\n"
+"PO-Revision-Date: 2019-05-05 06:59+0000\n"
 "Last-Translator: imni <iriman@chmail.ir>\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -7259,7 +7259,7 @@ msgstr ""
 
 #: master_preset.xml:1667(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr ""
+msgstr "گذرگاه پیاده"
 
 #: master_preset.xml:1529(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -8135,7 +8135,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "پیشنهاد شده"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"

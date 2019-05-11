@@ -48,13 +48,13 @@ Ein langer Druck auf das Schlosssymbol zeigt ein Auswahlmenü mit vier Optionen:
 
 In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bereich angezeigt, der angibt in welchen Bereich man auf den Bildschirm tippen kann um ein Objekt anzuwählen. Die drei Möglichkeiten sind:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
+* Einfaches Tippen: Objekte auswählen. 
+    * Ein einzelner Knoten/Weg wird sofort markiert. 
+    * Aber, falls Du ein Objekt auswählen willst und Vespucci stellt fest, dass die Auswahl mehrere Objekte betreffen kann, zeigt Vespucci ein Auswahlmenü an, aus dem Du das gewünschte Objekt auswählen kannst. 
+    * Ausgewählte Objekte werden in Gelb hervorgehoben. 
+    * Für weitere Informationen siehe [Knoten ausgewählt](Node%20selected.md), [Weg ausgewählt](Way%20selected.md) und [Relation ausgewählt](Relation%20selected.md).
+* Doppeltes Tippen: Start [Mehrfachauswahl-Modus](Multiselect.md)
+* Langes Tippen+halten: Erstellt ein "Fadenkreuz" und ermöglicht das Hinzufügen von Knoten, siehe unten und [Erstellen neuer Objekte](Creating%20new%20objects.md). Dies ist nur möglich wenn der "Einfache Modus" deaktiviert ist.
 
 In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.
 
@@ -80,21 +80,21 @@ Hinweis: für sich überlappende Objekte, z.B. ein Punkt auf einem Weg, erschein
 
 Ist ein Objekt ausgewählt kann es verschoben werden. Hinweis: Objekte können erst verschoben werden nachdem sie ausgewählt wurden. Durch ziehen in der Nähe (d.h. in der Toleranzzone) kann es dann verschoben werden. In den Einstellungen kann man für Punkte einen grösseren Bereich einschalten und anzeigen lassen mit dem der Punkt leichter verschoben werden kann als mit der Standardeinstellung. 
 
-#### Adding a new Node/Point or Way 
+#### Hinzufügen eines Knoten/Weges 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+Beim ersten Start der App ist der "Einfache Modus" aktiviert. Dies kann im Hauptmenü geändert werden, indem die entsprechende Auswahlbox deaktiviert wird.
 
-##### Simple mode
+##### Einfacher Modus
 
-Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+Drücken des großen grünen Knopfes auf dem Bildschirm zeigt ein Menü an. Nach der Auswahl eines Befehls wirst Du nach der Position auf dem Bildschirm gefragt, an der Du das Objekt erstellen willst. Verschieben und Zoomen funktionieren weiterhin um die Ausschnitt auf dem Bildschirm anzupassen. 
 
-See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+Siehe [Erstellen neuer Objekte im einfachen Modus](Creating%20new%20objects%20in%20simple%20actions%20mode.md) für mehr Informationen.
 
-##### Advanced (long press) mode
+##### Fortgeschrittenen Modus (Tippen+halten)
  
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Langes drücken an der Stelle wo ein Knoten oder Weg erstellt werden soll. Ein schwarzes "Fadenkreuz" wird angezeigt.
+* Wenn Du einen neuen Knoten (nicht verbunden mit vorhandenen Objekten) erstellen willst, klicke entfernt von existierenden Objekten.
+* Wenn Du einen vorhandenen Weg erweitern willst, klicke in der Toleranzzone des Weges (oder einem Knoten des Weges). Die Toleranzzone ist der Bereich um einen Knoten oder Weg herum.
 
 Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:
 
@@ -105,7 +105,7 @@ Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:
 
 Um den Weg zu verlängern tippe an den Stellen wo du weitere Wegpunkte haben willst. Um den Weg fertigzustellen, tippe nochmals auf den letzten Punkt. Falls der Endpunkt auf einem anderen Weg oder Punkt liegt wird er automatisch in diesen integriert. 
 
-You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
+Du kannst auch einen Menüpunkt verwenden: Siehe [Erstellen neuer Objekte](Creating%20new%20objects.md) für mehr Information.
 
 #### Flächen erstellen
 
@@ -226,10 +226,9 @@ Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests",
 
 Fehlende Tags-Test Einträge haben die folgenden zwei Eigenschaften:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
+* **Schlüssel** - Schlüssel, den ein Objekt haben sollte, entsprechend der Voreinstellungen.* **Optional erforderlich** - Erforderlicher Schlüssel, auch wenn der Schlüssel in den optionalen Voreinstellungen des Objekts ist.
 
-This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+Diese Prüfung funktioniert, indem zuerst die zugehörige Voreinstellung gesucht wird und dann geprüft wird, ob **Schlüssel** ein "empfohlener" Schlüssel für dieses Objekt ist. , ****Optional erforderlich** erweitert die Prüfung auf Schlüssel welche "optional" zu dem Objekt sind. Hinweis: aktuell verlinkte Vorlagen werden nicht geprüft.
 
 ## Filter
 
@@ -261,8 +260,8 @@ Erweiterte Einstellungen
 
 ## Fehler melden
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+Wenn Vespucci abstürzt oder einen internen Fehler feststellt wirst Du aufgefordert einen Fehlerbericht einzusenden. Bitte sende den Bericht, aber bitte nur einmal für jede spezifische Situation. Wenn Du mehr Informationen geben möchtest, oder eine Funktion vorschlagen möchtest, dann kannst Du dies hier tun: [Vespucci Fehlerberichte] (https://github.com/MarcusWolschon/osmeditor4android/issues). Der "Informationen zur Problembehebung"- Button im Debug-Menü erstellt einen neuen Fehlerbericht und fügt die relevanten App- und Gerät-Informationen hinzu - ohne extra Tipparbeit.
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Wenn Du Themen zu Vespucci diskutieren willst, so kannst Du eine Diskussion in der [Vespucci Google Gruppe](https://groups.google.com/forum/#!forum/osmeditor4android) oder in dem [OpenStreetMap Android Forum](http://forum.openstreetmap.org/viewforum.php?id=56) beginnen.
 
 

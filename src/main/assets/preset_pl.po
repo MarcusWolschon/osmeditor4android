@@ -1,6 +1,6 @@
 # 
 # Translators:
-# krkk <krkkx@protonmail.com>, 2018
+# kRkk <krkkx@protonmail.com>, 2018
 # Teiron, 2016
 # Mariusz N, 2017
 # Mateusz Konieczny <matkoniecz@gmail.com>, 2017-2018

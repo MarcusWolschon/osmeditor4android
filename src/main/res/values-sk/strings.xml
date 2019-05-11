@@ -1,15 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
-  <string name="mode_indoor">Vnútri</string>
+  <string name="mode_easy">Normálny</string>
+  <string name="mode_tag_only">Iba označovanie</string>
+  <string name="mode_indoor">Vo vnútri</string>
+  <string name="mode_correct">Reżim C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Pozor!</string>
   <string name="transfer_download_current_upload">Odovzdať</string>
   <string name="transfer_download_current_download">Zahodiť a prevziať</string>
+  <string name="transfer_download_current_back">Späť (nič nevykonať)</string>
+  <string name="upload_problem_title">Nepodarilo sa odovzdať údaje</string>
+  <string name="upload_problem_message">Niektoré alebo všetky údaje neboli odovzdané. Skúste to znovu neskôr.</string>
   <string name="upload_conflict_title">Konflikt pri odovzdávaní</string>
   <string name="use_local_version">Použiť miestnu verziu</string>
   <string name="use_server_version">Použiť verziu na serveri</string>
+  <string name="no_login_data_title">Nepodarilo sa overiť totožnosť</string>
+  <string name="wrong_login_data_title">Nepodarilo sa overiť totožnosť</string>
+  <string name="not_found_title">Prvok sa nenašiel</string>
+  <string name="unknown_error_title">Neznáma chyba</string>
+  <string name="no_data_title">Žiadne údaje</string>
+  <string name="no_data_message">Nastavený zdroj údajov tu nemá pokrytie.</string>
   <string name="go_to_openstreetmap">Prejsť na openstreetmap.org</string>
+  <string name="data_conflict_title">Konflikt verzií</string>
+  <string name="data_conflict_message">Prevzaté údaje by mohli byť v konflikte s vašimi úpravami. Prosím, odovzdajte vaše údaje a skúste to znovu.</string>
+  <string name="bounding_box_too_large_title">Preberaná oblasť je príliš veľká</string>
+  <string name="out_of_memory_title">Nedostatok pamäte</string>
+  <string name="invalid_data_received_title">Prijaté neplatné údaje</string>
+  <string name="welcome_title">Vitajte</string>
+  <string name="upgrade_title">Toto je nová verzia aplikácie Vespucci</string>
   <string name="read_upgrade">Prečítať o novej verzii</string>
   <string name="progress_title">Načítavanie</string>
   <string name="progress_message">Načítavajú sa údaje do pamäte…</string>
@@ -22,7 +41,17 @@
   <string name="progress_preset_message">Preberá sa predvoľba…</string>
   <string name="progress_running_message">Spúšťa sa…</string>
   <string name="progress_oauth">Načítava sa váš účet na službe openstreetmap.org pre autorizáciu OAuth…</string>
+  <string name="progress_building_imagery_database">Zostavuje sa databáza obrázkov…</string>
   <!--Confirm upload dialog-->
+  <string name="changes_created">Vytvorený objekt „%1$s“</string>
+  <string name="confirm_upload_title">Odovzdanie zmien</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Odovzdať túto zmenu?</item>
+    <item quantity="few">Odovzdať tieto %1$d zmeny?</item>
+    <item quantity="many">Odovzdať týchto %1$d zmien?</item>
+    <item quantity="other">Odovzdať týchto %1$d zmien?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">Zmeny</string>
   <string name="upload_comment_label">Komentár:</string>
   <string name="upload_source_label">Zdroj:</string>
   <string name="upload_close_changeset_label">Zatvorenie súboru zmien:</string>
@@ -31,12 +60,23 @@
   <string name="upload_gpx_tags_label">Značky</string>
   <string name="upload_gpx_visibility_label">Viditeľnosť</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Nová poznámka</string>
+  <string name="openstreetbug_new_bug">Nahlásiť problém</string>
   <string name="openstreetbug_bug_title">Problém</string>
+  <string name="openstreetbug_new_nodeway">Vytvoriť uzol/cestu</string>
+  <string name="openstreetbug_edit_title">Úprava poznámky</string>
   <string name="openstreetbug_comment_label">Komentár:</string>
+  <string name="openstreetbug_commit_ok">Zmeny úlohy boli uložené</string>
+  <string name="generic_bug">Chyba</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Vlastná</string>
+  <string name="maproulette_task_explanations">Vysvetlivky</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Pozor!</string>
+  <string name="unsaved_data_message">Ak budete pokračovať, vaše neuložené zmeny budú zahodené.</string>
   <string name="unsaved_data_proceed">Zahodiť a pokračovať</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">Posun obrázkov</string>
   <string name="imagery_offset_description">Popis</string>
   <string name="imagery_offset_not_found">Nenašli sa žiadne posuny v okruhu 10km!</string>
   <string name="imagery_offset_author">Autor</string>
@@ -48,12 +88,17 @@
   <string name="tag_editor_name_suggestion">Návrh názvu</string>
   <!--Search/Find dialog-->
   <string name="search_results_title">Výsledky hľadania</string>
+  <string name="search_online">Vyhľadať online</string>
   <string name="find_message">Zadajte hľadaný reťazec</string>
+  <string name="geocoder_prompt">pomocou</string>
+  <string name="geocoder_limit_label">v zobrazení</string>
   <!---->
   <string name="preset_search_hint">Reťazec hľadanej predvoľby</string>
   <string name="search">Vyhľadať</string>
   <string name="no_valid_preset">Žiadna platná predvoľba!</string>
+  <string name="save_file">Uložiť do</string>
   <!--element information dialog-->
+  <string name="id">ID</string>
   <string name="nodes">Uzly</string>
   <string name="relation_membership">Členstvo v relácii</string>
   <string name="problem">Problém</string>
@@ -62,10 +107,17 @@
   <string name="version">Verzia</string>
   <string name="length_m">Dĺžka (m)</string>
   <string name="not_downloaded">Neprevzaté</string>
+  <string name="empty_role">Prázdna úloha</string>
   <string name="last_edited">Naposledy upravené</string>
+  <string name="original">Pôvodný</string>
+  <string name="current">Aktuálny</string>
+  <string name="goto_element">Prejsť na prvok</string>
   <!--GeoJSON feature display dialog-->
   <!---->
+  <string name="warning">Upozornenie</string>
+  <string name="minor_issue">Menšia chyba</string>
   <!--hidden object warning dialog-->
+  <string name="attached_object_warning_title">Táto operácia ovplyvní vyfiltrované pripojené objekty!</string>
   <!--This concerns a shown message-->
   <!--This concerns a shown message-->
   <!--debug dialog-->
@@ -74,27 +126,49 @@
   <string name="js_console_msg_debug">Režim ladenia!</string>
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Prázdna relácia</string>
+  <string name="add_members">Pridať členov</string>
+  <string name="leave_empty">Ponechať prázdnu</string>
   <!--GPX waypoint dialog-->
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Vlastné obrázky</string>
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <string name="layer_grid">Mriežka</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Fotografie</string>
+  <string name="layer_tasks">Úlohy</string>
+  <string name="layer_data">Údaje OSM</string>
+  <string name="layer_select_imagery">Vybrať obrázky</string>
   <!--Layer info dialog-->
+  <string name="layer_info_privacy_policy">Politika súkromia</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Kontrolné body</string>
   <!--Feedback activity-->
+  <string name="feedback_title">Spätná väzba pre vývojárov</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Prevziať údaje OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Zatiaľ ste nič nezmenili…</string>
+  <string name="toast_upload_success">Odovzdané na server OSM.</string>
   <string name="toast_unlock_to_edit">Odomknite na upravovanie</string>
+  <string name="toast_save_done">Uložené</string>
+  <string name="toast_save_failed">Nepodarilo sa uložiť</string>
+  <string name="toast_export_failed">Nepodarilo sa exportovať</string>
   <string name="toast_export_success">Exportované do %1$s</string>
   <string name="toast_preset_overwrote_tags">Poznámka - predvoľba prepísala značku(-y)</string>
   <string name="toast_merge_overwrote_tags">Poznámka - operácia prepísala značku(-y)</string>
   <string name="toast_state_file_failed">Nečitateľný alebo poškodený stavový súbor</string>
+  <string name="toast_way_nodes_moved">%1$d uzly/-ov v presunutej ceste</string>
   <string name="toast_download_failed">Preberanie zlyhalo s chybovým kódom %1$d a správou %2$s</string>
   <string name="toast_unsurveyed_road">Nepreskúmaná cesta</string>
+  <string name="toast_untagged_way">Neoznačená cesta</string>
+  <string name="toast_untagged_relation">Neoznačená relácia</string>
   <string name="toast_nothing_found">Nič sa nenašlo</string>
+  <string name="toast_outside_of_download">Na úpravu tejto oblasti prevezmite viac údajov.</string>
   <string name="toast_file_not_found">Súbor %1$s sa nenašiel.</string>
   <string name="toast_min_one_preset">Musí byť vybraná aspoň jedna predvoľba!</string>
   <string name="toast_split_from">Rozdelená cesta so značkou „z“</string>
@@ -102,32 +176,50 @@
   <string name="toast_split_from_and_via">Rozdelené cesty so značkami „z“ a „cez“</string>
   <string name="toast_split_to">Rozdelená cesta so značkou „do“</string>
   <string name="toast_needs_resurvey">Objekt môže byť neaktuálny</string>
+  <string name="toast_missing_key">Chýba kľúč %1$s</string>
   <string name="toast_openinghours_invalid">Neplatná hodnota otváracej doby pre %1$s</string>
+  <string name="toast_exit_multiselect">Na ukončenie ťuknite dvakrát na prázdne miesto alebo použite šípku ←</string>
+  <string name="toast_server_connection_failed">Nepodarilo sa pripojiť k serveru: %1$s</string>
+  <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
+  <string name="toast_tags_cut">Značky vystrihnuté do schránky</string>
+  <string name="toast_properties_copied">Vlastnosti skopírované do schránky</string>
+  <string name="toast_task_layer_disabled">Vrstva s úlohami bola zakázaná</string>
+  <string name="toast_long_press_simple_mode">Dlhé stlačenie nie je dostupné v jednoduchom režime</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Áno</string>
   <string name="no">Nie</string>
   <string name="cancel">Zrušiť</string>
+  <string name="done">Hotovo</string>
   <string name="locked">Uzamknuté</string>
   <string name="next">Ďalej</string>
   <string name="apply">Použiť</string>
   <string name="set">Nastaviť</string>
   <string name="replace">Nahradiť</string>
   <string name="save">Uložiť</string>
+  <string name="save_and_set">Uložiť a nastaviţ</string>
   <string name="back">Späť</string>
   <string name="forward">Dopredu</string>
   <string name="keep">Zachovať</string>
   <string name="enable">Povoliť</string>
+  <string name="disable">Zakázať</string>
   <string name="clear">Vymazať</string>
+  <string name="discard">Zahodiť</string>
   <string name="retry">Skúsiť znovu</string>
   <!--Read a file-->
+  <string name="read">Čítať</string>
+  <string name="overwrite">Prepísať</string>
+  <string name="share">Zdieľať</string>
+  <string name="share_position">Zdieľať pozíciu</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Ukončenie aplikácie Vespucci</string>
   <string name="exit_text">Naozaj chcete skončiť?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">kľúč</string>
   <string name="Key">Kľúč</string>
   <string name="value">hodnota</string>
   <string name="Value">Hodnota</string>
+  <string name="multiselect_header_short">Hodnoty (%1$d)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Sk:Map_Features</string>
   <string name="tag_menu_address">Pridať adresné značky</string>
   <string name="tag_menu_sourcesurvey">Preskúmané</string>
@@ -142,7 +234,9 @@
   <string name="tag_value_hint">Zadajte hodnotu</string>
   <string name="tag_autocomplete_value_hint">Ťuknite alebo zadajte hodnoty</string>
   <string name="tag_autocomplete_name_hint">Ťuknite alebo zadajte návrhy názvu</string>
+  <string name="tag_tap_to_edit_hint">Ťuknite na úpravu</string>
   <string name="tag_multi_value_hint">Viacero hodnôt</string>
+  <string name="tag_dialog_value_hint">Ťuknite pre hodnoty</string>
   <string name="tag_action_tag_title">Vybraná značka(-y)</string>
   <string name="tag_action_members_title">Vybraný člen(-y)</string>
   <string name="tag_action_parents_title">Vybraná relácie(-e)</string>
@@ -183,30 +277,44 @@
   <string name="menu_config">Nastavenia</string>
   <string name="menu_find">Nájsť</string>
   <string name="menu_help">Pomocník</string>
+  <string name="menu_view">Zobraziť</string>
   <string name="menu_erase">Vymazať uzol</string>
   <string name="menu_set_position">Pozícia</string>
   <string name="menu_split">Rozdeliť</string>
   <string name="menu_extract">Extrahovať uzol</string>
   <string name="menu_append">Pripojiť</string>
   <string name="menu_relation">Vytvoriť reláciu</string>
+  <string name="menu_edit_relation">Upraviť reláciu</string>
   <string name="menu_add_relation_member">Pridať člen</string>
   <string name="menu_select_relation_members">Vybrať členy</string>
   <string name="menu_tag">Upraviť značky</string>
+  <string name="menu_openstreetbug">Pridať poznámku</string>
   <string name="menu_camera">Fotoaparát</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Zobraziť umiestnenie</string>
+  <string name="menu_gps_follow">Nasledovať umiestnenie</string>
+  <string name="menu_gps_goto">Prejsť na aktuálne umiestnenie</string>
+  <string name="menu_gps_start">Začať stopu GPX</string>
   <string name="menu_gps_autodownload">Automatické prevzatie</string>
   <string name="menu_transfer">Prenos…</string>
   <string name="menu_transfer_download_current">Prevziať aktuálne zobrazenie</string>
   <string name="menu_transfer_download_current_add">Pridať aktuálne zobrazenie na prevzatie</string>
+  <string name="menu_transfer_download_other">Prevziať iné umiestnenie</string>
+  <string name="menu_transfer_load_current">Načítať aktuálne zobrazenie</string>
+  <string name="menu_transfer_load_current_add">Pridať aktuálne zobrazenie do údajov</string>
+  <string name="menu_transfer_load_other">Načítať iné umiestnenie</string>
   <string name="menu_transfer_upload">Odovzdať údaje na server OSM</string>
   <string name="menu_transfer_close_changeset">Zavrieť aktuálny súbor zmien</string>
+  <string name="menu_transfer_file">Súbor…</string>
   <string name="menu_transfer_bugs_upload">Odovzdať všetko</string>
   <string name="menu_transfer_bugs_clear">Vymazať</string>
+  <string name="menu_save">Uložiť do súboru</string>
   <string name="menu_join">Spojiť</string>
   <string name="menu_unjoin">Rozpojiť</string>
   <string name="menu_copy">Kopírovať</string>
   <string name="menu_cut">Vystrihnúť</string>
   <string name="menu_paste">Vložiť</string>
+  <string name="menu_paste_tags">Vložiť značky</string>
   <string name="menu_paste_from_clipboard">Vložiť zo schránky</string>
   <string name="menu_zoom_to_selection">Priblížiť na výber</string>
   <string name="menu_rotate">Otočiť</string>
@@ -217,14 +325,32 @@
   <string name="menu_voice_commands">Hlasové povely</string>
   <string name="menu_set_name">Nastaviť názov</string>
   <string name="tag_form_unknown_element">Neznámy prvok (nenašla sa žiadna predvoľba)</string>
+  <string name="menu_tools">Nástroje…</string>
+  <string name="menu_tools_imagery">Viac nástrojov obrázkov</string>
   <string name="menu_tools_background_properties">Vlastnosti pozadia</string>
+  <string name="menu_tools_clear_clipboard">Vymazať schránku</string>
   <!---->
+  <string name="menu_simple_actions">Jednoduchý režim</string>
+  <string name="menu_feedback">Poskytnúť spätnú väzbu</string>
+  <string name="menu_preset_feedback">Poskytnúúť spätnú väzbu k predvoľbe</string>
+  <string name="menu_privacy">Súkromie</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnať pozadie</string>
   <string name="menu_tools_background_align_reset">Obnoviť</string>
   <!--Menus in layers dialog-->
+  <string name="menu_layers">Vrstvy…</string>
+  <string name="menu_layers_add_backgroundlayer">Pridať vrstvu s obrázkami pozadia</string>
+  <string name="menu_layers_add_overlaylayer">Pridať vrstvu s prekrývacími obrázkami</string>
+  <string name="menu_layers_add_tasklayer">Pridať vrstvu s úlohami</string>
+  <string name="menu_layers_add_grid">Pridať mriežku</string>
+  <string name="menu_layers_add_photolayer">Pridať vrstvu s fotografiami</string>
+  <string name="menu_layers_configure">Nastaviť…</string>
   <!---->
+  <string name="menu_tools_apply_local_offset">Použiť uložený posun obrázkov</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
+  <string name="menu_enable_tagfilter">Filter značiek</string>
+  <string name="menu_enable_presetfilter">Filter predvolieb</string>
+  <string name="preset_menu_invert">Obrátiť filtre</string>
   <!--element action mode menu-->
   <string name="menu_tags">Vlastnosti</string>
   <!--Text should be as short as possible-->
@@ -250,14 +376,25 @@
   <string name="actionmode_restriction_to">Pridať segment „do“</string>
   <string name="actionmode_restriction_restart_to">Znovu vybrať segment „do“</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Pridať uzol</string>
+  <string name="simple_add_node">Ťuknite na pozíciu na obrazovke</string>
+  <string name="menu_add_node_tags">Pridať označený uzol</string>
+  <string name="menu_add_way">Pridať cestu</string>
+  <string name="simple_add_way">Ťuknite na pozíciu na obrazovke</string>
+  <string name="menu_add_map_note">Pridať poznámku do mapy</string>
+  <string name="simple_add_note">Ťuknite na pozíciu na obrazovke</string>
+  <string name="simple_paste">Ťuknite na pozíciu na obrazovke</string>
+  <string name="simple_paste_multiple">Ťuknite na pozíciu na obrazovke</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Pozadie mapy</string>
   <string name="config_overlayLayer_title">Prekrytie mapy</string>
   <string name="config_enableKeepScreenOn_title">Ponechať obrazovku zapnutú</string>
   <string name="config_advancedprefs">Pokročilé predvoľby</string>
   <string name="config_presetbutton_title">Predvoľby</string>
+  <string name="config_presetbutton_summary">Pridať a povoliť kompatibilné predvoľby s aplikáciou JOSM</string>
   <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autori a licencie</string>
   <string name="config_debugbutton_title">Ladenie</string>
   <string name="config_category_info">O aplikácii</string>
   <!--Advanced preferences-->
@@ -272,6 +409,7 @@
   <string name="config_generateAlerts_title">Generovať upozornenia</string>
   <string name="config_generateAlerts_summary">Generovať upozornenia pre problémy s údajmi alebo poznámkami</string>
   <string name="config_maxAlertDistance_title">Max. vzdialenosť pre upozornenia</string>
+  <string name="config_bugFilter_title">Filter úloh</string>
   <string name="config_closeChangesetOnSave_title">Zavrieť súbor zmien</string>
   <!--Location Settings-->
   <!--Server Settings-->
@@ -303,12 +441,13 @@
   <string name="api">API</string>
   <string name="undo">Vrátiť späť</string>
   <string name="redo">Zopakovať</string>
-  <string name="undo_nothing">nič na vrátenie späť</string>
+  <string name="undo_nothing">Nič na vrátenie späť</string>
   <string name="gps_failure">Zlyhalo povolenie GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresa %1$s</string>
   <string name="address_housenumber_street">Adresa %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_add">Vloženie</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Touto operáciou sa vytvorí cesta s príliš veľkým množstvom uzlov.</string>
@@ -326,6 +465,18 @@
   <string name="deleterelation">Odstrániť reláciu</string>
   <string name="delete_from_relation_description">Chystáte sa odstrániť tento prvok z relácie.</string>
   <!--time and distance-->
+  <plurals name="hours">
+    <item quantity="one">1 hodina</item>
+    <item quantity="few">%1$d hodiny</item>
+    <item quantity="many">%1$d hodín</item>
+    <item quantity="other">%1$d hodín</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 minúta</item>
+    <item quantity="few">%1$d minúty</item>
+    <item quantity="many">%1$d minút</item>
+    <item quantity="other">%1$d minút</item>
+  </plurals>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gps_source">

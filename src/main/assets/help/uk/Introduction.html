@@ -16,28 +16,28 @@
 <h3>Завантаження даних OSM</h3>
 <p>Оберіть або значок <img src="../images/menu_transfer.png" alt="Передача" /> або меню &quot;Передача&quot;. Ви побачите сім пунктів:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and replace any existing data <em>(requires network connectivity)</em></li>
-<li><strong>Add current view to download</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
-<li><strong>Download at other location</strong> - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and &quot;Bugs&quot; from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+<li><strong>Звантажити дані для поточного місця</strong> - завантажує видиму на екрані ділянку та заміщує наявні дані <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Додати поточний вид для звантаження</strong> - завантажує видиму на екрані ділянку та об'єднує її з наявними даними <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Завантажити інше місце</strong> - показує форму для вводу координат, пошуку місця або використання поточної локації, і потім завантажує дані для території навколо вказаного місця <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Надіслати дані на сервер OSM</strong> - надсилає ваші правки до OpenStreetMap <em>(вимагаються облікові дані)</em> <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Авто-завантаження</strong> - автоматично завантажує дані навколо вашого поточного розташування <em>(вимагається під'єднання до мережі)</em> <em>(вимагається доступ до GPS)</em></li>
+<li><strong>Файл…</strong> - збереження та завантаження даних OSM що знаходяться на вашому пристрої.</li>
+<li><strong>Нотатки/Вади…</strong> - завантаження (автоматично або вручну) Нотаток OSM або &quot;Вад&quot; з інструментів перевірки якості даних (зараз це OSMOSE) <em>(вимагається під'єднання до мережі)</em></li>
 </ul>
-<p>The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select &quot;Download current view&quot;. You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.</p>
+<p>Найпростіший спосіб завантажити дані на пристрій — це масштабування та панорамування до місця, яке потрібно відредагувати, потім виберіть &quot;Звантажити дані для поточного місця&quot;. Ви можете масштабувати за допомогою жестів, кнопок масштабування або кнопок регулювання гучності на пристрої. Після цього Веспуччі повинен завантажити дані для поточного місця. Для завантаження даних на пристрій автентифікація не потрібна.</p>
 <h3>Редагування</h3>
 <p><a id="lock"></a></p>
-<h4>Lock, unlock, mode switching</h4>
-<p>To avoid accidental edits Vespucci starts in &quot;locked&quot; mode, a mode that only allows zooming and moving the map. Tap the <img src="../images/locked.png" alt="Locked" /> icon to unlock the screen.</p>
-<p>A long press on the lock icon will display a menu currently offering 4 options:</p>
+<h4>Перегляд, розблокування та перемикання режимів</h4>
+<p>Для того щоб уникнути випадкових змін, Веспуччі запускається в режимі &quot;перегляду&quot;, в якому можливе лише пересування мапою та змінення її масштабу. Натисніть на значок <img src="../images/locked.png" alt="Locked" /> для розблокування екрану.</p>
+<p>Довге натискання на значок покаже меню, що містить наступні опції:</p>
 <ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a &quot;T&quot; is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with a &quot;I&quot; is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a &quot;C&quot; is displayed.</li>
+<li><strong>Звичайний</strong> - типовий режим редагування, дозволяє додавання нових об'єктів, редагування наявних, пересування об'єктів та їх вилучення. Показується звичайним білим замком.</li>
+<li><strong>Тільки теґи</strong> - вибір наявних об'єктів відкриває Редактор властивостей, довге натискання на основному екрані додає нові об'єкти, але жодні інші геометричні операції не спрацьовують. Показується білим замком з літерою &quot;T&quot;.</li>
+<li><strong>В приміщенні</strong> - вмикає режим редагування приміщень, див <a href="#indoor">Режим редагування приміщень</a>. Показується білим замком з літерою &quot;I&quot;.</li>
+<li><strong>C-Mode</strong> - вмикає режим C-Mode, показуються лише об'єкти, для яких встановлено попередження, див <a href="#c-mode">C-Mode</a>. Показується білим замком з літерою &quot;C&quot;.</li>
 </ul>
-<h4>Single tap, double tap, and long press</h4>
-<p>By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:</p>
+<h4>Звичайне, подвійне та довге натискання</h4>
+<p>Типово, точки та лінії мають помаранчеву підсвітку навколо них, що показує де ви можете торкнутись екрану щоб їх виділити. У вас є три варіанти:</p>
 <ul>
 <li>Single tap: Selects object.
 <ul>
@@ -141,8 +141,8 @@
 <li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2>Indoor mode</h2>
-<p>Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.</p>
+<h2>Режим редагування приміщень</h2>
+<p>Редагування планів приміщень завжди є не простим завданням через високу щільність об'єктів, які дуже часто перекривають друг друга. Веспуччі має спеціальний режим для цього, який дозволяє показувати тільки ті об'єкти які знаходяться на одному поверсі та який автоматично додає номер поверху до новостворених об'єктів.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <p><a id="c-mode"></a></p>
 <h2>C-Mode</h2>

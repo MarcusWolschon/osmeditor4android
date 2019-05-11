@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-23 03:08+0000\n"
+"PO-Revision-Date: 2019-05-10 03:24+0000\n"
 "Last-Translator: Shu Higashi <higa432@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -502,7 +502,7 @@ msgstr ""
 
 #: master_preset.xml:5016(item:name|group:Social_Facilities|preset:Ambulatory_Care)
 msgid "Ambulatory Care"
-msgstr ""
+msgstr "訪問介護事業所"
 
 #: master_preset.xml:404(multiselect:display_values|key:cuisine)
 msgid "American"
@@ -1592,7 +1592,7 @@ msgstr ""
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Bust"
-msgstr ""
+msgstr "胸像"
 
 #: master_preset.xml:7138(item:name|group:Food|preset:Butcher)
 msgid "Butcher"
@@ -1854,7 +1854,7 @@ msgstr ""
 
 #: master_preset.xml:1989(item:name|group:Barriers|preset:Chain)
 msgid "Chain"
-msgstr ""
+msgstr "チェーン"
 
 #: master_preset.xml:3058(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:chain_tool)
 msgid "Chain tool"
@@ -2480,7 +2480,7 @@ msgstr ""
 
 #: master_preset.xml:2634(item:name|group:Railway|preset:Crossing)
 msgid "Crossing"
-msgstr ""
+msgstr "横断歩道"
 
 #: master_preset.xml:1642(combo:text|group:Waypoints|preset:Traffic_Signal|key:supervised)
 #: master_preset.xml:1675(combo:text|group:Waypoints|preset:Pedestrian_Crossing|key:supervised)
@@ -3494,7 +3494,7 @@ msgstr "消化器"
 
 #: master_preset.xml:4902(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
-msgstr ""
+msgstr "消火ホース"
 
 #: master_preset.xml:4911(item:name|group:Emergency|preset:Fire_Hydrant)
 msgid "Fire Hydrant"
@@ -3590,7 +3590,7 @@ msgstr ""
 
 #: master_preset.xml:9471(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "床張り屋"
 
 #: master_preset.xml:7795(item:name|group:Other|preset:Florist)
 #: master_preset.xml:7836(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -4034,7 +4034,7 @@ msgstr ""
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "落書きアート"
 
 #: master_preset.xml:991(combo:display_values|key:climbing:rock)
 msgid "Granite"
@@ -4816,7 +4816,7 @@ msgstr ""
 
 #: master_preset.xml:9519(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
-msgstr ""
+msgstr "建具屋"
 
 #: master_preset.xml:5532(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:judo)
 msgid "Judo"
@@ -5806,7 +5806,7 @@ msgstr ""
 
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Moat"
-msgstr ""
+msgstr "お堀"
 
 #: master_preset.xml:7394(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
@@ -7260,7 +7260,7 @@ msgstr ""
 
 #: master_preset.xml:1667(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr ""
+msgstr "歩行者用横断歩道"
 
 #: master_preset.xml:1529(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -8746,7 +8746,7 @@ msgstr ""
 
 #: master_preset.xml:2010(item:name|group:Barriers|preset:Sally_Port)
 msgid "Sally Port"
-msgstr ""
+msgstr "城門"
 
 #: master_preset.xml:8645(item:name|group:Land_use|preset:Salt_Pond)
 msgid "Salt Pond"
@@ -13926,7 +13926,7 @@ msgstr "表示するかどうか"
 #: master_preset.xml:1562(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Crossing"
-msgstr ""
+msgstr "横断歩道"
 
 #: master_preset.xml:1562(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -14178,7 +14178,7 @@ msgstr ""
 #: master_preset.xml:3379(item:name|group:Airport|preset:Beacon)
 msgctxt "airmark"
 msgid "Beacon"
-msgstr ""
+msgstr "ビーコン"
 
 #: master_preset.xml:3400(item:name|group:Airport|preset:Gate)
 msgctxt "airport"
@@ -14871,7 +14871,7 @@ msgstr "内容"
 #: master_preset.xml:6457(item:name|group:Man_Made|preset:Beacon)
 msgctxt "man_made"
 msgid "Beacon"
-msgstr ""
+msgstr "ビーコン"
 
 #: master_preset.xml:6462(item:name|group:Man_Made|preset:Dolphin)
 msgctxt "man_made"
@@ -15082,7 +15082,7 @@ msgstr "位置"
 #: master_preset.xml:7062(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Bust"
-msgstr ""
+msgstr "胸像"
 
 #: master_preset.xml:7062(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"

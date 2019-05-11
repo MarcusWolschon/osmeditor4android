@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
-"Last-Translator: Aleksi Kinnunen <aleksi.kinnunen@outlook.com>\n"
+"PO-Revision-Date: 2019-05-04 17:14+0000\n"
+"Last-Translator: Paavo Jordman <paavobave@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/openstreetmap/presets/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1569,7 +1569,7 @@ msgstr ""
 
 #: master_preset.xml:3302(item:name|group:Public_Transport_(Legacy)|preset:Bus_Stop)
 msgid "Bus Stop"
-msgstr ""
+msgstr "Linja-autopysäkki/-laituri"
 
 #: master_preset.xml:1850(item:name|group:Barriers|preset:Bus_Trap)
 msgid "Bus Trap"

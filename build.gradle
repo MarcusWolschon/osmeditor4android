@@ -4,13 +4,16 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'https://dl.bintray.com/content/simonpoole/div' }
+        //maven { url 'https://dl.bintray.com/content/simonpoole/div' }
         maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
         google()
+                     flatDir {
+                          dirs 'lib'
+                      }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'org.kordamp:markdown-gradle-plugin:1.4.1'
+        classpath 'org.kordamp:markdown-gradle-plugin:2.0.0'
         classpath 'org.jacoco:org.jacoco.core:0.8.3'
         // classpath 'com.trickyandroid:jacoco-everywhere:0.2.1'
         classpath "ch.poole:preset-utils:0.8.1"
@@ -35,9 +38,9 @@ allprojects {
         maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
         jcenter()
-        //		flatDir {
-        //        	dirs 'lib'
-        //    	}
+//        		flatDir {
+//                	dirs 'lib'
+//            	}
     }
 }
 

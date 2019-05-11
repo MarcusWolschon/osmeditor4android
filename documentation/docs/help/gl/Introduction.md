@@ -8,7 +8,7 @@ No inicio do Vespucci amosa o cadro do diálogo "Baixar noutra localización"/"C
 
 De xeito alternativo, pode pecha-lo diálogo premendo o botón "Ir ó mapa" e afastar ou achegar cara unha localización onde desexe editar e baixa-los datos (ollar máis adiante: "Edición co Vespucci").
 
-## Editando con Vespucci
+## Editando co Vespucci
 
 Dependendo do tamaño da pantalla e da idade do seu dispositivo, as accións de edición poden ser accesíbeis de xeito directo a través das iconas na barra superior, a través dun menú despregábel á dereita da barra superior, dende a barra inferior (se está presente) ou a través da tecla do menú.
 
@@ -236,7 +236,7 @@ This check works by first determining the matching preset and then checking if *
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
 
-### Filtro baseado nos preaxustes
+### Filtro baseado nos predefinidos
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 

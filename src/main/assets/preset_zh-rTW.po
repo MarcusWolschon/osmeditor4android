@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-23 00:02+0000\n"
+"PO-Revision-Date: 2019-05-10 01:38+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -1594,7 +1594,7 @@ msgstr "巴士站 (舊版)"
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Bust"
-msgstr ""
+msgstr "半身像"
 
 #: master_preset.xml:7138(item:name|group:Food|preset:Butcher)
 msgid "Butcher"
@@ -1856,7 +1856,7 @@ msgstr "中間扶手"
 
 #: master_preset.xml:1989(item:name|group:Barriers|preset:Chain)
 msgid "Chain"
-msgstr ""
+msgstr "鏈式柵欄"
 
 #: master_preset.xml:3058(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:chain_tool)
 msgid "Chain tool"
@@ -3496,7 +3496,7 @@ msgstr "滅火器"
 
 #: master_preset.xml:4902(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
-msgstr ""
+msgstr "消防栓"
 
 #: master_preset.xml:4911(item:name|group:Emergency|preset:Fire_Hydrant)
 msgid "Fire Hydrant"
@@ -3592,7 +3592,7 @@ msgstr ""
 
 #: master_preset.xml:9471(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "地板工匠"
 
 #: master_preset.xml:7795(item:name|group:Other|preset:Florist)
 #: master_preset.xml:7836(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -4036,7 +4036,7 @@ msgstr ""
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "塗鴉"
 
 #: master_preset.xml:991(combo:display_values|key:climbing:rock)
 msgid "Granite"
@@ -4652,7 +4652,7 @@ msgstr "資訊辦公室"
 
 #: master_preset.xml:3771(item:name|group:Tourism|preset:Information_Terminal)
 msgid "Information Terminal"
-msgstr ""
+msgstr "資訊站"
 
 #: master_preset.xml:3773(label:text|group:Tourism|preset:Information_Terminal)
 msgid "Information access via electronic methods."
@@ -4818,7 +4818,7 @@ msgstr "猶太教"
 
 #: master_preset.xml:9519(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
-msgstr ""
+msgstr "細木工匠"
 
 #: master_preset.xml:5532(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:judo)
 msgid "Judo"
@@ -5808,7 +5808,7 @@ msgstr ""
 
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Moat"
-msgstr ""
+msgstr "護城河"
 
 #: master_preset.xml:7394(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
@@ -7262,7 +7262,7 @@ msgstr "行人專用道"
 
 #: master_preset.xml:1667(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr ""
+msgstr "行人穿越道"
 
 #: master_preset.xml:1529(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -8748,7 +8748,7 @@ msgstr ""
 
 #: master_preset.xml:2010(item:name|group:Barriers|preset:Sally_Port)
 msgid "Sally Port"
-msgstr ""
+msgstr "出擊口"
 
 #: master_preset.xml:8645(item:name|group:Land_use|preset:Salt_Pond)
 msgid "Salt Pond"
@@ -14180,7 +14180,7 @@ msgstr ""
 #: master_preset.xml:3379(item:name|group:Airport|preset:Beacon)
 msgctxt "airmark"
 msgid "Beacon"
-msgstr ""
+msgstr "信標"
 
 #: master_preset.xml:3400(item:name|group:Airport|preset:Gate)
 msgctxt "airport"
@@ -14873,7 +14873,7 @@ msgstr "內容"
 #: master_preset.xml:6457(item:name|group:Man_Made|preset:Beacon)
 msgctxt "man_made"
 msgid "Beacon"
-msgstr ""
+msgstr "信標"
 
 #: master_preset.xml:6462(item:name|group:Man_Made|preset:Dolphin)
 msgctxt "man_made"
@@ -15084,7 +15084,7 @@ msgstr "位置"
 #: master_preset.xml:7062(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Bust"
-msgstr ""
+msgstr "半身像"
 
 #: master_preset.xml:7062(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"

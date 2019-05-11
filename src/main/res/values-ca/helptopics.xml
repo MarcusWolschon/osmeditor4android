@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_introduction">Introducció</string>
-    <string name="help_main">Visualitzar mapa principal</string>
+    <string name="help_main">Visualització del mapa principal</string>
+    <string name="help_simple_actions">Accions senzilles</string>
     <string name="help_addrelationmember">Relació seleccionada</string>
     <string name="help_multiselect">Selecció múltiple</string>
-    <string name="help_longclick">Creant nous objectes</string>
+    <string name="help_longclick">Creació d\'objectes nous</string>
     <string name="help_nodeselection">Node seleccionat</string>
-    <string name="help_pathcreation">Creant nous objectes</string>
+    <string name="help_pathcreation">Creació d\'objectes nous</string>
     <string name="help_relationselection">Relació seleccionada</string>
     <string name="help_wayselection">Via seleccionada</string>
-    <string name="help_aligningbackgroundiamgery">Alinear imatges de fons</string>
-    <string name="help_propertyeditor">Propietat del editor</string>
+    <string name="help_aligningbackgroundiamgery">Alineació d\'imatges de fons</string>
+    <string name="help_propertyeditor">Editor de propietats</string>
+    <string name="help_preferences">Preferències</string>
+    <string name="help_advanced_preferences">Preferències avançades</string>
     <string name="help_presets">Predefinicions</string>
-    <string name="help_conflictresolution">Resolució del conflicte</string>
+    <string name="help_conflictresolution">Resolució de conflictes</string>
     <string name="help_gpssources">Font GPS</string>
     <string name="help_keyboard">Teclat</string>
     <string name="help_tagfilter">Filtrar Etiquetes</string>
     <string name="help_presetfilter">Filtrar Preselecció</string>
-    <string name="help_opening_hours">Horaris d\'apertura</string>
+    <string name="help_opening_hours">Horaris d\'obertura</string>
+    <string name="help_newnoteselection">Selecció d\'una nota nova</string>
+    <string name="help_voice_commands">Ordres de veu</string>
     <string name="help_upgrade">Notes de la versió</string>
+    <string name="help_upgrade_121">Notes de la versió 12.1</string>
+    <string name="help_upgrade_120">Notes de la versió 12.0</string>
+    <string name="help_upgrade_112">Notes de la versió 11.2</string>
+    <string name="help_upgrade_111">Notes de la versió 11.1</string>
+    <string name="help_upgrade_110">Notes de la versió 11.0</string>
+    <string name="help_upgrade_102">Notes de la versió 10.2</string>
     <string name="help_upgrade_101">Notes de la versió 10.1</string>
     <string name="help_upgrade_100">Notes de la versió 10.0</string>
     <string name="help_upgrade_099">Notes de la versió 0.9.9</string>
     <string name="help_upgrade_098">Notes de la versió 0.9.8</string>
     <string name="help_upgrade_097">Notes de la versió 0.9.7</string>
     <string name="help_upgrade_096">Notes de la versió 0.9.6</string>
+    <string name="help_privacy">Privadesa</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

@@ -1,11 +1,12 @@
 # 
 # Translators:
+# Dušan Kazik <prescott66@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
-"Last-Translator: Mashin <machyna@gmail.com>\n"
+"PO-Revision-Date: 2019-05-06 17:12+0000\n"
+"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/openstreetmap/presets/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -257,18 +258,18 @@ msgstr ""
 #: master_preset.xml:5277(checkgroup:text|group:Facilities|preset:Recycling_Container)
 #: master_preset.xml:5308(checkgroup:text|group:Facilities|preset:Recycling_Centre)
 msgid "Accepted material"
-msgstr ""
+msgstr "Akceptovaný materiál"
 
 #: master_preset.xml:4875(combo:text|group:Emergency|preset:Automated_Defibrillator|key:access)
 #: master_preset.xml:4890(combo:text|group:Emergency|preset:First_Aid_Kit|key:access)
 #: master_preset.xml:510(combo:text|key:access)
 #: master_preset.xml:827(combo:text|key:access)
 msgid "Access"
-msgstr ""
+msgstr "Prístup"
 
 #: master_preset.xml:2079(group:name|group:Access_Restrictions)
 msgid "Access Restrictions"
-msgstr ""
+msgstr "Obmedzenia prístupu"
 
 #: master_preset.xml:3410(group:name|group:Accommodation)
 msgid "Accommodation"
@@ -312,7 +313,7 @@ msgstr ""
 
 #: master_preset.xml:8817(item:name|group:Addresses_and_Contact|preset:Address)
 msgid "Address"
-msgstr ""
+msgstr "Adresa"
 
 #: master_preset.xml:8840(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
@@ -320,7 +321,7 @@ msgstr ""
 
 #: master_preset.xml:8801(group:name|group:Addresses_and_Contact)
 msgid "Addresses and Contact"
-msgstr ""
+msgstr "Adresy a kontakt"
 
 #: master_preset.xml:6355(item:name|group:Man_Made|preset:Adit)
 msgid "Adit"
@@ -438,7 +439,7 @@ msgstr ""
 
 #: master_preset.xml:8659(item:name|group:Land_use|preset:Allotments)
 msgid "Allotments"
-msgstr ""
+msgstr "Záhradkárska osada"
 
 #: master_preset.xml:152(optional:text) master_preset.xml:161(optional:text)
 #: master_preset.xml:169(optional:text)
@@ -4345,7 +4346,7 @@ msgstr ""
 
 #: master_preset.xml:1012(group:name|group:Highways)
 msgid "Highways"
-msgstr ""
+msgstr "Diaľnice"
 
 #: master_preset.xml:3734(check:text|group:Tourism|preset:Map|key:hiking)
 #: master_preset.xml:3762(check:text|group:Tourism|preset:Guidepost|key:hiking)
@@ -4691,7 +4692,7 @@ msgstr ""
 
 #: master_preset.xml:9893(item:name|group:Offices|preset:Insurance)
 msgid "Insurance"
-msgstr ""
+msgstr "Poistenie"
 
 #: master_preset.xml:9847(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Interests section"
@@ -4699,7 +4700,7 @@ msgstr ""
 
 #: master_preset.xml:7522(item:name|group:Home_furnishing_and_decoration|preset:Interior_Decoration)
 msgid "Interior Decoration"
-msgstr ""
+msgstr "Bytové dekorácie"
 
 #: master_preset.xml:714(check:text|key:intermittent)
 msgid "Intermittent"
@@ -4712,11 +4713,11 @@ msgstr "Medzinárodná"
 
 #: master_preset.xml:8812(text:text|group:Addresses_and_Contact|preset:Name|key:int_name)
 msgid "International name"
-msgstr ""
+msgstr "Medzinárodný názov"
 
 #: master_preset.xml:5244(item:name|group:Facilities|preset:Internet_Access)
 msgid "Internet Access"
-msgstr ""
+msgstr "Prístup k internetu"
 
 #: master_preset.xml:5237(item:name|group:Facilities|preset:Internet_Cafe)
 msgid "Internet Cafe"
@@ -4724,15 +4725,15 @@ msgstr "Internetová kaviareň"
 
 #: master_preset.xml:432(combo:text|key:internet_access)
 msgid "Internet access"
-msgstr ""
+msgstr "Prístup k internetu"
 
 #: master_preset.xml:433(combo:text|key:internet_access:fee)
 msgid "Internet access fee"
-msgstr ""
+msgstr "Poplatok za prístup k internetu"
 
 #: master_preset.xml:817(combo:text|key:interval)
 msgid "Interval (M, MM, HH:MM, or HH:MM:SS)"
-msgstr ""
+msgstr "Interval (M, MM, HH:MM, alebo HH:MM:SS)"
 
 #: master_preset.xml:2334(check:text|group:Water|preset:Water|key:intermittent)
 #: master_preset.xml:2353(check:text|group:Water|preset:Riverbank|key:intermittent)
@@ -4823,7 +4824,7 @@ msgstr ""
 
 #: master_preset.xml:1352(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr ""
+msgstr "Križovatka"
 
 #: master_preset.xml:762(list_entry:display_value|value:juvenile)
 msgid "Juveniles"
@@ -4939,7 +4940,7 @@ msgstr ""
 
 #: master_preset.xml:9792(item:name|group:Crafts|preset:Laboratory)
 msgid "Laboratory"
-msgstr ""
+msgstr "Laboratórium"
 
 #: master_preset.xml:1999(combo:display_values|group:Barriers|preset:Stile|key:stile)
 msgid "Ladder"
@@ -4956,11 +4957,11 @@ msgstr ""
 
 #: master_preset.xml:8590(group:name|group:Land_use)
 msgid "Land use"
-msgstr ""
+msgstr "Využitie krajiny"
 
 #: master_preset.xml:8432(group:name|group:Land_use_and_nature)
 msgid "Land use and nature"
-msgstr ""
+msgstr "Využitie krajiny a príroda"
 
 #: master_preset.xml:8787(item:name|group:Land_use|preset:Landfill)
 msgid "Landfill"
@@ -4968,28 +4969,28 @@ msgstr ""
 
 #: master_preset.xml:1379(group:name|group:Lane_attributes)
 msgid "Lane attributes"
-msgstr ""
+msgstr "Atribúty pruhu"
 
 #: master_preset.xml:1364(combo:text|group:Streets|preset:Roundabout|key:lanes)
 #: master_preset.xml:52(combo:text|key:lanes)
 msgid "Lanes"
-msgstr ""
+msgstr "Pruhy"
 
 #: master_preset.xml:54(combo:text|key:lanes:backward)
 msgid "Lanes ←"
-msgstr ""
+msgstr "Pruhy ←"
 
 #: master_preset.xml:53(combo:text|key:lanes:forward)
 msgid "Lanes →"
-msgstr ""
+msgstr "Pruhy →"
 
 #: master_preset.xml:960(multiselect:text|key:language)
 msgid "Language"
-msgstr ""
+msgstr "Jazyk"
 
 #: master_preset.xml:4732(item:name|group:Education|preset:Language_school)
 msgid "Language school"
-msgstr ""
+msgstr "Jazyková škola"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Lao"
@@ -5030,7 +5031,7 @@ msgstr ""
 
 #: master_preset.xml:9907(item:name|group:Offices|preset:Lawyer)
 msgid "Lawyer"
-msgstr ""
+msgstr "Právnik"
 
 #: master_preset.xml:2023(combo:text|group:Passageways|preset:Tunnel|key:layer)
 #: master_preset.xml:2287(combo:text|group:Water|preset:Culvert|key:layer)
@@ -5087,7 +5088,7 @@ msgstr ""
 
 #: master_preset.xml:3814(group:name|group:Leisure)
 msgid "Leisure"
-msgstr ""
+msgstr "Oddych"
 
 #: master_preset.xml:3899(list_entry:display_value|group:Leisure|preset:Animals|value:lemur)
 msgid "Lemur"
@@ -5096,11 +5097,11 @@ msgstr ""
 #: master_preset.xml:9334(text:text|preset:Bridge|key:length)
 #: master_preset.xml:9349(text:text|preset:Tunnel|key:length)
 msgid "Length (meters)"
-msgstr ""
+msgstr "Dĺžka (v metroch)"
 
 #: master_preset.xml:6360(text:text|group:Man_Made|preset:Adit|key:length)
 msgid "Length in meters"
-msgstr ""
+msgstr "Dĺžka v metroch"
 
 #: master_preset.xml:3900(list_entry:display_value|group:Leisure|preset:Animals|value:leopard)
 msgid "Leopard"
@@ -5124,7 +5125,7 @@ msgstr ""
 
 #: master_preset.xml:4428(item:name|group:Culture|preset:Library)
 msgid "Library"
-msgstr ""
+msgstr "Knižnica"
 
 #: master_preset.xml:4748(combo:text|group:Education|preset:Driving_School|key:license_classes)
 msgid "License Classes"
@@ -5968,7 +5969,7 @@ msgstr ""
 
 #: master_preset.xml:1014(item:name|group:Streets|preset:Motorway)
 msgid "Motorway"
-msgstr ""
+msgstr "Rýchlostná cesta"
 
 #: master_preset.xml:1606(item:name|group:Waypoints|preset:Motorway_Junction)
 msgid "Motorway Junction"
@@ -7397,7 +7398,7 @@ msgstr ""
 
 #: master_preset.xml:8047(list_entry:short_description|preset:Vending_Machine|value:photos)
 msgid "Photos"
-msgstr ""
+msgstr "Fotografie"
 
 #: master_preset.xml:2143(item:name|group:Access_Restrictions|preset:Physical_restrictions)
 msgid "Physical restrictions"
@@ -12614,7 +12615,7 @@ msgstr ""
 #: master_preset.xml:6209(combo:text|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Access"
-msgstr ""
+msgstr "Prístup"
 
 #: master_preset.xml:2083(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2090(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -13404,7 +13405,7 @@ msgstr ""
 #: master_preset.xml:908(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Leisure"
-msgstr ""
+msgstr "Oddych"
 
 #: master_preset.xml:904(combo:text|key:building:levels)
 msgctxt "building"
@@ -14600,7 +14601,7 @@ msgstr ""
 #: master_preset.xml:8069(check:text|preset:Payment_Methods|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "Poznámky"
 
 #: master_preset.xml:5255(combo:text|group:Facilities|preset:Clock|key:faces)
 msgctxt "clock"

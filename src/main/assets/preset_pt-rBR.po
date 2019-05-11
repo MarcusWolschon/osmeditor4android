@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-19 16:54+0000\n"
+"PO-Revision-Date: 2019-05-06 16:54+0000\n"
 "Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -1646,7 +1646,7 @@ msgstr ""
 
 #: master_preset.xml:2681(item:name|group:Aerialway|preset:Cable_Car)
 msgid "Cable Car"
-msgstr ""
+msgstr "Teleférico"
 
 #: master_preset.xml:634(combo:text|key:cables)
 msgid "Cable count"
@@ -1889,7 +1889,7 @@ msgstr ""
 
 #: master_preset.xml:2865(item:name|group:Car|preset:Charging_Station)
 msgid "Charging Station"
-msgstr ""
+msgstr "Estação de carregamento"
 
 #: master_preset.xml:5134(combo:display_values|group:Clubs|preset:Club|key:club)
 #: master_preset.xml:7875(item:name|group:Other|preset:Charity)
@@ -3593,7 +3593,7 @@ msgstr ""
 
 #: master_preset.xml:9471(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
-msgstr ""
+msgstr "Assentador de pavimento"
 
 #: master_preset.xml:7795(item:name|group:Other|preset:Florist)
 #: master_preset.xml:7836(combo:display_values|group:Other|preset:Wholesale|key:wholesale)
@@ -4037,7 +4037,7 @@ msgstr "Governo"
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "Grafíti"
 
 #: master_preset.xml:991(combo:display_values|key:climbing:rock)
 msgid "Granite"
@@ -4060,7 +4060,7 @@ msgstr ""
 
 #: master_preset.xml:8710(item:name|group:Land_use|preset:Graveyard)
 msgid "Graveyard"
-msgstr ""
+msgstr "Cemitério"
 
 #: master_preset.xml:5347(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:round_drain)
 msgid "Gravity drain for hose"
@@ -4653,7 +4653,7 @@ msgstr ""
 
 #: master_preset.xml:3771(item:name|group:Tourism|preset:Information_Terminal)
 msgid "Information Terminal"
-msgstr ""
+msgstr "Terminal Informativo"
 
 #: master_preset.xml:3773(label:text|group:Tourism|preset:Information_Terminal)
 msgid "Information access via electronic methods."
@@ -4819,7 +4819,7 @@ msgstr ""
 
 #: master_preset.xml:9519(item:name|group:Crafts|preset:Joiner)
 msgid "Joiner"
-msgstr ""
+msgstr "Marceneiro"
 
 #: master_preset.xml:5532(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:judo)
 msgid "Judo"
@@ -5809,7 +5809,7 @@ msgstr ""
 
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Moat"
-msgstr ""
+msgstr "Fosso inundado"
 
 #: master_preset.xml:7394(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
@@ -8749,7 +8749,7 @@ msgstr ""
 
 #: master_preset.xml:2010(item:name|group:Barriers|preset:Sally_Port)
 msgid "Sally Port"
-msgstr ""
+msgstr "Portão de fortaleza"
 
 #: master_preset.xml:8645(item:name|group:Land_use|preset:Salt_Pond)
 msgid "Salt Pond"
@@ -9294,7 +9294,7 @@ msgstr ""
 
 #: master_preset.xml:2509(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr ""
+msgstr "Rampa de lançamento"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Slovak"

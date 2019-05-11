@@ -137,6 +137,8 @@
   <string name="layer_tasks">Eginkizunak</string>
   <string name="layer_select_imagery">Hautatu irudiak</string>
   <!--Layer info dialog-->
+  <string name="layer_info_terms">Baldintzak</string>
+  <string name="layer_info_privacy_policy">Pribatutasun politika</string>
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -148,6 +150,7 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <!--Toaster-->
+  <string name="toast_url_empty">Sartu URL</string>
   <string name="toast_no_changes">Oraindik ez duzu ezer aldatu...</string>
   <string name="clear_anyway">Garbitu hala ere?</string>
   <string name="toast_save_done">Gordeta</string>
@@ -157,6 +160,7 @@
   <string name="toast_preset_overwrote_tags">Oharra - aurre-ezarpenak etiketa(k) gainidatzi d(it)u</string>
   <string name="toast_merge_overwrote_tags">Oharra - eragiketak etiketa)k) gainidatzi d(it)u</string>
   <string name="toast_state_file_failed">Egoera fitxategi irakurgaitza edo hondatua</string>
+  <string name="read_mail">Irakurri</string>
   <string name="toast_download_failed">Deskargak huts egin du %1$d errore kodearekin, mezua %2$s</string>
   <string name="toast_nothing_found">Ez da ezer aurkitu</string>
   <string name="toast_file_not_found">ez da %1$s aurkitu.</string>

@@ -1,12 +1,12 @@
-# Introducció Vespucci
+# Introducció al Vespucci
 
 Vespucci és un editor d'OpenStreetMap completament preparat que donar suport a més operacions que els editors d'escriptori proporcionen. Ha estat provat amb èxit sobre Google Android 2.3 fins a 7.0 i diverses variants d'AOSP . Una paraula d'advertència: mentre les capacitats dels dispositius mòbils han agafat volada respecte als seus rivals d'escriptori, particularment els dispositius més vells tenen memòria disponible molt limitada i tenen tendència a ser força lents. Hauries de tenir això en compte quan estiguis utilitzant Vespucci i mantenir, per exemple, les àrees que estàs editant a una mida raonable. 
 
-## Primer us
+## Primer ús
 
-A l'inici Vespucci us mostra el diàleg "Baixeu un altre ubicació" / "Carrega l'àrea". Si teniu les coordenades que es mostren i voleu baixar immediatament, podeu seleccionar l'opció adequada i establir el radi al voltant de la ubicació que voleu descarregar. No seleccioneu una àrea gran en dispositius lents. 
+A l'inici, Vespucci us mostra el diàleg "Baixeu un altra ubicació" / "Carrega l'àrea". Si teniu les coordenades que es mostren i voleu baixar immediatament, podeu seleccionar l'opció adequada i establir el radi al voltant de la ubicació que voleu descarregar. No seleccioneu una àrea gran en dispositius lents. 
 
-D'altra banda, podeu descartar el diàleg prement el botó "Anar al mapa" i situar-lo en un lloc on vulgueu editar i baixar les dades (vegeu a continuació: "Edició amb Vespucci").
+D'altra banda, podeu descartar el diàleg prement el botó «Vés al mapa» i situar-lo en un lloc on vulgueu editar i baixar les dades (vegeu a continuació: «Edició amb Vespucci»).
 
 ## Edició amb Vespucci
 
@@ -14,7 +14,7 @@ Segons la mida de la pantalla i l'edat del vostre dispositiu, les accions d'edic
 
 <a id="download"></a>
 
-### Descarregant dades de OSM 
+### Descàrrega de dades d'OSM 
 
 Seleccioneu la icona de transferència ![Transfer](../images/menu_transfer.png) o l'element del menú "Transferir". Això mostrarà set opcions:
 
@@ -28,7 +28,7 @@ Seleccioneu la icona de transferència ![Transfer](../images/menu_transfer.png) 
 
 La manera més senzilla de descarregar dades al dispositiu és fer zoom i prémer la ubicació que voleu editar i, a continuació, seleccionar "Baixar la visualització actual". Podeu fer zoom mitjançant gestos, els botons de zoom o els botons de control de volum del dispositiu. Vespucci hauria de descarregar dades per a la visualització actual. No es requereix autenticació per descarregar dades al vostre dispositiu.
 
-### Modificant
+### Edició
 
 <a id="lock"></a>
 
@@ -83,7 +83,7 @@ Once you have selected an object, it can be moved. Note that objects can be drag
 
 On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
 
-##### Simple mode
+##### Mode simple
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
@@ -118,7 +118,7 @@ OpenStreetMap currently doesn't have an "area" object type unlike other geo-data
 
 If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
-#### Tallar, copiar i enganxar
+#### Retallar, copiar i enganxar
 
 You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
@@ -148,7 +148,7 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### Grava els teus canvis
+### Desament dels canvis
 
 *(requereix connectivitat de xarxa)*
 
@@ -164,7 +164,7 @@ If you want to save your work and do not have Internet access, you can save to a
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
-## Usant GPS
+## Ús del GPS
 
 You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
 
@@ -178,7 +178,7 @@ On the map the Notes and bugs are represented by a small bug icon ![Bug](../imag
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
-### Filtrant
+### Filtratge
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 

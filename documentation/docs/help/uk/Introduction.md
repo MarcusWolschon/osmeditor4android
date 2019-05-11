@@ -18,34 +18,34 @@
 
 Оберіть або значок ![Передача](../images/menu_transfer.png) або меню "Передача". Ви побачите сім пунктів:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Звантажити дані для поточного місця** - завантажує видиму на екрані ділянку та заміщує наявні дані *(вимагається під'єднання до мережі)*
+* **Додати поточний вид для звантаження** - завантажує видиму на екрані ділянку та об'єднує її з наявними даними *(вимагається під'єднання до мережі)*
+* **Завантажити інше місце** - показує форму для вводу координат, пошуку місця або використання поточної локації, і потім завантажує дані для території навколо вказаного місця *(вимагається під'єднання до мережі)*
+* **Надіслати дані на сервер OSM** - надсилає ваші правки до OpenStreetMap *(вимагаються облікові дані)* *(вимагається під'єднання до мережі)*
+* **Авто-завантаження** - автоматично завантажує дані навколо вашого поточного розташування *(вимагається під'єднання до мережі)* *(вимагається доступ до GPS)*
+* **Файл…** - збереження та завантаження даних OSM що знаходяться на вашому пристрої.
+* **Нотатки/Вади…** - завантаження (автоматично або вручну) Нотаток OSM або "Вад" з інструментів перевірки якості даних (зараз це OSMOSE) *(вимагається під'єднання до мережі)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Найпростіший спосіб завантажити дані на пристрій — це масштабування та панорамування до місця, яке потрібно відредагувати, потім виберіть "Звантажити дані для поточного місця". Ви можете масштабувати за допомогою жестів, кнопок масштабування або кнопок регулювання гучності на пристрої. Після цього Веспуччі повинен завантажити дані для поточного місця. Для завантаження даних на пристрій автентифікація не потрібна.
 
 ### Редагування
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Перегляд, розблокування та перемикання режимів
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+Для того щоб уникнути випадкових змін, Веспуччі запускається в режимі "перегляду", в якому можливе лише пересування мапою та змінення її масштабу. Натисніть на значок ![Locked](../images/locked.png) для розблокування екрану. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Довге натискання на значок покаже меню, що містить наступні опції:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Звичайний** - типовий режим редагування, дозволяє додавання нових об'єктів, редагування наявних, пересування об'єктів та їх вилучення. Показується звичайним білим замком.
+* **Тільки теґи** - вибір наявних об'єктів відкриває Редактор властивостей, довге натискання на основному екрані додає нові об'єкти, але жодні інші геометричні операції не спрацьовують. Показується білим замком з літерою "T".
+* **В приміщенні** - вмикає режим редагування приміщень, див [Режим редагування приміщень](#indoor). Показується білим замком з літерою "I".
+* **C-Mode** - вмикає режим C-Mode, показуються лише об'єкти, для яких встановлено попередження, див [C-Mode](#c-mode). Показується білим замком з літерою "C".
 
-#### Single tap, double tap, and long press
+#### Звичайне, подвійне та довге натискання
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Типово, точки та лінії мають помаранчеву підсвітку навколо них, що показує де ви можете торкнутись екрану щоб їх виділити. У вас є три варіанти:
 
 * Single tap: Selects object. 
     * An isolated node/way is highlighted immediately. 
@@ -190,9 +190,9 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## Indoor mode
+## Режим редагування приміщень
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
+Редагування планів приміщень завжди є не простим завданням через високу щільність об'єктів, які дуже часто перекривають друг друга. Веспуччі має спеціальний режим для цього, який дозволяє показувати тільки ті об'єкти які знаходяться на одному поверсі та який автоматично додає номер поверху до новостворених об'єктів.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 

@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string-array name="address_tags_entries">
-    <item>Número de casa (addr:housenumber)</item>
+    <item>Número de portal (addr:housenumber)</item>
     <item>Rúa (addr:street)</item>
     <item>Código Postal (addr:postcode)</item>
-    <item>Cidade/Pobo/Vila/..  (addr:city)</item>
+    <item>Cidade/Vila/Aldea/..  (addr:city)</item>
     <item>País (addr:country)</item>
     <item>Enderezo completo (addr:full)</item>
     <item>Lugar (addr:place)</item>
     <item>Aldea (addr:hamlet)</item>
-    <item>Suburbio (addr:suburb)</item>
-    <item>Subdistricto (addr:subdistrict)</item>
-    <item>Districto (addr:district)</item>
+    <item>Barrio (addr:suburb)</item>
+    <item>Subdistrito (addr:subdistrict)</item>
+    <item>Distrito (addr:district)</item>
     <item>Provincia (addr:province)</item>
     <item>Estado (addr:state)</item>
-    <item>Pisos (addr:flats)</item>
+    <item>Andares (addr:flats)</item>
     <item>Porta (addr:door)</item>
     <item>Unidade (addr:unit)</item>
   </string-array>

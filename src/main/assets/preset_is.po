@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-04-08 21:20+0000\n"
-"Last-Translator: Jóhannes Birgir Jensson\n"
+"PO-Revision-Date: 2019-04-26 06:48+0000\n"
+"Last-Translator: Magnus Magnusson <maggiymir@gmail.com>\n"
 "Language-Team: Icelandic (http://www.transifex.com/openstreetmap/presets/language/is/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -921,7 +921,7 @@ msgstr ""
 
 #: master_preset.xml:3681(item:name|group:Food+Drinks|preset:Bar)
 msgid "Bar"
-msgstr ""
+msgstr "Bar"
 
 #: master_preset.xml:404(multiselect:display_values|key:cuisine)
 msgid "Barbecue"
@@ -1483,7 +1483,7 @@ msgstr ""
 #: master_preset.xml:7010(item:name|group:Historic_Places_&_Objects|preset:Building)
 #: master_preset.xml:8970(item:name|group:Relations|preset:Building)
 msgid "Building"
-msgstr ""
+msgstr "Bygging"
 
 #: master_preset.xml:8938(list_entry:display_value|group:Relations|preset:Relations|value:building)
 msgid "Building (3D)"
@@ -1567,7 +1567,7 @@ msgstr ""
 
 #: master_preset.xml:3302(item:name|group:Public_Transport_(Legacy)|preset:Bus_Stop)
 msgid "Bus Stop"
-msgstr ""
+msgstr "Strætó stoppistöð"
 
 #: master_preset.xml:1850(item:name|group:Barriers|preset:Bus_Trap)
 msgid "Bus Trap"
@@ -1689,7 +1689,7 @@ msgstr ""
 #: master_preset.xml:4935(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:canal)
 #: master_preset.xml:9307(combo:display_values|preset:Waterway|key:waterway)
 msgid "Canal"
-msgstr ""
+msgstr "Síki"
 
 #: master_preset.xml:7557(item:name|group:Home_furnishing_and_decoration|preset:Candles)
 msgid "Candles"
@@ -5380,7 +5380,7 @@ msgstr ""
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Framleiðandi"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -8379,7 +8379,7 @@ msgstr ""
 #: master_preset.xml:2312(item:name|group:Water|preset:Reservoir)
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Reservoir"
-msgstr ""
+msgstr "Lón"
 
 #: master_preset.xml:9847(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Residence"
@@ -8478,7 +8478,7 @@ msgstr ""
 #: master_preset.xml:4934(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:river)
 #: master_preset.xml:9307(combo:display_values|preset:Waterway|key:waterway)
 msgid "River"
-msgstr ""
+msgstr "Á"
 
 #: master_preset.xml:2348(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
@@ -9644,7 +9644,7 @@ msgstr ""
 #: master_preset.xml:4933(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:stream)
 #: master_preset.xml:9307(combo:display_values|preset:Waterway|key:waterway)
 msgid "Stream"
-msgstr ""
+msgstr "Lækur"
 
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Stream pool"
@@ -13134,7 +13134,7 @@ msgstr ""
 #: master_preset.xml:7087(combo:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:building)
 msgctxt "building"
 msgid "Building"
-msgstr ""
+msgstr "Bygging"
 
 #: master_preset.xml:909(combo:text|key:building:colour)
 msgctxt "building"
@@ -14645,7 +14645,7 @@ msgstr ""
 #: master_preset.xml:5383(combo:text|group:Facilities|preset:Hunting_Stand|key:height)
 msgctxt "height"
 msgid "Height"
-msgstr ""
+msgstr "Hæð"
 
 #: master_preset.xml:5385(check:text|group:Facilities|preset:Hunting_Stand|key:hide)
 msgctxt "hunting stand"
