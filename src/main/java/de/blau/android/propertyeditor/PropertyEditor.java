@@ -207,8 +207,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
         super.onCreate(savedInstanceState);
 
-        // requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
         if (prefs.splitActionBarEnabled()) {
             // TODO determine if we want to reinstate the bottom bar
         }
@@ -284,6 +282,10 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         Toolbar toolbar = (Toolbar) findViewById(R.id.propertyEditorBar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         setSupportActionBar(toolbar);
+
+        // FIXME currently we statically change this, it would be nicer to actually make it dependent on if we have
+        // actually changed something
+        getSupportActionBar().setHomeAsUpIndicator(ThemeUtils.getResIdFromAttribute(this, R.attr.propertyeditor_done));
 
         // tags
         ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<>();
@@ -759,7 +761,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             recreateRecentPresetView(fm);
         }
     }
-    
+
     /**
      * Recreate the MRU list of Presets
      * 
