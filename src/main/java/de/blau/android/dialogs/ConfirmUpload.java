@@ -41,6 +41,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.blau.android.App;
@@ -177,9 +178,9 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         CheckBox closeChangeset = (CheckBox) layout.findViewById(R.id.upload_close_changeset);
         closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
         CheckBox requestReview = (CheckBox) layout.findViewById(R.id.upload_request_review);
-        AutoCompleteTextView comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
+
+        final AutoCompleteTextView comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
         List<String> comments = new ArrayList<String>(App.getLogic().getLastComments());
-        addEmptyEntry(comments);
         FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, comments);
         comment.setAdapter(commentAdapter);
         String lastComment = App.getLogic().getLastComment();
@@ -195,10 +196,16 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         comment.setOnClickListener(autocompleteOnClick);
         comment.setThreshold(1);
         comment.setOnKeyListener(new MyKeyListener());
+        ImageButton clearComment = (ImageButton) layout.findViewById(R.id.upload_comment_clear);
+        clearComment.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comment.setText("");
+            }
+        });
 
-        AutoCompleteTextView source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
+        final AutoCompleteTextView source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
         List<String> sources = new ArrayList<String>(App.getLogic().getLastSources());
-        addEmptyEntry(sources);
         FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, sources);
         source.setAdapter(sourceAdapter);
         String lastSource = App.getLogic().getLastSource();
@@ -206,6 +213,13 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         source.setOnClickListener(autocompleteOnClick);
         source.setThreshold(1);
         source.setOnKeyListener(new MyKeyListener());
+        ImageButton clearSource = (ImageButton) layout.findViewById(R.id.upload_source_clear);
+        clearSource.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                source.setText("");
+            }
+        });
 
         FormValidation commentValidator = new NotEmptyValidator(comment, getString(R.string.upload_validation_error_empty_comment));
         FormValidation sourceValidator = new NotEmptyValidator(source, getString(R.string.upload_validation_error_empty_source));
@@ -241,20 +255,6 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         Logic logic = App.getLogic();
         logic.pushComment(comment.getText().toString(), true);
         logic.pushSource(source.getText().toString(), true);
-    }
-
-    /**
-     * Add an empty entry so that it is simply to add new text (if empty or only have an empty entry don't add anything)
-     * 
-     * @param values the List of values
-     */
-    private void addEmptyEntry(List<String> values) {
-        if (values.contains("")) {
-            values.remove("");
-        }
-        if (!values.isEmpty()) {
-            values.add(0, "");
-        }
     }
 
     /**

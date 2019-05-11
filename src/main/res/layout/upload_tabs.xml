@@ -57,9 +57,21 @@
                     <TextView
                         android:id="@+id/upload_comment_label"
                         android:layout_width="wrap_content"
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
                         android:gravity="center_vertical"
                         android:text="@string/upload_comment_label" />
+                    <ImageButton
+                        android:id="@+id/upload_comment_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:paddingEnd="5dp"
+                        android:layout_alignTop="@id/upload_comment_label"
+                        android:layout_alignParentEnd="true"
+                        android:background="@android:color/transparent"
+                        android:tint="?attr/colorAccent"
+                        android:src="@drawable/baseline_clear_white_36dp" />
                     <AutoCompleteTextView
                         android:id="@+id/upload_comment"
                         android:layout_width="fill_parent"
@@ -67,14 +79,29 @@
                         android:layout_alignLeft="@id/upload_comment_label"
                         android:layout_alignStart="@id/upload_comment_label"
                         android:layout_below="@id/upload_comment_label"
-                        android:inputType="text" />
+                        android:inputType="textMultiLine"
+                        android:maxLength="255"
+                        android:lines="3"
+                        android:maxLines="3" />
                     <TextView
                         android:id="@+id/upload_source_label"
                         android:layout_width="wrap_content"
-                        android:layout_height="36dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
                         android:layout_below="@id/upload_comment"
                         android:gravity="center_vertical"
                         android:text="@string/upload_source_label" />
+                    <ImageButton
+                        android:id="@+id/upload_source_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="5dp"
+                        android:layout_alignTop="@id/upload_source_label"
+                        android:layout_alignParentEnd="true"
+                        android:background="@android:color/transparent"
+                        android:tint="?attr/colorAccent"
+                        android:src="@drawable/baseline_clear_white_36dp" />
                     <AutoCompleteTextView
                         android:id="@+id/upload_source"
                         android:layout_width="fill_parent"
@@ -82,7 +109,10 @@
                         android:layout_alignLeft="@id/upload_source_label"
                         android:layout_alignStart="@id/upload_source_label"
                         android:layout_below="@id/upload_source_label"
-                        android:inputType="text" />
+                        android:inputType="textMultiLine"
+                        android:maxLength="255"
+                        android:lines="3"
+                        android:maxLines="3" />
                     <TextView
                         android:id="@+id/upload_close_changeset_label"
                         android:layout_width="wrap_content"
