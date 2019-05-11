@@ -82,6 +82,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
@@ -364,10 +365,12 @@ public class Main extends FullScreenAppCompatActivity
      */
     private boolean wantLocationUpdates = false;
 
-    private GeoUrlData           geoData     = null;
-    private final Object         geoDataLock = new Object();
-    private RemoteControlUrlData rcData      = null;
-    private final Object         rcDataLock  = new Object();
+    private GeoUrlData           geoData        = null;
+    private final Object         geoDataLock    = new Object();
+    private RemoteControlUrlData rcData         = null;
+    private final Object         rcDataLock     = new Object();
+    private Uri                  contentUri     = null;
+    private final Object         contentUriLock = new Object();
 
     /**
      * Optional bottom toolbar
@@ -450,13 +453,7 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         Log.i(DEBUG_TAG, "onCreate " + (savedInstanceState != null ? " no saved state " : " saved state exists"));
-        // minimal support for geo: uris and JOSM style remote control
-        synchronized (geoDataLock) {
-            geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
-        }
-        synchronized (rcDataLock) {
-            rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
-        }
+        getIntentData();
         App.initGeoContext(this);
         updatePrefs(new Preferences(this));
 
@@ -719,11 +716,24 @@ public class Main extends FullScreenAppCompatActivity
             }
         }
         setIntent(intent);
+        getIntentData();
+    }
+
+    /**
+     * Get the relevant data from any intents we were started with
+     */
+    private void getIntentData() {
         synchronized (geoDataLock) {
             geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
         }
         synchronized (rcDataLock) {
             rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+        }
+        synchronized (contentUriLock) {
+            Uri uri = getIntent().getData();
+            if (uri != null && ("content".equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && "file".equals(uri.getScheme())))) {
+                contentUri = uri;
+            }
         }
     }
 
@@ -747,7 +757,7 @@ public class Main extends FullScreenAppCompatActivity
 
             @Override
             public void onSuccess() {
-                if (rcData != null || geoData != null) {
+                if (rcData != null || geoData != null || contentUri != null) {
                     setShowGPS(false);
                     processIntents();
                 } else {
@@ -837,7 +847,7 @@ public class Main extends FullScreenAppCompatActivity
                             @Override
                             public void onError() {
                                 Log.d(DEBUG_TAG, "error loading layers");
-                                // always try to load taks
+                                // always try to load tasks
                                 logic.loadTasksFromFile(Main.this, postLoadTasks);
                             }
                         });
@@ -1055,7 +1065,6 @@ public class Main extends FullScreenAppCompatActivity
                         if (bboxes != null && (!bboxes.isEmpty() || delegator.isEmpty())) {
                             // only download if we haven't yet
                             logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler() {
-
                                 private static final long serialVersionUID = 1L;
 
                                 @Override
@@ -1071,7 +1080,6 @@ public class Main extends FullScreenAppCompatActivity
                                 @Override
                                 public void onError() {
                                 }
-
                             });
                         } else {
                             rcDataEdit(rcData);
@@ -1087,6 +1095,78 @@ public class Main extends FullScreenAppCompatActivity
                     Log.d(DEBUG_TAG, "RC box is null");
                     rcDataEdit(rcData);
                     rcData = null; // zap to stop repeated/ downloads
+                }
+            }
+        }
+        synchronized (contentUriLock) {
+            Log.d(DEBUG_TAG, "Processing content uri");
+            if (contentUri != null) {
+                switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
+                case FileExtensions.GPX:
+                    if (getTracker() != null) { // load now
+                        loadGPXFile(contentUri);
+                        contentUri = null;
+                    }
+                    break;
+                case FileExtensions.JSON:
+                case FileExtensions.GEOJSON:
+                    de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
+                    if (geojsonLayer != null) {
+                        try {
+                            geojsonLayer.resetStyling();
+                            if (geojsonLayer.loadGeoJsonFile(this, contentUri)) {
+                                BoundingBox extent = geojsonLayer.getExtent();
+                                if (extent != null) {
+                                    map.getViewBox().fitToBoundingBox(map, extent);
+                                    setFollowGPS(false);
+                                }
+                                geojsonLayer.invalidate();
+                            }
+                        } catch (IOException e) {
+                            // display a toast?
+                        }
+                    }
+                    contentUri = null;
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
+                    contentUri = null;
+                }
+            }
+        }
+    }
+
+    /**
+     * Load a GPX file from an Uri, showing a dialog if it would overwrite an existing one
+     * 
+     * Zooms to the first trackpoint if one exists
+     * 
+     * @param uri the Uri
+     */
+    private void loadGPXFile(@NonNull final Uri uri) {
+        if (!getTracker().getTrackPoints().isEmpty()) {
+            ImportTrack.showDialog(Main.this, uri);
+        } else {
+            getTracker().stopTracking(false);
+            try {
+                getTracker().importGPXFile(Main.this, uri, new PostAsyncActionHandler() {
+                    @Override
+                    public void onSuccess() {
+                        gotoFirstTrackPoint();
+                    }
+
+                    @Override
+                    public void onError() {
+                        // do nothing
+                    }
+                });
+                map.invalidate();
+            } catch (FileNotFoundException e) {
+                try {
+                    Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, uri.toString()));
+                } catch (Exception ex) {
+                    // protect against translation errors
+                    Log.d(DEBUG_TAG, "read got " + e.getMessage());
                 }
             }
         }
@@ -1887,21 +1967,7 @@ public class Main extends FullScreenAppCompatActivity
                     // Get the Uri of the selected file
                     Log.d(DEBUG_TAG, "Read gpx file Uri: " + fileUri.toString());
                     if (getTracker() != null) {
-                        if (!getTracker().getTrackPoints().isEmpty()) {
-                            ImportTrack.showDialog(Main.this, fileUri);
-                        } else {
-                            getTracker().stopTracking(false);
-                            try {
-                                getTracker().importGPXFile(Main.this, fileUri);
-                            } catch (FileNotFoundException e) {
-                                try {
-                                    Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
-                                } catch (Exception ex) {
-                                    // protect against translation errors
-                                    Log.d(DEBUG_TAG, "read got " + e.getMessage());
-                                }
-                            }
-                        }
+                        loadGPXFile(fileUri);
                         SelectFile.savePref(prefs, R.string.config_gpxPreferredDir_key, fileUri);
                     }
                     map.invalidate();
@@ -1911,10 +1977,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_goto_start:
-            List<TrackPoint> l = tracker.getTrackPoints();
-            if (l != null && !l.isEmpty()) {
-                gotoTrackPoint(logic, l.get(0));
-            }
+            gotoFirstTrackPoint();
             return true;
 
         case R.id.menu_gps_goto_first_waypoint:
@@ -2362,6 +2425,19 @@ public class Main extends FullScreenAppCompatActivity
         logic.setZoom(getMap(), ZOOM_FOR_ZOOMTO);
         map.getViewBox().moveTo(getMap(), trackPoint.getLon(), trackPoint.getLat());
         map.invalidate();
+    }
+
+    /**
+     * Goto the first track point if any
+     */
+    private void gotoFirstTrackPoint() {
+        TrackerService ts = getTracker();
+        if (ts != null) {
+            List<TrackPoint> l = ts.getTrackPoints();
+            if (!l.isEmpty()) {
+                gotoTrackPoint(App.getLogic(), l.get(0));
+            }
+        }
     }
 
     /**
@@ -3881,6 +3957,12 @@ public class Main extends FullScreenAppCompatActivity
         return networkStatus.isConnectedOrConnecting();
     }
 
+    /**
+     * Get the current Map instance
+     * 
+     * @return the current Map instance
+     */
+    @Nullable
     public Map getMap() {
         return map;
     }
@@ -3894,23 +3976,37 @@ public class Main extends FullScreenAppCompatActivity
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        Log.i(DEBUG_TAG, "Tracker service connected");
-        setTracker((((TrackerBinder) service).getService()));
-        map.setTracker(getTracker());
-        getTracker().setListener(this);
-        getTracker().setListenerNeedsGPS(wantLocationUpdates);
-        startStopAutoDownload();
-        startStopBugAutoDownload();
-        triggerMenuInvalidation();
+        Log.i(DEBUG_TAG, "Service " + name.getClassName() + " connected");
+        if (TrackerService.class.getCanonicalName().equals(name.getClassName())) {
+            Log.i(DEBUG_TAG, "Tracker service connected");
+            setTracker((((TrackerBinder) service).getService()));
+            map.setTracker(getTracker());
+            getTracker().setListener(this);
+            getTracker().setListenerNeedsGPS(wantLocationUpdates);
+            startStopAutoDownload();
+            startStopBugAutoDownload();
+            triggerMenuInvalidation();
+            synchronized (contentUriLock) {
+                if (contentUri != null) {
+                    Log.d(DEBUG_TAG, "Processing content uri for a gpx file");
+                    if (FileExtensions.GPX.equals(FileUtil.getExtension(contentUri.getLastPathSegment()))) {
+                        loadGPXFile(contentUri);
+                        contentUri = null;
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
         // should never happen, but just to be sure
-        Log.i(DEBUG_TAG, "Tracker service disconnected");
-        setTracker(null);
-        map.setTracker(null);
-        triggerMenuInvalidation();
+        if (TrackerService.class.getCanonicalName().equals(name.getClassName())) {
+            Log.i(DEBUG_TAG, "Tracker service disconnected");
+            setTracker(null);
+            map.setTracker(null);
+            triggerMenuInvalidation();
+        }
     }
 
     @Override
