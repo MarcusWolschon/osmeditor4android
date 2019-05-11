@@ -3,7 +3,6 @@ package de.blau.android;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,7 +37,6 @@ import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -2335,9 +2333,9 @@ public class Logic {
      * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
      */
     public static double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
-        return isPositionOnLine(DataStyle.getCurrent().getWayToleranceValue() / 2f,  x,  y,  node1X,  node1Y,  node2X, node2Y);
+        return isPositionOnLine(DataStyle.getCurrent().getWayToleranceValue() / 2f, x, y, node1X, node1Y, node2X, node2Y);
     }
-    
+
     /**
      * Checks if the x,y-position plus the tolerance is on a line between node1(x,y) and node2(x,y).
      * 
@@ -2352,7 +2350,8 @@ public class Logic {
      * @param node2Y screen Y coordinate of node2
      * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
      */
-    public static double isPositionOnLine(final float tolerance, final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
+    public static double isPositionOnLine(final float tolerance, final float x, final float y, final float node1X, final float node1Y, final float node2X,
+            final float node2Y) {
         // noinspection SuspiciousNameCombination
         if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
             double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);
@@ -3093,7 +3092,7 @@ public class Logic {
             }
         }.execute(add);
     }
-    
+
     /**
      * Write data to a file in (J)OSM compatible format, if fileName contains directories these are created, otherwise
      * it is stored in the standard public dir
@@ -3105,7 +3104,7 @@ public class Logic {
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
         try {
             File outfile = FileUtil.openFileForWriting(fileName);
-            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath()); 
+            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
             writeOsmFile(activity, new FileOutputStream(outfile), postSaveHandler);
         } catch (IOException e) {
             if (!activity.isFinishing()) {
@@ -3114,7 +3113,7 @@ public class Logic {
             if (postSaveHandler != null) {
                 postSaveHandler.onError();
             }
-        }        
+        }
     }
 
     /**
@@ -3134,18 +3133,19 @@ public class Logic {
             if (postSaveHandler != null) {
                 postSaveHandler.onError();
             }
-        }        
+        }
     }
-    
+
     /**
-     * Write data to an OutputStream in (J)OSM compatible format, if fileName contains directories these are created, otherwise
-     * it is stored in the standard public dir
+     * Write data to an OutputStream in (J)OSM compatible format, if fileName contains directories these are created,
+     * otherwise it is stored in the standard public dir
      * 
      * @param activity the calling FragmentActivity
      * @param fout OutputStream to write to
      * @param postSaveHandler if not null executes code after saving
      */
-    private void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fout, @Nullable final PostAsyncActionHandler postSaveHandler) {
+    private void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fout,
+            @Nullable final PostAsyncActionHandler postSaveHandler) {
 
         new AsyncTask<Void, Void, Integer>() {
 
@@ -3159,7 +3159,7 @@ public class Logic {
                 int result = 0;
                 try {
                     OutputStream out = null;
-                    try {   
+                    try {
                         out = new BufferedOutputStream(fout);
                         OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
@@ -3353,13 +3353,13 @@ public class Logic {
      * @param main instance of main to setup
      * @param setViewBox set the view box if true
      */
-    void loadEditingState(Main main, boolean setViewBox) {
+    void loadEditingState(@NonNull Main main, boolean setViewBox) {
         EditState editState = new SavingHelper<EditState>().load(main, EDITSTATE_FILENAME, false);
         if (editState != null) { //
             editState.setMiscState(main, this);
             editState.setSelected(main, this);
             if (setViewBox) {
-                editState.setViewBox(this, map);
+                editState.setViewBox(this, main.getMap());
             }
         }
     }
@@ -3426,6 +3426,8 @@ public class Logic {
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
                         loadEditingState((Main) activity, true);
+                    } else {
+                        Log.e(DEBUG_TAG, "loadFromFile map is null");
                     }
 
                     if (postLoad != null) {

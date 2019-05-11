@@ -93,7 +93,6 @@ import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.GpxUpload;
 import de.blau.android.dialogs.ImportTrack;
-import de.blau.android.dialogs.LayerStyle;
 import de.blau.android.dialogs.Layers;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
@@ -114,7 +113,6 @@ import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.javascript.EvalCallback;
 import de.blau.android.layer.ClickableInterface;
-import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
@@ -1067,7 +1065,6 @@ public class Main extends FullScreenAppCompatActivity
                         if (bboxes != null && (!bboxes.isEmpty() || delegator.isEmpty())) {
                             // only download if we haven't yet
                             logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler() {
-
                                 private static final long serialVersionUID = 1L;
 
                                 @Override
@@ -1083,7 +1080,6 @@ public class Main extends FullScreenAppCompatActivity
                                 @Override
                                 public void onError() {
                                 }
-
                             });
                         } else {
                             rcDataEdit(rcData);
