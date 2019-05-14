@@ -3288,7 +3288,7 @@ public class Logic {
      * 
      * @param activity activity that we were called from
      */
-    synchronized void save(final Activity activity) {
+    synchronized void save(@NonNull final Activity activity) {
         try {
             getDelegator().writeToFile(activity);
             App.getTaskStorage().writeToFile(activity);

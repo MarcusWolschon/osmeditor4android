@@ -21,6 +21,7 @@ import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
@@ -116,11 +117,8 @@ public class DebugInformation extends AppCompatActivity {
         } else {
             builder.append("No bug state file found\n");
         }
-        StorageDelegator delegator = App.getDelegator();
-        builder.append("Relations (current/API): " + delegator.getCurrentStorage().getRelations().size() + "/" + delegator.getApiRelationCount() + eol);
-        builder.append("Ways (current/API): " + delegator.getCurrentStorage().getWays().size() + "/" + delegator.getApiWayCount() + eol);
-        builder.append("Nodes (current/Waynodes/API): " + delegator.getCurrentStorage().getNodes().size() + "/"
-                + delegator.getCurrentStorage().getWayNodes().size() + "/" + delegator.getApiNodeCount() + eol);
+
+        ACRAHelper.addElementCounts(builder, eol);
 
         builder.append("Available location providers\n");
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
