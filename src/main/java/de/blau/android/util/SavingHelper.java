@@ -37,12 +37,24 @@ import de.blau.android.R;
  * @param <T> The type of the saved objects
  */
 public class SavingHelper<T extends Serializable> {
+
     private static final String DEBUG_TAG = SavingHelper.class.getSimpleName();
+
+    private static final long DEFAULT_STACK_SIZE = 200000L;
+    private static final int  ADD_STACK          = 2000000;
+    private static final int  LOTS_OF_MEMORY     = 10000000;
 
     /**
      * Date pattern used for the export file name.
      */
     private static final String DATE_PATTERN_EXPORT_FILE_NAME_PART = "yyyy-MM-dd'T'HHmmss";
+
+    private final long stackSize;
+
+    public SavingHelper() {
+        long freeMemory = Runtime.getRuntime().freeMemory();
+        stackSize = DEFAULT_STACK_SIZE + (freeMemory > LOTS_OF_MEMORY ? ADD_STACK : 0);
+    }
 
     /**
      * Serializes the given object and writes it to a private file with the given name
@@ -60,7 +72,8 @@ public class SavingHelper<T extends Serializable> {
         try {
             Log.d(DEBUG_TAG, "preparing to save " + filename);
             SaveThread r = new SaveThread(context, filename, object, compress);
-            Thread t = new Thread(null, r, "SaveThread", 200000);
+
+            Thread t = new Thread(null, r, "SaveThread", stackSize);
             t.start();
             t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
                            // limits the size of the file that can be saved
@@ -129,7 +142,7 @@ public class SavingHelper<T extends Serializable> {
                 result = false;
             } catch (Error e) { // NOSONAR crashing is not an option
                 Log.e(DEBUG_TAG, "failed to save " + filename, e);
-                ACRAHelper.nocrashReport(e, e.getMessage());
+                ACRAHelper.nocrashReport(e, "failed to save " + filename + " " + e.getMessage() + " withh stack size " + stackSize);
                 result = false;
             } finally {
                 SavingHelper.close(objectOut);
@@ -165,7 +178,7 @@ public class SavingHelper<T extends Serializable> {
         try {
             Log.d(DEBUG_TAG, "preparing to load " + filename);
             LoadThread r = new LoadThread(context, filename, compressed, deleteOnFail);
-            Thread t = new Thread(null, r, "LoadThread", 200000);
+            Thread t = new Thread(null, r, "LoadThread", stackSize);
             t.start();
             t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
                            // limits the size of the file that can be loaded
@@ -228,7 +241,7 @@ public class SavingHelper<T extends Serializable> {
                 FSTObjectInput inFST = App.getFSTInstance().getObjectInput(in);
                 @SuppressWarnings("unchecked") // casting exceptions are caught by the exception handler
                 T object = (T) inFST.readObject();
-                // DON'T: in.close(); here prevents reuse and will result in an exception      
+                // DON'T: in.close(); here prevents reuse and will result in an exception
                 in.close();
                 Log.d(DEBUG_TAG, "loaded " + filename + " successfully");
                 result = object;
@@ -248,7 +261,7 @@ public class SavingHelper<T extends Serializable> {
                 if (e instanceof InvalidClassException) { // serial id mismatch, will typically happen on upgrades
                     // do nothing
                 } else {
-                    ACRAHelper.nocrashReport(e, e.getMessage());
+                    ACRAHelper.nocrashReport(e, "failed to load " + filename + " " + e.getMessage() + " withh stack size " + stackSize);
                 }
             } catch (Error e) { // NOSONAR crashing is not an option
                 Log.e(DEBUG_TAG, "failed to load " + filename, e);
