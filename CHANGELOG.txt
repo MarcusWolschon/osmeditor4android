@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+13.0.3: Fix regression for pre-Android 16 devices in API prefs, avoid NPE when reading invalid .osm file, fix regression displaying MBTiles, and data style without MP rendering, allocate more stack when saving, protect better against race conditions in StorageDelegator, update imagery, update translations, update nsi.
+
 13.0.2: Fix regression when undoing relations, fix relation handling when splitting a closed way, set icons on initial layout, update preset, imagery and translations.
 
 13.0.1: Add some topological analysis during unconnected way node validation, update imagery and translations.
