@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-05-05 06:59+0000\n"
+"PO-Revision-Date: 2019-05-13 13:12+0000\n"
 "Last-Translator: imni <iriman@chmail.ir>\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -8404,7 +8404,7 @@ msgstr ""
 
 #: master_preset.xml:9003(combo:text|group:Turn_Restrictions|preset:Turn_Restriction|key:restriction)
 msgid "Restriction"
-msgstr ""
+msgstr "محدودیت"
 
 #: master_preset.xml:1915(item:name|group:Barriers|preset:Retaining_Wall)
 msgid "Retaining Wall"

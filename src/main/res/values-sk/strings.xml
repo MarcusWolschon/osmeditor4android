@@ -43,6 +43,7 @@
   <string name="progress_oauth">Načítava sa váš účet na službe openstreetmap.org pre autorizáciu OAuth…</string>
   <string name="progress_building_imagery_database">Zostavuje sa databáza obrázkov…</string>
   <!--Confirm upload dialog-->
+  <string name="changes_changed">Zmenený objekt „%1$s“</string>
   <string name="changes_created">Vytvorený objekt „%1$s“</string>
   <string name="confirm_upload_title">Odovzdanie zmien</string>
   <plurals name="confirm_upload_text">
@@ -180,6 +181,7 @@
   <string name="toast_openinghours_invalid">Neplatná hodnota otváracej doby pre %1$s</string>
   <string name="toast_exit_multiselect">Na ukončenie ťuknite dvakrát na prázdne miesto alebo použite šípku ←</string>
   <string name="toast_server_connection_failed">Nepodarilo sa pripojiť k serveru: %1$s</string>
+  <string name="toast_applied_offset">Posun obrázkov bol použitý.</string>
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
   <string name="toast_tags_cut">Značky vystrihnuté do schránky</string>
   <string name="toast_properties_copied">Vlastnosti skopírované do schránky</string>
@@ -308,6 +310,7 @@
   <string name="menu_transfer_file">Súbor…</string>
   <string name="menu_transfer_bugs_upload">Odovzdať všetko</string>
   <string name="menu_transfer_bugs_clear">Vymazať</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Uložiť nové a zmenené poznámky…</string>
   <string name="menu_save">Uložiť do súboru</string>
   <string name="menu_join">Spojiť</string>
   <string name="menu_unjoin">Rozpojiť</string>
@@ -337,6 +340,8 @@
   <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnať pozadie</string>
   <string name="menu_tools_background_align_reset">Obnoviť</string>
+  <string name="menu_tools_background_align_zero">Vynulovať</string>
+  <string name="menu_tools_background_align_apply2all">Použiť (všetky úrovne priblíženia)</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Vrstvy…</string>
   <string name="menu_layers_add_backgroundlayer">Pridať vrstvu s obrázkami pozadia</string>
@@ -414,6 +419,8 @@
   <!--Location Settings-->
   <!--Server Settings-->
   <string name="config_loginbutton_title">Používateľský účet</string>
+  <string name="config_offsetServer_title">Server posunu</string>
+  <string name="config_offsetServer_summary">URL servera posunu obrázkov.</string>
   <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Veľkosť vyrovnávacej pamäte dlaždíc</string>
   <!--Miscellaneous-->

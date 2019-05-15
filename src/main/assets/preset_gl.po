@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-05-10 20:28+0000\n"
+"PO-Revision-Date: 2019-05-11 19:57+0000\n"
 "Last-Translator: Ivan Seoane\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -3541,7 +3541,7 @@ msgstr ""
 #: master_preset.xml:4260(item:name|preset:Fishing)
 #: master_preset.xml:7740(item:name|group:Sports_and_hobbies|preset:Fishing)
 msgid "Fishing"
-msgstr ""
+msgstr "Pesca"
 
 #: master_preset.xml:5515(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
@@ -3574,7 +3574,7 @@ msgstr ""
 
 #: master_preset.xml:2498(check:text|group:Shipping|preset:Pier|key:floating)
 msgid "Floating"
-msgstr ""
+msgstr "Flotante"
 
 #: master_preset.xml:1906(combo:display_values|group:Barriers|preset:Wall|key:wall)
 msgid "Flood wall"
@@ -5244,7 +5244,7 @@ msgstr "Transición de localización"
 #: master_preset.xml:2235(check:text|group:Water|preset:Canal|key:lock)
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lock"
-msgstr ""
+msgstr "Bloqueo"
 
 #: master_preset.xml:2500(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
@@ -5381,7 +5381,7 @@ msgstr ""
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Fabricante"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -6351,7 +6351,7 @@ msgstr "Follaxe perenne"
 
 #: master_preset.xml:8310(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
-msgstr ""
+msgstr "Veciñanza ou subarrio"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Nepali"
@@ -8136,7 +8136,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "Recomendadas"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -14646,7 +14646,7 @@ msgstr ""
 #: master_preset.xml:5383(combo:text|group:Facilities|preset:Hunting_Stand|key:height)
 msgctxt "height"
 msgid "Height"
-msgstr ""
+msgstr "Altura"
 
 #: master_preset.xml:5385(check:text|group:Facilities|preset:Hunting_Stand|key:hide)
 msgctxt "hunting stand"
@@ -14951,7 +14951,7 @@ msgstr ""
 #: master_preset.xml:6553(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
 msgid "Floating"
-msgstr ""
+msgstr "Flotante"
 
 #: master_preset.xml:6553(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
