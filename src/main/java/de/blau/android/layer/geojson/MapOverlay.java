@@ -529,7 +529,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             data = null;
             Snack.toastTopError(ctx, e.getLocalizedMessage());
             Log.e(DEBUG_TAG, "Exception " + e.getMessage());
-            e.printStackTrace();
         }
         // re-enable drawing
         setVisible(true);
