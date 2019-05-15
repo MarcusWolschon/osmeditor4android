@@ -1637,7 +1637,7 @@ public class Logic {
      * @param latE7 WGS84*1E7 latitude
      * @return the created node
      */
-    public Node performAddNode(final Activity activity, int lonE7, int latE7) {
+    public synchronized Node performAddNode(final Activity activity, int lonE7, int latE7) {
         Log.d(DEBUG_TAG, "performAddNode");
         createCheckpoint(activity, R.string.undo_action_add);
         Node newNode = getDelegator().getFactory().createNodeWithNewId(latE7, lonE7);
@@ -2481,10 +2481,8 @@ public class Logic {
                     }
                     Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
                     if (map != null) {
-                        viewBox.fitToBoundingBox(map, mapBox != null ? mapBox : getDelegator().getLastBox()); // set to
-                                                                                                              // current
-                                                                                                              // or
-                                                                                                              // previous
+                        // set to current or previous
+                        viewBox.fitToBoundingBox(map, mapBox != null ? mapBox : getDelegator().getLastBox());
                     }
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
