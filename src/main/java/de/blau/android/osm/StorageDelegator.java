@@ -116,7 +116,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param currentStorage the new Storage object to set
      */
-    public void setCurrentStorage(@NonNull final Storage currentStorage) {
+    public synchronized void setCurrentStorage(@NonNull final Storage currentStorage) {
         dirty = true;
         apiStorage = new Storage();
         clipboard = new ClipboardStorage();
@@ -153,7 +153,7 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Clears the undo storage.
      */
-    public void clearUndo() {
+    public synchronized void clearUndo() {
         undo = new UndoStorage(currentStorage, apiStorage);
     }
 
@@ -170,11 +170,11 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Insert a new element in to storage
      * 
-     * Uses methods that are nops if theelement already is present
+     * Uses methods that are nops if the element already is present
      * 
      * @param elem the element to insert
      */
-    public void insertElementSafe(@NonNull final OsmElement elem) {
+    public synchronized void insertElementSafe(@NonNull final OsmElement elem) {
         dirty = true;
         undo.save(elem);
         try {
@@ -192,7 +192,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param elem the element to insert
      */
-    private void insertElementUnsafe(@NonNull final OsmElement elem) {
+    private synchronized void insertElementUnsafe(@NonNull final OsmElement elem) {
         dirty = true;
         undo.save(elem);
         try {
@@ -211,7 +211,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param elem the element to tag
      * @param tags the new tags
      */
-    public void setTags(@NonNull final OsmElement elem, @Nullable final Map<String, String> tags) {
+    public synchronized void setTags(@NonNull final OsmElement elem, @Nullable final Map<String, String> tags) {
         dirty = true;
         undo.save(elem);
 
@@ -2337,7 +2337,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return the current Storage object
      */
     @NonNull
-    public Storage getCurrentStorage() {
+    public synchronized Storage getCurrentStorage() {
         return currentStorage;
     }
 
@@ -2347,7 +2347,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return the current List of BoundingBoxes
      */
     @NonNull
-    public List<BoundingBox> getBoundingBoxes() {
+    public synchronized List<BoundingBox> getBoundingBoxes() {
         // TODO make a copy?
         return currentStorage.getBoundingBoxes();
     }
@@ -2357,7 +2357,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param box the initial BoundingBox
      */
-    public void setOriginalBox(@NonNull final BoundingBox box) {
+    public synchronized void setOriginalBox(@NonNull final BoundingBox box) {
         dirty = true;
         currentStorage.setBoundingBox(box);
     }
@@ -2367,7 +2367,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param box the BoundingBox to add
      */
-    public void addBoundingBox(@NonNull BoundingBox box) {
+    public synchronized void addBoundingBox(@NonNull BoundingBox box) {
         dirty = true;
         currentStorage.addBoundingBox(box);
     }
@@ -2377,7 +2377,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param box the BoundingBox to delete
      */
-    public void deleteBoundingBox(@NonNull BoundingBox box) {
+    public synchronized void deleteBoundingBox(@NonNull BoundingBox box) {
         dirty = true;
         currentStorage.deleteBoundingBox(box);
     }
@@ -2689,6 +2689,11 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public synchronized boolean mergeData(@NonNull Storage storage, @Nullable PostMergeHandler postMerge) {
         Log.d(DEBUG_TAG, "mergeData called");
+
+        if (storage.isEmpty()) { // no point in doing anything
+            return true;
+        }
+
         // make temp copy of current storage (we may have to abort
         Storage temp = new Storage(currentStorage);
 
