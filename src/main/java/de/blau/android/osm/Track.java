@@ -200,6 +200,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * 
      * @return a List of WayPoint
      */
+    @NonNull
     public WayPoint[] getWayPoints() {
         return currentWayPoints.toArray(new WayPoint[0]); // need a shallow copy here
     }

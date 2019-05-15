@@ -710,8 +710,8 @@ public class TrackerService extends Service implements Exportable {
                         if (handler != null) {
                             handler.onSuccess();
                         }
-                        int trackPointCount = track.getTrackPoints() != null ? track.getTrackPoints().size() : 0;
-                        int wayPointCount = track.getWayPoints() != null ? track.getWayPoints().length : 0;
+                        int trackPointCount = track.getTrackPoints().size();
+                        int wayPointCount = track.getWayPoints().length;
                         String message = activity.getResources().getQuantityString(R.plurals.toast_imported_track_points, wayPointCount, trackPointCount,
                                 wayPointCount);
                         Snack.barInfo(activity, message);

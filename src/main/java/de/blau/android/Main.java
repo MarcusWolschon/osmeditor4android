@@ -2680,11 +2680,7 @@ public class Main extends FullScreenAppCompatActivity
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         Log.d(DEBUG_TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_BOUNDING_BOX && data != null) {
-            handleBoxPickerResult(resultCode, data);
-        } else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK && data != null) {
-            handlePropertyEditorResult(data);
-        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             // reindexPhotos();
             if (imageFile != null) {
                 PhotoIndex pi = new PhotoIndex(this);
@@ -2695,23 +2691,29 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 Log.e(DEBUG_TAG, "imageFile == null");
             }
-        } else if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
-            if (easyEditManager != null && easyEditManager.isProcessingAction()) {
-                easyEditManager.handleActivityResult(requestCode, resultCode, data);
+        } else if (data != null) {
+            if (requestCode == REQUEST_BOUNDING_BOX) {
+                handleBoxPickerResult(resultCode, data);
+            } else if (requestCode == REQUEST_EDIT_TAG && resultCode == RESULT_OK) {
+                handlePropertyEditorResult(data);
+            } else if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
+                if (easyEditManager != null && easyEditManager.isProcessingAction()) {
+                    easyEditManager.handleActivityResult(requestCode, resultCode, data);
+                } else {
+                    (new Commands(this)).processIntentResult(data, locationForIntent);
+                    locationForIntent = null;
+                    map.invalidate();
+                }
+            } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
+                    && resultCode == RESULT_OK) {
+                SelectFile.handleResult(requestCode, data);
             } else {
-                (new Commands(this)).processIntentResult(data, locationForIntent);
-                locationForIntent = null;
-                map.invalidate();
-            }
-        } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
-                && resultCode == RESULT_OK) {
-            SelectFile.handleResult(requestCode, data);
-        } else {
-            ActivityResultHandler.Listener listener = activityResultListeners.get(requestCode);
-            if (listener != null) {
-                listener.processResult(resultCode, data);
-            } else {
-                Log.w(DEBUG_TAG, "Received activity result without listener, code " + requestCode);
+                ActivityResultHandler.Listener listener = activityResultListeners.get(requestCode);
+                if (listener != null) {
+                    listener.processResult(resultCode, data);
+                } else {
+                    Log.w(DEBUG_TAG, "Received activity result without listener, code " + requestCode);
+                }
             }
         }
         scheduleAutoLock();
