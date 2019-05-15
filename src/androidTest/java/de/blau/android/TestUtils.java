@@ -898,6 +898,7 @@ public class TestUtils {
      */
     public static void selectFile(@NonNull UiDevice device, @NonNull String fileName) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            TestUtils.clickMenuButton("List view", false, false);
             TestUtils.clickMenuButton("Show roots", false, true);
             TestUtils.clickText(device, false, "Android", true);
             UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
