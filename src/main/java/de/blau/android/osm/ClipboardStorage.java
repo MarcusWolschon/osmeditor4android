@@ -154,4 +154,13 @@ public class ClipboardStorage implements Serializable {
     public int getSelectionLon() {
         return selectionLon;
     }
+
+    /**
+     * Check if the content was cut
+     * 
+     * @return true if the content was cut to the clipboard
+     */
+    public boolean contentsWasCut() {
+        return mode == Mode.CUT;
+    }
 }

@@ -2248,6 +2248,9 @@ public class StorageDelegator implements Serializable, Exportable {
     @Nullable
     public OsmElement pasteFromClipboard(int lat, int lon) {
         OsmElement e = clipboard.pasteFrom();
+        if (e == null) {
+            return null;
+        }
         // if the clipboard isn't empty now we need to clone the element
         if (!clipboard.isEmpty()) { // paste from copy
             if (e instanceof Node) {
@@ -2311,6 +2314,15 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public boolean clipboardIsEmpty() {
         return clipboard.isEmpty();
+    }
+
+    /**
+     * Check if the content of the clipboard was cut
+     * 
+     * @return true if the clipboards content was cut
+     */
+    public boolean clipboardContentWasCut() {
+        return clipboard.contentsWasCut();
     }
 
     /**

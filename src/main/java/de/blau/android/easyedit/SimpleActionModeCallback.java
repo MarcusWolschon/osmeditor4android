@@ -133,7 +133,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         }) {
             @Override
             public boolean isEnabled() {
-                return !App.getLogic().clipboardIsEmpty();
+                return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
             }
         };
 
