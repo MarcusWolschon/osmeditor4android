@@ -707,7 +707,12 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      */
     @Override
     public int hashCode() {
-        return Objects.hash(bottom, left, right, top);
+        int result = 17;
+        result = 37 * result + left;
+        result = 37 * result + bottom;
+        result = 37 * result + right;
+        result = 37 * result + top;
+        return result;
     }
 
     /*
