@@ -648,7 +648,7 @@ public class Preferences {
     }
 
     /**
-     * Is automatically applying presets for name suggestionss turned on
+     * Is automatically applying presets for name suggestions turned on
      * 
      * @return true if automatically applying presets for name suggestions should be used
      */
