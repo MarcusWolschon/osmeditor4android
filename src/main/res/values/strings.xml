@@ -936,7 +936,7 @@
     <string name="undo_action_apply_osc">Apply OSC file</string>
     <!-- ACRA -->
     <string name="crash_dialog_text">Vespucci crashed or encountered a serious issue the last time it ran.\n\nPlease help by clicking by \'OK\' to send an error report.\n</string>
-    <string name="crash_dialog_comment_prompt">Add any further info you believe might help and (optionally,) your e-mail address if you want feedback.\n\nThank you.</string>
+    <string name="crash_dialog_comment_prompt">Add any further info you believe might help and (optionally,) your OSM user name if you want feedback.\n\nThank you.</string>
     <string name="report_success">Reported.</string>
     <string name="report_failure">Could not send report.</string>
     <!-- Exceptions messages -->
