@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
@@ -80,6 +81,7 @@ public class ConfigurationDialog extends SizedFixedImmersiveDialogFragment {
         setCancelable(true);
     }
 
+    @SuppressLint("NewApi")
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {

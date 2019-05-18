@@ -1,11 +1,13 @@
 package de.blau.android;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +39,7 @@ public class Splash extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected void onResume() {
         super.onResume();
@@ -53,7 +56,7 @@ public class Splash extends AppCompatActivity {
                 try {
                     lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI);
                 } catch (SQLiteException sex) {
-                    if (sex instanceof SQLiteDatabaseLockedException) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && sex instanceof SQLiteDatabaseLockedException) {
                         Log.e(DEBUG_TAG, "tile layer database is locked");
                         cancel(true);
                     }

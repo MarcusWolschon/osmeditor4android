@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -293,10 +294,13 @@ public final class IssueAlert {
     /**
      * Check if we have already shown a group notification
      * 
+     * Note using this requires API 23 or higher 
+     * 
      * @param notificationManager a NotificationManager instance
      * @param groupId the group id we a rechecking
      * @return true if present
      */
+    @SuppressLint("NewApi")
     private static boolean hasGroupNotification(@NonNull NotificationManager notificationManager, int groupId) {
         StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications) {

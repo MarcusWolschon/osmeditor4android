@@ -51,7 +51,7 @@ public class UnsignedSparseBitSet {
      * @return the next largest index value
      */
     public static int inc(int i) {
-        long l = Integer.toUnsignedLong(i) + 1;
+        long l = ((long)i & 0xffffffffL) + 1;
         return (int) (l & 0xFFFFFFFF);
     }
 
