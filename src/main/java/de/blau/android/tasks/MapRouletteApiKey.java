@@ -131,8 +131,8 @@ public class MapRouletteApiKey {
         try {
             getKey.execute();
             return getKey.get(1000, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            // didn't work, ignore
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
+            getKey.cancel(true);
             return null;
         }
     }
