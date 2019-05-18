@@ -40,6 +40,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
@@ -56,6 +57,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.ImmersiveDialogFragment;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
@@ -157,6 +159,8 @@ public class ElementInfo extends ImmersiveDialogFragment {
         super.onCreate(savedInstanceState);
         emptyRole = new SpannableString(getString(R.string.empty_role));
         emptyRole.setSpan(new StyleSpan(Typeface.ITALIC), 0, emptyRole.length(), 0);
+        // always do this first
+        element = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
     }
 
     @Override
@@ -165,21 +169,23 @@ public class ElementInfo extends ImmersiveDialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         final FragmentActivity activity = getActivity();
+        BoundingBox tempBox = element != null ? element.getBounds() : null;
+        final ViewBox box = tempBox != null ? new ViewBox(tempBox) : null;
         if (getArguments().getBoolean(SHOW_JUMP_TO_KEY) && activity instanceof Main) {
             builder.setNeutralButton(R.string.goto_element, new DialogInterface.OnClickListener() {
-
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     de.blau.android.dialogs.Util.dismissDialog(activity, ConfirmUpload.TAG);
-                    if (element != null) {
-                        ViewBox box = new ViewBox(element.getBounds());
-                        if (box != null) {
-                            double[] center = box.getCenter();
-                            ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
-                        }
+                    if (box != null) {
+                        double[] center = box.getCenter();
+                        ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
+                    } else {
+                        ((Main) activity).edit(element);
+                        Snack.toastTopWarning(activity, R.string.toast_no_geometry);
                     }
                 }
             });
+
         }
         builder.setTitle(R.string.element_information);
         builder.setView(createView(null));
@@ -216,7 +222,6 @@ public class ElementInfo extends ImmersiveDialogFragment {
         ScrollView sv = (ScrollView) themedInflater.inflate(R.layout.element_info_view, container, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
 
-        element = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
         UndoElement ue = (UndoElement) getArguments().getSerializable(UNDOELEMENT_KEY);
 
         boolean compare = ue != null;
