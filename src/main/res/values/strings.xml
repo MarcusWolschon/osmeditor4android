@@ -392,6 +392,7 @@
     <string name="toast_merged">Merged</string>
     <string name="toast_long_press_simple_mode">Long press is not available in simple mode</string>
     <string name="toast_invalid_style_file">Invalid style file format for %1$s</string>
+    <string name="toast_no_geometry">No geometry for element found</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

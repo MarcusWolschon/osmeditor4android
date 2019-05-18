@@ -3942,8 +3942,17 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void zoomToAndEdit(int lonE7, int latE7, @NonNull OsmElement e) {
         Log.d(DEBUG_TAG, "zoomToAndEdit Zoom " + map.getZoomLevel());
-        final Logic logic = App.getLogic();
         zoomTo(lonE7, latE7, e);
+        edit(e);
+    }
+
+    /**
+     * Programmatically start editing an element
+     * 
+     * @param e the OemElement
+     */
+    public void edit(@NonNull OsmElement e) {
+        final Logic logic = App.getLogic();
         logic.setSelectedNode(null);
         logic.setSelectedWay(null);
         logic.setSelectedRelation(null);
