@@ -51,7 +51,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.PopupMenu;
@@ -76,7 +75,6 @@ import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -97,7 +95,6 @@ import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
-import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.dialogs.UndoDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
@@ -142,6 +139,7 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
+import de.blau.android.tasks.MapRouletteApiKey;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
@@ -2255,37 +2253,7 @@ public class Main extends FullScreenAppCompatActivity
 
             return true;
         case R.id.menu_tools_set_maproulette_apikey:
-            final AppCompatDialog dialog = TextLineDialog.get(this, R.string.maproulette_task_set_apikey, new TextLineDialog.TextLineInterface() {
-                @Override
-                public void processLine(EditText input) {
-                    if (input != null && input.length() > 0) {
-                        final String newApiKey = input.getText().toString();
-                        new AsyncTask<Void, Void, Void>() {
-                            @Override
-                            protected Void doInBackground(Void... params) {
-                                try {
-                                    server.setUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2, newApiKey);
-                                    Main.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Snack.toastTopInfo(Main.this, R.string.maproulette_task_apikey_set);
-                                        }
-                                    });
-                                } catch (OsmException oex) {
-                                    Main.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Snack.toastTopError(Main.this, R.string.maproulette_task_apikey_not_set);
-                                        }
-                                    });
-                                }
-                                return null;
-                            }
-                        }.execute();
-                    }
-                }
-            });
-            dialog.show();
+            MapRouletteApiKey.set(this, server, true);
             return true;
         case R.id.menu_tools_clear_clipboard:
             App.getDelegator().clearClipboard();

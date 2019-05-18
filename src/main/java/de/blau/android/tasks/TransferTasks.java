@@ -32,9 +32,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
-import android.widget.EditText;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Main;
@@ -45,8 +43,6 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.ForbiddenLogin;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.dialogs.TextLineDialog;
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
@@ -64,9 +60,6 @@ public class TransferTasks {
 
     /** Maximum closed age to display: 7 days. */
     private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
-
-    /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
-    private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 
     /** maximum of tasks per request */
     private static final int MAX_PER_REQUEST = 1000;
@@ -198,10 +191,11 @@ public class TransferTasks {
     public static void upload(@NonNull final Main main, @NonNull final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "tasks";
 
+        Set<String> bugFilter = main.getMap().getPrefs().taskFilter();
         final List<Task> queryResult = App.getTaskStorage().getTasks();
         // check if we need to oAuth first
         for (Task b : queryResult) {
-            if (b.hasBeenChanged() && b instanceof Note) {
+            if (b.hasBeenChanged() && b instanceof Note && bugFilter.contains(main.getString(R.string.bugfilter_notes))) {
                 PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
                     @Override
                     public void onSuccess() {
@@ -231,7 +225,7 @@ public class TransferTasks {
                 for (Task b : queryResult) {
                     if (b.hasBeenChanged()) {
                         Log.d(DEBUG_TAG, b.getDescription());
-                        if (b instanceof Note) {
+                        if (b instanceof Note && bugFilter.contains(main.getString(R.string.bugfilter_notes))) {
                             Note n = (Note) b;
                             NoteComment nc = n.getLastComment();
                             if (nc != null && nc.isNew()) {
@@ -240,9 +234,11 @@ public class TransferTasks {
                                 // just a state change
                                 uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed;
                             }
-                        } else if (b instanceof OsmoseBug) {
+                        } else if (b instanceof OsmoseBug && (bugFilter.contains(main.getString(R.string.bugfilter_osmose_error))
+                                || bugFilter.contains(main.getString(R.string.bugfilter_osmose_warning))
+                                || bugFilter.contains(main.getString(R.string.bugfilter_osmose_minor_issue)))) {
                             uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b) || uploadFailed;
-                        } else if (b instanceof MapRouletteTask) {
+                        } else if (b instanceof MapRouletteTask && bugFilter.contains(main.getString(R.string.bugfilter_maproulette))) {
                             uploadFailed = !updateMapRouletteTask(main, server, (MapRouletteTask) b, true, null) || uploadFailed;
                         }
                     }
@@ -445,7 +441,14 @@ public class TransferTasks {
 
             @Override
             public void onSuccess() {
-                updateMapRouletteTask(activity, server, task, quiet, postUploadHandler);
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        Preferences prefs = new Preferences(activity);
+                        updateMapRouletteTask(activity, prefs.getServer(), task, quiet, postUploadHandler);
+                        return null;
+                    }
+                }.execute();
             }
 
             @Override
@@ -460,37 +463,7 @@ public class TransferTasks {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AppCompatDialog dialog = TextLineDialog.get(activity, R.string.maproulette_task_set_apikey, new TextLineDialog.TextLineInterface() {
-                        @Override
-                        public void processLine(EditText input) {
-                            if (input != null && input.length() > 0) {
-                                final String newApiKey = input.getText().toString();
-                                new AsyncTask<Void, Void, Void>() {
-                                    @Override
-                                    protected Void doInBackground(Void... params) {
-                                        try {
-                                            server.setUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2, newApiKey);
-                                            activity.runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    Snack.toastTopInfo(activity, R.string.maproulette_task_apikey_set);
-                                                }
-                                            });
-                                        } catch (OsmException oex) {
-                                            activity.runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    Snack.toastTopError(activity, R.string.maproulette_task_apikey_not_set);
-                                                }
-                                            });
-                                        }
-                                        return null;
-                                    }
-                                }.execute();
-                            }
-                        }
-                    });
-                    dialog.show();
+                    MapRouletteApiKey.set(activity, server, true);
                 }
             });
             return false;
