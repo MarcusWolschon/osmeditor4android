@@ -85,6 +85,7 @@
   <string name="toast_photo_indexing_finished">扫描地理参考图片完成</string>
   <string name="toast_download_failed">下载失败，错误代码是%1$d，信息为%2$s</string>
   <string name="toast_unsurveyed_road">未调查的路</string>
+  <!---->
   <string name="toast_oauth">请允许 OAuth 进入您的 OSM 帐号。</string>
   <string name="toast_no_oauth">没有可用于当前的API的OAuth配置，请设置登录名和密码。</string>
   <string name="coordinates_out_of_range">经度必须在-180°/+180° 以内，而纬度在-85°/85° 以内</string>

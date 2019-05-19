@@ -181,6 +181,7 @@
   <string name="toast_photo_indexing_finished">Zakończono skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_download_failed">Nie udało się pobrać. Kod błędu %1$d, wiadomość %2$s</string>
   <string name="toast_unsurveyed_road">Niezidentyfikowana droga</string>
+  <!---->
   <string name="toast_oauth">Włącz autoryzację OAuth dla konta OSM</string>
   <string name="toast_no_oauth">Brak dostępnej konfiguracji OAuth dla aktualnego API, zamiast tego możesz ustawić swój login i hasło.</string>
   <string name="toast_oauth_not_enabled">OAuth jest wyłączony dla aktualnego API.</string>

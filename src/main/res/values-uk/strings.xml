@@ -253,6 +253,7 @@
   <string name="toast_untagged_way">Лінія без теґів</string>
   <string name="toast_untagged_relation">Звʼязок без теґів</string>
   <string name="toast_unconnected_end_node">Точка поруч з елементом до якого вона може бути приєднана.</string>
+  <!---->
   <string name="toast_oauth_retry">Спробуйте надіслати дані ще раз після надання доступу до ваших облікових даних OSM через  OAuth.</string>
   <string name="toast_oauth">Дозвольте OAuth-доступ до свого облікового запису OSM.</string>
   <string name="toast_no_oauth">Немає доступної конфігурації OAuth для поточного API, вкажіть логін і пароль.</string>

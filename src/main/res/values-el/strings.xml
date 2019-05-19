@@ -208,6 +208,7 @@
   <string name="toast_photo_indexing_finished">Ολοκληρώθηκε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_download_failed">Η λήψη απέτυχε με κωδικό σφάλματος %1$d, μήνυμα %2$s</string>
   <string name="toast_unsurveyed_road">Μη ερευνημένος δρόμος</string>
+  <!---->
   <string name="toast_oauth">Παρακαλούμε να επιτραπεί η πρόσβαση του OAuth στο λογαριασμό του OSM σας.</string>
   <string name="toast_no_oauth">Καμία διαμόρφωση του OAuth ειναι διαθέσιμη για το τρέχον API, ορίστε το όνομα χρήστη και τον κωδικό πρόσβασης.</string>
   <string name="toast_oauth_not_enabled">Το OAuth δεν είναι ενεργοποιημένο για το τρέχον API.</string>

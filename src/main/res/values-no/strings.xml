@@ -54,6 +54,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke endra noe enda…</string>
   <string name="toast_export_success">Eksporterte til %1$s</string>
+  <!---->
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>

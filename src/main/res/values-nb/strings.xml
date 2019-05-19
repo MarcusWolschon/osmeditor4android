@@ -108,6 +108,7 @@
   <string name="toast_merge_overwrote_tags">Merk - operasjonen overskrev egenskap(er)</string>
   <string name="toast_photo_indexing_started">Skanner etter geo-refererte bilder</string>
   <string name="toast_download_failed">Nedlasting mislyktes med feilkoden %1$d, melding; %2$s</string>
+  <!---->
   <string name="toast_min_one_preset">Minst en mal må være valgt!</string>
   <string name="toast_needs_resurvey">Objektet kan være utdatert.</string>
   <string name="toast_openinghours_invalid">Ugylid verdi i form av åpningstider for %1$s</string>

@@ -311,6 +311,7 @@
   <string name="toast_untagged_way">Ligne sans attributs</string>
   <string name="toast_untagged_relation">Relation sans attributs</string>
   <string name="toast_unconnected_end_node">Le nœud est proche d\'un élément auquel il pourrait être relié</string>
+  <!---->
   <string name="toast_oauth_retry">Envoyez les données de nouveau après avoir accepté l\'accès OAuth à votre compte OSM.</string>
   <string name="toast_oauth">Veuillez autoriser l\'accès à votre compte OSM via OAuth</string>
   <string name="toast_no_oauth">OAuth n\'est pas disponible avec l\'API actuelle. Vous devez renseigner votre identifiant et mot de passe.</string>
@@ -750,7 +751,6 @@
   <string name="config_enableAntiAliasing_title">Active l\'anti-crénelage</string>
   <string name="config_enableAntiAliasing_summary">Lisse les traits.</string>
   <string name="config_enableHwAcceleration_title">Activer l\'accélération matérielle</string>
-  <string name="config_enableHwAcceleration_summary">Permet d\'utiliser l\'accélération matérielle si et quand cela est supporté, ce qui peut créer des artéfacts.</string>
   <string name="config_maxStrokeWidth_title">Largeur maximale de ligne</string>
   <string name="config_maxStrokeWidth_summary">Ne pas dessiner de chemin plus épais que ça.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>

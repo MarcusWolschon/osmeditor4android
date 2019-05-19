@@ -119,7 +119,9 @@
   <string name="maproulette_task_explanations">Erklärungen</string>
   <string name="maproulette_task_set_apikey">MapRoulette API-Schlüssel setzen</string>
   <string name="maproulette_task_apikey_not_set">MapRoulette API.Schlüssel konnte nicht gespeichert werden</string>
+  <string name="maproulette_task_disable">Deaktivieren</string>
   <string name="maproulette_task_apikey_set">MapRoulette API-Schlüssel gespeichert</string>
+  <string name="maproulette_task_no_apikey">Kein MapRoulette API-Schlüssel</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vorsicht!</string>
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden Ihre ungespeicherten Änderungen verworfen.</string>
@@ -311,6 +313,8 @@
   <string name="toast_untagged_way">Linie ohne Eigenschaften</string>
   <string name="toast_untagged_relation">Relation ohne Eigenschaften</string>
   <string name="toast_unconnected_end_node">Node ist in der Nähe eines Elements zu dem sie verbunden werden kann</string>
+  <string name="toast_degenerate_way">Weg mit fehlerhafter Geometrie</string>
+  <!---->
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM Konto erlauben und dann nochmals versuchen. </string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM-Konto erlauben. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth-Konfiguration verfügbar, bitte login und passwort setzen. </string>
@@ -386,6 +390,7 @@
   <string name="toast_merged">Vereinigt</string>
   <string name="toast_long_press_simple_mode">Im einfachen Modus ist die \"langer Druck\" Funktion nicht verfügbar</string>
   <string name="toast_invalid_style_file">Ungültiges Style-file Format für %1$s</string>
+  <string name="toast_no_geometry">Keine Geometrie für dieses Element bestimmbar</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit Quellen müssen einen Minimal- und Maximal-Zoom haben.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -749,7 +754,6 @@
   <string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
   <string name="config_enableHwAcceleration_title">Hardwarebeschleunigung aktivieren</string>
-  <string name="config_enableHwAcceleration_summary">Erlaubt die Hardwarebeschleunigung soweit unterstützt, kann Artefakte erzeugen.</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
   <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>

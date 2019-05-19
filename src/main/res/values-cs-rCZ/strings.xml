@@ -298,6 +298,7 @@
   <string name="toast_unsurveyed_road">Neprozkoumaná cesta</string>
   <string name="toast_noname">Cesta bez názvu či referenčního čísla</string>
   <string name="toast_notype">Relaci chybí typ</string>
+  <!---->
   <string name="toast_oauth_retry">Nahrávání zkuste zopakovat poté, co povolíte OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_no_oauth">Pro aktuální API není OAuth konfigurace dostupná, nastavte prosím uživatelské jméno a heslo.</string>

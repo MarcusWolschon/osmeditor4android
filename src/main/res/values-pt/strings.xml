@@ -311,6 +311,7 @@
   <string name="toast_untagged_way">Via sem etiquetas</string>
   <string name="toast_untagged_relation">Relação sem etiquetas</string>
   <string name="toast_unconnected_end_node">O nó está perto de um elemento ao qual poderia estar ligado.</string>
+  <!---->
   <string name="toast_oauth_retry">Tente enviar novamente após autorizar o acesso OAuth à sua conta no OpenStreetMap.</string>
   <string name="toast_oauth">Por favor autorize o Vespucci no OAuth para poder aceder à sua conta no OpenStreetMap.</string>
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API atual, por favor indique o nome de utilizador e palavra-chave.</string>
@@ -756,7 +757,6 @@ há %3$s %4$s</string>
   <string name="config_enableAntiAliasing_title">Ativar suavização</string>
   <string name="config_enableAntiAliasing_summary">Torna as linhas mais suaves como anti-serrilhado.</string>
   <string name="config_enableHwAcceleration_title">Ativar aceleração por hardware</string>
-  <string name="config_enableHwAcceleration_summary">Permite utilizar os recursos físicos de aceleração caso sejam suportados, pode resultar em artefactos.</string>
   <string name="config_maxStrokeWidth_title">Espessura máxima da linha</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>

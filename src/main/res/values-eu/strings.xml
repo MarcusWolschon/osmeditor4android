@@ -162,6 +162,7 @@
   <string name="toast_state_file_failed">Egoera fitxategi irakurgaitza edo hondatua</string>
   <string name="read_mail">Irakurri</string>
   <string name="toast_download_failed">Deskargak huts egin du %1$d errore kodearekin, mezua %2$s</string>
+  <!---->
   <string name="toast_nothing_found">Ez da ezer aurkitu</string>
   <string name="toast_file_not_found">ez da %1$s aurkitu.</string>
   <string name="toast_min_one_preset">Gutxienez aurre-ezarpen bat aukeratu behar da!</string>

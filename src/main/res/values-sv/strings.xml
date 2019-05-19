@@ -208,6 +208,7 @@
   </plurals>
   <string name="read_mail">Läs</string>
   <string name="toast_unsurveyed_road">Oklassificerad väg</string>
+  <!---->
   <string name="toast_oauth_handshake_failed">Kunde inte utföra OAuth-handslag: %1$s</string>
   <string name="coordinates_out_of_range">Longitud måste vara mellan -180°/+180°, latitud mellan -85°/85°</string>
   <string name="toast_nothing_found">Hittade inget</string>

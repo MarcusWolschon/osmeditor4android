@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-05-10 03:24+0000\n"
+"PO-Revision-Date: 2019-05-18 01:18+0000\n"
 "Last-Translator: Shu Higashi <higa432@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -5019,7 +5019,7 @@ msgstr ""
 
 #: master_preset.xml:7355(item:name|group:Clothes|preset:Laundry)
 msgid "Laundry"
-msgstr ""
+msgstr "ランドリー"
 
 #: master_preset.xml:7361(check:text|group:Clothes|preset:Laundry|key:laundry_service)
 msgid "Laundry Service"

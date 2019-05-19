@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-04-08 22:59+0200\n"
-"PO-Revision-Date: 2019-05-04 17:14+0000\n"
-"Last-Translator: Paavo Jordman <paavobave@gmail.com>\n"
+"PO-Revision-Date: 2019-05-17 11:17+0000\n"
+"Last-Translator: Teemu Piippo <crimsondusk64@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/openstreetmap/presets/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1455,7 +1455,7 @@ msgstr ""
 
 #: master_preset.xml:8775(item:name|group:Land_use|preset:Brownfield)
 msgid "Brownfield"
-msgstr ""
+msgstr "Purettu tontti"
 
 #: master_preset.xml:572(combo:display_values|key:religion)
 #: master_preset.xml:581(combo:display_values|key:religion)
@@ -1485,7 +1485,7 @@ msgstr ""
 #: master_preset.xml:7010(item:name|group:Historic_Places_&_Objects|preset:Building)
 #: master_preset.xml:8970(item:name|group:Relations|preset:Building)
 msgid "Building"
-msgstr ""
+msgstr "Rakennus"
 
 #: master_preset.xml:8938(list_entry:display_value|group:Relations|preset:Relations|value:building)
 msgid "Building (3D)"
@@ -1557,11 +1557,11 @@ msgstr ""
 
 #: master_preset.xml:2596(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "Linja-auton kiskot"
 
 #: master_preset.xml:3312(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
-msgstr ""
+msgstr "Linja-autolaituri"
 
 #: master_preset.xml:3295(item:name|group:Public_Transport_(Legacy)|preset:Bus_Station)
 msgid "Bus Station"
@@ -1593,7 +1593,7 @@ msgstr ""
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Bust"
-msgstr ""
+msgstr "Rintakuva"
 
 #: master_preset.xml:7138(item:name|group:Food|preset:Butcher)
 msgid "Butcher"
@@ -1691,7 +1691,7 @@ msgstr ""
 #: master_preset.xml:4935(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:canal)
 #: master_preset.xml:9307(combo:display_values|preset:Waterway|key:waterway)
 msgid "Canal"
-msgstr ""
+msgstr "Kanava"
 
 #: master_preset.xml:7557(item:name|group:Home_furnishing_and_decoration|preset:Candles)
 msgid "Candles"
@@ -1741,7 +1741,7 @@ msgstr ""
 
 #: master_preset.xml:2403(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "Niemi"
 
 #: master_preset.xml:2777(group:name|group:Car)
 #: master_preset.xml:2881(check:text|group:Car|preset:Charging_Station|key:car)
@@ -1855,7 +1855,7 @@ msgstr ""
 
 #: master_preset.xml:1989(item:name|group:Barriers|preset:Chain)
 msgid "Chain"
-msgstr ""
+msgstr "Ketjuaita"
 
 #: master_preset.xml:3058(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:chain_tool)
 msgid "Chain tool"
@@ -2306,7 +2306,7 @@ msgstr ""
 
 #: master_preset.xml:9852(item:name|group:Offices|preset:Consulate)
 msgid "Consulate"
-msgstr ""
+msgstr "Konsulaatti"
 
 #: master_preset.xml:9856(combo:display_values|group:Offices|preset:Consulate|key:consulate)
 msgid "Consulate general"
@@ -2481,7 +2481,7 @@ msgstr ""
 
 #: master_preset.xml:2634(item:name|group:Railway|preset:Crossing)
 msgid "Crossing"
-msgstr ""
+msgstr "Suojatie"
 
 #: master_preset.xml:1642(combo:text|group:Waypoints|preset:Traffic_Signal|key:supervised)
 #: master_preset.xml:1675(combo:text|group:Waypoints|preset:Pedestrian_Crossing|key:supervised)
@@ -3296,7 +3296,7 @@ msgstr ""
 
 #: master_preset.xml:1597(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
-msgstr ""
+msgstr "Liukuportaat"
 
 #: master_preset.xml:1322(item:name|group:Streets|preset:Escape)
 msgid "Escape"
@@ -3495,7 +3495,7 @@ msgstr "Ensisammutusväline"
 
 #: master_preset.xml:4902(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
-msgstr ""
+msgstr "Sammutusletku"
 
 #: master_preset.xml:4911(item:name|group:Emergency|preset:Fire_Hydrant)
 msgid "Fire Hydrant"
@@ -4035,7 +4035,7 @@ msgstr "Hallinto"
 
 #: master_preset.xml:4458(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "Katutaide"
 
 #: master_preset.xml:991(combo:display_values|key:climbing:rock)
 msgid "Granite"
@@ -4825,7 +4825,7 @@ msgstr ""
 
 #: master_preset.xml:1352(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr ""
+msgstr "Liittymän tyyppi"
 
 #: master_preset.xml:762(list_entry:display_value|value:juvenile)
 msgid "Juveniles"
@@ -5382,7 +5382,7 @@ msgstr ""
 
 #: master_preset.xml:4963(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Valmistaja"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Maori"
@@ -5807,7 +5807,7 @@ msgstr ""
 
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Moat"
-msgstr ""
+msgstr "Vallihauta"
 
 #: master_preset.xml:7394(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
@@ -6352,7 +6352,7 @@ msgstr "Neulaset"
 
 #: master_preset.xml:8310(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
-msgstr ""
+msgstr "Asuinalue"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Nepali"
@@ -7631,7 +7631,7 @@ msgstr ""
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 #: master_preset.xml:4938(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:pond)
 msgid "Pond"
-msgstr ""
+msgstr "Lampi"
 
 #: master_preset.xml:3923(list_entry:display_value|group:Leisure|preset:Animals|value:pony)
 msgid "Pony"
@@ -7747,7 +7747,7 @@ msgstr ""
 
 #: master_preset.xml:6808(item:name|preset:Power_Switch)
 msgid "Power Switch"
-msgstr ""
+msgstr "Virtakytkin"
 
 #: master_preset.xml:6782(item:name|preset:Power_Switchgear)
 msgid "Power Switchgear"
@@ -8137,7 +8137,7 @@ msgstr ""
 
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "Suositeltu"
 
 #: master_preset.xml:6498(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -8381,7 +8381,7 @@ msgstr ""
 #: master_preset.xml:2312(item:name|group:Water|preset:Reservoir)
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Reservoir"
-msgstr ""
+msgstr "Tekojärvi"
 
 #: master_preset.xml:9847(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Residence"
@@ -8480,7 +8480,7 @@ msgstr ""
 #: master_preset.xml:4934(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:river)
 #: master_preset.xml:9307(combo:display_values|preset:Waterway|key:waterway)
 msgid "River"
-msgstr ""
+msgstr "Joki"
 
 #: master_preset.xml:2348(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
@@ -8587,7 +8587,7 @@ msgstr ""
 
 #: master_preset.xml:1357(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
-msgstr ""
+msgstr "Kiertoliittymä"
 
 #: master_preset.xml:5897(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:rounders)
 msgid "Rounders"
@@ -9224,7 +9224,7 @@ msgstr ""
 #: master_preset.xml:8930(list_entry:display_value|group:Relations|preset:Relations|value:site)
 #: master_preset.xml:8985(item:name|group:Relations|preset:Site)
 msgid "Site"
-msgstr ""
+msgstr "Ryhmä"
 
 #: master_preset.xml:8989(text:text|group:Relations|preset:Site|key:name)
 msgid "Site name"
@@ -9292,7 +9292,7 @@ msgstr ""
 
 #: master_preset.xml:2509(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr ""
+msgstr "Veneramppi"
 
 #: master_preset.xml:960(multiselect:display_values|key:language)
 msgid "Slovak"
@@ -9646,7 +9646,7 @@ msgstr ""
 #: master_preset.xml:4933(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:stream)
 #: master_preset.xml:9307(combo:display_values|preset:Waterway|key:waterway)
 msgid "Stream"
-msgstr ""
+msgstr "Puro"
 
 #: master_preset.xml:2332(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Stream pool"
@@ -9784,7 +9784,7 @@ msgstr ""
 
 #: master_preset.xml:6517(item:name|group:Man_Made|preset:Surveillance_Camera)
 msgid "Surveillance Camera"
-msgstr ""
+msgstr "Valvontakamera"
 
 #: master_preset.xml:6509(item:name|group:Man_Made|preset:Survey_Point)
 msgid "Survey Point"
@@ -10791,7 +10791,7 @@ msgstr ""
 
 #: master_preset.xml:8386(item:name|group:Geography|preset:Valley)
 msgid "Valley"
-msgstr ""
+msgstr "Laakso"
 
 #: master_preset.xml:5465(multiselect:text|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Valves"
@@ -11039,7 +11039,7 @@ msgstr ""
 
 #: master_preset.xml:6711(item:name|group:Power_Generator|preset:Water_Turbine)
 msgid "Water Turbine"
-msgstr ""
+msgstr "Vesivoimala"
 
 #: master_preset.xml:6441(item:name|group:Man_Made|preset:Water_Well)
 msgid "Water Well"
@@ -13136,7 +13136,7 @@ msgstr ""
 #: master_preset.xml:7087(combo:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:building)
 msgctxt "building"
 msgid "Building"
-msgstr ""
+msgstr "Rakennus"
 
 #: master_preset.xml:909(combo:text|key:building:colour)
 msgctxt "building"
@@ -13927,7 +13927,7 @@ msgstr "Näkyvyys"
 #: master_preset.xml:1562(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Crossing"
-msgstr ""
+msgstr "Suojatie"
 
 #: master_preset.xml:1562(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -15083,7 +15083,7 @@ msgstr "Sijaintio"
 #: master_preset.xml:7062(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Bust"
-msgstr ""
+msgstr "Rintakuva"
 
 #: master_preset.xml:7062(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"

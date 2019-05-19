@@ -237,6 +237,7 @@
   <string name="toast_unsurveyed_road">Estrada non medida</string>
   <string name="toast_untagged_way">Vía sen etiquetaxe</string>
   <string name="toast_untagged_relation">Relación sen etiquetaxe</string>
+  <!---->
   <string name="toast_oauth">Por favor permite o acceso de OAuth á túa conta de OSM.</string>
   <string name="toast_no_oauth">Non hai dispoñibilidade de configuración OAuth para a API actual, por favor, configure o inicio de sesión e o contrasinal.</string>
   <string name="toast_oauth_not_enabled">OAuth non está habilitado para a API actual.</string>

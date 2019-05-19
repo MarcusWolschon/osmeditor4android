@@ -62,6 +62,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
   <string name="toast_export_success">Exportat la %1$s</string>
+  <!---->
   <string name="toast_nothing_found">Nu am găsit nimic</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->

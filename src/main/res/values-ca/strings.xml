@@ -310,6 +310,7 @@
   <string name="toast_untagged_way">via no etiquetada</string>
   <string name="toast_untagged_relation">relació no etiquetada</string>
   <string name="toast_unconnected_end_node">El node està a prop d’element al qual podria connectar-se</string>
+  <!---->
   <string name="toast_oauth_retry">Intenta pujar de nou després de permetre l’accés a OAuth al teu compte d\'OSM.</string>
   <string name="toast_timeout">Temps esgotat del servidor</string>
   <string name="coordinates_out_of_range">La longitud ha de ser un valor entre -180° i +180°, i la latitud entre -85° i 85°</string>

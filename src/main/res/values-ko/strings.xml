@@ -103,6 +103,7 @@
   <string name="toast_state_file_failed">읽을 수 없거나 오류가 있는 상태 파일</string>
   <string name="toast_download_failed">오류 코드 %1$d, 메시지 %2$s로 다운로드를 실패했습니다</string>
   <string name="toast_unsurveyed_road">측량되지 않은 길</string>
+  <!---->
   <string name="toast_oauth">OSM 계정에 접속하기 위해 OAuth를 허용해 주십시요.</string>
   <string name="toast_no_oauth">현재 API의  사용할 수 있는 OAuth 환경 설정이 없습니다, 로그인 및 비밀번호를 설정해주세요.</string>
   <string name="toast_oauth_not_enabled">OAuth가 현재 API에서 활성화 되지 않았습니다.</string>

@@ -162,6 +162,7 @@
   <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_download_failed">Fallo en la descarga con código de error %1$d, mensaje %2$s</string>
   <string name="toast_unsurveyed_road">Camino no medido</string>
+  <!---->
   <string name="toast_oauth">Permita el acceso OAuth a su cuenta OSM.</string>
   <string name="toast_no_oauth">No está disponible la configuración OAuth para la API actual. Establezca su nombre de usuario y contraseña.</string>
   <string name="toast_oauth_not_enabled">OAuth no está habilitado para la API actual.</string>

@@ -258,6 +258,7 @@
   <string name="toast_untagged_way">Strada senza tag</string>
   <string name="toast_untagged_relation">Relazione senza tag</string>
   <string name="toast_unconnected_end_node">Il nodo è vicino a un elemento a cui potrebbe essere connesso</string>
+  <!---->
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
@@ -613,7 +614,6 @@
   <string name="config_enableAntiAliasing_title">Abilità l\'anti-aliasing</string>
   <string name="config_enableAntiAliasing_summary">Rendi le linee più morbide.</string>
   <string name="config_enableHwAcceleration_title">Abilita accelerazione hardware</string>
-  <string name="config_enableHwAcceleration_summary">Permette l\'uso dell\'accelerazione hardware se supportata; potrebbero risultare artefatti.</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Non disegnare una strada più larga di così.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>

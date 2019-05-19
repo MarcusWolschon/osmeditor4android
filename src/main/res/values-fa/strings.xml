@@ -82,6 +82,7 @@
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
   <string name="toast_unlock_to_edit">قفل گشایی برای ویرایش</string>
   <string name="toast_export_success">خارج سازی به %1$s</string>
+  <!---->
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">بله</string>

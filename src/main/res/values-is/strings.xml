@@ -85,6 +85,7 @@
   <string name="toast_photo_indexing_finished">Lauk leit að myndum með staðsetningu</string>
   <string name="toast_download_failed">Niðurhal mistókst með villuskilaboðum %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
+  <!---->
   <string name="toast_oauth">Gefðu OAuth réttindi að OSM-notanda þínum.</string>
   <string name="toast_no_oauth">Engin OAuth stilling tiltæk fyrir núverandi API tengingu, sláðu inn notandanafn og lykilorð.</string>
   <string name="coordinates_out_of_range">Lengdargráða þarf að vera milli -180°/+180°, breiddargráða milli -85°/+85°</string>

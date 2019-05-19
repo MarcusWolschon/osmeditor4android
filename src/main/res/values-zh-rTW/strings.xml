@@ -118,7 +118,9 @@
   <string name="maproulette_task_explanations">解釋</string>
   <string name="maproulette_task_set_apikey">設定 MapRoulette API 鑰匙</string>
   <string name="maproulette_task_apikey_not_set">無法儲存 MapRoulette API 鑰匙</string>
+  <string name="maproulette_task_disable">失效 </string>
   <string name="maproulette_task_apikey_set">MapRoulette API key 已經儲存</string>
+  <string name="maproulette_task_no_apikey">沒有 MapRoulette API 鑰匙</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將被丟棄。</string>
@@ -309,6 +311,8 @@
   <string name="toast_untagged_way">未加上標籤的路徑</string>
   <string name="toast_untagged_relation">未加上標籤的關聯</string>
   <string name="toast_unconnected_end_node">節點接近連接的元素</string>
+  <string name="toast_degenerate_way">退化的路徑</string>
+  <!---->
   <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
   <string name="toast_no_oauth">沒有 OAuth 的組態可用於目前的API，請設定登入名稱和密碼。</string>
@@ -383,6 +387,7 @@
   <string name="toast_merged">已合併</string>
   <string name="toast_long_press_simple_mode">簡單模式下長按無效</string>
   <string name="toast_invalid_style_file">%1$s 有無效的樣式檔案格式</string>
+  <string name="toast_no_geometry">元素沒有找到幾何性</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -746,7 +751,7 @@
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
   <string name="config_enableHwAcceleration_title">啟用硬體加速</string>
-  <string name="config_enableHwAcceleration_summary">如果支援的話，允許使用硬體加速，也許會造成假像。</string>
+  <string name="config_enableHwAcceleration_summary">如果支援的話，允許使用硬體加速，也許目前設定並沒有效果。</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>

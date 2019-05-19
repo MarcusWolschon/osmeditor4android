@@ -182,6 +182,7 @@
   <string name="toast_notype">リレーション種別がありません</string>
   <string name="toast_untagged_way">タグなしのウェイ</string>
   <string name="toast_untagged_relation">タグなしのリレーション</string>
+  <!---->
   <string name="toast_oauth">ご自分のOSMアカウントに対してOAuth認証を許可してください。</string>
   <string name="toast_no_oauth">現在のAPIでOAuth設定が利用できません。ログイン名とパスワードを利用してください。</string>
   <string name="toast_oauth_not_enabled">現在のAPI用にはOAuthは有効化されていません。</string>

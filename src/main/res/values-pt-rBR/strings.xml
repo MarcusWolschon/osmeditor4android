@@ -70,6 +70,7 @@
   <!--Toaster-->
   <string name="toast_unlock_to_edit">Desbloqueie para editar</string>
   <string name="toast_export_success">Exportado para %1$s</string>
+  <!---->
   <string name="toast_nothing_found">Nada encontrado</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->

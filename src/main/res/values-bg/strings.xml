@@ -149,6 +149,7 @@
   <string name="toast_photo_indexing_finished">Приключи търсене на геореферирани снимки</string>
   <string name="toast_download_failed">Свалянето се провали с код за грешка %1$d, съобщение %2$s</string>
   <string name="toast_unsurveyed_road">Неизмерен път</string>
+  <!---->
   <string name="toast_oauth">Моля позволете OAuth достъп до вашия OSM акаунт,</string>
   <string name="toast_no_oauth">Не е достъпна OAuth конфигурация за текущото API, моля използвайте потребител и парола.</string>
   <string name="toast_oauth_not_enabled">OAuth не е позволен за текущото API.</string>

@@ -294,6 +294,7 @@
   <string name="toast_unsurveyed_road">Tarkastamaton tie</string>
   <string name="toast_noname">Tieltä puuttuu nimi tai viittaus</string>
   <string name="toast_notype">Ralaatiosta puuttuu tyyppi</string>
+  <!---->
   <string name="toast_oauth_retry">Anna OAuthille lupa päästä OSM-tilillesi, ja yritä sitten lähettää uudestaan.</string>
   <string name="toast_oauth">Anna OAuthille lupa päästä OSM-tilillesi.</string>
   <string name="toast_no_oauth">Nykyiselle APIlle ei ole OAuth-asetuksia. Aseta tunnus ja salasana.</string>

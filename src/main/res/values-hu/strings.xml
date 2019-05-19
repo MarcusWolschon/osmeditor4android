@@ -312,6 +312,7 @@ elemek megkövetelése</string>
   <string name="toast_untagged_way">Címkézetlen vonal</string>
   <string name="toast_untagged_relation">Címkézetlen kapcsolat</string>
   <string name="toast_unconnected_end_node">A pont egy olyan elem közelében van, amelyhez hozzáköthető lehet</string>
+  <!---->
   <string name="toast_oauth_retry">Próbálja meg újból a feltöltést, miután engedélyezte az OAuth hozzáférést az OSM fiókjához.</string>
   <string name="toast_oauth">Engedélyezze az OAuth hozzáférést az OSM fiókjához.</string>
   <string name="toast_no_oauth">Az OAuth konfiguráció nem érhető el a jelenlegi API-hoz, állítsa be a bejelentkezési nevet és jelszót.</string>
@@ -750,7 +751,6 @@ elemek megkövetelése</string>
   <string name="config_enableAntiAliasing_title">Élsimítás engedélyezése</string>
   <string name="config_enableAntiAliasing_summary">A vonalakat simábbá teszi.</string>
   <string name="config_enableHwAcceleration_title">Hardveres gyorsítás engedélyezése</string>
-  <string name="config_enableHwAcceleration_summary">Engedélyezi a hardveres gyorsítást ha és amikor az támogatott, képi hibákat okozhat.</string>
   <string name="config_maxStrokeWidth_title">Legnagyobb vonalvastagság</string>
   <string name="config_maxStrokeWidth_summary">Ne rajzoljon ennél vastagabb vonalat.</string>
   <string name="config_maxStrokeWidth_current">%1$d pixel</string>

@@ -74,6 +74,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_export_success">Eksporteret til %1$s</string>
+  <!---->
   <string name="coordinates_out_of_range">Længdegrad skal være mellem -180°/+180°, breddegrad mellem -85°/85°</string>
   <string name="toast_nothing_found">Intet fundet</string>
   <string name="toast_file_not_found">%1$s ikke fundet.</string>
