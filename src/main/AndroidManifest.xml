@@ -88,7 +88,7 @@
             android:theme="@style/Theme.AppCompatPrefs" />
         <activity
             android:name="BoxPicker"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.custom" />
         <activity
             android:name=".propertyeditor.PropertyEditor"
             android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
@@ -96,15 +96,15 @@
         <activity
             android:name=".prefs.APIEditorActivity"
             android:label="@string/manage_apis"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.PresetEditorActivity"
             android:label="@string/manage_presets"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.GeocoderEditorActivity"
             android:label="@string/manage_geocoders"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.VespucciURLActivity"
             tools:ignore="ExportedActivity" >
@@ -176,10 +176,10 @@
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name="LicenseViewer"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.custom" />
         <activity
             android:name="DebugInformation"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.custom" />
         <activity
             android:name="HelpViewer"
             android:theme="@style/Theme.customHelpViewer" />
