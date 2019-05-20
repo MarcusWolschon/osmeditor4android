@@ -174,14 +174,15 @@ public final class Utils {
      * @param callback callback that actually evaluates the input
      */
     @SuppressLint("InflateParams")
-    public static void jsConsoleDialog(final FragmentActivity activity, int msgResource, final EvalCallback callback) {
+    public static void jsConsoleDialog(@NonNull final FragmentActivity activity, int msgResource, @NonNull final EvalCallback callback) {
         // Create some useful objects
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
         final Preferences prefs = new Preferences(activity);
 
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.tag_menu_js_console);
-        builder.setMessage(msgResource);
+        Snack.toastTopInfo(activity, msgResource);
+
         View v = inflater.inflate(R.layout.debug_js, null);
         final EditText input = (EditText) v.findViewById(R.id.js_input);
         final TextView output = (TextView) v.findViewById(R.id.js_output);
@@ -230,8 +231,8 @@ public final class Utils {
                     }
                 });
                 Button neutral = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-                Drawable share = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_36dp, R.attr.colorAccent);
-                neutral.setCompoundDrawablesWithIntrinsicBounds(share, null, null, null);
+                Drawable more = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_36dp, R.attr.colorAccent);
+                neutral.setCompoundDrawablesWithIntrinsicBounds(more, null, null, null);
                 neutral.setText("");
                 neutral.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -294,7 +295,6 @@ public final class Utils {
 
                         });
                         popupMenu.show();
-
                     }
                 });
             }
@@ -306,8 +306,10 @@ public final class Utils {
      * Write data to a file in (J)OSM compatible format, if fileName contains directories these are created, otherwise
      * it is stored in the standard public dir
      * 
-     * @param fileName path of the file to save to
-     * @param postSaveHandler if not null executes code after saving
+     * @param activity the calling Activity
+     * @param fileName the file name
+     * @param script the script to save
+     * @param postSaveHandler called after saving
      */
     private static void writeScriptFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @NonNull final String script,
             @Nullable final PostAsyncActionHandler postSaveHandler) {
@@ -375,6 +377,14 @@ public final class Utils {
         }.execute();
     }
 
+    /**
+     * Read a script in to a EditText widget
+     * 
+     * @param activity the calling Activity
+     * @param uri the URI of the file to load
+     * @param input the EditTExt
+     * @param postLoad called after loading
+     */
     public static void readScriptFile(@NonNull final FragmentActivity activity, final Uri uri, final EditText input, final PostAsyncActionHandler postLoad) {
         new AsyncTask<Void, Void, String>() {
 
