@@ -183,6 +183,7 @@ public class Preset implements Serializable {
     private static final String LABEL                      = "label";
     private static final String ITEMS_SORT                 = "items_sort";
     private static final String SPACE                      = "space";
+    private static final String LENGTH                     = "length";
     /**
      * 
      */
@@ -852,6 +853,15 @@ public class Preset implements Serializable {
                     String useLastAsDefault = attr.getValue(USE_LAST_AS_DEFAULT);
                     if (useLastAsDefault != null) {
                         field.setUseLastAsDefault(useLastAsDefault);
+                    }
+                    String length = attr.getValue(LENGTH);
+                    if (length != null) {
+                        System.out.println("Got length " + length);
+                        try {
+                            ((PresetTextField) field).setLength(Integer.parseInt(length));
+                        } catch (NumberFormatException e) {
+                            Log.e(DEBUG_TAG, "Parsing of 'length' failed " + length + " " + e.getMessage());
+                        }
                     }
                     break;
                 case LINK:
