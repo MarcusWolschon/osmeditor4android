@@ -9,21 +9,45 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
     private int          count           = -1;
     private boolean      descriptionOnly = false;
 
+    /**
+     * Construct a new ValueWithCount instance
+     * 
+     * @param value the value
+     */
     public ValueWithCount(@NonNull final String value) {
         this.value = value;
     }
 
-    public ValueWithCount(@NonNull final String value, final String description) {
+    /**
+     * Construct a new ValueWithCount instance
+     * 
+     * @param value the value
+     * @param description the description
+     */
+    public ValueWithCount(@NonNull final String value, @Nullable final String description) {
         this.value = value;
         this.description = description;
     }
 
-    public ValueWithCount(@NonNull final String value, final String description, final boolean descriptionOnly) {
+    /**
+     * Construct a new ValueWithCount instance
+     * 
+     * @param value the value
+     * @param description the description
+     * @param descriptionOnly if true there is only the description present
+     */
+    public ValueWithCount(@NonNull final String value, @Nullable final String description, final boolean descriptionOnly) {
         this.value = value;
         this.description = description;
         this.descriptionOnly = descriptionOnly;
     }
 
+    /**
+     * Construct a new ValueWithCount instance
+     * 
+     * @param value the value
+     * @param count the count
+     */
     public ValueWithCount(@NonNull final String value, final int count) {
         this.value = value;
         this.count = count;

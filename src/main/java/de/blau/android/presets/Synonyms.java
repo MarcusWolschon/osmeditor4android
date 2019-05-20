@@ -34,7 +34,12 @@ public class Synonyms {
 
     private MultiHashMap<String, String> synonyms = new MultiHashMap<>(false); // names -> tags
 
-    public Synonyms(Context ctx) {
+    /**
+     * Construct a new instance
+     * 
+     * @param ctx an Android Context
+     */
+    public Synonyms(@NonNull Context ctx) {
         Log.d(DEBUG_TAG, "Parsing configuration files");
         AssetManager assetManager = ctx.getAssets();
         InputStream is = null;
