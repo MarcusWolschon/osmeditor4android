@@ -54,6 +54,9 @@
         <feature type="way" tags="landuse=quarry" color="88d8a2a2" />
         <feature type="way" tags="landuse=military" color="88af2626" />
         <feature type="way" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" />
+        <feature type="way" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" />
+        <feature type="way" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" />
+        <feature type="way" tags="landuse=railway" minVisibleZoom="10" color="88A3709A" />
     </feature>
     
     <feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="8839AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
