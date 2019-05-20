@@ -37,6 +37,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -44,6 +45,7 @@ import android.text.TextUtils.TruncateAt;
 import android.text.style.StrikethroughSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,6 +56,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -891,9 +894,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     }
                     String hint = field.getHint();
                     //
-                    ValueType valueType = preset.getValueType(key);
+                    ValueType valueType = field.getValueType();
                     if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
-                            || (preset.isEditable(key) && ValueType.OPENING_HOURS_MIXED != valueType) || key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
+                            || (isComboField && ((PresetComboField) field).isEditable() && ValueType.OPENING_HOURS_MIXED != valueType)
+                            || key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
                         if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX) || ValueType.CONDITIONAL == valueType) {
                             rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
                         } else if ((Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType)
@@ -1105,6 +1109,40 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
             row.valueView.setEllipsize(TruncateAt.END);
         }
+
+        if (field instanceof PresetTextField) {
+            final int length = ((PresetTextField) field).length();
+            if (length > 0) { // if it isn't set don't bother
+                row.valueView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void onGlobalLayout() {
+                        ViewTreeObserver observer = row.valueView.getViewTreeObserver();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            observer.removeOnGlobalLayoutListener(this);
+                        } else {
+                            observer.removeGlobalOnLayoutListener(this);
+                        }
+                        float aM = row.valueView.getPaint().measureText("M"); // FIXME cache this
+                        int lines = Math.min((int) (length / aM), 4);
+                        if (lines > 1) {
+                            row.valueView.setLines(lines);
+                            row.valueView.setMaxLines(lines);
+                            row.valueView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) row.valueView.getLayoutParams();
+                            layoutParams.height = LayoutParams.WRAP_CONTENT;
+                            row.valueView.setLayoutParams(layoutParams);
+                            row.valueView.setGravity(Gravity.TOP);
+                            layoutParams = (LinearLayout.LayoutParams) row.keyView.getLayoutParams();
+                            layoutParams.height = LayoutParams.MATCH_PARENT;
+                            row.keyView.setLayoutParams(layoutParams);
+                            row.keyView.setGravity(Gravity.TOP);
+                            row.valueView.requestLayout();
+                        }
+                    }
+                });
+            }
+        }
         row.valueView.setText(value);
 
         // set empty value to be on the safe side
@@ -1175,7 +1213,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
         });
         row.valueView.addTextChangedListener(new SanitizeTextWatcher(getActivity(), maxStringLength));
-
         return row;
     }
 

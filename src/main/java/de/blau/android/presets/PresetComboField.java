@@ -22,17 +22,17 @@ public class PresetComboField extends PresetField {
     /**
      * Combo and multiselect editable property
      */
-    boolean editable = false;
+    private boolean editable = false;
 
     /**
      * Sort values or not
      */
-    boolean sort = true;
+    private boolean sort = true;
 
     /**
      * Add combo and multiselect values to search index
      */
-    boolean valuesSearchable = true;
+    private boolean valuesSearchable = true;
 
     /**
      * Translation context
@@ -61,9 +61,9 @@ public class PresetComboField extends PresetField {
         this.values = values;
         this.multiSelect = field.multiSelect;
         this.delimiter = field.delimiter;
-        this.editable = field.editable;
-        this.sort = field.sort;
-        this.valuesSearchable = field.valuesSearchable;
+        this.setEditable(field.isEditable());
+        this.setSortValues(field.getSortValues());
+        this.setValuesSearchable(field.getValuesSearchable());
     }
 
     /**
@@ -76,9 +76,9 @@ public class PresetComboField extends PresetField {
         this.values = field.values;
         this.multiSelect = field.multiSelect;
         this.delimiter = field.delimiter;
-        this.editable = field.editable;
-        this.sort = field.sort;
-        this.valuesSearchable = field.valuesSearchable;
+        this.setEditable(field.isEditable());
+        this.setSortValues(field.getSortValues());
+        this.setValuesSearchable(field.getValuesSearchable());
     }
 
     /**
@@ -149,14 +149,68 @@ public class PresetComboField extends PresetField {
         StringBuilder s = new StringBuilder(super.toString());
         s.append(" multiSelect: " + multiSelect);
         s.append(" delimiter: " + delimiter);
-        s.append(" editable: " + editable);
-        s.append(" sort: " + sort);
-        s.append(" valuesSearchable: " + valuesSearchable);
+        s.append(" editable: " + isEditable());
+        s.append(" sort: " + getSortValues());
+        s.append(" valuesSearchable: " + getValuesSearchable());
         s.append(" values: ");
         for (StringWithDescription v : values) {
             s.append(" ");
             s.append(v.getValue());
         }
         return s.toString();
+    }
+
+    /**
+     * Check if the values should be sorted for display purposes
+     * 
+     * @return true if the values should be sorted for display purposes
+     */
+    boolean getSortValues() {
+        return sort;
+    }
+
+    /**
+     * Set if the values should be sorted for display purposes
+     * 
+     * @param sort if true the values will be sorted for display purposes
+     */
+    void setSortValues(boolean sort) {
+        this.sort = sort;
+    }
+
+    /**
+     * Check if this combo is editable (aka can have additional values)
+     * 
+     * @return true if the tag can have more than the fixed values
+     */
+    public boolean isEditable() {
+        return editable;
+    }
+
+    /**
+     * Set if this combo is editable (aka can have additional values)
+     * 
+     * @param editable if true the tag can have additional values
+     */
+    void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    /**
+     * Check if the values should be added to the search index
+     * 
+     * @return true if the values should be added to the search index
+     */
+    boolean getValuesSearchable() {
+        return valuesSearchable;
+    }
+
+    /**
+     * Set if the values should be added to the search index
+     * 
+     * @param valuesSearchable if true add the values to the search index
+     */
+    void setValuesSearchable(boolean valuesSearchable) {
+        this.valuesSearchable = valuesSearchable;
     }
 }

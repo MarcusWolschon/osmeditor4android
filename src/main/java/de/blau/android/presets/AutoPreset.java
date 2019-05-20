@@ -180,9 +180,8 @@ public class AutoPreset {
                                 String key = entry.getKey();
                                 String value = entry.getValue();
                                 if (value != null) {
-                                    item.addTag(false, key, PresetKeyType.COMBO, value);
-                                    PresetComboField field = (PresetComboField) item.getField(key);
-                                    field.editable = true;
+                                    PresetComboField field = (PresetComboField) item.addTag(false, key, PresetKeyType.COMBO, value);
+                                    field.setEditable(true);
                                     field.setMatchType(MatchType.NONE);
                                 } else {
                                     String[] s = key.split(":", 2);
@@ -197,8 +196,9 @@ public class AutoPreset {
                                         // Log.d(DEBUG_TAG, "values for key " + key + " " + result.size());
                                         // item.addTag(false, key, PresetKeyType.COMBO, result.toArray(new
                                         // ValueResult[result.size()]), Preset.COMBO_DELIMITER);
-                                        item.addTag(false, key, PresetKeyType.COMBO, Preset.getAutocompleteValues(presets, null, key), Preset.COMBO_DELIMITER);
-                                        item.setEditable(key, true);
+                                        PresetComboField field = (PresetComboField) item.addTag(false, key, PresetKeyType.COMBO,
+                                                Preset.getAutocompleteValues(presets, null, key), Preset.COMBO_DELIMITER);
+                                        field.setEditable(true);
                                     }
                                 }
                             }

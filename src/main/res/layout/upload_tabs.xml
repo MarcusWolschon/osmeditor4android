@@ -32,7 +32,7 @@
                 android:layout_height="48dp"
                 android:gravity="center_vertical" />
             <ListView
-                android:id="@id/upload_changes"
+                android:id="@+id/upload_changes"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -79,6 +79,7 @@
                         android:layout_alignLeft="@id/upload_comment_label"
                         android:layout_alignStart="@id/upload_comment_label"
                         android:layout_below="@id/upload_comment_label"
+                        android:gravity="top"
                         android:inputType="textMultiLine"
                         android:maxLength="255"
                         android:lines="3"
@@ -109,6 +110,7 @@
                         android:layout_alignLeft="@id/upload_source_label"
                         android:layout_alignStart="@id/upload_source_label"
                         android:layout_below="@id/upload_source_label"
+                        android:gravity="top"
                         android:inputType="textMultiLine"
                         android:maxLength="255"
                         android:lines="3"
