@@ -375,7 +375,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     /**
      * Get some information on cache usage
      * 
-     * @return a String with cache usage information suitable for display 
+     * @return a String with cache usage information suitable for display
      */
     public String getCacheUsageInfo() {
         return mTileCache.getCacheUsageInfo();

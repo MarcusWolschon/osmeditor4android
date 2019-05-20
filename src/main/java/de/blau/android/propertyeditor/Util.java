@@ -16,11 +16,11 @@ public final class Util {
     private Util() {
         // not used
     }
-    
+
     /**
      * Dismiss a child Fragment
      * 
-     * @param fm  the FragmentManager from the calling Fragment
+     * @param fm the FragmentManager from the calling Fragment
      * @param tag the tag of the Fragment we want to remove
      */
     public static void removeChildFragment(@NonNull FragmentManager fm, @NonNull String tag) {

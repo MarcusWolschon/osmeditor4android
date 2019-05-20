@@ -208,7 +208,7 @@ public class BaseValidator implements Validator {
     /**
      * Check if the node is too near any ways within the tolerance
      * 
-     * The warning is suppressed if the node is connected to the nearby way via a (single) further way 
+     * The warning is suppressed if the node is connected to the nearby way via a (single) further way
      * 
      * @param tagKey tag key the ways need to have to be candidates
      * @param w the Way we are validating

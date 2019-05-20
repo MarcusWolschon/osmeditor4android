@@ -247,12 +247,12 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
             public void run() {
                 if (way != null) {
                     way.resetHasProblem(); // remove Validator.OK
-                }                 
-            }            
+                }
+            }
         };
         Map map = main.getMap();
         if (map != null) {
-            map.postDelayed(run,1000);
+            map.postDelayed(run, 1000);
         }
     }
 }

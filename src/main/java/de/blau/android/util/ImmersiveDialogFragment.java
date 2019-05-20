@@ -70,7 +70,7 @@ public abstract class ImmersiveDialogFragment extends DialogFragment {
             dialogWindow.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         }
     }
-    
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

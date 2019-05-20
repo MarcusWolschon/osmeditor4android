@@ -9,7 +9,7 @@ import android.util.Log;
 
 public final class Util {
     private static final String DEBUG_TAG = "dialogs.Util";
-    
+
     /**
      * Disallow instantiation
      */

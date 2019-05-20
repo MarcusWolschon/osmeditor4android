@@ -294,7 +294,7 @@ public final class IssueAlert {
     /**
      * Check if we have already shown a group notification
      * 
-     * Note using this requires API 23 or higher 
+     * Note using this requires API 23 or higher
      * 
      * @param notificationManager a NotificationManager instance
      * @param groupId the group id we a rechecking

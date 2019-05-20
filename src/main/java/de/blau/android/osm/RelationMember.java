@@ -130,7 +130,7 @@ public class RelationMember implements Serializable {
     public boolean downloaded() {
         return element != null;
     }
-    
+
     @Override
     public String toString() {
         return role + " " + type + " " + ref;

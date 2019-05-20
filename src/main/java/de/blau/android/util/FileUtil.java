@@ -118,7 +118,7 @@ public abstract class FileUtil {
         }
         return null;
     }
-    
+
     /**
      * Get the extension of the file, aka the last . separated bit
      * 

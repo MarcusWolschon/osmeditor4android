@@ -19,7 +19,6 @@ public abstract class BaseFragment extends Fragment {
 
     private static final String DEBUG_TAG = "BaseFragment";
 
-
     @TargetApi(23)
     @Override
     public void onAttach(Context context) {
@@ -37,7 +36,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * Replacement for the onAttach callbacks 
+     * Replacement for the onAttach callbacks
      * 
      * @param context the Android Context
      */

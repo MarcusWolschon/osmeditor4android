@@ -66,7 +66,7 @@ public class ClosedWaySplittingActionModeCallback extends NonSimpleActionModeCal
     }
 
     @Override
-    public boolean handleElementClick(OsmElement element) { // NOSONAR 
+    public boolean handleElementClick(OsmElement element) { // NOSONAR
         // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
         if (element instanceof Node) {

@@ -32,7 +32,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
             super.onDisplayPreferenceDialog(preference);
         }
     }
-    
+
     /**
      * Set the action bar title of the activity calling us to the PreferenceScreen title
      */

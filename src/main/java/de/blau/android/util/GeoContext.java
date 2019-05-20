@@ -249,8 +249,8 @@ public class GeoContext {
         double lon = 0d;
         double lat = 0d;
         if (e instanceof Node) {
-            lon = ((Node) e).getLon()/1E7D;
-            lat = ((Node) e).getLat()/1E7D;
+            lon = ((Node) e).getLon() / 1E7D;
+            lat = ((Node) e).getLat() / 1E7D;
         } else if (e instanceof Way) {
             double[] coords = Logic.centroidLonLat((Way) e);
             lon = coords[0];
@@ -259,7 +259,7 @@ public class GeoContext {
             BoundingBox bbox = e.getBounds();
             if (bbox != null) {
                 ViewBox vbox = new ViewBox(bbox);
-                lon = (vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D)/1E7D;
+                lon = (vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D) / 1E7D;
                 lat = vbox.getCenterLat();
             }
         }

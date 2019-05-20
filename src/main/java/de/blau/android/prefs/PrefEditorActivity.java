@@ -27,7 +27,7 @@ import de.blau.android.util.ThemeUtils;
 public abstract class PrefEditorActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     private static final String DEBUG_TAG = "PrefEditorActivity";
-    
+
     protected static final int MENUITEM_HELP = 1;
 
     @Override
@@ -38,7 +38,7 @@ public abstract class PrefEditorActivity extends AppCompatActivity implements Pr
             setTheme(R.style.Theme_AppCompatPrefsLight);
         }
         super.onCreate(savedInstanceState);
-        
+
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 
@@ -51,7 +51,7 @@ public abstract class PrefEditorActivity extends AppCompatActivity implements Pr
                 MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         Log.d(DEBUG_TAG, "onOptionsItemSelected");
@@ -67,7 +67,7 @@ public abstract class PrefEditorActivity extends AppCompatActivity implements Pr
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -103,7 +103,7 @@ public abstract class PrefEditorActivity extends AppCompatActivity implements Pr
      * @return an ExtendedPreferenceFragment instance
      */
     abstract ExtendedPreferenceFragment newEditorFragment();
-    
+
     /**
      * Get the help topic resource
      * 

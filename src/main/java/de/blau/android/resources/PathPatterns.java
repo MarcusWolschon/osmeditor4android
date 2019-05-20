@@ -95,7 +95,7 @@ class BorderLeft extends PathPattern {
     public float advance(float size) {
         return Math.max(size, 2);
     }
-    
+
     @Override
     Style style() {
         return PathDashPathEffect.Style.MORPH;
@@ -125,7 +125,7 @@ class BorderRight extends PathPattern {
     public float advance(float size) {
         return Math.max(size, 2);
     }
-    
+
     @Override
     Style style() {
         return PathDashPathEffect.Style.MORPH;

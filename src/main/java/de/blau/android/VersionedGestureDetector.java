@@ -54,7 +54,8 @@ public abstract class VersionedGestureDetector {
             mScaleDetector = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
                 @Override
                 public boolean onScale(ScaleGestureDetector detector) {
-                    mListener.onScale(v, detector.getScaleFactor(), detector.getPreviousSpan(), detector.getCurrentSpan(), detector.getFocusX(), detector.getFocusY());
+                    mListener.onScale(v, detector.getScaleFactor(), detector.getPreviousSpan(), detector.getCurrentSpan(), detector.getFocusX(),
+                            detector.getFocusY());
                     return true;
                 }
             });

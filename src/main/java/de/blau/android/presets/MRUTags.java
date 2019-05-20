@@ -224,7 +224,7 @@ public class MRUTags {
         }
         return null;
     }
-    
+
     /**
      * Get the top MRU value for a specific PresetItem and key
      * 
@@ -236,7 +236,7 @@ public class MRUTags {
     public synchronized String getTopValue(@NonNull PresetItem item, @NonNull String key) {
         Map<String, MRUList<String>> keyMap = valueStore.get(item);
         if (keyMap != null) {
-            MRUList<String>values = keyMap.get(key);
+            MRUList<String> values = keyMap.get(key);
             if (values != null && !values.isEmpty()) {
                 return values.get(0);
             }
@@ -449,10 +449,10 @@ public class MRUTags {
      * @throws IOException
      */
     private void readXml(@NonNull Context ctx, @NonNull InputStream input) throws ParserConfigurationException, SAXException, IOException {
-        
+
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
         SAXParser saxParser = factory.newSAXParser();
-        
+
         PresetGroup rootGroup = App.getCurrentRootPreset(ctx).getRootGroup();
 
         saxParser.parse(input, new DefaultHandler() {

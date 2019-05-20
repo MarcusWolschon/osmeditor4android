@@ -67,7 +67,7 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
      * and from way and restarts the process.
      */
     @Override
-    public boolean handleElementClick(OsmElement element) { // NOSONAR 
+    public boolean handleElementClick(OsmElement element) { // NOSONAR
         // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
         // check if we have to split from or via

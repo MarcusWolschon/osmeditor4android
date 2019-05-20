@@ -198,7 +198,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
                 }
             });
         }
-        
+
         Preference connectedPref = getPreferenceScreen().findPreference(KEY_CONNECTED);
         if (connectedPref != null) {
             OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
