@@ -891,9 +891,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     }
                     String hint = field.getHint();
                     //
-                    ValueType valueType = preset.getValueType(key);
+                    ValueType valueType = field.getValueType();
                     if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
-                            || (preset.isEditable(key) && ValueType.OPENING_HOURS_MIXED != valueType) || key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
+                            || (isComboField && ((PresetComboField) field).isEditable() && ValueType.OPENING_HOURS_MIXED != valueType)
+                            || key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
                         if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX) || ValueType.CONDITIONAL == valueType) {
                             rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
                         } else if ((Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType)

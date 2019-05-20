@@ -7,6 +7,11 @@ public class PresetTextField extends PresetField implements PresetFieldJavaScrip
      * Script for pre-filling text fields
      */
     String javascript = null;
+    
+    /**
+     * Configured length of the text field
+     */
+    private int length = 0;
 
     /**
      * Constructor
@@ -37,6 +42,24 @@ public class PresetTextField extends PresetField implements PresetFieldJavaScrip
         javascript = script;
     }
 
+    /**
+     * Get a proposed length for the field
+     * 
+     * @return the length in characters
+     */
+    int getLength() {
+        return length;
+    }
+
+    /**
+     * Set the length attribute
+     * 
+     * @param length the length to set in characters
+     */
+    void setLength(int length) {
+        this.length = length;
+    }
+
     @Override
     PresetField copy() {
         return new PresetTextField(this);
@@ -44,6 +67,6 @@ public class PresetTextField extends PresetField implements PresetFieldJavaScrip
 
     @Override
     public String toString() {
-        return super.toString() + " javascript: " + javascript;
+        return super.toString() + " javascript: " + javascript + " length: " + length;
     }
 }

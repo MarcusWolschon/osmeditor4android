@@ -20,7 +20,6 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
-import de.blau.android.util.Util;
 
 public class RecentPresetsFragment extends BaseFragment {
 

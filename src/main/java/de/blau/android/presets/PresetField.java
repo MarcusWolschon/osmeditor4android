@@ -2,7 +2,6 @@ package de.blau.android.presets;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import ch.poole.poparser.Po;
 import de.blau.android.presets.Preset.MatchType;
 import de.blau.android.presets.Preset.UseLastAsDefault;
@@ -39,7 +38,7 @@ public abstract class PresetField {
     /**
      * Does this key have i18n variants
      */
-    boolean i18n = false;
+    private boolean i18n = false;
 
     /**
      * Translation contexts
@@ -50,12 +49,12 @@ public abstract class PresetField {
     /**
      * Value type
      */
-    ValueType valueType = null;
+    private ValueType valueType = null;
 
     /**
      * Use last as default
      */
-    UseLastAsDefault useLastAsDefault = UseLastAsDefault.FALSE;
+    private UseLastAsDefault useLastAsDefault = UseLastAsDefault.FALSE;
 
     /**
      * Construct a new PresetField
@@ -77,11 +76,11 @@ public abstract class PresetField {
         this.defaultValue = field.defaultValue;
         this.matchType = field.matchType;
         this.optional = field.optional;
-        this.i18n = field.i18n;
+        this.setI18n(field.isI18n());
         this.textContext = field.textContext;
         this.valueContext = field.valueContext;
-        this.valueType = field.valueType;
-        this.useLastAsDefault = field.useLastAsDefault;
+        this.setValueType(field.getValueType());
+        this.setUseLastAsDefault(field.getUseLastAsDefault());
     }
 
     /**
@@ -168,7 +167,7 @@ public abstract class PresetField {
      * @param match the match type
      */
     public void setMatchType(@NonNull String match) {
-        MatchType type = MatchType.fromString(match);
+        matchType = MatchType.fromString(match);
     }
 
     /**
@@ -179,7 +178,7 @@ public abstract class PresetField {
     public void setMatchType(@Nullable MatchType match) {
         matchType = match;
     }
-    
+
     /**
      * Get the match type for this field
      * 
@@ -200,12 +199,60 @@ public abstract class PresetField {
     }
 
     /**
+     * Set if the previous value should be used as default
+     * 
+     * @param useLastAsDefault the value to set as a String
+     */
+    public void setUseLastAsDefault(@NonNull String useLastAsDefault) {
+        this.useLastAsDefault = UseLastAsDefault.fromString(useLastAsDefault);
+    }
+
+    /**
      * Get the value of useLastAsDefault
      * 
      * @return and indication if we should use the last value as default for this field
      */
     public UseLastAsDefault getUseLastAsDefault() {
         return useLastAsDefault;
+    }
+
+    /**
+     * @return the i18n
+     */
+    boolean isI18n() {
+        return i18n;
+    }
+
+    /**
+     * @param i18n the i18n to set
+     */
+    void setI18n(boolean i18n) {
+        this.i18n = i18n;
+    }
+
+    /**
+     * @return the valueType
+     */
+    public ValueType getValueType() {
+        return valueType;
+    }
+
+    /**
+     * @param type the ValueType as string to set
+     */
+    void setValueType(@Nullable String type) {
+        if (type == null) {
+            this.valueType = null;
+            return;
+        }
+        this.valueType = ValueType.fromString(type);
+    }
+
+    /**
+     * @param type the ValueType to set
+     */
+    void setValueType(@Nullable ValueType type) {
+        this.valueType = type;
     }
 
     /**
@@ -240,7 +287,7 @@ public abstract class PresetField {
 
     @Override
     public String toString() {
-        return key + " (" + hint + ") default: " + defaultValue + " match: " + matchType + " opt: " + optional + " i18n: " + i18n + " textCtx: " + textContext
-                + " valueCtx: " + valueContext + " valueType: " + valueType;
+        return key + " (" + hint + ") default: " + defaultValue + " match: " + matchType + " opt: " + optional + " i18n: " + isI18n() + " textCtx: "
+                + textContext + " valueCtx: " + valueContext + " valueType: " + getValueType();
     }
 }
