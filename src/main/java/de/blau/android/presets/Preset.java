@@ -856,7 +856,6 @@ public class Preset implements Serializable {
                     }
                     String length = attr.getValue(LENGTH);
                     if (length != null) {
-                        System.out.println("Got length " + length);
                         try {
                             ((PresetTextField) field).setLength(Integer.parseInt(length));
                         } catch (NumberFormatException e) {
