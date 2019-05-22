@@ -2,11 +2,8 @@ package de.blau.android.javascript;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -40,11 +37,11 @@ import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
-import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
@@ -109,12 +106,13 @@ public final class Utils {
      * @param tags the current tags
      * @param value any value associated with the key
      * @param key2PresetItem map from key to PresetItem
+     * @param presets the currently available Presets
      * @return the value that should be assigned to the tag or null if no value should be set
      */
     @Nullable
     public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script,
             @NonNull Map<String, ArrayList<String>> originalTags, @NonNull Map<String, ArrayList<String>> tags, @NonNull String value,
-            @NonNull Map<String, PresetItem> key2PresetItem) {
+            @NonNull Map<String, PresetItem> key2PresetItem, @NonNull Preset[] presets) {
         org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
         try {
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
@@ -131,6 +129,8 @@ public final class Utils {
             ScriptableObject.putProperty(scope, "value", wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(key2PresetItem, scope);
             ScriptableObject.putProperty(scope, "key2PresetItem", wrappedOut);
+            wrappedOut = org.mozilla.javascript.Context.javaToJS(presets, scope);
+            ScriptableObject.putProperty(scope, "presets", wrappedOut);
             Log.d(DEBUG_TAG, "Eval (preset): " + script);
             Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
             if (result == null) {

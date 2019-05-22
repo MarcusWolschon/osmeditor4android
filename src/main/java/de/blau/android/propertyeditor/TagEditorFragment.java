@@ -1732,7 +1732,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 Log.e(DEBUG_TAG, "evalJavaScript " + entry.getKey() + " " + (entry.getValue() != null ? entry.getValue().getName() : " null"));
             }
             String result = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, buildEdits(), currentValues, defaultValue,
-                    tags2Preset);
+                    tags2Preset, App.getCurrentPresets(getActivity()));
             if (result == null || "".equals(result)) {
                 currentValues.remove(key);
             } else if (currentValues.containsKey(key)) {
@@ -1919,7 +1919,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 @Override
                 public String eval(String input) {
                     return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test",
-                            tags2Preset);
+                            tags2Preset, App.getCurrentPresets(getActivity()));
                 }
             });
             return true;
