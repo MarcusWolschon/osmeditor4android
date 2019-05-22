@@ -3584,7 +3584,7 @@ public class Preset implements Serializable {
         public boolean hasKeyValue(@NonNull String key, @Nullable String value) {
 
             PresetField field = fields.get(key);
-            return Preset.hasKeyValue(field, key, value);
+            return Preset.hasKeyValue(field, value);
         }
 
         /**
@@ -3866,6 +3866,18 @@ public class Preset implements Serializable {
      * @return true if the tag matches
      */
     public static boolean hasKeyValue(@Nullable PresetField field, @NonNull String key, @Nullable String value) {
+        return hasKeyValue(field, value);
+    }
+
+    /**
+     * Check if a key-value tupel matches a specific PresetField taking the MatchType in to account This assumes that
+     * field is either null or matches the key
+     * 
+     * @param field the PresetField
+     * @param value the value
+     * @return true if the tag matches
+     */
+    public static boolean hasKeyValue(@Nullable PresetField field, @Nullable String value) {
 
         if (field == null) {
             return false;
