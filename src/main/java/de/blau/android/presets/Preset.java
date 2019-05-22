@@ -1004,6 +1004,10 @@ public class Preset implements Serializable {
                     if (useLastAsDefault != null) {
                         field.setUseLastAsDefault(useLastAsDefault);
                     }
+                    javaScript = attr.getValue(JAVASCRIPT);
+                    if (javaScript != null) {
+                        ((PresetTextField) field).setScript(javaScript);
+                    }
                     break;
                 case ROLES:
                     break;
@@ -1707,7 +1711,7 @@ public class Preset implements Serializable {
      * @param useAddressKeys use addr: keys if true
      * @return a preset or null if none found
      */
-    public static PresetItem findBestMatch(Preset[] presets, Map<String, String> tags, boolean useAddressKeys) {
+    public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, boolean useAddressKeys) {
         int bestMatchStrength = 0;
         PresetItem bestMatch = null;
 
@@ -3853,8 +3857,8 @@ public class Preset implements Serializable {
     }
 
     /**
-     * Check if a key-value tupel matches a specific PresetField taking the MatchType in to account
-     * This assumes that field is either null or matches the key
+     * Check if a key-value tupel matches a specific PresetField taking the MatchType in to account This assumes that
+     * field is either null or matches the key
      * 
      * @param field the PresetField
      * @param key the key

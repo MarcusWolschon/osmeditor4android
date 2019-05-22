@@ -415,13 +415,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Build the data structure we use to build the edit display
+     * Build the data structure we use to build the initial edit display
      * 
      * @return a map of String (the keys) and ArrayList<String> (the values)
      */
     private LinkedHashMap<String, ArrayList<String>> buildEdits() {
         @SuppressWarnings("unchecked")
-        ArrayList<Map<String, String>> originalTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
+        List<Map<String, String>> originalTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
         //
         LinkedHashMap<String, ArrayList<String>> tags = new LinkedHashMap<>();
         for (Map<String, String> map : originalTags) {
@@ -450,7 +450,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         Log.d(DEBUG_TAG, "onStart");
         // the following likely wont work in onCreateView
         @SuppressWarnings("unchecked")
-        ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
+        List<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
         Preset preset = App.getCurrentRootPreset(getActivity());
         PresetGroup rootGroup = preset.getRootGroup();
         if (presetsToApply != null) {
@@ -577,27 +577,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         PresetItem savedPrimaryPresetItem = primaryPresetItem;
         List<PresetItem> savedSecondaryPresets = new ArrayList<>(getSecondaryPresets());
 
-        clearPresets();
-        clearSecondaryPresets();
-        LinkedHashMap<String, String> allTags = getKeyValueMapSingle(rowLayout, true);
-
-        if (presetItem == null) {
-            primaryPresetItem = Preset.findBestMatch(presets, allTags, true); // FIXME multiselect
-        } else {
-            primaryPresetItem = presetItem;
-        }
-        Map<String, String> nonAssigned = addPresetsToTags(primaryPresetItem, allTags);
-        int nonAssignedCount = nonAssigned.size();
-        while (nonAssignedCount > 0) {
-            PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, true);
-            if (nonAssignedPreset == null) {
-                // no point in continuing
-                break;
-            }
-            addSecondaryPreset(nonAssignedPreset);
-            nonAssigned = addPresetsToTags(nonAssignedPreset, (LinkedHashMap<String, String>) nonAssigned);
-            nonAssignedCount = nonAssigned.size();
-        }
+        Map<String, String> allTags = getKeyValueMapSingle(rowLayout, true);
+        determinePresets(allTags, presetItem, presets);
 
         // update hints
         if (rowLayout != null) {
@@ -643,6 +624,35 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 elementTypes[i] = elements[i].getType(tags);
             }
             elementType = getSummaryElementType(elementTypes);
+        }
+    }
+
+    /**
+     * Determine the best presets for the existing tags
+     * 
+     * @param allTags the current tags
+     * @param presetItem the current beest PresetItem or null
+     * @param presets the current presets
+     */
+    private void determinePresets(@NonNull Map<String, String> allTags, @Nullable PresetItem presetItem, @NonNull Preset[] presets) {
+        clearPresets();
+        clearSecondaryPresets();
+        if (presetItem == null) {
+            primaryPresetItem = Preset.findBestMatch(presets, allTags, true); // FIXME multiselect;
+        } else {
+            primaryPresetItem = presetItem;
+        }
+        Map<String, String> nonAssigned = addPresetsToTags(primaryPresetItem, allTags);
+        int nonAssignedCount = nonAssigned.size();
+        while (nonAssignedCount > 0) {
+            PresetItem nonAssignedPreset = Preset.findBestMatch(presets, nonAssigned, true);
+            if (nonAssignedPreset == null) {
+                // no point in continuing
+                break;
+            }
+            addSecondaryPreset(nonAssignedPreset);
+            nonAssigned = addPresetsToTags(nonAssignedPreset, (LinkedHashMap<String, String>) nonAssigned);
+            nonAssignedCount = nonAssigned.size();
         }
     }
 
@@ -693,8 +703,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param tags the tags we want to assign
      * @return map of tags that couldn't be assigned
      */
-    private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull LinkedHashMap<String, String> tags) {
-        LinkedHashMap<String, String> leftOvers = new LinkedHashMap<>();
+    private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull Map<String, String> tags) {
+        Map<String, String> leftOvers = new LinkedHashMap<>();
         if (preset != null) {
             List<PresetItem> linkedPresetList = preset.getLinkedPresets(true);
             for (Entry<String, String> entry : tags.entrySet()) {
@@ -747,7 +757,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Store the key to PresetITem mapping
+     * Store the key to PresetItem mapping
      * 
      * @param key the key
      * @param preset the PresetItem
@@ -1665,17 +1675,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         // add tags with no fixed values, optional tags only if addOptional is set
+        Map<String, String> scripts = new LinkedHashMap<>();
         for (Entry<String, PresetField> entry : item.getFields().entrySet()) {
             PresetField field = entry.getValue();
             boolean isOptional = field.isOptional();
             if (!isOptional || (isOptional && addOptional)) {
                 if (field instanceof PresetCheckGroupField) {
                     for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        addTagFromPreset(item, field, currentValues, check.getKey());
+                        addTagFromPreset(item, check, currentValues, check.getKey(), scripts);
                     }
                 } else if (!(field instanceof PresetFixedField)) {
-                    addTagFromPreset(item, field, currentValues, entry.getKey());
+                    addTagFromPreset(item, field, currentValues, entry.getKey(), scripts);
                 }
+            }
+        }
+
+        if (!scripts.isEmpty()) {
+            Preset[] presets = App.getCurrentPresets(getActivity());
+            determinePresets(getKeyValueMapSingle(true), null, presets);
+            for (Entry<String, String> entry : scripts.entrySet()) {
+                evalJavaScript(item, currentValues, entry.getKey(), entry.getValue());
             }
         }
 
@@ -1699,7 +1718,33 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Add tag from preset if the tag doesn't exist, execute JS if present
+     * Evaluate JavaScript
+     * 
+     * @param item the current PresetItem
+     * @param currentValues current Tag values
+     * @param key the key
+     * @param script the script
+     */
+    private void evalJavaScript(@NonNull PresetItem item, @NonNull Map<String, ArrayList<String>> currentValues, @NonNull String key, @NonNull String script) {
+        try {
+            String defaultValue = item.getDefault(key) == null ? "" : item.getDefault(key);
+            for (Entry<String, PresetItem> entry : tags2Preset.entrySet()) {
+                Log.e(DEBUG_TAG, "evalJavaScript " + entry.getKey() + " " + (entry.getValue() != null ? entry.getValue().getName() : " null"));
+            }
+            String result = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, buildEdits(), currentValues, defaultValue,
+                    tags2Preset);
+            if (result == null || "".equals(result)) {
+                currentValues.remove(key);
+            } else if (currentValues.containsKey(key)) {
+                currentValues.put(key, Util.getArrayList(result));
+            }
+        } catch (Exception ex) {
+            Snack.barError(getActivity(), ex.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Add tag from preset if the tag doesn't exist
      * 
      * If an entry in the MRU tags exists and UseLastAsDefault is TRUE or FORCE or a default value in the preset this
      * will be set as the value.
@@ -1710,8 +1755,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param field the current PresetField
      * @param tags map of current tags
      * @param key the key we are processing
+     * @param scripts map containing any JS we find
      */
-    private void addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, ArrayList<String>> tags, @NonNull String key) {
+    private void addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, ArrayList<String>> tags, @NonNull String key,
+            Map<String, String> scripts) {
         if (!tags.containsKey(key)) {
             String value = "";
             if (field != null) {
@@ -1728,18 +1775,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     }
                 }
             }
-            if (field instanceof PresetFieldJavaScript) {
+            if (field instanceof PresetFieldJavaScript && scripts != null) {
                 String script = ((PresetFieldJavaScript) field).getScript();
                 if (script != null) {
-                    try {
-                        value = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, buildEdits(), tags, value);
-                    } catch (Exception ex) {
-                        Snack.barError(getActivity(), ex.getLocalizedMessage());
-                    }
-                    if (value == null) {
-                        tags.remove(key);
-                        return;
-                    }
+                    scripts.put(key, script);
                 }
             }
             tags.put(key, Util.getArrayList(value));
@@ -1879,7 +1918,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             de.blau.android.javascript.Utils.jsConsoleDialog(getActivity(), R.string.js_console_msg_debug, new EvalCallback() {
                 @Override
                 public String eval(String input) {
-                    return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test");
+                    return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test",
+                            tags2Preset);
                 }
             });
             return true;

@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
-public class PresetComboField extends PresetField {
+public class PresetComboField extends PresetField implements PresetFieldJavaScript {
 
     StringWithDescription[] values;
 
@@ -18,6 +18,11 @@ public class PresetComboField extends PresetField {
      * Combo and multiselect delimiter
      */
     String delimiter = null;
+
+    /**
+     * Script for pre-filling text fields
+     */
+    String javascript = null;
 
     /**
      * Combo and multiselect editable property
@@ -130,6 +135,16 @@ public class PresetComboField extends PresetField {
      */
     void setValuesContext(@Nullable String valuesContext) {
         this.valuesContext = valuesContext;
+    }
+
+    @Override
+    public String getScript() {
+        return javascript;
+    }
+
+    @Override
+    public void setScript(String script) {
+        javascript = script;
     }
 
     @Override

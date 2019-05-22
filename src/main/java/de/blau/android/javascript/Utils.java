@@ -35,6 +35,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.blau.android.App;
+import de.blau.android.BuildConfig;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
@@ -44,6 +45,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
@@ -106,23 +108,29 @@ public final class Utils {
      * @param originalTags original tags the property editor was called with
      * @param tags the current tags
      * @param value any value associated with the key
+     * @param key2PresetItem map from key to PresetItem
      * @return the value that should be assigned to the tag or null if no value should be set
      */
     @Nullable
-    public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> originalTags,
-            Map<String, ArrayList<String>> tags, String value) {
+    public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script,
+            @NonNull Map<String, ArrayList<String>> originalTags, @NonNull Map<String, ArrayList<String>> tags, @NonNull String value,
+            @NonNull Map<String, PresetItem> key2PresetItem) {
         org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
         try {
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
             Scriptable scope = rhinoContext.newObject(restrictedScope);
             scope.setPrototype(restrictedScope);
             scope.setParentScope(null);
-            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(originalTags, scope);
+            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(BuildConfig.VERSION_CODE, scope);
+            ScriptableObject.putProperty(scope, "versionCode", wrappedOut);
+            wrappedOut = org.mozilla.javascript.Context.javaToJS(originalTags, scope);
             ScriptableObject.putProperty(scope, "originalTags", wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
             ScriptableObject.putProperty(scope, "tags", wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
             ScriptableObject.putProperty(scope, "value", wrappedOut);
+            wrappedOut = org.mozilla.javascript.Context.javaToJS(key2PresetItem, scope);
+            ScriptableObject.putProperty(scope, "key2PresetItem", wrappedOut);
             Log.d(DEBUG_TAG, "Eval (preset): " + script);
             Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
             if (result == null) {
@@ -145,14 +153,16 @@ public final class Utils {
      * @return result of evaluating the JS as a string
      */
     @Nullable
-    public static String evalString(Context ctx, String scriptName, String script, Logic logic) {
+    public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script, @NonNull Logic logic) {
         org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
         try {
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
             Scriptable scope = rhinoContext.newObject(restrictedScope);
             scope.setPrototype(restrictedScope);
             scope.setParentScope(null);
-            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(logic, scope);
+            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(BuildConfig.VERSION_CODE, scope);
+            ScriptableObject.putProperty(scope, "versionCode", wrappedOut);
+            wrappedOut = org.mozilla.javascript.Context.javaToJS(logic, scope);
             ScriptableObject.putProperty(scope, "logic", wrappedOut);
             Log.d(DEBUG_TAG, "Eval (logic): " + script);
             Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
@@ -251,16 +261,6 @@ public final class Utils {
                                     activity.startActivity(sendIntent);
                                     break;
                                 case R.id.js_menu_save:
-                                    if (prefs.getString(R.string.config_scriptsPreferredDir_key) == null) {
-                                        File scriptsDir;
-                                        try {
-                                            scriptsDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_SCRIPTS);
-                                        } catch (IOException e) {
-                                            Snack.barError(activity, e.getMessage());
-                                            return false;
-                                        }
-                                        prefs.putString(R.string.config_scriptsPreferredDir_key, scriptsDir.getAbsolutePath());
-                                    }
                                     SelectFile.save(activity, R.string.config_scriptsPreferredDir_key, new SaveFile() {
                                         private static final long serialVersionUID = 1L;
 
@@ -271,7 +271,7 @@ public final class Utils {
                                                 Log.e(DEBUG_TAG, "Couldn't convert " + fileUri);
                                                 return false;
                                             }
-                                            writeScriptFile(activity, fileUri.getPath(), input.getText().toString(), null);
+                                            writeScriptFile(activity, fileUri, input.getText().toString(), null);
                                             SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
                                             return true;
                                         }
@@ -303,15 +303,14 @@ public final class Utils {
     }
 
     /**
-     * Write data to a file in (J)OSM compatible format, if fileName contains directories these are created, otherwise
-     * it is stored in the standard public dir
+     * Write the contents of the console to a Uri
      * 
      * @param activity the calling Activity
-     * @param fileName the file name
+     * @param uri an Uri pointing to the output destination
      * @param script the script to save
      * @param postSaveHandler called after saving
      */
-    private static void writeScriptFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @NonNull final String script,
+    private static void writeScriptFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @NonNull final String script,
             @Nullable final PostAsyncActionHandler postSaveHandler) {
 
         new AsyncTask<Void, Void, Integer>() {
@@ -324,24 +323,7 @@ public final class Utils {
             @Override
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
-                FileOutputStream fout = null;
-                OutputStream out = null;
-                try {
-                    File outfile = new File(fileName);
-                    String parent = outfile.getParent();
-                    if (parent == null) { // no directory specified, save to standard location
-                        outfile = new File(FileUtil.getPublicDirectory(), fileName);
-                    } else { // ensure directory exists
-                        File outdir = new File(parent);
-                        // noinspection ResultOfMethodCallIgnored
-                        outdir.mkdirs();
-                        if (!outdir.isDirectory()) {
-                            throw new IOException("Unable to create directory " + outdir.getPath());
-                        }
-                    }
-                    Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-                    fout = new FileOutputStream(outfile);
-                    out = new BufferedOutputStream(fout);
+                try (BufferedOutputStream out = new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri))) {
                     try {
                         out.write(script.getBytes());
                     } catch (IllegalArgumentException e) {
@@ -354,9 +336,6 @@ public final class Utils {
                 } catch (IOException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
                     Log.e(DEBUG_TAG, "Problem writing", e);
-                } finally {
-                    SavingHelper.close(out);
-                    SavingHelper.close(fout);
                 }
                 return result;
             }
