@@ -19,10 +19,12 @@
                 android:id="@+id/js_input"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:hint="JavaScript"
+                android:hint="@string/js_console_input_hint"
                 android:minHeight="300dp"
                 android:gravity="top"
                 android:inputType="textMultiLine|textNoSuggestions"
+                android:typeface="monospace"
+                android:textSize="14sp"
                 android:text="" />
         </HorizontalScrollView>
     </ScrollView>
@@ -33,5 +35,7 @@
         android:layout_weight="1"
         android:minHeight="30dp"
         android:text=""
-        android:hint="Output" />
+        android:typeface="monospace"
+        android:textSize="14sp"
+        android:hint="@string/js_console_output_hint" />
 </LinearLayout>

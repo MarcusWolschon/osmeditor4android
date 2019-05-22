@@ -194,6 +194,8 @@
     <string name="evaluate">Evaluate</string>
     <string name="js_console_msg_live">Live mode!</string>
     <string name="js_console_msg_debug">Debug mode!</string>
+    <string name="js_console_input_hint">Enter JavaScript here</string>
+    <string name="js_console_output_hint">Output will appear here</string>
     <!-- Validator dialogs  -->
     <string name="validator_title">Validator ruleset %1$s</string>
     <string name="edit_resurvey_title">Edit re-survey entry</string>
