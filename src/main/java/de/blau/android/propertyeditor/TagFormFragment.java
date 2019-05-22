@@ -1121,7 +1121,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                             observer.removeOnGlobalLayoutListener(this);
                         } else {
-                            observer.removeGlobalOnLayoutListener(this);
+                            observer.removeGlobalOnLayoutListener(this); // NOSONAR
                         }
                         float aM = row.valueView.getPaint().measureText("M"); // FIXME cache this
                         int lines = Math.min((int) (length / aM), 4);

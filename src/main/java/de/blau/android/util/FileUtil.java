@@ -22,7 +22,7 @@ public abstract class FileUtil {
      * Get our public directory, creating it if it doesn't exist
      * 
      * @return a File object for the public directory
-     * @throws IOException
+     * @throws IOException if we can't create the directory
      */
     public static @NonNull File getPublicDirectory() throws IOException {
         return getPublicDirectory(Environment.getExternalStorageDirectory(), Paths.DIRECTORY_PATH_VESPUCCI);
@@ -34,7 +34,7 @@ public abstract class FileUtil {
      * @param baseDirectory the base directory
      * @param directoryName the new sub-directory
      * @return a File object for the sub-director of the public directory
-     * @throws IOException
+     * @throws IOException if we can't create the directory
      */
     public static @NonNull File getPublicDirectory(@NonNull File baseDirectory, @NonNull String directoryName) throws IOException {
         if (directoryName.length() == 0) {
@@ -54,7 +54,7 @@ public abstract class FileUtil {
      * 
      * @param fileName name of the filw we want to write to
      * @return a File object
-     * @throws IOException
+     * @throws IOException if we can't create the directories
      */
     @NonNull
     public static File openFileForWriting(@NonNull final String fileName) throws IOException {
@@ -80,7 +80,7 @@ public abstract class FileUtil {
      * @param assetFileName the filename in the assets
      * @param destinationDir destination directory
      * @param destinationFilename destination filename
-     * @throws IOException
+     * @throws IOException if we can't copy or write the file
      */
     public static void copyFileFromAssets(@NonNull Context context, @NonNull String assetFileName, @NonNull File destinationDir,
             @NonNull String destinationFilename) throws IOException {
@@ -130,6 +130,6 @@ public abstract class FileUtil {
         if (path == null) {
             return "";
         }
-        return path.substring(path.lastIndexOf(".") + 1);
+        return path.substring(path.lastIndexOf('.') + 1);
     }
 }

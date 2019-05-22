@@ -51,6 +51,9 @@ public class SavingHelper<T extends Serializable> {
 
     private final long stackSize;
 
+    /**
+     * Create a new instance
+     */
     public SavingHelper() {
         long freeMemory = Runtime.getRuntime().freeMemory();
         stackSize = DEFAULT_STACK_SIZE + (freeMemory > LOTS_OF_MEMORY ? ADD_STACK : 0);
@@ -73,7 +76,7 @@ public class SavingHelper<T extends Serializable> {
             Log.d(DEBUG_TAG, "preparing to save " + filename);
             SaveThread r = new SaveThread(context, filename, object, compress);
 
-            Thread t = new Thread(null, r, "SaveThread", stackSize);
+            Thread t = new Thread(null, r, SaveThread.DEBUG_TAG, stackSize);
             t.start();
             t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
                            // limits the size of the file that can be saved
@@ -87,7 +90,7 @@ public class SavingHelper<T extends Serializable> {
 
     public class SaveThread implements Runnable {
 
-        private static final String DEBUG_TAG = "SavingThread";
+        private static final String DEBUG_TAG = "SaveThread";
         final String                filename;
         T                           object;
         final boolean               compress;
@@ -178,7 +181,7 @@ public class SavingHelper<T extends Serializable> {
         try {
             Log.d(DEBUG_TAG, "preparing to load " + filename);
             LoadThread r = new LoadThread(context, filename, compressed, deleteOnFail);
-            Thread t = new Thread(null, r, "LoadThread", stackSize);
+            Thread t = new Thread(null, r, LoadThread.DEBUG_TAG, stackSize);
             t.start();
             t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
                            // limits the size of the file that can be loaded

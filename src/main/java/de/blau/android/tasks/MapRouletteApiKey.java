@@ -29,6 +29,12 @@ public class MapRouletteApiKey {
     private static final String DEBUG_TAG = "MapRouletteApiKey";
 
     /**
+     * Private constructor
+     */
+    private MapRouletteApiKey() {
+        // empty
+    }
+    /**
      * Set a MapRoulette API key by asking the user for it
      * 
      * If the key is empty it will ask the user if MapRoulette should be disabled
