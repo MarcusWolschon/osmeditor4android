@@ -9,7 +9,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -80,6 +79,9 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
     private View              layout = null;
     private ExtendedViewPager pager  = null;
+
+    AutoCompleteTextView comment;
+    AutoCompleteTextView source;
 
     private Resources resources;
 
@@ -179,7 +181,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
         CheckBox requestReview = (CheckBox) layout.findViewById(R.id.upload_request_review);
 
-        final AutoCompleteTextView comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
+        comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
         List<String> comments = new ArrayList<String>(App.getLogic().getLastComments());
         FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, comments);
         comment.setAdapter(commentAdapter);
@@ -204,7 +206,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
             }
         });
 
-        final AutoCompleteTextView source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
+        source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
         List<String> sources = new ArrayList<String>(App.getLogic().getLastSources());
         FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, sources);
         source.setAdapter(sourceAdapter);
@@ -233,16 +235,15 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
                 saveCommentAndSource(comment, source);
             }
         });
-        builder.setOnCancelListener(new OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                saveCommentAndSource(comment, source);
-            }
-        });
 
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(new UploadListener((Main) activity, comment, source, closeChangeset, requestReview, validators));
         return dialog;
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        saveCommentAndSource(comment, source);
     }
 
     /**
