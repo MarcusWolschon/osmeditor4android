@@ -1489,7 +1489,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         }
                     }
                 }
-                OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(keyWithDescription, finalValue,
+                List<String> isoCodes = propertyEditorListener.getIsoCodes();
+                OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(keyWithDescription,
+                        isoCodes != null && !isoCodes.isEmpty() ? isoCodes.get(0) : null,
+                        preset != null ? preset.getObjectTag(App.getCurrentPresets(getContext()), tagListener.getKeyValueMapSingle(false)) : null, finalValue,
                         prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1, true, textValues);
                 openingHoursDialog.show(fm, FRAGMENT_OPENING_HOURS_TAG);
             }
@@ -2925,7 +2928,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
 
         /**
-         * Construct a row that will show a dialog that allows multiple values that represent tags to be selected when
+         * Construct a row that will show a dialog that allows multiple values that represent to be selected when
          * clicked
          * 
          * @param context Android Context

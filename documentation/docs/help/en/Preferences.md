@@ -58,6 +58,10 @@ Example: the default configuration checks that a "name" tag is present on a obje
 
 Configure how far away from a highway a highway end node must be to not be highlighted as an error.
 
+## Opening hours templates
+
+The dialog displayed allows to edit the meta-data for individual templates or delete them, save the current templates and load templates from files.
+
 ## Advanced preferences
 
 Starts the advanced preferences editor.

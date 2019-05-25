@@ -64,6 +64,7 @@
     <string name="config_contrastValue_key">contrastFloatValue</string>
     <string name="config_js_console_key">jsConsole</string>
     <string name="config_validatorprefs_key">validatorprefs</string>
+    <string name="config_opening_hours_key">opening_hours</string>
     <string name="config_customlayers_key">customLayers</string>
     <string name="config_enableAutoPresets_key">enableAutoPresets</string>
     <string name="config_simpleActions_key">simpleActions</string>
