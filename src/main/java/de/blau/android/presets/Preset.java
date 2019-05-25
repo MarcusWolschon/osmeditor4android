@@ -1796,7 +1796,7 @@ public class Preset implements Serializable {
                 for (Entry<String, String> tag : tags.entrySet()) {
                     String key = tag.getKey();
                     if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
-                        String tagString = tag.getKey() + "\t";
+                        String tagString = key + "\t";
                         possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
                         possibleMatches.addAll(p.tagItems.get(tagString + tag.getValue()));
                     }
@@ -3594,6 +3594,28 @@ public class Preset implements Serializable {
          */
         public int getItemIndex() {
             return itemIndex;
+        }
+
+        /**
+         * Get the top level tag if any
+         * 
+         * @param presets the currently configured presets
+         * @param tags the current tags
+         * @return the object tag in the form key=value or null if there is none
+         */
+        @Nullable
+        public String getObjectTag(@NonNull Preset[] presets, @NonNull Map<String, String> tags) {
+            for (Preset p : presets) {
+                if (p != null) {
+                    for (Entry<String, String> tag : tags.entrySet()) {
+                        String key = tag.getKey();
+                        if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key)) {
+                            return key + "=" + tag.getValue();
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         @Override

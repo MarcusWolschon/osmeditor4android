@@ -717,6 +717,9 @@
     <string name="config_validatorprefs_summary">Configure the validation rules.</string> 
     <string name="config_connectedNodeTolerance_title">Connected node tolerance</string>
     <string name="config_connectedNodeTolerance_summary">If a highway end node is within this distance (in meters) of a highway it should be connected to it</string>    
+    <!--  opening hours templates -->
+    <string name="config_opening_hours_title">Opening hours templates</string>
+    <string name="config_opening_hours_summary">Load, save and delete opening hours templates</string>
     <!--  these are no longer on the prefs page, but are used as menu entries -->
     <string name="config_licensebutton_title">Authors and licenses</string>
     <string name="config_debugbutton_title">Debug</string>

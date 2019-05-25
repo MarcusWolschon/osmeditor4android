@@ -8,6 +8,7 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.util.Log;
+import ch.poole.openinghoursfragment.templates.TemplateMangementDialog;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
@@ -33,6 +34,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     private String    KEY_PREFPRESET;
     private String    KEY_ADVPREFS;
     private String    KEY_VALIDATOR;
+    private String    KEY_OPENING_HOURS;
     private String    KEY_CONNECTED;
 
     private BoundingBox viewBox = null;
@@ -50,6 +52,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
         KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
         KEY_VALIDATOR = r.getString(R.string.config_validatorprefs_key);
+        KEY_OPENING_HOURS = r.getString(R.string.config_opening_hours_key);
         KEY_CONNECTED = r.getString(R.string.config_connectedNodeTolerance_key);
         setPreferenceListeners();
         setTitle();
@@ -212,6 +215,18 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
                 }
             };
             connectedPref.setOnPreferenceChangeListener(p);
+        }
+
+        Preference openingHoursPref = getPreferenceScreen().findPreference(KEY_OPENING_HOURS);
+        if (openingHoursPref != null) {
+            openingHoursPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Log.d(DEBUG_TAG, "onPreferenceClick opening hours");
+                    TemplateMangementDialog.showDialog(PrefEditorFragment.this, true, null, null, null, "");
+                    return true;
+                }
+            });
         }
     }
 }
