@@ -101,7 +101,7 @@ public class Storage implements Serializable {
      * @return the OsmElement or null if not found
      */
     @Nullable
-    public OsmElement getOsmElement(final String type, final long osmId) {
+    public OsmElement getOsmElement(@NonNull final String type, final long osmId) {
         if (type.equalsIgnoreCase(Node.NAME)) {
             return getNode(osmId);
         } else if (type.equalsIgnoreCase(Way.NAME)) {
@@ -130,7 +130,8 @@ public class Storage implements Serializable {
      * @param box bounding box to search in
      * @return a list of all nodes in box
      */
-    public List<Node> getNodes(BoundingBox box) {
+    @NonNull
+    public List<Node> getNodes(@NonNull BoundingBox box) {
         ArrayList<Node> result = new ArrayList<>(nodes.size());
         List<Node> list = nodes.values();
         int listSize = list.size();
@@ -160,6 +161,7 @@ public class Storage implements Serializable {
      * @param box bounding box to search in
      * @return a list of all ways in box
      */
+    @NonNull
     public List<Way> getWays(@NonNull BoundingBox box) {
         List<Way> result = new ArrayList<>(ways.size());
         BoundingBox newBox = new BoundingBox(); // avoid creating new instances
@@ -189,6 +191,7 @@ public class Storage implements Serializable {
      * 
      * @return list containing all elements
      */
+    @NonNull
     public List<OsmElement> getElements() {
         List<OsmElement> l = new ArrayList<>();
         l.addAll(nodes.values());
@@ -203,7 +206,7 @@ public class Storage implements Serializable {
      * @param element element to check for
      * @return true if element is in storage
      */
-    public boolean contains(final OsmElement element) {
+    public boolean contains(@Nullable final OsmElement element) {
         if (element instanceof Way) {
             return ways.containsKey(element.getOsmId());
         } else if (element instanceof Node) {
@@ -219,7 +222,7 @@ public class Storage implements Serializable {
      * 
      * @param node node to insert
      */
-    void insertNodeUnsafe(final Node node) {
+    void insertNodeUnsafe(@NonNull final Node node) {
         try {
             nodes.put(node.getOsmId(), node);
         } catch (OutOfMemoryError err) {
@@ -233,7 +236,7 @@ public class Storage implements Serializable {
      * 
      * @param way way to insert
      */
-    void insertWayUnsafe(final Way way) {
+    void insertWayUnsafe(@NonNull final Way way) {
         try {
             ways.put(way.getOsmId(), way);
         } catch (OutOfMemoryError err) {
@@ -246,7 +249,7 @@ public class Storage implements Serializable {
      * 
      * @param relation relation to insert
      */
-    void insertRelationUnsafe(final Relation relation) {
+    void insertRelationUnsafe(@NonNull final Relation relation) {
         try {
             relations.put(relation.getOsmId(), relation);
         } catch (OutOfMemoryError err) {
@@ -261,7 +264,7 @@ public class Storage implements Serializable {
      * 
      * @param element element to insert
      */
-    void insertElementSafe(final OsmElement element) {
+    void insertElementSafe(@Nullable final OsmElement element) {
         if (!contains(element)) {
             insertElementUnsafe(element);
         }
@@ -272,7 +275,7 @@ public class Storage implements Serializable {
      * 
      * @param element element to insert
      */
-    void insertElementUnsafe(final OsmElement element) {
+    void insertElementUnsafe(@Nullable final OsmElement element) {
         if (element instanceof Way) {
             insertWayUnsafe((Way) element);
         } else if (element instanceof Node) {
@@ -288,7 +291,7 @@ public class Storage implements Serializable {
      * @param node node to remove
      * @return true if the node was in storage
      */
-    boolean removeNode(final Node node) {
+    boolean removeNode(@NonNull final Node node) {
         return nodes.remove(node.getOsmId()) != null;
     }
 
@@ -298,7 +301,7 @@ public class Storage implements Serializable {
      * @param way way to remove
      * @return true if the way was in storage
      */
-    boolean removeWay(final Way way) {
+    boolean removeWay(@NonNull final Way way) {
         return ways.remove(way.getOsmId()) != null;
     }
 
@@ -308,7 +311,7 @@ public class Storage implements Serializable {
      * @param relation relation to remove
      * @return true if the relation was in storage
      */
-    boolean removeRelation(final Relation relation) {
+    boolean removeRelation(@NonNull final Relation relation) {
         return relations.remove(relation.getOsmId()) != null;
     }
 
@@ -318,7 +321,7 @@ public class Storage implements Serializable {
      * @param element element to remove
      * @return true if the element was in storage
      */
-    boolean removeElement(final OsmElement element) {
+    boolean removeElement(@Nullable final OsmElement element) {
         if (element instanceof Way) {
             return ways.remove(element.getOsmId()) != null;
         } else if (element instanceof Node) {
@@ -354,7 +357,7 @@ public class Storage implements Serializable {
      * 
      * @param bbox bounding box to add
      */
-    void addBoundingBox(final BoundingBox bbox) {
+    void addBoundingBox(@NonNull final BoundingBox bbox) {
         bboxes.add(bbox);
     }
 
@@ -363,7 +366,7 @@ public class Storage implements Serializable {
      * 
      * @param box bounding box to remove
      */
-    public void deleteBoundingBox(BoundingBox box) {
+    public void deleteBoundingBox(@NonNull BoundingBox box) {
         bboxes.remove(box);
     }
 
@@ -404,6 +407,7 @@ public class Storage implements Serializable {
      * 
      * @return all way nodes
      */
+    @NonNull
     public List<Node> getWayNodes() {
         List<Node> waynodes = new ArrayList<>();
         for (Way way : ways) {
@@ -420,7 +424,7 @@ public class Storage implements Serializable {
      * @param node node to check
      * @return true if node is the first or last node of at least one way
      */
-    public boolean isEndNode(final Node node) {
+    public boolean isEndNode(@Nullable final Node node) {
         for (Way way : ways) {
             if (way.isEndNode(node)) {
                 return true;
@@ -435,6 +439,7 @@ public class Storage implements Serializable {
      * @return a bounding box
      * @throws OsmException if no valid BoundingBox could be created
      */
+    @NonNull
     public BoundingBox calcBoundingBoxFromData() throws OsmException {
         int top = 0;
         int bottom = 0;

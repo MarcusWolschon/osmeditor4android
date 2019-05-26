@@ -1095,6 +1095,7 @@ public class Logic {
      * @param y the y display-coordinate.
      * @return the closest way, or null if no way is found within the tolerance
      */
+    @Nullable
     private Way getClickedWay(final float x, final float y) {
         Way bestWay = null;
         Double bestDistance = Double.MAX_VALUE;
@@ -1115,7 +1116,8 @@ public class Logic {
      * @param excludes The list of OSM elements to exclude from the results.
      * @return a Set of the clickable OsmElements
      */
-    public Set<OsmElement> findClickableElements(List<OsmElement> excludes) {
+    @NonNull
+    public Set<OsmElement> findClickableElements(@NonNull List<OsmElement> excludes) {
         Set<OsmElement> result = new HashSet<>();
         result.addAll(getDelegator().getCurrentStorage().getNodes());
         result.addAll(getDelegator().getCurrentStorage().getWays());
@@ -1131,7 +1133,8 @@ public class Logic {
      * @param node The Node.
      * @return A list of all Ways connected to the Node.
      */
-    public List<Way> getWaysForNode(final Node node) {
+    @NonNull
+    public List<Way> getWaysForNode(@NonNull final Node node) {
         return getDelegator().getCurrentStorage().getWays(node);
     }
 
@@ -1141,7 +1144,8 @@ public class Logic {
      * @param node The Node.
      * @return A list of all Ways connected to the Node.
      */
-    public List<Way> getFilteredWaysForNode(final Node node) {
+    @NonNull
+    public List<Way> getFilteredWaysForNode(@NonNull final Node node) {
         List<Way> ways = new ArrayList<>();
         for (Way w : getDelegator().getCurrentStorage().getWays(node)) {
             if (getFilter() == null || filter.include(w, false)) {
@@ -1157,7 +1161,7 @@ public class Logic {
      * @param node Node to test.
      * @return true if the Node is an end node of a Way, false otherwise.
      */
-    public boolean isEndNode(final Node node) {
+    public boolean isEndNode(@Nullable final Node node) {
         return getDelegator().getCurrentStorage().isEndNode(node);
     }
 
@@ -1167,7 +1171,7 @@ public class Logic {
      * @param way the way whose nodes should be checked
      * @return true if the above is the case
      */
-    public boolean isInDownload(Way way) {
+    public boolean isInDownload(@NonNull Way way) {
         for (Node n : way.getNodes()) {
             if (!getDelegator().isInDownload(n.getLon(), n.getLat())) {
                 return false;
