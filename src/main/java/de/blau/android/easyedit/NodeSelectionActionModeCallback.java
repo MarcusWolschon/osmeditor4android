@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.SortedMap;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -71,7 +72,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         menu = replaceMenu(menu, mode, this);
 
         super.onPrepareActionMode(mode, menu);
-        if (!((Node) element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+        SortedMap<String, String> tags = ((Node) element).getTags();
+        if (!tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER) && !tags.containsKey(Tags.KEY_HIGHWAY)) {
+            // exclude some stuff that typically doesn't have an address
             menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
         }
         if (logic.isEndNode((Node) element)) {
