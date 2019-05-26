@@ -665,6 +665,7 @@
     <string name="actionmode_closed_way_split_2">Split closed way, 2nd node</string>
     <string name="actionmode_restriction">Add turn restriction</string>
     <string name="actionmode_restriction_restart_from">Re-select \"from\" segment</string>
+    <string name="actionmode_restriction_select_from">Select \"from\" segment</string>
     <string name="actionmode_restriction_via">Add \"via\" segment/element</string>
     <string name="actionmode_restriction_restart_via">Re-select \"via\" segment</string>
     <string name="actionmode_restriction_to">Add \"to\" segment</string>

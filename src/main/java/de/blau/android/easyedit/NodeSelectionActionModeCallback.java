@@ -1,5 +1,8 @@
 package de.blau.android.easyedit;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
@@ -16,11 +19,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -31,11 +36,13 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private static final int MENUITEM_JOIN         = 11;
     private static final int MENUITEM_UNJOIN       = 12;
     private static final int MENUITEM_EXTRACT      = 13;
+    private static final int MENUITEM_RESTRICTION  = 14;
     /** */
     private static final int MENUITEM_SET_POSITION = 16;
     private static final int MENUITEM_ADDRESS      = 17;
 
     private OsmElement joinableElement = null;
+    private List<Way>  highways        = new ArrayList<>();
 
     /**
      * Construct a callback for Node selection
@@ -75,13 +82,24 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge))
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
         }
-        int wayMembershipCount = logic.getFilteredWaysForNode((Node) element).size();
+        List<Way> ways = logic.getFilteredWaysForNode((Node) element);
+        int wayMembershipCount = ways.size();
         if (wayMembershipCount > 1) {
             menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_unjoin));
         }
         if (wayMembershipCount > 0) {
             menu.add(Menu.NONE, MENUITEM_EXTRACT, Menu.NONE, R.string.menu_extract).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_extract_node));
         }
+        for (Way w : ways) {
+            if (w.hasTagKey(Tags.KEY_HIGHWAY)) {
+                highways.add(w);
+            }
+        }
+        if (highways.size() >= 2) {
+            menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_add_restriction));
+        }
+
         menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
         arrangeMenu(menu);
@@ -120,6 +138,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             case MENUITEM_EXTRACT:
                 logic.performExtract(main, (Node) element);
                 manager.invalidate();
+                break;
+            case MENUITEM_RESTRICTION:
+                main.startSupportActionMode(new FromElementWithViaNodeActionModeCallback(manager, new HashSet<>(highways), (Node) element));
                 break;
             case MENUITEM_SET_POSITION:
                 setPosition();
