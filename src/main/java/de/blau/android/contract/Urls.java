@@ -33,4 +33,6 @@ public interface Urls {
     String ELI = "https://osmlab.github.io/editor-layer-index/imagery.geojson";
 
     String OAM_SERVER = "https://api.openaerialmap.org/";
+    
+    String MSF_SERVER = "https://mapsplit.poole.ch/";
 }

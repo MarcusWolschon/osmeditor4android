@@ -202,7 +202,16 @@
             android:process=":error_report"
             android:theme="@android:style/Theme.Dialog"
             tools:replace="android:process" />
-
+        <activity
+            android:name=".util.DownloadActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat" />
+        <receiver android:name=".util.DownloadBroadcastReceiver"  android:exported="true">
+            <intent-filter>
+            <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+        
         <service
             android:name="org.acra.sender.SenderService"
             android:exported="false"

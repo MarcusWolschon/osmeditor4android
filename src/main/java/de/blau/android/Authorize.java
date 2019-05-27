@@ -52,7 +52,7 @@ public class Authorize extends FullScreenAppCompatActivity {
     private Object  oAuthWebViewLock = new Object();
 
     /**
-     * Start a PropertyEditor activity
+     * Start a Authorize activity
      * 
      * @param activity calling activity
      * @param listener an ActivityResult.Listener to process the result or null
