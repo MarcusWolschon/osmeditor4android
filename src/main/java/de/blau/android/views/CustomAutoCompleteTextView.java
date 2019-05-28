@@ -1,6 +1,7 @@
 package de.blau.android.views;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -34,14 +35,32 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
 
     private int parentWidth = -1;
 
+    /**
+     * Construct a new instance
+     * 
+     * @param context Android Context
+     */
     public CustomAutoCompleteTextView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Construct a new instance
+     * 
+     * @param context Android Context
+     * @param attrs AttributeSet
+     */
     public CustomAutoCompleteTextView(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.autoCompleteTextViewStyle);
     }
 
+    /**
+     * Construct a new instance
+     * 
+     * @param context Android Context
+     * @param attrs an AttributeSet
+     * @param defStyleAttr style res id
+     */
     public CustomAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         // set a default onClickListener that displays the dropdown
@@ -76,12 +95,19 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
         setDropDownWidth(ddw);
     }
 
+    /**
+     * Set the width of the parent of this View
+     * 
+     * @param parentWidth the width
+     */
     public void setParentWidth(int parentWidth) {
         this.parentWidth = parentWidth;
     }
 
     /**
      * Sets the Tokenizer that will be used to determine the relevant range of the text where the user is typing.
+     * 
+     * @param t the Tokenizer instance
      */
     public void setTokenizer(Tokenizer t) {
         mTokenizer = t;
@@ -199,7 +225,7 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
             super.setText(text);
             return;
         }
-        Log.d(DEBUG_TAG, "etOrReplaceText " + text);
+        Log.d(DEBUG_TAG, "setOrReplaceText " + text);
         clearComposingText();
         int end = getSelectionEnd();
         int start = mTokenizer.findTokenStart(super.getText(), end);
@@ -212,20 +238,32 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
     public interface Tokenizer {
         /**
          * Returns the start of the token that ends at offset <code>cursor</code> within <code>text</code>.
+         * 
+         * @param text the whole text
+         * @param cursor the offset of the end of the token
+         * @return the index of the token start
          */
-        int findTokenStart(CharSequence text, int cursor);
+        int findTokenStart(@NonNull CharSequence text, int cursor);
 
         /**
          * Returns the end of the token (minus trailing punctuation) that begins at offset <code>cursor</code> within
          * <code>text</code>.
+         * 
+         * @param text the whole text
+         * @param cursor the offset of the start of the token
+         * @return the index of the token end
          */
-        int findTokenEnd(CharSequence text, int cursor);
+        int findTokenEnd(@NonNull CharSequence text, int cursor);
 
         /**
          * Returns <code>text</code>, modified, if necessary, to ensure that it ends with a token terminator (for
          * example a space or comma).
+         *
+         * @param text the text to terminate
+         * @return text with a terminator
          */
-        CharSequence terminateToken(CharSequence text);
+        @NonNull
+        CharSequence terminateToken(@NonNull CharSequence text);
     }
 
     /**
@@ -246,12 +284,13 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
         /**
          * Constructor for potential different separator characters
          * 
-         * @param s
+         * @param s the separator character
          */
         public SingleCharTokenizer(final char s) {
             separator = s;
         }
 
+        @Override
         public int findTokenStart(CharSequence text, int cursor) {
             int i = cursor;
             while (i > 0 && text.charAt(i - 1) != separator) {
@@ -263,6 +302,7 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
             return i;
         }
 
+        @Override
         public int findTokenEnd(CharSequence text, int cursor) {
             int i = cursor;
             int len = text.length();
@@ -276,6 +316,7 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
             return len;
         }
 
+        @Override
         public CharSequence terminateToken(CharSequence text) {
             int i = text.length();
             while (i > 0 && text.charAt(i - 1) == ' ') {

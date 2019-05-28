@@ -24,7 +24,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Snack;
 
-public class MapRouletteApiKey {
+public final class MapRouletteApiKey {
 
     private static final String DEBUG_TAG = "MapRouletteApiKey";
 
