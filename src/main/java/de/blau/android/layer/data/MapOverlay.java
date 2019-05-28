@@ -22,6 +22,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -31,9 +32,11 @@ import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
+import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.filter.Filter;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -57,6 +60,7 @@ import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.validation.Validator;
 import de.blau.android.views.IMapView;
+import de.blau.android.views.layers.ImageryLayerInfo;
 
 /**
  * OSM data layer
@@ -66,7 +70,7 @@ import de.blau.android.views.IMapView;
  * @author Simon Poole
  */
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, ConfigureInterface {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, ConfigureInterface, LayerInfoInterface {
 
     private static final String OUTER = "outer";
 
@@ -1361,6 +1365,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         List<BoundingBox> boxes = delegator.getCurrentStorage().getBoundingBoxes();
         if (boxes != null) {
             return BoundingBox.union(new ArrayList<>(boxes));
+        } else if (prefs.getServer().hasMapSplitSource()) {
+            return prefs.getServer().getMapSplitSource().getBounds();
         }
         return null;
     }
@@ -1373,5 +1379,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     @Override
     public void configure(FragmentActivity activity) {
         APIEditorActivity.start(activity);
+    }
+
+    @Override
+    public void showInfo(FragmentActivity activity) {
+        LayerInfo f = new ApiLayerInfo();
+        f.setShowsDialog(true);
+        LayerInfo.showDialog(activity, f);
     }
 }

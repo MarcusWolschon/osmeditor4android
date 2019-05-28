@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -255,6 +256,15 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     @Override
     public String toString() {
         return "(" + left + STRING_DELIMITER + bottom + STRING_DELIMITER + right + STRING_DELIMITER + top + ")";
+    }
+
+    /**
+     * Produce a string representation with a reasonable number of decimal digits
+     * 
+     * @return a String with the bounding box values
+     */
+    public String toPrettyString() {
+        return String.format(Locale.US, "%1g5, %2g5, %3g5, %4g5", left / 1E7D, bottom / 1E7D, right / 1E7D, top / 1E7D);
     }
 
     /**

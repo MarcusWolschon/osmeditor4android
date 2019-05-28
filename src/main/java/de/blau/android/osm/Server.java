@@ -1704,7 +1704,7 @@ public class Server {
      * @return a String with the url
      */
     @NonNull
-    private String getReadOnlyUrl() {
+    public String getReadOnlyUrl() {
         if (readonlyURL == null || "".equals(readonlyURL)) {
             return serverURL;
         } else {

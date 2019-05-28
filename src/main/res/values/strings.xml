@@ -259,6 +259,11 @@
     <string name="layer_info_end_date">End date</string>
     <string name="layer_info_terms">Terms</string>
     <string name="layer_info_privacy_policy">Privacy policy</string>
+    <!--  API info dialog -->
+    <string name="api_info_bounds">Bounding box</string>
+    <string name="api_info_latest_date">Last included date</string>
+    <string name="api_info_attribution">Attribution</string>
+    <string name="api_info_mapsplit_source">MapSplit read only source</string>
     <!--  Undo - Redo dialog -->
     <string name="checkpoints">Checkpoints</string>
     <string name="undo_redo_title">Undo - redo</string>

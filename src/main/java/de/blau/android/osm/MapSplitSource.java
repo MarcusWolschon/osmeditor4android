@@ -15,6 +15,9 @@ import de.blau.android.util.collections.UnsignedSparseBitSet;
 
 public final class MapSplitSource {
 
+    public static final String LATEST_DATE = "latest_date";
+    public static final String ATTRIBUTION = "attribution";
+
     /**
      * Private constructor
      */
