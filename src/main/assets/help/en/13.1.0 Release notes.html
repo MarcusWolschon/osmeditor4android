@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 13.1 Beta Highlights</h1>
+<p>This is a minor release consisting mainly of UI improvements.</p>
+<h3>Updated opening hours editor</h3>
+<p>The opening hours editor (a separate project found <a href="https://github.com/simonpoole/OpeningHoursFragment">here</a>) has received a number of updates, including</p>
+<ul>
+<li>tapping the time bars will start a large time picker, this was previously only available via the menu.</li>
+<li>ability to load and save templates to on device files.</li>
+<li>support for region and object type specific templates.</li>
+</ul>
+<h3>Use of SAF file picker for Android KitKat and later</h3>
+<p>Previously, to give a consistent look and feel over as many different Android version as possible, we were using a third party file picker/selector for those operations that require a file to be selected for input or output. Unluckily in recent Android versions removable &quot;SD card&quot; storage has become unavailable due to this.</p>
+<p>To work around this we are now using the system SAF (Storage Access Framework) file picker for Android KitKat (19) and later. This does have the advantage that cloud-based storage location are usable for operations that don't need direct file access.</p>
+<h3>Download offline data directly with automatic configuration</h3>
+<p>To make using offline OSM data in <a href="https://www.openstreetmap.org/user/SimonPoole/diary/193235">MSF format</a> easier we've added a small UI that will display the available files, download them with the Android download manager and configure a new API entry if necessary.</p>
+<h3>Support for multi-line comments and source in the upload dialog, and multi-line text fields in the form tag editing UI</h3>
+<p>Comment and source field are now multi-line making adding longer texts far easier. Further multi-line input fields are supported in the form based tag editor, depending on the &quot;length&quot; attribute in hte presets.</p>
+<h3>Improvements JS support</h3>
+<p>The layout of the JS console has been improved and scripts from preset fields are now evaluated after all fields have been set, allowing for order independent consistent behaviour. Further the key - preset mapping is now visible to scripts.</p>
+<h3>GPX and GeoJson files can be loaded via Intent</h3>
+<p>Clicking a GPS or GeoJson/Json file in a file manager should now show Vespucci as an app that can read the files.</p>
+<h2>Miscellaneous</h2>
+<ul>
+<li>Data style configuration provided that doesn't render multi-polygons, this may help performance on slow devices.</li>
+<li>Lots of stability improvements.</li>
+</ul>
+<h1>Upgrading from previous versions</h1>
+<ul>
+<li>currently no special actions are required.</li>
+</ul>
+<h1>Known problems</h1>
+<ul>
+<li>the documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>
