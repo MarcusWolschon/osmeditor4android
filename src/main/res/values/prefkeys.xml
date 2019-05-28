@@ -107,4 +107,7 @@
     <string name="config_mbtilesPreferredDir_key">mbtilesPreferredDir</string>
     <string name="config_presetsPreferredDir_key">presetsPreferredDir</string>
     <string name="config_msfPreferredDir_key">msfPreferredDir</string>
+    
+    <!-- Toggle used in the DowloadActivity -->
+    <string name="config_allowAllNetworks_key">allowAllNetworks</string>
 </resources>

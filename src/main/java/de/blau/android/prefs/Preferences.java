@@ -1002,6 +1002,29 @@ public class Preferences {
     public int getConnectedNodeTolerance() {
         return connectedNodeTolerance;
     }
+    
+    /**
+     * Allow / disallow all networks for downloads
+     * 
+     * @param on value to set
+     */
+    public void setAllowAllNetworks(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_allowAllNetworks_key), on).commit();
+    }
+
+    /**
+     * Check if all networks are allowed for downloads
+     * 
+     * @return true if enabled
+     */
+    public boolean allowAllNetworks() {
+        String key = r.getString(R.string.config_allowAllNetworks_key);
+        if (!prefs.contains(key)) {
+            // create the entry
+            setAllowAllNetworks(false);
+        }
+        return prefs.getBoolean(key, false);
+    }
 
     /**
      * Get a string from shared preferences

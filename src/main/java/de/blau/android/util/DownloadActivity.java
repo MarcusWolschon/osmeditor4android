@@ -78,7 +78,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(this);
+        final Preferences prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customLight);
         }
@@ -108,9 +108,11 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 allNetworks = isChecked;
+                prefs.setAllowAllNetworks(isChecked);
             }
         });
-
+        networks.setChecked(prefs.allowAllNetworks());
+        
         mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         registerReceiver(onNotificationClick, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 
