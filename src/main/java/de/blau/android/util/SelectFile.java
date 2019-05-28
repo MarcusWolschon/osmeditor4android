@@ -206,7 +206,7 @@ public final class SelectFile {
     /**
      * See https://stackoverflow.com/questions/19985286/convert-content-uri-to-actual-path-in-android-4-4/27271131
      * 
-     * Get a file path from a Uri. This will get the the path for Storage Access Framework Documents, as well as the
+     * Get a file path from a Uri. This will get the path for Storage Access Framework Documents, as well as the
      * _data field for the MediaStore and other file-based ContentProviders.
      *
      * @param context The context.
@@ -232,11 +232,12 @@ public final class SelectFile {
                 final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
                 return getDataColumn(context, contentUri, null, null);
+            } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+                return getDataColumn(context, uri, null, null);
             }
         } else if (FileUtil.FILE_SCHEME.equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
-        }
-
+        } 
         return null;
     }
 

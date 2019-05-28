@@ -395,6 +395,18 @@
     <string name="toast_long_press_simple_mode">Long press is not available in simple mode</string>
     <string name="toast_invalid_style_file">Invalid style file format for %1$s</string>
     <string name="toast_no_geometry">No geometry for element found</string>
+    <string name="toast_added_api_entry_for">Added API entry for %1$s</string>
+    <string name="toast_updated">Updated %1$s</string>
+    <string name="toast_cannot_resume_download_of">Cannot resume download of %1$s</string>
+    <string name="toast_device_not_found_for">Device not found for %1$s</string>
+    <string name="toast_file_already_exists">File %1$s already exists</string>
+    <string name="toast_file_error_for">File error for %1$s</string>
+    <string name="toast_http_data_error_for">HTTP data error for %1$s</string>
+    <string name="toast_error_insufficient_space_for">Not enough space on device for %1$s</string>
+    <string name="toast_error_too_many_redirects_for">Too many redirects for %1$s</string>
+    <string name="toast_error_too_unhandled_http_code_for">Unhandled HTTP code for %1$s</string>
+    <string name="toast_unknown_error_for">Unknown error for %1$s</string>
+    <string name="toast_download_started">Download of %1$s started</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -512,6 +524,9 @@
     <string name="location_load_dismiss">Go to map</string>
     <string name="location_nan_title">Erroneous input!</string>
     <string name="location_nan_message">Please insert decimal formatted coordinates (e.g. "52.333572","8.741185"). Lat. has to lay between -85.0 and +85.0, and Lon. has to lay between -175.0 and +175.0.</string>
+    <!-- Strings in DownloadActivity -->
+    <string name="download_files_title">Download files</string>
+    <string name="allow_all_networks">Allow all networks</string>
     <!-- Menu -->
     <string name="menu_move">Move</string>
     <string name="menu_edit">Edit</string>
@@ -562,6 +577,7 @@
     <string name="menu_transfer_read_file">Read from JOSM file…</string>
     <string name="menu_transfer_read_pbf_file">Read from PBF file</string>
     <string name="menu_transfer_save_file">Save to JOSM file…</string>
+    <string name="menu_transfer_download_msf">Download data for offline use…</string>
     <string name="menu_transfer_bugs">Tasks…</string>
     <string name="menu_transfer_bugs_download_current">Download tasks for current view</string>
     <string name="menu_transfer_bugs_upload">Upload all</string>

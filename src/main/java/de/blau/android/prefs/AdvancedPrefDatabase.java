@@ -398,7 +398,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @return API[]
      */
     @NonNull
-    private synchronized API[] getAPIs(@Nullable String id) {
+    public synchronized API[] getAPIs(@Nullable String id) {
         SQLiteDatabase db = getReadableDatabase();
         API[] result = getAPIs(db, id);
         db.close();
@@ -428,6 +428,26 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         }
         dbresult.close();
         return result;
+    }
+
+    /**
+     * Try to retrieve an API that uses the specified filename as a source 
+     * 
+     * @param filename the filename
+     * @return the API id or null if not found
+     */
+    @Nullable
+    public String getReadOnlyApiId(@NonNull String filename) {
+        try (SQLiteDatabase readableDb = getReadableDatabase()) {
+            String queryUri = "file:%" + filename;
+            Cursor dbresult = readableDb.query(APIS_TABLE, new String[] { ID_FIELD, "readonlyurl" }, "readonlyurl LIKE ?", new String[] { queryUri }, null,
+                    null, null, null);
+            if (dbresult.getCount() > 0) {
+                dbresult.moveToFirst();
+                return dbresult.getString(0);
+            }
+        }
+        return null;
     }
 
     /**

@@ -104,6 +104,9 @@
             <item
                 android:id="@+id/menu_transfer_save_file"
                 android:title="@string/menu_transfer_save_file" />
+            <item
+                android:id="@+id/menu_transfer_download_msf"
+                android:title="@string/menu_transfer_download_msf" />
         </menu>
     </item>
     <item

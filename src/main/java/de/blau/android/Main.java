@@ -146,6 +146,7 @@ import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
@@ -2118,7 +2119,9 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             return true;
-
+        case R.id.menu_transfer_download_msf:
+            DownloadActivity.start(this, Urls.MSF_SERVER);
+            break;
         case R.id.menu_transfer_bugs_download_current:
             downLoadBugs(map.getViewBox().copy());
             return true;
