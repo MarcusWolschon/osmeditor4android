@@ -351,9 +351,6 @@
 "駕駛學院"
 ],
 "amenity/embassy":[
-"領事館",
-"Embassy",
-"使館",
 "大使館"
 ],
 "amenity/fast_food":[
@@ -891,17 +888,10 @@
 "飲料售賣機",
 "飲品售賣機"
 ],
-"amenity/vending_machine/excrement_bags":[
-"排泄物袋售賣機",
-"糞便袋售賣機"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "女性用品售賣機",
 "Feminine Hygiene Vending Machine",
 "女性衞生用品售賣機"
-],
-"amenity/vending_machine/news_papers":[
-"報紙售賣機"
 ],
 "amenity/vending_machine/newspapers":[
 "Newspaper Vending Machine",
@@ -969,10 +959,6 @@
 "機動遊戲機",
 "Amusement Ride",
 "機動遊戲"
-],
-"attraction/animal":[
-"Animal",
-"動物"
 ],
 "attraction/big_wheel":[
 "Ferris wheel",
@@ -1324,9 +1310,6 @@
 "連棟式住宅",
 "行列式房屋"
 ],
-"building/train_station":[
-"火車站"
-],
 "building/university":[
 "大學建築物",
 "大學校舍"
@@ -1655,14 +1638,6 @@
 "高爾夫球球洞",
 "Golf Hole"
 ],
-"golf/lateral_water_hazard_area":[
-"側面水障礙",
-"Lateral Water Hazard"
-],
-"golf/lateral_water_hazard_line":[
-"側面水障礙",
-"Lateral Water Hazard"
-],
 "golf/rough":[
 "深草區",
 "Rough"
@@ -1671,14 +1646,6 @@
 "發球區",
 "開球區",
 "Tee Box"
-],
-"golf/water_hazard_area":[
-"Water Hazard",
-"水障礙"
-],
-"golf/water_hazard_line":[
-"Water Hazard",
-"水障礙"
 ],
 "healthcare":[
 "健康中心",
@@ -1753,9 +1720,6 @@
 "Bridle Path",
 "馬徑",
 "策騎徑"
-],
-"highway/bus_stop":[
-"巴士站 / 月台"
 ],
 "highway/corridor":[
 "室內走廊",
@@ -2204,9 +2168,6 @@
 "葡萄園"
 ],
 "leisure":[
-"休閑場所",
-"休閒設施",
-"Leisure",
 "消閒"
 ],
 "leisure/adult_gaming_centre":[
@@ -2440,9 +2401,6 @@
 "綫"
 ],
 "man_made":[
-"人造構築",
-"Man Made",
-"人造物",
 "人造"
 ],
 "man_made/adit":[
@@ -2594,11 +2552,7 @@
 "電訊沙井"
 ],
 "natural":[
-"天然",
-"自然景觀",
-"Natural",
-"自然",
-"自然物件"
+"自然景觀"
 ],
 "natural/bare_rock":[
 "裸岩",
@@ -3098,9 +3052,6 @@
 "關係",
 "關系"
 ],
-"roundabout":[
-"迴旋處"
-],
 "route/ferry":[
 "渡輪航線",
 "航線",
@@ -3219,10 +3170,6 @@
 "書局"
 ],
 "shop/boutique":[
-"服飾店",
-"服裝店",
-"Boutique",
-"精品店",
 "時裝店"
 ],
 "shop/butcher":[
@@ -3451,15 +3398,6 @@
 ],
 "shop/interior_decoration":[
 "室內設計店"
-],
-"shop/jewelry":[
-"Jeweler",
-"珠寶金行",
-"金舖",
-"首飾店",
-"首飾舖",
-"珠寶舖",
-"珠寶店"
 ],
 "shop/kitchen":[
 "廚房設計店"
@@ -3728,10 +3666,7 @@
 "紅酒店"
 ],
 "tourism":[
-"Tourism",
-"旅遊設施",
-"旅遊",
-"旅行"
+"旅遊設施"
 ],
 "tourism/alpine_hut":[
 "Alpine Hut",
@@ -4031,11 +3966,6 @@
 "type/site":[
 "建築群",
 "一群建築"
-],
-"vertex":[
-"其它",
-"其他",
-"Other"
 ],
 "waterway":[
 "水道"

@@ -456,11 +456,7 @@
 "autoškola"
 ],
 "amenity/embassy":[
-"ambasáda",
-"Velvyslanectví",
-"vyslanectví",
-"zastupitelství",
-"velvyslanectví"
+"Velvyslanectví"
 ],
 "amenity/fast_food":[
 "Rychlé občerstvení",
@@ -477,6 +473,9 @@
 ],
 "amenity/fast_food/kebab":[
 "Kebab rychlé občerstvení"
+],
+"amenity/fast_food/mexican":[
+"Mexické rychlé občerstvení"
 ],
 "amenity/fast_food/pizza":[
 "Pizza rychlé občerstvení"
@@ -645,6 +644,9 @@
 ],
 "amenity/pharmacy":[
 "Okénko/přepážka lékárny"
+],
+"amenity/photo_booth":[
+"Foto budka"
 ],
 "amenity/place_of_worship":[
 "kaple",
@@ -1083,18 +1085,6 @@
 "amenity/vending_machine/elongated_coin":[
 "Prodejní automat na mince"
 ],
-"amenity/vending_machine/excrement_bags":[
-"pytlík",
-"Automat na pytlíky na exkrementy",
-"psí hovna",
-"hovínko",
-"automat",
-"exkrement",
-"prodejní automat",
-"psí exkrementy",
-"hovno",
-"pes"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "Automat dámské hygieny"
 ],
@@ -1106,9 +1096,6 @@
 ],
 "amenity/vending_machine/ice_cream":[
 "Automat na zmrzlinu"
-],
-"amenity/vending_machine/news_papers":[
-"Automat na noviny"
 ],
 "amenity/vending_machine/newspapers":[
 "noviny",
@@ -1216,9 +1203,6 @@
 ],
 "attraction/amusement_ride":[
 "Zábavní jízda"
-],
-"attraction/animal":[
-"Zvíře"
 ],
 "attraction/big_wheel":[
 "Ruské kolo"
@@ -1677,9 +1661,6 @@
 "řadový dům",
 "řadovka"
 ],
-"building/train_station":[
-"Železniční stanice"
-],
 "building/transportation":[
 "Dopravní budova"
 ],
@@ -1704,9 +1685,6 @@
 "karavan",
 "karavany",
 "Stanoviště v kempu"
-],
-"circular":[
-"Kruhový objezd"
 ],
 "club":[
 "sociální",
@@ -2091,6 +2069,9 @@
 "písková překážka",
 "Pískový bunker"
 ],
+"golf/driving_range":[
+"Dojezd"
+],
 "golf/fairway":[
 "nízká tráva",
 "fairway",
@@ -2108,19 +2089,8 @@
 "dráha od odpaliště",
 "jamka"
 ],
-"golf/lateral_water_hazard_area":[
-"voda",
-"Podélná vodní překážka",
-"podélná překážka",
-"podélná voda",
-"červená voda"
-],
-"golf/lateral_water_hazard_line":[
-"voda",
-"Podélná vodní překážka",
-"podélná překážka",
-"podélná voda",
-"červená voda"
+"golf/path":[
+"Golfová pěší stezka"
 ],
 "golf/rough":[
 "vysoká tráva",
@@ -2133,20 +2103,6 @@
 "tee",
 "odpaliště",
 "Odpaliště"
-],
-"golf/water_hazard_area":[
-"voda",
-"Vodní překážka",
-"příčná voda",
-"příčná překážka",
-"žlutá voda"
-],
-"golf/water_hazard_line":[
-"voda",
-"Vodní překážka",
-"příčná voda",
-"příčná překážka",
-"žlutá voda"
 ],
 "healthcare":[
 "Zdravotní zařízení"
@@ -2219,9 +2175,6 @@
 "jezdecká trasa",
 "stezka pro jezdce",
 "Jezdecká stezka"
-],
-"highway/bus_stop":[
-"Zastávka autobusu"
 ],
 "highway/construction":[
 "Uzavřená silnice (výstavba)"
@@ -2616,13 +2569,7 @@
 "Křižovatka"
 ],
 "landuse":[
-"využití území",
-"hora",
-"les",
-"Využití krajiny",
-"pole",
-"louka",
-"využití"
+"Využití krajiny"
 ],
 "landuse/allotments":[
 "zahrádkářská osada",
@@ -2830,12 +2777,7 @@
 "Vinice"
 ],
 "leisure":[
-"oddech",
-"odpočinek",
-"volný čas",
-"Volný čas",
-"volno",
-"volná chvíle"
+"Volný čas"
 ],
 "leisure/adult_gaming_centre":[
 "herna",
@@ -2995,6 +2937,9 @@
 "piknikový stůl",
 "Stůl na piknik"
 ],
+"leisure/picnic_table/chess":[
+"Šachový stůl"
+],
 "leisure/pitch":[
 "stadion",
 "sportovní kurt",
@@ -3153,12 +3098,6 @@
 "pes",
 "závod*"
 ],
-"leisure/track/horse_racing":[
-"Závodní trať (koně)"
-],
-"leisure/track/running":[
-"Závodní trať (běh)"
-],
 "leisure/water_park":[
 "Akvapark",
 "aquapark",
@@ -3177,13 +3116,6 @@
 "čára"
 ],
 "man_made":[
-"konstrukce",
-"objekt",
-"stavba",
-"dílo",
-"mechanizmus",
-"lidský výtvor",
-"artefakt",
 "Umělý objekt"
 ],
 "man_made/adit":[
@@ -3364,8 +3296,14 @@
 "bašta",
 "hrad"
 ],
+"man_made/tower/bell_tower":[
+"Zvonice"
+],
 "man_made/tower/communication":[
 "Komunikační věž"
+],
+"man_made/tower/minaret":[
+"Minaret"
 ],
 "man_made/tower/observation":[
 "Vyhlídková věž"
@@ -3426,11 +3364,7 @@
 "Telekomunikační šachta"
 ],
 "natural":[
-"přírodní",
-"přirozený",
-"naturální",
-"Přírodní objekt",
-"příroda"
+"Přírodní objekt"
 ],
 "natural/bare_rock":[
 "Plochy jednolité skály",
@@ -4011,66 +3945,6 @@
 "Transformátor",
 "elektrická stanice"
 ],
-"public_transport/linear_platform":[
-"Nástupiště"
-],
-"public_transport/linear_platform_aerialway":[
-"Nástupiště lanovky"
-],
-"public_transport/linear_platform_bus":[
-"Nástupiště autobusu"
-],
-"public_transport/linear_platform_ferry":[
-"Nástupiště trajektu / přívozu"
-],
-"public_transport/linear_platform_light_rail":[
-"Nástupiště lehké dráhy"
-],
-"public_transport/linear_platform_monorail":[
-"Nástupiště jednokolejky"
-],
-"public_transport/linear_platform_subway":[
-"Nástupiště metra"
-],
-"public_transport/linear_platform_train":[
-"Nástupiště vlaku"
-],
-"public_transport/linear_platform_tram":[
-"Nástupiště tramvaje"
-],
-"public_transport/linear_platform_trolleybus":[
-"Nástupiště trolejbusu"
-],
-"public_transport/platform":[
-"Nástupiště"
-],
-"public_transport/platform_aerialway":[
-"Nástupiště lanovky"
-],
-"public_transport/platform_bus":[
-"Nástupiště autobusu"
-],
-"public_transport/platform_ferry":[
-"Nástupiště trajektu / přívozu"
-],
-"public_transport/platform_light_rail":[
-"Nástupiště lehké dráhy"
-],
-"public_transport/platform_monorail":[
-"Nástupiště jednokolejky"
-],
-"public_transport/platform_subway":[
-"Nástupiště metra"
-],
-"public_transport/platform_train":[
-"Nástupiště vlaku"
-],
-"public_transport/platform_tram":[
-"Nástupiště tramvaje"
-],
-"public_transport/platform_trolleybus":[
-"Nástupiště trolejbusu"
-],
 "public_transport/station":[
 "Stanice veřejné dopravy"
 ],
@@ -4201,9 +4075,6 @@
 "úzkokolejka",
 "Úzkorozchodná dráha"
 ],
-"railway/platform":[
-"Železniční nástupiště"
-],
 "railway/rail":[
 "trať",
 "vlak",
@@ -4257,9 +4128,6 @@
 "seznam",
 "objekt",
 "vztah"
-],
-"roundabout":[
-"Kruhový objezd"
 ],
 "route/ferry":[
 "trajekt",
@@ -4436,13 +4304,6 @@
 "knihkupectví"
 ],
 "shop/boutique":[
-"módní",
-"šaty",
-"oděv",
-"oděvy",
-"móda",
-"oblečení",
-"butik",
 "Módní butik"
 ],
 "shop/butcher":[
@@ -4678,13 +4539,7 @@
 "farmářské tržiště"
 ],
 "shop/fashion":[
-"Módní zboží",
-"módní",
-"móda",
-"módní oděvy",
-"módní oblečení",
-"módní zboží",
-"módní doplňky"
+"Módní zboží"
 ],
 "shop/fishing":[
 "Rybářské potřeby"
@@ -4832,18 +4687,6 @@
 "bytové dekorace",
 "bytové doplňky",
 "dekorace do bytu"
-],
-"shop/jewelry":[
-"prsteny",
-"šperky",
-"klenoty",
-"bižutérie",
-"zlatnictví",
-"náušnice",
-"Klenotnictví",
-"klenotník",
-"náramky",
-"klenotnictví"
 ],
 "shop/kiosk":[
 "Kiosek"
@@ -5341,12 +5184,7 @@
 "vinárna"
 ],
 "tourism":[
-"cestovní ruch",
-"Turismus",
-"turistický ruch",
-"turismus",
-"cestování",
-"turistika"
+"Turismus"
 ],
 "tourism/alpine_hut":[
 "horská bouda",
@@ -5837,15 +5675,6 @@
 ],
 "type/waterway":[
 "Vodní tok"
-],
-"vertex":[
-"ostatní",
-"jiná",
-"další",
-"Jiné",
-"jiné",
-"jinak",
-"jiný"
 ],
 "waterway":[
 "Vodní tok"

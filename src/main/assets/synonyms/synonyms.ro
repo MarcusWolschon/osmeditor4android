@@ -350,9 +350,6 @@
 "building/terrace":[
 "Case în Rând"
 ],
-"building/train_station":[
-"Gară"
-],
 "building/university":[
 "Universitate"
 ],
@@ -983,9 +980,6 @@
 "relation":[
 "Relație"
 ],
-"roundabout":[
-"Sens Giratoriu"
-],
 "route/ferry":[
 "Rută de Bac"
 ],
@@ -1145,9 +1139,6 @@
 ],
 "shop/interior_decoration":[
 "Magazin de Decorații Interioare"
-],
-"shop/jewelry":[
-"Giuvaer"
 ],
 "shop/kitchen":[
 "Magazin de Bucătărie"
@@ -1415,9 +1406,6 @@
 ],
 "type/site":[
 "Sit"
-],
-"vertex":[
-"Altele"
 ],
 "waterway":[
 "Drum Marin"

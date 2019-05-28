@@ -75,6 +75,16 @@
 "industri",
 "Transportlinbana"
 ],
+"aerialway/j-bar":[
+"Ankarlift",
+"släplift",
+"lift",
+"J-bygellift",
+"linbana",
+"skidlift",
+"J-lift",
+"J-krokslift"
+],
 "aerialway/magic_carpet":[
 "skidliften",
 "släplift",
@@ -306,6 +316,14 @@
 "pub",
 "krog"
 ],
+"amenity/bar/lgbtq":[
+"lgbtq bar",
+"gay-bar",
+"lgb bar",
+"lesbisk bar",
+"lgbt bar",
+"HBTQ-bar"
+],
 "amenity/bbq":[
 "bbq",
 "Grill",
@@ -511,6 +529,15 @@
 "väggklocka",
 "tidur"
 ],
+"amenity/clock/sundial":[
+"skugga",
+"soltid",
+"skuggklocka",
+"solklocka",
+"Solur",
+"Gnomon",
+"solvisare"
+],
 "amenity/college":[
 "college",
 "gymnasieområde",
@@ -532,6 +559,13 @@
 "Byalag",
 "bystuga",
 "evenemang"
+],
+"amenity/community_centre/lgbtq":[
+"HBTQ",
+"HBTQ-samlingslokal",
+"HBTQ-Samlingslokal",
+"HBTQ-festlokal",
+"HBTQ--evenemang"
 ],
 "amenity/compressed_air":[
 "Tryckluft",
@@ -615,12 +649,7 @@
 "körskola"
 ],
 "amenity/embassy":[
-"legation",
-"Ambassad",
-"diplomatisk beskickning",
-"utlandsrepresentation",
-"beskickning",
-"ambassad"
+"Ambassad"
 ],
 "amenity/fast_food":[
 "skräpmat",
@@ -705,6 +734,25 @@
 "äta",
 "kebab",
 "Snabbmat – Kebab",
+"drive-in",
+"grill"
+],
+"amenity/fast_food/mexican":[
+"mat",
+"lunch",
+"gatukök",
+"restaurang",
+"mexikanskt",
+"takeaway",
+"bukfylla",
+"junk-food",
+"skräpmat",
+"Snabbmat",
+"gatuköksmat",
+"hämtmat",
+"äta",
+"mexico",
+"Snabbmat – Mexikanskt",
 "drive-in",
 "grill"
 ],
@@ -1008,6 +1056,19 @@
 "dans",
 "dansklubb"
 ],
+"amenity/nightclub/lgbtq":[
+"HBTQ-Nattklubb",
+"HBTQ-klubb",
+"lesbisk klubb",
+"HBTQ-nattklubb",
+"gay nattklub",
+"lesbisk nattklubb",
+"lesbiskt disko",
+"gay disko",
+"gay-klubb",
+"gay-nattklubb",
+"gay-disko"
+],
 "amenity/nursing_home":[
 "Vårdhem"
 ],
@@ -1093,6 +1154,14 @@
 "läkemedelsaffär",
 "farmaceut",
 "recept"
+],
+"amenity/photo_booth":[
+"fotobås",
+"bild",
+"Fotoautomat",
+"foto",
+"kameraautomat",
+"kamera"
 ],
 "amenity/place_of_worship":[
 "helgedom",
@@ -1381,6 +1450,28 @@
 "drinkar",
 "Pub",
 "krog"
+],
+"amenity/pub/lgbtq":[
+"lesbisk pub",
+"lgbtq pub",
+"lgbt pub",
+"HBTQ-pub",
+"gay-pub",
+"lgb pub"
+],
+"amenity/pub/microbrewery":[
+"Brewpub",
+"mikrobryggeri",
+"bar",
+"ölframställning",
+"öl",
+"alkohol",
+"sprit",
+"öltillverkning",
+"bryggeri",
+"pub",
+"drink",
+"hantverksbryggeri"
 ],
 "amenity/public_bath":[
 "badinrättning",
@@ -2369,9 +2460,6 @@
 "isglass",
 "varumaskin"
 ],
-"amenity/vending_machine/news_papers":[
-"Tidningsautomat"
-],
 "amenity/vending_machine/newspapers":[
 "Tidningsautomat",
 "tidning",
@@ -2545,19 +2633,6 @@
 "temapark",
 "tivoli",
 "nöjeskarusell"
-],
-"attraction/animal":[
-"akvarium",
-"lejon",
-"björn",
-"Djur",
-"apa",
-"temapark",
-"djurpark",
-"fiskar",
-"zoo",
-"tiger",
-"zoologisk trädgård"
 ],
 "attraction/big_wheel":[
 "åkattraktion",
@@ -2811,6 +2886,16 @@
 "kant",
 "nedsänkt kant"
 ],
+"barrier/kerb/raised":[
+"trottoarkant",
+"upphöjd trottoar",
+"kantsten",
+"busshållplats",
+"upphöjd kant",
+"upphöjd trottoarkant",
+"kant",
+"Upphöjd trottoarkant"
+],
 "barrier/kissing_gate":[
 "Grind vid betesmark",
 "Kryssgrind"
@@ -2849,6 +2934,9 @@
 "Mur",
 "skyddsvärn",
 "barriär"
+],
+"boundary":[
+"Gräns"
 ],
 "boundary/administrative":[
 "Gräns",
@@ -3439,7 +3527,7 @@
 "Terrasshus"
 ],
 "building/train_station":[
-"Järnvägsstation"
+"Tågstationsbyggnad"
 ],
 "building/transportation":[
 "Byggnad för kollektivtrafik",
@@ -3477,6 +3565,16 @@
 "Lagerhus",
 "magasin"
 ],
+"building_part":[
+"3D",
+"enkla 3D-byggnader",
+"Byggnadsdel",
+"byggnadsdel",
+"tak"
+],
+"building_point":[
+"Byggnad"
+],
 "camp_site/camp_pitch":[
 "tält",
 "camping",
@@ -3485,9 +3583,6 @@
 "Campingplats",
 "husvagnsplats",
 "Tältplats"
-],
-"circular":[
-"Trafikcirkel"
 ],
 "club":[
 "klubblokal",
@@ -4079,6 +4174,25 @@
 "Bunker",
 "sandgrop"
 ],
+"golf/cartpath":[
+"golf",
+"gångväg",
+"gång",
+"Väg för golfbil",
+"golfbana",
+"golfgångväg",
+"stig",
+"golfbil"
+],
+"golf/driving_range":[
+"drivingrange",
+"golf",
+"driverang",
+"driver",
+"Driving Range",
+"golfövning",
+"övning"
+],
 "golf/fairway":[
 "golf",
 "Fairway"
@@ -4095,21 +4209,25 @@
 "Golfhål",
 "hål"
 ],
-"golf/lateral_water_hazard_area":[
-"golf",
+"golf/lateral_water_hazard":[
+"golfhinder",
+"dike",
+"dam",
 "vattenhinder",
-"out of bounds",
-"Oändligt vattenhinder/sidovattenhinder",
-"Oändligt vattenhinder",
-"sidovattenhinder"
+"Golf",
+"golfbana",
+"vattenhål",
+"sjö",
+"Sidovattenhinder"
 ],
-"golf/lateral_water_hazard_line":[
+"golf/path":[
 "golf",
-"vattenhinder",
-"out of bounds",
-"Oändligt vattenhinder/sidovattenhinder",
-"Oändligt vattenhinder",
-"sidovattenhinder"
+"gångväg",
+"gång",
+"Gångväg på golfbana",
+"golfbana",
+"golfgångväg",
+"stig"
 ],
 "golf/rough":[
 "Ruff",
@@ -4122,13 +4240,14 @@
 "utslagsplats",
 "Tee"
 ],
-"golf/water_hazard_area":[
+"golf/water_hazard":[
+"dike",
+"dam",
 "golf",
-"Vattenhinde"
-],
-"golf/water_hazard_line":[
-"golf",
-"Vattenhinde"
+"golfbana",
+"Vattenhinde",
+"vattenhål",
+"sjö"
 ],
 "healthcare":[
 "klinik",
@@ -4347,7 +4466,7 @@
 "buss"
 ],
 "highway/bus_stop":[
-"Busshållplats / Bussplattform"
+"Busshållplats"
 ],
 "highway/construction":[
 "stängd",
@@ -4953,6 +5072,55 @@
 "Skeppsvrak",
 "skepp"
 ],
+"indoor":[
+"Inomhusobjekt"
+],
+"indoor/area":[
+"Inomhusområde",
+"inomhus",
+"område",
+"Yta inomhus",
+"yta",
+"inomhusyta",
+"yta inomhus"
+],
+"indoor/corridor":[
+"inomhus",
+"inomhuskorridor",
+"korridor",
+"gång",
+"gångpassage",
+"förbindelsegång",
+"Korridor inomhus"
+],
+"indoor/corridor_line":[
+"Korridor inomhus"
+],
+"indoor/door":[
+"ingång",
+"dörr",
+"inomhusdörr",
+"dörröppning",
+"dörram",
+"Dörr inomhus",
+"utgång"
+],
+"indoor/room":[
+"lobby",
+"foajé",
+"inomhusrum",
+"Rum",
+"cell",
+"kammare"
+],
+"indoor/wall":[
+"inomhusbarriär",
+"vägg",
+"rumsindelning",
+"Vägg inomhus",
+"rumsuppdelning",
+"barriär inomhus"
+],
 "internet_access/wlan":[
 "Surfzon",
 "wifi",
@@ -4984,10 +5152,17 @@
 "övergångsställe",
 "rondell"
 ],
+"junction/circular":[
+"Trafikcirkel"
+],
+"junction/jughandle":[
+"Spansk sväng"
+],
+"junction/roundabout":[
+"Cirkulationsplats"
+],
 "landuse":[
-"Markanvändning",
-"användningsområde",
-"landanvändning"
+"Markanvändning"
 ],
 "landuse/allotments":[
 "odlingslott",
@@ -5327,12 +5502,7 @@
 "Vingård"
 ],
 "leisure":[
-"Nöje",
-"fritid",
-"tidsfördriv",
-"förströelse",
-"Fritid",
-"ledighet"
+"Fritid"
 ],
 "leisure/adult_gaming_centre":[
 "spelmaskiner",
@@ -5800,6 +5970,14 @@
 "Picknick",
 "utebord"
 ],
+"leisure/picnic_table/chess":[
+"bänk",
+"shack",
+"Schackspelare",
+"spelbord",
+"schackbräda",
+"Schackbord"
+],
 "leisure/pitch":[
 "stadion",
 "fällt",
@@ -6006,6 +6184,22 @@
 "sporthall",
 "idrottsanläggning"
 ],
+"leisure/sports_centre/climbing":[
+"klättringsgym",
+"klättring",
+"repellering",
+"klättervägg",
+"bouldering",
+"bergsvägg",
+"topprepsklättring",
+"repklättring",
+"Klättergym",
+"konstgjord klättervägg",
+"Firning",
+"topprep",
+"rep",
+"bergsklättring"
+],
 "leisure/sports_centre/swimming":[
 "badhus",
 "simbassäng",
@@ -6079,12 +6273,7 @@
 "Linje"
 ],
 "man_made":[
-"artificiell",
-"Människoskapat",
-"Människoskapad",
-"syntetisk",
-"konstgjort",
-"onaturlig"
+"Människoskapad"
 ],
 "man_made/adit":[
 "gruvhål",
@@ -6426,6 +6615,16 @@
 "torn",
 "radiotorn"
 ],
+"man_made/tower/bell_tower":[
+"Klockgavel",
+"Klocktorn",
+"kyrkklocka",
+"klockstapel",
+"Klockstapel",
+"kampanil",
+"kyrktorn",
+"klockspel"
+],
 "man_made/tower/communication":[
 "mobilmast",
 "överföringsmast",
@@ -6445,6 +6644,17 @@
 "TV-torn",
 "kommunikationstorn",
 "överföringstorn"
+],
+"man_made/tower/minaret":[
+"minâra",
+"islam",
+"muslim",
+"böneutropare",
+"muezzin",
+"bönetorn",
+"Minaret",
+"moské",
+"Muaddhin"
 ],
 "man_made/tower/observation":[
 "utsiktstorn",
@@ -6563,13 +6773,7 @@
 "manhål"
 ],
 "natural":[
-"natur",
-"Naturligt",
-"naturanvändning",
-"naturlig",
-"geologi",
-"Naturlig",
-"skyddsområde"
+"Naturlig"
 ],
 "natural/bare_rock":[
 "Kala klippor ",
@@ -6784,6 +6988,16 @@
 "tjärn",
 "vatten",
 "sjö"
+],
+"natural/water/basin":[
+"infiltrering",
+"dagvatten",
+"bassäng",
+"Avrinningsområde",
+"avrinning",
+"dagvattenbassäng",
+"avrinningsområde",
+"infiltration"
 ],
 "natural/water/canal":[
 "vattenväg",
@@ -7715,32 +7929,10 @@
 "nätstation",
 "Transformator"
 ],
-"public_transport/linear_platform":[
-"Hållplats",
-"kollektivtrafik",
-"Plattform",
-"linjetrafik",
-"transport",
-"Hållplats / Plattform för kollektivtrafik"
+"public_transport/platform/aerialway_point":[
+"Hållplats / Plattform för linbana"
 ],
-"public_transport/linear_platform_aerialway":[
-"linbanestopp",
-"hållplats",
-"stopp",
-"Hållplats / Plattform för linbana",
-"linbaneterminal",
-"aerialway",
-"linbana",
-"terminal",
-"linjetrafik",
-"transport",
-"Linbanehållplats",
-"kollektivtrafik",
-"transit",
-"plattform",
-"linbaneplattform"
-],
-"public_transport/linear_platform_bus":[
+"public_transport/platform/bus":[
 "busshållplats",
 "kollektivtrafik",
 "hållplats",
@@ -7752,30 +7944,20 @@
 "linjetrafik",
 "buss"
 ],
-"public_transport/linear_platform_ferry":[
-"brygga",
-"stopp",
-"båthållplats",
-"Färjeterminal",
-"Färjestation",
-"färjestopp",
-"terminal",
-"linjetrafik",
-"transport",
-"färja",
-"båt",
-"färjeplattform",
-"kollektivtrafik",
-"båtterminal",
-"transit",
-"pir",
+"public_transport/platform/bus_point":[
+"Busstopp",
+"Busshållplats",
+"busshållplats",
+"busstation",
+"hållplats",
 "station",
-"plattform",
-"Färjehållplats",
-"Stop / plattform för färja",
-"båtstopp"
+"anhalt",
+"buss"
 ],
-"public_transport/linear_platform_light_rail":[
+"public_transport/platform/ferry_point":[
+"Stop / plattform för färja"
+],
+"public_transport/platform/light_rail":[
 "Hållplats för snabbspårväg / stadsbana",
 "hållplats",
 "light rail",
@@ -7795,10 +7977,13 @@
 "järnväg",
 "spår"
 ],
-"public_transport/linear_platform_monorail":[
+"public_transport/platform/light_rail_point":[
+"Hållplats för snabbspårväg / stadsbana"
+],
+"public_transport/platform/monorail":[
 "monorailstopp",
 "stopp",
-"Stopp / plattform för monorail",
+"Plattform för monorail",
 "enskensbana",
 "linjetrafik",
 "transport",
@@ -7810,9 +7995,11 @@
 "balkbana",
 "spår"
 ],
-"public_transport/linear_platform_subway":[
+"public_transport/platform/monorail_point":[
+"Stopp / plattform för monorail"
+],
+"public_transport/platform/subway":[
 "Tunnelbaneplattform",
-"Tunnelbanestopp / -plattform",
 "kollektivtrafik",
 "metro",
 "plattform",
@@ -7823,27 +8010,33 @@
 "spår",
 "underjordisk"
 ],
-"public_transport/linear_platform_train":[
+"public_transport/platform/subway_point":[
+"Tunnelbanestopp / -plattform"
+],
+"public_transport/platform/train":[
 "järnvägsperrong",
 "stopp",
 "järnvägsplattform",
 "linjetrafik",
 "transport",
-"Järnvägsstopp / -perrong",
 "Perrong",
 "kollektivtrafik",
 "transit",
 "tåg",
+"Järnvägsperrong",
 "plattform",
 "Tågstopp",
 "järnväg",
 "spår"
 ],
-"public_transport/linear_platform_tram":[
+"public_transport/platform/train_point":[
+"Järnvägsstopp / -perrong"
+],
+"public_transport/platform/tram":[
 "hållplats",
 "spårvagnsplattform",
 "vagn",
-"Spårvagnshållplats / -plattform",
+"Spårvagnsplattform",
 "terminal",
 "transport",
 "Spårvägshållplats",
@@ -7856,7 +8049,10 @@
 "spårvagnshållplats",
 "järnväg"
 ],
-"public_transport/linear_platform_trolleybus":[
+"public_transport/platform/tram_point":[
+"Spårvagnshållplats / -plattform"
+],
+"public_transport/platform/trolleybus":[
 "Busshållplats",
 "hållplats",
 "spårlös",
@@ -7867,165 +8063,32 @@
 "bussplattform",
 "transit",
 "spårvagn",
-"Busshållplats / plattform för trådbuss",
 "plattform",
+"Bussplattform för trådbuss",
 "buss"
 ],
-"public_transport/platform":[
+"public_transport/platform/trolleybus_point":[
+"Busshållplats",
+"hållplats",
+"spårlös",
+"vagn",
+"transport",
+"trådbuss",
+"kollektivtrafik",
+"bussplattform",
+"transit",
+"spårvagn",
+"plattform",
+"Busshållplats för trådbuss",
+"buss"
+],
+"public_transport/platform_point":[
 "väntplats",
 "avsats",
 "Plattform",
+"Hållplats / Plattform för kollektivtrafik",
 "påstigningsplats",
-"perrong",
-"Stopp / Plattform för kollektivtrafik"
-],
-"public_transport/platform_aerialway":[
-"linbanestopp",
-"hållplats",
-"stopp",
-"Hållplats / Plattform för linbana",
-"linbaneterminal",
-"aerialway",
-"linbana",
-"terminal",
-"linjetrafik",
-"transport",
-"Linbanehållplats",
-"kollektivtrafik",
-"transit",
-"plattform",
-"linbaneplattform"
-],
-"public_transport/platform_bus":[
-"busshållplats",
-"kollektivtrafik",
-"hållplats",
-"bussplattform",
-"transit",
-"plattform",
-"transport",
-"linjetrafik",
-"Busshållplats / Bussplattform",
-"buss"
-],
-"public_transport/platform_ferry":[
-"brygga",
-"stopp",
-"båthållplats",
-"Färjeterminal",
-"Färjestation",
-"färjestopp",
-"terminal",
-"linjetrafik",
-"transport",
-"färja",
-"båt",
-"färjeplattform",
-"kollektivtrafik",
-"båtterminal",
-"transit",
-"pir",
-"station",
-"plattform",
-"Färjehållplats",
-"Stop / plattform för färja",
-"båtstopp"
-],
-"public_transport/platform_light_rail":[
-"Hållplats för snabbspårväg / stadsbana",
-"hållplats",
-"light rail",
-"spårvagnsplattform",
-"vagn",
-"stadsbana",
-"terminal",
-"transport",
-"Spårvägshållplats",
-"snabbspårväg",
-"spårväg",
-"kollektivtrafik",
-"spårvagnsterminal",
-"transit",
-"spårvagn",
-"plattform",
-"järnväg",
-"spår"
-],
-"public_transport/platform_monorail":[
-"monorailstopp",
-"stopp",
-"Stopp / plattform för monorail",
-"enskensbana",
-"linjetrafik",
-"transport",
-"räls",
-"monorail",
-"monorailplattform",
-"kollektivtrafik",
-"plattform",
-"balkbana",
-"spår"
-],
-"public_transport/platform_subway":[
-"Tunnelbaneplattform",
-"Tunnelbanestopp / -plattform",
-"kollektivtrafik",
-"metro",
-"plattform",
-"Tunnelbanestopp",
-"transport",
-"tunnelbana",
-"järnväg",
-"spår",
-"underjordisk"
-],
-"public_transport/platform_train":[
-"järnvägsperrong",
-"stopp",
-"järnvägsplattform",
-"linjetrafik",
-"transport",
-"Järnvägsstopp / -perrong",
-"Perrong",
-"kollektivtrafik",
-"transit",
-"tåg",
-"plattform",
-"Tågstopp",
-"järnväg",
-"spår"
-],
-"public_transport/platform_tram":[
-"hållplats",
-"spårvagnsplattform",
-"vagn",
-"Spårvagnshållplats / -plattform",
-"terminal",
-"transport",
-"Spårvägshållplats",
-"spårväg",
-"kollektivtrafik",
-"spårvagnsterminal",
-"transit",
-"spårvagn",
-"plattform",
-"spårvagnshållplats",
-"järnväg"
-],
-"public_transport/platform_trolleybus":[
-"Busshållplats",
-"hållplats",
-"spårlös",
-"vagn",
-"transport",
-"trådbuss",
-"kollektivtrafik",
-"bussplattform",
-"transit",
-"spårvagn",
-"Busshållplats / plattform för trådbuss",
-"plattform",
-"buss"
+"perrong"
 ],
 "public_transport/station":[
 "kollektivtrafik",
@@ -8433,13 +8496,24 @@
 "Smalspårbana"
 ],
 "railway/platform":[
-"Järnvägsstopp / -perrong"
+"Järnvägsperrong"
 ],
 "railway/rail":[
 "Räls",
 "järnvägsspår",
 "spår",
 "bana"
+],
+"railway/rail/highspeed":[
+"snabbspår",
+"järnvägsspår",
+"snabbjärnväg",
+"höghastighet",
+"Järnväg",
+"Höghastighetsbana",
+"spår",
+"bana",
+"räls"
 ],
 "railway/signal":[
 "semafor",
@@ -8495,9 +8569,6 @@
 "förbindelse",
 "förhållande",
 "kontext"
-],
-"roundabout":[
-"Cirkulationsplats"
 ],
 "route/ferry":[
 "färjelinje",
@@ -8701,14 +8772,7 @@
 "bokförsäljning"
 ],
 "shop/boutique":[
-"smycken",
-"Boutique (Dyra kläder och accessoarer)",
-"finkläder",
-"Boutique",
-"modeaffär",
-"accessoarer",
-"klänningar",
-"kläder"
+"Boutique (Dyra kläder och accessoarer)"
 ],
 "shop/butcher":[
 "Slaktare",
@@ -8970,6 +9034,26 @@
 "kondomer",
 "erotisk"
 ],
+"shop/erotic/lgbtq":[
+"erotik",
+"sexaffär",
+"lesbisk",
+"Sex",
+"sexleksaker",
+"sexshop",
+"porr",
+"pornografi",
+"porrfilmer",
+"erotikaffär",
+"HBTQ",
+"porrtidningar",
+"underkläder",
+"sexfilmer",
+"kondomer",
+"HBTQ-sexshop",
+"gay",
+"erotisk"
+],
 "shop/fabric":[
 "Tygaffär",
 "tyg",
@@ -8983,11 +9067,7 @@
 "egenproducerat"
 ],
 "shop/fashion":[
-"mode",
-"Modebutik",
-"modekläder",
-"klädaffär",
-"kläder"
+"Modebutik"
 ],
 "shop/fireplace":[
 "kakelugn",
@@ -9251,22 +9331,6 @@
 "Inredningsaffär",
 "inredning",
 "dekoration"
-],
-"shop/jewelry":[
-"pärla",
-"ringar",
-"Juvelerare",
-"ring",
-"klockor",
-"pärlor",
-"halsband",
-"diamant",
-"smycken",
-"guld",
-"klocka",
-"örhängen",
-"silver",
-"örhänge"
 ],
 "shop/kiosk":[
 "glass",
@@ -9854,10 +9918,7 @@
 "vinförsäljning"
 ],
 "tourism":[
-"turistmagnat",
-"turistattraktion",
-"Turism",
-"sevärdhet"
+"Turism"
 ],
 "tourism/alpine_hut":[
 "Fjällstuga",
@@ -10503,10 +10564,6 @@
 "vattendrag",
 "Vattendrag",
 "vattenflöde"
-],
-"vertex":[
-"Annat",
-"övrigt"
 ],
 "waterway":[
 "Vattenväg"

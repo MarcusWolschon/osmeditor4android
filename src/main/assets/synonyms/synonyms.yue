@@ -183,9 +183,6 @@
 "Drinking Water"
 ],
 "amenity/embassy":[
-"領事館",
-"Embassy",
-"使館",
 "大使館"
 ],
 "amenity/fast_food":[
@@ -853,9 +850,6 @@
 "葡萄園"
 ],
 "leisure":[
-"休閑場所",
-"休閒設施",
-"Leisure",
 "消閒"
 ],
 "leisure/common":[
@@ -949,9 +943,6 @@
 "綫"
 ],
 "man_made":[
-"人造構築",
-"Man Made",
-"人造物",
 "人造"
 ],
 "man_made/breakwater":[
@@ -1010,10 +1001,7 @@
 "供水廠"
 ],
 "natural":[
-"天然",
-"Natural",
-"自然",
-"自然物件"
+"天然"
 ],
 "natural/bare_rock":[
 "石地"
@@ -1406,9 +1394,6 @@
 "單車舖"
 ],
 "shop/boutique":[
-"服飾店",
-"Boutique",
-"精品店",
 "時裝店"
 ],
 "shop/butcher":[
@@ -1529,14 +1514,6 @@
 "Hifi Store",
 "音響舖"
 ],
-"shop/jewelry":[
-"Jeweler",
-"珠寶金行",
-"首飾店",
-"首飾舖",
-"珠寶舖",
-"珠寶店"
-],
 "shop/laundry":[
 "洗衣舖",
 "洗衣店",
@@ -1653,8 +1630,6 @@
 "酒舖"
 ],
 "tourism":[
-"Tourism",
-"旅遊設施",
 "旅行"
 ],
 "tourism/alpine_hut":[
@@ -1846,11 +1821,6 @@
 "線路總管",
 "Route Master",
 "路綫總管"
-],
-"vertex":[
-"其它",
-"其他",
-"Other"
 ],
 "waterway":[
 "水路"

@@ -245,10 +245,7 @@
 "pipa"
 ],
 "amenity/embassy":[
-"poslanstvo",
-"ambasada",
-"Ambasada",
-"veleposlanstvo"
+"Ambasada"
 ],
 "amenity/fast_food":[
 "restoran brze hrane",
@@ -461,12 +458,6 @@
 "amenity/vending_machine/drinks":[
 "Automat za piće"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Automat za vrećice za fekalije"
-],
-"amenity/vending_machine/news_papers":[
-"Automat za novine"
-],
 "amenity/vending_machine/parking_tickets":[
 "Automat za parkirališne karte"
 ],
@@ -661,9 +652,6 @@
 ],
 "building/terrace":[
 "Kuće u nizu"
-],
-"building/train_station":[
-"Željeznički kolodvor"
 ],
 "building/university":[
 "Zgrada sveučilišta"
@@ -1182,11 +1170,7 @@
 "linija"
 ],
 "man_made":[
-"ljudske tvorevine",
-"ljudska tvorevina u okolišu",
-"Ljudske tvorevine",
-"napravio čovjek",
-"umjetno"
+"Ljudske tvorevine"
 ],
 "man_made/adit":[
 "Položeni ulaz u rudnik"
@@ -1303,21 +1287,7 @@
 "vodocrpilište"
 ],
 "natural":[
-"drvored",
-"blato",
-"pijesak",
-"prirodne",
-"drvo",
-"prirodni",
-"šuma",
-"Prirodno",
-"livada",
-"prirodno",
-"močvara",
-"pašnjak",
-"krš",
-"prirodan",
-"prirodni elementi"
+"Prirodno"
 ],
 "natural/bare_rock":[
 "Goli kamen"
@@ -1698,9 +1668,6 @@
 "relacija između objekata",
 "odnos objekata"
 ],
-"roundabout":[
-"Kružni tok"
-],
 "route/ferry":[
 "brodska ruta",
 "Brodska linija",
@@ -1785,8 +1752,6 @@
 "Knjižara"
 ],
 "shop/boutique":[
-"trgovina odjeće",
-"butik",
 "Butik"
 ],
 "shop/butcher":[
@@ -1973,12 +1938,6 @@
 ],
 "shop/interior_decoration":[
 "Trgovina unutarnjeg uređenja"
-],
-"shop/jewelry":[
-"zlatar",
-"Zlatarnica",
-"zlatara",
-"zlatarna"
 ],
 "shop/kiosk":[
 "Kiosk"
@@ -2249,9 +2208,7 @@
 "Prodavaonica vina"
 ],
 "tourism":[
-"seoski turizam",
-"Turizam",
-"turizam"
+"Turizam"
 ],
 "tourism/alpine_hut":[
 "planinarski dom",
@@ -2495,15 +2452,6 @@
 "glavna linija kretanja",
 "glavna linija relacije",
 "Glavna ruta kretanja"
-],
-"vertex":[
-"ostalo",
-"drugačije",
-"drugo",
-"ostali",
-"drugačiji",
-"Drugo",
-"drukčiji"
 ],
 "waterway":[
 "Vodeni put"

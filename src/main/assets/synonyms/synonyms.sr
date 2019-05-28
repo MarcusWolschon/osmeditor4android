@@ -307,12 +307,6 @@
 "amenity/vending_machine/drinks":[
 "Аутомат за пића"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Аутомат за прање веша"
-],
-"amenity/vending_machine/news_papers":[
-"Аутомат за новине"
-],
 "amenity/vending_machine/parking_tickets":[
 "Аутомат за паркинг"
 ],
@@ -364,13 +358,6 @@
 "летњи тобоган",
 "аути на сударање",
 "водени тобоган"
-],
-"attraction/animal":[
-"живуљка",
-"животиња",
-"зверка",
-"Животиња",
-"звер"
 ],
 "attraction/bungee_jumping":[
 "Банџи скакаоница"
@@ -584,9 +571,6 @@
 ],
 "building/terrace":[
 "Куће у низу"
-],
-"building/train_station":[
-"Железничка станица"
 ],
 "building/university":[
 "Универзитетска зграда"
@@ -947,10 +931,7 @@
 "Раскршће"
 ],
 "landuse":[
-"намена земљишта",
-"Намена земљишта",
-"употреба земљишта",
-"коришћење земљишта"
+"Намена земљишта"
 ],
 "landuse/basin":[
 "Слив"
@@ -1119,12 +1100,6 @@
 ],
 "leisure/swimming_pool":[
 "Базен"
-],
-"leisure/track/horse_racing":[
-"Тркачка стаза (за коње)"
-],
-"leisure/track/running":[
-"Тркачка стаза (за спортисте)"
 ],
 "leisure/water_park":[
 "аква-парк",
@@ -1647,9 +1622,6 @@
 "shop/interior_decoration":[
 "Унутрашња декорација"
 ],
-"shop/jewelry":[
-"Златар"
-],
 "shop/kiosk":[
 "киоск",
 "штанд",
@@ -1962,9 +1934,6 @@
 ],
 "type/waterway":[
 "Водоток"
-],
-"vertex":[
-"Остало"
 ],
 "waterway":[
 "Водоток"

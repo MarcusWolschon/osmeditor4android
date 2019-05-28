@@ -184,6 +184,9 @@
 "lentokone",
 "lentoterminaali"
 ],
+"aeroway/windsock":[
+"Tuulisukka"
+],
 "allotments/plot":[
 "Viljelypalsta"
 ],
@@ -240,6 +243,9 @@
 "amenity/bar":[
 "Baari"
 ],
+"amenity/bar/lgbtq":[
+"Seksuaalivähemmistöjen baari"
+],
 "amenity/bbq":[
 "grilli",
 "grillaus",
@@ -274,11 +280,11 @@
 "polkupyörävuokraamo",
 "pyörävuokraamo",
 "kaupunkipyörä",
+"Kaupunkipyöräasema",
 "polkupyörä",
 "pyörä",
 "pyöränvuokraus",
-"polkupyörän vuokraus",
-"Pyörävuokraamo"
+"polkupyörän vuokraus"
 ],
 "amenity/bicycle_repair_station":[
 "teline",
@@ -410,8 +416,8 @@
 ],
 "amenity/clinic":[
 "klinikka",
+"Terveyskeskus",
 "lääkäriasema",
-"Klinikka",
 "lääkärikeskus"
 ],
 "amenity/clinic/abortion":[
@@ -430,6 +436,9 @@
 ],
 "amenity/clock":[
 "Kello"
+],
+"amenity/clock/sundial":[
+"Aurinkokello"
 ],
 "amenity/college":[
 "Korkeakoulualue (college)"
@@ -464,6 +473,9 @@
 "seurantalo",
 "juhlatila"
 ],
+"amenity/community_centre/lgbtq":[
+"Seksuaalivähemmistöjen yhteisökeskus"
+],
 "amenity/compressed_air":[
 "paineilma",
 "auto",
@@ -474,6 +486,9 @@
 "täyttö",
 "kompressori",
 "Ilmanpainepiste"
+],
+"amenity/conference_centre":[
+"Kongressikeskus"
 ],
 "amenity/courthouse":[
 "raastupa",
@@ -575,6 +590,9 @@
 "amenity/embassy":[
 "Suurlähetystö"
 ],
+"amenity/events_venue":[
+"Tapahtumahalli"
+],
 "amenity/fast_food":[
 "ravintola",
 "ranskalaiset",
@@ -601,11 +619,17 @@
 "amenity/fast_food/chicken":[
 "Kanapikaruokaravintola"
 ],
+"amenity/fast_food/donut":[
+"Donitsiravintola"
+],
 "amenity/fast_food/fish_and_chips":[
 "Fish & Chips -pikaruokaravintola"
 ],
 "amenity/fast_food/kebab":[
 "Kebabpikaruokaravintola"
+],
+"amenity/fast_food/mexican":[
+"Meksikolainen pikaruokaravintola"
 ],
 "amenity/fast_food/pizza":[
 "Pitseria-pikaruokaravintola"
@@ -727,7 +751,9 @@
 "Tuntihotelli"
 ],
 "amenity/marketplace":[
-"Tori"
+"tori",
+"Tori",
+"kauppapaikka"
 ],
 "amenity/monastery":[
 "Luostari"
@@ -761,6 +787,9 @@
 "amenity/nightclub":[
 "Yökerho"
 ],
+"amenity/nightclub/lgbtq":[
+"Seksuaalivähemmistöjen yökerho"
+],
 "amenity/nursing_home":[
 "Hoitokoti"
 ],
@@ -783,6 +812,9 @@
 "Pysäköintitalo",
 "pysäköinti",
 "parkkialue"
+],
+"amenity/parking/underground":[
+"Pysäköintiluola"
 ],
 "amenity/parking_entrance":[
 "sisäänajo",
@@ -814,6 +846,9 @@
 ],
 "amenity/payment_terminal":[
 "Maksupääte"
+],
+"amenity/pharmacy":[
+"Apteekki"
 ],
 "amenity/place_of_worship":[
 "seita",
@@ -849,6 +884,9 @@
 "stupa",
 "dojo"
 ],
+"amenity/place_of_worship/christian":[
+"Kristinusko, kirkko"
+],
 "amenity/place_of_worship/hindu":[
 "uskonnollinen",
 "hindu",
@@ -860,6 +898,12 @@
 "intia",
 "jooga",
 "rukoilu"
+],
+"amenity/place_of_worship/jewish":[
+"Juutalaisuus, synagoga"
+],
+"amenity/place_of_worship/muslim":[
+"Islam, moskeija"
 ],
 "amenity/place_of_worship/shinto":[
 "kami",
@@ -937,6 +981,9 @@
 "yöravintola",
 "pub"
 ],
+"amenity/pub/lgbtq":[
+"Seksuaalivähemmistöjen pubi"
+],
 "amenity/public_bath":[
 "Kylpylaitos"
 ],
@@ -959,6 +1006,9 @@
 ],
 "amenity/ranger_station":[
 "Metsävartiosto"
+],
+"amenity/recycling":[
+"Kierrätys"
 ],
 "amenity/recycling_centre":[
 "Kierrätyskeskus"
@@ -1087,6 +1137,9 @@
 "tauko",
 "katettu"
 ],
+"amenity/shelter/gazebo":[
+"huvimaja"
+],
 "amenity/shelter/lean_to":[
 "sää",
 "sateen",
@@ -1100,6 +1153,9 @@
 ],
 "amenity/shelter/picnic_shelter":[
 "Piknikkatos"
+],
+"amenity/shelter/public_transport":[
+"Pysäkkikatos"
 ],
 "amenity/shower":[
 "Suihku"
@@ -1214,6 +1270,9 @@
 "amenity/university":[
 "Yliopistoalue"
 ],
+"amenity/vehicle_inspection":[
+"Katsastusasema"
+],
 "amenity/vending_machine":[
 "automaatti",
 "jakeluautomaatti",
@@ -1248,16 +1307,7 @@
 "Elektroniikka-automaatti"
 ],
 "amenity/vending_machine/excrement_bags":[
-"uloste",
-"muovipussi",
-"koira",
-"koirat",
-"pussi",
-"Koirankakkapussiautomaatti",
-"koirankakka",
-"koiranuloste",
-"kakka",
-"koiran"
+"Koirankakkapussiautomaatti"
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "tamppooni",
@@ -1276,11 +1326,14 @@
 "amenity/vending_machine/ice_cream":[
 "Jäätelöautomaatti"
 ],
-"amenity/vending_machine/news_papers":[
-"Lehtiautomaatti"
-],
 "amenity/vending_machine/newspapers":[
 "Lehtiautomaatti"
+],
+"amenity/vending_machine/parcel_pickup":[
+"Postin noutoautomaatti"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"Pakettiautomaatti"
 ],
 "amenity/vending_machine/parking_tickets":[
 "automaatti",
@@ -1382,6 +1435,9 @@
 "pinta",
 "pinnoite"
 ],
+"attraction":[
+"Nähtävyys"
+],
 "attraction/amusement_ride":[
 "vimpain",
 "karuselli",
@@ -1393,15 +1449,6 @@
 "vitkutin",
 "huvipuisto",
 "elämyspuisto"
-],
-"attraction/animal":[
-"Eläin",
-"eläintarha",
-"teemapuisto",
-"karhu",
-"leijona",
-"tiikeri",
-"eläinpuisto"
 ],
 "attraction/big_wheel":[
 "vimpain",
@@ -1552,6 +1599,9 @@
 "barrier/cattle_grid":[
 "Karjaeste"
 ],
+"barrier/chain":[
+"Ketjuaita"
+],
 "barrier/city_wall":[
 "Kaupunginmuuri"
 ],
@@ -1572,6 +1622,9 @@
 "barrier/fence":[
 "Aita"
 ],
+"barrier/fence/railing":[
+"Kaide"
+],
 "barrier/gate":[
 "ovi",
 "Portti",
@@ -1585,6 +1638,12 @@
 ],
 "barrier/kerb/lowered":[
 "Madallettu reunakivi"
+],
+"barrier/kerb/raised":[
+"Korotettu reunakivi"
+],
+"barrier/kerb/rolled":[
+"Pyöristetty reunakivi"
 ],
 "barrier/kissing_gate":[
 "Karjarajoitin"
@@ -1607,15 +1666,28 @@
 "barrier/toll_booth":[
 "Tietullipiste"
 ],
+"barrier/turnstile":[
+"Kääntöportti"
+],
 "barrier/wall":[
 "Seinä"
 ],
+"boundary":[
+"Raja"
+],
 "boundary/administrative":[
-"Hallinnollinen raja"
+"reuna",
+"hallinnollinen raja",
+"valtion raja",
+"Hallinnollinen raja",
+"kunnanraja",
+"rajaviiva",
+"alueraja"
 ],
 "building":[
 "Rakennus",
-"talo"
+"talo",
+"rakennus"
 ],
 "building/apartments":[
 "Kerrostalo"
@@ -1623,11 +1695,17 @@
 "building/barn":[
 "Lato"
 ],
+"building/boathouse":[
+"Venevaja"
+],
 "building/bungalow":[
-"Bungalow"
+"Kesämökki"
 ],
 "building/bunker":[
 "Bunkkeri"
+],
+"building/carport":[
+"Autokatos"
 ],
 "building/cathedral":[
 "Katedraalirakennus"
@@ -1690,6 +1768,9 @@
 "building/greenhouse":[
 "Kasvihuone"
 ],
+"building/hangar":[
+"Lentokonehallirakennus"
+],
 "building/hospital":[
 "sairaanhoitaja",
 "terveys",
@@ -1717,6 +1798,9 @@
 "yksityistalo",
 "Omakotitalo"
 ],
+"building/houseboat":[
+"Asuntolaiva"
+],
 "building/hut":[
 "mökki",
 "tönö",
@@ -1724,7 +1808,7 @@
 "maja",
 "pikkutalo",
 "pieni rakennus",
-"Mökki"
+"Maja"
 ],
 "building/industrial":[
 "Teollisuusrakennus"
@@ -1767,7 +1851,7 @@
 "Paritalo"
 ],
 "building/service":[
-"Palvelurakennus"
+"Konehuone"
 ],
 "building/shed":[
 "mökki",
@@ -1787,6 +1871,9 @@
 "building/stadium":[
 "Stadionrakennus"
 ],
+"building/static_caravan":[
+"Paikallaan pysyvä siirrettävä talo"
+],
 "building/temple":[
 "Temppelirakennus"
 ],
@@ -1794,7 +1881,7 @@
 "Rivitalo"
 ],
 "building/train_station":[
-"Rautatieasema"
+"Rautatieasemarakennus"
 ],
 "building/transportation":[
 "Terminaalirakennus"
@@ -1809,11 +1896,20 @@
 "building/warehouse":[
 "Varasto"
 ],
-"circular":[
-"Liikenneympyrä"
+"building_part":[
+"Rakennuksen osa"
+],
+"building_point":[
+"Rakennus"
 ],
 "club":[
 "Klubi"
+],
+"club/sport":[
+"liikuntayhdistys",
+"urheiluyhdistys",
+"urheilukerho",
+"Liikuntakerho"
 ],
 "craft":[
 "Kädentaitoja vaativa kohde"
@@ -2115,6 +2211,9 @@
 "palonsammutus",
 "Ensisammutusväline"
 ],
+"emergency/fire_hose":[
+"Sammutusletku"
+],
 "emergency/fire_hydrant":[
 "palokunta",
 "Paloposti",
@@ -2205,12 +2304,6 @@
 "golf/hole":[
 "Golf-reikä"
 ],
-"golf/lateral_water_hazard_area":[
-"Sivuvesieste"
-],
-"golf/lateral_water_hazard_line":[
-"Sivuvesieste"
-],
 "golf/rough":[
 "golf",
 "Karheikko",
@@ -2226,10 +2319,7 @@
 "lyöntialue",
 "tiiausalue"
 ],
-"golf/water_hazard_area":[
-"Vesieste"
-],
-"golf/water_hazard_line":[
+"golf/water_hazard":[
 "Vesieste"
 ],
 "healthcare":[
@@ -2311,8 +2401,28 @@
 "highway/bridleway":[
 "Ratsastuspolku"
 ],
+"highway/bus_guideway":[
+"Linja-auton kiskot"
+],
 "highway/bus_stop":[
 "Linja-autopysäkki/-laituri"
+],
+"highway/construction":[
+"kesken",
+"suljettu",
+"katu",
+"polku",
+"väylä",
+"Suljettu tie",
+"suunnitteilla",
+"työmaa",
+"tie",
+"kiinni",
+"rakenteilla",
+"jalkakäytävä",
+"reitti",
+"pyörätie",
+"rakennustyömaa"
 ],
 "highway/corridor":[
 "käytävä",
@@ -2322,6 +2432,9 @@
 "Sisäkäytävä",
 "katettu",
 "sisätiloissa"
+],
+"highway/crossing":[
+"Suojatie"
 ],
 "highway/crossing/marked":[
 "Merkitty suojatie"
@@ -2335,12 +2448,22 @@
 "highway/cycleway":[
 "Pyörätie"
 ],
+"highway/cycleway/bicycle_foot":[
+"Kävely- ja pyörätie"
+],
 "highway/elevator":[
 "Hissi"
 ],
 "highway/footway":[
-"Jalankulkutie",
-"Polku"
+"Kävelytie",
+"tie",
+"jalankulkija",
+"kävelijä",
+"jalankulku",
+"polku",
+"reitti",
+"väylä",
+"kävely"
 ],
 "highway/footway/sidewalk":[
 "Jalkakäytävä"
@@ -2360,6 +2483,7 @@
 "Pieni liikenneympyrä"
 ],
 "highway/motorway":[
+"autobaana",
 "Moottoritie"
 ],
 "highway/motorway_junction":[
@@ -2373,6 +2497,9 @@
 ],
 "highway/motorway_link":[
 "Moottoritien ramppi"
+],
+"highway/passing_place":[
+"Ajoneuvojen kohtauspaikka"
 ],
 "highway/path":[
 "Polku"
@@ -2454,6 +2581,9 @@
 "Kierreportaat",
 "Tikapuut"
 ],
+"highway/steps/conveying":[
+"Liukuportaat"
+],
 "highway/stop":[
 "pysähdys",
 "Pakollinen pysähtyminen",
@@ -2488,14 +2618,14 @@
 ],
 "highway/track":[
 "metsäkone",
+"Maatalous- tai metsätie",
 "metsä",
 "hiekkatie",
 "ura",
 "ajoväylä",
 "metsätie",
 "pikkutie",
-"metsäkonetie",
-"Huoltamaton pikkutie"
+"metsäkonetie"
 ],
 "highway/traffic_mirror":[
 "liikenne",
@@ -2564,8 +2694,29 @@
 "historic/castle":[
 "Linna"
 ],
+"historic/castle/fortress":[
+"Historiallinen linnoitus"
+],
+"historic/castle/palace":[
+"Palatsi"
+],
+"historic/castle/stately":[
+"Ranskalainen linna"
+],
+"historic/city_gate":[
+"Kaupunginportti"
+],
+"historic/fort":[
+"Historiallinen linnake"
+],
+"historic/manor":[
+"Kartano"
+],
 "historic/memorial":[
 "Pieni muistomerkki"
+],
+"historic/memorial/plaque":[
+"Muistolaatta"
 ],
 "historic/monument":[
 "Iso muistomerkki"
@@ -2607,6 +2758,30 @@
 "uskonnot",
 "rukoilupaikka"
 ],
+"historic/wreck":[
+"Hylky"
+],
+"indoor":[
+"Sisäkohde"
+],
+"indoor/area":[
+"Sisäalue"
+],
+"indoor/corridor":[
+"Sisäkäytävä"
+],
+"indoor/corridor_line":[
+"Sisäkäytävä"
+],
+"indoor/door":[
+"Sisäovi"
+],
+"indoor/room":[
+"Huone"
+],
+"indoor/wall":[
+"Sisäseinä"
+],
 "internet_access/wlan":[
 "w-lan",
 "wifi",
@@ -2627,6 +2802,12 @@
 "junction":[
 "Risteys"
 ],
+"junction/circular":[
+"Liikenneympyrä"
+],
+"junction/roundabout":[
+"Kiertoliittymä"
+],
 "landuse":[
 "Maankäyttö"
 ],
@@ -2640,6 +2821,9 @@
 ],
 "landuse/basin":[
 "Vesiallas"
+],
+"landuse/brownfield":[
+"Purettu tontti"
 ],
 "landuse/cemetery":[
 "Hautausmaa"
@@ -2678,6 +2862,12 @@
 ],
 "landuse/farmyard":[
 "Maatilan pihamaa"
+],
+"landuse/forest":[
+"Käsitelty metsä"
+],
+"landuse/garages":[
+"Autotallialue"
 ],
 "landuse/grass":[
 "ruohikko",
@@ -2731,11 +2921,14 @@
 "landuse/plant_nursery":[
 "Taimitarha"
 ],
+"landuse/pond":[
+"Lampi"
+],
 "landuse/quarry":[
 "Louhos"
 ],
 "landuse/railway":[
-"Rautatiekäytävä"
+"Rata-alue"
 ],
 "landuse/recreation_ground":[
 "Virkistysalue",
@@ -2750,8 +2943,14 @@
 "landuse/religious":[
 "Uskonnollinen alue"
 ],
+"landuse/reservoir":[
+"Tekojärvi"
+],
 "landuse/residential":[
 "Asuinalue"
+],
+"landuse/residential/apartments":[
+"Asuntola"
 ],
 "landuse/retail":[
 "Vähittäiskauppa-alue"
@@ -2772,6 +2971,9 @@
 "peli",
 "kolikko",
 "peliautomaatti"
+],
+"leisure/bandstand":[
+"Pieni esiintymislava"
 ],
 "leisure/beach_resort":[
 "Rantalomakohde"
@@ -2827,6 +3029,9 @@
 "Nuotiopaikka",
 "ruoka"
 ],
+"leisure/fishing":[
+"Kalastuspaikka"
+],
 "leisure/fitness_centre":[
 "kuntoilu",
 "liikunta",
@@ -2855,6 +3060,9 @@
 "ulko",
 "kuntoilulaite",
 "sali"
+],
+"leisure/fitness_station/stairs":[
+"Kuntoportaat"
 ],
 "leisure/garden":[
 "Puutarha"
@@ -2945,6 +3153,10 @@
 "ulkopöytä",
 "ulkoruokailu"
 ],
+"leisure/picnic_table/chess":[
+"Šakkipöytä",
+"shakkipöytä"
+],
 "leisure/pitch":[
 "nurmikenttä",
 "palloilukenttä",
@@ -2954,6 +3166,12 @@
 ],
 "leisure/pitch/american_football":[
 "Amerikkalainen jalkapallo -kenttä"
+],
+"leisure/pitch/australian_football":[
+"Australialainen jalkapallokenttä"
+],
+"leisure/pitch/badminton":[
+"Sulkapallokenttä"
 ],
 "leisure/pitch/baseball":[
 "Pesäpallokenttä"
@@ -2983,6 +3201,9 @@
 "leisure/pitch/equestrian":[
 "Ratsastusareena"
 ],
+"leisure/pitch/netball":[
+"Verkkopallokenttä"
+],
 "leisure/pitch/rugby_league":[
 "Rubgy League -kenttä"
 ],
@@ -3011,6 +3232,9 @@
 "jalkapallo",
 "Jalkapallokenttä",
 "areena"
+],
+"leisure/pitch/softball":[
+"Softballkenttä"
 ],
 "leisure/pitch/table_tennis":[
 "pingis",
@@ -3057,6 +3281,9 @@
 "järviramppi",
 "järveenlaskupaikka"
 ],
+"leisure/slipway_point":[
+"Veneramppi"
+],
 "leisure/sports_centre":[
 "urheiluhalli",
 "kokonaisuus",
@@ -3066,6 +3293,9 @@
 "kuntokeskus",
 "urheilukeskus",
 "monilajinen"
+],
+"leisure/sports_centre/climbing":[
+"Kiipeilysali"
 ],
 "leisure/sports_centre/swimming":[
 "uintikeskus",
@@ -3101,6 +3331,24 @@
 "leisure/track":[
 "Kilparata (ei moottoriurheilu)"
 ],
+"leisure/track/cycling":[
+"Pyöräilyrata"
+],
+"leisure/track/cycling_point":[
+"Pyöräilyrata"
+],
+"leisure/track/horse_racing":[
+"Ravirata"
+],
+"leisure/track/horse_racing_point":[
+"Ravirata"
+],
+"leisure/track/running":[
+"Kuntorata"
+],
+"leisure/track/running_point":[
+"Kuntorata"
+],
 "leisure/water_park":[
 "kylpylä",
 "uinti",
@@ -3110,7 +3358,6 @@
 "Viiva"
 ],
 "man_made":[
-"keinotekoinen",
 "Ihmisen tekemä"
 ],
 "man_made/adit":[
@@ -3118,6 +3365,12 @@
 ],
 "man_made/antenna":[
 "Antenni"
+],
+"man_made/beacon":[
+"Merkkilaite"
+],
+"man_made/beehive":[
+"Mehiläispesä"
 ],
 "man_made/breakwater":[
 "Aallonmurtaja"
@@ -3133,6 +3386,9 @@
 ],
 "man_made/crane":[
 "Nosturi"
+],
+"man_made/cross":[
+"Vuorenhuippuristi"
 ],
 "man_made/cutline":[
 "hakkuuraja",
@@ -3178,8 +3434,17 @@
 "man_made/mast/communication/television":[
 "Televisiomasto"
 ],
+"man_made/mineshaft":[
+"Kaivoskuilu"
+],
 "man_made/monitoring_station":[
 "Havaintoasema"
+],
+"man_made/observatory":[
+"meterologinen",
+"observatorio",
+"Tähtitorni",
+"astronominen"
 ],
 "man_made/petroleum_well":[
 "Öljylähde"
@@ -3187,8 +3452,14 @@
 "man_made/pier":[
 "Laituri"
 ],
+"man_made/pier/floating":[
+"Kelluva laituri"
+],
 "man_made/pipeline":[
 "Putki"
+],
+"man_made/pipeline/underground":[
+"Maanalainen putki"
 ],
 "man_made/pumping_station":[
 "Pumppaamo"
@@ -3211,11 +3482,32 @@
 "tallentava",
 "nauhoittava"
 ],
+"man_made/surveillance/camera":[
+"Valvontakamera"
+],
 "man_made/survey_point":[
 "Mittauspiste"
 ],
 "man_made/tower":[
 "Torni"
+],
+"man_made/tower/bell_tower":[
+"Kellotorni"
+],
+"man_made/tower/communication":[
+"Viestintätorni"
+],
+"man_made/tower/defensive":[
+"Vartiotorni"
+],
+"man_made/tower/minaret":[
+"Minareetti"
+],
+"man_made/tower/observation":[
+"Näkötorni"
+],
+"man_made/tunnel":[
+"Tunneli"
 ],
 "man_made/wastewater_plant":[
 "Jätevedenpuhdistamo"
@@ -3252,7 +3544,7 @@
 "Luonto"
 ],
 "natural/bare_rock":[
-"Paljas kallio"
+"Avokallio"
 ],
 "natural/bay":[
 "Lahti"
@@ -3264,6 +3556,9 @@
 "uinti",
 "Ranta",
 "uima"
+],
+"natural/cape":[
+"Niemi"
 ],
 "natural/cave_entrance":[
 "Luolan suuaukko"
@@ -3298,6 +3593,9 @@
 ],
 "natural/heath":[
 "Nummi"
+],
+"natural/mud":[
+"Muta"
 ],
 "natural/peak":[
 "Korkein kohta",
@@ -3339,6 +3637,9 @@
 "natural/scrub":[
 "Pensaikko"
 ],
+"natural/shingle":[
+"Kivikko"
+],
 "natural/spring":[
 "Lähde"
 ],
@@ -3348,15 +3649,27 @@
 "natural/tree_row":[
 "Puurivi"
 ],
+"natural/valley":[
+"Laakso"
+],
 "natural/volcano":[
 "Tulivuori"
 ],
 "natural/water":[
 "Vesi"
 ],
+"natural/water/basin":[
+"Allas"
+],
+"natural/water/canal":[
+"Kanava"
+],
 "natural/water/lake":[
 "Järvi",
 "Vesistö"
+],
+"natural/water/moat":[
+"Vallihauta"
 ],
 "natural/water/pond":[
 "Lampare",
@@ -3367,8 +3680,20 @@
 "natural/water/reservoir":[
 "Tekojärvi"
 ],
+"natural/water/river":[
+"Joki"
+],
+"natural/water/stream":[
+"Puro"
+],
+"natural/water/wastewater":[
+"Jätevesiallas"
+],
 "natural/wetland":[
-"Suo"
+"tulvametsä",
+"Kosteikko",
+"soistuma",
+"suo"
 ],
 "natural/wood":[
 "Luonnonvarainen metsä/puu"
@@ -3478,6 +3803,9 @@
 ],
 "office/coworking":[
 "Yhteistyöskentelytila"
+],
+"office/diplomatic/consulate":[
+"Konsulaatti"
 ],
 "office/educational_institution":[
 "oppilaitos",
@@ -3674,6 +4002,19 @@
 "sukset",
 "alppilajit"
 ],
+"piste/ice_skate":[
+"Luistelurata"
+],
+"piste/nordic":[
+"Hiihtolatu"
+],
+"piste/piste":[
+"Talviurheilulatu"
+],
+"piste/sled":[
+"kelkkailu",
+"Pulkkamäki"
+],
 "place":[
 "Paikka"
 ],
@@ -3682,6 +4023,9 @@
 "Kaupunki",
 "suurkaupunki",
 "kaupunki"
+],
+"place/city_block":[
+"Kortteli"
 ],
 "place/farm":[
 "Maatila"
@@ -3722,11 +4066,14 @@
 "place/neighbourhood":[
 "Naapurusto"
 ],
+"place/plot":[
+"Tontti"
+],
 "place/quarter":[
 "Alakeskus"
 ],
 "place/square":[
-"Tori"
+"Aukio"
 ],
 "place/suburb":[
 "Esikaupunkikeskus"
@@ -3741,6 +4088,9 @@
 "place/village":[
 "Kylä"
 ],
+"playground":[
+"Leikkipuiston laite"
+],
 "playground/balance_beam":[
 "Nuorallakävely"
 ],
@@ -3749,6 +4099,9 @@
 ],
 "playground/climbing_frame":[
 "Kiipeilyteline"
+],
+"playground/cushion":[
+"Pomppulinna"
 ],
 "playground/rocker":[
 "Keinuhevonen"
@@ -3799,6 +4152,9 @@
 "power/generator/method/photovoltaic":[
 "Aurinkopaneeli"
 ],
+"power/generator/source/hydro":[
+"Vesivoimala"
+],
 "power/generator/source/nuclear":[
 "Ydinreaktori"
 ],
@@ -3830,126 +4186,79 @@
 "power/substation":[
 "Sähköasema"
 ],
+"power/switch":[
+"Virtakytkin"
+],
 "power/tower":[
 "Korkeajännitetorni"
 ],
 "power/transformer":[
 "Muuntaja"
 ],
-"public_transport/linear_platform_aerialway":[
-"hissi",
-"Ilmaradan pysäkki/laituri",
-"alue",
-"köysirata",
-"gondoli",
-"laituri",
-"ilmarata",
-"pysäkki"
+"public_transport/platform":[
+"Joukkoliikennelaituri"
 ],
-"public_transport/linear_platform_bus":[
-"pysäkkimerkki",
-"linja-autolaituri",
-"linja-auto",
-"joukkoliikenne",
-"bussipysäkki",
-"laituri",
-"bussi",
-"levennys",
+"public_transport/platform/aerialway":[
+"Ilmaradan laituri"
+],
+"public_transport/platform/aerialway_point":[
+"Ilmaradan pysäkki/laituri"
+],
+"public_transport/platform/bus":[
+"Linja-autolaituri"
+],
+"public_transport/platform/bus_point":[
+"linja-auton pysähtymispaikka",
 "linja-autopysäkki",
-"katos",
-"odotuspaikka",
-"bussilaituri",
-"Linja-autopysäkki/-laituri",
-"dösis",
-"pysähdyspaikka",
-"dösäri",
-"pikavuoro",
+"pysähtymispaikka",
+"bussin pysähtymispaikka",
+"Linja-autopysäkki",
+"pysäkkisyvänne",
+"bussipysäkki",
+"bussikatos",
 "pysäkki"
 ],
-"public_transport/linear_platform_ferry":[
+"public_transport/platform/ferry":[
+"Laivalaituri"
+],
+"public_transport/platform/ferry_point":[
 "Laivapaikka/-matkustajalaituri"
 ],
-"public_transport/linear_platform_light_rail":[
+"public_transport/platform/light_rail":[
+"Pikaraitiotielaituri"
+],
+"public_transport/platform/light_rail_point":[
 "Pikaraitiotiepysäkki/-laituri"
 ],
-"public_transport/linear_platform_monorail":[
-"Monorailpysäkki/-laituri"
-],
-"public_transport/linear_platform_subway":[
+"public_transport/platform/subway":[
 "Metrolaituri"
 ],
-"public_transport/linear_platform_train":[
-"Rautatielaituri",
-"rautatie",
-"laituri",
-"rata",
-"asema",
-"pysäkki",
-"juna",
-"raide"
-],
-"public_transport/linear_platform_tram":[
-"Katuraitiotiepysäkki/-laituri"
-],
-"public_transport/linear_platform_trolleybus":[
-"Johdinautopysäkki/-laituri"
-],
-"public_transport/platform_aerialway":[
-"hissi",
-"Ilmaradan pysäkki/laituri",
-"alue",
-"gondoli",
-"laituri",
-"ilmarata",
-"pysäkki"
-],
-"public_transport/platform_bus":[
-"pysäkkimerkki",
-"linja-autolaituri",
-"linja-auto",
-"joukkoliikenne",
-"bussipysäkki",
-"laituri",
-"bussi",
-"levennys",
-"linja-autopysäkki",
-"katos",
-"odotuspaikka",
-"bussilaituri",
-"Linja-autopysäkki/-laituri",
-"dösis",
-"pysähdyspaikka",
-"dösäri",
-"pikavuoro",
-"pysäkki"
-],
-"public_transport/platform_ferry":[
-"Laivapaikka/-matkustajalaituri"
-],
-"public_transport/platform_light_rail":[
-"Pikaraitiotiepysäkki/-laituri"
-],
-"public_transport/platform_monorail":[
-"Monorailpysäkki/-laituri"
-],
-"public_transport/platform_subway":[
+"public_transport/platform/subway_point":[
 "Metrolaituri"
 ],
-"public_transport/platform_train":[
-"Rautatielaituri",
-"rautatie",
-"laituri",
-"rata",
-"asema",
-"pysäkki",
-"juna",
-"raide"
+"public_transport/platform/train":[
+"Rautatielaituri"
 ],
-"public_transport/platform_tram":[
+"public_transport/platform/train_point":[
+"Rautatiepysäkki/-laituri"
+],
+"public_transport/platform/tram":[
+"Katuraitiotielaituri"
+],
+"public_transport/platform/tram_point":[
 "Katuraitiotiepysäkki/-laituri"
 ],
-"public_transport/platform_trolleybus":[
-"Johdinautopysäkki/-laituri"
+"public_transport/platform/trolleybus":[
+"Johdinautolaituri"
+],
+"public_transport/platform/trolleybus_point":[
+"Johdinautopysäkki"
+],
+"public_transport/platform_point":[
+"Joukkoliikennepysäkki/-laituri"
+],
+"public_transport/station":[
+"Joukkoliikenneasema"
 ],
 "public_transport/station_aerialway":[
 "ala-asema",
@@ -3987,7 +4296,7 @@
 "raide"
 ],
 "public_transport/station_train_halt":[
-"Pieni rautatieseisake (pysähtyy pyynnöstä)",
+"Seisake",
 "rautatie",
 "rata",
 "asema",
@@ -4000,6 +4309,12 @@
 ],
 "public_transport/station_trolleybus":[
 "Johdinautoasema/-terminaali"
+],
+"public_transport/stop_area":[
+"Joukkoliikennealue"
+],
+"public_transport/stop_position":[
+"Joukkoliikenteen pysähtymiskohta"
 ],
 "public_transport/stop_position_aerialway":[
 "ala-asema",
@@ -4051,12 +4366,15 @@
 "railway/buffer_stop":[
 "Pysäytyspuskuri"
 ],
+"railway/construction":[
+"Keskeneräinen rautatie"
+],
 "railway/crossing":[
 "jalan",
 "suojatie",
-"Jalankulun ja pyöräilyn tasoristeys",
 "polkupyörien",
 "rautatie",
+"Kävelyn ja pyöräilyn tasoristeys",
 "jalankulku",
 "pyörällä",
 "tasoristeys",
@@ -4068,6 +4386,9 @@
 "pyörä",
 "polkupyörä",
 "radanylitys"
+],
+"railway/derail":[
+"Raiteensulku"
 ],
 "railway/disused":[
 "Käyttämätön rautatie"
@@ -4116,6 +4437,9 @@
 "railway/rail":[
 "Rata"
 ],
+"railway/rail/highspeed":[
+"Suurnopeusrata"
+],
 "railway/signal":[
 "Rautatieopastin",
 "rautatie",
@@ -4154,14 +4478,17 @@
 "relation":[
 "Relaatio"
 ],
-"roundabout":[
-"Liikenneympyrä"
-],
 "route/ferry":[
 "Lauttareitti"
 ],
 "seamark":[
 "Merimerkintä"
+],
+"seamark/buoy_lateral/green":[
+"Vihreä poiju"
+],
+"seamark/buoy_lateral/red":[
+"Punainen poiju"
 ],
 "seamark/mooring":[
 "Veneenkiinnityspaikka"
@@ -4197,7 +4524,7 @@
 "shop/anime":[
 "cosplay",
 "pukeutuminen",
-"Anime-myymälä",
+"Animemyymälä",
 "manga",
 "anime"
 ],
@@ -4318,6 +4645,9 @@
 "polkupyörän varaosa",
 "pyöräkauppa"
 ],
+"shop/boat":[
+"Venekauppa"
+],
 "shop/bookmaker":[
 "Kirjapaino"
 ],
@@ -4325,15 +4655,16 @@
 "Kirjakauppa"
 ],
 "shop/boutique":[
-"asuste",
-"Muotiliike",
-"vaate"
+"Muotiliike"
 ],
 "shop/butcher":[
 "Lihakauppa"
 ],
 "shop/candles":[
 "Kynttiläkauppa"
+],
+"shop/cannabis":[
+"Kannabiskauppa"
 ],
 "shop/car":[
 "Autokauppa"
@@ -4414,6 +4745,9 @@
 "halonen",
 "mango",
 "vaatetus"
+],
+"shop/clothes/underwear":[
+"Alusvaatekauppa"
 ],
 "shop/coffee":[
 "Kahvikauppa"
@@ -4507,6 +4841,9 @@
 "Erotiikkamyymälä",
 "putiikki"
 ],
+"shop/erotic/lgbtq":[
+"Seksuaalivähemmistöjen erotiikkamyymälä"
+],
 "shop/fabric":[
 "Rakennusliike"
 ],
@@ -4526,6 +4863,12 @@
 "shop/fashion":[
 "Muotiliike"
 ],
+"shop/fireplace":[
+"Takkamyymälä"
+],
+"shop/fishing":[
+"Kalastuskauppa"
+],
 "shop/fishmonger":[
 "Kalakauppa"
 ],
@@ -4539,6 +4882,14 @@
 "taulunkehys",
 "kehys"
 ],
+"shop/frozen_food":[
+"Pakasteruokakauppa"
+],
+"shop/fuel":[
+"Polttoainemyymälä",
+"polttoaineliike",
+"polttoainekauppa"
+],
 "shop/funeral_directors":[
 "vainaja",
 "hautajaiset",
@@ -4551,6 +4902,17 @@
 ],
 "shop/furniture":[
 "Huonekaluliike"
+],
+"shop/games":[
+"live-roolipelaaminen",
+"LARP",
+"sotapeli",
+"pelikauppa",
+"lautapeli",
+"korttipeli",
+"strategiapeli",
+"noppapeli",
+"Lautapeliliike"
 ],
 "shop/garden_centre":[
 "Puutarhamyymälä"
@@ -4568,6 +4930,10 @@
 "täyttö",
 "kaasu",
 "jälleenmyynti"
+],
+"shop/general":[
+"kyläkauppa",
+"Sekatavarakauppa"
 ],
 "shop/gift":[
 "Lahjamyymälä"
@@ -4635,7 +5001,13 @@
 "Luontaistuotemyymälä"
 ],
 "shop/hifi":[
-"Hifi-myymälä"
+"Hifimyymälä"
+],
+"shop/houseware":[
+"Kotitarvikekauppa"
+],
+"shop/hunting":[
+"Metsästyskauppa"
 ],
 "shop/interior_decoration":[
 "kalustus",
@@ -4659,8 +5031,14 @@
 "shop/laundry":[
 "Pesula"
 ],
+"shop/laundry/self_service":[
+"Itsepalvelupesula"
+],
 "shop/leather":[
 "Nahkaliike"
+],
+"shop/lighting":[
+"Valaisinkauppa"
 ],
 "shop/locksmith":[
 "hälytin",
@@ -4685,6 +5063,7 @@
 "ostoskeskus",
 "Kauppakeskus",
 "kauppakeskus",
+"ostari",
 "kauppakeskittymä"
 ],
 "shop/massage":[
@@ -4748,6 +5127,9 @@
 ],
 "shop/outdoor":[
 "Ulkoilmamyymälä"
+],
+"shop/outpost":[
+"Verkkokaupan noutopiste"
 ],
 "shop/paint":[
 "Maalikauppa",
@@ -4841,6 +5223,9 @@
 "käytetty",
 "jälleenmyynti"
 ],
+"shop/sewing":[
+"Ompelutarvikeliike"
+],
 "shop/shoes":[
 "Kenkäkauppa"
 ],
@@ -4862,7 +5247,7 @@
 "Varastonvuokrauspalvelu"
 ],
 "shop/supermarket":[
-"Supermarket"
+"Supermarketti"
 ],
 "shop/tailor":[
 "Räätäliliike"
@@ -4952,6 +5337,9 @@
 "Kellokauppa",
 "putiikki"
 ],
+"shop/water":[
+"Juomavesikauppa"
+],
 "shop/water_sports":[
 "uiminen",
 "sukeltaminen",
@@ -4976,6 +5364,9 @@
 "ampuma-ase",
 "starttipistooli"
 ],
+"shop/wholesale":[
+"Tukkukauppa"
+],
 "shop/window_blind":[
 "rullakaihdin",
 "rullaverho",
@@ -4992,6 +5383,12 @@
 ],
 "shop/wine":[
 "Viinikauppa"
+],
+"tactile_paving":[
+"Huomioreuna näkövammaisille"
+],
+"telecom/data_center":[
+"Tietoliikennekeskus"
 ],
 "tourism":[
 "Turismi"
@@ -5023,6 +5420,17 @@
 "taide",
 "taideteos",
 "patsas"
+],
+"tourism/artwork/bust":[
+"Rintakuva",
+"pysti"
+],
+"tourism/artwork/graffiti":[
+"Katutaide"
+],
+"tourism/artwork/installation":[
+"installaatio",
+"Tilataideteos"
 ],
 "tourism/artwork/mural":[
 "Seinämaalaus"
@@ -5228,6 +5636,9 @@
 "type/multipolygon":[
 "Monikulmiot"
 ],
+"type/public_transport/stop_area_group":[
+"Joukkoliikennealueiden ryhmä"
+],
 "type/restriction":[
 "Rajoitus"
 ],
@@ -5329,11 +5740,11 @@
 "type/route_master":[
 "Pääreitti"
 ],
+"type/site":[
+"Ryhmä"
+],
 "type/waterway":[
 "Vesireitti"
-],
-"vertex":[
-"Muu"
 ],
 "waterway":[
 "Vesiväylä"
@@ -5378,6 +5789,9 @@
 "tankkaaminen",
 "Venehuoltoasema",
 "meri"
+],
+"waterway/lock_gate":[
+"Sulkuportti"
 ],
 "waterway/river":[
 "Joki"

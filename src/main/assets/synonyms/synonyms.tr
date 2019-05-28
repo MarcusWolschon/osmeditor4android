@@ -298,6 +298,9 @@
 "amenity/parking_space":[
 "Park Yeri"
 ],
+"amenity/pharmacy":[
+"Eczane"
+],
 "amenity/place_of_worship":[
 "İbadethane",
 "İbadet Yeri"
@@ -435,15 +438,9 @@
 "amenity/vending_machine/drinks":[
 "İçecek Otomatı"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Dışkı Toplama Poşet Otomatı"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "Kadın Sağlık Otomatı",
 "Kadın Sağlık Otomatik Satış Makinası"
-],
-"amenity/vending_machine/news_papers":[
-"Gazete Otomatı"
 ],
 "amenity/vending_machine/newspapers":[
 "Gazete Satış Makinası",
@@ -490,9 +487,6 @@
 ],
 "attraction/amusement_ride":[
 "Eğlence Yolculuğu"
-],
-"attraction/animal":[
-"Hayvan"
 ],
 "attraction/big_wheel":[
 "Dönme Dolap"
@@ -590,6 +584,9 @@
 "building":[
 "Yapı",
 "Bina"
+],
+"building/apartments":[
+"Residans"
 ],
 "building/barn":[
 "Samanlık"
@@ -721,9 +718,6 @@
 "building/terrace":[
 "Sıra Evler"
 ],
-"building/train_station":[
-"Tren İstasyonu"
-],
 "building/transportation":[
 "Terminal"
 ],
@@ -736,9 +730,6 @@
 ],
 "camp_site/camp_pitch":[
 "Kamp Ateş Alanı"
-],
-"circular":[
-"Dönel Kavşak"
 ],
 "club":[
 "Kulüp",
@@ -966,23 +957,11 @@
 "golf/hole":[
 "Delik"
 ],
-"golf/lateral_water_hazard_area":[
-"Yanda Su Alanı"
-],
-"golf/lateral_water_hazard_line":[
-"Yanda Su Hattı"
-],
 "golf/rough":[
 "Sert"
 ],
 "golf/tee":[
 "Başlama Yeri"
-],
-"golf/water_hazard_area":[
-"Su Alanı"
-],
-"golf/water_hazard_line":[
-"Su Hattı"
 ],
 "healthcare":[
 "Sağlık Merkezi"
@@ -1247,7 +1226,6 @@
 "Kavşak"
 ],
 "landuse":[
-"Toprak Kullanımı",
 "Arazi Kullanımı"
 ],
 "landuse/allotments":[
@@ -1347,9 +1325,7 @@
 "Bağ"
 ],
 "leisure":[
-"Dinlenme",
-"Eğlence",
-"Eğlenme"
+"Eğlence"
 ],
 "leisure/adult_gaming_centre":[
 "Yetişkin Oyun Merkezi"
@@ -1499,7 +1475,6 @@
 "Çizgi"
 ],
 "man_made":[
-"İnsan Yapımı",
 "Yapay"
 ],
 "man_made/adit":[
@@ -1598,7 +1573,6 @@
 "Rogar"
 ],
 "natural":[
-"Tabii",
 "Doğal"
 ],
 "natural/bare_rock":[
@@ -1944,92 +1918,6 @@
 "power/transformer":[
 "Transformatör"
 ],
-"public_transport/linear_platform":[
-"Toplu Taşıma Yolcu İndirme/Bindirme Platformu",
-"Toplu Taşıma Durağı"
-],
-"public_transport/linear_platform_aerialway":[
-"Havayolu ile Taşıma Yolcu İndirme/Bindirme Platformu",
-"Havayolu Durağı"
-],
-"public_transport/linear_platform_bus":[
-"Otobüs Durağı",
-"Otobüs Yolcu İndirme/Bindirme Platformu",
-"Durak"
-],
-"public_transport/linear_platform_ferry":[
-"Feribot Yolcu İndirme/Bindirme Platformu",
-"Feribot Terminali"
-],
-"public_transport/linear_platform_light_rail":[
-"Raybüs",
-"Hafif Raylı Taşıt Yolcu İndirme/Bindirme Platformu",
-"Raybüs Durağı"
-],
-"public_transport/linear_platform_monorail":[
-"Tek Raylı Tren İstasyonu",
-"Tek Raylı Tren Yolcu İndirme/Bindirme Platformu"
-],
-"public_transport/linear_platform_subway":[
-"Metro Yolcu İndirme/Bindirme Platformu",
-"Metro Durağı"
-],
-"public_transport/linear_platform_train":[
-"Tren Durağı",
-"Tren Yolcu İndirme/Bindirme Platformu"
-],
-"public_transport/linear_platform_tram":[
-"Tramvay Durağı",
-"Tramvay Yolcu İndirme/Bindirme Platformu"
-],
-"public_transport/linear_platform_trolleybus":[
-"Troleybüs Durağı",
-"Raysız Tramvay Yolcu İndirme/Bindirme Platformu",
-"Troleybüs"
-],
-"public_transport/platform":[
-"Toplu Taşıma Yolcu İndirme/Bindirme Platformu",
-"Toplu Taşıma Durağı"
-],
-"public_transport/platform_aerialway":[
-"Havayolu ile Taşıma Yolcu İndirme/Bindirme Platformu",
-"Havayolu Durağı"
-],
-"public_transport/platform_bus":[
-"Otobüs Durağı",
-"Otobüs Yolcu İndirme/Bindirme Platformu",
-"Durak"
-],
-"public_transport/platform_ferry":[
-"Feribot Yolcu İndirme/Bindirme Platformu",
-"Feribot Terminali"
-],
-"public_transport/platform_light_rail":[
-"Raybüs",
-"Hafif Raylı Taşıt Yolcu İndirme/Bindirme Platformu",
-"Raybüs Durağı"
-],
-"public_transport/platform_monorail":[
-"Tek Raylı Tren İstasyonu",
-"Tek Raylı Tren Yolcu İndirme/Bindirme Platformu"
-],
-"public_transport/platform_subway":[
-"Metro Yolcu İndirme/Bindirme Platformu",
-"Metro Durağı"
-],
-"public_transport/platform_train":[
-"Tren Durağı",
-"Tren Yolcu İndirme/Bindirme Platformu"
-],
-"public_transport/platform_tram":[
-"Tramvay Durağı",
-"Tramvay Yolcu İndirme/Bindirme Platformu"
-],
-"public_transport/platform_trolleybus":[
-"Troleybüs Durağı",
-"Raysız Tramvay Yolcu İndirme/Bindirme Platformu",
-"Troleybüs"
-],
 "public_transport/station":[
 "Toplu Taşıma Terminali",
 "Toplu Taşıma İstasyonu"
@@ -2163,9 +2051,6 @@
 "İlişki",
 "Bağlantı"
 ],
-"roundabout":[
-"Dönel Kavşak"
-],
 "route/ferry":[
 "Feribot Güzergahı"
 ],
@@ -2225,8 +2110,7 @@
 "Kitapçı"
 ],
 "shop/boutique":[
-"Butik Mağaza",
-"Butik"
+"Butik Mağaza"
 ],
 "shop/butcher":[
 "Kasap"
@@ -2372,9 +2256,6 @@
 ],
 "shop/interior_decoration":[
 "İç Dekorasyon Mağazası"
-],
-"shop/jewelry":[
-"Kuyumcu"
 ],
 "shop/kitchen":[
 "Mutfak Eşyaları Mağazası"
@@ -2731,10 +2612,6 @@
 "type/waterway":[
 "Akarsu",
 "Su Yolu"
-],
-"vertex":[
-"Diğer",
-"Nokta"
 ],
 "waterway":[
 "Su Yolu"

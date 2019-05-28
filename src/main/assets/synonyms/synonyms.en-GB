@@ -422,9 +422,6 @@
 "amenity/vending_machine/elongated_coin":[
 "Elongated Coin Vending Machine"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Excrement Bag Vending Machine"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "Feminine Hygiene Vending Machine"
 ],
@@ -436,9 +433,6 @@
 ],
 "amenity/vending_machine/ice_cream":[
 "Ice Cream Vending Machine"
-],
-"amenity/vending_machine/news_papers":[
-"Newspaper Vending Machine"
 ],
 "amenity/vending_machine/newspapers":[
 "Newspaper Vending Machine"
@@ -484,9 +478,6 @@
 ],
 "attraction/amusement_ride":[
 "Amusement Ride"
-],
-"attraction/animal":[
-"Animal"
 ],
 "attraction/big_wheel":[
 "Big Wheel"
@@ -719,9 +710,6 @@
 "building/terrace":[
 "Terraced houses"
 ],
-"building/train_station":[
-"Train Station"
-],
 "building/transportation":[
 "Transportation Building"
 ],
@@ -733,9 +721,6 @@
 ],
 "camp_site/camp_pitch":[
 "Camp Pitch"
-],
-"circular":[
-"Traffic Circle"
 ],
 "club":[
 "Club"
@@ -944,23 +929,11 @@
 "golf/hole":[
 "Golf Hole"
 ],
-"golf/lateral_water_hazard_area":[
-"Lateral Water Hazard"
-],
-"golf/lateral_water_hazard_line":[
-"Lateral Water Hazard"
-],
 "golf/rough":[
 "Rough"
 ],
 "golf/tee":[
 "Tee Box"
-],
-"golf/water_hazard_area":[
-"Water Hazard"
-],
-"golf/water_hazard_line":[
-"Water Hazard"
 ],
 "healthcare":[
 "Healthcare Facility"
@@ -1019,11 +992,20 @@
 "highway/bus_guideway":[
 "Bus Guideway"
 ],
-"highway/bus_stop":[
-"Bus Stop / Platform"
-],
 "highway/corridor":[
 "Indoor Corridor"
+],
+"highway/crossing/marked":[
+"Marked Crossing"
+],
+"highway/crossing/marked-raised":[
+"Marked Crossing (Raised)"
+],
+"highway/crossing/zebra":[
+"Marked Crossing"
+],
+"highway/crossing/zebra-raised":[
+"Marked Crossing (Raised)"
 ],
 "highway/cycleway":[
 "Cycle Path"
@@ -1033,6 +1015,18 @@
 ],
 "highway/footway":[
 "Foot Path"
+],
+"highway/footway/marked":[
+"Marked Crossing"
+],
+"highway/footway/marked-raised":[
+"Marked Crossing (Raised)"
+],
+"highway/footway/zebra":[
+"Marked Crossing"
+],
+"highway/footway/zebra-raised":[
+"Marked Crossing (Raised)"
 ],
 "highway/give_way":[
 "Give Way Sign"
@@ -1895,66 +1889,6 @@
 "power/transformer":[
 "Transformer"
 ],
-"public_transport/linear_platform":[
-"Transit Stop / Platform"
-],
-"public_transport/linear_platform_aerialway":[
-"Aerialway Stop / Platform"
-],
-"public_transport/linear_platform_bus":[
-"Bus Stop / Platform"
-],
-"public_transport/linear_platform_ferry":[
-"Ferry Stop / Platform"
-],
-"public_transport/linear_platform_light_rail":[
-"Light Rail Stop / Platform"
-],
-"public_transport/linear_platform_monorail":[
-"Monorail Stop / Platform"
-],
-"public_transport/linear_platform_subway":[
-"Subway Stop / Platform"
-],
-"public_transport/linear_platform_train":[
-"Train Stop / Platform"
-],
-"public_transport/linear_platform_tram":[
-"Tram Stop / Platform"
-],
-"public_transport/linear_platform_trolleybus":[
-"Trolleybus Stop / Platform"
-],
-"public_transport/platform":[
-"Transit Stop / Platform"
-],
-"public_transport/platform_aerialway":[
-"Aerialway Stop / Platform"
-],
-"public_transport/platform_bus":[
-"Bus Stop / Platform"
-],
-"public_transport/platform_ferry":[
-"Ferry Stop / Platform"
-],
-"public_transport/platform_light_rail":[
-"Light Rail Stop / Platform"
-],
-"public_transport/platform_monorail":[
-"Monorail Stop / Platform"
-],
-"public_transport/platform_subway":[
-"Subway Stop / Platform"
-],
-"public_transport/platform_train":[
-"Train Stop / Platform"
-],
-"public_transport/platform_tram":[
-"Tram Stop / Platform"
-],
-"public_transport/platform_trolleybus":[
-"Trolleybus Stop / Platform"
-],
 "public_transport/station":[
 "Transit Station"
 ],
@@ -2063,9 +1997,6 @@
 "railway/narrow_gauge":[
 "Narrow Gauge Rail"
 ],
-"railway/platform":[
-"Train Stop / Platform"
-],
 "railway/rail":[
 "Rail"
 ],
@@ -2095,9 +2026,6 @@
 ],
 "relation":[
 "Relation"
-],
-"roundabout":[
-"Roundabout"
 ],
 "route/ferry":[
 "Ferry Route"
@@ -2306,9 +2234,6 @@
 ],
 "shop/interior_decoration":[
 "Interior Decoration Shop"
-],
-"shop/jewelry":[
-"Jeweller"
 ],
 "shop/kitchen":[
 "Kitchen Design Shop"
@@ -2684,9 +2609,6 @@
 ],
 "type/waterway":[
 "Waterway"
-],
-"vertex":[
-"Other"
 ],
 "waterway":[
 "Waterway"

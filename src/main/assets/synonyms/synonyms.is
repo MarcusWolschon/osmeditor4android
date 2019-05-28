@@ -102,6 +102,9 @@
 "amenity/bar":[
 "Knæpa"
 ],
+"amenity/bar/lgbtq":[
+"LGBTQ+ Bar"
+],
 "amenity/bbq":[
 "Grill"
 ],
@@ -318,6 +321,9 @@
 "amenity/place_of_worship/hindu":[
 "Hindú-musteri"
 ],
+"amenity/place_of_worship/jewish":[
+"Bænahús gyðinga"
+],
 "amenity/place_of_worship/shinto":[
 "Shinto-skrín"
 ],
@@ -345,6 +351,9 @@
 ],
 "amenity/pub":[
 "Krá"
+],
+"amenity/pub/lgbtq":[
+"LGBTQ+ Pöbb"
 ],
 "amenity/public_bath":[
 "Almenningsböð"
@@ -508,9 +517,6 @@
 "amenity/vending_machine/elongated_coin":[
 "Sjálfsali fyrir flatta/stimplaða mynt"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Sjálfsali með úrgangspokum"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "Sjálfsali með dömusnyrtivörum"
 ],
@@ -522,9 +528,6 @@
 ],
 "amenity/vending_machine/ice_cream":[
 "Íssjálfsali"
-],
-"amenity/vending_machine/news_papers":[
-"Dagblaðasjálfsali"
 ],
 "amenity/vending_machine/newspapers":[
 "Dagblaðasjálfsali"
@@ -570,9 +573,6 @@
 ],
 "attraction/amusement_ride":[
 "Skemmtitæki"
-],
-"attraction/animal":[
-"Dýr"
 ],
 "attraction/big_wheel":[
 "Parísarhjól"
@@ -811,9 +811,6 @@
 "building/terrace":[
 "Raðhús"
 ],
-"building/train_station":[
-"Lestarstöð"
-],
 "building/transportation":[
 "Samgöngubygging"
 ],
@@ -823,14 +820,17 @@
 "building/warehouse":[
 "Vöruhús"
 ],
+"building_point":[
+"Bygging"
+],
 "camp_site/camp_pitch":[
 "Tjaldstæðishólf"
 ],
-"circular":[
-"Hringakstur"
-],
 "club":[
 "Klúbbur"
+],
+"club/sport":[
+"Íþróttafélag"
 ],
 "craft":[
 "Handverk"
@@ -1045,23 +1045,11 @@
 "golf/hole":[
 "Golfhola"
 ],
-"golf/lateral_water_hazard_area":[
-"Vatnsgryfja til hliðar"
-],
-"golf/lateral_water_hazard_line":[
-"Vatnsgryfja til hliðar"
-],
 "golf/rough":[
 "Kargi"
 ],
 "golf/tee":[
 "Teigur"
-],
-"golf/water_hazard_area":[
-"Vatnsgryfja"
-],
-"golf/water_hazard_line":[
-"Vatnsgryfja"
 ],
 "healthcare":[
 "Heilsugæsluaðstaða"
@@ -1118,7 +1106,7 @@
 "Strætóleiðsagnarbraut"
 ],
 "highway/bus_stop":[
-"Strætóstoppistöð / Biðsvæði"
+"Strætó stoppistöð"
 ],
 "highway/corridor":[
 "Gangur innanhúss"
@@ -1328,11 +1316,17 @@
 "historic/wreck":[
 "Skipsflak"
 ],
+"indoor/room":[
+"Herbergi"
+],
 "internet_access/wlan":[
 "Wi-Fi aðgangspunktur"
 ],
 "junction":[
 "Tenging"
+],
+"junction/roundabout":[
+"Hringtorg"
 ],
 "landuse":[
 "Landnotkun"
@@ -1406,6 +1400,9 @@
 "landuse/plant_nursery":[
 "Uppeldi plantna"
 ],
+"landuse/pond":[
+"Tjörn"
+],
 "landuse/quarry":[
 "Náma"
 ],
@@ -1417,6 +1414,9 @@
 ],
 "landuse/religious":[
 "Svæði fyrir trúarathafnir"
+],
+"landuse/reservoir":[
+"Lón"
 ],
 "landuse/residential":[
 "Íbúðahverfi"
@@ -1541,6 +1541,9 @@
 "leisure/picnic_table":[
 "Nestisborð"
 ],
+"leisure/picnic_table/chess":[
+"Skákborð"
+],
 "leisure/pitch":[
 "Íþróttavöllur"
 ],
@@ -1622,6 +1625,9 @@
 "leisure/track":[
 "Keppnisbraut (ekki mótorsport)"
 ],
+"leisure/track/running":[
+"Hlaupabraut"
+],
 "leisure/water_park":[
 "Vatnagarður"
 ],
@@ -1670,6 +1676,18 @@
 "man_made/mast":[
 "Mastur"
 ],
+"man_made/mast/communication":[
+"Samkiptamastur"
+],
+"man_made/mast/communication/mobile_phone":[
+"Farsíma mastur"
+],
+"man_made/mast/communication/radio":[
+"Útvarpsmastur"
+],
+"man_made/mast/communication/television":[
+"Sjónvarpsmastur"
+],
 "man_made/monitoring_station":[
 "Vöktunarstöð"
 ],
@@ -1681,6 +1699,9 @@
 ],
 "man_made/pier":[
 "Bryggja"
+],
+"man_made/pier/floating":[
+"Flotbryggja"
 ],
 "man_made/pipeline":[
 "Röraleiðsla"
@@ -1697,11 +1718,23 @@
 "man_made/surveillance":[
 "Eftirlit"
 ],
+"man_made/surveillance/camera":[
+"Eftirlitsmyndavél"
+],
 "man_made/survey_point":[
 "Útsýnisstaður"
 ],
 "man_made/tower":[
 "Turn"
+],
+"man_made/tower/bell_tower":[
+"Klukkuturn"
+],
+"man_made/tower/communication":[
+"Samkiptaturn"
+],
+"man_made/tunnel":[
+"Göng"
 ],
 "man_made/wastewater_plant":[
 "Skólphreinsistöð"
@@ -1808,6 +1841,9 @@
 "natural/water":[
 "Vatn"
 ],
+"natural/water/canal":[
+"Síki"
+],
 "natural/water/lake":[
 "Stöðuvatn"
 ],
@@ -1816,6 +1852,12 @@
 ],
 "natural/water/reservoir":[
 "Lón"
+],
+"natural/water/river":[
+"Á"
+],
+"natural/water/stream":[
+"Lækur"
 ],
 "natural/wetland":[
 "Votlendi"
@@ -2108,73 +2150,8 @@
 "power/transformer":[
 "Straumbreytir"
 ],
-"public_transport/linear_platform":[
-"Biðstöð / Biðsvæði",
-"strætó",
-"almenningssamgöngur",
-"samgöngur",
-"stoppistöð"
-],
-"public_transport/linear_platform_aerialway":[
-"Lyftustöð / Biðsvæði"
-],
-"public_transport/linear_platform_bus":[
-"Strætóstoppistöð / Biðsvæði"
-],
-"public_transport/linear_platform_ferry":[
-"Ferjustöð / Biðsvæði"
-],
-"public_transport/linear_platform_light_rail":[
-"Léttlestarstoppistöð / Biðsvæði"
-],
-"public_transport/linear_platform_monorail":[
-"Einteinungsstoppistöð / Biðsvæði"
-],
-"public_transport/linear_platform_subway":[
-"Neðanjarðarlestarpallur"
-],
-"public_transport/linear_platform_train":[
-"Lestarpallur"
-],
-"public_transport/linear_platform_tram":[
-"Sporvagnastoppistöð / Biðsvæði"
-],
-"public_transport/linear_platform_trolleybus":[
-"Strætóstoppistöð / Biðsvæði"
-],
-"public_transport/platform":[
-"Biðstöð / Biðsvæði",
-"strætó",
-"almenningssamgöngur",
-"samgöngur",
-"stoppistöð"
-],
-"public_transport/platform_aerialway":[
-"Lyftustöð / Biðsvæði"
-],
-"public_transport/platform_bus":[
-"Strætóstoppistöð / Biðsvæði"
-],
-"public_transport/platform_ferry":[
-"Ferjustöð / Biðsvæði"
-],
-"public_transport/platform_light_rail":[
-"Léttlestarstoppistöð / Biðsvæði"
-],
-"public_transport/platform_monorail":[
-"Einteinungsstoppistöð / Biðsvæði"
-],
-"public_transport/platform_subway":[
-"Neðanjarðarlestarpallur"
-],
-"public_transport/platform_train":[
-"Lestarpallur"
-],
-"public_transport/platform_tram":[
-"Sporvagnastoppistöð / Biðsvæði"
-],
-"public_transport/platform_trolleybus":[
-"Strætóstoppistöð / Biðsvæði"
+"public_transport/platform/bus_point":[
+"Strætó stoppistöð"
 ],
 "public_transport/station":[
 "Umferðarmiðstöð",
@@ -2290,9 +2267,6 @@
 "railway/narrow_gauge":[
 "Mjótt lestarspor"
 ],
-"railway/platform":[
-"Lestarpallur"
-],
 "railway/rail":[
 "Lestarteinar"
 ],
@@ -2322,9 +2296,6 @@
 ],
 "relation":[
 "Tengsl"
-],
-"roundabout":[
-"Hringtorg"
 ],
 "route/ferry":[
 "Ferjuleið"
@@ -2509,6 +2480,9 @@
 "shop/frame":[
 "Innrömmun"
 ],
+"shop/frozen_food":[
+"Frosin matvæli"
+],
 "shop/funeral_directors":[
 "Útfararheimili"
 ],
@@ -2551,11 +2525,14 @@
 "shop/houseware":[
 "Búsáhaldaverslun"
 ],
+"shop/hunting":[
+"Veiðibúð"
+],
 "shop/interior_decoration":[
 "Innanhúshönnunarverslun"
 ],
 "shop/jewelry":[
-"Skartgripabúð"
+"Skartgripaverslun"
 ],
 "shop/kiosk":[
 "Blaðastandur"
@@ -2855,6 +2832,15 @@
 "traffic_sign":[
 "Umferðarmerki"
 ],
+"traffic_sign/city_limit":[
+"Þéttbýlis skilti"
+],
+"traffic_sign/city_limit_vertex":[
+"Þéttbýlis skilti"
+],
+"traffic_sign_vertex":[
+"Umferðarskilti"
+],
 "type/boundary":[
 "Svæðamörk"
 ],
@@ -2947,9 +2933,6 @@
 ],
 "type/waterway":[
 "Siglingaleið"
-],
-"vertex":[
-"Annað"
 ],
 "waterway":[
 "Siglingaleið"

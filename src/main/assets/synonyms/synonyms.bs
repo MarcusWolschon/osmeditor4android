@@ -132,10 +132,7 @@
 "Voda za piće"
 ],
 "amenity/embassy":[
-"ambasada",
-"predstavništvo strane zemlje",
-"Ambasada",
-"konzulat"
+"Ambasada"
 ],
 "amenity/fast_food":[
 "fast food",
@@ -750,8 +747,6 @@
 "vinograd"
 ],
 "leisure":[
-"razonoda",
-"rekreacija",
 "Rekreacija"
 ],
 "leisure/common":[
@@ -846,10 +841,7 @@
 "linija"
 ],
 "man_made":[
-"napravljeno ljudskom rukom",
-"Napravljeno ljudskom rukom",
-"vještačko",
-"umjetno"
+"Napravljeno ljudskom rukom"
 ],
 "man_made/breakwater":[
 "lukobran",
@@ -911,8 +903,7 @@
 "snadbjevanje vodom"
 ],
 "natural":[
-"Prirodno područje",
-"prirodno područje"
+"Prirodno područje"
 ],
 "natural/bay":[
 "Zaliv",
@@ -1250,9 +1241,7 @@
 "Prodavnica bicikala"
 ],
 "shop/boutique":[
-"butik",
-"Butik",
-"radnja za prodaju odjeće"
+"Butik"
 ],
 "shop/butcher":[
 "Mesar",
@@ -1358,11 +1347,6 @@
 "radnja za prodaju HiFi uređaja",
 "HiFi prodavnica"
 ],
-"shop/jewelry":[
-"Zlatar",
-"zlatara",
-"radnja za prodaju nakita"
-],
 "shop/laundry":[
 "Praonica",
 "praonica",
@@ -1461,9 +1445,7 @@
 "Video klub"
 ],
 "tourism":[
-"Turizam",
-"putovanja",
-"turizam"
+"Turizam"
 ],
 "tourism/alpine_hut":[
 "alpska koliba",
@@ -1622,11 +1604,6 @@
 "Informacije o rutama",
 "informacije o trasama",
 "informacije o rutama"
-],
-"vertex":[
-"ostalo",
-"drugo",
-"Drugo"
 ],
 "waterway":[
 "Vodotok"

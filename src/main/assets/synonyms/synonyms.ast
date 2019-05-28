@@ -242,9 +242,7 @@
 "carné"
 ],
 "amenity/embassy":[
-"Consuláu",
-"Embaxada",
-"Representación diplomática"
+"Embaxada"
 ],
 "amenity/fast_food":[
 "Comida rápida",
@@ -475,20 +473,11 @@
 "agua",
 "café"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Máquina de venta de bolses d'escrementos",
-"bolses",
-"máquina",
-"perros.gatos"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "compresa",
 "tampón",
 "Máquina de venta d'hixénicos femeninos",
 "máquina"
-],
-"amenity/vending_machine/news_papers":[
-"Máquina de venta de periódicos"
 ],
 "amenity/vending_machine/newspapers":[
 "revistes",
@@ -553,9 +542,6 @@
 "suelu",
 "firme",
 "pisu"
-],
-"attraction/animal":[
-"Animales"
 ],
 "attraction/big_wheel":[
 "rueda",
@@ -754,9 +740,6 @@
 ],
 "building/terrace":[
 "Filera de cases"
-],
-"building/train_station":[
-"Estación de tren"
 ],
 "building/university":[
 "Edificiu universitariu"
@@ -999,23 +982,11 @@
 "golf/hole":[
 "Furacu de golf"
 ],
-"golf/lateral_water_hazard_area":[
-"Llagu d'agua llateral en golf"
-],
-"golf/lateral_water_hazard_line":[
-"Llagu d'agua llateral en golf"
-],
 "golf/rough":[
 "Rough de golf"
 ],
 "golf/tee":[
 "Salida de percorríu"
-],
-"golf/water_hazard_area":[
-"Llagu de golf"
-],
-"golf/water_hazard_line":[
-"Llagu de golf"
 ],
 "healthcare":[
 "Instalación sanitaria"
@@ -1062,9 +1033,6 @@
 "highway/bridleway":[
 "Camín de ferradura",
 "Camín de caballeríes"
-],
-"highway/bus_stop":[
-"Andén / Parada d'autobús"
 ],
 "highway/corridor":[
 "Pasiellu d'edificiu"
@@ -1810,63 +1778,6 @@
 "power/transformer":[
 "Tresformador"
 ],
-"public_transport/linear_platform":[
-"Andén / Parada de tresporte"
-],
-"public_transport/linear_platform_aerialway":[
-"Andén / Parada de remonte"
-],
-"public_transport/linear_platform_bus":[
-"Andén / Parada d'autobús"
-],
-"public_transport/linear_platform_ferry":[
-"Andén / Parada de ferry"
-],
-"public_transport/linear_platform_light_rail":[
-"Andén / Parada de tren llixeru"
-],
-"public_transport/linear_platform_monorail":[
-"Andén / Parada de monocarril"
-],
-"public_transport/linear_platform_subway":[
-"Andén / Parada de metro"
-],
-"public_transport/linear_platform_train":[
-"Andén / Parada de tren"
-],
-"public_transport/linear_platform_tram":[
-"Andén / Parada de tranvía"
-],
-"public_transport/linear_platform_trolleybus":[
-"Andén / Parada de trolebús"
-],
-"public_transport/platform":[
-"Andén / Parada de tresporte"
-],
-"public_transport/platform_bus":[
-"Andén / Parada d'autobús"
-],
-"public_transport/platform_ferry":[
-"Andén / Parada de ferry"
-],
-"public_transport/platform_light_rail":[
-"Andén / Parada de tren llixeru"
-],
-"public_transport/platform_monorail":[
-"Andén / Parada de monocarril"
-],
-"public_transport/platform_subway":[
-"Andén / Parada de metro"
-],
-"public_transport/platform_train":[
-"Andén / Parada de tren"
-],
-"public_transport/platform_tram":[
-"Andén / Parada de tranvía"
-],
-"public_transport/platform_trolleybus":[
-"Andén / Parada de trolebús"
-],
 "public_transport/station":[
 "Estación d'intercambiu"
 ],
@@ -1922,9 +1833,6 @@
 "Vía estrecha",
 "FEVE"
 ],
-"railway/platform":[
-"Andén / Parada de tren"
-],
 "railway/rail":[
 "Carril"
 ],
@@ -1947,9 +1855,6 @@
 ],
 "relation":[
 "Rellación"
-],
-"roundabout":[
-"Rotonda"
 ],
 "route/ferry":[
 "Ruta de ferry"
@@ -2068,9 +1973,7 @@
 "sex-shop"
 ],
 "shop/fashion":[
-"boutique",
-"Tienda de moda",
-"moda"
+"Tienda de moda"
 ],
 "shop/fishmonger":[
 "Pescadería"
@@ -2127,9 +2030,6 @@
 ],
 "shop/interior_decoration":[
 "Decoración d'interiores"
-],
-"shop/jewelry":[
-"Xoyería"
 ],
 "shop/kiosk":[
 "Quioscu"
@@ -2513,9 +2413,6 @@
 ],
 "type/waterway":[
 "Vía acuática"
-],
-"vertex":[
-"Otru"
 ],
 "waterway":[
 "Vía acuática"

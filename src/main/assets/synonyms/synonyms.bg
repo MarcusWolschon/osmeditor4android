@@ -638,9 +638,6 @@
 "shop/houseware":[
 "Домашни потреби"
 ],
-"shop/jewelry":[
-"Бижутер"
-],
 "shop/laundry":[
 "Пералня"
 ],
@@ -793,9 +790,6 @@
 ],
 "type/route_master":[
 "Маршрутна схема"
-],
-"vertex":[
-"Друг"
 ],
 "waterway":[
 "Води"

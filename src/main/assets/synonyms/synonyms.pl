@@ -21,7 +21,7 @@
 "Kolejka górska"
 ],
 "aerialway/chair_lift":[
-"Wyciąg narciarski krzesełkowy",
+"wyciąg narciarski krzesełkowy",
 "Wyciag krzesełkowy"
 ],
 "aerialway/drag_lift":[
@@ -30,13 +30,18 @@
 "wyciąg orczykowy"
 ],
 "aerialway/gondola":[
-"Wyciąg narciarski gondolowy",
-"Gondola"
+"wyciąg narciarski gondolowy",
+"Gondola",
+"gondola"
 ],
 "aerialway/goods":[
 "Wyciąg towarowy",
 "wyciąg towarowy",
 "gondola towarowa"
+],
+"aerialway/j-bar":[
+"Wyciąg J-bar",
+"wyciąg narciarski j-bar"
 ],
 "aerialway/magic_carpet":[
 "Wyciąg narciarski dywanowy",
@@ -48,7 +53,8 @@
 "wyciąg hybrydowy"
 ],
 "aerialway/platter":[
-"Wyciąg talerzykowy"
+"Wyciąg talerzykowy",
+"wyciąg talerzykowy"
 ],
 "aerialway/pylon":[
 "Podpora",
@@ -66,6 +72,11 @@
 "aerialway/t-bar":[
 "Wyciąg orczykowy podwójny",
 "orczyk podwójny"
+],
+"aerialway/zip_line":[
+"Kolejka tyrolska",
+"tyrolka",
+"kolejka tyrolska"
 ],
 "aeroway":[
 "Infrastruktura lotnicza"
@@ -91,9 +102,16 @@
 "hala"
 ],
 "aeroway/helipad":[
+"lądowisko dla śmigłowców",
 "Lądowisko dla helikopterów",
-"Lotnisko",
-"lądowisko"
+"śmigłowiec",
+"lądowisko dla helikopterów",
+"lotnisko"
+],
+"aeroway/jet_bridge":[
+"Rękaw lotniczy",
+"pomost lotniczy",
+"rękaw lotniczy"
 ],
 "aeroway/runway":[
 "rozbieg",
@@ -111,6 +129,15 @@
 "terminal",
 "terminal pasażerski",
 "port lotniczy"
+],
+"aeroway/windsock":[
+"anemometr",
+"anemoskop",
+"Rękaw (wiatrowskaz)",
+"wiatromierz",
+"rękaw",
+"wiatrowskaz",
+"wskaźnik wiatru"
 ],
 "allotments/plot":[
 "działka",
@@ -136,8 +163,10 @@
 "adopcja zwierząt"
 ],
 "amenity/arts_centre":[
-"Centrum sztuki",
-"Centrum artystyczne"
+"sztuka",
+"Centrum artystyczne",
+"centrum artystyczne",
+"centrum sztuki"
 ],
 "amenity/atm":[
 "wydawanie pieniędzy",
@@ -152,8 +181,18 @@
 ],
 "amenity/bar":[
 "wyszynk",
+"bar",
+"bar koktajlowy",
+"koktajle",
+"koktajl bar",
 "Bar alkoholowy",
-"knajpa"
+"drinki"
+],
+"amenity/bar/lgbtq":[
+"bar dla homoseksualistów",
+"Bar LGBT",
+"lesbijek",
+"gejów"
 ],
 "amenity/bbq":[
 "barbecue",
@@ -171,13 +210,33 @@
 "stojak",
 "Parking dla rowerów"
 ],
+"amenity/bicycle_parking/building":[
+"Garaż dla rowerów",
+"parking rowerowy",
+"garaż dla rowerów",
+"parking dla rowerów"
+],
+"amenity/bicycle_parking/lockers":[
+"parking rowerowy",
+"szafki na rowery",
+"parking dla rowerów",
+"Szafki na rowery"
+],
+"amenity/bicycle_parking/shed":[
+"parking rowerowy",
+"wiata na rowery",
+"parking dla rowerów",
+"Wiata na rowery"
+],
 "amenity/bicycle_rental":[
 "Wypożyczalnia rowerów",
 "wypożyczalnia"
 ],
 "amenity/bicycle_repair_station":[
+"serwis",
+"naprawa rowerów",
 "Samoobsługowa stacja naprawy rowerów",
-"Naprawa rowerów"
+"rowery"
 ],
 "amenity/biergarten":[
 "Ogródek piwny",
@@ -200,7 +259,9 @@
 "Kawiarnia",
 "kawa",
 "kawiarnia",
-"herbata"
+"herbata",
+"herbaciarnia",
+"kawiarenka"
 ],
 "amenity/car_pooling":[
 "z pasażerem",
@@ -264,6 +325,13 @@
 "zegarek",
 "Zegar"
 ],
+"amenity/clock/sundial":[
+"gnomon",
+"solarium",
+"słoneczny",
+"Zegar słoneczny",
+"słońce"
+],
 "amenity/college":[
 "teren szkoły policealnej",
 "Teren szkoły policealnej"
@@ -273,9 +341,23 @@
 "Centrum społeczności",
 "dom kultury"
 ],
+"amenity/community_centre/lgbtq":[
+"centrum społeczności lgbt",
+"lgbtq",
+"lesbijek",
+"Centrum społeczności LGBT",
+"gejów"
+],
 "amenity/compressed_air":[
 "kompresor",
 "Kompresor"
+],
+"amenity/conference_centre":[
+"konferencja",
+"centrum konferencyjne",
+"zlot",
+"Centrum konferencyjne",
+"centrum kongresowe"
 ],
 "amenity/courthouse":[
 "sąd",
@@ -292,6 +374,8 @@
 "amenity/dentist":[
 "stomatolog",
 "gabinet stomatologiczny",
+"dentysta",
+"ortodonta",
 "Dentysta"
 ],
 "amenity/dive_centre":[
@@ -301,10 +385,28 @@
 "nurkowanie"
 ],
 "amenity/doctors":[
+"nzoz",
 "doktor",
+"medycyna",
+"ginekolog",
+"internista",
+"kardiolog",
 "gabinet lekarski",
+"okulista",
+"alergolog",
+"pediatra",
+"Gabinet lekarski lub przychodnia",
+"neurolog",
+"przychodnia",
+"centrum medyczne",
+"psychiatra",
+"poradnia",
 "lekarz",
-"Gabinet lekarski lub praktyka lekarzy rodzinnych"
+"zdrowie",
+"ortopeda",
+"laryngolog",
+"dermatolog",
+"leczenie"
 ],
 "amenity/dojo":[
 "Dojo",
@@ -322,18 +424,38 @@
 "Szkoła nauki jazdy"
 ],
 "amenity/embassy":[
-"Ambasada/konsulat",
-"konsulat",
-"ambasada"
+"Ambasada/konsulat"
+],
+"amenity/events_venue":[
+"wesela",
+"imprezy",
+"uroczystości",
+"bankiety",
+"Sala bankietowa",
+"sala bankietowa",
+"przyjęcia"
 ],
 "amenity/fast_food":[
-"McDonald",
-"bar",
+"gyros",
+"stołówka",
 "fast food",
 "McDonald's",
+"jadalnia",
+"bar mleczny",
+"hot dog",
+"knajpa",
+"McDonald",
+"karczma",
+"bar",
+"gospoda",
+"kantyna",
+"pizzeria",
+"bufet",
 "kebab",
-"Bar/fast-food",
-"hot dog"
+"bistro",
+"drive-in",
+"zajazd",
+"Bar / fast food"
 ],
 "amenity/fast_food/burger":[
 "burgery",
@@ -342,16 +464,39 @@
 ],
 "amenity/fast_food/chicken":[
 "kurczak z rożna",
-"Bar z kurczakiem z rożna"
+"Bar z kurczakiem"
+],
+"amenity/fast_food/donut":[
+"sklep z donutami",
+"Sklep z donutami"
 ],
 "amenity/fast_food/fish_and_chips":[
 "Bar z rybą i frytkami",
 "bar z rybą i frytkami"
 ],
+"amenity/fast_food/ice_cream":[
+"Bar z lodami"
+],
 "amenity/fast_food/kebab":[
 "kebap",
 "Bar z kebabem",
 "kebab"
+],
+"amenity/fast_food/mexican":[
+"quesadillas",
+"fajitas",
+"nachos",
+"tex-mex",
+"tortillas",
+"tacos",
+"enchiladas",
+"burritos",
+"salsa",
+"taco",
+"meksykański",
+"burrito",
+"Bar meksykański",
+"tamales"
 ],
 "amenity/fast_food/pizza":[
 "Bar z pizzą",
@@ -393,16 +538,20 @@
 "pochówek"
 ],
 "amenity/grit_bin":[
-"pojemnik z żwirem",
-"Pojemnik z piaskiem, żwirem..."
+"Pojemnik z piaskiem lub żwirem",
+"pojemnik z żwirem"
 ],
 "amenity/hospital":[
+"chory",
+"teren szpitala",
 "szpital",
 "chirurgia",
+"zdrowie",
 "ambulatorium",
 "oddział",
 "Teren szpitala",
-"służba zdrowia"
+"służba zdrowia",
+"leczenie"
 ],
 "amenity/hunting_stand":[
 "Ambona strzelnicza",
@@ -435,8 +584,8 @@
 ],
 "amenity/love_hotel":[
 "krótki pobyt",
+"Love hotel",
 "love hotel",
-"Hotel Dla Par",
 "xxx",
 "dla par"
 ],
@@ -451,8 +600,14 @@
 "klasztor",
 "Teren klasztoru"
 ],
+"amenity/money_transfer":[
+"Western Union",
+"pieniądze",
+"gotówka",
+"Placówka przekazów pieniężnych"
+],
 "amenity/motorcycle_parking":[
-"Parking dla motocyklów",
+"Parking dla motocykli",
 "miejsce postojowe dla motocyklów"
 ],
 "amenity/music_school":[
@@ -462,9 +617,16 @@
 "Szkoła muzyczna niepodlegająca MEN"
 ],
 "amenity/nightclub":[
+"striptiz",
 "Klub nocny",
 "klub dla dorosłych",
 "striptease"
+],
+"amenity/nightclub/lgbtq":[
+"Klub nocny LGBT",
+"klub nocny dla homoseksualistów",
+"lesbijek",
+"gejów"
 ],
 "amenity/nursing_home":[
 "Dom spokojnej starości"
@@ -485,6 +647,11 @@
 "rampa parkingowa",
 "budynek parkingu",
 "parking wewnętrzny"
+],
+"amenity/parking/underground":[
+"parking podziemny",
+"parking samochodowy",
+"Parking podziemny"
 ],
 "amenity/parking_entrance":[
 "wyjazd z garażu",
@@ -520,17 +687,27 @@
 "ekiosk",
 "finanse"
 ],
+"amenity/pharmacy":[
+"apteka",
+"leki",
+"Apteka"
+],
+"amenity/photo_booth":[
+"zdjęcia",
+"Fotobudka",
+"zdjęcie"
+],
 "amenity/place_of_worship":[
 "prezbiterium",
 "meczet",
 "kościół",
-"dom Boży",
 "kaplica",
 "dom modlitwy",
 "owczarnia",
 "parafia",
 "bazylika",
 "tum",
+"Dom Boży",
 "synagoga",
 "opactwo",
 "świątynia",
@@ -550,9 +727,35 @@
 "stupa",
 "dojo"
 ],
+"amenity/place_of_worship/christian":[
+"prezbiterium",
+"chrześcijaństwo",
+"kaplica",
+"dom modlitwy",
+"Kościół",
+"parafia",
+"bazylika",
+"Dom Boży",
+"opactwo",
+"świątynia",
+"tabernakulum",
+"oratorium",
+"katedra",
+"katolicki",
+"misja",
+"sanktuarium"
+],
 "amenity/place_of_worship/hindu":[
 "Świątynia hinduistyczna",
 "świątynia hinduistyczna"
+],
+"amenity/place_of_worship/jewish":[
+"Synagoga (czynna)",
+"synagoga"
+],
+"amenity/place_of_worship/muslim":[
+"meczet",
+"Meczet (czynny)"
 ],
 "amenity/place_of_worship/shinto":[
 "jinja",
@@ -582,8 +785,6 @@
 "odznaka",
 "gliniarz",
 "funkcjonariusze",
-"smerfy",
-"psy",
 "policja",
 "straż gminna",
 "Policja/straż miejsca lub gminna",
@@ -601,6 +802,12 @@
 "urząd pocztowy",
 "Poczta/agencja pocztowa"
 ],
+"amenity/prep_school":[
+"korepetycje",
+"szkolenia",
+"Szkolenia / korepetycje",
+"szkoła"
+],
 "amenity/prison":[
 "tereny więzienne",
 "Teren więzienia"
@@ -610,6 +817,19 @@
 "piwo",
 "pub",
 "Pub"
+],
+"amenity/pub/lgbtq":[
+"pub dla homoseksualistów",
+"lesbijek",
+"Pub LGBT",
+"gejów"
+],
+"amenity/pub/microbrewery":[
+"Brewpub",
+"piwo",
+"brewpub",
+"pub",
+"browar"
 ],
 "amenity/public_bath":[
 "Łazienki",
@@ -653,20 +873,13 @@
 "Urząd stanu cywilnego"
 ],
 "amenity/restaurant":[
-"klub nocny",
-"fast food",
-"Stołówka",
-"Jadalnia",
-"knajpa",
-"jadłodajnia",
-"Kawiarnia",
 "karczma",
-"Bar",
 "gospoda",
 "pizzeria",
 "Restauracja",
-"drive-in",
-"grill",
+"restauracja",
+"bistro",
+"knajpa",
 "zajazd"
 ],
 "amenity/restaurant/american":[
@@ -762,7 +975,7 @@
 ],
 "amenity/school":[
 "tereny szkolne",
-"Szkoła podstawowa/średnia - teren (nie stosować dla budynku!)"
+"Szkoła podstawowa/średnia – teren (nie stosować dla budynku!)"
 ],
 "amenity/scrapyard":[
 "Złomowisko"
@@ -776,8 +989,8 @@
 "Altana"
 ],
 "amenity/shelter/lean_to":[
-"zadaszenie",
-"Zadaszenie"
+"schronienie otwarte",
+"Schronienie 3-ścianowe"
 ],
 "amenity/shelter/picnic_shelter":[
 "pawilon",
@@ -800,6 +1013,18 @@
 "dla palących",
 "Palarnia"
 ],
+"amenity/social_centre":[
+"Centrum społecznościowe",
+"wydarzenie",
+"centrum społecznościowe",
+"sala",
+"non proft",
+"bractwo",
+"stowarzyszenie",
+"organizacja",
+"społeczność",
+"związek"
+],
 "amenity/social_facility":[
 "ośrodek opieki społecznej",
 "mops",
@@ -807,6 +1032,10 @@
 "opieka społeczna",
 "gops",
 "Placówka pomocy społecznej"
+],
+"amenity/social_facility/ambulatory_care":[
+"Opieka ambulatoryjna",
+"opieka ambulatoryjna"
 ],
 "amenity/social_facility/food_bank":[
 "Bank żywności"
@@ -858,28 +1087,60 @@
 "grecki"
 ],
 "amenity/toilets":[
+"łazienka",
+"toalety",
+"ubikacja",
 "toaleta",
 "Toalety publiczne",
 "wc"
+],
+"amenity/toilets/disposal/flush":[
+"łazienka",
+"toaleta spłukiwana wodą",
+"ubikacja",
+"wc",
+"WC"
+],
+"amenity/toilets/disposal/pitlatrine":[
+"sławojka",
+"latryna",
+"wychodek",
+"Latryna"
 ],
 "amenity/townhall":[
 "władze miasta",
 "urząd miasta",
 "ratusz",
-"Ratusz - siedziba władz",
 "urząd gminy",
-"starostwo"
+"starostwo",
+"Ratusz"
+],
+"amenity/toy_library":[
+"Wypożyczalnia gier i zabawek",
+"dzieci",
+"zabawka",
+"gra",
+"wypożyczalnia",
+"biblioteka",
+"świetlica",
+"zabawki",
+"planszówka",
+"gry"
 ],
 "amenity/university":[
 "teren uniwersytetu",
-"Teren uczelni wyższej",
 "teren politechniki",
+"Teren uczelni",
 "teren akademii"
 ],
 "amenity/vehicle_inspection":[
+"przeglądy",
+"badania techniczne pojazdów",
 "kontrola pojazdów",
 "kontrola samochodów",
-"Kontrola pojazdów"
+"przeglądy techniczne",
+"Stacja kontroli pojazdów",
+"skp"
 ],
 "amenity/vending_machine":[
 "Automat sprzedający",
@@ -890,6 +1151,7 @@
 ],
 "amenity/vending_machine/coffee":[
 "automat do sprzedaży kawy",
+"kawa",
 "Automat do sprzedaży kawy",
 "kawiarka"
 ],
@@ -939,9 +1201,6 @@
 "automat do sprzedaży lodów",
 "lody",
 "Automat do sprzedaży lodów"
-],
-"amenity/vending_machine/news_papers":[
-"Automat z gazetami"
 ],
 "amenity/vending_machine/newspapers":[
 "Automat z gazetami"
@@ -1020,13 +1279,22 @@
 "nawierzchnia",
 "polna"
 ],
+"attraction":[
+"Atrakcja"
+],
 "attraction/amusement_ride":[
 "przejażdżka rozrywkowa",
 "Przejażdżka rozrywkowa"
 ],
 "attraction/animal":[
+"minizoo",
 "Zwierzę",
-"zwierzę"
+"safari",
+"zwierzęta",
+"zwierzę",
+"akwarium",
+"woliera",
+"papugarnia"
 ],
 "attraction/big_wheel":[
 "Diabelski młyn",
@@ -1054,7 +1322,7 @@
 ],
 "attraction/drop_tower":[
 "wieża spadania",
-"Wieża Swobodnego Spadania"
+"Wieża swobodnego spadania"
 ],
 "attraction/maze":[
 "Labirynt",
@@ -1114,6 +1382,10 @@
 "kratka",
 "Przeszkoda dla bydła"
 ],
+"barrier/chain":[
+"Łańcuch",
+"łańcuch"
+],
 "barrier/city_wall":[
 "Mur miejski",
 "miejski",
@@ -1159,9 +1431,22 @@
 "żywopłot",
 "Żywopłot"
 ],
+"barrier/height_restrictor":[
+"ograniczenie wysokości",
+"Ogranicznik wysokości",
+"ogranicznik wysokości"
+],
 "barrier/kerb":[
 "krawężnik",
 "Krawężnik"
+],
+"barrier/kerb/flush":[
+"porowaty krawężnik",
+"wypustki",
+"z wypustkami",
+"niewidomi",
+"Obniżony krawężnik z wypustkami",
+"niepełnosprawni"
 ],
 "barrier/kerb/lowered":[
 "Obniżony krawężnik",
@@ -1171,8 +1456,17 @@
 "rampa",
 "łagodny zjazd"
 ],
+"barrier/kerb/raised":[
+"Podwyższony krawężnik",
+"podwyższony krawężnik"
+],
+"barrier/kerb/rolled":[
+"Zaokrąglony krawężnik",
+"zaokrąglony krawężnik"
+],
 "barrier/kissing_gate":[
-"Kissing Gate"
+"Kissing gate",
+"kissing gate"
 ],
 "barrier/lift_gate":[
 "Szlaban",
@@ -1182,6 +1476,10 @@
 "oporowy",
 "Mur oporowy",
 "mur"
+],
+"barrier/sally_port":[
+"przejście przez mur",
+"Przejście przez mur"
 ],
 "barrier/stile":[
 "przełaz",
@@ -1193,10 +1491,19 @@
 "poboru",
 "opłat"
 ],
+"barrier/turnstile":[
+"bramka obrotowa",
+"wejście",
+"Bramka obrotowa",
+"wyjście"
+],
 "barrier/wall":[
 "ściana",
 "mur",
 "Mur"
+],
+"boundary":[
+"Granica"
 ],
 "boundary/administrative":[
 "administracyjna",
@@ -1280,7 +1587,7 @@
 "Budynek szkoły policealnej"
 ],
 "building/commercial":[
-"Budynek handlowy/biurowy",
+"Budynek komercyjny",
 "biurowy",
 "sklep",
 "handlowy",
@@ -1296,9 +1603,12 @@
 "Dom wolnostojący"
 ],
 "building/dormitory":[
+"Dom studencki",
+"akademik",
+"student",
 "bursa",
-"Akademik",
-"internat"
+"internat",
+"studencki"
 ],
 "building/entrance":[
 "Wejście/wyjście"
@@ -1308,8 +1618,10 @@
 "Farma"
 ],
 "building/farm_auxiliary":[
-"Gospodarstwo (niemieszkalny)",
-"Farma",
+"farma",
+"gospodarstwo",
+"niemieszkalny",
+"budynek gospodarczy",
 "Budynek gospodarczy"
 ],
 "building/garage":[
@@ -1326,11 +1638,23 @@
 "Trybuna (budynek)"
 ],
 "building/greenhouse":[
-"Szklarnia"
+"palmiarnia",
+"palmiera",
+"szklarnia",
+"cieplarnia",
+"pomarańczarnia",
+"Szklarnia",
+"oranżeria",
+"oranżerium"
+],
+"building/hangar":[
+"hangar",
+"Hangar"
 ],
 "building/hospital":[
+"budynek szpitalny",
 "Budynek szpitala",
-"Budynek szpitalny"
+"budynek szpitala"
 ],
 "building/hotel":[
 "budynek hotelowy",
@@ -1342,12 +1666,17 @@
 "domek",
 "Dom jednorodzinny"
 ],
+"building/houseboat":[
+"barka mieszkalna",
+"Barka mieszkalna",
+"dom na wodzie"
+],
 "building/hut":[
 "schronienie",
 "szopa",
 "koliba",
+"Chata",
 "chata",
-"buda",
 "szałas"
 ],
 "building/industrial":[
@@ -1387,7 +1716,7 @@
 ],
 "building/roof":[
 "wiata",
-"Zadaszenie",
+"Zadaszenie (do 2 ścian)",
 "zadaszenia",
 "dach"
 ],
@@ -1436,7 +1765,7 @@
 "Domki szeregowe"
 ],
 "building/train_station":[
-"Budynek dworca kolejowego"
+"Budynek dworca"
 ],
 "building/transportation":[
 "dworzec",
@@ -1448,147 +1777,298 @@
 "uczelnia",
 "uniwersytet",
 "wydział",
-"Budynek uczelni wyższej",
+"Budynek uczelni",
 "szkoła wyższa"
 ],
 "building/warehouse":[
 "Magazyn"
+],
+"building_part":[
+"Część budynku",
+"wieża",
+"element budynku",
+"dach",
+"część budynku"
+],
+"building_point":[
+"Budynek"
 ],
 "camp_site/camp_pitch":[
 "miejsce na namiot",
 "miejsce na kampera",
 "Indywidualne miejsce na kempingu"
 ],
-"circular":[
-"Skrzyżowanie o ruchu okrężnym"
-],
 "club":[
 "klub",
 "Klub"
 ],
+"club/sport":[
+"Klub sportowy",
+"sportowy",
+"klub"
+],
 "craft":[
+"rzemiosło",
 "rzemieślnicy",
-"Rzemiosło"
+"Rzemiosło",
+"rzemieślnik"
+],
+"craft/agricultural_engines":[
+"rzemiosło",
+"mechanik maszyn rolniczych",
+"rzemieślnicy",
+"rzemieślnik",
+"Mechanik maszyn rolniczych",
+"rolnictwo",
+"maszyny rolnicze"
 ],
 "craft/basket_maker":[
+"rzemiosło",
+"rzemieślnicy",
+"wikliniarz",
+"rzemieślnik",
 "Wikliniarz",
 "wikilina"
 ],
 "craft/beekeeper":[
-"Miód",
+"rzemiosło",
+"rzemieślnicy",
+"rzemieślnik",
+"pszczelarz",
+"miód",
 "Pszczelarz"
 ],
 "craft/blacksmith":[
+"rzemiosło",
+"rzemieślnicy",
 "kowal",
+"rzemieślnik",
 "Kowal"
 ],
 "craft/boatbuilder":[
+"rzemiosło",
+"łódź",
+"rzemieślnicy",
 "Budowa łodzi/jachtów",
-"budowa statków"
+"statek",
+"rzemieślnik",
+"budowa jachtów",
+"budowa statków",
+"budowa łodzi",
+"jacht"
 ],
 "craft/bookbinder":[
+"rzemiosło",
+"rzemieślnicy",
 "Introligator",
+"rzemieślnik",
 "oprawianie",
 "introligator"
 ],
 "craft/brewery":[
+"rzemiosło",
+"rzemieślnicy",
 "Browar",
 "piwo",
+"rzemieślnik",
 "browar"
 ],
 "craft/carpenter":[
-"stolarz",
+"rzemiosło",
+"rzemieślnicy",
+"rzemieślnik",
 "cieśla",
-"Stolarz"
+"drewno",
+"Cieśla"
 ],
 "craft/carpet_layer":[
+"układanie dywanów",
+"rzemiosło",
+"rzemieślnicy",
 "Układanie dywanów",
+"rzemieślnik",
 "dywany"
 ],
 "craft/caterer":[
+"rzemiosło",
+"rzemieślnicy",
+"przyjęć",
 "katering",
-"Żywieniowiec",
+"catering",
+"organizacja wesel",
+"rzemieślnik",
+"imprez",
+"jedzenie",
 "Catering"
 ],
 "craft/chimney_sweeper":[
+"rzemiosło",
 "zakład kominiarski",
+"rzemieślnicy",
+"rzemieślnik",
 "Kominiarz",
 "kominiarz"
 ],
 "craft/clockmaker":[
+"rzemiosło",
+"rzemieślnicy",
 "zegarmistrz",
+"rzemieślnik",
 "Zegarmistrz"
 ],
 "craft/confectionery":[
 "wytwórca słodyczy",
+"rzemiosło",
+"rzemieślnicy",
+"rzemieślnik",
 "Cukiernik",
 "cukiernik"
 ],
 "craft/distillery":[
+"rzemiosło",
+"rzemieślnicy",
 "wytwórnia napojów alkoholowych",
+"rzemieślnik",
 "Gorzelnia",
+"gorzelnia",
 "destylarnia"
 ],
 "craft/dressmaker":[
+"rzemiosło",
 "Krawiec",
-"Krawcowa"
+"rzemieślnicy",
+"krawcowa",
+"rzemieślnik",
+"krawiec"
 ],
 "craft/electrician":[
+"rzemiosło",
 "elektrotechnik",
+"rzemieślnicy",
 "elektryk",
+"rzemieślnik",
 "Elektryk"
 ],
 "craft/electronics_repair":[
+"rzemiosło",
+"serwis",
+"rzemieślnicy",
 "naprawa elektroniki",
+"sprzęt RTV",
+"rzemieślnik",
 "naprawa RTV",
-"Punkt napraw sprzętu elektronicznego"
+"Punkt napraw sprzętu elektronicznego",
+"naprawa telewizorów"
+],
+"craft/floorer":[
+"rzemiosło",
+"kładzenie posadzek",
+"rzemieślnicy",
+"rzemieślnik",
+"posadzki",
+"Kładzenie posadzek"
 ],
 "craft/gardener":[
+"rzemiosło",
+"rzemieślnicy",
 "Ogrodnik",
+"ogród",
+"rzemieślnik",
 "ogrodnik",
 "sadownik"
 ],
 "craft/glaziery":[
-"Zakład szklarski",
-"Szklarz"
+"rzemiosło",
+"zakład szklarski",
+"szklarz",
+"rzemieślnicy",
+"szyby",
+"rzemieślnik",
+"Szklarz",
+"szkło",
+"szyba"
 ],
 "craft/handicraft":[
 "rzemiosło",
-"Rzemiosło"
+"rzemieślnicy",
+"rzemieślnik",
+"rękodzieło",
+"rękodzieła",
+"Rękodzieła"
 ],
 "craft/hvac":[
 "klimatyzacja",
-"Klimatyzacja"
+"rzemiosło",
+"wentylacja",
+"rzemieślnicy",
+"Ogrzewanie / wentylacja",
+"ogrzewanie",
+"rzemieślnik"
 ],
 "craft/insulator":[
+"rzemiosło",
 "Kładzenie izolacji",
-"izolacja"
+"rzemieślnicy",
+"rzemieślnik",
+"izolacja",
+"kładzenie izolacji"
 ],
 "craft/jeweler":[
 "Jubiler/złotnik"
 ],
+"craft/joiner":[
+"rzemiosło",
+"rzemieślnicy",
+"stolarz",
+"rzemieślnik",
+"drewno",
+"Stolarz"
+],
 "craft/key_cutter":[
+"rzemiosło",
+"rzemieślnicy",
 "Dorabianie kluczy",
-"klucze"
+"klucze",
+"dorabianie kluczy",
+"rzemieślnik"
 ],
 "craft/locksmith":[
 "Ślusarz"
 ],
 "craft/metal_construction":[
+"rzemiosło",
 "Konstrukcje metalowe",
+"rzemieślnicy",
+"rzemieślnik",
 "konstrukcje metalowe"
 ],
 "craft/optician":[
 "Optyk"
 ],
 "craft/painter":[
+"rzemiosło",
+"rzemieślnicy",
+"obrazy",
 "malarz",
+"rzemieślnik",
 "Malarz"
 ],
+"craft/parquet_layer":[
+"kładzenie parkietów",
+"rzemiosło",
+"rzemieślnicy",
+"parkiety",
+"rzemieślnik",
+"Kładzenie parkietów"
+],
 "craft/photographer":[
+"rzemiosło",
 "Fotograf",
+"rzemieślnicy",
+"rzemieślnik",
 "studio fotograficzne",
 "atelier",
+"fotograf",
 "fotografia"
 ],
 "craft/photographic_laboratory":[
@@ -1596,53 +2076,101 @@
 "fotografia"
 ],
 "craft/plasterer":[
+"rzemiosło",
 "Tynkarz",
-"tynk"
+"rzemieślnicy",
+"rzemieślnik",
+"tynkarz"
 ],
 "craft/plumber":[
+"rzemiosło",
+"rzemieślnicy",
+"rzemieślnik",
 "Hydraulik",
 "hydraulik"
 ],
 "craft/pottery":[
+"rzemiosło",
 "Garncarstwo",
+"rzemieślnicy",
+"garncarz",
+"rzemieślnik",
+"garncarstwo",
 "garnki"
 ],
 "craft/rigger":[
+"rzemiosło",
 "takielunek",
-"Takielarz"
+"rzemieślnicy",
+"rzemieślnik",
+"Takielarz",
+"takielarz"
 ],
 "craft/roofer":[
+"rzemiosło",
+"rzemieślnicy",
 "Dekarz",
+"rzemieślnik",
+"dekarz",
 "dachy"
 ],
 "craft/saddler":[
+"rzemiosło",
 "siodła",
+"rzemieślnicy",
 "rymarz",
+"rzemieślnik",
+"skóry",
 "Rymarz"
 ],
 "craft/sailmaker":[
+"rzemiosło",
 "żagle",
-"Żaglomistrz"
+"rzemieślnicy",
+"żagiel",
+"rzemieślnik",
+"Żaglomistrz",
+"żaglownik",
+"żaglarz",
+"żaglomistrz"
 ],
 "craft/sawmill":[
 "deski",
+"rzemiosło",
+"rzemieślnicy",
 "tartak",
+"rzemieślnik",
 "Tartak",
 "drewno"
 ],
 "craft/scaffolder":[
+"rzemiosło",
 "Rusztowania",
-"Wyrób rusztowań"
+"rzemieślnicy",
+"rzemieślnik",
+"rusztowania",
+"wyrób rusztowań"
 ],
 "craft/sculptor":[
+"rzemiosło",
+"rzemieślnicy",
+"rzemieślnik",
 "rzeźbiarz",
 "Rzeźbiarz"
 ],
 "craft/shoemaker":[
+"rzemiosło",
 "Szewc",
-"szewc"
+"rzemieślnicy",
+"buty",
+"szewc",
+"rzemieślnik"
 ],
 "craft/stonemason":[
+"rzemiosło",
+"rzemieślnicy",
+"zakład kamieniarski",
+"rzemieślnik",
 "Zakład kamieniarski",
 "kamieniarz"
 ],
@@ -1651,40 +2179,69 @@
 ],
 "craft/tiler":[
 "kafelkarz",
+"rzemiosło",
+"płytkarz",
+"rzemieślnicy",
 "kafelki",
+"rzemieślnik",
 "płytki",
 "glazura",
+"glazurnik",
 "terakota",
 "Glazurnik"
 ],
 "craft/tinsmith":[
+"rzemiosło",
+"blacharz",
 "blacharstwo",
-"Blacharz"
+"rzemieślnicy",
+"Blacharz",
+"rzemieślnik"
 ],
 "craft/upholsterer":[
+"rzemiosło",
+"rzemieślnicy",
 "Tapicer",
-"tapicerka"
+"rzemieślnik",
+"tapisjer",
+"tapicerka",
+"tapicer"
 ],
 "craft/watchmaker":[
-"zegarki",
+"rzemiosło",
+"rzemieślnicy",
+"zegarmistrz",
+"rzemieślnik",
 "Zegarmistrz"
 ],
 "craft/window_construction":[
-"Monter okien",
-"Montaż okien"
+"montaż okien",
+"rzemiosło",
+"rzemieślnicy",
+"rzemieślnik",
+"okno",
+"okna",
+"Montaż okien",
+"monter okien"
 ],
 "craft/winery":[
+"rzemiosło",
 "winnica",
+"rzemieślnicy",
 "wino",
+"rzemieślnik",
 "winiarnia",
 "Winiarnia"
 ],
 "embankment":[
 "Nasyp"
 ],
+"emergency":[
+"Ratownictwo"
+],
 "emergency/ambulance_station":[
-"pogotowie ratunkowe",
-"Stacja pogotowia ratunkowego (budynek)"
+"Stacja pogotowia ratunkowego",
+"pogotowie ratunkowe"
 ],
 "emergency/defibrillator":[
 "defibrylator",
@@ -1703,6 +2260,12 @@
 "emergency/fire_extinguisher":[
 "Gaśnica",
 "gaśnica"
+],
+"emergency/fire_hose":[
+"wąż pożarowy",
+"wąż strażacki",
+"wąż pożarniczy",
+"Wąż strażacki"
 ],
 "emergency/fire_hydrant":[
 "hydrant",
@@ -1753,8 +2316,8 @@
 "ostrzeżenie"
 ],
 "emergency/water_tank":[
+"Zbiornik wody",
 "zapasowy",
-"Zbiornik Wody",
 "pożarowy",
 "zbiornik",
 "arwaryjny"
@@ -1775,26 +2338,41 @@
 "sand trap",
 "Bunkier"
 ],
+"golf/cartpath":[
+"ścieżka dla wózka golfowego",
+"Ścieżka dla wózka golfowego",
+"droga",
+"wózek golfowy"
+],
+"golf/driving_range":[
+"strzelnica golfowa",
+"Strzelnica golfowa"
+],
 "golf/fairway":[
 "fairway",
 "Bieżnia (część pola golfowego)"
 ],
 "golf/green":[
-"pole puttingowe",
 "green",
-"małe pole golfowe"
+"pole golfowe",
+"Green (na polu golfowym)",
+"putting green"
 ],
 "golf/hole":[
-"dołek golfowy",
-"dołek na polu golfowym "
+"Dołek na polu golfowym",
+"dołek golfowy"
 ],
-"golf/lateral_water_hazard_area":[
-"przeszkoda wodna boczna",
-"Przeszkoda wodna boczna"
+"golf/lateral_water_hazard":[
+"golf",
+"boczna przeszkoda wodna",
+"Boczna przeszkoda wodna"
 ],
-"golf/lateral_water_hazard_line":[
-"przeszkoda wodna boczna",
-"Przeszkoda wodna boczna"
+"golf/path":[
+"piesza",
+"dla pieszych",
+"ścieżka golfowa",
+"Piesza ścieżka golfowa",
+"droga"
 ],
 "golf/rough":[
 "rough",
@@ -1804,12 +2382,9 @@
 "tee box",
 "Rzutnia"
 ],
-"golf/water_hazard_area":[
-"Przeszkoda wodna",
-"przeszkoda wodna"
-],
-"golf/water_hazard_line":[
-"Przeszkoda wodna",
+"golf/water_hazard":[
+"Przeszkoda wodna (golf)",
+"golf",
 "przeszkoda wodna"
 ],
 "healthcare":[
@@ -1896,15 +2471,21 @@
 "brt"
 ],
 "highway/bus_stop":[
-"Przystanek autobusowy / platforma"
+"Przystanek autobusowy"
 ],
 "highway/construction":[
-"Droga zamknięta"
+"w budowie",
+"Droga zamknięta",
+"zamknięta droga",
+"w przebudowie"
 ],
 "highway/corridor":[
 "Korytarz (w budynku)",
 "korytarz",
 "hall"
+],
+"highway/crossing":[
+"Przejście"
 ],
 "highway/crossing/marked":[
 "zebra",
@@ -1945,10 +2526,34 @@
 "ścieżka dla rowerów",
 "Droga rowerowa"
 ],
+"highway/cycleway/bicycle_foot":[
+"ścieżka rowerowa",
+"droga dla pieszych i rowerów",
+"Ciąg pieszo-rowerowy"
+],
+"highway/cycleway/crossing":[
+"Przejazd rowerowy"
+],
+"highway/cycleway/crossing/marked":[
+"przejście rowerowe",
+"Oznakowany przejazd rowerowy",
+"przejazd rowerowy"
+],
+"highway/cycleway/crossing/unmarked":[
+"Nieoznakowany przejazd rowerowy",
+"przejście rowerowe",
+"przejazd rowerowy"
+],
 "highway/elevator":[
 "wyciąg",
 "Winda",
 "podnośnik"
+],
+"highway/emergency_bay":[
+"Zatoka awaryjna",
+"zatoczka",
+"zatoka awaryjna",
+"autostrada"
 ],
 "highway/footway":[
 "bulwar",
@@ -1965,6 +2570,9 @@
 "automatyczny chodnik",
 "ruchomy chodnik",
 "Ruchomy chodnik"
+],
+"highway/footway/crossing":[
+"Przejście dla pieszych"
 ],
 "highway/footway/marked":[
 "zebra",
@@ -2019,10 +2627,10 @@
 "pikietaż"
 ],
 "highway/mini_roundabout":[
+"Minirondo",
 "mini",
 "małe",
 "rondo",
-"Mini-rondo",
 "skrzyżowanie"
 ],
 "highway/motorway":[
@@ -2036,9 +2644,9 @@
 "highway/motorway_link":[
 "zjazd",
 "wjazd",
-"Autostrada - wjazd/zjazd",
 "wyjazd",
-"rampa"
+"rampa",
+"Autostrada – wjazd/zjazd"
 ],
 "highway/passing_place":[
 "Mijanka",
@@ -2050,8 +2658,8 @@
 "Ścieżka/droga "
 ],
 "highway/pedestrian_area":[
-"Plac - deptak",
 "deptak",
+"Plac-deptak",
 "plac",
 "skwer"
 ],
@@ -2059,16 +2667,13 @@
 "bulwar",
 "esplanada",
 "promenada",
-"Ulica - deptak",
+"Ulica-deptak",
 "ulica handlowa"
 ],
 "highway/primary":[
 "Droga pierwszorzędna",
 "pierwszorzędna",
-"DK",
 "główna droga",
-"droga krajowa",
-"ważna",
 "główna"
 ],
 "highway/primary_link":[
@@ -2102,10 +2707,8 @@
 "droga"
 ],
 "highway/secondary":[
-"wojewódzka",
-"drugorzędna",
-"Droga drugorzędna",
-"droga"
+"droga drugorzędna",
+"Droga drugorzędna"
 ],
 "highway/secondary_link":[
 "zjazd",
@@ -2125,8 +2728,8 @@
 "Alejka"
 ],
 "highway/service/drive-through":[
-"drive-through",
-"Drive-Through (zakupy)"
+"Drive-through (zakupy)",
+"drive-through"
 ],
 "highway/service/driveway":[
 "podjazd",
@@ -2199,6 +2802,14 @@
 "sygnalizacja świetlna",
 "światła"
 ],
+"highway/trailhead":[
+"początek szlaku",
+"góry",
+"szlak",
+"trekking",
+"Początek szlaku",
+"koniec szlaku"
+],
 "highway/trunk":[
 "szybkiego ruchu",
 "Droga główna",
@@ -2209,8 +2820,8 @@
 "zjazd",
 "wjazd",
 "wyjazd",
-"Droga główna - zjazd/wjazd",
-"rampa"
+"rampa",
+"Droga główna – zjazd/wjazd"
 ],
 "highway/turning_circle":[
 "miejsce",
@@ -2246,6 +2857,39 @@
 "gród",
 "Zamek"
 ],
+"historic/castle/fortress":[
+"Twierdza",
+"warownia",
+"twierdza",
+"forteca"
+],
+"historic/castle/palace":[
+"pałac",
+"Pałac"
+],
+"historic/castle/stately":[
+"Okazały pałac",
+"arystokracja",
+"rezydencja magnacka",
+"okazały pałac",
+"szlachta"
+],
+"historic/city_gate":[
+"brama miejska",
+"Brama miejska",
+"brama miasta",
+"mur miejski",
+"mury miejskie"
+],
+"historic/fort":[
+"Fort",
+"fort"
+],
+"historic/manor":[
+"Dwór",
+"rezydencja",
+"dwór"
+],
 "historic/memorial":[
 "miejsce",
 "pamięci",
@@ -2253,6 +2897,12 @@
 "Pomnik/Miejsce pamięci",
 "memoriał",
 "pomnik"
+],
+"historic/memorial/plaque":[
+"dedykacja",
+"pamięć",
+"tablica pamiątkowa",
+"Tablica pamiątkowa"
 ],
 "historic/monument":[
 "monument",
@@ -2266,10 +2916,16 @@
 ],
 "historic/tomb":[
 "grobowiec",
-"Nagrobek",
+"tumulus",
+"kurhan",
+"piramida",
+"sarkofag",
+"Grób",
 "grób",
+"mauzoleum",
 "kolumbarium",
-"pomnik"
+"nagrobek",
+"mogiła"
 ],
 "historic/wayside_cross":[
 "Przydrożny krzyż",
@@ -2291,6 +2947,50 @@
 "wrak statku",
 "kadłub"
 ],
+"indoor":[
+"Obiekt w budynku"
+],
+"indoor/area":[
+"stoisko",
+"przestrzeń",
+"Obszar w budynku",
+"wewnątrz",
+"indoor",
+"obszar"
+],
+"indoor/corridor":[
+"wewnątrz",
+"Korytarz w budynku",
+"sala",
+"korytarz",
+"indoor",
+"foyer",
+"poczekalnia"
+],
+"indoor/corridor_line":[
+"Korytarz (w budynku)"
+],
+"indoor/door":[
+"wewnątrz",
+"drzwi wewnętrzne",
+"Drzwi (wewnątrz)",
+"indoor",
+"pokój"
+],
+"indoor/room":[
+"stoisko",
+"Pomieszczenie w budynku",
+"wewnątrz",
+"sala",
+"indoor",
+"pokój"
+],
+"indoor/wall":[
+"wewnątrz",
+"ściana",
+"indoor",
+"Ściana w budynku"
+],
 "internet_access/wlan":[
 "wifi",
 "wi-fi",
@@ -2302,9 +3002,17 @@
 "Skrzyżowanie",
 "krzyżówka"
 ],
+"junction/circular":[
+"Skrzyżowanie o ruchu okrężnym"
+],
+"junction/jughandle":[
+"Jughandle"
+],
+"junction/roundabout":[
+"Rondo"
+],
 "landuse":[
-"Zagospodarowanie terenu",
-"użytkowanie terenu"
+"Zagospodarowanie terenu"
 ],
 "landuse/allotments":[
 "ogród działkowy",
@@ -2357,6 +3065,11 @@
 "Teren z zabudowaniami rolniczymi",
 "podwórze gospodarskie"
 ],
+"landuse/forest":[
+"puszcza",
+"las",
+"Las"
+],
 "landuse/garages":[
 "garażowisko",
 "obszar garaży",
@@ -2401,14 +3114,21 @@
 "szrot"
 ],
 "landuse/industrial/slaughterhouse":[
+"rzeźnik",
 "Rzeźnia",
 "rzeźnia",
 "ubojnia"
 ],
 "landuse/landfill":[
 "składowisko odpadów",
-"Wysypisko",
-"śmieci"
+"wysypisko śmieci",
+"odpady",
+"wysypisko",
+"śmieci",
+"sortownia śmieci",
+"sortownia odpadów",
+"wylewisko",
+"Składowisko odpadów"
 ],
 "landuse/meadow":[
 "pastwisko",
@@ -2423,6 +3143,9 @@
 "landuse/plant_nursery":[
 "Szkółka leśna",
 "szkółka roślin"
+],
+"landuse/pond":[
+"Staw"
 ],
 "landuse/quarry":[
 "żwirownia",
@@ -2448,12 +3171,19 @@
 "teren kościelny",
 "Teren dla celów religijnych"
 ],
+"landuse/reservoir":[
+"Zbiornik zmagazynowanej wody"
+],
 "landuse/residential":[
 "Zabudowa mieszkaniowa",
 "Teren zamieszkały"
 ],
 "landuse/residential/apartments":[
-"Osiedle mieszkaniowe"
+"osiedle",
+"domki",
+"Osiedle mieszkaniowe",
+"domy",
+"mieszkania"
 ],
 "landuse/retail":[
 "handel detaliczny",
@@ -2463,12 +3193,20 @@
 "winnica",
 "Winnica"
 ],
+"landuse/winter_sports":[
+"miejsce na sporty zimowe",
+"ośrodek narciarski",
+"stok narciarski",
+"narciarstwo",
+"teren snowboardowy",
+"obszar sportów zimowych",
+"teren narciarski",
+"Miejsce na sporty zimowe",
+"narty",
+"snowboard"
+],
 "leisure":[
-"wypoczynek",
-"Rozrywka i wypoczynek",
-"czas wolny",
-"zabawy",
-"gry"
+"Rozrywka i wypoczynek"
 ],
 "leisure/adult_gaming_centre":[
 "automat do gier",
@@ -2511,7 +3249,7 @@
 "Teren rekreacyjny ogólnodostępny"
 ],
 "leisure/dance":[
-"Sala Taneczna",
+"Sala taneczna",
 "dyskoteka"
 ],
 "leisure/dancing_school":[
@@ -2537,16 +3275,18 @@
 "Łowisko"
 ],
 "leisure/fitness_centre":[
+"siłownia",
+"klub fitness",
 "fitness",
 "centrum fitness",
-"Fitness"
+"Siłownia / klub fitness"
 ],
 "leisure/fitness_centre/yoga":[
-"Szkoła Yogi",
-"praktyka yogi",
-"yoga",
-"szkoła yogi",
-"centrum yogi"
+"szkoła jogi",
+"centrum jogi",
+"Szkoła jogi",
+"joga",
+"praktyka jogi"
 ],
 "leisure/fitness_station":[
 "Siłownia zewnętrzna ",
@@ -2634,7 +3374,8 @@
 "przystań"
 ],
 "leisure/miniature_golf":[
-"mini-golf",
+"minigolf",
+"golf",
 "Minigolf"
 ],
 "leisure/nature_reserve":[
@@ -2666,6 +3407,11 @@
 "Stół piknikowy",
 "stół piknikowy"
 ],
+"leisure/picnic_table/chess":[
+"szachownica",
+"Stolik szachowy",
+"stół szachowy"
+],
 "leisure/pitch":[
 "boisko",
 "boisko sportowe",
@@ -2673,10 +3419,17 @@
 ],
 "leisure/pitch/american_football":[
 "Boisko do futbolu amerykańskiego",
-"futbol amerykański"
+"boisko",
+"amerykański",
+"NFL",
+"futbol"
 ],
 "leisure/pitch/australian_football":[
-"Boisko do gry w futbol australijski"
+"boisko",
+"australijski",
+"AFL",
+"Boisko do futbolu australijskiego",
+"futbol"
 ],
 "leisure/pitch/badminton":[
 "boisko",
@@ -2690,7 +3443,8 @@
 ],
 "leisure/pitch/basketball":[
 "Boisko do koszykówki",
-"boisko do koszykówki"
+"boisko do koszykówki",
+"koszykówka"
 ],
 "leisure/pitch/beachvolleyball":[
 "Siatkówka plażowa",
@@ -2713,8 +3467,19 @@
 "ujeżdżalnia",
 "Ujeżdżalnia"
 ],
+"leisure/pitch/field_hockey":[
+"Boisko do hokeja na trawie",
+"boisko do hokeja na trawie",
+"hokej na trawie"
+],
+"leisure/pitch/horseshoes":[
+"Miejsce do gry w rzut podkową",
+"rzut podkową"
+],
 "leisure/pitch/netball":[
-"Boisko do Netball"
+"boisko",
+"Boisko do gry w netball",
+"netball"
 ],
 "leisure/pitch/rugby_league":[
 "Boisko rugby league",
@@ -2724,13 +3489,17 @@
 "Boisko rugby union",
 "Boisko rugby"
 ],
+"leisure/pitch/shuffleboard":[
+"Boisko do shuffleboard",
+"shuffleboard"
+],
 "leisure/pitch/skateboard":[
+"Skatepark",
 "rolki",
 "deskorolka",
 "skate",
 "bmx",
-"park",
-"Skate park"
+"park"
 ],
 "leisure/pitch/soccer":[
 "Boisko do piłki nożnej",
@@ -2771,12 +3540,24 @@
 "pochylnia",
 "Pochylnia okrętowa"
 ],
+"leisure/slipway_point":[
+"pochylnia",
+"Pochylnia okrętowa"
+],
 "leisure/sports_centre":[
 "Centrum sportowe",
 "centrum sportowe",
 "ośrodek sportów",
 "ośrodek sportowy",
 "kompleks sportowy"
+],
+"leisure/sports_centre/climbing":[
+"ściana wspinaczkowa",
+"ścianka",
+"Ścianka wspinaczkowa",
+"ściana",
+"wspinaczka",
+"wspinanie"
 ],
 "leisure/sports_centre/swimming":[
 "Pływalnia",
@@ -2785,6 +3566,10 @@
 "leisure/stadium":[
 "stadion",
 "Stadion"
+],
+"leisure/swimming_area":[
+"Kąpielisko",
+"kąpielisko"
 ],
 "leisure/swimming_pool":[
 "Basen",
@@ -2800,11 +3585,47 @@
 "tor",
 "Tor wyścigowy (niemotorowy)"
 ],
+"leisure/track/cycling":[
+"kolarstwo",
+"tor",
+"welodrom",
+"rower",
+"Tor kolarski"
+],
+"leisure/track/cycling_point":[
+"kolarstwo",
+"tor",
+"welodrom",
+"rower",
+"Tor kolarski"
+],
 "leisure/track/horse_racing":[
-"Hipodrom (Wyścigi konne)"
+"konie",
+"tor wyścigowy",
+"konne",
+"wyścigi",
+"Hipodrom (Wyścigi konne)",
+"hipodrom"
+],
+"leisure/track/horse_racing_point":[
+"konie",
+"tor wyścigowy",
+"konne",
+"wyścigi",
+"Hipodrom (Wyścigi konne)",
+"hipodrom"
 ],
 "leisure/track/running":[
-"Bieżnia (Bieganie)"
+"bieżnia",
+"bieganie",
+"tor",
+"Bieżnia"
+],
+"leisure/track/running_point":[
+"bieżnia",
+"bieganie",
+"tor",
+"Bieżnia"
 ],
 "leisure/water_park":[
 "aquapark",
@@ -2817,8 +3638,7 @@
 "Linia"
 ],
 "man_made":[
-"obiekty stworzone przez człowieka",
-"Obiekty sztuczne"
+"Konstrukcja"
 ],
 "man_made/adit":[
 "Tunel kopalniany",
@@ -2835,6 +3655,14 @@
 "antena",
 "Antena",
 "radio"
+],
+"man_made/beacon":[
+"Nabieżnik",
+"nabieżnik"
+],
+"man_made/beehive":[
+"ul",
+"Ul"
 ],
 "man_made/breakwater":[
 "bodiony",
@@ -2869,9 +3697,18 @@
 "Żuraw stacjonarny",
 "żuraw"
 ],
+"man_made/cross":[
+"Krzyż",
+"krzyż"
+],
 "man_made/cutline":[
 "Przecinka leśna",
 "przecinka"
+],
+"man_made/dyke":[
+"Grobla",
+"wał",
+"grobla"
 ],
 "man_made/embankment":[
 "wał",
@@ -2951,6 +3788,14 @@
 "maszt komunikacyjny",
 "maszt tv"
 ],
+"man_made/mineshaft":[
+"szyb",
+"kopalnia",
+"szacht",
+"jaskinia",
+"Szyb",
+"tunel"
+],
 "man_made/monitoring_station":[
 "Stacja monitoringu",
 "stacja monitoringu",
@@ -2968,10 +3813,30 @@
 "Molo",
 "pomost"
 ],
+"man_made/pier/floating":[
+"pływający pomost",
+"pływające",
+"molo",
+"promenada",
+"pomost",
+"przystań",
+"Pływające molo"
+],
 "man_made/pipeline":[
 "Rurociąg",
 "gazociąg",
 "rurociąg"
+],
+"man_made/pipeline/underground":[
+"Podziemny rurociąg",
+"kanały",
+"gaz",
+"ścieki",
+"gazociąg",
+"rurociąg",
+"kanalizacja",
+"ropa",
+"podziemny"
 ],
 "man_made/pumping_station":[
 "pompa",
@@ -2988,6 +3853,19 @@
 "man_made/storage_tank":[
 "Zbiornik",
 "zbiornik"
+],
+"man_made/storage_tank/water":[
+"woda",
+"zbiornik wody",
+"Zbiornik na wodę",
+"zbiornik na wodę"
+],
+"man_made/street_cabinet":[
+"skrzynka elektryczna",
+"rozdzielnica elektryczna",
+"Skrzynka elektryczna",
+"szafka elektryczna",
+"szafka uliczna"
 ],
 "man_made/surveillance":[
 "ochrona monitoringowa",
@@ -3014,6 +3892,13 @@
 "Wieża",
 "wieża"
 ],
+"man_made/tower/bell_tower":[
+"dzwonnica",
+"campanilla",
+"kampanila",
+"Dzwonnica",
+"campanila"
+],
 "man_made/tower/communication":[
 "wieża tv",
 "wieża telewizyjna",
@@ -3030,10 +3915,28 @@
 "antena",
 "maszt transmisyjny"
 ],
+"man_made/tower/defensive":[
+"donżon",
+"baszta",
+"Wieża obronna",
+"stołp",
+"wieża obronna"
+],
+"man_made/tower/minaret":[
+"islam",
+"wieża",
+"Minaret",
+"minaret",
+"muzułmanie"
+],
 "man_made/tower/observation":[
 "wieża obserwacyjna",
 "Wieża obserwacyjna",
 "wieża pożarowa"
+],
+"man_made/tunnel":[
+"Tunel",
+"tunel"
 ],
 "man_made/wastewater_plant":[
 "oczyszczalnia ścieków",
@@ -3079,16 +3982,15 @@
 "Węzeł telekomunikacyjny"
 ],
 "natural":[
-"Natura",
-"Przyroda"
+"Natura"
 ],
 "natural/bare_rock":[
+"Skała macierzysta",
 "skały",
 "obnażone skały",
 "obnażona skała",
 "skała macierzysta",
-"skała",
-"Skała Macierzysta"
+"skała"
 ],
 "natural/bay":[
 "Zatoka",
@@ -3097,6 +3999,11 @@
 "natural/beach":[
 "Plaża",
 "plaża"
+],
+"natural/cape":[
+"przylądek",
+"Przylądek",
+"cypel"
 ],
 "natural/cave_entrance":[
 "Wejście do jaskini",
@@ -3129,10 +4036,8 @@
 "teren trawiasty"
 ],
 "natural/heath":[
-"medycyna",
-"szpital",
 "Wrzosowisko",
-"Zdrowie"
+"wrzosowisko"
 ],
 "natural/mud":[
 "błotne",
@@ -3158,16 +4063,24 @@
 "natural/ridge":[
 "grzbiet górski",
 "grzbiet",
-"Grzbiet Górski"
+"Grzbiet górski"
+],
+"natural/rock":[
+"kamień",
+"głaz",
+"Skała",
+"skała"
 ],
 "natural/saddle":[
 "Przełęcz",
 "przełęcz górska"
 ],
 "natural/sand":[
+"Piaski",
 "piasek",
-"Piach",
-"piach"
+"piach",
+"ziemia piaszczysta",
+"piaski"
 ],
 "natural/scree":[
 "rumowisko",
@@ -3178,9 +4091,21 @@
 "Krzaki",
 "Zarośla"
 ],
+"natural/shingle":[
+"Plaża kamienista",
+"żwirowisko",
+"żwir",
+"plaża kamienista",
+"plaża żwirowa"
+],
 "natural/spring":[
 "źródło",
 "Źródło"
+],
+"natural/stone":[
+"kamień",
+"Kamień",
+"głaz"
 ],
 "natural/tree":[
 "dąb",
@@ -3192,20 +4117,51 @@
 "rząd drzew",
 "Rząd drzew"
 ],
+"natural/valley":[
+"kanion",
+"Dolina",
+"wąwóz",
+"dolina"
+],
 "natural/volcano":[
 "Wulkan",
 "stratowulkan"
 ],
 "natural/water":[
+"staw",
+"woda",
+"laguna",
 "strumyk",
-"strumień",
-"Woda",
+"kanał",
+"sztuczny zbiornik",
 "rzeka",
-"potok"
+"basen",
+"potok",
+"jezioro",
+"starorzecze",
+"zbiornik retencyjny",
+"strumień",
+"zbiornik",
+"Woda"
+],
+"natural/water/basin":[
+"retencja",
+"Sztuczny zbiornik wodny",
+"retencyjny",
+"drenaż",
+"zbiornik"
+],
+"natural/water/canal":[
+"Kanał",
+"kanał"
 ],
 "natural/water/lake":[
 "zalew",
 "Jezioro"
+],
+"natural/water/moat":[
+"Fosa",
+"fosa"
 ],
 "natural/water/pond":[
 "Staw",
@@ -3217,6 +4173,25 @@
 "Zbiornik wodny",
 "Zbiornik retencyjny",
 "zbiornik"
+],
+"natural/water/river":[
+"obszar rzeki",
+"Obszar rzeki"
+],
+"natural/water/stream":[
+"strumyk",
+"strumień",
+"potok",
+"Strumień"
+],
+"natural/water/wastewater":[
+"oczyszczalnia ścieków",
+"odstojnik",
+"zbiornik na ścieki",
+"Osadnik",
+"sztuczny zbiornik",
+"zbiornik wodny",
+"osadnik"
 ],
 "natural/wetland":[
 "mokradła",
@@ -3263,17 +4238,17 @@
 ],
 "office/association":[
 "nonprofit",
-"Biuro Organizacji non-profit",
 "non-profit",
 "społeczeństwo",
 "stowarzyszenie",
 "organizacja",
 "społeczność",
-"biuro organizacji non-profit"
+"biuro organizacji non-profit",
+"Biuro organizacji non profit"
 ],
 "office/charity":[
+"Organizacja charytatywna",
 "organizacja charytatywna",
-"Organizacja Charytatywna",
 "biuro organizacji charytatywnej"
 ],
 "office/company":[
@@ -3285,6 +4260,27 @@
 "freelance",
 "Centrum coworkingowe",
 "coworking space"
+],
+"office/diplomatic":[
+"placówka dymplomatyczna",
+"konsulat",
+"biuro łącznikowe",
+"ambasada",
+"Placówka dyplomatyczna"
+],
+"office/diplomatic/consulate":[
+"konsulat honorowy",
+"konsulat generalny",
+"Konsulat"
+],
+"office/diplomatic/embassy":[
+"ambasada",
+"Ambasada"
+],
+"office/diplomatic/liaison":[
+"zagraniczne biuro rządowe",
+"Biuro łącznikowe",
+"biuro łącznikowe"
 ],
 "office/educational_institution":[
 "Instytucja edukacyjna",
@@ -3301,8 +4297,8 @@
 "office/energy_supplier":[
 "zużycie gazu",
 "prąd",
+"Biuro dostawcy energii",
 "energia",
-"Biuro dostawcy energii.",
 "elektryczność",
 "biuro dostawcy prądu",
 "firma energetyczna",
@@ -3316,6 +4312,11 @@
 "office/financial":[
 "agent finansowy",
 "Biuro finansowe"
+],
+"office/financial_advisor":[
+"Doradzca finansowy",
+"doradzca finansowy",
+"doradztwo finansowe"
 ],
 "office/forestry":[
 "leśniczy",
@@ -3334,15 +4335,16 @@
 "urzędnik"
 ],
 "office/government/register_office":[
+"USC",
 "śluby",
 "metryki",
-"Urząd Stanu Cywilnego",
 "rejestracja urodzin",
-"stan cywilny"
+"stan cywilny",
+"Urząd stanu cywilnego"
 ],
 "office/government/tax":[
 "fiskus",
-"Urząd Skarbowy",
+"Urząd skarbowy",
 "urząd skarbowy"
 ],
 "office/guide":[
@@ -3379,8 +4381,9 @@
 "Siedziba wydawcy gazety"
 ],
 "office/ngo":[
-"Biuro organizacji pożytku publicznego",
+"pożytku publicznego",
 "ngo",
+"Biuro organizacji pozarządowej",
 "fundacja",
 "stowarzyszenie"
 ],
@@ -3454,6 +4457,16 @@
 "narciarska trasa downhillowa",
 "narty",
 "snowboard"
+],
+"piste/downhill/halfpipe":[
+"halfpipe",
+"half-pipe",
+"Rampa (snowboard)",
+"narciarstwo",
+"rampa",
+"half pipe",
+"snowboard",
+"narty"
 ],
 "piste/hike":[
 "zimowa wspinaczka",
@@ -3559,7 +4572,7 @@
 ],
 "place/islet":[
 "wysepka",
-"Wysepka",
+"Wysepka na wodzie",
 "mała wyspa"
 ],
 "place/isolated_dwelling":[
@@ -3606,6 +4619,9 @@
 "wioska",
 "Wieś",
 "wieś"
+],
+"playground":[
+"Wyposażenie placu zabaw"
 ],
 "playground/balance_beam":[
 "równoważnia",
@@ -3693,6 +4709,12 @@
 "panel słoneczny",
 "światło słoneczne"
 ],
+"power/generator/source/hydro":[
+"Turbina wodna",
+"turbina wodna",
+"tama",
+"generator"
+],
 "power/generator/source/nuclear":[
 "Reaktor jądrowy",
 "rozszczepienie",
@@ -3749,7 +4771,7 @@
 "transformator",
 "Transformator"
 ],
-"public_transport/linear_platform":[
+"public_transport/platform":[
 "transport publiczny",
 "przewozy",
 "peron",
@@ -3757,7 +4779,7 @@
 "transport",
 "przystanek"
 ],
-"public_transport/linear_platform_aerialway":[
+"public_transport/platform/aerialway":[
 "wyciąg",
 "transport publiczny",
 "przewozy",
@@ -3768,17 +4790,21 @@
 "transport",
 "przystanek"
 ],
-"public_transport/linear_platform_bus":[
+"public_transport/platform/aerialway_point":[
+"Przystanek / Peron wyciągu"
+],
+"public_transport/platform/bus":[
 "przystanek autobusowy",
-"transport publiczny",
-"przewozy",
 "peron",
 "autobus",
-"transport",
-"Przystanek autobusowy / platforma",
-"przystanek"
+"Przystanek autobusowy (peron)"
 ],
-"public_transport/linear_platform_ferry":[
+"public_transport/platform/bus_point":[
+"przystanek autobusowy",
+"Przystanek autobusowy",
+"autobus"
+],
+"public_transport/platform/ferry":[
 "łódka",
 "dok",
 "transport publiczny",
@@ -3794,7 +4820,10 @@
 "przystanek promu",
 "przystanek"
 ],
-"public_transport/linear_platform_light_rail":[
+"public_transport/platform/ferry_point":[
+"Przystanek / Peron promu"
+],
+"public_transport/platform/light_rail":[
 "transport publiczny",
 "przewozy",
 "peron",
@@ -3809,7 +4838,10 @@
 "Przystanek / Peron kolei miejskiej",
 "przystanek"
 ],
-"public_transport/linear_platform_monorail":[
+"public_transport/platform/light_rail_point":[
+"Przystanek / Peron kolei miejskiej"
+],
+"public_transport/platform/monorail":[
 "szyny",
 "transport publiczny",
 "Przystanek / Peron kolei jednoszynowej",
@@ -3821,7 +4853,10 @@
 "transport",
 "przystanek"
 ],
-"public_transport/linear_platform_subway":[
+"public_transport/platform/monorail_point":[
+"Przystanek / Peron kolei jednoszynowej"
+],
+"public_transport/platform/subway":[
 "transport publiczny",
 "Przystanek / Peron metra",
 "przewozy",
@@ -3833,7 +4868,10 @@
 "peron metra",
 "przystanek"
 ],
-"public_transport/linear_platform_train":[
+"public_transport/platform/subway_point":[
+"Przystanek / Peron metra"
+],
+"public_transport/platform/train":[
 "szyny",
 "peron kolejowy",
 "transport publiczny",
@@ -3846,131 +4884,38 @@
 "pociąg",
 "przystanek"
 ],
-"public_transport/linear_platform_tram":[
-"Przystanek tramwajowy",
-"przystanek tramwajowy"
+"public_transport/platform/train_point":[
+"Przystanek / Peron kolejowy"
 ],
-"public_transport/linear_platform_trolleybus":[
-"Przystanek / Peron trolejbusowy",
-"transport publiczny",
+"public_transport/platform/tram":[
+"przystanek tramwajowy",
 "tramwaj",
-"przewozy",
 "peron",
-"elektryczny",
+"Przystanek tramwajowy (peron)"
+],
+"public_transport/platform/tram_point":[
+"Przystanek tramwajowy"
+],
+"public_transport/platform/trolleybus":[
+"Przystanek / Peron trolejbusowy",
+"peron",
 "trolejbus",
-"autobus",
-"transport",
 "przystanek trolejbusowy",
 "przystanek"
 ],
-"public_transport/platform":[
+"public_transport/platform/trolleybus_point":[
+"Przystanek trolejbusowy",
+"peron",
+"trolejbus",
+"przystanek trolejbusowy",
+"przystanek"
+],
+"public_transport/platform_point":[
 "transport publiczny",
 "przewozy",
 "peron",
 "Przystanek / Peron",
 "transport",
-"przystanek"
-],
-"public_transport/platform_aerialway":[
-"wyciąg",
-"transport publiczny",
-"przewozy",
-"przystanek wyciągu",
-"peron",
-"Przystanek / Peron wyciągu",
-"kolejka linowa",
-"transport",
-"przystanek"
-],
-"public_transport/platform_bus":[
-"przystanek autobusowy",
-"Przystanek autobusowy"
-],
-"public_transport/platform_ferry":[
-"łódka",
-"dok",
-"transport publiczny",
-"przewozy",
-"peron",
-"transport",
-"pomost",
-"Przystanek / Peron promu",
-"nabrzeże",
-"łódź",
-"prom",
-"port",
-"przystanek promu",
-"przystanek"
-],
-"public_transport/platform_light_rail":[
-"transport publiczny",
-"przewozy",
-"peron",
-"kolej miejska",
-"wagon",
-"kolej elektryczna",
-"transport",
-"peron kolei miejskiej",
-"szyny",
-"tramwaj",
-"tory",
-"Przystanek / Peron kolei miejskiej",
-"przystanek"
-],
-"public_transport/platform_monorail":[
-"szyny",
-"transport publiczny",
-"Przystanek / Peron kolei jednoszynowej",
-"peron kolei jednoszynowej",
-"tory",
-"przewozy",
-"peron",
-"kolej jednoszynowa",
-"transport",
-"przystanek"
-],
-"public_transport/platform_subway":[
-"szyny",
-"transport publiczny",
-"Przystanek / Peron metra",
-"tory",
-"przewozy",
-"peron",
-"metro",
-"transport",
-"peron metra",
-"przystanek"
-],
-"public_transport/platform_train":[
-"peron kolejowy",
-"Peron kolejowy"
-],
-"public_transport/platform_tram":[
-"transport publiczny",
-"przewozy",
-"peron",
-"kolej miejska",
-"wagon",
-"Przystanek tramwajowy / peron",
-"transport",
-"szyny",
-"przystanek tramwajowy",
-"tramwaj",
-"tory",
-"elektryczny",
-"przystanek"
-],
-"public_transport/platform_trolleybus":[
-"Przystanek / Peron trolejbusowy",
-"transport publiczny",
-"tramwaj",
-"przewozy",
-"peron",
-"elektryczny",
-"trolejbus",
-"autobus",
-"transport",
-"przystanek trolejbusowy",
 "przystanek"
 ],
 "public_transport/station":[
@@ -4068,7 +5013,7 @@
 ],
 "public_transport/station_tram":[
 "stacja tramwajowa",
-"Stacja tramowajowa",
+"Stacja tramwajowa",
 "dworzec tramwajowy"
 ],
 "public_transport/station_trolleybus":[
@@ -4181,8 +5126,12 @@
 "Kozioł oporowy",
 "kozioł oporowy"
 ],
+"railway/construction":[
+"kolej w budowie",
+"Kolej w budowie"
+],
 "railway/crossing":[
-"przejście kolejowe (ścieżka)",
+"Przejście kolejowe (ścieżka)",
 "przejście kolejowe"
 ],
 "railway/derail":[
@@ -4235,6 +5184,13 @@
 "torowisko",
 "Tor kolejowy"
 ],
+"railway/rail/highspeed":[
+"TGV",
+"szybka kolej",
+"tor kolei dużych prędkości",
+"Shinkansen",
+"Tor kolei dużych prędkości"
+],
 "railway/signal":[
 "semafor",
 "Semafor"
@@ -4262,14 +5218,11 @@
 "Tramwaj"
 ],
 "railway/tram_stop":[
-"Przystanek tramwajowy - miejsce zatrzymania tramwaju"
+"Przystanek tramwajowy – miejsce zatrzymania tramwaju"
 ],
 "relation":[
 "Relacja",
 "relacja"
-],
-"roundabout":[
-"Rondo"
 ],
 "route/ferry":[
 "Trasa morska",
@@ -4337,8 +5290,10 @@
 "Sklep monopolowy"
 ],
 "shop/anime":[
-"sklep anime",
-"Sklep z anime"
+"cosplay",
+"Sklep z mangą i anime",
+"manga",
+"anime"
 ],
 "shop/antiques":[
 "sklep z antykami",
@@ -4358,8 +5313,15 @@
 ],
 "shop/art":[
 "desa",
+"dzieła sztuki",
 "antykwariat",
-"Sklep z dziełami sztuki"
+"rzemiosło artystyczne",
+"obrazy",
+"porcelana",
+"rzeźby",
+"Sklep z dziełami sztuki",
+"wyroby artystyczne",
+"sklep z dziełami sztuki"
 ],
 "shop/baby_goods":[
 "Sklep z artykułami dla dzieci i niemowląt",
@@ -4383,6 +5345,7 @@
 "Salon piękności"
 ],
 "shop/beauty/nails":[
+"paznokcie",
 "Manicure/pedicure",
 "pedicure",
 "manicure"
@@ -4402,7 +5365,20 @@
 ],
 "shop/bicycle":[
 "sklep rowerowy",
-"Sklep rowerowy"
+"Sklep rowerowy",
+"rowery"
+],
+"shop/boat":[
+"łódź",
+"jachtów",
+"skutery wodne",
+"Sklep z łodziami",
+"jachty",
+"motorówek",
+"żeglarski",
+"żeglarstwo",
+"sprzedaż łodzi",
+"łodzie"
 ],
 "shop/bookmaker":[
 "Bukmacher",
@@ -4414,36 +5390,76 @@
 "Księgarnia"
 ],
 "shop/boutique":[
-"butik",
 "Butik"
 ],
 "shop/butcher":[
 "sklep mięsny",
+"rzeźnik",
 "wędliny",
-"Rzeźnik",
 "mięso",
-"rzeźnia"
+"Sklep mięsny"
 ],
 "shop/candles":[
 "świece",
 "Sklep ze świecami"
 ],
+"shop/cannabis":[
+"konopie",
+"marihuana",
+"sklep z produktami z konopi",
+"cannabis",
+"Sklep z produktami z konopi",
+"cofee shop",
+"kanabis"
+],
 "shop/car":[
 "sprzedawca samochodów",
+"salon samochodowy",
 "dealer samochodowy",
-"Sprzedaż samochodów"
+"autokomis",
+"Sprzedaż samochodów",
+"komis samochodowy",
+"używane samochody"
 ],
 "shop/car_parts":[
 "Sklep z częściami do samochodów",
 "sklep z częściami samochodowymi"
 ],
 "shop/car_repair":[
-"serwis samochodowy. mechanik",
+"mechanik",
+"warsztat samochodowy",
+"auto",
+"serwis",
+"auto serwis",
+"naprawa",
+"samochodowy",
+"autoserwis",
+"auto-serwis",
+"samochód",
+"garaż",
 "Warsztat samochodowy"
+],
+"shop/caravan":[
+"przyczepa kempingowa",
+"camping",
+"caravan",
+"kamper",
+"camper",
+"karawan",
+"Sklep z kamperami i przyczepami",
+"przyczepa",
+"kamping",
+"kemping"
 ],
 "shop/carpet":[
 "Sklep z dywanami",
 "wykładzina"
+],
+"shop/catalogue":[
+"katalog",
+"catalog shop",
+"Argos",
+"Sklep Argos"
 ],
 "shop/charity":[
 "charytatywne",
@@ -4455,6 +5471,10 @@
 ],
 "shop/chemist":[
 "Drogeria",
+"Hebe",
+"Super-Pharm",
+"kosmetyki",
+"Rossmann",
 "drogeria"
 ],
 "shop/chocolate":[
@@ -4463,10 +5483,23 @@
 ],
 "shop/clothes":[
 "Sklep odzieżowy",
-"ubrania"
+"ubrania",
+"odzież używana",
+"sklep z bielizną",
+"ciuchy",
+"bielizna",
+"lumpeks",
+"odzież",
+"suknie ślubne",
+"garnitury"
+],
+"shop/clothes/underwear":[
+"Sklep z bielizną",
+"bielizna"
 ],
 "shop/coffee":[
 "Sklep z kawą",
+"kawa",
 "sklep z kawą",
 "sklep kawowy"
 ],
@@ -4493,21 +5526,43 @@
 "kopiowanie"
 ],
 "shop/cosmetics":[
+"makijaż",
 "kosmetyki",
-"drogeria",
-"Sklep z kosmetykami"
+"make-up",
+"Ziaja",
+"Sephora",
+"Sklep z kosmetykami",
+"Inglot"
 ],
 "shop/country_store":[
 "sklep wiejski",
 "Sklep wiejski"
 ],
 "shop/craft":[
-"rzemiosło artystyczne",
-"Sklep z rzemiosłem artystycznym"
+"sztalugi",
+"tektury",
+"farby",
+"pastele",
+"artykuły dla plastyków",
+"ramki",
+"sklep z artykułami dla artystów",
+"płótna",
+"ramy",
+"Sklep z artykułami dla artystów",
+"papiery",
+"narzędzia",
+"drewno",
+"papierniczy",
+"pędzle",
+"artykuły dla artystów",
+"kartony"
 ],
 "shop/curtain":[
 "zasłony",
-"Sklep z zasłonami"
+"Sklep z zasłonami",
+"zasłonki",
+"firany",
+"firanki"
 ],
 "shop/dairy":[
 "nabiał",
@@ -4543,8 +5598,16 @@
 "MediaExpert"
 ],
 "shop/erotic":[
-"sex shop",
-"Sklep erotyczny"
+"Sex shop",
+"sklep erotyczny",
+"sex shop"
+],
+"shop/erotic/lgbtq":[
+"lesbijek",
+"sklep erotyczny",
+"Sex shop LGBT",
+"sex shop dla homoseksualistów",
+"gejów"
 ],
 "shop/fabric":[
 "tkaniny",
@@ -4555,12 +5618,19 @@
 "Stragan produktów"
 ],
 "shop/fashion":[
-"Sklep odzieżowy",
-"butik",
-"moda"
+"Sklep odzieżowy"
+],
+"shop/fireplace":[
+"kominek",
+"Sklep z kominkami",
+"kominki"
 ],
 "shop/fishing":[
-"Sklep wędkarski"
+"łowienie",
+"przynęty",
+"Sklep wędkarski",
+"ryby",
+"wędki"
 ],
 "shop/fishmonger":[
 "Sklep rybny"
@@ -4571,8 +5641,22 @@
 "kwiaty"
 ],
 "shop/frame":[
+"fotografie",
+"obrazy",
 "Sklep z ramami",
-"oprawa obrazów"
+"oprawy obrazów",
+"oprawa obrazów",
+"ramy"
+],
+"shop/frozen_food":[
+"mrożonki",
+"Sklep z mrożonkami"
+],
+"shop/fuel":[
+"Sklep z paliwami",
+"węgiel",
+"olej opałowy",
+"benzyna"
 ],
 "shop/funeral_directors":[
 "Zakład pogrzebowy",
@@ -4587,6 +5671,19 @@
 "sklep meblowy",
 "meble"
 ],
+"shop/games":[
+"sklep z grami",
+"karcianymi",
+"Sklep z grami",
+"gry planszowe",
+"planszowymi",
+"gry karciane",
+"bez prądu",
+"planszówki",
+"karcianki",
+"gry bitewne",
+"gry"
+],
 "shop/garden_centre":[
 "ogrodniczy",
 "Centrum ogrodnicze"
@@ -4598,6 +5695,10 @@
 "propan",
 "cng"
 ],
+"shop/general":[
+"sklep wielobranżowy",
+"Sklep wielobranżowy"
+],
 "shop/gift":[
 "sklep z prezentami",
 "Sklep z pamiątkami",
@@ -4605,9 +5706,15 @@
 "prezenty"
 ],
 "shop/greengrocer":[
+"sklep z warzywami",
+"stoisko z warzywami",
 "Warzywniak",
+"owoce",
 "sklep warzywny",
-"warzywniak"
+"owocami",
+"warzywniak",
+"zieleniak",
+"stragan z warzywami"
 ],
 "shop/hairdresser":[
 "Fryzjer",
@@ -4640,8 +5747,15 @@
 "Zielarz"
 ],
 "shop/hifi":[
-"Sklep z sprzętem nagłaśniającym",
-"Sklep ze sprzętem Hi-fi"
+"amplitunery",
+"wieże",
+"wzmacniacze",
+"hifi",
+"Sklep ze sprzętem hi-fi",
+"hi-fi",
+"głośniki",
+"stereo",
+"audio"
 ],
 "shop/houseware":[
 "małe agd",
@@ -4651,14 +5765,35 @@
 "artykuły kuchenne"
 ],
 "shop/hunting":[
-"Sklep myśliwski"
+"myśliwy",
+"karabiny",
+"strzały",
+"kule",
+"naboje",
+"pułapki",
+"łuki",
+"polowanie",
+"Sklep myśliwski",
+"kusze"
 ],
 "shop/interior_decoration":[
 "Sklep z dekoracją wnętrz",
 "dekoracja wnętrz"
 ],
 "shop/jewelry":[
-"Jubiler",
+"złotnik",
+"rzemieślnicy",
+"skup złota",
+"złoto",
+"pierścionki",
+"srebro",
+"skup srebra",
+"rzemiosło",
+"kolczyki",
+"jubiler",
+"rzemieślnik",
+"Sklep jubilerski",
+"naszyjniki",
 "biżuteria"
 ],
 "shop/kiosk":[
@@ -4674,12 +5809,30 @@
 "pralnia",
 "Pralnia"
 ],
+"shop/laundry/self_service":[
+"pralnia samoobsługowa",
+"Pralnia samoobsługowa"
+],
 "shop/leather":[
 "galanteria skórzna",
 "Sklep skórzany"
 ],
+"shop/lighting":[
+"Sklep z oświetleniem",
+"lampki",
+"żarówki",
+"led",
+"oświetlenie",
+"lampy"
+],
 "shop/locksmith":[
+"zamki",
+"rzemiosło",
+"rzemieślnicy",
 "Ślusarz",
+"klucze",
+"kłódki",
+"rzemieślnik",
 "ślusarz"
 ],
 "shop/lottery":[
@@ -4704,7 +5857,9 @@
 ],
 "shop/mobile_phone":[
 "gsm",
+"telefony komórkowe",
 "komórki",
+"telefony",
 "Sklep z telefonami komórkowymi"
 ],
 "shop/money_lender":[
@@ -4712,10 +5867,12 @@
 "kredyt"
 ],
 "shop/motorcycle":[
-"Dealer motocykli",
-"Dealer motocyklowy"
+"diler",
+"Sklep motocyklowy",
+"dealer motocyklowy"
 ],
 "shop/motorcycle_repair":[
+"mechanik",
 "motor",
 "auto",
 "serwis",
@@ -4745,9 +5902,16 @@
 "suplementy diety"
 ],
 "shop/optician":[
+"rzemiosło",
+"rzemieślnicy",
 "optyk",
 "okulary",
+"soczewki kontaktowe",
+"rzemieślnik",
 "Optyk",
+"zakład optyczny",
+"szkła kontaktowe",
+"salon optyczny",
 "sklep optyczny"
 ],
 "shop/organic":[
@@ -4756,8 +5920,21 @@
 ],
 "shop/outdoor":[
 "outdoor",
+"góry",
 "Sklep turystyczny",
-"Decathlon"
+"trekking",
+"Skalnik",
+"wspinaczka",
+"sklep turystyczny",
+"Decathlon",
+"sklep górski",
+"wspinaczkowy"
+],
+"shop/outpost":[
+"Placówka sklepu internetowego",
+"punkt odbioru zamówień",
+"odbiór zamówień online",
+"placówka sklepu internetowego"
 ],
 "shop/paint":[
 "malowanie",
@@ -4772,11 +5949,16 @@
 "Sklep z artykułami imprezowymi"
 ],
 "shop/pastry":[
+"pączkarnia",
 "ciasta",
-"Sklep z wypiekami",
+"pączki",
 "piekarnia",
-"sklep z wypiekami",
-"ciastkarnia"
+"wypieki",
+"cukiernia",
+"Cukiernia",
+"torty",
+"ciastkarnia",
+"precle"
 ],
 "shop/pawnbroker":[
 "lombard",
@@ -4823,12 +6005,15 @@
 "shop/second_hand":[
 "komis",
 "Sklep z rzeczami używanymi",
+"używane rzeczy",
 "second hand"
 ],
 "shop/sewing":[
+"maszyny do szycia",
 "szycie",
 "pasmanteria",
-"Sklep krawiecki"
+"sklep krawiecki",
+"Pasmanteria"
 ],
 "shop/shoes":[
 "obuwie",
@@ -4857,8 +6042,13 @@
 "dino"
 ],
 "shop/tailor":[
+"szycie na miarę",
+"rzemiosło",
 "Krawiec",
+"rzemieślnicy",
 "krawcowa",
+"rzemieślnik",
+"krawiec",
 "odzież na miarę"
 ],
 "shop/tattoo":[
@@ -4867,7 +6057,7 @@
 "tatuaż"
 ],
 "shop/tea":[
-"Herbaciarnia",
+"Sklep z herbatą",
 "sklep z herbatami",
 "herbaty"
 ],
@@ -4897,7 +6087,8 @@
 "skład opału"
 ],
 "shop/travel_agency":[
-"Biuro podróży"
+"Biuro podróży",
+"podróże"
 ],
 "shop/tyres":[
 "wulkanizator",
@@ -4926,9 +6117,13 @@
 "Sklep z grami wideo"
 ],
 "shop/watches":[
-"Zegarmistrz"
+"zegarki",
+"zegarek",
+"Sklep z zegarkami"
 ],
 "shop/water":[
+"woda",
+"pitna",
 "Sklep z wodą pitną"
 ],
 "shop/water_sports":[
@@ -4954,6 +6149,21 @@
 "Sklep z winami",
 "Winiarnia"
 ],
+"tactile_paving":[
+"porowaty krawężnik",
+"wypustki",
+"z wypustkami",
+"Wypustki dla niewidomych",
+"niewidomi",
+"niepełnosprawni"
+],
+"telecom/data_center":[
+"serwery",
+"centrum danych",
+"systemy komputerowe",
+"dane",
+"Centrum danych"
+],
 "tourism":[
 "Turystyka"
 ],
@@ -4978,6 +6188,19 @@
 "tourism/artwork":[
 "dzieło sztuki",
 "Rzeźba"
+],
+"tourism/artwork/bust":[
+"popiersie",
+"Popiersie",
+"rzeźba"
+],
+"tourism/artwork/graffiti":[
+"Graffiti",
+"graffiti"
+],
+"tourism/artwork/installation":[
+"Instalacja artystyczna",
+"instalacja artystyczna"
 ],
 "tourism/artwork/mural":[
 "mural",
@@ -5026,8 +6249,10 @@
 ],
 "tourism/gallery":[
 "muzeum sztuki",
-"Galeria lub muzeum (sztuka)",
-"galeria"
+"Galeria sztuki",
+"sztuka",
+"galeria sztuki",
+"wystawy"
 ],
 "tourism/guest_house":[
 "nocleg",
@@ -5068,6 +6293,19 @@
 "informacja turystyka",
 "Informacja turystyczna"
 ],
+"tourism/information/route_marker":[
+"znacznik szlaku",
+"znacznik trasy",
+"znacznik ścieżki",
+"Znacznik szlaku"
+],
+"tourism/information/terminal":[
+"punkt info",
+"terminal informacyjny",
+"informacja",
+"informacja miejska",
+"Terminal informacyjny"
+],
 "tourism/motel":[
 "Motel"
 ],
@@ -5104,6 +6342,26 @@
 "ogród zoologiczny",
 "Zoo"
 ],
+"tourism/zoo/petting":[
+"małe zoo",
+"zwierzęta hodowlane",
+"mały ogród zoologiczny",
+"Małe zoo"
+],
+"tourism/zoo/safari":[
+"park safari",
+"ogród zoologiczny",
+"Park safari",
+"zoo"
+],
+"tourism/zoo/wildlife":[
+"park dzikich zwierząt",
+"Park dzikich zwierząt",
+"safari",
+"dzikie zwierzęta",
+"park z dzikimi zwierzętami",
+"zoo"
+],
 "traffic_calming":[
 "uspokojenie ruchu",
 "Uspokojenie ruchu"
@@ -5134,8 +6392,8 @@
 "Wysepka zwalniająca"
 ],
 "traffic_calming/island":[
-"wysepka",
-"Wysepka"
+"Wysepka drogowa",
+"wysepka drogowa"
 ],
 "traffic_calming/rumble_strip":[
 "wibracyjne oznakowanie poziome",
@@ -5204,10 +6462,15 @@
 "Granica administracyjna"
 ],
 "type/enforcement":[
+"kontrola",
 "Kontrola"
 ],
 "type/multipolygon":[
 "Wielokąt złożony"
+],
+"type/public_transport/stop_area_group":[
+"Węzeł przesiadkowy",
+"grupa przystanków"
 ],
 "type/restriction":[
 "Ograniczenie",
@@ -5293,6 +6556,11 @@
 "trasa kolei miejskiej",
 "Linia kolei miejskiej"
 ],
+"type/route/monorail":[
+"Trasa kolei jednoszynowej",
+"trasa kolei jednoszynowej",
+"kolej jednoszynowa"
+],
 "type/route/pipeline":[
 "przebieg rurociągu",
 "Trasa rurociągu"
@@ -5334,17 +6602,14 @@
 "wiązanie"
 ],
 "type/waterway":[
+"ciek",
+"wody śródlądowe",
 "szlak wodny",
-"Droga wodna",
+"Ciek",
 "droga wodna"
 ],
-"vertex":[
-"różne",
-"Inne",
-"pozostałe"
-],
 "waterway":[
-"Szlak wodny"
+"Ciek"
 ],
 "waterway/boatyard":[
 "Stocznia jachtowa",
@@ -5353,6 +6618,10 @@
 "waterway/canal":[
 "Kanał",
 "kanał"
+],
+"waterway/canal/lock":[
+"śluza wodna",
+"Śluza wodna"
 ],
 "waterway/dam":[
 "Tama",
@@ -5374,6 +6643,11 @@
 "waterway/fuel":[
 "Stacja tankowania paliwa (dla łodzi)",
 "wodna stacja paliw"
+],
+"waterway/lock_gate":[
+"śluza wodna",
+"wrota",
+"Wrota śluzy wodnej"
 ],
 "waterway/milestone":[
 "Słupek pikietażowy",

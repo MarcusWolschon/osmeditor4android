@@ -139,6 +139,9 @@
 "Bar Musical",
 "Local d'oci"
 ],
+"amenity/bar/lgbtq":[
+"Bar LGBTQ+"
+],
 "amenity/bbq":[
 "Barbacoa/graella"
 ],
@@ -265,8 +268,6 @@
 "escola de conduir"
 ],
 "amenity/embassy":[
-"Institució representativa d'un altre país",
-"Edifici de dependències extrangeres",
 "Ambaixada"
 ],
 "amenity/fast_food":[
@@ -334,6 +335,12 @@
 ],
 "amenity/kindergarten":[
 "Centre preescolar"
+],
+"amenity/language_school":[
+"acadèmia de llengües",
+"Acadèmia d'idiomes",
+"escola de llengües",
+"Escola d'idiomes"
 ],
 "amenity/library":[
 "Espai d'emmagatzematge de llibres",
@@ -464,6 +471,46 @@
 "Lloc per menjar",
 "Pizzeria"
 ],
+"amenity/restaurant/french":[
+"cuina francesa",
+"Restaurant francès"
+],
+"amenity/restaurant/german":[
+"Restaurant alemany",
+"cuina alemanya"
+],
+"amenity/restaurant/greek":[
+"cuina grega",
+"Restaurant grec"
+],
+"amenity/restaurant/indian":[
+"Restaurant indi",
+"cuina índia"
+],
+"amenity/restaurant/italian":[
+"cuina italiana",
+"Restaurant italià"
+],
+"amenity/restaurant/japanese":[
+"cuina japonesa",
+"Restaurant japonès"
+],
+"amenity/restaurant/mexican":[
+"cuina mexicana",
+"Restaurant mexicà"
+],
+"amenity/restaurant/pizza":[
+"pizzes",
+"Pizzeria"
+],
+"amenity/restaurant/thai":[
+"cuina tailandesa",
+"Restaurant tailandès"
+],
+"amenity/restaurant/turkish":[
+"Restaurant turc",
+"cuina turca"
+],
 "amenity/sanitary_dump_station":[
 "Estació de buidatge de lavabos"
 ],
@@ -548,6 +595,10 @@
 "amenity/university":[
 "Campus universitari"
 ],
+"amenity/vehicle_inspection":[
+"Inspecció de vehicles",
+"ITV"
+],
 "amenity/vending_machine":[
 "Màquina de vending"
 ],
@@ -563,9 +614,6 @@
 "amenity/vending_machine/drinks":[
 "Màquina de vènding de begudes"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Equipament de residus canins"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "Màquina de vènding d'articles d'higiene femenina"
 ],
@@ -574,9 +622,6 @@
 ],
 "amenity/vending_machine/ice_cream":[
 "Expenedora de gelats"
-],
-"amenity/vending_machine/news_papers":[
-"Màquina expenedora de diaris"
 ],
 "amenity/vending_machine/newspapers":[
 "Màquina expenedora de diaris"
@@ -627,9 +672,6 @@
 ],
 "attraction/amusement_ride":[
 "Atracció de fira"
-],
-"attraction/animal":[
-"Animal"
 ],
 "attraction/pirate_ship":[
 "Vaixell pirata"
@@ -911,9 +953,6 @@
 "building/terrace":[
 "Cases unifamiliars"
 ],
-"building/train_station":[
-"Estació de ferrocarril"
-],
 "building/transportation":[
 "Edifici per a transports"
 ],
@@ -925,9 +964,6 @@
 ],
 "camp_site/camp_pitch":[
 "Àrea de campament"
-],
-"circular":[
-"Rotonda"
 ],
 "club":[
 "Club"
@@ -1146,23 +1182,11 @@
 "golf/hole":[
 "Forat"
 ],
-"golf/lateral_water_hazard_area":[
-"Obstacle d'aigua lateral"
-],
-"golf/lateral_water_hazard_line":[
-"Obstacle d'aigua lateral"
-],
 "golf/rough":[
 "Rough"
 ],
 "golf/tee":[
 "Àrea inicial"
-],
-"golf/water_hazard_area":[
-"Obstacle d'aigua"
-],
-"golf/water_hazard_line":[
-"Obstacle d'aigua"
 ],
 "healthcare/alternative/chiropractic":[
 "Quiropràctic"
@@ -1498,9 +1522,7 @@
 "Vinya"
 ],
 "leisure":[
-"Lleure",
-"Esbarjo",
-"Temps lliure"
+"Esbarjo"
 ],
 "leisure/adult_gaming_centre":[
 "Centre d'oci adult"
@@ -1642,7 +1664,6 @@
 "Línia"
 ],
 "man_made":[
-"Fet per la mà de l'home",
 "Fet per l'home"
 ],
 "man_made/adit":[
@@ -1981,9 +2002,6 @@
 "power/transformer":[
 "Transformador"
 ],
-"public_transport/linear_platform_bus":[
-"Plataforma de parada bus"
-],
 "public_transport/station_bus":[
 "Estació d'autobusos"
 ],
@@ -2040,9 +2058,6 @@
 ],
 "relation":[
 "Relació"
-],
-"roundabout":[
-"Rotonda"
 ],
 "route/ferry":[
 "Ruta de ferri"
@@ -2289,9 +2304,6 @@
 "shop/interior_decoration":[
 "Botiga d'Interiorisme"
 ],
-"shop/jewelry":[
-"Joieria"
-],
 "shop/kiosk":[
 "Quiosc"
 ],
@@ -2469,7 +2481,6 @@
 "Botiga de vins"
 ],
 "tourism":[
-"Visita",
 "Turisme"
 ],
 "tourism/alpine_hut":[
@@ -2672,10 +2683,6 @@
 ],
 "type/waterway":[
 "Curs d'aigua"
-],
-"vertex":[
-"Altres",
-"Altre"
 ],
 "waterway":[
 "Via aqüífera"

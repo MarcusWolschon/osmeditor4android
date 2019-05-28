@@ -155,7 +155,6 @@
 "Vairavimo mokykla"
 ],
 "amenity/embassy":[
-"Atstovybė",
 "Ambasada"
 ],
 "amenity/fast_food":[
@@ -213,8 +212,7 @@
 "Prekyvietė"
 ],
 "amenity/motorcycle_parking":[
-"Motociklų stovėjimo aikštelė",
-"Motociklų parkavimas"
+"Motociklų stovėjimo aikštelė"
 ],
 "amenity/music_school":[
 "Muzikos mokykla"
@@ -223,6 +221,9 @@
 "Naktinis klubas",
 "naktinis klubas",
 "klubas"
+],
+"amenity/parking":[
+"Automobilių stovėjimo aikštelė"
 ],
 "amenity/parking_space":[
 "Stovėjimo vieta"
@@ -363,9 +364,6 @@
 ],
 "area/highway":[
 "Kelio danga"
-],
-"attraction/animal":[
-"Gyvūnai"
 ],
 "attraction/big_wheel":[
 "Didelis ratas"
@@ -617,9 +615,6 @@
 "building/temple":[
 "Šventyklos pastatas"
 ],
-"building/train_station":[
-"Traukinių stotis"
-],
 "building/university":[
 "universiteto pastatas",
 "universitetas",
@@ -628,9 +623,6 @@
 "building/warehouse":[
 "Sandėlis",
 "sandėlys"
-],
-"circular":[
-"Eismo žiedas"
 ],
 "club":[
 "Klubas"
@@ -829,9 +821,6 @@
 "jodinėjimo takas",
 "Žirgų kelias",
 "arklių takas"
-],
-"highway/bus_stop":[
-"Autobuso sustojimas / platforma"
 ],
 "highway/cycleway":[
 "dviračių takas",
@@ -1097,17 +1086,15 @@
 "miegamoji zona"
 ],
 "landuse/retail":[
-"gelžkelio zona",
-"geležinkelio zona",
-"Gelžkelio zona"
+"Prekybos zona",
+"prekybos zona"
 ],
 "landuse/vineyard":[
 "vynuogynas",
 "Vynuogynas"
 ],
 "leisure":[
-"Laisvalaikis",
-"laisvalaikis"
+"Laisvalaikis"
 ],
 "leisure/adult_gaming_centre":[
 "Suaugusiųjų lošimų vieta"
@@ -1565,9 +1552,6 @@
 "ryšys",
 "Ryšys"
 ],
-"roundabout":[
-"Žiedas"
-],
 "route/ferry":[
 "Kelto maršrutas",
 "kelto maršrutas"
@@ -1624,7 +1608,6 @@
 "knygų parduotuvė"
 ],
 "shop/boutique":[
-"butikas",
 "Parduotuvė"
 ],
 "shop/butcher":[
@@ -1764,10 +1747,6 @@
 ],
 "shop/interior_decoration":[
 "Interjero dekoravimo parduotuvė"
-],
-"shop/jewelry":[
-"Juvelyrikos parduotuvė",
-"juvelyras"
 ],
 "shop/kiosk":[
 "Kioskas"
@@ -2071,9 +2050,6 @@
 ],
 "type/waterway":[
 "Vandens kelias"
-],
-"vertex":[
-"Kita"
 ],
 "waterway":[
 "Vandens kelias"

@@ -334,9 +334,7 @@
 "Avtošola"
 ],
 "amenity/embassy":[
-"ambasada",
-"Veleposlaništvo",
-"konzulat"
+"Veleposlaništvo"
 ],
 "amenity/fast_food":[
 "hitra hrana",
@@ -656,12 +654,6 @@
 "amenity/vending_machine/drinks":[
 "Avtomat za pijače"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Vrečke za iztrebke"
-],
-"amenity/vending_machine/news_papers":[
-"Avtomat za časopis"
-],
 "amenity/vending_machine/newspapers":[
 "Avtomat za časopis"
 ],
@@ -963,9 +955,6 @@
 "building/terrace":[
 "Vrstne hiše",
 "vrstna hiša"
-],
-"building/train_station":[
-"Želežniška postaja"
 ],
 "building/university":[
 "višja šola",
@@ -1308,16 +1297,6 @@
 "Luknja",
 "golf luknja"
 ],
-"golf/lateral_water_hazard_area":[
-"Bočne vodne ovire",
-"golf",
-"Vodne ovire"
-],
-"golf/lateral_water_hazard_line":[
-"Bočne vodne ovire",
-"golf",
-"Vodne ovire"
-],
 "golf/rough":[
 "območje ob čistini in ovirah in zelenici z visoko košeno ali nepokošeno travo",
 "jasa",
@@ -1328,14 +1307,6 @@
 "podstavek",
 "golf",
 "Podstavek za žogico"
-],
-"golf/water_hazard_area":[
-"golf",
-"Vodne ovire"
-],
-"golf/water_hazard_line":[
-"golf",
-"Vodne ovire"
 ],
 "healthcare":[
 "Zdravstvo",
@@ -1373,9 +1344,6 @@
 "mulatiera",
 "jahalna pot",
 "Mulatjera"
-],
-"highway/bus_stop":[
-"Avtobusno postajališče"
 ],
 "highway/corridor":[
 "Notranji hodnik"
@@ -1742,9 +1710,7 @@
 "zidanica"
 ],
 "leisure":[
-"Prosti čas",
-"rekreacija",
-"turizem"
+"Prosti čas"
 ],
 "leisure/adult_gaming_centre":[
 "igre na srečo",
@@ -1939,8 +1905,7 @@
 "lomljenka"
 ],
 "man_made":[
-"Antropogena konstrukcija",
-"druge konstrukcije"
+"Antropogena konstrukcija"
 ],
 "man_made/adit":[
 "vhod",
@@ -2083,7 +2048,6 @@
 "Odtočni kanal"
 ],
 "natural":[
-"naravno",
 "Naravna prvina"
 ],
 "natural/bare_rock":[
@@ -2422,9 +2386,6 @@
 "Ozkotirna železnica",
 "železnica z ozkimi tiri"
 ],
-"railway/platform":[
-"Želežniško postajališče"
-],
 "railway/rail":[
 "Železniški tir",
 "železnica",
@@ -2454,9 +2415,6 @@
 "relacija",
 "povezava",
 "Zveza"
-],
-"roundabout":[
-"Krožišče"
 ],
 "route/ferry":[
 "trajekt",
@@ -2559,9 +2517,7 @@
 "knjigarna"
 ],
 "shop/boutique":[
-"prodajalna",
-"Butik",
-"moda"
+"Butik"
 ],
 "shop/butcher":[
 "Mesar",
@@ -2739,12 +2695,6 @@
 "shop/hifi":[
 "Trgovina z avdio opremo",
 "hifi"
-],
-"shop/jewelry":[
-"Draguljarna",
-"bižuterija",
-"nakit",
-"zlatarna"
 ],
 "shop/kiosk":[
 "Kiosk"
@@ -2938,7 +2888,6 @@
 "vinska klet"
 ],
 "tourism":[
-"turistične storitve",
 "Turizem"
 ],
 "tourism/alpine_hut":[
@@ -3169,12 +3118,6 @@
 "omrežje javnega prometa",
 "Mreža javnega prometa"
 ],
-"vertex":[
-"ostalo",
-"podobno",
-"drugo",
-"Drugo"
-],
 "waterway":[
 "Vodotok"
 ],
@@ -3239,6 +3182,9 @@
 "potoček",
 "Potok",
 "izvir"
+],
+"waterway/stream_intermittent":[
+"Presihajoč potok"
 ],
 "waterway/water_point":[
 "črpalka",

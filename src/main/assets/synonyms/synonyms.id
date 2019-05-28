@@ -123,7 +123,6 @@
 "Air Minum"
 ],
 "amenity/embassy":[
-"Kedutaan",
 "Kedutaan besar"
 ],
 "amenity/fast_food":[
@@ -360,9 +359,6 @@
 ],
 "building/stable":[
 "Kandang Kuda"
-],
-"building/train_station":[
-"Stasiun Kereta"
 ],
 "building/university":[
 "Bangunan Universitas",
@@ -805,8 +801,7 @@
 "Garis"
 ],
 "man_made":[
-"Buatan manusia",
-"Buatan Manusia"
+"Buatan manusia"
 ],
 "man_made/breakwater":[
 "Pemecah Ombak",
@@ -1059,9 +1054,6 @@
 "relation":[
 "Relasi"
 ],
-"roundabout":[
-"Bundaran"
-],
 "route/ferry":[
 "Laut",
 "Rute Feri",
@@ -1120,8 +1112,6 @@
 "Toko Buku"
 ],
 "shop/boutique":[
-"Pakaian",
-"Toko Baju",
 "Butik"
 ],
 "shop/butcher":[
@@ -1195,8 +1185,6 @@
 "Toko Kain"
 ],
 "shop/fashion":[
-"Fesyen",
-"Fashion",
 "Toko Mode"
 ],
 "shop/fishmonger":[
@@ -1250,9 +1238,6 @@
 "Hiasan",
 "Toko Dekorasi Interior",
 "Rumah"
-],
-"shop/jewelry":[
-"Toko Perhiasan"
 ],
 "shop/kitchen":[
 "Toko Desain Interior Dapur"
@@ -1418,9 +1403,7 @@
 "Alkohol"
 ],
 "tourism":[
-"Pariwisata",
-"Turisme",
-"Wisata"
+"Pariwisata"
 ],
 "tourism/artwork":[
 "Karya Seni"
@@ -1529,9 +1512,6 @@
 ],
 "type/route/tram":[
 "Rute Trem"
-],
-"vertex":[
-"Lainnya"
 ],
 "waterway":[
 "Jalur Air"

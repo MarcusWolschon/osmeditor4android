@@ -234,9 +234,6 @@
 "building/stable":[
 "Kandang Kuda"
 ],
-"building/train_station":[
-"Stesen Kereta Api"
-],
 "building/university":[
 "Bangunan Universiti"
 ],
@@ -459,57 +456,6 @@
 "power/transformer":[
 "Transformer"
 ],
-"public_transport/linear_platform_bus":[
-"Hentian Bas / Platform"
-],
-"public_transport/linear_platform_ferry":[
-"Hentian Feri / Platform"
-],
-"public_transport/linear_platform_light_rail":[
-"Hentian Rel Ringan / Platform"
-],
-"public_transport/linear_platform_monorail":[
-"Hentian Monorel / Platform"
-],
-"public_transport/linear_platform_subway":[
-"Hentian Laluan Bawah Tanah / Platform"
-],
-"public_transport/linear_platform_train":[
-"Hentian Kereta Api / Platform"
-],
-"public_transport/linear_platform_tram":[
-"Hentian Tram / Platform"
-],
-"public_transport/linear_platform_trolleybus":[
-"Hentian Bas Troli / Platform"
-],
-"public_transport/platform":[
-"Hentian Transit"
-],
-"public_transport/platform_bus":[
-"Hentian Bas / Platform"
-],
-"public_transport/platform_ferry":[
-"Hentian Feri / Platform"
-],
-"public_transport/platform_light_rail":[
-"Hentian Rel Ringan / Platform"
-],
-"public_transport/platform_monorail":[
-"Hentian Monorel / Platform"
-],
-"public_transport/platform_subway":[
-"Hentian Laluan Bawah Tanah / Platform"
-],
-"public_transport/platform_train":[
-"Hentian Kereta Api / Platform"
-],
-"public_transport/platform_tram":[
-"Hentian Tram / Platform"
-],
-"public_transport/platform_trolleybus":[
-"Hentian Bas Troli / Platform"
-],
 "public_transport/station":[
 "Stesen Transit"
 ],
@@ -537,9 +483,6 @@
 "railway/narrow_gauge":[
 "Rel Landasan Sempit"
 ],
-"railway/platform":[
-"Hentian Kereta Api / Platform"
-],
 "railway/rail":[
 "Kereta Api"
 ],
@@ -554,9 +497,6 @@
 ],
 "railway/tram":[
 "Tram"
-],
-"roundabout":[
-"Bulatan"
 ],
 "shop":[
 "Kedai"

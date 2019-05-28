@@ -347,9 +347,6 @@
 "amenity/vending_machine/elongated_coin":[
 "Txanpon-makina"
 ],
-"amenity/vending_machine/excrement_bags":[
-"Iraizkin poltsen makina saltzaile"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "Emakumezkoentzako higiene produktuen makina saltzaile"
 ],
@@ -362,9 +359,6 @@
 "amenity/vending_machine/ice_cream":[
 "Izozkien makina saltzaile"
 ],
-"amenity/vending_machine/news_papers":[
-"Egunkarien makina saltzaile"
-],
 "amenity/vending_machine/newspapers":[
 "Egunkarien makina saltzaile"
 ],
@@ -373,9 +367,6 @@
 ],
 "area":[
 "Gune"
-],
-"attraction/animal":[
-"Animali"
 ],
 "attraction/carousel":[
 "Zaldiko-maldiko"
@@ -412,9 +403,6 @@
 ],
 "building/stable":[
 "Ukuilu"
-],
-"building/train_station":[
-"Tren geltoki"
 ],
 "club":[
 "Klub"

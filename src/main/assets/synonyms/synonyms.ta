@@ -290,9 +290,6 @@
 "building/temple":[
 "கோயில் கட்டிடம்"
 ],
-"building/train_station":[
-"தொடருந்து நிலையம்"
-],
 "building/transportation":[
 "போக்குவரத்துக் கட்டிடம்"
 ],
@@ -632,27 +629,6 @@
 "power/tower":[
 "அதிக-மின்னழுத்தக் கோபுரம்"
 ],
-"public_transport/linear_platform_bus":[
-"பேருந்து நிறுத்தம் / தடம்"
-],
-"public_transport/linear_platform_light_rail":[
-"இலகு இரயில் நிறுத்தம் / நடைமேடை"
-],
-"public_transport/linear_platform_train":[
-"இரயில் நிறுத்தம் / தடம்"
-],
-"public_transport/platform_bus":[
-"பேருந்து நிறுத்தம்  / தடம்"
-],
-"public_transport/platform_light_rail":[
-"இலகு இரயில் நிறுத்தம் / நடைமேடை"
-],
-"public_transport/platform_train":[
-"தொடருந்து நிறுத்தம் / நடைமேடை"
-],
-"public_transport/platform_tram":[
-"டிராம் நிறுத்தம் / நடைமேடை"
-],
 "public_transport/station_light_rail":[
 "இலகு இரயில் நிலையம்"
 ],
@@ -697,9 +673,6 @@
 ],
 "relation":[
 "தொடர்பு"
-],
-"roundabout":[
-"வட்டச்சுற்று வழி"
 ],
 "seamark/mooring":[
 "பிணைப்பு மிதவை"
@@ -748,9 +721,6 @@
 ],
 "shop/florist":[
 "பூக்கடை"
-],
-"shop/jewelry":[
-"நகைக்கடை"
 ],
 "shop/laundry":[
 "சலவையகம்"
@@ -886,9 +856,6 @@
 ],
 "type/waterway":[
 "நீர்வழி"
-],
-"vertex":[
-"பிற"
 ],
 "waterway":[
 "நீர்வழி"

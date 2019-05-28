@@ -420,12 +420,6 @@
 "Autoškola"
 ],
 "amenity/embassy":[
-"veľvyslanectvo",
-"velvyslanectvo",
-"ambasáda",
-"ambasada",
-"zastupiteľstvo",
-"zastupitelstvo",
 "Veľvyslanectvo"
 ],
 "amenity/fast_food":[
@@ -866,10 +860,6 @@
 "Automat na nápoje",
 "nápoj"
 ],
-"amenity/vending_machine/excrement_bags":[
-"automat na sacky pre vykaly",
-"Automat na sáčky pre výkaly"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "kondomy",
 "Automat na zenske produkty",
@@ -881,9 +871,6 @@
 "Automat na ženké hygienické produkty",
 "vlozky",
 "prezervativ"
-],
-"amenity/vending_machine/news_papers":[
-"Automat na noviny"
 ],
 "amenity/vending_machine/newspapers":[
 "noviny",
@@ -1291,9 +1278,6 @@
 "radovka",
 "Radová zástavba",
 "radova zastavba"
-],
-"building/train_station":[
-"Železničná stanica"
 ],
 "building/university":[
 "univerzita",
@@ -2038,11 +2022,7 @@
 "krizovatka"
 ],
 "landuse":[
-"vuzitie uzemia",
-"využitie pôdy",
-"krajina",
-"Využitie územia",
-"vyuzitie pody"
+"Využitie územia"
 ],
 "landuse/allotments":[
 "Komunitná záhrada",
@@ -2198,10 +2178,7 @@
 "vinohrad"
 ],
 "leisure":[
-"Oddych",
-"voľný čas",
-"relax",
-"volny cas"
+"Oddych"
 ],
 "leisure/adult_gaming_centre":[
 "hracie automaty",
@@ -2406,15 +2383,7 @@
 "ciara"
 ],
 "man_made":[
-"dielo",
-"konštrukcia",
-"ludsky vytvor",
-"konstrukcia",
-"objekt",
-"stavba",
-"mechanizmus",
-"Ľudský výtvor",
-"artefakt"
+"Ľudský výtvor"
 ],
 "man_made/adit":[
 "štóla",
@@ -2583,11 +2552,7 @@
 "tovaren"
 ],
 "natural":[
-"prirodne",
-"príroda",
-"prirodny",
-"Prírodné",
-"priroda"
+"Prírodné"
 ],
 "natural/bay":[
 "plaz",
@@ -3017,9 +2982,6 @@
 "trasa",
 "relacia"
 ],
-"roundabout":[
-"Kruhový objazd"
-],
 "route/ferry":[
 "Trajektová trasa",
 "trajekt",
@@ -3145,13 +3107,7 @@
 "knihkupectvo"
 ],
 "shop/boutique":[
-"oblecenie",
-"šaty",
-"odev",
-"saty",
-"odevy",
-"Butik",
-"oblečenie"
+"Butik"
 ],
 "shop/butcher":[
 "maso",
@@ -3342,8 +3298,7 @@
 "Volny predaj ovocia"
 ],
 "shop/fashion":[
-"Obchod s módnymi doplnkami",
-"obchod s modmymi doplnkami"
+"Obchod s módnymi doplnkami"
 ],
 "shop/fishmonger":[
 "Predaj rýb"
@@ -3453,14 +3408,6 @@
 "intriérové dekorácie",
 "obchod s bytovami dekoraciami",
 "Obchod s bytovými dekoráciami"
-],
-"shop/jewelry":[
-"šperky",
-"zlato",
-"zlatnictvo",
-"striebro",
-"Zlatníctvo",
-"sperky"
 ],
 "shop/kitchen":[
 "kuchyňe",
@@ -3806,19 +3753,7 @@
 "vinaren"
 ],
 "tourism":[
-"turistické",
-"muzeum",
-"turizmus",
-"atrakcia",
-"chata",
-"múzeum",
-"Turizmus",
-"motel",
-"turistika",
-"hotel",
-"zoo",
-"turisticke",
-"park"
+"Turizmus"
 ],
 "tourism/alpine_hut":[
 "nocľah",
@@ -4100,13 +4035,6 @@
 "nadradená trasa",
 "nadradena trasa",
 "hlavna trasa"
-],
-"vertex":[
-"ine",
-"Iné",
-"zvyšnézvysne",
-"ostatne",
-"ostatné"
 ],
 "waterway":[
 "Vodná cesta"

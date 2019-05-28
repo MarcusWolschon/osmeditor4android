@@ -657,9 +657,6 @@
 "shop/hifi":[
 "Hoëtrouwinkel"
 ],
-"shop/jewelry":[
-"Juwelier"
-],
 "shop/laundry":[
 "Wassery"
 ],
@@ -800,9 +797,6 @@
 ],
 "type/route/tram":[
 "Tremroete"
-],
-"vertex":[
-"Ander"
 ],
 "waterway":[
 "Waterweg"

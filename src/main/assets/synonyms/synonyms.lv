@@ -429,14 +429,6 @@
 "suvenīrs",
 "saplacināt"
 ],
-"amenity/vending_machine/excrement_bags":[
-"sūdu",
-"ekskrementu maisiņu",
-"suņu",
-"Suņu Maisiņu Tirdzniecības automāts",
-"kaku maisiņu",
-"dzīvnieku"
-],
 "amenity/vending_machine/feminine_hygiene":[
 "ieliknis",
 "sieivešu",
@@ -465,9 +457,6 @@
 "Saldējuma Tirdzniecības automāts",
 "sasaldēts",
 "vaniļas"
-],
-"amenity/vending_machine/news_papers":[
-"Avīžu Tirdzniecības automāts"
 ],
 "amenity/vending_machine/newspapers":[
 "avīze",
@@ -542,15 +531,6 @@
 ],
 "area/highway":[
 "Ceļa segums"
-],
-"attraction/animal":[
-"lācis",
-"žirafe",
-"tīģeris",
-"lauva",
-"zoo",
-"dzīvnieku parks",
-"Dzīvnieku"
 ],
 "attraction/big_wheel":[
 "atrakcija",
@@ -779,9 +759,6 @@
 "Rindumājas",
 "rindu mājas",
 "mājas"
-],
-"building/train_station":[
-"Vilcienu Stacija"
 ],
 "building/university":[
 "Universitātes Ēka"
@@ -1436,36 +1413,6 @@
 "power/transformer":[
 "Transformators"
 ],
-"public_transport/linear_platform_bus":[
-"Autobusu pietura / platforma"
-],
-"public_transport/linear_platform_ferry":[
-"Prāmja pietura / Platforma"
-],
-"public_transport/linear_platform_subway":[
-"Metro pietura / platforma"
-],
-"public_transport/linear_platform_train":[
-"Vilciena Pietura / Platforma"
-],
-"public_transport/linear_platform_trolleybus":[
-"Trolejbusu pietura / platforma"
-],
-"public_transport/platform_bus":[
-"Autobusu pietura / platforma"
-],
-"public_transport/platform_ferry":[
-"Prāmja pietura / Platforma"
-],
-"public_transport/platform_subway":[
-"Metro pietura / platforma"
-],
-"public_transport/platform_train":[
-"Vilciena Pietura / Platforma"
-],
-"public_transport/platform_trolleybus":[
-"Trolejbusu pietura / platforma"
-],
 "public_transport/station_bus":[
 "Autobusu stacija / Terminālis"
 ],
@@ -1517,9 +1464,6 @@
 ],
 "relation":[
 "Relācija"
-],
-"roundabout":[
-"Aplis"
 ],
 "shop":[
 "Veikals"
@@ -1693,9 +1637,6 @@
 ],
 "shop/hardware":[
 "Celtniecības veikals"
-],
-"shop/jewelry":[
-"Juvelieris"
 ],
 "shop/kiosk":[
 "Kiosks"
@@ -1901,9 +1842,6 @@
 ],
 "type/restriction":[
 "Aizliegums"
-],
-"vertex":[
-"Cits"
 ],
 "waterway":[
 "Ūdensceļš"

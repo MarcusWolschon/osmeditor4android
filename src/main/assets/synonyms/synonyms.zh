@@ -611,9 +611,6 @@
 "shop/hifi":[
 "音响店"
 ],
-"shop/jewelry":[
-"珠宝店"
-],
 "shop/laundry":[
 "洗衣店"
 ],
@@ -751,9 +748,6 @@
 ],
 "type/route/tram":[
 "电车路线"
-],
-"vertex":[
-"其他"
 ],
 "waterway":[
 "航道"

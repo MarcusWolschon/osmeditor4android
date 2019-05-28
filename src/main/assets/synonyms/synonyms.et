@@ -26,6 +26,9 @@
 "Lennuterminal",
 "terminal"
 ],
+"aeroway/windsock":[
+"Tuulesokk"
+],
 "allotments/plot":[
 "Ühisaia krunt"
 ],
@@ -56,6 +59,10 @@
 "amenity/bicycle_parking":[
 "Rattaparkla",
 "jalgrattaparkla"
+],
+"amenity/bicycle_parking/building":[
+"parkla",
+"autoparkla"
 ],
 "amenity/bicycle_rental":[
 "laenutus",
@@ -136,6 +143,16 @@
 "Suruõhk",
 "õhk"
 ],
+"amenity/conference_centre":[
+"väljapanek",
+"sündmuste",
+"auditoorium",
+"Konverentsikeskus",
+"hall",
+"näituse",
+"loengu",
+"seminari"
+],
 "amenity/courthouse":[
 "Kohus",
 "Kohtumaja"
@@ -166,8 +183,20 @@
 "veoauto"
 ],
 "amenity/embassy":[
-"suursaatkond",
 "Saatkond"
+],
+"amenity/events_venue":[
+"sündmuste",
+"koolituste",
+"peosaal",
+"hall",
+"Ürituste pidamiskoht",
+"rendiruumid",
+"peokoht",
+"saal",
+"tähistuskoht",
+"pidu",
+"seminari"
 ],
 "amenity/fast_food":[
 "Kiirtoitlustus"
@@ -238,12 +267,30 @@
 "amenity/nursing_home":[
 "Hoolduskodu"
 ],
+"amenity/parking":[
+"sõiduauto",
+"parkimisplats",
+"Autoparkla",
+"Parkla"
+],
+"amenity/parking/multi-storey":[
+"parkla",
+"parkimismaja",
+"autoparkla",
+"Mitmetasandiline parkimismaja"
+],
+"amenity/parking/underground":[
+"Maaalune parkla"
+],
 "amenity/parking_entrance":[
 "Parkimismaja sisse/väljapääs"
 ],
 "amenity/parking_space":[
 "parkla",
 "Parkimiskoht"
+],
+"amenity/photo_booth":[
+"Fotokabiin"
 ],
 "amenity/place_of_worship":[
 "Pühakoda",
@@ -327,6 +374,9 @@
 "amenity/smoking_area":[
 "Suitsetamise koht"
 ],
+"amenity/social_centre":[
+"Sotsiaalkeskus"
+],
 "amenity/social_facility":[
 "Sotsiaalkeskus",
 "Sotsiaalamet"
@@ -404,9 +454,6 @@
 ],
 "attraction/amusement_ride":[
 "Lõbuatraktsioon"
-],
-"attraction/animal":[
-"Loom"
 ],
 "attraction/big_wheel":[
 "Vaateratas"
@@ -572,6 +619,10 @@
 "building/greenhouse":[
 "Kasvuhoone"
 ],
+"building/hangar":[
+"Angaar",
+"lennukikuur"
+],
 "building/hospital":[
 "Haiglahoone"
 ],
@@ -644,9 +695,6 @@
 "building/terrace":[
 "Terrassmaja"
 ],
-"building/train_station":[
-"Raudteejaam"
-],
 "building/transportation":[
 "Transpordihoone"
 ],
@@ -656,15 +704,18 @@
 "building/warehouse":[
 "Laohoone"
 ],
+"building_part":[
+"Hoone osa"
+],
+"building_point":[
+"Hoone"
+],
 "camp_site/camp_pitch":[
 "kämpinguplats",
 "Kämpingukoht",
 "telgiplats",
 "karavaniplats",
 "telgikoht"
-],
-"circular":[
-"Liiklusring"
 ],
 "club":[
 "Klubi"
@@ -889,6 +940,9 @@
 "highway/bridleway":[
 "Ratsutamisrada"
 ],
+"highway/bus_stop":[
+"Bussipeatus"
+],
 "highway/construction":[
 "teesulg",
 "teeehitus",
@@ -898,12 +952,42 @@
 "koridor",
 "Sisekoridor"
 ],
+"highway/crossing":[
+"Ülekäik"
+],
 "highway/cycleway":[
 "Rattatee"
+],
+"highway/cycleway/bicycle_foot":[
+"jalgratta",
+"jalg",
+"ratta",
+"jala",
+"Jalgratta- ja jalgtee"
+],
+"highway/cycleway/crossing":[
+"Lõikumine (jalg- ja) jalgrattateega"
+],
+"highway/cycleway/crossing/marked":[
+"jalgratta",
+"ülekäik",
+"Märgistatud lõikumine (jalg- ja) jalgrattateega",
+"ratta",
+"ülekäigu"
+],
+"highway/cycleway/crossing/unmarked":[
+"jalgratta",
+"ülekäik",
+"ratta",
+"ülekäigu",
+"Märgistamatta lõikumine (jalg- ja) jalgrattateega"
 ],
 "highway/footway":[
 "Jalgtee",
 "kõnnitee"
+],
+"highway/footway/crossing":[
+"Jalakäia ülekäik"
 ],
 "highway/give_way":[
 "Anna teed märk"
@@ -1059,6 +1143,15 @@
 "Valgusfoorid",
 "signaaltuled"
 ],
+"highway/trailhead":[
+"Raja algus",
+"algus",
+"start",
+"plats",
+"stardi",
+"matka",
+"infopunkt"
+],
 "highway/trunk":[
 "maantee",
 "Trunk Road",
@@ -1098,6 +1191,50 @@
 "Loss",
 "Kindlus"
 ],
+"historic/castle/fortress":[
+"müür",
+"Linnus",
+"kindlus",
+"kaitsemüür",
+"kaitserajatis",
+"kaitsevall",
+"maalinn"
+],
+"historic/castle/palace":[
+"loss",
+"aadli",
+"esindusloss",
+"kõrgaadli",
+"kuninglik",
+"Palee"
+],
+"historic/castle/stately":[
+"loss",
+"esindus",
+"aadli",
+"mõis",
+"kõrgaadli",
+"mõisniku",
+"Härrastemaja",
+"häärber",
+"peahoone"
+],
+"historic/city_gate":[
+"Linnavärav"
+],
+"historic/fort":[
+"loss",
+"fortifikatsioon",
+"kindlustus",
+"fort",
+"Kindlus",
+"kaitse"
+],
+"historic/manor":[
+"härrastemaja",
+"Mõis",
+"mõisa"
+],
 "historic/memorial":[
 "Mälestusmärk",
 "Memoriaal"
@@ -1123,6 +1260,9 @@
 ],
 "junction":[
 "Ristmik"
+],
+"junction/roundabout":[
+"Ringristmik"
 ],
 "landuse":[
 "Maakasutus"
@@ -1160,6 +1300,11 @@
 "landuse/farmyard":[
 "taluhoov",
 "Taluõu"
+],
+"landuse/forest":[
+"metsandusmaa",
+"Metsamajandusmaa",
+"metsatööstusmaa"
 ],
 "landuse/garages":[
 "garaažid",
@@ -1212,6 +1357,12 @@
 "landuse/recreation_ground":[
 "puhkeala",
 "Mänguala"
+],
+"landuse/religious":[
+"religioosne",
+"kirik",
+"usu",
+"Sakraalmaa"
 ],
 "landuse/residential":[
 "Elurajoon",
@@ -1373,9 +1524,7 @@
 "Joon"
 ],
 "man_made":[
-"Tehislik",
-"Inimtehtud",
-"Tehis"
+"Inimtehtud"
 ],
 "man_made/adit":[
 "suue",
@@ -1465,6 +1614,15 @@
 "man_made/tower":[
 "Torn"
 ],
+"man_made/tower/defensive":[
+"torn",
+"Kindlustorn",
+"kaitse"
+],
+"man_made/tunnel":[
+"Tunnel",
+"maaalune"
+],
 "man_made/wastewater_plant":[
 "Reoveepuhastusjaam"
 ],
@@ -1483,9 +1641,7 @@
 "Vabrik"
 ],
 "natural":[
-"loomulik",
-"Looduslik",
-"naturaalne"
+"Looduslik"
 ],
 "natural/bare_rock":[
 "Kivi paljand",
@@ -1497,6 +1653,11 @@
 "natural/beach":[
 "Rand",
 "Liivarand"
+],
+"natural/cape":[
+"poolsaar",
+"Neem",
+"maanina"
 ],
 "natural/cave_entrance":[
 "õõs",
@@ -1548,6 +1709,11 @@
 "mäetipp",
 "Mäehari"
 ],
+"natural/rock":[
+"rahn",
+"Kaljurahn",
+"kivi"
+],
 "natural/saddle":[
 "Mäesadul"
 ],
@@ -1565,14 +1731,32 @@
 "natural/scrub":[
 "Võsa"
 ],
+"natural/shingle":[
+"Kiviklibu",
+"kivid",
+"klibu"
+],
 "natural/spring":[
 "vesi",
 "veeallikas",
 "Allikas",
 "joogivesi"
 ],
+"natural/stone":[
+"rahn",
+"Lahtine kivirahn",
+"kivi",
+"rändrahn"
+],
 "natural/tree":[
 "Puu"
+],
+"natural/valley":[
+"kanjon",
+"Org",
+"kuristik",
+"depressioon",
+"süvend"
 ],
 "natural/volcano":[
 "Vulkaan"
@@ -1583,12 +1767,21 @@
 "natural/water/lake":[
 "Järv"
 ],
+"natural/water/moat":[
+"kraav",
+"Vallikraav",
+"kaitsekraav"
+],
 "natural/water/pond":[
 "Tiik"
 ],
 "natural/water/reservoir":[
 "veehoidla",
 "Reservuaar"
+],
+"natural/water/wastewater":[
+"reovesi",
+"Reovee bassein"
 ],
 "natural/wetland":[
 "roostik",
@@ -1611,6 +1804,13 @@
 "kontor",
 "korporatiiv",
 "firma"
+],
+"office/diplomatic/consulate":[
+"saatkond",
+"Konsulaat"
+],
+"office/diplomatic/embassy":[
+"Saatkond"
 ],
 "office/government":[
 "Valitsuse kontor"
@@ -1660,6 +1860,13 @@
 "Elektrigeneraator",
 "generaator"
 ],
+"power/generator/source/hydro":[
+"Vee turbiin",
+"turbiin",
+"veegeneraator",
+"tamm",
+"hüdroelektrijaam"
+],
 "power/line":[
 "Elektriliin",
 "õhuliin",
@@ -1689,6 +1896,9 @@
 "power/transformer":[
 "Transformaator",
 "Trafo"
+],
+"public_transport/platform/bus_point":[
+"Bussipeatus"
 ],
 "railway":[
 "Raudtee"
@@ -1742,9 +1952,6 @@
 "relation":[
 "Seos",
 "relatsioon"
-],
-"roundabout":[
-"Ringtee"
 ],
 "route/ferry":[
 "Praamitee"
@@ -1824,10 +2031,6 @@
 "Raamatupood"
 ],
 "shop/boutique":[
-"boutique",
-"moekaup",
-"moekauplus",
-"ehtekauplus",
 "Butiik"
 ],
 "shop/butcher":[
@@ -1974,10 +2177,7 @@
 "põllusaadused"
 ],
 "shop/fashion":[
-"moepood",
-"rõivakauplus",
-"Moekauplus",
-"Butiik"
+"Moekauplus"
 ],
 "shop/fireplace":[
 "Küttekollete pood",
@@ -2036,6 +2236,11 @@
 "gaas",
 "segugaas"
 ],
+"shop/general":[
+"pood",
+"esmatarbe",
+"Kauplus"
+],
 "shop/gift":[
 "Kingipood"
 ],
@@ -2090,11 +2295,6 @@
 "Sisedekoratsioonikauplus",
 "dekoratsioonid",
 "kaunistus"
-],
-"shop/jewelry":[
-"ehted",
-"Ehtepood",
-"kalliskivid"
 ],
 "shop/kitchen":[
 "köögimööblistuudio",
@@ -2239,6 +2439,7 @@
 "kirikupood",
 "usupood",
 "Usutarvete kauplus",
+"sakraal",
 "pühatarvete"
 ],
 "shop/scuba_diving":[
@@ -2357,6 +2558,11 @@
 "shop/wine":[
 "Veinipood"
 ],
+"telecom/data_center":[
+"Andmekeskus",
+"serveri",
+"datacenter"
+],
 "tourism":[
 "Turism"
 ],
@@ -2371,6 +2577,13 @@
 ],
 "tourism/artwork":[
 "Kunstiteos"
+],
+"tourism/artwork/installation":[
+"väljapanek",
+"installatsioon",
+"püsinäitus",
+"Kunstiinstallatsioon",
+"kunst"
 ],
 "tourism/attraction":[
 "vaatamisväärsus",
@@ -2424,6 +2637,15 @@
 "tourism/information/office":[
 "infokeskus",
 "Turismiinfokeskus"
+],
+"tourism/information/route_marker":[
+"post",
+"märk",
+"teejuht",
+"Rajatähis",
+"tähis",
+"silt",
+"juhis"
 ],
 "tourism/motel":[
 "motohotell",
@@ -2620,9 +2842,6 @@
 "type/site":[
 "Asukoht"
 ],
-"vertex":[
-"Muu"
-],
 "waterway":[
 "Veetee"
 ],
@@ -2677,8 +2896,14 @@
 "Oja"
 ],
 "waterway/stream_intermittent":[
-"Ajutine oja",
-"perioodiline"
+"vahelduv",
+"Perioodiline oja",
+"seiskuv",
+"kraav",
+"oja",
+"üleujutatud",
+"katkendlik",
+"ajutine"
 ],
 "waterway/water_point":[
 "Joogiveepunkt (veesõidukitele)",
