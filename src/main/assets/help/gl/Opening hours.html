@@ -5,11 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Editor de horarios de apertura de OpenStreetMap</h1>
-<p>A especificación de horas de apertura de OpenStreetMap é bastante complexa e non se presta fácilmente a unha interface de usuario sinxela e intuitiva.</p>
-<p>Non obstante, a maior parte do tempo probablemente só estea usando unha pequena parte da definición. O editor ten isto en conta ao tentar ocultar as características máis escuras nos menús e a maior parte do tempo reducindo o uso &quot;na estrada&quot; a pequenas personalizacións de modelos predefinidos.</p>
-<p><em>Esta documentación é preliminar e un traballo en curso</em></p>
-<h2>Usando o editor de horarios de apertura</h2>
+<h1>Editor dos horarios de apertura do OpenStreetMap</h1>
+<p>A especificación dos horarios de apertura do OpenStreetMap é bastante complexa e non se presta de xeito doado a unha interface de usuario sinxela e intuitiva.</p>
+<p>Non obstante, a maior parte do tempo probábelmente só estea empregando unha pequena parte da definición. O editor ten isto en conta ó tentar agochar as características máis escuras nos menús e a maior parte do tempo reducindo o uso &quot;na estrada&quot; a pequenas personalizacións de modelos predefinidos.</p>
+<p><em>Esta documentación é preliminar e está en progreso</em></p>
+<h2>Empregando o editor dos horarios de apertura</h2>
 <p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.</p>
 <p>If you have defined a default template (do this via the &quot;Manage templates&quot; menu item) it will be loaded automatically when the editor is started with an empty value. With the &quot;Load template&quot; function you can load any saved template and with the &quot;Save template&quot; menu you can save the current value as a template. You can define separate templates and defaults for the &quot;opening_hours&quot;, &quot;collection_times&quot; and &quot;service_times&quot; tags.</p>
 <p>Por suposto, pode construír un valor de horas de apertura desde cero, pero recomendaríamos usar un dos modelos existentes como punto de partida.</p>
@@ -73,9 +73,10 @@
 </ul>
 <h3>Períodos de tempo</h3>
 <p>Para facer a edición dos períodos de tempo o máis sinxelo posible, tratamos de escoller un intervalo de tempo e granularidade óptimos para as barras de intervalo ao cargar os valores existentes. Para novos tempos, as barras comezan ás 6:00 (am) e teñen incrementos de 15 minutos; isto pódese cambiar a través do menú.</p>
+<p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
 <h4>Menú de períodos de tempo</h4>
 <ul>
-<li><strong>Display time picker</strong>: show a large number picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
+<li><strong>Display time picker</strong>: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
 <li><strong>Cambia a tics de 15 minutos</strong>: Use unha granularidade de 15 minutos para a barra de rango.</li>
 <li><strong>Cambia a tics de 5 minutos</strong>: Use unha granularidade de 5 minutos para a barra de rango.</li>
 <li><strong>Cambia a tics de 1 minuto</strong>: Use unha granularidade de 1 minuto para a barra de rango, moi difícil de usar nun teléfono.</li>

@@ -73,9 +73,11 @@ Domyślne reguły są dodawane jako _normalne_, co skutkuje tym, że nadpisują 
 
 Aby uczynić edytowanie okresów czasu tak łatwym, jak to tylko możliwe, próbujemy wybrać optymalny zakres czasu i skok pasków przy ładowaniu istniejących wartości. Dla nowych okresów czasu paski zaczynają się o 6:00 (rano) i mają 15-minutowy skok, co można zmienić w menu.
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### Menu okresów czasu
 
-* __Pokaż wybieracz czasu__: pokazuje duży wybieracz do określenia czasu początkowego i końcowego, jest to polecana metoda zmieniania czasów na bardzo małych ekranach.
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __Przełącz na 15-minutowe skoki__: używa 15-minutowego skoku dla pasków zakresu.
 * __Przełącz na 5-minutowe skoki__: używa 5-minutowego skoku dla pasków zakresu.
 * __Przełącz na 1-minutowe skoki__: używa 1-minutowego skoku dla pasków zakresu, bardzo trudne w użyciu na telefonie.

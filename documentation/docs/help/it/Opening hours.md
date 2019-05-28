@@ -73,9 +73,11 @@ Le regole predefinite sono aggiunte come _normali_ regole, ciò implica che esse
 
 Per rendere la modifica degli intervalli di tempo più semplice possibile, quando vengono caricati valori già esistenti scegliamo un intervallo di tempo ed una granularità per le barre di intervallo che riteniamo ottimali. Per gli intervalli temporali nuovi le barre iniziano alle 6 del mattino e hanno incrementi di 15 minuti, questo può essere modificato attraverso il menù.
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### Menù intervalli di tempo
 
-* __Mostra selettore orario__: visualizza un grande selettore dell’orario per scegliere l’ora di inizio e quella di fine, negli schermi molto piccoli è il modo migliore di modificare gli orari.
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __Passa a scatti di 15 minuti__: utilizza una granularità di 15 minuti per la barra dell’intervallo.
 * __Passa a scatti di 5 minuti__: utilizza una granularità di 5 minuti per la barra dell’intervallo.
 * __Passa a scatti di 1 minuto__: utilizza una granularità di 1 minuto per la barra dell’intervallo.

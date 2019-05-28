@@ -73,9 +73,11 @@ Az alapértelmezett szabályok _rendes_ szabályként jelennek meg. Ez azzal já
 
 Szeretnénk a lehető legkönnyebbé tenni az időtartamok szerkesztését. A meglévő értékek betöltésénél ezért megpróbáltuk kiválasztani az optimális időtartamot és a tartománysáv finomságát. Új időtartam megadásánál a tartománysáv reggel 6:00 órakor indul és 15 perces a lépésköze. Ez menüben változtatható.
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### Időtartam menü
 
-* __Időválasztó__: megjelenít egy nagy számválasztót a nyitási és zárási idő beállításához; kis kijelzőkön ez az időbeállítás preferált módja.
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __Váltás 15 perces lépésközre__: 15 perces finomságúra változtatja a tartománysávot.
 * __Váltás 5 perces lépésközre__: 5 perces finomságúra változtatja a tartománysávot.
 * __Váltás 1 perces lépésközre__: 1 perces finomságúra változtatja a tartománysávot; telefonon nagyon nehezen használható.

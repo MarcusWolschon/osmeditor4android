@@ -1,12 +1,12 @@
-# Editor de horarios de apertura de OpenStreetMap
+# Editor dos horarios de apertura do OpenStreetMap
 
-A especificación de horas de apertura de OpenStreetMap é bastante complexa e non se presta fácilmente a unha interface de usuario sinxela e intuitiva.
+A especificación dos horarios de apertura do OpenStreetMap é bastante complexa e non se presta de xeito doado a unha interface de usuario sinxela e intuitiva.
 
-Non obstante, a maior parte do tempo probablemente só estea usando unha pequena parte da definición. O editor ten isto en conta ao tentar ocultar as características máis escuras nos menús e a maior parte do tempo reducindo o uso "na estrada" a pequenas personalizacións de modelos predefinidos.
+Non obstante, a maior parte do tempo probábelmente só estea empregando unha pequena parte da definición. O editor ten isto en conta ó tentar agochar as características máis escuras nos menús e a maior parte do tempo reducindo o uso "na estrada" a pequenas personalizacións de modelos predefinidos.
 
-_Esta documentación é preliminar e un traballo en curso_
+_Esta documentación é preliminar e está en progreso_
 
-## Usando o editor de horarios de apertura
+## Empregando o editor dos horarios de apertura
 
 In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.
 
@@ -73,9 +73,11 @@ As regras por defecto son engadidas como regras _normais_: isto implica que ter�
 
 Para facer a edición dos períodos de tempo o máis sinxelo posible, tratamos de escoller un intervalo de tempo e granularidade óptimos para as barras de intervalo ao cargar os valores existentes. Para novos tempos, as barras comezan ás 6:00 (am) e teñen incrementos de 15 minutos; isto pódese cambiar a través do menú.
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### Menú de períodos de tempo
 
-* __Display time picker__: show a large number picker for selecting start and end time, on very small displays this is the preferred way of changing times.
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __Cambia a tics de 15 minutos__: Use unha granularidade de 15 minutos para a barra de rango.
 * __Cambia a tics de 5 minutos__: Use unha granularidade de 5 minutos para a barra de rango.
 * __Cambia a tics de 1 minuto__: Use unha granularidade de 1 minuto para a barra de rango, moi difícil de usar nun teléfono.

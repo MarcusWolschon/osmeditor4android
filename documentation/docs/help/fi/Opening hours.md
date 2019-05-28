@@ -38,32 +38,32 @@ Oletussäännöt lisätään _tavallisina_ sääntöinä, mikä tarkoittaa sitä
 * __Lisää aikaväli...__
     * __Aika–aika__: alkuaika ja loppuaika samana päivänä.
     * __Aika–laajennettu aika__: alkuaika ja loppuaika eri päivinä (esim. 26:00 on 02:00 seuraavana päivänä).
-    * __Vaiht. aika–aika__: vaihteleva alkuaika (aamuhämärä, iltahämärä, auringonnousu, auringonlasku) ja loppuaika samana päivänä.
+    * __Vaiht. aika–aika__: vaihteleva alkuaika (aamu- tai iltahämärä, auringonnousu tai -lasku) ja loppuaika samana päivänä.
     * __Vaiht. aika–laajennettu aika__: vaihteleva alkuaika ja loppuaika peräkkäisinä päivinä.
     * __Aika–vaiht. aika__: alkuaika ja vaihteleva loppuaika.
     * __Vaiht. aika–vaiht. aika__: vaihteleva alkuaika ja vaihteleva loppuaika.
     * __Aika__: tietty ajankohta.
-    * __Aika, alkaen__: tietystä ajankohdasta eteenpäin.
+    * __Aika–avoin loppu__: tietystä ajankohdasta eteenpäin.
     * __Vaihteleva aika__: vaihtelevana ajankohtana.
-    * __Vaihteleva aika, alkaen__: vaihtelevasta ajankohdasta eteenpäin.
+    * __Vaihteleva aika–avoin loppu__: vaihtelevasta ajankohdasta eteenpäin.
 * __Lisää viikonpäiväjakso__: lisää viikonpäiviin perustuva valitsin.
 * __Lisää päiväjakso...__
     * __Pvm–pvm__: alku- ja loppupäivämäärä (vuosi, kk, päivä).
-    * __Vaihteleva pvm–pvm__: vaihteleva alkupäivämäärä (määrittelyssä on toistaiseksi vain _pääsiäinen_) ja loppupäivämäärä.
+    * __Vaihteleva pvm–pvm__: vaihteleva alkupäivämäärä (määrittelyssä on toistaiseksi vain _pääsiäinen_) ja tietty loppupäivämäärä.
     * __Pvm–vaihteleva pvm__: alkupäivämäärä ja vaihteleva loppupäivämäärä.
     * __Vaihteleva pvm–vaihteleva pvm__: vaihteleva alku- ja loppupäivämäärä.
-    * __Occurrence in month - occurrence in month__: from a start weekday occurrence in a month to the same.
-    * __Occurrence in month - date__: from a start weekday occurrence in a month to a end date.
-    * __Date - occurrence in month__: from a start date to an end weekday occurrence in a month.
-    * __Occurrence in month - variable date__: from a start weekday occurrence in a month to an end variable date.
-    * __Variable date - occurrence in month__: from a start variable date to an end weekday occurrence in a month.
-    * __Date - open end__: from a start date onwards.
-    * __Vaihteleva pvm, alkaen__: vaihtelevasta päivämäärästä eteenpäin.
-    * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
+    * __Esiintymiskerta kuussa–esiintymiskerta kuussa__: alkaen viikonpäivän tietystä esiintymiskerrasta kuukauden aikana samaan esiintymäkertaan seuraavassa kuussa.
+    * __Esiintymiskerta kuussa–päivämäärä__: alkaen viikonpäivän tietystä esiintymiskerrasta kuukauden aikana ja päättyen tiettyyn päivämäärään
+    * __Päivämäärä–esiintymiskerta kuussa__: alkaen tietystä päivämäärästä ja päättyen viikonpäivän tiettyyn esiintymiskertaan kuukauden aikana.
+    * __Esiintymiskerta kuussa–vaihteleva päivämäärä__: alkaen viikonpäivän tietystä esiintymiskerrasta kuukauden aikana ja päättyen vaihtelevaan päivämäärään.
+    * __Vaihteleva päivämäärä–esiintymiskerta kuussa__: alkaen vaihtelevasta päivämäärästä ja päättyen viikonpäivän tiettyyn esiintymiskertaan kuukauden aikana.
+    * __Päivämäärä–avoin loppu__: tietystä päivämäärästä eteenpäin.
+    * __Vaihteleva pvm–avoin loppu__: vaihtelevasta päivämäärästä eteenpäin.
+    * __Esiintymiskerta kuussa–avoin loppu__: viikonpäivän tietystä esiintymiskerrasta kuukauden aikana eteenpäin.
     * __Poikkeama...__: samat vaihtoehdot kuin edellä poikkeaman kanssa (harvoin käytetty).
 * __Lisää vuosijakso__: lisää vuosiin perustuva valitsin.
 * __Lisää viikkojakso__: lisää viikkonumeroihin perustuva valitsin.
-* __Duplicate__: create a copy of this rule and insert it after the current position.
+* __Kahdenna__: tee kopio tästä säännöstä välittömästi sen perään.
 * __Näytä sääntötyyppi__: näytä säännön tyyppi ja/tai muuta sitä: _tavallinen_, _lisäävä_ ja _vara_ (ei ensimmäiselle säännölle).
 * __Siirrä ylöspäin__: siirrä sääntö yhtä paikkaa ylemmäs (ei ensimmäiselle säännölle)
 * __Siirrä alaspäin__: siirrä sääntö yhtä paikkaa alemmas.
@@ -73,9 +73,11 @@ Oletussäännöt lisätään _tavallisina_ sääntöinä, mikä tarkoittaa sitä
 
 Jotta ajanjaksojen muokkaaminen olisi mahdollisimman helppoa, säätöpalkkien laajuus ja tarkkuus yritetään optimoida, kun olemassa oleva arvo ladataan. Uusien ajanjaksojen säätimissä alkuaika on 6:00, ja niissä on 15 minuutin jaotus. Asetuksia voi muuttaa valikon kautta.
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### Ajanjaksovalikko
 
-* __Display time picker__: show a large number picker for selecting start and end time, on very small displays this is the preferred way of changing times.
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __15 minuutin jaotus__: käytä säätöpalkissa 15 minuutin tarkkuutta.
 * __5 minuutin jaotus__: käytä säätöpalkissa 5 minuutin tarkkuutta.
 * __1 minuutin jaotus__: käytä säätöpalkissa 1 minuutin tarkkuutta – todella vaikeaa puhelimessa.

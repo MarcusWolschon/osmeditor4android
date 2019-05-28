@@ -73,9 +73,11 @@ Les règles par défaut sont ajoutées comme des règles _normales_, ce qui impl
 
 Pour rendre la modification d'intervalles de temps le plus simple possible, nous essayons de choisir un intervalle de temps optimal et une granularité pour la barre d'intervalle lors du chargement de valeurs existantes. Pour les nouveaux intervalles, la barre commence à 6:00 (du matin) avec des incrément de 15 minutes, ce qui peut se changer via le menu.
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### Menu d'intervalle de temps
 
-* __Montrer le sélecteur d'heure__ : montrer un sélecteur d'heure pour choisir l'heure de début et de fin. C'est la méthode privilégiée sur les petits écrans pour changer les horaires.
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __Passer à des intervalles de 15 minutes__ : utiliser une granularité à 15 minutes sur la barre d'intervalle.
 * __Passer à des intervalles de 5 minutes__ : utiliser une granularité à 5 minutes sur la barre d'intervalle.
 * __Passer à des intervalles de 1 minutes__ : utiliser une granularité à 1 minutes sur la barre d'intervalle. C'est très difficile à utiliser sur un téléphone.

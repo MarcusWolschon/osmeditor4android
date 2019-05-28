@@ -23,7 +23,7 @@ _這份文件是初步的並且正在進展_
 * __為 24/7 增加規則__：為總是開放的物件增加規則，開放時間規範不支持任何其他子值為24/7，但我們允許增加更高階的選擇器 (例如年份範圍)。
 * __載入模板__：載入先有的模板。
 * __儲存至模板__：將現有的營業時間數值儲存為模板留待日後使用。
-* __Manage templates__: edit, for example change the name, and delete existing templates.
+* __管理模板__：編輯（如變更名稱）或刪除現有模板
 * __重新整理__：重新解析營業時間的數值。
 * __全部刪除__：刪除全部規則。
 
@@ -73,9 +73,11 @@ _這份文件是初步的並且正在進展_
 
 要讓編輯時間刻度變得更簡單可行，我們嘗試選擇最佳時間範圍，加載現有值時範圍欄的刻度。對新的時間刻度來說，欄從6:00(am)開始，然後每15分鐘增加。上述的設定可以在選單更改。
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### 時間跨度選單
 
-* __顯示時間選擇器__：顯示相當大的數字選擇器，選擇開始和結束日期，在相當小的顯示，這是傾向的方式來改變時間。
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __切換到15分鐘刻度__：對範圍欄使用15分鐘刻度。
 * __切換到5分鐘刻度__：對範圍欄使用5分鐘的刻度。
 * __切換到1分鐘刻度__：對範圍欄使用1分鐘的刻度，很難在手機上使用。

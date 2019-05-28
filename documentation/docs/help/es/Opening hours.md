@@ -73,9 +73,11 @@ Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anular
 
 Para que el tiempo de edición sea lo más fácil posible, tratamos de elegir un rango de tiempo y una granularidad óptimos para las barras de rango al cargar valores existentes. Para nuevos tiempos, las barras comienzan a las 6:00 (am) y tienen incrementos de 15 minutos, esto se puede cambiar a través del menú.
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### Menú de lapso de tiempo
 
-* __Mostrar el selector de tiempo__: mostrar un selector de número grande para seleccionar la hora de inicio y finalización, en pantallas muy pequeñas esta es la forma preferida de cambiar los horarios.
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __Cambiar a marcas de 15 minutos__: use una granularidad de 15 minutos para la barra de rango.
 * __Cambiar a ticks de 5 minutos__: use una granularidad de 5 minutos para la barra de rango.
 * __Cambiar a marcas de 1 minuto__: use una granularidad de 1 minuto para la barra de rango, muy difícil de usar en un teléfono.

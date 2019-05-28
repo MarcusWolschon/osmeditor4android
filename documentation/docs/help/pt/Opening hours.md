@@ -73,9 +73,11 @@ As regras padrão são adicionadas como regras _normais_, isto implica que elas 
 
 Para tornar a edição de segmentos de tempo o mais fácil possível, tentamos escolher o melhor intervalo de tempo e granularidade para as barras de intervalo ao carregar valores existentes. Para novos segmentos de tempo novos, as barras começam às 6:00 e têm incrementos de  minutos. Isto pode ser alterado no menu.
 
+Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+
 #### Menu de segmento de tempo
 
-* __Mostrar interface alternativa__: mostra uma interface com números grandes para escolher a hora de início e de fim. Esta opção é útil em ecrãs pequenos.
+* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
 * __Mudar para intervalos de 15 minutos__: usa intervalos de 15 minutos na barra de intervalo.
 * __Mudar para intervalos de 5 minutos__: usa intervalos de 5 minutos na barra de intervalo.
 * __Mudar para intervalos de 1 minuto__: usa intervalos de 1 minuto na barra de intervalo, pode ser difícil de usar esta opção num ecrã pequeno.

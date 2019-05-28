@@ -2,82 +2,86 @@
 
 Die OpenStreetMap Öffnungszeitenspezifikation ist ziemlich komplex und eignet sich nicht ohne weiteres für eine einfache und intuitive Benutzeroberfläche.
 
-However most of the time you will likely only be using a small part of the definition. The editor takes this in to account by trying to hide the more obscure features in menus and most of the time reducing the "on the road" use to small customizations of pre-defined templates.
+Aber meist wird nur ein kleiner Teil der Spezifikation benötigt. Der Editor berücksichtigt dies, lagert selten benötigte Funktionen in Menüs aus und verwendet vordefinierte Vorlagen.
 
 _Diese Dokumentation ist vorläufig und eine laufende Arbeit_
 
 ## Verwenden des Editors für die Öffnungszeiten
 
-In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.
+In einem typischen Arbeitsablauf enthält das Objekt, das Sie bearbeiten, entweder bereits ein Tag für die Öffnungszeiten (opening_hours, service_times und collection_times) oder Sie können die Voreinstellung für das Objekt erneut anwenden, um ein leeres Feld für die Öffnungszeiten zu erhalten. Wenn Sie das Feld manuell hinzufügen müssen und Vespucci verwenden, können Sie den Schlüssel auf der Detailseite eingeben und zur Bearbeitung auf die formularbasierte Registerkarte wechseln. Wenn Sie der Meinung sind, dass das Tag für die Öffnungszeiten Teil des Presets gewesen sein sollte, öffnen Sie eine Fehlermeldung für Ihren Editor.
 
-If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. 
+Wenn Sie eine Standardvorlage definiert haben (tun Sie dies über den Menüpunkt "Vorlagen verwalten"), wird diese automatisch geladen, wenn der Editor mit einem leeren Wert gestartet wird. Mit der Funktion "Vorlage laden" können Sie jede gespeicherte Vorlage laden und mit dem Menü "Vorlage speichern" den aktuellen Wert als Vorlage speichern. Sie können für die Tags "opening_hours", "collection_times" und "service_times" separate Vorlagen und Standardwerte definieren.
 
-Naturally you can build an opening hours value from scratch, but we would recommend using one of the existing templates as a starting point.
+Natürlich können Sie einen Wert für die Öffnungszeiten von Grund auf erstellen, wir empfehlen jedoch, eine der vorhandenen Vorlagen als Ausgangspunkt zu verwenden.
 
-If an existing opening hours value is loaded, an attempt is made to auto-correct it to conform to the opening hours specification. If that is not possible the rough location where the error occurred will be highlighted in the display of the raw OH value and you can try and correct it manually. Roughly a quarter of the OH values in the OpenStreetMap database have problems, but less than 10% can't be corrected, see [OpeningHoursParser](https://github.com/simonpoole/OpeningHoursParser) for more information on what deviations from the specification are tolerated.
+Wenn ein existierender Öffnungszeiten-Wert geladen wird, wird versucht diesen automatisch an die Öffnungszeiten-Spezifikationen anzupassen. Wenn das nicht möglich ist, wird die ungefähre Stelle des Fehlers angezeigt und Sie können versuchen den Fehler manuell zu korrigieren. Ungefähr ein Viertel der Öffnungszeiten-Werte hat Fehler, aber weniger als 10% können nicht korrigiert werden. Siehe [OpeningHoursParser](https://github.com/simonpoole/OpeningHoursParser) für weitere Informationen welche Abweichungen von den Spezifikationen toleriert werden.
 
 ### Hauptmenü-Schaltfläche
 
 * __Regel hinzufügen__: eine neue Regel hinzufügen.
-* __Add rule for holidays__: add a new rule for a holiday together with a state change.
-* __Add rule for 24/7__: add a rule for an object that is always open, the opening hours specification doesn't support any other sub values for 24/7 however we do allow adding of higher level selectors (for example year ranges).
+* __Regel für Urlaub hinzufügen__: Eine neue Regel für Urlaub hinzufügen mit einem Statuswechsel.
+* __Regel für 24/7 hinzufügen__: eine Regel für ein Objekt hinzufügen das Rund-um-die Uhr geöffnet ist. Die Öffnungszeiten-Regeln erlauben keine weiteren Regeln auf niedrigerer Ebene, aber es sind Regeln auf höherer Ebene möglich (z.B. Jahresbereiche)
 * __Vorlage laden__: eine Vorlage laden.
-* __Save to template__: save the current opening hours value as a template for future use.
-* __Manage template__: edit, for example change the name, and delete existing templates.
-* __Refresh__: re-parse the opening hour value.
+* __Speichern als Vorlage__: Speichern der aktuellen Öffnungszeiten-Werte als Vorlage zur späteren Verwendung.
+* __Vorlagen verwalten__: Bearbeiten, z.B. den Namen ändern oder Löschen von vorhandenen Vorlagen.
+* __Aktualisieren__: Neuanalyse des Öffnungszeiten-Wertes.
+* __Alle löschen__: Löschen aller Regeln.
 
 ### Regeln
 
-Default rules are added as _normal_ rules, this implies that they will override the values of previous rules for the same days. This can be a concern when specifying extended times, typically you will then want to switch the rules via the _Show rule type_ menu entry to _additive_.
+Standard-Regeln werden als _normale_ Regeln hinzugefügt. Dies bedeutet, dass diese vorherige Regeln für den gleichen Tag überschreiben. Dies kann ein Problem sein beim Anlegen von erweiterten Zeiten, dann sollte die Regel über das _Zeige Regel-Type_ Menü auf _Hinzufügen_ geändert werden.
 
 #### Regelmenü
 
-* __Add modifier/comment__: change the effect of this rule and add an optional comment.
-* __Add holiday__: add a selector for public or school holidays.
+* __Modifizierer/Kommentar hinzufügen__: Verändern des Effekts dieser Regel und Hinzufügen eines optionalen Kommentars.
+* __Ferien hinzufügen__: Hinzufügen eines Auswahlschalters für öffentliche Ferien oder Schulferien.
 * __Zeitspanne hinzufügen...__
-    * __Time - time__: a start time to an end time on the same day.
-    * __Time - extended time__: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day.
-    * __Var. time - time__: from a start variable time (dawn, dusk, sunrise and sundown) to an end time on the same day.
-    * __Var. time - extended time__: from a start variable time to an end time on the next day.
-    * __Time - var. time__: a start time to an end variable time.
-    * __Var. time - var. time__: a start variable time to an end variable time.
-    * __Time__: a point in time.
-    * __Time-open end__: from a start point in time onwards.
-    * __Variable time__: at the variable time
-    * __Variable time-open end__: from a start variable time onwards
-* __Add week day range__: add a weekday based selector.
+    * __Zeit - Zeit__: eine Start- und Endzeit am selben Tag.
+    * __Zeit - erweiterte Zeit__: eine Startzeit und am nächsten Tag eine Endzeit (Beispiel 26:00 ist 02:00 Uhr am nächsten Tag).
+    * __variable Zeit - Zeit__: eine variable Startzeit (Morgen-/Abendämmerung, Sonnenauf-/untergang) und eine Endzeit am selben Tag.
+    * __variable Zeit - erweiterte Zeit__: eine variable Startzeit und am nächsten Tag eine Endzeit.
+    * __Zeit - variable Zeit__: eine Startzeit und eine variable Endzeit.
+    * __variable Zeit - variable Zeit__: eine variable Startzeit und eine variable Endzeit.
+    * __Zeit__: ein Zeitpunkt.
+    * __Zeit - offene Endzeit__: eine Startzeit und eine offene Endzeit.
+    * __variable Zeit__: zu einer variablen Zeit
+    * __variable Zeit - offenes Ende__: eine variable Startzeit und eine offene Endzeit.
+* __Wochtag-Auswahlschalter hinzufügen__: Hinzufügen eines Wochentag-Auswahlschalters.
 * __Datumsbereich hinzufügen...__
-    * __Date - date__: from a start date (year, month, day) to an end date.
-    * __Variable date - date__: from a start variable date (currently the specification only defines _easter_) to an end date.
-    * __Date - variable date__: from a start date to a variable date.
-    * __Variable date - variable date__: from a start variable date to an end variable date.
-    * __Occurrence in month - occurrence in month__: from a start weekday occurrence in a month to the same.
-    * __Occurrence in month - date__: from a start weekday occurrence in a month to a end date.
-    * __Date - occurrence in month__: from a start date to an end weekday occurrence in a month.
-    * __Occurrence in month - variable date__: from a start weekday occurrence in a month to an end variable date.
-    * __Variable date - occurrence in month__: from a start variable date to an end weekday occurrence in a month.
-    * __Date - open end__: from a start date onwards,
-    * __Variable date - open end__: from a start variable date onwards.
-    * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
-    * __With offsets...__: the same entries as above however with offsets specified (this is rarely used).
-* __Add year range__: add a year based selector.
-* __Add week range__: add a week number based selector.
-* __Show rule type__: display and allow changing of the rule type _normal_, _additive_ and _fallback_ (not available on the first rule).
-* __Move up__: move this rule up one position (not available on the first rule).
-* __Move down__: move this rule down one position.
+    * __Datum - Datum__: ein Startdatum (Jahr, Monat, Tag) und ein Enddatum.
+    * __variables Datum - Datum__: ein variables Startdatum (die aktuellen Spezifikationen definieren nur _Ostern_) und ein Enddatum.
+    * __Datum - variables Datum__: ein Startdatum und ein variables Enddatum.
+    * __variables Datum - variables Datum__: ein variables Startdatum und ein variables Enddatum.
+    * __Vorkommen im Monat - Vorkommen im Monat__: ein Startvorkommen im Monat und ein Endvorkommen im Monat.
+    * __Vorkommen im Monat - Datum__: ein Startvorkommen im Monat und ein Enddatum.
+    * __Datum - Vorkommen im Monat__: ein Startdatum und ein Endvorkommen im Monat.
+    * __Vorkommen im Monat - variables Datum__: ein Startvorkommen im Monat und ein variables Enddatum.
+    * __Variables Datum - Vorkommen im Monat__: ein variables Startdatum und ein Endvorkommen im Monat.
+    * __Datum - offenes Ende__: ein Startdatum und ein offenes Enddatum.
+    * __variables Datum - offenes Ende__: ein variables Startdatum und ein offenes Ende.
+    * __Vorkommen im Monat - offenes Ende__: ein Startvorkommen im Monat und ein offenes Ende.
+    * __Mit Versatz...__: Die gleichen Angaben wie vorher aber mit angegebenen Versatz (wird nur selten verwendet).
+* __Jahresbereich hinzufügen__: Jahres-Auswahlschalter hinzufügen.
+* __Wochenbereich hinzufügen__: Wochen-Auswahlschalter hinzufügen.
+* __Kopieren__: Kopieren einer Regel und Einfügen der Kopie nach der aktuellen Position.
+* __Regeltype anzeigen__: Anzeigen der Regel und die Möglichkeit den Regeltype zu ändern _Normal_, _Zusätzlich_ und _Rückfall_ (nicht verfügbar für die erste Regel).
+* __Nach oben bewegen__: Bewegt die Regel eine Position nach oben (nicht verfügbar für die erste Regel).
+* __Nach unten bewegen__: Bewegt die Regel eine Position nach unten.
 * __Löschen__: diese Regel löschen.
 
 ### Zeitspannen
 
-To make editing time spans as easy as possible, we try to choose an optimal time range and granularity for the range bars when loading existing values. For new time spans the bars start at 6:00 (am) and have 15 minute increments, this can be changed via the menu.
+Um das Eintragen von Zeitspannen so einfach wie möglich zu machen, haben wir für existierende Öffnungszeiten versucht einen optimalen Zeitraum und -einteilung für den Zeitschieber zu finden. Neue Zeitschieber beginnen um 6:00 Uhr und haben eine 15-Minuten Einteilung, welche im Menü geändert werden können.
+
+Klicken auf die Zeitleiste (nicht auf die Nadeln) öffnet den grossen Zeitauswähler falls es zu schwierig ist die Leiten direkt zu brauchen. Da der Zeitauswähler Zeiten bis in den nächsten Tag anzeigt, ist dies auch ein einfacher Weg einen Zeitbereich zu erweitern, ohne den Bereich zu löschen und wieder einzufügen. 
 
 #### Zeitspannenmenü
 
-* __Display time picker__: show a large number picker for selecting start and end time, on very small displays this is the preferred way of changing times.
-* __Switch to 15 minute ticks__: use 15 minute granularity for the range bar.
-* __Switch to 5 minute ticks__: use 5 minute granularity for the range bar.
-* __Switch to 1 minute ticks__: use 1 minute granularity for the range bar, very difficult to use on a phone.
-* __Start at midnight__: start the range bar at midnight.
+* __Anzeige des Zeitauswählers__: Zeigt einen großen Zeitauswählern um Start- und Endzeit auszuwählen. Auf sehr kleinen Displays kann dies die bevorzugte Eingabemethode für Zeiten sein.
+* __Wechsel zu 15-Minuten Einteilung__: Verwenden einer 15-Minuten Einteilung für den Zeitschieber.
+* __Wechsel zu 5-Minuten Einteilung__: Verwenden einer 5-Minuten Einteilung für den Zeitschieber.
+* __Wechsel zu 1-Minuten Einteilung__: Verwenden einer 1-Minuten Einteilung für den Zeitschieber, sehr schwer zu verwenden auf einem Smartphone.
+* __Start um Mitternacht__: Start des Zeitschiebers um Mitternacht.
 * __Intervall anzeigen__: Intervallfeld zum Festlegen eines Intervalls in Minuten anzeigen.
 * __Löschen__: diese Zeitspanne löschen.
 
