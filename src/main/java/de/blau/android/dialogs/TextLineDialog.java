@@ -23,7 +23,7 @@ public class TextLineDialog {
      * @return an AlertDialog instance
      */
     public static AlertDialog get(@NonNull Context ctx, int titleId, @NonNull TextLineInterface listener) {
-        return get(ctx, titleId, null, listener);
+        return get(ctx, titleId, -1, null, listener);
     }
 
     /**
@@ -36,6 +36,20 @@ public class TextLineDialog {
      * @return an AlertDialog instance
      */
     public static AlertDialog get(@NonNull Context ctx, int titleId, @Nullable String text, @NonNull TextLineInterface listener) {
+        return get(ctx, titleId, -1, text, listener);
+    }
+
+    /**
+     * Create a Dialog with one EditText
+     * 
+     * @param ctx the Android Context
+     * @param titleId the string resource for the title
+     * @param hintId string resource for an hint of -1 if none
+     * @param text initial text to display
+     * @param listener a TextLineInterface listener provided by the caller
+     * @return an AlertDialog instance
+     */
+    public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @Nullable String text, @NonNull TextLineInterface listener) {
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
 
@@ -44,6 +58,9 @@ public class TextLineDialog {
 
         View layout = inflater.inflate(R.layout.text_line, null);
         final EditText input = layout.findViewById(R.id.text_line_edit);
+        if (hintId > 0) {
+            input.setHint(hintId);
+        }
         if (text != null) {
             input.setText(text);
         }

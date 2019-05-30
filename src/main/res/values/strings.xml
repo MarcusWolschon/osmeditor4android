@@ -532,6 +532,10 @@
     <!-- Strings in DownloadActivity -->
     <string name="download_files_title">Download files</string>
     <string name="allow_all_networks">Allow all networks</string>
+    <!--  Strings in Go to coordinates -->
+    <string name="go_to_coordinates_title">Go to coordinates</string>
+    <string name="go_to_coordinates_hint">Enter coordinates or an OLC</string>
+    <string name="unparseable_coordinates">Unparseable coordinates</string>
     <!-- Menu -->
     <string name="menu_move">Move</string>
     <string name="menu_edit">Edit</string>
@@ -557,6 +561,7 @@
     <string name="menu_gps_show">Show location</string>
     <string name="menu_gps_follow">Follow location</string>
     <string name="menu_gps_goto">Go to current location</string>
+    <string name="menu_gps_goto_coordinates">Go to coordinates…</string>
     <string name="menu_gps_start">Start GPX track</string>
     <string name="menu_gps_pause">Pause GPX tracking</string>
     <string name="menu_gps_clear">Clear GPX track and its waypoints</string>

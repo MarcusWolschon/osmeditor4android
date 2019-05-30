@@ -38,6 +38,9 @@
                 android:alphabeticShortcut="@string/shortcut_gps_goto"
                 android:title="@string/menu_gps_goto" />
             <item
+                android:id="@+id/menu_gps_goto_coordinates"
+                android:title="@string/menu_gps_goto_coordinates" />
+            <item
                 android:id="@+id/menu_gps_start"
                 android:title="@string/menu_gps_start" />
             <item
