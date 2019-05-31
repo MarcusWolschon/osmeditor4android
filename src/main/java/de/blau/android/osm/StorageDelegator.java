@@ -905,8 +905,16 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
-    private double filter(double v, double lower, double upper) {
-        return (lower > Math.abs(v)) || (Math.abs(v) > upper) ? v : 0.0;
+    /**
+     * Compare an input value to upper and lower bounds
+     * 
+     * @param in input value
+     * @param lower lower bound
+     * @param upper upper boun 
+     * @return the input value or 0 if out of bounds
+     */
+    private double filter(double in, double lower, double upper) {
+        return (lower > Math.abs(in)) || (Math.abs(in) > upper) ? in : 0.0;
     }
 
     /**

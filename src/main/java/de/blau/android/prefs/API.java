@@ -1,5 +1,8 @@
 package de.blau.android.prefs;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 /**
  * Data structure class for API data
  * 
@@ -19,8 +22,22 @@ public class API {
     public final String  accesstoken;
     public final String  accesstokensecret;
 
-    public API(String id, String name, String url, String readonlyurl, String notesurl, String user, String pass, String preset, int showicon, int oauth,
-            String accesstoken, String accesstokensecret) {
+    /**
+     * Construct an new API instance
+     * 
+     * @param id the unique id of the API
+     * @param name the name of the API
+     * @param url the read and write URL
+     * @param readonlyurl the read only URL
+     * @param notesurl the URL for notes
+     * @param user the user name (deprecated)
+     * @param pass the pass word (deprecated)
+     * @param oauth if == 1 use OAuth
+     * @param accesstoken the OAuth access token
+     * @param accesstokensecret the OAuth access secret
+     */
+    public API(@NonNull String id, @NonNull String name, @NonNull String url, @Nullable String readonlyurl, @Nullable String notesurl, @Nullable String user,
+            @Nullable String pass, int oauth, @Nullable String accesstoken, @Nullable String accesstokensecret) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -28,8 +45,8 @@ public class API {
         this.notesurl = notesurl;
         this.user = user;
         this.pass = pass;
-        this.preset = preset;
-        this.showicon = (showicon == 1);
+        this.preset = null;
+        this.showicon = false;
         this.oauth = (oauth == 1);
         this.accesstoken = accesstoken;
         this.accesstokensecret = accesstokensecret;

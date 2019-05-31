@@ -420,8 +420,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {
             result[i] = new API(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
-                    dbresult.getString(5), dbresult.getString(6), dbresult.getString(7), dbresult.getInt(8), dbresult.getInt(9), dbresult.getString(10),
-                    dbresult.getString(11));
+                    dbresult.getString(5), dbresult.getString(6), dbresult.getInt(9), dbresult.getString(10), dbresult.getString(11));
             Log.d("AdvancedPrefDatabase", "id " + dbresult.getString(0) + " name " + dbresult.getString(1) + " url " + dbresult.getString(2) + " readonly url "
                     + dbresult.getString(3) + " notes url " + dbresult.getString(4) + " " + dbresult.getString(10) + " " + dbresult.getString(11));
             dbresult.moveToNext();
