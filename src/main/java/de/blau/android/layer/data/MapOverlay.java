@@ -1363,7 +1363,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     @Override
     public BoundingBox getExtent() {
         List<BoundingBox> boxes = delegator.getCurrentStorage().getBoundingBoxes();
-        if (boxes != null) {
+        if (boxes != null && !boxes.isEmpty()) {
             return BoundingBox.union(new ArrayList<>(boxes));
         } else if (prefs.getServer().hasMapSplitSource()) {
             return prefs.getServer().getMapSplitSource().getBounds();
