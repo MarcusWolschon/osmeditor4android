@@ -22,7 +22,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-class QueryNominatim extends Query {
+public class QueryNominatim extends Query {
 
     private static final String DEBUG_TAG = null;
 

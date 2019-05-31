@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +51,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.PopupMenu;
@@ -77,7 +75,6 @@ import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -99,7 +96,6 @@ import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
-import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.dialogs.UndoDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
@@ -109,6 +105,7 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
+import de.blau.android.geocode.CoordinatesOrOLC;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
@@ -149,7 +146,6 @@ import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
-import de.blau.android.util.CoordinateParser;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.FileUtil;
@@ -1903,23 +1899,31 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_goto_coordinates:
-            final AppCompatDialog dialog = TextLineDialog.get(this, R.string.go_to_coordinates_title, R.string.go_to_coordinates_hint, null,
-                    new TextLineDialog.TextLineInterface() {
+            CoordinatesOrOLC.get(this, new CoordinatesOrOLC.HandleResult() {
+                @Override
+                public void onSuccess(LatLon ll) {
+                    runOnUiThread(new Runnable() {
                         @Override
-                        public void processLine(EditText input) {
-                            try {
-                                LatLon ll = CoordinateParser.parseVerbatimCoordinates(input.getText().toString());
-                                App.getLogic().setZoom(getMap(), 19);
-                                setFollowGPS(false);
-                                map.setFollowGPS(false);
-                                map.getViewBox().moveTo(getMap(), (int) (ll.getLon() * 1E7d), (int) (ll.getLat() * 1E7d));
-                                map.invalidate();
-                            } catch (ParseException pex) {
-                                Snack.toastTopWarning(Main.this, R.string.unparseable_coordinates);
-                            }
+                        public void run() {
+                            logic.setZoom(getMap(), 19);
+                            setFollowGPS(false);
+                            map.setFollowGPS(false);
+                            map.getViewBox().moveTo(getMap(), (int) (ll.getLon() * 1E7d), (int) (ll.getLat() * 1E7d));
+                            map.invalidate();
                         }
                     });
-            dialog.show();
+                }
+
+                @Override
+                public void onError(String message) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Snack.toastTopError(Main.this, message);
+                        }
+                    });
+                }
+            });
             return true;
 
         case R.id.menu_gps_start:

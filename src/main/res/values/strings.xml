@@ -529,6 +529,7 @@
     <string name="location_load_dismiss">Go to map</string>
     <string name="location_nan_title">Erroneous input!</string>
     <string name="location_nan_message">Please insert decimal formatted coordinates (e.g. "52.333572","8.741185"). Lat. has to lay between -85.0 and +85.0, and Lon. has to lay between -175.0 and +175.0.</string>
+    <string name="location_olc">OLC</string>
     <!-- Strings in DownloadActivity -->
     <string name="download_files_title">Download files</string>
     <string name="allow_all_networks">Allow all networks</string>
@@ -536,6 +537,9 @@
     <string name="go_to_coordinates_title">Go to coordinates</string>
     <string name="go_to_coordinates_hint">Enter coordinates or an OLC</string>
     <string name="unparseable_coordinates">Unparseable coordinates</string>
+    <string name="network_required">Network is required for location lookup</string>
+    <string name="no_nominatim_server">No configured Nominatim server found</string>
+    <string name="no_nominatim_result">Nominatim server didn\'t find %1$s</string>
     <!-- Menu -->
     <string name="menu_move">Move</string>
     <string name="menu_edit">Edit</string>

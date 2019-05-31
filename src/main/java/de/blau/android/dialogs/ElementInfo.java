@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.google.openlocationcode.OpenLocationCode;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
@@ -252,14 +254,18 @@ public class ElementInfo extends ImmersiveDialogFragment {
             if (element.getName().equals(Node.NAME)) {
                 String oldLon = null;
                 String oldLat = null;
+                String oldOlc = null;
                 if (compare) {
                     oldLon = prettyPrint(((UndoNode) ue).getLon());
                     oldLat = prettyPrint(((UndoNode) ue).getLat());
+                    oldOlc = OpenLocationCode.encode(((UndoNode) ue).getLat() / 1E7D, ((UndoNode) ue).getLon() / 1E7D);
                 }
                 tl.addView(
                         TableLayoutUtils.createRow(activity, R.string.location_lon_label, oldLon, deleted ? null : prettyPrint(((Node) element).getLon()), tp));
                 tl.addView(
                         TableLayoutUtils.createRow(activity, R.string.location_lat_label, oldLat, deleted ? null : prettyPrint(((Node) element).getLat()), tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_olc, oldOlc,
+                        deleted ? null : OpenLocationCode.encode(((Node) element).getLat() / 1E7D, ((Node) element).getLon() / 1E7D), tp));
             } else if (element.getName().equals(Way.NAME)) {
                 boolean isClosed = ((Way) element).isClosed();
                 String nodeCount = nodeCountString(((Way) element).nodeCount(), isClosed);

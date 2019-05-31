@@ -446,6 +446,7 @@ dependencies {
     implementation "com.drewnoakes:metadata-extractor:2.11.0"
     implementation "com.google.code.gson:gson:2.8.5"
     implementation 'com.google.protobuf:protobuf-java:2.6.1'
+    implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
     implementation ('com.faendir.rhino:rhino-android:1.5.1') { exclude group: 'org.mozilla' }
     implementation "org.mozilla:rhino:1.7.9"
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:$mapboxVersion"
