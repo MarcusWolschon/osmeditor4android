@@ -201,7 +201,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param id the ID of the API to be set as active
      */
     private synchronized void selectAPI(@NonNull SQLiteDatabase db, @NonNull String id) {
-        Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
+        Log.d(LOGTAG, "Selecting API with ID: " + id);
         if (getAPIs(db, id).length == 0) {
             throw new IllegalOperationException("Non-existant API selected");
         }
@@ -305,7 +305,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         values.put("accesstoken", token);
         values.put("accesstokensecret", secret);
         db.update(APIS_TABLE, values, "id = ?", new String[] { currentAPI });
-        Log.d("AdvancedPRefDatabase", "setAPIAccessToken " + token + " secret " + secret);
+        Log.d(LOGTAG, "setAPIAccessToken " + token + " secret " + secret);
         db.close();
         resetCurrentServer();
     }
@@ -421,7 +421,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         for (int i = 0; i < result.length; i++) {
             result[i] = new API(dbresult.getString(0), dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getString(4),
                     dbresult.getString(5), dbresult.getString(6), dbresult.getInt(9), dbresult.getString(10), dbresult.getString(11));
-            Log.d("AdvancedPrefDatabase", "id " + dbresult.getString(0) + " name " + dbresult.getString(1) + " url " + dbresult.getString(2) + " readonly url "
+            Log.d(LOGTAG, "id " + dbresult.getString(0) + " name " + dbresult.getString(1) + " url " + dbresult.getString(2) + " readonly url "
                     + dbresult.getString(3) + " notes url " + dbresult.getString(4) + " " + dbresult.getString(10) + " " + dbresult.getString(11));
             dbresult.moveToNext();
         }

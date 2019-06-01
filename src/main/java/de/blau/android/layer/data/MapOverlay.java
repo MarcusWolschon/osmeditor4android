@@ -60,7 +60,6 @@ import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.validation.Validator;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.layers.ImageryLayerInfo;
 
 /**
  * OSM data layer
@@ -1363,7 +1362,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     @Override
     public BoundingBox getExtent() {
         List<BoundingBox> boxes = delegator.getCurrentStorage().getBoundingBoxes();
-        if (boxes != null && !boxes.isEmpty()) {
+        if (!boxes.isEmpty()) {
             return BoundingBox.union(new ArrayList<>(boxes));
         } else if (prefs.getServer().hasMapSplitSource()) {
             return prefs.getServer().getMapSplitSource().getBounds();

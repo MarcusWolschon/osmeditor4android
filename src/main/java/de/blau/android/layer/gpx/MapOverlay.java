@@ -81,12 +81,12 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             return;
         }
         List<TrackPoint> trackPoints = tracker.getTrackPoints();
-        if (trackPoints != null && !trackPoints.isEmpty()) {
+        if (!trackPoints.isEmpty()) {
             map.pointListToLinePointsArray(linePoints, trackPoints);
             canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), trackPaint);
         }
         WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
-        if (wayPoints != null && wayPoints.length != 0) {
+        if (wayPoints.length != 0) {
             ViewBox viewBox = map.getViewBox();
             int width = map.getWidth();
             int height = map.getHeight();
@@ -139,7 +139,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         Log.d(DEBUG_TAG, "getClicked");
         if (tracker != null && tracker.getTrack() != null) {
             WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
-            if (wayPoints != null && wayPoints.length != 0) {
+            if (wayPoints.length != 0) {
                 final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
                 for (WayPoint wpp : wayPoints) {
                     int lat = wpp.getLat();

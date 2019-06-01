@@ -42,11 +42,6 @@ public class ApiLayerInfo extends LayerInfo {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected View createView(@Nullable ViewGroup container) {
         Log.d(DEBUG_TAG, "createView");
         ScrollView sv = createEmptyView(container);

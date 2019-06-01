@@ -20,29 +20,29 @@ import android.support.annotation.Nullable;
  *  - JavaDoc and other cleanup
  */
 public final class CoordinateParser {
-    private final static String DMS = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"  // The degrees
+    private static final String DMS = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"  // The degrees
             + "\\s*([0-6]?\\d)\\s*(?:'|m| |´|’|′)" // The minutes
             + "\\s*(?:"                            // Non-capturing group
             + "([0-6]?\\d(?:[,.]\\d+)?)"           // Seconds and optional decimal
             + "\\s*(?:\"|''|s|´´|″)?"
             + ")?\\s*";
-    private final static String DM = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)" // The degrees
+    private static final String DM = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)" // The degrees
            + "\\s*(?:"                           // Non-capturing group
            + "([0-6]?\\d(?:[,.]\\d+)?)"          // Minutes and optional decimal
            + "\\s*(?:'|m| |´|’|′)?"
            + ")?\\s*";
-    private final static String D = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*"; // The degrees and optional decimal
+    private static final String D = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*"; // The degrees and optional decimal
 
-    private final static Pattern DMS_SINGLE  = Pattern.compile("^" + DMS + "$", Pattern.CASE_INSENSITIVE);
-    private final static Pattern DM_SINGLE   = Pattern.compile("^" + DM + "$", Pattern.CASE_INSENSITIVE);
-    private final static Pattern D_SINGLE    = Pattern.compile("^" + D + "$", Pattern.CASE_INSENSITIVE);
-    private final static Pattern DMS_COORD   = Pattern.compile("^" + DMS + "([NSEOW])" + "[ ,;/]?" + DMS + "([NSEOW])$", Pattern.CASE_INSENSITIVE);
-    private final static Pattern DMS_COORD_2 = Pattern.compile("^" + "([NSEOW])" + DMS + "[ ,;/]?" + "([NSEOW])" + DMS + "$", Pattern.CASE_INSENSITIVE);
-    private final static Pattern DM_COORD    = Pattern.compile("^" + DM + "([NSEOW])" + "[ ,;/]?" + DM + "([NSEOW])$", Pattern.CASE_INSENSITIVE);
-    private final static Pattern DM_COORD_2  = Pattern.compile("^" + "([NSEOW])" + DM + "[ ,;/]?" + "([NSEOW])" + DM + "$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DMS_SINGLE  = Pattern.compile("^" + DMS + "$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DM_SINGLE   = Pattern.compile("^" + DM + "$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern D_SINGLE    = Pattern.compile("^" + D + "$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DMS_COORD   = Pattern.compile("^" + DMS + "([NSEOW])" + "[ ,;/]?" + DMS + "([NSEOW])$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DMS_COORD_2 = Pattern.compile("^" + "([NSEOW])" + DMS + "[ ,;/]?" + "([NSEOW])" + DMS + "$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DM_COORD    = Pattern.compile("^" + DM + "([NSEOW])" + "[ ,;/]?" + DM + "([NSEOW])$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DM_COORD_2  = Pattern.compile("^" + "([NSEOW])" + DM + "[ ,;/]?" + "([NSEOW])" + DM + "$", Pattern.CASE_INSENSITIVE);
     // private final static Pattern D_COORD = Pattern.compile("^" + D + "([NSEOW])" + "[ ,;/]?" + D + "([NSEOW])$",
     // Pattern.CASE_INSENSITIVE);
-    private final static String POSITIVE = "NEO";
+    private static final String POSITIVE = "NEO";
 
     /**
      * Private default constructor
@@ -268,7 +268,7 @@ public final class CoordinateParser {
         // this method
         if (Double.compare(lat, 90) > 0 || Double.compare(lat, -90) < 0) {
             // try and swap
-            if (inRange(lon, lat)) {
+            if (inRange(lon, lat)) { // NOSONAR
                 return new LatLon(lon, lat);
             }
         }

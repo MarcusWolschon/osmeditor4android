@@ -27,14 +27,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.R.string;
 import de.blau.android.contract.FileExtensions;
-import de.blau.android.osm.Server;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -102,7 +98,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
 
         setContentView(R.layout.download);
         downloadWebView = (WebView) findViewById(R.id.downloadSiteWebView);
-        
+
         CheckBox networks = (CheckBox) findViewById(R.id.allowAllNetworks);
         networks.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
@@ -112,7 +108,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             }
         });
         networks.setChecked(prefs.allowAllNetworks());
-        
+
         mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         registerReceiver(onNotificationClick, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 
@@ -145,8 +141,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                             }
                         }
                         // Start download
-                        DownloadManager.Request request = new DownloadManager.Request(uri)
-                                .setAllowedOverRoaming(false).setTitle(filename)
+                        DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
                                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                                 .setDestinationInExternalFilesDir(DownloadActivity.this, Environment.DIRECTORY_DOWNLOADS, filename);
                         if (!allNetworks) {
