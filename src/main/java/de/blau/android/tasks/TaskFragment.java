@@ -149,13 +149,11 @@ public class TaskFragment extends ImmersiveDialogFragment {
                                 @Override
                                 public void onSuccess() {
                                     updateMenu(activity);
-
                                 }
 
                                 @Override
                                 public void onError() {
                                     updateMenu(activity);
-
                                 }
                             };
                             if (task instanceof Note) {
@@ -245,6 +243,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
 
                                         @Override
                                         public void onError() {
+                                         // Ignore
                                         }
                                     });
                                 } catch (OsmException e1) {

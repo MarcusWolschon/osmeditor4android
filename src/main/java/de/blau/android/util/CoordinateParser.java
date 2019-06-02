@@ -33,13 +33,16 @@ public final class CoordinateParser {
            + ")?\\s*";
     private static final String D = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*"; // The degrees and optional decimal
 
+    private static final String NSEOW = "([NSEOW])";
+    private static final String SEPARATORS = "[ ,;/]?";
+    
     private static final Pattern DMS_SINGLE  = Pattern.compile("^" + DMS + "$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DM_SINGLE   = Pattern.compile("^" + DM + "$", Pattern.CASE_INSENSITIVE);
     private static final Pattern D_SINGLE    = Pattern.compile("^" + D + "$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern DMS_COORD   = Pattern.compile("^" + DMS + "([NSEOW])" + "[ ,;/]?" + DMS + "([NSEOW])$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern DMS_COORD_2 = Pattern.compile("^" + "([NSEOW])" + DMS + "[ ,;/]?" + "([NSEOW])" + DMS + "$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern DM_COORD    = Pattern.compile("^" + DM + "([NSEOW])" + "[ ,;/]?" + DM + "([NSEOW])$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern DM_COORD_2  = Pattern.compile("^" + "([NSEOW])" + DM + "[ ,;/]?" + "([NSEOW])" + DM + "$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DMS_COORD   = Pattern.compile("^" + DMS + NSEOW + SEPARATORS + DMS + "([NSEOW])$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DMS_COORD_2 = Pattern.compile("^" + NSEOW + DMS + SEPARATORS + NSEOW + DMS + "$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DM_COORD    = Pattern.compile("^" + DM + NSEOW + SEPARATORS + DM + "([NSEOW])$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DM_COORD_2  = Pattern.compile("^" + NSEOW + DM + SEPARATORS + NSEOW + DM + "$", Pattern.CASE_INSENSITIVE);
     // private final static Pattern D_COORD = Pattern.compile("^" + D + "([NSEOW])" + "[ ,;/]?" + D + "([NSEOW])$",
     // Pattern.CASE_INSENSITIVE);
     private static final String POSITIVE = "NEO";

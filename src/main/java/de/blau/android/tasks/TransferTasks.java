@@ -203,6 +203,7 @@ public class TransferTasks {
 
                     @Override
                     public void onError() {
+                        // Ignore
                     }
                 };
                 if (!Server.checkOsmAuthentication(main, server, restartAction)) {
@@ -340,6 +341,7 @@ public class TransferTasks {
 
             @Override
             public void onError() {
+                // Ignore
             }
         };
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
@@ -452,6 +454,7 @@ public class TransferTasks {
 
             @Override
             public void onError() {
+                // Ignore
             }
         };
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {

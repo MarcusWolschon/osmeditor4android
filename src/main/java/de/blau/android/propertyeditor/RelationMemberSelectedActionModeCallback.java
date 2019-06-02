@@ -240,6 +240,7 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
 
                 @Override
                 public void onError() {
+                    // Ignore
                 }
             };
             final Logic logic = App.getLogic();

@@ -80,10 +80,7 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
      */
     private void load(@NonNull String filename, @NonNull StringBuilder builder) {
         builder.append("== " + filename + " ==\n");
-
-        InputStreamReader reader = null;
-        try {
-            reader = new InputStreamReader(getAssets().open(filename), OsmXml.UTF_8);
+        try (InputStreamReader reader = new InputStreamReader(getAssets().open(filename), OsmXml.UTF_8)) {           
             int read = 0;
             do {
                 char[] buf = new char[4096];
@@ -94,8 +91,6 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
             } while (read > 0);
         } catch (Exception e) {
             builder.append("Error while loading file: " + e.getMessage());
-        } finally {
-            SavingHelper.close(reader);
         }
         builder.append("\n\n\n\n");
     }

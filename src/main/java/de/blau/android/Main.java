@@ -1030,6 +1030,7 @@ public class Main extends FullScreenAppCompatActivity
 
                             @Override
                             public void onError() {
+                                // Ignore
                             }
                         };
                         if (bboxes != null && !bboxes.isEmpty()) {
@@ -1081,6 +1082,7 @@ public class Main extends FullScreenAppCompatActivity
 
                                 @Override
                                 public void onError() {
+                                    // Ignore
                                 }
                             });
                         } else {
@@ -1976,6 +1978,7 @@ public class Main extends FullScreenAppCompatActivity
 
                     @Override
                     public void onError() {
+                        // Ignore
                     }
                 };
                 if (Server.checkOsmAuthentication(this, server, restartAction)) {
@@ -2947,6 +2950,7 @@ public class Main extends FullScreenAppCompatActivity
 
             @Override
             public void onError() {
+                // Ignore
             }
         };
         final Server server = prefs.getServer();

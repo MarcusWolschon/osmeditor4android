@@ -466,6 +466,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
             @Override
             public void onError() {
+                // Ignore
             }
         };
         OffsetLoader loader = new OffsetLoader(handler);
