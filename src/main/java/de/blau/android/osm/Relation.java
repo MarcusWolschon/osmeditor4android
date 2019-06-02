@@ -289,7 +289,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      * @param newMembers a list of new members
      * @param atBeginning if true, nodes are prepended, otherwise, they are appended
      */
-    protected void addMembers(List<RelationMember> newMembers, boolean atBeginning) {
+    protected void addMembers(@NonNull List<RelationMember> newMembers, boolean atBeginning) {
         if (atBeginning) {
             members.addAll(0, newMembers);
         } else {
@@ -303,10 +303,10 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      * @param role the role we are looking for
      * @return a List of the RelationMembers
      */
+    @NonNull
     public List<RelationMember> getMembersWithRole(@NonNull String role) {
         List<RelationMember> rl = new ArrayList<>();
         for (RelationMember rm : members) {
-            Log.d("Relation", "getMembersWithRole " + rm.getRole());
             if (role.equals(rm.getRole())) {
                 rl.add(rm);
             }
@@ -320,7 +320,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      * @param existing The existing member to be replaced.
      * @param newMember The new member.
      */
-    void replaceMember(RelationMember existing, RelationMember newMember) {
+    void replaceMember(@NonNull RelationMember existing, @NonNull RelationMember newMember) {
         int idx;
         while ((idx = members.indexOf(existing)) != -1) {
             members.set(idx, newMember);
@@ -332,7 +332,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      *
      * @param newMembers The new member.
      */
-    void replaceMembers(Collection<RelationMember> newMembers) {
+    void replaceMembers(@NonNull Collection<RelationMember> newMembers) {
         members.clear();
         members.addAll(newMembers);
     }
