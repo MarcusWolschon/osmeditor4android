@@ -910,7 +910,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param in input value
      * @param lower lower bound
-     * @param upper upper boun 
+     * @param upper upper boun
      * @return the input value or 0 if out of bounds
      */
     private double filter(double in, double lower, double upper) {
@@ -1201,16 +1201,19 @@ public class StorageDelegator implements Serializable, Exportable {
                     continue;
                 }
                 undo.save(r);
+                String type = r.getTagWithKey(Tags.KEY_TYPE);
+                // determine if the relation is potentially like a restriction, as hasFromViaTo is fairly expensive
+                // avoid calling it if we are sure that it can't be restriction like
+                boolean isRestrictionLike = Tags.VALUE_RESTRICTION.equals(type)
+                        || (!Tags.VALUE_MULTIPOLYGON.equals(type) && !Tags.VALUE_BOUNDARY.equals(type) && !Tags.VALUE_ROUTE.equals(type) && hasFromViaTo(r));
                 for (RelationMember rm : members) {
                     Log.d(DEBUG_TAG, "addSplitWayToRelations member " + rm);
                     int memberPos = r.getPosition(rm);
-                    String type = r.getTagWithKey(Tags.KEY_TYPE);
-
                     // attempt to handle turn restrictions correctly, if element is the via way, copying relation
                     // membership to both is ok
-                    boolean isVia = Tags.ROLE_VIA.equals(rm.getRole());
-                    boolean isRestriction = Tags.VALUE_RESTRICTION.equals(type);
-                    if (isRestriction && !isVia) {
+                    String role = rm.getRole();
+                    boolean isVia = Tags.ROLE_VIA.equals(role);
+                    if (isRestrictionLike && !isVia) {
                         // check if the old way has a node in common with the via relation member, if no assume the
                         // new way has
                         List<RelationMember> rl = r.getMembersWithRole(Tags.ROLE_VIA);
@@ -1232,7 +1235,7 @@ public class StorageDelegator implements Serializable, Exportable {
                         if (!foundVia) {
                             replaceMemberWay(r, rm, way, newWay);
                         }
-                    } else if (isRestriction && isVia && wasClosed) {
+                    } else if (isRestrictionLike && isVia && wasClosed) {
                         // very rough check
                         List<RelationMember> fromMembers = r.getMembersWithRole(Tags.ROLE_FROM);
                         if (fromMembers != null && fromMembers.size() == 1) {
@@ -1269,6 +1272,37 @@ public class StorageDelegator implements Serializable, Exportable {
                 changedElements.add(r);
             }
         }
+    }
+
+    /**
+     * Check if a relation has from, via and to members, that is, is similar to a restriction relation
+     * 
+     * Does one sequential scan of all members
+     * 
+     * @param r the Relation
+     * @return true if all three roles are present
+     */
+    private boolean hasFromViaTo(@NonNull Relation r) {
+        List<RelationMember> members = r.getMembers();
+        boolean hasFrom = false;
+        boolean hasVia = false;
+        boolean hasTo = false;
+        for (RelationMember rm : members) {
+            String role = rm.getRole();
+            switch (role) {
+            case Tags.ROLE_FROM:
+                hasFrom = true;
+                break;
+            case Tags.ROLE_VIA:
+                hasVia = true;
+                break;
+            case Tags.ROLE_TO:
+                hasTo = true;
+                break;
+            default: // do nothing
+            }
+        }
+        return hasFrom && hasVia && hasTo;
     }
 
     /**
