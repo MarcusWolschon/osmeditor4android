@@ -13,7 +13,6 @@ import android.widget.TextView;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
-import de.blau.android.util.SavingHelper;
 
 /**
  * Show licence and author information for the app

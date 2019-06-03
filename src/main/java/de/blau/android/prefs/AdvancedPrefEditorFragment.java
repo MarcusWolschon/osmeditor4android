@@ -14,8 +14,6 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
     private Resources    r;
     AdvancedPrefDatabase db;
     private String       KEY_PREFAPI;
-    private String       KEY_PREFLOGIN;
-    private String       KEY_PREFGEOCODER;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -23,8 +21,6 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setPreferencesFromResource(R.xml.advancedpreferences, rootKey);
         r = getResources();
         KEY_PREFAPI = r.getString(R.string.config_api_button_key);
-        KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
-        KEY_PREFGEOCODER = r.getString(R.string.config_geocoder_button_key);
         setOnPreferenceClickListeners();
         setTitle();
         db = new AdvancedPrefDatabase(getActivity());
@@ -42,7 +38,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
             } else {
                 apipref.setSummary(current.name.equals("") ? current.url : current.name);
             }
-            Preference loginpref = getPreferenceScreen().findPreference(KEY_PREFLOGIN);
+            Preference loginpref = getPreferenceScreen().findPreference(r.getString(R.string.config_loginbutton_key));
             if (loginpref != null) {
                 loginpref.setSummary(current.user != null && !"".equals(current.user) ? current.user : r.getString(R.string.config_username_summary));
             }
@@ -75,7 +71,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
-        Preference geocoderPref = getPreferenceScreen().findPreference(KEY_PREFGEOCODER);
+        Preference geocoderPref = getPreferenceScreen().findPreference(r.getString(R.string.config_geocoder_button_key));
         if (geocoderPref != null) {
             geocoderPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override

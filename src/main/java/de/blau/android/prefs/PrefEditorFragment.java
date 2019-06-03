@@ -26,17 +26,6 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
 
     private static String DEBUG_TAG = PrefEditorFragment.class.getSimpleName();
 
-    private Resources r;
-    private String    KEY_MAPBG;
-    private String    KEY_MAPOL;
-    private String    KEY_CUSTOM_LAYERS;
-    private String    KEY_MAPPROFILE;
-    private String    KEY_PREFPRESET;
-    private String    KEY_ADVPREFS;
-    private String    KEY_VALIDATOR;
-    private String    KEY_OPENING_HOURS;
-    private String    KEY_CONNECTED;
-
     private BoundingBox viewBox = null;
 
     @Override
@@ -44,17 +33,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         Log.d(DEBUG_TAG, "onCreatePreferences " + rootKey);
         viewBox = (BoundingBox) getArguments().getSerializable(PrefEditor.CURRENT_VIEWBOX);
         setPreferencesFromResource(R.xml.preferences, rootKey);
-        r = getResources();
-        KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
-        KEY_MAPOL = r.getString(R.string.config_overlayLayer_key);
-        KEY_CUSTOM_LAYERS = r.getString(R.string.config_customlayers_key);
-        KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
-        KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
-        KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
-        KEY_VALIDATOR = r.getString(R.string.config_validatorprefs_key);
-        KEY_OPENING_HOURS = r.getString(R.string.config_opening_hours_key);
-        KEY_CONNECTED = r.getString(R.string.config_connectedNodeTolerance_key);
-        setPreferenceListeners();
+        setPreferenceListeners(getResources());
         setTitle();
     }
 
@@ -67,14 +46,17 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         Log.d(DEBUG_TAG, "onResume done");
     }
 
-    /** Perform initialization of the advanced preference buttons (API/Presets) */
-    private void setPreferenceListeners() {
+    /** Perform initialization of the advanced preference buttons (API/Presets) 
+     * 
+     * @param r the current resources
+     */
+    private void setPreferenceListeners(final Resources r) {
         Preferences prefs = new Preferences(getActivity());
 
         // remove any problematic imagery URLs
         TileLayerServer.applyBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
 
-        ListPreference mapbgpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPBG);
+        ListPreference mapbgpref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_backgroundLayer_key));
         if (mapbgpref != null) {
             String[] ids = TileLayerServer.getIds(viewBox, true);
             mapbgpref.setEntries(TileLayerServer.getNames(ids));
@@ -100,7 +82,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             l.onPreferenceChange(mapbgpref, prefs.backgroundLayer());
         }
 
-        ListPreference mapolpref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPOL);
+        ListPreference mapolpref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_overlayLayer_key));
         if (mapolpref != null) {
             String[] overlayIds = TileLayerServer.getOverlayIds(viewBox, true);
             mapolpref.setEntries(TileLayerServer.getOverlayNames(overlayIds));
@@ -126,7 +108,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             ol.onPreferenceChange(mapolpref, prefs.overlayLayer());
         }
 
-        Preference customLayersPref = getPreferenceScreen().findPreference(KEY_CUSTOM_LAYERS);
+        Preference customLayersPref = getPreferenceScreen().findPreference(r.getString(R.string.config_customlayers_key));
         if (customLayersPref != null) {
             customLayersPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -139,7 +121,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
-        ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(KEY_MAPPROFILE);
+        ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_mapProfile_key));
         if (mapProfilePref != null) {
             String[] profileList = DataStyle.getStyleList(getActivity());
             mapProfilePref.setEntries(profileList);
@@ -165,7 +147,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             p.onPreferenceChange(mapProfilePref, prefs.getMapProfile());
         }
 
-        Preference presetPref = getPreferenceScreen().findPreference(KEY_PREFPRESET);
+        Preference presetPref = getPreferenceScreen().findPreference(r.getString(R.string.config_presetbutton_key));
         if (presetPref != null) {
             presetPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -177,7 +159,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
-        Preference advPrefs = getPreferenceScreen().findPreference(KEY_ADVPREFS);
+        Preference advPrefs = getPreferenceScreen().findPreference(r.getString(R.string.config_advancedprefs_key));
         if (advPrefs != null) {
             advPrefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -189,7 +171,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
-        Preference validatorPref = getPreferenceScreen().findPreference(KEY_VALIDATOR);
+        Preference validatorPref = getPreferenceScreen().findPreference(r.getString(R.string.config_validatorprefs_key));
         if (validatorPref != null) {
             validatorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -202,7 +184,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
-        Preference connectedPref = getPreferenceScreen().findPreference(KEY_CONNECTED);
+        Preference connectedPref = getPreferenceScreen().findPreference(r.getString(R.string.config_connectedNodeTolerance_key));
         if (connectedPref != null) {
             OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
                 @Override
@@ -217,7 +199,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             connectedPref.setOnPreferenceChangeListener(p);
         }
 
-        Preference openingHoursPref = getPreferenceScreen().findPreference(KEY_OPENING_HOURS);
+        Preference openingHoursPref = getPreferenceScreen().findPreference(r.getString(R.string.config_opening_hours_key));
         if (openingHoursPref != null) {
             openingHoursPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
