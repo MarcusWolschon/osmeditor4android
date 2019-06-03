@@ -1,12 +1,21 @@
 package de.blau.android;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerDatabase;
+import de.blau.android.resources.TileLayerServer;
+import de.blau.android.util.DateFormatter;
 
 /**
  * Start vespucci with JOSM style remote control url
@@ -17,10 +26,12 @@ public class RemoteControlUrlActivity extends UrlActivity {
     public static final String  RCDATA    = "de.blau.android.RemoteControlActivity";
 
     public static class RemoteControlUrlData implements Serializable {
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 2L;
         private boolean           load             = false;
         private BoundingBox       box;
         private String            select           = null;
+        private String            changesetComment = null;
+        private String            changesetSource  = null;
 
         /**
          * @return the box
@@ -68,6 +79,36 @@ public class RemoteControlUrlActivity extends UrlActivity {
         public void setLoad(boolean load) {
             this.load = load;
         }
+
+        /**
+         * @return the changesetComment
+         */
+        @Nullable
+        public String getChangesetComment() {
+            return changesetComment;
+        }
+
+        /**
+         * @param changesetComment the changesetComment to set
+         */
+        private void setChangesetComment(@Nullable String changesetComment) {
+            this.changesetComment = changesetComment;
+        }
+
+        /**
+         * @return the changesetSource
+         */
+        @Nullable
+        public String getChangesetSource() {
+            return changesetSource;
+        }
+
+        /**
+         * @param changesetSource the changesetSource to set
+         */
+        private void setChangesetSource(@Nullable String changesetSource) {
+            this.changesetSource = changesetSource;
+        }
     }
 
     @Override
@@ -90,10 +131,11 @@ public class RemoteControlUrlActivity extends UrlActivity {
 
             Log.d(DEBUG_TAG, "Command: " + command);
             Log.d(DEBUG_TAG, "Query: " + data.getQuery());
-            boolean loadAndZoom = "load_and_zoom".equals(command);
-            if (loadAndZoom || "zoom".equals(command)) {
+            switch (command) {
+            case "zoom":
+            case "load_and_zoom":
                 RemoteControlUrlData rcData = new RemoteControlUrlData();
-                rcData.setLoad(loadAndZoom);
+                rcData.setLoad("load_and_zoom".equals(command));
                 String leftParam = data.getQueryParameter("left");
                 String rightParam = data.getQueryParameter("right");
                 String bottomParam = data.getQueryParameter("bottom");
@@ -108,23 +150,73 @@ public class RemoteControlUrlActivity extends UrlActivity {
                         rcData.setBox(new BoundingBox(left, bottom, right, top));
                         Log.d(DEBUG_TAG, "bbox " + rcData.getBox() + " load " + rcData.load());
                     } catch (NumberFormatException e) {
-                        Log.d(DEBUG_TAG, "Invalid bounding box parameter", e);
+                        Log.e(DEBUG_TAG, "Invalid bounding box parameter " + data.toString());
                         return false;
                     }
                 }
+
+                rcData.setChangesetComment(data.getQueryParameter("changeset_comment"));
+                rcData.setChangesetSource(data.getQueryParameter("changeset_source"));
+
                 String select = data.getQueryParameter("select");
                 if (rcData.load() && select != null) {
                     rcData.setSelect(select);
                 }
                 intent.putExtra(RCDATA, rcData);
                 return true;
-            } else {
-                Log.d(DEBUG_TAG, "Unknown RC command: " + command);
+            case "imagery":
+                String url = data.getQueryParameter("url");
+                if (url != null) {
+                    Preferences prefs = new Preferences(this);
+                    String title = data.getQueryParameter("title");
+                    if (title == null) {
+                        try {
+                            title = new URL(url).getHost() + " " + DateFormatter.getFormattedString("YYYY-MM-DD HH:mm");
+                        } catch (MalformedURLException e) {
+                            Log.e(DEBUG_TAG, "Invalid url " + url);
+                            return false;
+                        }
+                    }
+                    List<String> ids = Arrays.asList(TileLayerServer.getIds(null, false));
+                    String id = TileLayerServer.nameToId(title);
+                    TileLayerServer existing = null;
+                    if (ids.contains(id)) {
+                        existing = TileLayerServer.get(this, id, false);
+                    }
+                    String type = data.getQueryParameter("type");
+                    if (!TileLayerServer.TYPE_TMS.equals(type) && !TileLayerServer.TYPE_TMS.equals(type)) {
+                        Log.e(DEBUG_TAG, "Unsupported type " + type);
+                        return false;
+                    }
+                    // unused and undocumented String cookies = data.getQueryParameter("cookies");
+                    int minZoom = TileLayerServer.DEFAULT_MIN_ZOOM;
+                    try {
+                        minZoom = Integer.parseInt(data.getQueryParameter("min_zoom"));
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                    int maxZoom = TileLayerServer.DEFAULT_MAX_ZOOM;
+                    try {
+                        maxZoom = Integer.parseInt(data.getQueryParameter("max_zoom"));
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                    final SQLiteDatabase db = new TileLayerDatabase(this).getWritableDatabase();
+                    TileLayerServer.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerServer.Provider(), minZoom, maxZoom, false,
+                            url);
+                    prefs.setBackGroundLayer(id);
+                    intent.setAction(Main.ACTION_UPDATE);
+                    return true;
+                }
+                Log.e(DEBUG_TAG, "Missing url parameter " + data.toString());
+                return false;
+            default:
+                Log.e(DEBUG_TAG, "Unknown RC command: " + data.toString());
                 return false;
             }
 
         } catch (Exception ex) { // avoid crashing on getting called with stuff that can't be parsed
-            Log.d(DEBUG_TAG, "Exception: " + ex);
+            Log.e(DEBUG_TAG, "Exception: " + ex);
             return false;
         }
     }

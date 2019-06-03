@@ -97,8 +97,8 @@ public class TileLayerServer implements Serializable {
     static final String         EPSG_3857         = "EPSG:3857";
     static final String         EPSG_4326         = "EPSG:4326";
     static final String         TYPE_BING         = "bing";
-    static final String         TYPE_TMS          = "tms";
-    static final String         TYPE_WMS          = "wms";
+    public static final String  TYPE_TMS          = "tms";
+    public static final String  TYPE_WMS          = "wms";
     static final String         TYPE_WMS_ENDPOINT = "wms_endpoint";
     static final String         TYPE_SCANEX       = "scanex";
     private static final String DEBUG_TAG         = "TileLayerServer";
@@ -112,7 +112,7 @@ public class TileLayerServer implements Serializable {
      * 
      * @author Andrew Gregory
      */
-    static class Provider {
+    public static class Provider {
         /**
          * A coverage area is a range of zooms and a bounding box.
          * 
@@ -1792,7 +1792,7 @@ public class TileLayerServer implements Serializable {
      * @return array containing the names
      */
     @NonNull
-    public static String[] getNames(String[] ids) {
+    public static String[] getNames(@NonNull String[] ids) {
         return getNames(backgroundServerList, ids);
     }
 
@@ -2453,5 +2453,53 @@ public class TileLayerServer implements Serializable {
     @Nullable
     public String getPrivacyPolicyUrl() {
         return privacyPolicyUrl;
+    }
+
+    /**
+     * Add or update a custom tile source
+     * 
+     * @param ctx an Android Context
+     * @param db a writable database
+     * @param existingTileServer if this is an update, this is the exiting server
+     * @param layerId if for the layer
+     * @param startDate start date or -1
+     * @param endDate end date or -1
+     * @param name name of the layer
+     * @param provider Provider object
+     * @param minZoom minimum zoom level
+     * @param maxZoom maximum zoom level
+     * @param isOverlay if true add as an overlay
+     * @param tileUrl the url for the tiles
+     */
+    public static void addOrUpdateCustomLayer(@NonNull final Context ctx, @NonNull final SQLiteDatabase db, @NonNull final String layerId,
+            @Nullable final TileLayerServer existingTileServer, final long startDate, final long endDate, @NonNull String name, @NonNull Provider provider,
+            int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
+        int tileSize = DEFAULT_TILE_SIZE;
+        String proj = null;
+        // hack, but saves people extracting and then having to re-select the projection
+        if (tileUrl.contains(EPSG_3857)) {
+            proj = EPSG_3857;
+            tileSize = WMS_TILE_SIZE;
+        } else if (tileUrl.contains(EPSG_900913)) {
+            proj = EPSG_900913;
+            tileSize = WMS_TILE_SIZE;
+        } else if (tileUrl.contains(EPSG_4326)) {
+            proj = EPSG_4326;
+            tileSize = DEFAULT_TILE_SIZE;
+        }
+        if (existingTileServer == null) {
+            TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, proj == null ? TYPE_TMS : TYPE_WMS, isOverlay, false, provider, null, null,
+                    null, null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null, null,
+                    true);
+            TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
+        } else {
+            existingTileServer.setProvider(provider);
+            existingTileServer.setName(name);
+            existingTileServer.setOriginalTileUrl(tileUrl);
+            existingTileServer.setOverlay(isOverlay);
+            existingTileServer.setMinZoom(minZoom);
+            existingTileServer.setMaxZoom(maxZoom);
+            TileLayerDatabase.updateLayer(db, existingTileServer);
+        }
     }
 }

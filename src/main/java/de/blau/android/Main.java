@@ -203,7 +203,8 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 
-    public static final String ACTION_EXIT = "de.blau.android.EXIT";
+    public static final String ACTION_EXIT   = "de.blau.android.EXIT";
+    public static final String ACTION_UPDATE = "de.blau.android.UPDATE";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -711,9 +712,18 @@ public class Main extends FullScreenAppCompatActivity
         if (action != null) {
             switch (action) {
             case ACTION_EXIT:
-                Log.d(DEBUG_TAG, "onNewIntent calling exit");
                 exit();
                 return;
+            case ACTION_UPDATE:
+                updatePrefs(new Preferences(this));
+                App.getLogic().setPrefs(prefs);
+                if (map != null) {
+                    map.setPrefs(this, prefs);
+                    map.invalidate();
+                }
+                return;
+            default:
+                // carry on
             }
         }
         setIntent(intent);
@@ -1223,7 +1233,7 @@ public class Main extends FullScreenAppCompatActivity
             if (!logic.getMode().elementsGeomEditiable()) {
                 // TODO there might be states in which we don't
                 // want to exit which ever mode we are in
-                App.getLogic().setMode(this, Mode.MODE_EASYEDIT);
+                logic.setMode(this, Mode.MODE_EASYEDIT);
             }
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
@@ -1266,6 +1276,12 @@ public class Main extends FullScreenAppCompatActivity
             if (easyEditManager != null) {
                 easyEditManager.editElements();
             }
+        }
+        if (rcData.getChangesetComment() != null) {
+            logic.setDraftComment(rcData.getChangesetComment());
+        }
+        if (rcData.getChangesetSource() != null) {
+            logic.setDraftSourceComment(rcData.getChangesetSource());
         }
     }
 

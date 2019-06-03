@@ -298,33 +298,8 @@ public class TileLayerDialog {
                 if (moan) { // abort and leave the dialog intact
                     return;
                 }
-                int tileSize = TileLayerServer.DEFAULT_TILE_SIZE;
-                String proj = null;
-                // hack, but saves people extracting and then having to re-select the projection
-                if (tileUrl.contains(TileLayerServer.EPSG_3857)) {
-                    proj = TileLayerServer.EPSG_3857;
-                    tileSize = TileLayerServer.WMS_TILE_SIZE;
-                } else if (tileUrl.contains(TileLayerServer.EPSG_900913)) {
-                    proj = TileLayerServer.EPSG_900913;
-                    tileSize = TileLayerServer.WMS_TILE_SIZE;
-                } else if (tileUrl.contains(TileLayerServer.EPSG_4326)) {
-                    proj = TileLayerServer.EPSG_4326;
-                    tileSize = TileLayerServer.DEFAULT_TILE_SIZE;
-                }
-                if (!existing) {
-                    TileLayerServer layer = new TileLayerServer(activity, layerId, name, tileUrl, "tms", isOverlay, false, provider, null, null, null, null,
-                            minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, finalStartDate, finalEndDate, null, null, null,
-                            null, true);
-                    TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
-                } else {
-                    existingLayer.setProvider(provider);
-                    existingLayer.setName(name);
-                    existingLayer.setOriginalTileUrl(tileUrl);
-                    existingLayer.setOverlay(overlayCheck.isChecked());
-                    existingLayer.setMinZoom(minZoom);
-                    existingLayer.setMaxZoom(maxZoom);
-                    TileLayerDatabase.updateLayer(db, existingLayer);
-                }
+                TileLayerServer.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, minZoom, maxZoom,
+                        isOverlay, tileUrl);
                 if (onUpdate != null) {
                     onUpdate.update();
                 }
