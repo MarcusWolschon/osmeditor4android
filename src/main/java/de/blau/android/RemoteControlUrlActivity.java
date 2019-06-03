@@ -128,6 +128,10 @@ public class RemoteControlUrlActivity extends UrlActivity {
             if (command != null && command.startsWith("/")) { // remove any
                 command = command.substring(1);
             }
+            if (command == null) {
+                Log.e(DEBUG_TAG, "Null RC command");
+                return false;
+            }
 
             Log.d(DEBUG_TAG, "Command: " + command);
             Log.d(DEBUG_TAG, "Query: " + data.getQuery());
@@ -184,7 +188,7 @@ public class RemoteControlUrlActivity extends UrlActivity {
                         existing = TileLayerServer.get(this, id, false);
                     }
                     String type = data.getQueryParameter("type");
-                    if (!TileLayerServer.TYPE_TMS.equals(type) && !TileLayerServer.TYPE_TMS.equals(type)) {
+                    if (!TileLayerServer.TYPE_TMS.equals(type) && !TileLayerServer.TYPE_WMS.equals(type)) {
                         Log.e(DEBUG_TAG, "Unsupported type " + type);
                         return false;
                     }
