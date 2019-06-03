@@ -75,4 +75,4 @@ for the __load\_and\_zoom__ command, and
         
     intent:/imagery?title=osmtest&type=tms&min_zoom=2&max_zoom=19&url=https://a.tile.openstreetmap.org/%7Bzoom%7D/%7Bx%7D/%7By%7D.png#Intent;scheme=josm;end;
     
-for the imagery command.
+for the __imagery__ command.
