@@ -33,6 +33,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -72,17 +73,17 @@ public class ApiTest {
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
-        Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
-        main.getMap().setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
-        System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
+        Preferences prefs = new Preferences(context);
+        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+        main.getMap().setPrefs(main, prefs);
+        System.out.println("mock api url " + mockBaseUrl.toString());
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }
@@ -286,6 +287,65 @@ public class ApiTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertEquals(50000, s.getCachedCapabilities().getMaxElementsInChangeset());
+        n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        Assert.assertNotNull(n);
+        Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
+        Assert.assertEquals(7L, n.getOsmVersion());
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
+        Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
+        Assert.assertEquals(4L, r.getOsmVersion());
+    }
+
+    /**
+     * Upload to changes (mock-)server
+     */
+    @Test
+    public void dataUploadViaDialog() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        Logic logic = App.getLogic();
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream("test1.osm");
+        logic.readOsmFile(main, is, false, new SignalHandler(signal));
+        try {
+            signal.await(TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
+        Assert.assertNotNull(n);
+        Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+
+        mockServer.enqueue("capabilities1"); // for whatever reason this gets asked for twice
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("changeset1");
+        mockServer.enqueue("upload1");
+        mockServer.enqueue("close_changeset");
+        mockServer.enqueue("userdetails");
+
+        TestUtils.clickMenuButton("Transfer", false, true);
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+
+        TestUtils.clickText(device, false, "Upload", true); // menu item
+
+        UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
+        UiObject button = device.findObject(uiSelector);
+        try {
+            button.click();
+        } catch (UiObjectNotFoundException e1) {
+            Assert.fail(e1.getMessage());
+        }
+        device.waitForIdle();
+        try {
+            button.clickAndWaitForNewWindow();
+        } catch (UiObjectNotFoundException e1) {
+            Assert.fail(e1.getMessage());
+        }
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+        }
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
