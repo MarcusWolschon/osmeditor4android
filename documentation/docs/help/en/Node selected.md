@@ -30,6 +30,10 @@ Merge the selected node with a way (as a new way node) or with an existing node.
 
 Extract the selected node from all ways that it is a member of and replace it with a newly created one. The original node retains all tags and relation memberships and remains selected. After extracting, drag the node to its new position.  
 
+### ![TurnRestriction](../images/no_left_turn_light.png) Add turn restriction 
+
+Start creating a turn restriction with this node as "via" member. This action is only available if the node in question is a potential via member, that is it is a member of at least two ways that have a "highway" tag. Ways will be split automatically during the process.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the way to the internal copy and paste buffer.

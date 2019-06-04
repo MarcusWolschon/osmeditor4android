@@ -86,6 +86,7 @@ The "on-map" GPS button duplicates the function of the "Follow GPS position" men
  * **Show location** - show arrow symbol at current position
  * **Follow location** - pan and center screen to follow the current position
  * **Go to current location** - go to and zoom in to the current position
+ " **Go to coordinates...** - go to and zoom in to coordinates or an open location code
  * **Start GPX track** - start recording a GPX track
  * **Pause GPX track** - pause recording the current GPX track
  * **Clear GPX track** - clear the current GPX track
@@ -112,6 +113,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
     * **Read from JOSM file...** - read a JOSM compatible XML format file
     * **Read from PBF file...** - read OSM data from a PBF format file
     * **Save to JOSM file...** - save as a JOSM compatible XML format file
+    * **Download data for offline use...** - * download and install a mapsplit format data extract (requires network connectivity)*
  * **Tasks...** - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)
     * **Download tasks for current view** - download Notes/Bugs for the area visible on the screen
     * **Upload all** - upload all new or modified tasks
