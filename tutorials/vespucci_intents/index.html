@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../help/en/13.1.0 Release notes/">13.1.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../help/en/13.0.0 Release notes/">13.0.0 Release notes</a>
 </li>
                                         
@@ -281,6 +285,7 @@ i-->
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#controlling-vespucci-from-other-apps">Controlling Vespucci from other apps</a></li>
             <li><a href="#supported-intents">Supported intents</a></li>
+            <li><a href="#notes-on-josm-style-remote-control">Notes on JOSM style remote control</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -295,29 +300,47 @@ i-->
 <p><em>name</em>: optional name of the preset</p>
 <p>Load a preset from a website and store it in internal storage, the preset can replace or be used together with the default and other presets.</p>
 <p><strong>Zoom to a bounding box</strong></p>
-<p>http://127.0.0.1:8111/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em></p>
-<p>https://127.0.0.1:8112/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em></p>
+<p>~~http://127.0.0.1:8111/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>~~</p>
+<p>~~https://127.0.0.1:8112/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>~~</p>
 <p>josm:/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em></p>
 <p><em>left</em>,<em>bottom</em>,<em>right</em>,<em>top</em>: bounding box definition in WGS84 coordinates</p>
 <p>JOSM style remote control, zoom to the specified bounding box.</p>
 <p><strong>Load data and optionally select objects</strong></p>
-<p>http://127.0.0.1:8111/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em></p>
-<p>https://127.0.0.1:8112/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em></p>
+<p>~~http://127.0.0.1:8111/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em>~~</p>
+<p>~~https://127.0.0.1:8112/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em>~~</p>
 <p>josm:/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em></p>
 <p><em>left</em>,<em>bottom</em>,<em>right</em>,<em>top</em>: bounding box definition in WGS84 coordinates</p>
 <p><em>osmobjects</em>: optional, comma separated list of OSM objects in the form <em>objectID</em>, ie node1111111,way1234456. </p>
-<p>For more information see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl, note: this has a different format than the JOSM object selection command. The "josm:" scheme Intents are supported from version 0.9.8, build 1242 on.</p>
+<p>Further supported attributes:</p>
+<p><em>changeset_comment</em>: a draft changeset comment. (added in vwersion 13.1)
+<em>changeset_source</em>: a draft changeset source. (added in vwersion 13.1)</p>
+<p><strong>Configure imagery</strong> (added in vwersion 13.1)</p>
+<p>josm:/imagery?title=<em>title</em>&amp;type=<em>type</em>&amp;min_zoom=<em>min_zoom</em>&amp;max_zoom=<em>max_zoom</em>&amp;url=<em>url</em></p>
+<p><em>title</em> the title/name of the layer
+<em>type</em> tms or wms
+<em>min_zoom</em> minimum zoom level
+<em>max_zoom</em> maximum zoom level
+<em>url</em> url with place holders (note for WMS servers the proj value in the URL should not be replaced by a place holder)</p>
+<p>Configure and activate an imagery layer.</p>
 <p><strong>geo URLs</strong></p>
 <p>geo:<em>lat</em>,<em>lon</em>?z=<em>zoom_level</em></p>
 <p><em>lat</em>,<em>lon</em>: WGS84 coordinates
 <em>zoom_level</em>: zoom level, not supported</p>
 <p>Partial implementation of geo URLs, only WGS84 coordinates are supported, an area of the size of the current auto-download area is downloaded around the specified location.</p>
-<p><strong>Happy mapping!</strong> </p></div> -->
+<h2 id="notes-on-josm-style-remote-control">Notes on JOSM style remote control</h2>
+<p>Directly using the local host IP address with a port will not work on modern Android variants. Your application needs to generate URLS like the following for use in a web page/app:</p>
+<pre><code>intent:/load_and_zoomleft=8.3844600&amp;right=8.3879800&amp;top=47.3911300&amp;bottom=47.3892400&amp;changeset_comment=thisisatest&amp;select=node101792984#Intent;scheme=josm;end;
+</code></pre>
+<p>for the <strong>load_and_zoom</strong> command, and        </p>
+<pre><code>intent:/imagery?title=osmtest&amp;type=tms&amp;min_zoom=2&amp;max_zoom=19&amp;url=https://a.tile.openstreetmap.org/%7Bzoom%7D/%7Bx%7D/%7By%7D.png#Intent;scheme=josm;end;
+</code></pre>
+<p>for the <strong>imagery</strong> command.</p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#controlling-vespucci-from-other-apps">Controlling Vespucci from other apps</a></li>
             <li><a href="#supported-intents">Supported intents</a></li>
+            <li><a href="#notes-on-josm-style-remote-control">Notes on JOSM style remote control</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
@@ -332,31 +355,48 @@ i-->
 <p><em>name</em>: optional name of the preset</p>
 <p>Load a preset from a website and store it in internal storage, the preset can replace or be used together with the default and other presets.</p>
 <p><strong>Zoom to a bounding box</strong></p>
-<p>http://127.0.0.1:8111/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em></p>
-<p>https://127.0.0.1:8112/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em></p>
+<p>~~http://127.0.0.1:8111/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>~~</p>
+<p>~~https://127.0.0.1:8112/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>~~</p>
 <p>josm:/zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em></p>
 <p><em>left</em>,<em>bottom</em>,<em>right</em>,<em>top</em>: bounding box definition in WGS84 coordinates</p>
 <p>JOSM style remote control, zoom to the specified bounding box.</p>
 <p><strong>Load data and optionally select objects</strong></p>
-<p>http://127.0.0.1:8111/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em></p>
-<p>https://127.0.0.1:8112/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em></p>
+<p>~~http://127.0.0.1:8111/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em>~~</p>
+<p>~~https://127.0.0.1:8112/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em>~~</p>
 <p>josm:/load_and_zoom?left=<em>left</em>&amp;bottom=<em>bottom</em>&amp;right=<em>right</em>&amp;top=<em>top</em>&amp;select=<em>osmobjects</em></p>
 <p><em>left</em>,<em>bottom</em>,<em>right</em>,<em>top</em>: bounding box definition in WGS84 coordinates</p>
 <p><em>osmobjects</em>: optional, comma separated list of OSM objects in the form <em>objectID</em>, ie node1111111,way1234456. </p>
-<p>For more information see http://wiki.openstreetmap.org/wiki/JOSM/Plugins/RemoteControl, note: this has a different format than the JOSM object selection command. The "josm:" scheme Intents are supported from version 0.9.8, build 1242 on.</p>
+<p>Further supported attributes:</p>
+<p><em>changeset_comment</em>: a draft changeset comment. (added in vwersion 13.1)
+<em>changeset_source</em>: a draft changeset source. (added in vwersion 13.1)</p>
+<p><strong>Configure imagery</strong> (added in vwersion 13.1)</p>
+<p>josm:/imagery?title=<em>title</em>&amp;type=<em>type</em>&amp;min_zoom=<em>min_zoom</em>&amp;max_zoom=<em>max_zoom</em>&amp;url=<em>url</em></p>
+<p><em>title</em> the title/name of the layer
+<em>type</em> tms or wms
+<em>min_zoom</em> minimum zoom level
+<em>max_zoom</em> maximum zoom level
+<em>url</em> url with place holders (note for WMS servers the proj value in the URL should not be replaced by a place holder)</p>
+<p>Configure and activate an imagery layer.</p>
 <p><strong>geo URLs</strong></p>
 <p>geo:<em>lat</em>,<em>lon</em>?z=<em>zoom_level</em></p>
 <p><em>lat</em>,<em>lon</em>: WGS84 coordinates
 <em>zoom_level</em>: zoom level, not supported</p>
 <p>Partial implementation of geo URLs, only WGS84 coordinates are supported, an area of the size of the current auto-download area is downloaded around the specified location.</p>
-<p><strong>Happy mapping!</strong> </p></div>
+<h2 id="notes-on-josm-style-remote-control">Notes on JOSM style remote control</h2>
+<p>Directly using the local host IP address with a port will not work on modern Android variants. Your application needs to generate URLS like the following for use in a web page/app:</p>
+<pre><code>intent:/load_and_zoomleft=8.3844600&amp;right=8.3879800&amp;top=47.3911300&amp;bottom=47.3892400&amp;changeset_comment=thisisatest&amp;select=node101792984#Intent;scheme=josm;end;
+</code></pre>
+<p>for the <strong>load_and_zoom</strong> command, and        </p>
+<pre><code>intent:/imagery?title=osmtest&amp;type=tms&amp;min_zoom=2&amp;max_zoom=19&amp;url=https://a.tile.openstreetmap.org/%7Bzoom%7D/%7Bx%7D/%7By%7D.png#Intent;scheme=josm;end;
+</code></pre>
+<p>for the <strong>imagery</strong> command.</p></div>
                 
         </div>
 
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.0.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.1.0 </p>
         </footer>
         <script>
             var base_url = "../..",

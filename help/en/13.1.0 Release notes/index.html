@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>Conflict resolution - Vespucci</title>
+        <title>13.1.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -52,7 +52,7 @@
                                     
                                         <a href="../../.."><img src="/vespucci_logo_small.png"></a>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown active">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         
@@ -64,8 +64,8 @@
     <a href="../../../tutorials/features/">Features</a>
 </li>
                                         
-<li >
-    <a href="../13.1.0 Release notes/">13.1.0 Release notes</a>
+<li class="active">
+    <a href="./">13.1.0 Release notes</a>
 </li>
                                         
 <li >
@@ -125,7 +125,7 @@
 </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active">
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         
@@ -165,8 +165,8 @@
     <a href="../Multiselect/">Multiselect</a>
 </li>
                                         
-<li class="active">
-    <a href="./">Conflict resolution</a>
+<li >
+    <a href="../Conflict resolution/">Conflict resolution</a>
 </li>
                                         
 <li >
@@ -265,12 +265,12 @@
                         </li>
 <!--- Remove Prev - Next
                             <li >
-                                <a rel="next" href="../Multiselect/">
+                                <a rel="next" href="../../../tutorials/features/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../Presets/">
+                                <a rel="prev" href="../13.0.0 Release notes/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -283,39 +283,117 @@ i-->
         <div class="container">
 <!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#conflict-resolution">Conflict resolution</a></li>
-            <li><a href="#version-conflicts">Version conflicts</a></li>
-            <li><a href="#referential-conflicts">Referential conflicts</a></li>
+        <li class="main active"><a href="#vespucci-131-beta-highlights">Vespucci 13.1 Beta Highlights</a></li>
+            <li><a href="#updated-opening-hours-editor">Updated opening hours editor</a></li>
+            <li><a href="#use-of-saf-file-picker-for-android-kitkat-and-later">Use of SAF file picker for Android KitKat and later</a></li>
+            <li><a href="#download-offline-data-directly-with-automatic-configuration">Download offline data directly with automatic configuration</a></li>
+            <li><a href="#support-for-multi-line-comments-and-source-in-the-upload-dialog-and-multi-line-text-fields-in-the-form-tag-editing-ui">Support for multi-line comments and source in the upload dialog, and multi-line text fields in the form tag editing UI</a></li>
+            <li><a href="#improvements-js-support">Improvements JS support</a></li>
+            <li><a href="#gpx-and-geojson-files-can-be-loaded-via-intent">GPX and GeoJson files can be loaded via Intent</a></li>
+            <li><a href="#go-to-coordinates-function-and-olc-support">Go to coordinates function and OLC support</a></li>
+            <li><a href="#improvements-josm-style-remote-control">Improvements JOSM style remote control</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+        <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
+        <li class="main "><a href="#known-problems">Known problems</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="conflict-resolution">Conflict resolution</h1>
-<p>Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.</p>
-<p>Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.</p>
-<h3 id="version-conflicts">Version conflicts</h3>
-<p>The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.</p>
-<p>It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, with other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.</p>
-<h3 id="referential-conflicts">Referential conflicts</h3>
-<p>While Vespucci in general doesn't allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly. Deletes happen at the end of the upload process for this reason to allow the server to check. In such a conflict situation you only have the choice to use the server version or cancel.  </p></div> -->
+<h1 id="vespucci-131-beta-highlights">Vespucci 13.1 Beta Highlights</h1>
+<p>This is a minor release consisting mainly of UI improvements.</p>
+<h3 id="updated-opening-hours-editor">Updated opening hours editor</h3>
+<p>The opening hours editor (a separate project found <a href="https://github.com/simonpoole/OpeningHoursFragment">here</a>) has received a number of updates, including</p>
+<ul>
+<li>tapping the time bars will start a large time picker, this was previously only available via the menu.</li>
+<li>ability to load and save templates to on device files.</li>
+<li>support for region and object type specific templates.</li>
+</ul>
+<h3 id="use-of-saf-file-picker-for-android-kitkat-and-later">Use of SAF file picker for Android KitKat and later</h3>
+<p>Previously, to give a consistent look and feel over as many different Android version as possible, we were using a third party file picker/selector for those operations that require a file to be selected for input or output. Unluckily in recent Android versions removable "SD card" storage has become unavailable due to this.</p>
+<p>To work around this we are now using the system SAF (Storage Access Framework) file picker for Android KitKat (19) and later. This does have the advantage that cloud-based storage location are usable for operations that don't need direct file access.</p>
+<h3 id="download-offline-data-directly-with-automatic-configuration">Download offline data directly with automatic configuration</h3>
+<p>To make using offline OSM data in <a href="https://www.openstreetmap.org/user/SimonPoole/diary/193235">MSF format</a> easier we've added a small UI that will display the available files, download them with the Android download manager and configure a new API entry if necessary.</p>
+<h3 id="support-for-multi-line-comments-and-source-in-the-upload-dialog-and-multi-line-text-fields-in-the-form-tag-editing-ui">Support for multi-line comments and source in the upload dialog, and multi-line text fields in the form tag editing UI</h3>
+<p>Comment and source field are now multi-line making adding longer texts far easier. Further multi-line input fields are supported in the form based tag editor, depending on the "length" attribute in hte presets. </p>
+<h3 id="improvements-js-support">Improvements JS support</h3>
+<p>The layout of the JS console has been improved and scripts from preset fields are now evaluated after all fields have been set, allowing for order independent consistent behaviour. Further the key - preset mapping is now visible to scripts.  </p>
+<h3 id="gpx-and-geojson-files-can-be-loaded-via-intent">GPX and GeoJson files can be loaded via Intent</h3>
+<p>Clicking a GPS or GeoJson/Json file in a file manager should now show Vespucci as an app that can read the files.</p>
+<h3 id="go-to-coordinates-function-and-olc-support">Go to coordinates function and OLC support</h3>
+<p>The "GPS" menu now features an item "Go to coordinates" that will display an input field that will accept coordinates in a wide range of formats and Open Location Codes. Further, the element information dialog will display the OLC equivalent of the coordinates for Nodes.</p>
+<h3 id="improvements-josm-style-remote-control">Improvements JOSM style remote control</h3>
+<p>We now support imagery configuration and draft comment and source tags, see <a href="http://vespucci.io/tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>. </p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>Data style configuration provided that doesn't render multi-polygons, this may help performance on slow devices.</li>
+<li>Lots of stability improvements.</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<ul>
+<li>currently no special actions are required.</li>
+</ul>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>the documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#conflict-resolution">Conflict resolution</a></li>
-            <li><a href="#version-conflicts">Version conflicts</a></li>
-            <li><a href="#referential-conflicts">Referential conflicts</a></li>
+        <li class="main active"><a href="#vespucci-131-beta-highlights">Vespucci 13.1 Beta Highlights</a></li>
+            <li><a href="#updated-opening-hours-editor">Updated opening hours editor</a></li>
+            <li><a href="#use-of-saf-file-picker-for-android-kitkat-and-later">Use of SAF file picker for Android KitKat and later</a></li>
+            <li><a href="#download-offline-data-directly-with-automatic-configuration">Download offline data directly with automatic configuration</a></li>
+            <li><a href="#support-for-multi-line-comments-and-source-in-the-upload-dialog-and-multi-line-text-fields-in-the-form-tag-editing-ui">Support for multi-line comments and source in the upload dialog, and multi-line text fields in the form tag editing UI</a></li>
+            <li><a href="#improvements-js-support">Improvements JS support</a></li>
+            <li><a href="#gpx-and-geojson-files-can-be-loaded-via-intent">GPX and GeoJson files can be loaded via Intent</a></li>
+            <li><a href="#go-to-coordinates-function-and-olc-support">Go to coordinates function and OLC support</a></li>
+            <li><a href="#improvements-josm-style-remote-control">Improvements JOSM style remote control</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+        <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
+        <li class="main "><a href="#known-problems">Known problems</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="conflict-resolution">Conflict resolution</h1>
-<p>Vespucci provides basic facility to resolve version conflicts on upload. In general is it best to avoid them happening, particularly in areas with lots of editing activity by downloading only small areas, refreshing them often and saving changes frequently.</p>
-<p>Vespucci uploads modified and deleted elements one by one. Any conflicts detected will be related to the current element and will need to be resolved before the upload can be retried. As a consequence, if you suspect that your edits have caused more than a handful of conflicts you should save the edits either by saving to a JOSM compatible OSM file or by exporting the changes to a OSC file and then try to resolve the conflicts in JOSM.</p>
-<h3 id="version-conflicts">Version conflicts</h3>
-<p>The most common conflict is when an object has been modified or deleted while you were editing and the version number of the object that you modified is lower than the current one on the OpenStreetMap servers. In such a case you will be presented with the options to cancel, use your local version or to overwrite your changes with whatever is on the server.</p>
-<p>It is likely better, except if you have really important changes, to use the remote version. If you use the local version you will overwrite whatever changes have been made by other mappers. Note that if the object has been deleted on the server and you choose to use the server version, with other words, delete the object locally, this may cause further conflicts if the object in question was a member of a way or relation.</p>
-<h3 id="referential-conflicts">Referential conflicts</h3>
-<p>While Vespucci in general doesn't allow this to happen, a referential conflict happens when you delete an object locally, the server however still has objects that refer to the deleted one, which haven't been modified accordingly. Deletes happen at the end of the upload process for this reason to allow the server to check. In such a conflict situation you only have the choice to use the server version or cancel.  </p></div>
+<h1 id="vespucci-131-beta-highlights">Vespucci 13.1 Beta Highlights</h1>
+<p>This is a minor release consisting mainly of UI improvements.</p>
+<h3 id="updated-opening-hours-editor">Updated opening hours editor</h3>
+<p>The opening hours editor (a separate project found <a href="https://github.com/simonpoole/OpeningHoursFragment">here</a>) has received a number of updates, including</p>
+<ul>
+<li>tapping the time bars will start a large time picker, this was previously only available via the menu.</li>
+<li>ability to load and save templates to on device files.</li>
+<li>support for region and object type specific templates.</li>
+</ul>
+<h3 id="use-of-saf-file-picker-for-android-kitkat-and-later">Use of SAF file picker for Android KitKat and later</h3>
+<p>Previously, to give a consistent look and feel over as many different Android version as possible, we were using a third party file picker/selector for those operations that require a file to be selected for input or output. Unluckily in recent Android versions removable "SD card" storage has become unavailable due to this.</p>
+<p>To work around this we are now using the system SAF (Storage Access Framework) file picker for Android KitKat (19) and later. This does have the advantage that cloud-based storage location are usable for operations that don't need direct file access.</p>
+<h3 id="download-offline-data-directly-with-automatic-configuration">Download offline data directly with automatic configuration</h3>
+<p>To make using offline OSM data in <a href="https://www.openstreetmap.org/user/SimonPoole/diary/193235">MSF format</a> easier we've added a small UI that will display the available files, download them with the Android download manager and configure a new API entry if necessary.</p>
+<h3 id="support-for-multi-line-comments-and-source-in-the-upload-dialog-and-multi-line-text-fields-in-the-form-tag-editing-ui">Support for multi-line comments and source in the upload dialog, and multi-line text fields in the form tag editing UI</h3>
+<p>Comment and source field are now multi-line making adding longer texts far easier. Further multi-line input fields are supported in the form based tag editor, depending on the "length" attribute in hte presets. </p>
+<h3 id="improvements-js-support">Improvements JS support</h3>
+<p>The layout of the JS console has been improved and scripts from preset fields are now evaluated after all fields have been set, allowing for order independent consistent behaviour. Further the key - preset mapping is now visible to scripts.  </p>
+<h3 id="gpx-and-geojson-files-can-be-loaded-via-intent">GPX and GeoJson files can be loaded via Intent</h3>
+<p>Clicking a GPS or GeoJson/Json file in a file manager should now show Vespucci as an app that can read the files.</p>
+<h3 id="go-to-coordinates-function-and-olc-support">Go to coordinates function and OLC support</h3>
+<p>The "GPS" menu now features an item "Go to coordinates" that will display an input field that will accept coordinates in a wide range of formats and Open Location Codes. Further, the element information dialog will display the OLC equivalent of the coordinates for Nodes.</p>
+<h3 id="improvements-josm-style-remote-control">Improvements JOSM style remote control</h3>
+<p>We now support imagery configuration and draft comment and source tags, see <a href="http://vespucci.io/tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>. </p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>Data style configuration provided that doesn't render multi-polygons, this may help performance on slow devices.</li>
+<li>Lots of stability improvements.</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<ul>
+<li>currently no special actions are required.</li>
+</ul>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>the documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div>
                 
         </div>
 

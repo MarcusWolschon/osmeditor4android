@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/13.1.0 Release notes/">13.1.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/13.0.0 Release notes/">13.0.0 Release notes</a>
 </li>
                                         
@@ -274,7 +278,7 @@ i-->
             <li><a href="#_2">Редагування у Веспуччі</a></li>
             <li><a href="#using-gps">Using GPS</a></li>
             <li><a href="#notes-and-bugs">Notes and Bugs</a></li>
-            <li><a href="#indoor-mode">Indoor mode</a></li>
+            <li><a href="#_12">Режим редагування приміщень</a></li>
             <li><a href="#c-mode">C-Mode</a></li>
             <li><a href="#filters">Filters</a></li>
             <li><a href="#customizing-vespucci">Customizing Vespucci</a></li>
@@ -294,28 +298,28 @@ i-->
 <h3 id="osm">Завантаження даних OSM</h3>
 <p>Оберіть або значок <img alt="Передача" src="../../images/menu_transfer.png" /> або меню "Передача". Ви побачите сім пунктів:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and replace any existing data <em>(requires network connectivity)</em></li>
-<li><strong>Add current view to download</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
-<li><strong>Download at other location</strong> - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+<li><strong>Звантажити дані для поточного місця</strong> - завантажує видиму на екрані ділянку та заміщує наявні дані <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Додати поточний вид для звантаження</strong> - завантажує видиму на екрані ділянку та об'єднує її з наявними даними <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Завантажити інше місце</strong> - показує форму для вводу координат, пошуку місця або використання поточної локації, і потім завантажує дані для території навколо вказаного місця <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Надіслати дані на сервер OSM</strong> - надсилає ваші правки до OpenStreetMap <em>(вимагаються облікові дані)</em> <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Авто-завантаження</strong> - автоматично завантажує дані навколо вашого поточного розташування <em>(вимагається під'єднання до мережі)</em> <em>(вимагається доступ до GPS)</em></li>
+<li><strong>Файл…</strong> - збереження та завантаження даних OSM що знаходяться на вашому пристрої.</li>
+<li><strong>Нотатки/Вади…</strong> - завантаження (автоматично або вручну) Нотаток OSM або "Вад" з інструментів перевірки якості даних (зараз це OSMOSE) <em>(вимагається під'єднання до мережі)</em></li>
 </ul>
-<p>The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.</p>
+<p>Найпростіший спосіб завантажити дані на пристрій — це масштабування та панорамування до місця, яке потрібно відредагувати, потім виберіть "Звантажити дані для поточного місця". Ви можете масштабувати за допомогою жестів, кнопок масштабування або кнопок регулювання гучності на пристрої. Після цього Веспуччі повинен завантажити дані для поточного місця. Для завантаження даних на пристрій автентифікація не потрібна.</p>
 <h3 id="_3">Редагування</h3>
 <p><a id="lock"></a></p>
-<h4 id="lock-unlock-mode-switching">Lock, unlock, mode switching</h4>
-<p>To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the <img alt="Locked" src="../../images/locked.png" /> icon to unlock the screen. </p>
-<p>A long press on the lock icon will display a menu currently offering 4 options:</p>
+<h4 id="_4">Перегляд, розблокування та перемикання режимів</h4>
+<p>Для того щоб уникнути випадкових змін, Веспуччі запускається в режимі "перегляду", в якому можливе лише пересування мапою та змінення її масштабу. Натисніть на значок <img alt="Locked" src="../../images/locked.png" /> для розблокування екрану. </p>
+<p>Довге натискання на значок покаже меню, що містить наступні опції:</p>
 <ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with a "I" is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
+<li><strong>Звичайний</strong> - типовий режим редагування, дозволяє додавання нових об'єктів, редагування наявних, пересування об'єктів та їх вилучення. Показується звичайним білим замком.</li>
+<li><strong>Тільки теґи</strong> - вибір наявних об'єктів відкриває Редактор властивостей, довге натискання на основному екрані додає нові об'єкти, але жодні інші геометричні операції не спрацьовують. Показується білим замком з літерою "T".</li>
+<li><strong>В приміщенні</strong> - вмикає режим редагування приміщень, див <a href="#indoor">Режим редагування приміщень</a>. Показується білим замком з літерою "I".</li>
+<li><strong>C-Mode</strong> - вмикає режим C-Mode, показуються лише об'єкти, для яких встановлено попередження, див <a href="#c-mode">C-Mode</a>. Показується білим замком з літерою "C".</li>
 </ul>
-<h4 id="single-tap-double-tap-and-long-press">Single tap, double tap, and long press</h4>
-<p>By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:</p>
+<h4 id="_5">Звичайне, подвійне та довге натискання</h4>
+<p>Типово, точки та лінії мають помаранчеву підсвітку навколо них, що показує де ви можете торкнутись екрану щоб їх виділити. У вас є три варіанти:</p>
 <ul>
 <li>Single tap: Selects object. <ul>
 <li>An isolated node/way is highlighted immediately. </li>
@@ -366,11 +370,11 @@ i-->
 <li><em>multi-ploygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. </li>
 <li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
 </ul>
-<h4 id="_4">Покращення геометрії ліній</h4>
+<h4 id="_6">Покращення геометрії ліній</h4>
 <p>If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.</p>
-<h4 id="_5">Вирізання, Копіювання та Вставка</h4>
+<h4 id="_7">Вирізання, Копіювання та Вставка</h4>
 <p>Ви можете скопіювати або вирізати виділені точки та лінії та вставити їх на нове місце потрібну кількість разів. Під час вирізання версія та ідентифікатор osm зберігаються. Для вставки натисніть та потримайте деякий час потрібне місце (ви побачите "приціл"). Потім оберіть "Вставити" з меню.</p>
-<h4 id="_6">Швидке додавання адрес</h4>
+<h4 id="_8">Швидке додавання адрес</h4>
 <p>Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:</p>
 <ul>
 <li>after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
@@ -379,7 +383,7 @@ i-->
 </ul>
 <p>Пропонування номерів будинків потребує наявності не менше двох номерів з кожного боку вулиці, чим більше є даних, тим звісно краще.</p>
 <p>Consider using this with the <a href="#download">Auto-download</a> mode.  </p>
-<h4 id="_7">Додавання обмежень поворотів</h4>
+<h4 id="_9">Додавання обмежень поворотів</h4>
 <p>Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. </p>
 <ul>
 <li>select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)</li>
@@ -388,9 +392,9 @@ i-->
 <li>select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)</li>
 <li>set the restriction type</li>
 </ul>
-<h3 id="_8">Веспуччі в режимі "перегляду"</h3>
+<h3 id="_10">Веспуччі в режимі "перегляду"</h3>
 <p>Коли показується червоний замок, вам доступні дії не повʼязані з редагуванням. Довге торкання до обʼєкта дозволяє побачити інформацію про нього, якщо він є обʼєктом ОСМ.</p>
-<h3 id="_9">Збереження вашіх змін</h3>
+<h3 id="_11">Збереження вашіх змін</h3>
 <p><em>(потрібне зʼєднання з мережею)</em></p>
 <p>Select the same button or menu item you did for the download and now select "Upload data to OSM server".</p>
 <p>Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.</p>
@@ -415,8 +419,8 @@ i-->
 <li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2 id="indoor-mode">Indoor mode</h2>
-<p>Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.</p>
+<h2 id="_12">Режим редагування приміщень</h2>
+<p>Редагування планів приміщень завжди є не простим завданням через високу щільність об'єктів, які дуже часто перекривають друг друга. Веспуччі має спеціальний режим для цього, який дозволяє показувати тільки ті об'єкти які знаходяться на одному поверсі та який автоматично додає номер поверху до новостворених об'єктів.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <p><a id="c-mode"></a></p>
 <h2 id="c-mode">C-Mode</h2>
@@ -474,7 +478,7 @@ i-->
             <li><a href="#_2">Редагування у Веспуччі</a></li>
             <li><a href="#using-gps">Using GPS</a></li>
             <li><a href="#notes-and-bugs">Notes and Bugs</a></li>
-            <li><a href="#indoor-mode">Indoor mode</a></li>
+            <li><a href="#_12">Режим редагування приміщень</a></li>
             <li><a href="#c-mode">C-Mode</a></li>
             <li><a href="#filters">Filters</a></li>
             <li><a href="#customizing-vespucci">Customizing Vespucci</a></li>
@@ -494,28 +498,28 @@ i-->
 <h3 id="osm">Завантаження даних OSM</h3>
 <p>Оберіть або значок <img alt="Передача" src="../../images/menu_transfer.png" /> або меню "Передача". Ви побачите сім пунктів:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and replace any existing data <em>(requires network connectivity)</em></li>
-<li><strong>Add current view to download</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
-<li><strong>Download at other location</strong> - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location <em>(requires network connectivity)</em></li>
-<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
-<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
-<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
+<li><strong>Звантажити дані для поточного місця</strong> - завантажує видиму на екрані ділянку та заміщує наявні дані <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Додати поточний вид для звантаження</strong> - завантажує видиму на екрані ділянку та об'єднує її з наявними даними <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Завантажити інше місце</strong> - показує форму для вводу координат, пошуку місця або використання поточної локації, і потім завантажує дані для території навколо вказаного місця <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Надіслати дані на сервер OSM</strong> - надсилає ваші правки до OpenStreetMap <em>(вимагаються облікові дані)</em> <em>(вимагається під'єднання до мережі)</em></li>
+<li><strong>Авто-завантаження</strong> - автоматично завантажує дані навколо вашого поточного розташування <em>(вимагається під'єднання до мережі)</em> <em>(вимагається доступ до GPS)</em></li>
+<li><strong>Файл…</strong> - збереження та завантаження даних OSM що знаходяться на вашому пристрої.</li>
+<li><strong>Нотатки/Вади…</strong> - завантаження (автоматично або вручну) Нотаток OSM або "Вад" з інструментів перевірки якості даних (зараз це OSMOSE) <em>(вимагається під'єднання до мережі)</em></li>
 </ul>
-<p>The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.</p>
+<p>Найпростіший спосіб завантажити дані на пристрій — це масштабування та панорамування до місця, яке потрібно відредагувати, потім виберіть "Звантажити дані для поточного місця". Ви можете масштабувати за допомогою жестів, кнопок масштабування або кнопок регулювання гучності на пристрої. Після цього Веспуччі повинен завантажити дані для поточного місця. Для завантаження даних на пристрій автентифікація не потрібна.</p>
 <h3 id="_3">Редагування</h3>
 <p><a id="lock"></a></p>
-<h4 id="lock-unlock-mode-switching">Lock, unlock, mode switching</h4>
-<p>To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the <img alt="Locked" src="../../images/locked.png" /> icon to unlock the screen. </p>
-<p>A long press on the lock icon will display a menu currently offering 4 options:</p>
+<h4 id="_4">Перегляд, розблокування та перемикання режимів</h4>
+<p>Для того щоб уникнути випадкових змін, Веспуччі запускається в режимі "перегляду", в якому можливе лише пересування мапою та змінення її масштабу. Натисніть на значок <img alt="Locked" src="../../images/locked.png" /> для розблокування екрану. </p>
+<p>Довге натискання на значок покаже меню, що містить наступні опції:</p>
 <ul>
-<li><strong>Normal</strong> - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.</li>
-<li><strong>Tag only</strong> - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.</li>
-<li><strong>Indoor</strong> - enables Indoor mode, see <a href="#indoor">Indoor mode</a>. White lock icon with a "I" is displayed.</li>
-<li><strong>C-Mode</strong> - enables C-Mode, only objects that have a warning flag set will be displayed, see <a href="#c-mode">C-Mode</a>. White lock icon with a "C" is displayed.</li>
+<li><strong>Звичайний</strong> - типовий режим редагування, дозволяє додавання нових об'єктів, редагування наявних, пересування об'єктів та їх вилучення. Показується звичайним білим замком.</li>
+<li><strong>Тільки теґи</strong> - вибір наявних об'єктів відкриває Редактор властивостей, довге натискання на основному екрані додає нові об'єкти, але жодні інші геометричні операції не спрацьовують. Показується білим замком з літерою "T".</li>
+<li><strong>В приміщенні</strong> - вмикає режим редагування приміщень, див <a href="#indoor">Режим редагування приміщень</a>. Показується білим замком з літерою "I".</li>
+<li><strong>C-Mode</strong> - вмикає режим C-Mode, показуються лише об'єкти, для яких встановлено попередження, див <a href="#c-mode">C-Mode</a>. Показується білим замком з літерою "C".</li>
 </ul>
-<h4 id="single-tap-double-tap-and-long-press">Single tap, double tap, and long press</h4>
-<p>By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:</p>
+<h4 id="_5">Звичайне, подвійне та довге натискання</h4>
+<p>Типово, точки та лінії мають помаранчеву підсвітку навколо них, що показує де ви можете торкнутись екрану щоб їх виділити. У вас є три варіанти:</p>
 <ul>
 <li>Single tap: Selects object. <ul>
 <li>An isolated node/way is highlighted immediately. </li>
@@ -566,11 +570,11 @@ i-->
 <li><em>multi-ploygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. </li>
 <li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
 </ul>
-<h4 id="_4">Покращення геометрії ліній</h4>
+<h4 id="_6">Покращення геометрії ліній</h4>
 <p>If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.</p>
-<h4 id="_5">Вирізання, Копіювання та Вставка</h4>
+<h4 id="_7">Вирізання, Копіювання та Вставка</h4>
 <p>Ви можете скопіювати або вирізати виділені точки та лінії та вставити їх на нове місце потрібну кількість разів. Під час вирізання версія та ідентифікатор osm зберігаються. Для вставки натисніть та потримайте деякий час потрібне місце (ви побачите "приціл"). Потім оберіть "Вставити" з меню.</p>
-<h4 id="_6">Швидке додавання адрес</h4>
+<h4 id="_8">Швидке додавання адрес</h4>
 <p>Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:</p>
 <ul>
 <li>after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
@@ -579,7 +583,7 @@ i-->
 </ul>
 <p>Пропонування номерів будинків потребує наявності не менше двох номерів з кожного боку вулиці, чим більше є даних, тим звісно краще.</p>
 <p>Consider using this with the <a href="#download">Auto-download</a> mode.  </p>
-<h4 id="_7">Додавання обмежень поворотів</h4>
+<h4 id="_9">Додавання обмежень поворотів</h4>
 <p>Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. </p>
 <ul>
 <li>select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)</li>
@@ -588,9 +592,9 @@ i-->
 <li>select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)</li>
 <li>set the restriction type</li>
 </ul>
-<h3 id="_8">Веспуччі в режимі "перегляду"</h3>
+<h3 id="_10">Веспуччі в режимі "перегляду"</h3>
 <p>Коли показується червоний замок, вам доступні дії не повʼязані з редагуванням. Довге торкання до обʼєкта дозволяє побачити інформацію про нього, якщо він є обʼєктом ОСМ.</p>
-<h3 id="_9">Збереження вашіх змін</h3>
+<h3 id="_11">Збереження вашіх змін</h3>
 <p><em>(потрібне зʼєднання з мережею)</em></p>
 <p>Select the same button or menu item you did for the download and now select "Upload data to OSM server".</p>
 <p>Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.</p>
@@ -615,8 +619,8 @@ i-->
 <li>Custom</li>
 </ul>
 <p><a id="indoor"></a></p>
-<h2 id="indoor-mode">Indoor mode</h2>
-<p>Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.</p>
+<h2 id="_12">Режим редагування приміщень</h2>
+<p>Редагування планів приміщень завжди є не простим завданням через високу щільність об'єктів, які дуже часто перекривають друг друга. Веспуччі має спеціальний режим для цього, який дозволяє показувати тільки ті об'єкти які знаходяться на одному поверсі та який автоматично додає номер поверху до новостворених об'єктів.</p>
 <p>The mode can be enabled by long pressing on the lock item, see <a href="#lock">Lock, unlock, mode switching</a> and selecting the corresponding menu entry.</p>
 <p><a id="c-mode"></a></p>
 <h2 id="c-mode">C-Mode</h2>
@@ -672,7 +676,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.0.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.1.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

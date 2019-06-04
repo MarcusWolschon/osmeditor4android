@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/13.1.0 Release notes/">13.1.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/13.0.0 Release notes/">13.0.0 Release notes</a>
 </li>
                                         
@@ -277,75 +281,78 @@ i-->
 
 <h1 id="openstreetmap-offnungszeiten-editor">OpenStreetMap Öffnungszeiten-Editor</h1>
 <p>Die OpenStreetMap Öffnungszeitenspezifikation ist ziemlich komplex und eignet sich nicht ohne weiteres für eine einfache und intuitive Benutzeroberfläche.</p>
-<p>However most of the time you will likely only be using a small part of the definition. The editor takes this in to account by trying to hide the more obscure features in menus and most of the time reducing the "on the road" use to small customizations of pre-defined templates.</p>
+<p>Aber meist wird nur ein kleiner Teil der Spezifikation benötigt. Der Editor berücksichtigt dies, lagert selten benötigte Funktionen in Menüs aus und verwendet vordefinierte Vorlagen.</p>
 <p><em>Diese Dokumentation ist vorläufig und eine laufende Arbeit</em></p>
 <h2 id="verwenden-des-editors-fur-die-offnungszeiten">Verwenden des Editors für die Öffnungszeiten</h2>
-<p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. </p>
-<p>Naturally you can build an opening hours value from scratch, but we would recommend using one of the existing templates as a starting point.</p>
-<p>If an existing opening hours value is loaded, an attempt is made to auto-correct it to conform to the opening hours specification. If that is not possible the rough location where the error occurred will be highlighted in the display of the raw OH value and you can try and correct it manually. Roughly a quarter of the OH values in the OpenStreetMap database have problems, but less than 10% can't be corrected, see <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> for more information on what deviations from the specification are tolerated.</p>
+<p>In einem typischen Arbeitsablauf enthält das Objekt, das Sie bearbeiten, entweder bereits ein Tag für die Öffnungszeiten (opening_hours, service_times und collection_times) oder Sie können die Voreinstellung für das Objekt erneut anwenden, um ein leeres Feld für die Öffnungszeiten zu erhalten. Wenn Sie das Feld manuell hinzufügen müssen und Vespucci verwenden, können Sie den Schlüssel auf der Detailseite eingeben und zur Bearbeitung auf die formularbasierte Registerkarte wechseln. Wenn Sie der Meinung sind, dass das Tag für die Öffnungszeiten Teil des Presets gewesen sein sollte, öffnen Sie eine Fehlermeldung für Ihren Editor.</p>
+<p>Wenn Sie eine Standardvorlage definiert haben (tun Sie dies über den Menüpunkt "Vorlagen verwalten"), wird diese automatisch geladen, wenn der Editor mit einem leeren Wert gestartet wird. Mit der Funktion "Vorlage laden" können Sie jede gespeicherte Vorlage laden und mit dem Menü "Vorlage speichern" den aktuellen Wert als Vorlage speichern. Sie können für die Tags "opening_hours", "collection_times" und "service_times" separate Vorlagen und Standardwerte definieren.</p>
+<p>Natürlich können Sie einen Wert für die Öffnungszeiten von Grund auf erstellen, wir empfehlen jedoch, eine der vorhandenen Vorlagen als Ausgangspunkt zu verwenden.</p>
+<p>Wenn ein existierender Öffnungszeiten-Wert geladen wird, wird versucht diesen automatisch an die Öffnungszeiten-Spezifikationen anzupassen. Wenn das nicht möglich ist, wird die ungefähre Stelle des Fehlers angezeigt und Sie können versuchen den Fehler manuell zu korrigieren. Ungefähr ein Viertel der Öffnungszeiten-Werte hat Fehler, aber weniger als 10% können nicht korrigiert werden. Siehe <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> für weitere Informationen welche Abweichungen von den Spezifikationen toleriert werden.</p>
 <h3 id="hauptmenu-schaltflache">Hauptmenü-Schaltfläche</h3>
 <ul>
 <li><strong>Regel hinzufügen</strong>: eine neue Regel hinzufügen.</li>
-<li><strong>Add rule for holidays</strong>: add a new rule for a holiday together with a state change.</li>
-<li><strong>Add rule for 24/7</strong>: add a rule for an object that is always open, the opening hours specification doesn't support any other sub values for 24/7 however we do allow adding of higher level selectors (for example year ranges).</li>
+<li><strong>Regel für Urlaub hinzufügen</strong>: Eine neue Regel für Urlaub hinzufügen mit einem Statuswechsel.</li>
+<li><strong>Regel für 24/7 hinzufügen</strong>: eine Regel für ein Objekt hinzufügen das Rund-um-die Uhr geöffnet ist. Die Öffnungszeiten-Regeln erlauben keine weiteren Regeln auf niedrigerer Ebene, aber es sind Regeln auf höherer Ebene möglich (z.B. Jahresbereiche)</li>
 <li><strong>Vorlage laden</strong>: eine Vorlage laden.</li>
-<li><strong>Save to template</strong>: save the current opening hours value as a template for future use.</li>
-<li><strong>Manage template</strong>: edit, for example change the name, and delete existing templates.</li>
-<li><strong>Refresh</strong>: re-parse the opening hour value.</li>
+<li><strong>Speichern als Vorlage</strong>: Speichern der aktuellen Öffnungszeiten-Werte als Vorlage zur späteren Verwendung.</li>
+<li><strong>Vorlagen verwalten</strong>: Bearbeiten, z.B. den Namen ändern oder Löschen von vorhandenen Vorlagen.</li>
+<li><strong>Aktualisieren</strong>: Neuanalyse des Öffnungszeiten-Wertes.</li>
+<li><strong>Alle löschen</strong>: Löschen aller Regeln.</li>
 </ul>
 <h3 id="regeln">Regeln</h3>
-<p>Default rules are added as <em>normal</em> rules, this implies that they will override the values of previous rules for the same days. This can be a concern when specifying extended times, typically you will then want to switch the rules via the <em>Show rule type</em> menu entry to <em>additive</em>.</p>
+<p>Standard-Regeln werden als <em>normale</em> Regeln hinzugefügt. Dies bedeutet, dass diese vorherige Regeln für den gleichen Tag überschreiben. Dies kann ein Problem sein beim Anlegen von erweiterten Zeiten, dann sollte die Regel über das <em>Zeige Regel-Type</em> Menü auf <em>Hinzufügen</em> geändert werden.</p>
 <h4 id="regelmenu">Regelmenü</h4>
 <ul>
-<li><strong>Add modifier/comment</strong>: change the effect of this rule and add an optional comment.</li>
-<li><strong>Add holiday</strong>: add a selector for public or school holidays.</li>
+<li><strong>Modifizierer/Kommentar hinzufügen</strong>: Verändern des Effekts dieser Regel und Hinzufügen eines optionalen Kommentars.</li>
+<li><strong>Ferien hinzufügen</strong>: Hinzufügen eines Auswahlschalters für öffentliche Ferien oder Schulferien.</li>
 <li><strong>Zeitspanne hinzufügen...</strong><ul>
-<li><strong>Time - time</strong>: a start time to an end time on the same day.</li>
-<li><strong>Time - extended time</strong>: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day.</li>
-<li><strong>Var. time - time</strong>: from a start variable time (dawn, dusk, sunrise and sundown) to an end time on the same day.</li>
-<li><strong>Var. time - extended time</strong>: from a start variable time to an end time on the next day.</li>
-<li><strong>Time - var. time</strong>: a start time to an end variable time.</li>
-<li><strong>Var. time - var. time</strong>: a start variable time to an end variable time.</li>
-<li><strong>Time</strong>: a point in time.</li>
-<li><strong>Time-open end</strong>: from a start point in time onwards.</li>
-<li><strong>Variable time</strong>: at the variable time</li>
-<li><strong>Variable time-open end</strong>: from a start variable time onwards</li>
+<li><strong>Zeit - Zeit</strong>: eine Start- und Endzeit am selben Tag.</li>
+<li><strong>Zeit - erweiterte Zeit</strong>: eine Startzeit und am nächsten Tag eine Endzeit (Beispiel 26:00 ist 02:00 Uhr am nächsten Tag).</li>
+<li><strong>variable Zeit - Zeit</strong>: eine variable Startzeit (Morgen-/Abendämmerung, Sonnenauf-/untergang) und eine Endzeit am selben Tag.</li>
+<li><strong>variable Zeit - erweiterte Zeit</strong>: eine variable Startzeit und am nächsten Tag eine Endzeit.</li>
+<li><strong>Zeit - variable Zeit</strong>: eine Startzeit und eine variable Endzeit.</li>
+<li><strong>variable Zeit - variable Zeit</strong>: eine variable Startzeit und eine variable Endzeit.</li>
+<li><strong>Zeit</strong>: ein Zeitpunkt.</li>
+<li><strong>Zeit - offene Endzeit</strong>: eine Startzeit und eine offene Endzeit.</li>
+<li><strong>variable Zeit</strong>: zu einer variablen Zeit</li>
+<li><strong>variable Zeit - offenes Ende</strong>: eine variable Startzeit und eine offene Endzeit.</li>
 </ul>
 </li>
-<li><strong>Add week day range</strong>: add a weekday based selector.</li>
+<li><strong>Wochtag-Auswahlschalter hinzufügen</strong>: Hinzufügen eines Wochentag-Auswahlschalters.</li>
 <li><strong>Datumsbereich hinzufügen...</strong><ul>
-<li><strong>Date - date</strong>: from a start date (year, month, day) to an end date.</li>
-<li><strong>Variable date - date</strong>: from a start variable date (currently the specification only defines <em>easter</em>) to an end date.</li>
-<li><strong>Date - variable date</strong>: from a start date to a variable date.</li>
-<li><strong>Variable date - variable date</strong>: from a start variable date to an end variable date.</li>
-<li><strong>Occurrence in month - occurrence in month</strong>: from a start weekday occurrence in a month to the same.</li>
-<li><strong>Occurrence in month - date</strong>: from a start weekday occurrence in a month to a end date.</li>
-<li><strong>Date - occurrence in month</strong>: from a start date to an end weekday occurrence in a month.</li>
-<li><strong>Occurrence in month - variable date</strong>: from a start weekday occurrence in a month to an end variable date.</li>
-<li><strong>Variable date - occurrence in month</strong>: from a start variable date to an end weekday occurrence in a month.</li>
-<li><strong>Date - open end</strong>: from a start date onwards,</li>
-<li><strong>Variable date - open end</strong>: from a start variable date onwards.</li>
-<li><strong>Occurrence in month - open end</strong>: from a start weekday occurrence in a month onwards.</li>
-<li><strong>With offsets...</strong>: the same entries as above however with offsets specified (this is rarely used).</li>
+<li><strong>Datum - Datum</strong>: ein Startdatum (Jahr, Monat, Tag) und ein Enddatum.</li>
+<li><strong>variables Datum - Datum</strong>: ein variables Startdatum (die aktuellen Spezifikationen definieren nur <em>Ostern</em>) und ein Enddatum.</li>
+<li><strong>Datum - variables Datum</strong>: ein Startdatum und ein variables Enddatum.</li>
+<li><strong>variables Datum - variables Datum</strong>: ein variables Startdatum und ein variables Enddatum.</li>
+<li><strong>Vorkommen im Monat - Vorkommen im Monat</strong>: ein Startvorkommen im Monat und ein Endvorkommen im Monat.</li>
+<li><strong>Vorkommen im Monat - Datum</strong>: ein Startvorkommen im Monat und ein Enddatum.</li>
+<li><strong>Datum - Vorkommen im Monat</strong>: ein Startdatum und ein Endvorkommen im Monat.</li>
+<li><strong>Vorkommen im Monat - variables Datum</strong>: ein Startvorkommen im Monat und ein variables Enddatum.</li>
+<li><strong>Variables Datum - Vorkommen im Monat</strong>: ein variables Startdatum und ein Endvorkommen im Monat.</li>
+<li><strong>Datum - offenes Ende</strong>: ein Startdatum und ein offenes Enddatum.</li>
+<li><strong>variables Datum - offenes Ende</strong>: ein variables Startdatum und ein offenes Ende.</li>
+<li><strong>Vorkommen im Monat - offenes Ende</strong>: ein Startvorkommen im Monat und ein offenes Ende.</li>
+<li><strong>Mit Versatz...</strong>: Die gleichen Angaben wie vorher aber mit angegebenen Versatz (wird nur selten verwendet).</li>
 </ul>
 </li>
-<li><strong>Add year range</strong>: add a year based selector.</li>
-<li><strong>Add week range</strong>: add a week number based selector.</li>
-<li><strong>Show rule type</strong>: display and allow changing of the rule type <em>normal</em>, <em>additive</em> and <em>fallback</em> (not available on the first rule).</li>
-<li><strong>Move up</strong>: move this rule up one position (not available on the first rule).</li>
-<li><strong>Move down</strong>: move this rule down one position.</li>
+<li><strong>Jahresbereich hinzufügen</strong>: Jahres-Auswahlschalter hinzufügen.</li>
+<li><strong>Wochenbereich hinzufügen</strong>: Wochen-Auswahlschalter hinzufügen.</li>
+<li><strong>Kopieren</strong>: Kopieren einer Regel und Einfügen der Kopie nach der aktuellen Position.</li>
+<li><strong>Regeltype anzeigen</strong>: Anzeigen der Regel und die Möglichkeit den Regeltype zu ändern <em>Normal</em>, <em>Zusätzlich</em> und <em>Rückfall</em> (nicht verfügbar für die erste Regel).</li>
+<li><strong>Nach oben bewegen</strong>: Bewegt die Regel eine Position nach oben (nicht verfügbar für die erste Regel).</li>
+<li><strong>Nach unten bewegen</strong>: Bewegt die Regel eine Position nach unten.</li>
 <li><strong>Löschen</strong>: diese Regel löschen.</li>
 </ul>
 <h3 id="zeitspannen">Zeitspannen</h3>
-<p>To make editing time spans as easy as possible, we try to choose an optimal time range and granularity for the range bars when loading existing values. For new time spans the bars start at 6:00 (am) and have 15 minute increments, this can be changed via the menu.</p>
+<p>Um das Eintragen von Zeitspannen so einfach wie möglich zu machen, haben wir für existierende Öffnungszeiten versucht einen optimalen Zeitraum und -einteilung für den Zeitschieber zu finden. Neue Zeitschieber beginnen um 6:00 Uhr und haben eine 15-Minuten Einteilung, welche im Menü geändert werden können.</p>
+<p>Klicken auf die Zeitleiste (nicht auf die Nadeln) öffnet den grossen Zeitauswähler falls es zu schwierig ist die Leiten direkt zu brauchen. Da der Zeitauswähler Zeiten bis in den nächsten Tag anzeigt, ist dies auch ein einfacher Weg einen Zeitbereich zu erweitern, ohne den Bereich zu löschen und wieder einzufügen. </p>
 <h4 id="zeitspannenmenu">Zeitspannenmenü</h4>
 <ul>
-<li><strong>Display time picker</strong>: show a large number picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
-<li><strong>Switch to 15 minute ticks</strong>: use 15 minute granularity for the range bar.</li>
-<li><strong>Switch to 5 minute ticks</strong>: use 5 minute granularity for the range bar.</li>
-<li><strong>Switch to 1 minute ticks</strong>: use 1 minute granularity for the range bar, very difficult to use on a phone.</li>
-<li><strong>Start at midnight</strong>: start the range bar at midnight.</li>
+<li><strong>Anzeige des Zeitauswählers</strong>: Zeigt einen großen Zeitauswählern um Start- und Endzeit auszuwählen. Auf sehr kleinen Displays kann dies die bevorzugte Eingabemethode für Zeiten sein.</li>
+<li><strong>Wechsel zu 15-Minuten Einteilung</strong>: Verwenden einer 15-Minuten Einteilung für den Zeitschieber.</li>
+<li><strong>Wechsel zu 5-Minuten Einteilung</strong>: Verwenden einer 5-Minuten Einteilung für den Zeitschieber.</li>
+<li><strong>Wechsel zu 1-Minuten Einteilung</strong>: Verwenden einer 1-Minuten Einteilung für den Zeitschieber, sehr schwer zu verwenden auf einem Smartphone.</li>
+<li><strong>Start um Mitternacht</strong>: Start des Zeitschiebers um Mitternacht.</li>
 <li><strong>Intervall anzeigen</strong>: Intervallfeld zum Festlegen eines Intervalls in Minuten anzeigen.</li>
 <li><strong>Löschen</strong>: diese Zeitspanne löschen.</li>
 </ul></div> -->
@@ -360,75 +367,78 @@ i-->
 
 <h1 id="openstreetmap-offnungszeiten-editor">OpenStreetMap Öffnungszeiten-Editor</h1>
 <p>Die OpenStreetMap Öffnungszeitenspezifikation ist ziemlich komplex und eignet sich nicht ohne weiteres für eine einfache und intuitive Benutzeroberfläche.</p>
-<p>However most of the time you will likely only be using a small part of the definition. The editor takes this in to account by trying to hide the more obscure features in menus and most of the time reducing the "on the road" use to small customizations of pre-defined templates.</p>
+<p>Aber meist wird nur ein kleiner Teil der Spezifikation benötigt. Der Editor berücksichtigt dies, lagert selten benötigte Funktionen in Menüs aus und verwendet vordefinierte Vorlagen.</p>
 <p><em>Diese Dokumentation ist vorläufig und eine laufende Arbeit</em></p>
 <h2 id="verwenden-des-editors-fur-die-offnungszeiten">Verwenden des Editors für die Öffnungszeiten</h2>
-<p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. </p>
-<p>Naturally you can build an opening hours value from scratch, but we would recommend using one of the existing templates as a starting point.</p>
-<p>If an existing opening hours value is loaded, an attempt is made to auto-correct it to conform to the opening hours specification. If that is not possible the rough location where the error occurred will be highlighted in the display of the raw OH value and you can try and correct it manually. Roughly a quarter of the OH values in the OpenStreetMap database have problems, but less than 10% can't be corrected, see <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> for more information on what deviations from the specification are tolerated.</p>
+<p>In einem typischen Arbeitsablauf enthält das Objekt, das Sie bearbeiten, entweder bereits ein Tag für die Öffnungszeiten (opening_hours, service_times und collection_times) oder Sie können die Voreinstellung für das Objekt erneut anwenden, um ein leeres Feld für die Öffnungszeiten zu erhalten. Wenn Sie das Feld manuell hinzufügen müssen und Vespucci verwenden, können Sie den Schlüssel auf der Detailseite eingeben und zur Bearbeitung auf die formularbasierte Registerkarte wechseln. Wenn Sie der Meinung sind, dass das Tag für die Öffnungszeiten Teil des Presets gewesen sein sollte, öffnen Sie eine Fehlermeldung für Ihren Editor.</p>
+<p>Wenn Sie eine Standardvorlage definiert haben (tun Sie dies über den Menüpunkt "Vorlagen verwalten"), wird diese automatisch geladen, wenn der Editor mit einem leeren Wert gestartet wird. Mit der Funktion "Vorlage laden" können Sie jede gespeicherte Vorlage laden und mit dem Menü "Vorlage speichern" den aktuellen Wert als Vorlage speichern. Sie können für die Tags "opening_hours", "collection_times" und "service_times" separate Vorlagen und Standardwerte definieren.</p>
+<p>Natürlich können Sie einen Wert für die Öffnungszeiten von Grund auf erstellen, wir empfehlen jedoch, eine der vorhandenen Vorlagen als Ausgangspunkt zu verwenden.</p>
+<p>Wenn ein existierender Öffnungszeiten-Wert geladen wird, wird versucht diesen automatisch an die Öffnungszeiten-Spezifikationen anzupassen. Wenn das nicht möglich ist, wird die ungefähre Stelle des Fehlers angezeigt und Sie können versuchen den Fehler manuell zu korrigieren. Ungefähr ein Viertel der Öffnungszeiten-Werte hat Fehler, aber weniger als 10% können nicht korrigiert werden. Siehe <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> für weitere Informationen welche Abweichungen von den Spezifikationen toleriert werden.</p>
 <h3 id="hauptmenu-schaltflache">Hauptmenü-Schaltfläche</h3>
 <ul>
 <li><strong>Regel hinzufügen</strong>: eine neue Regel hinzufügen.</li>
-<li><strong>Add rule for holidays</strong>: add a new rule for a holiday together with a state change.</li>
-<li><strong>Add rule for 24/7</strong>: add a rule for an object that is always open, the opening hours specification doesn't support any other sub values for 24/7 however we do allow adding of higher level selectors (for example year ranges).</li>
+<li><strong>Regel für Urlaub hinzufügen</strong>: Eine neue Regel für Urlaub hinzufügen mit einem Statuswechsel.</li>
+<li><strong>Regel für 24/7 hinzufügen</strong>: eine Regel für ein Objekt hinzufügen das Rund-um-die Uhr geöffnet ist. Die Öffnungszeiten-Regeln erlauben keine weiteren Regeln auf niedrigerer Ebene, aber es sind Regeln auf höherer Ebene möglich (z.B. Jahresbereiche)</li>
 <li><strong>Vorlage laden</strong>: eine Vorlage laden.</li>
-<li><strong>Save to template</strong>: save the current opening hours value as a template for future use.</li>
-<li><strong>Manage template</strong>: edit, for example change the name, and delete existing templates.</li>
-<li><strong>Refresh</strong>: re-parse the opening hour value.</li>
+<li><strong>Speichern als Vorlage</strong>: Speichern der aktuellen Öffnungszeiten-Werte als Vorlage zur späteren Verwendung.</li>
+<li><strong>Vorlagen verwalten</strong>: Bearbeiten, z.B. den Namen ändern oder Löschen von vorhandenen Vorlagen.</li>
+<li><strong>Aktualisieren</strong>: Neuanalyse des Öffnungszeiten-Wertes.</li>
+<li><strong>Alle löschen</strong>: Löschen aller Regeln.</li>
 </ul>
 <h3 id="regeln">Regeln</h3>
-<p>Default rules are added as <em>normal</em> rules, this implies that they will override the values of previous rules for the same days. This can be a concern when specifying extended times, typically you will then want to switch the rules via the <em>Show rule type</em> menu entry to <em>additive</em>.</p>
+<p>Standard-Regeln werden als <em>normale</em> Regeln hinzugefügt. Dies bedeutet, dass diese vorherige Regeln für den gleichen Tag überschreiben. Dies kann ein Problem sein beim Anlegen von erweiterten Zeiten, dann sollte die Regel über das <em>Zeige Regel-Type</em> Menü auf <em>Hinzufügen</em> geändert werden.</p>
 <h4 id="regelmenu">Regelmenü</h4>
 <ul>
-<li><strong>Add modifier/comment</strong>: change the effect of this rule and add an optional comment.</li>
-<li><strong>Add holiday</strong>: add a selector for public or school holidays.</li>
+<li><strong>Modifizierer/Kommentar hinzufügen</strong>: Verändern des Effekts dieser Regel und Hinzufügen eines optionalen Kommentars.</li>
+<li><strong>Ferien hinzufügen</strong>: Hinzufügen eines Auswahlschalters für öffentliche Ferien oder Schulferien.</li>
 <li><strong>Zeitspanne hinzufügen...</strong><ul>
-<li><strong>Time - time</strong>: a start time to an end time on the same day.</li>
-<li><strong>Time - extended time</strong>: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day.</li>
-<li><strong>Var. time - time</strong>: from a start variable time (dawn, dusk, sunrise and sundown) to an end time on the same day.</li>
-<li><strong>Var. time - extended time</strong>: from a start variable time to an end time on the next day.</li>
-<li><strong>Time - var. time</strong>: a start time to an end variable time.</li>
-<li><strong>Var. time - var. time</strong>: a start variable time to an end variable time.</li>
-<li><strong>Time</strong>: a point in time.</li>
-<li><strong>Time-open end</strong>: from a start point in time onwards.</li>
-<li><strong>Variable time</strong>: at the variable time</li>
-<li><strong>Variable time-open end</strong>: from a start variable time onwards</li>
+<li><strong>Zeit - Zeit</strong>: eine Start- und Endzeit am selben Tag.</li>
+<li><strong>Zeit - erweiterte Zeit</strong>: eine Startzeit und am nächsten Tag eine Endzeit (Beispiel 26:00 ist 02:00 Uhr am nächsten Tag).</li>
+<li><strong>variable Zeit - Zeit</strong>: eine variable Startzeit (Morgen-/Abendämmerung, Sonnenauf-/untergang) und eine Endzeit am selben Tag.</li>
+<li><strong>variable Zeit - erweiterte Zeit</strong>: eine variable Startzeit und am nächsten Tag eine Endzeit.</li>
+<li><strong>Zeit - variable Zeit</strong>: eine Startzeit und eine variable Endzeit.</li>
+<li><strong>variable Zeit - variable Zeit</strong>: eine variable Startzeit und eine variable Endzeit.</li>
+<li><strong>Zeit</strong>: ein Zeitpunkt.</li>
+<li><strong>Zeit - offene Endzeit</strong>: eine Startzeit und eine offene Endzeit.</li>
+<li><strong>variable Zeit</strong>: zu einer variablen Zeit</li>
+<li><strong>variable Zeit - offenes Ende</strong>: eine variable Startzeit und eine offene Endzeit.</li>
 </ul>
 </li>
-<li><strong>Add week day range</strong>: add a weekday based selector.</li>
+<li><strong>Wochtag-Auswahlschalter hinzufügen</strong>: Hinzufügen eines Wochentag-Auswahlschalters.</li>
 <li><strong>Datumsbereich hinzufügen...</strong><ul>
-<li><strong>Date - date</strong>: from a start date (year, month, day) to an end date.</li>
-<li><strong>Variable date - date</strong>: from a start variable date (currently the specification only defines <em>easter</em>) to an end date.</li>
-<li><strong>Date - variable date</strong>: from a start date to a variable date.</li>
-<li><strong>Variable date - variable date</strong>: from a start variable date to an end variable date.</li>
-<li><strong>Occurrence in month - occurrence in month</strong>: from a start weekday occurrence in a month to the same.</li>
-<li><strong>Occurrence in month - date</strong>: from a start weekday occurrence in a month to a end date.</li>
-<li><strong>Date - occurrence in month</strong>: from a start date to an end weekday occurrence in a month.</li>
-<li><strong>Occurrence in month - variable date</strong>: from a start weekday occurrence in a month to an end variable date.</li>
-<li><strong>Variable date - occurrence in month</strong>: from a start variable date to an end weekday occurrence in a month.</li>
-<li><strong>Date - open end</strong>: from a start date onwards,</li>
-<li><strong>Variable date - open end</strong>: from a start variable date onwards.</li>
-<li><strong>Occurrence in month - open end</strong>: from a start weekday occurrence in a month onwards.</li>
-<li><strong>With offsets...</strong>: the same entries as above however with offsets specified (this is rarely used).</li>
+<li><strong>Datum - Datum</strong>: ein Startdatum (Jahr, Monat, Tag) und ein Enddatum.</li>
+<li><strong>variables Datum - Datum</strong>: ein variables Startdatum (die aktuellen Spezifikationen definieren nur <em>Ostern</em>) und ein Enddatum.</li>
+<li><strong>Datum - variables Datum</strong>: ein Startdatum und ein variables Enddatum.</li>
+<li><strong>variables Datum - variables Datum</strong>: ein variables Startdatum und ein variables Enddatum.</li>
+<li><strong>Vorkommen im Monat - Vorkommen im Monat</strong>: ein Startvorkommen im Monat und ein Endvorkommen im Monat.</li>
+<li><strong>Vorkommen im Monat - Datum</strong>: ein Startvorkommen im Monat und ein Enddatum.</li>
+<li><strong>Datum - Vorkommen im Monat</strong>: ein Startdatum und ein Endvorkommen im Monat.</li>
+<li><strong>Vorkommen im Monat - variables Datum</strong>: ein Startvorkommen im Monat und ein variables Enddatum.</li>
+<li><strong>Variables Datum - Vorkommen im Monat</strong>: ein variables Startdatum und ein Endvorkommen im Monat.</li>
+<li><strong>Datum - offenes Ende</strong>: ein Startdatum und ein offenes Enddatum.</li>
+<li><strong>variables Datum - offenes Ende</strong>: ein variables Startdatum und ein offenes Ende.</li>
+<li><strong>Vorkommen im Monat - offenes Ende</strong>: ein Startvorkommen im Monat und ein offenes Ende.</li>
+<li><strong>Mit Versatz...</strong>: Die gleichen Angaben wie vorher aber mit angegebenen Versatz (wird nur selten verwendet).</li>
 </ul>
 </li>
-<li><strong>Add year range</strong>: add a year based selector.</li>
-<li><strong>Add week range</strong>: add a week number based selector.</li>
-<li><strong>Show rule type</strong>: display and allow changing of the rule type <em>normal</em>, <em>additive</em> and <em>fallback</em> (not available on the first rule).</li>
-<li><strong>Move up</strong>: move this rule up one position (not available on the first rule).</li>
-<li><strong>Move down</strong>: move this rule down one position.</li>
+<li><strong>Jahresbereich hinzufügen</strong>: Jahres-Auswahlschalter hinzufügen.</li>
+<li><strong>Wochenbereich hinzufügen</strong>: Wochen-Auswahlschalter hinzufügen.</li>
+<li><strong>Kopieren</strong>: Kopieren einer Regel und Einfügen der Kopie nach der aktuellen Position.</li>
+<li><strong>Regeltype anzeigen</strong>: Anzeigen der Regel und die Möglichkeit den Regeltype zu ändern <em>Normal</em>, <em>Zusätzlich</em> und <em>Rückfall</em> (nicht verfügbar für die erste Regel).</li>
+<li><strong>Nach oben bewegen</strong>: Bewegt die Regel eine Position nach oben (nicht verfügbar für die erste Regel).</li>
+<li><strong>Nach unten bewegen</strong>: Bewegt die Regel eine Position nach unten.</li>
 <li><strong>Löschen</strong>: diese Regel löschen.</li>
 </ul>
 <h3 id="zeitspannen">Zeitspannen</h3>
-<p>To make editing time spans as easy as possible, we try to choose an optimal time range and granularity for the range bars when loading existing values. For new time spans the bars start at 6:00 (am) and have 15 minute increments, this can be changed via the menu.</p>
+<p>Um das Eintragen von Zeitspannen so einfach wie möglich zu machen, haben wir für existierende Öffnungszeiten versucht einen optimalen Zeitraum und -einteilung für den Zeitschieber zu finden. Neue Zeitschieber beginnen um 6:00 Uhr und haben eine 15-Minuten Einteilung, welche im Menü geändert werden können.</p>
+<p>Klicken auf die Zeitleiste (nicht auf die Nadeln) öffnet den grossen Zeitauswähler falls es zu schwierig ist die Leiten direkt zu brauchen. Da der Zeitauswähler Zeiten bis in den nächsten Tag anzeigt, ist dies auch ein einfacher Weg einen Zeitbereich zu erweitern, ohne den Bereich zu löschen und wieder einzufügen. </p>
 <h4 id="zeitspannenmenu">Zeitspannenmenü</h4>
 <ul>
-<li><strong>Display time picker</strong>: show a large number picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
-<li><strong>Switch to 15 minute ticks</strong>: use 15 minute granularity for the range bar.</li>
-<li><strong>Switch to 5 minute ticks</strong>: use 5 minute granularity for the range bar.</li>
-<li><strong>Switch to 1 minute ticks</strong>: use 1 minute granularity for the range bar, very difficult to use on a phone.</li>
-<li><strong>Start at midnight</strong>: start the range bar at midnight.</li>
+<li><strong>Anzeige des Zeitauswählers</strong>: Zeigt einen großen Zeitauswählern um Start- und Endzeit auszuwählen. Auf sehr kleinen Displays kann dies die bevorzugte Eingabemethode für Zeiten sein.</li>
+<li><strong>Wechsel zu 15-Minuten Einteilung</strong>: Verwenden einer 15-Minuten Einteilung für den Zeitschieber.</li>
+<li><strong>Wechsel zu 5-Minuten Einteilung</strong>: Verwenden einer 5-Minuten Einteilung für den Zeitschieber.</li>
+<li><strong>Wechsel zu 1-Minuten Einteilung</strong>: Verwenden einer 1-Minuten Einteilung für den Zeitschieber, sehr schwer zu verwenden auf einem Smartphone.</li>
+<li><strong>Start um Mitternacht</strong>: Start des Zeitschiebers um Mitternacht.</li>
 <li><strong>Intervall anzeigen</strong>: Intervallfeld zum Festlegen eines Intervalls in Minuten anzeigen.</li>
 <li><strong>Löschen</strong>: diese Zeitspanne löschen.</li>
 </ul></div>
@@ -438,7 +448,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.0.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.1.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
