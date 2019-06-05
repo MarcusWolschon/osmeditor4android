@@ -111,7 +111,7 @@ public class GeoUrlData implements Serializable {
                     for (String p : params) {
                         if (p.toLowerCase(Locale.US).matches("crs=.*")) {
                             wgs84 = p.toLowerCase(Locale.US).matches("crs=wgs84");
-                            Log.d(DEBUG_TAG, "crs found " + p + ", is wgs84 is " + wgs84);
+                            Log.e(DEBUG_TAG, "crs found " + p + ", is wgs84 is " + wgs84);
                         }
                     }
                 }
@@ -126,7 +126,7 @@ public class GeoUrlData implements Serializable {
 
                         }
                     } catch (NumberFormatException e) {
-                        Log.d(DEBUG_TAG, "Coordinates " + coords[0] + "/" + coords[1] + " not parseable");
+                        Log.e(DEBUG_TAG, "Coordinates " + coords[0] + "/" + coords[1] + " not parseable");
                     }
                 }
             }
@@ -134,7 +134,16 @@ public class GeoUrlData implements Serializable {
                 for (int i = 1; i < query.length; i++) {
                     params = query[i].split("=", 2);
                     if (params.length == 2 && "z".equals(params[0])) {
-                        geoData.setZoom(Integer.parseInt(params[1]));
+                        try {
+                            geoData.setZoom(Integer.parseInt(params[1]));
+                        } catch (NumberFormatException e) {
+                            Log.e(DEBUG_TAG, "Illegal zoom value " + params[1] + " trying to recover");
+                            try {
+                                geoData.setZoom((int) Math.round(Double.parseDouble(params[1])));
+                            } catch (NumberFormatException e1) {
+                                Log.e(DEBUG_TAG, "Illegal zoom value parsing as double failed");
+                            }
+                        }
                     }
                 }
             }
