@@ -278,7 +278,8 @@ public class PropertyEditorTest {
 
         TestUtils.clickUp(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_nodeselect)));
-        Assert.assertTrue(n.hasTag("cuisine", "asian;german"));
+        mDevice.waitForIdle();
+        Assert.assertTrue(n.hasTag("cuisine", "asian;german") || n.hasTag("cuisine", "german;asian") );
         Assert.assertTrue(n.hasTag("opening_hours", "24/7"));
     }
 
