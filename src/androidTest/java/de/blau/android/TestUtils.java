@@ -449,6 +449,7 @@ public class TestUtils {
             UiObject lock = device.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
             try {
                 lock.click();
+                device.waitForIdle();
             } catch (UiObjectNotFoundException e) {
                 Assert.fail(e.getMessage());
             }

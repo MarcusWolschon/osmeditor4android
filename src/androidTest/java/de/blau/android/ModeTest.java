@@ -8,13 +8,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
-import android.test.suitebuilder.annotation.LargeTest;
+
 import android.view.View;
 
 /**
@@ -46,6 +47,8 @@ public class ModeTest {
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
+        TestUtils.unlock();
+        TestUtils.stopEasyEdit(main);
     }
 
     /**
@@ -66,10 +69,27 @@ public class ModeTest {
      */
     @Test
     public void lock() {
+        UiObject lock = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
+
         logic.setLocked(true);
         logic.setZoom(main.getMap(), 20);
+        main.getMap().invalidate();
+        main.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                Main.onEditModeChanged();
+            }
+        });
+        mDevice.waitForIdle();
         UiObject map = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/map_view"));
         Assert.assertTrue(map.exists());
+        Assert.assertTrue(logic.isLocked());
+        try {
+            Assert.assertTrue(!lock.isSelected());
+        } catch (UiObjectNotFoundException e1) {
+            Assert.fail(e1.getMessage());
+        }
 
         UiObject snack = mDevice.findObject(new UiSelector().textStartsWith(main.getString(R.string.toast_unlock_to_edit)));
         try {
@@ -78,10 +98,11 @@ public class ModeTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(snack.waitForExists(5000));
+        mDevice.waitForIdle();
 
         // need to be adapted for new menu
         App.getLogic().setMode(main, Mode.MODE_EASYEDIT); // start from a known state
-        UiObject lock = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
+
         try {
             lock.click();
         } catch (UiObjectNotFoundException e) {
