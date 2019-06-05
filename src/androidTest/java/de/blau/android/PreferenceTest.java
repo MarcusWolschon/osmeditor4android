@@ -30,6 +30,9 @@ public class PreferenceTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         main = mActivityRule.getActivity();
@@ -38,6 +41,9 @@ public class PreferenceTest {
         TestUtils.dismissStartUpDialogs(context);
     }
 
+    /**
+     * Test if we can set and read a Preference (this is rather silly on multiple counts)
+     */
     @Test
     public void preferences() {
         Preferences prefs = new Preferences(context);

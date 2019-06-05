@@ -368,6 +368,13 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         }
     }
 
+    /**
+     * Get the topic from an url
+     * 
+     * @param url the url
+     * @return a String with the topic if it could be determined
+     */
+    @NonNull
     private String getTopic(@NonNull String url) {
 
         try {

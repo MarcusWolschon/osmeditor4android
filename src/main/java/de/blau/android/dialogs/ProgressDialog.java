@@ -3,6 +3,8 @@ package de.blau.android.dialogs;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.view.LayoutInflater;
@@ -14,7 +16,15 @@ import de.blau.android.util.ThemeUtils;
 
 public class ProgressDialog {
 
-    public static AlertDialog get(Context ctx, int dialogType) {
+    /**
+     * Factory like method to get new Instances of a ProgressDialog
+     * 
+     * @param ctx Android Context
+     * @param dialogType determines title and heading
+     * @return an ProgressDialog instance or null
+     */
+    @Nullable
+    public static AlertDialog get(@NonNull Context ctx, int dialogType) {
         int titleId = 0;
         int messageId = 0;
         switch (dialogType) {

@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.io.Serializable;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -16,7 +17,12 @@ public class BottomBarClickListener implements android.support.v7.widget.ActionM
     private static final long serialVersionUID = 1L;
     transient Main            main;
 
-    BottomBarClickListener(Main main) {
+    /**
+     * Construct a new listener
+     * 
+     * @param main the current instance of main
+     */
+    BottomBarClickListener(@NonNull Main main) {
         this.main = main;
     }
 
