@@ -303,7 +303,7 @@ public class PropertyEditorTest {
         TestUtils.stopEasyEdit(main);
         TestUtils.unlock();
         TestUtils.zoomToLevel(main, 22);
-        TestUtils.clickAtCoordinates(main.getMap(), 8.3855809, 47.3892017, true);
+        TestUtils.clickAtCoordinates(main.getMap(), 8.3848461, 47.3899166, true);
         Assert.assertTrue(TestUtils.clickText(mDevice, false, "Kindhauserstrasse", false));
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_wayselect)));
         Way w = App.getLogic().getSelectedWay();
