@@ -26,7 +26,7 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
             if (downloadId > 0) {
                 DownloadManager mgr = (DownloadManager) ctxt.getSystemService(Context.DOWNLOAD_SERVICE);
                 Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(downloadId));
-                if (queryCursor != null) {
+                if (queryCursor != null && queryCursor.getCount() > 0) { // cancelled downloads seem to be removed from the DB
                     queryCursor.moveToFirst();
                     int status = queryCursor.getInt(queryCursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
                     if (status == DownloadManager.STATUS_SUCCESSFUL) {
@@ -47,7 +47,7 @@ public class DownloadBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
                     }
-                }
+                } 
             }
         }
     }
