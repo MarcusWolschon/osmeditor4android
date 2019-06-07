@@ -2,6 +2,7 @@ package de.blau.android.easyedit;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
@@ -38,9 +39,9 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
     private boolean dontTag = false;
 
     /** contains a pointer to the created way if one was created. used to fix selection after undo. */
-    private Way             createdWay   = null;
+    private Way        createdWay   = null;
     /** contains a list of created nodes. used to fix selection after undo. */
-    private ArrayList<Node> createdNodes = new ArrayList<>();
+    private List<Node> createdNodes = new ArrayList<>();
 
     /**
      * Construct a new PathCreationActionModeCallback starting with screen coordinates
@@ -123,7 +124,7 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
      * @param x x screen coordinate
      * @param y y screen coordinate
      */
-    private void pathCreateNode(float x, float y) {
+    private synchronized void pathCreateNode(float x, float y) {
         Node lastSelectedNode = logic.getSelectedNode();
         Way lastSelectedWay = logic.getSelectedWay();
         if (appendTargetNode != null) {
@@ -190,7 +191,7 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
      * Handle presses on the undo button, this does not invoke the normal undo mechanism but simply removes the
      * non-saved nodes one by one
      */
-    private void handleUndo() {
+    private synchronized void handleUndo() {
         logic.undo();
         if (logic.getSelectedNode() == null) { // should always happen when we added a new node and removed it
             Iterator<Node> nodeIterator = createdNodes.iterator();
