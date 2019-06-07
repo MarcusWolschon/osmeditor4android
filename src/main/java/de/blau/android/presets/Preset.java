@@ -52,6 +52,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -2029,13 +2030,13 @@ public class Preset implements Serializable {
             float density = res.getDisplayMetrics().density;
             v.setText(getTranslatedName());
             v.setTextColor(ContextCompat.getColor(ctx, R.color.preset_text));
-            v.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            v.setMaxLines(3);
+            int[] sizes = { 8, 10 };
+            TextViewCompat.setAutoSizeTextTypeUniformWithPresetSizes(v, sizes, TypedValue.COMPLEX_UNIT_SP);
             v.setEllipsize(TextUtils.TruncateAt.END);
-            v.setMaxLines(2);
             v.setPadding((int) (4 * density), (int) (4 * density), (int) (4 * density), (int) (4 * density));
             Drawable viewIcon = getIcon();
             v.setCompoundDrawables(null, viewIcon, null, null);
-            v.setCompoundDrawablePadding((int) (4 * density));
             // this seems to be necessary to work around
             // https://issuetracker.google.com/issues/37003658
             v.setLayoutParams(new LinearLayout.LayoutParams((int) (72 * density), (int) (72 * density)));
