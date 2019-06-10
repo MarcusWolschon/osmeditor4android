@@ -128,7 +128,7 @@
         </optional>
     </chunk>
     <chunk id="crossing_type">    
-    	<multiselect key="crossing" text="Crossing type" values_context="transport">
+    	<multiselect key="crossing" text="Crossing type" values_context="pedestrian" text_context="pedestrian">
  			<list_entry value="uncontrolled" short_description="Not controlled" icon="presets/vehicle/crossing.svg"/>
  			<list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg"/>
 			<list_entry value="island" short_description="Island" icon="presets/vehicle/crossing_island.svg"/>
@@ -1688,7 +1688,7 @@
             <item name="Traffic Calming" icon="icons/png/transport_speedbump.png" type="node,way" preset_name_label="true">
                 <link wiki="Key:traffic_calming"/>
                 <space/>
-                <combo key="traffic_calming" text="Type" values="bump,hump,table,cushion,rumble_strip,dip,double_dip,chicane,chocker,island,choked_island" display_values="Bump,Hump,Table,Cushion,Rumble strip,Dip,Double dip,Chicane,Chocker,Island,Choked island" match="keyvalue!" />
+                <combo key="traffic_calming" text="Type" values="bump,hump,table,cushion,rumble_strip,dip,double_dip,chicane,choker,island,choked_island" display_values="Bump,Hump,Table,Cushion,Rumble strip,Dip,Double dip,Chicane,Choker,Island,Choked island" match="keyvalue!" />
             </item> <!-- Traffic Calming -->
             <item name="Bump" icon="icons/png/transport_speedbump.png" type="node,way" preset_name_label="true">
                 <link wiki="Key:traffic_calming"/>
