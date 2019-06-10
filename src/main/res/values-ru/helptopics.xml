@@ -23,7 +23,8 @@
     <string name="help_opening_hours">Время работы</string>
     <string name="help_newnoteselection">Создание новой заметки</string>
     <string name="help_voice_commands">Голосовые команды</string>
-    <string name="help_upgrade">Примечания к версии</string>
+    <string name="help_upgrade">Примечания к версии 13.1</string>
+    <string name="help_upgrade_130">Примечания к версии 13.0</string>
     <string name="help_upgrade_121">Примечания к версии 12.1</string>
     <string name="help_upgrade_120">Примечания к версии 12.0</string>
     <string name="help_upgrade_112">Примечания к версии 11.2</string>
@@ -60,6 +61,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_130</item>
         <item>@string/help_upgrade_121</item>
         <item>@string/help_upgrade_120</item>
         <item>@string/help_upgrade_112</item>
@@ -97,6 +99,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>13.1.0 Release notes</item>
         <item>13.0.0 Release notes</item>
         <item>12.1.0 Release notes</item>
         <item>12.0.0 Release notes</item>

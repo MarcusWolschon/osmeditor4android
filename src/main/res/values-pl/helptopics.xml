@@ -2,6 +2,7 @@
 <resources>
     <string name="help_introduction">Wstęp</string>
     <string name="help_main">Mapa główna</string>
+    <string name="help_simple_actions">Proste działania</string>
     <string name="help_addrelationmember">Zaznaczono relację</string>
     <string name="help_multiselect">Zaznaczanie wielu elementów</string>
     <string name="help_longclick">Tworzenie obiektów</string>
@@ -20,8 +21,11 @@
     <string name="help_tagfilter">Filtr tagu</string>
     <string name="help_presetfilter">Filtr szablonu</string>
     <string name="help_opening_hours">Godziny otwarcia</string>
+    <string name="help_newnoteselection">Wybór nowej uwagi</string>
     <string name="help_voice_commands">Polecenia głosowe</string>
-    <string name="help_upgrade">Zestaw zmian</string>
+    <string name="help_upgrade_121">12.1 Zestaw zmian</string>
+    <string name="help_upgrade_120">12.0 Zestaw zmian</string>
+    <string name="help_upgrade_112">11.2 Zestaw zmian</string>
     <string name="help_upgrade_111">11.1 Zestaw zmian</string>
     <string name="help_upgrade_110">11.0 Zestaw zmian</string>
     <string name="help_upgrade_102">10.2 Zestaw zmian</string>
@@ -55,6 +59,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_130</item>
         <item>@string/help_upgrade_121</item>
         <item>@string/help_upgrade_120</item>
         <item>@string/help_upgrade_112</item>
@@ -92,6 +97,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>13.1.0 Release notes</item>
         <item>13.0.0 Release notes</item>
         <item>12.1.0 Release notes</item>
         <item>12.0.0 Release notes</item>

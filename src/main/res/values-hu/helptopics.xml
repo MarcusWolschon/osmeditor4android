@@ -23,7 +23,8 @@
     <string name="help_opening_hours">Nyitva tartás</string>
     <string name="help_newnoteselection">Új jegyzet kiválasztás</string>
     <string name="help_voice_commands">Hangutasítások</string>
-    <string name="help_upgrade">Kiadási megjegyzések</string>
+    <string name="help_upgrade">13.1 kiadási megjegyzések</string>
+    <string name="help_upgrade_130">13.0 kiadási megjegyzések</string>
     <string name="help_upgrade_121">12.1 kiadási megjegyzések</string>
     <string name="help_upgrade_120">12.0 kiadási megjegyzések</string>
     <string name="help_upgrade_112">11.2 kiadási megjegyzések</string>
@@ -60,6 +61,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_130</item>
         <item>@string/help_upgrade_121</item>
         <item>@string/help_upgrade_120</item>
         <item>@string/help_upgrade_112</item>
@@ -97,6 +99,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>13.1.0 Release notes</item>
         <item>13.0.0 Release notes</item>
         <item>12.1.0 Release notes</item>
         <item>12.0.0 Release notes</item>

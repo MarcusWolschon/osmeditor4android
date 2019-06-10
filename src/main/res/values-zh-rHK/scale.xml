@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>沒有</item>
+    <item>比例尺 (公制)</item>
+    <item>網格 (公制)</item>
+    <item>比例尺 (英制)</item>
+    <item>網格 (英制)</item>
+  </string-array>
+</resources>

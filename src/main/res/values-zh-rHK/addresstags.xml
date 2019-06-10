@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>門牌號碼 (addr:housenumber)</item>
+    <item>道路街道 (addr:street)</item>
+    <item>郵遞區號 (addr:postcode)</item>
+    <item>城市/市鎮/村落/..  (addr:city)</item>
+    <item>國家 (addr:country)</item>
+    <item>完整地址 (addr:full)</item>
+    <item>地區 (addr:place)</item>
+    <item>村莊 (addr:hamlet)</item>
+    <item>行政區 (addr:suburb)</item>
+    <item>分區 (addr:subdistrict)</item>
+    <item>鄉鎮市區 (addr:district)</item>
+    <item>省 (addr:province)</item>
+    <item>州 (addr:state)</item>
+    <item>一排 (addr:flats)</item>
+    <item>門 (addr:door)</item>
+    <item>單位 (addr:unit)</item>
+  </string-array>
+</resources>

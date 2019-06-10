@@ -21,7 +21,6 @@
     <string name="help_presetfilter">プリセットフィルター</string>
     <string name="help_opening_hours">営業時間</string>
     <string name="help_voice_commands">音声コマンド</string>
-    <string name="help_upgrade">リリースノート</string>
     <string name="help_upgrade_110">11.0 リリースノート</string>
     <string name="help_upgrade_102">10.2 リリースノート</string>
     <string name="help_upgrade_101">10.1 リリースノート</string>
@@ -54,6 +53,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_130</item>
         <item>@string/help_upgrade_121</item>
         <item>@string/help_upgrade_120</item>
         <item>@string/help_upgrade_112</item>
@@ -91,6 +91,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>13.1.0 Release notes</item>
         <item>13.0.0 Release notes</item>
         <item>12.1.0 Release notes</item>
         <item>12.0.0 Release notes</item>

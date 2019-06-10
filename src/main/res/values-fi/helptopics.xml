@@ -23,7 +23,6 @@
     <string name="help_opening_hours">Aukioloajat</string>
     <string name="help_newnoteselection">Uuden huomion valinta</string>
     <string name="help_voice_commands">Äänikomennot</string>
-    <string name="help_upgrade">Julkaisutiedot</string>
     <string name="help_upgrade_112">11.2 Julkaisutiedot</string>
     <string name="help_upgrade_111">11.1 Julkaisutiedot</string>
     <string name="help_upgrade_110">11.0 Julkaisutiedot</string>
@@ -58,6 +57,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_130</item>
         <item>@string/help_upgrade_121</item>
         <item>@string/help_upgrade_120</item>
         <item>@string/help_upgrade_112</item>
@@ -95,6 +95,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>13.1.0 Release notes</item>
         <item>13.0.0 Release notes</item>
         <item>12.1.0 Release notes</item>
         <item>12.0.0 Release notes</item>
