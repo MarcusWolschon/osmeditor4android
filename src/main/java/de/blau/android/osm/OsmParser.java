@@ -44,8 +44,10 @@ public class OsmParser extends DefaultHandler {
     private static final String OSM = "osm";
 
     protected static final String OSM_CHANGE_DELETE = "delete";
-
     protected static final String OSM_CHANGE_MODIFY = "modify";
+
+    protected static final String OVERPASS_NOTE = "note";
+    protected static final String OVERPASS_META = "meta";
 
     /** The storage, where the data will be stored (e.g. as JavaStorage or SqliteStorage). */
     private final Storage storage;
@@ -64,7 +66,7 @@ public class OsmParser extends DefaultHandler {
 
     private TreeMap<String, String> currentTags;
 
-    private final ArrayList<Exception> exceptions = new ArrayList<>();
+    private final List<Exception> exceptions = new ArrayList<>();
 
     /**
      * Helper class to store missing relation information for post processing
@@ -186,6 +188,9 @@ public class OsmParser extends DefaultHandler {
                 parseBounds(atts);
                 break;
             case OSM:
+            case OVERPASS_NOTE:
+            case OVERPASS_META:
+                // we don't do anything with these
                 break;
             default:
                 throw new OsmParseException("Unknown element " + name);
@@ -204,25 +209,38 @@ public class OsmParser extends DefaultHandler {
         try {
             switch (name) {
             case Node.NAME:
-                addTags(currentNode);
-                storage.insertNodeUnsafe(currentNode);
-                currentNode = null;
+                if (currentNode != null) {
+                    addTags(currentNode);
+                    storage.insertNodeUnsafe(currentNode);
+                    currentNode = null;
+                } else {
+                    throw new SAXException("State error, null Node");
+                }
                 break;
             case Way.NAME:
-                addTags(currentWay);
-                if (currentWay.getNodes() != null && !currentWay.getNodes().isEmpty()) {
-                    storage.insertWayUnsafe(currentWay);
+                if (currentWay != null) {
+                    addTags(currentWay);
+                    if (currentWay.getNodes() != null && !currentWay.getNodes().isEmpty()) {
+                        storage.insertWayUnsafe(currentWay);
+                    } else {
+                        Log.e(DEBUG_TAG, "Way " + currentWay.getOsmId() + " has no nodes! Ignored.");
+                    }
+                    currentWay = null;
                 } else {
-                    Log.e(DEBUG_TAG, "Way " + currentWay.getOsmId() + " has no nodes! Ignored.");
+                    throw new SAXException("State error, null Way");
                 }
-                currentWay = null;
                 break;
             case Relation.NAME:
-                addTags(currentRelation);
-                storage.insertRelationUnsafe(currentRelation);
-                currentRelation = null;
+                if (currentRelation != null) {
+                    addTags(currentRelation);
+                    storage.insertRelationUnsafe(currentRelation);
+                    currentRelation = null;
+                } else {
+                    throw new SAXException("State error, null Relation");
+                }
                 break;
             default:
+                // ignore everything else
             }
         } catch (StorageException sex) {
             throw new SAXException(sex);
@@ -342,7 +360,7 @@ public class OsmParser extends DefaultHandler {
     }
 
     /**
-     * Pares a nd entry in a Way
+     * Parse a nd entry in a Way
      * 
      * @param atts XML attributes for the current element
      * @throws OsmParseException if parsing fails

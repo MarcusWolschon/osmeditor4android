@@ -3037,7 +3037,6 @@ public class Logic {
      */
     public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add, final PostAsyncActionHandler postLoad)
             throws FileNotFoundException {
-
         final InputStream is = activity.getContentResolver().openInputStream(uri);
         readOsmFile(activity, is, add, postLoad);
     }
@@ -3068,8 +3067,12 @@ public class Logic {
                         sd.reset(false);
                         sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
                         sd.fixupApiStorage();
+                        if (!add && sd.getBoundingBoxes().isEmpty()) {
+                            // ensure a valid bounding box
+                            sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
+                        }
                         if (map != null) {
-                            viewBox.fitToBoundingBox(map, getDelegator().getLastBox()); // set to current or previous
+                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                         }
                     } finally {
                         SavingHelper.close(in);

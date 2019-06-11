@@ -441,10 +441,10 @@ public class Storage implements Serializable {
      */
     @NonNull
     public BoundingBox calcBoundingBoxFromData() throws OsmException {
-        int top = 0;
-        int bottom = 0;
-        int left = 0;
-        int right = 0;
+        int top = -Integer.MAX_VALUE;
+        int bottom = Integer.MAX_VALUE;
+        int left = Integer.MAX_VALUE;
+        int right = -Integer.MAX_VALUE;
 
         if (nodes != null) {
             for (Node n : nodes) {
