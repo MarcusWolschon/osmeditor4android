@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><osm version="0.6" generator="Overpass API 0.7.55.7 8b86ff77">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2019-06-10T19:11:01Z"/>
+
+  <node id="246574149" lat="41.8947855" lon="12.4919107" version="5" timestamp="2017-10-31T09:53:43Z" changeset="53389857" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="flow" v="push-button"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="246574150" lat="41.8948869" lon="12.4909457" version="6" timestamp="2012-03-05T11:36:10Z" changeset="10878337" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="246574151" lat="41.8944984" lon="12.4877390" version="4" timestamp="2010-06-01T15:21:57Z" changeset="4875461" uid="113909" user="Giardia">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="248743319" lat="41.8967142" lon="12.4859132" version="10" timestamp="2018-06-27T09:49:52Z" changeset="60209934" uid="655382" user="pelatom">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="image" v="https://upload.wikimedia.org/wikipedia/commons/e/ed/Fontanella_delle_tre_cannelle.jpg"/>
+    <tag k="name" v="Fontana delle tre cannelle"/>
+  </node>
+  <node id="248743322" lat="41.8960711" lon="12.4870349" version="9" timestamp="2018-07-20T12:39:51Z" changeset="60906408" uid="624323" user="bryceco">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="wheelchair" v="limited"/>
+  </node>
+  <node id="248743324" lat="41.8935446" lon="12.4877253" version="4" timestamp="2011-12-08T16:31:20Z" changeset="10066358" uid="430115" user="Emistrac">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="250889642" lat="41.8959904" lon="12.4903891" version="4" timestamp="2018-08-12T20:29:36Z" changeset="61599392" uid="360183" user="wille">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="251773348" lat="41.8853910" lon="12.4852890" version="3" timestamp="2017-10-31T09:53:43Z" changeset="53389857" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="251773349" lat="41.8870009" lon="12.4827727" version="2" timestamp="2018-07-01T20:18:40Z" changeset="60329615" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="251792639" lat="41.8885804" lon="12.4836676" version="1" timestamp="2008-03-12T18:56:32Z" changeset="312254" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="252602350" lat="41.8961224" lon="12.4929031" version="1" timestamp="2008-03-17T15:30:57Z" changeset="342496" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="252607423" lat="41.8954405" lon="12.4931386" version="1" timestamp="2008-03-17T16:17:17Z" changeset="342496" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="252609581" lat="41.8958602" lon="12.4969575" version="4" timestamp="2015-05-27T20:39:47Z" changeset="31515451" uid="69102" user="Mathbau">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="255331456" lat="41.8907465" lon="12.4976886" version="3" timestamp="2015-06-07T20:38:39Z" changeset="31799678" uid="69102" user="Mathbau">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="256572272" lat="41.8947199" lon="12.4963709" version="3" timestamp="2018-01-29T22:02:02Z" changeset="55874494" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="266310817" lat="41.8926848" lon="12.4931113" version="5" timestamp="2018-04-07T05:12:31Z" changeset="57883117" uid="3335899" user="GBAB">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="disused" v="yes"/>
+  </node>
+  <node id="266310881" lat="41.8923773" lon="12.4934985" version="1" timestamp="2008-05-22T13:15:21Z" changeset="500702" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="266317282" lat="41.8932611" lon="12.4901658" version="2" timestamp="2012-09-14T01:42:14Z" changeset="13102451" uid="592817" user="colasurf">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="266317940" lat="41.8913980" lon="12.4911918" version="4" timestamp="2013-02-02T10:25:07Z" changeset="14881237" uid="217070" user="Davio">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="266965232" lat="41.8833371" lon="12.4875430" version="2" timestamp="2018-07-01T20:20:08Z" changeset="60329636" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="270198478" lat="41.8855199" lon="12.4944754" version="1" timestamp="2008-06-14T01:36:32Z" changeset="156189" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="270198479" lat="41.8837598" lon="12.4947844" version="1" timestamp="2008-06-14T01:36:32Z" changeset="156189" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="270198480" lat="41.8854653" lon="12.4932377" version="2" timestamp="2010-05-13T16:40:18Z" changeset="4688102" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="280155143" lat="41.8894610" lon="12.5009036" version="1" timestamp="2008-07-22T00:46:38Z" changeset="570660" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="281351519" lat="41.8963253" lon="12.4922226" version="2" timestamp="2013-04-27T09:24:45Z" changeset="15881194" uid="663149" user="Paolo Gianfrancesco">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="281352641" lat="41.8916111" lon="12.5004044" version="1" timestamp="2008-07-27T01:26:20Z" changeset="609274" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="327114989" lat="41.8937726" lon="12.5010324" version="3" timestamp="2017-10-31T09:53:45Z" changeset="53389857" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="388983995" lat="41.8869371" lon="12.4949446" version="2" timestamp="2011-02-17T20:20:25Z" changeset="7316982" uid="113909" user="Giardia">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="388984003" lat="41.8877413" lon="12.4945190" version="2" timestamp="2011-02-17T20:20:25Z" changeset="7316982" uid="113909" user="Giardia">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="410781415" lat="41.8911751" lon="12.4847414" version="2" timestamp="2018-01-06T12:44:15Z" changeset="55208597" uid="893327" user="mcheckimport">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="disused" v="yes"/>
+  </node>
+  <node id="495113034" lat="41.8913309" lon="12.4934283" version="1" timestamp="2009-09-13T13:39:35Z" changeset="2469084" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="551785500" lat="41.8829156" lon="12.4997696" version="2" timestamp="2017-10-31T09:53:46Z" changeset="53389857" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="685457655" lat="41.8902623" lon="12.4867108" version="5" timestamp="2015-05-23T19:04:13Z" changeset="31404940" uid="45399" user="pmailkeey">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="685461877" lat="41.8891234" lon="12.4875779" version="4" timestamp="2015-05-15T11:40:00Z" changeset="31169476" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="685465032" lat="41.8829819" lon="12.4915911" version="3" timestamp="2012-04-04T16:33:19Z" changeset="11178729" uid="217070" user="Davio">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="odbl" v="clean"/>
+  </node>
+  <node id="953890053" lat="41.8887986" lon="12.4879526" version="1" timestamp="2010-10-17T08:03:46Z" changeset="6064169" uid="48283" user="zarquon">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="953890062" lat="41.8909850" lon="12.4883755" version="1" timestamp="2010-10-17T08:03:46Z" changeset="6064169" uid="48283" user="zarquon">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="953909059" lat="41.8889852" lon="12.4968765" version="1" timestamp="2010-10-17T08:12:15Z" changeset="6064214" uid="48283" user="zarquon">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="1157932638" lat="41.8867552" lon="12.4954695" version="1" timestamp="2011-02-17T20:20:25Z" changeset="7316982" uid="113909" user="Giardia">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="1170494282" lat="41.8900409" lon="12.4941977" version="1" timestamp="2011-02-24T16:50:11Z" changeset="7383106" uid="113909" user="Giardia">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="1407542660" lat="41.8952361" lon="12.4919666" version="2" timestamp="2013-04-27T09:29:45Z" changeset="15881243" uid="663149" user="Paolo Gianfrancesco">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="1656861982" lat="41.8907193" lon="12.4883593" version="1" timestamp="2012-03-02T23:28:28Z" changeset="10853478" uid="352940" user="pieleric">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="1709280191" lat="41.8913190" lon="12.4911794" version="4" timestamp="2018-09-10T20:38:59Z" changeset="62466936" uid="6636492" user="Caelum86">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="name:ru" v="вода с газом и без. бесплатная"/>
+  </node>
+  <node id="2105948243" lat="41.8968428" lon="12.4878685" version="1" timestamp="2013-01-11T16:41:06Z" changeset="14611655" uid="1157114" user="Sky84">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="2537299968" lat="41.8911676" lon="12.4987211" version="1" timestamp="2013-11-17T23:26:47Z" changeset="18963478" uid="645593" user="Viking81">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="indoor" v="no"/>
+  </node>
+  <node id="3098527533" lat="41.8915162" lon="12.4841145" version="2" timestamp="2017-10-31T09:53:56Z" changeset="53389857" uid="26139" user="dieterdreist">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="3785014818" lat="41.8873381" lon="12.4934389" version="2" timestamp="2015-10-13T19:38:33Z" changeset="34619994" uid="2978221" user="Stauros1980">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="3786621294" lat="41.8867114" lon="12.4927208" version="3" timestamp="2015-10-19T13:47:34Z" changeset="34733083" uid="2978221" user="Stauros1980">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5167443540" lat="41.8955726" lon="12.4931902" version="2" timestamp="2019-03-17T08:16:25Z" changeset="68221926" uid="1875845" user="Valerio_Bozzolan">
+    <tag k="access" v="yes"/>
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="covered" v="no"/>
+    <tag k="fee" v="no"/>
+  </node>
+  <node id="5314059440" lat="41.8863528" lon="12.4901240" version="1" timestamp="2017-12-31T20:57:24Z" changeset="55066027" uid="113909" user="Giardia">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="fountain" v="nasone"/>
+  </node>
+  <node id="5340247517" lat="41.8912427" lon="12.4978518" version="1" timestamp="2018-01-15T07:19:08Z" changeset="55452170" uid="6757296" user="gionax">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5340252322" lat="41.8913872" lon="12.4973968" version="1" timestamp="2018-01-15T07:19:08Z" changeset="55452170" uid="6757296" user="gionax">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5535092255" lat="41.8918027" lon="12.4915049" version="3" timestamp="2018-06-27T08:07:43Z" changeset="60205755" uid="429761" user="freebeer">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5732659653" lat="41.8936702" lon="12.4923174" version="1" timestamp="2018-07-01T20:23:51Z" changeset="60329700" uid="2786284" user="Danydeio">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5767727022" lat="41.8921044" lon="12.4858406" version="1" timestamp="2018-07-18T08:58:16Z" changeset="60827582" uid="1693029" user="Tejes">
+    <tag k="amenity" v="drinking_water"/>
+  </node>
+  <node id="5801329944" lat="41.8881076" lon="12.4885132" version="2" timestamp="2019-01-03T11:19:35Z" changeset="65985452" uid="922338" user="Hervé TUC">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="description:de" v="Wasserbrunnen"/>
+  </node>
+  <node id="6280605307" lat="41.8939824" lon="12.4936946" version="1" timestamp="2019-02-15T10:43:08Z" changeset="67222833" uid="9442534" user="claudiaberar">
+    <tag k="amenity" v="drinking_water"/>
+    <tag k="level" v="1"/>
+  </node>
+
+</osm>

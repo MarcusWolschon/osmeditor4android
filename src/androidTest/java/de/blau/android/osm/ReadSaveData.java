@@ -129,4 +129,30 @@ public class ReadSaveData {
         System.out.println("Files lengths differ by " + (correctContent.length - (testContent.length - offset)));
         return false;
     }
+    
+    /**
+     * Read a file in Overpass (slightly non-standard) OSM XML format 
+     */
+    @Test
+    public void overpassRead() {
+        final CountDownLatch signal1 = new CountDownLatch(1);
+        Logic logic = App.getLogic();
+
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream("overpass.osm");
+        Assert.assertNotNull(is);
+        logic.readOsmFile(main, is, false, new SignalHandler(signal1));
+        try {
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        try {
+            is.close();
+        } catch (IOException e1) {
+        }
+        Assert.assertEquals(57,App.getDelegator().getCurrentStorage().getNodes().size());
+        Assert.assertEquals(1, App.getDelegator().getBoundingBoxes().size());
+        Assert.assertEquals(new BoundingBox(124827727,418829156,125010324,418968428), App.getDelegator().getLastBox());
+    }
 }
