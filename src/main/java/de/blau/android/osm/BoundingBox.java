@@ -359,12 +359,9 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
             return false; // a is right of b
         }
         if (top < b.bottom) {
-            return false; // a is above b
-        }
-        if (bottom > b.top) {
             return false; // a is below b
         }
-        return true; // boxes overlap
+        return bottom <= b.top; // false if a is above b
     }
 
     /**
