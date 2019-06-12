@@ -899,6 +899,10 @@ public class TestUtils {
      */
     public static void selectFile(@NonNull UiDevice device, @NonNull String fileName) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            TestUtils.clickOverflowButton();
+            if (!TestUtils.clickText(device, false, "Show", false)) {
+                TestUtils.clickAt(device.getDisplayWidth()/2, device.getDisplayHeight()/2);
+            }
             TestUtils.clickMenuButton("List view", false, false);
             TestUtils.clickMenuButton("Show roots", false, true);
             TestUtils.clickText(device, false, "Android", true);
