@@ -40,29 +40,42 @@
             "type": "Feature"
         },
         {
+            "type": "Feature",
+            "properties": {
+                "license_url": "https://thunderforest.com/terms",
+                "id": "tf-landscape",
+                "name": "Thunderforest Landscape",
+                "i18n": true,
+                "url": "https://{switch:a,b,c}.tile.thunderforest.com/landscape/{zoom}/{x}/{y}.png?apikey=d7daa307501a4c4d857c92d42774faf2",
+                "attribution": {
+                    "url": "https://www.thunderforest.com/terms",
+                    "text": "Maps © Thunderforest, Data © OpenStreetMap contributors",
+                    "required": true
+                },
+                "max_zoom": 22,
+                "type": "tms",
+                "apikey": "url"
+            },
+            "geometry": null
+        },
+        {
+            "type": "Feature",
             "geometry": null,
             "properties": {
                 "attribution": {
                     "required": true,
-                    "text": "Terms & Feedback",
-                    "url": "https://wiki.openstreetmap.org/wiki/Esri"
+                    "text": "Maps \u00a9 Thunderforest, Data \u00a9 OpenStreetMap contributors",
+                    "url": "https://www.thunderforest.com/terms"
                 },
-                "default": true,
-                "description": "Esri world imagery.",
                 "i18n": true,
-                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/EsriImageryClarity.png",
-                "id": "EsriWorldImagery",
+                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/TF-OpenCycleMap.png",
+                "id": "tf-cycle",
+                "license_url": "https://thunderforest.com/terms",
                 "max_zoom": 22,
-                "no_tile_header": {
-                    "Etag": [
-                        "10i954m13i2"
-                    ]
-                },
-                "name": "Esri World Imagery",
+                "name": "Thunderforest OpenCycleMap",
                 "type": "tms",
-                "url": "https://{switch:services,server}.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{zoom}/{y}/{x}"
-            },
-            "type": "Feature"
+                "url": "https://{switch:a,b,c}.tile.thunderforest.com/cycle/{zoom}/{x}/{y}.png?apikey=d7daa307501a4c4d857c92d42774faf2"
+            }
         }
     ],
     "type": "FeatureCollection"
