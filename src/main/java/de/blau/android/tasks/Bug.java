@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -79,8 +80,13 @@ public abstract class Bug extends Task implements Serializable {
      */
     protected String getBugDescription(@NonNull Context context, int bugNameRes) {
         String[] states = context.getResources().getStringArray(R.array.bug_state);
-        return context.getString(R.string.bug_description, context.getString(bugNameRes), subtitle != null && subtitle.length() != 0 ? subtitle : title,
-                states[getState().ordinal()]);
+        String state = states[getState().ordinal()];
+        String bugName = context.getString(bugNameRes);
+        if (notEmpty(title) && notEmpty(subtitle)) {
+            return context.getString(R.string.bug_description_2, bugName, title, subtitle, state);
+        } else {
+            return context.getString(R.string.bug_description, bugName, notEmpty(title) ? title : (notEmpty(subtitle) ? subtitle : ""), state);
+        }
     }
 
     /**
@@ -93,7 +99,7 @@ public abstract class Bug extends Task implements Serializable {
      */
     protected String getBugLongDescription(@NonNull Context context, int bugNameRes, boolean withElements) {
         StringBuilder result = new StringBuilder(context.getString(R.string.bug_long_description_1, context.getString(bugNameRes), level2string(context),
-                subtitle != null && subtitle.length() != 0 ? subtitle : title));
+                notEmpty(title) ? title : "", notEmpty(subtitle) ? subtitle : ""));
         if (withElements) {
             for (OsmElement osm : getElements()) {
                 result.append("<br>");
@@ -107,6 +113,16 @@ public abstract class Bug extends Task implements Serializable {
         }
         result.append(context.getString(R.string.bug_long_description_2, update, id));
         return result.toString();
+    }
+
+    /**
+     * Check if a string has something in it
+     * 
+     * @param s the String
+     * @return true if not empty
+     */
+    public boolean notEmpty(@Nullable String s) {
+        return s != null && s.length() != 0;
     }
 
     /**
