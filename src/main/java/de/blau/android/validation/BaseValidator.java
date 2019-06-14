@@ -219,25 +219,29 @@ public class BaseValidator implements Validator {
      * @throws OsmException if something goes wrong creating the bounding box
      */
     private void checkNearbyWays(@NonNull String tagKey, @NonNull Way w, @NonNull Logic logic, int layer, @NonNull Node n) throws OsmException {
-        BoundingBox box = GeoMath.createBoundingBoxForCoordinates(n.getLat() / 1E7D, n.getLon() / 1E7D, tolerance, false);
-        List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(box);
-        List<Way> connectedWays = new ArrayList<>();
-        BoundingBox bb = w.getBounds();
-        for (Way maybeConnected : new ArrayList<>(nearbyWays)) {
-            if (!maybeConnected.hasTagKey(tagKey) || maybeConnected.equals(w)) {
-                nearbyWays.remove(maybeConnected);
-                continue;
+        final int lat = n.getLat();
+        final int lon = n.getLon();
+        if (App.getDelegator().isInDownload(lon, lat)) { // only check for nodes in download
+            BoundingBox box = GeoMath.createBoundingBoxForCoordinates(lat / 1E7D, lon / 1E7D, tolerance, false);
+            List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(box);
+            List<Way> connectedWays = new ArrayList<>();
+            BoundingBox bb = w.getBounds();
+            for (Way maybeConnected : new ArrayList<>(nearbyWays)) {
+                if (!maybeConnected.hasTagKey(tagKey) || maybeConnected.equals(w)) {
+                    nearbyWays.remove(maybeConnected);
+                    continue;
+                }
+                if (bb.intersects(maybeConnected.getBounds()) && maybeConnected.hasCommonNode(w)) {
+                    connectedWays.add(maybeConnected);
+                    nearbyWays.remove(maybeConnected);
+                }
             }
-            if (bb.intersects(maybeConnected.getBounds()) && maybeConnected.hasCommonNode(w)) {
-                connectedWays.add(maybeConnected);
-                nearbyWays.remove(maybeConnected);
-            }
-        }
-        for (Way nearbyWay : nearbyWays) {
-            if (!hasConnection(nearbyWay, connectedWays) && layer == getLayer(nearbyWay)) {
-                connectedValidation(logic, tolerance, nearbyWay, n);
-                if (n.getCachedProblems() == Validator.UNCONNECTED_END_NODE) {
-                    break;
+            for (Way nearbyWay : nearbyWays) {
+                if (!hasConnection(nearbyWay, connectedWays) && layer == getLayer(nearbyWay)) {
+                    connectedValidation(logic, tolerance, nearbyWay, n);
+                    if (n.getCachedProblems() == Validator.UNCONNECTED_END_NODE) {
+                        break;
+                    }
                 }
             }
         }
