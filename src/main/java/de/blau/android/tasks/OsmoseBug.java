@@ -103,7 +103,7 @@ public final class OsmoseBug extends Bug implements Serializable {
 
     @Override
     public String getDescription() {
-        return "Osmose: " + (subtitle != null && subtitle.length() != 0 ? subtitle : title);
+        return "Osmose: " + (notEmpty(subtitle) ? subtitle : title);
     }
 
     @Override
