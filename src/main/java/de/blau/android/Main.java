@@ -75,6 +75,7 @@ import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -442,6 +443,8 @@ public class Main extends FullScreenAppCompatActivity
     private boolean newVersion = false;
 
     java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
+
+    private static final float LARGE_FAB_ELEVATION = 16; // used for renabling elevation on the FABs
 
     /**
      * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -3080,13 +3083,18 @@ public class Main extends FullScreenAppCompatActivity
      * @param stateList the ColorStateList
      */
     private void changeSimpleActionsButtonState(boolean enabled, @NonNull ColorStateList stateList) {
-        float elevation = simpleActionsButton.getCompatElevation();
         simpleActionsButton.setEnabled(enabled);
-        simpleActionsButton.setCompatElevation(elevation);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             simpleActionsButton.setBackgroundTintList(stateList);
         } else {
             Util.setBackgroundTintList(simpleActionsButton, stateList);
+        }
+        simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
+        ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
+        if (enabled) {
+            ((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 0);
+        } else {
+            ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
         }
     }
 
