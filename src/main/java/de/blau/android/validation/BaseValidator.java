@@ -163,8 +163,7 @@ public class BaseValidator implements Validator {
         Logic logic = App.getLogic();
         int layer = getLayer(w);
         de.blau.android.Map map = logic.getMap();
-        w.getFirstNode().setProblem(Validator.OK);
-        w.getLastNode().setProblem(Validator.OK);
+
         if (map != null) {
             // we try to cache these fairly expensive to calculate values at least as long as the ViewBox hasn't changed
             if (!map.getViewBox().equals(cachedViewBox)) {
@@ -239,7 +238,7 @@ public class BaseValidator implements Validator {
             for (Way nearbyWay : nearbyWays) {
                 if (!hasConnection(nearbyWay, connectedWays) && layer == getLayer(nearbyWay)) {
                     connectedValidation(logic, tolerance, nearbyWay, n);
-                    if (n.getCachedProblems() == Validator.UNCONNECTED_END_NODE) {
+                    if ((n.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
                         break;
                     }
                 }
@@ -296,7 +295,7 @@ public class BaseValidator implements Validator {
             float node1Y = logic.latE7ToY(firstNode.getLat());
             double nodeDist = Math.hypot(jx - node1X, jy - node1Y); // first node
             if (nodeDist < tolerance) {
-                node.setProblem(Validator.UNCONNECTED_END_NODE);
+                addProblem(node, Validator.UNCONNECTED_END_NODE);
                 return;
             }
             for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
@@ -304,7 +303,7 @@ public class BaseValidator implements Validator {
                 float node2X = logic.lonE7ToX(node2.getLon());
                 float node2Y = logic.latE7ToY(node2.getLat());
                 if (Logic.isPositionOnLine(tolerance, jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
-                    node.setProblem(Validator.UNCONNECTED_END_NODE);
+                    addProblem(node, Validator.UNCONNECTED_END_NODE);
                     break;
                 }
                 node1X = node2X;
@@ -312,9 +311,29 @@ public class BaseValidator implements Validator {
             }
             nodeDist = Math.hypot(jx - node1X, jy - node1Y); // last node
             if (nodeDist < tolerance) {
-                node.setProblem(Validator.UNCONNECTED_END_NODE);
+                addProblem(node, Validator.UNCONNECTED_END_NODE);
             }
         }
+    }
+
+    /**
+     * Set a specific problem bit
+     * 
+     * @param e the OsmElement
+     * @param problem the problem value
+     */
+    void addProblem(@NonNull OsmElement e, int problem) {
+        e.setProblem(e.getCachedProblems() | problem);
+    }
+
+    /**
+     * Delete a specific problem bit
+     * 
+     * @param e the OsmElement
+     * @param problem the problem value
+     */
+    void deleteProblem(@NonNull OsmElement e, int problem) {
+        e.setProblem(e.getCachedProblems() & ~problem);
     }
 
     /**
@@ -421,6 +440,10 @@ public class BaseValidator implements Validator {
         if (way.getNodes() == null || way.getNodes().isEmpty()) {
             return Validator.INVALID_OBJECT;
         }
+        // reset status of end nodes
+        deleteProblem(way.getFirstNode(), Validator.UNCONNECTED_END_NODE);
+        deleteProblem(way.getLastNode(), Validator.UNCONNECTED_END_NODE);
+
         int status = Validator.NOT_VALIDATED;
         if (way.nodeCount() == 1) {
             status = status | Validator.DEGENERATE_WAY;
