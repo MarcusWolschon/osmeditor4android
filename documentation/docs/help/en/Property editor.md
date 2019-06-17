@@ -19,7 +19,7 @@ In the tabs tapping the checkbox in the header row will select/de-select all ele
 
 This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simple remove or reset the value (or delete them in the _Details_ tab).
 
-Fields are added by applying presets, either via the _Preset_ tab or via the ![Preset](../images/tag_menu_apply_preset.png) _Apply best preset_ button.
+Fields are added by applying presets, either via the _Preset_ tab or via the ![Preset](../images/tag_menu_apply_preset.png) _Apply best preset_ button. Contrary to applying presets from the _Preset_ tab or from the most recently used list below the tags, this will add fields for any optional tags that are present in the preset. 
 
 ## Details Tab
  
@@ -46,7 +46,7 @@ Add address tags for the object. This function will try to predict the house num
 
 ### ![Preset](../images/tag_menu_apply_preset.png) Apply best preset
 
-Will locate the best matching preset to the existing tags and apply the preset adding further suggested fields.
+Will locate the best matching preset to the existing tags and apply the preset adding further suggested / optional fields.
 
 ### ![Paste](../images/tag_menu_repeat.png) Paste
 
