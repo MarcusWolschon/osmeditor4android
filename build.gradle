@@ -4,16 +4,14 @@
 buildscript {
     repositories {
         mavenCentral()
-        //maven { url 'https://dl.bintray.com/content/simonpoole/div' }
+        maven { url 'https://dl.bintray.com/content/simonpoole/gradle' }
         maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
         google()
-                     flatDir {
-                          dirs 'lib'
-                      }
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'org.kordamp:markdown-gradle-plugin:1.2.0'
+        classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.0'
         classpath 'org.jacoco:org.jacoco.core:0.8.4'
         // classpath 'com.trickyandroid:jacoco-everywhere:0.2.1'
         classpath "ch.poole:preset-utils:0.8.1"
@@ -49,7 +47,7 @@ allprojects {
 apply plugin: 'eclipse'
 apply plugin: 'com.android.application'
 apply plugin: "net.ltgt.apt"
-apply plugin: 'org.kordamp.gradle.markdown'
+apply plugin: 'ch.poole.gradle.markdown'
 apply plugin: 'jacoco'
 // apply plugin: 'jacoco-everywhere'
 apply plugin: 'com.getkeepsafe.dexcount'
@@ -65,6 +63,7 @@ markdownToHtml.sourceDir  new File(projectDir.getPath() + '/documentation/docs/h
 markdownToHtml.inputEncoding "utf8"
 markdownToHtml.outputDir  new File(projectDir.getPath() + '/src/main/assets/help')
 markdownToHtml.outputEncoding "utf8"
+markdownToHtml.configuration.template = projectDir.getPath() + "/documentation/html_template.tpl"
 
 task downloadPresetIconsZipFile(type: Download) {
     doFirst {
