@@ -468,6 +468,7 @@ public class Storage implements Serializable {
      * 
      * @return the map indexing nodes
      */
+    @NonNull
     public LongOsmElementMap<Node> getNodeIndex() {
         return nodes;
     }
@@ -477,6 +478,7 @@ public class Storage implements Serializable {
      * 
      * @return the map indexing ways
      */
+    @NonNull
     public LongOsmElementMap<Way> getWayIndex() {
         return ways;
     }
@@ -486,6 +488,7 @@ public class Storage implements Serializable {
      * 
      * @return the map indexing relations
      */
+    @NonNull
     public LongOsmElementMap<Relation> getRelationIndex() {
         return relations;
     }

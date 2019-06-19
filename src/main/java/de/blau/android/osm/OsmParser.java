@@ -305,16 +305,16 @@ public class OsmParser extends DefaultHandler {
             case Way.NAME:
                 currentWay = OsmElementFactory.createWay(osmId, osmVersion, timestamp, status);
                 if (nodeIndex == null) {
-                    nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
+                    nodeIndex = storage.getNodeIndex();
                 }
                 break;
             case Relation.NAME:
                 currentRelation = OsmElementFactory.createRelation(osmId, osmVersion, timestamp, status);
                 if (nodeIndex == null) {
-                    nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
+                    nodeIndex = storage.getNodeIndex();
                 }
                 if (wayIndex == null) {
-                    wayIndex = storage.getWayIndex(); // !!!!! this will fail if input is not ordered
+                    wayIndex = storage.getWayIndex();
                 }
                 break;
             default:
