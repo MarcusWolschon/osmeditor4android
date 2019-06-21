@@ -10,6 +10,7 @@ import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -434,9 +435,22 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        savedMembers = getMembersList();
         outState.putLong(ID_KEY, id);
         savingHelper.save(getContext(), FILENAME_MEMBERS, savedMembers, true);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(DEBUG_TAG, "onConfigurationChanged");
+        synchronized (actionModeCallbackLock) {
+            if (memberSelectedActionModeCallback != null) {
+                memberSelectedActionModeCallback.currentAction.finish();
+                memberSelectedActionModeCallback = null;
+            }
+        }
     }
 
     /**

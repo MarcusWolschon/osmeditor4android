@@ -16,6 +16,7 @@ import java.util.TreeSet;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -487,6 +488,18 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         savedTags = getKeyValueMap(true);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(DEBUG_TAG, "onConfigurationChanged");
+        synchronized (actionModeCallbackLock) {
+            if (tagSelectedActionModeCallback != null) {
+                tagSelectedActionModeCallback.currentAction.finish();
+                tagSelectedActionModeCallback = null;
+            }
+        }
+    }
+    
     /**
      * Creates edit rows from a SortedMap containing tags (as sequential key-value pairs)
      * 

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -187,9 +188,22 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        savedParents = getParentRelationMap();
         outState.putSerializable(PARENTS_KEY, savedParents);
         outState.putString(ELEMENT_TYPE_KEY, elementType);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(DEBUG_TAG, "onConfigurationChanged");
+        synchronized (actionModeCallbackLock) {
+            if (parentSelectedActionModeCallback != null) {
+                parentSelectedActionModeCallback.currentAction.finish();
+                parentSelectedActionModeCallback = null;
+            }
+        }
     }
 
     /**
