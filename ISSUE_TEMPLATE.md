@@ -9,6 +9,8 @@ Please note that some components are maintained in upstream repositories and rel
 * presets: https://github.com/simonpoole/beautified-JOSM-preset
 * opening hours user interface: https://github.com/simonpoole/OpeningHoursFragment
 * name-related tag suggestions database: https://github.com/osmlab/name-suggestion-index
+
+Translations are maintained on transifex: https://www.transifex.com/openstreetmap/vespucci/ do not submit spelling fixes or similar here, except for the default language (English).
 -->
 
 ## Vespucci Version
