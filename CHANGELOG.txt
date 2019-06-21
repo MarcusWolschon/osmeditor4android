@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+13.0.6: Fix some issues in the PropertyEditor when changing configuration.
+
 13.0.5: Update preset and imagery, fix OSMOSE descriptions, some unconnected node validation fixes. 
 
 13.0.4: Fix crash in dark mode when trying to set certain preferences, don't allow multiple pastes when object has been cut, fixes MapRoulette API key handling, fix some Android lint warnings, update imagery and translations.
