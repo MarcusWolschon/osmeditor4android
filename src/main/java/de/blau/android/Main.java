@@ -83,6 +83,7 @@ import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.ConfirmUpload;
@@ -177,7 +178,7 @@ import de.blau.android.voice.Commands;
 public class Main extends FullScreenAppCompatActivity
         implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
 
-    private static final int ZOOM_FOR_ZOOMTO = 22;
+    static final int ZOOM_FOR_ZOOMTO = 22;
 
     /**
      * Tag used for Android-logging.
@@ -372,6 +373,7 @@ public class Main extends FullScreenAppCompatActivity
     private RemoteControlUrlData rcData         = null;
     private final Object         rcDataLock     = new Object();
     private Uri                  contentUri     = null;
+    private String               contentUriType = null;
     private final Object         contentUriLock = new Object();
 
     /**
@@ -726,6 +728,7 @@ public class Main extends FullScreenAppCompatActivity
                 return;
             default:
                 // carry on
+                Log.d(DEBUG_TAG, "Intent action " + action);
             }
         }
         setIntent(intent);
@@ -746,6 +749,20 @@ public class Main extends FullScreenAppCompatActivity
             Uri uri = getIntent().getData();
             if (uri != null && ("content".equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && "file".equals(uri.getScheme())))) {
                 contentUri = uri;
+            } else {
+                Bundle extras = getIntent().getExtras();
+                if (extras != null) {
+                    try {
+                        Uri streamUri = (Uri) extras.getParcelable(Intent.EXTRA_STREAM);
+                        Log.d(DEBUG_TAG, "getIntentData EXTRA_STREAM " + streamUri);
+                        if (streamUri != null) {
+                            contentUri = streamUri;
+                            contentUriType = getIntent().getType();
+                        }
+                    } catch (ClassCastException e) {
+                        Log.e(DEBUG_TAG, "getIntentData " + e.getMessage());
+                    }
+                }
             }
         }
     }
@@ -1117,37 +1134,56 @@ public class Main extends FullScreenAppCompatActivity
         synchronized (contentUriLock) {
             Log.d(DEBUG_TAG, "Processing content uri");
             if (contentUri != null) {
-                switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
-                case FileExtensions.GPX:
-                    if (getTracker() != null) { // load
-                                                // now
-                        loadGPXFile(contentUri);
-                        contentUri = null;
-                    }
-                    break;
-                case FileExtensions.JSON:
-                case FileExtensions.GEOJSON:
-
-                    de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
-                    if (geojsonLayer != null) {
-                        try {
-                            geojsonLayer.resetStyling();
-                            if (geojsonLayer.loadGeoJsonFile(this, contentUri)) {
-                                BoundingBox extent = geojsonLayer.getExtent();
-                                if (extent != null) {
-                                    map.getViewBox().fitToBoundingBox(map, extent);
-                                    setFollowGPS(false);
+                try {
+                    Log.d(DEBUG_TAG, "contentUriType " + contentUriType);
+                    if (contentUriType != null) {
+                        if (MimeTypes.JPEG.equals(contentUriType) || MimeTypes.ALL_IMAGE_FORMATS.equals(contentUriType)) {
+                            if (!prefs.isPhotoLayerEnabled()) {
+                                prefs.setPhotoLayerEnabled(true);
+                                map.setPrefs(this, prefs); // sets up layers too
+                                de.blau.android.layer.photos.MapOverlay photoLayer = map.getPhotoLayer();
+                                if (photoLayer != null) {
+                                    photoLayer.createIndex(new PhotoUriHandler(this, contentUri));
+                                } else {
+                                    Snack.toastTopError(this, getString(R.string.toast_error_accessing_photo, contentUri));
                                 }
-                                geojsonLayer.invalidate();
+                            } else {
+                                (new PhotoUriHandler(this, contentUri)).onSuccess();
                             }
-                        } catch (IOException e) {
-                            // display a toast?
+                        }
+                    } else {
+                        switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
+                        case FileExtensions.GPX:
+                            if (getTracker() != null) {
+                                // load now
+                                loadGPXFile(contentUri);
+                            }
+                            break;
+                        case FileExtensions.JSON:
+                        case FileExtensions.GEOJSON:
+                            de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
+                            if (geojsonLayer != null) {
+                                try {
+                                    geojsonLayer.resetStyling();
+                                    if (geojsonLayer.loadGeoJsonFile(this, contentUri)) {
+                                        BoundingBox extent = geojsonLayer.getExtent();
+                                        if (extent != null) {
+                                            map.getViewBox().fitToBoundingBox(map, extent);
+                                            setFollowGPS(false);
+                                            map.setFollowGPS(false);
+                                        }
+                                        geojsonLayer.invalidate();
+                                    }
+                                } catch (IOException e) {
+                                    // display a toast?
+                                }
+                            }
+                            break;
+                        default:
+                            Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
                         }
                     }
-                    contentUri = null;
-                    break;
-                default:
-                    Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
+                } finally {
                     contentUri = null;
                 }
             }

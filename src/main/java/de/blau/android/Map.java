@@ -376,6 +376,16 @@ public class Map extends View implements IMapView {
     }
 
     /**
+     * Return the current photo layer
+     * 
+     * @return the current photo layer or null if none is configured
+     */
+    @Nullable
+    public de.blau.android.layer.photos.MapOverlay getPhotoLayer() {
+        return photoLayer;
+    }
+
+    /**
      * Return the current geojson layer
      * 
      * @return the current geojson layer or null if none is configured

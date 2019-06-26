@@ -1,7 +1,6 @@
 package de.blau.android.photos;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,13 +36,6 @@ public class PhotoIndex extends SQLiteOpenHelper {
 
     private static final int    DATA_VERSION = 3;
     private static final String LOGTAG       = "PhotoIndex";
-
-    private class JpgFilter implements FilenameFilter {
-        @Override
-        public boolean accept(File dir, String name) {
-            return name.endsWith(Paths.FILE_EXTENSION_IMAGE);
-        }
-    }
 
     /**
      * Provide access to the on disk Photo index
@@ -162,7 +154,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * @param dir directory we are starting with
      * @param lastScan date we last scanned this directory tree
      */
-    private void scanDir(SQLiteDatabase db, String dir, long lastScan) {
+    private void scanDir(@NonNull SQLiteDatabase db, @NonNull String dir, long lastScan) {
         // Log.d(LOGTAG,"directory " + dir + " last Scan " + (new Date(lastScan)).toString());
         File indir = new File(dir);
         boolean needsReindex = false;
@@ -206,11 +198,52 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * 
      * @param f the image file
      */
-    public synchronized void addPhoto(File f) {
+    public synchronized void addPhoto(@NonNull File f) {
         SQLiteDatabase db = getWritableDatabase();
         // Log.i(LOGTAG,"Adding entry in " + f.getParent());
         Photo p = addPhoto(db, f.getParentFile(), f);
         db.close();
+        addToIndex(p);
+    }
+
+    /**
+     * Add image to index
+     * 
+     * @param p the Photo object
+     */
+    public synchronized void addPhoto(@NonNull Photo p) {
+        SQLiteDatabase db = getWritableDatabase();
+        insertPhoto(db, p, p.getRef());
+        db.close();
+        addToIndex(p);
+    }
+
+    /**
+     * Add image to index
+     * 
+     * @param db database containing the index
+     * @param dir directory the image is in
+     * @param f the image file
+     * @return a Photo object
+     */
+    @Nullable
+    private Photo addPhoto(@NonNull SQLiteDatabase db, @NonNull File dir, @NonNull File f) {
+        try {
+            Photo p = new Photo(dir, f);
+            insertPhoto(db, p, f.getName());
+            return p;
+        } catch (NumberFormatException | IOException e) {
+            // ignore silently, broken pictures are not our business
+        }
+        return null;
+    }
+
+    /**
+     * Add the photo to the in memory index
+     * 
+     * @param p the Photo
+     */
+    public static void addToIndex(@Nullable Photo p) {
         RTree index = App.getPhotoIndex();
         if (p != null && index != null) { // if nothing is in the index the complete DB including this photo will be
                                           // added
@@ -219,40 +252,34 @@ public class PhotoIndex extends SQLiteOpenHelper {
     }
 
     /**
-     * Add image to index
+     * Insert a photo in to the on device index
      * 
-     * @param db database containing the image
-     * @param dir directory the image is in
-     * @param f the image file
-     * @return a Photo object
+     * @param db database containing the index
+     * @param photo the photo object
+     * @param name a short identifying name
      */
-    private Photo addPhoto(SQLiteDatabase db, File dir, File f) {
+    private void insertPhoto(@NonNull SQLiteDatabase db, @NonNull Photo photo, @NonNull String name) {
         // Log.i(LOGTAG,"Adding entry for " + dir.getName() + " " + f.getName() + " abs " + dir.getAbsolutePath());
         try {
-            Photo p = new Photo(dir, f);
             ContentValues values = new ContentValues();
-            values.put("lat", p.getLat());
-            values.put("lon", p.getLon());
+            values.put("lat", photo.getLat());
+            values.put("lon", photo.getLon());
             // Log.i(LOGTAG,"Lat: " + p.getLat() + " " + p.getLon());
-            if (p.hasDirection()) {
-                values.put("direction", p.getDirection());
+            if (photo.hasDirection()) {
+                values.put("direction", photo.getDirection());
             }
-            values.put("dir", dir.getAbsolutePath());
-            values.put("name", f.getName());
+            values.put("dir", photo.getRef());
+            values.put("name", name);
             db.insert("photos", null, values);
-            return p;
         } catch (SQLiteException sqex) {
             Log.d(LOGTAG, sqex.toString());
             ACRAHelper.nocrashReport(sqex, sqex.getMessage());
-        } catch (IOException ioex) {
-            // ignore silently, broken pictures are not our business
         } catch (NumberFormatException bfex) {
             // ignore silently, broken pictures are not our business
         } catch (Exception ex) {
             Log.d(LOGTAG, ex.toString());
             ACRAHelper.nocrashReport(ex, ex.getMessage());
         } // ignore
-        return null;
     }
 
     /**
@@ -289,10 +316,15 @@ public class PhotoIndex extends SQLiteOpenHelper {
             Log.i(LOGTAG, "Query returned " + photoCount + " photos");
             //
             for (int i = 0; i < photoCount; i++) {
+                String name = dbresult.getString(4);
+                String dir = dbresult.getString(3);
+                if (!dir.startsWith("content:")) { // it isn't a content Uri
+                    dir = dir + "/" + name;
+                }
                 if (dbresult.isNull(2)) { // no direction
-                    index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getString(3) + "/" + dbresult.getString(4)));
+                    index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dir, name));
                 } else {
-                    index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dbresult.getString(3) + "/" + dbresult.getString(4)));
+                    index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dir, name));
                 }
                 dbresult.moveToNext();
             }
