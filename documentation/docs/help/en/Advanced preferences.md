@@ -6,31 +6,31 @@ The Advanced preferences page is split in to seven topical sections that can be 
 
 ### Show node icons
 
-Show icons on nodes if they can be matched with a preset. Default: on.
+Show icons on nodes if they can be matched with a preset. Default: _on_.
 
 ### Show POI icons on buildings
 
-Show icons on buildings if the tags on the building can be matched with a preset. Default: on.
+Show icons on buildings if the tags on the building can be matched with a preset. Default: _on_.
 
 ### Display tag form
 
-Enable the form based tag editor. Default: on.
+Enable the form based tag editor. Default: _on_.
 
 ### Show camera action
 
-Show a camera button on the main display (if a camera is present). Default: on.
+Show a camera button on the main display (if a camera is present). Default: _on_.
 
 ### Follow position button layout
 
-Change the side of the display the "follow GPS" button is located on. Default: lefthand side.
+Change the side of the display the "follow GPS" button is located on. Default: _lefthand side_.
 
 ### Always dim non-downloaded areas
 
-If on the non-downloaded areas will be dimmed when the screen is locked. Default: off.
+If on the non-downloaded areas will be dimmed when the screen is locked. Default: _off_.
 
 ### Fullscreen mode
 
-Configure the behaviour on devices with "soft" buttons. Default: on Android 4.4 and later: automatic, 4.0 - 4.3: off, ealier versions: not available.
+Configure the behaviour on devices with "soft" buttons. Default on Android 4.4 and later: _automatic_, 4.0 - 4.3: off, earlier versions: not available. You need to restart the app for changes to this setting to take effect.
 
 ### Map screen orientation
 
@@ -38,35 +38,35 @@ If set to any other value than _Auto_ Vespucci will try to override your device 
 
 ### Show tolerance
 
-Show halos indicating the size of the "touch areas" around elements. Default: on.
+Show halos indicating the size of the "touch areas" around elements. Default: _on_.
 
 ### Use back key for Undo
 
-Use the back key for undo. Default: off.
+Use the back key for undo. Default: _off_.
 
 ### Light theme
 
-Use a theme with a light background. Default: on.
+Use a theme with a light background. Default: _on_. You need to restart the app for changes to this setting to take effect.
 
 ### Enable split action bar
 
-Show the menu buttons at the bottom of the screen. Default: on.
+Show the menu buttons at the bottom of the screen. Default: _on_. You need to restart the app for changes to this setting to take effect.
 
 ### Max. number of inline values
 
-Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: 4.
+Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: _4_.
 
 ### Time to wait before auto-locking
 
-How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default 60 seconds.
+How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default _60 seconds_.
 
 ### Enable Anti-Aliasing
 
-Use anto-aliasing when rendering OSM data. Default: on.
+Use anto-aliasing when rendering OSM data. Default: _on_.
 
 ### Max line width
 
-Maximum width lines will increase to when zooming in. Default: 16 pixels.
+Maximum width lines will increase to when zooming in. Default: _16 pixels_.
 
 ## Data and Editing Settings
 
@@ -74,7 +74,7 @@ Settings related to editing.
 
 ### Always use contextual menu
 
-Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: off.
+Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: _off_.
 
 ### Address tags
 
@@ -82,51 +82,51 @@ When using address prediction only add the tags configured here.
 
 ### Enable name suggestions
 
-Support special handling of name tags with canonical name suggestions. Default: on.
+Support special handling of name tags with canonical name suggestions. Default: _on_.
 
 ### Enable name suggestion presets
 
-When using name suggestions, automatically apply the best preset. Default: on.
+When using name suggestions, automatically apply the best preset. Default: _on_.
 
 ### Generate notifications
 
-Generate notifications for validator detected issues. Default: on.
+Generate notifications for validator detected issues. Default: _on_.
 
 ### Group alerts only
 
-Generate notifications (audio) only once per notification group. Default: off.
+Generate notifications (audio) only once per notification group. Default: _off_.
 
 ### Max. number of displayed notifications
 
-Maximum number of notifications retained in the status bar: 5 (per type).
+Maximum number of notifications retained in the status bar: _5_ (per type).
 
 ### Max distances for notifications
 
-Maximum distance a validation issue or note/bug can be from the current positions to trigger a notification. Default: 100 meters.
+Maximum distance a validation issue or note/bug can be from the current positions to trigger a notification. Default: _100 meters_.
 
 ### Download radius
 
-When auto-downloading, the radius of the area that is attempted to download around the current position. Default: 50 meters.
+When auto-downloading, the radius of the area that is attempted to download around the current position. Default: _50 meters_.
 
 ### Maximum auto-download speed
 
-Maximum speed up to which auto-download is attempted. Default: 6 km/h.
+Maximum speed up to which auto-download is attempted. Default: _6 km/h_.
 
 ### Task filter
 
-Select OSMOSE error level, Notes and Maproulette tasks to download. Default: everything.
+Select OSMOSE error level, Notes and Maproulette tasks to download. Default: _everything_.
 
 ### Task download radius
 
-When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: 200 meters.
+When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: _200 meters_.
 
 ### Maximum task auto-download speed
 
-Maximum speed up to which auto-download of notes and bugs is attempted. Default: 30 km/h.
+Maximum speed up to which auto-download of notes and bugs is attempted. Default: _30 km/h_.
 
 ### Close changesets
 
-Close the current open changeset after uploading edits. Default: on.
+Close the current open changeset after uploading edits. Default: _on_.
 
 ## Location Settings
 
@@ -134,7 +134,7 @@ GPS and Network location settings.
 
 ### GPS/GNSS source
 
-Source of GPS/GNSS location updates. Default: internal.
+Source of GPS/GNSS location updates. Default: _internal_.
 
 ### NMEA network source
 
@@ -142,19 +142,19 @@ If GPS source is set to one of the NMEA TCP options, configure on which IP addre
 
 ### Minimum GPS/GNSS interval
 
-Minimum interval between updates for the internal GPS/GNSS source. Default: 1000 ms.
+Minimum interval between updates for the internal GPS/GNSS source. Default: _1000 ms_.
 
 ### Minimum GPS/GNSS-distance
 
-Minimum distance between updates for the internal GPS/GNSS source. Default: 5 meters.
+Minimum distance between updates for the internal GPS/GNSS source. Default: _5 meters_.
 
 ### Leave GPS/GNSS turned off
 
-If GPS has been disabled by the user, don't ask to turn it on. Default: off.
+If GPS has been disabled by the user, don't ask to turn it on. Default: _off_.
 
 ### Fallback to network location
 
-IF the device is providing "Network" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: on.
+IF the device is providing "Network" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: _on_.
 
 ## Server Settings
 
@@ -186,31 +186,31 @@ Download and storage configuration for the tiled imagery layers.
 
 ### Max. number of download threads
 
-Maximum number of simultaneous download threads. Default: 4.
+Maximum number of simultaneous download threads. Default: _4_.
 
 ### Tile cache size
 
-Total on device size for caching imagery tiles. Default: 100MB.
+Total on device size for caching imagery tiles. Default: _100MB_.
 
 ## Miscellaneous
 
 ### Report app crashes
 
-Submit ACRA crash dumps to the Vespucci developers. Default: on.
+Submit ACRA crash dumps to the Vespucci developers. Default: _on_.
 
 ### Show stats
 
-Show some uninteresting stats on screen. Debugging use only. Default: off.
+Show some uninteresting stats on screen. Debugging use only. Default: _off_.
 
 ## Experimental
 
 ### Enable JS Console
 
-Turn on the JavaScript console. Default: off.
+Turn on the JavaScript console. Default: _off_.
 
 ### Enable voice commands
 
-Enable voice command support: Default: off.
+Enable voice command support: Default: _off_.
 
 ### Enable hardware acceleration
 
