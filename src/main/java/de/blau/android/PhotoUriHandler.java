@@ -42,6 +42,7 @@ class PhotoUriHandler extends PostAsyncActionHandler {
             if (displayName != null) {
                 for (Photo p : existing) {
                     if (displayName.equals(SelectFile.getDisplaynameColumn(main, p.getRefUri(main)))) {
+                        photo = p;
                         exists = true;
                         break;
                     }
@@ -59,6 +60,10 @@ class PhotoUriHandler extends PostAsyncActionHandler {
             }
             main.setFollowGPS(false);
             Map map = main.getMap();
+            de.blau.android.layer.photos.MapOverlay layer = map.getPhotoLayer();
+            if (layer != null) {
+                layer.setSelected(photo);
+            }
             map.setFollowGPS(false);
             App.getLogic().setZoom(map, Main.ZOOM_FOR_ZOOMTO);
             map.getViewBox().moveTo(map, photo.getLon(), photo.getLat());

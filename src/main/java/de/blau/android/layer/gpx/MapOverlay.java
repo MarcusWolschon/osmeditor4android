@@ -315,4 +315,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public void deselectObjects() {
         // not used
     }
+
+    @Override
+    public void setSelected(WayPoint o) {
+        // not used
+    }
 }

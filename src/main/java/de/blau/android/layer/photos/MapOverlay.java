@@ -180,23 +180,36 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
             photos = pi.getPhotos(bb);
 
             for (Photo p : photos) {
-                Drawable i;
-                if (p == selected) {
-                    i = icon_selected;
-                } else {
-                    i = icon;
-                }
-                int x = (int) GeoMath.lonE7ToX(w, bb, p.getLon());
-                int y = (int) GeoMath.latE7ToY(h, w, bb, p.getLat());
-                i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
-                if (p.hasDirection()) {
-                    c.rotate(p.getDirection(), x, y);
-                    i.draw(c);
-                    c.rotate(-p.getDirection(), x, y);
-                } else {
-                    i.draw(c);
+                if (p != selected) {
+                    drawIcon(c, bb, w, h, p, icon);
                 }
             }
+            if (selected != null) {
+                drawIcon(c, bb, w, h, selected, icon_selected);
+            }
+        }
+    }
+
+    /**
+     * Draw the photo icon
+     * 
+     * @param c the Canvas
+     * @param bb the current ViewBox
+     * @param w map width
+     * @param h map height
+     * @param p the Photo
+     * @param i the icon Drawable
+     */
+    public void drawIcon(Canvas c, ViewBox bb, int w, int h, Photo p, Drawable i) {
+        int x = (int) GeoMath.lonE7ToX(w, bb, p.getLon());
+        int y = (int) GeoMath.latE7ToY(h, w, bb, p.getLat());
+        i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
+        if (p.hasDirection()) {
+            c.rotate(p.getDirection(), x, y);
+            i.draw(c);
+            c.rotate(-p.getDirection(), x, y);
+        } else {
+            i.draw(c);
         }
     }
 
@@ -265,7 +278,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
                 myIntent.setDataAndType(photoUri, MimeTypes.JPEG);
                 context.startActivity(myIntent);
                 selected = photo;
-                // TODO may need a map.invalidate() here
+                invalidate();
             } else {
                 Snack.toastTopError(context, resources.getString(R.string.toast_error_accessing_photo, photo.getRef()));
             }
@@ -289,12 +302,17 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
 
     @Override
     public Photo getSelected() {
-        return null;
+        return selected;
     }
 
     @Override
     public void deselectObjects() {
         selected = null;
+    }
+    
+    @Override
+    public void setSelected(Photo o) {
+        selected = o;
     }
 
     /**
