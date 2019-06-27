@@ -34,7 +34,7 @@ import de.blau.android.util.rtree.RTree;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 
-    private static final int    DATA_VERSION = 3;
+    private static final int    DATA_VERSION = 4;
     private static final String LOGTAG       = "PhotoIndex";
 
     /**
@@ -63,6 +63,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
         Log.d(LOGTAG, "Upgrading photo index DB");
         if (oldVersion <= 2) {
             db.execSQL("ALTER TABLE photos ADD direction int DEFAULT NULL");
+        }
+        if (oldVersion <= 3) {
+            db.execSQL("DELETE FROM photos"); // this should force a complete reindex
         }
     }
 
