@@ -1185,18 +1185,18 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param way way which shall be painted.
      */
     private void paintHiddenWay(@NonNull final Canvas canvas, @NonNull final Way way) {
-        map.pointListToLinePointsArray(points, way.getNodes());
-        float[] linePoints = points.getArray();
-        int pointsSize = points.size();
-
         //
         FeatureStyle style = DataStyle.getInternal(DataStyle.HIDDEN_WAY);
         if (zoomLevel < style.getMinVisibleZoom()) {
             return;
         }
+        
+        map.pointListToLinePointsArray(points, way.getNodes());
+        float[] linePoints = points.getArray();
+        int pointsSize = points.size();
 
         // draw the way itself
-        // canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
+        // this doesn't work properly with HW acceleration: canvas.drawLines(linePoints, fp.getPaint()); 
         if (pointsSize > 2) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
