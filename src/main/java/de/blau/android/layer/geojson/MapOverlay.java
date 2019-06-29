@@ -57,9 +57,11 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoJSONConstants;
+import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
+import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
@@ -202,7 +204,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
          * Serialize this object
          * 
          * @param out ObjectOutputStream to write to
-         * @throws IOException
+         * @throws IOException if writing failes
          */
         private void writeObject(java.io.ObjectOutputStream out) throws IOException {
             out.writeUTF(feature.toJson());
@@ -213,8 +215,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
          * Recreate the object for serialized state
          * 
          * @param in ObjectInputStream to write from
-         * @throws IOException
-         * @throws ClassNotFoundException
+         * @throws IOException if reading failes
+         * @throws ClassNotFoundException the target Class isn't defined
          */
         private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
             String jsonString = in.readUTF();
@@ -223,9 +225,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         }
     }
 
-    private RTree                data;
-    private final transient Path path = new Path();
-    private transient Paint      paint;
+    private RTree                        data;
+    private final transient Path         path   = new Path();
+    private transient Paint              paint;
+    private transient FloatPrimitiveList points = new FloatPrimitiveList();
 
     /** Map this is an overlay of. */
     private final transient Map map;
@@ -307,11 +310,13 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         }
         switch (g.type()) {
         case GeoJSONConstants.POINT:
+            paint.setStyle(Paint.Style.STROKE);
             drawPoint(canvas, bb, width, height, (Point) g, paint, label);
             break;
         case GeoJSONConstants.MULTIPOINT:
             @SuppressWarnings("unchecked")
             List<Point> points = ((CoordinateContainer<List<Point>>) g).coordinates();
+            paint.setStyle(Paint.Style.STROKE);
             for (Point q : points) {
                 drawPoint(canvas, bb, width, height, q, paint, label);
             }
@@ -372,18 +377,23 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param label label to display, null if none
      */
     public void drawPoint(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull Point p, @NonNull Paint paint, @Nullable String label) {
-        float x = GeoMath.lonToX(width, bb, p.longitude());
-        float y = GeoMath.latToY(height, width, bb, p.latitude());
-        canvas.save();
-        canvas.translate(x, y);
-        canvas.drawPath(DataStyle.getCurrent().getWaypointPath(), paint);
-        canvas.restore();
-        if (label != null) {
-            float yOffset = 2 * labelStrokeWidth + iconRadius;
-            float halfTextWidth = labelPaint.measureText(label) / 2;
-            FontMetrics fm = labelFs.getFontMetrics();
-            canvas.drawRect(x - halfTextWidth, y + yOffset + fm.bottom, x + halfTextWidth, y + yOffset - labelPaint.getTextSize() + fm.bottom, labelBackground);
-            canvas.drawText(label, x - halfTextWidth, y + yOffset, labelPaint);
+        double lon = p.longitude();
+        double lat = p.latitude();
+        if (bb.contains(lon, lat)) {
+            float x = GeoMath.lonToX(width, bb, p.longitude());
+            float y = GeoMath.latToY(height, width, bb, p.latitude());
+            canvas.save();
+            canvas.translate(x, y);
+            canvas.drawPath(DataStyle.getCurrent().getWaypointPath(), paint);
+            canvas.restore();
+            if (label != null) {
+                float yOffset = 2 * labelStrokeWidth + iconRadius;
+                float halfTextWidth = labelPaint.measureText(label) / 2;
+                FontMetrics fm = labelFs.getFontMetrics();
+                canvas.drawRect(x - halfTextWidth, y + yOffset + fm.bottom, x + halfTextWidth, y + yOffset - labelPaint.getTextSize() + fm.bottom,
+                        labelBackground);
+                canvas.drawText(label, x - halfTextWidth, y + yOffset, labelPaint);
+            }
         }
     }
 
@@ -398,19 +408,17 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param paint Paint object for drawing
      */
     public void drawLine(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<Point> line, @NonNull Paint paint) {
-        path.reset();
-        int size = line.size();
-        for (int i = 0; i < size; i++) {
-            Point p = line.get(i);
-            float x = GeoMath.lonToX(width, bb, p.longitude());
-            float y = GeoMath.latToY(height, width, bb, p.latitude());
-            if (i == 0) {
-                path.moveTo(x, y);
-            } else {
-                path.lineTo(x, y);
+        GeoJson.pointListToLinePointsArray(bb, width, height, points, line);
+        float[] linePoints = points.getArray();
+        int pointsSize = points.size();
+        if (pointsSize > 2) {
+            path.reset();
+            path.moveTo(linePoints[0], linePoints[1]);
+            for (int i = 0; i < pointsSize; i = i + 4) {
+                path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
+            canvas.drawPath(path, paint);
         }
-        canvas.drawPath(path, paint);
     }
 
     /**
@@ -426,19 +434,15 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public void drawPolygon(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<List<Point>> polygon, @NonNull Paint paint) {
         path.reset();
         for (List<Point> ring : polygon) {
-            int size = ring.size();
-            for (int i = 0; i < size; i++) {
-                Point p = ring.get(i);
-                float x = GeoMath.lonToX(width, bb, p.longitude());
-                float y = GeoMath.latToY(height, width, bb, p.latitude());
-                if (i == 0) {
-                    path.moveTo(x, y);
-                } else {
-                    path.lineTo(x, y);
+            GeoJson.pointListToLinePointsArray(bb, width, height, points, ring);
+            float[] linePoints = points.getArray();
+            int pointsSize = points.size();
+            if (pointsSize > 2) {
+                path.moveTo(linePoints[0], linePoints[1]);
+                for (int i = 0; i < pointsSize; i = i + 4) {
+                    path.lineTo(linePoints[i + 2], linePoints[i + 3]);
                 }
-                if (i == size - 1) {
-                    path.close();
-                }
+                path.close();
             }
         }
         path.setFillType(Path.FillType.EVEN_ODD);
