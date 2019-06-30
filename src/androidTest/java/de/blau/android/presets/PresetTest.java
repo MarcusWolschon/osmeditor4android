@@ -90,7 +90,7 @@ public class PresetTest {
         PresetItem landuseFarm = presets[0].getItemByName("Farm (deprecated)");
         PresetItem placeFarm = presets[0].getItemByName("Farm");
         Assert.assertNotNull(landuseFarm);
-        List<PresetElement> result = SearchIndexUtils.searchInPresets(main, "farm", ElementType.CLOSEDWAY, 2, 10);
+        List<PresetElement> result = SearchIndexUtils.searchInPresets(main, "farm", ElementType.CLOSEDWAY, 2, 10, null);
         Assert.assertFalse(result.contains(landuseFarm));
         Assert.assertTrue(result.contains(placeFarm));
     }

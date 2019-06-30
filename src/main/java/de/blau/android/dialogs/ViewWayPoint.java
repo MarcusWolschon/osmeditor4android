@@ -185,7 +185,8 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
         if (activity instanceof Main) {
             PresetElementPath presetPath = null;
             if (useSearch && wp.getType() != null) {
-                List<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), wp.getType(), ElementType.NODE, 1, 1));
+                List<PresetElement> searchResults = new ArrayList<>(
+                        SearchIndexUtils.searchInPresets(getActivity(), wp.getType(), ElementType.NODE, 1, 1, null));
                 if (searchResults != null && !searchResults.isEmpty()) {
                     Preset[] presets = App.getCurrentPresets(activity);
                     PresetGroup rootGroup = presets[0].getRootGroup();

@@ -103,7 +103,7 @@ public class Commands {
                         Snack.toastTopError(main, e.getLocalizedMessage());
                     }
 
-                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
+                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1, null);
                     if (presetItems != null && presetItems.size() == 1) {
                         addNode(createNode(loc, location), words.length == 3 ? words[2] : null, (PresetItem) presetItems.get(0), logic, v);
                         return;

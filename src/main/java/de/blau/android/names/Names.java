@@ -33,6 +33,9 @@ import de.blau.android.util.collections.MultiHashMap;
 public class Names {
     static final String DEBUG_TAG = "Names";
 
+    private static final String CATEGORIES_FILE = "categories.json";
+    private static final String NSI_FILE        = "name-suggestions.min.json";
+
     public class TagMap extends TreeMap<String, String> {
 
         private static final long serialVersionUID = 1L;
@@ -181,7 +184,7 @@ public class Names {
 
                 AssetManager assetManager = ctx.getAssets();
                 try {
-                    InputStream is = assetManager.open("name-suggestions.min.json");
+                    InputStream is = assetManager.open(NSI_FILE);
                     JsonReader reader = new JsonReader(new InputStreamReader(is));
 
                     try {
@@ -251,14 +254,14 @@ public class Names {
                             }
                             reader.endObject();
                         } catch (IOException | IllegalStateException e) {
-                            Log.e(DEBUG_TAG, "Got exception reading name-suggestions.min.json " + e.getMessage());
+                            Log.e(DEBUG_TAG, "Got exception reading " + NSI_FILE + " " + e.getMessage());
                         }
                     } finally {
                         SavingHelper.close(reader);
                         SavingHelper.close(is);
                     }
                     try {
-                        is = assetManager.open("categories.json"); // NOSONAR
+                        is = assetManager.open(CATEGORIES_FILE); // NOSONAR
                         reader = new JsonReader(new InputStreamReader(is));
                         try {
                             String category = null;
@@ -279,7 +282,7 @@ public class Names {
                             }
                             reader.endObject();
                         } catch (IOException e) {
-                            Log.d(DEBUG_TAG, "Got exception reading categories.json " + e.getMessage());
+                            Log.d(DEBUG_TAG, "Got exception reading " + CATEGORIES_FILE + " " + e.getMessage());
                         }
                     } finally {
                         SavingHelper.close(reader);

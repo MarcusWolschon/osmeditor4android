@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -14,9 +16,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.presets.PresetField;
 import de.blau.android.presets.Synonyms;
 import de.blau.android.util.collections.MultiHashMap;
 
@@ -77,23 +84,25 @@ public class SearchIndexUtils {
     }
 
     /**
-     * Slightly fuzzy search in the synonyms and preset index for presets and return them, translated items first from
-     * the preset index
+     * Slightly fuzzy search in the synonyms, preset index and name suggestion index for presets and return them
      * 
      * @param ctx Android Context
      * @param term search term
      * @param type OSM object "type"
      * @param maxDistance maximum edit distance to return
      * @param limit max number of results
+     * @param regions current regions or null
      * @return a List containing up to limit PresetItems found
      */
     @NonNull
-    public static List<PresetElement> searchInPresets(@NonNull Context ctx, @NonNull String term, @Nullable ElementType type, int maxDistance, int limit) {
+    public static List<PresetElement> searchInPresets(@NonNull Context ctx, @NonNull String term, @Nullable ElementType type, int maxDistance, int limit,
+            @Nullable List<String> regions) {
         term = SearchIndexUtils.normalize(term);
         // synonyms first
         Synonyms synonyms = App.getSynonyms(ctx);
         List<IndexSearchResult> rawResult = synonyms.search(ctx, term, type, maxDistance);
 
+        // search in presets
         List<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<>();
         presetSeachIndices.add(App.getTranslatedPresetSearchIndex(ctx));
         presetSeachIndices.add(App.getPresetSearchIndex(ctx));
@@ -111,20 +120,56 @@ public class SearchIndexUtils {
                     int weight = distance * presetItems.size(); // if there are a lot of items for a term, penalize
                     for (PresetItem pi : presetItems) {
                         if (type == null || pi.appliesTo(type)) {
-                            int actualWeight = weight;
-                            String name = SearchIndexUtils.normalize(pi.getName());
-                            if (name.equals(term)) { // exact name match
-                                actualWeight = -2;
-                            } else if (name.indexOf(term) >= 0) {
-                                actualWeight = -1;
-                            }
-                            IndexSearchResult isr = new IndexSearchResult(actualWeight, pi);
+                            IndexSearchResult isr = new IndexSearchResult(rescale(term, weight, pi), pi);
                             rawResult.add(isr);
                         }
                     }
                 }
             }
         }
+
+        // search in NSI
+        Preferences prefs = new Preferences(ctx);
+        if (prefs.nameSuggestionPresetsEnabled()) {
+            MultiHashMap<String, NameAndTags> nsi = App.getNameSearchIndex(ctx);
+            Set<String> names = nsi.getKeys();
+            Preset[] presets = App.getCurrentPresets(ctx);
+            Preset preset = Preset.dummyInstance();
+            for (String name : names) {
+                int distance = name.indexOf(term);
+                if (distance == -1) {
+                    distance = OptimalStringAlignment.editDistance(name, term, maxDistance);
+                } else {
+                    distance = 0;
+                }
+                if ((distance >= 0 && distance <= maxDistance)) {
+                    Set<NameAndTags> nats = nsi.get(name);
+                    for (NameAndTags nat : nats) {
+                        if (nat.inUseIn(regions)) {
+                            TagMap tags = nat.getTags();
+                            PresetItem pi = Preset.findBestMatch(presets, tags, false);
+                            PresetItem namePi = preset.new PresetItem(null, nat.getName(), pi == null ? null : pi.getIconpath(), null);
+                            for (Entry<String, String> entry : tags.entrySet()) {
+                                namePi.addTag(entry.getKey(), PresetKeyType.TEXT, entry.getValue(), null);
+                            }
+                            if (pi != null) {
+                                Map<String, PresetField> fields = pi.getFields();
+                                for (Entry<String, PresetField> entry : fields.entrySet()) {
+                                    String key = entry.getKey();
+                                    if (!tags.containsKey(key)) {
+                                        namePi.addField(entry.getValue());
+                                    }
+                                }
+                            }
+                            IndexSearchResult isr = new IndexSearchResult(rescale(term, distance, namePi), namePi);
+                            rawResult.add(isr);
+                        }
+                    }
+                }
+            }
+        }
+
+        // sort and return results
         Collections.sort(rawResult);
         List<PresetElement> result = new ArrayList<>();
         for (IndexSearchResult i : rawResult) {
@@ -137,6 +182,25 @@ public class SearchIndexUtils {
             return result.subList(0, Math.min(result.size(), limit));
         }
         return result; // empty
+    }
+
+    /**
+     * Give exact and partial matches best positions
+     * 
+     * @param term the search term
+     * @param weight original weight
+     * @param pi the PresetItem
+     * @return the new weight
+     */
+    public static int rescale(@NonNull String term, int weight, @NonNull PresetItem pi) {
+        int actualWeight = weight;
+        String name = SearchIndexUtils.normalize(pi.getName());
+        if (name.equals(term)) { // exact name match
+            actualWeight = -2;
+        } else if (term.length() >= 3 && name.indexOf(term) >= 0) {
+            actualWeight = -1;
+        }
+        return actualWeight;
     }
 
     /**

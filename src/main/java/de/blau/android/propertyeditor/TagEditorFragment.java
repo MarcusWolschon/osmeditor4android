@@ -499,7 +499,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         }
     }
-    
+
     /**
      * Creates edit rows from a SortedMap containing tags (as sequential key-value pairs)
      * 
@@ -1716,13 +1716,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
         }
 
-        if (wasEmpty || getBestPreset() == null) {
-            // preset is what we just applied
-            updateAutocompletePresetItem(item, addToMRU);
-        } else {
-            // re-determine best preset
-            updateAutocompletePresetItem(null, addToMRU);
-        }
+        // re-determine best preset
+        updateAutocompletePresetItem(null, addToMRU);
 
         // only focus on an empty field if we are actually being shown
         if (propertyEditorListener != null && propertyEditorListener.onTop(this)) {

@@ -374,7 +374,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
                     }
 
-                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
+                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1, null);
 
                     if (presetItems != null && presetItems.size() == 1) {
                         Node node = addNode(logic.performAddNode(main, startLon, startLat), words.length == 2 ? words[1] : null,

@@ -235,7 +235,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     }
                 });
                 try {
-                    return new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS));
+                    return new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS, propertyEditorListener.getIsoCodes()));
                 } finally {
                     activity.runOnUiThread(new Runnable() {
                         @Override

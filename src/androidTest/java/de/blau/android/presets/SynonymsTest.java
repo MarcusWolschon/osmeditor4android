@@ -43,7 +43,7 @@ public class SynonymsTest {
     public void search() {
         Locale locale = Locale.getDefault();
         Assert.assertEquals(Locale.US.getCountry(), locale.getCountry());
-        List<PresetElement> result = SearchIndexUtils.searchInPresets(main, "raptor", ElementType.NODE, 2, 10);
+        List<PresetElement> result = SearchIndexUtils.searchInPresets(main, "raptor", ElementType.NODE, 2, 10, null);
         Assert.assertTrue(result.size() > 0);
         Assert.assertEquals("Animal shelter", result.get(0).getName());
     }

@@ -1710,6 +1710,7 @@ public class Preset implements Serializable {
      * @param useAddressKeys use addr: keys if true
      * @return a preset or null if none found
      */
+    @Nullable
     public static PresetItem findBestMatch(@Nullable Preset[] presets, @Nullable Map<String, String> tags, boolean useAddressKeys) {
         int bestMatchStrength = 0;
         PresetItem bestMatch = null;
