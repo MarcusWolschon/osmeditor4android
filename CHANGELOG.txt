@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+13.1.0: use NSI as an additional source for preset searches, support clipping to viewbox for GeoJSON layers, fix crash on empty input in "go to coordiantes", update translations and imagery.
+
 13.1.0-3: Fix various issues with configuration changes in the PropertyEditor, unconnected end nodes validation improvements, fix Osmose description issue, support reading data produced by overpass, updated imagery and translations. 
 
 13.1.0-2: Protect against non-integer zoom levels in intents, protect against cancelled download manager downloads, protect against potential race condition when adding nodes to way, update nsi, update translations, add mapping for zh_HK, update preset.
