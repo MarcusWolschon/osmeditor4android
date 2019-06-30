@@ -69,6 +69,9 @@ public class CoordinatesOrOLC {
                     @Override
                     public void processLine(EditText input) {
                         String text = input.getText().toString();
+                        if ("".equals(text)) {
+                            return;
+                        }
                         LatLon ll = null;
                         try {
                             ll = CoordinateParser.parseVerbatimCoordinates(text);
