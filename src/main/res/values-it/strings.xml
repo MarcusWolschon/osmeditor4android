@@ -24,6 +24,7 @@
   <string name="no_connection_message">Non è stato possibile connettersi al server OSM. Per favore controlla di essere connesso a Internet o riprova più tardi.</string>
   <string name="wrong_login_data_title">Autenticazione fallita</string>
   <string name="wrong_login_data_message">Se utilizzi OAuth, riautenticati e prova di nuovo. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
+  <string name="wrong_login_data_re_authenticate">Esegui nuovamente autenticazione</string>
   <string name="forbidden_login_title">Login proibito</string>
   <string name="not_found_title">Elemento non trovato</string>
   <string name="unknown_error_title">Errore sconosciuto</string>
@@ -91,6 +92,7 @@
   <string name="bug_element_1">%1$s (non scaricato) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">Compiti MapRoulette</string>
+  <string name="maproulette_task_disable">Disabilita</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Le tuoi modifiche non salvare verranno eliminate se procedi.</string>
@@ -121,6 +123,7 @@
   <string name="existing_track_message">Sono già presenti dati in formato GPX, potresti volerli salvare</string>
   <string name="delete_tags">Cancellare tutte le etichette dell\'oggetto\"%1$s\"?</string>
   <!--element information dialog-->
+  <string name="element_information">Informazioni elemento</string>
   <string name="nodes">Nodi</string>
   <string name="relation_membership">Membri della relazione</string>
   <string name="problem">Problema</string>
@@ -129,6 +132,7 @@
   <string name="version">Versione</string>
   <string name="length_m">Lunghezza (metri)</string>
   <string name="not_downloaded">Non scaricato</string>
+  <string name="empty_role">Ruolo non solezionato</string>
   <string name="last_edited">Ultima modifica</string>
   <string name="original">Originale</string>
   <string name="current">Attuale</string>
@@ -210,12 +214,15 @@
   <string name="layer_info_end_date">Data di fine</string>
   <string name="layer_info_terms">Termini</string>
   <string name="layer_info_privacy_policy">Privacy policy</string>
+  <!--API info dialog-->
+  <string name="api_info_bounds">Riquadro di selezione</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punti di controllo</string>
   <string name="undo_redo_title">Annulla</string>
   <string name="undo_all">Annulla tutti i punti di controllo successivi (sicuro)</string>
   <string name="redo_all">Ripeti tutti i punti di controllo precedenti (sicuro)</string>
   <!--Feedback activity-->
+  <string name="feedback_title">Feedback per gli sviluppatori</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
@@ -258,6 +265,7 @@
   <string name="toast_untagged_way">Strada senza tag</string>
   <string name="toast_untagged_relation">Relazione senza tag</string>
   <string name="toast_unconnected_end_node">Il nodo è vicino a un elemento a cui potrebbe essere connesso</string>
+  <!---->
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
@@ -296,6 +304,7 @@
   <string name="toast_properties_copied">Proprietà copiate in memoria</string>
   <string name="toast_task_layer_disabled">Livello compiti disabilitato</string>
   <string name="toast_unable_to_create_task_layer">Impossibile creare un livello per i compiti</string>
+  <string name="toast_merged">Unito</string>
   <string name="toast_invalid_style_file">Formato dei file invalido per %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom massimo e minimo</string>
@@ -408,6 +417,8 @@
   <string name="location_load_dismiss">Vai alla mappa</string>
   <string name="location_nan_title">Input erroneo!</string>
   <string name="location_nan_message">Per favore inserisci coordinate in formato decimale (es. \"52.333572\",\"8.741185\"). Lat. deve essere tra -85.0 e +85.0, e Lon. deve essere tra -175.0 e +175.0.</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Sposta</string>
   <string name="menu_edit">Modifica</string>
@@ -433,6 +444,7 @@
   <string name="menu_gps_show">Mostra posizione</string>
   <string name="menu_gps_follow">Segui la posizione</string>
   <string name="menu_gps_goto">Spostati alla posizione attuale</string>
+  <string name="menu_gps_goto_coordinates">Vai alle coordinate...</string>
   <string name="menu_gps_start">Inizia traccia GPX</string>
   <string name="menu_gps_pause">Metti in pausa la traccia GPX</string>
   <string name="menu_gps_clear">Cancella la traccia GPX e le tappe intermedie</string>
@@ -458,6 +470,7 @@
   <string name="menu_transfer_read_file">Leggi da file JOSM</string>
   <string name="menu_transfer_read_pbf_file">Leggi da file PBF</string>
   <string name="menu_transfer_save_file">Salva in formato JOSM</string>
+  <string name="menu_transfer_download_msf">Scarica dati per utilizzo offline</string>
   <string name="menu_transfer_bugs">Compiti...</string>
   <string name="menu_transfer_bugs_download_current">Scarica compiti per la vista corrente</string>
   <string name="menu_transfer_bugs_upload">Carica tutto</string>
@@ -552,6 +565,7 @@
   <string name="actionmode_closed_way_split_2">Dividi il percorso chiuso, 2° nodo</string>
   <string name="actionmode_restriction">Aggiungi un divieto di svolta</string>
   <string name="actionmode_restriction_restart_from">Seleziona di nuovo il segmento \"da\"</string>
+  <string name="actionmode_restriction_select_from">Selezionare il segmento \"from\"</string>
   <string name="actionmode_restriction_via">Aggiungi un segmento/elemento \"via\"</string>
   <string name="actionmode_restriction_restart_via">Seleziona di nuovo un segmento \"via\"</string>
   <string name="actionmode_restriction_to">Aggiungi un segmento \"verso\"</string>
@@ -583,6 +597,7 @@
   <string name="config_validatorprefs_title">Impostazioni del validatore</string>
   <string name="config_connectedNodeTolerance_title">Tolleranza dei nodi connessi</string>
   <string name="config_connectedNodeTolerance_summary">Se il nodo finale di una strada è in questa distanza (in metri) da un\'altra strada, dovrebbe essere connesso</string>
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autori e licenze</string>
   <string name="config_debugbutton_title">Debug</string>
@@ -613,7 +628,6 @@
   <string name="config_enableAntiAliasing_title">Abilità l\'anti-aliasing</string>
   <string name="config_enableAntiAliasing_summary">Rendi le linee più morbide.</string>
   <string name="config_enableHwAcceleration_title">Abilita accelerazione hardware</string>
-  <string name="config_enableHwAcceleration_summary">Permette l\'uso dell\'accelerazione hardware se supportata; potrebbero risultare artefatti.</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Non disegnare una strada più larga di così.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -662,6 +676,9 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Varie</string>
+  <string name="pref_enable_acra">Segnala crash dell\'applicazione</string>
+  <string name="pref_acra_enabled">Segnalazione crash abilitata</string>
+  <string name="pref_acra_disabled">Segnalazione crash disabilitata</string>
   <string name="config_showStats_title">Mostra statistiche</string>
   <string name="config_showStats_summary">Mostra statistiche e FPS nell\'angolo in basso a sinistra.</string>
   <!--Experimental-->
@@ -733,6 +750,7 @@
   <string name="undo_action_split_ways">Separazione linee</string>
   <string name="undo_action_split_way">Separazione linea</string>
   <string name="undo_action_merge_ways">Unione linea</string>
+  <string name="undo_action_reverse_way">Inversione direzione del percorso</string>
   <string name="undo_action_set_tags">Etichettatura</string>
   <string name="undo_action_join">Unione</string>
   <string name="undo_action_unjoin_ways">Separazione linea</string>
@@ -741,6 +759,8 @@
   <string name="undo_action_update_relations">Aggiornamneto relazione</string>
   <string name="undo_action_cut">Taglia</string>
   <string name="undo_action_paste">Incolla</string>
+  <string name="undo_action_rotateway">Rotazione del percorso</string>
+  <string name="undo_action_orthogonalize">Squadratura del percorso</string>
   <string name="undo_action_circulize">Rendi rotondo</string>
   <string name="undo_action_fix_conflict">Risoluzione conflitti</string>
   <string name="undo_action_extract_node">Estrazione nodo</string>

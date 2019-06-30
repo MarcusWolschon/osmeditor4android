@@ -174,6 +174,7 @@
   <string name="layer_tasks">Uppgifter</string>
   <string name="layer_change_style">Byt stil</string>
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrollpunkter</string>
   <!--Feedback activity-->
@@ -208,6 +209,7 @@
   </plurals>
   <string name="read_mail">Läs</string>
   <string name="toast_unsurveyed_road">Oklassificerad väg</string>
+  <!---->
   <string name="toast_oauth_handshake_failed">Kunde inte utföra OAuth-handslag: %1$s</string>
   <string name="coordinates_out_of_range">Longitud måste vara mellan -180°/+180°, latitud mellan -85°/85°</string>
   <string name="toast_nothing_found">Hittade inget</string>
@@ -328,6 +330,8 @@
   <string name="location_load_dismiss">Gå till karta</string>
   <string name="location_nan_title">Felaktig inmatning!</string>
   <string name="location_nan_message">Vänligen infoga decimal formaterade koordinater (t.ex. \"52.333572\",\"8.741185\"). Lat. måste ligga mellan -85.0 och +85.0 och Lon. måste ligga mellan -175.0 och +175.0.</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Flytta</string>
   <string name="menu_edit">Redigera</string>
@@ -473,6 +477,7 @@
   <string name="config_presetbutton_summary">Lägg till och aktivera JOSM-kompatibla förinställningar</string>
   <string name="config_built_in_preset">Inbyggd förinställning</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Upphovsmän och licenser</string>
   <string name="config_debugbutton_title">Felsökning</string>

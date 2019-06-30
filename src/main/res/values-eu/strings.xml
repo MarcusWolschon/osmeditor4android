@@ -139,6 +139,7 @@
   <!--Layer info dialog-->
   <string name="layer_info_terms">Baldintzak</string>
   <string name="layer_info_privacy_policy">Pribatutasun politika</string>
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -162,6 +163,7 @@
   <string name="toast_state_file_failed">Egoera fitxategi irakurgaitza edo hondatua</string>
   <string name="read_mail">Irakurri</string>
   <string name="toast_download_failed">Deskargak huts egin du %1$d errore kodearekin, mezua %2$s</string>
+  <!---->
   <string name="toast_nothing_found">Ez da ezer aurkitu</string>
   <string name="toast_file_not_found">ez da %1$s aurkitu.</string>
   <string name="toast_min_one_preset">Gutxienez aurre-ezarpen bat aukeratu behar da!</string>
@@ -264,6 +266,8 @@
   <string name="location_search_label">Bilatu:</string>
   <string name="location_load_button">Kargatu</string>
   <string name="location_load_dismiss">Joan mapara</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Mugitu</string>
   <string name="menu_edit">Aldatu</string>
@@ -350,6 +354,7 @@
   <string name="config_presetbutton_summary">Gehitu eta gaitu JOSM-rekin bateragarriak diren aurre-ezarpenak</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Balioztatzailearen ezarpenak</string>
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Arazketa</string>
   <string name="config_category_info">Honi buruz</string>

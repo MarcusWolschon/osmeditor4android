@@ -7,6 +7,7 @@
   <string name="mode_correct">Reżim C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Pozor!</string>
+  <string name="transfer_download_current_dialog_message">Vykonali ste zmeny. Chcete ich odovzdať, aby neboli zahodené?</string>
   <string name="transfer_download_current_upload">Odovzdať</string>
   <string name="transfer_download_current_download">Zahodiť a prevziať</string>
   <string name="transfer_download_current_back">Späť (nič nevykonať)</string>
@@ -43,6 +44,7 @@
   <string name="progress_oauth">Načítava sa váš účet na službe openstreetmap.org pre autorizáciu OAuth…</string>
   <string name="progress_building_imagery_database">Zostavuje sa databáza obrázkov…</string>
   <!--Confirm upload dialog-->
+  <string name="changes_changed">Zmenený objekt „%1$s“</string>
   <string name="changes_created">Vytvorený objekt „%1$s“</string>
   <string name="confirm_upload_title">Odovzdanie zmien</string>
   <plurals name="confirm_upload_text">
@@ -67,6 +69,8 @@
   <string name="openstreetbug_edit_title">Úprava poznámky</string>
   <string name="openstreetbug_comment_label">Komentár:</string>
   <string name="openstreetbug_commit_ok">Zmeny úlohy boli uložené</string>
+  <string name="openstreetbug_unknown_task_type">Neznámy typ úlohy</string>
+  <string name="note_description">Poznámka: %1$s - %2$s</string>
   <string name="generic_bug">Chyba</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Vlastná</string>
@@ -113,7 +117,9 @@
   <string name="current">Aktuálny</string>
   <string name="goto_element">Prejsť na prvok</string>
   <!--GeoJSON feature display dialog-->
+  <string name="copy_properties">Skopírovať vlastnosti</string>
   <!---->
+  <string name="error">Chyba</string>
   <string name="warning">Upozornenie</string>
   <string name="minor_issue">Menšia chyba</string>
   <!--hidden object warning dialog-->
@@ -142,6 +148,7 @@
   <string name="layer_select_imagery">Vybrať obrázky</string>
   <!--Layer info dialog-->
   <string name="layer_info_privacy_policy">Politika súkromia</string>
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrolné body</string>
   <!--Feedback activity-->
@@ -167,6 +174,7 @@
   <string name="toast_unsurveyed_road">Nepreskúmaná cesta</string>
   <string name="toast_untagged_way">Neoznačená cesta</string>
   <string name="toast_untagged_relation">Neoznačená relácia</string>
+  <!---->
   <string name="toast_nothing_found">Nič sa nenašlo</string>
   <string name="toast_outside_of_download">Na úpravu tejto oblasti prevezmite viac údajov.</string>
   <string name="toast_file_not_found">Súbor %1$s sa nenašiel.</string>
@@ -180,7 +188,9 @@
   <string name="toast_openinghours_invalid">Neplatná hodnota otváracej doby pre %1$s</string>
   <string name="toast_exit_multiselect">Na ukončenie ťuknite dvakrát na prázdne miesto alebo použite šípku ←</string>
   <string name="toast_server_connection_failed">Nepodarilo sa pripojiť k serveru: %1$s</string>
+  <string name="toast_applied_offset">Posun obrázkov bol použitý.</string>
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
+  <string name="toast_tags_copied">Značky skopírované do schránky</string>
   <string name="toast_tags_cut">Značky vystrihnuté do schránky</string>
   <string name="toast_properties_copied">Vlastnosti skopírované do schránky</string>
   <string name="toast_task_layer_disabled">Vrstva s úlohami bola zakázaná</string>
@@ -211,6 +221,9 @@
   <string name="overwrite">Prepísať</string>
   <string name="share">Zdieľať</string>
   <string name="share_position">Zdieľať pozíciu</string>
+  <string name="min">Min.</string>
+  <string name="max">Max.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
   <!--Dialog for back button-->
   <string name="exit_title">Ukončenie aplikácie Vespucci</string>
   <string name="exit_text">Naozaj chcete skončiť?</string>
@@ -270,6 +283,8 @@
   <string name="location_coordinates_text">Zo súradníc:</string>
   <string name="location_load_button">Načítať</string>
   <string name="location_load_dismiss">Prejsť na mapu</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Premiestniť</string>
   <string name="menu_edit">Upraviť</string>
@@ -295,6 +310,8 @@
   <string name="menu_gps_follow">Nasledovať umiestnenie</string>
   <string name="menu_gps_goto">Prejsť na aktuálne umiestnenie</string>
   <string name="menu_gps_start">Začať stopu GPX</string>
+  <string name="menu_gps_import">Importovať stopu GPX</string>
+  <string name="menu_gps_goto_start">Prejsť na začiatok stopy GPX</string>
   <string name="menu_gps_autodownload">Automatické prevzatie</string>
   <string name="menu_transfer">Prenos…</string>
   <string name="menu_transfer_download_current">Prevziať aktuálne zobrazenie</string>
@@ -308,6 +325,7 @@
   <string name="menu_transfer_file">Súbor…</string>
   <string name="menu_transfer_bugs_upload">Odovzdať všetko</string>
   <string name="menu_transfer_bugs_clear">Vymazať</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Uložiť nové a zmenené poznámky…</string>
   <string name="menu_save">Uložiť do súboru</string>
   <string name="menu_join">Spojiť</string>
   <string name="menu_unjoin">Rozpojiť</string>
@@ -337,6 +355,8 @@
   <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnať pozadie</string>
   <string name="menu_tools_background_align_reset">Obnoviť</string>
+  <string name="menu_tools_background_align_zero">Vynulovať</string>
+  <string name="menu_tools_background_align_apply2all">Použiť (všetky úrovne priblíženia)</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Vrstvy…</string>
   <string name="menu_layers_add_backgroundlayer">Pridať vrstvu s obrázkami pozadia</string>
@@ -360,6 +380,7 @@
   <string name="reverse_anyway">Napriek tomu obrátiť</string>
   <string name="deletenode">Odstrániť uzol</string>
   <string name="split_all_ways">Rozdeliť všetky cesty</string>
+  <string name="delete_note">Odstrániť poznámku</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vybraná cesta</string>
   <string name="actionmode_nodeselect">Vybraný uzol</string>
@@ -393,6 +414,7 @@
   <string name="config_presetbutton_title">Predvoľby</string>
   <string name="config_presetbutton_summary">Pridať a povoliť kompatibilné predvoľby s aplikáciou JOSM</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autori a licencie</string>
   <string name="config_debugbutton_title">Ladenie</string>
@@ -414,6 +436,8 @@
   <!--Location Settings-->
   <!--Server Settings-->
   <string name="config_loginbutton_title">Používateľský účet</string>
+  <string name="config_offsetServer_title">Server posunu</string>
+  <string name="config_offsetServer_summary">URL servera posunu obrázkov.</string>
   <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Veľkosť vyrovnávacej pamäte dlaždíc</string>
   <!--Miscellaneous-->

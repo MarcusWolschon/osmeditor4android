@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-06-07 14:40+0200\n"
-"PO-Revision-Date: 2019-06-20 17:50+0000\n"
+"PO-Revision-Date: 2019-06-23 15:10+0000\n"
 "Last-Translator: Janjko <janjko@gmail.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/openstreetmap/presets/language/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -1314,7 +1314,7 @@ msgstr ""
 
 #: master_preset.xml:1878(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
-msgstr ""
+msgstr "Granični prijelaz"
 
 #: master_preset.xml:8275(combo:text|group:Boundaries|preset:Maritime|key:border_type)
 msgid "Border type"
@@ -1469,7 +1469,7 @@ msgstr ""
 
 #: master_preset.xml:2665(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
-msgstr ""
+msgstr "Blokada vlaka na kraju pruge"
 
 #: master_preset.xml:9468(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
@@ -1590,7 +1590,7 @@ msgstr ""
 
 #: master_preset.xml:4475(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Bust"
-msgstr ""
+msgstr "Poprsje"
 
 #: master_preset.xml:7198(item:name|group:Food|preset:Butcher)
 msgid "Butcher"
@@ -1852,7 +1852,7 @@ msgstr ""
 
 #: master_preset.xml:1993(item:name|group:Barriers|preset:Chain)
 msgid "Chain"
-msgstr ""
+msgstr "Lanac"
 
 #: master_preset.xml:3072(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:chain_tool)
 msgid "Chain tool"
@@ -3298,7 +3298,7 @@ msgstr ""
 
 #: master_preset.xml:1601(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
-msgstr ""
+msgstr "Pokretne stepenice"
 
 #: master_preset.xml:1326(item:name|group:Streets|preset:Escape)
 msgid "Escape"
@@ -4041,7 +4041,7 @@ msgstr ""
 
 #: master_preset.xml:4475(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "Grafiti"
 
 #: master_preset.xml:995(combo:display_values|key:climbing:rock)
 msgid "Granite"
@@ -4161,7 +4161,7 @@ msgstr ""
 #: master_preset.xml:3770(item:name|group:Tourism|preset:Guidepost)
 #: master_preset.xml:790(role:text|key:guidepost)
 msgid "Guidepost"
-msgstr ""
+msgstr "Putokaz"
 
 #: master_preset.xml:4983(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Guillemin"
@@ -4653,7 +4653,7 @@ msgstr ""
 
 #: master_preset.xml:3760(item:name|group:Tourism|preset:Information_Board)
 msgid "Information Board"
-msgstr ""
+msgstr "Informativna ploča"
 
 #: master_preset.xml:3730(item:name|group:Tourism|preset:Information_Office)
 msgid "Information Office"
@@ -5157,7 +5157,7 @@ msgstr ""
 #: master_preset.xml:2581(item:name|group:Railway|preset:Light_Rail)
 #: master_preset.xml:3180(check:text|group:Public_Transport|preset:Stop_Position|key:light_rail)
 msgid "Light Rail"
-msgstr ""
+msgstr "Laka željeznica"
 
 #: master_preset.xml:6480(item:name|group:Man_Made|preset:Lighthouse)
 msgid "Lighthouse"
@@ -5392,7 +5392,7 @@ msgstr ""
 
 #: master_preset.xml:4990(text:text|group:Emergency|preset:Fire_Hydrant|key:manufacturer)
 msgid "Manufacturer"
-msgstr ""
+msgstr "Proizvođač"
 
 #: master_preset.xml:964(multiselect:display_values|key:language)
 msgid "Maori"
@@ -5400,7 +5400,7 @@ msgstr ""
 
 #: master_preset.xml:3740(item:name|group:Tourism|preset:Map)
 msgid "Map"
-msgstr ""
+msgstr "Karta"
 
 #: master_preset.xml:964(multiselect:display_values|key:language)
 msgid "Marathi"
@@ -5457,7 +5457,7 @@ msgstr ""
 #: master_preset.xml:2306(combo:text|group:Water|preset:Penstock|key:material)
 #: master_preset.xml:4479(combo:text|group:Culture|preset:Artwork|key:material)
 msgid "Material"
-msgstr ""
+msgstr "Materijal"
 
 #: master_preset.xml:418(list_entry:short_description|value:maternity)
 msgid "Maternity"
@@ -6043,7 +6043,7 @@ msgstr ""
 
 #: master_preset.xml:4475(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
-msgstr ""
+msgstr "Mural"
 
 #: master_preset.xml:4360(item:name|group:Culture|preset:Museum)
 msgid "Museum"
@@ -6524,7 +6524,7 @@ msgstr ""
 #: master_preset.xml:1433(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
 #: master_preset.xml:2916(check:text|group:Car|preset:Charging_Station|key:authentication:none)
 msgid "None"
-msgstr ""
+msgstr "Nema"
 
 #: master_preset.xml:406(multiselect:display_values|key:cuisine)
 msgid "Noodle"
@@ -7332,7 +7332,7 @@ msgstr ""
 #: master_preset.xml:2172(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:horse)
 #: master_preset.xml:2174(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:goods)
 msgid "Permit"
-msgstr ""
+msgstr "Propusnica"
 
 #: master_preset.xml:831(combo:display_values|key:access)
 msgid "Permit required"
@@ -8177,7 +8177,7 @@ msgstr ""
 
 #: master_preset.xml:5297(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
-msgstr ""
+msgstr "Kontejner za reciklažu"
 
 #: master_preset.xml:4986(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:colour)
 #: master_preset.xml:4987(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:bonnet:colour)
@@ -8608,7 +8608,7 @@ msgstr ""
 
 #: master_preset.xml:1361(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
-msgstr ""
+msgstr "Kružni tok"
 
 #: master_preset.xml:5924(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:rounders)
 msgid "Rounders"
@@ -8917,7 +8917,7 @@ msgstr ""
 #: master_preset.xml:4461(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 #: master_preset.xml:4475(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Sculpture"
-msgstr ""
+msgstr "Skulptura"
 
 #: master_preset.xml:5445(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Sea animal"
@@ -9590,7 +9590,7 @@ msgstr ""
 
 #: master_preset.xml:4475(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Statue"
-msgstr ""
+msgstr "Kip"
 
 #: master_preset.xml:406(multiselect:display_values|key:cuisine)
 msgid "Steak house"
@@ -10265,7 +10265,7 @@ msgstr ""
 #: master_preset.xml:7040(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 #: master_preset.xml:7096(item:name|group:Historic_Places_&_Objects|preset:Tomb)
 msgid "Tomb"
-msgstr ""
+msgstr "Grobnica"
 
 #: master_preset.xml:7101(combo:text|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Tomb type"
@@ -10860,7 +10860,7 @@ msgstr ""
 
 #: master_preset.xml:2983(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
-msgstr ""
+msgstr "Tehnički pregled vozila"
 
 #: master_preset.xml:8555(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"
@@ -11124,7 +11124,7 @@ msgstr ""
 
 #: master_preset.xml:2254(item:name|group:Water|preset:Waterfall)
 msgid "Waterfall"
-msgstr ""
+msgstr "Vodopad"
 
 #: master_preset.xml:2362(label:text|group:Water|preset:Wetland)
 msgid "Waterlogged area, either permanently or seasonally with vegetation."
@@ -11137,7 +11137,7 @@ msgstr "Vodenica"
 #: master_preset.xml:8994(list_entry:display_value|group:Relations|preset:Relations|value:waterway)
 #: master_preset.xml:9363(item:name|preset:Waterway)
 msgid "Waterway"
-msgstr ""
+msgstr "Vodeni tok"
 
 #: master_preset.xml:6763(item:name|group:Power_Generator|preset:Wave_Energy_Converter)
 msgid "Wave Energy Converter"
@@ -11322,7 +11322,7 @@ msgstr ""
 
 #: master_preset.xml:3528(item:name|group:Accommodation|preset:Wilderness_Hut)
 msgid "Wilderness Hut"
-msgstr ""
+msgstr "Planinarsko sklonište"
 
 #: master_preset.xml:5445(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Wildlife"
@@ -11953,7 +11953,7 @@ msgstr ""
 #: master_preset.xml:6917(combo:text|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Material"
-msgstr ""
+msgstr "Materijal"
 
 #: master_preset.xml:18(combo:display_values|key:material)
 #: master_preset.xml:1897(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
@@ -12185,7 +12185,7 @@ msgstr ""
 #: master_preset.xml:116(list_entry:short_description|value:no)
 msgctxt "sidewalk"
 msgid "None"
-msgstr ""
+msgstr "Nema"
 
 #: master_preset.xml:114(list_entry:short_description|value:left)
 msgctxt "sidewalk"
@@ -12200,7 +12200,7 @@ msgstr ""
 #: master_preset.xml:112(combo:text|key:sidewalk)
 msgctxt "sidewalk"
 msgid "Sidewalk"
-msgstr ""
+msgstr "Pločik"
 
 #: master_preset.xml:131(multiselect:text|key:crossing)
 msgctxt "pedestrian"
@@ -14007,7 +14007,7 @@ msgstr ""
 #: master_preset.xml:1566(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Sidewalk"
-msgstr ""
+msgstr "Pločik"
 
 #: master_preset.xml:1566(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -15190,7 +15190,7 @@ msgstr ""
 #: master_preset.xml:7121(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Bust"
-msgstr ""
+msgstr "Poprsje"
 
 #: master_preset.xml:7121(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -15200,7 +15200,7 @@ msgstr ""
 #: master_preset.xml:7121(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Statue"
-msgstr ""
+msgstr "Kip"
 
 #: master_preset.xml:7121(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -15461,7 +15461,7 @@ msgstr ""
 #: master_preset.xml:8808(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Slaughterhouse"
-msgstr ""
+msgstr "Klaonica"
 
 #: master_preset.xml:8808(combo:text|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"

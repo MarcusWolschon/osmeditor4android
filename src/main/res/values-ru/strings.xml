@@ -164,6 +164,7 @@
   <string name="last_edited">Последняя правка</string>
   <string name="original">Исходный</string>
   <string name="current">Текущий</string>
+  <string name="goto_element">Перейти к элементу</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Информация о функциях GeoJSON</string>
   <string name="copy_properties">Скопировать свойства</string>
@@ -185,6 +186,8 @@
   <string name="evaluate">Оценить</string>
   <string name="js_console_msg_live">\"Живой\" режим!</string>
   <string name="js_console_msg_debug">Режим отладки!</string>
+  <string name="js_console_input_hint">Введите JavaScript здесь</string>
+  <string name="js_console_output_hint">Вывод появится здесь</string>
   <!--Validator dialogs-->
   <string name="validator_title">Набор проверок \"%1$s\"</string>
   <string name="edit_resurvey_title">Проверка по дате</string>
@@ -237,13 +240,18 @@
   <string name="layer_photos">Фотографии</string>
   <string name="layer_tasks">Задачи</string>
   <string name="layer_data">Данные OSM</string>
+  <string name="layer_data_name">Данные %1$s</string>
   <string name="layer_flush_tile_cache">Очистить  базу для карты</string>
   <string name="layer_change_style">Изменить стиль</string>
   <string name="layer_select_imagery">Выберите источник</string>
   <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">Минимальный масштаб</string>
+  <string name="layer_info_max_zoom">Максимальный масштаб</string>
   <string name="layer_info_start_date">Дата открытия</string>
   <string name="layer_info_end_date">Дата закрытия</string>
   <string name="layer_info_privacy_policy">Политика конфиденциальности</string>
+  <!--API info dialog-->
+  <string name="api_info_bounds">Границы</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Контрольные точки</string>
   <string name="undo_redo_title">Отмена - Повтор</string>
@@ -301,6 +309,7 @@
   <string name="toast_notype">У отношения нет типа</string>
   <string name="toast_untagged_way">Линия без тегов</string>
   <string name="toast_untagged_relation">Отношение без тегов</string>
+  <!---->
   <string name="toast_oauth_retry">Повторите передачу после разрешения OAuth-доступа в вашем профиле OSM.</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
   <string name="toast_no_oauth">Нет доступной конфигурации OAuth для текущего API, пожалуйста, укажите логин и пароль.</string>
@@ -373,6 +382,16 @@
   <string name="toast_move_note_warning">Только новые заметки могут быть перемещены</string>
   <string name="toast_merged">Объединено</string>
   <string name="toast_long_press_simple_mode">Долгое нажатие недоступно в \"простом\" режиме</string>
+  <string name="toast_no_geometry">Нет геометрии для элемента</string>
+  <string name="toast_cannot_resume_download_of">Нельзя продолжить загрузку %1$s</string>
+  <string name="toast_device_not_found_for">Не найдено устройство для %1$s</string>
+  <string name="toast_file_already_exists">Файл %1$s уже существует</string>
+  <string name="toast_file_error_for">Ошибка для файла %1$s</string>
+  <string name="toast_http_data_error_for">Ошибка данных HTTP для %1$s</string>
+  <string name="toast_error_insufficient_space_for">На устройстве нет места для %1$s</string>
+  <string name="toast_error_too_unhandled_http_code_for">Unhandled HTTP code for %1$s</string>
+  <string name="toast_unknown_error_for">Неизвестная ошибка для %1$s</string>
+  <string name="toast_download_started">Загрузка %1$s начата</string>
   <!--Error messages-->
   <string name="error_pbf_no_version">В PBF-файле нет информации о версии</string>
   <string name="error_pbf_unknown_relation_member_type">Неизвестный тип участника отношения %1$s</string>
@@ -491,6 +510,15 @@
   <string name="location_load_dismiss">Перейти к карте</string>
   <string name="location_nan_title">Ошибочный ввод!</string>
   <string name="location_nan_message">Пожалуйста, укажите координаты в десятичном формате (\"52.333572\",\"8.741185\"). Широта должна быть от -85.0 и до +85.0, долгота от -175.0 и до +175.0.</string>
+  <string name="location_olc">Код места OLC</string>
+  <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Загрузить файлы</string>
+  <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Перейти к координатам</string>
+  <string name="go_to_coordinates_hint">Введите координаты или код места OLC</string>
+  <string name="unparseable_coordinates">Непонятные координаты</string>
+  <string name="no_nominatim_server">Не найден настроенный сервер Nominatim</string>
+  <string name="no_nominatim_result">Сервер Nominatim не нашёл %1$s</string>
   <!--Menu-->
   <string name="menu_move">Подвинуть</string>
   <string name="menu_edit">Изменить</string>
@@ -498,6 +526,7 @@
   <string name="menu_config">Настройки</string>
   <string name="menu_find">Поиск</string>
   <string name="menu_help">Справка</string>
+  <string name="menu_view">Вид</string>
   <string name="menu_erase">Удалить точку</string>
   <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
@@ -515,6 +544,7 @@
   <string name="menu_gps_show">Показывать положение</string>
   <string name="menu_gps_follow">Следовать за положением</string>
   <string name="menu_gps_goto">Перейти к текущему местоположению</string>
+  <string name="menu_gps_goto_coordinates">Перейти к координатам...</string>
   <string name="menu_gps_start">Начать GPX-трек</string>
   <string name="menu_gps_pause">Приостановить запись GPX-трека</string>
   <string name="menu_gps_clear">Очистить GPX-трек и его путевые точки</string>
@@ -540,10 +570,17 @@
   <string name="menu_transfer_read_file">Прочесть из файла JOSM...</string>
   <string name="menu_transfer_read_pbf_file">Загрузить из PBF-файла</string>
   <string name="menu_transfer_save_file">Сохранить в файл JOSM...</string>
+  <string name="menu_transfer_download_msf">Загрузить данные для использования без интернета...</string>
+  <string name="menu_transfer_bugs">Задачи...</string>
+  <string name="menu_transfer_bugs_download_current">Загрузить задачи для текущего места</string>
   <string name="menu_transfer_bugs_upload">Передать всё</string>
+  <string name="menu_transfer_bugs_upload_long">Передать все сделанные задачи</string>
   <string name="menu_transfer_bugs_clear">Очистить</string>
+  <string name="menu_transfer_bugs_clear_long">Сбросить задачи</string>
+  <string name="menu_transfer_autodownload_long">Загружать задачи автоматически</string>
   <string name="menu_transfer_save_notes_all">Сохранить все заметки...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Сохранить новые и изменённые заметки...</string>
+  <string name="menu_transfer_read_custom_bugs">Загрузить пакет задач...</string>
   <string name="menu_transfer_write_custom_bugs">Сохранить пакет ошибок...</string>
   <string name="menu_save">Сохранить в файл</string>
   <string name="menu_join">Объединить</string>
@@ -592,6 +629,10 @@
   <!--Menus in layers dialog-->
   <string name="menu_layers">Слои…</string>
   <string name="menu_layers_load_geojson">Загрузить слой GeoJSON</string>
+  <string name="menu_layers_add_tasklayer">Добавить слой задач</string>
+  <string name="menu_layers_add_grid">Добавить сетку</string>
+  <string name="menu_layers_add_photolayer">Добавить слой фотоснимков</string>
+  <string name="menu_layers_configure">Настройка...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -630,10 +671,13 @@
   <string name="actionmode_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
   <string name="actionmode_restriction">Добавить ограничение поворота</string>
   <string name="actionmode_restriction_restart_from">Повторно выбрать сегмент \"from\"</string>
+  <string name="actionmode_restriction_select_from">Выбрать сегмент \"from\"</string>
   <string name="actionmode_restriction_via">Добавить объект \"via\"</string>
   <string name="actionmode_restriction_restart_via">Повторно выбрать сегмент \"via\"</string>
   <string name="actionmode_restriction_to">Добавить отрезок \"to\"</string>
   <string name="actionmode_restriction_restart_to">Повторно выбрать отрезок \"to\"</string>
+  <string name="actionmode_restriction_split_from">Разделить сегмент \"from\"</string>
+  <string name="actionmode_restriction_split_via">Разделить сегмент \"via\"</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 объект</item>
     <item quantity="few">%1$d объекта</item>
@@ -642,45 +686,77 @@
   </plurals>
   <string name="actionmode_rotateway">Повернуть линию</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Добавить точку</string>
+  <string name="menu_add_node_tags">Добавить точку с тегами</string>
+  <string name="menu_add_way">Добавить линию</string>
+  <string name="menu_add_map_note">Добавить заметку на карту</string>
+  <string name="menu_paste_object">Вставить объект</string>
+  <string name="menu_paste_multiple">Вставить несколько раз</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фоновая карта</string>
   <string name="config_backgroundLayer_summary">Растровая фоновая карта</string>
   <string name="config_overlayLayer_title">Наложение</string>
   <string name="config_overlayLayer_summary">Слой, накладываемый поверх фона и данных карты</string>
   <string name="config_customlayers_title">Пользовательские слои</string>
+  <string name="config_customlayers_summary">Настройка пользовательских слоёв, отсутствующих в конфигурации по умолчанию.</string>
   <string name="config_scale_title">Отображение шкалы</string>
   <string name="config_scale_summary">Тип шкалы, показываемой на карте</string>
   <string name="config_mapProfile_title">Стиль данных</string>
+  <string name="config_mapProfile_summary">Выберите стиль для слоя данных.</string>
+  <string name="config_enableOpenStreetBugs_title">Задачи</string>
+  <string name="config_enableOpenStreetBugs_summary">Показывать заметки, ошибки и задачи, разрешить их создавать и редактировать.</string>
+  <string name="config_enablePhotoLayer_title">Слой фотоснимков</string>
   <string name="config_enablePhotoLayer_summary">Показывать гео-привязанные фото</string>
   <string name="config_enableKeepScreenOn_title">Блокировка экрана</string>
+  <string name="config_enableKeepScreenOn_summary">Не отключать экран для сохранения заряда.</string>
   <string name="config_largeDragArea_title">Перемещение точек</string>
+  <string name="config_largeDragArea_summary">Разрешить перемещать точки на большие расстояния.</string>
   <string name="config_advancedprefs">Расширенные настройки</string>
+  <string name="config_moreprefs">Дополнительно...</string>
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Добавление и активация JOSM-совместимых заготовок</string>
+  <string name="config_built_in_preset">Встроенная заготовка</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Проверки</string>
+  <string name="config_validatorprefs_summary">Настройка правил проверок.</string>
+  <!--opening hours templates-->
+  <string name="config_opening_hours_title">Шаблоны времени работы</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Авторы и лицензии</string>
   <string name="config_debugbutton_title">Информация</string>
   <string name="config_category_info">О программе</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
+  <string name="config_category_view">Пользовательский интерфейс</string>
   <string name="config_iconbutton_title">Значки точек</string>
   <string name="config_iconbutton_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_showWayIcons_title">Значки POI на зданиях</string>
   <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_tagFormEnabled_title">Формы тега</string>
   <string name="config_showCameraAction_title">Камера на панели</string>
+  <string name="config_showCameraAction_summary">Показывать значок камеры на панели действий.</string>
   <string name="config_followGPSbutton_title">Кнопка следования за GPS</string>
   <string name="config_followGPSbutton_summary">Где будет расположена кнопка «Следовать за GPS» </string>
   <string name="config_alwaysDrawBoundingBoxes_title">Затенять незагруженные области</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Затемнять незагруженные области в заблокированном режиме. </string>
+  <string name="config_fullscreenMode_title">Полноэкранный режим</string>
   <string name="config_fullscreenMode_summary">Поведение на устройствах с виртуальными клавишами.</string>
   <string name="config_showTolerance_title">Область выбора</string>
+  <string name="config_use_back_for_undo_title">Отмена кнопкой ←</string>
+  <string name="config_use_back_for_undo_summary">Использовать кнопку ← для отмены в главном окне редактирования.</string>
+  <string name="config_enableLightTheme_title">Светлая тема</string>
+  <string name="config_enableLightTheme_summary">Светлое оформление с белым фоном.</string>
   <string name="config_splitActionBarEnabled_title">Разделить панель</string>
+  <string name="config_splitActionBarEnabled_summary">Позволяет использовать разделённую панель действий, зависит от модели устройства. Требуется перезапуск Vespucci и Android версии 4.0 или старше.</string>
   <string name="config_maxInlineValues_title">Макс. число встроенных значений</string>
+  <string name="config_maxInlineValues_summary">Макс. число встроенных значений, отображаемых в форме тега.</string>
   <string name="config_maxInlineValues_current">%1$d значений</string>
   <string name="config_autoLockDelay_title">Время автоблокировки</string>
+  <string name="config_autoLockDelay_summary">Время ожидания в секундах до автоблокировки, 0 - отключено.</string>
   <string name="config_autoLockDelay_current">%1$d с</string>
+  <string name="config_enableAntiAliasing_title">Сглаживание</string>
   <string name="config_enableAntiAliasing_summary">Сглаживать линии карты на экране</string>
+  <string name="config_enableHwAcceleration_title">Аппаратное ускорение</string>
   <string name="config_maxStrokeWidth_title">Макс. ширина линии</string>
   <string name="config_maxStrokeWidth_current">%1$d пикс.</string>
   <!--Data and Editing Settings-->
@@ -694,8 +770,14 @@
   <string name="config_notificationCacheSize_current">%1$d уведомлений</string>
   <string name="config_maxAlertDistance_title">Макс. дистанция для уведомлений</string>
   <string name="config_extTriggeredDownloadRadius_title">Радиус загрузки</string>
+  <string name="config_extTriggeredDownloadRadius_summary">Радиус (м) активируемой извне загрузки, 0 = только центр карты.</string>
   <string name="config_maxDownloadSpeed_title">Макс. скорость автозагрузки</string>
+  <string name="config_maxDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка приостанавливается.</string>
   <string name="config_downloadSpeed_current">%1$d км/ч</string>
+  <string name="config_bugDownloadRadius_title">Радиус загрузки задач</string>
+  <string name="config_bugDownloadRadius_summary">Радиус (м) загрузки задач</string>
+  <string name="config_maxBugDownloadSpeed_title">Макс. скорость загрузки задач</string>
+  <string name="config_maxBugDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка заметок, ошибок и задач приостанавливается.</string>
   <string name="config_closeChangesetOnSave_title">Закрытие изменений</string>
   <string name="config_enableAutoPresets_title">Создание заготовок</string>
   <!--Location Settings-->
@@ -710,7 +792,9 @@
   <string name="config_geocoderbutton_title">Геокодирование</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Загрузка и сохранение слоёв</string>
+  <string name="config_category_layers_summary">Параметры загрузки и хранения снимков для фоновой карты.</string>
   <string name="config_maxTileDownloadThreads_title">Макс. число потоков загрузки</string>
+  <string name="config_maxTileDownloadThreads_summary">Максимальное число потоков для загрузки подложки карты.</string>
   <string name="config_downLoadThreads_current">%1$d потоков</string>
   <string name="config_tileCacheSize_title">Размер базы</string>
   <string name="config_tileCache_current">%1$d МБ</string>
@@ -728,12 +812,15 @@
   <string name="manage_geocoders">Управление геокодерами</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
+  <string name="preset_download_successful">Заготовка загружена</string>
   <string name="preset_download_failed">Невозможно загрузить файл с заготовкой. Заготовка не будет работать.</string>
   <string name="preset_download_parse_failed">Некорректный файл заготовки. Заготовка не будет работать.</string>
+  <string name="preset_download_missing_images">Заготовка загружена, но без некоторых значков.</string>
   <string name="preset_download_title">Загрузка заготовки</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Добавить заготовку</string>
   <string name="urldialog_preset_exists">Эта заготовка уже существует</string>
+  <string name="urldialog_preset_download_successful">Заготовка загружена.</string>
   <string name="urldialog_api_exists">API с таким же URL уже существует. Однако, вы можете добавить ещё (например, чтобы упростить переключение между учётными записями).</string>
   <string name="urldialog_add_api">Добавить API</string>
   <string name="urldialog_nodata_text">Конфигурационный URL не содержит корректных данных.</string>
@@ -764,6 +851,7 @@
   <string name="tracking_active_title">Фоновый сервис Vespucci</string>
   <string name="tracking_active_title_short">Фоновый сервис активен</string>
   <string name="tracking_active_text">Vespucci записывает GPS-трек или занят автозагрузкой</string>
+  <string name="tracking_long_text">Vespucci записывает GPS-трек или занят автозагрузкой. Для полного завершения приложения нажмите кнопку ниже или кнопку Назад.</string>
   <string name="gps_failure">Не удалось включить GPS</string>
   <!--element description-->
   <string name="address_housenumber">Адрес %1$s</string>

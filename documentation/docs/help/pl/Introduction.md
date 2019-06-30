@@ -79,11 +79,11 @@ Zauważ, że dla nakładających się obiektów (takich, jak węzeł na linii) m
 
 Kiedy zaznaczysz obiekt, może on zostać przesunięty. Zauważ, że obiekty mogą być przenoszone tylko gdy zostały uprzednio zaznaczone. Zwyczajnie przeciągnij obok (np. w obszarze tolerancji) zaznaczonego obiektu, aby go przesunąć. Jeśli opcja "Duży obszar przeciągania węzłów" jest włączona, wyświetlany jest duży obszar wokół zaznaczonego węzła pozwalając na bardziej precyzyjne przesuwanie. 
 
-#### Adding a new Node/Point or Way 
+#### Dodawanie nowego węzła/punktu lub drogi 
 
 On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
 
-##### Simple mode
+##### Tryb prosty
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 

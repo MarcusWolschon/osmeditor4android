@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-06-07 14:40+0200\n"
-"PO-Revision-Date: 2019-06-07 12:45+0000\n"
+"PO-Revision-Date: 2019-06-17 11:00+0000\n"
 "Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -137,7 +137,7 @@ msgstr "4: Nagyon laza vagy sziklás rész, veszélyes hajtűkanyarok"
 
 #: master_preset.xml:2184(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "4WD only"
-msgstr ""
+msgstr "Csak terepjáró"
 
 #: master_preset.xml:1482(list_entry:display_value|group:Ways|preset:Track|value:grade5)
 msgid "5 - Soft"
@@ -208,11 +208,11 @@ msgstr "Sűrű, állandó jégtest, amely saját tömege miatt folyamatosan mozo
 msgid ""
 "A pillar hydrant where the barrel is pressurized at all times, with "
 "individual valves for each outlet."
-msgstr ""
+msgstr "Föld fölötti tűzcsap, ahol az oszlop folyamatosan nyomás alatt van, és minden egyes kifolyóhoz külön szelep tartozik."
 
 #: master_preset.xml:4978(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:dry_barrel)
 msgid "A pillar hydrant where the water shutoff valve is below ground."
-msgstr ""
+msgstr "Föld fölötti tűzcsap, ahol a vízelzáró szelep a föld alatt található."
 
 #: master_preset.xml:2247(label:text|group:Water|preset:Spring)
 msgid ""
@@ -932,7 +932,7 @@ msgstr "Barbecue"
 
 #: master_preset.xml:4983(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Barcelona"
-msgstr ""
+msgstr "Barcelona"
 
 #: master_preset.xml:8619(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
@@ -1021,7 +1021,7 @@ msgstr "Öböl"
 
 #: master_preset.xml:4983(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Bayonet"
-msgstr ""
+msgstr "Bayonet"
 
 #: master_preset.xml:2386(item:name|group:Water|preset:Beach)
 msgid "Beach"
@@ -1373,7 +1373,7 @@ msgstr "Ág"
 
 #: master_preset.xml:9907(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Branch embassy"
-msgstr ""
+msgstr "Nagykövetségi részleg"
 
 #: master_preset.xml:658(text:text|key:branch)
 msgid "Branch operator"
@@ -1388,11 +1388,11 @@ msgstr "Márka"
 
 #: master_preset.xml:346(text:text|key:brand:wikidata)
 msgid "Brand wikidata entry"
-msgstr ""
+msgstr "Márka Wikidata-hivatkozása"
 
 #: master_preset.xml:345(text:text|key:brand:wikipedia)
 msgid "Brand wikipedia entry"
-msgstr ""
+msgstr "Márka Wikipédia-szócikke"
 
 #: master_preset.xml:2277(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
@@ -1983,7 +1983,7 @@ msgstr "Templom"
 #: master_preset.xml:577(combo:display_values|key:denomination)
 #: master_preset.xml:598(combo:display_values|key:denomination)
 msgid "Church of Scotland"
-msgstr ""
+msgstr "Skót egyház"
 
 #: master_preset.xml:8094(list_entry:short_description|preset:Vending_Machine|value:cigarettes)
 msgid "Cigarettes"
@@ -2158,11 +2158,11 @@ msgstr "Szöveg színe"
 
 #: master_preset.xml:4988(combo:text|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgid "Colour of the caps"
-msgstr ""
+msgstr "Kupakok színe"
 
 #: master_preset.xml:4987(combo:text|group:Emergency|preset:Fire_Hydrant|key:bonnet:colour)
 msgid "Colour of the top section (bonnet)"
-msgstr ""
+msgstr "Felső rész (fej) színe"
 
 #: master_preset.xml:7101(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Columbarium"
@@ -2286,11 +2286,11 @@ msgstr "Konferenciaközpont"
 #: master_preset.xml:583(combo:display_values|key:religion)
 #: master_preset.xml:592(combo:display_values|key:religion)
 msgid "Confucian"
-msgstr ""
+msgstr "Konfuciánus"
 
 #: master_preset.xml:7018(item:name|group:Telecom|preset:Connection_Point)
 msgid "Connection Point"
-msgstr ""
+msgstr "Kapcsolódási pont"
 
 #: master_preset.xml:577(combo:display_values|key:denomination)
 msgid "Conservative"
@@ -2384,11 +2384,11 @@ msgstr "Ország"
 
 #: master_preset.xml:4984(text:text|group:Emergency|preset:Fire_Hydrant|key:couplings:diameters)
 msgid "Coupling diameters (separated by ;)"
-msgstr ""
+msgstr "Csatlakozások átmérője (;-vel elválasztva)"
 
 #: master_preset.xml:4983(combo:text|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Coupling standard"
-msgstr ""
+msgstr "Csatlakozási szabvány"
 
 #: master_preset.xml:4631(item:name|group:Public_Building|preset:Courthouse)
 msgid "Courthouse"
@@ -2490,15 +2490,15 @@ msgstr "Jelzőőr"
 
 #: master_preset.xml:2652(combo:text|group:Railway|preset:Crossing|key:crossing)
 msgid "Crossing type"
-msgstr "Vasúti átjáró típusa"
+msgstr "Átjáró típusa"
 
 #: master_preset.xml:1643(combo:text|group:Waypoints|preset:Traffic_Signal|key:crossing_ref)
 msgid "Crossing type (UK)"
-msgstr "Jelzőlámpa típusa (Egyesült Királyság)"
+msgstr "Átkelő közismert neve"
 
 #: master_preset.xml:1677(combo:text|group:Waypoints|preset:Pedestrian_Crossing|key:crossing_ref)
 msgid "Crossing type name (UK)"
-msgstr "Gyalogosátkelő típusa (Egyesült Királyság)"
+msgstr "Átkelő közismert neve"
 
 #: master_preset.xml:8507(text:text|group:Nature|preset:Tree|key:diameter_crown)
 msgid "Crown diameter"
@@ -2662,7 +2662,7 @@ msgstr "(Középkori) vár"
 
 #: master_preset.xml:9907(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Delegation"
-msgstr ""
+msgstr "Küldöttség (delegáció)"
 
 #: master_preset.xml:7233(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -2815,7 +2815,7 @@ msgstr "Átmérő (mm)"
 #: master_preset.xml:2305(combo:text|group:Water|preset:Penstock|key:diameter)
 #: master_preset.xml:6406(combo:text|group:Man_Made|preset:Pipeline|key:diameter)
 msgid "Diameter (mm)"
-msgstr ""
+msgstr "Átmérő (mm)"
 
 #: master_preset.xml:222(combo:text|key:diaper)
 msgid "Diaper changing facilities"
@@ -2875,7 +2875,7 @@ msgstr "Iránya a vonalon"
 
 #: master_preset.xml:51(combo:display_values|key:surface)
 msgid "Dirt"
-msgstr "Föld"
+msgstr "Poros"
 
 #: master_preset.xml:762(list_entry:display_value|value:disabled)
 msgid "Disabled"
@@ -2995,7 +2995,7 @@ msgstr "Fánk (donut)"
 
 #: master_preset.xml:1691(combo:display_values|group:Traffic_Calming|preset:Traffic_Calming|key:traffic_calming)
 msgid "Double dip"
-msgstr ""
+msgstr "Dupla mélyedés"
 
 #: master_preset.xml:15(combo:display_values|key:incline)
 msgid "Down"
@@ -3068,7 +3068,7 @@ msgstr "Vegytisztító"
 
 #: master_preset.xml:4978(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:dry_barrel)
 msgid "Dry barrel"
-msgstr ""
+msgstr "Száraz oszlop"
 
 #: master_preset.xml:1910(combo:display_values|group:Barriers|preset:Wall|key:wall)
 msgid "Dry stone"
@@ -3567,7 +3567,7 @@ msgstr "Javíts ki!"
 
 #: master_preset.xml:2406(check:text|group:Water|preset:Bay|key:bay)
 msgid "Fjord"
-msgstr ""
+msgstr "Fjord"
 
 #: master_preset.xml:6274(item:name|group:Man_Made|preset:Flagpole)
 msgid "Flagpole"
@@ -3595,7 +3595,7 @@ msgstr "Elárasztott"
 
 #: master_preset.xml:6358(combo:display_values|group:Man_Made|preset:Crane|key:crane:type)
 msgid "Floor-mounted crane"
-msgstr ""
+msgstr "Talajhoz rögzített daru"
 
 #: master_preset.xml:9531(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
@@ -3608,7 +3608,7 @@ msgstr "Virágbolt"
 
 #: master_preset.xml:4976(text:text|group:Emergency|preset:Fire_Hydrant|key:flow_rate)
 msgid "Flow rate with unit of measure"
-msgstr ""
+msgstr "Átfolyó vízmennyiség, mértékegységgel (pl. l/min)"
 
 #: master_preset.xml:797(list_entry:display_value|value:flush)
 #: master_preset.xml:803(list_entry:display_value|value:flush)
@@ -4125,7 +4125,7 @@ msgstr "Útszóróanyagos láda"
 
 #: master_preset.xml:51(combo:display_values|key:surface)
 msgid "Ground"
-msgstr "Talaj"
+msgstr "Föld"
 
 #: master_preset.xml:4959(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:groundwater)
 #: master_preset.xml:6515(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:groundwater)
@@ -4167,7 +4167,7 @@ msgstr "Útirányjelző tábla"
 
 #: master_preset.xml:4983(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Guillemin"
-msgstr ""
+msgstr "Guillemin"
 
 #: master_preset.xml:964(multiselect:display_values|key:language)
 msgid "Gujarati"
@@ -4343,7 +4343,7 @@ msgstr "Magas alvázú járművel: könnyű terepjáró"
 
 #: master_preset.xml:9907(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "High commission"
-msgstr ""
+msgstr "Nagykövetség (a Brit Nemzetközösség tagországáé)"
 
 #: master_preset.xml:2180(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:hov)
 msgid "High-occupancy vehicles (hov)"
@@ -4429,7 +4429,7 @@ msgstr "Tiszteletbeli konzul"
 
 #: master_preset.xml:6757(list_entry:short_description|group:Power_Generator|preset:Tidal_Water_Turbine|value:horizontal_axis)
 msgid "Horizontal axis"
-msgstr ""
+msgstr "Vízszintes tengely"
 
 #: master_preset.xml:4064(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:horizontal_bar)
 msgid "Horizontal bar"
@@ -4595,7 +4595,7 @@ msgstr "izlandi"
 #: master_preset.xml:577(combo:display_values|key:denomination)
 #: master_preset.xml:598(combo:display_values|key:denomination)
 msgid "Iglesia ni cristo"
-msgstr ""
+msgstr "Iglesia ni cristo"
 
 #: master_preset.xml:8919(text:text|group:Addresses_and_Contact|preset:Contact|key:image)
 #: master_preset.xml:8932(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:image)
@@ -4709,7 +4709,7 @@ msgstr "Biztosító"
 
 #: master_preset.xml:9907(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Interests section"
-msgstr ""
+msgstr "Érdekképviselet (de facto nagykövetség)"
 
 #: master_preset.xml:7582(item:name|group:Home_furnishing_and_decoration|preset:Interior_Decoration)
 msgid "Interior Decoration"
@@ -4746,7 +4746,7 @@ msgstr "Internetcsatlakozás díja"
 
 #: master_preset.xml:821(combo:text|key:interval)
 msgid "Interval (M, MM, HH:MM, or HH:MM:SS)"
-msgstr ""
+msgstr "Gyakoriság (P, PP, ÓÓ:PP vagy ÓÓ:PP:MM)"
 
 #: master_preset.xml:2338(check:text|group:Water|preset:Water|key:intermittent)
 #: master_preset.xml:2357(check:text|group:Water|preset:Riverbank|key:intermittent)
@@ -4931,7 +4931,7 @@ msgstr "Konyha"
 
 #: master_preset.xml:4983(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Klaue"
-msgstr ""
+msgstr "Klaue"
 
 #: master_preset.xml:3915(list_entry:display_value|group:Leisure|preset:Animals|value:koala)
 msgid "Koala"
@@ -5089,7 +5089,7 @@ msgstr "Korlát a bal oldalon"
 
 #: master_preset.xml:9091(item:name|group:Turn_Restrictions|preset:Left_turn_only)
 msgid "Left turn only"
-msgstr ""
+msgstr "Kötelező irány: balra"
 
 #: master_preset.xml:3167(checkgroup:text|group:Public_Transport|preset:Stop_Position)
 msgid "Legacy stop types"
@@ -5130,11 +5130,11 @@ msgstr "Vasúti átjáró"
 
 #: master_preset.xml:9925(combo:display_values|group:Offices|preset:Liason|key:liason)
 msgid "Liaison office"
-msgstr ""
+msgstr "Kapcsolattartó iroda"
 
 #: master_preset.xml:9921(item:name|group:Offices|preset:Liason)
 msgid "Liason"
-msgstr ""
+msgstr "Kapcsolattartás"
 
 #: master_preset.xml:4445(item:name|group:Culture|preset:Library)
 msgid "Library"
@@ -5290,11 +5290,11 @@ msgstr "Love hotel"
 
 #: master_preset.xml:942(list_entry:short_description|value:2)
 msgid "Lower secondary (2)"
-msgstr "(2) alsó középfokú oktatás"
+msgstr "alsó középfokú oktatás"
 
 #: master_preset.xml:945(list_entry:short_description|value:5)
 msgid "Lower tertiary education (5)"
-msgstr "(5) felsőoktatási alap- és mesterképzés"
+msgstr "felsőoktatási alap- és mesterképzés"
 
 #: master_preset.xml:795(list_entry:display_value|value:lowered)
 #: master_preset.xml:801(list_entry:display_value|value:lowered)
@@ -5338,7 +5338,7 @@ msgstr "Mahájána"
 
 #: master_preset.xml:4958(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:main)
 msgid "Mains"
-msgstr ""
+msgstr "Vízvezeték-hálózat"
 
 #: master_preset.xml:964(multiselect:display_values|key:language)
 msgid "Malay"
@@ -5793,7 +5793,7 @@ msgstr "Egyéb közút"
 
 #: master_preset.xml:9907(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Mission"
-msgstr ""
+msgstr "Állandó képviselet"
 
 #: master_preset.xml:4588(combo:display_values|group:Place_of_Worship|preset:Monastery|key:community:gender)
 #: master_preset.xml:561(combo:display_values|key:leaf_type)
@@ -6464,7 +6464,7 @@ msgstr "Nincs"
 
 #: master_preset.xml:9083(item:name|group:Turn_Restrictions|preset:No_U_turn)
 msgid "No U turn"
-msgstr ""
+msgstr "Megfordulni tilos"
 
 #: master_preset.xml:240(list_entry:short_description|value:no)
 #: master_preset.xml:252(list_entry:short_description|value:no)
@@ -6484,7 +6484,7 @@ msgstr "Balra bekanyarodni tilos"
 #: master_preset.xml:8977(item:name|group:Annotation|preset:No_name)
 #: master_preset.xml:8978(check:text|group:Annotation|preset:No_name|key:noname)
 msgid "No name"
-msgstr ""
+msgstr "Névtelen"
 
 #: master_preset.xml:9063(combo:display_values|group:Turn_Restrictions|preset:Turn_Restriction|key:restriction)
 #: master_preset.xml:9075(item:name|group:Turn_Restrictions|preset:No_right_turn)
@@ -6519,7 +6519,7 @@ msgstr "Nem bevándorlási vízum"
 #: master_preset.xml:598(combo:display_values|key:denomination)
 #: master_preset.xml:601(combo:display_values|key:denomination)
 msgid "Nondenominational"
-msgstr ""
+msgstr "Felekezeten kívüli"
 
 #: master_preset.xml:1389(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:none)
 #: master_preset.xml:1415(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
@@ -6601,7 +6601,7 @@ msgstr "Áramkörök száma"
 
 #: master_preset.xml:4982(combo:text|group:Emergency|preset:Fire_Hydrant|key:couplings)
 msgid "Number of couplings"
-msgstr ""
+msgstr "Csatlakozások száma"
 
 #: master_preset.xml:694(combo:text|key:devices)
 msgid "Number of devices"
@@ -6663,7 +6663,7 @@ msgstr "Számozási rendszer"
 
 #: master_preset.xml:9907(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Nunciature"
-msgstr ""
+msgstr "Apostoli nunciatúra"
 
 #: master_preset.xml:4695(check:text|group:Education|preset:Childcare|key:nursery)
 msgid "Nursery"
@@ -6750,7 +6750,7 @@ msgstr "Irodák"
 #: master_preset.xml:2180(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:hov)
 #: master_preset.xml:2182(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:psv)
 msgid "Official"
-msgstr ""
+msgstr "Hivatalos"
 
 #: master_preset.xml:8873(text:text|group:Addresses_and_Contact|preset:Name|key:official_name)
 msgid "Official name"
@@ -7279,7 +7279,7 @@ msgstr "Sétálóutca"
 
 #: master_preset.xml:1671(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr "Gyalogosátkelőhely"
+msgstr "Gyalogosátkelő"
 
 #: master_preset.xml:1533(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -7446,7 +7446,7 @@ msgstr "Disznó"
 
 #: master_preset.xml:4977(combo:text|group:Emergency|preset:Fire_Hydrant|key:pillar:type)
 msgid "Pillar type"
-msgstr ""
+msgstr "Oszlop típusa"
 
 #: master_preset.xml:7040(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
 msgid "Pillory"
@@ -7687,7 +7687,7 @@ msgstr "Irányítószám"
 
 #: master_preset.xml:944(list_entry:short_description|value:4)
 msgid "Post secondars (4)"
-msgstr "(4) felsőoktatási szakképzés"
+msgstr "felsőoktatási szakképzés"
 
 #: master_preset.xml:8139(check:text|preset:Payment_Methods|key:payment:postfinance_card)
 msgid "PostFinance Card (ch)"
@@ -7806,7 +7806,7 @@ msgstr "Préri"
 
 #: master_preset.xml:940(list_entry:short_description|value:0)
 msgid "Pre-primary (0)"
-msgstr "(0) iskola előtti (óvodai) oktatás"
+msgstr "iskola előtti (óvodai) oktatás"
 
 #: master_preset.xml:577(combo:display_values|key:denomination)
 #: master_preset.xml:598(combo:display_values|key:denomination)
@@ -7831,7 +7831,7 @@ msgstr "Első- vagy másodrendű főút"
 
 #: master_preset.xml:941(list_entry:short_description|value:1)
 msgid "Primary (1)"
-msgstr "(1) alapfokú oktatás"
+msgstr "alapfokú oktatás"
 
 #: master_preset.xml:1135(item:name|group:Streets|preset:Primary_Link)
 msgid "Primary Link"
@@ -8159,7 +8159,7 @@ msgstr "Olvasódoboz"
 
 #: master_preset.xml:2184(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgid "Recommended"
-msgstr ""
+msgstr "Ajánlott"
 
 #: master_preset.xml:6527(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -8298,7 +8298,7 @@ msgstr "Reformzsidó"
 #: master_preset.xml:577(combo:display_values|key:denomination)
 #: master_preset.xml:598(combo:display_values|key:denomination)
 msgid "Reformed"
-msgstr ""
+msgstr "Református"
 
 #: master_preset.xml:1404(text:text|group:Lane_attributes|preset:Single_direction_roads|key:destination:ref:lanes)
 msgid "Refs per lane"
@@ -8408,7 +8408,7 @@ msgstr "Tározó"
 
 #: master_preset.xml:9907(combo:display_values|group:Offices|preset:Embassy|key:embassy)
 msgid "Residence"
-msgstr ""
+msgstr "Nagyköveti rezidencia"
 
 #: master_preset.xml:4025(item:name|group:Leisure|preset:Resort)
 msgid "Resort"
@@ -8488,7 +8488,7 @@ msgstr "Korlát a jobb oldalon"
 
 #: master_preset.xml:9099(item:name|group:Turn_Restrictions|preset:Right_turn_only)
 msgid "Right turn only"
-msgstr ""
+msgstr "Kötelező irány: jobbra"
 
 #: master_preset.xml:4068(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:rings)
 msgid "Rings"
@@ -8568,7 +8568,7 @@ msgstr "román"
 #: master_preset.xml:577(combo:display_values|key:denomination)
 #: master_preset.xml:598(combo:display_values|key:denomination)
 msgid "Romanian orthodox"
-msgstr ""
+msgstr "Román ortodox"
 
 #: master_preset.xml:9040(role:text|group:Relations|preset:Building|key:edge)
 msgid "Roof edge"
@@ -8670,7 +8670,7 @@ msgstr "Routex"
 
 #: master_preset.xml:5769(item:name|group:Sport|preset:Rowing)
 msgid "Rowing"
-msgstr ""
+msgstr "Evezés"
 
 #: master_preset.xml:5927(item:name|group:Sport_(Ball)|preset:Rugby_League)
 msgid "Rugby League"
@@ -9033,11 +9033,11 @@ msgstr "szerb"
 #: master_preset.xml:577(combo:display_values|key:denomination)
 #: master_preset.xml:598(combo:display_values|key:denomination)
 msgid "Serbian orthodox"
-msgstr ""
+msgstr "Szerb ortodox"
 
 #: master_preset.xml:7025(item:name|group:Telecom|preset:Service_Device)
 msgid "Service Device"
-msgstr ""
+msgstr "Kiszolgáló készülék"
 
 #: master_preset.xml:211(combo:text|key:service_times)
 msgid "Service Times"
@@ -9425,15 +9425,15 @@ msgstr "Hangjelzés"
 
 #: master_preset.xml:2802(combo:text|group:Car|preset:Parking|key:capacity:disabled)
 msgid "Spaces for Disabled"
-msgstr "Mozgáskorlátozottaknak fenntartott helyek"
+msgstr "Helyek mozgáskorlátozottaknak"
 
 #: master_preset.xml:2804(combo:text|group:Car|preset:Parking|key:capacity:parent)
 msgid "Spaces for Parents"
-msgstr "Szülőknek fenntartott helyek"
+msgstr "Helyek szülőknek"
 
 #: master_preset.xml:2803(combo:text|group:Car|preset:Parking|key:capacity:women)
 msgid "Spaces for Women"
-msgstr "Nők számára"
+msgstr "Helyek nőknek"
 
 #: master_preset.xml:406(multiselect:display_values|key:cuisine)
 #: master_preset.xml:964(multiselect:display_values|key:language)
@@ -9530,7 +9530,7 @@ msgstr "Sportközpont"
 
 #: master_preset.xml:4983(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Sprawny"
-msgstr ""
+msgstr "Sprawny"
 
 #: master_preset.xml:2245(item:name|group:Water|preset:Spring)
 msgid "Spring"
@@ -9667,15 +9667,15 @@ msgstr "Raktárbérlés"
 
 #: master_preset.xml:4983(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "Storz"
-msgstr ""
+msgstr "Storz"
 
 #: master_preset.xml:9107(item:name|group:Turn_Restrictions|preset:Straight_on_only)
 msgid "Straight on only"
-msgstr ""
+msgstr "Kötelező irány: egyenesen tovább"
 
 #: master_preset.xml:2417(item:name|group:Water|preset:Strait)
 msgid "Strait"
-msgstr ""
+msgstr "Szoros"
 
 #: master_preset.xml:2208(item:name|group:Water|preset:Stream)
 #: master_preset.xml:4960(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:stream)
@@ -9864,7 +9864,7 @@ msgstr "Úszómedence"
 
 #: master_preset.xml:4968(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:swimming_pool)
 msgid "Swimming pool"
-msgstr ""
+msgstr "Úszómedence"
 
 #: master_preset.xml:425(list_entry:short_description|value:swimwear)
 msgid "Swimwear"
@@ -10020,11 +10020,11 @@ msgstr "Tánctanítás"
 
 #: master_preset.xml:7003(group:name|group:Telecom)
 msgid "Telecom"
-msgstr ""
+msgstr "Távközlés"
 
 #: master_preset.xml:7004(item:name|group:Telecom|preset:Telecom_Street_Cabinet)
 msgid "Telecom Street Cabinet"
-msgstr ""
+msgstr "Távközlési utcai közműszekrény"
 
 #: master_preset.xml:9988(item:name|group:Offices|preset:Telecommunication)
 msgid "Telecommunication"
@@ -10036,7 +10036,7 @@ msgstr "Telefon"
 
 #: master_preset.xml:7011(item:name|group:Telecom|preset:Telephone_Exchange)
 msgid "Telephone Exchange"
-msgstr ""
+msgstr "Telefonközpont"
 
 #: master_preset.xml:5253(check:text|group:Facilities|preset:Telephone|key:payment:telephone_cards)
 msgid "Telephone cards"
@@ -10681,7 +10681,7 @@ msgstr "UIC-hivatkozás"
 
 #: master_preset.xml:4983(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:couplings:type)
 msgid "UNI"
-msgstr ""
+msgstr "UNI"
 
 #: master_preset.xml:2874(check:text|group:Car|preset:Fuel|key:payment:uta)
 msgid "UTA"
@@ -10724,12 +10724,12 @@ msgstr ""
 #: master_preset.xml:577(combo:display_values|key:denomination)
 #: master_preset.xml:598(combo:display_values|key:denomination)
 msgid "United"
-msgstr ""
+msgstr "Egyesült"
 
 #: master_preset.xml:577(combo:display_values|key:denomination)
 #: master_preset.xml:598(combo:display_values|key:denomination)
 msgid "United methodist"
-msgstr ""
+msgstr "Egyesült Metodista"
 
 #: master_preset.xml:4733(item:name|group:Education|preset:University)
 msgid "University"
@@ -10758,11 +10758,11 @@ msgstr "Kárpitos"
 
 #: master_preset.xml:943(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
-msgstr "(3) felső középfokú oktatás"
+msgstr "felső középfokú oktatás"
 
 #: master_preset.xml:946(list_entry:short_description|value:6)
 msgid "Upper tertiary education (6)"
-msgstr "(6) doktori képzés"
+msgstr "doktori képzés"
 
 #: master_preset.xml:964(multiselect:display_values|key:language)
 msgid "Urdu"
@@ -10884,7 +10884,7 @@ msgstr "Verzió"
 
 #: master_preset.xml:6759(list_entry:short_description|group:Power_Generator|preset:Tidal_Water_Turbine|value:vertical_axis)
 msgid "Vertical axis"
-msgstr ""
+msgstr "Függőleges tengely"
 
 #: master_preset.xml:5161(combo:display_values|group:Clubs|preset:Club|key:club)
 msgid "Veterans"
@@ -11110,7 +11110,7 @@ msgstr "Vízcsatlakozás lakókocsinak"
 
 #: master_preset.xml:4957(combo:text|group:Emergency|preset:Fire_Hydrant|key:water_source)
 msgid "Water source"
-msgstr ""
+msgstr "Víz forrása"
 
 #: master_preset.xml:7793(item:name|group:Sports_and_hobbies|preset:Water_sports)
 msgid "Water sports"
@@ -11122,7 +11122,7 @@ msgstr "Víztározó"
 
 #: master_preset.xml:4967(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:water_tank)
 msgid "Water tank"
-msgstr ""
+msgstr "Víztartály"
 
 #: master_preset.xml:2254(item:name|group:Water|preset:Waterfall)
 msgid "Waterfall"
@@ -11179,7 +11179,7 @@ msgstr "Időjárás"
 
 #: master_preset.xml:999(text:text|key:website)
 msgid "Web site"
-msgstr ""
+msgstr "Weboldal"
 
 #: master_preset.xml:2981(text:text|group:Car|preset:Sharing|key:website)
 #: master_preset.xml:2989(text:text|group:Car|preset:Vehicle_Inspection|key:website)
@@ -11206,7 +11206,7 @@ msgstr "walesi"
 
 #: master_preset.xml:4979(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:wet_barrel)
 msgid "Wet barrel"
-msgstr ""
+msgstr "Nyomás alatti oszlop"
 
 #: master_preset.xml:2374(list_entry:short_description|group:Water|preset:Wetland|value:wet_meadow)
 msgid "Wet meadow"
@@ -11494,7 +11494,7 @@ msgstr "Zebra"
 
 #: master_preset.xml:2767(item:name|group:Aerialway|preset:Zip_Line)
 msgid "Zip Line"
-msgstr ""
+msgstr "Csúszópálya"
 
 #: master_preset.xml:6552(combo:text|group:Man_Made|preset:Surveillance_Camera|key:surveillance:zone)
 msgid "Zone"
@@ -12037,7 +12037,7 @@ msgstr "Betonlapok"
 #: master_preset.xml:22(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Dirt"
-msgstr "Föld"
+msgstr "Poros"
 
 #: master_preset.xml:22(combo:display_values|key:surface)
 msgctxt "surface"
@@ -12062,7 +12062,7 @@ msgstr "Zúzott kő"
 #: master_preset.xml:22(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Ground"
-msgstr "Talaj"
+msgstr "Föld"
 
 #: master_preset.xml:22(combo:display_values|key:surface)
 msgctxt "surface"
@@ -12207,7 +12207,7 @@ msgstr "Járda"
 #: master_preset.xml:131(multiselect:text|key:crossing)
 msgctxt "pedestrian"
 msgid "Crossing type"
-msgstr "Vasúti átjáró típusa"
+msgstr "Átkelő típusa"
 
 #: master_preset.xml:134(list_entry:short_description|value:island)
 msgctxt "pedestrian"
@@ -12412,7 +12412,7 @@ msgstr "Gyeplabda"
 #: master_preset.xml:491(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Fitness"
-msgstr ""
+msgstr "Fitnesz"
 
 #: master_preset.xml:491(combo:display_values|key:sport)
 msgctxt "sport"
@@ -12432,7 +12432,7 @@ msgstr "Fű"
 #: master_preset.xml:5580(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Ground"
-msgstr "Talaj"
+msgstr "Föld"
 
 #: master_preset.xml:491(combo:display_values|key:sport)
 msgctxt "sport"
@@ -12526,7 +12526,7 @@ msgstr "Görkorcsolya"
 #: master_preset.xml:491(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Rowing"
-msgstr ""
+msgstr "Evezés"
 
 #: master_preset.xml:491(combo:display_values|key:sport)
 msgctxt "sport"
@@ -12884,7 +12884,7 @@ msgstr "Felekezet"
 #: master_preset.xml:604(combo:display_values|key:denomination)
 msgctxt "jewish"
 msgid "Nondenominational"
-msgstr ""
+msgstr "Felekezeten kívüli"
 
 #: master_preset.xml:604(combo:display_values|key:denomination)
 msgctxt "jewish"
@@ -13000,7 +13000,7 @@ msgstr "Tekercselések elrendezése"
 #: master_preset.xml:701(combo:display_values|key:telecom:medium)
 msgctxt "telecom"
 msgid "Coaxial"
-msgstr ""
+msgstr "Koaxiális kábel"
 
 #: master_preset.xml:701(combo:display_values|key:telecom:medium)
 msgctxt "telecom"
@@ -13010,12 +13010,12 @@ msgstr "Réz"
 #: master_preset.xml:701(combo:display_values|key:telecom:medium)
 msgctxt "telecom"
 msgid "Fibre"
-msgstr ""
+msgstr "Üvegszál"
 
 #: master_preset.xml:701(combo:text|key:telecom:medium)
 msgctxt "telecom"
 msgid "Local loop type"
-msgstr ""
+msgstr "Helyi huroktípus"
 
 #: master_preset.xml:742(combo:display_values|key:support)
 msgctxt "mounting/support"
@@ -14089,37 +14089,37 @@ msgstr "Felhasználási mód"
 #: master_preset.xml:4951(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: master_preset.xml:4951(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: master_preset.xml:4951(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "8"
-msgstr ""
+msgstr "8"
 
 #: master_preset.xml:4944(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:underground)
 msgctxt "pipeline"
 msgid "A fire hydrant simple outlet located underground."
-msgstr ""
+msgstr "Egyszerű, föld alatti tűzcsapkifolyó."
 
 #: master_preset.xml:4943(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:pillar)
 msgctxt "pipeline"
 msgid "A pillar type hydrant."
-msgstr ""
+msgstr "Oszlopformájú (föld fölötti) tűzcsap."
 
 #: master_preset.xml:4946(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:pipe)
 msgctxt "pipeline"
 msgid "A simple capped pipe, without the usual hydrant shape."
-msgstr ""
+msgstr "Egyszerű, nem tűzcsapformájú cső, kupakkal."
 
 #: master_preset.xml:4945(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:wall)
 msgctxt "pipeline"
 msgid "A wall-mounted fire hydrant."
-msgstr ""
+msgstr "Falra szerelt tűzcsap"
 
 #: master_preset.xml:2301(combo:text|group:Water|preset:Penstock|key:location)
 #: master_preset.xml:6405(combo:text|group:Man_Made|preset:Pipeline|key:location)
@@ -14135,12 +14135,12 @@ msgstr "Föld fölötti"
 #: master_preset.xml:4943(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:pillar)
 msgctxt "pipeline"
 msgid "Pillar"
-msgstr ""
+msgstr "Oszlop"
 
 #: master_preset.xml:4946(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:pipe)
 msgctxt "pipeline"
 msgid "Pipe"
-msgstr ""
+msgstr "Cső"
 
 #: master_preset.xml:4951(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
@@ -14150,12 +14150,12 @@ msgstr "Nyomás (bar)"
 #: master_preset.xml:4951(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "Pressurized"
-msgstr ""
+msgstr "Nyomás alatti"
 
 #: master_preset.xml:4951(combo:display_values|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:pressure)
 msgctxt "pipeline"
 msgid "Suction"
-msgstr ""
+msgstr "Szívandó"
 
 #: master_preset.xml:4942(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:type)
 msgctxt "pipeline"
@@ -14171,7 +14171,7 @@ msgstr "Föld alatti"
 #: master_preset.xml:6405(combo:display_values|group:Man_Made|preset:Pipeline|key:location)
 msgctxt "pipeline"
 msgid "Underwater"
-msgstr ""
+msgstr "Víz alatti"
 
 #: master_preset.xml:4945(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:wall)
 msgctxt "pipeline"
@@ -14197,7 +14197,7 @@ msgstr "Rakomány"
 #: master_preset.xml:2658(combo:text|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
 msgid "Barrier"
-msgstr "Akadály"
+msgstr "Sorompó"
 
 #: master_preset.xml:2776(item:name|group:Aerialway|preset:Station)
 msgctxt "aerialway"
@@ -14218,12 +14218,12 @@ msgstr "Szolgáltatás"
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Anchors"
-msgstr ""
+msgstr "Horgony"
 
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Bollard"
-msgstr "Terelőoszlop"
+msgstr "Oszlop"
 
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
@@ -14233,22 +14233,22 @@ msgstr "Épület"
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Ground slots"
-msgstr ""
+msgstr "Kerékrés a talajban"
 
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Informal"
-msgstr ""
+msgstr "Nem hivatalos"
 
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Lockers"
-msgstr ""
+msgstr "Szekrény"
 
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Rack"
-msgstr ""
+msgstr "Keret"
 
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
@@ -14258,7 +14258,7 @@ msgstr "Fészer"
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Stands"
-msgstr ""
+msgstr "Korlát"
 
 #: master_preset.xml:3031(combo:text|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
@@ -14268,7 +14268,7 @@ msgstr "Típus"
 #: master_preset.xml:3031(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Wall loops"
-msgstr ""
+msgstr "Kerékbefogó hurok"
 
 #: master_preset.xml:3396(item:name|group:Airport|preset:Beacon)
 msgctxt "airmark"
@@ -14612,7 +14612,7 @@ msgstr "Remeteség"
 #: master_preset.xml:4587(combo:display_values|group:Place_of_Worship|preset:Monastery|key:monastery:type)
 msgctxt "monastery"
 msgid "Monastery"
-msgstr "Kolostor"
+msgstr "Monostor"
 
 #: master_preset.xml:4587(combo:text|group:Place_of_Worship|preset:Monastery|key:monastery:type)
 msgctxt "monastery"
@@ -14632,7 +14632,7 @@ msgstr "Zöld"
 #: master_preset.xml:4970(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:position)
 msgctxt "hydrant_position"
 msgid "Hydrant position"
-msgstr ""
+msgstr "Tűzcsap helye"
 
 #: master_preset.xml:4971(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:lane)
 msgctxt "hydrant_position"
@@ -14642,7 +14642,7 @@ msgstr "Úttest"
 #: master_preset.xml:4972(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:parking_lot)
 msgctxt "hydrant_position"
 msgid "Parking lot"
-msgstr ""
+msgstr "Parkolóhely"
 
 #: master_preset.xml:4973(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:sidewalk)
 msgctxt "hydrant_position"
@@ -14652,22 +14652,22 @@ msgstr "Járda"
 #: master_preset.xml:4974(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:green)
 msgctxt "hydrant_position"
 msgid "in a grassy area"
-msgstr ""
+msgstr "füves területen"
 
 #: master_preset.xml:4972(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:parking_lot)
 msgctxt "hydrant_position"
 msgid "in a parking lot"
-msgstr ""
+msgstr "egy parkolóhelyen"
 
 #: master_preset.xml:4973(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:sidewalk)
 msgctxt "hydrant_position"
 msgid "on a sidewalk"
-msgstr ""
+msgstr "járdán"
 
 #: master_preset.xml:4971(list_entry:short_description|group:Emergency|preset:Fire_Hydrant|value:lane)
 msgctxt "hydrant_position"
 msgid "on the side of a road lane"
-msgstr ""
+msgstr "az úttest szélén"
 
 #: master_preset.xml:5123(item:name|group:Social_Facilities|preset:Shelter)
 msgctxt "social_facility"
@@ -15071,7 +15071,7 @@ msgstr "Átjáró alacsony vízállásnál"
 #: master_preset.xml:6597(combo:display_values|group:Bridges|preset:Bridge_Support|key:bridge:support)
 msgctxt "bridge"
 msgid "Pier"
-msgstr "Móló"
+msgstr "Pillér"
 
 #: master_preset.xml:6597(combo:display_values|group:Bridges|preset:Bridge_Support|key:bridge:support)
 msgctxt "bridge"
@@ -15187,7 +15187,7 @@ msgstr "Föld alatti"
 #: master_preset.xml:6997(combo:display_values|preset:Power_Cable|key:location)
 msgctxt "power cable"
 msgid "Underwater"
-msgstr ""
+msgstr "Víz alatti"
 
 #: master_preset.xml:7121(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -15308,7 +15308,7 @@ msgstr "Típus"
 #: master_preset.xml:8662(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Cereal"
-msgstr ""
+msgstr "Gabona"
 
 #: master_preset.xml:8662(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -15558,7 +15558,7 @@ msgstr "Regionális"
 #: master_preset.xml:10170(item:name|group:Offices|preset:Religion)
 msgctxt "office"
 msgid "Religion"
-msgstr "Vallás"
+msgstr "Egyházi iroda"
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-06-07 14:40+0200\n"
-"PO-Revision-Date: 2019-06-07 12:45+0000\n"
-"Last-Translator: xavier114fch <xavier114fch@gmail.com>\n"
+"PO-Revision-Date: 2019-06-17 05:34+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7462,7 +7462,7 @@ msgstr ""
 
 #: master_preset.xml:6417(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
-msgstr ""
+msgstr "管道閥門"
 
 #: master_preset.xml:9204(item:name|group:Routes|preset:Piste_Route)
 msgid "Piste Route"

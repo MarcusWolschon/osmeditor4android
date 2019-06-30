@@ -70,6 +70,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -85,6 +86,7 @@
   <string name="toast_photo_indexing_finished">Lauk leit að myndum með staðsetningu</string>
   <string name="toast_download_failed">Niðurhal mistókst með villuskilaboðum %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
+  <!---->
   <string name="toast_oauth">Gefðu OAuth réttindi að OSM-notanda þínum.</string>
   <string name="toast_no_oauth">Engin OAuth stilling tiltæk fyrir núverandi API tengingu, sláðu inn notandanafn og lykilorð.</string>
   <string name="coordinates_out_of_range">Lengdargráða þarf að vera milli -180°/+180°, breiddargráða milli -85°/+85°</string>
@@ -140,6 +142,8 @@
   <string name="location_search_label">Leita:</string>
   <string name="location_load_button">Hlaða</string>
   <string name="location_load_dismiss">Skoða kort</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Færa</string>
   <string name="menu_edit">Breyta</string>
@@ -211,6 +215,7 @@
   <string name="config_presetbutton_title">Forstillingar</string>
   <string name="config_presetbutton_summary">Bæta við og virkja JOSM samhæfðar forstillingar</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Um</string>
   <!--Advanced preferences-->

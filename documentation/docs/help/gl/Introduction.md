@@ -38,10 +38,10 @@ Para evitar edicións accidentais Vespucci comeza no modo "bloqueado", un modo q
 
 Una premida longa na icona do candeado amosará un menú con 4 opcións:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normal** - o modo de edición por defecto, pódense engadir novos obxectos, editar os existentes, desprazados ou eliminados. Amósase unha icona sinxela dun cadeado branco.
+* **Só etiquetado** - ó seleccionar un obxecto existente iniciarase o Editor de Propiedades, unha prema longa na pantalla principal engadirá obxectos, pero non funcionarán outras operacións xeométricas. Amosarase a icona dun cadeado branco cun "T".
+* **Interiores** - activa o modo Interiores, ollar [modo Interiores](#indoor). Amosarase a icona dun cadeado branco cun "I".
+* **Modo-C** - activa o Modo-C, só se amosan os obxectos que teñan un sinal de aviso, ollar [Modo-C](#c-mode). Amósase a icona dun cadeado branco cun "C".
 
 #### Premido único, dobre premido e premido longo
 
@@ -200,7 +200,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 ## Modo-C
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+No Modo-C só se amosan os obxectos que teñen activa un sinal de aviso, isto fai máis doado resaltar obxectos que teñen problemas específicos ou coinciden con comprobacións configurábeis. Se un obxecto é seleccionado e o Editor de Propiedades iniciado no Modo-C aplicarase de xeito automático o predefinido que mellor se axuste.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 

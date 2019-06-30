@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-06-07 14:40+0200\n"
-"PO-Revision-Date: 2019-06-09 01:23+0000\n"
+"PO-Revision-Date: 2019-06-18 00:08+0000\n"
 "Last-Translator: Roman Horník <roman.hornik@debian-linux.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -1561,7 +1561,7 @@ msgstr ""
 
 #: master_preset.xml:3329(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
-msgstr ""
+msgstr "Autobusové nástupiště"
 
 #: master_preset.xml:3312(item:name|group:Public_Transport_(Legacy)|preset:Bus_Station)
 msgid "Bus Station"
@@ -1593,7 +1593,7 @@ msgstr ""
 
 #: master_preset.xml:4475(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Bust"
-msgstr ""
+msgstr "Busta"
 
 #: master_preset.xml:7198(item:name|group:Food|preset:Butcher)
 msgid "Butcher"
@@ -1741,7 +1741,7 @@ msgstr "Kapacita (celková)"
 
 #: master_preset.xml:2410(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "Mys"
 
 #: master_preset.xml:2791(group:name|group:Car)
 #: master_preset.xml:2895(check:text|group:Car|preset:Charging_Station|key:car)
@@ -2307,7 +2307,7 @@ msgstr ""
 
 #: master_preset.xml:9912(item:name|group:Offices|preset:Consulate)
 msgid "Consulate"
-msgstr ""
+msgstr "Konzulát"
 
 #: master_preset.xml:9916(combo:display_values|group:Offices|preset:Consulate|key:consulate)
 msgid "Consulate general"
@@ -4044,7 +4044,7 @@ msgstr ""
 
 #: master_preset.xml:4475(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Graffiti"
-msgstr ""
+msgstr "Graffiti"
 
 #: master_preset.xml:995(combo:display_values|key:climbing:rock)
 msgid "Granite"
@@ -10839,7 +10839,7 @@ msgstr ""
 
 #: master_preset.xml:8446(item:name|group:Geography|preset:Valley)
 msgid "Valley"
-msgstr ""
+msgstr "Údolí"
 
 #: master_preset.xml:5492(multiselect:text|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Valves"
@@ -11087,7 +11087,7 @@ msgstr ""
 
 #: master_preset.xml:6740(item:name|group:Power_Generator|preset:Water_Turbine)
 msgid "Water Turbine"
-msgstr ""
+msgstr "Vodní turbína"
 
 #: master_preset.xml:6470(item:name|group:Man_Made|preset:Water_Well)
 msgid "Water Well"
@@ -15193,7 +15193,7 @@ msgstr ""
 #: master_preset.xml:7121(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Bust"
-msgstr ""
+msgstr "Busta"
 
 #: master_preset.xml:7121(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"

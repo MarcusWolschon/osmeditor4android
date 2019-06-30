@@ -144,6 +144,7 @@
   <string name="layer_change_style">Đổi kiểu</string>
   <string name="layer_select_imagery">Chọn hình ảnh</string>
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Điểm Đánh dấu</string>
   <string name="undo_all">Hoàn tác tất cả các điểm đánh dấu sau (chắc chắn)</string>
@@ -169,6 +170,7 @@
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>
   <string name="toast_unsurveyed_road">Đường chưa khảo sát</string>
+  <!---->
   <string name="toast_oauth">Xin hãy cho phép truy cập tài khoản của bạn qua OAuth.</string>
   <string name="toast_no_oauth">Cấu hình OAuth không có sẵn cho API hiện tại. Xin hãy nhập tên người dùng và mật khẩu.</string>
   <string name="toast_oauth_not_enabled">OAuth không được kích hoạt cho API hiện tại.</string>
@@ -300,6 +302,8 @@
   <string name="location_search_label">Tìm kiếm:</string>
   <string name="location_load_button">Tải</string>
   <string name="location_load_dismiss">Đi đến bản đồ</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Di chuyển</string>
   <string name="menu_edit">Chỉnh sửa</string>
@@ -423,6 +427,7 @@
   <string name="config_presetbutton_summary">Thêm và kích hoạt các thẻ đặt trước tương thích với JOSM</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Thiết lập kiểm tra</string>
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Gỡ lỗi</string>
   <string name="config_category_info">Giới thiệu</string>

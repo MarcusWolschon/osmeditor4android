@@ -90,6 +90,7 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Bilder</string>
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -108,6 +109,7 @@
   <string name="toast_merge_overwrote_tags">Merk - operasjonen overskrev egenskap(er)</string>
   <string name="toast_photo_indexing_started">Skanner etter geo-refererte bilder</string>
   <string name="toast_download_failed">Nedlasting mislyktes med feilkoden %1$d, melding; %2$s</string>
+  <!---->
   <string name="toast_min_one_preset">Minst en mal må være valgt!</string>
   <string name="toast_needs_resurvey">Objektet kan være utdatert.</string>
   <string name="toast_openinghours_invalid">Ugylid verdi i form av åpningstider for %1$s</string>
@@ -152,6 +154,8 @@
   <string name="location_coordinates_text">Fra koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Flytt</string>
   <string name="menu_edit">Endre</string>
@@ -220,6 +224,7 @@
   <string name="config_presetbutton_title">Knapper</string>
   <string name="config_presetbutton_summary">Legg til og endre JOSM-kompatible maler</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Feilsøking</string>
   <string name="config_category_info">Om</string>

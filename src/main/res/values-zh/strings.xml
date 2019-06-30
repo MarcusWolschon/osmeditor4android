@@ -70,6 +70,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -85,6 +86,7 @@
   <string name="toast_photo_indexing_finished">扫描地理参考图片完成</string>
   <string name="toast_download_failed">下载失败，错误代码是%1$d，信息为%2$s</string>
   <string name="toast_unsurveyed_road">未调查的路</string>
+  <!---->
   <string name="toast_oauth">请允许 OAuth 进入您的 OSM 帐号。</string>
   <string name="toast_no_oauth">没有可用于当前的API的OAuth配置，请设置登录名和密码。</string>
   <string name="coordinates_out_of_range">经度必须在-180°/+180° 以内，而纬度在-85°/85° 以内</string>
@@ -142,6 +144,8 @@
   <string name="location_search_label">搜索：</string>
   <string name="location_load_button">加载</string>
   <string name="location_load_dismiss">转到地图</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">移动</string>
   <string name="menu_edit">编辑</string>
@@ -215,6 +219,7 @@
   <string name="config_presetbutton_title">预设</string>
   <string name="config_presetbutton_summary">添加并启用JOSM兼容的预设</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">关于</string>
   <!--Advanced preferences-->

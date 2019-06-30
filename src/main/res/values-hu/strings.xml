@@ -119,7 +119,9 @@
   <string name="maproulette_task_explanations">Magyarázatok</string>
   <string name="maproulette_task_set_apikey">MapRoulette API kulcs megadása</string>
   <string name="maproulette_task_apikey_not_set">A MapRoulette API kulcs nem menthető</string>
+  <string name="maproulette_task_disable">Letiltás</string>
   <string name="maproulette_task_apikey_set">MapRoulette API kulcs mentve</string>
+  <string name="maproulette_task_no_apikey">Nincs MapRoulette API kulcs</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vigyázat!</string>
   <string name="unsaved_data_message">A mentetlen változtatásai elvesznek, ha folytatja.</string>
@@ -190,6 +192,8 @@
   <string name="evaluate">Kiértékelés</string>
   <string name="js_console_msg_live">Éles mód!</string>
   <string name="js_console_msg_debug">Hibakereső mód!</string>
+  <string name="js_console_input_hint">Adjon meg JavaScriptet itt</string>
+  <string name="js_console_output_hint">A kimenet itt fog megjelenni</string>
   <!--Validator dialogs-->
   <string name="validator_title">%1$s ellenőrző szabálykészlet </string>
   <string name="edit_resurvey_title">Újbóli felmérés bejegyzésének szerkesztése</string>
@@ -254,6 +258,9 @@ elemek megkövetelése</string>
   <string name="layer_info_end_date">Záró dátum</string>
   <string name="layer_info_terms">Feltételek</string>
   <string name="layer_info_privacy_policy">Adatvédelmi irányelvek</string>
+  <!--API info dialog-->
+  <string name="api_info_bounds">Határolókeret</string>
+  <string name="api_info_mapsplit_source">MapSplit csak olvasható forrás</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Ellenőrzőpontok</string>
   <string name="undo_redo_title">Visszavonás – mégis</string>
@@ -312,6 +319,8 @@ elemek megkövetelése</string>
   <string name="toast_untagged_way">Címkézetlen vonal</string>
   <string name="toast_untagged_relation">Címkézetlen kapcsolat</string>
   <string name="toast_unconnected_end_node">A pont egy olyan elem közelében van, amelyhez hozzáköthető lehet</string>
+  <string name="toast_degenerate_way">Degenerált vonal</string>
+  <!---->
   <string name="toast_oauth_retry">Próbálja meg újból a feltöltést, miután engedélyezte az OAuth hozzáférést az OSM fiókjához.</string>
   <string name="toast_oauth">Engedélyezze az OAuth hozzáférést az OSM fiókjához.</string>
   <string name="toast_no_oauth">Az OAuth konfiguráció nem érhető el a jelenlegi API-hoz, állítsa be a bejelentkezési nevet és jelszót.</string>
@@ -387,6 +396,19 @@ elemek megkövetelése</string>
   <string name="toast_merged">Egyesítve</string>
   <string name="toast_long_press_simple_mode">A hosszú nyomás nem érhető el egyszerű módban.</string>
   <string name="toast_invalid_style_file">Érvénytelen stílusfájlformátum ehhez: %1$s</string>
+  <string name="toast_no_geometry">Nem található geometria az elemhez</string>
+  <string name="toast_added_api_entry_for">API kulcs bejegyzés hozzáadása ehhez: %1$s</string>
+  <string name="toast_updated">Frissítve: %1$s</string>
+  <string name="toast_cannot_resume_download_of">A(z) %1$s letöltése nem folytatható</string>
+  <string name="toast_device_not_found_for">Nem található eszköz ehhez: %1$s</string>
+  <string name="toast_file_already_exists">A(z) %1$s fájl már létezik</string>
+  <string name="toast_file_error_for">Fájlhiba ennél: %1$s</string>
+  <string name="toast_http_data_error_for">HTTP adathiba ennél: %1$s</string>
+  <string name="toast_error_insufficient_space_for">Nincs elég hely az eszközön a következőhöz: %1$s</string>
+  <string name="toast_error_too_many_redirects_for">Túl sok átirányítás ennél: %1$s</string>
+  <string name="toast_error_too_unhandled_http_code_for">Nem kezelt HTTP hibakód ennél: %1$s</string>
+  <string name="toast_unknown_error_for">Ismeretlen hiba ennél: %1$s</string>
+  <string name="toast_download_started">A(z) %1$s letöltése elindult</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -504,6 +526,17 @@ elemek megkövetelése</string>
   <string name="location_load_dismiss">Ugrás a térképre</string>
   <string name="location_nan_title">Hibás bemenet!</string>
   <string name="location_nan_message">Tizedesvesszővel elválasztott koordinátákat adjon meg (pl. \"52.333572\",\"8.741185\"). A Lat értékének -85.0 és +85.0 között, a Lon értékének pedig -175.0 és +175.0 között kell lennie.</string>
+  <string name="location_olc">OLC</string>
+  <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Fájlok letöltése</string>
+  <string name="allow_all_networks">Minden hálózat engedélyezése</string>
+  <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Ugrás koordinátákra</string>
+  <string name="go_to_coordinates_hint">Adja meg a koordinátákat vagy egy OLC-t</string>
+  <string name="unparseable_coordinates">Nem értelmezhető koordináták</string>
+  <string name="network_required">Hálózat szükséges a helyzetmeghatározásához</string>
+  <string name="no_nominatim_server">Nem található beállított Nominatim kiszolgáló</string>
+  <string name="no_nominatim_result">A Nominatim kiszolgáló nem találta meg ezt: %1$s</string>
   <!--Menu-->
   <string name="menu_move">Mozgatás</string>
   <string name="menu_edit">Szerkesztés</string>
@@ -529,6 +562,7 @@ elemek megkövetelése</string>
   <string name="menu_gps_show">Pozíció megjelenítése</string>
   <string name="menu_gps_follow">Pozíció követése</string>
   <string name="menu_gps_goto">Ugrás a jelenlegi pozícióhoz</string>
+  <string name="menu_gps_goto_coordinates">Ugrás koordinátákra…</string>
   <string name="menu_gps_start">GPX nyomvonal indítása</string>
   <string name="menu_gps_pause">GPX nyomvonal szüneteltetése</string>
   <string name="menu_gps_clear">GPX nyomvonal és útpontok törlése</string>
@@ -554,6 +588,7 @@ elemek megkövetelése</string>
   <string name="menu_transfer_read_file">Beolvasás JOSM-fájlból…</string>
   <string name="menu_transfer_read_pbf_file">Olvasás PBF-fájlból</string>
   <string name="menu_transfer_save_file">Mentés JOSM-fájlba…</string>
+  <string name="menu_transfer_download_msf">Adatok letöltése kapcsolat nélküli használatra…</string>
   <string name="menu_transfer_bugs">Feladatok…</string>
   <string name="menu_transfer_bugs_download_current">Feladatok letöltése a jelenlegi nézethez</string>
   <string name="menu_transfer_bugs_upload">Összes feltöltése</string>
@@ -657,6 +692,7 @@ elemek megkövetelése</string>
   <string name="actionmode_closed_way_split_2">Zárt vonal felosztása, 2. pont</string>
   <string name="actionmode_restriction">Behajtási korlátozás hozzáadása</string>
   <string name="actionmode_restriction_restart_from">„from” szakasz ismételt kijelölése</string>
+  <string name="actionmode_restriction_select_from">Válasszon „from” szakaszt</string>
   <string name="actionmode_restriction_via">„via” szakasz/elem hozzáadása</string>
   <string name="actionmode_restriction_restart_via">„via” szakasz ismételt kijelölése</string>
   <string name="actionmode_restriction_to">„to” szakasz hozzáadása</string>
@@ -709,6 +745,9 @@ elemek megkövetelése</string>
   <string name="config_validatorprefs_summary">Ellenőrzési szabályok beállítása.</string>
   <string name="config_connectedNodeTolerance_title">Kapcsolódó pontok toleranciája</string>
   <string name="config_connectedNodeTolerance_summary">Ha egy út záró pontja ennél kisebb távolságra van egy úttól (méterben), akkor ahhoz kell kapcsolni</string>
+  <!--opening hours templates-->
+  <string name="config_opening_hours_title">Nyitvatartási sablonok</string>
+  <string name="config_opening_hours_summary">Nyitva tartási sablonok betöltése, mentése és törlése</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Szerzők és licencek</string>
   <string name="config_debugbutton_title">Hibakeresés</string>
@@ -750,7 +789,7 @@ elemek megkövetelése</string>
   <string name="config_enableAntiAliasing_title">Élsimítás engedélyezése</string>
   <string name="config_enableAntiAliasing_summary">A vonalakat simábbá teszi.</string>
   <string name="config_enableHwAcceleration_title">Hardveres gyorsítás engedélyezése</string>
-  <string name="config_enableHwAcceleration_summary">Engedélyezi a hardveres gyorsítást ha és amikor az támogatott, képi hibákat okozhat.</string>
+  <string name="config_enableHwAcceleration_summary">Lehetővé teszi a hardveres gyorsítás alkalmazását ha és ahol támogatott. A hardveres gyorsítás beállításának jelenleg nincs hatása.</string>
   <string name="config_maxStrokeWidth_title">Legnagyobb vonalvastagság</string>
   <string name="config_maxStrokeWidth_summary">Ne rajzoljon ennél vastagabb vonalat.</string>
   <string name="config_maxStrokeWidth_current">%1$d pixel</string>
@@ -930,7 +969,7 @@ elemek megkövetelése</string>
   <string name="undo_action_apply_osc">OSC-fájl alkalmazása</string>
   <!--ACRA-->
   <string name="crash_dialog_text">A Vespucci összeomlott, vagy egy súlyos hibát észlelt a legutóbbi futásakor.\n\nSegítsen nekünk azzal, hogy az „OK” gombra kattint a hibajelentés küldéséhez.\n</string>
-  <string name="crash_dialog_comment_prompt">Adjon hozzá minden további információt, amely segíthet és (nem kötelező) adja meg az e-mail címét, ha visszajelzést szeretne kapni.\n\nKöszönjük.</string>
+  <string name="crash_dialog_comment_prompt">Adjon meg minden további olyan információt, amiről úgy véli, hasznos lehet, valamint (nem kötelezően) OSM felhasználónevét, ha szeretne visszajelzést.\n\nKöszönjük.</string>
   <string name="report_success">Bejelentve.</string>
   <string name="report_failure">A jelentés nem küldhető el.</string>
   <!--Exceptions messages-->

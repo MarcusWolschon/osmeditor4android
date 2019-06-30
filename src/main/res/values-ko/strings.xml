@@ -88,6 +88,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -103,6 +104,7 @@
   <string name="toast_state_file_failed">읽을 수 없거나 오류가 있는 상태 파일</string>
   <string name="toast_download_failed">오류 코드 %1$d, 메시지 %2$s로 다운로드를 실패했습니다</string>
   <string name="toast_unsurveyed_road">측량되지 않은 길</string>
+  <!---->
   <string name="toast_oauth">OSM 계정에 접속하기 위해 OAuth를 허용해 주십시요.</string>
   <string name="toast_no_oauth">현재 API의  사용할 수 있는 OAuth 환경 설정이 없습니다, 로그인 및 비밀번호를 설정해주세요.</string>
   <string name="toast_oauth_not_enabled">OAuth가 현재 API에서 활성화 되지 않았습니다.</string>
@@ -197,6 +199,8 @@
   <string name="location_search_label">검색:</string>
   <string name="location_load_button">불러오기</string>
   <string name="location_load_dismiss">지도로 가기</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">이동</string>
   <string name="menu_edit">편집</string>
@@ -281,6 +285,7 @@
   <string name="config_advancedprefs">고급 환경 설정</string>
   <string name="config_presetbutton_title">프리셋</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">디버그</string>
   <string name="config_category_info">정보</string>

@@ -57,6 +57,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -67,6 +68,7 @@
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_unlock_to_edit">Otključaj za uređivanje</string>
   <string name="toast_export_success">Izvezeno u %1$s</string>
+  <!---->
   <string name="toast_nothing_found">Ništa nije nađeno</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
@@ -100,6 +102,8 @@
   <string name="location_lon_label">Lon:</string>
   <string name="location_search_label">Traži:</string>
   <string name="location_load_button">Učitaj</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Pomakni</string>
   <string name="menu_edit">Promijeni</string>
@@ -148,6 +152,7 @@
   <string name="config_enablePhotoLayer_summary">Prikaži geo-referencirane fotke.</string>
   <string name="config_advancedprefs">Napredne postavke</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Debug</string>
   <string name="config_category_info">Više o</string>

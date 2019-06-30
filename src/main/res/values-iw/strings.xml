@@ -121,7 +121,9 @@
   <string name="maproulette_task_explanations">הסברים</string>
   <string name="maproulette_task_set_apikey">הגדרת מפתח API של MapRoulette</string>
   <string name="maproulette_task_apikey_not_set">לא ניתן לשמור את מפתח ה־API של MapRoulette</string>
+  <string name="maproulette_task_disable">השבתה</string>
   <string name="maproulette_task_apikey_set">מפתח ה־API של MapRoulette נשמר</string>
+  <string name="maproulette_task_no_apikey">אין מפתח API של MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">אזהרה!</string>
   <string name="unsaved_data_message">השינויים שלא שמרת יימחקו אלמלא יישמרו.</string>
@@ -192,6 +194,8 @@
   <string name="evaluate">הערכה</string>
   <string name="js_console_msg_live">מצב חי!</string>
   <string name="js_console_msg_debug">מצב ניפוי שגיאות!</string>
+  <string name="js_console_input_hint">נא להכניס כאן JavaScript</string>
+  <string name="js_console_output_hint">הפלט יופיע כאן</string>
   <!--Validator dialogs-->
   <string name="validator_title">ערכת כללי מאמת %1$s</string>
   <string name="edit_resurvey_title">עריכת רשומת תשאול מחדש</string>
@@ -255,6 +259,9 @@
   <string name="layer_info_end_date">מועד סיום</string>
   <string name="layer_info_terms">תנאים</string>
   <string name="layer_info_privacy_policy">מדיניות פרטיות</string>
+  <!--API info dialog-->
+  <string name="api_info_bounds">תיבה תוחמת</string>
+  <string name="api_info_latest_date">תאריך ההכללה האחרון</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">נקודות ביקורת</string>
   <string name="undo_redo_title">ביטול - שחזור</string>
@@ -315,6 +322,7 @@
   <string name="toast_untagged_way">דרך בלתי מתויגת</string>
   <string name="toast_untagged_relation">יחס בלתי מתויג</string>
   <string name="toast_unconnected_end_node">המפרק הוא ליד רכיב שאין לו אפשרות להתחבר אליו</string>
+  <!---->
   <string name="toast_oauth_retry">כדאי לנסות להעלות שוב לאחר מתן גישה ל־OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_oauth">נא לאפשר גישה עם OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_no_oauth">אין תצורת OAuth זמינה עבור ה־API הנוכחי, נא להגדיר שם משתמש וססמה.</string>
@@ -392,6 +400,18 @@
   <string name="toast_merged">ממוזג</string>
   <string name="toast_long_press_simple_mode">אין לחיצה ארוכה במצב פשוט</string>
   <string name="toast_invalid_style_file">תבנית קובץ הסגנון של %1$s שגוי</string>
+  <string name="toast_no_geometry">לא נמצאה גאומטריה עבור הרכיב</string>
+  <string name="toast_added_api_entry_for">נוספה רשומת API עבור %1$s</string>
+  <string name="toast_cannot_resume_download_of">לא ניתן להמשיך את ההורדה של %1$s</string>
+  <string name="toast_device_not_found_for">לא נמצא מכשיר עבור %1$s</string>
+  <string name="toast_file_already_exists">הקובץ %1$s כבר קיים</string>
+  <string name="toast_file_error_for">שגיאת קובץ עבור %1$s</string>
+  <string name="toast_http_data_error_for">שגיאת נתוני HTTP עבור %1$s</string>
+  <string name="toast_error_insufficient_space_for">אין מספיק מקום על המכשיר עבור %1$s</string>
+  <string name="toast_error_too_many_redirects_for">יותר מדי הפניות עבור %1$s</string>
+  <string name="toast_error_too_unhandled_http_code_for">קוד HTTP בלתי מטופל עבור %1$s</string>
+  <string name="toast_unknown_error_for">שגיאה לא ידועה עבור %1$s</string>
+  <string name="toast_download_started">החלה ההורדה של %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
   <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>
@@ -509,6 +529,13 @@
   <string name="location_load_dismiss">מעבר למפה</string>
   <string name="location_nan_title">קלט שגוי!</string>
   <string name="location_nan_message">נא להקליד נקודות ציון בציון עשרוני (למשל: „52.333572”,„8.741185”). קו הרוחב חייב להיות איפשהו בין ‎-85.0 ל־‎+85.0 וקו האורך חייב להיות איפשהו בין ‎-175.0 ל־‎+175.0.</string>
+  <!--Strings in DownloadActivity-->
+  <string name="download_files_title">הורדת קבצים</string>
+  <string name="allow_all_networks">לאפשר את כל הרשתות</string>
+  <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">מעבר לנקודות ציון</string>
+  <string name="unparseable_coordinates">נקודות ציון ללא אפשרות פענוח</string>
+  <string name="network_required">נדרשת רשת לאיתור מיקום</string>
   <!--Menu-->
   <string name="menu_move">העברה</string>
   <string name="menu_edit">עריכה</string>
@@ -534,6 +561,7 @@
   <string name="menu_gps_show">הצגת מיקום</string>
   <string name="menu_gps_follow">מעקב אחר מיקום</string>
   <string name="menu_gps_goto">מעבר למיקום הנוכחי</string>
+  <string name="menu_gps_goto_coordinates">מעבר לנקודות ציון…</string>
   <string name="menu_gps_start">התחלת מסלול GPX</string>
   <string name="menu_gps_pause">השהיית מעקב GPX</string>
   <string name="menu_gps_clear">מחיקת מסלול GPX ואת נקודות הדרך שלו</string>
@@ -559,6 +587,7 @@
   <string name="menu_transfer_read_file">קריאה מקובץ JOSM…</string>
   <string name="menu_transfer_read_pbf_file">קריאה מקובץ PBF</string>
   <string name="menu_transfer_save_file">שמירה לקובץ JOSM…</string>
+  <string name="menu_transfer_download_msf">הורדת נתונים לשימוש בלתי מקוון…</string>
   <string name="menu_transfer_bugs">משימות…</string>
   <string name="menu_transfer_bugs_download_current">הורדת משימות לתצוגה הנוכחית</string>
   <string name="menu_transfer_bugs_upload">להעלות הכול</string>
@@ -662,6 +691,7 @@
   <string name="actionmode_closed_way_split_2">פיצול דרך סגורה, מפרק שני</string>
   <string name="actionmode_restriction">הוספת מגבלת פנייה</string>
   <string name="actionmode_restriction_restart_from">בחירת מקטע „מוצא” מחדש</string>
+  <string name="actionmode_restriction_select_from">בחירת מקטע „מוצא”</string>
   <string name="actionmode_restriction_via">הוספת מקטע/רכיב „מעבר”</string>
   <string name="actionmode_restriction_restart_via">בחירה מחודשת במקטע „מעבר”</string>
   <string name="actionmode_restriction_to">הוספת מקטע „יעד”</string>
@@ -716,6 +746,9 @@
   <string name="config_validatorprefs_summary">הגדרת כללי אימות.</string>
   <string name="config_connectedNodeTolerance_title">רגישות חיבור מפרקים</string>
   <string name="config_connectedNodeTolerance_summary">אם מפרק של דרך מהירה הוא במרחק הזה (במטרים) מדרך מהירה הוא אמור להתחבר אליו</string>
+  <!--opening hours templates-->
+  <string name="config_opening_hours_title">תבניות שעות פתיחה</string>
+  <string name="config_opening_hours_summary">טעינה, שמירה ומחיקה של תבניות שעות פתיחה</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">יוצרים ורישיונות</string>
   <string name="config_debugbutton_title">ניפוי שגיאות</string>
@@ -757,7 +790,6 @@
   <string name="config_enableAntiAliasing_title">הפעלת ביטול החלקה</string>
   <string name="config_enableAntiAliasing_summary">החלקת הקווים.</string>
   <string name="config_enableHwAcceleration_title">הפעלת האצת חומרה</string>
-  <string name="config_enableHwAcceleration_summary">מאפשר שימוש בהאצת חומרה אם וכאשר נתמכת, עשוי לגרום להפתעות על המסך.</string>
   <string name="config_maxStrokeWidth_title">עובי קו מרבי</string>
   <string name="config_maxStrokeWidth_summary">לא לצייר דרכים בקו עבה יותר מההגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
@@ -937,7 +969,6 @@
   <string name="undo_action_apply_osc">החלת קובץ OSC</string>
   <!--ACRA-->
   <string name="crash_dialog_text">וספוצ׳י קרס או שנתקל בתקלות חמורות במהלך ההפעלה הקודמת.\n\nנא לסייע על ידי לחיצה על ‚אישור’ כדי לשלוח דוח שגיאה.\n</string>
-  <string name="crash_dialog_comment_prompt">ניתן להוסיף מידע נוסף שלדעתך יסייע לנו (לבחירתך), את כתובת הדוא״ל שלך אם מעניין אותך לקבל משוב.\n\nתודה רבה לך.</string>
   <string name="report_success">דווח.</string>
   <string name="report_failure">לא ניתן לשלוח דיווח.</string>
   <!--Exceptions messages-->

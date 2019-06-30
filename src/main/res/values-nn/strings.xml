@@ -38,6 +38,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -47,6 +48,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikkje endra noko enno…</string>
   <string name="toast_export_success">Eksporterte til %1$s</string>
+  <!---->
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
@@ -71,6 +73,8 @@
   <string name="location_coordinates_text">Frå koordinat:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Flytt</string>
   <string name="menu_edit">Endre</string>
@@ -106,6 +110,7 @@
   <string name="config_advancedprefs">Avanserte innstillingar</string>
   <string name="config_presetbutton_title">Knappar</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Om</string>
   <!--Advanced preferences-->

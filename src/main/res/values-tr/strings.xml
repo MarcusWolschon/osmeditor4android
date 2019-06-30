@@ -73,6 +73,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -88,6 +89,7 @@
   <string name="toast_photo_indexing_finished">Jeo-referanslı fotoğraf taraması bitti</string>
   <string name="toast_download_failed">İndirme başarısız hata kodu %1$d, mesaj %2$s</string>
   <string name="toast_unsurveyed_road">Keşfedilmemiş yol</string>
+  <!---->
   <string name="toast_oauth">Lütfen OAuth\'un OSM hesabınıza erişmesine izin verin.</string>
   <string name="toast_no_oauth">Şu andaki API için OAuth yapılandırması yok, lütfen giriş ve parolayı ayarlayın.</string>
   <string name="coordinates_out_of_range">Boylam -180°/+180°, enlem -85°/85° arasında olmalıdır</string>
@@ -149,6 +151,8 @@
   <string name="location_search_label">Ara:</string>
   <string name="location_load_button">Yükle</string>
   <string name="location_load_dismiss">Haritaya git</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Taşı</string>
   <string name="menu_edit">Düzenle</string>
@@ -225,6 +229,7 @@
   <string name="config_presetbutton_title">Öntanımlılar</string>
   <string name="config_presetbutton_summary">JOSM uyumlu öntanımlı ekle ve etkinleştir</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Hakkında</string>
   <!--Advanced preferences-->

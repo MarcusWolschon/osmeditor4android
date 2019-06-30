@@ -253,6 +253,7 @@
   <string name="layer_info_end_date">Data de finalització</string>
   <string name="layer_info_terms">Termes</string>
   <string name="layer_info_privacy_policy">Política de privacitat</string>
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punts de control</string>
   <string name="undo_redo_title">Desfés - refés</string>
@@ -310,6 +311,7 @@
   <string name="toast_untagged_way">via no etiquetada</string>
   <string name="toast_untagged_relation">relació no etiquetada</string>
   <string name="toast_unconnected_end_node">El node està a prop d’element al qual podria connectar-se</string>
+  <!---->
   <string name="toast_oauth_retry">Intenta pujar de nou després de permetre l’accés a OAuth al teu compte d\'OSM.</string>
   <string name="toast_timeout">Temps esgotat del servidor</string>
   <string name="coordinates_out_of_range">La longitud ha de ser un valor entre -180° i +180°, i la latitud entre -85° i 85°</string>
@@ -437,6 +439,8 @@
   <string name="location_load_button">Carrega</string>
   <string name="location_load_dismiss">Vés al mapa</string>
   <string name="location_nan_title">Entrada errònia!</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Mou</string>
   <string name="menu_edit">Edita</string>
@@ -579,6 +583,7 @@
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Paràmetres del validador</string>
   <string name="config_validatorprefs_summary">Configura les regles de validació.</string>
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autors i llicències</string>
   <string name="config_debugbutton_title">Depuració</string>
@@ -711,7 +716,6 @@
   <string name="undo_action_apply_osc">Aplicar fitxer OSC</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci ha deixat de funcionar o es va trobar amb un problema greu la darrera vegada que es va executar\n\nAjuda\'ns fent clic a \'D\'acord\' per enviar un informe d\'error.\n</string>
-  <string name="crash_dialog_comment_prompt">Afegeix qualsevol informació addicional que creguis que pot ajudar i (opcionalment) la teva adreça de correu electrònic si vols rebre comentaris.\n\nGràcies.</string>
   <string name="report_success">S\'ha reportat.</string>
   <string name="report_failure">No s\'ha pogut enviar l\'informe.</string>
   <!--Exceptions messages-->

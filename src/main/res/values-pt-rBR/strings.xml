@@ -61,6 +61,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -70,6 +71,7 @@
   <!--Toaster-->
   <string name="toast_unlock_to_edit">Desbloqueie para editar</string>
   <string name="toast_export_success">Exportado para %1$s</string>
+  <!---->
   <string name="toast_nothing_found">Nada encontrado</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
@@ -106,6 +108,8 @@
   <string name="location_search_label">Procurar:</string>
   <string name="location_load_button">Carregar</string>
   <string name="location_load_dismiss">Ir para o mapa</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Mover</string>
   <string name="menu_edit">Editar</string>
@@ -165,6 +169,7 @@
   <string name="config_advancedprefs">Preferências avançadas</string>
   <string name="config_presetbutton_title">Pré-definições</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Debug</string>
   <string name="config_category_info">Sobre</string>

@@ -53,6 +53,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -62,6 +63,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
   <string name="toast_export_success">Exportat la %1$s</string>
+  <!---->
   <string name="toast_nothing_found">Nu am găsit nimic</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
@@ -96,6 +98,8 @@
   <string name="location_search_label">Caută:</string>
   <string name="location_load_button">Încarcă</string>
   <string name="location_load_dismiss">Mergeţi la hartă</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Mută</string>
   <string name="menu_edit">Editează</string>
@@ -132,6 +136,7 @@
   <string name="config_backgroundLayer_title">Hartă de fundal</string>
   <string name="config_advancedprefs">Setări avansate</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Despre</string>
   <!--Advanced preferences-->

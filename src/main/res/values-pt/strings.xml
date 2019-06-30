@@ -119,7 +119,9 @@
   <string name="maproulette_task_explanations">Explicações</string>
   <string name="maproulette_task_set_apikey">Definir chave da API do MapRoulette</string>
   <string name="maproulette_task_apikey_not_set">Não foi possível gravar a chave da API do MapRoulette</string>
+  <string name="maproulette_task_disable">Desativar</string>
   <string name="maproulette_task_apikey_set">Chave da API do MapRoulette gravada</string>
+  <string name="maproulette_task_no_apikey">Nenhuma chave da API do MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Se continuar perderá as suas alterações por gravar.</string>
@@ -190,6 +192,8 @@
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo ao vivo!</string>
   <string name="js_console_msg_debug">Modo depuração de erros!</string>
+  <string name="js_console_input_hint">Introduza o JavaScript aqui</string>
+  <string name="js_console_output_hint">A saída aparecerá aqui</string>
   <!--Validator dialogs-->
   <string name="validator_title">Regras de verificação %1$s</string>
   <string name="edit_resurvey_title">Editar o levantamento submetido</string>
@@ -253,6 +257,11 @@
   <string name="layer_info_end_date">Data de fim</string>
   <string name="layer_info_terms">Termos</string>
   <string name="layer_info_privacy_policy">Política de privacidade</string>
+  <!--API info dialog-->
+  <string name="api_info_bounds">Caixa de limites</string>
+  <string name="api_info_latest_date">Última data de inclusão</string>
+  <string name="api_info_attribution">Atribuição</string>
+  <string name="api_info_mapsplit_source">Fonte MapSplit  de apenas leitura</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Histórico de alterações</string>
   <string name="undo_redo_title">Desfazer - refazer</string>
@@ -311,6 +320,8 @@
   <string name="toast_untagged_way">Via sem etiquetas</string>
   <string name="toast_untagged_relation">Relação sem etiquetas</string>
   <string name="toast_unconnected_end_node">O nó está perto de um elemento ao qual poderia estar ligado.</string>
+  <string name="toast_degenerate_way">Degenerar via</string>
+  <!---->
   <string name="toast_oauth_retry">Tente enviar novamente após autorizar o acesso OAuth à sua conta no OpenStreetMap.</string>
   <string name="toast_oauth">Por favor autorize o Vespucci no OAuth para poder aceder à sua conta no OpenStreetMap.</string>
   <string name="toast_no_oauth">Nenhuma configuração OAuth disponível para a API atual, por favor indique o nome de utilizador e palavra-chave.</string>
@@ -389,6 +400,19 @@
   <string name="toast_merged">Unido</string>
   <string name="toast_long_press_simple_mode">O pressionar longo não está disponível no modo simples</string>
   <string name="toast_invalid_style_file">Formato de ficheiro de estilo inválido em %1$s</string>
+  <string name="toast_no_geometry">Sem geometria para o elemento encontrado</string>
+  <string name="toast_added_api_entry_for">Entrada de API adicionada de %1$s</string>
+  <string name="toast_updated">%1$s atualizado</string>
+  <string name="toast_cannot_resume_download_of">Não foi possível continuar o descarregamento de %1$s</string>
+  <string name="toast_device_not_found_for">Dispositivo não encontrado para %1$s</string>
+  <string name="toast_file_already_exists">O ficheiro %1$s já existe</string>
+  <string name="toast_file_error_for">Erro no ficheiro de %1$s</string>
+  <string name="toast_http_data_error_for">Erro de dados HTTP de %1$s</string>
+  <string name="toast_error_insufficient_space_for">Sem espaço de armazenamento suficiente para %1$s</string>
+  <string name="toast_error_too_many_redirects_for">Demasiados redirecionamentos para %1$s</string>
+  <string name="toast_error_too_unhandled_http_code_for">Código HTTP não tratado de %1$s</string>
+  <string name="toast_unknown_error_for">Erro desconhecido de %1$s</string>
+  <string name="toast_download_started">Descarregamento de %1$s iniciado</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">As fontes MapSplit tem de ter a aproximação máxima e afastamento máximo definidos</string>
   <string name="error_pbf_no_version">Falta a informação sobre a versão no ficheiro PBF</string>
@@ -509,6 +533,17 @@ há %3$s %4$s</string>
   <string name="location_load_dismiss">Ir para o mapa</string>
   <string name="location_nan_title">Entrada errónea!</string>
   <string name="location_nan_message">Por favor insira as coordenadas no formato decimal (por exemplo \"52.333572\",\"8.741185\"). A Lat deve estar entre -85.0 e +85.0 e a Lon deve estar entre -175.0 e +175.0.</string>
+  <string name="location_olc">OLC</string>
+  <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Descarregar ficheiros</string>
+  <string name="allow_all_networks">Permitir todas as redes</string>
+  <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Ir para as coordenadas</string>
+  <string name="go_to_coordinates_hint">Introduza as coordenadas ou um OLC</string>
+  <string name="unparseable_coordinates">Coordenadas não processáveis</string>
+  <string name="network_required">É necessária a rede para a procura de um local</string>
+  <string name="no_nominatim_server">Não foi encontrado um servidor Nominatim configurado</string>
+  <string name="no_nominatim_result">O servidor Nominatim não encontrou %1$s</string>
   <!--Menu-->
   <string name="menu_move">Mover</string>
   <string name="menu_edit">Editar</string>
@@ -534,6 +569,7 @@ há %3$s %4$s</string>
   <string name="menu_gps_show">Ver localização</string>
   <string name="menu_gps_follow">Seguir localização</string>
   <string name="menu_gps_goto">Ir para a localização atual</string>
+  <string name="menu_gps_goto_coordinates">Ir para as coordenadas…</string>
   <string name="menu_gps_start">Iniciar trilho GPX</string>
   <string name="menu_gps_pause">Pausar localização GPX</string>
   <string name="menu_gps_clear">Limpar trilhos GPX e os seus marcadores</string>
@@ -559,6 +595,7 @@ há %3$s %4$s</string>
   <string name="menu_transfer_read_file">Ler de um ficheiro JOSM…</string>
   <string name="menu_transfer_read_pbf_file">Ler do ficheiro PBF</string>
   <string name="menu_transfer_save_file">Gravar para um ficheiro JOSM…</string>
+  <string name="menu_transfer_download_msf">Descarregar dados para utilização sem Internet…</string>
   <string name="menu_transfer_bugs">Tarefas…</string>
   <string name="menu_transfer_bugs_download_current">Descarregar tarefas para a vista atual</string>
   <string name="menu_transfer_bugs_upload">Enviar tudo</string>
@@ -662,6 +699,7 @@ há %3$s %4$s</string>
   <string name="actionmode_closed_way_split_2">Dividir linha fechada, 2º nó</string>
   <string name="actionmode_restriction">Adicionar restrição de viragem</string>
   <string name="actionmode_restriction_restart_from">Selecionar novamente o segmento \"from\" (de)</string>
+  <string name="actionmode_restriction_select_from">Selecionar segmento \"from\" (de)</string>
   <string name="actionmode_restriction_via">Adicionar segmento/elemento \"via\"</string>
   <string name="actionmode_restriction_restart_via">Selecionar novamente o segmento \"via\"</string>
   <string name="actionmode_restriction_to">Adicionar segmento \"to\" (para)</string>
@@ -715,6 +753,9 @@ há %3$s %4$s</string>
   <string name="config_validatorprefs_summary">Configurar regras de validação.</string>
   <string name="config_connectedNodeTolerance_title">Tolerância de nó ligado</string>
   <string name="config_connectedNodeTolerance_summary">Se um nó pertencente a uma estrada estiver dentro desta distância (em metros) a outra estrada à qual devia estar ligada</string>
+  <!--opening hours templates-->
+  <string name="config_opening_hours_title">Modelos de horários de abertura</string>
+  <string name="config_opening_hours_summary">Carregar, guardar e eliminar modelos de horários de abertura</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autores e licenças</string>
   <string name="config_debugbutton_title">Depuração de erros</string>
@@ -756,7 +797,7 @@ há %3$s %4$s</string>
   <string name="config_enableAntiAliasing_title">Ativar suavização</string>
   <string name="config_enableAntiAliasing_summary">Torna as linhas mais suaves como anti-serrilhado.</string>
   <string name="config_enableHwAcceleration_title">Ativar aceleração por hardware</string>
-  <string name="config_enableHwAcceleration_summary">Permite utilizar os recursos físicos de aceleração caso sejam suportados, pode resultar em artefactos.</string>
+  <string name="config_enableHwAcceleration_summary">Permite a aceleração por hardware se e quando suportado. Definir isto atualmente não tem qualquer efeito.</string>
   <string name="config_maxStrokeWidth_title">Espessura máxima da linha</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -936,7 +977,7 @@ há %3$s %4$s</string>
   <string name="undo_action_apply_osc">Aplicar ao ficheiro OSC</string>
   <!--ACRA-->
   <string name="crash_dialog_text">O Vespucci bloqueou ou encontrou um erro grave da última vez que foi executado.\n\nPor favor ajude clicando em \'OK\' para enviar um relatório de erro aos programadores.\n</string>
-  <string name="crash_dialog_comment_prompt">Adicione mais informação se acha que pode ajudar a resolver o problema e (opcionalmente) indique o seu endereço de email se quiser obter uma resposta.\n\nObrigado.</string>
+  <string name="crash_dialog_comment_prompt">Adicione qualquer informação adicional que possa ajudar e opcionalmente, o seu nome de utilizador no OpenStreetMap se quiser obter uma resposta.\n\nObrigado.</string>
   <string name="report_success">Reportado.</string>
   <string name="report_failure">Não foi possível enviar o reporte.</string>
   <!--Exceptions messages-->

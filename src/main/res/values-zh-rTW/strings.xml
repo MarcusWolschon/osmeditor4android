@@ -118,7 +118,9 @@
   <string name="maproulette_task_explanations">解釋</string>
   <string name="maproulette_task_set_apikey">設定 MapRoulette API 鑰匙</string>
   <string name="maproulette_task_apikey_not_set">無法儲存 MapRoulette API 鑰匙</string>
+  <string name="maproulette_task_disable">失效 </string>
   <string name="maproulette_task_apikey_set">MapRoulette API key 已經儲存</string>
+  <string name="maproulette_task_no_apikey">沒有 MapRoulette API 鑰匙</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將被丟棄。</string>
@@ -189,6 +191,8 @@
   <string name="evaluate">評估</string>
   <string name="js_console_msg_live">Live 模式！</string>
   <string name="js_console_msg_debug">Debug 模式</string>
+  <string name="js_console_input_hint">在這裡輸入 JavaScript</string>
+  <string name="js_console_output_hint">這邊會出現結果</string>
   <!--Validator dialogs-->
   <string name="validator_title">驗證器規則集 %1$s</string>
   <string name="edit_resurvey_title">編輯重新踏查輸入值</string>
@@ -252,6 +256,11 @@
   <string name="layer_info_end_date">結束日期</string>
   <string name="layer_info_terms">條款</string>
   <string name="layer_info_privacy_policy">隱私政策</string>
+  <!--API info dialog-->
+  <string name="api_info_bounds">邊界框</string>
+  <string name="api_info_latest_date">最後包括的日期</string>
+  <string name="api_info_attribution">貢獻者</string>
+  <string name="api_info_mapsplit_source">MapSplit 唯讀來源</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">檢查點</string>
   <string name="undo_redo_title">復原及取消復原</string>
@@ -309,6 +318,8 @@
   <string name="toast_untagged_way">未加上標籤的路徑</string>
   <string name="toast_untagged_relation">未加上標籤的關聯</string>
   <string name="toast_unconnected_end_node">節點接近連接的元素</string>
+  <string name="toast_degenerate_way">退化的路徑</string>
+  <!---->
   <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
   <string name="toast_no_oauth">沒有 OAuth 的組態可用於目前的API，請設定登入名稱和密碼。</string>
@@ -383,6 +394,19 @@
   <string name="toast_merged">已合併</string>
   <string name="toast_long_press_simple_mode">簡單模式下長按無效</string>
   <string name="toast_invalid_style_file">%1$s 有無效的樣式檔案格式</string>
+  <string name="toast_no_geometry">元素沒有找到幾何性</string>
+  <string name="toast_added_api_entry_for">%1$s 增加 API 指令</string>
+  <string name="toast_updated">更新%1$s </string>
+  <string name="toast_cannot_resume_download_of">無法繼續下載 %1$s</string>
+  <string name="toast_device_not_found_for">%1$s裝置無法找到</string>
+  <string name="toast_file_already_exists">%1$s檔案已經存在了</string>
+  <string name="toast_file_error_for">%1$s檔案錯誤</string>
+  <string name="toast_http_data_error_for">%1$sHTTP 資料錯誤</string>
+  <string name="toast_error_insufficient_space_for">裝置 %1$s 沒有足夠空間</string>
+  <string name="toast_error_too_many_redirects_for">%1$s有太多重定向</string>
+  <string name="toast_error_too_unhandled_http_code_for">%1$s有無法處理的 HTTP 代碼</string>
+  <string name="toast_unknown_error_for">%1$s的不知名錯誤</string>
+  <string name="toast_download_started">下載%1$s要開始了</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -501,6 +525,17 @@
   <string name="location_load_dismiss">前往地圖</string>
   <string name="location_nan_title">相當大的輸入！</string>
   <string name="location_nan_message">請插入十進位格式的座標 (eg. \"52.333572\",\"8.741185\")。緯度必須放置于 -85.0 和 +85.0 之間，並且經度必須放置于 -175.0 和 +175.0 之間。</string>
+  <string name="location_olc">OLC</string>
+  <!--Strings in DownloadActivity-->
+  <string name="download_files_title">下載檔案</string>
+  <string name="allow_all_networks">允許所有網路</string>
+  <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">到座標</string>
+  <string name="go_to_coordinates_hint">輸入座標或是 OLC</string>
+  <string name="unparseable_coordinates">無法解析的座標</string>
+  <string name="network_required">要查找位置需要網路</string>
+  <string name="no_nominatim_server">沒有找到設定好的 Nominatim 伺服器</string>
+  <string name="no_nominatim_result">Nominatim 伺服器沒有找到 %1$s</string>
   <!--Menu-->
   <string name="menu_move">移動</string>
   <string name="menu_edit">編輯</string>
@@ -526,6 +561,7 @@
   <string name="menu_gps_show">顯示位置</string>
   <string name="menu_gps_follow">追隨位置</string>
   <string name="menu_gps_goto">前往目前位置</string>
+  <string name="menu_gps_goto_coordinates">到座標...</string>
   <string name="menu_gps_start">開始 GPS 軌跡記錄</string>
   <string name="menu_gps_pause">暫停 GPS 軌跡記錄</string>
   <string name="menu_gps_clear">清除 GPS 軌跡和航點</string>
@@ -551,6 +587,7 @@
   <string name="menu_transfer_read_file">從 JOSM 檔讀取...</string>
   <string name="menu_transfer_read_pbf_file">從 PBF 檔案讀取</string>
   <string name="menu_transfer_save_file">儲存到 JOSM 檔案...</string>
+  <string name="menu_transfer_download_msf">下載資料以供離線使用...</string>
   <string name="menu_transfer_bugs">任務...</string>
   <string name="menu_transfer_bugs_download_current">下載檢視範圍內所有任務</string>
   <string name="menu_transfer_bugs_upload">全部上傳</string>
@@ -654,6 +691,7 @@
   <string name="actionmode_closed_way_split_2">第 2 節點拆分封閉路徑</string>
   <string name="actionmode_restriction">增加轉彎限制</string>
   <string name="actionmode_restriction_restart_from">重新選擇\"從\"片段</string>
+  <string name="actionmode_restriction_select_from">選擇「從」片段</string>
   <string name="actionmode_restriction_via">增加\"經過\"片段</string>
   <string name="actionmode_restriction_restart_via">重新選擇\"經過\"片段</string>
   <string name="actionmode_restriction_to">增加\"到\"片段</string>
@@ -705,6 +743,9 @@
   <string name="config_validatorprefs_summary">設定驗證規則。</string>
   <string name="config_connectedNodeTolerance_title">連接節點的容忍值</string>
   <string name="config_connectedNodeTolerance_summary">如果公路的結束節點接近 (公尺程度) 其他公路，應該要連接過去。</string>
+  <!--opening hours templates-->
+  <string name="config_opening_hours_title">開放時間模板</string>
+  <string name="config_opening_hours_summary">載入、儲存和刪除開放時間模板</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">作者和授權</string>
   <string name="config_debugbutton_title">除錯</string>
@@ -746,7 +787,7 @@
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
   <string name="config_enableHwAcceleration_title">啟用硬體加速</string>
-  <string name="config_enableHwAcceleration_summary">如果支援的話，允許使用硬體加速，也許會造成假像。</string>
+  <string name="config_enableHwAcceleration_summary">如果支援的話，允許使用硬體加速，也許目前設定並沒有效果。</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -926,7 +967,7 @@
   <string name="undo_action_apply_osc">套用 OSC 檔案</string>
   <!--ACRA-->
   <string name="crash_dialog_text">上次 Vespucci 運行時當掉或是遇到嚴重的問題。\n\n請點 \'OK\' 來傳送錯誤報告。\n</string>
-  <string name="crash_dialog_comment_prompt">增加其他你覺得可能幫上忙的的進一步資訊，如果需要回饋則附上你的電子郵件位址(選擇)。\n\n謝謝你！</string>
+  <string name="crash_dialog_comment_prompt">增加任何你覺得能幫助的資訊 (選擇性)，如要回應請填 OSM 名稱。\n\n謝謝你。</string>
   <string name="report_success">已報告。</string>
   <string name="report_failure">無法回傳報告。</string>
   <!--Exceptions messages-->

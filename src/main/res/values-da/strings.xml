@@ -65,6 +65,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -74,6 +75,7 @@
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_export_success">Eksporteret til %1$s</string>
+  <!---->
   <string name="coordinates_out_of_range">Længdegrad skal være mellem -180°/+180°, breddegrad mellem -85°/85°</string>
   <string name="toast_nothing_found">Intet fundet</string>
   <string name="toast_file_not_found">%1$s ikke fundet.</string>
@@ -136,6 +138,8 @@
   <string name="location_lon_label">Lon:</string>
   <string name="location_search_label">Søg:</string>
   <string name="location_load_dismiss">Gå til kort</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Flyt</string>
   <string name="menu_edit">Ret</string>
@@ -185,6 +189,7 @@
   <string name="config_backgroundLayer_title">Kortbaggrund</string>
   <string name="config_advancedprefs">Avancerede indstillinger</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Om</string>
   <!--Advanced preferences-->

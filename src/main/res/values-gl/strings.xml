@@ -7,6 +7,7 @@
   <string name="mode_correct">Modo-C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Coidado!</string>
+  <string name="transfer_download_current_dialog_message">Fixeches unhas mudanzas. Queres subilas en troques de desbotalas?</string>
   <string name="transfer_download_current_upload">Subir</string>
   <string name="transfer_download_current_download">Desbotar e baixar</string>
   <string name="transfer_download_current_back">Voltar (non fagas ren)</string>
@@ -16,6 +17,7 @@
   <string name="upload_conflict_message_deleted">%1$s \nten unha versión en local %2$d \ne foi eliminado no servidor</string>
   <string name="use_local_version">Emprega-la versión local</string>
   <string name="use_server_version">Emprega-la versión do servidor</string>
+  <string name="no_login_data_title">Non se puido autenticar</string>
   <string name="no_connection_title">Sen conexión ó servidor</string>
   <string name="wrong_login_data_title">Non podes autenticarte</string>
   <string name="wrong_login_data_re_authenticate">Voltar a autenticar</string>
@@ -44,7 +46,7 @@
   <string name="progress_searching_message">Estase a procurar…</string>
   <string name="progress_saving_message">Estase a gardar...</string>
   <string name="progress_uploading_message">Estase a subir...</string>
-  <string name="progress_preset_message">Estase a baixa-lo predefenido...</string>
+  <string name="progress_preset_message">Estase a baixar o predefenido...</string>
   <string name="progress_running_message">Estase a executar...</string>
   <string name="progress_oauth">Estase a carrega-la súa conta no openstreetmap.org para a autorización do OAuth...</string>
   <!--Confirm upload dialog-->
@@ -105,7 +107,7 @@
   <!---->
   <string name="preset_search_hint">Cadea de procura predefinida</string>
   <string name="search">Procurar</string>
-  <string name="no_valid_preset">Non válido agora!</string>
+  <string name="no_valid_preset">Predefinido non válido!</string>
   <string name="save_file">Gardar en</string>
   <!--element information dialog-->
   <string name="id">ID</string>
@@ -201,6 +203,7 @@
   <string name="layer_info_end_date">Data de remate</string>
   <string name="layer_info_terms">Termos</string>
   <string name="layer_info_privacy_policy">Política de privacidade</string>
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
   <string name="undo_redo_title">Desfacer - refacer</string>
@@ -227,7 +230,7 @@
   <string name="toast_unlock_to_edit">Desbloquear a edición</string>
   <string name="toast_save_done">Gardado</string>
   <string name="toast_export_success">Exportado a %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota - actual sobreescritas etiqueta(s)</string>
+  <string name="toast_preset_overwrote_tags">Nota - etiqueta(s) sobrescrita(s) do(s) predefinido(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobreescritas etiqueta(s)</string>
   <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexíbel</string>
   <string name="read_mail">Lido</string>
@@ -237,6 +240,7 @@
   <string name="toast_unsurveyed_road">Estrada non medida</string>
   <string name="toast_untagged_way">Vía sen etiquetaxe</string>
   <string name="toast_untagged_relation">Relación sen etiquetaxe</string>
+  <!---->
   <string name="toast_oauth">Por favor permite o acceso de OAuth á túa conta de OSM.</string>
   <string name="toast_no_oauth">Non hai dispoñibilidade de configuración OAuth para a API actual, por favor, configure o inicio de sesión e o contrasinal.</string>
   <string name="toast_oauth_not_enabled">OAuth non está habilitado para a API actual.</string>
@@ -245,7 +249,7 @@
   <string name="toast_file_not_found">%1$s non atopado.</string>
   <string name="toast_no_voice">Sen aplicación de recoñecemento de voz</string>
   <string name="toast_no_suitable_storage">O sistema non devolveu unha localización axeitada para a base de datos das teselas.</string>
-  <string name="toast_min_one_preset">Debe seleccionarse polo menos un predefinido.</string>
+  <string name="toast_min_one_preset">Ten que escollerse polo menos un predefinido!</string>
   <string name="toast_min_one_geocoder">Hai que seleccionar polo menos un geocoder!</string>
   <string name="toast_split_from">Dividir \"dende\" vía</string>
   <string name="toast_split_via">Dividir \"via\" camiño</string>
@@ -266,10 +270,15 @@
   <string name="toast_flus_all_caches">Isto limpará tódalas cachés das teselas!</string>
   <string name="toast_unsupported_format">Formato non admitido: %1$s</string>
   <string name="toast_using_network_location">Estase a emprega-la ubicación pola rede</string>
+  <string name="toast_tags_copied">Etiquetas copiadas ó portapapeis</string>
+  <string name="toast_tags_cut">Etiquetas cortadas ó portapapeis</string>
+  <string name="toast_properties_copied">Propiedades copiadas ó portapapeis</string>
+  <string name="toast_merged">Fusionado</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Si</string>
   <string name="no">Non</string>
+  <string name="okay">Feito</string>
   <string name="cancel">Desbotar</string>
   <string name="dismiss">Rexeitar</string>
   <string name="done">Feito</string>
@@ -293,24 +302,29 @@
   <string name="overwrite">Sobre escribir</string>
   <string name="share">Partillar ou compartir</string>
   <string name="share_position">Posición compartida</string>
+  <string name="share_on_openstreetmap">Compartir no OpenStreetMap</string>
   <string name="min">Mín.</string>
   <string name="max">Máx.</string>
   <string name="geojson_object">%1$s (%2$s)</string>
   <string name="none">Ningún</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Saír do Vespucci</string>
   <string name="exit_text">Está na certeza de que desexa saír?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">clave</string>
   <string name="Key">Clave</string>
   <string name="value">valor</string>
   <string name="Value">Valor</string>
+  <string name="multiselect_header_short">Valores (%1$d)</string>
+  <string name="multiselect_header_long">Valores (para %1$d elementos)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Engadir etiquetas de enderezo</string>
   <string name="tag_menu_sourcesurvey">Analizado</string>
   <string name="tag_menu_preset">Predefinidos</string>
-  <string name="tag_menu_apply_preset">Aplicar o mellor agora</string>
+  <string name="tag_menu_apply_preset">Aplicar o mellor predefinido</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_addtorelation">Engadir á relación</string>
+  <string name="tag_menu_resetMRU">Restabelecer predefinidos</string>
   <string name="tag_menu_reset_address_prediction">Reiniciar predicción de enderezo</string>
   <string name="tag_menu_exit_no_save">Saír\nsen gardar</string>
   <string name="tag_menu_delete_unassociated_tags">Eliminar etiquetas non ligadas</string>
@@ -335,10 +349,12 @@
   <string name="tag_menu_sort">Ordear</string>
   <string name="tag_menu_reverse_order">Orde inversa</string>
   <string name="tag_menu_download">Baixar</string>
+  <string name="tag_menu_js_console">Consola do JS</string>
   <string name="menu_up">Subir</string>
   <string name="menu_top">Enriba</string>
   <string name="menu_select_all">Seleccionar todo</string>
-  <string name="menu_preset_help">Axuda presente</string>
+  <string name="menu_deselect_all">Non seleccionar ningún</string>
+  <string name="menu_preset_help">Axuda dos predefinidos</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Engadir etiquetas para %1$s</string>
   <string name="tag_restriction_header">Valor</string>
@@ -348,21 +364,29 @@
   <string name="tag_restriction_add_simple_condition">Engadir condición sinxela</string>
   <string name="tag_restriction_add_expression">Engadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Engadir horas abertas</string>
+  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Elixe o raio:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Última posición coñecida:</string>
   <string name="location_current_text">Posición actual:</string>
+  <string name="location_text_unknown">Descoñecido</string>
   <string name="location_last_text_parameterized">Última posición coñecida: %1$s</string>
   <string name="location_current_text_parameterized">Posición actual: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s ago</string>
+  <string name="location_text_metadata_accuracy">Precisión %1$2.0f metro, </string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">Desde coordenadas:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
   <string name="location_search_label">Procurar:</string>
   <string name="location_load_button">Carregar</string>
   <string name="location_load_dismiss">Ir ó mapa</string>
+  <string name="location_nan_title">Datos de entrada erróneos!</string>
+  <string name="location_nan_message">Por favor insire as coordenadas no formato decimal (p.ex. \"52.333572\",\"8.741185\"). Lat. ten que estar entre -85.0 e +85.0, e Lon. ten que estar entre -175.0 e +175.0.</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Mover</string>
   <string name="menu_edit">Editar</string>
@@ -370,6 +394,7 @@
   <string name="menu_config">Axustes</string>
   <string name="menu_find">Atopar</string>
   <string name="menu_help">Axuda</string>
+  <string name="menu_view">Ollar</string>
   <string name="menu_erase">Eliminar nó</string>
   <string name="menu_set_position">Posición</string>
   <string name="menu_split">Dividir</string>
@@ -380,10 +405,17 @@
   <string name="menu_add_relation_member">Engadir membro</string>
   <string name="menu_select_relation_members">Membros escollidos</string>
   <string name="menu_tag">Editar etiquetas</string>
+  <string name="menu_openstreetbug">Engadir nota</string>
   <string name="menu_easyedit">Edición doada</string>
   <string name="menu_camera">Cámara</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Amosar localización</string>
   <string name="menu_gps_follow">Seguer ubicación</string>
+  <string name="menu_gps_goto">Ir á localización actual</string>
+  <string name="menu_gps_start">Comezar pista GPX</string>
+  <string name="menu_gps_pause">Deter pista GPX</string>
+  <string name="menu_gps_clear">Limpar pistas e puntos de pasaxe GPX</string>
+  <string name="menu_gps_track_managment">Xestión da pista GPX…</string>
   <string name="menu_gps_upload">Subir pista GPX</string>
   <string name="menu_gps_export">Exportar pista GPX</string>
   <string name="menu_gps_import">Importar pista GPX</string>
@@ -394,43 +426,66 @@
   <string name="menu_transfer_download_other">Baixar noutra localización</string>
   <string name="menu_transfer_upload">Subir datos ao servidor OSM</string>
   <string name="menu_transfer_close_changeset">Pecha-lo conxunto de mudanzas actual</string>
+  <string name="menu_transfer_file">Ficheiro…</string>
   <string name="menu_transfer_export">Exportar mudanzas cara un fichero OSC</string>
+  <string name="menu_transfer_save_file">Gardar nun ficheiro JOSM...</string>
+  <string name="menu_transfer_bugs">Tarefas…</string>
   <string name="menu_transfer_bugs_upload">Subir todo</string>
+  <string name="menu_transfer_bugs_upload_long">Subir tódalas tarefas</string>
   <string name="menu_transfer_bugs_clear">Limpar</string>
+  <string name="menu_transfer_bugs_clear_long">Limpar tarefas</string>
+  <string name="menu_transfer_save_notes_all">Gardar tódalas notas...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Gardar notas novas ou modificadas…</string>
+  <string name="menu_transfer_read_custom_bugs">Cargar tarefas personalizadas...</string>
   <string name="menu_transfer_write_custom_bugs">Gardar tarefas persoalizadas abertas...</string>
+  <string name="menu_save">Gardar coma ficheiro</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
   <string name="menu_copy">Copiar</string>
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Colar ou pegar</string>
+  <string name="menu_paste_tags">Colar ou pegar etiquetas</string>
   <string name="menu_paste_from_clipboard">Colar ou pegar dende o portaretallos</string>
   <string name="menu_zoom_to_selection">Achegar á selección</string>
   <string name="menu_rotate">Rotar</string>
+  <string name="menu_orthogonalize">Encadrar vía</string>
   <string name="menu_circulize">Organizar nun círculo</string>
   <string name="menu_split_polygon">Dividir en polígonos</string>
   <string name="menu_extend_selection">Extender selección</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Ordes de voz</string>
   <string name="menu_set_name">Estabelecer nome</string>
-  <string name="tag_form_unknown_element">Elemento descoñecido (non presente ou atopado)</string>
+  <string name="tag_form_unknown_element">Elemento descoñecido (sen predefinido atopado)</string>
   <string name="menu_tools">Ferramentas...</string>
   <string name="menu_tools_imagery">Máis ferramentas das imaxes</string>
   <string name="menu_tools_add_imagery_from_oam">Engadir imaxes dende o OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpar tódalas cachés das teselas</string>
   <string name="menu_tools_background_properties">Propiedades do escritorio</string>
   <string name="menu_tools_update_imagery_configuration">Actualiza-los axustes da capa de imaxes</string>
+  <string name="menu_tools_clear_clipboard">Limpar portapapeis</string>
   <!---->
+  <string name="menu_simple_actions">Modo sinxelo</string>
+  <string name="menu_feedback">Fornecer unha opinión</string>
+  <string name="menu_preset_feedback">Fornecer unha opinión ó predefinido</string>
   <string name="menu_privacy">Privacidade</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Aliñar co fondo</string>
   <string name="menu_tools_background_align_reset">Restabelecer</string>
   <string name="menu_tools_background_align_zero">Cero</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Da base de datos</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Do dispositivo</string>
+  <string name="menu_tools_background_align_save_db">Gardar na base de datos</string>
+  <string name="menu_tools_background_align_save_device">Gardar no dispositivo</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f metros</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Capas...</string>
   <string name="menu_layers_load_geojson">Carregar capa GeoJSON</string>
+  <string name="menu_layers_add_tasklayer">Engadir capa de tarefas</string>
+  <string name="menu_layers_add_grid">Engadir grella</string>
+  <string name="menu_layers_add_photolayer">Engadir capa de imaxes</string>
+  <string name="menu_layers_configure">Configurar...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar desprazamento almacenado ás imaxes</string>
   <string name="menu_tools_background_contrast">Contraste</string>
@@ -450,6 +505,7 @@
   <string name="deleteway_wayandnodes">Eliminar vía</string>
   <string name="deletenode">Eliminar nó</string>
   <string name="split_all_ways">Dividir tódalas vías</string>
+  <string name="delete_note">Eliminar nota</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vía seleccionada</string>
   <string name="actionmode_nodeselect">Punto seleccionado</string>
@@ -465,8 +521,18 @@
   <string name="actionmode_restriction_restart_via">Volver a escolle-lo segmento \"via\"</string>
   <string name="actionmode_restriction_to">Engadir \"a\" segmento</string>
   <string name="actionmode_restriction_restart_to">Volver a selecciona-lo segmento \"a\"</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 obxecto</item>
+    <item quantity="other">%1$d obxectos</item>
+  </plurals>
   <string name="actionmode_rotateway">Rotar vía</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Engadir nó</string>
+  <string name="menu_add_node_tags">Engadir nó con etiquetas</string>
+  <string name="menu_add_way">Engadir vía</string>
+  <string name="menu_add_map_note">Engadir unha nota ó mapa</string>
+  <string name="menu_paste_object">Colar ou pegar obxecto</string>
+  <string name="menu_paste_multiple">Colar ou pegar moitas veces</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Fondo de mapa</string>
   <string name="config_backgroundLayer_summary">O fondo do mapa está baseado en teselas</string>
@@ -476,28 +542,36 @@
   <string name="config_scale_title">Amosar Escala</string>
   <string name="config_scale_summary">Tipo da escala que se amosa no mapa.</string>
   <string name="config_mapProfile_title">Estilo dos datos</string>
+  <string name="config_enableOpenStreetBugs_title">Amosar tarefas</string>
+  <string name="config_enablePhotoLayer_title">Activar capa de imaxes</string>
   <string name="config_enablePhotoLayer_summary">Amosar imaxes xeorreferenciadas.</string>
   <string name="config_enableKeepScreenOn_title">Manter pantalla acendida</string>
   <string name="config_largeDragArea_title">Área grande de arrastre de nós</string>
   <string name="config_advancedprefs">Axustes avanzados</string>
-  <string name="config_presetbutton_title">Presentes</string>
-  <string name="config_presetbutton_summary">Engadir e activar JOSM compatibilidade actual</string>
+  <string name="config_moreprefs">Máis axustes...</string>
+  <string name="config_presetbutton_title">Predefinidos</string>
+  <string name="config_presetbutton_summary">Engade e habilita predefinidos compatíbeis co JOSM</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Axustes do validador</string>
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Depurar</string>
   <string name="config_category_info">Acerca de</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
+  <string name="config_category_view">Axustes da interface de usuario</string>
   <string name="config_iconbutton_title">Amosar iconas dos puntos</string>
-  <string name="config_iconbutton_summary">Amosa-la icona do predefinido máis coincidente sobre os puntos.</string>
+  <string name="config_iconbutton_summary">Amosa a icona do predefinido que mellor coincida enriba dos nós.</string>
   <string name="config_showWayIcons_title">Amosar iconas PDI nos edificios</string>
-  <string name="config_showWayIcons_summary">Amosar a icona do predeterminado máis axeitado dos edificios.</string>
+  <string name="config_showWayIcons_summary">Amosar a icona predefinida que mellor corresponda ós edificios de enriba.</string>
   <string name="config_tagFormEnabled_title">Amosar formulario da etiqueta</string>
   <string name="config_showCameraAction_title">Amosa-la acción da cámara</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer sempre as áreas non baixadas</string>
+  <string name="config_fullscreenMode_title">Modo pantalla completa</string>
   <string name="config_fullscreenMode_summary">Comportamento en dispositivos con teclas \"suaves\".</string>
+  <string name="config_map_orientation_title">Orientación do mapa</string>
   <string name="config_showTolerance_title">Amosar tolerancia</string>
+  <string name="config_use_back_for_undo_title">Preme a tecla ← para desfacer</string>
   <string name="config_splitActionBarEnabled_title">Activar barra acción dividir</string>
   <string name="config_maxInlineValues_title">Max. número de valores en liña</string>
   <string name="config_maxInlineValues_current">%1$d Valores</string>
@@ -515,7 +589,9 @@
   <string name="config_notificationCacheSize_title">Máx. número de notificacións amosadas</string>
   <string name="config_notificationCacheSize_current">%1$d Notificacións</string>
   <string name="config_maxAlertDistance_title">Distancia máx. de notificacións</string>
+  <string name="config_maxAlertDistance_current">%1$d metro(s)</string>
   <string name="config_extTriggeredDownloadRadius_title">Raio da baixada</string>
+  <string name="config_downloadRadius_current">%1$d metro(s)</string>
   <string name="config_maxDownloadSpeed_title">Velocidade máxima de auto baixada</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_closeChangesetOnSave_title">Pechar conxuntos de mudanzas</string>
@@ -523,9 +599,13 @@
   <string name="config_category_gps">Axustes da localización</string>
   <string name="config_gps_source_tcp_title">NMEA fonte da rede</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_current">%1$d metro(s)</string>
   <!--Server Settings-->
+  <string name="config_category_server">Axustes do servidor</string>
   <string name="config_apibutton_title">URL da API de OSM</string>
   <string name="config_loginbutton_title">Conta de usuario</string>
+  <string name="config_offsetServer_title">Desprazamento do servidor</string>
+  <string name="config_osmoseServer_title">Servidor do OSMOSE</string>
   <string name="config_geocoderbutton_title">Configurar geocoders</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Baixada de capas e almacenaxe</string>
@@ -543,22 +623,32 @@
   <!---->
   <string name="manage_apis">Xestionar APIs</string>
   <string name="config_api_url_title">API URL</string>
-  <string name="manage_presets">Xestionar configuracións predefinidas</string>
+  <string name="config_api_oauth_title">Empregar o OAuth</string>
+  <string name="listedit_enable_oauth">Activar o OAuth</string>
+  <string name="config_username_title">Nome de usuario do OSM</string>
+  <string name="config_password_title">Contrasinal do OSM</string>
+  <string name="manage_presets">Xestionar predefinidos</string>
+  <string name="listedit_use_translations">Empregar traducións</string>
   <string name="manage_geocoders">Xestionar xeocodificadores</string>
   <!--preset downloader messages-->
   <string name="preset_update">Actualizar predefinido</string>
+  <string name="preset_download_successful">Predefinido baixado</string>
   <string name="preset_download_parse_failed">O ficheiro do predefinido non é válido. O predefinido non funcionará.</string>
+  <string name="preset_download_title">Descargas de predefinidos</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Engadir predefinido</string>
   <string name="urldialog_preset_exists">Este predefinido xa existe</string>
+  <string name="urldialog_preset_download_successful">Predefinido baixado.</string>
   <string name="urldialog_api_exists">Xa existe unha API con esta URL. Porén, pode engadir outra (p. ex. para mudae de conta sinxelamente).</string>
   <string name="urldialog_add_api">Engadir API</string>
   <string name="urldialog_nodata_text">A URL de configuración non contén ningún dato válido.</string>
   <string name="urldialog_add_geocoder">Engadir geocoder</string>
   <!--API configuration-->
+  <string name="api_name">Nome da API</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">Ler só API URL (opcional)</string>
   <string name="notes_url">Notas API URL (opcional)</string>
+  <string name="copy_of">Copia de %1$s</string>
   <!--common terms-->
   <string name="add">Engadir</string>
   <string name="edit">Editar</string>
@@ -583,7 +673,13 @@
   <string name="address_housenumber">Enderezo %1$s</string>
   <string name="address_housenumber_street">Enderezos %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_update_relations">Actualización da relación</string>
+  <string name="undo_action_cut">Cortar</string>
+  <string name="undo_action_paste">Colar ou pegar</string>
+  <string name="undo_action_rotateway">Rotación da vía</string>
+  <string name="undo_action_orthogonalize">Vía encadrada</string>
   <!--ACRA-->
+  <string name="report_success">Reportado.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Esta operación poidera crear vías con demasiados nós.</string>
   <!--Notifications-->
@@ -591,17 +687,52 @@
   <string name="alert_note">Nota OSM detectada preto</string>
   <string name="alert_bug">Bug OSM detectado preto</string>
   <string name="alert_distance_direction">en %1$d m %2$s</string>
+  <string name="bearing_ne">NL ↗</string>
+  <string name="bearing_e">L →</string>
+  <string name="bearing_se">SL ↘</string>
+  <string name="bearing_s">S ↓</string>
+  <string name="bearing_sw">SO ↙</string>
+  <string name="bearing_w">O ←</string>
+  <string name="bearing_nw">NO ↖</string>
+  <string name="bearing_n">N ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
+  <string name="role_lc">Rol</string>
   <string name="membership_relation_heading">Relación dos membros</string>
   <string name="relation">Relación</string>
   <string name="relations">Relacións</string>
+  <string name="position">Posición</string>
   <string name="type">Tipo</string>
   <string name="object">Obxecto</string>
   <string name="deleterelation">Eliminar relación</string>
   <string name="delete_from_relation_description">Está a piques de eliminar este elemento dunha relación.</string>
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 día</item>
+    <item quantity="other">%1$d días</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 hora</item>
+    <item quantity="other">%1$d horas</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 minuto</item>
+    <item quantity="other">%1$d minutos</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 segundo</item>
+    <item quantity="other">%1$d segundos</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 quilómetro</item>
+    <item quantity="other">%1$d quilómetros</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 metro</item>
+    <item quantity="other">%1$d metros</item>
+  </plurals>
   <!--Help system-->
+  <string name="toast_nohelp">Non hai axuda aquí.</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privado</item>
@@ -624,6 +755,15 @@
     <item>Abrir</item>
     <item>Pechar</item>
   </string-array>
+  <string-array name="maproulette_state">
+    <item>Aberto</item>
+    <item>Pechado</item>
+    <item>Falso positivo</item>
+    <item>Omitido</item>
+    <item>Eliminado</item>
+    <item>Xa arranxado</item>
+    <item>Moi difícil</item>
+  </string-array>
   <string-array name="followGPSbutton_entries">
     <item>Esquerda</item>
     <item>Dereita</item>
@@ -639,6 +779,12 @@
     <item>Nunca</item>
     <item>Forzar</item>
     <item>Non barraestado</item>
+  </string-array>
+  <string-array name="map_orientation_entries">
+    <item>Automático</item>
+    <item>Bloqueado</item>
+    <item>Imaxe</item>
+    <item>Paisaxe</item>
   </string-array>
   <string-array name="tagfilter_type_entries">
     <item>Todo</item>

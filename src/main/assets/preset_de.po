@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-06-07 14:40+0200\n"
-"PO-Revision-Date: 2019-06-07 12:46+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2019-06-14 13:56+0000\n"
+"Last-Translator: Sebastian\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -9679,7 +9679,7 @@ msgstr "Storz"
 
 #: master_preset.xml:9107(item:name|group:Turn_Restrictions|preset:Straight_on_only)
 msgid "Straight on only"
-msgstr ""
+msgstr "Nur Geradeausfahren"
 
 #: master_preset.xml:2417(item:name|group:Water|preset:Strait)
 msgid "Strait"

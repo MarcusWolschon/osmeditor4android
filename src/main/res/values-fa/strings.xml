@@ -72,6 +72,7 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
@@ -82,6 +83,7 @@
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
   <string name="toast_unlock_to_edit">قفل گشایی برای ویرایش</string>
   <string name="toast_export_success">خارج سازی به %1$s</string>
+  <!---->
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">بله</string>
@@ -113,6 +115,8 @@
   <string name="location_lat_label">عرض:</string>
   <string name="location_lon_label">طول:</string>
   <string name="location_load_button">بارگیری</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">جابجایی</string>
   <string name="menu_edit">ويرايش</string>
@@ -154,6 +158,7 @@
   <string name="config_advancedprefs">ترجیحات پیشرفته</string>
   <string name="config_presetbutton_title">پیش تنظیم</string>
   <!--Validator preferences-->
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">درباره</string>
   <!--Advanced preferences-->

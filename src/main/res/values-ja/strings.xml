@@ -152,6 +152,7 @@
   <string name="layer_change_style">スタイルを変更</string>
   <string name="layer_select_imagery">画像を選択</string>
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">チェックポイント</string>
   <string name="undo_all">以後のチェックポイントを全て取り消し (安全)</string>
@@ -182,6 +183,7 @@
   <string name="toast_notype">リレーション種別がありません</string>
   <string name="toast_untagged_way">タグなしのウェイ</string>
   <string name="toast_untagged_relation">タグなしのリレーション</string>
+  <!---->
   <string name="toast_oauth">ご自分のOSMアカウントに対してOAuth認証を許可してください。</string>
   <string name="toast_no_oauth">現在のAPIでOAuth設定が利用できません。ログイン名とパスワードを利用してください。</string>
   <string name="toast_oauth_not_enabled">現在のAPI用にはOAuthは有効化されていません。</string>
@@ -319,6 +321,8 @@
   <string name="location_search_label">検索:</string>
   <string name="location_load_button">読み込み</string>
   <string name="location_load_dismiss">地図を表示</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">表示位置の移動</string>
   <string name="menu_edit">編集</string>
@@ -454,6 +458,7 @@
   <string name="config_presetbutton_summary">JOSM互換プリセット追加と有効化</string>
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">入力値検査の設定</string>
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">デバッグ</string>
   <string name="config_category_info">Vespucciについて</string>

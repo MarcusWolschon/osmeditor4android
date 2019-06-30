@@ -240,6 +240,7 @@
   <string name="layer_change_style">Vaihda tyyliä</string>
   <string name="layer_select_imagery">Valitse kuvasto</string>
   <!--Layer info dialog-->
+  <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Tarkastuspisteet</string>
   <string name="undo_redo_title">Peru / palauta</string>
@@ -294,6 +295,7 @@
   <string name="toast_unsurveyed_road">Tarkastamaton tie</string>
   <string name="toast_noname">Tieltä puuttuu nimi tai viittaus</string>
   <string name="toast_notype">Ralaatiosta puuttuu tyyppi</string>
+  <!---->
   <string name="toast_oauth_retry">Anna OAuthille lupa päästä OSM-tilillesi, ja yritä sitten lähettää uudestaan.</string>
   <string name="toast_oauth">Anna OAuthille lupa päästä OSM-tilillesi.</string>
   <string name="toast_no_oauth">Nykyiselle APIlle ei ole OAuth-asetuksia. Aseta tunnus ja salasana.</string>
@@ -479,6 +481,8 @@
   <string name="location_load_dismiss">Kartalle</string>
   <string name="location_nan_title">Virheellinen syöte!</string>
   <string name="location_nan_message">Syötä koordinaatit desimaalimuodossa (esim. \"52.333572\",\"8.741185\"). Lev. pitää olla välillä -85.0–+85.0, ja Pit. välillä -175.0–+175.0.</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
   <!--Menu-->
   <string name="menu_move">Siirrä</string>
   <string name="menu_edit">Muokkaa</string>
@@ -676,6 +680,7 @@
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Tarkistimen asetukset</string>
   <string name="config_validatorprefs_summary">Määritä tarkistimen säännöt</string>
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Tekijät ja lisenssit</string>
   <string name="config_debugbutton_title">Vianetsintä</string>
@@ -891,7 +896,6 @@
   <string name="undo_action_extract_node">Pisteen irrotus</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci kaatui tai törmäsi vakavaan ongelmaan edellisellä ajokerralla.\n\nVoit auttaa ilmoittamalla virheestä, paina vain \"OK\"-nappia.\n</string>
-  <string name="crash_dialog_comment_prompt">Anna lisätietoja, jotka voisivat mielestäsi olla avuksi. Jos haluat palautetta, voit antaa myös sähköpostiosoitteesi.\n\nKiitos!</string>
   <string name="report_success">Ilmoitus lähetetty.</string>
   <string name="report_failure">Ilmoitusta ei voitu lähettää.</string>
   <!--Exceptions messages-->
