@@ -34,6 +34,8 @@
   <string name="not_found_message">API nenašlo žádný prvek nebo sadu změn se zadaným id.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Neznámá chyba</string>
   <string name="unknown_error_message">API odpovědělo chybou nebo zprávou, kterou nelze zpracovat.&lt;br&gt;&lt;br&gt;</string>
+  <string name="no_data_title">Žádná data</string>
+  <string name="no_data_message">Nastavený zdroj dat zde nemá pokrytí.</string>
   <string name="go_to_openstreetmap">Navštivte openstreetmap.org</string>
   <string name="data_conflict_title">Konflikt verzí</string>
   <string name="data_conflict_message">Data, která se snažíte stáhnout, jsou v konfliktu s vašimi úpravami. Nejprve vaše data nahrajte a zkuste to znovu.</string>
@@ -48,6 +50,8 @@
   <string name="out_of_memory_dirty_message">Vespucci nedokáže načíst požadovaná data. Uložte prosím vaše úpravy, znovu jej spusťte a načtěte menší plochu.</string>
   <string name="invalid_data_received_title">Přijata neplatná data</string>
   <string name="invalid_data_received_message">Pokud jste tuto chybu nezpůsobili, vyplňte prosím chybové hlášení.</string>
+  <string name="invalid_data_read_title">Přečtena neplatná data</string>
+  <string name="invalid_data_read_message">Podporované formáty souborů a vyžadované položky formátu naleznete v dokumentaci.</string>
   <string name="file_write_failed_title">Soubor nelze zapsat</string>
   <string name="file_write_failed_message">Do vybraného souboru nelze zapisovat.</string>
   <string name="welcome_title">Vítejte</string>
@@ -85,6 +89,7 @@
   <string name="upload_comment_label">Komentář:</string>
   <string name="upload_source_label">Zdroj:</string>
   <string name="upload_close_changeset_label">Uzavřít sadu změn:</string>
+  <string name="upload_request_review_label">Požádat o kontrolu:</string>
   <!---->
   <string name="upload_gpx_description_label">Popis</string>
   <string name="upload_gpx_tags_label">Tagy</string>
@@ -116,7 +121,9 @@
   <string name="maproulette_task_explanations">Vysvětlení</string>
   <string name="maproulette_task_set_apikey">Nastavit klíč MapRoulette API</string>
   <string name="maproulette_task_apikey_not_set">Klíč MapRoulette API se nepodařilo uložit</string>
+  <string name="maproulette_task_disable">Vypnout</string>
   <string name="maproulette_task_apikey_set">Klíč MapRoulette API uložen</string>
+  <string name="maproulette_task_no_apikey">Chybí API klíč MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Neuložené změny budou zahozeny, pokud budete pokračovat.</string>
@@ -165,6 +172,7 @@
   <string name="last_edited">Poslední změna</string>
   <string name="original">Původní</string>
   <string name="current">Aktuální</string>
+  <string name="goto_element">Zobrazit prvek</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Vlastnosti objektu GeoJSON</string>
   <string name="copy_properties">Zkopírovat vlastnosti</string>
@@ -186,6 +194,8 @@
   <string name="evaluate">Spustit</string>
   <string name="js_console_msg_live">Ostrý režim!</string>
   <string name="js_console_msg_debug">Režim ladění!</string>
+  <string name="js_console_input_hint">Sem zadejte JavaScript</string>
+  <string name="js_console_output_hint">Zde se objeví výstup</string>
   <!--Validator dialogs-->
   <string name="validator_title">Pravidla validátoru %1$s</string>
   <string name="edit_resurvey_title">Úprava pravidla Ověření</string>
@@ -238,10 +248,20 @@
   <string name="layer_photos">Fotografie</string>
   <string name="layer_tasks">Poznámky a chyby</string>
   <string name="layer_data">OSM data</string>
+  <string name="layer_data_name">Data %1$s</string>
   <string name="layer_flush_tile_cache">Vyčistit mezipaměť dlaždic</string>
   <string name="layer_change_style">Změnit styl</string>
   <string name="layer_select_imagery">Zvolit snímky</string>
   <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">Min. zoom</string>
+  <string name="layer_info_max_zoom">Max. zoom</string>
+  <string name="layer_info_start_date">Počáteční datum</string>
+  <string name="layer_info_end_date">Koncové datum</string>
+  <string name="layer_info_terms">Podmínky</string>
+  <string name="layer_info_privacy_policy">Ochrana osobních údajů</string>
+  <!--API info dialog-->
+  <string name="api_info_bounds">Ohraničující rámec</string>
+  <string name="api_info_attribution">Autorství</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrolní body</string>
   <string name="undo_redo_title">Zpět - vpřed</string>
@@ -255,6 +275,7 @@
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Stáhnout data OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">Zastaví záznam a smaže body trasy. Akci nelze vrátit zpět.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -298,6 +319,7 @@
   <string name="toast_unsurveyed_road">Neprozkoumaná cesta</string>
   <string name="toast_noname">Cesta bez názvu či referenčního čísla</string>
   <string name="toast_notype">Relaci chybí typ</string>
+  <!---->
   <string name="toast_oauth_retry">Nahrávání zkuste zopakovat poté, co povolíte OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
   <string name="toast_no_oauth">Pro aktuální API není OAuth konfigurace dostupná, nastavte prosím uživatelské jméno a heslo.</string>
@@ -345,6 +367,7 @@
   <string name="toast_file_exists">Soubor %1$s existuje.</string>
   <string name="toast_needs_resurvey">Objekt může být neaktuální.</string>
   <string name="toast_missing_key">Klíč %1$s chybí</string>
+  <string name="toast_invalid_object">Neplatný objekt</string>
   <string name="toast_openinghours_invalid">Neplatná hodnota otevírací doby pro %1$s</string>
   <string name="toast_openinghours_autocorrected">Hodnota otevírací doby pro %1$s automaticky opravena</string>
   <string name="toast_exit_multiselect">Pro ukončení klepněte dvakrát na prázdné místo nebo použijte šipku ←</string>
@@ -485,6 +508,11 @@
   <string name="location_load_dismiss">Zobrazit mapu</string>
   <string name="location_nan_title">Chybný zápis!</string>
   <string name="location_nan_message">Zadejte prosím souřadnice v desetinném formátu (např. „52.333572“, „8.741185“). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Na souřadnice</string>
+  <string name="go_to_coordinates_hint">Zadejte souřadnice nebo OLC</string>
+  <string name="unparseable_coordinates">Neznámý formát souřadnic</string>
   <!--Menu-->
   <string name="menu_move">Přesunout</string>
   <string name="menu_edit">Upravit</string>
@@ -529,6 +557,7 @@
   <string name="menu_transfer_file">Soubor…</string>
   <string name="menu_transfer_export">Exportovat změny do souboru OSC</string>
   <string name="menu_transfer_read_file">Načíst ze souboru JOSM…</string>
+  <string name="menu_transfer_read_pbf_file">Načíst ze souboru PBF</string>
   <string name="menu_transfer_save_file">Uložit do souboru JOSM…</string>
   <string name="menu_transfer_bugs">Poznámky a chyby…</string>
   <string name="menu_transfer_bugs_download_current">Stáhnout aktuální pohled</string>
@@ -556,7 +585,7 @@
   <string name="menu_split_polygon">Rozdělit na dvě plochy</string>
   <string name="menu_newnode_gps">Nový uzel na GPS pozici</string>
   <string name="menu_extend_selection">Rozšířit výběr</string>
-  <string name="menu_information">Vlastnosti</string>
+  <string name="menu_information">Informace</string>
   <string name="menu_voice_commands">Hlasové příkazy</string>
   <string name="menu_set_name">Zadat název</string>
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
@@ -684,6 +713,8 @@
   <!--Validator preferences-->
   <string name="config_validatorprefs_title">Nastavení validátoru</string>
   <string name="config_validatorprefs_summary">Nastavení pravidel validátoru.</string>
+  <string name="config_connectedNodeTolerance_title">Tolerance uzlů poblíž</string>
+  <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autoři a licence</string>
   <string name="config_debugbutton_title">Ladění</string>
@@ -706,6 +737,7 @@
   <string name="config_alwaysDrawBoundingBoxes_summary">Ztmavit nestažené oblasti v Uzamčeném režimu.</string>
   <string name="config_fullscreenMode_title">Celá obrazovka</string>
   <string name="config_fullscreenMode_summary">Chování v zařízeních se softwarovými tlačítky.</string>
+  <string name="config_map_orientation_title">Orientace obrazovky s mapou</string>
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
   <string name="config_showTolerance_summary">Zobrazí oblast ve které lze vybrat prvek.</string>
   <string name="config_use_back_for_undo_title">Tlačítkem ← vracet změny</string>
@@ -722,6 +754,8 @@
   <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_title">Zapnout vyhlazení hran</string>
   <string name="config_enableAntiAliasing_summary">Dělá čáry hladší.</string>
+  <string name="config_enableHwAcceleration_title">Povolit hardwarovou akceleraci</string>
+  <string name="config_enableHwAcceleration_summary">Umožní použití hardwarové akcelerace, pokud je podporována. Aktuálně nastavení nic nedělá.</string>
   <string name="config_maxStrokeWidth_title">Max. tloušťka čáry</string>
   <string name="config_maxStrokeWidth_summary">Nekreslit tlustší cestu než tuto.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -899,7 +933,7 @@
   <string name="undo_action_extract_node">Odpojení uzlu</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci během posledního spuštění havaroval nebo zaznamenal vážnou chybu.\n\nProsím pomozte nám zasláním chybového hlášení, stačí kliknout na \'OK\'.\n</string>
-  <string name="crash_dialog_comment_prompt">Přidejte jakékoliv další informace, které by mohli pomoci a (volitelně) vaši e-mailovou adresu abychom vás mohli kontaktovat.\n\nDěkujeme!</string>
+  <string name="crash_dialog_comment_prompt">Přidejte jakékoliv další informace, které by mohly pomoci a (volitelně) vaše uživatelské jméno v OSM, pokud chcete, abychom mohli reagovat.\n\nDěkujeme!</string>
   <string name="report_success">Nahlášeno.</string>
   <string name="report_failure">Hlášení se nepodařilo odeslat.</string>
   <!--Exceptions messages-->
@@ -931,6 +965,42 @@
   <string name="delete_from_relation_description">Chystáte se smazat tento prvek z relace.</string>
   <string name="unset_relation_type">Relace bez typu</string>
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 den</item>
+    <item quantity="few">%1$d dny</item>
+    <item quantity="many">%1$d dní</item>
+    <item quantity="other">%1$d dní</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 hodina</item>
+    <item quantity="few">%1$d hodiny</item>
+    <item quantity="many">%1$d hodin</item>
+    <item quantity="other">%1$d hodin</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 minuta</item>
+    <item quantity="few">%1$d minuty</item>
+    <item quantity="many">%1$d minut</item>
+    <item quantity="other">%1$d minut</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 sekunda</item>
+    <item quantity="few">%1$d sekundy</item>
+    <item quantity="many">%1$d sekund</item>
+    <item quantity="other">%1$d sekund</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 km</item>
+    <item quantity="few">%1$d km</item>
+    <item quantity="many">%1$d km</item>
+    <item quantity="other">%1$d km</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 metr</item>
+    <item quantity="few">%1$d metry</item>
+    <item quantity="many">%1$d metrů</item>
+    <item quantity="other">%1$d metrů</item>
+  </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Nápověda není k dispozici.</string>
   <!--Arrays-->
@@ -979,6 +1049,12 @@
     <item>Nikdy</item>
     <item>Vynutit</item>
     <item>Bez stavové lišty</item>
+  </string-array>
+  <string-array name="map_orientation_entries">
+    <item>Auto</item>
+    <item>Neměnit</item>
+    <item>Na výšku</item>
+    <item>Na šířku</item>
   </string-array>
   <string-array name="tagfilter_type_entries">
     <item>Vše</item>

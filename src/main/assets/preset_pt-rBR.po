@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-06-07 14:40+0200\n"
-"PO-Revision-Date: 2019-06-07 12:45+0000\n"
+"PO-Revision-Date: 2019-06-26 01:04+0000\n"
 "Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -3681,7 +3681,7 @@ msgstr ""
 #: master_preset.xml:1375(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1377(combo:text|group:Streets|preset:Ford|key:ford)
 msgid "Ford"
-msgstr ""
+msgstr "Vau"
 
 #: master_preset.xml:8536(item:name|group:Nature|preset:Forest)
 msgid "Forest"
@@ -7463,7 +7463,7 @@ msgstr ""
 
 #: master_preset.xml:6417(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
-msgstr ""
+msgstr "Válvula de Oleoduto"
 
 #: master_preset.xml:9204(item:name|group:Routes|preset:Piste_Route)
 msgid "Piste Route"
