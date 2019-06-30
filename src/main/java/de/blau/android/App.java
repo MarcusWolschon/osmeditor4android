@@ -373,7 +373,7 @@ public class App extends android.app.Application {
      * @param ctx Android Context
      * @return the current GeoContext object
      */
-    @NonNull
+    @Nullable
     public static GeoContext getGeoContext(@NonNull Context ctx) {
         initGeoContext(ctx);
         return geoContext;

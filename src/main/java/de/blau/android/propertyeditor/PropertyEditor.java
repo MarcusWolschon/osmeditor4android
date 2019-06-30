@@ -59,6 +59,7 @@ import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
+import de.blau.android.util.GeoContext;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.Screen;
@@ -1328,7 +1329,10 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     public List<String> getIsoCodes() {
         if (isoCodes == null) {
             try {
-                isoCodes = App.getGeoContext(this).getIsoCodes(getElement());
+                GeoContext geoContext = App.getGeoContext(this);
+                if (geoContext != null) {
+                    isoCodes = geoContext.getIsoCodes(getElement());
+                }
             } catch (IllegalArgumentException iaex) {
                 Log.e(DEBUG_TAG, "getIsoCodes " + iaex + " for " + getElement().getType() + " " + getElement().getOsmId());
             }

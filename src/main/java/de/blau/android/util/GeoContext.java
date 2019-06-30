@@ -225,6 +225,7 @@ public class GeoContext {
      * @param lat WGS84 latitude of the location
      * @return a list of ISO codes for the territory
      */
+    @Nullable
     public List<String> getIsoCodes(double lon, double lat) {
         if (countryBoundaries == null) {
             return null;
