@@ -298,7 +298,6 @@ public class Main extends FullScreenAppCompatActivity
                     // calculate the rotation matrix
                     SensorManager.getRotationMatrixFromVector(R, event.values);
                 }
-
             }
             SensorManager.getOrientation(R, orientation);
             float azimut = (int) (Math.toDegrees(SensorManager.getOrientation(R, orientation)[0]) + 360) % 360;
@@ -3086,15 +3085,15 @@ public class Main extends FullScreenAppCompatActivity
         simpleActionsButton.setEnabled(enabled);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             simpleActionsButton.setBackgroundTintList(stateList);
+            simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
+            ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
+            if (enabled) {
+                ((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 0);
+            } else {
+                ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
+            }
         } else {
             Util.setBackgroundTintList(simpleActionsButton, stateList);
-        }
-        simpleActionsButton.setCompatElevation(LARGE_FAB_ELEVATION);
-        ViewGroup.LayoutParams lp = simpleActionsButton.getLayoutParams();
-        if (enabled) {
-            ((RelativeLayout.LayoutParams) lp).setMargins(0, 0, 0, 0);
-        } else {
-            ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
         }
     }
 
