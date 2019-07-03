@@ -74,6 +74,14 @@ public class PhotoIndex extends SQLiteOpenHelper {
         }
     }
 
+    @Override
+    public synchronized void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(LOGTAG, "Recreate from scratch");
+        db.execSQL("DROP TABLE photos");
+        db.execSQL("DROP TABLE directories");
+        onCreate(db);
+    }
+
     /**
      * Create or update the index of images on the device
      */
