@@ -834,11 +834,11 @@
 "amenity/parking_space":[
 "parkkipaikka",
 "autopaikka",
+"Pysäköintiruutu",
 "pysäköintipaikka",
 "autopysäköinti",
 "pysäköintiruutu",
 "parkkeeraus",
-"Pysäköintitila",
 "pysäköinti"
 ],
 "amenity/payment_centre":[
@@ -2405,7 +2405,7 @@
 "Linja-auton kiskot"
 ],
 "highway/bus_stop":[
-"Linja-autopysäkki/-laituri"
+"Linja-autopysäkki"
 ],
 "highway/construction":[
 "kesken",
@@ -2454,6 +2454,9 @@
 "highway/elevator":[
 "Hissi"
 ],
+"highway/emergency_bay":[
+"Hätäpysäytyspaikka"
+],
 "highway/footway":[
 "Kävelytie",
 "tie",
@@ -2467,6 +2470,12 @@
 ],
 "highway/footway/sidewalk":[
 "Jalkakäytävä"
+],
+"highway/footway/zebra":[
+"Merkitty suojatie"
+],
+"highway/footway/zebra-raised":[
+"Korotettu suojatie"
 ],
 "highway/give_way":[
 "Väistämisvelvollisuus",
@@ -2522,7 +2531,7 @@
 "kävely"
 ],
 "highway/primary":[
-"Kantatie"
+"Kantatie/seudullinen pääkatu"
 ],
 "highway/primary_link":[
 "Kantatien ramppi"
@@ -2540,7 +2549,7 @@
 "Tuntematon tie"
 ],
 "highway/secondary":[
-"Seututie"
+"Seututie/alueellinen pääkatu"
 ],
 "highway/secondary_link":[
 "Seututien ramppi"
@@ -2564,7 +2573,7 @@
 "Pysäköintiväylä"
 ],
 "highway/services":[
-"Huoltoalue"
+"Täyden palvelun huoltoasema"
 ],
 "highway/speed_camera":[
 "Nopeuskamera",
@@ -2611,21 +2620,21 @@
 "valaisintolppa"
 ],
 "highway/tertiary":[
-"Yhdystie"
+"Yhdystie/kokoojakatu"
 ],
 "highway/tertiary_link":[
 "Yhdystien ramppi"
 ],
 "highway/track":[
 "metsäkone",
-"Maatalous- tai metsätie",
 "metsä",
 "hiekkatie",
 "ura",
 "ajoväylä",
 "metsätie",
 "pikkutie",
-"metsäkonetie"
+"metsäkonetie",
+"Maatalous-/metsätie"
 ],
 "highway/traffic_mirror":[
 "liikenne",
@@ -2686,7 +2695,7 @@
 "muinaishauta"
 ],
 "historic/archaeological_site":[
-"Arkeologinen paikka"
+"Muinaisjäännös"
 ],
 "historic/boundary_stone":[
 "Rajamerkki"
@@ -2803,7 +2812,10 @@
 "Risteys"
 ],
 "junction/circular":[
-"Liikenneympyrä"
+"Liikenneympyrä (eri väistämisvelvollisuussäännöt, ei käytössä Suomessa)"
+],
+"junction/jughandle":[
+"Jughandle-liittymä"
 ],
 "junction/roundabout":[
 "Kiertoliittymä"
@@ -3132,7 +3144,7 @@
 "Luonnonsuojelualue"
 ],
 "leisure/outdoor_seating":[
-"Ulkoterass"
+"Ulkoterassi"
 ],
 "leisure/park":[
 "Puistikko",
@@ -3643,6 +3655,9 @@
 "natural/spring":[
 "Lähde"
 ],
+"natural/stone":[
+"Irtolohkare"
+],
 "natural/tree":[
 "Puu"
 ],
@@ -3696,7 +3711,7 @@
 "suo"
 ],
 "natural/wood":[
-"Luonnonvarainen metsä/puu"
+"Metsä"
 ],
 "noexit/yes":[
 "Ei uloskäyntiä"
@@ -4848,6 +4863,7 @@
 "Rakennusliike"
 ],
 "shop/farm":[
+"Maatilan suoramyynti",
 "esittelystandi",
 "tuote-esittely",
 "tuote",
@@ -4856,7 +4872,6 @@
 "ständi",
 "tuotestandi",
 "esittelyständi",
-"Tuotteen esittelypiste",
 "standi",
 "esittely"
 ],
@@ -5623,6 +5638,12 @@
 ],
 "traffic_sign":[
 "Liikennemerkki"
+],
+"traffic_sign/city_limit":[
+"Taajamaliikennemerkki"
+],
+"traffic_sign/city_limit_vertex":[
+"Taajamaliikennemerkki"
 ],
 "traffic_sign_vertex":[
 "Liikennemerkk"

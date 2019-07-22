@@ -378,6 +378,15 @@
 "rendžerska stanica",
 "Rendžerska postaja"
 ],
+"amenity/recycling":[
+"Recikliranje"
+],
+"amenity/recycling_centre":[
+"Centar za reciklažu"
+],
+"amenity/recycling_container":[
+"Kontejner za reciklažu"
+],
 "amenity/register_office":[
 "Matični ured"
 ],
@@ -387,6 +396,18 @@
 "restoran",
 "zalogajnica",
 "Restoran"
+],
+"amenity/restaurant/chinese":[
+"Kineski restoran"
+],
+"amenity/restaurant/indian":[
+"Indijski restoran"
+],
+"amenity/restaurant/mexican":[
+"Meksički restoran"
+],
+"amenity/restaurant/pizza":[
+"Pizzeria"
 ],
 "amenity/sanitary_dump_station":[
 "Pražnjenje toaleta za kamp kućice"
@@ -398,6 +419,9 @@
 ],
 "amenity/shelter":[
 "Sklonište"
+],
+"amenity/shelter/gazebo":[
+"Sjenica"
 ],
 "amenity/social_facility":[
 "Socijalna ustanova"
@@ -449,6 +473,9 @@
 "amenity/university":[
 "Sveučilišno zemljište"
 ],
+"amenity/vehicle_inspection":[
+"Tehnički pregled vozila"
+],
 "amenity/vending_machine/cigarettes":[
 "Automat za cigarete"
 ],
@@ -469,6 +496,9 @@
 ],
 "amenity/veterinary":[
 "Veterinar"
+],
+"amenity/waste/dog_excrement":[
+"Košara za pseći izmet"
 ],
 "amenity/waste_basket":[
 "kanta za smeće",
@@ -499,8 +529,14 @@
 "barrier/bollard":[
 "Stup"
 ],
+"barrier/border_control":[
+"Granični prijelaz"
+],
 "barrier/cattle_grid":[
 "Mreža koja sprječava prijelaz stoke preko ceste"
+],
+"barrier/chain":[
+"Lanac"
 ],
 "barrier/city_wall":[
 "Gradske zidine",
@@ -621,6 +657,9 @@
 ],
 "building/kindergarten":[
 "Zgrada vrtića"
+],
+"building/mosque":[
+"Zgrada džamije"
 ],
 "building/public":[
 "Javna građevina"
@@ -856,11 +895,38 @@
 "highway/corridor":[
 "Hodnik"
 ],
+"highway/crossing/marked":[
+"Označeni pješački prijelaz"
+],
+"highway/crossing/unmarked":[
+"Neoznačeni pješački prijelaz"
+],
+"highway/crossing/zebra":[
+"Označeni pješački prijelaz"
+],
 "highway/cycleway":[
 "Biciklistička staza"
 ],
+"highway/cycleway/crossing/marked":[
+"Označeni biciklistički prijelaz"
+],
+"highway/cycleway/crossing/unmarked":[
+"Neoznačeni biciklistički prijelaz"
+],
 "highway/footway":[
 "Pješačka staza"
+],
+"highway/footway/marked":[
+"Označeni pješački prijelaz"
+],
+"highway/footway/sidewalk":[
+"Nogostup"
+],
+"highway/footway/unmarked":[
+"Neoznačeni pješački prijelaz"
+],
+"highway/footway/zebra":[
+"Označeni pješački prijelaz"
 ],
 "highway/living_street":[
 "Područje smirenog prometa"
@@ -930,6 +996,9 @@
 "highway/steps":[
 "Stepenice"
 ],
+"highway/steps/conveying":[
+"Pokretne stepenice"
+],
 "highway/stop":[
 "stop",
 "znak",
@@ -963,6 +1032,9 @@
 "highway/turning_circle":[
 "Površina na kraju ceste za polukružno okretanje"
 ],
+"highway/unclassified":[
+"Mala/neklasificirana cesta"
+],
 "historic":[
 "Povijesno područje"
 ],
@@ -975,15 +1047,47 @@
 "historic/castle":[
 "Dvorac"
 ],
+"historic/castle/fortress":[
+"citadela",
+"Povijesna tvrđava",
+"zamak",
+"fort",
+"Utvrda",
+"gradina",
+"kaštel"
+],
+"historic/castle/palace":[
+"Palača"
+],
+"historic/castle/stately":[
+"Dvorac"
+],
+"historic/city_gate":[
+"Gradska vrata"
+],
+"historic/fort":[
+"Utvrda"
+],
+"historic/manor":[
+"kurija",
+"Dvor",
+"majur"
+],
 "historic/memorial":[
 "Spomenik",
 "spomen ploča"
+],
+"historic/memorial/plaque":[
+"Spomen-ploča"
 ],
 "historic/monument":[
 "Veliki spomenik"
 ],
 "historic/ruins":[
 "Ruševina"
+],
+"historic/tomb":[
+"Grobnica"
 ],
 "historic/wayside_cross":[
 "Povijesno raspelo uz put",
@@ -995,8 +1099,18 @@
 "Svetište uz cestu",
 "svetište uz cestu"
 ],
+"historic/wreck":[
+"brodolom",
+"Olupina brodoloma"
+],
+"indoor/room":[
+"Soba"
+],
 "junction":[
 "Križanje"
+],
+"junction/roundabout":[
+"Kružni tok"
 ],
 "landuse":[
 "Zemljišna zona"
@@ -1028,11 +1142,20 @@
 "landuse/farmyard":[
 "Gospodarsko imanje"
 ],
+"landuse/forest":[
+"Upravljana šuma"
+],
 "landuse/grass":[
 "Travnjak"
 ],
+"landuse/harbour":[
+"Luka"
+],
 "landuse/industrial":[
 "Industrijska zona"
+],
+"landuse/industrial/slaughterhouse":[
+"Klaonica"
 ],
 "landuse/landfill":[
 "Odlagalište otpada"
@@ -1263,6 +1386,9 @@
 "Toranj",
 "zvonik"
 ],
+"man_made/tunnel":[
+"Tunel"
+],
 "man_made/wastewater_plant":[
 "Pogon za pročiščivanje otpadnih voda",
 "pročistač voda"
@@ -1285,6 +1411,18 @@
 "vodovod",
 "Vodocrpilište",
 "vodocrpilište"
+],
+"man_made/watermill":[
+"Vodenica"
+],
+"man_made/windmill":[
+"Vetrenjača"
+],
+"man_made/works":[
+"Tvornica"
+],
+"manhole":[
+"Šaht"
 ],
 "natural":[
 "Prirodno"
@@ -1310,6 +1448,9 @@
 "pjeskovita obala",
 "mjesto za kupanje",
 "žal"
+],
+"natural/cape":[
+"Rt"
 ],
 "natural/cave_entrance":[
 "Ulaz u pećinu"
@@ -1366,6 +1507,9 @@
 "ravnica",
 "stepa"
 ],
+"natural/mud":[
+"Blato"
+],
 "natural/peak":[
 "planinski vrh",
 "Planinski vrh",
@@ -1375,9 +1519,15 @@
 "vrh",
 "vrhunac"
 ],
+"natural/reef":[
+"Greben"
+],
 "natural/saddle":[
 "prijevoj",
 "Sedlo"
+],
+"natural/sand":[
+"Pijesak"
 ],
 "natural/scree":[
 "kamen",
@@ -1423,6 +1573,12 @@
 "stablo",
 "drvo"
 ],
+"natural/tree_row":[
+"Drvored"
+],
+"natural/valley":[
+"Dolina"
+],
 "natural/volcano":[
 "Vulkan"
 ],
@@ -1433,6 +1589,9 @@
 "akva",
 "jezero",
 "Voda"
+],
+"natural/water/canal":[
+"Kanal"
 ],
 "natural/water/lake":[
 "voda",
@@ -1456,6 +1615,12 @@
 "akumulacija vode",
 "akumulacija"
 ],
+"natural/water/river":[
+"Rijeka"
+],
+"natural/water/stream":[
+"Potok"
+],
 "natural/wetland":[
 "močvara",
 "močvarno tlo",
@@ -1472,8 +1637,23 @@
 "ured",
 "kancelarija"
 ],
+"office/architect":[
+"Arhitektonski ured"
+],
+"office/association":[
+"Ured neprofitne udruge"
+],
+"office/diplomatic/consulate":[
+"Konzulat"
+],
+"office/diplomatic/embassy":[
+"Ambasada"
+],
 "office/educational_institution":[
 "Obrazovna ustanova"
+],
+"office/energy_supplier":[
+"Uredi opskrbljivača energijom"
 ],
 "office/government":[
 "Državni ured"
@@ -1605,6 +1785,78 @@
 "Transformator",
 "transformator el. energije"
 ],
+"public_transport/platform/train_point":[
+"Željezničko stajalište"
+],
+"public_transport/platform/tram":[
+"Tramvajsko stajalište"
+],
+"public_transport/platform/tram_point":[
+"Tramvajsko stajalište"
+],
+"public_transport/platform/trolleybus":[
+"Stajalište trolejbusa"
+],
+"public_transport/platform/trolleybus_point":[
+"Stajalište trolejbusa"
+],
+"public_transport/station_aerialway":[
+"Stanica žičare"
+],
+"public_transport/station_bus":[
+"Autobusna stanica"
+],
+"public_transport/station_ferry":[
+"Trajektna stanica"
+],
+"public_transport/station_light_rail":[
+"Stanica lake željeznice"
+],
+"public_transport/station_monorail":[
+"Stanica jednotračnog vlaka"
+],
+"public_transport/station_subway":[
+"Stanica podzemne željeznice"
+],
+"public_transport/station_train":[
+"Željeznička stanica"
+],
+"public_transport/station_train_halt":[
+"Željeznička postaja"
+],
+"public_transport/station_tram":[
+"Tramvajska stanica"
+],
+"public_transport/station_trolleybus":[
+"Stanica trolejbusa"
+],
+"public_transport/stop_position_aerialway":[
+"Mjesto stajanja žičare"
+],
+"public_transport/stop_position_bus":[
+"Mjesto stajanja autobusa"
+],
+"public_transport/stop_position_ferry":[
+"Mjesto stajanja trajekta"
+],
+"public_transport/stop_position_light_rail":[
+"Mjesto stajanja  lake željeznice"
+],
+"public_transport/stop_position_monorail":[
+"Mjesto stajanja jednotračne željeznice"
+],
+"public_transport/stop_position_subway":[
+"Mjesto stajanja podzemne željeznice"
+],
+"public_transport/stop_position_train":[
+"Mjesto stajanja vlaka"
+],
+"public_transport/stop_position_tram":[
+"Mjesto stajanja tramvaja"
+],
+"public_transport/stop_position_trolleybus":[
+"Mjesto stajanja trolejbusa"
+],
 "railway":[
 "Željeznica"
 ],
@@ -1614,6 +1866,13 @@
 "napuštena željeznica",
 "nekorištena željeznička pruga",
 "Napuštena željeznička pruga"
+],
+"railway/buffer_stop":[
+"bik",
+"Blokada vlaka na kraju pruge"
+],
+"railway/crossing":[
+"Pješački prijelaz preko pruge"
 ],
 "railway/disused":[
 "Željeznička pruga izvan uporabe",
@@ -1626,6 +1885,18 @@
 "railway/funicular":[
 "Uspinjača"
 ],
+"railway/halt":[
+"Željeznička postaja"
+],
+"railway/level_crossing":[
+"Cestovni prijelaz preko pruge"
+],
+"railway/light_rail":[
+"Laka željeznica"
+],
+"railway/miniature":[
+"Minijaturna željeznica"
+],
 "railway/monorail":[
 "pruga sa jednim kolosjekom",
 "Jednotračna željeznička pruga",
@@ -1634,11 +1905,20 @@
 "railway/narrow_gauge":[
 "Uskotračna željeznica"
 ],
+"railway/platform":[
+"Željezničko stajalište"
+],
 "railway/rail":[
 "željeznička pruga",
 "pruga pune širine",
 "Željeznička pruga",
 "željeznica pune veličine"
+],
+"railway/rail/highspeed":[
+"Brza željeznica"
+],
+"railway/station":[
+"Željeznička stanica"
 ],
 "railway/subway":[
 "gradska željeznica",
@@ -1654,12 +1934,18 @@
 "ulaz u metro",
 "ulaz u podzemnu željeznicu"
 ],
+"railway/train_wash":[
+"Praonica vagona"
+],
 "railway/tram":[
 "tramvaj",
 "električni tramvaj",
 "pruga za tramvaj",
 "tramvajska pruga",
 "Tramvaj"
+],
+"railway/tram_stop":[
+"Mjesto stajanja tramvaja"
 ],
 "relation":[
 "Relacija",
@@ -1673,6 +1959,9 @@
 "Brodska linija",
 "trajektna ruta",
 "trajektna linija"
+],
+"seamark":[
+"Morska oznaka"
 ],
 "shop":[
 "Prodavaonica",
@@ -1725,6 +2014,11 @@
 ],
 "shop/beauty/nails":[
 "Studio za nokte"
+],
+"shop/beauty/tanning":[
+"studio za sunčanje",
+"Salon za sunčanje",
+"Solarij"
 ],
 "shop/bed":[
 "jastuk",
@@ -1877,6 +2171,9 @@
 "shop/fashion":[
 "Modni dućan"
 ],
+"shop/fishing":[
+"Prodavaonica ribolovne opreme"
+],
 "shop/fishmonger":[
 "Ribarnica"
 ],
@@ -1938,6 +2235,9 @@
 ],
 "shop/interior_decoration":[
 "Trgovina unutarnjeg uređenja"
+],
+"shop/jewelry":[
+"Prodavaonica nakita"
 ],
 "shop/kiosk":[
 "Kiosk"
@@ -2216,6 +2516,9 @@
 "Planinarski dom",
 "planinarska kuća"
 ],
+"tourism/apartment":[
+"Turistički apartman"
+],
 "tourism/aquarium":[
 "Akvarij"
 ],
@@ -2225,6 +2528,28 @@
 "kip",
 "Umjetničko djelo",
 "bista"
+],
+"tourism/artwork/bust":[
+"Poprsje",
+"Bista"
+],
+"tourism/artwork/graffiti":[
+"Grafiti"
+],
+"tourism/artwork/installation":[
+"Umjetnička instalacija"
+],
+"tourism/artwork/mural":[
+"Mural"
+],
+"tourism/artwork/sculpture":[
+"Statua",
+"Skulptura"
+],
+"tourism/artwork/statue":[
+"skulptura",
+"Kip",
+"statua"
 ],
 "tourism/attraction":[
 "turistička atrakcija",
@@ -2246,6 +2571,10 @@
 "Parkiralište za kamp kućice",
 "park za rekreativna vozila",
 "kamp prikolica"
+],
+"tourism/chalet":[
+"Kuća za odmor",
+"Kuća za iznajmljivanje"
 ],
 "tourism/gallery":[
 "Umjetnička galerija"
@@ -2275,6 +2604,20 @@
 "informacije",
 "turistička zajednica",
 "Turističke informacije"
+],
+"tourism/information/board":[
+"Informativna ploča"
+],
+"tourism/information/guidepost":[
+"Putokaz"
+],
+"tourism/information/map":[
+"Karta"
+],
+"tourism/information/office":[
+"Ured za turističke informacije",
+"Turistička zajednica",
+"Turistički informativni centar"
 ],
 "tourism/motel":[
 "Motel",
@@ -2311,6 +2654,9 @@
 "vidikovac",
 "stajalište"
 ],
+"tourism/wilderness_hut":[
+"Planinarsko sklonište"
+],
 "tourism/zoo":[
 "park sa životinjama",
 "zoopark",
@@ -2324,6 +2670,9 @@
 "traffic_calming/hump":[
 "ležeći policajac",
 "Duži uspornik u širini ceste"
+],
+"traffic_calming/island":[
+"Pješački otok"
 ],
 "type/boundary":[
 "Granica",
@@ -2368,6 +2717,18 @@
 ],
 "type/restriction/no_u_turn":[
 "Zabranjeno polukružno okretanje"
+],
+"type/restriction/only_left_turn":[
+"Samo lijevo skretanje"
+],
+"type/restriction/only_right_turn":[
+"Samo desno skretanje"
+],
+"type/restriction/only_straight_on":[
+"Samo ravno"
+],
+"type/restriction/only_u_turn":[
+"Samo polukružno skretanje"
 ],
 "type/route":[
 "ruta",
@@ -2422,6 +2783,9 @@
 "trasa cjevovoda",
 "Putanja cjevovoda"
 ],
+"type/route/piste":[
+"Skijaška ruta"
+],
 "type/route/power":[
 "dalekovodna mreža",
 "Putanja energetske mreže",
@@ -2452,6 +2816,9 @@
 "glavna linija kretanja",
 "glavna linija relacije",
 "Glavna ruta kretanja"
+],
+"type/waterway":[
+"Vodeni tok"
 ],
 "waterway":[
 "Vodeni put"
@@ -2501,6 +2868,9 @@
 "mlaz",
 "bujica",
 "potok"
+],
+"waterway/waterfall":[
+"Vodopad"
 ],
 "waterway/weir":[
 "Ustava",

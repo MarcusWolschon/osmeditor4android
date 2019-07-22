@@ -3575,15 +3575,6 @@
 "building_point":[
 "Byggnad"
 ],
-"camp_site/camp_pitch":[
-"tält",
-"camping",
-"husvagn",
-"Tältplats/husvagnsplats",
-"Campingplats",
-"husvagnsplats",
-"Tältplats"
-],
 "club":[
 "klubblokal",
 "klubb",
@@ -7677,6 +7668,9 @@
 "ort",
 "tätort",
 "Mindre samhälle"
+],
+"playground":[
+"Lekplatsutrustning"
 ],
 "playground/balance_beam":[
 "Balansbom (lekplats)",

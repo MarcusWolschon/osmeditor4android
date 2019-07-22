@@ -203,6 +203,8 @@
 ],
 "amenity/fire_station":[
 "Tuletõrjedepoo",
+"merepääste",
+"Päästedepoo",
 "tuletõrjujad"
 ],
 "amenity/food_court":[
@@ -709,13 +711,6 @@
 ],
 "building_point":[
 "Hoone"
-],
-"camp_site/camp_pitch":[
-"kämpinguplats",
-"Kämpingukoht",
-"telgiplats",
-"karavaniplats",
-"telgikoht"
 ],
 "club":[
 "Klubi"

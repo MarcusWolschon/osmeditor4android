@@ -419,6 +419,9 @@
 "網路咖啡店",
 "Internet Cafe"
 ],
+"amenity/karaoke":[
+"卡拉OK包廂"
+],
 "amenity/kindergarten":[
 "幼兒園",
 "幼稚園",
@@ -531,6 +534,17 @@
 "基督教教會",
 "教會"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"耶和華見證人王國聚會所",
+"耶和華見證人"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"La Luz del Mundo Temple"
+],
+"amenity/place_of_worship/christian/quaker":[
+"貴格會聚會所",
+"貴格會禮拜堂"
+],
 "amenity/place_of_worship/hindu":[
 "印度寺廟",
 "Hindu Temple"
@@ -561,6 +575,9 @@
 "派出所",
 "警察局",
 "警局"
+],
+"amenity/polling_station":[
+"永久投票處"
 ],
 "amenity/post_box":[
 "Mailbox",
@@ -1359,11 +1376,6 @@
 "building_point":[
 "建築物"
 ],
-"camp_site/camp_pitch":[
-"露營場地",
-"露營營地",
-"營地"
-],
 "club":[
 "Club",
 "俱樂部"
@@ -1531,6 +1543,9 @@
 "craft/shoemaker":[
 "鞋匠"
 ],
+"craft/signmaker":[
+"招牌製造商"
+],
 "craft/stonemason":[
 "切石廠"
 ],
@@ -1630,6 +1645,9 @@
 "ford":[
 "淺灘"
 ],
+"ford_line":[
+"淺灘"
+],
 "golf/bunker":[
 "沙坑"
 ],
@@ -1686,6 +1704,9 @@
 "捐血中心",
 "捐血站",
 "捐血車"
+],
+"healthcare/counselling":[
+"諮詢中心"
 ],
 "healthcare/hospice":[
 "安養院"
@@ -2291,9 +2312,15 @@
 "leisure/dancing_school":[
 "舞蹈學校"
 ],
+"leisure/disc_golf_course":[
+"飛盤高爾夫球場"
+],
 "leisure/dog_park":[
 "狗公園",
 "寵物公園"
+],
+"leisure/escape_game":[
+"密室逃脫"
 ],
 "leisure/firepit":[
 "火爐",
@@ -2437,6 +2464,9 @@
 ],
 "leisure/pitch/equestrian":[
 "馬場"
+],
+"leisure/pitch/field_hockey":[
+"曲棍球場"
 ],
 "leisure/pitch/horseshoes":[
 "馬蹄鐵坑"
@@ -2674,6 +2704,9 @@
 "地下管線",
 "地下水管"
 ],
+"man_made/pipeline/valve":[
+"管道閥門"
+],
 "man_made/pumping_station":[
 "抽水站"
 ],
@@ -2710,6 +2743,9 @@
 "測量標",
 "基準點",
 "控制點"
+],
+"man_made/torii":[
+"鳥居"
 ],
 "man_made/tower":[
 "塔"
@@ -2947,6 +2983,9 @@
 "NGO",
 "非營利組織",
 "非營利組織辦公室"
+],
+"office/bail_bond_agent":[
+"保釋債券代理人"
 ],
 "office/charity":[
 "慈善事業",
@@ -3251,6 +3290,9 @@
 ],
 "point":[
 "點"
+],
+"polling_station":[
+"臨時投票處"
 ],
 "power":[
 "電力設施"
@@ -3815,6 +3857,9 @@
 "shop/fashion":[
 "時尚店"
 ],
+"shop/fashion_accessories":[
+"時尚配件商店"
+],
 "shop/fireplace":[
 "壁爐店",
 "壁爐商店"
@@ -3955,6 +4000,11 @@
 "shop/medical_supply":[
 "醫療器材行",
 "醫療用品店"
+],
+"shop/military_surplus":[
+"軍事用品店",
+"軍用品店",
+"軍人用品店"
 ],
 "shop/mobile_phone":[
 "行動電話店",

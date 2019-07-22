@@ -188,6 +188,9 @@
 "building":[
 "Сграда"
 ],
+"building/entrance":[
+"Вход/изход"
+],
 "building/house":[
 "Къща"
 ],

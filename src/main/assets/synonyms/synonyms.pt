@@ -733,6 +733,9 @@
 "Comida rápida de peixe e fritos",
 "frito"
 ],
+"amenity/fast_food/ice_cream":[
+"Comida rápida de gelados"
+],
 "amenity/fast_food/kebab":[
 "fast food",
 "Kebab",
@@ -1045,6 +1048,27 @@
 "Igreja/capela/nicho cristão",
 "cristã"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"kingdom hall of jehovah's witnessesm",
+"testeminhas de jeová",
+"salões do reino",
+"salão do reino",
+"Salão do Reino das Testemunhas de Jeová",
+"kingdom hall"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"a luz do mundo",
+"Templo de La Luz del Mundo",
+"la luz del mundo temple",
+"la luz del mundo"
+],
+"amenity/place_of_worship/christian/quaker":[
+"quaker friends meeting house",
+"Casa de reuniões Quaker Friends",
+"casa de reuniões quaker friends",
+"casa de reuniões",
+"quaker"
+],
 "amenity/place_of_worship/hindu":[
 "templo",
 "hindu",
@@ -1107,6 +1131,15 @@
 "Guarda Nacional Republicana",
 "Esquadra / posto de polícia"
 ],
+"amenity/polling_station":[
+"eleições",
+"Mesa de voto permanente",
+"permanent polling place",
+"votação",
+"local de voto",
+"mesa de voto",
+"votar"
+],
 "amenity/post_box":[
 "ctt",
 "Posto de Correio",
@@ -1122,6 +1155,13 @@
 "C.T.T.",
 "Correio de Portugal",
 "CTTs"
+],
+"amenity/prep_school":[
+"escola de preparação",
+"escola",
+"tutoring school",
+"teste prep",
+"Escola de preparação para exames"
 ],
 "amenity/prison":[
 "Prisão",
@@ -2514,11 +2554,6 @@
 "building_point":[
 "Edifício"
 ],
-"camp_site/camp_pitch":[
-"acampar",
-"Sítio para acampar",
-"acampar ao ar livre"
-],
 "club":[
 "voleibol",
 "basquetebol",
@@ -2870,6 +2905,13 @@
 "Sapato",
 "Sapatos",
 "Shoemaker"
+],
+"craft/signmaker":[
+"Fabricante de reclames",
+"reclame",
+"reclame luminoso",
+"signmaker",
+"fabricante de reclames"
 ],
 "craft/stonemason":[
 "Stonemason",
@@ -4237,6 +4279,13 @@
 "Vinha",
 "Uvas"
 ],
+"landuse/winter_sports":[
+"desportos de inverno",
+"área de desportos de inverno",
+"desporto de inverno",
+"Área de desportos de inverno",
+"winter sports area"
+],
 "leisure":[
 "Lazer"
 ],
@@ -4312,10 +4361,25 @@
 "bailado",
 "bailarino"
 ],
+"leisure/disc_golf_course":[
+"Percurso de golfe de disco",
+"golfe de disco",
+"disc golf course",
+"golf de disco",
+"disc golf"
+],
 "leisure/dog_park":[
 "Parque para Cães",
 "Dog Park",
 "Parque para cães"
+],
+"leisure/escape_game":[
+"jogo de escape",
+"escape game",
+"escape room",
+"sala de escape",
+"Sala de escape",
+"quarto de escape"
 ],
 "leisure/firepit":[
 "Chama",
@@ -4585,6 +4649,13 @@
 "hipismo",
 "pista",
 "cavalos"
+],
+"leisure/pitch/field_hockey":[
+"campo de hóquei em campo",
+"hóquei sobre a grama",
+"hóquei em campo",
+"Campo de hóquei em campo",
+"field hockey pitch"
 ],
 "leisure/pitch/horseshoes":[
 "jogo da ferradura",
@@ -5668,6 +5739,12 @@
 "ONG",
 "Organização sem fins lucrativos"
 ],
+"office/bail_bond_agent":[
+"agente de fianças",
+"bail bond agent",
+"fianças",
+"Agente de fianças"
+],
 "office/charity":[
 "Instituição de caridade",
 "Caridade",
@@ -6215,6 +6292,15 @@
 "Ponto",
 "Nó",
 "POI"
+],
+"polling_station":[
+"eleições",
+"temporary polling place",
+"votação",
+"Mesa de voto temporária",
+"local de voto",
+"mesa de voto",
+"votar"
 ],
 "power":[
 "Energia"
@@ -7710,6 +7796,13 @@
 "Ortopedia",
 "Ortopédico",
 "Medical Supply Store"
+],
+"shop/military_surplus":[
+"loja de excedentes militares",
+"loja de material militar fora de uso",
+"Loja de excedentes militares",
+"loja de material militar excedente",
+"military surplus store"
 ],
 "shop/mobile_phone":[
 "Celular",

@@ -9,9 +9,10 @@
 "Reklama"
 ],
 "advertising/column":[
+"słup ogłoszeniowy",
 "Słup z ogłoszeniami/reklamami",
-"reklamy",
-"ogłoszenia"
+"ogłoszenia",
+"reklamy"
 ],
 "aerialway":[
 "Wyciąg narciarski"
@@ -206,9 +207,13 @@
 "ławka"
 ],
 "amenity/bicycle_parking":[
-"parking",
-"stojak",
-"Parking dla rowerów"
+"stojak dla rowerów",
+"parking rowerowy",
+"Parking dla rowerów",
+"stojak na rowery",
+"parking dla rowerów",
+"stojaki dla rowerów",
+"rowery"
 ],
 "amenity/bicycle_parking/building":[
 "Garaż dla rowerów",
@@ -240,9 +245,9 @@
 ],
 "amenity/biergarten":[
 "Ogródek piwny",
-"biergarten",
-"piwo",
-"gorzałka"
+"ogródek piwny",
+"bar plażowy",
+"beach bar"
 ],
 "amenity/boat_rental":[
 "wynajem łodzi",
@@ -558,13 +563,23 @@
 "ambona strzelnicza"
 ],
 "amenity/ice_cream":[
+"sorbety",
 "Lodziarnia",
+"mrożone jogurty",
 "lody",
+"gofry",
+"lodziarnia",
 "sklep z lodami"
 ],
 "amenity/internet_cafe":[
 "Kafejka internetowa",
 "Internet"
+],
+"amenity/karaoke":[
+"pokój karaoke",
+"budka karaoke",
+"Budka karaoke",
+"klub karaoke"
 ],
 "amenity/kindergarten":[
 "teren żłobka",
@@ -617,9 +632,12 @@
 "Szkoła muzyczna niepodlegająca MEN"
 ],
 "amenity/nightclub":[
+"klub nocny",
 "striptiz",
+"dyskoteka",
 "Klub nocny",
 "klub dla dorosłych",
+"klub muzyczny",
 "striptease"
 ],
 "amenity/nightclub/lgbtq":[
@@ -745,6 +763,28 @@
 "misja",
 "sanktuarium"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"świątynia",
+"świadkowie jehowy",
+"dom modlitwy",
+"Sala Królestwa Świadków Jehowy",
+"sala królestwa świadków jehowy"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"kościół la luz del mundo",
+"świątynia",
+"Kościół La Luz del Mundo",
+"dom modlitwy"
+],
+"amenity/place_of_worship/christian/quaker":[
+"świątynia",
+"miejsce spotkań religijnego towarzystwa przyjaciół",
+"dom zgromadzeń",
+"kwakrów",
+"Miejsce spotkań Religijnego Towarzystwa Przyjaciół",
+"dom spotkań",
+"kwakrzy"
+],
 "amenity/place_of_worship/hindu":[
 "Świątynia hinduistyczna",
 "świątynia hinduistyczna"
@@ -790,6 +830,12 @@
 "Policja/straż miejsca lub gminna",
 "niebiescy"
 ],
+"amenity/polling_station":[
+"głosowanie",
+"stały lokal wyborczy",
+"Stały lokal wyborczy",
+"wybory"
+],
 "amenity/post_box":[
 "skrzynka",
 "Skrzynka pocztowa",
@@ -797,9 +843,17 @@
 "pocztowa"
 ],
 "amenity/post_office":[
+"paczki",
+"kurier",
 "agencja pocztowa",
+"przesyłki",
+"listy",
+"dpd",
+"dhl",
 "poczta",
+"inpost",
 "urząd pocztowy",
+"poczta polska",
 "Poczta/agencja pocztowa"
 ],
 "amenity/prep_school":[
@@ -1536,10 +1590,9 @@
 "Stodoła"
 ],
 "building/boathouse":[
-"boathouse",
-"houseboat",
-"Łódź mieszkalna",
-"na wodzie"
+"budynek na łodzie",
+"budynek dla łodzi",
+"Budynek dla łodzi"
 ],
 "building/bungalow":[
 "Bungalow",
@@ -1649,7 +1702,8 @@
 ],
 "building/hangar":[
 "hangar",
-"Hangar"
+"Budynek hangaru",
+"budynek hangaru"
 ],
 "building/hospital":[
 "budynek szpitalny",
@@ -1696,8 +1750,8 @@
 ],
 "building/pavilion":[
 "pawilon",
-"sporty",
-"Budynek pawilonu"
+"Pawilon sportowy",
+"sporty"
 ],
 "building/public":[
 "Budynek publiczny",
@@ -1761,8 +1815,12 @@
 "Budynek świątyni"
 ],
 "building/terrace":[
+"Domy szeregowe",
+"dom szeregowy",
 "szeregówki",
-"Domki szeregowe"
+"domki szeregowe",
+"domy szeregowe",
+"szeregówka"
 ],
 "building/train_station":[
 "Budynek dworca"
@@ -1792,11 +1850,6 @@
 ],
 "building_point":[
 "Budynek"
-],
-"camp_site/camp_pitch":[
-"miejsce na namiot",
-"miejsce na kampera",
-"Indywidualne miejsce na kempingu"
 ],
 "club":[
 "klub",
@@ -1958,7 +2011,8 @@
 "rzemieślnik",
 "naprawa RTV",
 "Punkt napraw sprzętu elektronicznego",
-"naprawa telewizorów"
+"naprawa telewizorów",
+"serwis RTV"
 ],
 "craft/floorer":[
 "rzemiosło",
@@ -2166,6 +2220,14 @@
 "szewc",
 "rzemieślnik"
 ],
+"craft/signmaker":[
+"rzemiosło",
+"producent znaków",
+"rzemieślnicy",
+"rzemieślnik",
+"producent szyldów",
+"Producent znaków/szyldów"
+],
 "craft/stonemason":[
 "rzemiosło",
 "rzemieślnicy",
@@ -2334,6 +2396,9 @@
 "Bród",
 "bród"
 ],
+"ford_line":[
+"Bród"
+],
 "golf/bunker":[
 "sand trap",
 "Bunkier"
@@ -2411,6 +2476,10 @@
 "Centrum krwiodawstwa",
 "krwiodawstwo",
 "dawstwo krwi"
+],
+"healthcare/counselling":[
+"Poradnia",
+"poradnia"
 ],
 "healthcare/hospice":[
 "hospicjum",
@@ -3028,9 +3097,11 @@
 ],
 "landuse/brownfield":[
 "teren powyburzeniowy",
+"budowa",
 "Teren poprzemysłowy/powyburzeniowy",
 "wyburzenie",
-"teren poprzemysłowy"
+"teren poprzemysłowy",
+"teren pod budowę"
 ],
 "landuse/cemetery":[
 "cmentarz",
@@ -3086,7 +3157,9 @@
 ],
 "landuse/greenfield":[
 "Teren niezabudowany",
-"teren niezabudowany"
+"budowa",
+"teren niezabudowany",
+"teren pod budowę"
 ],
 "landuse/greenhouse_horticulture":[
 "Teren zajęty przez szklarnie/tunele",
@@ -3259,11 +3332,25 @@
 "taniec",
 "tańczenie"
 ],
+"leisure/disc_golf_course":[
+"miejsce do gry w disc golfa",
+"frisbee golf",
+"Pole do gry w disc golfa",
+"pole do gry w disc golfa",
+"frolf"
+],
 "leisure/dog_park":[
 "psi park",
 "Wybieg dla psów",
 "wybieg dla psów",
 "park dla psów"
+],
+"leisure/escape_game":[
+"pokój zagadek",
+"escape game",
+"quest room",
+"escape room",
+"Escape room"
 ],
 "leisure/firepit":[
 "ognisko",
@@ -3838,6 +3925,14 @@
 "ropa",
 "podziemny"
 ],
+"man_made/pipeline/valve":[
+"woda",
+"gaz ziemny",
+"olej",
+"ścieki",
+"Zawór rurociągu",
+"ściek"
+],
 "man_made/pumping_station":[
 "pompa",
 "pompy",
@@ -3887,6 +3982,13 @@
 "man_made/survey_point":[
 "punkt geodezyjny",
 "Punkt geodezyjny"
+],
+"man_made/torii":[
+"torii",
+"świątynia",
+"Torii",
+"shinto",
+"brama"
 ],
 "man_made/tower":[
 "Wieża",
@@ -4194,11 +4296,20 @@
 "osadnik"
 ],
 "natural/wetland":[
-"mokradła",
 "Bagno",
 "mokradło",
+"grzęzawisko",
 "bagna",
-"bagno"
+"podmokły teren",
+"namorzyny",
+"moczary",
+"mokradła",
+"trzęsawisko",
+"torfowisko",
+"bagno",
+"szuwary",
+"trzcinowisko",
+"podmokłe łąki"
 ],
 "natural/wood":[
 "zadrzewienie",
@@ -4245,6 +4356,14 @@
 "społeczność",
 "biuro organizacji non-profit",
 "Biuro organizacji non profit"
+],
+"office/bail_bond_agent":[
+"Poręczyciel majątkowy",
+"obligacje",
+"agent obligacji",
+"poręczyciel majątkowy",
+"poręczenie majątkowe",
+"kaucja"
 ],
 "office/charity":[
 "Organizacja charytatywna",
@@ -4688,6 +4807,12 @@
 "point":[
 "węzeł",
 "Punkt"
+],
+"polling_station":[
+"głosowanie",
+"Tymczasowy lokal wyborczy",
+"tymczasowy lokal wyborczy",
+"wybory"
 ],
 "power":[
 "Energetyka"
@@ -5620,6 +5745,24 @@
 "shop/fashion":[
 "Sklep odzieżowy"
 ],
+"shop/fashion_accessories":[
+"torebki",
+"parasole",
+"kapelusze",
+"dodatki do odzieży",
+"galanteria",
+"chusty",
+"Sklep z galanterią",
+"dodatki do ubrania",
+"akcesoria modowe",
+"portfele",
+"czapki",
+"szaliki",
+"rękawiczki",
+"paski",
+"szale",
+"biżuteria"
+],
 "shop/fireplace":[
 "kominek",
 "Sklep z kominkami",
@@ -5718,6 +5861,9 @@
 ],
 "shop/hairdresser":[
 "Fryzjer",
+"fryzjernia",
+"salon fryzjerski",
+"zakład fryzjerski",
 "fryzjer"
 ],
 "shop/hairdresser_supply":[
@@ -5814,8 +5960,13 @@
 "Pralnia samoobsługowa"
 ],
 "shop/leather":[
-"galanteria skórzna",
-"Sklep skórzany"
+"sklep z galanterią skorzaną",
+"kurtki skórzane",
+"galanteria skórzana",
+"sklep z odzieżą skórzaną",
+"paski",
+"Sklep z odzieżą skórzaną",
+"odzież skórzana"
 ],
 "shop/lighting":[
 "Sklep z oświetleniem",
@@ -5852,8 +6003,32 @@
 "masażysta"
 ],
 "shop/medical_supply":[
-"galanteria skórzana",
-"Sklep ze sprzętem medycznym"
+"sprzęt rehabilitacyjny",
+"artykuły medyczne",
+"sklep medyczny",
+"sprzęt medyczny",
+"wózki inwalidzkie",
+"ciśnieniomierze",
+"glukometry",
+"chodziki",
+"protezy",
+"sklep ze sprzętem medycznym",
+"sprzęt ortopedyczny",
+"Sklep ze sprzętem medycznym",
+"kule",
+"ortezy",
+"akcesoria medyczne"
+],
+"shop/military_surplus":[
+"Sklep ze sprzętem wojskowym",
+"sklep ze sprzętem wojskowym",
+"sprzęt wojskowy",
+"sklep z militariami",
+"militaria",
+"zbroje",
+"broń",
+"paintball",
+"hełmy"
 ],
 "shop/mobile_phone":[
 "gsm",
@@ -5894,8 +6069,11 @@
 "instrumenty muzyczne"
 ],
 "shop/newsagent":[
+"prasa",
 "Sklep z prasą",
-"kolporter"
+"kolporter",
+"gazety",
+"inmedio"
 ],
 "shop/nutrition_supplements":[
 "Sklep z suplementami diety",

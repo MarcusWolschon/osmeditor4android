@@ -1675,12 +1675,6 @@
 "building_point":[
 "Gebouw"
 ],
-"camp_site/camp_pitch":[
-"sta-plaats",
-"Individueel kampeerveld of sta-plaats op camping",
-"kampeerveldje",
-"staplaats"
-],
 "club":[
 "Club",
 "vereniging"

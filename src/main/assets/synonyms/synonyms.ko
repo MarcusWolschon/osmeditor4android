@@ -287,8 +287,14 @@
 "amenity/fast_food/chicken":[
 "치킨 패스트푸드"
 ],
+"amenity/fast_food/donut":[
+"도넛 패스트푸드"
+],
 "amenity/fast_food/fish_and_chips":[
 "피시앤칩스 패스트푸드"
+],
+"amenity/fast_food/ice_cream":[
+"아이스크림 패스트푸드"
 ],
 "amenity/fast_food/kebab":[
 "케밥 패스트푸드"
@@ -946,6 +952,9 @@
 "비닐하우스",
 "온실"
 ],
+"building/hangar":[
+"격납고 건물"
+],
 "building/hospital":[
 "병원 건물"
 ],
@@ -1033,9 +1042,6 @@
 ],
 "building_point":[
 "건물"
-],
-"camp_site/camp_pitch":[
-"캠핑장"
 ],
 "club":[
 "클럽"
@@ -1234,6 +1240,9 @@
 ],
 "emergency/fire_extinguisher":[
 "소화기"
+],
+"emergency/fire_hose":[
+"소방 호스"
 ],
 "emergency/fire_hydrant":[
 "소화전"
@@ -1620,6 +1629,15 @@
 ],
 "historic/castle":[
 "성"
+],
+"historic/castle/palace":[
+"궁전"
+],
+"historic/city_gate":[
+"성문"
+],
+"historic/manor":[
+"영주 저택"
 ],
 "historic/memorial":[
 "기념관"
@@ -2143,6 +2161,9 @@
 "man_made/storage_tank":[
 "저장 창고"
 ],
+"man_made/storage_tank/water":[
+"수조"
+],
 "man_made/surveillance":[
 "감시"
 ],
@@ -2167,6 +2188,9 @@
 ],
 "man_made/tower/observation":[
 "관측 탑"
+],
+"man_made/tunnel":[
+"터널"
 ],
 "man_made/wastewater_plant":[
 "하수처리 시설",
@@ -2883,6 +2907,9 @@
 ],
 "railway/buffer_stop":[
 "차막이"
+],
+"railway/construction":[
+"공사 중인 철도"
 ],
 "railway/crossing":[
 "철도 건널목 (인도)"

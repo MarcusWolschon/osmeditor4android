@@ -3,6 +3,9 @@
 "عنوان",
 "العنوان"
 ],
+"advertising/billboard":[
+"لوحة"
+],
 "advertising/column":[
 "عمود إعلاني"
 ],
@@ -103,6 +106,9 @@
 "موقف دراجات هوائية; موقف; دراجة; دراجات",
 "موقف دراجات هوائية"
 ],
+"amenity/bicycle_parking/building":[
+"مرآب وقوف دراجات"
+],
 "amenity/bicycle_rental":[
 "تأجير دراجات هوائية; تأجير; دراجة; دراجات; هوائي; هوائية",
 "تأجير دراجات"
@@ -125,6 +131,9 @@
 "ناد ليلي",
 "مقهى",
 "مطعم"
+],
+"amenity/car_pooling":[
+"مشاركة السيارة"
 ],
 "amenity/car_rental":[
 "محل استئجار السيارات",
@@ -207,14 +216,17 @@
 "amenity/embassy":[
 "سفارة"
 ],
+"amenity/events_venue":[
+"مكان الأحداث"
+],
 "amenity/fast_food":[
-"وجبات سريعة",
-"مأكولات السريعة"
+"مأكولات سريعة",
+"وجبات سريعة"
 ],
 "amenity/fast_food/burger":[
+"برجر وجبة سريعة",
 "إفطار",
 "عشاء",
-"برجر وجبات سريعة",
 "طعام"
 ],
 "amenity/fast_food/chicken":[
@@ -222,21 +234,32 @@
 "مقصف",
 "عشاء",
 "طعام",
-"دجاج وجبات سريعة"
+"دجاج وجبة سريعة"
+],
+"amenity/fast_food/donut":[
+"دونات وجبة سريعة",
+"دونات"
 ],
 "amenity/fast_food/fish_and_chips":[
+"سمك ورقائق بطاطس وجبة سريعة",
 "إفطار",
 "قهوة",
 "عشاء",
-"سمك ورقائق البطاطس وجبات سريعة",
 "طعام"
 ],
+"amenity/fast_food/ice_cream":[
+"أيس كريم وجبة سريعة"
+],
 "amenity/fast_food/kebab":[
+"كباب وجبة سريعة",
 "إفطار",
 "مقصف",
 "عشاء",
-"طعام",
-"كباب وجبات سريعة"
+"طعام"
+],
+"amenity/fast_food/mexican":[
+"مكسيكي",
+"طعام مكسيكي وجبة سريعة"
 ],
 "amenity/fast_food/pizza":[
 "إفطار",
@@ -312,6 +335,7 @@
 "مدرسة موسيقى"
 ],
 "amenity/nightclub":[
+"كباريه",
 "ملهى ليلي"
 ],
 "amenity/nursing_home":[
@@ -319,6 +343,15 @@
 ],
 "amenity/parking":[
 "ساحة انتظار سيارات"
+],
+"amenity/parking/multi-storey":[
+"مرآب",
+"مرآب وقوف متعدد الطوابق",
+"جراج"
+],
+"amenity/parking/underground":[
+"موقف تحت الأرض",
+"جراج"
 ],
 "amenity/parking_entrance":[
 "مدخل",
@@ -562,6 +595,9 @@
 "amenity/vending_machine/electronics":[
 "آلة بيع إلكترونيات"
 ],
+"amenity/vending_machine/elongated_coin":[
+"آلة بيع عُملة مسطحة"
+],
 "amenity/vending_machine/food":[
 "آلة بيع مواد غذائية"
 ],
@@ -657,6 +693,9 @@
 "شبكة لمنع الماشية",
 "شبكة الماشية"
 ],
+"barrier/chain":[
+"سلسلة"
+],
 "barrier/city_wall":[
 "جدار المدينة; سور",
 "جدار المدينة"
@@ -705,6 +744,9 @@
 ],
 "building":[
 "مبنى"
+],
+"building/apartments":[
+"مبنى شقق سكنية"
 ],
 "building/barn":[
 "حظيرة",
@@ -1781,7 +1823,8 @@
 "مكتب البحوث، مكتب اﻷبحاث، هيئة اﻷبحاث"
 ],
 "office/surveyor":[
-"مساح"
+"مساح",
+"مكتب مساح أرضي"
 ],
 "office/tax_advisor":[
 "مستشار الضرائب"
@@ -1842,6 +1885,9 @@
 ],
 "place/village":[
 "قرية"
+],
+"playground/structure":[
+"هيكل اللعب"
 ],
 "point":[
 "نقطة"
@@ -2021,6 +2067,9 @@
 ],
 "railway/monorail":[
 "سكة حديدة مفردة"
+],
+"railway/narrow_gauge":[
+"سكك حديد ضيقة"
 ],
 "railway/rail":[
 "قطار"

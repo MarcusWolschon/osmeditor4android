@@ -914,6 +914,13 @@
 "ciber",
 "internet"
 ],
+"amenity/karaoke":[
+"club de karaoke",
+"sala de karaoke",
+"televisión karaoke",
+"Caja de karaoke",
+"KTV"
+],
 "amenity/kindergarten":[
 "pre primaria",
 "kinder",
@@ -1179,6 +1186,64 @@
 "cristiana",
 "basílica"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"abadía",
+"capilla",
+"tabernáculo",
+"casa de culto",
+"templo",
+"coro",
+"iglesia",
+"cristiano",
+"casa de oración",
+"catedral",
+"casa de Dios",
+"santuario",
+"parroquia",
+"oratorio",
+"Salón del Reino de los testigos de Jehová",
+"bethel",
+"basílica"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"abadía",
+"capilla",
+"tabernáculo",
+"Templo de La Luz del Mundo",
+"casa de culto",
+"templo",
+"coro",
+"iglesia",
+"cristiano",
+"casa de oración",
+"catedral",
+"casa de Dios",
+"La Luz del Mundo",
+"santuario",
+"parroquia",
+"oratorio",
+"bethel",
+"basílica"
+],
+"amenity/place_of_worship/christian/quaker":[
+"abadía",
+"capilla",
+"tabernáculo",
+"Casa de reuniones Cuáquera",
+"casa de culto",
+"templo",
+"coro",
+"iglesia",
+"cristiano",
+"casa de oración",
+"catedral",
+"casa de Dios",
+"santuario",
+"parroquia",
+"oratorio",
+"bethel",
+"basílica"
+],
 "amenity/place_of_worship/hindu":[
 "garbhargriha",
 "capilla",
@@ -1277,6 +1342,18 @@
 "policía",
 "comisaría",
 "psa"
+],
+"amenity/polling_station":[
+"votación",
+"cabina electoral",
+"urna electoral",
+"Lugar de votación permanente",
+"democracia",
+"elecciones",
+"máquina de votación",
+"boleta electoral",
+"papeleta electoral",
+"colegio electoral"
 ],
 "amenity/post_box":[
 "carta",
@@ -2961,24 +3038,6 @@
 "building_point":[
 "Edificio"
 ],
-"camp_site/camp_pitch":[
-"camping",
-"motor home",
-"rv",
-"acampe",
-"carpa",
-"lugar",
-"autocaravana",
-"caravana",
-"motorhome",
-"cámping",
-"patio",
-"tienda",
-"campamento",
-"cancha",
-"terreno",
-"Lugar de acampe"
-],
 "club":[
 "intercambio",
 "religioso",
@@ -3363,6 +3422,13 @@
 "Zapatero",
 "zapatería"
 ],
+"craft/signmaker":[
+"tiendas",
+"fabricante",
+"Fabricante de carteles",
+"negocios",
+"carteles"
+],
 "craft/stonemason":[
 "Cantero",
 "Enconfrador",
@@ -3505,6 +3571,9 @@
 "ford":[
 "cruce",
 "paso",
+"Vado"
+],
+"ford_line":[
 "Vado"
 ],
 "golf/bunker":[
@@ -3663,6 +3732,12 @@
 "aféresis",
 "Centro de donación de sangre",
 "plasmaféresis"
+],
+"healthcare/counselling":[
+"Centro de asesoramiento (Counselling)",
+"counselor",
+"Consultor Psicológico",
+"Counselling"
 ],
 "healthcare/hospice":[
 "enfermedad",
@@ -4977,11 +5052,29 @@
 "escuela de baile",
 "Escuela de baile"
 ],
+"leisure/disc_golf_course":[
+"frisbee golf",
+"ultimate",
+"disco golf",
+"disco de golf",
+"Golf de disco",
+"frolf"
+],
 "leisure/dog_park":[
 "can",
 "perro",
 "Parque canino",
 "parque de perros"
+],
+"leisure/escape_game":[
+"cuarto de escape",
+"escape room",
+"sala de escape",
+"sala de misiones",
+"Sala de escape",
+"escapar de la habitación",
+"sala de rompecabezas",
+"juego de escape"
 ],
 "leisure/firepit":[
 "Hoguera",
@@ -5813,6 +5906,14 @@
 "gasoducto",
 "agua"
 ],
+"man_made/pipeline/valve":[
+"alcantarillado",
+"Válvula de tubería",
+"petróleo",
+"gas natural",
+"aguas residuales",
+"agua"
+],
 "man_made/pumping_station":[
 "agua para energía",
 "bomba",
@@ -5890,6 +5991,11 @@
 "vértice geodésico",
 "punto geodésico",
 "Punto geodésico"
+],
+"man_made/torii":[
+"Torii",
+"Puerta japonesa",
+"santuario sintoísta"
 ],
 "man_made/tower":[
 "mástil",
@@ -6447,6 +6553,12 @@
 "ONL",
 "Oficina de organización sin fines de lucro",
 "OSFL"
+],
+"office/bail_bond_agent":[
+"agente de fianzas",
+"fianza",
+"fiador de fianzas",
+"Agente de fianzas"
 ],
 "office/charity":[
 "caridad",
@@ -7028,6 +7140,18 @@
 ],
 "point":[
 "Punto"
+],
+"polling_station":[
+"votación",
+"cabina electoral",
+"urna electoral",
+"democracia",
+"elecciones",
+"máquina de votación",
+"boleta electoral",
+"papeleta electoral",
+"colegio electoral",
+"Lugar de votación temporal"
 ],
 "power":[
 "Línea eléctrica"
@@ -8084,11 +8208,13 @@
 ],
 "shop/caravan":[
 "remolque",
+"camper",
+"vehículo recreacional",
 "autocaravana",
 "cámper",
-"Concesionario de Caravanas",
 "caravana",
-"roulotte"
+"roulotte",
+"Concesionario de autocaravanas"
 ],
 "shop/carpet":[
 "tapiz",
@@ -8316,6 +8442,21 @@
 ],
 "shop/fashion":[
 "Tienda de moda"
+],
+"shop/fashion_accessories":[
+"billetera",
+"bolso",
+"joyería",
+"reloj",
+"fragancia",
+"bufanda",
+"perfume",
+"Tienda de accesorios de moda",
+"gafas de sol lentes de sol",
+"colonia",
+"monedero",
+"paraguas",
+"sombrero"
 ],
 "shop/fireplace":[
 "calentador de mampostería",
@@ -8631,6 +8772,16 @@
 "glucómetro",
 "aparatos ortopédicos",
 "suministros médicos"
+],
+"shop/military_surplus":[
+"excedente de la marina",
+"equipo táctico",
+"tienda de excedentes de guerra",
+"armas",
+"Tienda de excedentes militares",
+"tienda de la armada y la marina",
+"excedente del ejército",
+"armadura"
 ],
 "shop/mobile_phone":[
 "teléfono celular",

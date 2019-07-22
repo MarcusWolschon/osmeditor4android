@@ -376,6 +376,9 @@
 "čas",
 "Hodiny"
 ],
+"amenity/clock/sundial":[
+"Sluneční hodiny"
+],
 "amenity/college":[
 "college",
 "terciární vzdělávání",
@@ -622,6 +625,9 @@
 ],
 "amenity/parking/multi-storey":[
 "Vícepatrové garáže"
+],
+"amenity/parking/underground":[
+"Podzemní parkoviště"
 ],
 "amenity/parking_entrance":[
 "parking",
@@ -936,6 +942,9 @@
 "amenity/smoking_area":[
 "Kuřárna"
 ],
+"amenity/social_centre":[
+"Sociální středisko"
+],
 "amenity/social_facility":[
 "sociální pomoc",
 "denní stacionář",
@@ -948,6 +957,9 @@
 "nízkoprahové centrum",
 "sociální služby",
 "Zařízení sociálních služeb"
+],
+"amenity/social_facility/ambulatory_care":[
+"Ambulantní péče"
 ],
 "amenity/social_facility/food_bank":[
 "zásoby jídla",
@@ -1026,6 +1038,12 @@
 "Toalety",
 "WC"
 ],
+"amenity/toilets/disposal/flush":[
+"Splachovací toalety"
+],
+"amenity/toilets/disposal/pitlatrine":[
+"Latrína"
+],
 "amenity/townhall":[
 "místní správa",
 "obecní správa",
@@ -1084,6 +1102,9 @@
 ],
 "amenity/vending_machine/elongated_coin":[
 "Prodejní automat na mince"
+],
+"amenity/vending_machine/excrement_bags":[
+"Sáčky na výkaly"
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "Automat dámské hygieny"
@@ -1201,6 +1222,9 @@
 "povrch cesty",
 "Plocha silnice"
 ],
+"attraction":[
+"Atrakce"
+],
 "attraction/amusement_ride":[
 "Zábavní jízda"
 ],
@@ -1305,6 +1329,9 @@
 "křoví",
 "Živý plot",
 "okrasný plot"
+],
+"barrier/height_restrictor":[
+"Omezovač výšky"
 ],
 "barrier/kerb":[
 "Obrubník"
@@ -1487,6 +1514,9 @@
 "fóliovník",
 "skleník"
 ],
+"building/hangar":[
+"Budova hangáru"
+],
 "building/hospital":[
 "sanatorium",
 "lazaret",
@@ -1516,6 +1546,9 @@
 "rodinný dům",
 "domek",
 "Rodinný dům"
+],
+"building/houseboat":[
+"Hausbót"
 ],
 "building/hut":[
 "Chatička",
@@ -1661,6 +1694,9 @@
 "řadový dům",
 "řadovka"
 ],
+"building/train_station":[
+"Budova železniční stanice"
+],
 "building/transportation":[
 "Dopravní budova"
 ],
@@ -1680,21 +1716,27 @@
 "skladiště",
 "hala"
 ],
-"camp_site/camp_pitch":[
-"stan",
-"karavan",
-"karavany",
-"Stanoviště v kempu"
+"building_part":[
+"Část budovy"
+],
+"building_point":[
+"Budova"
 ],
 "club":[
 "sociální",
 "Klub"
+],
+"club/sport":[
+"Sportovní klub"
 ],
 "craft":[
 "řemeslník",
 "ruční výroba",
 "řemeslo",
 "Řemeslník"
+],
+"craft/agricultural_engines":[
+"Opravář zemědělských strojů"
 ],
 "craft/basket_maker":[
 "košíkář",
@@ -1788,6 +1830,9 @@
 "Opravy elektroniky",
 "Opravna elektroniky"
 ],
+"craft/floorer":[
+"Podlahář"
+],
 "craft/gardener":[
 "zahradní architekt",
 "zahradnictví",
@@ -1825,6 +1870,9 @@
 ],
 "craft/jeweler":[
 "Klenotník"
+],
+"craft/joiner":[
+"Truhlář"
 ],
 "craft/key_cutter":[
 "Výroba klíčů",
@@ -2009,6 +2057,9 @@
 "emergency/fire_extinguisher":[
 "Hasící přístroj"
 ],
+"emergency/fire_hose":[
+"Požární hadice"
+],
 "emergency/fire_hydrant":[
 "hasičský hydrant",
 "Požární hydrant",
@@ -2176,6 +2227,9 @@
 "stezka pro jezdce",
 "Jezdecká stezka"
 ],
+"highway/bus_stop":[
+"Autobusová zastávka "
+],
 "highway/construction":[
 "Uzavřená silnice (výstavba)"
 ],
@@ -2183,6 +2237,9 @@
 "koridor",
 "chodba",
 "Chodba"
+],
+"highway/crossing":[
+"Křížení"
 ],
 "highway/crossing/marked":[
 "Označený přechod"
@@ -2206,8 +2263,23 @@
 "cyklotrasa",
 "Cyklostezka"
 ],
+"highway/cycleway/bicycle_foot":[
+"Stezka pro chodce a cyklisty"
+],
+"highway/cycleway/crossing":[
+"Cyklostezka"
+],
+"highway/cycleway/crossing/marked":[
+"Označený přejezd pro cyklisty"
+],
+"highway/cycleway/crossing/unmarked":[
+"Neoznačený přejezd pro cyklisty"
+],
 "highway/elevator":[
 "Výtah"
+],
+"highway/emergency_bay":[
+"Místo nouzového zastavení"
 ],
 "highway/footway":[
 "radiála",
@@ -2229,6 +2301,9 @@
 ],
 "highway/footway/conveying":[
 "Pohyblivý pás"
+],
+"highway/footway/crossing":[
+"Přechod pro chodce"
 ],
 "highway/footway/marked":[
 "Označený přechod pro chodce"
@@ -2518,12 +2593,33 @@
 "sídlo",
 "Hrad, zámek"
 ],
+"historic/castle/fortress":[
+"Historická pevnost"
+],
+"historic/castle/palace":[
+"Palác"
+],
+"historic/castle/stately":[
+"Hrad"
+],
+"historic/city_gate":[
+"Hradby"
+],
+"historic/fort":[
+"Historická pevnost"
+],
+"historic/manor":[
+"Panský dům"
+],
 "historic/memorial":[
 "pomník",
 "památník",
 "pamětihodnost",
 "Památník",
 "hrdina"
+],
+"historic/memorial/plaque":[
+"Pamětní deska"
 ],
 "historic/monument":[
 "pomník",
@@ -2557,6 +2653,12 @@
 ],
 "historic/wreck":[
 "Vrak lodi"
+],
+"indoor/room":[
+"Pokoj"
+],
+"indoor/wall":[
+"Vnitřní stěna"
 ],
 "internet_access/wlan":[
 "Wi-Fi hotspot"
@@ -3130,6 +3232,9 @@
 "man_made/antenna":[
 "Anténa"
 ],
+"man_made/beacon":[
+"Maják"
+],
 "man_made/breakwater":[
 "Vlnolam",
 "molo",
@@ -3210,6 +3315,9 @@
 ],
 "man_made/mast/communication/television":[
 "TV vysílací stožár"
+],
+"man_made/mineshaft":[
+"Důlní šachta"
 ],
 "man_made/monitoring_station":[
 "Monitorovací stanice"
@@ -3379,6 +3487,9 @@
 "pláž",
 "Pláž"
 ],
+"natural/cape":[
+"Mys"
+],
 "natural/cave_entrance":[
 "speleologie",
 "Vstup do jeskyně",
@@ -3486,6 +3597,9 @@
 "natural/tree_row":[
 "Stromořadí"
 ],
+"natural/valley":[
+"Údolí"
+],
 "natural/volcano":[
 "sopka",
 "vulkán",
@@ -3511,13 +3625,7 @@
 "Jezero"
 ],
 "natural/water/pond":[
-"hráz",
-"Rybník",
-"rybníček",
-"přehrada",
-"tůň",
-"rybník",
-"louže"
+"Rybník"
 ],
 "natural/water/reservoir":[
 "vodní nádrž",
@@ -3596,6 +3704,12 @@
 "kancelář",
 "spolupráce",
 "Místo pro spolupráci"
+],
+"office/diplomatic/consulate":[
+"Konzulát"
+],
+"office/diplomatic/embassy":[
+"Ambasáda"
 ],
 "office/educational_institution":[
 "vzdělání",
@@ -3877,6 +3991,9 @@
 "power/generator/method/photovoltaic":[
 "Solární kolektor"
 ],
+"power/generator/source/hydro":[
+"Vodní turbína"
+],
 "power/generator/source/nuclear":[
 "Jaderný reaktor"
 ],
@@ -3944,6 +4061,36 @@
 "transformátor",
 "Transformátor",
 "elektrická stanice"
+],
+"public_transport/platform/bus":[
+"Autobusové nástupiště"
+],
+"public_transport/platform/bus_point":[
+"Autobusová zastávka"
+],
+"public_transport/platform/subway":[
+"Nástupiště metra"
+],
+"public_transport/platform/subway_point":[
+"Zastávka metra/nástupiště"
+],
+"public_transport/platform/train":[
+"Vlakové nástupiště"
+],
+"public_transport/platform/train_point":[
+"Vlaková zastávka/nástupiště"
+],
+"public_transport/platform/tram":[
+"Tramvajové nástupiště"
+],
+"public_transport/platform/tram_point":[
+"Tramvajová zastávka/nástupiště"
+],
+"public_transport/platform/trolleybus":[
+"Trolejbusové nástupiště"
+],
+"public_transport/platform/trolleybus_point":[
+"Trolejbusová zastávka"
 ],
 "public_transport/station":[
 "Stanice veřejné dopravy"
@@ -4023,6 +4170,9 @@
 "railway/buffer_stop":[
 "Zarážedlo"
 ],
+"railway/construction":[
+"Železnice ve výstavbě"
+],
 "railway/crossing":[
 "Železniční přejezd (přes cestu)",
 "přejezd",
@@ -4075,12 +4225,18 @@
 "úzkokolejka",
 "Úzkorozchodná dráha"
 ],
+"railway/platform":[
+"Vlakové nástupiště"
+],
 "railway/rail":[
 "trať",
 "vlak",
 "Kolej",
 "koleje",
 "železnice"
+],
+"railway/rail/highspeed":[
+"Vysokorychlostní železnice"
 ],
 "railway/signal":[
 "semafor",
@@ -4319,6 +4475,9 @@
 "Obchod se svíčkami",
 "svícny",
 "lampy"
+],
+"shop/cannabis":[
+"Feťácká prodejna"
 ],
 "shop/car":[
 "prodejna aut",
@@ -4565,6 +4724,9 @@
 "rámečky",
 "rám"
 ],
+"shop/frozen_food":[
+"Mražená jídla"
+],
 "shop/fuel":[
 "Obchod s palivem"
 ],
@@ -4703,6 +4865,9 @@
 "čistírna",
 "prádlo",
 "Prádelna"
+],
+"shop/laundry/self_service":[
+"Samoobslužná prádelna"
 ],
 "shop/leather":[
 "usňová",
@@ -5183,6 +5348,12 @@
 "vinotéka",
 "vinárna"
 ],
+"tactile_paving":[
+"Taktilní dlažba"
+],
+"telecom/data_center":[
+"Datové centrum"
+],
 "tourism":[
 "Turismus"
 ],
@@ -5218,6 +5389,15 @@
 "sousoší",
 "plastika",
 "architektonické dílo"
+],
+"tourism/artwork/bust":[
+"Busta"
+],
+"tourism/artwork/graffiti":[
+"Graffiti"
+],
+"tourism/artwork/installation":[
+"Umělecká instalace"
 ],
 "tourism/artwork/mural":[
 "Nástěnná malba"

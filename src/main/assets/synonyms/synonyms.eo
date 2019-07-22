@@ -722,6 +722,11 @@
 "Retkafejo",
 "interreta kafejo"
 ],
+"amenity/karaoke":[
+"kantado",
+"karaokeo",
+"Karaokeejo"
+],
 "amenity/kindergarten":[
 "kindergarteno",
 "Infanvartejo (ISCED 0)",
@@ -888,6 +893,20 @@
 "kristana preĝejo",
 "kapelo"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"atestantoj de jehovo",
+"Regnohalo de Atestantoj de Jehovo",
+"halo de regno"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"La Luz del Mundo",
+"Preĝejo La Luz del Mundo"
+],
+"amenity/place_of_worship/christian/quaker":[
+"Religia Societo de Amikoj",
+"Kvakerismo",
+"Renkontejo de Kvakeristoj"
+],
 "amenity/place_of_worship/hindu":[
 "templo",
 "Hinduisma templo"
@@ -940,6 +959,12 @@
 "polico",
 "policistoj",
 "policistejo"
+],
+"amenity/polling_station":[
+"voĉdonejo",
+"elektejo",
+"baloto",
+"Balotejo (neŝanĝanta loko)"
 ],
 "amenity/post_box":[
 "posxtkesto",
@@ -2166,11 +2191,6 @@
 "building_point":[
 "Konstruaĵo"
 ],
-"camp_site/camp_pitch":[
-"Kampadeja loko",
-"kampadejo",
-"tendo"
-],
 "club":[
 "Klubejo",
 "asocio",
@@ -2462,6 +2482,13 @@
 "botisto",
 "Ŝuista laborejo"
 ],
+"craft/signmaker":[
+"signfaristo",
+"signofaristo",
+"emblemfaristo",
+"Laborejo de sign-faristo",
+"ŝildofaristo"
+],
 "craft/stonemason":[
 "Ŝton-tranĉista laborejo",
 "shtontranchisto",
@@ -2618,6 +2645,9 @@
 "trarivero",
 "Travadejo"
 ],
+"ford_line":[
+"Travadejo"
+],
 "golf/bunker":[
 "bunkro",
 "Sabla malhelpaĵo",
@@ -2708,6 +2738,12 @@
 "healthcare/blood_donation":[
 "sangdonejo",
 "Sangodonejo"
+],
+"healthcare/counselling":[
+"Konsultejo pri sano",
+"konsultejo",
+"sankonsultejo",
+"konsilejo"
 ],
 "healthcare/hospice":[
 "Hospico",
@@ -3669,6 +3705,13 @@
 "hundoparko",
 "Hund-parko"
 ],
+"leisure/escape_game":[
+"enigma ĉambro",
+"eskapa ĉambro",
+"Ĉambro de enigmoj",
+"cxambro de enigmoj",
+"chambro de enigmoj"
+],
 "leisure/firepit":[
 "Lignofajrejo",
 "fajrejo"
@@ -4310,6 +4353,10 @@
 "naftodukto",
 "akvodukto"
 ],
+"man_made/pipeline/valve":[
+"Valvo de konduktubo",
+"klapo"
+],
 "man_made/pumping_station":[
 "ĉerpstacio",
 "pumpilo",
@@ -4365,6 +4412,13 @@
 "geodezio",
 "referencpunkto",
 "Geodezia vertico"
+],
+"man_made/torii":[
+"torii",
+"sanktejo",
+"templo",
+"ŝintoo",
+"Torijo"
 ],
 "man_made/tower":[
 "turo",
@@ -5199,6 +5253,12 @@
 "Punkto",
 "punkto"
 ],
+"polling_station":[
+"voĉdonejo",
+"elektejo",
+"baloto",
+"Balotejo (portempa loko)"
+],
 "power":[
 "Elektr-energia objekto"
 ],
@@ -5986,6 +6046,7 @@
 "oportuna butiko"
 ],
 "shop/copyshop":[
+"xero",
 "ksero",
 "fotokopiilo",
 "Fotokopiilejo",
@@ -6107,6 +6168,15 @@
 "shop/fashion":[
 "Mod-butiko"
 ],
+"shop/fashion_accessories":[
+"saketoj",
+"Galanteria (vestaj akcesoraĵoj) vendejo",
+"galanteriejo",
+"galanterio",
+"ombreloj",
+"akcesoraĵoj",
+"mansakoj"
+],
 "shop/fireplace":[
 "hejtiloj",
 "Kamen-vendejo",
@@ -6223,6 +6293,7 @@
 ],
 "shop/hardware":[
 "il-vendejo",
+"faru vin mem",
 "Laborila vendejo",
 "memfaradiloj",
 "iloj",
@@ -6356,6 +6427,12 @@
 "shop/medical_supply":[
 "medicinaĵoj",
 "Medicin-aparata vendejo"
+],
+"shop/military_surplus":[
+"armea ekipaĵo",
+"uniformoj",
+"Ne-plu-necesa-armea-ekipaĵo vendejo",
+"armiloj"
 ],
 "shop/mobile_phone":[
 "gsm",

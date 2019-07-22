@@ -97,10 +97,12 @@
 ],
 "aerialway/mixed_lift":[
 "Télécombi",
+"Téléporté mixte",
 "mixed lift",
 "télécabines et télésièges",
-"Télémix, Télécombi",
+"teleporte mixte",
 "Télémix",
+"télésiège",
 "telecabines et telesieges"
 ],
 "aerialway/platter":[
@@ -925,6 +927,10 @@
 "Cybercafé",
 "Café internet"
 ],
+"amenity/karaoke":[
+"karaoke",
+"Karaoke"
+],
 "amenity/kindergarten":[
 "école maternelle",
 "petite section",
@@ -1075,6 +1081,35 @@
 "Église chrétienne",
 "basilique"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"Salle du Royaume des Témoins de Jéhovah"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"cathédrale",
+"lieu de culte",
+"chrétien",
+"abbaye",
+"catholique",
+"Temple de la Luz del Mundo",
+"chapelle",
+"temple",
+"église",
+"basilique"
+],
+"amenity/place_of_worship/christian/quaker":[
+"cathédrale",
+"Salle de réunion de la société religieuse des amis",
+"lieu de culte",
+"société des amis",
+"chrétien",
+"abbaye",
+"catholique",
+"chapelle",
+"quakers",
+"quaker",
+"église",
+"basilique"
+],
 "amenity/place_of_worship/hindu":[
 "monastère",
 "Temple hindou",
@@ -1127,6 +1162,14 @@
 "Gendarmerie",
 "Police"
 ],
+"amenity/polling_station":[
+"démocratique",
+"bureau de vote",
+"démocratie",
+"Bureau de vote permanent",
+"vote",
+"élections"
+],
 "amenity/post_box":[
 "Boîte aux lettres"
 ],
@@ -1174,7 +1217,8 @@
 "amenity/public_bookcase":[
 "Microbibliothèque",
 "Micro-bibliothèque",
-"Bibliothèque en libre service"
+"Bibliothèque en libre service",
+"boîte à livres"
 ],
 "amenity/ranger_station":[
 "Services publics des parcs nationaux"
@@ -1197,6 +1241,7 @@
 "recyclable",
 "bouteille",
 "verre",
+"bulle à verre",
 "canette",
 "Conteneur de recyclage",
 "poubelle",
@@ -2884,10 +2929,6 @@
 "building_point":[
 "Bâtiment "
 ],
-"camp_site/camp_pitch":[
-"Emplacement de camping",
-"Terrain de camping"
-],
 "club":[
 "Club",
 "association",
@@ -2956,8 +2997,11 @@
 ],
 "craft/confectionery":[
 "Confiseur",
+"biscuits",
+"biscuiterie",
+"Confiserie",
 "confiseur",
-"Confisier",
+"bonbons",
 "fabricant de bonbons"
 ],
 "craft/distillery":[
@@ -3105,6 +3149,11 @@
 "Cordonnier",
 "Bottier"
 ],
+"craft/signmaker":[
+"signalétique",
+"Fabriquant d'enseignes",
+"enseignes"
+],
 "craft/stonemason":[
 "Tailleur de pierre"
 ],
@@ -3247,6 +3296,9 @@
 "ford":[
 "Gué"
 ],
+"ford_line":[
+"Gué"
+],
 "golf/bunker":[
 "Bunker",
 "bunker de fairway",
@@ -3334,6 +3386,13 @@
 "healthcare/blood_donation":[
 "Banque du sang",
 "Centre de don du sang"
+],
+"healthcare/counselling":[
+"diététique",
+"conseil",
+"Centre de conseil médical",
+"sexe",
+"régime"
 ],
 "healthcare/hospice":[
 "Hôpital",
@@ -3688,8 +3747,8 @@
 "Point de retournement"
 ],
 "highway/turning_loop":[
-"Boucle de manœuvre (Irelande)",
-"Boucle de retournement (Irlande)"
+"Boucle de retournement (îlot central)",
+"Boucle de manœuvre (îlot central)"
 ],
 "highway/unclassified":[
 "route non classée;voie communale",
@@ -4101,9 +4160,23 @@
 "danse",
 "valse"
 ],
+"leisure/disc_golf_course":[
+"Terrain de golf",
+"Parcours de golf",
+"Golf",
+"Parcours de disc golf",
+"disk golf"
+],
 "leisure/dog_park":[
 "parc à chiens",
 "Parc canin"
+],
+"leisure/escape_game":[
+"Escape game",
+"puzzle room",
+"escape game",
+"quest room",
+"escape room"
 ],
 "leisure/firepit":[
 "Foyer",
@@ -4650,6 +4723,12 @@
 "pétrole",
 "égouts"
 ],
+"man_made/pipeline/valve":[
+"Oléoduc",
+"Gazoduc",
+"Valve sur un pipeline",
+"Pipeline"
+],
 "man_made/pumping_station":[
 "pompage",
 "Station de pompage",
@@ -4709,6 +4788,13 @@
 "repère géodésique",
 "monument géodésique",
 "Borne géodésique"
+],
+"man_made/torii":[
+"portail",
+"temple shinto",
+"Torii",
+"portique",
+"shinto"
 ],
 "man_made/tower":[
 "Tour"
@@ -4976,8 +5062,8 @@
 "natural/water/river":[
 "rivière",
 "estuaire",
-"Rvière",
-"fleuve"
+"fleuve",
+"Rivière"
 ],
 "natural/water/stream":[
 "ru",
@@ -5031,6 +5117,11 @@
 "office/association":[
 "Bureau d'association",
 "Organisation à but non lucratif"
+],
+"office/bail_bond_agent":[
+"cautionnement",
+"Agent de cautionnement",
+"agent de cautionnement"
 ],
 "office/charity":[
 "Organisation de bienfaisance/charité",
@@ -5316,7 +5407,7 @@
 ],
 "place/locality":[
 "lieu-dit",
-"Lieu-dit sans habitation"
+"Lieu-dit non habité"
 ],
 "place/neighbourhood":[
 "Voisinage",
@@ -5423,6 +5514,14 @@
 ],
 "point":[
 "Point"
+],
+"polling_station":[
+"démocratique",
+"Bureau de vote temporaire",
+"bureau de vote",
+"démocratie",
+"vote",
+"élections"
 ],
 "power":[
 "Énergie"
@@ -6120,7 +6219,11 @@
 "shop/art":[
 "marchand d'art",
 "gallerie d'art",
+"art",
 "Galeriste",
+"artiste",
+"exposition",
+"magasin d'art",
 "Marchand d'art"
 ],
 "shop/baby_goods":[
@@ -6183,6 +6286,9 @@
 "Petit magasin de mode"
 ],
 "shop/butcher":[
+"boucher",
+"charcuterie",
+"charcutier",
 "Boucher",
 "Boucherie"
 ],
@@ -6262,7 +6368,12 @@
 "Magasin d'informatique"
 ],
 "shop/confectionery":[
-"Confiserie"
+"biscuits",
+"biscuiterie",
+"Confiserie",
+"confiseur",
+"bonbons",
+"fabricant de bonbons"
 ],
 "shop/convenience":[
 "Petite épicerie du coin",
@@ -6346,6 +6457,19 @@
 ],
 "shop/fashion":[
 "Boutique de mode"
+],
+"shop/fashion_accessories":[
+"Boutique d'accessoires de mode",
+"lunettes de soleil",
+"parfum",
+"cologne",
+"écharpe",
+"chapeau",
+"parapluie",
+"bijoux",
+"porte-monnaie",
+"montres",
+"sac à main"
 ],
 "shop/fireplace":[
 "Magasin de cheminées",
@@ -6535,6 +6659,18 @@
 "shop/medical_supply":[
 "Magasin de matériel médical"
 ],
+"shop/military_surplus":[
+"équipement de guerre",
+"magasin militaire",
+"armure",
+"armée",
+"surplus",
+"navy",
+"équipement militaire",
+"Surplus militaire",
+"guerre",
+"tactique"
+],
 "shop/mobile_phone":[
 "Vente de téléphone portable",
 "magasin de téléphones portables",
@@ -6638,6 +6774,7 @@
 ],
 "shop/seafood":[
 "écailler",
+"conserverie",
 "fruits de mer",
 "Vendeur de poissons",
 "Poissonnerie / Vente de fruits de mer"
@@ -6711,8 +6848,9 @@
 "Vente de produits de nettoyage"
 ],
 "shop/variety_store":[
-"Épicerie",
-"Magasin à prix unique"
+"hard-discount",
+"Magasin à prix unique ou à bas prix",
+"Épicerie"
 ],
 "shop/video":[
 "Club vidéo",

@@ -23,6 +23,9 @@
 "emergency":[
 "Emergency Feature"
 ],
+"ford_line":[
+"Ford"
+],
 "highway":[
 "Highway"
 ],
@@ -61,6 +64,9 @@
 ],
 "waterway":[
 "Waterway"
+],
+"addr/interpolation":[
+"Address Interpolation"
 ],
 "address":[
 "Address"
@@ -156,6 +162,9 @@
 "heliport",
 "helipad"
 ],
+"aeroway/holding_position":[
+"Aircraft Holding Position"
+],
 "aeroway/jet_bridge":[
 "finger",
 "jet way",
@@ -170,6 +179,9 @@
 "air jetty",
 "gangway",
 "portal"
+],
+"aeroway/parking_position":[
+"Aircraft Parking Position"
 ],
 "aeroway/runway":[
 "Runway",
@@ -264,6 +276,7 @@
 "aspca",
 "horse",
 "Animal Shelter",
+"pound",
 "adoption",
 "kitten",
 "puppy",
@@ -318,7 +331,8 @@
 ],
 "amenity/bench":[
 "seat",
-"Bench"
+"Bench",
+"chair"
 ],
 "amenity/bicycle_parking":[
 "Bicycle Parking",
@@ -339,6 +353,12 @@
 "Bike Shed"
 ],
 "amenity/bicycle_rental":[
+"bike share",
+"bicycle",
+"hub",
+"bicycle share",
+"bikeshare",
+"dock",
 "Bicycle Rental",
 "bike"
 ],
@@ -347,6 +367,9 @@
 "chain",
 "Bicycle Repair Tool Stand",
 "pump",
+"stand",
+"multitool",
+"tools",
 "bike"
 ],
 "amenity/biergarten":[
@@ -429,6 +452,7 @@
 "ovulation"
 ],
 "amenity/clock":[
+"time",
 "Clock"
 ],
 "amenity/clock/sundial":[
@@ -493,6 +517,13 @@
 "Dojo / Martial Arts Academy",
 "martial arts",
 "dojang"
+],
+"amenity/dressing_room":[
+"changeroom",
+"dressing room",
+"Changing Room",
+"locker room",
+"fitting room"
 ],
 "amenity/drinking_water":[
 "potable water source",
@@ -723,6 +754,13 @@
 "net",
 "Internet Cafe"
 ],
+"amenity/karaoke":[
+"karaoke club",
+"karaoke television",
+"Karaoke Box",
+"KTV",
+"karaoke room"
+],
 "amenity/kindergarten":[
 "kindergarden",
 "pre-school",
@@ -830,6 +868,18 @@
 "parking building",
 "parking deck",
 "Multilevel Parking Garage"
+],
+"amenity/parking/park_ride":[
+"incentive parking lot",
+"park and ride lot",
+"train parking lot",
+"public transit parking lot",
+"commuter parking lot",
+"P+R",
+"public transport parking lot",
+"park and pool lot",
+"Park & Ride Lot",
+"metro parking lot"
 ],
 "amenity/parking/underground":[
 "car lot",
@@ -940,6 +990,31 @@
 "bethel",
 "cathedral"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"house of prayer",
+"house of worship",
+"christian",
+"church",
+"house of God",
+"Kingdom Hall of Jehovah's Witnesses"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"house of prayer",
+"La Luz del Mundo Temple",
+"house of worship",
+"christian",
+"the light of the world church",
+"church",
+"house of God"
+],
+"amenity/place_of_worship/christian/quaker":[
+"house of prayer",
+"house of worship",
+"christian",
+"church",
+"house of God",
+"Quaker Friends Meeting House"
+],
 "amenity/place_of_worship/hindu":[
 "kshetram",
 "Hindu Temple",
@@ -955,8 +1030,10 @@
 "Jewish Synagogue"
 ],
 "amenity/place_of_worship/muslim":[
+"islam",
 "muslim",
-"Muslim Mosque"
+"Muslim Mosque",
+"islamic center"
 ],
 "amenity/place_of_worship/shinto":[
 "kami",
@@ -993,10 +1070,24 @@
 "constable",
 "Police"
 ],
+"amenity/polling_station":[
+"voting booth",
+"polling place",
+"ballot box",
+"voting machine",
+"ballot drop",
+"elections",
+"vote",
+"democracy",
+"Permanent Polling Place"
+],
 "amenity/post_box":[
-"post",
 "Mailbox",
-"letter"
+"letter drop",
+"mail box",
+"package drop",
+"postal box",
+"post box"
 ],
 "amenity/post_office":[
 "mail",
@@ -1018,7 +1109,8 @@
 "amenity/prison":[
 "jail",
 "Prison Grounds",
-"cell"
+"cell",
+"correction"
 ],
 "amenity/pub":[
 "alcohol",
@@ -2231,11 +2323,6 @@
 "building/warehouse":[
 "Warehouse"
 ],
-"camp_site/camp_pitch":[
-"tent",
-"rv",
-"Camp Pitch"
-],
 "club":[
 "social",
 "Club"
@@ -2431,6 +2518,9 @@
 "craft/shoemaker":[
 "cobbler",
 "Shoemaker"
+],
+"craft/signmaker":[
+"Signmaker"
 ],
 "craft/stonemason":[
 "masonry",
@@ -2644,6 +2734,9 @@
 "stem cell donation",
 "blood donation"
 ],
+"healthcare/counselling":[
+"Counselling Center"
+],
 "healthcare/hospice":[
 "Hospice",
 "terminal",
@@ -2802,7 +2895,8 @@
 "segregated trail",
 "Cycle & Foot Path",
 "greenway",
-"green way"
+"green way",
+"rail trail"
 ],
 "highway/cycleway/crossing/marked":[
 "cycle crosswalk",
@@ -3572,6 +3666,13 @@
 "leisure/dog_park":[
 "Dog Park"
 ],
+"leisure/escape_game":[
+"Escape Room",
+"puzzle room",
+"escape game",
+"quest room",
+"escape the room"
+],
 "leisure/firepit":[
 "Firepit",
 "campfire",
@@ -4069,6 +4170,13 @@
 "Silage",
 "Bunker Silo"
 ],
+"man_made/cairn":[
+"stone stack",
+"càrn",
+"Cairn",
+"stone pile",
+"rock pile"
+],
 "man_made/chimney":[
 "Chimney"
 ],
@@ -4252,6 +4360,14 @@
 "water",
 "sewage"
 ],
+"man_made/pipeline/valve":[
+"natural gas",
+"oil",
+"sewer",
+"Pipeline Valve",
+"water",
+"sewage"
+],
 "man_made/pumping_station":[
 "Pumping Station"
 ],
@@ -4316,6 +4432,11 @@
 "Survey Point",
 "trig point",
 "trigonometrical station"
+],
+"man_made/torii":[
+"Japanese gate",
+"Shinto shrine",
+"Torii"
 ],
 "man_made/tower":[
 "Tower"
@@ -4743,6 +4864,13 @@
 "non-profit",
 "Nonprofit Organization Office"
 ],
+"office/bail_bond_agent":[
+"bail bond dealer",
+"bail bond man",
+"bail bondsperson",
+"bail bondsman",
+"Bail Bond Agent"
+],
 "office/charity":[
 "Charity Office",
 "charitable organization"
@@ -5136,6 +5264,17 @@
 "vertices",
 "Point"
 ],
+"polling_station":[
+"Temporary Polling Place",
+"voting booth",
+"polling place",
+"ballot box",
+"voting machine",
+"ballot drop",
+"elections",
+"vote",
+"democracy"
+],
 "power/sub_station":[
 "Substation"
 ],
@@ -5180,6 +5319,9 @@
 "wind"
 ],
 "power/line":[
+"high voltage line",
+"electric power transmission line",
+"high tension line",
 "Power Line"
 ],
 "power/minor_line":[
@@ -6233,6 +6375,21 @@
 "farm stand",
 "Produce Stand"
 ],
+"shop/fashion_accessories":[
+"sunglasses",
+"purfume",
+"wallet",
+"umbrella",
+"scarf",
+"bag",
+"Fashion Accessories Store",
+"fragrance",
+"jewellery",
+"watch",
+"cologne",
+"hat",
+"purse"
+],
 "shop/fireplace":[
 "masonry heater",
 "stove",
@@ -6352,6 +6509,12 @@
 "video",
 "high fidelity"
 ],
+"shop/hobby":[
+"figurine",
+"manga",
+"model",
+"Hobby Shop"
+],
 "shop/houseware":[
 "kitchenware",
 "Houseware Store",
@@ -6434,6 +6597,16 @@
 "shop/medical_supply":[
 "Medical Supply Store"
 ],
+"shop/military_surplus":[
+"armor",
+"navy surplus",
+"tactical gear",
+"war surplus shop",
+"army-navy store",
+"weapons",
+"army surplus",
+"Military Surplus Store"
+],
 "shop/mobile_phone":[
 "Mobile Phone Store"
 ],
@@ -6468,7 +6641,10 @@
 "Newspaper/Magazine Shop"
 ],
 "shop/nutrition_supplements":[
-"Nutrition Supplements Store"
+"Nutrition Supplements Store",
+"supplement",
+"health",
+"vitamin"
 ],
 "shop/optician":[
 "eye",
@@ -6513,6 +6689,9 @@
 "Pawn Shop"
 ],
 "shop/perfumery":[
+"fragrance",
+"purfume",
+"cologne",
 "Perfume Store"
 ],
 "shop/pet_grooming":[
@@ -6536,6 +6715,7 @@
 "camera"
 ],
 "shop/pyrotechnics":[
+"fireworks",
 "Fireworks Store"
 ],
 "shop/radiotechnics":[
@@ -6595,6 +6775,18 @@
 "Supermarket",
 "grocery",
 "store"
+],
+"shop/swimming_pool":[
+"hot tub maintenance store",
+"pool shop",
+"swimming pool equipment store",
+"swimming pool installation store",
+"Pool Supply Store",
+"pool store",
+"hot tub supply store",
+"swimming pool maintenance store",
+"swimming pool supply shop",
+"hot tub equipment store"
 ],
 "shop/tailor":[
 "suit",
@@ -6746,6 +6938,11 @@
 ],
 "tourism/attraction":[
 "Tourist Attraction"
+],
+"tourism/camp_pitch":[
+"tent",
+"rv",
+"Camp Pitch"
 ],
 "tourism/camp_site":[
 "tent",
@@ -7209,6 +7406,9 @@
 "Waterfall"
 ],
 "waterway/weir":[
+"low-head dam",
+"low-rise dam",
+"wier",
 "Weir"
 ]
 }

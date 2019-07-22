@@ -967,16 +967,6 @@
 "Skladišče",
 "depo"
 ],
-"camp_site/camp_pitch":[
-"prikolišče",
-"Kampirno mesto",
-"elektrika",
-"plac",
-"kamp plac",
-"prikolica",
-"šotorišče",
-"postavitev"
-],
 "club":[
 "druženje",
 "klub",

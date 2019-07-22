@@ -388,6 +388,17 @@
 "Buddhisttempel",
 "Buddisttempel"
 ],
+"amenity/place_of_worship/christian":[
+"kapel",
+"præst",
+"sogn",
+"gud",
+"katedral",
+"Kristen kirke",
+"kirke",
+"kristendom",
+"tempel"
+],
 "amenity/place_of_worship/hindu":[
 "hindu",
 "Hindu-tempel",
@@ -455,7 +466,18 @@
 "Spisested"
 ],
 "amenity/sanitary_dump_station":[
-"Tørcloset-toilet funtionsområde"
+"toilet",
+"camping",
+"kemisk toilet",
+"campingvogn",
+"Bortskaffelse af sanitært affald",
+"lort",
+"tørcloset",
+"closet",
+"affald",
+"autocamper",
+"kloak",
+"campingtoilet"
 ],
 "amenity/school":[
 "Skolegrund",
@@ -558,6 +580,14 @@
 "amenity/toilets":[
 "Toiletter",
 "WC"
+],
+"amenity/toilets/disposal/flush":[
+"water closet",
+"Vandskyllende toiletter",
+"træk",
+"slip",
+"træk og slip",
+"wc"
 ],
 "amenity/townhall":[
 "Rådhus",
@@ -732,6 +762,41 @@
 "Hæk",
 "Læhegn/hæk"
 ],
+"barrier/kerb":[
+"fortov",
+"Kantsten",
+"sten",
+"kant"
+],
+"barrier/kerb/flush":[
+"kantsten",
+"usynlig",
+"Udjævnet kantsten",
+"flad",
+"jævn",
+"lige"
+],
+"barrier/kerb/lowered":[
+"lav",
+"sænket",
+"sten",
+"Sænket kantsten",
+"kant"
+],
+"barrier/kerb/raised":[
+"høj",
+"sten",
+"Hævet kantsten",
+"kant"
+],
+"barrier/kerb/rolled":[
+"Afrundet kantsten",
+"afrundet",
+"sten",
+"rund",
+"kant",
+"valmet"
+],
 "barrier/kissing_gate":[
 "Dyrefoldsport",
 "fold",
@@ -762,6 +827,12 @@
 ],
 "building":[
 "Bygning"
+],
+"building/apartments":[
+"Lejlighedskompleks",
+"etagebygning",
+"lejlighed",
+"etage"
 ],
 "building/barn":[
 "Lade",
@@ -884,10 +955,6 @@
 "Lagerhotel",
 "Varelager"
 ],
-"camp_site/camp_pitch":[
-"Plads på Campingplads",
-"Campingplads"
-],
 "club":[
 "Club",
 "Klub",
@@ -958,6 +1025,12 @@
 "Elektronikværksted",
 "elektronik",
 "reparation"
+],
+"craft/floorer":[
+"håndværker",
+"Gulvlægger",
+"gulv",
+"belægning"
 ],
 "craft/gardener":[
 "Gartner"
@@ -1068,6 +1141,9 @@
 "embankment":[
 "Forhøjning til tog, vej"
 ],
+"emergency":[
+"Nødhjælpsegenskaber"
+],
 "emergency/ambulance_station":[
 "Udrykningsstation",
 "Ambulancestation",
@@ -1089,6 +1165,14 @@
 "emergency/life_ring":[
 "Redningskrans",
 "redningsbælte"
+],
+"emergency/lifeguard":[
+"redning",
+"nødhjælp",
+"svømning",
+"førstehjælp",
+"Livredder",
+"kyst"
 ],
 "emergency/no":[
 "Udrykningskørsel Nej"
@@ -1377,6 +1461,18 @@
 "Kongeslotte",
 "Slot"
 ],
+"historic/castle/fortress":[
+"militær",
+"fort",
+"slot",
+"Historisk befæstning"
+],
+"historic/fort":[
+"Historisk fort",
+"befæstning",
+"fort",
+"slot"
+],
 "historic/memorial":[
 "Mindesmærke",
 "Mindesten"
@@ -1396,6 +1492,9 @@
 ],
 "historic/wayside_shrine":[
 "Vejsidehelligdom"
+],
+"indoor":[
+"Indendørsegenskaber"
 ],
 "junction":[
 "Gadefletning",
@@ -1441,6 +1540,13 @@
 "Gårdsplads",
 "Bondegård"
 ],
+"landuse/forest":[
+"Forvaltet skov",
+"skovbrug",
+"forvaltet",
+"skov",
+"plantage"
+],
 "landuse/grass":[
 "Græs"
 ],
@@ -1478,6 +1584,12 @@
 ],
 "landuse/recreation_ground":[
 "Rekreationsområde"
+],
+"landuse/religious":[
+"hellig",
+"Helligt område",
+"religiøst",
+"religion"
 ],
 "landuse/residential":[
 "Beboet område"
@@ -1527,8 +1639,14 @@
 "Hundepark"
 ],
 "leisure/firepit":[
-"Bålplads",
-"Lejrbålsplads"
+"ild",
+"ildsted",
+"Lejrbålsplads",
+"bålplads",
+"lejrbålsplads",
+"bål",
+"bålsted",
+"lejrbål"
 ],
 "leisure/fitness_centre":[
 "Gym / Fitnesscenter",
@@ -1666,6 +1784,20 @@
 ],
 "leisure/stadium":[
 "Stadion"
+],
+"leisure/swimming_area":[
+"badning",
+"sø",
+"å",
+"vand",
+"Åbentvandssvømningsområde",
+"svømning",
+"åbent",
+"frit",
+"fri",
+"hav",
+"bade",
+"åben"
 ],
 "leisure/swimming_pool":[
 "Swimming Pool",
@@ -1917,6 +2049,11 @@
 "Vådområde"
 ],
 "natural/wood":[
+"natur",
+"træ",
+"fredsskov",
+"skov",
+"vild",
 "Naturskov"
 ],
 "noexit/yes":[
@@ -1958,6 +2095,13 @@
 "Fællesskabsarbejdsplads",
 "Kontorfællesskab"
 ],
+"office/diplomatic/consulate":[
+"konsul",
+"diplomat",
+"diplomati",
+"repræsentation",
+"Konsulat"
+],
 "office/educational_institution":[
 "Uddannelsesinstitution"
 ],
@@ -1970,6 +2114,14 @@
 ],
 "office/financial":[
 "Finanskontor"
+],
+"office/forestry":[
+"landmand",
+"skovarbejder",
+"landbrug",
+"Skovbrugskontor",
+"skovbrug",
+"skovløber"
 ],
 "office/government":[
 "Statsligt kontor",
@@ -2008,6 +2160,11 @@
 ],
 "office/travel_agent":[
 "Rejsebureau"
+],
+"office/water_utility":[
+"forsyning",
+"vand",
+"Vandforsyningskontor"
 ],
 "place":[
 "Lokalitet"
@@ -2175,7 +2332,13 @@
 "Butik"
 ],
 "shop/agrarian":[
-"Grovvareforretning"
+"maskiner",
+"korn",
+"landbrug",
+"Grovvareforretning",
+"afgrøde",
+"ukrudtsmiddel",
+"gødning"
 ],
 "shop/alcohol":[
 "Vinforretning",
@@ -2948,8 +3111,18 @@
 "Flodbred"
 ],
 "waterway/sanitary_dump_station":[
-"Søtoilet tømning",
-"Søtoilet funktionsområde"
+"båd",
+"havn",
+"Marine sanitærdeponi",
+"toilet",
+"camping",
+"kemisk toilet",
+"lort",
+"tørcloset",
+"closet",
+"affald",
+"kloak",
+"campingtoilet"
 ],
 "waterway/stream":[
 "Bæk"

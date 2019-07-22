@@ -12,7 +12,7 @@
 "Жичница"
 ],
 "aerialway/cable_car":[
-"Жичничка кабина"
+"Кабинска жичница"
 ],
 "aerialway/chair_lift":[
 "Жичничка клупа"
@@ -171,7 +171,7 @@
 "Коцкарница"
 ],
 "amenity/charging_station":[
-"Акумулаторска станица"
+"Напојна станица"
 ],
 "amenity/childcare":[
 "Детска градинка"
@@ -285,7 +285,7 @@
 "Фонтана"
 ],
 "amenity/fuel":[
-"Бензинска пумпа"
+"Бензинска станица"
 ],
 "amenity/grave_yard":[
 "Гробишта"
@@ -304,6 +304,9 @@
 ],
 "amenity/internet_cafe":[
 "Интернет-кафуле"
+],
+"amenity/karaoke":[
+"Просторија за караоке"
 ],
 "amenity/kindergarten":[
 "Двор на детска градинка"
@@ -377,6 +380,15 @@
 "amenity/place_of_worship/christian":[
 "Црква"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"Соборен дом на Јеховините сведоци"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"Храм „Светлина на светот“"
+],
+"amenity/place_of_worship/christian/quaker":[
+"Квекерски соборен дом"
+],
 "amenity/place_of_worship/hindu":[
 "Хиндуистички храм"
 ],
@@ -400,6 +412,9 @@
 ],
 "amenity/police":[
 "Полиција"
+],
+"amenity/polling_station":[
+"Трајно гласачко место"
 ],
 "amenity/post_box":[
 "Поштенско сандаче"
@@ -816,10 +831,10 @@
 "Административна граница"
 ],
 "bridge/support":[
-"Мостна потпора"
+"Мостова потпора"
 ],
 "bridge/support/pier":[
-"Пристаништен мост"
+"Мостова потпора"
 ],
 "building":[
 "Градба"
@@ -983,9 +998,6 @@
 "building_point":[
 "Градба"
 ],
-"camp_site/camp_pitch":[
-"Камп-терен"
-],
 "club":[
 "Клуб"
 ],
@@ -1127,6 +1139,9 @@
 "craft/shoemaker":[
 "Чевлар"
 ],
+"craft/signmaker":[
+"Изработка на натписи и знаци"
+],
 "craft/stonemason":[
 "Каменорезец"
 ],
@@ -1217,6 +1232,9 @@
 "ford":[
 "Брод"
 ],
+"ford_line":[
+"Брод"
+],
 "golf/bunker":[
 "Песочна бразда"
 ],
@@ -1267,6 +1285,9 @@
 ],
 "healthcare/blood_donation":[
 "Крводарителски центар"
+],
+"healthcare/counselling":[
+"Центар за советување"
 ],
 "healthcare/hospice":[
 "Дом за изнемоштени лица"
@@ -1752,6 +1773,9 @@
 "leisure/dog_park":[
 "Кучешки парк"
 ],
+"leisure/escape_game":[
+"Соба за бегство"
+],
 "leisure/firepit":[
 "Огниште"
 ],
@@ -2050,16 +2074,19 @@
 "Нафтен извор"
 ],
 "man_made/pier":[
-"Пристанишен мост"
+"Пристан"
 ],
 "man_made/pier/floating":[
-"Пловечки пристанишен мост"
+"Пловечки пристан"
 ],
 "man_made/pipeline":[
 "Цевковод"
 ],
 "man_made/pipeline/underground":[
 "Подземен цевковод"
+],
+"man_made/pipeline/valve":[
+"Цевководен вентил"
 ],
 "man_made/pumping_station":[
 "Црпна станица"
@@ -2084,6 +2111,9 @@
 ],
 "man_made/survey_point":[
 "Надзорно место"
+],
+"man_made/torii":[
+"тории"
 ],
 "man_made/tower":[
 "Кула"
@@ -2280,6 +2310,9 @@
 "office/association":[
 "Непрофитна организација"
 ],
+"office/bail_bond_agent":[
+"Кауционист"
+],
 "office/charity":[
 "Добротворна организација"
 ],
@@ -2467,7 +2500,7 @@
 "Населба"
 ],
 "place/town":[
-"Помал град"
+"Гратче"
 ],
 "place/village":[
 "Село"
@@ -2519,6 +2552,9 @@
 ],
 "point":[
 "Точка"
+],
+"polling_station":[
+"Привремено гласачко место"
 ],
 "power":[
 "Електродистрибуција"
@@ -2970,6 +3006,9 @@
 "shop/fashion":[
 "Модна продавница"
 ],
+"shop/fashion_accessories":[
+"Продавница за модни додатоци"
+],
 "shop/fireplace":[
 "Продавница за камини"
 ],
@@ -3083,6 +3122,9 @@
 ],
 "shop/medical_supply":[
 "Медицинска опрема и залихи"
+],
+"shop/military_surplus":[
+"Продавница за воени вишоци"
 ],
 "shop/mobile_phone":[
 "Мобилара"
@@ -3538,7 +3580,7 @@
 "Одвод"
 ],
 "waterway/fuel":[
-"Бензиска станица за пловила"
+"Бензиска пумпа за пловила"
 ],
 "waterway/lock_gate":[
 "Преводничка капија"

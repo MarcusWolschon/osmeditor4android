@@ -487,6 +487,9 @@
 "alimentação",
 "fritas"
 ],
+"amenity/fast_food/ice_cream":[
+"Comida rápida de gelados"
+],
 "amenity/fast_food/kebab":[
 "shawarma",
 "comida árabe",
@@ -601,6 +604,9 @@
 "amenity/internet_cafe":[
 "Internet Café",
 "Cyber Café"
+],
+"amenity/karaoke":[
+"Karaoke Box"
 ],
 "amenity/kindergarten":[
 "educação",
@@ -731,6 +737,16 @@
 "Igreja Cristã",
 "Igreja cristã"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"Salão do Reino das Testemunhas de Jeová"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"A luz do templo mundial"
+],
+"amenity/place_of_worship/christian/quaker":[
+"Casa de Reunião dos Amigos ",
+"Casa de Reunião dos Amigos"
+],
 "amenity/place_of_worship/hindu":[
 "garbhargriha",
 "santuário",
@@ -797,6 +813,9 @@
 "segurança",
 "proteção"
 ],
+"amenity/polling_station":[
+"Local de votação permanente"
+],
 "amenity/post_box":[
 "Cartas",
 "Correios",
@@ -809,6 +828,13 @@
 "Cargas",
 "Agência de Correios",
 "Encomendas"
+],
+"amenity/prep_school":[
+"escola de preparação",
+"escola",
+"tutoring school",
+"teste prep",
+"Escola de preparação para exames"
 ],
 "amenity/prison":[
 "cadeia",
@@ -1917,15 +1943,6 @@
 "building_point":[
 "Edifício"
 ],
-"camp_site/camp_pitch":[
-"motor home",
-"Vaga de Acampamento",
-"Tenda",
-"Local de acampamento",
-"Acampamento",
-"Caravana",
-"Barraca de acampamento"
-],
 "club":[
 "maçonaria",
 "moto clube",
@@ -2157,6 +2174,9 @@
 "craft/shoemaker":[
 "Sapateiro"
 ],
+"craft/signmaker":[
+"Criador de sinais"
+],
 "craft/stonemason":[
 "Pedreiro"
 ],
@@ -2278,6 +2298,9 @@
 "Lugar em um rio no qual se pode passar a pé",
 "Vau",
 "Baixio"
+],
+"ford_line":[
+"Vau"
 ],
 "golf/bunker":[
 "Obstáculo de Areia",
@@ -2402,6 +2425,9 @@
 "Hemocentro",
 "Doação de Sangue",
 "transfusão de sangue"
+],
+"healthcare/counselling":[
+"Centro de aconselhamento"
 ],
 "healthcare/hospice":[
 "tratamento",
@@ -3315,6 +3341,13 @@
 "Escola de Dança",
 "samba"
 ],
+"leisure/disc_golf_course":[
+"Percurso de golfe de disco",
+"golfe de disco",
+"disc golf course",
+"golf de disco",
+"disc golf"
+],
 "leisure/dog_park":[
 "Parque de Cachorros",
 "Parque Canino",
@@ -3323,6 +3356,12 @@
 "cachorros",
 "cães",
 "cão"
+],
+"leisure/escape_game":[
+"Sala de fuga",
+"escape Room",
+"sala de escape",
+"sala de fuga"
 ],
 "leisure/firepit":[
 "fogo",
@@ -3543,6 +3582,13 @@
 "hipismo",
 "cavalos",
 "Pista de Hipismo"
+],
+"leisure/pitch/field_hockey":[
+"campo de hóquei em campo",
+"hóquei sobre a grama",
+"hóquei em campo",
+"Campo de hóquei em campo",
+"field hockey pitch"
 ],
 "leisure/pitch/horseshoes":[
 "jogo da ferradura",
@@ -3870,6 +3916,9 @@
 "man_made/pipeline/underground":[
 "Oleoduto subterrâneo"
 ],
+"man_made/pipeline/valve":[
+"Válvula de Oleoduto"
+],
 "man_made/pumping_station":[
 "Estação de Bombeamento",
 "Casa de Bombas"
@@ -3931,6 +3980,10 @@
 "Ponto de Levantamento Geográfico",
 "Marco Geodésico",
 "Equipamento de GPS Diferencial"
+],
+"man_made/torii":[
+"Torii",
+"Tori"
 ],
 "man_made/tower":[
 "Torre"
@@ -4310,6 +4363,9 @@
 "sem lucro",
 "escritório de associação",
 "Escritório de organização sem fins lucrativos"
+],
+"office/bail_bond_agent":[
+"Agente de fiança"
 ],
 "office/charity":[
 "beneficência",
@@ -4711,6 +4767,9 @@
 "point":[
 "Ponto",
 "Nó"
+],
+"polling_station":[
+"Local de votação temporária"
 ],
 "power":[
 "Eletricidade"
@@ -5506,6 +5565,9 @@
 "shop/fashion":[
 "Loja de Moda"
 ],
+"shop/fashion_accessories":[
+"Loja de acessórios de moda"
+],
 "shop/fireplace":[
 "Loja de Lareiras"
 ],
@@ -5677,6 +5739,9 @@
 "shop/medical_supply":[
 "Loja de Equipamentos Hospitalares",
 "Loja de Equipamentos Médicos"
+],
+"shop/military_surplus":[
+"Loja de excedente militar"
 ],
 "shop/mobile_phone":[
 "Loja de Celulares",
@@ -5901,9 +5966,9 @@
 ],
 "shop/tyres":[
 "Borracharia",
-"Loja de pneus",
 "Rodas",
 "Vulcanizadora",
+"Loja de pneus/borracharia",
 "Pneus"
 ],
 "shop/vacant":[
