@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -222,7 +223,7 @@ public final class OsmXml {
     }
 
     /**
-     * Writes currentStorage + deleted objects to an outputstream in JOSM format.
+     * Writes currentStorage + deleted objects to an OutputStream in JOSM format.
      * 
      * Output is sorted as suggested by Jochen Topf
      * 
@@ -230,10 +231,10 @@ public final class OsmXml {
      * @param api a Storage object with the changed and deleted elements, if null deleted objects will not be written
      * @param outputStream the stream we are writing to
      * @param generator a String for the generator attribute
-     * @throws XmlPullParserException
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException
+     * @throws XmlPullParserException on a parser error
+     * @throws IllegalArgumentException on a parser error
+     * @throws IllegalStateException on a parser error
+     * @throws IOException if writing to the OutputStream fails
      */
     public static void write(@NonNull Storage current, @Nullable Storage api, @NonNull OutputStream outputStream, @NonNull String generator)
             throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
@@ -260,9 +261,9 @@ public final class OsmXml {
             }
         };
 
-        ArrayList<Node> saveNodes = new ArrayList<>(current.getNodes());
-        ArrayList<Way> saveWays = new ArrayList<>(current.getWays());
-        ArrayList<Relation> saveRelations = new ArrayList<>(current.getRelations());
+        List<Node> saveNodes = new ArrayList<>(current.getNodes());
+        List<Way> saveWays = new ArrayList<>(current.getWays());
+        List<Relation> saveRelations = new ArrayList<>(current.getRelations());
 
         if (api != null) {
             for (Node elem : api.getNodes()) {
@@ -275,9 +276,9 @@ public final class OsmXml {
                     saveWays.add(elem);
                 }
             }
-            for (Way elem : api.getWays()) {
+            for (Relation elem : api.getRelations()) {
                 if (elem.state == OsmElement.STATE_DELETED) {
-                    saveWays.add(elem);
+                    saveRelations.add(elem);
                 }
             }
         }
