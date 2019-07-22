@@ -59,6 +59,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -1101,7 +1102,7 @@ public class Server {
                 if (imagery != null && imagery.length() > 0) {
                     addTag(serializer, Tags.KEY_IMAGERY_USED, imagery);
                 }
-                addTag(serializer, Tags.KEY_LOCALE, Locale.getDefault().toString());
+                addTag(serializer, Tags.KEY_LOCALE, Util.toBcp47Language(Locale.getDefault()));
                 if (extraTags != null) {
                     for (Entry<String, String> tag : extraTags.entrySet()) {
                         addTag(serializer, tag.getKey(), tag.getValue());
