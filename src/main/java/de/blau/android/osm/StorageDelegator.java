@@ -1396,11 +1396,11 @@ public class StorageDelegator implements Serializable, Exportable {
         // else check version numbers this helps preserve history
         if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {
             // swap
-            Log.d(DEBUG_TAG, "swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
+            Log.d(DEBUG_TAG, "mergeWays swap into #" + mergeInto.getOsmId() + " with from #" + mergeFrom.getOsmId());
             Way tmpWay = mergeInto;
             mergeInto = mergeFrom;
             mergeFrom = tmpWay;
-            Log.d(DEBUG_TAG, "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
+            Log.d(DEBUG_TAG, "mergeWays now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
         }
 
         if (roleConflict(mergeInto, mergeFrom)) { // need to do this before we remove objects from relations.
@@ -1468,7 +1468,8 @@ public class StorageDelegator implements Serializable, Exportable {
 
         mergeInto.addNodes(newNodes, atBeginning);
         mergeInto.updateState(OsmElement.STATE_MODIFIED);
-        insertElementSafe(mergeInto);
+        apiStorage.insertElementSafe(mergeInto);
+        onElementChanged(null, mergeInto);
         mergeElementsRelations(mergeInto, mergeFrom);
 
         result.setElement(mergeInto);
@@ -1744,7 +1745,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param way way to delete
      */
-    public void removeWay(final Way way) {
+    public void removeWay(@NonNull final Way way) {
         dirty = true;
         undo.save(way);
         try {
