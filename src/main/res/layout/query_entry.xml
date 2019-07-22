@@ -40,11 +40,11 @@
             android:id="@+id/location_search_limit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/location_search_geocoder" 
-            android:layout_toRightOf="@id/location_search_geocoder"
-            android:layout_alignBottom="@id/location_search_geocoder"
-            android:paddingLeft="5dp"
-            android:paddingStart="5dp"
+            android:layout_below="@id/location_search_geocoder_label"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="0dp"
+            android:paddingStart="0dp"
             android:text="@string/geocoder_limit_label" />
     </RelativeLayout>
 </LinearLayout>
