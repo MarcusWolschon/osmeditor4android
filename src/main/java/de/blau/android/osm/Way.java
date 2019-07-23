@@ -307,7 +307,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * @param existing The existing node to be replaced.
      * @param newNode The new node.
      */
-    void replaceNode(Node existing, Node newNode) {
+    void replaceNode(@NonNull Node existing, @NonNull Node newNode) {
         int idx;
         while ((idx = nodes.indexOf(existing)) != -1) {
             nodes.set(idx, newNode);

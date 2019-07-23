@@ -1674,14 +1674,20 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param newNode the new Node
      * @param way the Way to exchange the Node in
      */
-    private void replaceNodeInWay(final Node existingNode, final Node newNode, final Way way) {
+    private void replaceNodeInWay(@NonNull final Node existingNode, @NonNull final Node newNode, @NonNull final Way way) {
         dirty = true;
         undo.save(way);
         way.replaceNode(existingNode, newNode);
         way.updateState(OsmElement.STATE_MODIFIED);
         try {
-            apiStorage.insertElementSafe(way);
-            onElementChanged(null, way);
+            int size = way.nodeCount();
+            if (size < 2 || (way.isClosed() && size == 2)) {
+                Log.w(DEBUG_TAG, "replaceNodeInWay removing degenerate way " + way.getOsmId());
+                removeWay(way);
+            } else {
+                apiStorage.insertElementSafe(way);
+                onElementChanged(null, way);
+            }
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "replaceNodeInWay got " + e.getMessage());
@@ -1722,6 +1728,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 // NOTE this will not remove ways with three and more times the same node
                 int size = way.getNodes().size();
                 if (size < 2 || (way.isClosed() && size == 2)) {
+                    Log.w(DEBUG_TAG, "removeWayNode removing degenerate way " + way.getOsmId());
                     removeWay(way);
                 } else {
                     way.updateState(OsmElement.STATE_MODIFIED);
