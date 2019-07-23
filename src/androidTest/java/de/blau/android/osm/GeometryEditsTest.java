@@ -917,4 +917,34 @@ public class GeometryEditsTest {
             Assert.fail(igit.getMessage());
         }
     }
+    
+    /**
+     * Create a two node way and then merge the two nodes, this should delete the way and one of the nodes
+     */
+    @UiThreadTest
+    @Test
+    public void mergeWayNodes() {
+        try {
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 100.0f, 100.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            System.out.println(logic.getSelectedNode());
+            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+            logic.performAdd(main, 150.0f, 150.0f);
+            Way w1 = logic.getSelectedWay();
+            Assert.assertNotNull(w1);
+            StorageDelegator delegator = App.getDelegator();
+            List<Node> nodes = w1.getNodes();
+            Assert.assertEquals(2, nodes.size());
+            logic.performJoin(main, nodes.get(0), nodes.get(1));
+            Assert.assertNull(delegator.getCurrentStorage().getWay(w1.getOsmId()));
+            Assert.assertNull(delegator.getApiStorage().getWay(w1.getOsmId()));
+        } catch (Exception igit) {
+            igit.printStackTrace();
+            Assert.fail(igit.getMessage());
+        }
+    }
 }
