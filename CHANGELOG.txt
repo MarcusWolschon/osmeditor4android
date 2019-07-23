@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+13.1.1: Add onDowngrade support for the PhotoIndex, always invalidate way bounding box when two ways are merged, fix missing delete Relations in JOSM style output, generate correct BCP 47 locale values for changeset tag, move checkbox to new line in "Find" dialog, remove degenerated ways created by merging all way nodes, update synonyms, update translations, update presets, update imagery.
+
 13.1.0: use NSI as an additional source for preset searches, support clipping to viewbox for GeoJSON layers, fix crash on empty input in "go to coordiantes", update translations and imagery.
 
 13.1.0-3: Fix various issues with configuration changes in the PropertyEditor, unconnected end nodes validation improvements, fix Osmose description issue, support reading data produced by overpass, updated imagery and translations. 
