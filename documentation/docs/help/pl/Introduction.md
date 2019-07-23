@@ -81,7 +81,7 @@ Kiedy zaznaczysz obiekt, może on zostać przesunięty. Zauważ, że obiekty mog
 
 #### Dodawanie nowego węzła/punktu lub drogi 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+"Tryb uproszczony" jest domyślny. Można to zmienić w menu głównym klikając odpowiednią opcję.
 
 ##### Tryb prosty
 
@@ -263,6 +263,6 @@ Alternatywnie do powyższego, obiekty są filtrowane na bazie indywidualnych sza
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Jeśli chcesz przedyskutować coś związanego z Vespucci, możesz zrobić to na [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) lub na [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

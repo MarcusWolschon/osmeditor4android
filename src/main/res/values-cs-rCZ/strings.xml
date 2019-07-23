@@ -396,7 +396,11 @@
   <string name="toast_unable_to_create_task_layer">Nepodařilo se vytvořit vrstvu chyb</string>
   <string name="toast_merged">Spojeno</string>
   <string name="toast_long_press_simple_mode">Dlouhý stisk není dostupný v jednoduchém režimu.</string>
+  <string name="toast_cannot_resume_download_of">Nelze obnovit stahování %1$s</string>
+  <string name="toast_error_insufficient_space_for">Nedostatek místa na zařízení pro %1$s</string>
+  <string name="toast_download_started">Stahování %1$s zahájeno</string>
   <!--Error messages-->
+  <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
@@ -500,6 +504,7 @@
   <string name="location_last_text_parameterized">Poslední známá poloha: %1$s</string>
   <string name="location_current_text_parameterized">Aktuální poloha: %1$s</string>
   <string name="location_text_metadata_location">\nŠ %1$4g, D %2$4g\n%3$s %4$s zpět</string>
+  <string name="location_text_metadata_accuracy">Přesnost %1$2.0f m, </string>
   <string name="location_coordinates_text">Podle souřadnic:</string>
   <string name="location_lat_label">Zem. šířka:</string>
   <string name="location_lon_label">Zem. délka:</string>
@@ -508,7 +513,10 @@
   <string name="location_load_dismiss">Zobrazit mapu</string>
   <string name="location_nan_title">Chybný zápis!</string>
   <string name="location_nan_message">Zadejte prosím souřadnice v desetinném formátu (např. „52.333572“, „8.741185“). Zem. šířka musí být mezi -85.0 a +85.0, zem. délka musí být mezi -175.0 a +175.0.</string>
+  <string name="location_olc">OLC</string>
   <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Stažení souborů</string>
+  <string name="allow_all_networks">Používat jakoukoliv síť</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Na souřadnice</string>
   <string name="go_to_coordinates_hint">Zadejte souřadnice nebo OLC</string>
@@ -538,6 +546,7 @@
   <string name="menu_gps_show">Ukazovat polohu GPS</string>
   <string name="menu_gps_follow">Sledovat polohu</string>
   <string name="menu_gps_goto">Na aktuální polohu</string>
+  <string name="menu_gps_goto_coordinates">Na souřadnice…</string>
   <string name="menu_gps_start">Spustit GPX stopu</string>
   <string name="menu_gps_pause">Pozastavit GPX záznam</string>
   <string name="menu_gps_clear">Smazat GPX stopu a waypointy</string>
@@ -556,9 +565,11 @@
   <string name="menu_transfer_close_changeset">Uzavřít aktuální sadu změn</string>
   <string name="menu_transfer_file">Soubor…</string>
   <string name="menu_transfer_export">Exportovat změny do souboru OSC</string>
+  <string name="menu_transfer_apply_osc_file">Aplikovat změny z OSC souboru</string>
   <string name="menu_transfer_read_file">Načíst ze souboru JOSM…</string>
   <string name="menu_transfer_read_pbf_file">Načíst ze souboru PBF</string>
   <string name="menu_transfer_save_file">Uložit do souboru JOSM…</string>
+  <string name="menu_transfer_download_msf">Stáhnout data pro použití offline…</string>
   <string name="menu_transfer_bugs">Poznámky a chyby…</string>
   <string name="menu_transfer_bugs_download_current">Stáhnout aktuální pohled</string>
   <string name="menu_transfer_bugs_upload">Nahrát vše</string>
@@ -715,6 +726,8 @@
   <string name="config_validatorprefs_summary">Nastavení pravidel validátoru.</string>
   <string name="config_connectedNodeTolerance_title">Tolerance uzlů poblíž</string>
   <!--opening hours templates-->
+  <string name="config_opening_hours_title">Šablony otevírací doby</string>
+  <string name="config_opening_hours_summary">Načtení, uložení a mazání šablon otevírací doby</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autoři a licence</string>
   <string name="config_debugbutton_title">Ladění</string>
@@ -931,6 +944,7 @@
   <string name="undo_action_circulize">Uspořádání do kruhu</string>
   <string name="undo_action_fix_conflict">Opravení konfliktu</string>
   <string name="undo_action_extract_node">Odpojení uzlu</string>
+  <string name="undo_action_apply_osc">Použít OSC soubor</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci během posledního spuštění havaroval nebo zaznamenal vážnou chybu.\n\nProsím pomozte nám zasláním chybového hlášení, stačí kliknout na \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Přidejte jakékoliv další informace, které by mohly pomoci a (volitelně) vaše uživatelské jméno v OSM, pokud chcete, abychom mohli reagovat.\n\nDěkujeme!</string>
