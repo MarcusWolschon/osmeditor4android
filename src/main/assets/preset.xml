@@ -21,6 +21,14 @@
         <combo key="surface" text="Surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud" 
                                     display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface"/>
     </chunk>
+    <chunk id="footway_surface">
+        <combo key="footway:surface" text="Segregated footway surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud" 
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface"/>
+    </chunk>
+    <chunk id="cycleway_surface">
+        <combo key="cycleway:surface" text="Segregated cycleway surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud" 
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface"/>
+    </chunk>
     <chunk id="surface_smoothness">
         <reference ref="surface"/>
         <combo key="smoothness" text="Smoothness" values_searchable="true" values_sort="false">
@@ -584,7 +592,7 @@
         <combo key="denomination" text="Denomination" 
             values="catholic,greek_catholic,old_catholic,orthodox,roman_catholic"
             display_values="Catholic,Greek catholic,Old catholic,Orthodox,Roman catholic" 
-            default="catholic" values_searchable="true" />
+            default="catholic" values_searchable="true" use_last_as_default="true" />
     </chunk>
     <chunk id="other_religions"> <!-- religions which don't have an own preset -->
         <combo key="religion" text="Religion" values="bahai,caodaism,confucian,jain,sikh,spiritualist,taoist,tenrikyo,unitarian_universalist,zoroastrian" 
@@ -933,7 +941,7 @@
 	<reference ref="roof_main"/>
   </chunk>
   <chunk id="education_operator_type">
-  	<combo key="operator:type" text="Operator type" values="public,private,religious" display_values="Public,Private,Religious"/>
+  	<combo key="operator:type" text="Operator type" values="public,private,religious" display_values="Public,Private,Religious" values_context="operator" />
   </chunk>
   <chunk id="isced_level">
   	<multiselect key="isced:level" text="ISCED level" delimiter=";" match="key" editable="true">
@@ -1529,6 +1537,8 @@
             <optional>
                 <reference ref="name_layer"/>
                 <reference ref="surface_smoothness"/>
+                <reference ref="cycleway_surface"/>
+                <reference ref="footway_surface"/>
                 <reference ref="highway_yesno_incline_oneway_lit_width"/>
                 <combo key="foot" text="Pedestrians" values="designated,yes,no" display_values="Designated,Yes,No"/>
                 <check key="segregated" text="Segregated" disable_off="true"/>
@@ -1543,6 +1553,8 @@
             <optional>
                 <reference ref="name_layer"/>
                 <reference ref="surface_smoothness"/>
+                <reference ref="cycleway_surface"/>
+                <reference ref="footway_surface"/>
                 <reference ref="highway_yesno_incline_oneway_lit_width"/>
             </optional>
         </item> <!-- Segregated Foot- and Cycleway -->
@@ -1566,6 +1578,8 @@
                 <combo key="footway" text="Type" values="sidewalk,crossing" display_values="Sidewalk,Crossing" values_context="footway"/>
                 <reference ref="name_layer"/>
                 <reference ref="surface_smoothness"/>
+                <reference ref="cycleway_surface"/>
+                <reference ref="footway_surface"/>
                 <reference ref="highway_yesno_incline"/>
                 <check key="lit" text="Lit" disable_off="true"/>
                 <combo key="bicycle" text="Bicycle" values="designated,yes,no" display_values="Designated,Yes,No"/>
@@ -2642,7 +2656,7 @@
                 <check key="supervised" text="Supervised" disable_off="true"/>
                 <check key="crossing:light" text="Traffic lights" disable_off="true"/>
                 <check key="crossing:bell" text="Sound signals" disable_off="true"/>
-                <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" values_context="crossing:barrier"/>
+                <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" values_context="crossing:barrier" />
             </optional>
         </item> <!-- Level Crossing -->
         <item name="Crossing" icon="icons/png/level_crossing.png" type="node" preset_name_label="true">
@@ -4855,6 +4869,13 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Other healthcare facilities -->
+        <item name="Laboratory" icon="icons/png/health_laboratory_16110.png" type="node,closedway,multipolygon">
+            <link wiki="Key:healthcare"/>
+            <space/>
+            <key key="healthcare" value="laboratory"/>
+            <reference ref="name_oh_wheelchair"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Laboratory -->
         <item name="Alternative medicine" icon="icons/png/health_alternative.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:healthcare"/>
             <space/>
@@ -5260,7 +5281,7 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="fee"/>
             <reference ref="link_contact_address"/>
-        </item> <!-- Company -->
+        </item> <!-- Coworking space -->
         <item name="Internet Cafe" icon="icons/png/amenity_internet_cafe.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=internet_cafe"/>
             <space/>
@@ -9918,11 +9939,11 @@
             <reference ref="oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Consulate -->
-        <item name="Liason" icon="icons/png/office_government_25006.png" type="node,closedway,multipolygon">
+        <item name="Liaison" icon="icons/png/office_government_25006.png" type="node,closedway,multipolygon">
             <link wiki="Tag:office=diplomatic"/>
             <key key="office" value="diplomatic"/>
-            <key key="diplomatic" value="liason"/>
-            <combo key="liason" text="Type" values="liaison_office,representative_office,subnational" display_values="Liaison office,Representative office,Subnational" />
+            <key key="diplomatic" value="liaison"/>
+            <combo key="liaison" text="Type" values="liaison_office,representative_office,subnational" display_values="Liaison office,Representative office,Subnational" />
             <reference ref="diplomatic"/>
             <reference ref="oh_wheelchair_level"/>
             <reference ref="link_contact_address"/>
@@ -10031,7 +10052,10 @@
             <link wiki="Tag:office=company"/>
             <space/>
             <key key="office" value="company"/>
-            <reference ref="name_oh_wheelchair_level"/>
+            <text key="name" text="Name"/>
+            <optional>
+                <reference ref="oh_wheelchair_level"/>
+            </optional>
             <reference ref="link_contact_address"/>
         </item> <!-- Company -->
         <item name="Educational institution" icon="icons/png/office_educational_institution_25028.png" type="node,closedway,multipolygon">
