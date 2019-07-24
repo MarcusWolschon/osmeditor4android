@@ -137,6 +137,16 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
         this.valuesContext = valuesContext;
     }
 
+    /**
+     * Get the translation context for the values
+     * 
+     * @return the valuesContext
+     */
+    @Nullable
+    public String getValuesContext() {
+        return valuesContext;
+    }
+
     @Override
     public String getScript() {
         return javascript;
@@ -153,7 +163,7 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
         if (getValues() != null) {
             for (StringWithDescription value : getValues()) {
                 if (value != null && value.getDescription() != null) {
-                    value.setDescription(translate(value.getDescription(), po, valuesContext));
+                    value.setDescription(translate(value.getDescription(), po, getValuesContext()));
                 }
             }
         }

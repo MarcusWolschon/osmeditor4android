@@ -1096,7 +1096,7 @@ public class Preset implements Serializable {
              * Set values by calling a method
              * 
              * As this might take longer and include network calls it needs to be done async, however on the other hand
-             * this may cause concurrent modification expection and have to be looked at
+             * this may cause concurrent modification exception and have to be looked at
              * 
              * @param key the key we want values for
              * @param valuesFrom the method spec as a String
@@ -2721,67 +2721,69 @@ public class Preset implements Serializable {
          * build the search index
          */
         synchronized void buildSearchIndex() {
-            addToSearchIndex(name);
+            addToSearchIndex(name, nameContext);
             if (parent != null) {
                 String parentName = parent.getName();
                 if (parentName != null && parentName.length() > 0) {
-                    addToSearchIndex(parentName);
+                    addToSearchIndex(parentName, parent.nameContext);
                 }
             }
             for (Entry<String, PresetFixedField> entry : fixedTags.entrySet()) {
                 PresetFixedField fixedField = entry.getValue();
                 StringWithDescription v = fixedField.getValue();
-                addToSearchIndex(fixedField.getKey());
+                addToSearchIndex(fixedField.getKey(), fixedField.getTextContext());
                 String hint = fixedField.getHint();
                 if (hint != null) {
-                    addToSearchIndex(hint);
+                    addToSearchIndex(hint, fixedField.getTextContext());
                 }
                 String value = v.getValue();
-                addToSearchIndex(value);
-                addToSearchIndex(v.getDescription());
+                addToSearchIndex(value, fixedField.getValueContext());
+                addToSearchIndex(v.getDescription(), fixedField.getValueContext());
                 // support subtypes
                 PresetField subTypeField = fields.get(value);
                 if (subTypeField instanceof PresetComboField) {
-                    StringWithDescription[] subtypes = ((PresetComboField) subTypeField).getValues();
+                    PresetComboField presetComboField = (PresetComboField) subTypeField;
+                    StringWithDescription[] subtypes = presetComboField.getValues();
                     if (subtypes != null) {
                         for (StringWithDescription subtype : subtypes) {
-                            addToSearchIndex(subtype.getValue());
-                            addToSearchIndex(subtype.getDescription());
+                            addToSearchIndex(subtype.getValue(), presetComboField.getValuesContext());
+                            addToSearchIndex(subtype.getDescription(), presetComboField.getValuesContext());
                         }
-                        ((PresetComboField) subTypeField).setValuesSearchable(false);
+                        presetComboField.setValuesSearchable(false);
                     }
                 }
             }
             for (Entry<String, PresetField> entry : fields.entrySet()) {
                 PresetField field = entry.getValue();
                 if (!(field instanceof PresetCheckGroupField)) {
-                    addToSearchIndex(field.getKey());
+                    addToSearchIndex(field.getKey(), field.getTextContext());
                     String hint = field.getHint();
                     if (hint != null) {
-                        addToSearchIndex(hint);
+                        addToSearchIndex(hint, field.getTextContext());
                     }
                     if (field instanceof PresetComboField) {
-                        if (((PresetComboField) field).getValuesSearchable() && ((PresetComboField) field).getValues() != null) {
-                            for (StringWithDescription value : ((PresetComboField) field).getValues()) {
-                                addToSearchIndex(value.getValue());
-                                addToSearchIndex(value.getDescription());
+                        PresetComboField presetComboField = (PresetComboField) field;
+                        if (presetComboField.getValuesSearchable() && presetComboField.getValues() != null) {
+                            for (StringWithDescription value : presetComboField.getValues()) {
+                                addToSearchIndex(value.getValue(), presetComboField.getValuesContext());
+                                addToSearchIndex(value.getDescription(), presetComboField.getValuesContext());
                             }
                         }
                     }
                 } else {
                     for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        addToSearchIndex(check.getKey());
+                        addToSearchIndex(check.getKey(), field.getTextContext());
                         String hint = field.getHint();
                         if (hint != null) {
-                            addToSearchIndex(hint);
+                            addToSearchIndex(hint, field.getTextContext());
                         }
                         StringWithDescription value = check.getOnValue();
-                        addToSearchIndex(value.getValue());
-                        addToSearchIndex(value.getDescription());
+                        addToSearchIndex(value.getValue(), check.getValueContext());
+                        addToSearchIndex(value.getDescription(), check.getValueContext());
                         value = check.getOffValue();
                         if (value != null && !"".equals(value.getValue())) {
-                            addToSearchIndex(value.getValue());
-                            addToSearchIndex(value.getDescription());
+                            addToSearchIndex(value.getValue(), check.getValueContext());
+                            addToSearchIndex(value.getDescription(), check.getValueContext());
                         }
                     }
                 }
@@ -2793,8 +2795,9 @@ public class Preset implements Serializable {
          * significant
          * 
          * @param term search key to add
+         * @param translationContext the translation context if any
          */
-        void addToSearchIndex(String term) {
+        void addToSearchIndex(@Nullable String term, @Nullable String translationContext) {
             // search support
             if (term != null) {
                 String normalizedName = SearchIndexUtils.normalize(term);
@@ -2806,7 +2809,7 @@ public class Preset implements Serializable {
                     }
                 }
                 if (po != null) { // and any translation
-                    String normalizedTranslatedName = SearchIndexUtils.normalize(po.t(term));
+                    String normalizedTranslatedName = SearchIndexUtils.normalize(po.t(translationContext, term));
                     translatedSearchIndex.add(normalizedTranslatedName, this);
                     String[] translastedWords = normalizedName.split(" ");
                     if (translastedWords.length > 1) {

@@ -44,7 +44,7 @@ public abstract class PresetField {
      * Translation contexts
      */
     private String textContext;
-    String         valueContext;
+    private String valueContext;
 
     /**
      * Value type
@@ -157,8 +157,28 @@ public abstract class PresetField {
      * 
      * @return the textContext
      */
+    @Nullable
     String getTextContext() {
         return textContext;
+    }
+
+    /**
+     * Get the value translation context
+     * 
+     * @return the valueContext
+     */
+    @Nullable
+    String getValueContext() {
+        return valueContext;
+    }
+
+    /**
+     * Set the value translation context
+     * 
+     * @param valueContext the valueContext to set
+     */
+    void setValueContext(@Nullable String valueContext) {
+        this.valueContext = valueContext;
     }
 
     /**

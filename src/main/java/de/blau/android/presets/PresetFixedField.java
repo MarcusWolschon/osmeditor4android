@@ -46,7 +46,7 @@ public class PresetFixedField extends PresetField {
     public void translate(@NonNull Po po) {
         super.translate(po);
         if (value.getDescription() != null) {
-            value.setDescription(translate(value.getDescription(), po, valueContext));
+            value.setDescription(translate(value.getDescription(), po, getValueContext()));
         }
     }
 

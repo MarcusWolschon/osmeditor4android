@@ -81,10 +81,10 @@ public class PresetCheckField extends PresetField {
     public void translate(@NonNull Po po) {
         super.translate(po);
         if (onValue.getDescription() != null) {
-            onValue.setDescription(translate(onValue.getDescription(), po, valueContext));
+            onValue.setDescription(translate(onValue.getDescription(), po, getValueContext()));
         }
         if (offValue != null && offValue.getDescription() != null) {
-            offValue.setDescription(translate(offValue.getDescription(), po, valueContext));
+            offValue.setDescription(translate(offValue.getDescription(), po, getValueContext()));
         }
     }
 
