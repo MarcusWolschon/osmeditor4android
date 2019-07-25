@@ -1,15 +1,15 @@
 
-# Building Vespucci 0.9.9 and later
+# Building Vespucci
 
-The code has been re-factored to use the compatibility libraries from Google instead of the ActionBarSherlock library.
+We extensively use the support libraries (currently not the androidx variants). Given that Google randomly makes incompatible changes to these and regularly drops existing functionality, you are on your own if you use any other version than what is configured for gradle.
 
-Given that Google randomly makes incompatible changes to these and regularly drops existing functionality, you are on your own if you use any other version than what is configured for gradle.
+See [translations document](TRANSLATIONS.md) for information on how Vespucci is translated.
 
-## Proguard (12.0 and later)
+## Proguard
 
 All builds now require proguard to be enabled as we have gone over the limit for the number of references in a normal APK.
 
-## Build flavors (11.2 and later)
+## Build flavors
 
 Due to the forced upgrade policy from google from November 1st 2018 onwards we are now supporting two build flavors: _current_ that will target a recent Android SDK and support library and _legacy_ that will support old Android versions as long as practical.
 
@@ -22,7 +22,7 @@ Currently the split is as follows:
 
 ## Building with gradle (Eclipse or command line)
 
-This will work with Eclipse Neon with buildship or from the command line:
+This will work with Eclipse Neon and later with buildship or from the command line:
 
 To install the application to your device run the following task on Unix:
 
@@ -42,23 +42,7 @@ If you are using Eclipse you need to import the project as a gradle project, and
 
 ## Building with gradle and Android Studio
 
-The build configuration has been updated for AppCompat and should work out of the box.
-
-## Building with Eclipse
-
-This is likely no longer possible since we have changed the directory layout to be in line with the standard Android Studio and gradle layout with 0.9.9, but you can naturally give it a try.
-
-You can find the required Android support libs in your SDK folder in:
-
-extras/android/support/v7
-
-and
-
-extras/android/support/design
-
-You need to import _appcompat_, _preference_, _recyclerview_ and the _design_ libraries into Eclipse as library projects, since the build requires access to the resource files in the libraries.
-
-You will further need the libraries listed in build.gradle for a successful build.
+The build configuration should work out of the box.
 
 ## JOSM Presets
 
@@ -76,10 +60,14 @@ The gradle task ``updateImagery`` will update the imagery.json file in the asset
 
 Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discarded.json
 
+Synonyms are retrieved from the iD repository with the grade task ``updateSynonyms``.
+
 ## Testing
 
 Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage in 2017. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
 
-Tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS version all tests run on successfully is 8.0 and probably later.
+Tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS version all tests run on successfully is 8.0 and probably later. The current expectation is that all tests should pass, if this doesn't happen (for example because default applications and other android app settings have been changed) restarting the emulator should typically help.
 
 On an Intel based emulator the tests currently take something around 45 minutes to complete.
+
+To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group. 
