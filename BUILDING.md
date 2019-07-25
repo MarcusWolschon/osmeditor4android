@@ -82,4 +82,4 @@ Automated testing has come relatively late to Vespucci, however we have made lar
 
 Tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS version all tests run on successfully is 8.0 and probably later.
 
-On an Intel based emulator the tests currently take something around 35 minutes to complete.
+On an Intel based emulator the tests currently take something around 45 minutes to complete.
