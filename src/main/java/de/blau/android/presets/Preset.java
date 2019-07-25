@@ -337,19 +337,15 @@ public class Preset implements Serializable {
          */
         @NonNull
         public static UseLastAsDefault fromString(@NonNull String value) {
-            UseLastAsDefault result = FALSE;
             switch (value) {
             case "true":
-                result = TRUE;
-                break;
-            case "false":
-                result = FALSE;
-                break;
+                return TRUE;
             case "force":
-                result = FORCE;
-                break;
+                return FORCE;
+            case "false":
+            default:
+                return FALSE;
             }
-            return result;
         }
     }
 
@@ -383,7 +379,7 @@ public class Preset implements Serializable {
         final String presetHash;
 
         /** indexes of recently used presets (for use with allItems) */
-        LinkedList<Integer> recentPresets = new LinkedList<>();
+        private LinkedList<Integer> recentPresets = new LinkedList<>();
 
         private volatile boolean changed = false;
 
@@ -579,9 +575,7 @@ public class Preset implements Serializable {
         if (poFileStream != null) {
             try {
                 return new Po(poFileStream);
-            } catch (ParseException ignored) {
-                Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
-            } catch (TokenMgrError ignored) {
+            } catch (ParseException | TokenMgrError ignored) {
                 Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
             }
         }
@@ -596,7 +590,7 @@ public class Preset implements Serializable {
     public Preset(@NonNull List<PresetElement> elements) {
         mru = null;
         String name = "";
-        if (elements != null && !elements.isEmpty()) {
+        if (!elements.isEmpty()) {
             name = elements.get(0).getName();
         } else {
             Log.e(DEBUG_TAG, "List of PresetElements was null");
@@ -895,17 +889,17 @@ public class Preset implements Serializable {
                     break;
                 case CHECK_FIELD:
                     key = attr.getValue(KEY_ATTR);
-                    String value_on = attr.getValue(VALUE_ON) == null ? YES : attr.getValue(VALUE_ON);
-                    String value_off = attr.getValue(VALUE_OFF) == null ? NO : attr.getValue(VALUE_OFF);
-                    String disable_off = attr.getValue(DISABLE_OFF);
-                    StringWithDescription valueOn = new StringWithDescription(value_on, de.blau.android.util.Util.capitalize(value_on));
+                    String valueOnAttr = attr.getValue(VALUE_ON) == null ? YES : attr.getValue(VALUE_ON);
+                    String valueOffAttr = attr.getValue(VALUE_OFF) == null ? NO : attr.getValue(VALUE_OFF);
+                    String disableOffAttr = attr.getValue(DISABLE_OFF);
+                    StringWithDescription valueOn = new StringWithDescription(valueOnAttr, de.blau.android.util.Util.capitalize(valueOnAttr));
                     StringWithDescription valueOff = null;
                     PresetCheckField checkField = new PresetCheckField(key, valueOn);
-                    if (disable_off == null || !disable_off.equals(TRUE)) {
-                        valueOff = new StringWithDescription(value_off, de.blau.android.util.Util.capitalize(value_off));
+                    if (disableOffAttr == null || !disableOffAttr.equals(TRUE)) {
+                        valueOff = new StringWithDescription(valueOffAttr, de.blau.android.util.Util.capitalize(valueOffAttr));
                         checkField.setOffValue(valueOff);
                     }
-                    defaultValue = attr.getValue(DEFAULT) == null ? null : ("on".equals(attr.getValue(DEFAULT)) ? value_on : value_off);
+                    defaultValue = attr.getValue(DEFAULT) == null ? null : ("on".equals(attr.getValue(DEFAULT)) ? valueOnAttr : valueOffAttr);
                     if (defaultValue != null) {
                         checkField.setDefaultValue(defaultValue);
                     }
@@ -1151,7 +1145,7 @@ public class Preset implements Serializable {
                     } else {
                         tagItems.add(key + "\t", currentItem);
                         if (field instanceof PresetComboField) {
-                            StringWithDescription values[] = ((PresetComboField) field).getValues();
+                            StringWithDescription[] values = ((PresetComboField) field).getValues();
                             if (values != null) {
                                 for (StringWithDescription v : values) {
                                     String value = "";
@@ -1693,7 +1687,7 @@ public class Preset implements Serializable {
      * @param tags tags to check against (i.e. tags of a map element)
      * @return null, or the "best" matching item for the given tag set
      */
-    public static PresetItem findBestMatch(Preset presets[], Map<String, String> tags) {
+    public static PresetItem findBestMatch(Preset[] presets, Map<String, String> tags) {
         return findBestMatch(presets, tags, false);
     }
 
@@ -1759,7 +1753,7 @@ public class Preset implements Serializable {
      * @return a preset or null if none found
      */
     @Nullable
-    public static PresetItem findMatch(@NonNull Preset presets[], @NonNull Map<String, String> tags) {
+    public static PresetItem findMatch(@NonNull Preset[] presets, @NonNull Map<String, String> tags) {
         if (tags == null || presets == null) {
             Log.e(DEBUG_TAG, "findMatch " + (tags == null ? "tags null" : "presets null"));
             return null;
@@ -1813,8 +1807,8 @@ public class Preset implements Serializable {
      * @param type the type to allow
      * @return a filtered list containing only elements of the specified type
      */
-    private static ArrayList<PresetElement> filterElements(ArrayList<PresetElement> originalElements, ElementType type) {
-        ArrayList<PresetElement> filteredElements = new ArrayList<>();
+    private static List<PresetElement> filterElements(@NonNull List<PresetElement> originalElements, @NonNull ElementType type) {
+        List<PresetElement> filteredElements = new ArrayList<>();
         for (PresetElement e : originalElements) {
             if (!e.isDeprecated()) {
                 if (e.appliesTo(type)) {
@@ -2614,6 +2608,9 @@ public class Preset implements Serializable {
                     case Relation.NAME:
                         setAppliesToRelation();
                         break;
+                    default:
+                        // do nothing
+                        Log.e(DEBUG_TAG, "Unknown type " + type);
                     }
                 }
             }
@@ -2731,23 +2728,26 @@ public class Preset implements Serializable {
             for (Entry<String, PresetFixedField> entry : fixedTags.entrySet()) {
                 PresetFixedField fixedField = entry.getValue();
                 StringWithDescription v = fixedField.getValue();
-                addToSearchIndex(fixedField.getKey(), fixedField.getTextContext());
+                String textContext = fixedField.getTextContext();
+                addToSearchIndex(fixedField.getKey(), textContext);
                 String hint = fixedField.getHint();
                 if (hint != null) {
-                    addToSearchIndex(hint, fixedField.getTextContext());
+                    addToSearchIndex(hint, textContext);
                 }
                 String value = v.getValue();
-                addToSearchIndex(value, fixedField.getValueContext());
-                addToSearchIndex(v.getDescription(), fixedField.getValueContext());
+                String valueContext = fixedField.getValueContext();
+                addToSearchIndex(value, valueContext);
+                addToSearchIndex(v.getDescription(), valueContext);
                 // support subtypes
                 PresetField subTypeField = fields.get(value);
                 if (subTypeField instanceof PresetComboField) {
                     PresetComboField presetComboField = (PresetComboField) subTypeField;
                     StringWithDescription[] subtypes = presetComboField.getValues();
                     if (subtypes != null) {
+                        String valuesContext = presetComboField.getValuesContext();
                         for (StringWithDescription subtype : subtypes) {
-                            addToSearchIndex(subtype.getValue(), presetComboField.getValuesContext());
-                            addToSearchIndex(subtype.getDescription(), presetComboField.getValuesContext());
+                            addToSearchIndex(subtype.getValue(), valuesContext);
+                            addToSearchIndex(subtype.getDescription(), valuesContext);
                         }
                         presetComboField.setValuesSearchable(false);
                     }
@@ -2755,35 +2755,38 @@ public class Preset implements Serializable {
             }
             for (Entry<String, PresetField> entry : fields.entrySet()) {
                 PresetField field = entry.getValue();
+                String textContext = field.getTextContext();
                 if (!(field instanceof PresetCheckGroupField)) {
-                    addToSearchIndex(field.getKey(), field.getTextContext());
+                    addToSearchIndex(field.getKey(), textContext);
                     String hint = field.getHint();
                     if (hint != null) {
-                        addToSearchIndex(hint, field.getTextContext());
+                        addToSearchIndex(hint, textContext);
                     }
                     if (field instanceof PresetComboField) {
                         PresetComboField presetComboField = (PresetComboField) field;
                         if (presetComboField.getValuesSearchable() && presetComboField.getValues() != null) {
+                            String valuesContext = presetComboField.getValuesContext();
                             for (StringWithDescription value : presetComboField.getValues()) {
-                                addToSearchIndex(value.getValue(), presetComboField.getValuesContext());
-                                addToSearchIndex(value.getDescription(), presetComboField.getValuesContext());
+                                addToSearchIndex(value.getValue(), valuesContext);
+                                addToSearchIndex(value.getDescription(), valuesContext);
                             }
                         }
                     }
                 } else {
                     for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        addToSearchIndex(check.getKey(), field.getTextContext());
+                        addToSearchIndex(check.getKey(), textContext);
                         String hint = field.getHint();
                         if (hint != null) {
-                            addToSearchIndex(hint, field.getTextContext());
+                            addToSearchIndex(hint, textContext);
                         }
                         StringWithDescription value = check.getOnValue();
-                        addToSearchIndex(value.getValue(), check.getValueContext());
-                        addToSearchIndex(value.getDescription(), check.getValueContext());
+                        String valueContext = check.getValueContext();
+                        addToSearchIndex(value.getValue(), valueContext);
+                        addToSearchIndex(value.getDescription(), valueContext);
                         value = check.getOffValue();
                         if (value != null && !"".equals(value.getValue())) {
-                            addToSearchIndex(value.getValue(), check.getValueContext());
-                            addToSearchIndex(value.getDescription(), check.getValueContext());
+                            addToSearchIndex(value.getValue(), valueContext);
+                            addToSearchIndex(value.getDescription(), valueContext);
                         }
                     }
                 }
@@ -3794,7 +3797,7 @@ public class Preset implements Serializable {
             if (mapFeatures != null) {
                 s.startTag("", LINK);
                 if (mapFeatures.startsWith(Urls.OSM_WIKI) || !mapFeatures.startsWith(HTTP)) {
-                    // wiki might or might not be present;
+                    // wiki might or might not be present
                     mapFeatures = mapFeatures.replace(Urls.OSM_WIKI, "").replace("wiki/", "");
                     s.attribute("", WIKI, mapFeatures);
                 } else {
@@ -3835,7 +3838,6 @@ public class Preset implements Serializable {
                     }
                     // check match attribute
                     String k = entry.getKey();
-                    // MatchType match = getMatchType(k);
                     if (!inOptional && field.isOptional()) {
                         s.startTag("", OPTIONAL);
                         inOptional = true;
@@ -3878,19 +3880,6 @@ public class Preset implements Serializable {
                 }
             }
         }
-    }
-
-    /**
-     * Check if a key-value tupel matches a specific PresetField taking the MatchType in to account This assumes that
-     * field is either null or matches the key
-     * 
-     * @param field the PresetField
-     * @param key the key
-     * @param value the value
-     * @return true if the tag matches
-     */
-    public static boolean hasKeyValue(@Nullable PresetField field, @NonNull String key, @Nullable String value) {
-        return hasKeyValue(field, value);
     }
 
     /**
@@ -3987,6 +3976,7 @@ public class Preset implements Serializable {
      * @param type the ELementType
      * @return a Collection of keys
      */
+    @NonNull
     public static Collection<String> getAutocompleteKeys(@NonNull Preset[] presets, @NonNull ElementType type) {
         Collection<String> result = new LinkedHashSet<>();
         for (Preset p : presets) {
@@ -4007,8 +3997,6 @@ public class Preset implements Serializable {
                 case AREA:
                     result.addAll(p.autosuggestAreas.getKeys());
                     break;
-                default:
-                    return null; // should never happen, all cases are covered
                 }
             }
         }
@@ -4138,7 +4126,7 @@ public class Preset implements Serializable {
      * @return list of split values
      */
     @Nullable
-    public static ArrayList<String> splitValues(ArrayList<String> values, @NonNull PresetItem preset, @NonNull String key) {
+    public static ArrayList<String> splitValues(@Nullable List<String> values, @NonNull PresetItem preset, @NonNull String key) {
         ArrayList<String> result = new ArrayList<>();
         String delimiter = String.valueOf(preset.getDelimiter(key));
         if (values == null) {
@@ -4168,7 +4156,6 @@ public class Preset implements Serializable {
         PrintStream outputStream = null;
         FileOutputStream fout = null;
         try {
-            // String filename = new SimpleDateFormat("yyyy-MM-dd'T'HHmmss", Locale.US).format(new Date())+".json";
             File outfile = new File(FileUtil.getPublicDirectory(), filename);
             fout = new FileOutputStream(outfile);
             outputStream = new PrintStream(new BufferedOutputStream(fout));
