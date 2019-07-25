@@ -1365,10 +1365,6 @@ public class StorageDelegator implements Serializable, Exportable {
         for (Way way : currentStorage.getWays(mergeFrom)) {
             replaceNodeInWay(mergeFrom, mergeInto, way);
         }
-        // belt and suspenders not really necessary
-        for (Way way : apiStorage.getWays(mergeFrom)) {
-            replaceNodeInWay(mergeFrom, mergeInto, way);
-        }
         mergeElementsRelations(mergeInto, mergeFrom);
         // delete mergeFrom node
         removeNode(mergeFrom);
