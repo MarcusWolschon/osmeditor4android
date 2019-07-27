@@ -661,14 +661,17 @@ public class RTree implements Serializable {
      * Removes the specified object if it is in the tree.
      * 
      * @param o object to remove
+     * @return true if successful
      */
-    public synchronized void remove(BoundedObject o) {
+    public synchronized boolean remove(BoundedObject o) {
+        boolean result = false;
         Node n = chooseLeaf(o.getBounds(), root);
         // assert(n.isLeaf());
         if (n != null) {
-            n.data.remove(o);
+            result = n.data.remove(o);
             n.computeMBR();
         }
+        return result;
     }
 
     /**
