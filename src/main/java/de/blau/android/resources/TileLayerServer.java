@@ -544,10 +544,7 @@ public class TileLayerServer implements Serializable {
                         zoomLevelMin = Integer.parseInt(parser.getText().trim());
                     }
                     if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        // hack for bing
-                        if (!metadataUrl.contains("virtualearth")) {
-                            setMaxZoom(Integer.parseInt(parser.getText().trim()));
-                        }
+                        setMaxZoom(Integer.parseInt(parser.getText().trim()));
                     }
                     if ("ImageryProvider".equals(tagName)) {
                         try {
@@ -1383,7 +1380,7 @@ public class TileLayerServer implements Serializable {
         // Log.d("OpenStreetMapTileServer","Provider " + p.getAttribution() + " max zoom " + zoomLevelMax);
         // }
         // }
-        return getlMaxZoom();
+        return getMaxZoom();
     }
 
     /**
@@ -1496,19 +1493,29 @@ public class TileLayerServer implements Serializable {
     }
 
     /**
-     * Get the latE7 offset
+     * Get the offset in WGS84*E7 coordinates
      * 
      * @param zoomLevel the zoom level we want the offset for
-     * @return offset in WGS84, null == no offset
+     * @return offset in WGS84, null == no offset (or other issue)
      */
     public Offset getOffset(int zoomLevel) {
         if (zoomLevel < zoomLevelMin) {
             return null;
         }
-        if (zoomLevel > getlMaxZoom()) {
-            return offsets[getlMaxZoom() - zoomLevelMin];
+        int length = offsets.length;
+        if (zoomLevel > getMaxZoom()) {
+            int index = getMaxZoom() - zoomLevelMin;
+            if (index < length) {
+                return offsets[index];
+            } else {
+                return null;
+            }
         }
-        return offsets[zoomLevel - zoomLevelMin];
+        int index = zoomLevel - zoomLevelMin;
+        if (index < length) {
+            return offsets[index];
+        }
+        return null;
     }
 
     /**
@@ -1521,7 +1528,7 @@ public class TileLayerServer implements Serializable {
     public void setOffset(int zoomLevel, double offsetLon, double offsetLat) {
         Log.d("OpenStreetMapTileServer", "setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
         zoomLevel = Math.max(zoomLevel, zoomLevelMin); // clamp to min/max values
-        zoomLevel = Math.min(zoomLevel, getlMaxZoom());
+        zoomLevel = Math.min(zoomLevel, getMaxZoom());
         if (offsets[zoomLevel - zoomLevelMin] == null) {
             offsets[zoomLevel - zoomLevelMin] = new Offset();
         }
@@ -2367,7 +2374,7 @@ public class TileLayerServer implements Serializable {
 
     @Override
     public String toString() {
-        return "ID: " + id + " Name " + name + " maxZoom " + getlMaxZoom() + " Tile URL " + tileUrl;
+        return "ID: " + id + " Name " + name + " maxZoom " + getMaxZoom() + " Tile URL " + tileUrl;
     }
 
     /**
@@ -2428,7 +2435,7 @@ public class TileLayerServer implements Serializable {
     /**
      * @return the zoomLevelMax
      */
-    public int getlMaxZoom() {
+    public int getMaxZoom() {
         return zoomLevelMax;
     }
 
