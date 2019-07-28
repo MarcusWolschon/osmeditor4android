@@ -263,9 +263,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 } else {
                     first = false;
                 }
-                storedValues.append('\"');
                 storedValues.append(v);
-                storedValues.append('\"');
             }
             values.put(NO_TILE_VALUE_FIELD, storedValues.toString());
         }
