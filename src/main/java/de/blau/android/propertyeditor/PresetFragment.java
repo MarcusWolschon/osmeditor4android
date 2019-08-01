@@ -49,6 +49,7 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
 
@@ -58,8 +59,9 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
     private static final String PANE_MODE = "paneMode";
 
-    private static final String ELEMENT_NAME_KEY = "elementName";
-    private static final String ELEMENT_ID_KEY   = "elementId";
+    private static final String ELEMENT_NAME_KEY  = "elementName";
+    private static final String ELEMENT_ID_KEY    = "elementId";
+    private static final String SEARCH_STRING_KEY = "searchString";
 
     private static final String FRAGMENT_PRESET_SEARCH_RESULTS_TAG = "fragment_preset_search_results";
 
@@ -92,6 +94,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     private Preset      rootPreset;
     private PresetGroup currentGroup;
     private PresetGroup rootGroup;
+
+    private EditText presetSearch = null;
 
     private boolean enabled = true;
 
@@ -172,8 +176,14 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
         presetLayout.addView(getPresetView());
 
-        final EditText presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
+        presetSearch = (EditText) presetPaneLayout.findViewById(R.id.preset_search_edit);
         if (presetSearch != null) {
+            if (savedInstanceState != null) { // restore search string
+                String searchString = savedInstanceState.getString(SEARCH_STRING_KEY);
+                if (searchString != null) {
+                    presetSearch.setText(searchString);
+                }
+            }
             presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -207,6 +217,16 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
 
         return presetPaneLayout;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
+        if (presetSearch != null) {
+            outState.putString(SEARCH_STRING_KEY, presetSearch.getText().toString());
+        }
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     /**
