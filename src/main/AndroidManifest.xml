@@ -190,6 +190,7 @@
         </activity>
         <activity
             android:name=".filter.TagFilterActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
             android:theme="@style/Theme.customActionBar" />
         <activity
             android:name=".filter.PresetFilterActivity"
