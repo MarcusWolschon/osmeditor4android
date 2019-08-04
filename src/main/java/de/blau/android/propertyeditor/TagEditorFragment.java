@@ -1914,7 +1914,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             return true;
         case R.id.tag_menu_resetMRU:
             for (Preset p : ((PropertyEditor) getActivity()).presets) {
-                p.resetRecentlyUsed();
+                if (p != null) {
+                    p.resetRecentlyUsed();
+                }
             }
             ((PropertyEditor) getActivity()).recreateRecentPresetView();
             return true;
