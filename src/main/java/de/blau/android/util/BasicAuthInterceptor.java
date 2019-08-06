@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import java.io.IOException;
 
+import android.support.annotation.NonNull;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -11,7 +12,13 @@ public class BasicAuthInterceptor implements Interceptor {
 
     private String credentials;
 
-    public BasicAuthInterceptor(String user, String password) {
+    /**
+     * Construct a new interceptor
+     * 
+     * @param user the user name
+     * @param password the password
+     */
+    public BasicAuthInterceptor(@NonNull String user, @NonNull String password) {
         this.credentials = Credentials.basic(user, password);
     }
 

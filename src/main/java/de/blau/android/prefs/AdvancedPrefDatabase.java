@@ -45,7 +45,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
     /** The ID string for the default API and the default Preset */
     public static final String  ID_DEFAULT          = "default";
-    private static final String ID_DEFAULT_NO_HTTPS = "default_no_https";
     public static final String  ID_SANDBOX          = "sandbox";
 
     private static final String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
@@ -120,7 +119,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE apis ADD COLUMN notesurl TEXT DEFAULT NULL");
         }
         if (oldVersion <= 6 && newVersion >= 7) {
-            addAPI(db, ID_DEFAULT_NO_HTTPS, Urls.DEFAULT_API_NO_HTTPS_NAME, Urls.DEFAULT_API_NO_HTTPS, null, "", "", ID_DEFAULT_NO_HTTPS, true);
+            // this used to add a non-https version of the API, however this no longer works
         }
         if (oldVersion <= 7 && newVersion >= 8) {
             db.execSQL("CREATE TABLE geocoders (id TEXT, type TEXT, version INTEGER DEFAULT 0, name TEXT, url TEXT, active INTEGER DEFAULT 0)");
@@ -169,8 +168,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         String pass = prefs.getString(r.getString(R.string.config_password_key), "");
         Log.d(LOGTAG, "Adding default URL with user '" + user + "'");
         addAPI(db, ID_DEFAULT, Urls.DEFAULT_API_NAME, Urls.DEFAULT_API, null, user, pass, ID_DEFAULT, true);
-        Log.d(LOGTAG, "Adding default URL without https");
-        addAPI(db, ID_DEFAULT_NO_HTTPS, Urls.DEFAULT_API_NO_HTTPS_NAME, Urls.DEFAULT_API_NO_HTTPS, null, "", "", ID_DEFAULT_NO_HTTPS, true);
         Log.d(LOGTAG, "Adding default dev URL");
         addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, "", "", ID_SANDBOX, true);
         Log.d(LOGTAG, "Selecting default API");
