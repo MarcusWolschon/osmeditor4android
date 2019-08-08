@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Address-Interpolation"
+],
 "address":[
 "Adresse"
 ],
@@ -116,10 +119,17 @@
 "Hubschrauberlandeplatz",
 "Heliport"
 ],
+"aeroway/holding_position":[
+"Rollhalteort",
+"Rollhalt"
+],
 "aeroway/jet_bridge":[
 "Flugzeugbrücke",
 "Passagierbrücke",
 "Jetbrücke"
+],
+"aeroway/parking_position":[
+"Flugzeugparkposition"
 ],
 "aeroway/runway":[
 "Start-/Landebahn",
@@ -378,6 +388,10 @@
 "Kampfsportstudio",
 "Kampfsportzentrum"
 ],
+"amenity/dressing_room":[
+"Umkleidekabine",
+"Umkleideraum"
+],
 "amenity/drinking_water":[
 "Trinkbrunnen",
 "Wasserhahn",
@@ -516,7 +530,7 @@
 "Karaoke TV"
 ],
 "amenity/kindergarten":[
-"Kindergarten, Kindergartengelände, Kindertagesstätte, Kindertagesstättengelände",
+"Vorschule/Kindergarten, Kindergartengelände, Kindertagesstätte, Kindertagesstättengelände",
 "Kindergartengelände"
 ],
 "amenity/language_school":[
@@ -570,6 +584,16 @@
 ],
 "amenity/parking/multi-storey":[
 "Mehrstöckige Parkgarage"
+],
+"amenity/parking/park_ride":[
+"Park & Ride Platz",
+"P+R",
+"Park&Pool",
+"U-Bahn",
+"öffentlicher Verkehr",
+"Eisenbahnparkplatz",
+"Park&Ride",
+"Pendlerparkplatz"
 ],
 "amenity/parking/underground":[
 "LKW-Parken",
@@ -3103,6 +3127,14 @@
 "Fahrsilo",
 "Fahrsilokammer"
 ],
+"man_made/cairn":[
+"Steinmandl",
+"Steindauben",
+"Steinmännchen",
+"Steinhügel",
+"Steinmänner",
+"Steinmanderl"
+],
 "man_made/chimney":[
 "Kamin",
 "Schornstein"
@@ -3116,8 +3148,8 @@
 "Kran"
 ],
 "man_made/cross":[
-"Kreuz ohne historischem oder religiösem Wert",
-"Gipfelkreuz"
+"Gipfelkreuz",
+"Kreuz ohne historischen oder religiösen Wert"
 ],
 "man_made/cutline":[
 "Durchhau",
@@ -4729,6 +4761,10 @@
 "HiFi-Geschäft",
 "HiFi-Laden"
 ],
+"shop/hobby":[
+"Bastelgeschäft",
+"Hobbyshop"
+],
 "shop/houseware":[
 "Haushaltswarengeschäft",
 "Haushaltswarenladen"
@@ -4912,6 +4948,12 @@
 "Fotofachgeschäft",
 "Fotogeschäft"
 ],
+"shop/printer_ink":[
+"Toner",
+"Faxtinte",
+"Druckertintengeschäft",
+"Kopierertinte"
+],
 "shop/pyrotechnics":[
 "Feuerwerksartikelladen",
 "Feuerwerkskörpergeschäft",
@@ -4969,6 +5011,9 @@
 ],
 "shop/supermarket":[
 "Supermarkt"
+],
+"shop/swimming_pool":[
+"Swimmingpoolbedarf"
 ],
 "shop/tailor":[
 "Herrenschneider",
@@ -5137,6 +5182,11 @@
 "tourism/attraction":[
 "Touristenattraktion",
 "Sehenswürdigkeit"
+],
+"tourism/camp_pitch":[
+"Wohnwagen",
+"Zelt",
+"Zeltplatz/Wohnwagenplatz"
 ],
 "tourism/camp_site":[
 "Camping Lager",

@@ -2112,6 +2112,9 @@
 "brod",
 "ford"
 ],
+"ford_line":[
+"Brod"
+],
 "golf/bunker":[
 "pískový bunker",
 "bunker",
@@ -3183,6 +3186,9 @@
 "Stadion",
 "hřiště"
 ],
+"leisure/swimming_area":[
+"Přírodní koupaliště"
+],
 "leisure/swimming_pool":[
 "plovárna",
 "Plavecký bazén",
@@ -3199,6 +3205,18 @@
 "jezdit na kole",
 "pes",
 "závod*"
+],
+"leisure/track/horse_racing":[
+"Jezdecká dráha"
+],
+"leisure/track/horse_racing_point":[
+"Jezdecká dráha"
+],
+"leisure/track/running":[
+"Běžecká dráha"
+],
+"leisure/track/running_point":[
+"Běžecká dráha"
 ],
 "leisure/water_park":[
 "Akvapark",
@@ -3415,6 +3433,9 @@
 ],
 "man_made/tower/observation":[
 "Vyhlídková věž"
+],
+"man_made/tunnel":[
+"Tunel"
 ],
 "man_made/wastewater_plant":[
 "ČOV",
@@ -3657,7 +3678,7 @@
 "nehospodářský les",
 "prales",
 "přírodní les",
-"Prales"
+"Les"
 ],
 "noexit/yes":[
 "slepá silnice",

@@ -5685,8 +5685,10 @@
 "Centro abitato tra 10000 e 100000 abitanti"
 ],
 "place/village":[
-"Frazione",
-"Villaggio"
+"Paese",
+"Villaggio",
+"villaggio",
+"frazione"
 ],
 "playground":[
 "Giochi"

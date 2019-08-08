@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Interpolación de direcciones"
+],
 "address":[
 "domicilio",
 "dirección",
@@ -166,6 +169,13 @@
 "pista de aterrizaje para helicópteros",
 "helicóptero"
 ],
+"aeroway/holding_position":[
+"espera",
+"avión",
+"Posición de espera de aviones",
+"aeronave",
+"posición"
+],
 "aeroway/jet_bridge":[
 "puente de embarque de pasajeros",
 "PBB",
@@ -175,6 +185,14 @@
 "conector de puerta de terminal",
 "portal",
 "pasarela"
+],
+"aeroway/parking_position":[
+"Posición de estacionamiento de aviones",
+"avión",
+"estacionamiento",
+"parqueo",
+"aeronave",
+"posición"
 ],
 "aeroway/runway":[
 "Pista de aterrizaje",
@@ -633,6 +651,12 @@
 "dojo",
 "taekwondo"
 ],
+"amenity/dressing_room":[
+"vestuario",
+"Cambio de ropa",
+"Vestuario",
+"vestidor"
+],
 "amenity/drinking_water":[
 "bebible",
 "bebedero",
@@ -1046,6 +1070,19 @@
 "aparcamiento",
 "estacionamiento de varios pisos",
 "estacionamiento cubierto"
+],
+"amenity/parking/park_ride":[
+"bus",
+"Estacionamiento con transporte público",
+"estacionamiento",
+"transporte público",
+"metro",
+"subte",
+"P + R",
+"incentivo",
+"ride",
+"park",
+"cercanías"
 ],
 "amenity/parking/underground":[
 "estacionamiento de vehículos",
@@ -2135,22 +2172,17 @@
 ],
 "amenity/vending_machine/parking_tickets":[
 "recibo",
-"automóvil",
 "parking",
-"auto",
+"estacionamiento",
 "ticket",
+"parqueo",
+"parquímetro",
 "parqueadero",
 "boleto",
-"garaje",
 "expendedor",
 "aparcamiento",
 "aparcadero",
-"carro",
-"coche",
-"estacionamiento",
-"parqueo",
-"Máquina expendedora de boletos de aparcamiento",
-"vehículo"
+"Parquímetro"
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "recibo",
@@ -5698,6 +5730,12 @@
 "silo búnker",
 "silo"
 ],
+"man_made/cairn":[
+"pila de piedras",
+"Mojón",
+"pila de piedra",
+"càrn"
+],
 "man_made/chimney":[
 "chimenea",
 "fogón",
@@ -8645,6 +8683,12 @@
 "alta fidelidad",
 "sonido"
 ],
+"shop/hobby":[
+"manga",
+"figuras",
+"modelo",
+"Tienda de pasatiempos"
+],
 "shop/houseware":[
 "houseware",
 "artículos del hogar",
@@ -8945,6 +8989,19 @@
 "fotos",
 "Tienda de fotografía"
 ],
+"shop/printer_ink":[
+"copiadora",
+"tinta",
+"impresora",
+"laser",
+"insumos",
+"chorro de tinta",
+"toner",
+"Tienda de tinta para impresora",
+"fax",
+"cartuchos",
+"tóner"
+],
 "shop/pyrotechnics":[
 "pirotecnia",
 "fuegos artificiales",
@@ -9038,6 +9095,21 @@
 "supermercado",
 "supermercados",
 "cadena de supermercados"
+],
+"shop/swimming_pool":[
+"cuidado de jacuzzis",
+"instalación de piscinas",
+"equipos para jacuzzis",
+"mantenimiento de piscinas",
+"Tienda de suministros para piscinas",
+"jacuzzi",
+"pileta",
+"insumos de piscinas",
+"tienda de piscinas",
+"suministros para jacuzzis",
+"piscinas",
+"piscina",
+"alberca"
 ],
 "shop/tailor":[
 "sastrería",
@@ -9305,6 +9377,24 @@
 "atracciones turísticas",
 "Atracción turística",
 "punto de interés"
+],
+"tourism/camp_pitch":[
+"camping",
+"motor home",
+"rv",
+"acampe",
+"carpa",
+"lugar",
+"autocaravana",
+"caravana",
+"Lugar para acampar",
+"motorhome",
+"cámping",
+"patio",
+"tienda",
+"campamento",
+"cancha",
+"terreno"
 ],
 "tourism/camp_site":[
 "camping",

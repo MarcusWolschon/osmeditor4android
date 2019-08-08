@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Adressinterpolering"
+],
 "address":[
 "postadress",
 "postnummer",
@@ -1405,6 +1408,21 @@
 "konstapel",
 "polismakt",
 "polisstation"
+],
+"amenity/polling_station":[
+"val",
+"rösta",
+"omröstning",
+"röstmaskin",
+"vallokal",
+"valbås",
+"valsedel",
+"röstning",
+"folkomröstning",
+"valmaskin",
+"valurna",
+"omröstningsapparat",
+"Permanent vallokal"
 ],
 "amenity/post_box":[
 "Postlåda",
@@ -7802,6 +7820,21 @@
 "plats",
 "ställe",
 "Punkt"
+],
+"polling_station":[
+"val",
+"rösta",
+"omröstning",
+"röstmaskin",
+"vallokal",
+"valbås",
+"valsedel",
+"röstning",
+"folkomröstning",
+"valmaskin",
+"Tillfällig vallokal",
+"valurna",
+"omröstningsapparat"
 ],
 "power":[
 "Elförsörjning"

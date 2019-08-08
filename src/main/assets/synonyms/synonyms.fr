@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Interpolation d'adresse"
+],
 "address":[
 "Adresse",
 "address",
@@ -698,6 +701,12 @@
 "jiu-jitsu",
 "dojo",
 "kalaripayat"
+],
+"amenity/dressing_room":[
+"vestiaire",
+"cabine d'essayage",
+"Vestiaire",
+"cabine de plage"
 ],
 "amenity/drinking_water":[
 "Eau potable",
@@ -4567,6 +4576,13 @@
 "Silo-couloir",
 "trémie"
 ],
+"man_made/cairn":[
+"pierres",
+"cairn",
+"tas de cailloux",
+"Cairn",
+"pile de cailloux"
+],
 "man_made/chimney":[
 "Cheminée"
 ],
@@ -6585,6 +6601,13 @@
 "Magasin de matériel hi-fi",
 "Magasin d'appareils audio-visuel"
 ],
+"shop/hobby":[
+"figurine",
+"Magasin pour hobby (non spécifié)",
+"modèle",
+"modélisme",
+"manga"
+],
 "shop/houseware":[
 "Vente d'articles de cuisine",
 "Magasin d’articles ménagers"
@@ -6802,6 +6825,13 @@
 "shop/supermarket":[
 "Supermarché"
 ],
+"shop/swimming_pool":[
+"Magasin de matériel de piscine",
+"spa",
+"cuve thermale",
+"maintenance",
+"piscine"
+],
 "shop/tailor":[
 "Tailleur",
 "Habilleur",
@@ -6972,6 +7002,14 @@
 ],
 "tourism/attraction":[
 "Attraction touristique"
+],
+"tourism/camp_pitch":[
+"caravane",
+"camping-car",
+"parcelle",
+"Parcelle dans un camping",
+"emplacement de camping",
+"tente"
 ],
 "tourism/camp_site":[
 "Site de camping",

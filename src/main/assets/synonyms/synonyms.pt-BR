@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Interpolação de endereços"
+],
 "address":[
 "Endereço"
 ],
@@ -105,8 +108,14 @@
 "Heliporto",
 "ponto de pouso de helicópteros"
 ],
+"aeroway/holding_position":[
+"Posição de retenção de aeronaves"
+],
 "aeroway/jet_bridge":[
 "Ponte telescópica"
+],
+"aeroway/parking_position":[
+"Posição de estacionamento de aeronaves"
 ],
 "aeroway/runway":[
 "Pista de Pouso e Decolagem",
@@ -325,13 +334,19 @@
 "Cinema"
 ],
 "amenity/clinic":[
-"Clínica",
-"Atendimento médico especializado",
+"ubs",
+"enfermaria",
+"posto de saúde",
+"unidade básica de saúde",
+"clínica",
+"unidade de saúde",
+"médico",
+"pronto atendimento",
 "Clínica ou Posto de Saúde",
-"Posto de Saúde",
-"Consultório",
-"Médico",
-"hospital"
+"atendimento médico especializado",
+"doutor",
+"hospital",
+"consultório"
 ],
 "amenity/clinic/abortion":[
 "aborto",
@@ -424,6 +439,12 @@
 "Karatê",
 "krav magá",
 "kickboxing"
+],
+"amenity/dressing_room":[
+"vestiário",
+"Vestiário",
+"cabine de trocar de roupa",
+"provador"
 ],
 "amenity/drinking_water":[
 "fonte",
@@ -606,7 +627,7 @@
 "Cyber Café"
 ],
 "amenity/karaoke":[
-"Karaoke Box"
+"Caixa de Karaokê"
 ],
 "amenity/kindergarten":[
 "educação",
@@ -678,6 +699,15 @@
 ],
 "amenity/parking/multi-storey":[
 "Estacionamento de carros multinível"
+],
+"amenity/parking/park_ride":[
+"parque de estacionamento de incentivo",
+"Parque de estacionamento integrado",
+"Estacionamento Pare e Siga",
+"Park & Ride",
+"parque de estacionamento dissuasor",
+"parque de estacionamento de metro",
+"P&R"
 ],
 "amenity/parking/underground":[
 "Estacionamento subterrâneo"
@@ -1141,10 +1171,12 @@
 "amenity/studio":[
 "ensaio",
 "gravação",
+"televisão",
 "TV",
 "rádio",
 "Estúdio",
 "música",
+"filmes",
 "cinema",
 "Estúdio de rádio/TV ou de gravação",
 "banda",
@@ -3802,6 +3834,11 @@
 "Bunker de silo",
 "Silo Bunker"
 ],
+"man_made/cairn":[
+"Moledros",
+"Moledos",
+"Melédros"
+],
 "man_made/chimney":[
 "Chaminé",
 "Forno",
@@ -5539,10 +5576,21 @@
 "E-Cigarro"
 ],
 "shop/electronics":[
+"televisão",
 "TV",
-"Eletrodomésticos",
+"eletrodomésticos",
+"smartphone",
 "Loja de Eletrônicos",
-"Equipamentos Eletrônicos"
+"loja de eletrônicos",
+"áudio",
+"computador",
+"som",
+"equipamentos eletrônicos",
+"câmera",
+"rádio",
+"celular",
+"vídeo",
+"bluray"
 ],
 "shop/erotic":[
 "Loja de Artigos Sexuais",
@@ -5673,6 +5721,10 @@
 "Loja de Aparelhos Hi-Fi",
 "Loja de Aparelhos de Alta Fidelidade",
 "Loja de Equipamentos de Áudio"
+],
+"shop/hobby":[
+"Loja de hobbies",
+"Loja de passatempo"
 ],
 "shop/houseware":[
 "Loja de Utensílios Domésticos",
@@ -5861,6 +5913,9 @@
 "Produtos fotográficos",
 "Loja de Fotografia"
 ],
+"shop/printer_ink":[
+"Loja de tinta de impressora"
+],
 "shop/pyrotechnics":[
 "loja de fogos de artifício",
 "Loja de Fogos de Artifício"
@@ -5920,6 +5975,9 @@
 ],
 "shop/supermarket":[
 "Supermercado"
+],
+"shop/swimming_pool":[
+"Loja de suprimentos para piscinas"
 ],
 "shop/tailor":[
 "Alfaiataria"
@@ -6099,6 +6157,9 @@
 "parque turístico",
 "turismo",
 "atração turística"
+],
+"tourism/camp_pitch":[
+"Acampamento de arremesso"
 ],
 "tourism/camp_site":[
 "Local de Acampamento",

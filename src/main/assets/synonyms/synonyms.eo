@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Interpolado de adresoj"
+],
 "address":[
 "domnumero",
 "Adreso",
@@ -532,6 +535,11 @@
 "luktoarto",
 "Doĵo / batalart-lernejo"
 ],
+"amenity/dressing_room":[
+"travestejo",
+"tualetejo",
+"Vestejo"
+],
 "amenity/drinking_water":[
 "krano",
 "shprucakvo",
@@ -817,6 +825,10 @@
 "aŭtoparkejo",
 "parkejo",
 "parkumejo"
+],
+"amenity/parking/park_ride":[
+"parkumejo",
+"Parkumejo P+R (ĉe publika transporto)"
 ],
 "amenity/parking/underground":[
 "parkejo subtera",
@@ -4191,6 +4203,13 @@
 "silo",
 "turstokejo"
 ],
+"man_made/cairn":[
+"amasaĵo",
+"shtonamaso",
+"Ŝtonamaso",
+"kairno",
+"sxtonamaso"
+],
 "man_made/chimney":[
 "fumtubo",
 "Kamentubo",
@@ -6651,6 +6670,11 @@
 "Superbazaro",
 "vendejego"
 ],
+"shop/swimming_pool":[
+"Vendejo de naĝej-akcesoriaĵoj",
+"naĝbaseno",
+"naĝejo"
+],
 "shop/tailor":[
 "tajloro",
 "Tajlora laborejo/vendejo"
@@ -6879,6 +6903,12 @@
 "atrakcio",
 "vidindajho",
 "vidindajxo"
+],
+"tourism/camp_pitch":[
+"kampadejo",
+"kampadveturilo",
+"tendo",
+"Loko por kampadveturilo/tendo"
 ],
 "tourism/camp_site":[
 "Kampadejo",

@@ -770,6 +770,26 @@
 "Language School",
 "esl"
 ],
+"amenity/letter_box":[
+"mail slot",
+"letterhole",
+"through-door delivery box",
+"direct-to-door delivery box",
+"mailslot",
+"letterslot",
+"mail box",
+"Letter Box",
+"letterplate",
+"letter hole",
+"mail hole",
+"letter slot",
+"mailbox",
+"letter plate",
+"letterbox",
+"curbside delivery box",
+"mailhole",
+"home delivery box"
+],
 "amenity/library":[
 "book",
 "Library"
@@ -5030,9 +5050,11 @@
 ],
 "office/telecommunication":[
 "voice",
-"phone",
+"isp",
+"telephone",
 "communication",
-"internet",
+"internet service provider",
+"network",
 "Telecom Office"
 ],
 "office/therapist":[
@@ -5977,7 +5999,13 @@
 "Relation"
 ],
 "route/ferry":[
-"Ferry Route"
+"merchant vessel",
+"water bus",
+"Ferry Route",
+"water taxi",
+"ship",
+"water shuttle",
+"boat"
 ],
 "seamark/beacon_isolated_danger":[
 "isolated danger beacon",
@@ -6713,6 +6741,13 @@
 "Photography Store",
 "film",
 "camera"
+],
+"shop/printer_ink":[
+"Printer Ink Store",
+"ink cartridges",
+"toner",
+"copier ink",
+"fax ink"
 ],
 "shop/pyrotechnics":[
 "fireworks",

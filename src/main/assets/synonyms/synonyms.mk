@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Вметнување на адреси"
+],
 "address":[
 "Адреса"
 ],
@@ -71,8 +74,14 @@
 "aeroway/helipad":[
 "Хеликоптерско слетувалиште"
 ],
+"aeroway/holding_position":[
+"Чекална положба на леталото"
+],
 "aeroway/jet_bridge":[
 "Авионски пристапен мост"
+],
+"aeroway/parking_position":[
+"Паркирна положба на леталото"
 ],
 "aeroway/runway":[
 "Писта"
@@ -230,6 +239,9 @@
 "amenity/dojo":[
 "Училиште за боречки вештини"
 ],
+"amenity/dressing_room":[
+"Соблекувална"
+],
 "amenity/drinking_water":[
 "Пивка вода"
 ],
@@ -349,6 +361,9 @@
 ],
 "amenity/parking/multi-storey":[
 "Катна гаража"
+],
+"amenity/parking/park_ride":[
+"Преодно паркиралиште"
 ],
 "amenity/parking/underground":[
 "Подземно паркиралиште"
@@ -2013,6 +2028,9 @@
 "man_made/bunker_silo":[
 "Бункерски силос"
 ],
+"man_made/cairn":[
+"Могила"
+],
 "man_made/chimney":[
 "Оџак"
 ],
@@ -3078,6 +3096,9 @@
 "shop/hifi":[
 "Продавница за аудиоопрема"
 ],
+"shop/hobby":[
+"Хобистичка продавница"
+],
 "shop/houseware":[
 "Продавница за домот"
 ],
@@ -3186,6 +3207,9 @@
 "shop/photo":[
 "Фотографски дуќан"
 ],
+"shop/printer_ink":[
+"Продавница за печатарска боја"
+],
 "shop/pyrotechnics":[
 "Продавница за огномет"
 ],
@@ -3221,6 +3245,9 @@
 ],
 "shop/supermarket":[
 "Супермаркет"
+],
+"shop/swimming_pool":[
+"Базенски залихи"
 ],
 "shop/tailor":[
 "Кројач"
@@ -3329,6 +3356,9 @@
 ],
 "tourism/attraction":[
 "Знаменитост"
+],
+"tourism/camp_pitch":[
+"Логориште"
 ],
 "tourism/camp_site":[
 "Камп"

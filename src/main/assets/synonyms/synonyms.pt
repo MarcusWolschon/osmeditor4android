@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Interpolação de endereço"
+],
 "address":[
 "número de porta",
 "endereçamento",
@@ -149,6 +152,12 @@
 "Heliporto / heliponto",
 "Helicóptero"
 ],
+"aeroway/holding_position":[
+"ponto de espera de avião",
+"Ponto de espera de avião",
+"posição de espera de avião",
+"aircraft holding position"
+],
 "aeroway/jet_bridge":[
 "finger",
 "manga de embarque",
@@ -160,6 +169,13 @@
 "jet bridge",
 "ponte de aeroporto",
 "ponte telescópica"
+],
+"aeroway/parking_position":[
+"lugar de estacionamento de avião",
+"área de estacionamento de avião",
+"ponto de estacionamento de avião",
+"aircraft parking position",
+"Área de estacionamento de avião"
 ],
 "aeroway/runway":[
 "Pista de Aeródromo",
@@ -636,6 +652,15 @@
 "Karaté",
 "Taekwondo"
 ],
+"amenity/dressing_room":[
+"Cabine de provas",
+"changing room",
+"cabine de provas",
+"troca de roupa",
+"trocar de roupa",
+"sala de provas",
+"mudar de roupa"
+],
 "amenity/drinking_water":[
 "água",
 "fonte de água",
@@ -869,6 +894,15 @@
 "internet",
 "Cibercafé"
 ],
+"amenity/karaoke":[
+"karaoke box",
+"karaoke",
+"Sala de karaoke",
+"karaoque",
+"caraoque",
+"noraebang",
+"caraoke"
+],
 "amenity/kindergarten":[
 "grounds",
 "kindergarten",
@@ -969,6 +1003,15 @@
 "Garagem de estacionamento multi nível",
 "Garagem de estacionamento de vários níveis",
 "silo"
+],
+"amenity/parking/park_ride":[
+"parque de estacionamento de incentivo",
+"Parque de estacionamento integrado",
+"Estacionamento Pare e Siga",
+"Park & Ride",
+"parque de estacionamento dissuasor",
+"parque de estacionamento de metro",
+"P&R"
 ],
 "amenity/parking/underground":[
 "estacionamento",
@@ -3103,6 +3146,9 @@
 "Baixio",
 "Parel"
 ],
+"ford_line":[
+"Vau / almegue"
+],
 "golf/bunker":[
 "Banco de areia",
 "Sand Trap"
@@ -3207,6 +3253,13 @@
 "Banco de sangue ",
 "Centro de Doação de Sangue",
 "transfusão de sangue"
+],
+"healthcare/counselling":[
+"counselling center",
+"aconselhamento",
+"aconcelhamento",
+"centro de aconselhamento",
+"Centro de aconselhamento"
 ],
 "healthcare/hospice":[
 "paliativos",
@@ -4971,6 +5024,18 @@
 "silo-corredor",
 "silo"
 ],
+"man_made/cairn":[
+"moledros",
+"melédro",
+"Moledros / mariolas",
+"melédros",
+"moledro",
+"cairn",
+"moledo",
+"mariolas",
+"mariola",
+"moledos"
+],
 "man_made/chimney":[
 "Chaminé",
 "Chimney"
@@ -5157,6 +5222,19 @@
 "gasoduto",
 "canalização"
 ],
+"man_made/pipeline/valve":[
+"pipeline",
+"tubagem",
+"pipeline valve",
+"torneira",
+"tubo",
+"oleoduto",
+"Válvula de pipeline",
+"gasoduto",
+"canalização",
+"válvula",
+"válvula de pipeline"
+],
 "man_made/pumping_station":[
 "Pumping Station",
 "Estação de bombeamento"
@@ -5223,6 +5301,12 @@
 "man_made/survey_point":[
 "Vértice geodésico / talefe",
 "Survey Point"
+],
+"man_made/torii":[
+"torii",
+"tori",
+"Torii",
+"tóri"
 ],
 "man_made/tower":[
 "Torre",
@@ -7461,6 +7545,21 @@
 "shop/fashion":[
 "Loja de moda"
 ],
+"shop/fashion_accessories":[
+"loja de acessórios de moda",
+"joalharia",
+"fashion accessories store",
+"acessórios",
+"acessórios de moda",
+"bolsa",
+"joalheria",
+"óculos de sol",
+"chapéu",
+"carteira",
+"mala",
+"bijuteria",
+"Loja de acessórios de moda"
+],
 "shop/fireplace":[
 "fogo",
 "Lareira",
@@ -7652,6 +7751,21 @@
 "Som",
 "Hifi Store",
 "Loja de alta fidelidade"
+],
+"shop/hobby":[
+"passa-tempo",
+"loja de passatempos",
+"oby",
+"hoby",
+"hobby shop",
+"passatempo",
+"Loja de passatempos",
+"obby",
+"loja de hobbys",
+"hobie",
+"obie",
+"hobi",
+"hobby"
 ],
 "shop/houseware":[
 "Panelas",
@@ -8064,6 +8178,15 @@
 "Alimentar",
 "Loja"
 ],
+"shop/swimming_pool":[
+"pissina",
+"artigos para piscinas",
+"pool supply store",
+"picina",
+"piscina",
+"pisina",
+"Loja de artigos para piscinas"
+],
 "shop/tailor":[
 "Fato",
 "Vestido",
@@ -8319,6 +8442,15 @@
 "ponto turístico",
 "turismo",
 "atração turística"
+],
+"tourism/camp_pitch":[
+"parque de campismo",
+"camp pitch",
+"alvéolo",
+"Alvéolo de parque de campismo",
+"parte",
+"talhão",
+"secção"
 ],
 "tourism/camp_site":[
 "campismo",

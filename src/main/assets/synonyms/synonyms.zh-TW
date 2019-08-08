@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"地址插補"
+],
 "address":[
 "地址",
 "位址",
@@ -92,8 +95,14 @@
 "直昇機停機坪",
 "直升機停機坪"
 ],
+"aeroway/holding_position":[
+"飛機停靠點"
+],
 "aeroway/jet_bridge":[
 "空橋"
+],
+"aeroway/parking_position":[
+"停機坪"
 ],
 "aeroway/runway":[
 "機場跑道",
@@ -319,6 +328,9 @@
 "道場/武術學院",
 "道場/武藝研習班"
 ],
+"amenity/dressing_room":[
+"更衣室"
+],
 "amenity/drinking_water":[
 "飲水",
 "飲處",
@@ -485,6 +497,10 @@
 "多層停車場",
 "停車塔",
 "立體停車場"
+],
+"amenity/parking/park_ride":[
+"泊車轉乘",
+"轉乘停車場"
 ],
 "amenity/parking/underground":[
 "地下停車場"
@@ -2615,6 +2631,9 @@
 "地面筒倉",
 "地面筒倉;筒倉"
 ],
+"man_made/cairn":[
+"石標"
+],
 "man_made/chimney":[
 "煙筒",
 "煙囪"
@@ -3944,6 +3963,9 @@
 "shop/hifi":[
 "音響店"
 ],
+"shop/hobby":[
+"嗜好商店"
+],
 "shop/houseware":[
 "家居用品店",
 "家庭用品店"
@@ -4092,6 +4114,9 @@
 "攝影用品店",
 "照相店"
 ],
+"shop/printer_ink":[
+"印表機墨水商店"
+],
 "shop/pyrotechnics":[
 "煙火商",
 "煙火用品店"
@@ -4132,6 +4157,9 @@
 "shop/supermarket":[
 "超級市場",
 "超市"
+],
+"shop/swimming_pool":[
+"泳池用品商店"
 ],
 "shop/tailor":[
 "裁縫師",
@@ -4274,6 +4302,9 @@
 "tourism/attraction":[
 "觀光景點",
 "觀光點"
+],
+"tourism/camp_pitch":[
+"營地"
 ],
 "tourism/camp_site":[
 "露營地",

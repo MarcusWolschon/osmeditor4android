@@ -297,7 +297,9 @@
 "bici",
 "Alugamento de bicicletas",
 "bicicleta",
-"préstamo"
+"locación",
+"préstamo",
+"alugamento"
 ],
 "amenity/bicycle_repair_station":[
 "inchar",
@@ -317,11 +319,15 @@
 "terraza"
 ],
 "amenity/boat_rental":[
+"alugueiro",
 "bote",
 "barca",
+"Alugamento de embarcacións",
+"embarcacións",
+"locación",
+"embarcación",
 "lancha",
-"Aluguer de botes",
-"aluguer"
+"alugamento"
 ],
 "amenity/bureau_de_change":[
 "cambio",
@@ -354,11 +360,14 @@
 "compartido"
 ],
 "amenity/car_rental":[
+"alugueiro",
 "coche",
 "automóbil",
-"Aluguer de automóbiles",
+"locación",
+"vehículo",
 "rent-a-car",
-"aluguer"
+"alugamento",
+"Alugamento de automóbiles"
 ],
 "amenity/car_sharing":[
 "coche",
@@ -412,10 +421,13 @@
 ],
 "amenity/clinic":[
 "urxencias",
+"clinica",
 "saúde",
+"saude",
 "Clínica ou centro de saúde",
 "clínica",
-"médico"
+"médico",
+"ambulatorio"
 ],
 "amenity/clinic/abortion":[
 "aborto",
@@ -515,8 +527,10 @@
 ],
 "amenity/doctors":[
 "Doutor",
+"clinica",
 "saúde",
 "doutor",
+"saude",
 "clínica",
 "médico"
 ],
@@ -665,12 +679,14 @@
 ],
 "amenity/hospital":[
 "urxencias",
+"clinica",
 "sanidade",
 "saúde",
+"saude",
 "Hospital",
-"hospital",
 "clínica",
-"médico"
+"médico",
+"ambulatorio"
 ],
 "amenity/hunting_stand":[
 "Stand de Caza"
@@ -943,7 +959,13 @@
 "Centro de Reciclaxe"
 ],
 "amenity/recycling_container":[
-"Colector de reciclaxe"
+"contenedor",
+"lixo",
+"reciclaxe",
+"basura",
+"colector",
+"Colector de reciclaxe",
+"contedor"
 ],
 "amenity/register_office":[
 "Oficina do rexistro"
@@ -1309,7 +1331,12 @@
 "Camiño escuro"
 ],
 "attraction/drop_tower":[
+"piar de caída",
+"pilar de caída",
+"xogo de feria",
+"feira",
 "atracción",
+"xogo mecánico",
 "Torre de caída",
 "torre",
 "caída"
@@ -1461,6 +1488,17 @@
 ],
 "barrier/retaining_wall":[
 "Muro de contención"
+],
+"barrier/sally_port":[
+"poterna",
+"porta de seguranza",
+"porta lateral do castelo",
+"porta de castelo",
+"porta esclusa",
+"porta de seguridade",
+"Poterna",
+"porta castelo",
+"poterna castelo"
 ],
 "barrier/stile":[
 "escaleira",
@@ -2511,7 +2549,7 @@
 "Conca"
 ],
 "landuse/brownfield":[
-"Solar anteriormente edificado"
+"Soar urbanizado abandonado"
 ],
 "landuse/cemetery":[
 "Cemiterio"
@@ -2784,6 +2822,29 @@
 ],
 "leisure/nature_reserve":[
 "Reserva natural"
+],
+"leisure/outdoor_seating":[
+"comedor",
+"mesas",
+"sombrilla",
+"Área de asentos ó exterior",
+"ao aire libre",
+"parasol",
+"xardín de cervexa",
+"antuca",
+"restaurante",
+"cafetería",
+"ó ar libre",
+"cafeteria",
+"patio",
+"cafetaría",
+"bar",
+"estar",
+"ó aire libre",
+"catasol",
+"pub",
+"ao ar libre",
+"terraza"
 ],
 "leisure/park":[
 "Parque",
@@ -3082,7 +3143,43 @@
 "vértice xeodésico"
 ],
 "man_made/tower":[
-"Torre"
+"estrutura alta",
+"Torre",
+"torre",
+"edificio",
+"mastro"
+],
+"man_made/tower/bell_tower":[
+"campá",
+"torre da igrexa",
+"sino",
+"Campanil",
+"campanario",
+"campanil"
+],
+"man_made/tower/communication":[
+"Torre de comunicación",
+"torre de radio",
+"torre de comunicación",
+"mastro de radio",
+"torre adaptada",
+"mastro de transmisión",
+"mastro de comunicación",
+"antena",
+"torre de telefonía celular",
+"torre de telefonía móbil",
+"torre de televisión",
+"torre de transmisión"
+],
+"man_made/tower/defensive":[
+"torre fortificada",
+"Torre defensiva",
+"torre do castelo"
+],
+"man_made/tower/observation":[
+"torre de vixiancia",
+"Torre de observación",
+"torre de lume"
 ],
 "man_made/wastewater_plant":[
 "EDAR",
@@ -3575,6 +3672,15 @@
 "power/generator":[
 "Xerador de enerxía"
 ],
+"power/generator/method/photovoltaic":[
+"FV",
+"PV",
+"luz solar",
+"solar",
+"módulo fotovoltaico",
+"Panel solar",
+"panel"
+],
 "power/generator/source/wind":[
 "Turbina eólica"
 ],
@@ -3597,16 +3703,28 @@
 "Subestación"
 ],
 "power/tower":[
-"Torre de Alta Tensión"
+"torre de alto voltaxe",
+"torre de electricidade",
+"torres de alta tensión",
+"Torre de alta tensión"
 ],
 "power/transformer":[
 "Transformador"
+],
+"public_transport/platform/light_rail":[
+"Plataforma de tren lixeiro"
+],
+"public_transport/platform/light_rail_point":[
+"Paraxe / Plataforma de tren lixeiro"
 ],
 "public_transport/station":[
 "Estación de transporte público"
 ],
 "public_transport/station_bus":[
 "Estación de autobuses"
+],
+"public_transport/station_light_rail":[
+"Estación de tren lixeiro"
 ],
 "public_transport/station_subway":[
 "Estación de metro"
@@ -3662,6 +3780,9 @@
 "paso a nivel",
 "Paso a nivel (estrada)",
 "cruzamento a nivel"
+],
+"railway/light_rail":[
+"Tren lixeiro"
 ],
 "railway/milestone":[
 "Fito de Vía"
@@ -3908,6 +4029,13 @@
 "enmarcado",
 "enmarcar"
 ],
+"shop/frozen_food":[
+"comidas",
+"conxeladas",
+"conxelados",
+"alimentos",
+"Conxelados"
+],
 "shop/funeral_directors":[
 "tanatorio",
 "abellón",
@@ -3968,6 +4096,13 @@
 ],
 "shop/leather":[
 "Tenda de peles"
+],
+"shop/lighting":[
+"luminarias",
+"Iluminación fluorescente",
+"Tenda de iluminación",
+"LEDs",
+"lámpadas"
 ],
 "shop/locksmith":[
 "zarralleiro",
@@ -4101,7 +4236,7 @@
 "Papelaría"
 ],
 "shop/storage_rental":[
-"Aluguer de almacéns"
+"Alugamento de almacéns"
 ],
 "shop/supermarket":[
 "Supermercado"
@@ -4325,6 +4460,19 @@
 "bandas reductoras de velocidade",
 "bandas sonoras"
 ],
+"traffic_calming/table":[
+"lento",
+"lombo",
+"velocidade",
+"badén",
+"redutor de velocidade ancho",
+"baden",
+"lomo de burro",
+"lomada",
+"lombada",
+"lomba",
+"Redutor de velocidade"
+],
 "traffic_sign":[
 "Sinal de tráfico"
 ],
@@ -4396,6 +4544,9 @@
 ],
 "type/route/horse":[
 "Rota de equitación"
+],
+"type/route/light_rail":[
+"Rota de tren lixeiro"
 ],
 "type/route/pipeline":[
 "Rota de tubaxe"

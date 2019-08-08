@@ -123,6 +123,12 @@
 "parking za bicikle",
 "Parkiralište za bicikle"
 ],
+"amenity/bicycle_parking/building":[
+"Garaža za parkiranje bicikla"
+],
+"amenity/bicycle_parking/shed":[
+"Nadstrešnica za bicikle"
+],
 "amenity/bicycle_rental":[
 "rentanje bicikala",
 "rentanje bicikla",
@@ -154,6 +160,9 @@
 ],
 "amenity/bureau_de_change":[
 "Mjenjačnica"
+],
+"amenity/bus_station":[
+"Autobusni kolodvor"
 ],
 "amenity/cafe":[
 "kafeterija",
@@ -314,6 +323,11 @@
 "amenity/nightclub":[
 "Noćni klub"
 ],
+"amenity/parking":[
+"parking",
+"kamione",
+"Parkiralište za automobile"
+],
 "amenity/parking_entrance":[
 "Parking garaža Ulaz/Izlaz"
 ],
@@ -340,6 +354,15 @@
 "bogomolja",
 "Budistički hram"
 ],
+"amenity/place_of_worship/christian":[
+"Kršćanska crkva"
+],
+"amenity/place_of_worship/muslim":[
+"Muslimanska džamija"
+],
+"amenity/planetarium":[
+"Planetarij"
+],
 "amenity/police":[
 "policija",
 "gradska policija",
@@ -360,12 +383,21 @@
 "poštanski ured",
 "pošta"
 ],
+"amenity/prison":[
+"Zatvorsko zemljište"
+],
 "amenity/pub":[
 "birc",
 "Pivnica",
 "bircuz",
 "birtija",
 "pivnica"
+],
+"amenity/public_bath":[
+"Javno kupalište",
+"akvapark",
+"toplice",
+"bazeni"
 ],
 "amenity/public_bookcase":[
 "Javna knjižnica"
@@ -397,17 +429,41 @@
 "zalogajnica",
 "Restoran"
 ],
+"amenity/restaurant/asian":[
+"Azijski restoran"
+],
 "amenity/restaurant/chinese":[
 "Kineski restoran"
 ],
+"amenity/restaurant/french":[
+"Francuski restoran"
+],
+"amenity/restaurant/german":[
+"Njemački restoran"
+],
+"amenity/restaurant/greek":[
+"Grčki restoran"
+],
 "amenity/restaurant/indian":[
 "Indijski restoran"
+],
+"amenity/restaurant/italian":[
+"Talijanski restoran"
+],
+"amenity/restaurant/japanese":[
+"Japanski restoran"
 ],
 "amenity/restaurant/mexican":[
 "Meksički restoran"
 ],
 "amenity/restaurant/pizza":[
 "Pizzeria"
+],
+"amenity/restaurant/seafood":[
+"Riblji restoran"
+],
+"amenity/restaurant/vietnamese":[
+"Vijetnamski restoran"
 ],
 "amenity/sanitary_dump_station":[
 "Pražnjenje toaleta za kamp kućice"
@@ -422,6 +478,9 @@
 ],
 "amenity/shelter/gazebo":[
 "Sjenica"
+],
+"amenity/shower":[
+"Tuš"
 ],
 "amenity/social_facility":[
 "Socijalna ustanova"
@@ -457,6 +516,9 @@
 "kazalište",
 "Kazalište"
 ],
+"amenity/theatre/type/amphi":[
+"Amfiteatar"
+],
 "amenity/toilets":[
 "Toalet",
 "toalet",
@@ -476,14 +538,35 @@
 "amenity/vehicle_inspection":[
 "Tehnički pregled vozila"
 ],
+"amenity/vending_machine":[
+"Automat za prodaju"
+],
 "amenity/vending_machine/cigarettes":[
 "Automat za cigarete"
+],
+"amenity/vending_machine/coffee":[
+"Automat za prodaju kave"
 ],
 "amenity/vending_machine/condoms":[
 "Automat za kondome"
 ],
 "amenity/vending_machine/drinks":[
 "Automat za piće"
+],
+"amenity/vending_machine/electronics":[
+"Automat za prodaju elektronike"
+],
+"amenity/vending_machine/food":[
+"Automat za prodaju hrane"
+],
+"amenity/vending_machine/fuel":[
+"Pumpni automat za gorivo"
+],
+"amenity/vending_machine/ice_cream":[
+"Automat za prodaju sladoleda"
+],
+"amenity/vending_machine/newspapers":[
+"Automat za prodaju novina"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Automat za parkirališne karte"
@@ -519,6 +602,39 @@
 ],
 "area/highway":[
 "Površina ceste"
+],
+"attraction":[
+"Atrakcija"
+],
+"attraction/animal":[
+"lav",
+"akvarij",
+"riba",
+"kavez",
+"safari",
+"zmija",
+"slon",
+"insekt",
+"dupinarij",
+"terarij",
+"zoološki",
+"Životinjska nastamba",
+"majmun",
+"životinja",
+"zoo"
+],
+"attraction/bumper_car":[
+"Električni autići za sudaranje"
+],
+"attraction/bungee_jumping":[
+"Bungee skokovi"
+],
+"attraction/carousel":[
+"Ringišpil",
+"Mehanički vrtuljak"
+],
+"attraction/maze":[
+"Labirint"
 ],
 "barrier":[
 "Prepreka"
@@ -892,6 +1008,12 @@
 "highway/bridleway":[
 "Staza za konje"
 ],
+"highway/bus_guideway":[
+"Pruga za autobuse"
+],
+"highway/bus_stop":[
+"Autobusna stanica"
+],
 "highway/corridor":[
 "Hodnik"
 ],
@@ -906,6 +1028,12 @@
 ],
 "highway/cycleway":[
 "Biciklistička staza"
+],
+"highway/cycleway/bicycle_foot":[
+"Staza za bicikle i pješake"
+],
+"highway/cycleway/crossing":[
+"Biciklistički prijelaz"
 ],
 "highway/cycleway/crossing/marked":[
 "Označeni biciklistički prijelaz"
@@ -1199,6 +1327,15 @@
 "leisure/firepit":[
 "Mjesto za vatru"
 ],
+"leisure/fitness_centre":[
+"pilates",
+"aerobik",
+"Zatvoreni prostor za vježbanje",
+"teretana"
+],
+"leisure/fitness_station":[
+"Vanjski prostor za vježbanje"
+],
 "leisure/garden":[
 "vrt",
 "cvjetnjak",
@@ -1219,6 +1356,10 @@
 ],
 "leisure/nature_reserve":[
 "Prirodni rezervat"
+],
+"leisure/outdoor_seating":[
+"Sjedenje vani",
+"terasa"
 ],
 "leisure/park":[
 "Park"
@@ -1281,6 +1422,12 @@
 "bazen",
 "Sportski bazen"
 ],
+"leisure/track/running":[
+"Staza za trčanje"
+],
+"leisure/track/running_point":[
+"Staza za trčanje"
+],
 "leisure/water_park":[
 "Aquapark",
 "Vodeni park",
@@ -1308,6 +1455,9 @@
 "Lukobran",
 "zaštita luke od valova"
 ],
+"man_made/bridge":[
+"Most"
+],
 "man_made/chimney":[
 "Dimnjak"
 ],
@@ -1332,6 +1482,12 @@
 "toranj za svjetlosnu navigaciju",
 "Svjetionik"
 ],
+"man_made/monitoring_station":[
+"Stanica za mjerenje"
+],
+"man_made/observatory":[
+"Opservatorij"
+],
 "man_made/petroleum_well":[
 "Izvor nafte"
 ],
@@ -1355,14 +1511,30 @@
 "plinovod",
 "naftovod"
 ],
+"man_made/pipeline/underground":[
+"Podzemni cjevovod"
+],
+"man_made/pumping_station":[
+"Crpna stanica"
+],
 "man_made/silo":[
 "Silos"
 ],
 "man_made/storage_tank":[
 "Spremnik"
 ],
+"man_made/street_cabinet":[
+"ulični ormar",
+"Vanjski razvodni ormar",
+"semaforski",
+"kabelska televizija",
+"telekomunikacijski"
+],
 "man_made/surveillance":[
 "Nadzor"
+],
+"man_made/surveillance/camera":[
+"Nadzorna kamera"
 ],
 "man_made/survey_point":[
 "GPS točka",
@@ -1385,6 +1557,22 @@
 "stupa",
 "Toranj",
 "zvonik"
+],
+"man_made/tower/bell_tower":[
+"Toranj zvonika"
+],
+"man_made/tower/communication":[
+"Komunikacijski toranj"
+],
+"man_made/tower/defensive":[
+"Utvrđeni toranj",
+"Kula"
+],
+"man_made/tower/minaret":[
+"Minaret"
+],
+"man_made/tower/observation":[
+"Toranj za promatranje"
 ],
 "man_made/tunnel":[
 "Tunel"
@@ -1423,6 +1611,9 @@
 ],
 "manhole":[
 "Šaht"
+],
+"manhole/telecom":[
+"Šaht za telekomunikacije"
 ],
 "natural":[
 "Prirodno"
@@ -1522,6 +1713,9 @@
 "natural/reef":[
 "Greben"
 ],
+"natural/ridge":[
+"Greben"
+],
 "natural/saddle":[
 "prijevoj",
 "Sedlo"
@@ -1558,6 +1752,9 @@
 "guštik",
 "šibljar",
 "šiblje"
+],
+"natural/shingle":[
+"Krupan šljunak"
 ],
 "natural/spring":[
 "Izvor",
@@ -1632,16 +1829,28 @@
 "prašuma",
 "prirodna šuma"
 ],
+"noexit/yes":[
+"Bez izlaza"
+],
 "office":[
 "Ured",
 "ured",
 "kancelarija"
+],
+"office/adoption_agency":[
+"Agencija za posvajanje"
+],
+"office/advertising_agency":[
+"Reklamna agencija"
 ],
 "office/architect":[
 "Arhitektonski ured"
 ],
 "office/association":[
 "Ured neprofitne udruge"
+],
+"office/company":[
+"Ured firme"
 ],
 "office/diplomatic/consulate":[
 "Konzulat"
@@ -1784,6 +1993,12 @@
 "transformator struje",
 "Transformator",
 "transformator el. energije"
+],
+"public_transport/platform/bus":[
+"Autobusno stajalište"
+],
+"public_transport/platform/bus_point":[
+"Autobusno stajalište"
 ],
 "public_transport/platform/train_point":[
 "Željezničko stajalište"
@@ -2284,6 +2499,9 @@
 "shop/motorcycle":[
 "Prodavaonica motocikala",
 "trgovina motocikala"
+],
+"shop/motorcycle_repair":[
+"Ormarići za bicikle"
 ],
 "shop/music":[
 "Prodavaonica glazbene opreme",

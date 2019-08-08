@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Interpolacja adresów"
+],
 "address":[
 "numer",
 "Adres",
@@ -109,10 +112,23 @@
 "lądowisko dla helikopterów",
 "lotnisko"
 ],
+"aeroway/holding_position":[
+"holding position",
+"Punkt oczekiwania dla samolotu",
+"punkt oczekiwania dla samolotu",
+"pozycja oczekiwania dla samolotu"
+],
 "aeroway/jet_bridge":[
 "Rękaw lotniczy",
 "pomost lotniczy",
 "rękaw lotniczy"
+],
+"aeroway/parking_position":[
+"Miejsce postoju samolotu",
+"pozycja parkowania dla samolotu",
+"miejsce postoju dla samolotu",
+"pozycja parkowania samolotu",
+"miejsce postoju samolotu"
 ],
 "aeroway/runway":[
 "rozbieg",
@@ -418,6 +434,11 @@
 "szkoła walki",
 "Dojo/szkoła sztuk walki"
 ],
+"amenity/dressing_room":[
+"przebieralnia",
+"Przebieralnia",
+"szatnia"
+],
 "amenity/drinking_water":[
 "wodotrysk",
 "Woda pitna",
@@ -665,6 +686,12 @@
 "rampa parkingowa",
 "budynek parkingu",
 "parking wewnętrzny"
+],
+"amenity/parking/park_ride":[
+"Parking "parkuj i jedź"",
+"parking parkuj i jedź",
+"park & ride",
+"p&r"
 ],
 "amenity/parking/underground":[
 "parking podziemny",
@@ -1100,8 +1127,10 @@
 "dom seniora"
 ],
 "amenity/social_facility/homeless_shelter":[
+"schronisko dla bezdomnych",
 "Schronisko dla bezdomnych",
-"przytułek dla bezdomnych"
+"przytułek dla bezdomnych",
+"noclegownia"
 ],
 "amenity/social_facility/nursing_home":[
 "Dom opieki",
@@ -1182,10 +1211,16 @@
 "gry"
 ],
 "amenity/university":[
+"uczelnia",
+"instytut",
 "teren uniwersytetu",
+"uniwersytet",
+"wydział",
 "teren politechniki",
+"politechnika",
 "Teren uczelni",
-"teren akademii"
+"teren akademii",
+"akademia"
 ],
 "amenity/vehicle_inspection":[
 "przeglądy",
@@ -1780,8 +1815,8 @@
 "ruiny"
 ],
 "building/school":[
-"Budynek wyglądający jak szkoła",
-"budynek szkolny"
+"budynek szkolny",
+"Budynek szkolny"
 ],
 "building/semidetached_house":[
 "Dom bliźniaczy",
@@ -2306,7 +2341,7 @@
 "pogotowie ratunkowe"
 ],
 "emergency/defibrillator":[
-"defibrylator",
+"defibrylator aed",
 "Defibrylator"
 ],
 "emergency/designated":[
@@ -3287,11 +3322,15 @@
 ],
 "leisure/amusement_arcade":[
 "automaty wrzutowe",
+"gry video",
 "gry wideo",
 "salon gier",
 "pinball",
 "Salon gier",
-"symulatory jazdy"
+"symulator lotu",
+"wirtualna rzeczywistość",
+"symulatory jazdy",
+"rzeczywistość wirtualna"
 ],
 "leisure/bandstand":[
 "Estrada",
@@ -3600,7 +3639,11 @@
 ],
 "leisure/pitch/table_tennis":[
 "Stół do tenisa stołowego",
-"stół do ping ponga"
+"stół do tenisa stołowego",
+"stół do ping ponga",
+"stół do ping-ponga",
+"stół do pingponga",
+"tenis stołowy"
 ],
 "leisure/pitch/tennis":[
 "Kort tenisowy",
@@ -3765,6 +3808,10 @@
 "Silos",
 "zbiornik",
 "silos"
+],
+"man_made/cairn":[
+"Kopiec",
+"kopiec kamieni"
 ],
 "man_made/chimney":[
 "kominek",
@@ -5903,6 +5950,10 @@
 "stereo",
 "audio"
 ],
+"shop/hobby":[
+"Sklep hobbystyczny",
+"sklep hobbystyczny"
+],
 "shop/houseware":[
 "małe agd",
 "Sklep z małymi artykułami gospodarstwa domowego",
@@ -6219,6 +6270,12 @@
 "Supermarket",
 "dino"
 ],
+"shop/swimming_pool":[
+"akcesoria do basenów",
+"baseny",
+"materiały do basenów",
+"Sklep z akcesoriami do basenów"
+],
 "shop/tailor":[
 "szycie na miarę",
 "rzemiosło",
@@ -6285,13 +6342,22 @@
 "Sklep z różnościami"
 ],
 "shop/video":[
-"filmy bluray",
+"vhs",
+"filmy blu-ray",
+"wypożyczalnia filmów",
 "filmy wideo",
+"filmy video",
 "filmy dvd",
-"Sklep/wypożyczalnia z filmami wideo/dvd"
+"Sklep/wypożyczalnia z filmami wideo/dvd",
+"sklep z filmami"
 ],
 "shop/video_games":[
+"sklep z grami wideo",
+"gry video",
 "gry wideo",
+"gry konsolowe",
+"gry na konsole",
+"gry komputerowe",
 "Sklep z grami wideo"
 ],
 "shop/watches":[
@@ -6352,11 +6418,12 @@
 "tourism/apartment":[
 "apartamenty na wynajem",
 "apartament",
+"nocleg",
+"apartament na wynajem",
 "do wynajęcia",
 "mieszkanie na wynajem",
 "apartamenty",
 "Mieszkanie na wynajem",
-"aparatament na wynajem",
 "mieszkania na wynajem"
 ],
 "tourism/aquarium":[
@@ -6408,6 +6475,13 @@
 "tourism/attraction":[
 "atrakcja turystyczna",
 "Atrakcja turystyczna"
+],
+"tourism/camp_pitch":[
+"miejsce na namiot",
+"Miejsce na kempingu",
+"miejsce na kampera",
+"miejsce na kempingu",
+"miejsce na rozbicie namiotu"
 ],
 "tourism/camp_site":[
 "pole kempingowe",
