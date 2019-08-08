@@ -262,6 +262,8 @@
   <!--API info dialog-->
   <string name="api_info_bounds">תיבה תוחמת</string>
   <string name="api_info_latest_date">תאריך ההכללה האחרון</string>
+  <string name="api_info_attribution">ייחוס</string>
+  <string name="api_info_mapsplit_source">מקור לקריאה בלבד MapSplit</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">נקודות ביקורת</string>
   <string name="undo_redo_title">ביטול - שחזור</string>
@@ -402,6 +404,7 @@
   <string name="toast_invalid_style_file">תבנית קובץ הסגנון של %1$s שגוי</string>
   <string name="toast_no_geometry">לא נמצאה גאומטריה עבור הרכיב</string>
   <string name="toast_added_api_entry_for">נוספה רשומת API עבור %1$s</string>
+  <string name="toast_updated">%1$s עודכן</string>
   <string name="toast_cannot_resume_download_of">לא ניתן להמשיך את ההורדה של %1$s</string>
   <string name="toast_device_not_found_for">לא נמצא מכשיר עבור %1$s</string>
   <string name="toast_file_already_exists">הקובץ %1$s כבר קיים</string>
@@ -529,13 +532,17 @@
   <string name="location_load_dismiss">מעבר למפה</string>
   <string name="location_nan_title">קלט שגוי!</string>
   <string name="location_nan_message">נא להקליד נקודות ציון בציון עשרוני (למשל: „52.333572”,„8.741185”). קו הרוחב חייב להיות איפשהו בין ‎-85.0 ל־‎+85.0 וקו האורך חייב להיות איפשהו בין ‎-175.0 ל־‎+175.0.</string>
+  <string name="location_olc">OLC</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">הורדת קבצים</string>
   <string name="allow_all_networks">לאפשר את כל הרשתות</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">מעבר לנקודות ציון</string>
+  <string name="go_to_coordinates_hint">נא להקליד נקודות ציון או OLC</string>
   <string name="unparseable_coordinates">נקודות ציון ללא אפשרות פענוח</string>
   <string name="network_required">נדרשת רשת לאיתור מיקום</string>
+  <string name="no_nominatim_server">לא נמצאה הגדרה לשרת Nominatim</string>
+  <string name="no_nominatim_result">שרת ה־Nominatim לא מצא את %1$s</string>
   <!--Menu-->
   <string name="menu_move">העברה</string>
   <string name="menu_edit">עריכה</string>
@@ -790,6 +797,7 @@
   <string name="config_enableAntiAliasing_title">הפעלת ביטול החלקה</string>
   <string name="config_enableAntiAliasing_summary">החלקת הקווים.</string>
   <string name="config_enableHwAcceleration_title">הפעלת האצת חומרה</string>
+  <string name="config_enableHwAcceleration_summary">מאפשר שימוש בהאצת חומרה אם וכאשר נתמכת, כרגע אין שום משמעות להגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_title">עובי קו מרבי</string>
   <string name="config_maxStrokeWidth_summary">לא לצייר דרכים בקו עבה יותר מההגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
@@ -969,6 +977,7 @@
   <string name="undo_action_apply_osc">החלת קובץ OSC</string>
   <!--ACRA-->
   <string name="crash_dialog_text">וספוצ׳י קרס או שנתקל בתקלות חמורות במהלך ההפעלה הקודמת.\n\nנא לסייע על ידי לחיצה על ‚אישור’ כדי לשלוח דוח שגיאה.\n</string>
+  <string name="crash_dialog_comment_prompt">ניתן להוסיף מידע נוסף שלדעתך יסייע לנו (לבחירתך), את שם המשתמש שלך ב־OSM אם מעניין אותך לקבל משוב.\n\nתודה רבה לך.</string>
   <string name="report_success">דווח.</string>
   <string name="report_failure">לא ניתן לשלוח דיווח.</string>
   <!--Exceptions messages-->
