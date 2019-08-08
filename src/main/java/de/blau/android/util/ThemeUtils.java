@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
@@ -20,8 +21,12 @@ import de.blau.android.prefs.Preferences;
  *
  */
 public final class ThemeUtils {
-    // Prevent instantiation since this is a utility class
+
+    /**
+     * Private constructor
+     */
     private ThemeUtils() {
+        // Prevent instantiation since this is a utility class
     }
 
     /**
@@ -36,7 +41,7 @@ public final class ThemeUtils {
      * @param defaultValue the value to return if the attribute does not exist
      * @return the color value for the attribute or defaultValue
      */
-    public static int getStyleAttribColorValue(final Context context, final int attribResId, final int defaultValue) {
+    public static int getStyleAttribColorValue(@NonNull final Context context, final int attribResId, final int defaultValue) {
         final TypedValue tv = new TypedValue();
         final boolean found = context.getTheme().resolveAttribute(attribResId, tv, true);
         if (!found) {
@@ -46,7 +51,14 @@ public final class ThemeUtils {
         return tv.data;
     }
 
-    public static int getResIdFromAttribute(final Context context, final int attr) {
+    /**
+     * Get the actual resource id for an attribute
+     * 
+     * @param context an Anroid Context
+     * @param attr the attribute id
+     * @return the resource id or 0 if not found
+     */
+    public static int getResIdFromAttribute(@NonNull final Context context, final int attr) {
         if (attr == 0) {
             Log.d("ThemeUtils", "getResIdFromAttribute attr zero");
             return 0;
@@ -59,7 +71,14 @@ public final class ThemeUtils {
         return typedvalueattr.resourceId;
     }
 
-    public static int getDimensionFromAttribute(final Context context, final int attr) {
+    /**
+     * Get a themed dimension from an attribute
+     * 
+     * @param context an Android COntext
+     * @param attr the dimension attribute
+     * @return the dimension or 0 if not found
+     */
+    public static int getDimensionFromAttribute(@NonNull final Context context, final int attr) {
         int[] attrs = new int[] { attr /* index 0 */ };
         TypedArray ta = null;
         try {
@@ -75,7 +94,13 @@ public final class ThemeUtils {
         }
     }
 
-    public static int getActionBarHeight(Context ctx) {
+    /**
+     * Get the height of the action bar from the current theme
+     * 
+     * @param ctx an Android Context
+     * @return the height of 0 if not found
+     */
+    public static int getActionBarHeight(@NonNull Context ctx) {
         // Calculate ActionBar height
         TypedValue tv = new TypedValue();
         if (ctx.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
@@ -90,7 +115,7 @@ public final class ThemeUtils {
      * @param caller Android Context
      * @return a themed Inflater
      */
-    public static LayoutInflater getLayoutInflater(Context caller) {
+    public static LayoutInflater getLayoutInflater(@NonNull Context caller) {
         Context context = getThemedContext(caller, R.style.Theme_DialogLight, R.style.Theme_DialogDark);
         return (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -116,7 +141,7 @@ public final class ThemeUtils {
      * @param attr the id of the themeable color attribtue
      * @return the tinted Drawable
      */
-    public static Drawable getTintedDrawable(Context ctx, int resource, int attr) {
+    public static Drawable getTintedDrawable(@NonNull Context ctx, int resource, int attr) {
         Drawable drawable = ContextCompat.getDrawable(ctx, resource);
         return getTintedDrawable(ctx, drawable, attr);
     }
@@ -129,7 +154,7 @@ public final class ThemeUtils {
      * @param attr the id of the themeable color attribtue
      * @return the tinted Drawable
      */
-    public static Drawable getTintedDrawable(Context ctx, Drawable drawable, int attr) {
+    public static Drawable getTintedDrawable(@NonNull Context ctx, @NonNull Drawable drawable, int attr) {
         ColorStateList tint = ContextCompat.getColorStateList(ctx, ThemeUtils.getResIdFromAttribute(ctx, attr));
         DrawableCompat.setTintList(drawable, tint);
         return drawable;
