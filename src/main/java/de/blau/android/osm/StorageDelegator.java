@@ -2780,17 +2780,26 @@ public class StorageDelegator implements Serializable, Exportable {
                         }
                     }
                     Node existingNode = nodeIndex.get(n.getOsmId());
-                    if (existingNode.getOsmVersion() >= n.getOsmVersion()) { // larger just to be on the safe side
-                        continue; // can use node we already have
-                    } else {
-                        if (existingNode.isUnchanged()) {
-                            temp.insertNodeUnsafe(n);
-                            if (postMerge != null) {
-                                postMerge.handler(n);
-                            }
+                    if (existingNode != null) {
+                        if (existingNode.getOsmVersion() >= n.getOsmVersion()) { // larger just to be on the safe side
+                            continue; // can use node we already have
                         } else {
-                            return false; // can't resolve conflicts, upload first
+                            if (existingNode.isUnchanged()) {
+                                temp.insertNodeUnsafe(n);
+                                if (postMerge != null) {
+                                    postMerge.handler(n);
+                                }
+                            } else {
+                                return false; // can't resolve conflicts, upload first
+                            }
                         }
+                    } else {
+                        // this shouldn't be able to happen
+                        String debugString = "mergeData null existing node " + n.getOsmId() + " containsKey is " + nodeIndex.containsKey(n.getOsmId())
+                                + " apiNode is " + apiNode;
+                        Log.e(DEBUG_TAG, debugString);
+                        ACRAHelper.nocrashReport(null, debugString);
+                        return false;
                     }
                 }
             }
@@ -2880,7 +2889,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 }
             }
 
-            Log.d(DEBUG_TAG, "mergeData fixup way nodes nodes");
+            Log.d(DEBUG_TAG, "mergeData fixuped way nodes nodes");
 
             // add relations
             for (Relation r : storage.getRelations()) {
@@ -2899,17 +2908,27 @@ public class StorageDelegator implements Serializable, Exportable {
                         }
                     }
                     Relation existingRelation = relationIndex.get(r.getOsmId());
-                    if (existingRelation.getOsmVersion() >= r.getOsmVersion()) { // larger just to be on the safe side
-                        continue; // can use relation we already have
-                    } else {
-                        if (existingRelation.isUnchanged()) {
-                            temp.insertRelationUnsafe(r);
-                            if (postMerge != null) {
-                                postMerge.handler(r);
-                            }
+                    if (existingRelation != null) {
+                        if (existingRelation.getOsmVersion() >= r.getOsmVersion()) { // larger just to be on the safe
+                                                                                     // side
+                            continue; // can use relation we already have
                         } else {
-                            return false; // can't resolve conflicts, upload first
+                            if (existingRelation.isUnchanged()) {
+                                temp.insertRelationUnsafe(r);
+                                if (postMerge != null) {
+                                    postMerge.handler(r);
+                                }
+                            } else {
+                                return false; // can't resolve conflicts, upload first
+                            }
                         }
+                    } else {
+                        // this shouldn't be able to happen
+                        String debugString = "mergeData null existing relation " + r.getOsmId() + " containsKey is " + relationIndex.containsKey(r.getOsmId())
+                                + " apiRelation is " + apiRelation;
+                        Log.e(DEBUG_TAG, debugString);
+                        ACRAHelper.nocrashReport(null, debugString);
+                        return false;
                     }
                 }
             }
