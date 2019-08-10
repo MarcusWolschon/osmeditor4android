@@ -1,11 +1,9 @@
 package de.blau.android.layer.photos;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -13,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -22,7 +19,7 @@ import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
-import de.blau.android.contract.MimeTypes;
+import de.blau.android.dialogs.PhotoViewerFragment;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.MapViewLayer;
@@ -53,7 +50,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     private final Map map;
 
     /** Photos visible on the overlay. */
-    private Collection<Photo> photos;
+    private List<Photo> photos;
 
     /** have we already run a scan? */
     private boolean indexed = false;
@@ -178,7 +175,6 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
             int w = map.getWidth();
             int h = map.getHeight();
             photos = pi.getPhotos(bb);
-
             for (Photo p : photos) {
                 if (p != selected) {
                     drawIcon(c, bb, w, h, p, icon);
@@ -264,19 +260,23 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
         Context context = map.getContext();
         Resources resources = context.getResources();
         try {
-            Intent myIntent = new Intent(Intent.ACTION_VIEW);
-            int flags = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK;
-            }
-            myIntent.setFlags(flags);
             Uri photoUri = photo.getRefUri(context);
             if (photoUri != null) {
-                // black magic only works this way
-                myIntent.setDataAndType(photoUri, MimeTypes.JPEG);
-                context.startActivity(myIntent);
+                Preferences prefs = map.getPrefs();
+                if (prefs.useInternalPhotoViewer()) {
+                    ArrayList<String> uris = new ArrayList<>();
+                    int position = 0;
+                    for (int i = 0; i < photos.size(); i++) {
+                        Photo p = photos.get(i);
+                        uris.add(p.getRefUri(context).toString());
+                        if (photo.equals(p)) {
+                            position = i;
+                        }
+                    }
+                    PhotoViewerFragment.showDialog(activity, uris, position);
+                } else {
+                    Util.startExternalPhotoViewer(context, photoUri);
+                }
                 selected = photo;
                 invalidate();
             } else {
@@ -309,7 +309,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     public void deselectObjects() {
         selected = null;
     }
-    
+
     @Override
     public void setSelected(Photo o) {
         selected = o;

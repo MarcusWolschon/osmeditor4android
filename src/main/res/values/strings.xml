@@ -260,6 +260,10 @@
     <string name="layer_info_end_date">End date</string>
     <string name="layer_info_terms">Terms</string>
     <string name="layer_info_privacy_policy">Privacy policy</string>
+    <!-- Photo viewer -->
+    <string name="photo_viewer_delete_title">Delete photo</string>
+    <string name="photo_viewer_delete_button">Delete permamently</string>
+    <string name="photo_viewer_goto">Go to photo</string>
     <!--  API info dialog -->
     <string name="api_info_bounds">Bounding box</string>
     <string name="api_info_latest_date">Last included date</string>
@@ -289,6 +293,7 @@
     <string name="qa_channel_name">Vespucci QA</string>
     <string name="qa_channel_description">Vespucci QA alert channel</string>
     <!-- Toaster -->
+    <string name="toast_permission_denied">Permission denied %1$s</string>
     <string name="toast_name_empty">Pick a name</string>
     <string name="toast_url_empty">Enter a URL</string>
     <string name="toast_min_zoom">Set minimum zoom lower than maximum</string>
@@ -769,6 +774,8 @@
     <string name="config_tagFormEnabled_summary">Display tag form for editing.</string>
     <string name="config_showCameraAction_title">Show camera action</string>
     <string name="config_showCameraAction_summary">Show camera icon on action bar.</string>
+    <string name="config_useInternalPhotoViewer_title">Use builtin photo viewer</string>
+    <string name="config_useInternalPhotoViewer_summary">Use the builtin photo view, if not checked an external viewer will be used.</string>
     <string name="config_followGPSbutton_title">Follow position button layout</string>
     <string name="config_followGPSbutton_summary">Where the "follow position" button will be positioned.</string>
     <string name="config_alwaysDrawBoundingBoxes_title">Always dim non-downloaded areas</string>

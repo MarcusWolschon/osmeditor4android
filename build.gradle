@@ -462,6 +462,7 @@ dependencies {
     implementation 'de.ruedigermoeller:fst:2.57'
     implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.47'
     implementation 'com.zaxxer:SparseBitSet:1.2'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
 
