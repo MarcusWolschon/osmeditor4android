@@ -622,6 +622,19 @@ public class TestUtils {
      * @return true if successful
      */
     public static boolean findText(UiDevice device, boolean clickable, String text) {
+        return findText(device, clickable, text, 500);
+    }
+
+    /**
+     * Find text on screen (case insensitive)
+     * 
+     * @param device UiDevice object
+     * @param clickable if true the search will be restricted to clickable objects
+     * @param text the text to find
+     * @param wait time to wait in ms before timing out
+     * @return true if successful
+     */
+    public static boolean findText(UiDevice device, boolean clickable, String text, long wait) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
         BySelector bySelector = null;
@@ -630,7 +643,7 @@ public class TestUtils {
         } else {
             bySelector = By.textStartsWith(text);
         }
-        UiObject2 ob = device.wait(Until.findObject(bySelector), 500);
+        UiObject2 ob = device.wait(Until.findObject(bySelector), wait);
         return ob != null;
     }
 
@@ -901,7 +914,7 @@ public class TestUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             TestUtils.clickOverflowButton();
             if (!TestUtils.clickText(device, false, "Show", false)) {
-                TestUtils.clickAt(device.getDisplayWidth()/2, device.getDisplayHeight()/2);
+                TestUtils.clickAt(device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
             }
             TestUtils.clickMenuButton("List view", false, false);
             TestUtils.clickMenuButton("Show roots", false, true);

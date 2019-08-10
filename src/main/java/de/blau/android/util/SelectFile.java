@@ -14,7 +14,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -206,14 +208,15 @@ public final class SelectFile {
     /**
      * See https://stackoverflow.com/questions/19985286/convert-content-uri-to-actual-path-in-android-4-4/27271131
      * 
-     * Get a file path from a Uri. This will get the path for Storage Access Framework Documents, as well as the
-     * _data field for the MediaStore and other file-based ContentProviders.
+     * Get a file path from a Uri. This will get the path for Storage Access Framework Documents, as well as the _data
+     * field for the MediaStore and other file-based ContentProviders.
      *
      * @param context The context.
      * @param uri The Uri to query.
      * @return the path
      * @author paulburke
      */
+    @Nullable
     public static String getPath(@NonNull Context context, @NonNull Uri uri) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
             if (isExternalStorageDocument(uri)) {
@@ -237,7 +240,7 @@ public final class SelectFile {
             }
         } else if (FileUtil.FILE_SCHEME.equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
-        } 
+        }
         return null;
     }
 
@@ -253,12 +256,32 @@ public final class SelectFile {
      */
     public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
 
-        final String column = "_data";
-        final String[] projection = { column };
+        final String[] projection = { MediaStore.MediaColumns.DATA };
 
         try (Cursor cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(column);
+                final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+                return cursor.getString(column_index);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get the value of the display name column for this Uri. This is useful for MediaStore Uris, and other file-based
+     * ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @return The value of the _display_name column, which is typically a file name.
+     */
+    public static String getDisplaynameColumn(Context context, Uri uri) {
+
+        final String[] projection = { MediaStore.MediaColumns.DISPLAY_NAME };
+
+        try (Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
                 return cursor.getString(column_index);
             }
         }

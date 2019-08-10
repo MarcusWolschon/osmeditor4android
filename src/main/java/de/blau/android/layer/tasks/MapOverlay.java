@@ -269,4 +269,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     public void deselectObjects() {
         selected = null;
     }
+
+    @Override
+    public void setSelected(Task o) {
+        // not used
+    }
 }

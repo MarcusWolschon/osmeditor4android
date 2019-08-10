@@ -7,6 +7,7 @@ import android.content.Context;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import de.blau.android.R;
@@ -23,6 +24,8 @@ public class Photo implements BoundedObject {
     private static final String DEBUG_TAG    = "Photo";
     /**  */
     private final String        ref;
+    /**  */
+    private final String        name;
     /** Latitude *1E7. */
     private final int           lat;
     /** Longitude *1E7. */
@@ -34,6 +37,18 @@ public class Photo implements BoundedObject {
     private String              directionRef = null;   // if null direction not present
 
     /**
+     * Construct a Photo object from an Uri
+     * 
+     * @param context Android context
+     * @param uri the Uri
+     * @throws IOException If there was a problem parsing the XML.
+     * @throws NumberFormatException If there was a problem parsing the XML.
+     */
+    public Photo(@NonNull Context context, @NonNull Uri uri) throws IOException, NumberFormatException {
+        this(new ExtendedExifInterface(context, uri), uri.toString());
+    }
+
+    /**
      * Construct a Photo object from a directory and filename of the image
      * 
      * @param directory the directory the image is located in
@@ -42,12 +57,21 @@ public class Photo implements BoundedObject {
      * @throws NumberFormatException If there was a problem parsing the XML.
      */
     public Photo(@NonNull File directory, @NonNull File imageFile) throws IOException, NumberFormatException {
-        //
-        ExtendedExifInterface exif = new ExtendedExifInterface(imageFile.toString()); // create the ExifInterface file
+        this(new ExtendedExifInterface(imageFile.toString()), directory.getAbsolutePath());
+    }
 
+    /**
+     * Construct a Photo object from the Exif information and a String reference (either a filename or an Uri)
+     * 
+     * @param exif the Exif information
+     * @param ref the reference
+     * @throws IOException if location information is missing
+     */
+    private Photo(@NonNull ExtendedExifInterface exif, @NonNull String ref) throws IOException {
+        this.ref = ref;
+        this.name = exif.getAttribute(ExifInterface.TAG_FILE_SOURCE);
         /**
-         * get the attribute. rest of the attributes are the same. i will add convertToDegree on the bottom (not
-         * required)
+         * get the attribute. rest of the attributes are the same. will add convertToDegree on the bottom (not required)
          **/
         String lonStr = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
         if (lonStr == null) {
@@ -69,7 +93,7 @@ public class Photo implements BoundedObject {
         lat = (int) (latf * 1E7d);
         lon = (int) (lonf * 1E7d);
         Log.d(DEBUG_TAG, "lat: " + lat + " lon: " + lon);
-        ref = directory.getAbsolutePath() + "/" + imageFile.getName();
+
         String dir = exif.getAttribute(ExtendedExifInterface.TAG_GPS_IMG_DIRECTION);
         if (dir != null) {
             direction = (int) Double.parseDouble(dir);
@@ -84,11 +108,13 @@ public class Photo implements BoundedObject {
      * @param lat latitude in WGS84*1E7 degrees
      * @param lon longitude in WGS84*1E7 degrees
      * @param ref the path of the file
+     * @param name a short name for the Photo
      */
-    public Photo(int lat, int lon, @NonNull String ref) {
+    public Photo(int lat, int lon, @NonNull String ref, @NonNull String name) {
         this.lat = lat;
         this.lon = lon;
         this.ref = ref;
+        this.name = name;
     }
 
     /**
@@ -98,13 +124,15 @@ public class Photo implements BoundedObject {
      * @param lon longitude in WGS84*1E7 degrees
      * @param direction in degrees
      * @param ref the path of the file
+     * @param name a short name for the Photo
      */
-    public Photo(int lat, int lon, int direction, @NonNull String ref) {
+    public Photo(int lat, int lon, int direction, @NonNull String ref, @NonNull String name) {
         this.lat = lat;
         this.lon = lon;
         this.direction = direction;
         this.directionRef = "M"; // magnetic north
         this.ref = ref;
+        this.name = name;
     }
 
     /**
@@ -167,9 +195,13 @@ public class Photo implements BoundedObject {
      * @param context Android context
      * @return ref as content Uri
      */
+    @Nullable
     public Uri getRefUri(@NonNull Context context) {
         try {
             Log.d(DEBUG_TAG, "getRef ref is " + ref);
+            if (ref.startsWith("content:")) {
+                return Uri.parse(ref);
+            }
             return FileProvider.getUriForFile(context, context.getString(R.string.content_provider), new File(ref));
         } catch (Exception ex) {
             Log.d(DEBUG_TAG, "getRef Problem with Uri for ref " + ref + " " + ex);

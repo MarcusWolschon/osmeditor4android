@@ -1,23 +1,25 @@
 package de.blau.android.layer.photos;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
+import android.os.AsyncTask.Status;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.Map;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.dialogs.PhotoViewerFragment;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.MapViewLayer;
@@ -48,7 +50,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     private final Map map;
 
     /** Photos visible on the overlay. */
-    private Collection<Photo> photos;
+    private List<Photo> photos;
 
     /** have we already run a scan? */
     private boolean indexed = false;
@@ -82,10 +84,13 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     /**
      * Request to update the bugs for the current view. Ensure cur is set before invoking.
      */
-    private final AsyncTask<Void, Integer, Void> indexPhotos = new AsyncTask<Void, Integer, Void>() {
+    private final AsyncTask<PostAsyncActionHandler, Integer, Void> indexPhotos = new AsyncTask<PostAsyncActionHandler, Integer, Void>() {
+
+        PostAsyncActionHandler handler;
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(PostAsyncActionHandler... params) {
+            handler = params[0];
             if (!indexing) {
                 indexing = true;
                 publishProgress(0);
@@ -110,8 +115,8 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
 
         @Override
         protected void onPostExecute(Void params) {
-            if (indexed) {
-                map.invalidate();
+            if (handler != null) {
+                handler.onSuccess();
             }
         }
     };
@@ -149,8 +154,20 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
                 return;
             }
 
-            if (!indexed && !indexing) {
-                indexPhotos.execute();
+            if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
+                indexPhotos.execute(new PostAsyncActionHandler() {
+                    @Override
+                    public void onSuccess() {
+                        if (indexed) {
+                            map.invalidate();
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        // Nothing
+                    }
+                });
                 return;
             }
 
@@ -158,25 +175,37 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
             int w = map.getWidth();
             int h = map.getHeight();
             photos = pi.getPhotos(bb);
-
             for (Photo p : photos) {
-                Drawable i;
-                if (p == selected) {
-                    i = icon_selected;
-                } else {
-                    i = icon;
-                }
-                int x = (int) GeoMath.lonE7ToX(w, bb, p.getLon());
-                int y = (int) GeoMath.latE7ToY(h, w, bb, p.getLat());
-                i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
-                if (p.hasDirection()) {
-                    c.rotate(p.getDirection(), x, y);
-                    i.draw(c);
-                    c.rotate(-p.getDirection(), x, y);
-                } else {
-                    i.draw(c);
+                if (p != selected) {
+                    drawIcon(c, bb, w, h, p, icon);
                 }
             }
+            if (selected != null) {
+                drawIcon(c, bb, w, h, selected, icon_selected);
+            }
+        }
+    }
+
+    /**
+     * Draw the photo icon
+     * 
+     * @param c the Canvas
+     * @param bb the current ViewBox
+     * @param w map width
+     * @param h map height
+     * @param p the Photo
+     * @param i the icon Drawable
+     */
+    public void drawIcon(Canvas c, ViewBox bb, int w, int h, Photo p, Drawable i) {
+        int x = (int) GeoMath.lonE7ToX(w, bb, p.getLon());
+        int y = (int) GeoMath.latE7ToY(h, w, bb, p.getLat());
+        i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));
+        if (p.hasDirection()) {
+            c.rotate(p.getDirection(), x, y);
+            i.draw(c);
+            c.rotate(-p.getDirection(), x, y);
+        } else {
+            i.draw(c);
         }
     }
 
@@ -228,26 +257,34 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
 
     @Override
     public void onSelected(FragmentActivity activity, Photo photo) {
+        Context context = map.getContext();
+        Resources resources = context.getResources();
         try {
-            Intent myIntent = new Intent(Intent.ACTION_VIEW);
-            int flags = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK;
-            }
-            myIntent.setFlags(flags);
-            Context context = map.getContext();
             Uri photoUri = photo.getRefUri(context);
             if (photoUri != null) {
-                // black magic only works this way
-                myIntent.setDataAndType(photoUri, "image/jpeg");
-                context.startActivity(myIntent);
+                Preferences prefs = map.getPrefs();
+                if (prefs.useInternalPhotoViewer()) {
+                    ArrayList<String> uris = new ArrayList<>();
+                    int position = 0;
+                    for (int i = 0; i < photos.size(); i++) {
+                        Photo p = photos.get(i);
+                        uris.add(p.getRefUri(context).toString());
+                        if (photo.equals(p)) {
+                            position = i;
+                        }
+                    }
+                    PhotoViewerFragment.showDialog(activity, uris, position);
+                } else {
+                    Util.startExternalPhotoViewer(context, photoUri);
+                }
                 selected = photo;
-                // TODO may need a map.invalidate() here
+                invalidate();
             } else {
-                Snack.toastTopError(context, context.getResources().getString(R.string.toast_error_accessing_photo, photo.getRef()));
+                Snack.toastTopError(context, resources.getString(R.string.toast_error_accessing_photo, photo.getRef()));
             }
+        } catch (SecurityException ex) {
+            Log.d(DEBUG_TAG, "viewPhoto security exception starting intent: " + ex);
+            Snack.toastTopError(context, resources.getString(R.string.toast_security_error_accessing_photo, photo.getRef()));
         } catch (Exception ex) {
             Log.d(DEBUG_TAG, "viewPhoto exception starting intent: " + ex);
             ACRAHelper.nocrashReport(ex, "viewPhoto exception starting intent");
@@ -265,11 +302,27 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
 
     @Override
     public Photo getSelected() {
-        return null;
+        return selected;
     }
 
     @Override
     public void deselectObjects() {
         selected = null;
+    }
+
+    @Override
+    public void setSelected(Photo o) {
+        selected = o;
+    }
+
+    /**
+     * Create the index
+     * 
+     * @param handler handler to run after the index has been created
+     */
+    public void createIndex(@Nullable PostAsyncActionHandler handler) {
+        if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
+            indexPhotos.execute(handler);
+        }
     }
 }

@@ -30,10 +30,19 @@ public interface ClickableInterface<V> {
     /**
      * Get the selected object if any
      * 
-     * @return the currently selected object or null if their is none
+     * @return the currently selected object or null if there is none
      */
     @Nullable
     V getSelected();
+
+    /**
+     * Set the selected object
+     * 
+     * This is not expected to cause any external action to happen
+     * 
+     * @param o the object to select
+     */
+    void setSelected(V o);
 
     /**
      * De-select any selected objects

@@ -31,109 +31,61 @@ public class Preferences {
     private final AdvancedPrefDatabase advancedPrefs;
 
     private final boolean isStatsVisible;
-
     private final boolean isToleranceVisible;
-
     private final boolean isAntiAliasingEnabled;
-
-    private boolean isOpenStreetBugsEnabled;
-
-    private boolean isPhotoLayerEnabled;
-
+    private boolean       isOpenStreetBugsEnabled;
+    private boolean       isPhotoLayerEnabled;
     private final boolean isKeepScreenOnEnabled;
-
     private final boolean useBackForUndo;
-
     private final boolean largeDragArea;
-
     private final boolean tagFormEnabled;
-
-    private String backgroundLayer;
-
-    private String overlayLayer;
-
-    private String scaleLayer;
-
-    private final String mapProfile;
-
-    private final String followGPSbutton;
-
-    private final String fullscreenMode;
-
-    private final String mapOrientation;
-
-    private int gpsInterval;
-
-    private float gpsDistance;
-
-    private float maxStrokeWidth;
-
-    private int tileCacheSize; // in MB
-
-    private int         downloadRadius;      // in m
-    private float       maxDownloadSpeed;    // in km/h
-    private int         bugDownloadRadius;
-    private float       maxBugDownloadSpeed; // in km/h
-    private Set<String> taskFilter;          // can't be final
-
+    private String        backgroundLayer;
+    private String        overlayLayer;
+    private String        scaleLayer;
+    private final String  mapProfile;
+    private final String  followGPSbutton;
+    private final String  fullscreenMode;
+    private final String  mapOrientation;
+    private int           gpsInterval;
+    private float         gpsDistance;
+    private float         maxStrokeWidth;
+    private int           tileCacheSize;                 // in MB
+    private int           downloadRadius;                // in m
+    private float         maxDownloadSpeed;              // in km/h
+    private int           bugDownloadRadius;
+    private float         maxBugDownloadSpeed;           // in km/h
+    private Set<String>   taskFilter;                    // can't be final
     private final boolean forceContextMenu;
-
     private final boolean enableNameSuggestions;
-
     private final boolean nameSuggestionPresetsEnabled;
-
     private final boolean closeChangesetOnSave;
-
     private final boolean splitActionBarEnabled;
-
-    private final String gpsSource;
-    private final String gpsTcpSource;
-
-    private final String offsetServer;
-
-    private final String osmoseServer;
-
-    private final String mapRouletteServer;
-
-    private String taginfoServer;
-
+    private final String  gpsSource;
+    private final String  gpsTcpSource;
+    private final String  offsetServer;
+    private final String  osmoseServer;
+    private final String  mapRouletteServer;
+    private String        taginfoServer;
     private final boolean showCameraAction;
-
+    private final boolean useInternalPhotoViewer;
     private final boolean generateAlerts;
-
     private final boolean groupAlertsOnly;
-
-    private int maxAlertDistance;
-
+    private int           maxAlertDistance;
     private final boolean lightThemeEnabled;
-
-    private Set<String> addressTags; // can't be final
-
+    private Set<String>   addressTags;                   // can't be final
     private final boolean voiceCommandsEnabled;
-
     private final boolean leaveGpsDisabled;
-
     private final boolean allowFallbackToNetworkLocation;
-
     private final boolean showIcons;
-
     private final boolean showWayIcons;
-
-    private int maxInlineValues;
-
-    private int maxTileDownloadThreads;
-
-    private int notificationCacheSize;
-
-    private int autoLockDelay;
-
+    private int           maxInlineValues;
+    private int           maxTileDownloadThreads;
+    private int           notificationCacheSize;
+    private int           autoLockDelay;
     private final boolean alwaysDrawBoundingBoxes;
-
     private final boolean jsConsoleEnabled;
-
     private final boolean hwAccelerationEnabled;
-
-    private final int connectedNodeTolerance;
+    private final int     connectedNodeTolerance;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -224,6 +176,7 @@ public class Preferences {
         taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
+        useInternalPhotoViewer = prefs.getBoolean(r.getString(R.string.config_useInternalPhotoViewer_key), true);
 
         generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
         maxAlertDistance = getIntPref(R.string.config_maxAlertDistance_key, 100);
@@ -722,12 +675,21 @@ public class Preferences {
     }
 
     /**
-     * Check if we should show a camera button on hte main map screen
+     * Check if we should show a camera button on the main map screen
      * 
      * @return true if the camera button should be shown
      */
     public boolean showCameraAction() {
         return showCameraAction;
+    }
+
+    /**
+     * Check if we should use the internal photo viewer
+     * 
+     * @return true if the internal photo viewer should be used
+     */
+    public boolean useInternalPhotoViewer() {
+        return useInternalPhotoViewer;
     }
 
     /**
@@ -757,6 +719,11 @@ public class Preferences {
         return lightThemeEnabled;
     }
 
+    /**
+     * Get the address tags we currently want to use
+     * 
+     * @return a Set containing the tags
+     */
     public Set<String> addressTags() {
         return addressTags;
     }
@@ -1002,7 +969,7 @@ public class Preferences {
     public int getConnectedNodeTolerance() {
         return connectedNodeTolerance;
     }
-    
+
     /**
      * Allow / disallow all networks for downloads
      * 

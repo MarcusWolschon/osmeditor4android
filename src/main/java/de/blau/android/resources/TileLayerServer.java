@@ -58,6 +58,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Files;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Urls;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
@@ -703,7 +704,7 @@ public class TileLayerServer implements Serializable {
         }
 
         if (proj != null) { // wms
-            if (tileUrl.contains("image/jpeg")) {
+            if (tileUrl.contains(MimeTypes.JPEG)) {
                 imageFilenameExtension = ".jpg";
             }
         }
