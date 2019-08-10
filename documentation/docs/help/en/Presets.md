@@ -33,6 +33,7 @@ Some potentially useful ones for direct download (these links automatically conf
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/military-preset/raw/gh-pages/gen/military.zip&presetname=Military objects">Presets for military objects</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/US-MUTCD-preset/raw/gh-pages/gen/MUTCD.zip&presetname=MUTCD Access Preset">Presets for US MUTCD access signs</a>
  * <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/xmas-preset/raw/gh-pages/gen/xmas.zip&presetname=Xmas Preset">Presets for xmas schema tagging</a>
+ * <a href="vespucci:/preset?preseturl=https://github.com/simonpoole/preset-scripting-examples/raw/gh-pages/gen/script_examples.zip&presetname=javascript in Vespucci presets examples">Scripting examples (check date, disused life cycle tag)</a>
 
 Note: if you want to replace the default presets with one of the above you will need to disable it in the preferences after installing the replacement.
 
