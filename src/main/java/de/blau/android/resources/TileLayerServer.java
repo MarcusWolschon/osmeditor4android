@@ -74,6 +74,7 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Version;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -92,7 +93,7 @@ import okhttp3.ResponseBody;
  *
  */
 public class TileLayerServer implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     static final String         EPSG_900913       = "EPSG:900913";
     static final String         EPSG_3857         = "EPSG:3857";
@@ -413,6 +414,9 @@ public class TileLayerServer implements Serializable {
     public static final int DEFAULT_TILE_SIZE = 256;
     static final int        WMS_TILE_SIZE     = 512;
 
+    private static final String WMS_AXIS_XY = "XY";
+    private static final String WMS_AXIS_YX = "YX";
+
     // ===========================================================
     // Fields
     // ===========================================================
@@ -446,6 +450,7 @@ public class TileLayerServer implements Serializable {
     private String[]                 noTileValues     = null;
     private String                   description      = null;
     private String                   privacyPolicyUrl = null;
+    private String                   wmsAxisOrder     = null;
     private transient List<Provider> providers        = new ArrayList<>();
 
     private boolean  readOnly = false;
@@ -2021,12 +2026,15 @@ public class TileLayerServer implements Serializable {
     }
 
     /**
-     * Converts TMS tile coordinates to WMS bounding box for EPSG:2857/900913
+     * Converts TMS tile coordinates to WMS bounding box for EPSG:3857/900913 and EPSG:4326
+     * 
+     * As side effects this will extract the projection from the url if not already set and determine if we need to flip
+     * the axis
      * 
      * @param aTile The tile coordinates to convert
      * @return a WMS bounding box string
      */
-    String wmsBox(final MapTile aTile) {
+    String wmsBox(@NonNull final MapTile aTile) {
         boxBuilder.setLength(0);
         if (proj != null) {
             switch (proj) {
@@ -2043,27 +2051,56 @@ public class TileLayerServer implements Serializable {
                 boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y + 1, aTile.zoomLevel));
                 break;
             case EPSG_4326:
+                if (wmsAxisOrder == null) {
+                    // fix craziness that WMS servers >= version 1.3 use the ordering of the axis
+                    // in the EPSG definition, which means it changes for 4326
+                    Pattern pat = Pattern.compile("[\\?\\&]version=([0-9\\.]+)", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher = pat.matcher(originalUrl);
+                    if (matcher.find()) {
+                        String versionStr = matcher.group(1);
+                        if (versionStr != null) {
+                            Version version = new Version(versionStr);
+                            if (version.getMajor() >= 1 && version.getMinor() >= 3) {
+                                Log.i(DEBUG_TAG, "WMS version " + versionStr + " flipping axis");
+                                wmsAxisOrder = WMS_AXIS_YX;
+                            } else {
+                                Log.i(DEBUG_TAG, "WMS version " + versionStr + " normal axis");
+                                wmsAxisOrder = WMS_AXIS_XY;
+                            }
+                        }
+                    }
+                }
                 // note this is hack that simply squashes the vertical axis to fit to square tiles
-                boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel));
-                boxBuilder.append(',');
-                boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel));
-                boxBuilder.append(',');
-                boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
-                boxBuilder.append(',');
-                boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
+                if (WMS_AXIS_XY.equals(wmsAxisOrder)) {
+                    boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel));
+                    boxBuilder.append(',');
+                    boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel));
+                    boxBuilder.append(',');
+                    boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
+                    boxBuilder.append(',');
+                    boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
+                } else {
+                    boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel));
+                    boxBuilder.append(',');
+                    boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel));
+                    boxBuilder.append(',');
+                    boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
+                    boxBuilder.append(',');
+                    boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
+                }
                 break;
             default:
                 Log.e(DEBUG_TAG, "Unsupported projection " + proj + " for " + getName());
             }
         } else {
             // set proj from url &SRS=EPSG:4326 or &CRS=EPSG:4326
-            Pattern pat = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)");
-            Matcher matcher = pat.matcher(originalUrl.toLowerCase(Locale.US));
+            Pattern pat = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pat.matcher(originalUrl);
             if (matcher.find()) {
                 String projParameter = matcher.group(1);
                 if (projParameter != null) {
                     proj = projParameter.toUpperCase(Locale.US);
-                    Log.e(DEBUG_TAG, "Extracted " + proj + " from layer " + getName());
+                    Log.i(DEBUG_TAG, "Extracted " + proj + " from layer " + getName());
                     return wmsBox(aTile);
                 }
             }
