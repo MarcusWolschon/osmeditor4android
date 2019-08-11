@@ -573,6 +573,7 @@
     <string name="menu_gps_follow">Follow location</string>
     <string name="menu_gps_goto">Go to current location</string>
     <string name="menu_gps_goto_coordinates">Go to coordinates…</string>
+    <string name="menu_gps_goto_last_edit">Go to last edit</string>
     <string name="menu_gps_start">Start GPX track</string>
     <string name="menu_gps_pause">Pause GPX tracking</string>
     <string name="menu_gps_clear">Clear GPX track and its waypoints</string>

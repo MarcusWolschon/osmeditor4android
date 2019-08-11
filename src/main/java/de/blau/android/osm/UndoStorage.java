@@ -211,11 +211,36 @@ public class UndoStorage implements Serializable {
     }
 
     /**
+     * Get the BoundingBox of the last Checkpoint
+     * 
+     * @return a BoundingBox or null
+     */
+    @Nullable
+    public BoundingBox getLastBounds() {
+        BoundingBox result = null;
+        if (!undoCheckpoints.isEmpty()) {
+            Checkpoint checkpoint = undoCheckpoints.getLast();
+            for (UndoElement ue : checkpoint.elements.values()) {
+                BoundingBox box = ue.getBounds();
+                if (box != null) {
+                    if (result == null) {
+                        result = box;
+                    } else {
+                        result.union(box);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Performs an undo operation, restoring the state at the last undo checkpoint. A redo checkpoint is automatically
      * created. If no checkpoint is available, an error is logged and the function does nothing.
      * 
      * @return the name of the undo checkpoint used, or null if no checkpoint was available
      */
+    @Nullable
     public String undo() {
         return undo(true);
     }
@@ -227,6 +252,7 @@ public class UndoStorage implements Serializable {
      * @param createRedo if true create a redo checkpoint
      * @return the name of the undo checkpoint used, or null if no checkpoint was available
      */
+    @Nullable
     public String undo(boolean createRedo) {
         if (!canUndo()) {
             Log.w(DEBUG_TAG, "Attempted to undo, but no undo checkpoints available");
@@ -250,6 +276,7 @@ public class UndoStorage implements Serializable {
      * @param checkpoint index of the checkpoint to undo
      * @return the name of the undo checkpoint used, or null if no checkpoint was available
      */
+    @Nullable
     public String undo(int checkpoint) {
         if (!canUndo()) {
             Log.w(DEBUG_TAG, "Attempted to undo, but no undo checkpoints available");
@@ -270,6 +297,7 @@ public class UndoStorage implements Serializable {
      * 
      * @return the name of the redo checkpoint used, or null if no checkpoint was available
      */
+    @Nullable
     public String redo() {
         if (!canRedo()) {
             Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
@@ -289,6 +317,7 @@ public class UndoStorage implements Serializable {
      * @param checkpoint index of the checkpoint to redo
      * @return the name of the redo checkpoint used, or null if no checkpoint was available
      */
+    @Nullable
     public String redo(int checkpoint) {
         if (!canRedo()) {
             Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
@@ -599,6 +628,7 @@ public class UndoStorage implements Serializable {
          * 
          * @return an unmodifiable Map containing the key-value pairs
          */
+        @NonNull
         public Map<String, String> getTags() {
             return Collections.unmodifiableMap(tags);
         }
@@ -621,6 +651,14 @@ public class UndoStorage implements Serializable {
         public long getOsmId() {
             return osmId;
         }
+
+        /**
+         * Get a BoundingBox for the element
+         * 
+         * @return a BoundingBox or null
+         */
+        @Nullable
+        public abstract BoundingBox getBounds();
     }
 
     /**
@@ -666,6 +704,11 @@ public class UndoStorage implements Serializable {
          */
         public int getLat() {
             return lat;
+        }
+
+        @Override
+        public BoundingBox getBounds() {
+            return new BoundingBox(getLon(), getLat());
         }
     }
 
@@ -757,6 +800,19 @@ public class UndoStorage implements Serializable {
         public int nodeCount() {
             return nodes == null ? 0 : nodes.size();
         }
+
+        @Override
+        public BoundingBox getBounds() {
+            BoundingBox result = null;
+            for (Node n : nodes) {
+                if (result == null) {
+                    result = new BoundingBox(n.getLon(), n.getLat());
+                } else {
+                    result.union(n.getLon(), n.getLat());
+                }
+            }
+            return result;
+        }
     }
 
     /**
@@ -812,6 +868,7 @@ public class UndoStorage implements Serializable {
          * 
          * @return an unmodifiable copy of the List of RelationMembers
          */
+        @NonNull
         public List<RelationMember> getMembers() {
             return Collections.unmodifiableList(members);
         }
@@ -822,12 +879,29 @@ public class UndoStorage implements Serializable {
          * @param e the OsmElement
          * @return a List of RelationMembers
          */
-        public List<RelationMember> getAllMembers(OsmElement e) {
+        @NonNull
+        public List<RelationMember> getAllMembers(@Nullable OsmElement e) {
             List<RelationMember> result = new ArrayList<>();
             for (int i = 0; i < members.size(); i++) {
                 RelationMember member = members.get(i);
                 if (member.getElement() == e) {
                     result.add(member);
+                }
+            }
+            return result;
+        }
+
+        @Override
+        public BoundingBox getBounds() {
+            BoundingBox result = null;
+            for (RelationMember rm : getMembers()) {
+                OsmElement e = rm.getElement();
+                if (e != null) {
+                    if (result == null) {
+                        result = new BoundingBox(e.getBounds());
+                    } else {
+                        result.union(e.getBounds());
+                    }
                 }
             }
             return result;
@@ -861,7 +935,7 @@ public class UndoStorage implements Serializable {
      * @param checkpoints List of Checkpoints
      * @return a list of names of the Checkpoints plus description
      */
-    private String[] getCheckpointActions(@Nullable Context ctx, List<Checkpoint> checkpoints) {
+    private String[] getCheckpointActions(@Nullable Context ctx, @NonNull List<Checkpoint> checkpoints) {
         String[] result = new String[checkpoints.size()];
         int i = 0;
         for (Checkpoint checkpoint : checkpoints) {

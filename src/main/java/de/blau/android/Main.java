@@ -1714,7 +1714,8 @@ public class Main extends FullScreenAppCompatActivity
 
         final Logic logic = App.getLogic();
         MenuItem undo = menu.findItem(R.id.menu_undo);
-        undo.setVisible(!logic.isLocked() && (logic.getUndo().canUndo() || logic.getUndo().canRedo()));
+        UndoStorage undoStorage = logic.getUndo();
+        undo.setVisible(!logic.isLocked() && (undoStorage.canUndo() || undoStorage.canRedo()));
         View undoView = MenuItemCompat.getActionView(undo);
         if (undoView == null) { // FIXME this is a temp workaround for pre-11
                                 // Android, we could probably simply always
@@ -1725,6 +1726,8 @@ public class Main extends FullScreenAppCompatActivity
         }
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
+
+        menu.findItem(R.id.menu_gps_goto_last_edit).setEnabled(undoStorage.canUndo());
 
         final Server server = prefs.getServer();
         if (server.hasOpenChangeset()) {
@@ -1964,7 +1967,7 @@ public class Main extends FullScreenAppCompatActivity
                             logic.setZoom(getMap(), 19);
                             setFollowGPS(false);
                             map.setFollowGPS(false);
-                            map.getViewBox().moveTo(getMap(), (int) (ll.getLon() * 1E7d), (int) (ll.getLat() * 1E7d));
+                            map.getViewBox().moveTo(map, (int) (ll.getLon() * 1E7d), (int) (ll.getLat() * 1E7d));
                             map.invalidate();
                         }
                     });
@@ -1980,6 +1983,20 @@ public class Main extends FullScreenAppCompatActivity
                     });
                 }
             });
+            return true;
+
+        case R.id.menu_gps_goto_last_edit:
+            BoundingBox box = logic.getUndo().getLastBounds();
+            if (box != null) {
+                setFollowGPS(false);
+                if (box.isEmpty()) {
+                    logic.setZoom(getMap(), 19);
+                    map.getViewBox().moveTo(map, box.getRight(), box.getTop());
+                } else {
+                    map.getViewBox().fitToBoundingBox(map, box);
+                }
+                map.invalidate();
+            }
             return true;
 
         case R.id.menu_gps_start:
@@ -3321,6 +3338,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             resync(logic);
             map.invalidate();
+            triggerMenuInvalidation();
         }
 
         @Override
