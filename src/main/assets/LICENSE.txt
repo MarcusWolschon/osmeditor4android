@@ -35,6 +35,8 @@ If you want to use Vespucci under the Apache License, you need to remove the GPL
 
 OAuth support for Vespucci is provided by the oauth-signpost library https://github.com/mttkay/signpost licensed under the Apache License, version 2.
 
+Credits:
+
 EXIF support outside of what is provided by google is implemented with the metadata extractor library https://github.com/drewnoakes/metadata-extractor licensed under the Apache License, version 2.
 
 MultiSelectListPreference is Copyright (C) 2015 The Android Open Source Project licensed under the Apache License, version 2.
@@ -52,7 +54,6 @@ Following software was written by Simon Poole and is available under MIT style l
 - The NumberPickerPreference was adapted from code by vanniktech https://github.com/simonpoole/NumberPickerPreference .
 - and some misc. other stuff
 
-
 The OkHttp and associated libraries are Copyright 2016 Square, Inc. licensed under the Apache License, version 2.
 
 The NoNonsense Filepicker is licensed under the Mozilla Public License, v. 2.0.
@@ -62,6 +63,8 @@ The GeoJson and Turf classes are Copyright (c) 2016 Mapbox licensed on MIT terms
 The google gson library is licensed under the Apache License, version 2.
 
 Roulette Wheel by Bakunetsu Kaito from the Noun Project
+
+The material design lightbulb from Austin Andrews SIL Open Font License 1.1
 
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
