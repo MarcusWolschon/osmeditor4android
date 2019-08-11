@@ -136,6 +136,7 @@ public class WayTest {
         // undo
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         Assert.assertTrue(way.hasParentRelation(6490362L));
         Assert.assertEquals(1,way.getParentRelations().size());
         List<Node> nodes = way.getNodes();
@@ -171,6 +172,7 @@ public class WayTest {
         // undo
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         List<Node> nodes = way.getNodes();
         Assert.assertEquals(origWayNodes.size(), nodes.size());
         for (int i = 0; i < nodes.size(); i++) {

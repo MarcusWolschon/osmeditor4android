@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Preference keys used directly by the Tip system -->
+    <string name="tip_show_key">showTips</string>
+    <string name="tip_undo_key">showUndo</string>
+    <string name="tip_imagery_privacy_key">showImageryPrivacy</string>
+</resources>

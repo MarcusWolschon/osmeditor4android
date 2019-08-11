@@ -116,6 +116,7 @@ public class RelationTest {
         Assert.assertEquals(OsmElement.STATE_DELETED, relation.getState());
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, relation.getState());
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         Assert.assertNotNull(relation.getMember(Way.NAME, 104148456L));
         List<RelationMember> members = relation.getMembers();
         Assert.assertEquals(origMembers.size(), members.size());

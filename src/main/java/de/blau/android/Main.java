@@ -98,6 +98,7 @@ import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
+import de.blau.android.dialogs.Tip;
 import de.blau.android.dialogs.UndoDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
@@ -3339,6 +3340,7 @@ public class Main extends FullScreenAppCompatActivity
             resync(logic);
             map.invalidate();
             triggerMenuInvalidation();
+            Tip.showOptionalDialog(Main.this, R.string.tip_undo_key, R.string.tip_undo);
         }
 
         @Override

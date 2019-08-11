@@ -185,6 +185,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         @Override
                         public boolean onMenuItemClick(MenuItem arg0) {
                             buildImagerySelectDialog(null, null, false).show();
+                            Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
                             return true;
                         }
                     });
@@ -195,6 +196,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         @Override
                         public boolean onMenuItemClick(MenuItem arg0) {
                             buildImagerySelectDialog(null, null, true).show();
+                            Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
                             return true;
                         }
                     });
@@ -478,6 +480,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         if (layer != null) {
                             buildImagerySelectDialog((TableRow) button.getTag(), (MapTilesLayer) layer, layer instanceof MapTilesOverlayLayer).show();
+                            Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
                             layer.invalidate();
                         }
                         return true;

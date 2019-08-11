@@ -184,6 +184,7 @@ public class LayerDialogTest {
         UiObject2 menuButton = TestUtils.getLayerButton(device, "OpenStreetMap (Standard)", MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.layer_select_imagery), true));
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         TestUtils.clickText(device, true, context.getString(R.string.none), true);
         Preferences prefs = new Preferences(context);
         Assert.assertEquals(TileLayerServer.LAYER_NONE, prefs.backgroundLayer());

@@ -45,6 +45,7 @@
 	<attr name="menu_reverse_order" format="reference" />
 	<attr name="menu_download" format="reference" />
 	<attr name="alert_dialog" format="reference" />
+    <attr name="lightbulb_dialog" format="reference" />
 	<attr name="drawer" format="reference" />
 	<attr name="undolist_undo" format="reference" />
 	<attr name="undolist_redo" format="reference" />

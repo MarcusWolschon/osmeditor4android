@@ -121,6 +121,7 @@ public class NodeTest {
         Assert.assertEquals(OsmElement.STATE_DELETED, node.getState());
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
     }
 
     /**
@@ -144,6 +145,7 @@ public class NodeTest {
 
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
     }
 
     /**

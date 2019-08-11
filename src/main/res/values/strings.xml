@@ -283,6 +283,11 @@
     <string name="boxpicker_firsttimetitle">Download OpenStreetMap data</string>
     <!--  Clear/Reset GPX Track -->
     <string name="clear_track_description">Stop tracking and delete any stored trackpoints. This cannot be undone.</string>
+    <!--  Tips -->
+    <string name="tip_title">Did you know?</string>
+    <string name="tip_check_label">Stop showing optional tips</string>
+    <string name="tip_undo">Long pressing the undo button will show all undo and redo checkpoints.</string>
+    <string name="tip_imagery_privacy">Background and overlay layers are provided by third parties. Using these layers transfers your network address and a rough indication of the area you are looking at to them.&lt;p&gt;If the provider has supplied privacy policy information, you can view it with the \"Info\" menu item in the layer dialog. </string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
