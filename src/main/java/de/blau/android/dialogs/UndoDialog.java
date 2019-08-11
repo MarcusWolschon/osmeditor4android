@@ -112,7 +112,14 @@ public class UndoDialog {
     }
 
     private static class UndoAdapter extends ArrayAdapter<UndoDialogItem> {
-        public UndoAdapter(Context context, List<UndoDialogItem> objects) {
+
+        /**
+         * Construct an adapter for the undo/redo elements
+         * 
+         * @param context an Android Context
+         * @param objects a List of UndoDialogItem
+         */
+        public UndoAdapter(@NonNull Context context, @NonNull List<UndoDialogItem> objects) {
             super(context, android.R.layout.simple_list_item_1, objects);
         }
 
@@ -128,7 +135,15 @@ public class UndoDialog {
         public final int     index;
         public final boolean isRedo;
 
-        private UndoDialogItem(Context ctx, int index, boolean isRedo, String name) {
+        /**
+         * Construct a new UndoDialogItem
+         * 
+         * @param ctx an Android Context
+         * @param index the index into the undo items
+         * @param isRedo true if this is actually a redo item
+         * @param name name for the item
+         */
+        private UndoDialogItem(@NonNull Context ctx, int index, boolean isRedo, @NonNull String name) {
             super(ctx);
             Resources r = ctx.getResources();
             setText(Util.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
