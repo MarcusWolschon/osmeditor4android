@@ -3348,7 +3348,7 @@ public class Main extends FullScreenAppCompatActivity
             final Logic logic = App.getLogic();
             UndoStorage undo = logic.getUndo();
             if (undo.canUndo() || undo.canRedo()) {
-                UndoDialog.showUndoDialog(Main.this, logic, undo);
+                UndoDialog.showDialog(Main.this);
             } else {
                 Snack.barInfoShort(Main.this, R.string.undo_nothing);
             }

@@ -3,84 +3,141 @@ package de.blau.android.dialogs;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.PagerTabStrip;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.UndoStorage;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Density;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
+import de.blau.android.views.ExtendedViewPager;
 
-public class UndoDialog {
+public class UndoDialog extends ImmersiveDialogFragment {
+
+    private static final String DEBUG_TAG = UndoDialog.class.getSimpleName();
+
+    public static final String TAG = "fragment_undo";
+
+    public static final int UNDO_PAGE = 0;
+    public static final int REDO_PAGE = 1;
+
+    static LinearLayout layout;
 
     /**
-     * Create an instance of and then show the undo/redo dialog
+     * Instantiate and show the dialog
      * 
-     * @param main the current instance of Main
-     * @param logic the current Logic instance
-     * @param undo current UndoStorage
+     * @param activity the calling FragmentActivity
      */
-    public static void showUndoDialog(@NonNull final Main main, @NonNull final Logic logic, @NonNull final UndoStorage undo) {
-        Builder dialog = new Builder(main);
-        dialog.setTitle(R.string.checkpoints);
+    public static void showDialog(FragmentActivity activity) {
+        dismissDialog(activity);
 
-        final String[] undoActions = undo.getUndoActions(main);
-        final String[] redoActions = undo.getRedoActions(main);
-
-        List<UndoDialogItem> items = new ArrayList<>();
-        for (int i = 0; i < redoActions.length; i++) {
-            items.add(new UndoDialogItem(main, redoActions.length - i, true, redoActions[i]));
+        FragmentManager fm = activity.getSupportFragmentManager();
+        UndoDialog undoDialogFragment = newInstance();
+        try {
+            undoDialogFragment.setShowsDialog(true);
+            undoDialogFragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+            ACRAHelper.nocrashReport(isex, isex.getMessage());
         }
+    }
+
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    public static void dismissDialog(FragmentActivity activity) {
+        Util.dismissDialog(activity, TAG);
+    }
+
+    /**
+     * Create a new instance of this Fragment
+     * 
+     * @return a new ConfirmUpload instance
+     */
+    private static UndoDialog newInstance() {
+        UndoDialog f = new UndoDialog();
+        return f;
+    }
+
+    @Override
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+
+        Logic logic = App.getLogic();
+        UndoStorage undo = logic.getUndo();
+        FragmentActivity activity = getActivity();
+
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
+
+        Builder builder = new Builder(activity);
+        builder.setTitle(R.string.checkpoints);
+        layout = (LinearLayout) inflater.inflate(R.layout.undo_redo_tabs, null);
+        ExtendedViewPager pager = (ExtendedViewPager) layout.findViewById(R.id.pager);
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_header);
+        pagerTabStrip.setDrawFullUnderline(true);
+        pagerTabStrip.setTabIndicatorColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.colorAccent, R.color.dark_grey));
+
+        pager.setAdapter(new ViewPagerAdapter(activity));
+
+        builder.setView(layout);
+        builder.setNegativeButton(R.string.cancel, null);
+        final AlertDialog dialog = builder.create();
+
+        // UNDO
+        final String[] undoActions = undo.getUndoActions(activity);
+
+        List<UndoDialogItem> undoItems = new ArrayList<>();
         for (int i = undoActions.length - 1; i >= 0; i--) {
-            items.add(new UndoDialogItem(main, undoActions.length - i, false, undoActions[i]));
+            undoItems.add(new UndoDialogItem(activity, undoActions.length - i, false, undoActions[i]));
         }
-        final UndoAdapter adapter = new UndoAdapter(main, items);
-        dialog.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, int which) {
-                final UndoDialogItem item = adapter.getItem(which);
-                if (item.index > 1) { // not the top item
-                    AlertDialog.Builder builder = new AlertDialog.Builder(main);
-                    builder.setTitle(R.string.undo_redo_title);
-                    builder.setNeutralButton(R.string.cancel, null);
-                    builder.setNegativeButton(R.string.undo_redo_one, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            if (item.isRedo) {
-                                logic.redo(redoActions.length - item.index);
-                            } else {
-                                logic.undo(undoActions.length - item.index);
-                            }
-                            dismissAndInvalidate(main, logic, dialog);
-                        }
-                    });
-                    builder.setPositiveButton(item.isRedo ? R.string.redo_all : R.string.undo_all, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            for (int i = 0; i < item.index; i++) {
-                                undoRedoLast(logic, item.isRedo);
-                            }
-                            dismissAndInvalidate(main, logic, dialog);
-                        }
-                    });
-                    builder.create().show();
-                } else { // just undo/redo top item without asking
-                    undoRedoLast(logic, item.isRedo);
-                    dismissAndInvalidate(main, logic, dialog);
-                }
-            }
-        });
-        dialog.show();
+        ListView undoList = layout.findViewById(R.id.undo_checkpoints);
+        final UndoAdapter undoAdapter = new UndoAdapter(activity, undoItems);
+        undoList.setAdapter(undoAdapter);
+        undoList.setOnItemClickListener(new UndoItemClickListener(activity, logic, dialog, undoActions));
+
+        // REDO
+        final String[] redoActions = undo.getRedoActions(activity);
+
+        List<UndoDialogItem> redoItems = new ArrayList<>();
+        for (int i = redoActions.length - 1; i >= 0; i--) {
+            redoItems.add(new UndoDialogItem(activity, redoActions.length - i, true, redoActions[i]));
+        }
+        ListView redoList = layout.findViewById(R.id.redo_checkpoints);
+        final UndoAdapter redoAdapter = new UndoAdapter(activity, redoItems);
+        redoList.setAdapter(redoAdapter);
+        redoList.setOnItemClickListener(new UndoItemClickListener(activity, logic, dialog, redoActions));
+
+        if (undoItems.isEmpty() && !redoItems.isEmpty()) {
+            pager.setCurrentItem(REDO_PAGE);
+        }
+
+        return dialog;
     }
 
     /**
@@ -100,15 +157,75 @@ public class UndoDialog {
     /**
      * Dismiss the dialog and invalidate the main display
      * 
-     * @param main the current instance of Main
+     * @param activity the current Activity
      * @param logic the current instance of logic
      * @param dialog the Dialog
      */
-    private static void dismissAndInvalidate(@NonNull final Main main, @NonNull Logic logic, @NonNull final DialogInterface dialog) {
+    private static void dismissAndInvalidate(@NonNull final FragmentActivity activity, @NonNull Logic logic, @NonNull final DialogInterface dialog) {
         dialog.dismiss();
-        main.resync(logic);
-        main.invalidateMap();
-        main.supportInvalidateOptionsMenu();
+        if (activity instanceof Main) {
+            ((Main) activity).resync(logic);
+            ((Main) activity).invalidateMap();
+            ((Main) activity).supportInvalidateOptionsMenu();
+        }
+    }
+
+    private class UndoItemClickListener implements OnItemClickListener {
+        final FragmentActivity activity;
+        final Logic            logic;
+        final AlertDialog      dialog;
+        final String[]         actions;
+
+        /**
+         * Construct a new listener
+         * 
+         * @param activity the current Activity
+         * @param logic the current Logic instance
+         * @param dialog the current AlertDialog
+         * @param actions an array holding the list of items
+         */
+        UndoItemClickListener(@NonNull final FragmentActivity activity, @NonNull final Logic logic, @NonNull final AlertDialog dialog,
+                @NonNull String[] actions) {
+            this.activity = activity;
+            this.logic = logic;
+            this.dialog = dialog;
+            this.actions = actions;
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            final UndoDialogItem item = (UndoDialogItem) parent.getAdapter().getItem(position);
+            if (item.index > 1) { // not the top item
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle(item.isRedo ? R.string.redo : R.string.undo);
+                builder.setNeutralButton(R.string.cancel, null);
+                builder.setNegativeButton(R.string.undo_redo_one, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        int checkpointIndex = actions.length - item.index;
+                        if (item.isRedo) {
+                            logic.redo(checkpointIndex);
+                        } else {
+                            logic.undo(checkpointIndex);
+                        }
+                        dismissAndInvalidate(activity, logic, dialog);
+                    }
+                });
+                builder.setPositiveButton(item.isRedo ? R.string.redo_all : R.string.undo_all, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        for (int i = 0; i < item.index; i++) {
+                            undoRedoLast(logic, item.isRedo);
+                        }
+                        dismissAndInvalidate(activity, logic, dialog);
+                    }
+                });
+                builder.create().show();
+            } else { // just undo/redo top item without asking
+                undoRedoLast(logic, item.isRedo);
+                dismissAndInvalidate(activity, logic, dialog);
+            }
+        }
     }
 
     private static class UndoAdapter extends ArrayAdapter<UndoDialogItem> {
@@ -146,7 +263,7 @@ public class UndoDialog {
         private UndoDialogItem(@NonNull Context ctx, int index, boolean isRedo, @NonNull String name) {
             super(ctx);
             Resources r = ctx.getResources();
-            setText(Util.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
+            setText(de.blau.android.util.Util.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
             int pad = Density.dpToPx(15);
             setPadding(pad, pad, pad, pad);
             setCompoundDrawablePadding(pad);
@@ -158,4 +275,54 @@ public class UndoDialog {
         }
     }
 
+    private static class ViewPagerAdapter extends PagerAdapter {
+        final Context context;
+
+        /**
+         * Construct a new Adapter for the tab/page names
+         * 
+         * @param context an Android Context
+         */
+        ViewPagerAdapter(@NonNull Context context) {
+            super();
+            this.context = context;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup collection, int position) {
+
+            int resId = 0;
+            switch (position) {
+            case 0:
+                resId = R.id.undo_page;
+                break;
+            case 1:
+                resId = R.id.redo_page;
+                break;
+            }
+            return layout.findViewById(resId);
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            return arg0 == arg1;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+
+            switch (position) {
+            case UNDO_PAGE:
+                return context.getString(R.string.undo);
+            case REDO_PAGE:
+                return context.getString(R.string.redo);
+            }
+            return "";
+        }
+    }
 }

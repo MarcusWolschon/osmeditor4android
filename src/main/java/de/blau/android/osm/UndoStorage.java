@@ -217,17 +217,28 @@ public class UndoStorage implements Serializable {
      */
     @Nullable
     public BoundingBox getLastBounds() {
+        if (undoCheckpoints.isEmpty()) {
+            return null;
+        }
+        Checkpoint checkpoint = undoCheckpoints.getLast();
+        return getBounds(checkpoint);
+    }
+
+    /**
+     * Get the BoundingBox of a Checkpoint
+     * 
+     * @param checkpoint the Checkpoint
+     * @return a BoundingBox of null if it coudn't be determined
+     */
+    public BoundingBox getBounds(@NonNull Checkpoint checkpoint) {
         BoundingBox result = null;
-        if (!undoCheckpoints.isEmpty()) {
-            Checkpoint checkpoint = undoCheckpoints.getLast();
-            for (UndoElement ue : checkpoint.elements.values()) {
-                BoundingBox box = ue.getBounds();
-                if (box != null) {
-                    if (result == null) {
-                        result = box;
-                    } else {
-                        result.union(box);
-                    }
+        for (UndoElement ue : checkpoint.elements.values()) {
+            BoundingBox box = ue.getBounds();
+            if (box != null) {
+                if (result == null) {
+                    result = box;
+                } else {
+                    result.union(box);
                 }
             }
         }
