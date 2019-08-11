@@ -73,9 +73,9 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
     public static final String TAG = "fragment_confirm_upload";
 
-    public static final int NO_PAGE    = -1;
-    public static final int EDITS_PAGE = 0;
-    public static final int TAGS_PAGE  = 1;
+    private static final int NO_PAGE    = -1;
+    private static final int EDITS_PAGE = 0;
+    public static final int  TAGS_PAGE  = 1;
 
     private View              layout = null;
     private ExtendedViewPager pager  = null;
