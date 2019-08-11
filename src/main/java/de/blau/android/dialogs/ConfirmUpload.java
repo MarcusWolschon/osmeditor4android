@@ -20,7 +20,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
@@ -73,9 +72,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
     public static final String TAG = "fragment_confirm_upload";
 
-    private static final int NO_PAGE    = -1;
-    private static final int EDITS_PAGE = 0;
-    public static final int  TAGS_PAGE  = 1;
+    private static final int NO_PAGE   = -1;
+    public static final int  TAGS_PAGE = 1;
 
     private View              layout = null;
     private ExtendedViewPager pager  = null;
@@ -150,7 +148,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         pagerTabStrip.setDrawFullUnderline(true);
         pagerTabStrip.setTabIndicatorColor(ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.colorAccent, R.color.dark_grey));
 
-        pager.setAdapter(new ViewPagerAdapter());
+        pager.setAdapter(new ViewPagerAdapter(activity, layout, new int[] { R.id.review_page, R.id.tags_page },
+                new int[] { R.string.confirm_upload_edits_page, R.string.menu_tags }));
 
         builder.setView(layout);
 
@@ -389,46 +388,6 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
                 }
             }
             return false;
-        }
-    }
-
-    private class ViewPagerAdapter extends PagerAdapter {
-
-        @Override
-        public Object instantiateItem(ViewGroup collection, int position) {
-
-            int resId = 0;
-            switch (position) {
-            case 0:
-                resId = R.id.review_page;
-                break;
-            case 1:
-                resId = R.id.tags_page;
-                break;
-            }
-            return layout.findViewById(resId);
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == arg1;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            switch (position) {
-            case EDITS_PAGE:
-                return getString(R.string.confirm_upload_edits_page);
-            case TAGS_PAGE:
-                return getString(R.string.menu_tags);
-            }
-            return "";
         }
     }
 

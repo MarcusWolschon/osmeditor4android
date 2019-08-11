@@ -10,11 +10,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Density;
@@ -43,7 +41,6 @@ public class UndoDialog extends ImmersiveDialogFragment {
 
     public static final String TAG = "fragment_undo";
 
-    public static final int UNDO_PAGE = 0;
     public static final int REDO_PAGE = 1;
 
     static LinearLayout layout;
@@ -82,8 +79,7 @@ public class UndoDialog extends ImmersiveDialogFragment {
      * @return a new ConfirmUpload instance
      */
     private static UndoDialog newInstance() {
-        UndoDialog f = new UndoDialog();
-        return f;
+        return new UndoDialog();
     }
 
     @Override
@@ -103,7 +99,7 @@ public class UndoDialog extends ImmersiveDialogFragment {
         pagerTabStrip.setDrawFullUnderline(true);
         pagerTabStrip.setTabIndicatorColor(ThemeUtils.getStyleAttribColorValue(activity, R.attr.colorAccent, R.color.dark_grey));
 
-        pager.setAdapter(new ViewPagerAdapter(activity));
+        pager.setAdapter(new ViewPagerAdapter(activity, layout, new int[] { R.id.undo_page, R.id.redo_page }, new int[] { R.string.undo, R.string.redo }));
 
         builder.setView(layout);
         builder.setNegativeButton(R.string.cancel, null);
@@ -138,36 +134,6 @@ public class UndoDialog extends ImmersiveDialogFragment {
         }
 
         return dialog;
-    }
-
-    /**
-     * Undo or redo the last undo / redo checkpoint
-     * 
-     * @param logic the current
-     * @param redo if true redo the checkpoint
-     */
-    private static void undoRedoLast(@NonNull final Logic logic, boolean redo) {
-        if (redo) {
-            logic.redo();
-        } else {
-            logic.undo();
-        }
-    }
-
-    /**
-     * Dismiss the dialog and invalidate the main display
-     * 
-     * @param activity the current Activity
-     * @param logic the current instance of logic
-     * @param dialog the Dialog
-     */
-    private static void dismissAndInvalidate(@NonNull final FragmentActivity activity, @NonNull Logic logic, @NonNull final DialogInterface dialog) {
-        dialog.dismiss();
-        if (activity instanceof Main) {
-            ((Main) activity).resync(logic);
-            ((Main) activity).invalidateMap();
-            ((Main) activity).supportInvalidateOptionsMenu();
-        }
     }
 
     private class UndoItemClickListener implements OnItemClickListener {
@@ -226,6 +192,36 @@ public class UndoDialog extends ImmersiveDialogFragment {
                 dismissAndInvalidate(activity, logic, dialog);
             }
         }
+
+        /**
+         * Undo or redo the last undo / redo checkpoint
+         * 
+         * @param logic the current
+         * @param redo if true redo the checkpoint
+         */
+        private void undoRedoLast(@NonNull final Logic logic, boolean redo) {
+            if (redo) {
+                logic.redo();
+            } else {
+                logic.undo();
+            }
+        }
+
+        /**
+         * Dismiss the dialog and invalidate the main display
+         * 
+         * @param activity the current Activity
+         * @param logic the current instance of logic
+         * @param dialog the Dialog
+         */
+        private void dismissAndInvalidate(@NonNull final FragmentActivity activity, @NonNull Logic logic, @NonNull final DialogInterface dialog) {
+            dialog.dismiss();
+            if (activity instanceof Main) {
+                ((Main) activity).resync(logic);
+                ((Main) activity).invalidateMap();
+                ((Main) activity).supportInvalidateOptionsMenu();
+            }
+        }
     }
 
     private static class UndoAdapter extends ArrayAdapter<UndoDialogItem> {
@@ -272,57 +268,6 @@ public class UndoDialog extends ImmersiveDialogFragment {
                     0);
             this.index = index;
             this.isRedo = isRedo;
-        }
-    }
-
-    private static class ViewPagerAdapter extends PagerAdapter {
-        final Context context;
-
-        /**
-         * Construct a new Adapter for the tab/page names
-         * 
-         * @param context an Android Context
-         */
-        ViewPagerAdapter(@NonNull Context context) {
-            super();
-            this.context = context;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup collection, int position) {
-
-            int resId = 0;
-            switch (position) {
-            case 0:
-                resId = R.id.undo_page;
-                break;
-            case 1:
-                resId = R.id.redo_page;
-                break;
-            }
-            return layout.findViewById(resId);
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == arg1;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            switch (position) {
-            case UNDO_PAGE:
-                return context.getString(R.string.undo);
-            case REDO_PAGE:
-                return context.getString(R.string.redo);
-            }
-            return "";
         }
     }
 }
