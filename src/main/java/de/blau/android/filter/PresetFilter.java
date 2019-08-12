@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Util;
 
 /**
@@ -42,6 +44,9 @@ public class PresetFilter extends Filter {
     private static final long   serialVersionUID = 7L;
     private static final String DEBUG_TAG        = "PresetFilter";
 
+    public static final String                        FILENAME     = "lastpresetfilter.res";
+    private transient SavingHelper<PresetElementPath> savingHelper = new SavingHelper<>();
+
     private boolean                 enabled         = true;
     private transient Preset        preset[]        = null;
     private transient Context       context;
@@ -55,9 +60,14 @@ public class PresetFilter extends Filter {
      * 
      * @param context Android Context
      */
-    public PresetFilter(Context context) {
+    public PresetFilter(@NonNull Context context) {
         super();
         Log.d(DEBUG_TAG, "Constructor");
+        synchronized (this) {
+            if (savingHelper != null) {
+                path = savingHelper.load(context, FILENAME, false);
+            }
+        }
         init(context);
     }
 
@@ -97,6 +107,7 @@ public class PresetFilter extends Filter {
      * 
      * @return the PresetEelemt currently in use
      */
+    @Nullable
     public PresetElement getPresetElement() {
         return element;
     }
@@ -111,8 +122,17 @@ public class PresetFilter extends Filter {
         }
     }
 
+    @Override
+    public void saveState() {
+        synchronized (this) {
+            if (path != null && savingHelper != null) {
+                savingHelper.save(context, FILENAME, path, false);
+            }
+        }
+    }
+
     /**
-     * @return true if way nodes are incldued
+     * @return true if way nodes are included
      */
     public boolean includeWayNodes() {
         return includeWayNodes;
@@ -175,18 +195,15 @@ public class PresetFilter extends Filter {
 
     @Override
     public boolean include(Node node, boolean selected) {
-        // Log.d(DEBUG_TAG, "include Node " + node.getOsmId() + "?");
         if (!enabled || selected) {
             return true;
         }
         Include include = cachedNodes.get(node);
         if (include != null) {
-            // Log.d(DEBUG_TAG, "include Node " + include + " was in cache");
             return include != Include.DONT;
         }
 
         include = filter(node);
-        // Log.d(DEBUG_TAG, "include Node " + include);
         cachedNodes.put(node, include);
         return include != Include.DONT;
     }
@@ -228,7 +245,14 @@ public class PresetFilter extends Filter {
         return testRelation(relation, selected) != Include.DONT;
     }
 
-    Include testRelation(Relation relation, boolean selected) {
+    /**
+     * Check if a relation should be included
+     * 
+     * @param relation the Relation
+     * @param selected true if the Relation is selected
+     * @return an Include value
+     */
+    Include testRelation(@NonNull Relation relation, boolean selected) {
         if (!enabled || selected) {
             return Include.INCLUDE_WITH_WAYNODES;
         }
