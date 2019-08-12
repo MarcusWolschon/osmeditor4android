@@ -1,6 +1,14 @@
 package de.blau.android;
 
-public class ErrorCodes {
+public final class ErrorCodes {
+    
+    /**
+     * Private constructor
+     */
+    private ErrorCodes() {
+        // don't instantiate
+    }
+    
     public static final int OK = 0;
 
     public static final int NO_LOGIN_DATA = 1;

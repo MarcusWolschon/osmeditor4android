@@ -293,6 +293,7 @@ public class Map extends View implements IMapView {
             try {
                 layer.onSaveState(ctx);
             } catch (IOException e) {
+                Log.e(DEBUG_TAG, "Saving layer " + layer.getName() + " " + e.getMessage());
             }
         }
     }
@@ -310,7 +311,7 @@ public class Map extends View implements IMapView {
                     Log.d(DEBUG_TAG, "saving " + layer.getName());
                     layer.onSaveState(ctx);
                 } catch (IOException e) {
-                    // ignore
+                    Log.e(DEBUG_TAG, "Saving layers " + e.getMessage());
                 }
             }
         }
@@ -560,9 +561,8 @@ public class Map extends View implements IMapView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB /* && Build.VERSION.SDK_INT < 18 */ && mIsHardwareAccelerated != null) {
             try {
                 return !(Boolean) mIsHardwareAccelerated.invoke(c, (Object[]) null);
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
+            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                // ignore
             }
         }
         // Older versions do not use hardware acceleration
@@ -581,9 +581,8 @@ public class Map extends View implements IMapView {
         if (mIsHardwareAccelerated != null) {
             try {
                 return (Boolean) mIsHardwareAccelerated.invoke(c, (Object[]) null);
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
+            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                // ignore
             }
         }
         // Older versions do not use hardware acceleration
@@ -803,8 +802,8 @@ public class Map extends View implements IMapView {
             GeoPoint nextNode = nodes.get(0);
             int nextNodeLat = nextNode.getLat();
             int nextNodeLon = nextNode.getLon();
-            float X = -Float.MAX_VALUE;
-            float Y = -Float.MAX_VALUE;
+            float x = -Float.MAX_VALUE;
+            float y = -Float.MAX_VALUE;
             for (int i = 0; i < nodesSize; i++) {
                 GeoPoint node = nextNode;
                 int nodeLon = nextNodeLon;
@@ -825,12 +824,12 @@ public class Map extends View implements IMapView {
                 } else {
                     nextNode = null;
                 }
-                X = -Float.MAX_VALUE; // misuse this as a flag
+                x = -Float.MAX_VALUE; // misuse this as a flag
                 if (!interrupted && prevNode != null) {
                     if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
                             || box.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat))) {
-                        X = GeoMath.lonE7ToX(w, box, nodeLon);
-                        Y = GeoMath.latE7ToY(h, w, box, nodeLat);
+                        x = GeoMath.lonE7ToX(w, box, nodeLon);
+                        y = GeoMath.latE7ToY(h, w, box, nodeLat);
                         if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
                             prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
                             prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
@@ -838,16 +837,16 @@ public class Map extends View implements IMapView {
                         // Line segment needs to be drawn
                         points.add(prevX);
                         points.add(prevY);
-                        points.add(X);
-                        points.add(Y);
+                        points.add(x);
+                        points.add(y);
                         lastDrawnNode = node;
                         lastDrawnNodeLat = nodeLat;
                         lastDrawnNodeLon = nodeLon;
                     }
                 }
                 prevNode = node;
-                prevX = X;
-                prevY = Y;
+                prevX = x;
+                prevY = y;
                 thisIntersects = nextIntersects;
             }
         }
@@ -1053,10 +1052,7 @@ public class Map extends View implements IMapView {
         final double yZoom = Math.log(yTiles) / Math.log(2d);
 
         // Zoom out to the next integer step
-        int zoom = (int) Math.floor(Math.max(0, Math.min(xZoom, yZoom)));
-        // zoom = Math.min(zoom, s.getMaxZoomLevel());
-
-        return zoom;
+        return (int) Math.floor(Math.max(0, Math.min(xZoom, yZoom)));
     }
 
     /**

@@ -43,6 +43,7 @@ public enum Mode {
 
         @Override
         public void teardown(Main main, Logic logic) {
+            // empty
         }
 
         @Override

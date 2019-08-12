@@ -56,7 +56,7 @@ import de.blau.android.util.ThemeUtils;
 public class HelpViewer extends BugFixedAppCompatActivity {
 
     private static final String HTML_SUFFIX = ".html";
-    private static String       DEBUG_TAG   = HelpViewer.class.getName();
+    private static final String DEBUG_TAG   = HelpViewer.class.getName();
 
     class HelpItem {
         boolean displayLanguage = false;
@@ -366,33 +366,34 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                 getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
             }
         }
-    }
 
-    /**
-     * Get the topic from an url
-     * 
-     * @param url the url
-     * @return a String with the topic if it could be determined
-     */
-    @NonNull
-    private String getTopic(@NonNull String url) {
+        /**
+         * Get the topic from an url
+         * 
+         * @param url the url
+         * @return a String with the topic if it could be determined
+         */
+        @NonNull
+        private String getTopic(@NonNull String url) {
 
-        try {
-            url = URLDecoder.decode(url, OsmXml.UTF_8);
-        } catch (UnsupportedEncodingException e) {
-            return "Error, got: " + url;
-        }
-        int lastSlash = url.lastIndexOf('/');
-        int lastDot = url.lastIndexOf('.');
-        if (lastSlash < 0 || lastDot < 0) {
-            return "Error, got: " + url;
-        }
-        String fileName = url.substring(lastSlash + 1, lastDot);
-        for (Entry<String, HelpItem> entry : tocList.entrySet()) { // could use a HashMap here but probably not worth it
-            if (fileName.equals(entry.getValue().fileName)) {
-                return entry.getKey();
+            try {
+                url = URLDecoder.decode(url, OsmXml.UTF_8);
+            } catch (UnsupportedEncodingException e) {
+                return "Error, got: " + url;
             }
+            int lastSlash = url.lastIndexOf('/');
+            int lastDot = url.lastIndexOf('.');
+            if (lastSlash < 0 || lastDot < 0) {
+                return "Error, got: " + url;
+            }
+            String fileName = url.substring(lastSlash + 1, lastDot);
+            for (Entry<String, HelpItem> entry : tocList.entrySet()) { // could use a HashMap here but probably not
+                                                                       // worth it
+                if (fileName.equals(entry.getValue().fileName)) {
+                    return entry.getKey();
+                }
+            }
+            return "";
         }
-        return "";
     }
 }
