@@ -75,8 +75,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     private static final int NO_PAGE   = -1;
     public static final int  TAGS_PAGE = 1;
 
-    private View              layout = null;
-    private ExtendedViewPager pager  = null;
+    private ExtendedViewPager pager = null;
 
     AutoCompleteTextView comment;
     AutoCompleteTextView source;
@@ -142,7 +141,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.confirm_upload_title);
 
-        layout = inflater.inflate(R.layout.upload_tabs, null);
+        View layout = inflater.inflate(R.layout.upload_tabs, null);
         pager = (ExtendedViewPager) layout.findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);

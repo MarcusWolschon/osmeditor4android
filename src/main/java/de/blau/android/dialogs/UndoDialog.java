@@ -43,8 +43,6 @@ public class UndoDialog extends ImmersiveDialogFragment {
 
     public static final int REDO_PAGE = 1;
 
-    static LinearLayout layout;
-
     /**
      * Instantiate and show the dialog
      * 
@@ -93,7 +91,7 @@ public class UndoDialog extends ImmersiveDialogFragment {
 
         Builder builder = new Builder(activity);
         builder.setTitle(R.string.checkpoints);
-        layout = (LinearLayout) inflater.inflate(R.layout.undo_redo_tabs, null);
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.undo_redo_tabs, null);
         ExtendedViewPager pager = (ExtendedViewPager) layout.findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);

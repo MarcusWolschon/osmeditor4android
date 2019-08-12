@@ -77,4 +77,4 @@ class PhotoUriHandler extends PostAsyncActionHandler {
     public void onError() {
         // Nothing
     }
-};
+}

@@ -34,8 +34,8 @@ public class Tip extends ImmersiveDialogFragment {
 
     private static final String TAG = "tip";
 
-    private static final String MESSAGE  = "message";
-    private static final String OPTIONAL = "optional";
+    private static final String MESSAGE_KEY  = "message";
+    private static final String OPTIONAL_KEY = "optional";
 
     private static final String DEBUG_TAG = Tip.class.getSimpleName();
 
@@ -104,8 +104,8 @@ public class Tip extends ImmersiveDialogFragment {
         Tip f = new Tip();
 
         Bundle args = new Bundle();
-        args.putInt(MESSAGE, messageId);
-        args.putBoolean(OPTIONAL, optional);
+        args.putInt(MESSAGE_KEY, messageId);
+        args.putBoolean(OPTIONAL_KEY, optional);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -116,8 +116,8 @@ public class Tip extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        messageId = getArguments().getInt(MESSAGE);
-        optional = getArguments().getBoolean(OPTIONAL);
+        messageId = getArguments().getInt(MESSAGE_KEY);
+        optional = getArguments().getBoolean(OPTIONAL_KEY);
     }
 
     @NonNull

@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.ActionMenuView;
@@ -62,7 +61,6 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
     private static final int MENUITEM_FORWARD = 4;
 
     private List<String> photoList = null;
-    private int          startPos  = 0;
 
     SubsamplingScaleImageView photoView = null;
 
@@ -117,24 +115,18 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Builder builder = new AlertDialog.Builder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
-        builder.setView(createView(null));
+        builder.setView(createView());
         return builder.create();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (!getShowsDialog()) {
-            return createView(container);
+            return createView();
         }
         return null;
     }
@@ -145,18 +137,17 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
      * @param container parent view or null
      * @return the View
      */
-    private View createView(ViewGroup container) {
+    private View createView() {
         FragmentActivity activity = getActivity();
         LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
         photoList = getArguments().getStringArrayList(PHOTO_LIST_KEY);
-        startPos = getArguments().getInt(START_POS_KEY);
+        int startPos = getArguments().getInt(START_POS_KEY);
         View layout = themedInflater.inflate(R.layout.photo_viewer, null);
         photoPagerAdapter = new PhotoPagerAdapter(activity);
 
         viewPager = (ViewPager) layout.findViewById(R.id.pager);
         viewPager.setAdapter(photoPagerAdapter);
         viewPager.setOffscreenPageLimit(2);
-        System.out.println(photoList.get(startPos));
         viewPager.setCurrentItem(startPos);
         ActionMenuView menuView = (ActionMenuView) layout.findViewById(R.id.photoMenuView);
         Menu menu = menuView.getMenu();
@@ -213,9 +204,9 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         public Object instantiateItem(ViewGroup container, int position) {
             View itemView = mLayoutInflater.inflate(R.layout.photo_viewer_item, container, false);
 
-            SubsamplingScaleImageView photoView = itemView.findViewById(R.id.photoView);
-            photoView.setOrientation(SubsamplingScaleImageView.ORIENTATION_90);
-            photoView.setImage(ImageSource.uri(photoList.get(position)));
+            SubsamplingScaleImageView view = itemView.findViewById(R.id.photoView);
+            view.setOrientation(SubsamplingScaleImageView.ORIENTATION_90);
+            view.setImage(ImageSource.uri(photoList.get(position)));
             container.addView(itemView);
 
             return itemView;
