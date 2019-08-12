@@ -42,6 +42,9 @@ public abstract class Filter implements Serializable {
 
     private Filter savedFilter = null;
 
+    /**
+     * Default constructor, sub-classes need to call through to this
+     */
     Filter() {
         logic.setAttachedObjectWarning(true); // set this to true when we create a new filter
     }
@@ -51,7 +54,7 @@ public abstract class Filter implements Serializable {
      * 
      * @param context Android Context
      */
-    public void init(Context context) {
+    public void init(@NonNull Context context) {
     }
 
     /**
@@ -61,7 +64,7 @@ public abstract class Filter implements Serializable {
      * @param selected true if element is selected
      * @return true if the element should be included
      */
-    public abstract boolean include(Node node, boolean selected);
+    public abstract boolean include(@NonNull Node node, boolean selected);
 
     /**
      * If true include this element
@@ -70,7 +73,7 @@ public abstract class Filter implements Serializable {
      * @param selected true if element is selected
      * @return true if the element should be included
      */
-    public abstract boolean include(Way way, boolean selected);
+    public abstract boolean include(@NonNull Way way, boolean selected);
 
     /**
      * If true include this element
@@ -79,7 +82,7 @@ public abstract class Filter implements Serializable {
      * @param selected true if element is selected
      * @return true if the element should be included
      */
-    public abstract boolean include(Relation relation, boolean selected);
+    public abstract boolean include(@NonNull Relation relation, boolean selected);
 
     /**
      * Calls the element specific include methods
@@ -88,7 +91,7 @@ public abstract class Filter implements Serializable {
      * @param selected true if element is selected
      * @return true if the element should be included
      */
-    public boolean include(OsmElement e, boolean selected) {
+    public boolean include(@NonNull OsmElement e, boolean selected) {
         if (e instanceof Node) {
             return include((Node) e, selected);
         } else if (e instanceof Way) {
@@ -131,7 +134,7 @@ public abstract class Filter implements Serializable {
      * @param layout the layout the controls should be added to
      * @param update call to update anything necessary when controls are used
      */
-    public void addControls(ViewGroup layout, final Update update) {
+    public void addControls(@NonNull ViewGroup layout, @NonNull final Update update) {
     }
 
     /**
@@ -215,7 +218,7 @@ public abstract class Filter implements Serializable {
      * De-serialize this
      * 
      * @param in the ObjectInputStream
-     * @throws IOException if something foes wrong while reading
+     * @throws IOException if something goes wrong while reading
      * @throws ClassNotFoundException if a Class couldn't be found
      */
     private void readObject(@NonNull java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
