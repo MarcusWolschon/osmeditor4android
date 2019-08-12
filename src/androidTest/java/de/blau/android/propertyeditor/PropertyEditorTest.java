@@ -261,7 +261,9 @@ public class PropertyEditorTest {
         }
         Assert.assertNotNull(cusine);
         cusine.click();
+        scrollTo("Asian");
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "Asian", false));
+        scrollTo("German");
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "German", false));
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "SAVE", true));
         UiObject2 openingHours = null;
@@ -794,8 +796,7 @@ public class PropertyEditorTest {
      * @throws UiObjectNotFoundException if we couldn't find the object with text
      */
     private UiObject2 getField(@NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
-        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
-        appView.scrollIntoView(new UiSelector().text(text));
+        scrollTo(text);
         BySelector bySelector = By.textStartsWith(text);
         UiObject2 keyField = mDevice.wait(Until.findObject(bySelector), 500);
         UiObject2 linearLayout = keyField.getParent();
@@ -804,5 +805,20 @@ public class PropertyEditorTest {
             linearLayout = linearLayout.getParent();
         }
         return linearLayout.getChildren().get(fieldIndex);
+    }
+
+    /**
+     * Scroll to a specific text
+     * 
+     * @param text the text
+     * @throws UiObjectNotFoundException
+     */
+    public void scrollTo(@NonNull String text) {
+        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
+        try {
+            appView.scrollIntoView(new UiSelector().text(text));
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(text + " not found");
+        }
     }
 }
