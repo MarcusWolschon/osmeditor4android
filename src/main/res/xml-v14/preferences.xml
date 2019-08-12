@@ -5,42 +5,10 @@
     android:title="@string/menu_config">
     <PreferenceCategory
         android:title="@string/config_category_view">
-        <ListPreference
-            android:key="@string/config_backgroundLayer_key"
-            android:title="@string/config_backgroundLayer_title"
-            android:summary="@string/config_backgroundLayer_summary"
-            android:defaultValue="MAPNIK" />
-        <ListPreference
-            android:key="@string/config_overlayLayer_key"
-            android:title="@string/config_overlayLayer_title"
-            android:summary="@string/config_overlayLayer_summary"
-            android:defaultValue="NOOVERLAY" />
         <android.support.v7.preference.Preference
             android:title="@string/config_customlayers_title"
             android:key="@string/config_customlayers_key"
             android:summary="@string/config_customlayers_summary" />
-        <ListPreference
-            android:key="@string/config_scale_key"
-            android:title="@string/config_scale_title"
-            android:summary="@string/config_scale_summary"
-            android:entries="@array/scale_entries"
-            android:entryValues="@array/scale_values"
-            android:defaultValue="SCALE_METRIC" />
-        <ListPreference
-            android:key="@string/config_mapProfile_key"
-            android:title="@string/config_mapProfile_title"
-            android:summary="@string/config_mapProfile_summary"
-            android:defaultValue="Color Round Nodes" />
-        <CheckBoxPreference
-            android:key="@string/config_enableOpenStreetBugs_key"
-            android:title="@string/config_enableOpenStreetBugs_title"
-            android:summary="@string/config_enableOpenStreetBugs_summary"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:key="@string/config_enablePhotoLayer_key"
-            android:title="@string/config_enablePhotoLayer_title"
-            android:summary="@string/config_enablePhotoLayer_summary"
-            android:defaultValue="false" />
         <CheckBoxPreference
             android:title="@string/config_enableKeepScreenOn_title"
             android:key="@string/config_enableKeepScreenOn_key"

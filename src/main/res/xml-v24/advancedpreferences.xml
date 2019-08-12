@@ -200,13 +200,6 @@
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_downloadSpeed_current"
             app:spt_setWrapSelectorWheel="false" />
-        <de.blau.android.prefs.MultiSelectListPreference
-            android:defaultValue="@array/bug_filter_defaults"
-            android:entries="@array/bug_filter_entries"
-            android:entryValues="@array/bug_filter_values"
-            android:key="@string/config_bugFilter_key"
-            android:summary="@string/config_bugFilter_summary"
-            android:title="@string/config_bugFilter_title" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="200"
             android:dialogTitle="@string/config_bugDownloadRadius_title"

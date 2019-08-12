@@ -2,33 +2,9 @@
 
 The settings for Vespucci are split over two screens: standard and advanced preferences. The more commonly used settings should in general be in the first screen.
 
-## Map background
-
-Select the tiled imagery background layer. Selection will be filtered to layers that cover the current map view.
-
-## Map overlay
-
-Select the tiled imagery overlay layer. Selection will be filtered to layers that cover the current map view.
-
 ## Custom layers
 
 Configure a custom imagery layer not included in the standard configuration.
-
-## Scale display
-
-Configure the scale or grid displayed.
-
-## Data style
-
-The style that is used to render OpenStreetmapData. Additional style can be added by including corresponding files in the Vespucci directory.
-
-## Display tasks
-
-Turn on the task layer (currently supporting OSM Notes, OSMOSE bugs, Maproulette and custom tasks).
-
-## Enable Photo layer
-
-Turn on the photo layer. When enabled the Vespucci directory and others will be scanned for geo-referenced photographs that will be displayed with a camera icon and are selectable (selecting will try to start a photo viewer on the device).
 
 ## Keep screen on
 

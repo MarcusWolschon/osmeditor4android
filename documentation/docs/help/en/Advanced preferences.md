@@ -112,10 +112,6 @@ When auto-downloading, the radius of the area that is attempted to download arou
 
 Maximum speed up to which auto-download is attempted. Default: _6 km/h_.
 
-### Task filter
-
-Select OSMOSE error level, Notes and Maproulette tasks to download. Default: _everything_.
-
 ### Task download radius
 
 When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: _200 meters_.
