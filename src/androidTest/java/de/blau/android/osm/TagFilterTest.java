@@ -49,6 +49,9 @@ public class TagFilterTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -62,12 +65,18 @@ public class TagFilterTest {
         TestUtils.dismissStartUpDialogs(context);
     }
 
+    /**
+     * Post test teardown
+     */
     @After
     public void teardown() {
         db.delete("filterentries", null, null);
         db.close();
     }
 
+    /**
+     * Create a barrier node and check which rule it matches against
+     */
     @Test
     public void tagFilterNode() {
         try {
@@ -98,6 +107,9 @@ public class TagFilterTest {
         }
     }
 
+    /**
+     * Test against a way tagged as building, with filter that doesn't include way nodes
+     */
     @Test
     public void tagFilterWay() {
         try {
@@ -126,6 +138,9 @@ public class TagFilterTest {
         }
     }
 
+    /**
+     * Test against a way tagged as building, with filter that includes way nodes
+     */
     @Test
     public void tagFilterWayWithNodes() {
         try {
@@ -154,6 +169,9 @@ public class TagFilterTest {
         }
     }
 
+    /**
+     * Test against a way tagged as building that is member of a Relation that the way will be included if the relation matches
+     */
     @Test
     public void tagFilterWayInRelation() {
         try {
@@ -186,6 +204,9 @@ public class TagFilterTest {
         }
     }
 
+    /**
+     * Test against a way tagged as building that is member of a Relation that the way will be included with way nodes if the relation matches
+     */
     @Test
     public void tagFilterWayInRelationWithNodes() {
         try {
@@ -218,6 +239,17 @@ public class TagFilterTest {
         }
     }
 
+    /**
+     * Insert a row in the tag filter DB
+     * 
+     * @param db a writable database
+     * @param filter the filter name
+     * @param active if this entry is active
+     * @param include if the object should be included if it matches
+     * @param type OSM element type
+     * @param key the key
+     * @param value the value
+     */
     private void insertTagFilterRow(SQLiteDatabase db, String filter, boolean active, boolean include, String type, String key, String value) {
         ContentValues values = new ContentValues();
         values.put("filter", filter);
