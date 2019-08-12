@@ -31,6 +31,7 @@ Currently it is not possible to change the ordering or add more than one layer o
 * Menu button.
     * Tile based layers: 
         * __Select imagery__ Same contents as the corresponding preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.
+        * __Add imagery from OAM__ Query OAM for layers in the current map view and display a list allowing to add them to the local configuration
         * __Flush tile cache__ Flush the on device cache for this layer.
         * __Background properties__ Set contrast of layer.
         * __Info__ Display information on the currently selected imagery.
@@ -133,7 +134,6 @@ Show the user preference screens. The settings are split into two sets: the firs
 
  * **Align background** - align the current background layer, this can be done manually or from the image alignment database *(requires network connectivity)*
  * **Apply stored offset to imagery** - apply stored offset, if it exists, for the current background layer 
- * **Add imagery from OAM** - query OAM for layers in the current map view and display a list allowing to add them to the local configuration
  * **More imagery tools**
     * **Update imagery layer configuration** - download a current version of the imagery layer configuration. *(requires network connectivity)*
     * **Flush all tile caches** - empty all on device tile caches. 

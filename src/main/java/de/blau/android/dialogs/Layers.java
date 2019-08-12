@@ -53,6 +53,8 @@ import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.OAMCatalogView;
+import de.blau.android.resources.TileLayerDialog;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.Density;
 import de.blau.android.util.ReadFile;
@@ -481,11 +483,30 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         if (layer != null) {
                             buildImagerySelectDialog((TableRow) button.getTag(), (MapTilesLayer) layer, layer instanceof MapTilesOverlayLayer).show();
                             Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
-                            layer.invalidate();
                         }
                         return true;
                     }
                 });
+
+                if (!(layer instanceof MapTilesOverlayLayer)) {
+                    item = popup.getMenu().add(R.string.menu_tools_add_imagery_from_oam);
+                    item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            OAMCatalogView.queryAndSelectLayers(getActivity(), activity instanceof Main ? ((Main) activity).getMap().getViewBox() : null,
+                                    new TileLayerDialog.OnUpdateListener() {
+                                        @Override
+                                        public void update() {
+                                            if (layer != null) {
+                                                layer.invalidate();
+                                                dismissDialog();
+                                            }
+                                        }
+                                    });
+                            return true;
+                        }
+                    });
+                }
 
                 item = popup.getMenu().add(R.string.layer_flush_tile_cache);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -654,7 +675,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     /**
      * Change the imagery for a tile layer
      * 
-     * @param activity TODO
+     * @param activity the calling activity
      * @param row the TableRow with the information, if null we will only set the prefs
      * @param layer the layer, if null we will only set the prefs
      * @param tileServer the new tileserver to use

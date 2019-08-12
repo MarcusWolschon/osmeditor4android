@@ -45,6 +45,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
@@ -2335,48 +2336,6 @@ public class Main extends FullScreenAppCompatActivity
             ImageryOffsetUtils.applyImageryOffsets(this, map.getBackgroundLayer().getTileLayerConfiguration(), null);
             return true;
 
-        case R.id.menu_tools_add_imagery_from_oam:
-            new AsyncTask<Void, Void, List<OAMCatalog.Entry>>() {
-                @Override
-                protected void onPreExecute() {
-                    Progress.showDialog(Main.this, Progress.PROGRESS_QUERY_OAM);
-                }
-
-                @Override
-                protected List<OAMCatalog.Entry> doInBackground(Void... params) {
-                    OAMCatalog catalog = new OAMCatalog();
-                    List<OAMCatalog.Entry> list = null;
-                    try {
-                        list = catalog.getEntries(Urls.OAM_SERVER, map.getViewBox());
-                        final int found = catalog.getFound();
-                        final int limit = catalog.getLimit();
-                        if (found > limit) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_returning_less_than_found, limit, found));
-                                }
-                            });
-                        }
-                    } catch (final IOException iox) {
-                        Log.e(DEBUG_TAG, "Add imagery from oam " + iox.getMessage());
-                        toastDowloadError(iox);
-                    }
-                    return list;
-                }
-
-                @Override
-                protected void onPostExecute(List<OAMCatalog.Entry> catalog) {
-                    Progress.dismissDialog(Main.this, Progress.PROGRESS_QUERY_OAM);
-                    if (catalog != null && !catalog.isEmpty()) {
-                        OAMCatalogView.displayLayers(Main.this, catalog, map.getViewBox());
-                    } else {
-                        Snack.toastTopInfo(Main.this, R.string.toast_nothing_found);
-                    }
-                }
-            }.execute();
-            return true;
-
         case R.id.menu_tools_update_imagery_configuration:
             new AsyncTask<Void, Void, Void>() {
                 TileLayerDatabase db = new TileLayerDatabase(Main.this);
@@ -2392,7 +2351,7 @@ public class Main extends FullScreenAppCompatActivity
                         TileLayerServer.updateFromEli(Main.this, db.getWritableDatabase());
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Update imagery conf. " + e.getMessage());
-                        toastDowloadError(e);
+                        Util.toastDowloadError(Main.this, e);
                     } finally {
                         db.close();
                     }
@@ -2452,25 +2411,6 @@ public class Main extends FullScreenAppCompatActivity
         }
         return false;
 
-    }
-
-    /**
-     * Display a toast if we got an IOException downloading
-     * 
-     * @param iox the IOException
-     */
-    public void toastDowloadError(final IOException iox) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (iox instanceof OsmServerException) {
-                    Snack.toastTopWarning(Main.this,
-                            Main.this.getString(R.string.toast_download_failed, ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
-                } else {
-                    Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_server_connection_failed, iox.getMessage()));
-                }
-            }
-        });
     }
 
     /**

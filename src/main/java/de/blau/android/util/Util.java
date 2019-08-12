@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Editable;
@@ -40,6 +42,7 @@ import android.widget.ScrollView;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -648,5 +651,25 @@ public final class Util {
         }
 
         return bcp47Tag.toString();
+    }
+
+    /**
+     * Display a toast if we got an IOException downloading
+     * 
+     * @param activity the calling Activity
+     * @param iox the IOException
+     */
+    public static void toastDowloadError(@NonNull final FragmentActivity activity, @NonNull final IOException iox) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (iox instanceof OsmServerException) {
+                    Snack.toastTopWarning(activity,
+                            activity.getString(R.string.toast_download_failed, ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
+                } else {
+                    Snack.toastTopWarning(activity, activity.getString(R.string.toast_server_connection_failed, iox.getMessage()));
+                }
+            }
+        });
     }
 }

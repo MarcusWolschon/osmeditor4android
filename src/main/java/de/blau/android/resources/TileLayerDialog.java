@@ -37,7 +37,7 @@ public class TileLayerDialog {
 
     protected static final String DEBUG_TAG = "TileLayerDialog";
 
-    interface OnUpdateListener {
+    public interface OnUpdateListener {
         /**
          * This will be called after we have updated the database
          */
