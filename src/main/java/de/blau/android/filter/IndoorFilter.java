@@ -34,7 +34,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class IndoorFilter extends Filter {
+public class IndoorFilter extends InvertableFilter {
     /**
      * 
      */
@@ -44,32 +44,13 @@ public class IndoorFilter extends Filter {
     /**
      * Current level
      */
-    private int     level    = 0;
-    private boolean inverted = false;
+    private int level = 0;
 
     /**
      * Construct a new instance of IndoorFilter
      */
     public IndoorFilter() {
         super();
-    }
-
-    /**
-     * Check if the filter is currently inverted
-     * 
-     * @return true if inverted
-     */
-    public boolean isInverted() {
-        return inverted;
-    }
-
-    /**
-     * Set if the filter is inverted or not
-     * 
-     * @param inverted if true the filter should be applied inverted
-     */
-    public void setInverted(boolean inverted) {
-        this.inverted = inverted;
     }
 
     @Override

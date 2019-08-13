@@ -13,6 +13,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,11 +24,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.RelationMember;
-import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
@@ -37,7 +36,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class TagFilter extends Filter {
+public class TagFilter extends CommonFilter {
     public static final String DEFAULT_FILTER = "Default";
 
     private class FilterEntry implements Serializable {
@@ -72,7 +71,16 @@ public class TagFilter extends Filter {
          */
         Pattern value;
 
-        FilterEntry(boolean include, String type, String key, String value, boolean active) {
+        /**
+         * COnstruct a new FilterEntry
+         * 
+         * @param include Include value for this entry
+         * @param type OSM object type
+         * @param key key of tag
+         * @param value value of tag
+         * @param active if true this entry is active, otherwise it will be ignored
+         */
+        FilterEntry(boolean include, @NonNull String type, @Nullable String key, @Nullable String value, boolean active) {
             this.include = include;
             allElements = "*".equals(type); // just check this once
             withWayNodes = type.endsWith("+");
@@ -90,7 +98,7 @@ public class TagFilter extends Filter {
          * @param value value of tag
          * @return true if a match
          */
-        boolean match(String type, String key, String value) {
+        boolean match(@NonNull String type, @Nullable String key, @Nullable String value) {
             if (allElements || this.type.equals(type)) {
                 Matcher keyMatcher = null;
                 if (this.key != null) {
@@ -125,10 +133,14 @@ public class TagFilter extends Filter {
     private static final long   serialVersionUID = 1L;
     private static final String DEBUG_TAG        = "TagFilter";
 
-    private boolean                  enabled = true;
     private transient SQLiteDatabase mDatabase;
 
-    public TagFilter(Context context) {
+    /**
+     * Construct a new TagFilter
+     * 
+     * @param context an Android Context
+     */
+    public TagFilter(@NonNull Context context) {
         super();
         init(context);
         //
@@ -159,7 +171,8 @@ public class TagFilter extends Filter {
         mDatabase = new TagFilterDatabaseHelper(context).getReadableDatabase();
     }
 
-    private Include filter(OsmElement e) {
+    @Override
+    protected Include filter(OsmElement e) {
         Include include = Include.DONT;
         String type = e.getName();
         for (FilterEntry f : filter) {
@@ -202,104 +215,6 @@ public class TagFilter extends Filter {
         return include;
     }
 
-    @Override
-    public boolean include(Node node, boolean selected) {
-        if (!enabled || selected) {
-            return true;
-        }
-        Include include = cachedNodes.get(node);
-        if (include != null) {
-            return include != Include.DONT;
-        }
-
-        include = filter(node);
-
-        cachedNodes.put(node, include);
-        return include != Include.DONT;
-    }
-
-    @Override
-    public boolean include(Way way, boolean selected) {
-        if (!enabled) {
-            return false;
-        }
-        Include include = cachedWays.get(way);
-        if (include != null) {
-            return include != Include.DONT;
-        }
-
-        include = filter(way);
-
-        if (include == Include.INCLUDE_WITH_WAYNODES) {
-            for (Node n : way.getNodes()) {
-                Include includeNode = cachedNodes.get(n);
-                if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) {
-                    // if not originally included overwrite now
-                    if (include == Include.DONT && (n.hasTags() || n.hasParentRelations())) { // no entry yet so we have
-                                                                                              // to check tags and
-                                                                                              // relations
-                        include(n, false);
-                        continue;
-                    }
-                    cachedNodes.put(n, include);
-                }
-            }
-        }
-        cachedWays.put(way, include);
-
-        return include != Include.DONT || selected;
-    }
-
-    @Override
-    public boolean include(Relation relation, boolean selected) {
-        return testRelation(relation, selected) != Include.DONT;
-    }
-
-    Include testRelation(Relation relation, boolean selected) {
-        if (!enabled || selected) {
-            return Include.INCLUDE_WITH_WAYNODES;
-        }
-        Include include = cachedRelations.get(relation);
-        if (include != null) {
-            return include;
-        }
-
-        include = filter(relation);
-
-        cachedRelations.put(relation, include);
-        List<RelationMember> members = relation.getMembers();
-        if (members != null) {
-            for (RelationMember rm : members) {
-                OsmElement element = rm.getElement();
-                if (element != null) {
-                    if (element instanceof Way) {
-                        Way w = (Way) element;
-                        Include includeWay = cachedWays.get(w);
-                        if (includeWay == null || (include != Include.DONT && includeWay == Include.DONT)) {
-                            // if not originally included overwrite now
-                            if (include == Include.INCLUDE_WITH_WAYNODES) {
-                                for (Node n : w.getNodes()) {
-                                    cachedNodes.put(n, include);
-                                }
-                            }
-                            cachedWays.put(w, include);
-                        }
-                    } else if (element instanceof Node) {
-                        Node n = (Node) element;
-                        Include includeNode = cachedNodes.get(n);
-                        if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) {
-                            // if not originally included overwrite now
-                            cachedNodes.put(n, include);
-                        }
-                    } else if (element instanceof Relation) {
-                        // FIXME
-                    }
-                }
-            }
-        }
-        return include;
-    }
-
     /**
      * Tag filter controls
      */
@@ -337,6 +252,11 @@ public class TagFilter extends Filter {
         setupControls(false);
     }
 
+    /**
+     * Set the current control state
+     * 
+     * @param toggle if true toggle the if the filter is enabled
+     */
     private void setupControls(boolean toggle) {
         enabled = toggle ? !enabled : enabled;
         update.execute();

@@ -17,11 +17,8 @@ import android.widget.RelativeLayout;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.RelationMember;
-import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
@@ -36,7 +33,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class PresetFilter extends Filter {
+public class PresetFilter extends CommonFilter {
 
     /**
      * 
@@ -47,13 +44,11 @@ public class PresetFilter extends Filter {
     public static final String                        FILENAME     = "lastpresetfilter.res";
     private transient SavingHelper<PresetElementPath> savingHelper = new SavingHelper<>();
 
-    private boolean                 enabled         = true;
     private transient Preset        preset[]        = null;
     private transient Context       context;
     private transient PresetElement element         = null;
     private PresetElementPath       path            = null;
     private boolean                 includeWayNodes = false;
-    private boolean                 inverted        = false;
 
     /**
      * Construct a new PresetFilter
@@ -148,29 +143,8 @@ public class PresetFilter extends Filter {
         this.includeWayNodes = on;
     }
 
-    /**
-     * @return is the filter inverted?
-     */
-    public boolean isInverted() {
-        return inverted;
-    }
-
-    /**
-     * Invert the filter
-     * 
-     * @param inverted invert the filter if true
-     */
-    public void setInverted(boolean inverted) {
-        this.inverted = inverted;
-    }
-
-    /**
-     * Filter the OsemElement against a Preset
-     * 
-     * @param e the OsmElement
-     * @return an Include enum indicating the status
-     */
-    private Include filter(@NonNull OsmElement e) {
+    @Override
+    protected Include filter(@NonNull OsmElement e) {
         Include include = Include.DONT;
         if (preset != null) {
             PresetItem item = Preset.findMatch(preset, e.getTags());
@@ -186,110 +160,6 @@ public class PresetFilter extends Filter {
                         if (relationInclude != null && relationInclude != Include.DONT) {
                             return relationInclude; // inherit include status from relation
                         }
-                    }
-                }
-            }
-        }
-        return include;
-    }
-
-    @Override
-    public boolean include(Node node, boolean selected) {
-        if (!enabled || selected) {
-            return true;
-        }
-        Include include = cachedNodes.get(node);
-        if (include != null) {
-            return include != Include.DONT;
-        }
-
-        include = filter(node);
-        cachedNodes.put(node, include);
-        return include != Include.DONT;
-    }
-
-    @Override
-    public boolean include(Way way, boolean selected) {
-        if (!enabled) {
-            return true;
-        }
-        Include include = cachedWays.get(way);
-        if (include != null) {
-            return include != Include.DONT;
-        }
-
-        include = filter(way);
-
-        if (include == Include.INCLUDE_WITH_WAYNODES) {
-            for (Node n : way.getNodes()) {
-                Include includeNode = cachedNodes.get(n);
-                if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) {
-                    // if not originally included overwrite now
-                    if (include == Include.DONT && (n.hasTags() || n.hasParentRelations())) { // no entry yet so we have
-                                                                                              // to check tags and
-                                                                                              // relations
-                        include(n, false);
-                        continue;
-                    }
-                    cachedNodes.put(n, include);
-                }
-            }
-        }
-        cachedWays.put(way, include);
-
-        return include != Include.DONT || selected;
-    }
-
-    @Override
-    public boolean include(Relation relation, boolean selected) {
-        return testRelation(relation, selected) != Include.DONT;
-    }
-
-    /**
-     * Check if a relation should be included
-     * 
-     * @param relation the Relation
-     * @param selected true if the Relation is selected
-     * @return an Include value
-     */
-    Include testRelation(@NonNull Relation relation, boolean selected) {
-        if (!enabled || selected) {
-            return Include.INCLUDE_WITH_WAYNODES;
-        }
-        Include include = cachedRelations.get(relation);
-        if (include != null) {
-            return include;
-        }
-
-        include = filter(relation);
-
-        cachedRelations.put(relation, include);
-        List<RelationMember> members = relation.getMembers();
-        if (members != null) {
-            for (RelationMember rm : members) {
-                OsmElement element = rm.getElement();
-                if (element != null) {
-                    if (element instanceof Way) {
-                        Way w = (Way) element;
-                        Include includeWay = cachedWays.get(w);
-                        if (includeWay == null || (include != Include.DONT && includeWay == Include.DONT)) {
-                            // if not originally included overwrite now
-                            if (include == Include.INCLUDE_WITH_WAYNODES) {
-                                for (Node n : w.getNodes()) {
-                                    cachedNodes.put(n, include);
-                                }
-                            }
-                            cachedWays.put(w, include);
-                        }
-                    } else if (element instanceof Node) {
-                        Node n = (Node) element;
-                        Include includeNode = cachedNodes.get(n);
-                        if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) {
-                            // if not originally included overwrite now
-                            cachedNodes.put(n, include);
-                        }
-                    } else if (element instanceof Relation) {
-                        // FIXME not clear if we really want to do this
                     }
                 }
             }
