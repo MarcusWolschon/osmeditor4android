@@ -32,7 +32,10 @@ import de.blau.android.util.Snack;
  *
  */
 public class PresetFilterActivity extends AppCompatActivity implements PresetClickHandler {
+
     private static final String DEBUG_TAG = "PresetFilterActivity";
+
+    private static final String FILTER_NULL_OR_NOT_A_PRESET_FILTER = "filter null or not a PresetFilter";
 
     PresetItem  currentItem  = null;
     PresetGroup rootGroup    = null;
@@ -130,24 +133,25 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.preset_menu_top).setEnabled(currentGroup != rootGroup);
         menu.findItem(R.id.preset_menu_up).setEnabled(currentGroup != rootGroup);
-        Filter filter = App.getLogic().getFilter();
-        if (!(filter instanceof PresetFilter)) {
-            Log.e(DEBUG_TAG, "filter null or not a PresetFilter");
+        if (!(App.getLogic().getFilter() instanceof PresetFilter)) {
+            Log.e(DEBUG_TAG, FILTER_NULL_OR_NOT_A_PRESET_FILTER);
             return true;
         }
-        menu.findItem(R.id.preset_menu_waynodes).setChecked(((PresetFilter) filter).includeWayNodes());
+        filter = (PresetFilter) App.getLogic().getFilter();
+        menu.findItem(R.id.preset_menu_waynodes).setChecked(filter.includeWayNodes());
         // don't show for now
-        menu.findItem(R.id.preset_menu_invert).setChecked(((PresetFilter) filter).isInverted()).setVisible(false);
+        menu.findItem(R.id.preset_menu_invert).setChecked(filter.isInverted()).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Filter filter = App.getLogic().getFilter();
-        if (!(filter instanceof PresetFilter)) {
-            Log.e(DEBUG_TAG, "filter null or not a PresetFilter");
+        if (!(App.getLogic().getFilter() instanceof PresetFilter)) {
+            Log.e(DEBUG_TAG, FILTER_NULL_OR_NOT_A_PRESET_FILTER);
             return true;
         }
+        filter = (PresetFilter) App.getLogic().getFilter();
+
         switch (item.getItemId()) {
         case android.R.id.home:
             finish();
@@ -190,11 +194,6 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
     /**
      * Handle clicks on icons representing an item (closing the dialog with the item as a result)
      */
@@ -217,11 +216,11 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
      */
     @Override
     public void onGroupClick(PresetGroup group) {
-        Filter filter = App.getLogic().getFilter();
-        if (!(filter instanceof PresetFilter)) {
-            Log.e(DEBUG_TAG, "filter null or not a PresetFilter");
+        if (!(App.getLogic().getFilter() instanceof PresetFilter)) {
+            Log.e(DEBUG_TAG, FILTER_NULL_OR_NOT_A_PRESET_FILTER);
             return;
         }
+        filter = (PresetFilter) App.getLogic().getFilter();
         currentGroup = group;
         currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter) filter).getPresetElement());
         presetView.invalidate();
@@ -241,9 +240,10 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
      */
     void onPresetElementSelected(PresetElement element) {
         Log.d(DEBUG_TAG, element.toString());
-        Filter filter = App.getLogic().getFilter();
-        if (filter instanceof PresetFilter) {
-            ((PresetFilter) filter).setPresetElement(element.getPath(rootGroup));
+        Filter tempFilter = App.getLogic().getFilter();
+        if (tempFilter instanceof PresetFilter) {
+            filter = (PresetFilter) tempFilter;
+            filter.setPresetElement(element.getPath(rootGroup));
             currentGroup.getGroupView(this, presetView, this, null, element);
             presetView.invalidate();
         }

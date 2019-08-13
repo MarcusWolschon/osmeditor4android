@@ -72,7 +72,7 @@ public class TagFilter extends CommonFilter {
         Pattern value;
 
         /**
-         * COnstruct a new FilterEntry
+         * Construct a new FilterEntry
          * 
          * @param include Include value for this entry
          * @param type OSM object type

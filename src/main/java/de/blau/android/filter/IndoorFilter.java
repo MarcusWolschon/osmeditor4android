@@ -55,8 +55,6 @@ public class IndoorFilter extends InvertableFilter {
 
     @Override
     public boolean include(Node node, boolean selected) {
-        // Log.d(DEBUG_TAG,"checking level for node " + node.getDescription());
-        int level = getLevel();
         Include include = cachedNodes.get(node);
         if (include != null) {
             return include != Include.DONT;
@@ -89,17 +87,13 @@ public class IndoorFilter extends InvertableFilter {
 
     @Override
     public boolean include(Way way, boolean selected) {
-        // Log.d(DEBUG_TAG,"checking level for way " + way.getDescription());
-        int level = getLevel();
         Include include = cachedWays.get(way);
         if (include != null) {
-            // Log.d(DEBUG_TAG,"level cached");
             return include != Include.DONT;
         }
         if (!inverted) {
             include = (selected || (way.hasTags() && (contains(way.getTagWithKey(Tags.KEY_LEVEL), level)
                     || contains(way.getTagWithKey(Tags.KEY_REPEAT_ON), level) || buildingHasLevel(way, level)))) ? Include.INCLUDE : Include.DONT;
-            // Log.d(DEBUG_TAG,"include status " + include);
         } else {
             include = (selected || (way.hasTags() && !way.hasTagKey(Tags.KEY_LEVEL) && !way.hasTagKey(Tags.KEY_REPEAT_ON)
                     && !(way.hasTagKey(Tags.KEY_MIN_LEVEL) || way.hasTagKey(Tags.KEY_MAX_LEVEL)))) ? Include.INCLUDE : Include.DONT;
@@ -137,8 +131,6 @@ public class IndoorFilter extends InvertableFilter {
 
     @Override
     public boolean include(Relation relation, boolean selected) {
-        // Log.d(DEBUG_TAG,"checking level for relation " + relation.getDescription());
-        int level = getLevel();
         Include include = cachedRelations.get(relation);
         if (include != null) {
             return include != Include.DONT;
@@ -200,7 +192,6 @@ public class IndoorFilter extends InvertableFilter {
      * @return true if the level is contained in levelSpec
      */
     private boolean contains(String levelSpec, int level) {
-        // Log.d(DEBUG_TAG,"levelSpec " + levelSpec + " level " + level);
         if (levelSpec == null || "".equals(levelSpec)) {
             return false;
         }
@@ -213,6 +204,7 @@ public class IndoorFilter extends InvertableFilter {
                         return true;
                     }
                 } catch (NumberFormatException e) {
+                    // Ignore
                 }
             }
             return false;
@@ -290,7 +282,6 @@ public class IndoorFilter extends InvertableFilter {
     private transient FloatingActionButton        levelUp;
     private transient FrameLayout                 levelDisplay;
     private transient TextView                    levelText;
-    private transient FloatingActionButton        levelTextButton;
     private transient FloatingActionButton        levelDown;
     private transient ViewGroup                   parent;
     private transient RelativeLayout              controls;
@@ -308,7 +299,7 @@ public class IndoorFilter extends InvertableFilter {
         levelUp = (FloatingActionButton) parent.findViewById(R.id.levelUp);
         levelDisplay = (FrameLayout) parent.findViewById(R.id.level);
         levelText = (TextView) parent.findViewById(R.id.levelText);
-        levelTextButton = (FloatingActionButton) parent.findViewById(R.id.levelTextButton);
+        FloatingActionButton levelTextButton = (FloatingActionButton) parent.findViewById(R.id.levelTextButton);
         levelDown = (FloatingActionButton) parent.findViewById(R.id.levelDown);
         // we weren't already added ...
         if (levelUp == null || levelDisplay == null || levelText == null || levelDown == null) {
@@ -435,6 +426,11 @@ public class IndoorFilter extends InvertableFilter {
         }
     }
 
+    /**
+     * Update the displayed level
+     * 
+     * @param level the level to show on the button
+     */
     private void updateLevel(int level) {
         Log.d(DEBUG_TAG, "setting level to " + level);
         if (levelText != null) {

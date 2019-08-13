@@ -44,7 +44,7 @@ public class PresetFilter extends CommonFilter {
     public static final String                        FILENAME     = "lastpresetfilter.res";
     private transient SavingHelper<PresetElementPath> savingHelper = new SavingHelper<>();
 
-    private transient Preset        preset[]        = null;
+    private transient Preset[]      preset          = null;
     private transient Context       context;
     private transient PresetElement element         = null;
     private PresetElementPath       path            = null;
@@ -83,7 +83,7 @@ public class PresetFilter extends CommonFilter {
                 return;
             }
             Log.d(DEBUG_TAG, "Setting preset to " + element.getName() + " parent " + element.getParent());
-            Preset filterPreset = new Preset(Arrays.asList(new Preset.PresetElement[] { element }));
+            Preset filterPreset = new Preset(Arrays.asList(element));
             for (Preset p : presets) {
                 if (p != null) {
                     filterPreset.addObjectKeys(p.getObjectKeys());
