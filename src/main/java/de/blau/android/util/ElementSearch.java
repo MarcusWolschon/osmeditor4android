@@ -1,13 +1,15 @@
 package de.blau.android.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.exception.OsmException;
-import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -22,14 +24,18 @@ public class ElementSearch {
     private String[]            streetNames      = null;
     private Map<String, Long>   idsByStreetNames = new HashMap<>();
 
-    private String[]            placeNames       = null;
-    private Map<String, Long>   idsByPlaceNames  = new HashMap<>();
-    private Map<String, String> typeByPlaceNames = new HashMap<>();
+    private String[] placeNames = null;
 
     private final int[]   location;
     private final boolean distanceFilter;
 
-    public ElementSearch(final int[] location, boolean distanceFilter) {
+    /**
+     * Search for OSM elements around a location
+     * 
+     * @param location location coordinates in WGS84°*1E7
+     * @param distanceFilter if true ignore objects further away than MAX_DISTANCE
+     */
+    public ElementSearch(@NonNull final int[] location, boolean distanceFilter) {
         this.location = location;
         this.distanceFilter = distanceFilter;
     }
@@ -40,7 +46,7 @@ public class ElementSearch {
      * @param location position we want the names nearby to
      * @return all street-names
      */
-    private String[] getStreetArray(final int[] location) {
+    private String[] getStreetArray(@NonNull final int[] location) {
         // build list of names with their closest distance to location
         final StorageDelegator delegator = App.getDelegator();
         Map<String, Double> distancesByNames = new HashMap<>();
@@ -56,7 +62,7 @@ public class ElementSearch {
                     if (name != null) {
                         // Log.d("StreetTagValueAutocompletionAdapter","Name " + name);
                         if (distance == -1D) { // only calc once
-                            distance = way.getDistance(location);
+                            distance = way.getMinDistance(location);
                             if (distanceFilter && distance > MAX_DISTANCE) {
                                 break;
                             }
@@ -99,11 +105,11 @@ public class ElementSearch {
     /**
      * Given a street name return the OSM id of the way
      * 
-     * @param name
+     * @param name the street name
      * @return the OSM id of the way
      * @throws OsmException if the name is not found in the index
      */
-    public long getStreetId(String name) throws OsmException {
+    public long getStreetId(@NonNull String name) throws OsmException {
         if (streetNames == null) {
             streetNames = getStreetArray(location);
         }
@@ -119,83 +125,62 @@ public class ElementSearch {
     /**
      * Get all distance sorted place-names in the area
      * 
-     * @param location
+     * @param location coordinates in WGS84°*1E7
      * @return all place-names
      */
-    private String[] getPlaceArray(final int[] location) {
+    private String[] getPlaceArray(@NonNull final int[] location) {
         // build list of names with their closest distance to location
         final StorageDelegator delegator = App.getDelegator();
         Map<String, Double> distancesByName = new HashMap<>();
-        String[] nameTags = { Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME };
         Log.d(DEBUG_PLACE_TAG, "searching for place ways...");
-        for (Way way : delegator.getCurrentStorage().getWays()) {
-            if (way.getTagWithKey(Tags.KEY_PLACE) != null) {
-                double distance = -1D;
-                long iD = way.getOsmId();
-
-                for (String tag : nameTags) {
-                    String name = way.getTagWithKey(tag);
-                    if (name != null) {
-                        if (distance == -1D) { // only calc once
-                            distance = way.getDistance(location);
-                            if (distanceFilter && distance > MAX_DISTANCE) {
-                                break;
-                            }
-                        }
-                        if (distancesByName.containsKey(name)) {
-                            // way already in list - keep shortest distance
-                            if (distance < distancesByName.get(name)) {
-                                distancesByName.put(name, distance);
-                                idsByPlaceNames.put(name, iD);
-                                typeByPlaceNames.put(name, Way.NAME);
-                            }
-                        } else {
-                            distancesByName.put(name, distance);
-                            idsByPlaceNames.put(name, iD);
-                            typeByPlaceNames.put(name, Way.NAME);
-                        }
-                    }
-                }
-            }
-        }
+        processElementsForPlace(location, delegator.getCurrentStorage().getWays(), distancesByName);
         Log.d(DEBUG_PLACE_TAG, "searching for place nodes...");
-        for (Node node : delegator.getCurrentStorage().getNodes()) {
-            if (node.getTagWithKey(Tags.KEY_PLACE) != null) {
-                double distance = -1D;
-                long iD = node.getOsmId();
-
-                for (String tag : nameTags) {
-                    String name = node.getTagWithKey(tag);
-                    Log.d(DEBUG_PLACE_TAG, "adding " + name);
-                    if (name != null) {
-                        if (distance == -1D) { // only calc once
-                            distance = node.getDistance(location);
-                            if (distanceFilter && distance > MAX_DISTANCE) {
-                                break;
-                            }
-                        }
-                        if (distancesByName.containsKey(name)) {
-                            // way already in list - keep shortest distance
-                            if (distance < distancesByName.get(name)) {
-                                distancesByName.put(name, distance);
-                                idsByPlaceNames.put(name, iD);
-                                typeByPlaceNames.put(name, Node.NAME);
-                            }
-                        } else {
-                            distancesByName.put(name, distance);
-                            idsByPlaceNames.put(name, iD);
-                            typeByPlaceNames.put(name, Node.NAME);
-                        }
-                    }
-                }
-            }
-        }
+        processElementsForPlace(location, delegator.getCurrentStorage().getNodes(), distancesByName);
+        Log.d(DEBUG_PLACE_TAG, "searching for place relations...");
+        processElementsForPlace(location, delegator.getCurrentStorage().getRelations(), distancesByName);
         // sort names by distance
         MultiHashMap<Double, String> retval = new MultiHashMap<>(true);
         for (Entry<String, Double> entry : distancesByName.entrySet()) {
             retval.add(entry.getValue(), entry.getKey());
         }
         return retval.getValues().toArray(new String[retval.getValues().size()]);
+    }
+
+    /**
+     * Search through a list of OsmElements and find elements with a place tag
+     * 
+     * @param <T> The sub type of OsmElement being processed (currently
+     * @param location the current location as a coordinate tupel in WGS84*1E7 degrees
+     * @param elements the List of OsmElements
+     * @param distancesByName a Map in which the found names are returned in
+     */
+    public <T extends OsmElement> void processElementsForPlace(final int[] location, List<T> elements, Map<String, Double> distancesByName) {
+        String[] nameTags = { Tags.KEY_NAME, Tags.KEY_OFFICIAL_NAME, Tags.KEY_ALT_NAME };
+        for (T e : elements) {
+            if (e.getTagWithKey(Tags.KEY_PLACE) != null) {
+                double distance = -1D;
+                for (String tag : nameTags) {
+                    String name = e.getTagWithKey(tag);
+                    if (name != null) {
+                        Log.d(DEBUG_PLACE_TAG, "adding " + name);
+                        if (distance == -1D) { // only calc once
+                            distance = e.getMinDistance(location);
+                            if (distanceFilter && distance > MAX_DISTANCE) {
+                                break;
+                            }
+                        }
+                        if (distancesByName.containsKey(name)) {
+                            // element already in list - keep shortest distance
+                            if (distance < distancesByName.get(name)) {
+                                distancesByName.put(name, distance);
+                            }
+                        } else {
+                            distancesByName.put(name, distance);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -208,31 +193,5 @@ public class ElementSearch {
             placeNames = getPlaceArray(location);
         }
         return placeNames;
-    }
-
-    public long getPlaceId(String name) throws OsmException {
-        Log.d(DEBUG_PLACE_TAG, "looking for " + name);
-        if (placeNames == null) {
-            placeNames = getPlaceArray(location);
-        }
-        Long iD = idsByPlaceNames.get(name);
-        if (iD != null) {
-            return iD;
-        } else {
-            throw new OsmException("object not found in adapter");
-        }
-    }
-
-    public String getPlaceType(String name) throws OsmException {
-        Log.d(DEBUG_PLACE_TAG, "looking for " + name);
-        if (placeNames == null) {
-            placeNames = getPlaceArray(location);
-        }
-        String type = typeByPlaceNames.get(name);
-        if (type != null) {
-            return type;
-        } else {
-            throw new OsmException("object not found in adapter");
-        }
     }
 }

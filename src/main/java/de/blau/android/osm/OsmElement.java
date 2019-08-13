@@ -718,6 +718,16 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
+     * Get the minimum distance of this element from the location
+     * 
+     * Note this is only useful for sorting given that the result is returned in WGS84 °*1E7 or so
+     * 
+     * @param location a coordinate tupel in WGS84*1E7 degrees
+     * @return the planar geom distance in degrees
+     */
+    public abstract double getMinDistance(final int[] location);
+    
+    /**
      * Return a bounding box covering the element
      * 
      * @return the BoundingBox or null if it cannot be determined

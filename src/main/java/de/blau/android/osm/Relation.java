@@ -13,6 +13,7 @@ import org.xmlpull.v1.XmlSerializer;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
@@ -28,6 +29,8 @@ import de.blau.android.validation.Validator;
  *
  */
 public class Relation extends OsmElement implements BoundedObject, StyleableFeature {
+
+    private static final int MAX_DEPTH = 3;
 
     /**
      * 
@@ -492,5 +495,38 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
         setTags(e.getTags());
         setState(e.getState());
         replaceMembers(((Relation) e).getMembers());
+    }
+
+    @Override
+    public double getMinDistance(int[] location) {
+        return getMinDistance(1, location);
+    }
+
+    /**
+     * Loop protected version of getMinDistance
+     * 
+     * This will stop when depth > MAX_DEPTH
+     * 
+     * @param depth current depth in a Relation "tree"
+     * @param location a coordinate tupel in WGS84*1E7 degrees
+     * @return the planar geom distance in degrees
+     */
+    private double getMinDistance(int depth, @NonNull int[] location) {
+        double distance = Double.MAX_VALUE;
+        if (depth <= MAX_DEPTH) {
+            for (RelationMember rm : members) {
+                OsmElement e = rm.getElement();
+                if (e != null) {
+                    if (e instanceof Relation) {
+                        distance = Math.min(distance, ((Relation) e).getMinDistance(depth++, location));
+                    } else {
+                        distance = Math.min(distance, e.getMinDistance(location));
+                    }
+                }
+            }
+        } else {
+            Log.e(NAME, "getMinDistance relation nested too deep " + getOsmId());
+        }
+        return distance;
     }
 }

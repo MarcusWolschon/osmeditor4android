@@ -504,24 +504,17 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
         return result;
     }
 
-    /**
-     * Get the distance from a coordinate to this way
-     * 
-     * Note this is only useful for sorting given that the result is returned in WGS84 °*1E7 or so
-     * 
-     * @param location the coordinate in WGS84*1E/
-     * @return the minimum distance of this way to the given location
-     */
-    public double getDistance(final int[] location) {
+    @Override
+    public double getMinDistance(final int[] location) {
         double distance = Double.MAX_VALUE;
         if (location != null) {
-            Node n1 = null;
-            for (Node n2 : getNodes()) {
+            Node n1 = nodes.get(0);
+            int len = nodes.size();
+            for (int i = 1; i < len; i++) {
                 // distance to nodes of way
-                if (n1 != null) {
-                    // distance to lines of way
-                    distance = Math.min(distance, GeoMath.getLineDistance(location[0], location[1], n1.getLat(), n1.getLon(), n2.getLat(), n2.getLon()));
-                }
+                Node n2 = nodes.get(i);
+                // distance to lines of way
+                distance = Math.min(distance, GeoMath.getLineDistance(location[0], location[1], n1.getLat(), n1.getLon(), n2.getLat(), n2.getLon()));
                 n1 = n2;
             }
         }

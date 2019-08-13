@@ -143,13 +143,8 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
         return getType();
     }
 
-    /**
-     * Get the "distance" of this Node from the location
-     * 
-     * @param location a coordinate tupel in WGS84*1E7 degrees
-     * @return the planar geom distance in degrees
-     */
-    public double getDistance(final int[] location) {
+    @Override
+    public double getMinDistance(final int[] location) {
         if (location == null) {
             return Double.MAX_VALUE;
         }
