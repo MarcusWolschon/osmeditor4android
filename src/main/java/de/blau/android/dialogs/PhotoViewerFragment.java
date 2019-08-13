@@ -134,7 +134,6 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
     /**
      * Create the view we want to display
      * 
-     * @param container parent view or null
      * @return the View
      */
     private View createView() {

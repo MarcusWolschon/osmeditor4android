@@ -2,6 +2,7 @@ package de.blau.android.listener;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.support.annotation.NonNull;
 import de.blau.android.Main;
 
 /**
@@ -12,9 +13,9 @@ public class DownloadCurrentListener implements OnClickListener {
     private final Main caller;
 
     /**
-     * @param caller
+     * @param caller calling instance of Main
      */
-    public DownloadCurrentListener(final Main caller) {
+    public DownloadCurrentListener(@NonNull final Main caller) {
         this.caller = caller;
     }
 

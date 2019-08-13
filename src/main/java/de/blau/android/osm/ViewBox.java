@@ -165,6 +165,12 @@ public class ViewBox extends BoundingBox {
         bottomMercator = GeoMath.latE7ToMercator(getBottom());
     }
 
+    /**
+     * Get the size of a pixel in WGS84°
+     * 
+     * @param screenWidth the current screen width in pixel
+     * @return the size of a pixel in WGS84°
+     */
     public double getPixelRadius(int screenWidth) {
         return (double) screenWidth / (getWidth() / 1E7d);
     }
