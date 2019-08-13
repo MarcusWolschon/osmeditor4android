@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-08-07 15:33+0200\n"
-"PO-Revision-Date: 2019-08-08 11:42+0000\n"
+"PO-Revision-Date: 2019-08-11 08:47+0000\n"
 "Last-Translator: Supaplex <bejokeup@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgstr "0: 堅實的碩石土路，沒有障礙物，大灣曲"
 
 #: master_preset.xml:186(combo:display_values|key:direction)
 msgid "0°"
-msgstr ""
+msgstr "0°"
 
 #: master_preset.xml:1547(list_entry:display_value|group:Ways|preset:Track|value:grade1)
 msgid "1 - Solid"
@@ -97,7 +97,7 @@ msgstr "10°"
 
 #: master_preset.xml:186(combo:display_values|key:direction)
 msgid "180°"
-msgstr ""
+msgstr "180°"
 
 #: master_preset.xml:48(list_entry:short_description|value:1)
 msgid "1: Some loose surface, small obstacles, wide curves"
@@ -113,7 +113,7 @@ msgstr "2 張桌子"
 
 #: master_preset.xml:186(combo:display_values|key:direction)
 msgid "270°"
-msgstr ""
+msgstr "270°"
 
 #: master_preset.xml:49(list_entry:short_description|value:2)
 msgid "2: Much loose surface, large obstacles, easy hairpins"
@@ -169,7 +169,7 @@ msgstr "6: 不適合騎乘"
 
 #: master_preset.xml:186(combo:display_values|key:direction)
 msgid "90°"
-msgstr ""
+msgstr "90°"
 
 #: master_preset.xml:3928(label:text|group:Tourism|preset:Guidepost)
 msgid ""
@@ -374,11 +374,11 @@ msgstr "成人遊戲中心"
 
 #: master_preset.xml:1741(item:name|group:Waypoints|preset:Advanced_stop_line)
 msgid "Advanced stop line"
-msgstr ""
+msgstr "進階停止線"
 
 #: master_preset.xml:5727(item:name|group:Facilities|preset:Advertising)
 msgid "Advertising"
-msgstr ""
+msgstr "廣告"
 
 #: master_preset.xml:5733(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
@@ -395,7 +395,7 @@ msgstr "索道"
 
 #: master_preset.xml:426(multiselect:display_values|key:cuisine)
 msgid "African"
-msgstr ""
+msgstr "非洲"
 
 #: master_preset.xml:996(multiselect:display_values|key:language)
 msgid "Afrikaans"
@@ -429,7 +429,7 @@ msgstr "農耕物資"
 
 #: master_preset.xml:3587(combo:display_values|group:Accommodation|preset:Guest_House/Bed_&_Breakfast|key:guest_house)
 msgid "Agritourism"
-msgstr ""
+msgstr "休閒觀光農業"
 
 #: master_preset.xml:5798(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:aikido)
 msgid "Aikido"
@@ -437,7 +437,7 @@ msgstr "合氣道"
 
 #: master_preset.xml:1071(check:text|key:scuba_diving:air_filling)
 msgid "Air"
-msgstr ""
+msgstr "空氣"
 
 #: master_preset.xml:6838(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:air_quality)
 msgid "Air Quality"
@@ -461,7 +461,7 @@ msgstr "機場用地"
 
 #: master_preset.xml:3539(item:name|group:Airport|preset:Airstrp)
 msgid "Airstrp"
-msgstr ""
+msgstr "跑道"
 
 #: master_preset.xml:996(multiselect:display_values|key:language)
 msgid "Albanian"
@@ -531,7 +531,7 @@ msgstr "高山小屋"
 
 #: master_preset.xml:1837(text:text|preset:City_Limit|key:alt_name)
 msgid "Alternate name"
-msgstr ""
+msgstr "另外的名字"
 
 #: master_preset.xml:5048(item:name|group:Health|preset:Alternative_medicine)
 msgid "Alternative medicine"
@@ -628,7 +628,7 @@ msgstr "動物繁殖"
 
 #: master_preset.xml:5699(item:name|group:Facilities|preset:Animal_feeding_place)
 msgid "Animal feeding place"
-msgstr ""
+msgstr "餵食動物區"
 
 #: master_preset.xml:8453(list_entry:short_description|preset:Vending_Machine|value:animal_food)
 msgid "Animal food"
@@ -672,7 +672,7 @@ msgstr "自然療法藥物"
 
 #: master_preset.xml:6721(combo:display_values|group:Man_Made|preset:Pipeline_Valve|key:turn_to_close)
 msgid "Anticlockwise"
-msgstr ""
+msgstr "逆時針"
 
 #: master_preset.xml:7941(item:name|group:Home_furnishing_and_decoration|preset:Antiques)
 msgid "Antiques"
@@ -692,7 +692,7 @@ msgstr "應用肌動學"
 
 #: master_preset.xml:3517(combo:display_values|group:Airport|preset:Navigation_aid|key:navigationaid)
 msgid "Approach lighting system"
-msgstr ""
+msgstr "近場燈光系統"
 
 #: master_preset.xml:3496(item:name|group:Airport|preset:Apron)
 msgid "Apron"
@@ -709,7 +709,7 @@ msgstr "水族館（展覽館）"
 
 #: master_preset.xml:426(multiselect:display_values|key:cuisine)
 msgid "Arab"
-msgstr ""
+msgstr "阿拉伯"
 
 #: master_preset.xml:996(multiselect:display_values|key:language)
 msgid "Arabic"
@@ -6031,7 +6031,7 @@ msgstr ""
 
 #: master_preset.xml:1052(combo:display_values|key:reservation)
 msgid "Members only"
-msgstr ""
+msgstr "專屬會員"
 
 #: master_preset.xml:3025(combo:text|group:Car|preset:Charging_Station|key:authentication:membership_card)
 msgid "Membership card"
@@ -6245,7 +6245,7 @@ msgstr ""
 
 #: master_preset.xml:8554(item:name|group:Money|preset:Money_transfer)
 msgid "Money transfer"
-msgstr ""
+msgstr "匯款處"
 
 #: master_preset.xml:996(multiselect:display_values|key:language)
 msgid "Mongolian"
@@ -6293,11 +6293,11 @@ msgstr ""
 
 #: master_preset.xml:426(multiselect:display_values|key:cuisine)
 msgid "Moroccan"
-msgstr ""
+msgstr "摩洛哥"
 
 #: master_preset.xml:4857(item:name|group:Public_Building|preset:Mortuary)
 msgid "Mortuary"
-msgstr ""
+msgstr "停屍間"
 
 #: master_preset.xml:4675(item:name|group:Place_of_Worship|preset:Mosque)
 #: master_preset.xml:4681(combo:display_values|group:Place_of_Worship|preset:Mosque|key:building)
@@ -6442,7 +6442,7 @@ msgstr ""
 
 #: master_preset.xml:4533(combo:display_values|group:Culture|preset:Museum|key:museum_type)
 msgid "Municipial"
-msgstr ""
+msgstr "城市的"
 
 #: master_preset.xml:4645(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
@@ -6454,7 +6454,7 @@ msgstr ""
 
 #: master_preset.xml:4533(combo:text|group:Culture|preset:Museum|key:museum_type)
 msgid "Museum scope"
-msgstr ""
+msgstr "博物館範圍"
 
 #: master_preset.xml:5375(combo:display_values|group:Clubs|preset:Club|key:club)
 #: master_preset.xml:7820(item:name|group:Electronics|preset:Music)
@@ -6828,7 +6828,7 @@ msgstr ""
 
 #: master_preset.xml:1072(check:text|key:scuba_diving:nitrox_filling)
 msgid "Nitrox"
-msgstr ""
+msgstr "富含氧氣"
 
 #: master_preset.xml:1049(combo:display_values|key:nudism)
 #: master_preset.xml:1052(combo:display_values|key:reservation)
@@ -7000,7 +7000,7 @@ msgstr "核子反應爐"
 
 #: master_preset.xml:1049(combo:text|key:nudism)
 msgid "Nudism"
-msgstr ""
+msgstr "裸體主義"
 
 #: master_preset.xml:1690(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
@@ -7086,7 +7086,7 @@ msgstr ""
 
 #: master_preset.xml:1060(combo:text|key:sides)
 msgid "Number of sides"
-msgstr ""
+msgstr "邊緣數目"
 
 #: master_preset.xml:1659(text:text|group:Ways|preset:Steps|key:step_count)
 msgid "Number of steps"
@@ -7126,7 +7126,7 @@ msgstr "營養補充"
 
 #: master_preset.xml:1049(combo:display_values|key:nudism)
 msgid "Obligatory"
-msgstr ""
+msgstr "義務的"
 
 #: master_preset.xml:6547(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 #: master_preset.xml:6558(combo:display_values|group:Man_Made|preset:Mast|key:tower:type)
@@ -7154,7 +7154,7 @@ msgstr ""
 
 #: master_preset.xml:2555(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_89)
 msgid "Octane 89"
-msgstr ""
+msgstr "辛烷值 89"
 
 #: master_preset.xml:2556(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_91)
 #: master_preset.xml:2956(check:text|group:Car|preset:Fuel|key:fuel:octane_91)
@@ -7168,7 +7168,7 @@ msgstr ""
 
 #: master_preset.xml:2558(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_93)
 msgid "Octane 93"
-msgstr ""
+msgstr "辛烷值 93"
 
 #: master_preset.xml:2559(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_95)
 #: master_preset.xml:2958(check:text|group:Car|preset:Fuel|key:fuel:octane_95)
@@ -7412,7 +7412,7 @@ msgstr ""
 
 #: master_preset.xml:6722(combo:display_values|group:Man_Made|preset:Pipeline_Valve|key:sensor:position)
 msgid "Optical"
-msgstr ""
+msgstr "選填項目"
 
 #: master_preset.xml:10256(item:name|group:Crafts|preset:Optician)
 #: master_preset.xml:8105(item:name|group:For_the_body|preset:Optician)
@@ -7553,7 +7553,7 @@ msgstr ""
 
 #: master_preset.xml:3853(combo:text|group:Food+Drinks|preset:Diet|key:diet:ovo_vegetarian)
 msgid "Ovo-vegetarian"
-msgstr ""
+msgstr "蛋奶素"
 
 #: master_preset.xml:4085(list_entry:display_value|group:Leisure|preset:Animals|value:owl)
 msgid "Owl"
@@ -7569,7 +7569,7 @@ msgstr ""
 
 #: master_preset.xml:1074(check:text|key:scuba_diving:oxygen_filling)
 msgid "Oxygen"
-msgstr ""
+msgstr "氧氣"
 
 #: master_preset.xml:5532(check:text|group:Facilities|preset:Recycling_Container|key:recycling:PET)
 #: master_preset.xml:5563(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:PET)
@@ -7622,7 +7622,7 @@ msgstr ""
 
 #: master_preset.xml:426(multiselect:display_values|key:cuisine)
 msgid "Pancake"
-msgstr ""
+msgstr "鬆餅"
 
 #: master_preset.xml:4087(list_entry:display_value|group:Leisure|preset:Animals|value:panda)
 msgid "Panda"
@@ -7730,7 +7730,7 @@ msgstr ""
 
 #: master_preset.xml:426(multiselect:display_values|key:cuisine)
 msgid "Pasta"
-msgstr ""
+msgstr "義大利麵"
 
 #: master_preset.xml:7578(item:name|group:Food|preset:Pastry)
 msgid "Pastry"

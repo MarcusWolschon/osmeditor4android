@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-08-07 15:33+0200\n"
-"PO-Revision-Date: 2019-08-08 11:42+0000\n"
-"Last-Translator: Yannis Gyftomitros\n"
+"PO-Revision-Date: 2019-08-13 10:48+0000\n"
+"Last-Translator: Georgios Lin <glin76@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/openstreetmap/presets/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7941,7 +7941,7 @@ msgstr ""
 
 #: master_preset.xml:4407(item:name|preset:Picnic_Site)
 msgid "Picnic Site"
-msgstr ""
+msgstr "Χώρος Εκδρομής"
 
 #: master_preset.xml:4414(item:name|preset:Picnic_Table)
 msgid "Picnic Table"
