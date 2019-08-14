@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -1685,7 +1683,10 @@ public class Main extends FullScreenAppCompatActivity
         boolean gpsProviderEnabled = haveLocationProvider(locationProviders, LocationManager.GPS_PROVIDER) && locationPermissionGranted;
         boolean locationProviderEnabled = gpsProviderEnabled || (haveLocationProvider(locationProviders, LocationManager.NETWORK_PROVIDER)
                 && prefs.isNetworkLocationFallbackAllowed() && locationPermissionGranted);
-        boolean hasMapSplitSource = prefs.getServer().hasMapSplitSource();
+
+        final Server server = prefs.getServer();
+        boolean hasMapSplitSource = server.hasMapSplitSource();
+
         // just as good as any other place to check this
         if (locationProviderEnabled) {
             showFollowButton();
@@ -1727,12 +1728,7 @@ public class Main extends FullScreenAppCompatActivity
 
         menu.findItem(R.id.menu_gps_goto_last_edit).setEnabled(undoStorage.canUndo());
 
-        final Server server = prefs.getServer();
-        if (server.hasOpenChangeset()) {
-            menu.findItem(R.id.menu_transfer_close_changeset).setVisible(true);
-        } else {
-            menu.findItem(R.id.menu_transfer_close_changeset).setVisible(false);
-        }
+        menu.findItem(R.id.menu_transfer_close_changeset).setVisible(server.hasOpenChangeset());
 
         if (hasMapSplitSource) {
             menu.findItem(R.id.menu_transfer_download_current).setEnabled(true).setTitle(R.string.menu_transfer_load_current);
@@ -2122,9 +2118,8 @@ public class Main extends FullScreenAppCompatActivity
                     protected Void doInBackground(Void... params) {
                         try {
                             server.closeChangeset();
-                        } catch (MalformedURLException e) {
-                        } catch (ProtocolException e) {
                         } catch (IOException e) {
+                            // Never fail
                         }
                         return null;
                     }
@@ -2898,10 +2893,11 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param comment Textual comment associated with the change set.
      * @param source Source of the change.
+     * @param closeOpenChangeset If true try to close any open changeset first
      * @param closeChangeset Boolean flag indicating whether the change set should be closed or kept open.
      * @param extraTags Additional tags to add to the changeset
      */
-    public void performUpload(@Nullable final String comment, @Nullable final String source, final boolean closeChangeset,
+    public void performUpload(@Nullable final String comment, @Nullable final String source, final boolean closeOpenChangeset, final boolean closeChangeset,
             @Nullable java.util.Map<String, String> extraTags) {
         final Logic logic = App.getLogic();
         final Server server = prefs.getServer();
@@ -2910,7 +2906,7 @@ public class Main extends FullScreenAppCompatActivity
             boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
             if (hasDataChanges || hasBugChanges) {
                 if (hasDataChanges) {
-                    logic.upload(this, comment, source, closeChangeset, extraTags);
+                    logic.upload(this, comment, source, closeOpenChangeset, closeChangeset, extraTags);
                 }
                 if (hasBugChanges) {
                     TransferTasks.upload(this, server, null);

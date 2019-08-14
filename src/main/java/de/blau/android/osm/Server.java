@@ -941,15 +941,36 @@ public class Server {
     }
 
     /**
+     * Get the current open changeset id (if -1 there is none)
+     * 
+     * @return the current id
+     */
+    public long getOpenChangeset() {
+        return changesetId;
+    }
+
+    /**
+     * Set the current changeset id
+     * 
+     * This is only useful for restoring state
+     * 
+     * @param id the changeset id
+     */
+    public void setOpenChangeset(long id) {
+        changesetId = id;
+    }
+
+    /**
      * Reset changeset id
      */
     public void resetChangeset() {
-        changesetId = -1;
+        setOpenChangeset(-1);
     }
 
     /**
      * Open a new changeset.
      * 
+     * @param closeOpenChangeset if true attempt to close a potentially open changeset first
      * @param comment value for the comment tag
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
@@ -958,16 +979,24 @@ public class Server {
      * @throws ProtocolException
      * @throws IOException
      */
-    public void openChangeset(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
+    public void openChangeset(boolean closeOpenChangeset, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
             @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, IOException {
         long newChangesetId = -1;
 
         if (changesetId != -1) { // potentially still open, check if really the case
             Changeset cs = getChangeset(changesetId);
             if (cs != null && cs.open) {
-                Log.d(DEBUG_TAG, "Changeset #" + changesetId + " still open, reusing");
-                updateChangeset(changesetId, comment, source, imagery, extraTags);
-                return;
+                if (closeOpenChangeset) {
+                    try {
+                        closeChangeset();
+                    } catch (IOException e) {
+                        // Never fail
+                    }
+                } else {
+                    Log.d(DEBUG_TAG, "Changeset #" + changesetId + " still open, reusing");
+                    updateChangeset(changesetId, comment, source, imagery, extraTags);
+                    return;
+                }
             } else {
                 changesetId = -1;
             }

@@ -29,7 +29,7 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-    private static final long       serialVersionUID = 21L;
+    private static final long       serialVersionUID = 22L;
     private final boolean           savedLocked;
     private final Mode              savedMode;
     private final List<Node>        savedNodes;
@@ -47,6 +47,7 @@ public class EditState implements Serializable {
     private final NotificationCache savedOsmDataNotifications;
     private final boolean           savedFollowGPS;
     private final Filter            savedFilter;
+    private final long              savedChangesetId;
 
     /**
      * Construct a new EditState instance
@@ -56,8 +57,9 @@ public class EditState implements Serializable {
      * @param imageFileName a image filename is any
      * @param box the current BoundingBox
      * @param followGPS true if the map is following the current location
+     * @param changesetId the current changeset id (or -1)
      */
-    public EditState(@NonNull Context context, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS) {
+    public EditState(@NonNull Context context, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS, long changesetId) {
         savedLocked = logic.isLocked();
         savedMode = logic.getMode();
         savedNodes = logic.getSelectedNodes();
@@ -74,6 +76,7 @@ public class EditState implements Serializable {
         savedOsmDataNotifications = App.getOsmDataNotifications(context);
         savedFollowGPS = followGPS;
         savedFilter = logic.getFilter();
+        savedChangesetId = changesetId;
     }
 
     /**
@@ -133,6 +136,7 @@ public class EditState implements Serializable {
         App.setTaskNotifications(main, savedTaskNotifications);
         App.setOsmDataNotifications(main, savedOsmDataNotifications);
         main.setFollowGPS(savedFollowGPS);
+        logic.getPrefs().getServer().setOpenChangeset(savedChangesetId);
     }
 
     /**

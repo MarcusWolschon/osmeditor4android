@@ -2674,6 +2674,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param server Server to upload changes to.
      * @param comment Changeset comment tag
      * @param source Changeset source tag
+     * @param closeOpenChangeset if true close any open Changeset first
      * @param closeChangeset if true close the Changeset
      * @param extraTags Additional tags to add
      * @throws MalformedURLException
@@ -2681,7 +2682,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @throws OsmServerException
      * @throws IOException
      */
-    public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeChangeset,
+    public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeOpenChangeset, boolean closeChangeset,
             @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, OsmServerException, IOException {
 
         dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
@@ -2695,7 +2696,7 @@ public class StorageDelegator implements Serializable, Exportable {
             if (split) {
                 tmpSource = source + " [" + part + "]";
             }
-            server.openChangeset(comment, tmpSource, Util.listToOsmList(imagery), extraTags);
+            server.openChangeset(closeOpenChangeset, comment, tmpSource, Util.listToOsmList(imagery), extraTags);
             try {
                 lock();
                 server.diffUpload(this);

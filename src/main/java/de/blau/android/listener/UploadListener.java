@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
     private final Main                 caller;
     private final EditText             commentField;
     private final EditText             sourceField;
+    private final CheckBox             closeOpenChangeset;
     private final CheckBox             closeChangeset;
     private final CheckBox             requestReview;
     private final List<FormValidation> validations;
@@ -36,15 +38,19 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * @param caller the instance of Main calling this
      * @param commentField an EditText containing the comment tag value
      * @param sourceField an EditText containing the source tag value
+     * @param closeOpenChangeset close any open changeset first if true
      * @param closeChangeset close the changeset after upload if true
      * @param requestReview CheckBox for the review_requested tag
+     * @param requestReview2
      * @param validations a List of validations to perform on the form fields
      */
     public UploadListener(@NonNull final Main caller, @NonNull final EditText commentField, @NonNull final EditText sourceField,
-            @NonNull final CheckBox closeChangeset, @NonNull CheckBox requestReview, @NonNull final List<FormValidation> validations) {
+            @Nullable CheckBox closeOpenChangeset, @NonNull final CheckBox closeChangeset, @NonNull CheckBox requestReview,
+            @NonNull final List<FormValidation> validations) {
         this.caller = caller;
         this.commentField = commentField;
         this.sourceField = sourceField;
+        this.closeOpenChangeset = closeOpenChangeset;
         this.closeChangeset = closeChangeset;
         this.requestReview = requestReview;
         this.validations = validations;
@@ -65,7 +71,8 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             if (requestReview.isChecked()) {
                 extraTags.put(Tags.KEY_REVIEW_REQUESTED, Tags.VALUE_YES);
             }
-            caller.performUpload(commentField.getText().toString(), sourceField.getText().toString(), closeChangeset.isChecked(), extraTags);
+            caller.performUpload(commentField.getText().toString(), sourceField.getText().toString(),
+                    closeOpenChangeset != null && closeOpenChangeset.isChecked(), closeChangeset.isChecked(), extraTags);
         } else {
             ConfirmUpload.showPage(caller, ConfirmUpload.TAGS_PAGE);
             tagsShown = true;

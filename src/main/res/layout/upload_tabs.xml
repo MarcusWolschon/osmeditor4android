@@ -116,10 +116,28 @@
                         android:lines="3"
                         android:maxLines="3" />
                     <TextView
-                        android:id="@+id/upload_close_changeset_label"
+                        android:id="@+id/upload_close_open_changeset_label"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:layout_below="@id/upload_source"
+                        android:gravity="center_vertical"
+                        android:text="@string/upload_close_open_changeset_label" />
+                    <CheckBox
+                        android:id="@+id/upload_close_open_changeset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_alignBottom="@id/upload_close_open_changeset_label"
+                        android:layout_alignEnd="@id/upload_source"
+                        android:layout_alignRight="@id/upload_source"
+                        android:layout_alignTop="@id/upload_close_open_changeset_label"
+                        android:layout_below="@id/upload_source"
+                        android:gravity="center_vertical"
+                        android:text="" />
+                    <TextView
+                        android:id="@+id/upload_close_changeset_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_below="@id/upload_close_open_changeset_label"
                         android:gravity="center_vertical"
                         android:text="@string/upload_close_changeset_label" />
                     <CheckBox
@@ -127,8 +145,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:layout_alignBottom="@id/upload_close_changeset_label"
-                        android:layout_alignEnd="@id/upload_source"
-                        android:layout_alignRight="@id/upload_source"
+                        android:layout_alignEnd="@id/upload_close_open_changeset"
+                        android:layout_alignRight="@id/upload_close_open_changeset"
                         android:layout_alignTop="@id/upload_close_changeset_label"
                         android:layout_below="@id/upload_source"
                         android:gravity="center_vertical"

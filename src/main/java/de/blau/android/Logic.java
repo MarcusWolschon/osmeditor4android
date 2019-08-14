@@ -2713,7 +2713,7 @@ public class Logic {
                 OsmElement element = null;
                 try {
                     final OsmParser osmParser = new OsmParser();
-                    final InputStream in = prefs.getServer().getStreamForElement(activity, Way.NAME.equals(type) ? "full" : null, type, id);
+                    final InputStream in = getPrefs().getServer().getStreamForElement(activity, Way.NAME.equals(type) ? "full" : null, type, id);
                     try {
                         osmParser.start(in);
                         element = osmParser.getStorage().getOsmElement(type, id);
@@ -2776,7 +2776,7 @@ public class Logic {
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
                 try {
-                    final Server server = prefs.getServer();
+                    final Server server = getPrefs().getServer();
                     final OsmParser osmParser = new OsmParser();
 
                     // TODO this currently does not retrieve ways the node may be a member of
@@ -2894,7 +2894,7 @@ public class Logic {
                 try {
                     final OsmParser osmParser = new OsmParser();
                     InputStream in = null;
-                    Server server = prefs.getServer();
+                    Server server = getPrefs().getServer();
                     if (nodes != null && !nodes.isEmpty()) {
                         try {
                             int len = nodes.size();
@@ -3348,7 +3348,7 @@ public class Logic {
      * @param main the current Main instance
      */
     void saveEditingState(@NonNull Main main) {
-        EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS());
+        EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false);
     }
 
@@ -3631,6 +3631,21 @@ public class Logic {
      */
     public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, final boolean closeChangeset,
             @Nullable java.util.Map<String, String> extraTags) {
+        upload(activity, comment, source, false, closeChangeset, extraTags);
+    }
+
+    /**
+     * Uploads to the server in the background.
+     * 
+     * @param activity Activity this is called from
+     * @param comment Changeset comment.
+     * @param source The changeset source tag to add.
+     * @param closeOpenChangeset If true try to close any open changeset first
+     * @param closeChangeset Whether to close the changeset after upload or not.
+     * @param extraTags Additional tags to add to changeset
+     */
+    public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, boolean closeOpenChangeset,
+            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags) {
         final String PROGRESS_TAG = "data";
         final Server server = prefs.getServer();
         new AsyncTask<Void, Void, UploadResult>() {
@@ -3651,7 +3666,7 @@ public class Logic {
                         result.setError(ErrorCodes.API_OFFLINE);
                         return result;
                     }
-                    getDelegator().uploadToServer(server, comment, source, closeChangeset, extraTags);
+                    getDelegator().uploadToServer(server, comment, source, closeOpenChangeset, closeChangeset, extraTags);
                 } catch (final MalformedURLException | ProtocolException e) {
                     Log.e(DEBUG_TAG, "", e);
                     ACRAHelper.nocrashReport(e, e.getMessage());
@@ -5210,5 +5225,12 @@ public class Logic {
         if (activity != null) {
             AttachedObjectWarning.showDialog(activity);
         }
+    }
+
+    /**
+     * @return the prefs
+     */
+    public Preferences getPrefs() {
+        return prefs;
     }
 }

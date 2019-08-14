@@ -50,6 +50,7 @@ import de.blau.android.listener.UploadListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
@@ -175,8 +176,16 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         });
 
         // Comment and upload page
+        Preferences prefs = new Preferences(activity);
+        Server server = prefs.getServer();
+        boolean openChangeset = server.hasOpenChangeset();
+        TextView closeOpenChangesetLabel = (TextView) layout.findViewById(R.id.upload_close_open_changeset_label);
+        closeOpenChangesetLabel.setVisibility(openChangeset ? View.VISIBLE : View.GONE);
+        CheckBox closeOpenChangeset = (CheckBox) layout.findViewById(R.id.upload_close_open_changeset);
+        closeOpenChangeset.setVisibility(openChangeset ? View.VISIBLE : View.GONE);
+
         CheckBox closeChangeset = (CheckBox) layout.findViewById(R.id.upload_close_changeset);
-        closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
+        closeChangeset.setChecked(prefs.closeChangesetOnSave());
         CheckBox requestReview = (CheckBox) layout.findViewById(R.id.upload_request_review);
 
         comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
@@ -235,7 +244,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         });
 
         AlertDialog dialog = builder.create();
-        dialog.setOnShowListener(new UploadListener((Main) activity, comment, source, closeChangeset, requestReview, validators));
+        dialog.setOnShowListener(
+                new UploadListener((Main) activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, validators));
         return dialog;
     }
 
