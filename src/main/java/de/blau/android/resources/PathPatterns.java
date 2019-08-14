@@ -39,7 +39,7 @@ abstract class PathPattern {
 }
 
 class TriangleLeft extends PathPattern {
-    static final String name = "triangle_left";
+    static final String NAME = "triangle_left";
 
     Path path = new Path();
 
@@ -56,7 +56,7 @@ class TriangleLeft extends PathPattern {
 }
 
 class TriangleRight extends PathPattern {
-    static final String name = "triangle_right";
+    static final String NAME = "triangle_right";
 
     Path path = new Path();
 
@@ -73,7 +73,7 @@ class TriangleRight extends PathPattern {
 }
 
 class BorderLeft extends PathPattern {
-    static final String name = "border_left";
+    static final String NAME = "border_left";
 
     Path path = new Path();
 
@@ -103,7 +103,7 @@ class BorderLeft extends PathPattern {
 }
 
 class BorderRight extends PathPattern {
-    static final String name = "border_right";
+    static final String NAME = "border_right";
 
     Path path = new Path();
 
@@ -132,15 +132,22 @@ class BorderRight extends PathPattern {
     }
 }
 
-class PathPatterns {
+final class PathPatterns {
+
+    /**
+     * Private constructor to disallow instantiation
+     */
+    private PathPatterns() {
+        // empty
+    }
 
     static Map<String, PathPattern> patterns = new HashMap<>();
 
     static {
-        patterns.put(TriangleLeft.name, new TriangleLeft());
-        patterns.put(TriangleRight.name, new TriangleRight());
-        patterns.put(BorderLeft.name, new BorderLeft());
-        patterns.put(BorderRight.name, new BorderRight());
+        patterns.put(TriangleLeft.NAME, new TriangleLeft());
+        patterns.put(TriangleRight.NAME, new TriangleRight());
+        patterns.put(BorderLeft.NAME, new BorderLeft());
+        patterns.put(BorderRight.NAME, new BorderRight());
     }
 
     /**
