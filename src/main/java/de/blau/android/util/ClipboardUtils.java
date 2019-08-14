@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -25,6 +26,11 @@ import android.util.Log;
  */
 public class ClipboardUtils {
 
+    private static final String DEBUG_TAG = "ClipboardUtils";
+
+    private static final String EOL = "\\r?\\n|\\r";
+
+    @SuppressWarnings("deprecation")
     private static android.text.ClipboardManager oldClipboard = null;
     private static ClipboardManager              clipboard    = null;
 
@@ -57,10 +63,7 @@ public class ClipboardUtils {
      * @return list of Strings
      */
     @SuppressLint("NewApi")
-    private static ArrayList<String> getTextLines(Context ctx) {
-
-        String EOL = "\\r?\\n|\\r";
-
+    private static List<String> getTextLines(Context ctx) {
         if (checkForText(ctx)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
@@ -71,13 +74,12 @@ public class ClipboardUtils {
                     Uri pasteUri = item.getUri();
                     if (pasteUri != null) { // FIXME untested
                         try {
-                            Log.d("ClipboardUtils", "Clipboard contains an uri");
+                            Log.d(DEBUG_TAG, "Clipboard contains an uri");
                             ContentResolver cr = ctx.getContentResolver();
                             String uriMimeType = cr.getType(pasteUri);
                             // pasteData = resolveUri(pasteUri);
                             // If the return value is not null, the Uri is a content Uri
                             if (uriMimeType != null) {
-
                                 // Does the content provider offer a MIME type that the current application can use?
                                 if (uriMimeType.equals(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
 
@@ -96,12 +98,12 @@ public class ClipboardUtils {
                                 }
                             }
                         } catch (Exception e) { // FIXME given that the above is unteted, cath all here
-                            Log.e("ClipboardUtils", "Resolving URI failed " + e);
+                            Log.e(DEBUG_TAG, "Resolving URI failed " + e);
                             return null;
                         }
                     }
                 } else {
-                    Log.d("ClipboardUtils", "Clipboard contains text");
+                    Log.d(DEBUG_TAG, "Clipboard contains text");
                     String pasteData = cs.toString();
                     return new ArrayList<>(Arrays.asList(pasteData.split(EOL)));
                 }
@@ -116,7 +118,7 @@ public class ClipboardUtils {
                     }
                 }
             }
-            Log.e("ClipboardUtils", "Clipboard contains an invalid data type");
+            Log.e(DEBUG_TAG, "Clipboard contains an invalid data type");
         }
         return null;
     }
@@ -127,21 +129,21 @@ public class ClipboardUtils {
      * @param ctx Android Context
      * @return list of KeyValue objects
      */
-    public static ArrayList<KeyValue> getKeyValues(Context ctx) {
-        ArrayList<String> textLines = getTextLines(ctx);
+    public static List<KeyValue> getKeyValues(Context ctx) {
+        List<String> textLines = getTextLines(ctx);
         if (textLines != null) {
-            ArrayList<KeyValue> keysAndValues = new ArrayList<>();
+            List<KeyValue> keysAndValues = new ArrayList<>();
             for (String line : textLines) {
                 if (line.contains("=")) {
                     String[] r = line.split("=", 2);
                     if (r.length == 2) {
                         keysAndValues.add(new KeyValue(r[0], r[1]));
                     } else {
-                        Log.e("ClipboardUtils", "Split of key = value failed");
+                        Log.e(DEBUG_TAG, "Split of key = value failed");
                     }
                 } else {
                     keysAndValues.add(new KeyValue(null, line));
-                    Log.d("ClipboardUtils", "no key, value=" + line);
+                    Log.d(DEBUG_TAG, "no key, value=" + line);
                 }
             }
             return keysAndValues;

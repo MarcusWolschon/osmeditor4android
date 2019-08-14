@@ -2157,7 +2157,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     @Override
     public boolean pasteFromClipboard(boolean replace) {
-        ArrayList<KeyValue> paste = ClipboardUtils.getKeyValues(getActivity());
+        List<KeyValue> paste = ClipboardUtils.getKeyValues(getActivity());
         if (paste != null) {
             mergeTags(paste, replace);
         }
