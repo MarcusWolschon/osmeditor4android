@@ -1,7 +1,15 @@
 package de.blau.android.osm;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 /**
  * Capabilities of the API server we are connected to
@@ -286,5 +294,90 @@ public class Capabilities {
      */
     public void setGpxStatus(Status gpxStatus) {
         this.gpxStatus = gpxStatus;
+    }
+
+    /**
+     * Create a new Capabilities object from an InputStream in XML format
+     * 
+     * @param parser an XmlPullParser instance
+     * @param is the InputStream
+     * @return a Capabilities object
+     * @throws XmlPullParserException if parsing fails
+     * @throws IOException if an IO operation fails
+     */
+    static Capabilities parse(@NonNull XmlPullParser parser, @NonNull InputStream is) throws XmlPullParserException, IOException {
+        parser.setInput(is, null);
+        int eventType;
+        Capabilities result = new Capabilities();
+        // very hackish just keys on tag names and not in which section of the response we are
+        while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+            try {
+                String tagName = parser.getName();
+                if (eventType == XmlPullParser.START_TAG) {
+                    switch (tagName) {
+                    case Capabilities.VERSION_TAG:
+                        result.setMinVersion(parser.getAttributeValue(null, Capabilities.MINIMUM_KEY));
+                        result.setMaxVersion(parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY));
+                        Log.d(DEBUG_TAG, "getCapabilities min/max API version " + result.getMinVersion() + "/" + result.getMaxVersion());
+                        break;
+                    case Capabilities.AREA_TAG:
+                        String maxArea = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
+                        if (maxArea != null) {
+                            result.setAreaMax(Float.parseFloat(maxArea));
+                        }
+                        Log.d(DEBUG_TAG, "getCapabilities maximum area " + maxArea);
+                        break;
+                    case Capabilities.TRACEPOINTS_TAG:
+                        String perPage = parser.getAttributeValue(null, Capabilities.PER_PAGE_KEY);
+                        if (perPage != null) {
+                            result.setMaxTracepointsPerPage(Integer.parseInt(perPage));
+                        }
+                        Log.d(DEBUG_TAG, "getCapabilities maximum #tracepoints per page " + perPage);
+                        break;
+                    case Capabilities.WAYNODES_TAG:
+                        String maximumWayNodes = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
+                        if (maximumWayNodes != null) {
+                            result.setMaxWayNodes(Integer.parseInt(maximumWayNodes));
+                        }
+                        Log.d(DEBUG_TAG, "getCapabilities maximum #nodes in a way " + maximumWayNodes);
+                        break;
+                    case Capabilities.CHANGESETS_TAG:
+                        String maximumElements = parser.getAttributeValue(null, Capabilities.MAXIMUM_ELEMENTS_KEY);
+                        if (maximumElements != null) {
+                            result.setMaxElementsInChangeset(Integer.parseInt(maximumElements));
+                        }
+                        Log.d(DEBUG_TAG, "getCapabilities maximum elements in changesets " + maximumElements);
+                        break;
+                    case Capabilities.TIMEOUT_TAG:
+                        String seconds = parser.getAttributeValue(null, Capabilities.SECONDS_KEY);
+                        if (seconds != null) {
+                            result.setTimeout(Integer.parseInt(seconds));
+                        }
+                        Log.d(DEBUG_TAG, "getCapabilities timeout seconds " + seconds);
+                        break;
+                    case Capabilities.STATUS_TAG:
+                        result.setDbStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.DATABASE_KEY)));
+                        result.setApiStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.API_KEY)));
+                        result.setGpxStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.GPX_KEY)));
+                        Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.getDbStatus() + " API " + result.getApiStatus() + " GPX "
+                                + result.getGpxStatus());
+                        break;
+                    case Capabilities.BLACKLIST_TAG:
+                        if (result.getImageryBlacklist() == null) {
+                            result.setImageryBlacklist(new ArrayList<>());
+                        }
+                        String regex = parser.getAttributeValue(null, Capabilities.REGEX_KEY);
+                        if (regex != null) {
+                            result.getImageryBlacklist().add(regex);
+                        }
+                        Log.d(DEBUG_TAG, "getCapabilities blacklist regex " + regex);
+                        break;
+                    }
+                }
+            } catch (NumberFormatException e) {
+                Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
+            }
+        }
+        return result;
     }
 }

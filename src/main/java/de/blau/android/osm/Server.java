@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,7 +58,6 @@ import de.blau.android.util.FileUtil;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
-import de.blau.android.util.Util;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -517,90 +515,15 @@ public class Server {
      * @param capabilitiesURL the URL for the API capabilities call
      * @return The capabilities for this server, or null if it couldn't be determined.
      */
-    private Capabilities getCapabilities(URL capabilitiesURL) {
-        Capabilities result;
-        InputStream is = null;
+    private Capabilities getCapabilities(@NonNull URL capabilitiesURL) {
         //
-        try {
+        try (InputStream is = openConnection(null, capabilitiesURL)) {
             Log.d(DEBUG_TAG, "getCapabilities using " + capabilitiesURL.toString());
-            is = openConnection(null, capabilitiesURL);
-
-            XmlPullParser parser = xmlParserFactory.newPullParser();
-            parser.setInput(is, null);
-            int eventType;
-            result = new Capabilities();
-            // very hackish just keys on tag names and not in which section of the response we are
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                try {
-                    String tagName = parser.getName();
-                    if (eventType == XmlPullParser.START_TAG && Capabilities.VERSION_TAG.equals(tagName)) {
-                        result.setMinVersion(parser.getAttributeValue(null, Capabilities.MINIMUM_KEY));
-                        result.setMaxVersion(parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY));
-                        Log.d(DEBUG_TAG, "getCapabilities min/max API version " + result.getMinVersion() + "/" + result.getMaxVersion());
-                    }
-                    if (eventType == XmlPullParser.START_TAG && Capabilities.AREA_TAG.equals(tagName)) {
-                        String maxArea = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
-                        if (maxArea != null) {
-                            result.setAreaMax(Float.parseFloat(maxArea));
-                        }
-                        Log.d(DEBUG_TAG, "getCapabilities maximum area " + maxArea);
-                    }
-                    if (eventType == XmlPullParser.START_TAG && Capabilities.TRACEPOINTS_TAG.equals(tagName)) {
-                        String perPage = parser.getAttributeValue(null, Capabilities.PER_PAGE_KEY);
-                        if (perPage != null) {
-                            result.setMaxTracepointsPerPage(Integer.parseInt(perPage));
-                        }
-                        Log.d(DEBUG_TAG, "getCapabilities maximum #tracepoints per page " + perPage);
-                    }
-                    if (eventType == XmlPullParser.START_TAG && Capabilities.WAYNODES_TAG.equals(tagName)) {
-                        String maximumWayNodes = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
-                        if (maximumWayNodes != null) {
-                            result.setMaxWayNodes(Integer.parseInt(maximumWayNodes));
-                        }
-                        Log.d(DEBUG_TAG, "getCapabilities maximum #nodes in a way " + maximumWayNodes);
-                    }
-                    if (eventType == XmlPullParser.START_TAG && Capabilities.CHANGESETS_TAG.equals(tagName)) {
-                        String maximumElements = parser.getAttributeValue(null, Capabilities.MAXIMUM_ELEMENTS_KEY);
-                        if (maximumElements != null) {
-                            result.setMaxElementsInChangeset(Integer.parseInt(maximumElements));
-                        }
-                        Log.d(DEBUG_TAG, "getCapabilities maximum elements in changesets " + maximumElements);
-                    }
-                    if (eventType == XmlPullParser.START_TAG && Capabilities.TIMEOUT_TAG.equals(tagName)) {
-                        String seconds = parser.getAttributeValue(null, Capabilities.SECONDS_KEY);
-                        if (seconds != null) {
-                            result.setTimeout(Integer.parseInt(seconds));
-                        }
-                        Log.d(DEBUG_TAG, "getCapabilities timeout seconds " + seconds);
-                    }
-                    if (eventType == XmlPullParser.START_TAG && Capabilities.STATUS_TAG.equals(tagName)) {
-                        result.setDbStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.DATABASE_KEY)));
-                        result.setApiStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.API_KEY)));
-                        result.setGpxStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.GPX_KEY)));
-                        Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.getDbStatus() + " API " + result.getApiStatus() + " GPX "
-                                + result.getGpxStatus());
-                    }
-                    if (eventType == XmlPullParser.START_TAG && Capabilities.BLACKLIST_TAG.equals(tagName)) {
-                        if (result.getImageryBlacklist() == null) {
-                            result.setImageryBlacklist(new ArrayList<>());
-                        }
-                        String regex = parser.getAttributeValue(null, Capabilities.REGEX_KEY);
-                        if (regex != null) {
-                            result.getImageryBlacklist().add(regex);
-                        }
-                        Log.d(DEBUG_TAG, "getCapabilities blacklist regex " + regex);
-                    }
-                } catch (NumberFormatException e) {
-                    Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
-                }
-            }
-            return result;
+            return Capabilities.parse(xmlParserFactory.newPullParser(), is);
         } catch (XmlPullParserException e) {
             Log.e(DEBUG_TAG, "Problem parsing capabilities", e);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
-        } finally {
-            SavingHelper.close(is);
         }
         return null;
     }
@@ -773,6 +696,8 @@ public class Server {
     /**
      * Sends an delete-request to the server.
      * 
+     * Note this uses the diff upload mechanism
+     * 
      * @param elem the element which should be deleted.
      * @return true when the server indicates the successful deletion (HTTP 200), otherwise false.
      * @throws MalformedURLException if the URL can't be constructed properly
@@ -804,7 +729,7 @@ public class Server {
                 }
             }
         };
-        Response response = openConnectionForAuthenicatedAccess(getDeleteUrl(), HTTP_POST, body);
+        Response response = openConnectionForAuthenicatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body);
         checkResponseCode(response, elem);
         return true;
     }
@@ -831,7 +756,7 @@ public class Server {
         long osmVersion = -1;
         InputStream in = null;
         try {
-            URL updateElementUrl = getUpdateUrl(elem);
+            URL updateElementUrl = getUpdateElementUrl(elem);
             Log.d(DEBUG_TAG, "Updating " + elem.getName() + " #" + elem.getOsmId() + " " + updateElementUrl);
 
             // remove redundant tags
@@ -849,7 +774,7 @@ public class Server {
                         sendPayload(sink.outputStream(), new XmlSerializable() {
                             @Override
                             public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                                startXml(serializer);
+                                startXml(serializer, generator);
                                 elem.toXml(serializer, changeSetId);
                                 endXml(serializer);
                             }
@@ -982,7 +907,7 @@ public class Server {
                         sendPayload(sink.outputStream(), new XmlSerializable() {
                             @Override
                             public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                                startXml(serializer);
+                                startXml(serializer, generator);
                                 elem.toXml(serializer, changeSetId);
                                 endXml(serializer);
                             }
@@ -992,7 +917,7 @@ public class Server {
                     }
                 }
             };
-            Response response = openConnectionForAuthenicatedAccess(getCreationUrl(elem), HTTP_PUT, body);
+            Response response = openConnectionForAuthenicatedAccess(getCreateElementUrl(elem), HTTP_PUT, body);
             checkResponseCode(response);
             in = response.body().byteStream();
             try {
@@ -1036,7 +961,6 @@ public class Server {
     public void openChangeset(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
             @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, IOException {
         long newChangesetId = -1;
-        InputStream in = null;
 
         if (changesetId != -1) { // potentially still open, check if really the case
             Changeset cs = getChangeset(changesetId);
@@ -1048,85 +972,30 @@ public class Server {
                 changesetId = -1;
             }
         }
-        try {
-            final XmlSerializable xmlData = changeSetTags(comment, source, imagery, extraTags);
-            RequestBody body = new RequestBody() {
-                @Override
-                public MediaType contentType() {
-                    return TEXTXML;
-                }
 
-                @Override
-                public void writeTo(BufferedSink sink) throws IOException {
-                    sendPayload(sink.outputStream(), xmlData, changesetId);
-                }
-            };
-            Response response = openConnectionForAuthenicatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
-
-            checkResponseCode(response);
-            in = response.body().byteStream();
-            try {
-                newChangesetId = Long.parseLong(readLine(in));
-            } catch (NumberFormatException e) {
-                throw new OsmServerException(-1, "Server returned illegal changeset id " + e.getMessage());
-            }
-        } finally {
-            SavingHelper.close(in);
-        }
-        changesetId = newChangesetId;
-    }
-
-    /**
-     * Generate xml for the changeset tags
-     * 
-     * @param comment value for the comment tag
-     * @param source value for the source tag
-     * @param imagery value for the imagery_used tag
-     * @param extraTags Additional tags to add
-     * @return an XmlSerializable for the tags
-     */
-    private XmlSerializable changeSetTags(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
-            @Nullable Map<String, String> extraTags) {
-        return new XmlSerializable() {
+        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
+        RequestBody body = new RequestBody() {
             @Override
-            public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                startXml(serializer);
-                serializer.startTag("", OsmXml.CHANGESET);
-                addTag(serializer, Tags.KEY_CREATED_BY, generator);
-                if (comment != null && comment.length() > 0) {
-                    addTag(serializer, Tags.KEY_COMMENT, comment);
-                }
-                if (source != null && source.length() > 0) {
-                    addTag(serializer, Tags.KEY_SOURCE, source);
-                }
-                if (imagery != null && imagery.length() > 0) {
-                    addTag(serializer, Tags.KEY_IMAGERY_USED, imagery);
-                }
-                addTag(serializer, Tags.KEY_LOCALE, Util.toBcp47Language(Locale.getDefault()));
-                if (extraTags != null) {
-                    for (Entry<String, String> tag : extraTags.entrySet()) {
-                        addTag(serializer, tag.getKey(), tag.getValue());
-                    }
-                }
-                serializer.endTag("", OsmXml.CHANGESET);
-                endXml(serializer);
+            public MediaType contentType() {
+                return TEXTXML;
             }
 
-            /**
-             * Serialize a tag
-             * 
-             * @param serializer the serializer
-             * @param key the key
-             * @param value the value
-             * @throws IOException
-             */
-            private void addTag(@NonNull XmlSerializer serializer, @NonNull String key, @NonNull String value) throws IOException {
-                serializer.startTag("", OsmXml.TAG);
-                serializer.attribute("", "k", key);
-                serializer.attribute("", "v", value);
-                serializer.endTag("", OsmXml.TAG);
+            @Override
+            public void writeTo(BufferedSink sink) throws IOException {
+                sendPayload(sink.outputStream(), xmlData, changesetId);
             }
         };
+        Response response = openConnectionForAuthenicatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
+
+        checkResponseCode(response);
+
+        try (InputStream in = response.body().byteStream()) {
+            newChangesetId = Long.parseLong(readLine(in));
+        } catch (NumberFormatException e) {
+            throw new OsmServerException(-1, "Server returned illegal changeset id " + e.getMessage());
+        }
+
+        changesetId = newChangesetId;
     }
 
     /**
@@ -1147,16 +1016,6 @@ public class Server {
     }
 
     /**
-     * Right now just what we need
-     * 
-     * @author simon
-     *
-     */
-    class Changeset {
-        boolean open = false;
-    }
-
-    /**
      * Retrieve information for a specific changeset
      * 
      * @param id id of the changeset
@@ -1168,19 +1027,7 @@ public class Server {
         try {
             Response response = openConnectionForAuthenicatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null);
             checkResponseCode(response);
-
-            XmlPullParser parser = xmlParserFactory.newPullParser();
-            parser.setInput(response.body().byteStream(), null);
-            int eventType;
-            result = new Changeset();
-
-            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                String tagName = parser.getName();
-                if (eventType == XmlPullParser.START_TAG && "changeset".equals(tagName)) {
-                    result.open = parser.getAttributeValue(null, "open").equals("true");
-                    Log.d(DEBUG_TAG, "Changeset #" + id + " is " + (result.open ? "open" : "closed"));
-                }
-            }
+            result = Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
         } catch (IOException | XmlPullParserException e) {
             Log.d(DEBUG_TAG, "getChangeset got " + e.getMessage());
         }
@@ -1201,7 +1048,7 @@ public class Server {
      */
     private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
             @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, IOException {
-        final XmlSerializable xmlData = changeSetTags(comment, source, imagery, extraTags);
+        final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
         RequestBody body = new RequestBody() {
             @Override
             public MediaType contentType() {
@@ -1213,7 +1060,7 @@ public class Server {
                 sendPayload(sink.outputStream(), xmlData, changesetId);
             }
         };
-        Response response = openConnectionForAuthenicatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
+        Response response = openConnectionForAuthenicatedAccess(getChangesetUrl(changesetId), HTTP_PUT, body);
         checkResponseCode(response);
         // ignore response for now
     }
@@ -1534,18 +1381,44 @@ public class Server {
         return res;
     }
 
-    private void startXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
+    /**
+     * Start an XML document for an OSM API operation
+     * 
+     * @param xmlSerializer an XmlSerializer instance
+     * @param generator an identifier for the current application
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    static void startXml(@NonNull XmlSerializer xmlSerializer, @NonNull String generator) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument(OsmXml.UTF_8, null);
         xmlSerializer.startTag("", "osm");
         xmlSerializer.attribute("", VERSION_KEY, API_VERSION);
         xmlSerializer.attribute("", GENERATOR_KEY, generator);
     }
 
-    private void endXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
+    /**
+     * End an XML document for an OSM API operation
+     * 
+     * @param xmlSerializer an XmlSerializer instance
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    static void endXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", "osm");
         xmlSerializer.endDocument();
     }
 
+    /**
+     * Start an XML document for an OSM diff upload for a single action element
+     * 
+     * @param xmlSerializer an XmlSerializer instance
+     * @param action the action (create, modify, delete)
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument(OsmXml.UTF_8, null);
@@ -1557,6 +1430,15 @@ public class Server {
         xmlSerializer.attribute("", GENERATOR_KEY, generator);
     }
 
+    /**
+     * End an XML document for an OSM diff upload for a single action element
+     * 
+     * @param xmlSerializer an XmlSerializer instance
+     * @param action the action (create, modify, delete)
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     private void endChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", action);
@@ -1564,36 +1446,82 @@ public class Server {
         xmlSerializer.endDocument();
     }
 
+    /**
+     * Get an new XmlSerializer
+     * 
+     * @return an new XmlSerializer instance
+     * @throws XmlPullParserException
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     private XmlSerializer getXmlSerializer() throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
         XmlSerializer serializer = xmlParserFactory.newSerializer();
         serializer.setPrefix("", "");
         return serializer;
     }
 
-    private URL getCreationUrl(@NonNull final OsmElement elem) throws MalformedURLException {
-        return new URL(getReadWriteUrl() + elem.getName() + "/create");
-    }
-
+    /**
+     * Get the URL for creating a changeset
+     * 
+     * @return the URL
+     * @throws MalformedURLException if the URL we tried to create was malformed
+     */
     private URL getCreateChangesetUrl() throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + "create");
     }
 
+    /**
+     * Get the URL for closing a changeset
+     * 
+     * @param changesetId the id of the changeset
+     * @return the URL
+     * @throws MalformedURLException if the URL we tried to create was malformed
+     */
     private URL getCloseChangesetUrl(long changesetId) throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/close");
     }
 
+    /**
+     * Get the URL for retrieving or updating a changeset
+     * 
+     * @param changesetId the id of the changeset
+     * @return the URL
+     * @throws MalformedURLException if the URL we tried to create was malformed
+     */
     private URL getChangesetUrl(long changesetId) throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId);
     }
 
-    private URL getUpdateUrl(@NonNull final OsmElement elem) throws MalformedURLException {
+    /**
+     * Get the URL for creating an osm element
+     * 
+     * @param elem the OSM element
+     * @return the URL
+     * @throws MalformedURLException if the URL we tried to create was malformed
+     */
+    private URL getCreateElementUrl(@NonNull final OsmElement elem) throws MalformedURLException {
+        return new URL(getReadWriteUrl() + elem.getName() + "/create");
+    }
+
+    /**
+     * Get the URL for updating an osm element
+     * 
+     * @param elem the OSM element
+     * @return the URL
+     * @throws MalformedURLException if the URL we tried to create was malformed
+     */
+    private URL getUpdateElementUrl(@NonNull final OsmElement elem) throws MalformedURLException {
         return new URL(getReadWriteUrl() + elem.getName() + "/" + elem.getOsmId());
     }
 
-    private URL getDeleteUrl() throws MalformedURLException {
-        return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/upload");
-    }
-
+    /**
+     * Get the URL for diff uploads
+     * 
+     * @param changeSetId the current open changeset id
+     * @return the URL
+     * @throws MalformedURLException if the URL we tried to create was malformed
+     */
     private URL getDiffUploadUrl(long changeSetId) throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changeSetId + "/upload");
     }
@@ -1610,7 +1538,7 @@ public class Server {
         return new URL(getReadWriteUrl() + "user/preferences/" + key);
     }
 
-    private URL getAddCommentUrl(@NonNull String noteId, @NonNull String comment) throws MalformedURLException {
+    private URL getAddNoteCommentUrl(@NonNull String noteId, @NonNull String comment) throws MalformedURLException {
         return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment);
     }
 
@@ -1845,7 +1773,7 @@ public class Server {
             // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
             // which will fail
             String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
-            URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
+            URL addCommentUrl = getAddNoteCommentUrl(Long.toString(bug.getId()), encodedComment);
 
             Response response = openConnectionForAuthenicatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""));
 
