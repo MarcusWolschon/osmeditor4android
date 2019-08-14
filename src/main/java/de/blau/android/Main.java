@@ -1835,7 +1835,7 @@ public class Main extends FullScreenAppCompatActivity
         StorageDelegator delegator = App.getDelegator();
         switch (item.getItemId()) {
         case R.id.menu_config:
-            PrefEditor.start(this, getMap().getViewBox());
+            PrefEditor.start(this);
             return true;
 
         case R.id.menu_find:

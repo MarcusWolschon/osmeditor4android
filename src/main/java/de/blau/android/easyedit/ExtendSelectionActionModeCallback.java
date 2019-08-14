@@ -280,7 +280,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 }
                 break;
             case MENUITEM_PREFERENCES:
-                PrefEditor.start(main, main.getMap().getViewBox());
+                PrefEditor.start(main);
                 break;
             case MENUITEM_JS_CONSOLE:
                 Main.showJsConsole(main);

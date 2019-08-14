@@ -224,7 +224,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             }
             break;
         case MENUITEM_PREFERENCES:
-            PrefEditor.start(main, main.getMap().getViewBox());
+            PrefEditor.start(main);
             break;
         case MENUITEM_ZOOM_TO_SELECTION:
             main.zoomTo(element);
