@@ -63,7 +63,7 @@ public class PresetTest {
         ArrayList<String> values = new ArrayList<String>();
         values.add("chinese;fondue");
         values.add("japenese,steak");
-        ArrayList<String> result = Preset.splitValues(values, restaurant, "cuisine");
+        List<String> result = Preset.splitValues(values, restaurant, "cuisine");
         Assert.assertEquals(3, result.size());
         Assert.assertTrue(result.contains("chinese"));
         Assert.assertTrue(result.contains("fondue"));
@@ -94,7 +94,7 @@ public class PresetTest {
         Assert.assertFalse(result.contains(landuseFarm));
         Assert.assertTrue(result.contains(placeFarm));
     }
-    
+
     /**
      * Optional items should be that
      */
@@ -107,6 +107,6 @@ public class PresetTest {
         Assert.assertTrue(path.hasKey(Tags.KEY_NAME, true));
         // mtb:scale is directly in an optional section
         Assert.assertFalse(path.hasKey("mtb:scale", false));
-        Assert.assertTrue(path.hasKey("mtb:scale", true)); 
+        Assert.assertTrue(path.hasKey("mtb:scale", true));
     }
 }

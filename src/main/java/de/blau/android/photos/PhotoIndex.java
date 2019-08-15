@@ -47,6 +47,8 @@ public class PhotoIndex extends SQLiteOpenHelper {
     private static final String DIR_COLUMN        = "dir";
     private static final String DIR_WHERE         = "dir = ?";
 
+    private static final String INSERT_INTO = "INSERT INTO ";
+
     /**
      * Provide access to the on disk Photo index
      * 
@@ -63,9 +65,9 @@ public class PhotoIndex extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX latidx ON " + PHOTOS_TABLE + " (lat)");
         db.execSQL("CREATE INDEX lonidx ON " + PHOTOS_TABLE + " (lon)");
         db.execSQL("CREATE TABLE IF NOT EXISTS " + DIRECTORIES_TABLE + " (dir VARCHAR, last_scan int8);");
-        db.execSQL("INSERT INTO " + DIRECTORIES_TABLE + " VALUES ('DCIM', 0);");
-        db.execSQL("INSERT INTO " + DIRECTORIES_TABLE + " VALUES ('Vespucci', 0);");
-        db.execSQL("INSERT INTO " + DIRECTORIES_TABLE + " VALUES ('osmtracker', 0);");
+        db.execSQL(INSERT_INTO + DIRECTORIES_TABLE + " VALUES ('DCIM', 0);");
+        db.execSQL(INSERT_INTO + DIRECTORIES_TABLE + " VALUES ('Vespucci', 0);");
+        db.execSQL(INSERT_INTO + DIRECTORIES_TABLE + " VALUES ('osmtracker', 0);");
     }
 
     @Override

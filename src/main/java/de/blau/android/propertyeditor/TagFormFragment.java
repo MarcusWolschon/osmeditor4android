@@ -307,7 +307,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return an ArrayAdapter for key, or null if something went wrong
      */
     @Nullable
-    private ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable ArrayList<String> values, @Nullable PresetItem preset,
+    private ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable List<String> values, @Nullable PresetItem preset,
             @Nullable PresetField field, @NonNull Map<String, String> allTags) {
         ArrayAdapter<?> adapter = null;
 
@@ -883,7 +883,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         if (rowLayout != null) {
             if (preset != null) {
                 if (!(field instanceof PresetFixedField)) {
-                    ArrayList<String> values = null;
+                    List<String> values = null;
                     boolean isCheckField = field instanceof PresetCheckField;
                     boolean isComboField = field instanceof PresetComboField && !((PresetComboField) field).isMultiSelect();
                     boolean isMultiSelectField = field instanceof PresetComboField && ((PresetComboField) field).isMultiSelect();
@@ -1096,7 +1096,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return a TagTextRow instance
      */
     private TagTextRow getTextRow(@NonNull final LinearLayout rowLayout, @Nullable final PresetItem preset, @NonNull final PresetField field,
-            @Nullable final String value, @Nullable final ArrayList<String> values, final Map<String, String> allTags) {
+            @Nullable final String value, @Nullable final List<String> values, final Map<String, String> allTags) {
         final TagTextRow row = (TagTextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
         final String key = field.getKey();
         final String hint = preset != null ? field.getHint() : null;
@@ -1284,7 +1284,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return a TagMultiselectRow instance
      */
     private TagMultiselectRow getMultiselectRow(@NonNull final LinearLayout rowLayout, @NonNull final PresetItem preset, @Nullable final String hint,
-            final String key, @Nullable final ArrayList<String> values, @Nullable ArrayAdapter<?> adapter) {
+            final String key, @Nullable final List<String> values, @Nullable ArrayAdapter<?> adapter) {
         final TagMultiselectRow row = (TagMultiselectRow) inflater.inflate(R.layout.tag_form_multiselect_row, rowLayout, false);
         row.getKeyView().setText(hint != null ? hint : key);
         row.getKeyView().setTag(key);
@@ -1334,7 +1334,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return a TagFormDialogRow instance
      */
     private TagFormDialogRow getConditionalRestrictionDialogRow(LinearLayout rowLayout, PresetItem preset, final String hint, final String key,
-            final String value, @Nullable final ArrayList<String> values, Map<String, String> allTags) {
+            final String value, @Nullable final List<String> values, Map<String, String> allTags) {
         final TagFormDialogRow row = (TagFormDialogRow) inflater.inflate(R.layout.tag_form_combo_dialog_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1596,7 +1596,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         row.keyView.setTag(key);
         row.setPreset(preset);
         Log.d(DEBUG_TAG, "addMultiselectDialogRow value " + value);
-        ArrayList<String> multiselectValues = Preset.splitValues(Util.getArrayList(value), preset, key);
+        List<String> multiselectValues = Preset.splitValues(Util.getArrayList(value), preset, key);
 
         if (adapter != null) {
             ArrayList<StringWithDescription> selectedValues = new ArrayList<>();
@@ -1806,7 +1806,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
 
         layout.setTag(key);
-        ArrayList<String> values = Preset.splitValues(Util.getArrayList(row.getValue()), row.getPreset(), key);
+        List<String> values = Preset.splitValues(Util.getArrayList(row.getValue()), row.getPreset(), key);
         if (adapter != null) {
             int count = adapter.getCount();
             for (int i = 0; i < count; i++) {

@@ -380,7 +380,7 @@ public class TagFilterActivity extends ListActivity {
                     updateDatabaseFromList();
                     db.delete(FILTERENTRIES_TABLE, "rowid=" + id, null);
                     newCursor();
-                    Log.d("TagFilterActivity", "delete clicked");
+                    Log.d(DEBUG_TAG, "delete clicked");
                 }
             });
         }

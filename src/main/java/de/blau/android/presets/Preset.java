@@ -4126,7 +4126,7 @@ public class Preset implements Serializable {
      * @return list of split values
      */
     @Nullable
-    public static ArrayList<String> splitValues(@Nullable List<String> values, @NonNull PresetItem preset, @NonNull String key) {
+    public static List<String> splitValues(@Nullable List<String> values, @NonNull PresetItem preset, @NonNull String key) {
         ArrayList<String> result = new ArrayList<>();
         String delimiter = String.valueOf(preset.getDelimiter(key));
         if (values == null) {

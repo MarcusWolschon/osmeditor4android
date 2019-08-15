@@ -27,7 +27,7 @@ import de.blau.android.util.Util;
 public class Changeset {
     private static final String DEBUG_TAG = "Changeset";
 
-    long osmId = -1;;
+    long osmId = -1;
 
     boolean open = false;
 
