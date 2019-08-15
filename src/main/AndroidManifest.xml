@@ -7,7 +7,7 @@
     android:versionName="@string/app_version" >
 
     <uses-sdk
-        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm,com.heinrichreimersoftware.androidissuereporter" />
+        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm,com.heinrichreimersoftware.androidissuereporter,com.davemorrissey.labs.subscaleview,android.support.exifinterface" />
 
     <!--
     disable for now to see if it solves the Play Store problem of the app not showing up for many devices
