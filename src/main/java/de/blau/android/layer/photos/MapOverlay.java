@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.AsyncTask.Status;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -263,7 +264,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
             Uri photoUri = photo.getRefUri(context);
             if (photoUri != null) {
                 Preferences prefs = map.getPrefs();
-                if (prefs.useInternalPhotoViewer()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH && prefs.useInternalPhotoViewer()) {
                     ArrayList<String> uris = new ArrayList<>();
                     int position = 0;
                     for (int i = 0; i < photos.size(); i++) {
