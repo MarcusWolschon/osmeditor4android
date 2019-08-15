@@ -159,7 +159,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         case R.id.preset_menu_top:
             if (rootGroup != null) {
                 currentGroup = rootGroup;
-                currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter) filter).getPresetElement());
+                currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement());
                 presetView.invalidate();
                 supportInvalidateOptionsMenu();
                 return true;
@@ -170,7 +170,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
                 PresetGroup group = currentGroup.getParent();
                 if (group != null) {
                     currentGroup = group;
-                    currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter) filter).getPresetElement());
+                    currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement());
                     presetView.invalidate();
                     supportInvalidateOptionsMenu();
                     return true;
@@ -178,14 +178,14 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
             }
             return true;
         case R.id.preset_menu_waynodes:
-            item.setChecked(!((PresetFilter) filter).includeWayNodes());
-            ((PresetFilter) filter).setIncludeWayNodes(item.isChecked());
-            ((PresetFilter) filter).clear();
+            item.setChecked(!filter.includeWayNodes());
+            filter.setIncludeWayNodes(item.isChecked());
+            filter.clear();
             break;
         case R.id.preset_menu_invert:
             item.setChecked(!((PresetFilter) filter).isInverted());
-            ((PresetFilter) filter).setInverted(item.isChecked());
-            ((PresetFilter) filter).clear();
+            filter.setInverted(item.isChecked());
+            filter.clear();
             break;
         case R.id.menu_help:
             HelpViewer.start(this, R.string.help_presetfilter);
@@ -222,7 +222,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         }
         filter = (PresetFilter) App.getLogic().getFilter();
         currentGroup = group;
-        currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter) filter).getPresetElement());
+        currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement());
         presetView.invalidate();
         supportInvalidateOptionsMenu();
     }
