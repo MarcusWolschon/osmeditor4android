@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 
@@ -107,7 +108,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * 
      * @param map the map to copy
      */
-    public LongOsmElementMap(LongOsmElementMap<? extends V> map) {
+    public LongOsmElementMap(@NonNull LongOsmElementMap<? extends V> map) {
         m_mask = map.m_mask;
         m_fillFactor = map.m_fillFactor;
         m_threshold = map.m_threshold;
@@ -123,8 +124,9 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @return the required element or null if it cannot be found
      */
     @SuppressWarnings("unchecked")
+    @Nullable
     public V get(final long key) {
-        int ptr = (int) ((Tools.phiMix(key) & m_mask));
+        int ptr = (int) (Tools.phiMix(key) & m_mask);
 
         OsmElement e = m_data[ptr];
         if (e == FREE_KEY) {
@@ -153,7 +155,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @return the previous value if one existed
      */
     @SuppressWarnings("unchecked")
-    public V put(final long key, final V value) {
+    @Nullable
+    public V put(final long key, @Nullable final V value) {
         int ptr = (int) ((Tools.phiMix(key) & m_mask));
 
         OsmElement e = m_data[ptr];
@@ -206,7 +209,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * 
      * @param map the Map to add
      */
-    public void putAll(LongOsmElementMap<V> map) {
+    public void putAll(@NonNull LongOsmElementMap<V> map) {
         ensureCapacity(m_data.length + map.size());
         for (V e : map) { // trivial implementation for now
             put(e.getOsmId(), e);
@@ -218,7 +221,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * 
      * @param c the Collection to add
      */
-    public void putAll(Collection<V> c) {
+    public void putAll(@NonNull Collection<V> c) {
         ensureCapacity(m_data.length + c.size());
         for (V e : c) { // trivial implementation for now
             put(e.getOsmId(), e);
@@ -231,6 +234,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @param key the key we want to remove
      * @return the removed value or null if it didn't exist
      */
+    @Nullable
     public OsmElement remove(final long key) {
         int ptr = (int) (Tools.phiMix(key) & m_mask);
         OsmElement e = m_data[ptr];
@@ -269,7 +273,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @return true if an entry for key could be found
      */
     public boolean containsKey(long key) {
-        int ptr = (int) ((Tools.phiMix(key) & m_mask));
+        int ptr = (int) (Tools.phiMix(key) & m_mask);
         OsmElement e = m_data[ptr];
         if (e == FREE_KEY) {
             return false;
@@ -295,9 +299,10 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
      * @return a List of the values
      */
     @SuppressWarnings("unchecked")
+    @NonNull
     public List<V> values() {
         int found = 0;
-        ArrayList<V> result = new ArrayList<>(m_size);
+        List<V> result = new ArrayList<>(m_size);
         for (OsmElement v : m_data) {
             if (v != FREE_KEY && v != removedKey) {
                 result.add((V) v);
@@ -471,7 +476,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
         for (V v : values()) {
             int len = 0;
             long key = v.getOsmId();
-            int ptr = (int) ((Tools.phiMix(key) & m_mask));
+            int ptr = (int) (Tools.phiMix(key) & m_mask);
             OsmElement e = m_data[ptr];
             if (e.getOsmId() == key) { // note this assumes REMOVED_KEY doesn't match
                 if (result.containsKey(len)) {

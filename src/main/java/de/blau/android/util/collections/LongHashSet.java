@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 
 /**
  * long HashSet
@@ -99,7 +100,7 @@ public class LongHashSet implements Serializable {
      * @param set the set to copy
      */
     @SuppressLint("NewApi")
-    public LongHashSet(LongHashSet set) {
+    public LongHashSet(@NonNull LongHashSet set) {
         m_mask = set.m_mask;
         m_fillFactor = set.m_fillFactor;
         m_threshold = set.m_threshold;
@@ -118,7 +119,7 @@ public class LongHashSet implements Serializable {
             m_hasFreeKey = true;
             return;
         }
-        int ptr = (int) ((Tools.phiMix(value) & m_mask));
+        int ptr = (int) (Tools.phiMix(value) & m_mask);
         long e = m_data[ptr];
 
         if (e == FREE_KEY) { // end of chain already
@@ -195,8 +196,13 @@ public class LongHashSet implements Serializable {
         }
     }
 
+    /**
+     * Shift entries with the same hash.
+     * 
+     * @param pos starting pos
+     * @return free slot
+     */
     private int shiftKeys(int pos) {
-        // Shift entries with the same hash.
         int last, slot;
         long k;
         final long[] data = this.m_data;
@@ -252,6 +258,7 @@ public class LongHashSet implements Serializable {
      * 
      * @return array containing the values
      */
+    @NonNull
     public long[] values() {
         int found = 0;
         long[] result = new long[m_size];

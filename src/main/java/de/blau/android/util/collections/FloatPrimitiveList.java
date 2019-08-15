@@ -2,6 +2,8 @@ package de.blau.android.util.collections;
 
 import java.util.Arrays;
 
+import android.support.annotation.NonNull;
+
 /**
  * Simple list like collection for primitive float values
  * 
@@ -23,6 +25,9 @@ public class FloatPrimitiveList {
         this.capacity = capacity;
     }
 
+    /**
+     * COnstruct a new instance with the default initial capacity
+     */
     public FloatPrimitiveList() {
         this(12);
     }
@@ -79,6 +84,7 @@ public class FloatPrimitiveList {
      * 
      * @return that float values in an array
      */
+    @NonNull
     public float[] values() {
         return Arrays.copyOf(array, size);
     }
@@ -91,6 +97,7 @@ public class FloatPrimitiveList {
      * 
      * @return the backing float array
      */
+    @NonNull
     public float[] getArray() {
         return array;
     }

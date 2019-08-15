@@ -207,6 +207,11 @@ public class RTree implements Serializable {
     private class QuadraticNodeSplitter implements Serializable {
         private static final long serialVersionUID = 1L;
 
+        /**
+         * Split a node
+         * 
+         * @param n the node
+         */
         public void split(@NonNull Node n) {
             if (n.size() <= maxSize) {
                 return;
@@ -221,7 +226,7 @@ public class RTree implements Serializable {
                 list = n.children.toArray();
             }
 
-            ArrayList<BoundingBox> cachedBox = new ArrayList<>(list.length);
+            List<BoundingBox> cachedBox = new ArrayList<>(list.length);
             double[] cachedArea = new double[list.length];
 
             for (int i = 0; i < list.length; i++) {
@@ -306,7 +311,14 @@ public class RTree implements Serializable {
             split(parent);
         }
 
-        private void distributeBranches(Node n, Node g1, Node g2) {
+        /**
+         * Distribute branches from n to two new nodes
+         * 
+         * @param n the original node
+         * @param g1 new node 1
+         * @param g2 new node 2
+         */
+        private void distributeBranches(@NonNull Node n, @NonNull Node g1, @NonNull Node g2) {
             // assert(!(n.isLeaf() || g1.isLeaf() || g2.isLeaf()));
 
             while (!n.children.isEmpty() && g1.children.size() < maxSize - minSize + 1 && g2.children.size() < maxSize - minSize + 1) {
@@ -375,7 +387,15 @@ public class RTree implements Serializable {
             }
         }
 
-        private void distributeLeaves(Node n, ArrayList<BoundingBox> cache, Node g1, Node g2) {
+        /**
+         * Distribute leaves from n to two new nodes
+         * 
+         * @param n the original node
+         * @param cache cached BoundingBoxes
+         * @param g1 new node 1
+         * @param g2 new node 2
+         */
+        private void distributeLeaves(@NonNull Node n, @NonNull List<BoundingBox> cache, @NonNull Node g1, @NonNull Node g2) {
             // Same process as above; just different types.
             // assert(n.isLeaf() && g1.isLeaf() && g2.isLeaf());
 
@@ -460,7 +480,7 @@ public class RTree implements Serializable {
      * 
      * @param results A collection to store the query results
      */
-    public void query(Collection<BoundedObject> results) {
+    public void query(@NonNull Collection<BoundedObject> results) {
         BoundingBox box = new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7);
         query(results, box, root);
     }
@@ -471,7 +491,7 @@ public class RTree implements Serializable {
      * @param results a Collection holding the results
      * @param box the BoundingBox we are querying
      */
-    public void query(Collection<BoundedObject> results, BoundingBox box) {
+    public void query(@NonNull Collection<BoundedObject> results, @NonNull BoundingBox box) {
         query(results, box, root);
     }
 
@@ -482,7 +502,7 @@ public class RTree implements Serializable {
      * @param box the BoundingBox we are querying
      * @param node the Node to start at
      */
-    private void query(Collection<BoundedObject> results, BoundingBox box, Node node) {
+    private void query(@NonNull Collection<BoundedObject> results, @NonNull BoundingBox box, @Nullable Node node) {
         // Log.d(DEBUG_TAG,"query called");
         if (node == null) {
             return;
@@ -663,7 +683,7 @@ public class RTree implements Serializable {
      * @param o object to remove
      * @return true if successful
      */
-    public synchronized boolean remove(BoundedObject o) {
+    public synchronized boolean remove(@NonNull BoundedObject o) {
         boolean result = false;
         Node n = chooseLeaf(o.getBounds(), root);
         // assert(n.isLeaf());
@@ -680,7 +700,7 @@ public class RTree implements Serializable {
      * @param o object to search for
      * @return true if the object is present in the tree, false otherwise
      */
-    public synchronized boolean contains(BoundedObject o) {
+    public synchronized boolean contains(@NonNull BoundedObject o) {
         Node n = chooseLeaf(o.getBounds(), root);
         // assert(n.isLeaf());
         if (n != null) {
@@ -696,7 +716,7 @@ public class RTree implements Serializable {
      * @param o object to insert
      * @throws NullPointerException if o is null or no node can be found for storage
      */
-    public synchronized void insert(BoundedObject o) {
+    public synchronized void insert(@Nullable BoundedObject o) {
         if (o == null) {
             throw new NullPointerException("Cannot store null object");
         }
@@ -731,7 +751,7 @@ public class RTree implements Serializable {
      * @param n the Node to start at
      * @return the item count
      */
-    private int count(Node n) {
+    private int count(@NonNull Node n) {
         // assert(n != null);
         if (n.isLeaf()) {
             return n.data.size();
@@ -744,7 +764,15 @@ public class RTree implements Serializable {
         }
     }
 
-    private Node chooseLeaf(BoundingBox box, Node n) {
+    /**
+     * Choose the appropriate leaf for the BoundingBox
+     * 
+     * @param box the BoundingBox
+     * @param n the node we're starting at
+     * @return a leaf Node
+     */
+    @Nullable
+    private Node chooseLeaf(@NonNull BoundingBox box, @NonNull Node n) {
         // assert(n != null);
         if (n.isLeaf()) {
             return n;
@@ -808,24 +836,29 @@ public class RTree implements Serializable {
      * @param box the BoundingBox
      * @return width"height
      */
-    private static double area(BoundingBox box) {
+    private static double area(@NonNull BoundingBox box) {
         return (double) box.getWidth() * (double) box.getHeight();
     }
 
     /**
-     * Find an object in the tree without using bounding boxes
+     * Find an object in the tree without using bounding boxes and print debugging to System.out
      * 
-     * @param o
-     * @param node
-     * @param level
-     * @return
+     * @param o the object
      */
-    public void debug(BoundedObject o) {
+    public void debug(@NonNull BoundedObject o) {
         System.out.println("debug: target bounding box " + o.getBounds());
         debug(o, root, 0);
     }
 
-    private boolean debug(BoundedObject o, Node node, int level) {
+    /**
+     * Find an object in the tree and print debugging to System.out
+     * 
+     * @param o the object
+     * @param node starting node
+     * @param level level the node is on
+     * @return true if found
+     */
+    private boolean debug(@NonNull BoundedObject o, @Nullable Node node, int level) {
         if (node == null) {
             System.out.println(level + " debug: node is null");
             return false;

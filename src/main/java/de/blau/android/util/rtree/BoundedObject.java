@@ -1,5 +1,6 @@
 package de.blau.android.util.rtree;
 
+import android.support.annotation.NonNull;
 import de.blau.android.osm.BoundingBox;
 
 /**
@@ -9,5 +10,12 @@ import de.blau.android.osm.BoundingBox;
  * @author cnvandev
  */
 public interface BoundedObject {
+
+    /**
+     * Get the bounding box for this object
+     *
+     * @return the BoundingBox
+     */
+    @NonNull
     BoundingBox getBounds();
 }

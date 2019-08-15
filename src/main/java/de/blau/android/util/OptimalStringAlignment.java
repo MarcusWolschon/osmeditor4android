@@ -5,16 +5,21 @@ import static java.lang.Math.max;
 
 import java.util.Arrays;
 
+import android.support.annotation.NonNull;
+
 /**
+ * <p>
  * Implementation of the OSA which is similar to the Damerau-Levenshtein in that it allows for transpositions to count
  * as a single edit distance, but is not a true metric and can over-estimate the cost because it disallows substrings to
  * edited more than once. See wikipedia for more discussion on OSA vs DL
- * <p/>
+ * </p>
+ * <p>
  * See Algorithms on Strings, Trees and Sequences by Dan Gusfield for more information.
- * <p/>
+ * </p>
+ * <p>
  * This also has a set of local buffer implementations to avoid allocating new buffers each time, which might be a
  * premature optimization
- * <p/>
+ * </p>
  * 
  * @author Steve Ash
  */
@@ -44,9 +49,12 @@ public class OptimalStringAlignment {
     };
 
     /**
+     * Calculate the edit distance between two strings
      * 
-     * @param s
-     * @param t
+     * Uses pre-allocated buffers if possible
+     * 
+     * @param s first String
+     * @param t second String
      * @param threshold maximum edit distance
      * @return -1 if not found
      */
@@ -63,13 +71,16 @@ public class OptimalStringAlignment {
     }
 
     /**
+     * Calculate the edit distance between two strings
      * 
-     * @param s
-     * @param t
+     * Uses new local buffers
+     * 
+     * @param s first String
+     * @param t second String
      * @param threshold maximum edit distance
      * @return -1 if not found
      */
-    private static int editDistanceWithNewBuffers(CharSequence s, CharSequence t, short threshold) {
+    private static int editDistanceWithNewBuffers(@NonNull CharSequence s, @NonNull CharSequence t, short threshold) {
         int slen = s.length();
         short[] back1 = new short[slen + 1]; // "up 1" row in table
         short[] back2 = new short[slen + 1]; // "up 2" row in table
@@ -78,7 +89,19 @@ public class OptimalStringAlignment {
         return editDistanceWithBuffers(s, t, threshold, back2, back1, cost);
     }
 
-    private static int editDistanceWithBuffers(CharSequence s, CharSequence t, short threshold, short[] back2, short[] back1, short[] cost) {
+    /**
+     * Calculate the edit distance between two strings
+     * 
+     * @param s first String
+     * @param t second String
+     * @param threshold maximum edit distance
+     * @param back2 buffer
+     * @param back1 buffer
+     * @param cost cost buffer
+     * @return -1 if not found
+     */
+    private static int editDistanceWithBuffers(@NonNull CharSequence s, @NonNull CharSequence t, short threshold, @NonNull short[] back2,
+            @NonNull short[] back1, @NonNull short[] cost) {
 
         short slen = (short) s.length();
         short tlen = (short) t.length();
@@ -135,7 +158,20 @@ public class OptimalStringAlignment {
         return back1[slen];
     }
 
-    private static void iterateOverStripe(CharSequence s, CharSequence t, short j, short[] cost, short[] back1, short[] back2, int min, int max) {
+    /**
+     * Iterate over a stripe
+     * 
+     * @param s first String
+     * @param t second String
+     * @param j TBD
+     * @param cost TBD
+     * @param back1 buffer
+     * @param back2 buffer
+     * @param min TBD
+     * @param max TBD
+     */
+    private static void iterateOverStripe(@NonNull CharSequence s, @NonNull CharSequence t, short j, @NonNull short[] cost, @NonNull short[] back1,
+            @NonNull short[] back2, int min, int max) {
 
         // iterates over the stripe
         for (int i = min; i <= max; i++) {
@@ -154,7 +190,16 @@ public class OptimalStringAlignment {
         }
     }
 
-    private static void initMemoiseTables(short threshold, short[] back2, short[] back1, short[] cost, short slen) {
+    /**
+     * Initialize the buffers
+     * 
+     * @param threshold TBD
+     * @param back2 buffer
+     * @param back1 buffer
+     * @param cost cost buffer
+     * @param slen length of s
+     */
+    private static void initMemoiseTables(short threshold, @NonNull short[] back2, @NonNull short[] back1, @NonNull short[] cost, short slen) {
         // initial "starting" values for inserting all the letters
         short boundary = (short) (min(slen, threshold) + 1);
         for (short i = 0; i < boundary; i++) {
@@ -167,10 +212,25 @@ public class OptimalStringAlignment {
         Arrays.fill(cost, 0, slen + 1, Short.MAX_VALUE);
     }
 
+    /**
+     * Get minimum value of two shorts
+     * 
+     * @param a short 1
+     * @param b short 2
+     * @return the smaller of the two values
+     */
     private static short min(short a, short b) {
         return (a <= b ? a : b);
     }
 
+    /**
+     * Get minimum value of three shorts
+     * 
+     * @param a short 1
+     * @param b short 2
+     * @param c short 3
+     * @return the smallest of the three values
+     */
     private static short min(short a, short b, short c) {
         return min(a, min(b, c));
     }

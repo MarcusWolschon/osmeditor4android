@@ -1,5 +1,7 @@
 package de.blau.android.util;
 
+import android.support.annotation.NonNull;
+
 /**
  * @source http://www.javaworld.com/javaworld/javatips/jw-javatip47.html -- 24.11.2008, (mb)
  */
@@ -26,11 +28,25 @@ public class Base64 {
     //////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
 
-    public static String encode(final String s) {
+    /**
+     * Encode a String in BASE 64
+     * 
+     * @param s the input String
+     * @return a String encoded in BASE 64
+     */
+    @NonNull
+    public static String encode(@NonNull final String s) {
         return encode(s.getBytes());
     }
 
-    private static String encode(final byte[] octetString) {
+    /**
+     * Encode a byte array in BASE 64
+     * 
+     * @param octetString the input byte array
+     * @return a String encoded in BASE 64
+     */
+    @NonNull
+    private static String encode(@NonNull final byte[] octetString) {
         int bits24;
         int bits6;
 
