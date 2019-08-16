@@ -186,10 +186,10 @@
     <!-- hidden object warning dialog  -->
     <string name="attached_object_warning_title">This operation affects filtered attached objects!</string>
     <string name="attached_object_warning_message">The changed object is connected to hidden elements that will change with it.</string>
-    <!-- This concerns a shown message -->
+    <!-- This concerns a shown message that should be shown every time -->
     <string name="attached_object_warning_continue">OK, keep showing</string>
-    <!-- This concerns a shown message -->
-    <string name="attached_object_warning_stop">OK, discard</string>
+    <!-- This concerns a shown message that should only be shown once -->
+    <string name="attached_object_warning_stop">OK, ignore</string>
     <!-- debug dialog -->
     <string name="send_debug_information">Send debug info</string>
     <!-- JS console dialog  -->
@@ -627,7 +627,8 @@
     <string name="menu_paste_from_clipboard">Paste from clipboard</string>
     <string name="menu_zoom_to_selection">"Zoom to selection"</string>
     <string name="menu_rotate">Rotate</string>
-    <string name="menu_orthogonalize">Square way</string>
+    <string name="menu_orthogonalize">Square</string>
+    <string name="menu_straighten">Straighten</string>
     <string name="menu_circulize">Arrange in circle</string>
     <string name="menu_split_polygon">Split in to polygons</string>
     <string name="menu_newnode_gps">New node at GPS position</string>
@@ -849,6 +850,9 @@
     <string name="config_closeChangesetOnSave_summary">Close changesets by default upon saving.</string>
     <string name="config_enableAutoPresets_title">Enable auto-preset generation</string>
     <string name="config_enableAutoPresets_summary">Allow generation of presets from taginfo.</string>
+    <string name="config_orthogonalizeThreshold_title">Squaring threshold</string>
+    <string name="config_orthogonalizeThreshold_summary">The threshold in ° over which angles are ignored</string>
+    <string name="config_orthogonalizeThreshold_current">%1$d°</string>
     <!-- Location Settings -->
     <string name="config_category_gps">Location Settings</string>
     <string name="config_category_gps_summary">GPS/GNSS parameters and other location providers.</string>

@@ -1925,10 +1925,10 @@ public class Logic {
      * @param way way to square
      */
     public void performOrthogonalize(@Nullable FragmentActivity activity, Way way) {
-        if (way != null && way.getNodes().size() < 3) {
+        if (way == null || way.getNodes().size() < 3) {
             return;
         }
-        ArrayList<Way> ways = new ArrayList<>(1);
+        List<Way> ways = new ArrayList<>(1);
         ways.add(way);
         performOrthogonalize(activity, ways);
     }
@@ -1936,25 +1936,43 @@ public class Logic {
     /**
      * Orthogonalize multiple ways at once (aka make angles 90°)
      * 
-     * FIXME this can take a long time and should likely be run async
+     * As this can take a noticeable amount of time, we execute async and display a toast when finished
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param ways ways to square
      */
-    public synchronized void performOrthogonalize(@Nullable FragmentActivity activity, List<Way> ways) {
+    public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable List<Way> ways) {
         if (ways == null || ways.isEmpty()) {
             return;
         }
-        createCheckpoint(activity, R.string.undo_action_orthogonalize);
-        getDelegator().orthogonalizeWay(map, ways);
-        invalidateMap();
-        if (getFilter() != null && showAttachedObjectWarning()) {
-            HashSet<Node> nodes = new HashSet<>();
-            for (Way w : ways) {
-                nodes.addAll(w.getNodes());
+
+        final int threshold = prefs.getOrthogonalizeThreshold();
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                synchronized (this) {
+                    createCheckpoint(activity, R.string.undo_action_orthogonalize);
+                    getDelegator().orthogonalizeWay(map, ways, threshold);
+                }
+                return null;
             }
-            displayAttachedObjectWarning(activity, nodes);
-        }
+
+            @Override
+            protected void onPostExecute(Void v) {
+                invalidateMap();
+                if (activity != null) {
+                    Snack.toastTopInfo(activity, R.string.Done);
+                }
+                if (getFilter() != null && showAttachedObjectWarning()) {
+                    Set<Node> nodes = new HashSet<>();
+                    for (Way w : ways) {
+                        nodes.addAll(w.getNodes());
+                    }
+                    displayAttachedObjectWarning(activity, nodes);
+                }
+            }
+        }.execute();
     }
 
     /**

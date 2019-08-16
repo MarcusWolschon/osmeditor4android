@@ -733,8 +733,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return a list of list of ways with common nodes
      */
     @NonNull
-    private ArrayList<ArrayList<Way>> groupWays(@NonNull List<Way> ways) {
-        ArrayList<ArrayList<Way>> groups = new ArrayList<>();
+    private List<List<Way>> groupWays(@NonNull List<Way> ways) {
+        List<List<Way>> groups = new ArrayList<>();
         int group = 0;
         int index = 0;
         int groupIndex = 1;
@@ -761,7 +761,7 @@ public class StorageDelegator implements Serializable, Exportable {
             for (; index < ways.size(); index++) {
                 Way w = ways.get(index);
                 boolean found = false;
-                for (ArrayList<Way> list : groups) {
+                for (List<Way> list : groups) {
                     found = found || list.contains(w);
                 }
                 if (!found) {
@@ -783,11 +783,13 @@ public class StorageDelegator implements Serializable, Exportable {
      * If multiple ways are selected the ways are grouped in groups that share nodes and the groups individually
      * squared.
      * 
+     * This function converts to and then operates on screen coordinates.
+     * 
      * @param map current map view
      * @param ways List of Way to square
+     * @param threshold maximum difference to 90°/180° to process
      */
-    public void orthogonalizeWay(@NonNull de.blau.android.Map map, @NonNull List<Way> ways) {
-        final int threshold = 10; // degrees within right or straight to alter
+    public void orthogonalizeWay(@NonNull de.blau.android.Map map, @NonNull List<Way> ways, final int threshold) {
         final double lowerThreshold = Math.cos((90 - threshold) * Math.PI / 180);
         final double upperThreshold = Math.cos(threshold * Math.PI / 180);
         final double epsilon = 1e-4;
@@ -796,7 +798,7 @@ public class StorageDelegator implements Serializable, Exportable {
         try {
             // save nodes for undo
             // adding to a Set first removes duplication
-            HashSet<Node> save = new HashSet<>();
+            Set<Node> save = new HashSet<>();
             for (Way way : ways) {
                 if (way.getNodes() != null) {
                     save.addAll(way.getNodes());
@@ -806,20 +808,21 @@ public class StorageDelegator implements Serializable, Exportable {
                 undo.save(nd);
             }
             invalidateWayBoundingBox(save);
-            List<ArrayList<Way>> groups = groupWays(ways);
+            List<List<Way>> groups = groupWays(ways);
 
             int width = map.getWidth();
             int height = map.getHeight();
             ViewBox box = map.getViewBox();
 
-            for (ArrayList<Way> wayList : groups) {
-                // Coordinates coords[] = nodeListToCooardinateArray(nodes);
-                ArrayList<Coordinates[]> coordsArray = new ArrayList<>();
+            for (List<Way> wayList : groups) {
+                List<Coordinates[]> coordsArray = new ArrayList<>();
+
                 int totalNodes = 0;
                 for (Way w : wayList) {
                     coordsArray.add(Coordinates.nodeListToCooardinateArray(width, height, box, w.getNodes()));
                     totalNodes += w.getNodes().size();
                 }
+                int coordsArraySize = coordsArray.size();
                 Coordinates a, b, c, p, q;
 
                 double loopEpsilon = epsilon * (totalNodes / 4D); // NOTE the original algorithm didn't take the number
@@ -827,30 +830,32 @@ public class StorageDelegator implements Serializable, Exportable {
 
                 // iterate until score is low enough
                 for (int iteration = 0; iteration < 1000; iteration++) {
-                    for (int coordIndex = 0; coordIndex < coordsArray.size(); coordIndex++) {
+                    // calculate position changes
+                    for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
                         Coordinates[] coords = coordsArray.get(coordIndex);
+                        int length = coords.length;
                         int start = 0;
-                        int end = coords.length;
+                        int end = length;
                         if (!wayList.get(coordIndex).isClosed()) {
                             start = 1;
                             end = end - 1;
                         }
-                        Coordinates motions[] = new Coordinates[coords.length];
+                        Coordinates motions[] = new Coordinates[length];
                         for (int i = start; i < end; i++) {
-                            a = coords[(i - 1 + coords.length) % coords.length];
+                            a = coords[(i - 1 + length) % length];
                             b = coords[i];
-                            c = coords[(i + 1) % coords.length];
+                            c = coords[(i + 1) % length];
                             p = a.subtract(b);
                             q = c.subtract(b);
                             double scale = 2 * Math.min(Math.hypot(p.x, p.y), Math.hypot(q.x, q.y));
                             p = Coordinates.normalize(p, 1.0);
                             q = Coordinates.normalize(q, 1.0);
                             double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
-
                             // nasty hack to deal with almost-straight segments (angle is closer to 180 than to 90/270).
                             if (dotp < -0.707106781186547) {
                                 dotp += 1.0;
                             }
+
                             motions[i] = Coordinates.normalize(p.add(q), 0.1 * dotp * scale);
                         }
                         // apply position changes
@@ -860,19 +865,21 @@ public class StorageDelegator implements Serializable, Exportable {
                     }
                     // calculate score
                     double score = 0.0;
-                    for (int coordIndex = 0; coordIndex < coordsArray.size(); coordIndex++) {
+                    for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
                         Coordinates[] coords = coordsArray.get(coordIndex);
+                        int length = coords.length;
                         int start = 0;
-                        int end = coords.length;
+                        int end = length;
                         if (!wayList.get(coordIndex).isClosed()) {
                             start = 1;
                             end = end - 1;
                         }
                         for (int i = start; i < end; i++) {
-                            // yes I know that this -nearly- duplicates the code above
-                            a = coords[(i - 1 + coords.length) % coords.length];
+                            // yes I know that this nearly duplicates the code above, but there doesn't seem to be an
+                            // easy way to resolve this
+                            a = coords[(i - 1 + length) % length];
                             b = coords[i];
-                            c = coords[(i + 1) % coords.length];
+                            c = coords[(i + 1) % length];
                             p = a.subtract(b);
                             q = c.subtract(b);
                             p = Coordinates.normalize(p, 1.0);
@@ -882,7 +889,6 @@ public class StorageDelegator implements Serializable, Exportable {
                             score = score + 2.0 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0)));
                         }
                     }
-                    // Log.d("StorageDelegator", "orthogonalize way iteration/score " + iteration + "/" + score);
                     if (score < loopEpsilon) {
                         break;
                     }
@@ -910,7 +916,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param in input value
      * @param lower lower bound
-     * @param upper upper boun
+     * @param upper upper bound
      * @return the input value or 0 if out of bounds
      */
     private double filter(double in, double lower, double upper) {

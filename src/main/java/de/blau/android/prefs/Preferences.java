@@ -86,6 +86,7 @@ public class Preferences {
     private final boolean jsConsoleEnabled;
     private final boolean hwAccelerationEnabled;
     private final int     connectedNodeTolerance;
+    private final int     orthogonalizeThreshold;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -221,6 +222,8 @@ public class Preferences {
         hwAccelerationEnabled = prefs.getBoolean(r.getString(R.string.config_enableHwAcceleration_key), false);
 
         connectedNodeTolerance = getIntPref(R.string.config_connectedNodeTolerance_key, 2);
+
+        orthogonalizeThreshold = getIntPref(R.string.config_orthogonalizeThreshold_key, 15);
     }
 
     /**
@@ -275,7 +278,7 @@ public class Preferences {
     /**
      * Check if anti-aliasing should be used
      * 
-     * @return true if anto-aliasing should be used
+     * @return true if anti-aliasing should be used
      */
     public boolean isAntiAliasingEnabled() {
         return isAntiAliasingEnabled;
@@ -968,6 +971,15 @@ public class Preferences {
      */
     public int getConnectedNodeTolerance() {
         return connectedNodeTolerance;
+    }
+
+    /**
+     * The current threshold if exceeded we do not square/straighten a way
+     * 
+     * @return the threshold in °
+     */
+    public int getOrthogonalizeThreshold() {
+        return orthogonalizeThreshold;
     }
 
     /**

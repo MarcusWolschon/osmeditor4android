@@ -229,6 +229,18 @@
             android:key="@string/config_closeChangesetOnSave_key"
             android:summary="@string/config_closeChangesetOnSave_summary"
             android:title="@string/config_closeChangesetOnSave_title" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="15"
+            android:dialogTitle="@string/config_orthogonalizeThreshold_title"
+            android:key="@string/config_orthogonalizeThreshold_key"
+            android:numeric="integer"
+            android:summary="@string/config_orthogonalizeThreshold_summary"
+            android:title="@string/config_orthogonalizeThreshold_title"
+            app:spt_maxValue="45"
+            app:spt_minValue="5"
+            app:spt_increment="5"
+            app:spt_currentValueText="@string/config_orthogonalizeThreshold_current"
+            app:spt_setWrapSelectorWheel="false" />
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_gps"

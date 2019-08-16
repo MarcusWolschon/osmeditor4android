@@ -44,9 +44,13 @@ Append to the current selected way. Touch areas will be visible around nodes tha
 
 Start creating a turn restriction with this way as "from" member. This action is only available if the way in question has a "highway" tag. Ways will be split automatically during the process.
 
-### ![Orthogonalize](../images/menu_ortho.png) Orthogonalize
+### ![Orthogonalize](../images/menu_ortho.png) Square
 
-Change angles that are near 90° or 180° to 90° or 180° respectively.
+For closed ways (polygons). Change angles that are near 90° or 180° to 90° or 180° respectively. The threshold over which angles are not changed can be set in the [Advanced preferences](Advanced%20preferences.md).
+
+### ![Orthogonalize](../images/menu_ortho.png) Straighten
+
+Change angles that are near 90° or 180° to 90° or 180° respectively. The threshold over which angles are not changed can be set in the [Advanced preferences](Advanced%20preferences.md).
 
 ### ![Rotate](../images/ic_menu_rotate.png) Rotate
 

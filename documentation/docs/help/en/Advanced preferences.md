@@ -124,6 +124,10 @@ Maximum speed up to which auto-download of notes and bugs is attempted. Default:
 
 Close the current open changeset after uploading edits. Default: _on_.
 
+### Squaring threshold
+
+The threshold in ° over which angles are ignored for squaring and straightening. Default: _15°_.
+
 ## Location Settings
 
 GPS and Network location settings.

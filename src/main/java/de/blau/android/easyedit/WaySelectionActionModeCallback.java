@@ -76,11 +76,12 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         menu = replaceMenu(menu, mode, this);
         super.onPrepareActionMode(mode, menu);
         Log.d(DEBUG_TAG, "onPrepareActionMode");
-        if (((Way) element).getTags().containsKey(Tags.KEY_BUILDING) && !((Way) element).getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+        Way way = (Way) element;
+        if (way.getTags().containsKey(Tags.KEY_BUILDING) && !way.getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
             menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
         }
         menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_reverse));
-        if (((Way) element).getNodes().size() > 2) {
+        if (way.getNodes().size() > 2) {
             menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
         }
         if (!cachedMergeableWays.isEmpty()) {
@@ -89,19 +90,19 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         if (!cachedAppendableNodes.isEmpty()) {
             menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
         }
-        if (((Way) element).getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty()) {
+        if (way.getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty()) {
             menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_add_restriction));
         }
-        if (((Way) element).getNodes().size() > 2) {
-            menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
+        if (way.getNodes().size() > 2) {
+            menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, way.isClosed() ? R.string.menu_orthogonalize : R.string.menu_straighten)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
         }
         menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
-        if (((Way) element).getNodes().size() > 3 && ((Way) element).isClosed()) {
+        if (way.getNodes().size() > 3 && way.isClosed()) {
             menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
-            if (((Way) element).getNodes().size() > 4) { // 5 nodes is the minimum required to be able to split in
-                                                         // to two polygons
+            if (way.getNodes().size() > 4) { // 5 nodes is the minimum required to be able to split in
+                                             // to two polygons
                 menu.add(Menu.NONE, MENUITEM_SPLIT_POLYGON, Menu.NONE, R.string.menu_split_polygon);
             }
         }
