@@ -22,8 +22,9 @@
             android:layout_height="fill_parent"
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
-            android:drawableEnd="?attr/search"
-            android:drawableRight="?attr/search"
+            android:drawableEnd="@drawable/baseline_clear_white_36dp"
+            android:drawableRight="@drawable/baseline_clear_white_36dp"
+            android:drawableTint="?attr/colorAccent"
             android:hint="@string/preset_search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
@@ -42,6 +43,13 @@
             android:background="?attr/colorPrimary"
             android:saveEnabled="false" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/preset_results"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:saveEnabled="false"/>
 
     <LinearLayout
         android:id="@+id/preset_presets"

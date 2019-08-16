@@ -14,7 +14,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.ActionMenuView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -137,10 +140,18 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
     }
 
+    Runnable displaySearchResults = new Runnable() {
+
+        @Override
+        public void run() {
+            getAndShowSearchResults(presetSearch);
+        }
+
+    };
+
     @SuppressLint("InflateParams")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         long elementId = getArguments().getLong(ELEMENT_ID_KEY);
         String elementName = getArguments().getString(ELEMENT_NAME_KEY);
 
@@ -153,7 +164,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         List<PresetElementPath> alternateRootPaths = (ArrayList<PresetElementPath>) getArguments().getSerializable(ALTERNATE_ROOT_PATHS);
 
         LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
-        LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
+        final LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
         if (presets == null || presets.length == 0 || presets[0] == null) {
             TextView warning = new TextView(getActivity());
             warning.setText(R.string.no_valid_preset);
@@ -182,6 +193,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 String searchString = savedInstanceState.getString(SEARCH_STRING_KEY);
                 if (searchString != null) {
                     presetSearch.setText(searchString);
+                    getAndShowSearchResults(presetSearch); // this should recreate the search results
                 }
             }
             presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -208,11 +220,35 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         Drawable icon = presetSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
                         if (icon != null && event.getRawX() >= (presetSearch.getRight() - icon.getBounds().width())) { // FIXME
-                            return getAndShowSearchResults(presetSearch);
+                            presetSearch.setText("");
+                            final FragmentManager fm = getChildFragmentManager();
+                            de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                            return true;
                         }
                     }
                     return false;
                 }
+            });
+            presetSearch.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    // do nothing
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() >= 3) {
+                        presetSearch.removeCallbacks(displaySearchResults);
+                        presetSearch.postDelayed(displaySearchResults, 200);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // do nothing
+                }
+
             });
         }
 
@@ -229,6 +265,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
+    PresetSearchResultsFragment searchResultDialog = null;
+
     /**
      * Query the preset search index and display results in a dialog
      * 
@@ -242,28 +280,12 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             return false;
         }
         final FragmentManager fm = getChildFragmentManager();
-        de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
 
         AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
 
             @Override
             protected ArrayList<PresetElement> doInBackground(Void... params) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        presetSearch.setEnabled(false);
-                    }
-                });
-                try {
-                    return new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS, propertyEditorListener.getIsoCodes()));
-                } finally {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            presetSearch.setEnabled(true);
-                        }
-                    });
-                }
+                return new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS, propertyEditorListener.getIsoCodes()));
             }
 
             @Override
@@ -274,11 +296,20 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                         return;
                     }
                 }
-                PresetSearchResultsFragment searchResultDialog = PresetSearchResultsFragment.newInstance(term, result);
-                try {
-                    searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-                } catch (IllegalStateException isex) {
-                    Log.e(DEBUG_TAG, "show of seach results failed with ", isex);
+
+                searchResultDialog = (PresetSearchResultsFragment) fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                if (searchResultDialog == null) {
+                    searchResultDialog = PresetSearchResultsFragment.newInstance(term, result);
+                    try {
+                        Log.d(DEBUG_TAG, "Creating new result fragment");
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.add(R.id.preset_results, searchResultDialog, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                        ft.commit();
+                    } catch (IllegalStateException isex) {
+                        Log.e(DEBUG_TAG, "show of seach results failed with ", isex);
+                    }
+                } else {
+                    searchResultDialog.update(result);
                 }
             }
         };
@@ -338,7 +369,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     // }
 
     /**
-     * Handle clicks on icons representing an item (closing the dialog with the item as a result)
+     * Handle clicks on icons representing an item
      */
     @Override
     public void onItemClick(PresetItem item) {
@@ -346,11 +377,10 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             return;
         }
         mListener.onPresetSelected(item);
-        // dismiss();
     }
 
     /**
-     * for now do the same
+     * Handle long clicks on icons representing an item
      */
     @Override
     public boolean onItemLongClick(PresetItem item) {
@@ -358,7 +388,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             return true;
         }
         mListener.onPresetSelected(item);
-        // dismiss();
         return true;
     }
 
@@ -384,7 +413,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        // final MenuInflater inflater = getSupportMenuInflater();
         super.onCreateOptionsMenu(menu, inflater);
         ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
         // the library providing the Feedback UI is not supported under SDK 15
@@ -456,6 +484,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         case R.id.preset_menu_help:
             HelpViewer.start(getActivity(), R.string.help_presets);
             return true;
+        default:
+            // ignore
         }
         FragmentActivity activity = getActivity();
         if (activity != null) {

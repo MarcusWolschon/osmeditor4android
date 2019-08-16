@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
-
+    android:orientation="vertical">
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/search_online"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="@null"
+        android:text="@string/search_online"
+        android:textColor="?attr/colorAccent" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#b2dfdb"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
 </LinearLayout>
