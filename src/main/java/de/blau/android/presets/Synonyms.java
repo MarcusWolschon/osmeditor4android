@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -13,6 +14,7 @@ import com.google.gson.stream.JsonReader;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -32,6 +34,9 @@ import de.blau.android.util.collections.MultiHashMap;
 public class Synonyms {
     static final String DEBUG_TAG = "Synonyms";
 
+    private static final String SYNONYMS_PREFIX = "synonyms/synonyms.";
+    private static final String SYNONYMS_EN     = "synonyms/synonyms.en";
+
     private MultiHashMap<String, String> synonyms = new MultiHashMap<>(false); // names -> tags
 
     /**
@@ -46,15 +51,31 @@ public class Synonyms {
         Locale locale = Locale.getDefault();
         Log.d(DEBUG_TAG, "Locale " + locale);
         try {
-            is = assetManager.open("synonyms/synonyms." + locale);
+            is = assetManager.open(SYNONYMS_PREFIX + locale);
         } catch (IOException ioex) {
             try {
-                is = assetManager.open("synonyms/synonyms." + locale.getLanguage());
+                is = assetManager.open(SYNONYMS_PREFIX + locale.getLanguage());
             } catch (IOException ioex2) {
                 Log.d(DEBUG_TAG, "No synonym file found for " + locale + " or " + locale.getLanguage());
             }
         }
+        parse(is);
 
+        // always add English synonyms
+        try {
+            is = assetManager.open(SYNONYMS_EN);
+            parse(is);
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Reading " + SYNONYMS_EN + " failed " + e.getMessage());
+        }
+    }
+
+    /**
+     * Read and parse a synonym file from an InputStream
+     * 
+     * @param is the InputStream
+     */
+    public void parse(@NonNull InputStream is) {
         if (is != null) {
             JsonReader reader = null;
             try {
@@ -64,14 +85,19 @@ public class Synonyms {
                 reader.beginObject();
                 while (reader.hasNext()) {
                     presetName = reader.nextName(); // landuse/military/bunker
-                    reader.beginArray();
-                    while (reader.hasNext()) { // synonyms
-                        String synonym = reader.nextString();
-                        if (synonym != null && !"".equals(synonym)) {
-                            synonyms.add(SearchIndexUtils.normalize(synonym), presetName);
+                    try {
+                        reader.beginArray();
+                        while (reader.hasNext()) { // synonyms
+                            String synonym = reader.nextString();
+                            if (synonym != null && !"".equals(synonym)) {
+                                synonyms.add(SearchIndexUtils.normalize(synonym), presetName);
+                            }
                         }
+                        reader.endArray(); // key
+                    } catch (IOException e) {
+                        // this is not documented, but it seems to work to simply continue
+                        Log.e(DEBUG_TAG, "reading synonyms array " + e.getMessage());
                     }
-                    reader.endArray(); // key
                 }
                 reader.endObject();
             } catch (IOException e) {
@@ -93,7 +119,7 @@ public class Synonyms {
      * @return List containing the found PresetItems
      */
     @NonNull
-    public List<IndexSearchResult> search(@NonNull Context ctx, @NonNull String term, @NonNull ElementType type, int maxDistance) {
+    public List<IndexSearchResult> search(@NonNull Context ctx, @NonNull String term, @Nullable ElementType type, int maxDistance) {
         Log.d(DEBUG_TAG, "Searching for " + term + " type " + type);
         List<IndexSearchResult> result = new ArrayList<>();
         Preset[] presets = App.getCurrentPresets(ctx);
@@ -108,22 +134,44 @@ public class Synonyms {
                 Set<String> presetNames = synonyms.get(s);
                 for (String presetName : presetNames) {
                     String[] parts = presetName.split("/");
-                    String presetKey = parts[0] + "\t";
+                    Set<PresetItem> items = new HashSet<>();
                     int len = parts.length;
-                    if (len >= 2) {
-                        presetKey = parts[len - 2] + "\t" + parts[len - 1];
+                    if (len == 1) {
+                        items.addAll(getPresetItems(type, presets, parts[0] + "\t"));
+                    } else if (len >= 2) {
+                        items.addAll(getPresetItems(type, presets, parts[0] + "\t" + parts[1]));
+                        if (len > 2) {
+                            items.addAll(getPresetItems(type, presets, parts[len - 2] + "\t" + parts[len - 1]));
+                        }
                     }
-                    for (Preset preset : presets) {
-                        if (preset != null) {
-                            Set<PresetItem> items = preset.getItemByTag(presetKey);
-                            if (items != null) {
-                                for (PresetItem pi : items) {
-                                    if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
-                                        IndexSearchResult isr = new IndexSearchResult(distance * items.size(), pi);
-                                        result.add(isr);
-                                    }
-                                }
-                            }
+                    for (PresetItem pi : items) {
+                        IndexSearchResult isr = new IndexSearchResult(distance, pi);
+                        result.add(isr);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get the preset items for a tag or key
+     * 
+     * @param type the element type or null for all
+     * @param presets the currently configured presets
+     * @param presetKey the tag or key we are looking for
+     * @return a Set of PresetItem
+     */
+    @NonNull
+    public Set<PresetItem> getPresetItems(@Nullable ElementType type, @NonNull Preset[] presets, @NonNull String presetKey) {
+        Set<PresetItem> result = new HashSet<>();
+        for (Preset preset : presets) {
+            if (preset != null) {
+                Set<PresetItem> items = preset.getItemByTag(presetKey);
+                if (items != null) {
+                    for (PresetItem pi : items) {
+                        if (!pi.isDeprecated() && (type == null || pi.appliesTo(type))) {
+                            result.add(pi);
                         }
                     }
                 }

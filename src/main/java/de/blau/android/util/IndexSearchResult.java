@@ -10,9 +10,15 @@ import de.blau.android.presets.Preset.PresetItem;
  *
  */
 public class IndexSearchResult implements Comparable<IndexSearchResult> {
-    final int        weight; // lower better
+    int        weight; // lower better
     final PresetItem item;
 
+    /**
+     * Construct a new instance
+     * 
+     * @param weight the initial weight
+     * @param item the PresetItem
+     */
     public IndexSearchResult(int weight, @NonNull PresetItem item) {
         this.weight = weight;
         this.item = item;

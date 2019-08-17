@@ -2,7 +2,9 @@ package de.blau.android.util;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -24,7 +26,6 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.PresetField;
-import de.blau.android.presets.Synonyms;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class SearchIndexUtils {
@@ -99,29 +100,37 @@ public class SearchIndexUtils {
             @Nullable List<String> regions) {
         term = SearchIndexUtils.normalize(term);
         // synonyms first
-        Synonyms synonyms = App.getSynonyms(ctx);
-        List<IndexSearchResult> rawResult = synonyms.search(ctx, term, type, maxDistance);
+        Set<IndexSearchResult> rawResult = new HashSet<>(App.getSynonyms(ctx).search(ctx, term, type, maxDistance));
 
         // search in presets
         List<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<>();
         presetSeachIndices.add(App.getTranslatedPresetSearchIndex(ctx));
         presetSeachIndices.add(App.getPresetSearchIndex(ctx));
 
+        Set<String> terms = new HashSet<>();
+        terms.add(term);
+        List<String> temp = Arrays.asList(term.split("\\s"));
+        if (temp.size() > 0) {
+            terms.addAll(temp);
+        }
+
         for (MultiHashMap<String, PresetItem> index : presetSeachIndices) {
             for (String s : index.getKeys()) {
-                int distance = s.indexOf(term);
-                if (distance == -1) {
-                    distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
-                } else {
-                    distance = 0; // literal substring match, we don't want to weight this worse than a fuzzy match
-                }
-                if ((distance >= 0 && distance <= maxDistance)) {
-                    Set<PresetItem> presetItems = index.get(s);
-                    int weight = distance * presetItems.size(); // if there are a lot of items for a term, penalize
-                    for (PresetItem pi : presetItems) {
-                        if (type == null || pi.appliesTo(type)) {
-                            IndexSearchResult isr = new IndexSearchResult(rescale(term, weight, pi), pi);
-                            rawResult.add(isr);
+                for (String t : terms) {
+                    int distance = s.indexOf(t);
+                    if (distance == -1) {
+                        distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
+                    } else {
+                        distance = 0; // literal substring match, we don't want to weight this worse than a fuzzy match
+                    }
+                    if ((distance >= 0 && distance <= maxDistance)) {
+                        Set<PresetItem> presetItems = index.get(s);
+                        int weight = distance * presetItems.size(); // if there are a lot of items for a term, penalize
+                        for (PresetItem pi : presetItems) {
+                            if (type == null || pi.appliesTo(type)) {
+                                IndexSearchResult isr = new IndexSearchResult(rescale(term, weight, pi), pi);
+                                rawResult.add(isr);
+                            }
                         }
                     }
                 }
@@ -170,13 +179,13 @@ public class SearchIndexUtils {
         }
 
         // sort and return results
-        Collections.sort(rawResult);
+        List<IndexSearchResult> tempResult = new ArrayList<>(rawResult);
+        Collections.sort(tempResult);
         List<PresetElement> result = new ArrayList<>();
-        for (IndexSearchResult i : rawResult) {
-            if (!result.contains(i.item)) {
-                result.add(i.item);
-            }
+        for (IndexSearchResult isr : tempResult) {
+            result.add(isr.item);
         }
+
         Log.d(DEBUG_TAG, "found " + result.size() + " results");
         if (!result.isEmpty()) {
             return result.subList(0, Math.min(result.size(), limit));
@@ -196,9 +205,14 @@ public class SearchIndexUtils {
         int actualWeight = weight;
         String name = SearchIndexUtils.normalize(pi.getName());
         if (name.equals(term)) { // exact name match
-            actualWeight = -2;
-        } else if (term.length() >= 3 && name.indexOf(term) >= 0) {
-            actualWeight = -1;
+            actualWeight = -20;
+        } else if (term.length() >= 3) {
+            int pos = name.indexOf(term);
+            if (pos == 0) { // starts with the term
+                actualWeight = -15;
+            } else if (pos > 0) {
+                actualWeight = -10;
+            }
         }
         return actualWeight;
     }
