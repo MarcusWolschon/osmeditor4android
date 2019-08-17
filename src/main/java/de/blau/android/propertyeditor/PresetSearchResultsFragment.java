@@ -51,7 +51,6 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     private List<PresetElement>      presets;
     private boolean                  enabled = true;
     private PropertyEditorListener   propertyEditorListener;
-    private LayoutInflater           inflater;
     private String                   searchTerm;
     private LinearLayout             presetsLayout;
     private AppCompatButton          searchOnline;
@@ -92,7 +91,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
-        inflater = ThemeUtils.getLayoutInflater(getActivity());
+        LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         presetsLayout = (LinearLayout) inflater.inflate(R.layout.preset_search_results_view, null);
 
@@ -268,7 +267,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
             }
             getResultsView(presetsLayout, presets, getShowsDialog());
         }
-    };
+    }
 
     /**
      * Create the View holding the search results

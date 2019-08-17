@@ -75,12 +75,9 @@ public class Synonyms {
      * 
      * @param is the InputStream
      */
-    public void parse(@NonNull InputStream is) {
+    public void parse(@Nullable InputStream is) {
         if (is != null) {
-            JsonReader reader = null;
-            try {
-                reader = new JsonReader(new InputStreamReader(is));
-
+            try (JsonReader reader = new JsonReader(new InputStreamReader(is))) {
                 String presetName = null;
                 reader.beginObject();
                 while (reader.hasNext()) {
@@ -102,9 +99,6 @@ public class Synonyms {
                 reader.endObject();
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "reading synonyms " + e.getMessage());
-            } finally {
-                SavingHelper.close(reader);
-                SavingHelper.close(is);
             }
         }
     }

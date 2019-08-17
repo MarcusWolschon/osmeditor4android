@@ -28,10 +28,17 @@ import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.PresetField;
 import de.blau.android.util.collections.MultiHashMap;
 
-public class SearchIndexUtils {
+public final class SearchIndexUtils {
 
     private static final String DEBUG_TAG       = "SearchIndex";
     private static Pattern      deAccentPattern = null;         // cached regex
+
+    /**
+     * Private constructor
+     */
+    private SearchIndexUtils() {
+        // nothing
+    }
 
     /**
      * normalize a string for the search index, currently only works for latin scripts
@@ -110,7 +117,7 @@ public class SearchIndexUtils {
         Set<String> terms = new HashSet<>();
         terms.add(term);
         List<String> temp = Arrays.asList(term.split("\\s"));
-        if (temp.size() > 0) {
+        if (temp.size() > 1) {
             terms.addAll(temp);
         }
 
