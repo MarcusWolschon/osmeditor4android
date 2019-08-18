@@ -6,6 +6,8 @@ import java.util.List;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,18 +39,36 @@ public class WrappingLayout extends LinearLayout {
 
     private List<View> children;
 
-    public WrappingLayout(Context context) {
+    /**
+     * Construct a new WrappingLayout
+     * 
+     * @param context an Android Context
+     */
+    public WrappingLayout(@NonNull Context context) {
         super(context);
         wrapper = new LayoutWrapper(context);
     }
 
-    public WrappingLayout(Context context, AttributeSet attrs) {
+    /**
+     * Construct a new WrappingLayout
+     * 
+     * @param context an Android Context
+     * @param attrs an AtrributeSet
+     */
+    public WrappingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         wrapper = new LayoutWrapper(context);
     }
 
+    /**
+     * Construct a new WrappingLayout
+     * 
+     * @param context an Android Context
+     * @param attrs an AtrributeSet
+     * @param defStyle a resource id for a default style
+     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public WrappingLayout(Context context, AttributeSet attrs, int defStyle) {
+    public WrappingLayout(@NonNull Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         wrapper = new LayoutWrapper(context);
     }
@@ -93,7 +113,7 @@ public class WrappingLayout extends LinearLayout {
      * Sets whether children will be added from left to right (default, false) or from right to the left (true). Most
      * useful with {@link #setRowGravity(int)} set to {@link Gravity#RIGHT}.
      * 
-     * @param rightToLeft
+     * @param rightToLeft if true, layout right to left
      * @return LayoutWrapper object (for chaining)
      */
     public LayoutWrapper setRightToLeft(boolean rightToLeft) {
@@ -144,6 +164,9 @@ public class WrappingLayout extends LinearLayout {
         setWrappedChildren(tmpChildren);
     }
 
+    /**
+     * Calls eatChildren if required
+     */
     private void eatChildrenIfNecessary() {
         if (children == null) {
             eatChildren();
@@ -221,25 +244,54 @@ public class WrappingLayout extends LinearLayout {
 
         private static final int MEASURE_SPEC_UNSPECIFIED = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
 
-        public LayoutWrapper(Context context) {
+        /**
+         * Constrzct a new LayoutWrapper
+         * 
+         * @param context an Android Context
+         */
+        public LayoutWrapper(@NonNull Context context) {
             this.context = context;
         }
 
+        /**
+         * Set the gravity
+         * 
+         * @param gravity the Gravity value to set
+         * @return this instance for chaining
+         */
         public LayoutWrapper setRowGravity(int gravity) {
             rowGravity = gravity;
             return this;
         }
 
+        /**
+         * Set the layout direction
+         * 
+         * @param rightToLeft if true the layout will be rtl
+         * @return this instance for chaining
+         */
         public LayoutWrapper setRightToLeft(boolean rightToLeft) {
             this.rightToLeft = rightToLeft;
             return this;
         }
 
+        /**
+         * Set the vertical spacing
+         * 
+         * @param pixel vertical spacing in pixel
+         * @return this instance for chaining
+         */
         public LayoutWrapper setVerticalSpacing(int pixel) {
             vspace = pixel;
             return this;
         }
 
+        /**
+         * Set the horizontal spacing
+         * 
+         * @param pixel horizontal spacing in pixel
+         * @return this instance for chaining
+         */
         public LayoutWrapper setHorizontalSpacing(int pixel) {
             hspace = pixel;
             return this;
@@ -269,7 +321,7 @@ public class WrappingLayout extends LinearLayout {
             if (!children.isEmpty() && !widthAdjustmentDone) {
                 int childWidth = getViewWidth(children.get(0));
                 int times = (int) Math.max(1, (availableSpace - hspace) / (float) (childWidth + hspace));
-                newWidth = (int) ((availableSpace - ((times + 1) * hspace)) / times);
+                newWidth = (availableSpace - ((times + 1) * hspace)) / times;
                 widthAdjustmentDone = true;
             }
 
@@ -289,8 +341,14 @@ public class WrappingLayout extends LinearLayout {
                 int childWidth = getViewWidth(child);
                 if (newWidth > childWidth && child instanceof TextView) { // TODO this will fail with non square
                                                                           // children views
-                    ((TextView) child).setWidth(newWidth);
-                    ((TextView) child).setHeight(newWidth);
+                    android.view.ViewGroup.LayoutParams childLayout = ((TextView) child).getLayoutParams();
+                    if (childLayout != null) {
+                        childLayout.width = newWidth;
+                        childLayout.height = newWidth;
+                        ((TextView) child).setLayoutParams(childLayout);
+                    } else {
+                        Log.e(DEBUG_TAG, "child view layout params null");
+                    }
                 }
                 childWidth = getViewWidth(child);
 
@@ -357,7 +415,7 @@ public class WrappingLayout extends LinearLayout {
             }
             view.measure(MEASURE_SPEC_UNSPECIFIED, MEASURE_SPEC_UNSPECIFIED);
             int width = view.getMeasuredWidth(); // includes padding, does not include margins
-            LayoutParams params = (LayoutParams) (view.getLayoutParams());
+            android.view.ViewGroup.MarginLayoutParams params = (android.view.ViewGroup.MarginLayoutParams) view.getLayoutParams();
             if (params != null) {
                 width += params.leftMargin + params.rightMargin;
             }
@@ -365,11 +423,18 @@ public class WrappingLayout extends LinearLayout {
         }
 
         private static final class SpacerView extends View {
-            private SpacerView(Context ctx, int width, int height) {
+
+            /**
+             * Construct an empty View that can be used as a spacer
+             * 
+             * @param ctx an Android Context
+             * @param width width of the SpacerView
+             * @param height height of the SpacerView
+             */
+            private SpacerView(@NonNull Context ctx, int width, int height) {
                 super(ctx);
                 setLayoutParams(new LayoutParams(width, height));
             }
         }
     }
-
 }

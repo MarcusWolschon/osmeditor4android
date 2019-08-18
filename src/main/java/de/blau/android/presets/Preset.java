@@ -2454,9 +2454,8 @@ public class Preset implements Serializable {
             WrappingLayout wrappingLayout = new WrappingLayout(ctx);
             wrappingLayout.setSaveEnabled(false);
             float density = ctx.getResources().getDisplayMetrics().density;
-            // wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.white));
-            wrappingLayout.setBackgroundColor(ContextCompat.getColor(ctx, android.R.color.transparent)); // make
-                                                                                                         // transparent
+            // make transparent
+            wrappingLayout.setBackgroundColor(ContextCompat.getColor(ctx, android.R.color.transparent));
             wrappingLayout.setHorizontalSpacing((int) (SPACING * density));
             wrappingLayout.setVerticalSpacing((int) (SPACING * density));
             List<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);
