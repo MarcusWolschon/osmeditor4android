@@ -228,7 +228,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         protected List<PresetElement> doInBackground(Void... params) {
             List<PresetElement> searchResults = new ArrayList<>();
             AutoPreset autoPreset = new AutoPreset(activity);
-            Preset fromTaginfo = autoPreset.fromTaginfo(searchTerm.trim(), PresetFragment.MAX_SEARCHRESULTS - searchResults.size());
+            Preset fromTaginfo = autoPreset.fromTaginfo(searchTerm.trim(), PresetFragment.MAX_SEARCHRESULTS);
             List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
 
             for (PresetElement pe : elementsFromTaginfo) {
