@@ -90,7 +90,7 @@ public class AutoPreset {
      * Create a Preset with PresetItems generated from taginfo
      * 
      * @param term the term we are interested in
-     * @param maxResults maximum number of results (ignored)
+     * @param maxResults maximum number of results
      * @return a temporary Preset object
      */
     @NonNull
@@ -231,7 +231,12 @@ public class AutoPreset {
         }
         elements.clear();
         Collections.sort(items);
+        Log.d(DEBUG_TAG, "found " + items.size() + " results");
+        if (!items.isEmpty()) {
+            items = items.subList(0, Math.min(items.size(), maxResults));
+        }
         elements.addAll(items);
+
         return preset;
     }
 

@@ -197,7 +197,7 @@ public final class SearchIndexUtils {
         if (!result.isEmpty()) {
             return result.subList(0, Math.min(result.size(), limit));
         }
-        return result; // empty
+        return result;
     }
 
     /**
