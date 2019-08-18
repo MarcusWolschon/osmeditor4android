@@ -1,5 +1,9 @@
 package de.blau.android.presets;
 
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlSerializer;
+
 import android.support.annotation.NonNull;
 import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
@@ -38,7 +42,7 @@ public class PresetFixedField extends PresetField {
     }
 
     @Override
-    PresetField copy() {
+    public PresetField copy() {
         return new PresetFixedField(this);
     }
 
@@ -48,6 +52,19 @@ public class PresetFixedField extends PresetField {
         if (value.getDescription() != null) {
             value.setDescription(translate(value.getDescription(), po, getValueContext()));
         }
+    }
+
+    @Override
+    public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", Preset.KEY_ATTR);
+        s.attribute("", Preset.KEY_ATTR, key);
+        StringWithDescription v = getValue();
+        s.attribute("", Preset.VALUE, v.getValue());
+        String description = v.getDescription();
+        if (description != null && !"".equals(description)) {
+            s.attribute("", Preset.TEXT, description);
+        }
+        s.endTag("", Preset.KEY_ATTR);
     }
 
     @Override

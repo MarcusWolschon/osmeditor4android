@@ -1,10 +1,13 @@
 package de.blau.android.presets;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.xmlpull.v1.XmlSerializer;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -74,7 +77,7 @@ public class PresetCheckGroupField extends PresetField {
     }
 
     @Override
-    PresetField copy() {
+    public PresetField copy() {
         return new PresetCheckGroupField(this);
     }
 
@@ -84,6 +87,18 @@ public class PresetCheckGroupField extends PresetField {
         for (PresetCheckField check : getCheckFields()) {
             check.translate(po);
         }
+    }
+
+    @Override
+    public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", Preset.CHECKGROUP);
+        s.attribute("", Preset.KEY_ATTR, key);
+        standardFieldsToXml(s);
+        for (PresetCheckField check : getCheckFields()) {
+            check.toXml(s);
+            ;
+        }
+        s.endTag("", Preset.CHECKGROUP);
     }
 
     /**

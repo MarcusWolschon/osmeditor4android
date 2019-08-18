@@ -1,5 +1,9 @@
 package de.blau.android.presets;
 
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlSerializer;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import ch.poole.poparser.Po;
@@ -8,7 +12,6 @@ import de.blau.android.presets.Preset.UseLastAsDefault;
 import de.blau.android.presets.Preset.ValueType;
 
 public abstract class PresetField {
-    private static final String DEBUG_TAG = "PresetField";
 
     /**
      * Key this field is for
@@ -139,7 +142,7 @@ public abstract class PresetField {
      * 
      * @param defaultValue the defaultValue to set
      */
-    void setDefaultValue(@Nullable String defaultValue) {
+    public void setDefaultValue(@Nullable String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
@@ -280,7 +283,7 @@ public abstract class PresetField {
      * 
      * @return a PresetField instance
      */
-    abstract PresetField copy();
+    public abstract PresetField copy();
 
     /**
      * Translate a String
@@ -303,6 +306,37 @@ public abstract class PresetField {
      */
     public void translate(@NonNull Po po) {
         hint = translate(hint, po, textContext);
+    }
+
+    /**
+     * Output the field in XML format
+     * 
+     * @param s an XmlSerialzer instance
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    public abstract void toXml(@NonNull XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException;
+
+    /**
+     * Output the hint, match, value type and default value fields as a XML attributes
+     * 
+     * @param s an XmlSerialzer instance
+     * @throws IOException
+     */
+    protected void standardFieldsToXml(@NonNull XmlSerializer s) throws IOException {
+        if (hint != null && !"".equals(hint)) {
+            s.attribute("", Preset.TEXT, hint);
+        }
+        if (defaultValue != null && !"".equals(defaultValue)) {
+            s.attribute("", Preset.DEFAULT, defaultValue);
+        }
+        if (matchType != null) {
+            s.attribute("", Preset.MATCH, matchType.toString());
+        }
+        if (valueType != null) {
+            s.attribute("", Preset.VALUE_TYPE, valueType.toString());
+        }
     }
 
     @Override

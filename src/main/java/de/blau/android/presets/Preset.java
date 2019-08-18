@@ -121,47 +121,47 @@ public class Preset implements Serializable {
     private static final String USE_LAST_AS_DEFAULT        = "use_last_as_default";
     private static final String PO_EXT                     = ".po";
     private static final String DEFAULT_PRESET_TRANSLATION = "preset_";
-    private static final String NO                         = "no";
-    private static final String VALUE_TYPE                 = "value_type";
+    static final String         NO                         = "no";
+    static final String         VALUE_TYPE                 = "value_type";
     private static final String PRESET_NAME                = "preset_name";
     private static final String PRESET_LINK                = "preset_link";
-    private static final String SHORT_DESCRIPTION          = "short_description";
+    static final String         SHORT_DESCRIPTION          = "short_description";
     private static final String DISPLAY_VALUE              = "display_value";
-    private static final String LIST_ENTRY                 = "list_entry";
+    static final String         LIST_ENTRY                 = "list_entry";
     private static final String REFERENCE                  = "reference";
     private static final String ROLE                       = "role";
     private static final String ROLES                      = "roles";
     private static final String VALUES_SEARCHABLE          = "values_searchable";
-    private static final String EDITABLE                   = "editable";
-    private static final String VALUES_SORT                = "values_sort";
+    static final String         EDITABLE                   = "editable";
+    static final String         VALUES_SORT                = "values_sort";
     private static final String VALUES_CONTEXT             = "values_context";
     private static final String SHORT_DESCRIPTIONS         = "short_descriptions";
     private static final String DISPLAY_VALUES             = "display_values";
     private static final String VALUES                     = "values";
     private static final String VALUES_FROM                = "values_from";
-    private static final String DELIMITER                  = "delimiter";
-    private static final String COMBO_FIELD                = "combo";
-    private static final String MULTISELECT_FIELD          = "multiselect";
-    private static final String YES                        = "yes";
-    private static final String DISABLE_OFF                = "disable_off";
-    private static final String VALUE_OFF                  = "value_off";
-    private static final String VALUE_ON                   = "value_on";
-    private static final String CHECK_FIELD                = "check";
-    private static final String CHECKGROUP                 = "checkgroup";
+    static final String         DELIMITER                  = "delimiter";
+    static final String         COMBO_FIELD                = "combo";
+    static final String         MULTISELECT_FIELD          = "multiselect";
+    static final String         YES                        = "yes";
+    static final String         DISABLE_OFF                = "disable_off";
+    static final String         VALUE_OFF                  = "value_off";
+    static final String         VALUE_ON                   = "value_on";
+    static final String         CHECK_FIELD                = "check";
+    static final String         CHECKGROUP                 = "checkgroup";
     private static final String HREF                       = "href";
     private static final String WIKI                       = "wiki";
     private static final String LINK                       = "link";
     private static final String I18N                       = "i18n";
     private static final String JAVASCRIPT                 = "javascript";
-    private static final String DEFAULT                    = "default";
+    static final String         DEFAULT                    = "default";
     private static final String TEXT_CONTEXT               = "text_context";
     private static final String TEXT_FIELD                 = "text";
-    private static final String TEXT                       = "text";
-    private static final String VALUE                      = "value";
+    static final String         TEXT                       = "text";
+    static final String         VALUE                      = "value";
     private static final String NONE                       = "none";
-    private static final String MATCH                      = "match";
+    static final String         MATCH                      = "match";
     private static final String CHUNK                      = "chunk";
-    private static final String KEY_ATTR                   = "key";
+    static final String         KEY_ATTR                   = "key";
     private static final String OPTIONAL                   = "optional";
     private static final String SEPARATOR                  = "separator";
     private static final String ID                         = "id";
@@ -2973,12 +2973,15 @@ public class Preset implements Serializable {
         }
 
         /**
-         * Add a (non-fixed) PresetField to the PresetItem
+         * Add a PresetField to the PresetItem
          * 
          * @param field the PresetField
          */
         public void addField(@NonNull PresetField field) {
             fields.put(field.key, field);
+            if (field instanceof PresetFixedField) {
+                fixedTags.put(field.key, (PresetFixedField) field);
+            }
         }
 
         /**
@@ -3804,17 +3807,8 @@ public class Preset implements Serializable {
                 }
                 s.endTag("", LINK);
             }
-            for (Entry<String, PresetFixedField> entry : fixedTags.entrySet()) {
-                s.startTag("", KEY_ATTR);
-                s.attribute("", KEY_ATTR, entry.getKey());
-                PresetFixedField field = entry.getValue();
-                StringWithDescription v = field.getValue();
-                s.attribute("", VALUE, v.getValue());
-                String description = v.getDescription();
-                if (description != null && !"".equals(description)) {
-                    s.attribute("", TEXT, description);
-                }
-                s.endTag("", KEY_ATTR);
+            for (PresetFixedField field : fixedTags.values()) {
+                field.toXml(s);
             }
             fieldsToXml(s, fields);
             s.endTag("", chunk ? CHUNK : ITEM);
@@ -3827,7 +3821,7 @@ public class Preset implements Serializable {
          * @param s the serializer
          * @throws IOException
          */
-        private void fieldsToXml(XmlSerializer s, Map<String, PresetField> fields) throws IOException {
+        private void fieldsToXml(@NonNull XmlSerializer s, @NonNull Map<String, PresetField> fields) throws IOException {
             boolean inOptional = false;
             if (fields != null) {
                 for (Entry<String, PresetField> entry : fields.entrySet()) {
@@ -3835,8 +3829,6 @@ public class Preset implements Serializable {
                     if (field instanceof PresetFixedField) {
                         continue;
                     }
-                    // check match attribute
-                    String k = entry.getKey();
                     if (!inOptional && field.isOptional()) {
                         s.startTag("", OPTIONAL);
                         inOptional = true;
@@ -3845,34 +3837,7 @@ public class Preset implements Serializable {
                         s.endTag("", OPTIONAL);
                         inOptional = false;
                     }
-                    if (field instanceof PresetTextField) {
-                        s.startTag("", TEXT);
-                        s.attribute("", KEY_ATTR, k);
-                        s.endTag("", TEXT);
-                    } else if (field instanceof PresetComboField) {
-                        s.startTag("", ((PresetComboField) field).isMultiSelect() ? MULTISELECT_FIELD : COMBO_FIELD);
-                        s.attribute("", KEY_ATTR, k);
-                        MatchType matchType = field.getMatchType();
-                        if (matchType != null) {
-                            s.attribute("", MATCH, matchType.toString());
-                        }
-                        for (StringWithDescription v : ((PresetComboField) field).getValues()) {
-                            s.startTag("", LIST_ENTRY);
-                            s.attribute("", VALUE, v.getValue());
-                            String description = v.getDescription();
-                            if (description != null && !"".equals(description)) {
-                                s.attribute("", SHORT_DESCRIPTION, v.getDescription());
-                            }
-                            s.endTag("", LIST_ENTRY);
-                        }
-                        s.endTag("", ((PresetComboField) field).isMultiSelect() ? MULTISELECT_FIELD : COMBO_FIELD);
-                    } else if (field instanceof PresetCheckField) {
-                        s.startTag("", CHECK_FIELD);
-                        s.attribute("", KEY_ATTR, k);
-                        s.endTag("", CHECK_FIELD);
-                    } else {
-                        Log.e(DEBUG_TAG, "Unknown PresetField type " + field.getClass().getName());
-                    }
+                    field.toXml(s);
                 }
                 if (inOptional) {
                     s.endTag("", OPTIONAL);

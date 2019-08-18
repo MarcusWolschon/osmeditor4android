@@ -1,5 +1,9 @@
 package de.blau.android.presets;
 
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlSerializer;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import ch.poole.poparser.Po;
@@ -73,7 +77,7 @@ public class PresetCheckField extends PresetField {
     }
 
     @Override
-    PresetField copy() {
+    public PresetField copy() {
         return new PresetCheckField(this);
     }
 
@@ -86,6 +90,21 @@ public class PresetCheckField extends PresetField {
         if (offValue != null && offValue.getDescription() != null) {
             offValue.setDescription(translate(offValue.getDescription(), po, getValueContext()));
         }
+    }
+
+    @Override
+    public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", Preset.CHECK_FIELD);
+        s.attribute("", Preset.KEY_ATTR, key);
+        standardFieldsToXml(s);
+        s.attribute("", Preset.DISABLE_OFF, Boolean.toString(offValue == null || "".equals(offValue)));
+        if (!Preset.NO.equals(offValue) && offValue != null) {
+            s.attribute("", Preset.VALUE_OFF, offValue.getValue());
+        }
+        if (!Preset.YES.equals(onValue) && onValue != null) {
+            s.attribute("", Preset.VALUE_ON, onValue.getValue());
+        }
+        s.endTag("", Preset.CHECK_FIELD);
     }
 
     @Override

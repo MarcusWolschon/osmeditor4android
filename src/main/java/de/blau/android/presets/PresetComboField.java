@@ -1,5 +1,9 @@
 package de.blau.android.presets;
 
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlSerializer;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import ch.poole.poparser.Po;
@@ -124,7 +128,7 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
     }
 
     @Override
-    PresetField copy() {
+    public PresetField copy() {
         return new PresetComboField(this);
     }
 
@@ -237,5 +241,27 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
      */
     void setValuesSearchable(boolean valuesSearchable) {
         this.valuesSearchable = valuesSearchable;
+    }
+
+    @Override
+    public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", isMultiSelect() ? Preset.MULTISELECT_FIELD : Preset.COMBO_FIELD);
+        s.attribute("", Preset.KEY_ATTR, key);
+        standardFieldsToXml(s);
+        if (delimiter != null) {
+            s.attribute("", Preset.DELIMITER, delimiter);
+        }
+        s.attribute("", Preset.EDITABLE, Boolean.toString(editable));
+        s.attribute("", Preset.VALUES_SORT, Boolean.toString(sort));
+        for (StringWithDescription v : getValues()) {
+            s.startTag("", Preset.LIST_ENTRY);
+            s.attribute("", Preset.VALUE, v.getValue());
+            String description = v.getDescription();
+            if (description != null && !"".equals(description)) {
+                s.attribute("", Preset.SHORT_DESCRIPTION, v.getDescription());
+            }
+            s.endTag("", Preset.LIST_ENTRY);
+        }
+        s.endTag("", isMultiSelect() ? Preset.MULTISELECT_FIELD : Preset.COMBO_FIELD);
     }
 }

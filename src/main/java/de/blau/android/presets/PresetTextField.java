@@ -1,5 +1,9 @@
 package de.blau.android.presets;
 
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlSerializer;
+
 import android.support.annotation.NonNull;
 
 public class PresetTextField extends PresetField implements PresetFieldJavaScript {
@@ -61,8 +65,16 @@ public class PresetTextField extends PresetField implements PresetFieldJavaScrip
     }
 
     @Override
-    PresetField copy() {
+    public PresetField copy() {
         return new PresetTextField(this);
+    }
+
+    @Override
+    public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", Preset.TEXT);
+        s.attribute("", Preset.KEY_ATTR, key);
+        standardFieldsToXml(s);
+        s.endTag("", Preset.TEXT);
     }
 
     @Override
