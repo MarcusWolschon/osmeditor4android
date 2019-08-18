@@ -1,6 +1,7 @@
 package de.blau.android.prefs;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,6 +26,7 @@ import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
+import de.blau.android.propertyeditor.TagSelectedActionModeCallback;
 import de.blau.android.util.FileUtil;
 
 /**
@@ -40,12 +42,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     private final SharedPreferences prefs;
     private final String            PREF_SELECTED_API;
 
-    private static final int    DATA_VERSION = 11;
+    private static final int    DATA_VERSION = 12;
     private static final String LOGTAG       = "AdvancedPrefDB";
 
     /** The ID string for the default API and the default Preset */
-    public static final String  ID_DEFAULT          = "default";
-    public static final String  ID_SANDBOX          = "sandbox";
+    public static final String ID_DEFAULT = "default";
+    public static final String ID_SANDBOX = "sandbox";
 
     private static final String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
     private static final String ID_DEFAULT_GEOCODER_PHOTON    = "Photon";
@@ -144,6 +146,15 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         }
         if (oldVersion <= 10 && newVersion >= 11) {
             db.execSQL("ALTER TABLE presets ADD COLUMN usetranslations INTEGER DEFAULT 1");
+        }
+        if (oldVersion <= 11 && newVersion >= 12) {
+            try {
+                FileUtil.copyFileFromAssets(context, "images/" + TagSelectedActionModeCallback.CUSTOM_PRESET_ICON,
+                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET),
+                        TagSelectedActionModeCallback.CUSTOM_PRESET_ICON);
+            } catch (IOException e) {
+                Log.e(LOGTAG, "Unable to copy custom preset icon");
+            }
         }
     }
 
@@ -427,7 +438,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Try to retrieve an API that uses the specified filename as a source 
+     * Try to retrieve an API that uses the specified filename as a source
      * 
      * @param filename the filename
      * @return the API id or null if not found

@@ -45,7 +45,7 @@ class SelectedRowsActionModeCallback implements Callback {
 
     static final int MENU_ITEM_SELECT_ALL   = 13;
     static final int MENU_ITEM_DESELECT_ALL = 14;
-    static final int MENU_ITEM_HELP         = 15;
+    static final int MENU_ITEM_HELP         = 20;
 
     ActionMode currentAction;
 

@@ -38,6 +38,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.propertyeditor.TagSelectedActionModeCallback;
 import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.SearchResult;
 import de.blau.android.taginfo.TaginfoServer.WikiPageResult;
@@ -65,10 +66,10 @@ public class AutoPreset {
             "auto-preset-tourism.png", "auto-preset-man_made.png", "auto-preset-man_made.png", "auto-preset-emergency.png", "auto-preset-craft.png",
             "auto-preset-office.png", "auto-preset-military.png", "auto-preset-natural.png", "auto-preset-railway.png", "auto-preset-railway.png",
             "auto-preset-railway.png", "auto-preset-highway.png", "auto-preset-highway.png", "auto-preset-healthcare.png", "auto-preset-landuse.png",
-            "auto-preset-waterway.png" };
+            "auto-preset-waterway.png", TagSelectedActionModeCallback.CUSTOM_PRESET_ICON };
     private static final String[] ICONSDEST = { AutoPreset.ICON, "amenity.png", "shop.png", "tourism.png", "leisure.png", "man_made.png", "building.png",
             "emergency.png", "craft.png", "office.png", "military.png", "natural.png", "railway.png", "aeroway.png", "aerialway.png", "highway.png",
-            "barrier.png", "healthcare.png", "landuse.png", "waterway.png" };
+            "barrier.png", "healthcare.png", "landuse.png", "waterway.png", TagSelectedActionModeCallback.CUSTOM_PRESET_ICON };
 
     private final Context  context;
     private final Preset[] presets;

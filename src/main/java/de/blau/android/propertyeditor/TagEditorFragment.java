@@ -80,6 +80,7 @@ import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFieldJavaScript;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.ValueWithCount;
+import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
@@ -158,6 +159,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private PropertyEditorListener propertyEditorListener;
 
     private int maxStringLength; // maximum key, value and role length
+
+    OnPresetSelectedListener presetSelectedListener;
 
     /**
      * Interface for handling the key:value pairs in the TagEditor.
@@ -242,6 +245,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             formUpdate = (FormUpdate) context;
             presetFilterUpdate = (PresetUpdate) context;
             propertyEditorListener = (PropertyEditorListener) context;
+            presetSelectedListener = (OnPresetSelectedListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement PropertyEditorListener,  NameAdapters, FormUpdate and PresetFilterUpdate");
         }
@@ -765,7 +769,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param key the key
      * @return the PresetItem or null if not found
      */
-    private PresetItem getPreset(@NonNull String key) {
+    PresetItem getPreset(@NonNull String key) {
         return tags2Preset.get(key);
     }
 

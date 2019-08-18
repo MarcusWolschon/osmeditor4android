@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,24 +10,44 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.contract.Paths;
+import de.blau.android.dialogs.TextLineDialog;
+import de.blau.android.dialogs.TextLineDialog.TextLineInterface;
+import de.blau.android.osm.Tags;
+import de.blau.android.presets.AutoPreset;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetGroup;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetIconManager;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.ClipboardUtils;
+import de.blau.android.util.FileUtil;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallback {
 
+    private static final String DEBUG_TAG = "TagSelected...";
+
     // pm: protected static final int MENU_ITEM_DELETE = 1;
     // pm: protected static final int MENU_ITEM_HELP = 15;
-    private static final int MENU_ITEM_COPY = 2;
-    private static final int MENU_ITEM_CUT  = 3;
+    private static final int MENU_ITEM_COPY          = 2;
+    private static final int MENU_ITEM_CUT           = 3;
+    private static final int MENU_ITEM_CREATE_PRESET = 19;
+
+    public static final String CUSTOM_PRESET_ICON = "custom-preset.png";
 
     /**
      * Construct a new ActionModeCallback
@@ -53,6 +74,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
                 .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_copy));
         menu.add(Menu.NONE, MENU_ITEM_CUT, Menu.NONE, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_cut))
                 .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_cut));
+        menu.add(Menu.NONE, MENU_ITEM_CREATE_PRESET, Menu.NONE, R.string.tag_menu_create_preset);
         return true;
     }
 
@@ -110,7 +132,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
     private boolean performAction(int action) {
 
         final int size = rows.getChildCount();
-        ArrayList<TagEditRow> selected = new ArrayList<>();
+        List<TagEditRow> selected = new ArrayList<>();
         for (int i = 0; i < size; ++i) {
             View view = rows.getChildAt(i);
             TagEditRow row = (TagEditRow) view;
@@ -143,6 +165,9 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
                 currentAction.finish();
             }
             break;
+        case MENU_ITEM_CREATE_PRESET:
+            createPreset(selected);
+            break;
         case MENU_ITEM_SELECT_ALL:
             ((PropertyRows) caller).selectAllRows();
             return true;
@@ -156,5 +181,60 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
             return false;
         }
         return true;
+    }
+
+    /**
+     * Create a preset from the selected rows
+     * 
+     * @param selected the selected rows
+     */
+    private void createPreset(@NonNull List<TagEditRow> selected) {
+        Context ctx = caller.getContext();
+        final PresetItem bestPreset = ((TagEditorFragment) caller).getBestPreset();
+        TextLineDialog.get(ctx, R.string.create_preset_title, -1,
+                caller.getString(R.string.create_preset_default_name, bestPreset != null ? bestPreset.getName() : ""), new TextLineInterface() {
+
+                    @Override
+                    public void processLine(EditText input) {
+                        Preset preset = Preset.dummyInstance();
+                        try {
+                            preset.setIconManager(new PresetIconManager(ctx,
+                                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
+                        } catch (IOException e) {
+                            Log.e(DEBUG_TAG, "Setting icon manager failed " + e.getMessage());
+                        }
+                        PresetGroup group = preset.getRootGroup();
+                        Preset.PresetItem customItem = preset.new PresetItem(group, input.getText().toString(), CUSTOM_PRESET_ICON, null);
+                        for (TagEditRow row : selected) {
+                            String key = row.getKey();
+                            PresetItem item = ((TagEditorFragment) caller).getPreset(key);
+                            if (item == null) {
+                                customItem.addField(new PresetFixedField(key, new StringWithDescription(row.getValue())));
+                            } else {
+                                PresetField field = item.getField(key).copy();
+                                if (!key.startsWith(Tags.KEY_NAME)) {
+                                    field.setDefaultValue(row.getValue());
+                                }
+                                customItem.addField(field);
+                            }
+                        }
+                        Preset[] configuredPresets = App.getCurrentPresets(ctx);
+                        Preset autoPreset = configuredPresets[configuredPresets.length - 1];
+                        if (autoPreset != null) {
+                            PresetGroup autoGroup = autoPreset.getGroupByName(ctx.getString(R.string.preset_autopreset));
+                            if (group != null) {
+                                PresetItem copy = autoPreset.new PresetItem(autoGroup, customItem);
+                            } else {
+                                Log.e(DEBUG_TAG, "Couldn't find preset group");
+                            }
+                        } else {
+                            Log.e(DEBUG_TAG, "Preset null");
+                            return;
+                        }
+                        AutoPreset.save(autoPreset);
+                        ((PropertyRows) caller).deselectAllRows();
+                        ((TagEditorFragment) caller).presetSelectedListener.onPresetSelected(customItem);
+                    }
+                }).show();
     }
 }

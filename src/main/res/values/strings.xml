@@ -522,6 +522,10 @@
     <string name="tag_restriction_add_opening_hours">Add opening hours</string>
     <string name="tag_restriction_value_hint">Conditional restriction</string>
     <string name="ugly_checkgroup_hint">%1$s, …</string>
+    <!-- Custom preset creation -->
+    <string name="tag_menu_create_preset">Create custom preset</string>
+    <string name="create_preset_title">Custom preset name</string>
+    <string name="create_preset_default_name">Custom %1$s</string>
     <!-- Strings in Box/LocationPicker -->
     <string name="location_choose_radius">Choose radius:</string>
     <string name="location_default_radius">300m</string>¨
