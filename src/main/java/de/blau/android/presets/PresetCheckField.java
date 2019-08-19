@@ -97,11 +97,11 @@ public class PresetCheckField extends PresetField {
         s.startTag("", Preset.CHECK_FIELD);
         s.attribute("", Preset.KEY_ATTR, key);
         standardFieldsToXml(s);
-        s.attribute("", Preset.DISABLE_OFF, Boolean.toString(offValue == null || "".equals(offValue)));
-        if (!Preset.NO.equals(offValue) && offValue != null) {
+        s.attribute("", Preset.DISABLE_OFF, Boolean.toString(offValue == null || "".equals(offValue.getValue())));
+        if (offValue != null && !Preset.NO.equals(offValue.getValue())) {
             s.attribute("", Preset.VALUE_OFF, offValue.getValue());
         }
-        if (!Preset.YES.equals(onValue) && onValue != null) {
+        if (onValue != null && !Preset.YES.equals(onValue.getValue())) {
             s.attribute("", Preset.VALUE_ON, onValue.getValue());
         }
         s.endTag("", Preset.CHECK_FIELD);
