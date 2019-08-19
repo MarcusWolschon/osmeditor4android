@@ -96,7 +96,6 @@ public class PresetCheckGroupField extends PresetField {
         standardFieldsToXml(s);
         for (PresetCheckField check : getCheckFields()) {
             check.toXml(s);
-            ;
         }
         s.endTag("", Preset.CHECKGROUP);
     }

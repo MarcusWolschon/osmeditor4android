@@ -3859,25 +3859,23 @@ public class Preset implements Serializable {
          */
         private void fieldsToXml(@NonNull XmlSerializer s, @NonNull Map<String, PresetField> fields) throws IOException {
             boolean inOptional = false;
-            if (fields != null) {
-                for (Entry<String, PresetField> entry : fields.entrySet()) {
-                    PresetField field = entry.getValue();
-                    if (field instanceof PresetFixedField) {
-                        continue;
-                    }
-                    if (!inOptional && field.isOptional()) {
-                        s.startTag("", OPTIONAL);
-                        inOptional = true;
-                    }
-                    if (inOptional && !field.isOptional()) {
-                        s.endTag("", OPTIONAL);
-                        inOptional = false;
-                    }
-                    field.toXml(s);
+            for (Entry<String, PresetField> entry : fields.entrySet()) {
+                PresetField field = entry.getValue();
+                if (field instanceof PresetFixedField) {
+                    continue;
                 }
-                if (inOptional) {
+                if (!inOptional && field.isOptional()) {
+                    s.startTag("", OPTIONAL);
+                    inOptional = true;
+                }
+                if (inOptional && !field.isOptional()) {
                     s.endTag("", OPTIONAL);
+                    inOptional = false;
                 }
+                field.toXml(s);
+            }
+            if (inOptional) {
+                s.endTag("", OPTIONAL);
             }
         }
     }

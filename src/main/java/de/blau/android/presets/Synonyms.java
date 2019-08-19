@@ -21,7 +21,6 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.IndexSearchResult;
 import de.blau.android.util.OptimalStringAlignment;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.collections.MultiHashMap;
 
