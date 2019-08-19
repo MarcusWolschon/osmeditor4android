@@ -30,6 +30,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetIconManager;
+import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.FileUtil;
@@ -186,6 +187,14 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
     /**
      * Create a preset from the selected rows
      * 
+     * This will set the current value as the default value of the corresponding PresetField if the tag can be
+     * associated with with a PresetItem, otherwise it will create a text field if the value is empty or a fixed field
+     * if a value is present.
+     * 
+     * Values for keys with name-like semantics will be removed.
+     * 
+     * The PresetItems are stored in the auto-preset.
+     * 
      * @param selected the selected rows
      */
     private void createPreset(@NonNull List<TagEditRow> selected) {
@@ -207,13 +216,19 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
                         Preset.PresetItem customItem = preset.new PresetItem(group, input.getText().toString(), CUSTOM_PRESET_ICON, null);
                         for (TagEditRow row : selected) {
                             String key = row.getKey();
+                            String value = row.getValue();
+                            boolean notEmpty = value != null && !"".equals(value);
                             PresetItem item = ((TagEditorFragment) caller).getPreset(key);
                             if (item == null) {
-                                customItem.addField(new PresetFixedField(key, new StringWithDescription(row.getValue())));
+                                if (notEmpty) {
+                                    customItem.addField(new PresetFixedField(key, new StringWithDescription(value)));
+                                } else {
+                                    customItem.addField(new PresetTextField(key));
+                                }
                             } else {
                                 PresetField field = item.getField(key).copy();
-                                if (!key.startsWith(Tags.KEY_NAME)) {
-                                    field.setDefaultValue(row.getValue());
+                                if (notEmpty && !isLikeAName(key)) {
+                                    field.setDefaultValue(value);
                                 }
                                 customItem.addField(field);
                             }
@@ -223,6 +238,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
                         if (autoPreset != null) {
                             PresetGroup autoGroup = autoPreset.getGroupByName(ctx.getString(R.string.preset_autopreset));
                             if (group != null) {
+                                @SuppressWarnings("unused")
                                 PresetItem copy = autoPreset.new PresetItem(autoGroup, customItem);
                             } else {
                                 Log.e(DEBUG_TAG, "Couldn't find preset group");
@@ -236,5 +252,27 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
                         ((TagEditorFragment) caller).presetSelectedListener.onPresetSelected(customItem);
                     }
                 }).show();
+    }
+
+    /**
+     * Check if a key in general can be assumed to have a different value for each occurrence
+     * 
+     * We also assume that key: are variants that follow the same rule
+     * 
+     * @param key the key to check
+     * @return true if the key has name-like semantics
+     */
+    boolean isLikeAName(@NonNull String key) {
+        List<String> nameLikeKeys = new ArrayList<>(Tags.I18N_NAME_KEYS);
+        nameLikeKeys.add(Tags.KEY_ADDR_HOUSENUMBER);
+        nameLikeKeys.add(Tags.KEY_ADDR_HOUSENAME);
+        nameLikeKeys.add(Tags.KEY_ADDR_UNIT);
+        nameLikeKeys.add(Tags.KEY_REF);
+        for (String k : nameLikeKeys) {
+            if (k.equals(key) || key.startsWith(k + ":")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
