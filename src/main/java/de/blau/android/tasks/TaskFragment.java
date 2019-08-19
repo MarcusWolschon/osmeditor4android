@@ -356,7 +356,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
             Log.e(DEBUG_TAG, "ArrayAdapter too short state " + stateOrdinal + " adapter " + adapter.getCount());
         }
 
-        state.setEnabled(!task.isNew()); // new bugs always open
+        boolean uploadedOsmoseBug = task instanceof OsmoseBug && task.isClosed() && !task.hasBeenChanged();
+        state.setEnabled(!task.isNew() && !uploadedOsmoseBug); // new bugs always open and OSMOSE bugs can't be reopened once uploaded
         AppCompatDialog d = builder.create();
         d.setOnShowListener(new OnShowListener() { // old API, buttons are enabled by default
             @Override
