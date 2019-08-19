@@ -72,7 +72,7 @@
                         android:background="@android:color/transparent"
                         android:tint="?attr/colorAccent"
                         android:src="@drawable/baseline_clear_white_36dp" />
-                    <AutoCompleteTextView
+                    <de.blau.android.views.MultiLineAutoCompleteTextView
                         android:id="@+id/upload_comment"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                         android:background="@android:color/transparent"
                         android:tint="?attr/colorAccent"
                         android:src="@drawable/baseline_clear_white_36dp" />
-                    <AutoCompleteTextView
+                    <de.blau.android.views.MultiLineAutoCompleteTextView
                         android:id="@+id/upload_source"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
