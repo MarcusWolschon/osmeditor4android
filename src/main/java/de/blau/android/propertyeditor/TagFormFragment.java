@@ -730,7 +730,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
             // process any remaining tags
-            List<PresetItem> linkedPresets = preset.getLinkedPresets(true);
+            List<PresetItem> linkedPresets = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()));
             // loop over the tags assigning them to the linked presets
             for (Entry<String, String> e : new ArrayList<>(tagList.entrySet())) {
                 String key = e.getKey();

@@ -1051,8 +1051,7 @@ public class Preset implements Serializable {
                             currentItem.fields.putAll(chunk.fields);
                         }
                         addToTagItems(currentItem, chunk.getFields());
-                        currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to
-                                                              // duplicate entries
+                        currentItem.addAllRoles(chunk.roles);
                         currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
                     }
                     break;
@@ -3027,7 +3026,11 @@ public class Preset implements Serializable {
             if (roles == null) {
                 roles = newRoles; // doesn't matter if newRoles is null
             } else if (newRoles != null) {
-                roles.addAll(newRoles);
+                for (PresetRole role : newRoles) {
+                    if (!roles.contains(role)) {
+                        roles.add(role);
+                    }
+                }
             }
         }
 
@@ -3196,7 +3199,11 @@ public class Preset implements Serializable {
             if (linkedPresetNames == null) {
                 linkedPresetNames = newLinkedPresetNames; // doesn't matter if newLinkedPresetNames is null
             } else if (newLinkedPresetNames != null) {
-                linkedPresetNames.addAll(newLinkedPresetNames);
+                for (String linkedPresetName : newLinkedPresetNames) {
+                    if (!linkedPresetNames.contains(linkedPresetName)) {
+                        linkedPresetNames.add(linkedPresetName);
+                    }
+                }
             }
         }
 
@@ -3218,27 +3225,49 @@ public class Preset implements Serializable {
          */
         @NonNull
         public List<PresetItem> getLinkedPresets(boolean noPrimary) {
-            ArrayList<PresetItem> result = new ArrayList<>();
+            return getLinkedPresets(noPrimary, null);
+        }
+
+        /**
+         * Returns a list of linked preset items
+         * 
+         * @param noPrimary if true only items will be returned that doen't correspond to primary OSM objects
+         * @param otherPresets other Presets beside this one to search in
+         * @return list of PresetItems
+         */
+        @NonNull
+        public List<PresetItem> getLinkedPresets(boolean noPrimary, @Nullable Preset[] otherPresets) {
+            List<PresetItem> result = new ArrayList<>();
             Log.e(DEBUG_TAG, "Linked presets for " + getName());
+            List<Preset> presets = new ArrayList<>();
+            if (otherPresets != null) {
+                presets.addAll(Arrays.asList(otherPresets));
+                presets.remove(Preset.this);
+            }
+            presets.add(0, Preset.this); // move this Preset to front
             if (linkedPresetNames != null) {
                 linkedLoop: for (String n : linkedPresetNames) {
-                    Integer index = getItemIndexByName(n); // FIXME this involves a sequential search
-                    if (index != null) {
-                        PresetItem candidateItem = allItems.get(index);
-                        if (noPrimary) { // remove primary objects
-                            Set<String> linkedPresetTags = candidateItem.getFixedTags().keySet();
-                            if (linkedPresetTags.isEmpty()) {
-                                linkedPresetTags = candidateItem.getFields().keySet();
-                            }
-                            for (String k : linkedPresetTags) {
-                                if (Tags.IMPORTANT_TAGS.contains(k) || isObjectKey(k)) {
-                                    continue linkedLoop;
+                    for (Preset preset : presets) {
+                        if (preset != null) {
+                            Integer index = preset.getItemIndexByName(n); // FIXME this involves a sequential search
+                            if (index != null) {
+                                PresetItem candidateItem = preset.allItems.get(index);
+                                if (noPrimary) { // remove primary objects
+                                    Set<String> linkedPresetTags = candidateItem.getFixedTags().keySet();
+                                    if (linkedPresetTags.isEmpty()) {
+                                        linkedPresetTags = candidateItem.getFields().keySet();
+                                    }
+                                    for (String k : linkedPresetTags) {
+                                        if (Tags.IMPORTANT_TAGS.contains(k) || preset.isObjectKey(k)) {
+                                            continue linkedLoop;
+                                        }
+                                    }
                                 }
+                                result.add(candidateItem);
+                            } else {
+                                Log.e(DEBUG_TAG, "Couldn't find linked preset " + n);
                             }
                         }
-                        result.add(candidateItem);
-                    } else {
-                        Log.e(DEBUG_TAG, "Couldn't find linked preset " + n);
                     }
                 }
             }
@@ -3811,6 +3840,13 @@ public class Preset implements Serializable {
                 field.toXml(s);
             }
             fieldsToXml(s, fields);
+            if (linkedPresetNames != null) {
+                for (String linkedPresetName : linkedPresetNames) {
+                    s.startTag("", PRESET_LINK);
+                    s.attribute("", PRESET_NAME, linkedPresetName);
+                    s.endTag("", PRESET_LINK);
+                }
+            }
             s.endTag("", chunk ? CHUNK : ITEM);
         }
 

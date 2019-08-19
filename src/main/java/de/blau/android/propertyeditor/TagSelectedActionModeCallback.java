@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -214,6 +215,9 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
                         }
                         PresetGroup group = preset.getRootGroup();
                         Preset.PresetItem customItem = preset.new PresetItem(group, input.getText().toString(), CUSTOM_PRESET_ICON, null);
+                        // add linked presets
+                        customItem.addAllLinkedPresetNames(new LinkedList<>(bestPreset.getLinkedPresetNames()));
+                        // add fields
                         for (TagEditRow row : selected) {
                             String key = row.getKey();
                             String value = row.getValue();

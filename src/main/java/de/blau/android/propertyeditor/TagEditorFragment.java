@@ -723,7 +723,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private Map<String, String> addPresetsToTags(@Nullable PresetItem preset, @NonNull Map<String, String> tags) {
         Map<String, String> leftOvers = new LinkedHashMap<>();
         if (preset != null) {
-            List<PresetItem> linkedPresetList = preset.getLinkedPresets(true);
+            List<PresetItem> linkedPresetList = preset.getLinkedPresets(true, App.getCurrentPresets(getContext()));
             for (Entry<String, String> entry : tags.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
