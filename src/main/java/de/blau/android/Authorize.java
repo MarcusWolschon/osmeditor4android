@@ -4,7 +4,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,6 +20,7 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.Server;
@@ -29,6 +30,7 @@ import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 import oauth.signpost.exception.OAuthException;
 
 /**
@@ -57,9 +59,12 @@ public class Authorize extends FullScreenAppCompatActivity {
      * @param activity calling activity
      * @param listener an ActivityResult.Listener to process the result or null
      */
-    public static void startForResult(@NonNull Activity activity, @Nullable ActivityResultHandler.Listener listener) {
+    public static void startForResult(@NonNull FragmentActivity activity, @Nullable ActivityResultHandler.Listener listener) {
         Log.d(DEBUG_TAG, "startForResult");
-
+        if (!Util.supportsWebView(activity)) {
+            ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "WebView");
+            return;
+        }
         Log.d(DEBUG_TAG, "request code " + REQUEST_CODE);
         if (listener != null) {
             if (activity instanceof ActivityResultHandler) {

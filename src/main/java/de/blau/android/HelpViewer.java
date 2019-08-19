@@ -14,7 +14,6 @@ import java.util.Locale;
 import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -26,6 +25,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -41,11 +41,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Minimal system for viewing help files Currently only html format is supported directly
@@ -85,13 +87,17 @@ public class HelpViewer extends BugFixedAppCompatActivity {
     /**
      * Start this Activity
      * 
-     * @param context Android Context
+     * @param activity calling activity
      * @param topic string resource id of the help topic
      */
-    public static void start(@NonNull Context context, @StringRes int topic) {
-        Intent intent = new Intent(context, HelpViewer.class);
+    public static void start(@NonNull FragmentActivity activity, @StringRes int topic) {
+        if (!Util.supportsWebView(activity)) {
+            ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "WebView");
+            return;
+        }
+        Intent intent = new Intent(activity, HelpViewer.class);
         intent.putExtra(TOPIC, topic);
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     @SuppressLint("NewApi")

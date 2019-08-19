@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -671,5 +672,17 @@ public final class Util {
                 }
             }
         });
+    }
+    
+    /**
+     * Check if the device supports WebView
+     * 
+     * Unluckily it is totally unclear if this helps with disabled packages.
+     * 
+     * @param ctx an Android Context
+     * @return true if the system has a WebView implementation
+     */
+    public static boolean supportsWebView(@NonNull Context ctx) {
+        return ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WEBVIEW);
     }
 }

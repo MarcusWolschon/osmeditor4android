@@ -3,7 +3,6 @@ package de.blau.android.util;
 import java.io.File;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -29,8 +29,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import de.blau.android.App;
+import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -65,8 +67,12 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
      * @param activity calling activity
      * @param downloadSite the site with the files
      */
-    public static void start(@NonNull Activity activity, @NonNull String downloadSite) {
+    public static void start(@NonNull FragmentActivity activity, @NonNull String downloadSite) {
         Log.d(DEBUG_TAG, "start");
+        if (!Util.supportsWebView(activity)) {
+            ErrorAlert.showDialog(activity, ErrorCodes.REQUIRED_FEATURE_MISSING, "WebView");
+            return;
+        }
         Intent intent = new Intent(activity, DownloadActivity.class);
         intent.putExtra(DOWNLOAD_SITE_KEY, downloadSite);
         activity.startActivity(intent);

@@ -102,9 +102,9 @@ public class Newbie extends ImmersiveDialogFragment {
         builder.setNeutralButton(R.string.read_introduction, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Context context = getActivity();
-                if (context != null) {
-                    HelpViewer.start(context, R.string.help_introduction);
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    HelpViewer.start(activity, R.string.help_introduction);
                 } else {
                     // FIXME do something intelligent here
                     Log.e(DEBUG_TAG, "getActivity returned null in onClick");

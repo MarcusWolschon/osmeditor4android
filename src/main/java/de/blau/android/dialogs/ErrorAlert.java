@@ -141,6 +141,10 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return "unknown";
         case ErrorCodes.NO_DATA:
             return "no_data";
+        case ErrorCodes.REQUIRED_FEATURE_MISSING:
+            return "required_feature_missing";
+        default:
+            // nothing
         }
         return null;
     }
@@ -193,6 +197,10 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return createNewInstance(R.string.unknown_error_title, R.string.unknown_error_message, msg);
         case ErrorCodes.NO_DATA:
             return createNewInstance(R.string.no_data_title, R.string.no_data_message, msg);
+        case ErrorCodes.REQUIRED_FEATURE_MISSING:
+            return createNewInstance(R.string.required_feature_missing_title, R.string.required_feature_missing_message, msg);
+        default:
+            // ignore
         }
         return null;
     }
