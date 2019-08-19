@@ -233,8 +233,8 @@
             <combo key="opening_hours" text="Opening Hours" delimiter="|" values="24/7|08:30-12:30,15:30-20:00|Sa-Su 00:00-24:00|Mo-Fr 08:30-20:00; Sa,Su 08:00-15:00; PH off|Mo-Fr 08:30-20:00, Tu-Su 08:00-15:00; Sa 08:00-12:00|Mo-Su 08:00-18:00; Apr 10-15 off; Jun 08:00-14:00; Aug off; Dec 25 off|sunrise-sunset|Su 10:00+|week 01-53/2 Fr 09:00-12:00; week 02-52/2 We 09:00-12:00" values_no_i18n="true" match="none" editable="true"/>
         </optional>
     </chunk>
-    <chunk id="diaper">
-        <combo key="diaper" text="Diaper changing facilities" values_sort="false">
+    <chunk id="changing_table">
+        <combo key="diaper" text="Diaper changing (deprecated)" values_sort="false">
 	      <list_entry value="yes" short_description="Available"/>
 	      <list_entry value="no" short_description="Not available"/>
 	      <list_entry value="room" short_description="Dedicated room"/>
@@ -244,10 +244,26 @@
 	      <list_entry value="4" short_description="4 tables"/>
 	      <list_entry value="5" short_description="5 tables"/>
 		</combo>
+        <combo key="changing_table" text="Baby changing table" values_sort="false">
+            <list_entry value="yes" short_description="Available"/>
+            <list_entry value="limited" short_description="Inofficial"/>
+            <list_entry value="no" short_description="Not available"/>          
+        </combo>
+        <check key="changing_table:fee" text="Changing table fee"/>
+        <combo key="changing_table:count" text="Changing table count" values="1,2,3,4,5" value_type="integer" />
+        <multiselect key="changing_table:location" text="Changing table location">
+            <list_entry value="wheelchair_toilet" short_description="Wheelchair users toilet"/>
+            <list_entry value="female_toilet" short_description="Womens toilet"/>
+            <list_entry value="male_toilet" short_description="Mens toilet"/>
+            <list_entry value="unisex_toilet" short_description="Unisex toilet"/>
+            <list_entry value="dedicated_room" short_description="Dedicated room"/>
+            <list_entry value="room" short_description="Multi purpose room"/>
+            <list_entry value="sales_area" short_description="Sales area"/>
+        </multiselect>
     </chunk>
     <chunk id="toilets">
     	<check key="toilets" text="Toilets" />
-    	<reference ref="diaper"/>
+    	<reference ref="changing_table"/>
     	<combo key="toilets:wheelchair" text="Wheelchair toilets" match="none" values_searchable="true" values_sort="false">
         	<list_entry value="designated" short_description="Dedicated facilities"/>
         	<list_entry value="yes" short_description="Unrestricted access"/>
@@ -274,12 +290,12 @@
     </chunk>
     <chunk id="wheelchair_rooms">
         <optional>
-			<text key="wheelchair:rooms" text="Number of rooms suitable for wheelchairs"/>
+			<text key="wheelchair:rooms" text="Number of rooms suitable for wheelchairs" alue_type="integer"/>
         </optional>
     </chunk>
     <chunk id="wheelchair_seating">
         <optional>
-            <text key="wheelchair:places" text="Number of wheelchair seating places"/>
+            <text key="wheelchair:places" text="Number of wheelchair seating places" alue_type="integer"/>
         </optional>
     </chunk>
     <chunk id="oh_wheelchair">
@@ -4528,8 +4544,8 @@
             <link wiki="Tag:tourism=museum"/>
             <space/>
             <key key="tourism" value="museum"/>
-            <multiselect key="museum" text="Type" values="archaeological,art,aviation,cars,ceramics,children,history,maritime,military,music,nature,person,railway,science,sport,technology,transport,war" 
-                display_values="Archaeological,Art,Aviation,Cars,Ceramics,Children,History,Maritime,Military,Music,Nature,Person,Railway,Science,Sport,Technology,Transport,War" values_searchable="true" />
+            <multiselect key="museum" text="Type" values="archaeological;art;aviation;cars;ceramics;children;history;maritime;military;music;nature;person;railway;science;sport;technology;transport;war" 
+                display_values="Archaeological;Art;Aviation;Cars;Ceramics;Children;History;Maritime;Military;Music;Nature;Person;Railway;Science;Sport;Technology;Transport;War" values_searchable="true" />
             <combo key="museum_type" text="Museum scope" values="national,municipial,regional" display_values="National,Municipial,Regional" />
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <text key="wikipedia" text="Wikipedia" value_type="wikipedia"/>
@@ -5414,7 +5430,7 @@
                 <combo key="toilets:disposal" text="Type" values="flush,pitlatrine,chemical,bucket"/>
                 <text key="description" text="Description" length="255"/>
                 <reference ref="fee"/>
-                <reference ref="diaper"/>
+                <reference ref="changing_table"/>
                 <text key="operator" text="Operator"/>
                 <combo key="toilets:position" text="Usage Position" values="seated,seated;urinal,squat,urinal"/>
                 <reference ref="oh_wheelchair_level"/>
@@ -5615,10 +5631,14 @@
             <check key="fireplace" text="Fireplace" disable_off="true"/>
             <combo key="shelter_type" text="Type of shelter" values_context="shelter" values_searchable="true">
 				<list_entry value="basic_hut" short_description="Basic hut" icon="presets/accommodation/basic_hut_blue.png"/>
+                <list_entry value="field_shelter" short_description="Field shelter" />
+                <list_entry value="gazebo" short_description="Gazebo" />
 				<list_entry value="lean_to" short_description="lean to" icon="presets/accommodation/shelter_lean_to.svg"/>
 				<list_entry value="picnic_shelter" short_description="Picnic shelter" icon="presets/accommodation/shelter_picnic_brown.png"/>
 				<list_entry value="public_transport" short_description="Public transport" icon="presets/accommodation/shelter_public_transport_brown.png"/>
-				<list_entry value="weather_shelter" short_description="Weather shelter" icon="presets/accommodation/shelter.svg"/>
+				<list_entry value="rock_shelter" short_description="Rock shelter" />
+                <list_entry value="sun_shelter" short_description="Sun schelter" />
+                <list_entry value="weather_shelter" short_description="Weather shelter" icon="presets/accommodation/shelter.svg"/>
 				<list_entry value="wildlife_hide" short_description="Wildlife hide" icon="presets/accommodation/shelter.svg"/>
 			</combo>
 		</item> <!-- Shelter -->
@@ -5815,6 +5835,14 @@
             <combo key="sport" text="Sport" values="athletics,cycling,dog_racing,equestrian,horse_racing,running,skating,roller_skating,ice_skating" display_values="Athletics,Cycling,Dog racing,Equestrian,Horse racing,Running,Skating,Roller skating,Ice skating" values_context="sport"/>
             <combo key="surface" text="Surface" values="artificial_turf,asphalt,clay,concrete,decoturf,grass,sand,tartan,ground" display_values="Artificial turf,Asphalt,Clay,Concrete,DecoTurf,Grass,Sand,Tartan,Ground" values_context="sport"/>	
         </item> <!-- Racetrack -->
+        <item name="Dive centre" icon="icons/png/sport_scuba_diving_21080.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=dive_centre"/>
+            <space/>
+            <key key="amenity" value="dive_centre"/>
+            <reference ref="name_oh_wheelchair"/>
+            <reference ref="scuba" />
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Dive centre -->
         <group name="Golf" icon="icons/png/sport_golf.png">
             <item name="Golf Course" icon="icons/png/sport_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
@@ -5894,14 +5922,6 @@
             <key key="leisure" value="miniature_golf"/>
             <reference ref="name_oh_wheelchair"/>
         </item> <!-- Miniature Golf -->
-        <item name="Dive centre" icon="icons/png/sport_scuba_diving_21080.png" type="node,closedway,multipolygon" preset_name_label="true">
-            <link wiki="Tag:amenity=dive_centre"/>
-            <space/>
-            <key key="amenity" value="dive_centre"/>
-            <reference ref="name_oh_wheelchair"/>
-            <reference ref="scuba" />
-            <reference ref="link_contact_address_payment"/>
-        </item> <!-- Dive centre -->
     </group> <!-- Sport Facilities -->
     <group name="Sport" icon="icons/png/sport_rowing_21113.png">
         <item name="Multi" icon="icons/png/sport_multi_21054.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7529,6 +7549,10 @@
             <link wiki="Tag:shop=butcher"/>
             <space/>
             <key key="shop" value="butcher"/>
+            <combo text="Speciality" key="butcher" values="beef,horse,lamb,pork,poultry,game" 
+                display_values="Beef,Horse,Lamb,Pork,Poultry,Game" match="key"/>
+            <combo key="diet:halal" text="Halal" values="yes,no,only" display_values="Yes,No,Only" />
+            <combo key="diet:kosher" text="Kosher" values="yes,no,only" display_values="Yes,No,Only" />
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Butcher -->
@@ -7842,7 +7866,7 @@
         <item name="Electrical appliances" icon="icons/png/shopping_electrical.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Proposed_features/Appliance_Store#shop.3Dappliance"/>
             <space/>
-            <key key="shop" value="appliances"/>
+            <key key="shop" value="appliance"/>
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Electrical appliances -->
@@ -7867,6 +7891,13 @@
             <reference ref="name_brand_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Houseware -->
+        <item name="Lighting" icon="icons/png/shopping_lamp_22099.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=lighting"/>
+            <space/>
+            <key key="shop" value="lighting"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Lighting -->
         <item name="Curtain" icon="icons/png/shopping_curtain_29041.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:shop=curtain"/>
             <space/>
@@ -8023,6 +8054,13 @@
             <link wiki="Tag:shop=beauty"/>
             <space/>
             <key key="shop" value="beauty"/>
+            <multiselect key="beauty" text="Type" values_searchable="true" match="key">
+                <list_entry value="cosmetics" short_description="Cosmetics"/>
+                <list_entry value="hair" short_description="Hairdresser"/>
+                <list_entry value="hair_removal" short_description="Hair removal"/>
+                <list_entry value="skin_care" short_description="Skin care"/>
+                <list_entry value="spa" short_description="Spa"/>
+            </multiselect>
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Beauty -->
