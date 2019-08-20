@@ -295,8 +295,8 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                         // actually delete
                                         if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {
                                             photoList.remove(pos);
-                                            pos = Integer.min(pos, size - 1); // this will set pos to -1 but
-                                                                              // we will exit in that case
+                                            pos = Math.min(pos, size - 1); // this will set pos to -1 but
+                                                                           // we will exit in that case
                                             if (getShowsDialog() && photoList.isEmpty()) { // in fragment mode we want
                                                                                            // to do something else
                                                 getDialog().dismiss();
