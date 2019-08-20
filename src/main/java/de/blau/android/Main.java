@@ -638,20 +638,22 @@ public class Main extends FullScreenAppCompatActivity
      * Set how we should handle screen orientation changes based of our preferences
      */
     private void setScreenOrientation() {
-        switch (prefs.getMapOrientation()) {
-        case "CURRENT":
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            break;
-        case "PORTRAIT":
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            break;
-        case "LANDSCAPE":
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            break;
-        case "AUTO":
-        default:
-            // do nothing
-            break;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            switch (prefs.getMapOrientation()) {
+            case "CURRENT":
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+                break;
+            case "PORTRAIT":
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                break;
+            case "LANDSCAPE":
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                break;
+            case "AUTO":
+            default:
+                // do nothing
+                break;
+            }
         }
     }
 
@@ -1770,6 +1772,13 @@ public class Main extends FullScreenAppCompatActivity
         return true;
     }
 
+    /**
+     * Check if we have a specific location provider
+     * 
+     * @param providers array holding the provider names
+     * @param provider the provider
+     * @return true if the provider is present
+     */
     private boolean haveLocationProvider(@Nullable String[] providers, @Nullable String provider) {
         if (providers != null) {
             for (String p : providers) {
