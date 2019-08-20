@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -218,7 +219,7 @@ public class Names {
                                                 reader.beginArray();
                                                 regions = new ArrayList<>();
                                                 while (reader.hasNext()) {
-                                                    regions.add(reader.nextString().toUpperCase());
+                                                    regions.add(reader.nextString().toUpperCase(Locale.US));
                                                 }
                                                 reader.endArray();
                                                 break;

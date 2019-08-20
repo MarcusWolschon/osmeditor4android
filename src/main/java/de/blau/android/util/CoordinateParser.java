@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.text.ParseException;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,32 +11,30 @@ import android.support.annotation.Nullable;
 /**
  * Utilities for assisting in the parsing of latitude and longitude strings into Decimals.
  * 
- * Based on CoordinateParseUtils.java Copyright (C) Global Biodiversity Information Facility, Licensed under
- * the Apache License, Version 2.0
+ * Based on CoordinateParseUtils.java Copyright (C) Global Biodiversity Information Facility, Licensed under the Apache
+ * License, Version 2.0
  * 
- * Changes wrt the original:
- *  - get rid of some unnecessary dependencies
- *  - allow cardinal direction letters to be in front and behind the coordinate value
- *  - parse degree + minute values correctly
- *  - JavaDoc and other cleanup
+ * Changes wrt the original: - get rid of some unnecessary dependencies - allow cardinal direction letters to be in
+ * front and behind the coordinate value - parse degree + minute values correctly - JavaDoc and other cleanup
  */
 public final class CoordinateParser {
-    private static final String DMS = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"  // The degrees
-            + "\\s*([0-6]?\\d)\\s*(?:'|m| |´|’|′)" // The minutes
-            + "\\s*(?:"                            // Non-capturing group
-            + "([0-6]?\\d(?:[,.]\\d+)?)"           // Seconds and optional decimal
-            + "\\s*(?:\"|''|s|´´|″)?"
-            + ")?\\s*";
-    private static final String DM = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)" // The degrees
-           + "\\s*(?:"                           // Non-capturing group
-           + "([0-6]?\\d(?:[,.]\\d+)?)"          // Minutes and optional decimal
-           + "\\s*(?:'|m| |´|’|′)?"
-           + ")?\\s*";
-    private static final String D = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*"; // The degrees and optional decimal
+    private static final String DMS = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                    // The degrees
+            + "\\s*([0-6]?\\d)\\s*(?:'|m| |´|’|′)"                                           // The minutes
+            + "\\s*(?:"                                                                      // Non-capturing group
+            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                     // Seconds and optional
+                                                                                             // decimal
+            + "\\s*(?:\"|''|s|´´|″)?" + ")?\\s*";
+    private static final String DM  = "\\s*(\\d{1,3})\\s*(?:°|d|º| |g|o)"                    // The degrees
+            + "\\s*(?:"                                                                      // Non-capturing group
+            + "([0-6]?\\d(?:[,.]\\d+)?)"                                                     // Minutes and optional
+                                                                                             // decimal
+            + "\\s*(?:'|m| |´|’|′)?" + ")?\\s*";
+    private static final String D   = "\\s*(\\d{1,3}(?:[,.]\\d+)?)\\s*(?:°|d|º| |g|o|)\\s*"; // The degrees and optional
+                                                                                             // decimal
 
-    private static final String NSEOW = "([NSEOW])";
+    private static final String NSEOW      = "([NSEOW])";
     private static final String SEPARATORS = "[ ,;/]?";
-    
+
     private static final Pattern DMS_SINGLE  = Pattern.compile("^" + DMS + "$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DM_SINGLE   = Pattern.compile("^" + DM + "$", Pattern.CASE_INSENSITIVE);
     private static final Pattern D_SINGLE    = Pattern.compile("^" + D + "$", Pattern.CASE_INSENSITIVE);
@@ -55,7 +54,7 @@ public final class CoordinateParser {
     }
 
     /**
-     * This parses string representations of latitude and longitude values. 
+     * This parses string representations of latitude and longitude values.
      *
      * Coordinate precision will be 8 decimals at most, any more precise values will be rounded.
      *
@@ -75,7 +74,7 @@ public final class CoordinateParser {
      * @param longitude The decimal longitude
      *
      * @return The parse result
-     * @throws ParseException if parsing fails, note the offset will alyways be 0 
+     * @throws ParseException if parsing fails, note the offset will alyways be 0
      */
     @Nullable
     public static LatLon parseLatLng(final String latitude, final String longitude) throws ParseException {
@@ -130,7 +129,7 @@ public final class CoordinateParser {
      * @return true if the cardinal direction indicates that the associated value is a latitude value
      */
     private static boolean isLat(@NonNull String direction) {
-        return "NS".contains(direction.toUpperCase());
+        return "NS".contains(direction.toUpperCase(Locale.US));
     }
 
     /**
@@ -140,7 +139,7 @@ public final class CoordinateParser {
      * @return positive or negative 1
      */
     private static int coordSign(@NonNull String direction) {
-        return POSITIVE.contains(direction.toUpperCase()) ? 1 : -1;
+        return POSITIVE.contains(direction.toUpperCase(Locale.US)) ? 1 : -1;
     }
 
     /**
@@ -148,7 +147,7 @@ public final class CoordinateParser {
      * 
      * @param coordinates the coordinate string
      * @return a LatLon object containing the lat and lon values
-     * @throws ParseException if parsing fails, note the offset will alyways be 0 
+     * @throws ParseException if parsing fails, note the offset will alyways be 0
      */
     @NonNull
     public static LatLon parseVerbatimCoordinates(@Nullable final String coordinates) throws ParseException {
@@ -214,7 +213,7 @@ public final class CoordinateParser {
      * @param c1 first coordinate value
      * @param c2 second coordinate value
      * @return a LatLon object
-     * @throws ParseException if parsing fails, note the offset will alyways be 0 
+     * @throws ParseException if parsing fails, note the offset will alyways be 0
      */
     @NonNull
     private static LatLon orderCoordinates(@NonNull final String dir1, @NonNull final String dir2, double c1, double c2) throws ParseException {
@@ -251,7 +250,7 @@ public final class CoordinateParser {
      * @param lat the latitude
      * @param lon the longitude
      * @return a LonLon object
-     * @throws ParseException if parsing fails, note the offset will alyways be 0 
+     * @throws ParseException if parsing fails, note the offset will alyways be 0
      */
     @NonNull
     private static LatLon validateAndRound(double lat, double lon) throws ParseException {
@@ -287,11 +286,11 @@ public final class CoordinateParser {
      * @param coord the coordinate value
      * @param lat if true it is a latitude
      * @return the converted decimal
-     * @throws ParseException if parsing fails, note the offset will alyways be 0 
+     * @throws ParseException if parsing fails, note the offset will alyways be 0
      */
     protected static double parseDMS(@NonNull String coord, boolean lat) throws ParseException {
         final String DIRS = lat ? "NS" : "EOW";
-        coord = coord.trim().toUpperCase();
+        coord = coord.trim().toUpperCase(Locale.US);
 
         if (coord.length() > 3) {
             // preparse the direction and remove it from the string to avoid a very complex regex
