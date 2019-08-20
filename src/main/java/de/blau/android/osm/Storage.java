@@ -43,7 +43,7 @@ public class Storage implements Serializable {
         nodes = new LongOsmElementMap<>(1000);
         ways = new LongOsmElementMap<>();
         relations = new LongOsmElementMap<>();
-        bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
+        bboxes = new ArrayList<BoundingBox>();
         // a default entry may not make sense
         bboxes.add(new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7));
     }
@@ -57,7 +57,7 @@ public class Storage implements Serializable {
         nodes = new LongOsmElementMap<>(s.nodes);
         ways = new LongOsmElementMap<>(s.ways);
         relations = new LongOsmElementMap<>(s.relations);
-        bboxes = new ArrayList<>(s.bboxes); // Collections.synchronizedList(new ArrayList<>(s.bboxes));
+        bboxes = new ArrayList<>(s.bboxes);
     }
 
     /**
