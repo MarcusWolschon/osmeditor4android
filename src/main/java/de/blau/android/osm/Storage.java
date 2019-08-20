@@ -57,7 +57,7 @@ public class Storage implements Serializable {
         nodes = new LongOsmElementMap<>(s.nodes);
         ways = new LongOsmElementMap<>(s.ways);
         relations = new LongOsmElementMap<>(s.relations);
-        bboxes = Collections.synchronizedList(new ArrayList<>(s.bboxes));
+        bboxes = new ArrayList<>(s.bboxes); // Collections.synchronizedList(new ArrayList<>(s.bboxes));
     }
 
     /**
@@ -333,13 +333,13 @@ public class Storage implements Serializable {
     }
 
     /**
-     * Get all bounding boxes of downloaded data
+     * Get an unmodifiable List of all bounding boxes of downloaded data
      * 
      * @return all bounding boxes
      */
     @NonNull
-    public List<BoundingBox> getBoundingBoxes() {
-        return bboxes;
+    public synchronized List<BoundingBox> getBoundingBoxes() {
+        return Collections.unmodifiableList(bboxes);
     }
 
     /**
@@ -347,7 +347,7 @@ public class Storage implements Serializable {
      * 
      * @param bbox bounding box to add
      */
-    void setBoundingBox(@NonNull final BoundingBox bbox) {
+    synchronized void setBoundingBox(@NonNull final BoundingBox bbox) {
         bboxes.clear();
         bboxes.add(bbox);
     }
@@ -357,7 +357,7 @@ public class Storage implements Serializable {
      * 
      * @param bbox bounding box to add
      */
-    void addBoundingBox(@NonNull final BoundingBox bbox) {
+    synchronized void addBoundingBox(@NonNull final BoundingBox bbox) {
         bboxes.add(bbox);
     }
 
@@ -366,8 +366,31 @@ public class Storage implements Serializable {
      * 
      * @param box bounding box to remove
      */
-    public void deleteBoundingBox(@NonNull BoundingBox box) {
+    public synchronized void deleteBoundingBox(@NonNull BoundingBox box) {
         bboxes.remove(box);
+    }
+
+    /**
+     * Get the last added bounding box
+     * 
+     * @return the last BoundingBox or an empty one
+     */
+    @NonNull
+    synchronized BoundingBox getLastBox() {
+        int s = bboxes.size();
+        if (s > 0) {
+            return bboxes.get(s - 1);
+        }
+        Log.e(DEBUG_TAG, "Bounding box list empty");
+        return new BoundingBox(); // empty box
+    }
+
+    /**
+     * Clear bounding box list
+     */
+    public synchronized void clearBoundingBoxList() {
+        bboxes.clear();
+        ;
     }
 
     /**
