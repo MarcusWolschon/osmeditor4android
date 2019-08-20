@@ -436,11 +436,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     public String getReadOnlyApiId(@NonNull String filename) {
         try (SQLiteDatabase readableDb = getReadableDatabase()) {
             String queryUri = "file:%" + filename;
-            Cursor dbresult = readableDb.query(APIS_TABLE, new String[] { ID_FIELD, "readonlyurl" }, "readonlyurl LIKE ?", new String[] { queryUri }, null,
-                    null, null, null);
-            if (dbresult.getCount() > 0) {
-                dbresult.moveToFirst();
-                return dbresult.getString(0);
+            try (Cursor dbresult = readableDb.query(APIS_TABLE, new String[] { ID_FIELD, "readonlyurl" }, "readonlyurl LIKE ?", new String[] { queryUri }, null,
+                    null, null, null)) {
+                if (dbresult.getCount() > 0) {
+                    dbresult.moveToFirst();
+                    return dbresult.getString(0);
+                }
             }
         }
         return null;
