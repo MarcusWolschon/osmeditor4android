@@ -319,33 +319,6 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         }
     }
 
-    /**
-     * Return the view we have our rows in and work around some android craziness
-     * 
-     * @return the View holding our content or null
-     */
-    @Nullable
-    public View getOurView() {
-        View v = getView();
-        if (v != null) {
-            if (v.getId() == R.layout.preset_search_results_view) {
-                Log.d(DEBUG_TAG, "got correct view in getView");
-                return v;
-            } else {
-                v = v.findViewById(R.layout.preset_search_results_view);
-                if (v == null) {
-                    Log.d(DEBUG_TAG, "didn't find R.layout.preset_search_results_view");
-                } else {
-                    Log.d(DEBUG_TAG, "Found R.layout.preset_search_results_view");
-                }
-                return v;
-            }
-        } else {
-            Log.d(DEBUG_TAG, "got null view in getView");
-        }
-        return null;
-    }
-
     @Override
     public void update(List<PresetElement> updatedPresets) {
         if (updatedPresets != null) {
