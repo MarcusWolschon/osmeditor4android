@@ -1,5 +1,7 @@
 package de.blau.android;
 
+import java.util.TreeMap;
+
 import org.acra.ACRA;
 import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
@@ -8,6 +10,7 @@ import org.acra.sender.HttpSender;
 import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.ScriptableObject;
 import org.nustaq.serialization.FSTConfiguration;
+import org.nustaq.serialization.serializers.FSTMapSerializer;
 
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
@@ -574,6 +577,9 @@ public class App extends android.app.Application {
     }
 
     private static FSTConfiguration singletonConf = FSTConfiguration.createAndroidDefaultConfiguration();
+    static {
+        singletonConf.registerSerializer(TreeMap.class, new FSTMapSerializer(), true);
+    }
 
     /**
      * Get the current serialisation singleton
