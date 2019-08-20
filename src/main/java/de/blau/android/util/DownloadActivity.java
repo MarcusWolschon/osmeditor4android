@@ -142,8 +142,10 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                         }
                         // Start download
                         DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
-                                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                                 .setDestinationInExternalFilesDir(DownloadActivity.this, Environment.DIRECTORY_DOWNLOADS, filename);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        }
                         if (!allNetworks) {
                             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
                         }
