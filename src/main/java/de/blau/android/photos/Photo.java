@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 import android.content.Context;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.media.ExifInterface;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import de.blau.android.R;
