@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -136,6 +137,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
      * 
      * @return the View
      */
+    @SuppressWarnings("deprecation")
     private View createView() {
         FragmentActivity activity = getActivity();
         LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
@@ -152,23 +154,23 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         Menu menu = menuView.getMenu();
         boolean multiple = photoList.size() > 1;
         if (multiple) {
-            menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp)
-                    .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            MenuItem item = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp);
+            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-        menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp)
-                .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        MenuItem shareItem = menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp);
+        MenuCompat.setShowAsAction(shareItem, MenuItem.SHOW_AS_ACTION_ALWAYS);
         if (multiple) {
-            menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp)
-                    .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            MenuItem item = menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp);
+            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (Uri.parse(photoList.get(startPos)).getAuthority().equals(getString(R.string.content_provider))) {
             // we can only delete stuff that is provided by our provider
-            menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
-                    .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            MenuItem item = menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp);
+            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (multiple) {
-            menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp)
-                    .setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            MenuItem item = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
+            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         menuView.setOnMenuItemClickListener(this);
         return layout;
