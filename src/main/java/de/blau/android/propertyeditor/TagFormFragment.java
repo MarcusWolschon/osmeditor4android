@@ -900,9 +900,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             || key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
                         if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX) || ValueType.CONDITIONAL == valueType) {
                             rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
-                        } else if ((Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType)
-                                && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                            // FIXME need at least SDK 12 for now
+                        } else if (isOpeningHours(key, valueType)) {
                             rowLayout.addView(getOpeningHoursDialogRow(rowLayout, preset, hint, key, value, null));
                         } else {
                             rowLayout.addView(getTextRow(rowLayout, preset, field, value, values, allTags));
@@ -916,8 +914,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             Log.d(DEBUG_TAG, "adapter null " + key + " " + value + " " + preset);
                         }
                         if (isComboField || (isCheckField && count > 2)) {
-                            if (ValueType.OPENING_HOURS_MIXED == valueType && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                                // FIXME need at least SDK 12 for now
+                            if (isOpeningHours(key, valueType)) {
                                 rowLayout.addView(getOpeningHoursDialogRow(rowLayout, preset, hint, key, value, adapter));
                             } else if (count <= maxInlineValues) {
                                 rowLayout.addView(getComboRow(rowLayout, preset, hint, key, value, adapter));
@@ -981,6 +978,20 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         } else {
             Log.d(DEBUG_TAG, "addRow rowLayout null");
         }
+    }
+
+    /**
+     * Check if a key has opening_hours semantics
+     * 
+     * FIXME need at least SDK 12 for now
+     * 
+     * @param key the key
+     * @param valueType the ValueType
+     * @return true if the key has opening_hours semantics
+     */
+    public boolean isOpeningHours(@NonNull final String key, @NonNull ValueType valueType) {
+        return Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType
+                || ValueType.OPENING_HOURS_MIXED == valueType && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB;
     }
 
     /**
