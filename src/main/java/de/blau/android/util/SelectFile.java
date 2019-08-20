@@ -69,8 +69,10 @@ public final class SelectFile {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
             i.setType("*/*");
-            if (path != null) {
-                i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (path != null) {
+                    i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
+                }
             }
         } else {
             i = new Intent(activity, ThemedFilePickerActivity.class);
@@ -110,8 +112,10 @@ public final class SelectFile {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             i.setType("*/*");
-            if (path != null) {
-                i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (path != null) {
+                    i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Uri.parse(path));
+                }
             }
         } else {
             i = new Intent(activity, ThemedFilePickerActivity.class);
