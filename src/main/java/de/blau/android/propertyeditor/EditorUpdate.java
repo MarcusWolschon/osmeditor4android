@@ -12,7 +12,7 @@ import de.blau.android.presets.Preset.PresetItem;
 /**
  * Interface for updating key:value pairs in the TagEditor from other fragments via the activity
  */
-interface EditorUpdate {
+public interface EditorUpdate {
     /**
      * Update or add a single key value pair in the tag editor
      * 

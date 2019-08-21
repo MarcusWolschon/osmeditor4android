@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- inner classes must be specified using <view class="classname" /> due to dollar sign -->
-<view class="de.blau.android.propertyeditor.tagform.ComboRow" xmlns:android="http://schemas.android.com/apk/res/android"
+<view class="de.blau.android.propertyeditor.tagform.EditableMultiselectRow" xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -29,8 +29,10 @@
 	        android:paddingRight="5dp"
 	       	android:maxLines="3"
 	        android:gravity="top"
+	        android:layout_gravity="center_vertical"
 	         />	    
-	    <RadioGroup
+	    <LinearLayout
+	        android:orientation="vertical"
 	        android:id="@+id/valueGroup"
 	        style="?attr/RadioGroup"
 	        android:saveEnabled="false"
@@ -40,7 +42,7 @@
 	        android:layout_marginRight="0dp"
 	        android:layout_marginLeft="0dp"
 	        android:layout_weight="2"
-	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical"
 	        android:minHeight="34dp"
 	        android:paddingLeft="0dp"
             android:paddingStart="0dp"

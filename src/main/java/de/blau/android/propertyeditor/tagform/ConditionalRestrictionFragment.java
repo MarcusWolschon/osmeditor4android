@@ -1,4 +1,4 @@
-package de.blau.android.propertyeditor;
+package de.blau.android.propertyeditor.tagform;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -992,7 +992,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
          * @param description the description
          */
         public void setValue(@NonNull String value, @NonNull String description) {
-            this.value = value;
             valueView.setText(description);
             valueView.setTag(value);
         }
@@ -1041,7 +1040,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                     valueView.setTextColor(errorTextColor);
                 }
             }
-            value = ohValue;
             setOnClickListener(listener);
         }
     }

@@ -57,6 +57,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.propertyeditor.tagform.TagFormFragment;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoContext;
@@ -748,7 +749,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     /**
      * Removes an old RecentPresetView and replaces it by a new one (to update it)
      */
-    void recreateRecentPresetView() {
+    public void recreateRecentPresetView() {
         if (usePaneLayout) {
             FragmentManager fm = getSupportFragmentManager();
             Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
@@ -838,7 +839,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     /**
      * Get current values from the fragments and end the activity
      */
-    void sendResultAndFinish() {
+    public void sendResultAndFinish() {
 
         List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
         if (currentTags != null) {
