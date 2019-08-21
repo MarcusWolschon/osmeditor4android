@@ -9,12 +9,6 @@
     <uses-sdk
         tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm,com.heinrichreimersoftware.androidissuereporter,com.davemorrissey.labs.subscaleview,android.support.exifinterface" />
 
-    <!--
-    disable for now to see if it solves the Play Store problem of the app not showing up for many devices
-	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
-	<uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
-	<uses-feature android:name="android.hardware.faketouch" />
-    -->
     <uses-feature
         android:name="android.hardware.sensor.compass"
         android:required="false" />
@@ -33,7 +27,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- cache tiles -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name="de.blau.android.App"
