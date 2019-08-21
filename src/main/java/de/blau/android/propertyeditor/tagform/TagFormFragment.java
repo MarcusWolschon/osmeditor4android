@@ -285,7 +285,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 adapter = nameAdapters.getPlaceNameAdapter(values);
             } else if (key.equals(Tags.KEY_NAME) && (names != null) && TagEditorFragment.useNameSuggestions(usedKeys)) {
                 Log.d(DEBUG_TAG, "generate suggestions for name from name suggestion index");
-                List<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(allTags), propertyEditorListener.getIsoCodes());
+                List<NameAndTags> suggestions = names.getNames(new TreeMap<>(allTags), propertyEditorListener.getIsoCodes());
                 if (suggestions != null && !suggestions.isEmpty()) {
                     List<NameAndTags> result = suggestions;
                     Collections.sort(result);
@@ -297,7 +297,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 if (prop != null) {
                     String[] speedLimits = prop.getSpeedLimits();
                     if (speedLimits != null) {
-                        adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, speedLimits);
+                        adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, speedLimits);
                     }
                 }
             } else {

@@ -16,7 +16,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;

@@ -400,12 +400,12 @@ public class DialogRow extends LinearLayout {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.d(DEBUG_TAG, "radio group onCheckedChanged");
-                StringWithDescription value = null;
+                StringWithDescription ourValue = null;
                 if (checkedId != -1) {
                     RadioButton button = (RadioButton) group.findViewById(checkedId);
-                    value = (StringWithDescription) button.getTag();
-                    caller.tagListener.updateSingleValue((String) layout.getTag(), value.getValue());
-                    row.setValue(value);
+                    ourValue = (StringWithDescription) button.getTag();
+                    caller.tagListener.updateSingleValue((String) layout.getTag(), ourValue.getValue());
+                    row.setValue(ourValue);
                     row.setChanged(true);
                 }
                 // allow a tiny bit of time to see that the action actually worked

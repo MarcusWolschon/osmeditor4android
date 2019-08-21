@@ -87,7 +87,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
             String value = entry.getValue();
             if (field == null) {
                 PresetField f = preset.getField(key);
-                if (f == null || !(f instanceof PresetCheckGroupField)) {
+                if (!(f instanceof PresetCheckGroupField)) {
                     return;
                 }
                 field = (PresetCheckGroupField) f;
@@ -295,7 +295,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
         builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Map<String, String> keyValues = new HashMap<>();
+                Map<String, String> ourKeyValues = new HashMap<>();
                 for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
                     View c = valueGroup.getChildAt(pos);
                     if (c instanceof TriStateCheckBox) {
@@ -304,20 +304,20 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                         PresetCheckField check = field.getCheckField(k);
                         Boolean state = checkBox.getState();
                         if (state == null) {
-                            keyValues.put(k, "");
+                            ourKeyValues.put(k, "");
                         } else if (!checkBox.isEnabled()) {
                             // unknown stuff
-                            keyValues.put(k, row.keyValues.get(k));
+                            ourKeyValues.put(k, row.keyValues.get(k));
                         } else if (state) {
-                            keyValues.put(k, check.getOnValue().getValue());
+                            ourKeyValues.put(k, check.getOnValue().getValue());
                         } else {
                             StringWithDescription offValue = check.getOffValue();
-                            keyValues.put(k, offValue == null ? "" : offValue.getValue());
+                            ourKeyValues.put(k, offValue == null ? "" : offValue.getValue());
                         }
                     }
                 }
-                caller.tagListener.updateTags(keyValues, false); // batch update
-                row.setSelectedValues(keyValues);
+                caller.tagListener.updateTags(ourKeyValues, false); // batch update
+                row.setSelectedValues(ourKeyValues);
                 row.setChanged(true);
             }
         });
