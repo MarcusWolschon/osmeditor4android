@@ -50,7 +50,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                 int height = map.getHeight();
                 Node node = App.getLogic().performAddNode(main, GeoMath.xToLonE7(width, box, x), GeoMath.yToLatE7(height, width, box, y));
                 main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
-                main.performTagEdit(node, null, false, true, false);
+                main.performTagEdit(node, null, false, true);
             }
         }),
         /**

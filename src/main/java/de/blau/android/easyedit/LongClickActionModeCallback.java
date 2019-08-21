@@ -56,7 +56,6 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     private static final int    MENUITEM_NEWNODE_GPS     = 5;
     private static final int    MENUITEM_NEWNODE_ADDRESS = 6;
     private static final int    MENUITEM_NEWNODE_PRESET  = 7;
-    private static final int    MENUITEM_NEWNODE_NAME    = 8;
     private static final int    MENUITEM_NEWNODE_VOICE   = 9;
     private float               startX;
     private float               startY;
@@ -118,9 +117,6 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         menu.add(Menu.NONE, MENUITEM_OSB, Menu.NONE, R.string.openstreetbug_new_bug).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bug));
         if ((clickedNonClosedWays != null && !clickedNonClosedWays.isEmpty()) && (clickedNodes == null || clickedNodes.isEmpty())) {
             menu.add(Menu.NONE, MENUITEM_SPLITWAY, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
-        }
-        if (prefs.tagFormEnabled()) {
-            menu.add(Menu.NONE, MENUITEM_NEWNODE_NAME, Menu.NONE, R.string.menu_set_name).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.name));
         }
         menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
@@ -234,7 +230,6 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             return true;
         case MENUITEM_NEWNODE_ADDRESS:
         case MENUITEM_NEWNODE_PRESET:
-        case MENUITEM_NEWNODE_NAME:
             logic.hideCrosshairs();
             try {
                 logic.setSelectedNode(null);
@@ -246,8 +241,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             Node lastSelectedNode = logic.getSelectedNode();
             if (lastSelectedNode != null) {
                 main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, lastSelectedNode));
-                main.performTagEdit(lastSelectedNode, null, item.getItemId() == MENUITEM_NEWNODE_ADDRESS, item.getItemId() == MENUITEM_NEWNODE_PRESET,
-                        item.getItemId() == MENUITEM_NEWNODE_NAME); // show preset screen or add addresses
+                // show preset screen or add addresses
+                main.performTagEdit(lastSelectedNode, null, item.getItemId() == MENUITEM_NEWNODE_ADDRESS, item.getItemId() == MENUITEM_NEWNODE_PRESET);
             }
             return true;
         case MENUITEM_PASTE:

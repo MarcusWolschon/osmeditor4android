@@ -28,10 +28,6 @@ Create an OpenStreetMap Note at the point.
 
 If the marked location is on a way: create a new way node at the position and split the way. 
 
-### ![Set name](../images/menu_name.png) Set name
-
-Open a name selection field and create a POI corresponding to the name. Example: entering "McDonald's" will add tags for a McDonald's hamburger restaurant.
-
 ### ![Append](../images/tag_menu_append.png) Create path 
 
 Start the path/way creation mode, just as if you had touched the screen again.

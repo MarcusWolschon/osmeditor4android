@@ -181,10 +181,10 @@ public class AddRelationMemberActionModeCallback extends NonSimpleActionModeCall
             if (!members.isEmpty()) { // something was actually added
                 if (relation == null) {
                     relation = logic.createRelation(main, null, members);
-                    main.performTagEdit(relation, "type", false, false, false);
+                    main.performTagEdit(relation, "type", false, false);
                 } else {
                     logic.addMembers(main, relation, members);
-                    main.performTagEdit(relation, null, false, false, false);
+                    main.performTagEdit(relation, null, false, false);
                 }
                 // starting action mode here doesn't seem to work ... main.startSupportActionMode(new
                 // RelationSelectionActionModeCallback(relation));

@@ -23,7 +23,6 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,21 +33,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,7 +52,6 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
@@ -88,7 +79,6 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
-import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 
@@ -103,8 +93,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private static final String FOCUS_ON_ADDRESS = "focusOnAddress";
 
     private static final String DISPLAY_MRU_PRESETS = "displayMRUpresets";
-
-    private static final String ASK_FOR_NAME = "askForName";
 
     private LayoutInflater inflater = null;
 
@@ -122,8 +110,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
     private String focusTag = null;
 
-    private boolean askForName = false;
-
     int maxInlineValues = 3;
 
     int maxStringLength; // maximum key, value and role length
@@ -136,10 +122,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param displayMRUpresets display the MRU list of Presets
      * @param focusOnAddress focus on any address keys
      * @param focusTag focus on this tag
-     * @param askForName ask for a name value first
      * @return a TagFormFragment instance
      */
-    public static TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, String focusTag, boolean askForName) {
+    public static TagFormFragment newInstance(boolean displayMRUpresets, boolean focusOnAddress, String focusTag) {
         TagFormFragment f = new TagFormFragment();
 
         Bundle args = new Bundle();
@@ -147,7 +132,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         args.putSerializable(DISPLAY_MRU_PRESETS, displayMRUpresets);
         args.putSerializable(FOCUS_ON_ADDRESS, focusOnAddress);
         args.putSerializable(FOCUS_TAG, focusTag);
-        args.putSerializable(ASK_FOR_NAME, askForName);
 
         f.setArguments(args);
 
@@ -198,7 +182,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         boolean displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS);
         focusOnAddress = (Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS);
         focusTag = getArguments().getString(FOCUS_TAG);
-        askForName = (Boolean) getArguments().getSerializable(ASK_FOR_NAME);
 
         if (getUserVisibleHint()) { // don't request focus if we are not visible
             Log.d(DEBUG_TAG, "is visible");
@@ -641,24 +624,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             focusTag = null;
         } else {
             focusOnEmpty();
-        }
-        // display dialog for name selection for store/other chains
-        if (askForName) {
-            askForName = false; // only do this once
-            AlertDialog d = buildNameDialog(getActivity());
-            d.show();
-            // force dropdown and keyboard to appear
-            final View v = d.findViewById(R.id.textValue);
-            if (v instanceof AutoCompleteTextView) {
-                v.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((AutoCompleteTextView) v).showDropDown();
-                        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        mgr.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);
-                    }
-                });
-            }
         }
     }
 
@@ -1261,80 +1226,5 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Override
     public void tagsUpdated() {
         update();
-    }
-
-    /**
-     * Show a dialog to select a name
-     * 
-     * @param ctx Android context
-     * @return an AlertDialog
-     */
-    private AlertDialog buildNameDialog(Context ctx) {
-        if (names == null) {
-            names = App.getNames(ctx);
-        }
-        List<NameAndTags> suggestions = names.getNames(new TreeMap<>(), propertyEditorListener.getIsoCodes());
-        ArrayAdapter<NameAndTags> adapter = null;
-        if (suggestions != null && !suggestions.isEmpty()) {
-            Collections.sort(suggestions);
-            adapter = new ArrayAdapter<>(ctx, R.layout.autocomplete_row, suggestions);
-        }
-
-        Builder builder = new AlertDialog.Builder(ctx);
-
-        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
-
-        final CustomAutoCompleteTextView autoComplete = (CustomAutoCompleteTextView) inflater.inflate(R.layout.customautocomplete, null);
-        builder.setView(autoComplete);
-
-        autoComplete.setHint(R.string.tag_autocomplete_name_hint);
-        autoComplete.setAdapter(adapter);
-
-        builder.setNegativeButton(R.string.cancel, null);
-        final AlertDialog dialog = builder.create();
-
-        autoComplete.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(DEBUG_TAG, "onItemClicked value");
-                Object o = parent.getItemAtPosition(position);
-                if (o instanceof Names.NameAndTags) {
-                    TagMap tags = ((NameAndTags) o).getTags();
-                    tags.put(Tags.KEY_NAME, ((NameAndTags) o).getName());
-                    tagListener.applyTagSuggestions(tags, null);
-                } else if (o instanceof String) {
-                    tagListener.updateSingleValue(Tags.KEY_NAME, (String) o);
-                } else {
-                    Log.e(DEBUG_TAG, "got a " + o.getClass().getName() + " instead of NameAndTags");
-                }
-                // allow a tiny bit of time to see that the action actually worked
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                        update();
-                    }
-                }, 100);
-            }
-        });
-
-        autoComplete.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP || event.getAction() == KeyEvent.ACTION_MULTIPLE) {
-                    if (v instanceof EditText) {
-                        if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                            tagListener.updateSingleValue(Tags.KEY_NAME, ((EditText) v).getText().toString());
-                            dialog.dismiss();
-                            update();
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-        });
-
-        return dialog;
     }
 }

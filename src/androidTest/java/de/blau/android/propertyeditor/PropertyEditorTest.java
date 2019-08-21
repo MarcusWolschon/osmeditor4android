@@ -137,7 +137,7 @@ public class PropertyEditorTest {
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
 
-        main.performTagEdit(n, null, false, false, false);
+        main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(mDevice, true, main.getString(R.string.menu_tags), false);
@@ -178,7 +178,7 @@ public class PropertyEditorTest {
         Node n = logic.getSelectedNode();
         Assert.assertNotNull(n);
 
-        main.performTagEdit(n, null, false, false, false);
+        main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
@@ -281,7 +281,7 @@ public class PropertyEditorTest {
         TestUtils.clickUp(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_nodeselect)));
         mDevice.waitForIdle();
-        Assert.assertTrue(n.hasTag("cuisine", "asian;german") || n.hasTag("cuisine", "german;asian") );
+        Assert.assertTrue(n.hasTag("cuisine", "asian;german") || n.hasTag("cuisine", "german;asian"));
         Assert.assertTrue(n.hasTag("opening_hours", "24/7"));
     }
 
@@ -432,7 +432,7 @@ public class PropertyEditorTest {
         Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
         Assert.assertNotNull(r);
 
-        main.performTagEdit(r, null, false, false, false);
+        main.performTagEdit(r, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -461,7 +461,7 @@ public class PropertyEditorTest {
         Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
         Assert.assertNotNull(r);
 
-        main.performTagEdit(r, null, false, false, false);
+        main.performTagEdit(r, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -579,7 +579,7 @@ public class PropertyEditorTest {
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
         Assert.assertNotNull(w);
 
-        main.performTagEdit(w, null, false, false, false);
+        main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -593,7 +593,7 @@ public class PropertyEditorTest {
         found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Motorway"), true);
         Assert.assertTrue(found);
     }
-    
+
     /**
      * Navigate to a specific preset item
      */
@@ -612,7 +612,7 @@ public class PropertyEditorTest {
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
         Assert.assertNotNull(w);
 
-        main.performTagEdit(w, null, false, false, false);
+        main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -635,7 +635,7 @@ public class PropertyEditorTest {
         }
         Assert.assertNotNull(handrail);
         handrail.click();
-        
+
         UiObject2 overtaking = null;
         try {
             overtaking = getField("Overtaking", 1);
@@ -649,7 +649,6 @@ public class PropertyEditorTest {
         TestUtils.clickText(mDevice, true, "Save", true);
         Assert.assertTrue(TestUtils.findText(mDevice, false, "In way direction"));
     }
-
 
     /**
      * Add a conditional restriction, this is just a rough test without using the actual UI elements of the editor
@@ -669,7 +668,7 @@ public class PropertyEditorTest {
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
         Assert.assertNotNull(w);
 
-        main.performTagEdit(w, null, false, false, false);
+        main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -720,7 +719,7 @@ public class PropertyEditorTest {
             Assert.fail(e.getMessage());
         }
 
-        main.performTagEdit(w, null, false, false, false);
+        main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -770,7 +769,7 @@ public class PropertyEditorTest {
         Node n = (Node) logic.performAddNode(main, 1.0, 1.0);
         Assert.assertNotNull(n);
 
-        main.performTagEdit(n, null, false, false, false);
+        main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
