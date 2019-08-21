@@ -2486,7 +2486,7 @@ public class Logic {
                                 List<BoundingBox> bbs = new ArrayList<>(origBbs);
                                 for (BoundingBox bb : bbs) {
                                     if (mapBox.contains(bb)) {
-                                        origBbs.remove(bb);
+                                        getDelegator().deleteBoundingBox(bb);
                                     }
                                 }
                                 getDelegator().addBoundingBox(mapBox);
@@ -2660,7 +2660,7 @@ public class Logic {
                             List<BoundingBox> bbs = new ArrayList<>(origBbs);
                             for (BoundingBox bb : bbs) {
                                 if (mapBox.contains(bb)) {
-                                    origBbs.remove(bb);
+                                    getDelegator().deleteBoundingBox(bb);
                                 }
                             }
                             getDelegator().addBoundingBox(mapBox);
