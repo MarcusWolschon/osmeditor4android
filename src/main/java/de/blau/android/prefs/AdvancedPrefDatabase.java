@@ -26,7 +26,7 @@ import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
-import de.blau.android.propertyeditor.TagSelectedActionModeCallback;
+import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.util.FileUtil;
 
 /**
@@ -149,9 +149,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         }
         if (oldVersion <= 11 && newVersion >= 12) {
             try {
-                FileUtil.copyFileFromAssets(context, "images/" + TagSelectedActionModeCallback.CUSTOM_PRESET_ICON,
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET),
-                        TagSelectedActionModeCallback.CUSTOM_PRESET_ICON);
+                FileUtil.copyFileFromAssets(context, "images/" + CustomPreset.ICON,
+                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), CustomPreset.ICON);
             } catch (IOException e) {
                 Log.e(LOGTAG, "Unable to copy custom preset icon");
             }
