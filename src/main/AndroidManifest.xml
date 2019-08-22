@@ -38,7 +38,8 @@
         android:largeHeap="true"
         android:resizeableActivity="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat" >
+        android:theme="@style/Theme.AppCompat" 
+        android:networkSecurityConfig="@xml/network_security_config" >
         <activity
             android:name=".Splash"
             android:theme="@style/SplashTheme" >
