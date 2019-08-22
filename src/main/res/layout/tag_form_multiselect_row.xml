@@ -24,7 +24,7 @@
 	        android:layout_weight="3"
 	        android:dropDownWidth="wrap_content"
 	        android:minHeight="34dp"
-	        android:paddingTop="5dp"
+	        android:paddingTop="7dp"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
 	       	android:maxLines="3"

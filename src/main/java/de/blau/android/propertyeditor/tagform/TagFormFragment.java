@@ -41,6 +41,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -509,15 +510,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         if (l != null) { // FIXME this might need an alert
             View v = l.findFocus();
             Log.d(DEBUG_TAG, "focus is on " + v);
-            if (v instanceof CustomAutoCompleteTextView) {
+            if (v instanceof CustomAutoCompleteTextView || v instanceof EditText) {
                 View row = v;
                 do {
                     row = (View) row.getParent();
-                } while (row != null && !(row instanceof TextRow));
+                } while (row != null && !(row instanceof TextRow || row instanceof MultiTextRow));
                 if (row != null) {
-                    tagListener.updateSingleValue(((TextRow) row).getKey(), ((TextRow) row).getValue());
+                    tagListener.updateSingleValue(((KeyValueRow) row).getKey(), ((KeyValueRow) row).getValue());
                     if (row.getParent() instanceof EditableLayout) {
-                        ((EditableLayout) row.getParent()).putTag(((TextRow) row).getKey(), ((TextRow) row).getValue());
+                        ((EditableLayout) row.getParent()).putTag(((KeyValueRow) row).getKey(), ((KeyValueRow) row).getValue());
                     }
                 }
             }
@@ -850,6 +851,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, preset, hint, key, value, values, allTags));
                         } else if (isOpeningHours(key, valueType)) {
                             rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, null));
+                        } else if (ValueType.PHONE == valueType) {
+                            rowLayout.addView(MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, null));
                         } else {
                             rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
                         }
@@ -870,10 +873,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                 rowLayout.addView(DialogRow.getComboRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
                             }
                         } else if (isMultiSelectField) {
-                            if (count <= maxInlineValues) {
-                                rowLayout.addView(MultiselectRow.getRow(this, inflater, rowLayout, preset, hint, key, values, adapter));
+                            if (((PresetComboField) field).isEditable()) {
+                                rowLayout.addView(MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, adapter));
                             } else {
-                                rowLayout.addView(MultiselectDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
+                                if (count <= maxInlineValues) {
+                                    rowLayout.addView(MultiselectRow.getRow(this, inflater, rowLayout, preset, hint, key, values, adapter));
+                                } else {
+                                    rowLayout.addView(MultiselectDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, values, adapter));
+                                }
                             }
                         } else if (isCheckField) {
                             if (adapter != null) {

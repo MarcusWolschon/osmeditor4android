@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- inner classes must be specified using <view class="classname" /> due to dollar sign -->
 <view class="de.blau.android.propertyeditor.tagform.ComboRow" xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,7 +23,7 @@
 	        android:layout_weight="3"
 	        android:dropDownWidth="wrap_content"
 	        android:minHeight="34dp"
-	        android:paddingTop="5dp"
+	        android:paddingTop="7dp"
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
 	       	android:maxLines="3"

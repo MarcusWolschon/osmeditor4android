@@ -44,7 +44,7 @@ import de.blau.android.views.CustomAutoCompleteTextView;
  * @author simon
  *
  */
-public class TextRow extends LinearLayout {
+public class TextRow extends LinearLayout implements KeyValueRow {
 
     protected static final String DEBUG_TAG = "TextRow";
 
@@ -98,20 +98,12 @@ public class TextRow extends LinearLayout {
         valueView.setAdapter(a);
     }
 
-    /**
-     * Return the OSM key value
-     * 
-     * @return the key as a String
-     */
+    @Override
     public String getKey() {
         return (String) getKeyView().getTag();
     }
 
-    /**
-     * Get the current value
-     * 
-     * @return the current value as a String
-     */
+    @Override
     public String getValue() {
         return valueView.getText().toString();
     }

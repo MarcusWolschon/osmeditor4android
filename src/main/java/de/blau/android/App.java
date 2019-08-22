@@ -40,6 +40,7 @@ import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.validation.BaseValidator;
 import de.blau.android.validation.Validator;
+import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
 import okhttp3.OkHttpClient;
 
 @AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure)
@@ -133,6 +134,12 @@ public class App extends android.app.Application {
      */
     private static TagClipboard tagClipboard;
     private static final Object tagClipboardLock = new Object();
+
+    /**
+     * Utility class for phone number formating
+     */
+    private static PhoneNumberUtil phoneNumberUtil;
+    private static final Object    phoneNumberUtilLock = new Object();
 
     private static Configuration configuration = null;
 
@@ -259,6 +266,11 @@ public class App extends android.app.Application {
         }
     }
 
+    /**
+     * Get the object holdign the most-recently-used tags
+     * 
+     * @return an MRUTags instance
+     */
     @NonNull
     public static MRUTags getMruTags() {
         synchronized (currentPresetsLock) {
@@ -269,6 +281,12 @@ public class App extends android.app.Application {
         return mruTags;
     }
 
+    /**
+     * Get the preset search index
+     * 
+     * @param ctx an Android Context
+     * @return a MultiHashMap with the index
+     */
     @NonNull
     public static MultiHashMap<String, PresetItem> getPresetSearchIndex(@NonNull Context ctx) {
         synchronized (presetSearchIndexLock) {
@@ -279,6 +297,12 @@ public class App extends android.app.Application {
         }
     }
 
+    /**
+     * Get the translated preset search index
+     * 
+     * @param ctx an Android Context
+     * @return a MultiHashMap with the index
+     */
     @NonNull
     public static MultiHashMap<String, PresetItem> getTranslatedPresetSearchIndex(@NonNull Context ctx) {
         synchronized (translatedPresetSearchIndexLock) {
@@ -564,6 +588,21 @@ public class App extends android.app.Application {
                 defaultValidator = new BaseValidator(ctx);
             }
             return defaultValidator;
+        }
+    }
+
+    /**
+     * Get an new instance of the phone number utilities class
+     * 
+     * @param ctx an Android Context
+     * @return a PhoneNumberUtil instance
+     */
+    public static PhoneNumberUtil getPhoneNumberUtil(@NonNull Context ctx) {
+        synchronized (phoneNumberUtilLock) {
+            if (phoneNumberUtil == null) {
+                phoneNumberUtil = PhoneNumberUtil.createInstance(ctx);
+            }
+            return phoneNumberUtil;
         }
     }
 
