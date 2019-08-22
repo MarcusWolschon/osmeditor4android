@@ -3264,6 +3264,7 @@ public class Preset implements Serializable {
                                     }
                                 }
                                 result.add(candidateItem);
+                                break;
                             } else {
                                 Log.e(DEBUG_TAG, "Couldn't find linked preset " + n);
                             }
