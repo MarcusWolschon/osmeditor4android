@@ -107,7 +107,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 break;
             default:
             }
-            main.performTagEdit(element, null, false, false, false);
+            main.performTagEdit(element, null, false, false);
             return true;
         }
         return false;
@@ -179,10 +179,10 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         super.onActionItemClicked(mode, item);
         switch (item.getItemId()) {
         case MENUITEM_TAG:
-            main.performTagEdit(element, null, false, false, false);
+            main.performTagEdit(element, null, false, false);
             break;
         case MENUITEM_TAG_LAST:
-            main.performTagEdit(element, null, true, false, false);
+            main.performTagEdit(element, null, true, false);
             break;
         case MENUITEM_DELETE:
             menuDelete(mode);
@@ -290,7 +290,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             ElementInfo.showDialog(main, element);
             return true;
         } else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
-            main.performTagEdit(element, null, false, false, false);
+            main.performTagEdit(element, null, false, false);
             return true;
         } else if (c == Util.getShortCut(main, R.string.shortcut_paste_tags)) {
             main.performTagEdit(element, null, new HashMap<>(App.getTagClipboard(main).paste()), false);

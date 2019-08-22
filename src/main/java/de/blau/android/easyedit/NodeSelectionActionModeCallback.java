@@ -149,7 +149,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 setPosition();
                 break;
             case MENUITEM_ADDRESS:
-                main.performTagEdit(element, null, true, false, false);
+                main.performTagEdit(element, null, true, false);
                 break;
             case MENUITEM_SHARE_POSITION:
                 double[] lonLat = new double[2];

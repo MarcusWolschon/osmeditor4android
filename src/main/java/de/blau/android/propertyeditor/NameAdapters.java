@@ -8,7 +8,7 @@ import de.blau.android.presets.ValueWithCount;
 /**
  * Interface for retrieving name adapaters
  */
-interface NameAdapters {
+public interface NameAdapters {
 
     /**
      * Gets an adapter for the auto-completion of street names based on the neighborhood of the edited item. Note the

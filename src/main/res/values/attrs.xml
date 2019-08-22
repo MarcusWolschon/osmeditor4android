@@ -76,6 +76,7 @@
 	<attr name="add" format="reference" />
 	<attr name="remove" format="reference" />
 	<attr name="edit" format="reference" />
+    <attr name="clear" format="reference" />
 	<attr name="name" format="reference" />
     <attr name="layer_visible" format="reference" />
     <attr name="layer_not_visible" format="reference" />

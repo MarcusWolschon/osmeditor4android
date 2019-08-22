@@ -1,4 +1,4 @@
-package de.blau.android.propertyeditor;
+package de.blau.android.propertyeditor.tagform;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -473,14 +473,14 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             @Override
             public void afterTextChanged(Editable s) {
                 r.setValue(value.getText().toString().trim());
-                Runnable rebuild = new Runnable() {
+                Runnable ourRebuild = new Runnable() {
                     @Override
                     public void run() {
                         updateRestrictionStringFromView(value, r);
                     }
                 };
-                value.removeCallbacks(rebuild);
-                value.postDelayed(rebuild, 500);
+                value.removeCallbacks(ourRebuild);
+                value.postDelayed(ourRebuild, 500);
             }
 
             @Override
@@ -538,7 +538,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                     final Spinner operator = (Spinner) expression.findViewById(R.id.operator);
                     operator.setAdapter(adapter);
                     operator.setSelection(Condition.compOpStrings.indexOf(Condition.opToString(c.operator())));
-                    final Runnable rebuild = new Runnable() {
+                    final Runnable ourRebuild = new Runnable() {
                         @Override
                         public void run() {
                             updateRestrictionStringFromView(null, r);
@@ -553,8 +553,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                                 List<Condition> list = r.getConditions();
                                 final String c = term1.getText().toString().trim() + operator.getSelectedItem() + term2.getText().toString().trim();
                                 list.set(index, new Condition(c, false));
-                                term1.removeCallbacks(rebuild);
-                                term1.post(rebuild);
+                                term1.removeCallbacks(ourRebuild);
+                                term1.post(ourRebuild);
                             }
                             isLoaded = true;
                         }
@@ -570,8 +570,8 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                             List<Condition> list = r.getConditions();
                             final String c = term1.getText().toString().trim() + operator.getSelectedItem() + term2.getText().toString().trim();
                             list.set(index, new Condition(c, false));
-                            term1.removeCallbacks(rebuild);
-                            term1.postDelayed(rebuild, 500);
+                            term1.removeCallbacks(ourRebuild);
+                            term1.postDelayed(ourRebuild, 500);
                         }
 
                         @Override
@@ -629,14 +629,14 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                                 r.setInParen();
                             }
                             list.set(index, new Condition(c, false));
-                            Runnable rebuild = new Runnable() {
+                            Runnable ourRebuild = new Runnable() {
                                 @Override
                                 public void run() {
                                     updateRestrictionStringFromView(term, r);
                                 }
                             };
-                            term.removeCallbacks(rebuild);
-                            term.postDelayed(rebuild, 500);
+                            term.removeCallbacks(ourRebuild);
+                            term.postDelayed(ourRebuild, 500);
                         }
 
                         @Override
@@ -930,11 +930,9 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
      * Row that displays opening_hours values and allows changing them via a dialog
      */
     public static class OpeningHoursDialogRow extends LinearLayout {
-        TextView        keyView;
-        TextView        valueView;
-        private String  value;
-        private boolean changed = false;
-        PresetItem      preset;
+        TextView   keyView;
+        TextView   valueView;
+        PresetItem preset;
 
         OnClickListener listener;
 
@@ -992,7 +990,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
          * @param description the description
          */
         public void setValue(@NonNull String value, @NonNull String description) {
-            this.value = value;
             valueView.setText(description);
             valueView.setTag(value);
         }
@@ -1041,7 +1038,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                     valueView.setTextColor(errorTextColor);
                 }
             }
-            value = ohValue;
             setOnClickListener(listener);
         }
     }

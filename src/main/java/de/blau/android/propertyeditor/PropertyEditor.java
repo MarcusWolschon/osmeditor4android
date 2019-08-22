@@ -57,6 +57,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.propertyeditor.tagform.TagFormFragment;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoContext;
@@ -90,7 +91,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     public static final String  TAGEDIT_DATA              = "dataClass";
     private static final String TAGEDIT_LAST_ADDRESS_TAGS = "applyLastTags";
     private static final String TAGEDIT_SHOW_PRESETS      = "showPresets";
-    private static final String TAGEDIT_ASK_FOR_NAME      = "askForName";
     private static final String TAGEDIT_EXTRA_TAGS        = "extra";
     private static final String TAGEDIT_PRESETSTOAPPLY    = "presetsToApply";
 
@@ -129,7 +129,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     private boolean                      applyLastAddressTags = false;
     private boolean                      showPresets          = false;
-    private boolean                      askForName           = false;
     private HashMap<String, String>      extraTags            = null;
     private ArrayList<PresetElementPath> presetsToApply       = null;
 
@@ -180,19 +179,17 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
      * @param dataClass the tags and relation memberships that should be edited
      * @param predictAddressTags try to predict address tags
      * @param showPresets show the preset tab first
-     * @param askForName ask for a name for auto-generating tags
      * @param extraTags additional tags that should be added
      * @param presetItems presets that should be applied
      * @param requestCode request code for the response
      */
     public static void startForResult(@NonNull Activity activity, @NonNull PropertyEditorData[] dataClass, boolean predictAddressTags, boolean showPresets,
-            boolean askForName, HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems, int requestCode) {
+            HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetItems, int requestCode) {
         Log.d(DEBUG_TAG, "startForResult");
         Intent intent = new Intent(activity, PropertyEditor.class);
         intent.putExtra(TAGEDIT_DATA, dataClass);
         intent.putExtra(TAGEDIT_LAST_ADDRESS_TAGS, Boolean.valueOf(predictAddressTags));
         intent.putExtra(TAGEDIT_SHOW_PRESETS, Boolean.valueOf(showPresets));
-        intent.putExtra(TAGEDIT_ASK_FOR_NAME, Boolean.valueOf(askForName));
         intent.putExtra(TAGEDIT_EXTRA_TAGS, extraTags);
         intent.putExtra(TAGEDIT_PRESETSTOAPPLY, presetItems);
         activity.startActivityForResult(intent, requestCode);
@@ -219,7 +216,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
             applyLastAddressTags = (Boolean) getIntent().getSerializableExtra(TAGEDIT_LAST_ADDRESS_TAGS);
             showPresets = (Boolean) getIntent().getSerializableExtra(TAGEDIT_SHOW_PRESETS);
-            askForName = (Boolean) getIntent().getSerializableExtra(TAGEDIT_ASK_FOR_NAME);
             extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(TAGEDIT_EXTRA_TAGS);
             presetsToApply = (ArrayList<PresetElementPath>) getIntent().getSerializableExtra(TAGEDIT_PRESETSTOAPPLY);
             usePaneLayout = Screen.isLandscape(this);
@@ -496,7 +492,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
          */
         Fragment tagFormFragment(int position, boolean displayRecentPresets) {
             tagFormFragmentPosition = position;
-            tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey, askForName);
+            tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey);
             return tagFormFragment;
         }
 
@@ -748,7 +744,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     /**
      * Removes an old RecentPresetView and replaces it by a new one (to update it)
      */
-    void recreateRecentPresetView() {
+    public void recreateRecentPresetView() {
         if (usePaneLayout) {
             FragmentManager fm = getSupportFragmentManager();
             Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
@@ -838,7 +834,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     /**
      * Get current values from the fragments and end the activity
      */
-    void sendResultAndFinish() {
+    public void sendResultAndFinish() {
 
         List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
         if (currentTags != null) {

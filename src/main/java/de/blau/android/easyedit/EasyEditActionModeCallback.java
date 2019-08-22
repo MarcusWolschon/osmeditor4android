@@ -239,16 +239,15 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param possibleNode a node that was edited, or null
      * @param possibleWay a way that was edited, or null
      * @param select select the element before starting the PropertyEditor
-     * @param askForName ask for a name tag first
      */
-    void tagApplicable(@Nullable final Node possibleNode, @Nullable final Way possibleWay, final boolean select, final boolean askForName) {
+    void tagApplicable(@Nullable final Node possibleNode, @Nullable final Way possibleWay, final boolean select) {
         if (possibleWay == null) {
             // Single node was added
             if (possibleNode != null) { // null-check to be sure
                 if (select) {
                     main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, possibleNode));
                 }
-                main.performTagEdit(possibleNode, null, false, false, askForName);
+                main.performTagEdit(possibleNode, null, false, false);
             } else {
                 Log.e(DEBUG_TAG, "tagApplicable called with null arguments");
             }
@@ -256,7 +255,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             if (select) {
                 main.startSupportActionMode(new WaySelectionActionModeCallback(manager, possibleWay));
             }
-            main.performTagEdit(possibleWay, null, false, false, askForName);
+            main.performTagEdit(possibleWay, null, false, false);
         }
     }
 
@@ -342,7 +341,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         builder.setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                main.performTagEdit(result.getElement(), null, false, false, false);
+                main.performTagEdit(result.getElement(), null, false, false);
             }
         });
         builder.show();

@@ -122,13 +122,13 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                         public void onClick(DialogInterface dialog, int which) {
                             if (logic.performReverse(main, way)) { // true if it had oneway tag
                                 Snack.barWarning(main, R.string.toast_oneway_reversed);
-                                main.performTagEdit(way, null, false, false, false);
+                                main.performTagEdit(way, null, false, false);
                             }
                         }
                     }).show();
         } else if (logic.performReverse(main, way)) { // true if it had oneway tag
             Snack.barWarning(main, R.string.toast_oneway_reversed);
-            main.performTagEdit(way, null, false, false, false);
+            main.performTagEdit(way, null, false, false);
         } else {
             manager.invalidate(); // sucessful reversal update menubar
         }
@@ -170,7 +170,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 main.startSupportActionMode(new WaySplittingActionModeCallback(manager, (Way) element, true));
                 break;
             case MENUITEM_ADDRESS:
-                main.performTagEdit(element, null, true, false, false);
+                main.performTagEdit(element, null, true, false);
                 break;
             case MENUITEM_SHARE_POSITION:
                 Util.sharePosition(main, Logic.centroidLonLat((Way) element), main.getMap().getZoomLevel());

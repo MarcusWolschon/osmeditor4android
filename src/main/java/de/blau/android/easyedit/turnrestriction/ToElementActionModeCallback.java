@@ -44,7 +44,7 @@ public class ToElementActionModeCallback extends NonSimpleActionModeCallback {
         boolean uTurn = fromWay == toWay;
         Relation restriction = logic.createRestriction(main, fromWay, viaElement, toWay, uTurn ? Tags.VALUE_NO_U_TURN : null);
         Log.i(DEBUG9_TAG, "Created restriction");
-        main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false, false);
+        main.performTagEdit(restriction, !uTurn ? Tags.VALUE_RESTRICTION : null, false, false);
         main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, restriction));
         return false; // we are actually already finished
     }

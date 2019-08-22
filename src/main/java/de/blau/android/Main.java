@@ -3114,9 +3114,8 @@ public class Main extends FullScreenAppCompatActivity
      * @param focusOn if not null focus on the value field of this key.
      * @param applyLastAddressTags add address tags to the object being edited.
      * @param showPresets show the preset tab on start up.
-     * @param askForName ask for a value for the name tag
      */
-    public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
+    public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets) {
         descheduleAutoLock();
         final Logic logic = App.getLogic();
         logic.deselectAll();
@@ -3133,7 +3132,7 @@ public class Main extends FullScreenAppCompatActivity
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
                 PropertyEditorData[] single = new PropertyEditorData[1];
                 single[0] = new PropertyEditorData(selectedElement, focusOn);
-                PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, askForName, logic.getMode().getExtraTags(logic, selectedElement),
+                PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, logic.getMode().getExtraTags(logic, selectedElement),
                         logic.getMode().getPresetItems(this, selectedElement), REQUEST_EDIT_TAG);
             }
         }
@@ -3169,7 +3168,7 @@ public class Main extends FullScreenAppCompatActivity
                 if (presetPath != null) {
                     presetPathList.add(presetPath);
                 }
-                PropertyEditor.startForResult(this, single, false, showPresets, false, tags, presetPathList, REQUEST_EDIT_TAG);
+                PropertyEditor.startForResult(this, single, false, showPresets, tags, presetPathList, REQUEST_EDIT_TAG);
             }
         }
     }
@@ -3195,7 +3194,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
-        PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags, showPresets, false, null, null, REQUEST_EDIT_TAG);
+        PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags, showPresets, null, null, REQUEST_EDIT_TAG);
     }
 
     /**
@@ -3551,7 +3550,7 @@ public class Main extends FullScreenAppCompatActivity
                         if (inEasyEditMode) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
                         } else {
-                            performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
+                            performTagEdit(clickedNodesAndWays.get(0), null, false, false);
                         }
                     } else {
                         String debugString = "performEdit can't find what was clicked " + filter;
@@ -3568,7 +3567,7 @@ public class Main extends FullScreenAppCompatActivity
                         if (inEasyEditMode) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
                         } else {
-                            performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
+                            performTagEdit(clickedNodesAndWays.get(0), null, false, false);
                         }
                     }
                     break;
@@ -3767,7 +3766,7 @@ public class Main extends FullScreenAppCompatActivity
                             getEasyEditManager().editElement(element);
                         }
                     } else if (mode.elementsEditable()) {
-                        performTagEdit(element, null, false, false, false);
+                        performTagEdit(element, null, false, false);
                     }
                 }
             }
@@ -4139,7 +4138,7 @@ public class Main extends FullScreenAppCompatActivity
             easyEditManager.editElement(e);
             map.invalidate();
         } else { // tag edit mode
-            performTagEdit(e, null, false, false, false);
+            performTagEdit(e, null, false, false);
         }
     }
 

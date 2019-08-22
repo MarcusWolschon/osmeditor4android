@@ -3264,6 +3264,7 @@ public class Preset implements Serializable {
                                     }
                                 }
                                 result.add(candidateItem);
+                                break;
                             } else {
                                 Log.e(DEBUG_TAG, "Couldn't find linked preset " + n);
                             }
@@ -4125,8 +4126,19 @@ public class Preset implements Serializable {
      */
     @Nullable
     public static List<String> splitValues(@Nullable List<String> values, @NonNull PresetItem preset, @NonNull String key) {
-        ArrayList<String> result = new ArrayList<>();
-        String delimiter = String.valueOf(preset.getDelimiter(key));
+        return splitValues(values, preset.getDelimiter(key));
+    }
+
+    /**
+     * Split multi select values with the preset defined delimiter character
+     * 
+     * @param values list of values that can potentially be split
+     * @param delimiter the delimiter character
+     * @return list of split values
+     */
+    @Nullable
+    public static List<String> splitValues(@Nullable List<String> values, char delimiter) {
+        List<String> result = new ArrayList<>();
         if (values == null) {
             return null;
         }
@@ -4134,7 +4146,7 @@ public class Preset implements Serializable {
             if (v == null) {
                 continue;
             }
-            for (String s : v.split(Pattern.quote(delimiter))) {
+            for (String s : v.split(Pattern.quote(String.valueOf(delimiter)))) {
                 result.add(s.trim());
             }
         }

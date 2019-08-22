@@ -1495,7 +1495,7 @@
                 	    <list_entry value="right" short_description="Right"/>
                 	    <list_entry value="sharp_right" short_description="Sharp right"/>
                     </multiselect>
-                    <text key="destination:lanes:forward" text="Destinations per lane in way direction" match="key"/>
+                    <multiselect key="destination:lanes:forward" text="Destinations per lane in way direction" delimiter="|" match="key" editable="true"/>
 					<text key="destination:ref:lanes:forward" text="Refs per lane in way direction" match="key"/>
 					<text key="maxspeed:lanes:forward" text="Maxspeed per lane in way direction" match="key"/>
                     <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" editable="true">

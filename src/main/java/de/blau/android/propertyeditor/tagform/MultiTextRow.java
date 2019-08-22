@@ -1,0 +1,370 @@
+package de.blau.android.propertyeditor.tagform;
+
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import de.blau.android.App;
+import de.blau.android.R;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.Preset.ValueType;
+import de.blau.android.presets.PresetComboField;
+import de.blau.android.presets.PresetField;
+import de.blau.android.propertyeditor.InputTypeUtil;
+import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
+import de.blau.android.util.Snack;
+import de.blau.android.util.StringWithDescription;
+import de.blau.android.views.CustomAutoCompleteTextView;
+import io.michaelrocks.libphonenumber.android.NumberParseException;
+import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
+import io.michaelrocks.libphonenumber.android.PhoneNumberUtil.PhoneNumberFormat;
+import io.michaelrocks.libphonenumber.android.Phonenumber.PhoneNumber;
+
+/**
+ * A view that supports multiple value tags that can be freely edited
+ * 
+ * Has formating support of phone numbers.
+ * 
+ * @author simon
+ *
+ */
+public class MultiTextRow extends LinearLayout implements KeyValueRow {
+
+    protected static final String DEBUG_TAG = "MultiTextRow";
+    /**
+     * Inline value display with multiple editable text fields
+     */
+
+    private TextView              keyView;
+    protected LinearLayout        valueLayout;
+    protected Context             context;
+    private char                  delimiter = ';';
+    private List<String>          regions;
+    private String                country;
+    private LayoutInflater        inflater;
+
+    /**
+     * Construct a row that will multiple values to be selected
+     * 
+     * @param context Android Context
+     */
+    public MultiTextRow(Context context) {
+        super(context);
+        this.context = context;
+    }
+
+    /**
+     * Construct a row that will multiple values to be selected
+     * 
+     * @param context Android Context
+     * @param attrs and AttriuteSet
+     */
+    public MultiTextRow(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.context = context;
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        if (isInEditMode()) {
+            return; // allow visual editor to work
+        }
+        keyView = (TextView) findViewById(R.id.textKey);
+        valueLayout = (LinearLayout) findViewById(R.id.valueGroup);
+    }
+
+    @Override
+    public String getKey() {
+        return (String) keyView.getTag();
+    }
+
+    /**
+     * Get the Layout containing the CheckBoxes for the values
+     * 
+     * @return a LinearLayout
+     */
+    public LinearLayout getValueGroup() {
+        return valueLayout;
+    }
+
+    /**
+     * Return all non-empty values concatenated with the required delimiter
+     * 
+     * @return a String containing an OSM style list of values
+     */
+    @Override
+    public String getValue() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < valueLayout.getChildCount(); i++) {
+            EditText editText = (EditText) valueLayout.getChildAt(i);
+            String text = editText.getText().toString();
+            if (text != null && !"".equals(text)) {
+                if (result.length() > 0) { // not the first entry
+                    result.append(delimiter);
+                }
+                result.append(text);
+            }
+        }
+        return result.toString();
+    }
+
+    class MyTextWatcher implements TextWatcher {
+        private boolean                     wasEmpty;
+        private final EditText              editText;
+        private final OnFocusChangeListener listener;
+        private final ValueType             valueType;
+        private ArrayAdapter<?>             adapter;
+
+        /**
+         * Construct a new TextWatcher
+         * 
+         * Will try to support formating phone numbers correctly
+         * 
+         * @param editText the EditText that we are watching
+         * @param listener an OnFocusChangeListener for updating the other Fragments
+         * @param valueType the ValueType of the tag
+         * @param adapter an optional adapter for values
+         */
+        MyTextWatcher(@NonNull final EditText editText, @NonNull final View.OnFocusChangeListener listener, final @Nullable ValueType valueType,
+                @Nullable final ArrayAdapter<?> adapter) {
+            this.editText = editText;
+            this.listener = listener;
+            this.valueType = valueType;
+            this.adapter = adapter;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // nop
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            wasEmpty = s.length() == 0;
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            int length = s.length();
+            int index = valueLayout.indexOfChild(editText);
+            int count = valueLayout.getChildCount();
+            if (wasEmpty == (length > 0) && (index == count - 1)) {
+                addEditText("", listener, valueType, adapter);
+            }
+            // format text if necessary
+            if (valueType != null) {
+                editText.removeTextChangedListener(this);
+                switch (valueType) {
+                case PHONE:
+                    if (editText.getSelectionStart() == editText.length()) {
+                        String p = formatPhoneNumber(s.toString());
+                        editText.setText(p);
+                        editText.setSelection(editText.length());
+                    }
+                    break;
+                default:
+                    // nothing
+                }
+                editText.addTextChangedListener(this);
+            }
+        }
+    };
+
+    /**
+     * Add an TextBox to this row
+     * 
+     * @param value the value to display
+     * @param listener called when focus for the view has changed
+     * @param valueType the Preset ValueType for the key
+     * @param adapter an optional adapter for values
+     * @return the EditText for further use
+     */
+    private CustomAutoCompleteTextView addEditText(final @NonNull String value, @NonNull final View.OnFocusChangeListener listener,
+            @Nullable final ValueType valueType, @Nullable final ArrayAdapter<?> adapter) {
+        CustomAutoCompleteTextView editText = (CustomAutoCompleteTextView) inflater.inflate(R.layout.form_dialog_multitext_value, valueLayout, false);
+        InputTypeUtil.setInputTypeFromValueType(editText, valueType);
+
+        final TextWatcher textWatcher = new MyTextWatcher(editText, listener, valueType, adapter);
+
+        editText.setText(value);
+        editText.setHint(R.string.tag_value_hint);
+        editText.setOnFocusChangeListener(listener);
+        editText.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2;
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Drawable icon = editText.getCompoundDrawables()[DRAWABLE_RIGHT];
+                    int[] screenPos = new int[2];
+                    editText.getLocationOnScreen(screenPos);
+                    if (icon != null && event.getRawX() >= (screenPos[0] + editText.getRight() - icon.getBounds().width())) {
+                        int index = valueLayout.indexOfChild(editText);
+                        int count = valueLayout.getChildCount();
+                        if (count > 1 && index != (count - 1)) {
+                            valueLayout.removeView(editText);
+                        } else { // don't delete last one
+                            editText.removeTextChangedListener(textWatcher);
+                            editText.setText("");
+                            editText.addTextChangedListener(textWatcher);
+                        }
+                        listener.onFocusChange(editText, false);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        editText.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(DEBUG_TAG, "onItemClicked value");
+                Object o = parent.getItemAtPosition(position);
+                if (o instanceof StringWithDescription) {
+                    editText.setOrReplaceText(((StringWithDescription) o).getValue());
+                } else if (o instanceof String) {
+                    editText.setOrReplaceText((String) o);
+                }
+                listener.onFocusChange(editText, false);
+            }
+        });
+        editText.addTextChangedListener(textWatcher);
+        if (adapter != null) {
+            editText.setAdapter(adapter);
+        }
+        valueLayout.addView(editText);
+        return editText;
+    }
+
+    /**
+     * Get the TextView for the key
+     * 
+     * @return the TextView for the key
+     */
+    public TextView getKeyView() {
+        return keyView;
+    }
+
+    /**
+     * Set the regions and the countryfor this object
+     * 
+     * @param regions a list of iso codes
+     */
+    private void setRegions(@Nullable List<String> regions) {
+        this.regions = regions;
+        for (String r : regions) {
+            if (r.indexOf('-') == -1) {
+                country = r;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Format a phone number
+     * 
+     * @param s input String
+     * @return a formated String or s unchanged
+     */
+    private String formatPhoneNumber(@NonNull String s) {
+        PhoneNumberUtil phone = App.getPhoneNumberUtil(getContext());
+        try {
+            PhoneNumber number = phone.parse(s.toString(), country);
+            s = phone.format(number, PhoneNumberFormat.INTERNATIONAL);
+        } catch (NumberParseException e) {
+            // NOSONAR ignore
+        }
+        return s;
+    }
+
+    /**
+     * Add a row for a multi-select with inline CheckBoxes
+     * 
+     * @param caller the calling TagFormFragment
+     * @param inflater the inflater to use
+     * @param rowLayout the Layout holding the row
+     * @param preset the best matched PresetITem for the key
+     * @param hint a textual description of what the key is
+     * @param key the key
+     * @param values existing values for the tag
+     * @param delimiter non-standard value delimiter (default is ;)
+     * @param adapter an optional adapter for values
+     * @return a TagMultiselectRow instance
+     */
+    static MultiTextRow getRow(@NonNull final TagFormFragment caller, @NonNull final LayoutInflater inflater, @NonNull final LinearLayout rowLayout,
+            @NonNull final PresetItem preset, @Nullable final String hint, final String key, @Nullable final List<String> values, @Nullable String delimiter,
+            @Nullable final ArrayAdapter<?> adapter) {
+        final MultiTextRow row = (MultiTextRow) inflater.inflate(R.layout.tag_form_multitext_row, rowLayout, false);
+        row.inflater = inflater;
+        PresetField field = preset.getField(key);
+        if (field instanceof PresetComboField) {
+            row.delimiter = preset.getDelimiter(key);
+        }
+        if (delimiter != null && delimiter.length() > 0) {
+            row.delimiter = delimiter.charAt(0);
+        }
+        List<String> regions = caller.propertyEditorListener.getIsoCodes();
+        row.setRegions(regions);
+        row.getKeyView().setText(hint != null ? hint : key);
+        row.getKeyView().setTag(key);
+        String value = values != null && !values.isEmpty() ? values.get(0) : null;
+        List<String> splitValues = Preset.splitValues(values, row.delimiter);
+        ValueType valueType = preset.getValueType(key);
+        final String finalValue = value;
+        View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Log.d(DEBUG_TAG, "onFocusChange");
+                String rowValue = row.getValue();
+                if (!hasFocus && !rowValue.equals(finalValue)) {
+                    caller.tagListener.updateSingleValue(key, rowValue);
+                    if (rowLayout instanceof EditableLayout) {
+                        ((EditableLayout) rowLayout).putTag(key, rowValue);
+                    }
+                }
+            }
+        };
+        if (splitValues != null && !"".equals(value)) {
+            int phoneNumberReformatted = 0;
+            for (String v : splitValues) {
+                String orig = v;
+                if (valueType == ValueType.PHONE) {
+                    v = row.formatPhoneNumber(v);
+                    if (!orig.equals(v)) {
+                        caller.tagListener.updateSingleValue(key, v);
+                        phoneNumberReformatted++;
+                    }
+                }
+                row.addEditText(v, listener, valueType, adapter);
+            }
+            if (phoneNumberReformatted > 0) {
+                rowLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Snack.barWarning(rowLayout, R.string.toast_phone_number_reformatted, Snackbar.LENGTH_LONG);
+                    }
+                });
+            }
+        }
+        row.addEditText("", listener, valueType, adapter);
+
+        return row;
+    }
+}

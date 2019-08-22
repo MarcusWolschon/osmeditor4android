@@ -3,7 +3,7 @@
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    class="de.blau.android.propertyeditor.TagFormFragment$TagFormMultiselectDialogRow"
+    class="de.blau.android.propertyeditor.tagform.MultiselectDialogRow"
     android:orientation="horizontal" >
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:gravity="top"
             android:maxLines="3"
             android:minHeight="34dp"
-            android:paddingTop="5dp"
+            android:paddingTop="7dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:saveEnabled="false" />
@@ -56,7 +56,7 @@
                 android:focusableInTouchMode="false"
                 android:minHeight="34dp"
                 android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:paddingRight="3dp"
                 android:saveEnabled="false" 
                 android:singleLine="true"
                 android:ellipsize="none" />

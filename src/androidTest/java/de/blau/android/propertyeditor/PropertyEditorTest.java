@@ -35,6 +35,7 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
+import android.view.KeyEvent;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -137,7 +138,7 @@ public class PropertyEditorTest {
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
 
-        main.performTagEdit(n, null, false, false, false);
+        main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(mDevice, true, main.getString(R.string.menu_tags), false);
@@ -178,7 +179,7 @@ public class PropertyEditorTest {
         Node n = logic.getSelectedNode();
         Assert.assertNotNull(n);
 
-        main.performTagEdit(n, null, false, false, false);
+        main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
@@ -278,11 +279,31 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.clickText(mDevice, false, "24 Hours", true));
         TestUtils.clickButton("de.blau.android:id/save", true);
 
+        scrollTo("Contact");
+        Assert.assertTrue(TestUtils.clickText(mDevice, false, "Contact", false));
+        UiObject2 phone = null;
+        try {
+            phone = getField2("Phone number", 0);
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail();
+        }
+        phone.click();
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_4);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_4);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_4);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_4);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_0);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_0);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_1);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_6);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_0);
+
         TestUtils.clickUp(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_nodeselect)));
         mDevice.waitForIdle();
-        Assert.assertTrue(n.hasTag("cuisine", "asian;german") || n.hasTag("cuisine", "german;asian") );
+        Assert.assertTrue(n.hasTag("cuisine", "asian;german") || n.hasTag("cuisine", "german;asian"));
         Assert.assertTrue(n.hasTag("opening_hours", "24/7"));
+        Assert.assertTrue(n.hasTag("phone", "+41 44 440 01 60"));
     }
 
     /**
@@ -432,7 +453,7 @@ public class PropertyEditorTest {
         Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
         Assert.assertNotNull(r);
 
-        main.performTagEdit(r, null, false, false, false);
+        main.performTagEdit(r, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -461,7 +482,7 @@ public class PropertyEditorTest {
         Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
         Assert.assertNotNull(r);
 
-        main.performTagEdit(r, null, false, false, false);
+        main.performTagEdit(r, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -579,7 +600,7 @@ public class PropertyEditorTest {
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
         Assert.assertNotNull(w);
 
-        main.performTagEdit(w, null, false, false, false);
+        main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -593,7 +614,7 @@ public class PropertyEditorTest {
         found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Motorway"), true);
         Assert.assertTrue(found);
     }
-    
+
     /**
      * Navigate to a specific preset item
      */
@@ -612,7 +633,7 @@ public class PropertyEditorTest {
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
         Assert.assertNotNull(w);
 
-        main.performTagEdit(w, null, false, false, false);
+        main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -635,7 +656,7 @@ public class PropertyEditorTest {
         }
         Assert.assertNotNull(handrail);
         handrail.click();
-        
+
         UiObject2 overtaking = null;
         try {
             overtaking = getField("Overtaking", 1);
@@ -649,7 +670,6 @@ public class PropertyEditorTest {
         TestUtils.clickText(mDevice, true, "Save", true);
         Assert.assertTrue(TestUtils.findText(mDevice, false, "In way direction"));
     }
-
 
     /**
      * Add a conditional restriction, this is just a rough test without using the actual UI elements of the editor
@@ -669,7 +689,7 @@ public class PropertyEditorTest {
         Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
         Assert.assertNotNull(w);
 
-        main.performTagEdit(w, null, false, false, false);
+        main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -720,7 +740,7 @@ public class PropertyEditorTest {
             Assert.fail(e.getMessage());
         }
 
-        main.performTagEdit(w, null, false, false, false);
+        main.performTagEdit(w, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -770,7 +790,7 @@ public class PropertyEditorTest {
         Node n = (Node) logic.performAddNode(main, 1.0, 1.0);
         Assert.assertNotNull(n);
 
-        main.performTagEdit(n, null, false, false, false);
+        main.performTagEdit(n, null, false, false);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false);
@@ -805,6 +825,26 @@ public class PropertyEditorTest {
             linearLayout = linearLayout.getParent();
         }
         return linearLayout.getChildren().get(fieldIndex);
+    }
+
+    /**
+     * Get the value field for a specific key, assuming the values are one level deep in a layout
+     * 
+     * @param text the text display for the key
+     * @param fieldIndex TODO
+     * @return an UiObject2 for the value field
+     * @throws UiObjectNotFoundException if we couldn't find the object with text
+     */
+    private UiObject2 getField2(@NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
+        scrollTo(text);
+        BySelector bySelector = By.textStartsWith(text);
+        UiObject2 keyField = mDevice.wait(Until.findObject(bySelector), 500);
+        UiObject2 linearLayout = keyField.getParent();
+        if (!linearLayout.getClassName().equals("android.widget.LinearLayout")) {
+            // some of the text fields are nested one level deeper
+            linearLayout = linearLayout.getParent();
+        }
+        return linearLayout.getChildren().get(1).getChildren().get(fieldIndex);
     }
 
     /**

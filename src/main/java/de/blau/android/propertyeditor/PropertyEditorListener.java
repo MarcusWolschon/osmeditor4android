@@ -12,7 +12,7 @@ import de.blau.android.presets.Preset;
 /**
  * Interface for communicating with the PropertyEditor activity
  */
-interface PropertyEditorListener {
+public interface PropertyEditorListener {
 
     /**
      * Check if we are actually visible to the user
