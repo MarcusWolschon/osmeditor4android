@@ -183,7 +183,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
             filter.clear();
             break;
         case R.id.preset_menu_invert:
-            item.setChecked(!((PresetFilter) filter).isInverted());
+            item.setChecked(!filter.isInverted());
             filter.setInverted(item.isChecked());
             filter.clear();
             break;

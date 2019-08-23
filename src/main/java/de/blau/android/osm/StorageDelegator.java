@@ -841,7 +841,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             start = 1;
                             end = end - 1;
                         }
-                        Coordinates motions[] = new Coordinates[length];
+                        Coordinates[] motions = new Coordinates[length];
                         for (int i = start; i < end; i++) {
                             a = coords[(i - 1 + length) % length];
                             b = coords[i];

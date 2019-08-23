@@ -904,7 +904,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                 checkBox.setOnStateChangedListener(new OnStateChangedListener() {
                                     @Override
                                     public void onStateChanged(IndeterminateCheckBox check, Boolean state) {
-                                        String checkValue = state != null ? (state ? valueOn : valueOff) : "";
+                                        String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR state can't be null here
                                         tagListener.updateSingleValue(key, checkValue);
                                         if (rowLayout instanceof EditableLayout) {
                                             ((EditableLayout) rowLayout).putTag(key, checkValue);

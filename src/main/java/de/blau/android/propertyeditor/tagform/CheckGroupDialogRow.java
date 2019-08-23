@@ -180,7 +180,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                             } else if (!checkBox.isEnabled()) {
                                 // unknown stuff
                                 keyValues.put(checkKey, keyValues.get(checkKey));
-                            } else if (state) {
+                            } else if (state) { // NOSONAR state can't be null here
                                 caller.tagListener.updateSingleValue(checkKey, check.getOnValue().getValue());
                                 keyValues.put(checkKey, check.getOnValue().getValue());
                             } else {
@@ -308,7 +308,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                         } else if (!checkBox.isEnabled()) {
                             // unknown stuff
                             ourKeyValues.put(k, row.keyValues.get(k));
-                        } else if (state) {
+                        } else if (state) { // NOSONAR state can't be null here
                             ourKeyValues.put(k, check.getOnValue().getValue());
                         } else {
                             StringWithDescription offValue = check.getOffValue();

@@ -390,7 +390,6 @@ public class Storage implements Serializable {
      */
     public synchronized void clearBoundingBoxList() {
         bboxes.clear();
-        ;
     }
 
     /**

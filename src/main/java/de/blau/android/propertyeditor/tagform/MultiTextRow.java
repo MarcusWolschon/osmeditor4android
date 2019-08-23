@@ -186,7 +186,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                 editText.addTextChangedListener(this);
             }
         }
-    };
+    }
 
     /**
      * Add an TextBox to this row
@@ -286,7 +286,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
     private String formatPhoneNumber(@NonNull String s) {
         PhoneNumberUtil phone = App.getPhoneNumberUtil(getContext());
         try {
-            PhoneNumber number = phone.parse(s.toString(), country);
+            PhoneNumber number = phone.parse(s, country);
             s = phone.format(number, PhoneNumberFormat.INTERNATIONAL);
         } catch (NumberParseException e) {
             // NOSONAR ignore

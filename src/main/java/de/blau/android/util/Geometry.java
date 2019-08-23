@@ -9,7 +9,14 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle;
 
-public class Geometry {
+public final class Geometry {
+    
+    /**
+     * Private constructor
+     */
+    private Geometry() {
+        // don't instantiate
+    }
 
     /**
      * calculate the centroid of a way

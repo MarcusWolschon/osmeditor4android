@@ -56,7 +56,7 @@ public final class CustomPreset {
      */
     static void create(@NonNull TagEditorFragment caller, @NonNull List<TagEditRow> selected) {
         Context ctx = caller.getContext();
-        final PresetItem bestPreset = ((TagEditorFragment) caller).getBestPreset();
+        final PresetItem bestPreset = caller.getBestPreset();
         TextLineDialog.get(ctx, R.string.create_preset_title, -1,
                 caller.getString(R.string.create_preset_default_name, bestPreset != null ? bestPreset.getName() : ""), new TextLineInterface() {
 
@@ -83,7 +83,7 @@ public final class CustomPreset {
                             String key = row.getKey();
                             String value = row.getValue();
                             boolean notEmpty = value != null && !"".equals(value);
-                            PresetItem item = ((TagEditorFragment) caller).getPreset(key);
+                            PresetItem item = caller.getPreset(key);
                             if (item == null) {
                                 if (notEmpty) {
                                     customItem.addField(new PresetFixedField(key, new StringWithDescription(value)));
@@ -113,8 +113,8 @@ public final class CustomPreset {
                             return;
                         }
                         AutoPreset.save(autoPreset);
-                        ((PropertyRows) caller).deselectAllRows();
-                        ((TagEditorFragment) caller).presetSelectedListener.onPresetSelected(customItem);
+                        caller.deselectAllRows();
+                        caller.presetSelectedListener.onPresetSelected(customItem);
                     }
                 }).show();
     }

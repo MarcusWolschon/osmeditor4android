@@ -13,7 +13,6 @@ import com.drew.metadata.exif.GpsDirectory;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.media.ExifInterface;
 import android.util.Log;
 

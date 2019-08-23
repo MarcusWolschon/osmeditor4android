@@ -1,9 +1,7 @@
 package de.blau.android.propertyeditor;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,31 +9,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.contract.Paths;
-import de.blau.android.dialogs.TextLineDialog;
-import de.blau.android.dialogs.TextLineDialog.TextLineInterface;
-import de.blau.android.osm.Tags;
-import de.blau.android.presets.AutoPreset;
-import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.PresetField;
-import de.blau.android.presets.PresetFixedField;
-import de.blau.android.presets.PresetIconManager;
-import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.ClipboardUtils;
-import de.blau.android.util.FileUtil;
-import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 

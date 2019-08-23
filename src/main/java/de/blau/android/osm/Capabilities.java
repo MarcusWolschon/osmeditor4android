@@ -372,6 +372,8 @@ public class Capabilities {
                         }
                         Log.d(DEBUG_TAG, "getCapabilities blacklist regex " + regex);
                         break;
+                    default:
+                        Log.w(DEBUG_TAG, "getCapabilities unknown tag " + tagName);
                     }
                 }
             } catch (NumberFormatException e) {

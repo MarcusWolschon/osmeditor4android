@@ -4648,7 +4648,7 @@ public class Logic {
             getDelegator().copyToClipboard(element, ((Node) element).getLat(), ((Node) element).getLon());
         } else if (element instanceof Way) {
             // use current centroid of way
-            int result[] = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
+            int[] result = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
             if (result != null) {
                 getDelegator().copyToClipboard(element, result[0], result[1]);
             } else {
@@ -4668,7 +4668,7 @@ public class Logic {
         if (element instanceof Node) {
             getDelegator().cutToClipboard(element, ((Node) element).getLat(), ((Node) element).getLon());
         } else if (element instanceof Way) {
-            int result[] = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
+            int[] result = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
             if (result != null) {
                 getDelegator().cutToClipboard(element, result[0], result[1]);
             } else {
