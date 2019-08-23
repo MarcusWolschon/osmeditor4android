@@ -304,8 +304,8 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
              * @param lonEdit longitude EditText
              */
             private void setmanualCoordinates(@NonNull Location location, @NonNull final EditText latEdit, @NonNull final EditText lonEdit) {
-                latEdit.setText(String.format("%4g", location.getLatitude(), Locale.US));
-                lonEdit.setText(String.format("%4g", location.getLongitude(), Locale.US));
+                latEdit.setText(String.format(Locale.US, "%4g", location.getLatitude()));
+                lonEdit.setText(String.format(Locale.US, "%4g", location.getLongitude()));
             }
 
             @Override
