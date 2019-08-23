@@ -163,6 +163,7 @@ public class SearchForm extends ImmersiveDialogFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
+                // empty
             }
         });
         searchBuilder.setPositiveButton(R.string.search, null);

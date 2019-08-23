@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -3646,9 +3644,6 @@ public class Logic {
                         return result;
                     }
                     getDelegator().uploadToServer(server, comment, source, closeOpenChangeset, closeChangeset, extraTags);
-                } catch (final MalformedURLException | ProtocolException e) {
-                    Log.e(DEBUG_TAG, "", e);
-                    ACRAHelper.nocrashReport(e, e.getMessage());
                 } catch (final OsmServerException e) {
                     result.setHttpError(e.getErrorCode());
                     result.setMessage(e.getMessageWithDescription());
@@ -3692,8 +3687,8 @@ public class Logic {
                         break;
                     }
                 } catch (final IOException e) {
-                    result.setError(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "", e);
+                    ACRAHelper.nocrashReport(e, e.getMessage());
                 } catch (final NullPointerException e) {
                     Log.e(DEBUG_TAG, "", e);
                     ACRAHelper.nocrashReport(e, e.getMessage());
@@ -3758,9 +3753,6 @@ public class Logic {
                 int result = 0;
                 try {
                     server.uploadTrack(track, description, tags, visibility);
-                } catch (final MalformedURLException | ProtocolException e) {
-                    Log.e(DEBUG_TAG, "", e);
-                    ACRAHelper.nocrashReport(e, e.getMessage());
                 } catch (final OsmServerException e) {
                     switch (e.getErrorCode()) { // FIXME use the same mechanics as for data uoload
                     case HttpURLConnection.HTTP_FORBIDDEN:
@@ -4387,7 +4379,7 @@ public class Logic {
          * @param input Map with the element and distance
          * @return a sorted List of the input
          */
-        public ArrayList<OUTTYPE> sort(HashMap<T, Double> input) {
+        public List<OUTTYPE> sort(java.util.Map<T, Double> input) {
             ArrayList<Entry<T, Double>> entries = new ArrayList<>(input.entrySet());
             Collections.sort(entries, comparator);
 
@@ -4406,15 +4398,15 @@ public class Logic {
      * @param fromWay the way on which turning off of is restricted in some fashion
      * @param viaElement the "intersection node" at which the turn is restricted
      * @param toWay the way that the turn restriction prevents turning onto
-     * @param restriction_type the kind of turn which is restricted
+     * @param restrictionType the kind of turn which is restricted
      * @return a relation element for the turn restriction
      */
-    public Relation createRestriction(@Nullable Activity activity, Way fromWay, OsmElement viaElement, Way toWay, String restriction_type) {
+    public Relation createRestriction(@Nullable Activity activity, Way fromWay, OsmElement viaElement, Way toWay, String restrictionType) {
 
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation restriction = getDelegator().createAndInsertRelation(null);
         SortedMap<String, String> tags = new TreeMap<>();
-        tags.put(Tags.VALUE_RESTRICTION, restriction_type == null ? "" : restriction_type);
+        tags.put(Tags.VALUE_RESTRICTION, restrictionType == null ? "" : restrictionType);
         tags.put(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION);
         getDelegator().setTags(restriction, tags);
         RelationMember from = new RelationMember(Tags.ROLE_FROM, fromWay);
@@ -4808,7 +4800,7 @@ public class Logic {
      * @return ArrayList of the comments
      */
     @NonNull
-    public ArrayList<String> getLastComments() {
+    public List<String> getLastComments() {
         return lastComments;
     }
 
@@ -4875,7 +4867,7 @@ public class Logic {
      * @return ArrayList of the source strings
      */
     @NonNull
-    public ArrayList<String> getLastSources() {
+    public List<String> getLastSources() {
         return lastSources;
     }
 
@@ -5004,7 +4996,7 @@ public class Logic {
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, Collection<T> list, boolean checkRelationsOnly) {
         if (getFilter() != null && activity != null && showAttachedObjectWarning()) {
-            elementLoop: for (OsmElement e : list) {
+            elementLoop: for (T e : list) {
                 if (!checkRelationsOnly) {
                     if (e instanceof Node) {
                         List<Way> ways = getWaysForNode((Node) e);
@@ -5043,7 +5035,7 @@ public class Logic {
     }
 
     /**
-     * Dissmiss the warning dialog
+     * Dismiss the warning dialog
      * 
      * @param activity activity this method was called from
      */

@@ -79,7 +79,7 @@ public class ValidatorRulesDatabase {
             while (haveEntry) {
                 PatternAndAge v = new PatternAndAge();
                 v.setValue(dbresult.getString(1));
-                v.setIsRegexp(dbresult.getInt(2) == 1 ? true : false);
+                v.setIsRegexp(dbresult.getInt(2) == 1);
                 v.setAge(dbresult.getLong(3) * 24 * 3600); // days -> secs
                 result.add(dbresult.getString(0), v);
                 haveEntry = dbresult.moveToNext();

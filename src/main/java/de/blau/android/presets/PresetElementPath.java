@@ -54,10 +54,11 @@ public class PresetElementPath implements Serializable {
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (String s : path) {
-            result += s + "|";
+            result.append(s);
+            result.append('|');
         }
-        return result;
+        return result.toString();
     }
 }

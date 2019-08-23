@@ -503,8 +503,7 @@ public class BaseValidator implements Validator {
         if ((node.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
             result.add(ctx.getString(R.string.toast_unconnected_end_node));
         }
-        String[] resultArray = result.toArray(new String[result.size()]);
-        return resultArray;
+        return result.toArray(new String[result.size()]);
     }
 
     @NonNull
@@ -524,8 +523,7 @@ public class BaseValidator implements Validator {
         if (highway != null) {
             result.addAll(describeProblemHighway(ctx, way, highway));
         }
-        String[] resultArray = result.toArray(new String[result.size()]);
-        return resultArray;
+        return result.toArray(new String[result.size()]);
     }
 
     @NonNull
@@ -540,8 +538,7 @@ public class BaseValidator implements Validator {
         if (noType(relation)) {
             result.add(App.resources().getString(R.string.toast_notype));
         }
-        String[] resultArray = result.toArray(new String[result.size()]);
-        return resultArray;
+        return result.toArray(new String[result.size()]);
     }
 
     @Override

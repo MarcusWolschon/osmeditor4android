@@ -738,10 +738,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param viewBox the current ViewBox
      * @return a Point object
      */
-    private Point pointFromScreenCoords(final float x, final float y, final ViewBox viewBox) {
-        Point point = Point.fromLngLat(GeoMath.xToLonE7(map.getWidth(), viewBox, x) / 1E7D,
-                GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, y) / 1E7D);
-        return point;
+    private Point pointFromScreenCoords(final float x, final float y, @NonNull final ViewBox viewBox) {
+        return Point.fromLngLat(GeoMath.xToLonE7(map.getWidth(), viewBox, x) / 1E7D, GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, y) / 1E7D);
     }
 
     /**

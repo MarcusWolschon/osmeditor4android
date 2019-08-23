@@ -113,8 +113,7 @@ public class ValidatorRulesUI {
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             Log.d(DEBUG_TAG, "newView");
-            View view = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list_resurvey_item, parent, false);
-            return view;
+            return LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list_resurvey_item, parent, false);
         }
 
         @Override
@@ -177,7 +176,7 @@ public class ValidatorRulesUI {
             if (cursor.moveToFirst()) {
                 String key = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.KEY_FIELD));
                 String value = cursor.getString(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.VALUE_FIELD));
-                boolean isRegexp = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.ISREGEXP_FIELD)) == 1 ? true : false;
+                boolean isRegexp = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.ISREGEXP_FIELD)) == 1;
                 int days = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.DAYS_FIELD));
                 keyEdit.setText(key);
                 valueEdit.setText(value);

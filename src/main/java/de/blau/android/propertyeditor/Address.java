@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -74,10 +75,10 @@ public final class Address implements Serializable {
         }
     }
 
-    private Side                                     side = Side.UNKNOWN;
-    private float                                    lat;
-    private float                                    lon;
-    private LinkedHashMap<String, ArrayList<String>> tags;
+    private Side                                side = Side.UNKNOWN;
+    private float                               lat;
+    private float                               lon;
+    private LinkedHashMap<String, List<String>> tags;
 
     private static LinkedList<Address> lastAddresses = null;
 
@@ -107,7 +108,7 @@ public final class Address implements Serializable {
      * @param id its ID
      * @param tags the relevant address tags
      */
-    private Address(String type, long id, LinkedHashMap<String, ArrayList<String>> tags) {
+    private Address(String type, long id, LinkedHashMap<String, List<String>> tags) {
         OsmElement e = App.getDelegator().getOsmElement(type, id);
         if (e == null) {
             Log.e(DEBUG_TAG, type + " " + id + " doesn't exist in storage ");
@@ -123,7 +124,7 @@ public final class Address implements Serializable {
      * @param e the OSM element
      * @param tags the relevant address tags
      */
-    private Address(OsmElement e, LinkedHashMap<String, ArrayList<String>> tags) {
+    private Address(OsmElement e, LinkedHashMap<String, List<String>> tags) {
         init(e, tags);
     }
 
@@ -133,7 +134,7 @@ public final class Address implements Serializable {
      * @param e the OSM element
      * @param tags the relevant address tags
      */
-    private void init(OsmElement e, LinkedHashMap<String, ArrayList<String>> tags) {
+    private void init(OsmElement e, LinkedHashMap<String, List<String>> tags) {
         switch (e.getType()) {
         case NODE:
             lat = ((Node) e).getLat() / 1E7F;
@@ -225,8 +226,8 @@ public final class Address implements Serializable {
      *            the nearest, higher numbers will provide some hysteresis
      * @return map containing the predicted address tags
      */
-    public static synchronized Map<String, ArrayList<String>> predictAddressTags(@NonNull Context context, @NonNull final String elementType,
-            final long elementOsmId, @Nullable final ElementSearch es, @NonNull final Map<String, ArrayList<String>> current, int maxRank) {
+    public static synchronized Map<String, List<String>> predictAddressTags(@NonNull Context context, @NonNull final String elementType,
+            final long elementOsmId, @Nullable final ElementSearch es, @NonNull final Map<String, List<String>> current, int maxRank) {
         Address newAddress = null;
 
         loadLastAddresses(context);
@@ -268,7 +269,7 @@ public final class Address implements Serializable {
             Log.d("Address", "nothing to seed with, creating new");
         }
         // merge in any existing tags
-        for (Entry<String, ArrayList<String>> entry : current.entrySet()) {
+        for (Entry<String, List<String>> entry : current.entrySet()) {
             Log.d("Address", "Adding in existing tag " + entry.getKey());
             newAddress.tags.put(entry.getKey(), entry.getValue());
         }
@@ -281,13 +282,13 @@ public final class Address implements Serializable {
             // the arrays should now be calculated, retrieve street names if any
             ArrayList<String> streetNames = new ArrayList<>(Arrays.asList(es.getStreetNames()));
             if ((streetNames != null && !streetNames.isEmpty()) || hasPlace) {
-                LinkedHashMap<String, ArrayList<String>> tags = newAddress.tags;
+                LinkedHashMap<String, List<String>> tags = newAddress.tags;
                 Log.d(DEBUG_TAG, "tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
                 // Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " +
                 // streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
                 String street;
                 if (!hasPlace) {
-                    ArrayList<String> addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
+                    List<String> addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
                     int rank = -1;
                     boolean hasAddrStreet = addrStreetValues != null && !addrStreetValues.isEmpty() && !addrStreetValues.get(0).equals("");
                     if (hasAddrStreet) {
@@ -315,7 +316,7 @@ public final class Address implements Serializable {
                         newAddress.side = Side.UNKNOWN;
                     }
                 } else { // ADDR_PLACE minimal support, don't overwrite with street
-                    ArrayList<String> addrPlaceValues = tags.get(Tags.KEY_ADDR_PLACE);
+                    List<String> addrPlaceValues = tags.get(Tags.KEY_ADDR_PLACE);
                     if (addrPlaceValues != null && !addrPlaceValues.isEmpty()) {
                         street = tags.get(Tags.KEY_ADDR_PLACE).get(0);
                     } else {
@@ -406,10 +407,10 @@ public final class Address implements Serializable {
      * @param otherSideList numbers found on the other side only used if otherSide is true
      * @return the tags for the object
      */
-    private static LinkedHashMap<String, ArrayList<String>> predictNumber(@NonNull Address newAddress,
-            @NonNull LinkedHashMap<String, ArrayList<String>> originalTags, @NonNull String street, @NonNull Side side, @NonNull TreeMap<Integer, Address> list,
-            boolean oppositeSide, @Nullable TreeMap<Integer, Address> otherSideList) {
-        LinkedHashMap<String, ArrayList<String>> newTags = new LinkedHashMap<>(originalTags);
+    private static LinkedHashMap<String, List<String>> predictNumber(@NonNull Address newAddress, @NonNull LinkedHashMap<String, List<String>> originalTags,
+            @NonNull String street, @NonNull Side side, @NonNull TreeMap<Integer, Address> list, boolean oppositeSide,
+            @Nullable TreeMap<Integer, Address> otherSideList) {
+        LinkedHashMap<String, List<String>> newTags = new LinkedHashMap<>(originalTags);
         if (list.size() >= 2) {
             try {
                 //
@@ -536,9 +537,9 @@ public final class Address implements Serializable {
         return newTags;
     }
 
-    private static void copyTags(@Nullable Address address, @NonNull LinkedHashMap<String, ArrayList<String>> tags) {
+    private static void copyTags(@Nullable Address address, @NonNull LinkedHashMap<String, List<String>> tags) {
         if (address != null) {
-            for (Entry<String, ArrayList<String>> entry : address.tags.entrySet()) {
+            for (Entry<String, List<String>> entry : address.tags.entrySet()) {
                 String key = entry.getKey();
                 if (!tags.containsKey(key)) {
                     tags.put(key, entry.getValue());
@@ -588,13 +589,13 @@ public final class Address implements Serializable {
         TreeMap<Integer, Address> result = new TreeMap<>(); // list sorted by house numbers
         for (Address a : addresses) {
             if (a != null && a.tags != null) {
-                ArrayList<String> addrStreetValues = a.tags.get(Tags.KEY_ADDR_STREET);
-                ArrayList<String> addrPlaceValues = a.tags.get(Tags.KEY_ADDR_PLACE);
+                List<String> addrStreetValues = a.tags.get(Tags.KEY_ADDR_STREET);
+                List<String> addrPlaceValues = a.tags.get(Tags.KEY_ADDR_PLACE);
                 if (((addrStreetValues != null && !addrStreetValues.isEmpty() && addrStreetValues.get(0).equals(street)) // FIXME
                         || (addrPlaceValues != null && !addrPlaceValues.isEmpty() && addrPlaceValues.get(0).equals(street)))
                         && a.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER) && a.getSide() == side) {
                     Log.d(DEBUG_TAG, "Number " + a.tags.get(Tags.KEY_ADDR_HOUSENUMBER));
-                    ArrayList<String> addrHousenumberValues = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
+                    List<String> addrHousenumberValues = a.tags.get(Tags.KEY_ADDR_HOUSENUMBER);
                     if (addrHousenumberValues != null && !addrHousenumberValues.isEmpty()) {
                         String[] numbers = addrHousenumberValues.get(0).split("[\\,;\\-]");
                         for (String n : numbers) {
@@ -624,7 +625,7 @@ public final class Address implements Serializable {
     private static void seedAddressList(@NonNull Context context, @NonNull String street, long streetId, @NonNull OsmElement e,
             @NonNull LinkedList<Address> addresses) {
         if (e.hasTag(Tags.KEY_ADDR_STREET, street) && e.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-            Address seed = new Address(e, getAddressTags(context, new LinkedHashMap<>(Util.getArrayListMap(e.getTags()))));
+            Address seed = new Address(e, getAddressTags(context, new LinkedHashMap<>(Util.getListMap(e.getTags()))));
             if (streetId > 0) {
                 seed.setSide(streetId);
             }
@@ -643,12 +644,11 @@ public final class Address implements Serializable {
      * @param sortedMap LinkedHashMap containing the tags
      * @return a LinkedHashMap containg only the relevant address tags
      */
-    private static LinkedHashMap<String, ArrayList<String>> getAddressTags(@NonNull Context context,
-            @NonNull LinkedHashMap<String, ArrayList<String>> sortedMap) {
-        LinkedHashMap<String, ArrayList<String>> result = new LinkedHashMap<>();
+    private static LinkedHashMap<String, List<String>> getAddressTags(@NonNull Context context, @NonNull LinkedHashMap<String, List<String>> sortedMap) {
+        LinkedHashMap<String, List<String>> result = new LinkedHashMap<>();
         Preferences prefs = new Preferences(context);
         Set<String> addressTags = prefs.addressTags();
-        for (Entry<String, ArrayList<String>> entry : sortedMap.entrySet()) {
+        for (Entry<String, List<String>> entry : sortedMap.entrySet()) {
             // include everything except interpolation related tags
             if (addressTags.contains(entry.getKey())) {
                 result.put(entry.getKey(), entry.getValue());
@@ -673,8 +673,8 @@ public final class Address implements Serializable {
      * @param caller calling TagEditorFragment
      * @param tags current tags
      */
-    static synchronized void updateLastAddresses(@NonNull TagEditorFragment caller, @NonNull LinkedHashMap<String, ArrayList<String>> tags) {
-        LinkedHashMap<String, ArrayList<String>> addressTags = getAddressTags(caller.getContext(), tags);
+    static synchronized void updateLastAddresses(@NonNull TagEditorFragment caller, @NonNull LinkedHashMap<String, List<String>> tags) {
+        LinkedHashMap<String, List<String>> addressTags = getAddressTags(caller.getContext(), tags);
         // this needs to be done after the edit again in case the street name of what ever has changed
         if (addressTags.size() > 0) {
             if (lastAddresses == null) {
@@ -686,7 +686,7 @@ public final class Address implements Serializable {
             Address current = new Address(caller.getType(), caller.getOsmId(), addressTags);
             StreetTagValueAdapter streetAdapter = (StreetTagValueAdapter) ((NameAdapters) caller.getActivity()).getStreetNameAdapter(null);
             if (streetAdapter != null) {
-                ArrayList<String> values = tags.get(Tags.KEY_ADDR_STREET);
+                List<String> values = tags.get(Tags.KEY_ADDR_STREET);
                 if (values != null && !values.isEmpty()) {
                     String streetName = values.get(0); // FIXME can't remember what this is supposed to do....
                     if (streetName != null) {

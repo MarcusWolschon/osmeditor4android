@@ -4,7 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.mozilla.javascript.Scriptable;
@@ -110,9 +110,8 @@ public final class Utils {
      * @return the value that should be assigned to the tag or null if no value should be set
      */
     @Nullable
-    public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script,
-            @NonNull Map<String, ArrayList<String>> originalTags, @NonNull Map<String, ArrayList<String>> tags, @NonNull String value,
-            @NonNull Map<String, PresetItem> key2PresetItem, @NonNull Preset[] presets) {
+    public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull String script, @NonNull Map<String, List<String>> originalTags,
+            @NonNull Map<String, List<String>> tags, @NonNull String value, @NonNull Map<String, PresetItem> key2PresetItem, @NonNull Preset[] presets) {
         org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
         try {
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
@@ -326,10 +325,7 @@ public final class Utils {
                 try (BufferedOutputStream out = new BufferedOutputStream(activity.getContentResolver().openOutputStream(uri))) {
                     try {
                         out.write(script.getBytes());
-                    } catch (IllegalArgumentException e) {
-                        result = ErrorCodes.FILE_WRITE_FAILED;
-                        Log.e(DEBUG_TAG, "Problem writing", e);
-                    } catch (IllegalStateException e) {
+                    } catch (IllegalArgumentException | IllegalStateException e) {
                         result = ErrorCodes.FILE_WRITE_FAILED;
                         Log.e(DEBUG_TAG, "Problem writing", e);
                     }

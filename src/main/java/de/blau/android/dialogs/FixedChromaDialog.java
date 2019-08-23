@@ -27,9 +27,9 @@ import android.view.WindowManager;
  */
 public class FixedChromaDialog extends com.pavelsikun.vintagechroma.ChromaDialog {
 
-    private final static String ARG_INITIAL_COLOR  = "arg_initial_color";
-    private final static String ARG_COLOR_MODE_ID  = "arg_color_mode_id";
-    private final static String ARG_INDICATOR_MODE = "arg_indicator_mode";
+    private static final String ARG_INITIAL_COLOR  = "arg_initial_color";
+    private static final String ARG_COLOR_MODE_ID  = "arg_color_mode_id";
+    private static final String ARG_INDICATOR_MODE = "arg_indicator_mode";
 
     private static FixedChromaDialog newInstance(@ColorInt int initialColor, ColorMode colorMode, IndicatorMode indicatorMode) {
         FixedChromaDialog fragment = new FixedChromaDialog();

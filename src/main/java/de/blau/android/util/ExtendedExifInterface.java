@@ -102,7 +102,7 @@ public class ExtendedExifInterface extends ExifInterface {
 
             // query the tag's value
             if (tag.equals(TAG_GPS_IMG_DIRECTION) && directory.containsTag(GpsDirectory.TAG_IMG_DIRECTION)) {
-                String r[] = directory.getString(GpsDirectory.TAG_IMG_DIRECTION).split("/");
+                String[] r = directory.getString(GpsDirectory.TAG_IMG_DIRECTION).split("/");
                 if (r.length != 2) {
                     return null;
                 }

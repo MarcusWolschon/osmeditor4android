@@ -27,7 +27,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     private static final long serialVersionUID = 3L;
 
     /** The preferred OSB date formats. */
-    private static final DateFormat bugDateFormats[] = {
+    private static final DateFormat[] bugDateFormats = {
             // preferred, use for output (see toString())
             DateFormatter.getUtcFormat("yyyy-MM-dd HH:mm:ss z"),
             // alternate preferred

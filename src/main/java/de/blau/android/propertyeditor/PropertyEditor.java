@@ -115,9 +115,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
      */
     private static final String DEBUG_TAG = PropertyEditor.class.getSimpleName();
 
-    private long osmIds[];
+    private long[] osmIds;
 
-    private String types[];
+    private String[] types;
 
     Preset[]           presets = null;
     /**
@@ -840,7 +840,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         if (currentTags != null) {
             // save any address tags for "last address tags"
             if (currentTags.size() == 1) {
-                Address.updateLastAddresses(tagEditorFragment, Util.getArrayListMap(currentTags.get(0)));// FIXME
+                Address.updateLastAddresses(tagEditorFragment, Util.getListMap(currentTags.get(0)));// FIXME
             }
             Intent intent = new Intent();
 
@@ -1271,11 +1271,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
      */
     boolean paneLayout() {
         return usePaneLayout;
-    }
-
-    @Override
-    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
-        super.onSupportActionModeFinished(mode);
     }
 
     @Override

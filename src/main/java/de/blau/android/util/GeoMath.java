@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import android.support.annotation.NonNull;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
@@ -322,7 +323,7 @@ public class GeoMath {
      * @param x the x-coordinate from the screen
      * @return longitude representing by the given x-value, multiplied by 1E7
      */
-    public static int xToLonE7(final int screenWidth, final BoundingBox viewBox, final float x) {
+    public static int xToLonE7(final int screenWidth, @NonNull final BoundingBox viewBox, final float x) {
         return (int) Math.round(((double) x / (double) screenWidth * viewBox.getWidth()) + viewBox.getLeft());
     }
 

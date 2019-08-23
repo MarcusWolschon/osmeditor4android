@@ -53,12 +53,12 @@ public class OAMCatalogView {
             }
         });
         final AlertDialog dialog = dialogBuilder.create();
-        ArrayAdapter<OAMCatalog.Entry> layerAdapter = new ArrayAdapter<OAMCatalog.Entry>(activity, android.R.layout.simple_list_item_1, catalog);
+        ArrayAdapter<OAMCatalog.Entry> layerAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, catalog);
         layerList.setAdapter(layerAdapter);
         layerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OAMCatalog.Entry entry = (OAMCatalog.Entry) catalog.get(position);
+                OAMCatalog.Entry entry = catalog.get(position);
                 TileLayerDialog.showLayerDialog(activity, db.getWritableDatabase(), entry, new TileLayerDialog.OnUpdateListener() {
                     @Override
                     public void update() {

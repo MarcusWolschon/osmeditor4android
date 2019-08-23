@@ -93,8 +93,7 @@ public class TagClipboard implements Serializable {
         if (tags == null) {
             return null;
         }
-        Map<String, String> result = new LinkedHashMap<>(tags);
-        return result;
+        return new LinkedHashMap<>(tags);
     }
 
     /**

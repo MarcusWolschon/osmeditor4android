@@ -307,7 +307,7 @@ public class TileLayerDialog {
                 saved = true;
             }
         }
-        ;
+        
         final OnClickListener saveListener = new SaveListener();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(saveListener);

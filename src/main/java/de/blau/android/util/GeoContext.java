@@ -229,8 +229,7 @@ public class GeoContext {
         if (countryBoundaries == null) {
             return null;
         }
-        List<String> territories = countryBoundaries.getIds(lon, lat);
-        return territories;
+        return countryBoundaries.getIds(lon, lat);
     }
 
     /**
@@ -263,8 +262,7 @@ public class GeoContext {
                 lat = vbox.getCenterLat();
             }
         }
-        List<String> territories = countryBoundaries.getIds(lon, lat);
-        return territories;
+        return countryBoundaries.getIds(lon, lat);
     }
 
     /**

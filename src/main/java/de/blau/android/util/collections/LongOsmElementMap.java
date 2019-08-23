@@ -162,7 +162,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
         OsmElement e = m_data[ptr];
 
         if (e == FREE_KEY) { // end of chain already
-            m_data[ptr] = (OsmElement) value;
+            m_data[ptr] = value;
             if (m_size >= m_threshold) {
                 rehash(m_data.length * 2); // size is set inside
             } else {
@@ -170,7 +170,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
             }
             return null;
         } else if (e.getOsmId() == key) { // we check FREE and REMOVED prior to this call
-            m_data[ptr] = (OsmElement) value;
+            m_data[ptr] = value;
             return (V) e;
         }
 
@@ -186,7 +186,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
                 if (firstRemoved != -1) {
                     ptr = firstRemoved;
                 }
-                m_data[ptr] = (OsmElement) value;
+                m_data[ptr] = value;
                 if (m_size >= m_threshold) {
                     rehash(m_data.length * 2); // size is set inside
                 } else {
@@ -194,7 +194,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
                 }
                 return null;
             } else if (e.getOsmId() == key) {
-                m_data[ptr] = (OsmElement) value;
+                m_data[ptr] = value;
                 return (V) e;
             } else if (e == removedKey) {
                 if (firstRemoved == -1) {

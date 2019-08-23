@@ -116,8 +116,7 @@ public class TileLayerDatabaseView {
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             Log.d(DEBUG_TAG, "newView");
-            View view = LayoutInflater.from(context).inflate(R.layout.layer_list_item, parent, false);
-            return view;
+            return LayoutInflater.from(context).inflate(R.layout.layer_list_item, parent, false);
         }
 
         @Override

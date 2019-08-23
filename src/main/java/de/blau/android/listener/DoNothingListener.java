@@ -10,5 +10,6 @@ public class DoNothingListener implements OnClickListener {
 
     @Override
     public void onClick(final DialogInterface dialog, final int which) {
+        // empty because we do nothing
     }
 }

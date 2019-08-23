@@ -267,8 +267,8 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            float orientation[] = new float[3];
-            float R[] = new float[9];
+            float[] orientation = new float[3];
+            float[] rotationMatrix = new float[9];
             if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
                 if (event.values.length > 4) {
                     // See
@@ -290,14 +290,14 @@ public class Main extends FullScreenAppCompatActivity
                         truncatedRotationVector = new float[4];
                     }
                     System.arraycopy(event.values, 0, truncatedRotationVector, 0, 4);
-                    SensorManager.getRotationMatrixFromVector(R, truncatedRotationVector);
+                    SensorManager.getRotationMatrixFromVector(rotationMatrix, truncatedRotationVector);
                 } else {
                     // calculate the rotation matrix
-                    SensorManager.getRotationMatrixFromVector(R, event.values);
+                    SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
                 }
             }
-            SensorManager.getOrientation(R, orientation);
-            float azimut = (int) (Math.toDegrees(SensorManager.getOrientation(R, orientation)[0]) + 360) % 360;
+            SensorManager.getOrientation(rotationMatrix, orientation);
+            float azimut = (int) (Math.toDegrees(SensorManager.getOrientation(rotationMatrix, orientation)[0]) + 360) % 360;
             map.setOrientation(azimut);
             // Repaint map only if orientation changed by at least MIN_AZIMUT_CHANGE
             // degrees since last repaint
@@ -672,8 +672,7 @@ public class Main extends FullScreenAppCompatActivity
                         || (location != null && location.hasAccuracy() && location.getAccuracy() < bestLocation.getAccuracy())) {
                     bestLocation = location;
                 }
-            } catch (IllegalArgumentException e) {
-            } catch (SecurityException e) {
+            } catch (IllegalArgumentException | SecurityException e) {
             }
         }
         return bestLocation;
@@ -3180,7 +3179,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param applyLastAddressTags add address tags to the object being edited.
      * @param showPresets show the preset tab on start up.
      */
-    public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
+    public void performTagEdit(final List<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
         descheduleAutoLock();
         ArrayList<PropertyEditorData> multiple = new ArrayList<>();
         StorageDelegator storageDelegator = App.getDelegator();

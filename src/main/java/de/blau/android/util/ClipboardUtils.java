@@ -15,6 +15,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 /**
@@ -63,7 +65,7 @@ public class ClipboardUtils {
      * @return list of Strings
      */
     @SuppressLint("NewApi")
-    private static List<String> getTextLines(Context ctx) {
+    private static List<String> getTextLines(@NonNull Context ctx) {
         if (checkForText(ctx)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
@@ -129,21 +131,19 @@ public class ClipboardUtils {
      * @param ctx Android Context
      * @return list of KeyValue objects
      */
-    public static List<KeyValue> getKeyValues(Context ctx) {
+    @Nullable
+    public static List<KeyValue> getKeyValues(@NonNull Context ctx) {
         List<String> textLines = getTextLines(ctx);
         if (textLines != null) {
             List<KeyValue> keysAndValues = new ArrayList<>();
             for (String line : textLines) {
-                if (line.contains("=")) {
+                if (line != null) {
                     String[] r = line.split("=", 2);
                     if (r.length == 2) {
                         keysAndValues.add(new KeyValue(r[0], r[1]));
                     } else {
-                        Log.e(DEBUG_TAG, "Split of key = value failed");
+                        keysAndValues.add(new KeyValue("", line));
                     }
-                } else {
-                    keysAndValues.add(new KeyValue(null, line));
-                    Log.d(DEBUG_TAG, "no key, value=" + line);
                 }
             }
             return keysAndValues;

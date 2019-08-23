@@ -1,7 +1,6 @@
 package de.blau.android.util;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -39,8 +38,8 @@ public class EditState implements Serializable {
     private final Task              savedBug;
     private final String            savedImageFileName;
     private final BoundingBox       savedBox;
-    private final ArrayList<String> savedLastComments;
-    private final ArrayList<String> savedLastSources;
+    private final List<String>      savedLastComments;
+    private final List<String>      savedLastSources;
     private final String            savedCommentDraft;
     private final String            savedSourceCommentDraft;
     private final NotificationCache savedTaskNotifications;
@@ -59,7 +58,8 @@ public class EditState implements Serializable {
      * @param followGPS true if the map is following the current location
      * @param changesetId the current changeset id (or -1)
      */
-    public EditState(@NonNull Context context, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS, long changesetId) {
+    public EditState(@NonNull Context context, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS,
+            long changesetId) {
         savedLocked = logic.isLocked();
         savedMode = logic.getMode();
         savedNodes = logic.getSelectedNodes();

@@ -129,13 +129,13 @@ public class Names {
         @Override
         public int compareTo(@NonNull NameAndTags another) {
             if (another.name.equals(name)) {
-                if (getCount() > ((NameAndTags) another).getCount()) {
+                if (getCount() > another.getCount()) {
                     return +1;
                 } else if (getCount() < another.getCount()) {
                     return -1;
                 }
                 // more tags is better
-                if (tags.size() > ((NameAndTags) another).tags.size()) {
+                if (tags.size() > another.tags.size()) {
                     return +1;
                 } else if (tags.size() < another.tags.size()) {
                     return -1;

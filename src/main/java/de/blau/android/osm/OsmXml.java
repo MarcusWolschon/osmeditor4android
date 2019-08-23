@@ -72,7 +72,7 @@ public final class OsmXml {
         ArrayList<Relation> modifiedRelations = new ArrayList<>();
         ArrayList<Relation> deletedRelations = new ArrayList<>();
 
-        for (OsmElement elem : storage.getNodes()) {
+        for (Node elem : storage.getNodes()) {
             Log.d(DEBUG_TAG, "node added to list for upload, id " + elem.osmId);
             switch (elem.state) {
             case OsmElement.STATE_CREATED:
@@ -94,7 +94,7 @@ public final class OsmXml {
             }
         }
         if (count < maxChanges) {
-            for (OsmElement elem : storage.getWays()) {
+            for (Way elem : storage.getWays()) {
                 Log.d(DEBUG_TAG, "way added to list for upload, id " + elem.osmId);
                 switch (elem.state) {
                 case OsmElement.STATE_CREATED:
@@ -117,17 +117,17 @@ public final class OsmXml {
             }
         }
         if (count < maxChanges) {
-            for (OsmElement elem : storage.getRelations()) {
+            for (Relation elem : storage.getRelations()) {
                 Log.d(DEBUG_TAG, "relation added to list for upload, id " + elem.osmId);
                 switch (elem.state) {
                 case OsmElement.STATE_CREATED:
-                    createdRelations.add((Relation) elem);
+                    createdRelations.add(elem);
                     break;
                 case OsmElement.STATE_MODIFIED:
-                    modifiedRelations.add((Relation) elem);
+                    modifiedRelations.add(elem);
                     break;
                 case OsmElement.STATE_DELETED:
-                    deletedRelations.add((Relation) elem);
+                    deletedRelations.add(elem);
                     break;
                 default:
                     Log.d(DEBUG_TAG, "relation id " + elem.osmId + " not modified");

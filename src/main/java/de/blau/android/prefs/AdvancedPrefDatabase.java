@@ -470,7 +470,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             return null;
         }
 
-        Preset activePresets[] = new Preset[presetInfos.length + 1];
+        Preset[] activePresets = new Preset[presetInfos.length + 1];
         for (int i = 0; i < presetInfos.length; i++) {
             PresetInfo pi = presetInfos[i];
             try {

@@ -36,9 +36,9 @@ import de.blau.android.util.Util;
 public class Search {
     static final String DEBUG_TAG = "Search";
 
-    final private AppCompatActivity activity;
+    private final AppCompatActivity activity;
 
-    final private SearchItemSelectedCallback callback;
+    private final SearchItemSelectedCallback callback;
 
     public static class SearchResult {
         private double lat;

@@ -80,7 +80,7 @@ public class MBTileProviderDataBase {
             Preferences prefs = new Preferences(context);
             maxThreads = prefs.getMaxTileDownloadThreads();
         }
-        getStatements = new Pools.SynchronizedPool<SQLiteStatement>(maxThreads);
+        getStatements = new Pools.SynchronizedPool<>(maxThreads);
         Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {
             getStatements.release(mDatabase.compileStatement(T_MBTILES_GET));

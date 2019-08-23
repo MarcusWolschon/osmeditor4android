@@ -330,7 +330,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * @return in node is one of the end nodes
      */
     public boolean isEndNode(@Nullable final Node node) {
-        if (nodes.size() > 0) {
+        if (!nodes.isEmpty()) {
             return getFirstNode() == node || getLastNode() == node;
         }
         return false;
@@ -384,10 +384,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     public boolean notReversable() {
         String waterway = getTagWithKey(Tags.KEY_WATERWAY);
         if (waterway != null) {
-            if (waterway.equals(Tags.VALUE_RIVERBANK)) {
-                return false;
-            }
-            return true;
+            return !Tags.VALUE_RIVERBANK.equals(waterway);
         }
 
         String natural = getTagWithKey(Tags.KEY_NATURAL);
@@ -395,8 +392,8 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
             return true;
         }
 
-        String man_made = getTagWithKey(Tags.KEY_MAN_MADE);
-        if ((man_made != null) && man_made.equals(Tags.VALUE_EMBANKMENT)) {
+        String manMade = getTagWithKey(Tags.KEY_MAN_MADE);
+        if ((manMade != null) && manMade.equals(Tags.VALUE_EMBANKMENT)) {
             return true; // IHMO
         }
 

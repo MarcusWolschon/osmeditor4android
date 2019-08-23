@@ -273,9 +273,9 @@ public class APIEditorActivity extends URLListEditActivity {
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean validAPIURL = true;
-                Boolean validReadOnlyAPIURL = true;
-                Boolean validNotesAPIURL = true;
+                boolean validAPIURL = true;
+                boolean validReadOnlyAPIURL = true;
+                boolean validNotesAPIURL = true;
                 String name = editName.getText().toString().trim();
                 String apiURL = editValue.getText().toString().trim();
                 String readOnlyAPIURL = editValue_2.getText().toString().trim();
@@ -317,7 +317,7 @@ public class APIEditorActivity extends URLListEditActivity {
                         }
                     }
                     dialog.dismiss();
-                } else if (validAPIURL == false) { // if garbage value entered show toasts
+                } else if (!validAPIURL) { // if garbage value entered show toasts
                     Snack.barError(APIEditorActivity.this, R.string.toast_invalid_apiurl);
                     changeBackgroundColor(editValue, ERROR_COLOR);
                 } else if (!validReadOnlyAPIURL) {

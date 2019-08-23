@@ -24,10 +24,17 @@ import de.blau.android.util.rtree.BoundedObject;
  * @author simon
  */
 public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedObject {
-
+    
     private static final long serialVersionUID = -2708721312405863618L;
-
+    
     private static final String DEBUG_TAG = "BoundingBox";
+
+    private static final String MINLAT_ATTR = "minlat";
+    private static final String MINLON_ATTR = "minlon";
+    private static final String MAXLAT_ATTR = "maxlat";
+    private static final String MAXLON_ATTR = "maxlon";
+    private static final String ORIGIN_ATTR = "origin";
+    private static final String BOUNDS_TAG = "bounds";
 
     /**
      * left border of the bounding box, multiplied by 1E7
@@ -83,7 +90,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * The name of the tag in the OSM-XML file.
      */
-    public static final String NAME = "bounds";
+    public static final String NAME = BOUNDS_TAG;
 
     /**
      * Creates a new bounding box with coordinates initialized to zero Careful: will fail validation
@@ -519,13 +526,13 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 
     @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "bounds");
-        s.attribute("", "origin", "");
-        s.attribute("", "maxlon", Double.toString((right / 1E7)));
-        s.attribute("", "maxlat", Double.toString((top / 1E7)));
-        s.attribute("", "minlon", Double.toString((left / 1E7)));
-        s.attribute("", "minlat", Double.toString((bottom / 1E7)));
-        s.endTag("", "bounds");
+        s.startTag("", BOUNDS_TAG);
+        s.attribute("", ORIGIN_ATTR, "");
+        s.attribute("", MAXLON_ATTR, Double.toString((right / 1E7)));
+        s.attribute("", MAXLAT_ATTR, Double.toString((top / 1E7)));
+        s.attribute("", MINLON_ATTR, Double.toString((left / 1E7)));
+        s.attribute("", MINLAT_ATTR, Double.toString((bottom / 1E7)));
+        s.endTag("", BOUNDS_TAG);
     }
 
     @Override

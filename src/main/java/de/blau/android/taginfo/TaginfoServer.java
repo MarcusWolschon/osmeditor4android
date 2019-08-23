@@ -30,7 +30,7 @@ import de.blau.android.util.StringWithDescription;
  * @see https://taginfo.openstreetmap.org/taginfo/apidoc
  *
  */
-public class TaginfoServer {
+public final class TaginfoServer {
 
     protected static final String DEBUG_TAG = TaginfoServer.class.getSimpleName();
 
@@ -40,6 +40,13 @@ public class TaginfoServer {
     private static final String COUNT_ALL_NAME   = "count_all";
     private static final String COUNT_NAME       = "count";
     private static final String DESCRIPTION_NAME = "description";
+
+    /**
+     * Private construtor
+     */
+    private TaginfoServer() {
+        // don't instantiate
+    }
 
     /**
      * A search result as return by the search API calls
@@ -744,19 +751,10 @@ public class TaginfoServer {
             @Override
             protected Object doInBackground(Void... params) {
                 Log.d(DEBUG_TAG, "querying server for " + url);
-                InputStream is = null;
-                JsonReader reader = null;
-                try {
-                    is = Server.openConnection(context, new URL(url), 1000, 1000);
-                    if (is != null) {
-                        reader = new JsonReader(new InputStreamReader(is));
-                        return resultReader.read(reader);
-                    }
+                try (InputStream is = Server.openConnection(context, new URL(url), 1000, 1000); JsonReader reader = new JsonReader(new InputStreamReader(is))) {
+                    return resultReader.read(reader);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-                } finally {
-                    SavingHelper.close(reader);
-                    SavingHelper.close(is);
                 }
                 return null;
             }

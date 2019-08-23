@@ -416,8 +416,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         BoundingBox box = new BoundingBox(left, bottom, right, top);
         int zoomMin = cursor.getInt(zoomMinFieldIndex);
         int zoomMax = cursor.getInt(zoomMaxFieldIndex);
-        CoverageArea ca = new CoverageArea(zoomMin, zoomMax, box);
-        return ca;
+        return new CoverageArea(zoomMin, zoomMax, box);
     }
 
     /**

@@ -43,7 +43,7 @@ public class Storage implements Serializable {
         nodes = new LongOsmElementMap<>(1000);
         ways = new LongOsmElementMap<>();
         relations = new LongOsmElementMap<>();
-        bboxes = new ArrayList<BoundingBox>();
+        bboxes = new ArrayList<>();
         // a default entry may not make sense
         bboxes.add(new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7));
     }

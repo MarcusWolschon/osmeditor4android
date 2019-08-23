@@ -40,7 +40,7 @@ public abstract class BaseFragment extends Fragment {
      * 
      * @param context the Android Context
      */
-    abstract protected void onAttachToContext(@NonNull Context context);
+    protected abstract void onAttachToContext(@NonNull Context context);
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

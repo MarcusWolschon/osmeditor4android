@@ -87,10 +87,10 @@ public class Commands {
                             TreeMap<String, String> tags = new TreeMap<>(node.getTags());
                             tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
                             tags.put("source:original_text", v);
-                            Map<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
-                                    new ElementSearch(new int[] { node.getLon(), node.getLat() }, true), Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
+                            Map<String, List<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
+                                    new ElementSearch(new int[] { node.getLon(), node.getLat() }, true), Util.getListMap(tags), Address.NO_HYSTERESIS);
                             tags = new TreeMap<>();
-                            for (Entry<String, ArrayList<String>> entry : map.entrySet()) {
+                            for (Entry<String, List<String>> entry : map.entrySet()) {
                                 tags.put(entry.getKey(), entry.getValue().get(0));
                             }
                             logic.setTags(main, node, tags);

@@ -604,13 +604,7 @@ public class TransferTasks {
                         serializer.endTag(null, "osm-notes");
                         serializer.endDocument();
 
-                    } catch (IllegalArgumentException e) {
-                        result = ErrorCodes.FILE_WRITE_FAILED;
-                        Log.e(DEBUG_TAG, "Problem writing", e);
-                    } catch (IllegalStateException e) {
-                        result = ErrorCodes.FILE_WRITE_FAILED;
-                        Log.e(DEBUG_TAG, "Problem writing", e);
-                    } catch (XmlPullParserException e) {
+                    } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                         result = ErrorCodes.FILE_WRITE_FAILED;
                         Log.e(DEBUG_TAG, "Problem writing", e);
                     } finally {
@@ -825,10 +819,7 @@ public class TransferTasks {
                             }
                         }
                         out.write("]}".getBytes());
-                    } catch (IllegalArgumentException e) {
-                        result = ErrorCodes.FILE_WRITE_FAILED;
-                        Log.e(DEBUG_TAG, "Problem writing", e);
-                    } catch (IllegalStateException e) {
+                    } catch (IllegalArgumentException | IllegalStateException e) {
                         result = ErrorCodes.FILE_WRITE_FAILED;
                         Log.e(DEBUG_TAG, "Problem writing", e);
                     } finally {

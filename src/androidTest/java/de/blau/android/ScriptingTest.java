@@ -3,6 +3,7 @@ package de.blau.android;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
@@ -75,8 +76,8 @@ public class ScriptingTest {
             // carry on
         }
         // scope for presets
-        Map<String, ArrayList<String>> tags = new LinkedHashMap<String, ArrayList<String>>();
-        ArrayList<String> v = new ArrayList<String>();
+        Map<String, List<String>> tags = new LinkedHashMap<String, List<String>>();
+        List<String> v = new ArrayList<String>();
         v.add("value");
         tags.put("key", v);
         r = Utils.evalString(context, "sandbox4", "a = new java.util.ArrayList(); a.add('value1'); tags.put('key1',a);tags", tags, tags, "test",

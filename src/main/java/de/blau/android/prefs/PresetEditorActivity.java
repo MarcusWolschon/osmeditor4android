@@ -277,15 +277,15 @@ public class PresetEditorActivity extends URLListEditActivity {
         new AsyncTask<Void, Integer, Integer>() {
             private boolean canceled = false;
 
-            private final int RESULT_TOTAL_FAILURE       = 0;
-            private final int RESULT_TOTAL_SUCCESS       = 1;
-            private final int RESULT_IMAGE_FAILURE       = 2;
-            private final int RESULT_PRESET_NOT_PARSABLE = 3;
-            private final int RESULT_DOWNLOAD_CANCELED   = 4;
+            private static final int RESULT_TOTAL_FAILURE       = 0;
+            private static final int RESULT_TOTAL_SUCCESS       = 1;
+            private static final int RESULT_IMAGE_FAILURE       = 2;
+            private static final int RESULT_PRESET_NOT_PARSABLE = 3;
+            private static final int RESULT_DOWNLOAD_CANCELED   = 4;
 
-            private final int DOWNLOADED_PRESET_ERROR = -1;
-            private final int DOWNLOADED_PRESET_XML   = 0;
-            private final int DOWNLOADED_PRESET_ZIP   = 1;
+            private static final int DOWNLOADED_PRESET_ERROR = -1;
+            private static final int DOWNLOADED_PRESET_XML   = 0;
+            private static final int DOWNLOADED_PRESET_ZIP   = 1;
 
             @Override
             protected void onPreExecute() {

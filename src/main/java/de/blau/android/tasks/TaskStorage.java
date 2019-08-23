@@ -278,10 +278,10 @@ public class TaskStorage implements Serializable {
      * @return list of BoundingBoxes
      */
     @NonNull
-    public ArrayList<BoundingBox> getBoundingBoxes() {
+    public List<BoundingBox> getBoundingBoxes() {
         Collection<BoundedObject> queryResult = new ArrayList<>();
         boxes.query(queryResult);
-        ArrayList<BoundingBox> result = new ArrayList<>();
+        List<BoundingBox> result = new ArrayList<>();
         for (BoundedObject bo : queryResult) {
             result.add((BoundingBox) bo);
         }
@@ -295,11 +295,11 @@ public class TaskStorage implements Serializable {
      * @return list of BoundingBox intersecting box
      */
     @NonNull
-    public ArrayList<BoundingBox> getBoundingBoxes(@NonNull BoundingBox box) {
+    public List<BoundingBox> getBoundingBoxes(@NonNull BoundingBox box) {
         Collection<BoundedObject> queryResult = new ArrayList<>();
         boxes.query(queryResult, box.getBounds());
         Log.d(DEBUG_TAG, "getBoundingBoxes result count " + queryResult.size());
-        ArrayList<BoundingBox> result = new ArrayList<>();
+        List<BoundingBox> result = new ArrayList<>();
         for (BoundedObject bo : queryResult) {
             result.add((BoundingBox) bo);
         }
@@ -312,8 +312,8 @@ public class TaskStorage implements Serializable {
      * @return true if a changed task is found
      */
     public boolean hasChanges() {
-        for (BoundedObject b : getTasks()) {
-            if (((Task) b).hasBeenChanged()) {
+        for (Task b : getTasks()) {
+            if (b.hasBeenChanged()) {
                 return true;
             }
         }

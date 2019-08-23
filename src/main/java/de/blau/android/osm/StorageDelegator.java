@@ -693,7 +693,7 @@ public class StorageDelegator implements Serializable, Exportable {
             int height = map.getHeight();
             ViewBox box = map.getViewBox();
 
-            Coordinates coords[] = Coordinates.nodeListToCooardinateArray(width, height, box, new ArrayList<>(nodes));
+            Coordinates[] coords = Coordinates.nodeListToCooardinateArray(width, height, box, new ArrayList<>(nodes));
 
             // save nodes for undo
             for (Node nd : nodes) {

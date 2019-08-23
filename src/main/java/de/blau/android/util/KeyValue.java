@@ -1,6 +1,10 @@
 package de.blau.android.util;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * 
@@ -8,24 +12,48 @@ import java.util.ArrayList;
  *
  */
 public class KeyValue {
-    private String            key    = null;
-    private ArrayList<String> values = null;
+    private final String key;
+    private List<String> values = null;
 
-    public KeyValue(String key, String value) {
+    /**
+     * Construct a new instance
+     * 
+     * @param key the key
+     * @param value the value
+     */
+    public KeyValue(@NonNull String key, @NonNull String value) {
         this.key = key;
         values = new ArrayList<>();
         values.add(value);
     }
 
-    public KeyValue(String key, ArrayList<String> values) {
+    /**
+     * Construct a new instance
+     * 
+     * @param key the key
+     * @param values a List of values
+     */
+    public KeyValue(@NonNull String key, @Nullable List<String> values) {
         this.key = key;
         this.values = values;
     }
 
+    /**
+     * Get the key
+     * 
+     * @return the key
+     */
+    @NonNull
     public String getKey() {
         return key;
     }
 
+    /**
+     * Get the value (if more than one are preset, the first)
+     * 
+     * @return a value or null
+     */
+    @Nullable
     public String getValue() {
         if (values != null) {
             return values.get(0);
@@ -33,11 +61,22 @@ public class KeyValue {
         return null;
     }
 
-    public ArrayList<String> getValues() {
+    /**
+     * Get the List of values
+     * 
+     * @return the values or null
+     */
+    @Nullable
+    public List<String> getValues() {
         return values;
     }
 
-    public void setValue(String value) {
+    /**
+     * Set one value
+     * 
+     * @param value the value
+     */
+    public void setValue(@NonNull String value) {
         values = new ArrayList<>();
         values.add(value);
     }

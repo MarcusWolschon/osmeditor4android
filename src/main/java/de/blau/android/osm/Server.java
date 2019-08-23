@@ -876,9 +876,7 @@ public class Server {
 
         Call call = client.newCall(request);
 
-        Response response = call.execute();
-
-        return response;
+        return call.execute();
     }
 
     /**

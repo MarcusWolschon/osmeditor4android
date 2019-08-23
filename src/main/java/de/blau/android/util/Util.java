@@ -85,8 +85,8 @@ public final class Util {
      * @return the converted Map
      */
     @NonNull
-    public static LinkedHashMap<String, ArrayList<String>> getArrayListMap(@NonNull Map<String, String> map) {
-        LinkedHashMap<String, ArrayList<String>> result = new LinkedHashMap<>();
+    public static LinkedHashMap<String, List<String>> getListMap(@NonNull Map<String, String> map) {
+        LinkedHashMap<String, List<String>> result = new LinkedHashMap<>();
         for (Entry<String, String> e : map.entrySet()) {
             result.put(e.getKey(), getArrayList(e.getValue()));
         }

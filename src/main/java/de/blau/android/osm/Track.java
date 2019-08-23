@@ -82,7 +82,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
 
     private final Context ctx;
 
-    private transient SavingHelper<ArrayList<WayPoint>> wayPointsSaver = new SavingHelper<>();
+    private SavingHelper<ArrayList<WayPoint>> wayPointsSaver = new SavingHelper<>();
 
     /**
      * For conversion from UNIX epoch time and back

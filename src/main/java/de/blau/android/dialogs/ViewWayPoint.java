@@ -203,7 +203,7 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
             if (wp.getDescription() != null) {
                 tags.put(Tags.KEY_NOTE, wp.getDescription());
             }
-            ((Main) activity).performTagEdit(n, presetPath, tags, presetPath == null ? true : false);
+            ((Main) activity).performTagEdit(n, presetPath, tags, presetPath == null);
         }
     }
 }
