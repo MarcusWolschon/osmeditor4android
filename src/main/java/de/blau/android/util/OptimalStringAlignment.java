@@ -27,21 +27,21 @@ public class OptimalStringAlignment {
 
     private static final int threadLocalBufferSize = 64;
 
-    private static final ThreadLocal<short[]> costLocal = new ThreadLocal<short[]>() {
+    private static final ThreadLocal<short[]> costLocal = new ThreadLocal<short[]>() { // NOSONAR
         @Override
         protected short[] initialValue() {
             return new short[threadLocalBufferSize];
         }
     };
 
-    private static final ThreadLocal<short[]> back1Local = new ThreadLocal<short[]>() {
+    private static final ThreadLocal<short[]> back1Local = new ThreadLocal<short[]>() { // NOSONAR
         @Override
         protected short[] initialValue() {
             return new short[threadLocalBufferSize];
         }
     };
 
-    private static final ThreadLocal<short[]> back2Local = new ThreadLocal<short[]>() {
+    private static final ThreadLocal<short[]> back2Local = new ThreadLocal<short[]>() { // NOSONAR
         @Override
         protected short[] initialValue() {
             return new short[threadLocalBufferSize];
