@@ -29,6 +29,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class BaseValidator implements Validator {
@@ -302,7 +303,7 @@ public class BaseValidator implements Validator {
                 Node node2 = wayNodes.get(i);
                 float node2X = logic.lonE7ToX(node2.getLon());
                 float node2Y = logic.latE7ToY(node2.getLat());
-                if (Logic.isPositionOnLine(tolerance, jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
+                if (Geometry.isPositionOnLine(tolerance, jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
                     addProblem(node, Validator.UNCONNECTED_END_NODE);
                     break;
                 }

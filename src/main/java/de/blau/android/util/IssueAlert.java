@@ -19,7 +19,6 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
@@ -90,7 +89,7 @@ public final class IssueAlert {
             eLat = ((Node) e).getLat() / 1E7D;
             break;
         case Way.NAME:
-            double[] result = Logic.centroidLonLat((Way) e);
+            double[] result = Geometry.centroidLonLat((Way) e);
             if (result == null) {
                 Log.d(DEBUG_TAG, "couldn't determine center for " + e);
                 return;

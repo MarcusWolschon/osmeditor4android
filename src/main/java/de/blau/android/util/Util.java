@@ -279,7 +279,7 @@ public final class Util {
             return new int[] { n.getLat(), n.getLon() };
         }
         if (osmElement instanceof Way) {
-            double[] coords = Logic.centroidLonLat((Way) osmElement);
+            double[] coords = Geometry.centroidLonLat((Way) osmElement);
             if (coords != null) {
                 return new int[] { (int) (coords[1] * 1E7), (int) (coords[0] * 1E7) };
             }

@@ -16,7 +16,6 @@ import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import de.blau.android.Logic;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -253,7 +252,7 @@ public class GeoContext {
             lon = ((Node) e).getLon() / 1E7D;
             lat = ((Node) e).getLat() / 1E7D;
         } else if (e instanceof Way) {
-            double[] coords = Logic.centroidLonLat((Way) e);
+            double[] coords = Geometry.centroidLonLat((Way) e);
             lon = coords[0];
             lat = coords[1];
         } else {
@@ -303,7 +302,7 @@ public class GeoContext {
      * @return true if the territory uses imperial units
      */
     public boolean imperial(@NonNull Way w) {
-        double[] coords = Logic.centroidLonLat(w);
+        double[] coords = Geometry.centroidLonLat(w);
         return imperial(coords[0], coords[1]);
     }
 
@@ -358,7 +357,7 @@ public class GeoContext {
      * @return true if the territory that drives on the left hand side
      */
     public boolean driveLeft(@NonNull Way w) {
-        double[] coords = Logic.centroidLonLat(w);
+        double[] coords = Geometry.centroidLonLat(w);
         return driveLeft(coords[0], coords[1]);
     }
 }

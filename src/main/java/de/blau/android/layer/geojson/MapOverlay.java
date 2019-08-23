@@ -43,7 +43,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.FeatureInfo;
@@ -681,7 +680,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                             }
                             float node2X = GeoMath.lonToX(width, viewBox, p2.longitude());
                             float node2Y = GeoMath.latToY(height, width, viewBox, p2.latitude());
-                            double distance = Logic.isPositionOnLine(x, y, p1X, p1Y, node2X, node2Y);
+                            double distance = de.blau.android.util.Geometry.isPositionOnLine(x, y, p1X, p1Y, node2X, node2Y);
                             if (distance >= 0) {
                                 result.add(f);
                                 break;

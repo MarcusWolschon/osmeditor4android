@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -27,6 +26,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.Util;
@@ -143,7 +143,7 @@ public final class Address implements Serializable {
         case CLOSEDWAY:
         case AREA:
             if (Way.NAME.equals(e.getName())) {
-                double[] center = Logic.centroidLonLat((Way) e);
+                double[] center = Geometry.centroidLonLat((Way) e);
                 if (center != null) {
                     lat = (float) center[1];
                     lon = (float) center[0];

@@ -9,12 +9,12 @@ import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -130,7 +130,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
             Snack.barWarning(main, R.string.toast_oneway_reversed);
             main.performTagEdit(way, null, false, false);
         } else {
-            manager.invalidate(); // sucessful reversal update menubar
+            manager.invalidate(); // successful reversal update menubar
         }
     }
 
@@ -173,7 +173,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 main.performTagEdit(element, null, true, false);
                 break;
             case MENUITEM_SHARE_POSITION:
-                Util.sharePosition(main, Logic.centroidLonLat((Way) element), main.getMap().getZoomLevel());
+                Util.sharePosition(main, Geometry.centroidLonLat((Way) element), main.getMap().getZoomLevel());
                 break;
             default:
                 return false;

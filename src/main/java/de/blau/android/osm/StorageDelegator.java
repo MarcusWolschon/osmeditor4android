@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
@@ -96,7 +98,7 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * Reset this instance to emply state
+     * Reset this instance to empty state
      * 
      * @param dirty if true mark the (empty) contents as dirty (this is useful because if true old state files will be
      *            overwritten)
@@ -676,17 +678,16 @@ public class StorageDelegator implements Serializable, Exportable {
      * Arrange way nodes in a circle
      * 
      * @param map current map view
-     * @param c center of the circle
      * @param way way to circulize
      */
-    public void circulizeWay(@NonNull de.blau.android.Map map, @NonNull int[] c, @NonNull Way way) {
+    public void circulizeWay(@NonNull de.blau.android.Map map, @NonNull Way way) {
         if ((way.getNodes() == null) || (way.getNodes().size() < 3)) {
             Log.d(DEBUG_TAG, "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
             return;
         }
         dirty = true;
         try {
-            Set<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqueness
+            Set<Node> nodes = new LinkedHashSet<>(way.getNodes()); // Guarantee uniqueness
             invalidateWayBoundingBox(nodes);
             int width = map.getWidth();
             int height = map.getHeight();
@@ -699,7 +700,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 undo.save(nd);
             }
 
-            Coordinates center = new Coordinates(GeoMath.lonE7ToX(width, box, c[1]), GeoMath.latE7ToY(height, width, box, c[0]));
+            Coordinates center = Geometry.centroidXY(coords, true);
 
             // caclulate average radius
             double r = 0.0f;

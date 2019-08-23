@@ -13,6 +13,7 @@ import de.blau.android.osm.ViewBox;
  *
  */
 public class Coordinates {
+
     public double x; // NOSONAR
     public double y; // NOSONAR
 
@@ -90,9 +91,10 @@ public class Coordinates {
      */
     @NonNull
     public static Coordinates[] nodeListToCooardinateArray(int width, int height, @NonNull ViewBox box, @NonNull List<Node> nodes) {
-        Coordinates[] points = new Coordinates[nodes.size()];
+        int size = nodes.size();
+        Coordinates[] points = new Coordinates[size];
         // loop over all nodes
-        for (int i = 0; i < nodes.size(); i++) {
+        for (int i = 0; i < size; i++) {
             points[i] = new Coordinates(0.0f, 0.0f);
             points[i].x = GeoMath.lonE7ToX(width, box, nodes.get(i).getLon());
             points[i].y = GeoMath.latE7ToY(height, width, box, nodes.get(i).getLat());
@@ -128,5 +130,38 @@ public class Coordinates {
      */
     public static double dotproduct(@NonNull Coordinates v1, @NonNull Coordinates v2) {
         return v1.x * v2.x + v1.y * v2.y;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Coordinates other = (Coordinates) obj;
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) {
+            return false;
+        }
+        return true;
     }
 }

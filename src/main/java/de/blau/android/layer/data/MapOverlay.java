@@ -52,8 +52,10 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
+import de.blau.android.util.Coordinates;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LongHashSet;
@@ -70,11 +72,10 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlay extends MapViewLayer implements ExtentInterface, ConfigureInterface, LayerInfoInterface {
 
-    private static final String OUTER = "outer";
-
-    private static final String INNER = "inner";
-
     private static final String DEBUG_TAG = MapOverlay.class.getName();
+
+    private static final String OUTER = "outer";
+    private static final String INNER = "inner";
 
     public static final int ICON_SIZE_DP = 20;
 
@@ -705,7 +706,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 }
             } else if (v instanceof Way) {
                 Way viaWay = (Way) v;
-                float[] xy = Logic.centroidXY(screenWidth, screenHeight, viewBox, viaWay);
+                Coordinates centroid = Geometry.centroidXY(screenWidth, screenHeight, viewBox, viaWay);
                 List<RelationMember> tos = restriction.getMembersWithRole(Tags.ROLE_TO);
                 RelationMember to = tos.isEmpty() ? null : tos.get(0);
                 if (to != null && to.getElement() != null && to.getType().equals(Way.NAME)) {
@@ -719,12 +720,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                         long bearing = (GeoMath.bearing(viaWay.getFirstNode().getLon() / 1E7D, viaWay.getFirstNode().getLat() / 1E7D,
                                 viaWay.getLastNode().getLon() / 1E7D, viaWay.getLastNode().getLat() / 1E7D) + offset) % 360;
                         canvas.save();
-                        canvas.rotate(bearing, xy[0], xy[1]);
+                        canvas.rotate(bearing, (float) centroid.x, (float) centroid.y);
                     } else {
                         to = null;
                     }
                 }
-                paintNodeIcon(restriction, canvas, xy[0], xy[1], null);
+                paintNodeIcon(restriction, canvas, (float) centroid.x, (float) centroid.y, null);
                 if (to != null) {
                     canvas.restore();
                 }
@@ -1190,13 +1191,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         if (zoomLevel < style.getMinVisibleZoom()) {
             return;
         }
-        
+
         map.pointListToLinePointsArray(points, way.getNodes());
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
 
         // draw the way itself
-        // this doesn't work properly with HW acceleration: canvas.drawLines(linePoints, fp.getPaint()); 
+        // this doesn't work properly with HW acceleration: canvas.drawLines(linePoints, fp.getPaint());
         if (pointsSize > 2) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);

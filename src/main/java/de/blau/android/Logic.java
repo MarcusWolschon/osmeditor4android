@@ -98,9 +98,11 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.Coordinates;
 import de.blau.android.util.EditState;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
@@ -830,7 +832,7 @@ public class Logic {
                 float node2X = lonE7ToX(node2.getLon());
                 float node2Y = latE7ToY(node2.getLat());
 
-                double distance = isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+                double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
                 if (distance >= 0) {
                     result.put(way, distance);
                     added = true;
@@ -1306,12 +1308,12 @@ public class Logic {
             return;
         }
         synchronized (selectedWays) {
-            float centroid[] = centroidXY(map.getWidth(), map.getHeight(), viewBox, selectedWays.get(0));
+            Coordinates centroid = Geometry.centroidXY(map.getWidth(), map.getHeight(), map.getViewBox(), selectedWays.get(0));
             if (centroid == null) {
                 return;
             }
-            centroidX = centroid[0];
-            centroidY = centroid[1];
+            centroidX = (float) centroid.x;
+            centroidY = (float) centroid.y;
             showCrosshairs(centroidX, centroidY);
         }
     }
@@ -1430,10 +1432,10 @@ public class Logic {
                 direction = (startY < absoluteY) ? -1 : 1;
             }
 
-            displayAttachedObjectWarning(main, selectedWays.get(0));
+            Way w = selectedWays.get(0);
+            displayAttachedObjectWarning(main, w);
 
-            getDelegator().rotateWay(selectedWays.get(0), (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(),
-                    viewBox);
+            getDelegator().rotateWay(w, (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
             startY = absoluteY;
             startX = absoluteX;
             main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
@@ -2027,7 +2029,7 @@ public class Logic {
                         Node node2 = wayNodes.get(i);
                         float node2X = lonE7ToX(node2.getLon());
                         float node2Y = latE7ToY(node2.getLat());
-                        double distance = isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
+                        double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
                         if (distance >= 0) {
                             if (distance < closestDistance && (filter == null || filter.include(way, false))) {
                                 closestDistance = distance;
@@ -2081,7 +2083,7 @@ public class Logic {
                 float node1Y = latE7ToY(node1.getLat());
                 float node2X = lonE7ToX(node2.getLon());
                 float node2Y = latE7ToY(node2.getLat());
-                double distance = isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+                double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
                 if (distance >= 0) {
                     float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
                     int lat = yToLatE7(p[1]);
@@ -2276,7 +2278,7 @@ public class Logic {
                 float node2X = lonE7ToX(node2.getLon());
                 float node2Y = latE7ToY(node2.getLat());
 
-                double distance = isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+                double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
                 if (distance >= 0) {
                     if ((savedNode1 == null && savedNode2 == null) || distance < savedDistance) {
                         savedNode1 = node1;
@@ -2332,54 +2334,13 @@ public class Logic {
         float node2Y = latE7ToY(node2.getLat());
 
         // At first, we check if the x,y is in the bounding box clamping by node1 and node2.
-        if (isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y) >= 0) {
+        if (Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y) >= 0) {
             float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
             int lat = yToLatE7(p[1]);
             int lon = xToLonE7(p[0]);
             return getDelegator().getFactory().createNodeWithNewId(lat, lon);
         }
         return null;
-    }
-
-    /**
-     * Checks if the x,y-position plus the tolerance is on a line between node1(x,y) and node2(x,y).
-     * 
-     * To avoid the typical two time calculation of the distance we actually return it
-     * 
-     * @param x screen X coordinate of the position
-     * @param y screen Y coordinate of the position
-     * @param node1X screen X coordinate of node1
-     * @param node1Y screen Y coordinate of node1
-     * @param node2X screen X coordinate of node2
-     * @param node2Y screen Y coordinate of node2
-     * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
-     */
-    public static double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
-        return isPositionOnLine(DataStyle.getCurrent().getWayToleranceValue() / 2f, x, y, node1X, node1Y, node2X, node2Y);
-    }
-
-    /**
-     * Checks if the x,y-position plus the tolerance is on a line between node1(x,y) and node2(x,y).
-     * 
-     * To avoid the typical two time calculation of the distance we actually return it
-     * 
-     * @param tolerance tolerance in screen pixel units
-     * @param x screen X coordinate of the position
-     * @param y screen Y coordinate of the position
-     * @param node1X screen X coordinate of node1
-     * @param node1Y screen Y coordinate of node1
-     * @param node2X screen X coordinate of node2
-     * @param node2Y screen Y coordinate of node2
-     * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
-     */
-    public static double isPositionOnLine(final float tolerance, final float x, final float y, final float node1X, final float node1Y, final float node2X,
-            final float node2Y) {
-        // noinspection SuspiciousNameCombination
-        if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
-            double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);
-            return distance < tolerance ? distance : -1D;
-        }
-        return -1D;
     }
 
     /**
@@ -4687,7 +4648,7 @@ public class Logic {
             getDelegator().copyToClipboard(element, ((Node) element).getLat(), ((Node) element).getLon());
         } else if (element instanceof Way) {
             // use current centroid of way
-            int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
+            int result[] = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
             if (result != null) {
                 getDelegator().copyToClipboard(element, result[0], result[1]);
             } else {
@@ -4707,7 +4668,7 @@ public class Logic {
         if (element instanceof Node) {
             getDelegator().cutToClipboard(element, ((Node) element).getLat(), ((Node) element).getLon());
         } else if (element instanceof Way) {
-            int result[] = Logic.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
+            int result[] = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
             if (result != null) {
                 getDelegator().cutToClipboard(element, result[0], result[1]);
             } else {
@@ -4743,160 +4704,6 @@ public class Logic {
     }
 
     /**
-     * calculate the centroid of a way
-     * 
-     * @param v current display bounding box
-     * @param w screen width
-     * @param h screen height
-     * @param way the Way
-     * @return WS84*17E coordinates of the centroid or null if they could not be determined
-     */
-    @Nullable
-    private static int[] centroid(int w, int h, @NonNull ViewBox v, @NonNull final Way way) {
-        float XY[] = centroidXY(w, h, v, way);
-        if (XY == null) {
-            return null;
-        }
-        int lat = GeoMath.yToLatE7(h, w, v, XY[1]);
-        int lon = GeoMath.xToLonE7(w, v, XY[0]);
-        return new int[] { lat, lon };
-    }
-
-    /**
-     * Calculate the centroid of a way
-     * 
-     * @param w screen width
-     * @param h screen height
-     * @param v current display bounding box
-     * @param way way to caculate centroid of
-     * @return screen coordinates of centroid, null if the way has problems and if the way has length or area zero
-     *         return the coordinates of the first node
-     */
-    @Nullable
-    public static float[] centroidXY(int w, int h, @NonNull ViewBox v, @Nullable final Way way) {
-        if (way == null || way.nodeCount() == 0) {
-            return null;
-        }
-        //
-        List<Node> vertices = way.getNodes();
-        if (way.isClosed()) {
-            // see http://paulbourke.net/geometry/polygonmesh/
-            double A = 0;
-            double Y = 0;
-            double X = 0;
-            int vs = vertices.size();
-            for (int i = 0; i < vs; i++) {
-                double x1 = GeoMath.lonE7ToX(w, v, vertices.get(i).getLon());
-                double y1 = GeoMath.latE7ToY(h, w, v, vertices.get(i).getLat());
-                double x2 = GeoMath.lonE7ToX(w, v, vertices.get((i + 1) % vs).getLon());
-                double y2 = GeoMath.latE7ToY(h, w, v, vertices.get((i + 1) % vs).getLat());
-                double d = x1 * y2 - x2 * y1;
-                A = A + d;
-                X = X + (x1 + x2) * d;
-                Y = Y + (y1 + y2) * d;
-            }
-            if (Util.notZero(A)) {
-                Y = Y / (3 * A); // NOSONAR nonZero tests for zero
-                X = X / (3 * A); // NOSONAR nonZero tests for zero
-                return new float[] { (float) X, (float) Y };
-            } else {
-                // area zero -> we can choose any node
-                Node n0 = vertices.get(0);
-                return new float[] { (float) GeoMath.lonE7ToX(w, v, n0.getLon()), (float) GeoMath.latE7ToY(h, w, v, n0.getLat()) };
-            }
-        } else { //
-            double L = 0;
-            double Y = 0;
-            double X = 0;
-            int vs = vertices.size();
-            for (int i = 0; i < (vs - 1); i++) {
-                double x1 = GeoMath.lonE7ToX(w, v, vertices.get(i).getLon());
-                double y1 = GeoMath.latE7ToY(h, w, v, vertices.get(i).getLat());
-                double x2 = GeoMath.lonE7ToX(w, v, vertices.get(i + 1).getLon());
-                double y2 = GeoMath.latE7ToY(h, w, v, vertices.get(i + 1).getLat());
-                double len = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-                L = L + len;
-                X = X + len * (x1 + x2) / 2;
-                Y = Y + len * (y1 + y2) / 2;
-            }
-            if (Util.notZero(L)) {
-                Y = Y / L; // NOSONAR nonZero tests for zero
-                X = X / L; // NOSONAR nonZero tests for zero
-                return new float[] { (float) X, (float) Y };
-            } else {
-                // length zero -> we can choose any node
-                Node n0 = vertices.get(0);
-                return new float[] { (float) GeoMath.lonE7ToX(w, v, n0.getLon()), (float) GeoMath.latE7ToY(h, w, v, n0.getLat()) };
-            }
-        }
-    }
-
-    /**
-     * Calculate the centroid of a way
-     * 
-     * @param way way to calculate the centroid of
-     * @return WGS84 coordinates of centroid, null if the way has problems and if the way has length or area zero return
-     *         the coordinates of the first node
-     */
-    @Nullable
-    public static double[] centroidLonLat(@Nullable final Way way) {
-        if (way == null || way.getNodes().isEmpty()) {
-            return null;
-        }
-        //
-        List<Node> vertices = way.getNodes();
-        if (way.isClosed()) {
-            // see http://paulbourke.net/geometry/polygonmesh/
-            double A = 0;
-            double Y = 0;
-            double X = 0;
-            int vs = vertices.size();
-            for (int i = 0; i < vs; i++) {
-                double x1 = vertices.get(i).getLon() / 1E7D;
-                double y1 = GeoMath.latE7ToMercator(vertices.get(i).getLat());
-                double x2 = vertices.get((i + 1) % vs).getLon() / 1E7D;
-                double y2 = GeoMath.latE7ToMercator(vertices.get((i + 1) % vs).getLat());
-                A = A + (x1 * y2 - x2 * y1);
-                X = X + (x1 + x2) * (x1 * y2 - x2 * y1);
-                Y = Y + (y1 + y2) * (x1 * y2 - x2 * y1);
-            }
-            if (Util.notZero(A)) {
-                Y = GeoMath.mercatorToLat(Y / (3 * A)); // NOSONAR nonZero tests for zero
-                X = X / (3 * A); // NOSONAR nonZero tests for zero
-                return new double[] { X, Y };
-            } else {
-                // area zero -> we can choose any node
-                Node n0 = vertices.get(0);
-                return new double[] { n0.getLon() / 1E7D, n0.getLat() / 1E7D };
-            }
-        } else { //
-            double L = 0;
-            double Y = 0;
-            double X = 0;
-            int vs = vertices.size();
-            for (int i = 0; i < (vs - 1); i++) {
-                double x1 = vertices.get(i).getLon() / 1E7D;
-                double y1 = GeoMath.latE7ToMercator(vertices.get(i).getLat());
-                double x2 = vertices.get(i + 1).getLon() / 1E7D;
-                double y2 = GeoMath.latE7ToMercator(vertices.get((i + 1)).getLat());
-                double len = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-                L = L + len;
-                X = X + len * (x1 + x2) / 2;
-                Y = Y + len * (y1 + y2) / 2;
-            }
-            if (Util.notZero(L)) {
-                Y = GeoMath.mercatorToLat(Y / L); // NOSONAR nonZero tests for zero
-                X = X / L; // NOSONAR nonZero tests for zero
-                return new double[] { X, Y };
-            } else {
-                // length zero -> we can choose any node
-                Node n0 = vertices.get(0);
-                return new double[] { n0.getLon() / 1E7D, n0.getLat() / 1E7D };
-            }
-        }
-    }
-
-    /**
      * Arrange way points in a circle
      * 
      * Note: currently only works if map is present
@@ -4909,14 +4716,9 @@ public class Logic {
             return;
         }
         createCheckpoint(activity, R.string.undo_action_circulize);
-        int[] center = centroid(map.getWidth(), map.getHeight(), viewBox, way);
-        if (center != null) {
-            getDelegator().circulizeWay(map, center, way);
-            invalidateMap();
-            displayAttachedObjectWarning(activity, way);
-        } else {
-            Log.e(DEBUG_TAG, "performCirculize  unable to determin centroid for way " + way.getDescription());
-        }
+        getDelegator().circulizeWay(map, way);
+        invalidateMap();
+        displayAttachedObjectWarning(activity, way);
     }
 
     /**
@@ -4966,10 +4768,16 @@ public class Logic {
         return App.getDelegator();
     }
 
+    /**
+     * Lock the StorageDelegator
+     */
     public void getDataLock() {
         getDelegator().lock();
     }
 
+    /**
+     * Unlock the StorageDelegator
+     */
     public void dataUnlock() {
         getDelegator().unlock();
     }
