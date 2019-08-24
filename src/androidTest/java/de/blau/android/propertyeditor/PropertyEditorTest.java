@@ -348,7 +348,7 @@ public class PropertyEditorTest {
 
         //
         // Apply best preset
-        Assert.assertTrue(TestUtils.clickMenuButton("Apply best preset", false, false));
+        Assert.assertTrue(TestUtils.clickMenuButton("Apply preset with optional", false, false));
         UiObject2 bridge = null;
         try {
             bridge = getField("Bridge", 1);
@@ -646,7 +646,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(found);
         found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Steps"), true);
         Assert.assertTrue(found);
-        TestUtils.clickButton("de.blau.android:id/tag_menu_apply_preset", false);
+        TestUtils.clickButton("de.blau.android:id/tag_menu_apply_preset_with_optional", false);
         mDevice.waitForIdle(1000);
         UiObject2 handrail = null;
         try {
