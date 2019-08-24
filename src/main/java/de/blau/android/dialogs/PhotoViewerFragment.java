@@ -34,6 +34,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.contract.Ui;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
@@ -258,7 +259,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                 try {
                     Photo p = new Photo(caller, Uri.parse(photoList.get(pos)));
                     if (map != null && overlay != null) {
-                        App.getLogic().setZoom(map, 19);
+                        App.getLogic().setZoom(map, Ui.ZOOM_FOR_ZOOMTO);
                         map.getViewBox().moveTo(map, p.getLon(), p.getLat());
                         overlay.setSelected(p); // this isn't the same instance as in the layer but should work
                         map.invalidate();

@@ -8,8 +8,9 @@ public final class Flavors {
     public static final String LEGACY  = "legacy";
 
     /**
-     * Private contrcutor to stop instantiation
+     * Private constructor to stop instantiation
      */
     private Flavors() {
+        // don't instantiate
     }
 }

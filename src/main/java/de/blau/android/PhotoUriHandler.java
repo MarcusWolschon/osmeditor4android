@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import de.blau.android.contract.Ui;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
 import de.blau.android.util.SelectFile;
@@ -65,7 +66,7 @@ class PhotoUriHandler extends PostAsyncActionHandler {
                 layer.setSelected(photo);
             }
             map.setFollowGPS(false);
-            App.getLogic().setZoom(map, Main.ZOOM_FOR_ZOOMTO);
+            App.getLogic().setZoom(map, Ui.ZOOM_FOR_ZOOMTO);
             map.getViewBox().moveTo(map, photo.getLon(), photo.getLat());
             map.invalidate();
         } catch (NumberFormatException | IOException e) {

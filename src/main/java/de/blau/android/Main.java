@@ -83,6 +83,7 @@ import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
+import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.ConfirmUpload;
 import de.blau.android.dialogs.DataLossActivity;
@@ -173,8 +174,6 @@ import de.blau.android.voice.Commands;
  */
 public class Main extends FullScreenAppCompatActivity
         implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
-
-    static final int ZOOM_FOR_ZOOMTO = 22;
 
     /**
      * Tag used for Android-logging.
@@ -1827,7 +1826,7 @@ public class Main extends FullScreenAppCompatActivity
         // turn this off or else we get bounced back to our current GPS position
         setFollowGPS(false);
         getMap().setFollowGPS(false);
-        App.getLogic().setZoom(getMap(), 19);
+        App.getLogic().setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO - 2); // we typically want to see a bit more of places
         getMap().getViewBox().moveTo(getMap(), (int) (sr.getLon() * 1E7d), (int) (sr.getLat() * 1E7d));
         getMap().invalidate();
     }
@@ -1966,7 +1965,7 @@ public class Main extends FullScreenAppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            logic.setZoom(getMap(), 19);
+                            logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
                             setFollowGPS(false);
                             map.setFollowGPS(false);
                             map.getViewBox().moveTo(map, (int) (ll.getLon() * 1E7d), (int) (ll.getLat() * 1E7d));
@@ -1992,7 +1991,7 @@ public class Main extends FullScreenAppCompatActivity
             if (box != null) {
                 setFollowGPS(false);
                 if (box.isEmpty()) {
-                    logic.setZoom(getMap(), 19);
+                    logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
                     map.getViewBox().moveTo(map, box.getRight(), box.getTop());
                 } else {
                     map.getViewBox().fitToBoundingBox(map, box);
@@ -2424,7 +2423,7 @@ public class Main extends FullScreenAppCompatActivity
         } // else moan? without GPS enabled this shouldn't be selectable
           // currently
         if (gotoLoc != null) {
-            App.getLogic().setZoom(getMap(), 19);
+            App.getLogic().setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
             map.getViewBox().moveTo(getMap(), (int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
             map.setLocation(gotoLoc);
             map.invalidate();
@@ -2441,7 +2440,7 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "Going to first waypoint");
         setFollowGPS(false);
         map.setFollowGPS(false);
-        logic.setZoom(getMap(), ZOOM_FOR_ZOOMTO);
+        logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
         map.getViewBox().moveTo(getMap(), trackPoint.getLon(), trackPoint.getLat());
         map.invalidate();
     }
@@ -4144,15 +4143,15 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Zoom to the coordinates and try and set the viewbox size to something reasonable
      * 
-     * @param lonE7 longitude * 10E/
-     * @param latE7 latitude " 10E/
+     * @param lonE7 longitude * 1E7
+     * @param latE7 latitude * 1E7
      * @param e OsmElement we want to show
      */
     private void zoomTo(int lonE7, int latE7, OsmElement e) {
         setFollowGPS(false); // otherwise the screen could move around
-        if (e instanceof Node && map.getZoomLevel() < ZOOM_FOR_ZOOMTO) {
+        if (e instanceof Node && map.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
             // FIXME this doesn't seem to work as expected
-            App.getLogic().setZoom(getMap(), ZOOM_FOR_ZOOMTO);
+            App.getLogic().setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
         } else {
             map.getViewBox().fitToBoundingBox(getMap(), e.getBounds());
         }
@@ -4166,11 +4165,9 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void zoomTo(OsmElement e) {
         setFollowGPS(false); // otherwise the screen could move around
-        if (e instanceof Node && map.getZoomLevel() < ZOOM_FOR_ZOOMTO) {
-            App.getLogic().setZoom(getMap(), ZOOM_FOR_ZOOMTO); // FIXME this
-                                                               // doesn't seem
-                                                               // to work as
-                                                               // expected
+        if (e instanceof Node && map.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
+            // FIXME this doesn't seem to work as expected
+            App.getLogic().setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
             map.getViewBox().moveTo(getMap(), ((Node) e).getLon(), ((Node) e).getLat());
         } else {
             map.getViewBox().fitToBoundingBox(getMap(), e.getBounds());
