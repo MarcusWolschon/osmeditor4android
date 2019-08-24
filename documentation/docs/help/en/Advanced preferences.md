@@ -80,6 +80,10 @@ Always show the element selection context menu if the selection is ambiguous. If
 
 When using address prediction only add the tags configured here.
 
+### Enable auto-apply of preset
+
+Automatically apply the best matching preset when the property editor is invoked. This will add keys for all non-optional tags. Default: _on_.
+
 ### Enable name suggestions
 
 Support special handling of name tags with canonical name suggestions. Default: _on_.

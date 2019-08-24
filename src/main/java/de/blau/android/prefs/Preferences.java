@@ -58,6 +58,7 @@ public class Preferences {
     private final boolean forceContextMenu;
     private final boolean enableNameSuggestions;
     private final boolean nameSuggestionPresetsEnabled;
+    private final boolean autoApplyPreset;
     private final boolean closeChangesetOnSave;
     private final boolean splitActionBarEnabled;
     private final String  gpsSource;
@@ -146,6 +147,7 @@ public class Preferences {
         largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
         enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
         nameSuggestionPresetsEnabled = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestionsPresets_key), true);
+        autoApplyPreset = prefs.getBoolean(r.getString(R.string.config_autoApplyPreset_key), true);
         closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
         backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), "MAPNIK");
@@ -1003,6 +1005,15 @@ public class Preferences {
             setAllowAllNetworks(false);
         }
         return prefs.getBoolean(key, false);
+    }
+
+    /**
+     * Check is we should auto-apply the best preset when the PropertyEditor is started
+     * 
+     * @return true if we should auto-apply the best preset
+     */
+    public boolean autoApplyPreset() {
+        return autoApplyPreset;
     }
 
     /**

@@ -414,9 +414,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
             return true;
         case R.id.tag_menu_apply_preset:
+        case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = tagListener.getBestPreset();
             if (pi != null) {
-                tagListener.applyPreset(pi, true);
+                tagListener.applyPreset(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional);
                 tagsUpdated();
             }
             return true;
@@ -584,6 +585,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         editableView.setTitle(mainPreset);
         editableView.setListeners(tagListener, this);
         editableView.applyPresetButton.setVisibility(View.GONE);
+        editableView.applyPresetWithOptionalButton.setVisibility(View.GONE);
 
         LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
         Map<String, String> nonEditable;
@@ -632,7 +634,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * Given a map of tags and the best matching PresetItem, loop over the fields in the PresetItem creating rows for
      * the tags that have matching keys
      * 
-     * @param editableView the Layout foldings rows for tags that we were able to identify
+     * @param editableView the Layout holding rows for tags that we were able to identify
      * @param preset the best matching PresetItem
      * @param tags the tags we want display
      * @return a Map containing the tags that coudn't be found in the PresetITem or linked PresetItems
@@ -904,7 +906,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                 checkBox.setOnStateChangedListener(new OnStateChangedListener() {
                                     @Override
                                     public void onStateChanged(IndeterminateCheckBox check, Boolean state) {
-                                        String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR state can't be null here
+                                        String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR
+                                                                                                               // state
+                                                                                                               // can't
+                                                                                                               // be
+                                                                                                               // null
+                                                                                                               // here
                                         tagListener.updateSingleValue(key, checkValue);
                                         if (rowLayout instanceof EditableLayout) {
                                             ((EditableLayout) rowLayout).putTag(key, checkValue);
@@ -1092,6 +1099,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         private TextView                      headerTitleView;
         private LinearLayout                  rowLayout;
         private ImageButton                   applyPresetButton;
+        private ImageButton                   applyPresetWithOptionalButton;
         private ImageButton                   copyButton;
         private ImageButton                   cutButton;
         private ImageButton                   deleteButton;
@@ -1127,6 +1135,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             headerTitleView = (TextView) findViewById(R.id.form_header_title);
             rowLayout = (LinearLayout) findViewById(R.id.form_editable_row_layout);
             applyPresetButton = (ImageButton) findViewById(R.id.tag_menu_apply_preset);
+            applyPresetWithOptionalButton = (ImageButton) findViewById(R.id.tag_menu_apply_preset_with_optional);
             copyButton = (ImageButton) findViewById(R.id.form_header_copy);
             cutButton = (ImageButton) findViewById(R.id.form_header_cut);
             deleteButton = (ImageButton) findViewById(R.id.form_header_delete);
@@ -1141,6 +1150,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         public void setListeners(final EditorUpdate editorListener, final FormUpdate formListener) {
             Log.d(DEBUG_TAG, "setting listeners");
             applyPresetButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editorListener.applyPreset(preset, false);
+                    formListener.tagsUpdated();
+                }
+            });
+            applyPresetWithOptionalButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     editorListener.applyPreset(preset, true);
@@ -1207,12 +1223,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
                 headerTitleView.setText(preset.getTranslatedName());
                 applyPresetButton.setVisibility(View.VISIBLE);
+                applyPresetWithOptionalButton.setVisibility(View.VISIBLE);
                 copyButton.setVisibility(View.VISIBLE);
                 cutButton.setVisibility(View.VISIBLE);
                 deleteButton.setVisibility(View.VISIBLE);
             } else {
                 headerTitleView.setText(R.string.tag_form_unknown_element);
                 applyPresetButton.setVisibility(View.GONE);
+                applyPresetWithOptionalButton.setVisibility(View.GONE);
                 copyButton.setVisibility(View.GONE);
                 cutButton.setVisibility(View.GONE);
                 deleteButton.setVisibility(View.GONE);

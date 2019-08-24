@@ -33,6 +33,7 @@
     <string name="config_bugFilter_key">config_bugFilter_key</string>
     <string name="config_enableNameSuggestions_key">enableNameSuggestions</string>
     <string name="config_enableNameSuggestionsPresets_key">enableNameSuggestionsPresets</string>
+    <string name="config_autoApplyPreset_key">autoApplyPreset</string>
     <string name="config_closeChangesetOnSave_key">closeChangesetOnSave</string>
     <string name="config_splitActionBarEnabled_key">splitActionBarEnabled</string>
     <string name="config_offsetServer_key">offsetServer2</string>

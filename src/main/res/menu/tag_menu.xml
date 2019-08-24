@@ -1,73 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/tag_menu_address"
         android:icon="?attr/menu_address"
         android:title="@string/tag_menu_address"
-        app:showAsAction="always"
-    />
+        app:showAsAction="always" />
     <item
         android:id="@+id/tag_menu_apply_preset"
         android:icon="?attr/menu_apply_preset"
         android:title="@string/tag_menu_apply_preset"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/tag_menu_apply_preset_with_optional"
+        android:icon="?attr/menu_apply_preset_with_optional"
         app:showAsAction="always"
-    />
+        android:title="@string/tag_menu_apply_preset_with_optional" />
     <item
         android:id="@+id/tag_menu_paste"
         android:icon="?attr/menu_paste"
         android:title="@string/menu_paste"
         android:alphabeticShortcut="*@string/shortcut_paste"
-        app:showAsAction="always"
-    />
+        app:showAsAction="always" />
     <item
         android:id="@+id/tag_menu_paste_from_clipboard"
         android:title="@string/menu_paste_from_clipboard"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
     <item
         android:id="@+id/tag_menu_revert"
         android:icon="?attr/menu_undo"
         android:alphabeticShortcut="@string/shortcut_undo"
         android:title="@string/tag_menu_revert"
-        app:showAsAction="always"
-    />
+        app:showAsAction="always" />
     <item
         android:id="@+id/tag_menu_mapfeatures"
         android:icon="?attr/menu_information"
         android:title="@string/tag_menu_mapfeatures"
-        app:showAsAction="ifRoom"
-    />
-     <item
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/tag_menu_reset_address_prediction"
         android:title="@string/tag_menu_reset_address_prediction"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
     <item
         android:id="@+id/tag_menu_resetMRU"
         android:title="@string/tag_menu_resetMRU"
-        app:showAsAction="never"
-    />
-        <item
+        app:showAsAction="never" />
+    <item
         android:id="@+id/tag_menu_sourcesurvey"
         android:title="@string/tag_menu_sourcesurvey"
-        app:showAsAction="ifRoom"
-    />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/tag_menu_js_console"
         android:title="@string/tag_menu_js_console"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
     <item
         android:id="@+id/tag_menu_select_all"
         android:title="@string/menu_select_all"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
     <item
         android:id="@+id/tag_menu_help"
         android:icon="?attr/menu_help"
         android:alphabeticShortcut="@string/shortcut_help"
         android:title="@string/menu_help"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
 </menu>

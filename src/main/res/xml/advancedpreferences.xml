@@ -116,6 +116,11 @@
             android:title="@string/config_forceContextMenu_title" />
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
+            android:key="@string/config_autoApplyPreset_key"
+            android:summary="@string/config_autoApplyPreset_summary"
+            android:title="@string/config_autoApplyPreset_title" />
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
             android:key="@string/config_enableNameSuggestions_key"
             android:summary="@string/config_enableNameSuggestions_summary"
             android:title="@string/config_enableNameSuggestions_title" />

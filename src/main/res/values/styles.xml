@@ -266,7 +266,8 @@
 		<item name="menu_paste">@drawable/ic_action_paste_holo_dark</item>
 		<item name="menu_information">@drawable/ic_action_about_holo_dark</item>
 		<item name="menu_address">@drawable/address_dark</item>
-		<item name="menu_apply_preset">@drawable/apply_preset_dark</item>
+		<item name="menu_apply_preset">@drawable/preset_dark</item>
+        <item name="menu_apply_preset_with_optional">@drawable/apply_preset_dark</item>
 		<item name="menu_preset_up">@drawable/preset_up_dark</item>
 		<item name="menu_preset_top">@drawable/preset_top_dark</item>
 		<item name="menu_up">@drawable/ic_action_collapse_holo_dark</item>
@@ -437,7 +438,8 @@
 		<item name="menu_paste">@drawable/ic_action_paste_holo_light</item>
 		<item name="menu_information">@drawable/ic_action_about_holo_light</item>
 		<item name="menu_address">@drawable/address_light</item>
-		<item name="menu_apply_preset">@drawable/apply_preset_light</item>
+		<item name="menu_apply_preset">@drawable/preset_light</item>
+        <item name="menu_apply_preset_with_optional">@drawable/apply_preset_light</item>
 		<item name="menu_preset_up">@drawable/preset_up_light</item>
 		<item name="menu_preset_top">@drawable/preset_top_light</item>
 		<item name="menu_up">@drawable/ic_action_collapse_holo_light</item>

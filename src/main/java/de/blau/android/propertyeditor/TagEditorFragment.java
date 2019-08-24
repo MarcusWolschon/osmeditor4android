@@ -103,13 +103,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     private static final String TYPES_KEY = "types";
 
-    private static final String DISPLAY_MR_UPRESETS = "displayMRUpresets";
+    private static final String DISPLAY_MRU_PRESETS = "displayMRUpresets";
 
     private static final String FOCUS_ON_KEY = "focusOnKey";
 
     private static final String APPLY_LAST_ADDRESS_TAGS = "applyLastAddressTags";
 
-    private static final String EXTRA_TAGS = "extraTags";
+    private static final String EXTRA_TAGS_KEY = "extraTags";
 
     private static final String PRESETSTOAPPLY_KEY = "presetsToApply";
 
@@ -228,8 +228,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         args.putSerializable(TAGS_KEY, tags);
         args.putSerializable(APPLY_LAST_ADDRESS_TAGS, applyLastAddressTags);
         args.putSerializable(FOCUS_ON_KEY, focusOnKey);
-        args.putSerializable(DISPLAY_MR_UPRESETS, displayMRUpresets);
-        args.putSerializable(EXTRA_TAGS, extraTags);
+        args.putSerializable(DISPLAY_MRU_PRESETS, displayMRUpresets);
+        args.putSerializable(EXTRA_TAGS_KEY, extraTags);
         args.putSerializable(PRESETSTOAPPLY_KEY, presetsToApply);
 
         f.setArguments(args);
@@ -273,7 +273,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             types = (String[]) getArguments().getSerializable(TYPES_KEY);
             applyLastAddressTags = (Boolean) getArguments().getSerializable(APPLY_LAST_ADDRESS_TAGS);
             focusOnKey = (String) getArguments().getSerializable(FOCUS_ON_KEY);
-            displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MR_UPRESETS);
+            displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS);
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
@@ -361,7 +361,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         // Add any extra tags that were supplied
         @SuppressWarnings("unchecked")
-        HashMap<String, String> extraTags = (HashMap<String, String>) getArguments().getSerializable(EXTRA_TAGS);
+        HashMap<String, String> extraTags = (HashMap<String, String>) getArguments().getSerializable(EXTRA_TAGS_KEY);
         if (extraTags != null) {
             for (Entry<String, String> e : extraTags.entrySet()) {
                 addTag(editRowLayout, e.getKey(), e.getValue(), true, false);
@@ -464,6 +464,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (pi instanceof PresetItem) {
                     applyPreset((PresetItem) pi, false, true);
                 }
+            }
+        } else if (prefs.autoApplyPreset()) {
+            PresetItem pi = getBestPreset();
+            if (pi != null) {
+                applyPreset(pi, false, true);
             }
         }
     }
@@ -1699,10 +1704,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             if (!isOptional || (isOptional && addOptional)) {
                 if (field instanceof PresetCheckGroupField) {
                     for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        addTagFromPreset(item, check, currentValues, check.getKey(), scripts);
+                        boolean valueWasSet = addTagFromPreset(item, check, currentValues, check.getKey(), scripts);
+                        replacedValue = replacedValue || valueWasSet;
                     }
                 } else if (!(field instanceof PresetFixedField)) {
-                    addTagFromPreset(item, field, currentValues, entry.getKey(), scripts);
+                    boolean valueWasSet = addTagFromPreset(item, field, currentValues, entry.getKey(), scripts);
+                    replacedValue = replacedValue || valueWasSet;
                 }
             }
         }
@@ -1756,7 +1763,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Add tag from preset if the tag doesn't exist
+     * Add tag from preset if the key isn't already present
      * 
      * If an entry in the MRU tags exists and UseLastAsDefault is TRUE or FORCE or a default value in the preset this
      * will be set as the value.
@@ -1768,8 +1775,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param tags map of current tags
      * @param key the key we are processing
      * @param scripts map containing any JS we find
+     * @return true if a value was set
      */
-    private void addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, List<String>> tags, @NonNull String key,
+    private boolean addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, List<String>> tags, @NonNull String key,
             Map<String, String> scripts) {
         if (!tags.containsKey(key)) {
             String value = "";
@@ -1794,7 +1802,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             }
             tags.put(key, Util.getArrayList(value));
+            return value != null && !"".equals(value);
         }
+        return false;
     }
 
     /**
@@ -1899,9 +1909,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             doSourceSurvey();
             return true;
         case R.id.tag_menu_apply_preset:
+        case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (pi != null) {
-                applyPreset(pi, true, false);
+                applyPreset(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional, true);
             }
             return true;
         case R.id.tag_menu_paste:

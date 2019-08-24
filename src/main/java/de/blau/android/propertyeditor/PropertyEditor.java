@@ -1297,7 +1297,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     @Override
     public void applyPreset(@NonNull PresetItem preset, boolean addOptional) {
-        tagEditorFragment.applyPreset(preset, true);
+        tagEditorFragment.applyPreset(preset, addOptional);
     }
 
     @Override

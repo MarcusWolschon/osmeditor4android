@@ -315,7 +315,7 @@
     <string name="toast_save_failed">Could not save</string>
     <string name="toast_export_failed">Could not export</string>
     <string name="toast_export_success">Exported to %1$s</string>
-    <string name="toast_preset_overwrote_tags">Note - preset overwrote tag(s)</string>
+    <string name="toast_preset_overwrote_tags">Note - preset overwrote or set tag(s)</string>
     <string name="toast_merge_overwrote_tags">Note - operation overwrote tag(s)</string>
     <string name="toast_oneway_reversed">You reversed a oneway street or a way with directionally dependent tags. Please check the tags and correct them if needed.</string>
     <string name="toast_merge_tag_conflict">You merged elements with conflicting tag values, direction dependent semantics or different roles in the same relation. Please check the tags and roles and correct them if needed.</string>
@@ -479,7 +479,8 @@
     <string name="tag_menu_address">Add address tags</string>
     <string name="tag_menu_sourcesurvey">Surveyed</string>
     <string name="tag_menu_preset">Presets</string>
-    <string name="tag_menu_apply_preset">Apply best preset</string>
+    <string name="tag_menu_apply_preset">Apply preset</string>
+    <string name="tag_menu_apply_preset_with_optional">Apply preset with optional</string>
     <string name="tag_menu_revert">Revert</string>
     <string name="tag_menu_mapfeatures">Map feature wiki</string>
     <string name="tag_menu_addtorelation">Add to relation</string>
@@ -831,6 +832,8 @@
     <string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag.</string>
     <string name="config_enableNameSuggestionsPresets_title">Enable name suggestion presets</string>
     <string name="config_enableNameSuggestionsPresets_summary">Automatically add preset when name suggestion is selected.</string>   
+    <string name="config_autoApplyPreset_title">Enable auto-apply of preset</string>
+    <string name="config_autoApplyPreset_summary">Automatically apply preset when starting the property editor.</string>   
     <string name="config_generateAlerts_title">Generate notifications</string>
     <string name="config_generateAlerts_summary">Generate notifications for data with problems or notes</string>
     <string name="config_groupAlertsOnly_title">Group alerts only</string>

@@ -36,6 +36,7 @@
 	<attr name="menu_add_restriction" format="reference" />
 	<attr name="menu_preset" format="reference" />
 	<attr name="menu_apply_preset" format="reference" />
+    <attr name="menu_apply_preset_with_optional" format="reference" />
 	<attr name="menu_preset_up" format="reference" />
 	<attr name="menu_preset_top" format="reference" />
 	<attr name="menu_bug" format="reference" />
