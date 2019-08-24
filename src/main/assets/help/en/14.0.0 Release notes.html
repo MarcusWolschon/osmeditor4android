@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 14.0 Beta Highlights</h1>
+<h3>Automatically apply preset when property editor is invoked</h3>
+<p>This is a significant behaviour change relative to earlier versions. When the property editor is invoked the best preset will be applied (without optional tags), with other words fields will be shown with empty values for such tags.</p>
+<p>Automatically applying the preset has some dangers as, depending on the preset, existing values could be overwritten, if that happens a warning will be shown.</p>
+<p>The feature can be turned off in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<h3>Internal photo viewer</h3>
+<p>The internal viewer is used be default in place of trying to start an external on device gallery or viewer app, it allows deleting and &quot;sharing&quot; of photos directly from Vespucci. When started via a click on a photo icon it will load references to all photos currently in view.</p>
+<p>In the current version the photo is shown in a dialog, however we intend to integrate it in a split window view in the future.</p>
+<p>The feature can be turned off in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<h3>Incremental preset search</h3>
+<p>THe preset search will now search while you are typing and display the results directly in the preset display. As we integrated the name suggestion index in to the same search in 13.1, the separately available name search dialog in non-simple mode has been removed.</p>
+<h3>On-the-fly custom presets</h3>
+<p><em>This is an experimental feature.</em></p>
+<p>A custom preset can be built from existing tags in the &quot;Details&quot; view in the property editor. Select the tags you want to include, then select &quot;Create custom preset&quot; from the menu and then enter a name when you are prompted. The new preset can then be found in the &quot;Auto-preset&quot; group.</p>
+<p>The function tries to do the &quot;right thing&quot; by not including the values for tags that have &quot;name&quot; semantics, and setting the current value for combo and multi-select fields as the default value.</p>
+<h3>&quot;Tip&quot; display function</h3>
+<p>A function has been added to display tips on certain functions. Every tip will be displayed only once, optional ones can be suppressed by setting an option in the display itself, non-optional ones will always be displayed once.</p>
+<h3>Support for multi-valued but editable tags</h3>
+<p>Some tags, for example phone numbers, lane values, allow multiple values but can't or are difficult to edit with the previously available forms. 14.0 adds a view for phone numbers and for editable multi-select fields that will display multiple vertically arranged text fields that can be individually edited, and in the case of multi-select fields will have individual drop downs.</p>
+<p>Buttons to apply the preset without optional tags have been added too.</p>
+<h3>Automatic phone number formatting</h3>
+<p><em>This is an experimental feature.</em></p>
+<p>When entering a new phone number the number is automatically formated correctly for the country the object is in. Further the same formating is applied when invoking the property editor, a warning will be displayed if this actually happens.</p>
+<h2>Miscellaneous</h2>
+<ul>
+<li>Selection of OAM imagery has been moved to the layer dialog and imagery configuration removed the preferences with the exception of adding custom imagery.</li>
+<li>Allow Vespucci to consume intents to show photos from other apps. Note: due to the ongoing changes in the way Android controls access to files this may or not may work reasonably.</li>
+<li>If you have left a changeset open after an upload, you can close it before the next upload with an option in the upload dialog.</li>
+<li>Undo and redo checkpoint lists have been moved to separate tabs in the display.</li>
+<li>Go back to last edit function added, this will pan and zoom to the bounding box of the top most undo checkpoint.</li>
+<li>&quot;Squaring&quot; / &quot;Straightening&quot; threshold is now adjustable in the  <a href="Advanced%20preferences.md">Advanced preferences</a>. The process itself is now done asynchronously and doesn't lock up the device anymore.</li>
+<li>Lots of stability improvements.</li>
+</ul>
+<h1>Upgrading from previous versions</h1>
+<ul>
+<li>As the saved state file format changed for version 14.0, please complete any edits before upgrading if your current version is older.</li>
+</ul>
+<h1>Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>
