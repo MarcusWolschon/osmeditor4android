@@ -7,7 +7,7 @@
     android:versionName="@string/app_version" >
 
     <uses-sdk
-        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm,com.heinrichreimersoftware.androidissuereporter,com.davemorrissey.labs.subscaleview,android.support.exifinterface" />
+        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm,com.heinrichreimersoftware.androidissuereporter,com.davemorrissey.labs.subscaleview,android.support.exifinterface,io.michaelrocks.libphonenumber.android" />
 
     <uses-feature
         android:name="android.hardware.sensor.compass"

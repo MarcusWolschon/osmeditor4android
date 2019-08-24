@@ -283,13 +283,16 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
      * @param s input String
      * @return a formated String or s unchanged
      */
+    @NonNull
     private String formatPhoneNumber(@NonNull String s) {
         PhoneNumberUtil phone = App.getPhoneNumberUtil(getContext());
-        try {
-            PhoneNumber number = phone.parse(s, country);
-            s = phone.format(number, PhoneNumberFormat.INTERNATIONAL);
-        } catch (NumberParseException e) {
-            // NOSONAR ignore
+        if (phone != null) {
+            try {
+                PhoneNumber number = phone.parse(s, country);
+                s = phone.format(number, PhoneNumberFormat.INTERNATIONAL);
+            } catch (NumberParseException e) {
+                // NOSONAR ignore
+            }
         }
         return s;
     }
