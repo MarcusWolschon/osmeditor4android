@@ -1704,12 +1704,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             if (!isOptional || (isOptional && addOptional)) {
                 if (field instanceof PresetCheckGroupField) {
                     for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        boolean valueWasSet = addTagFromPreset(item, check, currentValues, check.getKey(), scripts);
-                        replacedValue = replacedValue || valueWasSet;
+                        addTagFromPreset(item, check, currentValues, check.getKey(), scripts);
                     }
                 } else if (!(field instanceof PresetFixedField)) {
-                    boolean valueWasSet = addTagFromPreset(item, field, currentValues, entry.getKey(), scripts);
-                    replacedValue = replacedValue || valueWasSet;
+                    addTagFromPreset(item, field, currentValues, entry.getKey(), scripts);
                 }
             }
         }
