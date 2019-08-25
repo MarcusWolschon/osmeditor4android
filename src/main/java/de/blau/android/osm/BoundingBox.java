@@ -24,9 +24,9 @@ import de.blau.android.util.rtree.BoundedObject;
  * @author simon
  */
 public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedObject {
-    
+
     private static final long serialVersionUID = -2708721312405863618L;
-    
+
     private static final String DEBUG_TAG = "BoundingBox";
 
     private static final String MINLAT_ATTR = "minlat";
@@ -34,7 +34,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     private static final String MAXLAT_ATTR = "maxlat";
     private static final String MAXLON_ATTR = "maxlon";
     private static final String ORIGIN_ATTR = "origin";
-    private static final String BOUNDS_TAG = "bounds";
+    private static final String BOUNDS_TAG  = "bounds";
 
     /**
      * left border of the bounding box, multiplied by 1E7
@@ -656,6 +656,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * Given a list of existing bounding boxes and a new bbox. Return a list of pieces of the new bbox that complete the
      * coverage
      * 
+     * NOTE: newBox will be modified, if you need to retain the original, make a copy before calling this.
+     * 
      * @param existing existing list of bounding boxes
      * @param newBox new bounding box
      * @return list of missing bounding boxes
@@ -711,6 +713,45 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(top / 1E7D))) * 1E7D);
         left = Math.max(-GeoMath.MAX_LON_E7, left - deltaHE7);
         right = Math.min(GeoMath.MAX_LON_E7, right + deltaHE7);
+        calcDimensions();
+    }
+
+    /**
+     * Expand the bounding box so that it is at least d long in each dimension Clamps the resulting coordinates to legal
+     * values
+     * 
+     * @param d minimum distance in meters for each size
+     */
+    public void ensureMinumumSize(double d) {
+        double min = GeoMath.convertMetersToGeoDistance(d);
+        int minE7 = (int) (min * 1E7);
+        if (height < minE7) {
+            int deltaE7 = (minE7 - height) / 2;
+            top = Math.min(GeoMath.MAX_LAT_E7, top + deltaE7);
+            bottom = Math.max(-GeoMath.MAX_LAT_E7, bottom - deltaE7);
+        }
+        int minWE7 = (int) ((min / Math.cos(Math.toRadians(top / 1E7D))) * 1E7D);
+        if (width < minWE7) {
+            long deltaWE7 = (minWE7 - width) / 2;
+            left = (int) Math.max(-GeoMath.MAX_LON_E7, left - deltaWE7);
+            right = (int) Math.min(GeoMath.MAX_LON_E7, right + deltaWE7);
+        }
+        calcDimensions();
+    }
+
+    /**
+     * Scale the bounding box sides by a factor. Clamps the resulting coordinates to legal values
+     * 
+     * @param f factor to make the sides larger
+     */
+    public void scale(double f) {
+        int hDeltaE7 = (int) (height * f - height) / 2;
+        top = Math.min(GeoMath.MAX_LAT_E7, top + hDeltaE7);
+        bottom = Math.max(-GeoMath.MAX_LAT_E7, bottom - hDeltaE7);
+        int wDeltaE7 = (int) (width * f - width) / 2;
+        left = Math.max(-GeoMath.MAX_LON_E7, left - wDeltaE7);
+        right = Math.min(GeoMath.MAX_LON_E7, right + wDeltaE7);
+        calcDimensions();
     }
 
     /*

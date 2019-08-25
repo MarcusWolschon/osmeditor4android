@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.WeakHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -26,10 +28,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pools.SimplePool;
+import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.Mode;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.filter.Filter;
@@ -40,6 +44,7 @@ import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
@@ -84,9 +89,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * zoom level from which on we display icons and house numbers
      */
-    private static final int SHOW_ICONS_LIMIT = 15;
-
-    public static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
+    private static final int SHOW_ICONS_LIMIT            = 15;
+    public static final int  SHOW_LABEL_LIMIT            = SHOW_ICONS_LIMIT + 5;
+    private static final int PAN_AND_ZOOM_DOWNLOAD_LIMIT = SHOW_ICONS_LIMIT + 2;
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -110,6 +115,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * show icons for POIs tagged on (closed) ways
      */
     private boolean showWayIcons = false;
+
+    /**
+     * show tolerance area
+     */
+    private boolean showTolerance = true;
+
+    /**
+     * Download on pan and zoom
+     */
+    private boolean panAndZoomDownLoad = false;
 
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
@@ -199,13 +214,15 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * Stuff for multipolygon support Instantiate these objects just once
      */
-    List<RelationMember>        waysOnly       = new ArrayList<>();
-    List<ArrayList<Node>>       outerRings     = new ArrayList<>();
-    List<ArrayList<Node>>       innerRings     = new ArrayList<>();
-    List<ArrayList<Node>>       unknownRings   = new ArrayList<>();
-    SimplePool<ArrayList<Node>> ringPool       = new SimplePool<>(10);
-    List<Node>                  areaNodes      = new ArrayList<>();   // temp for reversing winding and assembling MPs
-    Set<Relation>               paintRelations = new HashSet<>();
+    List<RelationMember>   waysOnly       = new ArrayList<>();
+    List<List<Node>>       outerRings     = new ArrayList<>();
+    List<List<Node>>       innerRings     = new ArrayList<>();
+    List<List<Node>>       unknownRings   = new ArrayList<>();
+    SimplePool<List<Node>> ringPool       = new SimplePool<>(10);
+    List<Node>             areaNodes      = new ArrayList<>();   // temp for reversing winding and assembling MPs
+    Set<Relation>          paintRelations = new HashSet<>();
+
+    private ThreadPoolExecutor mThreadPool;
 
     @SuppressLint("NewApi")
     public MapOverlay(final Map map) {
@@ -248,6 +265,58 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     }
 
     /**
+     * Runnable for downloading data
+     */
+    Runnable download = new Runnable() {
+
+        final PostMergeHandler postMerge = new PostMergeHandler() {
+            @Override
+            public void handler(OsmElement e) {
+                e.hasProblem(context, validator);
+            }
+        };
+
+        @Override
+        public void run() {
+            StorageDelegator storageDelegator = App.getDelegator();
+            List<BoundingBox> bbList = new ArrayList<>(storageDelegator.getBoundingBoxes());
+            BoundingBox box = new BoundingBox(map.getViewBox());
+            box.scale(1.2); // make sides 20% larger
+            box.ensureMinumumSize(prefs.getDownloadRadius() * 2); // enforce a minimum size
+            List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
+            for (BoundingBox b : bboxes) {
+                if (b.getWidth() <= 1 || b.getHeight() <= 1) {
+                    Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
+                    continue;
+                }
+                storageDelegator.addBoundingBox(b);
+                if (mThreadPool == null) {
+                    mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+                }
+                mThreadPool.execute(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        App.getLogic().download(context, prefs.getServer(), b, postMerge, new PostAsyncActionHandler() {
+
+                            @Override
+                            public void onSuccess() {
+                                map.invalidate();
+                            }
+
+                            @Override
+                            public void onError() {
+                                // do nothing
+                            }
+
+                        }, true, true);
+                    }
+                });
+            }
+        }
+    };
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -270,7 +339,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         tmpLocked = logic.isLocked();
 
         inNodeIconZoomRange = zoomLevel > DataStyle.getCurrent().getIconZoomLimit();
-
+        if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad) {
+            map.getRootView().removeCallbacks(download);
+            map.getRootView().postDelayed(download, 100);
+        }
         paintOsmData(canvas);
     }
 
@@ -292,8 +364,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         List<Node> paintNodes = delegator.getCurrentStorage().getNodes(viewBox);
 
         // the following should guarantee that if the selected node is off screen but the handle not, the handle gets
-        // drawn
-        // note this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
+        // drawn, this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
         if (tmpDrawingSelectedNodes != null) {
             for (Node n : tmpDrawingSelectedNodes) {
                 if (!paintNodes.contains(n)) {
@@ -309,7 +380,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         boolean drawTolerance = tmpDrawingInEditRange // if we are not in editing range none of the further checks are
                                                       // necessary
-                && !tmpLocked && tmpDrawingEditMode.elementsSelectable();
+                && !tmpLocked && (showTolerance || tmpDrawingEditMode.elementsSelectable());
 
         // Paint all ways
         List<Way> ways = delegator.getCurrentStorage().getWays(viewBox);
@@ -501,7 +572,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         outerRings.clear();
         innerRings.clear();
         unknownRings.clear();
-        ArrayList<Node> ring = getNewRing();
+        List<Node> ring = getNewRing();
 
         int ms = members.size();
         String ringRole = "";
@@ -557,7 +628,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         outerRings.addAll(innerRings);
         outerRings.addAll(unknownRings);
 
-        for (ArrayList<Node> r : outerRings) {
+        for (List<Node> r : outerRings) {
             map.pointListToLinePointsArray(points, r);
             float[] linePoints = points.getArray();
             int pointsSize = points.size();
@@ -581,8 +652,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @return an ArrayList<Node>
      */
     @NonNull
-    private ArrayList<Node> getNewRing() {
-        ArrayList<Node> ring = ringPool.acquire();
+    private List<Node> getNewRing() {
+        List<Node> ring = ringPool.acquire();
         if (ring == null) {
             ring = new ArrayList<>();
         } else {
@@ -597,7 +668,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param role the role of the the ring
      * @param ring the ring
      */
-    private void addRing(@NonNull String role, @NonNull ArrayList<Node> ring) {
+    private void addRing(@NonNull String role, @NonNull List<Node> ring) {
         switch (role) {
         case OUTER:
             if (!clockwise(ring)) {
@@ -744,7 +815,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param node Node to be painted.
      * @param x screen x coordinate
      * @param y screen y coordinate
-     * @param hwAccelarationWorkaround use a workaround for operations that are not supported when HW accelation is used
+     * @param hwAccelarationWorkaround use a workaround for unsupported operations when HW acceleration is used
      * @param drawTolerance draw the touch halo
      */
     private void paintNode(@NonNull final Canvas canvas, @NonNull final Node node, final float x, final float y, final boolean hwAccelarationWorkaround,
@@ -763,7 +834,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         // draw tolerance
         if (drawTolerance && (!filterMode || (filterMode && filteredObject))) {
-            if (prefs.isToleranceVisible() && tmpClickableElements == null) {
+            if (showTolerance && tmpClickableElements == null) {
                 drawNodeTolerance(canvas, isTagged, x, y, nodeTolerancePaint);
             } else if (tmpClickableElements != null && tmpClickableElements.contains(node)) {
                 drawNodeTolerance(canvas, isTagged, x, y, nodeTolerancePaint2);
@@ -1084,7 +1155,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         // draw way tolerance
         if (drawTolerance) {
-            if (prefs.isToleranceVisible() && tmpClickableElements == null) {
+            if (showTolerance && tmpClickableElements == null) {
                 canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint);
             } else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
                 canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint2);
@@ -1324,6 +1395,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         this.prefs = prefs;
         showIcons = prefs.getShowIcons();
         showWayIcons = prefs.getShowWayIcons();
+        showTolerance = prefs.isToleranceVisible();
+        panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         iconCache.clear();
         areaIconCache.clear();
     }

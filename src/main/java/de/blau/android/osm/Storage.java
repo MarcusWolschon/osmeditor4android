@@ -45,7 +45,8 @@ public class Storage implements Serializable {
         relations = new LongOsmElementMap<>();
         bboxes = new ArrayList<>();
         // a default entry may not make sense
-        bboxes.add(new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7));
+        // bboxes.add(new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7,
+        // BoundingBox.MAX_LAT_E7));
     }
 
     /**
@@ -375,7 +376,7 @@ public class Storage implements Serializable {
     /**
      * Get the last added bounding box
      * 
-     * @return the last BoundingBox or an empty one
+     * @return the last BoundingBox or one covering the whole mercator extent
      */
     @NonNull
     synchronized BoundingBox getLastBox() {
@@ -384,7 +385,7 @@ public class Storage implements Serializable {
             return bboxes.get(s - 1);
         }
         Log.e(DEBUG_TAG, "Bounding box list empty");
-        return new BoundingBox(); // empty box
+        return ViewBox.getMaxMercatorExtent(); // full extent
     }
 
     /**

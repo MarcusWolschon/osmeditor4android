@@ -956,7 +956,7 @@ public class TrackerService extends Service implements Exportable {
                                                             // once download is
                                                             // complete
                         Log.d(DEBUG_TAG, "getNextCenter loading " + b.toString());
-                        App.getLogic().autoDownloadBox(this, prefs.getServer(), validator, b);
+                        App.getLogic().autoDownloadBox(this, prefs.getServer(), validator, b, null);
                     }
                 }
                 previousLocation = location;

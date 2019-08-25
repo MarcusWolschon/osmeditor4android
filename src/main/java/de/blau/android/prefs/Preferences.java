@@ -807,15 +807,48 @@ public class Preferences {
         return 1000 * autoLockDelay;
     }
 
-    public void setAutoDownload(boolean on) {
-        prefs.edit().putBoolean(r.getString(R.string.config_autoDownload_key), on).commit();
+    /**
+     * Turn auto download with a fixed download size around the current position on
+     * 
+     * @param enabled if true auto-download will be enabled
+     */
+    public void setAutoDownload(boolean enabled) {
+        prefs.edit().putBoolean(r.getString(R.string.config_autoDownload_key), enabled).commit();
     }
 
+    /**
+     * Check if auto download with a fixed download size around the current position is enabled
+     * 
+     * @return true if enabled
+     */
     public boolean getAutoDownload() {
         String key = r.getString(R.string.config_autoDownload_key);
         if (!prefs.contains(key)) {
             // create the entry
             setAutoDownload(false);
+        }
+        return prefs.getBoolean(key, false);
+    }
+
+    /**
+     * Turn auto download based on the current view box on
+     * 
+     * @param enabled if true auto-download will be enabled
+     */
+    public void setPanAndZoomAutoDownload(boolean enabled) {
+        prefs.edit().putBoolean(r.getString(R.string.config_panAndZoomDownload_key), enabled).commit();
+    }
+
+    /**
+     * Check if auto download based on the current view box on is enabled
+     * 
+     * @return true if enabled
+     */
+    public boolean getPanAndZoomAutoDownload() {
+        String key = r.getString(R.string.config_panAndZoomDownload_key);
+        if (!prefs.contains(key)) {
+            // create the entry
+            setPanAndZoomAutoDownload(false);
         }
         return prefs.getBoolean(key, false);
     }
