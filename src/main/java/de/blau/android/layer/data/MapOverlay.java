@@ -699,6 +699,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     } else {
                         from = null;
                     }
+                } else {
+                    from = null;
                 }
                 paintNodeIcon(restriction, canvas, x, y, null);
                 if (from != null) {
@@ -724,6 +726,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     } else {
                         to = null;
                     }
+                } else {
+                    to = null;
                 }
                 paintNodeIcon(restriction, canvas, (float) centroid.x, (float) centroid.y, null);
                 if (to != null) {
