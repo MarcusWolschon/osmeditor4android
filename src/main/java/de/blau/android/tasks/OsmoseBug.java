@@ -29,7 +29,7 @@ public final class OsmoseBug extends Bug implements Serializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     // we currently don't actually use these fields
     private int    item;
@@ -74,9 +74,9 @@ public final class OsmoseBug extends Bug implements Serializable {
                         bug.title = reader.nextString();
                         bug.level = reader.nextInt();
                         try {
-                            bug.update = DateFormatter.getDate(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, reader.nextString());
+                            bug.update = DateFormatter.getDate(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, reader.nextString()).getTime();
                         } catch (java.text.ParseException pex) {
-                            bug.update = new Date();
+                            bug.update = new Date().getTime();
                         }
                         bug.username = reader.nextString();
                         reader.endArray();

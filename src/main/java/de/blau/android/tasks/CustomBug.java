@@ -29,7 +29,7 @@ public final class CustomBug extends Bug implements Serializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * Parse an InputStream containing bugs in JSON format
@@ -63,9 +63,9 @@ public final class CustomBug extends Bug implements Serializable {
                         bug.title = reader.nextString();
                         bug.level = reader.nextInt();
                         try {
-                            bug.update = DateFormatter.getDate(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, reader.nextString());
+                            bug.update = DateFormatter.getDate(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, reader.nextString()).getTime();
                         } catch (java.text.ParseException pex) {
-                            bug.update = new Date();
+                            bug.update = new Date().getTime();
                         }
                         reader.endArray();
                         result.add(bug);
@@ -151,7 +151,7 @@ public final class CustomBug extends Bug implements Serializable {
         result.append("\",\"");
         result.append(level);
         result.append("\",\"");
-        result.append(DateFormatter.getFormattedString(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, update));
+        result.append(DateFormatter.getFormattedString(DATE_PATTERN_OSMOSE_BUG_UPDATED_AT, getLastUpdate()));
         result.append("\"]");
         return result.toString();
     }

@@ -2,7 +2,6 @@ package de.blau.android.tasks;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.Date;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -24,18 +23,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 3L;
-
-    /** The preferred OSB date formats. */
-    private static final DateFormat[] bugDateFormats = {
-            // preferred, use for output (see toString())
-            DateFormatter.getUtcFormat("yyyy-MM-dd HH:mm:ss z"),
-            // alternate preferred
-            DateFormatter.getUtcFormat("yy-MM-dd HH:mm:ss"),
-            // German
-            DateFormatter.getUtcFormat("dd.MM.yy HH:mm:ss"),
-            // European
-            DateFormatter.getUtcFormat("dd/MM/yy HH:mm:ss") };
+    private static final long serialVersionUID = 4L;
 
     /** The Note we belong to **/
     private Note   note;
@@ -48,7 +36,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     /** The action associated with the comment. */
     private String action;
     /** The timestamp associated with the comment. */
-    private Date   timestamp;
+    private long   timestamp = -1;
 
     /**
      * Create a new comment based on a string in the following format: "Long text comment here [NickName here,
@@ -60,7 +48,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     public NoteComment(Note note, String description) {
         this.note = note;
         text = description;
-        timestamp = new Date();
+        timestamp = new Date().getTime();
     }
 
     /**
@@ -79,7 +67,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
         this.nickname = nickname.replaceAll(",", "");
         this.uid = uid;
         this.action = action;
-        this.timestamp = timestamp;
+        this.timestamp = timestamp.getTime();
     }
 
     /**
@@ -106,7 +94,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      * @return The bug timestamp.
      */
     public Date getTimestamp() {
-        return timestamp;
+        return new Date(timestamp);
     }
 
     /**
@@ -124,12 +112,17 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     @Override
     public String toString() {
         if (nickname != null || action != null) {
-            String date = (timestamp == null) ? "" : ", " + bugDateFormats[0].format(timestamp);
+            String date = (timestamp == -1) ? "" : ", " + DateFormatter.BUG_DAIE_FORMATS[0].format(new Date(timestamp));
             return text + " [" + action + " " + nickname + date + "]";
         }
         return text;
     }
 
+    /**
+     * Check if this is a new comment
+     * 
+     * @return true if new
+     */
     public boolean isNew() {
         return action == null;
     }
@@ -160,8 +153,8 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
                 s.attribute("", "action", "commented");
             }
         }
-        if (timestamp != null) {
-            s.attribute("", "timestamp", note.toJOSMDate(timestamp));
+        if (timestamp != -1) {
+            s.attribute("", "timestamp", note.toJOSMDate(new Date(timestamp)));
         }
         if (nickname != null) {
             s.attribute("", "uid", Integer.toString(uid));

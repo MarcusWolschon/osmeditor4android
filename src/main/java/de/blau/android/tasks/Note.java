@@ -2,7 +2,6 @@ package de.blau.android.tasks;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,22 +30,16 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
 
     /**
      * Date pattern used to parse the 'date' attribute of a 'note' from XML.
      */
     private static final String DATE_PATTERN_NOTE_CREATED_AT = "yyyy-MM-dd HH:mm:ss z";
 
-    /**
-     * This the standard data/time format used in .osn files and elsewhere in the API, and yes it is different than the
-     * above
-     */
-    private final SimpleDateFormat JOSM_DATE = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-
     /** created and closed dates **/
-    private Date created = null;
-    private Date closed  = null;
+    private long created = -1;
+    private long closed  = -1;
 
     /** Bug comments. */
     private ArrayList<NoteComment> comments = null;
@@ -118,17 +111,17 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
                     if ("date_created".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
                         String trimmedDate = parser.getText().trim();
                         try {
-                            created = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate);
+                            created = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate).getTime();
                         } catch (java.text.ParseException pex) {
-                            created = new Date();
+                            created = new Date().getTime();
                         }
                     }
                     if ("date_closed".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
                         String trimmedDate = parser.getText().trim();
                         try {
-                            closed = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate);
+                            closed = DateFormatter.getDate(DATE_PATTERN_NOTE_CREATED_AT, trimmedDate).getTime();
                         } catch (java.text.ParseException pex) {
-                            closed = new Date();
+                            closed = new Date().getTime();
                         }
                     }
                     if ("comments".equals(tagName)) {
@@ -186,7 +179,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
      */
     public Note(int lat, int lon) {
         id = App.getTaskStorage().getNextId();
-        this.created = new Date();
+        this.created = new Date().getTime();
         this.lat = lat;
         this.lon = lon;
         open();
@@ -274,6 +267,12 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         return null;
     }
 
+    /**
+     * Move the position of this Node
+     * 
+     * @param latE7 new latitude WGS84*1E7
+     * @param lonE7 new longitude WGS84*1E7
+     */
     protected void move(int latE7, int lonE7) {
         if (isNew()) {
             lat = latE7;
@@ -285,6 +284,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         return originalState;
     }
 
+    @Override
     public String bugFilterKey() {
         return "NOTES";
     }
@@ -295,11 +295,11 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         s.attribute("", "id", Long.toString(id));
         s.attribute("", "lat", Double.toString((lat / 1E7)));
         s.attribute("", "lon", Double.toString((lon / 1E7)));
-        if (created != null) {
-            s.attribute("", "created_at", toJOSMDate(created));
+        if (created != -1) {
+            s.attribute("", "created_at", toJOSMDate(new Date(created)));
         }
-        if (closed != null) {
-            s.attribute("", "closed_at", toJOSMDate(closed));
+        if (closed != -1) {
+            s.attribute("", "closed_at", toJOSMDate(new Date(closed)));
         }
         if (count() > 0) {
             for (NoteComment c : comments) {
@@ -309,8 +309,15 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         s.endTag("", "note");
     }
 
-    String toJOSMDate(Date date) {
-        String josmDate = JOSM_DATE.format(date);
+    /**
+     * Output a date like JOSM wants it
+     * 
+     * @param date the Date
+     * @return a String in JOSM format
+     */
+    @NonNull
+    String toJOSMDate(@NonNull Date date) {
+        String josmDate = DateFormatter.JOSM_DATE.format(date);
         return josmDate.substring(0, josmDate.length() - 2); // strip last two digits
     }
 }

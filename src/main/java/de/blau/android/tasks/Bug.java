@@ -38,13 +38,13 @@ public abstract class Bug extends Task implements Serializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     String elems;
     String title;
     String subtitle;
     int    level;
-    Date   update;
+    long   update;  // update date in ms since the epoch
 
     /**
      * Default constructor
@@ -111,7 +111,7 @@ public abstract class Bug extends Task implements Serializable {
                 result.append("<br><br>");
             }
         }
-        result.append(context.getString(R.string.bug_long_description_2, update, id));
+        result.append(context.getString(R.string.bug_long_description_2, getLastUpdate(), id));
         return result.toString();
     }
 
@@ -132,7 +132,7 @@ public abstract class Bug extends Task implements Serializable {
      */
     @Override
     public Date getLastUpdate() {
-        return update;
+        return new Date(update);
     }
 
     /**
