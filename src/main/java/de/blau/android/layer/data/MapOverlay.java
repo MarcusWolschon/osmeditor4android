@@ -94,17 +94,19 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private static final int PAN_AND_ZOOM_DOWNLOAD_LIMIT = SHOW_ICONS_LIMIT + 2;
 
     /** half the width/height of a node icon in px */
-    private final int iconRadius;
-
-    private final int iconSelectedBorder;
-
-    private final int houseNumberRadius;
-
-    private final int verticalNumberOffset;
-
-    private Preferences prefs;
-
+    private final int              iconRadius;
+    private final int              iconSelectedBorder;
+    private final int              houseNumberRadius;
+    private final int              verticalNumberOffset;
     private final StorageDelegator delegator;
+    private final Context          context;
+    private final Validator        validator;
+    private final Map              map;
+
+    /**
+     * Preference related fields
+     */
+    private Preferences prefs;
 
     /**
      * show icons for POIs (in a wide sense of the word)
@@ -125,6 +127,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * Download on pan and zoom
      */
     private boolean panAndZoomDownLoad = false;
+
+    /**
+     * Minimum side length for auto-download boxes
+     */
+    private int minDownloadSize = 50;
 
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
@@ -199,17 +206,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private LongHashSet handles;
 
-    private Context context;
-
-    private Validator validator;
-
     private Paint labelBackground;
 
     private float[][] coord = null;
 
     private FloatPrimitiveList points = new FloatPrimitiveList(); // allocate this just once
-
-    private final Map map;
 
     /**
      * Stuff for multipolygon support Instantiate these objects just once
@@ -224,8 +225,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private ThreadPoolExecutor mThreadPool;
 
+    /**
+     * Construct a new OSM data layer
+     * 
+     * @param map the current Map instance
+     */
     @SuppressLint("NewApi")
-    public MapOverlay(final Map map) {
+    public MapOverlay(@NonNull final Map map) {
         this.map = map;
         context = map.getContext();
         prefs = map.getPrefs();
@@ -257,10 +263,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     }
 
     @Override
-    public void onLowMemory() {
-    }
-
-    @Override
     public boolean isReadyToDraw() {
         return true;
     }
@@ -279,21 +281,20 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         @Override
         public void run() {
-            StorageDelegator storageDelegator = App.getDelegator();
-            List<BoundingBox> bbList = new ArrayList<>(storageDelegator.getBoundingBoxes());
+            if (mThreadPool == null) {
+                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+            }
+            List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
             BoundingBox box = new BoundingBox(map.getViewBox());
             box.scale(1.2); // make sides 20% larger
-            box.ensureMinumumSize(prefs.getDownloadRadius() * 2); // enforce a minimum size
+            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
             List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
             for (BoundingBox b : bboxes) {
                 if (b.getWidth() <= 1 || b.getHeight() <= 1) {
                     Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
                     continue;
                 }
-                storageDelegator.addBoundingBox(b);
-                if (mThreadPool == null) {
-                    mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
-                }
+                delegator.addBoundingBox(b);
                 mThreadPool.execute(new Runnable() {
 
                     @Override
@@ -1393,6 +1394,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         showWayIcons = prefs.getShowWayIcons();
         showTolerance = prefs.isToleranceVisible();
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
+        minDownloadSize = prefs.getDownloadRadius() * 2;
         iconCache.clear();
         areaIconCache.clear();
     }

@@ -60,7 +60,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
      * 
      * @param map the current Map instance
      */
-    public MapOverlay(final Map map) {
+    public MapOverlay(@NonNull final Map map) {
         this.map = map;
     }
 
