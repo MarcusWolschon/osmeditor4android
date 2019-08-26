@@ -17,6 +17,7 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.DataStorage;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.rtree.BoundedObject;
@@ -28,7 +29,7 @@ import de.blau.android.util.rtree.RTree;
  * @author simon
  *
  */
-public class TaskStorage implements Serializable {
+public class TaskStorage implements Serializable, DataStorage {
     private static final long               serialVersionUID = 6L;
     private static final String             DEBUG_TAG        = TaskStorage.class.getSimpleName();
     private int                             newId            = -1;
@@ -76,14 +77,8 @@ public class TaskStorage implements Serializable {
         dirty = true;
     }
 
-    /**
-     * Add bounding box to storage
-     * 
-     * Set storage state to dirty as a side effect
-     * 
-     * @param b Boundingbox to add
-     */
-    public synchronized void add(@NonNull BoundingBox b) {
+    @Override
+    public synchronized void addBoundingBox(@NonNull BoundingBox b) {
         boxes.insert(b);
         dirty = true;
     }
@@ -272,11 +267,7 @@ public class TaskStorage implements Serializable {
         return newId--;
     }
 
-    /**
-     * Retrieve all bounding boxes from storage
-     * 
-     * @return list of BoundingBoxes
-     */
+    @Override
     @NonNull
     public List<BoundingBox> getBoundingBoxes() {
         Collection<BoundedObject> queryResult = new ArrayList<>();

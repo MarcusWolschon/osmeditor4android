@@ -144,7 +144,7 @@ public class TransferTasks {
                     Log.d(DEBUG_TAG, "resetting bug storage");
                     bugs.reset();
                 }
-                bugs.add(box);
+                bugs.addBoundingBox(box);
                 Preferences prefs = new Preferences(context);
                 long now = System.currentTimeMillis();
                 for (Task b : result) {

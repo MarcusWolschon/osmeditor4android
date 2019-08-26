@@ -37,6 +37,7 @@ import de.blau.android.osm.MergeResult.Issue;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
+import de.blau.android.util.DataStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
@@ -46,7 +47,7 @@ import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongOsmElementMap;
 import de.blau.android.validation.BaseValidator;
 
-public class StorageDelegator implements Serializable, Exportable {
+public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     private static final String DEBUG_TAG = "StorageDelegator";
 
@@ -2406,14 +2407,9 @@ public class StorageDelegator implements Serializable, Exportable {
         return currentStorage;
     }
 
-    /**
-     * Return the list of BoundingBoxes from the current Storage object
-     * 
-     * @return the current List of BoundingBoxes
-     */
+    @Override
     @NonNull
     public synchronized List<BoundingBox> getBoundingBoxes() {
-        // TODO make a copy?
         return currentStorage.getBoundingBoxes();
     }
 
@@ -2427,11 +2423,7 @@ public class StorageDelegator implements Serializable, Exportable {
         currentStorage.setBoundingBox(box);
     }
 
-    /**
-     * Add a Boundingbox to the List of BoundingBoxes in Storage
-     * 
-     * @param box the BoundingBox to add
-     */
+    @Override
     public synchronized void addBoundingBox(@NonNull BoundingBox box) {
         dirty = true;
         currentStorage.addBoundingBox(box);

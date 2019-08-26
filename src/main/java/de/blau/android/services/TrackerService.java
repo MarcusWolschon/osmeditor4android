@@ -1064,8 +1064,8 @@ public class TrackerService extends Service implements Exportable {
                             Log.d(DEBUG_TAG, "bugAutoDownload very small bb " + b.toString());
                             continue;
                         }
-                        App.getTaskStorage().add(b); // will be filled once
-                                                     // download is complete
+                        App.getTaskStorage().addBoundingBox(b); // will be filled once
+                        // download is complete
                         Log.d(DEBUG_TAG, "bugAutoDownloads loading " + b.toString());
                         TransferTasks.downloadBox(this, prefs.getServer(), b, true, null);
                     }
