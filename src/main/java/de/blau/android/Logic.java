@@ -2538,7 +2538,7 @@ public class Logic {
             if (server.hasMapSplitSource()) {
                 input = MapSplitSource.readBox(ctx, server.getMapSplitSource(), mapBox);
             } else {
-                try (InputStream in = prefs.getServer().getStreamForBox(ctx, mapBox)) {
+                try (InputStream in = server.getStreamForBox(ctx, mapBox)) {
                     final OsmParser osmParser = new OsmParser();
                     osmParser.start(in);
                     input = osmParser.getStorage();
@@ -2587,14 +2587,12 @@ public class Logic {
             } else {
                 result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
             }
-            removeBoundingBox(mapBox);
         } catch (ParserConfigurationException | UnsupportedFormatException e) {
             // crash and burn
             // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
             // network device... need to display what we actually got
             Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
             result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
-            removeBoundingBox(mapBox);
         } catch (OsmServerException e) {
             int code = e.getErrorCode();
             Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
@@ -2607,7 +2605,6 @@ public class Logic {
                     result = new ReadAsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
                 }
             }
-            removeBoundingBox(mapBox);
         } catch (IOException e) {
             if (e instanceof SSLProtocolException) {
                 result = new ReadAsyncResult(ErrorCodes.SSL_HANDSHAKE);
@@ -2615,7 +2612,12 @@ public class Logic {
                 result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
             }
             Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
+        }
+        if (result.getCode() != ErrorCodes.OK) {
             removeBoundingBox(mapBox);
+            if (handler != null) {
+                handler.onError();
+            }
         }
         return result;
     }
