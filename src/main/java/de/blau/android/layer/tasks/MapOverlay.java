@@ -11,6 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -66,6 +67,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     private int minDownloadSize = 50;
 
+    private float maxDownloadSpeed = 30;
+    
     private ThreadPoolExecutor mThreadPool;
 
     private Server server;
@@ -142,8 +145,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
             ViewBox bb = osmv.getViewBox();
 
             int zoomLevel = map.getZoomLevel();
+            
+            Location location = map.getLocation();
 
-            if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad) {
+            if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
                 map.getRootView().removeCallbacks(download);
                 map.getRootView().postDelayed(download, 100);
             }
@@ -349,5 +354,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getBugDownloadRadius() * 2;
         server = prefs.getServer();
+        maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
     }
 }

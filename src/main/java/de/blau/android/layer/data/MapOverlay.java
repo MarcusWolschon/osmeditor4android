@@ -23,6 +23,7 @@ import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -94,10 +95,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private static final int PAN_AND_ZOOM_DOWNLOAD_LIMIT = SHOW_ICONS_LIMIT + 2;
 
     /** half the width/height of a node icon in px */
-    private final int              iconRadius;
-    private final int              iconSelectedBorder;
-    private final int              houseNumberRadius;
-    private final int              verticalNumberOffset;
+    private final int iconRadius;
+    private final int iconSelectedBorder;
+    private final int houseNumberRadius;
+    private final int verticalNumberOffset;
+    private float     maxDownloadSpeed;
+
     private final StorageDelegator delegator;
     private final Context          context;
     private final Validator        validator;
@@ -341,7 +344,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         tmpLocked = logic.isLocked();
 
         inNodeIconZoomRange = zoomLevel > DataStyle.getCurrent().getIconZoomLimit();
-        if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad) {
+
+        Location location = map.getLocation();
+        if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
             map.getRootView().removeCallbacks(download);
             map.getRootView().postDelayed(download, 100);
         }
@@ -1395,6 +1400,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         showTolerance = prefs.isToleranceVisible();
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getDownloadRadius() * 2;
+        maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         iconCache.clear();
         areaIconCache.clear();
     }
