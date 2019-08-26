@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import de.blau.android.Map;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.views.IMapView;
 
 /**
@@ -303,6 +304,15 @@ public abstract class MapViewLayer {
      */
     public boolean isEnabled() {
         return true;
+    }
+
+    /**
+     * Preferences have changed, set any thing we want to cache
+     * 
+     * @param aPreference the current Preferences object
+     */
+    public void setPrefs(@NonNull Preferences aPreference) {
+        // empty
     }
 
     // ===========================================================

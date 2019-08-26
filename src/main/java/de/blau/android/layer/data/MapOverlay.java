@@ -228,6 +228,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     public MapOverlay(final Map map) {
         this.map = map;
         context = map.getContext();
+        prefs = map.getPrefs();
 
         iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
         houseNumberRadius = Density.dpToPx(HOUSE_NUMBER_RADIUS);
@@ -1385,13 +1386,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         tmpDrawingSelectedWays = aSelectedWays;
     }
 
-    /**
-     * Set the current Preferences object for this Map and any thing that needs changing
-     * 
-     * @param ctx Android Context
-     * @param prefs the new Preferences
-     */
-    public void setPrefs(Context ctx, @NonNull final Preferences prefs) {
+    @Override
+    public void setPrefs(@NonNull final Preferences prefs) {
         this.prefs = prefs;
         showIcons = prefs.getShowIcons();
         showWayIcons = prefs.getShowWayIcons();
@@ -1427,7 +1423,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     @Override
     public String getName() {
-        String apiName = prefs.getApiName();
+        String apiName = prefs != null ? prefs.getApiName() : null;
         return apiName != null ? map.getContext().getString(R.string.layer_data_name, apiName) : map.getContext().getString(R.string.layer_data);
     }
 
