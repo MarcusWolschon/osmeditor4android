@@ -358,7 +358,9 @@ public class Storage implements Serializable {
      * @param bbox bounding box to add
      */
     synchronized void addBoundingBox(@NonNull final BoundingBox bbox) {
-        bboxes.add(bbox);
+        if (!bboxes.contains(bbox)) {
+            bboxes.add(bbox);
+        }
     }
 
     /**
