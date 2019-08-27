@@ -37,16 +37,18 @@ import de.blau.android.osm.MergeResult.Issue;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Coordinates;
+import de.blau.android.util.DataStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
 import de.blau.android.validation.BaseValidator;
 
-public class StorageDelegator implements Serializable, Exportable {
+public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     private static final String DEBUG_TAG = "StorageDelegator";
 
@@ -2406,14 +2408,9 @@ public class StorageDelegator implements Serializable, Exportable {
         return currentStorage;
     }
 
-    /**
-     * Return the list of BoundingBoxes from the current Storage object
-     * 
-     * @return the current List of BoundingBoxes
-     */
+    @Override
     @NonNull
     public synchronized List<BoundingBox> getBoundingBoxes() {
-        // TODO make a copy?
         return currentStorage.getBoundingBoxes();
     }
 
@@ -2427,11 +2424,7 @@ public class StorageDelegator implements Serializable, Exportable {
         currentStorage.setBoundingBox(box);
     }
 
-    /**
-     * Add a Boundingbox to the List of BoundingBoxes in Storage
-     * 
-     * @param box the BoundingBox to add
-     */
+    @Override
     public synchronized void addBoundingBox(@NonNull BoundingBox box) {
         dirty = true;
         currentStorage.addBoundingBox(box);
@@ -2453,7 +2446,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return the number of Nodes in API storage
      */
     public int getApiNodeCount() {
-        return apiStorage.getNodes().size();
+        return apiStorage.getNodeCount();
     }
 
     /**
@@ -2462,7 +2455,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return the number of Ways in API storage
      */
     public int getApiWayCount() {
-        return apiStorage.getWays().size();
+        return apiStorage.getWayCount();
     }
 
     /**
@@ -2471,7 +2464,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return the number of Relations in API storage
      */
     public int getApiRelationCount() {
-        return apiStorage.getRelations().size();
+        return apiStorage.getRelationCount();
     }
 
     /**
@@ -2482,7 +2475,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return the element count
      */
     public int getApiElementCount() {
-        return apiStorage.getRelations().size() + apiStorage.getWays().size() + apiStorage.getNodes().size();
+        return apiStorage.getRelationCount() + apiStorage.getWayCount() + apiStorage.getNodeCount();
     }
 
     /**
@@ -3053,6 +3046,55 @@ public class StorageDelegator implements Serializable, Exportable {
                     if (r2 != null) {
                         r2.addParentRelation(r);
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * Safely remove data that is not in/intersects with the provided BoundingBox
+     * 
+     * Doesn't bother with relations
+     * 
+     * @param box the BoundingBox
+     */
+    @Override
+    public synchronized void prune(@NonNull BoundingBox box) {
+        LongHashSet keepNodes = new LongHashSet();
+
+        for (Way w : currentStorage.getWays()) {
+            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds())) {
+                removeReferenceFromParents(w);
+                currentStorage.removeWay(w);
+            } else { // keeping so we need to keep the nodes
+                for (Node n : w.getNodes()) {
+                    keepNodes.put(n.getOsmId());
+                }
+            }
+        }
+        for (Node n : currentStorage.getNodes()) {
+            long nodeId = n.getOsmId();
+            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)) {
+                removeReferenceFromParents(n);
+                currentStorage.removeNode(n);
+            }
+        }
+        BoundingBox.prune(this, box);
+        dirty();
+    }
+
+    /**
+     * Remove the references to downloaded elements from parent Relations
+     * 
+     * @param e the OsmELement we want to remove references for
+     */
+    private void removeReferenceFromParents(@NonNull OsmElement e) {
+        List<Relation> parents = e.getParentRelations();
+        if (parents != null) {
+            for (Relation parent : parents) { // remove link from parent relations
+                List<RelationMember> members = parent.getAllMembers(parent);
+                for (RelationMember member : members) {
+                    member.setElement(null);
                 }
             }
         }

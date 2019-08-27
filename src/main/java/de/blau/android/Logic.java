@@ -2397,112 +2397,8 @@ public class Logic {
 
             @Override
             protected ReadAsyncResult doInBackground(Boolean... arg) {
-                ReadAsyncResult result = new ReadAsyncResult(ErrorCodes.OK);
-                try {
-                    Server server = prefs.getServer();
-                    if (server.hasReadOnly()) {
-                        if (server.hasMapSplitSource()) {
-                            if (!MapSplitSource.intersects(server.getMapSplitSource(), mapBox)) {
-                                return new ReadAsyncResult(ErrorCodes.NO_DATA);
-                            }
-                        } else {
-                            server.getReadOnlyCapabilities();
-                            if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
-                                return new ReadAsyncResult(ErrorCodes.API_OFFLINE);
-                            }
-                            // try to get write capabilities in any case FIXME unclear what we should do if the write
-                            // server is not available
-                            server.getCapabilities();
-                        }
-                    } else {
-                        server.getCapabilities();
-                        if (!(server.apiAvailable() && server.readableDB())) {
-                            return new ReadAsyncResult(ErrorCodes.API_OFFLINE);
-                        }
-                    }
-
-                    Storage input = null;
-                    long startTime = System.currentTimeMillis();
-                    if (server.hasMapSplitSource()) {
-                        Log.d(DEBUG_TAG, "downloadBox reading from MapSplit tile sourse");
-                        input = MapSplitSource.readBox(activity, server.getMapSplitSource(), mapBox);
-                    } else {
-                        try (InputStream in = prefs.getServer().getStreamForBox(activity, mapBox)) {
-                            final OsmParser osmParser = new OsmParser();
-                            osmParser.start(in);
-                            input = osmParser.getStorage();
-                        }
-                    }
-
-                    Log.d(DEBUG_TAG, "downloadBox downloaded and parsed input in " + (System.currentTimeMillis() - startTime) + "ms");
-                    if (arg[0]) { // incremental load
-                        if (!getDelegator().mergeData(input, postMerge)) {
-                            result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
-                        } else {
-                            if (mapBox != null) {
-                                // if we are simply expanding the area no need keep the old bounding boxes
-                                List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
-                                List<BoundingBox> bbs = new ArrayList<>(origBbs);
-                                for (BoundingBox bb : bbs) {
-                                    if (mapBox.contains(bb)) {
-                                        getDelegator().deleteBoundingBox(bb);
-                                    }
-                                }
-                                getDelegator().addBoundingBox(mapBox);
-                            }
-                        }
-                    } else { // replace data with new download
-                        getDelegator().reset(false);
-                        getDelegator().setCurrentStorage(input); // this sets dirty flag
-                        if (mapBox != null) {
-                            Log.d(DEBUG_TAG, "downloadBox setting original bbox");
-                            getDelegator().setOriginalBox(mapBox);
-                        }
-                    }
-                    Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
-                    if (map != null) {
-                        // set to current or previous
-                        viewBox.fitToBoundingBox(map, mapBox != null ? mapBox : getDelegator().getLastBox());
-                    }
-                } catch (SAXException e) {
-                    Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
-                    Exception ce = e.getException();
-                    if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
-                    } else {
-                        result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
-                    }
-                    removeBoundingBox(mapBox);
-                } catch (ParserConfigurationException | UnsupportedFormatException e) {
-                    // crash and burn
-                    // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
-                    // network device... need to display what we actually got
-                    Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
-                    result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
-                    removeBoundingBox(mapBox);
-                } catch (OsmServerException e) {
-                    int code = e.getErrorCode();
-                    Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
-                    if (code == HttpURLConnection.HTTP_BAD_REQUEST) {
-                        // check error messages
-                        Matcher m = Server.ERROR_MESSAGE_BAD_OAUTH_REQUEST.matcher(e.getMessage());
-                        if (m.matches()) {
-                            result = new ReadAsyncResult(ErrorCodes.INVALID_LOGIN);
-                        } else {
-                            result = new ReadAsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
-                        }
-                    }
-                    removeBoundingBox(mapBox);
-                } catch (IOException e) {
-                    if (e instanceof SSLProtocolException) {
-                        result = new ReadAsyncResult(ErrorCodes.SSL_HANDSHAKE);
-                    } else {
-                        result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
-                    }
-                    Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
-                    removeBoundingBox(mapBox);
-                }
-                return result;
+                boolean merge = arg != null && arg[0] != null ? arg[0].booleanValue() : false;
+                return download(activity, prefs.getServer(), mapBox, postMerge, null, merge, false);
             }
 
             @Override
@@ -2569,7 +2465,7 @@ public class Logic {
     }
 
     /**
-     * Loads the area defined by mapBox from the OSM-Server. Static version for auto download
+     * Loads the area defined by mapBox from the OSM-Server.
      * 
      * FIXME try to reduce the code duplication here
      * 
@@ -2577,9 +2473,10 @@ public class Logic {
      * @param server the Server object we are using
      * @param validator the Validator to apply to downloaded data
      * @param mapBox Box defining the area to be loaded.
+     * @param handler TODO
      */
     public synchronized void autoDownloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final Validator validator,
-            @NonNull final BoundingBox mapBox) {
+            @NonNull final BoundingBox mapBox, PostAsyncActionHandler handler) {
 
         mapBox.makeValidForApi();
 
@@ -2590,69 +2487,139 @@ public class Logic {
             }
         };
 
-        new AsyncTask<Void, Void, Integer>() {
+        new AsyncTask<Void, Void, ReadAsyncResult>() {
             @Override
-            protected Integer doInBackground(Void... arg) {
-                int result = 0;
-                try {
-                    Storage input;
-                    if (server.hasMapSplitSource()) {
-                        input = MapSplitSource.readBox(context, server.getMapSplitSource(), mapBox);
-                    } else {
-                        try (InputStream in = server.getStreamForBox(context, mapBox);) {
-                            final OsmParser osmParser = new OsmParser();
-                            osmParser.start(in);
-                            input = osmParser.getStorage();
-                        }
-                    }
-                    if (!getDelegator().mergeData(input, postMerge)) {
-                        result = ErrorCodes.DATA_CONFLICT;
-                    } else {
-                        if (mapBox != null) {
-                            // if we are simply expanding the area no need keep the old bounding boxes
-                            List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
-                            if (origBbs.size() == 1) { // replace original BB if still present
-                                if (getDelegator().isEmpty()) {
-                                    origBbs.clear();
-                                }
-                            }
-                            List<BoundingBox> bbs = new ArrayList<>(origBbs);
-                            for (BoundingBox bb : bbs) {
-                                if (mapBox.contains(bb)) {
-                                    getDelegator().deleteBoundingBox(bb);
-                                }
-                            }
-                            getDelegator().addBoundingBox(mapBox);
-                        }
-                    }
-                } catch (SAXException e) {
-                    Log.e(DEBUG_TAG, "Problem parsing", e);
-                    Exception ce = e.getException();
-                    if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = ErrorCodes.OUT_OF_MEMORY;
-                    } else {
-                        result = ErrorCodes.INVALID_DATA_RECEIVED;
-                    }
-                    removeBoundingBox(mapBox);
-                } catch (ParserConfigurationException | UnsupportedFormatException e) {
-                    // crash and burn
-                    // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
-                    // network device... need to display what we actually got
-                    Log.e(DEBUG_TAG, "Problem parsing", e);
-                    result = ErrorCodes.INVALID_DATA_RECEIVED;
-                    removeBoundingBox(mapBox);
-                } catch (OsmServerException e) {
-                    result = e.getErrorCode();
-                    Log.e(DEBUG_TAG, "Problem downloading", e);
-                    removeBoundingBox(mapBox);
-                } catch (IOException e) {
-                    result = ErrorCodes.NO_CONNECTION;
-                    Log.e(DEBUG_TAG, "Problem downloading", e);
-                    removeBoundingBox(mapBox);
-                }
-                return result;
+            protected ReadAsyncResult doInBackground(Void... arg) {
+                return download(context, prefs.getServer(), mapBox, postMerge, handler, true, true);
             }
         }.execute();
+    }
+
+    /**
+     * Download/Load a bounding box full of OSM data
+     * 
+     * @param ctx an Android Context
+     * @param server the API Server configuration
+     * @param mapBox the BoundingBox
+     * @param postMerge handler to call after merging
+     * @param handler handler to call when everything is finished
+     * @param merge if true merge the data with existing data, if false replace
+     * @param background this is being called in the background and shouldn't do any thing that effects the UI
+     * @return a ReadAsyncResult with detailed result information
+     */
+    public ReadAsyncResult download(@NonNull final Context ctx, @NonNull Server server, @NonNull final BoundingBox mapBox,
+            @Nullable final PostMergeHandler postMerge, @Nullable final PostAsyncActionHandler handler, boolean merge, boolean background) {
+        ReadAsyncResult result = new ReadAsyncResult(ErrorCodes.OK);
+        try {
+            if (!background) {
+                if (server.hasReadOnly()) {
+                    if (server.hasMapSplitSource()) {
+                        if (!MapSplitSource.intersects(server.getMapSplitSource(), mapBox)) {
+                            return new ReadAsyncResult(ErrorCodes.NO_DATA);
+                        }
+                    } else {
+                        server.getReadOnlyCapabilities();
+                        if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
+                            return new ReadAsyncResult(ErrorCodes.API_OFFLINE);
+                        }
+                        // try to get write capabilities in any case FIXME unclear what we should do if the write
+                        // server is not available
+                        server.getCapabilities();
+                    }
+                } else {
+                    server.getCapabilities();
+                    if (!(server.apiAvailable() && server.readableDB())) {
+                        return new ReadAsyncResult(ErrorCodes.API_OFFLINE);
+                    }
+                }
+            }
+
+            Storage input = null;
+            if (server.hasMapSplitSource()) {
+                input = MapSplitSource.readBox(ctx, server.getMapSplitSource(), mapBox);
+            } else {
+                try (InputStream in = server.getStreamForBox(ctx, mapBox)) {
+                    final OsmParser osmParser = new OsmParser();
+                    osmParser.start(in);
+                    input = osmParser.getStorage();
+                }
+            }
+
+            if (merge) { // incremental load
+                if (!getDelegator().mergeData(input, postMerge)) {
+                    result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
+                } else {
+                    if (mapBox != null) {
+                        // if we are simply expanding the area no need keep the old bounding boxes
+                        List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
+                        List<BoundingBox> bbs = new ArrayList<>(origBbs);
+                        for (BoundingBox bb : bbs) {
+                            if (mapBox.contains(bb)) {
+                                getDelegator().deleteBoundingBox(bb);
+                            }
+                        }
+                        getDelegator().addBoundingBox(mapBox);
+                    }
+                }
+            } else { // replace data with new download
+                getDelegator().reset(false);
+                getDelegator().setCurrentStorage(input); // this sets dirty flag
+                if (mapBox != null) {
+                    Log.d(DEBUG_TAG, "downloadBox setting original bbox");
+                    getDelegator().setOriginalBox(mapBox);
+                }
+            }
+            if (!background) {
+                Map map = ctx instanceof Main ? ((Main) ctx).getMap() : null;
+                if (map != null) {
+                    // set to current or previous
+                    viewBox.fitToBoundingBox(map, mapBox != null ? mapBox : getDelegator().getLastBox());
+                }
+            }
+            if (handler != null) {
+                handler.onSuccess();
+            }
+        } catch (SAXException e) {
+            Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
+            Exception ce = e.getException();
+            if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
+                result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
+            } else {
+                result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
+            }
+        } catch (ParserConfigurationException | UnsupportedFormatException e) {
+            // crash and burn
+            // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
+            // network device... need to display what we actually got
+            Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
+            result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
+        } catch (OsmServerException e) {
+            int code = e.getErrorCode();
+            Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
+            if (code == HttpURLConnection.HTTP_BAD_REQUEST) {
+                // check error messages
+                Matcher m = Server.ERROR_MESSAGE_BAD_OAUTH_REQUEST.matcher(e.getMessage());
+                if (m.matches()) {
+                    result = new ReadAsyncResult(ErrorCodes.INVALID_LOGIN);
+                } else {
+                    result = new ReadAsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
+                }
+            }
+        } catch (IOException e) {
+            if (e instanceof SSLProtocolException) {
+                result = new ReadAsyncResult(ErrorCodes.SSL_HANDSHAKE);
+            } else {
+                result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
+            }
+            Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
+        }
+        if (result.getCode() != ErrorCodes.OK) {
+            removeBoundingBox(mapBox);
+            if (handler != null) {
+                handler.onError();
+            }
+        }
+        return result;
     }
 
     /**

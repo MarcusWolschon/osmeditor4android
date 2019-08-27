@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -16,13 +19,16 @@ import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.PruneableInterface;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
@@ -30,14 +36,20 @@ import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TaskStorage;
+import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface<Task>, ConfigureInterface {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface<Task>, ConfigureInterface, PruneableInterface {
 
     private static final String DEBUG_TAG = "tasks";
+
+    public static final String FILENAME = "selectedtask.res";
+
+    private static final int PAN_AND_ZOOM_DOWNLOAD_LIMIT = 16;
+    private static final int SHOW_TASKS_LIMIT            = 13;
 
     private boolean enabled = false;
 
@@ -49,19 +61,31 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     private transient ReentrantLock readingLock = new ReentrantLock();
 
-    public static final String FILENAME = "selectedtask.res";
-
     private transient SavingHelper<Task> savingHelper = new SavingHelper<>();
 
     private Task selected = null;
+
+    private boolean panAndZoomDownLoad = false;
+
+    private int minDownloadSize = 50;
+
+    private float maxDownloadSpeed = 30;
+
+    private ThreadPoolExecutor mThreadPool;
+
+    private Server server;
+
+    private final Context context;
 
     /**
      * Construct a new task layer
      * 
      * @param map the current Map instance
      */
-    public MapOverlay(final Map map) {
+    public MapOverlay(@NonNull final Map map) {
         this.map = map;
+        context = map.getContext();
+        setPrefs(map.getPrefs());
     }
 
     @Override
@@ -70,15 +94,67 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
         return enabled;
     }
 
+    /**
+     * Runnable for downloading data
+     * 
+     * There is some code duplication here, however attempts to merge this didn't work out
+     */
+    Runnable download = new Runnable() {
+
+        @Override
+        public void run() {
+            if (mThreadPool == null) {
+                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+            }
+            List<BoundingBox> bbList = new ArrayList<>(tasks.getBoundingBoxes());
+            BoundingBox box = new BoundingBox(map.getViewBox());
+            box.scale(1.2); // make sides 20% larger
+            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
+            List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
+            for (BoundingBox b : bboxes) {
+                if (b.getWidth() <= 1 || b.getHeight() <= 1) {
+                    Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
+                    continue;
+                }
+                tasks.addBoundingBox(b);
+                mThreadPool.execute(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        TransferTasks.downloadBox(context, server, b, true, new PostAsyncActionHandler() {
+
+                            @Override
+                            public void onSuccess() {
+                                invalidate();
+                            }
+
+                            @Override
+                            public void onError() {
+                                // do nothing
+                            }
+
+                        });
+                    }
+                });
+            }
+        }
+    };
+
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        if (isVisible && enabled) {
 
-            // the idea is to have the circles a bit bigger when zoomed in, not so
-            // big when zoomed out
-            // currently we don't adjust the icon size for density final float radius = Density.dpToPx(1.0f +
-            // osmv.getZoomLevel() / 2.0f);
+        int zoomLevel = map.getZoomLevel();
+
+        if (isVisible && enabled && zoomLevel >= SHOW_TASKS_LIMIT) {
+
             ViewBox bb = osmv.getViewBox();
+
+            Location location = map.getLocation();
+
+            if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
+                map.getRootView().removeCallbacks(download);
+                map.getRootView().postDelayed(download, 100);
+            }
 
             //
             int w = map.getWidth();
@@ -203,6 +279,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }
 
+    @Override
+    public void prune() {
+        BoundingBox pruneBox = new BoundingBox(map.getViewBox());
+        pruneBox.scale(1.6);
+        tasks.prune(pruneBox);
+    }
+
     /**
      * Stores the current state to the default storage file
      * 
@@ -273,5 +356,14 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     @Override
     public void setSelected(Task o) {
         // not used
+    }
+
+    @Override
+    public void setPrefs(Preferences prefs) {
+        enabled = prefs.areBugsEnabled();
+        panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
+        minDownloadSize = prefs.getBugDownloadRadius() * 2;
+        server = prefs.getServer();
+        maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
     }
 }

@@ -23,6 +23,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
+import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -33,6 +34,9 @@ import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.StorageDelegator;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
@@ -43,7 +47,7 @@ import de.blau.android.resources.TileLayerServer;
 public class LayerDialogTest {
 
     private static final int VISIBLE_BUTTON = 0;
-    public static final int EXTENT_BUTTON  = 1;
+    public static final int  EXTENT_BUTTON  = 1;
     private static final int MENU_BUTTON    = 3;
 
     Context              context         = null;
@@ -139,8 +143,38 @@ public class LayerDialogTest {
         Assert.assertFalse(TestUtils.clickText(device, false, "Toilets", false)); // nothing should happen
         visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
+
         TestUtils.clickText(device, true, context.getString(R.string.done), false);
         Assert.assertTrue(map.getDataLayer().isVisible());
+
+    }
+
+    /**
+     * Show dialog, zoom to extent, hide layer, try to select object, show layer
+     */
+    @Test
+    public void dataLayerPrune() {
+        TestUtils.zoomToLevel(main, 22);
+        String dataLayerName = map.getDataLayer().getName();
+        StorageDelegator delegator = App.getDelegator();
+        Assert.assertEquals(929, delegator.getCurrentStorage().getNodeCount());
+        Assert.assertEquals(99, delegator.getCurrentStorage().getWayCount());
+        Assert.assertEquals(5, delegator.getCurrentStorage().getRelationCount());
+        TestUtils.unlock();
+        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, true);
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        TestUtils.clickHome(device);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.prune), true));
+
+        TestUtils.clickText(device, true, context.getString(R.string.done), false);
+
+        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 3465444349L));
+        Assert.assertNull(delegator.getOsmElement(Way.NAME, 206010144L));
+        Assert.assertEquals(387, delegator.getCurrentStorage().getNodeCount());
+        Assert.assertEquals(14, delegator.getCurrentStorage().getWayCount());
+        Assert.assertEquals(5, delegator.getCurrentStorage().getRelationCount());
     }
 
     /**

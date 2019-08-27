@@ -88,10 +88,16 @@
             <item
                 android:id="@+id/menu_transfer_upload"
                 android:title="@string/menu_transfer_upload" />
-            <item
-                android:id="@+id/menu_gps_autodownload"
-                android:title="@string/menu_gps_autodownload"
-                android:checkable="true" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_enable_gps_autodownload"
+                    android:checkable="true"
+                    android:title="@string/menu_enable_gps_autodownload" />
+                <item
+                    android:id="@+id/menu_enable_pan_and_zoom_auto_download"
+                    android:checkable="true"
+                    android:title="@string/menu_enable_pan_and_zoom_auto_download" />
+            </group>
             <item
                 android:id="@+id/menu_transfer_close_changeset"
                 android:title="@string/menu_transfer_close_changeset" />

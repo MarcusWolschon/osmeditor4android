@@ -49,6 +49,7 @@ import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
@@ -592,6 +593,18 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                             ((DiscardInterface) layer).discard(getContext());
                             TableRow row = (TableRow) button.getTag();
                             tl.removeView(row);
+                        }
+                        return true;
+                    }
+                });
+            }
+            if (layer instanceof PruneableInterface) {
+                MenuItem item = popup.getMenu().add(R.string.prune);
+                item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (layer != null) {
+                            ((PruneableInterface) layer).prune();
                         }
                         return true;
                     }

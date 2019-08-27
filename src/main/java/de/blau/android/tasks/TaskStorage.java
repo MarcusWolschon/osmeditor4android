@@ -17,9 +17,9 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.DataStorage;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
-import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 
 /**
@@ -28,12 +28,12 @@ import de.blau.android.util.rtree.RTree;
  * @author simon
  *
  */
-public class TaskStorage implements Serializable {
+public class TaskStorage implements Serializable, DataStorage {
     private static final long               serialVersionUID = 6L;
     private static final String             DEBUG_TAG        = TaskStorage.class.getSimpleName();
     private int                             newId            = -1;
-    private RTree                           tasks;
-    private RTree                           boxes;
+    private RTree<Task>                     tasks;
+    private RTree<BoundingBox>              boxes;
     private Map<Long, MapRouletteChallenge> challenges;
     private transient boolean               dirty            = true;
 
@@ -59,8 +59,8 @@ public class TaskStorage implements Serializable {
      * Reset storage to initial values
      */
     public synchronized void reset() {
-        tasks = new RTree(30, 100);
-        boxes = new RTree(2, 20);
+        tasks = new RTree<>(30, 100);
+        boxes = new RTree<>(2, 20);
         dirty = true;
     }
 
@@ -76,14 +76,8 @@ public class TaskStorage implements Serializable {
         dirty = true;
     }
 
-    /**
-     * Add bounding box to storage
-     * 
-     * Set storage state to dirty as a side effect
-     * 
-     * @param b Boundingbox to add
-     */
-    public synchronized void add(@NonNull BoundingBox b) {
+    @Override
+    public synchronized void addBoundingBox(@NonNull BoundingBox b) {
         boxes.insert(b);
         dirty = true;
     }
@@ -107,7 +101,8 @@ public class TaskStorage implements Serializable {
      * 
      * @param b BoundingBox to remove
      */
-    public synchronized void delete(@NonNull BoundingBox b) {
+    @Override
+    public synchronized void deleteBoundingBox(@NonNull BoundingBox b) {
         boxes.remove(b);
         dirty = true;
     }
@@ -120,15 +115,12 @@ public class TaskStorage implements Serializable {
      * @return true if t was found
      */
     public boolean contains(@NonNull Task t) {
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+        Collection<Task> queryResult = new ArrayList<>();
         tasks.query(queryResult, t.getLon(), t.getLat());
         Log.d(DEBUG_TAG, "candidates for contain " + queryResult.size());
-        for (BoundedObject bo : queryResult) {
-            if (t instanceof Note && bo instanceof Note && t.getId() == ((Task) bo).getId()) {
-                return true;
-            } else if (t instanceof OsmoseBug && bo instanceof OsmoseBug && t.getId() == ((Task) bo).getId()) {
-                return true;
-            } else if (t instanceof CustomBug && bo instanceof CustomBug && t.getId() == ((Task) bo).getId()) {
+        Class<? extends Task> c = t.getClass();
+        for (Task t2 : queryResult) {
+            if (c.isInstance(t2) && t.getId() == t2.getId()) {
                 return true;
             }
         }
@@ -143,12 +135,12 @@ public class TaskStorage implements Serializable {
      */
     @Nullable
     public Task get(@NonNull Task t) {
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+        Collection<Task> queryResult = new ArrayList<>();
         tasks.query(queryResult, t.getLon(), t.getLat());
         Log.d(DEBUG_TAG, "candidates for get " + queryResult.size());
-        for (BoundedObject bo : queryResult) {
-            if (t.getId() == ((Task) bo).getId() && t.getClass().equals(bo.getClass())) {
-                return (Task) bo;
+        for (Task t2 : queryResult) {
+            if (t.getId() == t2.getId() && t.getClass().equals(t2.getClass())) {
+                return t2;
             }
         }
         return null;
@@ -161,14 +153,10 @@ public class TaskStorage implements Serializable {
      */
     @NonNull
     public List<Task> getTasks() {
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+        List<Task> queryResult = new ArrayList<>();
         tasks.query(queryResult);
         Log.d(DEBUG_TAG, "getTasks result count (no BB) " + queryResult.size());
-        List<Task> result = new ArrayList<>();
-        for (BoundedObject bo : queryResult) {
-            result.add((Task) bo);
-        }
-        return result;
+        return queryResult;
     }
 
     /**
@@ -179,14 +167,10 @@ public class TaskStorage implements Serializable {
      */
     @NonNull
     public List<Task> getTasks(@NonNull BoundingBox box) {
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+        List<Task> queryResult = new ArrayList<>();
         tasks.query(queryResult, box.getBounds());
         Log.d(DEBUG_TAG, "getTasks result count " + queryResult.size());
-        List<Task> result = new ArrayList<>();
-        for (BoundedObject bo : queryResult) {
-            result.add((Task) bo);
-        }
-        return result;
+        return queryResult;
     }
 
     /**
@@ -272,20 +256,12 @@ public class TaskStorage implements Serializable {
         return newId--;
     }
 
-    /**
-     * Retrieve all bounding boxes from storage
-     * 
-     * @return list of BoundingBoxes
-     */
+    @Override
     @NonNull
     public List<BoundingBox> getBoundingBoxes() {
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+        List<BoundingBox> queryResult = new ArrayList<>();
         boxes.query(queryResult);
-        List<BoundingBox> result = new ArrayList<>();
-        for (BoundedObject bo : queryResult) {
-            result.add((BoundingBox) bo);
-        }
-        return result;
+        return queryResult;
     }
 
     /**
@@ -296,14 +272,21 @@ public class TaskStorage implements Serializable {
      */
     @NonNull
     public List<BoundingBox> getBoundingBoxes(@NonNull BoundingBox box) {
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+        List<BoundingBox> queryResult = new ArrayList<>();
         boxes.query(queryResult, box.getBounds());
         Log.d(DEBUG_TAG, "getBoundingBoxes result count " + queryResult.size());
-        List<BoundingBox> result = new ArrayList<>();
-        for (BoundedObject bo : queryResult) {
-            result.add((BoundingBox) bo);
+        return queryResult;
+    }
+
+    @Override
+    public synchronized void prune(@NonNull BoundingBox box) {
+        for (Task b : getTasks()) {
+            if (!b.hasBeenChanged() && !box.contains(b.getLon(), b.getLat())) {
+                tasks.remove(b);
+            }
         }
-        return result;
+        BoundingBox.prune(this, box);
+        dirty = true;
     }
 
     /**

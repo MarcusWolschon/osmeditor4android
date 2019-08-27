@@ -10,6 +10,10 @@
 <p>This is a significant behaviour change relative to earlier versions. When the property editor is invoked the best preset will be applied (without optional tags), with other words fields will be shown with empty values for such tags.</p>
 <p>Automatically applying the preset has some dangers as, depending on the preset, existing values could be overwritten, if that happens a warning will be shown.</p>
 <p>The feature can be turned off in the <a href="Advanced%20preferences.md">Advanced preferences</a>.</p>
+<h3>Pan and zoom auto downloading</h3>
+<p>This release adds a facility for download data and tasks in a conventional way by retrieving the data covered by the current screen. To keep the amount of data in memory in check a manual facility to prune the data in storage to the screen contents (plus a tolerance) is available via the layer dialog entries for the data and task layers. Additionally the data layer will try to &quot;auto-prune&quot; the stored data once it has reached, currently hard wired, limits.</p>
+<p>The auto-download speed limit preferences will be observed both for data and tasks.</p>
+<p>IMPORTANT: this facility should only be used with caution as it has the potential to severely tax both the OpenStreetMap APIs and your device. The former can be reduced by using an offline data source.</p>
 <h3>Internal photo viewer</h3>
 <p>The internal viewer is used be default in place of trying to start an external on device gallery or viewer app, it allows deleting and &quot;sharing&quot; of photos directly from Vespucci. When started via a click on a photo icon it will load references to all photos currently in view.</p>
 <p>In the current version the photo is shown in a dialog, however we intend to integrate it in a split window view in the future.</p>

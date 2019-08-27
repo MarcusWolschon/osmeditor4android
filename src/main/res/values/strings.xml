@@ -291,6 +291,8 @@
     <string name="tip_check_label">Stop showing optional tips</string>
     <string name="tip_undo">Long pressing the undo button will show all undo and redo checkpoints.</string>
     <string name="tip_imagery_privacy">Background and overlay layers are provided by third parties. Using a layer transmits your network address and a rough indication of the area you are looking at to the provider.&lt;p&gt;If the provider has supplied privacy policy information, you can view it with the \"Info\" menu item in the layer dialog. </string>
+    <string name="tip_pan_and_zoom_auto_download">Pan and zoom auto download should be used with caution as it has the potential to severely tax both the OpenStreetMap APIs and your device.&lt;p&gt;The load on the API servers can be 
+avoided by using an offline data source.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
@@ -454,6 +456,7 @@
     <string name="clear">Clear</string>
     <string name="discard">Discard</string>
     <string name="retry">Retry</string>
+    <string name="prune">Prune</string>
     <!-- Read a file -->
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>
@@ -597,7 +600,8 @@
     <string name="menu_gps_import">Import GPX track</string>
     <string name="menu_gps_goto_start">Go to start of GPX track</string>
     <string name="menu_gps_goto_first_waypoint">Go to first waypoint</string>
-    <string name="menu_gps_autodownload">Auto download</string>
+    <string name="menu_enable_gps_autodownload">GPS auto download</string>
+    <string name="menu_enable_pan_and_zoom_auto_download">Pan and zoom auto download</string>
     <string name="menu_transfer">Transfer…</string>
     <string name="menu_transfer_download_current">Download current view</string>
     <string name="menu_transfer_download_current_add">Add current view to download</string>

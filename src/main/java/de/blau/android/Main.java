@@ -1698,8 +1698,10 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_goto).setEnabled(locationProviderEnabled);
         menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
         menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && (networkConnected || hasMapSplitSource))
+        menu.findItem(R.id.menu_enable_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && (networkConnected || hasMapSplitSource))
                 .setChecked(prefs.getAutoDownload());
+        menu.findItem(R.id.menu_enable_pan_and_zoom_auto_download).setEnabled(networkConnected || hasMapSplitSource)
+                .setChecked(prefs.getPanAndZoomAutoDownload());
         menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
                 .setChecked(prefs.getBugAutoDownload());
 
@@ -2095,10 +2097,36 @@ public class Main extends FullScreenAppCompatActivity
             }
             return true;
 
-        case R.id.menu_gps_autodownload:
-            prefs.setAutoDownload(!prefs.getAutoDownload());
+        case R.id.menu_enable_gps_autodownload:
+            Log.d(DEBUG_TAG, "gps auto download menu");
+            if (prefs.getAutoDownload()) {
+                // already selected turn off
+                prefs.setAutoDownload(false);
+                item.setChecked(false);
+            } else {
+                prefs.setAutoDownload(true);
+                item.setChecked(true);
+                prefs.setPanAndZoomAutoDownload(false);
+            }
             startStopAutoDownload();
-            return true;
+            map.setPrefs(this, prefs);
+            break;
+
+        case R.id.menu_enable_pan_and_zoom_auto_download:
+            Log.d(DEBUG_TAG, "pan and zoom auto download menu");
+            if (prefs.getPanAndZoomAutoDownload()) {
+                // already selected turn off
+                prefs.setPanAndZoomAutoDownload(false);
+                item.setChecked(false);
+            } else {
+                prefs.setPanAndZoomAutoDownload(true);
+                item.setChecked(true);
+                prefs.setAutoDownload(false);
+                Tip.showDialog(this, R.string.tip_pan_and_zoom_auto_download_key, R.string.tip_pan_and_zoom_auto_download);
+            }
+            startStopAutoDownload();
+            map.setPrefs(this, prefs);
+            break;
 
         case R.id.menu_transfer_download_current:
             onMenuDownloadCurrent(false);
@@ -2758,7 +2786,7 @@ public class Main extends FullScreenAppCompatActivity
             synchronized (setViewBoxLock) {
                 setViewBox = false; // stop setting the view box in onResume
                 Log.d(DEBUG_TAG, "opening empty map on " + box.toString());
-                App.getLogic().newEmptyMap(this, new ViewBox(box));
+                App.getLogic().newEmptyMap(this, ViewBox.getMaxMercatorExtent());
             }
         }
     }

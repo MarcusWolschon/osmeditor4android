@@ -45,6 +45,8 @@ Currently it is not possible to change the ordering or add more than one layer o
         * __Disable__ Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
     * Data layer.
         * __Configure...__ Allows selection and configuration of the current OSM data sources. Same contents as the corresponding preference screen.
+    * Data and Tasks layers.
+        * __Prune__ remove downloaded data from storage that is outside of the current screen.
 * __+__ button:
     * for disabled layers it will show a corresponding "Add ..." entry that will turn the layer on.
     * Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.
@@ -107,7 +109,8 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Download at other location** - shows a form that lets you enter coordinates, search for a location or enter coordinates directly, and then download an area around that location *(requires network connectivity)*
  * **Upload data to OSM server** - upload edits to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available *(requires authentication)* *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
- * **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+ * **GPS auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+ * **Pan and zoom auto download** - download the area shown in the current screen automatically *(requires network connectivity)*
  * **File...** - saving and loading OSM data to/from on device files.
     * **Export changes to OSC file** - write a ".osc" format file containing the current edits
     * **Apply changes from OSC file** - read a ".osc" format file and apply its contents

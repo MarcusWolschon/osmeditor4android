@@ -44,8 +44,6 @@ public class Storage implements Serializable {
         ways = new LongOsmElementMap<>();
         relations = new LongOsmElementMap<>();
         bboxes = new ArrayList<>();
-        // a default entry may not make sense
-        bboxes.add(new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7));
     }
 
     /**
@@ -132,7 +130,7 @@ public class Storage implements Serializable {
      */
     @NonNull
     public List<Node> getNodes(@NonNull BoundingBox box) {
-        ArrayList<Node> result = new ArrayList<>(nodes.size());
+        List<Node> result = new ArrayList<>(nodes.size());
         List<Node> list = nodes.values();
         int listSize = list.size();
         for (int i = 0; i < listSize; i++) {
@@ -142,6 +140,15 @@ public class Storage implements Serializable {
             }
         }
         return result;
+    }
+
+    /**
+     * Get how many nodes there are in storage
+     * 
+     * @return the current Node count
+     */
+    public int getNodeCount() {
+        return nodes.size();
     }
 
     /**
@@ -178,12 +185,30 @@ public class Storage implements Serializable {
     }
 
     /**
+     * Get how many ways there are in storage
+     * 
+     * @return the current Way count
+     */
+    public int getWayCount() {
+        return ways.size();
+    }
+
+    /**
      * Get a unmodifiable list of all relations
      * 
      * @return list containing all relations
      */
     public List<Relation> getRelations() {
         return Collections.unmodifiableList(relations.values());
+    }
+
+    /**
+     * Get how many relations there are in storage
+     * 
+     * @return the current Relation count
+     */
+    public int getRelationCount() {
+        return relations.size();
     }
 
     /**
@@ -375,7 +400,7 @@ public class Storage implements Serializable {
     /**
      * Get the last added bounding box
      * 
-     * @return the last BoundingBox or an empty one
+     * @return the last BoundingBox or one covering the whole mercator extent
      */
     @NonNull
     synchronized BoundingBox getLastBox() {
@@ -384,7 +409,7 @@ public class Storage implements Serializable {
             return bboxes.get(s - 1);
         }
         Log.e(DEBUG_TAG, "Bounding box list empty");
-        return new BoundingBox(); // empty box
+        return ViewBox.getMaxMercatorExtent(); // full extent
     }
 
     /**

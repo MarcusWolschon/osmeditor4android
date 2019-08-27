@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
+import de.blau.android.util.DataStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 
@@ -24,9 +25,9 @@ import de.blau.android.util.rtree.BoundedObject;
  * @author simon
  */
 public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedObject {
-    
+
     private static final long serialVersionUID = -2708721312405863618L;
-    
+
     private static final String DEBUG_TAG = "BoundingBox";
 
     private static final String MINLAT_ATTR = "minlat";
@@ -34,7 +35,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     private static final String MAXLAT_ATTR = "maxlat";
     private static final String MAXLON_ATTR = "maxlon";
     private static final String ORIGIN_ATTR = "origin";
-    private static final String BOUNDS_TAG = "bounds";
+    private static final String BOUNDS_TAG  = "bounds";
 
     /**
      * left border of the bounding box, multiplied by 1E7
@@ -644,6 +645,29 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
+     * Clip this box to the intersection with the provided BoundingBox
+     * 
+     * This assumes that the boxes do actually intersect
+     * 
+     * @param box the other BoundingBox
+     */
+    public void intersection(@NonNull BoundingBox box) {
+        if (left < box.left) {
+            left = box.left;
+        }
+        if (right > box.right) {
+            right = box.right;
+        }
+        if (top > box.top) {
+            top = box.top;
+        }
+        if (bottom < box.bottom) {
+            bottom = box.bottom;
+        }
+        calcDimensions();
+    }
+
+    /**
      * Return true if box is empty
      * 
      * @return true if left equals right and top equals bottom
@@ -655,6 +679,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     /**
      * Given a list of existing bounding boxes and a new bbox. Return a list of pieces of the new bbox that complete the
      * coverage
+     * 
+     * NOTE: newBox will be modified, if you need to retain the original, make a copy before calling this.
      * 
      * @param existing existing list of bounding boxes
      * @param newBox new bounding box
@@ -699,6 +725,26 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
+     * Prune a list of BoundingBoxes in a DataStorage to box
+     * 
+     * @param storage the DataStorage
+     * @param box the BoundingBox
+     */
+    public static void prune(@NonNull DataStorage storage, @NonNull BoundingBox box) {
+        for (BoundingBox b : new ArrayList<>(storage.getBoundingBoxes())) {
+            if (!box.contains(b)) {
+                if (box.intersects(b)) {
+                    b.intersection(box);
+                } else {
+                    storage.deleteBoundingBox(b);
+                }
+            } else if (b.contains(box)) {
+                b.intersection(box); // shrink the box
+            }
+        }
+    }
+
+    /**
      * Expand the bounding box by d meters on every side Clamps the resulting coordinates to legal values
      * 
      * @param d distance in meters to expand the box
@@ -711,6 +757,45 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(top / 1E7D))) * 1E7D);
         left = Math.max(-GeoMath.MAX_LON_E7, left - deltaHE7);
         right = Math.min(GeoMath.MAX_LON_E7, right + deltaHE7);
+        calcDimensions();
+    }
+
+    /**
+     * Expand the bounding box so that it is at least d long in each dimension Clamps the resulting coordinates to legal
+     * values
+     * 
+     * @param d minimum distance in meters for each size
+     */
+    public void ensureMinumumSize(double d) {
+        double min = GeoMath.convertMetersToGeoDistance(d);
+        int minE7 = (int) (min * 1E7);
+        if (height < minE7) {
+            int deltaE7 = (minE7 - height) / 2;
+            top = Math.min(GeoMath.MAX_LAT_E7, top + deltaE7);
+            bottom = Math.max(-GeoMath.MAX_LAT_E7, bottom - deltaE7);
+        }
+        int minWE7 = (int) ((min / Math.cos(Math.toRadians(top / 1E7D))) * 1E7D);
+        if (width < minWE7) {
+            long deltaWE7 = (minWE7 - width) / 2;
+            left = (int) Math.max(-GeoMath.MAX_LON_E7, left - deltaWE7);
+            right = (int) Math.min(GeoMath.MAX_LON_E7, right + deltaWE7);
+        }
+        calcDimensions();
+    }
+
+    /**
+     * Scale the bounding box sides by a factor. Clamps the resulting coordinates to legal values
+     * 
+     * @param f factor to make the sides larger
+     */
+    public void scale(double f) {
+        int hDeltaE7 = (int) (height * f - height) / 2;
+        top = Math.min(GeoMath.MAX_LAT_E7, top + hDeltaE7);
+        bottom = Math.max(-GeoMath.MAX_LAT_E7, bottom - hDeltaE7);
+        int wDeltaE7 = (int) (width * f - width) / 2;
+        left = Math.max(-GeoMath.MAX_LON_E7, left - wDeltaE7);
+        right = Math.min(GeoMath.MAX_LON_E7, right + wDeltaE7);
+        calcDimensions();
     }
 
     /*
