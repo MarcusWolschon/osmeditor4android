@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
+import de.blau.android.util.DataStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 
@@ -644,6 +645,29 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
+     * Clip this box to the intersection with the provided BoundingBox
+     * 
+     * This assumes that the boxes do actually intersect
+     * 
+     * @param box the other BoundingBox
+     */
+    public void intersection(@NonNull BoundingBox box) {
+        if (left < box.left) {
+            left = box.left;
+        }
+        if (right > box.right) {
+            right = box.right;
+        }
+        if (top > box.top) {
+            top = box.top;
+        }
+        if (bottom < box.bottom) {
+            bottom = box.bottom;
+        }
+        calcDimensions();
+    }
+
+    /**
      * Return true if box is empty
      * 
      * @return true if left equals right and top equals bottom
@@ -698,6 +722,26 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
             result = temp;
         }
         return result;
+    }
+
+    /**
+     * Prune a list of BoundingBoxes in a DataStorage to box
+     * 
+     * @param storage the DataStorage
+     * @param box the BoundingBox
+     */
+    public static void prune(@NonNull DataStorage storage, @NonNull BoundingBox box) {
+        for (BoundingBox b : new ArrayList<>(storage.getBoundingBoxes())) {
+            if (!box.contains(b)) {
+                if (box.intersects(b)) {
+                    b.intersection(box);
+                } else {
+                    storage.deleteBoundingBox(b);
+                }
+            } else if (b.contains(box)) {
+                b.intersection(box); // shrink the box
+            }
+        }
     }
 
     /**

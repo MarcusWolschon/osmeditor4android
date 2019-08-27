@@ -22,4 +22,18 @@ public interface DataStorage {
      * @param box BoundingBox to add
      */
     void addBoundingBox(@NonNull BoundingBox box);
+    
+    /**
+     * Delete a BoundingBox from the List of BoundingBoxes
+     * 
+     * @param box the BoundingBox to delete
+     */
+    void deleteBoundingBox(@NonNull BoundingBox box);
+    
+    /**
+     * Safely remove data that is not in/intersects with the provided BoundingBox
+     * 
+     * @param box the BoundingBox
+     */
+    void prune(@NonNull BoundingBox box); 
 }

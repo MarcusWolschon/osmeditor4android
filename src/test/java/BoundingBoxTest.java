@@ -63,9 +63,17 @@ public class BoundingBoxTest {
         assertTrue(newBox2.intersects(newBox));
 
         assertTrue(BoundingBox.intersects(newBox2, newBox));
-        newBox2 = new BoundingBox(10.0, 10.0, 12.0, 12.0);
-        assertTrue(!newBox2.intersects(newBox));
-        assertTrue(!BoundingBox.intersects(newBox2, newBox));
-        // assertTrue(BoundingBox.intersects(node,newBox));
+        BoundingBox newBox3 = new BoundingBox(10.0, 10.0, 12.0, 12.0);
+        assertTrue(!newBox3.intersects(newBox));
+        assertTrue(!BoundingBox.intersects(newBox3, newBox));
+
+        BoundingBox newBox4 = new BoundingBox(15.0, 20.0, 25.0, 30.0);
+
+        assertTrue(BoundingBox.intersects(newBox2, newBox4));
+        newBox2.intersection(newBox4);
+        assertEquals((int) (15 * 1E7), newBox2.getLeft());
+        assertEquals((int) (25 * 1E7), newBox2.getBottom());
+        assertEquals((int) (20 * 1E7), newBox2.getRight());
+        assertEquals((int) (30 * 1E7), newBox2.getTop());
     }
 }

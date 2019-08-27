@@ -42,6 +42,7 @@ import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.PruneableInterface;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -76,7 +77,7 @@ import de.blau.android.views.IMapView;
  * @author Simon Poole
  */
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, ConfigureInterface, LayerInfoInterface {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, ConfigureInterface, LayerInfoInterface, PruneableInterface {
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -228,6 +229,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private ThreadPoolExecutor mThreadPool;
 
+    protected int  AUTOPRUNE_LIMIT         = 5000; // node count for autoprune
+    protected long AUTOPRUNE_MIN_INTERVALL = 10;   // seconds between autoprunes
+
     /**
      * Construct a new OSM data layer
      * 
@@ -282,6 +286,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
         };
 
+        private long lastAutoPrune = 0;
+
         @Override
         public void run() {
             if (mThreadPool == null) {
@@ -317,6 +323,18 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                         }, true, true);
                     }
                 });
+            }
+            if (delegator.getCurrentStorage().getNodeCount() > AUTOPRUNE_LIMIT
+                    && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVALL * 1000) {
+                mThreadPool.execute(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        prune();
+                    }
+
+                });
+                lastAutoPrune = System.currentTimeMillis();
             }
         }
     };
@@ -1466,5 +1484,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         LayerInfo f = new ApiLayerInfo();
         f.setShowsDialog(true);
         LayerInfo.showDialog(activity, f);
+    }
+
+    @Override
+    public void prune() {
+        BoundingBox pruneBox = new BoundingBox(map.getViewBox());
+        pruneBox.scale(1.6);
+        delegator.prune(pruneBox);
     }
 }

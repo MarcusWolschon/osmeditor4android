@@ -26,6 +26,7 @@ import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.PruneableInterface;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
@@ -41,9 +42,14 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface<Task>, ConfigureInterface {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface<Task>, ConfigureInterface, PruneableInterface {
 
     private static final String DEBUG_TAG = "tasks";
+
+    public static final String FILENAME = "selectedtask.res";
+
+    private static final int PAN_AND_ZOOM_DOWNLOAD_LIMIT = 16;
+    private static final int SHOW_TASKS_LIMIT            = 13;
 
     private boolean enabled = false;
 
@@ -55,10 +61,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     private transient ReentrantLock readingLock = new ReentrantLock();
 
-    public static final String FILENAME = "selectedtask.res";
-
-    private static final int PAN_AND_ZOOM_DOWNLOAD_LIMIT = 16;
-
     private transient SavingHelper<Task> savingHelper = new SavingHelper<>();
 
     private Task selected = null;
@@ -68,7 +70,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     private int minDownloadSize = 50;
 
     private float maxDownloadSpeed = 30;
-    
+
     private ThreadPoolExecutor mThreadPool;
 
     private Server server;
@@ -140,12 +142,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        if (isVisible && enabled) {
+
+        int zoomLevel = map.getZoomLevel();
+
+        if (isVisible && enabled && zoomLevel >= SHOW_TASKS_LIMIT) {
 
             ViewBox bb = osmv.getViewBox();
 
-            int zoomLevel = map.getZoomLevel();
-            
             Location location = map.getLocation();
 
             if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
@@ -274,6 +277,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     public boolean enableConfiguration() {
         // multi choice preferences are not supported on old SKD versions
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+    }
+
+    @Override
+    public void prune() {
+        BoundingBox pruneBox = new BoundingBox(map.getViewBox());
+        pruneBox.scale(1.6);
+        tasks.prune(pruneBox);
     }
 
     /**
