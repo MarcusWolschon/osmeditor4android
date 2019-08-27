@@ -17,26 +17,26 @@ import de.blau.android.osm.BoundingBox;
  * @author cnvandev
  * @author simonpoole
  */
-public class RTree implements Serializable {
+public class RTree<T extends BoundedObject> implements Serializable {
     private static final long     serialVersionUID = 1L;
     private static final String   DEBUG_TAG        = RTree.class.getName();
-    private Node                  root;
+    private Node<T>               root;
     private int                   maxSize;
     private int                   minSize;
     private QuadraticNodeSplitter splitter;
 
-    private class Node implements BoundedObject, Serializable {
+    private class Node<T extends BoundedObject> implements BoundedObject, Serializable {
         private static final long serialVersionUID = 1L;
         private final String      DEBUG_TAG        = Node.class.getName();
-        Node                      parent;
+        Node<T>                   parent;
         BoundingBox               box;
-        ArrayList<Node>           children;
-        ArrayList<BoundedObject>  data;
+        ArrayList<Node<T>>        children;
+        ArrayList<T>              data;
 
         /**
          * Construct a new tree Node
          * 
-         * @param isLeaf if true the Node sis a leaf Node
+         * @param isLeaf if true the Node is a leaf Node
          */
         public Node(boolean isLeaf) {
             if (isLeaf) {
@@ -69,7 +69,7 @@ public class RTree implements Serializable {
          * 
          * @param parent the parent
          */
-        public void addTo(@NonNull Node parent) {
+        public void addTo(@NonNull Node<T> parent) {
             // assert(parent.children != null);
             parent.children.add(this);
             this.parent = parent;
@@ -124,7 +124,7 @@ public class RTree implements Serializable {
         }
 
         /**
-         * REmove this Node from the tree
+         * Remove this Node from the tree
          */
         public void remove() {
             if (parent == null) {
@@ -186,10 +186,10 @@ public class RTree implements Serializable {
         /**
          * Get the depth of this Node in the tree
          * 
-         * @return the deptsh
+         * @return the dept
          */
         public int depth() {
-            Node n = this;
+            Node<T> n = this;
             int d = 0;
             while (n != null) {
                 n = n.parent;
@@ -210,20 +210,20 @@ public class RTree implements Serializable {
         /**
          * Split a node
          * 
-         * @param n the node
+         * @param parent2 the node
          */
-        public void split(@NonNull Node n) {
-            if (n.size() <= maxSize) {
+        public void split(@NonNull Node parent2) {
+            if (parent2.size() <= maxSize) {
                 return;
             }
-            boolean isleaf = n.isLeaf();
+            boolean isleaf = parent2.isLeaf();
 
             // Choose seeds. Would write a function for this, but it requires returning 2 objects
             Object[] list;
             if (isleaf) {
-                list = n.data.toArray();
+                list = parent2.data.toArray();
             } else {
-                list = n.children.toArray();
+                list = parent2.children.toArray();
             }
 
             List<BoundingBox> cachedBox = new ArrayList<>(list.length);
@@ -283,21 +283,21 @@ public class RTree implements Serializable {
             // assert(seed1 != null && seed2 != null);
             // Log.d(DEBUG_TAG,"seed1 " + seed1 + " seed2 " + seed2);
             // Distribute
-            Node group1 = new Node(isleaf);
+            Node<T> group1 = new Node<>(isleaf);
             group1.box = new BoundingBox(seed1Box);
-            Node group2 = new Node(isleaf);
+            Node<T> group2 = new Node<>(isleaf);
             group2.box = new BoundingBox(seed2Box);
             if (isleaf) {
-                distributeLeaves(n, cachedBox, group1, group2);
+                distributeLeaves(parent2, cachedBox, group1, group2);
             } else {
-                distributeBranches(n, group1, group2);
+                distributeBranches(parent2, group1, group2);
             }
-            Node parent = n.parent;
+            Node<T> parent = parent2.parent;
             if (parent == null) {
-                parent = new Node(false);
+                parent = new Node<T>(false);
                 root = parent;
             } else {
-                parent.children.remove(n);
+                parent.children.remove(parent2);
             }
 
             group1.parent = parent;
@@ -318,7 +318,7 @@ public class RTree implements Serializable {
          * @param g1 new node 1
          * @param g2 new node 2
          */
-        private void distributeBranches(@NonNull Node n, @NonNull Node g1, @NonNull Node g2) {
+        private void distributeBranches(@NonNull Node<T> n, @NonNull Node<T> g1, @NonNull Node<T> g2) {
             // assert(!(n.isLeaf() || g1.isLeaf() || g2.isLeaf()));
 
             while (!n.children.isEmpty() && g1.children.size() < maxSize - minSize + 1 && g2.children.size() < maxSize - minSize + 1) {
@@ -328,7 +328,7 @@ public class RTree implements Serializable {
                 long overlap1 = -1;
                 long overlap2 = -1;
                 for (int i = 0; i < n.children.size(); i++) {
-                    Node node = n.children.get(i);
+                    Node<T> node = n.children.get(i);
                     long expansion1 = expansionNeeded(node.box, g1.box);
                     long expansion2 = expansionNeeded(node.box, g2.box);
                     long dif = Math.abs(expansion1 - expansion2);
@@ -342,8 +342,8 @@ public class RTree implements Serializable {
                 // assert(nmax_index != -1);
 
                 // Distribute Entry
-                Node nmax = n.children.remove(nmax_index);
-                Node parent = null;
+                Node<T> nmax = n.children.remove(nmax_index);
+                Node<T> parent = null;
 
                 // ... to the one with the least expansion
                 if (overlap1 > overlap2) {
@@ -373,7 +373,7 @@ public class RTree implements Serializable {
             }
 
             if (!n.children.isEmpty()) {
-                Node parent = null;
+                Node<T> parent = null;
                 if (g1.children.size() == maxSize - minSize + 1) {
                     parent = g2;
                 } else {
@@ -395,7 +395,7 @@ public class RTree implements Serializable {
          * @param g1 new node 1
          * @param g2 new node 2
          */
-        private void distributeLeaves(@NonNull Node n, @NonNull List<BoundingBox> cache, @NonNull Node g1, @NonNull Node g2) {
+        private void distributeLeaves(@NonNull Node<T> n, @NonNull List<BoundingBox> cache, @NonNull Node<T> g1, @NonNull Node<T> g2) {
             // Same process as above; just different types.
             // assert(n.isLeaf() && g1.isLeaf() && g2.isLeaf());
 
@@ -420,7 +420,7 @@ public class RTree implements Serializable {
                 // assert(nmax_index != -1);
 
                 // Distribute Entry
-                BoundedObject nmax = n.data.remove(nmax_index);
+                T nmax = n.data.remove(nmax_index);
 
                 // ... to the one with the least expansion
                 // BoundingBox b = nmax.getBounds();
@@ -480,7 +480,7 @@ public class RTree implements Serializable {
      * 
      * @param results A collection to store the query results
      */
-    public void query(@NonNull Collection<BoundedObject> results) {
+    public void query(@NonNull Collection<T> results) {
         BoundingBox box = new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7);
         query(results, box, root);
     }
@@ -491,7 +491,7 @@ public class RTree implements Serializable {
      * @param results a Collection holding the results
      * @param box the BoundingBox we are querying
      */
-    public void query(@NonNull Collection<BoundedObject> results, @NonNull BoundingBox box) {
+    public void query(@NonNull Collection<T> results, @NonNull BoundingBox box) {
         query(results, box, root);
     }
 
@@ -502,7 +502,7 @@ public class RTree implements Serializable {
      * @param box the BoundingBox we are querying
      * @param node the Node to start at
      */
-    private void query(@NonNull Collection<BoundedObject> results, @NonNull BoundingBox box, @Nullable Node node) {
+    private void query(@NonNull Collection<T> results, @NonNull BoundingBox box, @Nullable Node<T> node) {
         // Log.d(DEBUG_TAG,"query called");
         if (node == null) {
             return;
@@ -510,18 +510,10 @@ public class RTree implements Serializable {
         if (node.isLeaf()) {
             // Log.d(DEBUG_TAG,"leaf");
             for (int i = 0; i < node.data.size(); i++) {
-                BoundedObject bo = node.data.get(i);
+                T bo = node.data.get(i);
                 BoundingBox box2 = bo.getBounds();
-                if (!box2.isEmpty()) {
-                    if (BoundingBox.intersects(box2, box)) {
-                        results.add(bo);
-                    }
-                } else {
-                    // Log.d(DEBUG_TAG,"point " + box2.left + " " + box2.top + " " + box);
-                    if (box.contains(box2.getLeft(), box2.getTop())) {
-                        results.add(bo);
-                        // Log.d(DEBUG_TAG,"adding " + bo);
-                    }
+                if (BoundingBox.intersects(box2, box)) {
+                    results.add(bo);
                 }
             }
         } else {
@@ -550,24 +542,18 @@ public class RTree implements Serializable {
      * 
      * @param box the BoundingBox we are querying
      * @param node Node to start at
-     * @return a BoundedObject or null ir none found
+     * @return a BoundedObject or null if none found
      */
     @Nullable
-    private BoundedObject queryOne(@NonNull BoundingBox box, @Nullable Node node) {
+    private BoundedObject queryOne(@NonNull BoundingBox box, @Nullable Node<T> node) {
         if (node == null) {
             return null;
         }
         if (node.isLeaf()) {
             for (int i = 0; i < node.data.size(); i++) {
                 BoundingBox box2 = node.data.get(i).getBounds();
-                if (!box2.isEmpty()) {
-                    if (BoundingBox.intersects(box2, box)) {
-                        return node.data.get(i);
-                    }
-                } else {
-                    if (box.contains(box2.getLeft(), box2.getTop())) {
-                        return node.data.get(i);
-                    }
+                if (BoundingBox.intersects(box2, box)) {
+                    return node.data.get(i);
                 }
             }
             return null;
@@ -592,7 +578,7 @@ public class RTree implements Serializable {
      * @param py Point Y coordinate
      */
     @Nullable
-    public void query(@NonNull Collection<? super BoundedObject> results, int px, int py) {
+    public void query(@NonNull Collection<T> results, int px, int py) {
         query(results, px, py, root);
     }
 
@@ -605,13 +591,13 @@ public class RTree implements Serializable {
      * @param node the node to start at
      */
     @Nullable
-    private void query(@NonNull Collection<? super BoundedObject> results, int px, int py, @Nullable Node node) {
+    private void query(@NonNull Collection<T> results, int px, int py, @Nullable Node<T> node) {
         if (node == null) {
             return;
         }
         if (node.isLeaf()) {
             for (int i = 0; i < node.data.size(); i++) {
-                BoundedObject bo = node.data.get(i);
+                T bo = node.data.get(i);
                 BoundingBox b = bo.getBounds();
                 if (b.isEmpty()) {
                     if (b.getLeft() == px && b.getTop() == py) {
@@ -653,7 +639,7 @@ public class RTree implements Serializable {
      * @return a found BoundedObject or null if none found
      */
     @Nullable
-    private BoundedObject queryOne(int px, int py, @Nullable Node node) {
+    private BoundedObject queryOne(int px, int py, @Nullable Node<T> node) {
         if (node == null) {
             return null;
         }
@@ -683,9 +669,9 @@ public class RTree implements Serializable {
      * @param o object to remove
      * @return true if successful
      */
-    public synchronized boolean remove(@NonNull BoundedObject o) {
+    public synchronized boolean remove(@NonNull T o) {
         boolean result = false;
-        Node n = chooseLeaf(o.getBounds(), root);
+        Node<T> n = getLeaf(o, root);
         // assert(n.isLeaf());
         if (n != null) {
             result = n.data.remove(o);
@@ -700,13 +686,8 @@ public class RTree implements Serializable {
      * @param o object to search for
      * @return true if the object is present in the tree, false otherwise
      */
-    public synchronized boolean contains(@NonNull BoundedObject o) {
-        Node n = chooseLeaf(o.getBounds(), root);
-        // assert(n.isLeaf());
-        if (n != null) {
-            return n.data.contains(o);
-        }
-        return false;
+    public synchronized boolean contains(@NonNull T o) {
+        return getLeaf(o, root) != null;
     }
 
     /**
@@ -716,14 +697,14 @@ public class RTree implements Serializable {
      * @param o object to insert
      * @throws NullPointerException if o is null or no node can be found for storage
      */
-    public synchronized void insert(@Nullable BoundedObject o) {
+    public synchronized void insert(@Nullable T o) {
         if (o == null) {
             throw new NullPointerException("Cannot store null object");
         }
         if (root == null) {
-            root = new Node(true);
+            root = new Node<T>(true);
         }
-        Node n = chooseLeaf(o.getBounds(), root);
+        Node<T> n = chooseLeaf(o.getBounds(), root);
         // assert(n.isLeaf());
         if (n == null) {
             throw new NullPointerException("No node found for object");
@@ -751,7 +732,7 @@ public class RTree implements Serializable {
      * @param n the Node to start at
      * @return the item count
      */
-    private int count(@NonNull Node n) {
+    private int count(@NonNull Node<T> n) {
         // assert(n != null);
         if (n.isLeaf()) {
             return n.data.size();
@@ -772,16 +753,16 @@ public class RTree implements Serializable {
      * @return a leaf Node
      */
     @Nullable
-    private Node chooseLeaf(@NonNull BoundingBox box, @NonNull Node n) {
+    private Node<T> chooseLeaf(@NonNull BoundingBox box, @NonNull Node<T> n) {
         // assert(n != null);
         if (n.isLeaf()) {
             return n;
         } else {
             long maxOverlap = Long.MAX_VALUE;
-            Node maxnode = null;
+            Node<T> maxnode = null;
             double maxnodeArea = Double.MAX_VALUE;
             for (int i = 0; i < n.children.size(); i++) {
-                Node child = n.children.get(i);
+                Node<T> child = n.children.get(i);
                 long overlap = expansionNeeded(child.box, box);
                 if ((overlap < maxOverlap) || (overlap == maxOverlap) && area(child.box) < maxnodeArea) {
                     maxOverlap = overlap;
@@ -794,6 +775,36 @@ public class RTree implements Serializable {
                 return null;
             }
             return chooseLeaf(box, maxnode);
+        }
+    }
+
+    /**
+     * Get the leaf containing bo starting at Node n
+     * 
+     * @param bo the BoundedObject
+     * @param n the starting node
+     * @return the leaf node or null
+     */
+    @Nullable
+    private Node<T> getLeaf(@NonNull BoundedObject bo, @NonNull Node<T> n) {
+        if (n.isLeaf()) {
+            if (n.data.contains(bo)) {
+                return n;
+            }
+            return null;
+        } else {
+            Node<T> child = null;
+            int size = n.children.size();
+            for (int i = 0; i < size; i++) {
+                child = n.children.get(i);
+                if (child.getBounds().intersects(bo.getBounds())) {
+                    Node<T> n2 = getLeaf(bo, child);
+                    if (n2 != null) {
+                        return n2;
+                    }
+                }
+            }
+            return null;
         }
     }
 
@@ -858,7 +869,7 @@ public class RTree implements Serializable {
      * @param level level the node is on
      * @return true if found
      */
-    private boolean debug(@NonNull BoundedObject o, @Nullable Node node, int level) {
+    private boolean debug(@NonNull BoundedObject o, @Nullable Node<T> node, int level) {
         if (node == null) {
             System.out.println(level + " debug: node is null");
             return false;

@@ -94,7 +94,7 @@ public class CollectionTest {
     @Test
     public void rtree() {
         final double MAX = BoundingBox.MAX_LAT_E7;
-        RTree tree = new RTree(2, 100);
+        RTree<Node> tree = new RTree<>(2, 100);
         final int NODES = 10000;
         Node[] temp = new Node[NODES];
         for (long i = 0; i < NODES; i++) {
@@ -106,23 +106,29 @@ public class CollectionTest {
             tree.insert(temp[(int) i]);
         }
         System.out.println("Node insertion " + (System.currentTimeMillis() - start));
+        start = System.currentTimeMillis();
         for (int i = 0; i < NODES; i++) {
-            Collection<BoundedObject> result = new ArrayList<BoundedObject>();
+            Collection<Node> result = new ArrayList<>();
             BoundingBox b = null;
-            // create a small bounding box around the Node and query that, since contains doesn't seem to work for Nodes
+            // create a small bounding box around the Node and query that
             b = new BoundingBox(temp[i].getLon() - 1, temp[i].getLat() - 1, temp[i].getLon() + 1, temp[i].getLat() + 1);
             tree.query(result, b);
             assertTrue(result.contains(temp[i]));
         }
+        System.out.println("Query " + (System.currentTimeMillis() - start));
         assertEquals(NODES, tree.count());
         // currently contains and remove doesn't work for nodes
-        // for (long i=0;i<NODES;i++) {
-        // assertTrue(tree.contains(temp[(int) i]));
-        // }
-        // for (long i=0;i<NODES;i++) {
-        // tree.remove(temp[(int) i]);
-        // }
-        // assertEquals(0,tree.count());
+        start = System.currentTimeMillis();
+        for (long i = 0; i < NODES; i++) {
+            assertTrue(tree.contains(temp[(int) i]));
+        }
+        System.out.println("Contains " + (System.currentTimeMillis() - start));
+        start = System.currentTimeMillis();
+        for (long i = 0; i < NODES; i++) {
+            assertTrue(tree.remove(temp[(int) i]));
+        }
+        System.out.println("Remove " + (System.currentTimeMillis() - start));
+        assertEquals(0, tree.count());
     }
 
     /**
