@@ -294,7 +294,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
             }
             Node<T> parent = parent2.parent;
             if (parent == null) {
-                parent = new Node<T>(false);
+                parent = new Node<>(false);
                 root = parent;
             } else {
                 parent.children.remove(parent2);
@@ -702,7 +702,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
             throw new NullPointerException("Cannot store null object");
         }
         if (root == null) {
-            root = new Node<T>(true);
+            root = new Node<>(true);
         }
         Node<T> n = chooseLeaf(o.getBounds(), root);
         // assert(n.isLeaf());

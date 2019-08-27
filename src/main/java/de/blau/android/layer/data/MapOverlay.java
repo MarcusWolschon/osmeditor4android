@@ -91,9 +91,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * zoom level from which on we display icons and house numbers
      */
-    private static final int SHOW_ICONS_LIMIT            = 15;
-    public static final int  SHOW_LABEL_LIMIT            = SHOW_ICONS_LIMIT + 5;
-    private static final int PAN_AND_ZOOM_DOWNLOAD_LIMIT = SHOW_ICONS_LIMIT + 2;
+    private static final int    SHOW_ICONS_LIMIT            = 15;
+    public static final int     SHOW_LABEL_LIMIT            = SHOW_ICONS_LIMIT + 5;
+    private static final int    PAN_AND_ZOOM_DOWNLOAD_LIMIT = SHOW_ICONS_LIMIT + 2;
+    protected static final int  AUTOPRUNE_LIMIT             = 5000;                // node count for autoprune
+    protected static final long AUTOPRUNE_MIN_INTERVALL     = 10;                  // seconds between autoprunes
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -228,9 +230,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     Set<Relation>          paintRelations = new HashSet<>();
 
     private ThreadPoolExecutor mThreadPool;
-
-    protected int  AUTOPRUNE_LIMIT         = 5000; // node count for autoprune
-    protected long AUTOPRUNE_MIN_INTERVALL = 10;   // seconds between autoprunes
 
     /**
      * Construct a new OSM data layer

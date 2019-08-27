@@ -27,7 +27,7 @@ public final class DateFormatter {
     /**
      * This the standard data/time format used in .osn files and elsewhere in the API
      */
-    public final static SimpleDateFormat JOSM_DATE = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+    public static final SimpleDateFormat JOSM_DATE = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssZ"); // NOSONAR
 
     /**
      * Parses a date from the given string using the date pattern. Throws a {@code ParseException} on failure.
