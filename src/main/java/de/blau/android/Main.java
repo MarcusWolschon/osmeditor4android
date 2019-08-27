@@ -2122,6 +2122,7 @@ public class Main extends FullScreenAppCompatActivity
                 prefs.setPanAndZoomAutoDownload(true);
                 item.setChecked(true);
                 prefs.setAutoDownload(false);
+                Tip.showDialog(this, R.string.tip_pan_and_zoom_auto_download_key, R.string.tip_pan_and_zoom_auto_download);
             }
             startStopAutoDownload();
             map.setPrefs(this, prefs);
