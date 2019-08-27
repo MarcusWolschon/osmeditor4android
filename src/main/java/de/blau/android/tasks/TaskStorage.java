@@ -118,12 +118,9 @@ public class TaskStorage implements Serializable, DataStorage {
         Collection<Task> queryResult = new ArrayList<>();
         tasks.query(queryResult, t.getLon(), t.getLat());
         Log.d(DEBUG_TAG, "candidates for contain " + queryResult.size());
+        Class<? extends Task> c = t.getClass();
         for (Task t2 : queryResult) {
-            if (t instanceof Note && t2 instanceof Note && t.getId() == t2.getId()) {
-                return true;
-            } else if (t instanceof OsmoseBug && t2 instanceof OsmoseBug && t.getId() == t2.getId()) {
-                return true;
-            } else if (t instanceof CustomBug && t2 instanceof CustomBug && t.getId() == t2.getId()) {
+            if (c.isInstance(t2) && t.getId() == t2.getId()) {
                 return true;
             }
         }
