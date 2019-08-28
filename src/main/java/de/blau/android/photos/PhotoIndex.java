@@ -24,7 +24,6 @@ import de.blau.android.App;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 
 /**
@@ -35,7 +34,7 @@ import de.blau.android.util.rtree.RTree;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 
-    private static final int    DATA_VERSION = 4;
+    private static final int    DATA_VERSION = 5;
     private static final String LOGTAG       = "PhotoIndex";
 
     private static final String DIRECTORIES_TABLE = "directories";
@@ -76,7 +75,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
         if (oldVersion <= 2) {
             db.execSQL("ALTER TABLE " + PHOTOS_TABLE + " ADD direction int DEFAULT NULL");
         }
-        if (oldVersion <= 3) {
+        if (oldVersion <= 4) {
             db.execSQL("DELETE FROM " + PHOTOS_TABLE); // this should force a complete reindex
         }
     }
@@ -259,7 +258,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * @param p the Photo
      */
     public static void addToIndex(@Nullable Photo p) {
-        RTree index = App.getPhotoIndex();
+        RTree<Photo> index = App.getPhotoIndex();
         if (p != null && index != null) { // if nothing is in the index the complete DB including this photo will be
                                           // added
             index.insert(p);
@@ -310,7 +309,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
 
         try {
             Photo photo = new Photo(context, uri);
-            RTree index = App.getPhotoIndex();
+            RTree<Photo> index = App.getPhotoIndex();
             if (index != null) {
                 // check if this is an existing indexed photo
                 Collection<Photo> existing = getPhotosFromIndex(index, photo.getBounds());
@@ -345,7 +344,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
      */
     @NonNull
     public List<Photo> getPhotos(@NonNull BoundingBox box) {
-        RTree index = App.getPhotoIndex();
+        RTree<Photo> index = App.getPhotoIndex();
         if (index == null) {
             return new ArrayList<>();
         }
@@ -358,7 +357,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * 
      * @param index the current in memory index or null
      */
-    public synchronized void fill(@Nullable RTree index) {
+    public synchronized void fill(@Nullable RTree<Photo> index) {
         if (index == null) {
             App.resetPhotoIndex(); // allocate r-tree
             index = App.getPhotoIndex();
@@ -374,13 +373,14 @@ public class PhotoIndex extends SQLiteOpenHelper {
             for (int i = 0; i < photoCount; i++) {
                 String name = dbresult.getString(4);
                 String dir = dbresult.getString(3);
-                if (!dir.startsWith("content:")) { // it isn't a content Uri
-                    dir = dir + "/" + name;
-                }
+                Photo newPhoto;
                 if (dbresult.isNull(2)) { // no direction
-                    index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dir, name));
+                    newPhoto = new Photo(dbresult.getInt(0), dbresult.getInt(1), dir, name);
                 } else {
-                    index.insert(new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dir, name));
+                    newPhoto = new Photo(dbresult.getInt(0), dbresult.getInt(1), dbresult.getInt(2), dir, name);
+                }
+                if (!index.contains(newPhoto)) {
+                    index.insert(newPhoto);
                 }
                 dbresult.moveToNext();
             }
@@ -400,14 +400,10 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * @return a List of Photos
      */
     @NonNull
-    private List<Photo> getPhotosFromIndex(@NonNull RTree index, @NonNull BoundingBox box) {
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+    private List<Photo> getPhotosFromIndex(@NonNull RTree<Photo> index, @NonNull BoundingBox box) {
+        List<Photo> queryResult = new ArrayList<>();
         index.query(queryResult, box.getBounds());
         Log.d(LOGTAG, "result count " + queryResult.size());
-        List<Photo> result = new ArrayList<>();
-        for (BoundedObject bo : queryResult) {
-            result.add((Photo) bo);
-        }
-        return result;
+        return queryResult;
     }
 }

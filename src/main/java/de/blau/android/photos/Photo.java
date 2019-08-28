@@ -57,7 +57,7 @@ public class Photo implements BoundedObject {
      * @throws NumberFormatException If there was a problem parsing the XML.
      */
     public Photo(@NonNull File directory, @NonNull File imageFile) throws IOException, NumberFormatException {
-        this(new ExtendedExifInterface(imageFile.toString()), directory.getAbsolutePath());
+        this(new ExtendedExifInterface(imageFile.toString()), imageFile.getAbsolutePath());
     }
 
     /**
@@ -68,8 +68,9 @@ public class Photo implements BoundedObject {
      * @throws IOException if location information is missing
      */
     private Photo(@NonNull ExtendedExifInterface exif, @NonNull String ref) throws IOException {
-        this.ref = ref;
         this.name = exif.getAttribute(ExifInterface.TAG_FILE_SOURCE);
+        this.ref = ref;
+
         /**
          * get the attribute. rest of the attributes are the same. will add convertToDegree on the bottom (not required)
          **/
@@ -241,5 +242,41 @@ public class Photo implements BoundedObject {
     @Override
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
+    }
+    
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + lat;
+        result = prime * result + lon;
+        result = prime * result + ((ref == null) ? 0 : ref.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Photo)) {
+            return false;
+        }
+        Photo other = (Photo) obj;
+        if (lat != other.lat) {
+            return false;
+        }
+        if (lon != other.lon) {
+            return false;
+        }
+        if (ref == null) {
+            if (other.ref != null) {
+                return false;
+            }
+        } else if (!ref.equals(other.ref)) {
+            return false;
+        }
+        return true;
     }
 }

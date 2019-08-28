@@ -269,9 +269,14 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
                     int position = 0;
                     for (int i = 0; i < photos.size(); i++) {
                         Photo p = photos.get(i);
-                        uris.add(p.getRefUri(context).toString());
-                        if (photo.equals(p)) {
-                            position = i;
+                        Uri uri = p.getRefUri(context);
+                        if (uri != null) {
+                            uris.add(uri.toString());
+                            if (photo.equals(p)) {
+                                position = i;
+                            }
+                        } else {
+                            Log.e(DEBUG_TAG, "Null URI at position " + i);
                         }
                     }
                     PhotoViewerFragment.showDialog(activity, uris, position);

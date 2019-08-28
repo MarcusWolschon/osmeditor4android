@@ -70,6 +70,7 @@ class PhotoUriHandler extends PostAsyncActionHandler {
             map.getViewBox().moveTo(map, photo.getLon(), photo.getLat());
             map.invalidate();
         } catch (NumberFormatException | IOException e) {
+            Log.e(DEBUG_TAG,e.getMessage());
             Snack.toastTopError(main, main.getString(R.string.toast_error_accessing_photo, uri));
         }
     }

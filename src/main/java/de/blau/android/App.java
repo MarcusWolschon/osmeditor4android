@@ -26,6 +26,7 @@ import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.photos.Photo;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
@@ -91,7 +92,7 @@ public class App extends android.app.Application {
     /**
      * Geo index to on device photos
      */
-    private static RTree photoIndex;
+    private static RTree<Photo> photoIndex;
 
     /**
      * Various attributes that are regional
@@ -371,7 +372,7 @@ public class App extends android.app.Application {
      * 
      * @return a RTree with the index
      */
-    public static RTree getPhotoIndex() {
+    public static RTree<Photo> getPhotoIndex() {
         return photoIndex;
     }
 
@@ -379,7 +380,7 @@ public class App extends android.app.Application {
      * Empty the index
      */
     public static void resetPhotoIndex() {
-        photoIndex = new RTree(20, 50);
+        photoIndex = new RTree<>(20, 50);
     }
 
     /**
