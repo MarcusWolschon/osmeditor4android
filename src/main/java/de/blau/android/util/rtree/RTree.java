@@ -670,6 +670,9 @@ public class RTree<T extends BoundedObject> implements Serializable {
      * @return true if successful
      */
     public synchronized boolean remove(@NonNull T o) {
+        if (root == null) {
+            return false; // empty
+        }
         boolean result = false;
         Node<T> n = getLeaf(o, root);
         // assert(n.isLeaf());
@@ -687,6 +690,9 @@ public class RTree<T extends BoundedObject> implements Serializable {
      * @return true if the object is present in the tree, false otherwise
      */
     public synchronized boolean contains(@NonNull T o) {
+        if (root == null) {
+            return false; // empty
+        }
         return getLeaf(o, root) != null;
     }
 
