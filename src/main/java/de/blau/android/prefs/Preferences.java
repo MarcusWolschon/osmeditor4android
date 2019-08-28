@@ -797,10 +797,24 @@ public class Preferences {
         return maxInlineValues;
     }
 
+    /**
+     * Get the configured number of tile download threads
+     * 
+     * @return the configured number, if smaller than 1 we return 1
+     */
     public int getMaxTileDownloadThreads() {
-        return maxTileDownloadThreads;
+        if (maxTileDownloadThreads < 1) {
+            Log.e(DEBUG_TAG, "Download threads limit smaller than 1");
+            return 1;
+        }
+        return Math.max(1, maxTileDownloadThreads);
     }
 
+    /**
+     * Get the configured number notifications that we want to keep in the cache
+     * 
+     * @return the configured number, if smaller than 1 we return 1
+     */
     public int getNotificationCacheSize() {
         if (notificationCacheSize < 1) {
             Log.e(DEBUG_TAG, "Notification cache size smaller than 1");
