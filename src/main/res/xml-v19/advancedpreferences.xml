@@ -334,13 +334,13 @@
             android:summary="@string/config_username_summary"
             android:title="@string/config_loginbutton_title" />
         <android.support.v7.preference.EditTextPreference
-            android:defaultValue="http://offsets.textual.ru/"
+            android:defaultValue="https://offsets.textual.ru/"
             android:key="@string/config_offsetServer_key"
             android:summary="@string/config_offsetServer_summary"
             android:dialogMessage="@string/config_offsetServer_summary"
             android:title="@string/config_offsetServer_title" />
         <android.support.v7.preference.EditTextPreference
-            android:defaultValue="http://osmose.openstreetmap.fr/"
+            android:defaultValue="https://osmose.openstreetmap.fr/"
             android:key="@string/config_osmoseServer_key"
             android:summary="@string/config_osmoseServer_summary"
             android:dialogMessage="@string/config_osmoseServer_summary"
