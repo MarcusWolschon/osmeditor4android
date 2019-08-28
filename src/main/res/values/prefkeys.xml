@@ -80,6 +80,7 @@
 	<string name="config_maxAlertDistance_key">maxAlertDistanceInt</string>
     <string name="config_extTriggeredDownloadRadius_key">extTriggeredDownloadRadiusInt</string>
     <string name="config_maxDownloadSpeed_key">maxDownloadSpeedInt</string>
+    <string name="config_autoPruneNodeLimit_key">autoPruneNodeLimit</string>
     <string name="config_bugDownloadRadius_key">config_bugDownloadRadiusInt</string>
     <string name="config_maxBugDownloadSpeed_key">maxBugDownloadSpeedInt</string>
     <string name="config_maxTileDownloadThreads_key">maxTileDownloadThreadsInt</string>

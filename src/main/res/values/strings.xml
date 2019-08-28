@@ -848,18 +848,6 @@ avoided by using an offline data source.</string>
     <string name="config_maxAlertDistance_title">Max distance for notifications</string>
     <string name="config_maxAlertDistance_summary">The farthest distance a problem or note can be from the current position to generate a notification.</string>
     <string name="config_maxAlertDistance_current">%1$d meter(s)</string>
-    <string name="config_extTriggeredDownloadRadius_title">Download radius</string>
-    <string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 centers only on map.</string>
-    <string name="config_downloadRadius_current">%1$d meter(s)</string>
-    <string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
-    <string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended.</string>
-    <string name="config_downloadSpeed_current">%1$d km/h</string>
-    <string name="config_bugFilter_title">Task filter</string>
-    <string name="config_bugFilter_summary">Select which elements are displayed on the notes, bugs and task layer.</string>
-    <string name="config_bugDownloadRadius_title">Task download radius</string>
-    <string name="config_bugDownloadRadius_summary">Radius (m) of task downloads.</string>
-    <string name="config_maxBugDownloadSpeed_title">Maximum task auto-download speed</string>
-    <string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes, bugs and task auto-download is suspended.</string>
     <string name="config_closeChangesetOnSave_title">Close changesets</string>
     <string name="config_closeChangesetOnSave_summary">Close changesets by default upon saving.</string>
     <string name="config_enableAutoPresets_title">Enable auto-preset generation</string>
@@ -867,8 +855,26 @@ avoided by using an offline data source.</string>
     <string name="config_orthogonalizeThreshold_title">Squaring threshold</string>
     <string name="config_orthogonalizeThreshold_summary">The threshold in ° over which angles are ignored</string>
     <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+    <!-- Auto-download settings -->
+    <string name="config_category_auto_download">Auto-download settings</string>
+    <string name="config_category_auto_download_summary">Settings for data and task auto downloading</string>
+    <string name="config_extTriggeredDownloadRadius_title">Download radius</string>
+    <string name="config_extTriggeredDownloadRadius_summary">Radius (m) of externally triggered downloads, 0 centers only on map.</string>
+    <string name="config_downloadRadius_current">%1$d meter(s)</string>
+    <string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
+    <string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended.</string>
+    <string name="config_downloadSpeed_current">%1$d km/h</string>
+    <string name="config_autoPruneNodeLimit_title">Auto-prune limit</string>
+    <string name="config_autoPruneNodeLimit_summary">Number of Nodes in memory that when reached will trigger a prune.</string>
+    <string name="config_autoPruneNodeLimit_current">%1$d Nodes</string>
+    <string name="config_bugFilter_title">Task filter</string>
+    <string name="config_bugFilter_summary">Select which elements are displayed on the notes, bugs and task layer.</string>
+    <string name="config_bugDownloadRadius_title">Task download radius</string>
+    <string name="config_bugDownloadRadius_summary">Radius (m) of task downloads.</string>
+    <string name="config_maxBugDownloadSpeed_title">Maximum task auto-download speed</string>
+    <string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes, bugs and task auto-download is suspended.</string>
     <!-- Location Settings -->
-    <string name="config_category_gps">Location Settings</string>
+    <string name="config_category_gps">Location settings</string>
     <string name="config_category_gps_summary">GPS/GNSS parameters and other location providers.</string>
     <string name="config_gps_source_title">GPS/GNSS source</string>
     <string name="config_gps_source_summary">Source of GPS/GNSS location updates.</string>

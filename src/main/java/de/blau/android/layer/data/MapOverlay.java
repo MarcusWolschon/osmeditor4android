@@ -94,7 +94,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private static final int    SHOW_ICONS_LIMIT            = 15;
     public static final int     SHOW_LABEL_LIMIT            = SHOW_ICONS_LIMIT + 5;
     private static final int    PAN_AND_ZOOM_DOWNLOAD_LIMIT = SHOW_ICONS_LIMIT + 2;
-    protected static final int  AUTOPRUNE_LIMIT             = 5000;                // node count for autoprune
     protected static final long AUTOPRUNE_MIN_INTERVALL     = 10;                  // seconds between autoprunes
 
     /** half the width/height of a node icon in px */
@@ -103,6 +102,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private final int houseNumberRadius;
     private final int verticalNumberOffset;
     private float     maxDownloadSpeed;
+    protected int     autoPruneNodeLimit = 5000; // node count for autoprune
 
     private final StorageDelegator delegator;
     private final Context          context;
@@ -290,6 +290,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         @Override
         public void run() {
             if (mThreadPool == null) {
+                // NOTE increasing this over 1 thread will deadlock the app
                 mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
             }
             List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
@@ -323,7 +324,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     }
                 });
             }
-            if (delegator.getCurrentStorage().getNodeCount() > AUTOPRUNE_LIMIT
+            if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit
                     && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVALL * 1000) {
                 mThreadPool.execute(new Runnable() {
 
@@ -1418,6 +1419,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getDownloadRadius() * 2;
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
+        autoPruneNodeLimit = prefs.getAutoPruneNodeLimit();
         iconCache.clear();
         areaIconCache.clear();
     }

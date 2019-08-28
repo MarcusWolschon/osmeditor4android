@@ -148,6 +148,23 @@
             android:numeric="integer"
             android:summary="@string/config_maxAlertDistance_summary"
             android:title="@string/config_maxAlertDistance_title" />
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_closeChangesetOnSave_key"
+            android:summary="@string/config_closeChangesetOnSave_summary"
+            android:title="@string/config_closeChangesetOnSave_title" />
+        <de.blau.android.prefs.IntEditTextPreference
+            android:defaultValue="15"
+            android:dialogTitle="@string/config_orthogonalizeThreshold_title"
+            android:key="@string/config_orthogonalizeThreshold_key"
+            android:numeric="integer"
+            android:summary="@string/config_orthogonalizeThreshold_summary"
+            android:title="@string/config_orthogonalizeThreshold_title" />
+    </android.support.v7.preference.PreferenceScreen>
+    <android.support.v7.preference.PreferenceScreen
+        android:key="config_category_auto_download"
+        android:title="@string/config_category_auto_download"
+        android:summary="@string/config_category_auto_download_summary">
         <de.blau.android.prefs.IntEditTextPreference
             android:defaultValue="50"
             android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
@@ -156,12 +173,19 @@
             android:summary="@string/config_extTriggeredDownloadRadius_summary"
             android:title="@string/config_extTriggeredDownloadRadius_title" />
         <de.blau.android.prefs.IntEditTextPreference
-            android:defaultValue="6"
+            android:defaultValue="10"
             android:dialogTitle="@string/config_maxDownloadSpeed_title"
             android:key="@string/config_maxDownloadSpeed_key"
             android:numeric="integer"
             android:summary="@string/config_maxDownloadSpeed_summary"
             android:title="@string/config_maxDownloadSpeed_title" />
+        <de.blau.android.prefs.IntEditTextPreference
+            android:defaultValue="5000"
+            android:dialogTitle="@string/config_autoPruneNodeLimit_title"
+            android:key="@string/config_autoPruneNodeLimit_key"
+            android:numeric="integer"
+            android:summary="@string/config_autoPruneNodeLimit_summary"
+            android:title="@string/config_autoPruneNodeLimit_title" />
         <de.blau.android.prefs.IntEditTextPreference
             android:defaultValue="200"
             android:dialogTitle="@string/config_bugDownloadRadius_title"
@@ -176,18 +200,6 @@
             android:numeric="integer"
             android:summary="@string/config_maxBugDownloadSpeed_summary"
             android:title="@string/config_maxBugDownloadSpeed_title" />
-        <android.support.v7.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_closeChangesetOnSave_key"
-            android:summary="@string/config_closeChangesetOnSave_summary"
-            android:title="@string/config_closeChangesetOnSave_title" />
-        <de.blau.android.prefs.IntEditTextPreference
-            android:defaultValue="15"
-            android:dialogTitle="@string/config_orthogonalizeThreshold_title"
-            android:key="@string/config_orthogonalizeThreshold_key"
-            android:numeric="integer"
-            android:summary="@string/config_orthogonalizeThreshold_summary"
-            android:title="@string/config_orthogonalizeThreshold_title" />
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_gps"

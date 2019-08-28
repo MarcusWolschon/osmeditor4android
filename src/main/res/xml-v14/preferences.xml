@@ -50,6 +50,7 @@
                 android:key="@string/config_opening_hours_key"
                 android:summary="@string/config_opening_hours_summary" />
         <Preference
+            android:icon="?attr/menu_config"
             android:title="@string/config_advancedprefs"
             android:key="@string/config_advancedprefs_key" />
     </PreferenceCategory>

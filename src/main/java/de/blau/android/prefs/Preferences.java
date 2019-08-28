@@ -52,6 +52,7 @@ public class Preferences {
     private int           tileCacheSize;                 // in MB
     private int           downloadRadius;                // in m
     private float         maxDownloadSpeed;              // in km/h
+    private final int     autoPruneNodeLimit;
     private int           bugDownloadRadius;
     private float         maxBugDownloadSpeed;           // in km/h
     private Set<String>   taskFilter;                    // can't be final
@@ -126,7 +127,8 @@ public class Preferences {
         tileCacheSize = getIntPref(R.string.config_tileCacheSize_key, 100);
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
-        maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 6);
+        maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
+        autoPruneNodeLimit = getIntPref(R.string.config_autoPruneNodeLimit_key, 5000);
 
         bugDownloadRadius = getIntPref(R.string.config_bugDownloadRadius_key, 200);
         maxBugDownloadSpeed = getIntPref(R.string.config_maxBugDownloadSpeed_key, 30);
@@ -561,6 +563,15 @@ public class Preferences {
     public void setMaxDownloadSpeed(float maxDownloadSpeed) {
         this.maxDownloadSpeed = maxDownloadSpeed;
         prefs.edit().putInt(r.getString(R.string.config_maxDownloadSpeed_key), (int) maxDownloadSpeed).commit();
+    }
+
+    /**
+     * Get the number of Nodes at which we start attempting a prune
+     * 
+     * @return the number of Nodes we consider the limit
+     */
+    public int getAutoPruneNodeLimit() {
+        return autoPruneNodeLimit;
     }
 
     /**

@@ -176,6 +176,28 @@
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_maxAlertDistance_current"
             app:spt_setWrapSelectorWheel="false" />
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_closeChangesetOnSave_key"
+            android:summary="@string/config_closeChangesetOnSave_summary"
+            android:title="@string/config_closeChangesetOnSave_title" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="15"
+            android:dialogTitle="@string/config_orthogonalizeThreshold_title"
+            android:key="@string/config_orthogonalizeThreshold_key"
+            android:numeric="integer"
+            android:summary="@string/config_orthogonalizeThreshold_summary"
+            android:title="@string/config_orthogonalizeThreshold_title"
+            app:spt_maxValue="45"
+            app:spt_minValue="5"
+            app:spt_increment="5"
+            app:spt_currentValueText="@string/config_orthogonalizeThreshold_current"
+            app:spt_setWrapSelectorWheel="false" />
+    </android.support.v7.preference.PreferenceScreen>
+    <android.support.v7.preference.PreferenceScreen
+        android:key="config_category_auto_download"
+        android:title="@string/config_category_auto_download"
+        android:summary="@string/config_category_auto_download_summary">
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="50"
             android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
@@ -189,16 +211,28 @@
             app:spt_currentValueText="@string/config_downloadRadius_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
-            android:defaultValue="6"
+            android:defaultValue="10"
             android:dialogTitle="@string/config_maxDownloadSpeed_title"
             android:key="@string/config_maxDownloadSpeed_key"
             android:numeric="decimal"
             android:summary="@string/config_maxDownloadSpeed_summary"
             android:title="@string/config_maxDownloadSpeed_title"
-            app:spt_maxValue="50"
+            app:spt_maxValue="200"
             app:spt_minValue="0"
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_downloadSpeed_current"
+            app:spt_setWrapSelectorWheel="false" />
+        <ch.poole.android.numberpickerpreference.NumberPickerPreference
+            android:defaultValue="5000"
+            android:dialogTitle="@string/config_autoPruneNodeLimit_title"
+            android:key="@string/config_autoPruneNodeLimit_key"
+            android:numeric="decimal"
+            android:summary="@string/config_autoPruneNodeLimit_summary"
+            android:title="@string/config_autoPruneNodeLimit_title"
+            app:spt_maxValue="50000"
+            app:spt_minValue="0"
+            app:spt_increment="1000"
+            app:spt_currentValueText="@string/config_autoPruneNodeLimit_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="200"
@@ -219,27 +253,10 @@
             android:numeric="decimal"
             android:summary="@string/config_maxBugDownloadSpeed_summary"
             android:title="@string/config_maxBugDownloadSpeed_title"
-            app:spt_maxValue="50"
+            app:spt_maxValue="200"
             app:spt_minValue="0"
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_downloadSpeed_current"
-            app:spt_setWrapSelectorWheel="false" />
-        <android.support.v7.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_closeChangesetOnSave_key"
-            android:summary="@string/config_closeChangesetOnSave_summary"
-            android:title="@string/config_closeChangesetOnSave_title" />
-        <ch.poole.android.numberpickerpreference.NumberPickerPreference
-            android:defaultValue="15"
-            android:dialogTitle="@string/config_orthogonalizeThreshold_title"
-            android:key="@string/config_orthogonalizeThreshold_key"
-            android:numeric="integer"
-            android:summary="@string/config_orthogonalizeThreshold_summary"
-            android:title="@string/config_orthogonalizeThreshold_title"
-            app:spt_maxValue="45"
-            app:spt_minValue="5"
-            app:spt_increment="5"
-            app:spt_currentValueText="@string/config_orthogonalizeThreshold_current"
             app:spt_setWrapSelectorWheel="false" />
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen

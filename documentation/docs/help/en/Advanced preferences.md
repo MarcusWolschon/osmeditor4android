@@ -108,13 +108,27 @@ Maximum number of notifications retained in the status bar: _5_ (per type).
 
 Maximum distance a validation issue or note/bug can be from the current positions to trigger a notification. Default: _100 meters_.
 
+### Close changesets
+
+Close the current open changeset after uploading edits. Default: _on_.
+
+### Squaring threshold
+
+The threshold in ° over which angles are ignored for squaring and straightening. Default: _15°_.
+
+## Auto-download Settings
+
 ### Download radius
 
-When auto-downloading, the radius of the area that is attempted to download around the current position. Default: _50 meters_.
+When auto-downloading, the radius of the area that is attempted to download around the current position. In pan and zoom auto-download mode, this is the minimum download size. Default: _50 meters_.
 
 ### Maximum auto-download speed
 
-Maximum speed up to which auto-download is attempted. Default: _6 km/h_.
+Maximum speed up to which auto-download is attempted. Default: _10 km/h_.
+
+### Auto-prune limit
+
+Limit at, when reached, an automatic prune of the data in memory is attempted. Default: _5000 Nodes_.
 
 ### Task download radius
 
@@ -124,13 +138,6 @@ When auto-downloading notes and bugs, the radius of the area that is attempted t
 
 Maximum speed up to which auto-download of notes and bugs is attempted. Default: _30 km/h_.
 
-### Close changesets
-
-Close the current open changeset after uploading edits. Default: _on_.
-
-### Squaring threshold
-
-The threshold in ° over which angles are ignored for squaring and straightening. Default: _15°_.
 
 ## Location Settings
 
