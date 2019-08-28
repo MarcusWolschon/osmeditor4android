@@ -70,6 +70,9 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
 
     private ViewPager viewPager;
 
+    private MenuItem itemBack    = null;
+    private MenuItem itemForward = null;
+
     /**
      * Show an info dialog for the supplied OsmElement
      * 
@@ -155,8 +158,8 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         Menu menu = menuView.getMenu();
         boolean multiple = photoList.size() > 1;
         if (multiple) {
-            MenuItem item = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp);
-            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
+            itemBack = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp);
+            MenuCompat.setShowAsAction(itemBack, MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         MenuItem shareItem = menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp);
         MenuCompat.setShowAsAction(shareItem, MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -170,8 +173,8 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
             MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (multiple) {
-            MenuItem item = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
-            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
+            itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
+            MenuCompat.setShowAsAction(itemForward, MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         menuView.setOnMenuItemClickListener(this);
         return layout;
@@ -298,14 +301,18 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                         // actually delete
                                         if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {
                                             photoList.remove(pos);
-                                            pos = Math.min(pos, size - 1); // this will set pos to -1 but
-                                                                           // we will exit in that case
+                                            pos = Math.min(pos, size - 1); // this will set pos to -1 if empty,
+                                                                           // but we will exit in that case in any case
                                             if (getShowsDialog() && photoList.isEmpty()) { // in fragment mode we want
                                                                                            // to do something else
                                                 getDialog().dismiss();
                                             } else {
                                                 photoPagerAdapter.notifyDataSetChanged();
                                                 viewPager.setCurrentItem(pos);
+                                                if (photoList.size() == 1 && itemBack != null && itemForward != null) {
+                                                    itemBack.setEnabled(false);
+                                                    itemForward.setEnabled(false);
+                                                }
                                             }
                                         }
                                     } catch (java.lang.SecurityException sex) {
@@ -314,7 +321,6 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                 }
                             }
                         }).setNeutralButton(R.string.cancel, null).show();
-
                 break;
             default:
                 // do nothing
