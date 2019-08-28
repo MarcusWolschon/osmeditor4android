@@ -577,7 +577,7 @@ public class Map extends View implements IMapView {
      * @param c the Canvas
      * @return true is accelerated
      */
-    public static boolean myIsHardwareAccelerated(Canvas c) {
+    public static boolean myIsHardwareAccelerated(@NonNull Canvas c) {
         if (mIsHardwareAccelerated != null) {
             try {
                 return (Boolean) mIsHardwareAccelerated.invoke(c, (Object[]) null);
@@ -596,7 +596,7 @@ public class Map extends View implements IMapView {
      * 
      * @param canvas the Canvas to draw on
      */
-    private void paintCrosshairs(Canvas canvas) {
+    private void paintCrosshairs(@NonNull Canvas canvas) {
         //
         if (showCrosshairs) {
             float x = GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon);
@@ -616,7 +616,7 @@ public class Map extends View implements IMapView {
      * @param y screen y coordinate
      * @param paint Paint object to use
      */
-    private void drawCrosshairs(Canvas canvas, float x, float y, Paint paint) {
+    private void drawCrosshairs(@NonNull Canvas canvas, float x, float y, @NonNull Paint paint) {
         canvas.save();
         canvas.translate(x, y);
         canvas.drawPath(DataStyle.getCurrent().getCrosshairsPath(), paint);
@@ -680,7 +680,7 @@ public class Map extends View implements IMapView {
      * @param canvas canvas to draw on
      * @param fps frames per second
      */
-    private void paintStats(final Canvas canvas, final int fps) {
+    private void paintStats(@NonNull final Canvas canvas, final int fps) {
         int pos = 1;
         String text = "";
         Paint infotextPaint = DataStyle.getInternal(DataStyle.INFOTEXT).getPaint();
@@ -710,7 +710,7 @@ public class Map extends View implements IMapView {
      * 
      * @param canvas canvas to draw on
      */
-    private void paintZoomAndOffset(final Canvas canvas) {
+    private void paintZoomAndOffset(@NonNull final Canvas canvas) {
         int pos = ThemeUtils.getActionBarHeight(context) + 5 + (int) de.blau.android.layer.grid.MapOverlay.LONGTICKS_DP * 3;
         Offset o = getBackgroundLayer().getTileLayerConfiguration().getOffset(zoomLevel);
         String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.getDeltaLon()) : "0.00000",
@@ -729,7 +729,7 @@ public class Map extends View implements IMapView {
      * @param canvas the canvas we are drawing on
      * @param list list of bounding boxes that we've downloaded
      */
-    private void paintStorageBox(final Canvas canvas, List<BoundingBox> list) {
+    private void paintStorageBox(@NonNull final Canvas canvas, @NonNull List<BoundingBox> list) {
         if (!tmpLocked || alwaysDrawBoundingBoxes) {
             Canvas c = canvas;
             Bitmap b = null;
@@ -747,7 +747,7 @@ public class Map extends View implements IMapView {
             path.reset();
             RectF screen = new RectF(0, 0, getWidth(), getHeight());
             for (BoundingBox bb : list) {
-                if (viewBox.intersects(bb)) { // only need to do this if we are on screen
+                if (bb != null && viewBox.intersects(bb)) { // only need to do this if we are on screen
                     float left = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getLeft());
                     float right = GeoMath.lonE7ToX(screenWidth, viewBox, bb.getRight());
                     float bottom = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, bb.getBottom());
@@ -863,7 +863,7 @@ public class Map extends View implements IMapView {
     /**
      * @param aSelectedNodes the currently selected nodes to edit.
      */
-    void setSelectedNodes(final List<Node> aSelectedNodes) {
+    void setSelectedNodes(@Nullable final List<Node> aSelectedNodes) {
         if (dataLayer != null) {
             dataLayer.setSelectedNodes(aSelectedNodes);
         }
@@ -873,7 +873,7 @@ public class Map extends View implements IMapView {
      * 
      * @param aSelectedWays the currently selected ways to edit.
      */
-    void setSelectedWays(final List<Way> aSelectedWays) {
+    void setSelectedWays(@Nullable final List<Way> aSelectedWays) {
         if (dataLayer != null) {
             dataLayer.setSelectedWays(aSelectedWays);
         }
@@ -894,7 +894,7 @@ public class Map extends View implements IMapView {
      * @param ctx Android Context
      * @param aPreference the new Preferences
      */
-    public void setPrefs(Context ctx, final Preferences aPreference) {
+    public void setPrefs(@NonNull Context ctx, @NonNull final Preferences aPreference) {
         prefs = aPreference;
         TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         setUpLayers(ctx);
@@ -912,7 +912,7 @@ public class Map extends View implements IMapView {
      * @param layerId the layer id
      * @return true if we should allocate a layer
      */
-    public static boolean activeOverlay(String layerId) {
+    public static boolean activeOverlay(@NonNull String layerId) {
         return !(TileLayerServer.LAYER_NONE.equals(layerId) || TileLayerServer.LAYER_NOOVERLAY.equals(layerId));
     }
 
@@ -1014,7 +1014,7 @@ public class Map extends View implements IMapView {
      * @param canvas Canvas we are drawing on
      * @return the tile zoom level
      */
-    private int calcZoomLevel(Canvas canvas) { // NOSONAR
+    private int calcZoomLevel(@NonNull Canvas canvas) { // NOSONAR
         int tileWidth = TileLayerServer.DEFAULT_TILE_SIZE;
         int tileHeight = TileLayerServer.DEFAULT_TILE_SIZE;
         MapTilesLayer tileLayer = getBackgroundLayer();
@@ -1071,6 +1071,7 @@ public class Map extends View implements IMapView {
      * 
      * @return a List containing the currently in use imagery names
      */
+    @NonNull
     public List<String> getImageryNames() {
         List<String> result = new ArrayList<>();
         for (MapViewLayer osmvo : getLayers()) {
