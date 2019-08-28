@@ -56,6 +56,7 @@ import de.blau.android.util.MenuUtil;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -106,7 +107,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         this.oldMode = oldMode;
         this.main = main; // currently we are only called from here
         map = main.getMap();
-        osmts = map.getBackgroundLayer().getTileLayerConfiguration();
+        MapTilesLayer layer = map.getBackgroundLayer();
+        if (layer == null) {
+            throw new IllegalStateException("MapTilesLayer is null");
+        }
+        osmts = layer.getTileLayerConfiguration();
         oldOffsets = osmts.getOffsets().clone();
         prefs = new Preferences(main);
         String offsetServer = prefs.getOffsetServer();

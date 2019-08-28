@@ -1798,6 +1798,8 @@ public class Main extends FullScreenAppCompatActivity
             MenuItemCompat.setShowAsAction(mi, MenuItemCompat.SHOW_AS_ACTION_NEVER);
         }
 
+        menu.findItem(R.id.menu_tools_background_align).setEnabled(map.getBackgroundLayer() != null);
+
         if (getBottomBar() != null) {
             // menuUtil.evenlyDistributedToolbar(getBottomToolbar());
         }
@@ -2350,12 +2352,14 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_tools_background_align:
             // protect against weird state
             Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT;
-            backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(this, oldMode);
-            logic.setMode(this, Mode.MODE_ALIGN_BACKGROUND); // NOTE needs to be
-                                                             // after
-                                                             // instance
-                                                             // creation
-            startSupportActionMode(getBackgroundAlignmentActionModeCallback());
+            try {
+                backgroundAlignmentActionModeCallback = new BackgroundAlignmentActionModeCallback(this, oldMode);
+                // NOTE needs to be after instance creation
+                logic.setMode(this, Mode.MODE_ALIGN_BACKGROUND);
+                startSupportActionMode(getBackgroundAlignmentActionModeCallback());
+            } catch (IllegalStateException isex) {
+                Log.e(DEBUG_TAG, isex.getMessage());
+            }
             return true;
 
         case R.id.menu_tools_apply_local_offset:

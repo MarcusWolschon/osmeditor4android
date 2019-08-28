@@ -114,6 +114,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      * 
      * @return an instance of the Layers dialog
      */
+    @NonNull
     private static Layers newInstance() {
         Layers f = new Layers();
 
@@ -705,6 +706,9 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             TextView name = (TextView) row.getChildAt(2);
             name.setText(tileServer.getName());
             layer.setRendererInfo(tileServer);
+        }
+        if (activity instanceof Main) {
+            ((Main) activity).supportInvalidateOptionsMenu();
         }
         setPrefs(activity, prefs);
     }
