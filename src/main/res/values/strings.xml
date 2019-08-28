@@ -600,7 +600,7 @@ avoided by using an offline data source.</string>
     <string name="menu_gps_import">Import GPX track</string>
     <string name="menu_gps_goto_start">Go to start of GPX track</string>
     <string name="menu_gps_goto_first_waypoint">Go to first waypoint</string>
-    <string name="menu_enable_gps_autodownload">GPS auto download</string>
+    <string name="menu_enable_gps_autodownload">Location based auto download</string>
     <string name="menu_enable_pan_and_zoom_auto_download">Pan and zoom auto download</string>
     <string name="menu_transfer">Transfer…</string>
     <string name="menu_transfer_download_current">Download current view</string>
