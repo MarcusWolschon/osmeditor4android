@@ -285,7 +285,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             savedTags.putAll(temp);
         }
 
-        prefs = new Preferences(getActivity());
+        prefs = App.getLogic().getPrefs();
 
         if (prefs.getEnableNameSuggestions()) {
             names = App.getNames(getActivity());
@@ -453,6 +453,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     public void onStart() {
         super.onStart();
         Log.d(DEBUG_TAG, "onStart");
+        prefs = App.getLogic().getPrefs(); // may have changed
         // the following likely wont work in onCreateView
         @SuppressWarnings("unchecked")
         List<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
@@ -1564,7 +1565,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Focus on the first empty value field
      * 
-     * @param rowLayout layout holding the ros
+     * @param rowLayout layout holding the rows
      * @return true if successful
      */
     private boolean focusOnEmptyValue(LinearLayout rowLayout) {

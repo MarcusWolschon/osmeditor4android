@@ -328,7 +328,7 @@ public class Logic {
      * 
      * @param prefs the new Preferences.
      */
-    void setPrefs(final Preferences prefs) {
+    public void setPrefs(final Preferences prefs) {
         this.prefs = prefs;
         DataStyle.switchTo(prefs.getMapProfile());
     }

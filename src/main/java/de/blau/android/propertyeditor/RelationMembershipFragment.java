@@ -134,7 +134,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             elementType = getArguments().getString(ELEMENT_TYPE_KEY);
         }
 
-        Preferences prefs = new Preferences(getActivity());
+        Preferences prefs = App.getLogic().getPrefs();
         Server server = prefs.getServer();
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
@@ -263,13 +263,24 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         private String               elementType    = null;
         private PresetItem           relationPreset = null;
 
-        public RelationMembershipRow(Context context) {
+        /**
+         * Construct a roe
+         * 
+         * @param context an Android Context
+         */
+        public RelationMembershipRow(@NonNull Context context) {
             super(context);
             owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
                                                                         // in Eclipse
         }
 
-        public RelationMembershipRow(Context context, AttributeSet attrs) {
+        /**
+         * Construct a roe
+         * 
+         * @param context an Android Context
+         * @param attrs an AttributeSet
+         */
+        public RelationMembershipRow(@NonNull Context context, @Nullable AttributeSet attrs) {
             super(context, attrs);
             owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
                                                                         // in Eclipse
@@ -488,19 +499,33 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             selected.setChecked(false);
         }
 
+        /**
+         * Disable the checkbox for this row
+         */
         public void disableCheckBox() {
             selected.setEnabled(false);
         }
 
+        /**
+         * Enable the checkbox for this row
+         */
         protected void enableCheckBox() {
             selected.setEnabled(true);
         }
 
+        /**
+         * Set if the spinner should be shown
+         * 
+         * @param showSpinner if true the spinner is shown
+         */
         public void setShowSpinner(boolean showSpinner) {
             this.showSpinner = showSpinner;
         }
     } // RelationMembershipRow
 
+    /**
+     * Start the action mode when a row is selected
+     */
     private void parentSelected() {
         synchronized (actionModeCallbackLock) {
             LinearLayout rowLayout = (LinearLayout) getOurView();

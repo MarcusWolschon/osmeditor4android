@@ -254,6 +254,13 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
         return presetPaneLayout;
     }
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(DEBUG_TAG, "onStart");
+        update(this.type); // preset configuration might have changed
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

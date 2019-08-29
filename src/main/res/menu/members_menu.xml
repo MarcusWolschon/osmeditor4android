@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/tag_menu_revert"
         android:icon="?attr/menu_undo"
         android:alphabeticShortcut="@string/shortcut_undo"
         android:title="@string/tag_menu_revert"
-        app:showAsAction="always"
-    />
+        app:showAsAction="always" />
     <item
         android:id="@+id/tag_menu_top"
         android:title="@string/tag_menu_top"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
     <item
         android:id="@+id/tag_menu_bottom"
         android:title="@string/tag_menu_bottom"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
     <item
         android:id="@+id/tag_menu_select_all"
         android:title="@string/menu_select_all"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_config"
+        android:title="@string/menu_config"
+        app:showAsAction="never" />
     <item
         android:id="@+id/tag_menu_help"
         android:icon="?attr/menu_help"
         android:alphabeticShortcut="@string/shortcut_help"
         android:title="@string/menu_help"
-        app:showAsAction="never"
-    />
+        app:showAsAction="never" />
 </menu>

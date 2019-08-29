@@ -49,6 +49,7 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
@@ -93,6 +94,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     private static final String TAGEDIT_SHOW_PRESETS      = "showPresets";
     private static final String TAGEDIT_EXTRA_TAGS        = "extra";
     private static final String TAGEDIT_PRESETSTOAPPLY    = "presetsToApply";
+
+    private static final int PREFERENCES_CODE = 5634;
 
     /** The layout containing the edit rows */
     LinearLayout rowLayout = null;
@@ -198,7 +201,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         int currentItem = -1; // used when restoring
-        prefs = new Preferences(this);
+        prefs = App.getLogic().getPrefs();
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customTagEditor_Light);
         }
@@ -420,6 +423,10 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             Feedback.start(this, Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME);
             return true;
         }
+        if (item.getItemId() == R.id.menu_config) {
+            PrefEditor.start(this, PREFERENCES_CODE);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -433,6 +440,10 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
                 && resultCode == RESULT_OK) {
             SelectFile.handleResult(requestCode, data);
+        } else if (requestCode == PREFERENCES_CODE) {
+            // Preferences may have been changed
+            prefs = new Preferences(this);
+            App.getLogic().setPrefs(prefs);
         }
     }
 

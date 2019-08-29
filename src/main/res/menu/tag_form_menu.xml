@@ -51,6 +51,10 @@
         app:showAsAction="never"
         android:title="Placeholder" />
     <item
+        android:id="@+id/menu_config"
+        android:title="@string/menu_config"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/tag_menu_help"
         android:alphabeticShortcut="@string/shortcut_help"
         android:icon="?attr/menu_help"

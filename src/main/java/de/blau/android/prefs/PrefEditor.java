@@ -1,5 +1,6 @@
 package de.blau.android.prefs;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,17 @@ public class PrefEditor extends PrefEditorActivity {
     public static void start(@NonNull Context context) {
         Intent intent = new Intent(context, PrefEditor.class);
         context.startActivity(intent);
+    }
+
+    /**
+     * Start the PrefEditor activity and wait for a result
+     * 
+     * @param activity an Activity
+     * @param requestCode an int value to identify the request
+     */
+    public static void start(@NonNull Activity activity, int requestCode) {
+        Intent intent = new Intent(activity, PrefEditor.class);
+        activity.startActivityForResult(intent, requestCode);
     }
 
     @Override

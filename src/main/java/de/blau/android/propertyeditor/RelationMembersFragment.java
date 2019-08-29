@@ -167,7 +167,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             savingHelper.save(getContext(), FILENAME_ORIG_MEMBERS, members, true);
         }
 
-        Preferences prefs = new Preferences(getActivity());
+        Preferences prefs = App.getLogic().getPrefs();
         Server server = prefs.getServer();
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 

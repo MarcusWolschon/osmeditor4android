@@ -229,7 +229,7 @@ public class App extends android.app.Application {
     public static Preset[] getCurrentPresets(@NonNull Context ctx) {
         synchronized (currentPresetsLock) {
             if (currentPresets == null) {
-                Preferences prefs = new Preferences(ctx);
+                Preferences prefs = new Preferences(ctx); // FIXME get instance held by logic
                 currentPresets = prefs.getPreset();
                 mruTags = new MRUTags();
                 mruTags.load(ctx);
