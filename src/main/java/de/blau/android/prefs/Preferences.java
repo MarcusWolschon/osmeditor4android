@@ -53,6 +53,7 @@ public class Preferences {
     private int           downloadRadius;                // in m
     private float         maxDownloadSpeed;              // in km/h
     private final int     autoPruneNodeLimit;
+    private final int     panAndZoomLimit;
     private int           bugDownloadRadius;
     private float         maxBugDownloadSpeed;           // in km/h
     private Set<String>   taskFilter;                    // can't be final
@@ -129,6 +130,7 @@ public class Preferences {
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
         autoPruneNodeLimit = getIntPref(R.string.config_autoPruneNodeLimit_key, 5000);
+        panAndZoomLimit = getIntPref(R.string.config_panAndZoomLimit_key, 17);
 
         bugDownloadRadius = getIntPref(R.string.config_bugDownloadRadius_key, 200);
         maxBugDownloadSpeed = getIntPref(R.string.config_maxBugDownloadSpeed_key, 30);
@@ -572,6 +574,15 @@ public class Preferences {
      */
     public int getAutoPruneNodeLimit() {
         return autoPruneNodeLimit;
+    }
+
+    /**
+     * Get the minimum zoom for pan and zoom auto-download
+     * 
+     * @return the current limit
+     */
+    public int getPanAndZoomLimit() {
+        return panAndZoomLimit;
     }
 
     /**

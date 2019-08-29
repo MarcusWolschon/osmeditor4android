@@ -91,10 +91,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * zoom level from which on we display icons and house numbers
      */
-    private static final int    SHOW_ICONS_LIMIT            = 15;
-    public static final int     SHOW_LABEL_LIMIT            = SHOW_ICONS_LIMIT + 5;
-    private static final int    PAN_AND_ZOOM_DOWNLOAD_LIMIT = SHOW_ICONS_LIMIT + 2;
-    protected static final long AUTOPRUNE_MIN_INTERVALL     = 10;                  // seconds between autoprunes
+    private static final int    SHOW_ICONS_LIMIT        = 15;
+    public static final int     SHOW_LABEL_LIMIT        = SHOW_ICONS_LIMIT + 5;
+    protected static final long AUTOPRUNE_MIN_INTERVALL = 10;                  // seconds between autoprunes
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -102,7 +101,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private final int houseNumberRadius;
     private final int verticalNumberOffset;
     private float     maxDownloadSpeed;
-    protected int     autoPruneNodeLimit = 5000; // node count for autoprune
+    protected int     autoPruneNodeLimit = 5000;                // node count for autoprune
+    private int       panAndZoomLimit    = SHOW_ICONS_LIMIT + 2;
 
     private final StorageDelegator delegator;
     private final Context          context;
@@ -364,7 +364,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         inNodeIconZoomRange = zoomLevel > DataStyle.getCurrent().getIconZoomLimit();
 
         Location location = map.getLocation();
-        if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
+        if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
             map.getRootView().removeCallbacks(download);
             map.getRootView().postDelayed(download, 100);
         }
@@ -1420,6 +1420,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         minDownloadSize = prefs.getDownloadRadius() * 2;
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         autoPruneNodeLimit = prefs.getAutoPruneNodeLimit();
+        panAndZoomLimit = prefs.getPanAndZoomLimit();
         iconCache.clear();
         areaIconCache.clear();
     }

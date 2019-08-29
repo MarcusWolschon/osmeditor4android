@@ -160,6 +160,23 @@
             android:summary="@string/config_maxAlertDistance_summary"
             android:dialogMessage="@string/config_maxAlertDistance_summary"
             android:title="@string/config_maxAlertDistance_title" />
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_closeChangesetOnSave_key"
+            android:summary="@string/config_closeChangesetOnSave_summary"
+            android:title="@string/config_closeChangesetOnSave_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="15"
+            android:dialogTitle="@string/config_orthogonalizeThreshold_title"
+            android:key="@string/config_orthogonalizeThreshold_key"
+            android:numeric="integer"
+            android:summary="@string/config_orthogonalizeThreshold_summary"
+            android:title="@string/config_orthogonalizeThreshold_title" />
+    </android.support.v7.preference.PreferenceScreen>
+    <android.support.v7.preference.PreferenceScreen
+        android:key="config_category_auto_download"
+        android:title="@string/config_category_auto_download"
+        android:summary="@string/config_category_auto_download_summary">
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="50"
             android:dialogTitle="@string/config_extTriggeredDownloadRadius_title"
@@ -169,13 +186,29 @@
             android:dialogMessage="@string/config_extTriggeredDownloadRadius_summary"
             android:title="@string/config_extTriggeredDownloadRadius_title" />
         <android.support.v7.preference.EditTextPreference
-            android:defaultValue="6"
+            android:defaultValue="10"
             android:dialogTitle="@string/config_maxDownloadSpeed_title"
             android:key="@string/config_maxDownloadSpeed_key"
             android:numeric="decimal"
             android:summary="@string/config_maxDownloadSpeed_summary"
             android:dialogMessage="@string/config_maxDownloadSpeed_summary"
             android:title="@string/config_maxDownloadSpeed_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="5000"
+            android:dialogTitle="@string/config_autoPruneNodeLimit_title"
+            android:key="@string/config_autoPruneNodeLimit_key"
+            android:numeric="integer"
+            android:summary="@string/config_autoPruneNodeLimit_summary"
+            android:dialogMessage="@string/config_autoPruneNodeLimit_summary"
+            android:title="@string/config_autoPruneNodeLimit_title" />
+        <android.support.v7.preference.EditTextPreference
+            android:defaultValue="17"
+            android:dialogTitle="@string/config_panAndZoomLimit_title"
+            android:key="@string/config_panAndZoomLimit_key"
+            android:numeric="integer"
+            android:summary="@string/config_panAndZoomLimit_summary"
+            android:dialogMessage="@string/config_panAndZoomLimit_summary"
+            android:title="@string/config_panAndZoomLimit_title" />
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="200"
             android:dialogTitle="@string/config_bugDownloadRadius_title"
@@ -192,18 +225,6 @@
             android:summary="@string/config_maxBugDownloadSpeed_summary"
             android:dialogMessage="@string/config_maxBugDownloadSpeed_summary"
             android:title="@string/config_maxBugDownloadSpeed_title" />
-        <android.support.v7.preference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/config_closeChangesetOnSave_key"
-            android:summary="@string/config_closeChangesetOnSave_summary"
-            android:title="@string/config_closeChangesetOnSave_title" />
-        <android.support.v7.preference.EditTextPreference
-            android:defaultValue="15"
-            android:dialogTitle="@string/config_orthogonalizeThreshold_title"
-            android:key="@string/config_orthogonalizeThreshold_key"
-            android:numeric="integer"
-            android:summary="@string/config_orthogonalizeThreshold_summary"
-            android:title="@string/config_orthogonalizeThreshold_title" />
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_gps"

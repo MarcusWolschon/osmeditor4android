@@ -187,6 +187,13 @@
             android:summary="@string/config_autoPruneNodeLimit_summary"
             android:title="@string/config_autoPruneNodeLimit_title" />
         <de.blau.android.prefs.IntEditTextPreference
+            android:defaultValue="17"
+            android:dialogTitle="@string/config_panAndZoomLimit_title"
+            android:key="@string/config_panAndZoomLimit_key"
+            android:numeric="integer"
+            android:summary="@string/config_panAndZoomLimit_summary"
+            android:title="@string/config_panAndZoomLimit_title" />
+        <de.blau.android.prefs.IntEditTextPreference
             android:defaultValue="200"
             android:dialogTitle="@string/config_bugDownloadRadius_title"
             android:key="@string/config_bugDownloadRadius_key"

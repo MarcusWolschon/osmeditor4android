@@ -130,6 +130,10 @@ Maximum speed up to which auto-download is attempted. Default: _10 km/h_.
 
 Limit at, when reached, an automatic prune of the data in memory is attempted. Default: _5000 Nodes_.
 
+### Zoom limit
+
+Minimum zoom for pan and zoom auto-download to work. In high data density areas this should be set to higher values to avoid loading very large amounts of data when zooming out. Default: _17_. 
+
 ### Task download radius
 
 When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: _200 meters_.
