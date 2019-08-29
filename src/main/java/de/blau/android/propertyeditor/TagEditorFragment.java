@@ -395,6 +395,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             }
         });
+
+        if (savedInstanceState == null) { // the following should only happen once on initial creation
+            @SuppressWarnings("unchecked")
+            List<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
+            if (presetsToApply != null) {
+                Preset preset = App.getCurrentRootPreset(getActivity());
+                PresetGroup rootGroup = preset.getRootGroup();
+                for (PresetElementPath pp : presetsToApply) {
+                    PresetElement pi = Preset.getElementByPath(rootGroup, pp);
+                    if (pi instanceof PresetItem) {
+                        applyPreset(editRowLayout, (PresetItem) pi, false, true);
+                    }
+                }
+            } else if (prefs.autoApplyPreset()) {
+                PresetItem pi = getBestPreset();
+                if (pi != null) {
+                    applyPreset(editRowLayout, pi, false, true);
+                }
+            }
+        }
         Log.d(DEBUG_TAG, "onCreateView returning");
         return rowLayout;
     }
@@ -454,24 +474,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         super.onStart();
         Log.d(DEBUG_TAG, "onStart");
         prefs = App.getLogic().getPrefs(); // may have changed
-        // the following likely wont work in onCreateView
-        @SuppressWarnings("unchecked")
-        List<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
-        Preset preset = App.getCurrentRootPreset(getActivity());
-        PresetGroup rootGroup = preset.getRootGroup();
-        if (presetsToApply != null) {
-            for (PresetElementPath pp : presetsToApply) {
-                PresetElement pi = Preset.getElementByPath(rootGroup, pp);
-                if (pi instanceof PresetItem) {
-                    applyPreset((PresetItem) pi, false, true);
-                }
-            }
-        } else if (prefs.autoApplyPreset()) {
-            PresetItem pi = getBestPreset();
-            if (pi != null) {
-                applyPreset(pi, false, true);
-            }
-        }
     }
 
     @Override
@@ -1459,7 +1461,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (prefs.nameSuggestionPresetsEnabled()) {
             PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (p != null) {
-                applyPreset(p, false, false);
+                applyPreset((LinearLayout) getOurView(), p, false, false);
             }
         }
     }
@@ -1652,14 +1654,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return found;
     }
 
-    /**
-     * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag
-     * set
-     * 
-     * @param item the preset to apply
-     */
-    void applyPreset(PresetItem item) {
-        applyPreset(item, false, true);
+    @Override
+    public void applyPreset(PresetItem preset, boolean addOptional) {
+        applyPreset((LinearLayout) getOurView(), preset, addOptional, true);
     }
 
     /**
@@ -1671,7 +1668,20 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param addToMRU add to preset MRU list if true
      */
     void applyPreset(@NonNull PresetItem item, boolean addOptional, boolean addToMRU) {
-        LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(true);
+        applyPreset((LinearLayout) getOurView(), item, addOptional, addToMRU);
+    }
+
+    /**
+     * Applies a preset (e.g. selected from the dialog or MRU), i.e. adds the tags from the preset to the current tag
+     * set
+     * 
+     * @param rowLayout the layout holding the rows
+     * @param item the preset item to apply
+     * @param addOptional add optional tags if true
+     * @param addToMRU add to preset MRU list if true
+     */
+    void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean addToMRU) {
+        LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
         boolean wasEmpty = currentValues.size() == 0;
         boolean replacedValue = false;
 
@@ -1721,17 +1731,17 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         }
 
-        loadEdits(currentValues, true);
+        loadEdits(rowLayout, currentValues, true);
         if (replacedValue) {
             Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
         }
 
         // re-determine best preset
-        updateAutocompletePresetItem(null, addToMRU);
+        updateAutocompletePresetItem(rowLayout, null, addToMRU);
 
         // only focus on an empty field if we are actually being shown
         if (propertyEditorListener != null && propertyEditorListener.onTop(this)) {
-            focusOnEmptyValue();
+            focusOnEmptyValue(rowLayout);
         }
     }
 
@@ -1911,7 +1921,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (pi != null) {
-                applyPreset(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional, true);
+                applyPreset((LinearLayout) getOurView(), pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional, true);
             }
             return true;
         case R.id.tag_menu_paste:
@@ -1966,8 +1976,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @return The LinkedHashMap<String,String> of key-value pairs.
      */
     private LinkedHashMap<String, List<String>> getKeyValueMap(final boolean allowBlanks) {
-        LinearLayout rowLayout = (LinearLayout) getOurView();
-        return getKeyValueMap(rowLayout, allowBlanks);
+        return getKeyValueMap((LinearLayout) getOurView(), allowBlanks);
     }
 
     /**
@@ -2503,10 +2512,5 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             valueEdit.setText(Tags.MPH);
             valueEdit.setSelection(0);
         }
-    }
-
-    @Override
-    public void applyPreset(PresetItem preset, boolean addOptional) {
-        applyPreset(preset, addOptional, true);
     }
 }
