@@ -138,15 +138,23 @@ public class BaseValidator implements Validator {
         PresetItem pi = Preset.findBestMatch(presets, tags);
         if (pi != null && checkTags != null) {
             for (Entry<String, Boolean> entry : checkTags.entrySet()) {
-                String key = entry.getKey();
-                if (pi.hasKey(key, entry.getValue())) {
-                    if (!e.hasTagKey(key)) {
-                        if (!(Tags.KEY_NAME.equals(key)
-                                && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
-                            status = status | Validator.MISSING_TAG;
+                String[] keys = entry.getKey().split("\\|");
+                int tempStatus = 0;
+                for (String key : keys) {
+                    key = key.trim();
+                    if (pi.hasKey(key, entry.getValue())) {
+                        if (!e.hasTagKey(key)) {
+                            if (!(Tags.KEY_NAME.equals(key)
+                                    && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
+                                tempStatus = Validator.MISSING_TAG;
+                            }
+                        } else {
+                            tempStatus = 0;
+                            break;
                         }
                     }
                 }
+                status = status | tempStatus;
             }
         }
         return status;
@@ -389,13 +397,16 @@ public class BaseValidator implements Validator {
         PresetItem pi = Preset.findBestMatch(presets, tags);
         if (pi != null && checkTags != null) {
             for (Entry<String, Boolean> entry : checkTags.entrySet()) {
-                String key = entry.getKey();
-                if (pi.hasKey(key, entry.getValue())) {
-                    if (!e.hasTagKey(key)) {
-                        if (!(Tags.KEY_NAME.equals(key)
-                                && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
-                            String hint = pi.getHint(key);
-                            result.add(ctx.getString(R.string.toast_missing_key, hint != null ? hint : key));
+                String[] keys = entry.getKey().split("\\|");
+                for (String key : keys) {
+                    key = key.trim();
+                    if (pi.hasKey(key, entry.getValue())) {
+                        if (!e.hasTagKey(key)) {
+                            if (!(Tags.KEY_NAME.equals(key)
+                                    && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
+                                String hint = pi.getHint(key);
+                                result.add(ctx.getString(R.string.toast_missing_key, hint != null ? hint : key));
+                            }
                         }
                     }
                 }

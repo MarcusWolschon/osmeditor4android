@@ -11,7 +11,7 @@ import de.blau.android.osm.Tags;
 public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
     private static final String DEBUG_TAG        = "ValidatorRulesDatab...";
     private static final String DATABASE_NAME    = "validator_rules";
-    private static final int    DATABASE_VERSION = 2;
+    private static final int    DATABASE_VERSION = 3;
 
     /**
      * Construct a new instance
@@ -40,7 +40,7 @@ public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
 
             db.execSQL("CREATE TABLE checktags (ruleset INTEGER, key TEXT, optional INTEGER DEFAULT 0, FOREIGN KEY(ruleset) REFERENCES rulesets(id))");
             ValidatorRulesDatabase.addCheck(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_OPENING_HOURS, false);
-            ValidatorRulesDatabase.addCheck(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_NAME, false);
+            ValidatorRulesDatabase.addCheck(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_NAME + "|" + Tags.KEY_REF, false);
             ValidatorRulesDatabase.addCheck(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_WHEELCHAIR, false);
         } catch (SQLException e) {
             Log.w(DEBUG_TAG, "Problem creating database", e);
@@ -52,6 +52,9 @@ public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
         Log.d(DEBUG_TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
         if (oldVersion <= 1 && newVersion >= 2) {
             db.execSQL("ALTER TABLE resurveytags ADD COLUMN is_regexp INTEGER DEFAULT 0");
+        }
+        if (oldVersion <= 2 && newVersion >= 3) {
+            db.execSQL("UPDATE checktags SET key='name|ref' WHERE key='name'");
         }
     }
 }
