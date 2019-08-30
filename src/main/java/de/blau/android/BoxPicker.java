@@ -145,7 +145,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
         super.onCreate(savedInstanceState);
 
-        int title = R.string.menu_transfer_download_other;
+        int title = R.string.boxpicker_firsttimetitle;
         Serializable arg = getIntent().getSerializableExtra(TITLE_KEY);
         if (arg instanceof Integer) {
             title = (Integer) arg;

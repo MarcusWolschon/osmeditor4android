@@ -81,14 +81,11 @@
         <menu>
             <item
                 android:id="@+id/menu_transfer_download_current"
-                android:title="@string/menu_transfer_download_current" />
+                android:title="@string/menu_transfer_download_current"
+                android:alphabeticShortcut="@string/shortcut_download" />
             <item
-                android:id="@+id/menu_transfer_download_current_add"
-                android:alphabeticShortcut="@string/shortcut_download"
-                android:title="@string/menu_transfer_download_current_add" />
-            <item
-                android:id="@+id/menu_transfer_download_other"
-                android:title="@string/menu_transfer_download_other" />
+                android:id="@+id/menu_transfer_download_replace"
+                android:title="@string/menu_transfer_download_replace" />
             <item
                 android:id="@+id/menu_transfer_upload"
                 android:title="@string/menu_transfer_upload" />

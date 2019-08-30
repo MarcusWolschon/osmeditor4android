@@ -1734,12 +1734,10 @@ public class Main extends FullScreenAppCompatActivity
 
         if (hasMapSplitSource) {
             menu.findItem(R.id.menu_transfer_download_current).setEnabled(true).setTitle(R.string.menu_transfer_load_current);
-            menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(true).setTitle(R.string.menu_transfer_load_current_add);
-            menu.findItem(R.id.menu_transfer_download_other).setEnabled(true).setTitle(R.string.menu_transfer_load_other);
+            menu.findItem(R.id.menu_transfer_download_replace).setEnabled(true).setTitle(R.string.menu_transfer_load_replace);
         } else {
             menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_current);
-            menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_current_add);
-            menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_other);
+            menu.findItem(R.id.menu_transfer_download_replace).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_replace);
         }
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
@@ -2131,15 +2129,11 @@ public class Main extends FullScreenAppCompatActivity
             break;
 
         case R.id.menu_transfer_download_current:
-            onMenuDownloadCurrent(false);
-            return true;
-
-        case R.id.menu_transfer_download_current_add:
             onMenuDownloadCurrent(true);
             return true;
 
-        case R.id.menu_transfer_download_other:
-            gotoBoxPicker(R.string.menu_transfer_download_other);
+        case R.id.menu_transfer_download_replace:
+            onMenuDownloadCurrent(false);
             return true;
 
         case R.id.menu_transfer_upload:
