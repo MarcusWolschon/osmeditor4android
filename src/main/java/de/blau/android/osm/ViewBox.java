@@ -252,8 +252,8 @@ public class ViewBox extends BoundingBox {
                     setLeft(-GeoMath.MAX_LON_E7);
                     setRight((int) Math.min(GeoMath.MAX_LON_E7, centerX + 2 * newWidth2));
                 } else {
-                    setLeft((int) (centerX - newWidth2));
-                    setRight((int) (centerX + newWidth2));
+                    setLeft((int) Math.max(-GeoMath.MAX_LON_E7, centerX - newWidth2));
+                    setRight((int) Math.min(GeoMath.MAX_LON_E7, centerX + newWidth2));
                 }
 
                 //
@@ -264,8 +264,8 @@ public class ViewBox extends BoundingBox {
                     mBottom = -GeoMath.MAX_MLAT_E7;
                     mTop = Math.min(GeoMath.MAX_MLAT_E7, -GeoMath.MAX_MLAT_E7 + 2 * newHeight2);
                 } else {
-                    mTop = centerY + newHeight2;
-                    mBottom = centerY - newHeight2;
+                    mTop = Math.min(GeoMath.MAX_MLAT_E7, centerY + newHeight2);
+                    mBottom = Math.max(-GeoMath.MAX_MLAT_E7, centerY - newHeight2);
                 }
             } else {
                 int singleBorderMovement;
