@@ -899,9 +899,11 @@ public class Map extends View implements IMapView {
         TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         setUpLayers(ctx);
         alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
-        for (MapViewLayer osmvo : renderLayers) {
-            if (osmvo != null) {
-                osmvo.setPrefs(aPreference);
+        synchronized (mLayers) {
+            for (MapViewLayer osmvo : mLayers) {
+                if (osmvo != null) {
+                    osmvo.setPrefs(aPreference);
+                }
             }
         }
     }
