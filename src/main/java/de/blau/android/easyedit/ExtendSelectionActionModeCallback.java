@@ -35,17 +35,10 @@ import de.blau.android.util.Util;
 public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
     private static final String DEBUG_TAG = "ExtendSelectionAct...";
 
-    private static final int MENUITEM_TAG            = 2;
-    private static final int MENUITEM_DELETE         = 3;
-    private static final int MENUITEM_COPY           = 4;
-    private static final int MENUITEM_CUT            = 5;
     private static final int MENUITEM_MERGE          = 6;
     private static final int MENUITEM_RELATION       = 7;
     private static final int MENUITEM_ORTHOGONALIZE  = 8;
     private static final int MENUITEM_MERGE_POLYGONS = 9;
-
-    private static final int MENUITEM_PREFERENCES = 10;
-    private static final int MENUITEM_JS_CONSOLE  = 11;
 
     private ArrayList<OsmElement> selection;
     private List<OsmElement>      sortedWays;
@@ -166,8 +159,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
 
-        menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
-        menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
+        menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_TAG, Menu.NONE, R.string.menu_tags)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
+        menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         // disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE,
         // R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
         // if (!(element instanceof Relation)) {
@@ -192,10 +187,11 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         // if (selection.size() == 2 && canMerge(selection)) {
         // menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
         // }
-        menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
+        menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
         Preferences prefs = new Preferences(main);
-        menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
+        menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console)
+                .setEnabled(prefs.isJsConsoleEnabled());
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
@@ -236,11 +232,11 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         if (!super.onActionItemClicked(mode, item)) {
             switch (item.getItemId()) {
 
-            case MENUITEM_TAG:
+            case ElementSelectionActionModeCallback.MENUITEM_TAG:
                 main.performTagEdit(selection, false, false);
                 break;
             // case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true); break;
-            case MENUITEM_DELETE:
+            case ElementSelectionActionModeCallback.MENUITEM_DELETE:
                 menuDelete(false);
                 break;
 
@@ -279,10 +275,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                     }
                 }
                 break;
-            case MENUITEM_PREFERENCES:
+            case ElementSelectionActionModeCallback.MENUITEM_PREFERENCES:
                 PrefEditor.start(main);
                 break;
-            case MENUITEM_JS_CONSOLE:
+            case ElementSelectionActionModeCallback.MENUITEM_JS_CONSOLE:
                 Main.showJsConsole(main);
                 break;
             case R.id.undo_action:

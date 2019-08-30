@@ -42,8 +42,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
     private static final String DEBUG_TAG                 = "ElementSelectionActi...";
     private static final int    MENUITEM_UNDO             = 0;
-    private static final int    MENUITEM_TAG              = 1;
-    private static final int    MENUITEM_DELETE           = 2;
+    static final int    MENUITEM_TAG              = 1;
+    static final int    MENUITEM_DELETE           = 2;
     private static final int    MENUITEM_HISTORY          = 3;
     private static final int    MENUITEM_COPY             = 4;
     private static final int    MENUITEM_CUT              = 5;
@@ -52,11 +52,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final int    MENUITEM_EXTEND_SELECTION = 8;
     private static final int    MENUITEM_ELEMENT_INFO     = 9;
 
-    protected static final int MENUITEM_SHARE_POSITION    = 21;
-    private static final int   MENUITEM_TAG_LAST          = 22;
-    private static final int   MENUITEM_ZOOM_TO_SELECTION = 23;
-    private static final int   MENUITEM_PREFERENCES       = 24;
-    private static final int   MENUITEM_JS_CONSOLE        = 25;
+    protected static final int MENUITEM_SHARE_POSITION    = 31;
+    private static final int   MENUITEM_TAG_LAST          = 32;
+    private static final int   MENUITEM_ZOOM_TO_SELECTION = 33;
+    static final int   MENUITEM_PREFERENCES       = 34;
+    static final int   MENUITEM_JS_CONSOLE        = 35;
 
     OsmElement element = null;
 

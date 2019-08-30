@@ -60,6 +60,10 @@ Rotate the way around its centroid. The centroid position is marked with a cross
 
 Available for closed ways with at least four nodes. Will split the way in to two polygons, sharing the common nodes.
 
+### Remove node from way
+
+This will remove a node from the selected way. If the node is untagged and not a member of any other way the node will be deleted, otherwise it will remain in the data.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the way to the internal copy and paste buffer.

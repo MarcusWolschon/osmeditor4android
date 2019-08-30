@@ -3,6 +3,7 @@ package de.blau.android.easyedit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -34,6 +36,7 @@ import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -155,5 +158,50 @@ public class WayActionsTest {
         Assert.assertEquals(90.01, theta, 0.01);
         device.waitForIdle(1000);
         TestUtils.clickHome(device);
+    }
+
+    /**
+     * Select, remove two nodes
+     */
+    @Test
+    public void removeNodeFromWay() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock();
+        TestUtils.zoomToLevel(main, 21);
+        TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Way way = App.getLogic().getSelectedWay();
+        List<Node> origWayNodes = new ArrayList<>(way.getNodes());
+        Assert.assertNotNull(way);
+        Assert.assertEquals(104148456L, way.getOsmId());
+        //
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_remove_node_from_way), true));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_remove_node_from_way)));
+        // delete an untagged way node somewhere in the middle
+        int origSize = way.getNodes().size();
+        Node testNode1 = way.getNodes().get(origSize - 4);
+        TestUtils.clickAtCoordinatesWaitNewWindow(device, map, testNode1.getLon(), testNode1.getLat());
+        Assert.assertEquals(OsmElement.STATE_DELETED, testNode1.getState());
+        Assert.assertEquals(origSize - 1, way.getNodes().size());
+        // delete the end node that is shared by some other ways
+        TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_remove_node_from_way), true));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_remove_node_from_way)));
+        origSize = way.getNodes().size();
+        Node testNode2 = way.getLastNode();
+        List<Way> ways = logic.getWaysForNode(testNode2);
+        Assert.assertEquals(4, ways.size());
+        Assert.assertTrue(ways.contains(way));
+        TestUtils.clickAtCoordinatesWaitNewWindow(device, map, testNode2.getLon(), testNode2.getLat());
+        Assert.assertEquals(OsmElement.STATE_UNCHANGED, testNode2.getState());
+        Assert.assertEquals(origSize - 1, way.getNodes().size());
+        ways = logic.getWaysForNode(testNode2);
+        Assert.assertEquals(3, ways.size());
+        Assert.assertFalse(ways.contains(way));
     }
 }

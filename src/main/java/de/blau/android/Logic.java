@@ -1770,7 +1770,7 @@ public class Logic {
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param selection objects to delete
      */
-    public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, @NonNull ArrayList<OsmElement> selection) {
+    public synchronized void performEraseMultipleObjects(@Nullable final FragmentActivity activity, @NonNull List<OsmElement> selection) {
         // need to make three passes
         createCheckpoint(activity, R.string.undo_action_delete_objects);
         displayAttachedObjectWarning(activity, selection); // needs to be done before removal
@@ -1845,6 +1845,20 @@ public class Logic {
         Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
         invalidateMap();
         return result;
+    }
+
+    /**
+     * Remove a Node from a specific Way, if the Node is untagged and not a member of a further Way it will be deleted
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param way the Way
+     * @param node the Node
+     */
+    public synchronized void performRemoveNodeFromWay(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node) {
+        createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
+        displayAttachedObjectWarning(activity, node);
+        getDelegator().removeNodeFromWay(way, node);
+        invalidateMap();
     }
 
     /**
@@ -2142,7 +2156,7 @@ public class Logic {
      * @param way the way to reverse
      * @return true if reverseWay returned true, implying that tags had to be reversed
      */
-    public synchronized boolean performReverse(@Nullable Activity activity, Way way) {
+    public synchronized boolean performReverse(@Nullable Activity activity, @NonNull Way way) {
         createCheckpoint(activity, R.string.undo_action_reverse_way);
         boolean hadToReverse = getDelegator().reverseWay(way);
         invalidateMap();

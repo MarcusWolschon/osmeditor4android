@@ -1331,6 +1331,35 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Remove node from specified way
+     * 
+     * If the node is untagged and not a member of any other node it will be deleted.
+     * 
+     * @param way the Way
+     * @param node the Node
+     */
+    public void removeNodeFromWay(@NonNull Way way, @NonNull Node node) {
+        boolean closed = way.isClosed();
+        int size = way.getNodes().size();
+        if (size < 3 || (closed && size < 4)) {
+            throw new OsmIllegalOperationException("No Nodes can be removed from this Way. This is a bug.");
+        }
+        dirty = true;
+        undo.save(way);
+        if (closed && way.isEndNode(node)) {
+            way.removeNode(node);
+            // re-close
+            way.addNode(way.getFirstNode());
+        } else {
+            way.removeNode(node);
+        }
+        onElementChanged(null, way);
+        if (!node.hasTags() && getCurrentStorage().getWays(node).isEmpty()) {
+            removeNode(node);
+        }
+    }
+
+    /**
      * Merge two nodes into one.
      * 
      * Updates ways and relations the node is a member of.
