@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
@@ -25,7 +26,10 @@ import android.widget.TextView;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.dialogs.ViewPagerAdapter;
 import de.blau.android.filter.Filter;
+import de.blau.android.util.ThemeUtils;
+import de.blau.android.views.ExtendedViewPager;
 
 public class ValidatorRulesUI {
     private static final String DEBUG_TAG = ValidatorRulesUI.class.getSimpleName();
@@ -47,6 +51,14 @@ public class ValidatorRulesUI {
     public void manageRulesetContents(@NonNull final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         View rulesetView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list, null);
+        ExtendedViewPager pager = (ExtendedViewPager) rulesetView.findViewById(R.id.pager);
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_header);
+        pagerTabStrip.setDrawFullUnderline(true);
+        pagerTabStrip.setTabIndicatorColor(ThemeUtils.getStyleAttribColorValue(context, R.attr.colorAccent, R.color.dark_grey));
+
+        pager.setAdapter(new ViewPagerAdapter(context, rulesetView, new int[] { R.id.resurvey_page, R.id.check_page },
+                new int[] { R.string.resurvey_entries, R.string.check_entries }));
+
         alertDialog.setTitle(context.getString(R.string.validator_title, context.getString(R.string.default_)));
         alertDialog.setView(rulesetView);
         final SQLiteDatabase writableDb = new ValidatorRulesDatabaseHelper(context).getWritableDatabase();

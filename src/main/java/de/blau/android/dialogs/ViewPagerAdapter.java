@@ -6,7 +6,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-class ViewPagerAdapter extends PagerAdapter {
+public class ViewPagerAdapter extends PagerAdapter {
     final Context context;
     final View    layout;
     final int[]   pageRes;
@@ -20,7 +20,7 @@ class ViewPagerAdapter extends PagerAdapter {
      * @param pageRes an array holding the resource ids of the pages
      * @param titleRes an array holding the resource ids of the page titles
      */
-    ViewPagerAdapter(@NonNull Context context, @NonNull View layout, @NonNull int[] pageRes, @NonNull int[] titleRes) {
+    public ViewPagerAdapter(@NonNull Context context, @NonNull View layout, @NonNull int[] pageRes, @NonNull int[] titleRes) {
         super();
         this.context = context;
         this.layout = layout;

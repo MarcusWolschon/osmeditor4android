@@ -202,8 +202,10 @@
     <string name="js_console_output_hint">Output will appear here</string>
     <!-- Validator dialogs  -->
     <string name="validator_title">Validator ruleset %1$s</string>
+    <string name="resurvey_entries">Resurvey</string>
     <string name="edit_resurvey_title">Edit re-survey entry</string>
     <string name="add_resurvey_title">Add re-survey entry</string>
+    <string name="check_entries">Check</string>
     <string name="edit_check_title">Edit check entry</string>
     <string name="add_check_title">Add check entry</string>
     <string name="max_age">Max. age</string>
