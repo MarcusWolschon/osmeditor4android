@@ -974,7 +974,7 @@ public class Map extends View implements IMapView {
     public void setViewBox(@NonNull final ViewBox viewBox) {
         myViewBox = viewBox;
         try {
-            myViewBox.setRatio(this, (float) getWidth() / getHeight(), false);
+            myViewBox.setRatio(this, (float) getWidth() / getHeight(), true);
         } catch (OsmException e) {
             Log.d(DEBUG_TAG, "setViewBox got " + e.getMessage());
         }
