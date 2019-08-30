@@ -312,7 +312,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (!nodes.isEmpty()) {
             Iterator<Node> it = nodes.iterator();
             Node n = it.next();
-            BoundingBox box = new BoundingBox(n.lon, n.lat);
+            ViewBox box = new ViewBox(n.lon, n.lat);
             while (it.hasNext()) {
                 n = it.next();
                 box.union(n.lon, n.lat);
@@ -635,7 +635,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws OsmIllegalOperationException if the new position would be off world
      */
     void validateCoordinates(final int newLatE7, final int newLonE7) throws OsmIllegalOperationException {
-        if (newLatE7 > GeoMath.MAX_LAT_E7 || newLatE7 < -GeoMath.MAX_LAT_E7) {
+        if (newLatE7 > GeoMath.MAX_COMPAT_LAT_E7 || newLatE7 < -GeoMath.MAX_COMPAT_LAT_E7) {
             Log.e(DEBUG_TAG, "lat of " + newLatE7 + " is invalid");
             throw new OsmIllegalOperationException("lat of " + newLatE7 + " is invalid");
         }

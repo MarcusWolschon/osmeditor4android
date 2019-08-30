@@ -119,11 +119,9 @@ public class GeoUrlData implements Serializable {
                     try {
                         double lat = Double.parseDouble(coords[0]);
                         double lon = Double.parseDouble(coords[1]);
-                        if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-
+                        if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
                             geoData.setLat(lat);
                             geoData.setLon(lon);
-
                         }
                     } catch (NumberFormatException e) {
                         Log.e(DEBUG_TAG, "Coordinates " + coords[0] + "/" + coords[1] + " not parseable");

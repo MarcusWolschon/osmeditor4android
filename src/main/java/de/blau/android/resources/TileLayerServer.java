@@ -1688,7 +1688,7 @@ public class TileLayerServer implements Serializable {
      * @return an approximate size value in WGS84 degrees^2
      */
     private static double coverageSize(List<CoverageArea> areas) {
-        double result = GeoMath.MAX_LON * GeoMath.MAX_LAT * 4;
+        double result = GeoMath.MAX_LON * GeoMath.MAX_COMPAT_LAT * 4;
         boolean firstNonEmpty = true;
         if (areas != null) {
             for (CoverageArea area : areas) {

@@ -271,7 +271,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         double lon = location.getLongitude();
                         double lat = location.getLatitude();
                         if (Util.notZero(lon) || Util.notZero(lat)) {
-                            if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+                            if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
                                 logic.performSetPosition(main, node, lon, lat);
                                 TreeMap<String, String> tags = new TreeMap<>(node.getTags());
                                 if (location.hasAltitude()) {

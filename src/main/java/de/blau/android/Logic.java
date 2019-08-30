@@ -3369,7 +3369,7 @@ public class Logic {
                             viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
                         } catch (Exception e) {
                             // invalid dimensions or similar error
-                            viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
+                            viewBox.setBorders(map, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
                         }
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
@@ -3544,7 +3544,7 @@ public class Logic {
                     viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
                 } catch (Exception e) {
                     // invalid dimensions or similar error
-                    viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
+                    viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_COMPAT_LAT, 180.0, GeoMath.MAX_COMPAT_LAT));
                 }
                 DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
                 loadEditingState((Main) activity, true);

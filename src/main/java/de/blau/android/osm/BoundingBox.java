@@ -68,16 +68,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     private int height;
 
     /**
-     * Maximum latitude ({@link GeoMath#MAX_LAT}) in 1E7.
-     */
-    public static final int MAX_LAT_E7 = (int) (GeoMath.MAX_LAT * 1E7);
-
-    /**
-     * Maximum Longitude.
-     */
-    public static final int MAX_LON_E7 = (int) (GeoMath.MAX_LON * 1E7);
-
-    /**
      * Delimiter for the bounding box as String representation.
      */
     private static final String STRING_DELIMITER = ",";
@@ -151,7 +141,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @param bottom degree of the bottom Border, multiplied by 1E7
      * @param right degree of the right Border, multiplied by 1E7
      * @param top degree of the top Border, multiplied by 1E7
-     * @throws OsmException when the borders are mixed up or outside of {@link #MAX_LAT_E7}/{@link #MAX_LON_E7}
+     * @throws OsmException when the borders are mixed up or outside of {@link #MAX_COMPAT_LAT_E7}/{@link #MAX_LON_E7}
      *             (!{@link #isValid()})
      */
     public BoundingBox(final int left, final int bottom, final int right, final int top) {
@@ -499,7 +489,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return true is within WGS84 bounds
      */
     public boolean isValid() {
-        return left <= right && bottom <= top && left >= -MAX_LON_E7 && right <= MAX_LON_E7 && bottom >= -MAX_LAT_E7 && top <= MAX_LAT_E7;
+        return left <= right && bottom <= top && left >= -GeoMath.MAX_LON_E7 && right <= GeoMath.MAX_LON_E7 && bottom >= -GeoMath.MAX_COMPAT_LAT_E7
+                && top <= GeoMath.MAX_COMPAT_LAT_E7;
     }
 
     /**
@@ -742,60 +733,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
                 b.intersection(box); // shrink the box
             }
         }
-    }
-
-    /**
-     * Expand the bounding box by d meters on every side Clamps the resulting coordinates to legal values
-     * 
-     * @param d distance in meters to expand the box
-     */
-    public void expand(double d) {
-        double delta = GeoMath.convertMetersToGeoDistance(d);
-        int deltaE7 = (int) (delta * 1E7);
-        top = Math.min(GeoMath.MAX_LAT_E7, top + deltaE7);
-        bottom = Math.max(-GeoMath.MAX_LAT_E7, bottom - deltaE7);
-        int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(top / 1E7D))) * 1E7D);
-        left = Math.max(-GeoMath.MAX_LON_E7, left - deltaHE7);
-        right = Math.min(GeoMath.MAX_LON_E7, right + deltaHE7);
-        calcDimensions();
-    }
-
-    /**
-     * Expand the bounding box so that it is at least d long in each dimension Clamps the resulting coordinates to legal
-     * values
-     * 
-     * @param d minimum distance in meters for each size
-     */
-    public void ensureMinumumSize(double d) {
-        double min = GeoMath.convertMetersToGeoDistance(d);
-        int minE7 = (int) (min * 1E7);
-        if (height < minE7) {
-            int deltaE7 = (minE7 - height) / 2;
-            top = Math.min(GeoMath.MAX_LAT_E7, top + deltaE7);
-            bottom = Math.max(-GeoMath.MAX_LAT_E7, bottom - deltaE7);
-        }
-        int minWE7 = (int) ((min / Math.cos(Math.toRadians(top / 1E7D))) * 1E7D);
-        if (width < minWE7) {
-            long deltaWE7 = (minWE7 - width) / 2;
-            left = (int) Math.max(-GeoMath.MAX_LON_E7, left - deltaWE7);
-            right = (int) Math.min(GeoMath.MAX_LON_E7, right + deltaWE7);
-        }
-        calcDimensions();
-    }
-
-    /**
-     * Scale the bounding box sides by a factor. Clamps the resulting coordinates to legal values
-     * 
-     * @param f factor to make the sides larger
-     */
-    public void scale(double f) {
-        int hDeltaE7 = (int) (height * f - height) / 2;
-        top = Math.min(GeoMath.MAX_LAT_E7, top + hDeltaE7);
-        bottom = Math.max(-GeoMath.MAX_LAT_E7, bottom - hDeltaE7);
-        int wDeltaE7 = (int) (width * f - width) / 2;
-        left = Math.max(-GeoMath.MAX_LON_E7, left - wDeltaE7);
-        right = Math.min(GeoMath.MAX_LON_E7, right + wDeltaE7);
-        calcDimensions();
     }
 
     /*

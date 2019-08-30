@@ -8,6 +8,7 @@ import java.util.List;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.GeoMath;
 
 /**
  * 2D R-Tree implementation for Android. Uses algorithms from:
@@ -481,7 +482,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
      * @param results A collection to store the query results
      */
     public void query(@NonNull Collection<T> results) {
-        BoundingBox box = new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7);
+        BoundingBox box = new BoundingBox(-GeoMath.MAX_LON_E7, -GeoMath.MAX_LAT_E7, GeoMath.MAX_LON_E7, GeoMath.MAX_LAT_E7);
         query(results, box, root);
     }
 

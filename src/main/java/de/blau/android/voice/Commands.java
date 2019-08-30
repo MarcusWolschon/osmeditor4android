@@ -178,7 +178,7 @@ public class Commands {
             if (main.getString(R.string.voice_here).equals(loc)) {
                 double lon = location.getLongitude();
                 double lat = location.getLatitude();
-                if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+                if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_COMPAT_LAT && lat <= GeoMath.MAX_COMPAT_LAT) {
                     final Logic logic = App.getLogic();
                     logic.setSelectedNode(null);
                     Node node = logic.performAddNode(main, lon, lat);
@@ -197,7 +197,7 @@ public class Commands {
         if (location != null) {
             double lon = location.getLongitude();
             double lat = location.getLatitude();
-            if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+            if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
                 Note n = new Note((int) (lat * 1E7D), (int) (lon * 1E7D));
                 StringBuilder input = new StringBuilder();
                 for (int i = 1; i < words.length; i++) {

@@ -9,14 +9,12 @@ import de.blau.android.util.GeoMath;
 
 /**
  * A BoundingBox with additional support for the operations typically needed when it represents a View (zooming,
- * translation etc)
+ * translation etc). The box is constrained to Mercartor compatible latitude values.
  * 
  * @author mb
  * @author simon
  */
 public class ViewBox extends BoundingBox {
-
-    private static final int MAX_LAT_FOR_MERC_E7 = (int) (GeoMath.MAX_LAT * 1E7);
 
     private static final long serialVersionUID = -2708721312405863618L;
 
@@ -48,7 +46,7 @@ public class ViewBox extends BoundingBox {
     private static final String DEBUG_TAG = ViewBox.class.getSimpleName();
 
     /**
-     * The screen w/h ratio of this BoundingBox. Only needed when it's used as a viewbox.
+     * The screen w/h ratio of this ViewBox.
      */
     private float ratio = 1;
 
@@ -58,9 +56,9 @@ public class ViewBox extends BoundingBox {
     public static ViewBox getMaxMercatorExtent() {
         ViewBox box = new ViewBox();
         box.setLeft((int) (-180 * 1E7));
-        box.setBottom(-MAX_LAT_FOR_MERC_E7);
+        box.setBottom(-GeoMath.MAX_COMPAT_LAT_E7);
         box.setRight((int) (180 * 1E7));
-        box.setTop(MAX_LAT_FOR_MERC_E7);
+        box.setTop(GeoMath.MAX_COMPAT_LAT_E7);
         box.calcDimensions();
         box.calcBottomMercator();
         return box;
@@ -92,7 +90,7 @@ public class ViewBox extends BoundingBox {
      * @param bottom degree of the bottom Border, multiplied by 1E7
      * @param right degree of the right Border, multiplied by 1E7
      * @param top degree of the top Border, multiplied by 1E7
-     * @throws OsmException when the borders are mixed up or outside of {@link #MAX_LAT_E7}/{@link #MAX_LON_E7}
+     * @throws OsmException when the borders are mixed up or outside of {@link #MAX_COMPAT_LAT_E7}/{@link #MAX_LON_E7}
      *             (!{@link #isValid()})
      */
     public ViewBox(final int left, final int bottom, final int right, final int top) throws OsmException {
@@ -156,7 +154,7 @@ public class ViewBox extends BoundingBox {
     public boolean isValid() {
         int top = getTop();
         int bottom = getBottom();
-        return super.isValid() && (top <= MAX_LAT_FOR_MERC_E7) && (bottom >= -MAX_LAT_FOR_MERC_E7);
+        return super.isValid() && (top <= GeoMath.MAX_COMPAT_LAT_E7) && (bottom >= -GeoMath.MAX_COMPAT_LAT_E7);
     }
 
     /**
@@ -181,21 +179,23 @@ public class ViewBox extends BoundingBox {
      * 
      * @param map an instance
      * @param ratio The new aspect ratio.
+     * @throws OsmException if resulting ViewBox doesn't have valid corners
      */
     public void setRatio(Map map, final float ratio) throws OsmException {
         setRatio(map, ratio, false);
     }
 
     /**
-     * Changes the dimensions of this bounding box to fit the given ratio.
+     * Changes the dimensions of this ViewBox to fit the given ratio.
      * 
      * @param map the current Map instance
-     * @param ratio The new aspect ratio.
+     * @param newRatio The new aspect ratio.
      * @param preserveZoom If true, maintains the current level of zoom by creating a new boundingbox at the required
      *            ratio at the same center. If false, the new bounding box is sized such that the currently visible area
      *            is still visible with the new aspect ratio applied.
+     * @throws OsmException if resulting ViewBox doesn't have valid corners
      */
-    public void setRatio(Map map, final float ratio, final boolean preserveZoom) throws OsmException {
+    public void setRatio(Map map, final float newRatio, final boolean preserveZoom) throws OsmException {
         long mTop = GeoMath.latE7ToMercatorE7(getTop()); // note long or else we get an int overflow on calculating the
         // center
         long mBottom = GeoMath.latE7ToMercatorE7(getBottom());
@@ -214,8 +214,7 @@ public class ViewBox extends BoundingBox {
             mHeight = mTop - mBottom;
         }
 
-        // Log.d(DEBUG_TAG,"current ratio " + this.ratio + " new ratio " + ratio);
-        if ((ratio > 0) && !Float.isNaN(ratio)) {
+        if ((newRatio > 0) && !Float.isNaN(newRatio)) {
             long width = getWidth();
             if (preserveZoom) {
                 // Apply the new aspect ratio, but preserve the level of zoom
@@ -226,32 +225,32 @@ public class ViewBox extends BoundingBox {
 
                 long newHeight2 = 0;
                 long newWidth2 = 0;
-                if (ratio <= 1.0) { // portrait and square
+                if (newRatio <= 1.0) { // portrait and square
                     if (width <= mHeight) {
-                        newHeight2 = Math.round(((width / 2D) / ratio));
+                        newHeight2 = Math.round(((width / 2D) / newRatio));
                         newWidth2 = width / 2L;
                     } else { // switch landscape --> portrait
                         float pixelDeg = (float) map.getHeight() / (float) width; // height was the old width
                         newWidth2 = (long) (map.getWidth() / pixelDeg) / 2L;
-                        newHeight2 = Math.round(newWidth2 / ratio);
+                        newHeight2 = Math.round(newWidth2 / newRatio);
                     }
                 } else { // landscape
                     if (width < mHeight) { // switch portrait -> landscape
                         float pixelDeg = (float) map.getHeight() / (float) width; // height was the old width
                         newWidth2 = (long) (map.getWidth() / pixelDeg) / 2L;
-                        newHeight2 = Math.round(newWidth2 / ratio);
+                        newHeight2 = Math.round(newWidth2 / newRatio);
                     } else {
-                        newHeight2 = Math.round((width / 2D) / ratio);
+                        newHeight2 = Math.round((width / 2D) / newRatio);
                         newWidth2 = width / 2L;
                     }
                 }
 
-                if (centerX + newWidth2 > MAX_LON_E7) {
-                    setRight(MAX_LON_E7);
-                    setLeft((int) Math.max(-MAX_LON_E7, MAX_LON_E7 - 2 * newWidth2));
-                } else if (centerX - newWidth2 < -MAX_LON_E7) {
-                    setLeft(-MAX_LON_E7);
-                    setRight((int) Math.min(MAX_LON_E7, centerX + 2 * newWidth2));
+                if (centerX + newWidth2 > GeoMath.MAX_LON_E7) {
+                    setRight(GeoMath.MAX_LON_E7);
+                    setLeft((int) Math.max(-GeoMath.MAX_LON_E7, GeoMath.MAX_LON_E7 - 2 * newWidth2));
+                } else if (centerX - newWidth2 < -GeoMath.MAX_LON_E7) {
+                    setLeft(-GeoMath.MAX_LON_E7);
+                    setRight((int) Math.min(GeoMath.MAX_LON_E7, centerX + 2 * newWidth2));
                 } else {
                     setLeft((int) (centerX - newWidth2));
                     setRight((int) (centerX + newWidth2));
@@ -271,13 +270,13 @@ public class ViewBox extends BoundingBox {
             } else {
                 int singleBorderMovement;
                 // Ensure currently visible area is entirely visible in the new box
-                if ((width / (mHeight)) < ratio) {
+                if ((width / (mHeight)) < newRatio) {
                     // The actual box is wider than it should be.
                     /*
                      * Here comes the math: width/height = ratio width = ratio * height newWidth = width - ratio *
                      * height
                      */
-                    singleBorderMovement = Math.round((width - ratio * mHeight) / 2);
+                    singleBorderMovement = Math.round((width - newRatio * mHeight) / 2);
                     setLeft(getLeft() + singleBorderMovement);
                     setRight(getRight() - singleBorderMovement);
                 } else {
@@ -286,7 +285,7 @@ public class ViewBox extends BoundingBox {
                      * Same in here, only different: width/height = ratio height = width/ratio newHeight = height -
                      * width/ratio
                      */
-                    singleBorderMovement = Math.round((mHeight - width / ratio) / 2);
+                    singleBorderMovement = Math.round((mHeight - width / newRatio) / 2);
                     mBottom += singleBorderMovement;
                     mTop -= singleBorderMovement;
                 }
@@ -296,7 +295,7 @@ public class ViewBox extends BoundingBox {
             // border-sizes changed. So we have to recalculate the dimensions.
             calcDimensions();
             calcBottomMercator();
-            this.ratio = ratio;
+            this.ratio = newRatio;
             validate();
         }
     }
@@ -329,22 +328,22 @@ public class ViewBox extends BoundingBox {
      * @param map instance of the current map view
      * @param dLon the relative longitude change.
      * @param dLat the relative latitude change.
-     * @throws OsmException
+     * @throws OsmException if resulting ViewBox doesn't have valid corners
      */
     public synchronized void translate(@Nullable Map map, int dLon, int dLat) throws OsmException {
         int right = getRight();
         int left = getLeft();
         int top = getTop();
         int bottom = getBottom();
-        if ((long) right + (long) dLon > (long) MAX_LON_E7) {
-            dLon = MAX_LON_E7 - right;
-        } else if ((long) left + (long) dLon < (long) -MAX_LON_E7) {
-            dLon = -MAX_LON_E7 - left;
+        if ((long) right + (long) dLon > (long) GeoMath.MAX_LON_E7) {
+            dLon = GeoMath.MAX_LON_E7 - right;
+        } else if ((long) left + (long) dLon < (long) -GeoMath.MAX_LON_E7) {
+            dLon = -GeoMath.MAX_LON_E7 - left;
         }
-        if (top + dLat > MAX_LAT_E7) {
-            dLat = MAX_LAT_E7 - top;
-        } else if (bottom + dLat < -MAX_LAT_E7) {
-            dLat = -MAX_LAT_E7 - bottom;
+        if (top + dLat > GeoMath.MAX_COMPAT_LAT_E7) {
+            dLat = GeoMath.MAX_COMPAT_LAT_E7 - top;
+        } else if (bottom + dLat < -GeoMath.MAX_COMPAT_LAT_E7) {
+            dLat = -GeoMath.MAX_COMPAT_LAT_E7 - bottom;
         }
         setLeft(left + dLon);
         setRight(right + dLon);
@@ -432,17 +431,17 @@ public class ViewBox extends BoundingBox {
         long tmpLeft = left;
         long tmpRight = getRight();
         //
-        if (tmpLeft + horizontalChange < (long) -MAX_LON_E7) {
-            long rest = left + horizontalChange + (long) MAX_LON_E7;
-            tmpLeft = -MAX_LON_E7;
-            tmpRight = tmpRight - rest;
+        if (tmpLeft + horizontalChange < (long) -GeoMath.MAX_LON_E7) {
+            long rest = left + horizontalChange + (long) GeoMath.MAX_LON_E7;
+            tmpLeft = -GeoMath.MAX_LON_E7;
+            tmpRight = Math.min((long) GeoMath.MAX_LON_E7, tmpRight - rest);
         } else {
             tmpLeft = tmpLeft + horizontalChange;
         }
-        if (tmpRight - horizontalChange > (long) MAX_LON_E7) {
-            long rest = tmpRight - horizontalChange - (long) MAX_LON_E7;
-            tmpRight = MAX_LON_E7;
-            tmpLeft = Math.max((long) -MAX_LON_E7, tmpLeft + rest);
+        if (tmpRight - horizontalChange > (long) GeoMath.MAX_LON_E7) {
+            long rest = tmpRight - horizontalChange - (long) GeoMath.MAX_LON_E7;
+            tmpRight = GeoMath.MAX_LON_E7;
+            tmpLeft = Math.max((long) -GeoMath.MAX_LON_E7, tmpLeft + rest);
         } else {
             tmpRight = tmpRight - horizontalChange;
         }
@@ -454,7 +453,7 @@ public class ViewBox extends BoundingBox {
         if ((mBottom + verticalChange) < -GeoMath.MAX_MLAT_E7) {
             long rest = mBottom + verticalChange + (long) GeoMath.MAX_MLAT_E7;
             mBottom = -GeoMath.MAX_MLAT_E7;
-            mTop = mTop - rest;
+            mTop = Math.min(GeoMath.MAX_MLAT_E7, mTop - rest);
         } else {
             mBottom = mBottom + verticalChange;
         }
@@ -544,9 +543,8 @@ public class ViewBox extends BoundingBox {
         set(newBox);
         Log.d(DEBUG_TAG, "setBorders " + newBox.toString() + " ratio is " + ratio);
         try {
-            calcDimensions(); // neede to recalc width
-            setRatio(map, ratio, preserveZoom);
-            validate();
+            calcDimensions(); // needed to recalc width
+            setRatio(map, ratio, preserveZoom); // this validates too
         } catch (Exception e) {
             Log.d(DEBUG_TAG, "setBorders got exception " + e.getMessage());
         } // TODO slightly expensive likely to be better to do everything in mercator
@@ -625,8 +623,8 @@ public class ViewBox extends BoundingBox {
             long mCenter = mBottom + mHeight / 2;
             long newHeight = (long) (box.getWidth() / ratio);
             if (newHeight > GeoMath.MAX_MLAT_E7 * 2L) { // clamp
-                box.setTop(GeoMath.MAX_LAT_E7);
-                box.setBottom(-GeoMath.MAX_LAT_E7);
+                box.setTop(GeoMath.MAX_COMPAT_LAT_E7);
+                box.setBottom(-GeoMath.MAX_COMPAT_LAT_E7);
                 long center = (box.getLeft() - box.getRight()) / 2L + box.getRight();
                 long newWidth = (long) (GeoMath.MAX_MLAT_E7 * 2L * ratio);
                 box.setLeft((int) (center + newWidth / 2));
@@ -651,5 +649,59 @@ public class ViewBox extends BoundingBox {
             }
         }
         setBorders(map, box, false);
+    }
+
+    /**
+     * Expand the bounding box by d meters on every side Clamps the resulting coordinates to legal values
+     * 
+     * @param d distance in meters to expand the box
+     */
+    public void expand(double d) {
+        double delta = GeoMath.convertMetersToGeoDistance(d);
+        int deltaE7 = (int) (delta * 1E7);
+        setTop(Math.min(GeoMath.MAX_COMPAT_LAT_E7, getTop() + deltaE7));
+        setBottom(Math.max(-GeoMath.MAX_COMPAT_LAT_E7, getBottom() - deltaE7));
+        int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(getTop() / 1E7D))) * 1E7D);
+        setLeft(Math.max(-GeoMath.MAX_LON_E7, getLeft() - deltaHE7));
+        setRight(Math.min(GeoMath.MAX_LON_E7, getRight() + deltaHE7));
+        calcDimensions();
+    }
+
+    /**
+     * Expand the bounding box so that it is at least d long in each dimension Clamps the resulting coordinates to legal
+     * values
+     * 
+     * @param d minimum distance in meters for each size
+     */
+    public void ensureMinumumSize(double d) {
+        double min = GeoMath.convertMetersToGeoDistance(d);
+        int minE7 = (int) (min * 1E7);
+        if (getHeight() < minE7) {
+            int deltaE7 = (minE7 - getHeight()) / 2;
+            setTop(Math.min(GeoMath.MAX_COMPAT_LAT_E7, getTop() + deltaE7));
+            setBottom(Math.max(-GeoMath.MAX_COMPAT_LAT_E7, getBottom() - deltaE7));
+        }
+        int minWE7 = (int) ((min / Math.cos(Math.toRadians(getTop() / 1E7D))) * 1E7D);
+        if (getWidth() < minWE7) {
+            long deltaWE7 = (minWE7 - getWidth()) / 2;
+            setLeft((int) Math.max(-GeoMath.MAX_LON_E7, getLeft() - deltaWE7));
+            setRight((int) Math.min(GeoMath.MAX_LON_E7, getRight() + deltaWE7));
+        }
+        calcDimensions();
+    }
+
+    /**
+     * Scale the bounding box sides by a factor. Clamps the resulting coordinates to legal values
+     * 
+     * @param f factor to make the sides larger
+     */
+    public void scale(double f) {
+        int hDeltaE7 = (int) (getHeight() * f - getHeight()) / 2;
+        setTop(Math.min(GeoMath.MAX_COMPAT_LAT_E7, getTop() + hDeltaE7));
+        setBottom(Math.max(-GeoMath.MAX_COMPAT_LAT_E7, getBottom() - hDeltaE7));
+        int wDeltaE7 = (int) (getWidth() * f - getWidth()) / 2;
+        setLeft(Math.max(-GeoMath.MAX_LON_E7, getLeft() - wDeltaE7));
+        setRight(Math.min(GeoMath.MAX_LON_E7, getRight() + wDeltaE7));
+        calcDimensions();
     }
 }

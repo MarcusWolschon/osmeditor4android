@@ -236,7 +236,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             public void onClick(DialogInterface dialog, int which) {
                 double lon = Double.parseDouble(lonField.getText().toString());
                 double lat = Double.parseDouble(latField.getText().toString());
-                if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
+                if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
                     try {
                         logic.performSetPosition(main, node, lon, lat);
                     } catch (OsmIllegalOperationException ex) {

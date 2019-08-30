@@ -24,17 +24,19 @@ public class GeoMath {
 
     private static final double PI_2 = Math.PI / 2d;
 
+    public static final double MAX_LAT           = 90;
+    public static final int    MAX_LAT_E7        = (int) (MAX_LAT * 1E7);
     /**
      * Maximum latitude value that can still be projected to web mercator
      */
-    public static final double MAX_LAT    = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
-    public static final int    MAX_LAT_E7 = (int) (MAX_LAT * 1E7);
+    public static final double MAX_COMPAT_LAT    = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
+    public static final int    MAX_COMPAT_LAT_E7 = (int) (MAX_COMPAT_LAT * 1E7);
 
     public static final double MAX_LON    = 180;
     public static final int    MAX_LON_E7 = (int) (MAX_LON * 1E7);
 
-    public static final double MAX_MLAT    = GeoMath.latE7ToMercator((int) (MAX_LAT * 1E7d));
-    public static final int    MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int) (MAX_LAT * 1E7d));
+    public static final double MAX_MLAT    = GeoMath.latE7ToMercator((int) (MAX_COMPAT_LAT_E7));
+    public static final int    MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int) (MAX_COMPAT_LAT_E7));
 
     public static final int EARTH_RADIUS_EQUATOR = 6378137;
 
@@ -44,6 +46,17 @@ public class GeoMath {
      * The arithmetic middle of the two WGS84 reference-ellipsoids.
      */
     private static final int   EARTH_RADIUS       = (EARTH_RADIUS_EQUATOR + EARTH_RADIUS_POLAR) / 2;
+
+    /**
+     * Check if a pair of coordinates have Mercartor compatible WGS84 values
+     * 
+     * @param lon the longitude
+     * @param lat the latitude
+     * @return true if in range
+     */
+    public static boolean coordinatesInCompatibleRange(double lon, double lat) {
+        return lon >= -GeoMath.MAX_LON && lon <= GeoMath.MAX_LON && lat >= -GeoMath.MAX_COMPAT_LAT && lat <= GeoMath.MAX_COMPAT_LAT;
+    }
 
     /**
      * Checks if x is between a and b (or equals a or b).
@@ -107,8 +120,8 @@ public class GeoMath {
     // drawing box
     // this should simple throw an exception and let the drawing code handle it
     public static double latToMercator(double lat) {
-        lat = Math.min(MAX_LAT, lat);
-        lat = Math.max(-MAX_LAT, lat);
+        lat = Math.min(MAX_COMPAT_LAT, lat);
+        lat = Math.max(-MAX_COMPAT_LAT, lat);
         return _180_PI * Math.log(Math.tan(lat * PI_360 + PI_4));
     }
 
@@ -184,7 +197,7 @@ public class GeoMath {
     public static BoundingBox createBoundingBoxForCoordinates(final double lat, final double lon, final double radius, boolean checkSize) throws OsmException {
         double radiusDegree = convertMetersToGeoDistance(radius);
 
-        if (lat + radiusDegree > MAX_LAT || lat - radiusDegree < -MAX_LAT) {
+        if (lat + radiusDegree > MAX_COMPAT_LAT || lat - radiusDegree < -MAX_COMPAT_LAT) {
             throw new OsmException("Latitude outside of range that can be projected to mercator coordinates");
         }
 
@@ -203,15 +216,15 @@ public class GeoMath {
             right = left + radiusDegree * 2d;
         }
         if (right > MAX_LON) {
-            right = ViewBox.MAX_LON_E7;
+            right = MAX_LON_E7;
             left = right - radiusDegree * 2d;
         }
-        if (bottom < -MAX_LAT) {
-            bottom = -MAX_LAT;
+        if (bottom < -MAX_COMPAT_LAT) {
+            bottom = -MAX_COMPAT_LAT;
             top = bottom + horizontalRadiusDegree * 2d;
         }
-        if (top > MAX_LAT) {
-            top = MAX_LAT;
+        if (top > MAX_COMPAT_LAT) {
+            top = MAX_COMPAT_LAT;
             bottom = top - horizontalRadiusDegree * 2d;
         }
         return new BoundingBox(left, bottom, right, top);
