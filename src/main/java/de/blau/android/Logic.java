@@ -990,8 +990,8 @@ public class Logic {
      * @return a hash map mapping Nodes to distances
      */
     @NonNull
-    private HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
-        HashMap<Node, Double> result = new HashMap<>();
+    private java.util.Map<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
+        java.util.Map<Node, Double> result = new HashMap<>();
         List<Node> nodes = filter != null ? filter.getVisibleNodes() : getDelegator().getCurrentStorage().getNodes(map.getViewBox());
         if (filter != null && getSelectedNodes() != null) { // selected nodes are always visible if a filter is applied
             nodes.addAll(getSelectedNodes());
@@ -1055,7 +1055,7 @@ public class Logic {
     private Node getClickedNode(final float x, final float y) {
         Node bestNode = null;
         Double bestDistance = Double.MAX_VALUE;
-        HashMap<Node, Double> candidates = getClickedNodesWithDistances(x, y, false);
+        java.util.Map<Node, Double> candidates = getClickedNodesWithDistances(x, y, false);
         for (Entry<Node, Double> candidate : candidates.entrySet()) {
             if (candidate.getValue() < bestDistance) {
                 bestNode = candidate.getKey();
@@ -2270,8 +2270,8 @@ public class Logic {
         }
         Node savedNode1 = null;
         Node savedNode2 = null;
-        ArrayList<Way> savedWays = new ArrayList<>();
-        ArrayList<Boolean> savedWaysSameDirection = new ArrayList<>();
+        List<Way> savedWays = new ArrayList<>();
+        List<Boolean> savedWaysSameDirection = new ArrayList<>();
         double savedDistance = Double.MAX_VALUE;
         // create a new node on a way
         for (Way way : ways) {
