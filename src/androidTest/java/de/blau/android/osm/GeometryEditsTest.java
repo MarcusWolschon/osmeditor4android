@@ -472,7 +472,7 @@ public class GeometryEditsTest {
             wnY = getY(logic, wn);
             wnX = getX(logic, wn);
             box.union(wn.getLon(), wn.getLat());
-            map.setViewBox(box);
+           
             System.out.println("WN4 X " + wnX + " Y " + wnY);
             Way w2 = logic.getSelectedWay();
             Assert.assertEquals(2, w2.getNodes().size());
@@ -482,16 +482,16 @@ public class GeometryEditsTest {
             Node tempNode = logic.performAddOnWay(main, null, X, 500.0f, false);
             Node n1 = logic.getSelectedNode();
             box.union(n1.getLon(), n1.getLat());
-            map.setViewBox(box);
             Assert.assertEquals(n1, tempNode);
             Assert.assertEquals(1, logic.getWaysForNode(n1).size());
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
+            Assert.assertTrue(map.getViewBox().contains(n1.getLon(),n1.getLat()));
 
             Assert.assertEquals(2, w1.getNodes().size()); // should be unchanged
             Assert.assertEquals(3, w2.getNodes().size());
-
             // add again, shouldn't change anything
+            
             float n1Y = getY(logic, n1);
             float n1X = getX(logic, n1);
             logic.performAdd(main, n1X, n1Y);
