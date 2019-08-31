@@ -68,6 +68,7 @@ public class GpxTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -75,8 +76,7 @@ public class GpxTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
 
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        context = instrumentation.getTargetContext();
 
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(context);
@@ -132,14 +132,16 @@ public class GpxTest {
         String filename = DateFormatter.getFormattedString("yyyy-MM-dd'T'HHmm"); // note this is a bit flaky
         UiObject snackbarTextView = device.findObject(new UiSelector().resourceId("de.blau.android:id/snackbar_text"));
         Assert.assertTrue(TestUtils.clickText(device, false, "Export GPX track", false));
-        // Currently doesn't work
-        // Assert.assertTrue(snackbarTextView.waitForExists(5000));
-        // Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
-        // Assert.assertTrue(TestUtils.clickText(device, false, "Track management", true));
-        // Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
-        // Assert.assertTrue(TestUtils.clickText(device, false, filename, true));
-        // recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
-        // compareTrack(track, recordedTrack);
+        // 
+        Assert.assertTrue(snackbarTextView.waitForExists(5000));
+        // need to wait for the snackbar to go away
+        snackbarTextView.waitUntilGone(5000);
+        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
+        TestUtils.selectFile(device, filename);       
+        recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
+        compareTrack(track, recordedTrack);
     }
 
     /**
