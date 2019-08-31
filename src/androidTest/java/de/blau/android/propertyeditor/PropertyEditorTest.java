@@ -652,7 +652,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.findText(mDevice, false, "McDonald's", 1000));
 
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_O);
-        Assert.assertFalse(TestUtils.findText(mDevice, false, "Dojo", 1000));
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "Dojo", 1000));
         Assert.assertFalse(TestUtils.findText(mDevice, false, "MCB", 1000));
         Assert.assertTrue(TestUtils.findText(mDevice, false, "McDonald's", 1000));
     }
