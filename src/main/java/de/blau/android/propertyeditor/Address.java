@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import android.content.Context;
@@ -81,18 +82,6 @@ public final class Address implements Serializable {
     private LinkedHashMap<String, List<String>> tags;
 
     private static LinkedList<Address> lastAddresses = null;
-
-    /**
-     * Create a copy of Address a
-     * 
-     * @param a Address object
-     */
-    private Address(Address a) {
-        side = a.side;
-        lat = a.lat;
-        lon = a.lon;
-        tags = new LinkedHashMap<>(a.tags);
-    }
 
     /**
      * Create empty address object
@@ -199,7 +188,6 @@ public final class Address implements Serializable {
                 }
             }
         }
-        // Log.d(DEBUG_TAG,"set side to " + side);
     }
 
     /**
@@ -271,21 +259,22 @@ public final class Address implements Serializable {
         // merge in any existing tags
         for (Entry<String, List<String>> entry : current.entrySet()) {
             Log.d("Address", "Adding in existing tag " + entry.getKey());
-            newAddress.tags.put(entry.getKey(), entry.getValue());
+            List<String> values = entry.getValue();
+            if (listNotEmpty(values)) {
+                newAddress.tags.put(entry.getKey(), values);
+            }
         }
 
         boolean hasPlace = newAddress.tags.containsKey(Tags.KEY_ADDR_PLACE);
-        boolean hasNumber = current.containsKey(Tags.KEY_ADDR_HOUSENUMBER); // if the object already had a number don't
-                                                                            // overwrite it
+        // check if the object already has a number so that we don't overwrite it
+        boolean hasNumber = listNotEmpty(current.get(Tags.KEY_ADDR_HOUSENUMBER));
         StorageDelegator storageDelegator = App.getDelegator();
         if (es != null) {
             // the arrays should now be calculated, retrieve street names if any
-            ArrayList<String> streetNames = new ArrayList<>(Arrays.asList(es.getStreetNames()));
+            List<String> streetNames = new ArrayList<>(Arrays.asList(es.getStreetNames()));
             if ((streetNames != null && !streetNames.isEmpty()) || hasPlace) {
                 LinkedHashMap<String, List<String>> tags = newAddress.tags;
                 Log.d(DEBUG_TAG, "tags.get(Tags.KEY_ADDR_STREET)) " + tags.get(Tags.KEY_ADDR_STREET));
-                // Log.d("TagEditor","Rank of " + tags.get(Tags.KEY_ADDR_STREET) + " " +
-                // streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
                 String street;
                 if (!hasPlace) {
                     List<String> addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
@@ -298,8 +287,6 @@ public final class Address implements Serializable {
                     Log.d(DEBUG_TAG, (hasAddrStreet ? "rank " + rank + " for " + addrStreetValues.get(0) : "no addrStreet tag"));
                     if (!hasAddrStreet || rank > maxRank || rank < 0) { // check if has street and still in the top 3
                                                                         // nearest
-                        // Log.d("TagEditor","names.indexOf(tags.get(Tags.KEY_ADDR_STREET)) " +
-                        // streetNames.indexOf(tags.get(Tags.KEY_ADDR_STREET)));
                         // nope -> zap
                         tags.put(Tags.KEY_ADDR_STREET, Util.getArrayList(streetNames.get(0)));
                     }
@@ -328,7 +315,7 @@ public final class Address implements Serializable {
                 Side side = newAddress.getSide();
                 // find the addresses corresponding to the current street
                 if (!hasNumber && street != null && lastAddresses != null) {
-                    TreeMap<Integer, Address> list = getHouseNumbers(street, side, lastAddresses);
+                    SortedMap<Integer, Address> list = getHouseNumbers(street, side, lastAddresses);
                     if (list.size() == 0) { // try to seed lastAddresses from OSM data
                         try {
                             Log.d(DEBUG_TAG, "street " + street);
@@ -350,7 +337,6 @@ public final class Address implements Serializable {
                             Log.d(DEBUG_TAG, "predictAddressTags got " + e.getMessage());
                         }
                     }
-                    // tags = predictNumber(newAddress, tags, street, side, list, false);
                     newAddress.tags = predictNumber(newAddress, tags, street, side, list, false, null);
                 }
             } else { // last ditch attemot
@@ -390,6 +376,23 @@ public final class Address implements Serializable {
     }
 
     /**
+     * Check if a List of Strings has at least one non-empty String entry
+     * 
+     * @param values the List
+     * @return true if a non empty String was found
+     */
+    private static boolean listNotEmpty(@Nullable List<String> values) {
+        if (values != null && !values.isEmpty()) {
+            for (String v : values) {
+                if (!"".equals(v)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Try to predict the next number - get all existing numbers for the side of the street we are on - determine if the
      * increment per number is 1 or 2 (for now everything else is ignored) - determine the nearest address node - if it
      * is the last or first node and we are at one side use that and add or subtract the increment - if the nearest node
@@ -408,8 +411,8 @@ public final class Address implements Serializable {
      * @return the tags for the object
      */
     private static LinkedHashMap<String, List<String>> predictNumber(@NonNull Address newAddress, @NonNull LinkedHashMap<String, List<String>> originalTags,
-            @NonNull String street, @NonNull Side side, @NonNull TreeMap<Integer, Address> list, boolean oppositeSide,
-            @Nullable TreeMap<Integer, Address> otherSideList) {
+            @NonNull String street, @NonNull Side side, @NonNull SortedMap<Integer, Address> list, boolean oppositeSide,
+            @Nullable SortedMap<Integer, Address> otherSideList) {
         LinkedHashMap<String, List<String>> newTags = new LinkedHashMap<>(originalTags);
         if (list.size() >= 2) {
             try {
@@ -494,8 +497,6 @@ public final class Address implements Serializable {
                     }
                 } else { // predict on this side
                     int newNumber = Math.max(1, nearest + inc);
-                    // Toast.makeText(this, "First " + firstNumber + " last " + lastNumber + " nearest " + nearest +
-                    // "inc " + inc + " prev " + prev + " post " + post + " side " + side, Toast.LENGTH_LONG).show();
                     Log.d(DEBUG_TAG, "Predicted " + newNumber + " first " + firstNumber + " last " + lastNumber + " nearest " + nearest + " inc " + inc
                             + " prev " + prev + " post " + post + " side " + side);
                     if (numbers.contains(newNumber)) {
@@ -517,7 +518,7 @@ public final class Address implements Serializable {
             Log.d(DEBUG_TAG, "only one number on this side");
             // can't do prediction with only one value
             // apply tags from sole existing address if they don't already exist
-            TreeMap<Integer, Address> otherList = getHouseNumbers(street, Side.opposite(side), lastAddresses);
+            SortedMap<Integer, Address> otherList = getHouseNumbers(street, Side.opposite(side), lastAddresses);
             if (otherList.size() >= 2) {
                 newTags = predictNumber(newAddress, originalTags, street, side, otherList, true, list);
             } else {
@@ -525,7 +526,7 @@ public final class Address implements Serializable {
             }
         } else if (list.size() == 0) {
             Log.d(DEBUG_TAG, "no numbers on this side");
-            TreeMap<Integer, Address> otherList = getHouseNumbers(street, Side.opposite(side), lastAddresses);
+            SortedMap<Integer, Address> otherList = getHouseNumbers(street, Side.opposite(side), lastAddresses);
             if (otherList.size() >= 2) {
                 newTags = predictNumber(newAddress, originalTags, street, side, otherList, true, list);
             } else if (otherList.size() == 1) {
@@ -547,7 +548,7 @@ public final class Address implements Serializable {
             }
         } else {
             Log.e(DEBUG_TAG, "address shoudn't be null");
-            // maybe a crash dump would be a good ide
+            // maybe a crash dump would be a good idea
         }
     }
 
@@ -585,8 +586,8 @@ public final class Address implements Serializable {
      * @return a sorted map with the house numbers as key
      */
     @NonNull
-    private static synchronized TreeMap<Integer, Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> addresses) {
-        TreeMap<Integer, Address> result = new TreeMap<>(); // list sorted by house numbers
+    private static synchronized SortedMap<Integer, Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> addresses) {
+        SortedMap<Integer, Address> result = new TreeMap<>(); // list sorted by house numbers
         for (Address a : addresses) {
             if (a != null && a.tags != null) {
                 List<String> addrStreetValues = a.tags.get(Tags.KEY_ADDR_STREET);
@@ -604,6 +605,7 @@ public final class Address implements Serializable {
                             try {
                                 result.put(getNumber(n), a);
                             } catch (NumberFormatException nfe) {
+                                // empty
                             }
                         }
                     }
@@ -725,7 +727,7 @@ public final class Address implements Serializable {
                 lastAddresses = savingHelperAddress.load(context, ADDRESS_TAGS_FILE, false);
                 Log.d("TagEditor", "onResume read " + lastAddresses.size() + " addresses");
             } catch (Exception e) {
-                // TODO be more specific
+                // never crash
             }
         }
     }
