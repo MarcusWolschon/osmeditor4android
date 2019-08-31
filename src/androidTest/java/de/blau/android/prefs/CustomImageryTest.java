@@ -77,7 +77,9 @@ public class CustomImageryTest {
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
-        context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        if (context != null) {
+            context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        }
         try {
             main.finish();
         } catch (Exception e) {

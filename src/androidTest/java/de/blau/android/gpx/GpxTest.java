@@ -88,7 +88,9 @@ public class GpxTest {
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
-        context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        if (context != null) {
+            context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        }
         try {
             main.finish();
         } catch (Exception e) {
@@ -132,14 +134,14 @@ public class GpxTest {
         String filename = DateFormatter.getFormattedString("yyyy-MM-dd'T'HHmm"); // note this is a bit flaky
         UiObject snackbarTextView = device.findObject(new UiSelector().resourceId("de.blau.android:id/snackbar_text"));
         Assert.assertTrue(TestUtils.clickText(device, false, "Export GPX track", false));
-        // 
+        //
         Assert.assertTrue(snackbarTextView.waitForExists(5000));
         // need to wait for the snackbar to go away
         snackbarTextView.waitUntilGone(5000);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
-        TestUtils.selectFile(device, filename);       
+        TestUtils.selectFile(device, filename);
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);
     }

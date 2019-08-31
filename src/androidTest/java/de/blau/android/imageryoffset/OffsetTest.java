@@ -47,15 +47,18 @@ public class OffsetTest {
      */
     @Rule
     public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
-    
+
+    /**
+     * Pre-teset setup
+     */
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
-               
+
         Intent intent = new Intent(Intent.ACTION_MAIN);
         splash = mActivityRule.launchActivity(intent);
-      
+
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
 
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -69,10 +72,15 @@ public class OffsetTest {
         main.getMap().setPrefs(main, prefs);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
-        context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        if (context != null) {
+            context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        }
         try {
             main.finish();
         } catch (Exception e) {
@@ -80,6 +88,9 @@ public class OffsetTest {
         instrumentation.waitForIdleSync();
     }
 
+    /**
+     * Set an offset and apply it
+     */
     @Test
     public void saveAndApplyOffset() {
         final CountDownLatch signal = new CountDownLatch(1);
