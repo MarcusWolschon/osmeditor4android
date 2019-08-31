@@ -616,7 +616,7 @@ public class PropertyEditorTest {
     }
 
     /**
-     * Navigate to a specific preset item
+     * Search for McDo
      */
     @Test
     public void presetSearch() {
