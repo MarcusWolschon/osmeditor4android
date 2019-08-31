@@ -619,6 +619,48 @@ public class PropertyEditorTest {
      * Navigate to a specific preset item
      */
     @Test
+    public void presetSearch() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 577098580L);
+        Assert.assertNotNull(n);
+
+        main.performTagEdit(n, null, false, true);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+
+        UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/preset_search_edit");
+        UiObject field = mDevice.findObject(uiSelector);
+        try {
+            field.click();
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_M);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_C);
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_D);
+
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "MCB", 1000));
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "McDonald's", 1000));
+
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_O);
+        Assert.assertFalse(TestUtils.findText(mDevice, false, "Dojo", 1000));
+        Assert.assertFalse(TestUtils.findText(mDevice, false, "MCB", 1000));
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "McDonald's", 1000));
+    }
+
+    /**
+     * Navigate to a specific preset item
+     */
+    @Test
     public void applyOptional() {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("capabilities1");
