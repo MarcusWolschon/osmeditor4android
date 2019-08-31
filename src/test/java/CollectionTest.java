@@ -16,10 +16,10 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
 import de.blau.android.util.collections.MultiHashMap;
-import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 
 public class CollectionTest {
@@ -93,7 +93,7 @@ public class CollectionTest {
      */
     @Test
     public void rtree() {
-        final double MAX = BoundingBox.MAX_LAT_E7;
+        final double MAX = GeoMath.MAX_LAT_E7;
         RTree<Node> tree = new RTree<>(2, 100);
         final int NODES = 10000;
         Node[] temp = new Node[NODES];
