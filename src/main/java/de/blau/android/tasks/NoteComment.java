@@ -112,7 +112,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     @Override
     public String toString() {
         if (nickname != null || action != null) {
-            String date = (timestamp == -1) ? "" : ", " + DateFormatter.BUG_DAIE_FORMATS[0].format(new Date(timestamp));
+            String date = (timestamp == -1) ? "" : ", " + DateFormatter.getUtcFormat("yyyy-MM-dd HH:mm:ss z").format(new Date(timestamp));
             return text + " [" + action + " " + nickname + date + "]";
         }
         return text;

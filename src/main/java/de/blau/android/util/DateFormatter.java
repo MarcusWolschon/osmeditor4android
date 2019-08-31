@@ -1,6 +1,5 @@
 package de.blau.android.util;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,17 +11,6 @@ import android.support.annotation.NonNull;
 public final class DateFormatter {
 
     private static TimeZone timeZone = TimeZone.getTimeZone("UTC");
-
-    /** The preferred OSB date formats. */
-    public static final DateFormat[] BUG_DAIE_FORMATS = {
-            // preferred, use for output (see toString())
-            DateFormatter.getUtcFormat("yyyy-MM-dd HH:mm:ss z"),
-            // alternate preferred
-            DateFormatter.getUtcFormat("yy-MM-dd HH:mm:ss"),
-            // German
-            DateFormatter.getUtcFormat("dd.MM.yy HH:mm:ss"),
-            // European
-            DateFormatter.getUtcFormat("dd/MM/yy HH:mm:ss") };
 
     /**
      * This the standard data/time format used in .osn files and elsewhere in the API
