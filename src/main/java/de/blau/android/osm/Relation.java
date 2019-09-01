@@ -35,9 +35,9 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294266L;
+    private static final long serialVersionUID = 1104911642016294267L;
 
-    final ArrayList<RelationMember> members;
+    final List<RelationMember> members;
 
     private transient FeatureStyle style = null; // FeatureProfile is currently not serializable
 

@@ -24,9 +24,9 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294268L;
+    private static final long serialVersionUID = 1104911642016294269L;
 
-    final ArrayList<Node> nodes;
+    final List<Node> nodes;
 
     /**
      * Cache of bounding box
