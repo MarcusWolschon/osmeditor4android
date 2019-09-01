@@ -1,7 +1,6 @@
 package de.blau.android.osm;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 
 import android.support.annotation.NonNull;
@@ -30,13 +29,6 @@ public class ClipboardStorage implements Serializable {
      */
     private int selectionLat;
     private int selectionLon;
-
-    /**
-     * cut elements are deleted and have their state set appropriately, the original pre-cut state has to be restored on
-     * paste
-     */
-    private byte                savedState;
-    private HashMap<Node, Byte> savedNdState;
 
     /**
      * Default constructor
@@ -83,14 +75,6 @@ public class ClipboardStorage implements Serializable {
      */
     public void cutTo(@NonNull OsmElement e, int latE7, int lonE7) {
         copyTo(e, latE7, lonE7);
-        savedState = e.getState();
-        if (e instanceof Way) {
-            savedNdState = new HashMap<>();
-            for (Node nd : ((Way) e).getNodes()) {
-                Log.d("CutTo", "Saving state for " + nd.getOsmId());
-                savedNdState.put(nd, nd.getState());
-            }
-        }
         mode = Mode.CUT;
     }
 
@@ -114,17 +98,11 @@ public class ClipboardStorage implements Serializable {
         List<Node> nodes = storage.getNodes();
         if (mode == Mode.CUT) {
             reset(); // can only paste a cut way once
-            if (ways != null && ways.size() == 1) { // restore original state
+            if (ways != null && ways.size() == 1) {
                 Way w = ways.get(0);
-                w.setState(savedState);
-                for (Node nd : w.getNodes()) {
-                    Log.d("PasteFrom", "Restoring state for " + nd.getOsmId());
-                    nd.setState(savedNdState.get(nd));
-                }
                 return w;
             } else if (nodes != null && nodes.size() == 1) {
                 Node n = nodes.get(0);
-                n.setState(savedState);
                 return n;
             }
         } else {
