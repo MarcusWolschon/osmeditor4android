@@ -2347,18 +2347,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 newWay.setTags(e.getTags());
                 int deltaLat = lat - clipboard.getSelectionLat();
                 int deltaLon = lon - clipboard.getSelectionLon();
-
                 List<Node> nodeList = ((Way) e).getNodes();
                 // this is slightly complicated because we need to handle cases with potentially broken geometry
                 // allocate and set the position of the new nodes
                 Set<Node> nodes = new HashSet<>(nodeList);
-                HashMap<Node, Node> newNodes = new HashMap<>();
+                Map<Node, Node> newNodes = new HashMap<>();
                 for (Node nd : nodes) {
                     Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
                     newNode.setTags(nd.getTags());
-                    newNode.setLat(nd.getLat() + deltaLat);
-                    newNode.setLon(nd.getLon() + deltaLon);
-                    newNode.updateState(OsmElement.STATE_MODIFIED);
                     insertElementSafe(newNode);
                     newNodes.put(nd, newNode);
                 }
