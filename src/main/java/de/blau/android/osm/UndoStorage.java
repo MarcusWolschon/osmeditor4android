@@ -753,7 +753,9 @@ public class UndoStorage implements Serializable {
                     inStorage++;
                 }
             }
-            if (inStorage == 0) {
+            boolean deleted = super.state == OsmElement.STATE_DELETED;
+            if (inStorage == 0 && nodes.size() > 0 && !deleted) {
+                // if no nodes we are restoring to pre-creation state without nodes which is ok
                 Log.e(DEBUG_TAG, element.getDescription() + " is missing all nodes");
                 // note this still allows ways with 1 node to be created which might be necessary
                 return false;
@@ -762,8 +764,8 @@ public class UndoStorage implements Serializable {
             boolean ok = super.restore();
             ((Way) element).nodes.clear();
             for (Node n : nodes) {
-                if (currentStorage.contains(n)) {
-                    ((Way) element).nodes.add(n); // only add undeleted way nodes
+                if (currentStorage.contains(n) || deleted) {
+                    ((Way) element).nodes.add(n); // only add undeleted way nodes except if we are deleted
                 } else {
                     ok = false;
                     element.updateState(OsmElement.STATE_MODIFIED);
