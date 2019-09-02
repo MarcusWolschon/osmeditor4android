@@ -246,10 +246,16 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
             return true;
         case MENUITEM_PASTE:
-            OsmElement element = logic.pasteFromClipboard(main, startX, startY);
+            List<OsmElement> elements = App.getLogic().pasteFromClipboard(main, x, y);
             logic.hideCrosshairs();
-            if (element != null) {
-                manager.editElement(element);
+            if (elements != null && !elements.isEmpty()) {
+                if (elements.size() > 1) {
+                    manager.finish();
+                    App.getLogic().setSelection(elements);
+                    manager.editElements();
+                } else {
+                    manager.editElement(elements.get(0));
+                }
             } else {
                 manager.finish();
             }

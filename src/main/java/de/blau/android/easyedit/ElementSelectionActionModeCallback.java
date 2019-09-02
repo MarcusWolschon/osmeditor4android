@@ -42,11 +42,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
     private static final String DEBUG_TAG                 = "ElementSelectionActi...";
     private static final int    MENUITEM_UNDO             = 0;
-    static final int    MENUITEM_TAG              = 1;
-    static final int    MENUITEM_DELETE           = 2;
+    static final int            MENUITEM_TAG              = 1;
+    static final int            MENUITEM_DELETE           = 2;
     private static final int    MENUITEM_HISTORY          = 3;
-    private static final int    MENUITEM_COPY             = 4;
-    private static final int    MENUITEM_CUT              = 5;
+    static final int            MENUITEM_COPY             = 4;
+    static final int            MENUITEM_CUT              = 5;
     private static final int    MENUITEM_PASTE_TAGS       = 6;
     private static final int    MENUITEM_RELATION         = 7;
     private static final int    MENUITEM_EXTEND_SELECTION = 8;
@@ -55,8 +55,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     protected static final int MENUITEM_SHARE_POSITION    = 31;
     private static final int   MENUITEM_TAG_LAST          = 32;
     private static final int   MENUITEM_ZOOM_TO_SELECTION = 33;
-    static final int   MENUITEM_PREFERENCES       = 34;
-    static final int   MENUITEM_JS_CONSOLE        = 35;
+    static final int           MENUITEM_PREFERENCES       = 34;
+    static final int           MENUITEM_JS_CONSOLE        = 35;
 
     OsmElement element = null;
 
@@ -142,8 +142,6 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit))
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
-        // disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE,
-        // R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
         if (!(element instanceof Relation)) {
             menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy)
                     .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));

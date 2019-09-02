@@ -12,9 +12,17 @@ Tapping the icon once will undo the last operation. A long press will display a 
 
 Starts the property editor on the current selection.
 
+### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
+
+Copy the selected objects  to the internal copy and paste buffer.
+
+### ![Cut](../images/ic_menu_cut_holo_light.png) Cut
+
+Move the the selected objects to the internal copy and paste buffer effectively deleting them from the data.
+
 ### ![Delete](../images/tag_menu_delete.png) Delete
 
-Remove the object from the data.
+Remove the objects from the data.
 
 ### ![Merge](../images/tag_menu_merge.png) Merge ways
 

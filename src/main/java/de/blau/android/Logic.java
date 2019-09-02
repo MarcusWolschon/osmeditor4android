@@ -3993,6 +3993,42 @@ public class Logic {
     }
 
     /**
+     * Select all the elements in the List
+     * 
+     * @param elements a List of OsmElement to select
+     */
+    public synchronized void setSelection(@NonNull List<OsmElement> elements) {
+        for (OsmElement e : elements) {
+            switch (e.getName()) {
+            case Node.NAME:
+                if (selectedNodes == null) {
+                    setSelectedNode((Node) e);
+                } else if (!selectedNodes.contains((Node) e)) {
+                    selectedNodes.add((Node) e);
+                }
+                break;
+            case Way.NAME:
+                if (selectedWays == null) {
+                    setSelectedWay((Way) e);
+                } else if (!selectedWays.contains((Way) e)) {
+                    selectedWays.add((Way) e);
+                }
+                break;
+            case Relation.NAME:
+                if (selectedRelations == null) {
+                    setSelectedRelation((Relation) e);
+                } else if (!selectedRelations.contains((Relation) e)) {
+                    selectedRelations.add((Relation) e);
+                }
+                break;
+            default:
+                Log.e(DEBUG_TAG, "Unknown element type " + e.getName());
+            }
+        }
+        resetFilterCache();
+    }
+
+    /**
      * Helper to clear the current, if any, filter cache
      */
     private void resetFilterCache() {
@@ -4615,39 +4651,85 @@ public class Logic {
      * 
      * @param element element to copy
      */
-    public void copyToClipboard(OsmElement element) {
-        if (element instanceof Node) {
-            getDelegator().copyToClipboard(element, ((Node) element).getLat(), ((Node) element).getLon());
-        } else if (element instanceof Way) {
-            // use current centroid of way
-            int[] result = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
-            if (result != null) {
-                getDelegator().copyToClipboard(element, result[0], result[1]);
-            } else {
-                Log.e(DEBUG_TAG, "centroid of way " + element.getDescription() + " is null");
-            }
+    public void copyToClipboard(@NonNull OsmElement element) {
+        List<OsmElement> list = new ArrayList<>();
+        list.add(element);
+        copyToClipboard(list);
+    }
+
+    /**
+     * Copy elements to clipboard
+     * 
+     * @param elements elements to copy
+     */
+    public void copyToClipboard(@NonNull List<OsmElement> elements) {
+        int[] centroid = calcCentroid(elements);
+        if (centroid == null) {
+            return;
         }
+        getDelegator().copyToClipboard(elements, centroid[0], centroid[1]);
     }
 
     /**
      * Cut element to clipboard
      * 
      * @param activity the activity we were called from
-     * @param element the element to cut
+     * @param element element to cut
      */
-    public void cutToClipboard(@Nullable Activity activity, OsmElement element) {
+    public void cutToClipboard(@Nullable Activity activity, @NonNull OsmElement element) {
+        List<OsmElement> list = new ArrayList<>();
+        list.add(element);
+        cutToClipboard(activity, list);
+    }
+
+    /**
+     * Cut element to clipboard
+     * 
+     * @param activity the activity we were called from
+     * @param elements the elements to cut
+     */
+    public void cutToClipboard(@Nullable Activity activity, @NonNull List<OsmElement> elements) {
         createCheckpoint(activity, R.string.undo_action_cut);
-        if (element instanceof Node) {
-            getDelegator().cutToClipboard(element, ((Node) element).getLat(), ((Node) element).getLon());
-        } else if (element instanceof Way) {
-            int[] result = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) element);
-            if (result != null) {
-                getDelegator().cutToClipboard(element, result[0], result[1]);
+        int[] centroid = calcCentroid(elements);
+        if (centroid == null) {
+            return;
+        }
+        getDelegator().cutToClipboard(elements, centroid[0], centroid[1]);
+        invalidateMap();
+    }
+
+    /**
+     * This calculates a centroid for a collection of different objects
+     * 
+     * It does not weight with the area of the objects and therefore is not a center of mass equivalent, this seems to
+     * better match the expectation of a user (in which points have the same importance as an area or a way.
+     * 
+     * @param elements a list of OsmElements
+     * @return the centroid or null if an error occurs
+     */
+    @Nullable
+    int[] calcCentroid(@NonNull List<OsmElement> elements) {
+        int latE7 = 0;
+        int lonE7 = 0;
+        for (OsmElement e : elements) {
+            if (e instanceof Node) {
+                latE7 += ((Node) e).getLat();
+                lonE7 += ((Node) e).getLon();
+            } else if (e instanceof Way) {
+                // use current centroid of way
+                int[] centroid = Geometry.centroid(map.getWidth(), map.getHeight(), viewBox, (Way) e);
+                if (centroid == null) {
+                    Log.e(DEBUG_TAG, "centroid of way " + e.getDescription() + " is null");
+                    return null;
+                }
+                latE7 += centroid[0];
+                lonE7 += centroid[1];
             } else {
-                Log.e(DEBUG_TAG, "centroid of way " + element.getDescription() + " is null");
+                Log.e(DEBUG_TAG, "unknown object type for centroid");
+                return null;
             }
         }
-        invalidateMap();
+        return new int[] { latE7 / elements.size(), lonE7 / elements.size() };
     }
 
     /**
@@ -4659,7 +4741,7 @@ public class Logic {
      * @return the pasted object or null if the clipboard was empty
      */
     @Nullable
-    public OsmElement pasteFromClipboard(@Nullable Activity activity, float x, float y) {
+    public List<OsmElement> pasteFromClipboard(@Nullable Activity activity, float x, float y) {
         createCheckpoint(activity, R.string.undo_action_paste);
         int lat = yToLatE7(y);
         int lon = xToLonE7(x);

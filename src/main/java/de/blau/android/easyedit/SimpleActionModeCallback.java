@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import java.util.List;
+
 import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.PopupMenu;
@@ -106,14 +108,19 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
 
             @Override
             public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                OsmElement e = App.getLogic().pasteFromClipboard(main, x, y);
-                if (e != null) {
-                    manager.editElement(e);
+                List<OsmElement> elements = App.getLogic().pasteFromClipboard(main, x, y);
+                if (elements != null && !elements.isEmpty()) {
+                    if (elements.size() > 1) {
+                        manager.finish();
+                        App.getLogic().setSelection(elements);
+                        manager.editElements();
+                    } else {
+                        manager.editElement(elements.get(0));
+                    }
                 } else {
                     manager.finish();
                 }
             }
-
         }) {
             @Override
             public boolean isEnabled() {

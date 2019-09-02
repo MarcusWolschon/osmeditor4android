@@ -2267,144 +2267,168 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Make a copy of the element and store it in the clipboard
      * 
-     * @param e element to copy
+     * @param elements elements to copy
      * @param lat latitude where it was located
      * @param lon longitude where it was located
      */
-    public void copyToClipboard(@Nullable OsmElement e, int lat, int lon) {
+    public void copyToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
-        if (e instanceof Node) {
-            Node newNode = factory.createNodeWithNewId(((Node) e).getLat(), ((Node) e).getLon());
-            newNode.setTags(e.getTags());
-            clipboard.copyTo(newNode, lat, lon);
-        } else if (e instanceof Way) {
-            Way newWay = factory.createWayWithNewId();
-            newWay.setTags(e.getTags());
-            Map<Long, Node> processedNodes = new HashMap<>();
-            for (Node nd : ((Way) e).getNodes()) {
-                Node newNode = processedNodes.get(nd.getOsmId());
-                if (newNode == null) {
-                    newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
-                    newNode.setTags(nd.getTags());
-                    processedNodes.put(nd.getOsmId(), newNode);
+        List<OsmElement> toCopy = new ArrayList<>();
+        Map<Long, Node> processedNodes = new HashMap<>();
+        for (OsmElement e : elements) {
+            if (e instanceof Node) {
+                Node newNode = factory.createNodeWithNewId(((Node) e).getLat(), ((Node) e).getLon());
+                newNode.setTags(e.getTags());
+                toCopy.add(newNode);
+                processedNodes.put(e.getOsmId(), newNode);
+            } else if (e instanceof Way) {
+                Way newWay = factory.createWayWithNewId();
+                newWay.setTags(e.getTags());
+                for (Node nd : ((Way) e).getNodes()) {
+                    Node newNode = processedNodes.get(nd.getOsmId());
+                    if (newNode == null) {
+                        newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
+                        newNode.setTags(nd.getTags());
+                        processedNodes.put(nd.getOsmId(), newNode);
+                    }
+                    newWay.addNode(newNode);
                 }
-                newWay.addNode(newNode);
+                toCopy.add(newWay);
             }
-            clipboard.copyTo(newWay, lat, lon);
+        }
+        if (!toCopy.isEmpty()) {
+            clipboard.copyTo(toCopy, lat, lon);
         }
     }
 
     /**
      * Cut original element to clipboard, does -not- preserve relation memberships
      * 
-     * @param e element to copy
+     * @param elements elements to copy
      * @param lat latitude where it was located
      * @param lon longitude where it was located
      */
-    public void cutToClipboard(@Nullable OsmElement e, int lat, int lon) {
+    public void cutToClipboard(@NonNull List<OsmElement> elements, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
-        if (e instanceof Node) {
-            clipboard.cutTo(e, lat, lon);
-            removeNode((Node) e);
-        } else if (e instanceof Way) {
-            undo.save(e);
-            // clone all nodes that are members of other ways
-            List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
-            Map<Long, Node> processedNodes = new HashMap<>();
-            for (Node nd : nodes) {
-                if (currentStorage.getWays(nd).size() > 1) { // 1 is expected (our way will be deleted later)
-                    Node newNode = processedNodes.get(nd.getOsmId());
-                    if (newNode == null) {
-                        newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
-                        newNode.setTags(nd.getTags());
-                        insertElementSafe(newNode);
-                        processedNodes.put(nd.getOsmId(), newNode);
+        List<OsmElement> toCut = new ArrayList<>();
+        Map<Long, Node> replacedNodes = new HashMap<>();
+        for (OsmElement e : elements) {
+            toCut.add(e);
+            if (e instanceof Way) {
+                undo.save(e);
+                // clone all nodes that are members of other ways
+                List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
+                for (Node nd : nodes) {
+                    if (currentStorage.getWays(nd).size() > 1) { // 1 is expected (our way will be deleted later)
+                        Node newNode = replacedNodes.get(nd.getOsmId());
+                        if (newNode == null) {
+                            newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
+                            newNode.setTags(nd.getTags());
+                            insertElementSafe(newNode);
+                            replacedNodes.put(nd.getOsmId(), newNode);
+                        }
+                        ((Way) e).replaceNode(nd, newNode);
                     }
-                    ((Way) e).replaceNode(nd, newNode);
+                }
+                toCut.add(e);
+            }
+            for (OsmElement removeElement : toCut) {
+                if (removeElement instanceof Node) {
+                    removeNode((Node) removeElement);
+                } else if (removeElement instanceof Way) {
+                    removeWay((Way) removeElement);
                 }
             }
-            clipboard.cutTo(e, lat, lon);
-            removeWay((Way) e);
-            nodes = ((Way) e).getNodes();
-            for (Node nd : nodes) {
-                removeNode(nd); // the way isn't in memory so this should be harmless
+            // way nodes have to wait till we have removed all the ways
+            for (OsmElement removeElement : toCut) {
+                if (removeElement instanceof Way) {
+                    List<Node> nodes = new ArrayList<>(((Way) removeElement).getNodes());
+                    for (Node nd : nodes) {
+                        removeNode(nd); //
+                    }
+                }
             }
         }
+        clipboard.cutTo(toCut, lat, lon);
     }
 
     /**
-     * Paste the contents of the clipboard to coordinates If the content was copied to the clipboard a new element will
-     * be created.
+     * Paste the contents of the clipboard to coordinates
+     * 
+     * If the content was copied to the clipboard new elements will be created.
      * 
      * @param lat latitude in WGS84*1E7 degrees
      * @param lon longitude in WGS84*1E7 degrees
      * @return the contents or null is the clipboard was empty
      */
     @Nullable
-    public OsmElement pasteFromClipboard(int lat, int lon) {
-        OsmElement e = clipboard.pasteFrom();
-        if (e == null) {
+    public List<OsmElement> pasteFromClipboard(int lat, int lon) {
+        List<OsmElement> elements = clipboard.pasteFrom();
+        if (elements.isEmpty()) {
             return null;
         }
-        // if the clipboard isn't empty now we need to clone the element
-        if (!clipboard.isEmpty()) { // paste from copy
-            if (e instanceof Node) {
-                Node newNode = factory.createNodeWithNewId(lat, lon);
-                newNode.setTags(e.getTags());
-                insertElementSafe(newNode);
-                e = newNode;
-            } else if (e instanceof Way) {
-                Way newWay = factory.createWayWithNewId();
-                undo.save(newWay); // do this before we create and add nodes
-                newWay.setTags(e.getTags());
-                int deltaLat = lat - clipboard.getSelectionLat();
-                int deltaLon = lon - clipboard.getSelectionLon();
-                List<Node> nodeList = ((Way) e).getNodes();
-                // this is slightly complicated because we need to handle cases with potentially broken geometry
-                // allocate and set the position of the new nodes
-                Set<Node> nodes = new HashSet<>(nodeList);
-                Map<Node, Node> newNodes = new HashMap<>();
-                for (Node nd : nodes) {
-                    Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
-                    newNode.setTags(nd.getTags());
+        List<OsmElement> result = new ArrayList<>();
+        boolean copy = !clipboard.isEmpty();
+        int deltaLat = lat - clipboard.getSelectionLat();
+        int deltaLon = lon - clipboard.getSelectionLon();
+        for (OsmElement e : elements) {
+            // if the clipboard isn't empty now we need to clone the element
+            if (copy) { // paste from copy
+                if (e instanceof Node) {
+                    Node newNode = factory.createNodeWithNewId(((Node) e).getLat() + deltaLat, ((Node) e).getLon() + deltaLon);
+                    newNode.setTags(e.getTags());
                     insertElementSafe(newNode);
-                    newNodes.put(nd, newNode);
-                }
+                    e = newNode;
+                } else if (e instanceof Way) {
+                    Way newWay = factory.createWayWithNewId();
+                    undo.save(newWay); // do this before we create and add nodes
+                    newWay.setTags(e.getTags());
 
-                // now add them to the new way
-                for (Node nd : nodeList) {
-                    newWay.addNode(newNodes.get(nd));
+                    List<Node> nodeList = ((Way) e).getNodes();
+                    // this is slightly complicated because we need to handle cases with potentially broken geometry
+                    // allocate and set the position of the new nodes
+                    Set<Node> nodes = new HashSet<>(nodeList);
+                    Map<Node, Node> newNodes = new HashMap<>();
+                    for (Node nd : nodes) {
+                        Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
+                        newNode.setTags(nd.getTags());
+                        insertElementSafe(newNode);
+                        newNodes.put(nd, newNode);
+                    }
+                    // now add them to the new way
+                    for (Node nd : nodeList) {
+                        newWay.addNode(newNodes.get(nd));
+                    }
+                    insertElementSafe(newWay);
+                    e = newWay;
                 }
-                insertElementSafe(newWay);
-                e = newWay;
-            }
-        } else { // paste from cut
-            if (currentStorage.contains(e)) {
-                Log.e(DEBUG_TAG, "Attempt to paste from cut, but element is already present");
-                clipboard.reset();
-                return null;
-            }
-            undo.save(e);
-            if (e instanceof Node) {
-                ((Node) e).setLat(lat);
-                ((Node) e).setLon(lon);
-            } else if (e instanceof Way) {
-                int deltaLat = lat - clipboard.getSelectionLat();
-                int deltaLon = lon - clipboard.getSelectionLon();
-                Set<Node> nodes = new HashSet<>(((Way) e).getNodes());
-                for (Node nd : nodes) {
-                    undo.save(nd);
-                    nd.setLat(nd.getLat() + deltaLat);
-                    nd.setLon(nd.getLon() + deltaLon);
-                    nd.updateState(nd.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
-                    insertElementSafe(nd);
+            } else { // paste from cut
+                if (currentStorage.contains(e)) {
+                    Log.e(DEBUG_TAG, "Attempt to paste from cut, but element is already present");
+                    clipboard.reset();
+                    return null;
                 }
-                ((Way) e).invalidateBoundingBox();
+                undo.save(e);
+                if (e instanceof Node) {
+                    ((Node) e).setLat(((Node) e).getLat() + deltaLat);
+                    ((Node) e).setLon(((Node) e).getLon() + deltaLon);
+                } else if (e instanceof Way) {
+                    Set<Node> nodes = new HashSet<>(((Way) e).getNodes());
+                    for (Node nd : nodes) {
+                        undo.save(nd);
+                        nd.setLat(nd.getLat() + deltaLat);
+                        nd.setLon(nd.getLon() + deltaLon);
+                        nd.updateState(nd.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
+                        insertElementSafe(nd);
+                    }
+                    ((Way) e).invalidateBoundingBox();
+                }
+                insertElementSafe(e);
+                e.updateState(e.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
             }
-            insertElementSafe(e);
-            e.updateState(e.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
+            result.add(e);
         }
-        return e;
+        return result;
     }
 
     /**

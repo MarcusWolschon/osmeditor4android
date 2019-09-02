@@ -1,10 +1,10 @@
 package de.blau.android.osm;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.StorageException;
 
@@ -45,21 +45,24 @@ public class ClipboardStorage implements Serializable {
     }
 
     /**
-     * Copy an OsmELement to the clipboard assumes the element has already been cloned note no need to store nodes
-     * separate from ways
+     * Copy a List of OsmELement to the clipboard assumes the elements have already been cloned
      * 
-     * @param e the OsmElement
+     * Note no need to store way nodes separate from ways
+     * 
+     * @param elements a List of OsmElement
      * @param latE7 the latitude in WGS84*1E7 coordinates
      * @param lonE7 the longitude in WGS84*1E7 coordinates
      */
-    public void copyTo(@NonNull OsmElement e, int latE7, int lonE7) {
+    public void copyTo(@NonNull List<OsmElement> elements, int latE7, int lonE7) {
         reset();
         selectionLat = latE7;
         selectionLon = lonE7;
         mode = Mode.COPY;
 
         try {
-            storage.insertElementUnsafe(e);
+            for (OsmElement e : elements) {
+                storage.insertElementUnsafe(e);
+            }
         } catch (StorageException sex) {
             // TODO handle oom situation
             Log.d(DEBUG_TAG, "copyTo got exception " + sex.getMessage());
@@ -67,14 +70,14 @@ public class ClipboardStorage implements Serializable {
     }
 
     /**
-     * Cut an OsmELement to the clipboard assumes that element will be deleted and any necessary objects cloned
+     * Cut a List of OsmELement to the clipboard assumes that element will be deleted and any necessary objects cloned
      * 
-     * @param e the OsmElement
+     * @param elements a List of OsmElement
      * @param latE7 the latitude in WGS84*1E7 coordinates
      * @param lonE7 the longitude in WGS84*1E7 coordinates
      */
-    public void cutTo(@NonNull OsmElement e, int latE7, int lonE7) {
-        copyTo(e, latE7, lonE7);
+    public void cutTo(@NonNull List<OsmElement> elements, int latE7, int lonE7) {
+        copyTo(elements, latE7, lonE7);
         mode = Mode.CUT;
     }
 
@@ -90,29 +93,27 @@ public class ClipboardStorage implements Serializable {
     /**
      * Returns whatever is in the clipboard
      * 
-     * @return the stored OsmElement or null if there is none
+     * @return the stored OsmElements or null if there is none
      */
-    @Nullable
-    public OsmElement pasteFrom() {
+    @NonNull
+    public List<OsmElement> pasteFrom() {
         List<Way> ways = storage.getWays();
         List<Node> nodes = storage.getNodes();
+        List<OsmElement> result = new ArrayList<>();
         if (mode == Mode.CUT) {
             reset(); // can only paste a cut way once
-            if (ways != null && ways.size() == 1) {
-                Way w = ways.get(0);
-                return w;
-            } else if (nodes != null && nodes.size() == 1) {
-                Node n = nodes.get(0);
-                return n;
-            }
-        } else {
-            if (ways != null && ways.size() == 1) {
-                return ways.get(0);
-            } else if (nodes != null && nodes.size() == 1) {
-                return nodes.get(0);
+        }
+        if (nodes != null) {
+            for (Node n : nodes) {
+                result.add(n);
             }
         }
-        return null;
+        if (ways != null) {
+            for (Way w : ways) {
+                result.add(w);
+            }
+        }
+        return result;
     }
 
     /**
