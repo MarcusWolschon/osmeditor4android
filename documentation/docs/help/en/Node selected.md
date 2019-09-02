@@ -36,11 +36,11 @@ Start creating a turn restriction with this node as "via" member. This action is
 
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
-Copy the way to the internal copy and paste buffer.
+Copy the node to the internal copy and paste buffer.
 
 ### ![Cut](../images/ic_menu_cut_holo_light.png) Cut
 
-Move the way to the internal copy and paste buffer removing it fron the data.
+Move the node to the internal copy and paste buffer removing it from the data.
 
 ### Paste tags
 

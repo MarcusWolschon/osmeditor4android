@@ -40,8 +40,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_ORTHOGONALIZE  = 8;
     private static final int MENUITEM_MERGE_POLYGONS = 9;
 
-    private ArrayList<OsmElement> selection;
-    private List<OsmElement>      sortedWays;
+    private List<OsmElement> selection;
+    private List<OsmElement> sortedWays;
 
     UndoListener undoListener;
 
@@ -163,14 +163,12 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
         menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
-        // disabled for now menu.add(Menu.NONE, MENUITEM_TAG_LAST, Menu.NONE,
-        // R.string.tag_menu_repeat).setIcon(R.drawable.tag_menu_repeat);
-        // if (!(element instanceof Relation)) {
-        // menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY,
-        // R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(caller.getActivity(),R.attr.menu_copy)).setShowAsAction(menuSize.showAlways());
-        // menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY,
-        // R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main,R.attr.menu_cut)).setShowAsAction(menuSize.showAlways());
-        // }
+        if (!selectionContainsRelation()) {
+            menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy)
+                    .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
+            menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut)
+                    .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
+        }
         if (sortedWays != null) {
             menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
         }
@@ -196,6 +194,20 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return true;
+    }
+
+    /**
+     * Check if a Relation is in the selection
+     * 
+     * @return true if a Relation is selected
+     */
+    private boolean selectionContainsRelation() {
+        for (OsmElement e : selection) {
+            if (e instanceof Relation) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // private boolean canMerge(ArrayList<OsmElement> selection) {
@@ -235,13 +247,18 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             case ElementSelectionActionModeCallback.MENUITEM_TAG:
                 main.performTagEdit(selection, false, false);
                 break;
-            // case MENUITEM_TAG_LAST: main.performTagEdit(element, null, true); break;
             case ElementSelectionActionModeCallback.MENUITEM_DELETE:
                 menuDelete(false);
                 break;
 
-            // case MENUITEM_COPY: logic.copyToClipboard(element); currentActionMode.finish(); break;
-            // case MENUITEM_CUT: logic.cutToClipboard(element); currentActionMode.finish(); break;
+            case ElementSelectionActionModeCallback.MENUITEM_COPY:
+                logic.copyToClipboard(selection);
+                mode.finish();
+                break;
+            case ElementSelectionActionModeCallback.MENUITEM_CUT:
+                logic.cutToClipboard(main, selection);
+                mode.finish();
+                break;
             case MENUITEM_RELATION:
                 main.startSupportActionMode(new AddRelationMemberActionModeCallback(manager, selection));
                 break;
