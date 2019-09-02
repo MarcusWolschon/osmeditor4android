@@ -1407,33 +1407,22 @@ public class Logic {
             translateOnBorderTouch(absoluteX, absoluteY);
             main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
         } else if (rotatingWay) {
+            double aY = startY - centroidY;
+            double aX = startX - centroidX;
+            double bY = absoluteY - centroidY;
+            double bX = absoluteX - centroidX;
 
             double aSq = (startY - absoluteY) * (startY - absoluteY) + (startX - absoluteX) * (startX - absoluteX);
-            double bSq = (absoluteY - centroidY) * (absoluteY - centroidY) + (absoluteX - centroidX) * (absoluteX - centroidX);
-            double cSq = (startY - centroidY) * (startY - centroidY) + (startX - centroidX) * (startX - centroidX);
+            double bSq = bX * bX + bY * bY;
+            double cSq = aX * aX + aY * aY;
+            double cosAngle = Math.max(-1.0D, Math.min(1.0D, (bSq + cSq - aSq) / (2 * Math.sqrt(bSq) * Math.sqrt(cSq))));
 
-            double cosAngle = (bSq + cSq - aSq) / (2 * Math.sqrt(bSq) * Math.sqrt(cSq));
+            double det = aX * bY - aY * bX;
+            int direction = det < 0 ? -1 : 1;
 
-            int direction = 1; // 1 clockwise, -1 anti-clockwise
-            // not perfect but works good enough
-            if ((startY <= centroidY) && (absoluteY <= centroidY)) {
-                direction = (startX > absoluteX) ? -1 : 1;
-            } else if ((startX >= centroidX) && (absoluteX >= centroidX)) {
-                direction = (startY > absoluteY) ? -1 : 1;
-            } else if ((startY >= centroidY) && (absoluteY >= centroidY)) {
-                direction = (startX < absoluteX) ? -1 : 1;
-            } else if ((startX < centroidX) && (absoluteX < centroidX)) {
-                direction = (startY < absoluteY) ? -1 : 1;
-            } else if ((startY < startX) && (absoluteY < absoluteX)) {
-                direction = (startY > absoluteY) ? -1 : 1;
-            } else if ((startY >= startX) && (absoluteY >= absoluteX)) {
-                direction = (startY < absoluteY) ? -1 : 1;
-            }
-
-            displayAttachedObjectWarning(main, selectedWays.get(0));
-
-            getDelegator().rotateWay(selectedWays.get(0), (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(),
-                    viewBox);
+            Way w = selectedWays.get(0);
+            displayAttachedObjectWarning(main, w);
+            getDelegator().rotateWay(w, (float) Math.acos(cosAngle), direction, centroidX, centroidY, map.getWidth(), map.getHeight(), viewBox);
             startY = absoluteY;
             startX = absoluteX;
             main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
