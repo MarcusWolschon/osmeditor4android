@@ -3518,15 +3518,17 @@ public class Main extends FullScreenAppCompatActivity
             ViewBox viewBox = map.getViewBox();
             int focusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
             int focusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
-            viewBox.zoom((curSpan - prevSpan) / prevSpan);
-            int newfocusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
-            int newfocusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
-            try {
-                viewBox.translate(map, focusLon - newfocusLon, focusLat - newfocusLat);
-            } catch (OsmException e) {
-                // ignored
-            }
             Logic logic = App.getLogic();
+            synchronized (logic) {
+                viewBox.zoom((curSpan - prevSpan) / prevSpan);
+                int newfocusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
+                int newfocusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
+                try {
+                    viewBox.translate(map, focusLon - newfocusLon, focusLat - newfocusLat);
+                } catch (OsmException e) {
+                    // ignored
+                }
+            }
             DataStyle.updateStrokes(logic.strokeWidth(viewBox.getWidth()));
             if (logic.isRotationMode()) {
                 logic.showCrosshairsForCentroid();

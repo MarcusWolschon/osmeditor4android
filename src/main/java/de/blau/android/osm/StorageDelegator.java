@@ -941,24 +941,23 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public void rotateWay(@NonNull final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h,
             @NonNull ViewBox v) {
-        if (way.getNodes().isEmpty()) {
-            Log.d(DEBUG_TAG, "rotateWay way " + way.getOsmId() + " has no nodes!");
+        if (Float.isNaN(angle)) {
+            Log.e(DEBUG_TAG, "rotateWay angle is NaN");
             return;
         }
-        // Log.d("StorageDelegator","Rotating " + angle + " around " + pivotY + " " + pivotX );
         dirty = true;
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
         try {
-            HashSet<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqness
+            Set<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqueness
             invalidateWayBoundingBox(nodes);
             for (Node nd : nodes) {
                 undo.save(nd);
                 double nodeX = GeoMath.lonE7ToX(w, v, nd.getLon());
                 double nodeY = GeoMath.latE7ToY(h, w, v, nd.getLat());
-                double newX = pivotX + (nodeX - pivotX) * Math.cos(angle) - direction * (nodeY - pivotY) * Math.sin(angle);
-                double newY = pivotY + direction * (nodeX - pivotX) * Math.sin(angle) + (nodeY - pivotY) * Math.cos(angle);
-                int lat = GeoMath.yToLatE7(h, w, v, (float) newY);
-                int lon = GeoMath.xToLonE7(w, v, (float) newX);
-                updateLatLon(nd, lat, lon);
+                double newX = pivotX + (nodeX - pivotX) * cos - direction * (nodeY - pivotY) * sin;
+                double newY = pivotY + direction * (nodeX - pivotX) * sin + (nodeY - pivotY) * cos;
+                updateLatLon(nd, GeoMath.yToLatE7(h, w, v, (float) newY), GeoMath.xToLonE7(w, v, (float) newX));
             }
             // Don't call onElementChanged(null, new ArrayList<>(nodes));
         } catch (StorageException e) {
