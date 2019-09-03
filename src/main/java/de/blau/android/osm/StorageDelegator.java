@@ -8,6 +8,7 @@ import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -2366,6 +2367,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         if (elements.isEmpty()) {
             return null;
         }
+        Collections.sort(elements, new NwrComparator()); // enforce NWR order
         List<OsmElement> result = new ArrayList<>();
         boolean copy = !clipboard.isEmpty();
         int deltaLat = lat - clipboard.getSelectionLat();
