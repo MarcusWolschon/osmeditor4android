@@ -93,8 +93,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            Layers elementInfoFragment = newInstance();
-            elementInfoFragment.show(fm, TAG);
+            Layers layersFragment = newInstance();
+            layersFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
         }
@@ -130,7 +130,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         AppCompatDialog dialog = new AppCompatDialog(getActivity());
         View layout = createView(null);
-        // ideally the following code would be included in the layer classes, but no brillant ideas on how to do this
+        // ideally the following code would be included in the layer classes, but no brilliant ideas on how to do this
         // right now
         final FloatingActionButton add = (FloatingActionButton) layout.findViewById(R.id.add);
         add.setOnClickListener(new OnClickListener() {
