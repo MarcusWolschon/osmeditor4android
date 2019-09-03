@@ -197,7 +197,7 @@ public class MultiselectDialogRow extends DialogRow {
         buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
 
         layout.setTag(key);
-        List<String> values = Preset.splitValues(Util.getArrayList(row.getValue()), preset, key);
+        List<String> values = Preset.splitValues(Util.wrapInList(row.getValue()), preset, key);
         if (adapter != null) {
             int count = adapter.getCount();
             for (int i = 0; i < count; i++) {

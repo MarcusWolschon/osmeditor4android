@@ -665,7 +665,7 @@ public class Logic {
      * @param parents new parent relations
      * @return false if no element exists for the given osmId/type.
      */
-    public synchronized boolean updateParentRelations(@Nullable Activity activity, final String type, final long osmId, final HashMap<Long, String> parents) {
+    public synchronized boolean updateParentRelations(@Nullable Activity activity, final String type, final long osmId, final java.util.Map<Long, String> parents) {
         OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");

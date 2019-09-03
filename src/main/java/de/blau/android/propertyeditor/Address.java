@@ -248,7 +248,7 @@ public final class Address implements Serializable {
                 }
             }
             if (newAddress.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-                newAddress.tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+                newAddress.tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(""));
             }
         }
 
@@ -288,7 +288,7 @@ public final class Address implements Serializable {
                     if (!hasAddrStreet || rank > maxRank || rank < 0) { // check if has street and still in the top 3
                                                                         // nearest
                         // nope -> zap
-                        tags.put(Tags.KEY_ADDR_STREET, Util.getArrayList(streetNames.get(0)));
+                        tags.put(Tags.KEY_ADDR_STREET, Util.wrapInList(streetNames.get(0)));
                     }
                     addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
                     if (addrStreetValues != null && !addrStreetValues.isEmpty()) {
@@ -344,7 +344,7 @@ public final class Address implements Serializable {
                 Preferences prefs = new Preferences(context);
                 Set<String> addressTags = prefs.addressTags();
                 for (String key : addressTags) {
-                    newAddress.tags.put(key, Util.getArrayList(""));
+                    newAddress.tags.put(key, Util.wrapInList(""));
                 }
             }
         }
@@ -369,7 +369,7 @@ public final class Address implements Serializable {
                 }
             }
             if (isOnBuilding && !newAddress.tags.containsKey(Tags.KEY_ENTRANCE)) {
-                newAddress.tags.put(Tags.KEY_ENTRANCE, Util.getArrayList("yes"));
+                newAddress.tags.put(Tags.KEY_ENTRANCE, Util.wrapInList("yes"));
             }
         }
         return newAddress.tags;
@@ -490,10 +490,10 @@ public final class Address implements Serializable {
                     if (Math.abs(inc) > 1) {
                         int newNumber = Math.max(1, otherSideList.size() == 0 ? nearest + (inc / Math.abs(inc)) : otherSideList.firstKey() + inc);
                         Log.d(DEBUG_TAG, "final predicted result for the other side " + newNumber);
-                        newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(Integer.toString(newNumber)));
+                        newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(Integer.toString(newNumber)));
                     } else { // no sense to guess pattern
                         Log.d(DEBUG_TAG, "giving up");
-                        newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+                        newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(""));
                     }
                 } else { // predict on this side
                     int newNumber = Math.max(1, nearest + inc);
@@ -508,11 +508,11 @@ public final class Address implements Serializable {
                         }
                     }
                     Log.d(DEBUG_TAG, "final predicted result " + newNumber);
-                    newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(Integer.toString(newNumber)));
+                    newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(Integer.toString(newNumber)));
                 }
             } catch (NumberFormatException nfe) {
                 Log.d(DEBUG_TAG, "exception " + nfe);
-                newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+                newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(""));
             }
         } else if (list.size() == 1) {
             Log.d(DEBUG_TAG, "only one number on this side");
@@ -532,7 +532,7 @@ public final class Address implements Serializable {
             } else if (otherList.size() == 1) {
                 copyTags(otherList.get(otherList.firstKey()), newTags);
             } else {
-                newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.getArrayList(""));
+                newTags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(""));
             }
         }
         return newTags;

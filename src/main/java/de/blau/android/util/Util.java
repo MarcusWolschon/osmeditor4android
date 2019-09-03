@@ -67,14 +67,15 @@ public final class Util {
     }
 
     /**
-     * Wrap a string in an ArrayList
+     * Wrap an Object in an ArrayList
      * 
-     * @param s the input String
+     * @param <T> the Object type
+     * @param o the input String
      * @return an ArrayList containing only s
      */
-    public static ArrayList<String> getArrayList(@NonNull String s) {
-        ArrayList<String> v = new ArrayList<>();
-        v.add(s);
+    public static <T> List<T> wrapInList(@NonNull T o) {
+        List<T> v = new ArrayList<>();
+        v.add(o);
         return v;
     }
 
@@ -88,7 +89,7 @@ public final class Util {
     public static LinkedHashMap<String, List<String>> getListMap(@NonNull Map<String, String> map) {
         LinkedHashMap<String, List<String>> result = new LinkedHashMap<>();
         for (Entry<String, String> e : map.entrySet()) {
-            result.put(e.getKey(), getArrayList(e.getValue()));
+            result.put(e.getKey(), wrapInList(e.getValue()));
         }
         return result;
     }

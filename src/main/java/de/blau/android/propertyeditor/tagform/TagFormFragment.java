@@ -839,9 +839,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     boolean isComboField = field instanceof PresetComboField && !((PresetComboField) field).isMultiSelect();
                     boolean isMultiSelectField = field instanceof PresetComboField && ((PresetComboField) field).isMultiSelect();
                     if (isMultiSelectField) {
-                        values = Preset.splitValues(Util.getArrayList(value), preset, key);
+                        values = Preset.splitValues(Util.wrapInList(value), preset, key);
                     } else {
-                        values = Util.getArrayList(value);
+                        values = Util.wrapInList(value);
                     }
                     String hint = field.getHint();
                     //

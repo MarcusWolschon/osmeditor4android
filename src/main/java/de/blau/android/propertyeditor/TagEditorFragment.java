@@ -1435,7 +1435,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         // Fixed tags, always have a value. We overwrite mercilessly.
         for (Entry<String, String> tag : tags.entrySet()) {
-            List<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
+            List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(tag.getValue()));
             if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue())) {
                 replacedValue = true;
             }
@@ -1701,7 +1701,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         for (Entry<String, PresetFixedField> tag : item.getFixedTags().entrySet()) {
             PresetFixedField field = tag.getValue();
             String v = field.getValue().getValue();
-            List<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(v));
+            List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(v));
             if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(v) && !(oldValue.size() == 1 && "".equals(oldValue.get(0)))) {
                 replacedValue = true;
             }
@@ -1764,7 +1764,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             if (result == null || "".equals(result)) {
                 currentValues.remove(key);
             } else if (currentValues.containsKey(key)) {
-                currentValues.put(key, Util.getArrayList(result));
+                currentValues.put(key, Util.wrapInList(result));
             }
         } catch (Exception ex) {
             Snack.barError(getActivity(), ex.getLocalizedMessage());
@@ -1810,7 +1810,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     scripts.put(key, script);
                 }
             }
-            tags.put(key, Util.getArrayList(value));
+            tags.put(key, Util.wrapInList(value));
             return value != null && !"".equals(value);
         }
         return false;
@@ -1828,7 +1828,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         // Fixed tags, always have a value. We overwrite mercilessly.
         for (Entry<String, String> tag : newTags.entrySet()) {
-            List<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
+            List<String> oldValue = currentValues.put(tag.getKey(), Util.wrapInList(tag.getValue()));
             if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue())) {
                 replacedValue = true;
             }
@@ -2008,9 +2008,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         // both blank is never acceptable
                         if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty())) {
                             if (valueBlank) {
-                                tags.put(key, tagValues.size() == 1 ? Util.getArrayList("") : tagValues);
+                                tags.put(key, tagValues.size() == 1 ? Util.wrapInList("") : tagValues);
                             } else {
-                                tags.put(key, Util.getArrayList(value));
+                                tags.put(key, Util.wrapInList(value));
                             }
                         }
                     }
@@ -2409,7 +2409,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         Log.d(DEBUG_TAG, "adding tag " + key + "=" + value);
         LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
         if (!currentValues.containsKey(key) || replace) {
-            currentValues.put(key, Util.getArrayList(value));
+            currentValues.put(key, Util.wrapInList(value));
             loadEdits(rowLayout, currentValues, false);
             if (update) {
                 updateAutocompletePresetItem(null);
@@ -2420,7 +2420,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void updateSingleValue(@NonNull String key, @NonNull String value) {
         LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(true);
-        currentValues.put(key, Util.getArrayList(value));
+        currentValues.put(key, Util.wrapInList(value));
         loadEdits(currentValues, false);
         updateAutocompletePresetItem(null);
     }
@@ -2467,7 +2467,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (value.endsWith(String.valueOf(delimter))) {
                     value = value.substring(0, value.length() - 1);
                 }
-                List<String> values = Preset.splitValues(Util.getArrayList(value), pi, key);
+                List<String> values = Preset.splitValues(Util.wrapInList(value), pi, key);
                 if (values != null) {
                     Collections.reverse(values);
                     for (String v : values) {
