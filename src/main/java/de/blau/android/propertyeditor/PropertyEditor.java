@@ -48,6 +48,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -68,6 +69,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.views.ExtendedViewPager;
 
 /**
@@ -163,8 +165,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     /**
      * the same for relations
      */
-    private HashMap<Long, String>                originalParents;
-    private ArrayList<RelationMemberDescription> originalMembers;
+    private MultiHashMap<Long, RelationMemberPosition> originalParents;
+    private ArrayList<RelationMemberDescription>       originalMembers;
 
     private Preferences             prefs         = null;
     private ExtendedViewPager       mViewPager;
@@ -785,7 +787,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             tagFormFragment.updateEditorFromText(); // update any non-synced changes to the editor fragment
         }
         List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
-        HashMap<Long, String> currentParents = null;
+        MultiHashMap<Long, RelationMemberPosition> currentParents = null;
         ArrayList<RelationMemberDescription> currentMembers = null;
         if (relationMembershipFragment != null) {
             currentParents = relationMembershipFragment.getParentRelationMap();
@@ -799,8 +801,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         // if we haven't edited just exit
         if (!same(currentTags, originalTags) // tags different
                 || ((currentParents != null && !currentParents.equals(originalParents))
-                        && !(originalParents == null && (currentParents == null || currentParents.size() == 0))) // parents
-                                                                                                                 // changed
+                        && !(originalParents == null && (currentParents == null || currentParents.isEmpty()))) // parents
+                                                                                                               // changed
                 || (getElement() != null && getElement().getName().equals(Relation.NAME)
                         && (currentMembers != null && !sameMembers(currentMembers, originalMembers)))) {
             new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null)
@@ -848,7 +850,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             }
             Intent intent = new Intent();
 
-            HashMap<Long, String> currentParents = null;
+            MultiHashMap<Long, RelationMemberPosition> currentParents = null;
             ArrayList<RelationMemberDescription> currentMembers = null;
             PropertyEditorData[] newData = new PropertyEditorData[currentTags.size()];
 
@@ -859,13 +861,13 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                     currentMembers = relationMembersFragment.getMembersList();
                 }
 
-                if (!same(currentTags, originalTags) || !(originalParents == null && currentParents.size() == 0) && !currentParents.equals(originalParents)
+                if (!same(currentTags, originalTags) || !(originalParents == null && currentParents.isEmpty()) && !currentParents.equals(originalParents)
                         || (getElement() != null && getElement().getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
                     // changes were made
                     Log.d(DEBUG_TAG, "saving tags");
                     for (int i = 0; i < currentTags.size(); i++) {
                         newData[i] = new PropertyEditorData(osmIds[i], types[i], currentTags.get(i).equals(originalTags.get(i)) ? null : currentTags.get(i),
-                                null, (originalParents == null && currentParents.size() == 0) || currentParents.equals(originalParents) ? null : currentParents,
+                                null, (originalParents == null && currentParents.isEmpty()) || currentParents.equals(originalParents) ? null : currentParents,
                                 null, currentMembers.equals(originalMembers) ? null : currentMembers, null);
                     }
                 }

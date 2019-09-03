@@ -5,11 +5,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import android.support.annotation.NonNull;
 
 /**
  * This data structure is a combination of a Map and Set. Each key can be assigned not one, but multiple values. Sorted
@@ -31,7 +34,7 @@ public class MultiHashMap<K, V> implements Serializable {
 
     /** Creates a regular, unsorted MultiHashMap */
     public MultiHashMap() {
-        this(false);
+        this(false, false);
     }
 
     /**
@@ -40,9 +43,21 @@ public class MultiHashMap<K, V> implements Serializable {
      * @param sorted if true, Tree maps/sets will be used, if false, regular HashMap/HashSets will be used.
      */
     public MultiHashMap(boolean sorted) {
+        this(sorted, false);
+    }
+
+    /**
+     * Creates a MultiHashMap
+     * 
+     * @param sorted if true, Tree maps/sets will be used,
+     * @param ordered if true and sorted false, a Map will be used that maintains insertion order
+     */
+    public MultiHashMap(boolean sorted, boolean ordered) {
         this.sorted = sorted;
         if (sorted) {
             map = new TreeMap<>();
+        } else if (ordered) {
+            map = new LinkedHashMap<>();
         } else {
             map = new HashMap<>();
         }
@@ -54,7 +69,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * @param key the key for the entry
      * @return true if key exists in map
      */
-    public boolean containsKey(K key) {
+    public boolean containsKey(@NonNull K key) {
         return map.containsKey(key);
     }
 
@@ -65,7 +80,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * @param item the item to add
      * @return true if the element was added, false if it was already in the set or null
      */
-    public boolean add(K key, V item) {
+    public boolean add(@NonNull K key, @NonNull V item) {
         Set<V> values = map.get(key);
         if (values == null) {
             values = (sorted ? new TreeSet<>() : new HashSet<>());
@@ -80,7 +95,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * @param key the key
      * @param items an array containing the items
      */
-    public void add(K key, V[] items) {
+    public void add(@NonNull K key, @NonNull V[] items) {
         Set<V> values = map.get(key);
         if (values == null) {
             values = (sorted ? new TreeSet<>() : new HashSet<>());
@@ -95,7 +110,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * @param key the key
      * @param items a set containing the items
      */
-    private void add(K key, Set<V> items) {
+    private void add(@NonNull K key, @NonNull Set<V> items) {
         Set<V> values = map.get(key);
         if (values == null) {
             values = (sorted ? new TreeSet<>() : new HashSet<>());
@@ -111,7 +126,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * @param item the item to remove
      * @return true if the item was in the set
      */
-    public boolean removeItem(K key, V item) {
+    public boolean removeItem(@NonNull K key, @NonNull V item) {
         Set<V> values = map.get(key);
         if (values != null) {
             return values.remove(item);
@@ -124,7 +139,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * 
      * @param key key of the values we want to remove
      */
-    public void removeKey(K key) {
+    public void removeKey(@NonNull K key) {
         map.remove(key);
     }
 
@@ -134,7 +149,8 @@ public class MultiHashMap<K, V> implements Serializable {
      * @param key the key to use
      * @return a unmodifiable list of the items associated with the key, may be empty but never null
      */
-    public Set<V> get(K key) {
+    @NonNull
+    public Set<V> get(@NonNull K key) {
         Set<V> values = map.get(key);
         if (values == null) {
             return Collections.emptySet();
@@ -163,6 +179,7 @@ public class MultiHashMap<K, V> implements Serializable {
      * 
      * @return a Set of the values
      */
+    @NonNull
     public Set<V> getValues() {
         Set<V> retval = new LinkedHashSet<>();
         for (K key : getKeys()) {
@@ -172,14 +189,71 @@ public class MultiHashMap<K, V> implements Serializable {
     }
 
     /**
-     * add all key/values from source to this Map
+     * Add all key/values from source to this Map
      * 
      * @param source a MultiHashMap from which to add keys and values
      */
-    public void addAll(MultiHashMap<K, V> source) {
+    public void addAll(@NonNull MultiHashMap<K, V> source) {
         for (K key : source.getKeys()) {
             add(key, source.get(key));
         }
 
+    }
+
+    /**
+     * Check if this MultiHashMap is empty
+     * 
+     * @return true if the MultiHashMap is empty
+     */
+    public boolean isEmpty() {
+        if (map.isEmpty()) {
+            return true;
+        }
+        // check that all sets are empty
+        for (Set<V> value : map.values()) {
+            if (!value.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Get the number of entries in the MultiHashMap
+     * 
+     * @return the number of entries
+     */
+    public int size() {
+        return map.size();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((map == null) ? 0 : map.hashCode());
+        result = prime * result + (sorted ? 1231 : 1237);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof MultiHashMap)) {
+            return false;
+        }
+
+        @SuppressWarnings("rawtypes")
+        MultiHashMap other = (MultiHashMap) obj;
+        if (map == null) {
+            if (other.map != null) {
+                return false;
+            }
+        } else if (!map.equals(other.map)) {
+            return false;
+        }
+        return true;
     }
 }

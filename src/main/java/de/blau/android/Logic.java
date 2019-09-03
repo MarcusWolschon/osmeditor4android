@@ -82,6 +82,7 @@ import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.Server.Visibility;
@@ -105,6 +106,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MRUList;
+import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.validation.Validator;
 
 /**
@@ -665,7 +667,8 @@ public class Logic {
      * @param parents new parent relations
      * @return false if no element exists for the given osmId/type.
      */
-    public synchronized boolean updateParentRelations(@Nullable Activity activity, final String type, final long osmId, final HashMap<Long, String> parents) {
+    public synchronized boolean updateParentRelations(@Nullable Activity activity, final String type, final long osmId,
+            final MultiHashMap<Long, RelationMemberPosition> parents) {
         OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update relations on a non-existing element");

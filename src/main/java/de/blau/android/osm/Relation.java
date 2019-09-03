@@ -112,6 +112,26 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     }
 
     /**
+     * Return all relation member elements for this OSM element wrapped in a RelationMemberPosition with the position
+     * set
+     * 
+     * @param e OsmElement to search for
+     * @return the list of corresponding RelationMembers, empty if non found
+     */
+    @NonNull
+    public List<RelationMemberPosition> getAllMembersWithPosition(@NonNull OsmElement e) {
+        List<RelationMemberPosition> result = new ArrayList<>();
+        for (int i = 0; i < members.size(); i++) {
+            RelationMember member = members.get(i);
+            if (member.getElement() == e) {
+                RelationMemberPosition rmp = new RelationMemberPosition(member, i);
+                result.add(rmp);
+            }
+        }
+        return result;
+    }
+
+    /**
      * Return first relation member element for this OSM element
      * 
      * Note: if the element is present more than once you will only get ont
