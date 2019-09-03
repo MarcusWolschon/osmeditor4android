@@ -437,13 +437,15 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
-     * Remove reference to parent relation does not check for id
+     * Remove all references to parent relation does not check for id
      *
      * @param relation relation from which we want to remove this element
      */
     public void removeParentRelation(@NonNull Relation relation) {
         if (parentRelations != null) {
-            parentRelations.remove(relation);
+            while (parentRelations.remove(relation)) { 
+                // empty
+            }
         }
     }
 

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -41,6 +41,7 @@ import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
@@ -50,6 +51,7 @@ import de.blau.android.presets.PresetRole;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.MultiHashMap;
 
 public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener {
     private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
@@ -59,8 +61,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
     private LayoutInflater inflater = null;
 
-    private HashMap<Long, String> savedParents = null;
-    private String                elementType  = null;
+    private MultiHashMap<Long, RelationMemberPosition> savedParents = null;
+    private String                                     elementType  = null;
 
     private int maxStringLength; // maximum key, value and role length
 
@@ -77,7 +79,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @return a new RelationMembershipFragment instance
      */
     @NonNull
-    public static RelationMembershipFragment newInstance(HashMap<Long, String> parents, String type) {
+    public static RelationMembershipFragment newInstance(MultiHashMap<Long, RelationMemberPosition> parents, String type) {
         RelationMembershipFragment f = new RelationMembershipFragment();
 
         Bundle args = new Bundle();
@@ -121,16 +123,16 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         // membershipVerticalLayout.setSaveFromParentEnabled(false);
         membershipVerticalLayout.setSaveEnabled(false);
 
-        HashMap<Long, String> parents;
+        MultiHashMap<Long, RelationMemberPosition> parents;
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Restoring from saved state");
-            parents = (HashMap<Long, String>) savedInstanceState.getSerializable(PARENTS_KEY);
+            parents = (MultiHashMap<Long, RelationMemberPosition>) savedInstanceState.getSerializable(PARENTS_KEY);
             elementType = savedInstanceState.getString(ELEMENT_TYPE_KEY);
         } else if (savedParents != null) {
             Log.d(DEBUG_TAG, "Restoring from instance variable");
             parents = savedParents;
         } else {
-            parents = (HashMap<Long, String>) getArguments().getSerializable(PARENTS_KEY);
+            parents = (MultiHashMap<Long, RelationMemberPosition>) getArguments().getSerializable(PARENTS_KEY);
             elementType = getArguments().getString(ELEMENT_TYPE_KEY);
         }
 
@@ -161,7 +163,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @param parents map containing the id of the parent relations and the role in that relation
      * @param elementType type of the element being edited
      */
-    private void loadParents(final Map<Long, String> parents, @NonNull String elementType) {
+    private void loadParents(final MultiHashMap<Long, RelationMemberPosition> parents, @NonNull String elementType) {
         LinearLayout membershipVerticalLayout = (LinearLayout) getOurView();
         loadParents(membershipVerticalLayout, parents, elementType);
     }
@@ -173,13 +175,16 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @param parents map containing the id of the parent relations and the role in that relation
      * @param elementType type of the element being edited
      */
-    private void loadParents(LinearLayout membershipVerticalLayout, final Map<Long, String> parents, @NonNull String elementType) {
+    private void loadParents(LinearLayout membershipVerticalLayout, final MultiHashMap<Long, RelationMemberPosition> parents, @NonNull String elementType) {
         membershipVerticalLayout.removeAllViews();
-        if (parents != null && parents.size() > 0) {
+        if (parents != null && !parents.isEmpty()) {
             StorageDelegator storageDelegator = App.getDelegator();
-            for (Entry<Long, String> entry : parents.entrySet()) {
-                Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, entry.getKey());
-                insertNewMembership(membershipVerticalLayout, entry.getValue(), r, elementType, 0, false);
+            for (Long id : parents.getKeys()) {
+                Relation r = (Relation) storageDelegator.getOsmElement(Relation.NAME, id);
+                Set<RelationMemberPosition> rmps = parents.get(id);
+                for (RelationMemberPosition rmp : rmps) {
+                    insertNewMembership(membershipVerticalLayout, rmp.getRole(), r, elementType, rmp.getPosition(), 0, false);
+                }
             }
         }
     }
@@ -213,13 +218,14 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @param role role of this element in the relation
      * @param r the relation
      * @param elementType type of the element being edited
+     * @param memberPos position of the member in the relation member list
      * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at
      *            beginning.
      * @param showSpinner show the role spinner on insert
      * @return the new RelationMembershipRow
      */
     private RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, @NonNull String elementType,
-            final int position, boolean showSpinner) {
+            int memberPos, final int position, boolean showSpinner) {
         RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -227,7 +233,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         }
 
         if (r != null) {
-            row.setValues(role, r, elementType);
+            row.setValues(role, r, elementType, memberPos);
         }
         membershipVerticalLayout.addView(row, (position == -1) ? membershipVerticalLayout.getChildCount() : position);
         row.setShowSpinner(showSpinner);
@@ -283,6 +289,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         private boolean              showSpinner    = false;
         private String               elementType    = null;
         private PresetItem           relationPreset = null;
+        private int                  position;
 
         /**
          * Construct a roe
@@ -440,13 +447,15 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          * @param role the role of this element in the Relation
          * @param r the Relation it is a member of
          * @param elementType the type of the element
+         * @param position the position in the list of members
          * @return the RelationMembershipRow object for convenience
          */
-        public RelationMembershipRow setValues(String role, Relation r, String elementType) {
+        public RelationMembershipRow setValues(String role, Relation r, String elementType, int position) {
             relationId = r.getOsmId();
             roleEdit.setText(role);
             parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r));
             this.elementType = elementType;
+            this.position = position;
             return this;
         }
 
@@ -459,6 +468,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         public RelationMembershipRow setRelation(Relation r) {
             relationId = r.getOsmId();
             parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r));
+            position = r.getMembers().size(); // last position
             Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
             roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter()); // update
             return this;
@@ -614,18 +624,20 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     }
 
     /**
-     * Collect all interesting values from the parent relation view HashMap<String,String>, currently only the role
-     * value
+     * Collect all interesting values from the parent relation view value
      * 
-     * @return The HashMap<Long,String> of relation and role in that relation, pairs.
+     * @return a MultiHashMap<Long,RelationMemberDescription> of relation and role with position in that relation,
+     *         pairs.
      */
-    HashMap<Long, String> getParentRelationMap() {
-        final HashMap<Long, String> parents = new HashMap<>();
+    MultiHashMap<Long, RelationMemberPosition> getParentRelationMap() {
+        final MultiHashMap<Long, RelationMemberPosition> parents = new MultiHashMap<>(false, true);
         processParentRelations(new ParentRelationHandler() {
             @Override
             public void handleParentRelation(final RelationMembershipRow row) {
                 String role = row.roleEdit.getText().toString().trim();
-                parents.put(row.relationId, role);
+                RelationMemberPosition rmp = new RelationMemberPosition(
+                        new RelationMember(row.elementType, propertyEditorListener.getElement().getOsmId(), role), row.position);
+                parents.add(row.relationId, rmp);
                 Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, row.relationId);
                 if (r == null) {
                     Log.e(DEBUG_TAG, "Inconsistent state: parent relation " + row.relationId + " not in storage");
@@ -704,7 +716,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      */
     @SuppressWarnings("unchecked")
     void doRevert() {
-        loadParents((HashMap<Long, String>) getArguments().getSerializable(PARENTS_KEY), getArguments().getString(ELEMENT_TYPE_KEY));
+        loadParents((MultiHashMap<Long, RelationMemberPosition>) getArguments().getSerializable(PARENTS_KEY), getArguments().getString(ELEMENT_TYPE_KEY));
     }
 
     /**
@@ -713,7 +725,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @param elementType the type of the OsmElement
      */
     private void addToRelation(@NonNull String elementType) {
-        insertNewMembership((LinearLayout) getOurView(), null, null, elementType, -1, true).roleEdit.requestFocus();
+        insertNewMembership((LinearLayout) getOurView(), null, null, elementType, 0, -1, true).roleEdit.requestFocus();
     }
 
     @Override

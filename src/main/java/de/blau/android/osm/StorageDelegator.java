@@ -8,7 +8,6 @@ import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,7 +16,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -47,6 +45,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
+import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.validation.BaseValidator;
 
 public class StorageDelegator implements Serializable, Exportable, DataStorage {
@@ -2106,7 +2105,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param e current OsmElement
      * @param parents new Map of parent Relations
      */
-    public void updateParentRelations(@NonNull final OsmElement e, @NonNull final Map<Long, String> parents) {
+    public void updateParentRelations(@NonNull final OsmElement e, @NonNull final MultiHashMap<Long, RelationMemberPosition> parents) {
         Log.d(DEBUG_TAG, "updateParentRelations new parents size " + parents.size());
         List<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<>();
 
@@ -2116,21 +2115,45 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 continue;
             }
             if (parents.containsKey(o.getOsmId())) {
-                String newRole = parents.get(o.getOsmId());
-                if (!o.getMember(e).getRole().equals(newRole)) {
-                    setRole(e, newRole, o);
+                List<RelationMemberPosition> newMembers = new ArrayList<>(parents.get(o.getOsmId()));
+                List<RelationMemberPosition> members = o.getAllMembersWithPosition(e);
+                List<RelationMemberPosition> leftOvers = new ArrayList<>(members);
+                for (RelationMemberPosition existing : members) {
+                    if (newMembers.contains(existing)) {
+                        newMembers.remove(existing);
+                        leftOvers.remove(existing);
+                    }
+                }
+                // leftOver contains any remaining existing members
+                // newMembers members that we didn't find
+                if (!newMembers.isEmpty() || !leftOvers.isEmpty()) {
+                    dirty = true;
+                    undo.save(o);
+                    for (RelationMemberPosition newMember : newMembers) {
+                        if (!leftOvers.isEmpty()) {
+                            RelationMemberPosition member = leftOvers.get(0);
+                            member.setRole(newMember.getRole());
+                            leftOvers.remove(member);
+                        } else {
+                            addElementToRelation(e, -1, newMember.getRole(), o);
+                        }
+                    }
+                    for (RelationMemberPosition rmp : leftOvers) { // these are no longer needed
+                        o.removeMember(rmp.getRelationMember());
+                    }
                 }
             }
         }
         // add as new member to relation
-        for (Entry<Long, String> entry : parents.entrySet()) {
-            long l = entry.getKey();
+        for (Long l : parents.getKeys()) {
             Log.d(DEBUG_TAG, "updateParentRelations new parent " + l);
             if (l != -1) { //
                 Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l);
                 if (!origParents.contains(r)) {
-                    Log.d(DEBUG_TAG, "updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());
-                    addElementToRelation(e, -1, entry.getValue(), r); // append for now only
+                    for (RelationMemberPosition rmp : parents.get(l)) {
+                        Log.d(DEBUG_TAG, "updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());
+                        addElementToRelation(e, -1, rmp.getRole(), r); // append for now only
+                    }
                 }
             }
         }
