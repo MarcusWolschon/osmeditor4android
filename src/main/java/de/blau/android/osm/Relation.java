@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -195,14 +196,6 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
 
     @Override
     public String toString() {
-        // String res = super.toString();
-        // for (Map.Entry<String, String> tag : tags.entrySet()) {
-        // res += "\t" + tag.getKey() + "=" + tag.getValue();
-        // }
-        // for (RelationMember m:members) {
-        // res += "\t" + m.toString();
-        // }
-        // return res;
         return getDescription();
     }
 
@@ -362,12 +355,12 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
                     String restriction = getTagWithKey(Tags.VALUE_RESTRICTION);
                     if (restriction != null) {
                         String d = p.getDescriptionForValue(Tags.VALUE_RESTRICTION, restriction);
-                        if (d != null) { // the names of turn restrictions are clear enouhg
+                        if (d != null) { // the names of turn restrictions are clear enough
                             description = d;
                         }
                     }
                 } else {
-                    TreeMap<String, String> tagsCopy = new TreeMap<>(tags);
+                    SortedMap<String, String> tagsCopy = new TreeMap<>(tags);
                     if (tagsCopy.remove(Tags.KEY_TYPE) != null) {
                         p = Preset.findBestMatch(App.getCurrentPresets(ctx), tagsCopy);
                         if (p != null) {

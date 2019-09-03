@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- inner classes must be specified using <view class="classname" /> due to dollar sign -->
-<view class="de.blau.android.propertyeditor.RelationMembershipFragment$RelationMembershipRow" xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- inner classes must be specified using <view class="classname" /> due 
+    to dollar sign -->
+<view
+    class="de.blau.android.propertyeditor.RelationMembershipFragment$RelationMembershipRow"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -9,54 +12,50 @@
         android:layout_height="wrap_content"
         style="?attr/Layout"
         android:saveEnabled="false"
-        android:orientation="horizontal" >
-        
-    	<CheckBox
-        	android:id="@+id/parent_selected"
-        	android:saveEnabled="false"
-        	android:text=""
-        	android:layout_width="34dp"
-        	android:layout_height="fill_parent"
-       		android:paddingLeft="5dp"
-	    	android:paddingRight="5dp"
-	    	android:layout_marginBottom="1dp"
-	    	android:layout_marginRight="1dp"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/parent_selected"
+            android:saveEnabled="false"
+            android:text=""
+            android:layout_width="34dp"
+            android:layout_height="fill_parent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp" />
+        <AutoCompleteTextView
+            android:id="@+id/editRole"
+            android:saveEnabled="false"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="1dp"
             android:layout_marginEnd="1dp"
-	    	/>
-        
-	    <AutoCompleteTextView
-	        android:id="@+id/editRole"
-	        android:saveEnabled="false"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="1dp"
-	        android:layout_marginRight="1dp"
-            android:layout_marginEnd="1dp"
-	        android:layout_weight="3"
-	        android:minHeight="34dp"
-	        android:completionThreshold="1"
-	        android:dropDownWidth="match_parent"
-	        android:hint="@string/role_lc"
-	        android:inputType="textNoSuggestions"
-	        android:paddingLeft="5dp"
-	        android:paddingRight="5dp"
+            android:layout_weight="3"
+            android:minHeight="34dp"
+            android:completionThreshold="1"
+            android:dropDownWidth="match_parent"
+            android:hint="@string/role_lc"
+            android:inputType="textNoSuggestions"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingEnd="5dp"
-			android:maxLines="1" />
-	    
-	    <Spinner
-	        android:id="@+id/editParent"
-	        android:saveEnabled="false"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:layout_marginLeft="0dp"
+            android:maxLines="1" />
+        <Spinner
+            android:id="@+id/editParent"
+            android:saveEnabled="false"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="0dp"
             android:layout_marginStart="0dp"
-	        android:layout_marginBottom="1dp"
-	        android:layout_weight="2"
-	        android:minHeight="34dp"
-	        android:paddingLeft="0dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="2"
+            android:minHeight="34dp"
+            android:paddingLeft="0dp"
             android:paddingStart="0dp"
-	        android:spinnerMode="dropdown"
-	        android:dropDownWidth="match_parent"
-	        />
-	</LinearLayout>
+            android:spinnerMode="dropdown"
+            android:dropDownWidth="match_parent"
+            android:overlapAnchor="false" />
+    </LinearLayout>
 </view>

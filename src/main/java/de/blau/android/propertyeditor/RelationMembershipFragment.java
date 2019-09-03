@@ -249,6 +249,27 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         return row;
     }
 
+    static class RelationHolder {
+        final Relation relation;
+        final Context  ctx;
+
+        /**
+         * Wrapper around relations so that we can display a nice String
+         * 
+         * @param ctx an Android Context
+         * @param relation the Relation
+         */
+        RelationHolder(@NonNull Context ctx, @NonNull Relation relation) {
+            this.ctx = ctx;
+            this.relation = relation;
+        }
+
+        @Override
+        public String toString() {
+            return relation.getDescription(ctx);
+        }
+    }
+
     /**
      * A row representing a parent relation with an edit for role and further values and a delete button.
      */
@@ -286,12 +307,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                                                                         // in Eclipse
         }
 
-        // public RelationMembershipRow(Context context, AttributeSet attrs, int defStyle) {
-        // super(context, attrs, defStyle);
-        // owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in
-        // Eclipse
-        // }
-
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
@@ -304,8 +319,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             roleEdit.setOnKeyListener(PropertyEditor.myKeyListener);
 
             parentEdit = (Spinner) findViewById(R.id.editParent);
-            ArrayAdapter<Relation> a = getRelationSpinnerAdapter();
-            // a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter<RelationHolder> a = getRelationSpinnerAdapter();
             parentEdit.setAdapter(a);
             parentEdit.setOnItemSelectedListener(owner.relationMembershipFragment);
 
@@ -411,10 +425,12 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          * @return an ArrayAdapter holding the Relations
          */
         @NonNull
-        ArrayAdapter<Relation> getRelationSpinnerAdapter() {
+        ArrayAdapter<RelationHolder> getRelationSpinnerAdapter() {
             //
-            List<Relation> result = App.getDelegator().getCurrentStorage().getRelations();
-            // Collections.sort(result);
+            List<RelationHolder> result = new ArrayList<>();
+            for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
+                result.add(new RelationHolder(getContext(), r));
+            }
             return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
         }
 
@@ -634,16 +650,16 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
-        Log.d(DEBUG_TAG, ((Relation) parent.getItemAtPosition(pos)).getDescription());
+        Relation relation = ((RelationHolder) parent.getItemAtPosition(pos)).relation;
+        Log.d(DEBUG_TAG, relation.getDescription());
         if (view != null) {
             ViewParent pv = view.getParent();
             while (!(pv instanceof RelationMembershipRow)) {
                 pv = pv.getParent();
             }
-            ((RelationMembershipRow) pv).setRelation((Relation) parent.getItemAtPosition(pos));
+            ((RelationMembershipRow) pv).setRelation(relation);
         } else {
             Log.d(DEBUG_TAG, "onItemselected view is null");
         }
