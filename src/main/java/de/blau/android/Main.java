@@ -1623,10 +1623,12 @@ public class Main extends FullScreenAppCompatActivity
         return lock; // for convenience
     }
 
-    private void updateActionbarEditMode() {
+    /**
+     * Force update any UI elements that are mode dependent
+     */
+    private synchronized void updateActionbarEditMode() {
         Log.d(DEBUG_TAG, "updateActionbarEditMode");
-        Mode mode = App.getLogic().getMode();
-        setLock(mode);
+        setLock(App.getLogic().getMode());
         supportInvalidateOptionsMenu();
     }
 
@@ -2624,7 +2626,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param follow if true center on current location
      */
-    public void setFollowGPS(boolean follow) {
+    public synchronized void setFollowGPS(boolean follow) {
         // Log.d(DEBUG_TAG,"setFollowGPS from " + followGPS + " to " + follow);
         if (followGPS != follow) {
             followGPS = follow;
