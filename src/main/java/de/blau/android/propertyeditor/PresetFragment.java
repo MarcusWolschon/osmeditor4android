@@ -254,7 +254,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
         return presetPaneLayout;
     }
-    
+
     @Override
     public void onStart() {
         super.onStart();
@@ -316,7 +316,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                         Log.e(DEBUG_TAG, "show of seach results failed with ", isex);
                     }
                 } else {
-                    searchResultDialog.update(result);
+                    searchResultDialog.update(term, result);
                 }
             }
         };

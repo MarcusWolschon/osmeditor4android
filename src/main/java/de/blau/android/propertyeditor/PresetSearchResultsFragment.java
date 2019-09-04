@@ -320,7 +320,8 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
     }
 
     @Override
-    public void update(List<PresetElement> updatedPresets) {
+    public void update(String term, List<PresetElement> updatedPresets) {
+        searchTerm = term;
         if (updatedPresets != null) {
             this.presets = updatedPresets;
             getResultsView(presetsLayout, updatedPresets, false);
