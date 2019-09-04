@@ -300,10 +300,10 @@ avoided by using an offline data source.</string>
     <string name="minus_sign">-</string>
     <string name="digit_one">1</string>
     <!-- NotificationChannels -->
-    <string name="default_channel_name">Vespucci</string>
-    <string name="default_channel_description">Default Vespucci channel</string>
+    <string name="default_channel_name">Vespucci default</string>
+    <string name="default_channel_description">Default notification channel</string>
     <string name="qa_channel_name">Vespucci QA</string>
-    <string name="qa_channel_description">Vespucci QA alert channel</string>
+    <string name="qa_channel_description">QA alert channel for data problems and tasks</string>
     <!-- Toaster -->
     <string name="toast_permission_denied">Permission denied %1$s</string>
     <string name="toast_name_empty">Pick a name</string>
