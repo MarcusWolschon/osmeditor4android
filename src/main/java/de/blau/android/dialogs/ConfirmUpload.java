@@ -245,6 +245,11 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     public void onCancel(DialogInterface dialog) {
         saveCommentAndSource(comment, source);
     }
+    
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        saveCommentAndSource(comment, source);
+    }
 
     /**
      * Save the comment and source contents
