@@ -22,6 +22,8 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -165,24 +167,18 @@ public class SearchForm extends ImmersiveDialogFragment {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+        limitSearch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                prefs.setGeocoderLimit(isChecked);
+            }
+
+        });
         searchBuilder.setPositiveButton(R.string.search, null);
         searchBuilder.setNegativeButton(R.string.cancel, null);
 
         final AppCompatDialog searchDialog = searchBuilder.create();
-
-        searchDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // emulate pressing the enter button
-                        searchEdit.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
-                    }
-                });
-            }
-        });
 
         /*
          * NOTE this is slightly hackish but needed to ensure the original dialog (this) gets dismissed
@@ -195,17 +191,26 @@ public class SearchForm extends ImmersiveDialogFragment {
                 callback.onItemSelected(sr);
             }
         };
+        Search search = new Search((AppCompatActivity) getActivity(), realCallback);
+
+        searchDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                positive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        search.find(geocoders[searchGeocoder.getSelectedItemPosition()], searchEdit.getText().toString(), bbox, limitSearch.isChecked());
+                    }
+                });
+            }
+        });
 
         searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH
-                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    Search search = new Search((AppCompatActivity) getActivity(), realCallback);
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), bbox, limitSearch.isChecked());
-                    if (limitSearch.isEnabled()) {
-                        prefs.setGeocoderLimit(limitSearch.isChecked());
-                    }
                 }
                 return false;
             }
