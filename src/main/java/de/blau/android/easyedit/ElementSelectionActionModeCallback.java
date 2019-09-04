@@ -2,6 +2,7 @@ package de.blau.android.easyedit;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,14 +20,16 @@ import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
+import de.blau.android.dialogs.OnRelationsSelectedListener;
+import de.blau.android.dialogs.RelationSelection;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.search.Search;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -48,8 +51,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     static final int            MENUITEM_CUT              = 5;
     private static final int    MENUITEM_PASTE_TAGS       = 6;
     private static final int    MENUITEM_RELATION         = 7;
-    private static final int    MENUITEM_EXTEND_SELECTION = 8;
-    private static final int    MENUITEM_ELEMENT_INFO     = 9;
+    private static final int    MENUITEM_ADD_TO_RELATIONS  = 8;
+    private static final int    MENUITEM_EXTEND_SELECTION = 9;
+    private static final int    MENUITEM_ELEMENT_INFO     = 10;
 
     protected static final int MENUITEM_SHARE_POSITION    = 31;
     private static final int   MENUITEM_TAG_LAST          = 32;
@@ -149,6 +153,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_multi_select));
         menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
+        menu.add(Menu.NONE, MENUITEM_ADD_TO_RELATIONS, Menu.CATEGORY_SYSTEM, "Add to relations...");
+        // .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
         if (element.getOsmId() > 0) {
             menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
@@ -200,6 +206,16 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             logic.setSelectedWay(null);
             logic.setSelectedRelation(null);
             main.startSupportActionMode(new AddRelationMemberActionModeCallback(manager, element));
+            break;
+        case MENUITEM_ADD_TO_RELATIONS:
+            RelationSelection.showDialog(main, element, new OnRelationsSelectedListener() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void onRelationsSelected(Map<Long, String> newMemberships) {
+                    App.getLogic().updateParentRelations(main, element.getName(), element.getOsmId(), newMemberships);
+                }
+            });
             break;
         case MENUITEM_EXTEND_SELECTION:
             deselect = false;
