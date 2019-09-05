@@ -39,6 +39,8 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
     * Upload to OSM and local saving of GPS tracks
     * Display the raw data
     * Display geo-referenced photographs
+    
+Detailed documentation can be found on the [Vespucci Website](https://vespucci.io/)
 
 
 ## What is Vespucci NOT?
@@ -52,6 +54,15 @@ Here is how you can start developing.
 Currently building is supported with eclipse, android studio and gradle, see [build instructions](BUILDING.md).
 
 Important note: if you are building your own version, particularly if you are making it available to third parties, please change app_version and app_name_version in res/values/appname.xml to something that makes it clear that this is not an "official" release and clearly identifies your builds.
+
+## Related projects
+
+Vespucci utilizes a number of independent, separately maintained, projects. The most relevant of these are
+
+* [Editor Layer Index](https://github.com/osmlab/editor-layer-index) background and overlay layers configuration
+* [Beautified JOSM Preset](https://github.com/simonpoole/beautified-JOSM-preset) presets
+* [OpeningHoursFragment](https://github.com/simonpoole/OpeningHoursFragment) opening hours user interface
+* [Name Suggestion Index](https://github.com/osmlab/name-suggestion-index) name/brand-related tag suggestions database
 
 ## License
 
