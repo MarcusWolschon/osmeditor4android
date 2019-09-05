@@ -134,7 +134,8 @@ __&lt;role&gt;__   |                               | supported |
                    | requisite                     | ignored   |
                    | count                         | ignored   |
                    | type                          | supported |
-                   | member_expression             | ignored   | 
+                   | member_expression             | ignored   |
+                   | regexp                        | ignored   | 
 
 
                  
