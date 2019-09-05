@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
-    object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor">
+    object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police">
 <!--
     Icons have been derived from mainly from
   
@@ -139,10 +139,14 @@
     	<multiselect key="crossing" text="Crossing type" values_context="pedestrian" text_context="pedestrian">
  			<list_entry value="uncontrolled" short_description="Not controlled" icon="presets/vehicle/crossing.svg"/>
  			<list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg"/>
-			<list_entry value="island" short_description="Island" icon="presets/vehicle/crossing_island.svg"/>
+			<list_entry value="island" short_description="Island (deprecated)" icon="presets/vehicle/crossing_island.svg"/>
 			<list_entry value="unmarked" short_description="Unmarked" icon="presets/vehicle/crossing_unmarked.svg"/>
 			<list_entry value="no" short_description="No crossing"/>
  		</multiselect>
+        <check key="crossing:island" text="With island" />
+        <optional>
+            <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true"/>
+        </optional>
  	</chunk>
     <chunk id="railway_service">
         <combo key="service" text="Service type" values="yard,siding,spur,crossover" display_values="Yard,Siding,Spur,Crossover" values_context="railway" />
@@ -742,7 +746,7 @@
     </chunk>
     <chunk id="optional_bridge">
         <optional>
-            <text key="name" text="Name"/>
+            <text key="bridge:name" text="Bridge name" />
             <combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" default="1" length="3" match="none" editable="true"/>
             <space/>
             <reference ref="maxspeed"/>
@@ -1450,7 +1454,7 @@
             <combo key="highway" text="Type" values="motorway,motorway_link,trunk,trunk_link,primary,primary_link,secondary,tertiary,unclassified,residential,living_street,service,bus_guideway,construction" values_context="Highway"/>
             <optional>
                 <reference ref="name_layer"/>
-                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" match="none"/>
+                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" value_type="integer" match="none"/>
                 <reference ref="highway_yesno_incline_oneway"/>
                 <text key="width" text="Width (meters)"/>
             </optional>
@@ -1467,81 +1471,77 @@
         <!--  Basic lane attributes -->
         <group name="Lane attributes" icon="icons/png/spurpfeile2.png" items_sort="false" >
             <item name="Single direction roads" icon="icons/png/spurpfeile1.png" type="way,closedway" preset_name_label="true">
-            	<link wiki="http://Lanes"/>
-            	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes"/>
-            	<optional>
-                	<multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" editable="true">
-                	    <list_entry value="none" short_description="None"/>
-                	    <list_entry value="reverse" short_description="Reverse"/>
-                	    <list_entry value="sharp_left" short_description="Sharp left"/>
-                	    <list_entry value="left" short_description="Left"/>
-                	    <list_entry value="left;through" short_description="Left and through"/>
-                	    <list_entry value="slight_left" short_description="Slight left"/>
-                	    <list_entry value="merge_to_left" short_description="Merge to left"/>
-                	    <list_entry value="through" short_description="Through"/>
-                	    <list_entry value="merge_to_right" short_description="Merge to right"/>
-                	    <list_entry value="slight_right" short_description="Slight right"/>
-                	    <list_entry value="right;through" short_description="Right and through"/>
-                	    <list_entry value="right" short_description="Right"/>
-                	    <list_entry value="sharp_right" short_description="Sharp right"/>
-                    </multiselect>
-                    <text key="destination:lanes" text="Destinations per lane" match="key"/>
-					<text key="destination:ref:lanes" text="Refs per lane" match="key"/>
-					<text key="maxspeed:lanes" text="Maxspeed per lane" match="key"/>
-            	</optional>
+            	<link wiki="Lanes"/>
+            	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" value_type="integer" />
+                <multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" editable="true">
+                    <list_entry value="none" short_description="None"/>
+                    <list_entry value="reverse" short_description="Reverse"/>
+                    <list_entry value="sharp_left" short_description="Sharp left"/>
+                    <list_entry value="left" short_description="Left"/>
+                    <list_entry value="left;through" short_description="Left and through"/>
+                    <list_entry value="slight_left" short_description="Slight left"/>
+                    <list_entry value="merge_to_left" short_description="Merge to left"/>
+                    <list_entry value="through" short_description="Through"/>
+                    <list_entry value="merge_to_right" short_description="Merge to right"/>
+                    <list_entry value="slight_right" short_description="Slight right"/>
+                    <list_entry value="right;through" short_description="Right and through"/>
+                    <list_entry value="right" short_description="Right"/>
+                    <list_entry value="sharp_right" short_description="Sharp right"/>
+               </multiselect>
+               <multiselect key="destination:lanes" text="Destinations per lane" delimiter="|" match="key" editable="true" />
+			   <multiselect key="destination:ref:lanes" text="Refs per lane" delimiter="|" match="key" editable="true" />
+			   <multiselect key="maxspeed:lanes" text="Maxspeed per lane" delimiter="|" match="key" editable="true"/>
             </item> <!-- Single direction roads -->
             <item name="Bi-directional roads" icon="icons/png/spurpfeile2.png" type="way,closedway" preset_name_label="true">
-            	<link wiki="http://Lanes"/>
-            	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes"/>
-            	<combo key="lanes:forward" values="1,2,3,4,5,6,7,8" description="# full width lanes in way direction"/>
-            	<combo key="lanes:backward" values="1,2,3,4,5,6,7,8" description="# full width lanes opposite to way direction"/>
-            	<optional>
-                	<multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" editable="true">
-                	    <list_entry value="none" short_description="None"/>
-                	    <list_entry value="reverse" short_description="Reverse"/>
-                	    <list_entry value="sharp_left" short_description="Sharp left"/>
-                	    <list_entry value="left" short_description="Left"/>
-                	    <list_entry value="left;through" short_description="Left and through"/>
-                	    <list_entry value="slight_left" short_description="Slight left"/>
-                	    <list_entry value="merge_to_left" short_description="Merge to left"/>
-                	    <list_entry value="through" short_description="Through"/>
-                	    <list_entry value="merge_to_right" short_description="Merge to right"/>
-                	    <list_entry value="slight_right" short_description="Slight right"/>
-                	    <list_entry value="right;through" short_description="Right and through"/>
-                	    <list_entry value="right" short_description="Right"/>
-                	    <list_entry value="sharp_right" short_description="Sharp right"/>
-                    </multiselect>
-                    <text key="destination:lanes:forward" text="Destinations per lane in way direction" match="key"/>
-					<text key="destination:ref:lanes:forward" text="Refs per lane in way direction" match="key"/>
-					<text key="maxspeed:lanes:forward" text="Maxspeed per lane in way direction" match="key"/>
-                    <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" editable="true">
-                	    <list_entry value="none" short_description="None"/>
-                	    <list_entry value="reverse" short_description="Reverse"/>
-                	    <list_entry value="sharp_left" short_description="Sharp left"/>
-                	    <list_entry value="left" short_description="Left"/>
-                	    <list_entry value="left;through" short_description="Left and through"/>
-                	    <list_entry value="slight_left" short_description="Slight left"/>
-                	    <list_entry value="merge_to_left" short_description="Merge to left"/>
-                	    <list_entry value="through" short_description="Through"/>
-                	    <list_entry value="merge_to_right" short_description="Merge to right"/>
-                	    <list_entry value="slight_right" short_description="Slight right"/>
-                	    <list_entry value="right;through" short_description="Right and through"/>
-                	    <list_entry value="right" short_description="Right"/>
-                	    <list_entry value="sharp_right" short_description="Sharp right"/>
-                    </multiselect>
-                    <text key="destination:lanes:backward" text="Destinations per lane opposite to way direction" match="key"/>
-					<text key="destination:ref:lanes:backward" text="Refs per lane opposite to way direction" match="key"/>
-					<text key="maxspeed:lanes:backward" text="Maxspeed per lane opposite to way direction" match="key"/>
-            	</optional>
+            	<link wiki="Lanes"/>
+            	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" value_type="integer" />
+            	<combo key="lanes:forward" values="1,2,3,4,5,6,7,8" description="# full width lanes in way direction" value_type="integer" />
+            	<combo key="lanes:backward" values="1,2,3,4,5,6,7,8" description="# full width lanes opposite to way direction" value_type="integer" />
+                <multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" editable="true">
+                	<list_entry value="none" short_description="None"/>
+                	<list_entry value="reverse" short_description="Reverse"/>
+            	    <list_entry value="sharp_left" short_description="Sharp left"/>
+            	    <list_entry value="left" short_description="Left"/>
+            	    <list_entry value="left;through" short_description="Left and through"/>
+            	    <list_entry value="slight_left" short_description="Slight left"/>
+            	    <list_entry value="merge_to_left" short_description="Merge to left"/>
+            	    <list_entry value="through" short_description="Through"/>
+            	    <list_entry value="merge_to_right" short_description="Merge to right"/>
+            	    <list_entry value="slight_right" short_description="Slight right"/>
+            	    <list_entry value="right;through" short_description="Right and through"/>
+            	    <list_entry value="right" short_description="Right"/>
+            	    <list_entry value="sharp_right" short_description="Sharp right"/>
+                </multiselect>
+                <multiselect key="destination:lanes:forward" text="Destinations per lane in way direction" delimiter="|" match="key" editable="true" />
+				<multiselect key="destination:ref:lanes:forward" text="Refs per lane in way direction" delimiter="|" match="key" editable="true" />
+				<multiselect key="maxspeed:lanes:forward" text="Maxspeed per lane in way direction" delimiter="|" match="key" editable="true"/>
+                <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" editable="true">
+            	    <list_entry value="none" short_description="None"/>
+            	    <list_entry value="reverse" short_description="Reverse"/>
+            	    <list_entry value="sharp_left" short_description="Sharp left"/>
+            	    <list_entry value="left" short_description="Left"/>
+            	    <list_entry value="left;through" short_description="Left and through"/>
+            	    <list_entry value="slight_left" short_description="Slight left"/>
+            	    <list_entry value="merge_to_left" short_description="Merge to left"/>
+            	    <list_entry value="through" short_description="Through"/>
+            	    <list_entry value="merge_to_right" short_description="Merge to right"/>
+            	    <list_entry value="slight_right" short_description="Slight right"/>
+            	    <list_entry value="right;through" short_description="Right and through"/>
+            	    <list_entry value="right" short_description="Right"/>
+            	    <list_entry value="sharp_right" short_description="Sharp right"/>
+                </multiselect>
+                <multiselect key="destination:lanes:backward" text="Destinations per lane opposite to way direction" delimiter="|" match="key" editable="true" />
+				<multiselect key="destination:ref:lanes:backward" text="Refs per lane opposite to way direction" delimiter="|" match="key" editable="true" />
+				<multiselect key="maxspeed:lanes:backward" text="Maxspeed per lane opposite to way direction" delimiter="|" match="key" editable="true" />
         	</item> <!-- Bi-directional roads -->
             <item name="Public transport lanes" type="way,closedway" preset_name_label="true">
                 <link wiki="http://Lanes"/>
-                <combo key="lanes:psv" text="PSV Lanes" values="1,2,3,4,5,6" length="3" match="none"/>
-                <combo key="lanes:psv:forward" text="PSV Lanes &#x2192;" long_text="Number of PSV lanes in way direction" values="1,2,3,4,5" length="3" match="none"/>
-                <combo key="lanes:psv:backward" text="PSV Lanes &#x2190;" long_text="Number of PSV lanes opposite way direction" values="1,2,3,4,5" length="3" match="none"/>
-                <combo key="lanes:bus" text="Bus lanes" values="1,2,3,4,5,6" length="3" match="none"/>
-                <combo key="lanes:bus:forward" text="Bus lanes &#x2192;" long_text="Number of bus lanes in way direction" values="1,2,3,4,5" length="3" match="none"/>
-                <combo key="lanes:bus:backward" text="Bus lanes &#x2190;" long_text="Number of bus lanes opposite way direction" values="1,2,3,4,5" length="3" match="none"/>
+                <combo key="lanes:psv" text="PSV Lanes" values="1,2,3,4,5,6" length="3" match="none" value_type="integer" />
+                <combo key="lanes:psv:forward" text="PSV Lanes &#x2192;" long_text="Number of PSV lanes in way direction" values="1,2,3,4,5" length="3" match="none" value_type="integer" />
+                <combo key="lanes:psv:backward" text="PSV Lanes &#x2190;" long_text="Number of PSV lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" value_type="integer" />
+                <combo key="lanes:bus" text="Bus lanes" values="1,2,3,4,5,6" length="3" match="none" value_type="integer" />
+                <combo key="lanes:bus:forward" text="Bus lanes &#x2192;" long_text="Number of bus lanes in way direction" values="1,2,3,4,5" length="3" match="none" value_type="integer" />
+                <combo key="lanes:bus:backward" text="Bus lanes &#x2190;" long_text="Number of bus lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" value_type="integer" />
             </item>
         </group> <!-- Lane attributes -->
         <item name="Cycle Lane/Track" icon="icons/png/bicycle.png" type="way,closedway" preset_name_label="true">
@@ -1728,7 +1728,7 @@
         <item name="Traffic Signal" icon="icons/png/traffic_lights.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=traffic_signals"/>
             <key key="highway" value="traffic_signals"/>
-            <optional text="Optional crossing attributes:">
+            <optional text="Optional signal attributes:">
                 <combo key="traffic_signals" text="Type" values="blinker,blink_mode,bus_priority,continuos_green,emergency,ramp_meter,tram_priority"
                     display_values="Blinker,Blink mode,Bus priority,Continuos green,Emergency,Ramp meter,Tram priority" />
                 <combo key="traffic_signals:direction" text="For traffic direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
@@ -1739,6 +1739,9 @@
                 <check key="traffic_signals:floor_vibration" text="Floor vibration" disable_off="true"/>
                 <reference ref="tactile_paving"/>
                 <check key="bicycle" text="For bicycles" disable_off="true"/>
+            </optional>
+            <optional text="Optional crossing attributes">
+                <reference ref="crossing_type" />
             </optional>
             <optional text="Optional values for specific countries">
                 <text key="name" text="Name"/>
@@ -1769,9 +1772,6 @@
             <space/>
             <key key="highway" value="crossing"/>
             <reference ref="crossing_type"/>
-            <optional>
-            	<combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true"/>
-            </optional>
             <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none"/>
             <check key="bicycle" text="Cross by bicycle" disable_off="true"/>
             <check key="horse" text="Cross on horseback" disable_off="true"/>
@@ -2013,6 +2013,14 @@
             <key key="barrier" value="guard_rail"/>
             <reference ref="optional_height"/>
         </item> <!-- Guard Rail -->
+        <item name="Handrail" icon="icons/png/barrier_empty.png" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:barrier=handrail" />
+            <key key="barrier" value="handrail" />
+            <optional>
+                <reference ref="material"/>
+                <reference ref="colours"/>
+            </optional>
+        </item> <!-- Handrail -->
         <item name="Wall" icon="icons/png/barrier_wall.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:barrier=wall"/>
             <key key="barrier" value="wall"/>
@@ -2767,13 +2775,13 @@
             <link wiki="Tag:railway=crossing"/>
             <key key="railway" value="crossing"/>
             <optional>
-                <combo key="crossing" text="Crossing type" values="uncontrolled,traffic_signals,island,unmarked,no"/>
+                <combo key="crossing" text="Crossing type" values="uncontrolled,traffic_signals" display_values="Uncontrolled,Traffic signals"/>
                 <reference ref="supervised"/>
                 <check key="horse" text="Cross on horseback" disable_off="true"/>
                 <check key="bicycle" text="Cross by bicycle" disable_off="true"/>
                 <check key="crossing:light" text="Traffic lights" disable_off="true"/>
                 <check key="crossing:bell" text="Sound signals" disable_off="true"/>
-                <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" values_context="crossing:barrier"/>
+                <combo key="crossing:barrier" text="Barrier" values="yes,no,half,full,double_half" display_values="Yes,No,Half,Full,Double half" values_context="crossing:barrier"/>
             </optional>
         </item> <!-- Crossing -->
         <item name="Turntable" icon="icons/png/transport_turntable_27022.png" type="node,closedway" preset_name_label="true">
@@ -3214,7 +3222,7 @@
             <link wiki="Proposed_features/Public_Transport#Route"/>
             <space/>
             <key key="type" value="route"/>
-            <combo key="route" text="Route type" values="train,subway,monorail,tram,light_rail" values_searchable="true" match="keyvalue!"/>
+            <combo key="route" text="Route type" values="train,subway,monorail,tram,light_rail" display_values="Train,Subway,Monorail,Tram,Light rail" values_searchable="true" match="keyvalue!"/>
             <key key="public_transport:version" text="Version" value="2"/> <!-- only validate marked relations in order to avoid false positives -->
             <reference ref="name_ref"/>
             <optional>
@@ -3234,7 +3242,7 @@
             <link wiki="Proposed_features/Public_Transport#Route"/>
             <space/>
             <key key="type" value="route"/>
-            <combo key="route" text="Route type" values="bus,trolleybus" values_searchable="true" match="keyvalue!"/>
+            <combo key="route" text="Route type" values="bus,trolleybus" display_values="Bus,Trolleybus" values_searchable="true" match="keyvalue!"/>
             <key key="public_transport:version" text="Version" value="2"/> <!-- only validate marked relations in order to avoid false positives -->
             <reference ref="name_ref"/>
             <optional>
@@ -3513,6 +3521,9 @@
             <key key="aeroway" value="helipad"/>
             <optional>
                 <text key="ref" text="Reference"/>
+                <text key="iata" text="IATA" />
+                <text key="icao" text="ICAO" />
+                <text key="wikipedia" text="Wikipedia" />
             </optional>
         </item> <!-- Helipad -->
         <item name="Apron" icon="icons/png/transport_apron_11002.png" type="closedway,multipolygon" preset_name_label="true">
@@ -4840,13 +4851,24 @@
             <reference ref="name_operator"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Prison -->
-        <item name="Police" icon="icons/png/amenity_police.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Police station" icon="icons/png/amenity_police.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=police"/>
             <space/>
             <key key="amenity" value="police"/>
             <reference ref="name_oh_wheelchair_toilets"/>
             <reference ref="link_contact_address"/>
-        </item> <!-- Police -->
+        </item> <!-- Police -->       
+        <item name="Police facility" icon="icons/png/amenity_police.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:police" />
+            <space />
+            <combo key="police" text="Type" values="barracks,car_pound,checkpoint,detention,naval_base,offices,range,storage,training_area,yes" 
+                display_values="Barracks,Car pound,Checkpoint,Detention,Naval base,Offices,Range,Storage,Training area,Yes" values_context="police" match="keyvalue!" values_searchable="true" />
+            <optional>
+                <text key="name" text="Name" />
+                <text key="operator" text="Operator" />
+            </optional>
+            <reference ref="link_contact_address" />
+        </item> <!-- Non-public police facility -->
         <item name="Ranger Station" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=ranger_station"/>
             <space/>
@@ -5103,6 +5125,14 @@
             <reference ref="name_operator"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Ambulance Station -->
+        <item name="Emergency ward entrance" icon="icons/png/emergency_empty.png" type="node" preset_name_label="true">
+            <link wiki="Tag:emergency=emergency_ward_entrance" />
+            <space />
+            <key key="emergency" value="emergency_ward_entrance" />
+            <reference ref="name_operator" />
+            <combo key="emergency_ward_entrance" text="Type" values="walk-in,rescue_service,all" display_values="Walk-in,Rescue service,All" values_searchable="true" />
+            <reference ref="link_contact_address" />
+        </item> <!-- Emergency ward entrance -->
         <item name="Automated Defibrillator" icon="icons/png/emergency_defibrillator_17006.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=defibrillator"/>
             <space/>
@@ -9067,7 +9097,7 @@
             <space/>
             <key key="landuse" value="farmland"/>
             <reference ref="optional_name"/>
-            <combo key="crop" text="Crop" values="corn,grass,rice,wheat,hop,cereal,tea" display_values="Corn,Grass,Rice,Wheat,Hop,Cereal,Tea" editable="true" values_context="crop"/>
+            <combo key="crop" text="Crop" values="corn,grass,rice,wheat,hop,cereal,tea,sugarcane" display_values="Corn,Grass,Rice,Wheat,Hop,Cereal,Tea,Sugarcane" editable="true" values_context="crop"/>
         </item> <!-- Farmland -->
         <item name="Farm (deprecated)" icon="icons/png/landuse_farm_22120.png" type="closedway,multipolygon" preset_name_label="true" deprecated="true">
             <link wiki="Tag:landuse=farm"/>
@@ -9086,7 +9116,9 @@
             <space/>
             <key key="landuse" value="orchard"/>
             <reference ref="optional_name"/>
-            <combo key="trees" text="Trees" values="olive_trees,apple_trees,oil_palms,orange_trees,almond_trees,banana_plants,coconut_palms,hazel_plants,cherry_trees,persimmon_trees,walnut_trees,plum_trees,peach_trees,tea_plants" display_values="Olive trees,Apple trees,Oil palms,Orange trees,Almond trees,Banana plants,Coconut palms,Hazel plants,Cherry trees,Persimmon trees,Walnut trees,Plum trees,Peach trees,Tea plants"/>
+            <combo key="trees" text="Trees" 
+                values="olive_trees,apple_trees,oil_palms,orange_trees,almond_trees,banana_plants,coconut_palms,coffea_plants,hazel_plants,cherry_trees,persimmon_trees,walnut_trees,plum_trees,peach_trees,tea_plants" 
+                display_values="Olive trees,Apple trees,Oil palms,Orange trees,Almond trees,Banana plants,Coconut palms,Coffea plants,Hazel plants,Cherry trees,Persimmon trees,Walnut trees,Plum trees,Peach trees,Tea plants"/>
         </item> <!-- Orchard -->
         <item name="Vineyard" icon="icons/png/landuse_wine_29203.png" type="closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:landuse=vineyard"/>
@@ -9272,6 +9304,9 @@
             <link wiki="Tag:landuse=quarry"/>
             <space/>
             <key key="landuse" value="quarry"/>
+            <combo key="resource" text="Resource" 
+                values="aggregate,bauxite,coal,copper,dimension_stone,gold,ilmenite,iron_ore,lead,limestone,nickel,rutile,salt,silver,tin,zinc,zircon"
+                display_values="Aggregate,Bauxite,Coal,Copper,Dimension stone,Gold,Ilmenite,Iron ore,Lead,Limestone,Nickel,Rutile,Salt,Silver,Tin,Zinc,Zircon" />
             <reference ref="name_operator"/>
         </item> <!-- Quarry -->
     </group> <!-- Landuse -->
@@ -9725,6 +9760,19 @@
                     <role key="link" text="link segment" requisite="optional" type="way,closedway" member_expression="highway|route=ferry"/>
                 </roles>
             </item> <!-- Road Route -->
+            <separator/>
+            <item name="Superroute" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+                <link wiki="Relation:superroute" />
+                <space/>
+                <key key="type" value="superroute"/>
+                <combo key="route" text="Type" 
+                    values="bicycle,detour,foot,hiking,horse,mtb,piste,power,railway,road,ski" 
+                    display_values="Bicycle route,Detour route,Walking route,Hiking route,Riding route,Mountain bike route,Piste route,Power route,Railway route,Road route,Ski route" />
+                <reference ref="name_ref_operator"/>
+                <roles>
+                    <role key="" text="Route segment" requisite="required" type="relation" member_expression="type=route"/> <!-- fixme: at least 2 members are required -->
+                </roles>
+            </item> <!-- Superroute -->
         </group> <!-- Routes -->
         <item name="Route Network" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
             <link wiki="Relation:network" />
