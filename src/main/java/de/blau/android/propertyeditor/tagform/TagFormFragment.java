@@ -72,6 +72,7 @@ import de.blau.android.propertyeditor.Address;
 import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
+import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.RecentPresetsFragment;
@@ -102,6 +103,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     Preferences prefs = null;
 
     PropertyEditorListener propertyEditorListener;
+
+    OnPresetSelectedListener presetSelectedListener;
 
     EditorUpdate tagListener = null;
 
@@ -146,8 +149,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             tagListener = (EditorUpdate) context;
             nameAdapters = (NameAdapters) context;
             propertyEditorListener = (PropertyEditorListener) context;
+            presetSelectedListener = (OnPresetSelectedListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener");
+            throw new ClassCastException(
+                    context.toString() + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener, OnPresetSelectedListener");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
@@ -417,8 +422,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = tagListener.getBestPreset();
             if (pi != null) {
-                tagListener.applyPreset(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional);
-                tagsUpdated();
+                presetSelectedListener.onPresetSelected(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional);
             }
             return true;
         case R.id.tag_menu_revert:

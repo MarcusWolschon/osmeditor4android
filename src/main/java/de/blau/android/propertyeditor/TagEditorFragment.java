@@ -247,7 +247,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             propertyEditorListener = (PropertyEditorListener) context;
             presetSelectedListener = (OnPresetSelectedListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement PropertyEditorListener,  NameAdapters, FormUpdate and PresetFilterUpdate");
+            throw new ClassCastException(
+                    context.toString() + " must implement PropertyEditorListener, NameAdapters, FormUpdate, PresetFilterUpdate, OnPresetSelectedListener");
         }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
@@ -1921,7 +1922,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         case R.id.tag_menu_apply_preset_with_optional:
             PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (pi != null) {
-                applyPreset((LinearLayout) getOurView(), pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional, true);
+                presetSelectedListener.onPresetSelected(pi, item.getItemId() == R.id.tag_menu_apply_preset_with_optional);
             }
             return true;
         case R.id.tag_menu_paste:
