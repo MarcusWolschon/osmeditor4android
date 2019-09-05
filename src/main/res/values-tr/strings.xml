@@ -5,10 +5,28 @@
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
   <string name="transfer_download_current_upload">Yükle</string>
-  <string name="transfer_download_current_download">Boşver &amp; indir</string>
+  <string name="transfer_download_current_download">İndirmeyi iptal et</string>
+  <string name="transfer_download_current_back">Geri (bir şey yapmadan)</string>
+  <string name="upload_problem_title">Yüklenemedi</string>
+  <string name="upload_problem_message">Verilerin bir kısmı veya tamamı yüklenmedi. Daha sonra tekrar deneyin.</string>
   <string name="upload_conflict_title">Yükleme çakışması</string>
   <string name="use_local_version">Yerel versiyonu kullan</string>
   <string name="use_server_version">Sunucudaki versiyonu kullan</string>
+  <string name="no_login_data_title">Doğrulanamadı</string>
+  <string name="no_connection_title">Sunucuyla bağlantı yok</string>
+  <string name="forbidden_login_title">Giriş yasak</string>
+  <string name="not_found_title">Öğe bulunamadı</string>
+  <string name="unknown_error_title">Bilinmeyen hata</string>
+  <string name="no_data_title">Veri yok</string>
+  <string name="go_to_openstreetmap">openstreetmap.org\'a git</string>
+  <string name="data_conflict_title">Sürüm çakışması</string>
+  <string name="invalid_bounding_box_title">Geçersiz sınırlayıcı kutusu</string>
+  <string name="bounding_box_too_large_title">İndirecek alan fazla büyük</string>
+  <string name="api_offline_title">API çevrimdışı</string>
+  <string name="api_offline_message">API şu anda çevrimdışı, veri alınamıyor veya yazılamıyor.</string>
+  <string name="out_of_memory_title">Bellek yetersiz</string>
+  <string name="out_of_memory_message">Vespucci istenen veri yüklenemedi. Lütfen tekrar başlayın ve daha küçük bir alan seçin.</string>
+  <string name="welcome_title">Hoşgeldiniz!</string>
   <string name="read_upgrade">Yeni sürüm hakkında bilgi edinin</string>
   <string name="progress_title">Yükleniyor</string>
   <string name="progress_message">Veriler hafızaya yükleniyor...</string>
@@ -29,8 +47,11 @@
   <string name="upload_gpx_tags_label">Etiketler</string>
   <string name="upload_gpx_visibility_label">Görünürlük</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Yeni not</string>
   <string name="openstreetbug_bug_title">Konu</string>
+  <string name="openstreetbug_edit_title">Notu düzenle</string>
   <string name="openstreetbug_comment_label">Yorum:</string>
+  <string name="maproulette_task_disable">Devre dışı</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Dikkat!</string>
   <string name="unsaved_data_proceed">Boşver &amp; devam et</string>
@@ -73,6 +94,10 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <string name="layer_info_start_date">Başlangıç ​​tarihi</string>
+  <string name="layer_info_end_date">Bitiş tarihi</string>
+  <string name="layer_info_terms">Koşullar</string>
+  <string name="layer_info_privacy_policy">Gizlilik Politikası</string>
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
@@ -83,12 +108,14 @@
   <!--Toaster-->
   <string name="toast_no_changes">Henüz bir değişiklik yapmadınız...</string>
   <string name="toast_unlock_to_edit">Düzenleme kilidini aç</string>
+  <string name="toast_save_done">Kaydedildi</string>
   <string name="toast_export_success">%1$s aktarıldı</string>
   <string name="toast_state_file_failed">Bozuk ya da okunamaz durum dosyası</string>
   <string name="toast_photo_indexing_started">Jeo-referanslı fotoğraf taraması başladı</string>
   <string name="toast_photo_indexing_finished">Jeo-referanslı fotoğraf taraması bitti</string>
   <string name="toast_download_failed">İndirme başarısız hata kodu %1$d, mesaj %2$s</string>
   <string name="toast_unsurveyed_road">Keşfedilmemiş yol</string>
+  <string name="toast_untagged_way">Etiketsiz yolu</string>
   <!---->
   <string name="toast_oauth">Lütfen OAuth\'un OSM hesabınıza erişmesine izin verin.</string>
   <string name="toast_no_oauth">Şu andaki API için OAuth yapılandırması yok, lütfen giriş ve parolayı ayarlayın.</string>
@@ -97,10 +124,12 @@
   <string name="toast_file_not_found">%1$s bulunamadı.</string>
   <string name="toast_no_voice">Herhangi bir ses tanıma özelliği mevcut değil</string>
   <string name="toast_min_one_preset">En az bir tane önceden belirlenmiş seçilmelidir!</string>
+  <string name="toast_invalid_object">Geçersiz nesne</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Evet</string>
   <string name="no">Hayır</string>
+  <string name="okay">Tamam</string>
   <string name="cancel">İpta</string>
   <string name="locked">Kilitli</string>
   <string name="next">Sıradaki</string>
@@ -142,6 +171,7 @@
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Son bilinen konum:</string>
   <string name="location_current_text">Şimdiki konum:</string>
+  <string name="location_text_unknown">Bilinmeyen</string>
   <string name="location_last_text_parameterized">Son bilinen konum: %1$s</string>
   <string name="location_current_text_parameterized">Şimdiki konum: %1$s</string>
   <string name="location_text_metadata_location">\nEnl %1$4g, Boyl %2$4g\n%3$s %4$s önce</string>
@@ -152,7 +182,10 @@
   <string name="location_load_button">Yükle</string>
   <string name="location_load_dismiss">Haritaya git</string>
   <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Dosyaları indir</string>
+  <string name="allow_all_networks">Tüm ağlara izin ver</string>
   <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Koordinatlara git</string>
   <!--Menu-->
   <string name="menu_move">Taşı</string>
   <string name="menu_edit">Düzenle</string>
@@ -169,16 +202,21 @@
   <string name="menu_add_relation_member">Üye ekle</string>
   <string name="menu_select_relation_members">Üye seç</string>
   <string name="menu_tag">Etiketleri düzenle</string>
+  <string name="menu_openstreetbug">Not ekle</string>
   <string name="menu_easyedit">KolayDüzenle</string>
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps_show">Konumu göster</string>
+  <string name="menu_gps_follow">Konumu takip et</string>
+  <string name="menu_gps_goto_coordinates">Koordinatlara git…</string>
   <string name="menu_gps_autodownload">Otomatik indir</string>
   <string name="menu_transfer">Aktarma...</string>
   <string name="menu_transfer_download_current">Şimdiki görünümü indir</string>
   <string name="menu_transfer_download_current_add">Şimdiki görünümü indirmeye ekle</string>
+  <string name="menu_transfer_load_current">Geçerli görünümü yükle</string>
   <string name="menu_transfer_upload">Verileri OSM sunucusuna yükle</string>
   <string name="menu_transfer_bugs_upload">Tümünü yükle</string>
   <string name="menu_transfer_bugs_clear">Temizle</string>
+  <string name="menu_save">Dosya olarak kaydet</string>
   <string name="menu_join">Katıl</string>
   <string name="menu_unjoin">Ayrıl</string>
   <string name="menu_copy">Kopyala</string>
@@ -222,6 +260,7 @@
   <string name="config_backgroundLayer_title">Harita arkaplanı</string>
   <string name="config_overlayLayer_title">Harita kaplaması</string>
   <string name="config_scale_title">Ölçek ekran</string>
+  <string name="config_enableOpenStreetBugs_title">Görevleri görüntüle</string>
   <string name="config_enablePhotoLayer_summary">Jeo-referanslı fotoğrafları etkinleştir.</string>
   <string name="config_enableKeepScreenOn_title">Ekranı açık tut</string>
   <string name="config_largeDragArea_title">Geniş düğüm sürükleme alanı</string>
@@ -230,13 +269,16 @@
   <string name="config_presetbutton_summary">JOSM uyumlu öntanımlı ekle ve etkinleştir</string>
   <!--Validator preferences-->
   <!--opening hours templates-->
+  <string name="config_opening_hours_title">Açılış saatleri şablonları</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Hakkında</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
+  <string name="config_category_view">Kullanıcı arayüzü ayarları</string>
   <string name="config_iconbutton_title">Düğüm simgelerini göster</string>
   <string name="config_iconbutton_summary">Düğüm için en iyi eşleşen simgeyi göster.</string>
   <string name="config_showCameraAction_title">Kamera eylemini göster</string>
+  <string name="config_map_orientation_title">Harita ekranı yönü</string>
   <string name="config_showTolerance_title">Toleransı göster</string>
   <string name="config_splitActionBarEnabled_title">Bölme eylem çubuğunu etkinleştir</string>
   <string name="config_enableAntiAliasing_summary">Çizgileri pürüzsüz yapar.</string>
@@ -250,8 +292,10 @@
   <string name="config_extTriggeredDownloadRadius_title">Yarıçapı indir</string>
   <string name="config_maxDownloadSpeed_title">Maksimum otomatik indirme hızı</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Konum ayarları</string>
   <string name="config_gps_source_tcp_title">NMEA ağ kaynağı</string>
   <!--Server Settings-->
+  <string name="config_category_server">Sunucu ayarları</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_loginbutton_title">Kullanıcı hesabı</string>
   <!--Layer download and storage-->

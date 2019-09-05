@@ -6,6 +6,9 @@
     <string name="help_relationselection">İlişki seçildi</string>
     <string name="help_wayselection">Yol seçildi</string>
     <string name="help_presets">Öntanımlılar</string>
+    <string name="help_upgrade_130">13.0 Sürüm notları</string>
+    <string name="help_upgrade_121">12.1 Sürüm notları</string>
+    <string name="help_upgrade_120">12.0 Sürüm notları</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
