@@ -11,9 +11,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -31,6 +34,7 @@ import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 import io.michaelrocks.libphonenumber.android.NumberParseException;
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
@@ -48,6 +52,7 @@ import io.michaelrocks.libphonenumber.android.Phonenumber.PhoneNumber;
 public class MultiTextRow extends LinearLayout implements KeyValueRow {
 
     protected static final String DEBUG_TAG = "MultiTextRow";
+
     /**
      * Inline value display with multiple editable text fields
      */
@@ -59,6 +64,9 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
     private List<String>          regions;
     private String                country;
     private LayoutInflater        inflater;
+    private ArrayAdapter<?>       adapter;
+    private ValueType             valueType;
+    private OnFocusChangeListener listener;
 
     /**
      * Construct a row that will multiple values to be selected
@@ -161,29 +169,68 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             wasEmpty = s.length() == 0;
         }
 
+        Runnable splitText = new Runnable() {
+
+            @Override
+            public void run() {
+                editText.removeTextChangedListener(MyTextWatcher.this);
+                ViewParent parent = editText.getParent();
+                if (parent instanceof ViewGroup) {
+                    int pos = ((ViewGroup) parent).indexOfChild(editText);
+                    List<String> bits = Preset.splitValues(Util.wrapInList(editText.getText().toString()), MultiTextRow.this.delimiter);
+                    int size = bits.size();
+                    if (size > 0) {
+                        View last = editText;
+                        editText.setText(bits.get(0));
+                        for (int i = 1; i < size; i++) {
+                            last = addEditText(bits.get(i), listener, valueType, adapter, pos + i);
+                        }
+                        if (size == 1) { // delimiter must have been at the end
+                            last = addEditText("", listener, valueType, adapter, pos + 1);
+                        }
+                        last.requestFocus();
+                    } else {
+                        editText.setText("");
+                    }
+                } else {
+                    Log.e(DEBUG_TAG, "Parent is not a ViewGroup");
+                }
+                editText.addTextChangedListener(MyTextWatcher.this);
+            }
+        };
+
         @Override
         public void afterTextChanged(Editable s) {
             int length = s.length();
             int index = valueLayout.indexOfChild(editText);
             int count = valueLayout.getChildCount();
             if (wasEmpty == (length > 0) && (index == count - 1)) {
-                addEditText("", listener, valueType, adapter);
+                addEditText("", listener, valueType, adapter, -1);
             }
-            // format text if necessary
+            // format and split text if necessary
             if (valueType != null) {
                 editText.removeTextChangedListener(this);
                 switch (valueType) {
                 case PHONE:
                     if (editText.getSelectionStart() == editText.length()) {
-                        String p = formatPhoneNumber(s.toString());
-                        editText.setText(p);
+                        editText.setText(formatPhoneNumber(s.toString()));
                         editText.setSelection(editText.length());
                     }
                     break;
                 default:
-                    // nothing
+                    // do nothing
                 }
                 editText.addTextChangedListener(this);
+            }
+            // split the text if the delimiter is entered
+
+            int delPos = s.toString().indexOf(MultiTextRow.this.delimiter);
+            if (delPos >= 0) {
+                // on insertion of certain special characters, afterTextChange will be
+                // called multiple times with different arguments, this tries to work
+                // around the issue
+                editText.removeCallbacks(splitText);
+                editText.postDelayed(splitText, 100);
             }
         }
     }
@@ -195,15 +242,16 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
      * @param listener called when focus for the view has changed
      * @param valueType the Preset ValueType for the key
      * @param adapter an optional adapter for values
+     * @param position the position where to insert the view or -1 for at the end
      * @return the EditText for further use
      */
     private CustomAutoCompleteTextView addEditText(final @NonNull String value, @NonNull final View.OnFocusChangeListener listener,
-            @Nullable final ValueType valueType, @Nullable final ArrayAdapter<?> adapter) {
+            @Nullable final ValueType valueType, @Nullable final ArrayAdapter<?> adapter, int position) {
         CustomAutoCompleteTextView editText = (CustomAutoCompleteTextView) inflater.inflate(R.layout.form_dialog_multitext_value, valueLayout, false);
         InputTypeUtil.setInputTypeFromValueType(editText, valueType);
 
         final TextWatcher textWatcher = new MyTextWatcher(editText, listener, valueType, adapter);
-
+        Log.e(DEBUG_TAG, "addEditText " + value + " pos " + position);
         editText.setText(value);
         editText.setHint(R.string.tag_value_hint);
         editText.setOnFocusChangeListener(listener);
@@ -238,9 +286,9 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                 Log.d(DEBUG_TAG, "onItemClicked value");
                 Object o = parent.getItemAtPosition(position);
                 if (o instanceof StringWithDescription) {
-                    editText.setOrReplaceText(((StringWithDescription) o).getValue());
+                    editText.setText(((StringWithDescription) o).getValue());
                 } else if (o instanceof String) {
-                    editText.setOrReplaceText((String) o);
+                    editText.setText((String) o);
                 }
                 listener.onFocusChange(editText, false);
             }
@@ -249,7 +297,12 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
         if (adapter != null) {
             editText.setAdapter(adapter);
         }
-        valueLayout.addView(editText);
+        editText.setOnKeyListener(new MyKeyListener());
+        if (position == -1) {
+            valueLayout.addView(editText);
+        } else {
+            valueLayout.addView(editText, position);
+        }
         return editText;
     }
 
@@ -316,6 +369,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             @Nullable final ArrayAdapter<?> adapter) {
         final MultiTextRow row = (MultiTextRow) inflater.inflate(R.layout.tag_form_multitext_row, rowLayout, false);
         row.inflater = inflater;
+        row.adapter = adapter;
         PresetField field = preset.getField(key);
         if (field instanceof PresetComboField) {
             row.delimiter = preset.getDelimiter(key);
@@ -329,9 +383,9 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
         row.getKeyView().setTag(key);
         String value = values != null && !values.isEmpty() ? values.get(0) : null;
         List<String> splitValues = Preset.splitValues(values, row.delimiter);
-        ValueType valueType = preset.getValueType(key);
+        row.valueType = preset.getValueType(key);
         final String finalValue = value;
-        View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+        row.listener = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 Log.d(DEBUG_TAG, "onFocusChange");
@@ -348,14 +402,14 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             int phoneNumberReformatted = 0;
             for (String v : splitValues) {
                 String orig = v;
-                if (valueType == ValueType.PHONE) {
+                if (row.valueType == ValueType.PHONE) {
                     v = row.formatPhoneNumber(v);
                     if (!orig.equals(v)) {
                         caller.tagListener.updateSingleValue(key, v);
                         phoneNumberReformatted++;
                     }
                 }
-                row.addEditText(v, listener, valueType, adapter);
+                row.addEditText(v, row.listener, row.valueType, adapter, -1);
             }
             if (phoneNumberReformatted > 0) {
                 rowLayout.post(new Runnable() {
@@ -366,8 +420,28 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                 });
             }
         }
-        row.addEditText("", listener, valueType, adapter);
+        row.addEditText("", row.listener, row.valueType, row.adapter, -1);
 
         return row;
+    }
+
+    /**
+     * Move from text field to text field
+     */
+    private class MyKeyListener implements OnKeyListener {
+        @Override
+        public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
+            if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
+                if (view instanceof EditText) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        View nextView = view.focusSearch(View.FOCUS_DOWN);
+                        if (nextView != null && nextView.isFocusable()) {
+                            nextView.requestFocus();
+                        }
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
