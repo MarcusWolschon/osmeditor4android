@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -230,7 +231,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                 // called multiple times with different arguments, this tries to work
                 // around the issue
                 editText.removeCallbacks(splitText);
-                editText.postDelayed(splitText, 100);
+                editText.postDelayed(splitText, 50);
             }
         }
     }
@@ -253,6 +254,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
         final TextWatcher textWatcher = new MyTextWatcher(editText, listener, valueType, adapter);
         Log.e(DEBUG_TAG, "addEditText " + value + " pos " + position);
         editText.setText(value);
+        editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         editText.setHint(R.string.tag_value_hint);
         editText.setOnFocusChangeListener(listener);
         editText.setOnTouchListener(new OnTouchListener() {
