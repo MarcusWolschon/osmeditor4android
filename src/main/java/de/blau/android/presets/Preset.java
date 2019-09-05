@@ -4142,11 +4142,12 @@ public class Preset implements Serializable {
         if (values == null) {
             return null;
         }
+        String d = Pattern.quote(String.valueOf(delimiter));
         for (String v : values) {
             if (v == null) {
                 continue;
             }
-            for (String s : v.split(Pattern.quote(String.valueOf(delimiter)))) {
+            for (String s : v.split(d)) {
                 result.add(s.trim());
             }
         }
