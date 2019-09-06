@@ -443,7 +443,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     public void removeParentRelation(@NonNull Relation relation) {
         if (parentRelations != null) {
-            while (parentRelations.remove(relation)) { 
+            while (parentRelations.remove(relation)) {
                 // empty
             }
         }
@@ -477,6 +477,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * 
      * @return a description of the element
      */
+    @NonNull
     public String getDescription() {
         return getDescription(true);
     }
@@ -487,6 +488,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param ctx Android context
      * @return a description of the element
      */
+    @NonNull
     public String getDescription(@Nullable Context ctx) {
         return getDescription(ctx, true);
     }
@@ -497,6 +499,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param withType include an indication of the object type (node, way, relation)
      * @return a description of the element
      */
+    @NonNull
     public String getDescription(boolean withType) {
         return getDescription(null, withType);
     }
@@ -508,6 +511,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param withType include an indication of the object type (node, way, relation)
      * @return a string containing the description
      */
+    @NonNull
     private String getDescription(@Nullable Context ctx, boolean withType) {
         // Use the name if it exists
         String name = getTagWithKey(Tags.KEY_NAME);
@@ -558,8 +562,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * Get the first "important" tag
      * 
      * @param ctx Android context
-     * @return the first kay =value of any important tags or null if none found
+     * @return the first key=value of any important tags or null if none found
      */
+    @Nullable
     public String getPrimaryTag(@Nullable Context ctx) {
         String result = null;
         for (String tag : Tags.IMPORTANT_TAGS) {
@@ -590,6 +595,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param tag the key to generate the string for
      * @return a string in the form key=value or null
      */
+    @Nullable
     private String getTagValueString(@NonNull String tag) {
         String value = getTagWithKey(tag);
         if (value != null && value.length() > 0) {
@@ -604,6 +610,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param aResources Application resources.
      * @return A human readable description of the element that includes state information.
      */
+    @NonNull
     public String getStateDescription(@NonNull final Resources aResources) {
         int resid = getStateStringResource();
         String result = getDescription();
@@ -728,7 +735,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @return the planar geom distance in degrees
      */
     public abstract double getMinDistance(final int[] location);
-    
+
     /**
      * Return a bounding box covering the element
      * 
