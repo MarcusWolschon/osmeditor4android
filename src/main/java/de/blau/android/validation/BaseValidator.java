@@ -140,15 +140,23 @@ public class BaseValidator implements Validator {
             for (Entry<String, Boolean> entry : checkTags.entrySet()) {
                 String[] keys = entry.getKey().split("\\|");
                 int tempStatus = 0;
+                boolean first = true;
                 for (String key : keys) {
                     key = key.trim();
-                    if (pi.hasKey(key, entry.getValue()) && !e.hasTagKey(key)) {
-                        if (!(Tags.KEY_NAME.equals(key)
-                                && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
-                            tempStatus = Validator.MISSING_TAG;
+                    // first key has to exist in preset
+                    // others are only considered if they are present
+                    if (pi.hasKey(key, entry.getValue())) {
+                        first = false;
+                        if (!e.hasTagKey(key)) {
+                            if (!(Tags.KEY_NAME.equals(key)
+                                    && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
+                                tempStatus = Validator.MISSING_TAG;
+                            }
+                        } else {
+                            tempStatus = 0;
+                            break;
                         }
-                    } else {
-                        tempStatus = 0;
+                    } else if (first) {
                         break;
                     }
                 }
