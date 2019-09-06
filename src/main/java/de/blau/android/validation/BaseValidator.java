@@ -142,16 +142,14 @@ public class BaseValidator implements Validator {
                 int tempStatus = 0;
                 for (String key : keys) {
                     key = key.trim();
-                    if (pi.hasKey(key, entry.getValue())) {
-                        if (!e.hasTagKey(key)) {
-                            if (!(Tags.KEY_NAME.equals(key)
-                                    && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
-                                tempStatus = Validator.MISSING_TAG;
-                            }
-                        } else {
-                            tempStatus = 0;
-                            break;
+                    if (pi.hasKey(key, entry.getValue()) && !e.hasTagKey(key)) {
+                        if (!(Tags.KEY_NAME.equals(key)
+                                && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
+                            tempStatus = Validator.MISSING_TAG;
                         }
+                    } else {
+                        tempStatus = 0;
+                        break;
                     }
                 }
                 status = status | tempStatus;
