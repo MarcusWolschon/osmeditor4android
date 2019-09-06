@@ -126,7 +126,7 @@
             android:key="@string/config_forceContextMenu_key"
             android:summary="@string/config_forceContextMenu_summary"
             android:title="@string/config_forceContextMenu_title" />
-        <de.blau.android.prefs.MultiSelectListPreference
+        <android.support.v14.preference.MultiSelectListPreference
             android:key="@string/config_addressTags_key"
             android:title="@string/config_address_tags"
             android:summary="@string/config_address_tags_summary"
@@ -176,13 +176,6 @@
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_maxAlertDistance_current"
             app:spt_setWrapSelectorWheel="false" />
-        <de.blau.android.prefs.MultiSelectListPreference
-            android:defaultValue="@array/bug_filter_defaults"
-            android:entries="@array/bug_filter_entries"
-            android:entryValues="@array/bug_filter_values"
-            android:key="@string/config_bugFilter_key"
-            android:summary="@string/config_bugFilter_summary"
-            android:title="@string/config_bugFilter_title" />
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_closeChangesetOnSave_key"

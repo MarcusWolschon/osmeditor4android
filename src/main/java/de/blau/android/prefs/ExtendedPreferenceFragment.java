@@ -1,8 +1,10 @@
 package de.blau.android.prefs;
 
 import android.os.Bundle;
+import android.support.v14.preference.MultiSelectListPreference;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.MultiSelectListPreferenceDialogFragmentCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import ch.poole.android.numberpickerpreference.NumberPickerPreference;
@@ -21,7 +23,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
             fragment.setTargetFragment(this, 0);
             fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.LOGINDATA");
         } else if (preference instanceof MultiSelectListPreference) {
-            fragment = MultiSelectListPreferenceDialogFragment.newInstance(preference.getKey());
+            fragment = MultiSelectListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
             fragment.setTargetFragment(this, 0);
             fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
         } else if (preference instanceof NumberPickerPreference) {
