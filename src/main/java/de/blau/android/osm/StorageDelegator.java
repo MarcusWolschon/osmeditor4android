@@ -2097,69 +2097,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Set role for a relation member to new value
-     * 
-     * Note: does not deal with the same element being a element multiple times
-     * 
-     * @param e member OemELement
-     * @param role the new role to set
-     * @param rel the relation in which e is a member
-     */
-    private void setRole(final OsmElement e, final String role, final Relation rel) {
-        dirty = true;
-        undo.save(rel);
-
-        RelationMember oldRm = rel.getMember(e);
-        RelationMember rm = new RelationMember(oldRm); // necessary or else we will overwrite the role string in undo
-                                                       // storage
-
-        rm.setRole(role);
-        rel.replaceMember(oldRm, rm);
-
-        rel.updateState(OsmElement.STATE_MODIFIED);
-        try {
-            apiStorage.insertElementSafe(rel);
-            onElementChanged(null, rel);
-        } catch (StorageException sex) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "setRole got " + sex.getMessage());
-        }
-        Log.w(DEBUG_TAG, "set role for #" + e.getOsmId() + " to " + role + " in relation #" + rel.getOsmId());
-    }
-
-    /**
-     * Set role for a relation member to new value
-     * 
-     * Note: does not deal with the same element being a element multiple times
-     * 
-     * @param type member OsmElment type
-     * @param elementId member OsmElment id
-     * @param role the new role to set
-     * @param rel the relation in which e is a member
-     */
-    public void setRole(final String type, final long elementId, final String role, final Relation rel) {
-        dirty = true;
-        undo.save(rel);
-
-        RelationMember oldRm = rel.getMember(type, elementId);
-        RelationMember rm = new RelationMember(oldRm); // necessary or else we will overwrite the role string in undo
-                                                       // storage
-
-        rm.setRole(role);
-        rel.replaceMember(oldRm, rm);
-
-        rel.updateState(OsmElement.STATE_MODIFIED);
-        try {
-            apiStorage.insertElementSafe(rel);
-            onElementChanged(null, rel);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "setRole got " + e.getMessage());
-        }
-        Log.w(DEBUG_TAG, "set role for #" + elementId + " to " + role + " in relation #" + rel.getOsmId());
-    }
-
-    /**
      * compare current relations e is a member of to new state parents and make it so
      * 
      * @param e current OsmElement
