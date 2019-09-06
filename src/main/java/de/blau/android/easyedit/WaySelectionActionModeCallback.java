@@ -1,5 +1,6 @@
 package de.blau.android.easyedit;
 
+import java.util.List;
 import java.util.Set;
 
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import de.blau.android.R;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -20,18 +22,20 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
-    private static final String DEBUG_TAG              = "WaySelectionAction...";
-    private static final int    MENUITEM_SPLIT         = 10;
-    private static final int    MENUITEM_MERGE         = 11;
-    private static final int    MENUITEM_REVERSE       = 12;
-    private static final int    MENUITEM_APPEND        = 13;
-    private static final int    MENUITEM_RESTRICTION   = 14;
-    private static final int    MENUITEM_ROTATE        = 15;
-    private static final int    MENUITEM_ORTHOGONALIZE = 16;
-    private static final int    MENUITEM_CIRCULIZE     = 17;
-    private static final int    MENUITEM_SPLIT_POLYGON = 18;
-    private static final int    MENUITEM_ADDRESS       = 19;
-    private static final int    MENUITEM_REMOVE_NODE   = 20;
+    private static final String DEBUG_TAG                  = "WaySelectionAction...";
+    private static final int    MENUITEM_SPLIT             = 10;
+    private static final int    MENUITEM_MERGE             = 11;
+    private static final int    MENUITEM_REVERSE           = 12;
+    private static final int    MENUITEM_APPEND            = 13;
+    private static final int    MENUITEM_RESTRICTION       = 14;
+    private static final int    MENUITEM_ROTATE            = 15;
+    private static final int    MENUITEM_ORTHOGONALIZE     = 16;
+    private static final int    MENUITEM_CIRCULIZE         = 17;
+    private static final int    MENUITEM_SPLIT_POLYGON     = 18;
+    private static final int    MENUITEM_ADDRESS           = 19;
+    private static final int    MENUITEM_UNJOIN            = 20;
+    private static final int    MENUITEM_UNJOIN_DISSIMILAR = 21;
+    private static final int    MENUITEM_REMOVE_NODE       = 22;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
@@ -114,6 +118,10 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         if (size >= 4 || (!closed && size >= 3)) {
             menu.add(Menu.NONE, MENUITEM_REMOVE_NODE, Menu.NONE, R.string.menu_remove_node_from_way);
         }
+        if (isJoined((Way) element)) {
+            menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin);
+            menu.add(Menu.NONE, MENUITEM_UNJOIN_DISSIMILAR, Menu.NONE, R.string.menu_unjoin_dissimilar);
+        }
         arrangeMenu(menu);
         return true;
     }
@@ -145,46 +153,51 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         if (!super.onActionItemClicked(mode, item)) {
+            Way way = (Way) element;
             switch (item.getItemId()) {
             case MENUITEM_SPLIT:
-                main.startSupportActionMode(new WaySplittingActionModeCallback(manager, (Way) element, false));
+                main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, false));
                 break;
             case MENUITEM_MERGE:
-                main.startSupportActionMode(new WayMergingActionModeCallback(manager, (Way) element, cachedMergeableWays));
+                main.startSupportActionMode(new WayMergingActionModeCallback(manager, way, cachedMergeableWays));
                 break;
             case MENUITEM_REVERSE:
                 reverseWay();
-                findConnectedWays((Way) element);
+                findConnectedWays(way);
                 break;
             case MENUITEM_APPEND:
-                main.startSupportActionMode(new WayAppendingActionModeCallback(manager, (Way) element, cachedAppendableNodes));
+                main.startSupportActionMode(new WayAppendingActionModeCallback(manager, way, cachedAppendableNodes));
                 break;
             case MENUITEM_RESTRICTION:
-                main.startSupportActionMode(new FromElementActionModeCallback(manager, (Way) element, cachedViaElements));
+                main.startSupportActionMode(new FromElementActionModeCallback(manager, way, cachedViaElements));
                 break;
             case MENUITEM_ROTATE:
                 deselect = false;
-                main.startSupportActionMode(new WayRotationActionModeCallback(manager, (Way) element));
+                main.startSupportActionMode(new WayRotationActionModeCallback(manager, way));
                 break;
             case MENUITEM_ORTHOGONALIZE:
-                logic.performOrthogonalize(main, (Way) element);
+                logic.performOrthogonalize(main, way);
                 manager.invalidate();
                 break; // FIXME move to asynctask
             case MENUITEM_CIRCULIZE:
-                logic.performCirculize(main, (Way) element);
+                logic.performCirculize(main, way);
                 manager.invalidate();
                 break;
             case MENUITEM_SPLIT_POLYGON:
-                main.startSupportActionMode(new WaySplittingActionModeCallback(manager, (Way) element, true));
+                main.startSupportActionMode(new WaySplittingActionModeCallback(manager, way, true));
                 break;
             case MENUITEM_ADDRESS:
                 main.performTagEdit(element, null, true, false);
                 break;
             case MENUITEM_REMOVE_NODE:
-                main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, (Way) element));
+                main.startSupportActionMode(new RemoveNodeFromWayActionModeCallback(manager, way));
+                break;
+            case MENUITEM_UNJOIN:
+            case MENUITEM_UNJOIN_DISSIMILAR:
+                logic.performUnjoinWay(main, way, MENUITEM_UNJOIN_DISSIMILAR == item.getItemId());
                 break;
             case MENUITEM_SHARE_POSITION:
-                Util.sharePosition(main, Geometry.centroidLonLat((Way) element), main.getMap().getZoomLevel());
+                Util.sharePosition(main, Geometry.centroidLonLat(way), main.getMap().getZoomLevel());
                 break;
             default:
                 return false;
@@ -225,6 +238,22 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         if (mode != null) {
             mode.finish();
         }
+    }
+
+    /**
+     * Check for at least one Node that is shared with another Way
+     * 
+     * @param way the way
+     * @return true if there is at least one shared node
+     */
+    private boolean isJoined(@NonNull Way way) {
+        for (Node node : way.getNodes()) {
+            List<Way> ways = logic.getWaysForNode(node);
+            if (ways.size() > 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -64,6 +64,14 @@ Available for closed ways with at least four nodes. Will split the way in to two
 
 This will remove a node from the selected way. If the node is untagged and not a member of any other way the node will be deleted, otherwise it will remain in the data.
 
+### Unjoin
+
+Available if the way shares nodes with other ways. This function replaces all shared nodes with new copies of the original nodes, disconnecting the way from all of other ways.
+
+### Unjoin dissimilar
+
+As __Unjoin__ with the difference that nodes that are shared with ways that have the same "top level" key will be replaced in those ways effectively maintaining the connections to similar ways.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the way to the internal copy and paste buffer.

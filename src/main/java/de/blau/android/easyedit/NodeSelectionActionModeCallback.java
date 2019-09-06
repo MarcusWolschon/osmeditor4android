@@ -126,7 +126,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 }
                 break;
             case MENUITEM_UNJOIN:
-                logic.performUnjoin(main, (Node) element);
+                logic.performUnjoinWays(main, (Node) element);
                 mode.finish();
                 break;
             case MENUITEM_EXTRACT:

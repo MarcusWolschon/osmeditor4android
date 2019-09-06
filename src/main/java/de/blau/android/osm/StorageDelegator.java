@@ -1568,7 +1568,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Unjoins ways connected at the given node. Updated for relation support
+     * Unjoin all ways connected at the given node.
      * 
      * @param node The node connecting ways that are to be unjoined.
      */
@@ -1576,7 +1576,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         List<Way> ways = currentStorage.getWays(node);
         try {
             if (ways.size() > 1) {
-                ArrayList<OsmElement> changedElements = new ArrayList<>();
                 boolean first = true;
                 for (Way way : ways) {
                     if (first) {
@@ -1584,58 +1583,119 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         first = false;
                     } else {
                         // subsequent ways
-                        dirty = true;
-                        // create a new node that duplicates the given node
-                        Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
-                        newNode.addTags(node.getTags());
-                        insertElementUnsafe(newNode);
-                        // replace the given node in the way with the new node
-                        undo.save(way);
-                        List<Node> nodes = way.getNodes();
-                        nodes.set(nodes.indexOf(node), newNode);
-                        way.updateState(OsmElement.STATE_MODIFIED);
-                        apiStorage.insertElementSafe(way);
-                        changedElements.add(way);
-
-                        // check if node is in a relation, if yes, add to new node
-                        // should probably check for restrictions
-                        if (node.hasParentRelations()) {
-                            List<Relation> relations = node.getParentRelations();
-                            /*
-                             * iterate through relations, for all except restrictions add the new node to the relation,
-                             * for now simply after the old node
-                             */
-                            for (Relation r : relations) {
-                                RelationMember rm = r.getMember(node);
-                                undo.save(r);
-                                String type = r.getTagWithKey(Tags.KEY_TYPE);
-                                if (type != null) {
-                                    if (type.equals(Tags.VALUE_RESTRICTION)) {
-                                        // doing nothing for now at least gives a chance of being right :-)
-                                    } else {
-                                        RelationMember newMember = new RelationMember(rm.getRole(), newNode);
-                                        r.addMemberAfter(rm, newMember);
-                                        newNode.addParentRelation(r);
-                                    }
-
-                                } else {
-                                    RelationMember newMember = new RelationMember(rm.getRole(), newNode);
-                                    r.addMemberAfter(rm, newMember);
-                                    newNode.addParentRelation(r);
-                                }
-                                r.updateState(OsmElement.STATE_MODIFIED);
-                                apiStorage.insertElementSafe(r);
-                                changedElements.add(r);
-                            }
-                        }
+                        replaceWayNode(node, way);
                     }
                 }
-                onElementChanged(null, changedElements);
             }
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "unjoinWays got " + e.getMessage());
         }
+    }
+
+    /**
+     * Unjoin a way by replacing shared nodes with new ones
+     * 
+     * @param ctx Android Context
+     * @param way the Way to unjoin
+     * @param ignoreSimilar don't unjoin from ways with the same primary key if true, but replace the node in them too
+     */
+    public void unjoinWay(@Nullable Context ctx, @NonNull final Way way, boolean ignoreSimilar) {
+        Set<Node> wayNodes = new HashSet<>(way.getNodes()); // only do every node once
+        Map<Long, Boolean> keyMap = new HashMap<>();
+        String primaryTag = way.getPrimaryTag(ctx);
+        String primaryKey = null;
+        if (primaryTag != null) {
+            String[] t = primaryTag.split("=");
+            if (t.length == 2) {
+                primaryKey = t[0];
+            }
+        }
+        for (Node nd : wayNodes) {
+            List<Way> otherWays = getCurrentStorage().getWays(nd);
+            List<Way> similarWays = new ArrayList<>();
+            if (otherWays.size() > 1) {
+                if (ignoreSimilar && primaryKey != null) {
+                    for (Way other : otherWays) {
+                        if (!way.equals(other)) {
+                            Long otherId = Long.valueOf(other.getOsmId());
+                            Boolean isSimilar = keyMap.get(otherId);
+                            if (isSimilar == null) {
+                                isSimilar = other.hasTagKey(primaryKey);
+                                keyMap.put(otherId, isSimilar);
+                            }
+                            if (isSimilar) {
+                                similarWays.add(other);
+                            }
+                        }
+                    }
+                }
+            }
+            if (similarWays.size() < otherWays.size() - 1) { // if all are the same no need to replace
+                Node newNode = replaceWayNode(nd, way);
+                for (Way similar : similarWays) {
+                    replaceNodeInWay(nd, newNode, similar);
+                }
+            }
+        }
+    }
+
+    /**
+     * Replace a Node in a way with a new one
+     * 
+     * @param node the node to replace
+     * @param way the Way
+     * @return the new Node
+     */
+    @NonNull
+    private Node replaceWayNode(@NonNull final Node node, @NonNull final Way way) {
+        List<OsmElement> changedElements = new ArrayList<>();
+        dirty = true;
+        // create a new node that duplicates the given node
+        Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
+        newNode.addTags(node.getTags());
+        insertElementUnsafe(newNode);
+        // replace the given node in the way with the new node
+        undo.save(way);
+        List<Node> nodes = way.getNodes();
+        nodes.set(nodes.indexOf(node), newNode);
+        way.updateState(OsmElement.STATE_MODIFIED);
+        apiStorage.insertElementSafe(way);
+        changedElements.add(way);
+
+        // check if node is in a relation, if yes, add to new node
+        // should probably check for restrictions
+        if (node.hasParentRelations()) {
+            List<Relation> relations = node.getParentRelations();
+            /*
+             * iterate through relations, for all except restrictions add the new node to the relation, for now simply
+             * after the old node
+             */
+            for (Relation r : relations) {
+                RelationMember rm = r.getMember(node);
+                undo.save(r);
+                String type = r.getTagWithKey(Tags.KEY_TYPE);
+                if (type != null) {
+                    if (type.equals(Tags.VALUE_RESTRICTION)) {
+                        // doing nothing for now at least gives a chance of being right :-)
+                    } else {
+                        RelationMember newMember = new RelationMember(rm.getRole(), newNode);
+                        r.addMemberAfter(rm, newMember);
+                        newNode.addParentRelation(r);
+                    }
+
+                } else {
+                    RelationMember newMember = new RelationMember(rm.getRole(), newNode);
+                    r.addMemberAfter(rm, newMember);
+                    newNode.addParentRelation(r);
+                }
+                r.updateState(OsmElement.STATE_MODIFIED);
+                apiStorage.insertElementSafe(r);
+                changedElements.add(r);
+            }
+        }
+        onElementChanged(null, changedElements);
+        return newNode;
     }
 
     /**

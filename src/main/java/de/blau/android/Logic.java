@@ -2161,19 +2161,32 @@ public class Logic {
             invalidateMap();
         }
         return result;
-
     }
 
     /**
-     * Unjoin ways joined by the given node.
+     * Unjoin all ways joined by the given node.
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param node Node that is joining the ways to be unjoined.
      */
-    public synchronized void performUnjoin(@Nullable FragmentActivity activity, Node node) {
+    public synchronized void performUnjoinWays(@Nullable FragmentActivity activity, @NonNull Node node) {
         createCheckpoint(activity, R.string.undo_action_unjoin_ways);
         displayAttachedObjectWarning(activity, node); // needs to be done before unjoin
         getDelegator().unjoinWays(node);
+        invalidateMap();
+    }
+
+    /**
+     * Unjoin a way
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param way the Way to unjoin
+     * @param ignoreSimilar don't unjoin from ways with the same primary key if true, but replace the node in them too
+     */
+    public synchronized void performUnjoinWay(@Nullable FragmentActivity activity, @NonNull Way way, boolean ignoreSimilar) {
+        createCheckpoint(activity, R.string.undo_action_unjoin_ways);
+        displayAttachedObjectWarning(activity, way); // needs to be done before unjoin
+        getDelegator().unjoinWay(activity, way, ignoreSimilar);
         invalidateMap();
     }
 

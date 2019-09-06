@@ -644,6 +644,7 @@ avoided by using an offline data source.</string>
     <string name="menu_straighten">Straighten</string>
     <string name="menu_circulize">Arrange in circle</string>
     <string name="menu_split_polygon">Split in to polygons</string>
+    <string name="menu_unjoin_dissimilar">Unjoin dissimilar</string>
     <string name="menu_newnode_gps">New node at GPS position</string>
     <string name="menu_extend_selection">Extend selection</string>
     <string name="menu_information">Info</string>
