@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -567,6 +568,59 @@ public class GeometryEditsTest {
             Assert.assertTrue(result.hasIssue());
             Assert.assertEquals(1, result.getIssues().size());
             Assert.assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
+        } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
+
+    /**
+     * Unjoin ways with common nodes, first in normal mode, aka no connections should remain, then in unjoin dissimilar
+     * which should maintain connection to similar ways
+     */
+    @UiThreadTest
+    @Test
+    public void unjoinWay() {
+        try {
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 200.0f, 200.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            logic.performAdd(main, 200.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 200.0f);
+            Way w1 = logic.getSelectedWay();
+            TreeMap<String, String> tags = new TreeMap();
+            tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY);
+            w1.setTags(tags);
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.performAdd(main, 200.0f, 200.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            logic.performAdd(main, 200.0f, 400.0f);
+            logic.performAdd(main, 400.0f, 400.0f);
+            Way w2 = logic.getSelectedWay();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.performAdd(main, 400.0f, 400.0f);
+            logic.performAdd(main, 600.0f, 600.0f);
+            Way w3 = logic.getSelectedWay();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            w3.setTags(tags);
+            Assert.assertTrue(w1.hasCommonNode(w2));
+            Assert.assertTrue(w2.hasCommonNode(w3));
+            Assert.assertTrue(w1.hasCommonNode(w3));
+            logic.performUnjoinWay(main, w1, false);
+            Assert.assertFalse(w1.hasCommonNode(w2));
+            Assert.assertFalse(w1.hasCommonNode(w3));
+            logic.undo();
+            Assert.assertTrue(w1.hasCommonNode(w2));
+            Assert.assertTrue(w2.hasCommonNode(w3));
+            logic.performUnjoinWay(main, w1, false);
+            Assert.assertFalse(w1.hasCommonNode(w2));
+            Assert.assertTrue(w2.hasCommonNode(w3));
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
         }
