@@ -272,14 +272,14 @@ public class TagFilter extends CommonFilter {
     @Override
     public void hideControls() {
         if (tagFilterButton != null) {
-            tagFilterButton.setVisibility(View.GONE);
+            tagFilterButton.hide();
         }
     }
 
     @Override
     public void showControls() {
         if (tagFilterButton != null) {
-            tagFilterButton.setVisibility(View.VISIBLE);
+            tagFilterButton.show();
         }
     }
 }

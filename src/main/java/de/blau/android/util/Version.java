@@ -16,7 +16,6 @@ public class Version {
 
     String               lastVersion;
     SavingHelper<String> savingHelperVersion;
-    Context              ctx;
 
     /**
      * Determine various version related things
@@ -24,7 +23,6 @@ public class Version {
      * @param ctx Android Context
      */
     public Version(@NonNull Context ctx) {
-        this.ctx = ctx;
         savingHelperVersion = new SavingHelper<>();
         lastVersion = savingHelperVersion.load(ctx, Files.VERSION, false);
         String currentVersion = ctx.getString(R.string.app_version);
@@ -88,8 +86,10 @@ public class Version {
 
     /**
      * Save the current version to a file
+     * 
+     * @param ctx an Android Context
      */
-    public void save() {
+    public void save(@NonNull Context ctx) {
         savingHelperVersion.save(ctx, Files.VERSION, ctx.getString(R.string.app_version), false);
     }
 

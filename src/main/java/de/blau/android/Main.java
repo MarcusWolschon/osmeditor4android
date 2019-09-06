@@ -559,7 +559,11 @@ public class Main extends FullScreenAppCompatActivity
         rlp.addRule(RelativeLayout.ABOVE, R.id.zoom_controls);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
-        simpleActionsButton.setVisibility(prefs.areSimpleActionsEnabled() ? View.VISIBLE : View.GONE);
+        if (prefs.areSimpleActionsEnabled()) {
+            showSimpleActionsButton();
+        } else {
+            hideSimpleActionsButton();
+        }
         mapLayout.addView(simpleActionsButton, rlp);
         simpleActionsButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -605,7 +609,7 @@ public class Main extends FullScreenAppCompatActivity
         Version version = new Version(this);
         newInstall = version.isNewInstall();
         newVersion = version.isNewVersion();
-        version.save();
+        version.save(this);
 
         loadOnResume = false;
 

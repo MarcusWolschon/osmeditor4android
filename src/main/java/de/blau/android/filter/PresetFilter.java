@@ -240,14 +240,14 @@ public class PresetFilter extends CommonFilter {
     public void hideControls() {
         if (presetFilterButton != null) {
             presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
-            presetFilterButton.setVisibility(View.GONE);
+            presetFilterButton.hide();
         }
     }
 
     @Override
     public void showControls() {
         if (presetFilterButton != null) {
-            presetFilterButton.setVisibility(View.VISIBLE);
+            presetFilterButton.show();
         }
     }
 }
