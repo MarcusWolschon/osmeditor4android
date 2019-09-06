@@ -9,10 +9,12 @@ import java.util.SortedMap;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +34,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback {
+public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
     private static final int MENUITEM_APPEND       = 10;
     private static final int MENUITEM_JOIN         = 11;
     private static final int MENUITEM_UNJOIN       = 12;
@@ -42,8 +44,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private static final int MENUITEM_SET_POSITION = 16;
     private static final int MENUITEM_ADDRESS      = 17;
 
-    private OsmElement joinableElement = null;
-    private List<Way>  highways        = new ArrayList<>();
+    private List<OsmElement> joinableElements = null;
+    private List<Way>        highways         = new ArrayList<>();
 
     /**
      * Construct a callback for Node selection
@@ -80,8 +82,8 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         if (logic.isEndNode((Node) element)) {
             menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
         }
-        joinableElement = logic.findJoinableElement((Node) element);
-        if (joinableElement != null) {
+        joinableElements = logic.findJoinableElements((Node) element);
+        if (!joinableElements.isEmpty()) {
             menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge))
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
         }
@@ -117,21 +119,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 main.startSupportActionMode(new PathCreationActionModeCallback(manager, (Node) element));
                 break;
             case MENUITEM_JOIN:
-                try {
-                    MergeResult result = logic.performJoin(main, joinableElement, (Node) element);
-                    if (result != null) {
-                        manager.invalidate(); // button will remain enabled
-                        if (!result.getElement().equals(element)) { // only re-select if not already selected
-                            manager.editElement(result.getElement());
-                        }
-                        if (result.hasIssue()) {
-                            showConflictAlert(result);
-                        } else {
-                            Snack.toastTopInfo(main, R.string.toast_merged);
-                        }
-                    }
-                } catch (OsmIllegalOperationException e) {
-                    Snack.barError(main, e.getLocalizedMessage());
+                if (joinableElements.size() > 1) {
+                    manager.showContextMenu();
+                } else {
+                    mergeNodeWith(joinableElements);
                 }
                 break;
             case MENUITEM_UNJOIN:
@@ -160,6 +151,58 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             default:
                 return false;
             }
+        }
+        return true;
+    }
+
+    /**
+     * Merge the selected node with an OsmELement
+     * 
+     * @param target the target OsmElement
+     * 
+     */
+    private void mergeNodeWith(@NonNull List<OsmElement> target) {
+        try {
+            MergeResult result = target.get(0) instanceof Way ? logic.performJoinNodeToWays(main, target, (Node) element)
+                    : logic.performMergeNodes(main, target, (Node) element);
+            if (result != null) {
+                manager.invalidate(); // button will remain enabled
+                if (!result.getElement().equals(element)) { // only re-select if not already selected
+                    manager.editElement(result.getElement());
+                }
+                if (result.hasIssue()) {
+                    showConflictAlert(result);
+                } else {
+                    Snack.toastTopInfo(main, R.string.toast_merged);
+                }
+            }
+        } catch (OsmIllegalOperationException e) {
+            Snack.barError(main, e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public boolean onCreateContextMenu(ContextMenu menu) {
+        if (joinableElements.size() > 1) {
+            menu.setHeaderTitle(R.string.merge_context_title);
+            int id = 0;
+            menu.add(Menu.NONE, id++, Menu.NONE, joinableElements.get(0) instanceof Way ? R.string.merge_with_all_ways : R.string.merge_with_all_nodes)
+                    .setOnMenuItemClickListener(this);
+            for (OsmElement e : joinableElements) {
+                menu.add(Menu.NONE, id++, Menu.NONE, main.descriptionForContextMenu(e)).setOnMenuItemClickListener(this);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == 0) {
+            mergeNodeWith(joinableElements);
+        } else {
+            mergeNodeWith(Util.wrapInList(joinableElements.get(itemId - 1)));
         }
         return true;
     }

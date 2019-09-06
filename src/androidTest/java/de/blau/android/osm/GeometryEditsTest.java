@@ -28,6 +28,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Util;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -228,29 +229,29 @@ public class GeometryEditsTest {
             Assert.assertEquals(2, w1.getParentRelations().size());
             // r should have 2 members
             Assert.assertEquals(2, r.getMemberElements().size());
-            
+
             // split at n2
             logic.performSplit(main, n2);
-            
+
             // get the the resulting ways
             List<Way> ways = logic.getWaysForNode(n4);
             Assert.assertEquals(1, ways.size());
-           
+
             if (ways.get(0).equals(w1)) {
                 ways = logic.getWaysForNode(n1);
                 Assert.assertEquals(1, ways.size());
-            }  
+            }
             Way w2 = ways.get(0);
             // both should have two parents
             Assert.assertEquals(2, w1.getParentRelations().size());
             Assert.assertEquals(2, w2.getParentRelations().size());
-            
+
             // r should have 4 members now
             Assert.assertEquals(4, r.getMemberElements().size());
-            
+
             // split at n3
             logic.performSplit(main, n3);
-            
+
             // r should have 6 members now
             Assert.assertEquals(6, r.getMemberElements().size());
             // w1 and w2 should be unchanged
@@ -472,7 +473,7 @@ public class GeometryEditsTest {
             wnY = getY(logic, wn);
             wnX = getX(logic, wn);
             box.union(wn.getLon(), wn.getLat());
-           
+
             System.out.println("WN4 X " + wnX + " Y " + wnY);
             Way w2 = logic.getSelectedWay();
             Assert.assertEquals(2, w2.getNodes().size());
@@ -486,12 +487,12 @@ public class GeometryEditsTest {
             Assert.assertEquals(1, logic.getWaysForNode(n1).size());
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
-            Assert.assertTrue(map.getViewBox().contains(n1.getLon(),n1.getLat()));
+            Assert.assertTrue(map.getViewBox().contains(n1.getLon(), n1.getLat()));
 
             Assert.assertEquals(2, w1.getNodes().size()); // should be unchanged
             Assert.assertEquals(3, w2.getNodes().size());
             // add again, shouldn't change anything
-            
+
             float n1Y = getY(logic, n1);
             float n1X = getX(logic, n1);
             logic.performAdd(main, n1X, n1Y);
@@ -524,7 +525,7 @@ public class GeometryEditsTest {
             int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 500.0f);
             Node n1 = logic.performAddNode(main, lon, lat);
             Assert.assertEquals(0, logic.getWaysForNode(n1).size());
-            MergeResult result = logic.performJoin(main, w1, n1);
+            MergeResult result = logic.performJoinNodeToWays(main, Util.wrapInList(w1), n1);
             Assert.assertTrue(w1.hasNode(n1));
             Assert.assertFalse(result.hasIssue());
         } catch (Exception igit) {
@@ -551,7 +552,7 @@ public class GeometryEditsTest {
             int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
             Node n2 = logic.performAddNode(main, lon, lat);
             Assert.assertEquals(2, App.getDelegator().getApiNodeCount());
-            MergeResult result = logic.performJoin(main, n1, n2);
+            MergeResult result = logic.performMergeNodes(main, Util.wrapInList(n1), n2);
             Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
             Assert.assertFalse(result.hasIssue());
             logic.undo();
@@ -562,7 +563,7 @@ public class GeometryEditsTest {
             tags.clear();
             tags.put("highway", "unclassified");
             logic.setTags(main, n2, tags);
-            result = logic.performJoin(main, n1, n2);
+            result = logic.performMergeNodes(main, Util.wrapInList(n1), n2);
             Assert.assertTrue(result.hasIssue());
             Assert.assertEquals(1, result.getIssues().size());
             Assert.assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
@@ -917,7 +918,7 @@ public class GeometryEditsTest {
             Assert.fail(igit.getMessage());
         }
     }
-    
+
     /**
      * Create a two node way and then merge the two nodes, this should delete the way and one of the nodes
      */
@@ -939,7 +940,7 @@ public class GeometryEditsTest {
             StorageDelegator delegator = App.getDelegator();
             List<Node> nodes = w1.getNodes();
             Assert.assertEquals(2, nodes.size());
-            logic.performJoin(main, nodes.get(0), nodes.get(1));
+            logic.performMergeNodes(main, Util.wrapInList(nodes.get(0)), nodes.get(1));
             Assert.assertNull(delegator.getCurrentStorage().getWay(w1.getOsmId()));
             Assert.assertNull(delegator.getApiStorage().getWay(w1.getOsmId()));
         } catch (Exception igit) {

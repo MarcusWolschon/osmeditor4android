@@ -1999,27 +1999,27 @@ public class Logic {
     }
 
     /**
-     * If any ways are close to the node (within the tolerance), return the way.
+     * If any Nodes or Ways are close to the node (within the tolerance), return them, if any Nodes are found don't
+     * check Ways.
      * 
      * @param nodeToJoin the Node we want to join
-     * @return the closest way to the node
+     * @return a List of OsmElements
      */
-    public OsmElement findJoinableElement(@NonNull Node nodeToJoin) {
-        OsmElement closestElement = null;
-        double closestDistance = Double.MAX_VALUE;
+    @NonNull
+    public List<OsmElement> findJoinableElements(@NonNull Node nodeToJoin) {
+        List<OsmElement> closestElements = new ArrayList<>();
         float jx = lonE7ToX(nodeToJoin.getLon());
         float jy = latE7ToY(nodeToJoin.getLat());
         // start by looking for the closest nodes
         for (Node node : getDelegator().getCurrentStorage().getNodes()) {
             if (!nodeToJoin.equals(node)) {
                 Double distance = clickDistance(node, jx, jy);
-                if (distance != null && distance < closestDistance && (filter == null || filter.include(node, false))) {
-                    closestDistance = distance;
-                    closestElement = node;
+                if (distance != null && (filter == null || filter.include(node, false))) {
+                    closestElements.add(node);
                 }
             }
         }
-        if (closestElement == null) {
+        if (closestElements.isEmpty()) {
             // fall back to closest ways
             for (Way way : getDelegator().getCurrentStorage().getWays()) {
                 if (!way.hasNode(nodeToJoin)) {
@@ -2033,9 +2033,8 @@ public class Logic {
                         float node2Y = latE7ToY(node2.getLat());
                         double distance = Geometry.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
                         if (distance >= 0) {
-                            if (distance < closestDistance && (filter == null || filter.include(way, false))) {
-                                closestDistance = distance;
-                                closestElement = way;
+                            if (filter == null || filter.include(way, false)) {
+                                closestElements.add(way);
                             }
                         }
                         node1X = node2X;
@@ -2044,83 +2043,125 @@ public class Logic {
                 }
             }
         }
-        return closestElement;
+        return closestElements;
     }
 
     /**
-     * Join a node to a node or way at the point on the way closest to the node.
+     * Merge a node to with other Nodes.
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
-     * @param element Node or Way that the node will be joined to.
-     * @param nodeToJoin Node to be joined to the way.
-     * @return true if the operation was successful
+     * @param elements List of Node that the Node will be merged to.
+     * @param nodeToJoin Node to be merged
+     * @return a MergeResult object containing the result of the merge and if the result was successful
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     @Nullable
-    public synchronized MergeResult performJoin(@Nullable FragmentActivity activity, @NonNull OsmElement element, @NonNull Node nodeToJoin)
+    public synchronized MergeResult performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin)
             throws OsmIllegalOperationException {
         MergeResult result = null;
-        if (element instanceof Node) {
-            if (element.equals(nodeToJoin)) {
-                throw new OsmIllegalOperationException("Trying to join node to itself");
-            }
-            Node node = (Node) element;
+        if (!elements.isEmpty()) {
             createCheckpoint(activity, R.string.undo_action_join);
-            displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
-            result = getDelegator().mergeNodes(node, nodeToJoin);
-            invalidateMap();
-        } else if (element instanceof Way) {
-            Way way = (Way) element;
-            List<Node> wayNodes = way.getNodes();
-            if (wayNodes.contains(nodeToJoin)) {
-                throw new OsmIllegalOperationException("Trying to join node to itself in way");
-            }
-            for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                Node node1 = wayNodes.get(i - 1);
-                Node node2 = wayNodes.get(i);
-                float x = lonE7ToX(nodeToJoin.getLon());
-                float y = latE7ToY(nodeToJoin.getLat());
-                // TODO only project once per node
-                float node1X = lonE7ToX(node1.getLon());
-                float node1Y = latE7ToY(node1.getLat());
-                float node2X = lonE7ToX(node2.getLon());
-                float node2Y = latE7ToY(node2.getLat());
-                double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
-                if (distance >= 0) {
-                    float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
-                    int lat = yToLatE7(p[1]);
-                    int lon = xToLonE7(p[0]);
-                    createCheckpoint(activity, R.string.undo_action_join);
-                    Node node = null;
-                    if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
-                        node = node1;
+            for (OsmElement element : elements) {
+                nodeToJoin = (Node) (result != null ? result.getElement() : nodeToJoin);
+                if (element.equals(nodeToJoin)) {
+                    throw new OsmIllegalOperationException("Trying to join node to itself");
+                }
+                displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
+                MergeResult tempResult = getDelegator().mergeNodes((Node) element, nodeToJoin);
+                if (result == null) {
+                    result = tempResult;
+                } else {
+                    result.setElement(tempResult.getElement());
+                    if (tempResult.hasIssue()) {
+                        result.addAllIssues(tempResult.getIssues());
                     }
-                    if (node == null && lat == node2.getLat() && lon == node2.getLon()) {
-                        node = node2;
-                    }
-                    if (node == null) {
-                        displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
-                        // move the existing node onto the way and insert it into the way
-                        try {
-                            getDelegator().moveNode(nodeToJoin, lat, lon);
-                            getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
-                            result = new MergeResult(nodeToJoin);
-                        } catch (OsmIllegalOperationException e) {
-                            dismissAttachedObjectWarning(activity); // doesn't make sense to show
-                            rollback();
-                            throw new OsmIllegalOperationException(e);
-                        }
-                    } else {
-                        displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
-                        // merge node into tgtNode
-                        result = getDelegator().mergeNodes(node, nodeToJoin);
-                    }
-                    invalidateMap();
-                    break; // need to leave loop !!!
                 }
             }
+            invalidateMap();
         }
         return result;
+    }
+
+    /**
+     * Join a Node to one or more Ways
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param elements List of Node that the Node will be merged to.
+     * @param nodeToJoin Node to be merged
+     * @return a MergeResult object containing the result of the merge and if the result was successful
+     * @throws OsmIllegalOperationException if the operation couldn't be performed
+     */
+    @Nullable
+    public synchronized MergeResult performJoinNodeToWays(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin)
+            throws OsmIllegalOperationException {
+        MergeResult result = null;
+        if (!elements.isEmpty()) {
+            createCheckpoint(activity, R.string.undo_action_join);
+            for (OsmElement element : elements) {
+                nodeToJoin = (Node) (result != null ? result.getElement() : nodeToJoin);
+                Way way = (Way) element;
+                List<Node> wayNodes = way.getNodes();
+                if (wayNodes.contains(nodeToJoin)) {
+                    throw new OsmIllegalOperationException("Trying to join node to itself in way");
+                }
+                MergeResult tempResult = null;
+                float x = lonE7ToX(nodeToJoin.getLon());
+                float y = latE7ToY(nodeToJoin.getLat());
+                Node node1 = wayNodes.get(0);
+                float node1X = lonE7ToX(node1.getLon());
+                float node1Y = latE7ToY(node1.getLat());
+                for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+                    Node node2 = wayNodes.get(i);
+                    float node2X = lonE7ToX(node2.getLon());
+                    float node2Y = latE7ToY(node2.getLat());
+                    double distance = Geometry.isPositionOnLine(x, y, node1X, node1Y, node2X, node2Y);
+                    if (distance >= 0) {
+                        float[] p = GeoMath.closestPoint(x, y, node1X, node1Y, node2X, node2Y);
+                        int lat = yToLatE7(p[1]);
+                        int lon = xToLonE7(p[0]);
+                        Node node = null;
+                        if (node == null && lat == node1.getLat() && lon == node1.getLon()) {
+                            node = node1;
+                        }
+                        if (node == null && lat == node2.getLat() && lon == node2.getLon()) {
+                            node = node2;
+                        }
+                        if (node == null) {
+                            displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
+                            // move the existing node onto the way and insert it into the way
+                            try {
+                                getDelegator().moveNode(nodeToJoin, lat, lon);
+                                getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
+                                tempResult = new MergeResult(nodeToJoin);
+                            } catch (OsmIllegalOperationException e) {
+                                dismissAttachedObjectWarning(activity); // doesn't make sense to show
+                                rollback();
+                                throw new OsmIllegalOperationException(e);
+                            }
+                        } else {
+                            displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
+                            // merge node into target Node
+                            tempResult = getDelegator().mergeNodes(node, nodeToJoin);
+                        }
+                        break; // need to leave loop !!!
+                    }
+                    node1 = node2;
+                    node1X = node2X;
+                    node1Y = node2Y;
+                }
+                if (result == null) {
+                    result = tempResult;
+                } else {
+                    result.setElement(tempResult.getElement());
+                    if (tempResult.hasIssue()) {
+                        result.addAllIssues(tempResult.getIssues());
+                    }
+                }
+            }
+            invalidateMap();
+        }
+        return result;
+
     }
 
     /**

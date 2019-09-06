@@ -20,11 +20,11 @@ Add to the way this node is part of. The "Append" action is only available if th
 
 ### ![Unjoin](../images/tag_menu_split.png) Unjoin 
 
-Create an additional node at this location and use it instead of the original node in one of the ways. The "Unjoin" action is only available if the node in question is an end node of two ways.
+If a way node is selected that is a member of multiple ways this will create additional nodes at the location and use them instead of the original node in the ways. 
 
 ### ![Merge](../images/tag_menu_merge.png) Merge 
 
-Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in toolbar, select a node and move it next to a way.
+Merge the selected node with a way (as a new way node) or with an existing node. To make this tool appear in the toolbar, select a node and move it next to a way. If there are multiple possible target nodes or ways a disambiguation context menu will be shown.
 
 ### ![Extract](../images/extract_node.png) Extract node
 

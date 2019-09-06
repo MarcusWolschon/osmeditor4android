@@ -96,15 +96,6 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         return false;
     }
 
-    /**
-     * Override this is you want to create a custom context menu in onCreateContextMenu
-     * 
-     * @return false as default
-     */
-    public boolean needsCustomContextMenu() {
-        return false;
-    }
-
     @Override
     public void onDestroyActionMode(ActionMode mode) {
         Log.d(DEBUG_TAG, "onDestroyActionMode");
@@ -201,7 +192,8 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * 
      * @param menu the menu
      */
-    public void onCreateContextMenu(ContextMenu menu) {
+    public boolean onCreateContextMenu(ContextMenu menu) {
+        return false;
     }
 
     /**

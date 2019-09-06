@@ -3625,9 +3625,7 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
-            if (getEasyEditManager().needsCustomContextMenu()) {
-                getEasyEditManager().createContextMenu(menu);
-            } else {
+            if (!getEasyEditManager().createContextMenu(menu)) {
                 onCreateDefaultContextMenu(menu);
             }
         }
@@ -3655,46 +3653,7 @@ public class Main extends FullScreenAppCompatActivity
             if (clickedNodesAndWays != null) {
                 Logic logic = App.getLogic();
                 for (OsmElement e : clickedNodesAndWays) {
-                    StringBuilder description = new StringBuilder(e.getDescription(Main.this));
-                    List<Relation> relations = e.getParentRelations();
-                    boolean hasRelations = relations != null && !relations.isEmpty();
-                    if (e instanceof Node) {
-                        List<Way> ways = App.getLogic().getWaysForNode((Node) e);
-                        boolean hasWays = ways != null && !ways.isEmpty();
-                        if (hasRelations) {
-                            description.append(" (");
-                            for (Relation r : relations) {
-                                description.append(r.getDescription(Main.this));
-                                if (!lastMember(relations, r) || hasWays) {
-                                    description.append(", ");
-                                }
-                            }
-                            if (!hasWays) {
-                                description.append(")");
-                            }
-                        }
-                        if (hasWays) {
-                            if (!hasRelations) {
-                                description.append(" (");
-                            }
-                            for (Way w : ways) {
-                                description.append(w.getDescription(Main.this));
-                                if (!lastMember(ways, w)) {
-                                    description.append(", ");
-                                }
-                            }
-                            description.append(")");
-                        }
-                    } else if (hasRelations) {
-                        description.append(" (");
-                        for (Relation r : relations) {
-                            description.append(r.getDescription(Main.this));
-                            if (!lastMember(relations, r)) {
-                                description.append(", ");
-                            }
-                        }
-                        description.append(")");
-                    }
+                    String description = descriptionForContextMenu(e);
                     if (logic.isSelected(e)) {
                         SpannableString s = new SpannableString(description);
                         s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
@@ -3704,18 +3663,6 @@ public class Main extends FullScreenAppCompatActivity
                     }
                 }
             }
-        }
-
-        /**
-         * Check if this is the last member of a list
-         * 
-         * @param <T> type of the List member
-         * @param l the list
-         * @param o the member we are checking
-         * @return true if it is the last item in the list
-         */
-        private <T> boolean lastMember(@NonNull List<T> l, @NonNull T o) {
-            return l.indexOf(o) == (l.size() - 1);
         }
 
         /**
@@ -4348,5 +4295,68 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     public void setResultListener(int code, Listener listener) {
         activityResultListeners.put(code, listener);
+    }
+
+    /**
+     * Get a description of an element suitable for display in a context menu
+     * 
+     * @param e the OsmELement
+     * @return the description
+     */
+    @NonNull
+    public String descriptionForContextMenu(@NonNull OsmElement e) {
+        StringBuilder description = new StringBuilder(e.getDescription(this));
+        List<Relation> relations = e.getParentRelations();
+        boolean hasRelations = relations != null && !relations.isEmpty();
+        if (e instanceof Node) {
+            List<Way> ways = App.getLogic().getWaysForNode((Node) e);
+            boolean hasWays = ways != null && !ways.isEmpty();
+            if (hasRelations) {
+                description.append(" (");
+                for (Relation r : relations) {
+                    description.append(r.getDescription(this));
+                    if (!lastMember(relations, r) || hasWays) {
+                        description.append(", ");
+                    }
+                }
+                if (!hasWays) {
+                    description.append(")");
+                }
+            }
+            if (hasWays) {
+                if (!hasRelations) {
+                    description.append(" (");
+                }
+                for (Way w : ways) {
+                    description.append(w.getDescription(this));
+                    if (!lastMember(ways, w)) {
+                        description.append(", ");
+                    }
+                }
+                description.append(")");
+            }
+        } else if (hasRelations) {
+            description.append(" (");
+            for (Relation r : relations) {
+                description.append(r.getDescription(this));
+                if (!lastMember(relations, r)) {
+                    description.append(", ");
+                }
+            }
+            description.append(")");
+        }
+        return description.toString();
+    }
+
+    /**
+     * Check if this is the last member of a list
+     * 
+     * @param <T> type of the List member
+     * @param l the list
+     * @param o the member we are checking
+     * @return true if it is the last item in the list
+     */
+    private <T> boolean lastMember(@NonNull List<T> l, @NonNull T o) {
+        return l.indexOf(o) == (l.size() - 1);
     }
 }

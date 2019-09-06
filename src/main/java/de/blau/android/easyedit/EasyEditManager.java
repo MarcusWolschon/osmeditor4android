@@ -45,6 +45,8 @@ public class EasyEditManager {
     private EasyEditActionModeCallback currentActionModeCallback = null;
     private final Object               actionModeCallbackLock    = new Object();
 
+    private boolean contextMenuEnabled;
+
     /**
      * Construct a new instance of the manager
      * 
@@ -366,23 +368,34 @@ public class EasyEditManager {
     }
 
     /**
-     * Check if the ActionMode wants its own context menu
+     * Show the context menu programmatically
      * 
-     * @return true if we want to show our own context menu
+     * This is slightly complicated because Android will always show a menu on long press if one has been created
      */
-    public boolean needsCustomContextMenu() {
-        return isProcessingAction() && currentActionModeCallback.needsCustomContextMenu();
+    public void showContextMenu() {
+        synchronized (actionModeCallbackLock) {
+            contextMenuEnabled = true;
+        }
+        main.getMap().showContextMenu();
     }
 
     /**
      * Call the per ActionMode onCreateContextMenu
      * 
      * @param menu the ContextMenu
+     * @return true if a menu was created
      */
-    public void createContextMenu(ContextMenu menu) {
-        synchronized (actionModeCallbackLock) {
-            if (currentActionModeCallback != null) {
-                currentActionModeCallback.onCreateContextMenu(menu);
+    public boolean createContextMenu(ContextMenu menu) {
+        try {
+            synchronized (actionModeCallbackLock) {
+                if (currentActionModeCallback != null && contextMenuEnabled && isProcessingAction()) {
+                    return currentActionModeCallback.onCreateContextMenu(menu);
+                }
+            }
+            return false;
+        } finally {
+            synchronized (actionModeCallbackLock) {
+                contextMenuEnabled = false;
             }
         }
     }

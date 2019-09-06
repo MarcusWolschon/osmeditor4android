@@ -148,19 +148,17 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     }
 
     @Override
-    public boolean needsCustomContextMenu() {
-        return true;
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu) {
+    public boolean onCreateContextMenu(ContextMenu menu) {
         if (clickedNonClosedWays != null && !clickedNonClosedWays.isEmpty()) {
+            menu.setHeaderTitle(R.string.split_context_title);
             int id = 0;
             menu.add(Menu.NONE, id++, Menu.NONE, R.string.split_all_ways).setOnMenuItemClickListener(this);
             for (Way w : clickedNonClosedWays) {
                 menu.add(Menu.NONE, id++, Menu.NONE, w.getDescription(main)).setOnMenuItemClickListener(this);
             }
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -211,7 +209,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             return true;
         case MENUITEM_SPLITWAY:
             if (clickedNonClosedWays.size() > 1) {
-                main.getMap().showContextMenu();
+                manager.showContextMenu();
             } else {
                 Way way = clickedNonClosedWays.get(0);
                 ArrayList<Way> ways = new ArrayList<>();
