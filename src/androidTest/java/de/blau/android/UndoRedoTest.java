@@ -128,6 +128,7 @@ public class UndoRedoTest {
         // start undo redo dialog and undo
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), true, true));
         device.waitForIdle(2000); // we can't wait for new window above
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         Assert.assertTrue(TestUtils.clickText(device, false, "Undo", false));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "3465444349", true)); // undo
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
