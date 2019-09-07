@@ -2151,7 +2151,7 @@ public class Logic {
                 }
                 if (result == null) {
                     result = tempResult;
-                } else {
+                } else if (tempResult != null) { // if null we didn't actually merge anything
                     result.setElement(tempResult.getElement());
                     if (tempResult.hasIssue()) {
                         result.addAllIssues(tempResult.getIssues());
