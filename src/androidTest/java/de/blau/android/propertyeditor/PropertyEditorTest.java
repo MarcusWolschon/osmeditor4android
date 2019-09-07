@@ -371,9 +371,9 @@ public class PropertyEditorTest {
         // switch to relation membership tab
         Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false));
         Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.relations), false));
-        Assert.assertTrue(TestUtils.findText(mDevice, false, "bus route Bus 305"));
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "Bus 305"));
         try {
-            UiObject2 roleField = getField("bus route Bus 305", 1);
+            UiObject2 roleField = getField("Bus 305", 1);
             // clicking doesn't work see https://issuetracker.google.com/issues/37017411
             roleField.setText("platform");
         } catch (UiObjectNotFoundException e) {
