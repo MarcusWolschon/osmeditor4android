@@ -2659,15 +2659,26 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
-    public boolean getFollowGPS() {
+    /**
+     * Check if the screen should be centered on the current location or not
+     * 
+     * @return true if we should be following the location
+     */
+    public synchronized boolean getFollowGPS() {
         return followGPS;
     }
 
+    /**
+     * Toggle if we should show the location on screen
+     */
     private void toggleShowGPS() {
         boolean newState = !getShowGPS();
         setShowGPS(newState);
     }
 
+    /**
+     * Toggle the follow location status
+     */
     private void toggleFollowGPS() {
         boolean newState = !followGPS;
         setFollowGPS(newState);
