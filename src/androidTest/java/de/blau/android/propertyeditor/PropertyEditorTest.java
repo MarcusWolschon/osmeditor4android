@@ -288,16 +288,10 @@ public class PropertyEditorTest {
             Assert.fail();
         }
         phone.click();
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_4);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_4);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_4);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_4);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_0);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_0);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_1);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_6);
-        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_0);
-
+       
+        instrumentation.sendStringSync("444400160");
+        
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "+41 44 440 01 60", 5000));
         TestUtils.clickUp(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_nodeselect)));
         mDevice.waitForIdle();
