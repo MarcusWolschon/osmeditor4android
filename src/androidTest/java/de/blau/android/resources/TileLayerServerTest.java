@@ -16,7 +16,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.test.InstrumentationRegistry;
@@ -47,7 +46,6 @@ public class TileLayerServerTest {
     Splash          splash          = null;
     ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
-    Context         context         = null;
 
     /**
      * Manual start of activity so that we can set up the monitor for main
@@ -65,7 +63,6 @@ public class TileLayerServerTest {
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
         splash = mActivityRule.launchActivity(intent);
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
 
         TestUtils.grantPermissons();
@@ -77,14 +74,13 @@ public class TileLayerServerTest {
      */
     @After
     public void teardown() {
-        instrumentation.removeMonitor(monitor);
-        if (context != null) {
-            context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
-        }
-        try {
+        if (main != null) {
+            main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
-        } catch (Exception e) {
+        } else {
+            System.out.println("main is null");
         }
+        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 

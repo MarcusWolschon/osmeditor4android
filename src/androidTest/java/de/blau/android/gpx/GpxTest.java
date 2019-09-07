@@ -16,7 +16,6 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
 import android.support.test.InstrumentationRegistry;
@@ -48,7 +47,6 @@ public class GpxTest {
 
     public static final int TIMEOUT         = 115;
     MockWebServerPlus       mockServer      = null;
-    Context                 context         = null;
     AdvancedPrefDatabase    prefDB          = null;
     Splash                  splash          = null;
     Main                    main            = null;
@@ -74,12 +72,10 @@ public class GpxTest {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         splash = mActivityRule.launchActivity(intent);
 
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
-
-        context = instrumentation.getTargetContext();
+        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
 
         TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(context);
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     /**
@@ -87,14 +83,13 @@ public class GpxTest {
      */
     @After
     public void teardown() {
-        instrumentation.removeMonitor(monitor);
-        if (context != null) {
-            context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
-        }
-        try {
+        if (main != null) {
+            main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
-        } catch (Exception e) {
+        } else {
+            System.out.println("main is null");
         }
+        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 
@@ -103,7 +98,7 @@ public class GpxTest {
      */
     @Test
     public void recordSaveAndImportGpx() {
-        Preferences prefs = new Preferences(context);
+        Preferences prefs = new Preferences(main);
         Assert.assertNotNull(main);
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
@@ -151,7 +146,7 @@ public class GpxTest {
      */
     @Test
     public void importWayPoints() {
-        Preferences prefs = new Preferences(context);
+        Preferences prefs = new Preferences(main);
         Assert.assertNotNull(main);
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
@@ -189,7 +184,7 @@ public class GpxTest {
      */
     @Test
     public void followNetworkLocation() {
-        Preferences prefs = new Preferences(context);
+        Preferences prefs = new Preferences(main);
         Assert.assertNotNull(main);
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);

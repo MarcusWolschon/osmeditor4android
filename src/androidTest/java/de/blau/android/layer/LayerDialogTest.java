@@ -14,7 +14,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
-import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
@@ -23,7 +22,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -50,7 +48,6 @@ public class LayerDialogTest {
     public static final int  EXTENT_BUTTON  = 1;
     private static final int MENU_BUTTON    = 3;
 
-    Context              context         = null;
     AdvancedPrefDatabase prefDB          = null;
     Main                 main            = null;
     UiDevice             device          = null;
@@ -70,7 +67,6 @@ public class LayerDialogTest {
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -78,7 +74,7 @@ public class LayerDialogTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
 
-        Preferences prefs = new Preferences(context);
+        Preferences prefs = new Preferences(main);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK); // need to have this on for testing here
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         map = main.getMap();
@@ -108,12 +104,13 @@ public class LayerDialogTest {
      */
     @After
     public void teardown() {
-        instrumentation.removeMonitor(monitor);
-        context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
-        try {
+        if (main != null) {
+            main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
-        } catch (Exception e) {
+        } else {
+            System.out.println("main is null");
         }
+        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 
@@ -136,7 +133,7 @@ public class LayerDialogTest {
         //
         UiObject2 visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
-        TestUtils.clickText(device, true, context.getString(R.string.done), false);
+        TestUtils.clickText(device, true, main.getString(R.string.done), false);
         Assert.assertFalse(map.getDataLayer().isVisible());
         TestUtils.unlock();
         TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, false);
@@ -144,7 +141,7 @@ public class LayerDialogTest {
         visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
 
-        TestUtils.clickText(device, true, context.getString(R.string.done), false);
+        TestUtils.clickText(device, true, main.getString(R.string.done), false);
         Assert.assertTrue(map.getDataLayer().isVisible());
 
     }
@@ -162,13 +159,13 @@ public class LayerDialogTest {
         Assert.assertEquals(5, delegator.getCurrentStorage().getRelationCount());
         TestUtils.unlock();
         TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        Assert.assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect)));
         TestUtils.clickHome(device);
         UiObject2 menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.prune), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.prune), true));
 
-        TestUtils.clickText(device, true, context.getString(R.string.done), false);
+        TestUtils.clickText(device, true, main.getString(R.string.done), false);
 
         Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 3465444349L));
         Assert.assertNull(delegator.getOsmElement(Way.NAME, 206010144L));
@@ -182,10 +179,10 @@ public class LayerDialogTest {
      */
     @Test
     public void taskLayer() {
-        UiObject2 menuButton = TestUtils.getLayerButton(device, context.getString(R.string.layer_tasks), MENU_BUTTON);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_tasks), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.disable), true));
-        Preferences prefs = new Preferences(context);
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.disable), true));
+        Preferences prefs = new Preferences(main);
         Assert.assertFalse(prefs.areBugsEnabled());
         prefs.setBugsEnabled(true);
     }
@@ -198,15 +195,15 @@ public class LayerDialogTest {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("geojson/multiPoint.geojson");
         try {
-            map.getGeojsonLayer().loadGeoJsonFile(context, is);
+            map.getGeojsonLayer().loadGeoJsonFile(main, is);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        UiObject2 extentButton = TestUtils.getLayerButton(device, context.getString(R.string.layer_geojson), EXTENT_BUTTON);
+        UiObject2 extentButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), EXTENT_BUTTON);
         extentButton.click();
-        UiObject2 menuButton = TestUtils.getLayerButton(device, context.getString(R.string.layer_geojson), MENU_BUTTON);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.discard), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true));
         Assert.assertFalse(map.getGeojsonLayer().isEnabled());
     }
 
@@ -217,10 +214,10 @@ public class LayerDialogTest {
     public void backgroundLayer() {
         UiObject2 menuButton = TestUtils.getLayerButton(device, "OpenStreetMap (Standard)", MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.layer_select_imagery), true));
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
-        TestUtils.clickText(device, true, context.getString(R.string.none), true);
-        Preferences prefs = new Preferences(context);
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_select_imagery), true));
+        TestUtils.clickText(device, true, main.getString(R.string.okay), true); // for the tip alert
+        TestUtils.clickText(device, true, main.getString(R.string.none), true);
+        Preferences prefs = new Preferences(main);
         Assert.assertEquals(TileLayerServer.LAYER_NONE, prefs.backgroundLayer());
     }
 }

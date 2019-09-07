@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
-import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
@@ -34,7 +33,6 @@ import de.blau.android.resources.TileLayerServer;
 @LargeTest
 public class OffsetTest {
 
-    Context         context         = null;
     Splash          splash          = null;
     Main            main            = null;
     UiDevice        device          = null;
@@ -61,12 +59,11 @@ public class OffsetTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
 
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
-        prefs = new Preferences(context);
+        prefs = new Preferences(main);
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
@@ -77,14 +74,13 @@ public class OffsetTest {
      */
     @After
     public void teardown() {
-        instrumentation.removeMonitor(monitor);
-        if (context != null) {
-            context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
-        }
-        try {
+        if (main != null) {
+            main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
-        } catch (Exception e) {
+        } else {
+            System.out.println("main is null");
         }
+        instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
 
