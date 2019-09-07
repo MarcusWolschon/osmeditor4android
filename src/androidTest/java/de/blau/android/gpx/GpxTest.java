@@ -1,9 +1,13 @@
 package de.blau.android.gpx;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -24,6 +28,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -39,20 +44,22 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.util.DateFormatter;
+import de.blau.android.util.FileUtil;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class GpxTest {
 
-    public static final int TIMEOUT         = 115;
-    MockWebServerPlus       mockServer      = null;
-    AdvancedPrefDatabase    prefDB          = null;
-    Splash                  splash          = null;
-    Main                    main            = null;
-    UiDevice                device          = null;
-    ActivityMonitor         monitor         = null;
-    Instrumentation         instrumentation = null;
+    public static final int      TIMEOUT                = 115;
+    private static final Pattern EXPORT_MESSAGE_PATTERN = Pattern.compile("^Exported\\sto\\s(.*\\.gpx)$", Pattern.CASE_INSENSITIVE);
+
+    MockWebServerPlus    mockServer      = null;
+    AdvancedPrefDatabase prefDB          = null;
+    Splash               splash          = null;
+    Main                 main            = null;
+    UiDevice             device          = null;
+    ActivityMonitor      monitor         = null;
+    Instrumentation      instrumentation = null;
 
     /**
      * Manual start of activity so that we can set up the monitor for main
@@ -126,19 +133,38 @@ public class GpxTest {
         compareTrack(track, recordedTrack);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
-        String filename = DateFormatter.getFormattedString("yyyy-MM-dd'T'HHmm"); // note this is a bit flaky
+
         UiObject snackbarTextView = device.findObject(new UiSelector().resourceId("de.blau.android:id/snackbar_text"));
         Assert.assertTrue(TestUtils.clickText(device, false, "Export GPX track", false));
         //
         Assert.assertTrue(snackbarTextView.waitForExists(5000));
+        String filename = null;
+        try {
+            String t = snackbarTextView.getText();
+            Matcher m = EXPORT_MESSAGE_PATTERN.matcher(t);
+            if (m.find()) {
+                filename = m.group(1);
+            }
+            System.out.println("filename >" + filename + "<");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+
         // need to wait for the snackbar to go away
         snackbarTextView.waitUntilGone(5000);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
         TestUtils.selectFile(device, filename);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Replace", true));
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);
+        try {
+            File exportedFile = new File(FileUtil.getPublicDirectory(), filename);
+            exportedFile.delete();
+        } catch (IOException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -235,9 +261,9 @@ public class GpxTest {
         int i = 0;
         for (TrackPoint tp : track.getTrackPoints()) {
             TrackPoint recordedTrackPoint = recordedTrack.get(i);
-            Assert.assertEquals(tp.getLatitude(), recordedTrackPoint.getLatitude(), 0.00000001);
-            Assert.assertEquals(tp.getLongitude(), recordedTrackPoint.getLongitude(), 0.00000001);
-            Assert.assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(), 0.00000001);
+            Assert.assertEquals(tp.getLatitude(), recordedTrackPoint.getLatitude(), 0.000001);
+            Assert.assertEquals(tp.getLongitude(), recordedTrackPoint.getLongitude(), 0.000001);
+            Assert.assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(), 0.000001);
             i++;
         }
     }

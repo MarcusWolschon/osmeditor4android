@@ -80,6 +80,7 @@ public class OffsetTest {
         } else {
             System.out.println("main is null");
         }
+        
         instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }

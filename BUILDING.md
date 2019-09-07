@@ -71,3 +71,5 @@ Tests need to be run with the emulator set to English and with the "high precisi
 On an Intel based emulator the tests currently take something around 45 minutes to complete.
 
 To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group. 
+
+Note: a number of the tests start with the splash screen activity and then wait for the main activity to be started. Experience shows that if one of these fails to complete in certain ways, the following tests that start via the splash screen will not be able to start the main activity. Reason unknown.
