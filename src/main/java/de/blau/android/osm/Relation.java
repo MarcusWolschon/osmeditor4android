@@ -422,12 +422,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
         }
 
         String name = getTagWithKey(Tags.KEY_NAME);
-        if (name != null) {
-            description = description + " " + name;
-        } else {
-            description = description + " #" + osmId;
-        }
-        return description;
+        return name != null ? name + " " + description : description + " #" + osmId;
     }
 
     @Override
