@@ -2531,10 +2531,10 @@ public class Logic {
      * @param server the Server object we are using
      * @param validator the Validator to apply to downloaded data
      * @param mapBox Box defining the area to be loaded.
-     * @param handler TODO
+     * @param handler listener to call when the download is completed
      */
     public synchronized void autoDownloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final Validator validator,
-            @NonNull final BoundingBox mapBox, PostAsyncActionHandler handler) {
+            @NonNull final BoundingBox mapBox, @Nullable PostAsyncActionHandler handler) {
 
         mapBox.makeValidForApi();
 
@@ -2627,10 +2627,11 @@ public class Logic {
                 }
             }
             if (!background) {
-                Map map = ctx instanceof Main ? ((Main) ctx).getMap() : null;
-                if (map != null) {
+                // Main maybe not available and by extension there may be no valid Map object
+                Map currentMap = ctx instanceof Main ? ((Main) ctx).getMap() : null;
+                if (currentMap != null) {
                     // set to current or previous
-                    viewBox.fitToBoundingBox(map, mapBox != null ? mapBox : getDelegator().getLastBox());
+                    viewBox.fitToBoundingBox(currentMap, mapBox != null ? mapBox : getDelegator().getLastBox());
                 }
             }
             if (handler != null) {
