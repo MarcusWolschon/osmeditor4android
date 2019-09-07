@@ -200,6 +200,19 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             }
         };
 
+        Runnable formatPhoneNumber = new Runnable() {
+
+            @Override
+            public void run() {
+                editText.removeTextChangedListener(MyTextWatcher.this);
+                if (editText.getSelectionStart() == editText.length()) {
+                    editText.setText(formatPhoneNumber(editText.getText().toString()));
+                    editText.setSelection(editText.length());
+                }
+                editText.addTextChangedListener(MyTextWatcher.this);
+            }
+        };
+
         @Override
         public void afterTextChanged(Editable s) {
             int length = s.length();
@@ -210,18 +223,15 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             }
             // format and split text if necessary
             if (valueType != null) {
-                editText.removeTextChangedListener(this);
+
                 switch (valueType) {
                 case PHONE:
-                    if (editText.getSelectionStart() == editText.length()) {
-                        editText.setText(formatPhoneNumber(s.toString()));
-                        editText.setSelection(editText.length());
-                    }
+                    editText.removeCallbacks(formatPhoneNumber);
+                    editText.postDelayed(formatPhoneNumber, 100);
                     break;
                 default:
                     // do nothing
                 }
-                editText.addTextChangedListener(this);
             }
             // split the text if the delimiter is entered
 
