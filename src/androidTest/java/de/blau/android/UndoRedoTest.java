@@ -2,7 +2,6 @@ package de.blau.android;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -22,17 +21,9 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
-import de.blau.android.App;
-import de.blau.android.Logic;
-import de.blau.android.Main;
-import de.blau.android.Map;
-import de.blau.android.R;
-import de.blau.android.SignalHandler;
-import de.blau.android.TestUtils;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
@@ -128,7 +119,6 @@ public class UndoRedoTest {
         // start undo redo dialog and undo
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), true, true));
         device.waitForIdle(2000); // we can't wait for new window above
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         Assert.assertTrue(TestUtils.clickText(device, false, "Undo", false));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "3465444349", true)); // undo
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
