@@ -22,6 +22,8 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
 import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -118,6 +120,13 @@ public class GpxTest {
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
         Track track = new Track(main);
         track.importFromGPX(is);
+        // set a different current location so that the first point always gets recorded
+        int trackSize = track.getTrack().size();
+        TrackPoint point = track.getTrack().get(trackSize-1);
+        Location loc = new Location(LocationManager.GPS_PROVIDER);
+        loc.setLatitude(point.getLatitude());
+        loc.setLongitude(point.getLongitude());
+        main.getTracker().updateLocation(loc);
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
@@ -127,7 +136,7 @@ public class GpxTest {
             Assert.fail(e.getMessage());
         }
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
-        Assert.assertEquals(track.getTrack().size(), recordedTrack.size());
+        Assert.assertEquals(trackSize, recordedTrack.size());
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
         compareTrack(track, recordedTrack);
