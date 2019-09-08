@@ -38,6 +38,7 @@ import de.blau.android.util.Snack;
  * {@link #handleElementClick(OsmElement)} method.
  * 
  * @author Jan
+ * @author Simon
  *
  */
 public abstract class EasyEditActionModeCallback implements ActionMode.Callback {
@@ -59,9 +60,9 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     /**
      * Construct a new ActionModeCallback
      * 
-     * @param manager the current EasyEditManager isntance
+     * @param manager the current EasyEditManager instance
      */
-    protected EasyEditActionModeCallback(EasyEditManager manager) {
+    protected EasyEditActionModeCallback(@NonNull EasyEditManager manager) {
         this.main = manager.getMain();
         this.logic = App.getLogic();
         this.manager = manager;
@@ -174,7 +175,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param c the Character
      * @return true is an action was found
      */
-    public boolean processShortcut(Character c) {
+    public boolean processShortcut(@NonNull Character c) {
         return false;
     }
 
@@ -183,7 +184,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * 
      * @param menu the Menu to arrange
      */
-    void arrangeMenu(Menu menu) {
+    void arrangeMenu(@NonNull Menu menu) {
         menuUtil.setShowAlways(menu);
     }
 
@@ -191,8 +192,9 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * Called if a context menu needs to be created
      * 
      * @param menu the menu
+     * @return true if we created a menu
      */
-    public boolean onCreateContextMenu(ContextMenu menu) {
+    public boolean onCreateContextMenu(@NonNull ContextMenu menu) {
         return false;
     }
 
