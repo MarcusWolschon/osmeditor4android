@@ -9,6 +9,7 @@ import androidx.appcompat.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import de.blau.android.App;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.layer.tasks.MapOverlay;
 import de.blau.android.tasks.Note;
@@ -78,7 +79,12 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             App.getTaskStorage().delete(note);
-                            main.getMap().invalidate();
+                            Map map = main.getMap();
+                            de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                            if (taskLayer != null) {
+                                taskLayer.invalidate();
+                            }
+                            map.invalidate();
                             if (mode != null) {
                                 mode.finish();
                             }

@@ -229,6 +229,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     private RTree<BoundedFeature>        data;
+    private Collection<BoundedFeature>   featureList = new ArrayList<>();
     private final transient Path         path   = new Path();
     private transient Paint              paint;
     private transient FloatPrimitiveList points = new FloatPrimitiveList();
@@ -253,6 +254,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * Name for this layer (typically the file name)
      */
     private String name;
+
+    private boolean requery = true;
 
     /**
      * The uri for the layer source
@@ -288,10 +291,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         labelStrokeWidth = labelPaint.getStrokeWidth();
 
-        Collection<BoundedFeature> queryResult = new ArrayList<>();
-        data.query(queryResult, bb);
-        Log.d(DEBUG_TAG, "features result count " + queryResult.size());
-        for (BoundedFeature bf : queryResult) {
+        if (requery) {
+            data.query(featureList, bb);
+            requery = false;
+        }
+        for (BoundedFeature bf : featureList) {
             drawGeometry(canvas, bb, width, height, zoomLevel, bf.getFeature());
         }
     }
@@ -870,7 +874,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void invalidate() {
-        map.invalidate();
+        featureList.clear();
+        requery = true;
     }
 
     @Override

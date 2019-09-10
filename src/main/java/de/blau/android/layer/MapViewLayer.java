@@ -37,26 +37,6 @@ public abstract class MapViewLayer {
     private transient int index             = -1;
     protected boolean     isVisible         = true;
 
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for SuperClass/Interfaces
-    // ===========================================================
-
     /**
      * Managed Draw calls gives Overlays the possibility to first draw manually and after that do a final draw. This is
      * very useful, i sth. to be drawn needs to be <b>topmost</b>.
@@ -65,7 +45,7 @@ public abstract class MapViewLayer {
      * @param osmv view calling us
      */
     @SuppressLint("WrongCall")
-    public void onManagedDraw(final Canvas c, final IMapView osmv) {
+    public void onManagedDraw(@NonNull final Canvas c, @NonNull final IMapView osmv) {
         try {
             if (isReadyToDraw()) {
                 onDraw(c, osmv);
@@ -82,7 +62,7 @@ public abstract class MapViewLayer {
      * @param c Canvas to draw on
      * @param osmv IMapView holding us
      */
-    protected abstract void onDraw(final Canvas c, final IMapView osmv);
+    protected abstract void onDraw(@NonNull final Canvas c, @NonNull final IMapView osmv);
 
     /**
      * Called after drawing is completed
@@ -90,7 +70,7 @@ public abstract class MapViewLayer {
      * @param c Canvas to draw on
      * @param osmv IMapView holding us
      */
-    protected abstract void onDrawFinished(final Canvas c, final IMapView osmv);
+    protected abstract void onDrawFinished(@NonNull final Canvas c, @NonNull final IMapView osmv);
 
     // ===========================================================
     // Methods
@@ -127,7 +107,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onKeyDown(final int keyCode, KeyEvent event, final IMapView mapView) {
+    public boolean onKeyDown(final int keyCode, @NonNull KeyEvent event, @NonNull final IMapView mapView) {
         return false;
     }
 
@@ -141,7 +121,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onKeyUp(final int keyCode, KeyEvent event, final IMapView mapView) {
+    public boolean onKeyUp(final int keyCode, @NonNull KeyEvent event, @NonNull final IMapView mapView) {
         return false;
     }
 
@@ -156,7 +136,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onTouchEvent(final MotionEvent event, final IMapView mapView) {
+    public boolean onTouchEvent(@NonNull final MotionEvent event, @NonNull final IMapView mapView) {
         return false;
     }
 
@@ -174,7 +154,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onTrackballEvent(final MotionEvent event, final IMapView mapView) {
+    public boolean onTrackballEvent(@NonNull final MotionEvent event, @NonNull final IMapView mapView) {
         return false;
     }
 
@@ -187,7 +167,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onSingleTapUp(MotionEvent e, IMapView mapView) {
+    public boolean onSingleTapUp(@NonNull MotionEvent e, @NonNull IMapView mapView) {
         return false;
     }
 
@@ -200,7 +180,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onLongPress(MotionEvent e, IMapView mapView) {
+    public boolean onLongPress(@NonNull MotionEvent e, @NonNull IMapView mapView) {
         return false;
     }
 
@@ -294,7 +274,7 @@ public abstract class MapViewLayer {
     public abstract String getName();
 
     /**
-     * Invalidate this layer
+     * Indicate to the layer that the data that is renders has changed in one way or another
      */
     public abstract void invalidate();
 

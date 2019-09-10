@@ -165,7 +165,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void invalidate() {
-        map.invalidate();
+        // do nothing
     }
 
     @Override

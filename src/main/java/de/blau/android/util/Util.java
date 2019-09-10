@@ -561,6 +561,7 @@ public final class Util {
                 if (dataLayer != null) {
                     dataLayer.clearIconCaches();
                     dataLayer.invalidate();
+                    map.invalidate();
                 }
             }
         }

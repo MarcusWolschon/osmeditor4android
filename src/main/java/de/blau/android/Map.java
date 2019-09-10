@@ -173,6 +173,8 @@ public class Map extends View implements IMapView {
 
     private TrackerService tracker = null;
 
+    private Object cachedViewBox;
+
     /**
      * Construct a new Map object that orchestrates the layer drawing and related rendering
      * 
@@ -457,6 +459,9 @@ public class Map extends View implements IMapView {
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
         long time = System.currentTimeMillis();
+        
+        boolean viewBoxChanged = !myViewBox.equals(cachedViewBox);
+        cachedViewBox = new BoundingBox(myViewBox);
 
         zoomLevel = calcZoomLevel(canvas);
 
@@ -476,10 +481,13 @@ public class Map extends View implements IMapView {
             renderLayers.clear();
             renderLayers.addAll(mLayers);
         }
-        for (MapViewLayer osmvo : renderLayers) {
-            osmvo.setAttributionOffset(attributionOffset);
-            osmvo.onManagedDraw(canvas, this);
-            attributionOffset = osmvo.getAttributionOffset();
+        for (MapViewLayer layer : renderLayers) {
+            if (viewBoxChanged) {
+                layer.invalidate();
+            }
+            layer.setAttributionOffset(attributionOffset);
+            layer.onManagedDraw(canvas, this);
+            attributionOffset = layer.getAttributionOffset();
         }
 
         if (zoomLevel > 10) {

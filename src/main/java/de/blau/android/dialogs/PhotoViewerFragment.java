@@ -294,6 +294,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                         if (overlay != null) {
                                             overlay.setSelected(null);
                                             overlay.invalidate();
+                                            map.invalidate();
                                         }
                                         // actually delete
                                         if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {

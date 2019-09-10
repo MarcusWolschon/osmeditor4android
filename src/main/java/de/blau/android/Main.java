@@ -1175,6 +1175,7 @@ public class Main extends FullScreenAppCompatActivity
                                             map.setFollowGPS(false);
                                         }
                                         geojsonLayer.invalidate();
+                                        map.invalidate();
                                     }
                                 } catch (IOException e) {
                                     // display a toast?

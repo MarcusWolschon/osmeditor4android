@@ -489,6 +489,10 @@ public class TaskFragment extends ImmersiveDialogFragment {
         bug.setState(pos2state(state.getSelectedItemPosition()));
         bug.setChanged(true);
         App.getTaskStorage().setDirty();
+        de.blau.android.layer.tasks.MapOverlay layer = ((Main) getActivity()).getMap().getTaskLayer();
+        if (layer != null) {
+            layer.invalidate();
+        }
     }
 
     /**

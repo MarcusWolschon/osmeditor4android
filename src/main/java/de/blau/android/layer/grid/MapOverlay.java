@@ -249,7 +249,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Config
 
     @Override
     public void invalidate() {
-        map.invalidate();
+        // do nothing
     }
 
     @Override

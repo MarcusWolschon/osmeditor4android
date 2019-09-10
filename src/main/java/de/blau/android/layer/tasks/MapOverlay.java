@@ -60,6 +60,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     private transient ReentrantLock readingLock = new ReentrantLock();
 
     private transient SavingHelper<Task> savingHelper = new SavingHelper<>();
+    
+    // cached results for the current boundingbox
+    private transient List<Task> taskList = null;  
 
     private Task selected = null;
 
@@ -230,6 +233,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     @Override
     public void invalidate() {
+        taskList = null;
         map.invalidate();
     }
 

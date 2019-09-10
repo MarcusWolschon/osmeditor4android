@@ -1376,6 +1376,7 @@ public class Logic {
                             if (selectedTask instanceof Note && ((Note) selectedTask).isNew()) {
                                 try {
                                     App.getTaskStorage().move(selectedTask, lat, lon);
+                                    taskLayer.invalidate();
                                 } catch (IllegalOperationException e) {
                                     Snack.barError(main, e.getMessage());
                                     return;
