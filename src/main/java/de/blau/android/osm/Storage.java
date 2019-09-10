@@ -490,26 +490,20 @@ public class Storage implements Serializable {
      */
     @NonNull
     public BoundingBox calcBoundingBoxFromData() throws OsmException {
-        int top = -Integer.MAX_VALUE;
-        int bottom = Integer.MAX_VALUE;
-        int left = Integer.MAX_VALUE;
-        int right = -Integer.MAX_VALUE;
-
+        BoundingBox result = null;
         if (nodes != null) {
             for (Node n : nodes) {
-                if (n.getLat() > top) {
-                    top = n.getLat();
-                } else if (n.getLat() < bottom) {
-                    bottom = n.getLat();
-                }
-                if (n.getLon() > right) {
-                    right = n.getLon();
-                } else if (n.getLon() < left) {
-                    left = n.getLon();
+                if (result == null) {
+                    result = new BoundingBox(n.getLon(),n.getLat());
+                } else {
+                    result.union(n.getLon(),n.getLat());
                 }
             }
         }
-        return new BoundingBox(left, bottom, right, top);
+        if (result == null) {
+            throw new OsmException("Coudn't construct a bounding box from data");
+        }
+        return result;
     }
 
     /**
