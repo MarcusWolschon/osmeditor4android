@@ -48,8 +48,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     public static final String FILENAME = "selectedtask.res";
 
-    private static final int PAN_AND_ZOOM_DOWNLOAD_LIMIT = 16;
-    private static final int SHOW_TASKS_LIMIT            = 13;
+    private static final int SHOW_TASKS_LIMIT = 13;
 
     private boolean enabled = false;
 
@@ -66,6 +65,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     private Task selected = null;
 
     private boolean panAndZoomDownLoad = false;
+    private int     panAndZoomLimit    = 16;
 
     private int minDownloadSize = 50;
 
@@ -151,7 +151,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
             Location location = map.getLocation();
 
-            if (zoomLevel >= PAN_AND_ZOOM_DOWNLOAD_LIMIT && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
+            if (zoomLevel >= panAndZoomLimit && panAndZoomDownLoad && (location == null || location.getSpeed() < maxDownloadSpeed)) {
                 map.getRootView().removeCallbacks(download);
                 map.getRootView().postDelayed(download, 100);
             }
@@ -365,5 +365,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
         minDownloadSize = prefs.getBugDownloadRadius() * 2;
         server = prefs.getServer();
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
+        panAndZoomLimit = prefs.getPanAndZoomLimit();
     }
 }
