@@ -62,7 +62,6 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
     protected LinearLayout        valueLayout;
     protected Context             context;
     private char                  delimiter = ';';
-    private List<String>          regions;
     private String                country;
     private LayoutInflater        inflater;
     private ArrayAdapter<?>       adapter;
@@ -333,11 +332,12 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
      * @param regions a list of iso codes
      */
     private void setRegions(@Nullable List<String> regions) {
-        this.regions = regions;
-        for (String r : regions) {
-            if (r.indexOf('-') == -1) {
-                country = r;
-                break;
+        if (regions != null) {
+            for (String r : regions) {
+                if (r.indexOf('-') == -1) {
+                    country = r;
+                    break;
+                }
             }
         }
     }
@@ -351,7 +351,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
     @NonNull
     private String formatPhoneNumber(@NonNull String s) {
         PhoneNumberUtil phone = App.getPhoneNumberUtil(getContext());
-        if (phone != null) {
+        if (phone != null && country != null) {
             try {
                 PhoneNumber number = phone.parse(s, country);
                 s = phone.format(number, PhoneNumberFormat.INTERNATIONAL);
