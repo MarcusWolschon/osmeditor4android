@@ -1928,13 +1928,11 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param way way to square
      */
-    public void performOrthogonalize(@Nullable FragmentActivity activity, Way way) {
+    public void performOrthogonalize(@Nullable FragmentActivity activity, @Nullable Way way) {
         if (way == null || way.getNodes().size() < 3) {
             return;
         }
-        List<Way> ways = new ArrayList<>(1);
-        ways.add(way);
-        performOrthogonalize(activity, ways);
+        performOrthogonalize(activity, Util.wrapInList(way));
     }
 
     /**

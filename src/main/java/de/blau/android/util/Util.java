@@ -74,7 +74,7 @@ public final class Util {
      * @return an ArrayList containing only s
      */
     public static <T> List<T> wrapInList(@NonNull T o) {
-        List<T> v = new ArrayList<>();
+        List<T> v = new ArrayList<>(1);
         v.add(o);
         return v;
     }
