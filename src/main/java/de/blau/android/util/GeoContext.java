@@ -358,4 +358,22 @@ public class GeoContext {
         double[] coords = Geometry.centroidLonLat(w);
         return driveLeft(coords[0], coords[1]);
     }
+
+    /**
+     * Utility to return the country code from a list of codes
+     * 
+     * @param codes a List of ISO codes
+     * @return null or the country code
+     */
+    @Nullable
+    public static String getCountryIsoCode(@Nullable List<String> codes) {
+        if (codes != null) {
+            for (String c : codes) {
+                if (c.indexOf('-') == -1) {
+                    return c;
+                }
+            }
+        }
+        return null;
+    }
 }

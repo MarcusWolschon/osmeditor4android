@@ -33,6 +33,7 @@ import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
 import de.blau.android.propertyeditor.InputTypeUtil;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
+import de.blau.android.util.GeoContext;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
@@ -327,19 +328,12 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
     }
 
     /**
-     * Set the regions and the countryfor this object
+     * Set the regions and the country for this object
      * 
      * @param regions a list of iso codes
      */
     private void setRegions(@Nullable List<String> regions) {
-        if (regions != null) {
-            for (String r : regions) {
-                if (r.indexOf('-') == -1) {
-                    country = r;
-                    break;
-                }
-            }
-        }
+        country = GeoContext.getCountryIsoCode(regions);
     }
 
     /**
