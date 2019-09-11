@@ -105,6 +105,7 @@ public final class SearchIndexUtils {
     @NonNull
     public static List<PresetElement> searchInPresets(@NonNull Context ctx, @NonNull String term, @Nullable ElementType type, int maxDistance, int limit,
             @Nullable List<String> regions) {
+        String country = GeoContext.getCountryIsoCode(regions);
         term = SearchIndexUtils.normalize(term);
         // synonyms first
         Set<IndexSearchResult> rawResult = new HashSet<>(App.getSynonyms(ctx).search(ctx, term, type, maxDistance));
@@ -134,7 +135,7 @@ public final class SearchIndexUtils {
                         Set<PresetItem> presetItems = index.get(s);
                         int weight = distance * presetItems.size(); // if there are a lot of items for a term, penalize
                         for (PresetItem pi : presetItems) {
-                            if (type == null || pi.appliesTo(type)) {
+                            if ((type == null || pi.appliesTo(type)) && pi.appliesIn(country)) {
                                 IndexSearchResult isr = new IndexSearchResult(rescale(term, weight, pi), pi);
                                 rawResult.add(isr);
                             }

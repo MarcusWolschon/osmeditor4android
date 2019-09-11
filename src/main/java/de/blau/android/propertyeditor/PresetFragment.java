@@ -353,7 +353,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * @return a View displaying the elements of the current group
      */
     private View getPresetView() {
-        View view = currentGroup.getGroupView(getActivity(), this, type, null);
+        View view = currentGroup.getGroupView(getActivity(), this, type, null, propertyEditorListener.getCountryIsoCode());
         view.setId(R.id.preset_view);
         return view;
     }
@@ -405,7 +405,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     public void onGroupClick(PresetGroup group) {
         ScrollView scrollView = (ScrollView) getOurView();
         currentGroup = group;
-        currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
+        currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
         scrollView.invalidate();
         FragmentActivity activity = getActivity();
         if (activity != null) {
@@ -469,7 +469,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         case R.id.preset_menu_top:
             if (rootGroup != null) {
                 currentGroup = rootGroup;
-                currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
+                currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
                 scrollView.invalidate();
                 return true;
             }
@@ -479,7 +479,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 PresetGroup group = currentGroup.getParent();
                 if (group != null) {
                     currentGroup = group;
-                    currentGroup.getGroupView(getActivity(), scrollView, this, type, null);
+                    currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
                     scrollView.invalidate();
                     return true;
                 }

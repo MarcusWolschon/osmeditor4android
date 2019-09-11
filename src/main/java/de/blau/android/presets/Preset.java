@@ -183,6 +183,8 @@ public class Preset implements Serializable {
     private static final String ITEMS_SORT                 = "items_sort";
     private static final String SPACE                      = "space";
     private static final String LENGTH                     = "length";
+    private static final String REGIONS                    = "regions";
+    private static final String EXCLUDE_REGIONS            = "exclude_regions";
     /**
      * 
      */
@@ -722,6 +724,8 @@ public class Preset implements Serializable {
                     if (itemsSort != null) {
                         g.setItemSort(YES.equals(itemsSort));
                     }
+                    g.setRegions(attr.getValue(REGIONS));
+                    g.setExcludeRegions(TRUE.equals(attr.getValue(EXCLUDE_REGIONS)));
                     groupstack.push(g);
                     break;
                 case ITEM:
@@ -743,6 +747,8 @@ public class Preset implements Serializable {
                         currentItem.setNameContext(context);
                     }
                     currentItem.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
+                    currentItem.setRegions(attr.getValue(REGIONS));
+                    currentItem.setExcludeRegions(TRUE.equals(attr.getValue(EXCLUDE_REGIONS)));
                     checkGroupCounter = 0;
                     break;
                 case CHUNK:
@@ -1524,9 +1530,11 @@ public class Preset implements Serializable {
      * @param presets the array of currently active presets
      * @param handler the handler which will handle clicks on the presets
      * @param type filter to show only presets applying to this type
+     * @param region region to filter on
      * @return the view
      */
-    public static View getRecentPresetView(Context ctx, Preset[] presets, PresetClickHandler handler, ElementType type) {
+    public static View getRecentPresetView(@NonNull Context ctx, @NonNull Preset[] presets, @Nullable PresetClickHandler handler, @Nullable ElementType type,
+            @Nullable String region) {
         Preset dummy = new Preset();
         PresetGroup recent = dummy.new PresetGroup(null, "recent", null);
         recent.setItemSort(false);
@@ -1540,7 +1548,7 @@ public class Preset implements Serializable {
                 }
             }
         }
-        return recent.getGroupView(ctx, handler, type, null);
+        return recent.getGroupView(ctx, handler, type, null, region);
     }
 
     /**
@@ -1556,8 +1564,10 @@ public class Preset implements Serializable {
      * Add a preset to the front of the MRU list (removing old duplicates and limiting the list to 50 entries if needed)
      * 
      * @param item the item to add
+     * @param country country to filter on
+     * 
      */
-    public void putRecentlyUsed(PresetItem item) {
+    public void putRecentlyUsed(@NonNull PresetItem item, @Nullable String country) {
         Integer id = item.getItemIndex();
         if (mru == null) {
             return;
@@ -1844,7 +1854,8 @@ public class Preset implements Serializable {
         boolean                          appliesToRelation;
         boolean                          appliesToArea;
         private boolean                  deprecated       = false;
-        private String                   region           = null;
+        private List<String>             regions          = null;
+        private boolean                  excludeRegions   = false;
         private String                   mapFeatures;
 
         /**
@@ -1895,7 +1906,8 @@ public class Preset implements Serializable {
                 setAppliesToRelation();
             }
             this.deprecated = item.deprecated;
-            this.region = item.region;
+            this.regions = item.regions;
+            this.excludeRegions = item.excludeRegions;
             this.mapFeatures = item.mapFeatures;
         }
 
@@ -2205,22 +2217,49 @@ public class Preset implements Serializable {
         }
 
         /**
-         * Return the ISO code for the region this PresetELement is intended for
+         * Set the ISO codes for the regions this PresetElement is intended for
          * 
-         * @return the ISO code or null if none set
+         * @param regions the ISO codes separated by commas or null if none should be set
          */
-        @Nullable
-        public String getRegion() {
-            return region;
+        protected void setRegions(@Nullable String regions) {
+            if (regions != null) {
+                String[] temp = regions.split(",");
+                this.regions = new ArrayList<>();
+                for (String r : temp) {
+                    this.regions.add(r.trim().toUpperCase());
+                }
+            } else {
+                this.regions = null;
+            }
         }
 
         /**
-         * Set the ISO code for the region this PresetELement is intended for
+         * Set if the PresetElement shouldn't be used in the listed regions
          * 
-         * @param region the ISO code or null if none should be set
+         * @param excludeRegions if true the function of the regions list will be inverted
          */
-        public void setRegion(@Nullable String region) {
-            this.region = region;
+        protected void setExcludeRegions(boolean excludeRegions) {
+            this.excludeRegions = excludeRegions;
+        }
+
+        /**
+         * Check if a PresetElement is applicable for a country
+         * 
+         * @param country the country
+         * @return true if the PresetElement is in use
+         */
+        public boolean appliesIn(@Nullable String country) {
+            System.out.println("country " + country);
+            if (regions != null && !regions.isEmpty() && country != null) {
+                for (String r : regions) {
+                    System.out.println("checking " + r);
+                    if (country.equals(r)) {
+                        return !excludeRegions;
+                    }
+                }
+                return excludeRegions;
+            }
+            return true;
         }
 
         /**
@@ -2427,14 +2466,15 @@ public class Preset implements Serializable {
          * @param handler listeners for click events on the View, in null no listeners
          * @param type ElementType the views are applicable for, if null don't filter
          * @param selectedElement highlight the background if true, if null no selection
+         * @param region region in question
          * @return a view showing the content (nodes, subgroups) of this group
          */
         public View getGroupView(@NonNull Context ctx, @Nullable PresetClickHandler handler, @Nullable ElementType type,
-                @Nullable PresetElement selectedElement) {
+                @Nullable PresetElement selectedElement, @Nullable String region) {
             ScrollView scrollView = new ScrollView(ctx);
             scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             scrollView.setSaveEnabled(false);
-            return getGroupView(ctx, scrollView, handler, type, selectedElement);
+            return getGroupView(ctx, scrollView, handler, type, selectedElement, region);
         }
 
         /**
@@ -2445,10 +2485,11 @@ public class Preset implements Serializable {
          * @param handler listeners for click events on the View, in null no listeners
          * @param type ElementType the views are applicable for, if null don't filter
          * @param selectedElement highlight the background if true, if null no selection
+         * @param country country in question
          * @return the supplied ScrollView
          */
         public View getGroupView(@NonNull Context ctx, @NonNull ScrollView scrollView, @Nullable PresetClickHandler handler, @Nullable ElementType type,
-                @Nullable PresetElement selectedElement) {
+                @Nullable PresetElement selectedElement, @Nullable String country) {
             scrollView.removeAllViews();
             WrappingLayout wrappingLayout = new WrappingLayout(ctx);
             wrappingLayout.setSaveEnabled(false);
@@ -2458,6 +2499,7 @@ public class Preset implements Serializable {
             wrappingLayout.setHorizontalSpacing((int) (SPACING * density));
             wrappingLayout.setVerticalSpacing((int) (SPACING * density));
             List<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);
+            filteredElements = country == null ? filteredElements : filterElementsByCountry(filteredElements, country);
             if (itemSort) {
                 List<PresetItem> tempItems = new ArrayList<>();
                 List<PresetGroup> tempGroups = new ArrayList<>();
@@ -2490,6 +2532,24 @@ public class Preset implements Serializable {
             wrappingLayout.setWrappedChildren(childViews);
             scrollView.addView(wrappingLayout);
             return scrollView;
+        }
+
+        /**
+         * Filter a List of PresetElement by country
+         * 
+         * @param elements the PresetElements
+         * @param country the country
+         * @return a List of PresetElement, potentially empty
+         */
+        @NonNull
+        private List<PresetElement> filterElementsByCountry(List<PresetElement> elements, String country) {
+            List<PresetElement> result = new ArrayList<>();
+            for (PresetElement pe : elements) {
+                if (pe.appliesIn(country)) {
+                    result.add(pe);
+                }
+            }
+            return result;
         }
 
         /**

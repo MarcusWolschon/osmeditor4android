@@ -96,6 +96,29 @@ public class PresetTest {
     }
 
     /**
+     * Test including / excluding PresetItems based on country
+     */
+    @Test
+    public void includeExcludeCountry() {
+        PresetItem motorVehicleCH = presets[0].getItemByName("Motor vehicle (CH)");
+        Assert.assertNotNull(motorVehicleCH);
+        motorVehicleCH.setRegions("CH");
+        PresetItem motorVehicle = presets[0].getItemByName("Motor vehicle");
+        Assert.assertNotNull(motorVehicle);
+        motorVehicle.setRegions("CH");
+        motorVehicle.setExcludeRegions(true);
+        List<PresetElement> result = SearchIndexUtils.searchInPresets(main, "motor vehicle", ElementType.WAY, 2, 10, null);
+        Assert.assertTrue(result.contains(motorVehicleCH));
+        Assert.assertTrue(result.contains(motorVehicle));
+        result = SearchIndexUtils.searchInPresets(main, "motor vehicle", ElementType.WAY, 2, 10, de.blau.android.util.Util.wrapInList("CH"));
+        Assert.assertTrue(result.contains(motorVehicleCH));
+        Assert.assertFalse(result.contains(motorVehicle));
+        result = SearchIndexUtils.searchInPresets(main, "motor vehicle", ElementType.WAY, 2, 10, de.blau.android.util.Util.wrapInList("DE"));
+        Assert.assertFalse(result.contains(motorVehicleCH));
+        Assert.assertTrue(result.contains(motorVehicle));
+    }
+
+    /**
      * Optional items should be that
      */
     @Test

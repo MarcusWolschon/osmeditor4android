@@ -28,10 +28,11 @@ public class RecentPresetsFragment extends BaseFragment {
 
     private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName();
 
-    private OnPresetSelectedListener mListener;
+    private OnPresetSelectedListener presetSelectedListener;
     private OsmElement               element;
     private Preset[]                 presets;
     private boolean                  enabled = true;
+    private PropertyEditorListener   propertyEditorListener;
 
     /**
      * Create a new RecentPresetsFragement instance
@@ -57,9 +58,10 @@ public class RecentPresetsFragment extends BaseFragment {
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
         try {
-            mListener = (OnPresetSelectedListener) context;
+            presetSelectedListener = (OnPresetSelectedListener) context;
+            propertyEditorListener = (PropertyEditorListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
+            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener and PropertyEditorListener");
         }
     }
 
@@ -113,7 +115,7 @@ public class RecentPresetsFragment extends BaseFragment {
                             return;
                         }
                         Log.d(DEBUG_TAG, "normal click");
-                        mListener.onPresetSelected(item);
+                        presetSelectedListener.onPresetSelected(item);
                         recreateRecentPresetView(presetLayout);
                     }
 
@@ -138,7 +140,7 @@ public class RecentPresetsFragment extends BaseFragment {
                     }
                 };
                 // all MRUs get added to this view
-                v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType);
+                v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType, propertyEditorListener.getCountryIsoCode());
 
                 v.setId(R.id.recentPresets);
             } else {

@@ -95,7 +95,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
      * @return a View of the PresetGroup
      */
     private ScrollView getPresetView(@NonNull PresetGroup group, @Nullable PresetElement element) {
-        View view = group.getGroupView(this, this, null, element);
+        View view = group.getGroupView(this, this, null, element, null);
         view.setId(R.id.preset_view);
         return (ScrollView) view;
     }
@@ -159,7 +159,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         case R.id.preset_menu_top:
             if (rootGroup != null) {
                 currentGroup = rootGroup;
-                currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement());
+                currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
                 presetView.invalidate();
                 supportInvalidateOptionsMenu();
                 return true;
@@ -170,7 +170,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
                 PresetGroup group = currentGroup.getParent();
                 if (group != null) {
                     currentGroup = group;
-                    currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement());
+                    currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
                     presetView.invalidate();
                     supportInvalidateOptionsMenu();
                     return true;
@@ -222,7 +222,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         }
         filter = (PresetFilter) App.getLogic().getFilter();
         currentGroup = group;
-        currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement());
+        currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
         presetView.invalidate();
         supportInvalidateOptionsMenu();
     }
@@ -244,7 +244,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         if (tempFilter instanceof PresetFilter) {
             filter = (PresetFilter) tempFilter;
             filter.setPresetElement(element.getPath(rootGroup));
-            currentGroup.getGroupView(this, presetView, this, null, element);
+            currentGroup.getGroupView(this, presetView, this, null, element, null);
             presetView.invalidate();
         }
         finish();

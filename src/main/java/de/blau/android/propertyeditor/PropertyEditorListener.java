@@ -45,6 +45,14 @@ public interface PropertyEditorListener {
     List<String> getIsoCodes();
 
     /**
+     * Get the country ISO code
+     * 
+     * @return the ISO country code or null if not found
+     */
+    @Nullable
+    String getCountryIsoCode();
+
+    /**
      * Get the current OsmElement
      * 
      * @return an OsmELement

@@ -1345,6 +1345,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
+    public String getCountryIsoCode() {
+        return GeoContext.getCountryIsoCode(getIsoCodes());
+    }
+
+    @Override
     public Preset[] getPresets() {
         return presets;
     }

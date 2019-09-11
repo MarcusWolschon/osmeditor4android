@@ -31,6 +31,8 @@ __&lt;group&gt;__  |                               | supported |
                    | name_context                  | supported |
                    | icon                          | supported | you really should add one for Vespucci
                    | items_sort                    | extension | sort the items alphabetically, default "yes"
+                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+                   | exclude_regions               | extension | if true, invert the meaning of regions 
 __&lt;item&gt;__   |                               | supported |
                    | name                          | supported | required
                    | name_context                  | supported |
@@ -39,6 +41,8 @@ __&lt;item&gt;__   |                               | supported |
                    | name_template                 | ignored   |
                    | preset_name_label             | ignored   |
                    | deprecated                    | extension | only use the preset for matching and map icon display 
+                   | regions                       | extension | comma separated list of countries this preset item is applicable for
+                   | exclude_regions               | extension | if true, invert the meaning of regions 
 __&lt;chunk&gt;__  |                               | supported | 
                    | id                            | supported | required
 __&lt;reference&gt;__ |                            | supported |
@@ -163,3 +167,5 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
     * _wikidata_  a wikidata Q ref
 
 * _items\_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
+* _regions_ comma separated list of countries this preset group or item is applicable for
+* _exclude_regions_ if true, invert the meaning of regions 
