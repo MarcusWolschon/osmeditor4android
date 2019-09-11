@@ -2249,10 +2249,8 @@ public class Preset implements Serializable {
          * @return true if the PresetElement is in use
          */
         public boolean appliesIn(@Nullable String country) {
-            System.out.println("country " + country);
             if (regions != null && !regions.isEmpty() && country != null) {
                 for (String r : regions) {
-                    System.out.println("checking " + r);
                     if (country.equals(r)) {
                         return !excludeRegions;
                     }
