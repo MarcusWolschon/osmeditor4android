@@ -3553,8 +3553,7 @@ public class Logic {
             protected void onPostExecute(Integer result) {
                 Log.d(DEBUG_TAG, "loadLayerState onPostExecute");
                 if (result != READ_FAILED) {
-                    Log.d(DEBUG_TAG, "loadBugsfromFile: state loaded correctly");
-
+                    Log.d(DEBUG_TAG, "loadLayerState: state loaded correctly");
                     // FIXME if no bbox exists from data, ty to use one from bugs
                     if (postLoad != null) {
                         postLoad.onSuccess();
