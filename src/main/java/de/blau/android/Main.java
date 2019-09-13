@@ -440,6 +440,8 @@ public class Main extends FullScreenAppCompatActivity
 
     java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
 
+    private Runnable whenPermissionsGranted;
+
     private static final float LARGE_FAB_ELEVATION = 16; // used for renabling elevation on the FABs
 
     /**
@@ -878,41 +880,39 @@ public class Main extends FullScreenAppCompatActivity
                             public void onError() {
                                 Log.d(DEBUG_TAG, "error loading layers");
                                 // always try to load tasks
-                                logic.loadTasksFromFile(Main.this, postLoadTasks);
+                                onSuccess();
                             }
                         });
+                        if (newVersion) {
+                            Log.d(DEBUG_TAG, "post load state new version");
+                            newVersion = false;
+                            NewVersion.showDialog(Main.this);
+                        }
                     }
                 });
             } else {
                 synchronized (setViewBoxLock) {
-                    // loadStateFromFile does this
+                    // loadStateFromFile does this above
                     App.getLogic().loadEditingState(this, setViewBox);
                 }
                 logic.loadLayerState(this, postLoadTasks);
-                postLoadData.onSuccess();
                 map.invalidate();
-                if (newInstall) {
-                    newInstall = false;
-                    // newbie, display welcome dialog
-                    Log.d(DEBUG_TAG, "showing welcome dialog");
-                    checkPermissions(new Runnable() {
-                        @Override
-                        public void run() {
+                checkPermissions(new Runnable() {
+                    @Override
+                    public void run() {
+                        postLoadData.onSuccess();
+                        if (newInstall) {
+                            // newbie, display welcome dialog
+                            Log.d(DEBUG_TAG, "showing welcome dialog");
+                            newInstall = false;
                             Newbie.showDialog(Main.this);
-                        }
-                    });
-                } else if (newVersion) {
-                    newVersion = false;
-                    Log.d(DEBUG_TAG, "new version");
-                    checkPermissions(new Runnable() {
-                        @Override
-                        public void run() {
+                        } else if (newVersion) {
+                            Log.d(DEBUG_TAG, "new version");
+                            newVersion = false;
                             NewVersion.showDialog(Main.this);
                         }
-                    });
-                } else {
-                    checkPermissions(null);
-                }
+                    }
+                });
             }
         }
         synchronized (setViewBoxLock) {
@@ -1010,9 +1010,9 @@ public class Main extends FullScreenAppCompatActivity
             }
         }
         if (!permissionsList.isEmpty()) {
+            this.whenPermissionsGranted = whenDone;
             ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[permissionsList.size()]), REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
-        }
-        if (whenDone != null) {
+        } else {
             whenDone.run();
         }
     }
@@ -1445,6 +1445,12 @@ public class Main extends FullScreenAppCompatActivity
                     }
                 } // if not granted do nothing for now
             }
+            synchronized (this) {
+                if (whenPermissionsGranted != null) {
+                    whenPermissionsGranted.run();
+                    whenPermissionsGranted = null;
+                }
+            }
             break;
         }
         triggerMenuInvalidation(); // update menus
@@ -1500,6 +1506,8 @@ public class Main extends FullScreenAppCompatActivity
             buttonRes = R.drawable.ic_gps_fixed_black_36dp;
         }
         follow.setImageResource(buttonRes);
+        follow.hide(); // workaround https://issuetracker.google.com/issues/117476935
+        follow.show();
     }
 
     /**
@@ -1522,6 +1530,8 @@ public class Main extends FullScreenAppCompatActivity
         states.addState(new int[] { android.R.attr.state_pressed }, ContextCompat.getDrawable(this, mode.iconResourceId()));
         states.addState(new int[] { 0 }, ContextCompat.getDrawable(this, R.drawable.locked_opaque));
         lock.setImageDrawable(states);
+        lock.hide(); // workaround https://issuetracker.google.com/issues/117476935
+        lock.show();
 
         //
         lock.setOnClickListener(new View.OnClickListener() {
@@ -1575,6 +1585,8 @@ public class Main extends FullScreenAppCompatActivity
                                 states.addState(new int[] { android.R.attr.state_pressed }, ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
                                 states.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
                                 lock.setImageDrawable(states);
+                                lock.hide(); // workaround https://issuetracker.google.com/issues/117476935
+                                lock.show();
                                 if (logic.isLocked()) {
                                     ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
                                 } else {
@@ -1636,6 +1648,9 @@ public class Main extends FullScreenAppCompatActivity
         supportInvalidateOptionsMenu();
     }
 
+    /**
+     * Static version to avoid calling the actual method on a non-existing instance
+     */
     public static void onEditModeChanged() {
         Log.d(DEBUG_TAG, "onEditModeChanged");
         if (runningInstance != null) {
@@ -2910,14 +2925,10 @@ public class Main extends FullScreenAppCompatActivity
      * @return true, when the file is available, otherwise false.
      */
     private boolean isLastActivityAvailable() {
-        FileInputStream in = null;
-        try {
-            in = openFileInput(StorageDelegator.FILENAME);
+        try (FileInputStream in = openFileInput(StorageDelegator.FILENAME)) {
             return true;
-        } catch (final FileNotFoundException e) {
+        } catch (IOException e) {
             return false;
-        } finally {
-            SavingHelper.close(in);
         }
     }
 
@@ -4057,8 +4068,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void triggerMenuInvalidation() {
         Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
-        super.supportInvalidateOptionsMenu(); // TODO delay or make conditional
-                                              // to work around android bug?
+        supportInvalidateOptionsMenu();
     }
 
     /**
