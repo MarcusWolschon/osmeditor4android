@@ -59,8 +59,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -70,11 +70,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -118,7 +120,6 @@
   <string name="tag_menu_address">添加地址标签</string>
   <string name="tag_menu_sourcesurvey">调查</string>
   <string name="tag_menu_preset">预设</string>
-  <string name="tag_menu_apply_preset">应用最佳的预设</string>
   <string name="tag_menu_revert">恢复</string>
   <string name="tag_menu_addtorelation">添加到关系</string>
   <string name="tag_menu_reset_address_prediction">重置地址预测</string>
@@ -130,6 +131,7 @@
   <string name="menu_preset_help">预设帮助</string>
   <string name="tag_restriction_header">值</string>
   <string name="tag_restriction_add_restriction">添加限制</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">选择半径:</string>
   <string name="location_default_radius">300米</string>
@@ -165,10 +167,8 @@
   <string name="menu_easyedit">简易编辑</string>
   <string name="menu_camera">相机</string>
   <string name="menu_gps_show">显示位置</string>
-  <string name="menu_gps_autodownload">自动下载</string>
   <string name="menu_transfer">传输...</string>
   <string name="menu_transfer_download_current">下载当前视图</string>
-  <string name="menu_transfer_download_current_add">将当前视图添加到下载</string>
   <string name="menu_transfer_upload">上传数据到OSM服务器</string>
   <string name="menu_transfer_close_changeset">关闭当前的变更集</string>
   <string name="menu_join">加入</string>
@@ -199,6 +199,7 @@
   <string name="menu_reverse">反转</string>
   <string name="reverse_anyway">仍然反转</string>
   <string name="deletenode">删除节点</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">选择的路径</string>
   <string name="actionmode_nodeselect">选择的节点</string>
@@ -235,8 +236,9 @@
   <string name="config_enableNameSuggestions_title">启用建议名称</string>
   <string name="config_generateAlerts_title">产生通知</string>
   <string name="config_generateAlerts_summary">有问题的注释或节点发生通知</string>
-  <string name="config_extTriggeredDownloadRadius_title">下载半径</string>
   <string name="config_closeChangesetOnSave_title">关闭变更集</string>
+  <!--Auto-download settings-->
+  <string name="config_extTriggeredDownloadRadius_title">下载半径</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA网路来源</string>
   <!--Server Settings-->

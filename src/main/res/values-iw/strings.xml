@@ -36,6 +36,8 @@
   <string name="unknown_error_message">לא ניתן לעבד את קוד השגיאה שהוחזר מה־API או את ההודעה.&lt;br&gt;&lt;br&gt;</string>
   <string name="no_data_title">אין נתונים</string>
   <string name="no_data_message">למקור הנתונים שהוגדר אין כאן כיסוי.</string>
+  <string name="required_feature_missing_title">רכיב חסר או מושבת</string>
+  <string name="required_feature_missing_message">תכונה זו תלוי ברכיב מערכת חסר או מושבת.</string>
   <string name="go_to_openstreetmap">מעבר ל־openstreetmap.org</string>
   <string name="data_conflict_title">סתירת גרסאות</string>
   <string name="data_conflict_message">הנתונים מההורדה יסתרו את העריכות שלך. נא לנסות להעלות קודם כל את הנתונים שלך ורק אז לנסות שוב.</string>
@@ -88,6 +90,7 @@
   <string name="confirm_upload_edits_page">שינויים</string>
   <string name="upload_comment_label">הערה:</string>
   <string name="upload_source_label">מקור:</string>
+  <string name="upload_close_open_changeset_label">יש לסגור את ערכות השינויים הפתוחות תחילה:</string>
   <string name="upload_close_changeset_label">סגירת ערכת שינויים:</string>
   <string name="upload_request_review_label">בקשת סקירה:</string>
   <!---->
@@ -112,7 +115,6 @@
   <string name="generic_bug">תקלה</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">התאמה אישית</string>
-  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;עדכון אחרון:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (לא התקבל) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -184,10 +186,10 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">פעולה זו משפיעה על פריטים מצורפים מסוננים!</string>
   <string name="attached_object_warning_message">הפריט שנערך מחובר לרכיבים נסתרים שישתנו יחד אתו.</string>
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">סבבה, להמשיך להציג</string>
-  <!--This concerns a shown message-->
-  <string name="attached_object_warning_stop">סבבה, להתעלם</string>
+  <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">בסדר, להתעלם</string>
   <!--debug dialog-->
   <string name="send_debug_information">שליחת נתוני ניפוי שגיאות</string>
   <!--JS console dialog-->
@@ -198,8 +200,10 @@
   <string name="js_console_output_hint">הפלט יופיע כאן</string>
   <!--Validator dialogs-->
   <string name="validator_title">ערכת כללי מאמת %1$s</string>
+  <string name="resurvey_entries">לתשאל מחדש</string>
   <string name="edit_resurvey_title">עריכת רשומת תשאול מחדש</string>
   <string name="add_resurvey_title">הוספת רשומת תשאול מחדש</string>
+  <string name="check_entries">לבדוק</string>
   <string name="edit_check_title">עריכת רשומת בדיקה</string>
   <string name="add_check_title">הוספת רשומת בדיקה</string>
   <string name="max_age">גיל מרבי</string>
@@ -259,6 +263,10 @@
   <string name="layer_info_end_date">מועד סיום</string>
   <string name="layer_info_terms">תנאים</string>
   <string name="layer_info_privacy_policy">מדיניות פרטיות</string>
+  <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">מחיקת תמונה</string>
+  <string name="photo_viewer_delete_button">מחיקה לצמיתות</string>
+  <string name="photo_viewer_goto">מעבר לתמונה</string>
   <!--API info dialog-->
   <string name="api_info_bounds">תיבה תוחמת</string>
   <string name="api_info_latest_date">תאריך ההכללה האחרון</string>
@@ -278,15 +286,17 @@
   <string name="boxpicker_firsttimetitle">הורדת נתוני OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">עצירת המעקב ומחיקת נקודות המסלול שנשמרו. לא ניתן להשתקם מפעולה זו.</string>
+  <!--Tips-->
+  <string name="tip_title">הידעת?</string>
+  <string name="tip_check_label">להפסיק להציג עצות כרשות</string>
+  <string name="tip_undo">לחיצה ארוכה על כפתור הביטול תציג את נקודות הפעילות לחזרה או להתקדמות אליהן.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="default_channel_name">וספוצ׳י</string>
-  <string name="default_channel_description">ערוץ בררת המחדל של וספוצ׳י</string>
+  <string name="default_channel_name">בררת המחדל של וספוצ׳י</string>
   <string name="qa_channel_name">אבטחת איכות של וספוצ׳י</string>
-  <string name="qa_channel_description">ערוץ דיווחי אבטחת איכות של וספוצ׳י</string>
   <!--Toaster-->
   <string name="toast_name_empty">נא לבחור שם</string>
   <string name="toast_url_empty">נא להקליד כתובת</string>
@@ -466,7 +476,6 @@
   <string name="tag_menu_address">הוספת תגיות כתובת</string>
   <string name="tag_menu_sourcesurvey">תיעוד תואם</string>
   <string name="tag_menu_preset">ערכות מוגדרות</string>
-  <string name="tag_menu_apply_preset">החלת ערכות מוגדרות</string>
   <string name="tag_menu_revert">החזרה</string>
   <string name="tag_menu_mapfeatures">ויקי תכונות מפה</string>
   <string name="tag_menu_addtorelation">הוספה ליחס</string>
@@ -512,6 +521,7 @@
   <string name="tag_restriction_add_opening_hours">הוספת שעות פתיחה</string>
   <string name="tag_restriction_value_hint">הגבלה מותנית</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">בחירת רדיוס:</string>
   <string name="location_default_radius">300 מטר</string>
@@ -578,14 +588,9 @@
   <string name="menu_gps_import">יבוא מסלול GPX</string>
   <string name="menu_gps_goto_start">מעבר לתחילת מסלול ה־GPX</string>
   <string name="menu_gps_goto_first_waypoint">קפיצה לנקודת הדרך הראשונה</string>
-  <string name="menu_gps_autodownload">הורדה אוטומטית</string>
   <string name="menu_transfer">העברה…</string>
   <string name="menu_transfer_download_current">הורדת התצוגה הנוכחית</string>
-  <string name="menu_transfer_download_current_add">הוספת התצוגה הנוכחית להורדה</string>
-  <string name="menu_transfer_download_other">הורדה במיקום אחר</string>
   <string name="menu_transfer_load_current">טעינת התצוגה הנוכחית</string>
-  <string name="menu_transfer_load_current_add">הוספת התצוגה הנוכחית לנתונים</string>
-  <string name="menu_transfer_load_other">טעינה במיקום אחר</string>
   <string name="menu_transfer_upload">העלאת נתונים לשרת OSM</string>
   <string name="menu_transfer_close_changeset">סגירת ערכת השינויים הנוכחית</string>
   <string name="menu_transfer_file">קובץ…</string>
@@ -616,7 +621,6 @@
   <string name="menu_paste_from_clipboard">הדבקה מלוח הגזירים</string>
   <string name="menu_zoom_to_selection">התקרבות לבחירה</string>
   <string name="menu_rotate">הטייה</string>
-  <string name="menu_orthogonalize">דרך מרובעת</string>
   <string name="menu_circulize">סידור במעגל</string>
   <string name="menu_split_polygon">פיצול למצולעים</string>
   <string name="menu_newnode_gps">מפרק חדש במיקום ה־GPS</string>
@@ -683,7 +687,10 @@
   <string name="deleteway_wayandnodes">למחוק דרך</string>
   <string name="deletenode_relation_description">פעולה זו תמחק מפרק שחבר ביחס אחד או יותר. הסרת המפרק שנושא יחסים כאלה עשויה להסב נזק.</string>
   <string name="deletenode">מחיקת מפרק</string>
-  <string name="split_all_ways">פיצול כל הדרכים</string>
+  <!--EasyEdit context menus-->
+  <string name="merge_context_title">מיזוג עם…</string>
+  <string name="merge_with_all_ways">… כל הדרכים הסמוכות</string>
+  <string name="merge_with_all_nodes">… כל המפרקים הסמוכים</string>
   <string name="delete_note_description">לא ניתן לשחזר הערה שנמחקה!</string>
   <string name="delete_note">מחיקת הערה</string>
   <!--EasyEdit action mode titles-->
@@ -772,6 +779,8 @@
   <string name="config_tagFormEnabled_summary">הצגת טופס תגיות לעריכה.</string>
   <string name="config_showCameraAction_title">הצגת פעולת מצלמה</string>
   <string name="config_showCameraAction_summary">הצגת סמל מצלמה בסרגל הפעולות.</string>
+  <string name="config_useInternalPhotoViewer_title">להשתמש במציג התמונות המובנה</string>
+  <string name="config_useInternalPhotoViewer_summary">להשתמש במציג התמונות המובנה, אם לא סומן ייעשה שימוש במציג תמונות חיצוני.</string>
   <string name="config_followGPSbutton_title">פריסת כפתור מעקב מיקום</string>
   <string name="config_followGPSbutton_summary">היכן ימוקם הכפתור „מעקב מיקום”</string>
   <string name="config_alwaysDrawBoundingBoxes_title">תמיד להחשיך אזורים שלא התקבלו</string>
@@ -822,22 +831,26 @@
   <string name="config_maxAlertDistance_title">מרחק מרבי להתרעות</string>
   <string name="config_maxAlertDistance_summary">המרחק הגדול ביותר בו יכולה להיות בעיה או הערה מהמיקום הנוכחי כדי שתוקפץ התראה.</string>
   <string name="config_maxAlertDistance_current">%1$d מטר/ים</string>
+  <string name="config_closeChangesetOnSave_title">סגירת ערכת שינויים</string>
+  <string name="config_closeChangesetOnSave_summary">לסגור ערכות שינויים כבררת מחדל עם שמירה.</string>
+  <string name="config_enableAutoPresets_title">הפעלת יצירה אוטומטית של ערכות מוגדרות</string>
+  <string name="config_enableAutoPresets_summary">לאפשר יצירה ערכות מוגדרות מפרטי תגיות.</string>
+  <!--Auto-download settings-->
+  <string name="config_category_auto_download">הגדרות הורדה אוטומטית</string>
+  <string name="config_category_auto_download_summary">הגדרות להורדה אוטומטית של נתונים ומשימות</string>
   <string name="config_extTriggeredDownloadRadius_title">רדיוס הורדה</string>
   <string name="config_extTriggeredDownloadRadius_summary">רדיוס (במטרים) של הורדות בהקפצה חיצונית, 0 מתמקד על המפה בלבד.</string>
   <string name="config_downloadRadius_current">%1$d מטרים</string>
   <string name="config_maxDownloadSpeed_title">מהירות מרבית להורדה אוטומטית</string>
   <string name="config_maxDownloadSpeed_summary">מגבלה (בקמ״ש) שמעבר לה ההורדה האוטומטית מושהית.</string>
   <string name="config_downloadSpeed_current">%1$d קמ״ש</string>
+  <string name="config_panAndZoomLimit_title">הגבלת תקריב</string>
   <string name="config_bugFilter_title">מסנן משימות</string>
   <string name="config_bugFilter_summary">נא לבחור אילו פריטים מופיעים בשכבות הערות, תקלות ומשימות.</string>
   <string name="config_bugDownloadRadius_title">רדיוס הורדת משימות</string>
   <string name="config_bugDownloadRadius_summary">רדיוס (מ׳) להורדת משימות.</string>
   <string name="config_maxBugDownloadSpeed_title">מהירות מרבית להורדת משימות אוטומטית</string>
   <string name="config_maxBugDownloadSpeed_summary">מגבלה (בקמ״ש) שמעבר לה הורדה אוטומטית של הערות, תקלות ומשימות מושהית.</string>
-  <string name="config_closeChangesetOnSave_title">סגירת ערכת שינויים</string>
-  <string name="config_closeChangesetOnSave_summary">לסגור ערכות שינויים כבררת מחדל עם שמירה.</string>
-  <string name="config_enableAutoPresets_title">הפעלת יצירה אוטומטית של ערכות מוגדרות</string>
-  <string name="config_enableAutoPresets_summary">לאפשר יצירה ערכות מוגדרות מפרטי תגיות.</string>
   <!--Location Settings-->
   <string name="config_category_gps">הגדרות מיקום</string>
   <string name="config_category_gps_summary">משתנים ל־GPS/GNSS וספקי תוכן אחרים.</string>

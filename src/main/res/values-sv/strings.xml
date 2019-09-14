@@ -82,7 +82,6 @@
   <string name="generic_bug">Fel</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Anpassad</string>
-  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;senast uppdaterad:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (inte hämtad) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -136,9 +135,8 @@
   <string name="minor_issue">Mindre problem</string>
   <string name="unknown_error_level">Okänd felnivå</string>
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
-  <string name="attached_object_warning_stop">OK, kassera</string>
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <string name="send_debug_information">Skicka felsökningsinfo</string>
   <!--JS console dialog-->
@@ -174,6 +172,7 @@
   <string name="layer_tasks">Uppgifter</string>
   <string name="layer_change_style">Byt stil</string>
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrollpunkter</string>
@@ -181,12 +180,12 @@
   <string name="feedback_title">Återkoppling för utvecklarna</string>
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="default_channel_name">Vespucci</string>
   <!--Toaster-->
   <string name="toast_url_empty">Ange en webbadress</string>
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
@@ -274,7 +273,6 @@
   <string name="tag_menu_address">Lägg till adresstaggar</string>
   <string name="tag_menu_sourcesurvey">Kartlagd</string>
   <string name="tag_menu_preset">Förinställningar</string>
-  <string name="tag_menu_apply_preset">Tillämpa bästa förinställning</string>
   <string name="tag_menu_revert">Ångra</string>
   <string name="tag_menu_addtorelation">Lägg till i relation</string>
   <string name="tag_menu_resetMRU">Återställ förinställningar</string>
@@ -312,6 +310,7 @@
   <string name="tag_restriction_and">och</string>
   <string name="tag_restriction_add_opening_hours">Lägg till öppettider</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Välj radie:</string>
   <string name="location_default_radius">300 m</string>
@@ -363,11 +362,8 @@
   <string name="menu_gps_upload">Ladda upp GPX-spår</string>
   <string name="menu_gps_export">Exportera GPX-spår</string>
   <string name="menu_gps_import">Importera GPX-spår</string>
-  <string name="menu_gps_autodownload">Hämta automatiskt</string>
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Hämta nuvarande vy</string>
-  <string name="menu_transfer_download_current_add">Lägg till nuvarande vy till nedladdning</string>
-  <string name="menu_transfer_download_other">Hämta på en annan plats</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM-servern</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
   <string name="menu_transfer_file">Fil…</string>
@@ -438,7 +434,7 @@
   <string name="deleteway_wayonly">Ta endast bort väg</string>
   <string name="deleteway_wayandnodes">Ta bort vägen</string>
   <string name="deletenode">Ta bort nod</string>
-  <string name="split_all_ways">Dela alla vägar</string>
+  <!--EasyEdit context menus-->
   <string name="delete_note">Ta bort anteckning</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Väg vald</string>
@@ -514,12 +510,12 @@
   <string name="config_generateAlerts_summary">Generera aviseringar för data med problem eller anteckningar</string>
   <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
   <string name="config_maxAlertDistance_current">%1$d meter</string>
+  <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
   <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Platsinställningar</string>
   <string name="config_gps_source_title">GPS/GNSS-källa</string>
   <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
   <string name="config_gps_interval_title">Minsta GPS/GNSS-intervall</string>

@@ -34,8 +34,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -45,11 +45,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -74,6 +76,7 @@
   <string name="tag_menu_revert">Gjør om</string>
   <string name="tag_details">Detaljer</string>
   <string name="menu_up">Opp</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Velg radius:</string>
   <string name="location_default_radius">300m</string>
@@ -112,6 +115,7 @@
   <string name="menu_history">Historikk</string>
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Veg valgt</string>
   <string name="actionmode_nodeselect">Node valgt</string>
@@ -132,6 +136,7 @@
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passer best på noder.</string>
   <string name="config_showTolerance_title">Vis endringsområde</string>
   <!--Data and Editing Settings-->
+  <!--Auto-download settings-->
   <!--Location Settings-->
   <!--Server Settings-->
   <string name="config_loginbutton_title">Brukerkonto</string>

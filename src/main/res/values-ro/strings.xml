@@ -42,8 +42,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -53,11 +53,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -85,6 +87,7 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_details">Detalii</string>
   <string name="menu_up">Sus</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Alegeţi raza:</string>
   <string name="location_default_radius">300m</string>
@@ -129,6 +132,7 @@
   <string name="menu_history">Istoric</string>
   <string name="menu_merge">Participă</string>
   <string name="menu_reverse">Întoarce</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
   <!--Simple Action Mode-->
@@ -143,6 +147,7 @@
   <!--User Interface Settings-->
   <string name="config_showTolerance_title">Arată toleranţa</string>
   <!--Data and Editing Settings-->
+  <!--Auto-download settings-->
   <!--Location Settings-->
   <!--Server Settings-->
   <string name="config_loginbutton_title">Cont utilizator</string>

@@ -5,19 +5,38 @@
   <string name="mode_indoor">Interior</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">¡Precaución!</string>
+  <string name="transfer_download_current_dialog_message">Introduciste cambios. Quieres subirlos? De otra manera, se descartarán.</string>
   <string name="transfer_download_current_upload">Subir</string>
   <string name="transfer_download_current_download">Descartar &amp; descargar</string>
+  <string name="transfer_download_current_back">Atrás (no hagas nada)</string>
+  <string name="upload_problem_title">No lo pude subir</string>
+  <string name="upload_problem_message">Todo, o parte de los datos no fueron subidos. Vuelva a intentar más luego.</string>
   <string name="bad_request_message">La API respondió con un error, guarde sus datos e informe el problema, por favor:\n\n</string>
   <string name="upload_conflict_title">Conflicto en subida</string>
   <string name="upload_conflict_message_deleted">%1$s \ntiene una versión en local %2$d \ny fue borrado en el servidor</string>
+  <string name="upload_conflict_message_referential">%1$s\nfue borrado en local,\npero tiene usos en el servidor</string>
+  <string name="upload_conflict_message_already_deleted">%1$s\nya está borrado en el servidor</string>
   <string name="use_local_version">Usar la versión local</string>
   <string name="use_server_version">Usar la versión del servidor</string>
+  <string name="no_login_data_message">Si está utilizando OAuth, es probable que se trate de un error, envíe un informe del problema. Si está utilizando nombre de cuenta y contraseña (no recomendado), verifique que se hayan ingresado correctamente.</string>
+  <string name="no_connection_title">Sin conexión al servidor</string>
+  <string name="no_connection_message">No hay conexión con el servidor OSM. Verifique su conexión a Internet o vuelva a intentarlo más tarde.</string>
+  <string name="wrong_login_data_message">Si está utilizando OAuth, renueve la autenticación y vuelva a intentar. Si está utilizando nombre de cuenta y contraseña (no recomendado), verifique que se hayan ingresado correctamente.</string>
+  <string name="wrong_login_data_re_authenticate">Volver a autenticar</string>
   <string name="forbidden_login_title">Acceso prohibido</string>
+  <string name="not_found_title">No se encontró el elemento</string>
   <string name="unknown_error_title">Error desconocido</string>
+  <string name="no_data_message">La fuente de datos configurada no tiene cobertura aquí.</string>
   <string name="go_to_openstreetmap">Ir a openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Área de descarga demasiado grande</string>
   <string name="out_of_memory_title">Sin memoria</string>
+  <string name="out_of_memory_message">Vespucci no pudo cargar los datos pedidos. Vuelva a intentar con un área más reducida.</string>
+  <string name="out_of_memory_dirty_message">Vespucci no pudo descargar los datos indicados. Guarde sus ediciones, vuelva a arrancar, y escoja un área más reducida.</string>
   <string name="invalid_data_received_title">Datos recibidos no válidos</string>
+  <string name="file_write_failed_message">Vespucci no pudo alterar o guardar el archivo.</string>
+  <string name="welcome_message">Gracias por instalar Vespucci\n&lt;br&gt;&lt;br&gt; Para comenzar, necesita saber tres cosas:\n&lt;ul&gt;&lt;li&gt; al tocar el ícono de candado en la esquina superior izquierda se cambiará entre el modo bloqueado (sin edición) y desbloqueado,&lt;/li&gt;&lt;li&gt; para editar OpenStreetMap antes que nada necesita descargar los datos para el área donde desea cambiar algo (acerque antes de intentarlo),&lt;/li&gt;&lt;li&gt; para agregar un nuevo objeto: toque el botón verde grande y seleccione lo que desea agregar, luego toque la posición donde desea ubicarlo.&lt;/li&gt;&lt;/ul&gt;\nUsted lo tiene todo listo para empezar ya. Mapee y disfrute!</string>
+  <string name="read_introduction">Lea la introducción</string>
+  <string name="upgrade_title">Esta es una nueva versión de Vespucci</string>
   <string name="read_upgrade">Lea sobre la nueva versión</string>
   <string name="progress_title">Cargando</string>
   <string name="progress_message">Cargando datos en memoria…</string>
@@ -46,7 +65,9 @@
   <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
   <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Nueva nota</string>
   <string name="openstreetbug_bug_title">Problema</string>
+  <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarea desconocida</string>
   <string name="openstreetbug_not_supported">%1$s no está soportado.</string>
@@ -90,8 +111,8 @@
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">¡Esta operación afecta a los objetos adjuntos filtrados!</string>
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <string name="evaluate">Evaluar</string>
@@ -101,6 +122,7 @@
   <string name="validator_title">Conjunto de reglas del validador %1$s</string>
   <string name="age">Edad</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_message">La relación %1$s no tiene miembros.\n\nAl dejarla así, se hará imposible editarla en Vespucci.</string>
   <string name="add_members">Añadir miembros</string>
   <string name="leave_empty">Dejar vacío</string>
   <!--GPX waypoint dialog-->
@@ -137,6 +159,7 @@
   <string name="layer_change_style">Cambiar estilo</string>
   <string name="layer_select_imagery">Seleccionar imágenes</string>
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
@@ -146,6 +169,7 @@
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Descargar datos de OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -237,7 +261,6 @@
   <string name="tag_menu_address">Añadir etiquetas dirección</string>
   <string name="tag_menu_sourcesurvey">Encuestado</string>
   <string name="tag_menu_preset">Predeterminados</string>
-  <string name="tag_menu_apply_preset">Aplicar el mejor predeterminado</string>
   <string name="tag_menu_revert">Revertir</string>
   <string name="tag_menu_addtorelation">Agregar a relación</string>
   <string name="tag_menu_reset_address_prediction">Restablecer predicción de direcciones</string>
@@ -248,6 +271,7 @@
   <string name="tag_value_hint">Tipo de valor</string>
   <string name="tag_autocomplete_value_hint">Escribir o golpear para valores</string>
   <string name="tag_autocomplete_name_hint">Tipo o pulse para obtener sugerencias de nombres</string>
+  <string name="tag_tap_to_edit_hint">Pulse para editar</string>
   <string name="tag_multi_value_hint">Valores múltiples</string>
   <string name="tag_dialog_value_hint">Pulse para obtener valores</string>
   <string name="tag_action_tag_title">Etiqueta(s) seleccionada(s)</string>
@@ -276,6 +300,7 @@
   <string name="tag_restriction_add_simple_condition">Añadir simple condición</string>
   <string name="tag_restriction_add_expression">Añadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Añadir horas de apertura</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Elegir radio:</string>
   <string name="location_default_radius">300m</string>
@@ -318,11 +343,8 @@
   <string name="menu_gps_upload">Subir traza GPX</string>
   <string name="menu_gps_export">Exportar traza GPX</string>
   <string name="menu_gps_import">Importar traza GPX</string>
-  <string name="menu_gps_autodownload">Autodescargar</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descargar vista actual</string>
-  <string name="menu_transfer_download_current_add">Añadir vista actual a la descarga</string>
-  <string name="menu_transfer_download_other">Descargar otra ubicación...</string>
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
   <string name="menu_transfer_close_changeset">Cerrar el conjunto de cambios actual</string>
   <string name="menu_transfer_export">Exportar cambios a un fichero OSC</string>
@@ -381,7 +403,7 @@
   <string name="reverse_anyway">Invertir de todas formas</string>
   <string name="deleteway_wayandnodes">Suprimir vía</string>
   <string name="deletenode">Borrar nodo</string>
-  <string name="split_all_ways">Dividir todas las vías</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vía seleccionada</string>
   <string name="actionmode_nodeselect">Nodo seleccionado</string>
@@ -399,6 +421,7 @@
   <string name="actionmode_restriction_restart_to">Volver a seleccionar el segmento «a»</string>
   <string name="actionmode_rotateway">Rotar vía</string>
   <!--Simple Action Mode-->
+  <string name="simple_add_node">Pulse en la posición de la pantalla</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Mapa de fondo</string>
   <string name="config_overlayLayer_title">Superposición de mapa</string>
@@ -446,12 +469,12 @@
   <string name="config_notificationCacheSize_title">Número máx. de notificaciones mostradas</string>
   <string name="config_notificationCacheSize_current">%1$d Notificaciones</string>
   <string name="config_maxAlertDistance_title">Distancia máxima para notificaciones</string>
+  <string name="config_closeChangesetOnSave_title">Cerrar conjuntos de cambios</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Radio de descarga</string>
   <string name="config_maxDownloadSpeed_title">Máxima velocidad de descarga automática</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_closeChangesetOnSave_title">Cerrar conjuntos de cambios</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Ajustes de localización</string>
   <string name="config_gps_source_tcp_title">Fuente de la red NMEA</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <!--Server Settings-->
@@ -474,6 +497,8 @@
   <!---->
   <string name="manage_apis">Administrar APIs</string>
   <string name="config_api_url_title">URL API</string>
+  <string name="config_api_oauth_title">Utilizar OAuth</string>
+  <string name="listedit_enable_oauth">Activar OAuth</string>
   <string name="manage_presets">Administrar preajustes</string>
   <string name="manage_geocoders">Administrar geocodificadores</string>
   <!--preset downloader messages-->

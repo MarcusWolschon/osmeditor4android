@@ -87,7 +87,6 @@
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Personalizzato</string>
-  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;ultima modifica:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (non scaricato) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -146,10 +145,9 @@
   <string name="unknown_error_level">Errore sconosciuto</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Questa operazione ha effetti sugli oggetti filtrati</string>
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Ok, continua a mostrare</string>
-  <!--This concerns a shown message-->
-  <string name="attached_object_warning_stop">Ok, scarta</string>
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <string name="send_debug_information">Invia informazioni di debug</string>
   <!--JS console dialog-->
@@ -214,6 +212,7 @@
   <string name="layer_info_end_date">Data di fine</string>
   <string name="layer_info_terms">Termini</string>
   <string name="layer_info_privacy_policy">Privacy policy</string>
+  <!--Photo viewer-->
   <!--API info dialog-->
   <string name="api_info_bounds">Riquadro di selezione</string>
   <!--Undo - Redo dialog-->
@@ -227,14 +226,13 @@
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Smetti di tracciare e cancella tutti i punti registrati. Questa azione non può essere annullata.</string>
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="default_channel_name">Vespucci</string>
   <string name="qa_channel_name">QA Vespucci</string>
-  <string name="qa_channel_description">Canale di allerta per il controllo della qualità di Vespucci</string>
   <!--Toaster-->
   <string name="toast_name_empty">Scegli un nome</string>
   <string name="toast_url_empty">Inserisci URL</string>
@@ -354,7 +352,6 @@
   <string name="tag_menu_address">Aggiungi le etichette dell\'indirizzo civico</string>
   <string name="tag_menu_sourcesurvey">Da rilevamento</string>
   <string name="tag_menu_preset">Predefiniti</string>
-  <string name="tag_menu_apply_preset">Aggiungi il predefinito più adatto</string>
   <string name="tag_menu_revert">Ripristina</string>
   <string name="tag_menu_mapfeatures">Map feature wiki</string>
   <string name="tag_menu_addtorelation">Aggiungi alla relazione</string>
@@ -396,6 +393,7 @@
   <string name="tag_restriction_add_simple_condition">Aggiungi una semplice condizione</string>
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Scegli raggio:</string>
   <string name="location_default_radius">300m</string>
@@ -454,14 +452,9 @@
   <string name="menu_gps_import">Importa la traccia GPX</string>
   <string name="menu_gps_goto_start">Vai all\'inizio della traccia GPX</string>
   <string name="menu_gps_goto_first_waypoint">Vai al primo punto</string>
-  <string name="menu_gps_autodownload">Scarica automaticamente</string>
   <string name="menu_transfer">Trasferimento…</string>
   <string name="menu_transfer_download_current">Scarica vista corrente</string>
-  <string name="menu_transfer_download_current_add">Aggiungi la vista corrente ai dati scaricati</string>
-  <string name="menu_transfer_download_other"> Scarica altra posizione</string>
   <string name="menu_transfer_load_current">Carica la vista corrente</string>
-  <string name="menu_transfer_load_current_add">Aggiungi la vista corrente ai dati</string>
-  <string name="menu_transfer_load_other">Carica in un\'altra posizione</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
   <string name="menu_transfer_close_changeset">Chiudi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
@@ -492,7 +485,6 @@
   <string name="menu_paste_from_clipboard">Copia dalla clipboard</string>
   <string name="menu_zoom_to_selection">Ingrandisci la selezione</string>
   <string name="menu_rotate">Ruota</string>
-  <string name="menu_orthogonalize">Rendi linea dritta</string>
   <string name="menu_circulize">Disponi in cerchio</string>
   <string name="menu_split_polygon">Dividi in poligoni</string>
   <string name="menu_extend_selection">Estendi selezione</string>
@@ -550,7 +542,7 @@
   <string name="deleteway_wayonly">Cancella solo la strada</string>
   <string name="deleteway_wayandnodes">Elimina percorso</string>
   <string name="deletenode">Cancella nodo</string>
-  <string name="split_all_ways">Dividi tutti i percorsi</string>
+  <!--EasyEdit context menus-->
   <string name="delete_note_description">Cancellare una nota è un\'operazione non annullabile!</string>
   <string name="delete_note">Cancella nota</string>
   <!--EasyEdit action mode titles-->
@@ -643,6 +635,9 @@
   <string name="config_notificationCacheSize_current">%1$d notifiche</string>
   <string name="config_maxAlertDistance_title">Massima distanza per le notifiche</string>
   <string name="config_maxAlertDistance_current">%1$d metro(i)</string>
+  <string name="config_closeChangesetOnSave_title">Chiudi i gruppi di modifiche</string>
+  <string name="config_enableAutoPresets_title">Abilita la generazione dei predefiniti automatici</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Scarica nel raggio di</string>
   <string name="config_downloadRadius_current">%1$d metro(i)</string>
   <string name="config_maxDownloadSpeed_title">Velocità di scaricamento automatico massima</string>
@@ -653,13 +648,13 @@
   <string name="config_bugDownloadRadius_summary">Raggio (m) entro cui scaricare i compiti.</string>
   <string name="config_maxBugDownloadSpeed_title">Velocità massima per lo scaricamento automatico dei compiti</string>
   <string name="config_maxBugDownloadSpeed_summary">Limite (in km/h) sopra il quale le note, gli errori e i compiti non vengono scaricati automaticamente.</string>
-  <string name="config_closeChangesetOnSave_title">Chiudi i gruppi di modifiche</string>
-  <string name="config_enableAutoPresets_title">Abilita la generazione dei predefiniti automatici</string>
   <!--Location Settings-->
   <string name="config_category_gps">Impostazioni della posizione</string>
   <string name="config_gps_source_tcp_title">Dispositivo della rete NMEA</string>
+  <string name="config_gps_interval_title">Intervallo GPS/GNSS minimo</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Distanza GPS/GNSS minima</string>
+  <string name="config_gps_distance_summary">La distanza minima per la notifica GPS/GNSS, espressa in metri. Valori più bassi scaricano la batteria più velocemente</string>
   <string name="config_gps_network_title">Ritorna alla localizzazione di rete</string>
   <!--Server Settings-->
   <string name="config_category_server">Impostazioni server</string>

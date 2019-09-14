@@ -68,8 +68,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <string name="evaluate">Evaluer</string>
@@ -90,12 +90,14 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Bilder</string>
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Last ned OpenStreetMap-data</string>
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -133,7 +135,6 @@
   <string name="tag_menu_address">Legg til adresse-egenskaper</string>
   <string name="tag_menu_sourcesurvey">Kartlagt</string>
   <string name="tag_menu_preset">Maler</string>
-  <string name="tag_menu_apply_preset">Angi beste mal</string>
   <string name="tag_menu_revert">Gjør om</string>
   <string name="tag_value_hint">Skriv en verdi</string>
   <string name="tag_autocomplete_value_hint">Skriv eller trykk for verdier</string>
@@ -144,6 +145,7 @@
   <string name="menu_preset_help">Mal hjelp</string>
   <string name="tag_menu_i8n">Legg til egenskaper for %1$s</string>
   <string name="tag_restriction_header">Verdi</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Velg radius:</string>
   <string name="location_default_radius">300m</string>
@@ -171,11 +173,8 @@
   <string name="menu_gps_upload">Last opp GPX-spor</string>
   <string name="menu_gps_export">Eksporter GPX-spor</string>
   <string name="menu_gps_import">Importer GPX-spor</string>
-  <string name="menu_gps_autodownload">Auto-nedlasting</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Last ned nåværende utsnitt</string>
-  <string name="menu_transfer_download_current_add">Legg til gjeldende utsnitt til nedlasting</string>
-  <string name="menu_transfer_download_other">Last ned et annet område</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
   <string name="menu_transfer_export">Eksporter endringer til OSC-fil</string>
   <string name="menu_transfer_bugs_upload">Last opp alle</string>
@@ -206,6 +205,7 @@
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
   <string name="deletenode">Slett punkt</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Veg valgt</string>
   <string name="actionmode_nodeselect">Node valgt</string>
@@ -244,6 +244,7 @@
   <string name="config_address_tags">Adresse-egenskaper</string>
   <string name="config_notificationCacheSize_title">Maks antall viste varsler</string>
   <string name="config_notificationCacheSize_current">%1$d Varsler</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Nedlastings-radius</string>
   <string name="config_downloadSpeed_current">%1$d km/t</string>
   <!--Location Settings-->

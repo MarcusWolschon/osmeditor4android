@@ -27,6 +27,7 @@
   <string name="out_of_memory_title">Bellek yetersiz</string>
   <string name="out_of_memory_message">Vespucci istenen veri yüklenemedi. Lütfen tekrar başlayın ve daha küçük bir alan seçin.</string>
   <string name="welcome_title">Hoşgeldiniz!</string>
+  <string name="read_introduction">Tanıtım okuyun</string>
   <string name="read_upgrade">Yeni sürüm hakkında bilgi edinin</string>
   <string name="progress_title">Yükleniyor</string>
   <string name="progress_message">Veriler hafızaya yükleniyor...</string>
@@ -35,22 +36,38 @@
   <string name="progress_deleting_message">Siliniyor...</string>
   <string name="progress_searching_message">Aranıyor...</string>
   <string name="progress_saving_message">Kaydediliyor...</string>
+  <string name="progress_uploading_message">Yükle</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" silindi</string>
   <string name="changes_changed">\"%1$s\" değiştirildi</string>
   <string name="changes_created">\"%1$s\" oluşturuldu</string>
+  <string name="confirm_upload_title">Değişiklikleri yükle</string>
+  <string name="confirm_upload_edits_page">Değişiklikler</string>
   <string name="upload_comment_label">Yorum:</string>
   <string name="upload_source_label">Kaynak:</string>
   <string name="upload_close_changeset_label">Revizyonu kapat:</string>
+  <string name="upload_request_review_label">İnceleme iste:</string>
   <!---->
   <string name="upload_gpx_description_label">Açıklama</string>
   <string name="upload_gpx_tags_label">Etiketler</string>
   <string name="upload_gpx_visibility_label">Görünürlük</string>
+  <string name="upload_validation_error_empty_source">Kaynak boş olmamalıdır</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Yeni not</string>
+  <string name="openstreetbug_new_bug">Problem bildir</string>
   <string name="openstreetbug_bug_title">Konu</string>
+  <string name="openstreetbug_new_nodeway">Düğüm/Yol oluştur</string>
   <string name="openstreetbug_edit_title">Notu düzenle</string>
   <string name="openstreetbug_comment_label">Yorum:</string>
+  <string name="note_description">Not: %1$s - %2$s</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Özel</string>
+  <string name="bug_element_1">%1$s (indirilemedi) #%2$d</string>
+  <string name="maproulette_task_title">MapRoulette Görevi</string>
+  <string name="maproulette_task_coords">Enlem %1$4g, Boylam %2$4g</string>
+  <string name="maproulette_task_explanations">Açıklamalar</string>
   <string name="maproulette_task_disable">Devre dışı</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Dikkat!</string>
@@ -64,9 +81,11 @@
   <string name="imagery_offset_zoom">Yakınlaş</string>
   <string name="imagery_offset_distance">Mesafe</string>
   <string name="set_position_datum_label">Jeodezik zaman</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">İsim tavsiyesi</string>
   <!--Search/Find dialog-->
   <string name="search_results_title">Arama sonuçları</string>
+  <string name="search_online">İnternet üzerinden ara</string>
   <string name="find_message">Arama dizesini girin</string>
   <!---->
   <string name="preset_search_hint">Öntanımlı arama dizesi</string>
@@ -80,11 +99,19 @@
   <string name="version">Sürüm</string>
   <string name="length_m">Uzunluk (m)</string>
   <string name="not_downloaded">İndirilmedi</string>
+  <string name="empty_role">Boş rol</string>
+  <string name="last_edited">Son düzenleme</string>
+  <string name="original">Orijinal</string>
+  <string name="current">Geçerli</string>
   <!--GeoJSON feature display dialog-->
+  <string name="copy_properties">Özellikleri kopyala</string>
   <!---->
+  <string name="error">Hata</string>
+  <string name="warning">Uyarı</string>
+  <string name="minor_issue">Ufak sorun</string>
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -98,11 +125,13 @@
   <string name="layer_info_end_date">Bitiş tarihi</string>
   <string name="layer_info_terms">Koşullar</string>
   <string name="layer_info_privacy_policy">Gizlilik Politikası</string>
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -153,7 +182,6 @@
   <string name="tag_menu_address">Adres etiketleri ekle</string>
   <string name="tag_menu_sourcesurvey">Keşfedilmiş</string>
   <string name="tag_menu_preset">Öntanımlı</string>
-  <string name="tag_menu_apply_preset">En iyi öntanımlıyı uygula</string>
   <string name="tag_menu_revert">Döndür</string>
   <string name="tag_menu_addtorelation">İlişki ekle</string>
   <string name="tag_menu_reset_address_prediction">Adres tahminini sıfırla</string>
@@ -166,6 +194,7 @@
   <string name="menu_preset_help">Öntanımlı yardımı</string>
   <string name="tag_restriction_header">Değer</string>
   <string name="tag_restriction_add_restriction">Kısıtlama ekle</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Yarıçapı seçin:</string>
   <string name="location_default_radius">300m</string>
@@ -208,10 +237,8 @@
   <string name="menu_gps_show">Konumu göster</string>
   <string name="menu_gps_follow">Konumu takip et</string>
   <string name="menu_gps_goto_coordinates">Koordinatlara git…</string>
-  <string name="menu_gps_autodownload">Otomatik indir</string>
   <string name="menu_transfer">Aktarma...</string>
   <string name="menu_transfer_download_current">Şimdiki görünümü indir</string>
-  <string name="menu_transfer_download_current_add">Şimdiki görünümü indirmeye ekle</string>
   <string name="menu_transfer_load_current">Geçerli görünümü yükle</string>
   <string name="menu_transfer_upload">Verileri OSM sunucusuna yükle</string>
   <string name="menu_transfer_bugs_upload">Tümünü yükle</string>
@@ -246,6 +273,7 @@
   <string name="menu_reverse">Ters</string>
   <string name="reverse_anyway">Yine de döndür</string>
   <string name="deletenode">Düğümü sil</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Yol seçildi</string>
   <string name="actionmode_nodeselect">Düğüm seçildi</string>
@@ -289,10 +317,10 @@
   <string name="config_generateAlerts_title">Uyarılar oluştur</string>
   <string name="config_generateAlerts_summary">Sorunlu ya da notlu veriler için bildirim oluştur</string>
   <string name="config_maxAlertDistance_title">Uyarılar için maks mesafe</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Yarıçapı indir</string>
   <string name="config_maxDownloadSpeed_title">Maksimum otomatik indirme hızı</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Konum ayarları</string>
   <string name="config_gps_source_tcp_title">NMEA ağ kaynağı</string>
   <!--Server Settings-->
   <string name="config_category_server">Sunucu ayarları</string>

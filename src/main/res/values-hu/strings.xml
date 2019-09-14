@@ -36,6 +36,8 @@
   <string name="unknown_error_message">Az API-tól érkező hibakód vagy üzenet feldolgozása nem sikerült.&lt;br&gt;&lt;br&gt;</string>
   <string name="no_data_title">Nincs adat</string>
   <string name="no_data_message">A beállított adatforrásnak itt nincs lefedettsége.</string>
+  <string name="required_feature_missing_title">Hiányzó vagy letiltott összetevő</string>
+  <string name="required_feature_missing_message">Ez a funkció egy hiányzó vagy letiltott rendszerösszetevőtől függ.</string>
   <string name="go_to_openstreetmap">Ugrás az openstreetmap.org-ra</string>
   <string name="data_conflict_title">Verzióütközés</string>
   <string name="data_conflict_message">A letöltésből származó adatok ütköznek a szerkesztéseivel. Töltse fel újra az adatait, mielőtt újra megpróbálja.</string>
@@ -110,7 +112,6 @@
   <string name="generic_bug">Hiba</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Egyéni</string>
-  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;utoljára frissítve:&lt;br&gt;%1$s&lt;br&gt;azonosító: %2$d</string>
   <string name="bug_element_1">%1$s (nincs letöltve) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -182,10 +183,9 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Ez a művelet érinti a szűrt csatolt objektumokat!</string>
   <string name="attached_object_warning_message">A módosított objektum olyan rejtett elemekhez kapcsolódik, amelyek szintén változni fognak.</string>
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, továbbra is jelenítse meg</string>
-  <!--This concerns a shown message-->
-  <string name="attached_object_warning_stop">OK, elvetés</string>
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <string name="send_debug_information">Hibakeresési információk elküldése</string>
   <!--JS console dialog-->
@@ -196,8 +196,10 @@
   <string name="js_console_output_hint">A kimenet itt fog megjelenni</string>
   <!--Validator dialogs-->
   <string name="validator_title">%1$s ellenőrző szabálykészlet </string>
+  <string name="resurvey_entries">Ismételt felmérés</string>
   <string name="edit_resurvey_title">Újbóli felmérés bejegyzésének szerkesztése</string>
   <string name="add_resurvey_title">Újbóli felmérés bejegyzésének hozzáadása</string>
+  <string name="check_entries">Ellenőrzés</string>
   <string name="edit_check_title">Ellenőrzési bejegyzés szerkesztése</string>
   <string name="add_check_title">Ellenőrzési bejegyzés hozzáadása</string>
   <string name="max_age">Legnagyobb kor</string>
@@ -258,6 +260,10 @@ elemek megkövetelése</string>
   <string name="layer_info_end_date">Záró dátum</string>
   <string name="layer_info_terms">Feltételek</string>
   <string name="layer_info_privacy_policy">Adatvédelmi irányelvek</string>
+  <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Fénykép törlése</string>
+  <string name="photo_viewer_delete_button">Végleges törlés</string>
+  <string name="photo_viewer_goto">Ugrás a fényképhez</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Határolókeret</string>
   <string name="api_info_mapsplit_source">MapSplit csak olvasható forrás</string>
@@ -275,15 +281,16 @@ elemek megkövetelése</string>
   <string name="boxpicker_firsttimetitle">OpenStreetMap adatok letöltése</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">A követés leállítása és a tárolt követési pontok törlése. Ez nem vonható vissza.</string>
+  <!--Tips-->
+  <string name="tip_title">Tudta?</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="default_channel_name">Vespucci</string>
-  <string name="default_channel_description">Alapértelmezett Vespucci csatorna</string>
+  <string name="default_channel_name">Vespucci alapértelmezés</string>
+  <string name="default_channel_description">Alapértelmezett értesítési csatorna</string>
   <string name="qa_channel_name">Vespucci QA</string>
-  <string name="qa_channel_description">Vespucci QA riasztási csatorna</string>
   <!--Toaster-->
   <string name="toast_name_empty">Válasszon egy nevet</string>
   <string name="toast_url_empty">Adjon meg egy URL-t</string>
@@ -409,6 +416,7 @@ elemek megkövetelése</string>
   <string name="toast_error_too_unhandled_http_code_for">Nem kezelt HTTP hibakód ennél: %1$s</string>
   <string name="toast_unknown_error_for">Ismeretlen hiba ennél: %1$s</string>
   <string name="toast_download_started">A(z) %1$s letöltése elindult</string>
+  <string name="toast_phone_number_reformatted">Telefonszám újraformázva</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -460,7 +468,7 @@ elemek megkövetelése</string>
   <string name="tag_menu_address">Cím címkék hozzáadása</string>
   <string name="tag_menu_sourcesurvey">Felmérve</string>
   <string name="tag_menu_preset">Előbeállítások</string>
-  <string name="tag_menu_apply_preset">Legjobb előbeállítás alkalmazása</string>
+  <string name="tag_menu_apply_preset">Előbeállítás alkalmazása</string>
   <string name="tag_menu_revert">Visszaállítás</string>
   <string name="tag_menu_mapfeatures">Térképjellemzők Wiki</string>
   <string name="tag_menu_addtorelation">Hozzáadás kapcsolathoz</string>
@@ -506,6 +514,7 @@ elemek megkövetelése</string>
   <string name="tag_restriction_add_opening_hours">Nyitva tartás hozzáadása</string>
   <string name="tag_restriction_value_hint">Feltételes korlátozás</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Válasszon sugarat:</string>
   <string name="location_default_radius">300m</string>
@@ -572,14 +581,9 @@ elemek megkövetelése</string>
   <string name="menu_gps_import">GPX nyomvonal importálása</string>
   <string name="menu_gps_goto_start">Ugrás a GPX nyomvonal elejére</string>
   <string name="menu_gps_goto_first_waypoint">Ugrás az első útpontra</string>
-  <string name="menu_gps_autodownload">Automatikus letöltés</string>
   <string name="menu_transfer">Átvitel…</string>
   <string name="menu_transfer_download_current">Jelenlegi nézet letöltése</string>
-  <string name="menu_transfer_download_current_add">Jelenlegi nézet hozzáadása a letöltéshez</string>
-  <string name="menu_transfer_download_other">Letöltés más helyre</string>
   <string name="menu_transfer_load_current">Jelenlegi nézet betöltése</string>
-  <string name="menu_transfer_load_current_add">Jelenlegi nézet hozzáadása az adatokhoz</string>
-  <string name="menu_transfer_load_other">Betöltés más helyre</string>
   <string name="menu_transfer_upload">Adatok feltöltése az OSM kiszolgálóra</string>
   <string name="menu_transfer_close_changeset">Jelenlegi módosításcsomag lezárása</string>
   <string name="menu_transfer_file">Fájl…</string>
@@ -610,7 +614,6 @@ elemek megkövetelése</string>
   <string name="menu_paste_from_clipboard">Beillesztés vágólapról</string>
   <string name="menu_zoom_to_selection">Nagyítás a kijelölésre</string>
   <string name="menu_rotate">Forgatás</string>
-  <string name="menu_orthogonalize">Vonal derékszögesítése</string>
   <string name="menu_circulize">Elrendezés kör alakban</string>
   <string name="menu_split_polygon">Felosztás sokszögekre</string>
   <string name="menu_newnode_gps">Új pont a GPS pozíciónál</string>
@@ -677,7 +680,7 @@ elemek megkövetelése</string>
   <string name="deleteway_wayandnodes">Vonal törlése</string>
   <string name="deletenode_relation_description">Arra készül, hogy töröljön egy pontot, amely egy vagy több kapcsolat része. A pont eltávolítása a kapcsolatokból érvénytelenné teheti azokat.</string>
   <string name="deletenode">Pont törlése</string>
-  <string name="split_all_ways">Minden vonal felosztása</string>
+  <!--EasyEdit context menus-->
   <string name="delete_note_description">A jegyzet törlése nem vonható vissza!</string>
   <string name="delete_note">Jegyzet törlése</string>
   <!--EasyEdit action mode titles-->
@@ -814,6 +817,11 @@ elemek megkövetelése</string>
   <string name="config_maxAlertDistance_title">Maximális távolság az értesítésekhez</string>
   <string name="config_maxAlertDistance_summary">A probléma vagy megjegyzés legnagyobb távolsága a jelenlegi helyzettől, amikor még kell értesítést létrehozni.</string>
   <string name="config_maxAlertDistance_current">%1$d méter</string>
+  <string name="config_closeChangesetOnSave_title">Módosításcsomagok lezárása:</string>
+  <string name="config_closeChangesetOnSave_summary">Módosításcsomagok lezárása alapértelmezetten mentéskor.</string>
+  <string name="config_enableAutoPresets_title">Automatikus előbeállítások létrehozásának engedélyezése</string>
+  <string name="config_enableAutoPresets_summary">Előbeállítások létrehozásának engedélyezése a taginfóból.</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Letöltési sugár</string>
   <string name="config_extTriggeredDownloadRadius_summary">A külsőleg kiváltott letöltés sugara (méterben), 0 esetén csak középre ugrik a térképen.</string>
   <string name="config_downloadRadius_current">%1$d méter</string>
@@ -826,12 +834,7 @@ elemek megkövetelése</string>
   <string name="config_bugDownloadRadius_summary">A feladatok letöltési sugara (méterben).</string>
   <string name="config_maxBugDownloadSpeed_title">Legnagyobb sebesség automatikus letöltés közben</string>
   <string name="config_maxBugDownloadSpeed_summary">A korlát (km/h-ban) amely felett a jegyzetek, hibák és feladatok automatikus letöltése felfüggesztésre kerül.</string>
-  <string name="config_closeChangesetOnSave_title">Módosításcsomagok lezárása:</string>
-  <string name="config_closeChangesetOnSave_summary">Módosításcsomagok lezárása alapértelmezetten mentéskor.</string>
-  <string name="config_enableAutoPresets_title">Automatikus előbeállítások létrehozásának engedélyezése</string>
-  <string name="config_enableAutoPresets_summary">Előbeállítások létrehozásának engedélyezése a taginfóból.</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Helyzetbeállítások</string>
   <string name="config_category_gps_summary">GPS/GNSS paraméterek és más helyadat-szolgáltatók.</string>
   <string name="config_gps_source_title">GPS/GNSS forrás</string>
   <string name="config_gps_source_summary">A GPS/GNSS helyfrissítések forrása.</string>

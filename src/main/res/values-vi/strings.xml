@@ -89,8 +89,8 @@
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Tác động này có ảnh hưởng đến các đối tượng nối liền đã được lọc ra!</string>
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <string name="evaluate">Đánh giá</string>
@@ -144,6 +144,7 @@
   <string name="layer_change_style">Đổi kiểu</string>
   <string name="layer_select_imagery">Chọn hình ảnh</string>
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Điểm Đánh dấu</string>
@@ -153,6 +154,7 @@
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Tải về dữ liệu OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">−</string>
@@ -246,7 +248,6 @@
   <string name="tag_menu_address">Gắn thẻ địa chỉ</string>
   <string name="tag_menu_sourcesurvey">Đã khảo sát</string>
   <string name="tag_menu_preset">Thẻ đặt trước</string>
-  <string name="tag_menu_apply_preset">Áp dụng thẻ đặt trước thích hợp nhất</string>
   <string name="tag_menu_revert">Lùi sửa</string>
   <string name="tag_menu_addtorelation">Thêm vào quan hệ</string>
   <string name="tag_menu_reset_address_prediction">Đặt lại suy đoán địa chỉ</string>
@@ -286,6 +287,7 @@
   <string name="tag_restriction_add_simple_condition">Thêm điều kiện đơn giản</string>
   <string name="tag_restriction_add_expression">Thêm biểu thức</string>
   <string name="tag_restriction_add_opening_hours">Thêm giờ mở cửa</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Chọn bán kính:</string>
   <string name="location_default_radius">300 m</string>
@@ -328,11 +330,8 @@
   <string name="menu_gps_upload">Tải tuyến GPX lên</string>
   <string name="menu_gps_export">Xuất tuyến GPX</string>
   <string name="menu_gps_import">Nhập tuyến GPX</string>
-  <string name="menu_gps_autodownload">Tải về tự động</string>
   <string name="menu_transfer">Truyền đổi…</string>
   <string name="menu_transfer_download_current">Tải về khu vực hiện tại</string>
-  <string name="menu_transfer_download_current_add">Thêm khu vực hiện tại để tải về</string>
-  <string name="menu_transfer_download_other">Tải về vị trí khác</string>
   <string name="menu_transfer_upload">Tải dữ liệu lên máy chủ OSM</string>
   <string name="menu_transfer_close_changeset">Đóng bộ thay đổi hiện tại</string>
   <string name="menu_transfer_export">Xuất các thay đổi ra tập tin OSC</string>
@@ -392,7 +391,7 @@
   <string name="reverse_anyway">Cứ đảo ngược</string>
   <string name="deleteway_wayandnodes">Xóa lối</string>
   <string name="deletenode">Xóa nốt</string>
-  <string name="split_all_ways">Chia tất cả các lối</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Đã chọn lối</string>
   <string name="actionmode_nodeselect">Đã chọn nốt</string>
@@ -460,13 +459,13 @@
   <string name="config_notificationCacheSize_title">Số thông báo tối đa được hiển thị</string>
   <string name="config_notificationCacheSize_current">%1$d thông báo</string>
   <string name="config_maxAlertDistance_title">Tầm xa thông báo tối đa</string>
+  <string name="config_closeChangesetOnSave_title">Đóng các bộ thay đổi</string>
+  <string name="config_enableAutoPresets_title">Tự động tạo ra thẻ đặt trước</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Tải về theo bán kính</string>
   <string name="config_maxDownloadSpeed_title">Tốc độ tối đa để tải về tự động</string>
   <string name="config_downloadSpeed_current">%1$d km/giờ</string>
-  <string name="config_closeChangesetOnSave_title">Đóng các bộ thay đổi</string>
-  <string name="config_enableAutoPresets_title">Tự động tạo ra thẻ đặt trước</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Thiết lập Vị trí</string>
   <string name="config_gps_source_tcp_title">Nguồn mạng NMEA</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_network_title">Định vị theo mạng thay thế</string>

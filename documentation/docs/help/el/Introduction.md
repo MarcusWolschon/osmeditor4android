@@ -79,15 +79,15 @@
 
 Μόλις επιλέξετε ένα αντικείμενο, αυτό μπορεί να μετακινηθεί. Σημειώστε ότι τα αντικείμενα μπορούν να συρθούν/μετακινηθούν μόνο όταν είναι επιλεγμένα. Απλά σύρετε κοντά (π.χ. εντός της ζώνης ανοχής) του επιλεγμένου αντικειμένου για να το μετακινήσετε. Εάν επιλέξετε σύροντας μια μεγάλη περιοχή στις προτιμήσεις, θα έχετε μια μεγάλη περιοχή γύρω από τον επιλεγμένο κόμβο που διευκολύνει την τοποθέτηση του αντικειμένου. 
 
-#### Adding a new Node/Point or Way 
+#### Προσθέτοντας ένα νέο Κόμβο/Σημείο ή Διαδρομή 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+Κατά την πρώτη εκκίνηση η εφαρμογή ξεκινάει σε "απλή λειτουργία", αυτό μπορεί να αλλάξει στο κύριο μενού, με το ξετσεκάρισμα του αντίστοιχου πλαίσιο ελέγχου.
 
-##### Simple mode
+##### Απλή λειτουργία
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
-See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+Δείτε [Δημιουργία νέων αντικειμένων σε λειτουργία απλών ενεργειών](Creating%20new%20objects%20in%20simple%20actions%20mode.md) για περισσότερες πληροφορίες.
 
 ##### Advanced (long press) mode
  
@@ -262,6 +262,6 @@ This check works by first determining the matching preset and then checking if *
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Αν θέλετε να συζητήσετε κάτι που σχετίζεται με το Vespucci, μπορείτε είτε να ξεκινήσετε μια συζήτηση στο [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) είτε στο [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

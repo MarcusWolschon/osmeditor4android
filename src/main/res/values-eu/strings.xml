@@ -99,8 +99,8 @@
   <string name="error">Errorea</string>
   <string name="warning">Abisua</string>
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <string name="evaluate">Ebaluatu</string>
@@ -139,12 +139,14 @@
   <!--Layer info dialog-->
   <string name="layer_info_terms">Baldintzak</string>
   <string name="layer_info_privacy_policy">Pribatutasun politika</string>
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Deskargatu OpenStreetMap datuak</string>
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -212,7 +214,6 @@
   <string name="tag_menu_address">Gehitu helbide-etiketak</string>
   <string name="tag_menu_sourcesurvey">Analizatua</string>
   <string name="tag_menu_preset">Aurre-ezarpenak</string>
-  <string name="tag_menu_apply_preset">Aplikatu aurre-ezarpen hoberena</string>
   <string name="tag_menu_revert">Leheneratu</string>
   <string name="tag_menu_addtorelation">Gehitu erlaziora</string>
   <string name="tag_menu_reset_address_prediction">Berrezarri helbide iragarpena</string>
@@ -252,6 +253,7 @@
   <string name="tag_restriction_add_simple_condition">Gehitu baldintza sinplea</string>
   <string name="tag_restriction_add_expression">Gehitu adierazpena</string>
   <string name="tag_restriction_add_opening_hours">Gehitu irekiera-orduak</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Erradioa aukeratu:</string>
   <string name="location_default_radius">300m</string>
@@ -290,11 +292,8 @@
   <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Erakutsi kokalekua</string>
   <string name="menu_gps_follow">Jarraitu kokalekua</string>
-  <string name="menu_gps_autodownload">Automatikoki deskargatu</string>
   <string name="menu_transfer">Transferitu...</string>
   <string name="menu_transfer_download_current">Deskargatu uneko ikuspegia</string>
-  <string name="menu_transfer_download_current_add">Gehitu uneko ikuspegia deskargara</string>
-  <string name="menu_transfer_download_other">Deskargatu beste kokaleku bat</string>
   <string name="menu_transfer_upload">Datuak OSM zerbitzarira igo</string>
   <string name="menu_transfer_file">Fitxategia...</string>
   <string name="menu_transfer_bugs">Eginkizunak...</string>
@@ -339,6 +338,7 @@
   <string name="reverse_anyway">Alderantzizkatu hala ere</string>
   <string name="deleteway_wayandnodes">Ezabatu bidea</string>
   <string name="deletenode">Nodoa ezabatu</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Bidea aukeratua</string>
   <string name="actionmode_nodeselect">Nodoa aukeratua</string>
@@ -370,9 +370,10 @@
   <!--Data and Editing Settings-->
   <string name="config_enableNameSuggestionsPresets_title">Gaitu izen proposamenen aurre-ezarpenak</string>
   <string name="config_generateAlerts_summary">Sortu jakinarazpenak arazoak edo oharrak dituzten datuentzat</string>
+  <string name="config_enableAutoPresets_title">Gaitu aurre-ezarpen automatikoen sorrera</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Deskarga-erradioa</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_enableAutoPresets_title">Gaitu aurre-ezarpen automatikoen sorrera</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA sarearen iturria</string>
   <string name="config_gps_interval_current">%1$d ms</string>

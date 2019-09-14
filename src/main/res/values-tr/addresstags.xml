@@ -14,7 +14,7 @@
     <item>İlçe (addr:district)</item>
     <item>İl (addr:province)</item>
     <item>Eyalet (addr:state)</item>
-    <item>Bina (addr:flats)</item>
+    <item>Apartman (addr:flats)</item>
     <item>Kapı (addr:door)</item>
     <item>Ünite (addr:unit)</item>
   </string-array>

@@ -50,8 +50,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -61,11 +61,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -101,6 +103,7 @@
   <string name="tag_details">Detalhes</string>
   <string name="menu_up">Para cima</string>
   <string name="tag_restriction_header">Valor</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_default_radius">300m</string>
   <string name="location_lat_label">Lat:</string>
@@ -154,6 +157,7 @@
   <string name="menu_merge">Unir</string>
   <string name="menu_reverse">Inverter</string>
   <string name="deletenode">Apagar nó</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Via selecionada</string>
   <string name="actionmode_nodeselect">Nó selecionado</string>
@@ -180,6 +184,7 @@
   <!--Data and Editing Settings-->
   <string name="config_generateAlerts_title">Gerar notificações</string>
   <string name="config_generateAlerts_summary">Gerar notificações para dados com problemas ou notas</string>
+  <!--Auto-download settings-->
   <!--Location Settings-->
   <!--Server Settings-->
   <string name="config_apibutton_title">URL da API OSM</string>

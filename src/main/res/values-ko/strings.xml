@@ -74,8 +74,8 @@
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">이 작업은 필터링된 부착된 지물에 영향을 미칩니다!</string>
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <string name="evaluate">평가하기</string>
@@ -88,11 +88,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -152,7 +154,6 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Ko:Map_Features</string>
   <string name="tag_menu_address">주소 태그 추가</string>
   <string name="tag_menu_preset">프리셋</string>
-  <string name="tag_menu_apply_preset">최상의 프리셋 적용</string>
   <string name="tag_menu_revert">되돌리기</string>
   <string name="tag_menu_addtorelation">관계로 추가</string>
   <string name="tag_menu_exit_no_save">저장 없이\n나가기</string>
@@ -185,6 +186,7 @@
   <string name="tag_restriction_and">그리고</string>
   <string name="tag_restriction_add_simple_condition">간단한 조건 추가</string>
   <string name="tag_restriction_add_opening_hours">여는 시간 추가</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">반경 선택:</string>
   <string name="location_default_radius">300m</string>
@@ -219,11 +221,8 @@
   <string name="menu_tag">태그 편집</string>
   <string name="menu_camera">카메라</string>
   <string name="menu_gps_show">위치 보이기</string>
-  <string name="menu_gps_autodownload">자동 다운로드</string>
   <string name="menu_transfer">이송…</string>
   <string name="menu_transfer_download_current">현재 보기 다운로드</string>
-  <string name="menu_transfer_download_current_add">다운로드할 현재 보기 추가</string>
-  <string name="menu_transfer_download_other">다른 위치에서 다운로드</string>
   <string name="menu_transfer_upload">OSM 서버에 데이터 업로드</string>
   <string name="menu_transfer_close_changeset">현재 바뀜집합 닫기</string>
   <string name="menu_transfer_bugs_upload">모두 업로드</string>
@@ -263,7 +262,7 @@
   <string name="menu_reverse">뒤집기</string>
   <string name="reverse_anyway">어쨌든 뒤집기</string>
   <string name="deletenode">노드 삭제</string>
-  <string name="split_all_ways">모든 길 분할</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">길 선택됨</string>
   <string name="actionmode_nodeselect">노드 선택됨</string>
@@ -304,9 +303,10 @@
   <string name="config_generateAlerts_title">알림 생성</string>
   <string name="config_generateAlerts_summary">문제 또는 참고로 된 데이터의 알림 생성</string>
   <string name="config_maxAlertDistance_title">알림의 최대 거리</string>
+  <string name="config_closeChangesetOnSave_title">바뀜집합 닫기</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">다운로드 반경</string>
   <string name="config_maxDownloadSpeed_title">최대 자동 다운로드 속도</string>
-  <string name="config_closeChangesetOnSave_title">바뀜집합 닫기</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA 네트워크 자료</string>
   <!--Server Settings-->

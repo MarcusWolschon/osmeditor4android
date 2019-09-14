@@ -54,8 +54,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -65,11 +65,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -126,6 +128,7 @@
   <string name="tag_restriction_add_simple_condition">Tilføj simpel betingelse</string>
   <string name="tag_restriction_add_expression">Tilføj udtryk</string>
   <string name="tag_restriction_add_opening_hours">Tilføj åbningstider</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Vælg radius:</string>
   <string name="location_default_radius">300m</string>
@@ -157,7 +160,6 @@
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps_show">Vis lokalitet</string>
-  <string name="menu_gps_autodownload">Auto download</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Download nuværende udsnit</string>
   <string name="menu_transfer_upload">Upload data til OSM server</string>
@@ -178,6 +180,7 @@
   <string name="menu_history">Historie</string>
   <string name="menu_merge">Sammenlæg</string>
   <string name="menu_reverse">Vend om</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vej valgt</string>
   <string name="actionmode_nodeselect">Knude valgt</string>
@@ -198,6 +201,7 @@
   <string name="config_showTolerance_title">Vis tolerance</string>
   <string name="config_maxStrokeWidth_title">Max linjebredde</string>
   <!--Data and Editing Settings-->
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Download radius</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA netværks kilde</string>

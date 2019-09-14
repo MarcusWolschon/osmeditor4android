@@ -112,7 +112,6 @@
   <string name="generic_bug">Błąd</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Własny</string>
-  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (nie pobrane) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -184,10 +183,9 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Ta operacja zmienia obiekty ukryte przez filtry!</string>
   <string name="attached_object_warning_message">Zmieniony obiekt powiązany jest z ukrytymi elementami, które również się zmienią.</string>
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, nadal wyświetlaj</string>
-  <!--This concerns a shown message-->
-  <string name="attached_object_warning_stop">OK, odrzuć</string>
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <string name="send_debug_information">Prześlij informacje do debugowania</string>
   <!--JS console dialog-->
@@ -259,6 +257,7 @@
   <string name="layer_info_end_date">Data końcowa</string>
   <string name="layer_info_terms">Zasady</string>
   <string name="layer_info_privacy_policy">Polityka prywatności</string>
+  <!--Photo viewer-->
   <!--API info dialog-->
   <string name="api_info_bounds">Ramka ograniczająca</string>
   <string name="api_info_latest_date">Data ostatniej aktualizacji</string>
@@ -278,15 +277,13 @@
   <string name="boxpicker_firsttimetitle">Pobierz dane OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Zatrzymaj śledzenie i usuń wszystkie zapisane punkty. Nie można tego cofnąć.</string>
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="default_channel_name">Vespucci</string>
-  <string name="default_channel_description">Domyślny kanał Vespucci</string>
   <string name="qa_channel_name">Vespucci QA</string>
-  <string name="qa_channel_description">Kanał alertów Vespucci QA</string>
   <!--Toaster-->
   <string name="toast_name_empty">Wybierz nazwę</string>
   <string name="toast_url_empty">Wprowadź adres URL</string>
@@ -467,7 +464,6 @@
   <string name="tag_menu_address">Dodaj znaczniki adresowe</string>
   <string name="tag_menu_sourcesurvey">Sprawdzony</string>
   <string name="tag_menu_preset">Szablony</string>
-  <string name="tag_menu_apply_preset">Zastosuj najlepszy szablon</string>
   <string name="tag_menu_revert">Cofnij</string>
   <string name="tag_menu_mapfeatures">Wiki obiektów mapy</string>
   <string name="tag_menu_addtorelation">Dodaj do relacji</string>
@@ -513,6 +509,7 @@
   <string name="tag_restriction_add_opening_hours">Dodaj godziny otwarcia</string>
   <string name="tag_restriction_value_hint">Ograniczenia warunkowe</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Wybierz promień:</string>
   <string name="location_default_radius">300m</string>
@@ -579,14 +576,9 @@
   <string name="menu_gps_import">Importuj ślad GPX</string>
   <string name="menu_gps_goto_start">Przejdź do początku śladu GPX</string>
   <string name="menu_gps_goto_first_waypoint">Przejdź do pierwszego punktu</string>
-  <string name="menu_gps_autodownload">Automatyczne pobieranie</string>
   <string name="menu_transfer">Transfer…</string>
   <string name="menu_transfer_download_current">Pobierz bieżący widok</string>
-  <string name="menu_transfer_download_current_add">Dodaj bieżący widok do pobrania</string>
-  <string name="menu_transfer_download_other">Pobierz z innej lokalizacji</string>
   <string name="menu_transfer_load_current">Wczytaj bieżący widok</string>
-  <string name="menu_transfer_load_current_add">Dodaj bieżący widok do danych</string>
-  <string name="menu_transfer_load_other">Wczytaj z innej lokalizacji</string>
   <string name="menu_transfer_upload">Wyślij zmiany</string>
   <string name="menu_transfer_close_changeset">Zamknij zestaw zmian</string>
   <string name="menu_transfer_file">Plik…</string>
@@ -617,7 +609,6 @@
   <string name="menu_paste_from_clipboard">Wklej ze schowka</string>
   <string name="menu_zoom_to_selection">Przybliż do zaznaczenia</string>
   <string name="menu_rotate">Obróć</string>
-  <string name="menu_orthogonalize">Popraw prostopadłość</string>
   <string name="menu_circulize">Ułóż w koło</string>
   <string name="menu_split_polygon">Rozdziel na poligony</string>
   <string name="menu_newnode_gps">Nowy węzeł na pozycji z GPS</string>
@@ -684,7 +675,7 @@
   <string name="deleteway_wayandnodes">Usuń linię</string>
   <string name="deletenode_relation_description">Zamierzasz usunąć węzeł będący członkiem jednej lub większej ilości relacji. Usunięcie dowolnego węzła będącego uczestnikiem takich relacji może uczynić je niepoprawnymi.</string>
   <string name="deletenode">Usuń węzeł</string>
-  <string name="split_all_ways">Przetnij wszystkie linie</string>
+  <!--EasyEdit context menus-->
   <string name="delete_note_description">Usunięcie uwagi nie może zostać cofnięte!</string>
   <string name="delete_note">Usuń notatkę</string>
   <!--EasyEdit action mode titles-->
@@ -823,6 +814,11 @@
   <string name="config_maxAlertDistance_title">Maksymalna odległość dla powiadomienia</string>
   <string name="config_maxAlertDistance_summary">Maksymalna odległość od aktualnej pozycji o jaką może być oddalony problem lub notatka, aby wygenerować powiadomienie.</string>
   <string name="config_maxAlertDistance_current">%1$d metr(ów)</string>
+  <string name="config_closeChangesetOnSave_title">Zamykanie zestawów zmian</string>
+  <string name="config_closeChangesetOnSave_summary">Domyślnie zamknij zestawy zmian przed zapisaniem.</string>
+  <string name="config_enableAutoPresets_title">Włącz automatyczne generowanie szablonów</string>
+  <string name="config_enableAutoPresets_summary">Pozwól generować szablony z taginfo.</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Promień obszaru pobierania</string>
   <string name="config_extTriggeredDownloadRadius_summary">Promień (m) pobrań automatycznych, 0 tylko środek mapy</string>
   <string name="config_downloadRadius_current">%1$d metr(ów)</string>
@@ -835,12 +831,7 @@
   <string name="config_bugDownloadRadius_summary">Promień (m) pobierania zadań</string>
   <string name="config_maxBugDownloadSpeed_title">Maksymalna prędkość dla automatycznego pobierania zadań</string>
   <string name="config_maxBugDownloadSpeed_summary">Prędkość (w km/h), powyżej której pobieranie notatek, błędów i zadań zostaje zawieszone.</string>
-  <string name="config_closeChangesetOnSave_title">Zamykanie zestawów zmian</string>
-  <string name="config_closeChangesetOnSave_summary">Domyślnie zamknij zestawy zmian przed zapisaniem.</string>
-  <string name="config_enableAutoPresets_title">Włącz automatyczne generowanie szablonów</string>
-  <string name="config_enableAutoPresets_summary">Pozwól generować szablony z taginfo.</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Ustawienia lokalizacji</string>
   <string name="config_category_gps_summary">Parametry GPS/GNSS i innych dostawców lokalizacji.</string>
   <string name="config_gps_source_title">Źródło GPS/GNSS</string>
   <string name="config_gps_source_summary">Źródło sygnału GPS/GNSS.</string>

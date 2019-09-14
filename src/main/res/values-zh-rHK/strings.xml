@@ -109,7 +109,6 @@
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug"> 客製化</string>
-  <string name="bug_long_description_1">%1$s:%2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id:%2$d</string>
   <string name="bug_element_1">%1$s(未下載) %2$d</string>
   <string name="bug_element_2">%1$s%2$s</string>
@@ -179,10 +178,9 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">這次動作影響篩選、附著的物件！</string>
   <string name="attached_object_warning_message">變動的物件同時遲結到隱藏的元件會同時改變。</string>
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK，繼續顯示</string>
-  <!--This concerns a shown message-->
-  <string name="attached_object_warning_stop">OK，放棄</string>
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <string name="send_debug_information">傳送除錯資訊</string>
   <!--JS console dialog-->
@@ -252,6 +250,7 @@
   <string name="layer_info_end_date">結束日期</string>
   <string name="layer_info_terms">條款</string>
   <string name="layer_info_privacy_policy">隱私政策</string>
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">檢查點</string>
@@ -267,15 +266,13 @@
   <string name="boxpicker_firsttimetitle">下載開放街圖資料</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">停止記錄並且刪除所有儲存的航點，這不能復原。</string>
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="default_channel_name">Vespucci</string>
-  <string name="default_channel_description">預設 Vespucci 頻道</string>
   <string name="qa_channel_name">Vespucci QA</string>
-  <string name="qa_channel_description">Vespucci QA 警告頻道</string>
   <!--Toaster-->
   <string name="toast_name_empty">選擇名稱</string>
   <string name="toast_url_empty">輸入 URL</string>
@@ -436,7 +433,6 @@
   <string name="tag_menu_address">增加地址標籤</string>
   <string name="tag_menu_sourcesurvey">已勘測</string>
   <string name="tag_menu_preset">預置</string>
-  <string name="tag_menu_apply_preset">套用最佳預置</string>
   <string name="tag_menu_revert">回復</string>
   <string name="tag_menu_mapfeatures">地圖圖徵 Wiki</string>
   <string name="tag_menu_addtorelation">增加到關係</string>
@@ -482,6 +478,7 @@
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
   <string name="tag_restriction_value_hint">修件限制</string>
   <string name="ugly_checkgroup_hint">%1$s,...</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">選取半徑：</string>
   <string name="location_default_radius">300m</string>
@@ -539,14 +536,9 @@
   <string name="menu_gps_import">匯入 GPS 軌跡</string>
   <string name="menu_gps_goto_start">前往 GPS 軌跡的起始處</string>
   <string name="menu_gps_goto_first_waypoint">到第一個航點</string>
-  <string name="menu_gps_autodownload">自動下載</string>
   <string name="menu_transfer">傳輸…</string>
   <string name="menu_transfer_download_current">下載目前的檢視</string>
-  <string name="menu_transfer_download_current_add">增加目前檢視的作下載</string>
-  <string name="menu_transfer_download_other">在另一個地點下載</string>
   <string name="menu_transfer_load_current">載入目前檢視</string>
-  <string name="menu_transfer_load_current_add">將目前檢視加到資料</string>
-  <string name="menu_transfer_load_other">在其他位置載入</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
   <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
   <string name="menu_transfer_file">檔案...</string>
@@ -576,7 +568,6 @@
   <string name="menu_paste_from_clipboard">從剪貼簿貼上</string>
   <string name="menu_zoom_to_selection">縮放到選擇物件</string>
   <string name="menu_rotate">旋轉</string>
-  <string name="menu_orthogonalize">方角化路徑</string>
   <string name="menu_circulize">在圓週排列</string>
   <string name="menu_split_polygon">分割成多邊形</string>
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
@@ -643,7 +634,7 @@
   <string name="deleteway_wayandnodes">刪除路徑</string>
   <string name="deletenode_relation_description">您將要刪除的節點，它是一個或多個關係中的成員。從關係中移除了節點，可能會使得它或它們變成無效。</string>
   <string name="deletenode">刪除節點</string>
-  <string name="split_all_ways">分離所有路徑</string>
+  <!--EasyEdit context menus-->
   <string name="delete_note_description">刪除註解並無法復原！</string>
   <string name="delete_note">刪除註解</string>
   <!--EasyEdit action mode titles-->
@@ -776,6 +767,11 @@
   <string name="config_maxAlertDistance_title">最大距離的通知</string>
   <string name="config_maxAlertDistance_summary">最大距離的一個問題或註釋，可以是從目前位置去產生通知。</string>
   <string name="config_maxAlertDistance_current">%1$d公尺</string>
+  <string name="config_closeChangesetOnSave_title">關閉變更組合</string>
+  <string name="config_closeChangesetOnSave_summary">在預設情況下，關閉變更時儲存</string>
+  <string name="config_enableAutoPresets_title">啟用自動預設產生</string>
+  <string name="config_enableAutoPresets_summary">允許從 taginfo 產生預置</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
   <string name="config_downloadRadius_current">%1$d 公尺</string>
@@ -788,12 +784,7 @@
   <string name="config_bugDownloadRadius_summary">任務下載的半徑 (m)。</string>
   <string name="config_maxBugDownloadSpeed_title">最高任務自動下載速度</string>
   <string name="config_maxBugDownloadSpeed_summary">高於此限制(公里/小時)，註解、錯誤和任務的自動下載暫停。</string>
-  <string name="config_closeChangesetOnSave_title">關閉變更組合</string>
-  <string name="config_closeChangesetOnSave_summary">在預設情況下，關閉變更時儲存</string>
-  <string name="config_enableAutoPresets_title">啟用自動預設產生</string>
-  <string name="config_enableAutoPresets_summary">允許從 taginfo 產生預置</string>
   <!--Location Settings-->
-  <string name="config_category_gps">位置設定</string>
   <string name="config_category_gps_summary">GPS/GNSS 參數和其他位置提供者。</string>
   <string name="config_gps_source_title">GPS/GNSS 來源</string>
   <string name="config_gps_source_summary">GPS/GNSS 位置的更新來源</string>

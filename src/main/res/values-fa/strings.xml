@@ -61,8 +61,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -72,11 +72,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -104,6 +106,7 @@
   <string name="tag_menu_addtorelation">افزودن به رابطه</string>
   <string name="tag_details">جزئیات</string>
   <string name="menu_up">بالا</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">انتخاب شعاع:</string>
   <string name="location_default_radius">300 متر</string>
@@ -147,6 +150,7 @@
   <string name="menu_history">تاریخچه</string>
   <string name="menu_merge">پیوند دادن</string>
   <string name="menu_reverse">معکوس کردن</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">راه انتخاب شد</string>
   <string name="actionmode_nodeselect">گره انتخاب شد</string>
@@ -169,6 +173,7 @@
   <string name="config_enableAntiAliasing_summary">خط ها را صافتر می سازد.</string>
   <string name="config_maxStrokeWidth_title">حداکثر عرض خط</string>
   <!--Data and Editing Settings-->
+  <!--Auto-download settings-->
   <!--Location Settings-->
   <!--Server Settings-->
   <string name="config_apibutton_title">آدرس ای پی آی OSM</string>

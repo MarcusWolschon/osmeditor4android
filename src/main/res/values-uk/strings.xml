@@ -108,7 +108,6 @@
   <string name="bug_description">%1$s: %2$s - %3$s</string>
   <string name="generic_bug">Проблема</string>
   <string name="osmose_bug">Osmose</string>
-  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;оновлено:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (не завантажено) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -178,10 +177,9 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Ця операціє впливає на відфільтровані приєднанні обʼєкти!</string>
   <string name="attached_object_warning_message">Змінений обʼєкт приєднано до прихованого елемента, який також буде змінений.</string>
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Так, показувати</string>
-  <!--This concerns a shown message-->
-  <string name="attached_object_warning_stop">Так, відкинути</string>
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <string name="send_debug_information">Надіслати інформацію для відлагодженя</string>
   <!--JS console dialog-->
@@ -223,17 +221,18 @@
   <!--Layer info dialog-->
   <string name="layer_info_terms">Умови</string>
   <string name="layer_info_privacy_policy">Політика конфіденційності</string>
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="default_channel_name">Веспуччі</string>
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
   <string name="toast_unsaved_changes">Спочатку надішліть ваші не збережені зміни.</string>
@@ -322,7 +321,6 @@
   <string name="tag_menu_address">Додавання адреси</string>
   <string name="tag_menu_sourcesurvey">Досліджено</string>
   <string name="tag_menu_preset">Заготовки</string>
-  <string name="tag_menu_apply_preset">Застосувати найкращу заготовку</string>
   <string name="tag_menu_revert">Відмінити</string>
   <string name="tag_menu_mapfeatures">Об’єкти на мапі, документація</string>
   <string name="tag_menu_addtorelation">Додати у зв’язок</string>
@@ -367,6 +365,7 @@
   <string name="tag_restriction_add_opening_hours">Додати час роботи</string>
   <string name="tag_restriction_value_hint">Умовні обмеження</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Виберіть радіус: </string>
   <string name="location_default_radius">300 м.</string>
@@ -412,11 +411,8 @@
   <string name="menu_camera">Камера</string>
   <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Показати розташування</string>
-  <string name="menu_gps_autodownload">Авто-завантаження</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Звантажити дані для поточного місця</string>
-  <string name="menu_transfer_download_current_add">Додати поточний вид для звантаження</string>
-  <string name="menu_transfer_download_other">Завантажити інше місце</string>
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
   <string name="menu_transfer_file">Файл…</string>
@@ -433,7 +429,6 @@
   <string name="menu_paste_from_clipboard">Вставити з буфера</string>
   <string name="menu_zoom_to_selection">Масштабувати до виділення</string>
   <string name="menu_rotate">Повернути</string>
-  <string name="menu_orthogonalize">Випрямити кути лінії</string>
   <string name="menu_circulize">Вирівняти по колу</string>
   <string name="menu_split_polygon">Розділити на полігони</string>
   <string name="menu_extend_selection">Розширити виділення</string>
@@ -463,6 +458,7 @@
   <string name="menu_reverse">Змінити напрямок</string>
   <string name="reverse_anyway">Все одно змінити напрямок</string>
   <string name="deletenode">Вилучити точку</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Обрана лінія</string>
   <string name="actionmode_nodeselect">Обрана точка</string>
@@ -507,9 +503,10 @@
   <string name="config_generateAlerts_title">Створювати повідомлення</string>
   <string name="config_generateAlerts_summary">Повідомляти про проблемні дані чи нотатки</string>
   <string name="config_maxAlertDistance_title">Максимальна відстань для повідомлень</string>
+  <string name="config_closeChangesetOnSave_title">Закривати набори змін</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Радіус звантаження</string>
   <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
-  <string name="config_closeChangesetOnSave_title">Закривати набори змін</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA джерело мережі</string>
   <!--Server Settings-->

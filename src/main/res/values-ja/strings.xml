@@ -96,8 +96,8 @@
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">この操作はフィルタリングされた添付オブジェクトに影響します！</string>
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <string name="evaluate">評価する</string>
@@ -152,6 +152,7 @@
   <string name="layer_change_style">スタイルを変更</string>
   <string name="layer_select_imagery">画像を選択</string>
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">チェックポイント</string>
@@ -161,6 +162,7 @@
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OpenStreetMapデータをダウンロード</string>
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -265,7 +267,6 @@
   <string name="tag_menu_address">アドレスタグを加える</string>
   <string name="tag_menu_sourcesurvey">調査済み</string>
   <string name="tag_menu_preset">プリセット</string>
-  <string name="tag_menu_apply_preset">最適なプリセットを適用</string>
   <string name="tag_menu_revert">復帰</string>
   <string name="tag_menu_addtorelation">リレーションを追加</string>
   <string name="tag_menu_reset_address_prediction">アドレス予測をリセットする</string>
@@ -304,6 +305,7 @@
   <string name="tag_restriction_add_simple_condition">単純な条件を追加</string>
   <string name="tag_restriction_add_expression">表現を追加</string>
   <string name="tag_restriction_add_opening_hours">営業時間を追加</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">半径を選択:</string>
   <string name="location_default_radius">300m</string>
@@ -350,11 +352,8 @@
   <string name="menu_gps_export">GPXトラックをエクスポート</string>
   <string name="menu_gps_import">GPXトラックをインポート</string>
   <string name="menu_gps_goto_first_waypoint">最初のウェイポイントに行く</string>
-  <string name="menu_gps_autodownload">自動ダウンロード</string>
   <string name="menu_transfer">データ変換…</string>
   <string name="menu_transfer_download_current">表示領域をダウンロード</string>
-  <string name="menu_transfer_download_current_add">表示領域を追加ダウンロード</string>
-  <string name="menu_transfer_download_other">別の場所でダウンロード</string>
   <string name="menu_transfer_upload">データをOSMサーバーへアップロード</string>
   <string name="menu_transfer_close_changeset">現在の変更セットをクローズ</string>
   <string name="menu_transfer_export">変更を OSC ファイルにエクスポート</string>
@@ -417,7 +416,7 @@
   <string name="deleteway_wayonly">ウェイだけを削除</string>
   <string name="deleteway_wayandnodes">ウェイを削除</string>
   <string name="deletenode">ノードを削除</string>
-  <string name="split_all_ways">全てのウェイを分割</string>
+  <!--EasyEdit context menus-->
   <string name="delete_note_description">メモの削除に失敗しました！</string>
   <string name="delete_note">メモを削除</string>
   <!--EasyEdit action mode titles-->
@@ -496,15 +495,15 @@
   <string name="config_notificationCacheSize_current">%1$d 件の通知</string>
   <string name="config_maxAlertDistance_title">通知用の最大距離</string>
   <string name="config_maxAlertDistance_summary">問題やメモにより通知を発生させるための現在位置からの最大距離</string>
+  <string name="config_closeChangesetOnSave_title">チェンジセットを閉じる</string>
+  <string name="config_enableAutoPresets_title">自動プリセット生成を有効化</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">ダウンロード半径</string>
   <string name="config_maxDownloadSpeed_title">自動ダウンロード速度上限</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_bugFilter_summary">メモ、バグ、タスクレイヤーに表示させる要素を選択</string>
   <string name="config_maxBugDownloadSpeed_summary">メモ、バグ、タスクの自動ダウンロードを一時停止させるための最低制限速度(毎時km)</string>
-  <string name="config_closeChangesetOnSave_title">チェンジセットを閉じる</string>
-  <string name="config_enableAutoPresets_title">自動プリセット生成を有効化</string>
   <!--Location Settings-->
-  <string name="config_category_gps">位置設定</string>
   <string name="config_gps_source_tcp_title">NMEAネットワークソース</string>
   <string name="config_gps_interval_summary">GPS/GNSSの位置通知を行う最小時間間隔、ミリ秒。値を小さくするとバッテリー消費を激しくします。</string>
   <string name="config_gps_interval_current">%1$d ms</string>

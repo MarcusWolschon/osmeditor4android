@@ -82,8 +82,8 @@
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Това действие засяга филтрирани прикачени обекти!</string>
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <string name="evaluate">Оцени</string>
@@ -131,12 +131,14 @@
   <string name="layer_change_style">Смяна стил</string>
   <string name="layer_select_imagery">Изберете изображение</string>
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Свалете OpenStreetMap данни</string>
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -176,6 +178,7 @@
   <!--Read a file-->
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
@@ -186,6 +189,7 @@
   <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
   <!--Simple Action Mode-->
@@ -196,6 +200,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <!--Data and Editing Settings-->
+  <!--Auto-download settings-->
   <!--Location Settings-->
   <!--Server Settings-->
   <!--Layer download and storage-->

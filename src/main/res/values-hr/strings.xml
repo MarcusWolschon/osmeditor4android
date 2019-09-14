@@ -1,13 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normalno</string>
+  <string name="mode_tag_only">Samo tag</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Oprez!</string>
+  <string name="transfer_download_current_dialog_message">Napravili ste promjene. Želite li ih poslati umjesto da ih odbacite?</string>
   <string name="transfer_download_current_upload">Spremi</string>
   <string name="transfer_download_current_download">Obriši i skini nove</string>
+  <string name="transfer_download_current_back">Natrag (ne napravi ništa)</string>
+  <string name="upload_problem_title">Slanje nije uspjelo</string>
+  <string name="upload_problem_message">Dio ili svi podaci nisu poslani. Pokušajte kasnije.</string>
+  <string name="bad_request_message">API je vratio grešku, spremite podatke i prijavite problem:\n\n</string>
   <string name="upload_conflict_title">Konflikt u podacima</string>
   <string name="use_local_version">Koristi lokalnu verziju</string>
   <string name="use_server_version">Koristi verziju sa poslužitelja</string>
+  <string name="no_login_data_title">Prijava nije uspjela</string>
+  <string name="data_conflict_title">Konflikt u verzijama</string>
+  <string name="welcome_title">Dobrodošli</string>
   <string name="progress_title">Učitavanje</string>
   <string name="progress_message">Učitavanje podataka u memoriju…</string>
   <string name="progress_download_message">Skidanje podataka sa poslužitelja…</string>
@@ -46,8 +56,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -57,11 +67,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -90,6 +102,7 @@
   <string name="tag_details">Detalji</string>
   <string name="menu_up">Gore</string>
   <string name="tag_restriction_add_restriction">Dodaj zabranu</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Odaberi veličinu površine:</string>
   <string name="location_default_radius">300m</string>
@@ -119,7 +132,6 @@
   <string name="menu_gps_show">Prikaži lokaciju</string>
   <string name="menu_transfer">Prijenos…</string>
   <string name="menu_transfer_download_current">Skini trenutni pogled</string>
-  <string name="menu_transfer_download_current_add">Dodaj trenutni pogled skinutim</string>
   <string name="menu_transfer_upload">Spremi na OSM poslužitelj</string>
   <string name="menu_join">Spoji</string>
   <string name="menu_unjoin">Odspoji</string>
@@ -140,6 +152,7 @@
   <string name="menu_reverse">Obrni smjer</string>
   <string name="reverse_anyway">Svejedno promjeni smjer</string>
   <string name="deletenode">Obriši točku</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Odabrana linija</string>
   <string name="actionmode_nodeselect">Odabrana točka</string>
@@ -162,6 +175,7 @@
   <string name="config_showTolerance_title">Površina tolerancije</string>
   <string name="config_maxStrokeWidth_title">Maksimalna širina linije</string>
   <!--Data and Editing Settings-->
+  <!--Auto-download settings-->
   <!--Location Settings-->
   <!--Server Settings-->
   <string name="config_loginbutton_title">Korisnički račun</string>

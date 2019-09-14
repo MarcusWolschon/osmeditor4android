@@ -112,7 +112,6 @@
   <string name="generic_bug">Chyba</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Vlastní</string>
-  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;naposledy upraveno:&lt;br&gt;%1$s&lt;br&gt;ID: %2$d</string>
   <string name="bug_element_1">%1$s (nestaženo) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -184,10 +183,9 @@
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Tato operace ovlivní filtrované propojené objekty!</string>
   <string name="attached_object_warning_message">Změněný objekt je spojen se skrytými prvky, které se změní také.</string>
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, dále zobrazovat</string>
-  <!--This concerns a shown message-->
-  <string name="attached_object_warning_stop">OK, nezobrazovat</string>
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <string name="send_debug_information">Poslat ladicí informace</string>
   <!--JS console dialog-->
@@ -259,6 +257,7 @@
   <string name="layer_info_end_date">Koncové datum</string>
   <string name="layer_info_terms">Podmínky</string>
   <string name="layer_info_privacy_policy">Ochrana osobních údajů</string>
+  <!--Photo viewer-->
   <!--API info dialog-->
   <string name="api_info_bounds">Ohraničující rámec</string>
   <string name="api_info_attribution">Autorství</string>
@@ -276,15 +275,13 @@
   <string name="boxpicker_firsttimetitle">Stáhnout data OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Zastaví záznam a smaže body trasy. Akci nelze vrátit zpět.</string>
+  <!--Tips-->
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
-  <string name="default_channel_name">Vespucci</string>
-  <string name="default_channel_description">Výchozí Vespucci kanál</string>
   <string name="qa_channel_name">Vespucci Otázky a odpovědi</string>
-  <string name="qa_channel_description">Vespucci informační kanál Otázek a odpovědí</string>
   <!--Toaster-->
   <string name="toast_name_empty">Zvolte název</string>
   <string name="toast_url_empty">Zadejte URL</string>
@@ -448,7 +445,6 @@
   <string name="tag_menu_address">Přidat tagy pro adresu</string>
   <string name="tag_menu_sourcesurvey">Zjištěno průzkumem</string>
   <string name="tag_menu_preset">Předvolby</string>
-  <string name="tag_menu_apply_preset">Použít nejlepší předvolbu</string>
   <string name="tag_menu_revert">Vrátit zpět</string>
   <string name="tag_menu_mapfeatures">Wiki s možnostmi mapovaní</string>
   <string name="tag_menu_addtorelation">Přidat do relace</string>
@@ -494,6 +490,7 @@
   <string name="tag_restriction_add_opening_hours">Přidat otevírací hodiny</string>
   <string name="tag_restriction_value_hint">Podmíněné omezení</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Vyberte poloměr:</string>
   <string name="location_default_radius">300m</string>
@@ -556,11 +553,8 @@
   <string name="menu_gps_import">Importovat GPX stopu</string>
   <string name="menu_gps_goto_start">Jít na začátek GPX stopy</string>
   <string name="menu_gps_goto_first_waypoint">Jít na první waypoint</string>
-  <string name="menu_gps_autodownload">Stahovat automaticky</string>
   <string name="menu_transfer">Přenos…</string>
   <string name="menu_transfer_download_current">Stáhnout aktuální pohled</string>
-  <string name="menu_transfer_download_current_add">Přidat aktuální pohled ke stažení</string>
-  <string name="menu_transfer_download_other">Stáhnout jinou oblast</string>
   <string name="menu_transfer_upload">Nahrát data na OSM server</string>
   <string name="menu_transfer_close_changeset">Uzavřít aktuální sadu změn</string>
   <string name="menu_transfer_file">Soubor…</string>
@@ -591,7 +585,6 @@
   <string name="menu_paste_from_clipboard">Vložit ze schránky</string>
   <string name="menu_zoom_to_selection">Přiblížit na výběr</string>
   <string name="menu_rotate">Otočit</string>
-  <string name="menu_orthogonalize">Kolmé rohy</string>
   <string name="menu_circulize">Uspořádat do kruhu</string>
   <string name="menu_split_polygon">Rozdělit na dvě plochy</string>
   <string name="menu_newnode_gps">Nový uzel na GPS pozici</string>
@@ -657,7 +650,7 @@
   <string name="deleteway_wayandnodes">Smazat cestu</string>
   <string name="deletenode_relation_description">Chystáte se odstranit uzel, který je členem jedné nebo více relací. Odstranění uzlu v relaci může způsobit chybné vykreslování.</string>
   <string name="deletenode">Smazat uzel</string>
-  <string name="split_all_ways">Rozdělit všechny cesty</string>
+  <!--EasyEdit context menus-->
   <string name="delete_note_description">Smazaní poznámky nelze vrátit zpět!</string>
   <string name="delete_note">Smazat poznámku</string>
   <!--EasyEdit action mode titles-->
@@ -793,6 +786,11 @@
   <string name="config_maxAlertDistance_title">Max. vzdálenost pro notifikace</string>
   <string name="config_maxAlertDistance_summary">Maximální vzdálenost problému nebo poznámky od aktuální polohy, pro generování oznámení.</string>
   <string name="config_maxAlertDistance_current">%1$d m</string>
+  <string name="config_closeChangesetOnSave_title">Uzavřít sady změn</string>
+  <string name="config_closeChangesetOnSave_summary">Při ukládání bude uzavření sady změn výchozí.</string>
+  <string name="config_enableAutoPresets_title">Povolit vytváření automatických předvoleb</string>
+  <string name="config_enableAutoPresets_summary">Povolit vytváření předvoleb z taginfo</string>
+  <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Poloměr pro stahování</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radius (m) externě spuštěných stahování, 0 centruje pouze na mapě.</string>
   <string name="config_downloadRadius_current">%1$d m</string>
@@ -805,12 +803,7 @@
   <string name="config_bugDownloadRadius_summary">Poloměr [m] pro stahování poznámek a chyb.</string>
   <string name="config_maxBugDownloadSpeed_title">Max. rychlost auto-stahování poznámek a chyb</string>
   <string name="config_maxBugDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování poznámek a chyb pozastaveno.</string>
-  <string name="config_closeChangesetOnSave_title">Uzavřít sady změn</string>
-  <string name="config_closeChangesetOnSave_summary">Při ukládání bude uzavření sady změn výchozí.</string>
-  <string name="config_enableAutoPresets_title">Povolit vytváření automatických předvoleb</string>
-  <string name="config_enableAutoPresets_summary">Povolit vytváření předvoleb z taginfo</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Nastavení polohy</string>
   <string name="config_category_gps_summary">GPS/GNSS parametry a další zdroje polohy.</string>
   <string name="config_gps_source_title">Zdroj GPS/GNSS</string>
   <string name="config_gps_source_summary">Zdroj aktualizaci GPS/GNSS polohy</string>

@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_introduction">Tanıtım</string>
+    <string name="help_main">Ana harita gösterimi</string>
+    <string name="help_simple_actions">Basit işlemler</string>
     <string name="help_addrelationmember">İlişki seçildi</string>
     <string name="help_multiselect">Çoklu seçim</string>
+    <string name="help_longclick">Yeni nesneler oluşturmak</string>
     <string name="help_nodeselection">Düğüm seçildi</string>
+    <string name="help_pathcreation">Yeni nesneler oluşturmak</string>
     <string name="help_relationselection">İlişki seçildi</string>
     <string name="help_wayselection">Yol seçildi</string>
+    <string name="help_propertyeditor">Özellikler Editörü</string>
+    <string name="help_preferences">Tercihler</string>
+    <string name="help_advanced_preferences">Gelişmiş tercihler</string>
     <string name="help_presets">Öntanımlılar</string>
+    <string name="help_keyboard">Klavye</string>
+    <string name="help_tagfilter">Etiket filtresi</string>
+    <string name="help_presetfilter">Önayar filtresi</string>
+    <string name="help_opening_hours">Açılış saatleri</string>
     <string name="help_upgrade_130">13.0 Sürüm notları</string>
     <string name="help_upgrade_121">12.1 Sürüm notları</string>
     <string name="help_upgrade_120">12.0 Sürüm notları</string>
+    <string name="help_privacy">Gizlilik Politikası</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
@@ -32,6 +45,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_131</item>
         <item>@string/help_upgrade_130</item>
         <item>@string/help_upgrade_121</item>
         <item>@string/help_upgrade_120</item>
@@ -70,6 +84,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>14.0.0 Release notes</item>
         <item>13.1.0 Release notes</item>
         <item>13.0.0 Release notes</item>
         <item>12.1.0 Release notes</item>

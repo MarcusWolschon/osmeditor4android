@@ -59,8 +59,8 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
-  <!--This concerns a shown message-->
-  <!--This concerns a shown message-->
+  <!--This concerns a shown message that should be shown every time-->
+  <!--This concerns a shown message that should only be shown once-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
@@ -70,11 +70,13 @@
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Layer info dialog-->
+  <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
+  <!--Tips-->
   <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
@@ -118,7 +120,6 @@
   <string name="tag_menu_address">Bæta við heimilisfangasvæðum</string>
   <string name="tag_menu_sourcesurvey">Skoðað á vettvangi</string>
   <string name="tag_menu_preset">Forstillingar</string>
-  <string name="tag_menu_apply_preset">Framkvæma bestu forstillingu</string>
   <string name="tag_menu_revert">Afturkalla</string>
   <string name="tag_menu_addtorelation">Bæta við vensl</string>
   <string name="tag_menu_reset_address_prediction">Endurstilla heimilisfangagisk</string>
@@ -128,6 +129,7 @@
   <string name="menu_top">Efst</string>
   <string name="tag_restriction_header">Gildi</string>
   <string name="tag_restriction_add_restriction">Bæta við hindrun</string>
+  <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Veldu radíus:</string>
   <string name="location_default_radius">300m</string>
@@ -163,10 +165,8 @@
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Myndavél</string>
   <string name="menu_gps_show">Sýna staðsetningu</string>
-  <string name="menu_gps_autodownload">Sjálfvirkt niðurhal</string>
   <string name="menu_transfer">Færi gögn...</string>
   <string name="menu_transfer_download_current">Niðurhala núverandi sýn</string>
-  <string name="menu_transfer_download_current_add">Bæta núverandi sýn við niðurhal</string>
   <string name="menu_transfer_upload">Uppfæra á OSM</string>
   <string name="menu_transfer_close_changeset">Loka núverandi breytingasetti</string>
   <string name="menu_join">Sameina</string>
@@ -196,6 +196,7 @@
   <string name="menu_reverse">Snúa við</string>
   <string name="reverse_anyway">Snúa samt við</string>
   <string name="deletenode">Eyða hnúti</string>
+  <!--EasyEdit context menus-->
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Ferill valinn</string>
   <string name="actionmode_nodeselect">Hnútur valinn</string>
@@ -231,8 +232,9 @@
   <string name="config_enableNameSuggestions_title">Virkja nafnatillögur</string>
   <string name="config_generateAlerts_title">Birta tilkynningar</string>
   <string name="config_generateAlerts_summary">Birta tilkynningar fyrir gögn með vandamál eða athugasemdir</string>
-  <string name="config_extTriggeredDownloadRadius_title">Niðurhala radíus</string>
   <string name="config_closeChangesetOnSave_title">Loka breytingasetti</string>
+  <!--Auto-download settings-->
+  <string name="config_extTriggeredDownloadRadius_title">Niðurhala radíus</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA netlind</string>
   <!--Server Settings-->
