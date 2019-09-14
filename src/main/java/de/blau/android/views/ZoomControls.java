@@ -52,7 +52,7 @@ public class ZoomControls extends LinearLayout {
         inflater.inflate(R.layout.zoom_controls, this, true);
         zoomIn = (FloatingActionButton) findViewById(R.id.zoom_in);
         zoomOut = (FloatingActionButton) findViewById(R.id.zoom_out);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // currently can't be set in layout, ColorStateList not supported in Lollipop and higher
             ColorStateList zoomTint = ContextCompat.getColorStateList(context, R.color.zoom);
             Util.setBackgroundTintList(zoomIn, zoomTint);
