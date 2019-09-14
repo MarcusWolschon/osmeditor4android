@@ -69,6 +69,7 @@
                         android:paddingEnd="5dp"
                         android:layout_alignTop="@id/upload_comment_label"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:background="@android:color/transparent"
                         android:tint="?attr/colorAccent"
                         android:src="@drawable/baseline_clear_white_36dp" />
@@ -100,6 +101,7 @@
                         android:paddingEnd="5dp"
                         android:layout_alignTop="@id/upload_source_label"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:background="@android:color/transparent"
                         android:tint="?attr/colorAccent"
                         android:src="@drawable/baseline_clear_white_36dp" />
