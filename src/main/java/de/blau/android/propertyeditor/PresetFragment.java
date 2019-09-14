@@ -196,6 +196,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     getAndShowSearchResults(presetSearch); // this should recreate the search results
                 }
             }
+
             presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -207,28 +208,38 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     return false;
                 }
             });
+
             // https://stackoverflow.com/questions/13135447/setting-onclicklistner-for-the-drawable-right-of-an-edittext/26269435#26269435
             // for the following
             presetSearch.setOnTouchListener(new OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    // final int DRAWABLE_LEFT = 0;
+                    final int DRAWABLE_LEFT = 0;
                     // final int DRAWABLE_TOP = 1;
                     final int DRAWABLE_RIGHT = 2;
                     // final int DRAWABLE_BOTTOM = 3;
 
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-                        Drawable icon = presetSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
-                        if (icon != null && event.getRawX() >= (presetSearch.getRight() - icon.getBounds().width())) { // FIXME
-                            presetSearch.setText("");
-                            final FragmentManager fm = getChildFragmentManager();
-                            de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-                            return true;
+                        boolean rtlLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+                                && presetSearch.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+                        Drawable icon = presetSearch.getCompoundDrawables()[rtlLayout ? DRAWABLE_LEFT : DRAWABLE_RIGHT];
+                        if (icon != null) {
+                            int[] outLocation = new int[2];
+                            presetSearch.getLocationOnScreen(outLocation);
+                            float rawX = event.getRawX();
+                            int iconWidth = icon.getBounds().width();
+                            if ((rtlLayout && rawX <= outLocation[0] + iconWidth) || (rawX >= outLocation[0] + presetSearch.getWidth() - iconWidth)) {
+                                presetSearch.setText("");
+                                final FragmentManager fm = getChildFragmentManager();
+                                de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                                return true;
+                            }
                         }
                     }
                     return false;
                 }
             });
+
             presetSearch.addTextChangedListener(new TextWatcher() {
 
                 @Override
@@ -272,8 +283,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
-    PresetSearchResultsFragment searchResultDialog = null;
-
     /**
      * Query the preset search index and display results in a dialog
      * 
@@ -304,7 +313,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     }
                 }
 
-                searchResultDialog = (PresetSearchResultsFragment) fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                PresetSearchResultsFragment searchResultDialog = (PresetSearchResultsFragment) fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
                 if (searchResultDialog == null) {
                     searchResultDialog = PresetSearchResultsFragment.newInstance(term, result);
                     try {
