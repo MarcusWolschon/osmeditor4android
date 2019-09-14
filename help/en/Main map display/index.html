@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../14.0.0 Release notes/">14.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../13.1.0 Release notes/">13.1.0 Release notes</a>
 </li>
                                         
@@ -316,6 +320,7 @@ i-->
 <li>Menu button.<ul>
 <li>Tile based layers: <ul>
 <li><strong>Select imagery</strong> Same contents as the corresponding preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.</li>
+<li><strong>Add imagery from OAM</strong> Query OAM for layers in the current map view and display a list allowing to add them to the local configuration</li>
 <li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
 <li><strong>Background properties</strong> Set contrast of layer.</li>
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
@@ -337,6 +342,10 @@ i-->
 </li>
 <li>Data layer.<ul>
 <li><strong>Configure...</strong> Allows selection and configuration of the current OSM data sources. Same contents as the corresponding preference screen.</li>
+</ul>
+</li>
+<li>Data and Tasks layers.<ul>
+<li><strong>Prune</strong> remove downloaded data from storage that is outside of the current screen.</li>
 </ul>
 </li>
 </ul>
@@ -389,12 +398,12 @@ directory, however this depends on the specific camera app.</p>
 <h3 id="transfer"><img alt="Transfer" src="../../images/menu_transfer.png" /> Transfer</h3>
 <p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display seven or eight options:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and replace any existing data <em>(requires network connectivity)</em></li>
-<li><strong>Add current view to download</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
-<li><strong>Download at other location</strong> - shows a form that lets you enter coordinates, search for a location or enter coordinates directly, and then download an area around that location <em>(requires network connectivity)</em></li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
 <li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
 <li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
-<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.<ul>
 <li><strong>Export changes to OSC file</strong> - write a ".osc" format file containing the current edits</li>
 <li><strong>Apply changes from OSC file</strong> - read a ".osc" format file and apply its contents</li>
@@ -425,7 +434,6 @@ directory, however this depends on the specific camera app.</p>
 <ul>
 <li><strong>Align background</strong> - align the current background layer, this can be done manually or from the image alignment database <em>(requires network connectivity)</em></li>
 <li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer </li>
-<li><strong>Add imagery from OAM</strong> - query OAM for layers in the current map view and display a list allowing to add them to the local configuration</li>
 <li><strong>More imagery tools</strong><ul>
 <li><strong>Update imagery layer configuration</strong> - download a current version of the imagery layer configuration. <em>(requires network connectivity)</em></li>
 <li><strong>Flush all tile caches</strong> - empty all on device tile caches. </li>
@@ -487,6 +495,7 @@ directory, however this depends on the specific camera app.</p>
 <li>Menu button.<ul>
 <li>Tile based layers: <ul>
 <li><strong>Select imagery</strong> Same contents as the corresponding preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.</li>
+<li><strong>Add imagery from OAM</strong> Query OAM for layers in the current map view and display a list allowing to add them to the local configuration</li>
 <li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
 <li><strong>Background properties</strong> Set contrast of layer.</li>
 <li><strong>Info</strong> Display information on the currently selected imagery.</li>
@@ -508,6 +517,10 @@ directory, however this depends on the specific camera app.</p>
 </li>
 <li>Data layer.<ul>
 <li><strong>Configure...</strong> Allows selection and configuration of the current OSM data sources. Same contents as the corresponding preference screen.</li>
+</ul>
+</li>
+<li>Data and Tasks layers.<ul>
+<li><strong>Prune</strong> remove downloaded data from storage that is outside of the current screen.</li>
 </ul>
 </li>
 </ul>
@@ -560,12 +573,12 @@ directory, however this depends on the specific camera app.</p>
 <h3 id="transfer"><img alt="Transfer" src="../../images/menu_transfer.png" /> Transfer</h3>
 <p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display seven or eight options:</p>
 <ul>
-<li><strong>Download current view</strong> - download the area visible on the screen and replace any existing data <em>(requires network connectivity)</em></li>
-<li><strong>Add current view to download</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
-<li><strong>Download at other location</strong> - shows a form that lets you enter coordinates, search for a location or enter coordinates directly, and then download an area around that location <em>(requires network connectivity)</em></li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
 <li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
 <li><strong>Close current changeset</strong> - manually close the current changeset <em>(only available if a changeset is open)</em></li>
-<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download the area shown in the current screen automatically <em>(requires network connectivity)</em></li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.<ul>
 <li><strong>Export changes to OSC file</strong> - write a ".osc" format file containing the current edits</li>
 <li><strong>Apply changes from OSC file</strong> - read a ".osc" format file and apply its contents</li>
@@ -596,7 +609,6 @@ directory, however this depends on the specific camera app.</p>
 <ul>
 <li><strong>Align background</strong> - align the current background layer, this can be done manually or from the image alignment database <em>(requires network connectivity)</em></li>
 <li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer </li>
-<li><strong>Add imagery from OAM</strong> - query OAM for layers in the current map view and display a list allowing to add them to the local configuration</li>
 <li><strong>More imagery tools</strong><ul>
 <li><strong>Update imagery layer configuration</strong> - download a current version of the imagery layer configuration. <em>(requires network connectivity)</em></li>
 <li><strong>Flush all tile caches</strong> - empty all on device tile caches. </li>
@@ -628,7 +640,7 @@ directory, however this depends on the specific camera app.</p>
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.1.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 14.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",

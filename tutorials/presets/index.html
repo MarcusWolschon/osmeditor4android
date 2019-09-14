@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../help/en/14.0.0 Release notes/">14.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../help/en/13.1.0 Release notes/">13.1.0 Release notes</a>
 </li>
                                         
@@ -401,6 +405,18 @@ i-->
 <td>sort the items alphabetically, default "yes"</td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;item&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -447,6 +463,18 @@ i-->
 <td>deprecated</td>
 <td>extension</td>
 <td>only use the preset for matching and map icon display</td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset item is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;chunk&gt;</strong></td>
@@ -1024,6 +1052,12 @@ i-->
 <td>ignored</td>
 <td></td>
 </tr>
+<tr>
+<td></td>
+<td>regexp</td>
+<td>ignored</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <h3 id="translation">Translation <a name="Translation"></a></h3>
@@ -1051,6 +1085,8 @@ i-->
 <li>
 <p><em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p>
 </li>
+<li><em>regions</em> comma separated list of countries this preset group or item is applicable for</li>
+<li><em>exclude_regions</em> if true, invert the meaning of regions </li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -1173,6 +1209,18 @@ i-->
 <td>sort the items alphabetically, default "yes"</td>
 </tr>
 <tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset group is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
 <td><strong>&lt;item&gt;</strong></td>
 <td></td>
 <td>supported</td>
@@ -1219,6 +1267,18 @@ i-->
 <td>deprecated</td>
 <td>extension</td>
 <td>only use the preset for matching and map icon display</td>
+</tr>
+<tr>
+<td></td>
+<td>regions</td>
+<td>extension</td>
+<td>comma separated list of countries this preset item is applicable for</td>
+</tr>
+<tr>
+<td></td>
+<td>exclude_regions</td>
+<td>extension</td>
+<td>if true, invert the meaning of regions</td>
 </tr>
 <tr>
 <td><strong>&lt;chunk&gt;</strong></td>
@@ -1796,6 +1856,12 @@ i-->
 <td>ignored</td>
 <td></td>
 </tr>
+<tr>
+<td></td>
+<td>regexp</td>
+<td>ignored</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <h3 id="translation">Translation <a name="Translation"></a></h3>
@@ -1823,6 +1889,8 @@ i-->
 <li>
 <p><em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p>
 </li>
+<li><em>regions</em> comma separated list of countries this preset group or item is applicable for</li>
+<li><em>exclude_regions</em> if true, invert the meaning of regions </li>
 </ul></div>
                 
         </div>
@@ -1830,7 +1898,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.1.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 14.0.0 </p>
         </footer>
         <script>
             var base_url = "../..",
