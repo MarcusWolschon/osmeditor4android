@@ -312,7 +312,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
                             @Override
                             public void onSuccess() {
-                                map.invalidate();
+                                map.postInvalidate();
                             }
 
                             @Override

@@ -125,7 +125,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
                             @Override
                             public void onSuccess() {
-                                invalidate();
+                                map.postInvalidate();
                             }
 
                             @Override
