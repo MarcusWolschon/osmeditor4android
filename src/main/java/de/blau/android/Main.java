@@ -527,7 +527,7 @@ public class Main extends FullScreenAppCompatActivity
                 setFollowGPS(true);
             }
         });
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // currently can't be set in layout
             ColorStateList followTint = ContextCompat.getColorStateList(this, R.color.follow);
             Util.setBackgroundTintList(follow, followTint);
@@ -3101,7 +3101,7 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
             }
-        } else {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             Util.setBackgroundTintList(simpleActionsButton, stateList);
         }
     }
