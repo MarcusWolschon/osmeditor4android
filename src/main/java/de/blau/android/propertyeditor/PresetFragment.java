@@ -388,7 +388,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         super.onCreateOptionsMenu(menu, inflater);
         ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
         // the library providing the Feedback UI is not supported under SDK 15
-        boolean enablePresetFeedback = Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && BuildConfig.FLAVOR.equals(Flavors.CURRENT);
+        boolean enablePresetFeedback = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.FLAVOR.equals(Flavors.CURRENT);
         if (paneMode) {
             getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
             android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {

@@ -1746,8 +1746,8 @@ public class Main extends FullScreenAppCompatActivity
             menu.findItem(R.id.menu_tools_update_imagery_configuration).setVisible(false);
         }
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 || !BuildConfig.FLAVOR.equals(Flavors.CURRENT)) {
-            // the library providing the UI is not supported under SDK 15
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || !BuildConfig.FLAVOR.equals(Flavors.CURRENT)) {
+            // the library providing the UI is not supported under SDK 15, in reality 15 doesn't work
             menu.findItem(R.id.menu_feedback).setVisible(false);
         }
 
