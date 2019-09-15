@@ -160,7 +160,8 @@ public class TableLayoutUtils {
         boolean isTitle = cell1 != null && cell2 == null && cell3 == null;
         if (isTitle) { // heading
             span.setSpan(new StyleSpan(Typeface.BOLD), 0, span.length(), 0);
-        } else if (cell2 != null && !cell2.equals(cell3)) { // values changed
+        } else if (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString()))) { // values changed
+            // note a CharSequence doesn't necessarily have a content aware equals, so we need to convert to String first
             span.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(activity, R.attr.colorAccent, Color.GREEN)), 0, span.length(), 0);
         }
         cell.setText(span);
