@@ -2440,9 +2440,19 @@ public class TileLayerServer implements Serializable {
     }
 
     /**
+     * Set the maximum zoom
+     * 
+     * If the offsets array already has been allocated this will expand it if necessary (currently only possible for
+     * bing)
+     * 
      * @param zoomLevelMax the zoomLevelMax to set
      */
-    public void setMaxZoom(int zoomLevelMax) {
+    public synchronized void setMaxZoom(int zoomLevelMax) {
+        if (offsets != null && offsets.length < zoomLevelMax) {
+            Offset[] tempOffsets = new Offset[zoomLevelMax - this.zoomLevelMin + 1];
+            System.arraycopy(offsets, 0, tempOffsets, 0, offsets.length);
+            offsets = tempOffsets;
+        }
         this.zoomLevelMax = zoomLevelMax;
     }
 
