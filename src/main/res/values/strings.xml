@@ -875,7 +875,7 @@ avoided by using an offline data source.</string>
     <string name="config_autoPruneNodeLimit_summary">Number of Nodes in memory that when reached will trigger a prune.</string>
     <string name="config_autoPruneNodeLimit_current">%1$d Nodes</string>
     <string name="config_panAndZoomLimit_title">Zoom limit</string>
-    <string name="config_panAndZoomLimit_summary">Minumum zoom level for pan and zoom auto-download.</string>
+    <string name="config_panAndZoomLimit_summary">Minimum zoom level for pan and zoom auto-download.</string>
     <string name="config_panAndZoomLimit_current">%1$d</string>
     <string name="config_bugFilter_title">Task filter</string>
     <string name="config_bugFilter_summary">Select which elements are displayed on the notes, bugs and task layer.</string>
