@@ -469,20 +469,37 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
 
     @Override
     public BoundingBox getBounds() {
+        return getBounds(1);
+    }
+
+    /**
+     * Return a bounding box covering the element with loop protection
+     * 
+     * This will stop when depth > MAX_DEPTH
+     * 
+     * @param depth current depth in the tree we are at
+     * @return the BoundingBox or null if it cannot be determined
+     */
+    @Nullable
+    private BoundingBox getBounds(int depth) {
         // NOTE this will only return a bb covering the downloaded elements
         BoundingBox result = null;
-        for (RelationMember rm : members) {
-            OsmElement e = rm.getElement();
-            if (e != null) {
-                if (result == null) {
-                    result = e.getBounds();
-                } else {
-                    BoundingBox box = e.getBounds();
-                    if (box != null) {
-                        result.union(e.getBounds());
+        if (depth <= MAX_DEPTH) {
+            for (RelationMember rm : members) {
+                OsmElement e = rm.getElement();
+                if (e != null) {
+                    BoundingBox box = e instanceof Relation ? ((Relation) e).getBounds(depth + 1) : e.getBounds();
+                    if (result == null) {
+                        result = box;
+                    } else {
+                        if (box != null) {
+                            result.union(box);
+                        }
                     }
                 }
             }
+        } else {
+            Log.e(NAME, "getBounds relation nested too deep " + getOsmId());
         }
         return result;
     }
@@ -526,7 +543,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
                 OsmElement e = rm.getElement();
                 if (e != null) {
                     if (e instanceof Relation) {
-                        distance = Math.min(distance, ((Relation) e).getMinDistance(depth++, location));
+                        distance = Math.min(distance, ((Relation) e).getMinDistance(depth + 1, location));
                     } else {
                         distance = Math.min(distance, e.getMinDistance(location));
                     }
