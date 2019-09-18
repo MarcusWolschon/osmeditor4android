@@ -274,4 +274,31 @@ public class BasicStuffTest {
             Assert.fail(igit.getMessage());
         }
     }
+
+    /**
+     * Test if the loop protection in getBounds works
+     */
+    @Test
+    public void relationLoop() {
+        try {
+            final CountDownLatch signal = new CountDownLatch(1);
+            Logic logic = App.getLogic();
+
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            InputStream is = loader.getResourceAsStream("relationloop.osm");
+            logic.readOsmFile(main, is, false, new SignalHandler(signal));
+            try {
+                signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Assert.fail(e.getMessage());
+            }
+            StorageDelegator delegator = App.getDelegator();
+            //
+            Relation r = (Relation) delegator.getOsmElement(Relation.NAME, 6490362L);
+            Assert.assertNotNull(r);
+            Assert.assertNull(r.getBounds()); // null == couldn't determine the bounding box
+        } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
 }

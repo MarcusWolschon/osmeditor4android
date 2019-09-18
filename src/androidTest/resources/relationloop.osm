@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' upload='true' generator='JOSM'>
+  <bounds minlat='47.3890962' minlon='8.3847356' maxlat='47.3904617' maxlon='8.3865809' origin='CGImap 0.5.8 (27826 thorn-01.openstreetmap.org)' />
+  <relation id='6490362' timestamp='2017-11-09T20:22:05Z' uid='465052' user='hecktor' version='2' changeset='53649706'>
+    <member type='relation' ref='6490362' role='' />
+    <tag k='route' v='hiking' />
+    <tag k='symbol' v='gelber Diamant' />
+    <tag k='type' v='route' />
+  </relation>
+</osm>
