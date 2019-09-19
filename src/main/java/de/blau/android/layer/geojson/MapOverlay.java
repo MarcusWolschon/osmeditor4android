@@ -224,7 +224,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         }
     }
 
-    private RTree                        data;
+    private RTree<BoundedFeature>        data;
     private final transient Path         path   = new Path();
     private transient Paint              paint;
     private transient FloatPrimitiveList points = new FloatPrimitiveList();
@@ -279,12 +279,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         labelStrokeWidth = labelPaint.getStrokeWidth();
 
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+        Collection<BoundedFeature> queryResult = new ArrayList<>();
         data.query(queryResult, bb);
         Log.d(DEBUG_TAG, "features result count " + queryResult.size());
-        for (BoundedObject bo : queryResult) {
-            Feature f = ((BoundedFeature) bo).getFeature();
-            drawGeometry(canvas, bb, width, height, zoomLevel, f);
+        for (BoundedFeature bf : queryResult) {
+            drawGeometry(canvas, bb, width, height, zoomLevel, bf.getFeature());
         }
     }
 
@@ -492,11 +491,18 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
         StringBuilder sb = new StringBuilder();
         int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
+        try {
+            while ((cp = rd.read()) != -1) {
+                sb.append((char) cp);
+            }
+        } catch (OutOfMemoryError oom) {
+            sb = null; // might or might not work
+            Snack.toastTopError(ctx, R.string.out_of_memory_title);
+            Log.e(DEBUG_TAG, "Out of memory error " + oom.getMessage());
+            return false;
         }
         try {
-            data = new RTree(2, 12);
+            data = new RTree<>(2, 12);
             String json = sb.toString();
             FeatureCollection fc = FeatureCollection.fromJson(json);
             List<Feature> features = fc.features();
@@ -637,12 +643,12 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         Log.d(DEBUG_TAG, "getClicked");
         if (data != null) {
             final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
-            Collection<BoundedObject> queryResult = new ArrayList<>();
+            Collection<BoundedFeature> queryResult = new ArrayList<>();
             data.query(queryResult, viewBox);
             Log.d(DEBUG_TAG, "features result count " + queryResult.size());
             if (queryResult != null) {
-                for (BoundedObject bo : queryResult) {
-                    Feature f = ((BoundedFeature) bo).getFeature();
+                for (BoundedFeature bf : queryResult) {
+                    Feature f = bf.getFeature();
                     Geometry g = f.geometry();
                     if (g == null) {
                         continue;
@@ -748,11 +754,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @return a List of Feature objects
      */
     public List<Feature> getFeatures() {
-        Collection<BoundedObject> queryResult = new ArrayList<>();
+        Collection<BoundedFeature> queryResult = new ArrayList<>();
         data.query(queryResult);
         List<Feature> result = new ArrayList<>();
-        for (BoundedObject bo : queryResult) {
-            result.add(((BoundedFeature) bo).getFeature());
+        for (BoundedFeature bf : queryResult) {
+            result.add(bf.getFeature());
         }
         return result;
     }
@@ -802,11 +808,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     @Override
     public List<String> getLabelList() {
         if (data != null) {
-            Collection<BoundedObject> queryResult = new ArrayList<>();
+            Collection<BoundedFeature> queryResult = new ArrayList<>();
             data.query(queryResult);
             Set<String> result = new TreeSet<>();
-            for (BoundedObject bo : queryResult) {
-                BoundedFeature bf = (BoundedFeature) bo;
+            for (BoundedFeature bf : queryResult) {
                 Feature feature = bf.getFeature();
                 if (feature != null) {
                     JsonObject properties = feature.properties();
@@ -870,14 +875,14 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     @Override
     public BoundingBox getExtent() {
         if (data != null) {
-            Collection<BoundedObject> queryResult = new ArrayList<>();
+            Collection<BoundedFeature> queryResult = new ArrayList<>();
             data.query(queryResult);
             BoundingBox extent = null;
-            for (BoundedObject bo : queryResult) {
+            for (BoundedFeature bf : queryResult) {
                 if (extent == null) {
-                    extent = bo.getBounds();
+                    extent = bf.getBounds();
                 } else {
-                    extent.union(bo.getBounds());
+                    extent.union(bf.getBounds());
                 }
             }
             return extent;
