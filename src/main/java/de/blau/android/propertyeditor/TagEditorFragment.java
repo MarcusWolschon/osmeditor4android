@@ -254,11 +254,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         getActivity().supportInvalidateOptionsMenu();
     }
 
-    /**
-     * display member elements of the relation if any
-     * 
-     * @param members
-     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ScrollView rowLayout = null;
@@ -804,10 +799,18 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return tags2Preset;
     }
 
-    private void addSecondaryPreset(PresetItem nonAssignedPreset) {
+    /**
+     * Add a further PresetItem to the List of secondary PresetItems
+     * 
+     * @param nonAssignedPreset the PresetItem to add
+     */
+    private void addSecondaryPreset(@NonNull PresetItem nonAssignedPreset) {
         secondaryPresets.add(nonAssignedPreset);
     }
 
+    /**
+     * Clear the List of secondary PrestItems
+     */
     private void clearSecondaryPresets() {
         secondaryPresets.clear();
     }
