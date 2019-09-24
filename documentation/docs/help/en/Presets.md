@@ -12,7 +12,7 @@ The light grey buttons in the preset dialog indicate groups of presets, dark gre
 
 ## Managing presets
 
-To manage the presets go to the "Preferences" screen and then to the "Advanced Preferences", selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry (except for the default "OpenStreetMap") will give you a choice of:
+To manage the presets go to the "Preferences" screen, selecting "Presets" will give you a list of the currently available presets. Clicking in the check box will enable/disable the corresponding entry, a long press on the entry (except for the default "OpenStreetMap") will give you a choice of:
 
 
 * **Edit** - change the name or/and URL of the preset
