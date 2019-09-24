@@ -311,18 +311,28 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 int position = 0;
                 ArrayAdapter<StringWithDescription> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
                 if (preset != null) {
-                    List<String> mruValues = App.getMruTags().getValues(preset, key);
-                    if (mruValues != null) {
-                        for (String v : mruValues) {
-                            adapter2.add(new StringWithDescription(v));
-                            counter.put(v, position++);
-                        }
-                    }
                     Collection<StringWithDescription> presetValues;
                     if (field != null) {
                         presetValues = preset.getAutocompleteValues(field);
                     } else {
                         presetValues = preset.getAutocompleteValues(key);
+                    }
+                    List<String> mruValues = App.getMruTags().getValues(preset, key);
+                    if (mruValues != null) {
+                        for (String v : mruValues) {
+                            StringWithDescription mruValue = null;
+                            for (StringWithDescription swd : presetValues) {
+                                if (v.equals(swd.getValue())) {
+                                    mruValue = swd;
+                                    break;
+                                }
+                            }
+                            if (mruValue == null) {
+                                mruValue = new StringWithDescription(v);
+                            }
+                            adapter2.add(mruValue);
+                            counter.put(v, position++);
+                        }
                     }
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + presetValues);
                     if (!presetValues.isEmpty()) {
