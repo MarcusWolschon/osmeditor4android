@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -17,8 +18,8 @@ import de.blau.android.prefs.Preferences;
  */
 public class NotificationCache implements Serializable {
     private static final String DEBUG_TAG        = "NotificationCache";
-    private static final long   serialVersionUID = 1L;
-    private ArrayList<Integer>  cache;
+    private static final long   serialVersionUID = 2L;
+    private List<Integer>       cache;
     private int                 size             = 5;
 
     /**
@@ -121,7 +122,6 @@ public class NotificationCache implements Serializable {
      * @param ctx Android Context
      */
     public synchronized void trim(@NonNull Context ctx) {
-
         Preferences prefs = new Preferences(ctx);
         int prefSize = prefs.getNotificationCacheSize();
         Log.d(DEBUG_TAG, "trim " + prefSize + "/" + cache.size() + "/" + size);
