@@ -682,35 +682,37 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         List<BoundingBox> result = new ArrayList<>();
         result.add(newBox);
         for (BoundingBox b : existing) {
-            List<BoundingBox> temp = new ArrayList<>();
-            for (BoundingBox rb : result) {
-                if (b.intersects(rb)) {
-                    // higher than b
-                    if (rb.top > b.top) {
-                        temp.add(new BoundingBox(rb.left, b.top, rb.right, rb.top));
-                        rb.setTop(b.top);
+            if (b != null) {
+                List<BoundingBox> temp = new ArrayList<>();
+                for (BoundingBox rb : result) {
+                    if (b.intersects(rb)) {
+                        // higher than b
+                        if (rb.top > b.top) {
+                            temp.add(new BoundingBox(rb.left, b.top, rb.right, rb.top));
+                            rb.setTop(b.top);
+                        }
+                        // lower than b
+                        if (rb.bottom < b.bottom) {
+                            temp.add(new BoundingBox(rb.left, rb.bottom, rb.right, b.bottom));
+                            rb.setBottom(b.bottom);
+                        }
+                        // left
+                        if (rb.left < b.left && rb.bottom != rb.top) {
+                            temp.add(new BoundingBox(rb.left, rb.bottom, b.left, rb.top));
+                            rb.setLeft(b.left);
+                        }
+                        // right
+                        if (rb.right > b.right && rb.bottom != rb.top) {
+                            temp.add(new BoundingBox(b.right, rb.bottom, rb.right, rb.top));
+                            rb.setRight(b.right);
+                        }
+                        rb.calcDimensions();
+                    } else {
+                        temp.add(rb);
                     }
-                    // lower than b
-                    if (rb.bottom < b.bottom) {
-                        temp.add(new BoundingBox(rb.left, rb.bottom, rb.right, b.bottom));
-                        rb.setBottom(b.bottom);
-                    }
-                    // left
-                    if (rb.left < b.left && rb.bottom != rb.top) {
-                        temp.add(new BoundingBox(rb.left, rb.bottom, b.left, rb.top));
-                        rb.setLeft(b.left);
-                    }
-                    // right
-                    if (rb.right > b.right && rb.bottom != rb.top) {
-                        temp.add(new BoundingBox(b.right, rb.bottom, rb.right, rb.top));
-                        rb.setRight(b.right);
-                    }
-                    rb.calcDimensions();
-                } else {
-                    temp.add(rb);
                 }
+                result = temp;
             }
-            result = temp;
         }
         return result;
     }
