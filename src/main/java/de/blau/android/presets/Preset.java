@@ -2270,7 +2270,7 @@ public class Preset implements Serializable {
          */
         @Nullable
         public PresetElementPath getPath(@NonNull PresetGroup root) {
-            for (PresetElement e : root.getElements()) {
+            for (PresetElement e : new ArrayList<>(root.getElements())) { // prevent CCME
                 if (e.equals(this)) {
                     PresetElementPath result = new PresetElementPath();
                     result.getPath().add(e.getName());
