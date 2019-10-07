@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import android.content.Context;
@@ -34,9 +35,9 @@ public abstract class Filter implements Serializable {
     /**
      * cache for element filter actions
      */
-    transient HashMap<Node, Include>     cachedNodes     = new HashMap<>(100);
-    transient HashMap<Way, Include>      cachedWays      = new HashMap<>(100);
-    transient HashMap<Relation, Include> cachedRelations = new HashMap<>(100);
+    transient Map<Node, Include>     cachedNodes     = new HashMap<>(100);
+    transient Map<Way, Include>      cachedWays      = new HashMap<>(100);
+    transient Map<Relation, Include> cachedRelations = new HashMap<>(100);
 
     private transient Logic logic = App.getLogic();
 
