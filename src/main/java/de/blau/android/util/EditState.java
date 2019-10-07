@@ -19,7 +19,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.tasks.Task;
 
 /**
  * Save the edit state across pause / resume cycles
@@ -28,14 +27,12 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-    private static final long       serialVersionUID = 22L;
+    private static final long       serialVersionUID = 23L;
     private final boolean           savedLocked;
     private final Mode              savedMode;
     private final List<Node>        savedNodes;
     private final List<Way>         savedWays;
     private final List<Relation>    savedRelations;
-    @SuppressWarnings("unused")
-    private final Task              savedBug;
     private final String            savedImageFileName;
     private final BoundingBox       savedBox;
     private final List<String>      savedLastComments;
@@ -65,7 +62,6 @@ public class EditState implements Serializable {
         savedNodes = logic.getSelectedNodes();
         savedWays = logic.getSelectedWays();
         savedRelations = logic.getSelectedRelations();
-        savedBug = null;
         savedImageFileName = imageFileName;
         savedBox = box;
         savedLastComments = logic.getLastComments();
