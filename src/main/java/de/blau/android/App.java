@@ -45,7 +45,8 @@ import de.blau.android.validation.Validator;
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
 import okhttp3.OkHttpClient;
 
-@AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure)
+@AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure, logcatArguments = { "-t", "500", "-v",
+        "time" })
 @AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "https://acralyzer.vespucci.io/acraproxy")
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
