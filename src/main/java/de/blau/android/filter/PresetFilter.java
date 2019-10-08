@@ -216,6 +216,8 @@ public class PresetFilter extends CommonFilter {
             } else {
                 presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
             }
+            presetFilterButton.hide(); // workaround https://issuetracker.google.com/issues/117476935
+            presetFilterButton.show();
         }
     }
 
