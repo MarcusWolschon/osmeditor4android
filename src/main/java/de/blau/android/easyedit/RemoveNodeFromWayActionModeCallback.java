@@ -6,13 +6,18 @@ import java.util.List;
 
 import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.Menu;
 import de.blau.android.R;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
+import de.blau.android.util.Snack;
 
 public class RemoveNodeFromWayActionModeCallback extends NonSimpleActionModeCallback {
+    private static final String DEBUG_TAG = "RemoveNode...";
+
     private final Way        way;
     private List<OsmElement> nodes = new ArrayList<>();
 
@@ -47,7 +52,12 @@ public class RemoveNodeFromWayActionModeCallback extends NonSimpleActionModeCall
             // TODO fix properly
             return false;
         }
-        logic.performRemoveNodeFromWay(main, way, (Node) element);
+        try {
+            logic.performRemoveNodeFromWay(main, way, (Node) element);
+        } catch (OsmIllegalOperationException oloex) {
+            Log.e(DEBUG_TAG, "Tried to remove node from way " + way.getOsmId() + " #nodes " + way.getNodes().size() + " cloased " + way.isClosed());
+            Snack.toastTopError(main, oloex.getMessage()); // this should never happen
+        }
         manager.finish();
         return true;
     }
