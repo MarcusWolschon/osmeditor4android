@@ -163,9 +163,11 @@ public class RecentPresetsFragment extends BaseFragment {
         Preset[] presets = App.getCurrentPresets(getActivity());
         if (presets != null) {
             for (Preset p : presets) {
-                if (p.contains(item)) {
-                    p.removeRecentlyUsed(item);
-                    break;
+                if (p != null) {
+                    if (p.contains(item)) {
+                        p.removeRecentlyUsed(item);
+                        break;
+                    }
                 }
             }
         }
