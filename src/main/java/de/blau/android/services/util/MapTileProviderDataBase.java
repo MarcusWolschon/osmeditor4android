@@ -334,7 +334,9 @@ public class MapTileProviderDataBase implements MapViewConstants {
                             }
                             mDatabase.setTransactionSuccessful();
                         } finally {
-                            mDatabase.endTransaction();
+                            if (mDatabase.inTransaction()) {
+                                mDatabase.endTransaction();
+                            }
                         }
                     }
                 } catch (Exception e) {
