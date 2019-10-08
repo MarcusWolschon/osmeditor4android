@@ -3,11 +3,13 @@ package de.blau.android.filter;
 import java.util.List;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
+import de.blau.android.util.collections.LongHashSet;
 
 /**
  * Common methods used by multiple Filters
@@ -20,9 +22,13 @@ public abstract class CommonFilter extends InvertableFilter {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
+
+    private static final String DEBUG_TAG = CommonFilter.class.getSimpleName();
 
     protected boolean enabled = true;
+
+    transient LongHashSet rels = null;
 
     /**
      * Check if an OsmElement should be shown or not
@@ -99,9 +105,13 @@ public abstract class CommonFilter extends InvertableFilter {
         if (include != null) {
             return include;
         }
-
-        include = filter(relation);
-
+        if (cachedRelations.containsKey(relation)) { // relation loop
+            include = Include.DONT;
+            Log.e(DEBUG_TAG, "Relation " + relation.getOsmId() + " has a loop");
+        } else {
+            cachedRelations.put(relation, null);
+            include = filter(relation);
+        }
         cachedRelations.put(relation, include);
         List<RelationMember> members = relation.getMembers();
         if (members != null) {
