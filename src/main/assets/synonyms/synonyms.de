@@ -220,7 +220,7 @@
 "amenity/bicycle_parking/building":[
 "mehrstöckige Fahrradgarage",
 "Fahrradparkstation",
-"Fahrradpakrgarage"
+"Fahrradparkgarage"
 ],
 "amenity/bicycle_parking/lockers":[
 "Fahrradschließfächer"
@@ -536,6 +536,11 @@
 "amenity/language_school":[
 "Sprachschule"
 ],
+"amenity/letter_box":[
+"Briefschlitz",
+"Zustellbox",
+"Briefkasten"
+],
 "amenity/library":[
 "Bibliothek",
 "Bücherei"
@@ -739,6 +744,12 @@
 "Briefkasten",
 "Postkasten"
 ],
+"amenity/post_depot":[
+"Postdepot",
+"Verteilzentrum",
+"Postverteilzentrum",
+"Briefverteilzentrum"
+],
 "amenity/post_office":[
 "Post",
 "Poststelle",
@@ -784,6 +795,18 @@
 ],
 "amenity/recycling":[
 "Recycling"
+],
+"amenity/recycling/container/electrical_items":[
+"Elektromüllconainer",
+"E-Schrott-Container"
+],
+"amenity/recycling/container/green_waste":[
+"Kompostierbar",
+"Gartenabfälle",
+"Organisch",
+"Essensreste",
+"Biomüllcontainer",
+"biologisch abbaubar"
 ],
 "amenity/recycling_centre":[
 "Wertstoffhof",
@@ -1021,6 +1044,13 @@
 "Verkaufsautomat",
 "Selbstbedienungsautomat"
 ],
+"amenity/vending_machine/bottle_return":[
+"Pfandrückgabeautomat",
+"Pfandflaschenrückgabeautomat",
+"Leergutautomat",
+"Pfandflaschenautomat",
+"Pfandautomat"
+],
 "amenity/vending_machine/cigarettes":[
 "Zigarettenautomat"
 ],
@@ -1042,8 +1072,8 @@
 ],
 "amenity/vending_machine/excrement_bags":[
 "Kottütenspender",
-"kottütenspender",
-"Kotsackerlspender"
+"Kotsackerlspender",
+"Hundekottütenspender"
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "Frauenhygiene-Automat"
@@ -1067,7 +1097,7 @@
 "Paketabholstation",
 "Abholschließfächer",
 "Abholstation",
-"Paketabholdstation",
+"Packstation",
 "Paketabholschließfächer"
 ],
 "amenity/vending_machine/parcel_pickup_dropoff":[
@@ -2568,6 +2598,10 @@
 "Landwirtschaftliche Hofstelle",
 "Landwirtschaftlicher Betrieb"
 ],
+"landuse/flowerbed":[
+"Blumenbeet",
+"Blumengarten"
+],
 "landuse/forest":[
 "Bewirtschafteter Wald"
 ],
@@ -2974,6 +3008,7 @@
 "Skateplatz"
 ],
 "leisure/pitch/soccer":[
+"Bolzplatz",
 "Fußballfeld",
 "Fußballplatz"
 ],
@@ -3228,6 +3263,12 @@
 ],
 "man_made/monitoring_station":[
 "Messstation"
+],
+"man_made/obelisk":[
+"Tehen-Pfeiler",
+"Steinpfeiler",
+"Stele",
+"Obelisk"
 ],
 "man_made/observatory":[
 "Sternenwarte",
@@ -3758,8 +3799,9 @@
 "Arztpraxis"
 ],
 "office/political_party":[
-"Politische Partei",
-"Parteizentrale"
+"Büro einer politischen Partei",
+"Parteibüro, Büro einer politischen Partei",
+"Parteibüro"
 ],
 "office/private_investigator":[
 "Privatdedektiv"
@@ -5124,10 +5166,6 @@
 "Weinhandel",
 "Weinhaus",
 "Weinladen"
-],
-"tactile_paving":[
-"Ertastbares Straßenpflaster",
-"Blindenleitstreifen"
 ],
 "telecom/data_center":[
 "Datencenter",

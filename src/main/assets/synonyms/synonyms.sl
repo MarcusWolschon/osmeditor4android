@@ -2222,10 +2222,6 @@
 "office/physician":[
 "Ambulanta"
 ],
-"office/political_party":[
-"stranka",
-"Politična stranka"
-],
 "office/research":[
 "laboratorij",
 "Raziskave",

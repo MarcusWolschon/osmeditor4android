@@ -1534,9 +1534,6 @@
 "office/physician":[
 "Lege"
 ],
-"office/political_party":[
-"Politisk parti"
-],
 "office/travel_agent":[
 "Reisebyrå"
 ],

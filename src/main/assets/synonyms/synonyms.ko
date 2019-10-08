@@ -2489,9 +2489,6 @@
 "office/physician":[
 "내과의원"
 ],
-"office/political_party":[
-"정당"
-],
 "office/private_investigator":[
 "민간조사원",
 "사설탐정 사무소"
@@ -3563,9 +3560,6 @@
 "shop/wine":[
 "와인 가게",
 "포도주 가게"
-],
-"tactile_paving":[
-"점자 블록"
 ],
 "telecom/data_center":[
 "데이터 센터"

@@ -751,6 +751,13 @@
 "lingvolernejo",
 "Lingva lernejo"
 ],
+"amenity/letter_box":[
+"leterskatolo",
+"leterujo",
+"letera kesto",
+"poŝtkesto",
+"Leterkesto (riceva)"
+],
 "amenity/library":[
 "librejo",
 "libropruntejo",
@@ -982,9 +989,9 @@
 "posxtkesto",
 "poshtkesto",
 "leterskatolo",
-"Poŝtkesto",
 "leterkesto",
-"leterujo"
+"leterujo",
+"Poŝtkesto (senda)"
 ],
 "amenity/post_office":[
 "poshtoficejo",
@@ -4996,12 +5003,6 @@
 "office/physician":[
 "Kabineto de kuracisto"
 ],
-"office/political_party":[
-"Oficejo de politika partio",
-"partio",
-"politika partio",
-"politikpartio"
-],
 "office/private_investigator":[
 "Oficejo de detektivo",
 "detektivo"
@@ -6588,6 +6589,13 @@
 "fotografarto",
 "fotografio"
 ],
+"shop/printer_ink":[
+"kartoĉo",
+"presilinko",
+"inko",
+"farbopulvoro",
+"Presil-inka vendejo"
+],
 "shop/pyrotechnics":[
 "piroteknikaĵoj",
 "piroteĥnikaĵoj",
@@ -6814,11 +6822,6 @@
 "vinovendejo",
 "vindejo",
 "Vina vendejo"
-],
-"tactile_paving":[
-"blinda",
-"Reliefo por blinduloj",
-"randaĵo"
 ],
 "telecom/data_center":[
 "Datum-centro",

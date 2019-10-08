@@ -360,9 +360,6 @@
 "office/physician":[
 "Pakar Perubatan"
 ],
-"office/political_party":[
-"Parti Politik"
-],
 "office/private_investigator":[
 "Pejabat Penyiasat Peribadi"
 ],

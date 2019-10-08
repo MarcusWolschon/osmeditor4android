@@ -964,6 +964,21 @@
 "Escuela de idiomas",
 "colegio"
 ],
+"amenity/letter_box":[
+"receptáculo",
+"orificio",
+"casillero",
+"compartimiento",
+"abertura",
+"ranura",
+"correo",
+"casilla",
+"buzon",
+"hendidura",
+"caja",
+"Buzón",
+"buzón"
+],
 "amenity/library":[
 "Biblioteca",
 "biblioteca",
@@ -1401,6 +1416,11 @@
 "buzón",
 "Buzón de correos"
 ],
+"amenity/post_depot":[
+"depósito de correo",
+"centro de procesamiento y distribución de correo",
+"Oficina de clasificación de correos"
+],
 "amenity/post_office":[
 "estafeta de correos",
 "Oficina postal",
@@ -1487,6 +1507,34 @@
 ],
 "amenity/recycling":[
 "Reciclaje"
+],
+"amenity/recycling/container/electrical_items":[
+"Contenedor de desechos electrónicos",
+"desechos electrónicos",
+"electrónicos",
+"ordenadores",
+"notebooks",
+"basura",
+"tabletas",
+"reciclaje de productos electrónicos",
+"desechos",
+"tablets",
+"computadoras",
+"teléfonos"
+],
+"amenity/recycling/container/green_waste":[
+"biológico",
+"residuo",
+"biodegradable",
+"basurero",
+"restos de comida",
+"Contenedor de residuos orgánicos",
+"descomponible",
+"compost",
+"desperdicio de jardín",
+"orgánico",
+"basura",
+"verde"
 ],
 "amenity/recycling_centre":[
 "lata",
@@ -2052,6 +2100,12 @@
 "comida",
 "expendedora",
 "bebidas"
+],
+"amenity/vending_machine/bottle_return":[
+"retornable",
+"Máquina de devolución de botellas",
+"devolución de botella",
+"botellas"
 ],
 "amenity/vending_machine/cigarettes":[
 "cigarro",
@@ -4770,6 +4824,12 @@
 "cobertizos",
 "edificio agrario"
 ],
+"landuse/flowerbed":[
+"flores",
+"jardín floral",
+"Jardín de flores",
+"parterre"
+],
 "landuse/forest":[
 "madera",
 "arbol",
@@ -5894,6 +5954,12 @@
 "gps",
 "Estación de monitoreo"
 ],
+"man_made/obelisk":[
+"columna",
+"Obelisco",
+"monolito",
+"pilar"
+],
 "man_made/observatory":[
 "mirador",
 "observador",
@@ -6810,9 +6876,8 @@
 "Médico"
 ],
 "office/political_party":[
-"formación política",
-"grupo político",
-"Partido político"
+"Oficina del partido político",
+"partido político"
 ],
 "office/private_investigator":[
 "Oficina de investigador privado",
@@ -9274,12 +9339,6 @@
 "bebidas",
 "vinos",
 "Tienda de vinos"
-],
-"tactile_paving":[
-"superficie táctil",
-"discapacidad visual. ciegos",
-"Pavimento táctil",
-"superficie detectables"
 ],
 "telecom/data_center":[
 "almacenamiento de sistemas informáticos",

@@ -184,6 +184,14 @@
 "helipad",
 "hélicoptère"
 ],
+"aeroway/holding_position":[
+"parking",
+"Point d’attente avion",
+"arrêt",
+"attente",
+"arret",
+"avion"
+],
 "aeroway/jet_bridge":[
 "aéroport",
 "embarquement",
@@ -191,6 +199,13 @@
 "terminal",
 "Passerelle aéroportuaire",
 "passerelle aéroportuaire"
+],
+"aeroway/parking_position":[
+"Zone de Stationnement",
+"Voie de garage pour avion",
+"Stationnement",
+"Parking",
+"avion"
 ],
 "aeroway/runway":[
 "piste",
@@ -961,6 +976,13 @@
 "école de langues",
 "langues étrangères"
 ],
+"amenity/letter_box":[
+"boîte aux lettres",
+"courrier",
+"livraison",
+"facteur",
+"Boîte aux lettres privée"
+],
 "amenity/library":[
 "Médiathèque",
 "Bibliothèque"
@@ -1023,6 +1045,12 @@
 "Zone de Stationnement",
 "Stationnement",
 "Parking"
+],
+"amenity/parking/park_ride":[
+"Zone de Stationnement",
+"Stationnement",
+"Parking",
+"Parking-relais"
 ],
 "amenity/parking/underground":[
 "sous-terrain",
@@ -1234,6 +1262,12 @@
 ],
 "amenity/recycling":[
 "Point de recyclage"
+],
+"amenity/recycling/container/electrical_items":[
+"Benne pour déchets d'équipements électriques et électroniques (DEEE)"
+],
+"amenity/recycling/container/green_waste":[
+"Benne pour déchets verts"
 ],
 "amenity/recycling_centre":[
 "Déchèterie / Parc à conteneurs / Écocentre",
@@ -4198,7 +4232,8 @@
 ],
 "leisure/fitness_centre":[
 "salle de sport",
-"Centre de fitness / gym"
+"Centre de fitness / gym",
+"salle de musculation"
 ],
 "leisure/fitness_centre/yoga":[
 "Salle de Yoga",
@@ -5250,9 +5285,6 @@
 ],
 "office/physician":[
 "Médecin"
-],
-"office/political_party":[
-"Parti politique"
 ],
 "office/private_investigator":[
 "Enquêteur privé/détective",
@@ -6779,6 +6811,14 @@
 "Photographe",
 "Tirage de photos"
 ],
+"shop/printer_ink":[
+"Vendeur d'encre pour imprimante",
+"impression",
+"fax",
+"cartouche",
+"imprimante",
+"encre"
+],
 "shop/pyrotechnics":[
 "Magasin de feux d'artifice"
 ],
@@ -6917,13 +6957,6 @@
 "shop/wine":[
 "Caviste",
 "Bar à vins"
-],
-"tactile_paving":[
-"bosse",
-"aveugle",
-"Surface podotactile",
-"surface podotactile",
-"podotactile"
 ],
 "telecom/data_center":[
 "technologie",

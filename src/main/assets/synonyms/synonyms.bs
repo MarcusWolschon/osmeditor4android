@@ -1060,12 +1060,6 @@
 "office/physician":[
 "Ljekar"
 ],
-"office/political_party":[
-"Politička stranka",
-"politička partija",
-"politička stranka",
-"ured političke partije"
-],
 "office/research":[
 "istraživački ured",
 "Ured za istraživanje",

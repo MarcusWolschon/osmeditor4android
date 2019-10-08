@@ -613,6 +613,11 @@
 "języki",
 "esl"
 ],
+"amenity/letter_box":[
+"Prywatna skrzynka pocztowa",
+"prywatna skrzynka pocztowa",
+"prywatna skrzynka na listy"
+],
 "amenity/library":[
 "czytelnia",
 "Biblioteka",
@@ -712,7 +717,9 @@
 "amenity/payment_centre":[
 "czeki",
 "podatki",
+"centrum płatnicze",
 "pieniądze",
+"agencja opłat",
 "gotówka",
 "rachunki",
 "Centrum płatnicze",
@@ -869,6 +876,16 @@
 "listy",
 "pocztowa"
 ],
+"amenity/post_depot":[
+"kurier",
+"sortownia listów",
+"Sortownia listów lub paczek",
+"sortownia przesyłek",
+"poczta",
+"firma kurierska",
+"sortownia paczek",
+"sortownia poczty"
+],
 "amenity/post_office":[
 "paczki",
 "kurier",
@@ -913,9 +930,16 @@
 "browar"
 ],
 "amenity/public_bath":[
-"Łazienki",
-"mycie",
-"Łaźnie publiczne"
+"onsen",
+"gorące źródła",
+"kąpiel",
+"Łaźnia publiczna",
+"cieplica",
+"hammam",
+"łaźnia publiczna",
+"wody termalne",
+"łaźnie publiczne",
+"termy"
 ],
 "amenity/public_bookcase":[
 "półka z książkami",
@@ -930,6 +954,21 @@
 ],
 "amenity/recycling":[
 "Przetwarzanie odpadów"
+],
+"amenity/recycling/container/electrical_items":[
+"elektrośmieci",
+"pojemnik na elektroodpady",
+"kontener na elektroodpady",
+"śmietnik",
+"Pojemnik na elektroodpady"
+],
+"amenity/recycling/container/green_waste":[
+"kompost",
+"kontener na odpady zielone",
+"odpady biodegradowalne",
+"śmietnik",
+"Pojemnik na odpady zielone",
+"pojemnik na odpady zielone"
 ],
 "amenity/recycling_centre":[
 "centrum recyclingu",
@@ -1234,6 +1273,11 @@
 "amenity/vending_machine":[
 "Automat sprzedający",
 "Automat do sprzedaży"
+],
+"amenity/vending_machine/bottle_return":[
+"automat na butelki",
+"Automat na butelki",
+"butelki zwrotne"
 ],
 "amenity/vending_machine/cigarettes":[
 "Automat z papierosami"
@@ -2023,8 +2067,8 @@
 ],
 "craft/dressmaker":[
 "rzemiosło",
-"Krawiec",
 "rzemieślnicy",
+"Krawcowa",
 "krawcowa",
 "rzemieślnik",
 "krawiec"
@@ -3171,6 +3215,14 @@
 "Teren z zabudowaniami rolniczymi",
 "podwórze gospodarskie"
 ],
+"landuse/flowerbed":[
+"kwietnik",
+"zieleń",
+"Kwietnik",
+"klomb",
+"gazon",
+"ogród kwiatowy"
+],
 "landuse/forest":[
 "puszcza",
 "las",
@@ -3184,6 +3236,7 @@
 "garaże"
 ],
 "landuse/grass":[
+"zieleń",
 "trawnik",
 "klomb",
 "trawa",
@@ -3525,6 +3578,7 @@
 "leisure/park":[
 "wypoczynek",
 "Park rekreacyjno-wypoczynkowy",
+"zieleń",
 "rekreacja",
 "teren rekreacyjny",
 "park"
@@ -3935,6 +3989,11 @@
 "stacja monitoringu",
 "pomiary"
 ],
+"man_made/obelisk":[
+"obelisk",
+"kolumna",
+"Obelisk"
+],
 "man_made/observatory":[
 "Obserwatorium",
 "obserwatorium astronomiczne"
@@ -4179,6 +4238,7 @@
 ],
 "natural/grassland":[
 "preria",
+"zieleń",
 "sawanna",
 "Łąka/sawanna/step/preria",
 "step",
@@ -4562,7 +4622,8 @@
 ],
 "office/political_party":[
 "partia polityczna",
-"Partia polityczna"
+"Biuro partii politycznej",
+"biuro partii politycznej"
 ],
 "office/private_investigator":[
 "prywatny detektyw",
@@ -6209,6 +6270,13 @@
 "fotografia",
 "Sklep fotograficzny"
 ],
+"shop/printer_ink":[
+"Sklep z tuszami do drukarek",
+"tusze",
+"drukarki",
+"tonery",
+"sklep z tuszami do drukarek"
+],
 "shop/pyrotechnics":[
 "Sklep z ogniami sztucznymi",
 "fajerwerki"
@@ -6393,14 +6461,6 @@
 "Sklep z winami",
 "Winiarnia"
 ],
-"tactile_paving":[
-"porowaty krawężnik",
-"wypustki",
-"z wypustkami",
-"Wypustki dla niewidomych",
-"niewidomi",
-"niepełnosprawni"
-],
 "telecom/data_center":[
 "serwery",
 "centrum danych",
@@ -6569,9 +6629,13 @@
 "Miejsce na piknik"
 ],
 "tourism/theme_park":[
+"wesołe miasteczko",
 "disneyland",
 "park rozrywki",
-"Park rozrywki"
+"kolejka górska",
+"karuzela",
+"Park rozrywki",
+"lunapark"
 ],
 "tourism/trail_riding_station":[
 "Konny ośrodek wypoczynkowy",

@@ -4073,15 +4073,6 @@
 "office/physician":[
 "Lääkäri"
 ],
-"office/political_party":[
-"politiikko",
-"puolue",
-"Puoluetoimisto",
-"hallinto",
-"toimisto",
-"politiikka",
-"poliittinen"
-],
 "office/private_investigator":[
 "Yksityisetsivä"
 ],
@@ -5545,9 +5536,6 @@
 ],
 "shop/wine":[
 "Viinikauppa"
-],
-"tactile_paving":[
-"Huomioreuna näkövammaisille"
 ],
 "telecom/data_center":[
 "Tietoliikennekeskus"

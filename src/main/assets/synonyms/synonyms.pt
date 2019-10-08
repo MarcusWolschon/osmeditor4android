@@ -6034,16 +6034,6 @@
 "office/physician":[
 "Médico especialista"
 ],
-"office/political_party":[
-"Sede / filial de partido político",
-"Partido",
-"Partidos",
-"sede política",
-"política",
-"Political Party",
-"sede partido",
-"sede partidária"
-],
 "office/private_investigator":[
 "Detetive Particular",
 "Detetive",
@@ -8082,6 +8072,13 @@
 "Máquina fotográfica",
 "Material Fotográfico"
 ],
+"shop/printer_ink":[
+"tinteiro",
+"tinteiro para impressora",
+"loja de tinteiros",
+"printer ink store",
+"Loja de tinteiros de impressora"
+],
 "shop/pyrotechnics":[
 "Loja de pirotecnia",
 "pirotecnia",
@@ -8355,16 +8352,6 @@
 "xampanhe",
 "loja de licor",
 "bebidas"
-],
-"tactile_paving":[
-"pacimento táctil",
-"piso táctil",
-"podotátei",
-"superfície táctil",
-"Pavimento tátil",
-"superfície tátil",
-"pavimento tátil",
-"piso tátil"
 ],
 "telecom/data_center":[
 "centro de processamento de dados",

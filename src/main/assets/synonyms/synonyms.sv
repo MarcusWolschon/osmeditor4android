@@ -144,6 +144,14 @@
 "skidlift",
 "T-bygellift"
 ],
+"aerialway/zip_line":[
+"zipwire",
+"glidbana",
+"zip-line",
+"linbana",
+"travers",
+"Zipline"
+],
 "aeroway":[
 "Flygtrafik"
 ],
@@ -2095,6 +2103,7 @@
 "gråvatten",
 "toalettömning",
 "Campingtoalett",
+"Latrintömning för campingfordon",
 "sanitet",
 "campingplats",
 "torrtoalett",
@@ -2868,6 +2877,13 @@
 "barrier/hedge":[
 "Häck",
 "buskar"
+],
+"barrier/height_restrictor":[
+"restriktion",
+"Höjdrestriktion",
+"max",
+"maxhöjd",
+"höjd"
 ],
 "barrier/kerb":[
 "trottoarkant",
@@ -3872,6 +3888,13 @@
 "målarmästare",
 "tapeter"
 ],
+"craft/parquet_layer":[
+"Parkettläggning",
+"golv",
+"parkett",
+"Parkettläggare",
+"golvläggare"
+],
 "craft/photographer":[
 "Fotograf",
 "bild",
@@ -4041,6 +4064,9 @@
 ],
 "embankment":[
 "Vägbank"
+],
+"emergency":[
+"Nödutrustning"
 ],
 "emergency/ambulance_station":[
 "Ambulansstation",
@@ -4494,6 +4520,9 @@
 "förbindelsegång",
 "Korridor inomhus"
 ],
+"highway/crossing":[
+"Korsning"
+],
 "highway/crossing/marked":[
 "Vägövergång",
 "vägpassage",
@@ -4563,6 +4592,34 @@
 "Cykelväg",
 "cykel"
 ],
+"highway/cycleway/bicycle_foot":[
+"Cykel- och gångväg",
+"cykelbanda",
+"cykelväg",
+"gångbana",
+"gångväg",
+"gående",
+"gång",
+"GC-väg",
+"cykel",
+"cyklande"
+],
+"highway/cycleway/crossing":[
+"Cykelkorsning"
+],
+"highway/cycleway/crossing/marked":[
+"Markerad cykelkorsning",
+"cykelöverfart",
+"cykelpassage",
+"cykelkorsning"
+],
+"highway/cycleway/crossing/unmarked":[
+"cykelöverfart",
+"cykelpassage",
+"cykelkorsning",
+"Omarkerad cykelkorsning",
+"omarkerad cykelkorsning"
+],
 "highway/elevator":[
 "Hiss"
 ],
@@ -4591,6 +4648,9 @@
 "rullande gångbana",
 "Rullgångbana",
 "rulltrottoar"
+],
+"highway/footway/crossing":[
+"Gångpassage"
 ],
 "highway/footway/marked":[
 "Markerat övergångsställe",
@@ -5025,6 +5085,11 @@
 "borg",
 "palats",
 "resident"
+],
+"historic/city_gate":[
+"Stadsport",
+"port",
+"ringmur"
 ],
 "historic/memorial":[
 "Minnesmärke",
@@ -6591,6 +6656,13 @@
 "cistern",
 "tank"
 ],
+"man_made/storage_tank/water":[
+"vattencistern",
+"vattenlager",
+"cistern",
+"vattentorn",
+"Vattentank"
+],
 "man_made/surveillance":[
 "övervakningsutrustning",
 "bevakningskamera",
@@ -6672,6 +6744,12 @@
 "observationspost",
 "Utkikstorn",
 "brandtorn"
+],
+"man_made/tunnel":[
+"Tunnel",
+"underpassage",
+"underjordisk passage",
+"underjordisk"
 ],
 "man_made/wastewater_plant":[
 "reningsverk",
@@ -7356,11 +7434,6 @@
 ],
 "office/physician":[
 "Läkare"
-],
-"office/political_party":[
-"Politiskt parti",
-"politik",
-"parti"
 ],
 "office/private_investigator":[
 "detektiv",
@@ -8607,7 +8680,7 @@
 "båt i linjetrafik"
 ],
 "seamark":[
-"Sjöfart"
+"Sjömärke"
 ],
 "shop":[
 "shop",

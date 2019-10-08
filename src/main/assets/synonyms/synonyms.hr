@@ -802,17 +802,35 @@
 "building/stable":[
 "Staja"
 ],
+"building/stadium":[
+"Zgrada stadiona"
+],
 "building/static_caravan":[
 "Statičan mobilan dom"
 ],
 "building/terrace":[
 "Kuće u nizu"
 ],
+"building/train_station":[
+"Zgrada željezničkog kolodvora"
+],
 "building/university":[
 "Zgrada sveučilišta"
 ],
 "building/warehouse":[
 "Skladište"
+],
+"building_part":[
+"Dio građevine"
+],
+"building_point":[
+"Građevina"
+],
+"club":[
+"Klub"
+],
+"club/sport":[
+"Sportski klub"
 ],
 "craft":[
 "Zanat"
@@ -932,6 +950,9 @@
 "craft/scaffolder":[
 "Građevinska skela"
 ],
+"craft/sculptor":[
+"Kipar"
+],
 "craft/shoemaker":[
 "Obućar"
 ],
@@ -973,6 +994,11 @@
 "hidrant",
 "Požarni hidrant"
 ],
+"emergency/lifeguard":[
+"Spasilac",
+"spasioc",
+"plaži"
+],
 "emergency/phone":[
 "Telefon za nuždu"
 ],
@@ -1002,6 +1028,9 @@
 "golf/rough":[
 "Grubo"
 ],
+"healthcare/alternative/chiropractic":[
+"Kiropraktičar"
+],
 "highway":[
 "Prometnica"
 ],
@@ -1019,6 +1048,9 @@
 ],
 "highway/crossing/marked":[
 "Označeni pješački prijelaz"
+],
+"highway/crossing/marked-raised":[
+"Uzdignuti pješački prijelaz"
 ],
 "highway/crossing/unmarked":[
 "Neoznačeni pješački prijelaz"
@@ -1059,6 +1091,9 @@
 "highway/living_street":[
 "Područje smirenog prometa"
 ],
+"highway/milestone":[
+"Miljokaz prometnice"
+],
 "highway/mini_roundabout":[
 "mali kružni tok",
 "kružni tok",
@@ -1073,8 +1108,14 @@
 "highway/motorway_link":[
 "Pristupna cesta autoceste"
 ],
+"highway/passing_place":[
+"Mjesto za preticanje"
+],
 "highway/path":[
 "Staza"
+],
+"highway/pedestrian_area":[
+"Površina za pješake"
 ],
 "highway/pedestrian_line":[
 "Pješačka ulica"
@@ -1084,6 +1125,9 @@
 ],
 "highway/primary_link":[
 "Pristupna cesta državne ceste"
+],
+"highway/raceway":[
+"Staza za utrkivanje motornih vozila"
 ],
 "highway/residential":[
 "Ulica"
@@ -1121,6 +1165,9 @@
 "highway/services":[
 "Odmorište"
 ],
+"highway/speed_camera":[
+"Kamera za brzinu"
+],
 "highway/steps":[
 "Stepenice"
 ],
@@ -1145,6 +1192,9 @@
 ],
 "highway/track":[
 "Šumski ili poljski put"
+],
+"highway/traffic_mirror":[
+"Prometno ogledalo"
 ],
 "highway/traffic_signals":[
 "semafor",
@@ -1878,9 +1928,6 @@
 ],
 "office/physician":[
 "Liječnička praksa"
-],
-"office/political_party":[
-"Politička stranka"
 ],
 "office/research":[
 "Ured za istraživanje"
@@ -2791,7 +2838,7 @@
 "kamp prikolica"
 ],
 "tourism/chalet":[
-"Kuća za odmor",
+"Bungalov",
 "Kuća za iznajmljivanje"
 ],
 "tourism/gallery":[
@@ -2890,7 +2937,7 @@
 "Duži uspornik u širini ceste"
 ],
 "traffic_calming/island":[
-"Pješački otok"
+"Prometni otok"
 ],
 "type/boundary":[
 "Granica",

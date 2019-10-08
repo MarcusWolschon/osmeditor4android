@@ -639,6 +639,9 @@
 "amenity/language_school":[
 "Escola de idiomas"
 ],
+"amenity/letter_box":[
+"Caixa de correio"
+],
 "amenity/library":[
 "Livros",
 "Biblioteca"
@@ -909,6 +912,12 @@
 ],
 "amenity/recycling":[
 "Reciclagem"
+],
+"amenity/recycling/container/electrical_items":[
+"Recipiente de lixo eletrônico"
+],
+"amenity/recycling/container/green_waste":[
+"Recipiente de resíduos verdes"
 ],
 "amenity/recycling_centre":[
 "lata",
@@ -1243,6 +1252,10 @@
 "Máquina Automática de Vendas",
 "Máquina de Venda Automática",
 "Máquina de Venda"
+],
+"amenity/vending_machine/bottle_return":[
+"Máquina de retorno de garrafas",
+"Máquina de retorno de garrafa"
 ],
 "amenity/vending_machine/cigarettes":[
 "cigarro",
@@ -3150,6 +3163,9 @@
 "Chácara",
 "Sítio"
 ],
+"landuse/flowerbed":[
+"Canteiro de flores"
+],
 "landuse/forest":[
 "Silvicultura",
 "Área reflorestada",
@@ -4573,11 +4589,7 @@
 "Médico"
 ],
 "office/political_party":[
-"gabinete",
-"político",
-"política",
-"Escritório de Partido Político",
-"partido"
+"Escritório de partido político"
 ],
 "office/private_investigator":[
 "detetive particular",
@@ -6088,9 +6100,6 @@
 "Vinícola",
 "Loja de Vinhos",
 "Adega"
-],
-"tactile_paving":[
-"Piso táctil"
 ],
 "telecom/data_center":[
 "Centro de dados"

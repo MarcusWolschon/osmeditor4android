@@ -3165,10 +3165,6 @@
 "office/physician":[
 "Врач"
 ],
-"office/political_party":[
-"политическая партия",
-"Политическая партия"
-],
 "office/private_investigator":[
 "Частный сыщик"
 ],

@@ -3894,11 +3894,6 @@
 "office/physician":[
 "Arts"
 ],
-"office/political_party":[
-"Politieke partij",
-"partijbureau",
-"partijhoofdzetel"
-],
 "office/private_investigator":[
 "privédetectivekantoor",
 "Kantoor van privédetective",
@@ -5385,11 +5380,6 @@
 "wijnwinkel",
 "wijnerij",
 "Wijnhandel"
-],
-"tactile_paving":[
-"Blindengeleidestrook",
-"geleidestrook",
-"ribbelstrook"
 ],
 "telecom/data_center":[
 "Datacenter"

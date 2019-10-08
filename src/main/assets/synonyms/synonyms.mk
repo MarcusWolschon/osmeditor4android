@@ -326,6 +326,9 @@
 "amenity/language_school":[
 "Училиште за јазици"
 ],
+"amenity/letter_box":[
+"Поштенско сандаче"
+],
 "amenity/library":[
 "Библиотека"
 ],
@@ -434,6 +437,9 @@
 "amenity/post_box":[
 "Поштенско сандаче"
 ],
+"amenity/post_depot":[
+"Служба за поштенска отпрема"
+],
 "amenity/post_office":[
 "Пошта"
 ],
@@ -463,6 +469,12 @@
 ],
 "amenity/recycling":[
 "Рециклажа"
+],
+"amenity/recycling/container/electrical_items":[
+"Контејнер за елект. отпад"
+],
+"amenity/recycling/container/green_waste":[
+"Контејнер за зелен отпад"
 ],
 "amenity/recycling_centre":[
 "Рецикларница"
@@ -622,6 +634,9 @@
 ],
 "amenity/vending_machine":[
 "Продажен автомат"
+],
+"amenity/vending_machine/bottle_return":[
+"Машина за враќање шишиња"
 ],
 "amenity/vending_machine/cigarettes":[
 "Автомат за цигари"
@@ -1677,6 +1692,9 @@
 "landuse/farmyard":[
 "Селски двор"
 ],
+"landuse/flowerbed":[
+"Цветна леа"
+],
 "landuse/forest":[
 "Шума под управа"
 ],
@@ -2085,6 +2103,9 @@
 "man_made/monitoring_station":[
 "Надзорна станица"
 ],
+"man_made/obelisk":[
+"Обелиск"
+],
 "man_made/observatory":[
 "Опсерваторија"
 ],
@@ -2416,7 +2437,7 @@
 "Лекар"
 ],
 "office/political_party":[
-"Партија"
+"Партиски штаб"
 ],
 "office/private_investigator":[
 "Приватен иследувач"
@@ -3314,9 +3335,6 @@
 ],
 "shop/wine":[
 "Винотека"
-],
-"tactile_paving":[
-"Опипливо поплочување"
 ],
 "telecom/data_center":[
 "Центар за податоци"

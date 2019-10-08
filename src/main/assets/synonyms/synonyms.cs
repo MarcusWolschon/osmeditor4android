@@ -3825,12 +3825,6 @@
 "office/physician":[
 "Praktický lékař"
 ],
-"office/political_party":[
-"Politická strana",
-"politická organizace",
-"strana",
-"politická strana"
-],
 "office/private_investigator":[
 "Soukromá detektivní kancelář"
 ],
@@ -5368,9 +5362,6 @@
 "vinařství",
 "vinotéka",
 "vinárna"
-],
-"tactile_paving":[
-"Taktilní dlažba"
 ],
 "telecom/data_center":[
 "Datové centrum"

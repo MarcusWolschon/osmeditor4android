@@ -1,4 +1,7 @@
 {
+"addr/interpolation":[
+"Interpolazione indirizzo"
+],
 "address":[
 "numero civico",
 "località",
@@ -151,6 +154,9 @@
 "elicottero",
 "eliporto"
 ],
+"aeroway/holding_position":[
+"Circuito di attesa per aeromobili"
+],
 "aeroway/jet_bridge":[
 "passeggeri",
 "finger",
@@ -161,6 +167,9 @@
 "sbarco",
 "connettore",
 "boarding"
+],
+"aeroway/parking_position":[
+"Posizione di parcheggio per aeromobili"
 ],
 "aeroway/runway":[
 "pista di atterraggio",
@@ -573,6 +582,9 @@
 "arti marziali",
 "dojo"
 ],
+"amenity/dressing_room":[
+"Camerino"
+],
 "amenity/drinking_water":[
 "Fontanella",
 "acqua potabile",
@@ -648,6 +660,9 @@
 "colazione",
 "Fast Food di pollo"
 ],
+"amenity/fast_food/donut":[
+"Fast Food di ciambelle"
+],
 "amenity/fast_food/fish_and_chips":[
 "fast food",
 "tavolo",
@@ -662,6 +677,9 @@
 "cenare",
 "cena",
 "colazione"
+],
+"amenity/fast_food/ice_cream":[
+"Fast Food di gelati"
 ],
 "amenity/fast_food/kebab":[
 "shawarma",
@@ -1150,6 +1168,9 @@
 "Buca delle lettere",
 "cassetta postale"
 ],
+"amenity/post_depot":[
+"Ufficio di smistamento postale"
+],
 "amenity/post_office":[
 "spedizione",
 "ufficio postale",
@@ -1227,6 +1248,9 @@
 ],
 "amenity/recycling":[
 "Riciclaggio"
+],
+"amenity/recycling/container/electrical_items":[
+"Cassonetto per la raccolta di RAEE"
 ],
 "amenity/recycling_centre":[
 "Centro di riciclaggio",
@@ -2870,6 +2894,9 @@
 ],
 "craft/painter":[
 "Pittore"
+],
+"craft/parquet_layer":[
+"Posatori di parquet"
 ],
 "craft/photographer":[
 "Fotografo",
@@ -4874,6 +4901,9 @@
 "man_made/monitoring_station":[
 "Stazione di controllo"
 ],
+"man_made/obelisk":[
+"Obelisco"
+],
 "man_made/observatory":[
 "specola",
 "osservatorio",
@@ -5453,11 +5483,7 @@
 "Medico"
 ],
 "office/political_party":[
-"Sede di partito",
-"circolo",
-"sezione",
-"partito",
-"politica"
+"Ufficio di un partito"
 ],
 "office/private_investigator":[
 "Ufficio agenzia investigativa privata"
@@ -5924,6 +5950,9 @@
 "public_transport/platform/tram_point":[
 "Fermata / banchina del tram"
 ],
+"public_transport/platform/trolleybus_point":[
+"Fermata del filobus"
+],
 "public_transport/station":[
 "Stazione del trasporto pubblico"
 ],
@@ -6275,6 +6304,9 @@
 "Negozio di biciclette",
 "Negozio biciclette"
 ],
+"shop/boat":[
+"Negozio di barche"
+],
 "shop/bookmaker":[
 "allibratore",
 "puntate",
@@ -6296,6 +6328,9 @@
 ],
 "shop/candles":[
 "Negozio di candele"
+],
+"shop/cannabis":[
+"Negozio di cannabis"
 ],
 "shop/car":[
 "Concessionaria auto",
@@ -6507,6 +6542,9 @@
 "shop/furniture":[
 "Negozio di mobili"
 ],
+"shop/games":[
+"Negozio di giochi da tavolo"
+],
 "shop/garden_centre":[
 "Vivaio",
 "Centro per il giardinaggio"
@@ -6524,6 +6562,9 @@
 "cng",
 "propano",
 "Bombolaio"
+],
+"shop/general":[
+"Emporio"
 ],
 "shop/gift":[
 "Negozio souvenir",
@@ -6612,6 +6653,9 @@
 ],
 "shop/laundry":[
 "Lavanderia"
+],
+"shop/laundry/self_service":[
+"Lavanderia self-service"
 ],
 "shop/leather":[
 "cuoio",
@@ -6763,6 +6807,9 @@
 "fotografia",
 "fotografo"
 ],
+"shop/printer_ink":[
+"Negozio di cartucce per stampanti"
+],
 "shop/pyrotechnics":[
 "fuochi d'artificio",
 "magnum",
@@ -6826,6 +6873,9 @@
 ],
 "shop/supermarket":[
 "Supermercato"
+],
+"shop/swimming_pool":[
+"Negozio per rifornimenti per piscina"
 ],
 "shop/tailor":[
 "Sartoria",
@@ -6953,16 +7003,6 @@
 "negozio di vini",
 "vino"
 ],
-"tactile_paving":[
-"ipovedenti",
-"indicatori",
-"non vedenti",
-"ciechi",
-"pavimento",
-"Pista tattile",
-"superficie tattile",
-"percorso"
-],
 "telecom/data_center":[
 "cloud",
 "telecomunicazioni",
@@ -7002,6 +7042,9 @@
 ],
 "tourism/artwork":[
 "Opera d'arte"
+],
+"tourism/artwork/graffiti":[
+"Graffiti"
 ],
 "tourism/artwork/mural":[
 "arte muraria",
@@ -7109,6 +7152,9 @@
 ],
 "tourism/information/route_marker":[
 "Segnavia"
+],
+"tourism/information/terminal":[
+"Terminale informazioni\"
 ],
 "tourism/motel":[
 "Motel"

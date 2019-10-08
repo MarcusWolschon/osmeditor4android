@@ -180,11 +180,14 @@
 ],
 "aeroway/helipad":[
 "phi trường trực thăng",
+"san may bay truc thang",
+"bai dap may bay truc thang",
 "máy bay trực thăng",
 "san bay truc thang",
 "may bay truc thang",
 "san do truc thang",
 "san dap truc thang",
+"bãi đáp máy bay trực thăng",
 "may bay len thang",
 "sàn đáp trực thăng",
 "san bay len thang",
@@ -192,6 +195,7 @@
 "máy bay lên thẳng",
 "sân bay trực thăng",
 "phi truong truc thang",
+"sân máy bay trực thăng",
 "sàn đỗ trực thăng",
 "Sân bay Trực thăng"
 ],
@@ -7749,13 +7753,6 @@
 ],
 "office/physician":[
 "Văn phòng Bác sĩ"
-],
-"office/political_party":[
-"van phong dang chanh tri",
-"văn phòng đảng chánh trị",
-"văn phòng đảng chính trị",
-"van phong dang chinh tri",
-"Đảng Chính trị"
 ],
 "office/private_investigator":[
 "văn phòng thám tử tư",
