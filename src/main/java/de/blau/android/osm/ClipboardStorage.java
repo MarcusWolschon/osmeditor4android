@@ -142,4 +142,14 @@ public class ClipboardStorage implements Serializable {
     public boolean contentsWasCut() {
         return mode == Mode.CUT;
     }
+    
+    /**
+     * Check if we have a specific element
+     * 
+     * @param e the OsmElement we are interested in
+     * @return true if it is in the clipboard
+     */
+    boolean contains(@NonNull OsmElement e) {
+        return storage.contains(e);
+    }
 }

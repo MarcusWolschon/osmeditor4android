@@ -26,6 +26,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -3144,16 +3145,17 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Safely remove data that is not in/intersects with the provided BoundingBox
      * 
-     * Doesn't bother with relations
+     * Doesn't bother with relations, skips selected elements
      * 
      * @param box the BoundingBox
      */
     @Override
     public synchronized void prune(@NonNull BoundingBox box) {
+        Logic logic = App.getLogic();
         LongHashSet keepNodes = new LongHashSet();
 
         for (Way w : currentStorage.getWays()) {
-            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds())) {
+            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds()) && !logic.isSelected(w)) {
                 removeReferenceFromParents(w);
                 currentStorage.removeWay(w);
             } else { // keeping so we need to keep the nodes
@@ -3164,7 +3166,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         for (Node n : currentStorage.getNodes()) {
             long nodeId = n.getOsmId();
-            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)) {
+            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId) && !logic.isSelected(n)) {
                 removeReferenceFromParents(n);
                 currentStorage.removeNode(n);
             }
@@ -3176,7 +3178,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove the references to downloaded elements from parent Relations
      * 
-     * @param e the OsmELement we want to remove references for
+     * @param e the OsmElement we want to remove references for
      */
     private void removeReferenceFromParents(@NonNull OsmElement e) {
         List<Relation> parents = e.getParentRelations();
