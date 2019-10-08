@@ -156,7 +156,11 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         String elementName = getArguments().getString(ELEMENT_NAME_KEY);
 
         OsmElement element = App.getDelegator().getOsmElement(elementName, elementId);
-        type = element.getType();
+        if (element != null) {
+            type = element.getType();
+        } else {
+            Log.e(DEBUG_TAG, elementName + " " + elementId + " vanished");
+        }
         Preset[] presets = App.getCurrentPresets(getActivity());
         Log.d(DEBUG_TAG, "presets size " + presets.length);
         paneMode = getArguments().getBoolean(PANE_MODE);
