@@ -2471,9 +2471,11 @@ public class TileLayerServer implements Serializable {
     }
 
     /**
-     * @return the zoomLevelMax
+     * Get the maximum zoom Level
+     * 
+     * @return the maximum zoom Level
      */
-    public int getMaxZoom() {
+    public synchronized int getMaxZoom() {
         return zoomLevelMax;
     }
 
