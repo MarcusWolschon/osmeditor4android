@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.stream.JsonReader;
@@ -114,7 +116,7 @@ public class Synonyms {
     @NonNull
     public List<IndexSearchResult> search(@NonNull Context ctx, @NonNull String term, @Nullable ElementType type, int maxDistance) {
         Log.d(DEBUG_TAG, "Searching for " + term + " type " + type);
-        List<IndexSearchResult> result = new ArrayList<>();
+        Map<IndexSearchResult, IndexSearchResult> result = new HashMap<>();
         Preset[] presets = App.getCurrentPresets(ctx);
         for (String s : synonyms.getKeys()) {
             int distance = s.indexOf(term);
@@ -139,12 +141,12 @@ public class Synonyms {
                     }
                     for (PresetItem pi : items) {
                         IndexSearchResult isr = new IndexSearchResult(distance, pi);
-                        result.add(isr);
+                        SearchIndexUtils.addToResult(result, distance, isr);
                     }
                 }
             }
         }
-        return result;
+        return new ArrayList<>(result.values());
     }
 
     /**

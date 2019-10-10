@@ -4,6 +4,7 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -108,7 +109,10 @@ public final class SearchIndexUtils {
         String country = GeoContext.getCountryIsoCode(regions);
         term = SearchIndexUtils.normalize(term);
         // synonyms first
-        Set<IndexSearchResult> rawResult = new HashSet<>(App.getSynonyms(ctx).search(ctx, term, type, maxDistance));
+        Map<IndexSearchResult, IndexSearchResult> rawResult = new HashMap<>();
+        for (IndexSearchResult isr : App.getSynonyms(ctx).search(ctx, term, type, maxDistance)) {
+            rawResult.put(isr, isr);
+        }
 
         // search in presets
         List<MultiHashMap<String, PresetItem>> presetSeachIndices = new ArrayList<>();
@@ -137,7 +141,7 @@ public final class SearchIndexUtils {
                         for (PresetItem pi : presetItems) {
                             if ((type == null || pi.appliesTo(type)) && pi.appliesIn(country)) {
                                 IndexSearchResult isr = new IndexSearchResult(rescale(term, weight, pi), pi);
-                                rawResult.add(isr);
+                                addToResult(rawResult, isr.weight, isr);
                             }
                         }
                     }
@@ -179,7 +183,7 @@ public final class SearchIndexUtils {
                                 }
                             }
                             IndexSearchResult isr = new IndexSearchResult(rescale(term, distance, namePi), namePi);
-                            rawResult.add(isr);
+                            addToResult(rawResult, isr.weight, isr);
                         }
                     }
                 }
@@ -187,8 +191,8 @@ public final class SearchIndexUtils {
         }
 
         // sort and return results
-        List<IndexSearchResult> tempResult = new ArrayList<>(rawResult);
-        Collections.sort(tempResult);
+        List<IndexSearchResult> tempResult = new ArrayList<>(rawResult.values());
+        Collections.sort(tempResult, IndexSearchResult.weightComparator);
         List<PresetElement> result = new ArrayList<>();
         for (IndexSearchResult isr : tempResult) {
             result.add(isr.item);
@@ -199,6 +203,24 @@ public final class SearchIndexUtils {
             return result.subList(0, Math.min(result.size(), limit));
         }
         return result;
+    }
+
+    /**
+     * Add a search result to the results map, not adding duplicates but always using the result with the lowest weight
+     * 
+     * @param result a Map (for efficiency reasons not a List or a Set) containing the individual search results
+     * @param weight the weight
+     * @param isr the current search result
+     */
+    public static void addToResult(@NonNull Map<IndexSearchResult, IndexSearchResult> result, int weight, @NonNull IndexSearchResult isr) {
+        IndexSearchResult tempIsr = result.get(isr);
+        if (tempIsr != null) {
+            if (tempIsr.weight > weight) {
+                tempIsr.weight = weight;
+            }
+        } else {
+            result.put(isr, isr);
+        }
     }
 
     /**
