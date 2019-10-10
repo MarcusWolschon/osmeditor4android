@@ -7,7 +7,7 @@ That means: it is a light-weight, easy-to-use mapping tool on mobile Android dev
 
 #### What is Vespucci NOT?
 
-  * Vespucci is not primarily a mobile map-viewer. 
+  * Vespucci is not primarily a mobile map-viewer or map designer.
   * Vespucci is not a mobile navigation solution. It does not feature any routing support.
   * Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards. 
 
@@ -26,7 +26,7 @@ You need:
 
 #### What is the status of Vespucci development?
 
-The current Vespucci release version is 12.1. We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
+We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
 
 #### Is Vespucci available for other mobile platforms?
 
@@ -106,7 +106,7 @@ Yes, Vespucci supports manual and automatic download of Notes and offline storag
 
 Some things missing at this point in time:
 
-  * No validator (however in general Vespucci tries to stop you from shooting yourself in the foot)
+  * No extensive validation (however in general Vespucci tries to stop you from shooting yourself in the foot)
   * Some operations still missing, for example polygon merging.
   
 > Remember, Android is intended to be lightweight and easy-to-use.
@@ -190,12 +190,15 @@ Adding more data via the auto-download facility and/or the menu item "Add curren
 
 Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Download current view" action.
 
+#### The aerial or satellite imagery is out of date
+
+Vespucci uses [the editor layer index](https://github.com/osmlab/editor-layer-index) for configuring the available backgrounds, just as the browser embedded editor iD and other applications do. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should open an issue on [the editor layer index issue tracker](https://github.com/osmlab/editor-layer-index/issues)
+
 #### How can I add a custom (aerial/satellite) imagery layer
 
 The preferred method is to add your imagery source to [the editor layer index](https://github.com/osmlab/editor-layer-index) so that it can be used by all OpenStreetMap editors. 
 
-From 10.1 on, the "Advanced preferences" contain an option to add custom imagery via a form. However adding to the editor layer index is still preferred, in 10.1 you can update the complete configuration at any time by selecting the corresponding menu entry in the "Tools" menu.
-
+From 10.1 on, the "Advanced preferences" contain an option to add custom imagery via a form, however adding to the editor layer index is still preferred. You can update the complete configuration at any time by selecting the corresponding menu entry in the "Tools" menu.
 
 #### Why can't you provide technical support on the google play store review section
 
