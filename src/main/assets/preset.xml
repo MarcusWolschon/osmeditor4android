@@ -78,10 +78,13 @@
     <chunk id="layer">
     	<combo key="layer" text="Layer" values="5,4,3,2,1,0,-1,-2,-3,-4,-5" length="3" match="none" editable="true"/>
     </chunk>
-    <chunk id="name_layer">
+    <chunk id="name">
         <text key="name" text="Name"/>
-        <reference ref="layer"/>
         <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="name_layer">
+        <reference ref="name"/>
+        <reference ref="layer"/>
     </chunk>
     <chunk id="tunnel">
         <combo key="tunnel" text="Tunnel" values="yes,building_passage" display_values="Yes,Building passage," values_sort="false" match="key"/>
@@ -93,7 +96,7 @@
                 <reference ref="incline"/>
             </optional>
     </chunk>
-    <chunk id="highway_yesno_incline">
+    <chunk id="highway_additional">
         <check key="bridge" text="Bridge" disable_off="true"/>
         <reference ref="tunnel"/>
         <reference ref="layer"/>
@@ -103,17 +106,14 @@
         <check key="noexit" text="No exit (cul-de-sac)" disable_off="true"/>
         <check key="narrow" text="Narrow" disable_off="true"/>
     </chunk>
-    <chunk id="highway_yesno_incline_oneway">
+    <chunk id="highway_additional_oneway">
         <check key="oneway" text="Oneway" disable_off="true"/>
-        <reference ref="highway_yesno_incline"/>
+        <reference ref="highway_additional"/>
         <combo key="overtaking" text="Overtaking" values="yes,both,forward,backward,no" display_values="Yes,Both directions,In way direction,Opposite to way direction,No" values_sort="false" values_context="overtaking" match="key"/>
     </chunk>
-    <chunk id="highway_yesno_incline_oneway_lit">
-        <reference ref="highway_yesno_incline_oneway"/>
+    <chunk id="highway_additional_oneway_lit_width">
+        <reference ref="highway_additional_oneway"/>
         <check key="lit" text="Lit" disable_off="true"/>
-    </chunk>
-    <chunk id="highway_yesno_incline_oneway_lit_width">
-        <reference ref="highway_yesno_incline_oneway_lit"/>
         <text key="width" text="Width (meters)"/>
     </chunk>
     <chunk id="sidewalk">
@@ -125,9 +125,34 @@
         	<list_entry value="separate" short_description="Mapped separately"/>
         </combo>
     </chunk>
-    <chunk id="highway_yesno_incline_oneway_lit_width_sidewalk">
-        <reference ref="highway_yesno_incline_oneway_lit_width"/>
+    <chunk id="highway_additional_oneway_lit_width_sidewalk">
+        <reference ref="highway_additional_oneway_lit_width"/>
         <reference ref="sidewalk"/>
+    </chunk>
+    <chunk id="highway_additional_oneway_lit_width_sidewalk_winter">
+        <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
+        <reference ref="sidewalk"/>
+        <check key="winter_road" text="Winter road" disable_off="true" />
+        <check key="ice_road" text="Ice road" disable_off="true" />
+    </chunk>
+    <chunk id="major_highway_additional">
+        <text key="destination" text="Destination"/>
+        <text key="destination:ref" text="Destination reference"/>
+        <text key="junction:ref" text="Junction reference" />
+        <text key="width" text="Width (meters)"/>
+        <reference ref="placement"/>
+        <checkgroup text="Additional attributes" columns="4">
+            <check key="oneway" text="Oneway" default="on"/>
+            <check key="motorroad" text="Motorroad" default="on"/>
+            <check key="bridge" text="Bridge" disable_off="true"/>
+            <check key="tunnel" text="Tunnel" disable_off="true"/>
+            <check key="cutting" text="Cutting" disable_off="true"/>
+            <check key="embankment" text="Embankment" disable_off="true"/>
+            <check key="lit" text="Lit" disable_off="true"/>
+            <check key="toll" text="Toll" disable_off="true"/>
+            <check key="winter_road" text="Winter road" disable_off="true" />
+            <check key="ice_road" text="Ice road" disable_off="true" />
+        </checkgroup>
     </chunk>
     <chunk id="highway_ref">
         <text key="ref" text="Reference"/>
@@ -190,10 +215,10 @@
                display_values="North,East,South,West,0°,90°,180°,270°,Forward,Backward" values_sort="false" /> 
     </chunk>
     <chunk id="min_age">
-        <text key="min_age" text="Minimum age"/>
+        <text key="min_age" text="Minimum age" value_type="integer"/>
     </chunk>
     <chunk id="max_age">
-        <text key="max_age" text="Maximum age"/>
+        <text key="max_age" text="Maximum age" value_type="integer"/>
     </chunk>
     <chunk id="min_max_age">
     	<reference ref="min_age"/>
@@ -254,7 +279,7 @@
             <list_entry value="no" short_description="Not available"/>          
         </combo>
         <check key="changing_table:fee" text="Changing table fee"/>
-        <combo key="changing_table:count" text="Changing table count" values="1,2,3,4,5" value_type="integer" />
+        <combo key="changing_table:count" text="Changing table count" values="1,2,3,4,5" value_type="integer" values_sort="false" />
         <multiselect key="changing_table:location" text="Changing table location">
             <list_entry value="wheelchair_toilet" short_description="Wheelchair users toilet"/>
             <list_entry value="female_toilet" short_description="Womens toilet"/>
@@ -679,7 +704,7 @@
         <combo key="circuits" text="Number of circuits" values="1,2,3,4"/>
     </chunk>
     <chunk id="power_loc">
-        <combo key="location" text="Location" values="outdoor,indoor,underground,platform,rooftop" display_values="Outdoor,Indoor,Underground,Platform,Rooftop" values_context="power"/>
+        <combo key="location" text="Location" values="outdoor,indoor,underground,platform,roof" display_values="Outdoor,Indoor,Underground,Platform,Roof" values_context="power"/>
     </chunk>
     <chunk id="power_extra">
         <reference ref="power_loc"/>
@@ -744,6 +769,9 @@
         <combo key="bridge" text="Bridge" values="yes,aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct" display_values="Yes,Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct" match="keyvalue!" default="yes" values_context="bridge"/>
         <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" display_values="Arch,Beam,Truss,Floating,Suspension,Cable-stayed,Simple-suspension,Humpback" match="key" values_context="bridge"/>
     </chunk>
+    <chunk id="maxweight">
+        <text key="maxweight" text="Max. weight (tonnes)" match="key" />
+    </chunk>
     <chunk id="optional_bridge">
         <optional>
             <text key="bridge:name" text="Bridge name" />
@@ -751,7 +779,7 @@
             <space/>
             <reference ref="maxspeed"/>
             <space/>
-            <text key="maxweight" text="Max. weight (tonnes)"/>
+            <reference ref="maxweight"/>
             <reference ref="incline"/>
             <text key="width" text="Width (meters)"/>
             <check key="toll" text="Toll" disable_off="true"/>
@@ -1105,19 +1133,7 @@
             <optional>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
-                <text key="destination" text="Destination"/>
-                <text key="destination:ref" text="Destination reference"/>
-                <text key="width" text="Width (meters)"/>
-                <reference ref="placement"/>
-                <checkgroup text="Additional attributes" columns="4">
-                    <check key="oneway" text="Oneway" default="on"/>
-                    <check key="bridge" text="Bridge" disable_off="true"/>
-                    <check key="tunnel" text="Tunnel" disable_off="true"/>
-                    <check key="cutting" text="Cutting" disable_off="true"/>
-                    <check key="embankment" text="Embankment" disable_off="true"/>
-                    <check key="lit" text="Lit" disable_off="true"/>
-                    <check key="toll" text="Toll" disable_off="true"/>
-                </checkgroup>
+                <reference ref="major_highway_additional"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -1127,20 +1143,7 @@
             <key key="highway" value="motorway_link"/>
             <optional>
                 <reference ref="highway_base"/>
-                <text key="destination" text="Destination"/>
-                <text key="destination:ref" text="Destination reference"/>
-                <text key="junction:ref" text="Junction reference" />                
-                <text key="width" text="Width (meters)"/>
-                <reference ref="placement"/>
-                <checkgroup text="Additional attributes" columns="4">
-                    <check key="oneway" text="Oneway" default="on"/>
-                    <check key="bridge" text="Bridge" disable_off="true"/>
-                    <check key="tunnel" text="Tunnel" disable_off="true"/>
-                    <check key="cutting" text="Cutting" disable_off="true"/>
-                    <check key="embankment" text="Embankment" disable_off="true"/>
-                    <check key="lit" text="Lit" disable_off="true"/>
-                    <check key="toll" text="Toll" disable_off="true"/>
-                </checkgroup>
+                <reference ref="major_highway_additional"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -1153,20 +1156,7 @@
             <optional>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
-                <text key="destination" text="Destination"/>
-                <text key="destination:ref" text="Destination reference"/>
-                <text key="width" text="Width (meters)"/>
-                <reference ref="placement"/>
-                <checkgroup text="Additional attributes" columns="4">
-                    <check key="oneway" text="Oneway" default="on"/>
-                    <check key="motorroad" text="Motorroad" default="on"/>
-                    <check key="bridge" text="Bridge" disable_off="true"/>
-                    <check key="tunnel" text="Tunnel" disable_off="true"/>
-                    <check key="cutting" text="Cutting" disable_off="true"/>
-                    <check key="embankment" text="Embankment" disable_off="true"/>
-                    <check key="lit" text="Lit" disable_off="true"/>
-                    <check key="toll" text="Toll" disable_off="true"/>
-                </checkgroup>
+                <reference ref="major_highway_additional"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -1178,21 +1168,7 @@
             <reference ref="highway_ref"/>
             <optional>
                 <reference ref="highway_base"/>
-                <text key="destination" text="Destination"/>
-                <text key="destination:ref" text="Destination reference"/>
-                <text key="junction:ref" text="Junction reference" />
-                <text key="width" text="Width (meters)"/>
-                <reference ref="placement"/>
-                <checkgroup text="Additional attributes" columns="4">
-                    <check key="oneway" text="Oneway" default="on"/>
-                    <check key="motorroad" text="Motorroad" default="on"/>
-                    <check key="bridge" text="Bridge" disable_off="true"/>
-                    <check key="tunnel" text="Tunnel" disable_off="true"/>
-                    <check key="cutting" text="Cutting" disable_off="true"/>
-                    <check key="embankment" text="Embankment" disable_off="true"/>
-                    <check key="lit" text="Lit" disable_off="true"/>
-                    <check key="toll" text="Toll" disable_off="true"/>
-                </checkgroup>
+                <reference ref="major_highway_additional"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="lane_presets"/>
@@ -1208,7 +1184,7 @@
                 <check key="noname" text="Street has no name" disable_off="true"/>
                 <reference ref="highway_base"/>
                 <check key="motorroad" text="Motorroad" disable_off="true"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk_winter"/>
                 <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
                 <reference ref="placement"/>
             </optional>
@@ -1227,7 +1203,7 @@
                 <text key="destination:ref" text="Destination reference" />
                 <text key="junction:ref" text="Junction reference" />
                 <check key="motorroad" text="Motorroad" disable_off="true"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk_winter"/>
                 <reference ref="placement"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -1243,7 +1219,7 @@
             <optional>
                 <check key="noname" text="Street has no name" disable_off="true"/>
                 <reference ref="highway_base"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk_winter"/>
 		        <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
                 <reference ref="placement"/>
             </optional>
@@ -1260,7 +1236,7 @@
                 <reference ref="highway_base"/>
                 <text key="destination" text="Destination" />
                 <text key="destination:ref" text="Destination reference" />
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk_winter"/>
                 <reference ref="placement"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -1276,7 +1252,7 @@
                 <reference ref="highway_ref"/>
                 <check key="noname" text="Street has no name" disable_off="true"/>
                 <reference ref="highway_base"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk_winter"/>
 		        <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
                 <reference ref="placement"/>
             </optional>
@@ -1291,7 +1267,7 @@
                 <reference ref="highway_ref"/>
             	<text key="name" text="Name"/>
                 <reference ref="highway_base"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk_winter"/>
                 <reference ref="placement"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -1306,7 +1282,7 @@
                 <check key="noname" text="Street has no name" disable_off="true"/>
                 <reference ref="highway_ref"/>
                 <reference ref="highway_base"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk_winter"/>
 		        <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
                 <reference ref="placement"/>
                 <check key="passing_places" text="Passing Places" disable_off="true"/>
@@ -1324,7 +1300,7 @@
                 <check key="noname" text="Street has no name" disable_off="true"/>
                 <reference ref="highway_ref"/>
                 <reference ref="highway_base"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
 		        <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -1347,7 +1323,7 @@
                 <reference ref="surface_smoothness"/>
                 <check key="oneway" text="Oneway" disable_off="true"/>
                 <check key="oneway:bicycle" text="Oneway for bicycle" disable_off="true"/>
-                <reference ref="highway_yesno_incline"/>
+                <reference ref="highway_additional"/>
                 <check key="lit" text="Lit" disable_off="true"/>
                 <text key="width" text="Width (meters)"/>
                 <reference ref="sidewalk"/>
@@ -1363,9 +1339,8 @@
             <optional>
                 <check key="noname" text="Street has no name" disable_off="true"/>
                 <reference ref="lanes"/>
-                <reference ref="layer"/>
                 <reference ref="surface_smoothness"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width"/>
+                <reference ref="highway_additional_oneway_lit_width"/>
 		        <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -1381,7 +1356,7 @@
                 <reference ref="layer"/>
                 <reference ref="surface_smoothness"/>
                 <check key="area" text="Area" disable_off="true"/>
-                <reference ref="highway_yesno_incline"/>
+                <reference ref="highway_additional"/>
                 <check key="lit" text="Lit" disable_off="true"/>
                 <text key="width" text="Width (meters)"/>
             </optional>
@@ -1395,7 +1370,7 @@
                 <combo key="service" text="Service way type" values="alley,driveway,parking_aisle,drive-through,emergency_access" display_values="Alley,Driveway,Parking,Parking aisle,Drive-through,Emergency access" values_context="Highway"/>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
                 <check key="passing_places" text="Passing Places" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -1429,7 +1404,7 @@
             <optional>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
             </optional>
             <reference ref="road_access_restrictions"/>
         </item> <!-- Road (Unknown Type) -->
@@ -1440,7 +1415,7 @@
             <optional>
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
                 <check key="trolley_wire" text="Overhead trolley wires" disable_off="true"/>
                 <combo key="junction" text="Junction" values="roundabout,jughandle,yes"/>
             </optional>
@@ -1455,7 +1430,7 @@
             <optional>
                 <reference ref="name_layer"/>
                 <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" value_type="integer" match="none"/>
-                <reference ref="highway_yesno_incline_oneway"/>
+                <reference ref="highway_additional_oneway"/>
                 <text key="width" text="Width (meters)"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -1567,9 +1542,9 @@
                 <list_entry value="grade5" display_value="5 - Soft" short_description="Almost always an unpaved track lacking hard materials, uncompacted, with surface of soil/sand/grass"/>
             </combo>
             <optional>
-                <reference ref="name_layer"/>
+                <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width"/>
+                <reference ref="highway_additional_oneway_lit_width"/>
                 <reference ref="mtb_scale"/>
                 <reference ref="road_access_restrictions"/>
             </optional>
@@ -1578,9 +1553,9 @@
             <link wiki="Tag:highway=path"/>
             <key key="highway" value="path"/>
             <optional>
-                <reference ref="name_layer"/>
+                <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width"/>
+                <reference ref="highway_additional_oneway_lit_width"/>
                 <combo key="sac_scale" text="SAC Scale" values_searchable="true">
                     <list_entry value="hiking" display_value="T1 - hiking trail" short_description="Trail well cleared. Area flat or slightly sloped, no fall hazard"/>
                     <list_entry value="mountain_hiking" display_value="T2 - mountain hiking trail" short_description="Trail with continuous line and balanced ascent. Terrain partially steep, fall hazard possible"/>
@@ -1602,21 +1577,21 @@
             <link wiki="Tag:highway=bridleway"/>
             <key key="highway" value="bridleway"/>
             <optional>
-                <reference ref="name_layer"/>
+                <reference ref="name"/>
                 <reference ref="maxspeed"/>
                 <reference ref="surface_smoothness"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width"/>
+                <reference ref="highway_additional_oneway_lit_width"/>
             </optional>
         </item> <!-- Dedicated Bridleway -->
         <item name="Dedicated Cycleway" icon="icons/png/cycleway.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:highway=cycleway"/>
             <key key="highway" value="cycleway"/>
             <optional>
-                <reference ref="name_layer"/>
+                <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
                 <reference ref="cycleway_surface"/>
                 <reference ref="footway_surface"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width"/>
+                <reference ref="highway_additional_oneway_lit_width"/>
                 <combo key="foot" text="Pedestrians" values="designated,yes,no" display_values="Designated,Yes,No"/>
                 <check key="segregated" text="Segregated" disable_off="true"/>
             </optional>
@@ -1628,11 +1603,11 @@
             <key key="foot" value="designated"/>
             <key key="segregated" value="yes"/>
             <optional>
-                <reference ref="name_layer"/>
+                <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
                 <reference ref="cycleway_surface"/>
                 <reference ref="footway_surface"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width"/>
+                <reference ref="highway_additional_oneway_lit_width"/>
             </optional>
         </item> <!-- Segregated Foot- and Cycleway -->
         <item name="Combined Foot- and Cycleway" icon="icons/png/foot_and_cycleway.png" type="way,closedway" preset_name_label="true">
@@ -1642,9 +1617,9 @@
             <key key="foot" value="designated"/>
             <key key="segregated" value="no"/>
             <optional>
-                <reference ref="name_layer"/>
+                <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
-                <reference ref="highway_yesno_incline_oneway_lit_width"/>
+                <reference ref="highway_additional_oneway_lit_width"/>
                 <check key="passing_places" text="Passing Places" disable_off="true"/>
             </optional>
         </item> <!-- Combined Foot- and Cycleway -->
@@ -1653,11 +1628,11 @@
             <key key="highway" value="footway"/>
             <optional>
                 <combo key="footway" text="Type" values="sidewalk,crossing" display_values="Sidewalk,Crossing" values_context="footway"/>
-                <reference ref="name_layer"/>
+                <reference ref="name"/>
                 <reference ref="surface_smoothness"/>
                 <reference ref="cycleway_surface"/>
                 <reference ref="footway_surface"/>
-                <reference ref="highway_yesno_incline"/>
+                <reference ref="highway_additional"/>
                 <check key="lit" text="Lit" disable_off="true"/>
                 <combo key="bicycle" text="Bicycle" values="designated,yes,no" display_values="Designated,Yes,No"/>
                 <combo key="segregated" text="Segregated" values="yes,no" display_values="Yes,No" default=""/>
@@ -1691,7 +1666,7 @@
                 <space/>
                 <combo key="conveying" text="Escalator" values="yes,forward,backward,reversible"/>
                 <space/>
-                <reference ref="highway_yesno_incline_oneway_lit_width"/>
+                <reference ref="highway_additional_oneway_lit_width"/>
             </optional>
             <preset_link preset_name="Arcade"/>
             <preset_link preset_name="Colonnade"/>
@@ -2265,8 +2240,8 @@
         <item name="Physical restrictions" icon="icons/png/maximum_width.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
-            <text key="maxweight" text="Max. weight (tonnes)" match="key"/>
-            <text key="maxaxleload" text="Max. axleload (tonnes)" match="key"/>
+            <reference ref="maxweight"/>
+            <text key="maxaxleload" text="Max. axle load (tonnes)" match="key"/>
             <text key="maxheight" text="Max. height (meters)" match="key"/>
             <text key="maxwidth" text="Max. width (meters)" match="key"/>
             <text key="maxlength" text="Max. length (meters)" match="key"/>
@@ -2601,6 +2576,7 @@
         <item name="Water point" icon="icons/png/water_water_point_34025.png" type="node" preset_name_label="true">
             <link wiki="Tag:waterway=water_point"/>
             <key key="waterway" value="water_point"/>
+            <check key="drinking_water" text="Drinking Water"/>
         </item> <!-- Water point -->
         <item name="Sanitary dump station" icon="icons/png/water_sanitary_dump_station.png" type="node" preset_name_label="true">
             <link wiki="Tag:waterway=sanitary_dump_station"/>
@@ -2737,7 +2713,7 @@
             <key key="highway" value="bus_guideway"/>
             <optional>
                 <text key="name" text="Name"/>
-                <reference ref="highway_yesno_incline_oneway"/>
+                <reference ref="highway_additional_oneway"/>
                 <check key="oneway" text="Oneway" />
                 <reference ref="layer"/>
                 <reference ref="surface_smoothness"/>
@@ -2902,9 +2878,14 @@
             <link wiki="Tag:aerialway=zip_line"/>
             <space/>
             <key key="aerialway" value="zip_line"/>
-            <reference ref="name_ref"/>
-            <reference ref="oh"/>
-            <reference ref="facility_access" />
+            <optional>
+                <reference ref="name_ref_operator"/>
+                <reference ref="oh"/>
+                <reference ref="facility_access" />
+                <reference ref="fee" />
+                <reference ref="min_age" />
+                <reference ref="maxweight"/>
+            </optional>
         </item> <!-- Zip Line -->
         <separator/>
         <item name="Station" name_context="aerialway" icon="icons/png/transport_aerialway_station_10010.png" type="node,closedway" preset_name_label="true">
@@ -3134,7 +3115,7 @@
         </item> <!-- Sharing -->
     </group> <!-- Car -->
     <group name="Motorcycle" icon="icons/png/transport_motorcycle.png">
-        <item name="Parking" icon="icons/png/transport_motorcycle_parking_12001.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Parking" name_context="motorcycle" icon="icons/png/transport_motorcycle_parking_12001.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=motorcycle_parking"/>
             <space/>
             <key key="amenity" value="motorcycle_parking"/>
@@ -3167,7 +3148,7 @@
         </item> <!-- Motorcycle Dealer -->
     </group> <!-- Motorcycle -->
     <group name="Bicycle" icon="icons/png/transport_bicycle.png">
-        <item name="Parking" icon="icons/png/transport_parking_bicycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
+        <item name="Parking" name_context="bicycle" icon="icons/png/transport_parking_bicycle.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=bicycle_parking"/>
             <space/>
             <key key="amenity" value="bicycle_parking"/>
@@ -3308,16 +3289,18 @@
                 <reference ref="tactile_paving"/>
             </optional>
 			<space/>
+            <label text="Legacy stop types" />
 			<checkgroup text="Legacy stop types" columns="2">
-           		<check key="bus" text="Bus" disable_off="true"/>
-           		<check key="highway" value_on="bus_stop" text="Bus stop (legacy)" disable_off="true"/>
-            	<check key="tram" text="Tram" disable_off="true"/>
-            	<check key="railway" value_on="tram_stop" text="Tram stop (legacy)" disable_off="true"/>
-            	<check key="train" text="Train" disable_off="true"/>
-           		<check key="railway" value_on="station" text="Railway station (legacy)" disable_off="true"/>
-                <check key="railway" value_on="halt" text="Railway halt (legacy)" disable_off="true"/>
+           		<check key="highway" value_on="bus_stop" text="Bus stop" disable_off="true"/>
+            	<check key="railway" value_on="tram_stop" text="Tram stop" disable_off="true"/>
+           		<check key="railway" value_on="station" text="Railway station" disable_off="true"/>
+                <check key="railway" value_on="halt" text="Railway halt" disable_off="true"/>
            	</checkgroup>
+            <label text="Stop types" />
             <checkgroup text="Stop types" columns="2">
+                <check key="bus" text="Bus" disable_off="true"/>
+                <check key="tram" text="Tram" disable_off="true"/>
+                <check key="train" text="Train" disable_off="true"/>
                 <check key="trolleybus" text="Trolleybus" disable_off="true"/>
                 <check key="share_taxi" text="Share taxi" disable_off="true"/>
                 <check key="subway" text="Subway" disable_off="true"/>
@@ -5129,7 +5112,9 @@
             <link wiki="Tag:emergency=emergency_ward_entrance" />
             <space />
             <key key="emergency" value="emergency_ward_entrance" />
-            <reference ref="name_operator" />
+            <optional>
+                <reference ref="name_operator" />
+            </optional>
             <combo key="emergency_ward_entrance" text="Type" values="walk-in,rescue_service,all" display_values="Walk-in,Rescue service,All" values_searchable="true" />
             <reference ref="link_contact_address" />
         </item> <!-- Emergency ward entrance -->
@@ -5659,6 +5644,14 @@
             <reference ref="colours" />
             <combo key="seats" text="Seats count" values="2,3,4,5,6,7,8,9,10"/>
         </item> <!-- Bench -->
+        <item name="Outdoor seating" icon="icons/png/amenity_outdoor_seating.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:leisure=outdoor_seating"/>
+            <space/>
+            <key key="leisure" value="outdoor_seating"/>
+            <combo key="weather_protection" text="Weather protection" values="awning,canopy,parasol,pavilion,roof,trees" 
+                display_values="Awning,Canopy,Parasol,Pavilion,Roof,Trees" values_searchable="true" match="key"/>
+            <check key="heating" text="Heating" />
+        </item> <!-- Outdoor seating -->
         <item name="Shelter" icon="icons/png/accommodation_shelter2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=shelter"/>
             <space/>
@@ -5703,8 +5696,8 @@
             <link wiki="Tag:amenity=water_point"/>
             <space/>
             <key key="amenity" value="water_point"/>
+            <check key="drinking_water" text="Drinking Water"/>
             <optional>
-                <check key="drinking_water" text="Drinking Water"/>
                 <text key="name" text="Name"/>
                 <text key="description" text="Description" length="255"/>
             </optional>
@@ -7155,14 +7148,14 @@
             <item name="Geothermal Power Generator" icon="icons/png/power_generator_26005.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="geothermal"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:type" text="Generator Type" values="heat_pump,steam_turbine"/>
+                <combo key="generator:type" text="Generator Type" values="heat_pump,steam_turbine" display_values="Heat pump,Steam turbine"/>
                 <reference ref="power_output"/>
             </item> <!-- Geothermal Power Generator -->
             <item name="Wind Turbine" icon="icons/png/power_station_wind.png" type="node,closedway" preset_name_label="true">
                 <key key="generator:source" value="wind"/>
                 <reference ref="power_generator"/>
                 <key key="generator:method" value="wind_turbine"/>
-                <combo key="generator:type" text="Generator Type" values="horizontal_axis,vertical_axis"/>
+                <combo key="generator:type" text="Generator Type" values="horizontal_axis,vertical_axis" display_values="Horizontal axis,Vertical axis"/>
                 <reference ref="power_output"/>
             </item> <!-- Wind Turbine -->
         </group> <!-- Power Generator -->
