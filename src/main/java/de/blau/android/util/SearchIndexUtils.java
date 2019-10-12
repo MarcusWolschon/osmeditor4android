@@ -233,7 +233,7 @@ public final class SearchIndexUtils {
      */
     public static int rescale(@NonNull String term, int weight, @NonNull PresetItem pi) {
         int actualWeight = weight;
-        String name = SearchIndexUtils.normalize(pi.getName());
+        String name = SearchIndexUtils.normalize(pi.getTranslatedName());
         if (name.equals(term)) { // exact name match
             actualWeight = -20;
         } else if (term.length() >= 3) {
