@@ -97,7 +97,7 @@ public final class Address implements Serializable {
      * @param id its ID
      * @param tags the relevant address tags
      */
-    private Address(String type, long id, LinkedHashMap<String, List<String>> tags) {
+    private Address(@NonNull String type, long id, @NonNull LinkedHashMap<String, List<String>> tags) {
         OsmElement e = App.getDelegator().getOsmElement(type, id);
         if (e == null) {
             Log.e(DEBUG_TAG, type + " " + id + " doesn't exist in storage ");
@@ -113,7 +113,7 @@ public final class Address implements Serializable {
      * @param e the OSM element
      * @param tags the relevant address tags
      */
-    private Address(OsmElement e, LinkedHashMap<String, List<String>> tags) {
+    private Address(@NonNull OsmElement e, @NonNull LinkedHashMap<String, List<String>> tags) {
         init(e, tags);
     }
 
@@ -123,7 +123,7 @@ public final class Address implements Serializable {
      * @param e the OSM element
      * @param tags the relevant address tags
      */
-    private void init(OsmElement e, LinkedHashMap<String, List<String>> tags) {
+    private void init(@NonNull OsmElement e, @NonNull LinkedHashMap<String, List<String>> tags) {
         switch (e.getType()) {
         case NODE:
             lat = ((Node) e).getLat() / 1E7F;
@@ -410,6 +410,7 @@ public final class Address implements Serializable {
      * @param otherSideList numbers found on the other side only used if otherSide is true
      * @return the tags for the object
      */
+    @NonNull
     private static LinkedHashMap<String, List<String>> predictNumber(@NonNull Address newAddress, @NonNull LinkedHashMap<String, List<String>> originalTags,
             @NonNull String street, @NonNull Side side, @NonNull SortedMap<Integer, Address> list, boolean oppositeSide,
             @Nullable SortedMap<Integer, Address> otherSideList) {
@@ -422,7 +423,7 @@ public final class Address implements Serializable {
                 int inc = 1;
                 float incTotal = 0;
                 float incCount = 0;
-                ArrayList<Integer> numbers = new ArrayList<>(list.keySet());
+                List<Integer> numbers = new ArrayList<>(list.keySet());
                 for (int i = 0; i < numbers.size() - 1; i++) {
                     int diff = numbers.get(i + 1) - numbers.get(i);
                     if (diff > 0 && diff <= 2) {
@@ -538,6 +539,12 @@ public final class Address implements Serializable {
         return newTags;
     }
 
+    /**
+     * Copy tags from an Address to an existing Map holding tags
+     * 
+     * @param address the Address object
+     * @param tags the Map with tags
+     */
     private static void copyTags(@Nullable Address address, @NonNull LinkedHashMap<String, List<String>> tags) {
         if (address != null) {
             for (Entry<String, List<String>> entry : address.tags.entrySet()) {
@@ -561,7 +568,7 @@ public final class Address implements Serializable {
      * @return an integer
      * @throws NumberFormatException if what was extracted could not be parsed as an int
      */
-    private static int getNumber(String hn) throws NumberFormatException {
+    private static int getNumber(@NonNull String hn) throws NumberFormatException {
         StringBuilder sb = new StringBuilder();
         for (Character c : hn.toCharArray()) {
             if (Character.isDigit(c)) {
@@ -586,7 +593,8 @@ public final class Address implements Serializable {
      * @return a sorted map with the house numbers as key
      */
     @NonNull
-    private static synchronized SortedMap<Integer, Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> addresses) {
+    private static synchronized SortedMap<Integer, Address> getHouseNumbers(@Nullable String street, @Nullable Address.Side side,
+            @NonNull LinkedList<Address> addresses) {
         SortedMap<Integer, Address> result = new TreeMap<>(); // list sorted by house numbers
         for (Address a : addresses) {
             if (a != null && a.tags != null) {
@@ -644,7 +652,7 @@ public final class Address implements Serializable {
      * 
      * @param context Android Context
      * @param sortedMap LinkedHashMap containing the tags
-     * @return a LinkedHashMap containg only the relevant address tags
+     * @return a LinkedHashMap containing only the relevant address tags
      */
     private static LinkedHashMap<String, List<String>> getAddressTags(@NonNull Context context, @NonNull LinkedHashMap<String, List<String>> sortedMap) {
         LinkedHashMap<String, List<String>> result = new LinkedHashMap<>();
@@ -664,7 +672,7 @@ public final class Address implements Serializable {
      * 
      * @param context Android context
      */
-    public static synchronized void resetLastAddresses(Context context) {
+    public static synchronized void resetLastAddresses(@NonNull Context context) {
         savingHelperAddress.save(context, ADDRESS_TAGS_FILE, new LinkedList<>(), false);
         lastAddresses = null;
     }
