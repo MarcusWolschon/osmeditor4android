@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
-    object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police">
+    object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
     Icons have been derived from mainly from
   
@@ -2046,6 +2046,9 @@
         <item name="Gate" icon="icons/png/barrier_gate.png" type="node" preset_name_label="true">
             <link wiki="Tag:barrier=gate"/>
             <key key="barrier" value="gate"/>
+            <optional>
+                <text key="ref" text="Reference"/>
+            </optional>
             <reference ref="barrier_5"/>
             <reference ref="optional_maxheight_maxwidth"/>
             <reference ref="general_access"/>
@@ -9413,19 +9416,19 @@
             <preset_link preset_name="Note"/>
             <preset_link preset_name="Description"/>
         </item> <!-- Fixme -->
-        <item name="Add or update check date" icon="icons/png/osm_exclamation_mark_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+        <item name="No name" icon="icons/png/osm_exclamation_mark_sp.png" type="node,way,closedway,relation" preset_name_label="true">
+            <check key="noname" text="No name" disable_off="true"/>
+        </item>
+        <item name="Add or update check date" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
             <link wiki="Key:check_date"/>
             <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags 
                  before the PropertyEditor was started, tags are the current values, by removing the key at the 
                  end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
         	<text key="automatic_check_date" javascript=" function addCheckDate(key) {   df = new java.text.SimpleDateFormat('yyyy-MM-dd');   v = new java.util.ArrayList();   v.add(df.format(new java.util.Date()));   tags.put(key,v); }  for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {   if (key.startsWith('check_date:')) {     addCheckDate(key);   } } addCheckDate('check_date'); tags.remove('automatic_check_date');" text="Automatic check_date generation"/>	
 		</item> <!-- Add or update check date -->
-        <item name="No name" icon="icons/png/osm_exclamation_mark_sp.png" type="node,way,closedway,relation" preset_name_label="true">
-            <check key="noname" text="No name" disable_off="true"/>
-        </item>
-    </group> <!-- Annotation -->
+  </group> <!-- Annotation -->
   <group name="Relations" icon="icons/png/osm_relation_sp.png">
-  <item name="Relations" icon="icons/png/osm_relation_sp.png" type="relation,multipolygon" preset_name_label="true">
+       <item name="Relations" icon="icons/png/osm_relation_sp.png" type="relation,multipolygon" preset_name_label="true">
             <link wiki="Types_of_relation"/>
             <combo key="type" text="Relation type" editable="true" match="key">
                 <list_entry value="multipolygon" display_value="Multipolygon"/>
@@ -10648,4 +10651,81 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Vacant -->
     </group> <!-- Offices -->
+    <group name="Lifecycle" icon="icons/png/lifecycle.png">
+        <item name="Set to disused" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:check_date" />
+            <!-- originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags 
+                 before the PropertyEditor was started, tags are the current values, by removing the key at the 
+                 end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
+            <text key="set_to_disused" javascript="
+var objects = ['shop','amenity','leisure','military','man_made','tourism'];
+
+function isObject(key) {
+  var objectsLength = objects.length;
+  for (var i = 0; i &lt; objectsLength; i++) {
+    if (objects[i].equals(key)) {
+            return true;
+    }
+  }
+  return false;
+}
+
+for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {
+  if (isObject(key)) {
+    tags.put('disused:'+key,tags.get(key));
+    tags.remove(key);
+  }
+}
+tags.remove('set_to_disused');" />
+        </item>
+        <item name="Set to disused (remove tags)" icon="icons/png/javascript.png" type="node,way,closedway,relation" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:check_date" />
+            <!-- This preset will only remove tags on app version 703 and higher (Vespucci 11.1.1)    
+                 originalTags and tags are java.util.Map<String,ArrayList<String>>, originalTags are the tags 
+                 before the PropertyEditor was started, tags are the current values, by removing the key at the 
+                 end of the script it can be re-run without manually reseting the value, &, <, > need to be escaped -->
+            <text key="set_to_disused_remove_tags" javascript="
+var objects = ['shop','amenity','leisure','military'];
+
+function isObject(key) {
+  var objectsLength = objects.length;
+  for (var i = 0; i &lt; objectsLength; i++) {
+    if (objects[i].equals(key)) {
+            return true;
+    }
+  }
+  return false;
+}
+
+var presetItem = null;
+for (var key in Iterator(new java.util.HashSet(tags.keySet()))) {
+  if (isObject(key)) {
+    tags.put('disused:'+key,tags.get(key));
+    presetItem = key2PresetItem.get(key);
+    tags.remove(key);
+  }
+  if (typeof versionCode !== 'undefined' &amp;&amp; versionCode &gt; 703) {
+    if (presetItem !== null &amp;&amp; presetItem.equals(key2PresetItem.get(key))) {
+      tags.remove(key);
+    }
+  }
+}
+tags.remove('set_to_disused_remove_tags');" />
+        </item>
+        <item name="Disused amenity" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:amenity" match="key" />
+        </item> <!-- Disused amenity -->
+        <item name="Disused leisure" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:leisure" match="key" />
+        </item> <!-- Disused leisure -->
+        <item name="Disused shop" icon="icons/png/lifecycle.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Key:disused:"/>
+            <space/>
+            <text key="disused:shop" match="key" />
+        </item> <!-- Disused shop -->
+    </group>
 </presets>
