@@ -10,7 +10,14 @@ Tapping the lock icon will toggle the lock.
 ####  ![Unlocked](../images/unlocked.png) unlocked
 In this mode you can add and change the geometry and tags of OpenStreetMap data. *You will still need to zoom until editing is enabled.*
 
-If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to create new objects of change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes.
+If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes, for mode switching purposes it dosen't matter if the display in "locked" or "unlocked".
+
+All the mode options are 
+
+* __Normal__ conventional editing mode.
+* __Tag only__ selecting an object will immediately start the property editor.
+* __Indoor__ indoor editing with level selector.
+* __C-Mode__ "complete" mode, only objects with validation warnings will be shown.
 
 The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu. 
 
