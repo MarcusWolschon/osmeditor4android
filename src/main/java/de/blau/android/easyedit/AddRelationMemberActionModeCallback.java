@@ -165,7 +165,7 @@ public class AddRelationMemberActionModeCallback extends NonSimpleActionModeCall
     private void setClickableElements() {
         ArrayList<OsmElement> excludes = new ArrayList<>(members);
         if (relation != null) {
-            logic.selectRelation(relation);
+            logic.setSelectedRelationMembers(relation);
             excludes.addAll(relation.getMemberElements());
         }
         logic.setClickableElements(logic.findClickableElements(excludes));

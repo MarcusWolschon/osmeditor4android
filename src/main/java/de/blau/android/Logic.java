@@ -3896,7 +3896,7 @@ public class Logic {
      * 
      * @param selectedNode node to select
      */
-    public synchronized void setSelectedNode(final Node selectedNode) {
+    public synchronized void setSelectedNode(@Nullable final Node selectedNode) {
         if (selectedNode != null) { // always restart
             selectedNodes = new LinkedList<>();
             selectedNodes.add(selectedNode);
@@ -3912,7 +3912,7 @@ public class Logic {
      * 
      * @param selectedNode node to add to selection
      */
-    public synchronized void addSelectedNode(final Node selectedNode) {
+    public synchronized void addSelectedNode(@NonNull final Node selectedNode) {
         if (selectedNodes == null) {
             setSelectedNode(selectedNode);
         } else {
@@ -3928,7 +3928,7 @@ public class Logic {
      * 
      * @param node node to remove from selection
      */
-    public synchronized void removeSelectedNode(Node node) {
+    public synchronized void removeSelectedNode(@NonNull Node node) {
         if (selectedNodes != null) {
             selectedNodes.remove(node);
             if (selectedNodes.isEmpty()) {
@@ -3943,7 +3943,7 @@ public class Logic {
      * 
      * @param selectedWay way to select
      */
-    public synchronized void setSelectedWay(final Way selectedWay) {
+    public synchronized void setSelectedWay(@Nullable final Way selectedWay) {
         if (selectedWay != null) { // always restart
             selectedWays = new LinkedList<>();
             selectedWays.add(selectedWay);
@@ -3959,7 +3959,7 @@ public class Logic {
      * 
      * @param selectedWay way to add to selection
      */
-    public synchronized void addSelectedWay(final Way selectedWay) {
+    public synchronized void addSelectedWay(@NonNull final Way selectedWay) {
         if (selectedWays == null) {
             setSelectedWay(selectedWay);
         } else {
@@ -3975,7 +3975,7 @@ public class Logic {
      * 
      * @param way way to de-select
      */
-    public synchronized void removeSelectedWay(Way way) {
+    public synchronized void removeSelectedWay(@NonNull Way way) {
         if (selectedWays != null) {
             selectedWays.remove(way);
             if (selectedWays.isEmpty()) {
@@ -3990,7 +3990,7 @@ public class Logic {
      * 
      * @param selectedRelation relation to select
      */
-    public synchronized void setSelectedRelation(final Relation selectedRelation) {
+    public synchronized void setSelectedRelation(@Nullable final Relation selectedRelation) {
         if (selectedRelation != null) { // always restart
             selectedRelations = new LinkedList<>();
             selectedRelations.add(selectedRelation);
@@ -3998,7 +3998,7 @@ public class Logic {
             selectedRelations = null;
         }
         if (selectedRelation != null) {
-            selectRelation(selectedRelation);
+            setSelectedRelationMembers(selectedRelation);
         }
         resetFilterCache();
     }
@@ -4008,11 +4008,17 @@ public class Logic {
      * 
      * @param relation relation to remove from selection
      */
-    public synchronized void removeSelectedRelation(Relation relation) {
+    public synchronized void removeSelectedRelation(@NonNull Relation relation) {
         if (selectedRelations != null) {
             selectedRelations.remove(relation);
+            setSelectedRelationNodes(null); // de-select all
+            setSelectedRelationWays(null);
             if (selectedRelations.isEmpty()) {
                 selectedRelations = null;
+            } else {
+                for (Relation r : selectedRelations) { // re-select
+                    setSelectedRelationMembers(r);
+                }
             }
             resetFilterCache();
         }
@@ -4023,7 +4029,7 @@ public class Logic {
      * 
      * @param selectedRelation relation to add to selection
      */
-    public synchronized void addSelectedRelation(final Relation selectedRelation) {
+    public synchronized void addSelectedRelation(@NonNull final Relation selectedRelation) {
         if (selectedRelations == null) {
             setSelectedRelation(selectedRelation);
         } else {
@@ -4506,7 +4512,7 @@ public class Logic {
      * @param relation Relation we want to add the members to
      * @param members List of members to add
      */
-    public void addMembers(@Nullable Activity activity, Relation relation, List<OsmElement> members) {
+    public void addMembers(@Nullable Activity activity, @NonNull Relation relation, @NonNull List<OsmElement> members) {
         createCheckpoint(activity, R.string.undo_action_update_relations);
         getDelegator().addMembersToRelation(relation, members);
     }
@@ -4517,23 +4523,39 @@ public class Logic {
      * 
      * @param ways set of elements to which highlighting should be limited, or null to remove the limitation
      */
-    public void setSelectedRelationWays(List<Way> ways) {
+    public void setSelectedRelationWays(@Nullable List<Way> ways) {
         selectedRelationWays = ways;
     }
 
-    public void addSelectedRelationWay(Way way) {
+    /**
+     * Add a selected member way
+     * 
+     * @param way the way
+     */
+    public void addSelectedRelationWay(@NonNull Way way) {
         if (selectedRelationWays == null) {
             selectedRelationWays = new LinkedList<>();
         }
         selectedRelationWays.add(way);
     }
 
-    public void removeSelectedRelationWay(Way way) {
+    /**
+     * Remove a selected member way
+     * 
+     * @param way the way
+     */
+    public void removeSelectedRelationWay(@NonNull Way way) {
         if (selectedRelationWays != null) {
             selectedRelationWays.remove(way);
         }
     }
 
+    /**
+     * Get a list of selected relation member ways
+     * 
+     * @return a List of Ways or null
+     */
+    @Nullable
     public List<Way> getSelectedRelationWays() {
         return selectedRelationWays;
     }
@@ -4543,7 +4565,7 @@ public class Logic {
      * 
      * @param r the Relation holding the members
      */
-    public void selectRelation(@Nullable Relation r) {
+    public synchronized void setSelectedRelationMembers(@Nullable Relation r) {
         if (r != null) {
             for (RelationMember rm : r.getMembers()) {
                 OsmElement e = rm.getElement();
@@ -4567,23 +4589,39 @@ public class Logic {
      * 
      * @param nodes set of elements to which highlighting should be limited, or null to remove the limitation
      */
-    public void setSelectedRelationNodes(List<Node> nodes) {
+    public void setSelectedRelationNodes(@Nullable List<Node> nodes) {
         selectedRelationNodes = nodes;
     }
 
-    public void addSelectedRelationNode(Node node) {
+    /**
+     * Add a selected member node
+     * 
+     * @param node the node
+     */
+    public void addSelectedRelationNode(@NonNull Node node) {
         if (selectedRelationNodes == null) {
             selectedRelationNodes = new LinkedList<>();
         }
         selectedRelationNodes.add(node);
     }
 
-    public void removeSelectedRelationNode(Node node) {
+    /**
+     * Remove a selected member node
+     * 
+     * @param node the node
+     */
+    public void removeSelectedRelationNode(@NonNull Node node) {
         if (selectedRelationNodes != null) {
             selectedRelationNodes.remove(node);
         }
     }
 
+    /**
+     * Get a List of selected relation member nodes or null
+     * 
+     * @return a List of Nodes
+     */
+    @Nullable
     public List<Node> getSelectedRelationNodes() {
         return selectedRelationNodes;
     }
@@ -4598,7 +4636,7 @@ public class Logic {
         selectedRelationRelations = relations;
         if (selectedRelationRelations != null) {
             for (Relation r : selectedRelationRelations) {
-                selectRelation(r);
+                setSelectedRelationMembers(r);
             }
         }
     }

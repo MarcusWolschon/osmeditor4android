@@ -106,7 +106,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             }
         }
         if (selection.isEmpty()) {
-            // nothing slected more .... stop
+            // nothing selected more .... stop
             manager.finish();
         } else {
             sortedWays = Util.sortWays(selection);
@@ -135,7 +135,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         setSubTitle(mode);
         super.onCreateActionMode(mode, menu);
         logic.setReturnRelations(true); // can add relations
-        setClickableElements();
         return true;
     }
 
@@ -315,17 +314,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         // due to clickableElements, only valid elements can be clicked
         Log.d(DEBUG_TAG, "Multi-Select add/remove " + element);
         addOrRemoveElement(element);
-        setClickableElements();
         main.invalidateMap();
         return true;
-    }
-
-    /**
-     * Set clickable elements, as currently all are clickable in this mode, empty
-     */
-    private void setClickableElements() {
-        // ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(selection);
-        // logic.setClickableElements(logic.findClickableElements(excludes));
     }
 
     @Override
