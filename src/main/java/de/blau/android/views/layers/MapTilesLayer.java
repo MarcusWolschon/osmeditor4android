@@ -2,6 +2,7 @@ package de.blau.android.views.layers;
 
 import java.io.IOException;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -37,7 +38,6 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.collections.MRUList;
@@ -87,7 +87,6 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     private final MapTileProvider mTileProvider;
     private final Paint           mPaint    = new Paint();
     private Paint                 textPaint = new Paint();
-    private final NetworkStatus   networkStatus;
 
     /**
      * MRU of last servers
@@ -118,8 +117,6 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         //
         textPaint = DataStyle.getInternal(DataStyle.ATTRIBUTION_TEXT).getPaint();
         // mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
-
-        networkStatus = new NetworkStatus(ctx);
 
         Log.d(DEBUG_TAG,
                 aRendererInfo != null ? (aRendererInfo.isMetadataLoaded()
@@ -290,8 +287,6 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
             return; // no point, return immediately
         }
         coverageWarningDisplayed = false;
-
-        boolean networkIsConnected = networkStatus.isConnected();
 
         long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which
                                                               // invocation of onDraw the tile belongs too
@@ -603,7 +598,13 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(touUri));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    myView.getContext().startActivity(intent);
+                    Context context = myView.getContext();
+                    try {
+                        context.startActivity(intent);
+                    } catch (ActivityNotFoundException anfe) {
+                        Log.e(DEBUG_TAG, "Activity not found " + anfe.getMessage());
+                        Snack.toastTopError(context, anfe.getLocalizedMessage());
+                    }
                     return true;
                 }
             }
