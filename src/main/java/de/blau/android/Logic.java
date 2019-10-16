@@ -4053,6 +4053,7 @@ public class Logic {
         } else {
             if (!selectedRelations.contains(selectedRelation)) {
                 selectedRelations.add(selectedRelation);
+                setSelectedRelationMembers(selectedRelation);
             }
         }
         resetFilterCache();
