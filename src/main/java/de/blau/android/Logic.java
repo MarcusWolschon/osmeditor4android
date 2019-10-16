@@ -878,6 +878,12 @@ public class Logic {
         float x;
         float y;
 
+        /**
+         * Create a new Handle
+         * 
+         * @param x screen x
+         * @param y screen y
+         */
         Handle(float x, float y) {
             this.x = x;
             this.y = y;
@@ -1296,6 +1302,12 @@ public class Logic {
         }
     }
 
+    /**
+     * Handle the end of a touch event (aka lifting the finger from the screen)
+     * 
+     * @param x screen x
+     * @param y screen y
+     */
     synchronized void handleTouchEventUp(final float x, final float y) {
         handleNode = null;
         draggingHandle = false;
@@ -2205,33 +2217,39 @@ public class Logic {
         return hadToReverse;
     }
 
-    public synchronized void performAppendStart(Way way, Node node) {
+    /**
+     * Determine the Way and Node to start appending to a way
+     * 
+     * @param way the Way we are going to append to
+     * @param node the Node we're starting at
+     */
+    public synchronized void performAppendStart(@Nullable Way way, @Nullable Node node) {
         setSelectedNode(node);
         setSelectedWay(way);
         invalidateMap();
     }
 
-    public synchronized void performAppendStart(OsmElement element) {
+    /**
+     * Try to determine the Way and Node to start appending to a way on from a supplied node
+     * 
+     * @param node the start Node
+     */
+    public synchronized void performAppendStart(@Nullable Node node) {
         Way lSelectedWay = null;
-        Node lSelectedNode = null;
-
-        if (element != null) {
-            if (element instanceof Node) {
-                lSelectedNode = (Node) element;
-                List<Way> ways = getDelegator().getCurrentStorage().getWays(lSelectedNode);
-                // TODO Resolve possible multiple ways that end at the node
-                for (Way way : ways) {
-                    if (way.isEndNode(lSelectedNode)) {
-                        lSelectedWay = way;
-                        break;
-                    }
-                }
-                if (lSelectedWay == null) {
-                    lSelectedNode = null;
+        if (node != null) {
+            List<Way> ways = getDelegator().getCurrentStorage().getWays(node);
+            // TODO Resolve possible multiple ways that end at the node
+            for (Way way : ways) {
+                if (way.isEndNode(node)) {
+                    lSelectedWay = way;
+                    break;
                 }
             }
+            if (lSelectedWay == null) {
+                node = null;
+            }
         }
-        performAppendStart(lSelectedWay, lSelectedNode);
+        performAppendStart(lSelectedWay, node);
     }
 
     /**
@@ -4632,7 +4650,7 @@ public class Logic {
      * 
      * @param relations set of elements to which highlighting should be limited, or null to remove the limitation
      */
-    public void setSelectedRelationRelations(List<Relation> relations) {
+    public synchronized void setSelectedRelationRelations(List<Relation> relations) {
         selectedRelationRelations = relations;
         if (selectedRelationRelations != null) {
             for (Relation r : selectedRelationRelations) {
@@ -4641,20 +4659,36 @@ public class Logic {
         }
     }
 
-    public void addSelectedRelationRelation(Relation relation) {
+    /**
+     * Add a Relation to the List of selected Relations
+     * 
+     * @param relation the Relation to add
+     */
+    public synchronized void addSelectedRelationRelation(@NonNull Relation relation) {
         if (selectedRelationRelations == null) {
             selectedRelationRelations = new LinkedList<>();
         }
         selectedRelationRelations.add(relation);
     }
 
-    public void removeSelectedRelationRelation(Relation relation) {
+    /**
+     * Remove a relation from the List of selected Relations
+     * 
+     * @param relation the Relation to de-select
+     */
+    public synchronized void removeSelectedRelationRelation(@NonNull Relation relation) {
         if (selectedRelationRelations != null) {
             selectedRelationRelations.remove(relation);
         }
     }
 
-    public List<Relation> getSelectedRelationRelations() {
+    /**
+     * Get the List of selected Relations
+     * 
+     * @return the List or null if none
+     */
+    @Nullable
+    public synchronized List<Relation> getSelectedRelationRelations() {
         return selectedRelationRelations;
     }
 
