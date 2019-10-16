@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -35,6 +36,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
+import android.view.KeyEvent;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -62,6 +64,7 @@ public class ApiTest {
     Context                 context    = null;
     AdvancedPrefDatabase    prefDB     = null;
     Main                    main       = null;
+    private Instrumentation instrumentation;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -71,7 +74,8 @@ public class ApiTest {
      */
     @Before
     public void setup() {
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        instrumentation = InstrumentationRegistry.getInstrumentation();
+        context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
@@ -337,6 +341,12 @@ public class ApiTest {
             Assert.fail(e1.getMessage());
         }
         device.waitForIdle();
+        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/upload_comment", true));
+        instrumentation.sendStringSync("comment 1");
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER);
+        // Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/upload_source", true));
+        instrumentation.sendStringSync("source 1");
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_BACK);
         try {
             button.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e1) {
