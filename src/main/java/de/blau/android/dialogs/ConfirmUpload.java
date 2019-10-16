@@ -169,7 +169,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
             public void onPageSelected(int arg0) {
                 AlertDialog dialog = ((AlertDialog) getDialog());
                 if (dialog != null) {
-                    Button button = dialog.getButton(Dialog.BUTTON_POSITIVE);
+                    Button button = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
                     if (button != null) {
                         button.clearFocus();
                     }
@@ -416,7 +416,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     private class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
-            Button button = ((AlertDialog) getDialog()).getButton(Dialog.BUTTON_POSITIVE);
+            Button button = ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE);
             if (button != null) {
                 button.setFocusableInTouchMode(false);
             }
