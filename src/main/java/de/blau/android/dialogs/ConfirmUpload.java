@@ -167,7 +167,6 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
             @Override
             public void onPageSelected(int arg0) {
-                System.out.println("page selected " + arg0);
                 AlertDialog dialog = ((AlertDialog) getDialog());
                 if (dialog != null) {
                     Button button = dialog.getButton(Dialog.BUTTON_POSITIVE);
