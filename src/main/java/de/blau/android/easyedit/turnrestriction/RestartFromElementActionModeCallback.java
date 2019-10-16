@@ -37,8 +37,7 @@ public class RestartFromElementActionModeCallback extends NonSimpleActionModeCal
         mode.setTitle(R.string.actionmode_restriction_restart_from);
         logic.setClickableElements(fromElements);
         logic.setReturnRelations(false);
-        logic.setSelectedRelationWays(null); // just to be safe
-        logic.addSelectedRelationWay(null);
+        logic.setSelectedRelationWays(null);
         logic.setSelectedNode(null);
         logic.setSelectedWay(null);
         super.onCreateActionMode(mode, menu);
