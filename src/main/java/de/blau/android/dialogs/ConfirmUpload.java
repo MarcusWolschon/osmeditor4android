@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
@@ -21,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +39,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -142,7 +145,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.confirm_upload_title);
 
-        View layout = inflater.inflate(R.layout.upload_tabs, null);
+        final View layout = inflater.inflate(R.layout.upload_tabs, null);
         pager = (ExtendedViewPager) layout.findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);
@@ -150,6 +153,33 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
         pager.setAdapter(new ViewPagerAdapter(activity, layout, new int[] { R.id.review_page, R.id.tags_page },
                 new int[] { R.string.confirm_upload_edits_page, R.string.menu_tags }));
+        pager.addOnPageChangeListener(new OnPageChangeListener() {
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+                // empty
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+                // empty
+            }
+
+            @Override
+            public void onPageSelected(int arg0) {
+                System.out.println("page selected " + arg0);
+                AlertDialog dialog = ((AlertDialog) getDialog());
+                if (dialog != null) {
+                    Button button = dialog.getButton(Dialog.BUTTON_POSITIVE);
+                    if (button != null) {
+                        button.clearFocus();
+                    }
+                }
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(layout.getWindowToken(), 0);
+            }
+
+        });
 
         builder.setView(layout);
 
@@ -246,6 +276,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(
                 new UploadListener((Main) activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, validators));
+
         return dialog;
     }
 
@@ -254,7 +285,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         super.onCancel(dialog);
         saveCommentAndSource(comment, source);
     }
-    
+
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
@@ -386,6 +417,10 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
     private class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
+            Button button = ((AlertDialog) getDialog()).getButton(Dialog.BUTTON_POSITIVE);
+            if (button != null) {
+                button.setFocusableInTouchMode(false);
+            }
             if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
                 if (view instanceof EditText) {
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -396,6 +431,10 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
                         } else {
                             if (view instanceof AutoCompleteTextView) {
                                 ((AutoCompleteTextView) view).dismissDropDown();
+                                if (button != null) {
+                                    button.setFocusableInTouchMode(true);
+                                    button.requestFocus();
+                                }
                             }
                             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
