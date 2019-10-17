@@ -1266,7 +1266,7 @@ public class Server {
                                     }
                                 } else {
                                     // log crash or what
-                                    Log.e(DEBUG_TAG, "" + e + " not found in api storage!");
+                                    Log.e(DEBUG_TAG, "" + oldIdStr + " not found in api storage!");
                                 }
                             }
                         } else if (eventType == XmlPullParser.START_TAG && "diffResult".equals(tagName)) {
@@ -1538,6 +1538,7 @@ public class Server {
      * @return the URL
      * @throws MalformedURLException if the URL we tried to create was malformed
      */
+    @NonNull
     private URL getUpdateElementUrl(@NonNull final OsmElement elem) throws MalformedURLException {
         return new URL(getReadWriteUrl() + elem.getName() + "/" + elem.getOsmId());
     }
@@ -1549,26 +1550,66 @@ public class Server {
      * @return the URL
      * @throws MalformedURLException if the URL we tried to create was malformed
      */
+    @NonNull
     private URL getDiffUploadUrl(long changeSetId) throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changeSetId + "/upload");
     }
 
+    /**
+     * Get the user details url
+     * 
+     * @return the users detail url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getUserDetailsUrl() throws MalformedURLException {
         return new URL(getReadWriteUrl() + "user/details");
     }
 
+    /**
+     * Get the user preferences url for all preferences
+     * 
+     * @return the users preferences url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getUserPreferencesUrl() throws MalformedURLException {
         return new URL(getReadWriteUrl() + "user/preferences");
     }
 
+    /**
+     * Get the user preferences url for a specific preference
+     * 
+     * @param key the key for the preference
+     * @return the users preferences url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getSingleUserPreferencesUrl(@NonNull String key) throws MalformedURLException {
         return new URL(getReadWriteUrl() + "user/preferences/" + key);
     }
 
+    /**
+     * Get the url for adding a comment to a note
+     * 
+     * @param noteId the note id
+     * @param comment the comment to add
+     * @return the url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getAddNoteCommentUrl(@NonNull String noteId, @NonNull String comment) throws MalformedURLException {
         return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment);
     }
 
+    /**
+     * Get the url to retrieve a specific note
+     * 
+     * @param noteId the note id
+     * @return the url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getNoteUrl(@NonNull String noteId) throws MalformedURLException {
         return new URL(getNotesReadOnlyUrl() + SERVER_NOTES_PATH + noteId);
     }
@@ -1595,27 +1636,76 @@ public class Server {
         }
     }
 
+    /**
+     * Get the url to retrieve notes in a specific area
+     * 
+     * @param limit the maximum number of notes to return
+     * @param area the BoundingBox
+     * @return the url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getNotesForBox(long limit, @NonNull BoundingBox area) throws MalformedURLException {
         return new URL(getNotesReadOnlyUrl() + "notes?" + "limit=" + limit + "&" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + ","
                 + area.getRight() / 1E7d + "," + area.getTop() / 1E7d);
     }
 
+    /**
+     * Get the url to add a note
+     * 
+     * @param latitude the WGS84 latitude
+     * @param longitude the WGS84 longitude
+     * @param comment the initial comment
+     * @return the url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getAddNoteUrl(double latitude, double longitude, @NonNull String comment) throws MalformedURLException {
         return new URL(getNotesUrl() + "notes?lat=" + latitude + "&lon=" + longitude + "&text=" + comment);
     }
 
+    /**
+     * Get the url for closing a note
+     * 
+     * @param noteId the note id
+     * @return the url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getCloseNoteUrl(@NonNull String noteId) throws MalformedURLException {
         return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/close");
     }
 
+    /**
+     * Get the url for re-opening a note
+     * 
+     * @param noteId the note id
+     * @return the url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getReopenNoteUrl(@NonNull String noteId) throws MalformedURLException {
         return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/reopen");
     }
 
+    /**
+     * Get the url for uploading a GPS track
+     * 
+     * @return the url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getUploadTrackUrl() throws MalformedURLException {
         return new URL(getReadWriteUrl() + "gpx/create");
     }
 
+    /**
+     * Get the url for retrieving the API capabilities
+     * 
+     * @return the url
+     * @throws MalformedURLException if the url couldn't be constructed properly
+     */
+    @NonNull
     private URL getCapabilitiesUrl() throws MalformedURLException {
         return getCapabilitiesUrl(getReadOnlyUrl());
     }
@@ -1626,6 +1716,7 @@ public class Server {
      * @return a String with the url
      * @throws MalformedURLException if the URL can't be constructed properly
      */
+    @NonNull
     private URL getReadOnlyCapabilitiesUrl() throws MalformedURLException {
         return getCapabilitiesUrl(getReadWriteUrl());
     }
@@ -1637,6 +1728,7 @@ public class Server {
      * @return a String with the url
      * @throws MalformedURLException if the URL can't be constructed properly
      */
+    @NonNull
     private URL getCapabilitiesUrl(@NonNull String url) throws MalformedURLException {
         // need to strip version from serverURL
         int apiPos = url.indexOf(SERVER_API_PATH);
