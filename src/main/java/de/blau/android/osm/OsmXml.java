@@ -62,15 +62,15 @@ public final class OsmXml {
         serializer.attribute(null, "generator", generator);
         serializer.attribute(null, "version", "0.6");
 
-        ArrayList<OsmElement> createdNodes = new ArrayList<>();
-        ArrayList<OsmElement> modifiedNodes = new ArrayList<>();
-        ArrayList<OsmElement> deletedNodes = new ArrayList<>();
-        ArrayList<OsmElement> createdWays = new ArrayList<>();
-        ArrayList<OsmElement> modifiedWays = new ArrayList<>();
-        ArrayList<OsmElement> deletedWays = new ArrayList<>();
-        ArrayList<Relation> createdRelations = new ArrayList<>();
-        ArrayList<Relation> modifiedRelations = new ArrayList<>();
-        ArrayList<Relation> deletedRelations = new ArrayList<>();
+        List<OsmElement> createdNodes = new ArrayList<>();
+        List<OsmElement> modifiedNodes = new ArrayList<>();
+        List<OsmElement> deletedNodes = new ArrayList<>();
+        List<OsmElement> createdWays = new ArrayList<>();
+        List<OsmElement> modifiedWays = new ArrayList<>();
+        List<OsmElement> deletedWays = new ArrayList<>();
+        List<Relation> createdRelations = new ArrayList<>();
+        List<Relation> modifiedRelations = new ArrayList<>();
+        List<Relation> deletedRelations = new ArrayList<>();
 
         for (Node elem : storage.getNodes()) {
             Log.d(DEBUG_TAG, "node added to list for upload, id " + elem.osmId);
