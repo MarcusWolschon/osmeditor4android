@@ -191,6 +191,7 @@ public class GeometryEditsTest {
     }
 
     /**
+     * Split a way that is present in a relation twice
      */
     @UiThreadTest
     @Test
