@@ -1266,7 +1266,7 @@ public class Server {
                                     }
                                 } else {
                                     // log crash or what
-                                    Log.e(DEBUG_TAG, "" + oldIdStr + " not found in api storage!");
+                                    Log.e(DEBUG_TAG, "" + oldIdStr + " not found in api storage! New id " + newIdStr + " new version " + newVersionStr);
                                 }
                             }
                         } else if (eventType == XmlPullParser.START_TAG && "diffResult".equals(tagName)) {
