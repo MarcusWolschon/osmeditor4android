@@ -1183,9 +1183,9 @@ public class Server {
     private static final Pattern ERROR_MESSAGE_DELETED                        = Pattern
             .compile("(?i)The (node|way|relation) with the id ([0-9]+) has already been deleted");
     private static final Pattern ERROR_MESSAGE_PRECONDITION_STILL_USED        = Pattern
-            .compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
+            .compile("(?i)(?:Precondition failed: )?(Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
     private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = Pattern
-            .compile("(?i)Precondition failed: The relation ([0-9]+) is used in relation ([0-9]+).");
+            .compile("(?i)(?:Precondition failed: )?The relation ([0-9]+) is used in relation ([0-9]+).");
     public static final Pattern  ERROR_MESSAGE_BAD_OAUTH_REQUEST              = Pattern.compile("(?i)Bad OAuth request.*");
 
     /**
@@ -1333,9 +1333,8 @@ public class Server {
                         String idStr = m.group(1);
                         generateException(apiStorage, "relation", idStr, code, responseMessage, message);
                     } else {
-
+                        Log.e(DEBUG_TAG, "Unknown error message: " + message);
                     }
-                    Log.e(DEBUG_TAG, "Unknown error message: " + message);
                 }
             }
             throw new OsmServerException(code, message);
