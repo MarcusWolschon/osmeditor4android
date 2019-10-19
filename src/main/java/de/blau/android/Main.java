@@ -1506,8 +1506,10 @@ public class Main extends FullScreenAppCompatActivity
             buttonRes = R.drawable.ic_gps_fixed_black_36dp;
         }
         follow.setImageResource(buttonRes);
-        follow.hide(); // workaround https://issuetracker.google.com/issues/117476935
-        follow.show();
+        if (follow.isShown()) {
+            follow.hide(); // workaround https://issuetracker.google.com/issues/117476935
+            follow.show();
+        }
     }
 
     /**
@@ -3139,7 +3141,7 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 ((RelativeLayout.LayoutParams) lp).setMargins((int) LARGE_FAB_ELEVATION, 0, (int) LARGE_FAB_ELEVATION, (int) LARGE_FAB_ELEVATION);
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Util.setBackgroundTintList(simpleActionsButton, stateList);
         }
     }
