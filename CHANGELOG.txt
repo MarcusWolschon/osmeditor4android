@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.0: Update preset, synonyms and translations, fix regression when trying to hide the "follow GPS" button, adapt regexp for 412 errors to cgi-map implementation, fix de-selecting relation in multi-select, de-duplicate serach results that only differ in weight, numerous stability fixes.
+
 14.0.0-2: Update synonyms and imagery, increase number of logcat lines to 500 for ACRA, add relation loop protection in multiple places, when adding MRU tags to the value adapter use the original Preset values, protect against OOM when reading too large geojson files, reallocate offset array if max zoom has increased
 
 14.0.0-1: Update translations, imagery and presets, fix interworking of C&P with undo/redo, fix way rotation creating invalid objects, improved handling of multiple memberships in the same relation, save draft comment and source tags on dismiss too, stop searching twice in search when using soft keyboard, Don't support FeedbackActivity for Jelly Bean or ICS, don't set FAB tint list before 4.4, add missing AlignParentRight for old Android versions, support for incremental preset search, on-the-fly custom presets, download on pan and zoom, rearranged download menus, automatically apply preset in PropertEditor, internal photo viewer, multi-text value widget, unjoin way, improved squaring and straightening, multi-select C&P, context menu when potentially merging multiple nodes.
