@@ -2610,7 +2610,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param ctx Android Context
      * @throws IOException if saving failed
      */
-    public void writeToFile(@NonNull Context ctx) throws IOException {
+    public synchronized void writeToFile(@NonNull Context ctx) throws IOException {
         if (apiStorage == null || currentStorage == null) {
             // don't write empty state files
             Log.i(DEBUG_TAG, "storage delegator empty, skipping save");
