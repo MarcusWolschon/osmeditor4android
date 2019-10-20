@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.util.Log;
 import ch.poole.openinghoursfragment.templates.TemplateMangementDialog;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.validation.ValidatorRulesUI;
 
@@ -45,6 +47,34 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
      * @param r the current resources
      */
     private void setPreferenceListeners(final Resources r) {
+        
+        Preferences prefs = new Preferences(getActivity());
+
+        ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_mapProfile_key));
+        if (mapProfilePref != null) {
+            String[] profileList = DataStyle.getStyleList(getActivity());
+            mapProfilePref.setEntries(profileList);
+            mapProfilePref.setEntryValues(profileList);
+            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Log.d(DEBUG_TAG, "onPreferenceChange mapProfile");
+                    String id = (String) newValue;
+                    String[] profileList = DataStyle.getStyleList(getActivity());
+                    String[] ids = profileList;
+                    String[] names = profileList;
+                    for (int i = 0; i < ids.length; i++) {
+                        if (ids[i].equals(id)) {
+                            preference.setSummary(names[i]);
+                            break;
+                        }
+                    }
+                    return true;
+                }
+            };
+            mapProfilePref.setOnPreferenceChangeListener(p);
+            p.onPreferenceChange(mapProfilePref, prefs.getMapProfile());
+        }
 
         Preference customLayersPref = getPreferenceScreen().findPreference(r.getString(R.string.config_customlayers_key));
         if (customLayersPref != null) {

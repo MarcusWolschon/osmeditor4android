@@ -2,6 +2,10 @@
 
 The settings for Vespucci are split over two screens: standard and advanced preferences. The more commonly used settings should in general be in the first screen.
 
+## Data style
+
+The style that is used to render OpenStreetmap data. Additional style can be added by including corresponding files in the Vespucci directory.
+
 ## Custom layers
 
 Configure a custom imagery layer not included in the standard configuration.
