@@ -1139,12 +1139,21 @@
 "Permanent Polling Place"
 ],
 "amenity/post_box":[
-"Mailbox",
+"mail dropoff",
+"pillarbox",
+"postbox",
 "letter drop",
 "mail box",
 "package drop",
+"Mail Drop Box",
+"post box",
+"mailbox",
+"dropbox",
+"mail collection box",
+"mail drop",
 "postal box",
-"post box"
+"drop box",
+"pillar box"
 ],
 "amenity/post_depot":[
 "Post Sorting Office",
@@ -1791,6 +1800,14 @@
 "courthouse",
 "municipal",
 "village"
+],
+"amenity/townhall/city":[
+"government",
+"mayor",
+"council",
+"courthouse",
+"municipality",
+"City Hall"
 ],
 "amenity/toy_library":[
 "game",
