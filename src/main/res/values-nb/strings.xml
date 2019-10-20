@@ -2,17 +2,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Normal</string>
+  <string name="mode_tag_only">Bare egenskaper</string>
   <string name="mode_indoor">Innendørs</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
   <string name="transfer_download_current_upload">Last opp</string>
   <string name="transfer_download_current_download">Avbryt og last ned</string>
+  <string name="upload_problem_title">Kunne ikke laste opp</string>
   <string name="bad_request_message">APIen svarte med en feil, vennligst lagre dataene dine og rapporter problemet:\n\n</string>
   <string name="upload_conflict_title">Last opp konflikt</string>
   <string name="use_local_version">Bruk lokal versjon</string>
   <string name="use_server_version">Bruk versjon på server</string>
+  <string name="unknown_error_title">Ukjent feil</string>
   <string name="go_to_openstreetmap">Gå til openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Området du har valgt er for stort</string>
+  <string name="welcome_title">Velkommen</string>
   <string name="read_upgrade">Les om den nye versjonen</string>
   <string name="progress_title">Leser</string>
   <string name="progress_message">Leser inn i minne…</string>
@@ -42,6 +46,7 @@
   <string name="openstreetbug_bug_title">Problem</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="openstreetbug_not_supported">%1$s støttes ikke.</string>
+  <string name="generic_bug">Feil</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Advarsel!</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
@@ -52,14 +57,18 @@
   <string name="imagery_offset_distance">Distanse</string>
   <string name="tag_editor_name_suggestion">Navneforslag</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">Dette forslaget kan erstatte noen egenskaper med noen mer populære.</string>
   <string name="search_results_title">Søkeresultater</string>
+  <string name="geocoder_prompt">med</string>
   <!---->
   <string name="preset_search_hint">Søk etter mal</string>
   <string name="search">Søk</string>
   <string name="no_valid_preset">Ingen gyldig mal!</string>
+  <string name="delete_tags">Vil du virkelig slette alle egenskaper for \"%1$s\"-objektet?</string>
   <!--element information dialog-->
   <string name="nodes">Punkter</string>
   <string name="relation_membership">Relasjon medlemskap </string>
+  <string name="problem">Problem</string>
   <string name="members">Medlemmer</string>
   <string name="version">Versjon</string>
   <string name="length_m">Lengde (m)</string>
@@ -67,6 +76,7 @@
   <string name="last_edited">Sist endret</string>
   <!--GeoJSON feature display dialog-->
   <!---->
+  <string name="warning">Advarsel</string>
   <!--hidden object warning dialog-->
   <!--This concerns a shown message that should be shown every time-->
   <!--This concerns a shown message that should only be shown once-->
@@ -74,6 +84,7 @@
   <!--JS console dialog-->
   <string name="evaluate">Evaluer</string>
   <!--Validator dialogs-->
+  <string name="age">Alder</string>
   <!--Empty relation dialog-->
   <string name="add_members">Legg til medlemmer</string>
   <string name="leave_empty">La være tom</string>
@@ -98,6 +109,7 @@
   <string name="boxpicker_firsttimetitle">Last ned OpenStreetMap-data</string>
   <!--Clear/Reset GPX Track-->
   <!--Tips-->
+  <string name="tip_title">Visste du?</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -109,6 +121,7 @@
   <string name="toast_export_success">Eksporterte til %1$s</string>
   <string name="toast_preset_overwrote_tags">Merk - mal overskrev egenskap(er)</string>
   <string name="toast_merge_overwrote_tags">Merk - operasjonen overskrev egenskap(er)</string>
+  <string name="toast_oneway_reversed">Du reverserte en enveisgate eller en linje med egenskaper som er avhengig av retningen på linjen. Vennligst sjekk egenskapene og rett dem hvis det trengs.</string>
   <string name="toast_photo_indexing_started">Skanner etter geo-refererte bilder</string>
   <string name="toast_download_failed">Nedlasting mislyktes med feilkoden %1$d, melding; %2$s</string>
   <!---->

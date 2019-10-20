@@ -12,14 +12,18 @@
   <string name="transfer_download_current_download">Desbotar e baixar</string>
   <string name="transfer_download_current_back">Voltar (non fagas ren)</string>
   <string name="upload_problem_title">Non se puido subir</string>
+  <string name="upload_problem_message">Algúns ou todos os datos non foron subidos. Téntao de novo máis tarde.</string>
   <string name="bad_request_message">A API respostou cun erro, garde os seus datos e informe do problema:\n\n</string>
   <string name="upload_conflict_title">Conflito en subida</string>
   <string name="upload_conflict_message_deleted">%1$s \nten unha versión en local %2$d \ne foi eliminado no servidor</string>
   <string name="use_local_version">Emprega-la versión local</string>
   <string name="use_server_version">Emprega-la versión do servidor</string>
   <string name="no_login_data_title">Non se puido autenticar</string>
+  <string name="no_login_data_message">Se estás a empregar o OAuth é probábel que sexa un erro, por favor envía un informe do problema. Se estás a empregar un nome de usuario e contrasinal (non recomendado), por favor, comproba que se inseriron de xeito correcto.</string>
   <string name="no_connection_title">Sen conexión ó servidor</string>
+  <string name="no_connection_message">Non foi posíbel conectar ó servidor do OSM agora. Comproba que estás conectado á Internet ou téntao de novo máis tarde.</string>
   <string name="wrong_login_data_title">Non podes autenticarte</string>
+  <string name="wrong_login_data_message">Se está a empregar o OAuth, volva autenticar e ténteo de novo. Se emprega un nome de usuario e un contrasinal (non recomendado), comprobe que se inseriu de xeito correcto.</string>
   <string name="wrong_login_data_re_authenticate">Voltar a autenticar</string>
   <string name="forbidden_login_title">Acceso prohibido</string>
   <string name="not_found_title">Elemento non atopado</string>
@@ -71,6 +75,8 @@
   <string name="openstreetbug_new_nodeway">Crear nó/vía</string>
   <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
+  <string name="openstreetbug_commit_ok">Mudanzas da tarefa gardadas</string>
+  <string name="openstreetbug_commit_fail">Non foi posíbel gardar as mudanzas da tarefa</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarefa descoñecida</string>
   <string name="openstreetbug_not_supported">%1$s non está suportado.</string>
   <string name="note_description">Nota: %1$s - %2$s</string>
@@ -84,6 +90,7 @@
   <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Coidado!</string>
+  <string name="unsaved_data_message">As túas mudanzas non guardadas serán desbotadas se continúas.</string>
   <string name="unsaved_data_proceed">Desbotar e continuar</string>
   <!--Imagery offset dialog-->
   <string name="imagery_offset_title">Desprazamento das imaxes</string>
@@ -224,11 +231,15 @@
   <string name="toast_url_empty">Insire unha URL</string>
   <string name="toast_no_changes">Aínda non mudou ren...</string>
   <string name="clear_anyway">Eliminar de todos xeitos?</string>
+  <string name="toast_upload_success">Subido ó servidor do OSM.</string>
+  <string name="toast_not_in_edit_range">Por favor, achega o mapa para editar (Volume ↑/↓ ou lens/shift)</string>
   <string name="toast_unlock_to_edit">Desbloquear a edición</string>
   <string name="toast_save_done">Gardado</string>
+  <string name="toast_export_failed">Non foi posíbel exportar</string>
   <string name="toast_export_success">Exportado a %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - etiqueta(s) sobrescrita(s) do(s) predefinido(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobreescritas etiqueta(s)</string>
+  <string name="toast_oneway_reversed">Inverteches unha rúa de sentido único ou unha vía con etiquetas que dependen da dirección. Por favor, comproba as etiquetas e corríxeas se é necesario.</string>
   <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexíbel</string>
   <string name="read_mail">Lido</string>
   <string name="toast_photo_indexing_started">Iniciar dixitalización xeo referenciada de imaxes</string>
@@ -319,6 +330,7 @@
   <string name="tag_menu_sourcesurvey">Analizado</string>
   <string name="tag_menu_preset">Predefinidos</string>
   <string name="tag_menu_revert">Reverter</string>
+  <string name="tag_menu_mapfeatures">Wiki dos elementos do mapa</string>
   <string name="tag_menu_addtorelation">Engadir á relación</string>
   <string name="tag_menu_resetMRU">Restabelecer predefinidos</string>
   <string name="tag_menu_reset_address_prediction">Reiniciar predicción de enderezo</string>
@@ -495,6 +507,8 @@
   <string name="menu_merge">Combinar</string>
   <string name="menu_reverse">Inverter</string>
   <string name="reverse_anyway">Inverter de todos xeitos</string>
+  <string name="deleteway_description">Estás a piques de eliminar unha vía.\n\nPodes manter tódolos nós ou eliminar aqueles que só pertencen a esta vía e que non teñen etiquetas.</string>
+  <string name="deleteway_wayonly">Só eliminar a vía</string>
   <string name="deleteway_wayandnodes">Eliminar vía</string>
   <string name="deletenode">Eliminar nó</string>
   <!--EasyEdit context menus-->
@@ -572,6 +586,7 @@
   <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_summary">Facer as liñas máis suaves.</string>
   <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
+  <string name="config_maxStrokeWidth_summary">Non debuxes unha vía máis ancha ca esta.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing_summary">Axustes da autobaixada, gardado e notificacións</string>
@@ -632,7 +647,7 @@
   <string name="urldialog_add_preset">Engadir predefinido</string>
   <string name="urldialog_preset_exists">Este predefinido xa existe</string>
   <string name="urldialog_preset_download_successful">Predefinido baixado.</string>
-  <string name="urldialog_api_exists">Xa existe unha API con esta URL. Porén, pode engadir outra (p. ex. para mudae de conta sinxelamente).</string>
+  <string name="urldialog_api_exists">Xa existe unha API con esta URL. Porén, podes engadir outra (p. ex. para mudar de conta sinxelamente).</string>
   <string name="urldialog_add_api">Engadir API</string>
   <string name="urldialog_nodata_text">A URL de configuración non contén ningún dato válido.</string>
   <string name="urldialog_add_geocoder">Engadir geocoder</string>

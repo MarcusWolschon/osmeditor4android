@@ -26,7 +26,7 @@ Selecciona a icona de transferencia! [Transfer](../images/menu_transfer.png) ou 
 * **Ficheiro...**: gardar e carregar información no OSM cara/dende ficheiros do dispositivo.
 * **Nota/Erros...**: baixar (de xeito automático e manual) Notas e "Erros" do OSM dende ferramentas QA ferramentas (actualmente OSMOSE) *(precisa dunha conexión á rede)*
 
-O xeito máis sinxelo de baixar datos ó dispositivo é achegar e marca-la localización que desexa editar e despois escoller "Baixar vista actual". Pode achegar empregando xestos, coma os botóns de achegamento ou os botóns de control do volume do dispositivo. O Vespucci tería que baixar entón datos da vista actual. Non se precisa dunha autenticación para baixar datos no seu dispositivo.
+O xeito máis sinxelo de baixar datos ó dispositivo é achegar e marca-la localización que desexa editar e despois escoller "Baixar vista actual". Podes achegar a imaxe empregando xestos, coma os botóns de achegamento ou os botóns de control do volume do dispositivo. O Vespucci tería que baixar entón datos da vista actual. Non se precisas dunha autenticación para baixar datos no teu dispositivo.
 
 ### Estase a editar
 
@@ -166,7 +166,7 @@ Vespucci has a simple conflict resolver. However if you suspect that there are m
 
 ## Estase a empregar GPS
 
-Podes usar Vespucci para crear unha pista GPX e visualizalo no teu dispositivo. Ademais, pode amosar a posición actual do GPS (configurar "Mostrar localización" no menú GPS) e/ou ter a pantalla en torno e seguir a posición (configure "Seguir posición GPS" no menú GPS). 
+Podes empregar o Vespucci para crear unha pista GPX e visualizalo no teu dispositivo. Ademais, podes amosar a posición actual do GPS (configurar "Amosar localización" no menú GPS) e/ou ter a pantalla en torno e seguir a posición (configura "Seguir posición GPS" no menú GPS). 
 
 Se ten este último conxunto, mover a pantalla de xeito manual ou editar fará que o modo "Seguer GPS" se desactive e que a frecha azul do GPS troque dun esquema cara unha frecha chea. Para voltar axiña ó modo "seguer", sinxelamente prema o botón GPS ou volva a verificar a opción do menú.
 
