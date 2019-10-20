@@ -608,6 +608,7 @@
         <text key="website" text="Website"/>
     </chunk>
     <chunk id="route_hikebike_optionals">
+        <check key="network:type" text="Node network" value_on="node_network" disable_off="true" />
         <text key="ref" text="Reference"/>
         <text key="operator" text="Operator"/>
         <text key="distance" text="Distance (km)"/>
@@ -1704,8 +1705,8 @@
             <link wiki="Tag:highway=traffic_signals"/>
             <key key="highway" value="traffic_signals"/>
             <optional text="Optional signal attributes:">
-                <combo key="traffic_signals" text="Type" values="blinker,blink_mode,bus_priority,continuos_green,emergency,ramp_meter,tram_priority"
-                    display_values="Blinker,Blink mode,Bus priority,Continuos green,Emergency,Ramp meter,Tram priority" />
+                <combo key="traffic_signals" text="Type" values="blinker,blink_mode,bus_priority,continuous_green,emergency,ramp_meter,tram_priority"
+                    display_values="Blinker,Blink mode,Bus priority,Continuous green,Emergency,Ramp meter,Tram priority" />
                 <combo key="traffic_signals:direction" text="For traffic direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
                 <check key="button_operated" text="Button operated" disable_off="true"/>
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true"/>
@@ -5669,7 +5670,7 @@
 				<list_entry value="picnic_shelter" short_description="Picnic shelter" icon="presets/accommodation/shelter_picnic_brown.png"/>
 				<list_entry value="public_transport" short_description="Public transport" icon="presets/accommodation/shelter_public_transport_brown.png"/>
 				<list_entry value="rock_shelter" short_description="Rock shelter" />
-                <list_entry value="sun_shelter" short_description="Sun schelter" />
+                <list_entry value="sun_shelter" short_description="Sun shelter" />
                 <list_entry value="weather_shelter" short_description="Weather shelter" icon="presets/accommodation/shelter.svg"/>
 				<list_entry value="wildlife_hide" short_description="Wildlife hide" icon="presets/accommodation/shelter.svg"/>
 			</combo>
@@ -5766,8 +5767,10 @@
             <link wiki="Tag:amenity=compressed_air"/>
             <space/>
             <key key="amenity" value="compressed_air"/>
-            <reference ref="name_ref"/>
-            <text key="operator" text="Operator"/>
+            <optional>
+                <reference ref="name_ref"/>
+                <text key="operator" text="Operator"/>
+            </optional>
             <reference ref="fee"/>
             <multiselect key="valves" text="Valves" values="dunlop;schrader;sclaverand;regina" display_values="Dunlop (Woods);Schrader;Sclaverand (Presta);Regina" values_searchable="true"/>
         </item> <!-- Compressed Air -->
