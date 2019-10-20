@@ -1476,18 +1476,21 @@ public class Main extends FullScreenAppCompatActivity
             String[] locationProviders = getEnabledLocationProviders();
             if (locationProviders != null) {
                 RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
-                if (getString(R.string.follow_GPS_left).equals(prefs.followGPSbuttonPosition())) {
+                String followGPSbuttonPosition = prefs.followGPSbuttonPosition();
+                boolean isVisible = true;
+                if (getString(R.string.follow_GPS_left).equals(followGPSbuttonPosition)) {
                     params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
                     params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-                } else if (getString(R.string.follow_GPS_right).equals(prefs.followGPSbuttonPosition())) {
+                } else if (getString(R.string.follow_GPS_right).equals(followGPSbuttonPosition)) {
                     params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
                     params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-                } else if (getString(R.string.follow_GPS_none).equals(prefs.followGPSbuttonPosition())) {
+                } else if (getString(R.string.follow_GPS_none).equals(followGPSbuttonPosition)) {
                     follow.hide();
+                    isVisible = false;
                 }
                 follow.setLayoutParams(params);
                 // only show GPS symbol if we only have GPS
-                setFollowImage(locationProviders.length == 1 && LocationManager.GPS_PROVIDER.equals(locationProviders[0]));
+                setFollowImage(locationProviders.length == 1 && LocationManager.GPS_PROVIDER.equals(locationProviders[0]), isVisible);
             } else {
                 follow.hide();
             }
@@ -1498,15 +1501,16 @@ public class Main extends FullScreenAppCompatActivity
      * Set the icon on the follow button
      * 
      * @param gps if true the GPS icon will be displayed
+     * @param isVisible true if the FAB is currently being shown
      */
-    private void setFollowImage(boolean gps) {
+    private void setFollowImage(boolean gps, boolean isVisible) {
         FloatingActionButton follow = getFollowButton();
         int buttonRes = R.drawable.ic_filter_tilt_shift_black_36dp;
         if (gps) {
             buttonRes = R.drawable.ic_gps_fixed_black_36dp;
         }
         follow.setImageResource(buttonRes);
-        if (follow.isShown()) {
+        if (isVisible) {
             follow.hide(); // workaround https://issuetracker.google.com/issues/117476935
             follow.show();
         }
