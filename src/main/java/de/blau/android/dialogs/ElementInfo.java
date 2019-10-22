@@ -76,6 +76,9 @@ public class ElementInfo extends ImmersiveDialogFragment {
     private static final String ELEMENT_KEY      = "element";
     private static final String UNDOELEMENT_KEY  = "undoelement";
     private static final String SHOW_JUMP_TO_KEY = "showJumpTo";
+    private static final String ELEMENT_ID_KEY   = "elementId";
+    private static final String ELEMENT_TYPE_KEY = "elementType";
+    private static final String COMPARE_KEY      = "compare";
 
     private static final String DEBUG_TAG = ElementInfo.class.getName();
 
@@ -83,7 +86,8 @@ public class ElementInfo extends ImmersiveDialogFragment {
 
     private SpannableString emptyRole;
 
-    private OsmElement element;
+    private OsmElement  element;
+    private UndoElement ue;
 
     /**
      * Show an info dialog for the supplied OsmElement
@@ -110,7 +114,7 @@ public class ElementInfo extends ImmersiveDialogFragment {
      * Show an info dialog for the supplied OsmElement
      * 
      * @param activity the calling Activity
-     * @param ue an UndoElement to compare with
+     * @param ue an UndoElement to compare with (currently this will only work with the original state)
      * @param e the OsmElement
      * @param showJumpTo display button to jump to object
      */
@@ -161,8 +165,25 @@ public class ElementInfo extends ImmersiveDialogFragment {
         super.onCreate(savedInstanceState);
         emptyRole = new SpannableString(getString(R.string.empty_role));
         emptyRole.setSpan(new StyleSpan(Typeface.ITALIC), 0, emptyRole.length(), 0);
-        // always do this first
-        element = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
+
+        if (savedInstanceState != null) {
+            Log.d(DEBUG_TAG, "Restoring from saved state");
+            // this will only work if the saved data is already loaded
+            element = App.getDelegator().getOsmElement(savedInstanceState.getString(ELEMENT_TYPE_KEY), savedInstanceState.getLong(ELEMENT_ID_KEY));
+            if (savedInstanceState.getBoolean(COMPARE_KEY)) {
+                ue = App.getDelegator().getUndo().getOriginal(element);
+            }
+        } else {
+            // always do this first
+            element = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
+            ue = (UndoElement) getArguments().getSerializable(UNDOELEMENT_KEY);
+            /*
+             * Saving the arguments (done by the FragmentManager) can exceed the 1MB transaction size limit and cause a
+             * android.os.TransactionTooLargeException
+             */
+            getArguments().remove(ELEMENT_KEY);
+            getArguments().remove(UNDOELEMENT_KEY);
+        }
     }
 
     @Override
@@ -223,8 +244,6 @@ public class ElementInfo extends ImmersiveDialogFragment {
         LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
         ScrollView sv = (ScrollView) themedInflater.inflate(R.layout.element_info_view, container, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
-
-        UndoElement ue = (UndoElement) getArguments().getSerializable(UNDOELEMENT_KEY);
 
         boolean compare = ue != null;
 
@@ -666,6 +685,14 @@ public class ElementInfo extends ImmersiveDialogFragment {
         if (dialog != null) {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ELEMENT_TYPE_KEY, element.getName());
+        outState.putLong(ELEMENT_ID_KEY, element.getOsmId());
+        outState.putBoolean(COMPARE_KEY, ue != null);
     }
 
     /**
