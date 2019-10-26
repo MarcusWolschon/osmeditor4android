@@ -3367,7 +3367,7 @@ public class Logic {
      */
     void saveEditingState(@NonNull Main main) {
         EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
-        new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false);
+        new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
     }
 
     /**
@@ -3377,7 +3377,7 @@ public class Logic {
      * @param setViewBox set the view box if true
      */
     void loadEditingState(@NonNull Main main, boolean setViewBox) {
-        EditState editState = new SavingHelper<EditState>().load(main, EDITSTATE_FILENAME, false);
+        EditState editState = new SavingHelper<EditState>().load(main, EDITSTATE_FILENAME, false, false, true);
         if (editState != null) { //
             editState.setMiscState(main, this);
             editState.setSelected(main, this);

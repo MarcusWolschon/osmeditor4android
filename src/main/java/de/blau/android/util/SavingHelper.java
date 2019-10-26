@@ -70,11 +70,26 @@ public class SavingHelper<T extends Serializable> {
      * @param compress true if the output should be gzip-compressed, false if it should be written without compression
      * @return true if successful, false if saving failed for some reason
      */
-    public synchronized boolean save(Context context, String filename, T object, boolean compress) {
+    public synchronized boolean save(@NonNull Context context, @NonNull String filename, @NonNull T object, boolean compress) {
+        return save(context, filename, object, compress, false);
+    }
 
+    /**
+     * Serializes the given object and writes it to a private file with the given name
+     * 
+     * Original version was running out of stack, fixed by moving to a thread
+     * 
+     * @param context Android Context
+     * @param filename filename of the save file
+     * @param object object to save
+     * @param compress true if the output should be gzip-compressed, false if it should be written without compression
+     * @return true if successful, false if saving failed for some reason
+     * @param jdk use the built-in serialisation if true
+     */
+    public synchronized boolean save(@NonNull Context context, @NonNull String filename, @NonNull T object, boolean compress, boolean jdk) {
         try {
             Log.d(DEBUG_TAG, "preparing to save " + filename);
-            SaveThread r = new SaveThread(context, filename, object, compress);
+            SaveThread r = new SaveThread(context, filename, object, compress, jdk);
 
             Thread t = new Thread(null, r, SaveThread.DEBUG_TAG, stackSize);
             t.start();
@@ -88,14 +103,16 @@ public class SavingHelper<T extends Serializable> {
         }
     }
 
-    public class SaveThread implements Runnable {
+    private class SaveThread implements Runnable {
 
         private static final String DEBUG_TAG = "SaveThread";
-        final String                filename;
-        T                           object;
-        final boolean               compress;
-        final Context               context;
-        boolean                     result    = false;
+
+        final String  filename;
+        T             object;
+        final boolean compress;
+        final Context context;
+        boolean       result = false;
+        final boolean jdkSerialisation;
 
         /**
          * Construct a new SaveThread
@@ -104,12 +121,14 @@ public class SavingHelper<T extends Serializable> {
          * @param fn the name of the file to save to
          * @param obj the object to save
          * @param c if true compress
+         * @param jdk use the built-in serialisation if true
          */
-        SaveThread(@NonNull Context context, @NonNull String fn, @NonNull T obj, boolean c) {
+        SaveThread(@NonNull Context context, @NonNull String fn, @NonNull T obj, boolean c, boolean jdk) {
             filename = fn;
             object = obj;
             compress = c;
             this.context = context;
+            jdkSerialisation = jdk;
         }
 
         /**
@@ -130,10 +149,15 @@ public class SavingHelper<T extends Serializable> {
                 Log.i(DEBUG_TAG, "saving  " + filename);
                 String tempFilename = filename + "." + System.currentTimeMillis();
                 out = context.openFileOutput(tempFilename, Context.MODE_PRIVATE);
-                FSTObjectOutput outFST = App.getFSTInstance().getObjectOutput(out);
-                outFST.writeObject(object);
-                // DON'T out.close() when using factory method;
-                outFST.flush();
+                if (jdkSerialisation) {
+                    objectOut = new ObjectOutputStream(out);
+                    objectOut.writeObject(object);
+                    objectOut.flush();
+                } else {
+                    FSTObjectOutput outFST = App.getFSTInstance().getObjectOutput(out);
+                    outFST.writeObject(object);
+                    outFST.flush();
+                }
                 out.close();
                 rename(context, filename, filename + ".backup"); // don't overwrite last saved state
                 rename(context, tempFilename, filename); // rename to expected name
@@ -164,7 +188,7 @@ public class SavingHelper<T extends Serializable> {
      * @return the deserialized object if successful, null if loading/deserialization/casting failed
      */
     public synchronized T load(@NonNull Context context, @NonNull String filename, boolean compressed) {
-        return load(context, filename, compressed, false);
+        return load(context, filename, compressed, false, false);
     }
 
     /**
@@ -175,12 +199,13 @@ public class SavingHelper<T extends Serializable> {
      * @param filename filename of the save file
      * @param compressed true if the output is gzip-compressed, false if it is uncompressed
      * @param deleteOnFail if true delete the file we tried to load (because it is likely corrupted)
+     * @param jdk use the built-in serialisation if true
      * @return the deserialized object if successful, null if loading/deserialization/casting failed
      */
-    private synchronized T load(@NonNull Context context, @NonNull String filename, boolean compressed, boolean deleteOnFail) {
+    public synchronized T load(@NonNull Context context, @NonNull String filename, boolean compressed, boolean deleteOnFail, boolean jdk) {
         try {
             Log.d(DEBUG_TAG, "preparing to load " + filename);
-            LoadThread r = new LoadThread(context, filename, compressed, deleteOnFail);
+            LoadThread r = new LoadThread(context, filename, compressed, deleteOnFail, jdk);
             Thread t = new Thread(null, r, LoadThread.DEBUG_TAG, stackSize);
             t.start();
             t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
@@ -193,14 +218,16 @@ public class SavingHelper<T extends Serializable> {
         }
     }
 
-    public class LoadThread implements Runnable {
+    private class LoadThread implements Runnable {
 
         private static final String DEBUG_TAG = "LoadThread";
-        final String                filename;
-        final boolean               compressed;
-        final boolean               deleteOnFail;
-        final Context               context;
-        T                           result;
+
+        final String  filename;
+        final boolean compressed;
+        final boolean deleteOnFail;
+        final Context context;
+        T             result;
+        final boolean jdkSerialisation;
 
         /**
          * Create a new LoadThread
@@ -209,12 +236,14 @@ public class SavingHelper<T extends Serializable> {
          * @param fn the filename of the file to load
          * @param c if true compress
          * @param deleteOnFail if true delete if the file can't be read
+         * @param jdk use the built-in serialisation if true
          */
-        LoadThread(@NonNull Context context, @NonNull String fn, boolean c, boolean deleteOnFail) {
+        LoadThread(@NonNull Context context, @NonNull String fn, boolean c, boolean deleteOnFail, boolean jdk) {
             filename = fn;
             compressed = c;
             this.deleteOnFail = deleteOnFail;
             this.context = context;
+            jdkSerialisation = jdk;
         }
 
         /**
@@ -226,6 +255,7 @@ public class SavingHelper<T extends Serializable> {
             return result;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public void run() {
 
@@ -241,13 +271,14 @@ public class SavingHelper<T extends Serializable> {
                     result = null;
                     return;
                 }
-                FSTObjectInput inFST = App.getFSTInstance().getObjectInput(in);
-                @SuppressWarnings("unchecked") // casting exceptions are caught by the exception handler
-                T object = (T) inFST.readObject();
-                // DON'T: in.close(); here prevents reuse and will result in an exception
-                in.close();
+                if (jdkSerialisation) {
+                    objectIn = new ObjectInputStream(in);
+                    result = (T) objectIn.readObject();
+                } else {
+                    FSTObjectInput inFST = App.getFSTInstance().getObjectInput(in);
+                    result = (T) inFST.readObject();
+                }
                 Log.d(DEBUG_TAG, "loaded " + filename + " successfully");
-                result = object;
             } catch (IOException ioex) {
                 Log.e(DEBUG_TAG, "failed to load " + filename, ioex);
                 try {
