@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.2: Zap args to ElementInfo to avoid transaction too large exceptions, use built-in serialisation for edit state, update translations and imagery.
+
 14.0.1: Add back missing data style pref that got lost.
 
 14.0.0: Update preset, synonyms and translations, fix regression when trying to hide the "follow GPS" button, adapt regexp for 412 errors to cgi-map implementation, fix de-selecting relation in multi-select, de-duplicate serach results that only differ in weight, numerous stability fixes.
