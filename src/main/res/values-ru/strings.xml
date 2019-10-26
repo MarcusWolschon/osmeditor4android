@@ -36,6 +36,8 @@
   <string name="unknown_error_message">Код ошибки API или ее сообщение не удалось обработать.&lt;br&gt;&lt;br&gt;</string>
   <string name="no_data_title">Нет данных</string>
   <string name="no_data_message">Настроенный источник данных не имеет здесь покрытия.</string>
+  <string name="required_feature_missing_title">Отсутствующий или запрещённый компонент</string>
+  <string name="required_feature_missing_message">Эта функциональность зависит от отсутствующего или запрещённого компонента системы.</string>
   <string name="go_to_openstreetmap">Перейти на openstreetmap.org</string>
   <string name="data_conflict_title">Конфликт версий</string>
   <string name="data_conflict_message">Данные, которые вы пытаетесь загрузить, содержат конфликты с вашими правками. Попробуйте сначала передать ваши изменения на сервер, а затем повторите попытку.</string>
@@ -88,6 +90,7 @@
   <string name="confirm_upload_edits_page">Изменения</string>
   <string name="upload_comment_label">Комментарий:</string>
   <string name="upload_source_label">Источник:</string>
+  <string name="upload_close_open_changeset_label">Сначала закройте пакет правок:</string>
   <string name="upload_close_changeset_label">Закрыть набор изменений:</string>
   <string name="upload_request_review_label">Проверить мои изменения:</string>
   <!---->
@@ -114,8 +117,13 @@
   <string name="bug_long_description_2">&lt;br&gt;обновлено:&lt;br&gt;%1$s&lt;br&gt;номер: %2$d</string>
   <string name="bug_element_1">%1$s (не загружено) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">Задачи MapRoulette</string>
   <string name="maproulette_task_coords">Широта %1$4g, долгота %2$4g</string>
   <string name="maproulette_task_explanations">Объяснения</string>
+  <string name="maproulette_task_set_apikey">Задать ключ MapRoulette API</string>
+  <string name="maproulette_task_apikey_not_set">Не удалось сохранить ключ MapRoulette API</string>
+  <string name="maproulette_task_apikey_set">Ключ MapRoulette API сохранён</string>
+  <string name="maproulette_task_no_apikey">Нет ключа MapRoulette API</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">Если вы продолжите, ваши несохранённые изменения будут утеряны.</string>
@@ -178,6 +186,7 @@
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Понятно, показывать и дальше</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">Понятно, игнорировать</string>
   <!--debug dialog-->
   <string name="send_debug_information">Отправить информацию для отладки приложения</string>
   <!--JS console dialog-->
@@ -249,6 +258,9 @@
   <string name="layer_info_end_date">Дата закрытия</string>
   <string name="layer_info_privacy_policy">Политика конфиденциальности</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Удалить фото</string>
+  <string name="photo_viewer_delete_button">Удалить окончательно</string>
+  <string name="photo_viewer_goto">Перейти к фото</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Границы</string>
   <!--Undo - Redo dialog-->
@@ -264,13 +276,18 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Завершить запись трека и удалить все его сохранённые точки без возможности восстановления.</string>
   <!--Tips-->
+  <string name="tip_title">А вы знали?</string>
+  <string name="tip_check_label">Больше не показывать советы</string>
+  <string name="tip_undo">Долгое нажание на кнопке \"Отменить\" покажет всю историю действий.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_description">Канал уведомлений по умолчанию</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <!--Toaster-->
+  <string name="toast_permission_denied">Отказано в доступе: %1$s</string>
   <string name="toast_name_empty">Выберите название</string>
   <string name="toast_url_empty">Введите URL</string>
   <string name="toast_min_zoom">Установите минимальный масштаб меньше максимального</string>
@@ -306,6 +323,7 @@
   <string name="toast_notype">У отношения нет типа</string>
   <string name="toast_untagged_way">Линия без тегов</string>
   <string name="toast_untagged_relation">Отношение без тегов</string>
+  <string name="toast_unconnected_end_node">Точка рядом с элементом и может быть присоединена</string>
   <!---->
   <string name="toast_oauth_retry">Повторите передачу после разрешения OAuth-доступа в вашем профиле OSM.</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
@@ -347,6 +365,7 @@
   <string name="toast_invalid_preseturl">Неправильный URL заготовки</string>
   <string name="toast_invalid_filter_regexp">Неправильное регулярное выражение в фильтре с ключом \"%1$s\" и значением \"%2$s\"</string>
   <string name="toast_error_accessing_photo">Нет доступа к фотографии %1$s</string>
+  <string name="toast_security_error_accessing_photo">Не разрешён доступ к фото %1$s</string>
   <string name="toast_no_voice_recognition">Отсутствуют средства распознавания голоса</string>
   <string name="toast_no_coverage">%1$s не имеет здесь покрытия</string>
   <string name="toast_file_exists">Файл %1$s уже существует.</string>
@@ -377,18 +396,24 @@
   <string name="toast_properties_copied">Свойства скопированы в буфер обмена</string>
   <string name="toast_task_conflict">%1$s уже изменился на сервере, сначала передайте ваши изменения, затем повторите загрузку</string>
   <string name="toast_move_note_warning">Только новые заметки могут быть перемещены</string>
+  <string name="toast_task_layer_disabled">Слой задачи запрещён</string>
+  <string name="toast_unable_to_create_task_layer">Невозможно создать слой задачи</string>
   <string name="toast_merged">Объединено</string>
   <string name="toast_long_press_simple_mode">Долгое нажатие недоступно в \"простом\" режиме</string>
+  <string name="toast_invalid_style_file">Неверный формат файла стиля %1$s</string>
   <string name="toast_no_geometry">Нет геометрии для элемента</string>
+  <string name="toast_updated">Обновлено: %1$s</string>
   <string name="toast_cannot_resume_download_of">Нельзя продолжить загрузку %1$s</string>
   <string name="toast_device_not_found_for">Не найдено устройство для %1$s</string>
   <string name="toast_file_already_exists">Файл %1$s уже существует</string>
   <string name="toast_file_error_for">Ошибка для файла %1$s</string>
   <string name="toast_http_data_error_for">Ошибка данных HTTP для %1$s</string>
   <string name="toast_error_insufficient_space_for">На устройстве нет места для %1$s</string>
+  <string name="toast_error_too_many_redirects_for">Слишком много переадресации для %1$s</string>
   <string name="toast_error_too_unhandled_http_code_for">Unhandled HTTP code for %1$s</string>
   <string name="toast_unknown_error_for">Неизвестная ошибка для %1$s</string>
   <string name="toast_download_started">Загрузка %1$s начата</string>
+  <string name="toast_phone_number_reformatted">Номер телефона отформатирован</string>
   <!--Error messages-->
   <string name="error_pbf_no_version">В PBF-файле нет информации о версии</string>
   <string name="error_pbf_unknown_relation_member_type">Неизвестный тип участника отношения %1$s</string>
@@ -419,6 +444,7 @@
   <string name="overwrite">Переписать</string>
   <string name="share">Поделится</string>
   <string name="share_position">Поделиться положением</string>
+  <string name="share_on_openstreetmap">Поделиться на OpenStreetMap</string>
   <string name="min">Мин.</string>
   <string name="max">Макс.</string>
   <string name="geojson_object">%1$s (%2$s)</string>
@@ -438,6 +464,7 @@
   <string name="tag_menu_address">Добавить теги адреса</string>
   <string name="tag_menu_sourcesurvey">Обследованный</string>
   <string name="tag_menu_preset">Заготовки</string>
+  <string name="tag_menu_apply_preset">Применить заготовку</string>
   <string name="tag_menu_revert">Откатить</string>
   <string name="tag_menu_mapfeatures">Условные обозначения на Wiki</string>
   <string name="tag_menu_addtorelation">Добавить к отношению</string>
@@ -485,6 +512,9 @@
   <string name="tag_restriction_value_hint">Условное ограничение</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">Создать свою заготовку</string>
+  <string name="create_preset_title">Название своей заготовки</string>
+  <string name="create_preset_default_name">Заготовка %1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Выберите радиус:</string>
   <string name="location_default_radius">300m</string>
@@ -514,6 +544,7 @@
   <string name="go_to_coordinates_title">Перейти к координатам</string>
   <string name="go_to_coordinates_hint">Введите координаты или код места OLC</string>
   <string name="unparseable_coordinates">Непонятные координаты</string>
+  <string name="network_required">Для поиска местоположения необходим Интернет</string>
   <string name="no_nominatim_server">Не найден настроенный сервер Nominatim</string>
   <string name="no_nominatim_result">Сервер Nominatim не нашёл %1$s</string>
   <!--Menu-->
@@ -527,6 +558,7 @@
   <string name="menu_erase">Удалить точку</string>
   <string name="menu_set_position">Позиция</string>
   <string name="menu_split">Разделить</string>
+  <string name="menu_remove_node_from_way">Удалить точку из линии</string>
   <string name="menu_extract">Извлечь точку</string>
   <string name="menu_append">Добавить</string>
   <string name="menu_relation">Создать отношение</string>
@@ -542,6 +574,7 @@
   <string name="menu_gps_follow">Следовать за положением</string>
   <string name="menu_gps_goto">Перейти к текущему местоположению</string>
   <string name="menu_gps_goto_coordinates">Перейти к координатам...</string>
+  <string name="menu_gps_goto_last_edit">Перейти к последней правке</string>
   <string name="menu_gps_start">Начать GPX-трек</string>
   <string name="menu_gps_pause">Приостановить запись GPX-трека</string>
   <string name="menu_gps_clear">Очистить GPX-трек и его путевые точки</string>
@@ -553,7 +586,9 @@
   <string name="menu_gps_goto_first_waypoint">Перейти к первой путевой точке</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Загрузить текущее место</string>
+  <string name="menu_transfer_download_replace">Очистить и загрузить текущее место</string>
   <string name="menu_transfer_load_current">Загрузить текущее место</string>
+  <string name="menu_transfer_load_replace">Очистить и загрузить текущее место</string>
   <string name="menu_transfer_upload">Передать данные на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
   <string name="menu_transfer_file">Файл...</string>
@@ -584,8 +619,11 @@
   <string name="menu_paste_from_clipboard">Вставить из буфера обмена</string>
   <string name="menu_zoom_to_selection">Приблизить к выделению</string>
   <string name="menu_rotate">Повернуть</string>
+  <string name="menu_orthogonalize">Сделать прямоугольником</string>
+  <string name="menu_straighten">Выпрямить</string>
   <string name="menu_circulize">Выстроить в круг</string>
   <string name="menu_split_polygon">Разделить на полигоны</string>
+  <string name="menu_unjoin_dissimilar">Разъединить непохожие</string>
   <string name="menu_newnode_gps">Новая точка на позиции GPS</string>
   <string name="menu_extend_selection">Расширить выделение</string>
   <string name="menu_information">Инфо</string>
@@ -657,6 +695,7 @@
   <string name="actionmode_relationselect">Отношение выбрано</string>
   <string name="actionmode_createpath">Рисование линии</string>
   <string name="actionmode_multiselect">Мультивыбор</string>
+  <string name="actionmode_newnoteselect">Выбрана новая заметка</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Разбить замкнутую линию, 1-я точка</string>
   <string name="actionmode_closed_way_split_2">Разбить замкнутую линию, 2-я точка</string>
@@ -678,11 +717,16 @@
   <string name="actionmode_rotateway">Повернуть линию</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Добавить точку</string>
+  <string name="simple_add_node">Нажмите на экран в нужном месте</string>
   <string name="menu_add_node_tags">Добавить точку с тегами</string>
   <string name="menu_add_way">Добавить линию</string>
+  <string name="simple_add_way">Нажмите на экран в нужном месте</string>
   <string name="menu_add_map_note">Добавить заметку на карту</string>
+  <string name="simple_add_note">Нажмите на экран в нужном месте</string>
   <string name="menu_paste_object">Вставить объект</string>
+  <string name="simple_paste">Нажмите на экран в нужном месте</string>
   <string name="menu_paste_multiple">Вставить несколько раз</string>
+  <string name="simple_paste_multiple">Нажмите на экран в нужном месте</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фоновая карта</string>
   <string name="config_backgroundLayer_summary">Растровая фоновая карта</string>
@@ -712,6 +756,7 @@
   <string name="config_validatorprefs_summary">Настройка правил проверок.</string>
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Шаблоны времени работы</string>
+  <string name="config_opening_hours_summary">Загрузить, сохранить или удалить шаблоны часов работы</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Авторы и лицензии</string>
   <string name="config_debugbutton_title">Информация</string>
@@ -724,15 +769,21 @@
   <string name="config_showWayIcons_title">Значки POI на зданиях</string>
   <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_tagFormEnabled_title">Формы тега</string>
+  <string name="config_tagFormEnabled_summary">Показывать форму для редактирования тега.</string>
   <string name="config_showCameraAction_title">Камера на панели</string>
   <string name="config_showCameraAction_summary">Показывать значок камеры на панели действий.</string>
+  <string name="config_useInternalPhotoViewer_title">Встроенный просмотр фото</string>
+  <string name="config_useInternalPhotoViewer_summary">Использовать встроенный просмотр фотографий или внешний, если выключено.</string>
   <string name="config_followGPSbutton_title">Кнопка следования за GPS</string>
   <string name="config_followGPSbutton_summary">Где будет расположена кнопка «Следовать за GPS» </string>
   <string name="config_alwaysDrawBoundingBoxes_title">Затенять незагруженные области</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Затемнять незагруженные области в заблокированном режиме. </string>
   <string name="config_fullscreenMode_title">Полноэкранный режим</string>
   <string name="config_fullscreenMode_summary">Поведение на устройствах с виртуальными клавишами.</string>
+  <string name="config_map_orientation_title">Ориентация экрана карты</string>
+  <string name="config_map_orientation_summary">Поведение экрана карты при изменении ориентации устройства.</string>
   <string name="config_showTolerance_title">Область выбора</string>
+  <string name="config_showTolerance_summary">Показывать область, в которой элемент может быть выбран.</string>
   <string name="config_use_back_for_undo_title">Отмена кнопкой ←</string>
   <string name="config_use_back_for_undo_summary">Использовать кнопку ← для отмены в главном окне редактирования.</string>
   <string name="config_enableLightTheme_title">Светлая тема</string>
@@ -751,6 +802,7 @@
   <string name="config_maxStrokeWidth_title">Макс. ширина линии</string>
   <string name="config_maxStrokeWidth_current">%1$d пикс.</string>
   <!--Data and Editing Settings-->
+  <string name="config_category_editing">Данные и редактирование</string>
   <string name="config_category_editing_summary">Авто-загрузка, сохранение изменений, оповещения</string>
   <string name="config_address_tags">Теги адреса</string>
   <string name="config_enableNameSuggestions_title">Предложения для названий</string>
@@ -763,24 +815,38 @@
   <string name="config_closeChangesetOnSave_title">Закрытие изменений</string>
   <string name="config_enableAutoPresets_title">Создание заготовок</string>
   <!--Auto-download settings-->
+  <string name="config_category_auto_download">Автозагрузка</string>
+  <string name="config_category_auto_download_summary">Параметры автоматической загрузки данных и задач.</string>
   <string name="config_extTriggeredDownloadRadius_title">Радиус загрузки</string>
   <string name="config_extTriggeredDownloadRadius_summary">Радиус (м) активируемой извне загрузки, 0 = только центр карты.</string>
   <string name="config_maxDownloadSpeed_title">Макс. скорость автозагрузки</string>
   <string name="config_maxDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка приостанавливается.</string>
   <string name="config_downloadSpeed_current">%1$d км/ч</string>
+  <string name="config_bugFilter_title">Фильтр задач</string>
+  <string name="config_bugFilter_summary">Выберите элементы, отображаемые на слое заметок, ошибок и задач.</string>
   <string name="config_bugDownloadRadius_title">Радиус загрузки задач</string>
   <string name="config_bugDownloadRadius_summary">Радиус (м) загрузки задач</string>
   <string name="config_maxBugDownloadSpeed_title">Макс. скорость загрузки задач</string>
   <string name="config_maxBugDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка заметок, ошибок и задач приостанавливается.</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Местоположение</string>
+  <string name="config_category_gps_summary">Параметры GPS/GNSS и других поставщиков местоположения.</string>
   <string name="config_gps_source_tcp_title">Внешний источник NMEA</string>
   <string name="config_gps_interval_current">%1$d мс</string>
   <string name="config_gps_distance_current">%1$d метр(ов))</string>
+  <string name="config_leaveGpsDisabled_title">Не включать GPS/GNSS</string>
+  <string name="config_leaveGpsDisabled_summary">Не предлагать включить GPS/GNSS, если выключен.</string>
   <string name="config_gps_network_title">Резервное местоположение по сети</string>
   <!--Server Settings-->
+  <string name="config_category_server">Серверы</string>
+  <string name="config_category_server_summary">Параметры OSM API и других серверов.</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_loginbutton_title">Учётная запись</string>
   <string name="config_username_summary">Эта настройка необходима для передачи данных на сервер OSM без использования OAuth-доступа. Зарегистрируйтесь на http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Сервер смещений</string>
+  <string name="config_offsetServer_summary">URL сервера смещений снимков.</string>
+  <string name="config_osmoseServer_title">Сервер OSMOSE</string>
+  <string name="config_osmoseServer_summary">URL сервера OSMOSE</string>
   <string name="config_geocoderbutton_title">Геокодирование</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Загрузка и сохранение слоёв</string>
@@ -792,11 +858,16 @@
   <string name="config_tileCache_current">%1$d МБ</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Разное</string>
+  <string name="pref_enable_acra">Отчёт об ошибках</string>
+  <string name="pref_acra_enabled">Отчёт об ошибках включен</string>
+  <string name="pref_acra_disabled">Отчёт об ошибках выключен</string>
   <string name="config_showStats_title">Статистика</string>
+  <string name="config_showStats_summary">Показывать статистику данных и FPS в левом нижнем углу.</string>
   <!--Experimental-->
   <string name="config_category_experimental">Экспериментальные настройки</string>
   <string name="config_js_console_title">Консоль JS</string>
   <string name="config_voiceCommandsEnabled_title">Голосовые команды</string>
+  <string name="config_voiceCommandsEnabled_summary">Включить поддержку голосовых команд.</string>
   <!---->
   <string name="manage_apis">Управление API</string>
   <string name="config_api_url_title">API URL</string>
@@ -854,6 +925,8 @@
   <string name="undo_action_cut">Вырезать</string>
   <string name="undo_action_paste">Вставить</string>
   <!--ACRA-->
+  <string name="report_success">Отчёт отправлен.</string>
+  <string name="report_failure">Не удалось отправить отчёт.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Эта операция создаст линию с очень большим числом точек.</string>
   <!--Notifications-->

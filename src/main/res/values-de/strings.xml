@@ -1020,7 +1020,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese im \"Info
   <string name="undo_action_remove_node_from_way">Knoten aus Weg entfernen</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.\n\nUnterstütze uns mit einem Fehlerreport, einfach \'OK\' drücken.\n</string>
-  <string name="crash_dialog_comment_prompt">Füge weitere hilfreiche Informationen hinzu und (optional) Deinen OSM-Namen wenn Du Feedback haben möchtest.\n\nTDanke.</string>
+  <string name="crash_dialog_comment_prompt">Füge weitere hilfreiche Informationen hinzu und (optional) deinen OSM-Namen wenn Du Feedback haben möchtest.\n\nDanke.</string>
   <string name="report_success">Bericht erfolgreich hochgeladen!</string>
   <string name="report_failure">Bericht konnte nicht hochgeladen werden!</string>
   <!--Exceptions messages-->

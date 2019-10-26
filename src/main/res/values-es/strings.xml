@@ -8,16 +8,18 @@
   <string name="transfer_download_current_dialog_message">Introduciste cambios. Quieres subirlos? De otra manera, se descartarán.</string>
   <string name="transfer_download_current_upload">Subir</string>
   <string name="transfer_download_current_download">Descartar &amp; descargar</string>
-  <string name="transfer_download_current_back">Atrás (no hagas nada)</string>
-  <string name="upload_problem_title">No lo pude subir</string>
-  <string name="upload_problem_message">Todo, o parte de los datos no fueron subidos. Vuelva a intentar más luego.</string>
+  <string name="transfer_download_current_back">Atrás (no hacer nada)</string>
+  <string name="upload_problem_title">No se ha podido subir</string>
+  <string name="upload_problem_message">No se ha podido subir todos o varios de los cambios. Inténtalo más tarde.</string>
   <string name="bad_request_message">La API respondió con un error, guarde sus datos e informe el problema, por favor:\n\n</string>
   <string name="upload_conflict_title">Conflicto en subida</string>
+  <string name="upload_conflict_message_version">%1$s \ntiene versión local %2$d \ny el servidor %3$d</string>
   <string name="upload_conflict_message_deleted">%1$s \ntiene una versión en local %2$d \ny fue borrado en el servidor</string>
   <string name="upload_conflict_message_referential">%1$s\nfue borrado en local,\npero tiene usos en el servidor</string>
   <string name="upload_conflict_message_already_deleted">%1$s\nya está borrado en el servidor</string>
   <string name="use_local_version">Usar la versión local</string>
   <string name="use_server_version">Usar la versión del servidor</string>
+  <string name="no_login_data_title">No se ha podido autenticar</string>
   <string name="no_login_data_message">Si está utilizando OAuth, es probable que se trate de un error, envíe un informe del problema. Si está utilizando nombre de cuenta y contraseña (no recomendado), verifique que se hayan ingresado correctamente.</string>
   <string name="no_connection_title">Sin conexión al servidor</string>
   <string name="no_connection_message">No hay conexión con el servidor OSM. Verifique su conexión a Internet o vuelva a intentarlo más tarde.</string>
@@ -546,15 +548,27 @@
   <string name="alert_note">Detectada una nota OSM cercana</string>
   <string name="alert_bug">Detectado un error OSM cercano</string>
   <string name="alert_distance_direction">en %1$d m %2$s</string>
+  <string name="bearing_ne">NE ↗</string>
+  <string name="bearing_e">E →</string>
+  <string name="bearing_se">SE ↘</string>
+  <string name="bearing_s">S ↓</string>
+  <string name="bearing_sw">SO ↙</string>
+  <string name="bearing_w">O ←</string>
+  <string name="bearing_nw">NO ↖</string>
+  <string name="bearing_n">N ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
+  <string name="role_lc">Rol</string>
   <string name="membership_relation_heading">Miembro de la relación</string>
   <string name="relation">Relación</string>
   <string name="relations">Relaciones</string>
+  <string name="position">Posición</string>
   <string name="type">Tipo</string>
   <string name="object">Objeto</string>
+  <string name="deleterelation_relation_description">Estás a punto de borrar una relación que es parte de una o más relaciones. Esto puede ocasionar renderizados erróneos</string>
   <string name="deleterelation">Eliminar relación</string>
   <string name="delete_from_relation_description">Está a punto de eliminar este elemento de una relación.</string>
+  <string name="unset_relation_type">Tipo de relación sin especificar</string>
   <!--time and distance-->
   <!--Help system-->
   <!--Arrays-->

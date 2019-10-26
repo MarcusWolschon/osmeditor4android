@@ -32,7 +32,10 @@
   <string name="no_data_message">La fonte dei dati configurata non ha copertura qui.</string>
   <string name="go_to_openstreetmap">Vai ad openstreetmap.org</string>
   <string name="data_conflict_title">Conflitto tra versioni</string>
+  <string name="data_conflict_message">I dati del download potrebbero essere in conflitto con le tue modifiche. Per favore carica le tue modifiche prima di riprovare.</string>
   <string name="bounding_box_too_large_title">Area da scaricare troppo grande</string>
+  <string name="out_of_memory_title">Memoria esaurita</string>
+  <string name="out_of_memory_message">Vespucci non è stato in grado di caricare i dati richiesti. Per favore ricomincia e carica un\'area più piccola.</string>
   <string name="out_of_memory_dirty_message">Vespucci non è riuscito a caricare i dati richiesti. Per favore, salva le tue modifiche, riapri l\'applicazione e carica un\'area più piccola.</string>
   <string name="invalid_data_received_title">I dati ricevuti non sono validi</string>
   <string name="invalid_data_received_message">Se non hai causato tu l\'errore, invia una segnalazione</string>
@@ -248,6 +251,7 @@
   <string name="toast_preset_overwrote_tags">Nota - il predefinito ha sovrascritto una o più etichette</string>
   <string name="toast_merge_overwrote_tags">Nota - l\'operazione ha sovrascritto una o più etichette</string>
   <string name="toast_oneway_reversed">Hai invertito una strada a senso unico o una strada con tag dipendenti dalla direzione. Per favore controlla i tag e correggili se necessario.</string>
+  <string name="toast_merge_tag_conflict">Hai unito elementi con valori in conflitto su un tag, dipendenti dalla direzioni e con ruoli differenti nella medesima relazione. Per favore controlla i tag e i ruoli e correggili se necessario.</string>
   <string name="toast_state_file_failed">File di stato illegibile o corrotto</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Ha un messaggio OSM non letto</item>
@@ -267,6 +271,7 @@
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
+  <string name="toast_oauth_handshake_failed">Impossibile gestire l\'handshake di OAuth: %1$s</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
   <string name="toast_missing_filemanager">Per favore installa un file manager</string>
@@ -355,6 +360,7 @@
   <string name="tag_menu_revert">Ripristina</string>
   <string name="tag_menu_mapfeatures">Map feature wiki</string>
   <string name="tag_menu_addtorelation">Aggiungi alla relazione</string>
+  <string name="tag_menu_resetMRU">Ripristina i preset</string>
   <string name="tag_menu_reset_address_prediction">Azzera la predizione degli indirizzi civici</string>
   <string name="tag_menu_exit_no_save">Esci\nsenza salvare</string>
   <string name="tag_menu_delete_unassociated_tags">Elimina le etichette non associate</string>
@@ -537,10 +543,13 @@
   <string name="menu_history">Cronologia</string>
   <string name="menu_merge">Unisci</string>
   <string name="menu_reverse">Inverti</string>
+  <string name="notreversable_description">Questa linea non è reversibile poiché ha dei tag dipendenti dalla direzione. Ruotandola creerebbe problemi con i tag.</string>
   <string name="reverse_anyway">Inverti comunque</string>
   <string name="deleteway_description">Stai per cancellare una strada.\n\nPuoi mantenere tutti i nodi o cancellare quelli che appartengono solo a questa strada e che non hanno tag.</string>
+  <string name="deleteway_relation_description">Stai per cancellare una linea che è membro di una o più relazioni. Rimuovere una linea in una relazione potrebbe renderla inutile.</string>
   <string name="deleteway_wayonly">Cancella solo la strada</string>
   <string name="deleteway_wayandnodes">Elimina percorso</string>
+  <string name="deletenode_relation_description">Stai per cancellare un nodo che è membro di una o più relazioni. Rimuovendo un nodo che è parte di una relazione potrebbe renderla inutile.</string>
   <string name="deletenode">Cancella nodo</string>
   <!--EasyEdit context menus-->
   <string name="delete_note_description">Cancellare una nota è un\'operazione non annullabile!</string>
@@ -577,10 +586,13 @@
   <string name="config_scale_title">Visibilità della scala grafica</string>
   <string name="config_scale_summary">Tipo di scala mostrata sulla mappa.</string>
   <string name="config_mapProfile_title">Stile dati</string>
+  <string name="config_mapProfile_summary">Scegli uno stile per il livello dati.</string>
   <string name="config_enableOpenStreetBugs_title">Mostra compiti</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, modifica e crea note, segnalazioni di errori e compiti.</string>
+  <string name="config_enablePhotoLayer_title">Abilità il livello delle fotografie</string>
   <string name="config_enablePhotoLayer_summary">Mostra foto geo-referenziate</string>
   <string name="config_enableKeepScreenOn_title">Mantieni lo schermo acceso</string>
+  <string name="config_enableKeepScreenOn_summary">Impedisci allo schermo di spegnersi per risparmiare energia.</string>
   <string name="config_largeDragArea_title">Area di trascinamento dei nodi estesa</string>
   <string name="config_advancedprefs">Preferenze avanzate</string>
   <string name="config_presetbutton_title">Predefiniti</string>
@@ -611,6 +623,7 @@
   <string name="config_showTolerance_title">Mostra tolleranza</string>
   <string name="config_showTolerance_summary">Mostra l\'area all\'interno della quale l\'elemento può essere selezionato.</string>
   <string name="config_use_back_for_undo_title">Usa ← per annullare</string>
+  <string name="config_use_back_for_undo_summary">Utilizza il tasto ← per annullare nella vista principale.</string>
   <string name="config_enableLightTheme_title">Tema chiaro</string>
   <string name="config_splitActionBarEnabled_title">Abilita la split action bar</string>
   <string name="config_maxInlineValues_title">Numero massimo di valori in linea</string>
@@ -626,6 +639,8 @@
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dati e impostazioni di modifica</string>
   <string name="config_category_editing_summary">Impostazioni di download automatico, salvataggio e notifiche</string>
+  <string name="config_forceContextMenu_title">Usa sempre il menu contestuale</string>
+  <string name="config_forceContextMenu_summary">Mostra sempre il menu contestuale se la selezione è ambigua.</string>
   <string name="config_address_tags">Etichette degli indirizzi</string>
   <string name="config_enableNameSuggestions_title">Abilita il suggerimento dei nomi</string>
   <string name="config_enableNameSuggestionsPresets_title">Abilita i predifiniti per il suggerimento del nome</string>
@@ -652,6 +667,7 @@
   <string name="config_category_gps">Impostazioni della posizione</string>
   <string name="config_gps_source_tcp_title">Dispositivo della rete NMEA</string>
   <string name="config_gps_interval_title">Intervallo GPS/GNSS minimo</string>
+  <string name="config_gps_interval_summary">L\'intervallo minimo per le notifiche di localizzazione GPS/GNSS, in millisecondi. Valori bassi consumano più velocemente la batteria.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Distanza GPS/GNSS minima</string>
   <string name="config_gps_distance_summary">La distanza minima per la notifica GPS/GNSS, espressa in metri. Valori più bassi scaricano la batteria più velocemente</string>
@@ -694,7 +710,9 @@
   <!--preset downloader messages-->
   <string name="preset_update">Aggiorna predefinito</string>
   <string name="preset_download_successful">Preset scaricato</string>
+  <string name="preset_download_failed">Impossibile scaricare il file del preset. Il preset non funzionerà.</string>
   <string name="preset_download_parse_failed">Il file dei predefiniti non è valido. I predefiniti non funzioneranno.</string>
+  <string name="preset_download_missing_images">File del preset scaricati. Tuttavia, alcune icone mancanti non sono state scaricate.</string>
   <string name="preset_download_title">Scaricatore dei predefiniti</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>
@@ -705,6 +723,7 @@
   <string name="urldialog_nodata_text">L\'URL di configurazione non contiene dati validi.</string>
   <string name="urldialog_add_geocoder">Aggiungi geo-codificatore</string>
   <!--API configuration-->
+  <string name="api_name">nome delle API</string>
   <string name="api_url">URL dell\'API</string>
   <string name="readonly_url">Indirizzo delle API in sola lettura (facoltativo)</string>
   <string name="notes_url">Indirizzo delle API per le note (facoltativo)</string>
@@ -739,6 +758,7 @@
   <string name="undo_action_moveway">Spostata linea</string>
   <string name="undo_action_moveobjects">Spostato oggetto</string>
   <string name="undo_action_add">Inserimento</string>
+  <string name="undo_action_append">Aggiungi al percorso</string>
   <string name="undo_action_deletenode">Cancellazione nodo</string>
   <string name="undo_action_deleteway">Cancellazione linea</string>
   <string name="undo_action_delete_objects">Oggetti cancellati</string>
@@ -761,6 +781,7 @@
   <string name="undo_action_extract_node">Estrazione nodo</string>
   <string name="undo_action_apply_osc">Applica file OSC</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci si è interrotto o ha incontrato un problema serio l\'ultima volta.\n\nPer favore aiutaci cliccando \'Ok\' per inviare un resoconto dell\'errore.\n</string>
   <string name="report_success">Inviato</string>
   <string name="report_failure">Impossibile inviare la segnalazione</string>
   <!--Exceptions messages-->
@@ -787,6 +808,7 @@
   <string name="position">Posizione</string>
   <string name="type">Tipo</string>
   <string name="object">Oggetto</string>
+  <string name="deleterelation_relation_description">Stai per cancellare una relazione che è membro di una o più relazioni. Cancellare una relazione che è parte di una relazione potrebbe renderla inutile.</string>
   <string name="deleterelation">Cancella relazione</string>
   <string name="delete_from_relation_description">Stai per cancellare questo elemento da una relazione.</string>
   <string name="unset_relation_type">Tipo di relazione non selezionato</string>

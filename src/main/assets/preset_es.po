@@ -3,6 +3,7 @@
 # Albert, 2016-2017
 # Albert, 2016
 # Albert, 2016
+# Carlos Vigo <carlos@carlos-vigo.com>, 2019
 # ccpr1l <csdpe0810-tf@yahoo.es>, 2017
 # Ignacio L'Episcopo, 2019
 # Javier O, 2017-2018
@@ -12,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-10-19 20:38+0200\n"
-"PO-Revision-Date: 2019-10-19 18:40+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2019-10-21 13:29+0000\n"
+"Last-Translator: Carlos Vigo <carlos@carlos-vigo.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -740,7 +741,7 @@ msgstr ""
 
 #: master_preset.xml:5989(item:name|group:Sport|preset:Archery)
 msgid "Archery"
-msgstr "Arquería"
+msgstr "Tiro con Arco"
 
 #: master_preset.xml:10476(item:name|group:Offices|preset:Architect)
 msgid "Architect"
@@ -2666,7 +2667,7 @@ msgstr "Crematorio"
 
 #: master_preset.xml:471(multiselect:display_values|key:cuisine)
 msgid "Crepe"
-msgstr ""
+msgstr "Crepe"
 
 #: master_preset.xml:6298(item:name|group:Sport_(Ball)|preset:Cricket)
 msgid "Cricket"
@@ -3641,7 +3642,7 @@ msgstr "Bolsas de excrementos"
 
 #: master_preset.xml:3725(combo:display_values|group:Accommodation|preset:Campsite|key:sanitary_dump_station)
 msgid "Exists"
-msgstr ""
+msgstr "Existe"
 
 #: master_preset.xml:7827(item:name|group:Clothes|preset:Fabric)
 msgid "Fabric"
@@ -6145,7 +6146,7 @@ msgstr "Suministro médico"
 
 #: master_preset.xml:471(multiselect:display_values|key:cuisine)
 msgid "Mediterranean"
-msgstr ""
+msgstr "Mediterránea"
 
 #: master_preset.xml:1075(combo:display_values|key:climbing:quality)
 msgid "Medium"
@@ -6347,7 +6348,7 @@ msgstr "Teléfono móvil"
 
 #: master_preset.xml:6381(item:name|group:Motorsport|preset:Model_Aerodrome)
 msgid "Model Aerodrome"
-msgstr "Aeródromo modelo"
+msgstr "Aeromodelismo"
 
 #: master_preset.xml:4771(item:name|group:Place_of_Worship|preset:Monastery)
 #: master_preset.xml:7429(combo:display_values|group:Historic_Places_&_Objects|preset:Historic_object|key:historic)
@@ -6973,7 +6974,7 @@ msgstr "Club nocturno"
 
 #: master_preset.xml:5971(item:name|group:Sport|preset:Nine-pin_Bowling)
 msgid "Nine-pin Bowling"
-msgstr "Bolos"
+msgstr "Bolos (9)"
 
 #: master_preset.xml:1121(check:text|key:scuba_diving:nitrox_filling)
 msgid "Nitrox"
@@ -9445,7 +9446,7 @@ msgstr "Routex"
 
 #: master_preset.xml:6068(item:name|group:Sport|preset:Rowing)
 msgid "Rowing"
-msgstr ""
+msgstr "Remo"
 
 #: master_preset.xml:6227(item:name|group:Sport_(Ball)|preset:Rugby_League)
 msgid "Rugby League"
@@ -10315,7 +10316,7 @@ msgstr "Instalaciones deportivas"
 
 #: master_preset.xml:1063(check:text|key:climbing:sport)
 msgid "Sport climbing"
-msgstr ""
+msgstr "Escalada"
 
 #: master_preset.xml:5420(item:name|group:Clubs|preset:Sport_club)
 msgid "Sport club"
@@ -10325,7 +10326,7 @@ msgstr ""
 #: master_preset.xml:5815(group:name|group:Sports)
 #: master_preset.xml:8203(item:name|group:Sports_and_hobbies|preset:Sports)
 msgid "Sports"
-msgstr "Manchas"
+msgstr "Deportes"
 
 #: master_preset.xml:5825(item:name|group:Sport_Facilities|preset:Sports_Centre)
 msgid "Sports Centre"
@@ -10921,7 +10922,7 @@ msgstr "Templo"
 
 #: master_preset.xml:5980(item:name|group:Sport|preset:Ten-pin_Bowling)
 msgid "Ten-pin Bowling"
-msgstr "Bolos"
+msgstr "Bolos (10)"
 
 #: master_preset.xml:6344(item:name|group:Sport_(Ball)|preset:Tennis)
 msgid "Tennis"
@@ -12196,7 +12197,7 @@ msgstr "Rampa para sillas de ruedas"
 
 #: master_preset.xml:296(combo:text|key:toilets:wheelchair)
 msgid "Wheelchair toilets"
-msgstr ""
+msgstr "Lavabos para minusválidos"
 
 #: master_preset.xml:284(list_entry:short_description|value:wheelchair_toilet)
 msgid "Wheelchair users toilet"
@@ -13461,12 +13462,12 @@ msgstr "Sí"
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "10pin"
-msgstr "10pin"
+msgstr "Bolos (10)"
 
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "9pin"
-msgstr "9pin"
+msgstr "Bolos (9)"
 
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
@@ -13476,7 +13477,7 @@ msgstr "Fútbol americano"
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Archery"
-msgstr "Arquería"
+msgstr "Tiro con Arco"
 
 #: master_preset.xml:5871(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -13527,7 +13528,7 @@ msgstr "Bolos"
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Bowls"
-msgstr "Bols"
+msgstr "Bolos"
 
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
@@ -13631,7 +13632,7 @@ msgstr "Balonmano"
 #: master_preset.xml:5870(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Horse racing"
-msgstr "Las carreras de caballos"
+msgstr "Carreras de caballos"
 
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
@@ -13657,7 +13658,7 @@ msgstr "Artes marciales"
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Model aerodrome"
-msgstr "Aeródromo modelo"
+msgstr "Aeromodelismo"
 
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
@@ -13709,7 +13710,7 @@ msgstr "Patinaje sobre ruedas"
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Rowing"
-msgstr ""
+msgstr "Remo"
 
 #: master_preset.xml:556(combo:display_values|key:sport)
 msgctxt "sport"
@@ -14738,7 +14739,7 @@ msgstr "Instituto"
 #: master_preset.xml:993(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Commercial"
-msgstr "Anuncio"
+msgstr "Local comercial"
 
 #: master_preset.xml:982(combo:display_values|key:building:frame:material)
 #: master_preset.xml:983(combo:display_values|key:building:wall:material)
@@ -15094,7 +15095,7 @@ msgstr "Residencial"
 #: master_preset.xml:993(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Retail"
-msgstr "Mercado minorista"
+msgstr "Tienda"
 
 #: master_preset.xml:6409(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:6447(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -15515,28 +15516,28 @@ msgstr "Vía"
 #: master_preset.xml:1528(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Opposite"
-msgstr ""
+msgstr "Opuesto"
 
 #: master_preset.xml:1526(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1527(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
 #: master_preset.xml:1528(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Opposite lane"
-msgstr ""
+msgstr "Carril contrario"
 
 #: master_preset.xml:1526(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1527(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
 #: master_preset.xml:1528(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Opposite track"
-msgstr ""
+msgstr "Pista contraria"
 
 #: master_preset.xml:1526(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1527(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
 #: master_preset.xml:1528(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Share busway"
-msgstr ""
+msgstr "Compartir carril-bus"
 
 #: master_preset.xml:1526(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1527(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
@@ -17299,7 +17300,7 @@ msgstr "Trigo"
 #: master_preset.xml:9246(item:name|group:Land_use|preset:Commercial)
 msgctxt "Landuse"
 msgid "Commercial"
-msgstr "Anuncio de televisión"
+msgstr "Local comercial"
 
 #: master_preset.xml:9278(item:name|group:Land_use|preset:Construction_Area)
 msgctxt "Landuse"
@@ -17329,7 +17330,7 @@ msgstr "Área residencial"
 #: master_preset.xml:9240(item:name|group:Land_use|preset:Retail)
 msgctxt "Landuse"
 msgid "Retail"
-msgstr "Mercado minorista"
+msgstr "Tienda"
 
 #: master_preset.xml:9257(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"

@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-10-19 20:38+0200\n"
-"PO-Revision-Date: 2019-10-19 18:40+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2019-10-23 11:26+0000\n"
+"Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7761,7 +7761,7 @@ msgstr ""
 
 #: master_preset.xml:7440(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Palace"
-msgstr ""
+msgstr "Cung điện"
 
 #: master_preset.xml:7495(item:name|group:Historic_Places_&_Objects|preset:Palaeontological_Site)
 msgid "Palaeontological Site"
@@ -10124,7 +10124,7 @@ msgstr ""
 
 #: master_preset.xml:2625(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr ""
+msgstr "Đường Trượt tàu"
 
 #: master_preset.xml:1045(multiselect:display_values|key:language)
 msgid "Slovak"
@@ -12494,7 +12494,7 @@ msgstr ""
 
 #: master_preset.xml:2881(item:name|group:Aerialway|preset:Zip_Line)
 msgid "Zip Line"
-msgstr ""
+msgstr "Đu Dây"
 
 #: master_preset.xml:9308(combo:display_values|group:Land_use|preset:Quarry|key:resource)
 msgid "Zircon"
@@ -17297,7 +17297,7 @@ msgstr "Thương mại"
 #: master_preset.xml:9278(item:name|group:Land_use|preset:Construction_Area)
 msgctxt "Landuse"
 msgid "Construction Area"
-msgstr ""
+msgstr "Khu vực đang Xây dựng"
 
 #: master_preset.xml:9259(item:name|group:Land_use|preset:Garages)
 msgctxt "Landuse"

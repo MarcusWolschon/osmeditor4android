@@ -1,14 +1,15 @@
 # 
 # Translators:
 # Nikolay Parukhin <parukhin@gmail.com>, 2015
+# StopAsking StupidQuestions <1096425@gmail.com>, 2019
 # 4004 <transifex.4004@mailhero.io>, 2017-2018
 # Yury Lebedev, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-10-19 20:38+0200\n"
-"PO-Revision-Date: 2019-10-19 18:40+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2019-10-24 13:14+0000\n"
+"Last-Translator: StopAsking StupidQuestions <1096425@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1622,7 +1623,7 @@ msgstr ""
 #: master_preset.xml:7461(item:name|group:Historic_Places_&_Objects|preset:Building)
 #: master_preset.xml:9482(item:name|group:Relations|preset:Building)
 msgid "Building"
-msgstr ""
+msgstr "Здание"
 
 #: master_preset.xml:9450(list_entry:display_value|group:Relations|preset:Relations|value:building)
 msgid "Building (3D)"
@@ -2524,11 +2525,11 @@ msgstr ""
 
 #: master_preset.xml:9360(item:name|group:Addresses_and_Contact|preset:Contact)
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 #: master_preset.xml:9373(item:name|group:Addresses_and_Contact|preset:Contact_('contact:-'))
 msgid "Contact ('contact:*')"
-msgstr ""
+msgstr "Контакт ('contact:*')"
 
 #: master_preset.xml:8708(item:name|group:Places|preset:Continent)
 msgid "Continent"
@@ -2852,11 +2853,11 @@ msgstr ""
 
 #: master_preset.xml:1587(item:name|group:Ways|preset:Dedicated_Cycleway)
 msgid "Dedicated Cycleway"
-msgstr ""
+msgstr "Велодорожка"
 
 #: master_preset.xml:1627(item:name|group:Ways|preset:Dedicated_Footway)
 msgid "Dedicated Footway"
-msgstr ""
+msgstr "Пешеходная дорожка"
 
 #: master_preset.xml:297(list_entry:short_description|value:designated)
 #: master_preset.xml:309(list_entry:short_description|value:designated)
@@ -3475,7 +3476,7 @@ msgstr ""
 #: master_preset.xml:1709(combo:display_values|group:Waypoints|preset:Traffic_Signal|key:traffic_signals)
 #: master_preset.xml:5107(group:name|group:Emergency)
 msgid "Emergency"
-msgstr ""
+msgstr "Аварийный"
 
 #: master_preset.xml:5284(item:name|group:Emergency|preset:Emergency_Access_Point)
 msgid "Emergency Access Point"
@@ -7905,7 +7906,7 @@ msgstr ""
 
 #: master_preset.xml:8544(item:name|preset:Payment_Methods)
 msgid "Payment Methods"
-msgstr ""
+msgstr "Способы оплаты"
 
 #: master_preset.xml:8627(item:name|group:Money|preset:Payment_centre)
 msgid "Payment centre"
@@ -7913,7 +7914,7 @@ msgstr ""
 
 #: master_preset.xml:8634(item:name|group:Money|preset:Payment_terminal)
 msgid "Payment terminal"
-msgstr ""
+msgstr "Платёжный терминал"
 
 #: master_preset.xml:9120(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Peach trees"
@@ -13376,7 +13377,7 @@ msgstr ""
 #: master_preset.xml:6538(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Emergency"
-msgstr ""
+msgstr "Аварийный"
 
 #: master_preset.xml:6538(combo:text|preset:Entrance|key:entrance)
 msgctxt "entrance"
@@ -13386,7 +13387,7 @@ msgstr "Проход в преграде / вход"
 #: master_preset.xml:6538(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Exit"
-msgstr ""
+msgstr "Только выход"
 
 #: master_preset.xml:252(combo:display_values|key:door)
 msgctxt "entrance"
@@ -13411,7 +13412,7 @@ msgstr ""
 #: master_preset.xml:6538(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Main"
-msgstr "Основное"
+msgstr "Главный"
 
 #: master_preset.xml:252(combo:display_values|key:door)
 msgctxt "entrance"
@@ -13431,7 +13432,7 @@ msgstr ""
 #: master_preset.xml:6538(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Service"
-msgstr ""
+msgstr "Служебный"
 
 #: master_preset.xml:252(combo:display_values|key:door)
 msgctxt "entrance"
@@ -14646,7 +14647,7 @@ msgstr ""
 #: master_preset.xml:7539(combo:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:building)
 msgctxt "building"
 msgid "Building"
-msgstr ""
+msgstr "Здание"
 
 #: master_preset.xml:994(combo:text|key:building:colour)
 msgctxt "building"
@@ -15152,7 +15153,7 @@ msgstr ""
 #: master_preset.xml:993(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Service"
-msgstr ""
+msgstr "Служебный"
 
 #: master_preset.xml:6409(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:6447(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -15471,7 +15472,7 @@ msgstr ""
 #: master_preset.xml:1366(item:name|group:Streets|preset:Service)
 msgctxt "Highway"
 msgid "Service"
-msgstr ""
+msgstr "Служебный"
 
 #: master_preset.xml:1371(combo:text|group:Streets|preset:Service|key:service)
 msgctxt "Highway"
@@ -15821,7 +15822,7 @@ msgstr ""
 #: master_preset.xml:3067(multiselect:text|group:Car|preset:Repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
-msgstr ""
+msgstr "Служебный"
 
 #: master_preset.xml:3122(item:name|group:Motorcycle|preset:Parking)
 msgctxt "motorcycle"
