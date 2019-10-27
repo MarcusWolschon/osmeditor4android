@@ -625,7 +625,7 @@ public class ViewBox extends BoundingBox {
             if (newHeight > GeoMath.MAX_MLAT_E7 * 2L) { // clamp
                 box.setTop(GeoMath.MAX_COMPAT_LAT_E7);
                 box.setBottom(-GeoMath.MAX_COMPAT_LAT_E7);
-                long center = (box.getLeft() - box.getRight()) / 2L + box.getRight();
+                long center = ((long) box.getLeft() - (long) box.getRight()) / 2L + box.getRight();
                 long newWidth = (long) (GeoMath.MAX_MLAT_E7 * 2L * ratio);
                 box.setLeft((int) (center + newWidth / 2));
                 box.setRight((int) (center - newWidth / 2));
@@ -634,7 +634,7 @@ public class ViewBox extends BoundingBox {
                 box.setBottom(GeoMath.mercatorE7ToLatE7((int) (mCenter - newHeight / 2)));
             }
         } else if (boxRatio < ratio) { // higher than our screen -> make box wider
-            long center = (box.getLeft() - box.getRight()) / 2L + box.getRight();
+            long center = ((long) box.getLeft() - (long) box.getRight()) / 2L + box.getRight();
             long newWidth = (long) (mHeight * ratio);
             if (newWidth > 2D * GeoMath.MAX_LON_E7) { // clamp
                 box.setLeft(GeoMath.MAX_LON_E7);
