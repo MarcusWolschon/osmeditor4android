@@ -595,7 +595,7 @@ public class ViewBox extends BoundingBox {
     @NonNull
     public double[] getCenter() {
         double[] result = new double[2];
-        result[0] = ((getRight() + getLeft()) / 2D) / 1E7D;
+        result[0] = ((long) getRight() + (long) getLeft()) / 2E7D;
         result[1] = getCenterLat();
         return result;
     }
