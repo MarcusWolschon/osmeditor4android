@@ -1221,11 +1221,11 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     // attempt to handle turn restrictions correctly, if element is the via way, copying relation
                     // membership to both is ok
                     String role = rm.getRole();
-                    boolean isVia = Tags.ROLE_VIA.equals(role);
+                    boolean isVia = Tags.isVia(type, role);
                     if (isRestrictionLike && !isVia) {
                         // check if the old way has a node in common with the via relation member, if no assume the
                         // new way has
-                        List<RelationMember> rl = r.getMembersWithRole(Tags.ROLE_VIA);
+                        List<RelationMember> rl = Tags.getVia(type, r);
                         boolean foundVia = false;
                         for (int j = 0; j < rl.size(); j++) {
                             RelationMember viaRm = rl.get(j);
@@ -1302,6 +1302,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             case Tags.ROLE_FROM:
                 hasFrom = true;
                 break;
+            case Tags.ROLE_INTERSECTION:
             case Tags.ROLE_VIA:
                 hasVia = true;
                 break;

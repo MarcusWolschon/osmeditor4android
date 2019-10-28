@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
@@ -133,6 +134,8 @@ public final class Tags {
     public static final String ROLE_VIA               = "via";
     public static final String ROLE_FROM              = "from";
     public static final String ROLE_TO                = "to";
+    public static final String VALUE_DESTINATION_SIGN = "destination_sign";
+    public static final String ROLE_INTERSECTION      = "intersection";
     public static final String VALUE_BUILDING         = "building";
     public static final String VALUE_ROUTE            = "route";
     public static final String ROLE_FORWARD           = "forward";
@@ -144,6 +147,29 @@ public final class Tags {
     public static final String VALUE_MULTIPOLYGON     = "multipolygon";
     public static final String VALUE_BOUNDARY         = "boundary";
     public static final String KEY_BOUNDARY           = "boundary";
+
+    /**
+     * Check if a relation member element should be treated as a via element
+     * 
+     * @param type relation type
+     * @param role role of element
+     * @return true if we should treat the elements as if it had a via role
+     */
+    public static boolean isVia(@NonNull String type, @NonNull String role) {
+        return ROLE_VIA.equals(role) || (VALUE_DESTINATION_SIGN.equals(type) && ROLE_INTERSECTION.equals(role));
+    }
+
+    /**
+     * Get the via element of a Relation
+     * 
+     * @param type the Relation type
+     * @param r the Relation
+     * @return a List of RelationMembers
+     */
+    @NonNull
+    public static List<RelationMember> getVia(@NonNull String type, @NonNull Relation r) {
+        return VALUE_DESTINATION_SIGN.equals(type) ? r.getMembersWithRole(Tags.ROLE_INTERSECTION) : r.getMembersWithRole(Tags.ROLE_VIA);
+    }
 
     public static final String KEY_MAXSPEED = "maxspeed";
     public static final String KEY_MINSPEED = "minspeed";
