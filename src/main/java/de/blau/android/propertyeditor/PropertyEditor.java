@@ -204,6 +204,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     protected void onCreate(final Bundle savedInstanceState) {
         int currentItem = -1; // used when restoring
         prefs = App.getLogic().getPrefs();
+        if (prefs == null) {
+            Log.e(DEBUG_TAG, "prefs was null creating new");
+            prefs = new Preferences(this);
+            App.getLogic().setPrefs(prefs);
+        }
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customTagEditor_Light);
         }
