@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.LargeTest;
@@ -70,8 +71,8 @@ public class GeometryEditsTest {
     }
 
     /**
-     * Create a way Split it Create a turn restriction on it Split one of the ways Merge the two resulting ways back in
-     * to one Add the way to a normal relation Split it again
+     * Create a way, split it, create a turn restriction on it, split one of the ways, merge the two resulting ways back in
+     * to one, add the way to a normal relation, split it again
      */
     @UiThreadTest
     @Test
@@ -79,43 +80,21 @@ public class GeometryEditsTest {
         try {
             // setup some stuff to test relations
             Logic logic = App.getLogic();
-            logic.setSelectedWay(null);
-            logic.setSelectedNode(null);
-            logic.setSelectedRelation(null);
-            logic.performAdd(main, 100.0f, 100.0f);
-            Assert.assertNotNull(logic.getSelectedNode());
-            System.out.println(logic.getSelectedNode());
-            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
-            logic.performAdd(main, 150.0f, 150.0f);
-            logic.performAdd(main, 200.0f, 200.0f);
-            logic.performAdd(main, 250.0f, 250.0f);
+            setupWaysForSplit(logic);
             Way w1 = logic.getSelectedWay();
             Assert.assertNotNull(w1);
-            System.out.println("ApplicationTest created way " + w1.getOsmId());
-            ArrayList<Node> nList1 = (ArrayList<Node>) w1.getNodes();
+            List<Node> nList1 = w1.getNodes();
             Assert.assertEquals(4, nList1.size());
-            final Node n1 = nList1.get(0);
-            System.out.println("ApplicationTest n1 " + n1.getOsmId());
             final Node n2 = nList1.get(1);
-            System.out.println("ApplicationTest n2 " + n2.getOsmId());
             final Node n3 = nList1.get(2);
-            System.out.println("ApplicationTest n3 " + n3.getOsmId());
-            final Node n4 = nList1.get(3);
-            System.out.println("ApplicationTest n4 " + n4.getOsmId());
 
             // split at n2
             logic.performSplit(main, n2);
 
-            ArrayList<Way> wList1 = (ArrayList<Way>) logic.getWaysForNode(n3);
+            List<Way> wList1 = logic.getWaysForNode(n3);
             Assert.assertEquals(1, wList1.size());
             Way w2 = wList1.get(0);
-            System.out.println("ApplicationTest split created way " + w2.getOsmId());
-            ArrayList<Node> nList2 = (ArrayList<Node>) w2.getNodes();
-            System.out.print("Way 2 contains nodes");
-            for (Node n : nList2) {
-                System.out.print(" " + n.getOsmId());
-            }
-            System.out.println();
+            
             Relation r1 = logic.createRestriction(main, w1, n2, w2, "test rest");
             List<OsmElement> mList1 = r1.getMemberElements();
             Assert.assertEquals(3, mList1.size());
@@ -133,7 +112,7 @@ public class GeometryEditsTest {
             // split way 2
             logic.performSplit(main, n3);
 
-            List<Way> wList2 = (ArrayList<Way>) logic.getWaysForNode(n3);
+            List<Way> wList2 = logic.getWaysForNode(n3);
             // this assumes wList2 contains the way in chronological order
             Assert.assertEquals(2, wList2.size());
             Assert.assertEquals(wList2.get(0), w2);
@@ -184,12 +163,76 @@ public class GeometryEditsTest {
             Assert.assertEquals(2, r3.getPosition(r3.getMember(w1))); // third position in r3
             // r3 should have 3 members now
             Assert.assertEquals(3, r3.getMemberElements().size());
-
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
         }
     }
 
+    /**
+     * Create a way, split it, create a destination_sign relation on it, split one of the ways
+     */
+    @UiThreadTest
+    @Test
+    public void splitDestinationSign() {
+        try {
+            // setup some stuff to test relations
+            Logic logic = App.getLogic();
+            setupWaysForSplit(logic);
+            Way w1 = logic.getSelectedWay();
+            Assert.assertNotNull(w1);
+            List<Node> nList1 = w1.getNodes();
+            Assert.assertEquals(4, nList1.size());
+            final Node n2 = nList1.get(1);
+            final Node n3 = nList1.get(2);
+
+            // split at n2
+            logic.performSplit(main, n2);
+
+            List<Way> wList1 = logic.getWaysForNode(n3);
+            Assert.assertEquals(1, wList1.size());
+            Way w2 = wList1.get(0);
+            
+            // create destination_sign relation from a turn restriction for convenience 
+            Relation r1 = logic.createRestriction(main, w1, n2, w2, Tags.VALUE_DESTINATION_SIGN);
+            java.util.Map<String,String> tags = new TreeMap<>(r1.getTags());
+            tags.put(Tags.KEY_TYPE, Tags.VALUE_DESTINATION_SIGN);
+            logic.setTags(null, r1, tags);
+            List<RelationMember> vias = r1.getMembersWithRole(Tags.ROLE_VIA);
+            Assert.assertEquals(1, vias.size());
+            vias.get(0).setRole(Tags.ROLE_INTERSECTION);            
+
+            // split way 2
+            logic.performSplit(main, n3);
+
+            List<Way> wList2 = logic.getWaysForNode(n3);
+            // this assumes wList2 contains the way in chronological order
+            Assert.assertEquals(2, wList2.size());
+            Assert.assertEquals(wList2.get(0), w2);
+            Assert.assertEquals(wList2.get(0).getParentRelations().get(0), r1);
+            Assert.assertNull(wList2.get(1).getParentRelations()); // special case for restrictions
+            Assert.assertEquals(3, r1.getMemberElements().size());
+        } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
+
+    /**
+     * Create a way for further use
+     * 
+     * @param logic a logic instance
+     */
+    private void setupWaysForSplit(@NonNull Logic logic) {
+        logic.setSelectedWay(null);
+        logic.setSelectedNode(null);
+        logic.setSelectedRelation(null);
+        logic.performAdd(main, 100.0f, 100.0f);
+        Assert.assertNotNull(logic.getSelectedNode());
+        Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+        logic.performAdd(main, 150.0f, 150.0f);
+        logic.performAdd(main, 200.0f, 200.0f);
+        logic.performAdd(main, 250.0f, 250.0f);
+    }
+        
     /**
      * Split a way that is present in a relation twice
      */
@@ -199,29 +242,15 @@ public class GeometryEditsTest {
         try {
             // setup some stuff to test relations
             Logic logic = App.getLogic();
-            logic.setSelectedWay(null);
-            logic.setSelectedNode(null);
-            logic.setSelectedRelation(null);
-            logic.performAdd(main, 100.0f, 100.0f);
-            Assert.assertNotNull(logic.getSelectedNode());
-            System.out.println(logic.getSelectedNode());
-            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
-            logic.performAdd(main, 150.0f, 150.0f);
-            logic.performAdd(main, 200.0f, 200.0f);
-            logic.performAdd(main, 250.0f, 250.0f);
+            setupWaysForSplit(logic);
             Way w1 = logic.getSelectedWay();
             Assert.assertNotNull(w1);
-            System.out.println("ApplicationTest created way " + w1.getOsmId());
             ArrayList<Node> nList1 = (ArrayList<Node>) w1.getNodes();
             Assert.assertEquals(4, nList1.size());
             final Node n1 = nList1.get(0);
-            System.out.println("ApplicationTest n1 " + n1.getOsmId());
             final Node n2 = nList1.get(1);
-            System.out.println("ApplicationTest n2 " + n2.getOsmId());
             final Node n3 = nList1.get(2);
-            System.out.println("ApplicationTest n3 " + n3.getOsmId());
             final Node n4 = nList1.get(3);
-            System.out.println("ApplicationTest n4 " + n4.getOsmId());
 
             // add w1 twice to a normal relation
             List<OsmElement> mList = new ArrayList<OsmElement>();
@@ -259,8 +288,6 @@ public class GeometryEditsTest {
             // w1 and w2 should be unchanged
             Assert.assertEquals(2, w1.getParentRelations().size());
             Assert.assertEquals(2, w2.getParentRelations().size());
-
-            System.out.println();
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
         }
@@ -280,7 +307,6 @@ public class GeometryEditsTest {
             logic.setSelectedRelation(null);
             logic.performAdd(main, 200.0f, 200.0f);
             Assert.assertNotNull(logic.getSelectedNode());
-            System.out.println(logic.getSelectedNode());
             Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
             logic.performAdd(main, 200.0f, 400.0f);
             logic.performAdd(main, 400.0f, 400.0f);
@@ -288,19 +314,12 @@ public class GeometryEditsTest {
             logic.performAdd(main, 200.0f, 200.0f);
             Way w1 = logic.getSelectedWay();
             Assert.assertNotNull(w1);
-            System.out.println("ApplicationTest created way " + w1.getOsmId());
             ArrayList<Node> nList1 = (ArrayList<Node>) w1.getNodes();
             Assert.assertEquals(5, nList1.size());
             final Node n1 = nList1.get(0);
-            System.out.println("ApplicationTest n1 " + n1.getOsmId());
             final Node n2 = nList1.get(1);
-            System.out.println("ApplicationTest n2 " + n2.getOsmId());
-            final Node n3 = nList1.get(2);
-            System.out.println("ApplicationTest n3 " + n3.getOsmId());
             final Node n4 = nList1.get(3);
-            System.out.println("ApplicationTest n4 " + n4.getOsmId());
             final Node n5 = nList1.get(4);
-            System.out.println("ApplicationTest n5 " + n5.getOsmId());
             Assert.assertEquals(n1, n5);
             Assert.assertTrue(w1.isClosed());
             Way[] ways = logic.performClosedWaySplit(main, w1, n2, n4, false);
@@ -326,7 +345,6 @@ public class GeometryEditsTest {
             logic.setSelectedRelation(null);
             logic.performAdd(main, 200.0f, 200.0f);
             Assert.assertNotNull(logic.getSelectedNode());
-            System.out.println(logic.getSelectedNode());
             Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
             logic.performAdd(main, 200.0f, 400.0f);
             logic.performAdd(main, 400.0f, 400.0f);
@@ -334,19 +352,11 @@ public class GeometryEditsTest {
             logic.performAdd(main, 200.0f, 200.0f);
             Way w1 = logic.getSelectedWay();
             Assert.assertNotNull(w1);
-            System.out.println("ApplicationTest created way " + w1.getOsmId());
             ArrayList<Node> nList1 = (ArrayList<Node>) w1.getNodes();
             Assert.assertEquals(5, nList1.size());
             final Node n1 = nList1.get(0);
-            System.out.println("ApplicationTest n1 " + n1.getOsmId());
-            final Node n2 = nList1.get(1);
-            System.out.println("ApplicationTest n2 " + n2.getOsmId());
             final Node n3 = nList1.get(2);
-            System.out.println("ApplicationTest n3 " + n3.getOsmId());
-            final Node n4 = nList1.get(3);
-            System.out.println("ApplicationTest n4 " + n4.getOsmId());
             final Node n5 = nList1.get(4);
-            System.out.println("ApplicationTest n5 " + n5.getOsmId());
             Assert.assertEquals(n1, n5);
             Assert.assertTrue(w1.isClosed());
             Way[] ways = logic.performClosedWaySplit(main, w1, n1, n3, true);
@@ -592,7 +602,7 @@ public class GeometryEditsTest {
             logic.performAdd(main, 400.0f, 400.0f);
             logic.performAdd(main, 400.0f, 200.0f);
             Way w1 = logic.getSelectedWay();
-            TreeMap<String, String> tags = new TreeMap();
+            TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY);
             w1.setTags(tags);
             logic.setSelectedWay(null);
@@ -888,16 +898,7 @@ public class GeometryEditsTest {
         try {
             // setup some stuff to test relations
             Logic logic = App.getLogic();
-            logic.setSelectedWay(null);
-            logic.setSelectedNode(null);
-            logic.setSelectedRelation(null);
-            logic.performAdd(main, 100.0f, 100.0f);
-            Assert.assertNotNull(logic.getSelectedNode());
-            System.out.println(logic.getSelectedNode());
-            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
-            logic.performAdd(main, 150.0f, 150.0f);
-            logic.performAdd(main, 200.0f, 200.0f);
-            logic.performAdd(main, 250.0f, 250.0f);
+            setupWaysForSplit(logic);
             Way w1 = logic.getSelectedWay();
             Assert.assertNotNull(w1);
             StorageDelegator delegator = App.getDelegator();
