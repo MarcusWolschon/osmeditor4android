@@ -4995,7 +4995,7 @@ public class Logic {
      * Push a comment on to the last comments MRU list
      * 
      * @param comment the comment to push
-     * @param draft TODO
+     * @param draft if true store as draft
      */
     public void pushComment(@Nullable String comment, boolean draft) {
         if (comment != null && !"".equals(comment)) {
@@ -5062,7 +5062,7 @@ public class Logic {
      * Push a source comment on to the last source comments MRU list
      * 
      * @param source the source comment to push
-     * @param draft TODO
+     * @param draft if true store as draft
      */
     public void pushSource(@Nullable String source, boolean draft) {
         if (source != null && !"".equals(source)) {
