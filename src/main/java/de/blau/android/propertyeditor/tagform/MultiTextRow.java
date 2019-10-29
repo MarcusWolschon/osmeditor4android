@@ -258,13 +258,14 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
      */
     private CustomAutoCompleteTextView addEditText(final @NonNull String value, @NonNull final View.OnFocusChangeListener listener,
             @Nullable final ValueType valueType, @Nullable final ArrayAdapter<?> adapter, int position) {
+
         CustomAutoCompleteTextView editText = (CustomAutoCompleteTextView) inflater.inflate(R.layout.form_dialog_multitext_value, valueLayout, false);
-        InputTypeUtil.setInputTypeFromValueType(editText, valueType);
 
         final TextWatcher textWatcher = new MyTextWatcher(editText, listener, valueType, adapter);
         Log.e(DEBUG_TAG, "addEditText " + value + " pos " + position);
         editText.setText(value);
         editText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        InputTypeUtil.setInputTypeFromValueType(editText, valueType);
         editText.setHint(R.string.tag_value_hint);
         editText.setOnFocusChangeListener(listener);
         editText.setOnTouchListener(new OnTouchListener() {
