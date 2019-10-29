@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.3: Fix int overflow when calculating longitude, special handling for destination_sign relations, fix phone number input, update imagery and preset.
+
 14.0.2: Zap args to ElementInfo to avoid transaction too large exceptions, use built-in serialisation for edit state, update translations and imagery.
 
 14.0.1: Add back missing data style pref that got lost.
