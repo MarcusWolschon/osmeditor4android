@@ -1372,6 +1372,7 @@
                 <text key="name" text="Name"/>
                 <reference ref="highway_base"/>
                 <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
+                <check key="covered" text="Covered" disable_off="true"/>
                 <check key="passing_places" text="Passing Places" disable_off="true"/>
             </optional>
             <reference ref="road_access_restrictions"/>
@@ -6935,7 +6936,7 @@
             <optional>
                 <text key="camera:direction" text="Direction in degrees" match="key"/>
                 <text key="camera:angle" text="Inclination in degrees" match="key"/>
-                <text key="height" text="Height in meter (m)"/>
+                <text key="height" text="Height (m)"/>
             </optional>
         </item> <!-- Surveillance Camera -->
         <item name="MDF" icon="icons/png/man_made_MDF_22029.png" name_context="man_made" type="node,closedway" preset_name_label="true">
@@ -7297,7 +7298,7 @@
             <link wiki="Tag:power=tower"/>
             <space/>
             <key key="power" value="tower"/>
-            <text key="height" text="Height in meter (m)"/>
+            <text key="height" text="Height (m)"/>
             <combo key="structure" text="Type of construction" values="lattice,tubular,solid"/>
             <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" values_context="material"/>
             <combo key="colour" text="Color (HTML name or hexadecimal code)" values="black,red,white,gray,red/white" values_context="colour" match="none" editable="true"/>
@@ -8955,7 +8956,7 @@
             <label text="A line of trees."/>
             <space/>
             <key key="natural" value="tree_row"/>
-            <text key="height" text="Height in meter (m)"/>
+            <text key="height" text="Height (m)"/>
             <optional>
             	<reference ref="genus_species_taxon"/>
                 <reference ref="leaf"/>

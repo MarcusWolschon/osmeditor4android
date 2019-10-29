@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-10-19 20:38+0200\n"
-"PO-Revision-Date: 2019-10-19 18:40+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2019-10-28 13:42+0000\n"
+"Last-Translator: Teemu Piippo <crimsondusk64@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/openstreetmap/presets/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14904,7 +14904,7 @@ msgstr "Hotelli"
 #: master_preset.xml:6423(key:text|group:Buildings|preset:House|key:building)
 msgctxt "building"
 msgid "House"
-msgstr ""
+msgstr "Pientalo"
 
 #: master_preset.xml:6409(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -17298,7 +17298,7 @@ msgstr "Yritysalue"
 #: master_preset.xml:9278(item:name|group:Land_use|preset:Construction_Area)
 msgctxt "Landuse"
 msgid "Construction Area"
-msgstr ""
+msgstr "Rakennustyömaa"
 
 #: master_preset.xml:9259(item:name|group:Land_use|preset:Garages)
 msgctxt "Landuse"

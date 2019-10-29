@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-10-19 20:38+0200\n"
-"PO-Revision-Date: 2019-10-24 13:14+0000\n"
+"PO-Revision-Date: 2019-10-27 21:34+0000\n"
 "Last-Translator: StopAsking StupidQuestions <1096425@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -945,7 +945,7 @@ msgstr ""
 
 #: master_preset.xml:276(combo:text|key:changing_table)
 msgid "Baby changing table"
-msgstr ""
+msgstr "Пеленальный столик"
 
 #: master_preset.xml:8264(item:name|group:Other|preset:Baby_goods)
 msgid "Baby goods"
@@ -2729,7 +2729,7 @@ msgstr ""
 #: master_preset.xml:3793(combo:text|group:Food+Drinks|preset:Cafe|key:cuisine)
 #: master_preset.xml:471(multiselect:text|key:cuisine)
 msgid "Cuisine"
-msgstr ""
+msgstr "Кухня"
 
 #: master_preset.xml:4546(group:name|group:Culture)
 #: master_preset.xml:5416(combo:display_values|group:Clubs|preset:Club|key:club)
@@ -2900,7 +2900,7 @@ msgstr ""
 #: master_preset.xml:3812(combo:text|group:Food+Drinks|preset:Ice_cream|key:delivery)
 #: master_preset.xml:3829(combo:text|group:Food+Drinks|preset:Pub|key:delivery)
 msgid "Delivery"
-msgstr ""
+msgstr "Доставка"
 
 #: master_preset.xml:478(list_entry:short_description|value:denim)
 msgid "Denim"
@@ -3979,7 +3979,7 @@ msgstr ""
 #: master_preset.xml:1440(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1442(combo:text|group:Streets|preset:Ford|key:ford)
 msgid "Ford"
-msgstr ""
+msgstr "Брод"
 
 #: master_preset.xml:8972(item:name|group:Nature|preset:Forest)
 msgid "Forest"
@@ -4291,7 +4291,7 @@ msgstr ""
 
 #: master_preset.xml:8398(item:name|group:Other|preset:Gift/Souvenir)
 msgid "Gift/Souvenir"
-msgstr ""
+msgstr "Подарки/Сувениры"
 
 #: master_preset.xml:4082(list_entry:display_value|group:Leisure|preset:Animals|value:giraffe)
 msgid "Giraffe"
@@ -5584,7 +5584,7 @@ msgstr ""
 
 #: master_preset.xml:244(combo:text|key:level)
 msgid "Level"
-msgstr ""
+msgstr "Этаж"
 
 #: master_preset.xml:2744(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -6510,7 +6510,7 @@ msgstr ""
 
 #: master_preset.xml:1129(item:name|group:Streets|preset:Motorway)
 msgid "Motorway"
-msgstr ""
+msgstr "Автомагистраль"
 
 #: master_preset.xml:1677(item:name|group:Waypoints|preset:Motorway_Junction)
 msgid "Motorway Junction"
@@ -6518,7 +6518,7 @@ msgstr ""
 
 #: master_preset.xml:1142(item:name|group:Streets|preset:Motorway_Link)
 msgid "Motorway Link"
-msgstr ""
+msgstr "Съезд с автомагистрали"
 
 #: master_preset.xml:9602(item:name|group:Routes|preset:Mountain_Biking_Route)
 msgid "Mountain Biking Route"
@@ -7469,7 +7469,7 @@ msgstr ""
 #: master_preset.xml:258(combo:text|key:opening_hours)
 #: master_preset.xml:262(combo:text|key:opening_hours)
 msgid "Opening Hours"
-msgstr ""
+msgstr "Время работы"
 
 #: master_preset.xml:4589(list_entry:display_value|group:Culture|preset:Music_theatres|value:opera)
 msgid "Opera house"
@@ -7669,7 +7669,7 @@ msgstr "Вне помещения"
 #: master_preset.xml:3857(check:text|group:Food+Drinks|preset:Bar|key:outdoor_seating)
 #: master_preset.xml:5651(item:name|group:Facilities|preset:Outdoor_seating)
 msgid "Outdoor seating"
-msgstr ""
+msgstr "Места на улице"
 
 #: master_preset.xml:9489(role:text|group:Relations|preset:Building|key:outline)
 msgid "Outline of building"
@@ -7942,7 +7942,7 @@ msgstr ""
 
 #: master_preset.xml:1746(item:name|group:Waypoints|preset:Pedestrian_Crossing)
 msgid "Pedestrian Crossing"
-msgstr ""
+msgstr "Пешеходный переход"
 
 #: master_preset.xml:1596(combo:text|group:Ways|preset:Dedicated_Cycleway|key:foot)
 msgid "Pedestrians"
@@ -8538,7 +8538,7 @@ msgstr ""
 
 #: master_preset.xml:1178(item:name|group:Streets|preset:Primary)
 msgid "Primary"
-msgstr ""
+msgstr "Первостепенная дорога"
 
 #: master_preset.xml:1022(list_entry:short_description|value:1)
 msgid "Primary (1)"
@@ -9762,7 +9762,7 @@ msgstr ""
 
 #: master_preset.xml:1214(item:name|group:Streets|preset:Secondary)
 msgid "Secondary"
-msgstr ""
+msgstr "Второстепенная дорога"
 
 #: master_preset.xml:1231(item:name|group:Streets|preset:Secondary_Link)
 msgid "Secondary Link"
@@ -10786,7 +10786,7 @@ msgstr ""
 #: master_preset.xml:3811(combo:text|group:Food+Drinks|preset:Ice_cream|key:takeaway)
 #: master_preset.xml:3828(combo:text|group:Food+Drinks|preset:Pub|key:takeaway)
 msgid "Takeaway"
-msgstr ""
+msgstr "На вынос"
 
 #: master_preset.xml:1045(multiselect:display_values|key:language)
 msgid "Tamil"
@@ -10945,7 +10945,7 @@ msgstr ""
 
 #: master_preset.xml:1247(item:name|group:Streets|preset:Tertiary)
 msgid "Tertiary"
-msgstr ""
+msgstr "Местная дорога"
 
 #: master_preset.xml:1264(item:name|group:Streets|preset:Tertiary_Link)
 msgid "Tertiary Link"
@@ -11113,7 +11113,7 @@ msgstr ""
 
 #: master_preset.xml:294(check:text|key:toilets)
 msgid "Toilets"
-msgstr ""
+msgstr "Туалет"
 
 #: master_preset.xml:5444(item:name|group:Facilities|preset:Toilets/Restrooms)
 msgid "Toilets/Restrooms"
@@ -11355,7 +11355,7 @@ msgstr ""
 
 #: master_preset.xml:8930(item:name|group:Nature|preset:Tree)
 msgid "Tree"
-msgstr ""
+msgstr "Дерево"
 
 #: master_preset.xml:8953(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
@@ -11364,7 +11364,7 @@ msgstr "Ряд деревьев"
 #: master_preset.xml:5656(combo:display_values|group:Facilities|preset:Outdoor_seating|key:weather_protection)
 #: master_preset.xml:9120(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
-msgstr ""
+msgstr "Деревья"
 
 #: master_preset.xml:1122(check:text|key:scuba_diving:trimix_filling)
 msgid "Trimix"
@@ -11386,7 +11386,7 @@ msgstr ""
 
 #: master_preset.xml:1152(item:name|group:Streets|preset:Trunk)
 msgid "Trunk"
-msgstr ""
+msgstr "Основная дорога"
 
 #: master_preset.xml:1165(item:name|group:Streets|preset:Trunk_Link)
 msgid "Trunk Link"
@@ -13891,7 +13891,7 @@ msgstr ""
 #: master_preset.xml:6539(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Delivery"
-msgstr ""
+msgstr "Доставка"
 
 #: master_preset.xml:2184(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2191(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -15472,7 +15472,7 @@ msgstr ""
 #: master_preset.xml:1366(item:name|group:Streets|preset:Service)
 msgctxt "Highway"
 msgid "Service"
-msgstr "Служебный"
+msgstr "Служебная"
 
 #: master_preset.xml:1371(combo:text|group:Streets|preset:Service|key:service)
 msgctxt "Highway"
