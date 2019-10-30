@@ -406,7 +406,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             } else if (prefs.autoApplyPreset()) {
                 PresetItem pi = getBestPreset();
-                if (pi != null) {
+                if (pi != null && !"Address".equals(pi.getName())) { // FIXME exclude Address preset properly
                     applyPreset(editRowLayout, pi, false, true);
                 }
             }
