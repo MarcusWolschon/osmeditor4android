@@ -1401,7 +1401,7 @@ public class TileLayerServer implements Serializable {
     /**
      * Get the branding logo for the tile layer.
      * 
-     * Retrieves logos where we have an url asynchronouls
+     * Retrieves logos for which we have an url asynchronously 
      * 
      * @return The branding logo, or null if there is none.
      */
