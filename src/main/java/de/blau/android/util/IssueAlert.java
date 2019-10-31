@@ -143,8 +143,13 @@ public final class IssueAlert {
             ticker = ticker + " " + message;
         }
         Validator validator = App.getDefaultValidator(context);
-        for (String p : validator.describeProblem(context, e)) {
-            message.append(p);
+        String[] descriptions = validator.describeProblem(context, e);
+        int len = descriptions.length;
+        for (int i = 0; i < len; i++) {
+            message.append(descriptions[i]);
+            if (i < len - 1) {
+                message.append(" ");
+            }
         }
         Notifications.initChannel(context, QA_CHANNEL, R.string.qa_channel_name, R.string.qa_channel_description);
         NotificationCompat.Builder mBuilder;
