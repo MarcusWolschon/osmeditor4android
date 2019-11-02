@@ -267,6 +267,8 @@ public final class SelectFile {
                 final int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
                 return cursor.getString(column_index);
             }
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, ex.getMessage());
         }
         return null;
     }
