@@ -13,7 +13,7 @@
     
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="25" 
+        android:targetSdkVersion="28" 
         tools:overrideLibrary="android.support.test.uiautomator.v18" />
 
     <instrumentation
