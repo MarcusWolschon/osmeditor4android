@@ -2811,6 +2811,9 @@ public class Preset implements Serializable {
             }
             for (Entry<String, PresetField> entry : fields.entrySet()) {
                 PresetField field = entry.getValue();
+                if (field.getValueType() == ValueType.INTEGER) {
+                    continue;
+                }
                 String textContext = field.getTextContext();
                 if (!(field instanceof PresetCheckGroupField)) {
                     addToSearchIndex(field.getKey(), textContext);
@@ -2858,7 +2861,7 @@ public class Preset implements Serializable {
          */
         void addToSearchIndex(@Nullable String term, @Nullable String translationContext) {
             // search support
-            if (term != null) {
+            if (term != null) {                
                 String normalizedName = SearchIndexUtils.normalize(term);
                 searchIndex.add(normalizedName, this);
                 String[] words = normalizedName.split(" ");

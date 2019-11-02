@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,6 +28,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetFixedField;
 import de.blau.android.util.collections.MultiHashMap;
 
 public final class SearchIndexUtils {
@@ -132,10 +134,13 @@ public final class SearchIndexUtils {
                     int distance = s.indexOf(t);
                     if (distance == -1) {
                         distance = OptimalStringAlignment.editDistance(s, term, maxDistance);
+                        if (distance == -1) { // way out
+                            continue;
+                        }
                     } else {
                         distance = 0; // literal substring match, we don't want to weight this worse than a fuzzy match
                     }
-                    if ((distance >= 0 && distance <= maxDistance)) {
+                    if (distance <= maxDistance) {
                         Set<PresetItem> presetItems = index.get(s);
                         int weight = distance * presetItems.size(); // if there are a lot of items for a term, penalize
                         for (PresetItem pi : presetItems) {
@@ -233,18 +238,37 @@ public final class SearchIndexUtils {
      */
     public static int rescale(@NonNull String term, int weight, @NonNull PresetItem pi) {
         int actualWeight = weight;
-        String name = SearchIndexUtils.normalize(pi.getTranslatedName());
-        if (name.equals(term)) { // exact name match
-            actualWeight = -20;
+        String name = SearchIndexUtils.normalize(pi.getName());
+        String translatedName = SearchIndexUtils.normalize(pi.getTranslatedName());
+        if (name.equals(term) || translatedName.equals(term) || checkPresetValues(term, pi)) {
+            // exact name or value match
+            actualWeight = weight - 20;
         } else if (term.length() >= 3) {
-            int pos = name.indexOf(term);
+            int pos = translatedName.indexOf(term);
             if (pos == 0) { // starts with the term
-                actualWeight = -15;
+                actualWeight = weight - 15;
             } else if (pos > 0) {
-                actualWeight = -10;
+                actualWeight = weight - 10;
             }
         }
         return actualWeight;
+    }
+
+    /**
+     * This checks for an exact match against one of the fixed preset values
+     * 
+     * @param term the search term
+     * @param pi the PresetItem
+     * @return true if there is an exact match
+     */
+    private static boolean checkPresetValues(@NonNull String term, @NonNull PresetItem pi) {
+        Collection<PresetFixedField> fixedFields = pi.getFixedTags().values();
+        for (PresetFixedField f : fixedFields) {
+            if (SearchIndexUtils.normalize(f.getValue().getValue()).equals(term)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
