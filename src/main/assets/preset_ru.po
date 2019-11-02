@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2019-10-19 20:38+0200\n"
-"PO-Revision-Date: 2019-10-27 21:34+0000\n"
+"PO-Revision-Date: 2019-11-01 15:06+0000\n"
 "Last-Translator: StopAsking StupidQuestions <1096425@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -1736,7 +1736,7 @@ msgstr ""
 
 #: master_preset.xml:4665(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Bust"
-msgstr ""
+msgstr "Бюст"
 
 #: master_preset.xml:7590(item:name|group:Food|preset:Butcher)
 msgid "Butcher"
@@ -5097,7 +5097,7 @@ msgstr ""
 #: master_preset.xml:7530(text:text|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:inscription)
 #: master_preset.xml:7541(text:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:inscription)
 msgid "Inscription"
-msgstr ""
+msgstr "Надпись"
 
 #: master_preset.xml:4665(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Installation"
@@ -9742,7 +9742,7 @@ msgstr ""
 
 #: master_preset.xml:5649(combo:text|group:Facilities|preset:Bench|key:seats)
 msgid "Seats count"
-msgstr ""
+msgstr "Количество мест"
 
 #: master_preset.xml:2004(combo:display_values|group:Barriers|preset:Wall|key:wall)
 msgid "Seawall"
@@ -10452,7 +10452,7 @@ msgstr "Перелаз"
 #: master_preset.xml:9075(item:name|group:Nature|preset:Stone)
 #: master_preset.xml:973(combo:display_values|key:roof:material)
 msgid "Stone"
-msgstr ""
+msgstr "Камень"
 
 #: master_preset.xml:10193(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
@@ -10502,7 +10502,7 @@ msgstr ""
 
 #: master_preset.xml:9559(item:name|group:Turn_Restrictions|preset:Straight_on_only)
 msgid "Straight on only"
-msgstr ""
+msgstr "Только прямо"
 
 #: master_preset.xml:2517(item:name|group:Water|preset:Strait)
 msgid "Strait"
@@ -11256,7 +11256,7 @@ msgstr ""
 
 #: master_preset.xml:1704(item:name|group:Waypoints|preset:Traffic_Signal)
 msgid "Traffic Signal"
-msgstr ""
+msgstr "Светофор"
 
 #: master_preset.xml:6872(combo:display_values|group:Man_Made|preset:Street_cabinet|key:street_cabinet)
 msgid "Traffic control"
@@ -12993,7 +12993,7 @@ msgstr ""
 #: master_preset.xml:18(combo:display_values|key:material)
 msgctxt "material"
 msgid "Stone"
-msgstr ""
+msgstr "Камень"
 
 #: master_preset.xml:1983(combo:text|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -14404,7 +14404,7 @@ msgstr ""
 #: master_preset.xml:890(combo:text|key:colour)
 msgctxt "colour"
 msgid "Color (HTML name or hexadecimal code)"
-msgstr ""
+msgstr "Цвет (HTML имя или шестнадцатеричный код)"
 
 #: master_preset.xml:5223(combo:text|group:Emergency|preset:Fire_Hydrant|key:cap:colour)
 msgctxt "colour"
@@ -15204,7 +15204,7 @@ msgstr ""
 #: master_preset.xml:995(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Stone"
-msgstr ""
+msgstr "Камень"
 
 #: master_preset.xml:993(combo:display_values|key:building:use)
 msgctxt "building"
@@ -17099,12 +17099,12 @@ msgstr ""
 #: master_preset.xml:7513(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Bust"
-msgstr ""
+msgstr "Бюст"
 
 #: master_preset.xml:7513(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Plaque"
-msgstr ""
+msgstr "Мемориальная доска"
 
 #: master_preset.xml:7513(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -17114,12 +17114,12 @@ msgstr "Статуя"
 #: master_preset.xml:7513(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Stele"
-msgstr ""
+msgstr "Стела"
 
 #: master_preset.xml:7513(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Stone"
-msgstr ""
+msgstr "Камень"
 
 #: master_preset.xml:7513(combo:text|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -17129,7 +17129,7 @@ msgstr "Тип"
 #: master_preset.xml:7513(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "War memorial"
-msgstr ""
+msgstr "Военный памятник"
 
 #: master_preset.xml:7786(check:text|group:Clothes|preset:Shoes|key:shoes:repair)
 msgctxt "shoes"
