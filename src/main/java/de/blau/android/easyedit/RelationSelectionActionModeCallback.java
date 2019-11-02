@@ -1,6 +1,7 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -88,15 +90,22 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
                 main.startSupportActionMode(new AddRelationMemberActionModeCallback(manager, (Relation) element, null));
                 break;
             case MENUITEM_SELECT_RELATION_MEMBERS:
-                ArrayList<OsmElement> selection = new ArrayList<>();
-                if (((Relation) element).getMembers() != null) {
+                List<OsmElement> selection = new ArrayList<>();
+                List<RelationMember> members = ((Relation) element).getMembers();
+                if (members != null) {
                     for (RelationMember rm : ((Relation) element).getMembers()) {
-                        selection.add(rm.getElement());
+                        OsmElement e = rm.getElement();
+                        if (e != null) {
+                            selection.add(e);
+                        }
                     }
                 }
                 if (!selection.isEmpty()) {
                     deselect = false;
                     main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, selection));
+                    if (members != null && members.size() != selection.size()) {
+                        Snack.toastTopWarning(main, R.string.toast_members_not_downloaded);
+                    }
                 }
                 break;
             case MENUITEM_SHARE_POSITION:

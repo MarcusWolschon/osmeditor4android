@@ -55,7 +55,7 @@ public class RelationMemberDescription extends RelationMember {
     }
 
     @Override
-    public boolean downloaded() {
+    public synchronized boolean downloaded() {
         return downloaded;
     }
 
@@ -76,7 +76,7 @@ public class RelationMemberDescription extends RelationMember {
      * This returns (if present), the element directly from storage
      */
     @Override
-    public OsmElement getElement() {
+    public synchronized OsmElement getElement() {
         return super.getElement() == null ? App.getDelegator().getOsmElement(getType(), getRef()) : super.getElement();
     }
 

@@ -609,36 +609,40 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             if (currentRole != null && !"".equals(currentRole) && "".equals(ringRole)) {
                 ringRole = currentRole;
             }
-            // a bit of a hack stop this way from being rendered as a way if it doesn't have any tags
-            if (!currentWay.hasTags() && !"".equals(ringRole)) {
-                currentWay.setStyle(DataStyle.getInternal(DataStyle.DONTRENDER_WAY));
-            }
-            areaNodes.clear();
-            areaNodes.addAll(currentWay.getNodes());
-            int rs = ring.size();
-            int ns = areaNodes.size();
-            if (ring.isEmpty()) {
-                ring.addAll(areaNodes);
-            } else if (ring.get(rs - 1).equals(areaNodes.get(0))) {
-                ring.addAll(areaNodes.subList(1, ns));
-            } else if (ring.get(rs - 1).equals(areaNodes.get(ns - 1))) {
-                Collections.reverse(areaNodes);
-                ring.addAll(areaNodes.subList(1, ns));
+            if (currentWay != null) {
+                // a bit of a hack stop this way from being rendered as a way if it doesn't have any tags
+                if (!currentWay.hasTags() && !"".equals(ringRole)) {
+                    currentWay.setStyle(DataStyle.getInternal(DataStyle.DONTRENDER_WAY));
+                }
+                areaNodes.clear();
+                areaNodes.addAll(currentWay.getNodes());
+                int rs = ring.size();
+                int ns = areaNodes.size();
+                if (ring.isEmpty()) {
+                    ring.addAll(areaNodes);
+                } else if (ring.get(rs - 1).equals(areaNodes.get(0))) {
+                    ring.addAll(areaNodes.subList(1, ns));
+                } else if (ring.get(rs - 1).equals(areaNodes.get(ns - 1))) {
+                    Collections.reverse(areaNodes);
+                    ring.addAll(areaNodes.subList(1, ns));
+                }
             }
 
             RelationMember next = members.get((i + 1) % ms);
             Way nextWay = (Way) next.getElement();
             Node lastRingNode = ring.get(ring.size() - 1);
-            List<Node> nextNodes = nextWay.getNodes();
-            int ns1 = nextNodes.size() - 1;
-            if (!nextNodes.get(0).equals(lastRingNode) && !nextNodes.get(ns1).equals(lastRingNode)) {
-                Node firstRingNode = ring.get(0);
-                if (nextNodes.get(0).equals(firstRingNode) || nextNodes.get(ns1).equals(firstRingNode)) {
-                    Collections.reverse(ring);
-                    continue;
+            if (nextWay != null) {
+                List<Node> nextNodes = nextWay.getNodes();
+                int ns1 = nextNodes.size() - 1;
+                if (!nextNodes.get(0).equals(lastRingNode) && !nextNodes.get(ns1).equals(lastRingNode)) {
+                    Node firstRingNode = ring.get(0);
+                    if (nextNodes.get(0).equals(firstRingNode) || nextNodes.get(ns1).equals(firstRingNode)) {
+                        Collections.reverse(ring);
+                        continue;
+                    }
+                    addRing(ringRole, ring);
+                    ring = getNewRing();
                 }
-                addRing(ringRole, ring);
-                ring = getNewRing();
             }
         }
         if (!ring.isEmpty()) {
@@ -756,47 +760,49 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 float x = GeoMath.lonE7ToX(screenWidth, viewBox, lon);
                 List<RelationMember> froms = restriction.getMembersWithRole(Tags.ROLE_TO);
                 RelationMember from = froms.isEmpty() ? null : froms.get(0);
-                if (from != null && from.getElement() != null && from.getType().equals(Way.NAME)) {
+                if (from != null) {
                     Way fromWay = (Way) from.getElement();
-                    int size = fromWay.getNodes().size();
-                    if (size > 1) {
-                        String type = restriction.getTagWithKey(Tags.VALUE_RESTRICTION);
-                        int arrowDirection = 0;
-                        if (type != null) {
-                            switch (type) {
-                            case Tags.VALUE_NO_RIGHT_TURN:
-                            case Tags.VALUE_ONLY_RIGHT_TURN:
-                                arrowDirection = 90;
-                                y -= 2 * ICON_SIZE_DP;
-                                x += 2 * ICON_SIZE_DP;
-                                break;
-                            case Tags.VALUE_NO_LEFT_TURN:
-                            case Tags.VALUE_ONLY_LEFT_TURN:
-                                arrowDirection = -90;
-                                y += 2 * ICON_SIZE_DP;
-                                x += 2 * ICON_SIZE_DP;
-                                break;
-                            case Tags.VALUE_NO_STRAIGHT_ON:
-                            case Tags.VALUE_ONLY_STRAIGHT_ON:
-                                arrowDirection = 180;
-                                y -= 2 * ICON_SIZE_DP;
-                                break;
-                            default:
-                                // ignore
+                    if (fromWay != null && from.getType().equals(Way.NAME)) {
+                        int size = fromWay.getNodes().size();
+                        if (size > 1) {
+                            String type = restriction.getTagWithKey(Tags.VALUE_RESTRICTION);
+                            int arrowDirection = 0;
+                            if (type != null) {
+                                switch (type) {
+                                case Tags.VALUE_NO_RIGHT_TURN:
+                                case Tags.VALUE_ONLY_RIGHT_TURN:
+                                    arrowDirection = 90;
+                                    y -= 2 * ICON_SIZE_DP;
+                                    x += 2 * ICON_SIZE_DP;
+                                    break;
+                                case Tags.VALUE_NO_LEFT_TURN:
+                                case Tags.VALUE_ONLY_LEFT_TURN:
+                                    arrowDirection = -90;
+                                    y += 2 * ICON_SIZE_DP;
+                                    x += 2 * ICON_SIZE_DP;
+                                    break;
+                                case Tags.VALUE_NO_STRAIGHT_ON:
+                                case Tags.VALUE_ONLY_STRAIGHT_ON:
+                                    arrowDirection = 180;
+                                    y -= 2 * ICON_SIZE_DP;
+                                    break;
+                                default:
+                                    // ignore
+                                }
                             }
+                            Node prevNode = fromWay.getNodes().get(1);
+                            if (fromWay.getLastNode().equals((Node) v)) {
+                                prevNode = fromWay.getNodes().get(size - 2);
+                            }
+                            long bearing = (GeoMath.bearing(prevNode.getLon() / 1E7D, prevNode.getLat() / 1E7D, lon / 1E7D, lat / 1E7D) + arrowDirection) % 360;
+                            canvas.save();
+                            canvas.rotate(bearing, x, y);
+                        } else {
+                            from = null;
                         }
-                        Node prevNode = fromWay.getNodes().get(1);
-                        if (fromWay.getLastNode().equals((Node) v)) {
-                            prevNode = fromWay.getNodes().get(size - 2);
-                        }
-                        long bearing = (GeoMath.bearing(prevNode.getLon() / 1E7D, prevNode.getLat() / 1E7D, lon / 1E7D, lat / 1E7D) + arrowDirection) % 360;
-                        canvas.save();
-                        canvas.rotate(bearing, x, y);
                     } else {
                         from = null;
                     }
-                } else {
-                    from = null;
                 }
                 paintNodeIcon(restriction, canvas, x, y, null);
                 if (from != null) {
@@ -807,23 +813,25 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 Coordinates centroid = Geometry.centroidXY(screenWidth, screenHeight, viewBox, viaWay);
                 List<RelationMember> tos = restriction.getMembersWithRole(Tags.ROLE_TO);
                 RelationMember to = tos.isEmpty() ? null : tos.get(0);
-                if (to != null && to.getElement() != null && to.getType().equals(Way.NAME)) {
+                if (to != null) {
                     Way toWay = (Way) to.getElement();
-                    int size = viaWay.getNodes().size();
-                    if (size > 1) {
-                        int offset = 0;
-                        if (!viaWay.hasNode(toWay.getFirstNode())) {
-                            offset = 180;
+                    if (toWay != null && to.getType().equals(Way.NAME)) {
+                        int size = viaWay.getNodes().size();
+                        if (size > 1) {
+                            int offset = 0;
+                            if (!viaWay.hasNode(toWay.getFirstNode())) {
+                                offset = 180;
+                            }
+                            long bearing = (GeoMath.bearing(viaWay.getFirstNode().getLon() / 1E7D, viaWay.getFirstNode().getLat() / 1E7D,
+                                    viaWay.getLastNode().getLon() / 1E7D, viaWay.getLastNode().getLat() / 1E7D) + offset) % 360;
+                            canvas.save();
+                            canvas.rotate(bearing, (float) centroid.x, (float) centroid.y);
+                        } else {
+                            to = null;
                         }
-                        long bearing = (GeoMath.bearing(viaWay.getFirstNode().getLon() / 1E7D, viaWay.getFirstNode().getLat() / 1E7D,
-                                viaWay.getLastNode().getLon() / 1E7D, viaWay.getLastNode().getLat() / 1E7D) + offset) % 360;
-                        canvas.save();
-                        canvas.rotate(bearing, (float) centroid.x, (float) centroid.y);
                     } else {
                         to = null;
                     }
-                } else {
-                    to = null;
                 }
                 paintNodeIcon(restriction, canvas, (float) centroid.x, (float) centroid.y, null);
                 if (to != null) {

@@ -281,149 +281,177 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * @param nextRow the next row
      * @return a Connected value describing the connection
      */
-    private Connected getConnection(RelationMemberRow previousRow, RelationMemberRow currentRow, RelationMemberRow nextRow) {
+    private Connected getConnection(@Nullable RelationMemberRow previousRow, @NonNull RelationMemberRow currentRow, @Nullable RelationMemberRow nextRow) {
         Connected result = Connected.NOT;
         RelationMemberDescription previous = previousRow != null ? previousRow.getRelationMemberDescription() : null;
         RelationMemberDescription current = currentRow.getRelationMemberDescription();
         RelationMemberDescription next = nextRow != null ? nextRow.getRelationMemberDescription() : null;
-        String currentType = current.getType();
-        if (current.getElement() == null) {
-            // FIXME this seems to happen on restore in not quite clear circumstances
-            Log.e(DEBUG_TAG, "Element not downloaded for " + current.getDescription());
-            current.update();
-            return result;
-        }
-        if (Way.NAME.equals(currentType)) {
-            Way w = (Way) current.getElement();
-            currentRow.up = null;
-            currentRow.down = null;
-            if (w.isClosed()) {
-                result = Connected.CLOSEDWAY;
-                if (previous != null && previous.downloaded()) {
-                    if (Way.NAME.equals(previous.getType())) {
-                        if (previousRow.down != null) {
-                            result = Connected.CLOSEDWAY_UP;
-                            currentRow.up = previousRow.down;
-                        }
-                    } else if (Node.NAME.equals(previous.getType())) {
-                        Node prevNode = (Node) previous.getElement();
-                        if (w.hasNode(prevNode)) {
-                            result = Connected.CLOSEDWAY_UP;
-                            currentRow.up = prevNode;
-                        }
-                    } else {
-                        // FIXME previous is a relation and we could in principle check if we can connect to it
-                    }
-                }
-                if (next != null && next.downloaded()) {
-                    OsmElement nextElement = next.getElement();
-                    if (Way.NAME.equals(next.getType())) {
-                        Way nextWay = (Way) nextElement;
-                        Node nextFirst = nextWay.getFirstNode();
-                        Node nextLast = nextWay.getLastNode();
-                        if (w.hasNode(nextLast) || w.hasNode(nextFirst)) {
-                            if (result == Connected.CLOSEDWAY_UP) {
-                                result = Connected.CLOSEDWAY_BOTH;
-                            } else {
-                                result = Connected.CLOSEDWAY_DOWN;
-                            }
-                            currentRow.down = w.hasNode(nextLast) ? nextLast : nextFirst;
-                        }
-                    } else if (Node.NAME.equals(next.getType())) {
-                        Node nextNode = (Node) nextElement;
-                        if (w.hasNode(nextNode)) {
-                            if (result == Connected.CLOSEDWAY_UP) {
-                                result = Connected.CLOSEDWAY_BOTH;
-                            } else {
-                                result = Connected.CLOSEDWAY_DOWN;
-                            }
-                            currentRow.down = nextNode;
-                        }
-                    } else {
-                        // FIXME next is a relation and we could in principle check if we can connect to it
-                    }
-                }
-            } else {
-                Node notused = null;
-                Node first = w.getFirstNode();
-                Node last = w.getLastNode();
-                if (previous != null && previous.downloaded()) {
-                    if (Way.NAME.equals(previous.getType())) {
-                        if (previousRow.down != null) {
-                            currentRow.up = previousRow.down;
-                            if (currentRow.up.equals(first)) {
-                                notused = last;
-                            } else {
-                                notused = first;
-                            }
-                            result = Connected.UP;
-                        }
-                    } else if (Node.NAME.equals(previous.getType())) {
-                        Node prevNode = (Node) previous.getElement();
-                        if (prevNode.equals(first)) {
-                            notused = last;
-                            result = Connected.UP;
-                            currentRow.up = first;
-                        } else if (prevNode.equals(last)) {
-                            notused = first;
-                            result = Connected.UP;
-                            currentRow.up = last;
-                        }
-                    } else {
-                        // FIXME previous is a relation and we could in principle check if we can connect to it
-                    }
-                }
-                if (next != null && next.downloaded()) {
-                    OsmElement nextElement = next.getElement();
-                    if (Way.NAME.equals(next.getType())) {
-                        Way nextWay = (Way) nextElement;
-                        if (nextWay.isClosed()) {
-                            if (notused == null && (nextWay.hasNode(first) || nextWay.hasNode(last))) {
-                                result = Connected.DOWN;
-                                currentRow.down = nextWay.hasNode(first) ? first : last;
-                            } else if (nextWay.hasNode(notused)) {
-                                result = Connected.BOTH;
-                                currentRow.down = notused;
-                            }
-                        } else {
-                            Node nextFirst = nextWay.getFirstNode();
-                            Node nextLast = nextWay.getLastNode();
-                            if (notused == null && (nextLast.equals(first) || nextFirst.equals(first) || nextLast.equals(last) || nextFirst.equals(last))) {
-                                result = Connected.DOWN;
-                                currentRow.down = nextLast.equals(first) || nextFirst.equals(first) ? first : last;
-                            } else if (nextLast.equals(notused) || nextFirst.equals(notused)) {
-                                result = Connected.BOTH;
-                                currentRow.down = notused;
-                            }
-                        }
-                    } else if (Node.NAME.equals(next.getType())) {
-                        Node nextNode = (Node) nextElement;
-                        if (notused == null && (nextNode.equals(first) || nextNode.equals(last))) {
-                            result = Connected.DOWN;
-                            currentRow.down = nextNode.equals(first) ? first : last;
-                        } else if (nextNode.equals(notused)) {
-                            result = Connected.BOTH;
-                            currentRow.down = notused;
-                        }
-                    } else {
-                        // FIXME next is a relation and we could in principle check if we can connect to it
-                    }
-                }
+        synchronized (current) {
+            String currentType = current.getType();
+            if (current.getElement() == null) {
+                // FIXME this seems to happen on restore in not quite clear circumstances
+                Log.e(DEBUG_TAG, "Element not downloaded for " + current.getDescription());
+                current.update();
+                return result;
             }
-
-        } else if (Node.NAME.equals(currentType)) {
-            Node n = (Node) current.getElement();
-            if (previous != null && Way.NAME.equals(previous.getType()) && previous.downloaded()) {
-                if (((Way) previous.getElement()).getLastNode().equals(n) || ((Way) previous.getElement()).getFirstNode().equals(n)) {
-                    result = Connected.UP;
+            if (Way.NAME.equals(currentType)) {
+                Way w = (Way) current.getElement();
+                currentRow.up = null;
+                currentRow.down = null;
+                if (w.isClosed()) {
+                    result = Connected.CLOSEDWAY;
+                    if (previous != null) {
+                        synchronized (previous) {
+                            if (previous.downloaded()) {
+                                if (Way.NAME.equals(previous.getType())) {
+                                    if (previousRow.down != null) {
+                                        result = Connected.CLOSEDWAY_UP;
+                                        currentRow.up = previousRow.down;
+                                    }
+                                } else if (Node.NAME.equals(previous.getType())) {
+                                    Node prevNode = (Node) previous.getElement();
+                                    if (w.hasNode(prevNode)) {
+                                        result = Connected.CLOSEDWAY_UP;
+                                        currentRow.up = prevNode;
+                                    }
+                                } else {
+                                    // FIXME previous is a relation and we could in principle check if we can connect to
+                                    // it
+                                }
+                            }
+                        }
+                    }
+                    if (next != null) {
+                        synchronized (next) {
+                            if (next.downloaded()) {
+                                OsmElement nextElement = next.getElement();
+                                if (Way.NAME.equals(next.getType())) {
+                                    Way nextWay = (Way) nextElement;
+                                    Node nextFirst = nextWay.getFirstNode();
+                                    Node nextLast = nextWay.getLastNode();
+                                    if (w.hasNode(nextLast) || w.hasNode(nextFirst)) {
+                                        if (result == Connected.CLOSEDWAY_UP) {
+                                            result = Connected.CLOSEDWAY_BOTH;
+                                        } else {
+                                            result = Connected.CLOSEDWAY_DOWN;
+                                        }
+                                        currentRow.down = w.hasNode(nextLast) ? nextLast : nextFirst;
+                                    }
+                                } else if (Node.NAME.equals(next.getType())) {
+                                    Node nextNode = (Node) nextElement;
+                                    if (w.hasNode(nextNode)) {
+                                        if (result == Connected.CLOSEDWAY_UP) {
+                                            result = Connected.CLOSEDWAY_BOTH;
+                                        } else {
+                                            result = Connected.CLOSEDWAY_DOWN;
+                                        }
+                                        currentRow.down = nextNode;
+                                    }
+                                } else {
+                                    // FIXME next is a relation and we could in principle check if we can connect to it
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    Node notused = null;
+                    Node first = w.getFirstNode();
+                    Node last = w.getLastNode();
+                    if (previous != null) {
+                        synchronized (previous) {
+                            if (previous.downloaded()) {
+                                if (Way.NAME.equals(previous.getType())) {
+                                    if (previousRow.down != null) {
+                                        currentRow.up = previousRow.down;
+                                        if (currentRow.up.equals(first)) {
+                                            notused = last;
+                                        } else {
+                                            notused = first;
+                                        }
+                                        result = Connected.UP;
+                                    }
+                                } else if (Node.NAME.equals(previous.getType())) {
+                                    Node prevNode = (Node) previous.getElement();
+                                    if (prevNode.equals(first)) {
+                                        notused = last;
+                                        result = Connected.UP;
+                                        currentRow.up = first;
+                                    } else if (prevNode.equals(last)) {
+                                        notused = first;
+                                        result = Connected.UP;
+                                        currentRow.up = last;
+                                    }
+                                } else {
+                                    // FIXME previous is a relation and we could in principle check if we can connect to
+                                    // it
+                                }
+                            }
+                        }
+                    }
+                    if (next != null) {
+                        synchronized (next) {
+                            if (next.downloaded()) {
+                                OsmElement nextElement = next.getElement();
+                                if (Way.NAME.equals(next.getType())) {
+                                    Way nextWay = (Way) nextElement;
+                                    if (nextWay.isClosed()) {
+                                        if (notused == null && (nextWay.hasNode(first) || nextWay.hasNode(last))) {
+                                            result = Connected.DOWN;
+                                            currentRow.down = nextWay.hasNode(first) ? first : last;
+                                        } else if (nextWay.hasNode(notused)) {
+                                            result = Connected.BOTH;
+                                            currentRow.down = notused;
+                                        }
+                                    } else {
+                                        Node nextFirst = nextWay.getFirstNode();
+                                        Node nextLast = nextWay.getLastNode();
+                                        if (notused == null
+                                                && (nextLast.equals(first) || nextFirst.equals(first) || nextLast.equals(last) || nextFirst.equals(last))) {
+                                            result = Connected.DOWN;
+                                            currentRow.down = nextLast.equals(first) || nextFirst.equals(first) ? first : last;
+                                        } else if (nextLast.equals(notused) || nextFirst.equals(notused)) {
+                                            result = Connected.BOTH;
+                                            currentRow.down = notused;
+                                        }
+                                    }
+                                } else if (Node.NAME.equals(next.getType())) {
+                                    Node nextNode = (Node) nextElement;
+                                    if (notused == null && (nextNode.equals(first) || nextNode.equals(last))) {
+                                        result = Connected.DOWN;
+                                        currentRow.down = nextNode.equals(first) ? first : last;
+                                    } else if (nextNode.equals(notused)) {
+                                        result = Connected.BOTH;
+                                        currentRow.down = notused;
+                                    }
+                                } else {
+                                    // FIXME next is a relation and we could in principle check if we can connect to it
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-            if (next != null && Way.NAME.equals(next.getType()) && next.downloaded()) {
-                if (((Way) next.getElement()).getLastNode().equals(n) || ((Way) next.getElement()).getFirstNode().equals(n)) {
-                    if (result == Connected.UP) {
-                        result = Connected.BOTH;
-                    } else {
-                        result = Connected.DOWN;
+            } else if (Node.NAME.equals(currentType)) {
+                Node n = (Node) current.getElement();
+                if (previous != null) {
+                    synchronized (previous) {
+                        if (Way.NAME.equals(previous.getType()) && previous.downloaded()) {
+                            if (((Way) previous.getElement()).getLastNode().equals(n) || ((Way) previous.getElement()).getFirstNode().equals(n)) {
+                                result = Connected.UP;
+                            }
+                        }
+                    }
+                }
+                if (next != null) {
+                    synchronized (next) {
+                        if (Way.NAME.equals(next.getType()) && next.downloaded()) {
+                            if (((Way) next.getElement()).getLastNode().equals(n) || ((Way) next.getElement()).getFirstNode().equals(n)) {
+                                if (result == Connected.UP) {
+                                    result = Connected.BOTH;
+                                } else {
+                                    result = Connected.DOWN;
+                                }
+                            }
+                        }
                     }
                 }
             }

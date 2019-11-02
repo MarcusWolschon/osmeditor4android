@@ -67,7 +67,7 @@ public class RelationMember implements Serializable {
      * @return the type (NODE, WAY, RELATION) as a String
      */
     @NonNull
-    public String getType() {
+    public synchronized String getType() {
         if (element != null) {
             return element.getName();
         }
@@ -79,7 +79,7 @@ public class RelationMember implements Serializable {
      * 
      * @return the OSM id
      */
-    public long getRef() {
+    public synchronized long getRef() {
         if (element != null) {
             return element.getOsmId();
         }
@@ -109,7 +109,7 @@ public class RelationMember implements Serializable {
      * @return the element if downloaded, null if it isn't
      */
     @Nullable
-    public OsmElement getElement() {
+    public synchronized OsmElement getElement() {
         return element;
     }
 
@@ -118,7 +118,7 @@ public class RelationMember implements Serializable {
      * 
      * @param e the OsmElement
      */
-    public void setElement(final OsmElement e) {
+    public synchronized void setElement(final OsmElement e) {
         element = e;
     }
 
@@ -127,7 +127,7 @@ public class RelationMember implements Serializable {
      * 
      * @return true if downloaded
      */
-    public boolean downloaded() {
+    public synchronized boolean downloaded() {
         return element != null;
     }
 

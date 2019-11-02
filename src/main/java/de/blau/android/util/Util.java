@@ -209,21 +209,23 @@ public final class Util {
      * @param way2 second Way
      * @return true if the have a common Node
      */
-    private static boolean haveCommonNode(@NonNull Way way1, @NonNull Way way2) {
-        List<Node> way1Nodes = way1.getNodes();
-        int size1 = way1Nodes.size();
-        List<Node> way2Nodes = way2.getNodes();
-        int size2 = way2Nodes.size();
-        // optimization: check start and end first, this should make partially sorted list reasonably fast
-        if (way2Nodes.contains(way1Nodes.get(0)) || way2Nodes.contains(way1Nodes.get(size1 - 1)) || way1Nodes.contains(way2Nodes.get(0))
-                || way1Nodes.contains(way2Nodes.get(size2 - 1))) {
-            return true;
-        }
-        // nope have to iterate
-        List<Node> slice = way2Nodes.subList(1, size2 - 1);
-        for (int i = 1; i < size1 - 2; i++) {
-            if (slice.contains(way1Nodes.get(i))) {
+    private static boolean haveCommonNode(@Nullable Way way1, @Nullable Way way2) {
+        if (way1 != null && way2 != null) {
+            List<Node> way1Nodes = way1.getNodes();
+            int size1 = way1Nodes.size();
+            List<Node> way2Nodes = way2.getNodes();
+            int size2 = way2Nodes.size();
+            // optimization: check start and end first, this should make partially sorted list reasonably fast
+            if (way2Nodes.contains(way1Nodes.get(0)) || way2Nodes.contains(way1Nodes.get(size1 - 1)) || way1Nodes.contains(way2Nodes.get(0))
+                    || way1Nodes.contains(way2Nodes.get(size2 - 1))) {
                 return true;
+            }
+            // nope have to iterate
+            List<Node> slice = way2Nodes.subList(1, size2 - 1);
+            for (int i = 1; i < size1 - 2; i++) {
+                if (slice.contains(way1Nodes.get(i))) {
+                    return true;
+                }
             }
         }
         return false;

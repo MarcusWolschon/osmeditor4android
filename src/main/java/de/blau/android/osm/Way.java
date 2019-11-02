@@ -163,10 +163,12 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * @param way the Way to check for a common Node
      * @return true if there is at least one common Node
      */
-    public boolean hasCommonNode(final Way way) {
-        for (Node n : this.nodes) {
-            if (way.hasNode(n)) {
-                return true;
+    public boolean hasCommonNode(@Nullable final Way way) {
+        if (way != null) {
+            for (Node n : this.nodes) {
+                if (way.hasNode(n)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -179,10 +181,12 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * @return a common Node or null if none
      */
     @Nullable
-    public Node getCommonNode(Way way) {
-        for (Node n : this.nodes) {
-            if (way.hasNode(n)) {
-                return n;
+    public Node getCommonNode(@Nullable final Way way) {
+        if (way != null) {
+            for (Node n : this.nodes) {
+                if (way.hasNode(n)) {
+                    return n;
+                }
             }
         }
         return null;

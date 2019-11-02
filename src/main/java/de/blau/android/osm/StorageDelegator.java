@@ -2597,7 +2597,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Check is we have data in Storage
+     * Check if we have data in Storage
      * 
      * @return true if there is no data
      */
