@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.5: Fix crash in advanced prefs on android 4.X, tweak search scoring, protect against relation members being pruned, catch content resolver exceptions, update translations.
+
 14.0.4: Don't auto-apply the address preset.
 
 14.0.3: Fix int overflow when calculating longitude, special handling for destination_sign relations, fix phone number input, update imagery and preset.
