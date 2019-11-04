@@ -1283,10 +1283,10 @@ public class Preset implements Serializable {
      * Returns a list of icon URLs referenced by a preset
      * 
      * @param presetDir a File object pointing to the directory containing this preset
-     * @return an ArrayList of http and https URLs as string, or null if there is an error during parsing
+     * @return a List of http and https URLs as string, or null if there is an error during parsing
      */
-    public static List<String> parseForURLs(File presetDir) {
-        final ArrayList<String> urls = new ArrayList<>();
+    public static List<String> parseForURLs(@NonNull File presetDir) {
+        final List<String> urls = new ArrayList<>();
         File[] list = presetDir.listFiles(new PresetFileFilter());
         String presetFilename = null;
         if (list != null) {
@@ -1305,7 +1305,7 @@ public class Preset implements Serializable {
                  * ${@inheritDoc}.
                  */
                 @Override
-                public void startElement(String uri, String locaclName, String name, Attributes attr) throws SAXException {
+                public void startElement(String uri, String localName, String name, Attributes attr) throws SAXException {
                     if (GROUP.equals(name) || ITEM.equals(name)) {
                         String url = attr.getValue(ICON);
                         if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
@@ -1315,7 +1315,7 @@ public class Preset implements Serializable {
                 }
             });
         } catch (Exception e) {
-            Log.e("PresetURLParser", "Error parsing preset", e);
+            Log.e(DEBUG_TAG, "Error parsing " + presetFilename + " for URLs", e);
             return null;
         }
         return urls;
@@ -2861,7 +2861,7 @@ public class Preset implements Serializable {
          */
         void addToSearchIndex(@Nullable String term, @Nullable String translationContext) {
             // search support
-            if (term != null) {                
+            if (term != null) {
                 String normalizedName = SearchIndexUtils.normalize(term);
                 searchIndex.add(normalizedName, this);
                 String[] words = normalizedName.split(" ");
