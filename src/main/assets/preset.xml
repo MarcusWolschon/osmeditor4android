@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.0.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -5649,6 +5649,13 @@
             <reference ref="colours" />
             <combo key="seats" text="Seats count" values="2,3,4,5,6,7,8,9,10"/>
         </item> <!-- Bench -->
+        <item name="Bleachers" icon="icons/png/amenity_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:leisure=bleachers"/>
+            <space/>
+            <key key="leisure" value="bleachers"/>
+            <reference ref="material"/>
+            <reference ref="colours" />
+        </item> <!-- Bleachers -->
         <item name="Outdoor seating" icon="icons/png/amenity_outdoor_seating.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=outdoor_seating"/>
             <space/>
@@ -6308,14 +6315,14 @@
             <key key="sport" value="croquet"/>
             <reference ref="name_leisure_pitch"/>
         </item> <!-- Croquet -->
-        <item name="Field Hockey" icon="presets/field_hockey.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Field Hockey" icon="icons/png/sport_hockey.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:sport=field_hockey"/>
             <space/>
             <key key="sport" value="field_hockey"/>
             <text key="name" text="Name"/>
             <reference ref="sport_facility"/>
         </item> <!-- Field Hockey -->
-        <item name="Ice Hockey" icon="icons/png/sport_hockey_21013.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Ice Hockey" icon="icons/png/sport_ice_hockey_21013.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:sport=ice_hockey"/>
             <space/>
             <key key="sport" value="ice_hockey"/>
@@ -6405,8 +6412,8 @@
 		<item name="Building" icon="icons/png/man_made_house_sp.png" type="node,closedway,multipolygon" preset_name_label="true">
 			<link wiki="Key:building"/>
 			<space/>
-			<combo key="building" text="Building" values="yes,house,garage,apartments,industrial,residential,detached,terrace,bungalow,hut,roof,garages,school,dormitory,hotel,hangar,commercial,service,train_station,barn,stable,cabin,farm,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower,public,ruins,bakehouse,static_caravan,semidetached_house,ger" 
-                display_values="Yes,House,Garage,Apartments,Industrial,Residential,Detached,Terrace,Bungalow,Hut,Roof,Garages,School,Dormitory,Hotel,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm,Farm auxiliary,Transportation,Greenhouse,Office,University,College,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower,Public,Ruins,Bakehouse,Static caravan,Semidetached house,Ger" 
+			<combo key="building" text="Building" values="yes,house,garage,apartments,industrial,residential,detached,terrace,bungalow,hut,roof,garages,school,dormitory,hotel,hangar,commercial,service,train_station,barn,stable,cabin,farm,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower,public,ruins,bakehouse,static_caravan,semidetached_house,ger,grandstand" 
+                display_values="Yes,House,Garage,Apartments,Industrial,Residential,Detached,Terrace,Bungalow,Hut,Roof,Garages,School,Dormitory,Hotel,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm,Farm auxiliary,Transportation,Greenhouse,Office,University,College,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower,Public,Ruins,Bakehouse,Static caravan,Semidetached house,Ger,Grandstand" 
                 values_context="building" default="yes" match="keyvalue!" values_searchable="true"/>
 			<reference ref="additional_building_tags"/>
 			<preset_link preset_name="Address"/>
