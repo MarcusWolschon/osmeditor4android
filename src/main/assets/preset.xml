@@ -5565,6 +5565,7 @@
                 <check key="recycling:clothes" text="Clothes" disable_off="true"/>
                 <check key="recycling:coffee_capsules" text="Coffee capsules" disable_off="true"/>
                 <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true"/>
+		<check key="recycling:drugs" text="Drugs" disable off="true"/>
                 <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true"/>
                 <check key="recycling:engine_oil" text="Engine oil" disable_off="true"/>
                 <check key="recycling:glass" text="Glass" disable_off="true"/>
@@ -5596,6 +5597,7 @@
                 <check key="recycling:clothes" text="Clothes" disable_off="true"/>
                 <check key="recycling:coffee_capsules" text="Coffee capsules" disable_off="true"/>
                 <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true"/>
+		<check key="recycling:drugs" text="Drugs" disable off="true"/>
                 <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true"/>
                 <check key="recycling:engine_oil" text="Engine oil" disable_off="true"/>
                 <check key="recycling:glass" text="Glass" disable_off="true"/>
