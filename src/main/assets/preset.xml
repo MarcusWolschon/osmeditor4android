@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.0.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.1.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -5565,6 +5565,7 @@
                 <check key="recycling:clothes" text="Clothes" disable_off="true"/>
                 <check key="recycling:coffee_capsules" text="Coffee capsules" disable_off="true"/>
                 <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true"/>
+		        <check key="recycling:drugs" text="Drugs" disable_off="true"/>
                 <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true"/>
                 <check key="recycling:engine_oil" text="Engine oil" disable_off="true"/>
                 <check key="recycling:glass" text="Glass" disable_off="true"/>
@@ -5596,6 +5597,7 @@
                 <check key="recycling:clothes" text="Clothes" disable_off="true"/>
                 <check key="recycling:coffee_capsules" text="Coffee capsules" disable_off="true"/>
                 <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true"/>
+		        <check key="recycling:drugs" text="Drugs" disable_off="true"/>
                 <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true"/>
                 <check key="recycling:engine_oil" text="Engine oil" disable_off="true"/>
                 <check key="recycling:glass" text="Glass" disable_off="true"/>
