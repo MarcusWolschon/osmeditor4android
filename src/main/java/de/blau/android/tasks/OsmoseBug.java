@@ -29,13 +29,13 @@ public final class OsmoseBug extends Bug implements Serializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     // we currently don't actually use these fields
     private int    item;
     private int    source;
     private int    bugclass; // class
-    private int    subclass;
+    private long   subclass;
     private String username;
 
     /**
@@ -69,7 +69,7 @@ public final class OsmoseBug extends Bug implements Serializable {
                         bug.source = reader.nextInt();
                         bug.bugclass = reader.nextInt();
                         bug.elems = reader.nextString();
-                        bug.subclass = reader.nextInt();
+                        bug.subclass = reader.nextLong();
                         bug.subtitle = reader.nextString();
                         bug.title = reader.nextString();
                         bug.level = reader.nextInt();
