@@ -25,7 +25,7 @@
   <string name="no_login_data_message">OAuth használata esetén ez valószínűleg hiba, küldjön hibajelentést. Ha felhasználónevet és jelszót adott meg (nem javasolt), ellenőrizze, hogy helyes-e.</string>
   <string name="no_connection_title">Nincs kapcsolat a kiszolgálóval</string>
   <string name="no_connection_message">Nem lehet kapcsolódni az OSM kiszolgálóhoz. Ellenőrizze az internetkapcsolatát, vagy próbálja újra később.</string>
-  <string name="ssl_handshake_failed">Nem lehet kapcsolódni az OSM kiszolgálóhoz, mert a HTTPS tárgyalása meghiúsult. Próbáljon meg a nem titkosított kapcsolatra váltást az API beállításokban.</string>
+  <string name="ssl_handshake_failed">Nem lehet kapcsolódni az OSM kiszolgálóhoz, mert a HTTPS kapcsolat meghiúsult. Próbálja ki a nem titkosított kapcsolatot az API beállításoknál.</string>
   <string name="wrong_login_data_title">Nem sikerült hitelesíteni</string>
   <string name="wrong_login_data_message">OAuth használata esetén hitelesítsen újra, majd ismét próbálja meg. Ha felhasználónevet és jelszót adott meg (nem javasolt), ellenőrizze, hogy helyesen adta-e meg.</string>
   <string name="wrong_login_data_re_authenticate">Újrahitelesítés</string>
@@ -88,6 +88,7 @@
   <string name="confirm_upload_edits_page">Módosítások</string>
   <string name="upload_comment_label">Megjegyzés:</string>
   <string name="upload_source_label">Forrás:</string>
+  <string name="upload_close_open_changeset_label">Először le kell zárni a nyitott módosításcsomagot:</string>
   <string name="upload_close_changeset_label">Módosításcsomag lezárása:</string>
   <string name="upload_request_review_label">Kérés ellenőrzése:</string>
   <!---->
@@ -109,9 +110,11 @@
   <string name="openstreetbug_not_supported">%1$s nem támogatott.</string>
   <string name="note_description">Jegyzet: %1$s– %2$s</string>
   <string name="bug_description">%1$s: %2$s – %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Hiba</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Egyéni</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;utoljára frissítve:&lt;br&gt;%1$s&lt;br&gt;azonosító: %2$d</string>
   <string name="bug_element_1">%1$s (nincs letöltve) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
@@ -186,6 +189,7 @@
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK, továbbra is jelenítse meg</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">Hanyagoljuk</string>
   <!--debug dialog-->
   <string name="send_debug_information">Hibakeresési információk elküldése</string>
   <!--JS console dialog-->
@@ -283,6 +287,7 @@ elemek megkövetelése</string>
   <string name="clear_track_description">A követés leállítása és a tárolt követési pontok törlése. Ez nem vonható vissza.</string>
   <!--Tips-->
   <string name="tip_title">Tudta?</string>
+  <string name="tip_check_label">Ne mutassa az opcionális tippeket</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -292,6 +297,7 @@ elemek megkövetelése</string>
   <string name="default_channel_description">Alapértelmezett értesítési csatorna</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <!--Toaster-->
+  <string name="toast_permission_denied">Engedély megtagadva %1$s</string>
   <string name="toast_name_empty">Válasszon egy nevet</string>
   <string name="toast_url_empty">Adjon meg egy URL-t</string>
   <string name="toast_min_zoom">Alacsonyabbra állítja a legkisebb nagyítási szintet, mint a maximum</string>
@@ -368,6 +374,7 @@ elemek megkövetelése</string>
   <string name="toast_invalid_preseturl">Érvénytelen előbeállítás URL</string>
   <string name="toast_invalid_filter_regexp">Érvénytelen reguláris kifejezés ezekkel: kulcs=\"%1$s\" érték=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">A(z) %1$s fénykép nem érhető el</string>
+  <string name="toast_security_error_accessing_photo">Nincs engedély a fénykép megnézéséhez: %1$s</string>
   <string name="toast_no_voice_recognition">A hangfelismerő szolgáltatás hiányzik</string>
   <string name="toast_no_coverage">Nincs lefedettség ehhez: %1$s</string>
   <string name="toast_file_exists">A(z) %1$s fájl létezik.</string>
@@ -443,6 +450,7 @@ elemek megkövetelése</string>
   <string name="clear">Törlés</string>
   <string name="discard">Eldobás</string>
   <string name="retry">Újra</string>
+  <string name="prune">Eltávolít</string>
   <!--Read a file-->
   <string name="read">Olvasás</string>
   <string name="overwrite">Felülírás</string>
@@ -515,6 +523,9 @@ elemek megkövetelése</string>
   <string name="tag_restriction_value_hint">Feltételes korlátozás</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">Egyéni előbeállítás létrehozása</string>
+  <string name="create_preset_title">Egyéni előbeállítás neve</string>
+  <string name="create_preset_default_name">Egyéni %1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Válasszon sugarat:</string>
   <string name="location_default_radius">300m</string>
@@ -557,6 +568,7 @@ elemek megkövetelése</string>
   <string name="menu_erase">Pont törlése</string>
   <string name="menu_set_position">Pozíció</string>
   <string name="menu_split">Kettévágás</string>
+  <string name="menu_remove_node_from_way">Pont eltávolítása egy vonalból</string>
   <string name="menu_extract">Pont kinyerése</string>
   <string name="menu_append">Hozzáfűzés</string>
   <string name="menu_relation">Kapcsolat létrehozása</string>
@@ -572,6 +584,7 @@ elemek megkövetelése</string>
   <string name="menu_gps_follow">Pozíció követése</string>
   <string name="menu_gps_goto">Ugrás a jelenlegi pozícióhoz</string>
   <string name="menu_gps_goto_coordinates">Ugrás koordinátákra…</string>
+  <string name="menu_gps_goto_last_edit">Ugrás az utolsó szerkesztésre</string>
   <string name="menu_gps_start">GPX nyomvonal indítása</string>
   <string name="menu_gps_pause">GPX nyomvonal szüneteltetése</string>
   <string name="menu_gps_clear">GPX nyomvonal és útpontok törlése</string>
@@ -614,6 +627,8 @@ elemek megkövetelése</string>
   <string name="menu_paste_from_clipboard">Beillesztés vágólapról</string>
   <string name="menu_zoom_to_selection">Nagyítás a kijelölésre</string>
   <string name="menu_rotate">Forgatás</string>
+  <string name="menu_orthogonalize">Derékszögesítés</string>
+  <string name="menu_straighten">Kiegyenesít</string>
   <string name="menu_circulize">Elrendezés kör alakban</string>
   <string name="menu_split_polygon">Felosztás sokszögekre</string>
   <string name="menu_newnode_gps">Új pont a GPS pozíciónál</string>
@@ -767,6 +782,8 @@ elemek megkövetelése</string>
   <string name="config_tagFormEnabled_summary">Címkeűrlap megjelenítése a szerkesztéshez.</string>
   <string name="config_showCameraAction_title">Kameraművelet megjelenítése</string>
   <string name="config_showCameraAction_summary">Kamera ikon megjelenítése a műveletsávon.</string>
+  <string name="config_useInternalPhotoViewer_title">Beépített fényképnéző használata</string>
+  <string name="config_useInternalPhotoViewer_summary">Beépített fényképnéző használata, de ha nincs kijelölve, akkor más nézőprogram lesz használva.</string>
   <string name="config_followGPSbutton_title">Pozíció követése gomb elrendezése</string>
   <string name="config_followGPSbutton_summary">Hol jelenjen meg a „Pozíció követése” gomb.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Mindig sötétítse el a nem letöltött területeket</string>
@@ -821,13 +838,22 @@ elemek megkövetelése</string>
   <string name="config_closeChangesetOnSave_summary">Módosításcsomagok lezárása alapértelmezetten mentéskor.</string>
   <string name="config_enableAutoPresets_title">Automatikus előbeállítások létrehozásának engedélyezése</string>
   <string name="config_enableAutoPresets_summary">Előbeállítások létrehozásának engedélyezése a taginfóból.</string>
+  <string name="config_orthogonalizeThreshold_title">Négyzetesítési határ</string>
+  <string name="config_orthogonalizeThreshold_summary">Fokban megadott határ, ami fölötti érték nem számít</string>
+  <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <!--Auto-download settings-->
+  <string name="config_category_auto_download">Beállítások automatikus letöltése</string>
   <string name="config_extTriggeredDownloadRadius_title">Letöltési sugár</string>
   <string name="config_extTriggeredDownloadRadius_summary">A külsőleg kiváltott letöltés sugara (méterben), 0 esetén csak középre ugrik a térképen.</string>
   <string name="config_downloadRadius_current">%1$d méter</string>
   <string name="config_maxDownloadSpeed_title">Maximális sebesség automatikus letöltés közben</string>
   <string name="config_maxDownloadSpeed_summary">A korlát (km/h-ban) amely felett az automatikus letöltés felfüggesztésre kerül.</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPruneNodeLimit_title">Automatikus tisztítási határ</string>
+  <string name="config_autoPruneNodeLimit_summary">Ha efölötti számú pont van a memóriában, akkor automatikus tisztítás indul.</string>
+  <string name="config_autoPruneNodeLimit_current">%1$d pont</string>
+  <string name="config_panAndZoomLimit_title">Nagyítási határ</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Feladatszűrő</string>
   <string name="config_bugFilter_summary">Kijelöli, hogy mely elemek jelenjenek meg a jegyzetek, hibák és feladatok rétegén.</string>
   <string name="config_bugDownloadRadius_title">Feladatletöltési sugár</string>
@@ -835,6 +861,7 @@ elemek megkövetelése</string>
   <string name="config_maxBugDownloadSpeed_title">Legnagyobb sebesség automatikus letöltés közben</string>
   <string name="config_maxBugDownloadSpeed_summary">A korlát (km/h-ban) amely felett a jegyzetek, hibák és feladatok automatikus letöltése felfüggesztésre kerül.</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Földrajzi hely beállításai</string>
   <string name="config_category_gps_summary">GPS/GNSS paraméterek és más helyadat-szolgáltatók.</string>
   <string name="config_gps_source_title">GPS/GNSS forrás</string>
   <string name="config_gps_source_summary">A GPS/GNSS helyfrissítések forrása.</string>
@@ -892,7 +919,7 @@ elemek megkövetelése</string>
   <string name="listedit_enable_oauth">OAuth engedélyezése</string>
   <string name="config_username_title">OSM felhasználónév</string>
   <string name="config_password_title">OSM jelszó</string>
-  <string name="config_password_summary">Ne tévessze össze a wiki jelszóval. Ne feledje: nyílt szövegként kerül tárolásra és átvitelre!</string>
+  <string name="config_password_summary">Ne tévessze össze a wiki jelszóval. Ne feledje: nyílt szövegként van tárolva és továbbítva!</string>
   <string name="manage_presets">Előbeállítások kezelése</string>
   <string name="listedit_use_translations">Fordítások használata</string>
   <string name="manage_geocoders">Geokódolók kezeléseqqq</string>
@@ -970,6 +997,7 @@ elemek megkövetelése</string>
   <string name="undo_action_fix_conflict">Ütközés feloldása</string>
   <string name="undo_action_extract_node">Pont kiemelése</string>
   <string name="undo_action_apply_osc">OSC-fájl alkalmazása</string>
+  <string name="undo_action_remove_node_from_way">Pont eltávolítása egy vonalból</string>
   <!--ACRA-->
   <string name="crash_dialog_text">A Vespucci összeomlott, vagy egy súlyos hibát észlelt a legutóbbi futásakor.\n\nSegítsen nekünk azzal, hogy az „OK” gombra kattint a hibajelentés küldéséhez.\n</string>
   <string name="crash_dialog_comment_prompt">Adjon meg minden további olyan információt, amiről úgy véli, hasznos lehet, valamint (nem kötelezően) OSM felhasználónevét, ha szeretne visszajelzést.\n\nKöszönjük.</string>
@@ -979,7 +1007,7 @@ elemek megkövetelése</string>
   <string name="exception_too_many_nodes">Ez a művelet túl sok pontból álló vonalat hozna létre.</string>
   <!--Notifications-->
   <string name="alert_data_issue">OSM adatprobléma észlelve</string>
-  <string name="alert_note">Közeli OSM pont észlelvel</string>
+  <string name="alert_note">Közeli OSM pont észlelve</string>
   <string name="alert_bug">Közeli OSM hiba észlelve</string>
   <string name="alert_distance_direction">ennyire: %1$d m %2$s</string>
   <string name="bearing_ne">ÉK ↗</string>

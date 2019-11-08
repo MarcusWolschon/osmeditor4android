@@ -36,6 +36,8 @@
   <string name="unknown_error_message">無法處理從 API 或是訊息回傳的錯誤代碼。&lt;br&gt;&lt;br&gt;</string>
   <string name="no_data_title">沒有資料</string>
   <string name="no_data_message">這裡設定資料來源沒有覆蓋</string>
+  <string name="required_feature_missing_title">遺失或是失效的元件</string>
+  <string name="required_feature_missing_message">這個功能依靠遺失或是失效的系統元件。</string>
   <string name="go_to_openstreetmap">到 openstreetmap.org</string>
   <string name="data_conflict_title">版本衝突</string>
   <string name="data_conflict_message">您下載的資料會與您的編輯衝突。請先上傳您的資料再重試。</string>
@@ -85,6 +87,7 @@
   <string name="confirm_upload_edits_page">變動</string>
   <string name="upload_comment_label">評論：</string>
   <string name="upload_source_label">來源：</string>
+  <string name="upload_close_open_changeset_label">先關係開放的變更集：</string>
   <string name="upload_close_changeset_label">關閉變更組合：</string>
   <string name="upload_request_review_label">請求審核：</string>
   <!---->
@@ -106,9 +109,11 @@
   <string name="openstreetbug_not_supported">並不支援 %1$s</string>
   <string name="note_description">備註：%1$s - %2$s</string>
   <string name="bug_description">%1$s:%2$s - %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug"> 客製化</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id:%2$d</string>
   <string name="bug_element_1">%1$s(未下載) %2$d</string>
   <string name="bug_element_2">%1$s%2$s</string>
@@ -183,6 +188,7 @@
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">OK，繼續顯示</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">OK，忽略</string>
   <!--debug dialog-->
   <string name="send_debug_information">傳送除錯資訊</string>
   <!--JS console dialog-->
@@ -193,8 +199,10 @@
   <string name="js_console_output_hint">這邊會出現結果</string>
   <!--Validator dialogs-->
   <string name="validator_title">驗證器規則集 %1$s</string>
+  <string name="resurvey_entries">重新視察</string>
   <string name="edit_resurvey_title">編輯重新踏查輸入值</string>
   <string name="add_resurvey_title">新增重新踏查輸入值</string>
+  <string name="check_entries">檢查</string>
   <string name="edit_check_title">編輯檢查輸入值</string>
   <string name="add_check_title">新增檢查輸入值</string>
   <string name="max_age">最大年齡</string>
@@ -255,6 +263,9 @@
   <string name="layer_info_terms">條款</string>
   <string name="layer_info_privacy_policy">隱私政策</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">刪除圖片</string>
+  <string name="photo_viewer_delete_button">永久刪除</string>
+  <string name="photo_viewer_goto">到圖片</string>
   <!--API info dialog-->
   <string name="api_info_bounds">邊界框</string>
   <string name="api_info_latest_date">最後包括的日期</string>
@@ -275,13 +286,23 @@
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">停止記錄並且刪除所有儲存的航點，這不能復原。</string>
   <!--Tips-->
+  <string name="tip_title">你知道嗎？</string>
+  <string name="tip_check_label">停止顯示選擇性的技巧</string>
+  <string name="tip_undo">長按回復按鈕能夠顯示所有的回復和重新動作。</string>
+  <string name="tip_imagery_privacy">背景和重疊圖層由第三方提供，使用圖層能夠穿透你的網路地址，並且用提供者的粗略指示，顯示你感興趣的區域。&lt;p&gt;I 如果提供者有補充的隱私政策資訊，你可以在圖層對話中的\"資訊\"選單找到。</string>
+  <string name="tip_pan_and_zoom_auto_download">平移和縮放自動下載功能應當小心使用，因為會造成 OpenStreetMap APIs 還有你的裝置的負擔。&lt;p&gt; API 伺服器的負責可以用
+離線資料來源來避免。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">Vespucci 預設值</string>
+  <string name="default_channel_description">預設通知頻道</string>
   <string name="qa_channel_name">Vespucci QA</string>
+  <string name="qa_channel_description">資料問題和任務的 QA 警告頻道</string>
   <!--Toaster-->
+  <string name="toast_permission_denied">%1$s權限無法讀取</string>
   <string name="toast_name_empty">選擇名稱</string>
   <string name="toast_url_empty">輸入 URL</string>
   <string name="toast_min_zoom">設定比最大值小的最小縮放比例</string>
@@ -356,6 +377,7 @@
   <string name="toast_invalid_preseturl">無效的預置網址</string>
   <string name="toast_invalid_filter_regexp">篩選器無效的正規表示式，key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">無法讀取照片 %1$s</string>
+  <string name="toast_security_error_accessing_photo">無法讀取照片 %1$s</string>
   <string name="toast_no_voice_recognition">沒有語音識別設備存在</string>
   <string name="toast_no_coverage">%1$s在這裡無覆蓋</string>
   <string name="toast_file_exists">%1$s檔案存在。</string>
@@ -404,6 +426,8 @@
   <string name="toast_error_too_unhandled_http_code_for">%1$s有無法處理的 HTTP 代碼</string>
   <string name="toast_unknown_error_for">%1$s的不知名錯誤</string>
   <string name="toast_download_started">下載%1$s要開始了</string>
+  <string name="toast_phone_number_reformatted">重新格式化電話號碼</string>
+  <string name="toast_members_not_downloaded">有些關係成員並未下載</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -430,6 +454,7 @@
   <string name="clear">清除</string>
   <string name="discard">放棄</string>
   <string name="retry">重試</string>
+  <string name="prune">剪裁</string>
   <!--Read a file-->
   <string name="read">讀取</string>
   <string name="overwrite">覆寫</string>
@@ -455,6 +480,8 @@
   <string name="tag_menu_address">增加地址標籤</string>
   <string name="tag_menu_sourcesurvey">已勘測</string>
   <string name="tag_menu_preset">預置</string>
+  <string name="tag_menu_apply_preset">套用預置</string>
+  <string name="tag_menu_apply_preset_with_optional">有條件套用預置</string>
   <string name="tag_menu_revert">回復</string>
   <string name="tag_menu_mapfeatures">地圖圖徵 Wiki</string>
   <string name="tag_menu_addtorelation">增加到關係</string>
@@ -501,6 +528,8 @@
   <string name="tag_restriction_value_hint">修件限制</string>
   <string name="ugly_checkgroup_hint">%1$s,...</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">創建客製預置</string>
+  <string name="create_preset_title">客製預置名稱</string>
   <string name="create_preset_default_name">自訂 %1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">選取半徑：</string>
@@ -612,6 +641,7 @@
   <string name="menu_straighten">拉直</string>
   <string name="menu_circulize">在圓週排列</string>
   <string name="menu_split_polygon">分割成多邊形</string>
+  <string name="menu_unjoin_dissimilar">未連結相異物</string>
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
   <string name="menu_extend_selection">擴大選擇</string>
   <string name="menu_information">資訊</string>
@@ -677,6 +707,11 @@
   <string name="deletenode_relation_description">您將要刪除的節點，它是一個或多個關係中的成員。從關係中移除了節點，可能會使得它或它們變成無效。</string>
   <string name="deletenode">刪除節點</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">分割...</string>
+  <string name="split_all_ways">...所有路徑</string>
+  <string name="merge_context_title">與合併...</string>
+  <string name="merge_with_all_ways">...所有相鄰路徑</string>
+  <string name="merge_with_all_nodes">...所有相鄰節點</string>
   <string name="delete_note_description">刪除註解並無法復原！</string>
   <string name="delete_note">刪除註解</string>
   <!--EasyEdit action mode titles-->
@@ -762,6 +797,8 @@
   <string name="config_tagFormEnabled_summary">顯示標籤表格以便編輯。</string>
   <string name="config_showCameraAction_title">顯示相機的動作</string>
   <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
+  <string name="config_useInternalPhotoViewer_title">使用內建照片檢視器</string>
+  <string name="config_useInternalPhotoViewer_summary">使用內建照片檢視器，如果沒有勾選則會用外部檢視器。</string>
   <string name="config_followGPSbutton_title">跟隨位置按鈕設計樣式</string>
   <string name="config_followGPSbutton_summary">\"跟隨位置\"按鈕出現位置。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
@@ -802,6 +839,8 @@
   <string name="config_enableNameSuggestions_summary">為名稱標籤開啟建議。</string>
   <string name="config_enableNameSuggestionsPresets_title">啟用名稱建議預置</string>
   <string name="config_enableNameSuggestionsPresets_summary">當選擇了名稱建議時自動加入預置。</string>
+  <string name="config_autoApplyPreset_title">啟用自動套用預置</string>
+  <string name="config_autoApplyPreset_summary">當開始用內容編輯器時自動套用預置。</string>
   <string name="config_generateAlerts_title">發生通知</string>
   <string name="config_generateAlerts_summary">有問題的資料或節點發生通知</string>
   <string name="config_groupAlertsOnly_title">只有一堆通知</string>
@@ -816,17 +855,23 @@
   <string name="config_closeChangesetOnSave_summary">在預設情況下，關閉變更時儲存</string>
   <string name="config_enableAutoPresets_title">啟用自動預設產生</string>
   <string name="config_enableAutoPresets_summary">允許從 taginfo 產生預置</string>
+  <string name="config_orthogonalizeThreshold_title">方角化的閾值</string>
+  <string name="config_orthogonalizeThreshold_summary">° 以內的閾值角度將被忽略</string>
+  <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
+  <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
   <string name="config_downloadRadius_current">%1$d 公尺</string>
   <string name="config_maxDownloadSpeed_title">最高自動下載速度</string>
   <string name="config_maxDownloadSpeed_summary">高於此限制(公里/小時)，自動下載暫停。</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPruneNodeLimit_title">自動修剪限制</string>
+  <string name="config_autoPruneNodeLimit_summary">記憶體中的節點到了多少時，則會啟動修剪。</string>
   <string name="config_autoPruneNodeLimit_current">%1$d節點</string>
   <string name="config_panAndZoomLimit_title">縮放限制</string>
-  <string name="config_panAndZoomLimit_summary">平和和縮下時自動下載的最小縮小程度。</string>
+  <string name="config_panAndZoomLimit_summary">平移和縮放自動下載的最小縮放程度。</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">任務篩選器</string>
   <string name="config_bugFilter_summary">選擇哪些元件能顯示在註解、錯誤和任務圖層。</string>

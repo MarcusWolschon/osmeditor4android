@@ -258,6 +258,7 @@
   <string name="layer_info_terms">Zasady</string>
   <string name="layer_info_privacy_policy">Polityka prywatności</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Usuń zdjęcie</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Ramka ograniczająca</string>
   <string name="api_info_latest_date">Data ostatniej aktualizacji</string>
@@ -423,7 +424,7 @@
   <string name="okay">OK</string>
   <string name="cancel">Anuluj</string>
   <string name="dismiss">Odrzuć</string>
-  <string name="done">Zakończone</string>
+  <string name="done">Ok</string>
   <string name="locked">Zablokowane</string>
   <string name="next">Dalej</string>
   <string name="apply">Zastosuj</string>
@@ -465,7 +466,7 @@
   <string name="tag_menu_sourcesurvey">Sprawdzony</string>
   <string name="tag_menu_preset">Szablony</string>
   <string name="tag_menu_revert">Cofnij</string>
-  <string name="tag_menu_mapfeatures">Wiki obiektów mapy</string>
+  <string name="tag_menu_mapfeatures">Opis typu obiektu</string>
   <string name="tag_menu_addtorelation">Dodaj do relacji</string>
   <string name="tag_menu_resetMRU">Zresetuj szablony</string>
   <string name="tag_menu_reset_address_prediction">Zresetuj przewidywanie adresu</string>

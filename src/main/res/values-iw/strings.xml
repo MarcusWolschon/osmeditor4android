@@ -290,14 +290,20 @@
   <string name="tip_title">הידעת?</string>
   <string name="tip_check_label">להפסיק להציג עצות כרשות</string>
   <string name="tip_undo">לחיצה ארוכה על כפתור הביטול תציג את נקודות הפעילות לחזרה או להתקדמות אליהן.</string>
+  <string name="tip_imagery_privacy">שכבות על ורקע מסופקות על ידי צד־שלישי. בשימוש בשכבה מעביר את כתובת הרשת שלך לצד ציון מעורפל של האזור הנצפה לספק.&lt;p&gt;אם הספק סיפק פרטי מדיניות פרטיות, ניתן לצפות בהם דרך הפריט „מידע” בתפריט שבתיבת הדו־שיח של השכבה.</string>
+  <string name="tip_pan_and_zoom_auto_download">בהורדה אוטומטית בסריקה ובתקריב יש להשתמש בזהירות כיוון שמצב זה עשוי להעמיס על מנשקי ה־API של OpenStreetMap ועל המכשיר שלך&lt;p&gt;ניתן להקל מהעומס על שרתי ה־API ע״י שימוש
+במקור נתונים בלתי מקוון.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <string name="default_channel_name">בררת המחדל של וספוצ׳י</string>
+  <string name="default_channel_description">ערוץ התראות כבררת מחדל</string>
   <string name="qa_channel_name">אבטחת איכות של וספוצ׳י</string>
+  <string name="qa_channel_description">ערוץ הודעות אבטחת איכות לתקלות נתונים ולמשימות</string>
   <!--Toaster-->
+  <string name="toast_permission_denied">ההרשאה נדחתה %1$s</string>
   <string name="toast_name_empty">נא לבחור שם</string>
   <string name="toast_url_empty">נא להקליד כתובת</string>
   <string name="toast_min_zoom">יש להגדיר את רמת התקריב המזערית מתחת למרבית</string>
@@ -377,6 +383,7 @@
   <string name="toast_invalid_preseturl">כתובת שגויה לערכה מוגדרת</string>
   <string name="toast_invalid_filter_regexp">ביטוי רגולרי שגוי במסנן עם מפתח=„%1$s” ערך=„%2$s”</string>
   <string name="toast_error_accessing_photo">לא ניתן לגשת לתמונה %1$s</string>
+  <string name="toast_security_error_accessing_photo">אין הרשאה לגשת לתמונה %1$s</string>
   <string name="toast_no_voice_recognition">אמצעי זיהוי קולי חסר</string>
   <string name="toast_no_coverage">ל־%1$s אין כאן כיסוי</string>
   <string name="toast_file_exists">הקובץ %1$s קיים.</string>
@@ -425,6 +432,7 @@
   <string name="toast_error_too_unhandled_http_code_for">קוד HTTP בלתי מטופל עבור %1$s</string>
   <string name="toast_unknown_error_for">שגיאה לא ידועה עבור %1$s</string>
   <string name="toast_download_started">החלה ההורדה של %1$s</string>
+  <string name="toast_phone_number_reformatted">מספר הטלפון אורגן מחדש</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
   <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>
@@ -476,6 +484,7 @@
   <string name="tag_menu_address">הוספת תגיות כתובת</string>
   <string name="tag_menu_sourcesurvey">תיעוד תואם</string>
   <string name="tag_menu_preset">ערכות מוגדרות</string>
+  <string name="tag_menu_apply_preset">החלת ערכה מוגדרת</string>
   <string name="tag_menu_revert">החזרה</string>
   <string name="tag_menu_mapfeatures">ויקי תכונות מפה</string>
   <string name="tag_menu_addtorelation">הוספה ליחס</string>
@@ -522,6 +531,9 @@
   <string name="tag_restriction_value_hint">הגבלה מותנית</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">יצירת ערכה מוגדרת בהתאמתך</string>
+  <string name="create_preset_title">שם מותאם אישית לערכה מוגדרת</string>
+  <string name="create_preset_default_name">%1$s מותאם אישית</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">בחירת רדיוס:</string>
   <string name="location_default_radius">300 מטר</string>
@@ -564,6 +576,7 @@
   <string name="menu_erase">מחיקת מפרק</string>
   <string name="menu_set_position">מיקום</string>
   <string name="menu_split">פיצול</string>
+  <string name="menu_remove_node_from_way">הסרת מפרק מדרך</string>
   <string name="menu_extract">חילוץ מפרק</string>
   <string name="menu_append">צירוף</string>
   <string name="menu_relation">יצירת יחס</string>
@@ -579,6 +592,7 @@
   <string name="menu_gps_follow">מעקב אחר מיקום</string>
   <string name="menu_gps_goto">מעבר למיקום הנוכחי</string>
   <string name="menu_gps_goto_coordinates">מעבר לנקודות ציון…</string>
+  <string name="menu_gps_goto_last_edit">מעבר לעריכה האחרונה</string>
   <string name="menu_gps_start">התחלת מסלול GPX</string>
   <string name="menu_gps_pause">השהיית מעקב GPX</string>
   <string name="menu_gps_clear">מחיקת מסלול GPX ואת נקודות הדרך שלו</string>
@@ -588,9 +602,13 @@
   <string name="menu_gps_import">יבוא מסלול GPX</string>
   <string name="menu_gps_goto_start">מעבר לתחילת מסלול ה־GPX</string>
   <string name="menu_gps_goto_first_waypoint">קפיצה לנקודת הדרך הראשונה</string>
+  <string name="menu_enable_gps_autodownload">הורדה אוטומטית על בסיס מיקום</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">הורדה אוטומטית בסריקה ובהתמקדות</string>
   <string name="menu_transfer">העברה…</string>
   <string name="menu_transfer_download_current">הורדת התצוגה הנוכחית</string>
+  <string name="menu_transfer_download_replace">פינוי והורדת התצוגה הנוכחית</string>
   <string name="menu_transfer_load_current">טעינת התצוגה הנוכחית</string>
+  <string name="menu_transfer_load_replace">פינוי וטעינת התצוגה הנוכחית</string>
   <string name="menu_transfer_upload">העלאת נתונים לשרת OSM</string>
   <string name="menu_transfer_close_changeset">סגירת ערכת השינויים הנוכחית</string>
   <string name="menu_transfer_file">קובץ…</string>
@@ -621,6 +639,8 @@
   <string name="menu_paste_from_clipboard">הדבקה מלוח הגזירים</string>
   <string name="menu_zoom_to_selection">התקרבות לבחירה</string>
   <string name="menu_rotate">הטייה</string>
+  <string name="menu_orthogonalize">ריבוע</string>
+  <string name="menu_straighten">יישור</string>
   <string name="menu_circulize">סידור במעגל</string>
   <string name="menu_split_polygon">פיצול למצולעים</string>
   <string name="menu_newnode_gps">מפרק חדש במיקום ה־GPS</string>
@@ -688,6 +708,8 @@
   <string name="deletenode_relation_description">פעולה זו תמחק מפרק שחבר ביחס אחד או יותר. הסרת המפרק שנושא יחסים כאלה עשויה להסב נזק.</string>
   <string name="deletenode">מחיקת מפרק</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">פיצול…</string>
+  <string name="split_all_ways">… כל הדרכים </string>
   <string name="merge_context_title">מיזוג עם…</string>
   <string name="merge_with_all_ways">… כל הדרכים הסמוכות</string>
   <string name="merge_with_all_nodes">… כל המפרקים הסמוכים</string>
@@ -821,6 +843,8 @@
   <string name="config_enableNameSuggestions_summary">הפעלת הצעות לתגית שם.</string>
   <string name="config_enableNameSuggestionsPresets_title">הפעלת ערכת הצעות שמות</string>
   <string name="config_enableNameSuggestionsPresets_summary">להוסיף ערכה מוגדרת אוטומטית כאשר נבחרת הצעת שם.</string>
+  <string name="config_autoApplyPreset_title">הפעלת החלה אוטומטית של ערכה מוגדרת</string>
+  <string name="config_autoApplyPreset_summary">להכיל ערכה מוגדרת אוטומטית בעת הפעלת עורך המאפיינים.</string>
   <string name="config_generateAlerts_title">יצירת התרעות</string>
   <string name="config_generateAlerts_summary">יצירת התרעות לנתונים עם תקלות או הערות</string>
   <string name="config_groupAlertsOnly_title">התראות קבוצתיות בלבד</string>
@@ -835,6 +859,9 @@
   <string name="config_closeChangesetOnSave_summary">לסגור ערכות שינויים כבררת מחדל עם שמירה.</string>
   <string name="config_enableAutoPresets_title">הפעלת יצירה אוטומטית של ערכות מוגדרות</string>
   <string name="config_enableAutoPresets_summary">לאפשר יצירה ערכות מוגדרות מפרטי תגיות.</string>
+  <string name="config_orthogonalizeThreshold_title">סף סידור לריבוע</string>
+  <string name="config_orthogonalizeThreshold_summary">הסף ב‏־° שמעבר לו מתעלמים מזוויות</string>
+  <string name="config_orthogonalizeThreshold_current">‎%1$d°‎</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">הגדרות הורדה אוטומטית</string>
   <string name="config_category_auto_download_summary">הגדרות להורדה אוטומטית של נתונים ומשימות</string>
@@ -844,7 +871,9 @@
   <string name="config_maxDownloadSpeed_title">מהירות מרבית להורדה אוטומטית</string>
   <string name="config_maxDownloadSpeed_summary">מגבלה (בקמ״ש) שמעבר לה ההורדה האוטומטית מושהית.</string>
   <string name="config_downloadSpeed_current">%1$d קמ״ש</string>
+  <string name="config_autoPruneNodeLimit_current">%1$d מפרקים</string>
   <string name="config_panAndZoomLimit_title">הגבלת תקריב</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">מסנן משימות</string>
   <string name="config_bugFilter_summary">נא לבחור אילו פריטים מופיעים בשכבות הערות, תקלות ומשימות.</string>
   <string name="config_bugDownloadRadius_title">רדיוס הורדת משימות</string>
@@ -988,6 +1017,7 @@
   <string name="undo_action_fix_conflict">פתרון סתירות</string>
   <string name="undo_action_extract_node">חילוץ מפרק</string>
   <string name="undo_action_apply_osc">החלת קובץ OSC</string>
+  <string name="undo_action_remove_node_from_way">הסרת מפרק מדרך</string>
   <!--ACRA-->
   <string name="crash_dialog_text">וספוצ׳י קרס או שנתקל בתקלות חמורות במהלך ההפעלה הקודמת.\n\nנא לסייע על ידי לחיצה על ‚אישור’ כדי לשלוח דוח שגיאה.\n</string>
   <string name="crash_dialog_comment_prompt">ניתן להוסיף מידע נוסף שלדעתך יסייע לנו (לבחירתך), את שם המשתמש שלך ב־OSM אם מעניין אותך לקבל משוב.\n\nתודה רבה לך.</string>
