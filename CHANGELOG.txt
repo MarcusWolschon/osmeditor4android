@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.6: Protect against number format exception when parsing OSMOSE downloads, don't prune elements that are members of relations, use new preset links, update presets, translations and imagery. 
+
 14.0.5: Fix crash in advanced prefs on android 4.X, tweak search scoring, protect against relation members being pruned, catch content resolver exceptions, update translations.
 
 14.0.4: Don't auto-apply the address preset.
