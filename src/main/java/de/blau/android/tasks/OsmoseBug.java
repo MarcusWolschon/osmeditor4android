@@ -86,8 +86,8 @@ public final class OsmoseBug extends Bug implements Serializable {
                 }
             }
             reader.endObject();
-        } catch (IOException | IllegalStateException ex) {
-            Log.d(DEBUG_TAG, "Ignoring " + ex);
+        } catch (IOException | IllegalStateException | NumberFormatException ex) {
+            Log.d(DEBUG_TAG, "Parse error, ignoring " + ex);
         } finally {
             SavingHelper.close(reader);
         }
