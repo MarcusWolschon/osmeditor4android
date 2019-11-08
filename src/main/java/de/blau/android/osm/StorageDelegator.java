@@ -3146,7 +3146,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Safely remove data that is not in/intersects with the provided BoundingBox
      * 
-     * Doesn't bother with relations, skips selected elements
+     * Doesn't bother with relations, skips selected elements and elements that are relation members
      * 
      * @param box the BoundingBox
      */
@@ -3156,8 +3156,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         LongHashSet keepNodes = new LongHashSet();
 
         for (Way w : currentStorage.getWays()) {
-            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds()) && !logic.isSelected(w)) {
-                removeReferenceFromParents(w);
+            if (apiStorage.getWay(w.getOsmId()) == null && !w.hasParentRelations() && !box.intersects(w.getBounds()) && !logic.isSelected(w)) {
                 currentStorage.removeWay(w);
             } else { // keeping so we need to keep the nodes
                 for (Node n : w.getNodes()) {
@@ -3167,30 +3166,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         for (Node n : currentStorage.getNodes()) {
             long nodeId = n.getOsmId();
-            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId) && !logic.isSelected(n)) {
-                removeReferenceFromParents(n);
+            if (apiStorage.getNode(nodeId) == null && !n.hasParentRelations() && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)
+                    && !logic.isSelected(n)) {
                 currentStorage.removeNode(n);
             }
         }
         BoundingBox.prune(this, box);
         dirty();
-    }
-
-    /**
-     * Remove the references to downloaded elements from parent Relations
-     * 
-     * @param e the OsmElement we want to remove references for
-     */
-    private void removeReferenceFromParents(@NonNull OsmElement e) {
-        List<Relation> parents = e.getParentRelations();
-        if (parents != null) {
-            for (Relation parent : parents) { // remove link from parent relations
-                List<RelationMember> members = parent.getAllMembers(parent);
-                for (RelationMember member : members) {
-                    member.setElement(null);
-                }
-            }
-        }
     }
 
     /**
