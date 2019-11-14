@@ -87,6 +87,7 @@
   <string name="openstreetbug_not_supported">%1$s non supportato</string>
   <string name="note_description">Nota: %1$s - %2$s</string>
   <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Personalizzato</string>
@@ -123,7 +124,7 @@
   <string name="save_file">Salva in</string>
   <string name="existing_track_title">Traccia GPX esistente</string>
   <string name="existing_track_message">Sono già presenti dati in formato GPX, potresti volerli salvare</string>
-  <string name="delete_tags">Cancellare tutte le etichette dell\'oggetto\"%1$s\"?</string>
+  <string name="delete_tags">Cancellare tutte le etichette dell\'oggetto\" %1$s\"?</string>
   <!--element information dialog-->
   <string name="element_information">Informazioni elemento</string>
   <string name="nodes">Nodi</string>
@@ -216,6 +217,7 @@
   <string name="layer_info_terms">Termini</string>
   <string name="layer_info_privacy_policy">Privacy policy</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Cancella foto</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Riquadro di selezione</string>
   <!--Undo - Redo dialog-->
@@ -237,6 +239,7 @@
   <!--NotificationChannels-->
   <string name="qa_channel_name">QA Vespucci</string>
   <!--Toaster-->
+  <string name="toast_permission_denied">Permesso negato %1$s</string>
   <string name="toast_name_empty">Scegli un nome</string>
   <string name="toast_url_empty">Inserisci URL</string>
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
@@ -309,6 +312,7 @@
   <string name="toast_unable_to_create_task_layer">Impossibile creare un livello per i compiti</string>
   <string name="toast_merged">Unito</string>
   <string name="toast_invalid_style_file">Formato dei file invalido per %1$s</string>
+  <string name="toast_members_not_downloaded">Alcuni membri della relazione non sono stati scaricati</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom massimo e minimo</string>
   <string name="error_pbf_no_version">Informazione sulla versione mancante nel file PBF</string>
@@ -400,6 +404,7 @@
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
   <!--Custom preset creation-->
+  <string name="create_preset_default_name">%1$spersonalizzato</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Scegli raggio:</string>
   <string name="location_default_radius">300m</string>
@@ -434,6 +439,7 @@
   <string name="menu_erase">Cancella nodo</string>
   <string name="menu_set_position">Posizione</string>
   <string name="menu_split">Dividi</string>
+  <string name="menu_remove_node_from_way">Rimuovi nodo dalla linea</string>
   <string name="menu_extract">Estrai nodo</string>
   <string name="menu_append">Aggiungi</string>
   <string name="menu_relation">Crea una relazione</string>
@@ -458,6 +464,8 @@
   <string name="menu_gps_import">Importa la traccia GPX</string>
   <string name="menu_gps_goto_start">Vai all\'inizio della traccia GPX</string>
   <string name="menu_gps_goto_first_waypoint">Vai al primo punto</string>
+  <string name="menu_enable_gps_autodownload">Scaricamento automatico basato sulla posizione</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Scarica automaticamente dopo zoom o spostamento schermata</string>
   <string name="menu_transfer">Trasferimento…</string>
   <string name="menu_transfer_download_current">Scarica vista corrente</string>
   <string name="menu_transfer_load_current">Carica la vista corrente</string>
@@ -491,6 +499,7 @@
   <string name="menu_paste_from_clipboard">Copia dalla clipboard</string>
   <string name="menu_zoom_to_selection">Ingrandisci la selezione</string>
   <string name="menu_rotate">Ruota</string>
+  <string name="menu_orthogonalize">Raddrizza</string>
   <string name="menu_circulize">Disponi in cerchio</string>
   <string name="menu_split_polygon">Dividi in poligoni</string>
   <string name="menu_extend_selection">Estendi selezione</string>
@@ -552,6 +561,7 @@
   <string name="deletenode_relation_description">Stai per cancellare un nodo che è membro di una o più relazioni. Rimuovendo un nodo che è parte di una relazione potrebbe renderla inutile.</string>
   <string name="deletenode">Cancella nodo</string>
   <!--EasyEdit context menus-->
+  <string name="merge_context_title">Unisci con...</string>
   <string name="delete_note_description">Cancellare una nota è un\'operazione non annullabile!</string>
   <string name="delete_note">Cancella nota</string>
   <!--EasyEdit action mode titles-->
@@ -652,11 +662,14 @@
   <string name="config_maxAlertDistance_current">%1$d metro(i)</string>
   <string name="config_closeChangesetOnSave_title">Chiudi i gruppi di modifiche</string>
   <string name="config_enableAutoPresets_title">Abilita la generazione dei predefiniti automatici</string>
+  <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <!--Auto-download settings-->
+  <string name="config_category_auto_download">Impostazioni per lo scaricamento automatico</string>
   <string name="config_extTriggeredDownloadRadius_title">Scarica nel raggio di</string>
   <string name="config_downloadRadius_current">%1$d metro(i)</string>
   <string name="config_maxDownloadSpeed_title">Velocità di scaricamento automatico massima</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Filtra compiti</string>
   <string name="config_bugFilter_summary">Seleziona quali elementi vengono mostrati nel livello di note, errori e compiti.</string>
   <string name="config_bugDownloadRadius_title">Raggio di download dei compiti</string>
