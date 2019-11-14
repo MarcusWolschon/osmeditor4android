@@ -412,6 +412,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         List<Way> waysToDraw = ways;
         if (filterMode) {
+            // initial filtering need to happen before relations are processed
+            for (Node n : paintNodes) {
+                tmpFilter.include(n, false);
+            }
             /*
              * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for
              * the later
@@ -431,7 +435,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
             waysToDraw = tmpStyledWays;
         }
-        
+
         // get relations for all nodes and ways
         for (Node n : paintNodes) {
             addRelations(filterMode, n.getParentRelations(), paintRelations);
