@@ -410,22 +410,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         // Paint all ways
         List<Way> ways = delegator.getCurrentStorage().getWays(viewBox);
 
-        // get relations for all nodes and ways
-        for (Node n : paintNodes) {
-            addRelations(filterMode, n.getParentRelations(), paintRelations);
-        }
-        for (Way w : ways) {
-            addRelations(filterMode, w.getParentRelations(), paintRelations);
-        }
-
-        // draw MPs first
-        for (Relation rel : paintRelations) {
-            String relType = rel.getTagWithKey(Tags.KEY_TYPE);
-            if (Tags.VALUE_MULTIPOLYGON.equals(relType) || Tags.VALUE_BOUNDARY.equals(relType)) {
-                paintMultiPolygon(canvas, viewBox, rel);
-            }
-        }
-
         List<Way> waysToDraw = ways;
         if (filterMode) {
             /*
@@ -446,6 +430,22 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 paintHiddenWay(canvas, w);
             }
             waysToDraw = tmpStyledWays;
+        }
+        
+        // get relations for all nodes and ways
+        for (Node n : paintNodes) {
+            addRelations(filterMode, n.getParentRelations(), paintRelations);
+        }
+        for (Way w : ways) {
+            addRelations(filterMode, w.getParentRelations(), paintRelations);
+        }
+
+        // draw MPs first
+        for (Relation rel : paintRelations) {
+            String relType = rel.getTagWithKey(Tags.KEY_TYPE);
+            if (Tags.VALUE_MULTIPOLYGON.equals(relType) || Tags.VALUE_BOUNDARY.equals(relType)) {
+                paintMultiPolygon(canvas, viewBox, rel);
+            }
         }
 
         boolean displayHandles = tmpDrawingSelectedNodes == null && tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null
