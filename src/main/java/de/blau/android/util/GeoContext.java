@@ -38,13 +38,15 @@ public class GeoContext {
     private static final String     LEFT_HAND_TRAFFIC = "left-hand-traffic";
     private static final String     IMPERIAL          = "imperial";
     private static final String     DISTANCE          = "distance";
+    private static final String     LANGUAGES         = "languages";
     private static final String     DEBUG_TAG         = "GeoContext";
     private final CountryBoundaries countryBoundaries;
 
     public class Properties {
-        boolean       imperialUnits   = false;
-        boolean       leftHandTraffic = false;
-        private int[] speedLimits;
+        boolean          imperialUnits   = false;
+        boolean          leftHandTraffic = false;
+        private int[]    speedLimits;
+        private String[] languages;
 
         /**
          * Get an array of common speed limits add mph im imperialUnits is true
@@ -69,6 +71,16 @@ public class GeoContext {
          */
         public boolean imperialUnits() {
             return imperialUnits;
+        }
+        
+        /**
+         * Get the languages for the territory
+         * 
+         * @return an array with language codes or null
+         */
+        @Nullable
+        public String[] getLanguages() {
+            return languages;
         }
     }
 
@@ -147,6 +159,19 @@ public class GeoContext {
                                 prop.speedLimits[i] = speedLimits.get(i);
                             }
                             break;
+                        case LANGUAGES:
+                            reader.beginArray();
+                            List<String> languages = new ArrayList<>();
+                            while (reader.hasNext()) {
+                                languages.add(reader.nextString());
+                            }
+                            reader.endArray();
+                            size = languages.size();
+                            prop.languages = new String[languages.size()];
+                            for (int i = 0; i < size; i++) {
+                                prop.languages[i] = languages.get(i);
+                            }
+                            break;
                         default:
                             Log.e(DEBUG_TAG, "Unknown property " + propName);
                             reader.skipValue();
@@ -157,7 +182,7 @@ public class GeoContext {
                 }
                 reader.endObject();
                 Log.d(DEBUG_TAG, "Found " + result.size() + " entries.");
-            } catch (IOException e) {
+            } catch (IOException | NumberFormatException e) {
                 Log.d(DEBUG_TAG, "Reading " + fileName + " " + e.getMessage());
             }
         } catch (IOException e) {

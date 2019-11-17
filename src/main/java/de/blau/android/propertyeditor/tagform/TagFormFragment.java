@@ -400,20 +400,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.tag_form_menu, menu);
-        FragmentActivity activity = getActivity();
         menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
         menu.findItem(R.id.tag_menu_paste).setVisible(!App.getTagClipboard(getContext()).isEmpty());
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
-        Locale locale = Locale.getDefault();
-        if (activity != null && !(locale.equals(Locale.US) || locale.equals(Locale.UK))) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(activity.getString(R.string.tag_menu_i8n, locale.toLanguageTag()));
-            } else {
-                menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(activity.getString(R.string.tag_menu_i8n, locale.getLanguage()));
-            }
-        } else {
-            menu.findItem(R.id.tag_menu_locale).setVisible(false);
-        }
+
+        Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
+        menu.findItem(R.id.tag_menu_locale).setVisible(prop.getLanguages() != null);
     }
 
     @Override
@@ -475,20 +467,20 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 return true;
             }
             LinkedHashMap<String, String> result = new LinkedHashMap<>();
-            Locale locale = Locale.getDefault();
+            Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
+            String[] languages = prop.getLanguages();
             List<String> i18nKeys = getI18nKeys(tagListener.getBestPreset());
-            for (Entry<String, String> e : allTags.entrySet()) {
-                String key = e.getKey();
-                result.put(key, e.getValue());
-                if (i18nKeys.contains(key)) {
-                    String languageKey = key + ":" + locale.getLanguage();
-                    if (!allTags.containsKey(languageKey)) {
-                        result.put(languageKey, "");
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        String variantKey = key + ":" + locale.toLanguageTag();
-                        if (!allTags.containsKey(variantKey)) {
-                            result.put(variantKey, "");
+            if (languages != null) {
+                for (Entry<String, String> e : allTags.entrySet()) {
+                    String key = e.getKey();
+                    result.put(key, e.getValue());
+                    if (i18nKeys.contains(key)) {
+                        for (String language : languages) {
+                            String languageKey = key + ":" + language;
+                            if (!allTags.containsKey(languageKey)) {
+                                result.put(languageKey, "");
+                            }
+
                         }
                     }
                 }

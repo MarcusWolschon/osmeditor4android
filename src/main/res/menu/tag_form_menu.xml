@@ -49,7 +49,7 @@
     <item
         android:id="@+id/tag_menu_locale"
         app:showAsAction="never"
-        android:title="Placeholder" />
+        android:title="@string/tag_menu_i8n" />
     <item
         android:id="@+id/menu_config"
         android:title="@string/menu_config"
