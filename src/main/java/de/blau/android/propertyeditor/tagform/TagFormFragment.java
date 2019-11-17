@@ -406,7 +406,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
         Locale locale = Locale.getDefault();
         if (activity != null && !(locale.equals(Locale.US) || locale.equals(Locale.UK))) {
-            menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(activity.getString(R.string.tag_menu_i8n, locale.toString()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(activity.getString(R.string.tag_menu_i8n, locale.toLanguageTag()));
+            } else {
+                menu.findItem(R.id.tag_menu_locale).setVisible(true).setTitle(activity.getString(R.string.tag_menu_i8n, locale.getLanguage()));
+            }
         } else {
             menu.findItem(R.id.tag_menu_locale).setVisible(false);
         }
@@ -478,12 +482,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 result.put(key, e.getValue());
                 if (i18nKeys.contains(key)) {
                     String languageKey = key + ":" + locale.getLanguage();
-                    String variantKey = key + ":" + locale.toString();
                     if (!allTags.containsKey(languageKey)) {
                         result.put(languageKey, "");
                     }
-                    if (!allTags.containsKey(variantKey)) {
-                        result.put(variantKey, "");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        String variantKey = key + ":" + locale.toLanguageTag();
+                        if (!allTags.containsKey(variantKey)) {
+                            result.put(variantKey, "");
+                        }
                     }
                 }
             }
