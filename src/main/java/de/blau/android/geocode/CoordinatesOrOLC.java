@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatDialog;
+import android.util.Log;
 import android.widget.EditText;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -35,10 +36,14 @@ import de.blau.android.util.NetworkStatus;
  */
 public class CoordinatesOrOLC {
 
+    protected static final String DEBUG_TAG = "CoordinatesOrOLC";
+
     private static final Pattern OLC_SHORT = Pattern.compile("(^|\\s)([23456789CFGHJMPQRVWX]{4,6}\\+[23456789CFGHJMPQRVWX]{2,3})\\s*(.*)$",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern OLC_FULL  = Pattern
             .compile("(^|\\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\\+[23456789CFGHJMPQRVWX]{2,3})(\\s|$)", Pattern.CASE_INSENSITIVE);
+
+    private static AppCompatDialog dialog;
 
     public interface HandleResult {
 
@@ -64,84 +69,98 @@ public class CoordinatesOrOLC {
      * @param handler a handler for the results
      */
     public static void get(@NonNull final FragmentActivity activity, @NonNull final HandleResult handler) {
-        final AppCompatDialog dialog = TextLineDialog.get(activity, R.string.go_to_coordinates_title, R.string.go_to_coordinates_hint, null,
-                new TextLineDialog.TextLineInterface() {
-                    @Override
-                    public void processLine(EditText input) {
-                        String text = input.getText().toString();
-                        if ("".equals(text)) {
-                            return;
-                        }
-                        LatLon ll = null;
-                        try {
-                            ll = CoordinateParser.parseVerbatimCoordinates(text);
-                        } catch (ParseException pex) {
-                            try {
-                                OpenLocationCode olc = null;
-                                Matcher m = OLC_FULL.matcher(text);
-                                if (m.find()) {
-                                    olc = new OpenLocationCode(m.group(2));
-                                } else {
-                                    m = OLC_SHORT.matcher(text);
-                                    if (m.find()) {
-                                        olc = new OpenLocationCode(m.group(2));
-                                        final String loc = m.group(3);
-                                        if (!"".equals(loc)) { // user has supplied a location
-                                            if (new NetworkStatus(activity).isConnected()) {
-                                                String url = getNominatimUrl(activity);
-                                                if (url != null) {
-                                                    QueryNominatim querier = new QueryNominatim(null, url, null, false);
-                                                    querier.execute(loc);
-                                                    List<SearchResult> results;
-                                                    try {
-                                                        results = querier.get(5, TimeUnit.SECONDS); // FIXME move this
-                                                                                                    // to a thread
-                                                        if (results != null && !results.isEmpty()) {
-                                                            SearchResult result = results.get(0);
-                                                            olc = olc.recover(result.getLat(), result.getLon());
-                                                        } else {
-                                                            handler.onError(activity.getString(R.string.no_nominatim_result, loc));
-                                                            return;
-                                                        }
-                                                    } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
-                                                        querier.cancel(true);
-                                                        handler.onError(activity.getString(R.string.no_nominatim_result, loc));
-                                                        return;
-                                                    }
+        dialog = TextLineDialog.get(activity, R.string.go_to_coordinates_title, R.string.go_to_coordinates_hint, null, new TextLineDialog.TextLineInterface() {
+            @Override
+            public void processLine(EditText input) {
+                String text = input.getText().toString();
+                if ("".equals(text)) {
+                    return;
+                }
+                LatLon ll = null;
+                try {
+                    ll = CoordinateParser.parseVerbatimCoordinates(text);
+                } catch (ParseException pex) {
+                    try {
+                        OpenLocationCode olc = null;
+                        Matcher m = OLC_FULL.matcher(text);
+                        if (m.find()) {
+                            olc = new OpenLocationCode(m.group(2));
+                        } else {
+                            m = OLC_SHORT.matcher(text);
+                            if (m.find()) {
+                                olc = new OpenLocationCode(m.group(2));
+                                final String loc = m.group(3);
+                                if (!"".equals(loc)) { // user has supplied a location
+                                    if (new NetworkStatus(activity).isConnected()) {
+                                        String url = getNominatimUrl(activity);
+                                        if (url != null) {
+                                            QueryNominatim querier = new QueryNominatim(null, url, null, false);
+                                            querier.execute(loc);
+                                            List<SearchResult> results;
+                                            try {
+                                                results = querier.get(5, TimeUnit.SECONDS); // FIXME move this
+                                                                                            // to a thread
+                                                if (results != null && !results.isEmpty()) {
+                                                    SearchResult result = results.get(0);
+                                                    olc = olc.recover(result.getLat(), result.getLon());
                                                 } else {
-                                                    handler.onError(activity.getString(R.string.no_nominatim_server));
+                                                    handler.onError(activity.getString(R.string.no_nominatim_result, loc));
                                                     return;
                                                 }
-                                            } else {
-                                                handler.onError(activity.getString(R.string.network_required));
+                                            } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR
+                                                querier.cancel(true);
+                                                handler.onError(activity.getString(R.string.no_nominatim_result, loc));
                                                 return;
                                             }
-                                        } else { // relative to screen center
-                                            ViewBox box = App.getLogic().getViewBox();
-                                            if (box != null) {
-                                                double[] c = box.getCenter();
-                                                olc = olc.recover(c[1], c[0]);
-                                            }
+                                        } else {
+                                            handler.onError(activity.getString(R.string.no_nominatim_server));
+                                            return;
                                         }
                                     } else {
-                                        handler.onError(activity.getString(R.string.unparseable_coordinates));
+                                        handler.onError(activity.getString(R.string.network_required));
+                                        return;
+                                    }
+                                } else { // relative to screen center
+                                    Log.e(DEBUG_TAG, "trying to recover OLC");
+                                    ViewBox box = App.getLogic().getViewBox();
+                                    Log.e(DEBUG_TAG, "box " + box.toPrettyString());
+                                    if (box != null) {
+                                        double[] c = box.getCenter();
+                                        Log.e(DEBUG_TAG, "recover coords " + c[1] + " / " + c[0]);
+                                        olc = olc.recover(c[1], c[0]);
                                     }
                                 }
-                                if (olc != null) {
-                                    CodeArea ca = olc.decode();
-                                    ll = new LatLon(ca.getCenterLatitude(), ca.getCenterLongitude());
-                                }
-                            } catch (Exception e) {
+                            } else {
+                                Log.e(DEBUG_TAG, "Not an OLC " + text);
                                 handler.onError(activity.getString(R.string.unparseable_coordinates));
-                                return;
                             }
                         }
-                        if (ll != null) {
-                            handler.onSuccess(ll);
+                        if (olc != null) {
+                            CodeArea ca = olc.decode();
+                            ll = new LatLon(ca.getCenterLatitude(), ca.getCenterLongitude());
                         }
+                    } catch (Exception e) {
+                        Log.e(DEBUG_TAG, e.getMessage());
+                        handler.onError(activity.getString(R.string.unparseable_coordinates));
+                        return;
                     }
-                });
+                }
+                if (ll != null) {
+                    handler.onSuccess(ll);
+                    dismiss();
+                }
+            }
+        }, false);
         dialog.show();
+    }
+
+    /**
+     * Dismiss the dialog
+     */
+    private static void dismiss() {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
     }
 
     /**
