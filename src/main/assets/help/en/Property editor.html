@@ -18,7 +18,8 @@
 <p>In the tabs tapping the checkbox in the header row will select/de-select all elements.</p>
 <h2>Properties Tab</h2>
 <p>This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simple remove or reset the value (or delete them in the <em>Details</em> tab).</p>
-<p>Fields are added by applying presets, either via the <em>Preset</em> tab or via the <img src="../images/tag_menu_apply_preset.png" alt="Preset" /> <em>Apply best preset</em> button. Contrary to applying presets from the <em>Preset</em> tab or from the most recently used list below the tags, this will add fields for any optional tags that are present in the preset.</p>
+<p>Fields are added by applying presets, either via the <em>Preset</em> tab or via the <img src="../images/preset.png" alt="Apply preset" /> <em>Apply best preset</em> or <img src="../images/tag_menu_apply_preset.png" alt="Apply preset with optional tags" /> <em>Apply best preset with optional tags</em> buttons. The later will add fields for any optional tags that are present in the preset.</p>
+<p>Further behaviour and menu items are similar or the same as for the <em>Details</em> tab, the <em>Add language tags</em> menu item will add local language variants of the name and similar keys to the preset if configured for the region (see <a href="https://github.com/simonpoole/geocontext">the GeoContext repository</a>).</p>
 <h2>Details Tab</h2>
 <p>Display of the key - value attributes of the edited object.</p>
 <p>The following operations can be performed on selected tags</p>
@@ -33,7 +34,9 @@
 <p>If multiple objects with different values for the same tags are being edited, such value fields will display 'Multiple values' and the auto-complete list will contain the existing values with a count. Setting the value to a specific value will set it for all objects, an empty value will leave the values untouched.</p>
 <h3><img src="../images/address.png" alt="Address" /> Add address tags</h3>
 <p>Add address tags for the object. This function will try to predict the house number to suggest. It works best along straight roads with regular numbering schemes.</p>
-<h3><img src="../images/tag_menu_apply_preset.png" alt="Preset" /> Apply best preset</h3>
+<h3><img src="../images/preset.png" alt="Apply preset" /> Apply best preset</h3>
+<p>Apply the best matching preset to the existing tags.</p>
+<h3><img src="../images/tag_menu_apply_preset.png" alt="Apply preset with optional tags" /> Apply best preset with optional tags</h3>
 <p>Will locate the best matching preset to the existing tags and apply the preset adding further suggested / optional fields.</p>
 <h3><img src="../images/tag_menu_repeat.png" alt="Paste" /> Paste</h3>
 <p>Paste and merge the tags from the internal clipboard.</p>

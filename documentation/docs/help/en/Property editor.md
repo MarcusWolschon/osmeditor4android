@@ -19,7 +19,9 @@ In the tabs tapping the checkbox in the header row will select/de-select all ele
 
 This tab gives a simplified, preset-driven, editing screen for the tags on the selected object on which the keys are represented by their description. To remove individual attributes you can simple remove or reset the value (or delete them in the _Details_ tab).
 
-Fields are added by applying presets, either via the _Preset_ tab or via the ![Preset](../images/tag_menu_apply_preset.png) _Apply best preset_ button. Contrary to applying presets from the _Preset_ tab or from the most recently used list below the tags, this will add fields for any optional tags that are present in the preset. 
+Fields are added by applying presets, either via the _Preset_ tab or via the ![Apply preset](../images/preset.png) _Apply best preset_ or ![Apply preset with optional tags](../images/tag_menu_apply_preset.png) _Apply best preset with optional tags_ buttons. The later will add fields for any optional tags that are present in the preset.
+
+Further behaviour and menu items are similar or the same as for the _Details_ tab, the _Add language tags_ menu item will add local language variants of the name and similar keys to the preset if configured for the region (see [the GeoContext repository](https://github.com/simonpoole/geocontext)).
 
 ## Details Tab
  
@@ -44,7 +46,11 @@ If multiple objects with different values for the same tags are being edited, su
 
 Add address tags for the object. This function will try to predict the house number to suggest. It works best along straight roads with regular numbering schemes. 
 
-### ![Preset](../images/tag_menu_apply_preset.png) Apply best preset
+### ![Apply preset](../images/preset.png) Apply best preset
+
+Apply the best matching preset to the existing tags.
+
+### ![Apply preset with optional tags](../images/tag_menu_apply_preset.png) Apply best preset with optional tags
 
 Will locate the best matching preset to the existing tags and apply the preset adding further suggested / optional fields.
 
