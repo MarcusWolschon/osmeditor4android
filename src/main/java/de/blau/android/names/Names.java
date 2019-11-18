@@ -227,7 +227,12 @@ public class Names {
                                                 reader.beginObject();
                                                 secondaryTags = new TagMap();
                                                 while (reader.hasNext()) {
-                                                    secondaryTags.put(reader.nextName(), reader.nextString());
+                                                    String k = reader.nextName();
+                                                    if (!Tags.KEY_BRAND_WIKIPEDIA.equals(k) && !Tags.KEY_BRAND_WIKIDATA.equals(k)) {
+                                                        secondaryTags.put(k, reader.nextString());
+                                                    } else {
+                                                        reader.skipValue();
+                                                    }
                                                 }
                                                 reader.endObject(); // tags
                                                 break;
