@@ -436,6 +436,7 @@
   <string name="toast_unknown_error_for">Neznámá chyba pro %1$s</string>
   <string name="toast_download_started">Stahování %1$s zahájeno</string>
   <string name="toast_phone_number_reformatted">Telefonní číslo bylo přeformátováno</string>
+  <string name="toast_members_not_downloaded">Někteří členové relace nejsou staženi</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -644,6 +645,7 @@
   <string name="menu_paste_from_clipboard">Vložit ze schránky</string>
   <string name="menu_zoom_to_selection">Přiblížit na výběr</string>
   <string name="menu_rotate">Otočit</string>
+  <string name="menu_orthogonalize">Zpravoúhlit</string>
   <string name="menu_straighten">Napřímit</string>
   <string name="menu_circulize">Uspořádat do kruhu</string>
   <string name="menu_split_polygon">Rozdělit na dvě plochy</string>

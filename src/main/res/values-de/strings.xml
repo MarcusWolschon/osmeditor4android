@@ -430,6 +430,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese im \"Info
   <string name="toast_unknown_error_for">Unbekannter Fehler für %1$s</string>
   <string name="toast_download_started">Download von %1$s gestarted</string>
   <string name="toast_phone_number_reformatted">Telefonnummer formatiert</string>
+  <string name="toast_members_not_downloaded">Einige Relationsmitglieder sind nicht heruntergeloaden</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit Quellen müssen einen Minimal- und Maximal-Zoom haben.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -559,7 +560,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese im \"Info
   <string name="allow_all_networks">Alle Netzwerke erlauben</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Gehe zu Koordinaten</string>
-  <string name="go_to_coordinates_hint">Koordinaten für OLC eingeben</string>
+  <string name="go_to_coordinates_hint">Koordinaten oder ein OLC eingeben</string>
   <string name="unparseable_coordinates">Koordinaten nicht interpretierbar</string>
   <string name="network_required">Netzwerkverbindung für Positionsbestimmung erforderlich</string>
   <string name="no_nominatim_server">Kein konfigurierter Nominatim-Server gefunden</string>
@@ -605,7 +606,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese im \"Info
   <string name="menu_enable_pan_and_zoom_auto_download">Aktuelle Ansicht auto. laden</string>
   <string name="menu_transfer">Übertragung…</string>
   <string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
-  <string name="menu_transfer_download_replace">Mit aktuelle Ansicht ersetzen</string>
+  <string name="menu_transfer_download_replace">Mit aktueller Ansicht ersetzen</string>
   <string name="menu_transfer_load_current">Lade aktuelle Ansicht</string>
   <string name="menu_transfer_load_replace">Mit aktuelle Ansicht ersetzen</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
@@ -873,6 +874,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese im \"Info
   <string name="config_autoPruneNodeLimit_summary">Anzahl der Knoten im Speicher, die ein Beschneiden auslöst.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d Knoten</string>
   <string name="config_panAndZoomLimit_title">Zoombegrenzung</string>
+  <string name="config_panAndZoomLimit_summary">Zoomstufe ab der die aktuelle Ansicht automatisch geladen wird.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Aufgabenfilter</string>
   <string name="config_bugFilter_summary">Auswahl welche Objekte auf dem Notizen, Fehler und Aufgaben-Ebene angezeigt werden</string>
