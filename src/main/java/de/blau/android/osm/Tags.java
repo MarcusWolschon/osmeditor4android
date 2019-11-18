@@ -113,8 +113,10 @@ public final class Tags {
     public static final String VALUE_COASTLINE      = "coastline";
     public static final String KEY_PLACE            = "place";
 
-    public static final String KEY_OPERATOR = "operator";
-    public static final String KEY_BRAND    = "brand";
+    public static final String KEY_OPERATOR        = "operator";
+    public static final String KEY_BRAND           = "brand";
+    public static final String KEY_BRAND_WIKIPEDIA = "brand:wikipedia";
+    public static final String KEY_BRAND_WIKIDATA  = "brand:wikidata";
 
     public static final String KEY_RAILWAY = "railway";
     //
