@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.8: Fix another filtering issue with inheriting status from Relations, updated NSI, imagery and translations. 
+
 14.0.7: Fix filtering regression in which relations were overriding way filter status, update presets, imagery and translations. 
 
 14.0.6: Protect against number format exception when parsing OSMOSE downloads, don't prune elements that are members of relations, use new preset links, update presets, translations and imagery. 
