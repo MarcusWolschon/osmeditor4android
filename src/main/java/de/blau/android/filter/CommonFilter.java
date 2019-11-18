@@ -121,7 +121,7 @@ public abstract class CommonFilter extends InvertableFilter {
                     if (element instanceof Way) {
                         Way w = (Way) element;
                         Include includeWay = cachedWays.get(w);
-                        if (includeWay == null || (include != Include.DONT && includeWay == Include.DONT)) {
+                        if (includeWay != null && (include != Include.DONT && includeWay == Include.DONT)) {
                             // if not originally included overwrite now
                             if (include == Include.INCLUDE_WITH_WAYNODES) {
                                 for (Node n : w.getNodes()) {
@@ -133,7 +133,7 @@ public abstract class CommonFilter extends InvertableFilter {
                     } else if (element instanceof Node) {
                         Node n = (Node) element;
                         Include includeNode = cachedNodes.get(n);
-                        if (includeNode == null || (include != Include.DONT && includeNode == Include.DONT)) {
+                        if (includeNode != null && (include != Include.DONT && includeNode == Include.DONT)) {
                             // if not originally included overwrite now
                             cachedNodes.put(n, include);
                         }
