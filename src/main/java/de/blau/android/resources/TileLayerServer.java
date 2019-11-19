@@ -68,6 +68,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.services.util.MapTileDownloader;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
@@ -490,8 +491,8 @@ public class TileLayerServer implements Serializable {
             } else {
                 // assume Internet URL
                 Request request = new Request.Builder().url(replaceGeneralParameters(metadataUrl)).build();
-                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS).build();
                 Call metadataCall = client.newCall(request);
                 Response metadataCallResponse = metadataCall.execute();
                 if (metadataCallResponse.isSuccessful()) {
@@ -520,7 +521,7 @@ public class TileLayerServer implements Serializable {
                     if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
                         tileUrl = parser.getText().trim();
                         // Log.d("OpenStreetMapTileServer","loadInfo tileUrl " + tileUrl);
-                        int extPos = tileUrl.lastIndexOf(".jpeg"); // TODO fix this awlful hack
+                        int extPos = tileUrl.lastIndexOf(".jpeg"); // TODO fix this awful hack
                         if (extPos >= 0) {
                             imageFilenameExtension = ".jpg";
                         }
@@ -587,8 +588,8 @@ public class TileLayerServer implements Serializable {
         InputStream bis = null;
         try {
             Request request = new Request.Builder().url(replaceGeneralParameters(brandLogoUri)).build();
-            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                    .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(MapTileDownloader.TIMEOUT, TimeUnit.MILLISECONDS).build();
             Call logoCall = client.newCall(request);
             Response logoCallResponse = logoCall.execute();
             if (logoCallResponse.isSuccessful()) {
@@ -730,8 +731,8 @@ public class TileLayerServer implements Serializable {
         }
 
         // TODO think of a elegant way to do this
-        if (type.equals(TYPE_BING)) { // hopelessly hardwired
-            Log.d(DEBUG_TAG, "bing url " + tileUrl);
+        if (TYPE_BING.equals(type)) { // hopelessly hardwired
+            Log.d(DEBUG_TAG, "bing url " + tileUrl + " async " + async);
             metadataLoaded = false;
 
             if (async) {
@@ -751,7 +752,7 @@ public class TileLayerServer implements Serializable {
                 loadInfo(tileUrl);
             }
             return;
-        } else if (type.equals("scanex")) { // hopelessly hardwired
+        } else if ("scanex".equals(type)) { // hopelessly hardwired
             tileUrl = "http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}";
             imageFilenameExtension = ".jpg";
             return;
@@ -1401,7 +1402,7 @@ public class TileLayerServer implements Serializable {
     /**
      * Get the branding logo for the tile layer.
      * 
-     * Retrieves logos for which we have an url asynchronously 
+     * Retrieves logos for which we have an url asynchronously
      * 
      * @return The branding logo, or null if there is none.
      */
