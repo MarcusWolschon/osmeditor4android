@@ -25,12 +25,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
@@ -72,6 +75,8 @@ import de.blau.android.views.layers.MapTilesOverlayLayer;
  *
  */
 public class Layers extends SizedFixedImmersiveDialogFragment {
+
+    private static final int VERTICAL_OFFSET = 64;
 
     private static final String DEBUG_TAG = Layers.class.getName();
 
@@ -253,6 +258,15 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         });
         dialog.setContentView(layout);
         ViewCompat.setClipBounds(layout, null);
+        // Android 9 clips the popupmenus just above the dialog
+        // moving it to the top forces the menu to the bottom which
+        // which works
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.TOP;
+        wlp.y = Density.dpToPx(getContext(), VERTICAL_OFFSET); // 64 is rather random
+        window.setAttributes(wlp);
+
         return dialog;
     }
 
@@ -448,6 +462,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         public void onClick(View arg0) {
             final FragmentActivity activity = getActivity();
             PopupMenu popup = new PopupMenu(activity, button);
+            Menu menu = popup.getMenu();
 
             if (layer instanceof MapTilesLayer) { // maybe we should use an interface here
                 // get MRU list from layer
@@ -458,7 +473,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     if (!currentServerId.equals(id)) {
                         final TileLayerServer tileServer = TileLayerServer.get(activity, id, true);
                         if (tileServer != null) {
-                            MenuItem item = popup.getMenu().add(tileServer.getName());
+                            System.out.println("menu item >" + tileServer.getName() + "<");
+                            MenuItem item = menu.add(tileServer.getName());
                             item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                                 @Override
                                 public boolean onMenuItemClick(MenuItem item) {
@@ -471,14 +487,16 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                                     return true;
                                 }
                             });
+                        } else {
+                            ((MapTilesLayer) layer).removeServerFromMRU(id);
                         }
                     }
                     if (i == tileServerIds.length - 1) {
-                        MenuItem divider = popup.getMenu().add("");
+                        MenuItem divider = menu.add("");
                         divider.setEnabled(false);
                     }
                 }
-                MenuItem item = popup.getMenu().add(R.string.layer_select_imagery);
+                MenuItem item = menu.add(R.string.layer_select_imagery);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -491,7 +509,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
 
                 if (!(layer instanceof MapTilesOverlayLayer)) {
-                    item = popup.getMenu().add(R.string.menu_tools_add_imagery_from_oam);
+                    item = menu.add(R.string.menu_tools_add_imagery_from_oam);
                     item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
@@ -510,7 +528,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     });
                 }
 
-                item = popup.getMenu().add(R.string.layer_flush_tile_cache);
+                item = menu.add(R.string.layer_flush_tile_cache);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -521,7 +539,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         return true;
                     }
                 });
-                item = popup.getMenu().add(R.string.menu_tools_background_properties);
+                item = menu.add(R.string.menu_tools_background_properties);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -533,7 +551,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
             if (layer instanceof ConfigureInterface && ((ConfigureInterface) layer).enableConfiguration()) {
-                MenuItem item = popup.getMenu().add(R.string.menu_layers_configure);
+                MenuItem item = menu.add(R.string.menu_layers_configure);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -545,7 +563,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
             if (layer instanceof StyleableLayer) {
-                MenuItem item = popup.getMenu().add(R.string.layer_change_style);
+                MenuItem item = menu.add(R.string.layer_change_style);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -557,7 +575,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
             if (layer instanceof LayerInfoInterface) {
-                MenuItem item = popup.getMenu().add(R.string.menu_information);
+                MenuItem item = menu.add(R.string.menu_information);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -569,7 +587,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
             if (layer instanceof DisableInterface) {
-                MenuItem item = popup.getMenu().add(R.string.disable);
+                MenuItem item = menu.add(R.string.disable);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -586,7 +604,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
             if (layer instanceof DiscardInterface) {
-                MenuItem item = popup.getMenu().add(R.string.discard);
+                MenuItem item = menu.add(R.string.discard);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -600,7 +618,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
             if (layer instanceof PruneableInterface) {
-                MenuItem item = popup.getMenu().add(R.string.prune);
+                MenuItem item = menu.add(R.string.prune);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
