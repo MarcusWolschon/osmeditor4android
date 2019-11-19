@@ -429,6 +429,7 @@
   <string name="toast_unknown_error_for">Erreur inconnue pour %1$s</string>
   <string name="toast_download_started">Téléchargement de %1$s démarré</string>
   <string name="toast_phone_number_reformatted">Numéro de téléphone reformaté</string>
+  <string name="toast_members_not_downloaded">Certains membres de la relation n\'ont pas été chargés</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Les sources MapSplit doivent avoir un niveau de zoom min et max</string>
   <string name="error_pbf_no_version">Informations de version manquantes dans le fichier PBF</string>

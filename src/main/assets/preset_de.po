@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2019-11-10 00:23+0100\n"
-"PO-Revision-Date: 2019-11-09 23:35+0000\n"
+"POT-Creation-Date: 2019-11-19 22:00+0100\n"
+"PO-Revision-Date: 2019-11-19 21:09+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -6593,13 +6593,13 @@ msgstr "Mehrseillängenklettern"
 msgid "Multipolygon"
 msgstr "Multipolygon"
 
+#: master_preset.xml:4555(combo:display_values|group:Culture|preset:Museum|key:museum_type)
+msgid "Municipal"
+msgstr ""
+
 #: master_preset.xml:8758(item:name|group:Places|preset:Municipality)
 msgid "Municipality"
 msgstr "Gemeinde"
-
-#: master_preset.xml:4555(combo:display_values|group:Culture|preset:Museum|key:museum_type)
-msgid "Municipial"
-msgstr "Städtisch"
 
 #: master_preset.xml:4667(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
@@ -9199,7 +9199,7 @@ msgstr "Stützmauer"
 
 #: master_preset.xml:2412(combo:display_values|group:Water|preset:Basin|key:basin)
 msgid "Retention"
-msgstr ""
+msgstr "Rückhaltebecken"
 
 #: master_preset.xml:5333(item:name|group:Social_Facilities|preset:Retirement_Home)
 msgid "Retirement Home"
@@ -11944,7 +11944,7 @@ msgstr "WLAN"
 
 #: master_preset.xml:6594(combo:display_values|group:Indoor_elements|preset:Room|key:room)
 msgid "Waiting"
-msgstr ""
+msgstr "Wartezimmer"
 
 #: master_preset.xml:5124(combo:display_values|group:Emergency|preset:Emergency_ward_entrance|key:emergency_ward_entrance)
 msgid "Walk-in"
@@ -15814,12 +15814,12 @@ msgstr ""
 #: master_preset.xml:2765(combo:display_values|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
 msgid "Full"
-msgstr ""
+msgstr "Vollschranke"
 
 #: master_preset.xml:2765(combo:display_values|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
 msgid "Half"
-msgstr ""
+msgstr "Halbschranke"
 
 #: master_preset.xml:2765(combo:display_values|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
@@ -16412,7 +16412,7 @@ msgstr ""
 #: master_preset.xml:4811(multiselect:display_values|group:Public_Building|preset:Community_Centre|key:community_centre:for)
 msgctxt "community_centre"
 msgid "Man"
-msgstr ""
+msgstr "Männer"
 
 #: master_preset.xml:4807(combo:display_values|group:Public_Building|preset:Community_Centre|key:community_centre)
 msgctxt "community_centre"
@@ -16427,7 +16427,7 @@ msgstr ""
 #: master_preset.xml:4807(combo:display_values|group:Public_Building|preset:Community_Centre|key:community_centre)
 msgctxt "community_centre"
 msgid "Parish hall"
-msgstr ""
+msgstr "Kirchgemeindesaal"
 
 #: master_preset.xml:4811(multiselect:display_values|group:Public_Building|preset:Community_Centre|key:community_centre:for)
 msgctxt "community_centre"
@@ -17233,7 +17233,7 @@ msgstr "Stadtbaum"
 #: master_preset.xml:8995(combo:display_values|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"
 msgid "Border"
-msgstr ""
+msgstr "Grenze"
 
 #: master_preset.xml:8995(combo:display_values|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"

@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2019-11-10 00:23+0100\n"
-"PO-Revision-Date: 2019-11-09 23:24+0000\n"
+"POT-Creation-Date: 2019-11-19 22:00+0100\n"
+"PO-Revision-Date: 2019-11-19 21:01+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -6284,7 +6284,7 @@ msgstr ""
 
 #: master_preset.xml:6715(item:name|group:Man_Made|preset:Mineshaft)
 msgid "Mineshaft"
-msgstr ""
+msgstr "Вертикальный тоннель"
 
 #: master_preset.xml:1741(item:name|group:Waypoints|preset:Mini-Roundabout)
 msgid "Mini-Roundabout"
@@ -6586,12 +6586,12 @@ msgstr ""
 msgid "Multipolygon"
 msgstr ""
 
-#: master_preset.xml:8758(item:name|group:Places|preset:Municipality)
-msgid "Municipality"
+#: master_preset.xml:4555(combo:display_values|group:Culture|preset:Museum|key:museum_type)
+msgid "Municipal"
 msgstr ""
 
-#: master_preset.xml:4555(combo:display_values|group:Culture|preset:Museum|key:museum_type)
-msgid "Municipial"
+#: master_preset.xml:8758(item:name|group:Places|preset:Municipality)
+msgid "Municipality"
 msgstr ""
 
 #: master_preset.xml:4667(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
@@ -7775,7 +7775,7 @@ msgstr ""
 
 #: master_preset.xml:7451(combo:display_values|group:Historic_Places_&_Objects|preset:Castle|key:castle_type)
 msgid "Palace"
-msgstr ""
+msgstr "Дворец"
 
 #: master_preset.xml:7506(item:name|group:Historic_Places_&_Objects|preset:Palaeontological_Site)
 msgid "Palaeontological Site"
@@ -9373,7 +9373,7 @@ msgstr ""
 #: master_preset.xml:6569(text:text|group:Indoor_elements|preset:Indoor_area|key:ref)
 #: master_preset.xml:6591(text:text|group:Indoor_elements|preset:Room|key:ref)
 msgid "Room Number"
-msgstr ""
+msgstr "Номер комнаты"
 
 #: master_preset.xml:3576(text:text|group:Accommodation|preset:Hotel|key:rooms)
 #: master_preset.xml:3591(text:text|group:Accommodation|preset:Motel|key:rooms)
@@ -14954,7 +14954,7 @@ msgstr ""
 #: master_preset.xml:989(combo:text|key:building:levels)
 msgctxt "building"
 msgid "Levels"
-msgstr ""
+msgstr "Число этажей"
 
 #: master_preset.xml:982(combo:display_values|key:building:frame:material)
 #: master_preset.xml:983(combo:display_values|key:building:wall:material)
