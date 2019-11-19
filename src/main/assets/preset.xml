@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.2.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.3.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -4552,7 +4552,7 @@
             <key key="tourism" value="museum"/>
             <multiselect key="museum" text="Type" values="archaeological;art;aviation;cars;ceramics;children;history;maritime;military;music;nature;person;railway;science;sport;technology;transport;war" 
                 display_values="Archaeological;Art;Aviation;Cars;Ceramics;Children;History;Maritime;Military;Music;Nature;Person;Railway;Science;Sport;Technology;Transport;War" values_searchable="true" />
-            <combo key="museum_type" text="Museum scope" values="national,municipial,regional" display_values="National,Municipial,Regional" />
+            <combo key="museum_type" text="Museum scope" values="national,municipal,regional" display_values="National,Municipal,Regional" />
             <reference ref="name_operator_oh_wheelchair_toilets"/>
             <text key="wikipedia" text="Wikipedia" value_type="wikipedia"/>
             <text key="wikidata" text="Wikidata" value_type="wikidata"/>
