@@ -681,6 +681,15 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         return lastServers.toArray(new String[lastServers.size()]);
     }
 
+    /**
+     * Remove an entry from the MRU
+     * 
+     * @param id the id of the layer
+     */
+    public void removeServerFromMRU(@NonNull String id) {
+        lastServers.remove(id);
+    }
+
     @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
         Log.d(DEBUG_TAG, "Saving MRU size " + lastServers.size());
