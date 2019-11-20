@@ -39,6 +39,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -46,9 +47,11 @@ import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.FeatureInfo;
+import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
@@ -59,13 +62,14 @@ import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature> {
+public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature>, LayerInfoInterface {
 
     /**
      * 
@@ -249,6 +253,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * Name for this layer (typically the file name)
      */
     private String name;
+
+    /**
+     * The uri for the layer source
+     */
+    private String uri;
 
     /**
      * Construct this layer
@@ -469,7 +478,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         InputStream is = ctx.getContentResolver().openInputStream(uri);
         try {
             readingLock.lock();
-            name = uri.getLastPathSegment();
+            name = SelectFile.getDisplaynameColumn(ctx, uri);
+            if (name == null) {
+                name = uri.getLastPathSegment();
+            }
+            this.uri = uri.toString();
             return loadGeoJsonFile(ctx, is);
         } finally {
             readingLock.unlock();
@@ -941,5 +954,61 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     @Override
     public void setSelected(Feature o) {
         // not used
+    }
+
+    static class Info implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        String name;
+        String path;
+        int    pointCount              = 0;
+        int    multiPointCount         = 0;
+        int    linestringCount         = 0;
+        int    multiLinestringCount    = 0;
+        int    polygonCount            = 0;
+        int    multiPolygonCount       = 0;
+        int    geometrycollectionCount = 0;
+    }
+
+    @Override
+    public void showInfo(FragmentActivity activity) {
+        LayerInfo f = new GeoJsonLayerInfo();
+        f.setShowsDialog(true);
+        Bundle args = new Bundle();
+        Info info = new Info();
+        info.name = getName();
+        info.path = uri;
+        Collection<BoundedFeature> queryResult = new ArrayList<>();
+        data.query(queryResult);
+        for (BoundedFeature bf : queryResult) {
+            switch (bf.getFeature().geometry().type()) {
+            case GeoJSONConstants.POINT:
+                info.pointCount++;
+                break;
+            case GeoJSONConstants.MULTIPOINT:
+                info.multiPointCount++;
+                break;
+            case GeoJSONConstants.LINESTRING:
+                info.linestringCount++;
+                break;
+            case GeoJSONConstants.MULTILINESTRING:
+                info.multiLinestringCount++;
+                break;
+            case GeoJSONConstants.POLYGON:
+                info.polygonCount++;
+                break;
+            case GeoJSONConstants.MULTIPOLYGON:
+                info.multiPolygonCount++;
+                break;
+            case GeoJSONConstants.GEOMETRYCOLLECTION:
+                info.geometrycollectionCount++;
+                break;
+            default:
+                // ignore
+            }
+        }
+        args.putSerializable(GeoJsonLayerInfo.LAYER_INFO_KEY, info);
+        f.setArguments(args);
+        GeoJsonLayerInfo.showDialog(activity, f);
     }
 }
