@@ -473,7 +473,6 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     if (!currentServerId.equals(id)) {
                         final TileLayerServer tileServer = TileLayerServer.get(activity, id, true);
                         if (tileServer != null) {
-                            System.out.println("menu item >" + tileServer.getName() + "<");
                             MenuItem item = menu.add(tileServer.getName());
                             item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                                 @Override
