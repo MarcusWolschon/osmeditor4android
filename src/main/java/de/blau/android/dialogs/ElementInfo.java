@@ -19,6 +19,7 @@ import com.google.openlocationcode.OpenLocationCode;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -335,9 +336,9 @@ public class ElementInfo extends ImmersiveDialogFragment {
                         first = false;
                     }
                     if (compare) {
-                        tl.addView(TableLayoutUtils.createRow(activity, header, "", problem, tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, header, "", problem, tp, R.attr.colorError, Color.RED));
                     } else {
-                        tl.addView(TableLayoutUtils.createRow(activity, header, problem, null, tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, header, problem, null, tp, R.attr.colorError, Color.RED));
                     }
                 }
             }
@@ -374,20 +375,21 @@ public class ElementInfo extends ImmersiveDialogFragment {
                     if (k.equals(Tags.KEY_WIKIPEDIA)) {
                         Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
                         tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : (compare ? "" : null),
-                                !deleted ? encodeUrl(Urls.WIKIPEDIA, currentValue) : null, true, tp));
+                                !deleted ? encodeUrl(Urls.WIKIPEDIA, currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
                     } else if (k.equals(Tags.KEY_WIKIDATA)) {
                         tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : (compare ? "" : null),
-                                !deleted ? encodeUrl(Urls.WIKIDATA, currentValue) : null, true, tp));
+                                !deleted ? encodeUrl(Urls.WIKIDATA, currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
                     } else if (Tags.isWebsiteKey(k)) {
                         try {
                             tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(oldValue) : (compare ? "" : null),
-                                    !deleted ? encodeUrl(currentValue) : null, true, tp));
+                                    !deleted ? encodeUrl(currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
                         } catch (MalformedURLException | URISyntaxException e1) {
                             Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + element);
                             tl.addView(TableLayoutUtils.createRow(activity, k, currentValue, tp));
                         }
                     } else {
-                        tl.addView(TableLayoutUtils.createRow(activity, k, oldValue, !deleted ? currentValue : null, false, tp));
+                        tl.addView(
+                                TableLayoutUtils.createRow(activity, k, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, Color.GREEN));
                     }
                 }
             }

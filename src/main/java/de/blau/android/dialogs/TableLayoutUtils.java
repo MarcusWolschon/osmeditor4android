@@ -34,7 +34,7 @@ public class TableLayoutUtils {
     private static final int MAX_FIRST_CELL_WIDTH = 12;
 
     /**
-     * Get a new TableRox with the provided contents - three columns
+     * Get a new TableRow with the provided contents - three columns
      * 
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
@@ -48,11 +48,11 @@ public class TableLayoutUtils {
     @SuppressLint("NewApi")
     @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, null, cell2, false, tp);
+        return createRow(activity, cell1, null, cell2, false, tp, R.attr.colorAccent, Color.GREEN);
     }
 
     /**
-     * Get a new TableRox with the provided contents - three columns
+     * Get a new TableRow with the provided contents - three columns
      * 
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
@@ -68,11 +68,33 @@ public class TableLayoutUtils {
     @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
             @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, cell2, cell3, false, tp);
+        return createRow(activity, cell1, cell2, cell3, false, tp, R.attr.colorAccent, Color.GREEN);
     }
 
     /**
-     * Get a new TableRox with the provided contents - three columns
+     * Get a new TableRow with the provided contents - three columns
+     * 
+     * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
+     * highlighted
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 text for the first cell
+     * @param cell2 text for the second cell
+     * @param cell3 text for the third cell
+     * @param tp LayoutParams for the row
+     * @param highlightColorAttr the highlight color attribute resource id
+     * @param highlightColorFallback a fallback highlight color
+     * @return a TableRow
+     */
+    @SuppressLint("NewApi")
+    @NonNull
+    public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+            @NonNull TableLayout.LayoutParams tp, int highlightColorAttr, int highlightColorFallback) {
+        return createRow(activity, cell1, cell2, cell3, false, tp, highlightColorAttr, highlightColorFallback);
+    }
+
+    /**
+     * Get a new TableRow with the provided contents - three columns
      * 
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
@@ -88,11 +110,11 @@ public class TableLayoutUtils {
     @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, boolean isUrl,
             @NonNull TableLayout.LayoutParams tp) {
-        return createRow(activity, cell1, null, cell2, isUrl, tp);
+        return createRow(activity, cell1, null, cell2, isUrl, tp, R.attr.colorAccent, Color.GREEN);
     }
 
     /**
-     * Get a new TableRox with the provided contents - three columns
+     * Get a new TableRow with the provided contents - three columns
      * 
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
@@ -112,7 +134,7 @@ public class TableLayoutUtils {
     }
 
     /**
-     * Get a new TableRox with the provided contents - three columns
+     * Get a new TableRow with the provided contents - three columns
      * 
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
@@ -133,7 +155,7 @@ public class TableLayoutUtils {
     }
 
     /**
-     * Get a new TableRox with the provided contents - three columns
+     * Get a new TableRow with the provided contents - three columns
      * 
      * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
      * highlighted
@@ -150,6 +172,29 @@ public class TableLayoutUtils {
     @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
             boolean isUrl, @NonNull TableLayout.LayoutParams tp) {
+        return createRow(activity, cell1, cell2, cell3, isUrl, tp, R.attr.colorAccent, Color.GREEN);
+    }
+
+    /**
+     * Get a new TableRow with the provided contents - three columns
+     * 
+     * If cell2 and cell3 are null cell1 will be considered a full width heading, if cell2 != cell3 then cell1 will be
+     * highlighted
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 text for the first cell
+     * @param cell2 text for the second cell
+     * @param cell3 text for the third cell
+     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param tp LayoutParams for the row
+     * @param highlightColorAttr the highlight color attribute resource id
+     * @param highlightColorFallback a fallback highlight color
+     * @return a TableRow
+     */
+    @SuppressLint("NewApi")
+    @NonNull
+    public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+            boolean isUrl, @NonNull TableLayout.LayoutParams tp, int highlightColorAttr, int highlightColorFallback) {
         TableRow tr = new TableRow(activity);
         TextView cell = new TextView(activity);
         cell.setSingleLine();
@@ -157,12 +202,23 @@ public class TableLayoutUtils {
         cell.setMaxEms(MAX_FIRST_CELL_WIDTH);
 
         SpannableString span = new SpannableString((CharSequence) cell1);
+        SpannableString span2 = null;
+        if (cell2 != null) {
+            span2 = new SpannableString((CharSequence) cell2);
+        }
+        SpannableString span3 = null;
+        if (cell3 != null) {
+            span3 = new SpannableString((CharSequence) cell3);
+        }
         boolean isTitle = cell1 != null && cell2 == null && cell3 == null;
         if (isTitle) { // heading
             span.setSpan(new StyleSpan(Typeface.BOLD), 0, span.length(), 0);
-        } else if (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString()))) { // values changed
-            // note a CharSequence doesn't necessarily have a content aware equals, so we need to convert to String first
-            span.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(activity, R.attr.colorAccent, Color.GREEN)), 0, span.length(), 0);
+        } else if (!"".equals(cell1) && (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString())))) {
+            // note a CharSequence doesn't necessarily have a content aware equals, so we need to convert to String
+            // first
+            setSpanColor(activity, span, highlightColorAttr, highlightColorFallback);
+            setSpanColor(activity, span2, highlightColorAttr, highlightColorFallback);
+            setSpanColor(activity, span3, highlightColorAttr, highlightColorFallback);
         }
         cell.setText(span);
 
@@ -177,15 +233,27 @@ public class TableLayoutUtils {
             trlp.weight = 1;
             cell.setLayoutParams(trlp);
         } else {
-            addCell(activity, cell2, isUrl, tr, null);
-            addCell(activity, cell3, isUrl, tr, null);
+            addCell(activity, span2, isUrl, tr, null);
+            addCell(activity, span3, isUrl, tr, null);
         }
         tr.setLayoutParams(tp);
         return tr;
     }
 
     /**
-     * Get a new TableRox with the provided contents - two columns
+     * Set a color for a span
+     * 
+     * @param activity calling activity
+     * @param span the span
+     * @param colorAttr the color attribute resource id
+     * @param colorFallback a fallback color
+     */
+    private static void setSpanColor(@NonNull FragmentActivity activity, @NonNull SpannableString span, int colorAttr, int colorFallback) {
+        span.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(activity, colorAttr, colorFallback)), 0, span.length(), 0);
+    }
+
+    /**
+     * Get a new TableRow with the provided contents - two columns
      * 
      * @param activity the FragmentActivity the TableLayout is being displayed on
      * @param cell1 a string resource id for the first cell
@@ -200,7 +268,7 @@ public class TableLayoutUtils {
     }
 
     /**
-     * Get a new TableRox with the provided contents - two columns
+     * Get a new TableRow with the provided contents - two columns
      * 
      * @param activity the FragmentActivity the TableLayout is being displayed on
      * @param cell1 a string resource id for the first cell
