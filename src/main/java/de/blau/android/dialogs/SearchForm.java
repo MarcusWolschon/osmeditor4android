@@ -192,7 +192,7 @@ public class SearchForm extends ImmersiveDialogFragment {
                 callback.onItemSelected(sr);
             }
         };
-        Search search = new Search((AppCompatActivity) getActivity(), realCallback);
+        Search search = new Search((AppCompatActivity) getActivity(), searchDialog, realCallback);
 
         searchDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override

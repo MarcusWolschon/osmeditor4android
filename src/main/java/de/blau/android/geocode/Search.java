@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +19,8 @@ import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -39,6 +43,8 @@ public class Search {
     private final AppCompatActivity activity;
 
     private final SearchItemSelectedCallback callback;
+
+    private final Dialog dialog;
 
     public static class SearchResult {
         private double lat;
@@ -83,10 +89,12 @@ public class Search {
      * Constructor
      * 
      * @param activity activity calling this
+     * @param dialog the dialog used to get the input
      * @param callback will be called when search result is selected
      */
-    public Search(@NonNull AppCompatActivity activity, @NonNull SearchItemSelectedCallback callback) {
+    public Search(@NonNull AppCompatActivity activity, @Nullable Dialog dialog, @NonNull SearchItemSelectedCallback callback) {
         this.activity = activity;
+        this.dialog = dialog;
         this.callback = callback;
     }
 
@@ -116,6 +124,13 @@ public class Search {
         try {
             List<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
             if (result != null && !result.isEmpty()) {
+                if (dialog != null) { // dismiss keyboard
+                    InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    Window window = dialog.getWindow();
+                    if (window != null) {
+                        imm.hideSoftInputFromWindow(window.getDecorView().getWindowToken(), 0);
+                    }
+                }
                 AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
                 sr.show();
             } else {
