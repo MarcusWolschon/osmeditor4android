@@ -60,6 +60,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerDialog;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerServer.Category;
 import de.blau.android.util.Density;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
@@ -155,7 +156,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             @Override
             public void onClick(View v) {
                 final FragmentActivity activity = getActivity();
-                final Preferences prefs = new Preferences(activity);
+                final Preferences prefs = App.getLogic().getPrefs();
                 PopupMenu popup = new PopupMenu(getActivity(), add);
                 // menu items for adding layers
                 MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
@@ -642,25 +643,88 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      */
     private AlertDialog buildImagerySelectDialog(@Nullable final TableRow row, @Nullable final MapTilesLayer layer, boolean isOverlay) {
         final FragmentActivity activity = getActivity();
+        final Preferences prefs = App.getLogic().getPrefs();
+
         Builder builder = new AlertDialog.Builder(activity);
 
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(getActivity());
 
-        final View layout = themedInflater.inflate(R.layout.form_combo_dialog, null);
+        final View layout = themedInflater.inflate(R.layout.layer_selection_dialog, null);
+        RadioGroup categoryGroup = (RadioGroup) layout.findViewById(R.id.categoryGroup);
+        AppCompatRadioButton allButton = categoryGroup.findViewById(R.id.categoryAll);
+        AppCompatRadioButton photoButton = categoryGroup.findViewById(R.id.categoryPhoto);
+
+        photoButton.setTag(Category.photo);
+        photoButton.setVisibility(!isOverlay ? View.VISIBLE : View.GONE);
+        AppCompatRadioButton qaButton = categoryGroup.findViewById(R.id.categoryQA);
+
+        qaButton.setTag(Category.qa);
+        qaButton.setVisibility(isOverlay ? View.VISIBLE : View.GONE);
+
+        Category backgroundCategory = prefs.getBackgroundCategory();
+        Category overlayCategory = prefs.getOverlayCategory();
+
+        if (!isOverlay && Category.photo == backgroundCategory) {
+            photoButton.setChecked(true);
+        } else if (isOverlay && Category.qa == overlayCategory) {
+            qaButton.setChecked(true);
+        } else {
+            allButton.setChecked(true);
+        }
+
         RadioGroup valueGroup = (RadioGroup) layout.findViewById(R.id.valueGroup);
+
         builder.setView(layout);
 
-        LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
-        buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
         ViewBox viewBox = App.getLogic().getMap().getViewBox();
         builder.setTitle(isOverlay ? R.string.config_overlayLayer_title : R.string.config_backgroundLayer_title);
-        final String[] ids = isOverlay ? TileLayerServer.getOverlayIds(viewBox, true) : TileLayerServer.getIds(viewBox, true);
+        final String[] ids = isOverlay ? TileLayerServer.getOverlayIds(viewBox, true, overlayCategory)
+                : TileLayerServer.getIds(viewBox, true, prefs.getBackgroundCategory());
+
+        builder.setNegativeButton(R.string.cancel, null);
+        final AlertDialog dialog = builder.create();
+
+        addButtons(activity, dialog, row, layer, isOverlay, valueGroup, ids);
+
+        categoryGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Category category = checkedId >= 0 ? (Category) group.findViewById(checkedId).getTag() : null;
+                valueGroup.removeAllViews();
+                final String[] ids = isOverlay ? TileLayerServer.getOverlayIds(viewBox, true, category) : TileLayerServer.getIds(viewBox, true, category);
+                if (isOverlay) {
+                    prefs.setOverlayCategory(category);
+                } else {
+                    prefs.setBackgroundCategory(category);
+                }
+                addButtons(activity, dialog, row, layer, isOverlay, valueGroup, ids);
+            }
+        });
+
+        return dialog;
+    }
+
+    /**
+     * Add the per layer RadioButtons
+     * 
+     * @param activity calling Activity
+     * @param dialog the Dialog
+     * @param row the row in the layers dialog or null
+     * @param layer the current layer
+     * @param isOverlay true if an overlay
+     * @param valueGroup the RadioGroup
+     * @param ids the list of layer ids
+     */
+    private void addButtons(@NonNull FragmentActivity activity, @NonNull Dialog dialog, @Nullable final TableRow row, @Nullable final MapTilesLayer layer,
+            boolean isOverlay, @NonNull RadioGroup valueGroup, @NonNull final String[] ids) {
+        LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
+        buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
         String[] names = isOverlay ? TileLayerServer.getOverlayNames(ids) : TileLayerServer.getNames(ids);
         String currentId = layer == null ? TileLayerServer.LAYER_NONE : layer.getTileLayerConfiguration().getId();
-        Context context = getContext();
+        valueGroup.setOnCheckedChangeListener(null); // remove any existing listener
         for (int i = 0; i < ids.length; i++) {
             String id = ids[i];
-            final AppCompatRadioButton button = new AppCompatRadioButton(context);
+            final AppCompatRadioButton button = new AppCompatRadioButton(activity);
             button.setText(names[i]);
             button.setTag(id);
             button.setChecked(id.equals(currentId));
@@ -669,8 +733,6 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             valueGroup.addView(button);
         }
         final Handler handler = new Handler();
-        builder.setNegativeButton(R.string.cancel, null);
-        final AlertDialog dialog = builder.create();
         valueGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -680,7 +742,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         setNewImagery(activity, row, layer, tileServer);
                         if (layer != null) {
                             try {
-                                layer.onSaveState(context);
+                                layer.onSaveState(activity);
                             } catch (IOException e) {
                                 Log.e(DEBUG_TAG, "save of imagery layer state failed");
                             }
@@ -700,7 +762,6 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 }, 100);
             }
         });
-        return dialog;
     }
 
     /**

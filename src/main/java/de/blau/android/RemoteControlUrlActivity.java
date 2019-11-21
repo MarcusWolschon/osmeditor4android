@@ -181,7 +181,7 @@ public class RemoteControlUrlActivity extends UrlActivity {
                             return false;
                         }
                     }
-                    List<String> ids = Arrays.asList(TileLayerServer.getIds(null, false));
+                    List<String> ids = Arrays.asList(TileLayerServer.getIds(null, false, null));
                     String id = TileLayerServer.nameToId(title);
                     TileLayerServer existing = null;
                     if (ids.contains(id)) {

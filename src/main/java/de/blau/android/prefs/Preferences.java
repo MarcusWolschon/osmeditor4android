@@ -19,6 +19,7 @@ import de.blau.android.contract.Urls;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.TileLayerServer.Category;
 
 /**
  * Convenience class for parsing and holding the application's SharedPreferences.
@@ -932,10 +933,20 @@ public class Preferences {
         return alwaysDrawBoundingBoxes;
     }
 
+    /**
+     * Enable/disable the tag filter
+     * 
+     * @param on if true the tag filter will be enabled
+     */
     public void enableTagFilter(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_tagFilter_key), on).commit();
     }
 
+    /**
+     * Check if the tag filter is enabled
+     * 
+     * @return true if enabled
+     */
     public boolean getEnableTagFilter() {
         String key = r.getString(R.string.config_tagFilter_key);
         if (!prefs.contains(key)) {
@@ -945,10 +956,20 @@ public class Preferences {
         return prefs.getBoolean(key, false);
     }
 
+    /**
+     * Enable/disable the preset filter
+     * 
+     * @param on if true the preset filter will be enabled
+     */
     public void enablePresetFilter(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_presetFilter_key), on).commit();
     }
 
+    /**
+     * Check if the preset filter is enabled
+     * 
+     * @return true if enabled
+     */
     public boolean getEnablePresetFilter() {
         String key = r.getString(R.string.config_presetFilter_key);
         if (!prefs.contains(key)) {
@@ -1004,8 +1025,63 @@ public class Preferences {
         return prefs.getBoolean(key, false);
     }
 
+    /**
+     * Check if the JS console is enabled
+     * 
+     * @return true if enabled
+     */
     public boolean isJsConsoleEnabled() {
         return jsConsoleEnabled;
+    }
+
+    /**
+     * Get the current background category
+     * 
+     * @return the current Category or null for all
+     */
+    @Nullable
+    public Category getBackgroundCategory() {
+        String key = r.getString(R.string.config_background_category_key);
+        if (!prefs.contains(key)) {
+            // create the entry
+            setBackgroundCategory(null);
+        }
+        String categoryString = prefs.getString(key, null);
+        return categoryString != null ? Category.valueOf(categoryString) : null;
+    }
+
+    /**
+     * Set the current background imagery category
+     * 
+     * @param category the current Category or null for all
+     */
+    public void setBackgroundCategory(@Nullable Category category) {
+        prefs.edit().putString(r.getString(R.string.config_background_category_key), category != null ? category.name() : null).commit();
+    }
+
+    /**
+     * Get the current overlay category
+     * 
+     * @return the current Category or null for all
+     */
+    @Nullable
+    public Category getOverlayCategory() {
+        String key = r.getString(R.string.config_overlay_category_key);
+        if (!prefs.contains(key)) {
+            // create the entry
+            setOverlayCategory(null);
+        }
+        String categoryString = prefs.getString(key, null);
+        return categoryString != null ? Category.valueOf(categoryString) : null;
+    }
+
+    /**
+     * Set the current overlay imagery category
+     * 
+     * @param category the current Category or null for all
+     */
+    public void setOverlayCategory(@Nullable Category category) {
+        prefs.edit().putString(r.getString(R.string.config_overlay_category_key), category != null ? category.name() : null).commit();
     }
 
     public boolean hwAccelerationEnabled() {
