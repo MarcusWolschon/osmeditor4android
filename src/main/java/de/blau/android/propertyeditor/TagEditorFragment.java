@@ -150,7 +150,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * further matching presets
      */
-    private ArrayList<PresetItem> secondaryPresets = new ArrayList<>();
+    private List<PresetItem> secondaryPresets = new ArrayList<>();
 
     private FormUpdate formUpdate;
 

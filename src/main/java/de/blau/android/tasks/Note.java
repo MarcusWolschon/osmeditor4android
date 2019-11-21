@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -42,8 +43,8 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     private long closed  = -1;
 
     /** Bug comments. */
-    private ArrayList<NoteComment> comments = null;
-    private State                  originalState;  // track what we original had
+    private List<NoteComment> comments = null;
+    private State             originalState;  // track what we original had
 
     /**
      * Create a Bug from an OSB GPX XML wpt element.
@@ -280,6 +281,11 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         }
     }
 
+    /**
+     * Get the original state of this Note
+     * 
+     * @return the original state
+     */
     public State getOriginalState() {
         return originalState;
     }
