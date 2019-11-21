@@ -448,13 +448,13 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             menuView.setOnMenuItemClickListener(listener);
             if (enablePresetFeedback) {
                 // this adds the item as the last one
-                menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback);
+                menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback).setEnabled(propertyEditorListener.isConnected());
             }
         } else {
             inflater.inflate(R.menu.preset_menu, menu);
             menuView.setVisibility(View.GONE);
             if (enablePresetFeedback) {
-                menu.findItem(R.id.menu_preset_feedback).setVisible(true);
+                menu.findItem(R.id.menu_preset_feedback).setVisible(true).setEnabled(propertyEditorListener.isConnected());
             }
         }
     }

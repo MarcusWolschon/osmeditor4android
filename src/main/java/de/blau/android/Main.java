@@ -1807,6 +1807,8 @@ public class Main extends FullScreenAppCompatActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || !BuildConfig.FLAVOR.equals(Flavors.CURRENT)) {
             // the library providing the UI is not supported under SDK 15, in reality 15 doesn't work
             menu.findItem(R.id.menu_feedback).setVisible(false);
+        } else { // only works with network
+            menu.findItem(R.id.menu_feedback).setEnabled(networkConnected);
         }
 
         // enable the JS console menu entry
