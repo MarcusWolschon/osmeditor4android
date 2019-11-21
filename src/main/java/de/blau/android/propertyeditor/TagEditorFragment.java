@@ -2490,9 +2490,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Add http:// to empty EditTexts that are supposed to contain a website and set input mode
      * 
-     * @param valueEdit the EditTExt holding the value
+     * @param valueEdit the EditText holding the value
      */
-    public static void initWebsite(final EditText valueEdit) {
+    public static void initWebsite(@NonNull final EditText valueEdit) {
         valueEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
         if (valueEdit.getText().length() == 0) {
             valueEdit.setText(Tags.HTTP_PREFIX);
@@ -2507,8 +2507,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param valueEdit the EditTExt holding the value
      * @param listener callback to the activity
      */
-    public static void initMPHSpeed(Context ctx, final AutoCompleteTextView valueEdit, PropertyEditorListener listener) {
-        valueEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+    public static void initMPHSpeed(@NonNull Context ctx, @NonNull final AutoCompleteTextView valueEdit, @NonNull PropertyEditorListener listener) {
+        valueEdit.setInputType(InputType.TYPE_CLASS_TEXT);
         ListAdapter adapter = valueEdit.getAdapter();
         Properties prop = App.getGeoContext(ctx).getProperties(listener.getIsoCodes());
         if (valueEdit.getText().length() == 0 && (adapter == null || adapter.getCount() == 0) && (prop != null && prop.imperialUnits())) {
