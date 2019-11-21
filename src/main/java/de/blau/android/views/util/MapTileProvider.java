@@ -153,7 +153,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
      * Attempt to return a tile from cache otherwise ask for it from remote
      * 
      * @param aTile tile spec
-     * @param owner
+     * @param owner id for the current owner
      * @return the tile or null if it wasn't in cache
      */
     @Nullable
@@ -181,7 +181,13 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
         return mTileCache.getMapTile(aTile);
     }
 
-    private void preCacheTile(final MapTile aTile, long owner) {
+    /**
+     * Request a tile from the tile service
+     * 
+     * @param aTile the tile parameters
+     * @param owner if for the current owner
+     */
+    private void preCacheTile(@NonNull final MapTile aTile, long owner) {
         if (mTileService != null && !pending.containsKey(aTile.toId())) {
             try {
                 pending.put(aTile.toId(), owner);

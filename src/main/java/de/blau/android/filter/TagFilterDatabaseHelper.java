@@ -11,6 +11,11 @@ public class TagFilterDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME    = "tagfilters";
     private static final int    DATABASE_VERSION = 2;
 
+    /**
+     * Create a new DatabaseFelber for the tag filter
+     * 
+     * @param context an Android Context
+     */
     public TagFilterDatabaseHelper(final Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

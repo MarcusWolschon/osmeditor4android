@@ -116,6 +116,13 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
         return (int) ((contrast + 1) * 127.5f);
     }
 
+    /**
+     * Create an OnSeekBarChangeListener for a specific layer
+     * 
+     * @param layer the layer
+     * @return an OnSeekBarChangeListener
+     */
+    @NonNull
     private OnSeekBarChangeListener createSeekBarListener(@NonNull final MapTilesLayer layer) {
         return new OnSeekBarChangeListener() {
             @Override
@@ -137,7 +144,12 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
         };
     }
 
-    private static void setDialogLayout(Activity activity) {
+    /**
+     * Set up the layout
+     * 
+     * @param activity the calling Activity
+     */
+    private static void setDialogLayout(@NonNull Activity activity) {
         Preferences prefs = new Preferences(activity);
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
         View layout = inflater.inflate(R.layout.background_properties, null);

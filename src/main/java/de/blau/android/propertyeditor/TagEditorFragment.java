@@ -2211,13 +2211,24 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * @return the OSM ID of the element currently edited by the editor
+     * Get the OSM id of the (first if multiple) element currently edited by the editor
+     * 
+     * This is only used for address prediction
+     * 
+     * @return the OSM id
      */
-    public long getOsmId() { // FIXME
+    public long getOsmId() {
         return osmIds[0];
     }
 
-    public String getType() {// FIXME
+    /**
+     * Get the type of the (first if multiple) element currently edited by the editor
+     * 
+     * This is only used for address prediction
+     * 
+     * @return the type
+     */
+    public String getType() {
         return types[0];
     }
 
