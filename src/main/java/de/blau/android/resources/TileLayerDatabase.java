@@ -17,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.resources.TileLayerServer.Category;
 import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.util.collections.MultiHashMap;
@@ -24,7 +25,7 @@ import de.blau.android.util.collections.MultiHashMap;
 public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String DEBUG_TAG        = "TileLayerDatabase";
     public static final String  DATABASE_NAME    = "tilelayers";
-    private static final int    DATABASE_VERSION = 4;
+    private static final int    DATABASE_VERSION = 5;
 
     public static final String SOURCE_ELI    = "eli";    // editor-layer-index
     public static final String SOURCE_CUSTOM = "custom"; // user added tile layers from file
@@ -37,6 +38,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static final String  LAYERS_TABLE             = "layers";
     private static final String ID_FIELD                 = "id";
     private static final String TYPE_FIELD               = "server_type";
+    private static final String CATEGORY_FIELD           = "category";
     private static final String SOURCE_FIELD             = "source";
     private static final String TILE_URL_FIELD           = "url";
     private static final String TOU_URI_FIELD            = "tou_url";
@@ -85,7 +87,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             addSource(db, SOURCE_MANUAL);
 
             db.execSQL(
-                    "CREATE TABLE layers (id TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL, server_type TEXT NOT NULL, source TEXT NOT NULL, url TEXT NOT NULL,"
+                    "CREATE TABLE layers (id TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL, server_type TEXT NOT NULL, category TEXT DEFAULT NULL, source TEXT NOT NULL, url TEXT NOT NULL,"
                             + " tou_url TEXT, attribution TEXT, overlay INTEGER NOT NULL DEFAULT 0,"
                             + " default_layer INTEGER NOT NULL DEFAULT 0, zoom_min INTEGER NOT NULL DEFAULT 0, zoom_max INTEGER NOT NULL DEFAULT 18,"
                             + " over_zoom_max INTEGER NOT NULL DEFAULT 4, tile_width INTEGER NOT NULL DEFAULT 256, tile_height INTEGER NOT NULL DEFAULT 256,"
@@ -116,6 +118,9 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         if (oldVersion <= 3 && newVersion >= 4) {
             db.execSQL("ALTER TABLE layers ADD COLUMN description TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE layers ADD COLUMN privacy_policy_url TEXT DEFAULT NULL");
+        }
+        if (oldVersion <= 4 && newVersion >= 5) {
+            db.execSQL("ALTER TABLE layers ADD COLUMN category TEXT DEFAULT NULL");
         }
     }
 
@@ -233,6 +238,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         values.put(ID_FIELD, layer.getId());
         values.put(NAME_FIELD, layer.getName());
         values.put(TYPE_FIELD, layer.getType());
+        Category category = layer.getCategory();
+        if (category != null) {
+            values.put(CATEGORY_FIELD, category.name());
+        }
         if (source != null) {
             values.put(SOURCE_FIELD, source);
         }
@@ -503,6 +512,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     static int idLayerFieldIndex          = -1;
     static int nameFieldIndex             = -1;
     static int typeFieldIndex             = -1;
+    static int categoryFieldIndex         = -1;
     static int tileUrlFieldIndex          = -1;
     static int touUrlFieldIndex           = -1;
     static int attributionFieldIndex      = -1;
@@ -541,6 +551,11 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         String id = cursor.getString(idLayerFieldIndex);
         String name = cursor.getString(nameFieldIndex);
         String type = cursor.getString(typeFieldIndex);
+        String categoryString = cursor.getString(categoryFieldIndex);
+        Category category = null;
+        if (categoryString != null) {
+            category = Category.valueOf(categoryString);
+        }
         String tileUrl = cursor.getString(tileUrlFieldIndex);
         String touUri = cursor.getString(touUrlFieldIndex);
         String attribution = cursor.getString(attributionFieldIndex);
@@ -567,7 +582,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         String description = cursor.getString(descriptionFieldIndex);
         String privacyPolicyUrl = cursor.getString(privacyPolicyUrlFieldIndex);
 
-        return new TileLayerServer(context, id, name, tileUrl, type, overlay, defaultLayer, provider, touUri, null, logoUrl, logoBytes, zoomLevelMin,
+        return new TileLayerServer(context, id, name, tileUrl, type, category, overlay, defaultLayer, provider, touUri, null, logoUrl, logoBytes, zoomLevelMin,
                 zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
                 privacyPolicyUrl, true);
     }
@@ -581,6 +596,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         idLayerFieldIndex = cursor.getColumnIndex(ID_FIELD);
         nameFieldIndex = cursor.getColumnIndex(NAME_FIELD);
         typeFieldIndex = cursor.getColumnIndex(TYPE_FIELD);
+        categoryFieldIndex = cursor.getColumnIndex(CATEGORY_FIELD);
         tileUrlFieldIndex = cursor.getColumnIndex(TILE_URL_FIELD);
         touUrlFieldIndex = cursor.getColumnIndex(TOU_URI_FIELD);
         attributionFieldIndex = cursor.getColumnIndex(ATTRIBUTION_FIELD);

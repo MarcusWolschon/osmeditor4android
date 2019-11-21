@@ -418,6 +418,10 @@ public class TileLayerServer implements Serializable {
     private static final String WMS_AXIS_XY = "XY";
     private static final String WMS_AXIS_YX = "YX";
 
+    public enum Category {
+        photo, map, historicmap, osmbasedmap, historicphoto, qa, other
+    }
+
     // ===========================================================
     // Fields
     // ===========================================================
@@ -427,6 +431,7 @@ public class TileLayerServer implements Serializable {
     private String                   id;
     private String                   name;
     private String                   type;
+    private Category                 category;
     private String                   tileUrl;
     private String                   originalUrl;
     private String                   imageFilenameExtension;
@@ -634,6 +639,7 @@ public class TileLayerServer implements Serializable {
      * @param name the layer name
      * @param url the template url for the layer
      * @param type the special types of layer: "bing","scanex"
+     * @param category TODO
      * @param overlay true if this layer is an overlay
      * @param defaultLayer true if this should be used as the default
      * @param provider a Provider object containing detailed provider information
@@ -656,7 +662,7 @@ public class TileLayerServer implements Serializable {
      * @param privacyPolicyUrl a link to a privacy policy or null
      * @param async run loadInfo in a AsyncTask needed for main process
      */
-    TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, final boolean overlay,
+    TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, Category category, final boolean overlay,
             final boolean defaultLayer, final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl, byte[] logoBytes,
             final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj, final int preference,
             final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues, @Nullable String description,
@@ -666,6 +672,7 @@ public class TileLayerServer implements Serializable {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.category = category;
         tileUrl = url;
         originalUrl = url;
         this.overlay = overlay;
@@ -950,6 +957,12 @@ public class TileLayerServer implements Serializable {
                 }
             }
 
+            Category category = null;
+            String categoryString = getJsonString(properties, "category");
+            if (categoryString != null) {
+                category = Category.valueOf(categoryString);
+            }
+
             Provider provider = new Provider();
             if (boxes.isEmpty()) {
                 provider.addCoverageArea(new Provider.CoverageArea(minZoom, maxZoom, null));
@@ -1027,7 +1040,7 @@ public class TileLayerServer implements Serializable {
                 }
                 return null;
             }
-            osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
+            osmts = new TileLayerServer(ctx, id, name, url, type, category, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
                     DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
                     privacyPolicyUrl, async);
         } catch (UnsupportedOperationException uoex) {
@@ -1628,17 +1641,26 @@ public class TileLayerServer implements Serializable {
      * @param filtered if true only return those layers with a coverage area that overlaps with the supplied bounding
      *            box
      * @param servers input list of servers to sort and potentially filter
+     * @param category category of layer that should be returned or null for all
      * @param box bounding box that we are interested in
      * @return list of tile servers
      */
     @NonNull
-    private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, @NonNull Map<String, TileLayerServer> servers, @Nullable BoundingBox box) {
+    private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, @NonNull Map<String, TileLayerServer> servers, @Nullable Category category,
+            @Nullable BoundingBox box) {
         TileLayerServer noneLayer = null;
         List<TileLayerServer> list = new ArrayList<>();
         for (TileLayerServer osmts : servers.values()) {
-            if (filtered && box != null) {
-                if (!osmts.covers(box)) {
-                    continue;
+            if (filtered) {
+                if (category != null) {
+                    if (!category.equals(osmts.getCategory())) {
+                        continue;
+                    }
+                }
+                if (box != null) {
+                    if (!osmts.covers(box)) {
+                        continue;
+                    }
                 }
             }
             // add this after sorting
@@ -1749,14 +1771,28 @@ public class TileLayerServer implements Serializable {
      * 
      * @param box bounding box to test coverage against
      * @param filtered only return servers that overlap/intersect with the bounding box
+     * @param category category of layer that should be returned or null for all
      * @return available tile layer IDs.
      */
     @NonNull
-    public static String[] getIds(@Nullable BoundingBox box, boolean filtered) {
+    public static String[] getIds(@Nullable BoundingBox box, boolean filtered, @Nullable Category category) {
+        return getIds(backgroundServerList, box, filtered, category);
+    }
+
+    /**
+     * Get a, potentially filtered, list of layer IDs
+     * 
+     * @param serverList Map containing the layers to filter
+     * @param box bounding box to test coverage against
+     * @param filtered only return servers that overlap/intersect with the bounding box
+     * @param category category of layer that should be returned or null for all
+     * @return available tile layer IDs.
+     */
+    private static String[] getIds(@NonNull Map<String, TileLayerServer> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable Category category) {
         List<String> ids = new ArrayList<>();
         synchronized (serverListLock) {
             if (backgroundServerList != null) {
-                List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, box);
+                List<TileLayerServer> list = getServersFilteredSorted(filtered, serverList, category, box);
                 for (TileLayerServer t : list) {
                     ids.add(t.id);
                 }
@@ -1791,7 +1827,7 @@ public class TileLayerServer implements Serializable {
     public static String[] getNames(@Nullable Map<String, TileLayerServer> map, @Nullable BoundingBox box, boolean filtered) {
         ArrayList<String> names = new ArrayList<>();
         if (map != null) {
-            for (String key : getIds(box, filtered)) {
+            for (String key : getIds(box, filtered, null)) {
                 TileLayerServer osmts = map.get(key);
                 names.add(osmts.name);
             }
@@ -1834,20 +1870,12 @@ public class TileLayerServer implements Serializable {
      * 
      * @param box bounding box to test coverage against
      * @param filtered only return servers that overlap/intersect with the bounding box
+     * @param category TODO
      * @return available tile layer IDs.
      */
     @NonNull
-    public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered) {
-        List<String> ids = new ArrayList<>();
-        synchronized (serverListLock) {
-            if (overlayServerList != null) {
-                List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, box);
-                for (TileLayerServer t : list) {
-                    ids.add(t.id);
-                }
-            }
-        }
-        return ids.toArray(new String[ids.size()]);
+    public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered, Category category) {
+        return getIds(overlayServerList, box, filtered, category);
     }
 
     /**
@@ -2426,6 +2454,16 @@ public class TileLayerServer implements Serializable {
     }
 
     /**
+     * Get the category for the layer
+     * 
+     * @return the category or null if not set
+     */
+    @Nullable
+    public Category getCategory() {
+        return category;
+    }
+
+    /**
      * Set provider list to a single Provider
      * 
      * @param provider Provider to use
@@ -2518,7 +2556,7 @@ public class TileLayerServer implements Serializable {
      * 
      * @param ctx an Android Context
      * @param db a writable database
-     * @param existingTileServer if this is an update, this is the exiting server
+     * @param existingTileServer if this is an update, this is the existing server
      * @param layerId if for the layer
      * @param startDate start date or -1
      * @param endDate end date or -1
@@ -2546,9 +2584,9 @@ public class TileLayerServer implements Serializable {
             tileSize = DEFAULT_TILE_SIZE;
         }
         if (existingTileServer == null) {
-            TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, proj == null ? TYPE_TMS : TYPE_WMS, isOverlay, false, provider, null, null,
-                    null, null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null, null,
-                    true);
+            TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, proj == null ? TYPE_TMS : TYPE_WMS, null, isOverlay, false, provider, null,
+                    null, null, null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null,
+                    null, true);
             TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
         } else {
             existingTileServer.setProvider(provider);
