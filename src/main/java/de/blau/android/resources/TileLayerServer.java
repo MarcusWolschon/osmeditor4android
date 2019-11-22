@@ -2464,6 +2464,15 @@ public class TileLayerServer implements Serializable {
     }
 
     /**
+     * Set the category for this layer
+     * 
+     * @param cat the Category or null
+     */
+    public void setCategory(@Nullable Category cat) {
+        this.category = cat;
+    }
+
+    /**
      * Set provider list to a single Provider
      * 
      * @param provider Provider to use
@@ -2556,12 +2565,13 @@ public class TileLayerServer implements Serializable {
      * 
      * @param ctx an Android Context
      * @param db a writable database
-     * @param existingTileServer if this is an update, this is the existing server
      * @param layerId if for the layer
+     * @param existingTileServer if this is an update, this is the existing server
      * @param startDate start date or -1
      * @param endDate end date or -1
      * @param name name of the layer
      * @param provider Provider object
+     * @param category layer Category
      * @param minZoom minimum zoom level
      * @param maxZoom maximum zoom level
      * @param isOverlay if true add as an overlay
@@ -2569,7 +2579,7 @@ public class TileLayerServer implements Serializable {
      */
     public static void addOrUpdateCustomLayer(@NonNull final Context ctx, @NonNull final SQLiteDatabase db, @NonNull final String layerId,
             @Nullable final TileLayerServer existingTileServer, final long startDate, final long endDate, @NonNull String name, @NonNull Provider provider,
-            int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
+            Category category, int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
         int tileSize = DEFAULT_TILE_SIZE;
         String proj = null;
         // hack, but saves people extracting and then having to re-select the projection
@@ -2584,9 +2594,9 @@ public class TileLayerServer implements Serializable {
             tileSize = DEFAULT_TILE_SIZE;
         }
         if (existingTileServer == null) {
-            TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, proj == null ? TYPE_TMS : TYPE_WMS, null, isOverlay, false, provider, null,
-                    null, null, null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null,
-                    null, true);
+            TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, proj == null ? TYPE_TMS : TYPE_WMS, category, isOverlay, false, provider,
+                    null, null, null, null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null,
+                    null, null, true);
             TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
         } else {
             existingTileServer.setProvider(provider);
@@ -2595,6 +2605,7 @@ public class TileLayerServer implements Serializable {
             existingTileServer.setOverlay(isOverlay);
             existingTileServer.setMinZoom(minZoom);
             existingTileServer.setMaxZoom(maxZoom);
+            existingTileServer.setCategory(category);
             TileLayerDatabase.updateLayer(db, existingTileServer);
         }
     }

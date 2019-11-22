@@ -18,11 +18,13 @@ import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.OAMCatalog.Entry;
+import de.blau.android.resources.TileLayerServer.Category;
 import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MBTileProviderDataBase;
@@ -104,6 +106,7 @@ public class TileLayerDialog {
         final ImageButton fileButton = (ImageButton) templateView.findViewById(R.id.file_button);
         final EditText urlEdit = (EditText) templateView.findViewById(R.id.url);
         final CheckBox overlayCheck = (CheckBox) templateView.findViewById(R.id.overlay);
+        final Spinner categorySpinner = (Spinner) templateView.findViewById(R.id.category);
 
         final NumberPicker minZoomPicker = (NumberPicker) templateView.findViewById(R.id.zoom_min);
         final NumberPicker maxZoomPicker = (NumberPicker) templateView.findViewById(R.id.zoom_max);
@@ -122,6 +125,7 @@ public class TileLayerDialog {
                 nameEdit.setText(layer.getName());
                 urlEdit.setText(layer.getOriginalTileUrl());
                 overlayCheck.setChecked(layer.isOverlay());
+                categorySpinner.setSelection(layer.getCategory().ordinal());
                 minZoomPicker.setValue(layer.getMinZoomLevel());
                 maxZoomPicker.setValue(layer.getMaxZoomLevel());
                 List<CoverageArea> coverages = layer.getCoverage();
@@ -258,6 +262,7 @@ public class TileLayerDialog {
                 String name = nameEdit.getText().toString().trim();
                 layerId = existing ? existingLayer.getId() : TileLayerServer.nameToId(name);
                 isOverlay = overlayCheck.isChecked();
+                Category category = Category.values()[categorySpinner.getSelectedItemPosition()];
                 Provider provider = new Provider();
                 String leftText = ((EditText) templateView.findViewById(R.id.left)).getText().toString().trim();
                 String bottomText = ((EditText) templateView.findViewById(R.id.bottom)).getText().toString().trim();
@@ -298,8 +303,8 @@ public class TileLayerDialog {
                 if (moan) { // abort and leave the dialog intact
                     return;
                 }
-                TileLayerServer.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, minZoom, maxZoom,
-                        isOverlay, tileUrl);
+                TileLayerServer.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, minZoom,
+                        maxZoom, isOverlay, tileUrl);
                 if (onUpdate != null) {
                     onUpdate.update();
                 }
@@ -307,7 +312,7 @@ public class TileLayerDialog {
                 saved = true;
             }
         }
-        
+
         final OnClickListener saveListener = new SaveListener();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(saveListener);

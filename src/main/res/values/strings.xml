@@ -260,7 +260,12 @@
     <string name="layer_select_imagery">Select imagery</string>
     <string name="layer_category_all">All</string>
     <string name="layer_category_photo">Aerial imagery</string>
+    <string name="layer_category_historicphoto">Outdated aerial imagery</string>
+    <string name="layer_category_map">Map</string>
+    <string name="layer_category_historicmap">Outdated map</string>
+    <string name="layer_category_osmbasedmap">OSM based map</string>
     <string name="layer_category_qa">QA</string>
+    <string name="layer_category_other">Other</string>
     <!--  Layer info dialog -->
     <string name="layer_info_min_zoom">Min zoom</string>
     <string name="layer_info_max_zoom">Max zoom</string>
@@ -1190,5 +1195,23 @@ avoided by using an offline data source.</string>
 		<item>way+</item>
 		<item>relation</item>
 		<item>relation+</item>
+    </string-array>
+    <string-array name="layer_category_entries">
+        <item>@string/layer_category_photo</item>
+        <item>@string/layer_category_historicphoto</item>
+        <item>@string/layer_category_map</item>
+        <item>@string/layer_category_historicmap</item>
+        <item>@string/layer_category_osmbasedmap</item>
+        <item>@string/layer_category_qa</item>
+        <item>@string/layer_category_other</item>
+    </string-array>
+    <string-array translatable="false" name="layer_category_values">
+        <item>photo</item>
+        <item>historicphoto</item>
+        <item>map</item>
+        <item>historicmap</item>
+        <item>osmbasedmap</item>
+        <item>qa</item>
+        <item>other</item>
     </string-array>
 </resources>

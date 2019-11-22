@@ -83,7 +83,7 @@
                 android:text="@string/overlay" />
             <CheckBox
                 android:id="@+id/overlay"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/overlay_legend"
                 android:layout_toEndOf="@id/overlay_legend"
@@ -92,6 +92,20 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+            <Spinner
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="32dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_centerVertical="true"
+                android:layout_alignBaseline="@id/overlay"
+                android:layout_toRightOf="@id/overlay"
+                android:layout_toEndOf="@id/overlay"
+                style="?attr/spinnerStyle"
+                android:entryValues="@array/layer_category_values"
+                android:entries="@array/layer_category_entries" />
             <TextView
                 android:id="@+id/coverage_legend"
                 android:layout_width="wrap_content"
