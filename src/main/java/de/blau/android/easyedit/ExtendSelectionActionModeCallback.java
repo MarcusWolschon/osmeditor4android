@@ -37,6 +37,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_RELATION          = 7;
     private static final int MENUITEM_ORTHOGONALIZE     = 8;
     private static final int MENUITEM_MERGE_POLYGONS    = 9;
+    private static final int MENUITEM_MERGE_POLYGONS    = 10;
     private static final int MENUITEM_ZOOM_TO_SELECTION = 33;
     private static final int MENUITEM_SEARCH_OBJECTS    = 34;
 
@@ -169,7 +170,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         }
         menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
-
+        menu.add(Menu.NONE, MENUITEM_ADD_TO_RELATIONS, Menu.CATEGORY_SYSTEM, "Add to relations...");
         List<Way> selectedWays = logic.getSelectedWays();
         if (selectedWays != null && !selectedWays.isEmpty()) {
             menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
@@ -258,6 +259,16 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 break;
             case MENUITEM_RELATION:
                 main.startSupportActionMode(new AddRelationMemberActionModeCallback(manager, selection));
+                break;
+            case MENUITEM_ADD_TO_RELATIONS:
+                RelationSelection.showDialog(main, selection, new OnRelationsSelectedListener() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void onRelationsSelected(MultiHashMap<Long, RelationMemberPosition> newMemberships) {
+                        App.getLogic().updateParentRelations(main, selection, newMemberships);
+                    }
+                });
                 break;
             case MENUITEM_ORTHOGONALIZE:
                 List<Way> selectedWays = logic.getSelectedWays();

@@ -651,7 +651,7 @@ public class Logic {
     }
 
     /**
-     * Delegates the setting of the Tag-list to {@link StorageDelegator}. All existing tags will be replaced.
+     * Delegates the setting of the Relations to {@link StorageDelegator}. All existing Relations will be replaced.
      * 
      * @param activity activity we were called from
      * @param type type of the element for the Tag-list.
@@ -669,6 +669,33 @@ public class Logic {
             createCheckpoint(activity, R.string.undo_action_update_relations);
             getDelegator().updateParentRelations(osmElement, parents);
             return true;
+        }
+    }
+
+    /**
+     * Delegates the setting of the Relations to {@link StorageDelegator}. All existing Relations will be replaced.
+     * 
+     * @param activity activity we were called from
+     * @param type type of the element for the Tag-list.
+     * @param osmId OSM-ID of the element.
+     * @param parents new parent relations
+     * @return false if no element exists for the given osmId/type.
+     */
+    public synchronized void updateParentRelations(@Nullable Activity activity, List<OsmElement> elements,
+            final MultiHashMap<Long, RelationMemberPosition> parents) {
+        createCheckpoint(activity, R.string.undo_action_update_relations);
+        for (OsmElement element : elements) {
+            MultiHashMap<Long, RelationMemberPosition> single = new MultiHashMap<>();
+            for (long id : parents.getKeys()) {
+                for (RelationMemberPosition rmp : parents.get(id)) {
+                    if (element.equals(rmp.getRelationMember().getElement())) {
+                        single.add(id, rmp);
+                    }
+                }
+            }
+            if (!single.isEmpty()) {
+                getDelegator().updateParentRelations(element, single);
+            }
         }
     }
 

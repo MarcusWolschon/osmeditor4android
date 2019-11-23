@@ -3,6 +3,8 @@ package de.blau.android.dialogs;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -37,14 +39,20 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.RelationMemberPosition;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.osm.Way;
 import de.blau.android.util.Density;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.LongHashSet;
+import de.blau.android.util.collections.MultiHashMap;
 
 /**
  * Layer dialog
@@ -58,13 +66,19 @@ public class RelationSelection extends ImmersiveDialogFragment {
 
     private static final String TAG = "fragment_relation_selection";
 
+    private static final String NODE_IDS_KEY     = "nodeIds";
+    private static final String WAY_IDS_KEY      = "wayIds";
     private static final String RELATION_IDS_KEY = "relationIds";
     private static final String LISTENER_KEY     = "listener";
 
     TableLayout tl;
 
-    private Map<Long, String>           relationIds;
-    private OnRelationsSelectedListener listener;
+    private MultiHashMap<Long, RelationMemberPosition> memberships;
+    private OnRelationsSelectedListener                listener;
+
+    private long[] nodeIds;
+    private long[] wayIds;
+    private long[] relationIds;
 
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement element, @NonNull OnRelationsSelectedListener listener) {
         List<OsmElement> elements = de.blau.android.util.Util.wrapInList(element);
@@ -107,15 +121,24 @@ public class RelationSelection extends ImmersiveDialogFragment {
 
         Bundle args = new Bundle();
 
+        LongHashSet nodeIds = new LongHashSet();
+        LongHashSet wayIds = new LongHashSet();
         LongHashSet relationIds = new LongHashSet();
         for (OsmElement e : elements) {
-            List<Relation> parents = e.getParentRelations();
-            if (parents != null) {
-                for (Relation p : parents) {
-                    relationIds.put(p.getOsmId(), p.);
-                }
+            switch (e.getName()) {
+            case Node.NAME:
+                nodeIds.put(e.getOsmId());
+                break;
+            case Way.NAME:
+                wayIds.put(e.getOsmId());
+                break;
+            case Relation.NAME:
+                nodeIds.put(e.getOsmId());
+                break;
             }
         }
+        args.putLongArray(NODE_IDS_KEY, nodeIds.values());
+        args.putLongArray(WAY_IDS_KEY, wayIds.values());
         args.putLongArray(RELATION_IDS_KEY, relationIds.values());
         args.putSerializable(LISTENER_KEY, listener);
 
@@ -128,11 +151,34 @@ public class RelationSelection extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        relationIds = new ArrayList<Long>();
-        for (Long id : getArguments().getLongArray(RELATION_IDS_KEY)) {
-            relationIds.add(id);
-        }
+        StorageDelegator delegator = App.getDelegator();
+        nodeIds = getArguments().getLongArray(NODE_IDS_KEY);
+        wayIds = getArguments().getLongArray(WAY_IDS_KEY);
+        relationIds = getArguments().getLongArray(RELATION_IDS_KEY);
+        memberships = new MultiHashMap<>();
+        addMemberships(memberships, delegator, nodeIds, Node.NAME);
+        addMemberships(memberships, delegator, wayIds, Way.NAME);
+        addMemberships(memberships, delegator, relationIds, Relation.NAME);
         listener = (OnRelationsSelectedListener) getArguments().getSerializable(LISTENER_KEY);
+    }
+
+    /**
+     * @param target
+     * @param delegator
+     */
+    private void addMemberships(MultiHashMap<Long, RelationMemberPosition> target, StorageDelegator delegator, long[] ids, String type) {
+        for (Long id : ids) {
+            OsmElement o = delegator.getOsmElement(type, id);
+            List<Relation> parents = o.getParentRelations();
+            if (parents != null) {
+                for (Relation p : parents) {
+                    List<RelationMember> members = p.getMembers();
+                    for (int i = 0; i < members.size(); i++) {
+                        target.add(p.getOsmId(), new RelationMemberPosition(members.get(i), i));
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -144,7 +190,7 @@ public class RelationSelection extends ImmersiveDialogFragment {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                listener.onRelationsSelected();
+                listener.onRelationsSelected(memberships);
             }
         });
         builder.setView(layout);
@@ -204,7 +250,8 @@ public class RelationSelection extends ImmersiveDialogFragment {
         List<Relation> relations = App.getDelegator().getCurrentStorage().getRelations();
 
         for (Relation r : relations) {
-            tl.addView(createRow(context, r, relationIds.contains(Long.valueOf(r.getOsmId())), tp));
+            
+            tl.addView(createRow(context, r,  tp));
         }
     }
 
@@ -217,23 +264,64 @@ public class RelationSelection extends ImmersiveDialogFragment {
      * @return a TableRow
      */
     @NonNull
-    TableRow createRow(@NonNull Context context, @NonNull final Relation r, boolean selected, @NonNull TableLayout.LayoutParams tp) {
+    TableRow createRow(@NonNull Context context, @NonNull final Relation r, @NonNull TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(context);
         final AppCompatCheckBox check = new AppCompatCheckBox(context);
 
         check.setPadding(0, 0, Density.dpToPx(context, 5), 0);
 
-        check.setChecked(selected);
+        Set<RelationMemberPosition> members = memberships.get(r.getOsmId());
+        int count = 0; // number of times the selected elements turn up in the relations
+        for (RelationMemberPosition member:members) {
+            RelationMember rm = member.getRelationMember();
+            long id = rm.getRef();
+            switch (rm.getType()) {
+            case Node.NAME:
+                if (contains(nodeIds,id)) {
+                    count++;
+                }
+                break;
+            case Way.NAME:
+                if (contains(wayIds,id)) {
+                    count++;
+                }
+                break;
+            case Relation.NAME:
+                if (contains(relationIds,id)) {
+                    count++;
+                }
+                break;
+            }
+        }
+        
+        check.setChecked(count > 0);
+        System.out.println("Size " + count + " " + nodeIds.length + " " + wayIds.length + " " + relationIds.length);
+        check.setEnabled(count == nodeIds.length + wayIds.length + relationIds.length || count == 0);
         check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            
                 Long id = Long.valueOf(r.getOsmId());
-                if (isChecked && !relationIds.contains(id)) {
-                    relationIds.add(id);
+                if (isChecked && !memberships.containsKey(id)) {
+                    StorageDelegator delegator = App.getDelegator();
+                    Relation r = (Relation) delegator.getOsmElement(Relation.NAME, id);
+                    int pos = r.getMembers().size();
+                    for (long nodeId:nodeIds) {
+                        memberships.add(id, new RelationMemberPosition(new RelationMember("", delegator.getOsmElement(Node.NAME, nodeId)), pos));
+                        pos++;
+                    }
+                    for (long wayId:wayIds) {
+                        memberships.add(id, new RelationMemberPosition(new RelationMember("", delegator.getOsmElement(Way.NAME, wayId)), pos));
+                        pos++;
+                    }
+                    for (long relationId:relationIds) {
+                        memberships.add(id, new RelationMemberPosition(new RelationMember("", delegator.getOsmElement(Relation.NAME, relationId)), pos));
+                        pos++;
+                    }
                 }
-                if (!isChecked && relationIds.contains(id)) {
-                    relationIds.remove(id);
+                if (!isChecked && memberships.containsKey(id)) {
+                    memberships.removeKey(id);
                 }
 
             }
@@ -254,6 +342,15 @@ public class RelationSelection extends ImmersiveDialogFragment {
         return tr;
     }
 
+    private boolean contains(long[] array, long id) {
+        for (long a:array) {
+            if (id == a) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * Create a divider View to be added to a TableLAyout
      * 

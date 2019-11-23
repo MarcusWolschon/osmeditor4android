@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.Map.Entry;
 
 import androidx.annotation.NonNull;
 
@@ -198,6 +199,17 @@ public class MultiHashMap<K, V> implements Serializable {
             add(key, source.get(key));
         }
 
+    }
+    
+    /**
+     * Add all key/values from source to this Map
+     * 
+     * @param source a Map from which to add keys and values
+     */
+    public void addAll(@NonNull Map<K, V> source) {
+        for (Entry<K,V> entry : source.entrySet()) {
+            add(entry.getKey(), entry.getValue());
+        }
     }
 
     /**

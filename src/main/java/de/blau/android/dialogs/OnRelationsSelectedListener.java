@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Map;
 
 import android.support.annotation.NonNull;
+import de.blau.android.osm.RelationMemberPosition;
+import de.blau.android.util.collections.MultiHashMap;
 
 public interface OnRelationsSelectedListener extends Serializable {
     
@@ -12,5 +14,5 @@ public interface OnRelationsSelectedListener extends Serializable {
      * 
      * @param memberships a map of the ids and roles
      */
-    void onRelationsSelected(@NonNull Map<Long,String> memberships);
+    void onRelationsSelected(@NonNull MultiHashMap<Long,RelationMemberPosition> memberships);
 }

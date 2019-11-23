@@ -25,6 +25,7 @@ import de.blau.android.dialogs.RelationSelection;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.Way;
@@ -32,6 +33,7 @@ import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.MultiHashMap;
 
 /**
  * This action mode handles element selection. When a node or way should be selected, just start this mode. The element
@@ -51,7 +53,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     static final int            MENUITEM_CUT              = 5;
     private static final int    MENUITEM_PASTE_TAGS       = 6;
     private static final int    MENUITEM_RELATION         = 7;
-    private static final int    MENUITEM_ADD_TO_RELATIONS  = 8;
+    private static final int    MENUITEM_ADD_TO_RELATIONS = 8;
     private static final int    MENUITEM_EXTEND_SELECTION = 9;
     private static final int    MENUITEM_ELEMENT_INFO     = 10;
 
@@ -212,7 +214,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 private static final long serialVersionUID = 1L;
 
                 @Override
-                public void onRelationsSelected(Map<Long, String> newMemberships) {
+                public void onRelationsSelected(MultiHashMap<Long, RelationMemberPosition> newMemberships) {
                     App.getLogic().updateParentRelations(main, element.getName(), element.getOsmId(), newMemberships);
                 }
             });
