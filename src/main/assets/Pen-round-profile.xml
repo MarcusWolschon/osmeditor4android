@@ -52,7 +52,7 @@
         <feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" />
         <feature type="way" tags="landuse=residential" minVisibleZoom="10" color="88888888" />
         <feature type="way" tags="landuse=quarry" color="88d8a2a2" />
-        <feature type="way" tags="landuse=military" color="88af2626" /> 
+        <feature type="way" tags="landuse=military" color="88af2626" />
         <feature type="way" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" />
         <feature type="way" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" />
         <feature type="way" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" />
@@ -82,11 +82,47 @@
     	</dash>
     </feature>
     <feature type="motorway_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="motorway_bridge_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
     <feature type="primary_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="primary_bridge_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
     <feature type="secondary_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="secondary_bridge_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
     <feature type="teritary_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="tertiary_bridge_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
     <feature type="unclassified_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="unclassified_bridge_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
     <feature type="residential_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="residential_bridge_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER">
+        <dash phase="1.0">
+            <interval length="2.0" />
+            <interval length="2.0" />
+        </dash>
+    </feature>
     <feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" arrowStyle="oneway_direction">
         <feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" />
@@ -101,18 +137,103 @@
             </dash>
         </feature>
         <feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49" />
-        <feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" casingStyle="motorway_casing" />
-        <feature type="way" tags="highway=motorway_link" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" />
-        <feature type="way" tags="highway=trunk" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" />
-        <feature type="way" tags="highway=trunk_link" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" />
-        <feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" casingStyle="primary_casing" />
-        <feature type="way" tags="highway=primary_link" widthFactor="1.5" color="ffE46D71" />
-        <feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" casingStyle="secondary_casing" />
-        <feature type="way" tags="highway=secondary_link" widthFactor="1.2" color="ffFDBF6F" />
-        <feature type="way" tags="highway=tertiary" widthFactor="1.0" color="ffFCFA74" casingStyle="tertiary_casing" />
-        <feature type="way" tags="highway=tertiary_link" widthFactor="1.0" color="ffFCFA74" />
-        <feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" casingStyle="unclassified_casing" />
-        <feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" casingStyle="residential_casing" />
+        <feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" casingStyle="motorway_casing" >
+            <feature type="way" tags="bridge=yes" casingStyle="motorway_bridge_casing" />
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=motorway_link" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" >
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=trunk" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" casingStyle="trunk_casing" >
+            <feature type="way" tags="bridge=yes" casingStyle="trunk_bridge_casing" />
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=trunk_link" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" >
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" casingStyle="primary_casing" >
+            <feature type="way" tags="bridge=yes" casingStyle="primary_bridge_casing" />
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=primary_link" widthFactor="1.5" color="ffE46D71" >
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" casingStyle="secondary_casing" >
+            <feature type="way" tags="bridge=yes" casingStyle="secondary_bridge_casing" />
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=secondary_link" widthFactor="1.2" color="ffFDBF6F" >
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=tertiary" widthFactor="1.0" color="ffFCFA74" casingStyle="tertiary_casing" >
+            <feature type="way" tags="bridge=yes" casingStyle="tertiary_bridge_casing" />
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=tertiary_link" widthFactor="1.0" color="ffFCFA74" >
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" casingStyle="unclassified_casing" >
+            <feature type="way" tags="bridge=yes" casingStyle="unclassifies_bridge_casing" />
+            <feature type="way" tags="tunnel=yes" casingStyle="">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
+        <feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" casingStyle="residential_casing" >
+            <feature type="way" tags="bridge=yes" casingStyle="residential_bridge_casing" />
+        </feature>
         <feature type="way" tags="highway=living_street" widthFactor="0.9" color="ffff4500" />
         <feature type="way" tags="highway=service" widthFactor="0.7" color="ffCCCCCC" />
     </feature>
