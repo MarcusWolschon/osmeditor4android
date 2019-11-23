@@ -558,13 +558,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     // FIXME should validate here
                 }
             }
-            int result = layer2 == layer1 ? 0 : layer2 > layer1 ? +1 : -1;
+            int result = layer2 == layer1 ? 0 : layer2 > layer1 ? -1 : +1;
             if (result == 0) {
-                FeatureStyle fs1 = DataStyle.matchStyle(w1);
-                Style style1 = fs1.getPaint().getStyle();
-                FeatureStyle fs2 = DataStyle.matchStyle(w2);
-                Style style2 = fs2.getPaint().getStyle();
-                result = style2 == style1 ? 0 : style2 == Style.STROKE ? -1 : +1;
+                boolean w2closed = w2.isClosed();
+                return w1.isClosed() == w2closed ? 0  : w2closed ? 1 : -1;
             }
             return result;
         }
