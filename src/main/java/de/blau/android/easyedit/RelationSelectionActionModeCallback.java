@@ -22,8 +22,8 @@ import de.blau.android.util.Util;
 public class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
     private static final String DEBUG_TAG = "RelationSelectionAct...";
 
-    private static final int MENUITEM_ADD_RELATION_MEMBERS    = 10;
-    private static final int MENUITEM_SELECT_RELATION_MEMBERS = 11;
+    private static final int MENUITEM_ADD_RELATION_MEMBERS    = 11;
+    private static final int MENUITEM_SELECT_RELATION_MEMBERS = 12;
 
     /**
      * Construct a new ActionModeCallback

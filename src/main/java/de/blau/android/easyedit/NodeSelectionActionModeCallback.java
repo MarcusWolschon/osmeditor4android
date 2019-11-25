@@ -35,11 +35,11 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
-    private static final int MENUITEM_APPEND       = 10;
-    private static final int MENUITEM_JOIN         = 11;
-    private static final int MENUITEM_UNJOIN       = 12;
-    private static final int MENUITEM_EXTRACT      = 13;
-    private static final int MENUITEM_RESTRICTION  = 14;
+    private static final int MENUITEM_APPEND       = 11;
+    private static final int MENUITEM_JOIN         = 12;
+    private static final int MENUITEM_UNJOIN       = 13;
+    private static final int MENUITEM_EXTRACT      = 14;
+    private static final int MENUITEM_RESTRICTION  = 15;
     /** */
     private static final int MENUITEM_SET_POSITION = 16;
     private static final int MENUITEM_ADDRESS      = 17;

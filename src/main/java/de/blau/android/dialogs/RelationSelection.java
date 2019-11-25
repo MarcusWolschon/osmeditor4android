@@ -2,6 +2,9 @@ package de.blau.android.dialogs;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +30,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -34,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -47,9 +54,13 @@ import de.blau.android.osm.RelationMemberPosition;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.PresetRole;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.Density;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Snack;
+import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.MultiHashMap;
@@ -247,11 +258,15 @@ public class RelationSelection extends ImmersiveDialogFragment {
         TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
         tp.setMargins(2, 0, 2, 0);
 
+        ViewBox viewbox = new ViewBox(App.getLogic().getViewBox());
+        viewbox.expand(2.0);
         List<Relation> relations = App.getDelegator().getCurrentStorage().getRelations();
 
         for (Relation r : relations) {
-            
-            tl.addView(createRow(context, r,  tp));
+            BoundingBox box = r.getBounds();
+            if (box != null && box.intersects(viewbox)) {
+                tl.addView(createRow(context, r, tp));
+            }
         }
     }
 
@@ -272,50 +287,53 @@ public class RelationSelection extends ImmersiveDialogFragment {
 
         Set<RelationMemberPosition> members = memberships.get(r.getOsmId());
         int count = 0; // number of times the selected elements turn up in the relations
-        for (RelationMemberPosition member:members) {
+        Set<String> roles = new HashSet<>();
+        for (RelationMemberPosition member : members) {
             RelationMember rm = member.getRelationMember();
             long id = rm.getRef();
             switch (rm.getType()) {
             case Node.NAME:
-                if (contains(nodeIds,id)) {
+                if (contains(nodeIds, id)) {
                     count++;
+                    roles.add(rm.getRole());
                 }
                 break;
             case Way.NAME:
-                if (contains(wayIds,id)) {
+                if (contains(wayIds, id)) {
                     count++;
+                    roles.add(rm.getRole());
                 }
                 break;
             case Relation.NAME:
-                if (contains(relationIds,id)) {
+                if (contains(relationIds, id)) {
                     count++;
+                    roles.add(rm.getRole());
                 }
                 break;
             }
         }
-        
+
         check.setChecked(count > 0);
         System.out.println("Size " + count + " " + nodeIds.length + " " + wayIds.length + " " + relationIds.length);
-        check.setEnabled(count == nodeIds.length + wayIds.length + relationIds.length || count == 0);
+        check.setEnabled((count == nodeIds.length + wayIds.length + relationIds.length && roles.size() == 1) || count == 0);
         check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            
                 Long id = Long.valueOf(r.getOsmId());
                 if (isChecked && !memberships.containsKey(id)) {
                     StorageDelegator delegator = App.getDelegator();
                     Relation r = (Relation) delegator.getOsmElement(Relation.NAME, id);
                     int pos = r.getMembers().size();
-                    for (long nodeId:nodeIds) {
+                    for (long nodeId : nodeIds) {
                         memberships.add(id, new RelationMemberPosition(new RelationMember("", delegator.getOsmElement(Node.NAME, nodeId)), pos));
                         pos++;
                     }
-                    for (long wayId:wayIds) {
+                    for (long wayId : wayIds) {
                         memberships.add(id, new RelationMemberPosition(new RelationMember("", delegator.getOsmElement(Way.NAME, wayId)), pos));
                         pos++;
                     }
-                    for (long relationId:relationIds) {
+                    for (long relationId : relationIds) {
                         memberships.add(id, new RelationMemberPosition(new RelationMember("", delegator.getOsmElement(Relation.NAME, relationId)), pos));
                         pos++;
                     }
@@ -329,28 +347,107 @@ public class RelationSelection extends ImmersiveDialogFragment {
         });
         tr.addView(check);
 
-        TextView cell = new TextView(context);
-        cell.setText(r.getDescription(context));
-        cell.setMinEms(2);
-        cell.setHorizontallyScrolling(true);
-        cell.setSingleLine(true);
-        cell.setEllipsize(TextUtils.TruncateAt.END);
-        cell.setPadding(Density.dpToPx(context, 5), 0, Density.dpToPx(context, 5), 0);
-        tr.addView(cell);
+        AutoCompleteTextView roleView = new AutoCompleteTextView(context);
+        roleView.setAdapter(getRoleAutocompleteAdapter(r, roles));
+        roleView.setThreshold(1);
+        OnClickListener autocompleteOnClick = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.hasFocus()) {
+                    ((AutoCompleteTextView) v).showDropDown();
+                }
+            }
+        };
+
+        roleView.setOnClickListener(autocompleteOnClick);
+        
+        roleView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(DEBUG_TAG, "onItemClicked value");
+                Object o = parent.getItemAtPosition(position);
+                if (o instanceof StringWithDescription) {
+                    roleView.setText(((StringWithDescription) o).getValue());
+                } else if (o instanceof String) {
+                    roleView.setText((String) o);
+                } else if (o instanceof PresetRole) {
+                    roleView.setText(((PresetRole) o).getRole());
+                }
+            }
+        });
+        
+        roleView.setEms(4);
+        roleView.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        tr.addView(roleView);
+
+        TextView relationName = new TextView(context);
+        relationName.setText(r.getDescription(context));
+        relationName.setMinEms(2);
+        relationName.setHorizontallyScrolling(true);
+        relationName.setSingleLine(true);
+        relationName.setEllipsize(TextUtils.TruncateAt.END);
+        relationName.setPadding(Density.dpToPx(context, 5), 0, Density.dpToPx(context, 5), 0);
+        tr.addView(relationName);
         tr.setGravity(Gravity.CENTER_VERTICAL);
         tr.setLayoutParams(tp);
         return tr;
     }
 
     private boolean contains(long[] array, long id) {
-        for (long a:array) {
+        for (long a : array) {
             if (id == a) {
                 return true;
             }
         }
         return false;
     }
-    
+
+    PresetItem getRelationPreset(long relationId) {
+        Preset[] presets = App.getCurrentPresets(getContext());
+        Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
+        if (presets != null && r != null) {
+            return Preset.findBestMatch(presets, r.getTags());
+        }
+        return null;
+    }
+
+    ArrayAdapter<PresetRole> getRoleAutocompleteAdapter(@NonNull Relation r, @NonNull Set<String> existingRoles) {
+        List<PresetRole> result = new ArrayList<>();
+        PresetItem presetItem = getRelationPreset(r.getOsmId());
+        if (presetItem != null) {
+            Map<String, Integer> counter = new HashMap<>();
+            int position = 0;
+            List<String> tempRoles = App.getMruTags().getRoles(presetItem);
+            if (tempRoles != null) {
+                for (String role : tempRoles) {
+                    result.add(new PresetRole(role, null, null));
+                    counter.put(role, position++);
+                }
+            }
+            List<PresetRole> tempPresetRoles = presetItem.getRoles(null);
+            if (tempPresetRoles != null) {
+                Collections.sort(tempPresetRoles);
+                for (PresetRole presetRole : tempPresetRoles) {
+                    Integer counterPos = counter.get(presetRole.getRole());
+                    if (counterPos != null) {
+                        result.get(counterPos).setHint(presetRole.getHint());
+                        continue;
+                    }
+                    result.add(presetRole);
+                }
+            }
+        } else {
+            List<String> tempRoles = App.getMruTags().getRoles();
+            if (tempRoles != null) {
+                for (String role : tempRoles) {
+                    result.add(new PresetRole(role, null, null));
+                }
+            }
+        }
+        System.out.println("Roles found " + result.size() + " for " + r.getDescription());
+        return new ArrayAdapter<>(getContext(), R.layout.autocomplete_row, result);
+    }
+
     /**
      * Create a divider View to be added to a TableLAyout
      * 

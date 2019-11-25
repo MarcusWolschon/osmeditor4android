@@ -23,19 +23,19 @@ import de.blau.android.util.Util;
 
 public class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
     private static final String DEBUG_TAG                  = "WaySelectionAction...";
-    private static final int    MENUITEM_SPLIT             = 10;
-    private static final int    MENUITEM_MERGE             = 11;
-    private static final int    MENUITEM_REVERSE           = 12;
-    private static final int    MENUITEM_APPEND            = 13;
-    private static final int    MENUITEM_RESTRICTION       = 14;
-    private static final int    MENUITEM_ROTATE            = 15;
-    private static final int    MENUITEM_ORTHOGONALIZE     = 16;
-    private static final int    MENUITEM_CIRCULIZE         = 17;
-    private static final int    MENUITEM_SPLIT_POLYGON     = 18;
-    private static final int    MENUITEM_ADDRESS           = 19;
-    private static final int    MENUITEM_UNJOIN            = 20;
-    private static final int    MENUITEM_UNJOIN_DISSIMILAR = 21;
-    private static final int    MENUITEM_REMOVE_NODE       = 22;
+    private static final int    MENUITEM_SPLIT             = 11;
+    private static final int    MENUITEM_MERGE             = 12;
+    private static final int    MENUITEM_REVERSE           = 13;
+    private static final int    MENUITEM_APPEND            = 14;
+    private static final int    MENUITEM_RESTRICTION       = 15;
+    private static final int    MENUITEM_ROTATE            = 16;
+    private static final int    MENUITEM_ORTHOGONALIZE     = 17;
+    private static final int    MENUITEM_CIRCULIZE         = 18;
+    private static final int    MENUITEM_SPLIT_POLYGON     = 19;
+    private static final int    MENUITEM_ADDRESS           = 20;
+    private static final int    MENUITEM_UNJOIN            = 21;
+    private static final int    MENUITEM_UNJOIN_DISSIMILAR = 22;
+    private static final int    MENUITEM_REMOVE_NODE       = 23;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
