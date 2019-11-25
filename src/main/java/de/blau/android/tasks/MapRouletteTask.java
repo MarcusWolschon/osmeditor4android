@@ -146,7 +146,7 @@ public class MapRouletteTask extends Task {
 
     @Override
     public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.roulette_changed, x, y, selected);
+        drawIcon(context, cachedIconChangedClosed, c, R.drawable.roulette_closed_changed, x, y, selected);
     }
 
     @Override

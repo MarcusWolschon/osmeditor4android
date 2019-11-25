@@ -11,6 +11,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import de.blau.android.App;
@@ -31,7 +32,12 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 6L;
+
+    protected static BitmapWithOffset cachedIconClosed;
+    protected static BitmapWithOffset cachedIconChangedClosed;
+    protected static BitmapWithOffset cachedIconOpen;
+    protected static BitmapWithOffset cachedIconChanged;
 
     /**
      * Date pattern used to parse the 'date' attribute of a 'note' from XML.
@@ -325,5 +331,25 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
     String toJOSMDate(@NonNull Date date) {
         String josmDate = DateFormatter.JOSM_DATE.format(date);
         return josmDate.substring(0, josmDate.length() - 2); // strip last two digits
+    }
+
+    @Override
+    public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
+        drawIcon(context, cachedIconOpen, c, R.drawable.note_open, x, y, selected);
+    }
+
+    @Override
+    public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
+        drawIcon(context, cachedIconChanged, c, R.drawable.note_changed, x, y, selected);
+    }
+
+    @Override
+    public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
+        drawIcon(context, cachedIconChangedClosed, c, R.drawable.note_changed_closed, x, y, selected);
+    }
+
+    @Override
+    public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
+        drawIcon(context, cachedIconClosed, c, R.drawable.note_closed, x, y, selected);
     }
 }
