@@ -2596,7 +2596,7 @@ public class Preset implements Serializable {
         /**
          * 
          */
-        private static final long serialVersionUID = 13L;
+        private static final long serialVersionUID = 14L;
 
         /**
          * All fields in the order they are in the Preset file
@@ -2620,6 +2620,11 @@ public class Preset implements Serializable {
          * true if a chunk
          */
         private boolean chunk = false;
+
+        /**
+         * If true the item is suitable to be autoapplied
+         */
+        private boolean autoapply = true;
 
         private final int itemIndex;
 
@@ -3380,6 +3385,24 @@ public class Preset implements Serializable {
          */
         boolean isChunk() {
             return chunk;
+        }
+
+        /**
+         * Determine if this preset can be autoapplied or not
+         * 
+         * @return true if this preset can be autoapplied
+         */
+        public boolean autoapply() {
+            return autoapply;
+        }
+
+        /**
+         * Set the autoapply value
+         * 
+         * @param autoapply if true the preset is suitable for autoapplying
+         */
+        void setAutoapply(boolean autoapply) {
+            this.autoapply = autoapply;
         }
 
         /**
