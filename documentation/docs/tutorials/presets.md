@@ -43,6 +43,7 @@ __&lt;item&gt;__   |                               | supported |
                    | deprecated                    | extension | only use the preset for matching and map icon display 
                    | regions                       | extension | comma separated list of countries this preset item is applicable for
                    | exclude_regions               | extension | if true, invert the meaning of regions 
+                   | autoapply                     | extension | if true (default), allow auto-applying of the item
 __&lt;chunk&gt;__  |                               | supported | 
                    | id                            | supported | required
 __&lt;reference&gt;__ |                            | supported |
@@ -169,3 +170,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _items\_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
 * _regions_ comma separated list of countries this preset group or item is applicable for
 * _exclude_regions_ if true, invert the meaning of regions 
+* _autoapply_ if true (default), allow auto-applying of the item
