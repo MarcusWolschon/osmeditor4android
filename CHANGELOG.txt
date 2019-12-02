@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.10: Fix ordering of elements with layer tags, fix issue with re-formatting multiple phone numbers, update imagery and translations.
+
 14.0.9: Workaround google bug with imagery menu in layer dialog, reduce timeout for layer metadata, update preset and translations.
 
 14.0.8: Fix another filtering issue with inheriting status from Relations, updated NSI, imagery and translations. 
