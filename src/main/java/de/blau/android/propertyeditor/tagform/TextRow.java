@@ -24,6 +24,8 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.net.UrlCheck;
+import de.blau.android.net.UrlCheck.CheckStatus;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.ValueType;
@@ -50,6 +52,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
 
     private TextView                   keyView;
     private CustomAutoCompleteTextView valueView;
+    private ValueType                  valueType;
 
     /**
      * Construct a editable text row for a tag
@@ -109,6 +112,16 @@ public class TextRow extends LinearLayout implements KeyValueRow {
     }
 
     /**
+     * Get the current ValueType if any
+     * 
+     * @return the ValueType or null
+     */
+    @Nullable
+    ValueType getValueType() {
+        return valueType;
+    }
+
+    /**
      * Get the AutoCompleteTextView for the values
      * 
      * @return a CustomAutoCompleteTextView
@@ -151,8 +164,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         final String key = field.getKey();
         final String hint = preset != null ? field.getHint() : null;
         final String defaultValue = field.getDefaultValue();
-        final ValueType valueType = preset != null ? preset.getValueType(key) : null;
-        final boolean isWebsite = Tags.isWebsiteKey(key) || ValueType.WEBSITE == valueType;
+        row.valueType = preset != null ? preset.getValueType(key) : null;
         final boolean isMPHSpeed = Tags.isSpeedKey(key) && App.getGeoContext(rowLayout.getContext()).imperial(caller.propertyEditorListener.getElement());
         final TextView ourKeyView = row.getKeyView();
         ourKeyView.setText(hint != null ? hint : key);
@@ -212,9 +224,9 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         ourValueView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                Log.d(DEBUG_TAG, "onFocusChange");
                 String rowValue = row.getValue();
                 if (!hasFocus && !rowValue.equals(value)) {
-                    Log.d(DEBUG_TAG, "onFocusChange");
                     caller.tagListener.updateSingleValue(key, rowValue);
                     if (rowLayout instanceof EditableLayout) {
                         ((EditableLayout) rowLayout).putTag(key, rowValue);
@@ -224,14 +236,12 @@ public class TextRow extends LinearLayout implements KeyValueRow {
                     if (adapter != null && !adapter.isEmpty()) {
                         ourValueView.setAdapter(adapter);
                     }
-                    if (isWebsite) {
-                        TagEditorFragment.initWebsite(ourValueView);
-                    } else if (isMPHSpeed) {
+                    if (isMPHSpeed) {
                         TagEditorFragment.initMPHSpeed(rowLayout.getContext(), ourValueView, caller.propertyEditorListener);
-                    } else if (valueType == null) {
+                    } else if (row.getValueType() == null) {
                         InputTypeUtil.enableTextSuggestions(ourValueView);
                     }
-                    InputTypeUtil.setInputTypeFromValueType(ourValueView, valueType);
+                    InputTypeUtil.setInputTypeFromValueType(ourValueView, row.getValueType());
                 }
             }
         });

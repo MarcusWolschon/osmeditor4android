@@ -43,7 +43,7 @@ public class MultiselectDialogRow extends DialogRow {
      * 
      * @param context Android Context
      */
-    public MultiselectDialogRow(Context context) {
+    public MultiselectDialogRow(@NonNull Context context) {
         super(context);
         inflater = LayoutInflater.from(context);
     }
@@ -54,7 +54,7 @@ public class MultiselectDialogRow extends DialogRow {
      * @param context Android Context
      * @param attrs an AttributeSet
      */
-    public MultiselectDialogRow(Context context, AttributeSet attrs) {
+    public MultiselectDialogRow(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         inflater = LayoutInflater.from(context);
     }

@@ -51,6 +51,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.net.UrlCheck;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
@@ -527,9 +528,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     row = (View) row.getParent();
                 } while (row != null && !(row instanceof TextRow || row instanceof MultiTextRow));
                 if (row != null) {
-                    tagListener.updateSingleValue(((KeyValueRow) row).getKey(), ((KeyValueRow) row).getValue());
+                    String rowKey = ((KeyValueRow) row).getKey();
+                    String rowValue = ((KeyValueRow) row).getValue();
+                    tagListener.updateSingleValue(rowKey, rowValue);
                     if (row.getParent() instanceof EditableLayout) {
-                        ((EditableLayout) row.getParent()).putTag(((KeyValueRow) row).getKey(), ((KeyValueRow) row).getValue());
+                        ((EditableLayout) row.getParent()).putTag(rowKey, rowValue);
                     }
                 }
             }
@@ -664,7 +667,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 String value = tagList.get(key);
                 Log.e(DEBUG_TAG, "field " + field.getClass().getCanonicalName());
                 if (value != null) {
-                    if (field instanceof PresetFixedField) { 
+                    if (field instanceof PresetFixedField) {
                         if (value.equals(((PresetFixedField) field).getValue().getValue())) {
                             tagList.remove(key);
                             editableView.putTag(key, value);
@@ -867,6 +870,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, null));
                         } else if (ValueType.PHONE == valueType) {
                             rowLayout.addView(MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, null));
+                        } else if (ValueType.WEBSITE == valueType || Tags.isWebsiteKey(key)) {
+                            rowLayout.addView(UrlDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value));
                         } else {
                             rowLayout.addView(TextRow.getRow(this, inflater, rowLayout, preset, field, value, values, allTags));
                         }
@@ -884,7 +889,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             } else if (count <= maxInlineValues) {
                                 rowLayout.addView(ComboRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
                             } else {
-                                rowLayout.addView(DialogRow.getComboRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
+                                rowLayout.addView(ComboDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, adapter));
                             }
                         } else if (isMultiSelectField) {
                             if (((PresetComboField) field).isEditable()) {
@@ -919,11 +924,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                     @Override
                                     public void onStateChanged(IndeterminateCheckBox check, Boolean state) {
                                         String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR
-                                                                                                               // state
-                                                                                                               // can't
-                                                                                                               // be
-                                                                                                               // null
-                                                                                                               // here
                                         tagListener.updateSingleValue(key, checkValue);
                                         if (rowLayout instanceof EditableLayout) {
                                             ((EditableLayout) rowLayout).putTag(key, checkValue);
