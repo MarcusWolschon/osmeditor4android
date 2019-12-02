@@ -412,13 +412,13 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                 if (row.valueType == ValueType.PHONE) {
                     v = row.formatPhoneNumber(v);
                     if (!orig.equals(v)) {
-                        caller.tagListener.updateSingleValue(key, v);
                         phoneNumberReformatted++;
                     }
                 }
                 row.addEditText(v, row.listener, row.valueType, adapter, -1);
             }
             if (phoneNumberReformatted > 0) {
+                caller.tagListener.updateSingleValue(key, row.getValue());
                 rowLayout.post(new Runnable() {
                     @Override
                     public void run() {
