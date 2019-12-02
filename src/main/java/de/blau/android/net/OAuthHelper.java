@@ -1,4 +1,4 @@
-package de.blau.android.util;
+package de.blau.android.net;
 
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutionException;
