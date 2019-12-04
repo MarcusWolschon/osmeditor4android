@@ -405,7 +405,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
 
         Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
-        menu.findItem(R.id.tag_menu_locale).setVisible(prop.getLanguages() != null);
+        menu.findItem(R.id.tag_menu_locale).setVisible(prop != null && prop.getLanguages() != null);
     }
 
     @Override
