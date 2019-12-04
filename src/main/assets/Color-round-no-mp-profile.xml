@@ -266,9 +266,12 @@
     </feature>
     
     <feature type="way" tags="leisure=playground" area="true" updateWidth="true" widthFactor="0.8" color="88f4a460" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right" />
+    
     <!-- Indoor features -->
-    <feature type="way" tags="indoor" updateWidth="true" widthFactor="0.7" color="fff4a442" style="FILL_AND_STROKE" cap="BUTT" join="MITER" >
-        <feature type="way" tags="indoor=corridor" updateWidth="true" widthFactor="0.7" color="fff2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="indoor" updateWidth="true" widthFactor="0.7" color="99f4a442" style="STROKE" cap="BUTT" join="MITER" >
+        <feature type="way" tags="indoor=level" updateWidth="true" widthFactor="0.7" color="99f2c791" style="STROKE" cap="BUTT" join="MITER" />
+        <feature type="way" tags="indoor=room" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+        <feature type="way" tags="indoor=corridor" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
     </feature>
     
     <!-- relations  -->
