@@ -20,6 +20,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer.Category;
+import de.blau.android.util.BrokenAndroid;
 
 /**
  * Convenience class for parsing and holding the application's SharedPreferences.
@@ -45,7 +46,7 @@ public class Preferences {
     private String        scaleLayer;
     private final String  mapProfile;
     private final String  followGPSbutton;
-    private final String  fullscreenMode;
+    private String        fullscreenMode;
     private final String  mapOrientation;
     private int           gpsInterval;
     private float         gpsDistance;
@@ -209,8 +210,15 @@ public class Preferences {
 
         followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), r.getString(R.string.follow_GPS_left));
 
-        fullscreenMode = prefs.getString(r.getString(R.string.config_fullscreenMode_key),
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? r.getString(R.string.full_screen_auto) : r.getString(R.string.full_screen_never));
+        // this is slightly complex, but only needs to be done once
+        String fullscreenModeKey = r.getString(R.string.config_fullscreenMode_key);
+        fullscreenMode = prefs.getString(fullscreenModeKey, null);
+        if (fullscreenMode == null) { // was never set, determine value
+            BrokenAndroid brokenAndroid = new BrokenAndroid(ctx);
+            fullscreenMode = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !brokenAndroid.isFullScreenBroken() ? r.getString(R.string.full_screen_auto)
+                    : r.getString(R.string.full_screen_never);
+            prefs.edit().putString(fullscreenModeKey, fullscreenMode).commit();
+        }
 
         mapOrientation = prefs.getString(r.getString(R.string.config_mapOrientation_key), r.getString(R.string.map_orientation_auto));
 
