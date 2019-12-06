@@ -458,7 +458,7 @@ public class App extends android.app.Application {
      * @return the current Logic instance
      */
     @Nullable
-    public static Logic getLogic() {
+    public static synchronized Logic getLogic() {
         return logic;
     }
 
