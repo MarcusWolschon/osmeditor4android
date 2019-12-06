@@ -203,11 +203,17 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         int currentItem = -1; // used when restoring
-        prefs = App.getLogic().getPrefs();
+        Logic logic = App.getLogic();
+        if (logic == null) {
+            // cause for this is currently unknown, but it isn't recoverable
+            abort("Logic is null");
+            return;
+        }
+        prefs = logic.getPrefs();
         if (prefs == null) {
             Log.e(DEBUG_TAG, "prefs was null creating new");
             prefs = new Preferences(this);
-            App.getLogic().setPrefs(prefs);
+            logic.setPrefs(prefs);
         }
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customTagEditor_Light);
@@ -244,7 +250,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             currentItem = savedInstanceState.getInt(CURRENTITEM, -1);
             usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); // FIXME this disables layout changes on
                                                                        // restarting
-            Logic logic = App.newLogic(); //
             StorageDelegator delegator = App.getDelegator();
             if (!delegator.isDirty() && delegator.isEmpty()) { // this can mean: need to load state
                 Log.d(DEBUG_TAG, "Loading saved state");
