@@ -22,6 +22,7 @@
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
         <item name="check">@drawable/baseline_check_white_18</item>
+        <item name="add">@drawable/ic_add_black_36dp</item>
 	</style>
 	
 	<style name="Theme.AppCompatPrefsLight" parent="@style/Theme.AppCompat.Light">
@@ -33,6 +34,7 @@
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
         <item name="check">@drawable/baseline_check_black_18</item>
+        <item name="add">@drawable/ic_add_white_36dp</item>
 	</style>
 
 	<style name="Theme.custom" parent="@style/Theme.AppCompat">
@@ -322,6 +324,7 @@
 		<item name="menu_preset_up">@drawable/preset_up_dark</item>
 		<item name="menu_preset_top">@drawable/preset_top_dark</item>
 		<item name="menu_help">@drawable/ic_action_help_holo_dark</item>
+        <item name="add">@drawable/ic_add_black_36dp</item>
 		<!--  colors -->
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
@@ -495,6 +498,7 @@
 		<item name="menu_preset_up">@drawable/preset_up_light</item>
 		<item name="menu_preset_top">@drawable/preset_top_light</item>
 		<item name="menu_help">@drawable/ic_action_help_holo_light</item>
+        <item name="add">@drawable/ic_add_white_36dp</item>
 		<!--  colors -->
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>

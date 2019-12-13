@@ -125,7 +125,7 @@ public class TagFilter extends CommonFilter {
         }
     }
 
-    private ArrayList<FilterEntry> filter = new ArrayList<>();
+    private List<FilterEntry> filter = new ArrayList<>();
 
     /**
      * 
