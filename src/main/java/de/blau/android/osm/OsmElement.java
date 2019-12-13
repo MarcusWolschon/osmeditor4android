@@ -54,7 +54,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
     byte state;
 
-    ArrayList<Relation> parentRelations;
+    List<Relation> parentRelations;
 
     // seconds since EPOCH, negative == not set
     private int timestamp = -1;
@@ -112,6 +112,13 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     void setOsmId(final long osmId) {
         this.osmId = osmId;
+        if (parentRelations != null) { // update all references
+            for (Relation r : parentRelations) {
+                for (RelationMember member : r.getAllMembers(this)) {
+                    member.ref = osmId;
+                }
+            }
+        }
     }
 
     /**
