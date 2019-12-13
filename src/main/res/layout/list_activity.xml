@@ -32,7 +32,6 @@
         android:layout_alignParentBottom="true"
         android:clickable="true"
         android:src="?attr/add"
-        android:theme="@style/Theme.customMain"
         app:backgroundTint="?attr/colorAccent"
         app:fabSize="mini" 
         app:useCompatPadding="true" />
