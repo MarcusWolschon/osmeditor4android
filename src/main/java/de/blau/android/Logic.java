@@ -651,7 +651,7 @@ public class Logic {
         OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element " + type + " #" + osmId);
-            throw new OsmIllegalOperationException("Element " + osmElement + " not in storage");
+            throw new OsmIllegalOperationException(type + " #" + osmId + " not in storage");
         } else {
             createCheckpoint(activity, R.string.undo_action_set_tags);
             getDelegator().setTags(osmElement, tags);
