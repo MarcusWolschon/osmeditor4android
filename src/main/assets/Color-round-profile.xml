@@ -279,8 +279,11 @@
     <feature type="relation" tags="type=multipolygon" updateWidth="true" widthFactor="0.8" color="88222222" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
         <feature type="relation" tags="building" widthFactor="1.0" color="ffcc9999"/>
         <feature type="relation" tags="leisure=playground" widthFactor="0.8" color="88f4a460" style="FILL_AND_STROKE" />
-        <feature type="relation" tags="natural" color="88008800" >
-            <feature type="relation" tags="natural=water" color="880000ff" />
+        <feature type="relation" tags="natural" color="ff71BE80" >
+            <feature type="relation" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
+            <feature type="relation" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
+            <feature type="relation" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" />
+            <feature type="relation" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" />
         </feature>
         <feature type="relation" tags="landuse" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="BEVEL" pathPattern="border_right" >
             <feature type="relation" tags="landuse=construction" color="88996633" />
