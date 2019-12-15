@@ -4327,15 +4327,19 @@ public class Logic {
      * Will be called when the screen orientation was changed.
      * 
      * @param map the new Map-Instance. Be aware: The View-dimensions are not yet set...
+     * @param deselect if true de-select objects
      */
-    public void setMap(Map map) {
+    public void setMap(Map map, boolean deselect) {
+        Log.d(DEBUG_TAG, "setting map");
         this.map = map;
         map.setDelegator(getDelegator());
         map.setViewBox(viewBox);
-        map.deselectObjects();
-        setSelectedNode(null);
-        setSelectedWay(null);
-        setSelectedRelation(null);
+        if (deselect) {
+            map.deselectObjects();
+            setSelectedNode(null);
+            setSelectedWay(null);
+            setSelectedRelation(null);
+        }
         invalidateMap();
     }
 

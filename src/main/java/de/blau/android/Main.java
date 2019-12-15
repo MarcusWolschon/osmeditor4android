@@ -622,7 +622,7 @@ public class Main extends FullScreenAppCompatActivity
         Log.i(DEBUG_TAG, "onCreate - setting new map");
 
         App.getLogic().setPrefs(prefs);
-        App.getLogic().setMap(map);
+        App.getLogic().setMap(map, true);
 
         Log.d(DEBUG_TAG, "StorageDelegator dirty is " + App.getDelegator().isDirty());
         if (isLastActivityAvailable() && !App.getDelegator().isDirty()) {
@@ -1417,7 +1417,11 @@ public class Main extends FullScreenAppCompatActivity
     public void onConfigurationChanged(Configuration newConfig) {
         Log.d(DEBUG_TAG, "onConfigurationChanged");
         super.onConfigurationChanged(newConfig);
-        App.getLogic().setMap(map);
+        if (App.getLogic().getMap() == null) {
+            App.getLogic().setMap(map, false);
+        } else {
+            map.invalidate();
+        }
         if (easyEditManager != null && easyEditManager.isProcessingAction()) {
             easyEditManager.invalidate();
         }
