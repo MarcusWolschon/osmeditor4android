@@ -321,6 +321,7 @@
   <string name="location_last_text_parameterized">Senast kända plats: %1$s</string>
   <string name="location_current_text_parameterized">Nuvarande plats: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s sedan</string>
+  <string name="location_text_metadata_accuracy">Noggrannhet %1$2.0f meter, </string>
   <string name="location_coordinates_text">Från koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>

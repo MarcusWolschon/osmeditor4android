@@ -15,32 +15,52 @@
   <string name="upload_problem_message">Algúns ou todos os datos non foron subidos. Téntao de novo máis tarde.</string>
   <string name="bad_request_message">A API respostou cun erro, garde os seus datos e informe do problema:\n\n</string>
   <string name="upload_conflict_title">Conflito en subida</string>
+  <string name="upload_conflict_message_version">%1$s \nten a versión local %2$d \ne o servidor %3$d</string>
   <string name="upload_conflict_message_deleted">%1$s \nten unha versión en local %2$d \ne foi eliminado no servidor</string>
+  <string name="upload_conflict_message_referential">%1$s \nfoi eliminado de xeito local \nmais ten referencias no servidor</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nxa foi eliminado no servidor</string>
   <string name="use_local_version">Emprega-la versión local</string>
   <string name="use_server_version">Emprega-la versión do servidor</string>
   <string name="no_login_data_title">Non se puido autenticar</string>
   <string name="no_login_data_message">Se estás a empregar o OAuth é probábel que sexa un erro, por favor envía un informe do problema. Se estás a empregar un nome de usuario e contrasinal (non recomendado), por favor, comproba que se inseriron de xeito correcto.</string>
   <string name="no_connection_title">Sen conexión ó servidor</string>
   <string name="no_connection_message">Non foi posíbel conectar ó servidor do OSM agora. Comproba que estás conectado á Internet ou téntao de novo máis tarde.</string>
+  <string name="ssl_handshake_failed">Non foi posíbel conectar ós servidores do OpenStreetMap porque a negociación HTTPS fallou. Tenta mudar a unha conexión non encriptada nas preferencias da API.</string>
   <string name="wrong_login_data_title">Non podes autenticarte</string>
   <string name="wrong_login_data_message">Se está a empregar o OAuth, volva autenticar e ténteo de novo. Se emprega un nome de usuario e un contrasinal (non recomendado), comprobe que se inseriu de xeito correcto.</string>
-  <string name="wrong_login_data_re_authenticate">Voltar a autenticar</string>
+  <string name="wrong_login_data_re_authenticate">Autenticar de novo</string>
   <string name="forbidden_login_title">Acceso prohibido</string>
   <string name="not_found_title">Elemento non atopado</string>
+  <string name="not_found_message">A API non conseguiu atopar o elemento ou conxunto de mudanzas existente co ID especificado.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Erro descoñecido</string>
+  <string name="unknown_error_message">A mensaxe ou código de erro fornecido pola API non puideron ser procesados.&lt;br&gt;&lt;br&gt;</string>
   <string name="no_data_title">Sen datos</string>
+  <string name="no_data_message">A fonte de datos configurada non ten datos nesta localización.</string>
+  <string name="required_feature_missing_title">Compoñente descoñecido ou desactivado</string>
   <string name="go_to_openstreetmap">Ir ó openstreetmap.org</string>
   <string name="data_conflict_title">Conflito de versión</string>
+  <string name="data_conflict_message">Os datos baixados entrarían en conflito coas túas edicións. Por favor sube os teus datos antes de tentalo de novo.</string>
   <string name="invalid_bounding_box_title">Caixa de límite non válida</string>
+  <string name="invalid_bounding_box_message">A área selecionada non cumpre coas restricións da API, por favor escolle outra diferente.</string>
   <string name="bounding_box_too_large_title">Área da baixada moi grande</string>
+  <string name="bounding_box_too_large_message">A área que estás a tentar baixar é moi grande ou contén moitos datos.\n\nPor favor achega máis a vista e téntao novamente.</string>
   <string name="api_offline_title">API sen conexión</string>
   <string name="api_offline_message">A API está actualmente sen conexión, non permite que os datos sexan recuperados ou escritos.</string>
   <string name="out_of_memory_title">Sen memoria dabondo</string>
   <string name="out_of_memory_message">O Vespucci ficou sen memoria cargando os datos solicitados. Volva a iniciar e proba cargar unha área máis pequena.</string>
+  <string name="out_of_memory_dirty_message">O Vespucci non conseguiu cargar os datos pedidos. Garda as túas edicións, comeza de novo e carga unha área menor.</string>
   <string name="invalid_data_received_title">Datos recibidos non válidos</string>
+  <string name="invalid_data_received_message">Se non causaches o erro, por favor envía un reporte do erro.</string>
+  <string name="invalid_data_read_title">Lectura de datos non válida</string>
+  <string name="invalid_data_read_message">Por favor consulta a documentación sobre os formatos de ficheiros suportados e sobre os campos requiridos.</string>
   <string name="file_write_failed_title">Non se puido escribir no ficheiro</string>
   <string name="file_write_failed_message">O Vespucci non puido mudar ou gardar o ficheiro.</string>
   <string name="welcome_title">Benvido</string>
+  <string name="welcome_message">Grazas por instalar o Vespucci.\n&lt;br&gt;&lt;br&gt;Para comezar tes de coñecer tres cousas:\n&lt;ul&gt;&lt;li&gt;premendo na icona do cadeado na esquina superior esquerda trocarás entre o modo bloqueado (non editar) e o modo desbloqueado,&lt;/li&gt;&lt;li&gt;para editar o OpenStreetMap primeiro tes de baixar os datos na área onde queres mudar algo (achega a vista antes de tentar baixar),&lt;/li&gt;&lt;li&gt;para engadir un novo obxecto: preme no botón verde, selecciona o que queres engadir e preme no lugar onde queres engadir.&lt;/li&gt;&lt;/ul&gt;\nXa estás preparado. Comeza a cartografar e divírtete!</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;O teu dispositivo ten unha \"barra de navegación\" que está agochada. Desliza dende abaixo para amosala novamente.</string>
+  <string name="read_introduction">Ler a introdución</string>
+  <string name="upgrade_title">Isto é unha nova versión do Vespucci</string>
+  <string name="upgrade_message">Están descritas en detalle novas funcións e comportamentos nas notas de lanzamento da versión.</string>
   <string name="read_upgrade">Ler sobre a nova versión</string>
   <string name="progress_title">Estase a carregar</string>
   <string name="progress_message">Estasen a cargar os datos na memoria...</string>
@@ -53,15 +73,23 @@
   <string name="progress_preset_message">Estase a baixar o predefenido...</string>
   <string name="progress_running_message">Estase a executar...</string>
   <string name="progress_oauth">Estase a carrega-la súa conta no openstreetmap.org para a autorización do OAuth...</string>
+  <string name="progress_building_imagery_database">Estase a construír a base de datos das imaxes...</string>
+  <string name="progress_query_oam">Estase a consultar o OAM…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" eliminado</string>
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
   <string name="confirm_upload_title">Subir mudanzas</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Enviar esta mudanza?</item>
+    <item quantity="other">Enviar estas %1$d mudanzas?</item>
+  </plurals>
   <string name="confirm_upload_edits_page">Mudanzas</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fonte:</string>
+  <string name="upload_close_open_changeset_label">Pecha primeiro o conxunto de mudanzas aberto:</string>
   <string name="upload_close_changeset_label">Pechar conxunto de mudanzas:</string>
+  <string name="upload_request_review_label">Pedir para revisión:</string>
   <!---->
   <string name="upload_gpx_description_label">Descrición</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
@@ -81,13 +109,22 @@
   <string name="openstreetbug_not_supported">%1$s non está suportado.</string>
   <string name="note_description">Nota: %1$s - %2$s</string>
   <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Erro</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Personalizado</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (non baixado) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">Tarefa MapRoulette</string>
   <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
+  <string name="maproulette_task_explanations">Explicacións</string>
+  <string name="maproulette_task_set_apikey">Estabelecer chave da API do MapRoulette</string>
+  <string name="maproulette_task_apikey_not_set">Non foi posíbel gardar a chave da API do MapRoulette</string>
+  <string name="maproulette_task_disable">Desactivar</string>
+  <string name="maproulette_task_apikey_set">Chave da API do MapRoulette gardada</string>
+  <string name="maproulette_task_no_apikey">Sen chave da API do MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Coidado!</string>
   <string name="unsaved_data_message">As túas mudanzas non guardadas serán desbotadas se continúas.</string>
@@ -106,16 +143,23 @@
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Nome suxerido</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">Esta suxestión pode substituír algúns valores de etiquetas por outras máis populares.</string>
   <string name="search_results_title">Resultados da procura</string>
   <string name="search_online">Procurar en liña</string>
   <string name="find_message">Insira a cadea de procura</string>
   <string name="geocoder_prompt">con</string>
+  <string name="geocoder_limit_label">na vista</string>
   <!---->
   <string name="preset_search_hint">Cadea de procura predefinida</string>
+  <string name="preset_autopreset">Predefinido automático</string>
   <string name="search">Procurar</string>
   <string name="no_valid_preset">Predefinido non válido!</string>
   <string name="save_file">Gardar en</string>
+  <string name="existing_track_title">Datos de pistas GPX existentes</string>
+  <string name="existing_track_message">Xa tes datos de pistas GPX. Podes querer desbotar e gardar primeiro.</string>
+  <string name="delete_tags">Eliminar todas as etiquetas do obxecto \"%1$s\"?</string>
   <!--element information dialog-->
+  <string name="element_information">Información do elemento</string>
   <string name="id">ID</string>
   <string name="nodes">Nós</string>
   <string name="relation_membership">Relación dos membros</string>
@@ -131,6 +175,8 @@
   <string name="current">Actual</string>
   <string name="goto_element">Ir ó elemento</string>
   <!--GeoJSON feature display dialog-->
+  <string name="feature_information">Información de elementos GeoJSON</string>
+  <string name="copy_properties">Copiar propriedades</string>
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Advertencia</string>
@@ -138,19 +184,25 @@
   <string name="unknown_error_level">Nivel do erro descoñecido</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Esta operación afecta aos obxectos anexos filtrados!</string>
+  <string name="attached_object_warning_message">O obxecto mudado está conectado a elementos agochados que tamén serán mudados.</string>
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Dacordo, segue amosando</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">Dacordo, ignorar</string>
   <!--debug dialog-->
   <string name="send_debug_information">Enviar información de depuración</string>
   <!--JS console dialog-->
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo en directo!</string>
   <string name="js_console_msg_debug">Modo correxir erros!</string>
+  <string name="js_console_input_hint">Insire o JavaScript aquí</string>
+  <string name="js_console_output_hint">A saída aparecerá aquí</string>
   <!--Validator dialogs-->
   <string name="validator_title">Coxunto de regras do validador %1$s</string>
+  <string name="resurvey_entries">Revisados novamente</string>
   <string name="edit_resurvey_title">Editar entrada de re-revisión</string>
   <string name="add_resurvey_title">Engadir entrada de re-revisión</string>
+  <string name="check_entries">Verificados</string>
   <string name="edit_check_title">Editar entrada de comprobación</string>
   <string name="add_check_title">Engadir entrada de comprobación</string>
   <string name="max_age">Idade máxima</string>
@@ -161,6 +213,7 @@
   <string name="add_check_entry">Engadir entrada de comprobación</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relación baleira</string>
+  <string name="empty_relation_message">A relación %1$s non ten membros.\n\nSe a deixas así non poderás editala no Vespucci.</string>
   <string name="add_members">Engadir membros</string>
   <string name="leave_empty">Deixar baleiro</string>
   <!--GPX waypoint dialog-->
@@ -170,6 +223,7 @@
   <string name="created">Creado</string>
   <string name="altitude">Altitude</string>
   <string name="create_osm_object">Crear obxecto OSM</string>
+  <string name="create_osm_object_search">Crear obxecto OSM a partir da etiqueta de procura</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imaxes persoalizadas</string>
   <string name="oam_layer_title">Imaxes do OAM</string>
@@ -209,17 +263,30 @@
   <string name="layer_info_terms">Termos</string>
   <string name="layer_info_privacy_policy">Política de privacidade</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Eliminar imaxe</string>
+  <string name="photo_viewer_delete_button">Eliminar de xeito permanente</string>
+  <string name="photo_viewer_goto">Ir á imaxe</string>
   <!--API info dialog-->
+  <string name="api_info_bounds">Caixa de limites</string>
+  <string name="api_info_latest_date">Última data de inclusión</string>
+  <string name="api_info_attribution">Atribución</string>
+  <string name="api_info_mapsplit_source">Fonte MapSplit de só lectura</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
   <string name="undo_redo_title">Desfacer - refacer</string>
+  <string name="undo_redo_one">Só a mudanza selecionada (non seguro)</string>
   <string name="undo_all">Desfacer tódolos puntos de control posteriores (seguro)</string>
   <string name="redo_all">Refacer tódolos puntos de control anteriores (seguro)</string>
   <!--Feedback activity-->
+  <string name="feedback_with_displayname">Enviar co teu nome visíbel do OpenStreetMap</string>
+  <string name="feedback_displayname_hint">O teu nome visíbel do OpenStreetMap aínda non foi obtido</string>
+  <string name="feedback_title">Opinións para os desenvolvedores</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Baixar datos do OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">Deter a gravación e eliminar puntos da pista. Isto non pode ser desfeito.</string>
   <!--Tips-->
+  <string name="tip_title">Sabías que?</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -229,32 +296,61 @@
   <!--Toaster-->
   <string name="toast_name_empty">Escolle un nome</string>
   <string name="toast_url_empty">Insire unha URL</string>
+  <string name="toast_min_zoom">Estabelecer o achegamento mínimo máis baixo que o máximo</string>
   <string name="toast_no_changes">Aínda non mudou ren...</string>
+  <string name="toast_unsaved_changes">Envia primeiro as túas mudanzas sen gardar.</string>
   <string name="clear_anyway">Eliminar de todos xeitos?</string>
   <string name="toast_upload_success">Subido ó servidor do OSM.</string>
   <string name="toast_not_in_edit_range">Por favor, achega o mapa para editar (Volume ↑/↓ ou lens/shift)</string>
   <string name="toast_unlock_to_edit">Desbloquear a edición</string>
   <string name="toast_save_done">Gardado</string>
+  <string name="toast_save_failed">Non foi posíbel gardar</string>
   <string name="toast_export_failed">Non foi posíbel exportar</string>
   <string name="toast_export_success">Exportado a %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - etiqueta(s) sobrescrita(s) do(s) predefinido(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobreescritas etiqueta(s)</string>
   <string name="toast_oneway_reversed">Inverteches unha rúa de sentido único ou unha vía con etiquetas que dependen da dirección. Por favor, comproba as etiquetas e corríxeas se é necesario.</string>
+  <string name="toast_merge_tag_conflict">Uniches elementos que teñen etiquetas con valores en conflito, ou semántica dependente da dirección ou funcións diferentes na mesma relación. Por favor verifica as etiquetas e funcións das relacións, corrixíndoas se for necesário.</string>
+  <string name="toast_potential_merge_tag_conflict">Estás a tentar unir elementos que teñen valores de etiquetas en conflito.\n\nPor favor verifica as etiquetas e corríxaas antes de tentar de novo.</string>
   <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexíbel</string>
+  <string name="toast_way_nodes_moved">%1$d nós na liña movida</string>
+  <plurals name="toast_unread_mail">
+    <item quantity="one">Tes unha mensaxe sen ler no OpenStretMap</item>
+    <item quantity="other">Tes %1$d mensaxes sen ler no OpenStretMap</item>
+  </plurals>
   <string name="read_mail">Lido</string>
   <string name="toast_photo_indexing_started">Iniciar dixitalización xeo referenciada de imaxes</string>
   <string name="toast_photo_indexing_finished">Dixitalización rematada para xeo referenciado de imaxes</string>
   <string name="toast_download_failed">A baixada non vai con código de erro  %1$d, mensaxe %2$s</string>
   <string name="toast_unsurveyed_road">Estrada non medida</string>
+  <string name="toast_noname">Falla o nome ou a referencia na estrada</string>
+  <string name="toast_notype">Falla o tipo na relación</string>
   <string name="toast_untagged_way">Vía sen etiquetaxe</string>
   <string name="toast_untagged_relation">Relación sen etiquetaxe</string>
+  <string name="toast_unconnected_end_node">O nó está preto dun elemento ó cal podería estar conectado.</string>
+  <string name="toast_degenerate_way">Degenerar vía</string>
   <!---->
+  <string name="toast_oauth_retry">Proba a subir novamente após autorizar o acesso OAuth á túa conta no OpenStreetMap.</string>
   <string name="toast_oauth">Por favor permite o acceso de OAuth á túa conta de OSM.</string>
   <string name="toast_no_oauth">Non hai dispoñibilidade de configuración OAuth para a API actual, por favor, configure o inicio de sesión e o contrasinal.</string>
   <string name="toast_oauth_not_enabled">OAuth non está habilitado para a API actual.</string>
+  <string name="toast_oauth_timeout">Tempo esgotado do handshake da autenticación, por favor téntao de novo.</string>
+  <string name="toast_oauth_communication">Erro de comunicación durante o handshake da autenticación, por favor téntao de novo.</string>
+  <string name="toast_oauth_handshake_failed">Non foi posíbel facer o OAuth handshake: %1$s</string>
+  <string name="toast_timeout">O servidor excedeu o tempo límite</string>
   <string name="coordinates_out_of_range">A Lonxitude debe ir entre -180º/+180º, latitude entre -85º/85º</string>
   <string name="toast_nothing_found">Non se atopou ren</string>
+  <string name="toast_statesave_failed">Non foi posíbel gardar o estado actual!\nIsto é un erro grave. Estase a tentar gardar un ficheiro para recuperar de xeito posterior no JOSM.</string>
+  <string name="toast_missing_filemanager">Por favor instala un xestor de ficheiros.</string>
+  <string name="toast_outside_of_download">Baixar máis datos para editar esta área.</string>
   <string name="toast_file_not_found">%1$s non atopado.</string>
+  <plurals name="toast_imported_track_points">
+    <item quantity="one">Importado %1$d puntos de pista GPX e 1 punto de liña.</item>
+    <item quantity="other">Importados %1$d puntos de pistas GPX e %2$d puntos de liñas.</item>
+  </plurals>
+  <string name="toast_unknown_voice_command">Sentímolo, neste intre \"%1$s\" non é comprensíbel</string>
+  <string name="toast_inconsistent_state">Detectado un estado inconsistente. Por favor envia un reporte do erro.</string>
+  <string name="toast_camera_error">Non foi posíbel iniciar a aplicación da cámara: %1$s</string>
   <string name="toast_no_voice">Sen aplicación de recoñecemento de voz</string>
   <string name="toast_no_suitable_storage">O sistema non devolveu unha localización axeitada para a base de datos das teselas.</string>
   <string name="toast_min_one_preset">Ten que escollerse polo menos un predefinido!</string>

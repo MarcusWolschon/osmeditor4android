@@ -288,6 +288,7 @@ elemek megkövetelése</string>
   <!--Tips-->
   <string name="tip_title">Tudta?</string>
   <string name="tip_check_label">Ne mutassa az opcionális tippeket</string>
+  <string name="tip_pan_and_zoom_auto_download">A pásztázással és nagyítással történő automatikus letöltést célszerű óvatosan használni, mert alaposan megterhelheti az OpenStreetMap API-t és a készüléket egyaránt.&lt;p&gt;Az API-kiszolgálóról történő betöltés elkerülhető egy offline adatforrás használatával.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -594,6 +595,8 @@ elemek megkövetelése</string>
   <string name="menu_gps_import">GPX nyomvonal importálása</string>
   <string name="menu_gps_goto_start">Ugrás a GPX nyomvonal elejére</string>
   <string name="menu_gps_goto_first_waypoint">Ugrás az első útpontra</string>
+  <string name="menu_enable_gps_autodownload">Helyalapú automatikus letöltés</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Automatikus letöltés pásztázással és nagyítással</string>
   <string name="menu_transfer">Átvitel…</string>
   <string name="menu_transfer_download_current">Jelenlegi nézet letöltése</string>
   <string name="menu_transfer_load_current">Jelenlegi nézet betöltése</string>
@@ -853,6 +856,7 @@ elemek megkövetelése</string>
   <string name="config_autoPruneNodeLimit_summary">Ha efölötti számú pont van a memóriában, akkor automatikus tisztítás indul.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d pont</string>
   <string name="config_panAndZoomLimit_title">Nagyítási határ</string>
+  <string name="config_panAndZoomLimit_summary">A pásztázással és nagyítással történő automatikus letöltés legkisebb nagyítási szintje</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Feladatszűrő</string>
   <string name="config_bugFilter_summary">Kijelöli, hogy mely elemek jelenjenek meg a jegyzetek, hibák és feladatok rétegén.</string>
