@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.3.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.4.2" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -4167,7 +4167,7 @@
             <space/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Water Park -->
-        <item name="Rides" icon="icons/png/tourist_ride.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Rides" icon="icons/png/tourist_ride.png" type="node,way,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:attraction"/>
             <space/>
             <combo key="attraction" text="Attraction" values_searchable="true" values_context="leisure">
@@ -8609,7 +8609,7 @@
         <key key="amenity" value="bank"/>
         <reference ref="name_brand_operator_oh_wheelchair_level"/>
         <text key="branch" text="Branch"/>
-        <check key="atm" text="Automated Teller Machine" default="on"/>
+        <check key="atm" text="Automated Teller Machine" />
         <text key="ref" text="Reference"/>
         <reference ref="link_contact_address"/>
     </item> <!-- Bank -->
@@ -9337,7 +9337,7 @@
                 <text key="short_name" text="Common name abbreviation" match="key"/>
             </optional>
         </item> <!-- Name -->
-        <item name="Address" icon="icons/png/osm_housenumber_sp.png" type="node,way,closedway,relation,multipolygon" preset_name_label="true">
+        <item name="Address" icon="icons/png/osm_housenumber_sp.png" type="node,way,closedway,relation,multipolygon" preset_name_label="true" autoapply="false">
             <link wiki="Key:addr"/>
             <space/>
             <text key="addr:housenumber" text="House number" match="key" auto_increment="-2,-1,+1,+2"/>
