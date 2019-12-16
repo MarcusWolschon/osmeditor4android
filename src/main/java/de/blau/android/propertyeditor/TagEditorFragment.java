@@ -401,13 +401,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 for (PresetElementPath pp : presetsToApply) {
                     PresetElement pi = Preset.getElementByPath(rootGroup, pp);
                     if (pi instanceof PresetItem) {
-                        applyPreset(editRowLayout, (PresetItem) pi, false, true);
+                        applyPreset(editRowLayout, (PresetItem) pi, false, true, true);
                     }
                 }
             } else if (prefs.autoApplyPreset()) {
                 PresetItem pi = getBestPreset();
                 if (pi != null && pi.autoapply()) {
-                    applyPreset(editRowLayout, pi, false, true);
+                    applyPreset(editRowLayout, pi, false, true, false);
                 }
             }
         }
@@ -1465,7 +1465,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (prefs.nameSuggestionPresetsEnabled()) {
             PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (p != null) {
-                applyPreset((LinearLayout) getOurView(), p, false, false);
+                applyPreset((LinearLayout) getOurView(), p, false, false, true);
             }
         }
     }
@@ -1660,7 +1660,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     @Override
     public void applyPreset(PresetItem preset, boolean addOptional) {
-        applyPreset((LinearLayout) getOurView(), preset, addOptional, true);
+        applyPreset((LinearLayout) getOurView(), preset, addOptional, true, true);
     }
 
     /**
@@ -1672,7 +1672,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param addToMRU add to preset MRU list if true
      */
     void applyPreset(@NonNull PresetItem item, boolean addOptional, boolean addToMRU) {
-        applyPreset((LinearLayout) getOurView(), item, addOptional, addToMRU);
+        applyPreset((LinearLayout) getOurView(), item, addOptional, addToMRU, true);
     }
 
     /**
@@ -1683,8 +1683,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param item the preset item to apply
      * @param addOptional add optional tags if true
      * @param addToMRU add to preset MRU list if true
+     * @param useDefaults use any default values specified in the preset
      */
-    void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean addToMRU) {
+    void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean addToMRU, boolean useDefaults) {
         LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
         boolean wasEmpty = currentValues.size() == 0;
         boolean replacedValue = false;
@@ -1719,10 +1720,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             if (!isOptional || (isOptional && addOptional)) {
                 if (field instanceof PresetCheckGroupField) {
                     for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        addTagFromPreset(item, check, currentValues, check.getKey(), scripts);
+                        addTagFromPreset(item, check, currentValues, check.getKey(), scripts, useDefaults);
                     }
                 } else if (!(field instanceof PresetFixedField)) {
-                    addTagFromPreset(item, field, currentValues, entry.getKey(), scripts);
+                    addTagFromPreset(item, field, currentValues, entry.getKey(), scripts, useDefaults);
                 }
             }
         }
@@ -1788,13 +1789,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param tags map of current tags
      * @param key the key we are processing
      * @param scripts map containing any JS we find
+     * @param useDefault use any default value if true
      * @return true if a value was set
      */
     private boolean addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, List<String>> tags, @NonNull String key,
-            Map<String, String> scripts) {
+            Map<String, String> scripts, boolean useDefault) {
         if (!tags.containsKey(key)) {
             String value = "";
-            if (field != null) {
+            if (field != null && useDefault) {
                 String defaultValue = field.getDefaultValue();
                 if (defaultValue != null) {
                     value = defaultValue;
