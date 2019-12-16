@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.11: Don't use default values when auto-applying presets, don't zap selected object on orientation changes, sync colours for normal and mp rendering for natural, fix "add" FAB styling, update presets, update translations, update imagery. 
+
 14.0.10: Fix ordering of elements with layer tags, fix issue with re-formatting multiple phone numbers, update imagery and translations.
 
 14.0.9: Workaround google bug with imagery menu in layer dialog, reduce timeout for layer metadata, update preset and translations.
