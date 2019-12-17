@@ -149,11 +149,23 @@ GPS and Network location settings.
 
 ### GPS/GNSS source
 
-Source of GPS/GNSS location updates. Default: _internal_.
+Source of GPS/GNSS location updates. 
+
+Possible values:
+
+__Internal__ use the internal GNSS location provider.
+
+__Internal NMEA__ use the internal GNSS location provider with NMEA output, this is only useful for testing.
+
+__NMEA from TCP client__ connect to a source of NMEA sentences over TCP, if the source is gpsd, the client will attempt to switch it to NMEA output (from 14.0.11 on).
+
+__NMEA from TCP server__ this will start a server on a specified port and listen for a client providing NMEA sentences, this is mainly useful with rtklib.
+
+Default: _internal_.
 
 ### NMEA network source
 
-If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is.
+If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is. In __NMEA from TCP server__ mode the host part is currently ignored.
 
 ### Minimum GPS/GNSS interval
 

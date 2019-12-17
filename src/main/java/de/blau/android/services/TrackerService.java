@@ -129,6 +129,7 @@ public class TrackerService extends Service implements Exportable {
      */
     OldNmeaListener oldNmeaListener = null;
     NewNmeaListener newNmeaListener = null;
+    private boolean useOldNmea      = false;
 
     private long staleGPSMilli = 20000L;              // 20 seconds
     private long staleGPSNano  = staleGPSMilli * 1000;
@@ -147,8 +148,9 @@ public class TrackerService extends Service implements Exportable {
         prefTcpClient = getString(R.string.gps_source_tcpclient);
         prefTcpServer = getString(R.string.gps_source_tcpserver);
         nmeaLocation = new Location(prefNmea);
+        useOldNmea = Build.VERSION.SDK_INT < Build.VERSION_CODES.N;
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+        if (useOldNmea) {
             oldNmeaListener = new OldNmeaListener();
         } else {
             newNmeaListener = new NewNmeaListener();
@@ -582,11 +584,19 @@ public class TrackerService extends Service implements Exportable {
                 if (useTcpClient || prefs.getGpsSource().equals(prefTcpServer)) {
                     source = GpsSource.TCP;
                     if (useTcpClient && tcpClient == null) {
-                        tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
+                        if (useOldNmea) {
+                            tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
+                        } else {
+                            tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), newNmeaListener, mHandler);
+                        }
                         Thread t = new Thread(null, tcpClient, "TcpClient");
                         t.start();
                     } else if (tcpServer == null) {
-                        tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
+                        if (useOldNmea) {
+                            tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
+                        } else {
+                            tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource(), newNmeaListener, mHandler);
+                        }
                         Thread t = new Thread(null, tcpServer, "TcpClientServer");
                         t.start();
                     }
@@ -601,7 +611,7 @@ public class TrackerService extends Service implements Exportable {
                             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(), gpsListener);
                             if (useNema) {
                                 source = GpsSource.NMEA;
-                                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                                if (useOldNmea) {
                                     locationManager.addNmeaListener(oldNmeaListener); // NOSONAR
                                 } else {
                                     locationManager.addNmeaListener(newNmeaListener);
@@ -634,7 +644,7 @@ public class TrackerService extends Service implements Exportable {
             } catch (SecurityException sex) {
                 // can be safely ignored
             }
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            if (useOldNmea) {
                 locationManager.removeNmeaListener(oldNmeaListener); // NOSONAR
             } else {
                 locationManager.removeNmeaListener(newNmeaListener);
