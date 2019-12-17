@@ -262,9 +262,9 @@ public class PropertyEditorTest {
         }
         Assert.assertNotNull(cusine);
         cusine.click();
-        scrollTo("Asian");
+        TestUtils.scrollTo("Asian");
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "Asian", false));
-        scrollTo("German");
+        TestUtils.scrollTo("German");
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "German", false));
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "SAVE", true));
         UiObject2 openingHours = null;
@@ -279,7 +279,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.clickText(mDevice, false, "24 Hours", true));
         TestUtils.clickButton("de.blau.android:id/save", true);
 
-        scrollTo("Contact");
+        TestUtils.scrollTo("Contact");
         Assert.assertTrue(TestUtils.clickText(mDevice, false, "Contact", false));
         UiObject2 phone = null;
         try {
@@ -852,7 +852,7 @@ public class PropertyEditorTest {
      * @throws UiObjectNotFoundException if we couldn't find the object with text
      */
     private UiObject2 getField(@NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
-        scrollTo(text);
+        TestUtils.scrollTo(text);
         BySelector bySelector = By.textStartsWith(text);
         UiObject2 keyField = mDevice.wait(Until.findObject(bySelector), 500);
         UiObject2 linearLayout = keyField.getParent();
@@ -872,7 +872,7 @@ public class PropertyEditorTest {
      * @throws UiObjectNotFoundException if we couldn't find the object with text
      */
     private UiObject2 getField2(@NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
-        scrollTo(text);
+        TestUtils.scrollTo(text);
         BySelector bySelector = By.textStartsWith(text);
         UiObject2 keyField = mDevice.wait(Until.findObject(bySelector), 500);
         UiObject2 linearLayout = keyField.getParent();
@@ -881,20 +881,5 @@ public class PropertyEditorTest {
             linearLayout = linearLayout.getParent();
         }
         return linearLayout.getChildren().get(1).getChildren().get(fieldIndex);
-    }
-
-    /**
-     * Scroll to a specific text
-     * 
-     * @param text the text
-     * @throws UiObjectNotFoundException
-     */
-    public void scrollTo(@NonNull String text) {
-        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
-        try {
-            appView.scrollIntoView(new UiSelector().text(text));
-        } catch (UiObjectNotFoundException e) {
-            Assert.fail(text + " not found");
-        }
     }
 }
