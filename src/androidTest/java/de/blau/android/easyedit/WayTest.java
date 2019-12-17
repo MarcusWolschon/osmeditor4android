@@ -34,6 +34,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.propertyeditor.PropertyEditorTest;
 import de.blau.android.resources.TileLayerServer;
 
 @RunWith(AndroidJUnit4.class)
@@ -120,11 +121,15 @@ public class WayTest {
         //
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton());
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_information), true));
+        String menuInfo = context.getString(R.string.menu_information);
+        TestUtils.scrollTo(menuInfo);
+        Assert.assertTrue(TestUtils.clickText(device, false, menuInfo, true));
         Assert.assertTrue(TestUtils.findText(device, false, "asphalt"));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true));
         Assert.assertTrue(TestUtils.clickOverflowButton());
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.delete), true));
+        String menuDelete = context.getString(R.string.delete);
+        TestUtils.scrollTo(menuDelete);
+        Assert.assertTrue(TestUtils.clickText(device, false, menuDelete, true));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.deleteway_wayandnodes), true));
         Assert.assertEquals(OsmElement.STATE_DELETED, way.getState());
         Assert.assertEquals(OsmElement.STATE_DELETED, shouldBeDeleted1.getState());

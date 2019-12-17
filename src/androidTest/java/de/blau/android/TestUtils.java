@@ -918,7 +918,14 @@ public class TestUtils {
             }
             TestUtils.clickMenuButton("List view", false, false);
             TestUtils.clickMenuButton("Show roots", false, true);
-            TestUtils.clickText(device, false, "Android", true);
+            UiSelector android = new UiSelector().resourceIdMatches(".*:id/title").textStartsWith("Android SDK");
+            UiObject androidButton = device.findObject(android);
+            try {
+                androidButton.clickAndWaitForNewWindow();
+            } catch (UiObjectNotFoundException e1) {
+               Assert.fail("Link to internal storage not found in drawer");
+            }
+            // TestUtils.clickText(device, false, "Android", true);
             UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
             try {
                 appView.scrollIntoView(new UiSelector().text("Vespucci"));
@@ -939,5 +946,20 @@ public class TestUtils {
             // if there is no scrollable then this will fail
         }
         TestUtils.clickText(device, false, fileName, true);
+    }
+
+    /**
+     * Scroll to a specific text
+     * 
+     * @param text the text
+     * @throws UiObjectNotFoundException
+     */
+    public static void scrollTo(@NonNull String text) {
+        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
+        try {
+            appView.scrollIntoView(new UiSelector().text(text));
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(text + " not found");
+        }
     }
 }
