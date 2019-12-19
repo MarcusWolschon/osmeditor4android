@@ -24,9 +24,9 @@ import de.blau.android.util.SavingHelper;
  */
 @SuppressWarnings("deprecation")
 public class NmeaTcpClientServer implements Runnable {
-    
+
     private static final String DEBUG_TAG = "NmeaTcpClientServer";
-    
+
     boolean                     canceled = false;
     int                         port     = 1959;
     final NmeaListener          oldListener;
@@ -73,7 +73,7 @@ public class NmeaTcpClientServer implements Runnable {
             try {
                 port = Integer.parseInt(hostAndPort.substring(doubleColon + 1));
             } catch (NumberFormatException e) {
-                reportError(e);
+                NmeaTcpClient.reportError(handler, e);
                 cancel();
             }
         }
@@ -97,6 +97,7 @@ public class NmeaTcpClientServer implements Runnable {
                 Log.d(DEBUG_TAG, "Listening for incoming connection on " + port);
                 Socket socket = serverSocket.accept();
                 Log.d(DEBUG_TAG, "Incoming connection from " + socket.getRemoteSocketAddress().toString() + " ...");
+                NmeaTcpClient.connectionMessage(handler, socket.getRemoteSocketAddress().toString());
                 dos = new DataOutputStream(socket.getOutputStream());
 
                 InputStreamReader isr = new InputStreamReader(socket.getInputStream());
@@ -118,9 +119,9 @@ public class NmeaTcpClientServer implements Runnable {
                 }
             }
         } catch (Exception e) {
-            reportError(e);
+            NmeaTcpClient.reportError(handler, e);
         } catch (Error e) {
-            reportError(e);
+            NmeaTcpClient.reportError(handler, e);
         } finally {
             SavingHelper.close(dos);
             SavingHelper.close(input);
@@ -132,15 +133,5 @@ public class NmeaTcpClientServer implements Runnable {
                 }
             }
         }
-    }
-
-    /**
-     * Send the message from an exception
-     * 
-     * @param e the Exception
-     */
-    private void reportError(@NonNull Throwable e) {
-        Message failed = handler.obtainMessage(TrackerService.CONNECTION_FAILED, e.getMessage());
-        failed.sendToTarget();
     }
 }

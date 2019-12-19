@@ -1,7 +1,6 @@
 package de.blau.android.services.util;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -27,6 +26,7 @@ public class NmeaTcpClient implements Runnable {
     final NmeaListener          oldListener;
     final OnNmeaMessageListener newListener;
     final Handler               handler;
+    Socket                      socket    = null;
 
     /**
      * Create an instance of a client that will read lines from a socket until it is stopped
@@ -36,28 +36,10 @@ public class NmeaTcpClient implements Runnable {
      * @param handler for sending messages to caller
      */
     public NmeaTcpClient(@NonNull String hostAndPort, @NonNull NmeaListener oldListener, @NonNull Handler handler) {
-        setHostAndPort(hostAndPort);
+        setHostAndPort(handler, hostAndPort);
         this.oldListener = oldListener;
         this.newListener = null;
         this.handler = handler;
-    }
-
-    /**
-     * Extract the host and port from the config string FIXME support IPv6
-     * 
-     * @param hostAndPort host:port to connect to
-     */
-    private void setHostAndPort(@NonNull String hostAndPort) {
-        int doubleColon = hostAndPort.indexOf(':');
-        if (doubleColon > 0) {
-            try {
-                host = hostAndPort.substring(0, doubleColon);
-                port = Integer.parseInt(hostAndPort.substring(doubleColon + 1));
-            } catch (NumberFormatException e) {
-                reportError(e);
-                cancel();
-            }
-        } // otherwise crash and burn?
     }
 
     /**
@@ -68,35 +50,55 @@ public class NmeaTcpClient implements Runnable {
      * @param handler for sending messages to caller
      */
     public NmeaTcpClient(@NonNull String hostAndPort, @NonNull OnNmeaMessageListener newListener, @NonNull Handler handler) {
-        setHostAndPort(hostAndPort);
+        setHostAndPort(handler, hostAndPort);
         this.newListener = newListener;
         this.oldListener = null;
         this.handler = handler;
     }
 
     /**
+     * Extract the host and port from the config string FIXME support IPv6
+     * 
+     * @param handler for sending messages to caller
+     * @param hostAndPort host:port to connect to
+     */
+    private void setHostAndPort(@NonNull Handler handler, @NonNull String hostAndPort) {
+        int doubleColon = hostAndPort.indexOf(':');
+        if (doubleColon > 0) {
+            try {
+                host = hostAndPort.substring(0, doubleColon);
+                port = Integer.parseInt(hostAndPort.substring(doubleColon + 1));
+            } catch (NumberFormatException e) {
+                reportError(handler, e);
+                cancel();
+            }
+        } // otherwise crash and burn?
+    }
+
+    /**
      * Stop reading input and exit
      */
     public void cancel() {
+        Log.d(DEBUG_TAG, "Cancel called");
         canceled = true;
+        closeSocket();
     }
 
     @Override
     @TargetApi(19)
     public void run() {
         boolean useOldListener = newListener == null;
-        Socket socket = null;
         OutputStreamWriter osw = null;
         BufferedReader input = null;
         try {
             Log.d(DEBUG_TAG, "Connecting to " + host + ":" + port + " ...");
-
             socket = new Socket(host, port);
             osw = new OutputStreamWriter(socket.getOutputStream());
 
             InputStreamReader isr = new InputStreamReader(socket.getInputStream());
             input = new BufferedReader(isr);
             String firstLine = input.readLine();
+            connectionMessage(handler, host + ":" + port);
             // gpsd message is json {"class":"VERSION","release":"3.17","rev":"3.17","proto_major":3,"proto_minor":12}
             if (firstLine.contains("\"VERSION\"")) { // HACKALERT assume this is not NMEA and try to switch gpsd to NMEA
                                                      // output
@@ -125,32 +127,50 @@ public class NmeaTcpClient implements Runnable {
             }
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "failed to open/read " + host + ":" + port + " " + e.getMessage());
-            reportError(e);
+            reportError(handler, e);
         } catch (Error e) {
-            reportError(e);
+            reportError(handler, e);
         } finally {
             SavingHelper.close(osw);
             // see https://code.google.com/p/android/issues/detail?id=62909
-            // fow why we can't use helper methods here
-            if (socket != null) {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    Log.e(DEBUG_TAG, "Closing socket threw " + e.getMessage());
-                }
-            }
+            // for why we can't use helper methods here
+            closeSocket();
             SavingHelper.close(input);
         }
     }
-    
+
+    /**
+     * Close the socket we've been using
+     */
+    private void closeSocket() {
+        if (socket != null) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                Log.e(DEBUG_TAG, "Closing socket threw " + e.getMessage());
+            }
+        }
+    }
 
     /**
      * Send the message from an exception
      * 
+     * @param handler for sending messages to caller
      * @param e the Exception
      */
-    private void reportError(@NonNull Throwable e) {
+    static void reportError(@NonNull Handler handler, @NonNull Throwable e) {
         Message failed = handler.obtainMessage(TrackerService.CONNECTION_FAILED, e.getMessage());
+        failed.sendToTarget();
+    }
+
+    /**
+     * Send the the connected host and port
+     * 
+     * @param handler for sending messages to caller
+     * @param hostAndPort the host and port
+     */
+    static void connectionMessage(@NonNull Handler handler, @NonNull String hostAndPort) {
+        Message failed = handler.obtainMessage(TrackerService.CONNECTION_MESSAGE, hostAndPort);
         failed.sendToTarget();
     }
 }
