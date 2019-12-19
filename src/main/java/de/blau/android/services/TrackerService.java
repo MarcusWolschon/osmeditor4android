@@ -66,8 +66,9 @@ public class TrackerService extends Service implements Exportable {
 
     private static final String DEBUG_TAG = "TrackerService";
 
-    private static final int LOCATION_UPDATE   = 0;
-    public static final int  CONNECTION_FAILED = 1;
+    private static final int LOCATION_UPDATE    = 0;
+    public static final int  CONNECTION_FAILED  = 1;
+    public static final int  CONNECTION_MESSAGE = 2;
 
     private static final String AUTODOWNLOAD_KEY = "autodownload";
 
@@ -162,7 +163,20 @@ public class TrackerService extends Service implements Exportable {
         Log.d(DEBUG_TAG, "onDestroy");
         stopTracking(false);
         track.close();
+        cancelNmeaClients();
         super.onDestroy();
+    }
+
+    /**
+     * Stop the NMEA clients from running
+     */
+    private void cancelNmeaClients() {
+        if (tcpClient != null) {
+            tcpClient.cancel();
+        }
+        if (tcpServer != null) {
+            tcpServer.cancel();
+        }
     }
 
     @Override
@@ -442,19 +456,14 @@ public class TrackerService extends Service implements Exportable {
     LocationListener gpsListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            if (source != GpsSource.INTERNAL) {
-                return; // ignore
-                        // updates
-                        // from
-                        // device
-            }
-
-            // Only use GPS provided locations for generating tracks
-            if (tracking && (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY)) {
-                track.addTrackPoint(location);
-            }
-            if (lastLocation != null && LocationManager.NETWORK_PROVIDER.equals(lastLocation.getProvider())) {
-                Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_location);
+            if (source == GpsSource.INTERNAL) {
+                // Only use GPS provided locations for generating tracks
+                if (tracking && (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY)) {
+                    track.addTrackPoint(location);
+                }
+                if (lastLocation != null && LocationManager.NETWORK_PROVIDER.equals(lastLocation.getProvider())) {
+                    Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_location);
+                }
             }
             updateLocation(location);
         }
@@ -483,10 +492,7 @@ public class TrackerService extends Service implements Exportable {
         @Override
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
-                return; // ignore
-                        // updates
-                        // from
-                        // device
+                return; // ignore updates
             }
             if (lastLocation != null) {
                 boolean lastIsGpsLocation = LocationManager.GPS_PROVIDER.equals(lastLocation.getProvider());
@@ -546,6 +552,7 @@ public class TrackerService extends Service implements Exportable {
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
         if (needed && !gpsEnabled) {
             Log.d(DEBUG_TAG, "Enabling GPS updates");
+            cancelNmeaClients(); // always do this
             prefs = new Preferences(this);
             nmeaLocation.removeSpeed(); // be sure that these are not set
             nmeaLocation.removeBearing();
@@ -574,6 +581,9 @@ public class TrackerService extends Service implements Exportable {
                             break;
                         case CONNECTION_FAILED:
                             Snack.toastTopError(TrackerService.this, (String) inputMessage.obj);
+                            break;
+                        case CONNECTION_MESSAGE:
+                            Snack.toastTopInfo(TrackerService.this, "Connection to/from " + (String) inputMessage.obj);
                             break;
                         default:
                             // ignore
