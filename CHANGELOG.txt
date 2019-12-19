@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.12: Fix for external NMEA services not being used for follow GPS function.
+
 14.0.11: Don't use default values when auto-applying presets, don't zap selected object on orientation changes, sync colours for normal and mp rendering for natural, fix "add" FAB styling, support external NMEA source for Android N and later, update presets, update translations, update imagery. 
 
 14.0.10: Fix ordering of elements with layer tags, fix issue with re-formatting multiple phone numbers, update imagery and translations.
