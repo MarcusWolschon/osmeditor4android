@@ -95,6 +95,7 @@ public class DialogRow extends LinearLayout {
         this.value = value;
         setValueDescription(description);
         valueView.setTag(value);
+        valueView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         if (getParent() instanceof EditableLayout) {
             ((EditableLayout) getParent()).putTag(getKey(), getValue());
         }
