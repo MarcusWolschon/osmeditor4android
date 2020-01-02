@@ -2874,6 +2874,11 @@ public class Main extends FullScreenAppCompatActivity
                 if (editorData.members != null && editorData.type.equals(Relation.NAME)) {
                     Log.d(DEBUG_TAG, "handlePropertyEditorResult setting members");
                     logic.updateRelation(this, editorData.osmId, editorData.members);
+                    Relation updatedRelation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, editorData.osmId);
+                    if (logic.isSelected(updatedRelation)) { // This might be unnecessary
+                        logic.removeSelectedRelation(updatedRelation);
+                        logic.setSelectedRelation(updatedRelation);
+                    }
                 }
             }
             // this is very expensive: getLogic().saveAsync(); // if nothing was
