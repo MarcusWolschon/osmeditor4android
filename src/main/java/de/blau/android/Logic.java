@@ -4191,7 +4191,7 @@ public class Logic {
     /**
      * Check is all selected elements exist, return true if we actually had to remove something
      * 
-     * @return true if a slected element didn't exist anymore
+     * @return true if a selected element didn't exist anymore
      */
     boolean resyncSelected() {
         boolean result = false;
@@ -4212,10 +4212,14 @@ public class Logic {
             }
         }
         if (selectedRelationsCount() > 0) {
+            setSelectedRelationNodes(null); // de-select all
+            setSelectedRelationWays(null);
             for (Relation r : new ArrayList<>(selectedRelations)) {
                 if (!getDelegator().getCurrentStorage().contains(r)) {
                     selectedRelations.remove(r);
                     result = true;
+                } else {
+                    setSelectedRelationMembers(r);
                 }
             }
         }
