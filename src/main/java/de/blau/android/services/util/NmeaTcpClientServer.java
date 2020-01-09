@@ -7,13 +7,11 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import android.location.OnNmeaMessageListener;
 import android.location.GpsStatus.NmeaListener;
+import android.location.OnNmeaMessageListener;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import de.blau.android.services.TrackerService;
 import de.blau.android.util.SavingHelper;
 
 /**

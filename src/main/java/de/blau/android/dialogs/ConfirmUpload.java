@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;

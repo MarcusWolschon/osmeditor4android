@@ -14,7 +14,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import de.blau.android.R;
 
 /**
  * Class to determine certain device specific brokeness
