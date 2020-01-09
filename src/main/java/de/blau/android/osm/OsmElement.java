@@ -54,7 +54,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
     byte state;
 
-    List<Relation> parentRelations;
+    ArrayList<Relation> parentRelations;
 
     // seconds since EPOCH, negative == not set
     private int timestamp = -1;
