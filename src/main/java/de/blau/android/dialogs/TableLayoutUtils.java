@@ -187,7 +187,7 @@ public class TableLayoutUtils {
      * @param cell3 text for the third cell
      * @param isUrl if true don't allow C&P on the values so that they can be clicked on
      * @param tp LayoutParams for the row
-     * @param highlightColorAttr the highlight color attribute resource id
+     * @param highlightColorAttr the highlight color attribute resource id, if -1 no highlight will be used
      * @param highlightColorFallback a fallback highlight color
      * @return a TableRow
      */
@@ -213,7 +213,7 @@ public class TableLayoutUtils {
         boolean isTitle = cell1 != null && cell2 == null && cell3 == null;
         if (isTitle) { // heading
             span.setSpan(new StyleSpan(Typeface.BOLD), 0, span.length(), 0);
-        } else if (!"".equals(cell1) && (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString())))) {
+        } else if (highlightColorAttr != -1 && !"".equals(cell1) && (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString())))) {
             // note a CharSequence doesn't necessarily have a content aware equals, so we need to convert to String
             // first
             setSpanColor(activity, span, highlightColorAttr, highlightColorFallback);

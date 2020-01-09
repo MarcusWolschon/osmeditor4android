@@ -180,6 +180,11 @@
     <!--  GeoJSON feature display dialog -->
     <string name="feature_information">GeoJSON feature info</string>
     <string name="copy_properties">Copy properties</string>
+    <!-- API/Data layer info dialog -->
+    <string name="data_in_memory">Data in memory</string>
+    <string name="total">Total</string>
+    <string name="changed">Changed</string>
+    <string name="ways">Ways</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>

@@ -5,6 +5,7 @@ import org.acra.ACRA;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 
 /**
@@ -40,10 +41,11 @@ public class ACRAHelper {
     public static void addElementCounts(@NonNull StringBuilder builder, @NonNull String eol) {
         StorageDelegator delegator = App.getDelegator();
         if (delegator != null) {
-            builder.append("Relations (current/API): " + delegator.getCurrentStorage().getRelations().size() + "/" + delegator.getApiRelationCount() + eol);
-            builder.append("Ways (current/API): " + delegator.getCurrentStorage().getWays().size() + "/" + delegator.getApiWayCount() + eol);
-            builder.append("Nodes (current/Waynodes/API): " + delegator.getCurrentStorage().getNodes().size() + "/"
-                    + delegator.getCurrentStorage().getWayNodes().size() + "/" + delegator.getApiNodeCount() + eol);
+            Storage currentStorage = delegator.getCurrentStorage();
+            builder.append("Relations (current/API): " + currentStorage.getRelations().size() + "/" + delegator.getApiRelationCount() + eol);
+            builder.append("Ways (current/API): " + currentStorage.getWays().size() + "/" + delegator.getApiWayCount() + eol);
+            builder.append("Nodes (current/Waynodes/API): " + currentStorage.getNodes().size() + "/"
+                    + currentStorage.getWayNodes().size() + "/" + delegator.getApiNodeCount() + eol);
         }
     }
 }

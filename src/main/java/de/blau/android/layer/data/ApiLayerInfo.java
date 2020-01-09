@@ -13,11 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.TableLayoutUtils;
 import de.blau.android.osm.MapSplitSource;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.Storage;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.MBTileConstants;
 import de.blau.android.resources.TileLayerServer;
@@ -85,7 +88,19 @@ public class ApiLayerInfo extends LayerInfo {
         } else if (server.hasReadOnly()) {
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.readonly_url, null, server.getReadOnlyUrl(), tp));
         }
-
+        StorageDelegator delegator = App.getDelegator();
+        if (delegator != null) {
+            TableLayout t2 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_2);
+            t2.addView(TableLayoutUtils.createFullRowTitle(activity, getString(R.string.data_in_memory), tp));
+            t2.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.total), getString(R.string.changed), tp));
+            Storage currentStorage = delegator.getCurrentStorage();
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.nodes), Integer.toString(currentStorage.getNodes().size()),
+                    Integer.toString(delegator.getApiNodeCount()), tp, -1, -1));
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.ways), Integer.toString(currentStorage.getWays().size()),
+                    Integer.toString(delegator.getApiWayCount()), tp, -1, -1));
+            t2.addView(TableLayoutUtils.createRow(activity, getString(R.string.relations), Integer.toString(currentStorage.getRelations().size()),
+                    Integer.toString(delegator.getApiRelationCount()), tp, -1, -1));
+        }
         return sv;
     }
 }
