@@ -3365,7 +3365,7 @@ public class Logic {
      * 
      * @param main the current Main instance
      */
-    void saveEditingState(@NonNull Main main) {
+    synchronized void saveEditingState(@NonNull Main main) {
         EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
     }
