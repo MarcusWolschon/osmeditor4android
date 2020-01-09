@@ -98,6 +98,9 @@ public class NmeaTcpClient implements Runnable {
             InputStreamReader isr = new InputStreamReader(socket.getInputStream());
             input = new BufferedReader(isr);
             String firstLine = input.readLine();
+            if (firstLine == null) {
+                throw new IOException("unexpected EOF");
+            }
             connectionMessage(handler, host + ":" + port);
             // gpsd message is json {"class":"VERSION","release":"3.17","rev":"3.17","proto_major":3,"proto_minor":12}
             if (firstLine.contains("\"VERSION\"")) { // HACKALERT assume this is not NMEA and try to switch gpsd to NMEA
@@ -115,14 +118,16 @@ public class NmeaTcpClient implements Runnable {
                     newListener.onNmeaMessage(firstLine, -1);
                 }
             }
-
-            if (useOldListener) {
-                while (!canceled) {
-                    oldListener.onNmeaReceived(-1, input.readLine());
-                }
-            } else {
-                while (!canceled) {
-                    newListener.onNmeaMessage(input.readLine(), -1);
+            while (!canceled) {
+                String line = input.readLine();
+                if (line != null) {
+                    if (useOldListener) {
+                        oldListener.onNmeaReceived(-1, line);
+                    } else {
+                        newListener.onNmeaMessage(input.readLine(), -1);
+                    }
+                } else {
+                    break; // EOF
                 }
             }
         } catch (Exception e) {
@@ -170,7 +175,7 @@ public class NmeaTcpClient implements Runnable {
      * @param hostAndPort the host and port
      */
     static void connectionMessage(@NonNull Handler handler, @NonNull String hostAndPort) {
-        Message failed = handler.obtainMessage(TrackerService.CONNECTION_MESSAGE, hostAndPort);
-        failed.sendToTarget();
+        Message message = handler.obtainMessage(TrackerService.CONNECTION_MESSAGE, hostAndPort);
+        message.sendToTarget();
     }
 }

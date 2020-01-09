@@ -103,13 +103,16 @@ public class NmeaTcpClientServer implements Runnable {
                 InputStreamReader isr = new InputStreamReader(socket.getInputStream());
                 input = new BufferedReader(isr);
                 try {
-                    if (newListener == null) {
-                        while (!canceled) {
-                            oldListener.onNmeaReceived(-1, input.readLine());
-                        }
-                    } else {
-                        while (!canceled) {
-                            newListener.onNmeaMessage(input.readLine(), -1);
+                    while (!canceled) {
+                        String line = input.readLine();
+                        if (line != null) {
+                            if (newListener == null) {
+                                oldListener.onNmeaReceived(-1, input.readLine());
+                            } else {
+                                newListener.onNmeaMessage(input.readLine(), -1);
+                            }
+                        } else {
+                            break; // EOF
                         }
                     }
                 } catch (IOException ioex) {
