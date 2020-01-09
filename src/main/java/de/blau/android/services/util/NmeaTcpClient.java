@@ -127,6 +127,7 @@ public class NmeaTcpClient implements Runnable {
                         newListener.onNmeaMessage(input.readLine(), -1);
                     }
                 } else {
+                    closedMessage(handler);
                     break; // EOF
                 }
             }
@@ -176,6 +177,16 @@ public class NmeaTcpClient implements Runnable {
      */
     static void connectionMessage(@NonNull Handler handler, @NonNull String hostAndPort) {
         Message message = handler.obtainMessage(TrackerService.CONNECTION_MESSAGE, hostAndPort);
+        message.sendToTarget();
+    }
+
+    /**
+     * Note that the connection has closed
+     * 
+     * @param handler for sending messages to caller
+     */
+    static void closedMessage(@NonNull Handler handler) {
+        Message message = handler.obtainMessage(TrackerService.CONNECTION_CLOSED);
         message.sendToTarget();
     }
 }

@@ -112,6 +112,7 @@ public class NmeaTcpClientServer implements Runnable {
                                 newListener.onNmeaMessage(input.readLine(), -1);
                             }
                         } else {
+                            NmeaTcpClient.closedMessage(handler);
                             break; // EOF
                         }
                     }

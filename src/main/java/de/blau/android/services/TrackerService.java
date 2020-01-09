@@ -69,6 +69,7 @@ public class TrackerService extends Service implements Exportable {
     private static final int LOCATION_UPDATE    = 0;
     public static final int  CONNECTION_FAILED  = 1;
     public static final int  CONNECTION_MESSAGE = 2;
+    public static final int  CONNECTION_CLOSED  = 3;
 
     private static final String AUTODOWNLOAD_KEY = "autodownload";
 
@@ -583,7 +584,10 @@ public class TrackerService extends Service implements Exportable {
                             Snack.toastTopError(TrackerService.this, (String) inputMessage.obj);
                             break;
                         case CONNECTION_MESSAGE:
-                            Snack.toastTopInfo(TrackerService.this, "Connection to/from " + (String) inputMessage.obj);
+                            Snack.toastTopInfo(TrackerService.this, getString(R.string.toast_remote_nmea_connection, (String) inputMessage.obj));
+                            break;
+                        case CONNECTION_CLOSED:
+                            Snack.toastTopInfo(TrackerService.this, R.string.toast_remote_nmea_connection_closed);
                             break;
                         default:
                             // ignore
