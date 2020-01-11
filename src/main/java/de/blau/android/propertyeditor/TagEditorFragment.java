@@ -2326,9 +2326,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     public List<LinkedHashMap<String, String>> getUpdatedTags() {
         @SuppressWarnings("unchecked")
 
-        ArrayList<Map<String, String>> oldTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
+        List<Map<String, String>> oldTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
         // make a (nearly) full copy
-        ArrayList<LinkedHashMap<String, String>> newTags = new ArrayList<>();
+        List<LinkedHashMap<String, String>> newTags = new ArrayList<>();
         for (Map<String, String> map : oldTags) {
             newTags.add(new LinkedHashMap<>(map));
         }
@@ -2336,7 +2336,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         LinkedHashMap<String, List<String>> edits = getKeyValueMap(true);
         if (edits == null) {
             // if we didn't get a LinkedHashMap as input we need to copy
-            ArrayList<LinkedHashMap<String, String>> newOldTags = new ArrayList<>();
+            List<LinkedHashMap<String, String>> newOldTags = new ArrayList<>();
             for (Map<String, String> map : oldTags) {
                 newOldTags.add(new LinkedHashMap<>(map));
             }
@@ -2353,7 +2353,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         Log.e(DEBUG_TAG, "new " + value + " old " + oldValue);
                         if (!value.equals(oldValue)) {
                             if (saveTag(key, value)) {
-                                addTagToMap(map, key, value);
+                                addTagToResult(map, key, value);
                             } else {
                                 map.remove(key); // zap stuff with empty values or just the HTTP prefix
                             }
@@ -2370,7 +2370,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && valueList.size() == 1) {
                     String value = valueList.get(0).trim();
                     if (saveTag(editsKey, value)) {
-                        addTagToMap(map, editsKey, value);
+                        addTagToResult(map, editsKey, value);
                     }
                 }
             }
@@ -2383,10 +2383,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * 
      * @param key string containing the key
      * @param value string containing the value
-     * @return true if value and key isn't empty and isn't the HTTP/HTTPS prefix
+     * @return true if the value isn't only a pre-filled in prefix or suffix
      */
-    private boolean saveTag(String key, String value) {
-        return !"".equals(value) && !onlyWebsitePrefix(key, value) && !onlyMphSuffix(key, value);
+    private boolean saveTag(@NonNull String key, String value) {
+        return !onlyWebsitePrefix(key, value) && !onlyMphSuffix(key, value);
     }
 
     /**
@@ -2396,7 +2396,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param value value of the tag
      * @return true if this is only http:// or https://
      */
-    boolean onlyWebsitePrefix(String key, String value) {
+    boolean onlyWebsitePrefix(@NonNull String key, @Nullable String value) {
         PresetItem pi = getPreset(key);
         return (Tags.isWebsiteKey(key) || (pi != null && ValueType.WEBSITE == pi.getValueType(key)))
                 && (Tags.HTTP_PREFIX.equalsIgnoreCase(value) || Tags.HTTPS_PREFIX.equalsIgnoreCase(value));
@@ -2409,7 +2409,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param value value of the tag
      * @return true if this is only MPH
      */
-    boolean onlyMphSuffix(String key, String value) {
+    boolean onlyMphSuffix(@Nullable String key, @Nullable String value) {
         return Tags.isSpeedKey(key) && Tags.MPH.trim().equalsIgnoreCase(value);
     }
 
@@ -2468,16 +2468,20 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Add key-value to a map stripping trailing list separator
+     * Add (or remove if empty) key-value to a map stripping trailing list separator, and as a side effect add to the
+     * mru tags
      * 
-     * @param map target map
+     * @param result target map
      * @param key string containing the key
      * @param value string containing the value
      */
-    private void addTagToMap(@NonNull Map<String, String> map, @NonNull String key, @NonNull String value) {
+    private void addTagToResult(@NonNull Map<String, String> result, @NonNull String key, @NonNull String value) {
         PresetItem pi = getPreset(key);
         MRUTags mruTags = App.getMruTags();
+        boolean nonEmptyValue = !"".equals(value);
         if (pi != null) {
+            PresetField field = pi.getField(key);
+            boolean useLastAsDefault = field != null && field.getUseLastAsDefault() != UseLastAsDefault.FALSE;
             if (pi.getKeyType(key) == PresetKeyType.MULTISELECT) {
                 // trim potential trailing separators
                 char delimter = pi.getDelimiter(key);
@@ -2488,16 +2492,23 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (values != null) {
                     Collections.reverse(values);
                     for (String v : values) {
-                        mruTags.put(pi, key, v);
+                        if (!"".equals(v) || useLastAsDefault) {
+                            mruTags.put(pi, key, v);
+                        }
                     }
                 }
-            } else {
+            } else if (nonEmptyValue || useLastAsDefault) {
                 mruTags.put(pi, key, value);
             }
-        } else {
+        } else if (nonEmptyValue) {
             mruTags.put(key, value);
         }
-        map.put(key, value);
+        // actually save the result
+        if (nonEmptyValue) {
+            result.put(key, value);
+        } else {
+            result.remove(key);
+        }
     }
 
     /**

@@ -92,7 +92,7 @@ public class MRUTags {
      * @param key the key
      * @param value the value
      */
-    public synchronized void put(@NonNull PresetItem item, @NonNull String key, @NonNull String value) {
+    public synchronized void put(@NonNull PresetItem item, @NonNull String key, @Nullable String value) {
         Log.d(DEBUG_TAG, "item " + item.getName() + " key " + key + " value " + value);
         putValue(item, key, value);
         putKey(item, key);
@@ -118,7 +118,7 @@ public class MRUTags {
      * @param key the key
      * @param value the value
      */
-    private void putValue(@NonNull PresetItem item, @NonNull String key, @NonNull String value) {
+    private void putValue(@NonNull PresetItem item, @NonNull String key, @Nullable String value) {
         Map<String, MRUList<String>> keyMap = valueStore.get(item);
         if (keyMap == null) {
             keyMap = new HashMap<>();
