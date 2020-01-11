@@ -160,6 +160,11 @@
             android:numeric="integer"
             android:summary="@string/config_orthogonalizeThreshold_summary"
             android:title="@string/config_orthogonalizeThreshold_title" />
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_autoformatPhoneNumbers_key"
+            android:summary="@string/config_autoformatPhoneNumbers_summary"
+            android:title="@string/config_autoformatPhoneNumbers_title" />
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_auto_download"

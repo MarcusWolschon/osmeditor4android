@@ -116,6 +116,10 @@ Close the current open changeset after uploading edits. Default: _on_.
 
 The threshold in ° over which angles are ignored for squaring and straightening. Default: _15°_.
 
+### Auto-format phone numbers
+
+This allows to control if phone numbers should be auto-formatted. Default: _on_. 
+
 ## Auto-download Settings
 
 ### Download radius

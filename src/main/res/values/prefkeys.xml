@@ -74,6 +74,7 @@
     <string name="config_enableAutoPresets_key">enableAutoPresets</string>
     <string name="config_simpleActions_key">simpleActions</string>
     <string name="config_enableHwAcceleration_key">hwAcceleration</string>
+    <string name="config_autoformatPhoneNumbers_key">autoformatPhoneNumbers</string>
     
 	<!-- Preference keys used in the pref editor(s) int prefs -->
 	<string name="config_maxInlineValues_key">maxInlineValuesInt</string>

@@ -92,6 +92,7 @@ public class Preferences {
     private final boolean hwAccelerationEnabled;
     private final int     connectedNodeTolerance;
     private final int     orthogonalizeThreshold;
+    private final boolean autoformatPhoneNumbers;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -239,6 +240,8 @@ public class Preferences {
         connectedNodeTolerance = getIntPref(R.string.config_connectedNodeTolerance_key, 2);
 
         orthogonalizeThreshold = getIntPref(R.string.config_orthogonalizeThreshold_key, 15);
+
+        autoformatPhoneNumbers = prefs.getBoolean(r.getString(R.string.config_autoformatPhoneNumbers_key), true);
     }
 
     /**
@@ -297,6 +300,15 @@ public class Preferences {
      */
     public boolean isAntiAliasingEnabled() {
         return isAntiAliasingEnabled;
+    }
+
+    /**
+     * Check if we should autoformat phone numbers
+     * 
+     * @return true if we should
+     */
+    public boolean autoformatPhoneNumbers() {
+        return autoformatPhoneNumbers;
     }
 
     /**
@@ -911,10 +923,20 @@ public class Preferences {
         return prefs.getFloat(key, 0);
     }
 
+    /**
+     * Set if we should autodownload tasks
+     * 
+     * @param on if true we will autodownload
+     */
     public void setBugAutoDownload(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_bugAutoDownload_key), on).commit();
     }
 
+    /**
+     * Check if we should autodownload tasks
+     * 
+     * @return true if we should autodownload
+     */
     public boolean getBugAutoDownload() {
         String key = r.getString(R.string.config_bugAutoDownload_key);
         if (!prefs.contains(key)) {
@@ -924,10 +946,20 @@ public class Preferences {
         return prefs.getBoolean(key, false);
     }
 
+    /**
+     * Set if we should show a GPS position marker
+     * 
+     * @param on if true the marker will be shown
+     */
     public void setShowGPS(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_showGPS_key), on).commit();
     }
 
+    /**
+     * Check if we should show a GPS marker
+     * 
+     * @return true if we show a marker
+     */
     public boolean getShowGPS() {
         String key = r.getString(R.string.config_showGPS_key);
         if (!prefs.contains(key)) {

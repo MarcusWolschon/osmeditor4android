@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.ValueType;
@@ -61,7 +62,8 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
 
     private TextView              keyView;
     protected LinearLayout        valueLayout;
-    protected Context             context;
+    protected final Context       context;
+    private Preferences           prefs;
     private char                  delimiter = ';';
     private String                country;
     private LayoutInflater        inflater;
@@ -74,7 +76,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
      * 
      * @param context Android Context
      */
-    public MultiTextRow(Context context) {
+    public MultiTextRow(@NonNull Context context) {
         super(context);
         this.context = context;
     }
@@ -85,7 +87,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
      * @param context Android Context
      * @param attrs and AttriuteSet
      */
-    public MultiTextRow(Context context, AttributeSet attrs) {
+    public MultiTextRow(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
     }
@@ -223,7 +225,6 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             }
             // format and split text if necessary
             if (valueType != null) {
-
                 switch (valueType) {
                 case PHONE:
                     editText.removeCallbacks(formatPhoneNumber);
@@ -345,20 +346,22 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
      */
     @NonNull
     private String formatPhoneNumber(@NonNull String s) {
-        PhoneNumberUtil phone = App.getPhoneNumberUtil(getContext());
-        if (phone != null && country != null) {
-            try {
-                PhoneNumber number = phone.parse(s, country);
-                s = phone.format(number, PhoneNumberFormat.INTERNATIONAL);
-            } catch (NumberParseException e) {
-                // NOSONAR ignore
+        if (prefs.autoformatPhoneNumbers()) {
+            PhoneNumberUtil phone = App.getPhoneNumberUtil(getContext());
+            if (phone != null && country != null) {
+                try {
+                    PhoneNumber number = phone.parse(s, country);
+                    s = phone.format(number, PhoneNumberFormat.INTERNATIONAL);
+                } catch (NumberParseException e) {
+                    // NOSONAR ignore
+                }
             }
         }
         return s;
     }
 
     /**
-     * Add a row for a multi-select with inline CheckBoxes
+     * Add a row for a multi-select with inline AutoCompleteTextViews
      * 
      * @param caller the calling TagFormFragment
      * @param inflater the inflater to use
@@ -377,6 +380,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
         final MultiTextRow row = (MultiTextRow) inflater.inflate(R.layout.tag_form_multitext_row, rowLayout, false);
         row.inflater = inflater;
         row.adapter = adapter;
+        row.prefs = caller.prefs;
         PresetField field = preset.getField(key);
         if (field instanceof PresetComboField) {
             row.delimiter = preset.getDelimiter(key);
