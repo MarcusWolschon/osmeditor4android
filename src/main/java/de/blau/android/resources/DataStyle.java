@@ -1,6 +1,7 @@
 package de.blau.android.resources;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
@@ -23,6 +24,9 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlSerializer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -45,6 +49,7 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StyleableFeature;
 import de.blau.android.osm.Way;
@@ -129,6 +134,7 @@ public final class DataStyle extends DefaultHandler {
         private FeatureStyle      arrowStyle     = null;
         private FeatureStyle      casingStyle    = null;
         private boolean           oneway         = false;
+        private Boolean           closed         = null;
 
         List<FeatureStyle> cascadedStyles = null;
 
@@ -411,20 +417,6 @@ public final class DataStyle extends DefaultHandler {
             this.minVisibleZoom = minVisibleZoom;
         }
 
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            for (Entry<String, String> tag : tags.entrySet()) {
-                builder.append(tag.getKey() + "=" + tag.getValue() + "\n");
-            }
-            builder.append("area: " + area + "\n");
-            builder.append("dontrender: " + dontrender + "\n");
-            builder.append("updateWidth: " + updateWidth + "\n");
-            builder.append("strokeWidth: " + paint.getStrokeWidth() + "\n");
-            builder.append("widthFactor: " + widthFactor + "\n");
-            return builder.toString();
-        }
-
         /**
          * @return the arrowStyle
          */
@@ -456,7 +448,7 @@ public final class DataStyle extends DefaultHandler {
         }
 
         /**
-         * Check if we should check a oneway tag THis could be done cleaner by using regexps for matching values
+         * Check if we should check a oneway tag This could be done cleaner by using regexps for matching values
          * 
          * @return if true the object may has a oneway tag that needs to be checked
          */
@@ -471,6 +463,78 @@ public final class DataStyle extends DefaultHandler {
          */
         public void setCheckOneway(boolean oneway) {
             this.oneway = oneway;
+        }
+
+        /**
+         * Set if this style should apply only to closed ways or the opposite
+         * 
+         * @param closed if true this style will only be used for closed ways
+         */
+        public void setClosed(boolean closed) {
+            this.closed = Boolean.valueOf(closed);
+        }
+
+        /**
+         * Dump this Style in XML format, not very abstracted and closely tied to the implementation
+         * 
+         * @param s an XmlSerialzer instance
+         * @throws IllegalArgumentException
+         * @throws IllegalStateException
+         * @throws IOException
+         */
+        public void toXml(@NonNull final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+            s.startTag("", "feature");
+            s.attribute("", "dontrender", Boolean.toString(dontrender));
+            s.attribute("", "minVisibleZoom", Integer.toString(minVisibleZoom));
+            boolean updateWidth = updateWidth();
+            s.attribute("", "updateWidth", Boolean.toString(updateWidth));
+            s.attribute("", "widthFactor", Float.toString(getWidthFactor()));
+            s.attribute("", "area", Boolean.toString(isArea()));
+            if (closed != null) {
+                s.attribute("", "closed", Boolean.toString(closed));
+            }
+            s.attribute("", "oneway", Boolean.toString(oneway));
+            //
+            s.attribute("", "color", Integer.toHexString(getPaint().getColor()));
+            // alpha should be contained in color
+            s.attribute("", "style", getPaint().getStyle().toString());
+            s.attribute("", "cap", getPaint().getStrokeCap().toString());
+            s.attribute("", "join", getPaint().getStrokeJoin().toString());
+            if (!updateWidth) {
+                s.attribute("", "strokewidth", Float.toString(getPaint().getStrokeWidth()));
+            }
+            Typeface tf = getPaint().getTypeface();
+            if (tf != null) {
+                s.attribute("", "typefacestyle", Integer.toString(tf.getStyle()));
+                s.attribute("", "textsize", Float.toString(getPaint().getTextSize()));
+            }
+            DashPath dp = getDashPath();
+            if (dp != null) {
+                s.startTag("", "dash");
+                s.attribute("", "phase", Float.toString(dp.phase));
+                for (int i = 0; i < dp.intervals.length; i++) {
+                    s.startTag("", "interval");
+                    s.attribute("", "length", Float.toString(dp.intervals[i]));
+                    s.endTag("", "interval");
+                }
+                s.endTag("", "dash");
+            }
+            s.endTag("", "feature");
+        }
+
+        @Override
+        public String toString() {
+            try {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
+                serializer.setOutput(outputStream, OsmXml.UTF_8);
+                serializer.startDocument(OsmXml.UTF_8, null);
+                toXml(serializer);
+                serializer.endDocument();
+                return outputStream.toString();
+            } catch (IllegalArgumentException | IllegalStateException | IOException | XmlPullParserException e) {
+                return e.getMessage();
+            }
         }
     }
 
@@ -988,14 +1052,29 @@ public final class DataStyle extends DefaultHandler {
         WAY_DIRECTION_PATH.lineTo(-wayDirectionPathOffset, +wayDirectionPathOffset);
     }
 
+    /**
+     * Get the radius for the area for node selection
+     * 
+     * @return the radius (in px ?)
+     */
     public float getNodeToleranceValue() {
         return nodeToleranceValue;
     }
 
+    /**
+     * Get the half width of the tolerance area around ways
+     * 
+     * @return the width (in px ?)
+     */
     public float getWayToleranceValue() {
         return wayToleranceValue;
     }
 
+    /**
+     * Get the radius of the large area for node dragging
+     * 
+     * @return the radius (in px ?)
+     */
     public float getLargDragToleranceRadius() {
         return largDragToleranceRadius;
     }
@@ -1268,6 +1347,11 @@ public final class DataStyle extends DefaultHandler {
 
                 tempFeatureStyle.setCheckOneway(atts.getValue("oneway") != null);
 
+                String closedString = atts.getValue("closed");
+                if (closedString != null) {
+                    tempFeatureStyle.setClosed(Boolean.parseBoolean(closedString));
+                }
+
             } else if (element.equals("dash")) {
                 tempPhase = Float.parseFloat(atts.getValue("phase"));
                 tempIntervals = new ArrayList<>();
@@ -1468,13 +1552,24 @@ public final class DataStyle extends DefaultHandler {
         }
     }
 
-    private static void addDefaultStye(Context ctx) {
+    /**
+     * Add the builtin minimal style so that we always have something to fall back too
+     * 
+     * @param ctx an Android Context
+     */
+    private static void addDefaultStye(@NonNull Context ctx) {
         DataStyle p = new DataStyle(ctx);
         p.name = BUILTIN_STYLE_NAME;
         currentStyle = p;
         availableStyles.put(p.name, p);
     }
 
+    /**
+     * Get the name of the builtin style
+     * 
+     * @return the name of the builtin style
+     */
+    @NonNull
     public static String getBuiltinStyleName() {
         return BUILTIN_STYLE_NAME;
     }
@@ -1482,6 +1577,7 @@ public final class DataStyle extends DefaultHandler {
     /**
      * @return the orientation_path
      */
+    @NonNull
     public Path getOrientationPath() {
         return orientationPath;
     }
@@ -1489,6 +1585,7 @@ public final class DataStyle extends DefaultHandler {
     /**
      * @return the waypoint_path
      */
+    @NonNull
     public Path getWaypointPath() {
         return waypointPath;
     }
@@ -1496,6 +1593,7 @@ public final class DataStyle extends DefaultHandler {
     /**
      * @return the crosshairs_path
      */
+    @NonNull
     public Path getCrosshairsPath() {
         return crosshairsPath;
     }
@@ -1503,22 +1601,27 @@ public final class DataStyle extends DefaultHandler {
     /**
      * @return the x_path
      */
+    @NonNull
     public Path getXPath() {
         return xPath;
     }
 
     /**
-     * Determine the style to use for way and cache it in the way object
+     * Return the cached style for the element, or determine the style to use and cache it in the object
      * 
-     * @param element way we need the style for
-     * @param <T> an OsmElement the implements StyleableFeature
+     * @param element the OsmElement we need the style for
+     * @param <T> an OsmElement that implements StyleableFeature
      * @return the style
      */
+    @NonNull
     public static <T extends OsmElement & StyleableFeature> FeatureStyle matchStyle(@NonNull final T element) {
         FeatureStyle style = element.getStyle();
         if (style == null) {
-            style = Way.NAME.equals(element.getName()) ? currentStyle.wayStyles : currentStyle.relationStyles;
-            style = matchRecursive(style, element.getTags());
+            if (element instanceof Way) {
+                style = matchRecursive(currentStyle.wayStyles, element.getTags(), ((Way) element).isClosed());
+            } else {
+                style = matchRecursive(currentStyle.relationStyles, element.getTags(), false);
+            }
             element.setStyle(style);
         }
         return style;
@@ -1529,15 +1632,16 @@ public final class DataStyle extends DefaultHandler {
      * 
      * @param style the style
      * @param tags tags from the element we are trying to match
+     * @param closed true if the element is a way and closed
      * @return the best matching style
      */
     @NonNull
-    private static FeatureStyle matchRecursive(@NonNull FeatureStyle style, @NonNull SortedMap<String, String> tags) {
+    private static FeatureStyle matchRecursive(@NonNull FeatureStyle style, @NonNull SortedMap<String, String> tags, boolean closed) {
         FeatureStyle result = style;
         if (style.cascadedStyles != null) {
             for (FeatureStyle s : style.cascadedStyles) {
-                if (s.match(tags)) {
-                    return matchRecursive(s, tags);
+                if ((s.closed == null || s.closed == closed) && s.match(tags)) {
+                    return matchRecursive(s, tags, closed);
                 }
             }
         }
