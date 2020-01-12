@@ -14,133 +14,133 @@ For the preset based editing to work Vespucci has to match the existing tags, in
 Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) that works, this may, and likely is, different from the actual implementation. Language specific attributes are ignored (see [Translation](#Translation)). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.
 
 
-Element            | Attributes                     | Support   | Notes
--------------------|-------------------------------|-----------|----------------------------------------------------------------
-__&lt;presets&gt;__          |                     |           |
-                             | author              | ignored   |
-                             | version             | ignored   |
-                             | description         | ignored   |
-                             | shortdescription    | ignored   |
-                             | link                | ignored   |
-                             | icon                | ignored   |
-                             | baselanguage        | ignored   |
-                             | object_keys         | extension | comma separated list of top-level keys  
-__&lt;!-- comment --&gt;__   |                     | ignored   |
-__&lt;group&gt;__  |                               | supported |
-                   | name                          | supported | required
-                   | name_context                  | supported |
-                   | icon                          | supported | you really should add one for Vespucci
-                   | items_sort                    | extension | sort the items alphabetically, default "yes"
-                   | regions                       | extension | comma separated list of countries this preset group is applicable for
-                   | exclude_regions               | extension | if true, invert the meaning of regions 
-__&lt;item&gt;__   |                               | supported |
-                   | name                          | supported | required
-                   | name_context                  | supported |
-                   | icon                          | supported | you really should add one for Vespucci
-                   | type                          | supported |
-                   | name_template                 | ignored   |
-                   | preset_name_label             | ignored   |
-                   | deprecated                    | extension | only use the preset for matching and map icon display 
-                   | regions                       | extension | comma separated list of countries this preset item is applicable for
-                   | exclude_regions               | extension | if true, invert the meaning of regions 
-                   | autoapply                     | extension | if true (default), allow auto-applying of the item
-__&lt;chunk&gt;__  |                               | supported | 
-                   | id                            | supported | required
-__&lt;reference&gt;__ |                            | supported |
-                   | ref                           | supported | required
-__&lt;key&gt;__    |                               | supported |
-                   | value                         | supported | required
-                   | match                         | partial   | "none" is supported
-                   | text		                   | extension | Something to display 
-                   | values_context				   | extension | Translation context
-__&lt;text&gt;__   |                               | supported |
-                   | key                           | supported | required
-                   | text                          | supported |
-                   | match                         | partial   | only the "key", "key!" and "none" values are supported, all other values are ignored
-                   | default                       | supported | 
-                   | use_last_as_default           | partial   | "force" has the same effect as "true" 
-                   | auto_increment                | ignored   |
-                   | length                        | ignored   |
-                   | alternative_autocomplete_keys | ignored   |
-                   | javascript                    | extension | if value is not set, execute the JS script
-                   | i18n                          | extension | if set to true this tag has i18n variants
-                   | value_type                    | extension | indicate the kind of value this tag should have
-__&lt;combo&gt;__  |                               | supported |
-                   | key                           | supported | required
-                   | text                          | supported |
-                   | text_context                  | supported |
-                   | values                        | supported |
-                   | values_sort                   | supported |
-                   | delimiter                     | supported |
-                   | default                       | supported |
-                   | match                         | supported |
-                   | display_values                | supported |
-                   | short_descriptions            | partial   | will only be used if display_values is not present
-                   | values_context                | supported |
-                   | editable                      | supported | default is "false"
-                   | use_last_as_default           | partial   | "force" has the same effect as "true"
-                   | values_searchable             | supported | subtype values are added regardless of the setting
-                   | length                        | ignored   |
-                   | values_no_i18n                | ignored   |
-                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
-__&lt;multiselect&gt;__ |                          | supported |
-                   | key                           | supported | required
-                   | text                          | supported |
-                   | text_context                  | supported |
-                   | values                        | supported |
-                   | values_sort                   | supported |
-                   | delimiter                     | supported |
-                   | default                       | supported |
-                   | match                         | supported |
-                   | display_values                | supported |
-                   | short_descriptions            | partial   | will only be used if display_values is not present
-                   | values_context                | supported |
-                   | editable                      | supported | default is "false"
-                   | use_last_as_default           | partial   | "force" has the same effect as "true"
-                   | values_searchable             | supported | subtype values are added regardless of the setting
-                   | length                        | ignored   |
-                   | values_no_i18n                | ignored   |
-                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
-                   | rows                          | ignored   |
-__&lt;list_entry&gt;__       |                     | supported |  
-                   | value                         | supported | required 
-                   | display_value                 | supported |
-                   | short_description             | supported |
-                   | icon                          | supported |
-                   | icon_size                     | ignored   |
-__&lt;checkgroup&gt;__       |                     | supported |
-                   | columns                       | ignored   |
-                   | text                          | extension |
-                   | text_context                  | extension |
-__&lt;check&gt;__  |                               | supported |
-                   | key                           | supported | required
-                   | text                          | supported |
-                   | text_context                  | supported |
-                   | value_on                      | supported |
-                   | value_off                     | supported | 
-                   | disable_off                   | supported |
-                   | default                       | supported |
-                   | match                         | supported |
-                   | use_last_as_default           | extension | "force" has the same effect as "true" 
-__&lt;label&gt;__  |                               | ignored   |
-__&lt;space/&gt;__ |                               | ignored   |
-__&lt;optional&gt;__ |                             | supported | doesn't display anything
-                   | text                          | ignored   |
-__&lt;separator/&gt;__ |                           | supported | starts a new row in the preset selection display
-__&lt;item_separator/&gt;__ |                      | ignored   |
-__&lt;link&gt;__   |                               | supported |
-                   | href                          | supported | including language specific variants
-                   | wiki                          | supported | this will be used with lower preference than href entries
-__&lt;roles&gt;__  |                               | ignored   | but not the included <role> elements
-__&lt;role&gt;__   |                               | supported |
-                   | key                           | supported | required
-                   | text                          | supported |
-                   | text_context                  | supported | 
-                   | requisite                     | ignored   |
-                   | count                         | ignored   |
-                   | type                          | supported |
-                   | member_expression             | ignored   |
-                   | regexp                        | ignored   | 
+|Element            | Attributes                     | Support   | Notes
+|-------------------|-------------------------------|-----------|----------------------------------------------------------------
+|__&lt;presets&gt;__          |                     |           |
+|                             | author              | ignored   |
+|                             | version             | ignored   |
+|                             | description         | ignored   |
+|                             | shortdescription    | ignored   |
+|                             | link                | ignored   |
+|                             | icon                | ignored   |
+|                             | baselanguage        | ignored   |
+|                             | object_keys         | extension | comma separated list of top-level keys  
+|__&lt;!-- comment --&gt;__   |                     | ignored   |
+|__&lt;group&gt;__  |                               | supported |
+|                   | name                          | supported | required
+|                   | name_context                  | supported |
+|                   | icon                          | supported | you really should add one for Vespucci
+|                   | items_sort                    | extension | sort the items alphabetically, default "yes"
+|                   | regions                       | extension | comma separated list of countries this preset group is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions 
+|__&lt;item&gt;__   |                               | supported |
+|                   | name                          | supported | required
+|                   | name_context                  | supported |
+|                   | icon                          | supported | you really should add one for Vespucci
+|                   | type                          | supported |
+|                   | name_template                 | ignored   |
+|                   | preset_name_label             | ignored   |
+|                   | deprecated                    | extension | only use the preset for matching and map icon display 
+|                   | regions                       | extension | comma separated list of countries this preset item is applicable for
+|                   | exclude_regions               | extension | if true, invert the meaning of regions 
+|                   | autoapply                     | extension | if true (default), allow auto-applying of the item
+|__&lt;chunk&gt;__  |                               | supported | 
+|                   | id                            | supported | required
+|__&lt;reference&gt;__ |                            | supported |
+|                   | ref                           | supported | required
+|__&lt;key&gt;__    |                               | supported |
+|                   | value                         | supported | required
+|                   | match                         | partial   | "none" is supported
+|                   | text		                   | extension | Something to display 
+|                   | values_context				   | extension | Translation context
+|__&lt;text&gt;__   |                               | supported |
+|                   | key                           | supported | required
+|                   | text                          | supported |
+|                   | match                         | partial   | only the "key", "key!" and "none" values are supported, all other values are ignored
+|                   | default                       | supported | 
+|                   | use_last_as_default           | partial   | "force" has the same effect as "true" 
+|                   | auto_increment                | ignored   |
+|                   | length                        | ignored   |
+|                   | alternative_autocomplete_keys | ignored   |
+|                   | javascript                    | extension | if value is not set, execute the JS script
+|                   | i18n                          | extension | if set to true this tag has i18n variants
+|                   | value_type                    | extension | indicate the kind of value this tag should have
+|__&lt;combo&gt;__  |                               | supported |
+|                   | key                           | supported | required
+|                   | text                          | supported |
+|                   | text_context                  | supported |
+|                   | values                        | supported |
+|                   | values_sort                   | supported |
+|                   | delimiter                     | supported |
+|                   | default                       | supported |
+|                   | match                         | supported |
+|                   | display_values                | supported |
+|                   | short_descriptions            | partial   | will only be used if display_values is not present
+|                   | values_context                | supported |
+|                   | editable                      | supported | default is "false"
+|                   | use_last_as_default           | partial   | "force" has the same effect as "true"
+|                   | values_searchable             | supported | subtype values are added regardless of the setting
+|                   | length                        | ignored   |
+|                   | values_no_i18n                | ignored   |
+|                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
+|__&lt;multiselect&gt;__ |                          | supported |
+|                   | key                           | supported | required
+|                   | text                          | supported |
+|                   | text_context                  | supported |
+|                   | values                        | supported |
+|                   | values_sort                   | supported |
+|                   | delimiter                     | supported |
+|                   | default                       | supported |
+|                   | match                         | supported |
+|                   | display_values                | supported |
+|                   | short_descriptions            | partial   | will only be used if display_values is not present
+|                   | values_context                | supported |
+|                   | editable                      | supported | default is "false"
+|                   | use_last_as_default           | partial   | "force" has the same effect as "true"
+|                   | values_searchable             | supported | subtype values are added regardless of the setting
+|                   | length                        | ignored   |
+|                   | values_no_i18n                | ignored   |
+|                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
+|                   | rows                          | ignored   |
+|__&lt;list_entry&gt;__       |                     | supported |  
+|                   | value                         | supported | required 
+|                   | display_value                 | supported |
+|                   | short_description             | supported |
+|                   | icon                          | supported |
+|                   | icon_size                     | ignored   |
+|__&lt;checkgroup&gt;__       |                     | supported |
+|                   | columns                       | ignored   |
+|                   | text                          | extension |
+|                   | text_context                  | extension |
+|__&lt;check&gt;__  |                               | supported |
+|                   | key                           | supported | required
+|                   | text                          | supported |
+|                   | text_context                  | supported |
+|                   | value_on                      | supported |
+|                   | value_off                     | supported | 
+|                   | disable_off                   | supported |
+|                   | default                       | supported |
+|                   | match                         | supported |
+|                   | use_last_as_default           | extension | "force" has the same effect as "true" 
+|__&lt;label&gt;__  |                               | ignored   |
+|__&lt;space/&gt;__ |                               | ignored   |
+|__&lt;optional&gt;__ |                             | supported | doesn't display anything
+|                   | text                          | ignored   |
+|__&lt;separator/&gt;__ |                           | supported | starts a new row in the preset selection display
+|__&lt;item_separator/&gt;__ |                      | ignored   |
+|__&lt;link&gt;__   |                               | supported |
+|                   | href                          | supported | including language specific variants
+|                   | wiki                          | supported | this will be used with lower preference than href entries
+|__&lt;roles&gt;__  |                               | ignored   | but not the included <role> elements
+|__&lt;role&gt;__   |                               | supported |
+|                   | key                           | supported | required
+|                   | text                          | supported |
+|                   | text_context                  | supported | 
+|                   | requisite                     | ignored   |
+|                   | count                         | ignored   |
+|                   | type                          | supported |
+|                   | member_expression             | ignored   |
+|                   | regexp                        | ignored   | 
 
 
                  
