@@ -560,7 +560,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             int result = layer2 == layer1 ? 0 : layer2 > layer1 ? -1 : +1;
             if (result == 0) {
                 boolean w2closed = w2.isClosed();
-                return w1.isClosed() == w2closed ? 0  : w2closed ? 1 : -1;
+                return w1.isClosed() == w2closed ? 0 : w2closed ? 1 : -1;
             }
             return result;
         }
@@ -1171,11 +1171,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
 
         List<Node> nodes = way.getNodes();
+        boolean reversed = false; // way arrows need to be drawn reversed if we reverse the direction of the way
         if (style.isArea() && !clockwise(nodes)) {
             areaNodes.clear();
             areaNodes.addAll(nodes);
             Collections.reverse(areaNodes);
             map.pointListToLinePointsArray(points, areaNodes);
+            reversed = true;
         } else {
             map.pointListToLinePointsArray(points, nodes);
         }
@@ -1202,7 +1204,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             paint.setStrokeWidth(style.getPaint().getStrokeWidth() * selectedStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
             paint = DataStyle.getInternal(DataStyle.WAY_DIRECTION).getPaint();
-            drawWayArrows(canvas, linePoints, pointsSize, false, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
+            drawWayArrows(canvas, linePoints, pointsSize, reversed, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
             labelFontStyle = DataStyle.LABELTEXT_NORMAL_SELECTED;
             labelFontStyleSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
         } else if (isMemberOfSelectedRelation) {
