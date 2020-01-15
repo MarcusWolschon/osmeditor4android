@@ -8,6 +8,7 @@ Vespucci is a collaboratively developed app for editing OpenStreetMap data via i
 * Contributions uploaded to and other use of the OpenStreetMap API are subject to the [OSMF privacy policy](https://wiki.osmfoundation.org/wiki/Privacy_Policy).
 * Use of background, overlay and other layers will result in your device connecting to the sites of the respective operators, more information on the provenance of such layers can be found on [Editor Layer Index github repo](https://github.com/osmlab/editor-layer-index).
 * Using the Tasks layer can result in your device connecting to the OSMOSE QA service operated by [OpenStreetMap France](http://openstreetmap.fr/).
+* Accessing the OpenAerialMap catalogue and retrieving imagery from the service will transmit your IP address and other information to its operator, which might be governed by this [privacy policy](https://www.hotosm.org/privacy).
 * Installing the app from Amazon, google or F-Droid requires you to access these sites and potentially submit personal data (at least IP addresses) to them. 
 
 If you have questions with respect to this document, please feel free to contact us at privacy@vespucci.io
