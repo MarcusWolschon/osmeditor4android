@@ -2352,22 +2352,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         ((Way) e).replaceNode(nd, newNode);
                     }
                 }
-                toCut.add(e);
             }
-            for (OsmElement removeElement : toCut) {
-                if (removeElement instanceof Node) {
-                    removeNode((Node) removeElement);
-                } else if (removeElement instanceof Way) {
-                    removeWay((Way) removeElement);
-                }
+        }
+        for (OsmElement removeElement : toCut) {
+            if (removeElement instanceof Node) {
+                removeNode((Node) removeElement);
+            } else if (removeElement instanceof Way) {
+                removeWay((Way) removeElement);
             }
-            // way nodes have to wait till we have removed all the ways
-            for (OsmElement removeElement : toCut) {
-                if (removeElement instanceof Way) {
-                    List<Node> nodes = new ArrayList<>(((Way) removeElement).getNodes());
-                    for (Node nd : nodes) {
-                        removeNode(nd); //
-                    }
+        }
+        // way nodes have to wait till we have removed all the ways
+        for (OsmElement removeElement : toCut) {
+            if (removeElement instanceof Way) {
+                List<Node> nodes = new ArrayList<>(((Way) removeElement).getNodes());
+                for (Node nd : nodes) {
+                    removeNode(nd); //
                 }
             }
         }
