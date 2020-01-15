@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.14: Fix double deletion error when cutting newly created elements, update presets, imagery and translations.
+
 14.0.13: Clear icon in combo dialog row if none is available, update selected relation members after relation change, update imagery, update preset.
 
 14.0.12: Fix for external NMEA services not being used for follow GPS function.
