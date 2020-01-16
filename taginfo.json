@@ -21089,5 +21089,5 @@
 {"description":"Lifecycle/Set to disused (remove tags)","key": "set_to_disused_remove_tags","object_types": ["node","way","relation","area"]},
 {"description":"Lifecycle/Disused amenity","key": "disused:amenity","object_types": ["node","area"]},
 {"description":"Lifecycle/Disused leisure","key": "disused:leisure","object_types": ["node","area"]},
-{"description":"Lifecycle/Disused shop","key": "disused:shop","object_types": ["node","area"]},
+{"description":"Lifecycle/Disused shop","key": "disused:shop","object_types": ["node","area"]}
 ]}
