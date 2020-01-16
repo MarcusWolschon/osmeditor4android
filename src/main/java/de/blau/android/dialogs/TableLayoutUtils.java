@@ -248,8 +248,10 @@ public class TableLayoutUtils {
      * @param colorAttr the color attribute resource id
      * @param colorFallback a fallback color
      */
-    private static void setSpanColor(@NonNull FragmentActivity activity, @NonNull SpannableString span, int colorAttr, int colorFallback) {
-        span.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(activity, colorAttr, colorFallback)), 0, span.length(), 0);
+    private static void setSpanColor(@NonNull FragmentActivity activity, @Nullable SpannableString span, int colorAttr, int colorFallback) {
+        if (span != null) {
+            span.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(activity, colorAttr, colorFallback)), 0, span.length(), 0);
+        }
     }
 
     /**
