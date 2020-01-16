@@ -164,7 +164,7 @@ public class GpxTest {
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
-        TestUtils.selectFile(device, filename);
+        TestUtils.selectFile(device, null, filename);
         Assert.assertTrue(TestUtils.clickText(device, false, "Replace", true));
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);

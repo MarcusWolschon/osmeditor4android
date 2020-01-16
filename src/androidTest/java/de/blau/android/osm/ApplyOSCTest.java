@@ -128,7 +128,7 @@ public class ApplyOSCTest {
         TestUtils.clickText(mDevice, false, "File", false);
         TestUtils.clickText(mDevice, false, "Apply changes from OSC file", false);
         //
-        TestUtils.selectFile(mDevice, OSC_FILE);
+        TestUtils.selectFile(mDevice, null, OSC_FILE);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {

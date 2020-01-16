@@ -908,9 +908,10 @@ public class TestUtils {
      * Select a file from the file picker
      * 
      * @param device the current UiDevice
+     * @param directory optional sub-directory
      * @param fileName the name of the file
      */
-    public static void selectFile(@NonNull UiDevice device, @NonNull String fileName) {
+    public static void selectFile(@NonNull UiDevice device, @Nullable String directory, @NonNull String fileName) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             TestUtils.clickOverflowButton();
             if (!TestUtils.clickText(device, false, "Show", false)) {
@@ -935,6 +936,19 @@ public class TestUtils {
             TestUtils.clickText(device, false, "Vespucci", true);
         }
         UiScrollable appView;
+        if (directory != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
+            } else {
+                appView = new UiScrollable(new UiSelector().scrollable(true));
+            }
+            try {
+                appView.scrollIntoView(new UiSelector().text(directory));
+            } catch (UiObjectNotFoundException e) {
+                // if there is no scrollable then this will fail
+            }
+            TestUtils.clickText(device, false, directory, true);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
         } else {

@@ -73,7 +73,7 @@ public class ReadPbf {
         TestUtils.clickText(mDevice, false, "File", false);
         TestUtils.clickText(mDevice, false, "Read from PBF file", false);
         //
-        TestUtils.selectFile(mDevice, PBF_FILE);
+        TestUtils.selectFile(mDevice, null, PBF_FILE);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
