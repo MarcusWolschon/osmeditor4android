@@ -93,7 +93,7 @@ public class MapSplitSourceTest {
         TestUtils.clickText(mDevice, false, "Edit", true);
         TestUtils.clickButton("de.blau.android:id/listedit_file_button", true);
         TestUtils.selectFile(mDevice, null, MSF_FILE);
-        TestUtils.clickText(mDevice, false, "OK", true);
+        Assert.assertTrue(TestUtils.clickText(mDevice, false, "OK", true));
         TestUtils.clickMenuButton("Navigate up", false, true);
         TestUtils.clickMenuButton("Navigate up", false, true);
         TestUtils.clickMenuButton("Navigate up", false, true);

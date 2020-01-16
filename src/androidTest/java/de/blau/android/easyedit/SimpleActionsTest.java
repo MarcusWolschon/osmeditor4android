@@ -142,9 +142,9 @@ public class SimpleActionsTest {
         device.waitForIdle(1000);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
         device.waitForIdle(1000);
-        TestUtils.clickAtCoordinates(map, 8.3895763, 47.3901374, false);
+        TestUtils.clickAtCoordinates(map, 8.3895763, 47.3901374, true);
         device.waitForIdle(1000);
-        TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, false);
+        TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, true);
         device.waitForIdle(1000);
         TestUtils.clickHome(device);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
