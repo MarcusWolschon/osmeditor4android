@@ -191,7 +191,7 @@ public class TileLayerDialog {
                                 }
                                 MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri, 1);
                                 Map<String, String> metadata = db.getMetadata();
-                                if (metadata.isEmpty()) {
+                                if (metadata == null || metadata.isEmpty()) {
                                     throw new SQLiteException("MBTiles metadata missing");
                                 }
                                 int[] zooms = db.getMinMaxZoom();
