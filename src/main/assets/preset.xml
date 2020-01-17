@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.7.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.8.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -5110,7 +5110,7 @@
         </item> <!-- Music School -->
     </group> <!-- Education -->
     <group name="Health" icon="icons/png/health_pharmacy.png">
-        <item name="Hospital" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Hospital" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
             <link wiki="Tag:amenity=hospital"/>
             <space/>
             <key key="amenity" value="hospital" match="keyvalue"/>
@@ -5118,7 +5118,7 @@
             <reference ref="name_operator"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Hospital -->
-        <item name="Clinic" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Clinic" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
             <link wiki="Tag:amenity=clinic"/>
             <space/>
             <key key="amenity" value="clinic" match="keyvalue"/>
@@ -5127,7 +5127,7 @@
             <reference ref="name_operator_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Clinic -->
-        <item name="Doctor's Office" icon="icons/png/health_doctors.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Doctor's Office" icon="icons/png/health_doctors.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
             <link wiki="Tag:amenity=doctors"/>
             <space/>
             <key key="amenity" value="doctors" match="keyvalue"/>
@@ -5136,7 +5136,7 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Doctor's Office -->
-        <item name="Dentist" icon="icons/png/health_dentist.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Dentist" icon="icons/png/health_dentist.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
             <link wiki="Tag:amenity=dentist"/>
             <space/>
             <key key="amenity" value="dentist" match="keyvalue"/>

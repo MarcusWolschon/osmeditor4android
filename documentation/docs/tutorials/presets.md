@@ -1,5 +1,5 @@
 ## Vespucci Preset System
-_Documentation for Vespucci 12.1_
+_Documentation for Vespucci 14.1_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -44,6 +44,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | regions                       | extension | comma separated list of countries this preset item is applicable for
 |                   | exclude_regions               | extension | if true, invert the meaning of regions 
 |                   | autoapply                     | extension | if true (default), allow auto-applying of the item
+|                   | min_match                     | extension | an integer indicating the minimum number of fixed tags that need to match (default is all fixed tags)
 |__&lt;chunk&gt;__  |                               | supported | 
 |                   | id                            | supported | required
 |__&lt;reference&gt;__ |                            | supported |
@@ -171,3 +172,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _regions_ comma separated list of countries this preset group or item is applicable for
 * _exclude_regions_ if true, invert the meaning of regions 
 * _autoapply_ if true (default), allow auto-applying of the item
+* _min_match_ modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match 
