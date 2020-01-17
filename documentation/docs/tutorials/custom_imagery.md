@@ -76,9 +76,10 @@ To add a MBTiles layer, down/upload the MBTiles format file to your device, then
 
 Notes:
 
-* The MBTiles format does not contain meta-data for min and max zoom levels, the query that determines the values from the actual file contents may take a long time to run if the file is large.
+* Older MBTiles formats do not contain meta-data for min and max zoom levels, the query that determines the values from the actual file contents may take a long time to run if the file is large.
 * Vespucci currently supports png and jpg contents.
 * You can adjust all values in the form before saving if necessary with exception of the URL field that contains the path to the file.
+* You can create MBTiles files for example with [MOBAC](https://sourceforge.net/projects/mobac/) and many other tools, some more information can be found on the [HOT toolbox site](https://github.com/hotosm/toolbox/wiki/4.5-Creating-.mbtiles). 
  
 ![MBTiles configuration](images/custom_imagery_mbtiles.png)
 
