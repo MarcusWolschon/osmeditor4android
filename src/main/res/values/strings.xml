@@ -334,6 +334,7 @@ avoided by using an offline data source.</string>
     <string name="toast_export_success">Exported to %1$s</string>
     <string name="toast_preset_overwrote_tags">Note - preset overwrote tag(s)</string>
     <string name="toast_merge_overwrote_tags">Note - operation overwrote tag(s)</string>
+    <string name="toast_cant_autoapply_preset">This preset can\'t be auto-applied</string>
     <string name="toast_oneway_reversed">You reversed a oneway street or a way with directionally dependent tags. Please check the tags and correct them if needed.</string>
     <string name="toast_merge_tag_conflict">You merged elements with conflicting tag values, direction dependent semantics or different roles in the same relation. Please check the tags and roles and correct them if needed.</string>
     <string name="toast_potential_merge_tag_conflict">You are trying to merge elements with conflicting tag values.\n\nPlease check the tags and correct them before trying again.</string>

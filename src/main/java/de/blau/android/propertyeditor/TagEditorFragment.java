@@ -406,8 +406,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             } else if (prefs.autoApplyPreset()) {
                 PresetItem pi = getBestPreset();
-                if (pi != null && pi.autoapply()) {
-                    applyPreset(editRowLayout, pi, false, true, false);
+                if (pi != null) {
+                    if (pi.autoapply()) {
+                        applyPreset(editRowLayout, pi, false, true, false);
+                    } else {
+                        Snack.toastTopWarning(getActivity(), R.string.toast_cant_autoapply_preset);
+                    }
                 }
             }
         }
@@ -734,6 +738,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 PresetField field = preset.getField(key);
                 if (field instanceof PresetCheckGroupField) {
                     field = ((PresetCheckGroupField) field).getCheckField(key);
+                } else if (field instanceof PresetFixedField) {
+                    if (value != null && !value.equals(((PresetFixedField) field).getValue().getValue())) {
+                        field = null; // fixed fields need to match both key and value
+                    }
                 }
                 if (field != null) {
                     storePreset(key, preset);

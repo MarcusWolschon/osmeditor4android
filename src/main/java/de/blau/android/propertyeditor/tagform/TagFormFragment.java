@@ -664,9 +664,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 String value = tagList.get(key);
                 Log.e(DEBUG_TAG, "field " + field.getClass().getCanonicalName());
                 if (value != null) {
-                    if (field instanceof PresetFixedField && value.equals(((PresetFixedField) field).getValue().getValue())) {
-                        tagList.remove(key);
-                        editableView.putTag(key, value);
+                    if (field instanceof PresetFixedField) { 
+                        if (value.equals(((PresetFixedField) field).getValue().getValue())) {
+                            tagList.remove(key);
+                            editableView.putTag(key, value);
+                        } // else leave this fixed key for further processing
                     } else if (field.getKey().equals(key)) {
                         editable.put(field, value);
                         tagList.remove(key);

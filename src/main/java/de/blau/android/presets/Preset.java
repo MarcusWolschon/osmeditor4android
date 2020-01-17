@@ -167,6 +167,7 @@ public class Preset implements Serializable {
     private static final String ID                         = "id";
     private static final String DEPRECATED                 = "deprecated";
     private static final String TRUE                       = "true";
+    private static final String FALSE                      = "false";
     private static final String GTYPE                      = "gtype";
     private static final String TYPE                       = "type";
     private static final String ITEM                       = "item";
@@ -185,6 +186,8 @@ public class Preset implements Serializable {
     private static final String LENGTH                     = "length";
     private static final String REGIONS                    = "regions";
     private static final String EXCLUDE_REGIONS            = "exclude_regions";
+    private static final String AUTOAPPLY                  = "autoapply";
+    private static final String MIN_MATCH                  = "min_match";
     /**
      * 
      */
@@ -749,6 +752,15 @@ public class Preset implements Serializable {
                     currentItem.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     currentItem.setRegions(attr.getValue(REGIONS));
                     currentItem.setExcludeRegions(TRUE.equals(attr.getValue(EXCLUDE_REGIONS)));
+                    currentItem.setAutoapply(!FALSE.equals(attr.getValue(AUTOAPPLY)));
+                    String minMatchStr = attr.getValue(MIN_MATCH);
+                    if (minMatchStr != null) {
+                        try {
+                            currentItem.minMatch = Short.parseShort(minMatchStr);
+                        } catch (NumberFormatException e) {
+                            Log.e(DEBUG_TAG, "Illegal min_match value " + minMatchStr + " " + e.getMessage());
+                        }
+                    }
                     checkGroupCounter = 0;
                     break;
                 case CHUNK:
@@ -2596,7 +2608,7 @@ public class Preset implements Serializable {
         /**
          * 
          */
-        private static final long serialVersionUID = 14L;
+        private static final long serialVersionUID = 15L;
 
         /**
          * All fields in the order they are in the Preset file
@@ -2625,6 +2637,11 @@ public class Preset implements Serializable {
          * If true the item is suitable to be autoapplied
          */
         private boolean autoapply = true;
+
+        /**
+         * Minimum match value so that a match will be considered, normally the number of fixed keys
+         */
+        private short minMatch = -1;
 
         private final int itemIndex;
 
@@ -2691,6 +2708,7 @@ public class Preset implements Serializable {
             this.fixedTags = item.fixedTags;
             this.roles = item.roles;
             this.linkedPresetNames = item.linkedPresetNames;
+            this.minMatch = item.minMatch;
 
             if (!chunk) {
                 for (Entry<String, PresetFixedField> e : getFixedTags().entrySet()) {
@@ -3406,6 +3424,16 @@ public class Preset implements Serializable {
         }
 
         /**
+         * Get the minimum number of fixed tags that need to match
+         * 
+         * @return the minimum number of fixed tags that need to match if <= 0 the number of fixed tags in the preset
+         *         item will be used
+         */
+        public short getMinMatch() {
+            return minMatch;
+        }
+
+        /**
          * @return the fixed tags belonging to this item (unmodifiable)
          */
         public Map<String, PresetFixedField> getFixedTags() {
@@ -3532,7 +3560,7 @@ public class Preset implements Serializable {
          * @return the selection type for this key, null key doesn't exist
          */
         @Nullable
-        public PresetKeyType getKeyType(String key) {
+        public PresetKeyType getKeyType(@NonNull String key) {
             PresetField field = fields.get(key);
             if (field == null) {
                 field = getCheckFieldFromGroup(key);
@@ -3559,7 +3587,7 @@ public class Preset implements Serializable {
          * @param tagSet Map containing tags to compare against this preset item
          * @return true if the tagSet matches (all the fixed fields need to be present)
          */
-        public boolean matches(Map<String, String> tagSet) {
+        public boolean matches(@NonNull Map<String, String> tagSet) {
             int matchCount = 0;
             int fixedTagsCount = fixedTags.size();
             for (Entry<String, PresetFixedField> tag : fixedTags.entrySet()) { // for each own tag
@@ -3572,11 +3600,9 @@ public class Preset implements Serializable {
                 String value = tagSet.get(key);
                 if (value != null && field.getValue().equals(value)) { // key and value match
                     matchCount++;
-                } else {
-                    return false; // no point in continuing
                 }
             }
-            return matchCount == fixedTagsCount;
+            return minMatch > 0 ? matchCount >= minMatch : matchCount == fixedTagsCount;
         }
 
         /**
@@ -3587,7 +3613,7 @@ public class Preset implements Serializable {
          * @param tagMap Map containing the tags
          * @return number of matches
          */
-        public int matchesRecommended(Map<String, String> tagMap) {
+        public int matchesRecommended(@NonNull Map<String, String> tagMap) {
             int matches = 0;
 
             List<PresetField> allFields = new ArrayList<>();
