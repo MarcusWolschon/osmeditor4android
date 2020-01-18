@@ -21,9 +21,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import de.blau.android.Authorize;
 import de.blau.android.R;
+import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.Snack;
 import oauth.signpost.exception.OAuthException;
 

@@ -1,4 +1,4 @@
-package de.blau.android.util;
+package de.blau.android.net;
 
 import java.io.IOException;
 import java.net.InetAddress;

@@ -805,7 +805,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         }
         List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
         MultiHashMap<Long, RelationMemberPosition> currentParents = null;
-        ArrayList<RelationMemberDescription> currentMembers = null;
+        List<RelationMemberDescription> currentMembers = null;
         if (relationMembershipFragment != null) {
             currentParents = relationMembershipFragment.getParentRelationMap();
         }

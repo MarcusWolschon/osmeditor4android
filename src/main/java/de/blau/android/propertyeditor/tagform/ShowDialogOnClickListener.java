@@ -30,7 +30,7 @@ abstract class ShowDialogOnClickListener implements OnClickListener {
             @Override
             public void onShow(DialogInterface d) {
                 if (tag instanceof String) {
-                    DialogRow.scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
+                    ComboDialogRow.scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
                 }
             }
         });

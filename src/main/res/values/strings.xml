@@ -476,6 +476,7 @@ avoided by using an offline data source.</string>
     <string name="discard">Discard</string>
     <string name="retry">Retry</string>
     <string name="prune">Prune</string>
+    <string name="check">Check</string>
     <!-- Read a file -->
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>
@@ -1223,5 +1224,14 @@ avoided by using an offline data source.</string>
         <item>osmbasedmap</item>
         <item>qa</item>
         <item>other</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HHTP</item>
+        <item>HTTPS</item>
+        <item>Domain doesn\'t exist</item>
+        <item>Domain unreachable</item>
+        <item>Malformed URL</item>
+        <item>Invalid argument</item>
     </string-array>
 </resources>

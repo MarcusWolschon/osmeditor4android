@@ -58,6 +58,7 @@ import de.blau.android.exception.UiStateException;
 import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
+import de.blau.android.net.UrlCheck;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Server;
@@ -1120,20 +1121,19 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 Log.d(DEBUG_TAG, "onFocusChange value");
+                String key = row.getKey();
+                PresetItem preset = getPreset(key);
+                final ValueType valueType = preset != null ? preset.getValueType(key) : null;
                 if (hasFocus) {
                     originalValue = row.getValue();
-                    String key = row.getKey();
-                    PresetItem preset = getPreset(key);
-                    final ValueType valueType = preset != null ? preset.getValueType(key) : null;
+
                     final PresetKeyType keyType = preset != null ? preset.getKeyType(key) : null;
                     row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row));
                     if (preset != null && keyType == PresetKeyType.MULTISELECT) {
                         // FIXME this should be somewhere better obvious since it creates a non obvious side effect
                         row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
                     }
-                    if (Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == valueType)) {
-                        initWebsite(row.valueEdit);
-                    } else if (Tags.isSpeedKey(key)) {
+                    if (Tags.isSpeedKey(key)) {
                         initMPHSpeed(getActivity(), row.valueEdit, propertyEditorListener);
                     } else if (keyType == PresetKeyType.TEXT && valueType == null) {
                         InputTypeUtil.enableTextSuggestions(row.valueEdit);
@@ -2398,7 +2398,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Check if this is a website tag with open the protocol prefix it it
+     * Check if this is a website tag with the protocol prefix in it
      * 
      * @param key key of the tag
      * @param value value of the tag

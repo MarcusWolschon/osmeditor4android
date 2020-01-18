@@ -46,6 +46,7 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.API;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.StreamUtils;
@@ -55,7 +56,6 @@ import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import okhttp3.Call;
@@ -631,6 +631,8 @@ public class Server {
     /**
      * Given an URL, open the connection and return the InputStream
      * 
+     * Uses default timeout values
+     * 
      * @param context Android context
      * @param url the URL
      * @return the InputStream
@@ -657,7 +659,7 @@ public class Server {
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
 
         Request request = new Request.Builder().url(url).build();
-        OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT,
+        OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).readTimeout(readTimeout,
                 TimeUnit.MILLISECONDS);
         // if (oauth) {
         // OAuthHelper oa = new OAuthHelper();
@@ -677,7 +679,7 @@ public class Server {
             if (context instanceof Activity) {
                 final int responseCode = readCallResponse.code();
                 final String responseMessage = readCallResponse.message();
-                if (responseCode == 400) {
+                if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
