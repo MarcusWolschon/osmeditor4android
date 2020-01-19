@@ -22,7 +22,7 @@ buildscript {
 
 plugins {
     id "de.undercouch.download" version "3.4.3"
-    id "org.sonarqube" version "2.7.1"
+    id "org.sonarqube" version "2.8"
     id "net.ltgt.apt" version "0.21"
     id "com.github.ben-manes.versions" version "0.21.0"
 }
@@ -241,8 +241,7 @@ sonarqube {
         property "sonar.java.source","1.7"
         property "sonar.sourceEncoding","UTF-8"
         property "sonar.java.binaries", "build/intermediates/javac/currentDebug/compileCurrentDebugJavaWithJavac/classes"
-        property "sonar.jacoco.reportPaths","build/jacoco/testCurrentDebugUnitTest.exec,\
-            build/outputs/code-coverage/connected/flavors/CURRENT/8.1(AVD) - 8.1.0-coverage.ec"
+        property "sonar.coverage.jacoco.xmlReportPaths","build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     }
 }
 
