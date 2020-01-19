@@ -30,7 +30,7 @@ import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.StreetTagValueAdapter;
+import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.Util;
 
 /**
@@ -694,14 +694,14 @@ public final class Address implements Serializable {
                 lastAddresses.removeLast();
             }
             Address current = new Address(caller.getType(), caller.getOsmId(), addressTags);
-            StreetTagValueAdapter streetAdapter = (StreetTagValueAdapter) ((NameAdapters) caller.getActivity()).getStreetNameAdapter(null);
+            StreetPlaceNamesAdapter streetAdapter = (StreetPlaceNamesAdapter) ((NameAdapters) caller.getActivity()).getStreetNameAdapter(null);
             if (streetAdapter != null) {
                 List<String> values = tags.get(Tags.KEY_ADDR_STREET);
                 if (values != null && !values.isEmpty()) {
                     String streetName = values.get(0); // FIXME can't remember what this is supposed to do....
                     if (streetName != null) {
                         try {
-                            current.setSide(streetAdapter.getId(streetName));
+                            current.setSide(streetAdapter.getStreetId(streetName));
                         } catch (OsmException e) {
                             current.side = Side.UNKNOWN;
                         }

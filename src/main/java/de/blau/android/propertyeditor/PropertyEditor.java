@@ -64,11 +64,10 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NetworkStatus;
-import de.blau.android.util.PlaceTagValueAdapter;
 import de.blau.android.util.Screen;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
-import de.blau.android.util.StreetTagValueAdapter;
+import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
@@ -156,8 +155,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     /**
      * Used both in the form and conventional tag editor fragments
      */
-    private StreetTagValueAdapter streetNameAutocompleteAdapter = null;
-    private PlaceTagValueAdapter  placeNameAutocompleteAdapter  = null;
+    private StreetPlaceNamesAdapter streetNameAutocompleteAdapter = null;
+    private StreetPlaceNamesAdapter placeNameAutocompleteAdapter  = null;
 
     /**
      * 
@@ -1269,7 +1268,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     public ArrayAdapter<ValueWithCount> getStreetNameAdapter(List<String> values) {
         if (streetNameAutocompleteAdapter == null) {
-            streetNameAutocompleteAdapter = new StreetTagValueAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values); // FIXME
+            streetNameAutocompleteAdapter = new StreetPlaceNamesAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values,
+                    false); // FIXME
         }
         return streetNameAutocompleteAdapter;
     }
@@ -1277,7 +1277,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(List<String> values) {
         if (placeNameAutocompleteAdapter == null) {
-            placeNameAutocompleteAdapter = new PlaceTagValueAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values); // FIXME
+            placeNameAutocompleteAdapter = new StreetPlaceNamesAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values, true); // FIXME
         }
         return placeNameAutocompleteAdapter;
     }

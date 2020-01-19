@@ -88,7 +88,7 @@ import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.KeyValue;
 import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
-import de.blau.android.util.StreetTagValueAdapter;
+import de.blau.android.util.StreetPlaceNamesAdapter;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
@@ -346,7 +346,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (applyLastAddressTags) {
             loadEdits(editRowLayout,
                     Address.predictAddressTags(getActivity(), getType(), getOsmId(),
-                            ((StreetTagValueAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(editRowLayout, false),
+                            ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(editRowLayout, false),
                             Address.DEFAULT_HYSTERESIS),
                     false);
             if (getUserVisibleHint()) {
@@ -837,7 +837,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void predictAddressTags(boolean allowBlanks) {
         loadEdits(Address.predictAddressTags(getActivity(), getType(), getOsmId(),
-                ((StreetTagValueAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS),
+                ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS),
                 false);
         updateAutocompletePresetItem(null);
     }

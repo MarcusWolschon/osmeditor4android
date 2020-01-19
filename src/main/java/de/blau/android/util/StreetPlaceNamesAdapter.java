@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -50,18 +51,18 @@ import de.blau.android.propertyeditor.PropertyEditor;
  * 
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
  */
-public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
+public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
 
     /**
      * The tag we use for Android-logging.
      */
     @SuppressWarnings("unused")
-    private static final String DEBUG_TAG = StreetTagValueAdapter.class.getName();
+    private static final String DEBUG_TAG = StreetPlaceNamesAdapter.class.getName();
 
     private ElementSearch es;
 
     /**
-     * Get an Adapter containing near by street names
+     * Get an Adapter containing near by street or place names
      * 
      * @param aContext Android context
      * @param aTextViewResourceId the resource id of the AutoCompleteTextView
@@ -69,13 +70,14 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
      * @param osmElementType the type of OsmElement
      * @param osmId the id of the OsmElement
      * @param extraValues any existing values
+     * @param places if true return an adapter for place names
      */
-    public StreetTagValueAdapter(@NonNull final Context aContext, final int aTextViewResourceId, @NonNull final StorageDelegator delegator,
-            @NonNull final String osmElementType, final long osmId, @Nullable List<String> extraValues) {
+    public StreetPlaceNamesAdapter(@NonNull final Context aContext, final int aTextViewResourceId, @NonNull final StorageDelegator delegator,
+            @NonNull final String osmElementType, final long osmId, @Nullable List<String> extraValues, boolean places) {
         super(aContext, aTextViewResourceId);
         Log.d(DEBUG_TAG, "constructor called");
 
-        HashMap<String, Integer> counter = new HashMap<>();
+        Map<String, Integer> counter = new HashMap<>();
         if (extraValues != null && !extraValues.isEmpty()) {
             for (String t : extraValues) {
                 if (t.equals("")) {
@@ -87,7 +89,7 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
                     counter.put(t, 1);
                 }
             }
-            ArrayList<String> keys = new ArrayList<>(counter.keySet());
+            List<String> keys = new ArrayList<>(counter.keySet());
             Collections.sort(keys);
             for (String t : keys) {
                 ValueWithCount v = new ValueWithCount(t, counter.get(t));
@@ -98,7 +100,8 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
         int[] center = Util.getCenter(delegator, osmElementType, osmId);
         if (center != null) {
             es = new ElementSearch(center, false);
-            for (String s : es.getStreetNames()) {
+            String[] names = places ? es.getPlaceNames() : es.getStreetNames();
+            for (String s : names) {
                 if (counter.size() > 0 && counter.containsKey(s)) {
                     continue; // skip values that we already have
                 }
@@ -115,7 +118,7 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
      * 
      * @return a String array containing the names
      */
-    public String[] getNames() {
+    public String[] getStreetNames() {
         return es.getStreetNames();
     }
 
@@ -126,7 +129,7 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
      * @return the osm id
      * @throws OsmException
      */
-    public long getId(String name) throws OsmException {
+    public long getStreetId(String name) throws OsmException {
         return es.getStreetId(name);
     }
 
