@@ -77,7 +77,6 @@ public class UrlCheckTest {
         mockServer.enqueue("urlcheck2");
         UrlCheck.Result result = UrlCheck.check(main, mockBaseUrl.host() + ":" + mockBaseUrl.port());
         Assert.assertTrue(CheckStatus.HTTP == result.getStatus());
-        System.out.println(result.toString());
     }
 
     // /**
@@ -106,6 +105,16 @@ public class UrlCheckTest {
     public void noUrlExists() {
         UrlCheck.Result result = UrlCheck.check(main, mockBaseUrl.host() + ":" + mockBaseUrl.port());
         Assert.assertTrue(CheckStatus.UNREACHABLE == result.getStatus());
-        System.out.println(result.toString());
+    }
+
+    /**
+     * Check http url with a url supplied
+     */
+    @Test
+    public void httpUrlExistsWithUrl() {
+        mockServer.enqueue("urlcheck1");
+        mockServer.enqueue("urlcheck2");
+        UrlCheck.Result result = UrlCheck.check(main, "http://" + mockBaseUrl.host() + ":" + mockBaseUrl.port());
+        Assert.assertTrue(CheckStatus.HTTP == result.getStatus());
     }
 }
