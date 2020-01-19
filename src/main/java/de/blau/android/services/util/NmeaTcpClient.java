@@ -109,8 +109,8 @@ public class NmeaTcpClient implements Runnable {
                 osw.write("?WATCH={\"enable\":true,\"nmea\":true};\r\n");
                 osw.flush();
                 // skip stuff we don't need from gpsd
-                input.readLine();
-                input.readLine();
+                input.readLine(); // NOSONAR
+                input.readLine(); // NOSONAR
             } else {
                 if (useOldListener) {
                     oldListener.onNmeaReceived(-1, firstLine);
