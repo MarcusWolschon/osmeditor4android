@@ -72,22 +72,20 @@ class TriangleRight extends PathPattern {
     }
 }
 
-class BorderLeft extends PathPattern {
-    static final String NAME = "border_left";
+class Border extends PathPattern {
 
-    Path path = new Path();
+    Path  path = new Path();
+    float width;
+    float height;
 
     @Override
     public Path draw(float size) {
         path.rewind();
-        float width = Math.max(size, 2);
-        float height = Math.max(size * 2, 2);
+        width = Math.max(size, 2);
+        height = Math.max(size * 2, 2);
         height = Math.min(height, 32);
         path.moveTo(0, 0);
         path.lineTo(width, 0);
-        path.lineTo(width, -height);
-        path.lineTo(0, -height);
-        path.lineTo(0, 0);
         return path;
     }
 
@@ -102,33 +100,29 @@ class BorderLeft extends PathPattern {
     }
 }
 
-class BorderRight extends PathPattern {
-    static final String NAME = "border_right";
-
-    Path path = new Path();
+class BorderLeft extends Border {
+    static final String NAME = "border_left";
 
     @Override
     public Path draw(float size) {
-        path.rewind();
-        float width = Math.max(size, 2);
-        float height = Math.max(size * 2, 2);
-        height = Math.min(height, 32);
-        path.moveTo(0, 0);
-        path.lineTo(width, 0);
+        super.draw(size);
+        path.lineTo(width, -height);
+        path.lineTo(0, -height);
+        path.lineTo(0, 0);
+        return path;
+    }
+}
+
+class BorderRight extends Border {
+    static final String NAME = "border_right";
+
+    @Override
+    public Path draw(float size) {
+        super.draw(size);
         path.lineTo(width, height);
         path.lineTo(0, height);
         path.lineTo(0, 0);
         return path;
-    }
-
-    @Override
-    public float advance(float size) {
-        return Math.max(size, 2);
-    }
-
-    @Override
-    Style style() {
-        return PathDashPathEffect.Style.MORPH;
     }
 }
 
