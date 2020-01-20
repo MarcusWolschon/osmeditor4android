@@ -51,6 +51,7 @@ import okhttp3.OkHttpClient;
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends android.app.Application {
+    private static final String RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;
     private static StorageDelegator delegator      = new StorageDelegator();
     private static TaskStorage      taskStorage    = new TaskStorage();
@@ -164,12 +165,22 @@ public class App extends android.app.Application {
         registerReceiver(new DesktopModeReceiver(), desktopModeFilter);
     }
 
+    /**
+     * Retrieve the saved COnfiguration object
+     * 
+     * @return the saved Configuration or null
+     */
     @Nullable
     public static Configuration getConfiguration() {
         return configuration;
     }
 
-    public static void setConfiguration(Configuration c) {
+    /**
+     * Save the current Configuration object
+     * 
+     * @param c a COnfiguration
+     */
+    public static void setConfiguration(@NonNull Configuration c) {
         configuration = new Configuration(c);
     }
 
@@ -566,10 +577,10 @@ public class App extends android.app.Application {
                 try {
                     // this is a fairly hackish way of sandboxing, but it does work
                     rhinoScope = new ImporterTopLevel(c);
-                    c.evaluateString(rhinoScope, "java", "lazyLoad", 0, null);
+                    c.evaluateString(rhinoScope, "java", RHINO_LAZY_LOAD, 0, null);
                     // note any classes loaded here need to be kept in the ProGuard configuration
-                    c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.osm.BoundingBox)", "lazyLoad", 0, null);
-                    c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.util.GeoMath)", "lazyLoad", 0, null);
+                    c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.osm.BoundingBox)", RHINO_LAZY_LOAD, 0, null);
+                    c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.util.GeoMath)", RHINO_LAZY_LOAD, 0, null);
                     ((ScriptableObject) rhinoScope).sealObject();
                 } finally {
                     org.mozilla.javascript.Context.exit();
