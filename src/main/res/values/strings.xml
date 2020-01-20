@@ -449,6 +449,7 @@ avoided by using an offline data source.</string>
     <string name="toast_download_started">Download of %1$s started</string>
     <string name="toast_phone_number_reformatted">Phone number reformatted</string>
     <string name="toast_members_not_downloaded">Some relation members are not downloaded</string>
+    <string name="toast_restart_required">You need to restart Vespucci for the change to take effect</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

@@ -44,12 +44,14 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            Util.setListPreferenceSummary(this, R.string.config_fullscreenMode_key);
+            setListPreferenceSummary(R.string.config_fullscreenMode_key, true);
         }
-        Util.setListPreferenceSummary(this, R.string.config_mapOrientation_key);
-        Util.setListPreferenceSummary(this, R.string.config_gps_source_key);
-        Util.setEditTextPreferenceSummary(this, R.string.config_offsetServer_key);
-        Util.setEditTextPreferenceSummary(this, R.string.config_osmoseServer_key);
+        setListPreferenceSummary(R.string.config_mapOrientation_key, false);
+        setListPreferenceSummary(R.string.config_gps_source_key, false);
+        setEditTextPreferenceSummary(R.string.config_offsetServer_key, false);
+        setEditTextPreferenceSummary(R.string.config_osmoseServer_key, false);
+        setRestartRequiredMessage(R.string.config_enableLightTheme_key);
+        setRestartRequiredMessage(R.string.config_splitActionBarEnabled_key);
         setTitle();
     }
 

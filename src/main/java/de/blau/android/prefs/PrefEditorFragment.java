@@ -36,7 +36,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
-        Util.setListPreferenceSummary(this, R.string.config_scale_key);
+        setListPreferenceSummary(R.string.config_scale_key, false);
         setTitle();
         Log.d(DEBUG_TAG, "onResume done");
     }
@@ -47,7 +47,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
      * @param r the current resources
      */
     private void setPreferenceListeners(final Resources r) {
-        
+
         Preferences prefs = new Preferences(getActivity());
 
         ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_mapProfile_key));
