@@ -129,6 +129,10 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             downloadWebView.requestFocus(View.FOCUS_DOWN);
             class DownloadWebViewClient extends WebViewClient {
 
+                /**
+                 * @deprecated since API 24                       
+                 */
+                @Deprecated
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     Log.i(DEBUG_TAG, "Url clicked: " + url);
@@ -164,12 +168,9 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                         }, 5000);
 
                         Log.i(DEBUG_TAG, "Download id: " + lastDownload);
-
-                    } else {
-                        // load in in this webview
-                        view.loadUrl(url);
+                        return true;
                     }
-                    return true;
+                    return false;
                 }
 
                 @SuppressWarnings("deprecation")

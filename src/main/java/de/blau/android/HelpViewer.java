@@ -346,6 +346,10 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 
     private class HelpViewWebViewClient extends WebViewClient {
 
+        /**
+         * @deprecated since API 24
+         */
+        @Deprecated
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             // WebViewClient is slightly bizarre because there is no way to indicate to the webview that you would like
