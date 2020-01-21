@@ -133,6 +133,9 @@ public class RelationMember implements Serializable {
 
     @Override
     public String toString() {
+        if (element != null) {
+            return role + " " + element.getName() + " " + element.getOsmId();
+        }
         return role + " " + type + " " + ref;
     }
 }

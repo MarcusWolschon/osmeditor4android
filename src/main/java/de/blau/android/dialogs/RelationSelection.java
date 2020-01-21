@@ -1,6 +1,5 @@
 package de.blau.android.dialogs;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -20,8 +18,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.text.TextUtils;
 import android.util.Log;
@@ -31,20 +29,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import de.blau.android.App;
-import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -55,11 +50,10 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.PresetRole;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetRole;
 import de.blau.android.util.Density;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.LongHashSet;
@@ -122,9 +116,11 @@ public class RelationSelection extends ImmersiveDialogFragment {
     }
 
     /**
-     * Create a new instance of the Layers dialog
+     * Create a new instance of the RelationSelection dialog
      * 
-     * @return an instance of the Layers dialog
+     * @param elements
+     * @param listener
+     * @return  an instance of the RelationSelection dialog
      */
     @NonNull
     private static RelationSelection newInstance(@NonNull List<OsmElement> elements, @NonNull OnRelationsSelectedListener listener) {
@@ -201,6 +197,11 @@ public class RelationSelection extends ImmersiveDialogFragment {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                for (long id:memberships.getKeys()) {
+                    for (RelationMemberPosition rmp:memberships.get(id)) { 
+                        System.out.println(id + " " + rmp.getRelationMember().toString());
+                    }
+                }
                 listener.onRelationsSelected(memberships);
             }
         });
@@ -271,10 +272,10 @@ public class RelationSelection extends ImmersiveDialogFragment {
     }
 
     /**
-     * Create a row in the dialog for a specific layer
+     * Create a row in the dialog for a Relation
      * 
      * @param context Android context
-     * @param layer the MapViewLayer
+     * @param r the Relation
      * @param tp LayoutParams for this row
      * @return a TableRow
      */
@@ -330,6 +331,7 @@ public class RelationSelection extends ImmersiveDialogFragment {
                         pos++;
                     }
                     for (long wayId : wayIds) {
+                        System.out.println("Adding to " + id + " way " + wayId);
                         memberships.add(id, new RelationMemberPosition(new RelationMember("", delegator.getOsmElement(Way.NAME, wayId)), pos));
                         pos++;
                     }
@@ -377,6 +379,7 @@ public class RelationSelection extends ImmersiveDialogFragment {
         });
         
         roleView.setEms(4);
+        roleView.setMaxLines(1);
         roleView.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         tr.addView(roleView);
 
