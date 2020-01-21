@@ -8,13 +8,16 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import com.google.gson.stream.JsonReader;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
@@ -58,19 +61,34 @@ public class OAMCatalog {
         }
     }
 
-    private int limit = 0;
-    private int found = 0;
+    private int       limit        = 0;
+    private int       found        = 0;
+    private Pattern[] titleRegexps = null;
 
     /**
      * Query the OAM API for a list of imagery
      * 
+     * @param context TODO
      * @param oamServer URL for the OAM API server
      * @param box if not null limit the query to this BoundingBox
+     * 
      * @return a List of OAMCatalog.Entry
-     * @throws IOException
+     * @throws IOException if reading the entries fails
      */
     @Nullable
-    public List<Entry> getEntries(@NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
+    public List<Entry> getEntries(@Nullable Context context, @NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
+        if (context != null) {
+            String[] regexpStrings = context.getResources().getStringArray(R.array.bad_oam_title);
+            if (regexpStrings != null) {
+                int length = regexpStrings.length;
+                titleRegexps = new Pattern[length];
+                for (int i = 0; i < length; i++) {
+                    titleRegexps[i] = Pattern.compile(regexpStrings[i]);
+                }
+                System.out.print(titleRegexps[0].toString());
+            }
+        }
+
         URL url = new URL(oamServer + "meta"
                 + (box != null
                         ? "?" + "bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d + "&"
@@ -98,8 +116,8 @@ public class OAMCatalog {
      * 
      * @param is InputStream connected to OAM
      * @return a List of OAMCatalog.Entry
-     * @throws IOException
-     * @throws NumberFormatException
+     * @throws IOException if reading fails
+     * @throws NumberFormatException if we can't parse a number
      */
     @NonNull
     private List<Entry> parseEntries(@NonNull InputStream is) throws IOException, NumberFormatException {
@@ -172,7 +190,7 @@ public class OAMCatalog {
                         }
                         reader.endObject();
                         Log.d(DEBUG_TAG, "got " + entry.title + " " + entry.tileUrl + " " + entry.box);
-                        if (entry.title != null && entry.tileUrl != null) {
+                        if (entry.title != null && entry.tileUrl != null && !matchTitleFilter(entry.title)) {
                             result.add(entry);
                         }
                     }
@@ -191,17 +209,33 @@ public class OAMCatalog {
     }
 
     /**
+     * Check a title against the filter regexps
+     * 
+     * @param title the entry title
+     * @return true if it matches
+     */
+    private boolean matchTitleFilter(@NonNull String title) {
+        if (titleRegexps != null) {
+            for (Pattern p : titleRegexps) {
+                if (p.matcher(title).matches()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Parse a acquisition date
      * 
-     * @param reader the Jsonreader
+     * @param reader the JsonReader
      * @return the time since the epoch in milliseconds
-     * @throws IOException
+     * @throws IOException if reading fails
      */
     public long parseAcquisitionDate(JsonReader reader) throws IOException {
         try {
             return DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).parse(reader.nextString()).getTime();
         } catch (ParseException e) {
-
             return -1;
         }
     }

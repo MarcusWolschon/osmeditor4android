@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- regexps for filtering out bad OAM entries -->
+    <string-array translatable="false" name="bad_oam_title">
+        <item>LC.*_bands_432.TIF</item>
+    </string-array>
+</resources>

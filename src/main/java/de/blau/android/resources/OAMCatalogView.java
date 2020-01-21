@@ -94,7 +94,7 @@ public class OAMCatalogView {
                 OAMCatalog catalog = new OAMCatalog();
                 List<OAMCatalog.Entry> list = null;
                 try {
-                    list = catalog.getEntries(Urls.OAM_SERVER, box);
+                    list = catalog.getEntries(activity, Urls.OAM_SERVER, box);
                     final int found = catalog.getFound();
                     final int limit = catalog.getLimit();
                     if (found > limit) {

@@ -82,7 +82,7 @@ public class OAMTest {
         OAMCatalog catalog = new OAMCatalog();
         List<OAMCatalog.Entry> list = null;
         try {
-            list = catalog.getEntries(mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
+            list = catalog.getEntries(main, mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -96,5 +96,22 @@ public class OAMTest {
         Assert.assertEquals(-0.43514940868965246D, entry.box.getBottom() / 1E7D, 0.0000001);
         Assert.assertEquals(-80.29117135958357D, entry.box.getRight() / 1E7D, 0.0000001);
         Assert.assertEquals(-0.4300190885506524D, entry.box.getTop() / 1E7D, 0.0000001);
+    }
+
+    /**
+     * Query the OAM catalog and check that the filtering out of junk works
+     */
+    @Test
+    public void oamCatalogFiltered() {
+        mockServer.enqueue("oam2");
+        OAMCatalog catalog = new OAMCatalog();
+        List<OAMCatalog.Entry> list = null;
+        try {
+            list = catalog.getEntries(main, mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
+        } catch (IOException e) {
+            Assert.fail(e.getMessage());
+        }
+        Assert.assertNotNull(list);
+        Assert.assertEquals(1, list.size());
     }
 }
