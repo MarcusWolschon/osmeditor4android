@@ -117,6 +117,8 @@ public class TileLayerDialog {
         long startDate = -1;
         long endDate = -1;
 
+        alertDialog.setTitle(R.string.add_layer_title);
+
         if (existing || oamEntry != null) {
             fileButton.setVisibility(View.GONE);
 
@@ -153,23 +155,33 @@ public class TileLayerDialog {
                 maxZoomPicker.setValue(maxZoom);
                 startDate = oamEntry.startDate;
                 endDate = oamEntry.endDate;
-            }
-
-            alertDialog.setTitle(R.string.edit_layer_title);
-            alertDialog.setNeutralButton(R.string.Delete, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
-                    TileLayerDatabase.deleteLayerWithRowId(db, id);
-                    if (onUpdate != null) {
-                        onUpdate.update();
+                if (oamEntry.provider != null) {
+                    attribution = oamEntry.provider;
+                    if (oamEntry.license != null) {
+                        attribution += " " + oamEntry.license;
                     }
                 }
-            });
+                alertDialog.setNeutralButton(R.string.cancel, null);
+            }
+
+            if (existing) {
+                alertDialog.setTitle(R.string.edit_layer_title);
+                alertDialog.setNeutralButton(R.string.Delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
+                        TileLayerDatabase.deleteLayerWithRowId(db, id);
+                        if (onUpdate != null) {
+                            onUpdate.update();
+                        }
+                    }
+                });
+            } else {
+                alertDialog.setNeutralButton(R.string.cancel, null);
+            }
         } else {
             minZoomPicker.setValue(TileLayerServer.DEFAULT_MIN_ZOOM);
             maxZoomPicker.setValue(TileLayerServer.DEFAULT_MAX_ZOOM);
-            alertDialog.setTitle(R.string.add_layer_title);
 
             fileButton.setOnClickListener(new OnClickListener() {
                 @Override
@@ -230,8 +242,9 @@ public class TileLayerDialog {
                     });
                 }
             });
+
+            alertDialog.setNeutralButton(R.string.cancel, null);
         }
-        alertDialog.setNeutralButton(R.string.cancel, null);
 
         alertDialog.setNegativeButton(R.string.save, new DialogInterface.OnClickListener() {
             @Override
@@ -249,6 +262,8 @@ public class TileLayerDialog {
 
         final long finalStartDate = startDate;
         final long finalEndDate = endDate;
+
+        final String finalAttribution = attribution;
 
         final AlertDialog dialog = alertDialog.create();
 
@@ -283,9 +298,12 @@ public class TileLayerDialog {
                     if (moan) {
                         Snack.toastTopError(activity, R.string.toast_invalid_box);
                     } else {
-                        CoverageArea ca = new CoverageArea(TileLayerServer.DEFAULT_MIN_ZOOM, TileLayerServer.DEFAULT_MAX_ZOOM, box);
+                        CoverageArea ca = new CoverageArea(minZoom, maxZoom, box);
                         provider.addCoverageArea(ca);
                     }
+                }
+                if (finalAttribution != null && !"".equals(finalAttribution)) {
+                    provider.setAttribution(finalAttribution);
                 }
                 if ("".equals(name)) {
                     Snack.toastTopError(activity, R.string.toast_name_empty);

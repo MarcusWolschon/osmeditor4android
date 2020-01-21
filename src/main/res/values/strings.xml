@@ -185,6 +185,8 @@
     <string name="total">Total</string>
     <string name="changed">Changed</string>
     <string name="ways">Ways</string>
+    <!-- Tile layer info dialog -->
+    <string name="attribution">Attribution</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>

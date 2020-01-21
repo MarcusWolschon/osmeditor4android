@@ -1,5 +1,7 @@
 package de.blau.android.views.layers;
 
+import java.util.Collection;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -8,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
+import de.blau.android.App;
+import de.blau.android.Logic;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.TableLayoutUtils;
@@ -55,7 +60,7 @@ public class ImageryLayerInfo extends LayerInfo {
                         DateFormatter.getUtcFormat(DATE_FORMAT).format(startDate), tp));
             }
             long endDate = layer.getEndDate();
-            if (endDate < Long.MAX_VALUE) {
+            if (endDate >= 0 && endDate < Long.MAX_VALUE) {
                 tableLayout.addView(
                         TableLayoutUtils.createRow(activity, R.string.layer_info_end_date, null, DateFormatter.getUtcFormat(DATE_FORMAT).format(endDate), tp));
             }
@@ -66,6 +71,18 @@ public class ImageryLayerInfo extends LayerInfo {
             String privacyPolicy = layer.getPrivacyPolicyUrl();
             if (privacyPolicy != null) {
                 tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.layer_info_privacy_policy, null, privacyPolicy, true, tp));
+            }
+            Logic logic = App.getLogic();
+            if (logic != null) {
+                Map map = logic.getMap();
+                if (map != null) {
+                    Collection<String> attributions = layer.getAttributions(map.getZoomLevel(), map.getViewBox());
+                    String legend = activity.getString(R.string.attribution);
+                    for (String attribution : attributions) {
+                        tableLayout.addView(TableLayoutUtils.createRow(activity, legend, null, attribution, tp));
+                        legend = "";
+                    }
+                }
             }
         } else {
             Log.e(DEBUG_TAG, "layer null");

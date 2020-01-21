@@ -19,7 +19,6 @@ import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;
@@ -41,15 +40,24 @@ import okhttp3.ResponseBody;
 public class OAMCatalog {
 
     private static final String DEBUG_TAG = "OAMCatalog";
+
+    /**
+     * Includes milliseconds
+     */
+    private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+
     /**
      * Timeout for connections in milliseconds.
      */
-    private static final int    TIMEOUT   = 45 * 1000;
+    private static final int TIMEOUT = 45 * 1000;
 
     public class Entry {
         String      id;
         String      title;
         String      tileUrl;
+        String      thumbnailUrl;
+        String      license;
+        String      provider;
         BoundingBox box;
         double      gsd;
         long        startDate = -1;
@@ -62,6 +70,7 @@ public class OAMCatalog {
     }
 
     private int       limit        = 0;
+    private String    license      = null;
     private int       found        = 0;
     private Pattern[] titleRegexps = null;
 
@@ -85,7 +94,6 @@ public class OAMCatalog {
                 for (int i = 0; i < length; i++) {
                     titleRegexps[i] = Pattern.compile(regexpStrings[i]);
                 }
-                System.out.print(titleRegexps[0].toString());
             }
         }
 
@@ -137,6 +145,8 @@ public class OAMCatalog {
                             limit = reader.nextInt();
                         } else if ("found".equals(key)) {
                             found = reader.nextInt();
+                        } else if ("license".equals(key)) {
+                            license = reader.nextString();
                         } else {
                             reader.skipValue();
                         }
@@ -146,6 +156,7 @@ public class OAMCatalog {
                     reader.beginArray();
                     while (reader.hasNext()) {
                         Entry entry = new Entry();
+                        entry.license = license; // set to default for the site
                         reader.beginObject();
                         while (reader.hasNext()) {
                             key = reader.nextName();
@@ -168,6 +179,10 @@ public class OAMCatalog {
                                     key = reader.nextName();
                                     if ("tms".equals(key)) {
                                         entry.tileUrl = reader.nextString();
+                                    } else if ("thumbnail".equals(key)) {
+                                        entry.thumbnailUrl = reader.nextString();
+                                    } else if ("license".equals(key)) {
+                                        entry.license = reader.nextString();
                                     } else {
                                         reader.skipValue();
                                     }
@@ -182,6 +197,9 @@ public class OAMCatalog {
                                 break;
                             case "gsd":
                                 entry.gsd = reader.nextDouble();
+                                break;
+                            case "provider":
+                                entry.provider = reader.nextString();
                                 break;
                             default:
                                 reader.skipValue();
@@ -234,7 +252,7 @@ public class OAMCatalog {
      */
     public long parseAcquisitionDate(JsonReader reader) throws IOException {
         try {
-            return DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).parse(reader.nextString()).getTime();
+            return DateFormatter.getUtcFormat(TIMESTAMP_FORMAT).parse(reader.nextString()).getTime();
         } catch (ParseException e) {
             return -1;
         }
