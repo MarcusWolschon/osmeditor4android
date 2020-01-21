@@ -1490,12 +1490,13 @@ public class TileLayerServer implements Serializable {
      * @param area Displayed area to get the attributions of.
      * @return Collections of attributions that apply to the specified area and zoom.
      */
-    public Collection<String> getAttributions(final int zoom, final BoundingBox area) {
+    @NonNull
+    public Collection<String> getAttributions(final int zoom, @NonNull final BoundingBox area) {
         checkMetaData();
         Collection<String> ret = new ArrayList<>();
         for (Provider p : providers) {
             if (p.getAttribution() != null) {
-                if (p.covers(zoom, area)) {
+                if (p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
                     ret.add(p.getAttribution());
                 }
             }
