@@ -2,6 +2,7 @@ package de.blau.android.views.layers;
 
 import java.util.Collection;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -17,7 +18,9 @@ import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.TableLayoutUtils;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.Util;
 
 public class ImageryLayerInfo extends LayerInfo {
     private static final String DEBUG_TAG = ImageryLayerInfo.class.getName();
@@ -76,10 +79,15 @@ public class ImageryLayerInfo extends LayerInfo {
             if (logic != null) {
                 Map map = logic.getMap();
                 if (map != null) {
-                    Collection<String> attributions = layer.getAttributions(map.getZoomLevel(), map.getViewBox());
+                    Collection<Provider> providers = layer.getProviders(map.getZoomLevel(), map.getViewBox());
                     String legend = activity.getString(R.string.attribution);
-                    for (String attribution : attributions) {
-                        tableLayout.addView(TableLayoutUtils.createRow(activity, legend, null, attribution, tp));
+                    for (Provider provider : providers) {
+                        String attributionUrl = provider.getAttributionUrl();
+                        boolean hasAttributionUrl = attributionUrl != null;
+                        tableLayout.addView(TableLayoutUtils.createRow(activity, legend, null,
+                                hasAttributionUrl ? Util.fromHtml("<A href=\"" + attributionUrl + "\">" + provider.getAttribution() + "</A>")
+                                        : provider.getAttribution(),
+                                hasAttributionUrl, tp, R.attr.colorAccent, Color.GREEN));
                         legend = "";
                     }
                 }

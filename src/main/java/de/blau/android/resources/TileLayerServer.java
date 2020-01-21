@@ -249,6 +249,8 @@ public class TileLayerServer implements Serializable {
 
         /** Attribution for this provider. */
         private String             attribution;
+        /** Attribution URL for this provider. */
+        private String             attributionUrl;
         /** Coverage area provided by this provider. */
         private List<CoverageArea> coverageAreas = new ArrayList<>();
 
@@ -294,7 +296,7 @@ public class TileLayerServer implements Serializable {
          * 
          * @param ca the CoverageArea to add
          */
-        public void addCoverageArea(CoverageArea ca) {
+        public void addCoverageArea(@NonNull CoverageArea ca) {
             coverageAreas.add(ca);
         }
 
@@ -303,6 +305,7 @@ public class TileLayerServer implements Serializable {
          * 
          * @return The attribution for this provider.
          */
+        @Nullable
         public String getAttribution() {
             return attribution;
         }
@@ -312,8 +315,27 @@ public class TileLayerServer implements Serializable {
          * 
          * @param attribution the attribution string
          */
-        public void setAttribution(String attribution) {
+        public void setAttribution(@Nullable String attribution) {
             this.attribution = attribution;
+        }
+
+        /**
+         * Get the attribution URL for this provider.
+         * 
+         * @return The attribution URL for this provider.
+         */
+        @Nullable
+        public String getAttributionUrl() {
+            return attributionUrl;
+        }
+
+        /**
+         * Set the attribution URL for this provider
+         * 
+         * @param attributionUrl the attribution URL string
+         */
+        public void setAttributionUrl(@Nullable String attributionUrl) {
+            this.attributionUrl = attributionUrl;
         }
 
         /**
@@ -323,7 +345,7 @@ public class TileLayerServer implements Serializable {
          * @param area Map area to test.
          * @return true if the provider has coverage of the given zoom and area.
          */
-        public boolean covers(int zoom, BoundingBox area) {
+        public boolean covers(int zoom, @NonNull BoundingBox area) {
             if (coverageAreas.isEmpty()) {
                 return true;
             }
@@ -419,7 +441,7 @@ public class TileLayerServer implements Serializable {
     private static final String WMS_AXIS_YX = "YX";
 
     public enum Category {
-        photo, map, historicmap, osmbasedmap, historicphoto, qa, other
+        photo, map, historicmap, osmbasedmap, historicphoto, qa, other, elevation
     }
 
     // ===========================================================
@@ -836,6 +858,7 @@ public class TileLayerServer implements Serializable {
             TileLayerDatabase.updateSource(writeableDb, source, System.currentTimeMillis());
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Fatal error parsing " + source + " " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -960,7 +983,12 @@ public class TileLayerServer implements Serializable {
             Category category = null;
             String categoryString = getJsonString(properties, "category");
             if (categoryString != null) {
-                category = Category.valueOf(categoryString);
+                try {
+                    category = Category.valueOf(categoryString);
+                } catch (IllegalArgumentException e) {
+                    Log.e(DEBUG_TAG, "Unknown category value " + categoryString);
+                    category = Category.other;
+                }
             }
 
             Provider provider = new Provider();
@@ -979,10 +1007,11 @@ public class TileLayerServer implements Serializable {
             boolean defaultLayer = getJsonBoolean(properties, "default");
             int preference = getJsonBoolean(properties, "best") ? PREFERENCE_BEST : PREFERENCE_DEFAULT;
 
+            String termsOfUseUrl = getJsonString(properties, "license_url");
+
             JsonObject attribution = (JsonObject) properties.get("attribution");
-            String termsOfUseUrl = null;
             if (attribution != null) {
-                termsOfUseUrl = getJsonString(attribution, "url");
+                provider.setAttributionUrl(getJsonString(attribution, "url"));
                 provider.setAttribution(getJsonString(attribution, "text"));
             }
             String icon = getJsonString(properties, "icon");
@@ -1195,7 +1224,7 @@ public class TileLayerServer implements Serializable {
      * @throws IOException if there was an IO error
      */
     public static void updateFromEli(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) throws IOException {
-        Log.d(DEBUG_TAG, "Uüdating from editor-layer-index");
+        Log.d(DEBUG_TAG, "Updating from editor-layer-index");
         AssetManager assetManager = ctx.getAssets();
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -1498,6 +1527,27 @@ public class TileLayerServer implements Serializable {
             if (p.getAttribution() != null) {
                 if (p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
                     ret.add(p.getAttribution());
+                }
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Get the Providers of the given map display.
+     * 
+     * @param zoom Zoom level of the display.
+     * @param area Displayed area to get the attributions of.
+     * @return Collections of Providers that apply to the specified area and zoom.
+     */
+    @NonNull
+    public Collection<Provider> getProviders(final int zoom, @NonNull final BoundingBox area) {
+        checkMetaData();
+        Collection<Provider> ret = new ArrayList<>();
+        for (Provider p : providers) {
+            if (p.getAttribution() != null) {
+                if (p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
+                    ret.add(p);
                 }
             }
         }
@@ -2313,6 +2363,25 @@ public class TileLayerServer implements Serializable {
     @Nullable
     public String[] getNoTileValues() {
         return noTileValues;
+    }
+
+    /**
+     * Return the attribution URL string of the 1st provider
+     * 
+     * Assumption is that in the simple case there is only one provider
+     * 
+     * @return a string containing the attribution URL or the ToU URL or null if neither exist
+     */
+    @Nullable
+    public String getAttributionUrl() {
+        String url = null;
+        if (!providers.isEmpty()) {
+            url = providers.get(0).getAttributionUrl();
+        }
+        if (url == null) { // still null
+            url = getTouUri();
+        }
+        return url;
     }
 
     /**
