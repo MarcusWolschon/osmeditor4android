@@ -22,7 +22,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-class MapRouletteServer {
+final class MapRouletteServer {
 
     private static final String DEBUG_TAG = MapRouletteServer.class.getSimpleName();
 
