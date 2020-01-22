@@ -1407,6 +1407,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         mergeElementsRelations(mergeInto, mergeFrom);
         // delete mergeFrom node
         removeNode(mergeFrom);
+        onElementChanged(null, mergeInto);
         result.setElement(mergeInto);
         return result;
     }
@@ -1657,6 +1658,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         Node newNode = factory.createNodeWithNewId(node.lat, node.lon);
         newNode.addTags(node.getTags());
         insertElementUnsafe(newNode);
+        changedElements.add(newNode);
         // replace the given node in the way with the new node
         undo.save(way);
         List<Node> nodes = way.getNodes();
