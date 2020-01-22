@@ -441,7 +441,7 @@ public class TileLayerServer implements Serializable {
     private static final String WMS_AXIS_YX = "YX";
 
     public enum Category {
-        photo, map, historicmap, osmbasedmap, historicphoto, qa, other, elevation
+        photo, map, historicmap, osmbasedmap, historicphoto, qa, other, elevation // NOSONAR
     }
 
     // ===========================================================
@@ -979,16 +979,7 @@ public class TileLayerServer implements Serializable {
                 }
             }
 
-            Category category = null;
-            String categoryString = getJsonString(properties, "category");
-            if (categoryString != null) {
-                try {
-                    category = Category.valueOf(categoryString);
-                } catch (IllegalArgumentException e) {
-                    Log.e(DEBUG_TAG, "Unknown category value " + categoryString);
-                    category = Category.other;
-                }
-            }
+            Category category = getCategory(getJsonString(properties, "category"));
 
             Provider provider = new Provider();
             if (boxes.isEmpty()) {
@@ -1075,6 +1066,24 @@ public class TileLayerServer implements Serializable {
             Log.e(DEBUG_TAG, "Got " + uoex.getMessage());
         }
         return osmts;
+    }
+
+    /**
+     * Get the Category from a String
+     * 
+     * @param categoryString String with a category value or null
+     * @return the Category or Category.other if it can't be determined
+     */
+    @NonNull
+    private static Category getCategory(@Nullable String categoryString) {
+        if (categoryString != null) {
+            try {
+                return Category.valueOf(categoryString);
+            } catch (IllegalArgumentException e) {
+                Log.e(DEBUG_TAG, "Unknown category value " + categoryString);
+            }
+        }
+        return Category.other;
     }
 
     /**
@@ -1523,10 +1532,8 @@ public class TileLayerServer implements Serializable {
         checkMetaData();
         Collection<String> ret = new ArrayList<>();
         for (Provider p : providers) {
-            if (p.getAttribution() != null) {
-                if (p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
-                    ret.add(p.getAttribution());
-                }
+            if (p.getAttribution() != null && p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
+                ret.add(p.getAttribution());
             }
         }
         return ret;
@@ -1544,10 +1551,8 @@ public class TileLayerServer implements Serializable {
         checkMetaData();
         Collection<Provider> ret = new ArrayList<>();
         for (Provider p : providers) {
-            if (p.getAttribution() != null) {
-                if (p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
-                    ret.add(p);
-                }
+            if (p.getAttribution() != null && p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
+                ret.add(p);
             }
         }
         return ret;
