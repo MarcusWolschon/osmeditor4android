@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.1.0-1: Improvements custom imagery, OAM support and imagery layer info, add mechanism to filter out bad OAM entries, display a toast if the user needs to restart the app after a pref change, add facility to check domains/URL in website fields, support presets with configurable minimum fixed tag matching, add support for additional matching criteria "closed", add preference to control phone number formatting, support adding empty value values to MRU when use_last_as_default is set, add some element counts to data layer info display, improve external NMEA source connection/disconnection messages, support external external NMEA source for Android N and later, add facility to determine if there is device specific brokeness, upport autoapply preset attribute, use Note specific icons, add support for tunnel and bridge specific rendering for some roads, support filtering layers on the category property, use geocontext configuration to determine languages in use in the area
+
 14.0.7: Fix filtering regression in which relations were overriding way filter status, update presets, imagery and translations. 
 
 14.0.6: Protect against number format exception when parsing OSMOSE downloads, don't prune elements that are members of relations, use new preset links, update presets, translations and imagery. 
