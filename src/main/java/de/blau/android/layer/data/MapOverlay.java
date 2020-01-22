@@ -972,7 +972,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 }
             }
         } else {
-            // this bit of code duplication makes sense 
+            // this bit of code duplication makes sense
             FeatureStyle style = DataStyle.getInternal(featureStyle);
             if (zoomLevel < style.getMinVisibleZoom()) {
                 return;
@@ -996,14 +996,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param featureKeyFont style to use for the housenumber number
      * @param houseNumber the number as a string
      */
-    private void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String featureKeyFont,
-            final String houseNumber) {
-        FeatureStyle fontStyle = DataStyle.getInternal(featureKeyFont);
-        Paint fontPaint = fontStyle.getPaint();
-        Paint paint = DataStyle.getInternal(featureKeyThin).getPaint();
-        canvas.drawCircle(x, y, houseNumberRadius, paint);
+    private void paintHouseNumber(final float x, final float y, @NonNull final Canvas canvas, @NonNull final String featureKeyThin,
+            @NonNull final String featureKeyFont, final String houseNumber) {
+        Paint fontPaint = DataStyle.getInternal(featureKeyFont).getPaint();
+        canvas.drawCircle(x, y, houseNumberRadius, DataStyle.getInternal(featureKeyThin).getPaint());
         canvas.drawCircle(x, y, houseNumberRadius, labelBackground);
-        canvas.drawText(houseNumber, x - fontPaint.measureText(houseNumber) / 2, y + verticalNumberOffset, fontStyle.getPaint());
+        canvas.drawText(houseNumber, x - fontPaint.measureText(houseNumber) / 2, y + verticalNumberOffset, fontPaint);
     }
 
     /**
