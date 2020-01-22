@@ -461,7 +461,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
 
         // Paint nodes
-        Boolean hwAccelarationWorkaround = Map.myIsHardwareAccelerated(canvas) && Build.VERSION.SDK_INT < 19;
+        boolean hwAccelarationWorkaround = Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && Map.myIsHardwareAccelerated(canvas);
 
         int coordSize = 0;
         float r = wayTolerancePaint.getStrokeWidth() / 2;
@@ -874,39 +874,50 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
         }
 
-        String featureStyle;
-        String featureStyleThin;
-        String featureStyleTagged;
-        String featureStyleFont;
-        String featureStyleFontSmall;
-        if (isSelected && tmpDrawingInEditRange) {
-            // general node style
-            featureStyle = DataStyle.SELECTED_NODE;
-            // style for house numbers
-            featureStyleThin = DataStyle.SELECTED_NODE_THIN;
-            // style for tagged nodes or otherwise important
-            featureStyleTagged = DataStyle.SELECTED_NODE_TAGGED;
-            // style for label text
-            featureStyleFont = DataStyle.LABELTEXT_NORMAL_SELECTED;
-            // style for small label text
-            featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
-            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) {
-                // don't draw large areas in multi-select mode
-                canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
+        // general node style
+        String featureStyle = DataStyle.NODE;
+        // style for house numbers
+        String featureStyleThin = DataStyle.NODE_THIN;
+        // style for tagged nodes or otherwise important
+        String featureStyleTagged = DataStyle.NODE_TAGGED;
+        // style for label text
+        String featureStyleFont = DataStyle.LABELTEXT_NORMAL;
+        // style for small label text
+        String featureStyleFontSmall = DataStyle.LABELTEXT_SMALL;
+
+        if (tmpDrawingInEditRange) {
+            if (isSelected) {
+                // general node style
+                featureStyle = DataStyle.SELECTED_NODE;
+                // style for house numbers
+                featureStyleThin = DataStyle.SELECTED_NODE_THIN;
+                // style for tagged nodes or otherwise important
+                featureStyleTagged = DataStyle.SELECTED_NODE_TAGGED;
+                // style for label text
+                featureStyleFont = DataStyle.LABELTEXT_NORMAL_SELECTED;
+                // style for small label text
+                featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
+                if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()
+                        && tmpDrawingEditMode.elementsGeomEditiable()) {
+                    // don't draw large areas in multi-select mode
+                    canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                }
+            } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node))) {
+                // general node style
+                featureStyle = DataStyle.SELECTED_RELATION_NODE;
+                // style for house numbers
+                featureStyleThin = DataStyle.SELECTED_RELATION_NODE_THIN;
+                // style for tagged nodes or otherwise important
+                featureStyleTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
+                // style for label text
+                featureStyleFont = DataStyle.LABELTEXT_NORMAL;
+                // style for small label text
+                featureStyleFontSmall = DataStyle.LABELTEXT_SMALL;
+                isSelected = true;
             }
-        } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
-            // general node style
-            featureStyle = DataStyle.SELECTED_RELATION_NODE;
-            // style for house numbers
-            featureStyleThin = DataStyle.SELECTED_RELATION_NODE_THIN;
-            // style for tagged nodes or otherwise important
-            featureStyleTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
-            // style for label text
-            featureStyleFont = DataStyle.LABELTEXT_NORMAL;
-            // style for small label text
-            featureStyleFontSmall = DataStyle.LABELTEXT_SMALL;
-            isSelected = true;
-        } else if (node.hasProblem(context, validator) != Validator.OK) {
+        }
+
+        if (node.hasProblem(context, validator) != Validator.OK) {
             // general node style
             featureStyle = DataStyle.PROBLEM_NODE;
             // style for house numbers
@@ -918,58 +929,59 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             // style for small label text
             featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_PROBLEM;
             hasProblem = true;
-        } else {
-            // general node style
-            featureStyle = DataStyle.NODE;
-            // style for house numbers
-            featureStyleThin = DataStyle.NODE_THIN;
-            // style for tagged nodes or otherwise important
-            featureStyleTagged = DataStyle.NODE_TAGGED;
-            // style for label text
-            featureStyleFont = DataStyle.LABELTEXT_NORMAL;
-            // style for small label text
-            featureStyleFontSmall = DataStyle.LABELTEXT_SMALL;
         }
-
-        boolean noIcon = true;
-        boolean isTaggedAndInZoomLimit = isTagged && inNodeIconZoomRange;
 
         if (filterMode && !filteredObject) {
             featureStyle = DataStyle.HIDDEN_NODE;
             featureStyleThin = featureStyle;
             featureStyleTagged = featureStyle;
-            isTaggedAndInZoomLimit = false;
+            isTagged = false;
         }
 
-        if (isTaggedAndInZoomLimit && showIcons) {
-            noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureStyleTagged : null);
+        if (isTagged) {
+            boolean noIcon = true;
+            if (inNodeIconZoomRange && showIcons) {
+                noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureStyleTagged : null);
+                if (noIcon) {
+                    String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
+                    if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
+                        paintHouseNumber(x, y, canvas, featureStyleThin, featureStyleFontSmall, houseNumber);
+                        return;
+                    }
+                } else if (zoomLevel > SHOW_LABEL_LIMIT && node.hasTagKey(Tags.KEY_NAME)) {
+                    Paint p = DataStyle.getInternal(DataStyle.NODE_TAGGED).getPaint();
+                    paintLabel(x, y, canvas, featureStyleFont, node, p.getStrokeWidth(), true);
+                }
+            }
+
             if (noIcon) {
-                String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
-                if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-                    paintHouseNumber(x, y, canvas, featureStyleThin, featureStyleFontSmall, houseNumber);
+                // draw regular nodes or without icons
+                FeatureStyle style = DataStyle.getInternal(featureStyleTagged);
+                if (zoomLevel < style.getMinVisibleZoom()) {
                     return;
                 }
-            } else if (zoomLevel > SHOW_LABEL_LIMIT && node.hasTagKey(Tags.KEY_NAME)) {
-                Paint p = DataStyle.getInternal(DataStyle.NODE_TAGGED).getPaint();
-                paintLabel(x, y, canvas, featureStyleFont, node, p.getStrokeWidth(), true);
+                Paint paint = style.getPaint();
+                float strokeWidth = paint.getStrokeWidth();
+                if (hwAccelarationWorkaround) {
+                    canvas.drawCircle(x, y, strokeWidth / 2, paint);
+                } else {
+                    canvas.drawPoint(x, y, paint);
+                }
+                if (inNodeIconZoomRange) {
+                    paintLabel(x, y, canvas, featureStyleFont, node, strokeWidth, false);
+                }
             }
-        }
-
-        if (noIcon) {
-            // draw regular nodes or without icons
-            FeatureStyle style = DataStyle.getInternal(isTagged ? featureStyleTagged : featureStyle);
+        } else {
+            // this bit of code duplication makes sense 
+            FeatureStyle style = DataStyle.getInternal(featureStyle);
             if (zoomLevel < style.getMinVisibleZoom()) {
                 return;
             }
-            Paint p = style.getPaint();
-            float strokeWidth = p.getStrokeWidth();
+            Paint paint = style.getPaint();
             if (hwAccelarationWorkaround) { // FIXME we don't actually know if this is slower than drawPoint
-                canvas.drawCircle(x, y, strokeWidth / 2, p);
+                canvas.drawCircle(x, y, paint.getStrokeWidth() / 2, paint);
             } else {
-                canvas.drawPoint(x, y, p);
-            }
-            if (isTaggedAndInZoomLimit) {
-                paintLabel(x, y, canvas, featureStyleFont, node, strokeWidth, false);
+                canvas.drawPoint(x, y, paint);
             }
         }
     }
@@ -1116,7 +1128,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         if (icon != null) {
             float w2 = icon.getWidth() / 2f;
             float h2 = icon.getHeight() / 2f;
-            if (featureKey != null) { // selected
+            if (featureKey != null) { // selected or error
                 RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder, x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
                 canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getInternal(featureKey).getPaint());
             }
