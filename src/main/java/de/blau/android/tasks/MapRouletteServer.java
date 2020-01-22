@@ -26,12 +26,19 @@ class MapRouletteServer {
 
     private static final String DEBUG_TAG = MapRouletteServer.class.getSimpleName();
 
-    private static final String apiPath = "api/v2/";
+    private static final String APIPATH = "api/v2/";
 
     /**
      * Timeout for connections in milliseconds.
      */
     private static final int TIMEOUT = 45 * 1000;
+
+    /**
+     * Private constructor
+     */
+    private MapRouletteServer() {
+        // don't allow instantiating of this class
+    }
 
     /**
      * Perform an HTTP request to download up to limit bugs inside the specified area. Blocks until the request is
@@ -50,28 +57,44 @@ class MapRouletteServer {
 
             url = new URL(getServerURL(context) + "tasks/box/" + area.getLeft() / 1E7d + "/" + area.getBottom() / 1E7d + "/" + area.getRight() / 1E7d + "/"
                     + area.getTop() / 1E7d + "");
-            Log.d(DEBUG_TAG, "query: " + url.toString());
-            ResponseBody responseBody = null;
-            InputStream inputStream = null;
-
-            Request request = new Request.Builder().url(url).build();
-            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .build();
-            Call mapRouletteCall = client.newCall(request);
-            Response mapRouletteResponse = mapRouletteCall.execute();
-            if (mapRouletteResponse.isSuccessful()) {
-                responseBody = mapRouletteResponse.body();
-                inputStream = responseBody.byteStream();
+            InputStream inputStream = getFromApi(url);
+            if (inputStream != null) {
+                result = MapRouletteTask.parseTasks(inputStream);
             } else {
-                Log.e(DEBUG_TAG, "Download unsuccessful : " + mapRouletteResponse.code());
                 return new ArrayList<>();
             }
-
-            result = MapRouletteTask.parseTasks(inputStream);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "getTasksForBox got exception " + e.getMessage());
         }
         return result;
+    }
+
+    /**
+     * Connect to the MapROulette API and return an InputStream
+     * 
+     * @param url the URL
+     * @return null or the InputStream
+     * @throws IOException if IO went wrong
+     */
+    @Nullable
+    private static InputStream getFromApi(@NonNull URL url) throws IOException {
+        Log.d(DEBUG_TAG, "query: " + url.toString());
+        ResponseBody responseBody = null;
+        InputStream inputStream = null;
+
+        Request request = new Request.Builder().url(url).build();
+        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .build();
+        Call mapRouletteCall = client.newCall(request);
+        Response mapRouletteResponse = mapRouletteCall.execute();
+        if (mapRouletteResponse.isSuccessful()) {
+            responseBody = mapRouletteResponse.body();
+            inputStream = responseBody.byteStream();
+        } else {
+            Log.e(DEBUG_TAG, "Download unsuccessful : " + mapRouletteResponse.code());
+            return null;
+        }
+        return inputStream;
     }
 
     /**
@@ -111,7 +134,7 @@ class MapRouletteServer {
     }
 
     /**
-     * Retrieve a MapROulette Challenge
+     * Retrieve a MapRoulette Challenge
      * 
      * @param context the Android Context
      * @param id the Challenge id
@@ -125,23 +148,12 @@ class MapRouletteServer {
             URL url;
             url = new URL(getServerURL(context) + "challenge/" + Long.toString(id));
             Log.d(DEBUG_TAG, "query: " + url.toString());
-            ResponseBody responseBody = null;
-            InputStream inputStream = null;
-
-            Request request = new Request.Builder().url(url).build();
-            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .build();
-            Call mapRouletteCall = client.newCall(request);
-            Response mapRouletteResponse = mapRouletteCall.execute();
-            if (mapRouletteResponse.isSuccessful()) {
-                responseBody = mapRouletteResponse.body();
-                inputStream = responseBody.byteStream();
+            InputStream inputStream = getFromApi(url);
+            if (inputStream != null) {
+                result = MapRouletteChallenge.parseChallenge(inputStream);
             } else {
-                Log.e(DEBUG_TAG, "Challenge download unsuccessful : " + mapRouletteResponse.code());
                 return null;
             }
-
-            result = MapRouletteChallenge.parseChallenge(inputStream);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "getChallenge got exception " + e.getMessage());
         }
@@ -157,6 +169,6 @@ class MapRouletteServer {
     @NonNull
     private static String getServerURL(Context context) {
         Preferences prefs = new Preferences(context);
-        return prefs.getMapRouletteServer() + apiPath;
+        return prefs.getMapRouletteServer() + APIPATH;
     }
 }
