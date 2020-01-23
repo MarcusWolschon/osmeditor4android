@@ -41,7 +41,26 @@ Other services that are useful in this context are the following:
 
 ## GDAL
 
-[GDAL (Geospatial Data Abstraction Library)](http://www.gdal.org/) is a library for reading and writing geospatial data formats.
+[GDAL (Geospatial Data Abstraction Library)](http://www.gdal.org/) is a library for reading and writing geospatial data formats. In addition to processing local files in various formats, it can also directly access a WMS using the [WMS raster driver](https://gdal.org/drivers/raster/wms.html). In order to do this, a WMS service description XML file is required, which can for example be [generated](https://gdal.org/drivers/raster/wms.html#generation-of-wms-service-description-xml-file) as follows:
+
+```bash
+# Fetch available subdatasets:
+gdalinfo "WMS:http://wms.zh.ch/OGDOrthoZH"
+# Generate description file (I left out the BBOX from the output of the
+# above command and changed the SRS to EPSG:4326 though, otherwise, I got
+# errors later):
+gdal_translate "WMS:http://wms.zh.ch/OGDOrthoZH?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=ortho&SRS=EPSG:4326" wms.xml -of WMS
+# Generate MBTiles file (-projwin takes coordinates as <ulx uly lrx lry> in
+# the given SRS, so depending on where you got the BBOX from, you might
+# have to switch positions of some of the values):
+gdal_translate -of MBTILES wms.xml zurich-mainstation.mbtiles -projwin 8.5334 47.3807 8.5426 47.3763 -projwin_srs EPSG:4326 -co TILE_FORMAT=JPEG -co QUALITY=100 -co TYPE=baselayer
+# Build overview images for lower zoom levels:
+gdaladdo zurich-mainstation.mbtiles 2 4 8 16 32 64 128 256 512 1024
+```
+
+The [XML description file](https://gdal.org/drivers/raster/wms.html#xml-description-file) supports various options that can be set, and it is likely a good idea to configure a `Cache` and to lower the `MaxConnections` since this should reduce the load on the WMS service. The [MBTiles](https://gdal.org/drivers/raster/mbtiles.html) raster driver also supports other options in addition to the above `TILE_FORMAT=JPEG`, `QUALITY=100` and `TYPE=baselayer` which might be useful.
+
+A local file with geodata (like a GeoTIFF file) can also be used as input by replacing the `wms.xml` parameter in the second to last command (`-projwin` and `-projwin_srs` are then usually not required, except if only a part of the file should be extracted). If the data is split into multiple local files, then they can be combined to a single [VRT](https://gdal.org/drivers/raster/vrt.html) file using [`gdalbuildvrt`](https://gdal.org/programs/gdalbuildvrt.html) which can then be used as input to `gdal_translate` (if the input files don't specify a reference system, then it should be provided using the `-a_srs` parameter of `gdalbuildvrt`).
 
 ## MapProxy
 
