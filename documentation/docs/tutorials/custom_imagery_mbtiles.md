@@ -14,7 +14,30 @@ Other services that are useful in this context are the following:
 
 ## Mobile Atlas Creator
 
-[MOBAC](https://mobac.sourceforge.io/) is a Java-based GUI application which can also generate MBTiles files.
+[MOBAC](https://mobac.sourceforge.io/) is a Java-based GUI application which can also generate MBTiles files. By default, it doesn't provide many pre-configured data sources (and those might not even be legal sources for OpenStreetMap), but one can add [custom map sources](https://mobac.sourceforge.io/MOBAC/README.HTM#CustomMapSource) using XML files like regular [tile](https://mobac.sourceforge.io/wiki/index.php/Custom_XML_Map_Sources#Simple_custom_map_sources) [servers](https://mobac.sourceforge.io/wiki/index.php/Custom_XML_Map_Sources#customMapSource) and [WMS](https://mobac.sourceforge.io/wiki/index.php/Custom_XML_Map_Sources#Custom_WMS_map_sources) [servers](https://mobac.sourceforge.io/wiki/index.php/Custom_XML_Map_Sources#customWmsMapSource). For example, the following XML file can be used to use the WMS of the canton of Zurich and is based on information from the [editor layer index](https://github.com/osmlab/editor-layer-index/blob/gh-pages/sources/europe/ch/Kanton_Zurich_ortho_2018_wms.geojson):
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customWmsMapSource>
+    <!-- Map source name as it appears in the map sources list -->
+    <name>Kanton Zurich, Orthofoto ZH Sommer 2018 RGB 10cm</name>
+    <!-- Available zoom levels -->
+    <minZoom>8</minZoom>
+    <maxZoom>21</maxZoom>
+    <!-- Tile format (PNG, JPG or GIF) -->
+    <tileType>PNG</tileType>
+    <!-- WMS version -->
+    <version>1.1.1</version>
+    <!-- WMS layer parameter -->
+    <layers>ortho</layers>
+    <!-- WMS base URL -->
+    <url>http://wms.zh.ch/OGDOrthoZH?</url>
+    <!-- Currently only EPSG:4326 is supported -->
+    <coordinatesystem>EPSG:4326</coordinatesystem>
+    <!-- Transparent background -->
+    <backgroundColor>#000000</backgroundColor>
+</customWmsMapSource>
+```
 
 ## GDAL
 
