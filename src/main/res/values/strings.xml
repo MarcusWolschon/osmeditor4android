@@ -1230,7 +1230,7 @@ avoided by using an offline data source.</string>
     </string-array>
     <!-- The entries need to match the order of the CheckStatus enum -->
     <string-array name="checkstatus_entries">
-        <item>HHTP</item>
+        <item>HTTP</item>
         <item>HTTPS</item>
         <item>Domain doesn\'t exist</item>
         <item>Domain unreachable</item>
