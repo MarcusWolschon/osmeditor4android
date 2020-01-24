@@ -1210,7 +1210,7 @@ avoided by using an offline data source.</string>
 		<item>relation</item>
 		<item>relation+</item>
     </string-array>
-    <string-array name="layer_category_entries">
+    <string-array translatable="false" name="layer_category_entries">
         <item>@string/layer_category_photo</item>
         <item>@string/layer_category_historicphoto</item>
         <item>@string/layer_category_map</item>
