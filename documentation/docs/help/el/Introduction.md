@@ -18,13 +18,12 @@
 
 Επιλέξτε είτε το εικονίδιο μεταφοράς ![Μεταφορά](../ images / menu_transfer.png) είτε το στοιχείο μενού "Μεταφορά". Αυτό θα εμφανίσει επτά επιλογές:
 
-* **Λήψη τρέχουσας προβολής** - κατεβάστε την ορατή περιοχή στην οθόνη και αντικαταστήστε τυχόν υπάρχοντα δεδομένα *(απαιτεί σύνδεση στο δίκτυο)*
-* **Προσθήκη τρέχουσας προβολής για λήψη** - λήψη της περιοχής που είναι ορατή στην οθόνη και συγχώνευσή της με υπάρχοντα δεδομένα *(απαιτεί σύνδεση στο δίκτυο)*
-* **Λήψη σε άλλη τοποθεσία** - εμφανίζει μια φόρμα που σας επιτρέπει να εισάγετε συντεταγμένες, να αναζητήσετε μια τοποθεσία ή να χρησιμοποιήσετε την τρέχουσα θέση και στη συνέχεια να κατεβάσετε μια περιοχή γύρω από αυτή τη θέση *(απαιτεί σύνδεση στο δίκτυο)*
-* **Μεταφόρτωση δεδομένων στον διακομιστή του OSM** - μεταφόρτωση τροποποιήσεων στο OpenStreetMap *(απαιτεί επιβεβαίωση)* *(απαιτεί σύνδεση στο δίκτυο)*
-* **Αυτόματη λήψη** - αυτόματη λήψη μιας περιοχής γύρω από την τρέχουσα γεωγραφική θέση *(απαιτεί σύνδεση στο δίκτυο)* *(απαιτείται GPS)*
-* **Αρχείο...** - αποθήκευση και φόρτωση δεδομένων OSM στό/από αρχεία της συσκευής.
-* **Σημείωση/Σφάλματα...** - λήψη (αυτόματα και χειροκίνητα) Σημειώσεις και "Σφάλματα" OSM από τα εργαλεία QA (επί του παρόντος OSMOSE) *(απαιτεί σύνδεση στο δίκτυο)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 Ο ευκολότερος τρόπος λήψης δεδομένων στη συσκευή είναι να κάνετε μεγέθυνση και να μετακινηθείτε στη θέση που θέλετε να επεξεργαστείτε και, στη συνέχεια, να επιλέξετε "Λήψη τρέχουσας προβολής". Μπορείτε να κάνετε μεγέθυνση χρησιμοποιώντας τα χέρια σας, τα κουμπιά ζουμ ή τα κουμπιά ελέγχου της έντασης στη συσκευή. Το Vespucci θα πρέπει στη συνέχεια να πραγματοποιήσει λήψη δεδομένων για την τρέχουσα προβολή. Δεν απαιτείται επαλήθευση για τη λήψη δεδομένων στη συσκευή σας.
 
@@ -124,11 +123,11 @@ Long press where you want the node to be or the way to start. You will see a bla
 
 #### Αποτελεσματική Προσθήκη Διευθύνσεων
 
-Το Vespucci έχει μια λειτουργία "προσθήκη ετικετών διευθύνσεων" που προσπαθεί να αποτυπώσει πιο αποδοτικά τις διευθύνσεις. Μπορεί να επιλεγεί:
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* μετά από ένα παρατεταμένο πάτημα: το Vespucci θα προσθέσει έναν κόμβο στη τοποθεσία και θα κάνει μια καλύτερη εικασία στον αριθμό του σπιτιού και θα προσθέσει ετικέτες διευθύνσεων που έχετε χρησιμοποιήσει τελευταία. Εάν ο κόμβος βρίσκεται στο περίγραμμα ενός κτιρίου, αυτόματα θα προσθέσει μια ετικέτα "είσοδος=ναι" στον κόμβο. Ο επεξεργαστής ετικετών θα ανοίξει για το συγκεκριμένο αντικείμενο και θα σας επιτρέψει να κάνετε τις απαραίτητες περαιτέρω αλλαγές.
-* στις επιλεγμένες λειτουργίες κόμβου/διαδρομής: το Vespucci θα προσθέσει ετικέτες διευθύνσεων όπως παραπάνω και θα ξεκινήσει τον επεξεργαστή ετικετών.
-* στον επεξεργαστή ετικετών.
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
 
 Η πρόβλεψη αριθμού κατοικίας απαιτεί συνήθως τουλάχιστον δύο αριθμούς κατοικιών σε κάθε πλευρά του δρόμου για να τεθεί σε λειτουργία, όσο περισσότεροι αριθμοί υπάρχουν στα δεδομένα τόσο το καλύτερο.
 
@@ -206,7 +205,7 @@ Long press where you want the node to be or the way to start. You will see a bla
 
 ### Διαμόρφωση των ελέγχων
 
-Επί του παρόντος υπάρχουν δύο διαμορφώσιμοι έλεγχοι (υπάρχει ο έλεγχος για ετικέτες FIXME (ΦΤΙΑΞΕΜΕ) και η δοκιμή χαμένων τύπων ετικετών για σχέσεις που δεν είναι επί του παρόντος ρυθμιζόμενες) και οι δύο μπορούν να ρυθμιστούν επιλέγοντας το "Προτιμήσεις επικύρωσης" στις "Προτιμήσεις". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
 
 Ο κατάλογος των καταχωρίσεων χωρίζεται στα δύο, ο πάνω μισός κατάλογος καταγράφει την "επανεξέταση", ο κάτω μισός ελέγχει τις "καταχωρήσεις". Οι καταχωρίσεις μπορούν να επεξεργαστούν κάνοντας κλικ σε αυτές, το πράσινο κουμπί μενού επιτρέπει την προσθήκη των καταχωρήσεων.
 
@@ -242,21 +241,31 @@ This check works by first determining the matching preset and then checking if *
 
 ## Προσαρμογή του Vespucci
 
-### Ρυθμίσεις που μπορεί να θέλετε να αλλάξετε
+Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-* Επίπεδο φόντου*
- Επίπεδο επικάλυψης. Η προσθήκη μιας επικάλυψης μπορεί να προκαλέσει προβλήματα με παλαιότερες συσκευές και αυτές με περιορισμένη μνήμη. Προεπιλογή: καμία.
-* Εμφάνιση Σημειώσεων/Σφαλμάτων. Οι ανοιχτές σημειώσεις και τα σφάλματα θα εμφανιστούν ως κίτρινο εικονίδιο εντόμου, οι κλειστές το ίδιο σε πράσινο. Προεπιλογή: ενεργοποιημένο.
-* Επίπεδο φωτογραφίας. Εμφανίζει γεωαναφερμένες φωτογραφίες ως κόκκινα εικονίδια κάμερας, εάν υπάρχουν πληροφορίες κατεύθυνσης, το εικονίδιο θα περιστραφεί. Προεπιλογή: απενεργοποιημένο.
-* Διατήρηση της οθόνη ανοιχτή. Προεπιλογή: απενεργοποιημένο.
-* Μετακίνηση κόμβου σε μεγάλη περιοχή. Οι μετακινούμενοι κόμβοι σε μια συσκευή με οθόνη αφής είναι προβληματικοί επειδή τα δάχτυλά σας θα κρύψουν την τρέχουσα θέση στην οθόνη. Ενεργοποιώντας την επιλογή αυτή, θα δημιουργηθεί μια μεγάλη περιοχή που μπορεί να χρησιμοποιηθεί για μετακίνηση εκτός του κέντρου (η επιλογή και άλλες λειτουργίες εξακολουθούν να χρησιμοποιούν την κανονική περιοχή ανοχής αφής). Προεπιλογή: απενεργοποιημένο.
+### Layer settings
+
+Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+
+* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+
+#### Preferences
+
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+
+The full description can be found here [Preferences](Preferences.md)
 
 #### Σύνθετες προτιμήσεις
 
-* Εικονίδια κόμβου. Προεπιλογή: ενεργοποιημένο.
- * Να εμφανίζεται πάντα το μενού συνθηκών. Όταν ενεργοποιηθεί σε κάθε επιλεγμένη διαδικασία θα εμφανιστεί το μενού συνθηκών, όταν απενεργοποιηθεί το μενού θα εμφανιστεί μόνο όταν δεν μπορεί να καθοριστεί ξεκάθαρη επιλογή. Προεπιλογή: απενεργοποιημένο (χρησιμοποιείται για να είναι ενεργοποιημένο).
- * Ενεργοποίηση ανάλαφρου μοτίβου. Στις σύγχρονες συσκευές αυτό ενεργοποιείται από προεπιλογή. Παρόλο που μπορείτε να το ενεργοποιήσετε για παλαιότερες εκδόσεις Android, το στυλ ενδέχεται να είναι ασυνεπές.
- * Εμφάνιση στατιστικών. Θα παρουσιάσει κάποια στατιστικά στοιχεία για την αποσφαλμάτωση, πραγματικά δεν είναι χρήσιμο. Προεπιλογή: απενεργοποιημένο (χρησιμοποιείται για να είναι ενεργοποιημένο).  
+* Node icons. Default: on.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+
+The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## Αναφορά Προβλημάτων
 

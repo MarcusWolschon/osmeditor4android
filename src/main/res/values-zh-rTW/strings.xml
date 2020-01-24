@@ -177,6 +177,8 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 圖徵資訊 </string>
   <string name="copy_properties">複製性質</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -517,7 +519,6 @@
   <string name="menu_deselect_all">取消選取全部</string>
   <string name="menu_preset_help">預置幫助</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">為 %1$s 增加標籤</string>
   <string name="tag_restriction_header">數值</string>
   <string name="tag_restriction_when">當</string>
   <string name="tag_restriction_and">和</string>
@@ -1132,4 +1133,5 @@
     <item>關係</item>
     <item>關係+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

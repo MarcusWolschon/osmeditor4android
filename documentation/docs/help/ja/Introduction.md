@@ -18,13 +18,12 @@ Vespucci 起動時に、Download other location"/"Load Area"ダイアログを�
 
 転送アイコン ![Transfer](../images/menu_transfer.png) または「転送」メニュー項目で選びます。オプションが7つあります:
 
-* **表示領域をダウンロード** - 画面上に表示されている領域をダウンロードして既存データを置き換えます *(ネットワーク接続必須)*
-* **表示領域を追加ダウンロード** - 画面上に表示されている領域をダウンロードして既存データに追加します *(ネットワーク接続必須)*
-* **その他の領域をダウンロード** - 座標を入力したり、位置を探したり、現在地を使用したりして、指定された位置の周りの領域をダウンロードするフォームを表示します *(ネットワーク接続必須)*
-* **データをOSMサーバーにアップロード** - 編集内容をOpenStreetMapにアップロードします *(requires authentication)* *(ネットワーク接続必須)*
-* **自動ダウンロード** - 現在地周辺の領域を自動的にダウンロードします *(ネットワーク接続必須)* *(requires GPS)*
-* **ファイル...** - OSMデータを端末装置にあるファイルに保存したり、ファイルからロードしたりします。
-* **メモ/バグ...** - OSMメモおよびQAツール(現在はOSMOSE)による「バグ」を(自動および手動で)ダウンロードします *(ネットワーク接続必須)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 端末装置にデータをダウンロードするいちばん簡単なやり方は、編集したい位置にズームしたりパンして「表示領域をダウンロード」を選ぶことです。ジャスチャー、ズームボタン、装置のボリューム制御ボタンでズーム操作を行えます。するとVespucci は現在の表示領域のデータをダウンロードします。自分の端末装置にダウンロードするのに認証は不要です。
 
@@ -125,11 +124,11 @@ OpenStreetMap は他の地理データのシステムとは異なり、現在「
 
 #### 住所を効果的に追加する
 
-Vespucci には「住所タグを追加」機能があり、住所の調査をより効果的にできるようにします。以下から選択できます：
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* in the property editor.
 
 住居番号の予測入力が機能するには典型的には道路の両側に最低2つの住居番号が必要で、データ中に多くの番号があるほどベターです。
 
@@ -207,7 +206,7 @@ Cモードでは、警告フラグセットを持つオブジェクトだけが�
 
 ### 構成チェック
 
-現在、構成可能なチェックが2つあり (FIXMEタグ用とと現在が構成できないリレーション上のtypeタグの抜けのテスト用のチェックがあります) ともに「独自設定」内の「入力値検査の独自設定」で選んで構成できます。 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
 
 エントリーのリストは、リスト上半分の「再調査」エントリーと下半分の「チェックエントリー」の2つに分割されます。エントリーはクリックすると編集でき、緑のメニューモタンでエントリーを追加できます。
 
@@ -243,21 +242,31 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## Vespucci をカスタマイズする
 
-### 変更希望がありそうな設定
+Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-* 背景レイヤ
-* オーバーレイするレイヤ。オーバーレイの追加は旧式の機器やメモリが少ないものでは問題が起きる場合があります。デフォルト: なし。
-* メモ/バグの表示。オープン状態のメモやバグは黄色い虫のアイコンで表示され、クローズ済のものは同じく緑で表示されます。デフォルト: on.
-* 写真レイヤ。ジオリファレンスされた写真を赤いカメラのアイコンで表示します。方向の情報が利用できる場合にはアイコンは回転します。デフォルト: off.
-* 画面を点灯したままにする。デフォルト: off.
-* 大きなノードのドラッグ用領域。タッチ入力で端末装置上のノードを動かそうとすると、自分の指がいま画面上のどの位置にあるかが曖昧なため、よく問題を引き起こします。これをオンにすると、大きな領域が提供され、中心を外れたドラッグ(選択と他の操作はそれまで通り通常のタッチ反応域を使用)が使えます。デフォルト: off.
+### Layer settings
+
+Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+
+* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+
+#### Preferences
+
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+
+The full description can be found here [Preferences](Preferences.md)
 
 #### 高度な独自設定
 
 * Node icons. Default: on.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+
+The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## Reporting Problems
 

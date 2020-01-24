@@ -18,13 +18,12 @@ Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版�
 
 選擇轉移圖示 ![Transfer](../images/menu_transfer.png)，或是轉移選項的項目，這樣會顯示七個選項：
 
- * **下載當前的檢視** - 下載在螢幕上可見的區域，並取代所有目前的資料*(需要網路連線)* 
-* **增加當前的檢視來下載** 下載在螢幕上可見的區域，並合併目前的資料*(需要網路連線)* 
-* **下載其它位置** - 顯示一個表單，允許您輸入座標搜尋位置或直接使用現在位置，然後下載該區域週圍的地方*(需要網路連線)* 
-* **上傳資料到 OSM 伺服器** - 上傳編輯到 OpenStreetMap *(需要認證)* *(需要網路連線)*
-* **自動下載** - 自動的下載目前周圍位置區域 *(需要網路連線)*  *(需要 GPS)*
-* **檔案...** - 儲存和載入在裝置的 OSM 檔案資料。
-* **備註/錯誤** -下載 (自動或手動) OSM 備註，以及從 QA 工具 (目前是 OSMOSE) 下"錯誤" *(需要網路連線)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 最簡單下載資料到裝置的方式是縮放和平移到你想編輯的地方，接著選擇 "下載當前檢視"。你可以用手勢縮放，用縮放按鈕，或是用裝置的音量鍵。Vespucci 應當下載當前檢視的資料，下載資料到裝置時並不需要認證。
 
@@ -126,13 +125,11 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 #### 有效的增加地址
 
-Vespucci 擁有"增加地址標籤"功能，讓探察時增加地址更方便。這個功能可以被選擇：
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* 長按之後：Vespucci 會在該位置新增節點，並且猜測這裡的門牌號碼和增其他能被新增的地址標籤。如果節點在建築外框上面，則會自動增加 "entrance=yes" 標籤到節點上面。標籤編輯器則會開啟物件，讓你編輯該做的變動。
-
-在節點/路徑選取模式：Vespucci 會增加地址標籤，並且開始標籤編輯器。
-
-* 在標籤編輯器。
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
 
 門牌號碼預測，一般需求要在道路的兩側，至少兩間房屋號碼需要輸入到作業中，更多的號碼存在於資料中越好。
 
@@ -210,7 +207,7 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 ### 設定檢查
 
-目前擁有兩個設定檢查 (一個是檢查 FIXME 標籤，以及一個檢查關聯上面遺失的標籤，不過目前無法自訂)，兩種都可以在"設定"裡的"驗證器設定"調整。 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
 
 列表清單分成兩部分，上半部列出"重新踏察"列表，下半部列出檢查"列表列表"。列表點了之後就可以編輯了，綠色選單按鍵則允許增加列表。
 
@@ -246,21 +243,31 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 ## 客製化 Vespucci
 
-### 設定，當您可能想要更改
+Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-* 背景圖層
-* 地圖覆疊層。增加覆疊可能會替較舊或是記憶體較少的裝置造成問題。預設：無。
-* 註解/臭蟲顯示。開啟註解和臭蟲，並且以黃色蟲子圖示表示，關閉的則是相同圖示綠色顯示。預設：開啟。
-* 圖片圖層。顯示有地理參照的圖片，並且以紅色照相機圖示顯示，如果有方向資訊的話，圖示會旋轉。預設：關閉。
-* 保持螢幕開啟。預設：關閉。
-* 大的節點拖曳區域。在觸控裝置上移動節點是相當大的問題，而且你的手指會遮住目前位置。開啟這個功能可以中心外的拖拉相當大的區域 (選擇和其他操作仍然使用相當的觸控容許區域)。預設：關閉。 
+### Layer settings
+
+Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+
+* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+
+#### Preferences
+
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+
+The full description can be found here [Preferences](Preferences.md)
 
 進階參數選項
 
-* 節點圖示。預設：開啟。
-* 總是顯示內容選單。當開啟這功能時，每一個選取過程都會顯示內容選單，關閉時則只會顯示無疑問的選取。預設：關閉 (先前是開啟)。
-* 啟用輕亮主題。在現代的裝置上為預設開啟。當你在舊的 Android 版本啟用時往往不一致。
-* 顯示統計數據。會顯示與除錯相關的數據，並不實用。預設：關閉 (先前是開啟)。  
+* Node icons. Default: on.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+
+The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## 回報問題
 

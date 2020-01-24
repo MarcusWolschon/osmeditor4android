@@ -178,6 +178,8 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Information d\'attributs en GeoJSON</string>
   <string name="copy_properties">Copier les propriétés</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -429,6 +431,7 @@
   <string name="toast_unknown_error_for">Erreur inconnue pour %1$s</string>
   <string name="toast_download_started">Téléchargement de %1$s démarré</string>
   <string name="toast_phone_number_reformatted">Numéro de téléphone reformaté</string>
+  <string name="toast_members_not_downloaded">Certains membres de la relation n\'ont pas été chargés</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Les sources MapSplit doivent avoir un niveau de zoom min et max</string>
   <string name="error_pbf_no_version">Informations de version manquantes dans le fichier PBF</string>
@@ -518,7 +521,6 @@
   <string name="menu_deselect_all">Tout désélectionner</string>
   <string name="menu_preset_help">Aide du modèle d\'attributs</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Ajouter des attributs pour %1$s</string>
   <string name="tag_restriction_header">Valeur</string>
   <string name="tag_restriction_when">Quand</string>
   <string name="tag_restriction_and">et</string>
@@ -1140,4 +1142,5 @@
     <item>Relations</item>
     <item>Relations + </item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

@@ -86,6 +86,8 @@
   <string name="current">Hiện tại</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Sao chép thuộc tính</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Tác động này có ảnh hưởng đến các đối tượng nối liền đã được lọc ra!</string>
@@ -279,7 +281,6 @@
   <string name="menu_select_all">Chọn tất cả</string>
   <string name="menu_preset_help">Trợ giúp về thẻ đặt trước</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Thêm thẻ cho %1$s</string>
   <string name="tag_restriction_header">Giá trị</string>
   <string name="tag_restriction_when">khi</string>
   <string name="tag_restriction_and">và</string>
@@ -597,4 +598,5 @@
     <item>Quan hệ</item>
     <item>Quan hệ+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

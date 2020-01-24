@@ -71,6 +71,8 @@
   <string name="not_downloaded">다운로드되지 않음</string>
   <string name="last_edited">마지막 편집</string>
   <!--GeoJSON feature display dialog-->
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">이 작업은 필터링된 부착된 지물에 영향을 미칩니다!</string>
@@ -180,7 +182,6 @@
   <string name="menu_top">상위</string>
   <string name="menu_select_all">모두 선택</string>
   <string name="menu_preset_help">프리셋 도움말</string>
-  <string name="tag_menu_i8n">%1$s에 대한 태그 추가</string>
   <string name="tag_restriction_header">값</string>
   <string name="tag_restriction_when">때</string>
   <string name="tag_restriction_and">그리고</string>
@@ -410,4 +411,5 @@
     <item>관계</item>
     <item>관계+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

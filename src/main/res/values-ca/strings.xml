@@ -171,6 +171,8 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Informació de característica de GeoJSON</string>
   <string name="copy_properties">Copia les propietats</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Error</string>
   <string name="warning">Avís</string>
@@ -408,7 +410,6 @@
   <string name="menu_deselect_all">No seleccionis res</string>
   <string name="menu_preset_help">Ajuda per a les preconfiguracions</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Afegeix etiquetes per a %1$s</string>
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">quan</string>
   <string name="tag_restriction_and">i</string>
@@ -817,4 +818,5 @@
     <item>Relacions</item>
     <item>Relacions+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

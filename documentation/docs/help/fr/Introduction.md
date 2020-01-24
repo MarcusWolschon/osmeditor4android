@@ -18,13 +18,12 @@ Selon la taille de votre écran et l'âge de l'appareil, les actions d'édition 
 
 Selectionnez soit l’icône de transfert ![Transfer](../images/menu_transfer.png), soit l'onglet Transfert dans le menu. Cela affiche sept options :
 
-* **Télécharger la vue courante** : télécharge la zone visible à l'écran et remplace les données existantes *(nécessite une connexion réseau)*
-* **Ajouter les données de la vue courante** : télécharge la zone visible à l'écran et la fusionne avec les données existantes *(nécessite une connexion réseau)*
-* **Télécharger à un autre endroit** : affiche un formulaire permettant de rechercher un lieu, d'entrer des coordonnées directement, ou d'utiliser la position actuelle pour télécharger une zone autour de ce point *(nécessite une connexion réseau)*
-* **Envoyer les données au serveur OSM** : envoie les modifications vers OpenStreetMap *(nécessite d'être authentifié)* *(nécessite une connexion réseau)*
-* **Téléchargement automatique** : télécharge automatiquement la zone autour de la position courante *(nécessite une connexion réseau)* *(nécessite le GPS)*
-* **Fichier…** : sauvegarde ou ouvre les données OSM dans des fichiers locaux
-* **Notes/Bugs…** : télécharge (automatiquement et manuellement) les Notes OSM et les « bugs » des outils d'assurance qualité (Osmose pour l'instant) *(nécessite une connexion réseau)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 La manière la plus simple de télécharger des données est de zoomer et de se déplacer vers le lieu que vous voulez éditer, puis de sélectionner « Télécharger la vue courante ». Vous pouvez zoomer avec deux doigts, avec les boutons de zoom, ou avec les boutons de volume de l'appareil. Vespucci va alors télécharger les données de la vue courante. Il n'y a pas besoin d'être authentifié pour télécharger les données sur votre appareil. 
 
@@ -124,11 +123,11 @@ Vous pouvez couper ou copier des nœuds ou chemins sélectionnés, puis les coll
 
 #### Ajouter efficacement des adresses
 
-Vespucci propose une fonction « ajouter un attribut d'adresse » qui essaie de rendre plus efficace la collecte des adresses. Elle peut être utilisée :
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* Après un appui prolongé : Vespucci ajoutera un nœud à cet endroit, essaiera de déterminer le numéro du bâtiment et ajoutera les attributs d'adresse que vous avez récemment utilisés. Si le nœud se situe sur le chemin traçant un bâtiment, un tag « entrance=yes » y sera automatiquement ajouté. L'éditeur d'attributs s'ouvrira alors pour l'objet en question pour vous permettre de faire les changements nécessaires.
-* Dans le mode de sélection de nœud ou de chemin : Vespucci ajoutera les attributs d'adresse comme ci-dessus et affichera l'éditeur d'attributs.
-* Dans l'éditeur d'attributs.
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
 
 La prédiction du numéro de bâtiment nécessite normalement pour fonctionner qu'au moins deux numéros de chaque côté de la voie soient déjà présents. Plus nombreux sont les numéros déjà renseignés, meilleure est la prédiction.
 
@@ -206,7 +205,7 @@ Le mode peut être activé par un appui long sur le cadenas, voir [Lock, unlock,
 
 ### Configurer des tests
 
-Actuellement il y a deux tests configurables (le test pour l'attribut FIXME et le test pour l'attribut de type manquant sur les relations ne sont pas actuellement configurables). Ces deux tests peuvent être configurés en sélectionnant les « préférences du validateur » dans « Préférences ». 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
 
 La liste des entrées est coupée en deux, la première moitié liste les entrée « nouveau relevé de terrain » et la deuxième moité les « vérifications ». On peut modifier les entrées en cliquant dessus et le bouton de menu vert permet d'ajouter des entrées.
 
@@ -242,21 +241,31 @@ Autrement, les objets peuvent être filtrés suivant des modèles individuels ou
 
 ## Personnaliser Vespucci
 
-### Paramètres que vous pourriez vouloir changer
+Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-* Couche de fond de carte
-* Surcouche. Ajouter une surcouche peut poser des problèmes avec les anciens appareils avec une mémoire limitée. Par défaut : aucune.
-* Affichage des notes et des bugs. Les notes et les bugs ouverts seront affichés avec une icône d'insecte jaune, ceux qui sont fermés avec une icône verte. Par défaut : activé.
-* Couche photo. Affiche des photos géo-référencées avec une icône d'appareil rouge, si l'information de direction est disponible, l'icône sera tournée. Par défaut : désactivé.
-* Garder l'écran allumé. Par défaut : désactivé.
-* Zone élargie de déplacement des nœuds. Déplacer des nœuds sur les appareils avec une entrée tactile est difficile parce que vos doigts cachent la position actuelle. Activer cette option fournira de plus grandes zones pour déplacer un objet sans devoir en toucher le centre (la sélection et les autres opérations utiliseront toujours la zone interactive normale). Par défaut : désactivé.
+### Layer settings
+
+Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+
+* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+
+#### Preferences
+
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+
+The full description can be found here [Preferences](Preferences.md)
 
 #### Préférences avancées
 
-* Icône de nœud. Par défaut : activé.
-* Toujours montrer le menu contextuel. Lorsqu'elle est activée, à chaque sélection le menu contextuel sera affiché. Sinon le menu n'est affiché que lorsque aucune sélection non-ambiguë n'est déterminée. Par défaut : désactivé (activé sur d'anciennes versions).
-* Activer le thème clair. Sur les appareils modernes, cette option est activée par défaut. Vous pouvez l'activer sur des appareils Android plus anciens, mais le thème ne sera sans doute pas cohérent avec le reste du système.
-* Montrer les statistiques. Affichera certaines statistique pour le débogage, pas vraiment utile. Par défaut : désactivé (activé sur d'anciennes versions).  
+* Node icons. Default: on.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+
+The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## Rapporter des problèmes
 

@@ -142,6 +142,8 @@
   <string name="goto_element">Vai all\'elemento</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Copia proprietà</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
@@ -395,7 +397,6 @@
   <string name="menu_deselect_all">Deseleziona tutto</string>
   <string name="menu_preset_help">Guida preset</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Aggiungi etichette per %1$s</string>
   <string name="tag_restriction_header">Valore</string>
   <string name="tag_restriction_when">quando</string>
   <string name="tag_restriction_and">e</string>
@@ -906,4 +907,5 @@
     <item>Relazioni</item>
     <item>Relazioni+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

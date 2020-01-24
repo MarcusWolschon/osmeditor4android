@@ -178,6 +178,8 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">פרטי תכונת GeoJSON</string>
   <string name="copy_properties">העתקת מאפיינים</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -520,7 +522,6 @@
   <string name="menu_deselect_all">לבטל את הבחירה</string>
   <string name="menu_preset_help">עזרה עם ערכות מוגדרות</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">הוספת תגיות עבור %1$s</string>
   <string name="tag_restriction_header">ערך</string>
   <string name="tag_restriction_when">מתי</string>
   <string name="tag_restriction_and">וגם</string>
@@ -1151,4 +1152,5 @@
     <item>יחסים</item>
     <item>יחסים+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

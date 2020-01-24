@@ -18,13 +18,12 @@ V závislosti na velikosti obrazovky a stáří vašeho zařízení mohou být m
 
 Zvolte buď ikonu ![Přenos](../images/menu_transfer.png) nebo položku "Přenos" z menu. Zobrazí se sedm možností:
 
-* **Stáhnout aktuální pohled** - stáhne oblast viditelnou na obrazovce a nahradí jakákoliv existující data *(vyžaduje připojení k síti)*
-* **Přidat aktuální pohled ke stažení** - stáhne oblast viditelnou na obrazovce a sloučí ji s existujícími daty *(vyžaduje připojení k síti)*
-* **Stáhnout jinou oblast** - zobrazí formulář, který umožňuje zadat souřadnice, vyhledat místo nebo použít aktuální pozici a poté stáhnout oblast kolem daného místa *(vyžaduje připojení k síti)*
-* **Nahrát data na OSM server** - nahraje úpravy na OpenStreetMap *(vyžaduje ověření)* *(vyžaduje připojení k síti)*
-* **Stahovat automaticky** - automaticky stahuje oblast okolo aktuální pozice *(vyžaduje připojení k síti)* *(vyžaduje GPS)*
-* **Soubor...** - ukládání a načítání OSM dat do/ze souborů v zařízení
-* **Poznámky/Chyby...** - stahování (automatické i manuální) OSM Poznámek a "Chyb" z QA nástrojů (aktuálně z OSMOSE) *(vyžaduje připojení k síti)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 Nejjednodušším způsobem stahování dat je najít požadovanou oblast, kterou chcete editovat, na mapě a poté zvolit "Stáhnout aktuální pohled". Přibližovat můžete pomocí gest, tlačítek přiblížení nebo pomocí tlačítek pro ovládání hlasitosti vašeho zařízení. Vespucci by poté měl stáhnout data pro aktuální pohled. Pro stahování dat do vašeho zařízení není zapotřebí žádného ověření.
 
@@ -122,11 +121,11 @@ Můžete kopírovat nebo odstranit vybrané uzly a cesty a potom je vložit jedn
 
 #### Efektivně přidávat adresy
 
-Vespucci má funkci "přidat adresní tagy", která se pokouší efektivněji mapovat adresy. Lze vybrat:
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* po dlouhém stisknutí: Vespucci přidá uzel v místě a udělá nejlepší odhad na číslo domu a přidá adresní značky, které jste v poslední době používali. Pokud je uzel na obrysu budovy, automaticky přidá do uzlu značku "entrance = yes". Editor značek se otevře pro daný objekt a umožní vám provádět další nezbytné změny. 
-* V uzlu / způsobu výběru režimů: Vespucci přidá adresové značky jako výše a spustí editor značek.
-* v editoru značek.
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
 
 Předpověď čísla domu obvykle vyžaduje, aby byly na každé straně silnice zadány alespoň dvě čísla domů, čím je více dat v data, tím lépe.
 
@@ -204,7 +203,7 @@ Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz [Zamknout, odem
 
 ### Konfigurace kontrol
 
-V současné době existují dvě konfigurovatelné kontroly (existuje kontrola značek FIXME a test chybějících typových značek na relacích, které nejsou aktuálně konfigurovatelné). Obě je možné nakonfigurovat tak, že vyberete "Předvolby validátora" v části "Předvolby". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
 
 Seznam záznamů je rozdělen na dvě části, políčka nahoře vypisují "ověřit záznamy", dolní polovina "zkontrolované záznamy". Záznamy lze editovat kliknutím na ně, zelené tlačítko nabídky umožňuje přidání položek.
 
@@ -240,21 +239,31 @@ Alternativou k výše uvedeným objektům jsou objekty filtrovány buď na zákl
 
 ## Přizpůsobení Vespucci
 
-### Nastavení, která můžete chtít změnit
+Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-* Vrstva pozadí 
-* Překryvná vrstva. Přidání překryvné vrstvy může způsobit problémy se staršími zařízeními a problémy s omezenou pamětí. Výchozí stav: žádný. 
-* Zobrazit poznámky / chyby. Otevřené poznámky a chyby se zobrazí jako žlutá ikona chyby, uzavřené tytéž zelené. Výchozí hodnota: zapnuto. 
-* Fotografická vrstva. Zobrazuje geo-odkazované fotografie jako červené ikony fotoaparátu, pokud jsou k dispozici informace o směru, bude ikona otočena. Výchozí: vypnuto.  
-* Zachovat obrazovku zapnutou. Výchozí stav: vypnuto. 
-* Velký prostor pro tažení uzlu. Přesunutí uzlů na zařízení s dotykovým vstupem je problematické, protože vaše prsty zakryjí aktuální polohu na displeji. Zapnutím této funkce se vytvoří velká oblast, která může být použita pro tažení mimo centrum (volba a další operace stále používají normální oblast tolerance dotyku). Výchozí stav: vypnuto.
+### Layer settings
+
+Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+
+* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+
+#### Preferences
+
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+
+The full description can be found here [Preferences](Preferences.md)
 
 #### Rozšířené předvolby
 
-* Ikony uzlu. Výchozí nastavení: zapnuto. 
-* Vždy zobrazovat kontextovou nabídku. Po zapnutí každého výběrového procesu se zobrazí kontextové menu, vypnuté menu se zobrazí pouze v případě, že nelze určit jednoznačnou volbu. Výchozí nastavení: vypnuto (používá se k zapnutí). 
-* Aktivovat motiv světla. U moderních zařízení je tato funkce zapnuta ve výchozím nastavení. I když ji můžete povolit pro starší verze systému Android, pravděpodobně bude styl nekonzistentní.
-* Zobrazit statistiky. Zobrazí některé statistiky pro ladění, které nejsou zrovna užitečné. Výchozí nastavení: vypnuto (používá se k zapnutí).  
+* Node icons. Default: on.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+
+The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## Nahlašování problémů
 

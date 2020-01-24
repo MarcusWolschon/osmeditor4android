@@ -48,6 +48,8 @@
   <string name="version">Versão</string>
   <string name="length_m">Comprimento (m)</string>
   <!--GeoJSON feature display dialog-->
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--This concerns a shown message that should be shown every time-->
@@ -233,4 +235,5 @@
     <item>rastreável</item>
     <item>identificável</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

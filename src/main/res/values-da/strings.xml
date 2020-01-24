@@ -52,6 +52,8 @@
   <string name="length_m">Længde (m)</string>
   <string name="last_edited">Senest rettet</string>
   <!--GeoJSON feature display dialog-->
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--This concerns a shown message that should be shown every time-->
@@ -121,7 +123,6 @@
   <string name="menu_up">Op</string>
   <string name="menu_top">Top</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Tilføj tags for %1$s</string>
   <string name="tag_restriction_header">Værdi</string>
   <string name="tag_restriction_when">når</string>
   <string name="tag_restriction_and">og</string>
@@ -255,4 +256,5 @@
   <!--time and distance-->
   <!--Help system-->
   <!--Arrays-->
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

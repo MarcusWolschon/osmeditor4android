@@ -57,6 +57,8 @@
   <string name="length_m">Lengd (m)</string>
   <string name="not_downloaded">Ekki niðurhalað</string>
   <!--GeoJSON feature display dialog-->
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--This concerns a shown message that should be shown every time-->
@@ -307,4 +309,5 @@
     <item>NMEA frá TCP</item>
     <item>NMEA frá TCP þjóni</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

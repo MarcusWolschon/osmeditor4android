@@ -19,13 +19,12 @@ A seconda della dimensione dello schermo e da quanto è vecchio il tuo dispositi
 
 Seleziona l'icona di trasferimento ![Transfer](../images/menu_transfer.png) oppure l'opzione "Trasferimento" nel menu. Verranno mostrate sette opzioni:
 
-* **Scarica vista corrente** - scarica l'area visibile sullo schermo e sostituisce i dati già scaricati *(richiede connessione a Internet)*
-* **Aggiungi vista corrente ai dati** - scarica l'area visibile sullo schermo e la unisce con i dati già scaricati *(richiede connessione a Internet)*
-* **Scarica altra posizione** - permette di scaricare l'area attorno alla posizione specificata, che può essere inserita con le coordinate geografiche, cercando il nome del luogo o usando la posizione corrente *(richiede connessione a Internet)*
-* **Carica i dati su OSM** - carica le modifiche su OpenStreetMap *(richiede autenticazione)* *(richiede connessione a Internet)*
-* **Scarica area in automatico** - scarica in automatico l'area attorno alla posizione geografica attuale *(richiede connessione a Internet)* *(richiede GPS)*
-* **File...** - carica o salva dati OSM tramite file salvati sul dispositivo
-* **Note/problemi mappa...** - scarica manualmente o automaticamente le note di OSM e i problemi segnalati dagli strumenti QA (Quality Assurance; attualmente OSMOSE) *(richiede connessione a Internet)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 Il modo più semplice di scaricare i dati sul dispositivo è di spostarsi e ingrandire sull'area che si vuole modificare e quindi selezionare "Scarica vista corrente". Puoi modificare l'ingrandimento usando le dita, i pulsanti di zoom oppure i pulsanti per il controllo del volume del dispositivo. Vespucci a questo punto scaricherà i dati della vista corrente. Per scaricare i dati sul dispositivo non è necessario essere l'autenticazione.
 
@@ -125,11 +124,11 @@ Puoi copiare o tagliare dei nodi o delle vie selezionati per poi incollare una o
 
 #### Aggiungere indirizzi in modo efficiente
 
-Vespucci è provvisto di una funzione “aggiungi le etichette di indirizzo” che tenta di rendere più efficiente la mappatura dei numeri civici. Può essere selezionata:
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* dopo aver premuto e aver tenuto premuto: Vespucci aggiungerà un nodo in quella posizione e tenterà di indovinare meglio che può il numero civico aggiungendo le etichette di indirizzo che hai usato recentemente. Se il nodo si trova sul confine di un edificio, verrà aggiunta automaticamente anche l’etichetta “entrance=yes”. Verrà mostrato l’editor delle etichette per l’oggetto in questione in modo tale da permetterti di effettuare delle ulteriori modifiche.
-* nelle modalità di nodo/percorso selezionato: Vespucci aggiungerà le etichette di indirizzo come sopra e mostrerà l’editor delle etichette.
-* nell’editor delle etichette.
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
 
 La predizione dei numeri civici per funzionare richiede di solito che siano già stati inseriti due numeri civici per ogni lato della strada, più sono i civici inseriti meglio esso funzionerà.
 
@@ -207,7 +206,7 @@ La modalità può essere abilitata premendo a lungo nel simbolo del lucchetto, v
 
 ### Configurazione dei controlli
 
-Allo stato attuale è possibile configurare due controlli (i controlli per le etichette FIXME e il test per le etichette di tipo mancanti nelle relazioni non sono configurabili) entrambi possono essere configurati selezionando “Impostazioni validatore” nelle “Preferenze”. 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
@@ -243,21 +242,31 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## Personalizzare di Vespucci
 
-### Preferenze che potresti voler cambiare
+Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+### Layer settings
+
+Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+
+* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
 * Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
 * Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+
+#### Preferences
+
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+
+The full description can be found here [Preferences](Preferences.md)
 
 #### Preferenze avanzate
 
 * Node icons. Default: on.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+
+The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## Segnalare un problema
 

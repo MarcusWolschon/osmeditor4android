@@ -18,13 +18,12 @@ A képernyő méretétől és a készülék életkorától függően a szerkeszt
 
 Jelölje ki vagy az átvitel ikont ![Transfer](../images/menu_transfer.png) vagy az „Átvitel” menüpontot. Ez hét lehetőséget fog megjeleníteni:
 
-* **Jelenlegi nézet letöltése** – letölti a képernyőn látható területet és felvált minden meglévő adatot *(hálózati kapcsolatot igényel)*
-* **Jelenlegi nézet hozzáadása a letöltéshez** – letölti a képernyőn látható területet, és egyesíti a már meglévő adatokkal *(hálózati kapcsolatot igényel)*
-* **Más helyszín letöltése** – megjelenít egy űrlapot, amelybe koordinátákat írhat, helyet kereshet vagy felhasználhatja a jelenlegi pozícióját, majd így letöltheti az így megadott hely körüli területet *(hálózati kapcsolatot igényel)*
-* **Adatok feltöltése az OSM-kiszolgálóra** – feltölti a szerkesztéseket az OpenStreetMapre *(hitelesítést igényel)* *(hálózati kapcsolatot igényel)*
-* **Automatikus letöltés** – automatikusan letölti a jelenlegi földrajzi hely körüli területet *(hálózati kapcsolatot igényel)* *(GPS-t igényel)*
-* **Fájl…** – OSM-adatok mentése fájlba, és betöltés a készüléken található fájlokból.
-* **Megjegyzések / hibák…** – (automatikusan és kézileg) letölti az OSM megjegyzéseket és hibákat egyes minőségbiztosítási eszközökről (jelenleg az OSMOSE-ról) *(hálózati kapcsolatot igényel)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 Az adatok eszközre töltésének legkönnyebb módja a szerkesztendő területre görgetés és nagyítás, aztán a „Jelenlegi nézet letöltése”. Gesztusokkal, a nagyítási gombokkal és a hangerőszabályzó gombokkal nagyíthat. A Vespucci aztán letölti a jelenlegi nézet adatait. Az adatok eszközre letöltéséhez nem szükséges hitelesítés.
 
@@ -124,11 +123,11 @@ Másolhatja és kivághatja a kiválasztott pontokat és vonalakat, aztán egysz
 
 #### Címek hatékony hozzáadása
 
-A Vespucci rendelkezik egy „cím címkék hozzáadása” funkcióval, amely megpróbálja hatékonyabbá tenni a felmérést. Így választható ki:
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* hosszú nyomás után: a Vespucci egy pontot ad hozzá a helyen, és becslést ad a házszámra és hozzáadja a legutóbb használt cím címkéket. Ha a pont egy épület körvonalán van, akkor automatikus hozzáadja az „entrance=yes” címkét a ponthoz. A címkeszerkesztő megnyitja a kérdéses objektumot, és további változtatásokat tehet.
-* a pont/vonal kiválasztási módokban: a Vespucci hozzáadja a cím címkéket ahogy fent, és elindítja a címkeszerkesztőt.
-* a címkeszerkesztőben.
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
 
 A házszámok becslésének működéséhez jellemzően legalább két házszám szükséges az út két oldalán, minél több szám szerepel az adatokban, annál jobb.
 
@@ -206,7 +205,7 @@ A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiv�
 
 ### Ellenőrzések beállítása
 
-Jelenleg két beállítható ellenőrzés van (van egy ellenőrzés a FIXME címkékhez, és egy teszt a hiányzó kapcsolattípus címkékhez, melyek jelenleg nem konfigurálhatóak), és mind a kettő beállítható az „Ellenőrző beállításai” kiválasztásával a „Beállításokban”. 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
 
 A bejegyzések listája két részre van osztva, a felső része az „újbóli felmérési” bejegyzéseket tartalmazza, az alsó rész pedig az „ellenőrzési bejegyzéseket”. A bejegyzések koppintással szerkeszthetőek, és a zöld menügombbal adhatóak hozzá új bejegyzések.
 
@@ -242,21 +241,31 @@ A fentiek alternatívájaként, az objektumok egyes előbeállítások vagy elő
 
 ## A Vespucci testreszabása
 
-### Beállítások, melyeket módosíthat
+Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-* Háttérréteg
-* Előtérréteg. Az előtér hozzáadása problémákat okozhat a régebbi, illetve a korlátozott memóriával rendelkező eszközökön. Alapértelmezés: nincs.
-* Jegyzetek/hibák megjelenítése. A nyitott jegyzetek és hibák sárga hiba ikonnal jelennek meg, a lezártak pedig zölddel. Alapértelmezés: be.
-* Fényképréteg. Földrajzi pozícióval ellátott fényképeket jelenít meg piros kamera ikonokkal, ha irányinformációk is elérhetőek, akkor forgatva is lesznek. Alapértelmezés: ki.
-* Képernyő bekapcsolva tartása. Alapértelmezés: ki.
-* Nagy ponthúzási terület. A pontok érintőképernyős bemenetre történő mozgatása problémás, mert az ujjai eltakarják a jelenlegi pozíciót a megjelenítőt. E funkció bekapcsolása egy nagy területet biztosít, amely a középponttól eltérő helyen vezérelt mozgatásra használható (a kiválasztás és más műveletek továbbra is normál érintési toleranciaterületet használják). Alapértelmezés: ki.
+### Layer settings
+
+Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+
+* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+
+#### Preferences
+
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+
+The full description can be found here [Preferences](Preferences.md)
 
 #### Speciális beállítások
 
-* Pont ikonok. Alapértelmezés: be.
-* Környezeti menü megjelenítése mindig. Ha bekapcsolja, akkor minden kiválasztási folyamat megjelenik a környezeti menüben; kikapcsolva csak akkor jelenik meg, ha nem határozható meg egyértelműen a kiválasztási mód. Alapértelmezés: ki (régebben be volt).
-* Világos téma engedélyezése. A modern eszközökön alapból be van kapcsolva. Bár engedélyezheti régebbi Android verziókon is, a stílus valószínűleg nem lesz konzisztens.
-* Statisztikák megjelenítése. Statisztikákat jelenít meg hibakereséshez, nem igazán hasznos. Alapértelmezés: ki (régebben be volt).  
+* Node icons. Default: on.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+
+The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## Problémák jelentése
 

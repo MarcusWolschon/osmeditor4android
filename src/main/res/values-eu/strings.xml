@@ -95,6 +95,8 @@
   <string name="original">Jatorrizkoa</string>
   <string name="current">Unekoa</string>
   <!--GeoJSON feature display dialog-->
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Errorea</string>
   <string name="warning">Abisua</string>
@@ -245,7 +247,6 @@
   <string name="menu_select_all">Hautatu denak</string>
   <string name="menu_preset_help">Aurre-ezarpenen laguntza</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Gehitu %1$s(r)en etiketak</string>
   <string name="tag_restriction_header">Balioa</string>
   <string name="tag_restriction_when">noiz</string>
   <string name="tag_restriction_and">eta</string>
@@ -452,4 +453,5 @@
   <!--time and distance-->
   <!--Help system-->
   <!--Arrays-->
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

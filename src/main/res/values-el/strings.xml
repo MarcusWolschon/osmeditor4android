@@ -116,6 +116,8 @@
   <string name="current">Τωρινό</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Αντιγραφή ιδιοτήτων</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Σφάλμα</string>
   <string name="warning">Προειδοποίηση</string>
@@ -317,7 +319,6 @@
   <string name="menu_select_all">Επιλογή όλων</string>
   <string name="menu_preset_help">Προκαθορισμένη βοήθεια</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Προσθήκη ετικετών για %1$s</string>
   <string name="tag_restriction_header">Τιμή</string>
   <string name="tag_restriction_when">όταν</string>
   <string name="tag_restriction_and">και</string>
@@ -634,4 +635,5 @@
     <item>Σχέσεις</item>
     <item>Σχέσεις+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

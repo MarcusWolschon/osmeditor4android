@@ -18,13 +18,12 @@ Dependendo do tamanho do ecrã e da antiguidade do dispositivo que estiver a usa
 
 Selecione o ícone de transferir  ![Transferir](../images/menu_transfer.png) ou o menu "Transferir". Isto irá mostrar 7 opções:
 
-* **Descarregar vista atual** - descarrega a área visível no ecrã e substitui dados existentes, se for o caso *(necessita de ligação à Internet)*
-* **Descarregar e adicionar vista atual** - descarrega a área visível no ecrã e faz a fusão com os dados existentes *(necessita de ligação à Internet)*
-* **Descarregar outra localização** - mostra um formulário que permite introduzir coordenadas, procurar por uma localização ou usar a posição atual e descarregar a área à volta dessa localização *(necessita de ligação à Internet)*
-* **Enviar dados para o OSM** - envia as alterações para o OpenStreetMap *(necessita de autenticação de conta de utilizador)* *(necessita de ligação à Internet)*
-* **Descarregar automático** - descarrega automaticamente a área à volta da localização atual *(necessita de ligação à Internet)* *(necessita de GPS)*
-* **Ficheiro...** - grava e abre ficheiros de dados do OpenStreetMap no dispositivo.
-* **Erros Reportados...** - descarrega (automática e manualmente) "Erros Reportados" no OpenStreetMap das ferramentas de manutenção de qualidade de dados (atualmente o OSMOSE) *(necessita de ligação à Internet)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
+* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **File...** - saving and loading OSM data to/from on device files.
+* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
 A forma mais fácil de descarregar dados para o dispositivo é aproximar/afastar e deslocar para a localização que quer editar e então selecionar "Descarregar a vista atual". Pode aproximar/afastar utilizando gestos dos dedos, os botões de aproximar/afastar ou os botões de volume no dispositivo. O Vespucci irá então descarregar os dados para a vista atual. Não é necessário autenticar-se para descarregar dados.
 
@@ -126,11 +125,11 @@ Pode copiar ou cortar os nós ou linhas selecionados, e então colar uma ou vár
 
 #### Adicionar Endereços Eficientemente
 
-O Vespucci tem uma função "adicionar etiquetas de endereço" que torna mais fácil esta operação. Pode ser selecionado:
+Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
 
-* após um toque longo: o Vespucci adiciona um nó no local e tentará adivinhar o endereço mais próximo e número de porta ultimamente usados. Se o nó estiver dentro de um edifício irá introduzir automaticamente "entrance=yes" (entrada=sim) ao nó. Aparece o editor de etiquetas para poder fazer outras alterações.
-* no modo nó/linha selecionados: o Vespucci adicionará etiquetas de endereços como descrito acima e abrir o editor de etiquetas.
-* no editor de etiquetas.
+* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
+* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
+* in the property editor.
 
 A previsão do número de porta normalmente necessita de 2 números de porta em cada lado da estrada para funcionar. Quantos mais números de porta presentes, melhor funciona.
 
@@ -208,7 +207,7 @@ O modo pode ser ativado ao pressionar de forma longa o botão do cadeado, ver [B
 
 ### Configurar verificações
 
-Neste momento existem duas verificações configuráveis (existe uma verificação para etiquetas FIXME e um teste para tipos de etiquetas que faltam em relações que não são neste momento configuráveis). Ambas podem ser configuráveis selecionando "Preferências do Verificador" em "Preferências". 
+Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
 
 A lista de entradas está dividida em duas, a primeira metade mostra entradas de "novos levantamentos" e a segunda metade "entradas" de verificação. As entradas podem ser editadas clicando nelas. O botão do menu verde permite adicionar entradas.
 
@@ -244,21 +243,31 @@ Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com ba
 
 ## Personalizar o Vespucci
 
-### Configurações que poderá querer alterar
+Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
 
-* Camada de fundo
-* Camada superior. Adicionar uma camada superior pode causar problemas com dispositivos antigos ou com pouca memória RAM. Padrão: nenhuma.
-* Visualização de erros reportados. Os erros reportados que estejam abertos serão mostrados com um ícone de um inseto amarelo. Os erros reportados fechados serão mostrados a verde. Padrão: ativo.
-* Camada de fotos. Mostra fotografias geo-referenciadas com um ícone de uma máquina fotográfica vermelha. Se estiver disponível a direção em que foi tirada, o ícone será rodado. Padrão: desativado.
-* Manter ecrã ligado. Padrão: desativado.
-* Área grande de arrasto. Mover nós num dispositivo com ecrã sensível ao toque é problemático uma vez que os dedos irão tapar a posição atual no ecrã. Ao ativar esta opção irá poder usar uma área grande de toque descentrada (a seleção e outras operações continuam a usar a área normal de tolerância). Padrão: desativado.
+### Layer settings
+
+Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+
+* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
+* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
+* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
+* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+
+#### Preferences
+
+* Keep screen on. Default: off.
+* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+
+The full description can be found here [Preferences](Preferences.md)
 
 #### Preferências avançadas
 
-* Ícones dos nós. Padrão: ativado.
-* Mostrar sempre menu de contexto. Quando ativado, qualquer selecionar irá mostrar o menu de contexto. Se desativado, o menu de contexto apenas é mostrado quando for possível determinar apenas um elemento selecionado. Padrão: desativado (antes era ativo).
-* Ativar tema em tons claros. Em dispositivos recentes isto é ativado por padrão. Apesar de se poder ativar isto em dispositivos antigos, os grafismos podem ser inconsistentes.
-* Ver estatísticas. Mostra algumas informações no canto inferior esquerdo para depuração de erros do programa. Padrão: desativado (antigamente estava sempre ativado).  
+* Node icons. Default: on.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+
+The full description can be found here [Advanced preferences](Advanced%20preferences.md)
 
 ## Reportar Problemas
 

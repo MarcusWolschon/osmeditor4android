@@ -57,6 +57,8 @@
   <string name="length_m">长度 (米)</string>
   <string name="not_downloaded">未下载</string>
   <!--GeoJSON feature display dialog-->
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--This concerns a shown message that should be shown every time-->
@@ -311,4 +313,5 @@
     <item>NMEA 来自 TCP 客户端</item>
     <item>NMEA 来自 TCP 服务端</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

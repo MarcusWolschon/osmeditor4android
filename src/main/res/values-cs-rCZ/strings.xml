@@ -180,6 +180,8 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Vlastnosti objektu GeoJSON</string>
   <string name="copy_properties">Zkopírovat vlastnosti</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -526,7 +528,6 @@
   <string name="menu_deselect_all">Zrušit výběr</string>
   <string name="menu_preset_help">Nápověda k předvolbám</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Přidat tagy pro %1$s</string>
   <string name="tag_restriction_header">Hodnota</string>
   <string name="tag_restriction_when">když</string>
   <string name="tag_restriction_and">a</string>
@@ -1161,4 +1162,5 @@
     <item>Relace</item>
     <item>Relace+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

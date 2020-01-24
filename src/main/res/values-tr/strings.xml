@@ -105,6 +105,8 @@
   <string name="current">Geçerli</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Özellikleri kopyala</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Hata</string>
   <string name="warning">Uyarı</string>
@@ -402,4 +404,5 @@
     <item>Açık</item>
     <item>Kapalı</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

@@ -118,6 +118,8 @@
   <string name="goto_element">Prejsť na prvok</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Skopírovať vlastnosti</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Upozornenie</string>
@@ -267,7 +269,6 @@
   <string name="menu_top">Navrch</string>
   <string name="menu_preset_help">Pomocník k predvoľbe</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Pridať značky pre %1$s</string>
   <string name="tag_restriction_header">Hodnota</string>
   <string name="tag_restriction_when">keď</string>
   <string name="tag_restriction_and">a zároveň</string>
@@ -522,4 +523,5 @@
     <item>Vynútiť</item>
     <item>Bez stavového riadku</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

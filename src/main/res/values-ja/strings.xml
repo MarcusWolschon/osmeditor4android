@@ -93,6 +93,8 @@
   <string name="current">現状</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">プロパティをコピー</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">この操作はフィルタリングされた添付オブジェクトに影響します！</string>
@@ -298,7 +300,6 @@
   <string name="menu_select_all">全選択</string>
   <string name="menu_preset_help">プリセットのヘルプ</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">%1$s にタグを追加</string>
   <string name="tag_restriction_header">値</string>
   <string name="tag_restriction_and">かつ</string>
   <string name="tag_restriction_add_restriction">制限を追加</string>
@@ -657,4 +658,5 @@
     <item>リレーション</item>
     <item>リレーション+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

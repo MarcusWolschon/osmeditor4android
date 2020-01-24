@@ -3,6 +3,7 @@
   <!--Mode names-->
   <string name="mode_easy">Normal</string>
   <string name="mode_indoor">Interior</string>
+  <string name="mode_correct">Modo-C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">¡Precaución!</string>
   <string name="transfer_download_current_dialog_message">Introduciste cambios. Quieres subirlos? De otra manera, se descartarán.</string>
@@ -23,19 +24,24 @@
   <string name="no_login_data_message">Si está utilizando OAuth, es probable que se trate de un error, envíe un informe del problema. Si está utilizando nombre de cuenta y contraseña (no recomendado), verifique que se hayan ingresado correctamente.</string>
   <string name="no_connection_title">Sin conexión al servidor</string>
   <string name="no_connection_message">No hay conexión con el servidor OSM. Verifique su conexión a Internet o vuelva a intentarlo más tarde.</string>
+  <string name="wrong_login_data_title">No se ha podido autenticar</string>
   <string name="wrong_login_data_message">Si está utilizando OAuth, renueve la autenticación y vuelva a intentar. Si está utilizando nombre de cuenta y contraseña (no recomendado), verifique que se hayan ingresado correctamente.</string>
   <string name="wrong_login_data_re_authenticate">Volver a autenticar</string>
   <string name="forbidden_login_title">Acceso prohibido</string>
   <string name="not_found_title">No se encontró el elemento</string>
   <string name="unknown_error_title">Error desconocido</string>
+  <string name="no_data_title">Sin datos</string>
   <string name="no_data_message">La fuente de datos configurada no tiene cobertura aquí.</string>
   <string name="go_to_openstreetmap">Ir a openstreetmap.org</string>
+  <string name="data_conflict_title">Conflicto de versión</string>
+  <string name="invalid_bounding_box_title">Caja de delimitación inválida</string>
   <string name="bounding_box_too_large_title">Área de descarga demasiado grande</string>
   <string name="out_of_memory_title">Sin memoria</string>
   <string name="out_of_memory_message">Vespucci no pudo cargar los datos pedidos. Vuelva a intentar con un área más reducida.</string>
   <string name="out_of_memory_dirty_message">Vespucci no pudo descargar los datos indicados. Guarde sus ediciones, vuelva a arrancar, y escoja un área más reducida.</string>
   <string name="invalid_data_received_title">Datos recibidos no válidos</string>
   <string name="file_write_failed_message">Vespucci no pudo alterar o guardar el archivo.</string>
+  <string name="welcome_title">Bienvenido</string>
   <string name="welcome_message">Gracias por instalar Vespucci\n&lt;br&gt;&lt;br&gt; Para comenzar, necesita saber tres cosas:\n&lt;ul&gt;&lt;li&gt; al tocar el ícono de candado en la esquina superior izquierda se cambiará entre el modo bloqueado (sin edición) y desbloqueado,&lt;/li&gt;&lt;li&gt; para editar OpenStreetMap antes que nada necesita descargar los datos para el área donde desea cambiar algo (acerque antes de intentarlo),&lt;/li&gt;&lt;li&gt; para agregar un nuevo objeto: toque el botón verde grande y seleccione lo que desea agregar, luego toque la posición donde desea ubicarlo.&lt;/li&gt;&lt;/ul&gt;\nUsted lo tiene todo listo para empezar ya. Mapee y disfrute!</string>
   <string name="read_introduction">Lea la introducción</string>
   <string name="upgrade_title">Esta es una nueva versión de Vespucci</string>
@@ -68,11 +74,14 @@
   <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
   <!--task fragment-->
   <string name="openstreetbug_new_title">Nueva nota</string>
+  <string name="openstreetbug_new_bug">Reportar problema</string>
   <string name="openstreetbug_bug_title">Problema</string>
+  <string name="openstreetbug_new_nodeway">Crear nodo/Vía</string>
   <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarea desconocida</string>
   <string name="openstreetbug_not_supported">%1$s no está soportado.</string>
+  <string name="osmose_bug">Osmose</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_proceed">Descartar &amp; continuar</string>
@@ -110,6 +119,8 @@
   <string name="current">Actual</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Copiar propiedades</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">¡Esta operación afecta a los objetos adjuntos filtrados!</string>
@@ -161,6 +172,7 @@
   <string name="layer_change_style">Cambiar estilo</string>
   <string name="layer_select_imagery">Seleccionar imágenes</string>
   <!--Layer info dialog-->
+  <string name="layer_info_terms">Condiciones</string>
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
@@ -294,7 +306,6 @@
   <string name="menu_select_all">Seleccionar todo</string>
   <string name="menu_preset_help">Ayuda predeterminados</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Añadir etiquetas para %1$s</string>
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">cuando</string>
   <string name="tag_restriction_and">y</string>
@@ -617,4 +628,5 @@
     <item>Relaciones</item>
     <item>Relaciones+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

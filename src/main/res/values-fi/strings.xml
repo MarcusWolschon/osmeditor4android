@@ -165,6 +165,8 @@
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Tietoja GeoJSON-kohteesta</string>
   <string name="copy_properties">Kopioi ominaisuudet</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Virhe</string>
   <string name="warning">Varoitus</string>
@@ -449,7 +451,6 @@
   <string name="menu_deselect_all">Tyhjennä valinta</string>
   <string name="menu_preset_help">Esivalintaohje</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Tägit kielelle %1$s</string>
   <string name="tag_restriction_header">Arvo</string>
   <string name="tag_restriction_when">kun</string>
   <string name="tag_restriction_and">ja</string>
@@ -977,4 +978,5 @@
     <item>Relaatiot</item>
     <item>Relaatiot+</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

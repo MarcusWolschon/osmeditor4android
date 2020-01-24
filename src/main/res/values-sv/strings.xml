@@ -129,6 +129,8 @@
   <string name="current">Nuvarande</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Kopiera egenskaper</string>
+  <!--API/Data layer info dialog-->
+  <!--Tile layer info dialog-->
   <!---->
   <string name="error">Fel</string>
   <string name="warning">Varning</string>
@@ -304,7 +306,6 @@
   <string name="menu_select_all">Välj allt</string>
   <string name="menu_preset_help">Hjälp av förinställning</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
-  <string name="tag_menu_i8n">Lägg till etiketter för %1$s</string>
   <string name="tag_restriction_header">Värde</string>
   <string name="tag_restriction_when">när</string>
   <string name="tag_restriction_and">och</string>
@@ -321,6 +322,7 @@
   <string name="location_last_text_parameterized">Senast kända plats: %1$s</string>
   <string name="location_current_text_parameterized">Nuvarande plats: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s sedan</string>
+  <string name="location_text_metadata_accuracy">Noggrannhet %1$2.0f meter, </string>
   <string name="location_coordinates_text">Från koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
@@ -680,4 +682,5 @@
     <item>Tvinga</item>
     <item>Ingen statusbar</item>
   </string-array>
+  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>
