@@ -243,6 +243,10 @@
 </li>
                                         
 <li >
+    <a href="../data_styling/">Vespucci data styling</a>
+</li>
+                                        
+<li >
     <a href="../vespucci_intents/">Controlling Vespucci from other apps</a>
 </li>
                                     </ul>
@@ -274,7 +278,7 @@
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../vespucci_intents/">
+                                <a rel="prev" href="../data_styling/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -297,7 +301,7 @@ i-->
                 <div class="col-md-9" role="main">
 
 <h2 id="vespucci-preset-system">Vespucci Preset System</h2>
-<p><em>Documentation for Vespucci 12.1</em></p>
+<p><em>Documentation for Vespucci 14.1</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h3 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci</h3>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
@@ -475,6 +479,18 @@ i-->
 <td>exclude_regions</td>
 <td>extension</td>
 <td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
+<td></td>
+<td>autoapply</td>
+<td>extension</td>
+<td>if true (default), allow auto-applying of the item</td>
+</tr>
+<tr>
+<td></td>
+<td>min_match</td>
+<td>extension</td>
+<td>an integer indicating the minimum number of fixed tags that need to match (default is all fixed tags)</td>
 </tr>
 <tr>
 <td><strong>&lt;chunk&gt;</strong></td>
@@ -1087,6 +1103,8 @@ i-->
 </li>
 <li><em>regions</em> comma separated list of countries this preset group or item is applicable for</li>
 <li><em>exclude_regions</em> if true, invert the meaning of regions </li>
+<li><em>autoapply</em> if true (default), allow auto-applying of the item</li>
+<li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match </li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -1101,7 +1119,7 @@ i-->
                     <div class="col-md-9" role="main">
 
 <h2 id="vespucci-preset-system">Vespucci Preset System</h2>
-<p><em>Documentation for Vespucci 12.1</em></p>
+<p><em>Documentation for Vespucci 14.1</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h3 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci</h3>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
@@ -1279,6 +1297,18 @@ i-->
 <td>exclude_regions</td>
 <td>extension</td>
 <td>if true, invert the meaning of regions</td>
+</tr>
+<tr>
+<td></td>
+<td>autoapply</td>
+<td>extension</td>
+<td>if true (default), allow auto-applying of the item</td>
+</tr>
+<tr>
+<td></td>
+<td>min_match</td>
+<td>extension</td>
+<td>an integer indicating the minimum number of fixed tags that need to match (default is all fixed tags)</td>
 </tr>
 <tr>
 <td><strong>&lt;chunk&gt;</strong></td>
@@ -1891,6 +1921,8 @@ i-->
 </li>
 <li><em>regions</em> comma separated list of countries this preset group or item is applicable for</li>
 <li><em>exclude_regions</em> if true, invert the meaning of regions </li>
+<li><em>autoapply</em> if true (default), allow auto-applying of the item</li>
+<li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match </li>
 </ul></div>
                 
         </div>

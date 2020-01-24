@@ -243,6 +243,10 @@
 </li>
                                         
 <li >
+    <a href="../../../tutorials/data_styling/">Vespucci data styling</a>
+</li>
+                                        
+<li >
     <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
 </li>
                                     </ul>
@@ -359,6 +363,8 @@ i-->
 <p>Close the current open changeset after uploading edits. Default: <em>on</em>.</p>
 <h3 id="squaring-threshold">Squaring threshold</h3>
 <p>The threshold in ° over which angles are ignored for squaring and straightening. Default: <em>15°</em>.</p>
+<h3 id="auto-format-phone-numbers">Auto-format phone numbers</h3>
+<p>This allows to control if phone numbers should be auto-formatted. Default: <em>on</em>. </p>
 <h2 id="auto-download-settings">Auto-download Settings</h2>
 <h3 id="download-radius">Download radius</h3>
 <p>When auto-downloading, the radius of the area that is attempted to download around the current position. In pan and zoom auto-download mode, this is the minimum download size. Default: <em>50 meters</em>.</p>
@@ -375,9 +381,15 @@ i-->
 <h2 id="location-settings">Location Settings</h2>
 <p>GPS and Network location settings.</p>
 <h3 id="gpsgnss-source">GPS/GNSS source</h3>
-<p>Source of GPS/GNSS location updates. Default: <em>internal</em>.</p>
+<p>Source of GPS/GNSS location updates. </p>
+<p>Possible values:</p>
+<p><strong>Internal</strong> use the internal GNSS location provider.</p>
+<p><strong>Internal NMEA</strong> use the internal GNSS location provider with NMEA output, this is only useful for testing.</p>
+<p><strong>NMEA from TCP client</strong> connect to a source of NMEA sentences over TCP, if the source is gpsd, the client will attempt to switch it to NMEA output (from 14.0.11 on).</p>
+<p><strong>NMEA from TCP server</strong> this will start a server on a specified port and listen for a client providing NMEA sentences, this is mainly useful with rtklib.</p>
+<p>Default: <em>internal</em>.</p>
 <h3 id="nmea-network-source">NMEA network source</h3>
-<p>If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is.</p>
+<p>If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is. In <strong>NMEA from TCP server</strong> mode the host part is currently ignored.</p>
 <h3 id="minimum-gpsgnss-interval">Minimum GPS/GNSS interval</h3>
 <p>Minimum interval between updates for the internal GPS/GNSS source. Default: <em>1000 ms</em>.</p>
 <h3 id="minimum-gpsgnss-distance">Minimum GPS/GNSS-distance</h3>
@@ -491,6 +503,8 @@ i-->
 <p>Close the current open changeset after uploading edits. Default: <em>on</em>.</p>
 <h3 id="squaring-threshold">Squaring threshold</h3>
 <p>The threshold in ° over which angles are ignored for squaring and straightening. Default: <em>15°</em>.</p>
+<h3 id="auto-format-phone-numbers">Auto-format phone numbers</h3>
+<p>This allows to control if phone numbers should be auto-formatted. Default: <em>on</em>. </p>
 <h2 id="auto-download-settings">Auto-download Settings</h2>
 <h3 id="download-radius">Download radius</h3>
 <p>When auto-downloading, the radius of the area that is attempted to download around the current position. In pan and zoom auto-download mode, this is the minimum download size. Default: <em>50 meters</em>.</p>
@@ -507,9 +521,15 @@ i-->
 <h2 id="location-settings">Location Settings</h2>
 <p>GPS and Network location settings.</p>
 <h3 id="gpsgnss-source">GPS/GNSS source</h3>
-<p>Source of GPS/GNSS location updates. Default: <em>internal</em>.</p>
+<p>Source of GPS/GNSS location updates. </p>
+<p>Possible values:</p>
+<p><strong>Internal</strong> use the internal GNSS location provider.</p>
+<p><strong>Internal NMEA</strong> use the internal GNSS location provider with NMEA output, this is only useful for testing.</p>
+<p><strong>NMEA from TCP client</strong> connect to a source of NMEA sentences over TCP, if the source is gpsd, the client will attempt to switch it to NMEA output (from 14.0.11 on).</p>
+<p><strong>NMEA from TCP server</strong> this will start a server on a specified port and listen for a client providing NMEA sentences, this is mainly useful with rtklib.</p>
+<p>Default: <em>internal</em>.</p>
 <h3 id="nmea-network-source">NMEA network source</h3>
-<p>If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is.</p>
+<p>If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is. In <strong>NMEA from TCP server</strong> mode the host part is currently ignored.</p>
 <h3 id="minimum-gpsgnss-interval">Minimum GPS/GNSS interval</h3>
 <p>Minimum interval between updates for the internal GPS/GNSS source. Default: <em>1000 ms</em>.</p>
 <h3 id="minimum-gpsgnss-distance">Minimum GPS/GNSS-distance</h3>

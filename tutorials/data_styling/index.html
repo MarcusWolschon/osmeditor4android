@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Vespucci data styling - Vespucci</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+<!--
+                    <a class="navbar-brand" href="../..">Vespucci</a> -->
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                                <li >
+                                    
+                                        <a href="../.."><img src="/vespucci_logo_small.png"></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../../help/en/Introduction/">Introduction</a>
+</li>
+                                        
+<li >
+    <a href="../features/">Features</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/14.0.0 Release notes/">14.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/13.1.0 Release notes/">13.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/13.0.0 Release notes/">13.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/12.1.0 Release notes/">12.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/12.0.0 Release notes/">12.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/11.2.0 Release notes/">11.2.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/11.1.0 Release notes/">11.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/11.0.0 Release notes/">11.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/10.2.0 Release notes/">10.2.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/10.1.0 Release notes/">10.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/10.0.0 Release notes/">10.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/0.9.9 Release notes/">0.9.9 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/0.9.8 Release notes/">0.9.8 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/0.9.7 Release notes/">0.9.7 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/0.9.6 Release notes/">0.9.6 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../old_release_notes/">Previous release notes</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../../help/en/Main map display/">Main map display</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Simple actions/">Simple actions</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Creating new objects/">Creating new objects</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Node selected/">Node selected</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Way selected/">Way selected</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Relation selected/">Relation selected</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/New Note selected/">New note selected</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Property editor/">Property editor</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Multiselect/">Multiselect</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Conflict resolution/">Conflict resolution</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Presets/">Presets</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Aligning background imagery/">Aligning background imagery</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Keyboard/">Keyboard and mouse</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/GPS sources/">GPS sources</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Tag filter/">Tag based filter</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Preset filter/">Preset based filter</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Opening hours/">Opening hours</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Preferences/">Preferences</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Advanced preferences/">Advanced preferences</a>
+</li>
+                                        
+<li >
+    <a href="../../help/en/Voice commands/">Voice commands</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown active">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../network_location/">"network" Location Provider Support</a>
+</li>
+                                        
+<li >
+    <a href="../custom_imagery/">Custom imagery</a>
+</li>
+                                        
+<li >
+    <a href="../name_suggestions/">Using name suggestions</a>
+</li>
+                                        
+<li >
+    <a href="../reporting_issues/">Reporting Vespucci issues</a>
+</li>
+                                        
+<li >
+    <a href="../tag_only/">Tag-only editing</a>
+</li>
+                                        
+<li >
+    <a href="../presets/">Vespucci presets</a>
+</li>
+                                        
+<li class="active">
+    <a href="./">Vespucci data styling</a>
+</li>
+                                        
+<li >
+    <a href="../vespucci_intents/">Controlling Vespucci from other apps</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../screenshots/">Screenshots</a>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../faq/">FAQ</a>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../../help/en/Privacy/">Privacy</a>
+                                </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+<!--- Remove Prev - Next
+                            <li >
+                                <a rel="next" href="../presets/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../vespucci_intents/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+i-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+<!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#vespucci-data-styling">Vespucci Data Styling</a></li>
+            <li><a href="#style-elements-and-attributes">Style Elements and Attributes</a></li>
+            <li><a href="#internal-features">Internal features</a></li>
+            <li><a href="#example">Example</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
+<p><em>Documentation for Vespucci 14.1</em></p>
+<p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
+<h3 id="style-elements-and-attributes">Style Elements and Attributes</h3>
+<p>The styles are for a major part not much more than an external representation of the <a href="https://developer.android.com/reference/android/graphics/Paint">Android Paint</a> objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Attributes</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&lt;profile&gt;</strong></td>
+<td></td>
+<td>Top level enclosing element</td>
+</tr>
+<tr>
+<td></td>
+<td>name</td>
+<td>Style name</td>
+</tr>
+<tr>
+<td></td>
+<td>format</td>
+<td>Format version, currently 0.2.0</td>
+</tr>
+<tr>
+<td><strong>&lt;!--&nbsp;comment&nbsp;--&gt;</strong></td>
+<td></td>
+<td>A comment</td>
+</tr>
+<tr>
+<td><strong>&lt;config&gt;</strong></td>
+<td></td>
+<td>Configuration element</td>
+</tr>
+<tr>
+<td></td>
+<td>type</td>
+<td>One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"</td>
+</tr>
+<tr>
+<td></td>
+<td>touchRadius</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>scale</td>
+<td>Used with marker_scale, increase/decrease size of various markers</td>
+</tr>
+<tr>
+<td></td>
+<td>length</td>
+<td>User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown</td>
+</tr>
+<tr>
+<td></td>
+<td>zoom</td>
+<td>Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed</td>
+</tr>
+<tr>
+<td><strong>&lt;feature&gt;</strong></td>
+<td></td>
+<td>Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents.</td>
+</tr>
+<tr>
+<td></td>
+<td>type</td>
+<td>"way" or "relation" to match the corresponding OSM elements, or a name</td>
+</tr>
+<tr>
+<td></td>
+<td>tags</td>
+<td>Tags to use for matching, ignored for named styles</td>
+</tr>
+<tr>
+<td></td>
+<td>closed</td>
+<td>If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations</td>
+</tr>
+<tr>
+<td></td>
+<td>area</td>
+<td>Use area semantics for rendering if true</td>
+</tr>
+<tr>
+<td></td>
+<td>dontrender</td>
+<td>Don't render the matching element</td>
+</tr>
+<tr>
+<td></td>
+<td>updateWidth</td>
+<td>Dynamically update the way width on zoom changes if true</td>
+</tr>
+<tr>
+<td></td>
+<td>widthFactor</td>
+<td>Determine a way width relative to the extent of the current map shown, ignored if updateWidth is false</td>
+</tr>
+<tr>
+<td></td>
+<td>color</td>
+<td>A 32bit hex value representing alpha and rgb</td>
+</tr>
+<tr>
+<td></td>
+<td>style</td>
+<td>One of "FILL", "FILL_AND_STROKE", "STROKE"</td>
+</tr>
+<tr>
+<td></td>
+<td>cap</td>
+<td>One of "BUTT", "ROUND", "SQUARE"</td>
+</tr>
+<tr>
+<td></td>
+<td>join</td>
+<td>One of "BEVEL", "MITER", "ROUND"</td>
+</tr>
+<tr>
+<td></td>
+<td>strokeWidth</td>
+<td>A float value for the width of the lines, 0 draws a one pixel width line, ignored if updateWidth is true</td>
+</tr>
+<tr>
+<td></td>
+<td>typefacestyle</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>textsize</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>shadow</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>pathPattern</td>
+<td>Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"</td>
+</tr>
+<tr>
+<td></td>
+<td>minVisibleZoom</td>
+<td>Minimum zoom that has to be reached before the element is rendered</td>
+</tr>
+<tr>
+<td></td>
+<td>casingStyle</td>
+<td>Reference to a style to use for casing</td>
+</tr>
+<tr>
+<td></td>
+<td>arrowStyle</td>
+<td>Reference to a style to use for way arrows</td>
+</tr>
+<tr>
+<td></td>
+<td>oneway</td>
+<td>Set this on the referenced arrowStyle if it should have oneway semantics</td>
+</tr>
+<tr>
+<td><strong>&lt;dash&gt;</strong></td>
+<td></td>
+<td>feature sub-element used to define a dash pattern</td>
+</tr>
+<tr>
+<td></td>
+<td>phase</td>
+<td>Phase of the dash</td>
+</tr>
+<tr>
+<td><strong>&lt;interval&gt;</strong></td>
+<td></td>
+<td>dash sub-element used to define the length of the dash/no-dash phases</td>
+</tr>
+<tr>
+<td></td>
+<td>length</td>
+<td>Length of the dash as a float</td>
+</tr>
+</tbody>
+</table>
+<h3 id="internal-features">Internal features</h3>
+<p>Styling for internal features is provided by the app, but they can be overridden by setting them in a style file.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gps_track</td>
+<td>Default style for GPX tracks</td>
+</tr>
+<tr>
+<td>infotext</td>
+<td></td>
+</tr>
+<tr>
+<td>attribution_text</td>
+<td>Text style for attribution notices on the map</td>
+</tr>
+<tr>
+<td>viewbox</td>
+<td></td>
+</tr>
+<tr>
+<td>way_tolerance</td>
+<td></td>
+</tr>
+<tr>
+<td>way_tolerance_2</td>
+<td></td>
+</tr>
+<tr>
+<td>way</td>
+<td>Default way style</td>
+</tr>
+<tr>
+<td>selected_way</td>
+<td>Selected way style</td>
+</tr>
+<tr>
+<td>selected_relation_way</td>
+<td>Style for relation member ways when the relation is selected</td>
+</tr>
+<tr>
+<td>problem_way</td>
+<td>Style for a way with an issue</td>
+</tr>
+<tr>
+<td>hidden_way</td>
+<td>Style for faint way rendering (used when filters are active)</td>
+</tr>
+<tr>
+<td>node_tolerance</td>
+<td></td>
+</tr>
+<tr>
+<td>node_tolerance_2</td>
+<td></td>
+</tr>
+<tr>
+<td>node</td>
+<td></td>
+</tr>
+<tr>
+<td>node_thin</td>
+<td></td>
+</tr>
+<tr>
+<td>node_tagged</td>
+<td></td>
+</tr>
+<tr>
+<td>node_drag_radius</td>
+<td>Style for the large drag radius</td>
+</tr>
+<tr>
+<td>problem_node</td>
+<td>Style for a node with an issue</td>
+</tr>
+<tr>
+<td>problem_node_thin</td>
+<td></td>
+</tr>
+<tr>
+<td>problem_node_tagged</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_node</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_node_thin</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_node_tagged</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_relation_node</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_relation_node_thin</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_relation_node_tagged</td>
+<td></td>
+</tr>
+<tr>
+<td>hidden_node</td>
+<td></td>
+</tr>
+<tr>
+<td>way_direction</td>
+<td></td>
+</tr>
+<tr>
+<td>large_drag_area</td>
+<td></td>
+</tr>
+<tr>
+<td>marker_scale</td>
+<td></td>
+</tr>
+<tr>
+<td>gps_pos</td>
+<td></td>
+</tr>
+<tr>
+<td>gps_pos_follow</td>
+<td></td>
+</tr>
+<tr>
+<td>gps_accuracy</td>
+<td></td>
+</tr>
+<tr>
+<td>open_note</td>
+<td></td>
+</tr>
+<tr>
+<td>closed_note</td>
+<td></td>
+</tr>
+<tr>
+<td>crosshairs</td>
+<td></td>
+</tr>
+<tr>
+<td>crosshairs_halo</td>
+<td></td>
+</tr>
+<tr>
+<td>handle</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_normal</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_small</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_normal_selected</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_small_selected</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_normal_problem</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_small_problem</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_background</td>
+<td></td>
+</tr>
+<tr>
+<td>geojson_default</td>
+<td>Default style for the geojson layer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example">Example</h3>
+<pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
+&lt;profile name="Color Round Nodes" format="0.2.0"&gt;
+    &lt;!-- Assorted config --&gt;
+    &lt;config type="min_handle_length" length="200.0" /&gt;
+    &lt;config type="icon_zoom_limit" zoom="15" /&gt;
+    &lt;!-- Vespucci internal styles --&gt;
+    &lt;feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokeWidth="0.0" /&gt;
+    &lt;feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
+    &lt;feature type="problem_way" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way_direction" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" /&gt;
+    &lt;feature type="handle" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" /&gt;
+    &lt;feature type="selected_way" updateWidth="true" widthFactor="2.0" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" /&gt;
+    &lt;feature type="way_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
+    &lt;feature type="way_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
+    &lt;feature type="gps_track" updateWidth="false" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0" /&gt;
+    &lt;feature type="node_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
+    &lt;feature type="node_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
+    &lt;feature type="infotext" updateWidth="false" widthFactor="1.0" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokeWidth="0.0" typefacestyle="0" textsize="12.0" /&gt;
+    &lt;feature type="viewbox" updateWidth="false" widthFactor="1.0" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokeWidth="0.0" /&gt;
+    &lt;feature type="gps_pos" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokeWidth="2.0" /&gt;
+    &lt;feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0"/&gt;
+    &lt;feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" /&gt;
+    &lt;!-- OSM node based features currently internal features --&gt;
+    &lt;feature type="node" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
+    &lt;feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="selected_node_tagged" updateWidth="true" widthFactor="2.0" color="fff6e497" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
+    &lt;feature type="problem_node" updateWidth="true" widthFactor="2.0" color="ffff00ff" style="STROKE" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" /&gt;
+
+    &lt;!-- Arrow styles --&gt;
+    &lt;feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" /&gt;
+    &lt;feature type="waterway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" /&gt;
+
+    &lt;!-- OSM way based features --&gt;
+    &lt;feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="6.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="route" updateWidth="true" widthFactor="0.6" color="880000AA" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="3.0" /&gt;
+            &lt;interval length="3.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right"&gt;
+        &lt;feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" /&gt;
+        &lt;feature type="way" tags="landuse=residential" minVisibleZoom="10" color="88888888" /&gt;
+        &lt;feature type="way" tags="landuse=quarry" color="88d8a2a2" /&gt;
+        &lt;feature type="way" tags="landuse=military" color="88af2626" /&gt;
+        &lt;feature type="way" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" /&gt;
+        &lt;feature type="way" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" /&gt;
+        &lt;feature type="way" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" /&gt;
+        &lt;feature type="way" tags="landuse=railway" minVisibleZoom="10" color="88A3709A" /&gt;
+    &lt;/feature&gt;
+
+    &lt;feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="8839AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="880000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"&gt; 
+        &lt;feature type="way" tags="natural" closed="true" area="true" pathPattern="border_right" &gt;
+            &lt;feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
+        &lt;feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" /&gt;
+        &lt;feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" /&gt;
+        &lt;feature type="way" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" /&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="waterway_direction" &gt;
+        &lt;feature type="way" tags="waterway=riverbank" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="" /&gt;
+        &lt;feature type="way" tags="waterway=weir" widthFactor="2.0" color="ff0000ff" pathPattern="triangle_right" /&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="man_made" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" &gt;
+        &lt;feature type="way" tags="man_made=embankment" color="ff996633" pathPattern="triangle_right" /&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="building" updateWidth="true" widthFactor="1.0" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way" tags="building:part" updateWidth="true" widthFactor="0.8" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" &gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="motorway_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="motorway_bridge_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="primary_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="primary_bridge_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="secondary_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="secondary_bridge_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="teritary_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="tertiary_bridge_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="unclassified_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="unclassified_bridge_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="residential_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="residential_bridge_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" arrowStyle="oneway_direction"&gt;
+        &lt;feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" /&gt;
+        &lt;feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" /&gt;
+        &lt;feature type="way" tags="highway=pedestrian" widthFactor="0.8" color="ff888888" /&gt;
+        &lt;feature type="way" tags="highway=path" widthFactor="0.6" color="ffc69c49" /&gt;
+        &lt;feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" /&gt;
+        &lt;feature type="way" tags="highway=footway" widthFactor="0.6" color="ffff4500" /&gt;
+        &lt;feature type="way" tags="highway=steps"  widthFactor="0.6" color="ffff4500" &gt;
+            &lt;dash phase="1.0"&gt;
+               &lt;interval length="1.0" /&gt;
+               &lt;interval length="1.0" /&gt;
+            &lt;/dash&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49" /&gt;
+        &lt;feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" casingStyle="motorway_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="motorway_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=motorway_link" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=trunk" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" casingStyle="trunk_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="trunk_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=trunk_link" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" casingStyle="primary_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="primary_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=primary_link" widthFactor="1.5" color="ffE46D71" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" casingStyle="secondary_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="secondary_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=secondary_link" widthFactor="1.2" color="ffFDBF6F" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=tertiary" widthFactor="1.0" color="ffFCFA74" casingStyle="tertiary_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="tertiary_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=tertiary_link" widthFactor="1.0" color="ffFCFA74" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" casingStyle="unclassified_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="unclassifies_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" casingStyle="residential_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="residential_bridge_casing" /&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=living_street" widthFactor="0.9" color="ffff4500" /&gt;
+        &lt;feature type="way" tags="highway=service" widthFactor="0.7" color="ffCCCCCC" /&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="power" updateWidth="true" widthFactor="0.6" color="ffaa0000" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="railway" updateWidth="true" widthFactor="0.7" color="ff999999" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="4.0" /&gt;
+            &lt;interval length="4.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="addr:interpolation" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="amenity" updateWidth="true" widthFactor="0.8" color="ffCCCC00" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+        &lt;feature type="way" tags="amenity=parking" color="ff99CCFF"  /&gt;
+        &lt;feature type="way" tags="amenity=bicycle_parking"  color="ff99CCFF" /&gt;
+        &lt;feature type="way" tags="amenity=motorcycle_parking" color="ff99CCFF" /&gt;
+    &lt;/feature&gt;
+
+    &lt;feature type="way" tags="leisure=playground" area="true" updateWidth="true" widthFactor="0.8" color="88f4a460" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right" /&gt;
+
+    &lt;!-- Indoor features --&gt;
+    &lt;feature type="way" tags="indoor" updateWidth="true" widthFactor="0.7" color="99f4a442" style="STROKE" cap="BUTT" join="MITER" &gt;
+        &lt;feature type="way" tags="indoor=level" updateWidth="true" widthFactor="0.7" color="99f2c791" style="STROKE" cap="BUTT" join="MITER" /&gt;
+        &lt;feature type="way" tags="indoor=room" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
+        &lt;feature type="way" tags="indoor=corridor" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;/feature&gt;
+
+    &lt;!-- relations (only multipolygons currently --&gt;
+    &lt;feature type="relation" updateWidth="true" widthFactor="1.0" color="ff222222" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="relation" tags="type=multipolygon" updateWidth="true" widthFactor="0.8" color="88222222" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right"&gt;
+        &lt;feature type="relation" tags="building" widthFactor="1.0" color="ffcc9999"/&gt;
+        &lt;feature type="relation" tags="leisure=playground" widthFactor="0.8" color="88f4a460" style="FILL_AND_STROKE" /&gt;
+        &lt;feature type="relation" tags="natural" color="ff71BE80" &gt;
+            &lt;feature type="relation" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
+            &lt;feature type="relation" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" /&gt;
+            &lt;feature type="relation" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" /&gt;
+            &lt;feature type="relation" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" /&gt;
+        &lt;/feature&gt;
+        &lt;feature type="relation" tags="landuse" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="BEVEL" pathPattern="border_right" &gt;
+            &lt;feature type="relation" tags="landuse=construction" color="88996633" /&gt;
+            &lt;feature type="relation" tags="landuse=residential" minVisibleZoom="10" color="88888888" /&gt;
+            &lt;feature type="relation" tags="landuse=quarry" color="88d8a2a2" /&gt;
+            &lt;feature type="relation" tags="landuse=military" color="88af2626" /&gt;
+            &lt;feature type="relation" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" /&gt;
+            &lt;feature type="relation" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" /&gt;
+            &lt;feature type="relation" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" /&gt;
+            &lt;feature type="relation" tags="landuse=railway" minVisibleZoom="10" color="88A3709A" /&gt;
+        &lt;/feature&gt;
+    &lt;/feature&gt;
+&lt;/profile&gt;
+</code></pre></div> -->
+                
+                    <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#vespucci-data-styling">Vespucci Data Styling</a></li>
+            <li><a href="#style-elements-and-attributes">Style Elements and Attributes</a></li>
+            <li><a href="#internal-features">Internal features</a></li>
+            <li><a href="#example">Example</a></li>
+    </ul>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="vespucci-data-styling">Vespucci Data Styling</h2>
+<p><em>Documentation for Vespucci 14.1</em></p>
+<p>The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.</p>
+<h3 id="style-elements-and-attributes">Style Elements and Attributes</h3>
+<p>The styles are for a major part not much more than an external representation of the <a href="https://developer.android.com/reference/android/graphics/Paint">Android Paint</a> objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Attributes</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&lt;profile&gt;</strong></td>
+<td></td>
+<td>Top level enclosing element</td>
+</tr>
+<tr>
+<td></td>
+<td>name</td>
+<td>Style name</td>
+</tr>
+<tr>
+<td></td>
+<td>format</td>
+<td>Format version, currently 0.2.0</td>
+</tr>
+<tr>
+<td><strong>&lt;!--&nbsp;comment&nbsp;--&gt;</strong></td>
+<td></td>
+<td>A comment</td>
+</tr>
+<tr>
+<td><strong>&lt;config&gt;</strong></td>
+<td></td>
+<td>Configuration element</td>
+</tr>
+<tr>
+<td></td>
+<td>type</td>
+<td>One of "large_drag_area", "marker_scale", "min_handle_len", "icon_zoom_limit"</td>
+</tr>
+<tr>
+<td></td>
+<td>touchRadius</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>scale</td>
+<td>Used with marker_scale, increase/decrease size of various markers</td>
+</tr>
+<tr>
+<td></td>
+<td>length</td>
+<td>User with min_handle_len, defines the minimum length a way segment must have on screen so that the geometry improvement handles are shown</td>
+</tr>
+<tr>
+<td></td>
+<td>zoom</td>
+<td>Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed</td>
+</tr>
+<tr>
+<td><strong>&lt;feature&gt;</strong></td>
+<td></td>
+<td>Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents.</td>
+</tr>
+<tr>
+<td></td>
+<td>type</td>
+<td>"way" or "relation" to match the corresponding OSM elements, or a name</td>
+</tr>
+<tr>
+<td></td>
+<td>tags</td>
+<td>Tags to use for matching, ignored for named styles</td>
+</tr>
+<tr>
+<td></td>
+<td>closed</td>
+<td>If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations</td>
+</tr>
+<tr>
+<td></td>
+<td>area</td>
+<td>Use area semantics for rendering if true</td>
+</tr>
+<tr>
+<td></td>
+<td>dontrender</td>
+<td>Don't render the matching element</td>
+</tr>
+<tr>
+<td></td>
+<td>updateWidth</td>
+<td>Dynamically update the way width on zoom changes if true</td>
+</tr>
+<tr>
+<td></td>
+<td>widthFactor</td>
+<td>Determine a way width relative to the extent of the current map shown, ignored if updateWidth is false</td>
+</tr>
+<tr>
+<td></td>
+<td>color</td>
+<td>A 32bit hex value representing alpha and rgb</td>
+</tr>
+<tr>
+<td></td>
+<td>style</td>
+<td>One of "FILL", "FILL_AND_STROKE", "STROKE"</td>
+</tr>
+<tr>
+<td></td>
+<td>cap</td>
+<td>One of "BUTT", "ROUND", "SQUARE"</td>
+</tr>
+<tr>
+<td></td>
+<td>join</td>
+<td>One of "BEVEL", "MITER", "ROUND"</td>
+</tr>
+<tr>
+<td></td>
+<td>strokeWidth</td>
+<td>A float value for the width of the lines, 0 draws a one pixel width line, ignored if updateWidth is true</td>
+</tr>
+<tr>
+<td></td>
+<td>typefacestyle</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>textsize</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>shadow</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>pathPattern</td>
+<td>Reference to a pattern to apply along the path, one of "triangle_left", "triangle_right", "border_left", "border_right"</td>
+</tr>
+<tr>
+<td></td>
+<td>minVisibleZoom</td>
+<td>Minimum zoom that has to be reached before the element is rendered</td>
+</tr>
+<tr>
+<td></td>
+<td>casingStyle</td>
+<td>Reference to a style to use for casing</td>
+</tr>
+<tr>
+<td></td>
+<td>arrowStyle</td>
+<td>Reference to a style to use for way arrows</td>
+</tr>
+<tr>
+<td></td>
+<td>oneway</td>
+<td>Set this on the referenced arrowStyle if it should have oneway semantics</td>
+</tr>
+<tr>
+<td><strong>&lt;dash&gt;</strong></td>
+<td></td>
+<td>feature sub-element used to define a dash pattern</td>
+</tr>
+<tr>
+<td></td>
+<td>phase</td>
+<td>Phase of the dash</td>
+</tr>
+<tr>
+<td><strong>&lt;interval&gt;</strong></td>
+<td></td>
+<td>dash sub-element used to define the length of the dash/no-dash phases</td>
+</tr>
+<tr>
+<td></td>
+<td>length</td>
+<td>Length of the dash as a float</td>
+</tr>
+</tbody>
+</table>
+<h3 id="internal-features">Internal features</h3>
+<p>Styling for internal features is provided by the app, but they can be overridden by setting them in a style file.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gps_track</td>
+<td>Default style for GPX tracks</td>
+</tr>
+<tr>
+<td>infotext</td>
+<td></td>
+</tr>
+<tr>
+<td>attribution_text</td>
+<td>Text style for attribution notices on the map</td>
+</tr>
+<tr>
+<td>viewbox</td>
+<td></td>
+</tr>
+<tr>
+<td>way_tolerance</td>
+<td></td>
+</tr>
+<tr>
+<td>way_tolerance_2</td>
+<td></td>
+</tr>
+<tr>
+<td>way</td>
+<td>Default way style</td>
+</tr>
+<tr>
+<td>selected_way</td>
+<td>Selected way style</td>
+</tr>
+<tr>
+<td>selected_relation_way</td>
+<td>Style for relation member ways when the relation is selected</td>
+</tr>
+<tr>
+<td>problem_way</td>
+<td>Style for a way with an issue</td>
+</tr>
+<tr>
+<td>hidden_way</td>
+<td>Style for faint way rendering (used when filters are active)</td>
+</tr>
+<tr>
+<td>node_tolerance</td>
+<td></td>
+</tr>
+<tr>
+<td>node_tolerance_2</td>
+<td></td>
+</tr>
+<tr>
+<td>node</td>
+<td></td>
+</tr>
+<tr>
+<td>node_thin</td>
+<td></td>
+</tr>
+<tr>
+<td>node_tagged</td>
+<td></td>
+</tr>
+<tr>
+<td>node_drag_radius</td>
+<td>Style for the large drag radius</td>
+</tr>
+<tr>
+<td>problem_node</td>
+<td>Style for a node with an issue</td>
+</tr>
+<tr>
+<td>problem_node_thin</td>
+<td></td>
+</tr>
+<tr>
+<td>problem_node_tagged</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_node</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_node_thin</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_node_tagged</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_relation_node</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_relation_node_thin</td>
+<td></td>
+</tr>
+<tr>
+<td>selected_relation_node_tagged</td>
+<td></td>
+</tr>
+<tr>
+<td>hidden_node</td>
+<td></td>
+</tr>
+<tr>
+<td>way_direction</td>
+<td></td>
+</tr>
+<tr>
+<td>large_drag_area</td>
+<td></td>
+</tr>
+<tr>
+<td>marker_scale</td>
+<td></td>
+</tr>
+<tr>
+<td>gps_pos</td>
+<td></td>
+</tr>
+<tr>
+<td>gps_pos_follow</td>
+<td></td>
+</tr>
+<tr>
+<td>gps_accuracy</td>
+<td></td>
+</tr>
+<tr>
+<td>open_note</td>
+<td></td>
+</tr>
+<tr>
+<td>closed_note</td>
+<td></td>
+</tr>
+<tr>
+<td>crosshairs</td>
+<td></td>
+</tr>
+<tr>
+<td>crosshairs_halo</td>
+<td></td>
+</tr>
+<tr>
+<td>handle</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_normal</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_small</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_normal_selected</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_small_selected</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_normal_problem</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_small_problem</td>
+<td></td>
+</tr>
+<tr>
+<td>labeltext_background</td>
+<td></td>
+</tr>
+<tr>
+<td>geojson_default</td>
+<td>Default style for the geojson layer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example">Example</h3>
+<pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
+&lt;profile name="Color Round Nodes" format="0.2.0"&gt;
+    &lt;!-- Assorted config --&gt;
+    &lt;config type="min_handle_length" length="200.0" /&gt;
+    &lt;config type="icon_zoom_limit" zoom="15" /&gt;
+    &lt;!-- Vespucci internal styles --&gt;
+    &lt;feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokeWidth="0.0" /&gt;
+    &lt;feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
+    &lt;feature type="problem_way" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way_direction" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" /&gt;
+    &lt;feature type="handle" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" /&gt;
+    &lt;feature type="selected_way" updateWidth="true" widthFactor="2.0" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" /&gt;
+    &lt;feature type="way_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
+    &lt;feature type="way_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
+    &lt;feature type="gps_track" updateWidth="false" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0" /&gt;
+    &lt;feature type="node_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
+    &lt;feature type="node_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="40.0" /&gt;
+    &lt;feature type="infotext" updateWidth="false" widthFactor="1.0" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokeWidth="0.0" typefacestyle="0" textsize="12.0" /&gt;
+    &lt;feature type="viewbox" updateWidth="false" widthFactor="1.0" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokeWidth="0.0" /&gt;
+    &lt;feature type="gps_pos" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokeWidth="2.0" /&gt;
+    &lt;feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0"/&gt;
+    &lt;feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" /&gt;
+    &lt;!-- OSM node based features currently internal features --&gt;
+    &lt;feature type="node" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
+    &lt;feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="selected_node_tagged" updateWidth="true" widthFactor="2.0" color="fff6e497" style="FILL" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" /&gt;
+    &lt;feature type="problem_node" updateWidth="true" widthFactor="2.0" color="ffff00ff" style="STROKE" cap="ROUND" join="MITER" /&gt;
+    &lt;feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" /&gt;
+
+    &lt;!-- Arrow styles --&gt;
+    &lt;feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" /&gt;
+    &lt;feature type="waterway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" /&gt;
+
+    &lt;!-- OSM way based features --&gt;
+    &lt;feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="6.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="route" updateWidth="true" widthFactor="0.6" color="880000AA" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="3.0" /&gt;
+            &lt;interval length="3.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right"&gt;
+        &lt;feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" /&gt;
+        &lt;feature type="way" tags="landuse=residential" minVisibleZoom="10" color="88888888" /&gt;
+        &lt;feature type="way" tags="landuse=quarry" color="88d8a2a2" /&gt;
+        &lt;feature type="way" tags="landuse=military" color="88af2626" /&gt;
+        &lt;feature type="way" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" /&gt;
+        &lt;feature type="way" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" /&gt;
+        &lt;feature type="way" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" /&gt;
+        &lt;feature type="way" tags="landuse=railway" minVisibleZoom="10" color="88A3709A" /&gt;
+    &lt;/feature&gt;
+
+    &lt;feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="8839AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="880000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"&gt; 
+        &lt;feature type="way" tags="natural" closed="true" area="true" pathPattern="border_right" &gt;
+            &lt;feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
+        &lt;feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" /&gt;
+        &lt;feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" /&gt;
+        &lt;feature type="way" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" /&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="waterway_direction" &gt;
+        &lt;feature type="way" tags="waterway=riverbank" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="" /&gt;
+        &lt;feature type="way" tags="waterway=weir" widthFactor="2.0" color="ff0000ff" pathPattern="triangle_right" /&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="man_made" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" &gt;
+        &lt;feature type="way" tags="man_made=embankment" color="ff996633" pathPattern="triangle_right" /&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="building" updateWidth="true" widthFactor="1.0" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="way" tags="building:part" updateWidth="true" widthFactor="0.8" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" &gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="motorway_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="motorway_bridge_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="primary_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="primary_bridge_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="secondary_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="secondary_bridge_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="teritary_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="tertiary_bridge_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="unclassified_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="unclassified_bridge_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="residential_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="residential_bridge_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" arrowStyle="oneway_direction"&gt;
+        &lt;feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" /&gt;
+        &lt;feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" /&gt;
+        &lt;feature type="way" tags="highway=pedestrian" widthFactor="0.8" color="ff888888" /&gt;
+        &lt;feature type="way" tags="highway=path" widthFactor="0.6" color="ffc69c49" /&gt;
+        &lt;feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" /&gt;
+        &lt;feature type="way" tags="highway=footway" widthFactor="0.6" color="ffff4500" /&gt;
+        &lt;feature type="way" tags="highway=steps"  widthFactor="0.6" color="ffff4500" &gt;
+            &lt;dash phase="1.0"&gt;
+               &lt;interval length="1.0" /&gt;
+               &lt;interval length="1.0" /&gt;
+            &lt;/dash&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49" /&gt;
+        &lt;feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" casingStyle="motorway_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="motorway_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=motorway_link" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=trunk" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" casingStyle="trunk_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="trunk_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=trunk_link" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" casingStyle="primary_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="primary_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=primary_link" widthFactor="1.5" color="ffE46D71" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" casingStyle="secondary_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="secondary_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=secondary_link" widthFactor="1.2" color="ffFDBF6F" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=tertiary" widthFactor="1.0" color="ffFCFA74" casingStyle="tertiary_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="tertiary_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=tertiary_link" widthFactor="1.0" color="ffFCFA74" &gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" casingStyle="unclassified_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="unclassifies_bridge_casing" /&gt;
+            &lt;feature type="way" tags="tunnel=yes" casingStyle=""&gt;
+                &lt;dash phase="1.0"&gt;
+                    &lt;interval length="1.0" /&gt;
+                    &lt;interval length="1.0" /&gt;
+                &lt;/dash&gt;
+            &lt;/feature&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" casingStyle="residential_casing" &gt;
+            &lt;feature type="way" tags="bridge=yes" casingStyle="residential_bridge_casing" /&gt;
+        &lt;/feature&gt;
+        &lt;feature type="way" tags="highway=living_street" widthFactor="0.9" color="ffff4500" /&gt;
+        &lt;feature type="way" tags="highway=service" widthFactor="0.7" color="ffCCCCCC" /&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="power" updateWidth="true" widthFactor="0.6" color="ffaa0000" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="railway" updateWidth="true" widthFactor="0.7" color="ff999999" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="4.0" /&gt;
+            &lt;interval length="4.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="addr:interpolation" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+    &lt;/feature&gt;
+    &lt;feature type="way" tags="amenity" updateWidth="true" widthFactor="0.8" color="ffCCCC00" style="STROKE" cap="BUTT" join="MITER"&gt;
+        &lt;dash phase="1.0"&gt;
+            &lt;interval length="2.0" /&gt;
+            &lt;interval length="2.0" /&gt;
+        &lt;/dash&gt;
+        &lt;feature type="way" tags="amenity=parking" color="ff99CCFF"  /&gt;
+        &lt;feature type="way" tags="amenity=bicycle_parking"  color="ff99CCFF" /&gt;
+        &lt;feature type="way" tags="amenity=motorcycle_parking" color="ff99CCFF" /&gt;
+    &lt;/feature&gt;
+
+    &lt;feature type="way" tags="leisure=playground" area="true" updateWidth="true" widthFactor="0.8" color="88f4a460" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right" /&gt;
+
+    &lt;!-- Indoor features --&gt;
+    &lt;feature type="way" tags="indoor" updateWidth="true" widthFactor="0.7" color="99f4a442" style="STROKE" cap="BUTT" join="MITER" &gt;
+        &lt;feature type="way" tags="indoor=level" updateWidth="true" widthFactor="0.7" color="99f2c791" style="STROKE" cap="BUTT" join="MITER" /&gt;
+        &lt;feature type="way" tags="indoor=room" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
+        &lt;feature type="way" tags="indoor=corridor" updateWidth="true" widthFactor="0.7" color="99f2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;/feature&gt;
+
+    &lt;!-- relations (only multipolygons currently --&gt;
+    &lt;feature type="relation" updateWidth="true" widthFactor="1.0" color="ff222222" style="STROKE" cap="BUTT" join="MITER" /&gt;
+    &lt;feature type="relation" tags="type=multipolygon" updateWidth="true" widthFactor="0.8" color="88222222" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right"&gt;
+        &lt;feature type="relation" tags="building" widthFactor="1.0" color="ffcc9999"/&gt;
+        &lt;feature type="relation" tags="leisure=playground" widthFactor="0.8" color="88f4a460" style="FILL_AND_STROKE" /&gt;
+        &lt;feature type="relation" tags="natural" color="ff71BE80" &gt;
+            &lt;feature type="relation" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" /&gt;
+            &lt;feature type="relation" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" /&gt;
+            &lt;feature type="relation" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" /&gt;
+            &lt;feature type="relation" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" /&gt;
+        &lt;/feature&gt;
+        &lt;feature type="relation" tags="landuse" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="BEVEL" pathPattern="border_right" &gt;
+            &lt;feature type="relation" tags="landuse=construction" color="88996633" /&gt;
+            &lt;feature type="relation" tags="landuse=residential" minVisibleZoom="10" color="88888888" /&gt;
+            &lt;feature type="relation" tags="landuse=quarry" color="88d8a2a2" /&gt;
+            &lt;feature type="relation" tags="landuse=military" color="88af2626" /&gt;
+            &lt;feature type="relation" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" /&gt;
+            &lt;feature type="relation" tags="landuse=industrial" minVisibleZoom="10" color="88A3709A" /&gt;
+            &lt;feature type="relation" tags="landuse=commercial" minVisibleZoom="10" color="88A3709A" /&gt;
+            &lt;feature type="relation" tags="landuse=railway" minVisibleZoom="10" color="88A3709A" /&gt;
+        &lt;/feature&gt;
+    &lt;/feature&gt;
+&lt;/profile&gt;
+</code></pre></div>
+                
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 14.0.0 </p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
