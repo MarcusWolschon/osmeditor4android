@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 14.1 BETA Highlights</h1>
+<p>This is a minor release with many small improvements.</p>
+<h3>Add and check website tags with dialog</h3>
+<p>This replaces the prior pre-filled in <em>http://</em> prefix in the text fields with a dialog that allows checking the domain on the fly, and adding the correct protocol automatically. This requires network connectivity to work.</p>
+<h3>Preset matching improvements</h3>
+<p>We now support a <em>min_match</em> preset item attribute that can be used to set how many fixed value tags need to match before the preset is considered for further scoring. Prior behaviour, and the default, is that all fixed tags need to match. This allows for better matching and handling of objects that currently have widespread use of two independent top level tags, for example <em>amenity=doctors</em> together with <em>healthcare=doctor</em>.</p>
+<h3>Data rendering</h3>
+<p>Simple closed-way based areas can now be rendered separately from a non-closed way with the same tags. Some initial incomplete documentation on the styling system has been added to the tutorials section.</p>
+<h3>Improved external location sources support</h3>
+<p>This release fixes a regression that stopped external location sources (for example Rtklib) working for devices with Android N and later. Additionally stability of the system when using such sources has been improved, including better messaging.</p>
+<h3>Support for filtering background / overlay imagery by category</h3>
+<p>Imagery layers now have a <em>category</em> attribute that can be used to filter the layers in the selection dialogs. Currently the UI just offers <em>All</em> and <em>Aerial imagery</em> (that is current/recent aerial and satellite imagery), but if there is interest this can be refined further.</p>
+<h3>Use location to determine appropriate language specific tags</h3>
+<p>This replaces the facility that added language specific tags based on the device language. <em>Add language tags</em> will now add language tags based on the location and the corresponding configuration from  <a href="https://github.com/simonpoole/geocontext/">https://github.com/simonpoole/geocontext/</a>.</p>
+<p>Example: adding a restaurant in Switzerland and then selecting <em>Add language tags</em> in the property editor will add <em>name:de</em>, <em>name:fr</em>, <em>name:it</em>, <em>name:rm</em> and <em>name:gsw</em> tags.</p>
+<h2>Miscellaneous</h2>
+<ul>
+<li>Improvements custom imagery, OAM support and imagery layer info</li>
+<li>Add mechanism to filter out bad OAM entries</li>
+<li>Display a toast if the user needs to restart the app after a preference change</li>
+<li>Add preference to control phone number formatting</li>
+<li>Support adding empty value values to MRU when use_last_as_default is set</li>
+<li>Add facility to determine if there is device specific brokeness (fullscreen mode support)</li>
+<li>Support autoapply preset attribute to avoid applying preset automatically when it will break things.</li>
+<li>Use Note specific icons</li>
+<li>Add support for tunnel and bridge specific rendering for some roads</li>
+</ul>
+<h1>Upgrading from previous versions</h1>
+<ul>
+<li>Currently no special actions are required.</li>
+</ul>
+<h1>Known problems</h1>
+<ul>
+<li>When editing multi-valued text fields, specifically <em>destination:lanes</em>, an empty final value will result in the trailing separator to be removed, see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/1072">issue 1072</a> and <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/1073">issue 1073</a>.</li>
+<li>The documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+
+</body>
+</html>

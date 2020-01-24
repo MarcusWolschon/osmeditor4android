@@ -29,7 +29,7 @@ Note: the map tiles are cached on device and only deleted if explicitly flushed.
 
 ### Layer control
 
-Vespucci supports a tiled background imagery layer, a tiled overlay background layer, a grid/scale layer, a task layer, a photo layer, a GeoJSON layer, a GPX/GPS layer and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).
+Vespucci currently supports a tiled background imagery layer, a tiled overlay layer, a grid/scale layer, a task layer, a photo layer, a GeoJSON layer, a GPX/GPS layer and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).
 
 Currently it is not possible to change the ordering or add more than one layer of a specific type. The layer dialog supports the following: 
 
