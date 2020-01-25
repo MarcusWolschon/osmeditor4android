@@ -1406,11 +1406,14 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Update the state of the onscreen zoom controls to reflect their ability to zoom in/out.
+     * 
+     * Will trigger an update of any menubars
      */
     private void updateZoomControls() {
         final Logic logic = App.getLogic();
         getControls().setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
         getControls().setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
+        triggerMenuInvalidation();
     }
 
     @Override
@@ -4086,6 +4089,9 @@ public class Main extends FullScreenAppCompatActivity
     public void triggerMenuInvalidation() {
         Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
         supportInvalidateOptionsMenu();
+        if (easyEditManager != null && easyEditManager.isProcessingAction()) {
+            easyEditManager.invalidate();
+        }
     }
 
     /**
