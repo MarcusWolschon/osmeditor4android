@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../en/14.1.0 Release notes/">14.1.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../en/14.0.0 Release notes/">14.0.0 Release notes</a>
 </li>
                                         
@@ -306,13 +310,12 @@ i-->
 <h3 id="telecharger-des-donnees-osm">Télécharger des données OSM</h3>
 <p>Selectionnez soit l’icône de transfert <img alt="Transfer" src="../../images/menu_transfer.png" />, soit l'onglet Transfert dans le menu. Cela affiche sept options :</p>
 <ul>
-<li><strong>Télécharger la vue courante</strong> : télécharge la zone visible à l'écran et remplace les données existantes <em>(nécessite une connexion réseau)</em></li>
-<li><strong>Ajouter les données de la vue courante</strong> : télécharge la zone visible à l'écran et la fusionne avec les données existantes <em>(nécessite une connexion réseau)</em></li>
-<li><strong>Télécharger à un autre endroit</strong> : affiche un formulaire permettant de rechercher un lieu, d'entrer des coordonnées directement, ou d'utiliser la position actuelle pour télécharger une zone autour de ce point <em>(nécessite une connexion réseau)</em></li>
-<li><strong>Envoyer les données au serveur OSM</strong> : envoie les modifications vers OpenStreetMap <em>(nécessite d'être authentifié)</em> <em>(nécessite une connexion réseau)</em></li>
-<li><strong>Téléchargement automatique</strong> : télécharge automatiquement la zone autour de la position courante <em>(nécessite une connexion réseau)</em> <em>(nécessite le GPS)</em></li>
-<li><strong>Fichier…</strong> : sauvegarde ou ouvre les données OSM dans des fichiers locaux</li>
-<li><strong>Notes/Bugs…</strong> : télécharge (automatiquement et manuellement) les Notes OSM et les « bugs » des outils d'assurance qualité (Osmose pour l'instant) <em>(nécessite une connexion réseau)</em></li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>La manière la plus simple de télécharger des données est de zoomer et de se déplacer vers le lieu que vous voulez éditer, puis de sélectionner « Télécharger la vue courante ». Vous pouvez zoomer avec deux doigts, avec les boutons de zoom, ou avec les boutons de volume de l'appareil. Vespucci va alors télécharger les données de la vue courante. Il n'y a pas besoin d'être authentifié pour télécharger les données sur votre appareil. </p>
 <h3 id="editer">Éditer</h3>
@@ -381,11 +384,11 @@ i-->
 <h4 id="couper-copier-et-coller">Couper, copier et coller</h4>
 <p>Vous pouvez couper ou copier des nœuds ou chemins sélectionnés, puis les coller à une ou plusieurs reprises à de nouveaux endroits. Couper conservera l'identifiant OSM et l'historique de l'élément. Pour coller, touchez de façon prolongée le lieu où vous voulez coller (qui sera marqué par un réticule), puis sélectionnez « Coller » dans le menu.</p>
 <h4 id="ajouter-efficacement-des-adresses">Ajouter efficacement des adresses</h4>
-<p>Vespucci propose une fonction « ajouter un attribut d'adresse » qui essaie de rendre plus efficace la collecte des adresses. Elle peut être utilisée :</p>
+<p>Vespucci has an <img alt="Address" src="../../images/address.png" /> "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:</p>
 <ul>
-<li>Après un appui prolongé : Vespucci ajoutera un nœud à cet endroit, essaiera de déterminer le numéro du bâtiment et ajoutera les attributs d'adresse que vous avez récemment utilisés. Si le nœud se situe sur le chemin traçant un bâtiment, un tag « entrance=yes » y sera automatiquement ajouté. L'éditeur d'attributs s'ouvrira alors pour l'objet en question pour vous permettre de faire les changements nécessaires.</li>
-<li>Dans le mode de sélection de nœud ou de chemin : Vespucci ajoutera les attributs d'adresse comme ci-dessus et affichera l'éditeur d'attributs.</li>
-<li>Dans l'éditeur d'attributs.</li>
+<li>after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
+<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
+<li>in the property editor.</li>
 </ul>
 <p>La prédiction du numéro de bâtiment nécessite normalement pour fonctionner qu'au moins deux numéros de chaque côté de la voie soient déjà présents. Plus nombreux sont les numéros déjà renseignés, meilleure est la prédiction.</p>
 <p>Vous pourriez envisager d'utiliser cette fonction avec le mode de <a href="#download">téléchargement automatique</a>  </p>
@@ -433,7 +436,7 @@ i-->
 <p>En mode C seuls les objets avec un avertissement sont affichés, ce qui rend facile la détection des objets qui ont leur propre problème ou qui correspondent à des tests configurables. Si un objet est sélectionné et que l'éditeur de propriétés est démarré dans le mode C, le modèle d'attributs le plus proche sera automatiquement appliqué.</p>
 <p>Le mode peut être activé par un appui long sur le cadenas, voir <a href="#lock">Lock, unlock, mode switching</a> et en sélectionnant l'entrée du menu correspondant.</p>
 <h3 id="configurer-des-tests">Configurer des tests</h3>
-<p>Actuellement il y a deux tests configurables (le test pour l'attribut FIXME et le test pour l'attribut de type manquant sur les relations ne sont pas actuellement configurables). Ces deux tests peuvent être configurés en sélectionnant les « préférences du validateur » dans « Préférences ». </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". </p>
 <p>La liste des entrées est coupée en deux, la première moitié liste les entrée « nouveau relevé de terrain » et la deuxième moité les « vérifications ». On peut modifier les entrées en cliquant dessus et le bouton de menu vert permet d'ajouter des entrées.</p>
 <h4 id="entrees-de-demande-de-nouveaux-releves-de-terrain">Entrées de demande de nouveaux relevés de terrain</h4>
 <p>Les entrées de demande de nouveaux relevés de terrain ont les propriétés suivantes :</p>
@@ -457,22 +460,28 @@ i-->
 <h3 id="filtre-base-sur-les-modeles">Filtre basé sur les modèles</h3>
 <p>Autrement, les objets peuvent être filtrés suivant des modèles individuels ou des groupes de modèles. Appuyez sur l'icône de filtre pour afficher un dialogue de sélection de modèles similaire à ceux utilisés ailleurs dans Vespucci. On peut sélectionner des modèles individuels en cliquant simplement dessus, et des groupes de modèles en cliquant longuement (un clic normal ouvre le groupe). Plus de documentation sur <a href="Preset%20filter.md">Fitre de modèle</a>.</p>
 <h2 id="personnaliser-vespucci">Personnaliser Vespucci</h2>
-<h3 id="parametres-que-vous-pourriez-vouloir-changer">Paramètres que vous pourriez vouloir changer</h3>
+<p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<h3 id="layer-settings">Layer settings</h3>
+<p>Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.</p>
 <ul>
-<li>Couche de fond de carte</li>
-<li>Surcouche. Ajouter une surcouche peut poser des problèmes avec les anciens appareils avec une mémoire limitée. Par défaut : aucune.</li>
-<li>Affichage des notes et des bugs. Les notes et les bugs ouverts seront affichés avec une icône d'insecte jaune, ceux qui sont fermés avec une icône verte. Par défaut : activé.</li>
-<li>Couche photo. Affiche des photos géo-référencées avec une icône d'appareil rouge, si l'information de direction est disponible, l'icône sera tournée. Par défaut : désactivé.</li>
-<li>Garder l'écran allumé. Par défaut : désactivé.</li>
-<li>Zone élargie de déplacement des nœuds. Déplacer des nœuds sur les appareils avec une entrée tactile est difficile parce que vos doigts cachent la position actuelle. Activer cette option fournira de plus grandes zones pour déplacer un objet sans devoir en toucher le centre (la sélection et les autres opérations utiliseront toujours la zone interactive normale). Par défaut : désactivé.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
 </ul>
+<h4 id="preferences">Preferences</h4>
+<ul>
+<li>Keep screen on. Default: off.</li>
+<li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
+</ul>
+<p>The full description can be found here <a href="Preferences.md">Preferences</a></p>
 <h4 id="preferences-avancees">Préférences avancées</h4>
 <ul>
-<li>Icône de nœud. Par défaut : activé.</li>
-<li>Toujours montrer le menu contextuel. Lorsqu'elle est activée, à chaque sélection le menu contextuel sera affiché. Sinon le menu n'est affiché que lorsque aucune sélection non-ambiguë n'est déterminée. Par défaut : désactivé (activé sur d'anciennes versions).</li>
-<li>Activer le thème clair. Sur les appareils modernes, cette option est activée par défaut. Vous pouvez l'activer sur des appareils Android plus anciens, mais le thème ne sera sans doute pas cohérent avec le reste du système.</li>
-<li>Montrer les statistiques. Affichera certaines statistique pour le débogage, pas vraiment utile. Par défaut : désactivé (activé sur d'anciennes versions).  </li>
+<li>Node icons. Default: on.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
 </ul>
+<p>The full description can be found here <a href="Advanced%20preferences.md">Advanced preferences</a></p>
 <h2 id="rapporter-des-problemes">Rapporter des problèmes</h2>
 <p>Si Vespucci plante, ou qu'il détecte un état incohérent, il vous demandera d'envoyer un rapport de plantage. Faîtes-le si cela arrive, mais une seule fois par situation spécifique. Si vous voulez donner plus d'informations ou ouvrir un rapport de bug pour une demande de fonctionnalités, faîtes-le ici : <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. La fonction « faire un retour » du menu principal ouvrira un nouveau ticket et inclura les informations utiles sur l'appareil et l'appli en vous évitant de les écrire vous-même.</p>
 <p>Si vous voulez discuter de quelque chose en lien avec Vespucci, vous pouvez démarrer une discussion soit sur le <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Google group de Vespucci</a>, soit sur le <a href="http://forum.openstreetmap.org/viewforum.php?id=56">forum Android d'OpenStreetMap</a></p></div> -->
@@ -504,13 +513,12 @@ i-->
 <h3 id="telecharger-des-donnees-osm">Télécharger des données OSM</h3>
 <p>Selectionnez soit l’icône de transfert <img alt="Transfer" src="../../images/menu_transfer.png" />, soit l'onglet Transfert dans le menu. Cela affiche sept options :</p>
 <ul>
-<li><strong>Télécharger la vue courante</strong> : télécharge la zone visible à l'écran et remplace les données existantes <em>(nécessite une connexion réseau)</em></li>
-<li><strong>Ajouter les données de la vue courante</strong> : télécharge la zone visible à l'écran et la fusionne avec les données existantes <em>(nécessite une connexion réseau)</em></li>
-<li><strong>Télécharger à un autre endroit</strong> : affiche un formulaire permettant de rechercher un lieu, d'entrer des coordonnées directement, ou d'utiliser la position actuelle pour télécharger une zone autour de ce point <em>(nécessite une connexion réseau)</em></li>
-<li><strong>Envoyer les données au serveur OSM</strong> : envoie les modifications vers OpenStreetMap <em>(nécessite d'être authentifié)</em> <em>(nécessite une connexion réseau)</em></li>
-<li><strong>Téléchargement automatique</strong> : télécharge automatiquement la zone autour de la position courante <em>(nécessite une connexion réseau)</em> <em>(nécessite le GPS)</em></li>
-<li><strong>Fichier…</strong> : sauvegarde ou ouvre les données OSM dans des fichiers locaux</li>
-<li><strong>Notes/Bugs…</strong> : télécharge (automatiquement et manuellement) les Notes OSM et les « bugs » des outils d'assurance qualité (Osmose pour l'instant) <em>(nécessite une connexion réseau)</em></li>
+<li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
+<li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
+<li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
+<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
+<li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
 <p>La manière la plus simple de télécharger des données est de zoomer et de se déplacer vers le lieu que vous voulez éditer, puis de sélectionner « Télécharger la vue courante ». Vous pouvez zoomer avec deux doigts, avec les boutons de zoom, ou avec les boutons de volume de l'appareil. Vespucci va alors télécharger les données de la vue courante. Il n'y a pas besoin d'être authentifié pour télécharger les données sur votre appareil. </p>
 <h3 id="editer">Éditer</h3>
@@ -579,11 +587,11 @@ i-->
 <h4 id="couper-copier-et-coller">Couper, copier et coller</h4>
 <p>Vous pouvez couper ou copier des nœuds ou chemins sélectionnés, puis les coller à une ou plusieurs reprises à de nouveaux endroits. Couper conservera l'identifiant OSM et l'historique de l'élément. Pour coller, touchez de façon prolongée le lieu où vous voulez coller (qui sera marqué par un réticule), puis sélectionnez « Coller » dans le menu.</p>
 <h4 id="ajouter-efficacement-des-adresses">Ajouter efficacement des adresses</h4>
-<p>Vespucci propose une fonction « ajouter un attribut d'adresse » qui essaie de rendre plus efficace la collecte des adresses. Elle peut être utilisée :</p>
+<p>Vespucci has an <img alt="Address" src="../../images/address.png" /> "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:</p>
 <ul>
-<li>Après un appui prolongé : Vespucci ajoutera un nœud à cet endroit, essaiera de déterminer le numéro du bâtiment et ajoutera les attributs d'adresse que vous avez récemment utilisés. Si le nœud se situe sur le chemin traçant un bâtiment, un tag « entrance=yes » y sera automatiquement ajouté. L'éditeur d'attributs s'ouvrira alors pour l'objet en question pour vous permettre de faire les changements nécessaires.</li>
-<li>Dans le mode de sélection de nœud ou de chemin : Vespucci ajoutera les attributs d'adresse comme ci-dessus et affichera l'éditeur d'attributs.</li>
-<li>Dans l'éditeur d'attributs.</li>
+<li>after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
+<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
+<li>in the property editor.</li>
 </ul>
 <p>La prédiction du numéro de bâtiment nécessite normalement pour fonctionner qu'au moins deux numéros de chaque côté de la voie soient déjà présents. Plus nombreux sont les numéros déjà renseignés, meilleure est la prédiction.</p>
 <p>Vous pourriez envisager d'utiliser cette fonction avec le mode de <a href="#download">téléchargement automatique</a>  </p>
@@ -631,7 +639,7 @@ i-->
 <p>En mode C seuls les objets avec un avertissement sont affichés, ce qui rend facile la détection des objets qui ont leur propre problème ou qui correspondent à des tests configurables. Si un objet est sélectionné et que l'éditeur de propriétés est démarré dans le mode C, le modèle d'attributs le plus proche sera automatiquement appliqué.</p>
 <p>Le mode peut être activé par un appui long sur le cadenas, voir <a href="#lock">Lock, unlock, mode switching</a> et en sélectionnant l'entrée du menu correspondant.</p>
 <h3 id="configurer-des-tests">Configurer des tests</h3>
-<p>Actuellement il y a deux tests configurables (le test pour l'attribut FIXME et le test pour l'attribut de type manquant sur les relations ne sont pas actuellement configurables). Ces deux tests peuvent être configurés en sélectionnant les « préférences du validateur » dans « Préférences ». </p>
+<p>Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". </p>
 <p>La liste des entrées est coupée en deux, la première moitié liste les entrée « nouveau relevé de terrain » et la deuxième moité les « vérifications ». On peut modifier les entrées en cliquant dessus et le bouton de menu vert permet d'ajouter des entrées.</p>
 <h4 id="entrees-de-demande-de-nouveaux-releves-de-terrain">Entrées de demande de nouveaux relevés de terrain</h4>
 <p>Les entrées de demande de nouveaux relevés de terrain ont les propriétés suivantes :</p>
@@ -655,22 +663,28 @@ i-->
 <h3 id="filtre-base-sur-les-modeles">Filtre basé sur les modèles</h3>
 <p>Autrement, les objets peuvent être filtrés suivant des modèles individuels ou des groupes de modèles. Appuyez sur l'icône de filtre pour afficher un dialogue de sélection de modèles similaire à ceux utilisés ailleurs dans Vespucci. On peut sélectionner des modèles individuels en cliquant simplement dessus, et des groupes de modèles en cliquant longuement (un clic normal ouvre le groupe). Plus de documentation sur <a href="Preset%20filter.md">Fitre de modèle</a>.</p>
 <h2 id="personnaliser-vespucci">Personnaliser Vespucci</h2>
-<h3 id="parametres-que-vous-pourriez-vouloir-changer">Paramètres que vous pourriez vouloir changer</h3>
+<p>Many aspects of the app can be customized, if you are looking for something specific and can't find it, <a href="https://vespucci.io/">the Vespucci website</a> is searchable and contains additional information over what is available on device.</p>
+<h3 id="layer-settings">Layer settings</h3>
+<p>Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.</p>
 <ul>
-<li>Couche de fond de carte</li>
-<li>Surcouche. Ajouter une surcouche peut poser des problèmes avec les anciens appareils avec une mémoire limitée. Par défaut : aucune.</li>
-<li>Affichage des notes et des bugs. Les notes et les bugs ouverts seront affichés avec une icône d'insecte jaune, ceux qui sont fermés avec une icône verte. Par défaut : activé.</li>
-<li>Couche photo. Affiche des photos géo-référencées avec une icône d'appareil rouge, si l'information de direction est disponible, l'icône sera tournée. Par défaut : désactivé.</li>
-<li>Garder l'écran allumé. Par défaut : désactivé.</li>
-<li>Zone élargie de déplacement des nœuds. Déplacer des nœuds sur les appareils avec une entrée tactile est difficile parce que vos doigts cachent la position actuelle. Activer cette option fournira de plus grandes zones pour déplacer un objet sans devoir en toucher le centre (la sélection et les autres opérations utiliseront toujours la zone interactive normale). Par défaut : désactivé.</li>
+<li>Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.</li>
+<li>Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.</li>
+<li>Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.</li>
+<li>Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.</li>
 </ul>
+<h4 id="preferences">Preferences</h4>
+<ul>
+<li>Keep screen on. Default: off.</li>
+<li>Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.</li>
+</ul>
+<p>The full description can be found here <a href="Preferences.md">Preferences</a></p>
 <h4 id="preferences-avancees">Préférences avancées</h4>
 <ul>
-<li>Icône de nœud. Par défaut : activé.</li>
-<li>Toujours montrer le menu contextuel. Lorsqu'elle est activée, à chaque sélection le menu contextuel sera affiché. Sinon le menu n'est affiché que lorsque aucune sélection non-ambiguë n'est déterminée. Par défaut : désactivé (activé sur d'anciennes versions).</li>
-<li>Activer le thème clair. Sur les appareils modernes, cette option est activée par défaut. Vous pouvez l'activer sur des appareils Android plus anciens, mais le thème ne sera sans doute pas cohérent avec le reste du système.</li>
-<li>Montrer les statistiques. Affichera certaines statistique pour le débogage, pas vraiment utile. Par défaut : désactivé (activé sur d'anciennes versions).  </li>
+<li>Node icons. Default: on.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. </li>
 </ul>
+<p>The full description can be found here <a href="Advanced%20preferences.md">Advanced preferences</a></p>
 <h2 id="rapporter-des-problemes">Rapporter des problèmes</h2>
 <p>Si Vespucci plante, ou qu'il détecte un état incohérent, il vous demandera d'envoyer un rapport de plantage. Faîtes-le si cela arrive, mais une seule fois par situation spécifique. Si vous voulez donner plus d'informations ou ouvrir un rapport de bug pour une demande de fonctionnalités, faîtes-le ici : <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. La fonction « faire un retour » du menu principal ouvrira un nouveau ticket et inclura les informations utiles sur l'appareil et l'appli en vous évitant de les écrire vous-même.</p>
 <p>Si vous voulez discuter de quelque chose en lien avec Vespucci, vous pouvez démarrer une discussion soit sur le <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Google group de Vespucci</a>, soit sur le <a href="http://forum.openstreetmap.org/viewforum.php?id=56">forum Android d'OpenStreetMap</a></p></div>
@@ -680,7 +694,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 14.0.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 14.1.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
