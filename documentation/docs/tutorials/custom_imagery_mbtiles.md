@@ -10,6 +10,8 @@ Other services that are useful in this context are the following:
 * [OSM Admin Boundaries Map](https://wambachers-osm.website/boundaries/): This allows to retrieve boundaries in various formats which can be useful to limit the extent of the resulting MBTiles file to e.g. a single town.
 * [Tile Calculator](https://tools.geofabrik.de/calc/#type=geofabrik_standard&tab=1&proj=EPSG:4326&places=4): This allows you to select rectangular bounding boxes and get the coordinates, which is also useful to select a smaller area.
 
+Since MBTiles files are just regular [SQLite](https://sqlite.org/) databases, they can be inspected and modified using e.g. the `sqlite3` command line tool and normal SQL commands like [`SELECT`](https://en.wikipedia.org/wiki/Select_(SQL)), [`INSERT`](https://en.wikipedia.org/wiki/Insert_(SQL)) and [`UPDATE`](https://en.wikipedia.org/wiki/Update_(SQL)). See the end of the [MapProxy](#mapproxy) section for a simple example of this using `INSERT` commands.
+
 *A word of warning*: Using these tools can result in a _large_ number of requests to the services that provide the imagery, even for small areas (like smaller cities) when using the higher zoom levels (e.g. 19 and up). So please try to download only small areas, configure and/or use caching and don't run multiple instances of the tools in parallel. Otherwise, those who provide the services may block you or even consider to stop providing the public service if they for example think that it is being abused. Using smaller areas also results in smaller files so they will take up less space on your mobile phone or tablet.
 
 ## Mobile Atlas Creator
@@ -64,7 +66,63 @@ A local file with geodata (like a GeoTIFF file) can also be used as input by rep
 
 ## MapProxy
 
-[MapProxy](http://mapproxy.org/) is an open source proxy for geospatial data.
+[MapProxy](http://mapproxy.org/) is an open source proxy for geospatial data. The [`export`](https://mapproxy.org/docs/nightly/mapproxy_util.html#export) subcommand of its [`mapproxy-util`](https://mapproxy.org/docs/nightly/mapproxy_util.html) command line tool also supports exports to the MBTiles format. This requires a working [MapProxy configuration](https://mapproxy.org/docs/nightly/configuration.html), but this allows you to reuse an existing MapProxy cache which will also be seeded with the additional data that is downloaded while creating a MBTiles export. A fairly minimal configuration for the WMS of the canton of Zurich may look as follows:
+
+```yaml
+---
+services:
+    wms:
+        md:
+            title: "Mapproxy"
+sources:
+    zh_wms_source:
+        type: wms
+        req:
+            url: http://wms.zh.ch/OGDOrthoZH?
+            layers: ortho
+            transparent: true
+layers:
+    - name: zh_wms_layer
+      title: Kanton Zurich, Orthofoto ZH Sommer 2018 RGB 10cm
+      sources: [zh_wms_cache]
+caches:
+    zh_wms_cache:
+        grids: [webmercator]
+        sources: [zh_wms_source]
+grids:
+    webmercator:
+        name: webmercator
+        base: GLOBAL_WEBMERCATOR
+        num_levels: 22
+    mercator:
+        name: mercator
+        base: GLOBAL_MERCATOR
+        num_levels: 22
+```
+
+Using this configuration, a command like the following can be used to generated a MBTiles file with imagery of Zurich mainstation:
+
+```bash
+mapproxy-util export -f mapproxy.yaml --grid mercator --source zh_wms_cache \
+    --dest ./zurich-mainstation.mbtiles --type mbtile --levels 8..20 \
+    --coverage 8.5334,47.3763,8.5426,47.3807 --srs EPSG:4326 --fetch-missing-tiles
+```
+
+The `--coverage` parameter [can also take e.g. a GeoJSON file](https://mapproxy.org/docs/nightly/coverages.html), but be sure to also specify the `--srs` parameter with a reference system that matches the `--coverage` data. Unfortunately, the `mapproxy-util export` command does not add any metadata to the MBTiles file, so this has to be done manually using e.g. the `sqlite3` command line tool:
+
+```bash
+# Open the MBTiles file:
+sqlite3 zurich-mainstation.mbtiles
+```
+```sql
+-- Add 'format', by default, this is 'png', but this depends on your cache format:
+INSERT INTO metadata ('name', 'value') VALUES ('format', 'png');
+-- Add 'name', used as default for the layer name by Vespucci:
+INSERT INTO metadata ('name', 'value') VALUES ('name', 'Zurich Mainstation @ Kanton Zurich, Orthofoto ZH Sommer 2018 RGB 10cm');
+-- Add zoom range
+INSERT INTO metadata ('name', 'value') VALUES ('maxzoom', (SELECT MAX(zoom_level) FROM tiles));
+INSERT INTO metadata ('name', 'value') VALUES ('minzoom', (SELECT MIN(zoom_level) FROM tiles));
+```
 
 ## Other tools and resources
 
