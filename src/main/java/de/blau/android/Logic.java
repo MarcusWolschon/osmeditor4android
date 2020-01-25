@@ -545,20 +545,6 @@ public class Logic {
     }
 
     /**
-     * Zooms the map in or out by the given factor and updates the map view after zooming.
-     * 
-     * @param zoomFactor The factor to zoom by, negative values zoom out, positive zooms in.
-     */
-    public void zoom(final float zoomFactor) {
-        viewBox.zoom(zoomFactor);
-        DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-        if (rotatingWay) {
-            showCrosshairsForCentroid();
-        }
-        map.postInvalidate();
-    }
-
-    /**
      * Set the zoom to a specific tile zoom level.
      * 
      * @param map the current Map object
