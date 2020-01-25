@@ -831,9 +831,34 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
                 double loopEpsilon = epsilon * (totalNodes / 4D); // NOTE the original algorithm didn't take the number
                                                                   // of corners in to account
-
                 // iterate until score is low enough
                 for (int iteration = 0; iteration < 1000; iteration++) {
+                    // calculate score
+                    double score = 0.0;
+                    for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
+                        Coordinates[] coords = coordsArray.get(coordIndex);
+                        int length = coords.length;
+                        int start = 0;
+                        int end = length;
+                        if (!wayList.get(coordIndex).isClosed()) {
+                            start = 1;
+                            end = end - 1;
+                        }
+                        for (int i = start; i < end; i++) {
+                            a = coords[(i - 1 + length) % length];
+                            b = coords[i];
+                            c = coords[(i + 1) % length];
+                            p = a.subtract(b);
+                            q = c.subtract(b);
+                            p = Coordinates.normalize(p, 1.0);
+                            q = Coordinates.normalize(q, 1.0);
+                            double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
+                            score = score + 2.0 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0)));
+                        }
+                    }
+                    if (score < loopEpsilon) {
+                        break;
+                    }
                     // calculate position changes
                     for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
                         Coordinates[] coords = coordsArray.get(coordIndex);
@@ -859,42 +884,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                             if (dotp < -0.707106781186547) {
                                 dotp += 1.0;
                             }
-
+                            if (2 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0))) < epsilon) {
+                                dotp = 0;
+                            }
                             motions[i] = Coordinates.normalize(p.add(q), 0.1 * dotp * scale);
                         }
                         // apply position changes
                         for (int i = start; i < end; i++) {
                             coords[i] = coords[i].add(motions[i]);
                         }
-                    }
-                    // calculate score
-                    double score = 0.0;
-                    for (int coordIndex = 0; coordIndex < coordsArraySize; coordIndex++) {
-                        Coordinates[] coords = coordsArray.get(coordIndex);
-                        int length = coords.length;
-                        int start = 0;
-                        int end = length;
-                        if (!wayList.get(coordIndex).isClosed()) {
-                            start = 1;
-                            end = end - 1;
-                        }
-                        for (int i = start; i < end; i++) {
-                            // yes I know that this nearly duplicates the code above, but there doesn't seem to be an
-                            // easy way to resolve this
-                            a = coords[(i - 1 + length) % length];
-                            b = coords[i];
-                            c = coords[(i + 1) % length];
-                            p = a.subtract(b);
-                            q = c.subtract(b);
-                            p = Coordinates.normalize(p, 1.0);
-                            q = Coordinates.normalize(q, 1.0);
-                            double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
-
-                            score = score + 2.0 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0)));
-                        }
-                    }
-                    if (score < loopEpsilon) {
-                        break;
                     }
                 }
 
