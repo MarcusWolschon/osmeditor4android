@@ -54,6 +54,7 @@ nav:
 - 'Tutorials and Posts':
     - '"network" Location Provider Support': 'tutorials/network_location.md'
     - 'Custom imagery': 'tutorials/custom_imagery.md'
+    - 'Generating MBTiles files with custom imagery': 'tutorials/custom_imagery_mbtiles.md'
     - 'Using name suggestions': 'tutorials/name_suggestions.md'
     - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'
     - 'Tag-only editing':  'tutorials/tag_only.md'
