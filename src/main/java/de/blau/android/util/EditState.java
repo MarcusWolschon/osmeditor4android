@@ -135,7 +135,7 @@ public class EditState implements Serializable {
         App.setOsmDataNotifications(main, savedOsmDataNotifications);
         main.setFollowGPS(savedFollowGPS);
         logic.getPrefs().getServer().setOpenChangeset(savedChangesetId);
-        logic.setLastSources(savedLastObjectSearches);
+        logic.setLastObjectSearches(savedLastObjectSearches);
     }
 
     /**
