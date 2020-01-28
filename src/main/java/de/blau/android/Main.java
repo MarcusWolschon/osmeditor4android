@@ -137,6 +137,7 @@ import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
@@ -1792,6 +1793,9 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_transfer_save_notes_new_and_changed).setEnabled(storagePermissionGranted);
         menu.findItem(R.id.menu_gps_export).setEnabled(storagePermissionGranted);
 
+        // main menu items
+        menu.findItem(R.id.menu_search_objects).setEnabled(!logic.isLocked());
+                
         Filter filter = logic.getFilter();
         if (filter instanceof TagFilter && !prefs.getEnableTagFilter()) {
             // something is wrong, try to sync
@@ -1885,6 +1889,9 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_find:
             SearchForm.showDialog(this, map.getViewBox());
+            return true;
+        case R.id.menu_search_objects:
+            Search.search(this);
             return true;
         case R.id.menu_enable_tagfilter:
         case R.id.menu_enable_presetfilter:
@@ -4172,7 +4179,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param latE7 latitude * 1E7
      * @param e OsmElement we want to show
      */
-    private void zoomTo(int lonE7, int latE7, OsmElement e) {
+    private void zoomTo(int lonE7, int latE7, @NonNull OsmElement e) {
         setFollowGPS(false); // otherwise the screen could move around
         if (e instanceof Node && map.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
             // FIXME this doesn't seem to work as expected
@@ -4188,14 +4195,40 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param e OsmElement we want to show
      */
-    public void zoomTo(OsmElement e) {
-        setFollowGPS(false); // otherwise the screen could move around
-        if (e instanceof Node && map.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
-            // FIXME this doesn't seem to work as expected
-            App.getLogic().setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
-            map.getViewBox().moveTo(getMap(), ((Node) e).getLon(), ((Node) e).getLat());
+    public void zoomTo(@NonNull OsmElement e) {
+        zoomTo(Util.wrapInList(e));
+    }
+
+    /**
+     * Zoom to the elements and try and set the viewbox size to something reasonable
+     * 
+     * @param elements OsmElements we want to show
+     */
+    public void zoomTo(@NonNull List<OsmElement> elements) {
+        setFollowGPS(false);
+        BoundingBox result = null;
+        Map map = getMap();
+        if (elements.size() > 1 || !(elements.get(0) instanceof Node)) {
+            for (OsmElement e : elements) {
+                if (e != null) {
+                    BoundingBox box = e.getBounds();
+                    if (result == null) {
+                        result = box;
+                    } else {
+                        if (box != null) {
+                            result.union(box);
+                        }
+                    }
+                }
+            }
         } else {
-            map.getViewBox().fitToBoundingBox(getMap(), e.getBounds());
+            if (map.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
+                App.getLogic().setZoom(map, Ui.ZOOM_FOR_ZOOMTO);
+            }
+            map.getViewBox().moveTo(map, ((Node) elements.get(0)).getLon(), ((Node) elements.get(0)).getLat());
+        }
+        if (result != null) {
+            map.getViewBox().fitToBoundingBox(map, result);
         }
     }
 

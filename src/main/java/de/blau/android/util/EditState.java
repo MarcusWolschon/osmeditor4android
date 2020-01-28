@@ -27,7 +27,7 @@ import de.blau.android.resources.DataStyle;
  *
  */
 public class EditState implements Serializable {
-    private static final long       serialVersionUID = 23L;
+    private static final long       serialVersionUID = 24L;
     private final boolean           savedLocked;
     private final Mode              savedMode;
     private final List<Node>        savedNodes;
@@ -44,6 +44,7 @@ public class EditState implements Serializable {
     private final boolean           savedFollowGPS;
     private final Filter            savedFilter;
     private final long              savedChangesetId;
+    private final List<String>      savedLastObjectSearches;
 
     /**
      * Construct a new EditState instance
@@ -73,6 +74,7 @@ public class EditState implements Serializable {
         savedFollowGPS = followGPS;
         savedFilter = logic.getFilter();
         savedChangesetId = changesetId;
+        savedLastObjectSearches = logic.getLastObjectSearches();
     }
 
     /**
@@ -133,6 +135,7 @@ public class EditState implements Serializable {
         App.setOsmDataNotifications(main, savedOsmDataNotifications);
         main.setFollowGPS(savedFollowGPS);
         logic.getPrefs().getServer().setOpenChangeset(savedChangesetId);
+        logic.setLastSources(savedLastObjectSearches);
     }
 
     /**

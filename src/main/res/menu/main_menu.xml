@@ -191,6 +191,10 @@
         android:title="@string/menu_find"
         android:icon="?attr/menu_find"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_search_objects"
+        android:title="@string/search_objects_title"
+        app:showAsAction="never" />
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_enable_tagfilter"

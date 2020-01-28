@@ -17,17 +17,22 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
+import de.blau.android.contract.Ui;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.search.Search;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -35,10 +40,12 @@ import de.blau.android.util.Util;
 public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
     private static final String DEBUG_TAG = "ExtendSelectionAct...";
 
-    private static final int MENUITEM_MERGE          = 6;
-    private static final int MENUITEM_RELATION       = 7;
-    private static final int MENUITEM_ORTHOGONALIZE  = 8;
-    private static final int MENUITEM_MERGE_POLYGONS = 9;
+    private static final int MENUITEM_MERGE             = 6;
+    private static final int MENUITEM_RELATION          = 7;
+    private static final int MENUITEM_ORTHOGONALIZE     = 8;
+    private static final int MENUITEM_MERGE_POLYGONS    = 9;
+    private static final int MENUITEM_ZOOM_TO_SELECTION = 33;
+    private static final int MENUITEM_SEARCH_OBJECTS    = 34;
 
     private List<OsmElement> selection;
     private List<OsmElement> sortedWays;
@@ -184,6 +191,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         // if (selection.size() == 2 && canMerge(selection)) {
         // menu.add(Menu.NONE,MENUITEM_MERGE_POLYGONS, Menu.NONE, "Merge polygons");
         // }
+        menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
+        menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
         menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
         Preferences prefs = new Preferences(main);
@@ -290,6 +299,13 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                         Snack.barError(main, e.getLocalizedMessage());
                     }
                 }
+                break;
+            case MENUITEM_ZOOM_TO_SELECTION:
+                main.zoomTo(selection);
+                main.invalidateMap();
+                break;
+            case MENUITEM_SEARCH_OBJECTS:
+                Search.search(main);
                 break;
             case ElementSelectionActionModeCallback.MENUITEM_PREFERENCES:
                 PrefEditor.start(main);

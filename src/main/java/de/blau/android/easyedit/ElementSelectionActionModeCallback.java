@@ -28,6 +28,7 @@ import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.search.Search;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -55,8 +56,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     protected static final int MENUITEM_SHARE_POSITION    = 31;
     private static final int   MENUITEM_TAG_LAST          = 32;
     private static final int   MENUITEM_ZOOM_TO_SELECTION = 33;
-    static final int           MENUITEM_PREFERENCES       = 34;
-    static final int           MENUITEM_JS_CONSOLE        = 35;
+    private static final int   MENUITEM_SEARCH_OBJECTS    = 34;
+    static final int           MENUITEM_PREFERENCES       = 35;
+    static final int           MENUITEM_JS_CONSOLE        = 36;
 
     OsmElement element = null;
 
@@ -162,6 +164,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information)
                 .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
+        menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
         menu.add(GROUP_BASE, MENUITEM_SHARE_POSITION, Menu.CATEGORY_SYSTEM | 10, R.string.share_position);
         menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
@@ -227,6 +230,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         case MENUITEM_ZOOM_TO_SELECTION:
             main.zoomTo(element);
             main.invalidateMap();
+            break;
+        case MENUITEM_SEARCH_OBJECTS:
+            Search.search(main);
             break;
         case MENUITEM_JS_CONSOLE:
             Main.showJsConsole(main);
