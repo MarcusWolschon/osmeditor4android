@@ -166,7 +166,7 @@ public class Preset implements Serializable {
     private static final String SEPARATOR                  = "separator";
     private static final String ID                         = "id";
     private static final String DEPRECATED                 = "deprecated";
-    private static final String TRUE                       = "true";
+    static final String         TRUE                       = "true";
     private static final String FALSE                      = "false";
     private static final String GTYPE                      = "gtype";
     private static final String TYPE                       = "type";
@@ -188,6 +188,10 @@ public class Preset implements Serializable {
     private static final String EXCLUDE_REGIONS            = "exclude_regions";
     private static final String AUTOAPPLY                  = "autoapply";
     private static final String MIN_MATCH                  = "min_match";
+    private static final String REGEXP                     = "regexp";
+    private static final String COUNT                      = "count";
+    private static final String REQUISITE                  = "requisite";
+    private static final String MEMBER_EXPRESSION          = "member_expression";
     /**
      * 
      */
@@ -1027,6 +1031,10 @@ public class Preset implements Serializable {
                     text = attr.getValue(TEXT);
                     textContext = attr.getValue(TEXT_CONTEXT);
                     PresetRole role = new PresetRole(roleValue, text == null ? null : translate(text, textContext), attr.getValue(TYPE));
+                    role.setMemberExpression(attr.getValue(MEMBER_EXPRESSION));
+                    role.setRequisite(attr.getValue(REQUISITE));
+                    role.setCount(attr.getValue(COUNT));
+                    role.setRegexp(attr.getValue(REGEXP));
                     currentItem.addRole(role);
                     break;
                 case REFERENCE:

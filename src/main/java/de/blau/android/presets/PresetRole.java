@@ -1,12 +1,22 @@
 package de.blau.android.presets;
 
+import java.util.Locale;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
+import de.blau.android.propertyeditor.PresetSearchResultsFragment;
 
 public class PresetRole implements Comparable<PresetRole> {
+
+    private static final String DEBUG_TAG = PresetRole.class.getSimpleName();
+
+    enum Requisite {
+        OPTIONAL, REQUIRED
+    }
 
     /**
      * Role this is for
@@ -24,6 +34,12 @@ public class PresetRole implements Comparable<PresetRole> {
     private boolean appliesToWay;
     private boolean appliesToNode;
     private boolean appliesToRelation;
+
+    private String memberExpression;
+
+    private Requisite requisite;
+    private int       count;
+    private boolean   regexp;
 
     /**
      * Constructor
@@ -115,6 +131,67 @@ public class PresetRole implements Comparable<PresetRole> {
             }
         }
         return true;
+    }
+
+    /**
+     * Set an member expression that indicates which elements can match in JOSM filter syntax
+     * 
+     * @param memberExpression the member expression
+     */
+    public void setMemberExpression(@Nullable String memberExpression) {
+        this.memberExpression = memberExpression;
+    }
+
+    /**
+     * Get any member expression
+     * 
+     * @return the member expression or null if none
+     */
+    @Nullable
+    public String getMemberExpression() {
+        return memberExpression;
+    }
+
+    /**
+     * Set if this role is required or not
+     * 
+     * @param requisiteString "optional" or "required"
+     */
+    public void setRequisite(@Nullable String requisiteString) {
+        if (requisiteString != null) {
+            Requisite.valueOf(requisiteString.toUpperCase(Locale.US));
+        } else {
+            requisite = null;
+        }
+    }
+
+    /**
+     * Set the number of times this role can be present in a Relation
+     * 
+     * @param countString a String containg an int
+     */
+    public void setCount(@Nullable String countString) {
+        if (countString != null) {
+            try {
+                count = Integer.parseInt(countString);
+            } catch (NumberFormatException e) {
+                Log.e(DEBUG_TAG, "Invalid count value " + countString);
+                count = 0;
+            }
+        } else {
+            count = 0;
+        }
+    }
+
+    /**
+     * Set if the role String is an regexp or not
+     * 
+     * We only use this to ignore the role for now
+     * 
+     * @param regexpString "true" if the role is an regexp
+     */
+    public void setRegexp(@Nullable String regexpString) {
+        regexp = regexpString != null && Preset.TRUE.equals(regexpString);
     }
 
     @Override
