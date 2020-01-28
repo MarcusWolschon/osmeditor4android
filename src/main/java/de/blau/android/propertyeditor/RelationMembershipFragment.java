@@ -470,6 +470,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r));
             position = r.getMembers().size(); // last position
             Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
+            relationPreset = null; // zap to force it to be re-calculated
             roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter()); // update
             return this;
         }
