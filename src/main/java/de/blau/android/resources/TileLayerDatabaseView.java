@@ -23,6 +23,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.views.layers.MapTilesLayer;
+import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 public class TileLayerDatabaseView {
     private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName();
@@ -167,9 +168,13 @@ public class TileLayerDatabaseView {
         TileLayerServer.getListsLocked(context, db, true);
         Logic logic = App.getLogic();
         if (logic != null) {
-            MapTilesLayer layer = logic.getMap().getBackgroundLayer();
-            if (layer != null) {
-                layer.getTileProvider().update();
+            MapTilesLayer background = logic.getMap().getBackgroundLayer();
+            if (background != null) {
+                background.getTileProvider().update();
+            }
+            MapTilesOverlayLayer overlay = logic.getMap().getOverlayLayer();
+            if (overlay != null) {
+                overlay.getTileProvider().update();
             }
         }
     }
