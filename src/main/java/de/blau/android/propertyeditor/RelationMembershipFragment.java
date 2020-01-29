@@ -403,7 +403,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                         counter.put(role, position++);
                     }
                 }
-                List<PresetRole> tempPresetRoles = presetItem.getRoles(elementType);
+                List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), owner.getElement(), ((EditorUpdate) owner).getKeyValueMapSingle(true));
                 if (tempPresetRoles != null) {
                     Collections.sort(tempPresetRoles);
                     for (PresetRole presetRole : tempPresetRoles) {

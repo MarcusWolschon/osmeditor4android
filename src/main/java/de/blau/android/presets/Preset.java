@@ -1,6 +1,7 @@
 package de.blau.android.presets;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -62,6 +63,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import ch.poole.osm.josmfilterparser.JosmFilterParser;
 import ch.poole.poparser.ParseException;
 import ch.poole.poparser.Po;
 import ch.poole.poparser.TokenMgrError;
@@ -69,6 +71,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
@@ -76,6 +79,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.search.Wrapper;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -3149,6 +3153,41 @@ public class Preset implements Serializable {
                 result = new ArrayList<>();
                 for (PresetRole role : roles) {
                     if (role.appliesTo(type)) {
+                        result.add(role);
+                    }
+                }
+            }
+            return result;
+        }
+
+        /**
+         * Get any applicable roles for this PresetItem, considers object type and member_expression
+         * 
+         * @param context an Android Context
+         * @param element the OsmElement that is the relation member
+         * @param tags alternative Map of tags to use
+         * @return a List of PresetRoles or null if none
+         */
+        @Nullable
+        public List<PresetRole> getRoles(@NonNull Context context, @NonNull OsmElement element, @Nullable Map<String, String> tags) {
+            List<PresetRole> result = null;
+            if (roles != null) {
+                result = new ArrayList<>();
+                Wrapper wrapper = new Wrapper(context);
+                wrapper.setElement(element);
+                for (PresetRole role : roles) {
+                    if (role.appliesTo(element.getName())) {
+                        String memberExpression = role.getMemberExpression();
+                        if (memberExpression != null) {
+                            JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
+                            try { // test if this matches the member expression
+                                if (!parser.condition().eval(Wrapper.toJosmFilterType(element), wrapper, tags != null ? tags : element.getTags())) {
+                                    continue;
+                                }
+                            } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException e) {
+                                Log.e(DEBUG_TAG, "member_expression " + memberExpression + " caused " + e.getMessage());
+                            }
+                        }
                         result.add(role);
                     }
                 }

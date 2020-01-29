@@ -11,6 +11,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import ch.poole.osm.josmfilterparser.ElementState.State;
 import ch.poole.osm.josmfilterparser.Meta;
+import ch.poole.osm.josmfilterparser.Type;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
@@ -36,7 +37,7 @@ public class Wrapper implements Meta {
      * 
      * @param context an Android Context
      */
-    Wrapper(@NonNull Context context) {
+    public Wrapper(@NonNull Context context) {
         this.context = context;
     }
 
@@ -167,5 +168,21 @@ public class Wrapper implements Meta {
      */
     public void setElement(OsmElement element) {
         this.element = element;
+    }
+
+    /**
+     * Determine the type of the element for purposes of the filter language
+     * 
+     * @param element the OsmElement
+     * @return the corresponding Type
+     */
+    public static Type toJosmFilterType(@NonNull OsmElement element) {
+        if (element instanceof Node) {
+            return Type.NODE;
+        }
+        if (element instanceof Way) {
+            return Type.WAY;
+        }
+        return Type.RELATION;
     }
 }
