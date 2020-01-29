@@ -64,33 +64,6 @@ public class TileLayerDialog {
      * @param activity Android Context
      * @param db a writable instance of the layer entry database
      * @param id the rowid of the layer entry in the database or -1 if not saved yet
-     * @param onUpdate call this if the DB has been updated
-     */
-    static void showLayerDialog(@NonNull final FragmentActivity activity, @NonNull final SQLiteDatabase db, final int id,
-            @Nullable final OnUpdateListener onUpdate) {
-        showLayerDialog(activity, db, id, null, onUpdate);
-    }
-
-    /**
-     * Show a dialog for editing and saving a layer entry
-     * 
-     * @param activity Android Context
-     * @param db a writable instance of the layer entry database
-     * @param id the rowid of the layer entry in the database or -1 if not saved yet
-     * @param onUpdate call this if the DB has been updated
-     * @param oamEntry an entry from OAM or null
-     */
-    static void showLayerDialog(@NonNull final FragmentActivity activity, @NonNull final SQLiteDatabase db, final int id,
-            @Nullable final OnUpdateListener onUpdate, @Nullable Entry oamEntry) {
-        showLayerDialog(activity, db, id, oamEntry, onUpdate);
-    }
-
-    /**
-     * Show a dialog for editing and saving a layer entry
-     * 
-     * @param activity Android Context
-     * @param db a writable instance of the layer entry database
-     * @param id the rowid of the layer entry in the database or -1 if not saved yet
      * @param oamEntry an entry from OAM or null
      * @param onUpdate call this if the DB has been updated
      */
