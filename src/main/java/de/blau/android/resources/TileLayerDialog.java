@@ -138,11 +138,13 @@ public class TileLayerDialog {
             }
 
             if (existing) {
+                final TileLayerServer finalLayer = layer;
                 alertDialog.setTitle(R.string.edit_layer_title);
                 alertDialog.setNeutralButton(R.string.Delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
+                        TileLayerDatabaseView.removeLayerSelection(prefs, finalLayer);
                         TileLayerDatabase.deleteLayerWithRowId(db, id);
                         if (onUpdate != null) {
                             onUpdate.update();

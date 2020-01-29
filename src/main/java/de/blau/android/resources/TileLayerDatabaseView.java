@@ -22,6 +22,7 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
@@ -70,6 +71,9 @@ public class TileLayerDatabaseView {
 
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
+                        TileLayerServer tileServer = TileLayerDatabase.getLayerWithRowId(activity, writableDb, id);
+                        Preferences prefs = App.getLogic().getPrefs();
+                        removeLayerSelection(prefs, tileServer); 
                         TileLayerDatabase.deleteLayerWithRowId(writableDb, id);
                         newLayerCursor(writableDb);
                         resetLayer(activity, writableDb);
@@ -173,6 +177,22 @@ public class TileLayerDatabaseView {
             MapTilesOverlayLayer overlay = logic.getMap().getOverlayLayer();
             if (overlay != null) {
                 overlay.getTileProvider().update();
+            }
+        }
+    }
+
+    /**
+     * If the current layer is deleted zap the respective prefs
+     * 
+     * @param prefs a Preference object
+     * @param layer the layer
+     */
+    protected static void removeLayerSelection(@NonNull final Preferences prefs, @Nullable final TileLayerServer layer) {
+        if (layer != null) {
+            if (layer.isOverlay() && layer.getId().equals(prefs.overlayLayer())) {
+                prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+            } else if (layer.getId().equals(prefs.backgroundLayer())) {
+                prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
             }
         }
     }
