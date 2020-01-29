@@ -22,6 +22,7 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
@@ -70,9 +71,18 @@ public class TileLayerDatabaseView {
 
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
+                        TileLayerServer tileServer = TileLayerDatabase.getLayerWithRowId(activity, writableDb, id);
+                        Preferences prefs = App.getLogic().getPrefs();
+                        // if the deleted lay was actually in use remove it from prefs
+                        if (tileServer.isOverlay() && tileServer.getId().equals(prefs.overlayLayer())) {
+                            prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+                        } else if (tileServer.getId().equals(prefs.backgroundLayer())) {
+                            prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
+                        }
                         TileLayerDatabase.deleteLayerWithRowId(writableDb, id);
                         newLayerCursor(writableDb);
                         resetLayer(activity, writableDb);
+
                     }
 
                 });
