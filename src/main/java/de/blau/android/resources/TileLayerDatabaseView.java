@@ -28,8 +28,6 @@ import de.blau.android.views.layers.MapTilesOverlayLayer;
 public class TileLayerDatabaseView {
     private static final String DEBUG_TAG = TileLayerDatabaseView.class.getSimpleName();
 
-    private static final String DEBUG_LOG = "TileLayerDatabaseUI";
-
     /**
      * Ruleset database related methods and fields
      */
