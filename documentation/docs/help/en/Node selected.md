@@ -70,6 +70,10 @@ Show a screen with some detailed information on the selected object.
 
 Pan and zoom the map to the currently selected object.
 
+### Search for objects
+
+Search for OSM objects in the loaded data using JOSMs search expressions.
+
 ### Share position
 
 Share the position of the selected object with other apps on the device.

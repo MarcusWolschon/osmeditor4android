@@ -32,6 +32,14 @@ Merge multiple selected ways resulting in a single way. Ways will be reversed if
 
 Create a relation starting with the current selected elements. Further objects can be added until "Done" is selected, then the tag editor will be started on the new relation. 
 
+### Zoom to selection
+
+Pan and zoom the map to the currently selected object.
+
+### Search for objects
+
+Search for OSM objects in the loaded data using JOSMs search expressions.
+
 ### ![Help](../images/menu_help.png) Help
 
 Start the Vespucci Help browser

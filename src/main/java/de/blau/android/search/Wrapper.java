@@ -1,9 +1,11 @@
 package de.blau.android.search;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedMap;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -13,12 +15,20 @@ import ch.poole.osm.josmfilterparser.ElementState.State;
 import ch.poole.osm.josmfilterparser.Meta;
 import ch.poole.osm.josmfilterparser.Type;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetElement;
+import de.blau.android.presets.Preset.PresetGroup;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElementPath;
 
 /**
  * Wrapper around an OsmElement to provide the Meta interface without impacting serialization
@@ -31,6 +41,7 @@ public class Wrapper implements Meta {
     private OsmElement element;
 
     final Context context;
+    final Logic   logic;
 
     /**
      * Create a new wrapper object
@@ -39,6 +50,30 @@ public class Wrapper implements Meta {
      */
     public Wrapper(@NonNull Context context) {
         this.context = context;
+        this.logic = App.getLogic();
+    }
+
+    /**
+     * @param element the element to set
+     */
+    public void setElement(OsmElement element) {
+        this.element = element;
+    }
+
+    /**
+     * Determine the type of the element for purposes of the filter language
+     * 
+     * @param element the OsmElement
+     * @return the corresponding Type
+     */
+    public static Type toJosmFilterType(@NonNull OsmElement element) {
+        if (element instanceof Node) {
+            return Type.NODE;
+        }
+        if (element instanceof Way) {
+            return Type.WAY;
+        }
+        return Type.RELATION;
     }
 
     @Override
@@ -160,29 +195,109 @@ public class Wrapper implements Meta {
 
     @Override
     public boolean matchesPreset(@NotNull String preset) {
-        throw new IllegalArgumentException(context.getString(R.string.search_objects_unsupported, "preset"));
+        if (preset.endsWith("*")) {
+            preset = preset.substring(0, preset.length() - 1);
+        }
+        String[] segments = preset.split("\\|");
+        if (segments.length > 0) {
+            PresetElementPath path = new PresetElementPath(Arrays.asList(segments));
+            PresetElement pe = Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), path);
+            SortedMap<String, String> tags = element.getTags();
+            if (pe instanceof PresetItem && ((PresetItem) pe).matches(tags)) {
+                return true;
+            } else if (pe instanceof PresetGroup) {
+                for (PresetElement pe2 : ((PresetGroup) pe).getElements()) {
+                    if (pe2 instanceof PresetItem && ((PresetItem) pe2).matches(tags)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isIncomplete() {
+        if (element instanceof Relation) {
+            return !((Relation) element).allDownloaded();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isInDownloadedArea() {
+        for (BoundingBox box : App.getDelegator().getBoundingBoxes()) {
+            if (inBox(box)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isAllInDownloadedArea() {
+        BoundingBox bounds = element.getBounds();
+        for (BoundingBox box : App.getDelegator().getBoundingBoxes()) {
+            if (box.contains(bounds)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isInview() {
+        ViewBox box = logic.getViewBox();
+        return inBox(box);
     }
 
     /**
-     * @param element the element to set
-     */
-    public void setElement(OsmElement element) {
-        this.element = element;
-    }
-
-    /**
-     * Determine the type of the element for purposes of the filter language
+     * Check is the OSM element is in a bounding box
      * 
-     * @param element the OsmElement
-     * @return the corresponding Type
+     * @param box the BoundingBox
+     * @return true if part of the element is in the box
      */
-    public static Type toJosmFilterType(@NonNull OsmElement element) {
-        if (element instanceof Node) {
-            return Type.NODE;
+    boolean inBox(@NonNull BoundingBox box) {
+        if (element instanceof Relation) {
+            for (RelationMember rm : ((Relation) element).getMembers()) {
+                if (rm.downloaded()) {
+                    if (!Relation.NAME.equals(rm.getType())) {
+                        if (inBox(box, rm.getElement())) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
-        if (element instanceof Way) {
-            return Type.WAY;
+        return inBox(box, element);
+    }
+
+    /**
+     * Check if an OSM Way or Node is at least partially in a BoundingBox
+     * 
+     * Note intersection of bounding boxes doesn't work for this case so we need to check all nodes
+     * 
+     * @param box the BoundingBox
+     * @param e the OsmElement
+     * @return true if part of the element is in the box
+     */
+    boolean inBox(@NonNull BoundingBox box, @NonNull OsmElement e) {
+        if (e instanceof Node) {
+            return box.contains(((Node) e).getLon(), ((Node) e).getLat());
         }
-        return Type.RELATION;
+        if (e instanceof Way) {
+            for (Node n : ((Way) e).getNodes()) {
+                if (box.contains(n.getLon(), n.getLat())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isAllInview() {
+        return logic.getViewBox().contains(element.getBounds());
     }
 }
