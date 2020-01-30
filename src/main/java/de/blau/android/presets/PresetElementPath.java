@@ -27,7 +27,7 @@ public class PresetElementPath implements Serializable {
     /**
      * Construct an PresetElementPath from a List of path element
      * 
-     * @param path a List of Strings representign the path
+     * @param path a List of Strings representing the path
      */
     public PresetElementPath(@NonNull List<String> path) {
         this.path = new ArrayList<>(path);
