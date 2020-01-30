@@ -37,6 +37,7 @@ public class PresetFixedField extends PresetField {
      * 
      * @return the fixed value
      */
+    @NonNull
     public StringWithDescription getValue() {
         return value;
     }
