@@ -861,7 +861,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                                 counter.put(role, position++);
                             }
                         }
-                        List<PresetRole> tempPresetRoles = relationPreset.getRoles(rmd.getType());
+                        List<PresetRole> tempPresetRoles = rmd.downloaded() ? relationPreset.getRoles(getContext(), rmd.getElement(), null)
+                                : relationPreset.getRoles(rmd.getType());
                         if (tempPresetRoles != null) {
                             Collections.sort(tempPresetRoles);
                             for (PresetRole presetRole : tempPresetRoles) {

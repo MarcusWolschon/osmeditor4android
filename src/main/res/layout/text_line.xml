@@ -8,7 +8,7 @@
 		android:paddingRight="?attr/dialogPreferredPadding"
 		 >
     	
-		<EditText 
+		<AutoCompleteTextView 
 			android:id="@+id/text_line_edit"			
   			android:inputType="text"
 			android:layout_width="fill_parent"

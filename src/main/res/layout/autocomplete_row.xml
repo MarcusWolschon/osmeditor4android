@@ -4,5 +4,6 @@
     style="?attr/ListPopupWindowStyle"
     android:layout_width="fill_parent"
     android:layout_height="34dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:maxLines="1" />
-   

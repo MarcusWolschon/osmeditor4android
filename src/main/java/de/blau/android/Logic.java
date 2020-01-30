@@ -240,6 +240,11 @@ public class Logic {
     private String draftSourceComment = null;
 
     /**
+     * last object search string
+     */
+    private MRUList<String> lastObjectSearches = new MRUList<>(MRULIST_SIZE);
+
+    /**
      * Are we currently dragging a node? Set by {@link #handleTouchEventDown(float, float)}
      */
     private boolean draggingNode = false;
@@ -4175,6 +4180,26 @@ public class Logic {
     }
 
     /**
+     * Get all current selected OsmElements
+     * 
+     * @return a List, potentially empty, containing all seleced elemetns
+     */
+    @NonNull
+    public synchronized List<OsmElement> getSelectedElements() {
+        List<OsmElement> result = new ArrayList<>();
+        if (selectedNodes != null) {
+            result.addAll(selectedNodes);
+        }
+        if (selectedWays != null) {
+            result.addAll(selectedWays);
+        }
+        if (selectedRelations != null) {
+            result.addAll(selectedRelations);
+        }
+        return result;
+    }
+
+    /**
      * Check is all selected elements exist, return true if we actually had to remove something
      * 
      * @return true if a selected element didn't exist anymore
@@ -5035,7 +5060,7 @@ public class Logic {
     /**
      * Return the last used source strings index 0 is the most recent one
      * 
-     * @return ArrayList of the source strings
+     * @return a List of the source strings
      */
     @NonNull
     public List<String> getLastSources() {
@@ -5070,6 +5095,8 @@ public class Logic {
     }
 
     /**
+     * Get the draft source comment
+     * 
      * @return the lastSourceDraft
      */
     @Nullable
@@ -5078,10 +5105,43 @@ public class Logic {
     }
 
     /**
+     * Set the draft source comment
+     * 
      * @param source the lastSourceDraft to set
      */
     public void setDraftSourceComment(@Nullable String source) {
         this.draftSourceComment = source;
+    }
+
+    /**
+     * Return the last used object search strings index 0 is the most recent one
+     * 
+     * @return a List of the object search strings
+     */
+    @NonNull
+    public List<String> getLastObjectSearches() {
+        return lastObjectSearches;
+    }
+
+    /**
+     * Set the list of last used object search strings
+     * 
+     * @param searches the List to set
+     */
+    public void setLastObjectSearches(@NonNull List<String> searches) {
+        lastObjectSearches = new MRUList<>(searches);
+        lastObjectSearches.ensureCapacity(MRULIST_SIZE);
+    }
+
+    /**
+     * Push an object search string on to the last object search MRU list
+     * 
+     * @param objectSearch the object search string to push
+     */
+    public void pushObjectSearch(@Nullable String objectSearch) {
+        if (objectSearch != null && !"".equals(objectSearch)) {
+            lastObjectSearches.push(objectSearch);
+        }
     }
 
     /**

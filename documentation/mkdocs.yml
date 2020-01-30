@@ -61,6 +61,7 @@ nav:
     - 'Vespucci presets': 'tutorials/presets.md'
     - 'Vespucci data styling': 'tutorials/data_styling.md'
     - 'Controlling Vespucci from other apps': 'tutorials/vespucci_intents.md'
+    - 'Object search': ''tutorials/object_search.md'
 - Screenshots: 'tutorials/screenshots.md'
 - FAQ: 'tutorials/faq.md'
 - Privacy: 'help/en/Privacy.md'

@@ -146,8 +146,8 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **More imagery tools**
     * **Update imagery layer configuration** - download a current version of the imagery layer configuration. *(requires network connectivity)*
     * **Flush all tile caches** - empty all on device tile caches. 
- * **Reset address prediction** - reset the current address prediction data, will ressed from loaded data if possible.
- * **Reset OAuth** - reset the OAuth tokens, this will force reauthorisation the next time you upload.
+ * **Reset address prediction** - reset the current address prediction data, will seeded from loaded data if possible.
+ * **Reset OAuth** - reset the OAuth tokens, this will force re-authorisation the next time you upload.
  * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
  * **Set MapRoulette API key** - set the API key for modifying the status of MapRoulette tasks.
  * **Clear clipboard** - remove content from the internal OSM element clipboard.
@@ -155,6 +155,10 @@ Show the user preference screens. The settings are split into two sets: the firs
 ### ![Find](../images/ic_menu_search_holo_light.png) Find
 
 Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service *(requires network connectivity)*
+
+### Search for objects
+
+Search for OSM objects in the loaded data using JOSMs search expressions.
 
 ### Tag-Filter *(checkbox)*
 
