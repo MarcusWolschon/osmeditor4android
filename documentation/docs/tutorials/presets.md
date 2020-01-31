@@ -140,7 +140,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | requisite                     | ignored   |
 |                   | count                         | ignored   |
 |                   | type                          | supported |
-|                   | member_expression             | ignored   |
+|                   | member_expression             | supported | See [search language documentation](object_search.md)
 |                   | regexp                        | ignored   | 
 
 
