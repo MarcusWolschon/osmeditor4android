@@ -1,5 +1,9 @@
 package de.blau.android.resources;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -73,8 +77,8 @@ public class TileLayerDatabaseView {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         TileLayerServer tileServer = TileLayerDatabase.getLayerWithRowId(activity, writableDb, id);
-                        Preferences prefs = App.getLogic().getPrefs();
-                        removeLayerSelection(prefs, tileServer); 
+                        final Preferences prefs = App.getLogic().getPrefs();
+                        removeLayerSelection(prefs, tileServer);
                         TileLayerDatabase.deleteLayerWithRowId(writableDb, id);
                         newLayerCursor(writableDb);
                         resetLayer(activity, writableDb);
@@ -162,22 +166,64 @@ public class TileLayerDatabaseView {
     }
 
     /**
-     * Regenerate the in memory imagery configs
+     * Regenerate the in memory imagery configs and try to make configuration consistent
      * 
      * @param context Android Context
      * @param db a readable DB
      */
-    protected static void resetLayer(Context context, SQLiteDatabase db) {
+    protected static void resetLayer(@NonNull Context context, @NonNull SQLiteDatabase db) {
         TileLayerServer.getListsLocked(context, db, true);
         Logic logic = App.getLogic();
         if (logic != null) {
-            MapTilesLayer background = logic.getMap().getBackgroundLayer();
-            if (background != null) {
-                background.getTileProvider().update();
+            Preferences prefs = logic.getPrefs();
+            updateLayerConfig(context, prefs, logic.getMap().getBackgroundLayer());
+            updateLayerConfig(context, prefs, logic.getMap().getOverlayLayer());
+        }
+    }
+
+    /**
+     * Update the config of the current layer(s) including setting the prefs
+     * 
+     * @param context Android Context
+     * @param prefs a current Preferences object
+     * @param layer the layer we are updating
+     */
+    static void updateLayerConfig(@NonNull Context context, @NonNull Preferences prefs, @NonNull MapTilesLayer layer) {
+        if (layer != null) {
+            TileLayerServer config = layer.getTileLayerConfiguration();
+            if (config != null) {
+                TileLayerServer newConfig = TileLayerServer.get(context, config.getId(), false);
+                boolean isOverlay = layer instanceof MapTilesOverlayLayer;
+                if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
+                    // not good overlay as background or the other way around
+                    if (!isOverlay) {
+                        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
+                        layer.setRendererInfo(TileLayerServer.get(context, TileLayerServer.LAYER_NONE, false));
+                    } else {
+                        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+                        layer.setRendererInfo(TileLayerServer.get(context, TileLayerServer.LAYER_NOOVERLAY, false));
+                    }
+                } else {
+                    layer.setRendererInfo(newConfig);
+                }
             }
-            MapTilesOverlayLayer overlay = logic.getMap().getOverlayLayer();
-            if (overlay != null) {
-                overlay.getTileProvider().update();
+            layer.getTileProvider().update();
+            checkMru(layer, TileLayerServer.getIds(null, false, null));
+        }
+    }
+
+    /**
+     * Check the contents of a layers MRU against the actually available layers
+     * 
+     * @param layer the layer with the MRU
+     * @param idArray an array of ids
+     */
+    private static void checkMru(@NonNull MapTilesLayer layer, @NonNull String[] idArray) {
+        List<String> ids = Arrays.asList(idArray);
+        List<String> mruIds = new ArrayList<>(Arrays.asList(layer.getMRU()));
+        for (String id : mruIds) {
+            if (!ids.contains(id)) {
+                layer.removeServerFromMRU(id);
             }
         }
     }
@@ -186,13 +232,13 @@ public class TileLayerDatabaseView {
      * If the current layer is deleted zap the respective prefs
      * 
      * @param prefs a Preference object
-     * @param layer the layer
+     * @param layerConfig the layer
      */
-    protected static void removeLayerSelection(@NonNull final Preferences prefs, @Nullable final TileLayerServer layer) {
-        if (layer != null) {
-            if (layer.isOverlay() && layer.getId().equals(prefs.overlayLayer())) {
+    protected static void removeLayerSelection(@NonNull final Preferences prefs, @Nullable final TileLayerServer layerConfig) {
+        if (layerConfig != null) {
+            if (layerConfig.isOverlay() && layerConfig.getId().equals(prefs.overlayLayer())) {
                 prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
-            } else if (layer.getId().equals(prefs.backgroundLayer())) {
+            } else if (layerConfig.getId().equals(prefs.backgroundLayer())) {
                 prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
             }
         }
