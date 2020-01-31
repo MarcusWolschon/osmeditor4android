@@ -231,6 +231,10 @@
 </li>
                                         
 <li >
+    <a href="../../../tutorials/custom_imagery_mbtiles/">Generating MBTiles files with custom imagery</a>
+</li>
+                                        
+<li >
     <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
 </li>
                                         
@@ -252,6 +256,10 @@
                                         
 <li >
     <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/object_search/">Object search</a>
 </li>
                                     </ul>
                                 </li>
@@ -302,6 +310,7 @@ i-->
             <li><a href="#improved-external-location-sources-support">Improved external location sources support</a></li>
             <li><a href="#support-for-filtering-background-overlay-imagery-by-category">Support for filtering background / overlay imagery by category</a></li>
             <li><a href="#use-location-to-determine-appropriate-language-specific-tags">Use location to determine appropriate language specific tags</a></li>
+            <li><a href="#object-search">Object search</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -324,6 +333,9 @@ i-->
 <h3 id="use-location-to-determine-appropriate-language-specific-tags">Use location to determine appropriate language specific tags</h3>
 <p>This replaces the facility that added language specific tags based on the device language. <em>Add language tags</em> will now add language tags based on the location and the corresponding configuration from  <a href="https://github.com/simonpoole/geocontext/">https://github.com/simonpoole/geocontext/</a>.</p>
 <p>Example: adding a restaurant in Switzerland and then selecting <em>Add language tags</em> in the property editor will add <em>name:de</em>, <em>name:fr</em>, <em>name:it</em>, <em>name:rm</em> and <em>name:gsw</em> tags.</p>
+<h3 id="object-search">Object search</h3>
+<p>Vespucci now supports most of JOSMs object search "language". This can be used from the main menu and from the element selection modes. As the JOSM documentation on the feature is near non-existent it is completely possible that there are subtle behaviour differences. Currently found objects will always replace the selection of any previously selected objects and the screen will be automatically be zoomed to the bounding box of the found elements.</p>
+<p>When editing elements in the property editor, relation roles will be filtered by the member_expression attribute value if present, this uses the same language.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Improvements custom imagery, OAM support and imagery layer info</li>
@@ -338,7 +350,7 @@ i-->
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
-<li>Currently no special actions are required.</li>
+<li>The format of the saved editing state (not of the saved data) has changed, you should still upload any changes before updating.</li>
 </ul>
 <h1 id="known-problems">Known problems</h1>
 <ul>
@@ -356,6 +368,7 @@ i-->
             <li><a href="#improved-external-location-sources-support">Improved external location sources support</a></li>
             <li><a href="#support-for-filtering-background-overlay-imagery-by-category">Support for filtering background / overlay imagery by category</a></li>
             <li><a href="#use-location-to-determine-appropriate-language-specific-tags">Use location to determine appropriate language specific tags</a></li>
+            <li><a href="#object-search">Object search</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -378,6 +391,9 @@ i-->
 <h3 id="use-location-to-determine-appropriate-language-specific-tags">Use location to determine appropriate language specific tags</h3>
 <p>This replaces the facility that added language specific tags based on the device language. <em>Add language tags</em> will now add language tags based on the location and the corresponding configuration from  <a href="https://github.com/simonpoole/geocontext/">https://github.com/simonpoole/geocontext/</a>.</p>
 <p>Example: adding a restaurant in Switzerland and then selecting <em>Add language tags</em> in the property editor will add <em>name:de</em>, <em>name:fr</em>, <em>name:it</em>, <em>name:rm</em> and <em>name:gsw</em> tags.</p>
+<h3 id="object-search">Object search</h3>
+<p>Vespucci now supports most of JOSMs object search "language". This can be used from the main menu and from the element selection modes. As the JOSM documentation on the feature is near non-existent it is completely possible that there are subtle behaviour differences. Currently found objects will always replace the selection of any previously selected objects and the screen will be automatically be zoomed to the bounding box of the found elements.</p>
+<p>When editing elements in the property editor, relation roles will be filtered by the member_expression attribute value if present, this uses the same language.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Improvements custom imagery, OAM support and imagery layer info</li>
@@ -392,7 +408,7 @@ i-->
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
-<li>Currently no special actions are required.</li>
+<li>The format of the saved editing state (not of the saved data) has changed, you should still upload any changes before updating.</li>
 </ul>
 <h1 id="known-problems">Known problems</h1>
 <ul>

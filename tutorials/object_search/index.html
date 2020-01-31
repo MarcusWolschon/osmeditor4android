@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Tag-only editing - Vespucci</title>
+        <title>Object search - Vespucci</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -242,8 +242,8 @@
     <a href="../reporting_issues/">Reporting Vespucci issues</a>
 </li>
                                         
-<li class="active">
-    <a href="./">Tag-only editing</a>
+<li >
+    <a href="../tag_only/">Tag-only editing</a>
 </li>
                                         
 <li >
@@ -258,8 +258,8 @@
     <a href="../vespucci_intents/">Controlling Vespucci from other apps</a>
 </li>
                                         
-<li >
-    <a href="../object_search/">Object search</a>
+<li class="active">
+    <a href="./">Object search</a>
 </li>
                                     </ul>
                                 </li>
@@ -285,12 +285,12 @@
                         </li>
 <!--- Remove Prev - Next
                             <li >
-                                <a rel="next" href="../reporting_issues/">
+                                <a rel="next" href="../vespucci_intents/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../presets/">
+                                <a rel="prev" href="../screenshots/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -303,33 +303,531 @@ i-->
         <div class="container">
 <!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#tag-only-editing">Tag-only editing</a></li>
+        <li class="main active"><a href="#object-search">Object search</a></li>
+            <li><a href="#supported-expressions">Supported expressions</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="tag-only-editing">Tag-only editing</h1>
-<p><em>by Simon Poole</em></p>
-<p>No, this is not news. Vespucci has had a tag-only mode since its original creation in 2009, however since the old very modal user interface hasn't been the default UI after the work by Jan Schejbal in 2012 and the start of the 0.9 releases, it hasn't really been easily accessible.</p>
-<p>Starting with 0.9.6 tag editing only mode can be switched on with a long press on the lock icon.</p>
-<p><img alt=" " src="../images/Vespucci-tagediting.png" /></p>
-<p>Vespucci can still be locked/unlocked with a normal single touch on the lock and a long touch will get you back to normal editing mode.</p>
-<p>Now while I personally don't quite see the utility of such a mode, users have asked for it and it is the only remains of the old modes that will <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/215">survive</a> in 0.9.7. In any case it is light years better than the many apps of different kinds that claim to offer simple editing but in general are survey apps on steroids that mess up existing data.</p></div> -->
+<h1 id="object-search">Object search</h1>
+<p>Vespucci supports a large subset of JOSM search expressions, these can be used for locating and selecting specific objects in the in memory data, and for matching elements against roles in preset member_expression attributes.</p>
+<p>As there is essentially no documentation available from JOSM there is no guarantee that the behaviour is the same in all cases, known and deliberate differences are noted below.</p>
+<h2 id="supported-expressions">Supported expressions</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Syntax</th>
+<th>Vespucci specific notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅</td>
+<td>Baker Street</td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>"Baker Street"</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>:</strong><em>valuefragment</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>-</strong><em>key</em><strong>:</strong><em>valuefragment</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=</strong><em>value</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=*</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>*=</strong><em>value</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>&gt;</strong><em>reference</em></td>
+<td>Compares the value associated with key to reference, if possible if will convert to numeric values first</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>&lt;</strong><em>reference</em></td>
+<td>""</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <strong>&#124;</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <strong>OR</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>-</strong><em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>(</strong><em>expr</em><strong>)</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:node</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:way</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:relation</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>closed</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>untagged</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>preset:"</strong>preset item path<strong>"</strong></td>
+<td>Vespucci uses "</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>preset:"</strong>preset group path/*<strong>"</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>user:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>id:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>version:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>changeset:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>timestamp:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>nodes:</strong><em>range</em></td>
+<td>All nodes are counted, for closed ways that implies that start and end node are counted separately</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>ways:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>tags:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>role:</strong><em>role</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>areasize:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>waylength:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>modified</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>new</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>selected</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>incomplete</strong></td>
+<td>Only used for relations</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>deleted</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>child</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>parent</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>hasRole:</strong><em>role</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>nth:</strong><em>number</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>nth%:</strong><em>number</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>inview</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>allinview</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>indownloadedarea</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>allindownloadedarea</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#tag-only-editing">Tag-only editing</a></li>
+        <li class="main active"><a href="#object-search">Object search</a></li>
+            <li><a href="#supported-expressions">Supported expressions</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="tag-only-editing">Tag-only editing</h1>
-<p><em>by Simon Poole</em></p>
-<p>No, this is not news. Vespucci has had a tag-only mode since its original creation in 2009, however since the old very modal user interface hasn't been the default UI after the work by Jan Schejbal in 2012 and the start of the 0.9 releases, it hasn't really been easily accessible.</p>
-<p>Starting with 0.9.6 tag editing only mode can be switched on with a long press on the lock icon.</p>
-<p><img alt=" " src="../images/Vespucci-tagediting.png" /></p>
-<p>Vespucci can still be locked/unlocked with a normal single touch on the lock and a long touch will get you back to normal editing mode.</p>
-<p>Now while I personally don't quite see the utility of such a mode, users have asked for it and it is the only remains of the old modes that will <a href="https://github.com/MarcusWolschon/osmeditor4android/issues/215">survive</a> in 0.9.7. In any case it is light years better than the many apps of different kinds that claim to offer simple editing but in general are survey apps on steroids that mess up existing data.</p></div>
+<h1 id="object-search">Object search</h1>
+<p>Vespucci supports a large subset of JOSM search expressions, these can be used for locating and selecting specific objects in the in memory data, and for matching elements against roles in preset member_expression attributes.</p>
+<p>As there is essentially no documentation available from JOSM there is no guarantee that the behaviour is the same in all cases, known and deliberate differences are noted below.</p>
+<h2 id="supported-expressions">Supported expressions</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Syntax</th>
+<th>Vespucci specific notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅</td>
+<td>Baker Street</td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>"Baker Street"</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>:</strong><em>valuefragment</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>-</strong><em>key</em><strong>:</strong><em>valuefragment</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=</strong><em>value</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=*</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>=</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>*=</strong><em>value</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>&gt;</strong><em>reference</em></td>
+<td>Compares the value associated with key to reference, if possible if will convert to numeric values first</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>key</em><strong>&lt;</strong><em>reference</em></td>
+<td>""</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <strong>&#124;</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><em>expr</em> <strong>OR</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>-</strong><em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>(</strong><em>expr</em><strong>)</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:node</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:way</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>type:relation</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>closed</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>untagged</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>preset:"</strong>preset item path<strong>"</strong></td>
+<td>Vespucci uses "</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>preset:"</strong>preset group path/*<strong>"</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>user:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>id:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>version:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>changeset:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>timestamp:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>nodes:</strong><em>range</em></td>
+<td>All nodes are counted, for closed ways that implies that start and end node are counted separately</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>ways:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>tags:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>role:</strong><em>role</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>areasize:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>waylength:</strong><em>range</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>modified</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>new</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>selected</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>incomplete</strong></td>
+<td>Only used for relations</td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>deleted</strong></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>child</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>parent</strong> <em>expr</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>hasRole:</strong><em>role</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>nth:</strong><em>number</em></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>nth%:</strong><em>number</em></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>inview</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>allinview</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>indownloadedarea</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>✅</td>
+<td><strong>allindownloadedarea</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
                 
         </div>
 
