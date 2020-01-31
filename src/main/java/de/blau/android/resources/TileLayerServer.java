@@ -684,11 +684,11 @@ public class TileLayerServer implements Serializable {
      * @param privacyPolicyUrl a link to a privacy policy or null
      * @param async run loadInfo in a AsyncTask needed for main process
      */
-    TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, Category category, final boolean overlay,
-            final boolean defaultLayer, final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl, byte[] logoBytes,
-            final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj, final int preference,
-            final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues, @Nullable String description,
-            @Nullable String privacyPolicyUrl, boolean async) {
+    TileLayerServer(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, final String url, final String type, Category category,
+            final boolean overlay, final boolean defaultLayer, final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl,
+            byte[] logoBytes, final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj,
+            final int preference, final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues,
+            @Nullable String description, @Nullable String privacyPolicyUrl, boolean async) {
 
         this.ctx = ctx;
         this.id = id;
@@ -1377,6 +1377,7 @@ public class TileLayerServer implements Serializable {
      * 
      * @return Tile layer ID.
      */
+    @NonNull
     public String getId() {
         return id;
     }

@@ -54,7 +54,7 @@ public class TileLayerDialog {
      * @param entry an entry from OAM
      * @param onUpdate call this if the DB has been updated
      */
-    public static void showLayerDialog(FragmentActivity activity, SQLiteDatabase writableDatabase, Entry entry, @Nullable final OnUpdateListener onUpdate) {
+    public static void showLayerDialog(@NonNull FragmentActivity activity, @NonNull SQLiteDatabase writableDatabase, @Nullable Entry entry, @Nullable final OnUpdateListener onUpdate) {
         showLayerDialog(activity, writableDatabase, -1, entry, onUpdate);
     }
 
