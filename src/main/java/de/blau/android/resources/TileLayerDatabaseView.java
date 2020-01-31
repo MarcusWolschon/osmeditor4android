@@ -176,8 +176,14 @@ public class TileLayerDatabaseView {
         Logic logic = App.getLogic();
         if (logic != null) {
             Preferences prefs = logic.getPrefs();
-            updateLayerConfig(context, prefs, logic.getMap().getBackgroundLayer());
-            updateLayerConfig(context, prefs, logic.getMap().getOverlayLayer());
+            MapTilesLayer background = logic.getMap().getBackgroundLayer();
+            if (background != null) {
+                updateLayerConfig(context, prefs, background);
+            }
+            MapTilesOverlayLayer overlay = logic.getMap().getOverlayLayer();
+            if (overlay != null) {
+                updateLayerConfig(context, prefs, overlay);
+            }
         }
     }
 
@@ -193,18 +199,20 @@ public class TileLayerDatabaseView {
             TileLayerServer config = layer.getTileLayerConfiguration();
             if (config != null) {
                 TileLayerServer newConfig = TileLayerServer.get(context, config.getId(), false);
-                boolean isOverlay = layer instanceof MapTilesOverlayLayer;
-                if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
-                    // not good overlay as background or the other way around
-                    if (!isOverlay) {
-                        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
-                        layer.setRendererInfo(TileLayerServer.get(context, TileLayerServer.LAYER_NONE, false));
+                if (newConfig != null) { // if null the layer has been deleted
+                    boolean isOverlay = layer instanceof MapTilesOverlayLayer;
+                    if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
+                        // not good overlay as background or the other way around
+                        if (!isOverlay) {
+                            prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
+                            layer.setRendererInfo(TileLayerServer.get(context, TileLayerServer.LAYER_NONE, false));
+                        } else {
+                            prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+                            layer.setRendererInfo(TileLayerServer.get(context, TileLayerServer.LAYER_NOOVERLAY, false));
+                        }
                     } else {
-                        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
-                        layer.setRendererInfo(TileLayerServer.get(context, TileLayerServer.LAYER_NOOVERLAY, false));
+                        layer.setRendererInfo(newConfig);
                     }
-                } else {
-                    layer.setRendererInfo(newConfig);
                 }
             }
             layer.getTileProvider().update();
@@ -236,11 +244,14 @@ public class TileLayerDatabaseView {
      */
     protected static void removeLayerSelection(@NonNull final Preferences prefs, @Nullable final TileLayerServer layerConfig) {
         if (layerConfig != null) {
-            if (layerConfig.isOverlay() && layerConfig.getId().equals(prefs.overlayLayer())) {
+            if (layerConfig.getId().equals(prefs.overlayLayer())) {
                 prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
-            } else if (layerConfig.getId().equals(prefs.backgroundLayer())) {
+            }
+            if (layerConfig.getId().equals(prefs.backgroundLayer())) {
                 prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
             }
+        } else {
+            Log.e(DEBUG_TAG, "layerConfig should not be null here");
         }
     }
 }

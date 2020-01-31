@@ -160,6 +160,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 PopupMenu popup = new PopupMenu(getActivity(), add);
                 // menu items for adding layers
                 MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
+                final Map map = App.getLogic().getMap();
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem arg0) {
@@ -168,7 +169,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
                             @Override
                             public boolean read(Uri fileUri) {
-                                de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
+                                de.blau.android.layer.geojson.MapOverlay geojsonLayer = map.getGeojsonLayer();
                                 if (geojsonLayer != null) {
                                     try {
                                         geojsonLayer.resetStyling();
@@ -189,7 +190,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         return false;
                     }
                 });
-                if (!Map.activeOverlay(prefs.backgroundLayer())) {
+                if (map.getBackgroundLayer() == null) {
                     item = popup.getMenu().add(R.string.menu_layers_add_backgroundlayer);
                     item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                         @Override
@@ -200,7 +201,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         }
                     });
                 }
-                if (!Map.activeOverlay(prefs.overlayLayer())) {
+                if (map.getOverlayLayer() == null || !Map.activeOverlay(prefs.overlayLayer())) {
                     item = popup.getMenu().add(R.string.menu_layers_add_overlaylayer);
                     item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                         @Override
