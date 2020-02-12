@@ -6,7 +6,7 @@ theme:
   custom_dir: flatly-custom
   favicon: favicon.ico
 markdown_extensions:
-    - tilde
+    - pymdownx.tilde
 extra:
   version: 14.1.0
   project: Vespucci
