@@ -44,7 +44,7 @@ Further supported attributes:
 *changeset_comment*: a draft changeset comment. (added in vwersion 13.1)
 *changeset_source*: a draft changeset source. (added in vwersion 13.1)
 
-__Configure imagery__ (added in vwersion 13.1)
+__Configure imagery__ (added in version 13.1)
 
 josm:/imagery?title=*title*&type=*type*&min\_zoom=*min\_zoom*&max\_zoom=*max\_zoom*&url=*url*
 
