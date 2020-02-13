@@ -104,4 +104,18 @@ public class CoordinateParserTest {
             Assert.fail(e.getMessage());
         }
     }
+
+    /**
+     * Other notable test cases 
+     */
+    @Test
+    public void other() {
+        try {
+            LatLon ll = CoordinateParser.parseVerbatimCoordinates("N 1° E 2°"); // this caused a crash
+            Assert.assertEquals(1, ll.getLat(), 0.000005);
+            Assert.assertEquals(2, ll.getLon(), 0.000005);
+        } catch (ParseException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
 }
