@@ -17,6 +17,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
@@ -30,6 +31,7 @@ public class HelpViewerTest {
     ActivityMonitor      monitor         = null;
     AdvancedPrefDatabase prefDB          = null;
     Instrumentation      instrumentation = null;
+    UiDevice             device          = null;
     Main                 main            = null;
 
     @Rule
@@ -41,6 +43,7 @@ public class HelpViewerTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
         main = (Main) mActivityRule.getActivity();
@@ -48,7 +51,7 @@ public class HelpViewerTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        
+
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }
@@ -62,11 +65,12 @@ public class HelpViewerTest {
     }
 
     /**
-     * Start up the Helpviewer, should do at least some UI tests
+     * Start up the HelpViewer, should do at least some UI tests
      */
     @Test
     public void startHelp() {
-        HelpViewer.start(main, R.string.help_main);
+        TestUtils.clickOverflowButton();
+        TestUtils.clickText(device, false, "Help", true);
         Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(helpViewer instanceof HelpViewer);
     }
