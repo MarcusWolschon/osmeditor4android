@@ -295,7 +295,7 @@ public final class CoordinateParser {
      * @param coord the coordinate value
      * @param lat if true it is a latitude
      * @return the converted decimal
-     * @throws ParseException if parsing fails, note the offset will alyways be 0
+     * @throws ParseException if parsing fails, note the offset will always be 0
      */
     protected static double parseDMS(@NonNull String coord, boolean lat) throws ParseException {
         final String DIRS = lat ? "NS" : "EOW";
