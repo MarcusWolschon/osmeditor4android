@@ -1795,7 +1795,7 @@ public class Main extends FullScreenAppCompatActivity
 
         // main menu items
         menu.findItem(R.id.menu_search_objects).setEnabled(!logic.isLocked());
-                
+
         Filter filter = logic.getFilter();
         if (filter instanceof TagFilter && !prefs.getEnableTagFilter()) {
             // something is wrong, try to sync
@@ -1888,9 +1888,11 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_find:
+            descheduleAutoLock();
             SearchForm.showDialog(this, map.getViewBox());
             return true;
         case R.id.menu_search_objects:
+            descheduleAutoLock();
             Search.search(this);
             return true;
         case R.id.menu_enable_tagfilter:
@@ -2004,6 +2006,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_goto_coordinates:
+            descheduleAutoLock();
             CoordinatesOrOLC.get(this, new CoordinatesOrOLC.HandleResult() {
                 @Override
                 public void onSuccess(LatLon ll) {
@@ -2084,6 +2087,7 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_gps_upload:
             if (server != null) {
+                descheduleAutoLock();
                 PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
 
                     private static final long serialVersionUID = 1L;
@@ -2291,6 +2295,7 @@ public class Main extends FullScreenAppCompatActivity
             });
             return true;
         case R.id.menu_transfer_download_msf:
+            descheduleAutoLock();
             DownloadActivity.start(this, Urls.MSF_SERVER);
             break;
         case R.id.menu_transfer_bugs_download_current:
@@ -2550,6 +2555,9 @@ public class Main extends FullScreenAppCompatActivity
         });
     }
 
+    /**
+     * Start voice recognition
+     */
     private void startVoiceRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -2565,7 +2573,7 @@ public class Main extends FullScreenAppCompatActivity
      * Get a new File for storing an image
      * 
      * @return a File object
-     * @throws IOException
+     * @throws IOException if reading the file went wrong
      */
     @NonNull
     private File getImageFile() throws IOException {
@@ -2577,6 +2585,9 @@ public class Main extends FullScreenAppCompatActivity
         return imageFile;
     }
 
+    /**
+     * Toggle position based data auto-download
+     */
     private void startStopAutoDownload() {
         Log.d(DEBUG_TAG, "autoDownload");
         if (getTracker() != null && getEnabledLocationProviders() != null) {
@@ -2588,6 +2599,9 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Toggle position based tasks auto-download
+     */
     private void startStopBugAutoDownload() {
         Log.d(DEBUG_TAG, "bugAutoDownload");
         if (getTracker() != null && getEnabledLocationProviders() != null) {
@@ -2620,10 +2634,6 @@ public class Main extends FullScreenAppCompatActivity
         prefs.setShowGPS(show);
         map.invalidate();
         triggerMenuInvalidation();
-    }
-
-    private boolean getShowGPS() {
-        return showGPS;
     }
 
     /**
@@ -2709,7 +2719,7 @@ public class Main extends FullScreenAppCompatActivity
      * Toggle if we should show the location on screen
      */
     private void toggleShowGPS() {
-        boolean newState = !getShowGPS();
+        boolean newState = !showGPS;
         setShowGPS(newState);
     }
 
@@ -4352,10 +4362,22 @@ public class Main extends FullScreenAppCompatActivity
         map.removeCallbacks(autoLock);
     }
 
+    /**
+     * Get the Layout that should hold the map
+     * 
+     * @return the Layout that should hold the map or null if it hasn't been set
+     */
+    @Nullable
     public RelativeLayout getMapLayout() {
         return mapLayout;
     }
 
+    /**
+     * Get the current UndoListener instance
+     * 
+     * @return current UndoListener instance or null if it hasn't been set
+     */
+    @Nullable
     public UndoListener getUndoListener() {
         return undoListener;
     }
