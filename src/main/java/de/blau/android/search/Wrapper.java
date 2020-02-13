@@ -132,7 +132,7 @@ public class Wrapper implements Meta {
     public int getWayCount() {
         if (element instanceof Node) {
             return App.getLogic().getWaysForNode((Node) element).size();
-        } else if (element instanceof Node) {
+        } else if (element instanceof Relation) {
             List<RelationMember> members = ((Relation) element).getMembers();
             int count = 0;
             for (RelationMember rm : members) {
