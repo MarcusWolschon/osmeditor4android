@@ -71,7 +71,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
             if (requestReview.isChecked()) {
                 extraTags.put(Tags.KEY_REVIEW_REQUESTED, Tags.VALUE_YES);
             }
-            caller.performUpload(commentField.getText().toString(), sourceField.getText().toString(),
+            caller.performUpload(commentField.getText().toString().trim(), sourceField.getText().toString().trim(),
                     closeOpenChangeset != null && closeOpenChangeset.isChecked(), closeChangeset.isChecked(), extraTags);
         } else {
             ConfirmUpload.showPage(caller, ConfirmUpload.TAGS_PAGE);

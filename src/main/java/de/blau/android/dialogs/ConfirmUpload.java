@@ -298,8 +298,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      */
     private void saveCommentAndSource(@NonNull TextView comment, @NonNull AutoCompleteTextView source) {
         Logic logic = App.getLogic();
-        logic.pushComment(comment.getText().toString(), true);
-        logic.pushSource(source.getText().toString(), true);
+        logic.pushComment(comment.getText().toString().trim(), true);
+        logic.pushSource(source.getText().toString().trim(), true);
     }
 
     /**
