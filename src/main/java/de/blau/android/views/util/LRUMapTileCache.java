@@ -3,6 +3,8 @@ package de.blau.android.views.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
@@ -32,15 +34,15 @@ public class LRUMapTileCache {
     // Fields
     // ===========================================================
 
-    HashMap<String, CacheElement> cache;
+    Map<String, CacheElement> cache;
 
     /** Maximum cache size. */
-    private long                          maxCacheSize;
+    private long                     maxCacheSize;
     /** Current cache size **/
-    private long                          cacheSize = 0;
+    private long                     cacheSize = 0;
     /** LRU list. */
-    private final ArrayList<CacheElement> list;
-    private final ArrayList<CacheElement> reuseList;
+    private final List<CacheElement> list;
+    private final List<CacheElement> reuseList;
 
     private class CacheElement {
         boolean recycleable = true;
@@ -48,10 +50,26 @@ public class LRUMapTileCache {
         Bitmap  bitmap;
         long    owner;
 
+        /**
+         * Container for a cached Bitmap
+         * 
+         * @param key the key in to the cache
+         * @param bitmap the Bitmap
+         * @param recycleable if true the Bitmap can be recycled
+         * @param owner owner reference
+         */
         public CacheElement(@NonNull String key, @NonNull Bitmap bitmap, boolean recycleable, long owner) {
             init(key, bitmap, recycleable, owner);
         }
 
+        /**
+         * Initialize the container
+         * 
+         * @param key the key in to the cache
+         * @param bitmap the Bitmap
+         * @param recycleable if true the Bitmap can be recycled
+         * @param owner owner reference
+         */
         void init(@Nullable String key, @Nullable Bitmap bitmap, boolean recycleable, long owner) {
             if (key == null) {
                 throw new IllegalArgumentException("key cannot be null");
