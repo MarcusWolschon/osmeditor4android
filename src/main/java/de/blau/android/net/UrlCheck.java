@@ -90,7 +90,7 @@ public class UrlCheck {
             String tempDomain = urlOrDomain;
             if (urlOrDomain.toLowerCase().startsWith("http")) { // strip protocol
                 URL temp = new URL(urlOrDomain);
-                tempDomain = temp.getHost() + (temp.getPort() != -1 ? ":" + temp.getPort() : "") + "/" + temp.getPath();
+                tempDomain = temp.getHost() + (temp.getPort() != -1 ? ":" + temp.getPort() : "") + temp.getPath();
             }
             URL url = new URL((https ? Tags.HTTPS_PREFIX : Tags.HTTP_PREFIX) + tempDomain);
 
