@@ -65,7 +65,7 @@ public class TextLineDialog {
      */
     public static AlertDialog get(@NonNull Context ctx, int titleId, int hintId, @Nullable String text, @Nullable String buttonText,
             @NonNull TextLineInterface listener, boolean dismiss) {
-        return get(ctx, titleId, hintId, Util.wrapInList(text), buttonText, listener, dismiss);
+        return get(ctx, titleId, hintId, text != null ? Util.wrapInList(text) : null, buttonText, listener, dismiss);
     }
 
     /**
