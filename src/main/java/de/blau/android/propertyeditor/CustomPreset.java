@@ -95,6 +95,7 @@ public final class CustomPreset {
                                 if (notEmpty && !isLikeAName(key)) {
                                     field.setDefaultValue(value);
                                 }
+                                field.setOptional(false);
                                 customItem.addField(field);
                             }
                         }
