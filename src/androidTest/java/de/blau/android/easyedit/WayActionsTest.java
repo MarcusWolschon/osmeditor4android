@@ -128,9 +128,9 @@ public class WayActionsTest {
         device.waitForIdle(1000);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
         device.waitForIdle(1000);
-        TestUtils.clickAtCoordinates(map, 8.3887655, 47.3892752, false);
+        TestUtils.clickAtCoordinates(map, 8.3887655, 47.3892752, true);
         device.waitForIdle(1000);
-        TestUtils.clickAtCoordinates(map, 8.38877, 47.389202, false);
+        TestUtils.clickAtCoordinates(map, 8.38877, 47.389202, true);
         device.waitForIdle(1000);
         TestUtils.clickHome(device);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
