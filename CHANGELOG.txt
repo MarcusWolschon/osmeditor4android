@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.17: Fix coordinate overflow in centroid calculation when cutting or copying multiple elements, maintain inter-way connections properly for C&P.
+
 14.0.16: Update imagery, improve custom layer configuration robustness, always make added fields in custom presets non-optional, protect against missing minutes when parsing coordinate.
 
 14.0.15: Update imagery, if current tile layer is deleted, reset preferences, update overlay TileProvider and not just the background one, on relation change force recalc of matching preset, invalidate action mode on zoom, final 14.0 translation updates, add missing onElementChanged calls.
