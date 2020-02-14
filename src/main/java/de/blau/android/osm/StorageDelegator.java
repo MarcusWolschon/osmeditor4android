@@ -2338,18 +2338,24 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             toCut.add(e);
             if (e instanceof Way) {
                 undo.save(e);
-                // clone all nodes that are members of other ways
+                // clone all nodes that are members of other ways that are not being cut
                 List<Node> nodes = new ArrayList<>(((Way) e).getNodes());
                 for (Node nd : nodes) {
-                    if (currentStorage.getWays(nd).size() > 1) { // 1 is expected (our way will be deleted later)
+                    List<Way> ways = currentStorage.getWays(nd);
+                    if (ways.size() > 1) { // 1 is expected (our way will be deleted later)
                         Node newNode = replacedNodes.get(nd.getOsmId());
                         if (newNode == null) {
-                            newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
-                            newNode.setTags(nd.getTags());
-                            insertElementSafe(newNode);
-                            replacedNodes.put(nd.getOsmId(), newNode);
+                            // check if there is actually a Way we are not cutting
+                            for (Way w : ways) {
+                                if (!elements.contains(w)) {
+                                    newNode = factory.createNodeWithNewId(nd.getLat(), nd.getLon());
+                                    newNode.setTags(nd.getTags());
+                                    insertElementSafe(newNode);
+                                    replacedNodes.put(nd.getOsmId(), newNode);
+                                    break;
+                                }
+                            }
                         }
-                        ((Way) e).replaceNode(nd, newNode);
                     }
                 }
             }
@@ -2358,6 +2364,14 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             if (removeElement instanceof Node) {
                 removeNode((Node) removeElement);
             } else if (removeElement instanceof Way) {
+                // we replace nodes here since we are iterating over the ways anyway
+                // and we have to collect all replacements first above
+                for (Node nd : ((Way) removeElement).getNodes()) {
+                    Node replacement = replacedNodes.get(nd.getOsmId());
+                    if (replacement != null) {
+                        ((Way) removeElement).replaceNode(nd, replacement);
+                    }
+                }
                 removeWay((Way) removeElement);
             }
         }
@@ -2393,6 +2407,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         boolean copy = !clipboard.isEmpty();
         int deltaLat = lat - clipboard.getSelectionLat();
         int deltaLon = lon - clipboard.getSelectionLon();
+        System.out.println("lat " + lat + " lon " + lon + " sLat " + clipboard.getSelectionLat() + " sLon " + clipboard.getSelectionLon() + " dLat " + deltaLat
+                + " dLon " + deltaLon);
+        Map<Node, Node> newNodes = new HashMap<>(); // every node needs to only be transformed once
         for (OsmElement e : elements) {
             // if the clipboard isn't empty now we need to clone the element
             if (copy) { // paste from copy
@@ -2400,22 +2417,24 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     Node newNode = factory.createNodeWithNewId(((Node) e).getLat() + deltaLat, ((Node) e).getLon() + deltaLon);
                     newNode.setTags(e.getTags());
                     insertElementSafe(newNode);
+                    newNodes.put((Node) e, newNode);
                     e = newNode;
                 } else if (e instanceof Way) {
                     Way newWay = factory.createWayWithNewId();
                     undo.save(newWay); // do this before we create and add nodes
                     newWay.setTags(e.getTags());
-
                     List<Node> nodeList = ((Way) e).getNodes();
                     // this is slightly complicated because we need to handle cases with potentially broken geometry
                     // allocate and set the position of the new nodes
                     Set<Node> nodes = new HashSet<>(nodeList);
-                    Map<Node, Node> newNodes = new HashMap<>();
                     for (Node nd : nodes) {
-                        Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
-                        newNode.setTags(nd.getTags());
-                        insertElementSafe(newNode);
-                        newNodes.put(nd, newNode);
+                        if (!newNodes.containsKey(nd)) {
+                            Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
+                            newNode.setTags(nd.getTags());
+                            insertElementSafe(newNode);
+                            System.out.println("Node " + newNode.getOsmId() + " " + newNode.getLat() + " " + newNode.getLon());
+                            newNodes.put(nd, newNode);
+                        }
                     }
                     // now add them to the new way
                     for (Node nd : nodeList) {
@@ -2434,14 +2453,18 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (e instanceof Node) {
                     ((Node) e).setLat(((Node) e).getLat() + deltaLat);
                     ((Node) e).setLon(((Node) e).getLon() + deltaLon);
+                    newNodes.put((Node) e, null);
                 } else if (e instanceof Way) {
                     Set<Node> nodes = new HashSet<>(((Way) e).getNodes());
                     for (Node nd : nodes) {
-                        undo.save(nd);
-                        nd.setLat(nd.getLat() + deltaLat);
-                        nd.setLon(nd.getLon() + deltaLon);
-                        nd.updateState(nd.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
-                        insertElementSafe(nd);
+                        if (!newNodes.containsKey(nd)) {
+                            undo.save(nd);
+                            nd.setLat(nd.getLat() + deltaLat);
+                            nd.setLon(nd.getLon() + deltaLon);
+                            nd.updateState(nd.getOsmId() < 0 ? OsmElement.STATE_CREATED : OsmElement.STATE_MODIFIED);
+                            insertElementSafe(nd);
+                            newNodes.put(nd, null);
+                        }
                     }
                     ((Way) e).invalidateBoundingBox();
                 }
