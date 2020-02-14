@@ -81,6 +81,10 @@ public class OsmoseTest {
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
+        prefDB.resetCurrentServer();
+        prefs = new Preferences(context);
+        App.getLogic().setPrefs(prefs);
+        System.out.println(prefs.getServer().getReadWriteUrl());
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }

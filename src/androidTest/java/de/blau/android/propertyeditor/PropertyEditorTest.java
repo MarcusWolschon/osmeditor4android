@@ -21,6 +21,7 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.filters.SdkSuppress;
@@ -32,7 +33,6 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.view.KeyEvent;
@@ -100,6 +100,10 @@ public class PropertyEditorTest {
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
+        prefDB.resetCurrentServer();
+        prefs = new Preferences(context);
+        App.getLogic().setPrefs(prefs);
+        System.out.println(prefs.getServer().getReadWriteUrl());
         mDevice = UiDevice.getInstance(instrumentation);
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
@@ -288,9 +292,9 @@ public class PropertyEditorTest {
             Assert.fail();
         }
         phone.click();
-       
+
         instrumentation.sendStringSync("444400160");
-        
+
         Assert.assertTrue(TestUtils.findText(mDevice, false, "+41 44 440 01 60", 5000));
         TestUtils.clickUp(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_nodeselect)));

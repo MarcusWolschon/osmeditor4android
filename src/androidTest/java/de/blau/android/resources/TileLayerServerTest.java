@@ -64,6 +64,7 @@ public class TileLayerServerTest {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         splash = mActivityRule.launchActivity(intent);
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
+        Assert.assertNotNull(main);
 
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
