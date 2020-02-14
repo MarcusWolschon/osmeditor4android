@@ -122,7 +122,7 @@ public class GpxTest {
         track.importFromGPX(is);
         // set a different current location so that the first point always gets recorded
         int trackSize = track.getTrack().size();
-        TrackPoint point = track.getTrack().get(trackSize-1);
+        TrackPoint point = track.getTrack().get(trackSize - 1);
         Location loc = new Location(LocationManager.GPS_PROVIDER);
         loc.setLatitude(point.getLatitude());
         loc.setLongitude(point.getLongitude());
@@ -243,8 +243,8 @@ public class GpxTest {
         // compare roughly with last location
         TrackPoint lastPoint = track.getTrack().get(track.getTrack().size() - 1);
         ViewBox box = main.getMap().getViewBox();
-        Assert.assertEquals(lastPoint.getLatitude(), box.getCenterLat(), 0.0001);
-        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight()) / 2 + box.getRight()) / 1E7D, 0.0001);
+        Assert.assertEquals(lastPoint.getLatitude(), box.getCenterLat(), 0.001);
+        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight()) / 2 + box.getRight()) / 1E7D, 0.001);
     }
 
     /**

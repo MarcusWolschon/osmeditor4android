@@ -57,7 +57,8 @@ public class OffsetTest {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         splash = mActivityRule.launchActivity(intent);
 
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
+        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
+        Assert.assertNotNull(main);
 
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 

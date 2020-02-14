@@ -145,7 +145,7 @@ public class WayActionsTest {
         Coordinates v2 = coords[2].subtract(coords[1]);
         double theta = Math.toDegrees(Math.acos(Coordinates.dotproduct(v1, v2) / (v1.length() * v2.length())));
         System.out.println("Original angle " + theta);
-        Assert.assertEquals(92.45, theta, 0.1);
+        Assert.assertEquals(92.33, theta, 0.1);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickOverflowButton();
         TestUtils.clickText(device, false, "Straighten", false);
@@ -155,7 +155,7 @@ public class WayActionsTest {
         v2 = coords[2].subtract(coords[1]);
         theta = Math.toDegrees(Math.acos(Coordinates.dotproduct(v1, v2) / (v1.length() * v2.length())));
         System.out.println("New angle " + theta);
-        Assert.assertEquals(90.01, theta, 0.01);
+        Assert.assertEquals(90.04, theta, 0.01);
         device.waitForIdle(1000);
         TestUtils.clickHome(device);
     }

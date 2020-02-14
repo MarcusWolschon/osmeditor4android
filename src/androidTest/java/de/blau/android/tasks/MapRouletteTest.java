@@ -75,13 +75,16 @@ public class MapRouletteTest {
         prefs.putString(R.string.config_maprouletteServer_key, mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/");
         mockServerApi = new MockWebServerPlus();
         mockBaseUrl = mockServerApi.server().url("/api/0.6/");
-        ;
+
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
-
+        prefDB.resetCurrentServer();
+        prefs = new Preferences(context);
+        App.getLogic().setPrefs(prefs);
+        System.out.println(prefs.getServer().getReadWriteUrl());
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }

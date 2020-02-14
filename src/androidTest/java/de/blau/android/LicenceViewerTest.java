@@ -68,7 +68,7 @@ public class LicenceViewerTest {
      * Start up the HelpViewer
      */
     @Test
-    public void startHelp() {
+    public void startViewer() {
         TestUtils.clickOverflowButton();
         TestUtils.clickText(device, false, "Authors and licenses", true);
         Activity licenseViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);

@@ -73,6 +73,7 @@ public class LayerDialogTest {
         splash = mActivityRule.launchActivity(intent);
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
+        Assert.assertNotNull(main);
 
         Preferences prefs = new Preferences(main);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK); // need to have this on for testing here
@@ -170,9 +171,9 @@ public class LayerDialogTest {
         Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 3465444349L));
         Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 206010144L)); // is member of a relation
         Assert.assertNull(delegator.getOsmElement(Way.NAME, 206010346L));
-        
-        Assert.assertEquals(469, delegator.getCurrentStorage().getNodeCount());
-        Assert.assertEquals(21, delegator.getCurrentStorage().getWayCount());
+
+        Assert.assertEquals(463, delegator.getCurrentStorage().getNodeCount());
+        Assert.assertEquals(20, delegator.getCurrentStorage().getWayCount());
         Assert.assertEquals(5, delegator.getCurrentStorage().getRelationCount());
     }
 
