@@ -4832,8 +4832,8 @@ public class Logic {
      */
     @Nullable
     int[] calcCentroid(@NonNull List<OsmElement> elements) {
-        int latE7 = 0;
-        int lonE7 = 0;
+        long latE7 = 0;
+        long lonE7 = 0;
         for (OsmElement e : elements) {
             if (e instanceof Node) {
                 latE7 += ((Node) e).getLat();
@@ -4852,7 +4852,7 @@ public class Logic {
                 return null;
             }
         }
-        return new int[] { latE7 / elements.size(), lonE7 / elements.size() };
+        return new int[] { (int) (latE7 / elements.size()), (int) (lonE7 / elements.size()) };
     }
 
     /**
