@@ -307,7 +307,7 @@
             app:spt_currentValueText="@string/config_gps_interval_current"
             app:spt_setWrapSelectorWheel="false" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
-            android:defaultValue="5"
+            android:defaultValue="2"
             android:dialogTitle="@string/config_gps_distance_title"
             android:key="@string/config_gps_distance_key"
             android:numeric="integer"
