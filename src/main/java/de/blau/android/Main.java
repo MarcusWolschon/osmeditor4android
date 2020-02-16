@@ -3679,8 +3679,8 @@ public class Main extends FullScreenAppCompatActivity
          * @param elements List of elements to filter
          * @return List of elements that have passed the filter
          */
-        private ArrayList<OsmElement> filterElements(List<OsmElement> elements) {
-            ArrayList<OsmElement> tmp = new ArrayList<>();
+        private List<OsmElement> filterElements(List<OsmElement> elements) {
+            List<OsmElement> tmp = new ArrayList<>();
             Logic logic = App.getLogic();
             Filter filter = logic.getFilter();
             for (OsmElement e : elements) {
