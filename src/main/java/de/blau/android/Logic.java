@@ -2326,10 +2326,8 @@ public class Logic {
         double savedDistance = Double.MAX_VALUE;
         // create a new node on a way
         for (Way way : ways) {
-            if (filter != null) {
-                if (!filter.include(way, isSelected(way))) {
-                    continue;
-                }
+            if (filter != null && !filter.include(way, isSelected(way))) {
+                continue;
             }
             List<Node> wayNodes = way.getNodes();
             for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
@@ -2531,8 +2529,6 @@ public class Logic {
 
     /**
      * Loads the area defined by mapBox from the OSM-Server.
-     * 
-     * FIXME try to reduce the code duplication here
      * 
      * @param context android context
      * @param server the Server object we are using
@@ -3504,7 +3500,7 @@ public class Logic {
                 if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadTasksfromFile: File read correctly");
 
-                    // FIXME if no bbox exists from data, ty to use one from bugs
+                    // FIXME if no bbox exists from data, try to use one from bugs
                     if (postLoad != null) {
                         postLoad.onSuccess();
                     }
@@ -3563,7 +3559,7 @@ public class Logic {
                 Log.d(DEBUG_TAG, "loadLayerState onPostExecute");
                 if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadLayerState: state loaded correctly");
-                    // FIXME if no bbox exists from data, ty to use one from bugs
+                    // FIXME if no bbox exists from data, try to use one from bugs
                     if (postLoad != null) {
                         postLoad.onSuccess();
                     }
@@ -3785,7 +3781,7 @@ public class Logic {
                 try {
                     server.uploadTrack(track, description, tags, visibility);
                 } catch (final OsmServerException e) {
-                    switch (e.getErrorCode()) { // FIXME use the same mechanics as for data uoload
+                    switch (e.getErrorCode()) { // FIXME use the same mechanics as for data upload
                     case HttpURLConnection.HTTP_FORBIDDEN:
                     case HttpURLConnection.HTTP_UNAUTHORIZED:
                         result = ErrorCodes.INVALID_LOGIN;
