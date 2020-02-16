@@ -9,12 +9,13 @@ public final class Files {
     public static final String FILE_NAME_AUTOPRESET_TEMPLATE = "autopreset-template.xml";
     public static final String FILE_NAME_AUTOPRESET          = "autopreset.xml";
     public static final String FILE_NAME_MRUTAGS             = "mrutags.xml";
+    public static final String FILE_NAME_KEYS                = "keys.txt";
 
     /**
      * Where we install the current version of vespucci
      */
     public static final String VERSION = "version.dat";
-    
+
     /**
      * Private constructor
      */

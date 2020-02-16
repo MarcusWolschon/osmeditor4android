@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- the keys are application specific and should really be private, however because f-droid doesn't support private keys we need to keep those with
+non-replaceable functionality in the repo -->
 <resources>
     <string-array translatable="false" name="api_names">
         <item>OpenStreetMap SSL</item>
@@ -20,5 +22,4 @@
         <item>https://www.openstreetmap.org/</item>
         <item>https://master.apis.dev.openstreetmap.org/</item>
     </string-array>
-    <string translatable="false" name="bingapikey">AtCQFkJNgUBEVk9qiNMBCNExDMVCiz5Hgvn20tpG3AfONcQUcumDChHDnhhNs0YA</string>
 </resources>

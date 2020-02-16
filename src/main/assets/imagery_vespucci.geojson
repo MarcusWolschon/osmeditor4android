@@ -51,7 +51,7 @@
                 "id": "tf-landscape",
                 "name": "Thunderforest Landscape",
                 "i18n": true,
-                "url": "https://{switch:a,b,c}.tile.thunderforest.com/landscape/{zoom}/{x}/{y}.png?apikey=d7daa307501a4c4d857c92d42774faf2",
+                "url": "https://{switch:a,b,c}.tile.thunderforest.com/landscape/{zoom}/{x}/{y}.png?apikey={apikey}",
                 "attribution": {
                     "url": "https://www.thunderforest.com/terms",
                     "text": "Maps © Thunderforest, Data © OpenStreetMap contributors",
@@ -81,8 +81,53 @@
                 "name": "Thunderforest OpenCycleMap",
                 "type": "tms",
                 "category": "osmbasedmap",
-                "url": "https://{switch:a,b,c}.tile.thunderforest.com/cycle/{zoom}/{x}/{y}.png?apikey=d7daa307501a4c4d857c92d42774faf2"
+                "apikey": "url",
+                "url": "https://{switch:a,b,c}.tile.thunderforest.com/cycle/{zoom}/{x}/{y}.png?apikey={apikey}"
             }
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "attribution": {
+                    "required": true,
+                    "text": "Terms & Feedback",
+                    "url": "https://wiki.openstreetmap.org/wiki/DigitalGlobe"
+                },
+                "default": true,
+                "license": "COMMERCIAL",
+                "permission_osm": "explicit",
+                "description": "Maxar Premium is a mosaic composed of Maxar basemap with select regions filled with +Vivid or custom area of interest imagery, 50cm resolution or better, and refreshed more frequently with ongoing updates.",
+                "i18n": true,
+                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/Maxar.png",
+                "id": "Maxar-Premium",
+                "max_zoom": 22,
+                "name": "Maxar Premium Imagery (Beta)",
+                "type": "tms",
+                "url": "https://services.digitalglobe.com/earthservice/tmsaccess/tms/1.0.0/DigitalGlobe:ImageryTileService@EPSG:3857@jpg/{zoom}/{x}/{-y}.jpg?connectId={apikey}&foo=premium"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": null,
+            "properties": {
+                "attribution": {
+                    "required": true,
+                    "text": "Terms & Feedback",
+                    "url": "https://wiki.openstreetmap.org/wiki/DigitalGlobe"
+                },
+                "default": true,
+                "license": "COMMERCIAL",
+                "permission_osm": "explicit",
+                "description": "Maxar Standard is a curated set of imagery covering 86% of the earth’s landmass, with 30-60cm resolution where available, backfilled by Landsat. Average age is 2.31 years, with some areas updated 2x per year.",
+                "i18n": true,
+                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/Maxar.png",
+                "id": "Maxar-Standard",
+                "max_zoom": 22,
+                "name": "Maxar Standard Imagery (Beta)",
+                "type": "tms",
+                "url": "https://services.digitalglobe.com/earthservice/tmsaccess/tms/1.0.0/DigitalGlobe:ImageryTileService@EPSG:3857@jpg/{zoom}/{x}/{-y}.jpg?connectId={apikey}&foo=standard"
+            },
+            "type": "Feature"
         }
     ],
     "type": "FeatureCollection"

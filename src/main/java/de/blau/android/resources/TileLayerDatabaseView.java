@@ -194,8 +194,9 @@ public class TileLayerDatabaseView {
      * @param prefs a current Preferences object
      * @param layer the layer we are updating
      */
-    static void updateLayerConfig(@NonNull Context context, @NonNull Preferences prefs, @NonNull MapTilesLayer layer) {
+    public static void updateLayerConfig(@NonNull Context context, @NonNull Preferences prefs, @Nullable MapTilesLayer layer) {
         if (layer != null) {
+            Log.d(DEBUG_TAG, "updating layer " + layer.getName());
             TileLayerServer config = layer.getTileLayerConfiguration();
             if (config != null) {
                 TileLayerServer newConfig = TileLayerServer.get(context, config.getId(), false);

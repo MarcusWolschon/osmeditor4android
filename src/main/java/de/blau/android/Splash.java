@@ -1,9 +1,12 @@
 package de.blau.android;
 
+import java.io.IOException;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
@@ -12,8 +15,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import de.blau.android.contract.Files;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
 
@@ -77,6 +82,17 @@ public class Splash extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
+                if (newInstall || newConfig) {
+                    AssetManager assetManager = getAssets();
+                    KeyDatabaseHelper keys = new KeyDatabaseHelper(Splash.this);
+                    try {
+                        keys.keysFromStream(assetManager.open(Files.FILE_NAME_KEYS));
+                    } catch (IOException e) {
+                        Log.e(DEBUG_TAG, "Error reading keys file " + e.getMessage());
+                    } finally {
+                        keys.close();
+                    }
+                }
                 try {
                     if (!isCancelled()) {
                         TileLayerServer.createOrUpdateCustomSource(Splash.this, db.getWritableDatabase(), true);

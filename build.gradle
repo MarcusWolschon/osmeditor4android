@@ -54,6 +54,7 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 ext {
     adb = android.getAdbExe().toString()
+    private_assets = "$projectDir/../private_assets"
 }
 
 // note this is currently processed by a slightly modified version of the
@@ -323,6 +324,10 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
+    
+    sourceSets {
+        main.assets.srcDirs += files("$private_assets".toString())
+    }
 }
 
 android.applicationVariants.all { variant ->
@@ -341,7 +346,7 @@ android.applicationVariants.all { variant ->
 afterEvaluate{
     // these tasks needs to be created after the uninstall tasks
 
-    // hardwired single test, this is only needed durign initial developement, once the whole test suite has been run
+    // hardwired single test, this is only needed during initial developement, once the whole test suite has been run
     // any new test will be included automatically
     // it would probably be better to somehow get the test name interactively from the user
     android.productFlavors.all { flavor ->

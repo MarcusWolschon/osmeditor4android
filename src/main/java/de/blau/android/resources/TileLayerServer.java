@@ -1131,12 +1131,14 @@ public class TileLayerServer implements Serializable {
             TileLayerServer layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
             db.close();
             if (layer != null) {
-                if (layer.isOverlay()) {
-                    overlayServerList.put(id, layer);
-                } else {
-                    backgroundServerList.put(id, layer);
+                if (layer.replaceApiKey(ctx)) {
+                    if (layer.isOverlay()) {
+                        overlayServerList.put(id, layer);
+                    } else {
+                        backgroundServerList.put(id, layer);
+                    }
+                    return layer;
                 }
-                return layer;
             }
             Log.e(DEBUG_TAG, "Layer " + id + " null from database");
         }
@@ -2683,5 +2685,31 @@ public class TileLayerServer implements Serializable {
             existingTileServer.setCategory(category);
             TileLayerDatabase.updateLayer(db, existingTileServer);
         }
+    }
+
+    private static final Pattern APIKEY = Pattern.compile(".*\\{apikey\\}.*", Pattern.CASE_INSENSITIVE);
+
+    /**
+     * Replace any apikey placeholder if possible
+     * 
+     * @param context Android Context
+     * @return true if the apikey could be found or wasn't required, false otherwise
+     */
+    public boolean replaceApiKey(@NonNull Context context) {
+        if (APIKEY.matcher(tileUrl).matches()) {
+            // check key database
+            KeyDatabaseHelper keys = new KeyDatabaseHelper(context);
+            try (SQLiteDatabase db = keys.getReadableDatabase()) {
+                String key = KeyDatabaseHelper.getKey(db, ("imagery_apikey:" + getId()).toUpperCase(Locale.US));
+                if (key != null && !"".equals(key)) {
+                    tileUrl = replaceParameter(tileUrl, "apikey", key);
+                    return true;
+                }
+            } finally {
+                keys.close();
+            }
+            return false; // needed key but didn't find it
+        }
+        return true;
     }
 }

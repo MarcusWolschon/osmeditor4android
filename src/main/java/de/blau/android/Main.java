@@ -136,6 +136,7 @@ import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerDatabase;
+import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
@@ -703,6 +704,10 @@ public class Main extends FullScreenAppCompatActivity
 
         map.setPrefs(this, prefs);
         map.requestFocus();
+
+        // available tileservers may have changed
+        TileLayerDatabaseView.updateLayerConfig(this, prefs, map.getBackgroundLayer());
+        TileLayerDatabaseView.updateLayerConfig(this, prefs, map.getOverlayLayer());
 
         undoListener = new UndoListener();
 

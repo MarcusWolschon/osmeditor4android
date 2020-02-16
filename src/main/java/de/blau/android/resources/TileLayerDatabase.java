@@ -505,7 +505,11 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                     provider.addCoverageArea(ca);
                 }
                 TileLayerServer layer = getLayerFromCursor(context, provider, dbresult);
-                layers.put(id, layer);
+                if (layer.replaceApiKey(context)) { // if we have an apikey parameter and can't replace it, don't add
+                    layers.put(id, layer);
+                } else {
+                    Log.e(DEBUG_TAG, "layer " + id + " is missing an apikey, not added");
+                }
                 haveEntry = dbresult.moveToNext();
             }
         }
