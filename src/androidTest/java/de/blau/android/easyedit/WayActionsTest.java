@@ -155,7 +155,7 @@ public class WayActionsTest {
         v2 = coords[2].subtract(coords[1]);
         theta = Math.toDegrees(Math.acos(Coordinates.dotproduct(v1, v2) / (v1.length() * v2.length())));
         System.out.println("New angle " + theta);
-        Assert.assertEquals(90.04, theta, 0.01);
+        Assert.assertEquals(90.00, theta, 0.05);
         device.waitForIdle(1000);
         TestUtils.clickHome(device);
     }
