@@ -534,6 +534,16 @@ public class Preferences {
     }
 
     /**
+     * Set minimum distance between GPS/GNSS location fixes
+     * 
+     * @param distance the distance between GPS/GNSS location fixes in meters
+     */
+    public void setGpsDistance(int distance) {
+        prefs.edit().putInt(r.getString(R.string.config_gps_distance_key), distance).commit();
+        gpsDistance = distance;
+    }
+
+    /**
      * Check if we are allowed to fall back to Network locations
      * 
      * @return true if the fallback is allowed

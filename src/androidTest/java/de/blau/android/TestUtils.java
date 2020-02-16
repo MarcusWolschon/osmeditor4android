@@ -819,7 +819,6 @@ public class TestUtils {
                     loc.setLongitude(tp.getLongitude());
                     if (tp.hasAltitude()) {
                         loc.setAltitude(tp.getAltitude());
-                        ;
                     }
                     loc.setTime(System.currentTimeMillis());
                     loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());

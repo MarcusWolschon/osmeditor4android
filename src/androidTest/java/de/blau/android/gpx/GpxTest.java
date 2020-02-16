@@ -35,6 +35,7 @@ import android.support.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
@@ -111,6 +112,10 @@ public class GpxTest {
         Assert.assertNotNull(main);
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
+
+        // set min distance to 1m
+        prefs.setGpsDistance(0);
+
         main.getMap().setPrefs(main, prefs);
         TestUtils.zoomToLevel(main, 19);
         TestUtils.clickButton("de.blau.android:id/follow", false);
@@ -223,6 +228,10 @@ public class GpxTest {
         Assert.assertNotNull(main);
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
+
+        // set min distance to 1m
+        prefs.setGpsDistance(0);
+
         main.getMap().setPrefs(main, prefs);
         TestUtils.zoomToLevel(main, 19);
         TestUtils.clickButton("de.blau.android:id/follow", false);
