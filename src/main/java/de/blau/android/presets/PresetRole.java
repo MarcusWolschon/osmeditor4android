@@ -8,7 +8,6 @@ import android.util.Log;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
-import de.blau.android.propertyeditor.PresetSearchResultsFragment;
 
 public class PresetRole implements Comparable<PresetRole> {
 

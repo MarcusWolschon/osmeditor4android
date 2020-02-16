@@ -2,8 +2,6 @@ package de.blau.android.dialogs;
 
 import java.util.List;
 
-import com.adobe.internal.xmp.impl.Utils;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;

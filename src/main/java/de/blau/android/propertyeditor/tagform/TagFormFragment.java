@@ -51,7 +51,6 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.net.UrlCheck;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;

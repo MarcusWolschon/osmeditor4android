@@ -24,8 +24,6 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.net.UrlCheck;
-import de.blau.android.net.UrlCheck.CheckStatus;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.ValueType;

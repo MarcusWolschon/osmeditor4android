@@ -7,6 +7,7 @@ import android.content.res.ColorStateList;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import de.blau.android.R;
 
 public class TriStateCheckBox extends IndeterminateCheckBox {

@@ -58,7 +58,6 @@ import de.blau.android.exception.UiStateException;
 import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.net.UrlCheck;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Server;
