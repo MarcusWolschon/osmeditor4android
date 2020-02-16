@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
@@ -32,10 +31,6 @@ import de.blau.android.util.ThemeUtils;
 public class UrlDialogRow extends DialogRow {
 
     private static final String DEBUG_TAG = "UrlDialogRow";
-
-    TextView   keyView;
-    TextView   valueView;
-    PresetItem preset;
 
     /**
      * Construct a row that will display a Dialog when clicked

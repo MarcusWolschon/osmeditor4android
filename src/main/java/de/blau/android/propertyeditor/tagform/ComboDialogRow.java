@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.StringWithDescription;
@@ -34,10 +33,6 @@ import de.blau.android.util.Util;
 public class ComboDialogRow extends DialogRow {
 
     private static final String DEBUG_TAG = "ComboDialogRow";
-
-    TextView   keyView;
-    TextView   valueView;
-    PresetItem preset;
 
     /**
      * Construct a row that will display a Dialog when clicked
