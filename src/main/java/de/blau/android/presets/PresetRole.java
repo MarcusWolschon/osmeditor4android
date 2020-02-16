@@ -165,6 +165,16 @@ public class PresetRole implements Comparable<PresetRole> {
     }
 
     /**
+     * Get the requisite value
+     * 
+     * @return OPTIONAL, REQUIRED or null if not set
+     */
+    @Nullable
+    public Requisite getRequisite() {
+        return requisite;
+    }
+
+    /**
      * Set the number of times this role can be present in a Relation
      * 
      * @param countString a String containg an int
@@ -183,6 +193,15 @@ public class PresetRole implements Comparable<PresetRole> {
     }
 
     /**
+     * Get the maximum number of times this role can occur
+     * 
+     * @return maximum number of times this role can occur, 0 = unlimited
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
      * Set if the role String is an regexp or not
      * 
      * We only use this to ignore the role for now
@@ -191,6 +210,15 @@ public class PresetRole implements Comparable<PresetRole> {
      */
     public void setRegexp(@Nullable String regexpString) {
         regexp = regexpString != null && Preset.TRUE.equals(regexpString);
+    }
+
+    /**
+     * Check if the role is actually a regexp
+     * 
+     * @return true if the role is a regexp
+     */
+    public boolean isRegexp() {
+        return regexp;
     }
 
     @Override
