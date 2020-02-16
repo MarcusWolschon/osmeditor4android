@@ -2407,8 +2407,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         boolean copy = !clipboard.isEmpty();
         int deltaLat = lat - clipboard.getSelectionLat();
         int deltaLon = lon - clipboard.getSelectionLon();
-        System.out.println("lat " + lat + " lon " + lon + " sLat " + clipboard.getSelectionLat() + " sLon " + clipboard.getSelectionLon() + " dLat " + deltaLat
-                + " dLon " + deltaLon);
         Map<Node, Node> newNodes = new HashMap<>(); // every node needs to only be transformed once
         for (OsmElement e : elements) {
             // if the clipboard isn't empty now we need to clone the element
@@ -2432,7 +2430,6 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                             Node newNode = factory.createNodeWithNewId(nd.getLat() + deltaLat, nd.getLon() + deltaLon);
                             newNode.setTags(nd.getTags());
                             insertElementSafe(newNode);
-                            System.out.println("Node " + newNode.getOsmId() + " " + newNode.getLat() + " " + newNode.getLon());
                             newNodes.put(nd, newNode);
                         }
                     }
