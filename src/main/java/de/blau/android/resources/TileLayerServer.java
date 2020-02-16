@@ -1130,15 +1130,13 @@ public class TileLayerServer implements Serializable {
             TileLayerDatabase db = new TileLayerDatabase(ctx);
             TileLayerServer layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
             db.close();
-            if (layer != null) {
-                if (layer.replaceApiKey(ctx)) {
-                    if (layer.isOverlay()) {
-                        overlayServerList.put(id, layer);
-                    } else {
-                        backgroundServerList.put(id, layer);
-                    }
-                    return layer;
+            if (layer != null && layer.replaceApiKey(ctx)) {
+                if (layer.isOverlay()) {
+                    overlayServerList.put(id, layer);
+                } else {
+                    backgroundServerList.put(id, layer);
                 }
+                return layer;
             }
             Log.e(DEBUG_TAG, "Layer " + id + " null from database");
         }

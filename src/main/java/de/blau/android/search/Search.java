@@ -32,11 +32,18 @@ import de.blau.android.util.Snack;
  * @author simon
  *
  */
-public class Search {
+public final class Search {
 
     protected static final String DEBUG_TAG = "Search";
 
     private static AppCompatDialog dialog;
+
+    /**
+     * Private constructor
+     */
+    private Search() {
+        // don't allow instantiating of this class
+    }
 
     /**
      * Show a dialog and ask the user for input
@@ -73,7 +80,7 @@ public class Search {
                                     condition = parser.condition();
                                 } catch (ParseException pex) {
                                     return pex.getMessage();
-                                } catch (Error err) {
+                                } catch (Error err) { // NOSONAR
                                     return err.getMessage();
                                 }
 

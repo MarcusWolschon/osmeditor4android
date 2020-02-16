@@ -77,7 +77,7 @@ public class OAMCatalog {
     /**
      * Query the OAM API for a list of imagery
      * 
-     * @param context TODO
+     * @param context an Android Context
      * @param oamServer URL for the OAM API server
      * @param box if not null limit the query to this BoundingBox
      * 

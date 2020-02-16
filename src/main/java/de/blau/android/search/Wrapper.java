@@ -260,12 +260,8 @@ public class Wrapper implements Meta {
     boolean inBox(@NonNull BoundingBox box) {
         if (element instanceof Relation) {
             for (RelationMember rm : ((Relation) element).getMembers()) {
-                if (rm.downloaded()) {
-                    if (!Relation.NAME.equals(rm.getType())) {
-                        if (inBox(box, rm.getElement())) {
-                            return true;
-                        }
-                    }
+                if (rm.downloaded() && !Relation.NAME.equals(rm.getType()) && inBox(box, rm.getElement())) {
+                    return true;
                 }
             }
             return false;
