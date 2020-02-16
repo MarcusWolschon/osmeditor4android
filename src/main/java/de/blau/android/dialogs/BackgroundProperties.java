@@ -136,10 +136,12 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
 
             @Override
             public void onStartTrackingTouch(final SeekBar seekBar) {
+                // required but not used
             }
 
             @Override
             public void onStopTrackingTouch(final SeekBar arg0) {
+                // required but not used
             }
         };
     }

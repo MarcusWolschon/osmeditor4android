@@ -29,6 +29,8 @@ import de.blau.android.util.SavingHelper;
  */
 public class PresetIconManager {
 
+    private static final String DEBUG_TAG = "PresetIconManager";
+
     /** context of own application */
     private final Context context;
 
@@ -68,9 +70,9 @@ public class PresetIconManager {
             Context extCtx = context.createPackageContext(EXTERNAL_DEFAULT_ASSETS_PACKAGE, 0);
             tmpExternalDefaultAssets = extCtx.getAssets();
         } catch (NameNotFoundException e) {
-            Log.i("PresetIconManager", "External default asset package not installed");
+            Log.i(DEBUG_TAG, "External default asset package not installed");
         } catch (Exception e) {
-            Log.e("PresetIconManager", "Exception while loading external default assets", e);
+            Log.e(DEBUG_TAG, "Exception while loading external default assets", e);
         }
         externalDefaultAssets = tmpExternalDefaultAssets;
 
@@ -80,9 +82,9 @@ public class PresetIconManager {
                 Context extCtx = context.createPackageContext(externalAssetPackage, 0);
                 tmpExternalDataAssets = extCtx.getAssets();
             } catch (NameNotFoundException e) {
-                Log.e("PresetIconManager", "External data asset package not found" + externalAssetPackage);
+                Log.e(DEBUG_TAG, "External data asset package not found" + externalAssetPackage);
             } catch (Exception e) {
-                Log.e("PresetIconManager", "Exception while loading external asset package " + externalAssetPackage, e);
+                Log.e(DEBUG_TAG, "Exception while loading external asset package " + externalAssetPackage, e);
             }
         }
         externalAssets = tmpExternalDataAssets;
@@ -117,7 +119,7 @@ public class PresetIconManager {
             } else if (!url.contains("..")) {
                 pngStream = openAsset(ASSET_IMAGE_PREFIX + url, true);
             } else {
-                Log.e("PresetIconManager", "unknown icon URL type for " + url);
+                Log.e(DEBUG_TAG, "unknown icon URL type for " + url);
             }
 
             if (pngStream == null) {
@@ -128,11 +130,11 @@ public class PresetIconManager {
             BitmapDrawable drawable = new BitmapDrawable(App.resources(), BitmapFactory.decodeStream(pngStream));
             drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
             int pxsize = Density.dpToPx(size);
-            Log.e("PresetIconManager", "icon " + url + " size " + size + " pxsize " + pxsize);
+            Log.e(DEBUG_TAG, "icon " + url + " size " + size + " pxsize " + pxsize);
             drawable.setBounds(0, 0, pxsize, pxsize);
             return drawable;
         } catch (Exception e) {
-            Log.e("PresetIconManager", "Failed to load preset icon " + url, e);
+            Log.e(DEBUG_TAG, "Failed to load preset icon " + url, e);
             return null;
         } finally {
             SavingHelper.close(pngStream);
@@ -199,7 +201,7 @@ public class PresetIconManager {
         } // ignore
 
         if (!allowDefault) {
-            Log.e("PresetIconManager", "Failed to load preset-specific asset " + path + "[externalAssetPackage=" + externalAssetPackage + "]");
+            Log.e(DEBUG_TAG, "Failed to load preset-specific asset " + path + "[externalAssetPackage=" + externalAssetPackage + "]");
             return null;
         }
 
@@ -218,7 +220,7 @@ public class PresetIconManager {
         } // ignore
 
         // if everything fails
-        Log.e("PresetIconManager", "Could not load asset " + path + " from any source " + "[externalAssetPackage=" + externalAssetPackage + "]");
+        Log.e(DEBUG_TAG, "Could not load asset " + path + " from any source " + "[externalAssetPackage=" + externalAssetPackage + "]");
         return null;
     }
 

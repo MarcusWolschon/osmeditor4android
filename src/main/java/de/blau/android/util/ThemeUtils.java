@@ -22,6 +22,8 @@ import de.blau.android.prefs.Preferences;
  */
 public final class ThemeUtils {
 
+    private static final String DEBUG_TAG = "ThemeUtils";
+
     /**
      * Private constructor
      */
@@ -45,7 +47,7 @@ public final class ThemeUtils {
         final TypedValue tv = new TypedValue();
         final boolean found = context.getTheme().resolveAttribute(attribResId, tv, true);
         if (!found) {
-            Log.d("ThemeUtils", "themed color not found");
+            Log.d(DEBUG_TAG, "themed color not found");
             return defaultValue;
         }
         return tv.data;
@@ -60,12 +62,12 @@ public final class ThemeUtils {
      */
     public static int getResIdFromAttribute(@NonNull final Context context, final int attr) {
         if (attr == 0) {
-            Log.d("ThemeUtils", "getResIdFromAttribute attr zero");
+            Log.d(DEBUG_TAG, "getResIdFromAttribute attr zero");
             return 0;
         }
         final TypedValue typedvalueattr = new TypedValue();
         if (!context.getTheme().resolveAttribute(attr, typedvalueattr, true)) {
-            Log.d("ThemeUtils", "getResIdFromAttribute attr " + attr + " not found");
+            Log.d(DEBUG_TAG, "getResIdFromAttribute attr " + attr + " not found");
             return 0;
         }
         return typedvalueattr.resourceId;
@@ -85,7 +87,7 @@ public final class ThemeUtils {
             ta = context.getTheme().obtainStyledAttributes(attrs);
             return ta.getDimensionPixelSize(0, 0);
         } catch (Resources.NotFoundException nfe) {
-            Log.d("ThemeUtils", "getIntFromAttribute attr " + attr + " not found");
+            Log.d(DEBUG_TAG, "getIntFromAttribute attr " + attr + " not found");
             return 0;
         } finally {
             if (ta != null) {

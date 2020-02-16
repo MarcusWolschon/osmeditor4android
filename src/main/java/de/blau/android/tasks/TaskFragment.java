@@ -243,7 +243,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
 
                                         @Override
                                         public void onError() {
-                                         // Ignore
+                                            // Ignore
                                         }
                                     });
                                 } catch (OsmException e1) {
@@ -338,6 +338,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                         .setMessage(getString(R.string.openstreetbug_not_supported, task.getClass().getCanonicalName()))
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                // not used
                             }
                         });
                 return builder.create();
@@ -357,7 +358,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
         }
 
         boolean uploadedOsmoseBug = task instanceof OsmoseBug && task.isClosed() && !task.hasBeenChanged();
-        state.setEnabled(!task.isNew() && !uploadedOsmoseBug); // new bugs always open and OSMOSE bugs can't be reopened once uploaded
+        state.setEnabled(!task.isNew() && !uploadedOsmoseBug); // new bugs always open and OSMOSE bugs can't be reopened
+                                                               // once uploaded
         AppCompatDialog d = builder.create();
         d.setOnShowListener(new OnShowListener() { // old API, buttons are enabled by default
             @Override
@@ -379,16 +381,19 @@ public class TaskFragment extends ImmersiveDialogFragment {
 
                     @Override
                     public void onNothingSelected(AdapterView<?> arg0) {
+                        // required, but not used
                     }
                 });
                 EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
                 comment.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void afterTextChanged(Editable arg0) {
+                        // required, but not used
                     }
 
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        // required, but not used
                     }
 
                     @Override

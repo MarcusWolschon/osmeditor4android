@@ -32,7 +32,7 @@ public abstract class PrefEditorActivity extends AppCompatActivity implements Pr
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d("PrefEditorActivity", "onCreate");
+        Log.d(DEBUG_TAG, "onCreate");
         Preferences prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_AppCompatPrefsLight);

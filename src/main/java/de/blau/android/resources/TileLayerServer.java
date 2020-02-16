@@ -772,16 +772,12 @@ public class TileLayerServer implements Serializable {
                         Log.i(DEBUG_TAG, "Meta-data loaded for layer " + getId());
                         return null;
                     }
-
-                    @Override
-                    protected void onPostExecute(Void result) {
-                    }
                 }.execute(tileUrl);
             } else {
                 loadInfo(tileUrl);
             }
             return;
-        } else if ("scanex".equals(type)) { // hopelessly hardwired
+        } else if (TYPE_SCANEX.equals(type)) { // hopelessly hardwired
             tileUrl = "http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}";
             imageFilenameExtension = ".jpg";
             return;

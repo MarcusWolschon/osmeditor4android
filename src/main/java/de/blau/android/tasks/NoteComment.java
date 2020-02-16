@@ -25,6 +25,9 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      */
     private static final long serialVersionUID = 4L;
 
+    private static final String COMMENT = "comment";
+    private static final String ACTION  = "action";
+
     /** The Note we belong to **/
     private Note   note;
     /** The comment text. */
@@ -129,20 +132,20 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
 
     @Override
     public void toJosmXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "comment");
+        s.startTag("", COMMENT);
         if (action != null) {
-            s.attribute("", "action", action);
+            s.attribute("", ACTION, action);
         } else {
             if (note.getOriginalState() != note.getState()) {
                 switch (note.getState()) {
                 case CLOSED:
-                    s.attribute("", "action", "closed");
+                    s.attribute("", ACTION, "closed");
                     break;
                 case OPEN:
                     if (note.isNew()) {
-                        s.attribute("", "action", "opened");
+                        s.attribute("", ACTION, "opened");
                     } else {
-                        s.attribute("", "action", "reopened");
+                        s.attribute("", ACTION, "reopened");
                     }
                     break;
                 default:
@@ -150,7 +153,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
                     break;
                 }
             } else {
-                s.attribute("", "action", "commented");
+                s.attribute("", ACTION, "commented");
             }
         }
         if (timestamp != -1) {
@@ -162,6 +165,6 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
         }
         s.attribute("", "is_new", Boolean.toString(isNew()));
         s.text(text);
-        s.endTag("", "comment");
+        s.endTag("", COMMENT);
     }
 }

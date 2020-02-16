@@ -244,11 +244,11 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
         s.startTag("", NAME);
         attributesToXml(s, changeSetId, josm);
         for (RelationMember member : members) {
-            s.startTag("", "member");
+            s.startTag("", MEMBER);
             s.attribute("", "type", member.getType());
             s.attribute("", "ref", Long.toString(member.getRef()));
             s.attribute("", "role", member.getRole());
-            s.endTag("", "member");
+            s.endTag("", MEMBER);
         }
         tagsToXml(s);
         s.endTag("", NAME);

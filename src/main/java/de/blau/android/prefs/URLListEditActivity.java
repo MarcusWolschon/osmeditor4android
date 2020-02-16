@@ -134,7 +134,7 @@ public abstract class URLListEditActivity extends ListActivity
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("URLListEditActivity", "onResume");
+        Log.d(DEBUG_TAG, "onResume");
         items.clear();
         onLoadList(items);
         updateAdapter();

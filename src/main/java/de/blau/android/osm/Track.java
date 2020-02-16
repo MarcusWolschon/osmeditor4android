@@ -37,6 +37,7 @@ import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
@@ -515,6 +516,12 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         serializer.endDocument();
     }
 
+    /**
+     * Format a time as an ISO8601 string
+     * 
+     * @param time the time as ms since the epoch
+     * @return the ISO8601 formated value
+     */
     public String format(long time) {
         calendarInstance.setTimeInMillis(time);
         return ISO8601FORMAT.format(new Date(time));
@@ -531,7 +538,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         try {
             start(is);
         } catch (Exception e) {
-            Log.e("Track", "importFromGPX failed " + e);
+            Log.e(DEBUG_TAG, "importFromGPX failed " + e);
         }
     }
 
@@ -574,13 +581,13 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
             switch (element) {
             case GPX_ELEMENT:
                 state = State.NONE;
-                Log.d("Track", "parsing gpx");
+                Log.d(DEBUG_TAG, "parsing gpx");
                 break;
             case TRK_ELEMENT:
-                Log.d("Track", "parsing trk");
+                Log.d(DEBUG_TAG, "parsing trk");
                 break;
             case TRKSEG_ELEMENT:
-                Log.d("Track", "parsing trkseg");
+                Log.d(DEBUG_TAG, "parsing trkseg");
                 newSegment = true;
                 break;
             case TRKPT_ELEMENT:
@@ -745,7 +752,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
          * @param loc the Location we want to use
          * @param isNewSegment true id we are starting a new segment
          */
-        public TrackPoint(Location loc, boolean isNewSegment) {
+        public TrackPoint(@NonNull Location loc, boolean isNewSegment) {
             flags = encodeFlags(isNewSegment);
             latitude = loc.getLatitude();
             longitude = loc.getLongitude();
@@ -756,8 +763,17 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
             // speed = original.hasSpeed() ? original.getSpeed() : null;
         }
 
+        /**
+         * Construct a TrackPoint
+         * 
+         * @param flags flags (new segment)
+         * @param latitude the latitude (WGS84)
+         * @param longitude the longitude (WSG84)
+         * @param altitude altitude in meters
+         * @param time time (ms since the epoch)
+         */
         public TrackPoint(byte flags, double latitude, double longitude, double altitude, long time) {
-            // Log.d("Track","new trkpt " + flags + " " + latitude+ " " + longitude+ " " + altitude+ " " + time);
+            // Log.d(DEBUG_TAG,"new trkpt " + flags + " " + latitude+ " " + longitude+ " " + altitude+ " " + time);
             this.flags = flags;
             this.latitude = latitude;
             this.longitude = longitude;
@@ -765,6 +781,14 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
             this.time = time;
         }
 
+        /**
+         * Construct a TrackPoint
+         * 
+         * @param flags flags (new segment)
+         * @param latitude the latitude (WGS84)
+         * @param longitude the longitude (WSG84)
+         * @param time time (ms since the epoch)
+         */
         public TrackPoint(byte flags, double latitude, double longitude, long time) {
             this(flags, latitude, longitude, Double.NaN, time);
         }
@@ -860,6 +884,12 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         // public float getBearing() { return bearing != null ? bearing : 0f; }
         // public float getSpeed() { return speed != null ? speed : 0f; }
 
+        /**
+         * Encode flag values in to a byte
+         * 
+         * @param isNewSegment if true this starts a new segment
+         * @return the byte value holding the flags
+         */
         private byte encodeFlags(boolean isNewSegment) {
             byte result = 0;
             if (isNewSegment) {
@@ -917,7 +947,20 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         private String type;
         private String symbol;
 
-        public WayPoint(double latitude, double longitude, double altitude, long time, String name, String description, String type, String symbol) {
+        /**
+         * Construct a new WayPoint
+         * 
+         * @param latitude the latitude (WGS84)
+         * @param longitude the longitude (WSG84)
+         * @param altitude altitude in meters
+         * @param time time (ms since the epoch)
+         * @param name optional name value
+         * @param description optional description
+         * @param type optional type value
+         * @param symbol optional symbol
+         */
+        public WayPoint(double latitude, double longitude, double altitude, long time, @Nullable String name, @Nullable String description,
+                @Nullable String type, @Nullable String symbol) {
             super((byte) 0, latitude, longitude, altitude, time);
             this.name = name;
             this.description = description;
@@ -965,6 +1008,11 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
             return isNewSegment();
         }
 
+        /**
+         * Get the symbol value
+         * 
+         * @return the symbol value
+         */
         public String getSymbol() {
             return symbol;
         }
