@@ -211,6 +211,7 @@ public class ValidatorRulesUI {
             });
         } else {
             alertDialog.setTitle(R.string.add_resurvey_title);
+            daysPicker.setValue(ValidatorRulesDatabaseHelper.ONE_YEAR);
         }
         alertDialog.setNegativeButton(R.string.cancel, null);
 
