@@ -73,17 +73,6 @@ public class TagClipboard implements Serializable {
     }
 
     /**
-     * Copy tags to the clipboard
-     * 
-     * @param tags a Map containing the tags
-     */
-    public synchronized void cut(@NonNull Map<String, String> tags) {
-
-        this.tags = new LinkedHashMap<>(tags);
-        dirty = true;
-    }
-
-    /**
      * Get the contexts of the clipboard
      * 
      * @return a Map containing the tags or null if the clipboard was empty

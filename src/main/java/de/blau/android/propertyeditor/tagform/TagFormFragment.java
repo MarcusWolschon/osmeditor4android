@@ -1186,7 +1186,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 @Override
                 public void onClick(View v) {
                     formListener.updateEditorFromText();
-                    App.getTagClipboard(getContext()).cut(tags);
+                    App.getTagClipboard(getContext()).copy(tags);
                     for (String key : tags.keySet()) {
                         editorListener.deleteTag(key);
                     }
