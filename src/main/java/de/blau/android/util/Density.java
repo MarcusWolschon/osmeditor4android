@@ -3,7 +3,15 @@ package de.blau.android.util;
 import android.content.Context;
 import de.blau.android.App;
 
-public class Density {
+public final class Density {
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private Density() {
+        // private
+    }
+
     /**
      * Converts a size in dp to pixels
      * 

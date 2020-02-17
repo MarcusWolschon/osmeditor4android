@@ -24,8 +24,15 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
-public class OAMCatalogView {
+public final class OAMCatalogView {
     private static final String DEBUG_TAG = OAMCatalogView.class.getSimpleName();
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private OAMCatalogView() {
+        // private
+    }
 
     /**
      * Show a list of OAMCatalog.Entry(s)

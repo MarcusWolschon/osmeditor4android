@@ -22,7 +22,7 @@ import de.blau.android.R;
  * @author simon
  *
  */
-public class Snack {
+public final class Snack {
 
     private static final String DEBUG_TAG = Snack.class.getName();
 
@@ -36,6 +36,13 @@ public class Snack {
     protected static LinkedList<Snackbar> infoQueue    = new LinkedList<>();
     protected static LinkedList<Snackbar> warningQueue = new LinkedList<>();
     protected static LinkedList<Snackbar> errorQueue   = new LinkedList<>();
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private Snack() {
+        // private
+    }
 
     /**
      * Check if we are showing a SnackBar

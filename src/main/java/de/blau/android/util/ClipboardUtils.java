@@ -26,7 +26,7 @@ import android.util.Log;
  *      pre-HONEYCOMB versions too
  *
  */
-public class ClipboardUtils {
+public final class ClipboardUtils {
 
     private static final String DEBUG_TAG = "ClipboardUtils";
 
@@ -35,6 +35,13 @@ public class ClipboardUtils {
     @SuppressWarnings("deprecation")
     private static android.text.ClipboardManager oldClipboard = null;
     private static ClipboardManager              clipboard    = null;
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private ClipboardUtils() {
+        // private
+    }
 
     /**
      * Return true if there is text in the clipboard

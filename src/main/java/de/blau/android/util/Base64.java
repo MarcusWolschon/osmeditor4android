@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 /**
  * @source http://www.javaworld.com/javaworld/javatips/jw-javatip47.html -- 24.11.2008, (mb)
  */
-public class Base64 {
+public final class Base64 {
     /*******************************************************************************************************************
      * BASE 64 encoding of a String or an array of bytes. See also RFC 1421.
      * 
@@ -27,6 +27,13 @@ public class Base64 {
 
     //////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private Base64() {
+        // private
+    }
 
     /**
      * Encode a String in BASE 64

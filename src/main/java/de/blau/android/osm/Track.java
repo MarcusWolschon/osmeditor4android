@@ -102,7 +102,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * exist, savedTrackPoints is 0 and memory does not contain any significant amount of data b) the save file does
      * exist, is valid and contains exactly savedTrackPoints records
      */
-    private Boolean loadingFinished = false;
+    private boolean loadingFinished = false;
 
     /**
      * Everything except loading happens on the UI thread. {@link #close()} may be called on the UI thread to close the
@@ -975,6 +975,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
          * @param gtf class providing a formatter to GPX time data
          * @throws IOException
          */
+        @Override
         public synchronized void toXml(XmlSerializer serializer, GpxTimeFormater gtf) throws IOException {
             serializer.startTag(null, WPT_ELEMENT);
             serializer.attribute(null, "lat", String.format(Locale.US, "%f", latitude));

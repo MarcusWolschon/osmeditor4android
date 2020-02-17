@@ -50,7 +50,7 @@ import de.blau.android.util.IssueAlert;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 
-public class TransferTasks {
+public final class TransferTasks {
 
     private static final String DEBUG_TAG = TransferTasks.class.getSimpleName();
 
@@ -61,6 +61,13 @@ public class TransferTasks {
 
     /** maximum of tasks per request */
     private static final int MAX_PER_REQUEST = 1000;
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private TransferTasks() {
+        // private
+    }
 
     /**
      * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
@@ -248,7 +255,7 @@ public class TransferTasks {
             @Override
             protected void onPostExecute(Boolean uploadFailed) {
                 Progress.dismissDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-                if (!uploadFailed) {
+                if (Boolean.FALSE.equals(uploadFailed)) {
                     if (postUploadHandler != null) {
                         postUploadHandler.onSuccess();
                     }
@@ -285,7 +292,7 @@ public class TransferTasks {
 
             @Override
             protected void onPostExecute(Boolean uploadSucceded) {
-                if (uploadSucceded) {
+                if (Boolean.TRUE.equals(uploadSucceded)) {
                     if (postUploadHandler != null) {
                         postUploadHandler.onSuccess();
                     }
@@ -480,7 +487,7 @@ public class TransferTasks {
 
             @Override
             protected void onPostExecute(Boolean uploadSucceded) {
-                if (uploadSucceded) {
+                if (Boolean.TRUE.equals(uploadSucceded)) {
                     if (postUploadHandler != null) {
                         postUploadHandler.onSuccess();
                     }

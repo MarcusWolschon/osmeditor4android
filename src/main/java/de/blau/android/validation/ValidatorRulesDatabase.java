@@ -16,7 +16,7 @@ import de.blau.android.util.collections.MultiHashMap;
  * @author simon
  *
  */
-public class ValidatorRulesDatabase {
+public final class ValidatorRulesDatabase {
     /**
      * Table: rulesets (id INTEGER, name TEXT) Table: resurvey (ruleset INTEGER, key TEXT, value TEXT DEFAULT NULL, days
      * INTEGER DEFAULT 365, FOREIGN KEY(ruleset) REFERENCES rulesets(id)) Table: check (ruleset INTEGER, key TEXT,
@@ -46,6 +46,13 @@ public class ValidatorRulesDatabase {
             + " ORDER BY key";
     static final String QUERY_CHECK_BY_ROWID = "SELECT key, optional FROM checktags WHERE rowid=?";
     static final String QUERY_CHECK_BY_NAME  = "SELECT checktags.rowid as _id, key, optional FROM checktags, rulesets WHERE ruleset = rulesets.id and rulesets.name = ? ORDER BY key";
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private ValidatorRulesDatabase() {
+        // private
+    }
 
     /**
      * Add an entry to the ruleset table

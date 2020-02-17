@@ -167,7 +167,7 @@ public abstract class URLListEditActivity extends ListActivity
             // clicked on "new" button
             itemEditDialog(null);
         } else {
-            Log.d("URLListEditActivity", "Item clicked");
+            Log.d(DEBUG_TAG, "Item clicked");
             ListItem listItem = (ListItem) view;
             listItem.setChecked(!listItem.isChecked());
             onItemClicked((ListEditItem) item);

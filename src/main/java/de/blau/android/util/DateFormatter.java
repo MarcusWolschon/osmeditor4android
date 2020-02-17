@@ -18,6 +18,13 @@ public final class DateFormatter {
     public static final SimpleDateFormat JOSM_DATE = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssZ"); // NOSONAR
 
     /**
+     * Private constructor to stop instantiation
+     */
+    private DateFormatter() {
+        // private
+    }
+
+    /**
      * Parses a date from the given string using the date pattern. Throws a {@code ParseException} on failure.
      * 
      * @param pattern the pattern

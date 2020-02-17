@@ -19,9 +19,16 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.collections.FloatPrimitiveList;
 
-public class GeoJson {
+public final class GeoJson {
 
     private static final String DEBUG_TAG = "GeoJson";
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private GeoJson() {
+        // private
+    }
 
     /**
      * Calculate the bounding boxes of a GeoJson Polygon feature

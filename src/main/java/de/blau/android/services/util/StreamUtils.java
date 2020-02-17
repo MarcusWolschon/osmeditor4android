@@ -15,7 +15,7 @@ import java.io.OutputStream;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  *
  */
-public class StreamUtils {
+public final class StreamUtils {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -29,6 +29,13 @@ public class StreamUtils {
     // ===========================================================
     // Constructors
     // ===========================================================
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private StreamUtils() {
+        // private
+    }
 
     // ===========================================================
     // Getter & Setter

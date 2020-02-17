@@ -10,7 +10,7 @@ import de.blau.android.osm.ViewBox;
  * 
  * @author mb
  */
-public class GeoMath {
+public final class GeoMath {
 
     private static final double _180_PI = 180d / Math.PI;
 
@@ -46,6 +46,13 @@ public class GeoMath {
      * The arithmetic middle of the two WGS84 reference-ellipsoids.
      */
     private static final int   EARTH_RADIUS       = (EARTH_RADIUS_EQUATOR + EARTH_RADIUS_POLAR) / 2;
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private GeoMath() {
+        // private
+    }
 
     /**
      * Check if a pair of coordinates have Mercartor compatible WGS84 values

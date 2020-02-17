@@ -23,9 +23,16 @@ import android.support.annotation.NonNull;
  * 
  * @author Steve Ash
  */
-public class OptimalStringAlignment {
+public final class OptimalStringAlignment {
 
     private static final int threadLocalBufferSize = 64;
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private OptimalStringAlignment() {
+        // private
+    }
 
     private static final ThreadLocal<short[]> costLocal = new ThreadLocal<short[]>() { // NOSONAR
         @Override

@@ -1,6 +1,14 @@
 package de.blau.android.resources;
 
 public final class MBTileConstants {
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private MBTileConstants() {
+        // private
+    }
+
     public static final String BOUNDS  = "bounds";
     static final String        TYPE    = "type";
     static final String        OVERLAY = "overlay";

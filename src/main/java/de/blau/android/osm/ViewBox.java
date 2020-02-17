@@ -151,6 +151,7 @@ public class ViewBox extends BoundingBox {
      * @return true if left is less than right and bottom is less than top and within the legal bounds for a web
      *         mercator box.
      */
+    @Override
     public boolean isValid() {
         int top = getTop();
         int bottom = getBottom();

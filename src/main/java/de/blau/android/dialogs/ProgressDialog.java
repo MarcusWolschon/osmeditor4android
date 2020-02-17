@@ -14,7 +14,14 @@ import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 
-public class ProgressDialog {
+public final class ProgressDialog {
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private ProgressDialog() {
+        // private
+    }
 
     /**
      * Factory like method to get new Instances of a ProgressDialog

@@ -11,6 +11,14 @@ import de.blau.android.exception.OperationFailedException;
  * @author Jan
  */
 public abstract class Hash {
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private Hash() {
+        // private
+    }
+
     /**
      * Hashes a string with SHA256
      * 

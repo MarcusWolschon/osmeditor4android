@@ -1,6 +1,14 @@
 package de.blau.android.util;
 
-public class GeoJSONConstants {
+public final class GeoJSONConstants {
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private GeoJSONConstants() {
+        // private
+    }
+
     public static final String FEATURE_COLLECTION = "FeatureCollection";
     public static final String FEATURE            = "Feature";
     public static final String BBOX               = "bbox";

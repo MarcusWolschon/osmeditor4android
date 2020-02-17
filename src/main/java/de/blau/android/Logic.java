@@ -2365,7 +2365,7 @@ public class Logic {
             if (node != null) {
                 getDelegator().insertElementSafe(node);
                 for (int i = 0; i < savedWays.size(); i++) {
-                    if (savedWaysSameDirection.get(i)) {
+                    if (Boolean.TRUE.equals(savedWaysSameDirection.get(i))) {
                         getDelegator().addNodeToWayAfter(savedNode1, node, savedWays.get(i));
                     } else {
                         getDelegator().addNodeToWayAfter(savedNode2, node, savedWays.get(i));

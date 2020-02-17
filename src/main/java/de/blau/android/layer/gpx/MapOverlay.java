@@ -261,12 +261,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         labelKey = key;
     }
 
-    /**
-     * Stores the current state to the default storage file
-     * 
-     * @param context Android Context
-     * @throws IOException on errors writing the file
-     */
+    @Override
     public synchronized void onSaveState(@NonNull Context context) throws IOException {
         super.onSaveState(context);
         // TODO this doesn't really help with error conditions need to throw exception
@@ -279,13 +274,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         }
     }
 
-    /**
-     * Loads any saved state from the default storage file
-     * 
-     * 
-     * @param context Android context
-     * @return true if the saved state was successfully read
-     */
+    @Override
     public synchronized boolean onRestoreState(@NonNull Context context) {
         super.onRestoreState(context);
         MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);

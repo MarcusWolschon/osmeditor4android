@@ -570,12 +570,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         }
     }
 
-    /**
-     * Stores the current state to the default storage file
-     * 
-     * @param context Android Context
-     * @throws IOException on errors writing the file
-     */
+    @Override
     public synchronized void onSaveState(@NonNull Context context) throws IOException {
         super.onSaveState(context);
         if (saved) {
@@ -602,13 +597,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         }
     }
 
-    /**
-     * Loads any saved state from the default storage file
-     * 
-     * 
-     * @param context Android context
-     * @return true if the saved state was successfully read
-     */
+    @Override
     public synchronized boolean onRestoreState(@NonNull Context context) {
         super.onRestoreState(context);
         try {

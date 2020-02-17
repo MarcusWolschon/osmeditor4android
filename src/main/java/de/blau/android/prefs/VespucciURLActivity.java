@@ -221,7 +221,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
         OAuthAccessTokenTask requester = new OAuthAccessTokenTask();
         requester.execute(s);
         try {
-            if (!requester.get(60, TimeUnit.SECONDS)) {
+            if (Boolean.FALSE.equals(requester.get(60, TimeUnit.SECONDS))) {
                 OAuthException ex = requester.getException();
                 if (ex != null) {
                     throw ex;

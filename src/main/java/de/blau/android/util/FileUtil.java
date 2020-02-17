@@ -19,6 +19,13 @@ public abstract class FileUtil {
     public static final String  FILE_SCHEME_PREFIX = "file:";
 
     /**
+     * Private constructor to stop instantiation
+     */
+    private FileUtil() {
+        // private
+    }
+    
+    /**
      * Get our public directory, creating it if it doesn't exist
      * 
      * @return a File object for the public directory

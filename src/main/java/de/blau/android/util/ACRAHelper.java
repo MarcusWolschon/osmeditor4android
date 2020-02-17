@@ -15,7 +15,14 @@ import de.blau.android.osm.StorageDelegator;
  * @author Simon Poole
  *
  */
-public class ACRAHelper {
+public final class ACRAHelper {
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private ACRAHelper() {
+        // private
+    }
 
     /**
      * Submit a crash report indicating that we didn't actually crash
@@ -44,8 +51,8 @@ public class ACRAHelper {
             Storage currentStorage = delegator.getCurrentStorage();
             builder.append("Relations (current/API): " + currentStorage.getRelations().size() + "/" + delegator.getApiRelationCount() + eol);
             builder.append("Ways (current/API): " + currentStorage.getWays().size() + "/" + delegator.getApiWayCount() + eol);
-            builder.append("Nodes (current/Waynodes/API): " + currentStorage.getNodes().size() + "/"
-                    + currentStorage.getWayNodes().size() + "/" + delegator.getApiNodeCount() + eol);
+            builder.append("Nodes (current/Waynodes/API): " + currentStorage.getNodes().size() + "/" + currentStorage.getWayNodes().size() + "/"
+                    + delegator.getApiNodeCount() + eol);
         }
     }
 }

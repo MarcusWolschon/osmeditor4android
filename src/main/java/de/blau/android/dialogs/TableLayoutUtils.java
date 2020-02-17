@@ -28,11 +28,18 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class TableLayoutUtils {
+public final class TableLayoutUtils {
     private static final int FIRST_CELL_WIDTH = 5;
 
     private static final int MAX_FIRST_CELL_WIDTH = 12;
 
+    /**
+     * Private constructor to stop instantiation
+     */
+    private TableLayoutUtils() {
+        // private
+    }
+     
     /**
      * Get a new TableRow with the provided contents - three columns
      * 

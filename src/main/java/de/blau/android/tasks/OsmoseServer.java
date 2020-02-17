@@ -24,7 +24,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-class OsmoseServer {
+final class OsmoseServer {
 
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 
@@ -40,6 +40,13 @@ class OsmoseServer {
      * Timeout for connections in milliseconds.
      */
     private static final int TIMEOUT = 45 * 1000;
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private OsmoseServer() {
+        // private
+    }
 
     /**
      * Perform an HTTP request to download up to limit bugs inside the specified area. Blocks until the request is

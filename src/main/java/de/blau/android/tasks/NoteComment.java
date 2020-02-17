@@ -25,8 +25,8 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
      */
     private static final long serialVersionUID = 4L;
 
-    private static final String COMMENT = "comment";
-    private static final String ACTION  = "action";
+    private static final String COMMENT_TAG = "comment";
+    private static final String ACTION_ATTR = "action";
 
     /** The Note we belong to **/
     private Note   note;
@@ -132,20 +132,20 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
 
     @Override
     public void toJosmXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", COMMENT);
+        s.startTag("", COMMENT_TAG);
         if (action != null) {
-            s.attribute("", ACTION, action);
+            s.attribute("", ACTION_ATTR, action);
         } else {
             if (note.getOriginalState() != note.getState()) {
                 switch (note.getState()) {
                 case CLOSED:
-                    s.attribute("", ACTION, "closed");
+                    s.attribute("", ACTION_ATTR, "closed");
                     break;
                 case OPEN:
                     if (note.isNew()) {
-                        s.attribute("", ACTION, "opened");
+                        s.attribute("", ACTION_ATTR, "opened");
                     } else {
-                        s.attribute("", ACTION, "reopened");
+                        s.attribute("", ACTION_ATTR, "reopened");
                     }
                     break;
                 default:
@@ -153,7 +153,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
                     break;
                 }
             } else {
-                s.attribute("", ACTION, "commented");
+                s.attribute("", ACTION_ATTR, "commented");
             }
         }
         if (timestamp != -1) {
@@ -165,6 +165,6 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
         }
         s.attribute("", "is_new", Boolean.toString(isNew()));
         s.text(text);
-        s.endTag("", COMMENT);
+        s.endTag("", COMMENT_TAG);
     }
 }

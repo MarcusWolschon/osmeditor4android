@@ -24,7 +24,14 @@ import okhttp3.TlsVersion;
 /**
  * ¨ Nicked from https://github.com/slapperwan/gh4a/commit/985cc0459910bd8452db7e83e4427f01623d11d8
  */
-public class OkHttpTlsCompat {
+public final class OkHttpTlsCompat {
+
+    /**
+     * Private constructor to stop instantiation
+     */
+    private OkHttpTlsCompat() {
+        // private
+    }
 
     /**
      * Add TLS 1.2 support for older Android versions
