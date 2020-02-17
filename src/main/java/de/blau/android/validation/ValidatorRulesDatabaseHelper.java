@@ -9,9 +9,11 @@ import android.util.Log;
 import de.blau.android.osm.Tags;
 
 public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DEBUG_TAG        = "ValidatorRulesDatab...";
+    private static final String DEBUG_TAG = "ValidatorRulesDatab...";
+
     private static final String DATABASE_NAME    = "validator_rules";
     private static final int    DATABASE_VERSION = 3;
+    static final int            ONE_YEAR         = 365;
 
     /**
      * Construct a new instance
@@ -31,12 +33,12 @@ public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(
                     "CREATE TABLE resurveytags (ruleset INTEGER, key TEXT, value TEXT DEFAULT NULL, is_regexp INTEGER DEFAULT 0, days INTEGER DEFAULT 365, FOREIGN KEY(ruleset) REFERENCES rulesets(id))");
             ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_SHOP, null, false, 365);
-            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_RESTAURANT, false, 365);
-            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_FAST_FOOD, false, 365);
-            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_CAFE, false, 365);
-            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_PUB, false, 365);
-            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_BAR, false, 365);
-            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_TOILETS, false, 365);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_RESTAURANT, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_FAST_FOOD, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_CAFE, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_PUB, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_BAR, false, ONE_YEAR);
+            ValidatorRulesDatabase.addResurvey(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_AMENITY, Tags.VALUE_TOILETS, false, ONE_YEAR);
 
             db.execSQL("CREATE TABLE checktags (ruleset INTEGER, key TEXT, optional INTEGER DEFAULT 0, FOREIGN KEY(ruleset) REFERENCES rulesets(id))");
             ValidatorRulesDatabase.addCheck(db, ValidatorRulesDatabase.DEFAULT_RULESET, Tags.KEY_OPENING_HOURS, false);
