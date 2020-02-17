@@ -190,7 +190,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             protected Boolean doInBackground(String... s) {
                 OAuthHelper oa = new OAuthHelper(); // if we got here it has already been initialized once
                 try {
-                    String access[] = oa.getAccessToken(s[0]);
+                    String[] access = oa.getAccessToken(s[0]);
                     prefdb.setAPIAccessToken(access[0], access[1]);
                 } catch (OAuthException e) {
                     Log.d(DEBUG_TAG, "oAuthHandshake: " + e);
