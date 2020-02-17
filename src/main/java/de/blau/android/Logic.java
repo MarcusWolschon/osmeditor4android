@@ -3713,10 +3713,7 @@ public class Logic {
                         result.setMessage(e.getMessage());
                         break;
                     }
-                } catch (final IOException e) {
-                    Log.e(DEBUG_TAG, "", e);
-                    ACRAHelper.nocrashReport(e, e.getMessage());
-                } catch (final NullPointerException e) {
+                } catch (final IOException | NullPointerException e) {
                     Log.e(DEBUG_TAG, "", e);
                     ACRAHelper.nocrashReport(e, e.getMessage());
                 }

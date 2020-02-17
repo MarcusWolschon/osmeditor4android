@@ -217,7 +217,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         CheckBox requestReview = (CheckBox) layout.findViewById(R.id.upload_request_review);
 
         comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
-        List<String> comments = new ArrayList<String>(App.getLogic().getLastComments());
+        List<String> comments = new ArrayList<>(App.getLogic().getLastComments());
         FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, comments);
         comment.setAdapter(commentAdapter);
         String lastComment = App.getLogic().getLastComment();
@@ -242,7 +242,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         });
 
         source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
-        List<String> sources = new ArrayList<String>(App.getLogic().getLastSources());
+        List<String> sources = new ArrayList<>(App.getLogic().getLastSources());
         FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, sources);
         source.setAdapter(sourceAdapter);
         String lastSource = App.getLogic().getLastSource();

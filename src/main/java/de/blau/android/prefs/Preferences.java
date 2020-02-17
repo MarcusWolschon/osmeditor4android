@@ -28,7 +28,7 @@ import de.blau.android.util.BrokenAndroid;
  * @author mb
  */
 public class Preferences {
-    private static String DEBUG_TAG = "Preferences";
+    private static final String DEBUG_TAG = "Preferences";
 
     private final AdvancedPrefDatabase advancedPrefs;
 

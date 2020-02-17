@@ -2662,7 +2662,6 @@ public class TileLayerServer implements Serializable {
             tileSize = WMS_TILE_SIZE;
         } else if (tileUrl.contains(EPSG_4326)) {
             proj = EPSG_4326;
-            tileSize = DEFAULT_TILE_SIZE;
         }
         if (existingTileServer == null) {
             TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, proj == null ? TYPE_TMS : TYPE_WMS, category, isOverlay, false, provider,

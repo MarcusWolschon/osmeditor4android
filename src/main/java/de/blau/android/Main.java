@@ -680,6 +680,7 @@ public class Main extends FullScreenAppCompatActivity
                     bestLocation = location;
                 }
             } catch (IllegalArgumentException | SecurityException e) {
+                // do nothing
             }
         }
         return bestLocation;
@@ -3458,6 +3459,7 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onDown(View v, float x, float y) {
+            // unused
         }
 
         @Override

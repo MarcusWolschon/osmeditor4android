@@ -25,7 +25,7 @@ public class UrlCheck {
 
     public enum CheckStatus {
         HTTP, HTTPS, DOESNTEXIST, UNREACHABLE, MALFORMEDURL, INVALID
-    };
+    }
 
     /**
      * Check if a remote url or domain can be connected and determine if reachable with https

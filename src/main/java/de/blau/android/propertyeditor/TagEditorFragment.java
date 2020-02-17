@@ -836,8 +836,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void predictAddressTags(boolean allowBlanks) {
         loadEdits(Address.predictAddressTags(getActivity(), getType(), getOsmId(),
-                ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS),
-                false);
+                ((StreetPlaceNamesAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks),
+                Address.DEFAULT_HYSTERESIS), false);
         updateAutocompletePresetItem(null);
     }
 
@@ -950,7 +950,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (prop != null) {
                     String[] speedLimits = prop.getSpeedLimits();
                     if (speedLimits != null) {
-                        adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, speedLimits);
+                        adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, speedLimits);
                     }
                 }
             } else {

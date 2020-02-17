@@ -695,9 +695,7 @@ public final class TransferTasks {
                 try {
                     in = new BufferedInputStream(is);
                     result = CustomBug.parseBugs(is);
-                } catch (IllegalStateException | NumberFormatException e) {
-                    Log.e(DEBUG_TAG, "Problem parsing", e);
-                } catch (IOException e) {
+                } catch (IllegalStateException | NumberFormatException | IOException e) {
                     Log.e(DEBUG_TAG, "Problem parsing", e);
                 } finally {
                     SavingHelper.close(in);

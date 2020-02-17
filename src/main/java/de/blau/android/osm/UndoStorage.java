@@ -754,7 +754,7 @@ public class UndoStorage implements Serializable {
                 }
             }
             boolean deleted = super.state == OsmElement.STATE_DELETED;
-            if (inStorage == 0 && nodes.size() > 0 && !deleted) {
+            if (inStorage == 0 && !nodes.isEmpty() && !deleted) {
                 // if no nodes we are restoring to pre-creation state without nodes which is ok
                 Log.e(DEBUG_TAG, element.getDescription() + " is missing all nodes");
                 // note this still allows ways with 1 node to be created which might be necessary

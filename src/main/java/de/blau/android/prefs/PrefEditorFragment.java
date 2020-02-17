@@ -22,7 +22,7 @@ import de.blau.android.validation.ValidatorRulesUI;
  */
 public class PrefEditorFragment extends ExtendedPreferenceFragment {
 
-    private static String DEBUG_TAG = PrefEditorFragment.class.getSimpleName();
+    private static final String DEBUG_TAG = PrefEditorFragment.class.getSimpleName();
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {

@@ -213,7 +213,7 @@ public class LongHashSet implements Serializable {
                     data[last] = FREE_KEY;
                     return last;
                 }
-                slot = (int) ((Tools.phiMix(k) & m_mask));// calculate the starting slot for the current key
+                slot = (int) (Tools.phiMix(k) & m_mask);// calculate the starting slot for the current key
                 if (last <= pos ? last >= slot || slot > pos : last >= slot && slot > pos) {
                     break;
                 }
@@ -233,7 +233,7 @@ public class LongHashSet implements Serializable {
         if (value == FREE_KEY) {
             return true;
         }
-        int ptr = (int) ((Tools.phiMix(value) & m_mask));
+        int ptr = (int) (Tools.phiMix(value) & m_mask);
         long e = m_data[ptr];
         if (e == FREE_KEY) {
             return false;

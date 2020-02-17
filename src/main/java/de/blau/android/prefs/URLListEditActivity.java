@@ -125,7 +125,7 @@ public abstract class URLListEditActivity extends ListActivity
     @Override
     protected void onStart() {
         super.onStart();
-        addingViaIntent = ((getIntent() != null && ACTION_NEW.equals(getIntent().getAction())));
+        addingViaIntent = getIntent() != null && ACTION_NEW.equals(getIntent().getAction());
         if (isAddingViaIntent()) {
             itemEditDialog(null);
         }

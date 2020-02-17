@@ -265,8 +265,7 @@ public class ValidatorRulesUI {
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             Log.d(DEBUG_TAG, "newView");
-            View view = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list_check_item, parent, false);
-            return view;
+            return LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list_check_item, parent, false);
         }
 
         @Override

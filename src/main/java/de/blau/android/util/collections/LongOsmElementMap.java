@@ -157,7 +157,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     @SuppressWarnings("unchecked")
     @Nullable
     public V put(final long key, @Nullable final V value) {
-        int ptr = (int) ((Tools.phiMix(key) & m_mask));
+        int ptr = (int) (Tools.phiMix(key) & m_mask);
 
         OsmElement e = m_data[ptr];
 
