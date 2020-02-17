@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -58,6 +59,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     private boolean                       errorDisplayed = false;
 
     private final Map<String, MBTileProviderDataBase> mbTileDatabases = new HashMap<>();
+    private final Random                              random          = new Random();
 
     /** online provider */
     private MapTileDownloader mTileDownloader;
@@ -276,7 +278,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     }
 
                     NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
-                    nManager.notify((int) (Math.random() * Integer.MAX_VALUE), builder.build());
+                    nManager.notify(random.nextInt(), builder.build());
                     errorDisplayed = true;
                 }
             } finally {
