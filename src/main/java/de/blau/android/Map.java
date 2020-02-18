@@ -156,7 +156,12 @@ public class Map extends View implements IMapView {
 
     private Rect canvasBounds;
 
+    /** Cached Paint objects */
     private Paint labelBackground;
+    private Paint gpsPosFollowPaint;
+    private Paint gpsPosPaint;
+    private Paint gpsAccuracyPaint;
+    private Paint boxPaint;
 
     private TrackerService tracker = null;
 
@@ -649,9 +654,9 @@ public class Map extends View implements IMapView {
         }
         Paint paint = null;
         if (isFollowingGPS) {
-            paint = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
+            paint = gpsPosFollowPaint;
         } else {
-            paint = DataStyle.getInternal(DataStyle.GPS_POS).getPaint();
+            paint = gpsPosPaint;
         }
 
         if (o < 0) {
@@ -670,12 +675,12 @@ public class Map extends View implements IMapView {
             float accuracyInPixels = (float) (GeoMath.convertMetersToGeoDistance(displayLocation.getAccuracy())
                     * ((double) getWidth() / (viewBox.getWidth() / 1E7D)));
             RectF accuracyRect = new RectF(x - accuracyInPixels, y + accuracyInPixels, x + accuracyInPixels, y - accuracyInPixels);
-            canvas.drawOval(accuracyRect, DataStyle.getInternal(DataStyle.GPS_ACCURACY).getPaint());
+            canvas.drawOval(accuracyRect, gpsAccuracyPaint);
         }
     }
 
     /**
-     * Show some statistics for depugging purposes
+     * Show some statistics for debugging purposes
      * 
      * @param canvas canvas to draw on
      * @param fps frames per second
@@ -758,9 +763,8 @@ public class Map extends View implements IMapView {
                 }
             }
 
-            Paint boxpaint = DataStyle.getInternal(DataStyle.VIEWBOX).getPaint();
             c.clipPath(path, Region.Op.DIFFERENCE);
-            c.drawRect(screen, boxpaint);
+            c.drawRect(screen, boxPaint);
 
             if (!hasFullClippingSupport(canvas)) {
                 canvas.drawBitmap(b, 0, 0, null);
@@ -926,6 +930,10 @@ public class Map extends View implements IMapView {
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
         textPaint = fs.getPaint();
+        gpsPosFollowPaint = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
+        gpsPosPaint = DataStyle.getInternal(DataStyle.GPS_POS).getPaint();
+        gpsAccuracyPaint = DataStyle.getInternal(DataStyle.GPS_ACCURACY).getPaint();
+        boxPaint = DataStyle.getInternal(DataStyle.VIEWBOX).getPaint();
         if (dataLayer != null) {
             dataLayer.updateStyle();
         }

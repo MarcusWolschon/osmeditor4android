@@ -195,6 +195,40 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private Paint wayTolerancePaint;
     private Paint wayTolerancePaint2;
 
+    private Paint nodeDragRadiusPaint;
+
+    /** Cached Node FeatureStyles */
+    private FeatureStyle nodeFeatureStyle;
+    private FeatureStyle nodeFeatureStyleThin;
+    private FeatureStyle nodeFeatureStyleTagged;
+    private FeatureStyle nodeFeatureStyleSelected;
+    private FeatureStyle nodeFeatureStyleThinSelected;
+    private FeatureStyle nodeFeatureStyleTaggedSelected;
+    private FeatureStyle nodeFeatureStyleRelation;
+    private FeatureStyle nodeFeatureStyleThinRelation;
+    private FeatureStyle nodeFeatureStyleTaggedRelation;
+    private FeatureStyle nodeFeatureStyleFontRelation;
+    private FeatureStyle nodeFeatureStyleFontSmallRelation;
+    private FeatureStyle nodeFeatureStyleProblem;
+    private FeatureStyle nodeFeatureStyleThinProblem;
+    private FeatureStyle nodeFeatureStyleTaggedProblem;
+    private FeatureStyle nodeFeatureStyleFontProblem;
+    private FeatureStyle nodeFeatureStyleFontSmallProblem;
+    private FeatureStyle nodeFeatureStyleHidden;
+
+    /** Cached Way FeatureStyles and Paints */
+    private FeatureStyle selectedWayStyle;
+    private Paint        wayDirectionPaint;
+    private FeatureStyle wayFeatureStyleHidden;
+    private FeatureStyle wayFeatureStyleRelation;
+    private Paint        handlePaint;
+
+    /** Cached label FeatureStyles */
+    private FeatureStyle labelTextStyleNormal;
+    private FeatureStyle labelTextStyleSmall;
+    private FeatureStyle labelTextStyleNormalSelected;
+    private FeatureStyle labelTextStyleSmallSelected;
+
     /** cached zoom level, calculated once per onDraw pass **/
     private int zoomLevel = 0;
 
@@ -875,64 +909,49 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
 
         // general node style
-        String featureStyle = DataStyle.NODE;
+        FeatureStyle featureStyle = nodeFeatureStyle;
         // style for house numbers
-        String featureStyleThin = DataStyle.NODE_THIN;
+        FeatureStyle featureStyleThin = nodeFeatureStyleThin;
         // style for tagged nodes or otherwise important
-        String featureStyleTagged = DataStyle.NODE_TAGGED;
+        FeatureStyle featureStyleTagged = nodeFeatureStyleTagged;
         // style for label text
-        String featureStyleFont = DataStyle.LABELTEXT_NORMAL;
+        FeatureStyle featureStyleFont = labelTextStyleNormal;
         // style for small label text
-        String featureStyleFontSmall = DataStyle.LABELTEXT_SMALL;
+        FeatureStyle featureStyleFontSmall = labelTextStyleSmall;
 
         if (tmpDrawingInEditRange) {
             if (isSelected) {
-                // general node style
-                featureStyle = DataStyle.SELECTED_NODE;
-                // style for house numbers
-                featureStyleThin = DataStyle.SELECTED_NODE_THIN;
-                // style for tagged nodes or otherwise important
-                featureStyleTagged = DataStyle.SELECTED_NODE_TAGGED;
-                // style for label text
-                featureStyleFont = DataStyle.LABELTEXT_NORMAL_SELECTED;
-                // style for small label text
-                featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
+                featureStyle = nodeFeatureStyleSelected;
+                featureStyleThin = nodeFeatureStyleThinSelected;
+                featureStyleTagged = nodeFeatureStyleTaggedSelected;
+                featureStyleFont = labelTextStyleNormalSelected;
+                featureStyleFontSmall = labelTextStyleSmallSelected;
                 if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()
                         && tmpDrawingEditMode.elementsGeomEditiable()) {
                     // don't draw large areas in multi-select mode
-                    canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                    canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), nodeDragRadiusPaint);
                 }
             } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node))) {
-                // general node style
-                featureStyle = DataStyle.SELECTED_RELATION_NODE;
-                // style for house numbers
-                featureStyleThin = DataStyle.SELECTED_RELATION_NODE_THIN;
-                // style for tagged nodes or otherwise important
-                featureStyleTagged = DataStyle.SELECTED_RELATION_NODE_TAGGED;
-                // style for label text
-                featureStyleFont = DataStyle.LABELTEXT_NORMAL;
-                // style for small label text
-                featureStyleFontSmall = DataStyle.LABELTEXT_SMALL;
+                featureStyle = nodeFeatureStyleRelation;
+                featureStyleThin = nodeFeatureStyleThinRelation;
+                featureStyleTagged = nodeFeatureStyleTaggedRelation;
+                featureStyleFont = nodeFeatureStyleFontRelation;
+                featureStyleFontSmall = nodeFeatureStyleFontSmallRelation;
                 isSelected = true;
             }
         }
 
         if (node.hasProblem(context, validator) != Validator.OK) {
-            // general node style
-            featureStyle = DataStyle.PROBLEM_NODE;
-            // style for house numbers
-            featureStyleThin = DataStyle.PROBLEM_NODE_THIN;
-            // style for tagged nodes or otherwise important
-            featureStyleTagged = DataStyle.PROBLEM_NODE_TAGGED;
-            // style for label text
-            featureStyleFont = DataStyle.LABELTEXT_NORMAL_PROBLEM;
-            // style for small label text
-            featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_PROBLEM;
+            featureStyle = nodeFeatureStyleProblem;
+            featureStyleThin = nodeFeatureStyleThinProblem;
+            featureStyleTagged = nodeFeatureStyleTaggedProblem;
+            featureStyleFont = nodeFeatureStyleFontProblem;
+            featureStyleFontSmall = nodeFeatureStyleFontSmallProblem;
             hasProblem = true;
         }
 
         if (filterMode && !filteredObject) {
-            featureStyle = DataStyle.HIDDEN_NODE;
+            featureStyle = nodeFeatureStyleHidden;
             featureStyleThin = featureStyle;
             featureStyleTagged = featureStyle;
             isTagged = false;
@@ -956,11 +975,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
             if (noIcon) {
                 // draw regular nodes or without icons
-                FeatureStyle style = DataStyle.getInternal(featureStyleTagged);
-                if (zoomLevel < style.getMinVisibleZoom()) {
+                if (zoomLevel < featureStyleTagged.getMinVisibleZoom()) {
                     return;
                 }
-                Paint paint = style.getPaint();
+                Paint paint = featureStyleTagged.getPaint();
                 float strokeWidth = paint.getStrokeWidth();
                 if (hwAccelarationWorkaround) {
                     canvas.drawCircle(x, y, strokeWidth / 2, paint);
@@ -973,11 +991,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
         } else {
             // this bit of code duplication makes sense
-            FeatureStyle style = DataStyle.getInternal(featureStyle);
-            if (zoomLevel < style.getMinVisibleZoom()) {
+            if (zoomLevel < featureStyle.getMinVisibleZoom()) {
                 return;
             }
-            Paint paint = style.getPaint();
+            Paint paint = featureStyle.getPaint();
             if (hwAccelarationWorkaround) { // FIXME we don't actually know if this is slower than drawPoint
                 canvas.drawCircle(x, y, paint.getStrokeWidth() / 2, paint);
             } else {
@@ -992,14 +1009,14 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param x screen x
      * @param y screen y
      * @param canvas canvas we are drawing on
-     * @param featureKeyThin style to use for the housenumber circle
-     * @param featureKeyFont style to use for the housenumber number
+     * @param featureStyleThin style to use for the housenumber circle
+     * @param featureStyleFont style to use for the housenumber number
      * @param houseNumber the number as a string
      */
-    private void paintHouseNumber(final float x, final float y, @NonNull final Canvas canvas, @NonNull final String featureKeyThin,
-            @NonNull final String featureKeyFont, final String houseNumber) {
-        Paint fontPaint = DataStyle.getInternal(featureKeyFont).getPaint();
-        canvas.drawCircle(x, y, houseNumberRadius, DataStyle.getInternal(featureKeyThin).getPaint());
+    private void paintHouseNumber(final float x, final float y, @NonNull final Canvas canvas, @NonNull final FeatureStyle featureStyleThin,
+            @NonNull final FeatureStyle featureStyleFont, final String houseNumber) {
+        Paint fontPaint = featureStyleFont.getPaint();
+        canvas.drawCircle(x, y, houseNumberRadius, featureStyleThin.getPaint());
         canvas.drawCircle(x, y, houseNumberRadius, labelBackground);
         canvas.drawText(houseNumber, x - fontPaint.measureText(houseNumber) / 2, y + verticalNumberOffset, fontPaint);
     }
@@ -1010,15 +1027,14 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param x screen x
      * @param y screen y
      * @param canvas canvas we are drawing on
-     * @param featureKeyThin style to use for the label
+     * @param featureStyleThin style to use for the label
      * @param e the OsmElement
      * @param strokeWidth current stroke scaling factor
      * @param withIcon offset the label so that we don't overlap an icon
      */
-    private void paintLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final OsmElement e, final float strokeWidth,
+    private void paintLabel(final float x, final float y, final Canvas canvas, final FeatureStyle featureStyleThin, final OsmElement e, final float strokeWidth,
             final boolean withIcon) {
-        FeatureStyle fs = DataStyle.getInternal(featureKeyThin);
-        Paint paint = fs.getPaint();
+        Paint paint = featureStyleThin.getPaint();
         SortedMap<String, String> tags = e.getTags();
         String label = labelCache.get(tags); // may be null!
         if (label == null) {
@@ -1044,7 +1060,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
         }
         float halfTextWidth = paint.measureText(label) / 2;
-        FontMetrics fm = fs.getFontMetrics();
+        FontMetrics fm = featureStyleThin.getFontMetrics();
         float yOffset = y + strokeWidth + (withIcon ? 2 * iconRadius : iconRadius);
         canvas.drawRect(x - halfTextWidth, yOffset + fm.bottom, x + halfTextWidth, yOffset - paint.getTextSize() + fm.bottom, labelBackground);
         canvas.drawText(label, x - halfTextWidth, yOffset, paint);
@@ -1118,17 +1134,17 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param canvas the canvas on which to draw
      * @param x the x position where the center of the icon goes
      * @param y the y position where the center of the icon goes
-     * @param featureKey style key
+     * @param featureStyle style key
      * @return true if an icon was found and drawn
      */
-    private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
+    private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, FeatureStyle featureStyle) {
         Bitmap icon = getIcon(element);
         if (icon != null) {
             float w2 = icon.getWidth() / 2f;
             float h2 = icon.getHeight() / 2f;
-            if (featureKey != null) { // selected or error
+            if (featureStyle != null) { // selected or error
                 RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder, x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
-                canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getInternal(featureKey).getPaint());
+                canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, featureStyle.getPaint());
             }
             // we have an icon! draw it.
             canvas.drawBitmap(icon, x - w2, y - h2, null);
@@ -1195,8 +1211,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
         Paint paint;
-        String labelFontStyle = DataStyle.LABELTEXT_NORMAL;
-        String labelFontStyleSmall = DataStyle.LABELTEXT_SMALL;
+        FeatureStyle labelFontStyle = labelTextStyleNormal;
+        FeatureStyle labelFontStyleSmall = labelTextStyleSmall;
 
         // draw way tolerance
         if (drawTolerance) {
@@ -1209,18 +1225,15 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         // draw selectedWay highlighting
         if (isSelected) {
-            FeatureStyle selectedStyle = DataStyle.getInternal(DataStyle.SELECTED_WAY);
-            paint = selectedStyle.getPaint();
-            paint.setStrokeWidth(style.getPaint().getStrokeWidth() * selectedStyle.getWidthFactor());
+            paint = selectedWayStyle.getPaint();
+            paint.setStrokeWidth(style.getPaint().getStrokeWidth() * selectedWayStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
-            paint = DataStyle.getInternal(DataStyle.WAY_DIRECTION).getPaint();
-            drawWayArrows(canvas, linePoints, pointsSize, reversed, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
-            labelFontStyle = DataStyle.LABELTEXT_NORMAL_SELECTED;
-            labelFontStyleSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
+            drawWayArrows(canvas, linePoints, pointsSize, reversed, wayDirectionPaint, displayHandles && tmpDrawingSelectedWays.size() == 1);
+            labelFontStyle = labelTextStyleNormalSelected;
+            labelFontStyleSmall = labelTextStyleSmallSelected;
         } else if (isMemberOfSelectedRelation) {
-            FeatureStyle relationSelectedStyle = DataStyle.getInternal(DataStyle.SELECTED_RELATION_WAY);
-            paint = relationSelectedStyle.getPaint();
-            paint.setStrokeWidth(style.getPaint().getStrokeWidth() * relationSelectedStyle.getWidthFactor());
+            paint = wayFeatureStyleRelation.getPaint();
+            paint.setStrokeWidth(style.getPaint().getStrokeWidth() * wayFeatureStyleRelation.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
         }
 
@@ -1277,13 +1290,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 X = X / (3 * A); // NOSONAR nonZero tests for zero
                 boolean iconDrawn = false;
                 if (tmpPresets != null) {
-                    iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y, isSelected ? DataStyle.SELECTED_NODE_TAGGED : null);
+                    iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y, isSelected ? nodeFeatureStyleTaggedSelected : null);
                     boolean doLabel = false;
                     if (!iconDrawn) {
                         String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
                         if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-                            paintHouseNumber((float) X, (float) Y, canvas, isSelected ? DataStyle.SELECTED_NODE_THIN : DataStyle.NODE_THIN, labelFontStyleSmall,
-                                    houseNumber);
+                            paintHouseNumber((float) X, (float) Y, canvas, isSelected ? nodeFeatureStyleThinSelected : nodeFeatureStyleThin,
+                                    labelFontStyleSmall, houseNumber);
                         } else {
                             doLabel = way.hasTagKey(Tags.KEY_NAME);
                         }
@@ -1291,7 +1304,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                         doLabel = zoomLevel > SHOW_LABEL_LIMIT && way.hasTagKey(Tags.KEY_NAME);
                     }
                     if (doLabel) {
-                        Paint p = DataStyle.getInternal(DataStyle.SELECTED_NODE_TAGGED).getPaint();
+                        Paint p = nodeFeatureStyleTaggedSelected.getPaint();
                         paintLabel((float) X, (float) Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
                     }
                 }
@@ -1307,8 +1320,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      */
     private void paintHiddenWay(@NonNull final Canvas canvas, @NonNull final Way way) {
         //
-        FeatureStyle style = DataStyle.getInternal(DataStyle.HIDDEN_WAY);
-        if (zoomLevel < style.getMinVisibleZoom()) {
+        if (zoomLevel < wayFeatureStyleHidden.getMinVisibleZoom()) {
             return;
         }
 
@@ -1324,7 +1336,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
-            canvas.drawPath(path, style.getPaint());
+            canvas.drawPath(path, wayFeatureStyleHidden.getPaint());
         }
     }
 
@@ -1345,7 +1357,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 canvas.translate(X - lastX, Y - lastY);
                 lastX = X;
                 lastY = Y;
-                canvas.drawPath(DataStyle.getCurrent().getXPath(), DataStyle.getInternal(DataStyle.HANDLE).getPaint());
+                canvas.drawPath(DataStyle.getCurrent().getXPath(), handlePaint);
             }
             canvas.restore();
             handles.clear(); // this is hopefully faster than allocating a new set
@@ -1446,7 +1458,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     }
 
     /**
-     * Update cached Paint objects
+     * Update cached Paint and FeatureStyle objects
      */
     public void updateStyle() {
         // changes when style changes
@@ -1455,6 +1467,50 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         wayTolerancePaint = DataStyle.getInternal(DataStyle.WAY_TOLERANCE).getPaint();
         wayTolerancePaint2 = DataStyle.getInternal(DataStyle.WAY_TOLERANCE_2).getPaint();
         labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+
+        // general node style
+        nodeFeatureStyle = DataStyle.getInternal(DataStyle.NODE);
+        // style for house numbers
+        nodeFeatureStyleThin = DataStyle.getInternal(DataStyle.NODE_THIN);
+        // style for tagged nodes or otherwise important
+        nodeFeatureStyleTagged = DataStyle.getInternal(DataStyle.NODE_TAGGED);
+        // style for label text
+        labelTextStyleNormal = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
+        // style for small label text
+        labelTextStyleSmall = DataStyle.getInternal(DataStyle.LABELTEXT_SMALL);
+
+        // selected
+        nodeFeatureStyleSelected = DataStyle.getInternal(DataStyle.SELECTED_NODE);
+        nodeFeatureStyleThinSelected = DataStyle.getInternal(DataStyle.SELECTED_NODE_THIN);
+        nodeFeatureStyleTaggedSelected = DataStyle.getInternal(DataStyle.SELECTED_NODE_TAGGED);
+        labelTextStyleNormalSelected = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL_SELECTED);
+        labelTextStyleSmallSelected = DataStyle.getInternal(DataStyle.LABELTEXT_SMALL_SELECTED);
+
+        // selected as member of a relation
+        nodeFeatureStyleRelation = DataStyle.getInternal(DataStyle.SELECTED_RELATION_NODE);
+        nodeFeatureStyleThinRelation = DataStyle.getInternal(DataStyle.SELECTED_RELATION_NODE_THIN);
+        nodeFeatureStyleTaggedRelation = DataStyle.getInternal(DataStyle.SELECTED_RELATION_NODE_TAGGED);
+        nodeFeatureStyleFontRelation = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
+        nodeFeatureStyleFontSmallRelation = DataStyle.getInternal(DataStyle.LABELTEXT_SMALL);
+
+        // problem variant
+        nodeFeatureStyleProblem = DataStyle.getInternal(DataStyle.PROBLEM_NODE);
+        nodeFeatureStyleThinProblem = DataStyle.getInternal(DataStyle.PROBLEM_NODE_THIN);
+        nodeFeatureStyleTaggedProblem = DataStyle.getInternal(DataStyle.PROBLEM_NODE_TAGGED);
+        nodeFeatureStyleFontProblem = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL_PROBLEM);
+        nodeFeatureStyleFontSmallProblem = DataStyle.getInternal(DataStyle.LABELTEXT_SMALL_PROBLEM);
+
+        // hiden node
+        nodeFeatureStyleHidden = DataStyle.getInternal(DataStyle.HIDDEN_NODE);
+
+        nodeDragRadiusPaint = DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint();
+
+        // way stuff
+        selectedWayStyle = DataStyle.getInternal(DataStyle.SELECTED_WAY);
+        wayDirectionPaint = DataStyle.getInternal(DataStyle.WAY_DIRECTION).getPaint();
+        wayFeatureStyleHidden = DataStyle.getInternal(DataStyle.HIDDEN_WAY);
+        wayFeatureStyleRelation = DataStyle.getInternal(DataStyle.SELECTED_RELATION_WAY);
+        handlePaint = DataStyle.getInternal(DataStyle.HANDLE).getPaint();
     }
 
     /**
