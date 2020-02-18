@@ -93,6 +93,7 @@ public class Preferences {
     private final int     connectedNodeTolerance;
     private final int     orthogonalizeThreshold;
     private final boolean autoformatPhoneNumbers;
+    private final int     gnssTimeToStale;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -242,6 +243,8 @@ public class Preferences {
         orthogonalizeThreshold = getIntPref(R.string.config_orthogonalizeThreshold_key, 15);
 
         autoformatPhoneNumbers = prefs.getBoolean(r.getString(R.string.config_autoformatPhoneNumbers_key), true);
+        
+        gnssTimeToStale = getIntPref(R.string.config_gnssTimeToStale_key, 60);
     }
 
     /**
@@ -1211,6 +1214,15 @@ public class Preferences {
         return autoApplyPreset;
     }
 
+    /**
+     * Get the number of seconds that a fix needs to be old to be considered stale
+     * 
+     * @return the number of seconds that a fix needs to be old to be considered stale 
+     */
+    public int getGnssTimeToStale() {
+        return gnssTimeToStale;
+    }
+    
     /**
      * Get a string from shared preferences
      * 

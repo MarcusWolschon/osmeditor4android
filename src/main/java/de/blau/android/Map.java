@@ -20,6 +20,7 @@ import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -75,6 +76,8 @@ public class Map extends View implements IMapView {
     private static final int SHOW_ICONS_LIMIT = 15;
 
     public static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
+
+    private static final long ONE_SECOND_IN_NS = 1000000000L;
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -160,8 +163,13 @@ public class Map extends View implements IMapView {
     private Paint labelBackground;
     private Paint gpsPosFollowPaint;
     private Paint gpsPosPaint;
+    private Paint gpsPosFollowPaintStale;
+    private Paint gpsPosPaintStale;
+
     private Paint gpsAccuracyPaint;
     private Paint boxPaint;
+
+    private long timeToStale = 60 * ONE_SECOND_IN_NS;
 
     private TrackerService tracker = null;
 
@@ -653,10 +661,19 @@ public class Map extends View implements IMapView {
             }
         }
         Paint paint = null;
+        long ageNanos = SystemClock.elapsedRealtimeNanos() - displayLocation.getElapsedRealtimeNanos();
         if (isFollowingGPS) {
-            paint = gpsPosFollowPaint;
+            if (ageNanos > timeToStale) {
+                paint = gpsPosFollowPaintStale;
+            } else {
+                paint = gpsPosFollowPaint;
+            }
         } else {
-            paint = gpsPosPaint;
+            if (ageNanos > timeToStale) {
+                paint = gpsPosPaintStale;
+            } else {
+                paint = gpsPosPaint;
+            }
         }
 
         if (o < 0) {
@@ -903,6 +920,7 @@ public class Map extends View implements IMapView {
         TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         setUpLayers(ctx);
         alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
+        timeToStale = prefs.getGnssTimeToStale() * ONE_SECOND_IN_NS;
         synchronized (mLayers) {
             for (MapViewLayer osmvo : mLayers) {
                 if (osmvo != null) {
@@ -932,6 +950,8 @@ public class Map extends View implements IMapView {
         textPaint = fs.getPaint();
         gpsPosFollowPaint = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
         gpsPosPaint = DataStyle.getInternal(DataStyle.GPS_POS).getPaint();
+        gpsPosFollowPaintStale = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW_STALE).getPaint();
+        gpsPosPaintStale = DataStyle.getInternal(DataStyle.GPS_POS_STALE).getPaint();
         gpsAccuracyPaint = DataStyle.getInternal(DataStyle.GPS_ACCURACY).getPaint();
         boxPaint = DataStyle.getInternal(DataStyle.VIEWBOX).getPaint();
         if (dataLayer != null) {

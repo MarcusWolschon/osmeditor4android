@@ -93,6 +93,7 @@
     <string name="config_gps_distance_key">distanceInt</string>
     <string name="config_gps_interval_key">intervalInt</string>  
     <string name="config_gps_network_key">gpsNetwork</string>
+    <string name="config_gnssTimeToStale_key">gnssTimeToStale</string>
     <string name="config_connectedNodeTolerance_key">connectedNodeTolerance</string>
     <string name="config_orthogonalizeThreshold_key">orthogonalizeThreshold</string>
 

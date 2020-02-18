@@ -254,6 +254,13 @@
             android:key="@string/config_gps_network_key"
             android:summary="@string/config_gps_network_summary"
             android:title="@string/config_gps_network_title" />
+        <de.blau.android.prefs.IntEditTextPreference
+            android:defaultValue="60"
+            android:dialogTitle="@string/config_gnssTimeToStale_title"
+            android:key="@string/config_gnssTimeToStale_key"
+            android:numeric="integer"
+            android:summary="@string/config_gnssTimeToStale_summary"
+            android:title="@string/config_gnssTimeToStale_title" />
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_server"

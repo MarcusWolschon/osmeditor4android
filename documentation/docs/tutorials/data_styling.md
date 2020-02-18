@@ -82,8 +82,10 @@ hidden_node                   |
 way_direction                 | 
 large_drag_area               | 
 marker_scale                  | 
-gps_pos                       | 
-gps_pos_follow                | 
+gps_pos                       | Styling for the location indicator when not in follow mode 
+gps_pos_follow                | Styling for the location indicator when in follow mode
+gps_pos_stale                 | Styling for the location indicator when not in follow mode and the location is stale
+gps_pos_follow_stale          | Styling for the location indicator when in follow mode and the location is stale
 gps_accuracy                  | 
 open_note                     | 
 closed_note                   | 

@@ -31,6 +31,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -905,6 +906,8 @@ public class TrackerService extends Service implements Exportable {
                             nmeaLocation.setAltitude(height);
                             nmeaLocation.setLatitude(lat);
                             nmeaLocation.setLongitude(lon);
+                            // we only really need to know this for determining how old the fix is
+                            nmeaLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
                             // can't call something on the UI thread directly
                             // need to send a message
                             Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, nmeaLocation);

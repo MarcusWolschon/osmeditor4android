@@ -927,6 +927,9 @@ avoided by using an offline data source.</string>
     <string name="config_leaveGpsDisabled_summary">Don\'t ask to turn GPS/GNSS on if off.</string>
     <string name="config_gps_network_title">Fallback to network location</string>
     <string name="config_gps_network_summary">If no GPS/GNSS positioning is present or turned on, fall back to network provider.</string>
+    <string name="config_gnssTimeToStale_title">Stale location after</string>
+    <string name="config_gnssTimeToStale_summary">The age (in seconds) that a location needs to have to be considered stale.</string>        
+    <string name="config_gnssTimeToStale_current">%1$d s</string>
     <!-- Server Settings -->
     <string name="config_category_server">Server settings</string>
     <string name="config_category_server_summary">OSM API and configuration of other servers.</string>

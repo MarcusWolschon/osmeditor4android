@@ -98,6 +98,8 @@ public final class DataStyle extends DefaultHandler {
     public static final String MARKER_SCALE                  = "marker_scale";
     public static final String GPS_POS                       = "gps_pos";
     public static final String GPS_POS_FOLLOW                = "gps_pos_follow";
+    public static final String GPS_POS_STALE                 = "gps_pos_stale";
+    public static final String GPS_POS_FOLLOW_STALE          = "gps_pos_follow_stale";
     public static final String GPS_ACCURACY                  = "gps_accuracy";
     public static final String OPEN_NOTE                     = "open_note";
     public static final String CLOSED_NOTE                   = "closed_note";
@@ -779,6 +781,16 @@ public final class DataStyle extends DefaultHandler {
         fp = new FeatureStyle(GPS_POS_FOLLOW, internalStyles.get(GPS_POS));
         fp.getPaint().setStyle(Style.STROKE);
         internalStyles.put(GPS_POS_FOLLOW, fp);
+
+        fp = new FeatureStyle(GPS_POS_STALE, baseWayStyle);
+        fp.getPaint().setStyle(Style.FILL);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 4.0f));
+        fp.setUpdateWidth(false);
+        internalStyles.put(GPS_POS_STALE, fp);
+
+        fp = new FeatureStyle(GPS_POS_FOLLOW_STALE, internalStyles.get(GPS_POS_STALE));
+        fp.getPaint().setStyle(Style.STROKE);
+        internalStyles.put(GPS_POS_FOLLOW_STALE, fp);
 
         fp = new FeatureStyle(GPS_ACCURACY, internalStyles.get(GPS_POS));
         fp.getPaint().setStyle(Style.FILL_AND_STROKE);
