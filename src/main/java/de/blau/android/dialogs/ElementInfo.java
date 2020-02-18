@@ -336,9 +336,9 @@ public class ElementInfo extends ImmersiveDialogFragment {
                         first = false;
                     }
                     if (compare) {
-                        tl.addView(TableLayoutUtils.createRow(activity, header, "", problem, tp, R.attr.colorError, Color.RED));
+                        tl.addView(TableLayoutUtils.createRow(activity, header, "", problem, tp, R.attr.error, Color.RED));
                     } else {
-                        tl.addView(TableLayoutUtils.createRow(activity, header, problem, null, tp, R.attr.colorError, Color.RED));
+                        tl.addView(TableLayoutUtils.createRow(activity, header, problem, null, tp, R.attr.error, Color.RED));
                     }
                 }
             }

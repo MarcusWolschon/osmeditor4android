@@ -91,6 +91,7 @@
 	<attr name="snack_info" format="reference|color" />
 	<attr name="snack_warning" format="reference|color" />
 	<attr name="snack_error" format="reference|color" />
+    <attr name="error" format="reference|color" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">

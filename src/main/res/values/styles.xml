@@ -225,12 +225,14 @@
 	    <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_dark</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_white</item>
+        <item name="error">@color/material_red</item>
 	</style>
 	
 	<style name="Theme.DialogLight" parent="@style/Theme.AppCompat.Light.Dialog">
 	    <item name="android:windowNoTitle">false</item>
         <item name="alert_dialog">@drawable/ic_action_warning_holo_light</item>
         <item name="lightbulb_dialog">@drawable/lightbulb_black</item>
+        <item name="error">@color/material_red</item>
 	</style>
 	
 	<style name="DialogEditTextLight" parent="android:Widget.EditText">
