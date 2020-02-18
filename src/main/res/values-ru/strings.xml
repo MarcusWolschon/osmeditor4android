@@ -150,6 +150,7 @@
   <string name="find_message">Введите строку поиска</string>
   <string name="geocoder_prompt">через</string>
   <string name="geocoder_limit_label">в видимой области</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Строка поиска заготовок</string>
   <string name="preset_autopreset">Заготовка</string>
@@ -256,6 +257,8 @@
   <string name="layer_flush_tile_cache">Очистить  базу для карты</string>
   <string name="layer_change_style">Изменить стиль</string>
   <string name="layer_select_imagery">Выберите источник</string>
+  <string name="layer_category_all">Все</string>
+  <string name="layer_category_map">Карта</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Минимальный масштаб</string>
   <string name="layer_info_max_zoom">Максимальный масштаб</string>
@@ -313,6 +316,7 @@
   <string name="toast_export_success">Экспортировано на %1$s</string>
   <string name="toast_preset_overwrote_tags">Внимание: заготовка перезаписала тег(и)</string>
   <string name="toast_merge_overwrote_tags">Внимание: операция перезаписала тег(и)</string>
+  <string name="toast_cant_autoapply_preset">Эта заготовка не может быть применена автоматически</string>
   <string name="toast_oneway_reversed">Вы изменили направление односторонней улицы или линии с тегами, зависимыми от направления. Пожалуйста, проверьте теги и скорректируйте их, если необходимо.</string>
   <string name="toast_merge_tag_conflict">Вы объединили элементы с несовместимыми значениями тегов, или с зависящей от направления семантикой, или с разными ролями в одном и том же отношении. Пожалуйста, проверьте теги и роли и скорректируйте их, если необходимо.</string>
   <string name="toast_potential_merge_tag_conflict">Вы пытаетесь объединить элементы с несовместимыми значениями тегов. Пожалуйста, проверьте теги и скорректируйте их перед повторной попыткой.</string>
@@ -403,6 +407,8 @@
   <string name="toast_using_network_location">Определение местоположения по сети</string>
   <string name="toast_using_gps_location">Местоположение по GPS/GNSS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS выключен, запись GPX-трека остановлена</string>
+  <string name="toast_remote_nmea_connection">Соединение с внешним источником NMEA: %1$s</string>
+  <string name="toast_remote_nmea_connection_closed">Соединение с внешним источником NMEA закрыто</string>
   <string name="toast_tags_copied">Теги скопированы в буфер обмена</string>
   <string name="toast_tags_cut">Теги вырезаны в буфер обмена</string>
   <string name="toast_properties_copied">Свойства скопированы в буфер обмена</string>
@@ -427,6 +433,7 @@
   <string name="toast_download_started">Загрузка %1$s начата</string>
   <string name="toast_phone_number_reformatted">Номер телефона отформатирован</string>
   <string name="toast_members_not_downloaded">Некоторые участники отношения не загружены</string>
+  <string name="toast_restart_required">Вам нужно перезапустить Vespucci для применения изменений</string>
   <!--Error messages-->
   <string name="error_pbf_no_version">В PBF-файле нет информации о версии</string>
   <string name="error_pbf_unknown_relation_member_type">Неизвестный тип участника отношения %1$s</string>

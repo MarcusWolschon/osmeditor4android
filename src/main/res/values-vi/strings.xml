@@ -68,6 +68,7 @@
   <string name="search_online">Tìm kiếm trực tuyến</string>
   <string name="find_message">Nhập truy vấn</string>
   <string name="geocoder_prompt">dùng</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Chuỗi tìm kiếm thẻ đặt trước</string>
   <string name="search">Tìm kiếm</string>

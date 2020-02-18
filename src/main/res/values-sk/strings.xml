@@ -96,6 +96,7 @@
   <string name="find_message">Zadajte hľadaný reťazec</string>
   <string name="geocoder_prompt">pomocou</string>
   <string name="geocoder_limit_label">v zobrazení</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Reťazec hľadanej predvoľby</string>
   <string name="search">Vyhľadať</string>

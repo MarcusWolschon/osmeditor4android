@@ -35,6 +35,7 @@
   <string name="imagery_offset_distance">Distanţă</string>
   <!--Search/Find dialog-->
   <string name="search_results_title">Rezultatele căutării</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="search">Caută</string>
   <!--element information dialog-->

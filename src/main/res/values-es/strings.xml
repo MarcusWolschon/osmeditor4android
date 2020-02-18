@@ -101,6 +101,7 @@
   <string name="search_online">Buscar en línea</string>
   <string name="find_message">Introduzca la cadena de búsqueda</string>
   <string name="geocoder_prompt">con</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Cadena de búsqueda predeterminada</string>
   <string name="search">Buscar</string>

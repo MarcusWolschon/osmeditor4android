@@ -150,6 +150,10 @@
   <string name="find_message">Suchanfrage eingeben</string>
   <string name="geocoder_prompt">mit</string>
   <string name="geocoder_limit_label">in der Ansicht</string>
+  <!--Search objects dialog-->
+  <string name="search_objects_title">Objektsuche</string>
+  <string name="search_objects_hint">Ein JOSM Suchausdruck eingeben</string>
+  <string name="search_objects_unsupported">Ausdruck \"%1$s\" wird nicht unterstützt</string>
   <!---->
   <string name="preset_search_hint">Vorlagensuche</string>
   <string name="preset_autopreset">Auto-Preset</string>
@@ -727,7 +731,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="deleteway_wayonly">Nur Weg löschen</string>
   <string name="deleteway_wayandnodes">Weg löschen</string>
   <string name="deletenode_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
-  <string name="deletenode">Punkt löschen</string>
+  <string name="deletenode">Knoten löschen</string>
   <!--EasyEdit context menus-->
   <string name="split_context_title">Teilen …</string>
   <string name="split_all_ways">… alle Wege</string>
@@ -789,8 +793,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_enablePhotoLayer_summary">Geo-referenzierte Fotos anzeigen</string>
   <string name="config_enableKeepScreenOn_title">Bildschirm nicht abschalten</string>
   <string name="config_enableKeepScreenOn_summary">Den Bildschirm nicht abschalten, um Energie zu sparen</string>
-  <string name="config_largeDragArea_title">Großer Bereich um Punkte zu bewegen</string>
-  <string name="config_largeDragArea_summary">Bietet einen größeren Bereich, um Punkte zu verschieben</string>
+  <string name="config_largeDragArea_title">Große Knoten-Verschiebefläche</string>
+  <string name="config_largeDragArea_summary">Rund um Knoten größere Fläche zum Fassen und Verschieben bereitstellen</string>
   <string name="config_advancedprefs">Erweiterte Einstellungen</string>
   <string name="config_moreprefs">Weitere Einstellungen…</string>
   <string name="config_presetbutton_title">Vorlagen</string>
@@ -921,6 +925,9 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_leaveGpsDisabled_summary">Nicht nachfragen, wenn GPS/GNSS ausgeschaltet ist</string>
   <string name="config_gps_network_title">Netzwerkstandort verwenden</string>
   <string name="config_gps_network_summary">Falls kein GPS/GNSS-Sensor vorhanden oder eingeschaltet ist, auf Netzwerkstandort zurückgreifen</string>
+  <string name="config_gnssTimeToStale_title">Veralteter Standort nach</string>
+  <string name="config_gnssTimeToStale_summary">Die Anzahl Sekunden nachdem ein Standortwert als veraltet betrachtet wird.</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_category_server">Server-Einstellungen</string>
   <string name="config_category_server_summary">Einstellungen für die OSM-API und andere Server </string>
@@ -1166,11 +1173,11 @@ in %1$d m %2$s</string>
   </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
   <string-array name="checkstatus_entries">
-    <item>HHTP</item>
+    <item>HTTP</item>
     <item>HTTPS</item>
     <item>Domain existiert nicht</item>
     <item>Domain nicht erreichbar</item>
     <item>Ungültige URL</item>
-    <item>Ungültiges IArgument</item>
+    <item>Ungültiges Argument</item>
   </string-array>
 </resources>

@@ -152,6 +152,7 @@
   <string name="find_message">Proszę wprowadzić szukany ciąg</string>
   <string name="geocoder_prompt">z</string>
   <string name="geocoder_limit_label">w widoku</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Wpisz nazwę szablonu</string>
   <string name="preset_autopreset">Automatyczny szablon</string>

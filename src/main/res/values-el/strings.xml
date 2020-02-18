@@ -97,6 +97,7 @@
   <string name="search_online">Αναζήτηση στο διαδίκτυο</string>
   <string name="find_message">Εισαγάγετε κείμενο αναζήτησης</string>
   <string name="geocoder_prompt">με</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Προεπιλεγμένη αναζήτηση συμβολοσειράς </string>
   <string name="search">Αναζήτηση</string>

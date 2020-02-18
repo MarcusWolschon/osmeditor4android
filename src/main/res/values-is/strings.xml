@@ -45,6 +45,7 @@
   <!--Search/Find dialog-->
   <string name="search_results_title">Leitarniðurstöður</string>
   <string name="find_message">Leitarstrengur</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="search">Leita</string>
   <!--element information dialog-->

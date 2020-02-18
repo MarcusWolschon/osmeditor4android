@@ -108,6 +108,7 @@
   <string name="search_online">Sök på nätet</string>
   <string name="find_message">Ange söksträng</string>
   <string name="geocoder_prompt">med</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Förinställda söksträngar</string>
   <string name="search">Sök</string>

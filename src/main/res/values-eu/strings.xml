@@ -76,6 +76,7 @@
   <!--Search/Find dialog-->
   <string name="search_results_title">Bilaketaren emaitzak</string>
   <string name="find_message">Idatzi bilaketa-katea</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Aurre-ezarpenaren bilaketa-katea</string>
   <string name="search">Bilatu</string>

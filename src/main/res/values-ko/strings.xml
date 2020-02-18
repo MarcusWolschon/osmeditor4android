@@ -56,6 +56,7 @@
   <string name="search_results_title">검색 결과</string>
   <string name="find_message">검색어를 입력하세요</string>
   <string name="geocoder_prompt">with</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">프리셋 검색 문자열</string>
   <string name="search">검색</string>

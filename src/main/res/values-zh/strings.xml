@@ -45,6 +45,7 @@
   <!--Search/Find dialog-->
   <string name="search_results_title">搜索结果</string>
   <string name="find_message">输入搜索字符串</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="search">搜索</string>
   <!--element information dialog-->

@@ -76,6 +76,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Dette forslaget kan erstatte noen egenskaper med noen mer populære.</string>
   <string name="search_results_title">Søkeresultater</string>
   <string name="geocoder_prompt">med</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Søk etter mal</string>
   <string name="search">Søk</string>

@@ -152,6 +152,7 @@
   <string name="find_message">Vložte vyhledávací řetězec</string>
   <string name="geocoder_prompt">pomocí</string>
   <string name="geocoder_limit_label">aktuální pohled</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
   <string name="preset_autopreset">Auto-předvolby</string>
@@ -181,7 +182,12 @@
   <string name="feature_information">Vlastnosti objektu GeoJSON</string>
   <string name="copy_properties">Zkopírovat vlastnosti</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Data v paměti</string>
+  <string name="total">Celkem</string>
+  <string name="changed">Změněno</string>
+  <string name="ways">Cesty</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Uvedení autora</string>
   <!---->
   <string name="error">Chyba</string>
   <string name="warning">Varování</string>
@@ -260,6 +266,13 @@
   <string name="layer_flush_tile_cache">Vyčistit mezipaměť dlaždic</string>
   <string name="layer_change_style">Změnit styl</string>
   <string name="layer_select_imagery">Zvolit snímky</string>
+  <string name="layer_category_all">Vše</string>
+  <string name="layer_category_historicphoto">Zastaralé letecké foto</string>
+  <string name="layer_category_map">Mapa</string>
+  <string name="layer_category_historicmap">Zastaralá mapa</string>
+  <string name="layer_category_osmbasedmap">Mapa na základě OSM</string>
+  <string name="layer_category_qa">Otázky a odpovědi</string>
+  <string name="layer_category_other">Jiné</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Min. zoom</string>
   <string name="layer_info_max_zoom">Max. zoom</string>
@@ -323,6 +336,7 @@
   <string name="toast_export_success">Exportováno do %1$s</string>
   <string name="toast_preset_overwrote_tags">Pozn. - předvolba přepsala tag(y)</string>
   <string name="toast_merge_overwrote_tags">Pozn. - operace přepsala tag(y)</string>
+  <string name="toast_cant_autoapply_preset">Toto přednastavení nelze použít automaticky</string>
   <string name="toast_oneway_reversed">Obrátili jste jednosměrnou ulici nebo cestu se směrovými značkami. Zkontrolujte prosím značky a v případě potřeby je opravte.</string>
   <string name="toast_merge_tag_conflict">Spojili jste prvky, které mají konfliktní hodnoty tagů, směrově závislé tagy nebo různé role ve stejné relaci. Zkontrolujte tagy a role a v případě potřeby je opravte.</string>
   <string name="toast_potential_merge_tag_conflict">Pokoušíte se sloučit prvky s konfliktními hodnotami tagů.\n\nNejprve prosím zkontrolujte a opravte tagy a poté akci opakujte.</string>
@@ -439,6 +453,7 @@
   <string name="toast_download_started">Stahování %1$s zahájeno</string>
   <string name="toast_phone_number_reformatted">Telefonní číslo bylo přeformátováno</string>
   <string name="toast_members_not_downloaded">Někteří členové relace nejsou staženi</string>
+  <string name="toast_restart_required">Aby se změna projevila, musíte restartovat Vespucci</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -528,6 +543,7 @@
   <string name="menu_deselect_all">Zrušit výběr</string>
   <string name="menu_preset_help">Nápověda k předvolbám</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Přidat značky jazyka</string>
   <string name="tag_restriction_header">Hodnota</string>
   <string name="tag_restriction_when">když</string>
   <string name="tag_restriction_and">a</string>
@@ -870,6 +886,8 @@
   <string name="config_orthogonalizeThreshold_title">hranice pravoúhlého napřímení</string>
   <string name="config_orthogonalizeThreshold_summary">Prahová hodnota v  ° , ve které jsou úhly ignorovány</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_autoformatPhoneNumbers_title">Automatické formátování telefonních čísel</string>
+  <string name="config_autoformatPhoneNumbers_summary">Povolit automatické formátování telefonních čísel</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Nastavení automatického stahování</string>
   <string name="config_category_auto_download_summary">Nastavení automatického stahování dat a úkolů</string>
@@ -1163,4 +1181,12 @@
     <item>Relace+</item>
   </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
+  <string-array name="checkstatus_entries">
+    <item>HTTP</item>
+    <item>HTTPS</item>
+    <item>Doména neexistuje</item>
+    <item>Doména nedosažitelná</item>
+    <item>ChybnéURL</item>
+    <item>Neplatný argument</item>
+  </string-array>
 </resources>

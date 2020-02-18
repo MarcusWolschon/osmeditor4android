@@ -42,6 +42,7 @@
   <!--Search/Find dialog-->
   <string name="search_results_title">Søgeresultater</string>
   <string name="find_message">Indtast søgetekst</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="search">Søg</string>
   <!--element information dialog-->

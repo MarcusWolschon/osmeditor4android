@@ -62,6 +62,7 @@
   <string name="search_results_title">Резултати от търсенето</string>
   <string name="find_message">Въведете низ за търсене</string>
   <string name="geocoder_prompt">с</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Предварително зададен низ за търсене</string>
   <string name="search">Търсене</string>

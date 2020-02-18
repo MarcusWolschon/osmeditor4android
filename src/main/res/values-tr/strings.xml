@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normal</string>
   <string name="mode_indoor">Kapalı Mekan</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Dikkat!</string>
@@ -14,10 +15,13 @@
   <string name="use_server_version">Sunucudaki versiyonu kullan</string>
   <string name="no_login_data_title">Doğrulanamadı</string>
   <string name="no_connection_title">Sunucuyla bağlantı yok</string>
+  <string name="wrong_login_data_title">Doğrulanamadı</string>
+  <string name="wrong_login_data_re_authenticate">Yeniden doğrulama</string>
   <string name="forbidden_login_title">Giriş yasak</string>
   <string name="not_found_title">Öğe bulunamadı</string>
   <string name="unknown_error_title">Bilinmeyen hata</string>
   <string name="no_data_title">Veri yok</string>
+  <string name="required_feature_missing_title">Eksik veya devre dışı bırakılmış bileşen</string>
   <string name="go_to_openstreetmap">openstreetmap.org\'a git</string>
   <string name="data_conflict_title">Sürüm çakışması</string>
   <string name="invalid_bounding_box_title">Geçersiz sınırlayıcı kutusu</string>
@@ -26,8 +30,13 @@
   <string name="api_offline_message">API şu anda çevrimdışı, veri alınamıyor veya yazılamıyor.</string>
   <string name="out_of_memory_title">Bellek yetersiz</string>
   <string name="out_of_memory_message">Vespucci istenen veri yüklenemedi. Lütfen tekrar başlayın ve daha küçük bir alan seçin.</string>
+  <string name="invalid_data_received_title">Geçersiz veri alındı</string>
+  <string name="invalid_data_read_title">Geçersiz veri okundu</string>
+  <string name="file_write_failed_title">Dosyaya yazılamadı</string>
+  <string name="file_write_failed_message">Vespucci dosya değiştirilemedi veya kaydedilemedi.</string>
   <string name="welcome_title">Hoşgeldiniz!</string>
   <string name="read_introduction">Tanıtım okuyun</string>
+  <string name="upgrade_title">Bu Vespucci\'nin yeni bir versiyon</string>
   <string name="read_upgrade">Yeni sürüm hakkında bilgi edinin</string>
   <string name="progress_title">Yükleniyor</string>
   <string name="progress_message">Veriler hafızaya yükleniyor...</string>
@@ -37,6 +46,9 @@
   <string name="progress_searching_message">Aranıyor...</string>
   <string name="progress_saving_message">Kaydediliyor...</string>
   <string name="progress_uploading_message">Yükle</string>
+  <string name="progress_preset_message">Ön ayarları indiriliyor...</string>
+  <string name="progress_running_message">İşletiliyor...</string>
+  <string name="progress_building_imagery_database">Görüntü veritabanı oluşturuluyor…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" silindi</string>
   <string name="changes_changed">\"%1$s\" değiştirildi</string>
@@ -87,6 +99,7 @@
   <string name="search_results_title">Arama sonuçları</string>
   <string name="search_online">İnternet üzerinden ara</string>
   <string name="find_message">Arama dizesini girin</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Öntanımlı arama dizesi</string>
   <string name="search">Ara</string>

@@ -117,6 +117,7 @@
   <string name="search_online">Cerca online</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
   <string name="geocoder_prompt">con</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Testo di ricerca dei predefiniti</string>
   <string name="search">Cerca</string>
@@ -605,6 +606,7 @@
   <string name="config_enableKeepScreenOn_title">Mantieni lo schermo acceso</string>
   <string name="config_enableKeepScreenOn_summary">Impedisci allo schermo di spegnersi per risparmiare energia.</string>
   <string name="config_largeDragArea_title">Area di trascinamento dei nodi estesa</string>
+  <string name="config_largeDragArea_summary">Fornisci un\'area grande per poter spostare i nodi.</string>
   <string name="config_advancedprefs">Preferenze avanzate</string>
   <string name="config_presetbutton_title">Predefiniti</string>
   <string name="config_presetbutton_summary">Aggiungi e abilita le preimpostazioni compatibili con JOSM</string>
@@ -698,6 +700,7 @@
   <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
   <string name="config_downLoadThreads_current">%1$d Processi</string>
   <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
+  <string name="config_tileCacheSize_summary">Spazio totale utilizzato per memorizzare le tiles, in MB.</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Varie</string>

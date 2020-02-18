@@ -38,6 +38,7 @@
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
   <!--Search/Find dialog-->
+  <!--Search objects dialog-->
   <!---->
   <string name="search">Procurar</string>
   <!--element information dialog-->

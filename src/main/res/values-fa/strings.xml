@@ -53,6 +53,7 @@
   <string name="search_results_title">نتایج جستجو</string>
   <string name="find_message">ورود متن جستجو</string>
   <string name="geocoder_prompt">با</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="search">جستجو</string>
   <!--element information dialog-->

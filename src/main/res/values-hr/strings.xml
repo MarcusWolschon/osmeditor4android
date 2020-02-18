@@ -49,6 +49,7 @@
   <string name="imagery_offset_distance">Daljina</string>
   <!--Search/Find dialog-->
   <string name="search_results_title">Rezultati traženja</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="search">Pretraži</string>
   <!--element information dialog-->

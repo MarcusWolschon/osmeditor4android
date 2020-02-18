@@ -150,6 +150,7 @@
   <string name="find_message">Adja meg a keresendő szöveget</string>
   <string name="geocoder_prompt">ezzel:</string>
   <string name="geocoder_limit_label">a nézetben</string>
+  <!--Search objects dialog-->
   <!---->
   <string name="preset_search_hint">Előbeállítás-kereső szöveg</string>
   <string name="preset_autopreset">Automatikus előbeállítás</string>
@@ -179,7 +180,12 @@
   <string name="feature_information">GeoJSON tulajdonságinformációk</string>
   <string name="copy_properties">Tulajdonságok másolása</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Adat a memóriában</string>
+  <string name="total">Összesen</string>
+  <string name="changed">Módosult</string>
+  <string name="ways">Vonalak</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Attribútum</string>
   <!---->
   <string name="error">Hiba</string>
   <string name="warning">Figyelmeztetés</string>
@@ -201,7 +207,7 @@
   <string name="js_console_input_hint">Adjon meg JavaScriptet itt</string>
   <string name="js_console_output_hint">A kimenet itt fog megjelenni</string>
   <!--Validator dialogs-->
-  <string name="validator_title">%1$s ellenőrző szabálykészlet </string>
+  <string name="validator_title">%1$s érvényesítő szabálykészlet </string>
   <string name="resurvey_entries">Ismételt felmérés</string>
   <string name="edit_resurvey_title">Újbóli felmérés bejegyzésének szerkesztése</string>
   <string name="add_resurvey_title">Újbóli felmérés bejegyzésének hozzáadása</string>
@@ -259,6 +265,14 @@ elemek megkövetelése</string>
   <string name="layer_flush_tile_cache">Csempegyorsítótár ürítése</string>
   <string name="layer_change_style">Stílus módosítása</string>
   <string name="layer_select_imagery">Légifelvétel kijelölése</string>
+  <string name="layer_category_all">Összes</string>
+  <string name="layer_category_photo">Légifelvétel</string>
+  <string name="layer_category_historicphoto">Elavult légifelvétel</string>
+  <string name="layer_category_map">Térkép</string>
+  <string name="layer_category_historicmap">Elavult térkép</string>
+  <string name="layer_category_osmbasedmap">OSM-alapú térkép</string>
+  <string name="layer_category_qa">Minőségbiztosítás</string>
+  <string name="layer_category_other">Egyéb</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Legkisebb nagyítás</string>
   <string name="layer_info_max_zoom">Legnagyobb nagyítás</string>
@@ -273,6 +287,7 @@ elemek megkövetelése</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Határolókeret</string>
   <string name="api_info_latest_date">Utolsó felvétel dátuma</string>
+  <string name="api_info_attribution">Attribútum</string>
   <string name="api_info_mapsplit_source">MapSplit csak olvasható forrás</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Ellenőrzőpontok</string>
@@ -296,12 +311,13 @@ elemek megkövetelése</string>
   <string name="tip_pan_and_zoom_auto_download">A pásztázással és nagyítással történő automatikus letöltést célszerű óvatosan használni, mert alaposan megterhelheti az OpenStreetMap API-t és a készüléket egyaránt.&lt;p&gt;Az API-kiszolgálóról történő betöltés elkerülhető egy offline adatforrás használatával.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
-  <string name="minus_sign">-</string>
+  <string name="minus_sign">–</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <string name="default_channel_name">Vespucci alapértelmezés</string>
   <string name="default_channel_description">Alapértelmezett értesítési csatorna</string>
-  <string name="qa_channel_name">Vespucci QA</string>
+  <string name="qa_channel_name">Vespucci QA (minőségbiztosítás)</string>
+  <string name="qa_channel_description">Minőségbiztosítási csatorna adatproblémákhoz és feladatokhoz</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Engedély megtagadva %1$s</string>
   <string name="toast_name_empty">Válasszon egy nevet</string>
@@ -319,6 +335,7 @@ elemek megkövetelése</string>
   <string name="toast_export_success">Exportálva ide: %1$s</string>
   <string name="toast_preset_overwrote_tags">Megjegyzés – az előbeállítás felülírt címké(ke)t</string>
   <string name="toast_merge_overwrote_tags">Megjegyzés – a művelet felülírt címkéket</string>
+  <string name="toast_cant_autoapply_preset">Ez az előbeállítás nem alkalmazható automatikusan</string>
   <string name="toast_oneway_reversed">Megfordított egy egyirányú utat, vagy irányfüggő címkékkel rendelkező vonalat. Ellenőrizze a címkéket, és javítsa őket, ha szükséges.</string>
   <string name="toast_merge_tag_conflict">Olyan elemeket egyesített, melyek ütköző címke értékeket, irányfüggő jelentést, vagy különböző szerepeket tartalmaznak ugyanabban a kapcsolatban. Ellenőrizze, hogy a címkék és szerepek helyesek.</string>
   <string name="toast_potential_merge_tag_conflict">Ütköző címkeértékekkel rendelkező elemek egyesítésére készül. Ellenőrizze, hogy a címkék helyesek-e, mielőtt újrapróbálkozik.</string>
@@ -406,6 +423,8 @@ elemek megkövetelése</string>
   <string name="toast_using_network_location">Hálózati helyadatok használata</string>
   <string name="toast_using_gps_location">GPS/GNSS helyadatok használata</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS pozicionálás letiltva, GPX követés leállítva</string>
+  <string name="toast_remote_nmea_connection">Távoli NMEA-kapcsolat innen/ide: %1$s</string>
+  <string name="toast_remote_nmea_connection_closed">Távoli NMEA-kapcsolat lezárva</string>
   <string name="toast_tags_copied">Címkék vágólapra másolva</string>
   <string name="toast_tags_cut">Címkék kivágva a vágólapra</string>
   <string name="toast_properties_copied">Tulajdonságok vágólapra másolva</string>
@@ -431,6 +450,7 @@ elemek megkövetelése</string>
   <string name="toast_download_started">A(z) %1$s letöltése elindult</string>
   <string name="toast_phone_number_reformatted">Telefonszám újraformázva</string>
   <string name="toast_members_not_downloaded">A kapcsolat néhány tagja nincs letöltve</string>
+  <string name="toast_restart_required">A módosítás érvénybe lépéséhez újra kell indítania a Vespuccit</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">A MapSplit forrásoknál meg kell adni a legkisebb és legnagyobb nagyítást</string>
   <string name="error_pbf_no_version">A verzióinformációk hiányoznak a PBF-fájlban</string>
@@ -458,6 +478,7 @@ elemek megkövetelése</string>
   <string name="discard">Eldobás</string>
   <string name="retry">Újra</string>
   <string name="prune">Eltávolít</string>
+  <string name="check">Ellenőrzés</string>
   <!--Read a file-->
   <string name="read">Olvasás</string>
   <string name="overwrite">Felülírás</string>
@@ -480,7 +501,7 @@ elemek megkövetelése</string>
   <string name="multiselect_header_short">Értékek (%1$d)</string>
   <string name="multiselect_header_long">Értékek (%1$d elemhez)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Hu:Map_Features</string>
-  <string name="tag_menu_address">Cím címkék hozzáadása</string>
+  <string name="tag_menu_address">Címcímkék hozzáadása</string>
   <string name="tag_menu_sourcesurvey">Felmérve</string>
   <string name="tag_menu_preset">Előbeállítások</string>
   <string name="tag_menu_apply_preset">Előbeállítás alkalmazása</string>
@@ -520,6 +541,7 @@ elemek megkövetelése</string>
   <string name="menu_deselect_all">Összes kijelölés visszavonása</string>
   <string name="menu_preset_help">Előbeállítás súgó</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Nyelvi címke hozzáadása</string>
   <string name="tag_restriction_header">Érték</string>
   <string name="tag_restriction_when">ha</string>
   <string name="tag_restriction_and">és</string>
@@ -776,7 +798,7 @@ elemek megkövetelése</string>
   <string name="config_presetbutton_summary">JOSM-kompatibilis előbeállítások hozzáadása és engedélyezése</string>
   <string name="config_built_in_preset">Beépített előbeállítás</string>
   <!--Validator preferences-->
-  <string name="config_validatorprefs_title">Ellenőrző beállításai</string>
+  <string name="config_validatorprefs_title">Érvényesítő beállításai</string>
   <string name="config_validatorprefs_summary">Ellenőrzési szabályok beállítása.</string>
   <string name="config_connectedNodeTolerance_title">Kapcsolódó pontok toleranciája</string>
   <string name="config_connectedNodeTolerance_summary">Ha egy út záró pontja ennél kisebb távolságra van egy úttól (méterben), akkor ahhoz kell kapcsolni</string>
@@ -835,8 +857,8 @@ elemek megkövetelése</string>
   <string name="config_category_editing_summary">Automatikus letöltési, mentési és értesítési beállítások.</string>
   <string name="config_forceContextMenu_title">Mindig használja a környezeti menüt</string>
   <string name="config_forceContextMenu_summary">Nem egyértelmű kijelölésnél mindig jelenjék meg a helyi menü</string>
-  <string name="config_address_tags">Cím címkék</string>
-  <string name="config_address_tags_summary">A cím-előrejelzéshez használt címkék.</string>
+  <string name="config_address_tags">Címcímkék</string>
+  <string name="config_address_tags_summary">A címelőrejelzéshez használt címkék.</string>
   <string name="config_enableNameSuggestions_title">Névjavaslatok engedélyezése</string>
   <string name="config_enableNameSuggestions_summary">A név címke javaslatainak bekapcsolása.</string>
   <string name="config_enableNameSuggestionsPresets_title">Névjavaslatot tevő előbeállítások engedélyezése</string>
@@ -860,6 +882,8 @@ elemek megkövetelése</string>
   <string name="config_orthogonalizeThreshold_title">Négyzetesítési határ</string>
   <string name="config_orthogonalizeThreshold_summary">Fokban megadott határ, ami fölötti érték nem számít</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_autoformatPhoneNumbers_title">Telefonszám automatikus formázása</string>
+  <string name="config_autoformatPhoneNumbers_summary">Engedélyezi a telefonszámok automatikus formázását</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Beállítások automatikus letöltése</string>
   <string name="config_category_auto_download_summary">Adatok és feladatok automatikus letöltésének beállításai</string>
