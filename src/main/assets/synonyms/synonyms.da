@@ -48,12 +48,6 @@
 "aerialway/rope_tow":[
 "Tovlift"
 ],
-"aerialway/station":[
-"Skiliftstation"
-],
-"aerialway/t-bar":[
-"Træklift"
-],
 "aeroway":[
 "Lufthavnsvej"
 ],
@@ -162,19 +156,8 @@
 "Cafe",
 "Café"
 ],
-"amenity/car_pooling":[
-"deling",
-"bildeling",
-"deleøkonomi",
-"samkørsel",
-"Samkørselsplads"
-],
 "amenity/car_rental":[
 "Biludlejning"
-],
-"amenity/car_sharing":[
-"Delebilsordning",
-"Delebil"
 ],
 "amenity/car_wash":[
 "autovask",
@@ -288,7 +271,7 @@
 "Tankstation"
 ],
 "amenity/grave_yard":[
-"Gravsted",
+"Gravplads",
 "Kirkegård"
 ],
 "amenity/grit_bin":[
@@ -309,9 +292,6 @@
 ],
 "amenity/internet_cafe":[
 "Internetcafe"
-],
-"amenity/kindergarten":[
-"Børnehavegrund"
 ],
 "amenity/language_school":[
 "Sprogskole",
@@ -373,10 +353,6 @@
 "Fleretagesparkering",
 "parkeringshus"
 ],
-"amenity/parking_entrance":[
-"Parkeringskælder Indgang/Udgang",
-"Parkeringsgarage Indgang/Udgang"
-],
 "amenity/parking_space":[
 "Parkeringsbås"
 ],
@@ -428,9 +404,6 @@
 "amenity/police":[
 "Politi",
 "Politistation"
-],
-"amenity/post_box":[
-"Postkasse"
 ],
 "amenity/post_office":[
 "Posthus",
@@ -601,24 +574,56 @@
 "slikautomat",
 "automat"
 ],
+"amenity/vending_machine/bottle_return":[
+"pant",
+"tomra",
+"retur",
+"flaske",
+"Pantautomat"
+],
 "amenity/vending_machine/cigarettes":[
 "Cigaretautomat",
+"tobak",
+"cigaret",
 "Tobaksautomat"
 ],
 "amenity/vending_machine/coffee":[
-"Kaffeautomat"
+"Kaffeautomat",
+"automat",
+"kaffe"
 ],
 "amenity/vending_machine/condoms":[
+"præservativ",
+"automat",
 "Kondomautomat"
 ],
 "amenity/vending_machine/drinks":[
 "Drikkeautomat",
-"Sodavandsautomat"
+"Sodavandsautomat",
+"læskedrik",
+"drik"
+],
+"amenity/vending_machine/electronics":[
+"gadget",
+"Salgsautomat, elektronik",
+"elektronik",
+"automat"
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "bind",
 "tampon",
 "Salgsautomat, feminin hygiejne"
+],
+"amenity/vending_machine/food":[
+"mad",
+"Madautomat",
+"automat",
+"fødevare"
+],
+"amenity/vending_machine/ice_cream":[
+"Isautomat",
+"is",
+"ispind"
 ],
 "amenity/vending_machine/newspapers":[
 "avis",
@@ -626,13 +631,18 @@
 "automat"
 ],
 "amenity/vending_machine/parking_tickets":[
-"P-autoautomat",
+"P-automat",
 "automat",
 "Parkeringsbilletautomat"
 ],
 "amenity/vending_machine/public_transport_tickets":[
+"billet",
 "Billetautomat",
-"Rejsebilletautomat"
+"Rejsebilletautomat",
+"rejse"
+],
+"amenity/vending_machine/stamps":[
+"Frimærkeautomat"
 ],
 "amenity/vending_machine/sweets":[
 "Snackautomat",
@@ -668,10 +678,6 @@
 "area":[
 "Område"
 ],
-"area/highway":[
-"Vejbelægning",
-"Vejoverflade"
-],
 "attraction/amusement_ride":[
 "rutchebane",
 "tivoli",
@@ -681,9 +687,6 @@
 "attraction/big_wheel":[
 "ferris",
 "Pariserhjul"
-],
-"attraction/bumper_car":[
-"Radiobil"
 ],
 "attraction/bungee_jumping":[
 "bungee",
@@ -698,10 +701,6 @@
 ],
 "attraction/maze":[
 "Labyrint"
-],
-"attraction/pirate_ship":[
-"Piratskib",
-"sørøver"
 ],
 "attraction/roller_coaster":[
 "Rutchebane"
@@ -908,9 +907,6 @@
 "building/industrial":[
 "Industribygning"
 ],
-"building/kindergarten":[
-"Børnehavebygning"
-],
 "building/public":[
 "Offentlig bygning"
 ],
@@ -1049,9 +1045,6 @@
 "Isolatør",
 "Isolationsfirma"
 ],
-"craft/jeweler":[
-"Juvelér"
-],
 "craft/key_cutter":[
 "Hælebar"
 ],
@@ -1060,9 +1053,6 @@
 ],
 "craft/metal_construction":[
 "Metalskærer"
-],
-"craft/optician":[
-"Optiker"
 ],
 "craft/painter":[
 "Maler"
@@ -1079,10 +1069,6 @@
 ],
 "craft/plumber":[
 "Blikkenslager"
-],
-"craft/pottery":[
-"Keramiker",
-"Pottemager"
 ],
 "craft/rigger":[
 "Rebslager"
@@ -1190,9 +1176,6 @@
 "emergency/yes":[
 "Udrykningskørsel Ja"
 ],
-"entrance":[
-"Indgang/Udgang"
-],
 "ford":[
 "Vadested"
 ],
@@ -1290,9 +1273,6 @@
 "mental",
 "depression"
 ],
-"highway":[
-"Vej"
-],
 "highway/bridleway":[
 "Hestesti",
 "Ridesti"
@@ -1301,8 +1281,22 @@
 "Indendørskorridor",
 "Indendørspassage"
 ],
-"highway/crossing/unmarked":[
+"highway/crossing":[
 "Fodgængerovergang"
+],
+"highway/crossing/unmarked":[
+"fodgængerovergang",
+"fodgænger",
+"overgang",
+"Umarkeret fodgængerovergang"
+],
+"highway/crossing/unmarked-raised":[
+"fodgængerovergang",
+"hævet",
+"fodgænger",
+"overgang",
+"bump",
+"Umarkeret fodgængerovergang (hævet)"
 ],
 "highway/cycleway":[
 "Cykelsti"
@@ -1355,9 +1349,6 @@
 ],
 "highway/primary_link":[
 "Link til primærvej"
-],
-"highway/raceway":[
-"Racerbane (Motorsport)"
 ],
 "highway/residential":[
 "Villavej"
@@ -1500,9 +1491,6 @@
 "Gadefletning",
 "Vejfletning"
 ],
-"landuse":[
-"Arealanvendelse"
-],
 "landuse/allotments":[
 "kolonihave",
 "Kolonihave",
@@ -1516,18 +1504,13 @@
 ],
 "landuse/cemetery":[
 "Gravplads",
-"Gravplads "
+"Kirkegård"
 ],
 "landuse/churchyard":[
-"Kirkegårde",
-"Kirkegård"
+"Kirkeområde"
 ],
 "landuse/commercial":[
 "Kommercielt område"
-],
-"landuse/construction":[
-"Under konstruktion",
-"Byggeplads"
 ],
 "landuse/farm":[
 "Landbrugsjord"
@@ -1601,9 +1584,6 @@
 "Vinmark",
 "Vingård"
 ],
-"leisure":[
-"Fritids"
-],
 "leisure/adult_gaming_centre":[
 "Spillehal",
 "Voksen spillecenter"
@@ -1637,16 +1617,6 @@
 ],
 "leisure/dog_park":[
 "Hundepark"
-],
-"leisure/firepit":[
-"ild",
-"ildsted",
-"Lejrbålsplads",
-"bålplads",
-"lejrbålsplads",
-"bål",
-"bålsted",
-"lejrbål"
 ],
 "leisure/fitness_centre":[
 "Gym / Fitnesscenter",
@@ -1814,9 +1784,6 @@
 "line":[
 "Linje"
 ],
-"man_made":[
-"Menneskeskabt"
-],
 "man_made/adit":[
 "Mineindgang"
 ],
@@ -1831,9 +1798,6 @@
 ],
 "man_made/breakwater":[
 "Bølgebryder"
-],
-"man_made/bridge":[
-"Bro"
 ],
 "man_made/bunker_silo":[
 "Køresilo",
@@ -1874,6 +1838,44 @@
 "man_made/mast":[
 "Mast"
 ],
+"man_made/mast/communication":[
+"mobil",
+"Kommunikartionsmast",
+"antenne",
+"tårn",
+"mast",
+"telefon",
+"kommunikation"
+],
+"man_made/mast/communication/mobile_phone":[
+"mobil",
+"gsm",
+"antenne",
+"Mobilmast",
+"tårn",
+"mast",
+"telefon",
+"lte",
+"kommunikation"
+],
+"man_made/mast/communication/radio":[
+"antenne",
+"tårn",
+"mast",
+"Radioudsendelsesmast",
+"kommunikation",
+"radio"
+],
+"man_made/mast/communication/television":[
+"Fjernsynsudsendelsesmast",
+"tv",
+"antenne",
+"tårn",
+"mast",
+"television",
+"fjernsyn",
+"kommunikation"
+],
 "man_made/observatory":[
 "astrofysik",
 "meteorologi",
@@ -1912,6 +1914,36 @@
 "man_made/tower":[
 "Tårn"
 ],
+"man_made/tower/bell_tower":[
+"kirketårn",
+"Klokketårn",
+"kirke",
+"religion"
+],
+"man_made/tower/communication":[
+"tv",
+"antenne",
+"rf",
+"tårn",
+"mast",
+"Kommunikationstårn",
+"kommunikation",
+"radio"
+],
+"man_made/tower/defensive":[
+"militær",
+"fort",
+"slot",
+"Befæstningstårn",
+"forsvar"
+],
+"man_made/tower/observation":[
+"overvåg",
+"vagttårn",
+"overvågning",
+"Observationstårn",
+"vagt"
+],
 "man_made/wastewater_plant":[
 "Rensningsanlæg",
 "Spildevandsanlæg",
@@ -1940,20 +1972,6 @@
 "Fabrik",
 "Produktionsvirksomhed",
 "Fremstillingsvirksomhed"
-],
-"manhole":[
-"dæksel",
-"Brønd",
-"kloak"
-],
-"manhole/drain":[
-"storm",
-"afløb",
-"Regnafløb",
-"regn"
-],
-"natural":[
-"Naturlig"
 ],
 "natural/bare_rock":[
 "Klippe",
@@ -2047,14 +2065,6 @@
 ],
 "natural/wetland":[
 "Vådområde"
-],
-"natural/wood":[
-"natur",
-"træ",
-"fredsskov",
-"skov",
-"vild",
-"Naturskov"
 ],
 "noexit/yes":[
 "Ingen udvej"
@@ -2221,9 +2231,6 @@
 "point":[
 "Punkt"
 ],
-"power":[
-"Energi"
-],
 "power/generator":[
 "Kraftværk"
 ],
@@ -2241,9 +2248,6 @@
 "power/pole":[
 "Elmast (telefonmast)"
 ],
-"power/sub_station":[
-"Transformatorstation"
-],
 "power/substation":[
 "Transformatorstation"
 ],
@@ -2258,9 +2262,6 @@
 "stoppested",
 "station",
 "Stoppestedsområde"
-],
-"railway":[
-"Jernbane"
 ],
 "railway/abandoned":[
 "Ej brugt jernbanespor"
@@ -2341,10 +2342,6 @@
 "Vinforretning",
 "Vinforhandler",
 "Vinbutik"
-],
-"shop/anime":[
-"Animeforretning",
-"Animebutik"
 ],
 "shop/antiques":[
 "Antikvitetsforretning",
@@ -2492,9 +2489,6 @@
 "shop/cosmetics":[
 "Kosmetikbutik",
 "Kosmetikforretning"
-],
-"shop/craft":[
-"Hobbyforretning"
 ],
 "shop/curtain":[
 "Gardinforretning",
@@ -2851,9 +2845,6 @@
 "Vinforretning",
 "Vinbutik"
 ],
-"tourism":[
-"Turisme"
-],
 "tourism/alpine_hut":[
 "Bjerghytte"
 ],
@@ -3069,9 +3060,6 @@
 "Sted"
 ],
 "type/waterway":[
-"Vandvej"
-],
-"waterway":[
 "Vandvej"
 ],
 "waterway/boatyard":[

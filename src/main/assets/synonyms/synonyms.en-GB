@@ -42,12 +42,6 @@
 "aerialway/rope_tow":[
 "Rope Tow Lift"
 ],
-"aerialway/station":[
-"Aerialway Station"
-],
-"aerialway/t-bar":[
-"T-bar Lift"
-],
 "aeroway":[
 "Aeroway"
 ],
@@ -129,14 +123,8 @@
 "amenity/cafe":[
 "Cafe"
 ],
-"amenity/car_pooling":[
-"Car Pooling"
-],
 "amenity/car_rental":[
 "Car Rental"
-],
-"amenity/car_sharing":[
-"Car Sharing"
 ],
 "amenity/car_wash":[
 "Car Wash"
@@ -247,9 +235,6 @@
 "amenity/internet_cafe":[
 "Internet Cafe"
 ],
-"amenity/kindergarten":[
-"Preschool/Kindergarten Grounds"
-],
 "amenity/library":[
 "Library"
 ],
@@ -280,9 +265,6 @@
 "amenity/parking/multi-storey":[
 "Multistory Car Park"
 ],
-"amenity/parking_entrance":[
-"Parking Garage Entrance/Exit"
-],
 "amenity/parking_space":[
 "Parking Space"
 ],
@@ -312,10 +294,6 @@
 ],
 "amenity/police":[
 "Police"
-],
-"amenity/post_box":[
-"Mailbox",
-"Post Box"
 ],
 "amenity/post_office":[
 "Post Office"
@@ -473,17 +451,11 @@
 "area":[
 "Area"
 ],
-"area/highway":[
-"Road Surface"
-],
 "attraction/amusement_ride":[
 "Amusement Ride"
 ],
 "attraction/big_wheel":[
 "Big Wheel"
-],
-"attraction/bumper_car":[
-"Bumper Car"
 ],
 "attraction/bungee_jumping":[
 "Bungee Jumping"
@@ -494,17 +466,8 @@
 "attraction/dark_ride":[
 "Ghost Train"
 ],
-"attraction/drop_tower":[
-"Drop Tower"
-],
 "attraction/maze":[
 "Maze"
-],
-"attraction/pirate_ship":[
-"Pirate Ship"
-],
-"attraction/river_rafting":[
-"River Rafting"
 ],
 "attraction/roller_coaster":[
 "Roller Coaster"
@@ -662,9 +625,6 @@
 "building/industrial":[
 "Industrial Building"
 ],
-"building/kindergarten":[
-"Preschool/Kindergarten Building"
-],
 "building/mosque":[
 "Mosque Building"
 ],
@@ -788,9 +748,6 @@
 "craft/insulator":[
 "Insulator"
 ],
-"craft/jeweler":[
-"Jeweler"
-],
 "craft/key_cutter":[
 "Key Cutter"
 ],
@@ -799,9 +756,6 @@
 ],
 "craft/metal_construction":[
 "Metal Construction"
-],
-"craft/optician":[
-"Optician"
 ],
 "craft/painter":[
 "Painter"
@@ -817,9 +771,6 @@
 ],
 "craft/plumber":[
 "Plumber"
-],
-"craft/pottery":[
-"Pottery"
 ],
 "craft/rigger":[
 "Rigger"
@@ -908,14 +859,11 @@
 "emergency/yes":[
 "Emergency Access Yes"
 ],
-"entrance":[
-"Entrance/Exit"
-],
 "ford":[
 "Ford"
 ],
 "golf/bunker":[
-"Bunker"
+"Golf Bunker"
 ],
 "golf/fairway":[
 "Fairway"
@@ -979,9 +927,6 @@
 ],
 "healthcare/speech_therapist":[
 "Speech Therapist"
-],
-"highway":[
-"Highway"
 ],
 "highway/bridleway":[
 "Bridleway"
@@ -1060,9 +1005,6 @@
 ],
 "highway/primary_link":[
 "Primary Link"
-],
-"highway/raceway":[
-"Racetrack (Motorsport)"
 ],
 "highway/residential":[
 "Residential Road"
@@ -1175,9 +1117,6 @@
 "junction":[
 "Junction"
 ],
-"landuse":[
-"Land Use"
-],
 "landuse/allotments":[
 "Allotments"
 ],
@@ -1198,9 +1137,6 @@
 ],
 "landuse/commercial":[
 "Commercial Area"
-],
-"landuse/construction":[
-"Construction"
 ],
 "landuse/farm":[
 "Farmland"
@@ -1268,9 +1204,6 @@
 "landuse/vineyard":[
 "Vineyard"
 ],
-"leisure":[
-"Leisure"
-],
 "leisure/adult_gaming_centre":[
 "Adult Gaming Centre"
 ],
@@ -1297,9 +1230,6 @@
 ],
 "leisure/dog_park":[
 "Dog Park"
-],
-"leisure/firepit":[
-"Firepit"
 ],
 "leisure/fitness_centre":[
 "Gym / Fitness Centre"
@@ -1454,9 +1384,6 @@
 "line":[
 "Line"
 ],
-"man_made":[
-"Man Made"
-],
 "man_made/adit":[
 "Adit"
 ],
@@ -1465,9 +1392,6 @@
 ],
 "man_made/breakwater":[
 "Breakwater"
-],
-"man_made/bridge":[
-"Bridge"
 ],
 "man_made/chimney":[
 "Chimney"
@@ -1547,18 +1471,6 @@
 "man_made/works":[
 "Factory"
 ],
-"manhole":[
-"Manhole"
-],
-"manhole/drain":[
-"Storm Drain"
-],
-"manhole/telecom":[
-"Telecom Manhole"
-],
-"natural":[
-"Natural"
-],
 "natural/bare_rock":[
 "Bare Rock"
 ],
@@ -1636,9 +1548,6 @@
 ],
 "natural/wetland":[
 "Wetland"
-],
-"natural/wood":[
-"Wood"
 ],
 "noexit/yes":[
 "No Exit"
@@ -1850,9 +1759,6 @@
 "point":[
 "Point"
 ],
-"power":[
-"Power"
-],
 "power/generator":[
 "Power Generator"
 ],
@@ -1867,9 +1773,6 @@
 ],
 "power/pole":[
 "Power Pole"
-],
-"power/sub_station":[
-"Substation"
 ],
 "power/substation":[
 "Substation"
@@ -1949,9 +1852,6 @@
 "public_transport/stop_position_trolleybus":[
 "Trolleybus Stopping Location"
 ],
-"railway":[
-"Railway"
-],
 "railway/abandoned":[
 "Abandoned Railway"
 ],
@@ -2029,9 +1929,6 @@
 ],
 "shop/alcohol":[
 "Off licence (Alcohol shop)"
-],
-"shop/anime":[
-"Anime Shop"
 ],
 "shop/antiques":[
 "Antiques Shop"
@@ -2131,9 +2028,6 @@
 ],
 "shop/cosmetics":[
 "Cosmetics Shop"
-],
-"shop/craft":[
-"Art and Craft Supplies Shop"
 ],
 "shop/curtain":[
 "Curtain Shop"
@@ -2403,9 +2297,6 @@
 "shop/wine":[
 "Wine Shop"
 ],
-"tourism":[
-"Tourism"
-],
 "tourism/alpine_hut":[
 "Alpine Hut"
 ],
@@ -2602,9 +2493,6 @@
 "Site"
 ],
 "type/waterway":[
-"Waterway"
-],
-"waterway":[
 "Waterway"
 ],
 "waterway/boatyard":[

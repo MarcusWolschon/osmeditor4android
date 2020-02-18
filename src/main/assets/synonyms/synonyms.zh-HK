@@ -57,12 +57,6 @@
 "aerialway/rope_tow":[
 "牽繩"
 ],
-"aerialway/station":[
-"纜車站"
-],
-"aerialway/t-bar":[
-"T型吊桿"
-],
 "aeroway":[
 "航空設施"
 ],
@@ -221,10 +215,6 @@
 "㗎啡廳",
 "㗎啡室"
 ],
-"amenity/car_pooling":[
-"Car Pooling",
-"汽車共乘"
-],
 "amenity/car_rental":[
 "租車舖",
 "Car Rental",
@@ -232,12 +222,6 @@
 "租車店",
 "汽車租賃",
 "汽車租賃處"
-],
-"amenity/car_sharing":[
-"汽車共享站",
-"共用車",
-"Car Sharing",
-"共用車處"
 ],
 "amenity/car_wash":[
 "Car Wash",
@@ -456,12 +440,6 @@
 "網吧",
 "Internet Cafe"
 ],
-"amenity/kindergarten":[
-"幼兒園",
-"幼稚園",
-"幼稚園用地",
-"學前照顧/幼稚園範圍"
-],
 "amenity/language_school":[
 "外語學校",
 "外文學校",
@@ -522,11 +500,6 @@
 "多層泊車場",
 "停車場",
 "泊車場"
-],
-"amenity/parking_entrance":[
-"停車場入口",
-"停車場出口",
-"停車場入口/出口"
 ],
 "amenity/parking_space":[
 "停車位",
@@ -613,13 +586,6 @@
 "警局",
 "Police",
 "警署"
-],
-"amenity/post_box":[
-"Mailbox",
-"Post",
-"Post Box",
-"郵箱",
-"郵筒"
 ],
 "amenity/post_office":[
 "香港郵政",
@@ -950,11 +916,6 @@
 "區域",
 "範圍"
 ],
-"area/highway":[
-"路面",
-"路面材質",
-"路面物質"
-],
 "attraction/amusement_ride":[
 "機動遊戲機",
 "Amusement Ride",
@@ -964,10 +925,6 @@
 "Ferris wheel",
 "Big Wheel",
 "摩天輪"
-],
-"attraction/bumper_car":[
-"Bumper Car",
-"碰碰車"
 ],
 "attraction/bungee_jumping":[
 "Bungee Jumping",
@@ -983,19 +940,6 @@
 "attraction/dark_ride":[
 "黑暗探險",
 "Dark Ride"
-],
-"attraction/drop_tower":[
-"自由落體",
-"跳樓機",
-"Drop Tower"
-],
-"attraction/pirate_ship":[
-"Pirate Ship",
-"海盜船"
-],
-"attraction/river_rafting":[
-"River Rafting",
-"激流"
 ],
 "attraction/roller_coaster":[
 "Roller Coaster",
@@ -1247,11 +1191,6 @@
 "工業樓宇",
 "Industrial Building"
 ],
-"building/kindergarten":[
-"幼兒園校舍",
-"幼稚園校舍",
-"學前照顧/幼稚園建築物"
-],
 "building/mosque":[
 "Mosque Building",
 "清真寺建築物"
@@ -1416,9 +1355,6 @@
 "craft/insulator":[
 "隔熱工程"
 ],
-"craft/jeweler":[
-"珠寶店"
-],
 "craft/key_cutter":[
 "鎖匙店",
 "配匙店",
@@ -1430,9 +1366,6 @@
 "craft/metal_construction":[
 "金工",
 "金屬工程"
-],
-"craft/optician":[
-"眼鏡店"
 ],
 "craft/painter":[
 "油漆工人",
@@ -1459,11 +1392,6 @@
 "craft/plumber":[
 "水喉匠",
 "水管工"
-],
-"craft/pottery":[
-"陶器",
-"陶瓷",
-"陶藝"
 ],
 "craft/rigger":[
 "索具裝配工",
@@ -1605,12 +1533,6 @@
 "emergency/yes":[
 "緊急通道"
 ],
-"entrance":[
-"出口",
-"入口",
-"出入口",
-"入口/出口"
-],
 "ford":[
 "淺灘",
 "水灘"
@@ -1706,9 +1628,6 @@
 "語言治療師",
 "言語治療師"
 ],
-"highway":[
-"公路"
-],
 "highway/bridleway":[
 "馬道",
 "Bridle Path",
@@ -1794,12 +1713,6 @@
 "主要道路匝道",
 "Primary Link",
 "主要道路連接路"
-],
-"highway/raceway":[
-"賽車車道",
-"賽道",
-"賽道(小型賽車)",
-"Racetrack (Motorsport)"
 ],
 "highway/residential":[
 "住宅區道路",
@@ -2018,9 +1931,6 @@
 "交界處",
 "十字路口"
 ],
-"landuse":[
-"土地利用"
-],
 "landuse/allotments":[
 "社區園圃"
 ],
@@ -2042,17 +1952,10 @@
 "Cemetery"
 ],
 "landuse/churchyard":[
-"教堂庭院",
-"教堂用地"
+"教堂庭院"
 ],
 "landuse/commercial":[
 "商業區"
-],
-"landuse/construction":[
-"Construction",
-"建築物",
-"建築工程",
-"地盤"
 ],
 "landuse/farm":[
 "農地"
@@ -2161,9 +2064,6 @@
 "酒莊",
 "葡萄園"
 ],
-"leisure":[
-"消閒"
-],
 "leisure/adult_gaming_centre":[
 "成人遊樂場",
 "成人遊戲中心"
@@ -2190,10 +2090,6 @@
 "leisure/dog_park":[
 "Dog Park",
 "狗公園"
-],
-"leisure/firepit":[
-"火坑",
-"營火坑"
 ],
 "leisure/fitness_centre":[
 "健身中心",
@@ -2394,9 +2290,6 @@
 "線",
 "綫"
 ],
-"man_made":[
-"人造"
-],
 "man_made/adit":[
 "礦坑口",
 "礦洞口"
@@ -2404,11 +2297,6 @@
 "man_made/breakwater":[
 "Breakwater",
 "防波堤"
-],
-"man_made/bridge":[
-"bridge",
-"橋",
-"橋樑"
 ],
 "man_made/chimney":[
 "煙囱",
@@ -2527,26 +2415,6 @@
 "工廠",
 "工場",
 "Factory"
-],
-"manhole":[
-"沙井",
-"人孔",
-"Manhole",
-"溝糟"
-],
-"manhole/drain":[
-"雨水渠",
-"排水道",
-"Storm Drain"
-],
-"manhole/telecom":[
-"Telecom Manhole",
-"電訊人孔",
-"電信沙井",
-"電訊沙井"
-],
-"natural":[
-"自然景觀"
 ],
 "natural/bare_rock":[
 "裸岩",
@@ -2675,11 +2543,6 @@
 "潮間帶",
 "濕地",
 "Wetland"
-],
-"natural/wood":[
-"樹林",
-"Wood",
-"林"
 ],
 "noexit/yes":[
 "掘頭路",
@@ -2855,9 +2718,6 @@
 "Point",
 "點"
 ],
-"power":[
-"發電廠"
-],
 "power/generator":[
 "Power Generator",
 "發電機"
@@ -2884,9 +2744,6 @@
 "電綫杆",
 "Power Pole",
 "電線桿"
-],
-"power/sub_station":[
-"配電站"
 ],
 "power/substation":[
 "電力分站",
@@ -2937,9 +2794,6 @@
 "public_transport/stop_position_monorail":[
 "單軌電車停止位置",
 "Monorail Stopping Location"
-],
-"railway":[
-"鐵路"
 ],
 "railway/abandoned":[
 "廢置鐵路",
@@ -3059,9 +2913,6 @@
 "酒類商店",
 "酒莊",
 "Liquor Store"
-],
-"shop/anime":[
-"動漫店"
 ],
 "shop/antiques":[
 "古董店",
@@ -3236,12 +3087,6 @@
 ],
 "shop/cosmetics":[
 "化妝品店"
-],
-"shop/craft":[
-"工藝品店",
-"手作坊",
-"手工藝店",
-"工藝品商店"
 ],
 "shop/curtain":[
 "窗簾",
@@ -3654,9 +3499,6 @@
 "白酒店",
 "紅酒店"
 ],
-"tourism":[
-"旅遊設施"
-],
 "tourism/alpine_hut":[
 "Alpine Hut",
 "高山屋仔",
@@ -3955,9 +3797,6 @@
 "type/site":[
 "建築群",
 "一群建築"
-],
-"waterway":[
-"水道"
 ],
 "waterway/boatyard":[
 "船廠",

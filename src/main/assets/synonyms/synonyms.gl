@@ -56,12 +56,6 @@
 "artigo",
 "carga"
 ],
-"aerialway/j-bar":[
-"barra en j",
-"jbar",
-"j-bar",
-"Elevador de barra en J"
-],
 "aerialway/magic_carpet":[
 "alfombra máxica",
 "alfombra rodante",
@@ -99,16 +93,6 @@
 "ascensor de remolque de corda",
 "Ascensor de Corda de Remolque"
 ],
-"aerialway/station":[
-"Estación de teleférico"
-],
-"aerialway/t-bar":[
-"andarivel de arrastre",
-"remonta pendientes",
-"Elevador en T-bar",
-"telesquí",
-"T-bar"
-],
 "aerialway/zip_line":[
 "Tirolina"
 ],
@@ -123,9 +107,21 @@
 "aeroporto"
 ],
 "aeroway/apron":[
-"Diantal",
+"aeronaves",
+"lado aire",
+"Plataforma aeroportuaria",
+"lado terra",
+"ar",
+"patio",
+"rampla",
+"avions",
 "plataforma",
-"vía de aparcamento"
+"tierra",
+"rampa",
+"aparcadoiro",
+"avións",
+"vía de aparcamento",
+"avion"
 ],
 "aeroway/gate":[
 "embarque",
@@ -161,13 +157,17 @@
 "pista"
 ],
 "aeroway/taxiway":[
+"via de rodaxe",
 "pista de carreteo",
 "carreteiro",
 "pista de taxeo",
 "rúa de rodaxe",
+"calle de rodaje",
 "Pista de rodaxe",
 "pista",
-"pista de rodaxe"
+"calle de rodaxe",
+"pista de rodaxe",
+"vía de rodaxe"
 ],
 "aeroway/terminal":[
 "pasaxeiros",
@@ -196,11 +196,26 @@
 "Instalacións"
 ],
 "amenity/animal_boarding":[
-"aloxamento",
 "gardería",
+"animais domésticos",
 "Aloxamento de animais",
+"gato",
+"roedores",
+"reptiles",
+"galiña",
+"coidado",
+"peixes",
+"can",
+"aloxamento",
+"cabalo",
+"paxaros",
+"animais",
+"tartaruga",
+"anfibios",
 "animal",
-"hotel"
+"hotel",
+"mascotas",
+"gardaría"
 ],
 "amenity/animal_breeding":[
 "granxa",
@@ -241,14 +256,18 @@
 ],
 "amenity/bar":[
 "alcohol",
-"bar",
+"chill",
 "Bar de copas",
-"taberna",
 "cervexa",
 "cantina",
+"bar",
+"taberna",
+"furancho",
 "pub",
 "bar de copas",
-"bebidas"
+"alcol",
+"bebidas",
+"coctel"
 ],
 "amenity/bar/lgbtq":[
 "bar lésbico",
@@ -287,6 +306,23 @@
 "aparcadoiro de bicicletas",
 "Aparcadoiro para bicicletas"
 ],
+"amenity/bicycle_parking/lockers":[
+"bicycle lockers",
+"cacifos de bicicleta",
+"almacenar bicicleta",
+"casilleiro de bicicleta",
+"andel de bicicleta",
+"libraría de bicicleta",
+"estantería de bicicleta",
+"cacifo de bicicleta",
+"estate de bicicleta",
+"estacionar bicicleta",
+"casillero de bicicleta",
+"Cacifos de bicicletas",
+"cacifo para bicicleta",
+"gardar bicicleta",
+"cacifos para bicicleta"
+],
 "amenity/bicycle_parking/shed":[
 "bici",
 "pendello para bicicletas",
@@ -295,11 +331,11 @@
 "amenity/bicycle_rental":[
 "alugueiro",
 "bici",
-"Alugamento de bicicletas",
 "bicicleta",
 "locación",
 "préstamo",
-"alugamento"
+"alugamento",
+"Alugueiro de bicicletas"
 ],
 "amenity/bicycle_repair_station":[
 "inchar",
@@ -312,8 +348,8 @@
 "bar",
 "biergarten",
 "ao aire libre",
+"Biergarten (xardín da cervexa alemán)",
 "cervexa",
-"Bar-terraza alemá",
 "ó ar libre",
 "xardín",
 "terraza"
@@ -322,11 +358,11 @@
 "alugueiro",
 "bote",
 "barca",
-"Alugamento de embarcacións",
 "embarcacións",
 "locación",
 "embarcación",
 "lancha",
+"Alugueiro de embarcacións",
 "alugamento"
 ],
 "amenity/bureau_de_change":[
@@ -347,34 +383,15 @@
 "Cafetaría",
 "café"
 ],
-"amenity/car_pooling":[
-"carro",
-"auto",
-"coche",
-"automóbil",
-"Automóbil compartido",
-"transporte",
-"car pool",
-"vehículo",
-"car pooling",
-"compartido"
-],
 "amenity/car_rental":[
 "alugueiro",
 "coche",
 "automóbil",
 "locación",
+"Alugueiro de automóbiles",
 "vehículo",
 "rent-a-car",
-"alugamento",
-"Alugamento de automóbiles"
-],
-"amenity/car_sharing":[
-"coche",
-"automóbil",
-"car sharing",
-"compartido",
-"Auto compartido"
+"alugamento"
 ],
 "amenity/car_wash":[
 "lavado",
@@ -405,11 +422,19 @@
 "guardería",
 "gardería",
 "niñeira",
-"Gardería",
+"coidadora",
+"nenos",
+"infantil",
+"gardaría infantil",
+"coidado",
+"neneira",
+"nenas",
 "niñera",
 "xardín de infancia",
-"coidadora",
-"neneira"
+"Gardaría",
+"gardaria",
+"coidado infantil",
+"bebés"
 ],
 "amenity/cinema":[
 "pantalla",
@@ -546,15 +571,35 @@
 "dojo",
 "taekwondo"
 ],
+"amenity/dressing_room":[
+"cambio de roupa",
+"vestuario",
+"roupeiro",
+"vistidor",
+"Vestiario",
+"cambiar de roupa",
+"gardarroupa",
+"probador",
+"mudar de roupa",
+"vestiarios",
+"vestidor"
+],
 "amenity/drinking_water":[
 "auga",
-"potábel",
 "bebible",
-"bebíbel",
+"bebedero",
 "fonte",
+"manantial",
+"Fonte de auga potábel",
+"fontana",
+"potábel",
+"bebíbel",
+"fontanal",
 "beber",
-"Fonte",
-"potable"
+"hontanar",
+"potable",
+"manancial",
+"venero"
 ],
 "amenity/driving_school":[
 "escola de condución",
@@ -597,8 +642,8 @@
 "amenity/fast_food/burger":[
 "xantar",
 "comedor",
-"Comida rápida de hamburguesa",
 "cafe",
+"Comida rápida: Hamburguesa",
 "mesa",
 "almorzo",
 "churrasco",
@@ -614,32 +659,38 @@
 "mesa",
 "almorzo",
 "churrasco",
-"Comida rápida de polo",
 "comida",
+"Comida rápida: Polo",
 "cea",
 "grella",
 "café"
 ],
 "amenity/fast_food/donut":[
-"Tenda de rosquillas"
+"Comida rápida: Rosquillas"
 ],
 "amenity/fast_food/fish_and_chips":[
-"Comida rápida de peixe e patacas fritidas"
+"Comida rápida: Peixe e patacas fritidas"
+],
+"amenity/fast_food/hot_dog":[
+"Comida rápida: Hot dog"
+],
+"amenity/fast_food/ice_cream":[
+"Comida rápida: Xeado"
 ],
 "amenity/fast_food/kebab":[
-"Comida rápida de kebab"
+"Comida rápida: Kebab"
 ],
 "amenity/fast_food/mexican":[
-"Comida rápida mexicana"
+"Comida rápida: Mexicana"
 ],
 "amenity/fast_food/pizza":[
-"Comida rápida de pizza"
+"Comida rápida: Pizza"
 ],
 "amenity/fast_food/sandwich":[
-"Comida rápida de sandwich"
+"Comida rápida: Sandwich"
 ],
 "amenity/ferry_terminal":[
-"Estación de ferry"
+"Estación / Terminal de ferri"
 ],
 "amenity/fire_station":[
 "estación de bombeiros",
@@ -648,7 +699,14 @@
 "Parque de bombeiros"
 ],
 "amenity/food_court":[
-"Zona de comidas"
+"xantar rápido",
+"comida rápida",
+"almorzo",
+"área de restaurantes",
+"zona de comida",
+"feira de comidas",
+"Zona de comidas",
+"patio de comida"
 ],
 "amenity/fountain":[
 "artística",
@@ -669,13 +727,23 @@
 ],
 "amenity/grave_yard":[
 "cementerio",
+"Camposanto",
 "cemitero",
 "tumbas",
-"panteón",
-"Cemiterio"
+"panteón"
 ],
 "amenity/grit_bin":[
-"Contenedor de sal"
+"area",
+"grava",
+"arenilla",
+"grixo",
+"pedregullo",
+"pedrullo",
+"depósito",
+"contedor",
+"gravilla",
+"Contedor de grava",
+"sal"
 ],
 "amenity/hospital":[
 "urxencias",
@@ -689,27 +757,46 @@
 "ambulatorio"
 ],
 "amenity/hunting_stand":[
-"Stand de Caza"
+"posto",
+"caseta",
+"caseto",
+"caza",
+"Posto de caza"
 ],
 "amenity/ice_cream":[
+"sorbete",
 "xeadaría",
+"granizado",
+"postre",
 "Xeadaría",
+"iogur",
+"xeadería",
+"raspadillo",
+"frozen",
+"xeaderia",
+"xeadaria",
+"copas",
+"sobremesa",
+"yogur",
+"nevería",
+"xeado",
+"neve",
 "xeados",
-"xeadería"
+"tarta xeada"
 ],
 "amenity/internet_cafe":[
-"ordenador",
+"terminais",
+"cybercafe",
+"Internet café",
+"cyber",
+"ciber café",
+"cafe",
+"cyber cafe",
+"cibercafé",
+"xogos",
+"xogos en rede",
 "ciber",
-"internet",
-"Cibercafé"
-],
-"amenity/kindergarten":[
-"guardería",
-"xardín de infancia",
-"Zona de gardería ou xardín de infancia",
-"infantil",
-"preescolar",
-"párvulos"
+"internet"
 ],
 "amenity/language_school":[
 "idiomas",
@@ -718,20 +805,76 @@
 "colexio",
 "linguas"
 ],
+"amenity/letter_box":[
+"receptáculo",
+"casilleiro",
+"orificio",
+"Caixa do correo",
+"compartimento",
+"buraco",
+"caixa",
+"abertura",
+"ranura",
+"correo",
+"casilla",
+"buzon",
+"fendedura",
+"burato",
+"buzón"
+],
 "amenity/library":[
 "libros",
+"libro",
 "Biblioteca",
 "biblioteca",
+"hemeroteca",
+"arquivo",
+"filmoteca",
 "lectura"
 ],
+"amenity/loading_dock":[
+"grúa",
+"grua",
+"dársena",
+"guindastre",
+"petroleiro",
+"bahía de carga",
+"darsena",
+"envío",
+"mercadoría",
+"barco",
+"dique",
+"bahía",
+"porto",
+"envio",
+"cargueiro",
+"bahia",
+"descarga",
+"almacen",
+"baia",
+"mercancía",
+"almacén",
+"Peirao de carga",
+"porta"
+],
 "amenity/love_hotel":[
-"Hotel para parellas"
+"telo",
+"hotel para parellas",
+"hotel aloxamento",
+"Hotel para parellas",
+"albergue transitorio",
+"parellas",
+"motel"
 ],
 "amenity/marketplace":[
 "plaza",
+"feira",
 "mercado",
+"praza",
+"feirón",
 "Mercado",
-"mercadillo"
+"mercadillo",
+"publico"
 ],
 "amenity/monastery":[
 "capela",
@@ -741,7 +884,19 @@
 "Zona de mosteiro"
 ],
 "amenity/money_transfer":[
-"Estación de transferencia de diñeiro"
+"intercambio",
+"cabo",
+"troco",
+"finanzas",
+"persoa a persoa",
+"factura",
+"moeda",
+"Estación de transferencia de diñeiro",
+"cheque",
+"xiro postal",
+"transferencia bancaria",
+"cable",
+"efectivo a efectivo"
 ],
 "amenity/motorcycle_parking":[
 "parking",
@@ -764,11 +919,11 @@
 "amenity/nightclub":[
 "sala de baile",
 "alcohol",
+"Clube nocturno ou discoteca",
 "clube",
 "discoteca",
 "clube nocturno",
 "bailar",
-"Clube nocturno",
 "club nocturno",
 "club",
 "música",
@@ -777,7 +932,12 @@
 "bebidas"
 ],
 "amenity/nightclub/lgbtq":[
-"Discoteca LGBTQ+"
+"discoteca lésbica",
+"discoteca lgbt",
+"discoteca gay",
+"discoteca lgbtq",
+"Discoteca LGBTQ+",
+"discoteca lgb"
 ],
 "amenity/nursing_home":[
 "Residencia de anciáns"
@@ -792,11 +952,22 @@
 "amenity/parking/multi-storey":[
 "Garaxe de aparcadoiro multinivel"
 ],
+"amenity/parking/park_ride":[
+"estacionamento",
+"Aparcadoiro disuasorio",
+"bus",
+"transporte público",
+"metro",
+"subte",
+"P + R",
+"incentivo",
+"ride",
+"park",
+"disuasivo",
+"cercanías"
+],
 "amenity/parking/underground":[
 "Aparcadoiro subterráneo"
-],
-"amenity/parking_entrance":[
-"Entrada/Saída a garaxe de aparcadoiro"
 ],
 "amenity/parking_space":[
 "Praza de aparcadoiro"
@@ -841,34 +1012,51 @@
 "basílica"
 ],
 "amenity/place_of_worship/buddhist":[
-"Templo Budista"
+"Templo budista"
 ],
 "amenity/place_of_worship/christian":[
 "Igrexa cristiá"
 ],
+"amenity/place_of_worship/christian/jehovahs_witness":[
+"Testemuñas de Xehová"
+],
+"amenity/place_of_worship/christian/la_luz_del_mundo":[
+"Templo da Luz do Mundo"
+],
+"amenity/place_of_worship/christian/quaker":[
+"Casa da Sociedade Relixiosa dos Amigos"
+],
 "amenity/place_of_worship/hindu":[
-"Templo Hindú"
+"Templo hindú"
 ],
 "amenity/place_of_worship/jewish":[
 "israelita",
 "hebreo",
 "xudeu",
 "xudía",
+"xudaico",
 "Sinagoga xudía",
 "hebrea",
+"xudaica",
 "xudia"
 ],
 "amenity/place_of_worship/muslim":[
-"Mesquita musulmá"
+"musulman",
+"musulmán",
+"musulmano",
+"Mesquita musulmá",
+"musulmana",
+"musulmá",
+"musulma"
 ],
 "amenity/place_of_worship/shinto":[
 "Santuario xintoísta"
 ],
 "amenity/place_of_worship/sikh":[
-"Templo Sikh"
+"Templo sikh"
 ],
 "amenity/place_of_worship/taoist":[
-"Templo Taoísta"
+"Templo taoísta"
 ],
 "amenity/planetarium":[
 "Planetario"
@@ -883,19 +1071,45 @@
 "policía",
 "comisaría"
 ],
+"amenity/polling_station":[
+"eleitoral",
+"cabina electoral",
+"Lugar de votación permanente",
+"eleccións",
+"democracia",
+"máquina de votación",
+"papeleta electoral",
+"colexio electoral",
+"votación",
+"urna electoral",
+"elecciones",
+"boleta electoral",
+"estación de votación"
+],
 "amenity/post_box":[
 "correos",
+"paquetes",
 "mensaxería",
 "correo",
+"mensaxaría",
+"honguito",
 "Caixa do correo",
 "postal",
 "buzón"
 ],
+"amenity/post_depot":[
+"depósito de correo",
+"distribución de correo",
+"Oficina de clasificación de correos",
+"paquetería",
+"centro de procesamento",
+"paquetaría"
+],
 "amenity/post_office":[
 "oficina",
 "correos",
+"Oficina de correos",
 "mensaxería",
-"Oficina de Correos",
 "paquetería"
 ],
 "amenity/prep_school":[
@@ -909,15 +1123,26 @@
 ],
 "amenity/pub":[
 "alcohol",
-"bar",
+"cerveceria",
+"pub irlandés",
 "bar de tapas",
-"Bar",
 "cafetería",
 "cervexa",
-"Pub",
+"tapa",
+"cervexería",
+"cervexaria",
+"pincho",
+"cervecería",
+"café",
+"cervexaría",
+"cervexeria",
+"bar",
+"Bar",
+"furancho",
+"pub inglés",
+"alcol",
 "pinchos",
-"bebidas",
-"café"
+"bebidas"
 ],
 "amenity/pub/lgbtq":[
 "bar lésbico",
@@ -929,7 +1154,12 @@
 "bar lgbtq"
 ],
 "amenity/pub/microbrewery":[
-"Bar cervexeiro"
+"cervexaría de pequenos lotes",
+"Bar cervexeiro",
+"cervexaría artesá",
+"cervexa",
+"alcol",
+"bebida"
 ],
 "amenity/public_bath":[
 "baños",
@@ -953,19 +1183,53 @@
 "amenity/recycling":[
 "Reciclaxe"
 ],
+"amenity/recycling/container/electrical_items":[
+"Contedor de residuos electrónicos",
+"reciclaxe de produtos electrónicos",
+"residuos electrónicos",
+"electrónicos",
+"ordenadores",
+"lixo",
+"desfeitos",
+"computadoras",
+"refugallos",
+"notebooks",
+"tabletas",
+"tablets",
+"teléfonos"
+],
+"amenity/recycling/container/green_waste":[
+"biodegradable",
+"descomponible",
+"compost",
+"orgánico",
+"lixo",
+"biolóxico",
+"verde",
+"residuo",
+"restos de comida",
+"basura",
+"Contedor de residuos orgánicos",
+"esterco",
+"basureiro",
+"desperdicio de xardín"
+],
 "amenity/recycling_centre":[
 "punto limpo",
 "centro de reciclaxe",
-"Centro de Reciclaxe"
+"Centro de reciclaxe"
 ],
 "amenity/recycling_container":[
 "contenedor",
+"carton",
 "lixo",
 "reciclaxe",
 "basura",
 "colector",
-"Colector de reciclaxe",
-"contedor"
+"contedor",
+"Contedor de reciclaxe",
+"vidro",
+"papel"
 ],
 "amenity/register_office":[
 "Oficina do rexistro"
@@ -989,7 +1253,7 @@
 "Restaurante asiático"
 ],
 "amenity/restaurant/chinese":[
-"Restaurante chino"
+"Restaurante chinés"
 ],
 "amenity/restaurant/french":[
 "Restaurante francés"
@@ -1100,11 +1364,11 @@
 ],
 "amenity/smoking_area":[
 "área de fume",
-"Área de fumadoiro",
 "área de fumadoiro",
 "fume",
 "fumadoiro",
-"fumar"
+"fumar",
+"Zona de fumadores"
 ],
 "amenity/social_centre":[
 "Centro social"
@@ -1115,6 +1379,8 @@
 "asistencia social"
 ],
 "amenity/social_facility/ambulatory_care":[
+"atención ambulatoria",
+"coidado ambulatorio",
 "Ambulatory Care"
 ],
 "amenity/social_facility/food_bank":[
@@ -1142,13 +1408,109 @@
 "Residencia de Anciáns"
 ],
 "amenity/studio":[
+"cadea",
+"gravar",
+"estación",
+"cadena",
+"canle",
+"radio",
+"estudio de gravación",
+"estudio",
+"plató",
+"televisión",
+"canal",
+"estudo",
+"emisora",
 "Estudio"
+],
+"amenity/studio/audio":[
+"mezcla de audio",
+"gravación de audio",
+"estudio de audio",
+"produción de son",
+"gravación de son",
+"estudio de son",
+"Estudio de gravación",
+"mezcla de son",
+"mestura de son",
+"producción de son",
+"producción de audio",
+"produción de audio"
+],
+"amenity/studio/radio":[
+"radiodifusión",
+"restransmisión",
+"fm",
+"estación",
+"canle",
+"am",
+"radio fm",
+"radio am",
+"estudio de radio",
+"Estudio de radio",
+"transmisión",
+"canal",
+"estudo",
+"emisora"
+],
+"amenity/studio/television":[
+"mestura",
+"prató",
+"Estudio de televisión",
+"tv",
+"rodar",
+"prato",
+"oficinas",
+"canle",
+"canal de televisión",
+"gravación",
+"estación de televisión",
+"produción",
+"estacion de television",
+"transmisión de televisión",
+"producción",
+"rodaxe",
+"estudio",
+"plató",
+"canal",
+"plato",
+"canle de televisión",
+"estudo",
+"mezcla"
+],
+"amenity/studio/video":[
+"prató",
+"gravación de video",
+"rodar",
+"cámara",
+"prato",
+"produción de video",
+"estudo de cine",
+"estudio de video",
+"estudio de cinema",
+"produción de cine",
+"Estudio de filmes",
+"producción",
+"estudio de cine",
+"rodaxe",
+"plató",
+"camara",
+"vídeo",
+"plato"
 ],
 "amenity/swimming_pool":[
 "Piscina"
 ],
 "amenity/taxi":[
-"Parada de taxis"
+"taxis",
+"final de carrera",
+"Paraxe de taxi",
+"parada",
+"acopio de taxis",
+"estación",
+"taxi",
+"estacion",
+"carrera"
 ],
 "amenity/telephone":[
 "teléfono",
@@ -1157,10 +1519,27 @@
 "Teléfono"
 ],
 "amenity/theatre":[
-"Teatro"
+"anfiteatro",
+"escenografía",
+"teatral",
+"cultura",
+"son",
+"Teatro",
+"música",
+"auditorio",
+"teatro",
+"espectáculo",
+"arte"
 ],
 "amenity/theatre/type/amphi":[
-"Anfiteatro"
+"anfiteatro",
+"grego",
+"Anfiteatro",
+"ao aire libre",
+"ampi",
+"aire libre",
+"anfi",
+"ar libre"
 ],
 "amenity/toilets":[
 "baños",
@@ -1214,6 +1593,15 @@
 "amenity/vending_machine/drinks":[
 "Expendedora de bebidas"
 ],
+"amenity/vending_machine/eggs":[
+"tamaño",
+"ovo",
+"galiña",
+"Máquina expendedora de ovos",
+"campeiros",
+"ovos",
+"clase"
+],
 "amenity/vending_machine/electronics":[
 "Máquina expendedora de electrónica"
 ],
@@ -1249,6 +1637,63 @@
 "revistas",
 "expendedora"
 ],
+"amenity/vending_machine/parcel_pickup":[
+"recollida",
+"armario",
+"casilleiro",
+"Máquina de recollida de paquetaría",
+"paquetes",
+"estante",
+"retirar",
+"paquete",
+"locker",
+"libraría",
+"librería",
+"paqueteria",
+"recoller",
+"paquetaria",
+"paquetería",
+"productos",
+"envios",
+"estantería",
+"envíos",
+"casillero",
+"retiro",
+"amazon",
+"andel",
+"produto",
+"produtos",
+"Amazon"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"recollida",
+"armario",
+"casilleiro",
+"paquetes",
+"estante",
+"retirar",
+"paquete",
+"locker",
+"libraría",
+"librería",
+"paqueteria",
+"recoller",
+"paquetaria",
+"entrega",
+"paquetería",
+"productos",
+"envios",
+"estantería",
+"Máquina para recollida e entrega de paquetaría",
+"envíos",
+"casillero",
+"retiro",
+"amazon",
+"andel",
+"produto",
+"produtos",
+"Amazon"
+],
 "amenity/vending_machine/parking_tickets":[
 "parking",
 "parquímetro",
@@ -1280,18 +1725,63 @@
 "Estación de bombeo de augas residuais"
 ],
 "amenity/water_point":[
-"Auga potábel para caravanas"
+"Auga potábel para caravanas",
+"auga",
+"auga potable",
+"camper",
+"casa rodante",
+"autocaravana",
+"recarga",
+"caravana",
+"motorhome",
+"agua"
 ],
 "amenity/watering_place":[
-"Bebedoiro de animais"
+"pozo",
+"auga",
+"bebedero",
+"fonte",
+"bebedeiro",
+"manantial",
+"estanque",
+"animales",
+"pilón",
+"animais",
+"posa",
+"Bebedoiro de animais",
+"manancial",
+"abrevadero",
+"agua"
+],
+"amenity/weighbridge":[
+"peaxe",
+"estación de pesado",
+"báscula",
+"pesaxe",
+"peso",
+"pesar",
+"libra",
+"alfándega",
+"portaxe",
+"aduana",
+"Balanza de camións"
 ],
 "area":[
 "zona",
+"territorio",
+"terra",
 "Área",
-"área"
+"superficie",
+"extensión",
+"espazo",
+"dominio",
+"sector",
+"parcela",
+"terreo",
+"campo"
 ],
 "area/highway":[
-"Superficie da estrada"
+"Área da estrada"
 ],
 "attraction":[
 "Atracción"
@@ -1311,10 +1801,7 @@
 "noria"
 ],
 "attraction/bumper_car":[
-"cochitos",
-"Coches de choque",
-"coches",
-"atracción"
+"Coches de choque"
 ],
 "attraction/bungee_jumping":[
 "Puenting"
@@ -1330,27 +1817,8 @@
 "attraction/dark_ride":[
 "Camiño escuro"
 ],
-"attraction/drop_tower":[
-"piar de caída",
-"pilar de caída",
-"xogo de feria",
-"feira",
-"atracción",
-"xogo mecánico",
-"Torre de caída",
-"torre",
-"caída"
-],
 "attraction/maze":[
 "Labirinto"
-],
-"attraction/pirate_ship":[
-"Barco pirata",
-"atracción",
-"barco pirata"
-],
-"attraction/river_rafting":[
-"Rafting"
 ],
 "attraction/roller_coaster":[
 "montaña rusa",
@@ -1367,11 +1835,14 @@
 "Tren turístico"
 ],
 "attraction/water_slide":[
+"acuatico",
 "auga",
 "esvaradoiro",
+"acuático",
 "Tobogán de auga",
 "tobogán",
-"escorregadoiro"
+"escorregadoiro",
+"agua"
 ],
 "barrier":[
 "Barreira",
@@ -1391,6 +1862,17 @@
 "obstáculo",
 "Bolardo"
 ],
+"barrier/bollard_line":[
+"Ringleira de bolardos",
+"bolardo",
+"fila",
+"poste",
+"fila de bolardos",
+"norai",
+"liña de bolardos",
+"linea",
+"liña"
+],
 "barrier/border_control":[
 "fronteira",
 "Alfándega",
@@ -1408,9 +1890,23 @@
 "Cadea"
 ],
 "barrier/city_wall":[
-"muro",
+"boulevard",
+"fortificación",
+"pedra",
 "muralla",
-"Muralla histórica de cidade"
+"parede",
+"cercado",
+"contraforte",
+"valado",
+"bulevar",
+"baluarte",
+"murón",
+"muro",
+"murallón",
+"valo",
+"Muralla histórica",
+"fortaleza",
+"porta"
 ],
 "barrier/cycle_barrier":[
 "Barreira ciclista",
@@ -1517,11 +2013,40 @@
 "barrier/wall":[
 "Muro"
 ],
+"boundary":[
+"Límite"
+],
 "boundary/administrative":[
 "Límite administrativo",
 "fronteira",
 "término municipal",
 "límite administrativo"
+],
+"bridge/support":[
+"columna",
+"puente",
+"suporte",
+"pilastra",
+"peitoril",
+"Piar de ponte",
+"soporte",
+"ponte",
+"piar",
+"pilar"
+],
+"bridge/support/pier":[
+"puente",
+"columna",
+"porto",
+"peirao",
+"auga",
+"pilastra",
+"molle",
+"muelle",
+"Peirao de ponte",
+"ponte",
+"piar",
+"pilar"
 ],
 "building":[
 "casa",
@@ -1623,6 +2148,10 @@
 "Garaxe"
 ],
 "building/garages":[
+"garaxes",
+"cocheiras",
+"cocheira",
+"garaxe",
 "Garaxes"
 ],
 "building/grandstand":[
@@ -1645,6 +2174,14 @@
 "vivenda",
 "Casa"
 ],
+"building/houseboat":[
+"vivenda",
+"residencia",
+"Casa flotante",
+"lar",
+"fogar",
+"familia"
+],
 "building/hut":[
 "Refuxio",
 "cabana",
@@ -1655,9 +2192,6 @@
 "building/industrial":[
 "Edificio industrial"
 ],
-"building/kindergarten":[
-"Edificio de preescolar/xardín de infancia"
-],
 "building/mosque":[
 "Edificio da mesquita"
 ],
@@ -1665,7 +2199,12 @@
 "Edificio do pavillón"
 ],
 "building/public":[
-"Edificio público"
+"centro social",
+"Edificio público",
+"edificio publico",
+"construción",
+"delegación",
+"centro cultural"
 ],
 "building/residential":[
 "apartamento",
@@ -1682,6 +2221,9 @@
 "Tellado"
 ],
 "building/ruins":[
+"ruinas",
+"ruina",
+"restos",
 "Edificio en ruínas"
 ],
 "building/school":[
@@ -1694,14 +2236,18 @@
 "Edificio de servizo"
 ],
 "building/shed":[
+"Alpendre",
+"Galpón",
+"pendello",
+"Galpon",
+"Pendello",
+"galpon",
 "sobeira",
 "caustra",
 "galpón",
 "alboio",
 "chapitel",
-"Galpón",
 "cabanel",
-"pendello",
 "cuberto",
 "alpendre"
 ],
@@ -1771,9 +2317,13 @@
 "Ferreiro"
 ],
 "craft/boatbuilder":[
+"embarcacion",
 "astillero",
-"Carpinteiro de ribeira",
+"estaleiro",
+"barcos",
 "carpinteiro de ribeira",
+"Construtor de embarcacións",
+"constructor",
 "barco"
 ],
 "craft/bookbinder":[
@@ -1806,6 +2356,27 @@
 "provedor",
 "comida",
 "Catering"
+],
+"craft/chimney_sweeper":[
+"limpiachimenea",
+"chaminea",
+"fumeira",
+"parruma",
+"feluxe",
+"Desenfeluxador",
+"fogón",
+"cheminea",
+"borra",
+"fumeiro",
+"hollín",
+"deshollinador",
+"chimenea",
+"fume",
+"limpeza de chemineas",
+"borro",
+"charrizo",
+"cisco",
+"sarrio"
 ],
 "craft/clockmaker":[
 "reloxaría",
@@ -1908,8 +2479,19 @@
 "illamento",
 "Illador"
 ],
-"craft/jeweler":[
-"Xoieiro"
+"craft/joiner":[
+"mobles",
+"carpinteiro",
+"mobeis",
+"Ebanista",
+"moblaxe",
+"decoración",
+"móbeis",
+"moblería",
+"bmuebles",
+"mobiliario",
+"madeira",
+"moblaría"
 ],
 "craft/key_cutter":[
 "Copiado de chaves",
@@ -1922,9 +2504,6 @@
 ],
 "craft/metal_construction":[
 "Construción en metal"
-],
-"craft/optician":[
-"Óptico"
 ],
 "craft/painter":[
 "Pintor"
@@ -1948,12 +2527,6 @@
 "fontanaría",
 "Fontaneiro",
 "fontaneiro"
-],
-"craft/pottery":[
-"oleiro",
-"ceramista",
-"cerámica",
-"Ceramista"
 ],
 "craft/rigger":[
 "Aparellador"
@@ -1987,6 +2560,21 @@
 "zapatos",
 "zapateiro",
 "Zapateiro"
+],
+"craft/signmaker":[
+"cartaz",
+"criador",
+"rótulos",
+"Fabricante de carteis",
+"tendas",
+"negocios",
+"creador",
+"cartaces",
+"rótulo",
+"rotulo",
+"fabricante",
+"rotulos",
+"carteles"
 ],
 "craft/stonemason":[
 "albanel",
@@ -2053,11 +2641,34 @@
 "emergency/fire_extinguisher":[
 "Extintor"
 ],
+"emergency/fire_hose":[
+"incendios",
+"moca",
+"lume",
+"incendio",
+"manga",
+"lumes",
+"goma",
+"mangueira",
+"Mangueira de incendios"
+],
 "emergency/fire_hydrant":[
 "Boca de incendio"
 ],
+"emergency/first_aid_kit":[
+"botiquín",
+"kit de primeiros auxilios",
+"botiquín de primeiros auxilios",
+"Caixa de urxencias",
+"kit"
+],
 "emergency/life_ring":[
 "Salvavidas"
+],
+"emergency/lifeguard":[
+"Salvavidas",
+"salvavidas",
+"socorrista"
 ],
 "emergency/no":[
 "Sen acceso de emerxencia"
@@ -2077,17 +2688,53 @@
 "emergency/siren":[
 "Sirena"
 ],
+"emergency/water_tank":[
+"cacharelas",
+"incendios",
+"bombeiros",
+"depósito",
+"deposito",
+"tanque de agua",
+"urxencia",
+"Depósito de auga de emerxencia",
+"lapas",
+"fogos",
+"cisterna",
+"fogueiras",
+"lumes"
+],
 "emergency/yes":[
 "Acceso de emerxencia permitido"
 ],
-"entrance":[
-"Entrada/Saída"
-],
 "ford":[
+"cruce",
+"vado",
+"cruzamento",
+"vao",
+"Vao",
+"paso",
+"gual"
+],
+"ford_line":[
 "Vao"
 ],
 "golf/bunker":[
 "Trampa de Area"
+],
+"golf/cartpath":[
+"cocheciño",
+"carriño",
+"sendeiro",
+"carrito",
+"cochecito",
+"carro",
+"golf",
+"estrada",
+"sendero",
+"pista",
+"golfe",
+"senda",
+"Camiño do carriño de golf"
 ],
 "golf/fairway":[
 "Camiño Acceso"
@@ -2098,6 +2745,27 @@
 "golf/hole":[
 "Burato de Golf"
 ],
+"golf/lateral_water_hazard":[
+"obxección",
+"auga",
+"peligro",
+"pexa",
+"Óbice lateral de auga",
+"dificultade",
+"obstáculo",
+"lateral",
+"tropezo",
+"riesgo",
+"golf",
+"traba",
+"impedimento",
+"perigo",
+"atranco",
+"empezo",
+"estorbo",
+"risco",
+"agua"
+],
 "golf/path":[
 "Camiño de golf"
 ],
@@ -2107,11 +2775,110 @@
 "golf/tee":[
 "Caixa de Te"
 ],
+"golf/water_hazard":[
+"obxección",
+"auga",
+"peligro",
+"pexa",
+"dificultade",
+"obstáculo",
+"lateral",
+"tropezo",
+"riesgo",
+"golf",
+"traba",
+"impedimento",
+"perigo",
+"atranco",
+"Óbice de auga",
+"empezo",
+"estorbo",
+"risco",
+"agua"
+],
+"healthcare":[
+"Coidado santitario",
+"asistencia sanitaria",
+"rehabilitación",
+"discapacidade",
+"sistema de saúde",
+"institución",
+"enfermidade",
+"consultorio",
+"lesións",
+"servizo de saúde",
+"enfermaría",
+"benestar",
+"caixa",
+"médicos",
+"doente",
+"fisoterapia",
+"asistencia médica",
+"atención médica",
+"salubridade",
+"seguro sanitario",
+"audioloxía",
+"seguro privado",
+"psicoloxía",
+"saúde",
+"doenza",
+"laboratorio",
+"optometría",
+"obstetricia",
+"clínica",
+"odontoloxía",
+"atención sanitaria",
+"cirurxía",
+"doutor",
+"diagnóstico",
+"enfermo"
+],
+"healthcare/alternative":[
+"reiki",
+"tuina",
+"medicina alternativa",
+"aromaterapia",
+"hipnosis",
+"unani",
+"osteopatía",
+"ayurveda",
+"herbolario",
+"kinesioloxía aplicada",
+"naturopatía",
+"tradicional",
+"herboristaría",
+"reflexoloxía",
+"hidroterapia",
+"herboristería",
+"antroposófico",
+"shiatsu",
+"medicina alterna",
+"homeopatía",
+"Medicina alternativa",
+"acupuntura"
+],
+"healthcare/alternative/chiropractic":[
+"Quiropráctico"
+],
+"healthcare/audiologist":[
+"audiólogo",
+"son",
+"Fonoaudiólogo",
+"audio",
+"oído",
+"audición"
+],
+"healthcare/birthing_center":[
+"Centro de parto"
+],
 "healthcare/blood_donation":[
 "Doación de sangue"
 ],
 "healthcare/laboratory":[
 "Laboratorio médico"
+],
+"healthcare/optometrist":[
+"Optometrista"
 ],
 "healthcare/physiotherapist":[
 "Fisioterapeuta"
@@ -2122,8 +2889,20 @@
 "healthcare/psychotherapist":[
 "Psicoterapeuta"
 ],
-"highway":[
-"Estrada"
+"healthcare/speech_therapist":[
+"voz",
+"foniatría",
+"terapia",
+"falar",
+"fonoaudiologo",
+"terapeuta",
+"son",
+"fonoaudiología",
+"habla",
+"logopedia",
+"audio",
+"Logopeda",
+"fala"
 ],
 "highway/bridleway":[
 "camiño",
@@ -2213,7 +2992,11 @@
 "montacargas"
 ],
 "highway/emergency_bay":[
-"Lugar de paraxe de emerxencia"
+"autovía",
+"autoestrada",
+"autopista",
+"Lugar de paraxe de emerxencia",
+"parada de emerxencia"
 ],
 "highway/footway":[
 "Senda peonil"
@@ -2264,10 +3047,40 @@
 "Ceda o paso"
 ],
 "highway/living_street":[
+"zona residencial",
+"semipeatonal",
+"vía compartida",
+"calle",
+"urbanización",
+"zona 30",
+"residencial",
+"rua",
 "Rúa semipeonil"
 ],
+"highway/milestone":[
+"camiño",
+"autoestrada",
+"ruta",
+"marco",
+"fito kilométrico",
+"autopista",
+"sendeiro",
+"mollon",
+"carreiro",
+"mollón",
+"Fito quilométrico",
+"mouteira",
+"estrada",
+"carretera",
+"pista",
+"senda",
+"rota"
+],
 "highway/mini_roundabout":[
-"Mini rotonda"
+"Mini rotonda",
+"rotonda",
+"xiro",
+"glorieta"
 ],
 "highway/motorway":[
 "autovía",
@@ -2294,20 +3107,47 @@
 "enlace",
 "Ligazón da autoestrada"
 ],
+"highway/passing_place":[
+"zona de paso",
+"repouso",
+"zona de descanso",
+"relanzo",
+"lugar de paso",
+"parada",
+"paraxe",
+"Lugar de pasaxe",
+"escaleirón"
+],
 "highway/path":[
 "Camiño"
 ],
 "highway/pedestrian_area":[
-"Área peonil"
+"area",
+"peon",
+"peón",
+"área",
+"peatonal",
+"Zona peonil",
+"pasarela",
+"plaza",
+"peonil",
+"centro",
+"peatón",
+"praza",
+"peaton"
 ],
 "highway/pedestrian_line":[
 "peon",
+"comercial",
+"rua de peóns",
+"so garaxes",
 "peón",
 "peonil",
+"peatonal",
 "Rúa peonil",
-"rúa peonil",
-"rúa de peóns",
-"pasarela"
+"praza",
+"pasarela",
+"rua peonil"
 ],
 "highway/primary":[
 "estrada",
@@ -2318,14 +3158,30 @@
 "highway/primary_link":[
 "Ligazón da estrada primaria"
 ],
-"highway/raceway":[
-"Pista de carreiras (Motorsport)"
+"highway/raceway/karting":[
+"Circuíto de carreiras de karting"
+],
+"highway/raceway/motocross":[
+"Circuíto de carreiras de motocross"
 ],
 "highway/residential":[
-"Estrada ou rúa residencial"
+"bulevar",
+"avenida",
+"paseo",
+"urbana",
+"ruta",
+"calle",
+"boulevar",
+"Rúa urbana",
+"residencial",
+"vía",
+"domiciliaria",
+"rua"
 ],
 "highway/rest_area":[
-"Área de descanso"
+"Zona de descanso",
+"área de descanso",
+"apartadeiro"
 ],
 "highway/road":[
 "Estrada de categoría descoñecida"
@@ -2341,10 +3197,22 @@
 "Estrada de servizo"
 ],
 "highway/service/alley":[
-"Calexón"
+"congostra",
+"calello",
+"ruela",
+"calexón",
+"Ruela",
+"calexon",
+"quella",
+"Calexón",
+"canellón",
+"calexa",
+"corredoira",
+"calella",
+"quenlla"
 ],
 "highway/service/drive-through":[
-"Auto-Servizo"
+"Autoservizo"
 ],
 "highway/service/driveway":[
 "Entrada de garaxe"
@@ -2356,8 +3224,10 @@
 "Corredor do aparcadoiro"
 ],
 "highway/services":[
-"Área de servizo",
+"área de servizo",
 "área de servicio",
+"Zona de servizo",
+"estación de servizo",
 "estación de servicio"
 ],
 "highway/speed_camera":[
@@ -2372,10 +3242,18 @@
 "Escadas mecánicas"
 ],
 "highway/stop":[
+"pare",
+"stop",
+"sinal",
+"parada",
+"paraxe",
+"deterse",
+"cartel",
+"alto",
 "Sinal de Stop"
 ],
 "highway/street_lamp":[
-"Farola"
+"Farol"
 ],
 "highway/tertiary":[
 "Estrada terciaria",
@@ -2386,13 +3264,43 @@
 "Ligazón da estrada terciaria"
 ],
 "highway/track":[
-"Pista ou camiño rural"
+"vieiro",
+"rural",
+"lugar",
+"sendeiro",
+"vía",
+"forestal",
+"verea",
+"con pegada",
+"jeep",
+"tractor",
+"rúa",
+"pista",
+"senda",
+"dobre tracción",
+"quadratrack",
+"camiño",
+"atv",
+"sen mantemento",
+"cuadrimotor",
+"Pista ou carreiro sen mantemento",
+"campo",
+"4x4",
+"carreiro",
+"agrícola",
+"con huella",
+"parroquia",
+"offroad",
+"aldea"
 ],
 "highway/traffic_mirror":[
 "Espello de tráfico"
 ],
 "highway/traffic_signals":[
 "Semáforo"
+],
+"highway/trailhead":[
+"Comezo da pista"
 ],
 "highway/trunk":[
 "vía rápida",
@@ -2410,7 +3318,7 @@
 "Círculo de xiro (illa)"
 ],
 "highway/unclassified":[
-"Estrada Menor/Sen Clasificar"
+"Estrada menor/Sen clasificar"
 ],
 "historic":[
 "Lugar histórico"
@@ -2429,6 +3337,9 @@
 ],
 "historic/castle":[
 "Castelo"
+],
+"historic/castle/fortress":[
+"Fortaleza histórica"
 ],
 "historic/castle/palace":[
 "residencia real",
@@ -2478,7 +3389,12 @@
 "Monumento"
 ],
 "historic/ruins":[
-"Ruinas"
+"ruinas",
+"destruido",
+"ruina",
+"restos",
+"Ruínas",
+"vestixios"
 ],
 "historic/tomb":[
 "Tumba"
@@ -2498,7 +3414,11 @@
 "Elemento de interior"
 ],
 "indoor/area":[
-"Área interior"
+"area",
+"área",
+"Zona interior",
+"espazo interior",
+"interior"
 ],
 "indoor/corridor":[
 "Corredor interior"
@@ -2509,14 +3429,32 @@
 "indoor/door":[
 "Porta interior"
 ],
+"indoor/elevator":[
+"oco do ascensor",
+"buraco do ascensor",
+"Eixo elevador interno",
+"ascensor",
+"burato"
+],
 "indoor/room":[
 "Habitación"
+],
+"indoor/stairs":[
+"oco de escaleira",
+"Escada interior",
+"escaleira",
+"escalóns",
+"escalones",
+"chanzos",
+"escadas",
+"burato",
+"buraco"
 ],
 "indoor/wall":[
 "Parede interior"
 ],
 "internet_access/wlan":[
-"Punto de acceso Wi-Fi"
+"Punto de acceso Wifi"
 ],
 "junction":[
 "intersección",
@@ -2524,15 +3462,6 @@
 "cruzamento",
 "Intersección",
 "incorporación"
-],
-"junction/circular":[
-"Círculo de tráfico"
-],
-"junction/roundabout":[
-"Rotonda"
-],
-"landuse":[
-"Uso da terra"
 ],
 "landuse/allotments":[
 "horta",
@@ -2555,15 +3484,35 @@
 "Cemiterio"
 ],
 "landuse/churchyard":[
-"igrexa",
-"adro",
 "Adro"
 ],
 "landuse/commercial":[
-"Zona de oficinas"
+"área de negocios",
+"área de servizos",
+"Zona de oficinas",
+"oficina",
+"área de oficinas",
+"parques empresariais",
+"empresa",
+"área de venda de produtos",
+"área comercial"
 ],
 "landuse/construction":[
-"Zona baixo construción"
+"sitio de construción",
+"area",
+"grúa",
+"demolición",
+"infraestrutura",
+"guindastre",
+"desenvolvemento",
+"área de construción",
+"Zona de construción",
+"zona en construcion",
+"construción",
+"excavadora",
+"desarrollo",
+"edificio",
+"zona de construción"
 ],
 "landuse/farm":[
 "Terra de cultivo"
@@ -2579,6 +3528,14 @@
 "landuse/farmyard":[
 "Granxa"
 ],
+"landuse/flowerbed":[
+"Xardín floral",
+"xardín floral",
+"flores",
+"parterre",
+"flor",
+"xardín de flores"
+],
 "landuse/forest":[
 "talla",
 "tala",
@@ -2589,7 +3546,18 @@
 "madeira"
 ],
 "landuse/garages":[
-"Uso da terra: Garaxes"
+"almacenaxe",
+"area",
+"cocheiras",
+"cocheira",
+"área",
+"almacenamento",
+"Zona de garaxes privados",
+"soar",
+"garaxe",
+"solar",
+"terreo",
+"uso da terra"
 ],
 "landuse/grass":[
 "Céspede",
@@ -2605,6 +3573,9 @@
 "terreo",
 "campo"
 ],
+"landuse/greenhouse_horticulture":[
+"Invernadoiro de horticultura"
+],
 "landuse/harbour":[
 "porto",
 "peirao",
@@ -2612,10 +3583,18 @@
 "Peirao"
 ],
 "landuse/industrial":[
+"industria",
+"fabrica",
+"área industrial",
+"parque industrial",
 "industrial",
 "fábricas",
+"fábrica",
+"area industrial",
 "polígono",
-"Zona industrial"
+"terreo industrial",
+"Zona industrial",
+"poligono"
 ],
 "landuse/industrial/scrap_yard":[
 "Depósito de ferralla"
@@ -2685,7 +3664,14 @@
 "Encoro"
 ],
 "landuse/residential":[
-"Zona residencial"
+"zona residencial",
+"área residencial",
+"condominio",
+"zona urbana",
+"urbanización",
+"mancha urbana",
+"Zona residencial",
+"rua"
 ],
 "landuse/residential/apartments":[
 "Complexo de apartamentos"
@@ -2705,16 +3691,23 @@
 "Viña"
 ],
 "landuse/winter_sports":[
-"Área de deportes de inverno"
-],
-"leisure":[
-"Ocio"
+"Zona de deportes de inverno"
 ],
 "leisure/adult_gaming_centre":[
 "Centro recreativo para adultos"
 ],
 "leisure/amusement_arcade":[
 "Sala de xogos recreativos"
+],
+"leisure/bandstand":[
+"templete",
+"carpa",
+"quiosco",
+"música",
+"Palco de música",
+"musica",
+"Quiosco de música",
+"palco"
 ],
 "leisure/beach_resort":[
 "complexo hotelero",
@@ -2775,8 +3768,17 @@
 "parque",
 "cans"
 ],
-"leisure/firepit":[
-"Fogueira"
+"leisure/escape_game":[
+"cuarto de escape",
+"xogo de escape",
+"quebracabezas",
+"sala de escape",
+"escape room",
+"sala de rompecabezas",
+"crebacabezas",
+"escapar da habitación",
+"sala de misións",
+"Escape room"
 ],
 "leisure/fishing":[
 "Lugar de pesca",
@@ -2827,7 +3829,6 @@
 "comedor",
 "mesas",
 "sombrilla",
-"Área de asentos ó exterior",
 "ao aire libre",
 "parasol",
 "xardín de cervexa",
@@ -2840,6 +3841,7 @@
 "cafetaría",
 "bar",
 "estar",
+"Zona de asentos ó exterior",
 "ó aire libre",
 "catasol",
 "pub",
@@ -2863,10 +3865,23 @@
 "Taboleiro de xadrez"
 ],
 "leisure/pitch":[
-"Campo deportivo"
+"frontón",
+"Cancha deportiva",
+"polideportivo",
+"deporte",
+"cancha",
+"xogo",
+"pavillón",
+"terreo de xogo",
+"complexo",
+"pista",
+"campo"
 ],
 "leisure/pitch/american_football":[
 "Campo de fútbol americano"
+],
+"leisure/pitch/badminton":[
+"Cancha de bádminton"
 ],
 "leisure/pitch/baseball":[
 "Campo de béisbol"
@@ -2892,6 +3907,16 @@
 "Picadeiro",
 "picadeiro"
 ],
+"leisure/pitch/field_hockey":[
+"hockey",
+"xockey",
+"Campo de hóckey",
+"hokey",
+"hoquei",
+"oquei",
+"xokey",
+"xoquei"
+],
 "leisure/pitch/rugby_league":[
 "Campo de rugby league",
 "rugby",
@@ -2916,11 +3941,15 @@
 "leisure/pitch/soccer":[
 "Campo de fútbol"
 ],
+"leisure/pitch/softball":[
+"Campo de softbol"
+],
 "leisure/pitch/table_tennis":[
+"Mesa de pimpón",
 "ping pong",
+"pimpon",
 "tenis de mesa",
 "ping-pong",
-"Mesa de ping-pong",
 "pimpón"
 ],
 "leisure/pitch/tennis":[
@@ -2941,6 +3970,9 @@
 "vacacións",
 "resort",
 "Complexo turístico"
+],
+"leisure/sauna":[
+"Sauna"
 ],
 "leisure/slipway":[
 "Rampla para embarcacións"
@@ -2968,7 +4000,7 @@
 "Estadio"
 ],
 "leisure/swimming_area":[
-"Área de natación natural"
+"Zona de natación natural"
 ],
 "leisure/swimming_pool":[
 "Piscina"
@@ -2976,14 +4008,27 @@
 "leisure/track":[
 "Pista de competición (non motorizada)"
 ],
+"leisure/track/cycling_point":[
+"Pista de ciclismo"
+],
+"leisure/track/horse_racing_point":[
+"Pista de carreiras de cabalos"
+],
+"leisure/track/running":[
+"Pista de atletismo"
+],
+"leisure/track/running_point":[
+"Pista de carreiras"
+],
 "leisure/water_park":[
-"Parque acuático"
+"aquapark",
+"auga",
+"parque de auga",
+"Parque acuático",
+"agua"
 ],
 "line":[
 "Liña"
-],
-"man_made":[
-"Estrutura artificial"
 ],
 "man_made/adit":[
 "entrada",
@@ -2997,16 +4042,33 @@
 "man_made/antenna":[
 "Antena"
 ],
+"man_made/beehive":[
+"apiario",
+"apicultor",
+"mel",
+"granxa",
+"colmea",
+"polinización",
+"Abellariza",
+"colmear",
+"alvariza"
+],
 "man_made/breakwater":[
 "rompeolas",
 "rompeondas",
+"Crebaondas",
 "quebraondas",
-"Rompeondas",
+"espigón",
 "crebaondas",
-"dique"
+"dique",
+"malecón"
 ],
 "man_made/bridge":[
-"Ponte"
+"area",
+"zona",
+"área",
+"Área da ponte",
+"ponte"
 ],
 "man_made/chimney":[
 "Cheminea"
@@ -3038,6 +4100,9 @@
 "cortalumes",
 "cortafuegos"
 ],
+"man_made/dyke":[
+"Dique"
+],
 "man_made/embankment":[
 "Terraplén"
 ],
@@ -3065,6 +4130,93 @@
 "baliza",
 "Faro"
 ],
+"man_made/manhole":[
+"foxos",
+"tapa de sumidoiro",
+"alcantarillado",
+"colector",
+"Pozo de inspección",
+"alcantarilla",
+"telecomunicacións",
+"colectores",
+"rede de sumidoiro",
+"sumidoiro",
+"cuberta",
+"buraco",
+"foxo",
+"boca de sumidoiro",
+"rexistro",
+"burato",
+"furado",
+"furaco"
+],
+"man_made/manhole/gas":[
+"pozo",
+"inspección",
+"gas",
+"burato",
+"Pozo de inspección de servizo de gas",
+"cuberta",
+"buraco",
+"calefacción"
+],
+"man_made/manhole/power":[
+"pozo",
+"inspección",
+"eléctrico",
+"Pozo de inspección de rede eléctrica",
+"electricidade",
+"burato",
+"cuberta",
+"buraco"
+],
+"man_made/manhole/sewer":[
+"pozo",
+"inspección",
+"auga",
+"tapa de sumidoiro",
+"augas residuais",
+"alcantarillado",
+"inspeccion",
+"alcantarilla",
+"residual",
+"desagüe",
+"rede de sumidoiro",
+"sumidoiro",
+"cuberta",
+"buraco",
+"Pozo de inspección de sumidoiro",
+"refugallos",
+"refugallo",
+"augas negras",
+"burato"
+],
+"man_made/manhole/telecom":[
+"pozo",
+"inspección",
+"teléfono",
+"Pozo de inspección de telecomunicacións",
+"cabo",
+"telecomunicacións",
+"cable",
+"burato",
+"cuberta",
+"buraco"
+],
+"man_made/manhole/water":[
+"pozo",
+"Pozo de inspección de servizo de agua",
+"inspección",
+"auga",
+"tapa de sumidoiro",
+"inspeccion",
+"utilidade",
+"burato",
+"sumidoiro",
+"cuberta",
+"buraco",
+"bebida"
+],
 "man_made/mast":[
 "hasta",
 "Mastro",
@@ -3075,6 +4227,18 @@
 "antena",
 "torre",
 "mastro"
+],
+"man_made/mast/communication":[
+"Mastro de comunicacións"
+],
+"man_made/mast/communication/mobile_phone":[
+"Mastro de telefonía móbil"
+],
+"man_made/mast/communication/radio":[
+"Mastro de radio"
+],
+"man_made/mast/communication/television":[
+"Mastro de televisión"
 ],
 "man_made/monitoring_station":[
 "Estación meteorolóxica"
@@ -3104,6 +4268,33 @@
 "tubaxe",
 "canalización"
 ],
+"man_made/pipeline/underground":[
+"auga",
+"augas residuais",
+"alcantarillado",
+"tuberia",
+"gas natural",
+"tubaría",
+"tubería",
+"Tubaxe subterránea",
+"refugallos",
+"petróleo",
+"tubo",
+"desechos",
+"oleoduto",
+"gasoduto",
+"tubaxe"
+],
+"man_made/pipeline/valve":[
+"auga",
+"pluviais",
+"augas residuais",
+"Válvula de tubaxe",
+"alcantarillado",
+"petróleo",
+"gas natural",
+"oleoduto"
+],
 "man_made/pumping_station":[
 "Estación de bombeo",
 "auga",
@@ -3126,16 +4317,66 @@
 "contedor",
 "tanque"
 ],
+"man_made/storage_tank/water":[
+"Depósito de auga"
+],
+"man_made/street_cabinet":[
+"televisión por cable",
+"gabinete",
+"armario de instalaciones",
+"control de sinais de tráfico",
+"cabinete",
+"caixa de rúa",
+"eletrico",
+"avenida",
+"caixa",
+"rúa",
+"estrada",
+"semáforos",
+"telecomunicaciones",
+"armario outdoor",
+"cuadro",
+"rexistro",
+"cabinets",
+"comunicacións",
+"bastidor",
+"caixa técnica",
+"caseta",
+"armario se rúa",
+"teleco",
+"cadro",
+"eléctrico",
+"calle",
+"telecomunicacións",
+"electrico",
+"cabina",
+"Armario de telecomunicacións",
+"semaforo",
+"armario de instalacións",
+"nicho",
+"caixa de monitoreo",
+"enerxía",
+"carretera",
+"caja",
+"cabinet",
+"rua"
+],
 "man_made/surveillance":[
 "recoñecemento facial",
 "cámara",
 "webcam",
+"seguranza",
+"zona videovixiada",
 "Vixilancia",
 "vixilancia",
 "vídeo",
 "seguridade",
 "cctv",
-"lector de matrículas"
+"lector de matrículas",
+"vixiar"
+],
+"man_made/surveillance/camera":[
+"Cámara de vixilancia"
 ],
 "man_made/survey_point":[
 "Vértice xeodésico",
@@ -3181,28 +4422,58 @@
 "Torre de observación",
 "torre de lume"
 ],
+"man_made/tunnel":[
+"Área de túnel"
+],
 "man_made/wastewater_plant":[
 "EDAR",
+"PTAR",
 "auga",
 "planta depuradora",
 "depuradora",
+"Depuradora de augas residuais",
 "augas residuais",
-"Depuradora de augas"
+"tratamento de augas residuais",
+"depuración",
+"saneamento"
 ],
 "man_made/water_tower":[
+"depósito de auga elevado",
+"tanque de auga",
 "torre de auga",
-"Torre de auga",
-"depósito de auga",
-"tanque de agua"
+"Torre de auga"
 ],
 "man_made/water_well":[
-"Pozo"
+"Pozo de auga",
+"auga en pozo",
+"goio"
 ],
 "man_made/water_works":[
-"Planta potabilizadora"
+"planta potabilizadora",
+"Planta potabilizadora de auga",
+"potabilizadora",
+"auga potable",
+"auga potábel",
+"ETAP",
+"abastecemento de auga"
 ],
 "man_made/watermill":[
-"Muíño de auga"
+"hidraulico",
+"auga",
+"moler",
+"azud",
+"turbina",
+"noria",
+"roda",
+"molino",
+"muíño hidráulico",
+"Muíño de auga",
+"hidráulico",
+"aceña",
+"moer",
+"caz",
+"agua",
+"paleta"
 ],
 "man_made/windmill":[
 "vento",
@@ -3219,21 +4490,6 @@
 "man_made/works":[
 "Fábrica"
 ],
-"manhole":[
-"Tapa de rexistro",
-"tapa de rexistro",
-"alcantarilla",
-"sumidoiro"
-],
-"manhole/drain":[
-"Tapa de rexistro de pluviais"
-],
-"manhole/telecom":[
-"Tapa de rexistro de telecomunicacións"
-],
-"natural":[
-"Natural"
-],
 "natural/bare_rock":[
 "Rocha núa",
 "área rochosa",
@@ -3245,9 +4501,17 @@
 ],
 "natural/bay":[
 "golfo",
-"Baía",
+"bahia",
+"Badía",
+"baia",
+"rada",
 "baía",
-"enseada"
+"enseada",
+"abra",
+"arnela",
+"cala",
+"bahía",
+"badia"
 ],
 "natural/beach":[
 "Praia"
@@ -3310,7 +4574,37 @@
 "Arrecife"
 ],
 "natural/ridge":[
-"Crista"
+"crista",
+"cume",
+"cumieira",
+"picouto",
+"serras",
+"cumio",
+"petouto",
+"Cume",
+"cumeada",
+"canto",
+"cresta",
+"cumeira",
+"montañas",
+"pico",
+"cima",
+"crista elevada",
+"picoto",
+"tergo",
+"cúspide",
+"montaña",
+"bico"
+],
+"natural/rock":[
+"con",
+"farallón",
+"rocha",
+"penedo",
+"pedra",
+"Rocha incrustada",
+"pena",
+"roca"
 ],
 "natural/saddle":[
 "porto de montaña",
@@ -3346,23 +4640,66 @@
 "manancial",
 "Manancial"
 ],
+"natural/stone":[
+"con",
+"farallón",
+"rocha",
+"penedo",
+"pedra",
+"Pedra solta",
+"pena",
+"roca"
+],
 "natural/tree":[
+"arbol",
+"árbore",
+"árbol",
+"arbusto",
+"arbore",
+"árvore",
 "Árbore"
 ],
 "natural/tree_row":[
 "Ringleira de árbores"
 ],
+"natural/valley":[
+"Val"
+],
 "natural/volcano":[
 "Volcán"
 ],
 "natural/water":[
-"Auga"
+"regato",
+"pozo",
+"laguna",
+"encoro",
+"corpo de auga",
+"ibón",
+"balsa",
+"pantano",
+"poza",
+"río",
+"burgas",
+"embalse",
+"agua",
+"auga",
+"charca",
+"augas",
+"termas",
+"estanque",
+"rego",
+"lago",
+"Auga",
+"lámina de auga",
+"albufeira",
+"lagoa",
+"poza de auga"
 ],
 "natural/water/basin":[
 "Conca"
 ],
 "natural/water/canal":[
-"Canal"
+"Área da canle"
 ],
 "natural/water/lake":[
 "charca",
@@ -3390,24 +4727,34 @@
 "embalse"
 ],
 "natural/water/river":[
-"Río"
+"Área do río"
 ],
 "natural/water/stream":[
-"Regato"
+"Área do regato"
 ],
 "natural/water/wastewater":[
-"Conca de augas residuais"
+"Conca de augas residuais",
+"conca clarificadora",
+"augas residuais",
+"cuenca",
+"conca de asentamento",
+"refugo",
+"varredura",
+"mierda",
+"residuos",
+"caca",
+"desproveito",
+"desperdicio",
+"excrementos",
+"merda",
+"refugallo",
+"bazofia",
+"sobra",
+"feces",
+"reboutallo"
 ],
 "natural/wetland":[
 "Pantano"
-],
-"natural/wood":[
-"bosque",
-"monte",
-"árbores",
-"Bosque",
-"fraga",
-"foresta"
 ],
 "noexit/yes":[
 "Sen saída"
@@ -3532,6 +4879,14 @@
 "office/physician":[
 "Médico"
 ],
+"office/political_party":[
+"Oficina do partido político",
+"partido político",
+"sede",
+"oficina de partido político",
+"politico",
+"politica"
+],
 "office/private_investigator":[
 "Oficina de investigador privado"
 ],
@@ -3560,10 +4915,13 @@
 "Axencia de viaxes"
 ],
 "office/water_utility":[
-"Oficina de servizos públicos de auga"
-],
-"piste/piste":[
-"Pistas de deportes de inverno"
+"servizo público",
+"auga",
+"Oficina de servizos públicos de auga",
+"servicio público",
+"saneamento",
+"publico",
+"agua"
 ],
 "place":[
 "Lugar"
@@ -3660,14 +5018,35 @@
 "point":[
 "Punto"
 ],
-"power":[
-"Rede eléctrica"
-],
 "power/cable/underground":[
-"Liña eléctrica subterránea"
+"rede",
+"baixa",
+"tension",
+"cabo",
+"alta",
+"Liña eléctrica subterránea",
+"enerxía",
+"electricidade",
+"subterráneo",
+"cable",
+"tensión",
+"alimentación"
 ],
 "power/generator":[
-"Xerador de enerxía"
+"xenerador de potencia",
+"estación eléctrica",
+"subestación",
+"Xerador de enerxía",
+"xenerador eléctrico",
+"xenerador de electricidade",
+"electricidade",
+"planta de electridade",
+"xenerador",
+"xerador",
+"central eléctrica",
+"xerador de enerxia",
+"eléctrica",
+"electrica"
 ],
 "power/generator/method/photovoltaic":[
 "FV",
@@ -3678,26 +5057,54 @@
 "Panel solar",
 "panel"
 ],
+"power/generator/source/hydro":[
+"represa",
+"vaira",
+"xenerador",
+"hidroelectricidade",
+"xerador",
+"encoro",
+"Turbina de auga",
+"encalco",
+"turbina pelton",
+"turbina francis",
+"turbina kaplan"
+],
 "power/generator/source/wind":[
 "Turbina eólica"
 ],
 "power/line":[
-"Liña de alta tensión"
+"liñas electricas",
+"enerxía",
+"eléctrica",
+"liñas eléctricas",
+"liña electrica",
+"Liña eléctrica de alta tensión",
+"liña"
 ],
 "power/minor_line":[
-"Liña eléctrica de baixa tensión"
+"baixa tensión",
+"Liña eléctrica de media ou baixa tensión",
+"enerxía",
+"media tensión",
+"electrica"
 ],
 "power/plant":[
 "Zona de central eléctrica"
 ],
 "power/pole":[
-"Poste eléctrico"
-],
-"power/sub_station":[
-"Subestación"
+"postes de electricidade",
+"Piar eléctrico",
+"poste",
+"electricidade",
+"poste de electricidade",
+"piar de enerxía"
 ],
 "power/substation":[
 "Subestación"
+],
+"power/switch":[
+"Interruptor de enerxía"
 ],
 "power/tower":[
 "torre de alto voltaxe",
@@ -3708,17 +5115,104 @@
 "power/transformer":[
 "Transformador"
 ],
+"public_transport/platform/aerialway_point":[
+"Paraxe / Plataforma de vía aérea"
+],
+"public_transport/platform/bus_point":[
+"bus",
+"colectivo",
+"transporte público",
+"autobús",
+"plataforma",
+"parada",
+"Paraxe de bus"
+],
+"public_transport/platform/ferry":[
+"bote",
+"transbordador",
+"Plataforma de ferri",
+"peirao",
+"transporte público",
+"plataforma",
+"muelle",
+"barco"
+],
+"public_transport/platform/ferry_point":[
+"Paraxe / Plataforma de ferri"
+],
 "public_transport/platform/light_rail":[
 "Plataforma de tren lixeiro"
 ],
 "public_transport/platform/light_rail_point":[
 "Paraxe / Plataforma de tren lixeiro"
 ],
+"public_transport/platform/monorail_point":[
+"Paraxe / Plataforma de monorraíl"
+],
+"public_transport/platform/subway_point":[
+"Paraxe / Plataforma de metro"
+],
+"public_transport/platform/train_point":[
+"Paraxe / Plataforma de tren"
+],
+"public_transport/platform/tram_point":[
+"Paraxe / Plataforma de tranvía",
+"eléctrico",
+"transporte público",
+"tren lixeiro",
+"plataforma",
+"transporte",
+"ferrocarril",
+"tranvía",
+"tránsito",
+"pista"
+],
+"public_transport/platform/trolleybus_point":[
+"bus",
+"Paraxe de trolebús",
+"eléctrico",
+"transporte público",
+"transporte",
+"trolebús",
+"trolley",
+"sen raís",
+"trole",
+"sen rieles",
+"autobús",
+"plataforma",
+"parada",
+"tranvía",
+"trollei"
+],
+"public_transport/platform_point":[
+"transporte público",
+"plataforma",
+"transporte",
+"parada",
+"Paraxe / Plataforma de transporte público",
+"tránsito"
+],
 "public_transport/station":[
 "Estación de transporte público"
 ],
 "public_transport/station_bus":[
 "Estación de autobuses"
+],
+"public_transport/station_ferry":[
+"transbordador",
+"transporte público",
+"transporte publico",
+"estación",
+"transporte",
+"ferri",
+"muelle",
+"terminal",
+"barco",
+"peirao",
+"buque",
+"ferry",
+"tránsito",
+"Estación / Terminal de ferri"
 ],
 "public_transport/station_light_rail":[
 "Estación de tren lixeiro"
@@ -3733,31 +5227,157 @@
 "Estación de tranvía"
 ],
 "public_transport/stop_area":[
-"Zona de parada de transporte público"
+"transporte público",
+"parada",
+"punto de detención",
+"Zona de paraxe do transporte público"
 ],
 "public_transport/stop_position":[
-"Punto de parada de transporte público"
+"bus",
+"transporte público",
+"monorraíl",
+"transporte",
+"ferri",
+"trolebús",
+"tren",
+"Ubicación de paraxe do transporte público",
+"aéreo",
+"autobús",
+"tren lixeiro",
+"metro",
+"ferry",
+"parada",
+"tránsito",
+"tranvía",
+"punto detención"
+],
+"public_transport/stop_position_aerialway":[
+"transportador",
+"teleférico",
+"telecabina",
+"transporte público",
+"transporte",
+"parada",
+"Ubicación de paraxe da vía aérea",
+"tránsito",
+"góndola",
+"punto detención"
 ],
 "public_transport/stop_position_bus":[
-"Punto de parada de autobús"
+"bus",
+"transporte público",
+"autobús",
+"Punto de paraxe do autobús",
+"transporte",
+"minibús",
+"parada",
+"tránsito",
+"punto detención"
+],
+"public_transport/stop_position_ferry":[
+"marítimo",
+"transporte público",
+"transporte",
+"dársena",
+"ferri",
+"muelle",
+"barco",
+"Ubicación de paraxe do ferri",
+"bote",
+"peirao",
+"naval",
+"buque",
+"lancha",
+"ferry",
+"parada",
+"tránsito",
+"punto detención"
+],
+"public_transport/stop_position_light_rail":[
+"tren",
+"Ubicación de paraxe do tren lixeiro",
+"transporte público",
+"tren lixeiro",
+"transporte",
+"parada",
+"tránsito",
+"ferrocarril",
+"punto detención"
+],
+"public_transport/stop_position_monorail":[
+"tren",
+"bus",
+"transporte público",
+"monorraíl",
+"monocarril",
+"transporte",
+"parada",
+"tránsito",
+"ferrocarril",
+"punto detención",
+"Ubicación de paraxe do monorraíl"
 ],
 "public_transport/stop_position_subway":[
-"Punto de parada de metro"
+"tren",
+"transporte público",
+"metro",
+"transporte",
+"parada",
+"tránsito",
+"ferrocarril",
+"punto detención",
+"subterráneo",
+"Ubicación de paraxe do metro"
 ],
 "public_transport/stop_position_train":[
-"Punto de parada de tren"
+"tren",
+"Ubicación de paraxe do tren",
+"transporte público",
+"transporte",
+"parada",
+"tránsito",
+"ferrocarril",
+"punto detención"
 ],
 "public_transport/stop_position_tram":[
-"Punto de parada de tranvía"
+"tren",
+"transporte público",
+"transporte",
+"parada",
+"Ubicación de paraxe do tranvía",
+"tránsito",
+"ferrocarril",
+"tranvía",
+"punto detención"
 ],
-"railway":[
-"Ferrocarril"
+"public_transport/stop_position_trolleybus":[
+"tren",
+"bus",
+"transporte público",
+"autobús",
+"transporte",
+"parada",
+"tránsito",
+"ferrocarril",
+"punto detención",
+"trolebús",
+"Ubicación de paraxe do trolebús"
 ],
 "railway/abandoned":[
 "Vía de tren abandonada"
 ],
 "railway/buffer_stop":[
-"Parada de Buffer"
+"amortiguador",
+"parachoques deslizante",
+"toupeira",
+"tope",
+"quitamedos",
+"topera",
+"Toupeira (paraxe de buffer)",
+"topeira"
+],
+"railway/construction":[
+"Ferrocarril en construción"
 ],
 "railway/crossing":[
 "Cruzamento ferroviario (camiño)"
@@ -3817,6 +5437,9 @@
 "railway/tram":[
 "Tranvía"
 ],
+"railway/tram_stop":[
+"Paraxe de tranvía"
+],
 "relation":[
 "Ligazón",
 "Vínculo",
@@ -3824,7 +5447,18 @@
 "Relación"
 ],
 "route/ferry":[
-"Liña de ferri"
+"transbordador",
+"trasbordador",
+"ruta",
+"buque",
+"embarcación",
+"lancha",
+"ferry",
+"ferri",
+"barco",
+"Liña de ferri",
+"rota",
+"liña"
 ],
 "seamark":[
 "Sinal náutico"
@@ -3837,9 +5471,6 @@
 ],
 "shop/alcohol":[
 "Licoraría"
-],
-"shop/anime":[
-"Tenda de anime"
 ],
 "shop/antiques":[
 "Tenda de antigüidades"
@@ -3879,6 +5510,18 @@
 ],
 "shop/bicycle":[
 "Tenda de bicicletas"
+],
+"shop/boat":[
+"bote",
+"barco de pesca",
+"embarcacion",
+"bote de remos",
+"barcos",
+"veleiro",
+"lancha",
+"Tenda de embarcacións",
+"barco",
+"jetski"
 ],
 "shop/bookmaker":[
 "casa de apostas",
@@ -3961,9 +5604,6 @@
 "shop/cosmetics":[
 "Tenda de cosméticos"
 ],
-"shop/craft":[
-"Tenda de artes e oficios"
-],
 "shop/curtain":[
 "Tenda de cortinas"
 ],
@@ -4011,7 +5651,7 @@
 "Tenda de moda"
 ],
 "shop/fishing":[
-"Tenda de pesca"
+"Lonxa ou tenda de pesca"
 ],
 "shop/fishmonger":[
 "Peixaría"
@@ -4170,6 +5810,32 @@
 "shop/paint":[
 "Tenda de pinturas"
 ],
+"shop/party":[
+"convites",
+"festas",
+"rexouba",
+"festividade",
+"folía",
+"ruada",
+"carallada",
+"invitacións",
+"decoracións",
+"garulada",
+"disfraces",
+"foliada",
+"pándega",
+"algueirada",
+"gandaina",
+"Tenda de artigos para festas",
+"globos",
+"troula",
+"esmorga",
+"riola",
+"chola",
+"trouleo",
+"xolda",
+"rua"
+],
 "shop/pastry":[
 "pasteis",
 "confitaría",
@@ -4204,6 +5870,18 @@
 "shop/religion":[
 "Tenda relixiosa"
 ],
+"shop/rental":[
+"alugueiro",
+"locación",
+"Tenda de alugueiro",
+"alquiler",
+"vehículos",
+"arrendamento",
+"alquilar",
+"alugamento",
+"arrendo",
+"equipos"
+],
 "shop/scuba_diving":[
 "buceo",
 "mergullo submarino",
@@ -4223,6 +5901,18 @@
 "shop/second_hand":[
 "Tenda de segunda man"
 ],
+"shop/sewing":[
+"corte",
+"merzaría",
+"costura",
+"mercería",
+"tenda de subministros de costura",
+"artigos",
+"obxectos",
+"cosedura",
+"confeccion",
+"Tenda de artigos de costura"
+],
 "shop/shoes":[
 "Zapataría"
 ],
@@ -4233,7 +5923,18 @@
 "Papelaría"
 ],
 "shop/storage_rental":[
-"Alugamento de almacéns"
+"almacenaxe",
+"baulera",
+"locación",
+"almacenamento",
+"Alugueiro de almacéns",
+"depósito",
+"arrendamento",
+"almacén",
+"aluguer",
+"renta",
+"alugamento",
+"arrendo"
 ],
 "shop/supermarket":[
 "Supermercado"
@@ -4284,8 +5985,25 @@
 "shop/watches":[
 "Reloxaría"
 ],
+"shop/water":[
+"auga",
+"bebible",
+"potábel",
+"potable",
+"Tenda de auga potábel",
+"agua"
+],
 "shop/water_sports":[
-"Deportes acuáticos/tenda de natación"
+"bañador",
+"auga",
+"natación",
+"bikini",
+"acuático",
+"goggles",
+"Tenda de deportes acuáticos / natación",
+"biquini",
+"lentes natación",
+"neopreno"
 ],
 "shop/weapons":[
 "Armaría"
@@ -4298,9 +6016,6 @@
 ],
 "shop/wine":[
 "Tenda de viños"
-],
-"tourism":[
-"Turismo"
 ],
 "tourism/alpine_hut":[
 "Refuxio de montaña"
@@ -4335,8 +6050,39 @@
 "tourism/attraction":[
 "Atracción turística"
 ],
+"tourism/camp_pitch":[
+"campismo",
+"camping",
+"motor home",
+"rv",
+"acampe",
+"carpa",
+"acampar",
+"lugar",
+"tenda",
+"acampada",
+"autocaravana",
+"caravana",
+"terreo",
+"motorhome",
+"cámping",
+"patio",
+"campamento",
+"cancha",
+"Lugar de campismo"
+],
 "tourism/camp_site":[
-"Área de camping"
+"area de cámping",
+"area de camping",
+"campamento",
+"area de campismo",
+"área de campismo",
+"área de camping",
+"zona de cámping",
+"acampada",
+"Cámping",
+"zona de camping",
+"área de cámping"
 ],
 "tourism/caravan_site":[
 "Parque de caravanas"
@@ -4494,6 +6240,12 @@
 "type/multipolygon":[
 "Multipolígono"
 ],
+"type/public_transport/stop_area_group":[
+"transporte público",
+"parada",
+"punto de detención",
+"Grupo de área da paraxe de transporte"
+],
 "type/restriction":[
 "Restrición"
 ],
@@ -4519,7 +6271,7 @@
 "Só cara adiante"
 ],
 "type/route":[
-"Rota"
+"Ruta"
 ],
 "type/route/bicycle":[
 "Roteiro ciclista"
@@ -4528,10 +6280,22 @@
 "Liña de bus"
 ],
 "type/route/detour":[
-"Rota de desvío"
+"Ruta de desvío"
 ],
 "type/route/ferry":[
-"Liña do ferri"
+"transbordador",
+"ruta",
+"ferri",
+"rumbo",
+"itinerario",
+"barco",
+"traxecto",
+"dirección",
+"buque",
+"ferry",
+"Liña de ferri",
+"rota",
+"liña"
 ],
 "type/route/foot":[
 "Roteiro a pé"
@@ -4540,19 +6304,39 @@
 "Roteiro de sendeirismo"
 ],
 "type/route/horse":[
-"Rota de equitación"
+"Ruta de equitación"
 ],
 "type/route/light_rail":[
-"Rota de tren lixeiro"
+"Ruta de tren lixeiro"
 ],
 "type/route/pipeline":[
-"Rota de tubaxe"
+"duto",
+"ruta",
+"tubaría",
+"tubería",
+"cañería",
+"Ruta de tubaxe",
+"tubo",
+"ducto",
+"oleoduto",
+"gasoduto",
+"tubaxe",
+"conduto",
+"rota"
 ],
 "type/route/power":[
-"Rota da rede de enerxía"
+"Ruta de rede eléctrica",
+"cabo",
+"ruta",
+"liña de alta tensión",
+"enerxía",
+"electricidade",
+"liña electrica",
+"cable",
+"rede elećtrica"
 ],
 "type/route/road":[
-"Rota de estrada"
+"Ruta de estrada"
 ],
 "type/route/subway":[
 "Liña do metro"
@@ -4564,19 +6348,38 @@
 "Liña de tranvía"
 ],
 "type/route_master":[
-"Rota mestra"
+"Ruta mestra"
 ],
 "type/site":[
 "Lugar"
 ],
 "type/waterway":[
-"Canle fluvial"
-],
-"waterway":[
-"Canle fluvial"
+"acuatico",
+"fluvial",
+"navegábel",
+"canle",
+"acuatica",
+"navegable",
+"acuático",
+"maritima",
+"cauce",
+"Canle fluvial",
+"acuática",
+"canal",
+"vía fluvial",
+"marítima"
 ],
 "waterway/boatyard":[
-"Estaleiro"
+"bote",
+"varadeiro",
+"embarcacion",
+"Estaleiro",
+"astillero",
+"barcos",
+"embarcación",
+"lancha",
+"barco",
+"varadoiro"
 ],
 "waterway/canal":[
 "Canle"
@@ -4591,10 +6394,43 @@
 "Dique Húmido/Dique Seco"
 ],
 "waterway/drain":[
-"Cuneta"
+"pluviais",
+"resumidero",
+"desacougadoiro",
+"alcantarillado",
+"augas",
+"alcantarilla",
+"sumideiro",
+"desagüe",
+"sumidero",
+"drenaxe",
+"sumidoiro",
+"Cuneta",
+"choiva",
+"acougadoiro",
+"chuvia",
+"chuva"
 ],
 "waterway/fuel":[
 "Gasolineira para embarcacións"
+],
+"waterway/milestone":[
+"Fito de canle fluvial",
+"marco",
+"navegábel",
+"canle",
+"marcaxe",
+"mollon",
+"marca",
+"mollón",
+"mojon",
+"navegable",
+"fita de vías navegables",
+"mojón",
+"mouteira",
+"marcote",
+"canal",
+"chito"
 ],
 "waterway/river":[
 "regato",
@@ -4621,10 +6457,44 @@
 "Regato intermitente"
 ],
 "waterway/water_point":[
-"Auga potábel para embarcacións"
+"auga",
+"porto deportivo",
+"paquebote",
+"Auga potábel para embarcacións",
+"barco",
+"paquete",
+"porto",
+"nave",
+"marina",
+"peirao",
+"auga potable",
+"embarcación",
+"lancha",
+"mariña",
+"agua"
 ],
 "waterway/waterfall":[
-"Fervenza"
+"ruxida",
+"callón",
+"cascada",
+"catarata",
+"caída de auga",
+"ruxidoira",
+"férveda",
+"abanqueiro",
+"cachoeira",
+"cachón",
+"ferveda",
+"Fervenza",
+"torrente",
+"seimeira",
+"brinco",
+"cadoiro",
+"salto",
+"cachoada",
+"freixa",
+"brinco de auga",
+"salto de auga"
 ],
 "waterway/weir":[
 "vaira",

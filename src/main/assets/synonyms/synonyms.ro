@@ -50,9 +50,6 @@
 "amenity/car_rental":[
 "Închiriere Mașini"
 ],
-"amenity/car_sharing":[
-"Car Sharing"
-],
 "amenity/car_wash":[
 "Spălătorie Auto"
 ],
@@ -128,9 +125,6 @@
 "amenity/internet_cafe":[
 "Internet Cafe"
 ],
-"amenity/kindergarten":[
-"Preșcoală/Grădiniță"
-],
 "amenity/library":[
 "Librărie"
 ],
@@ -142,9 +136,6 @@
 ],
 "amenity/nightclub":[
 "Club de Noapte"
-],
-"amenity/parking_entrance":[
-"Intrare/Ieșire Garaj"
 ],
 "amenity/parking_space":[
 "Loc de Parcare"
@@ -172,9 +163,6 @@
 ],
 "amenity/police":[
 "Poliție"
-],
-"amenity/post_box":[
-"Cutie Poștală"
 ],
 "amenity/post_office":[
 "Oficiul Poștal"
@@ -323,9 +311,6 @@
 "building/industrial":[
 "Clădire Industrială"
 ],
-"building/kindergarten":[
-"Preșcoală/Grădiniță"
-],
 "building/public":[
 "Clădire Publică"
 ],
@@ -374,14 +359,8 @@
 "craft/insulator":[
 "Insulator"
 ],
-"craft/jeweler":[
-"Giuvaer"
-],
 "craft/metal_construction":[
 "Construcție de Metal"
-],
-"craft/optician":[
-"Optician"
 ],
 "craft/painter":[
 "Pictor"
@@ -413,9 +392,6 @@
 "emergency/defibrillator":[
 "Defibrilator"
 ],
-"entrance":[
-"Intrare/Ieșire"
-],
 "ford":[
 "Vad"
 ],
@@ -427,9 +403,6 @@
 ],
 "healthcare/blood_donation":[
 "Centru de Donație de Sânge"
-],
-"highway":[
-"Autostradă"
 ],
 "highway/corridor":[
 "Coridor Interior"
@@ -548,9 +521,6 @@
 "junction":[
 "Juncție"
 ],
-"landuse":[
-"Utilizare Teren"
-],
 "landuse/allotments":[
 "Grădină Comunitară"
 ],
@@ -568,9 +538,6 @@
 ],
 "landuse/commercial":[
 "Zonă Comercială"
-],
-"landuse/construction":[
-"Construcție"
 ],
 "landuse/farm":[
 "Teren Agricol"
@@ -704,9 +671,6 @@
 "line":[
 "Linie"
 ],
-"man_made/bridge":[
-"Pod"
-],
 "man_made/chimney":[
 "Șemineu"
 ],
@@ -754,9 +718,6 @@
 ],
 "man_made/works":[
 "Fabrică"
-],
-"natural":[
-"Natural"
 ],
 "natural/bare_rock":[
 "Stâncă"
@@ -817,9 +778,6 @@
 ],
 "natural/wetland":[
 "Zonă Umedă"
-],
-"natural/wood":[
-"Pădure"
 ],
 "noexit/yes":[
 "Fără Ieșire"
@@ -911,9 +869,6 @@
 "point":[
 "Punct"
 ],
-"power":[
-"Energie"
-],
 "power/generator":[
 "Generator de Energie"
 ],
@@ -926,9 +881,6 @@
 "power/pole":[
 "Stâlp de Energie"
 ],
-"power/sub_station":[
-"SubStație"
-],
 "power/substation":[
 "Substație"
 ],
@@ -937,9 +889,6 @@
 ],
 "power/transformer":[
 "Transformator"
-],
-"railway":[
-"Cale Ferată"
 ],
 "railway/abandoned":[
 "Cale Ferată Abandonată"
@@ -986,9 +935,6 @@
 "shop/alcohol":[
 "G",
 "Magazin de Băuturi Alcoolice"
-],
-"shop/anime":[
-"Magazin Anime"
 ],
 "shop/antiques":[
 "Anticariat"
@@ -1266,9 +1212,6 @@
 "shop/wine":[
 "Magazin de Vinuri"
 ],
-"tourism":[
-"Turism"
-],
 "tourism/alpine_hut":[
 "Cabană"
 ],
@@ -1403,9 +1346,6 @@
 ],
 "type/site":[
 "Sit"
-],
-"waterway":[
-"Drum Marin"
 ],
 "waterway/boatyard":[
 "Curte de Bărci"

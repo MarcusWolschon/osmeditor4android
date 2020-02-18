@@ -38,12 +38,6 @@
 "aerialway/rope_tow":[
 "Kaðallyfta"
 ],
-"aerialway/station":[
-"Lyftustöð"
-],
-"aerialway/t-bar":[
-"T-lyfta"
-],
 "aeroway":[
 "Loftlína"
 ],
@@ -136,14 +130,8 @@
 "tehús",
 "Kaffihús"
 ],
-"amenity/car_pooling":[
-"Bílasamnýting"
-],
 "amenity/car_rental":[
 "Bílaleiga"
-],
-"amenity/car_sharing":[
-"Bíladeiling"
 ],
 "amenity/car_wash":[
 "Bílaþvottur"
@@ -266,9 +254,6 @@
 "amenity/internet_cafe":[
 "Netkaffihús"
 ],
-"amenity/kindergarten":[
-"Forskóla-/Leikskólalóð"
-],
 "amenity/language_school":[
 "Tungumálaskóli"
 ],
@@ -301,9 +286,6 @@
 ],
 "amenity/parking/multi-storey":[
 "Bílastæðahús á mörgum hæðum"
-],
-"amenity/parking_entrance":[
-"Inngangur/Útgangur bílastæðahúss"
 ],
 "amenity/parking_space":[
 "Bílastæðarými"
@@ -339,9 +321,6 @@
 "amenity/police":[
 "löggan",
 "Lögregla"
-],
-"amenity/post_box":[
-"Póstkassi"
 ],
 "amenity/post_office":[
 "Pósthús"
@@ -568,17 +547,11 @@
 "area":[
 "Svæði"
 ],
-"area/highway":[
-"Yfirborð vegar"
-],
 "attraction/amusement_ride":[
 "Skemmtitæki"
 ],
 "attraction/big_wheel":[
 "Parísarhjól"
-],
-"attraction/bumper_car":[
-"Ákeyrslubílar"
 ],
 "attraction/bungee_jumping":[
 "Teygjustökk"
@@ -589,17 +562,8 @@
 "attraction/dark_ride":[
 "Draugahús"
 ],
-"attraction/drop_tower":[
-"Fallturn"
-],
 "attraction/maze":[
 "Völundarhús"
-],
-"attraction/pirate_ship":[
-"Sjóræningjaskip"
-],
-"attraction/river_rafting":[
-"Flúðasiglingar"
 ],
 "attraction/roller_coaster":[
 "Rússíbani"
@@ -762,9 +726,6 @@
 "building/industrial":[
 "Iðnaðarhúsnæði"
 ],
-"building/kindergarten":[
-"Forskóla-/Leikskólabygging"
-],
 "building/mosque":[
 "Moskubygging"
 ],
@@ -895,9 +856,6 @@
 "craft/insulator":[
 "Einangrun"
 ],
-"craft/jeweler":[
-"Skartgripasali"
-],
 "craft/key_cutter":[
 "Lyklaþjónusta"
 ],
@@ -906,9 +864,6 @@
 ],
 "craft/metal_construction":[
 "Málmsmíði (byggingar)"
-],
-"craft/optician":[
-"Gleraugnasali"
 ],
 "craft/painter":[
 "Málari"
@@ -924,9 +879,6 @@
 ],
 "craft/plumber":[
 "Pípari"
-],
-"craft/pottery":[
-"Leirkeragerð"
 ],
 "craft/rigger":[
 "Stagari (rigger)"
@@ -1024,9 +976,6 @@
 "emergency/yes":[
 "Neyðaraðgangur: Já"
 ],
-"entrance":[
-"Inngangur/Útgangur"
-],
 "ford":[
 "Vað"
 ],
@@ -1092,9 +1041,6 @@
 ],
 "healthcare/speech_therapist":[
 "Talmeinafræðingur"
-],
-"highway":[
-"Þjóðvegur"
 ],
 "highway/bridleway":[
 "Reiðleið"
@@ -1194,9 +1140,6 @@
 ],
 "highway/primary_link":[
 "Stofnrein"
-],
-"highway/raceway":[
-"Keppnisbraut (mótorsport)"
 ],
 "highway/residential":[
 "Íbúðagata"
@@ -1322,12 +1265,6 @@
 "junction":[
 "Tenging"
 ],
-"junction/roundabout":[
-"Hringtorg"
-],
-"landuse":[
-"Landnotkun"
-],
 "landuse/allotments":[
 "Samfélagsgarður"
 ],
@@ -1348,9 +1285,6 @@
 ],
 "landuse/commercial":[
 "Atvinnusvæði"
-],
-"landuse/construction":[
-"Byggingarframkvæmdir"
 ],
 "landuse/farm":[
 "Akurlendi"
@@ -1424,9 +1358,6 @@
 "landuse/vineyard":[
 "Vínekra"
 ],
-"leisure":[
-"Skemmtun"
-],
 "leisure/adult_gaming_centre":[
 "Fjárhættuspilasalur"
 ],
@@ -1456,9 +1387,6 @@
 ],
 "leisure/dog_park":[
 "Hundagarður"
-],
-"leisure/firepit":[
-"Eldstæði"
 ],
 "leisure/fishing":[
 "Veiðistaður"
@@ -1631,9 +1559,6 @@
 "line":[
 "Lína"
 ],
-"man_made":[
-"Manngert"
-],
 "man_made/adit":[
 "Námuinngangur"
 ],
@@ -1642,9 +1567,6 @@
 ],
 "man_made/breakwater":[
 "Sjóvarnargarður"
-],
-"man_made/bridge":[
-"Brú"
 ],
 "man_made/chimney":[
 "Skorsteinn"
@@ -1730,9 +1652,6 @@
 "man_made/tower/communication":[
 "Samkiptaturn"
 ],
-"man_made/tunnel":[
-"Göng"
-],
 "man_made/wastewater_plant":[
 "Skólphreinsistöð"
 ],
@@ -1753,18 +1672,6 @@
 ],
 "man_made/works":[
 "Verksmiðja"
-],
-"manhole":[
-"Mannop"
-],
-"manhole/drain":[
-"Yfirfall"
-],
-"manhole/telecom":[
-"Mannop fyrir fjarskipti"
-],
-"natural":[
-"Náttúrulegt"
 ],
 "natural/bare_rock":[
 "Berar klappir"
@@ -1838,9 +1745,6 @@
 "natural/water":[
 "Vatn"
 ],
-"natural/water/canal":[
-"Síki"
-],
 "natural/water/lake":[
 "Stöðuvatn"
 ],
@@ -1850,17 +1754,8 @@
 "natural/water/reservoir":[
 "Lón"
 ],
-"natural/water/river":[
-"Á"
-],
-"natural/water/stream":[
-"Lækur"
-],
 "natural/wetland":[
 "Votlendi"
-],
-"natural/wood":[
-"Skógur"
 ],
 "noexit/yes":[
 "Enginn útgangur"
@@ -1982,29 +1877,8 @@
 "office/water_utility":[
 "Skrifstofa vatnsveitu"
 ],
-"piste/downhill":[
-"Rennslis/gönguskíðaleið"
-],
-"piste/hike":[
-"Snjóþrúgu eða vetrargönguleið"
-],
-"piste/ice_skate":[
-"Skautabraut"
-],
-"piste/nordic":[
-"Gönguskíðaleið"
-],
-"piste/piste":[
-"Vetraríþróttaleiðir"
-],
 "piste/skitour":[
 "Ferðaskíðaleið"
-],
-"piste/sled":[
-"Sleðabraut"
-],
-"piste/sleigh":[
-"Sleðabraut"
 ],
 "place":[
 "Staður"
@@ -2099,9 +1973,6 @@
 "point":[
 "Punktur"
 ],
-"power":[
-"Orka"
-],
 "power/cable/underground":[
 "Jarðstrengur"
 ],
@@ -2128,9 +1999,6 @@
 ],
 "power/pole":[
 "Rafmagnsstaur"
-],
-"power/sub_station":[
-"Undirstöð"
 ],
 "power/substation":[
 "Undirstöð"
@@ -2217,9 +2085,6 @@
 ],
 "public_transport/stop_position_trolleybus":[
 "Staðsetning stöðvunar rafknúinna strætisvagna"
-],
-"railway":[
-"Lest"
 ],
 "railway/abandoned":[
 "Yfirgefnir lestarteinar"
@@ -2324,9 +2189,6 @@
 "shop/alcohol":[
 "Vínbúð"
 ],
-"shop/anime":[
-"Anime-búð"
-],
 "shop/antiques":[
 "Antíkverslun"
 ],
@@ -2425,9 +2287,6 @@
 ],
 "shop/cosmetics":[
 "Snyrtivöruverslun"
-],
-"shop/craft":[
-"Handverksverslun"
 ],
 "shop/curtain":[
 "Gluggatjaldaverslun"
@@ -2709,9 +2568,6 @@
 "shop/wine":[
 "Vínbúð"
 ],
-"tourism":[
-"Ferðaþjónusta"
-],
 "tourism/alpine_hut":[
 "Fjallakofi"
 ],
@@ -2926,9 +2782,6 @@
 "Stæði"
 ],
 "type/waterway":[
-"Siglingaleið"
-],
-"waterway":[
 "Siglingaleið"
 ],
 "waterway/boatyard":[

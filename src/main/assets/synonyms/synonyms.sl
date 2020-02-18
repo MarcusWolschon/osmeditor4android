@@ -76,14 +76,6 @@
 "vlečnica",
 "Vlečna vrv"
 ],
-"aerialway/station":[
-"Postaja žičnice"
-],
-"aerialway/t-bar":[
-"vlečnica",
-"sidro",
-"Sidra"
-],
 "aeroway":[
 "Letalstvo"
 ],
@@ -229,10 +221,6 @@
 "najem avtomobilov",
 "Izposoja avtomobilov",
 "rent-a-car"
-],
-"amenity/car_sharing":[
-"deljenje avta",
-"Vzajemni avto"
 ],
 "amenity/car_wash":[
 "pralnica",
@@ -414,13 +402,6 @@
 "Internet Cafe",
 "internet"
 ],
-"amenity/kindergarten":[
-"vzgojno",
-"zavod",
-"vrtec",
-"Vrtčevsko območje",
-"varstveni"
-],
 "amenity/library":[
 "biblioteka",
 "Knjižnica"
@@ -450,10 +431,6 @@
 "Parkirna hiša",
 "garaža",
 "Garažna hiša"
-],
-"amenity/parking_entrance":[
-"Uvoz/izvoz iz parkirne hiše",
-"Vzhod/izhod v parkirno hišo"
 ],
 "amenity/parking_space":[
 "parking",
@@ -485,11 +462,6 @@
 "amenity/police":[
 "Policija",
 "policijska postaja"
-],
-"amenity/post_box":[
-"Poštni nabiralnik",
-"poštni predal",
-"pošta"
 ],
 "amenity/post_office":[
 "Pošta",
@@ -715,9 +687,6 @@
 "Mnogokotnik",
 "poligon"
 ],
-"area/highway":[
-"Površina ceste"
-],
 "barrier":[
 "Ovira",
 "pregrada",
@@ -896,14 +865,6 @@
 "tovarna",
 "Industrijska zgradba"
 ],
-"building/kindergarten":[
-"vzgoja",
-"vrtec",
-"Vrtec",
-"otroci",
-"predšolsk*",
-"plenice"
-],
 "building/public":[
 "Javna zgradba",
 "upravne stavbe",
@@ -1076,9 +1037,6 @@
 "Izolacije",
 "izolacija"
 ],
-"craft/jeweler":[
-"Draguljarstvo"
-],
 "craft/key_cutter":[
 "Ključavničarstvo",
 "izdelava dvojnikov ključev"
@@ -1090,9 +1048,6 @@
 "Izdelava kovinskih konstrukcij",
 "kovinske konstrukcije",
 "kovinar"
-],
-"craft/optician":[
-"Optika"
 ],
 "craft/painter":[
 "slikopleskar",
@@ -1116,10 +1071,6 @@
 "vodovodar",
 "Vodovodarstvo",
 "vodovodni inštalater"
-],
-"craft/pottery":[
-"Lončarstvo",
-"lončar"
 ],
 "craft/rigger":[
 "opremitelj ladje",
@@ -1192,6 +1143,7 @@
 "Kletarstvo",
 "kletarstvo",
 "vinarna",
+"vinoteka",
 "vinska klet"
 ],
 "embankment":[
@@ -1259,10 +1211,6 @@
 "emergency/yes":[
 "Dovoljen dostop v sili"
 ],
-"entrance":[
-"Vhod/Izhod",
-"vstop/izstop"
-],
 "ford":[
 "Plitvina",
 "brod",
@@ -1326,9 +1274,6 @@
 "Logoped",
 "terapist",
 "govor"
-],
-"highway":[
-"Cesta"
 ],
 "highway/bridleway":[
 "mulatiera",
@@ -1397,14 +1342,6 @@
 "highway/primary_link":[
 "priključek na glavno cesto",
 "Priključek na glavno cesto"
-],
-"highway/raceway":[
-"Dirkališče (motošport)",
-"moto-steza (motokros)",
-"kros steza",
-"dirkališče",
-"hipodrom",
-"rally"
 ],
 "highway/residential":[
 "ulica",
@@ -1584,9 +1521,6 @@
 "junction":[
 "Križišče"
 ],
-"landuse":[
-"Raba tal"
-],
 "landuse/aquaculture":[
 "školjke",
 "vodne rastline",
@@ -1605,16 +1539,11 @@
 "grobišče"
 ],
 "landuse/churchyard":[
-"Cerkveno dvorišče",
-"cerkvena okolica"
+"Cerkveno dvorišče"
 ],
 "landuse/commercial":[
 "poslovno območje",
 "Poslovno področje"
-],
-"landuse/construction":[
-"gradnja",
-"Gradbišče"
 ],
 "landuse/farm":[
 "Obdelovalna zemlja"
@@ -1699,9 +1628,6 @@
 "Vinograd",
 "zidanica"
 ],
-"leisure":[
-"Prosti čas"
-],
 "leisure/adult_gaming_centre":[
 "igre na srečo",
 "Casino",
@@ -1728,10 +1654,6 @@
 "leisure/dog_park":[
 "park za pse",
 "Pasji park"
-],
-"leisure/firepit":[
-"ognjišče",
-"Kurišče"
 ],
 "leisure/fitness_centre":[
 "Telovadnica / Fitness"
@@ -1894,9 +1816,6 @@
 "linija",
 "lomljenka"
 ],
-"man_made":[
-"Antropogena konstrukcija"
-],
 "man_made/adit":[
 "vhod",
 "odprtina",
@@ -1921,9 +1840,6 @@
 "pomol",
 "nasip",
 "Valobran"
-],
-"man_made/bridge":[
-"Most"
 ],
 "man_made/chimney":[
 "Dimnik"
@@ -2023,22 +1939,6 @@
 "obrat",
 "fabrika",
 "Tovarna"
-],
-"manhole":[
-"vhodna odprtina",
-"cestni jašek",
-"telekom",
-"Jašek",
-"elektro",
-"jašek",
-"vodovod",
-"kanalizacija"
-],
-"manhole/drain":[
-"Odtočni kanal"
-],
-"natural":[
-"Naravna prvina"
 ],
 "natural/bare_rock":[
 "skalnate terase",
@@ -2159,11 +2059,6 @@
 "natural/wetland":[
 "močvirje",
 "Mokrišče"
-],
-"natural/wood":[
-"naraven gozd",
-"nespremenjen gozd",
-"Pragozd"
 ],
 "noexit/yes":[
 "Brez izhoda"
@@ -2291,9 +2186,6 @@
 "točka",
 "Točka"
 ],
-"power":[
-"Energetika"
-],
 "power/generator":[
 "agregat",
 "električni generator",
@@ -2322,9 +2214,6 @@
 "Steber daljnovoda",
 "kandelaber"
 ],
-"power/sub_station":[
-"Razdelilna transformatorska postaja"
-],
 "power/substation":[
 "Razdelilna transformatorska postaja"
 ],
@@ -2339,9 +2228,6 @@
 ],
 "public_transport/station_bus":[
 "Avtobusna postaja / Terminal"
-],
-"railway":[
-"Železnica"
 ],
 "railway/abandoned":[
 "odstranjena železnica",
@@ -2413,13 +2299,6 @@
 "shop/alcohol":[
 "Trgovina z alkoholnimi pijačami",
 "alkoholne pijače"
-],
-"shop/anime":[
-"Anime",
-"kostumi",
-"maske",
-"manga",
-"Trgovina Anime"
 ],
 "shop/antiques":[
 "starinarnica",
@@ -2576,9 +2455,6 @@
 ],
 "shop/cosmetics":[
 "Kozmetična trgovina"
-],
-"shop/craft":[
-"Trgovina z ročnimi izdelki"
 ],
 "shop/curtain":[
 "Trgovina z zavesami",
@@ -2869,12 +2745,9 @@
 ],
 "shop/wine":[
 "vinotoč",
-"Kletarstvo",
+"Vinoteka",
 "kletarstvo",
 "vinska klet"
-],
-"tourism":[
-"Turizem"
 ],
 "tourism/alpine_hut":[
 "dom",
@@ -3103,9 +2976,6 @@
 "type/route_master":[
 "omrežje javnega prometa",
 "Mreža javnega prometa"
-],
-"waterway":[
-"Vodotok"
 ],
 "waterway/boatyard":[
 "jahte",

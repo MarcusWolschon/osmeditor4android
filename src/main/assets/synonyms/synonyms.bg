@@ -50,9 +50,6 @@
 "amenity/car_rental":[
 "Коли под наем"
 ],
-"amenity/car_sharing":[
-"Споделяне на коли"
-],
 "amenity/car_wash":[
 "Автомивка"
 ],
@@ -97,9 +94,6 @@
 ],
 "amenity/police":[
 "Полиция"
-],
-"amenity/post_box":[
-"Пощенска кутия"
 ],
 "amenity/post_office":[
 "Поща"
@@ -196,9 +190,6 @@
 ],
 "emergency/phone":[
 "Телефон за спешна помощ"
-],
-"highway":[
-"Път"
 ],
 "highway/bridleway":[
 "Конска пътека"
@@ -317,9 +308,6 @@
 "landuse/cemetery":[
 "Гробищен парк"
 ],
-"landuse/construction":[
-"Строеж"
-],
 "landuse/farmyard":[
 "Селскостопански двор"
 ],
@@ -337,9 +325,6 @@
 ],
 "landuse/vineyard":[
 "Лозе"
-],
-"leisure":[
-"Отдих"
 ],
 "leisure/garden":[
 "Градина"
@@ -386,9 +371,6 @@
 "line":[
 "Линия"
 ],
-"man_made":[
-"Съоръжения"
-],
 "man_made/breakwater":[
 "Вълнолом"
 ],
@@ -418,9 +400,6 @@
 ],
 "man_made/water_works":[
 "Помпена станция"
-],
-"natural":[
-"Природа"
 ],
 "natural/bay":[
 "Залив"
@@ -470,9 +449,6 @@
 "natural/wetland":[
 "Блатиста зона"
 ],
-"natural/wood":[
-"Гора"
-],
 "office":[
 "Офис"
 ],
@@ -503,26 +479,17 @@
 "point":[
 "Точка"
 ],
-"power":[
-"Енергетика"
-],
 "power/line":[
 "Електропровод"
 ],
 "power/pole":[
 "Електрически стълб"
 ],
-"power/sub_station":[
-"Подстанция"
-],
 "power/tower":[
 "Жере"
 ],
 "power/transformer":[
 "Трансформатор"
-],
-"railway":[
-"ЖП транспорт"
 ],
 "railway/abandoned":[
 "Изоставена железопътна линия"
@@ -695,9 +662,6 @@
 "shop/video":[
 "Видеотека"
 ],
-"tourism":[
-"Туризъм"
-],
 "tourism/alpine_hut":[
 "Хижа"
 ],
@@ -793,9 +757,6 @@
 ],
 "type/route_master":[
 "Маршрутна схема"
-],
-"waterway":[
-"Води"
 ],
 "waterway/canal":[
 "Канал"

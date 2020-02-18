@@ -72,14 +72,6 @@
 "Sleeplift",
 "bugellift"
 ],
-"aerialway/station":[
-"Kabelbaanstation"
-],
-"aerialway/t-bar":[
-"skilift",
-"Skilift met handvaten",
-"T-bar"
-],
 "aeroway":[
 "Vliegveld"
 ],
@@ -271,23 +263,10 @@
 "vieruurtje",
 "cafetaria"
 ],
-"amenity/car_pooling":[
-"oppikplaats voor carpooling",
-"Oppikplaats voor carpooling",
-"carpoolparking",
-"samenrijden",
-"afzetplaats voor samenrijden",
-"carpoolstopplaats",
-"carpooling"
-],
 "amenity/car_rental":[
 "huurauto",
 "Autoverhuur",
 "huren"
-],
-"amenity/car_sharing":[
-"Autodelen",
-"gedeelde auto"
 ],
 "amenity/car_wash":[
 "Autowasstraat",
@@ -542,12 +521,6 @@
 "cyberspace",
 "cybercafé"
 ],
-"amenity/kindergarten":[
-"kleuterschool",
-"peuterspeelzaal",
-"Gebied van Crèche/Kleuterschool",
-"kinderdagverblijf"
-],
 "amenity/language_school":[
 "Taalschool"
 ],
@@ -627,11 +600,6 @@
 ],
 "amenity/parking/underground":[
 "Ondergronds parkeren"
-],
-"amenity/parking_entrance":[
-"inrit",
-"Ingang/Uitgang van parkeergelegenheid",
-"uitrit"
 ],
 "amenity/parking_space":[
 "Parkeerplaats binnen parkeergelegenheid",
@@ -721,13 +689,6 @@
 "politie",
 "gendarmerie",
 "rijkswacht"
-],
-"amenity/post_box":[
-"Brievenbus",
-"bpost",
-"postbus",
-"postnl",
-"posterijen"
 ],
 "amenity/post_office":[
 "brievenbus",
@@ -1176,12 +1137,6 @@
 "anders",
 "iets anders"
 ],
-"area/highway":[
-"gebied",
-"Wegdek",
-"rand van weg",
-"wegoppervlak"
-],
 "attraction":[
 "Attractie"
 ],
@@ -1203,10 +1158,6 @@
 "panoramisch rad",
 "gondelrad"
 ],
-"attraction/bumper_car":[
-"botsauto's",
-"Botsautootjes"
-],
 "attraction/bungee_jumping":[
 "Bungeespringen",
 "bungeejumping"
@@ -1221,28 +1172,9 @@
 "spookhuis",
 "thema-attractie"
 ],
-"attraction/drop_tower":[
-"valattractie",
-"grote val",
-"Valtoren"
-],
 "attraction/maze":[
 "Doolhof",
 "labyrint"
-],
-"attraction/pirate_ship":[
-"Piratenschip",
-"piratenboot"
-],
-"attraction/river_rafting":[
-"rivierraftride",
-"rapid river",
-"river splash",
-"boomstammetjes",
-"spillwater",
-"Wildwaterbaan",
-"shoot-the-chute",
-"splash"
 ],
 "attraction/roller_coaster":[
 "roetsjbaan",
@@ -1559,12 +1491,6 @@
 "industriegebouw",
 "Industrieel gebouw"
 ],
-"building/kindergarten":[
-"kleuterschool",
-"peuterspeelzaal",
-"kinderdagverblijf",
-"Kleuterschool/Gebouw van crèche"
-],
 "building/mosque":[
 "Moskeegebouw",
 "masjid",
@@ -1828,9 +1754,6 @@
 "craft/insulator":[
 "Isolatie"
 ],
-"craft/jeweler":[
-"Juwelier"
-],
 "craft/key_cutter":[
 "slotenmaker",
 "Sleutelmaker"
@@ -1845,9 +1768,6 @@
 "metaalbewerking",
 "staalbewerking",
 "Metaalbewerker"
-],
-"craft/optician":[
-"Opticien"
 ],
 "craft/painter":[
 "Schilder",
@@ -1882,11 +1802,6 @@
 "craft/plumber":[
 "Loodgieter",
 "loodgieter"
-],
-"craft/pottery":[
-"pottendraaierij",
-"Pottenbakkerij",
-"pottenmakerij"
 ],
 "craft/rigger":[
 "zeilboot",
@@ -2054,11 +1969,6 @@
 "emergency/yes":[
 "Toegang voor hulpdiensten: ja"
 ],
-"entrance":[
-"Ingang/Uitgang",
-"ingang",
-"uitgang"
-],
 "ford":[
 "trecht",
 "drecht",
@@ -2205,9 +2115,6 @@
 "logopedie",
 "spraaktherapie",
 "spraaktherapeut"
-],
-"highway":[
-"Weg"
 ],
 "highway/bridleway":[
 "Ruiterpad",
@@ -2388,15 +2295,6 @@
 "oprit",
 "afrit",
 "invoegstrook"
-],
-"highway/raceway":[
-"motorsport",
-"auto",
-"nascar",
-"motorwedstrijd",
-"Racepiste (motorsport)",
-"karting",
-"formule 1"
 ],
 "highway/residential":[
 "residentiële weg",
@@ -2673,18 +2571,6 @@
 "oprit",
 "afslag"
 ],
-"junction/circular":[
-"Rotonde, verkeer erop niet steeds voorrang"
-],
-"junction/jughandle":[
-"Jughandle"
-],
-"junction/roundabout":[
-"Rotonde"
-],
-"landuse":[
-"Landgebruik"
-],
 "landuse/allotments":[
 "tuin",
 "Volkstuin",
@@ -2716,24 +2602,13 @@
 "Begraafplaats"
 ],
 "landuse/churchyard":[
-"graf",
-"begraafplaats",
-"Kerkhof",
-"zerken",
-"dood"
+"Kerkhof"
 ],
 "landuse/commercial":[
 "Commercieel gebied",
 "bedrijvenpark",
 "bedrijven",
 "kantoren"
-],
-"landuse/construction":[
-"constructie",
-"Bouwterrein",
-"werken",
-"bouwput",
-"bouwkuip"
 ],
 "landuse/farm":[
 "Landbouwgrond"
@@ -2879,9 +2754,6 @@
 "Wijngaard",
 "wijngaard"
 ],
-"leisure":[
-"Vrije tijd"
-],
 "leisure/adult_gaming_centre":[
 "gokken",
 "slots",
@@ -2941,10 +2813,6 @@
 "leisure/dog_park":[
 "Hondenpark",
 "losloopgebied voor honden"
-],
-"leisure/firepit":[
-"Kampvuur",
-"vuurplaats"
 ],
 "leisure/fishing":[
 "Visstek",
@@ -3280,9 +3148,6 @@
 "anders",
 "iets anders"
 ],
-"man_made":[
-"Aangelegd"
-],
 "man_made/adit":[
 "grot",
 "ingang",
@@ -3312,13 +3177,6 @@
 "kustbescherming",
 "caissongolfbreker",
 "drijvende golfbreker"
-],
-"man_made/bridge":[
-"brugomtrek",
-"brugoppervlak",
-"Brug",
-"tunnel",
-"overspanning"
 ],
 "man_made/bunker_silo":[
 "Bunkersilo"
@@ -3477,9 +3335,6 @@
 "man_made/tower/observation":[
 "Observatietoren"
 ],
-"man_made/tunnel":[
-"Tunnel"
-],
 "man_made/wastewater_plant":[
 "zuiveringsstation",
 "Waterzuiveringsinstallatie",
@@ -3510,33 +3365,6 @@
 "assemblage",
 "autofabriek",
 "raffinaderij"
-],
-"manhole":[
-"man-gat",
-"mangat",
-"Putdeksel",
-"straatpot"
-],
-"manhole/drain":[
-"Kolk (rioolput)",
-"trottoirkolk",
-"afvoerputje",
-"straatkolk",
-"putje",
-"rioolputje"
-],
-"manhole/telecom":[
-"Telefonieputdeksel",
-"man-gat",
-"deksel",
-"telecomdeksel",
-"telecomputdeksel",
-"telefoniestraatpot",
-"mangat voor telefonie",
-"putdeksel"
-],
-"natural":[
-"Natuurlijk"
 ],
 "natural/bare_rock":[
 "rotsformatie",
@@ -3661,9 +3489,6 @@
 "natural/water/basin":[
 "Basin"
 ],
-"natural/water/canal":[
-"Kanaal"
-],
 "natural/water/lake":[
 "Meer",
 "ven"
@@ -3681,24 +3506,14 @@
 "Reservoir",
 "waterbekken"
 ],
-"natural/water/river":[
-"Rivier"
-],
-"natural/water/stream":[
-"Stroom"
-],
 "natural/wetland":[
 "Moeras of drassig gebied",
 "drasland",
 "drassig gebied",
 "moerassen en waterrijke gebieden"
 ],
-"natural/wood":[
-"bomen",
-"woud",
-"oerbos",
-"Bos",
-"oerwoud"
+"network/type/node_network":[
+"Knooppunt van recreatief netwerk"
 ],
 "noexit/yes":[
 "cul-de-sac",
@@ -3955,44 +3770,12 @@
 "Kantoor van watermaatschappij",
 "waterleidingsmaatschappij*"
 ],
-"piste/downhill":[
-"Downhillpiste"
-],
-"piste/downhill/halfpipe":[
-"Halfpipe"
-],
-"piste/hike":[
-"Sneeuwschoenrennen- of winterwandelpad"
-],
-"piste/ice_skate":[
-"Schaatsring"
-],
-"piste/nordic":[
-"noords skiën",
-"Langlaufpiste",
-"noordse skipiste",
-"loipe"
-],
-"piste/piste":[
-"wintersportpiste",
-"Wintersportpad"
-],
 "piste/skitour":[
 "skilooppad",
 "ski-alpinismepad",
 "ski mountaineering",
 "langlaufpiste",
 "Toerskipad"
-],
-"piste/sled":[
-"Slee-piste",
-"sledepiste"
-],
-"piste/sleigh":[
-"sleepiste",
-"sledepiste",
-"Arrenslee-piste",
-"trekdiersleepiste"
 ],
 "place":[
 "Plaats"
@@ -4133,9 +3916,6 @@
 "Punt",
 "iets anders"
 ],
-"power":[
-"Stroomvoorziening"
-],
 "power/cable/underground":[
 "ondergrondse kabel",
 "Ondergrondse hoogspanningskabel",
@@ -4212,9 +3992,6 @@
 "stroom",
 "Elektriciteitspaal",
 "elektriciteitsnet"
-],
-"power/sub_station":[
-"Klein onderstation"
 ],
 "power/substation":[
 "hoogspanning",
@@ -4375,9 +4152,6 @@
 ],
 "public_transport/stop_position_trolleybus":[
 "Trolleybusstopplaats"
-],
-"railway":[
-"Spoorweg"
 ],
 "railway/abandoned":[
 "oude rails",
@@ -4569,14 +4343,6 @@
 "shop/alcohol":[
 "alcoholwinkel",
 "Slijterij"
-],
-"shop/anime":[
-"cosplay",
-"stripwinkel",
-"japans",
-"mangawinkel",
-"Animewinkel",
-"dakimakura"
 ],
 "shop/antiques":[
 "antiekwinkel",
@@ -4799,11 +4565,6 @@
 "jacht",
 "paardrijden",
 "landelijk"
-],
-"shop/craft":[
-"Schilder- en Tekengereedschapswinkel",
-"kunstbenodigdhedenwinkel",
-"knutselwinkel"
 ],
 "shop/curtain":[
 "Gordijnenwinkel",
@@ -5384,9 +5145,6 @@
 "telecom/data_center":[
 "Datacenter"
 ],
-"tourism":[
-"Toerisme"
-],
 "tourism/alpine_hut":[
 "Berghut"
 ],
@@ -5871,9 +5629,6 @@
 "beek",
 "stroom",
 "waterweg"
-],
-"waterway":[
-"Waterloop"
 ],
 "waterway/boatyard":[
 "scheepsherstellingen",

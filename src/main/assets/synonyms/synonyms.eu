@@ -59,14 +59,8 @@
 "amenity/cafe":[
 "Kafetegi"
 ],
-"amenity/car_pooling":[
-"Auto partekatzea"
-],
 "amenity/car_rental":[
 "Auto Alokairua"
-],
-"amenity/car_sharing":[
-"Autoen partekatzea"
 ],
 "amenity/car_wash":[
 "Auto garbiketa"
@@ -164,9 +158,6 @@
 "amenity/internet_cafe":[
 "Internet kafetegi"
 ],
-"amenity/kindergarten":[
-"Aurreskola/Haurtzandegi"
-],
 "amenity/language_school":[
 "Hizkuntz eskola"
 ],
@@ -190,9 +181,6 @@
 ],
 "amenity/parking/multi-storey":[
 "Maila anitzeko aparkaleku"
-],
-"amenity/parking_entrance":[
-"Aparkaleku garajearen Sarrera/Irteera"
 ],
 "amenity/parking_space":[
 "Aparkatzeko lekua"
@@ -220,9 +208,6 @@
 ],
 "amenity/police":[
 "Polizia"
-],
-"amenity/post_box":[
-"Postontzi"
 ],
 "amenity/post_office":[
 "Postetxe"
@@ -371,9 +356,6 @@
 "attraction/carousel":[
 "Zaldiko-maldiko"
 ],
-"attraction/pirate_ship":[
-"Piraten itsasontzi"
-],
 "barrier/entrance":[
 "Sarrera"
 ],
@@ -412,12 +394,6 @@
 ],
 "craft/gardener":[
 "Lorezain"
-],
-"craft/jeweler":[
-"Bitxigile"
-],
-"craft/optician":[
-"Optikari"
 ],
 "craft/painter":[
 "Margolari"
@@ -467,9 +443,6 @@
 "line":[
 "lerro"
 ],
-"man_made":[
-"Artifizial"
-],
 "man_made/adit":[
 "Igarobide"
 ],
@@ -478,9 +451,6 @@
 ],
 "man_made/breakwater":[
 "Olatu-orma"
-],
-"man_made/bridge":[
-"Zubi"
 ],
 "man_made/bunker_silo":[
 "Bunker-siloa"

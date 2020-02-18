@@ -57,12 +57,6 @@
 "aerialway/rope_tow":[
 "Corda remuntadora"
 ],
-"aerialway/station":[
-"Estació de transport per cable"
-],
-"aerialway/t-bar":[
-"Teleesquí doble"
-],
 "aeroway":[
 "Infraestructura aeroportuària"
 ],
@@ -182,16 +176,9 @@
 "cafeteria",
 "Cafè"
 ],
-"amenity/car_pooling":[
-"Compartició de cotxes"
-],
 "amenity/car_rental":[
 "Lloguer de cotxes",
 "Servei de lloguer de turismes"
-],
-"amenity/car_sharing":[
-"Servei de compartició de cotxe",
-"compartició de cotxes"
 ],
 "amenity/car_wash":[
 "Servei de neteja de cotxes",
@@ -333,9 +320,6 @@
 "xatfeteria",
 "cafè d'internet"
 ],
-"amenity/kindergarten":[
-"Centre preescolar"
-],
 "amenity/language_school":[
 "acadèmia de llengües",
 "Acadèmia d'idiomes",
@@ -364,9 +348,6 @@
 ],
 "amenity/nursing_home":[
 "Llar d'avis"
-],
-"amenity/parking_entrance":[
-"Entrada de Garatge/Sortida"
 ],
 "amenity/parking_space":[
 "Espai d'aparcament"
@@ -414,15 +395,6 @@
 "edifici policial",
 "dependències policials",
 "Comissaria de policia"
-],
-"amenity/post_box":[
-"Correus",
-"Bústia de correus",
-"Bústia",
-"Enviament",
-"Carta",
-"Bústia Pública",
-"Servei de Correus"
 ],
 "amenity/post_office":[
 "Correus",
@@ -667,14 +639,8 @@
 "area":[
 "Àrea"
 ],
-"area/highway":[
-"Superfície de la carretera"
-],
 "attraction/amusement_ride":[
 "Atracció de fira"
-],
-"attraction/pirate_ship":[
-"Vaixell pirata"
 ],
 "attraction/roller_coaster":[
 "Muntanya russa"
@@ -882,9 +848,6 @@
 "building/industrial":[
 "Edifici industrial"
 ],
-"building/kindergarten":[
-"Edifici de preescolar"
-],
 "building/mosque":[
 "Edifici d'una mesquita"
 ],
@@ -1035,9 +998,6 @@
 "craft/insulator":[
 "Aïllador"
 ],
-"craft/jeweler":[
-"Joieria"
-],
 "craft/key_cutter":[
 "Fabricant de claus"
 ],
@@ -1046,9 +1006,6 @@
 ],
 "craft/metal_construction":[
 "Construccions metàliques"
-],
-"craft/optician":[
-"Òptica"
 ],
 "craft/painter":[
 "Pintor"
@@ -1064,9 +1021,6 @@
 ],
 "craft/plumber":[
 "Llauner"
-],
-"craft/pottery":[
-"Terrisseria"
 ],
 "craft/rigger":[
 "Armador d'embarcacions"
@@ -1161,9 +1115,6 @@
 "emergency/yes":[
 "Accés per a emergències permès"
 ],
-"entrance":[
-"Entrada/Sortida"
-],
 "ford":[
 "Ford"
 ],
@@ -1190,9 +1141,6 @@
 ],
 "healthcare/blood_donation":[
 "Centre de donació de sang"
-],
-"highway":[
-"Via"
 ],
 "highway/bridleway":[
 "camí eqüestre",
@@ -1223,6 +1171,10 @@
 "peatons",
 "carrer peatonal",
 "transeünts"
+],
+"highway/footway/sidewalk":[
+"Vorera",
+"voravia"
 ],
 "highway/give_way":[
 "Senyal de cediu el pas"
@@ -1407,9 +1359,6 @@
 "junction":[
 "Encreuament"
 ],
-"landuse":[
-"Ús de la terra"
-],
 "landuse/allotments":[
 "Jardí comunitari"
 ],
@@ -1425,10 +1374,6 @@
 ],
 "landuse/commercial":[
 "Zona Comercial"
-],
-"landuse/construction":[
-"En construcció",
-"Zona en construcció"
 ],
 "landuse/farm":[
 "Zona Agrícola"
@@ -1518,9 +1463,6 @@
 "Vinyal",
 "Vinya"
 ],
-"leisure":[
-"Esbarjo"
-],
 "leisure/adult_gaming_centre":[
 "Centre d'oci adult"
 ],
@@ -1541,9 +1483,6 @@
 "Parc Caní",
 "Pipi-can",
 "Parc per gossos"
-],
-"leisure/firepit":[
-"Lloc per a fogueres"
 ],
 "leisure/fitness_centre":[
 "Gimnàs / Centre de Fitness"
@@ -1660,9 +1599,6 @@
 "line":[
 "Línia"
 ],
-"man_made":[
-"Fet per l'home"
-],
 "man_made/adit":[
 "Entrada"
 ],
@@ -1671,9 +1607,6 @@
 "Escullera",
 "trencaonades",
 "Espatller"
-],
-"man_made/bridge":[
-"Pont"
 ],
 "man_made/chimney":[
 "Xemeneia"
@@ -1750,9 +1683,6 @@
 "man_made/works":[
 "Fàbrica",
 "Factoria"
-],
-"natural":[
-"Natural"
 ],
 "natural/bay":[
 "Badia"
@@ -1835,10 +1765,6 @@
 ],
 "natural/wetland":[
 "Aiguamolls"
-],
-"natural/wood":[
-"Bosc",
-"Forest"
 ],
 "noexit/yes":[
 "Sense sortida"
@@ -1963,9 +1889,6 @@
 "point":[
 "Punt"
 ],
-"power":[
-"Electricitat"
-],
 "power/generator":[
 "Generador elèctric"
 ],
@@ -1977,9 +1900,6 @@
 ],
 "power/pole":[
 "Piló de línia elèctrica"
-],
-"power/sub_station":[
-"Subestació"
 ],
 "power/substation":[
 "Subestació elèctrica",
@@ -2000,9 +1920,6 @@
 ],
 "public_transport/station_train":[
 "Estació de ferrocarril"
-],
-"railway":[
-"Ferrocarril"
 ],
 "railway/abandoned":[
 "Via fèrria abandonada"
@@ -2062,9 +1979,6 @@
 "shop/alcohol":[
 "Botiga de licors",
 "Licoreria"
-],
-"shop/anime":[
-"Botiga de còmics"
 ],
 "shop/antiques":[
 "Botiga d'antiguitats"
@@ -2187,12 +2101,6 @@
 "Botiga de cosmètics",
 "Botiga de perfums",
 "Perfumeria"
-],
-"shop/craft":[
-"Botiga de manualitats",
-"Arts plàstiques",
-"Botiga per a les arts plàstiques",
-"Manualitats"
 ],
 "shop/curtain":[
 "Coixins",
@@ -2473,9 +2381,6 @@
 "Licoreria",
 "Botiga de vins"
 ],
-"tourism":[
-"Turisme"
-],
 "tourism/alpine_hut":[
 "Refugi de muntanya"
 ],
@@ -2676,9 +2581,6 @@
 ],
 "type/waterway":[
 "Curs d'aigua"
-],
-"waterway":[
-"Via aqüífera"
 ],
 "waterway/boatyard":[
 "Dic sec"

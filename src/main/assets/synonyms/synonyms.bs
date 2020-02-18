@@ -96,11 +96,6 @@
 "najam automobila",
 "Iznajmljivanje automobila"
 ],
-"amenity/car_sharing":[
-""Car Sharing"",
-"razmjena automobila",
-"dijeljenje automobila"
-],
 "amenity/car_wash":[
 "autopraonica",
 "praonica automobila",
@@ -188,11 +183,6 @@
 "organi reda",
 "milicija",
 "Policija"
-],
-"amenity/post_box":[
-"Poštansko_sanduče",
-"poštansko sanduče",
-"poštanski sandučić"
 ],
 "amenity/post_office":[
 "Pošta",
@@ -423,9 +413,6 @@
 "craft/insulator":[
 "Izolator"
 ],
-"craft/jeweler":[
-"Zlatar"
-],
 "craft/key_cutter":[
 "Izrada ključeva"
 ],
@@ -435,17 +422,11 @@
 "craft/metal_construction":[
 "Metalne konstrukcije"
 ],
-"craft/optician":[
-"Optičar"
-],
 "craft/photographer":[
 "Fotograf"
 ],
 "craft/plumber":[
 "Vodoinstalater"
-],
-"craft/pottery":[
-"Grnčarija"
 ],
 "craft/roofer":[
 "Krovopokrivač"
@@ -510,9 +491,6 @@
 "kutija područja na početku rupe",
 "Tee Box",
 ""Tee" kutija"
-],
-"highway":[
-"Put"
 ],
 "highway/bridleway":[
 "konjička staza",
@@ -711,11 +689,6 @@
 "mezarje",
 "groblje"
 ],
-"landuse/construction":[
-"područje gradnje",
-"građevinsko područje",
-"Građevinsko područje"
-],
 "landuse/farmyard":[
 "seosko dvorište",
 "dvorište imanja",
@@ -745,9 +718,6 @@
 "uzgoj grožđa",
 "Vinograd",
 "vinograd"
-],
-"leisure":[
-"Rekreacija"
 ],
 "leisure/common":[
 "Uobičajeno",
@@ -840,9 +810,6 @@
 "Linija",
 "linija"
 ],
-"man_made":[
-"Napravljeno ljudskom rukom"
-],
 "man_made/breakwater":[
 "lukobran",
 "utvrda obale",
@@ -901,9 +868,6 @@
 "vodosnadbjevanje",
 "Vodosnadbjevanje",
 "snadbjevanje vodom"
-],
-"natural":[
-"Prirodno područje"
 ],
 "natural/bay":[
 "Zaliv",
@@ -1000,11 +964,6 @@
 "močvara",
 "mrtvaja",
 "Močvara"
-],
-"natural/wood":[
-"drvo",
-"Šuma",
-"šuma"
 ],
 "office":[
 "Ured",
@@ -1119,9 +1078,6 @@
 "tačka",
 "Tačka"
 ],
-"power":[
-"Energija"
-],
 "power/generator":[
 "Generator električne energije",
 "generator",
@@ -1143,9 +1099,6 @@
 "Naponski stub",
 "naponski stub"
 ],
-"power/sub_station":[
-"Trafo stanica"
-],
 "power/tower":[
 "visokonaponski toranj",
 "Visokonaponski dalekovod",
@@ -1155,9 +1108,6 @@
 "transformator",
 "Transformator",
 "transformator el. energije"
-],
-"railway":[
-"Željeznička pruga"
 ],
 "railway/abandoned":[
 "napuštena željeznička pruga",
@@ -1438,9 +1388,6 @@
 "videoklub",
 "Video klub"
 ],
-"tourism":[
-"Turizam"
-],
 "tourism/alpine_hut":[
 "alpska koliba",
 "planinarski dom",
@@ -1598,9 +1545,6 @@
 "Informacije o rutama",
 "informacije o trasama",
 "informacije o rutama"
-],
-"waterway":[
-"Vodotok"
 ],
 "waterway/canal":[
 "kanal",

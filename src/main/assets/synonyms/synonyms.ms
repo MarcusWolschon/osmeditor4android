@@ -81,9 +81,6 @@
 "amenity/police":[
 "Polis"
 ],
-"amenity/post_box":[
-"Peti Surat"
-],
 "amenity/post_office":[
 "Pejabat Pos"
 ],
@@ -141,9 +138,6 @@
 ],
 "area":[
 "Kawasan"
-],
-"area/highway":[
-"Permukaaan Jalan"
 ],
 "barrier/gate":[
 "Pintu"
@@ -206,9 +200,6 @@
 ],
 "building/industrial":[
 "Bangunan Perindustrian"
-],
-"building/kindergarten":[
-"Bangunan Prasekolah/Tadika"
 ],
 "building/mosque":[
 "Musolla",
@@ -429,9 +420,6 @@
 "playground/slide":[
 "Gelongsor"
 ],
-"power":[
-"Tenaga Elektrik"
-],
 "power/generator":[
 "Penjana Tenaga Elektrik"
 ],
@@ -444,9 +432,6 @@
 "power/pole":[
 "Tiang Elektrik"
 ],
-"power/sub_station":[
-"Pencawang"
-],
 "power/substation":[
 "Pencawang"
 ],
@@ -455,9 +440,6 @@
 ],
 "public_transport/station":[
 "Stesen Transit"
-],
-"railway":[
-"Jalan Kereta Api"
 ],
 "railway/abandoned":[
 "Jalan Kereta Api Terbiar"
@@ -569,9 +551,6 @@
 "shop/tyres":[
 "Kedai Tayar"
 ],
-"tourism":[
-"Pelancongan"
-],
 "tourism/aquarium":[
 "Akuarium"
 ],
@@ -583,9 +562,6 @@
 ],
 "type/route/road":[
 "Laluan Jalan"
-],
-"waterway":[
-"Jalan Air"
 ],
 "waterway/canal":[
 "Terusan"

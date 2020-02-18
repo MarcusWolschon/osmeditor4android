@@ -148,9 +148,6 @@
 "amenity/hospital":[
 "Lingkungan Rumah Sakit"
 ],
-"amenity/kindergarten":[
-"Lingkungan Prasekolah/Taman Kanak-kanak"
-],
 "amenity/library":[
 "Perpustakaan"
 ],
@@ -163,9 +160,6 @@
 "amenity/nightclub":[
 "Kelab Malam"
 ],
-"amenity/parking_entrance":[
-"Pintu Masuk/Keluar Area Parkir"
-],
 "amenity/place_of_worship":[
 "Tempat Beribadah",
 "Rumah Ibadah"
@@ -176,10 +170,6 @@
 ],
 "amenity/police":[
 "Polisi"
-],
-"amenity/post_box":[
-"Kotak Pos",
-"Kotak Surat"
 ],
 "amenity/post_office":[
 "Kantor Pos",
@@ -246,9 +236,6 @@
 "Area",
 "Wilayah",
 "Kawasan"
-],
-"area/highway":[
-"Permukaan Jalan"
 ],
 "barrier":[
 "Penghalang"
@@ -337,9 +324,6 @@
 "building/industrial":[
 "Bangunan Industri"
 ],
-"building/kindergarten":[
-"Bangunan Prasekolah/Taman Kanak-kanak"
-],
 "building/public":[
 "Bangunan Umum"
 ],
@@ -420,9 +404,6 @@
 "craft/insulator":[
 "Isolator"
 ],
-"craft/jeweler":[
-"Berlian"
-],
 "craft/key_cutter":[
 "Duplikat Kunci"
 ],
@@ -446,10 +427,6 @@
 "Tukang Ledeng",
 "Tukang Leding",
 "Tukang Pipa"
-],
-"craft/pottery":[
-"Tembikar",
-"Tanah Liat"
 ],
 "craft/roofer":[
 "Tukang Atap"
@@ -491,9 +468,6 @@
 "emergency/phone":[
 "Telepon Darurat"
 ],
-"entrance":[
-"Pintu Masuk/Keluar"
-],
 "ford":[
 "Ford"
 ],
@@ -502,9 +476,6 @@
 ],
 "golf/hole":[
 "Lubang golf"
-],
-"highway":[
-"Jalan Raya"
 ],
 "highway/corridor":[
 "Lorong dalam"
@@ -649,9 +620,6 @@
 "Perempatan",
 "Persimpangan"
 ],
-"landuse":[
-"Guna Lahan"
-],
 "landuse/basin":[
 "Cekungan"
 ],
@@ -663,17 +631,12 @@
 "Tempat Pemakaman Umum"
 ],
 "landuse/churchyard":[
-"Halaman Gereja",
-"Lahan Gereja"
+"Halaman Gereja"
 ],
 "landuse/commercial":[
 "Area Komersial",
 "Daerah Komersial",
 "Perkantoran"
-],
-"landuse/construction":[
-"Sedang Dibangun",
-"Konstruksi"
 ],
 "landuse/farm":[
 "Pertanian"
@@ -720,9 +683,6 @@
 "landuse/vineyard":[
 "Kebun Anggur"
 ],
-"leisure":[
-"Rekreasi"
-],
 "leisure/adult_gaming_centre":[
 "Pusat permainan dewasa"
 ],
@@ -735,9 +695,6 @@
 ],
 "leisure/dog_park":[
 "Taman Anjing"
-],
-"leisure/firepit":[
-"Api Unggun"
 ],
 "leisure/garden":[
 "Kebun"
@@ -800,9 +757,6 @@
 "line":[
 "Garis"
 ],
-"man_made":[
-"Buatan manusia"
-],
 "man_made/breakwater":[
 "Pemecah Ombak",
 "Tembok Laut",
@@ -844,9 +798,6 @@
 "man_made/water_well":[
 "Sumur",
 "Perigi"
-],
-"natural":[
-"Alami"
 ],
 "natural/bay":[
 "Teluk"
@@ -914,9 +865,6 @@
 ],
 "natural/wetland":[
 "Lahan Basah"
-],
-"natural/wood":[
-"Hutan"
 ],
 "office":[
 "Kantor",
@@ -990,9 +938,6 @@
 "point":[
 "Titik"
 ],
-"power":[
-"Listrik"
-],
 "power/generator":[
 "Generator Listrik"
 ],
@@ -1005,9 +950,6 @@
 "power/pole":[
 "Tiang Listrik"
 ],
-"power/sub_station":[
-"Terminal"
-],
 "power/substation":[
 "Terminal"
 ],
@@ -1016,9 +958,6 @@
 ],
 "power/transformer":[
 "Trafo"
-],
-"railway":[
-"Jalur Rel"
 ],
 "railway/abandoned":[
 "Rel Terhapus"
@@ -1061,11 +1000,6 @@
 ],
 "shop/alcohol":[
 "Toko Minuman"
-],
-"shop/anime":[
-"Toko Anime",
-"Manga",
-"Komik"
 ],
 "shop/antiques":[
 "Toko Barang Antik"
@@ -1152,9 +1086,6 @@
 ],
 "shop/cosmetics":[
 "Toko Kosmetik"
-],
-"shop/craft":[
-"Toko Kesenian dan Kerajinan Tangan"
 ],
 "shop/curtain":[
 "Toko Gorden",
@@ -1399,9 +1330,6 @@
 "Toko Anggur",
 "Alkohol"
 ],
-"tourism":[
-"Pariwisata"
-],
 "tourism/artwork":[
 "Karya Seni"
 ],
@@ -1509,9 +1437,6 @@
 ],
 "type/route/tram":[
 "Rute Trem"
-],
-"waterway":[
-"Jalur Air"
 ],
 "waterway/canal":[
 "Kanal"

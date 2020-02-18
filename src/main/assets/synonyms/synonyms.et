@@ -5,6 +5,16 @@
 "advertising/billboard":[
 "Reklaamtahvel"
 ],
+"advertising/board":[
+"teadete sein",
+"Teadete tahvel",
+"reklaamtahvel",
+"teated"
+],
+"advertising/totem":[
+"reklaamsilt",
+"reklaamisammas"
+],
 "aeroway/aerodrome":[
 "Lennujaam"
 ],
@@ -18,6 +28,12 @@
 "aeroway/runway":[
 "Lennurada"
 ],
+"aeroway/spaceport":[
+"raketiplatvorm",
+"Kosmodroom",
+"stardiplatvorm",
+"Kosmosekeskus"
+],
 "aeroway/taxiway":[
 "Ruleerimistee"
 ],
@@ -27,7 +43,7 @@
 "terminal"
 ],
 "aeroway/windsock":[
-"Tuulesokk"
+"Tuulekott"
 ],
 "allotments/plot":[
 "Ühisaia krunt"
@@ -84,10 +100,6 @@
 ],
 "amenity/car_rental":[
 "Autorent"
-],
-"amenity/car_sharing":[
-"Autojagamispunkt",
-"Auto lühirent"
 ],
 "amenity/car_wash":[
 "Autopesula",
@@ -189,8 +201,8 @@
 "sündmuste",
 "koolituste",
 "peosaal",
+"Ürituste toimumiskoht",
 "hall",
-"Ürituste pidamiskoht",
 "rendiruumid",
 "peokoht",
 "saal",
@@ -246,10 +258,6 @@
 "Internetipunkt",
 "Internetikohvik"
 ],
-"amenity/kindergarten":[
-"Lasteaed",
-"Eelkool"
-],
 "amenity/library":[
 "Raamatukogu"
 ],
@@ -278,14 +286,11 @@
 "amenity/parking/multi-storey":[
 "parkla",
 "parkimismaja",
-"autoparkla",
-"Mitmetasandiline parkimismaja"
+"Mitmekorruseline parkimismaja",
+"autoparkla"
 ],
 "amenity/parking/underground":[
-"Maaalune parkla"
-],
-"amenity/parking_entrance":[
-"Parkimismaja sisse/väljapääs"
+"Maa-alune parkla"
 ],
 "amenity/parking_space":[
 "parkla",
@@ -406,6 +411,24 @@
 "helistuudio",
 "telemaja"
 ],
+"amenity/studio/audio":[
+"salvestusstuudio",
+"Helistuudio",
+"muusika tootmine",
+"helisalvestus"
+],
+"amenity/studio/radio":[
+"Raadiojaam"
+],
+"amenity/studio/television":[
+"tv",
+"televisioon",
+"telestuudio",
+"Telejaam"
+],
+"amenity/studio/video":[
+"Filmistuudio"
+],
 "amenity/swimming_pool":[
 "Ujumisbassein"
 ],
@@ -450,9 +473,6 @@
 ],
 "area":[
 "Ala"
-],
-"area/highway":[
-"Teekate"
 ],
 "attraction/amusement_ride":[
 "Lõbuatraktsioon"
@@ -531,6 +551,12 @@
 "Sein",
 "Müür",
 "vall"
+],
+"barrier/wall/noise_barrier":[
+"müratõkkesein",
+"tõkkevall",
+"Müratõke",
+"helitõke"
 ],
 "boundary/administrative":[
 "Halduspiir"
@@ -640,9 +666,6 @@
 ],
 "building/industrial":[
 "Tööstushoone"
-],
-"building/kindergarten":[
-"Lasteaiahoone"
 ],
 "building/public":[
 "Avalik hoone"
@@ -777,9 +800,6 @@
 "isoleerija",
 "Soojustaja"
 ],
-"craft/jeweler":[
-"Kullassepp"
-],
 "craft/key_cutter":[
 "Võtmeabi",
 "Võtmete valmistamine",
@@ -791,9 +811,6 @@
 "craft/metal_construction":[
 "Metallikoda",
 "metallitööd"
-],
-"craft/optician":[
-"Optik"
 ],
 "craft/painter":[
 "värvija",
@@ -817,9 +834,6 @@
 "craft/plumber":[
 "Toruabi",
 "Santehnik"
-],
-"craft/pottery":[
-"Pottsepp"
 ],
 "craft/rigger":[
 "Taglasemeister"
@@ -883,9 +897,6 @@
 "veevõtukoht",
 "tuletõrjemahuti"
 ],
-"entrance":[
-"Sisse- ja Väljapääs"
-],
 "ford":[
 "Koole",
 "Koolmekoht"
@@ -929,9 +940,6 @@
 "healthcare/midwife":[
 "Ämmaemand"
 ],
-"highway":[
-"Tee"
-],
 "highway/bridleway":[
 "Ratsutamisrada"
 ],
@@ -961,7 +969,7 @@
 "Jalgratta- ja jalgtee"
 ],
 "highway/cycleway/crossing":[
-"Lõikumine (jalg- ja) jalgrattateega"
+"Lõikumine (jalg- ja) jalgrattateega"
 ],
 "highway/cycleway/crossing/marked":[
 "jalgratta",
@@ -1019,15 +1027,6 @@
 ],
 "highway/primary_link":[
 "Põhimaantee ühenduslõik"
-],
-"highway/raceway":[
-"motokross",
-"motospordirada",
-"rallirada",
-"autorada",
-"krossirada",
-"Ringrada (motosport)",
-"motorada"
 ],
 "highway/residential":[
 "Elamupiikonna tänav"
@@ -1256,12 +1255,6 @@
 "junction":[
 "Ristmik"
 ],
-"junction/roundabout":[
-"Ringristmik"
-],
-"landuse":[
-"Maakasutus"
-],
 "landuse/allotments":[
 "Ühisaed"
 ],
@@ -1282,7 +1275,7 @@
 "Kommertsala"
 ],
 "landuse/construction":[
-"Ehitus"
+"Ehitusala"
 ],
 "landuse/farm":[
 "Põllumaa"
@@ -1298,8 +1291,8 @@
 ],
 "landuse/forest":[
 "metsandusmaa",
-"Metsamajandusmaa",
-"metsatööstusmaa"
+"metsatööstusmaa",
+"Majandusmets"
 ],
 "landuse/garages":[
 "garaažid",
@@ -1375,9 +1368,6 @@
 "landuse/vineyard":[
 "Viinapuuaed"
 ],
-"leisure":[
-"Vaba aeg"
-],
 "leisure/amusement_arcade":[
 "Videomängumasin",
 "mängukonsool",
@@ -1402,10 +1392,6 @@
 ],
 "leisure/dog_park":[
 "Koerapark"
-],
-"leisure/firepit":[
-"Lõkkease",
-"Lõkkekoht"
 ],
 "leisure/fitness_centre/yoga":[
 "Jooga stuudio"
@@ -1518,9 +1504,6 @@
 "line":[
 "Joon"
 ],
-"man_made":[
-"Inimtehtud"
-],
 "man_made/adit":[
 "suue",
 "kaevandus",
@@ -1548,9 +1531,6 @@
 "tamm",
 "Lainemurdja"
 ],
-"man_made/bridge":[
-"Sild"
-],
 "man_made/chimney":[
 "Korsten"
 ],
@@ -1576,6 +1556,43 @@
 ],
 "man_made/lighthouse":[
 "Tuletorn"
+],
+"man_made/manhole":[
+"reoveekaev",
+"äravoolukaev",
+"kanalisatsioonikaev",
+"kaev",
+"sidekaev",
+"Teeninduskaev"
+],
+"man_made/manhole/drain":[
+"vihmaveekaev",
+"äravoolukaev",
+"Sadeveekollektor",
+"vihmaveekollektor"
+],
+"man_made/manhole/gas":[
+"Gaasivõrgukaev"
+],
+"man_made/manhole/power":[
+"Elektrivõrgukaev"
+],
+"man_made/manhole/sewer":[
+"kanalisatsioonikaev",
+"äravoolukaev",
+"Reoveekaev"
+],
+"man_made/manhole/telecom":[
+"telekomikaev",
+"internetikaev",
+"telefonikaev",
+"Sidekaev",
+"andmesidekaev"
+],
+"man_made/manhole/water":[
+"veekaev",
+"Veevärgikaev",
+"joogiveekaev"
 ],
 "man_made/mast":[
 "kommunikatsioonimast",
@@ -1614,10 +1631,6 @@
 "Kindlustorn",
 "kaitse"
 ],
-"man_made/tunnel":[
-"Tunnel",
-"maaalune"
-],
 "man_made/wastewater_plant":[
 "Reoveepuhastusjaam"
 ],
@@ -1634,9 +1647,6 @@
 "man_made/works":[
 "Tehas",
 "Vabrik"
-],
-"natural":[
-"Looduslik"
 ],
 "natural/bare_rock":[
 "Kivi paljand",
@@ -1748,9 +1758,9 @@
 ],
 "natural/valley":[
 "kanjon",
+"nõgu",
 "Org",
 "kuristik",
-"depressioon",
 "süvend"
 ],
 "natural/volcano":[
@@ -1776,14 +1786,11 @@
 ],
 "natural/water/wastewater":[
 "reovesi",
-"Reovee bassein"
+"Reoveehoidla"
 ],
 "natural/wetland":[
 "roostik",
 "Märgala"
-],
-"natural/wood":[
-"Mets"
 ],
 "noexit/yes":[
 "tupik",
@@ -1848,19 +1855,16 @@
 "sõlm",
 "Punkt"
 ],
-"power":[
-"Elekter"
-],
 "power/generator":[
 "Elektrigeneraator",
 "generaator"
 ],
 "power/generator/source/hydro":[
-"Vee turbiin",
+"Hüdroturbiin",
 "turbiin",
 "veegeneraator",
-"tamm",
-"hüdroelektrijaam"
+"hüdroelektrijaam",
+"pais"
 ],
 "power/line":[
 "Elektriliin",
@@ -1879,9 +1883,6 @@
 "õhuliinipost",
 "Elektripost"
 ],
-"power/sub_station":[
-"Alajaam"
-],
 "power/substation":[
 "Alajaam"
 ],
@@ -1894,9 +1895,6 @@
 ],
 "public_transport/platform/bus_point":[
 "Bussipeatus"
-],
-"railway":[
-"Raudtee"
 ],
 "railway/abandoned":[
 "Mahajäetud raudtee"
@@ -1945,8 +1943,8 @@
 "Tramm"
 ],
 "relation":[
-"Seos",
-"relatsioon"
+"seos",
+"Relatsioon"
 ],
 "route/ferry":[
 "Praamitee"
@@ -2112,10 +2110,6 @@
 "Kosmeetikapood",
 "moekauplus"
 ],
-"shop/craft":[
-"Kuntsitarvete kauplus",
-"Käsitöökauplus"
-],
 "shop/curtain":[
 "Kardinakauplus"
 ],
@@ -2147,6 +2141,9 @@
 ],
 "shop/e-cigarette":[
 "E-sigaretipood"
+],
+"shop/electrical":[
+"Elektrikauba pood"
 ],
 "shop/electronics":[
 "Elektroonikapood",
@@ -2479,6 +2476,14 @@
 "Teepood",
 "kohvipood"
 ],
+"shop/telecommunication":[
+"interneti ühenduse pakkuja",
+"telefonipood",
+"mobiiliteenuse pakkuja",
+"telekomi pood",
+"sideteenuse pakkuja",
+"Sidefirma pood"
+],
 "shop/ticket":[
 "bussipiletid",
 "kontserdipiletid",
@@ -2557,9 +2562,6 @@
 "Andmekeskus",
 "serveri",
 "datacenter"
-],
-"tourism":[
-"Turism"
 ],
 "tourism/alpine_hut":[
 "Alpimaja"
@@ -2836,9 +2838,6 @@
 ],
 "type/site":[
 "Asukoht"
-],
-"waterway":[
-"Veetee"
 ],
 "waterway/boatyard":[
 "dokk",

@@ -44,9 +44,6 @@
 "area":[
 "އިމާރާތްތައް"
 ],
-"area/highway":[
-"މަގު"
-],
 "building":[
 "އިމާރާތް"
 ],
@@ -64,9 +61,6 @@
 ],
 "building/residential":[
 "މީީހުން ދިރިއުޅޭ ޢިމާރާތްތައް"
-],
-"highway":[
-"ހައިވޭ"
 ],
 "highway/path":[
 "ދުވާރު"
@@ -134,9 +128,6 @@
 "leisure/stadium":[
 "ސްޓޭޑިއަމް"
 ],
-"man_made/bridge":[
-"ފާލަން"
-],
 "man_made/pier":[
 "ބަނދަރު"
 ],
@@ -160,9 +151,6 @@
 ],
 "natural/wetland":[
 "ޗަކަ ގަނޑު"
-],
-"natural/wood":[
-"ޖަންގަލި"
 ],
 "office/government":[
 "ސަރުކާރު އޮފީސްތައް"
@@ -217,9 +205,6 @@
 ],
 "type/route/ferry":[
 "ފެރީއަށްދާ މަގުތައް"
-],
-"waterway":[
-"ކަނޑުމަގު"
 ],
 "waterway/canal":[
 "ކެނެލް"

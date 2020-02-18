@@ -27,22 +27,22 @@
 "Ford"
 ],
 "highway":[
-"Highway"
+"Highway Feature"
 ],
 "indoor":[
 "Indoor Feature"
 ],
 "landuse":[
-"Land Use"
+"Land Use Feature"
 ],
 "leisure":[
-"Leisure"
+"Leisure Feature"
 ],
 "man_made":[
-"Man Made"
+"Man Made Feature"
 ],
 "natural":[
-"Natural"
+"Natural Feature"
 ],
 "place":[
 "Place"
@@ -51,19 +51,19 @@
 "Playground Equipment"
 ],
 "power":[
-"Power"
+"Power Feature"
 ],
 "railway":[
-"Railway"
+"Railway Feature"
 ],
 "seamark":[
 "Seamark"
 ],
 "tourism":[
-"Tourism"
+"Tourism Feature"
 ],
 "waterway":[
-"Waterway"
+"Waterway Feature"
 ],
 "addr/interpolation":[
 "Address Interpolation"
@@ -74,55 +74,104 @@
 "advertising/billboard":[
 "Billboard"
 ],
+"advertising/board":[
+"Notice Board"
+],
 "advertising/column":[
 "Advertising Column"
 ],
-"aerialway/station":[
-"Aerialway Station"
+"advertising/poster_box":[
+"Poster Box"
+],
+"advertising/totem":[
+"Advertising Totem"
 ],
 "aerialway/cable_car":[
 "tramway",
+"skiing",
+"snowboarding",
 "Cable Car",
-"ropeway"
+"ropeway",
+"lift",
+"aerial cable"
 ],
 "aerialway/chair_lift":[
-"Chair Lift"
+"skiing",
+"snowboarding",
+"Chair Lift",
+"aerial cable"
 ],
 "aerialway/drag_lift":[
+"surface cable",
+"skiing",
+"snowboarding",
 "Drag Lift"
 ],
 "aerialway/gondola":[
-"Gondola"
+"skiing",
+"snowboarding",
+"Gondola",
+"lift",
+"aerial cable"
 ],
 "aerialway/goods":[
-"Goods Aerialway"
+"Goods Aerialway",
+"aerial cable"
 ],
 "aerialway/j-bar":[
-"jbar",
-"J-bar Lift"
+"surface cable",
+"jaybar",
+"J-Bar Lift",
+"drag lift",
+"skiing",
+"snowboarding",
+"jbar"
 ],
 "aerialway/magic_carpet":[
-"Magic Carpet Lift"
+"skiing",
+"snowboarding",
+"surface lift",
+"Magic Carpet Lift",
+"conveyor belt"
 ],
 "aerialway/mixed_lift":[
-"Mixed Lift"
+"skiing",
+"snowboarding",
+"Mixed Lift",
+"aerial cable"
 ],
 "aerialway/platter":[
+"surface cable",
+"drag lift",
+"skiing",
+"snowboarding",
 "Platter Lift",
 "poma lift",
+"disc lift",
 "button lift"
 ],
 "aerialway/pylon":[
-"Aerialway Pylon"
+"skiing",
+"snowboarding",
+"Aerialway Pylon",
+"chair lift pole",
+"lift tower"
 ],
 "aerialway/rope_tow":[
+"surface cable",
+"drag lift",
 "bugel lift",
+"skiing",
+"snowboarding",
 "handle tow",
 "Rope Tow Lift"
 ],
 "aerialway/t-bar":[
+"surface cable",
+"drag lift",
+"skiing",
 "tbar",
-"T-bar Lift"
+"T-Bar Lift"
 ],
 "aerialway/zip_line":[
 "flying fox",
@@ -226,15 +275,7 @@
 "Nursing Home"
 ],
 "amenity/recycling":[
-"can",
-"glass",
-"scrap",
-"bin",
-"garbage",
-"bottle",
-"rubbish",
-"Recycling",
-"trash"
+"Recycling"
 ],
 "amenity/register_office":[
 "Register Office"
@@ -412,13 +453,17 @@
 "bistro"
 ],
 "amenity/car_pooling":[
-"Car Pooling"
+"car sharing",
+"Car Pooling Station",
+"ride sharing",
+"lift sharing",
+"carpooling"
 ],
 "amenity/car_rental":[
 "Car Rental"
 ],
 "amenity/car_sharing":[
-"Car Sharing"
+"Car Sharing Station"
 ],
 "amenity/car_wash":[
 "Car Wash"
@@ -572,6 +617,18 @@
 "party",
 "Bar Mitzvah"
 ],
+"amenity/exhibition_centre":[
+"exhibition",
+"exhibition center",
+"trade exhibition",
+"fair",
+"exposition",
+"trade show",
+"expo",
+"trade fair",
+"Exposition Center",
+"tradeshow"
+],
 "amenity/fast_food":[
 "restaurant",
 "Fast Food",
@@ -720,7 +777,9 @@
 "food"
 ],
 "amenity/fountain":[
-"Fountain"
+"Fountain",
+"basin",
+"water"
 ],
 "amenity/fuel":[
 "diesel",
@@ -733,7 +792,33 @@
 "cng",
 "biodiesel"
 ],
+"amenity/gambling":[
+"gamble",
+"pachinko",
+"poker",
+"Gambling Hall",
+"gambling",
+"casino",
+"keno",
+"betting",
+"lottery",
+"blackjack",
+"slot machines",
+"slots",
+"roulette",
+"bingo",
+"craps"
+],
 "amenity/grave_yard":[
+"burial ground",
+"cemetary",
+"graveyard",
+"churchyard",
+"mausoleum",
+"tomb",
+"columbarium",
+"grave yard",
+"cemetery",
 "Graveyard"
 ],
 "amenity/grit_bin":[
@@ -783,7 +868,7 @@
 "net",
 "Internet Cafe"
 ],
-"amenity/karaoke":[
+"amenity/karaoke_box":[
 "karaoke club",
 "karaoke television",
 "Karaoke Box",
@@ -793,11 +878,17 @@
 "amenity/kindergarten":[
 "kindergarden",
 "pre-school",
-"Preschool/Kindergarten Grounds"
+"Preschool / Kindergarten Grounds"
 ],
 "amenity/language_school":[
 "Language School",
 "esl"
+],
+"amenity/lavoir":[
+"washing",
+"laundry",
+"Lavoir",
+"clothing"
 ],
 "amenity/letter_box":[
 "mail slot",
@@ -900,7 +991,7 @@
 "lgb nightclub"
 ],
 "amenity/parking_entrance":[
-"Parking Garage Entrance/Exit"
+"Parking Garage Entrance / Exit"
 ],
 "amenity/parking_space":[
 "Parking Space"
@@ -1276,6 +1367,18 @@
 "organic",
 "garbage bin"
 ],
+"amenity/research_institute":[
+"r&d",
+"applied research",
+"research labs",
+"experimentation",
+"r and d",
+"research and development",
+"r & d",
+"Research Institute Grounds",
+"research laboratory",
+"research institution"
+],
 "amenity/restaurant":[
 "lunch",
 "dining",
@@ -1635,6 +1738,13 @@
 "Gazebo"
 ],
 "amenity/shelter/lean_to":[
+"lodging",
+"sleeping shelter",
+"overnight accommodations",
+"cabin",
+"leanto",
+"alpine hut",
+"wilderness hut",
 "Lean-To"
 ],
 "amenity/shelter/picnic_shelter":[
@@ -1832,6 +1942,11 @@
 "bottle return",
 "Bottle Return Machine"
 ],
+"amenity/vending_machine/bread":[
+"bread",
+"baguette",
+"Bread Vending Machine"
+],
 "amenity/vending_machine/cigarettes":[
 "cigarette",
 "Cigarette Vending Machine"
@@ -1851,6 +1966,10 @@
 "soda",
 "juice",
 "drink"
+],
+"amenity/vending_machine/eggs":[
+"egg",
+"Egg Vending Machine"
 ],
 "amenity/vending_machine/electronics":[
 "tablet",
@@ -1911,6 +2030,11 @@
 "chocolate",
 "vanilla"
 ],
+"amenity/vending_machine/ice_cubes":[
+"Ice Vending Machine",
+"cubes",
+"ice"
+],
 "amenity/vending_machine/newspapers":[
 "newspaper",
 "Newspaper Vending Machine"
@@ -1919,12 +2043,14 @@
 "Parcel Pickup/Dropoff Locker",
 "parcel",
 "mail",
+"packstation",
 "pickup"
 ],
 "amenity/vending_machine/parcel_pickup":[
 "amazon",
 "parcel",
 "mail",
+"packstation",
 "pickup",
 "Parcel Pickup Locker",
 "locker"
@@ -2000,7 +2126,12 @@
 "trash"
 ],
 "amenity/water_point":[
-"RV Drinking Water"
+"water spigot",
+"water source",
+"RV Drinking Water",
+"water faucet",
+"water point",
+"water tap"
 ],
 "amenity/watering_place":[
 "Animal Watering Place"
@@ -2021,8 +2152,8 @@
 "area:highway",
 "highway area",
 "edge of pavement",
-"Road Surface",
-"highway shape"
+"highway shape",
+"Road Area"
 ],
 "attraction/amusement_ride":[
 "theme park",
@@ -2083,11 +2214,20 @@
 ],
 "attraction/drop_tower":[
 "theme park",
+"Drop Tower Ride",
 "amusement ride",
 "big drop",
-"Drop Tower",
 "gondola",
 "tower"
+],
+"attraction/kiddie_ride":[
+"Kiddie Ride"
+],
+"attraction/log_flume":[
+"theme park",
+"amusement ride",
+"Log Flume",
+"flume"
 ],
 "attraction/maze":[
 "theme park",
@@ -2096,17 +2236,17 @@
 "Maze"
 ],
 "attraction/pirate_ship":[
+"Pirate Ship Ride",
 "theme park",
 "amusement ride",
-"Pirate Ship",
 "carnival ride"
 ],
 "attraction/river_rafting":[
-"River Rafting",
 "theme park",
 "river rafting ride",
 "aquatic park",
 "rafting simulator",
+"River Rapids Ride",
 "river rapids ride",
 "water park"
 ],
@@ -2119,6 +2259,14 @@
 "alpine slide",
 "mountain coaster",
 "Summer Toboggan"
+],
+"attraction/swing_carousel":[
+"Swing Carousel",
+"theme park",
+"amusement ride",
+"carousel",
+"carousel tower",
+"tower"
 ],
 "attraction/train":[
 "Tourist Train",
@@ -2157,7 +2305,15 @@
 "Border Control"
 ],
 "barrier/cattle_grid":[
-"Cattle Grid"
+"stock gate",
+"Texas gate",
+"stock grid",
+"stock stop",
+"Cattle Grid",
+"cattle stop",
+"cattle guard",
+"livestock grid",
+"vehicle pass"
 ],
 "barrier/chain":[
 "Chain"
@@ -2166,7 +2322,11 @@
 "City Wall"
 ],
 "barrier/cycle_barrier":[
-"Cycle Barrier"
+"cycling barrier",
+"bicycling barrier",
+"bicycle barrier",
+"Cycle Barrier",
+"bike gates"
 ],
 "barrier/ditch":[
 "Trench"
@@ -2239,6 +2399,9 @@
 "barrier/stile":[
 "Stile"
 ],
+"barrier/swing_gate":[
+"Swing Gate"
+],
 "barrier/toll_booth":[
 "Toll Booth"
 ],
@@ -2249,6 +2412,17 @@
 ],
 "barrier/wall":[
 "Wall"
+],
+"barrier/wall/noise_barrier":[
+"soundberm",
+"Noise Barrier",
+"noise wall",
+"noisewall",
+"sound berm",
+"sound barrier",
+"sound wall",
+"acoustical barrier",
+"soundwall"
 ],
 "boundary/administrative":[
 "Administrative Boundary"
@@ -2385,9 +2559,9 @@
 "Industrial Building"
 ],
 "building/kindergarten":[
+"Preschool / Kindergarten Building",
 "kindergarden",
-"pre-school",
-"Preschool/Kindergarten Building"
+"pre-school"
 ],
 "building/mosque":[
 "Mosque Building"
@@ -2435,6 +2609,7 @@
 "Shed"
 ],
 "building/stable":[
+"horse shelter",
 "Stable"
 ],
 "building/stadium":[
@@ -2479,19 +2654,11 @@
 "craft":[
 "Craft"
 ],
-"craft/jeweler":[
-"Jeweler"
-],
 "craft/locksmith":[
 "Locksmith"
 ],
-"craft/optician":[
-"Optician"
-],
 "craft/tailor":[
-"suit",
-"Tailor",
-"clothes"
+"Tailor"
 ],
 "craft/agricultural_engines":[
 "Argricultural Engines Mechanic"
@@ -2533,6 +2700,9 @@
 ],
 "craft/chimney_sweeper":[
 "Chimney Sweeper"
+],
+"craft/cleaning":[
+"Cleaning Service"
 ],
 "craft/clockmaker":[
 "Clockmaker"
@@ -2633,7 +2803,10 @@
 ],
 "craft/pottery":[
 "ceramic",
-"Pottery"
+"kiln",
+"pot",
+"vase",
+"Pottery Maker"
 ],
 "craft/rigger":[
 "Rigger"
@@ -2687,6 +2860,22 @@
 "craft/winery":[
 "Winery"
 ],
+"cycleway/asl":[
+"cycle stop marking",
+"advanced stop box",
+"bikebox",
+"cycle box",
+"asl",
+"bike box",
+"Advanced Stop Line",
+"bicycle box"
+],
+"demolished/building":[
+"Recently Demolished Building"
+],
+"disused/railway":[
+"Disused Railway Feature"
+],
 "emergency/designated":[
 "Emergency Access Designated"
 ],
@@ -2739,6 +2928,12 @@
 "med",
 "bandage"
 ],
+"emergency/landing_site":[
+"Emergency Landing Site",
+"helicopter",
+"heliport",
+"helipad"
+],
 "emergency/life_ring":[
 "kisbie ring",
 "perry buoy",
@@ -2772,8 +2967,13 @@
 "entrance":[
 "exit",
 "door",
-"Entrance/Exit",
+"Entrance / Exit",
 "entrance"
+],
+"entrance/emergency":[
+"door",
+"fire exit",
+"Emergency Exit"
 ],
 "ford":[
 "Ford"
@@ -2980,19 +3180,9 @@
 "gallery"
 ],
 "highway/crossing/zebra-raised":[
-"marked crossing",
-"zebra crossing",
-"hump",
-"crosswalk",
-"slow",
-"Marked Crosswalk (Raised)",
-"speed",
-"flat top"
+"Marked Crosswalk (Raised)"
 ],
 "highway/crossing/zebra":[
-"marked crossing",
-"zebra crossing",
-"crosswalk",
 "Marked Crosswalk"
 ],
 "highway/crossing/marked-raised":[
@@ -3077,20 +3267,22 @@
 "Pedestrian Crossing"
 ],
 "highway/footway/zebra-raised":[
-"marked crossing",
-"zebra crossing",
-"hump",
-"crosswalk",
-"slow",
-"Marked Crosswalk (Raised)",
-"speed",
-"flat top"
+"Marked Crosswalk (Raised)"
 ],
 "highway/footway/zebra":[
-"marked crossing",
-"zebra crossing",
-"crosswalk",
 "Marked Crosswalk"
+],
+"highway/footway/access_aisle":[
+"wheelchair aisle",
+"disabled parking access zone",
+"accessible van loading zone",
+"handicap parking access zone",
+"parking lot aisle",
+"tow-away zone",
+"striped zone",
+"tow zone",
+"towaway zone",
+"Access Aisle"
 ],
 "highway/footway/conveying":[
 "conveyor",
@@ -3459,6 +3651,9 @@
 "historic/boundary_stone":[
 "Boundary Stone"
 ],
+"historic/building":[
+"Historic Building"
+],
 "historic/castle":[
 "Castle"
 ],
@@ -3604,17 +3799,11 @@
 "junction":[
 "Junction"
 ],
-"junction/circular":[
-"Traffic Circle"
-],
-"junction/jughandle":[
-"Jughandle"
-],
-"junction/roundabout":[
-"Roundabout"
-],
 "landuse/basin":[
 "Basin"
+],
+"landuse/churchyard":[
+"Churchyard"
 ],
 "landuse/farm":[
 "Farmland"
@@ -3645,16 +3834,30 @@
 "Brownfield"
 ],
 "landuse/cemetery":[
-"Cemetery"
-],
-"landuse/churchyard":[
-"Churchyard"
+"burial ground",
+"cemetary",
+"graveyard",
+"churchyard",
+"mausoleum",
+"tomb",
+"columbarium",
+"grave yard",
+"Cemetery",
+"cemetery"
 ],
 "landuse/commercial":[
 "Commercial Area"
 ],
 "landuse/construction":[
-"Construction"
+"crane",
+"Construction Area",
+"development",
+"bulldozer",
+"infrastructure",
+"construction site",
+"construction zone",
+"demolition",
+"building"
 ],
 "landuse/farmland":[
 "grow",
@@ -3674,19 +3877,31 @@
 "flower garden"
 ],
 "landuse/forest":[
-"silviculture",
 "forest",
 "cut",
 "lumber",
+"taiga",
+"boreal",
+"woods",
 "tree",
+"trees",
+"silviculture",
+"woodlands",
 "Managed Forest",
+"forrest",
 "forestry"
 ],
 "landuse/garages":[
 "Garage Landuse"
 ],
 "landuse/grass":[
-"Grass"
+"green",
+"turf",
+"field",
+"managed grass",
+"mown grass",
+"Grass",
+"lawn"
 ],
 "landuse/greenfield":[
 "Greenfield"
@@ -3769,7 +3984,20 @@
 "playing fields"
 ],
 "landuse/religious":[
-"Religious Area"
+"mosque",
+"muslim",
+"churchyard",
+"sikh",
+"Religious Area",
+"synagogue",
+"jewish",
+"shrine",
+"hindu",
+"taoist",
+"christian",
+"place of worship",
+"temple",
+"shinto"
 ],
 "landuse/residential":[
 "Residential Area"
@@ -3874,8 +4102,15 @@
 "escape the room"
 ],
 "leisure/firepit":[
-"Firepit",
+"firering",
+"fire circle",
+"fire hole",
+"Fire Pit",
+"fire place",
+"firepit",
 "campfire",
+"bonfire",
+"fire ring",
 "fireplace"
 ],
 "leisure/fishing":[
@@ -3884,14 +4119,15 @@
 ],
 "leisure/fitness_centre":[
 "studio",
+"pilates",
 "health",
 "gym",
 "leisure",
 "Gym / Fitness Center"
 ],
 "leisure/fitness_centre/yoga":[
-"studio",
 "modern yoga",
+"studio",
 "Yoga Studio",
 "meditation",
 "asanas"
@@ -4133,6 +4369,16 @@
 "leisure/pitch/bowls":[
 "Bowling Green"
 ],
+"leisure/pitch/chess":[
+"checkerboard",
+"garden chess",
+"Giant Chess Board",
+"checkers",
+"oversize chess",
+"chessboard",
+"large chess",
+"chequerboard"
+],
 "leisure/pitch/cricket":[
 "Cricket Field"
 ],
@@ -4363,7 +4609,7 @@
 "Breakwater"
 ],
 "man_made/bridge":[
-"Bridge"
+"Bridge Area"
 ],
 "man_made/bunker_silo":[
 "Storage",
@@ -4419,6 +4665,68 @@
 ],
 "man_made/lighthouse":[
 "Lighthouse"
+],
+"man_made/manhole":[
+"cover",
+"hole",
+"sewer",
+"telecom",
+"sewage",
+"Manhole"
+],
+"man_made/manhole/drain":[
+"cover",
+"hole",
+"rain",
+"storm",
+"Storm Drain",
+"sewer",
+"drain",
+"sewage"
+],
+"man_made/manhole/gas":[
+"cover",
+"heat",
+"hole",
+"gas",
+"utility",
+"Gas Utility Manhole"
+],
+"man_made/manhole/power":[
+"cover",
+"hole",
+"Power Utility Manhole",
+"electric",
+"utility",
+"power"
+],
+"man_made/manhole/sewer":[
+"cover",
+"hole",
+"sewer",
+"utility",
+"Sewer Utility Manhole",
+"drain",
+"sewage"
+],
+"man_made/manhole/telecom":[
+"cover",
+"hole",
+"bt",
+"Telecom Utility Manhole",
+"phone",
+"utility",
+"telecom",
+"telephone",
+"cable"
+],
+"man_made/manhole/water":[
+"cover",
+"hole",
+"drinking",
+"utility",
+"Water Utility Manhole",
+"water"
 ],
 "man_made/mast":[
 "antenna",
@@ -4688,8 +4996,8 @@
 ],
 "man_made/tunnel":[
 "underpass",
+"Tunnel Area",
 "dig",
-"Tunnel",
 "underground passage",
 "bore",
 "shaft"
@@ -4703,11 +5011,24 @@
 "water treatment plant",
 "Wastewater Plant"
 ],
+"man_made/water_tap":[
+"water spigot",
+"water source",
+"water faucet",
+"drinking water",
+"water point",
+"Water Tap"
+],
 "man_made/water_tower":[
 "Water Tower"
 ],
 "man_made/water_well":[
-"Water Well"
+"Water Well",
+"water source",
+"drinking water",
+"water point",
+"aquifer",
+"water pump"
 ],
 "man_made/water_works":[
 "Water Works"
@@ -4736,32 +5057,38 @@
 "processing",
 "Factory"
 ],
-"manhole":[
-"cover",
-"hole",
-"sewer",
-"telecom",
-"sewage",
-"Manhole"
+"marker":[
+"identifier",
+"marking",
+"post",
+"sign",
+"plate",
+"Marker",
+"pole"
 ],
-"manhole/drain":[
-"cover",
-"hole",
-"rain",
-"storm",
-"Storm Drain",
-"sewer",
-"drain",
-"sewage"
+"marker/utility":[
+"gas line marker",
+"identifier",
+"marking",
+"oil marker",
+"pipline marker",
+"post",
+"sign",
+"plate",
+"pole",
+"Utility Marker"
 ],
-"manhole/telecom":[
-"cover",
-"hole",
-"bt",
-"Telecom Manhole",
-"phone",
-"telecom",
-"telephone"
+"marker/utility/power":[
+"identifier",
+"marking",
+"power line",
+"post",
+"electric line",
+"sign",
+"plate",
+"Power Marker",
+"pole",
+"power cable"
 ],
 "natural/bare_rock":[
 "rock",
@@ -4804,6 +5131,17 @@
 "natural/fell":[
 "Fell"
 ],
+"natural/geyser":[
+"hydrothermal explosion",
+"erupting spring",
+"Geyser",
+"geiser",
+"gieser",
+"guyser",
+"steam",
+"hot water",
+"hydrogeology"
+],
 "natural/glacier":[
 "Glacier",
 "snow",
@@ -4811,6 +5149,7 @@
 ],
 "natural/grassland":[
 "Grassland",
+"field",
 "savanna",
 "prairie"
 ],
@@ -4883,7 +5222,11 @@
 "Shingle"
 ],
 "natural/spring":[
-"Spring"
+"hydro",
+"water source",
+"seep",
+"Spring",
+"aquifer"
 ],
 "natural/stone":[
 "rock",
@@ -4931,7 +5274,7 @@
 "retention"
 ],
 "natural/water/canal":[
-"Canal"
+"Canal Area"
 ],
 "natural/water/lake":[
 "lakelet",
@@ -4956,6 +5299,7 @@
 "natural/water/river":[
 "brook",
 "rill",
+"River Area",
 "beck",
 "runnel",
 "riverbank",
@@ -4967,8 +5311,7 @@
 "estuary",
 "stream",
 "watercourse",
-"course",
-"River"
+"course"
 ],
 "natural/water/stream":[
 "tide",
@@ -4983,7 +5326,6 @@
 "creek",
 "freshet",
 "course",
-"Stream",
 "spate",
 "flow",
 "drift",
@@ -4996,6 +5338,7 @@
 "tributary",
 "rush",
 "flood",
+"Stream Area",
 "watercourse"
 ],
 "natural/water/wastewater":[
@@ -5024,8 +5367,21 @@
 "marsh"
 ],
 "natural/wood":[
-"Wood",
-"tree"
+"woodlands",
+"forest",
+"Natural Wood",
+"taiga",
+"boreal",
+"woods",
+"tree",
+"forrest",
+"trees"
+],
+"network/type/node_network":[
+"node network",
+"rwn",
+"rcn",
+"Recreational Network Node"
 ],
 "noexit/yes":[
 "no exit",
@@ -5083,6 +5439,10 @@
 ],
 "office/company":[
 "Corporate Office"
+],
+"office/consulting":[
+"Consultancy Office",
+"consulting firm office"
 ],
 "office/coworking":[
 "coworking",
@@ -5142,6 +5502,12 @@
 "office/government":[
 "Government Office"
 ],
+"office/government/prosecutor":[
+"district attorney",
+"attorney general",
+"prosecution",
+"Public Prosecutor's Office"
+],
 "office/government/register_office":[
 "clerk",
 "Register Office",
@@ -5173,7 +5539,16 @@
 "technology"
 ],
 "office/lawyer":[
-"Law Office"
+"Law Office",
+"counsellor",
+"counselor",
+"attorney",
+"legal",
+"barrister",
+"prosecutor",
+"advocate",
+"lawyer",
+"defender"
 ],
 "office/lawyer/notary":[
 "Notary Office"
@@ -5256,46 +5631,48 @@
 "water board"
 ],
 "piste/downhill":[
-"ski",
 "piste",
-"Downhill Piste/Ski Run",
-"alpine",
-"downhill",
-"snowboard"
+"ski hill",
+"skiing",
+"snowboarding",
+"alpine skiing",
+"Downhill Ski Run"
 ],
 "piste/downhill/halfpipe":[
 "ski",
 "piste",
 "halfpipe",
+"Snowsports Half-Pipe",
 "alpine",
 "downhill",
 "half pipe",
-"snowboard",
-"Halfpipe"
+"snowboard"
 ],
 "piste/hike":[
 "piste",
-"ski",
+"Snowshoeing / Winter Hiking Trail",
+"show shoeing",
 "snowshoeing",
-"Snowshoeing or Winter Hiking Trail",
 "hike",
-"winter hiking",
+"nordic walking",
 "snowshoe"
 ],
 "piste/ice_skate":[
-"ski",
 "piste",
-"skating",
-"Ice Skating Piste",
-"ice"
+"iceskating",
+"skates",
+"ice track",
+"Ice Skating Trail",
+"ice rink"
 ],
 "piste/nordic":[
-"ski",
 "piste",
-"Nordic or Crosscountry Piste/Ski Trail",
-"skating",
+"Cross-Country Ski Trail",
+"skiing",
 "crosscountry",
-"nordic"
+"xc",
+"skate skiing",
+"nordic skiing"
 ],
 "piste/piste":[
 "sleigh",
@@ -5305,12 +5682,12 @@
 "crosscountry",
 "skitour",
 "sledge",
+"Snowsports Trail / Piste",
 "ice",
 "nordic",
 "sled",
 "ski-joring",
 "snowshoe",
-"Winter Sport Trails",
 "ski",
 "horse",
 "ski touring",
@@ -5329,24 +5706,24 @@
 "crosscountry"
 ],
 "piste/sled":[
-"ski",
-"sleigh",
 "piste",
+"sleigh",
+"skeleton",
 "luge",
+"toboggan",
 "sledge",
-"Sled Piste",
-"sled"
+"bobsled",
+"Sled Run"
 ],
 "piste/sleigh":[
-"ski",
-"piste",
-"sleigh",
 "horse",
+"piste",
 "husky",
-"luge",
+"Sleigh Trail",
 "sledge",
+"dogsledding",
+"skijoring",
 "sled",
-"Sleigh Piste",
 "ski-joring"
 ],
 "place/farm":[
@@ -5439,6 +5816,8 @@
 ],
 "playground/horizontal_bar":[
 "high bar",
+"pull-up bar",
+"chin-up bar",
 "Play Horizontal Bar"
 ],
 "playground/rocker":[
@@ -5451,6 +5830,7 @@
 "merry-go-round"
 ],
 "playground/sandpit":[
+"sandbox",
 "Sandpit"
 ],
 "playground/seesaw":[
@@ -5460,6 +5840,7 @@
 "Slide"
 ],
 "playground/structure":[
+"jungle gym",
 "Play Structure"
 ],
 "playground/swing":[
@@ -5485,9 +5866,6 @@
 "elections",
 "vote",
 "democracy"
-],
-"power/sub_station":[
-"Substation"
 ],
 "power/cable/underground":[
 "Underground Power Cable"
@@ -5548,6 +5926,54 @@
 "nuclear",
 "Power Station Grounds"
 ],
+"power/plant/source/coal":[
+"fossil fuel",
+"Coal-Fired Power Plant",
+"combustion",
+"power station",
+"carbon",
+"coalfired"
+],
+"power/plant/source/gas":[
+"natural gas",
+"fossil fuel",
+"combustion",
+"gasfired",
+"power station",
+"Gas-Fired Power Plant",
+"carbon"
+],
+"power/plant/source/hydro":[
+"dam",
+"tidal",
+"water turbine",
+"power plant",
+"run-of-the-river",
+"Hydroelectric Power Station"
+],
+"power/plant/source/nuclear":[
+"power station",
+"atomic",
+"fission",
+"Nuclear Power Plant",
+"nuclear reactor"
+],
+"power/plant/source/solar":[
+"photovoltaic power station",
+"utility-scale solar",
+"Solar Farm",
+"solar panels",
+"solar park"
+],
+"power/plant/source/wind":[
+"windmills",
+"offshore wind",
+"wind power station",
+"wind park",
+"wind turbines",
+"Wind Farm",
+"wind power plant"
+],
 "power/pole":[
 "Power Pole"
 ],
@@ -5581,74 +6007,22 @@
 "Transit Platform"
 ],
 "public_transport/platform/aerialway_point":[
-"public transit",
-"Aerialway Stop / Platform",
-"transit",
-"cable car",
-"aerialway",
-"platform",
-"public transportation",
-"transportation"
+"Aerialway Stop / Platform"
 ],
 "public_transport/platform/ferry_point":[
-"pier",
-"public transit",
-"transit",
-"ferry",
-"Ferry Stop / Platform",
-"dock",
-"boat",
-"platform",
-"public transportation",
-"transportation"
+"Ferry Stop / Platform"
 ],
 "public_transport/platform/light_rail_point":[
-"light rail",
-"public transit",
-"transit",
-"electric",
-"rail",
-"Light Rail Stop / Platform",
-"track",
-"tram",
-"platform",
-"public transportation",
-"trolley",
-"transportation"
+"Light Rail Stop / Platform"
 ],
 "public_transport/platform/monorail_point":[
-"public transit",
-"transit",
-"rail",
-"Monorail Stop / Platform",
-"platform",
-"monorail",
-"public transportation",
-"transportation"
+"Monorail Stop / Platform"
 ],
 "public_transport/platform/subway_point":[
-"subway",
-"public transit",
-"underground",
-"metro",
-"transit",
-"rail",
-"Subway Stop / Platform",
-"track",
-"platform",
-"public transportation",
-"transportation"
+"Subway Stop / Platform"
 ],
 "public_transport/platform/train_point":[
-"public transit",
-"transit",
-"rail",
-"Train Stop / Platform",
-"track",
-"platform",
-"public transportation",
-"train",
-"transportation"
+"Train Stop / Platform"
 ],
 "public_transport/platform/aerialway":[
 "Aerialway Platform",
@@ -6045,27 +6419,16 @@
 "transportation"
 ],
 "railway/halt":[
-"Train Station (Halt / Request)",
-"rest",
-"wait",
-"break",
-"interrupt",
-"interruption"
+"Train Station (Halt / Request)"
 ],
 "railway/platform":[
 "Train Platform"
 ],
 "railway/station":[
-"train station",
-"station",
 "Train Station"
 ],
 "railway/tram_stop":[
-"light rail",
-"Tram Stopping Position",
-"streetcar",
-"tram",
-"trolley"
+"Tram Stopping Position"
 ],
 "railway/abandoned":[
 "Abandoned Railway"
@@ -6184,6 +6547,14 @@
 "Tram",
 "trolley"
 ],
+"railway/yard":[
+"freight car stop",
+"railroad yard",
+"railway yard",
+"freight train station",
+"Rail Yard",
+"rail freight station"
+],
 "relation":[
 "Relation"
 ],
@@ -6259,8 +6630,6 @@
 "Fishmonger"
 ],
 "shop/furnace":[
-"oven",
-"stove",
 "Furnace Store"
 ],
 "shop/vacant":[
@@ -6285,9 +6654,9 @@
 "shop/anime":[
 "cosplay",
 "figurine",
-"Anime Shop",
 "japan",
 "manga",
+"Anime / Manga Shop",
 "dakimakura"
 ],
 "shop/antiques":[
@@ -6372,11 +6741,19 @@
 ],
 "shop/bookmaker":[
 "Bookmaker",
+"gamble",
+"gambling",
 "betting",
+"turf accountant",
 "bookie"
 ],
 "shop/books":[
 "Book Store"
+],
+"shop/brewing_supplies":[
+"brew shop",
+"homebrew supply store",
+"Brewing Supply Store"
 ],
 "shop/butcher":[
 "Butcher",
@@ -6385,6 +6762,13 @@
 "meat",
 "beef",
 "pork"
+],
+"shop/camera":[
+"photo",
+"film",
+"camera",
+"lens",
+"Camera Equipment Store"
 ],
 "shop/candles":[
 "Candle Shop",
@@ -6414,6 +6798,11 @@
 "automobile",
 "automotive",
 "Car Dealership"
+],
+"shop/car/second_hand":[
+"automobile",
+"Used Car Dealership",
+"automotive"
 ],
 "shop/caravan":[
 "auto",
@@ -6471,6 +6860,21 @@
 "fashion",
 "slacks"
 ],
+"shop/clothes/second_hand":[
+"pants",
+"used",
+"Secondhand Clothing Store",
+"suits",
+"clothes",
+"second hand",
+"blouses",
+"skirts",
+"shirts",
+"consignment",
+"dresses",
+"shorts",
+"slacks"
+],
 "shop/clothes/underwear":[
 "lingerie",
 "underclothes",
@@ -6488,6 +6892,19 @@
 "brassieres",
 "Underwear Store",
 "fashion"
+],
+"shop/clothes/wedding":[
+"bride",
+"wedding dress",
+"groom",
+"wedding gown",
+"bridegroom",
+"tuxedo",
+"bridal",
+"boutique",
+"Wedding Clothes Store",
+"bridesmaid",
+"groomsman"
 ],
 "shop/coffee":[
 "Coffee Store"
@@ -6521,9 +6938,9 @@
 "Country Store"
 ],
 "shop/craft":[
+"Arts & Crafts Store",
 "art*",
 "paint*",
-"Arts and Crafts Store",
 "frame"
 ],
 "shop/curtain":[
@@ -6549,6 +6966,9 @@
 "shop/doityourself":[
 "DIY Store"
 ],
+"shop/doors":[
+"Door Shop"
+],
 "shop/dry_cleaning":[
 "Dry Cleaner"
 ],
@@ -6558,6 +6978,16 @@
 "electronic",
 "vaping",
 "E-Cigarette Shop"
+],
+"shop/electrical":[
+"fan",
+"wire",
+"electric",
+"LED",
+"power",
+"lighting",
+"cable",
+"Electrical Equipment Store"
 ],
 "shop/electronics":[
 "appliance",
@@ -6629,6 +7059,10 @@
 "Fishing Shop",
 "lure",
 "reel"
+],
+"shop/flooring":[
+"tile",
+"Flooring Supply Shop"
 ],
 "shop/florist":[
 "Florist",
@@ -6808,7 +7242,11 @@
 "key"
 ],
 "shop/lottery":[
-"Lottery Shop"
+"gamble",
+"gambling",
+"Lottery Shop",
+"lotto tickets",
+"scratch-offs"
 ],
 "shop/mall":[
 "Mall",
@@ -6934,8 +7372,16 @@
 ],
 "shop/photo":[
 "Photography Store",
+"photo",
 "film",
-"camera"
+"camera",
+"lens"
+],
+"shop/pottery":[
+"ceramic",
+"pot",
+"Pottery Store",
+"vase"
 ],
 "shop/printer_ink":[
 "Printer Ink Store",
@@ -6999,6 +7445,21 @@
 "Shoe Store",
 "loafers"
 ],
+"shop/spices":[
+"pepper",
+"Spice Shop",
+"chili",
+"cinnamon",
+"wasabi",
+"saffron",
+"salt",
+"curry",
+"herbs",
+"spice store",
+"ginger",
+"turmeric",
+"spices"
+],
 "shop/sports":[
 "Sporting Goods Store",
 "athletics"
@@ -7042,6 +7503,15 @@
 "shop/tea":[
 "Tea Store"
 ],
+"shop/telecommunication":[
+"voice",
+"isp",
+"Telecom Retail Store",
+"telephone",
+"communication",
+"internet service provider",
+"network"
+],
 "shop/ticket":[
 "Ticket Seller",
 "box office"
@@ -7053,6 +7523,9 @@
 "Tobacco Shop",
 "cigars",
 "cigarettes"
+],
+"shop/tool_hire":[
+"Tool Rental"
 ],
 "shop/toys":[
 "Toy Store",
@@ -7123,11 +7596,21 @@
 "telecommunications"
 ],
 "tourism/alpine_hut":[
+"lodging",
 "climbing hut",
-"Alpine Hut"
+"overnight accommodations",
+"Alpine Hut",
+"cabin",
+"lodge",
+"wilderness hut"
 ],
 "tourism/apartment":[
-"Guest Apartment / Condo"
+"lodging",
+"holiday rental",
+"bnb",
+"overnight accommodations",
+"Guest Apartment / Condo",
+"vacation rental"
 ],
 "tourism/aquarium":[
 "Aquarium",
@@ -7183,9 +7666,41 @@
 "Camp Pitch"
 ],
 "tourism/camp_site":[
-"tent",
+"camp site",
+"camp pitch",
+"campground",
 "rv",
-"Campground"
+"campers",
+"Campground",
+"camp ground",
+"campsite",
+"recreational vehicles",
+"caravans",
+"tenting",
+"mobile homes"
+],
+"tourism/camp_site/backcountry":[
+"alpine camping",
+"camp site",
+"camp pitch",
+"campground",
+"informal camping",
+"camp ground",
+"backwoods camping",
+"primitive camping",
+"campsite",
+"Backcountry Camping Area",
+"backpacking site"
+],
+"tourism/camp_site/group_only":[
+"camp site",
+"youth camping",
+"camp pitch",
+"campground",
+"camp ground",
+"campsite",
+"Group Camping Area",
+"scout camping"
 ],
 "tourism/caravan_site":[
 "Camper",
@@ -7193,11 +7708,15 @@
 "RV Park"
 ],
 "tourism/chalet":[
+"lodging",
 "Holiday Cottage",
 "holiday home",
+"holiday cabin",
 "vacation home",
-"vacation",
-"holiday",
+"chalet",
+"overnight accommodations",
+"vacation cabin",
+"lodge",
 "holiday cottage"
 ],
 "tourism/gallery":[
@@ -7209,14 +7728,28 @@
 "paint*"
 ],
 "tourism/guest_house":[
+"lodging",
+"b and b",
 "Guest House",
+"bnb",
+"overnight accommodations",
 "Bed and Breakfast",
+"b & b",
 "B&B"
 ],
 "tourism/hostel":[
-"Hostel"
+"lodging",
+"Hostel",
+"bunk beds",
+"dorms",
+"overnight accommodations",
+"dormitories"
 ],
 "tourism/hotel":[
+"lodging",
+"overnight accommodations",
+"lodge",
+"concierge",
 "Hotel"
 ],
 "tourism/information":[
@@ -7250,6 +7783,9 @@
 "Information Terminal"
 ],
 "tourism/motel":[
+"lodging",
+"motor hotel",
+"overnight accommodations",
 "Motel"
 ],
 "tourism/museum":[
@@ -7263,6 +7799,16 @@
 "foundation",
 "paint*",
 "gallery"
+],
+"tourism/museum/history":[
+"institution",
+"History Museum",
+"dioramas",
+"exhibitions",
+"hall",
+"exhibits",
+"foundation",
+"artifacts"
 ],
 "tourism/picnic_site":[
 "Picnic Site",
@@ -7278,8 +7824,14 @@
 "Viewpoint"
 ],
 "tourism/wilderness_hut":[
+"lodging",
 "bothy",
+"sleeping shelter",
 "Wilderness Hut",
+"overnight accommodations",
+"cabin",
+"lodge",
+"alpine hut",
 "wilderness hut",
 "backcountry hut"
 ],
@@ -7419,8 +7971,17 @@
 "type/boundary/administrative":[
 "Administrative Boundary"
 ],
+"type/connectivity":[
+"Lane Connectivity"
+],
 "type/enforcement":[
 "Enforcement"
+],
+"type/enforcement/maxspeed":[
+"radar",
+"speed camera",
+"maxspeed",
+"Speed Limit Enforcement"
 ],
 "type/public_transport/stop_area_group":[
 "Transit Stop Area Group"
@@ -7540,6 +8101,21 @@
 "waterway/drain":[
 "Drain"
 ],
+"waterway/fish_pass":[
+"fishsteps",
+"fish siphon",
+"fish ladder",
+"Fish Pass",
+"eel ladder",
+"fish way",
+"eel pass",
+"fishladder",
+"fish migration",
+"fish passage",
+"fish steps",
+"fishpass",
+"fishway"
+],
 "waterway/fuel":[
 "diesel",
 "petrol",
@@ -7636,8 +8212,26 @@
 "flood",
 "watercourse"
 ],
+"waterway/tidal_channel":[
+"Tidal Channel",
+"tidal creek",
+"tidal inlet",
+"tidal flat",
+"waterway",
+"mangroves",
+"pill",
+"coastal",
+"marine",
+"intertidal",
+"salt marsh"
+],
 "waterway/water_point":[
-"Marine Drinking Water"
+"water spigot",
+"Marine Drinking Water",
+"water source",
+"water faucet",
+"water point",
+"water tap"
 ],
 "waterway/waterfall":[
 "fall",

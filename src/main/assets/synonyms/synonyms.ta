@@ -157,9 +157,6 @@
 "amenity/police":[
 "காவல்"
 ],
-"amenity/post_box":[
-"அஞ்சல்பெட்டி"
-],
 "amenity/post_office":[
 "அஞ்சலகம்"
 ],
@@ -299,9 +296,6 @@
 "craft/carpenter":[
 "தச்சர்"
 ],
-"craft/jeweler":[
-"பத்தர்"
-],
 "craft/painter":[
 "ஓவியர்"
 ],
@@ -344,9 +338,6 @@
 "emergency/water_tank":[
 "அவசர நீர் தொட்டி"
 ],
-"entrance":[
-"நுழைவு / வெளியேறு"
-],
 "healthcare/alternative":[
 "மாற்று மருத்துவம்"
 ],
@@ -388,9 +379,6 @@
 ],
 "landuse/churchyard":[
 "கோயில் முற்றம்"
-],
-"landuse/construction":[
-"கட்டுமானம்"
 ],
 "landuse/farm":[
 "பண்ணை நிலம்"
@@ -446,12 +434,6 @@
 "line":[
 "கோடு"
 ],
-"man_made":[
-"மனிதனால் கட்டப்பட்டது"
-],
-"man_made/bridge":[
-"பாலம்"
-],
 "man_made/chimney":[
 "புகைபோக்கி"
 ],
@@ -487,9 +469,6 @@
 ],
 "man_made/works":[
 "ஆலை"
-],
-"natural":[
-"இயற்கையான"
 ],
 "natural/beach":[
 "கடற்கரை"
@@ -535,9 +514,6 @@
 ],
 "natural/wetland":[
 "ஈரநிலம்"
-],
-"natural/wood":[
-"மரம்"
 ],
 "office":[
 "அலுவலகம்"
@@ -617,9 +593,6 @@
 "power/line":[
 "மின் கம்பி"
 ],
-"power/sub_station":[
-"துணைநிலையம்"
-],
 "power/substation":[
 "துணைநிலையம்"
 ],
@@ -634,9 +607,6 @@
 ],
 "public_transport/stop_position_light_rail":[
 "இலகு இரயில் நிறுத்தம் இடம்"
-],
-"railway":[
-"இரயில்வே"
 ],
 "railway/abandoned":[
 "பயன்படுத்தப்படாத இரயில்வே"
@@ -679,9 +649,6 @@
 ],
 "shop/alcohol":[
 "மதுபானக் கடை"
-],
-"shop/anime":[
-"பசைக் கடை"
 ],
 "shop/antiques":[
 "பழம்பொருள் அங்காடி"
@@ -751,9 +718,6 @@
 ],
 "shop/wholesale":[
 "மொத்தவிலைக் கடை"
-],
-"tourism":[
-"சுற்றுலா"
 ],
 "tourism/aquarium":[
 "மீன் காட்சியகம்"
@@ -852,9 +816,6 @@
 "தளம்"
 ],
 "type/waterway":[
-"நீர்வழி"
-],
-"waterway":[
 "நீர்வழி"
 ],
 "waterway/canal":[

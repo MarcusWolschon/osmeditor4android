@@ -5,9 +5,6 @@
 "building/college":[
 "Ndërtesa e Kollegjit"
 ],
-"highway":[
-"Hekurudhë"
-],
 "highway/cycleway":[
 "Rrugë biçikletash"
 ],
@@ -25,9 +22,6 @@
 ],
 "power/transformer":[
 "Transformator"
-],
-"railway":[
-"Hekurudhë"
 ],
 "railway/abandoned":[
 "Hekurudhë E Braktisur"
@@ -61,9 +55,6 @@
 ],
 "shop/supermarket":[
 "Supermarket"
-],
-"tourism":[
-"Turizëm"
 ],
 "tourism/hotel":[
 "Hotel"

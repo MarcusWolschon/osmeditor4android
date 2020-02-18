@@ -28,9 +28,6 @@
 "برج التلفريك / المصعد التزلج",
 "برج التلفريك ; المصعد التزلج"
 ],
-"aerialway/station":[
-"محطة النقل بالكابلات"
-],
 "aeroway":[
 "جوي"
 ],
@@ -132,16 +129,9 @@
 "مقهى",
 "مطعم"
 ],
-"amenity/car_pooling":[
-"مشاركة السيارة"
-],
 "amenity/car_rental":[
 "محل استئجار السيارات",
 "محل إيجار سيارات"
-],
-"amenity/car_sharing":[
-"محل مشاركة السيارات",
-"محل مشاركة سيارة"
 ],
 "amenity/car_wash":[
 "غسيل السيارات",
@@ -311,9 +301,6 @@
 "amenity/internet_cafe":[
 "مقهى إنترنت"
 ],
-"amenity/kindergarten":[
-"روضة أطفال"
-],
 "amenity/language_school":[
 "مدرسة لغات"
 ],
@@ -352,11 +339,6 @@
 "amenity/parking/underground":[
 "موقف تحت الأرض",
 "جراج"
-],
-"amenity/parking_entrance":[
-"مدخل",
-"مخرج",
-"مدخل ومخرج جراج وقوف"
 ],
 "amenity/parking_space":[
 "موقف سيارات"
@@ -408,9 +390,6 @@
 "مركز الشرطة",
 "شرطة",
 "الشرطة"
-],
-"amenity/post_box":[
-"صندوق البريد"
 ],
 "amenity/post_office":[
 "مكتب البريد",
@@ -647,24 +626,15 @@
 "منطقة",
 "المساحة; مساحة; منطقة; المنطقة"
 ],
-"area/highway":[
-"سطح الطريق"
-],
 "attraction/big_wheel":[
 "دولاب هواء; العجلة الكبيرة",
 "دولاب هواء"
-],
-"attraction/bumper_car":[
-"سيارة اصطدامية"
 ],
 "attraction/carousel":[
 "دوامة خيل"
 ],
 "attraction/maze":[
 "متاهة"
-],
-"attraction/pirate_ship":[
-"سفينة قراصنة"
 ],
 "attraction/roller_coaster":[
 "سفينة دوارة",
@@ -837,10 +807,6 @@
 "building/industrial":[
 "مبنى صناعي"
 ],
-"building/kindergarten":[
-"مبنى روضة أطفال",
-"روضة; أطفال"
-],
 "building/mosque":[
 "مبنى المسجد"
 ],
@@ -943,9 +909,6 @@
 "craft/handicraft":[
 "حرفي"
 ],
-"craft/jeweler":[
-"بائع مجوهرات"
-],
 "craft/locksmith":[
 "قفال - صانع أقفال"
 ],
@@ -964,10 +927,6 @@
 "craft/plumber":[
 "سباك",
 "سباك; سمكري"
-],
-"craft/pottery":[
-"مصنع فخار وخزف",
-"فخار; خزف; بورسلين"
 ],
 "craft/roofer":[
 "بنّاء السقف"
@@ -1018,10 +977,6 @@
 "emergency/phone":[
 "هاتف طوارئ"
 ],
-"entrance":[
-"مدخل ومخرج",
-"دخول; خروج; مدخل; مخرج"
-],
 "ford":[
 "ممر مائي",
 "ممر مائي; ممر; مائي; ماء"
@@ -1069,9 +1024,6 @@
 "healthcare/speech_therapist":[
 "معالج النطق",
 "معالج النطق، نطق"
-],
-"highway":[
-"طريق سريع"
 ],
 "highway/bridleway":[
 "طريق الخيول",
@@ -1129,10 +1081,6 @@
 ],
 "highway/primary_link":[
 "رابط لطريق رئيسي"
-],
-"highway/raceway":[
-"مضمار سباق، سيارات، دراجات نارية",
-"مضمار سباق السيارات والدراجات النارية"
 ],
 "highway/residential":[
 "طريق سكني",
@@ -1262,9 +1210,6 @@
 "junction":[
 "مفترق طرق"
 ],
-"landuse":[
-"أرض"
-],
 "landuse/aquaculture":[
 "مزرعة سمكية"
 ],
@@ -1279,11 +1224,6 @@
 "landuse/commercial":[
 "تجارية; تجاري; منطقة تجارة",
 "منطقة تجارية"
-],
-"landuse/construction":[
-"تشييد",
-"تعمير",
-"إنشاءات"
 ],
 "landuse/farm":[
 "أرض زراعية"
@@ -1354,9 +1294,6 @@
 "مزرعة عنب",
 "مزرعة العنب"
 ],
-"leisure":[
-"الترفيه"
-],
 "leisure/beach_resort":[
 "منتجع الشاطئ"
 ],
@@ -1376,10 +1313,6 @@
 ],
 "leisure/dog_park":[
 "حديقة كلاب"
-],
-"leisure/firepit":[
-"موقد نار",
-"موقد"
 ],
 "leisure/fitness_centre":[
 "مركز اللياقة البدنية",
@@ -1519,18 +1452,12 @@
 "line":[
 "طريق"
 ],
-"man_made":[
-"مباني صناعية"
-],
 "man_made/adit":[
 "مدخل; منجم; كهف;",
 "مدخل منجم"
 ],
 "man_made/breakwater":[
 "كاسر الأمواج"
-],
-"man_made/bridge":[
-"جسر"
 ],
 "man_made/chimney":[
 "مدخنة"
@@ -1603,9 +1530,6 @@
 ],
 "man_made/works":[
 "مصنع"
-],
-"natural":[
-"طبيعي"
 ],
 "natural/bare_rock":[
 "صخر; صخور; صخر عاري",
@@ -1700,9 +1624,6 @@
 "natural/wetland":[
 "أرض رطبة; مستنقع; هور",
 "أرض رطبة"
-],
-"natural/wood":[
-"غابة أخشاب"
 ],
 "noexit/yes":[
 "لا يوجد مخرج"
@@ -1888,9 +1809,6 @@
 "point":[
 "نقطة"
 ],
-"power":[
-"الطاقة"
-],
 "power/cable/underground":[
 "كابل كهرباء تحت الأرض"
 ],
@@ -1939,9 +1857,6 @@
 ],
 "power/pole":[
 "برج كهرباء"
-],
-"power/sub_station":[
-"محطة فرعية"
 ],
 "power/substation":[
 "محطة فرعية"
@@ -2026,9 +1941,6 @@
 ],
 "public_transport/stop_position_trolleybus":[
 "موقع وقوف حافلات كهربائية"
-],
-"railway":[
-"سكة حديد"
 ],
 "railway/abandoned":[
 "سكة حديد مهجورة",
@@ -2120,9 +2032,6 @@
 "محل خمور",
 "خمور",
 "متجر خمور"
-],
-"shop/anime":[
-"متجر أفلام رسوم متحركة"
 ],
 "shop/antiques":[
 "متجر تحف وأنتيكات"
@@ -2235,9 +2144,6 @@
 ],
 "shop/cosmetics":[
 "متجر مستحضرات التجميل"
-],
-"shop/craft":[
-"متجر الفنون والحرف"
 ],
 "shop/curtain":[
 "ستائر",
@@ -2545,9 +2451,6 @@
 "shop/wine":[
 "متجر نبيذ"
 ],
-"tourism":[
-"سياحي"
-],
 "tourism/alpine_hut":[
 "كوخ جبلي",
 "دار استراحة"
@@ -2728,9 +2631,6 @@
 ],
 "type/waterway":[
 "مجرى مائي، ممر مائي",
-"مجرى مائي"
-],
-"waterway":[
 "مجرى مائي"
 ],
 "waterway/boatyard":[

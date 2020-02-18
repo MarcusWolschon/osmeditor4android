@@ -93,9 +93,6 @@
 "nuoma",
 "Automobilių nuoma"
 ],
-"amenity/car_sharing":[
-"Automobilių dalinimasis"
-],
 "amenity/car_wash":[
 "Automobilių plovykla",
 "automobilių plovykla",
@@ -192,11 +189,6 @@
 "amenity/internet_cafe":[
 "Interneto kavinė"
 ],
-"amenity/kindergarten":[
-"vaikų darželis",
-"Vaikų darželio plotas",
-"darželio plotas"
-],
 "amenity/language_school":[
 "Kalbų mokykla"
 ],
@@ -255,11 +247,6 @@
 "amenity/police":[
 "policija",
 "Policija"
-],
-"amenity/post_box":[
-"paštadėžė",
-"pašto dėžė",
-"Pašto dėžutė"
 ],
 "amenity/post_office":[
 "paštas",
@@ -362,9 +349,6 @@
 "plotas",
 "Plotas"
 ],
-"area/highway":[
-"Kelio danga"
-],
 "attraction/big_wheel":[
 "Didelis ratas"
 ],
@@ -373,9 +357,6 @@
 ],
 "attraction/maze":[
 "Labirintas"
-],
-"attraction/pirate_ship":[
-"Piratų laivas"
 ],
 "attraction/train":[
 "Turistų traukinys"
@@ -553,11 +534,6 @@
 "įmonė",
 "Pramoninis pastatas"
 ],
-"building/kindergarten":[
-"vaikų darželis",
-"darželio pastatas",
-"Vaikų darželio pastatas"
-],
 "building/mosque":[
 "Mečetės pastatas"
 ],
@@ -690,17 +666,11 @@
 "hvac",
 "HVAC"
 ],
-"craft/jeweler":[
-"Juvelyrikas"
-],
 "craft/key_cutter":[
 "Raktininkas"
 ],
 "craft/locksmith":[
 "Šaltkalvis"
-],
-"craft/optician":[
-"Optikas"
 ],
 "craft/painter":[
 "Dailininkas",
@@ -718,10 +688,6 @@
 "craft/plumber":[
 "santechnikas",
 "Santechnikas"
-],
-"craft/pottery":[
-"Puodų amatininkas",
-"Keramikos amatininkas"
 ],
 "craft/roofer":[
 "Stogdengys",
@@ -794,11 +760,6 @@
 "emergency/water_tank":[
 "Skubaus atvejo vandens rezervuaras"
 ],
-"entrance":[
-"išėjimas",
-"Įėjimas/Išėjimas",
-"įėjimas"
-],
 "ford":[
 "brasta",
 "Brasta"
@@ -813,9 +774,6 @@
 ],
 "healthcare/birthing_center":[
 "Gimdymo namai"
-],
-"highway":[
-"Greitkelis"
 ],
 "highway/bridleway":[
 "jodinėjimo takas",
@@ -998,9 +956,6 @@
 "sankryža",
 "Jungtis"
 ],
-"landuse":[
-"Žemėnauda"
-],
 "landuse/allotments":[
 "Bendruomenės sodas"
 ],
@@ -1022,10 +977,6 @@
 "Komercinė zona",
 "komercinė",
 "komercinė zona"
-],
-"landuse/construction":[
-"Statybos",
-"statybos"
 ],
 "landuse/farm":[
 "Dirbama žemė"
@@ -1093,9 +1044,6 @@
 "vynuogynas",
 "Vynuogynas"
 ],
-"leisure":[
-"Laisvalaikis"
-],
 "leisure/adult_gaming_centre":[
 "Suaugusiųjų lošimų vieta"
 ],
@@ -1112,9 +1060,6 @@
 "šunparkis",
 "Šunų parkas",
 "šunų parkas"
-],
-"leisure/firepit":[
-"Ugniaduobė"
 ],
 "leisure/garden":[
 "sodas",
@@ -1196,14 +1141,8 @@
 "line":[
 "Linija"
 ],
-"man_made":[
-"Žmogaus sukurtas"
-],
 "man_made/antenna":[
 "Antena"
-],
-"man_made/bridge":[
-"Tiltas"
 ],
 "man_made/chimney":[
 "Kaminas"
@@ -1264,9 +1203,6 @@
 ],
 "man_made/works":[
 "Gamykla"
-],
-"natural":[
-"Natūralus"
 ],
 "natural/bare_rock":[
 "Plikas akmuo"
@@ -1347,10 +1283,6 @@
 ],
 "natural/wetland":[
 "Drėgna žemė"
-],
-"natural/wood":[
-"Miškas",
-"medžiai"
 ],
 "noexit/yes":[
 "Nėra išėjimo"
@@ -1459,9 +1391,6 @@
 "taškas",
 "Taškas"
 ],
-"power":[
-"Energija"
-],
 "power/generator":[
 "Jėgainė",
 "elektros generatorius",
@@ -1479,9 +1408,6 @@
 "stulpas",
 "elektros stulpas"
 ],
-"power/sub_station":[
-"Pastotė"
-],
 "power/substation":[
 "Pastotė",
 "pastotė"
@@ -1493,9 +1419,6 @@
 "power/transformer":[
 "Transformatorius",
 "transformatorius"
-],
-"railway":[
-"Geležinkelis"
 ],
 "railway/abandoned":[
 "apleistas gelžkelis",
@@ -1559,9 +1482,6 @@
 "shop/alcohol":[
 "alkoholio parduotuvė",
 "Alkoholinių gėrimų parduotuvė"
-],
-"shop/anime":[
-"Anime parduotuvė"
 ],
 "shop/antiques":[
 "Atikvarų parduotuvė",
@@ -1661,9 +1581,6 @@
 ],
 "shop/cosmetics":[
 "Kosmetikos parduotuvė"
-],
-"shop/craft":[
-"Meno ir amatų parduotuvė"
 ],
 "shop/curtain":[
 "Užuolaidų parduotuvė"
@@ -1896,9 +1813,6 @@
 "Vyno parduotuvė",
 "Vyninė"
 ],
-"tourism":[
-"Turizmas"
-],
 "tourism/alpine_hut":[
 "Kalnų namelis"
 ],
@@ -2045,9 +1959,6 @@
 "Tramvajaus maršrutas"
 ],
 "type/waterway":[
-"Vandens kelias"
-],
-"waterway":[
 "Vandens kelias"
 ],
 "waterway/canal":[

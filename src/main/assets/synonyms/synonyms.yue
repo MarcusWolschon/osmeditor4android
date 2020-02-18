@@ -139,13 +139,6 @@
 "汽車租賃",
 "汽車租賃處"
 ],
-"amenity/car_sharing":[
-"汽車共享站",
-"共用車",
-"Car Sharing",
-"公用車處",
-"共用車處"
-],
 "amenity/car_wash":[
 "Car Wash",
 "洗車舖",
@@ -264,13 +257,6 @@
 "Police",
 "警署"
 ],
-"amenity/post_box":[
-"Mailbox",
-"Post",
-"Post Box",
-"郵箱",
-"郵筒"
-],
 "amenity/post_office":[
 "書信館",
 "Post Office",
@@ -353,9 +339,6 @@
 "Area",
 "區域",
 "範圍"
-],
-"area/highway":[
-"道面"
 ],
 "barrier":[
 "阻擋",
@@ -540,9 +523,6 @@
 "發球區",
 "開球區",
 "Tee Box"
-],
-"highway":[
-"公路"
 ],
 "highway/bridleway":[
 "馬道",
@@ -795,12 +775,6 @@
 "landuse/commercial":[
 "商地"
 ],
-"landuse/construction":[
-"Construction",
-"建築物",
-"建築工程",
-"地盤"
-],
 "landuse/farm":[
 "田地"
 ],
@@ -848,9 +822,6 @@
 "Vineyard",
 "酒莊",
 "葡萄園"
-],
-"leisure":[
-"消閒"
 ],
 "leisure/common":[
 "公共用地",
@@ -942,9 +913,6 @@
 "線",
 "綫"
 ],
-"man_made":[
-"人造"
-],
 "man_made/breakwater":[
 "Breakwater",
 "防波堤"
@@ -999,9 +967,6 @@
 "水務設施",
 "Water Works",
 "供水廠"
-],
-"natural":[
-"天然"
 ],
 "natural/bare_rock":[
 "石地"
@@ -1111,11 +1076,6 @@
 "潮間帶",
 "濕地",
 "Wetland"
-],
-"natural/wood":[
-"樹林",
-"Wood",
-"林"
 ],
 "office":[
 "Office",
@@ -1244,9 +1204,6 @@
 "Point",
 "點"
 ],
-"power":[
-"發電廠"
-],
 "power/generator":[
 "Power Generator",
 "發電機"
@@ -1267,9 +1224,6 @@
 "Power Pole",
 "電線桿"
 ],
-"power/sub_station":[
-"配電站"
-],
 "power/tower":[
 "High-Voltage Tower",
 "高壓輸電塔",
@@ -1279,9 +1233,6 @@
 "變電所",
 "Transformer",
 "火牛房"
-],
-"railway":[
-"鐵路"
 ],
 "railway/abandoned":[
 "鐵路路線跡",
@@ -1625,9 +1576,6 @@
 "Wine Shop",
 "酒舖"
 ],
-"tourism":[
-"旅行"
-],
 "tourism/alpine_hut":[
 "Alpine Hut",
 "高山屋仔",
@@ -1817,9 +1765,6 @@
 "線路總管",
 "Route Master",
 "路綫總管"
-],
-"waterway":[
-"水路"
 ],
 "waterway/canal":[
 "水道",

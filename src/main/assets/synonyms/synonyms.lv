@@ -227,10 +227,6 @@
 "amenity/internet_cafe":[
 "Interneta Kafejnīca"
 ],
-"amenity/kindergarten":[
-"pirmskola",
-"bēŗnudārzs"
-],
 "amenity/library":[
 "lasītava",
 "grāmatas",
@@ -271,14 +267,6 @@
 "autostāvieta",
 "Daudzlīmeņu Stāvvieta"
 ],
-"amenity/parking_entrance":[
-"izbrauktuve",
-"iebrauktuve",
-"ieeja",
-"izeja",
-"daudzstāvu stāvvieta",
-"Daudzlīmeņu Stāvvietas Ieeja/Izeja"
-],
 "amenity/place_of_worship":[
 "baznīca",
 "mošeja",
@@ -308,12 +296,6 @@
 "Likums",
 "Poliči",
 "Policija"
-],
-"amenity/post_box":[
-"Pasta kastīte",
-"pasts",
-"vēstule",
-"kaste"
 ],
 "amenity/post_office":[
 "Pasta nodaļa",
@@ -529,9 +511,6 @@
 "area":[
 "Apgabals"
 ],
-"area/highway":[
-"Ceļa segums"
-],
 "attraction/big_wheel":[
 "atrakcija",
 "lielais rats",
@@ -553,9 +532,6 @@
 ],
 "attraction/maze":[
 "Labirints"
-],
-"attraction/pirate_ship":[
-"Pirātu kuģis"
 ],
 "attraction/roller_coaster":[
 "brauciens",
@@ -708,9 +684,6 @@
 "building/industrial":[
 "Industijas Ēka"
 ],
-"building/kindergarten":[
-"Bērnudārza / Pirmskolas ēka"
-],
 "building/mosque":[
 "Mošejas Ēka"
 ],
@@ -818,17 +791,11 @@
 "craft/gardener":[
 "Dārznieks"
 ],
-"craft/jeweler":[
-"Juvelieris"
-],
 "craft/key_cutter":[
 "Atslēdznieks"
 ],
 "craft/locksmith":[
 "Atslēdznieks"
-],
-"craft/optician":[
-"Optiķis"
 ],
 "craft/painter":[
 "Krāsotājs"
@@ -846,9 +813,6 @@
 ],
 "craft/plumber":[
 "Santehniķis"
-],
-"craft/pottery":[
-"Podnieks"
 ],
 "craft/roofer":[
 "Jumiķis"
@@ -901,9 +865,6 @@
 "emergency/siren":[
 "Sirēna"
 ],
-"entrance":[
-"Ieeja/Izeja"
-],
 "golf/hole":[
 "Golfa bedrīte"
 ],
@@ -921,9 +882,6 @@
 ],
 "healthcare/speech_therapist":[
 "Runas Terapiets"
-],
-"highway":[
-"Šoseja"
 ],
 "highway/corridor":[
 "Iekštelpu koridors"
@@ -1010,9 +968,6 @@
 "historic/ruins":[
 "Pilsdrupas"
 ],
-"landuse":[
-"Zemes izmantojums"
-],
 "landuse/basin":[
 "Baseins"
 ],
@@ -1023,9 +978,6 @@
 "Komercplatība",
 "Komercapgabals",
 "Komerciāla platība"
-],
-"landuse/construction":[
-"Būvlaukums"
 ],
 "landuse/farmyard":[
 "Lauku sēta"
@@ -1057,9 +1009,6 @@
 "landuse/vineyard":[
 "Vīnogu lauks"
 ],
-"leisure":[
-"Brīvā laika"
-],
 "leisure/bowling_alley":[
 "Boulinga Zāle"
 ],
@@ -1076,9 +1025,6 @@
 ],
 "leisure/dog_park":[
 "Suņu parks"
-],
-"leisure/firepit":[
-"Ugunskura vieta"
 ],
 "leisure/fitness_centre":[
 "Sportazāle / Fitnesa centrs"
@@ -1162,14 +1108,8 @@
 "line":[
 "Līnija"
 ],
-"man_made":[
-"Cilvēka radīts"
-],
 "man_made/antenna":[
 "Antēna"
-],
-"man_made/bridge":[
-"Tilts"
 ],
 "man_made/chimney":[
 "Skurstenis"
@@ -1229,15 +1169,6 @@
 ],
 "man_made/works":[
 "Rūpnīca"
-],
-"manhole":[
-"Kanalizācijas lūka"
-],
-"manhole/telecom":[
-"Telekomunikāciju lūka"
-],
-"natural":[
-"Dabisks"
 ],
 "natural/bare_rock":[
 "Pliks Akmens"
@@ -1306,9 +1237,6 @@
 ],
 "natural/wetland":[
 "Purvs"
-],
-"natural/wood":[
-"Koks"
 ],
 "noexit/yes":[
 "Bez izejas"
@@ -1385,9 +1313,6 @@
 "playground/swing":[
 "Šūpoles"
 ],
-"power":[
-"Enerģija"
-],
 "power/generator":[
 "elektroģenrātors",
 "Elektroenerģijas ģenerātors",
@@ -1400,9 +1325,6 @@
 "power/pole":[
 "elektrostabs",
 "Elektrības stabs"
-],
-"power/sub_station":[
-"Metro stacija"
 ],
 "power/substation":[
 "Apakšstacija"
@@ -1421,9 +1343,6 @@
 ],
 "public_transport/station_trolleybus":[
 "Trolejbusu stacija / Terminālis"
-],
-"railway":[
-"Vilciens"
 ],
 "railway/abandoned":[
 "Pamests dzelzceļš"
@@ -1570,14 +1489,6 @@
 ],
 "shop/cosmetics":[
 "Kosmētikas veikals"
-],
-"shop/craft":[
-"rāmji",
-"Mākslas piederumu veikals",
-"resursi",
-"krāsas",
-"māksla",
-"zīmēt"
 ],
 "shop/curtain":[
 "Aizkaru veikals"
@@ -1764,9 +1675,6 @@
 "shop/wine":[
 "Vīna veikals"
 ],
-"tourism":[
-"Tūrisms"
-],
 "tourism/aquarium":[
 "Akvārijs"
 ],
@@ -1842,9 +1750,6 @@
 ],
 "type/restriction":[
 "Aizliegums"
-],
-"waterway":[
-"Ūdensceļš"
 ],
 "waterway/canal":[
 "Kanāls"

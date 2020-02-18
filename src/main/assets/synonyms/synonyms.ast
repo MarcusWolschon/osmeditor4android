@@ -46,12 +46,6 @@
 "aerialway/rope_tow":[
 "Cuerda de remolque"
 ],
-"aerialway/station":[
-"Estación de remonte"
-],
-"aerialway/t-bar":[
-"Telesquí de T"
-],
 "aeroway":[
 "Via d'aviación"
 ],
@@ -160,9 +154,6 @@
 ],
 "amenity/car_rental":[
 "Alquiler d'automóviles"
-],
-"amenity/car_sharing":[
-"Compartir coche"
 ],
 "amenity/car_wash":[
 "Llaváu de coches"
@@ -282,9 +273,6 @@
 "amenity/ice_cream":[
 "Xeladería"
 ],
-"amenity/kindergarten":[
-"Antoxana d'escuela infantil/preescolar"
-],
 "amenity/library":[
 "Biblioteca",
 "Llibros",
@@ -306,9 +294,6 @@
 "Disco",
 "baille",
 "Discoteca"
-],
-"amenity/parking_entrance":[
-"Entrada/Salida de garaxe"
 ],
 "amenity/parking_space":[
 "Espaciu d'aparcamientu"
@@ -344,11 +329,6 @@
 "Guardia Civil",
 "Policía",
 "Cuartel"
-],
-"amenity/post_box":[
-"Correos",
-"Buzón",
-"Carta"
 ],
 "amenity/post_office":[
 "Oficina de correos",
@@ -537,22 +517,9 @@
 "area":[
 "Área"
 ],
-"area/highway":[
-"Superficie de la carretera",
-"suelu",
-"firme",
-"pisu"
-],
 "attraction/big_wheel":[
 "rueda",
 "Noria",
-"atracciones"
-],
-"attraction/bumper_car":[
-"Coches de choque",
-"coche",
-"feria",
-"choque",
 "atracciones"
 ],
 "attraction/carousel":[
@@ -699,9 +666,6 @@
 "Taller",
 "Fábrica"
 ],
-"building/kindergarten":[
-"Edificiu de preescolar/guardería"
-],
 "building/public":[
 "Edificiu públicu"
 ],
@@ -823,9 +787,6 @@
 "craft/insulator":[
 "Aislamientos"
 ],
-"craft/jeweler":[
-"Xoyería"
-],
 "craft/key_cutter":[
 "Llaves",
 "Duplicáu de llaves"
@@ -837,9 +798,6 @@
 "Construcciones metáliques",
 "ferreru",
 "Forxa"
-],
-"craft/optician":[
-"Óptica"
 ],
 "craft/painter":[
 "Pintor"
@@ -860,9 +818,6 @@
 ],
 "craft/plumber":[
 "Fontaneru"
-],
-"craft/pottery":[
-"Alfarería"
 ],
 "craft/rigger":[
 "Montaxes"
@@ -959,11 +914,6 @@
 "emergency/yes":[
 "Accesu d'emerxencia Si"
 ],
-"entrance":[
-"puerta",
-"Accesu",
-"Entrada/Salida"
-],
 "ford":[
 "Vau"
 ],
@@ -1027,9 +977,6 @@
 "healthcare/psychotherapist":[
 "Sicoterapeuta"
 ],
-"highway":[
-"Estrada"
-],
 "highway/bridleway":[
 "Camín de ferradura",
 "Camín de caballeríes"
@@ -1092,9 +1039,6 @@
 "enllaz",
 "Enllaz de carretera autonómica I",
 "autonómica primaria"
-],
-"highway/raceway":[
-"Circuitu (Deportes de motor)"
 ],
 "highway/residential":[
 "Rúa urbana"
@@ -1228,9 +1172,6 @@
 "junction":[
 "Crucie"
 ],
-"landuse":[
-"Usu del terrén"
-],
 "landuse/allotments":[
 "Xardín acomuñáu"
 ],
@@ -1251,9 +1192,6 @@
 ],
 "landuse/commercial":[
 "Área comercial"
-],
-"landuse/construction":[
-"Construccion"
 ],
 "landuse/farm":[
 "Tierra de llabor"
@@ -1306,9 +1244,6 @@
 "landuse/vineyard":[
 "Viñéu"
 ],
-"leisure":[
-"Recréu"
-],
 "leisure/adult_gaming_centre":[
 "Centru de xuegos p'adultos"
 ],
@@ -1326,12 +1261,6 @@
 ],
 "leisure/dog_park":[
 "Parque pa perros"
-],
-"leisure/firepit":[
-"asador",
-"Parrilla",
-"Llar",
-"fueu"
 ],
 "leisure/fitness_centre":[
 "Ximnasiu / Centru de fitness"
@@ -1446,18 +1375,12 @@
 "line":[
 "Llinia"
 ],
-"man_made":[
-"Construcciones"
-],
 "man_made/adit":[
 "Bocamina",
 "pozu"
 ],
 "man_made/breakwater":[
 "Dique marín"
-],
-"man_made/bridge":[
-"Ponte"
 ],
 "man_made/chimney":[
 "Chimenea"
@@ -1543,15 +1466,6 @@
 "man_made/works":[
 "Fábrica"
 ],
-"manhole":[
-"Tapa d'alcantariella"
-],
-"manhole/telecom":[
-"Pozu de telecomunicaciones"
-],
-"natural":[
-"Natural"
-],
 "natural/bare_rock":[
 "Roca"
 ],
@@ -1624,9 +1538,6 @@
 ],
 "natural/wetland":[
 "Llamorgal"
-],
-"natural/wood":[
-"Viesca"
 ],
 "noexit/yes":[
 "Ensin salida"
@@ -1745,9 +1656,6 @@
 "point":[
 "Puntu"
 ],
-"power":[
-"Enerxía"
-],
 "power/generator":[
 "Central eléctrica",
 "Xenerador d'enerxía"
@@ -1762,9 +1670,6 @@
 ],
 "power/pole":[
 "Poste eléctricu"
-],
-"power/sub_station":[
-"Subestación"
 ],
 "power/substation":[
 "Subestación"
@@ -1795,9 +1700,6 @@
 ],
 "public_transport/station_train":[
 "Estación de tren"
-],
-"railway":[
-"Ferrocarril"
 ],
 "railway/abandoned":[
 "Ferrocarril abandonáu"
@@ -1862,9 +1764,6 @@
 "shop/alcohol":[
 "Bodega",
 "Llicorería"
-],
-"shop/anime":[
-"Tienda d'anime"
 ],
 "shop/antiques":[
 "Anticuariu"
@@ -1938,9 +1837,6 @@
 ],
 "shop/cosmetics":[
 "Perfumería"
-],
-"shop/craft":[
-"Tienda de manualidaes"
 ],
 "shop/curtain":[
 "Tienda de cortines"
@@ -2222,9 +2118,6 @@
 "shop/wine":[
 "Bodega"
 ],
-"tourism":[
-"Turismu"
-],
 "tourism/alpine_hut":[
 "Refuxu d'alpinismu"
 ],
@@ -2409,9 +2302,6 @@
 "Llugar"
 ],
 "type/waterway":[
-"Vía acuática"
-],
-"waterway":[
 "Vía acuática"
 ],
 "waterway/boatyard":[

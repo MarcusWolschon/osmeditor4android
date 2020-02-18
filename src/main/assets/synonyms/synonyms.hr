@@ -32,12 +32,6 @@
 "aerialway/rope_tow":[
 "Konop za vuču skijaša"
 ],
-"aerialway/station":[
-"Stanica žičare"
-],
-"aerialway/t-bar":[
-"Sidro"
-],
 "aeroway":[
 "Zračni promet"
 ],
@@ -186,12 +180,6 @@
 "rentanje automobila",
 "iznajmljivanje vozila"
 ],
-"amenity/car_sharing":[
-"servis za razmjenu automobila",
-"razmjena automobila",
-"Servis za razmjenu automobila",
-"dijeljenje automobila"
-],
 "amenity/car_wash":[
 "praonica automobila",
 "Autopraonica"
@@ -299,9 +287,6 @@
 "amenity/hunting_stand":[
 "Lovačka čeka"
 ],
-"amenity/kindergarten":[
-"Dvorište vrtića"
-],
 "amenity/library":[
 "knjižnica",
 "čitaonica",
@@ -327,9 +312,6 @@
 "parking",
 "kamione",
 "Parkiralište za automobile"
-],
-"amenity/parking_entrance":[
-"Parking garaža Ulaz/Izlaz"
 ],
 "amenity/parking_space":[
 "Parkirališno mjesto"
@@ -370,13 +352,6 @@
 "Policija",
 "državna policija",
 "vojna policija"
-],
-"amenity/post_box":[
-"sandučić",
-"ormarić za poštu",
-"poštanski sandučić",
-"poštanski ormarić",
-"Poštanski sandučić"
 ],
 "amenity/post_office":[
 "Pošta",
@@ -600,9 +575,6 @@
 "područje",
 "površina"
 ],
-"area/highway":[
-"Površina ceste"
-],
 "attraction":[
 "Atrakcija"
 ],
@@ -622,9 +594,6 @@
 "majmun",
 "životinja",
 "zoo"
-],
-"attraction/bumper_car":[
-"Električni autići za sudaranje"
 ],
 "attraction/bungee_jumping":[
 "Bungee skokovi"
@@ -771,9 +740,6 @@
 "building/industrial":[
 "Industrijska zgrada"
 ],
-"building/kindergarten":[
-"Zgrada vrtića"
-],
 "building/mosque":[
 "Zgrada džamije"
 ],
@@ -899,9 +865,6 @@
 "craft/insulator":[
 "Izolator"
 ],
-"craft/jeweler":[
-"Draguljar"
-],
 "craft/key_cutter":[
 "Ključar"
 ],
@@ -910,9 +873,6 @@
 ],
 "craft/metal_construction":[
 "Željezar"
-],
-"craft/optician":[
-"Optičar"
 ],
 "craft/painter":[
 "Slikar"
@@ -928,9 +888,6 @@
 ],
 "craft/plumber":[
 "Vodoinstalater"
-],
-"craft/pottery":[
-"Lončarstvo"
 ],
 "craft/rigger":[
 "Monter"
@@ -1002,9 +959,6 @@
 "emergency/phone":[
 "Telefon za nuždu"
 ],
-"entrance":[
-"Ulaz/izlaz"
-],
 "ford":[
 "Prijelaz preko potoka"
 ],
@@ -1030,9 +984,6 @@
 ],
 "healthcare/alternative/chiropractic":[
 "Kiropraktičar"
-],
-"highway":[
-"Prometnica"
 ],
 "highway/bridleway":[
 "Staza za konje"
@@ -1125,9 +1076,6 @@
 ],
 "highway/primary_link":[
 "Pristupna cesta državne ceste"
-],
-"highway/raceway":[
-"Staza za utrkivanje motornih vozila"
 ],
 "highway/residential":[
 "Ulica"
@@ -1287,12 +1235,6 @@
 "junction":[
 "Križanje"
 ],
-"junction/roundabout":[
-"Kružni tok"
-],
-"landuse":[
-"Zemljišna zona"
-],
 "landuse/aquaculture":[
 "Akvakultura"
 ],
@@ -1307,9 +1249,6 @@
 ],
 "landuse/commercial":[
 "Poslovna zona"
-],
-"landuse/construction":[
-"Građevinsko"
 ],
 "landuse/farm":[
 "Oranica"
@@ -1359,9 +1298,6 @@
 "landuse/vineyard":[
 "Vinograd"
 ],
-"leisure":[
-"Razonoda"
-],
 "leisure/bowling_alley":[
 "Kuglalište"
 ],
@@ -1373,9 +1309,6 @@
 ],
 "leisure/dog_park":[
 "Park za pse"
-],
-"leisure/firepit":[
-"Mjesto za vatru"
 ],
 "leisure/fitness_centre":[
 "pilates",
@@ -1489,9 +1422,6 @@
 "Linija",
 "linija"
 ],
-"man_made":[
-"Ljudske tvorevine"
-],
 "man_made/adit":[
 "Položeni ulaz u rudnik"
 ],
@@ -1504,9 +1434,6 @@
 "umjetna zaštita luke",
 "Lukobran",
 "zaštita luke od valova"
-],
-"man_made/bridge":[
-"Most"
 ],
 "man_made/chimney":[
 "Dimnjak"
@@ -1624,9 +1551,6 @@
 "man_made/tower/observation":[
 "Toranj za promatranje"
 ],
-"man_made/tunnel":[
-"Tunel"
-],
 "man_made/wastewater_plant":[
 "Pogon za pročiščivanje otpadnih voda",
 "pročistač voda"
@@ -1658,15 +1582,6 @@
 ],
 "man_made/works":[
 "Tvornica"
-],
-"manhole":[
-"Šaht"
-],
-"manhole/telecom":[
-"Šaht za telekomunikacije"
-],
-"natural":[
-"Prirodno"
 ],
 "natural/bare_rock":[
 "Goli kamen"
@@ -1837,9 +1752,6 @@
 "jezero",
 "Voda"
 ],
-"natural/water/canal":[
-"Kanal"
-],
 "natural/water/lake":[
 "voda",
 "jezero",
@@ -1862,22 +1774,10 @@
 "akumulacija vode",
 "akumulacija"
 ],
-"natural/water/river":[
-"Rijeka"
-],
-"natural/water/stream":[
-"Potok"
-],
 "natural/wetland":[
 "močvara",
 "močvarno tlo",
 "Močvara"
-],
-"natural/wood":[
-"Prašuma",
-"džungla",
-"prašuma",
-"prirodna šuma"
 ],
 "noexit/yes":[
 "Bez izlaza"
@@ -1999,9 +1899,6 @@
 "referentna točka",
 "Točka"
 ],
-"power":[
-"Električna energija"
-],
 "power/generator":[
 "generator električne energije",
 "Generator energije",
@@ -2022,9 +1919,6 @@
 "power/pole":[
 "stup dalekovoda",
 "Električni stup"
-],
-"power/sub_station":[
-"Trafostanica"
 ],
 "power/substation":[
 "Trafostanica"
@@ -2118,9 +2012,6 @@
 ],
 "public_transport/stop_position_trolleybus":[
 "Mjesto stajanja trolejbusa"
-],
-"railway":[
-"Željeznica"
 ],
 "railway/abandoned":[
 "napuštena željeznička pruga",
@@ -2374,12 +2265,6 @@
 ],
 "shop/cosmetics":[
 "Prodavaonica kozmetike"
-],
-"shop/craft":[
-"Hobby & art trgovina",
-"kistovi",
-"slikarski dućan",
-"dućan za hobije"
 ],
 "shop/curtain":[
 "Trgovina za zastore"
@@ -2772,9 +2657,6 @@
 "shop/wine":[
 "Prodavaonica vina"
 ],
-"tourism":[
-"Turizam"
-],
 "tourism/alpine_hut":[
 "planinarski dom",
 "dom",
@@ -3084,9 +2966,6 @@
 ],
 "type/waterway":[
 "Vodeni tok"
-],
-"waterway":[
-"Vodeni put"
 ],
 "waterway/canal":[
 "kanal",
