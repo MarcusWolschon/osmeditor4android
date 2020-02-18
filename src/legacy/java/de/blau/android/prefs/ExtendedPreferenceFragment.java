@@ -17,6 +17,8 @@ import de.blau.android.util.Snack;
 
 public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompat {
 
+    protected static final String DEBUG_TAG = "ExtendedPreferenceFragment";
+
     @Override
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
 
@@ -49,7 +51,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
             activity.getSupportActionBar().setTitle(getPreferenceScreen().getTitle());
         }
     }
-    
+
     /**
      * Set the summary of a list preference from its current value and add an OnPreferenceChangeListener
      * 
@@ -117,7 +119,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
             editTextPref.setOnPreferenceChangeListener(p);
         }
     }
-    
+
     /**
      * Set a OnPreferenceChangeListener that will show a toast asking the user to restart
      * 
