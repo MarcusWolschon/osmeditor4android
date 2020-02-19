@@ -1,6 +1,7 @@
 package de.blau.android;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -8,6 +9,9 @@ import android.view.View;
 
 /**
  * From: http://android-developers.blogspot.com/2010/07/how-to-have-your-cupcake-and-eat-it-too.html
+ * 
+ * All Android versions now support the functionality this provided so it is actually only used as a backwards
+ * compatibility shim for our own code
  * 
  * @author Adam Powell, modified by Andrew Gregory for Vespucci
  * @author Jan Schejbal added long-click detection
@@ -17,26 +21,95 @@ public abstract class VersionedGestureDetector {
 
     OnGestureListener mListener;
 
-    public abstract boolean onTouchEvent(View v, MotionEvent ev);
+    /**
+     * Called for touch events
+     * 
+     * @param v the View
+     * @param ev the MotionEvent
+     * @return true if it was consumed
+     */
+    public abstract boolean onTouchEvent(@NonNull View v, @NonNull MotionEvent ev);
 
     public interface OnGestureListener {
-        void onDown(View v, float x, float y);
 
-        void onClick(View v, float x, float y);
+        /**
+         * Start of touch
+         * 
+         * @param v the View
+         * @param x screen x coordinate
+         * @param y screen y coordinate
+         */
+        void onDown(@NonNull View v, float x, float y);
 
-        void onUp(View v, float x, float y);
+        /**
+         * A click
+         * 
+         * @param v the View
+         * @param x screen x coordinate
+         * @param y screen y coordinate
+         */
+        void onClick(@NonNull View v, float x, float y);
 
-        /** @return true if long click events are handled, false if they should be ignored */
-        boolean onLongClick(View v, float x, float y);
+        /**
+         * End of touch
+         * 
+         * @param v the View
+         * @param x screen x coordinate
+         * @param y screen y coordinate
+         */
+        void onUp(@NonNull View v, float x, float y);
 
-        void onDrag(View v, float x, float y, float dx, float dy);
+        /**
+         * A long click
+         * 
+         * @param v the View
+         * @param x screen x coordinate
+         * @param y screen y coordinate
+         * @return true if long click events are handled, false if they should be ignored
+         */
+        boolean onLongClick(@NonNull View v, float x, float y);
 
-        void onScale(View v, float scaleFactor, float prevSpan, float curSpan, float focusX, float focusY);
+        /**
+         * A drag
+         * 
+         * @param v the View
+         * @param x screen x coordinate
+         * @param y screen y coordinate
+         * @param dx delta x in screen coordinates
+         * @param dy delta y in screen coordinates
+         */
+        void onDrag(@NonNull View v, float x, float y, float dx, float dy);
 
-        boolean onDoubleTap(View v, float x, float y);
+        /**
+         * Scale gesture
+         * 
+         * @param v the View
+         * @param scaleFactor the current scaling factor
+         * @param prevSpan previous span
+         * @param curSpan current span
+         * @param focusX center of pinch x in screen coordinates
+         * @param focusY center of pinch y in screen coordinates
+         */
+        void onScale(@NonNull View v, float scaleFactor, float prevSpan, float curSpan, float focusX, float focusY);
+
+        /**
+         * 
+         * @param v the View
+         * @param x screen x coordinate
+         * @param y screen y coordinate
+         * @return true if double click events are handled, false if they should be ignore
+         */
+        boolean onDoubleTap(@NonNull View v, float x, float y);
     }
 
-    public static VersionedGestureDetector newInstance(Context context, OnGestureListener listener) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     * @param listener an OnGestureListener
+     * @return a new VersionedGestureDetector instance
+     */
+    public static VersionedGestureDetector newInstance(@NonNull Context context, @NonNull OnGestureListener listener) {
         VersionedGestureDetector detector = null;
         detector = new FroyoDetector(context);
 
@@ -50,7 +123,12 @@ public abstract class VersionedGestureDetector {
         private GestureDetector      mGestureDetector;
         private View                 v;
 
-        public FroyoDetector(Context context) {
+        /**
+         * Construct a Froyo (android 2.2) and later specific instance
+         * 
+         * @param context an Android Context
+         */
+        public FroyoDetector(@NonNull Context context) {
             mScaleDetector = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
                 @Override
                 public boolean onScale(ScaleGestureDetector detector) {

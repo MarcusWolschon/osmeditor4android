@@ -10,7 +10,7 @@ public class SignalHandler extends PostAsyncActionHandler {
     /**
      * Handler that will count down a CountDownLatch
      * 
-     * @param signal
+     * @param signal the CountDownLatch
      */
     public SignalHandler(@NonNull CountDownLatch signal) {
         this.signal = signal;
