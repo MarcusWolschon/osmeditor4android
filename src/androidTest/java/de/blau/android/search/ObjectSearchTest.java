@@ -151,4 +151,27 @@ public class ObjectSearchTest {
             Assert.assertTrue(e.hasTag(Tags.KEY_BUILDING, "residential"));
         }
     }
+
+    /**
+     * Preset match
+     */
+    @Test
+    public void preset() {
+        TestUtils.clickOverflowButton();
+        TestUtils.clickText(device, false, "Search for objects", true);
+        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
+        try {
+            searchEditText.click();
+            searchEditText.setText("preset:\"Highways|Streets|Residential\"");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+        TestUtils.clickButton("android:id/button1", true);
+        List<OsmElement> selected = logic.getSelectedElements();
+        Assert.assertEquals(9, selected.size());
+        for (OsmElement e : selected) {
+            Assert.assertTrue(e instanceof Way);
+            Assert.assertTrue(e.hasTag(Tags.KEY_HIGHWAY, "residential"));
+        }
+    }
 }

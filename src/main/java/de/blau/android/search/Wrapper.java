@@ -20,6 +20,7 @@ import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.ViewBox;
@@ -194,26 +195,45 @@ public class Wrapper implements Meta {
     }
 
     @Override
-    public boolean matchesPreset(@NotNull String preset) {
-        if (preset.endsWith("*")) {
-            preset = preset.substring(0, preset.length() - 1);
+    public Object getPreset(@NotNull String presetPath) {
+        if (presetPath.endsWith("*")) {
+            presetPath = presetPath.substring(0, presetPath.length() - 1);
         }
-        String[] segments = preset.split("\\|");
+        String[] segments = presetPath.split("\\|");
         if (segments.length > 0) {
             PresetElementPath path = new PresetElementPath(Arrays.asList(segments));
             PresetElement pe = Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), path);
-            SortedMap<String, String> tags = element.getTags();
-            if (pe instanceof PresetItem && ((PresetItem) pe).matches(tags)) {
-                return true;
-            } else if (pe instanceof PresetGroup) {
-                for (PresetElement pe2 : ((PresetGroup) pe).getElements()) {
-                    if (pe2 instanceof PresetItem && ((PresetItem) pe2).matches(tags)) {
-                        return true;
-                    }
+            return pe;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean matchesPreset(@NotNull Object preset) {
+        SortedMap<String, String> tags = element.getTags();
+        ElementType type = element.getType();
+        if (preset instanceof PresetItem && matches((PresetItem) preset, type, tags)) {
+            return true;
+        } else if (preset instanceof PresetGroup) {
+            for (PresetElement pe2 : ((PresetGroup) preset).getElements()) {
+                if (pe2 instanceof PresetItem && matches((PresetItem) pe2, type, tags)) {
+                    return true;
                 }
             }
         }
         return false;
+    }
+
+    /**
+     * Check if an element matches a preset (only taking fixed tags in to account)
+     * 
+     * @param preset the preset
+     * @param type the element type
+     * @param tags any tags
+     * @return true if it matches
+     */
+    private boolean matches(@NonNull PresetItem preset, @NonNull ElementType type, @NonNull SortedMap<String, String> tags) {
+        return preset.getFixedTagCount() > 0 && preset.appliesTo(type) && preset.matches(tags);
     }
 
     @Override

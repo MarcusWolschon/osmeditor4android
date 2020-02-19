@@ -30,8 +30,8 @@ As there is essentially no documentation available from JOSM there is no guarant
 |✅|__type:relation__                    | | 
 |✅|__closed__                           | | 
 |✅|__untagged__                         | |
-|✅|__preset:"__preset item path__"__    | Vespucci uses "|" as preset path segment separator |
-|✅|__preset:"__preset group path/*__"__ | | 
+|✅|__preset:"__preset item path__"__    | Vespucci uses "&#124;" as preset path segment separator and only fixed tags are considered for matching |
+|✅|__preset:"__preset group path/\*__"__ | The asterix is ignored, the relevant criteria is if the path references a preset group | 
 | | __user:__                          | |
 |✅|__id:__                              | | 
 |✅|__version:__                         | |
