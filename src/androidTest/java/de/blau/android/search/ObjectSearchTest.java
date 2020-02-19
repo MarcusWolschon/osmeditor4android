@@ -2,6 +2,7 @@ package de.blau.android.search;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -96,6 +97,7 @@ public class ObjectSearchTest {
         map.getDataLayer().setVisible(true);
         map.invalidate();
         TestUtils.unlock();
+        logic.setLastObjectSearches(new ArrayList<>());
         device.waitForWindowUpdate(null, 2000);
     }
 
