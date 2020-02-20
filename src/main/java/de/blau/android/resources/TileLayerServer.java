@@ -1529,7 +1529,7 @@ public class TileLayerServer implements Serializable {
         checkMetaData();
         Collection<String> ret = new ArrayList<>();
         for (Provider p : providers) {
-            if (p.getAttribution() != null && p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
+            if (p.getAttribution() != null && p.covers(Math.min(zoom, getMaxZoom()), area)) { // ignore overzoom
                 ret.add(p.getAttribution());
             }
         }
@@ -1548,7 +1548,7 @@ public class TileLayerServer implements Serializable {
         checkMetaData();
         Collection<Provider> ret = new ArrayList<>();
         for (Provider p : providers) {
-            if (p.getAttribution() != null && p.covers(Integer.min(zoom, getMaxZoom()), area)) { // ignore overzoom
+            if (p.getAttribution() != null && p.covers(Math.min(zoom, getMaxZoom()), area)) { // ignore overzoom
                 ret.add(p);
             }
         }
