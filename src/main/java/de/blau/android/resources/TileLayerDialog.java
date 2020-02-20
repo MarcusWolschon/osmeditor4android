@@ -54,7 +54,8 @@ public class TileLayerDialog {
      * @param entry an entry from OAM
      * @param onUpdate call this if the DB has been updated
      */
-    public static void showLayerDialog(@NonNull FragmentActivity activity, @NonNull SQLiteDatabase writableDatabase, @Nullable Entry entry, @Nullable final OnUpdateListener onUpdate) {
+    public static void showLayerDialog(@NonNull FragmentActivity activity, @NonNull SQLiteDatabase writableDatabase, @Nullable Entry entry,
+            @Nullable final OnUpdateListener onUpdate) {
         showLayerDialog(activity, writableDatabase, -1, entry, onUpdate);
     }
 
@@ -100,7 +101,8 @@ public class TileLayerDialog {
                 nameEdit.setText(layer.getName());
                 urlEdit.setText(layer.getOriginalTileUrl());
                 overlayCheck.setChecked(layer.isOverlay());
-                categorySpinner.setSelection(layer.getCategory().ordinal());
+                Category category = layer.getCategory();
+                categorySpinner.setSelection(category != null ? category.ordinal() : Category.other.ordinal());
                 minZoomPicker.setValue(layer.getMinZoomLevel());
                 maxZoomPicker.setValue(layer.getMaxZoomLevel());
                 List<CoverageArea> coverages = layer.getCoverage();
