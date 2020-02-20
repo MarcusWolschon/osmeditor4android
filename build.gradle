@@ -7,6 +7,7 @@ buildscript {
         maven { url 'https://dl.bintray.com/content/simonpoole/gradle' }
         maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
         google()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
         mavenLocal()
     }
     dependencies {
@@ -17,6 +18,7 @@ buildscript {
         classpath "ch.poole:preset-utils:0.8.1"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.2'
+        classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
     }
 }
 
@@ -37,9 +39,9 @@ allprojects {
         maven { url "https://jitpack.io" }
         jcenter()
         mavenLocal()
-//        		flatDir {
-//                	dirs 'lib'
-//            	}
+        //        		flatDir {
+        //                	dirs 'lib'
+        //            	}
     }
 }
 
@@ -51,6 +53,7 @@ apply plugin: 'ch.poole.gradle.markdown'
 apply plugin: 'jacoco'
 // apply plugin: 'jacoco-everywhere'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.jaredsburrows.spoon'
 
 ext {
     adb = android.getAdbExe().toString()
@@ -324,7 +327,7 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
-    
+
     sourceSets {
         main.assets.srcDirs += files("$private_assets".toString())
     }
@@ -533,14 +536,26 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     additionalSourceDirs = files(coverageSourceDirs)
     sourceDirectories = files(coverageSourceDirs)
     executionData     = fileTree(
-        dir     : "$buildDir",
-        include : [ 'jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec' ]
-    )
+            dir     : "$buildDir",
+            include : ['jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec'])
 
     reports {
         xml.enabled = true
         html.enabled = true
     }
-    
+
     sourceDirectories = files(coverageSourceDirs)
 }
+
+spoon {
+    // https://github.com/jaredsburrows/gradle-spoon-plugin for configuration
+    debug = true
+    noAnimations = true
+    adbTimeout = 5
+    codeCoverage = true
+    shard = true
+    singleInstrumentationCall = true
+    ignoreFailures = true
+    clearAppDataBeforeEachTest = true
+}
+
