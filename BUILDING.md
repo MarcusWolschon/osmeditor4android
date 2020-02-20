@@ -64,11 +64,13 @@ Synonyms are retrieved from the iD repository with the grade task ``updateSynony
 
 ## Testing
 
-Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage in 2017. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
+Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage from 2017 onwards. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
 
 Tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS version all tests run on successfully is 8.0 and probably later. The current expectation is that all tests should pass, if this doesn't happen (for example because default applications and other android app settings have been changed) restarting the emulator should typically help.
 
-On an Intel based emulator the tests currently take something around 45 minutes to complete.
+On an Intel based emulator the tests currently take something around 45 minutes to complete if run with ``connectedCurrentDebugAndroidTest``.
+
+The time to run the tests can be reduced substantially by running ``spoonCurrentDebugAndroidTest`` spoon will execute the tests sharded over as many emulators that are currently running on the system, the additional bonus is that the test output is much easier to consume and understand.
 
 To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group. 
 
