@@ -203,7 +203,7 @@ public class TagFilter extends CommonFilter {
             // check if it is a relation member
             List<Relation> parents = e.getParentRelations();
             if (parents != null) {
-                for (Relation r : parents) {
+                for (Relation r : new ArrayList<>(parents)) { // protect against ccm
                     Include relationInclude = testRelation(r, false);
                     if (relationInclude != null && relationInclude != Include.DONT) {
                         return relationInclude; // inherit include status from relation
