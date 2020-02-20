@@ -104,8 +104,8 @@ public class WayTest {
         TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
         Way way = App.getLogic().getSelectedWay();
-        List<Node> origWayNodes = new ArrayList<>(way.getNodes());
         Assert.assertNotNull(way);
+        List<Node> origWayNodes = new ArrayList<>(way.getNodes());
         Assert.assertEquals(104148456L, way.getOsmId());
         // add some tags to way nodes so that we can check if they get deleted properly
         Node shouldBeDeleted1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766241L);

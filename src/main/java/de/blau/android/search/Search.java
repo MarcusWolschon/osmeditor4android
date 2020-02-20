@@ -52,10 +52,10 @@ public final class Search {
      */
     public static void search(@NonNull final FragmentActivity activity) {
         final Logic logic = App.getLogic();
-        List<String> lastSearches = logic.getLastObjectSearches();
-        List<Node> nodeResult = new ArrayList<>();
-        List<Way> wayResult = new ArrayList<>();
-        List<Relation> relationResult = new ArrayList<>();
+        final List<String> lastSearches = logic.getLastObjectSearches();
+        final List<Node> nodeResult = new ArrayList<>();
+        final List<Way> wayResult = new ArrayList<>();
+        final List<Relation> relationResult = new ArrayList<>();
 
         dialog = TextLineDialog.get(activity, R.string.search_objects_title, R.string.search_objects_hint, lastSearches, activity.getString(R.string.search),
                 new TextLineDialog.TextLineInterface() {
@@ -119,11 +119,12 @@ public final class Search {
                             }
 
                             @Override
-                            protected void onPostExecute(String result) {
+                            protected void onPostExecute(String errorMsg) {
                                 Progress.dismissDialog(activity, Progress.PROGRESS_SEARCHING);
-                                if (result == null) {
+                                if (errorMsg == null) {
                                     logic.pushObjectSearch(text);
                                     if (activity instanceof Main) {
+                                        System.out.println("result " + errorMsg);
                                         Main main = (Main) activity;
                                         EasyEditManager easyEditManager = main.getEasyEditManager();
                                         if (easyEditManager.inElementSelectedMode()) {
@@ -139,13 +140,14 @@ public final class Search {
                                         for (Relation r : relationResult) {
                                             logic.addSelectedRelation(r);
                                         }
+                                        System.out.println("selected ways " + (logic.getSelectedWays()==null ? "null" : " count " + logic.getSelectedWays().size()));
                                         easyEditManager.editElements();
                                         main.zoomTo(logic.getSelectedElements());
                                         main.invalidateMap();
                                     }
                                     dismiss();
                                 } else {
-                                    Snack.toastTopError(activity, result);
+                                    Snack.toastTopError(activity, errorMsg);
                                 }
                             }
                         }.execute();

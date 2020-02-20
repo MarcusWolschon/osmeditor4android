@@ -38,6 +38,7 @@ allprojects {
         maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
         jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
         mavenLocal()
         //        		flatDir {
         //                	dirs 'lib'
@@ -476,6 +477,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
     androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:2.1.3"
+    androidTestImplementation "com.squareup.spoon:spoon-client:2.0.0-SNAPSHOT"
 }
 
 
@@ -516,7 +518,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     sourceDirectories = files(coverageSourceDirs)
     executionData     = fileTree(
             dir     : "$buildDir",
-            include : ['jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec'])
+            include : ['jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'spoon-output/currentDebug/coverage/merged-coverage.ec'])
 
     reports {
         xml.enabled = true
@@ -529,7 +531,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
 spoon {
     // https://github.com/jaredsburrows/gradle-spoon-plugin for configuration
     debug = true
-    noAnimations = true
+    noAnimations = false
     adbTimeout = 5
     codeCoverage = true
     shard = true

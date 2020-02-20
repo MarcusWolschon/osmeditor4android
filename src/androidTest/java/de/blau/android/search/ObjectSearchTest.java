@@ -125,6 +125,7 @@ public class ObjectSearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton("android:id/button1", true);
+        device.waitForWindowUpdate(null, 500);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(1, selected.size());
         Assert.assertTrue(selected.get(0) instanceof Way);
@@ -146,6 +147,7 @@ public class ObjectSearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton("android:id/button1", true);
+        device.waitForWindowUpdate(null, 500);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(4, selected.size());
         for (OsmElement e : selected) {
@@ -169,6 +171,7 @@ public class ObjectSearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton("android:id/button1", true);
+        device.waitForWindowUpdate(null, 500);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(9, selected.size());
         for (OsmElement e : selected) {
