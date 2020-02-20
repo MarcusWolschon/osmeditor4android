@@ -4222,6 +4222,10 @@ public class Main extends FullScreenAppCompatActivity
      * @param elements OsmElements we want to show
      */
     public void zoomTo(@NonNull List<OsmElement> elements) {
+        if (elements.isEmpty()) {
+            Log.e(DEBUG_TAG, "zoomTo called with empty list");
+            return;
+        }
         setFollowGPS(false);
         BoundingBox result = null;
         Map map = getMap();
