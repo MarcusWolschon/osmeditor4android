@@ -907,7 +907,9 @@ public class TrackerService extends Service implements Exportable {
                             nmeaLocation.setLatitude(lat);
                             nmeaLocation.setLongitude(lon);
                             // we only really need to know this for determining how old the fix is
-                            nmeaLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                                nmeaLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+                            }
                             // can't call something on the UI thread directly
                             // need to send a message
                             Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, nmeaLocation);
