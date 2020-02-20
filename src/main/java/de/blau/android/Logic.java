@@ -4141,6 +4141,7 @@ public class Logic {
      * 
      * @return a List of Ways that are selected
      */
+    @Nullable
     public List<Way> getSelectedWays() {
         return selectedWays;
     }
