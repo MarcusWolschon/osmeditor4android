@@ -100,9 +100,8 @@ public final class Address implements Serializable {
     private Address(@NonNull String type, long id, @NonNull LinkedHashMap<String, List<String>> tags) {
         OsmElement e = App.getDelegator().getOsmElement(type, id);
         if (e == null) {
-            Log.e(DEBUG_TAG, type + " " + id + " doesn't exist in storage ");
-            // FIXME is might make sense to create a crash dump here
-            return;
+            Log.e(DEBUG_TAG, type + " " + id + " doesn't exist in storage");
+            throw new IllegalStateException(type + " " + id + " doesn't exist in storage");
         }
         init(e, tags);
     }
@@ -223,38 +222,51 @@ public final class Address implements Serializable {
         if (lastAddresses != null && !lastAddresses.isEmpty()) {
             Log.d(DEBUG_TAG, "initializing with last addresses");
             Address lastAddress = lastAddresses.get(0);
-            newAddress = new Address(elementType, elementOsmId, lastAddress.tags); // last address we added
-            double distance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, lastAddress.lon, lastAddress.lat);
-            if (distance > MAX_LAST_ADDRESS_DISTANCE) { // if the last address was too far away don't use its tags
-                // check if we have a better candidate
-                Address candidate = null;
-                double candidateDistance = MAX_LAST_ADDRESS_DISTANCE;
-                for (int i = 1; i < lastAddresses.size(); i++) {
-                    Address a = lastAddresses.get(i);
-                    double d = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
-                    if (d < candidateDistance) {
-                        candidate = a;
-                        candidateDistance = d;
+            try {
+                newAddress = new Address(elementType, elementOsmId, lastAddress.tags); // last address we added
+            } catch (IllegalStateException isex) {
+                // handle this below
+            }
+            if (newAddress != null) {
+                double distance = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, lastAddress.lon, lastAddress.lat);
+                if (distance > MAX_LAST_ADDRESS_DISTANCE) { // if the last address was too far away don't use its tags
+                    // check if we have a better candidate
+                    Address candidate = null;
+                    double candidateDistance = MAX_LAST_ADDRESS_DISTANCE;
+                    for (int i = 1; i < lastAddresses.size(); i++) {
+                        Address a = lastAddresses.get(i);
+                        double d = GeoMath.haversineDistance(newAddress.lon, newAddress.lat, a.lon, a.lat);
+                        if (d < candidateDistance) {
+                            candidate = a;
+                            candidateDistance = d;
+                        }
+                    }
+                    if (candidate != null) {
+                        // better candidate found
+                        newAddress.tags = new LinkedHashMap<>(candidate.tags);
+                        Log.d(DEBUG_TAG, "better candidate found " + candidate);
+                    } else {
+                        // zap the tags from the last address
+                        newAddress.tags = new LinkedHashMap<>();
+                        Log.d(DEBUG_TAG, "no nearby addresses found");
                     }
                 }
-                if (candidate != null) {
-                    // better candidate found
-                    newAddress.tags = new LinkedHashMap<>(candidate.tags);
-                    Log.d(DEBUG_TAG, "better candidate found " + candidate);
-                } else {
-                    // zap the tags from the last address
-                    newAddress.tags = new LinkedHashMap<>();
-                    Log.d(DEBUG_TAG, "no nearby addresses found");
+                if (newAddress.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+                    newAddress.tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(""));
                 }
-            }
-            if (newAddress.tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-                newAddress.tags.put(Tags.KEY_ADDR_HOUSENUMBER, Util.wrapInList(""));
             }
         }
 
         if (newAddress == null) { // make sure we have the address object
-            newAddress = new Address(elementType, elementOsmId, new LinkedHashMap<>());
-            Log.d("Address", "nothing to seed with, creating new");
+            try {
+                newAddress = new Address(elementType, elementOsmId, new LinkedHashMap<>());
+                Log.d("Address", "nothing to seed with, creating new");
+            } catch (IllegalStateException isex) {
+                // this is fatal
+                LinkedHashMap<String, List<String>> defaultTags = new LinkedHashMap<>();
+                fillWithDefaultAddressTags(context, defaultTags);
+                return defaultTags;
+            }
         }
         // merge in any existing tags
         for (Entry<String, List<String>> entry : current.entrySet()) {
@@ -340,12 +352,7 @@ public final class Address implements Serializable {
                     newAddress.tags = predictNumber(newAddress, tags, street, side, list, false, null);
                 }
             } else { // last ditch attemot
-                // fill with Karlsruher schema
-                Preferences prefs = new Preferences(context);
-                Set<String> addressTags = prefs.addressTags();
-                for (String key : addressTags) {
-                    newAddress.tags.put(key, Util.wrapInList(""));
-                }
+                fillWithDefaultAddressTags(context, newAddress.tags);
             }
         }
 
@@ -353,26 +360,46 @@ public final class Address implements Serializable {
         if (elementType.equals(Node.NAME)) {
             boolean isOnBuilding = false;
             // we can't call wayForNodes here because Logic may not be around
-            for (Way w : storageDelegator.getCurrentStorage().getWays((Node) storageDelegator.getOsmElement(Node.NAME, elementOsmId))) {
-                if (w.hasTagKey(Tags.KEY_BUILDING)) {
-                    isOnBuilding = true;
-                } else if (w.getParentRelations() != null) { // need to check relations too
-                    for (Relation r : w.getParentRelations()) {
-                        if (r.hasTagKey(Tags.KEY_BUILDING) || r.hasTag(Tags.KEY_TYPE, Tags.VALUE_BUILDING)) {
-                            isOnBuilding = true;
-                            break;
+            Node node = (Node) storageDelegator.getOsmElement(Node.NAME, elementOsmId);
+            if (node != null) { // null shouldn't happen
+                for (Way w : storageDelegator.getCurrentStorage().getWays(node)) {
+                    if (w.hasTagKey(Tags.KEY_BUILDING)) {
+                        isOnBuilding = true;
+                    } else if (w.getParentRelations() != null) { // need to check relations too
+                        for (Relation r : w.getParentRelations()) {
+                            if (r.hasTagKey(Tags.KEY_BUILDING) || r.hasTag(Tags.KEY_TYPE, Tags.VALUE_BUILDING)) {
+                                isOnBuilding = true;
+                                break;
+                            }
                         }
                     }
+                    if (isOnBuilding) {
+                        break;
+                    }
                 }
-                if (isOnBuilding) {
-                    break;
+                if (isOnBuilding && !newAddress.tags.containsKey(Tags.KEY_ENTRANCE)) {
+                    newAddress.tags.put(Tags.KEY_ENTRANCE, Util.wrapInList("yes"));
                 }
-            }
-            if (isOnBuilding && !newAddress.tags.containsKey(Tags.KEY_ENTRANCE)) {
-                newAddress.tags.put(Tags.KEY_ENTRANCE, Util.wrapInList("yes"));
+            } else {
+                Log.e(DEBUG_TAG, "Node " + elementOsmId + " is null");
             }
         }
         return newAddress.tags;
+    }
+
+    /**
+     * Fill tags with the default address tags
+     * 
+     * @param context an Android Context
+     * @param tags the map for the tags
+     */
+    static void fillWithDefaultAddressTags(@NonNull Context context, @NonNull LinkedHashMap<String, List<String>> tags) {
+        // fill with Karlsruher schema
+        Preferences prefs = new Preferences(context);
+        Set<String> addressTags = prefs.addressTags();
+        for (String key : addressTags) {
+            tags.put(key, Util.wrapInList(""));
+        }
     }
 
     /**
@@ -693,22 +720,29 @@ public final class Address implements Serializable {
             if (lastAddresses.size() >= MAX_SAVED_ADDRESSES) { // arbitrary limit for now
                 lastAddresses.removeLast();
             }
-            Address current = new Address(caller.getType(), caller.getOsmId(), addressTags);
-            StreetPlaceNamesAdapter streetAdapter = (StreetPlaceNamesAdapter) ((NameAdapters) caller.getActivity()).getStreetNameAdapter(null);
-            if (streetAdapter != null) {
-                List<String> values = tags.get(Tags.KEY_ADDR_STREET);
-                if (values != null && !values.isEmpty()) {
-                    String streetName = values.get(0); // FIXME can't remember what this is supposed to do....
-                    if (streetName != null) {
-                        try {
-                            current.setSide(streetAdapter.getStreetId(streetName));
-                        } catch (OsmException e) {
-                            current.side = Side.UNKNOWN;
+            Address current = null;
+            try {
+                current = new Address(caller.getType(), caller.getOsmId(), addressTags);
+            } catch (IllegalStateException isex) {
+                Log.e(DEBUG_TAG, "updateLastAddresses " + isex.getMessage());
+            }
+            if (current != null) {
+                StreetPlaceNamesAdapter streetAdapter = (StreetPlaceNamesAdapter) ((NameAdapters) caller.getActivity()).getStreetNameAdapter(null);
+                if (streetAdapter != null) {
+                    List<String> values = tags.get(Tags.KEY_ADDR_STREET);
+                    if (values != null && !values.isEmpty()) {
+                        String streetName = values.get(0); // FIXME can't remember what this is supposed to do....
+                        if (streetName != null) {
+                            try {
+                                current.setSide(streetAdapter.getStreetId(streetName));
+                            } catch (OsmException e) {
+                                current.side = Side.UNKNOWN;
+                            }
                         }
                     }
                 }
+                lastAddresses.addFirst(current);
             }
-            lastAddresses.addFirst(current);
             saveLastAddresses(caller.getActivity());
         }
     }
