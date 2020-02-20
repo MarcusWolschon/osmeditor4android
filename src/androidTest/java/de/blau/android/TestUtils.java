@@ -923,7 +923,13 @@ public class TestUtils {
             try {
                 androidButton.clickAndWaitForNewWindow();
             } catch (UiObjectNotFoundException e1) {
-               Assert.fail("Link to internal storage not found in drawer");
+                android = new UiSelector().resourceIdMatches(".*:id/title").textStartsWith("AOSP");
+                androidButton = device.findObject(android);
+                try {
+                    androidButton.clickAndWaitForNewWindow();
+                } catch (UiObjectNotFoundException e2) {
+                    Assert.fail("Link to internal storage not found in drawer");
+                }
             }
             // TestUtils.clickText(device, false, "Android", true);
             UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
