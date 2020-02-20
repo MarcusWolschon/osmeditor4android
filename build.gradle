@@ -395,27 +395,6 @@ afterEvaluate{
             }
         }
     }
-    // while we are at it make sure we remove any existing installation before we run the tests
-    // currently this conflicts with installDebug which we need to be able to set the mock location permission
-    // connectedDebugAndroidTest.dependsOn uninstallDebug
-    connectedCurrentDebugAndroidTest.dependsOn installCurrentDebug
-}
-
-// this adds some code to set the mock location permission on devices with 6.0 and later
-tasks.whenTaskAdded { task ->
-    if (task.name.startsWith('install')) {
-        task.doLast {
-            android.applicationVariants.all { variant ->
-                "${adb} devices".execute().text.eachLine {
-                    if (it.endsWith("device")) {
-                        def device = it.split()[0]
-                        println "Granting test permissions on device ${device}\n"
-                        "${adb} shell appops set ${variant.applicationId} 58 allow".execute()
-                    }
-                }
-            }
-        }
-    }
 }
 
 ext {

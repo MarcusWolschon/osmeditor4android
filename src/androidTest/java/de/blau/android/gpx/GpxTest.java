@@ -76,6 +76,8 @@ public class GpxTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
+        // this sets the mock location permission
+        instrumentation.getUiAutomation().executeShellCommand("appops set de.blau.android 58 allow");
         device = UiDevice.getInstance(instrumentation);
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
