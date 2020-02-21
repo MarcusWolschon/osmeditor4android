@@ -233,4 +233,4 @@ There is no completely satisfactory solution to this, but if you don't want to d
 * turn off __Enable split action bar__, this will move the menu bar to the top of the screen.
 * set __Fullscreen mode__ to _never_
 
-Currently it isn't possible to programmatically detect if navigation gestures are turned on or off (due to the version of Android that Vespucci is built against), in upcoming versions, this will be possible and the corresponding settings will be made automatically.
+Currently it isn't possible to programmatically detect if navigation gestures are turned on or off (due to the version of Android that Vespucci is built against), in upcoming versions this will be possible and the corresponding settings will be made automatically.
