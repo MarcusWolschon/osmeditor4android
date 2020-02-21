@@ -230,7 +230,7 @@ Android 9 introduced the option to replace the navigation bar at the bottom of t
 
 There is no completely satisfactory solution to this, but if you don't want to disable the gestures the best setup is to change the following settings in the [Advanced preferences](../help/en/Advanced%20preferences.md) user interface settings:
 
-* turn off __Enable split action bar__, this will move the menu button to the top of the screen.
+* turn off __Enable split action bar__, this will move the menu bar to the top of the screen.
 * set __Fullscreen mode__ to _never_
 
 Currently it isn't possible to programmatically detect if navigation gestures are turned on or off (due to the version of Android that Vespucci is built against), in upcoming versions, this will be possible and the corresponding settings will be made automatically.
