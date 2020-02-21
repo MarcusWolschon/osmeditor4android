@@ -51,6 +51,8 @@ import okhttp3.OkHttpClient;
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends android.app.Application {
+    private static final String DEBUG_TAG = App.class.getName();    
+    
     private static final String RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;
     private static StorageDelegator delegator      = new StorageDelegator();
@@ -243,6 +245,10 @@ public class App extends android.app.Application {
             if (currentPresets == null) {
                 Preferences prefs = new Preferences(ctx); // FIXME get instance held by logic
                 currentPresets = prefs.getPreset();
+                if (currentPresets == null) {
+                    Log.e(DEBUG_TAG, "getCurrentPresets currentPreset is null");
+                    currentPresets = new Preset[0];
+                }
                 mruTags = new MRUTags();
                 mruTags.load(ctx);
             }
