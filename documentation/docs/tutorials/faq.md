@@ -96,7 +96,7 @@ Currently, you can:
  * Download user-specified areas from OSM server
  * Create, save, upload and import GPX tracks
 
-... and much more.
+... see [Vespucci feature list](features.md) for more.
 
 #### Does Vespucci support OSM Notes?
 
@@ -223,3 +223,14 @@ To resolve you can clear all the data for the app (upload any pending changes be
 #### Can't save MapRoulette API Key
 
 If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. 
+
+#### Navigation gestures on Android 9 and later
+
+Android 9 introduced the option to replace the navigation bar at the bottom of the screen with gestures, these were further refined with the release of Android 10. If you have this enabled you will notice that this conflicts with the menu bar at the bottom of the screen used by Vespucci.
+
+There is no completely satisfactory solution to this, but if you don't want to disable the gestures the best setup is to change the following settings in the [Advanced preferences](../help/en/Advanced%20preferences.md) user interface settings:
+
+* turn off __Enable split action bar__, this will move the menu button to the top of the screen.
+* set __Fullscreen mode__ to _never_
+
+Currently it isn't possible to programmatically detect if navigation gestures are turned on or off (due to the version of Android that Vespucci is built against), in upcoming versions, this will be possible and the corresponding settings will be made automatically.
