@@ -341,6 +341,7 @@ i-->
             <li><a href="#on-startup-vespucci-complains-that-it-cant-write-to-a-directory">On startup Vespucci complains that it can't write to a directory</a></li>
             <li><a href="#other-tile-database-related-issues">Other tile database related issues</a></li>
             <li><a href="#cant-save-maproulette-api-key">Can't save MapRoulette API Key</a></li>
+            <li><a href="#navigation-gestures-on-android-9-and-later">Navigation gestures on Android 9 and later</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -417,7 +418,7 @@ however older devices tend to have very limited memory and correspondingly the a
 <li>Download user-specified areas from OSM server</li>
 <li>Create, save, upload and import GPX tracks</li>
 </ul>
-<p>... and much more.</p>
+<p>... see <a href="../features/">Vespucci feature list</a> for more.</p>
 <h4 id="does-vespucci-support-osm-notes">Does Vespucci support OSM Notes?</h4>
 <p>Yes, Vespucci supports manual and automatic download of Notes and offline storage of them, further it supports displaying and editing warnings produced by the OSMOSE quality assurance system. OpenStreetBugs is no longer supported.</p>
 <h4 id="what-are-the-limits-of-vespucci">What are the limits of Vespucci?</h4>
@@ -492,7 +493,15 @@ however older devices tend to have very limited memory and correspondingly the a
 <p>While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. </p>
 <p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.</p>
 <h4 id="cant-save-maproulette-api-key">Can't save MapRoulette API Key</h4>
-<p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p></div> -->
+<p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p>
+<h4 id="navigation-gestures-on-android-9-and-later">Navigation gestures on Android 9 and later</h4>
+<p>Android 9 introduced the option to replace the navigation bar at the bottom of the screen with gestures, these were further refined with the release of Android 10. If you have this enabled you will notice that this conflicts with the menu bar at the bottom of the screen used by Vespucci.</p>
+<p>There is no completely satisfactory solution to this, but if you don't want to disable the gestures the best setup is to change the following settings in the <a href="../../help/en/Advanced preferences/">Advanced preferences</a> user interface settings:</p>
+<ul>
+<li>turn off <strong>Enable split action bar</strong>, this will move the menu bar to the top of the screen.</li>
+<li>set <strong>Fullscreen mode</strong> to <em>never</em></li>
+</ul>
+<p>Currently it isn't possible to programmatically detect if navigation gestures are turned on or off (due to the version of Android that Vespucci is built against), in upcoming versions, this will be possible and the corresponding settings will be made automatically.</p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -534,6 +543,7 @@ however older devices tend to have very limited memory and correspondingly the a
             <li><a href="#on-startup-vespucci-complains-that-it-cant-write-to-a-directory">On startup Vespucci complains that it can't write to a directory</a></li>
             <li><a href="#other-tile-database-related-issues">Other tile database related issues</a></li>
             <li><a href="#cant-save-maproulette-api-key">Can't save MapRoulette API Key</a></li>
+            <li><a href="#navigation-gestures-on-android-9-and-later">Navigation gestures on Android 9 and later</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
@@ -610,7 +620,7 @@ however older devices tend to have very limited memory and correspondingly the a
 <li>Download user-specified areas from OSM server</li>
 <li>Create, save, upload and import GPX tracks</li>
 </ul>
-<p>... and much more.</p>
+<p>... see <a href="../features/">Vespucci feature list</a> for more.</p>
 <h4 id="does-vespucci-support-osm-notes">Does Vespucci support OSM Notes?</h4>
 <p>Yes, Vespucci supports manual and automatic download of Notes and offline storage of them, further it supports displaying and editing warnings produced by the OSMOSE quality assurance system. OpenStreetBugs is no longer supported.</p>
 <h4 id="what-are-the-limits-of-vespucci">What are the limits of Vespucci?</h4>
@@ -685,7 +695,15 @@ however older devices tend to have very limited memory and correspondingly the a
 <p>While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. </p>
 <p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.</p>
 <h4 id="cant-save-maproulette-api-key">Can't save MapRoulette API Key</h4>
-<p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p></div>
+<p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p>
+<h4 id="navigation-gestures-on-android-9-and-later">Navigation gestures on Android 9 and later</h4>
+<p>Android 9 introduced the option to replace the navigation bar at the bottom of the screen with gestures, these were further refined with the release of Android 10. If you have this enabled you will notice that this conflicts with the menu bar at the bottom of the screen used by Vespucci.</p>
+<p>There is no completely satisfactory solution to this, but if you don't want to disable the gestures the best setup is to change the following settings in the <a href="../../help/en/Advanced preferences/">Advanced preferences</a> user interface settings:</p>
+<ul>
+<li>turn off <strong>Enable split action bar</strong>, this will move the menu bar to the top of the screen.</li>
+<li>set <strong>Fullscreen mode</strong> to <em>never</em></li>
+</ul>
+<p>Currently it isn't possible to programmatically detect if navigation gestures are turned on or off (due to the version of Android that Vespucci is built against), in upcoming versions, this will be possible and the corresponding settings will be made automatically.</p></div>
                 
         </div>
 
