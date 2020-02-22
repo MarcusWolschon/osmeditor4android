@@ -920,6 +920,8 @@ public class TestUtils {
      * @param fileName the name of the file
      */
     public static void selectFile(@NonNull UiDevice device, @Nullable String directory, @NonNull String fileName) {
+        UiSelector scrollableSelector = Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? new UiSelector().className("android.widget.FrameLayout")
+                : new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             TestUtils.clickOverflowButton();
             if (!TestUtils.clickText(device, false, "Show", false)) {
@@ -940,8 +942,14 @@ public class TestUtils {
                     Assert.fail("Link to internal storage not found in drawer");
                 }
             }
-            // TestUtils.clickText(device, false, "Android", true);
-            UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
+            UiScrollable appView = new UiScrollable(scrollableSelector);
+            try {
+                System.out.println("selectFile " + appView.getClassName());
+
+            } catch (UiObjectNotFoundException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
             try {
                 appView.scrollIntoView(new UiSelector().text("Vespucci"));
             } catch (UiObjectNotFoundException e) {
@@ -952,7 +960,7 @@ public class TestUtils {
         UiScrollable appView;
         if (directory != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
+                appView = new UiScrollable(scrollableSelector);
             } else {
                 appView = new UiScrollable(new UiSelector().scrollable(true));
             }
@@ -964,7 +972,7 @@ public class TestUtils {
             TestUtils.clickText(device, false, directory, true);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            appView = new UiScrollable(new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView"));
+            appView = new UiScrollable(scrollableSelector);
         } else {
             appView = new UiScrollable(new UiSelector().scrollable(true));
         }
