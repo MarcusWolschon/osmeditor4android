@@ -1570,6 +1570,7 @@ public class TileLayerServer implements Serializable {
      * @param zoomLevel the zoom level we want the offset for
      * @return offset in WGS84, null == no offset (or other issue)
      */
+    @Nullable
     public Offset getOffset(int zoomLevel) {
         if (zoomLevel < zoomLevelMin) {
             return null;
