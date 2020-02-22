@@ -16,6 +16,7 @@ import android.graphics.Rect;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
@@ -776,9 +777,14 @@ public class TestUtils {
             protected void onPreExecute() {
                 System.out.println("Injecting " + track.size() + " Locations");
                 locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                if (providerCriteria == Criteria.ACCURACY_FINE) {
-                    locationManager.addTestProvider(LocationManager.GPS_PROVIDER, // name
-                            false, // requiresNetwork
+                LocationProvider tempProvider = null;
+                try {
+                    tempProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+                } catch (Exception ex) {
+                    System.out.println("injectLocation " + ex.getMessage());
+                }
+                if (tempProvider == null) {
+                    locationManager.addTestProvider(LocationManager.GPS_PROVIDER, false, // requiresNetwork
                             false, // requiresSatellite
                             false, // requiresCell
                             false, // hasMonetaryCost
@@ -788,9 +794,14 @@ public class TestUtils {
                             0, // powerRequirement
                             5 // accuracy
                     );
-                } else if (providerCriteria == Criteria.ACCURACY_COARSE) {
-                    locationManager.addTestProvider(LocationManager.NETWORK_PROVIDER, // name
-                            false, // requiresNetwork
+                }
+                try {
+                    tempProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+                } catch (Exception ex) {
+                    System.out.println("injectLocation " + ex.getMessage());
+                }
+                if (tempProvider == null) {
+                    locationManager.addTestProvider(LocationManager.NETWORK_PROVIDER, false, // requiresNetwork
                             false, // requiresSatellite
                             false, // requiresCell
                             false, // hasMonetaryCost
@@ -800,12 +811,10 @@ public class TestUtils {
                             0, // powerRequirement
                             500 // accuracy
                     );
-                } else {
-                    return;
                 }
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(providerCriteria);
-                provider = locationManager.getBestProvider(criteria, true);
+                provider = locationManager.getBestProvider(criteria, false);
                 System.out.println("Provider " + provider);
                 locationManager.setTestProviderEnabled(provider, true);
             }
