@@ -881,6 +881,7 @@ public class Main extends FullScreenAppCompatActivity
                             @Override
                             public void onSuccess() {
                                 logic.loadTasksFromFile(Main.this, postLoadTasks);
+                                setupFollowButton();
                             }
 
                             @Override
@@ -1485,6 +1486,14 @@ public class Main extends FullScreenAppCompatActivity
         } else {
             actionbar.show();
         }
+    }
+
+    /**
+     * Setup the GPS follow button
+     * 
+     * This needs to called after GPS permissions have been enabled
+     */
+    private void setupFollowButton() {
         FloatingActionButton follow = getFollowButton();
         if (follow != null) {
             String[] locationProviders = getEnabledLocationProviders();
