@@ -191,7 +191,7 @@ public class IntentsTest {
         } catch (InterruptedException e1) {
         }
         Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
-        Assert.assertEquals(18, main.getMap().getZoomLevel());
+        Assert.assertTrue(18 <= main.getMap().getZoomLevel());
         Assert.assertEquals(101792984L,App.getLogic().getSelectedNode().getOsmId());
         Assert.assertEquals("thisisatest", App.getLogic().getDraftComment());
     }
