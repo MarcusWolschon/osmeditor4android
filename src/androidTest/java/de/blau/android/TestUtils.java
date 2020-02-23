@@ -653,7 +653,7 @@ public class TestUtils {
         if (clickable) {
             bySelector = bySelector.clickable(true);
         }
-        return Boolean.TRUE.equals(device.wait(Until.findObject(bySelector), wait));
+        return device.wait(Until.findObject(bySelector), wait) != null;
     }
 
     /**
@@ -666,7 +666,7 @@ public class TestUtils {
      */
     public static boolean textGone(UiDevice device, String text, long wait) {
         Log.w(DEBUG_TAG, "Waiting for object with " + text + " to go away");
-        return Boolean.TRUE.equals(device.wait(Until.gone(By.textStartsWith(text)), wait));
+        return device.wait(Until.gone(By.textStartsWith(text)), wait) != null;
     }
 
     /**
