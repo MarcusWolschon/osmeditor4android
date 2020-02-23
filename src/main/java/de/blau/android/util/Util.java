@@ -414,8 +414,6 @@ public final class Util {
      */
     public static void sharePosition(@NonNull Activity activity, @Nullable double[] lonLat, @Nullable Integer z) {
         if (lonLat != null) {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
             Uri geo = Uri.parse("geo:" + String.format(Locale.US, "%.7f", lonLat[1]) + "," + String.format(Locale.US, "%.7f", lonLat[0])
                     + (z != null ? "?z=" + z.toString() : ""));
             Log.d(DEBUG_TAG, "sharing " + geo);
