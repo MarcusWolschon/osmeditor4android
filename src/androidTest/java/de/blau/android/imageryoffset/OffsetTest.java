@@ -68,6 +68,7 @@ public class OffsetTest {
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
+        TestUtils.resetOffsets(main.getMap());
     }
 
     /**
@@ -76,6 +77,7 @@ public class OffsetTest {
     @After
     public void teardown() {
         if (main != null) {
+            TestUtils.resetOffsets(main.getMap());
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
         } else {

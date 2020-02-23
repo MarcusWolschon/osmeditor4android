@@ -66,6 +66,8 @@ public class OffsetModeTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         map = main.getMap();
         map.setPrefs(main, prefs);
+        main.invalidateOptionsMenu(); // to be sure that the menu entry is actually shown
+        TestUtils.resetOffsets(main.getMap());
     }
 
     /**
@@ -73,8 +75,9 @@ public class OffsetModeTest {
      */
     @After
     public void teardown() {
-        TestUtils.zoomToLevel(main, 18);
         if (main != null) {
+            TestUtils.zoomToLevel(main, 18);
+            TestUtils.resetOffsets(main.getMap());
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
         } else {
@@ -110,21 +113,29 @@ public class OffsetModeTest {
         }
         Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
-        int zoomLevel = map.getZoomLevel();
         TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
+        tileLayerConfiguration.setOffset(0, 0);
+        TestUtils.zoomToLevel(main, tileLayerConfiguration.getMaxZoom());
+        int zoomLevel = map.getZoomLevel();
         Offset offset = tileLayerConfiguration.getOffset(zoomLevel);
-        Assert.assertNull(offset);
-        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, true, 100);
+        Assert.assertEquals(0D, offset.getDeltaLat(), 0.1E-4);
+        Assert.assertEquals(0D, offset.getDeltaLon(), 0.1E-4);
+        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, true, 50);
         TestUtils.clickOverflowButton();
         TestUtils.clickText(device, false, "Save to database", true);
+        // 74.22 m
         TestUtils.clickText(device, false, "Cancel", true);
-
+        TestUtils.clickOverflowButton();
+        TestUtils.clickText(device, false, "Apply", true);
         TestUtils.clickHome(device);
-
+        try {
+            Thread.sleep(5000); // NOSONAR
+        } catch (InterruptedException e) {
+        }
         zoomLevel = map.getZoomLevel();
         offset = tileLayerConfiguration.getOffset(zoomLevel);
         Assert.assertNotNull(offset);
-        Assert.assertEquals(6.579E-4, offset.getDeltaLat(), 0.01E-4);
-        Assert.assertEquals(1.773E-4, offset.getDeltaLon(), 0.01E-4);
+        Assert.assertEquals(6.462E-4, offset.getDeltaLat(), 0.1E-4);
+        Assert.assertEquals(1.773E-4, offset.getDeltaLon(), 0.1E-4);
     }
 }

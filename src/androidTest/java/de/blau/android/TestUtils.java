@@ -16,7 +16,6 @@ import android.graphics.Rect;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
@@ -33,10 +32,13 @@ import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import de.blau.android.imageryoffset.Offset;
+import de.blau.android.resources.TileLayerServer;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * Various methods to support testing
@@ -79,9 +81,18 @@ public class TestUtils {
     public static void selectIntentRecipient() {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         mDevice.waitForWindowUpdate(null, 1000);
-        clickText(mDevice, false, "Vespucci", false);
-        if (!clickText(mDevice, false, "Just once", false)) {
-            clickText(mDevice, false, "Nur diesmal", false);
+        if (findText(mDevice, false, "Open with Vespucci")) {
+            if (findText(mDevice, false, "Share on OpenStreetMap")) {
+                clickText(mDevice, false, "Just once", false);
+            } else {
+                // Open with Vespucci was actually Share on OpenStreetMap
+                clickText(mDevice, false, "Vespucci", false);
+            }
+        } else {
+            clickText(mDevice, false, "Vespucci", false);
+            if (!clickText(mDevice, false, "Just once", false)) {
+                clickText(mDevice, false, "Nur diesmal", false);
+            }
         }
     }
 
@@ -777,44 +788,35 @@ public class TestUtils {
             protected void onPreExecute() {
                 System.out.println("Injecting " + track.size() + " Locations");
                 locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                LocationProvider tempProvider = null;
-                try {
-                    tempProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
-                } catch (Exception ex) {
-                    System.out.println("injectLocation " + ex.getMessage());
+                locationManager.removeTestProvider(LocationManager.GPS_PROVIDER);
+                locationManager.addTestProvider(LocationManager.GPS_PROVIDER, false, // requiresNetwork
+                        false, // requiresSatellite
+                        false, // requiresCell
+                        false, // hasMonetaryCost
+                        true, // supportsAltitude
+                        true, // supportsSpeed
+                        true, // supportsBearing
+                        0, // powerRequirement
+                        5 // accuracy
+                );
+                locationManager.removeTestProvider(LocationManager.NETWORK_PROVIDER);
+                locationManager.addTestProvider(LocationManager.NETWORK_PROVIDER, false, // requiresNetwork
+                        false, // requiresSatellite
+                        false, // requiresCell
+                        false, // hasMonetaryCost
+                        true, // supportsAltitude
+                        true, // supportsSpeed
+                        true, // supportsBearing
+                        0, // powerRequirement
+                        500 // accuracy
+                );
+
+                if (providerCriteria == Criteria.ACCURACY_FINE) {
+                    provider = LocationManager.GPS_PROVIDER;
+                } else {
+                    provider = LocationManager.NETWORK_PROVIDER;
                 }
-                if (tempProvider == null) {
-                    locationManager.addTestProvider(LocationManager.GPS_PROVIDER, false, // requiresNetwork
-                            false, // requiresSatellite
-                            false, // requiresCell
-                            false, // hasMonetaryCost
-                            true, // supportsAltitude
-                            true, // supportsSpeed
-                            true, // supportsBearing
-                            0, // powerRequirement
-                            5 // accuracy
-                    );
-                }
-                try {
-                    tempProvider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
-                } catch (Exception ex) {
-                    System.out.println("injectLocation " + ex.getMessage());
-                }
-                if (tempProvider == null) {
-                    locationManager.addTestProvider(LocationManager.NETWORK_PROVIDER, false, // requiresNetwork
-                            false, // requiresSatellite
-                            false, // requiresCell
-                            false, // hasMonetaryCost
-                            true, // supportsAltitude
-                            true, // supportsSpeed
-                            true, // supportsBearing
-                            0, // powerRequirement
-                            500 // accuracy
-                    );
-                }
-                Criteria criteria = new Criteria();
-                criteria.setAccuracy(providerCriteria);
-                provider = locationManager.getBestProvider(criteria, false);
+
                 System.out.println("Provider " + provider);
                 locationManager.setTestProviderEnabled(provider, true);
             }
@@ -996,6 +998,25 @@ public class TestUtils {
             appView.scrollIntoView(new UiSelector().text(text));
         } catch (UiObjectNotFoundException e) {
             Assert.fail(text + " not found");
+        }
+    }
+
+    /**
+     * Zap all offsets for the background layer
+     * 
+     * @param map the current Map object
+     */
+    public static void resetOffsets(@NonNull Map map) {
+        MapTilesLayer layer = map.getBackgroundLayer();
+        if (layer != null) {
+            TileLayerServer osmts = layer.getTileLayerConfiguration();
+            if (osmts != null) {
+                osmts.setOffsets(new Offset[osmts.getMaxZoom() - osmts.getMinZoom() + 1]);
+            } else {
+                Log.e(DEBUG_TAG, "resetOffsets osmts is null");
+            }
+        } else {
+            Log.e(DEBUG_TAG, "resetOffsets layer is null");
         }
     }
 }
