@@ -798,7 +798,11 @@ public class TestUtils {
             protected void onPreExecute() {
                 System.out.println("Injecting " + track.size() + " Locations");
                 locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                locationManager.removeTestProvider(LocationManager.GPS_PROVIDER);
+                try {
+                    locationManager.removeTestProvider(LocationManager.GPS_PROVIDER);
+                } catch (IllegalArgumentException iaex) {
+                    // according to googles doc this shouldn't happen
+                }
                 locationManager.addTestProvider(LocationManager.GPS_PROVIDER, false, // requiresNetwork
                         false, // requiresSatellite
                         false, // requiresCell
@@ -809,7 +813,11 @@ public class TestUtils {
                         0, // powerRequirement
                         5 // accuracy
                 );
-                locationManager.removeTestProvider(LocationManager.NETWORK_PROVIDER);
+                try {
+                    locationManager.removeTestProvider(LocationManager.NETWORK_PROVIDER);
+                } catch (IllegalArgumentException iaex) {
+                    // ignore
+                }
                 locationManager.addTestProvider(LocationManager.NETWORK_PROVIDER, false, // requiresNetwork
                         false, // requiresSatellite
                         false, // requiresCell
