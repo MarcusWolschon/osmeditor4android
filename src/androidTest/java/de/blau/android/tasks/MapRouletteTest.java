@@ -31,6 +31,7 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
@@ -65,6 +66,10 @@ public class MapRouletteTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
+        prefs.setBugsEnabled(true);
+        Set<String> filter = new HashSet<>();
+        filter.add("MAPROULETTE");
+        prefs.setTaskFilter(filter);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
@@ -116,6 +121,7 @@ public class MapRouletteTest {
         mockServerMapRoulette.enqueue("challenge2611");
         mockServerMapRoulette.enqueue("challenge249");
         App.getTaskStorage().reset();
+        BoundingBox boundingBox = new BoundingBox(8.3733566D, 47.3468982D, 8.4748442D, 47.4476552D);
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
@@ -124,7 +130,7 @@ public class MapRouletteTest {
             Set<String> set = new HashSet<String>(Arrays.asList(mapRouletteSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
             Assert.assertTrue(new Preferences(context).taskFilter().contains(mapRouletteSelector));
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3733566D, 47.3468982D, 8.4748442D, 47.4476552D), false, new SignalHandler(signal));
+            TransferTasks.downloadBox(context, s, boundingBox, false, new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -148,7 +154,7 @@ public class MapRouletteTest {
         mockServerMapRoulette.enqueue("maprouletteDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
         try {
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3733566D, 47.3468982D, 8.4748442D, 47.4476552D), true, new SignalHandler(signal2));
+            TransferTasks.downloadBox(context, s, boundingBox, true, new SignalHandler(signal2));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -168,6 +174,16 @@ public class MapRouletteTest {
         t = tasks.get(0);
         Assert.assertTrue(t instanceof MapRouletteTask);
         Assert.assertEquals(2237667L, t.getId());
+
+        Map map = main.getMap();
+        App.getLogic().getViewBox().setBorders(map, boundingBox);
+        map.setViewBox(App.getLogic().getViewBox());
+        map.invalidate();
+        TestUtils.zoomToLevel(main, 18);
+        try {
+            Thread.sleep(5000); // NOSONAR
+        } catch (InterruptedException e) {
+        }
     }
 
     /**
