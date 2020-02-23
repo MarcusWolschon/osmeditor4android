@@ -110,10 +110,8 @@ public class MapSplitSourceTest {
         // read some data from the source
         TestUtils.clickMenuButton("Transfer", false, false);
         TestUtils.clickText(mDevice, false, "Load current view", false);
-        try {
-            Thread.sleep(30000); // NOSONAR
-        } catch (InterruptedException e) {
-        }
+        TestUtils.findText(mDevice, false, "Loading", 2000); // spinner appears
+        TestUtils.textGone(mDevice, "Loading", 60000);// spinner goes away
         StorageDelegator delegator = App.getDelegator();
         Assert.assertNotNull(delegator.getOsmElement(Relation.NAME, 1252853L));
         Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 243055643L));

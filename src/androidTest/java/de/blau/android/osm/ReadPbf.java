@@ -74,10 +74,8 @@ public class ReadPbf {
         TestUtils.clickText(mDevice, false, "Read from PBF file", false);
         //
         TestUtils.selectFile(mDevice, null, PBF_FILE);
-        try {
-            Thread.sleep(5000); // NOSONAR
-        } catch (InterruptedException e) {
-        }
+        TestUtils.findText(mDevice, false, "Loading", 2000); // spinner appears
+        TestUtils.textGone(mDevice, "Loading", 60000);// spinner goes away
         StorageDelegator delegator = App.getDelegator();
         Assert.assertNotNull(delegator.getOsmElement(Relation.NAME, 1252853L));
         Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 243055643L));

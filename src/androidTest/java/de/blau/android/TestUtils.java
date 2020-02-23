@@ -649,14 +649,24 @@ public class TestUtils {
     public static boolean findText(UiDevice device, boolean clickable, String text, long wait) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
-        BySelector bySelector = null;
+        BySelector bySelector = By.textStartsWith(text);
         if (clickable) {
-            bySelector = By.clickable(true).textStartsWith(text);
-        } else {
-            bySelector = By.textStartsWith(text);
+            bySelector = bySelector.clickable(true);
         }
-        UiObject2 ob = device.wait(Until.findObject(bySelector), wait);
-        return ob != null;
+        return Boolean.TRUE.equals(device.wait(Until.findObject(bySelector), wait));
+    }
+
+    /**
+     * Wait until text on screen is gone (case insensitive)
+     * 
+     * @param device UiDevice object
+     * @param text the text to find
+     * @param wait time to wait in ms before timing out
+     * @return true if successful
+     */
+    public static boolean textGone(UiDevice device, String text, long wait) {
+        Log.w(DEBUG_TAG, "Waiting for object with " + text + " to go away");
+        return Boolean.TRUE.equals(device.wait(Until.gone(By.textStartsWith(text)), wait));
     }
 
     /**

@@ -129,10 +129,9 @@ public class ApplyOSCTest {
         TestUtils.clickText(mDevice, false, "Apply changes from OSC file", false);
         //
         TestUtils.selectFile(mDevice, null, OSC_FILE);
-        try {
-            Thread.sleep(5000); // NOSONAR
-        } catch (InterruptedException e) {
-        }
+
+        TestUtils.findText(mDevice, false, "Loading", 2000); // spinner appears
+        TestUtils.textGone(mDevice, "Loading", 10000);// spinner goes away
 
         // check new data state
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Way.NAME, 210558043L));
