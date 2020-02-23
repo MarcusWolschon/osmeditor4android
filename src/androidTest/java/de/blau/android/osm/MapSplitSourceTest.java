@@ -49,6 +49,7 @@ public class MapSplitSourceTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
+        prefs.setBugsEnabled(false);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         prefDB = new AdvancedPrefDatabase(context);
@@ -110,7 +111,7 @@ public class MapSplitSourceTest {
         TestUtils.clickMenuButton("Transfer", false, false);
         TestUtils.clickText(mDevice, false, "Load current view", false);
         try {
-            Thread.sleep(5000); // NOSONAR
+            Thread.sleep(30000); // NOSONAR
         } catch (InterruptedException e) {
         }
         StorageDelegator delegator = App.getDelegator();
