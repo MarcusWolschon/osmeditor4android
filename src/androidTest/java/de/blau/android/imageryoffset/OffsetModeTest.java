@@ -7,6 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.orhanobut.mockwebserverplus.MockWebServerPlus;
+
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
@@ -26,6 +28,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.GeoMath;
+import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -37,6 +40,7 @@ public class OffsetModeTest {
     UiDevice                device          = null;
     ActivityMonitor         monitor         = null;
     Instrumentation         instrumentation = null;
+    MockWebServerPlus       mockServer      = null;
     Preferences             prefs           = null;
     Map                     map             = null;
 
@@ -62,10 +66,16 @@ public class OffsetModeTest {
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
         prefs = new Preferences(main);
+
+        mockServer = new MockWebServerPlus();
+        HttpUrl mockBaseUrl = mockServer.server().url("/");
+        prefs.setOffsetServer(mockBaseUrl.toString());
+
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         map = main.getMap();
         map.setPrefs(main, prefs);
+        App.getLogic().setPrefs(prefs);
         main.invalidateOptionsMenu(); // to be sure that the menu entry is actually shown
         TestUtils.resetOffsets(main.getMap());
     }
@@ -92,7 +102,7 @@ public class OffsetModeTest {
      * Start offset mode and drag the screen
      */
     @Test
-    public void offsetMode() {
+    public void createOffset() {
         TestUtils.zoomToLevel(main, 18);
         try {
             BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
@@ -137,5 +147,48 @@ public class OffsetModeTest {
         Assert.assertNotNull(offset);
         Assert.assertEquals(6.462E-4, offset.getDeltaLat(), 0.1E-4);
         Assert.assertEquals(1.773E-4, offset.getDeltaLon(), 0.1E-4);
+    }
+
+    /**
+     * Start offset mode and download a offset
+     */
+    @Test
+    public void downloadOffset() {
+        mockServer.enqueue("imagery_offset");
+        TestUtils.zoomToLevel(main, 18);
+        try {
+            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
+            App.getLogic().getViewBox().setBorders(map, bbox);
+            map.setViewBox(App.getLogic().getViewBox());
+            map.invalidate();
+            try {
+                Thread.sleep(5000); // NOSONAR
+            } catch (InterruptedException e) {
+            }
+        } catch (OsmException e) {
+            Assert.fail(e.getMessage());
+        }
+
+        if (!TestUtils.clickMenuButton("Tools", false, true)) {
+            TestUtils.clickOverflowButton();
+            TestUtils.clickText(device, false, "Tools", true);
+        }
+        Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true));
+        Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
+        TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
+        TestUtils.zoomToLevel(main, tileLayerConfiguration.getMaxZoom());
+        int zoomLevel = map.getZoomLevel();
+        TestUtils.clickMenuButton("From database", false, true);
+        TestUtils.clickText(device, false, "Apply", true);
+        TestUtils.clickHome(device);
+        try {
+            Thread.sleep(5000); // NOSONAR
+        } catch (InterruptedException e) {
+        }
+        zoomLevel = map.getZoomLevel();
+        Offset offset = tileLayerConfiguration.getOffset(zoomLevel);
+        Assert.assertNotNull(offset);
+        Assert.assertEquals(8.7E-6, offset.getDeltaLat(), 0.1E-6);
+        Assert.assertEquals(-1.056E-5, offset.getDeltaLon(), 0.01E-5);
     }
 }

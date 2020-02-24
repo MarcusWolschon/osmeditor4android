@@ -67,7 +67,7 @@ public class Preferences {
     private final boolean splitActionBarEnabled;
     private final String  gpsSource;
     private final String  gpsTcpSource;
-    private final String  offsetServer;
+    private String        offsetServer;
     private final String  osmoseServer;
     private final String  mapRouletteServer;
     private String        taginfoServer;
@@ -243,7 +243,7 @@ public class Preferences {
         orthogonalizeThreshold = getIntPref(R.string.config_orthogonalizeThreshold_key, 15);
 
         autoformatPhoneNumbers = prefs.getBoolean(r.getString(R.string.config_autoformatPhoneNumbers_key), true);
-        
+
         gnssTimeToStale = getIntPref(R.string.config_gnssTimeToStale_key, 60);
     }
 
@@ -699,6 +699,16 @@ public class Preferences {
     }
 
     /**
+     * Set the configured offset server
+     * 
+     * @param url base url for the server
+     */
+    public void setOffsetServer(@NonNull String url) {
+        this.offsetServer = url;
+        prefs.edit().putString(r.getString(R.string.config_offsetServer_key), url).commit();
+    }
+
+    /**
      * Get the configured OSMOSE server
      * 
      * @return base url for the server
@@ -730,7 +740,7 @@ public class Preferences {
      * 
      * @param url base url for the server
      */
-    public void setTaginfoServer(String url) {
+    public void setTaginfoServer(@NonNull String url) {
         this.taginfoServer = url;
         prefs.edit().putString(r.getString(R.string.config_taginfoServer_key), url).commit();
     }
@@ -1217,12 +1227,12 @@ public class Preferences {
     /**
      * Get the number of seconds that a fix needs to be old to be considered stale
      * 
-     * @return the number of seconds that a fix needs to be old to be considered stale 
+     * @return the number of seconds that a fix needs to be old to be considered stale
      */
     public int getGnssTimeToStale() {
         return gnssTimeToStale;
     }
-    
+
     /**
      * Get a string from shared preferences
      * 

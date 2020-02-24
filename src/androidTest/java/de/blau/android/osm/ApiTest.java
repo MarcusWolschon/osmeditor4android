@@ -353,7 +353,7 @@ public class ApiTest {
             Assert.fail(e1.getMessage());
         }
         try {
-            Thread.sleep(10000);
+            Thread.sleep(10000); // NOSONAR
         } catch (InterruptedException e) {
         }
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);

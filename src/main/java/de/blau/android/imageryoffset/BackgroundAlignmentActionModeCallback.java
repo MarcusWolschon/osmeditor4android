@@ -294,7 +294,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 JsonReader reader = null;
                 try {
                     reader = new JsonReader(new InputStreamReader(inputStream));
-                    ArrayList<ImageryOffset> result = new ArrayList<>();
+                    List<ImageryOffset> result = new ArrayList<>();
                     try {
                         JsonToken token = reader.peek();
                         if (token.equals(JsonToken.BEGIN_ARRAY)) {
@@ -533,7 +533,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     }
 
     /**
-     * Shoe an AlertDialog for the error is any
+     * Show an AlertDialog for the error if any
      * 
      * @param error the error String or null
      */
