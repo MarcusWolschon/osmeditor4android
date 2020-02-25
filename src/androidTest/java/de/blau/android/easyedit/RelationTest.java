@@ -2,6 +2,8 @@ package de.blau.android.easyedit;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +21,8 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -30,9 +34,11 @@ import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.propertyeditor.PropertyEditorTest;
 import de.blau.android.resources.TileLayerServer;
 
 @RunWith(AndroidJUnit4.class)
@@ -123,5 +129,43 @@ public class RelationTest {
         for (int i = 0; i < members.size(); i++) {
             Assert.assertEquals(origMembers.get(i), members.get(i));
         }
+    }
+
+    /**
+     * Select way, create relation, set tag, delete
+     */
+    @Test
+    public void createRelation() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock();
+        TestUtils.zoomToLevel(main, 21);
+        TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Way way = App.getLogic().getSelectedWay();
+        Assert.assertNotNull(way);
+        Assert.assertEquals(104148456L, way.getOsmId());
+        //
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickText(device, false, "Create relation", true));
+        Assert.assertTrue(TestUtils.findText(device, false, "Add member"));
+        TestUtils.clickHome(device);
+        Assert.assertTrue(TestUtils.findText(device, false, "Relation type"));
+        UiObject2 relationType = null;
+        try {
+            relationType = PropertyEditorTest.getField(device, "Relation type", 1);
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail();
+        }
+        Assert.assertNotNull(relationType);
+        relationType.click();
+        relationType.setText(Tags.VALUE_MULTIPOLYGON); // can't find text in drop downs
+        TestUtils.clickUp(device);
+        List<Relation> relations = App.getLogic().getSelectedRelations();
+        Assert.assertEquals(1, relations.size());
+        Relation relation = relations.get(0);
+        Assert.assertTrue(relation.getOsmId() < 0);
+        Assert.assertTrue(relation.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON));
+        Assert.assertTrue(TestUtils.clickMenuButton("Delete", false, true));
     }
 }

@@ -260,7 +260,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(found);
         UiObject2 cusine = null;
         try {
-            cusine = getField("Cuisine", 1);
+            cusine = getField(mDevice, "Cuisine", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -273,7 +273,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "SAVE", true));
         UiObject2 openingHours = null;
         try {
-            openingHours = getField("Opening Hours", 1);
+            openingHours = getField(mDevice, "Opening Hours", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -336,7 +336,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         Assert.assertTrue(TestUtils.findText(mDevice, false, "Kindhauserstrasse"));
         try {
-            UiObject2 valueField = getField("50", 1);
+            UiObject2 valueField = getField(mDevice, "50", 1);
             // clicking doesn't work see https://issuetracker.google.com/issues/37017411
             valueField.click();
             valueField.setText("100");
@@ -349,7 +349,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.clickMenuButton("Apply preset with optional", false, false));
         UiObject2 bridge = null;
         try {
-            bridge = getField("Bridge", 1);
+            bridge = getField(mDevice, "Bridge", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -357,7 +357,7 @@ public class PropertyEditorTest {
         bridge.click();
         UiObject2 sidewalk = null;
         try {
-            sidewalk = getField("Sidewalk", 1);
+            sidewalk = getField(mDevice, "Sidewalk", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -371,7 +371,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.relations), false));
         Assert.assertTrue(TestUtils.findText(mDevice, false, "Bus 305"));
         try {
-            UiObject2 roleField = getField("Bus 305", 1);
+            UiObject2 roleField = getField(mDevice, "Bus 305", 1);
             // clicking doesn't work see https://issuetracker.google.com/issues/37017411
             roleField.setText("platform");
         } catch (UiObjectNotFoundException e) {
@@ -690,7 +690,7 @@ public class PropertyEditorTest {
         mDevice.waitForIdle(1000);
         UiObject2 handrail = null;
         try {
-            handrail = getField("Handrail", 1);
+            handrail = getField(mDevice, "Handrail", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -699,7 +699,7 @@ public class PropertyEditorTest {
 
         UiObject2 overtaking = null;
         try {
-            overtaking = getField("Overtaking", 1);
+            overtaking = getField(mDevice, "Overtaking", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -747,7 +747,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(found);
         UiObject2 conditionalMaxSpeed = null;
         try {
-            conditionalMaxSpeed = getField("Max speed @", 1);
+            conditionalMaxSpeed = getField(mDevice, "Max speed @", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -850,12 +850,14 @@ public class PropertyEditorTest {
     /**
      * Get the value field for a specific key
      * 
+     * @param mDevice the current UiDevice
      * @param text the text display for the key
-     * @param fieldIndex TODO
+     * @param fieldIndex the index in to the linear layout holding the row
+     * 
      * @return an UiObject2 for the value field
      * @throws UiObjectNotFoundException if we couldn't find the object with text
      */
-    private UiObject2 getField(@NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
+    public static UiObject2 getField(UiDevice mDevice, @NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
         TestUtils.scrollTo(text);
         BySelector bySelector = By.textStartsWith(text);
         UiObject2 keyField = mDevice.wait(Until.findObject(bySelector), 500);
