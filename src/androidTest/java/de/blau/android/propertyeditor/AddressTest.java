@@ -66,8 +66,8 @@ public class AddressTest {
         main.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                main.hideSimpleActionsButton();  
-            }            
+                main.hideSimpleActionsButton();
+            }
         });
         map = main.getMap();
         map.setPrefs(main, prefs);
@@ -103,7 +103,8 @@ public class AddressTest {
     }
 
     /**
-     * Create a new Node by long click and check that we get correct street suggestion and then correct house number from prediction
+     * Create a new Node by long click and check that we get correct street suggestion and then correct house number
+     * from prediction
      */
     @Test
     public void newAddress() {
@@ -117,9 +118,9 @@ public class AddressTest {
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         Assert.assertTrue(TestUtils.findText(device, false, "Bergstrasse"));
         Assert.assertTrue(TestUtils.clickMenuButton("More options", false, true));
-        TestUtils.clickText(device,false, main.getString(R.string.tag_menu_reset_address_prediction), true);
+        TestUtils.clickText(device, false, main.getString(R.string.tag_menu_reset_address_prediction), true);
         Assert.assertTrue(TestUtils.clickMenuButton(main.getString(R.string.tag_menu_address), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, "35"));
-        TestUtils.clickUp(device);
+        TestUtils.clickHome(device);
     }
 }

@@ -112,7 +112,7 @@ public class CustomImageryTest {
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true));
         Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true));
-        Assert.assertTrue(TestUtils.clickUp(device));
+        Assert.assertTrue(TestUtils.clickHome(device));
         UiObject2 extentButton = TestUtils.getLayerButton(device, "My Map", LayerDialogTest.EXTENT_BUTTON);
         extentButton.clickAndWait(Until.newWindow(), 2000);
         Assert.assertTrue(main.getMap().getBackgroundLayer().getTileProvider().connected()); // check that the service

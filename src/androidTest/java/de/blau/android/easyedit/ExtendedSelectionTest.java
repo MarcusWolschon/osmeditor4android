@@ -100,12 +100,12 @@ public class ExtendedSelectionTest {
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-        
+
         TestUtils.doubleClickAtCoordinates(map, 8.3877977, 47.3897371, false);
         Assert.assertTrue(TestUtils.clickText(device, false, "Excrement", false));
-        
+
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
-        
-        TestUtils.clickHome(device);        
+
+        TestUtils.clickUp(device);
     }
 }

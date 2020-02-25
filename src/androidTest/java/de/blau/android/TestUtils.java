@@ -713,12 +713,12 @@ public class TestUtils {
     }
 
     /**
-     * Click "Up" button in action modes
+     * Click "Home" button in Activity app bars
      * 
      * @param mDevice UiDevice object
      * @return true if the button was clicked
      */
-    public static boolean clickUp(@NonNull UiDevice mDevice) {
+    public static boolean clickHome(@NonNull UiDevice mDevice) {
         UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Navigate up"));
         if (!homeButton.exists()) {
             homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
@@ -732,11 +732,11 @@ public class TestUtils {
     }
 
     /**
-     * Click "Home" button in Activity app bars
+     * Click "Up" button in Action modes
      * 
      * @param mDevice UiDevice object
      */
-    public static void clickHome(UiDevice mDevice) {
+    public static void clickUp(@NonNull UiDevice mDevice) {
         clickResource(mDevice, true, "de.blau.android:id/action_mode_close_button", true);
     }
 
@@ -745,9 +745,9 @@ public class TestUtils {
      * 
      * @param is the InputStream to read
      * @return a byte array
-     * @throws IOException
+     * @throws IOException ir reading goes wrong
      */
-    public static byte[] readInputStream(InputStream is) throws IOException {
+    public static byte[] readInputStream(@NonNull InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int readBytes = -1;

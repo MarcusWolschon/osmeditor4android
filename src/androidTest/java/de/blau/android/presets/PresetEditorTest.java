@@ -53,6 +53,9 @@ public class PresetEditorTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -68,11 +71,17 @@ public class PresetEditorTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
     }
 
+    /**
+     * Download a preset and activate
+     */
     @Test
     public void downloadPreset() {
         PresetEditorActivity.start(main);
@@ -110,7 +119,7 @@ public class PresetEditorTest {
         }
         TestUtils.clickText(mDevice, true, main.getString(R.string.okay), true);
         TestUtils.clickText(mDevice, false, "Test", false);
-        TestUtils.clickUp(mDevice);
+        TestUtils.clickHome(mDevice);
         App.resetPresets();
         Preset[] presets = App.getCurrentPresets(main);
         Assert.assertEquals(3, presets.length);

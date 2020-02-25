@@ -149,7 +149,7 @@ public class RelationTest {
         Assert.assertTrue(TestUtils.clickOverflowButton());
         Assert.assertTrue(TestUtils.clickText(device, false, "Create relation", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Add member"));
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
         Assert.assertTrue(TestUtils.findText(device, false, "Relation type"));
         UiObject2 relationType = null;
         try {
@@ -160,7 +160,7 @@ public class RelationTest {
         Assert.assertNotNull(relationType);
         relationType.click();
         relationType.setText(Tags.VALUE_MULTIPOLYGON); // can't find text in drop downs
-        TestUtils.clickUp(device);
+        TestUtils.clickHome(device);
         List<Relation> relations = App.getLogic().getSelectedRelations();
         Assert.assertEquals(1, relations.size());
         Relation relation = relations.get(0);

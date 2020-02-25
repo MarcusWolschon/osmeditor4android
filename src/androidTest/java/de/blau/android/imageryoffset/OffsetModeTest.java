@@ -137,7 +137,7 @@ public class OffsetModeTest {
         TestUtils.clickText(device, false, "Cancel", true);
         TestUtils.clickOverflowButton();
         TestUtils.clickText(device, false, "Apply", true);
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
@@ -180,7 +180,7 @@ public class OffsetModeTest {
         int zoomLevel = map.getZoomLevel();
         TestUtils.clickMenuButton("From database", false, true);
         TestUtils.clickText(device, false, "Apply", true);
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {

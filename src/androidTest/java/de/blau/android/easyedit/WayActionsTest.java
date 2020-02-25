@@ -132,9 +132,9 @@ public class WayActionsTest {
         device.waitForIdle(1000);
         TestUtils.clickAtCoordinates(map, 8.38877, 47.389202, true);
         device.waitForIdle(1000);
-        TestUtils.clickHome(device);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
         TestUtils.clickUp(device);
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
+        TestUtils.clickHome(device);
         device.waitForIdle(1000);
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
@@ -157,7 +157,7 @@ public class WayActionsTest {
         System.out.println("New angle " + theta);
         Assert.assertEquals(90.00, theta, 0.05);
         device.waitForIdle(1000);
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
     }
 
     /**

@@ -116,12 +116,12 @@ public class LongClickTest {
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, false);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
-        TestUtils.clickUp(device);
+        TestUtils.clickHome(device);
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertTrue(node.getOsmId() < 0);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
     }
 
     /**
@@ -137,15 +137,15 @@ public class LongClickTest {
         TestUtils.clickAtCoordinates(map, 8.3895763, 47.3901374, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
         TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, true);
-        TestUtils.clickHome(device);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
         TestUtils.clickUp(device);
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
+        TestUtils.clickHome(device);
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
         Assert.assertTrue(way.getOsmId() < 0);
         Assert.assertEquals(3, way.nodeCount());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
     }
 
     /**

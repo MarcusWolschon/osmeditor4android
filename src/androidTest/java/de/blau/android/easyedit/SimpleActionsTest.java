@@ -67,8 +67,8 @@ public class SimpleActionsTest {
         main.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                main.showSimpleActionsButton();   
-            }            
+                main.showSimpleActionsButton();
+            }
         });
 
         map = main.getMap();
@@ -124,7 +124,7 @@ public class SimpleActionsTest {
         Assert.assertNotNull(node);
         Assert.assertTrue(node.getOsmId() < 0);
 
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
     }
 
     /**
@@ -146,15 +146,15 @@ public class SimpleActionsTest {
         device.waitForIdle(1000);
         TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, true);
         device.waitForIdle(1000);
-        TestUtils.clickHome(device);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
         TestUtils.clickUp(device);
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
+        TestUtils.clickHome(device);
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
         Assert.assertTrue(way.getOsmId() < 0);
         Assert.assertEquals(3, way.nodeCount());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
     }
 
     /**

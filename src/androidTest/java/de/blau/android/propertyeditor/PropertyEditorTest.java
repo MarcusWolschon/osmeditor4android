@@ -156,7 +156,7 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickUp(mDevice);
+        TestUtils.clickHome(mDevice);
         Assert.assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
     }
 
@@ -200,7 +200,7 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickUp(mDevice);
+        TestUtils.clickHome(mDevice);
         Assert.assertTrue(n.hasTag("key", "value"));
     }
 
@@ -296,7 +296,7 @@ public class PropertyEditorTest {
         instrumentation.sendStringSync("444400160");
 
         Assert.assertTrue(TestUtils.findText(mDevice, false, "+41 44 440 01 60", 5000));
-        TestUtils.clickUp(mDevice);
+        TestUtils.clickHome(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_nodeselect)));
         mDevice.waitForIdle();
         Assert.assertTrue(n.hasTag("cuisine", "asian;german") || n.hasTag("cuisine", "german;asian"));
@@ -379,7 +379,7 @@ public class PropertyEditorTest {
         }
 
         // exit and test that everything has been set correctly
-        TestUtils.clickUp(mDevice);
+        TestUtils.clickHome(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(w.hasTag("maxspeed", "100"));
         Assert.assertTrue(w.hasTag("bridge", "yes"));
@@ -529,7 +529,7 @@ public class PropertyEditorTest {
             Assert.fail(e.getMessage());
         }
 
-        TestUtils.clickUp(mDevice); // close the PropertEditor and save
+        TestUtils.clickHome(mDevice); // close the PropertEditor and save
 
         Assert.assertEquals(255, r.getTagWithKey("to").length()); // value on the form
 
@@ -843,7 +843,7 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickUp(mDevice);
+        TestUtils.clickHome(mDevice);
         Assert.assertFalse(n.hasTag("", edited));
     }
 

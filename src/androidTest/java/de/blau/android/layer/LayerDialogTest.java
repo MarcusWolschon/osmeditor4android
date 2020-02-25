@@ -161,7 +161,7 @@ public class LayerDialogTest {
         TestUtils.unlock();
         TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, true);
         Assert.assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect)));
-        TestUtils.clickHome(device);
+        TestUtils.clickUp(device);
         UiObject2 menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.prune), true));
