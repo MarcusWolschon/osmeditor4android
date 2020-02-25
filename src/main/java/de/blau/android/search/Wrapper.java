@@ -202,8 +202,7 @@ public class Wrapper implements Meta {
         String[] segments = presetPath.split("\\|");
         if (segments.length > 0) {
             PresetElementPath path = new PresetElementPath(Arrays.asList(segments));
-            PresetElement pe = Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), path);
-            return pe;
+            return Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), path);
         }
         return null;
     }
