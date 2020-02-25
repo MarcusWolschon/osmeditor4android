@@ -892,8 +892,8 @@ public class TestUtils {
      * Copy a file from resources to a sub-directory of the public Vespucci directory
      * 
      * @param fileName the name of the file to copy
-     * @param destination the destiantion sub-directory
-     * @throws IOException
+     * @param destination the destination sub-directory
+     * @throws IOException if copying goes wrong
      */
     public static void copyFileFromResources(@NonNull String fileName, @NonNull String destination) throws IOException {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

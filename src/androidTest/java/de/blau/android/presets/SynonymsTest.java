@@ -19,7 +19,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.util.SearchIndexUtils;
 
 /**
- * 
+ * Test the synonym facility
  * 
  * @author simon
  *
@@ -32,6 +32,9 @@ public class SynonymsTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         main = (Main) mActivityRule.getActivity();
@@ -39,6 +42,9 @@ public class SynonymsTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Do a general search in the preset system that should return a hit from the synonyms
+     */
     @Test
     public void search() {
         Locale locale = Locale.getDefault();

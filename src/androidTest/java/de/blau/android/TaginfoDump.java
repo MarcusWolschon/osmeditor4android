@@ -25,6 +25,9 @@ public class TaginfoDump {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup except this isn't really a test
+     */
     @Before
     public void setup() {
         Main main = mActivityRule.getActivity();
@@ -32,6 +35,9 @@ public class TaginfoDump {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Write out the current preset in taginfo format
+     */
     @Test
     public void dump() {
         Assert.assertTrue(Preset.generateTaginfoJson(InstrumentationRegistry.getInstrumentation().getTargetContext(), "taginfo.json"));

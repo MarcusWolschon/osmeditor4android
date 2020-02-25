@@ -68,6 +68,9 @@ public class IndoorFilterTest {
         TestUtils.stopEasyEdit(main);
     }
 
+    /**
+     * Test if a node is filtered correctly (without UI)
+     */
     @Test
     public void indoorFilterNode() {
         TreeMap<String, String> tags = new TreeMap<String, String>();
@@ -105,6 +108,9 @@ public class IndoorFilterTest {
         Assert.assertTrue(f.include(n, false));
     }
 
+    /**
+     * Test if a node is filtered correctly if the filter is inverted (without UI)
+     */
     @Test
     public void indoorFilterNodeInverted() {
         TreeMap<String, String> tags = new TreeMap<String, String>();
@@ -119,6 +125,9 @@ public class IndoorFilterTest {
         Assert.assertTrue(f.include(n, false));
     }
 
+    /**
+     * Test if a way is filtered correctly (without UI)
+     */
     @Test
     public void indoorFilterWay() {
         try {
@@ -165,6 +174,9 @@ public class IndoorFilterTest {
         }
     }
 
+    /**
+     * Test if a way is filtered correctly when filter is inverted (without UI)
+     */
     @Test
     public void indoorFilterWayInverted() {
         try {
@@ -193,6 +205,9 @@ public class IndoorFilterTest {
         }
     }
 
+    /**
+     * Test if a relation is filtered correctly (without UI)
+     */
     @Test
     public void indoorFilterRelation() {
         try {
