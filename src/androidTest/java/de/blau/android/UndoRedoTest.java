@@ -118,7 +118,7 @@ public class UndoRedoTest {
 
         // start undo redo dialog and undo
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), true, true));
-        device.waitForIdle(2000); // we can't wait for new window above
+        Assert.assertTrue(TestUtils.findText(device, false, "Checkpoints", 5000));
         Assert.assertTrue(TestUtils.clickText(device, false, "Undo", false));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "3465444349", true)); // undo
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
@@ -126,7 +126,7 @@ public class UndoRedoTest {
 
         // start undo redo dialog and redo
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), true, true));
-        device.waitForIdle(2000);
+        Assert.assertTrue(TestUtils.findText(device, false, "Checkpoints", 5000));
         Assert.assertTrue(TestUtils.clickText(device, false, "Redo", false));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "3465444349", true)); // undo
         Assert.assertEquals(OsmElement.STATE_MODIFIED, node.getState());
