@@ -234,8 +234,8 @@ task enableFreeform(type: Exec) {
 enableFreeform.group = 'emulators'
 enableFreeform.description = 'turn on free form window support'
 
-// apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3-flavors'
-apply from: '../gradle-tasks/eclipse-android-3-flavors'
+apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3-flavors'
+// apply from: '../gradle-tasks/eclipse-android-3-flavors'
 
 sonarqube {
     // we've not converted to Java 8 source yet, so analyse as for 7/1.7
