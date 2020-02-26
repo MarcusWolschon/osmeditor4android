@@ -1,11 +1,11 @@
 ## Vespucci Features
-_Documentation for Vespucci 12.0_
+_Documentation for Vespucci 14.1_
 
 This list is likely not really complete, but gives some idea of the supported functionality.
 
 Category             | Feature                     | Notes
 ---------------------|-----------------------------|----------------------------------------------------------------
-__Geometry__ |                             |         
+__Geometry__         |                             |         
                      | Create Node                 |
                      | Create Way                  | 
                      | Create Relation             |
@@ -33,70 +33,78 @@ __Geometry__ |                             |
                      | Create Node at current coordinates |
                      | Orthogonalize Way(s)        |
                      | Circulize closed Way        |
-__Tags__     |                             |
+__Tags__             |                             |
                      | Tag copy and paste          |
                      | Form and preset based editor |
                      | Conventional key - value editor |
                      | Auto-suggest for keys and values |
                      | Change tags for multiple objects |
-__OSM Data__ |                             |
+__OSM Data__         |                             |
                      | Up- and Download            |
                      | Load and save in JOSM compatible .OSM format |
-                     | Auto-Download               |
+                     | Auto-Download around current position        |
+                     | Auto-Download of current map view            |
                      | Save changes in OSC format  |
                      | Configurable API servers    |
-__Presets__  |                             |
+                     | Load data from PBF files    |
+                     | Load data from tiled offline format |
+__Presets__          |                             |
                      | JOSM Preset format support with extensions |
                      | Custom presets              |
                      | Presets can be updated from app online |
                      | Preset search               |
-                     | Autp-Preset from taginfo    |
+                     | Auto-Presets from taginfo    |
                      | JavaScript scripting support |
+                     | Create custom presets on the fly |
 __Backgrounds and Layers__ |              |
-                     | Supports the editor layer index |
-                     | On device tile caching      | 
-                     | Custom background and overlays |
-                     | OpenAerialMap support       |
-                     | On device MBTiles (raster) support  |
-                     | GeoJSON layer support       |
-                     | Imagery offset database support |
-                     | Grid / scale layer          |
-                     | Imagery offset DB support   |
-__Tasks and bugs__ |                    |
-                     | OSM Notes                   |
-                     | OSMOSE                      |
-                     | MapRoulette tasks           |
-                     | Custom tasks                |
-                     | Auto-Download               |
-                     | Save OSM Notes in OSN format files |
-                     | Configurable API server     |
-__Modes and Filters__ |                    |
-                     | Tag editing only mode        |
-                     | Indoor mode                 |
-                     | C-Mode (display and edit objects with validation issues) |
-                     | Tag filter                  |
-                     | Preset filter               |
-__Special editors__ |                      |
-                     | Opening hours               |
-                     | Conditional restrictions    |
-                     | Turn restrictions           |
-__Validation__ |                           |
-                     | Missing tags (preset driven) |
-                     | Re-survey after n-days      |
-                     | Missing street names        |
-                     | FIXMEs                      |
-                     | Validation issues trigger notifications | 
-__GPS/GPX__  |                             |
-                     | Support for external GPS sources |
-                     | GPX track recording, loading and saving |
-                     | GPX track upload            |
-                     | GPX waypoint support        |  
-__Misc__     |                             |
-                     | Styleable data layer        |
-                     | Address prediction          |
-                     | JavaScript scripting support |
-                     | GeoJSON Feature display     |
-                     | Start camera app            |
-                     | Display photos with location and orientation |
-                     | Undo- and redo functions    |
-                     
+                           | Supports the editor layer index                          |
+                           | On device tile caching                                   | 
+                           | Custom background and overlays                           |
+                           | OpenAerialMap support                                    |
+                           | On device MBTiles (raster) support                       |
+                           | GeoJSON layer support                                    |
+                           | Imagery offset database support                          |
+                           | Grid / scale layer                                       |
+                           | Imagery offset DB support                                |
+__Tasks and bugs__         |                                                          |
+                           | OSM Notes                                                |
+                           | OSMOSE                                                   |
+                           | MapRoulette tasks                                        |
+                           | Custom tasks                                             |
+                           | Auto-Download                                            |
+                           | Save OSM Notes in OSN format files                       |
+                           | Configurable API server                                  |
+__Modes and Filters__      |                                                          |
+                           | Tag editing only mode                                    |
+                           | Indoor mode                                              |
+                           | C-Mode (display and edit objects with validation issues) |
+                           | Tag filter                                               |
+                           | Preset filter                                            |
+__Special editors__        |                                                          |
+                           | Opening hours                                            |
+                           | Conditional restrictions                                 |
+                           | Turn restrictions                                        |
+__Validation__             |                                                          |
+                           | Missing tags (preset driven)                             |
+                           | Re-survey after n-days                                   |
+                           | Missing street names                                     |
+                           | FIXMEs                                                   |
+                           | Unconnected ways                                         |
+                           | Validation issues trigger notifications                  | 
+__GPS/GPX__                |                                                          |
+                           | Support for external GPS sources                         |
+                           | GPX track recording, loading and saving                  |
+                           | GPX track upload                                         |
+                           | GPX waypoint support                                     |  
+__Misc__                   |                                                          |
+                           | Styleable data layer                                     |
+                           | Turn restriction rendering                               |
+                           | Address prediction                                       |
+                           | JavaScript scripting support                             |
+                           | GeoJSON Feature display                                  |
+                           | Start camera app                                         |
+                           | Display photos with location and orientation             |
+                           | Undo- and redo functions                                 |
+                           | OLC support                                              |
+                           | Validate URLs from property editor                       |
+                           | Search for objects in loaded data (JOSM syntax)          |
