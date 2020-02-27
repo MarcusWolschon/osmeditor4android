@@ -14,7 +14,8 @@ import de.blau.android.exception.StorageException;
 
 /**
  * Simple LRU cache for any type of object. Implemented as an extended <code>HashMap</code> with a maximum size and an
- * aggregated <code>List</code> as LRU queue. <br/>
+ * aggregated <code>List</code> as LRU queue.
+ * 
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 

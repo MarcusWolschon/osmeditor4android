@@ -6,9 +6,9 @@ import java.util.Collection;
 /**
  * A list that can be used in a stack like fashion for implementing MRU (Most Recently Used) semantics
  * 
- * @author simon
+ * @author Simon Poole
  *
- * @param <T>
+ * @param <T> type stored in the collection
  */
 public class MRUList<T> extends ArrayList<T> {
 

@@ -9,8 +9,6 @@ import de.blau.android.exception.StorageException;
 import de.blau.android.services.util.MapTile;
 
 /**
- * 
- * <br/>
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010 by Marcus Wolschon to be
  * integrated into the de.blau.android.OSMEditor.
  * 

@@ -766,11 +766,6 @@ public class TrackerService extends Service implements Exportable {
         return track;
     }
 
-    /**
-     * Try to update our position from NMEA input using some heuristics
-     * 
-     * @param sentance
-     */
     enum GnssSystem {
         NONE, // pre-fix
         BEIDOU, GLONASS, GPS, GALILEO, MULTIPLE
@@ -783,7 +778,7 @@ public class TrackerService extends Service implements Exportable {
      * 
      * @param sentence the NMEA sentence including checksum
      */
-    private void processNmeaSentance(String sentence) {
+    private void processNmeaSentance(@NonNull String sentence) {
         boolean posUpdate = false;
         try {
             if (sentence.length() > 9) { // everything shorter is invalid

@@ -11,7 +11,9 @@ import android.widget.Filter;
  * 
  * Adapted from http://stackoverflow.com/questions/8512762/autocompletetextview-disable-filtering
  *
- * @param <T>
+ * @param <T> the type the adapter contains
+ * 
+ * @author Simon Poole
  */
 public class FilterlessArrayAdapter<T> extends ArrayAdapter<T> {
 
@@ -24,7 +26,14 @@ public class FilterlessArrayAdapter<T> extends ArrayAdapter<T> {
         return filter;
     }
 
-    public FilterlessArrayAdapter(Context context, int textViewResourceId, List<T> objects) {
+    /**
+     * Construct a new adapter
+     * 
+     * @param context an Android Context
+     * @param textViewResourceId The resource ID for a layout file containing a TextView to use when instantiating views
+     * @param objects The objects to represent in the ListView.
+     */
+    public FilterlessArrayAdapter(@NonNull Context context, int textViewResourceId, @NonNull List<T> objects) {
         super(context, textViewResourceId, objects);
         items = objects;
     }

@@ -3473,7 +3473,7 @@ public class Preset implements Serializable {
         /**
          * Get the minimum number of fixed tags that need to match
          * 
-         * @return the minimum number of fixed tags that need to match if <= 0 the number of fixed tags in the preset
+         * @return the minimum number of fixed tags that need to match if &lt;= 0 the number of fixed tags in the preset
          *         item will be used
          */
         public short getMinMatch() {

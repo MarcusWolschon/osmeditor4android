@@ -22,8 +22,11 @@ import android.util.Log;
 /**
  * Adapted from the broken google example
  * 
- * @see <a href="http://developer.android.com/guide/topics/text/copy-paste.html">Android copy-paste</a> Should work with
- *      pre-HONEYCOMB versions too
+ * Should work with pre-HONEYCOMB versions too
+ * 
+ * @author Simon Poole
+ * 
+ * @see <a href="http://developer.android.com/guide/topics/text/copy-paste.html">Android copy-paste</a>
  *
  */
 public final class ClipboardUtils {

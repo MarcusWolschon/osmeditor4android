@@ -10,7 +10,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle;
 
 public final class Geometry {
-    
+
     /**
      * Private constructor
      */
@@ -160,7 +160,7 @@ public final class Geometry {
      * @param node1Y screen Y coordinate of node1
      * @param node2X screen X coordinate of node2
      * @param node2Y screen Y coordinate of node2
-     * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
+     * @return distance &gt;= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
      */
     public static double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
         return isPositionOnLine(DataStyle.getCurrent().getWayToleranceValue() / 2f, x, y, node1X, node1Y, node2X, node2Y);
@@ -178,7 +178,7 @@ public final class Geometry {
      * @param node1Y screen Y coordinate of node1
      * @param node2X screen X coordinate of node2
      * @param node2Y screen Y coordinate of node2
-     * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
+     * @return distance &gt;= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
      */
     public static double isPositionOnLine(final float tolerance, final float x, final float y, final float node1X, final float node1Y, final float node2X,
             final float node2Y) {

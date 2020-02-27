@@ -129,11 +129,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         getActivity().supportInvalidateOptionsMenu();
     }
 
-    /**
-     * display member elements of the relation if any
-     * 
-     * @param members
-     */
     @SuppressWarnings("unchecked")
     @SuppressLint("InflateParams")
     @Override

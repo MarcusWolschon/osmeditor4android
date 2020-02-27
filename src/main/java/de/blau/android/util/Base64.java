@@ -3,7 +3,9 @@ package de.blau.android.util;
 import android.support.annotation.NonNull;
 
 /**
- * @source http://www.javaworld.com/javaworld/javatips/jw-javatip47.html -- 24.11.2008, (mb)
+ * -- 24.11.2008, (mb)
+ * 
+ * @see <a href="http://www.javaworld.com/javaworld/javatips/jw-javatip47.html">java world article</a> 
  */
 public final class Base64 {
     /*******************************************************************************************************************

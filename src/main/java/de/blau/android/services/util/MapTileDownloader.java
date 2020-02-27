@@ -33,8 +33,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * The OpenStreetMapTileDownloader loads tiles from a server and passes them to a
- * OpenStreetMapTileFilesystemProvider.<br/>
+ * The OpenStreetMapTileDownloader loads tiles from a server and passes them to a OpenStreetMapTileFilesystemProvider.
+ * 
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
