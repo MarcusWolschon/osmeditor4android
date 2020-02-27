@@ -16,8 +16,12 @@ import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 
 /**
+ *
+ * @author Simon Poole
  * 
- * @see http://stackoverflow.com/questions/3083627/android-reference-the-value-of-an-attribute-in-the-currently-applied-theme-fro/3679026#3679026
+ * @see <a href=
+ *      "http://stackoverflow.com/questions/3083627/android-reference-the-value-of-an-attribute-in-the-currently-applied-theme-fro/3679026#3679026">Reference
+ *      the value of an attribute in the currently applied theme</a>
  *
  */
 public final class ThemeUtils {

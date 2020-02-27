@@ -57,7 +57,7 @@ import de.blau.android.views.layers.MapTilesOverlayLayer;
  * Orchestrate layer drawing, configuration and associated rendering
  * 
  * @author mb
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
 
@@ -801,7 +801,7 @@ public class Map extends View implements IMapView {
      * Only segments that are inside the ViewBox are included.
      * 
      * @param points list to (re-)use for projected points in the format expected by
-     *            {@link Canvas#drawLines(float[], Paint)
+     *            {@link Canvas#drawLines(float[], Paint)}
      * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn (e.g. a Way or a
      *            GPS track)
      */

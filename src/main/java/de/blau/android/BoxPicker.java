@@ -55,6 +55,7 @@ import de.blau.android.util.GeoMath;
  * This class acts as its own LocationListener: We will offers the best location to the user.
  * 
  * @author mb
+ * @author Simon Poole
  */
 public class BoxPicker extends BugFixedAppCompatActivity implements LocationListener, SearchItemSelectedCallback {
 
@@ -133,8 +134,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     }
 
     /**
-     * Registers some listeners, sets the content view and initialize {@link #currentRadius}.</br>
-     * {@inheritDoc}
+     * Registers some listeners, sets the content view and initialize {@link #currentRadius}. {@inheritDoc}
      */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

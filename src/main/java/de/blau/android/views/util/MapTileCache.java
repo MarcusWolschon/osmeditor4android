@@ -15,7 +15,8 @@ import de.blau.android.services.util.MapTile;
  * integrated into the de.blau.android.OSMEditor.
  * 
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
+ * @author Simon Poole
  *
  */
 public class MapTileCache implements MapViewConstants {

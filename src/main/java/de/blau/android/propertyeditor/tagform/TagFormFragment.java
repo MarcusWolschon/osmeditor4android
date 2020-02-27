@@ -163,11 +163,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         comparator = new StringWithDescription.LocaleComparator();
     }
 
-    /**
-     * display member elements of the relation if any
-     * 
-     * @param members
-     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ScrollView rowLayout = null;
@@ -252,7 +247,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * 
      * @param viewGroup the ViewGroup
      */
-    private void loopViews(ViewGroup viewGroup) {
+    private void loopViews(@NonNull ViewGroup viewGroup) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View v = viewGroup.getChildAt(i);
             if (v instanceof ViewGroup) {

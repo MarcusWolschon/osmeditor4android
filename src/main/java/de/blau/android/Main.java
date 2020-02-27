@@ -173,6 +173,7 @@ import de.blau.android.voice.Commands;
  * This is the main Activity from where other Activities will be started.
  * 
  * @author mb
+ * @author Simon Poole
  */
 public class Main extends FullScreenAppCompatActivity
         implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
@@ -250,8 +251,11 @@ public class Main extends FullScreenAppCompatActivity
     private Sensor        rotation;
 
     /**
-     * @see http://www.codingforandroid.com/2011/01/using-orientation-sensors-simple.html and
-     *      http://www.journal.deviantdev.com/android-compass-azimuth-calculating/
+     * @see <a href=
+     *      "https://web.archive.org/web/20110415003722/http://www.codingforandroid.com/2011/01/using-orientation-sensors-simple.html">Using
+     *      orientation sensors: Simple Compass sample</a>
+     * @see <a href="https://www.deviantdev.com/journal/android-compass-azimuth-calculating">Android: Compass
+     *      Implementation - Calculating the Azimuth</a>
      */
     private final SensorEventListener sensorListener = new SensorEventListener() {
         float   lastAzimut = -9999;

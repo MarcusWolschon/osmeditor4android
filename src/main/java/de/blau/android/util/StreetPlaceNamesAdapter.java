@@ -47,9 +47,10 @@ import de.blau.android.propertyeditor.PropertyEditor;
  * <br/>
  * <br/>
  * <b>Adapter for the {@link AutoCompleteTextView} in the {@link PropertyEditor} that is for the VALUE for the key
- * "addr:street" .</a>
+ * "addr:street" .</b>
  * 
  * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
+ * @author Simon Poole
  */
 public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
 

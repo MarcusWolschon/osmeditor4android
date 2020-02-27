@@ -53,6 +53,12 @@ import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 
+/**
+ * UI for managing a elements membership in relations
+ * 
+ * @author Simon Poole
+ *
+ */
 public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener {
     private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
 
@@ -627,7 +633,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     /**
      * Collect all interesting values from the parent relation view value
      * 
-     * @return a MultiHashMap<Long,RelationMemberDescription> of relation and role with position in that relation,
+     * @return a MultiHashMap¬&lt;Long,RelationMemberDescription&gt; of relation and role with position in that relation,
      *         pairs.
      */
     MultiHashMap<Long, RelationMemberPosition> getParentRelationMap() {

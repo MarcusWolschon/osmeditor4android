@@ -1,12 +1,16 @@
 package de.blau.android.services.util;
 
+import android.support.annotation.NonNull;
+
 /**
- * This class merely holds the coordinates embedded in the url of a tile.<br/>
+ * This class merely holds the coordinates embedded in the url of a tile.
+ * 
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
+ * @author Simon Poole
  */
 public class MapTile {
 
@@ -22,14 +26,27 @@ public class MapTile {
     public static final int MAPTILE_SUCCESS_ID = 0;
     public static final int MAPTILE_FAIL_ID    = MAPTILE_SUCCESS_ID + 1;
 
-    public MapTile(String rendererID, int zoomLevel, int tileX, int tileY) {
+    /**
+     * Create a new tile descriptor
+     * 
+     * @param rendererID id of the render for this tile
+     * @param zoomLevel zoom level
+     * @param tileX tile X coordinate
+     * @param tileY tile Y coordinate
+     */
+    public MapTile(@NonNull String rendererID, int zoomLevel, int tileX, int tileY) {
         this.rendererID = rendererID;
         this.zoomLevel = zoomLevel;
         x = tileX;
         y = tileY;
     }
 
-    public MapTile(MapTile tile) {
+    /**
+     * Construct a new tile descriptor from an existing one
+     * 
+     * @param tile the existing tile descriptor
+     */
+    public MapTile(@NonNull MapTile tile) {
         this.rendererID = tile.rendererID;
         this.zoomLevel = tile.zoomLevel;
         this.x = tile.x;

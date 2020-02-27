@@ -442,7 +442,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Build the data structure we use to build the initial edit display
      * 
-     * @return a map of String (the keys) and ArrayList<String> (the values)
+     * @return a map of String (the keys) and ArrayList&lt;String&gt; (the values)
      */
     private LinkedHashMap<String, List<String>> buildEdits() {
         @SuppressWarnings("unchecked")
@@ -1983,21 +1983,21 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Collect all key-value pairs into a LinkedHashMap<String,String>
+     * Collect all key-value pairs into a LinkedHashMap&gt;String,String&lt;
      * 
      * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
-     * @return The LinkedHashMap<String,String> of key-value pairs.
+     * @return The LinkedHashMap&gt;String,String&lt; of key-value pairs.
      */
     private LinkedHashMap<String, List<String>> getKeyValueMap(final boolean allowBlanks) {
         return getKeyValueMap((LinearLayout) getOurView(), allowBlanks);
     }
 
     /**
-     * Collect all key-value pairs into a LinkedHashMap<String,String>
+     * Collect all key-value pairs into a LinkedHashMap&gt;String,String&lt;
      * 
      * @param rowLayout the Layout holding the rows
      * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
-     * @return The LinkedHashMap<String,String> of key-value pairs.
+     * @return The LinkedHashMap&gt;String,String&lt; of key-value pairs.
      */
     private LinkedHashMap<String, List<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
 

@@ -119,6 +119,7 @@ import de.blau.android.validation.Validator;
  * </ul>
  * 
  * @author mb
+ * @author Simon Poole
  */
 public class Logic {
 
@@ -2880,7 +2881,7 @@ public class Logic {
             int result = 0;
 
             /**
-             * Convert a List<Long> to an array of long
+             * Convert a List&lt;Long&gt; to an array of long
              * 
              * @param list the List of Long
              * @return an array holding the corresonding long values

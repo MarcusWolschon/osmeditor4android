@@ -8,16 +8,16 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import android.support.annotation.NonNull;
 import de.blau.android.services.IMapTileProviderCallback;
 
 /**
- * 
- * <br/>
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
+ * @author Simon Poole
  *
  */
 public abstract class MapAsyncTileProvider {
@@ -32,7 +32,13 @@ public abstract class MapAsyncTileProvider {
     ThreadPoolExecutor                  mThreadPool;
     private final Map<String, Runnable> mPending = Collections.synchronizedMap(new HashMap<String, Runnable>());
 
-    public synchronized void loadMapTileAsync(final MapTile aTile, final IMapTileProviderCallback aCallback) {
+    /**
+     * Queue a tile for loading, if it is already in the queue this returns without doing anything
+     * 
+     * @param aTile the tile descriptor
+     * @param aCallback the call back for when the tile has been loaded
+     */
+    public synchronized void loadMapTileAsync(@NonNull final MapTile aTile, final IMapTileProviderCallback aCallback) {
         final String tileId = aTile.toId();
 
         if (mPending.containsKey(tileId)) {
@@ -86,7 +92,7 @@ public abstract class MapAsyncTileProvider {
         }
     }
 
-    protected abstract Runnable getTileLoader(final MapTile aTile, final IMapTileProviderCallback aCallback);
+    protected abstract Runnable getTileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback);
 
     abstract class TileLoader implements Runnable {
         final MapTile                  mTile;

@@ -152,10 +152,12 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
     /**
      * Test if the device has a navigation bar
      * 
-     * @see https://stackoverflow.com/questions/28983621/detect-soft-navigation-bar-availability-in-android-device-progmatically
-     * 
      * @param resources to retrieve the setting from
      * @return true if the device has a navigation bar
+     * 
+     * @see <a href=
+     *      "https://stackoverflow.com/questions/28983621/detect-soft-navigation-bar-availability-in-android-device-progmatically">Detect
+     *      soft navigation bar availability</a>
      */
     public boolean hasNavBar(@NonNull Resources resources) {
         int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");

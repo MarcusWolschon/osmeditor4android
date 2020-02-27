@@ -22,7 +22,7 @@ import de.blau.android.views.IMapView;
  * 
  * @author Created by plusminus on 20:32:01 - 27.09.2008
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
 public abstract class MapViewLayer {

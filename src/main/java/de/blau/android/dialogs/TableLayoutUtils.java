@@ -25,7 +25,7 @@ import de.blau.android.util.ThemeUtils;
 /**
  * Add rows to a table layout
  * 
- * @author simon
+ * @author Simon Poole
  *
  */
 public final class TableLayoutUtils {
@@ -39,7 +39,7 @@ public final class TableLayoutUtils {
     private TableLayoutUtils() {
         // private
     }
-     
+
     /**
      * Get a new TableRow with the provided contents - three columns
      * 
@@ -109,7 +109,7 @@ public final class TableLayoutUtils {
      * @param activity the FragmentActivity the TableLayout is being displayed on
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
-     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
      * @param tp LayoutParams for the row
      * @return a TableRow
      */
@@ -150,7 +150,7 @@ public final class TableLayoutUtils {
      * @param cell1 a string resource id for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
-     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
      * @param tp LayoutParams for the row
      * @return a TableRow
      */
@@ -171,7 +171,7 @@ public final class TableLayoutUtils {
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
-     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
      * @param tp LayoutParams for the row
      * @return a TableRow
      */
@@ -192,7 +192,7 @@ public final class TableLayoutUtils {
      * @param cell1 text for the first cell
      * @param cell2 text for the second cell
      * @param cell3 text for the third cell
-     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
      * @param tp LayoutParams for the row
      * @param highlightColorAttr the highlight color attribute resource id, if -1 no highlight will be used
      * @param highlightColorFallback a fallback highlight color
@@ -282,7 +282,7 @@ public final class TableLayoutUtils {
      * @param activity the FragmentActivity the TableLayout is being displayed on
      * @param cell1 a string resource id for the first cell
      * @param cell2 text for the second cell
-     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
      * @param tp LayoutParams for the row
      * @return a TableRow
      */
@@ -318,7 +318,7 @@ public final class TableLayoutUtils {
      * 
      * @param activity the FragmentActivity the TableLayout is being displayed on
      * @param cellText the text to use for the cell
-     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param isUrl if true don't allow C&amp;P on the values so that they can be clicked on
      * @param tr the TableRow to add the cell to
      * @param tp LayoutParams for the row
      */

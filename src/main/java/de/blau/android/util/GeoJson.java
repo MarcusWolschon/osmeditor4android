@@ -19,6 +19,12 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.collections.FloatPrimitiveList;
 
+/**
+ * GeoJosn utilities
+ * 
+ * @author Simon Poole
+ *
+ */
 public final class GeoJson {
 
     private static final String DEBUG_TAG = "GeoJson";
@@ -141,7 +147,7 @@ public final class GeoJson {
      * @param w screen width
      * @param h screen height
      * @param points list to (re-)use for projected points in the format expected by
-     *            {@link Canvas#drawLines(float[], Paint)
+     *            {@link Canvas#drawLines(float[], Paint)}
      * @param nodes A List of the Points to be drawn
      */
     public static void pointListToLinePointsArray(@NonNull ViewBox box, int w, int h, @NonNull final FloatPrimitiveList points,

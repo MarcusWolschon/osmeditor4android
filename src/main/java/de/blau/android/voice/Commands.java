@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
@@ -37,10 +38,10 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
 /**
- * Support for simple voice commands, format <location> <number> for an address <location> <object> [<name>] for a POI
- * of some kind- <location> can be one of left, here and right
+ * Support for simple voice commands, format &lt;location&gt; &lt;number&gt; for an address &lt;location&gt;
+ * &lt;object&gt; [&lt;name&gt;] for a POI of some kind- &lt;location&gt; can be one of left, here and right
  * 
- * @author simon
+ * @author Simon Poole
  *
  */
 public class Commands {
@@ -50,11 +51,22 @@ public class Commands {
 
     private Main main;
 
-    public Commands(Main main) {
+    /**
+     * Construct a new instance
+     * 
+     * @param main
+     */
+    public Commands(@NonNull Main main) {
         this.main = main;
     }
 
-    public void processIntentResult(Intent data, Location location) {
+    /**
+     * Process the result of what the intent returned
+     * 
+     * @param data the Intent data
+     * @param location the current Location
+     */
+    public void processIntentResult(@NonNull Intent data, @NonNull Location location) {
 
         // Fill the list view with the strings the recognizer thought it
         // could have heard
@@ -137,7 +149,7 @@ public class Commands {
 
     }
 
-    private boolean addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
+    private boolean addNode(@Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic, @NonNull String original) {
         if (node != null) {
             Snack.toastTopInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
             if (node != null) {

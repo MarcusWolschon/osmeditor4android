@@ -119,9 +119,11 @@ public final class GeoMath {
      * Calculates a projected coordinate for a given latitude value. When lat is bigger than MAX_LAT, it will be clamped
      * to MAX_LAT.
      * 
-     * @see {@link http://en.wikipedia.org/wiki/Mercator_projection#Mathematics_of_the_projection}
      * @param lat the latitude as double value
      * @return the mercator-projected y-coordinate for a cartesian coordinate system in degrees.
+     * 
+     * @see <a href="http://en.wikipedia.org/wiki/Mercator_projection#Mathematics_of_the_projection">Mathematics of the
+     *      projection</a>
      */
     // TODO clamping is likely to lead to issues for objects extending past +-MAX_LAT given that they will never be in a
     // drawing box
@@ -135,18 +137,20 @@ public final class GeoMath {
     /**
      * Convert a WGS84*1E7 latitude value to a mercator projected one
      * 
-     * @see latToMercator(double)
      * @param latE7 the latitude multiplied by 1E7
      * @return the mercator projected value
+     * 
+     * @see #latToMercator(double)
      */
     public static double latE7ToMercator(final int latE7) {
         return latToMercator(latE7 / 1E7D);
     }
 
     /**
-     * @see latToMercator(double)
      * @param latE7 the latitude multiplied by 1E7
      * @return the mercator-projected y-coordinate for a cartesian coordinate system, multiplied by 1E7.
+     *
+     * @see #latToMercator(double)
      */
     public static int latE7ToMercatorE7(final int latE7) {
         return (int) Math.round((latToMercator(latE7 / 1E7d) * 1E7d));
@@ -164,27 +168,36 @@ public final class GeoMath {
     }
 
     /**
-     * @see mercatorToLat(double)
+     * Converts a scaled mercator latitude to a WGS84 value
+     * 
      * @param mer the mercator projected latitude, multiplied by 1E7
      * @return a WGS84 latitude value
+     * 
+     * @see #mercatorToLat(double)
      */
     public static double mercatorE7ToLat(final int mer) {
         return mercatorToLat(mer / 1E7d);
     }
 
     /**
-     * @see mercatorToLat(double)
+     * Converts a mercator latitude to a scaled WGS84 value
+     *
      * @param mer the mercator projected latitude
      * @return the latitude value, multiplied by 1E7
+     * 
+     *         #mercatorToLat(double)
      */
     public static int mercatorToLatE7(final double mer) {
         return (int) Math.round(mercatorToLat(mer) * 1E7d);
     }
 
     /**
-     * @see mercatorToLat(double)
+     * Converts a scaled mercator latitude to a scaled WGS84 value
+     *
      * @param mer the mercator projected coordinate, multiplied by 1E7
      * @return the latitude value, multiplied by 1E7
+     * 
+     *         #mercatorToLat(double)
      */
     public static int mercatorE7ToLatE7(final int mer) {
         return (int) Math.round(mercatorToLat(mer / 1E7d) * 1E7d);

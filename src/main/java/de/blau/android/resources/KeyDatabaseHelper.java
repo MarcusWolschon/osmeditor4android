@@ -16,6 +16,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+/**
+ * Database helper for managing private keys
+ * 
+ * @author Simon Poole
+ *
+ */
 public class KeyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DEBUG_TAG        = "KeyDatabase";
     private static final String DATABASE_NAME    = "keys";
@@ -101,7 +107,7 @@ public class KeyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Read keys from an InputStream in the format name<tab>key
+     * Read keys from an InputStream in the format name&lt;tab&gt;key
      * 
      * @param is the InputStream
      */

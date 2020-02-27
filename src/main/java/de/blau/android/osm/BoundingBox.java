@@ -22,7 +22,7 @@ import de.blau.android.util.rtree.BoundedObject;
  * multiplied by 1E7.
  * 
  * @author mb
- * @author simon
+ * @author Simon Poole
  */
 public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedObject {
 
@@ -74,7 +74,9 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 
     /**
      * The maximum difference between two borders of the bounding box for the OSM-API.
-     * {@link http://wiki.openstreetmap.org/index.php/Getting_Data#Construct_an_URL_for_the_HTTP_API }
+     * 
+     * @see <a href="https://wiki.openstreetmap.org/index.php/Getting_Data#Construct_an_URL_for_the_HTTP_API">Construct
+     *      an URL for the HTTP API</a>
      */
     public static final int API_MAX_DEGREE_DIFFERENCE = 5000000;
 

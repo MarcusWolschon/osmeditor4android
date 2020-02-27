@@ -19,7 +19,8 @@ import de.blau.android.exception.StorageException;
  * integrated into the de.blau.androin OSMEditor.
  * 
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
+ * @author Simon Poole
  *
  */
 public class LRUMapTileCache {

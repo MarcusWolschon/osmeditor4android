@@ -72,7 +72,7 @@ import de.blau.android.views.IMapView;
  * OSM data layer
  * 
  * @author mb
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
 
@@ -712,7 +712,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * Get a new ring from the pool or instantiate one if the pool is empty
      * 
-     * @return an ArrayList<Node>
+     * @return a List&lt;Node&gt;
      */
     @NonNull
     private List<Node> getNewRing() {

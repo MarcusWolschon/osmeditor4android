@@ -31,13 +31,12 @@ import de.blau.android.util.Snack;
 
 /**
  * 
- * <br/>
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
  * @author Created by plusminus on 21:46:41 - 25.09.2008
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  *
  */

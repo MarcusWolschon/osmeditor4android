@@ -7,12 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * <br/>
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  *
  */
 public final class StreamUtils {

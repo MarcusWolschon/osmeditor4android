@@ -35,6 +35,7 @@ import de.blau.android.util.FileUtil;
  * PreferenceScreen defined in the preferences.xml and handled like normal prefs!
  * 
  * @author Jan
+ * @author Simon Poole
  */
 public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
@@ -617,7 +618,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Updates the information (name & URL) of a Preset
+     * Updates the information (name &amp; URL) of a Preset
      * 
      * @param id the internal id
      * @param name the name

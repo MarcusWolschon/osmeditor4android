@@ -80,7 +80,7 @@ public final class Util {
     }
 
     /**
-     * Convert a <String, String> Map to a Map of <String, ArrayList<String>>
+     * Convert a &lt;String, String&gt; Map to a Map of &lt;String, ArrayList&lt;String&gt;&gt;
      * 
      * @param map the input Map
      * @return the converted Map

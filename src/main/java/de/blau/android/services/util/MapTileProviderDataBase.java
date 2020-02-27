@@ -32,12 +32,13 @@ import de.blau.android.views.util.MapViewConstants;
 
 /**
  * The OpenStreetMapTileProviderDataBase contains a table with info for the available renderers and one for the
- * available tiles in the file system cache.<br/>
+ * available tiles in the file system cache.
+ * 
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
 public class MapTileProviderDataBase implements MapViewConstants {

@@ -58,6 +58,12 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 
+/**
+ * UI for managing relation members
+ * 
+ * @author Simon Poole
+ *
+ */
 public class RelationMembersFragment extends BaseFragment implements PropertyRows {
 
     private static final String MEMBERS_KEY = "members";
@@ -977,7 +983,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * Updating the MEU role is tricky as we want to avoid going through the list of members multiple times, the
      * solution is not exact due to this
      * 
-     * @return ArrayList<RelationMemberDescription>.
+     * @return ArrayList&lt;RelationMemberDescription&gt;.
      */
     ArrayList<RelationMemberDescription> getMembersList() {
         final ArrayList<RelationMemberDescription> members = new ArrayList<>();

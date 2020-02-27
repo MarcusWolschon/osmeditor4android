@@ -36,7 +36,8 @@ import de.blau.android.util.Util;
  * Created by plusminus on 21:46:22 - 25.09.2008
  * 
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
+ * @author Simon Poole
  * 
  */
 public class MapTileProvider implements ServiceConnection, MapViewConstants {
@@ -232,7 +233,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                     }
                 }
             } catch (RemoteException e) {
-                Log.e(DEBUG_TAG, "RemoteException in flushQUeue()", e);
+                Log.e(DEBUG_TAG, "RemoteException in flushQueue()", e);
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
             }

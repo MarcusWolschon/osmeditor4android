@@ -27,7 +27,7 @@ import de.blau.android.util.StringWithDescription;
  * Interface to the taginfo API (version 4) search calls
  * 
  * @author Simon Poole
- * @see https://taginfo.openstreetmap.org/taginfo/apidoc
+ * @see <a href="https://taginfo.openstreetmap.org/taginfo/apidoc">Taginfo API</A>
  *
  */
 public final class TaginfoServer {

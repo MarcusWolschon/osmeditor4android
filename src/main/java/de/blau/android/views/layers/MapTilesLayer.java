@@ -51,7 +51,7 @@ import de.blau.android.views.util.MapTileProvider;
  * by Marcus Wolschon to be integrated into the de.blau.androin OSMEditor.
  * 
  * @author Nicolas Gramlich
- * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
 public class MapTilesLayer extends MapViewLayer implements ExtentInterface, LayerInfoInterface {
