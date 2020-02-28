@@ -1157,7 +1157,13 @@ public class Preset implements Serializable {
                 }).execute();
             }
 
-            void addToTagItems(PresetItem currentItem, Map<String, PresetField> fields) {
+            /**
+             * Add a PresetItem to the auto suggest lists
+             * 
+             * @param currentItem the item
+             * @param fields the PresetFields
+             */
+            void addToTagItems(@NonNull PresetItem currentItem, @NonNull Map<String, PresetField> fields) {
                 if (currentItem.isChunk()) { // only do this on the final expansion
                     return;
                 }

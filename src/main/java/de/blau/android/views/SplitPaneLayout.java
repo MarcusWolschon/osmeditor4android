@@ -23,6 +23,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
@@ -57,24 +59,49 @@ public class SplitPaneLayout extends ViewGroup {
     private Rect    temp       = new Rect();
     private boolean isDragging = false;
 
-    public SplitPaneLayout(Context context) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     */
+    public SplitPaneLayout(@NonNull Context context) {
         super(context);
         mSplitterPositionPercent = 0.5f;
         mSplitterDrawable = new PaintDrawable(0x88FFFFFF);
         mSplitterDraggingDrawable = new PaintDrawable(0x88FFFFFF);
     }
 
-    public SplitPaneLayout(Context context, AttributeSet attrs) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     * @param attrs the attributes of the XML tag that is inflating the view. This value may be null.
+     */
+    public SplitPaneLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         extractAttributes(context, attrs);
     }
 
-    public SplitPaneLayout(Context context, AttributeSet attrs, int defStyle) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     * @param attrs the attributes of the XML tag that is inflating the view. This value may be null.
+     * @param defStyle an attribute in the current theme that contains a reference to a style resource that supplies
+     *            default values for the view. Can be 0 to not look for defaults.
+     */
+    public SplitPaneLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         extractAttributes(context, attrs);
     }
 
-    private void extractAttributes(Context context, AttributeSet attrs) {
+    /**
+     * If an AttributeSet is available extract attributes from it and use those
+     * 
+     * @param context an Android Context
+     * @param attrs the AttributeSet
+     */
+    private void extractAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SplitPaneLayout);
             mOrientation = a.getInt(R.styleable.SplitPaneLayout_orientation, 0);
@@ -435,21 +462,45 @@ public class SplitPaneLayout extends ViewGroup {
      */
     public static class SavedState extends BaseSavedState {
         public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-                                                                       public SavedState createFromParcel(Parcel in) {
-                                                                           return new SavedState(in);
-                                                                       }
 
-                                                                       public SavedState[] newArray(int size) {
-                                                                           return new SavedState[size];
-                                                                       }
-                                                                   };
-        float                                              mSplitterPositionPercent;
+            /**
+             * Get a new SavedState object
+             * 
+             * @param in a Parcel
+             * @return a SavedState object
+             */
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
 
-        SavedState(Parcelable superState) {
+            /**
+             * Get an array for SavedState objects
+             * 
+             * @param size the size of the Array
+             * @return an SavedState array of size size
+             */
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+
+        float mSplitterPositionPercent;
+
+        /**
+         * Construct a new instance from a Parcelable
+         * 
+         * @param superState saved state
+         */
+        SavedState(@NonNull Parcelable superState) {
             super(superState);
         }
 
-        private SavedState(Parcel in) {
+        /**
+         * Construct a new instance from a Parcel
+         * 
+         * @param in the Parcel
+         */
+        private SavedState(@NonNull Parcel in) {
             super(in);
             mSplitterPositionPercent = in.readFloat();
         }
@@ -460,5 +511,4 @@ public class SplitPaneLayout extends ViewGroup {
             out.writeFloat(mSplitterPositionPercent);
         }
     }
-
 }

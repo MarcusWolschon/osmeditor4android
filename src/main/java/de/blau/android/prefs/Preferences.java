@@ -992,6 +992,11 @@ public class Preferences {
         return prefs.getBoolean(key, true);
     }
 
+    /**
+     * Check if the BoundingBoxes for downloaded data should be shown when the map display is locked
+     * 
+     * @return true if the BoundingBoxes should always be shown
+     */
     public boolean getAlwaysDrawBoundingBoxes() {
         return alwaysDrawBoundingBoxes;
     }

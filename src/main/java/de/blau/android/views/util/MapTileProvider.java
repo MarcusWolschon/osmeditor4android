@@ -286,8 +286,18 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
      */
     private IMapTileProviderCallback mServiceCallback = new IMapTileProviderCallback.Stub() {
 
-        // @Override
-        public void mapTileLoaded(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final byte[] data) throws RemoteException {
+        /**
+         * Called after a tile has been loaded, copies the tile to the in memory cache
+         * 
+         * @param rendererID the tile renderer id
+         * @param zoomLevel the zoom level
+         * @param tileX tile x
+         * @param tileY tile y
+         * @param data tile image data
+         * @throws RemoteException if something goes wrong receiving the tile from the service
+         */
+        public void mapTileLoaded(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, @NonNull final byte[] data)
+                throws RemoteException {
             BitmapFactory.Options options = new BitmapFactory.Options();
             if (smallHeap) {
                 options.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -337,8 +347,18 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             }
         }
 
-        // @Override
-        public void mapTileFailed(final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason) throws RemoteException {
+        /**
+         * Called after a tile has failed
+         * 
+         * @param rendererID the tile renderer id
+         * @param zoomLevel the zoom level
+         * @param tileX tile x
+         * @param tileY tile y
+         * @param reason error code
+         * @throws RemoteException if something goes wrong receiving the tile from the service
+         */
+        public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason)
+                throws RemoteException {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             if (reason == MapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting
                                                               // the proper one

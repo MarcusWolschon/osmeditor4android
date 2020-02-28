@@ -1,5 +1,19 @@
 package de.blau.android.osm;
 
+import android.support.annotation.NonNull;
+
+/**
+ * Callback for operations after an element has been merged into our in memory storage
+ * 
+ * @author Simon Poole
+ *
+ */
 public abstract class PostMergeHandler {
-    public abstract void handler(OsmElement e);
+
+    /**
+     * Call after data has been merged
+     * 
+     * @param e an OsmElement
+     */
+    public abstract void handler(@NonNull OsmElement e);
 }

@@ -1008,7 +1008,7 @@ public class TestUtils {
      * Scroll to a specific text
      * 
      * @param text the text
-     * @throws UiObjectNotFoundException
+     * @throws UiObjectNotFoundException if the UiScrollable couldn't be found
      */
     public static void scrollTo(@NonNull String text) {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));

@@ -1,6 +1,8 @@
 package de.blau.android.views;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -9,6 +11,7 @@ import de.blau.android.R;
 
 /**
  * 
+ * @author Simon Poole
  * @see <a href="https://blog.svpino.com/2011/08/29/disabling-pagingswiping-on-android">disabling paging/swiping on
  *      android</a>
  *
@@ -19,12 +22,23 @@ public class ExtendedViewPager extends ViewPager {
 
     private boolean enabled;
 
-    public ExtendedViewPager(Context context) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     */
+    public ExtendedViewPager(@NonNull Context context) {
         super(context);
         this.enabled = true;
     }
 
-    public ExtendedViewPager(Context context, AttributeSet attrs) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     * @param attrs the attributes of the XML tag that is inflating the view. This value may be null.
+     */
+    public ExtendedViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.enabled = true;
     }
@@ -45,6 +59,11 @@ public class ExtendedViewPager extends ViewPager {
         return false;
     }
 
+    /**
+     * Enable/disable paging
+     * 
+     * @param enabled if true paging is enabled otherwise disabled
+     */
     public void setPagingEnabled(boolean enabled) {
         Log.d(DEBUG_TAG, "Setting paging enabled to " + enabled);
         this.enabled = enabled;

@@ -130,7 +130,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
             class DownloadWebViewClient extends WebViewClient {
 
                 /**
-                 * @deprecated since API 24                       
+                 * @deprecated since API 24
                  */
                 @Deprecated
                 @Override
@@ -276,6 +276,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
     }
 
     BroadcastReceiver onNotificationClick = new BroadcastReceiver() {
+        @Override
         public void onReceive(Context ctxt, Intent intent) {
             // nothing for now
         }

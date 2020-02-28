@@ -1331,7 +1331,7 @@ public class Logic {
      * @param absoluteY The absolute display-coordinate.
      * @param relativeX The difference to the last absolute display-coordinate.
      * @param relativeY The difference to the last absolute display-coordinate.
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if one of the operations triggered went wrong
      */
     synchronized void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
         if (draggingNode || draggingWay || draggingHandle || draggingNote) {

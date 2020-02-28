@@ -1,6 +1,7 @@
 package de.blau.android.prefs;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import android.view.View;
@@ -16,7 +17,13 @@ public class LoginDataPreferenceFragment extends PreferenceDialogFragmentCompat 
     private EditText userEdit;
     private EditText passwordEdit;
 
-    public static LoginDataPreferenceFragment newInstance(Preference preference) {
+    /**
+     * Get a new instance of the Fragment
+     * 
+     * @param preference the preference we are modifying
+     * @return a LoginDataPreferenceFragment
+     */
+    public static LoginDataPreferenceFragment newInstance(@NonNull Preference preference) {
         LoginDataPreferenceFragment fragment = new LoginDataPreferenceFragment();
         Bundle bundle = new Bundle(1);
         bundle.putString("key", preference.getKey());

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
@@ -112,6 +113,12 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         return performAction(item.getItemId());
     }
 
+    /**
+     * Perform an action based on the menu id
+     * 
+     * @param action the menu id
+     * @return true if the menu action was consumed
+     */
     private boolean performAction(int action) {
         final int size = rows.getChildCount();
         final ArrayList<RelationMemberRow> selected = new ArrayList<>();
@@ -272,17 +279,28 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
         }
     }
 
-    private void updateRow(RelationMemberRow row, int pos) {
+    /**
+     * Update a row
+     * 
+     * @param row the row
+     * @param pos the position
+     */
+    private void updateRow(@NonNull RelationMemberRow row, int pos) {
         RelationMemberDescription rmd = row.getRelationMemberDescription();
         rmd.setElement(rmd.getElement());
         rmd.update();
         row.delete();
-        ((RelationMembersFragment) caller).insertNewMember(rows, Integer.toString(pos), rmd, pos, Connected.NOT, true); // result
-                                                                                                                        // not
-                                                                                                                        // needed
+        ((RelationMembersFragment) caller).insertNewMember(rows, Integer.toString(pos), rmd, pos, Connected.NOT, true); // NOSONAR
     }
 
-    private boolean forceScroll(Integer pos, int size) {
-        return pos < 3 || pos > (size - 4);
+    /**
+     * Check if we should force a scroll to the position
+     * 
+     * @param pos the position
+     * @param size the number of rows displayed
+     * @return true if we should scroll
+     */
+    private boolean forceScroll(@Nullable Integer pos, int size) {
+        return pos != null && (pos < 3 || pos > (size - 4));
     }
 }

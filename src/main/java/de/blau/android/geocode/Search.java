@@ -171,8 +171,8 @@ public class Search {
         builder.setNegativeButton(R.string.cancel, null);
         final AppCompatDialog dialog = builder.create();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                // Log.d("Search","Result at pos " + position + " clicked");
                 callback.onItemSelected(searchResults.get(position));
                 dialog.dismiss();
             }

@@ -52,14 +52,14 @@ import okhttp3.OkHttpClient;
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends android.app.Application {
-    private static final String DEBUG_TAG = App.class.getName();    
-    
-    private static final String RHINO_LAZY_LOAD = "lazyLoad";
+    private static final String DEBUG_TAG = App.class.getName();
+
+    private static final String     RHINO_LAZY_LOAD = "lazyLoad";
     private static App              currentInstance;
-    private static StorageDelegator delegator      = new StorageDelegator();
-    private static TaskStorage      taskStorage    = new TaskStorage();
+    private static StorageDelegator delegator       = new StorageDelegator();
+    private static TaskStorage      taskStorage     = new TaskStorage();
     private static OkHttpClient     httpClient;
-    private static final Object     httpClientLock = new Object();
+    private static final Object     httpClientLock  = new Object();
     private static String           userAgent;
 
     /**
@@ -207,11 +207,30 @@ public class App extends android.app.Application {
         return taskStorage;
     }
 
+    /**
+     * Get the current running App instance
+     * 
+     * @return the current App instance
+     * 
+     * @deprecated using this is bad practice and should avoided as far as possible
+     */
+    @Deprecated
     @Nullable
     public static App getCurrentInstance() {
         return currentInstance;
     }
 
+    /**
+     * Get the Resources from the current running App instance
+     * 
+     * Mainly used in situations in which we need to display, potentially translated, text and don't have an Context
+     * available
+     * 
+     * @return a Resources instance
+     * 
+     * @deprecated using this is bad practice and should avoided as far as possible
+     */
+    @Deprecated
     @Nullable
     public static Resources resources() {
         return currentInstance.getResources();

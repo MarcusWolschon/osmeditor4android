@@ -1,6 +1,8 @@
 package de.blau.android.prefs;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 import de.blau.android.R;
@@ -11,16 +13,33 @@ import de.blau.android.R;
  */
 public class LoginDataPreference extends DialogPreference {
 
-    public LoginDataPreference(Context context, AttributeSet attrs) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     * @param attrs the attributes of the XML tag that is inflating the view. This value may be null.
+     */
+    public LoginDataPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public LoginDataPreference(Context context, AttributeSet attrs, int defStyle) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     * @param attrs the attributes of the XML tag that is inflating the view. This value may be null.
+     * @param defStyle an attribute in the current theme that contains a reference to a style resource that supplies
+     *            default values for the view. Can be 0 to not look for defaults.
+     */
+    public LoginDataPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
+    /**
+     * Actually initialize the preference
+     */
     private void init() {
         super.setPersistent(false);
         super.setDialogLayoutResource(R.layout.login_edit);
