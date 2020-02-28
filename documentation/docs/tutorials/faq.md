@@ -188,7 +188,7 @@ If fullscreen mode is causing issues for you, the best solution is to simply tur
 
 Adding more data via the auto-download facility and/or the menu item "Add current view to download" increases the amount of the data retained in memory. Due to the way Android works this has to be saved and re-loaded in a number of situations, including, naturally, on restart of the app. Further certain operations that need to select a subset of the data in memory can be impacted by this slow down too. 
 
-Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Download current view" action.
+Recommended practice, if you no longer need the previously loaded data and have uploaded all edits, is to reset the data in memory by using the "Clear and download current view" action.
 
 #### The aerial or satellite imagery is out of date
 
@@ -218,7 +218,7 @@ To recover from the directory containing the tile database not being writable yo
 
 While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. 
 
-To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.
+To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") in `Android/data/de.blau.android/files/databases/` remove `osmaptilefscache_db.db` and the accompanying journal file too.
 
 #### Can't save MapRoulette API Key
 
