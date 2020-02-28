@@ -19,6 +19,7 @@ import de.blau.android.validation.FormValidation;
 
 /**
  * @author mb
+ * @author Simon Poole
  */
 public class UploadListener implements DialogInterface.OnShowListener, View.OnClickListener {
 
@@ -41,7 +42,6 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * @param closeOpenChangeset close any open changeset first if true
      * @param closeChangeset close the changeset after upload if true
      * @param requestReview CheckBox for the review_requested tag
-     * @param requestReview2
      * @param validations a List of validations to perform on the form fields
      */
     public UploadListener(@NonNull final Main caller, @NonNull final EditText commentField, @NonNull final EditText sourceField,

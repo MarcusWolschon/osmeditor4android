@@ -16,7 +16,8 @@ import de.blau.android.views.IMapView;
 
 /**
  * Base class representing an overlay which may be displayed on top of an {@link IMapView}. To add an overlay, subclass
- * this class, create an instance, and add it to the list obtained from getOverlays() of {@link Map}. <br/>
+ * this class, create an instance, and add it to the list obtained from getOverlays() of {@link Map}.
+ * 
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
