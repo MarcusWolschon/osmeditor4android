@@ -593,7 +593,7 @@
     </style>
     
 	<style name="DrawerDark" parent="Theme.customMain.Light">
-		<item name="android:background">@color/dark_grey</item>
+		<item name="android:background">@color/light_grey</item>
 	</style>
 	
 	<style name="Theme.customHelpViewer.Light" parent="@style/Theme.AppCompat.Light">
@@ -609,7 +609,7 @@
     </style>
     
 	<style name="DrawerLight" parent="@style/Theme.AppCompat.Light">
-		<item name="android:background">@color/dark_grey</item>
+		<item name="android:background">@color/light_grey</item>
 	</style>
 	
 	<!-- You can also inherit from NNF_BaseTheme -->
