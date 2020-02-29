@@ -364,7 +364,7 @@ public class ViewBox extends BoundingBox {
      */
     private float zoomInLimit() {
         long width = getWidth();
-        return (width - MIN_ZOOM_WIDTH) / 2f / width;
+        return (Math.max(0, width - MIN_ZOOM_WIDTH)) / 2f / width;
     }
 
     /**
@@ -414,7 +414,7 @@ public class ViewBox extends BoundingBox {
     }
 
     /**
-     * Enlarges/reduces the borders by zoomFactor.
+     * Enlarges/reduces the borders by zoomFactor + 1.
      * 
      * @param zoomFactor factor enlarge/reduce the borders.
      */
@@ -448,8 +448,6 @@ public class ViewBox extends BoundingBox {
         }
         setLeft((int) tmpLeft);
         setRight((int) tmpRight);
-        // left = Math.max(-MAX_LON, left + (int)horizontalChange);
-        // right = Math.min(MAX_LON, right - (int)horizontalChange);
 
         if ((mBottom + verticalChange) < -GeoMath.MAX_MLAT_E7) {
             long rest = mBottom + verticalChange + (long) GeoMath.MAX_MLAT_E7;
