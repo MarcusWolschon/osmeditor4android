@@ -91,13 +91,14 @@ public class ModeTest {
             Assert.fail(e1.getMessage());
         }
 
-        UiObject snack = mDevice.findObject(new UiSelector().textStartsWith(main.getString(R.string.toast_unlock_to_edit)));
+        UiObject tip = mDevice.findObject(new UiSelector().textStartsWith(main.getString(R.string.tip_locked_mode)));
         try {
             map.click();
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertTrue(snack.waitForExists(5000));
+        Assert.assertTrue(tip.waitForExists(5000));
+        TestUtils.clickText(mDevice, true, main.getString(R.string.okay), true); // for the tip alert
         mDevice.waitForIdle();
 
         // need to be adapted for new menu

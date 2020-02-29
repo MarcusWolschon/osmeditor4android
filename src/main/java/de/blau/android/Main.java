@@ -3495,6 +3495,7 @@ public class Main extends FullScreenAppCompatActivity
                         startVoiceRecognition();
                     } else {
                         Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
+                        Tip.showOptionalDialog(Main.this, R.string.tip_locked_mode_key, R.string.tip_locked_mode);
                     }
                 } else {
                     if (mode.elementsEditable()) {
