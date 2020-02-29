@@ -557,6 +557,8 @@ avoided by using an offline data source.</string>
     <string name="tag_restriction_add_opening_hours">Add opening hours</string>
     <string name="tag_restriction_value_hint">Conditional restriction</string>
     <string name="ugly_checkgroup_hint">%1$s, …</string>
+    <string name="tag_form_unknown_element">Unknown element (no preset found)</string>
+    <string name="tag_form_untagged_element">Untagged element</string>
     <!-- Custom preset creation -->
     <string name="tag_menu_create_preset">Create custom preset</string>
     <string name="create_preset_title">Custom preset name</string>
@@ -676,7 +678,6 @@ avoided by using an offline data source.</string>
     <string name="menu_information">Info</string>
     <string name="menu_voice_commands">Voice commands</string>
     <string name="menu_set_name">Set name</string>
-    <string name="tag_form_unknown_element">Unknown element (no preset found)</string>
     <string name="menu_tools">Tools…</string>
     <string name="menu_tools_imagery">More imagery tools</string>
     <string name="menu_tools_add_imagery_from_oam">Add imagery from OAM</string>

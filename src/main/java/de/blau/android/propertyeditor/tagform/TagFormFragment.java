@@ -588,20 +588,21 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             nonEditableView.removeAllViews();
         }
 
+        LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
+
         PresetItem mainPreset = tagListener.getBestPreset();
-        editableView.setTitle(mainPreset);
+        editableView.setTitle(mainPreset, allTags.isEmpty());
         editableView.setListeners(tagListener, this);
         editableView.applyPresetButton.setVisibility(View.GONE);
         editableView.applyPresetWithOptionalButton.setVisibility(View.GONE);
 
-        LinkedHashMap<String, String> allTags = tagListener.getKeyValueMapSingle(true);
         Map<String, String> nonEditable;
         if (mainPreset != null) {
             nonEditable = addTagsToViews(editableView, mainPreset, allTags);
             for (PresetItem preset : tagListener.getSecondaryPresets()) {
                 final EditableLayout editableView1 = (EditableLayout) inflater.inflate(R.layout.tag_form_editable, ll, false);
                 editableView1.setSaveEnabled(false);
-                editableView1.setTitle(preset);
+                editableView1.setTitle(preset, false);
                 editableView1.setListeners(tagListener, this);
                 ll.addView(editableView1, pos++);
                 nonEditable = addTagsToViews(editableView1, preset, (LinkedHashMap<String, String>) nonEditable);
@@ -1216,7 +1217,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * 
          * @param preset the PresetItem
          */
-        public void setTitle(@Nullable PresetItem preset) {
+        public void setTitle(@Nullable PresetItem preset, boolean untagged) {
             if (preset != null) {
                 Drawable icon = preset.getIconIfExists(preset.getIconpath());
                 this.preset = preset;
@@ -1234,7 +1235,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 cutButton.setVisibility(View.VISIBLE);
                 deleteButton.setVisibility(View.VISIBLE);
             } else {
-                headerTitleView.setText(R.string.tag_form_unknown_element);
+                headerTitleView.setText(untagged ? R.string.tag_form_untagged_element : R.string.tag_form_unknown_element);
                 applyPresetButton.setVisibility(View.GONE);
                 applyPresetWithOptionalButton.setVisibility(View.GONE);
                 copyButton.setVisibility(View.GONE);
