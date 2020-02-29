@@ -13,6 +13,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.TypedValue;
@@ -31,12 +32,28 @@ public class FixedChromaDialog extends com.pavelsikun.vintagechroma.ChromaDialog
     private static final String ARG_COLOR_MODE_ID  = "arg_color_mode_id";
     private static final String ARG_INDICATOR_MODE = "arg_indicator_mode";
 
+    /**
+     * Instantiate a new Fragment
+     * 
+     * @param initialColor the initial color
+     * @param colorMode how to determine the color ARGB, CMYK etc.
+     * @param indicatorMode DECIMAL or HEX for numerical values
+     * @return a FixedChromaDialog
+     */
     private static FixedChromaDialog newInstance(@ColorInt int initialColor, ColorMode colorMode, IndicatorMode indicatorMode) {
         FixedChromaDialog fragment = new FixedChromaDialog();
         fragment.setArguments(makeArgs(initialColor, colorMode, indicatorMode));
         return fragment;
     }
 
+    /**
+     * Set up the fragment args
+     * 
+     * @param initialColor the initial color
+     * @param colorMode how to determine the color ARGB, CMYK etc.
+     * @param indicatorMode DECIMAL or HEX for numerical values
+     * @return a Bundle holding the args
+     */
     private static Bundle makeArgs(@ColorInt int initialColor, ColorMode colorMode, IndicatorMode indicatorMode) {
         Bundle args = new Bundle();
         args.putInt(ARG_INITIAL_COLOR, initialColor);
@@ -101,7 +118,12 @@ public class FixedChromaDialog extends com.pavelsikun.vintagechroma.ChromaDialog
         return ad;
     }
 
-    private void fixedMeasureLayout(AlertDialog ad) {
+    /**
+     * Fix the layout
+     * 
+     * @param ad the AlertDialog
+     */
+    private void fixedMeasureLayout(@NonNull AlertDialog ad) {
         int widthMultiplier = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
 
         TypedValue typedValue = new TypedValue();

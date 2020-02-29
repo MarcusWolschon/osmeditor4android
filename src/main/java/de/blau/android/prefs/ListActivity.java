@@ -1,6 +1,7 @@
 package de.blau.android.prefs;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,11 @@ import android.widget.ListView;
 public class ListActivity extends AppCompatActivity {
     private ListView mListView;
 
+    /**
+     * Get the ListView
+     * 
+     * @return the ListView
+     */
     protected ListView getListView() {
         if (mListView == null) {
             mListView = (ListView) findViewById(android.R.id.list);
@@ -23,10 +29,20 @@ public class ListActivity extends AppCompatActivity {
         return mListView;
     }
 
-    void setListAdapter(ListAdapter adapter) {
+    /**
+     * Set the adapter holding whatever we want to display in the list
+     * 
+     * @param adapter a ListAdapter
+     */
+    void setListAdapter(@NonNull ListAdapter adapter) {
         getListView().setAdapter(adapter);
     }
 
+    /**
+     * Get the adapter
+     * 
+     * @return a ListAdapter
+     */
     protected ListAdapter getListAdapter() {
         ListAdapter adapter = getListView().getAdapter();
         if (adapter instanceof HeaderViewListAdapter) {

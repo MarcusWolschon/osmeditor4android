@@ -2,6 +2,8 @@ package de.blau.android.osm;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Snack;
@@ -11,7 +13,14 @@ public class DownloadErrorToast implements Runnable {
     final String  message;
     final Context context;
 
-    DownloadErrorToast(Context context, int code, String message) {
+    /**
+     * 
+     * 
+     * @param context an Android Context, if null of not an Activity nothing will happen
+     * @param code the error code
+     * @param message the message to display
+     */
+    DownloadErrorToast(@Nullable Context context, int code, @NonNull String message) {
         this.code = code;
         this.message = message;
         this.context = context;

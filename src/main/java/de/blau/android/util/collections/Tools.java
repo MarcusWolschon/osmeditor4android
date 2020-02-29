@@ -55,15 +55,26 @@ final class Tools {
     private static final int  INT_PHI  = 0x9E3779B9;
     private static final long LONG_PHI = 0x9E3779B97F4A7C15L;
 
+    /**
+     * Hash function
+     * 
+     * @param x int value to hash
+     * @return a hash
+     */
     public static int phiMix(final int x) {
         final int h = x * INT_PHI;
         return h ^ (h >> 16);
     }
 
+    /**
+     * Hash function
+     * 
+     * @param x long value to hash
+     * @return a hash
+     */
     public static long phiMix(final long x) {
         long h = x * LONG_PHI;
         h ^= h >>> 32;
         return h ^ (h >>> 16);
     }
-
 }

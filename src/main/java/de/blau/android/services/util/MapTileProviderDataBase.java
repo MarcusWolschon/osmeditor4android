@@ -444,6 +444,12 @@ public class MapTileProviderDataBase implements MapViewConstants {
     // ===========================================================
 
     private class DatabaseHelper extends SQLiteOpenHelper {
+
+        /**
+         * Construct a new helper
+         * 
+         * @param context an Android Context
+         */
         DatabaseHelper(final Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }

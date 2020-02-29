@@ -94,6 +94,7 @@ public class TileLayerDatabaseView {
             @Override
             public void onClick(View v) {
                 TileLayerDialog.showLayerDialog(activity, writableDb, -1, null, new TileLayerDialog.OnUpdateListener() {
+                    @Override
                     public void update() {
                         newLayerCursor(writableDb);
                         resetLayer(activity, writableDb);
@@ -143,6 +144,7 @@ public class TileLayerDatabaseView {
                 public void onClick(View v) {
                     Integer id = (Integer) view.getTag();
                     TileLayerDialog.showLayerDialog(activity, db, id != null ? id : -1, null, new TileLayerDialog.OnUpdateListener() {
+                        @Override
                         public void update() {
                             newLayerCursor(db);
                             resetLayer(activity, db);

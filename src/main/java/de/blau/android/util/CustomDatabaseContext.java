@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 /**
@@ -19,7 +20,13 @@ public class CustomDatabaseContext extends ContextWrapper {
 
     private final String path;
 
-    public CustomDatabaseContext(Context base, String path) {
+    /**
+     * Construct a new instance
+     * 
+     * @param base the Context we want to wrap
+     * @param path the path to the directory that should hold the databases disrectory
+     */
+    public CustomDatabaseContext(@NonNull Context base, @NonNull String path) {
         super(base);
         this.path = path;
     }

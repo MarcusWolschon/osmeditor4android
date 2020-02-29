@@ -193,7 +193,13 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
 
     private class TileLoader extends MapAsyncTileProvider.TileLoader {
 
-        public TileLoader(final MapTile aTile, final IMapTileProviderCallback aCallback) {
+        /**
+         * Construct a new TileLoader for a Tile
+         * 
+         * @param aTile the tile descriptor
+         * @param aCallback the callback to the provider
+         */
+        public TileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback) {
             super(aTile, aCallback);
         }
 
@@ -326,9 +332,9 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
      * Mark a tile as invalid (really doesn't exist)
      * 
      * @param mTile tile meta-data
-     * @throws IOException
+     * @throws IOException if writing to the database failes
      */
-    public void markAsInvalid(MapTile mTile) throws IOException {
+    public void markAsInvalid(@NonNull MapTile mTile) throws IOException {
         mDatabase.addTile(mTile, null);
     }
 }

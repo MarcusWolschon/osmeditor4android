@@ -4,6 +4,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+/**
+ * Provide a reasonably generic way of handling results from Activities
+ * 
+ * @author Simon Poole
+ *
+ */
 public interface ActivityResultHandler {
 
     /**

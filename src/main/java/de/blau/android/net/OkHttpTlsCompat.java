@@ -16,6 +16,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -74,7 +75,12 @@ public final class OkHttpTlsCompat {
 
         final SSLSocketFactory delegate;
 
-        public Tls12SocketFactory(SSLSocketFactory base) {
+        /**
+         * Construct a new Tls12SocketFactory
+         * 
+         * @param base the original SSLSocketFactory
+         */
+        public Tls12SocketFactory(@NonNull SSLSocketFactory base) {
             this.delegate = base;
         }
 
@@ -113,6 +119,12 @@ public final class OkHttpTlsCompat {
             return patch(delegate.createSocket(address, port, localAddress, localPort));
         }
 
+        /**
+         * Enable tls 1.2 on a Socket
+         * 
+         * @param s the Socket
+         * @return the provided Socket
+         */
         private Socket patch(Socket s) {
             if (s instanceof SSLSocket) {
                 ((SSLSocket) s).setEnabledProtocols(TLS_V12_ONLY);

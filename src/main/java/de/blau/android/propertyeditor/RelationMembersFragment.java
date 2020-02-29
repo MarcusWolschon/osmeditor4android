@@ -559,7 +559,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          * 
          * @param context Android Context
          */
-        public RelationMemberRow(Context context) {
+        public RelationMemberRow(@NonNull Context context) {
             super(context);
             owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
                                                                         // in Eclipse
@@ -571,17 +571,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          * @param context Android Context
          * @param attrs an AttributeSet
          */
-        public RelationMemberRow(Context context, AttributeSet attrs) {
+        public RelationMemberRow(@NonNull Context context, @Nullable AttributeSet attrs) {
             super(context, attrs);
             owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
                                                                         // in Eclipse
         }
-
-        // public RelationMemberRow(Context context, AttributeSet attrs, int defStyle) {
-        // super(context, attrs, defStyle);
-        // owner = (TagEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or in
-        // Eclipse
-        // }
 
         @Override
         protected void onFinishInflate() {
@@ -659,15 +653,32 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             return this;
         }
 
+        /**
+         * Get the element type for the row
+         * 
+         * @return the element type
+         */
         public String getType() {
             return (String) typeView.getTag();
         }
 
+        /**
+         * Get the RelationMemberDescription for the row
+         * 
+         * @return a RelationMemberDescription
+         */
         public RelationMemberDescription getRelationMemberDescription() {
             return rmd;
         }
 
-        public void setIcon(Context ctx, RelationMemberDescription rmd, Connected c) {
+        /**
+         * Set the connection icon
+         * 
+         * @param ctx an Android Context
+         * @param rmd the RelationMemberDescription
+         * @param c how the element is connected
+         */
+        public void setIcon(@NonNull Context ctx, RelationMemberDescription rmd, @NonNull Connected c) {
             String objectType = rmd.getType();
             int iconId = 0;
             if (rmd.downloaded()) {
@@ -744,6 +755,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             }
         }
 
+        /**
+         * If the row element is a Way return an unused end
+         * 
+         * @return the Ndoe at the unused end or null
+         */
+        @Nullable
         public Node getUnusedEnd() {
             OsmElement e = rmd.getElement();
             if (e instanceof Way) {
@@ -773,6 +790,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          * 
          * @return the role as a String
          */
+        @NonNull
         public String getRole() {
             return roleEdit.getText().toString();
         }

@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.R;
@@ -134,7 +136,18 @@ public class MapTileProviderService extends Service {
     private final IMapTileProviderService.Stub mBinder = new IMapTileProviderService.Stub() {
 
         // @Override
-        public void getMapTile(String rendererID, int zoomLevel, int tileX, int tileY, IMapTileProviderCallback callback) throws RemoteException {
+        /**
+         * Get a tile
+         * 
+         * @param renderId the tile rendered
+         * @param zoomLevel the zoom level
+         * @param tile X
+         * @param tile Y
+         * @param callback callback to the TileProvider
+         * @throws RemoteException if something goes wrong with the service
+         */
+        public void getMapTile(@NonNull String rendererID, int zoomLevel, int tileX, int tileY, @NonNull IMapTileProviderCallback callback)
+                throws RemoteException {
             if (!mountPointWriteable) { // fail silently
                 return;
             }
@@ -142,14 +155,28 @@ public class MapTileProviderService extends Service {
             mFileSystemProvider.loadMapTileAsync(tile, callback);
         }
 
-        public void flushCache(String rendererId) {
+        /**
+         * Flush the on device cache
+         * 
+         * @param rendererId the tile renderer, if null all caches will be flushed
+         */
+        public void flushCache(@Nullable String rendererId) {
             mFileSystemProvider.flushCache(rendererId);
         }
 
-        public void flushQueue(String rendererId, int zoomLevel) {
+        /**
+         * Flush the queue of pending tile requests
+         * 
+         * @param rendererId the tile renderer
+         * @param zoomLevel the zoom level if -1 then requests will be flushed for all zoom levels
+         */
+        public void flushQueue(@NonNull String rendererId, int zoomLevel) {
             mFileSystemProvider.flushQueue(rendererId, zoomLevel);
         }
 
+        /**
+         * Update the configuration
+         */
         public void update() {
             TileLayerDatabase db = new TileLayerDatabase(MapTileProviderService.this);
             TileLayerServer.getListsLocked(MapTileProviderService.this, db.getReadableDatabase(), false);

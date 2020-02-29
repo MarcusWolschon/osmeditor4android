@@ -1,5 +1,20 @@
 package de.blau.android.propertyeditor;
 
+import android.support.annotation.NonNull;
+
+/**
+ * Generic interface to use when a tag needs to be saved by a callback
+ * 
+ * @author Simon Poole
+ *
+ */
 interface OnSaveListener {
-    void save(String key, String value);
+
+    /**
+     * Save the tag
+     * 
+     * @param key the tag key
+     * @param value the tag value
+     */
+    void save(@NonNull String key, @NonNull String value);
 }

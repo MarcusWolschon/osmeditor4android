@@ -123,12 +123,14 @@ public class TaskFragment extends ImmersiveDialogFragment {
         // Pass null as the parent view because its going in the dialog layout
         final View v = inflater.inflate(R.layout.openstreetbug_edit, null);
         builder.setView(v).setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int id) {
                 saveTask(v, task);
                 cancelAlert(task);
                 updateMenu(getActivity());
             }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int id) {
                 // unused
             }
@@ -136,6 +138,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
 
         if (task.canBeUploaded()) {
             builder.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() {
+                @Override
                 public void onClick(DialogInterface dialog, int id) {
                     saveTask(v, task);
                     final FragmentActivity activity = getActivity();
@@ -338,6 +341,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 builder.setTitle(R.string.openstreetbug_unknown_task_type)
                         .setMessage(getString(R.string.openstreetbug_not_supported, task.getClass().getCanonicalName()))
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 // not used
                             }

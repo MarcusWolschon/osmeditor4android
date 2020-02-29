@@ -56,7 +56,7 @@ public abstract class MapAsyncTileProvider {
      * @param tileId id of the request
      * @return true if successful
      */
-    private boolean removeRequest(final String tileId) {
+    private boolean removeRequest(@NonNull final String tileId) {
         Runnable r = mPending.get(tileId);
         if (mThreadPool.remove(r)) {
             mPending.remove(tileId);
@@ -71,7 +71,7 @@ public abstract class MapAsyncTileProvider {
      * @param rendererId the renderer we want to remove tiles for
      * @param zoom the zoom level we want to remove tiles for, if ALLZOOMS remove all requests for the renderer
      */
-    public void flushQueue(String rendererId, int zoom) {
+    public void flushQueue(@NonNull String rendererId, int zoom) {
         Set<Entry<String, Runnable>> entries;
         synchronized (mPending) {
             entries = new HashSet<>(mPending.entrySet());
@@ -92,17 +92,33 @@ public abstract class MapAsyncTileProvider {
         }
     }
 
+    /**
+     * Get the TileLoader for a tile
+     * 
+     * @param aTile the tile descriptor
+     * @param aCallback callback to the TileProvider
+     * @return a TileLoader
+     */
     protected abstract Runnable getTileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback);
 
     abstract class TileLoader implements Runnable {
         final MapTile                  mTile;
         final IMapTileProviderCallback mCallback;
 
-        public TileLoader(final MapTile aTile, final IMapTileProviderCallback aCallback) {
+        /**
+         * Construct a new TileLoader
+         * 
+         * @param aTile the tile descriptor
+         * @param aCallback callback to the TileProvider
+         */
+        public TileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback) {
             mTile = aTile;
             mCallback = aCallback;
         }
 
+        /**
+         * Finished loading, remove tile from pending
+         */
         void finished() {
             mPending.remove(mTile.toId());
         }

@@ -222,7 +222,7 @@ public class Main extends FullScreenAppCompatActivity
     private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 54321;
 
     /**
-     * Minimum change in azimut before we redraw
+     * Minimum change in azimuth before we redraw
      */
     private static final int MIN_AZIMUT_CHANGE = 5;
 
