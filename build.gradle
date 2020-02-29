@@ -329,6 +329,11 @@ android {
     sourceSets {
         main.assets.srcDirs += files("$private_assets".toString())
     }
+    
+    lintOptions {
+        abortOnError true
+        baseline file("lint-baseline.xml")
+    }
 }
 
 android.applicationVariants.all { variant ->
