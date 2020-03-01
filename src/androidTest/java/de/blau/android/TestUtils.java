@@ -146,7 +146,7 @@ public class TestUtils {
      * @param resId resource id
      * @param waitForNewWindow if true wait for a new window after clicking
      * @return true if the button was found and clicked
-     * @throws UiObjectNotFoundException
+     * @throws UiObjectNotFoundException if we couldn't find the button
      */
     public static boolean clickButton(String resId, boolean waitForNewWindow) {
         try {

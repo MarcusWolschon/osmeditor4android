@@ -218,9 +218,9 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
     /**
      * setText is final and can't be overridden
      * 
-     * @param text
+     * @param text the text to set
      */
-    public void setOrReplaceText(String text) {
+    public void setOrReplaceText(@NonNull String text) {
         if (mTokenizer == null) {
             super.setText(text);
             return;

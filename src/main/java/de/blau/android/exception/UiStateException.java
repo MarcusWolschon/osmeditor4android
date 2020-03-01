@@ -3,7 +3,7 @@ package de.blau.android.exception;
 /**
  * Thrown when we encounter a fatal UI screwup
  * 
- * @author simon
+ * @author Simon Poole
  *
  */
 public class UiStateException extends RuntimeException {
@@ -13,11 +13,12 @@ public class UiStateException extends RuntimeException {
      */
     private static final long serialVersionUID = 1L;
 
-    public UiStateException(String string) {
-        super(string);
-    }
-
-    public UiStateException(UiStateException e) {
-        super(e.getMessage());
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     */
+    public UiStateException(String message) {
+        super(message);
     }
 }

@@ -107,9 +107,9 @@ public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
      * 
      * @param name the name
      * @return the osm id
-     * @throws OsmException
+     * @throws OsmException if the name is not found
      */
-    public long getStreetId(String name) throws OsmException {
+    public long getStreetId(@NonNull String name) throws OsmException {
         return es.getStreetId(name);
     }
 

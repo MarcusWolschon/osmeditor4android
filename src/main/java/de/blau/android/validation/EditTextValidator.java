@@ -12,6 +12,11 @@ abstract class EditTextValidator implements TextWatcher, FormValidation {
     @NonNull
     private final EditText editText;
 
+    /**
+     * Construct a validator for a specific EditText
+     * 
+     * @param editText the EditText
+     */
     EditTextValidator(@NonNull EditText editText) {
         this.editText = editText;
         this.editText.addTextChangedListener(this);
@@ -43,12 +48,26 @@ abstract class EditTextValidator implements TextWatcher, FormValidation {
         }
     }
 
+    /**
+     * Test if the text is valid
+     * 
+     * @param text the text to check
+     * @return true if the text is valid
+     */
     protected abstract boolean isValid(@NonNull String text);
 
+    /**
+     * Show an error text
+     * 
+     * @param errorText the text to display
+     */
     private void showError(@NonNull String errorText) {
         editText.setError(errorText);
     }
 
+    /**
+     * Clear any error
+     */
     private void clearError() {
         editText.setError(null);
     }

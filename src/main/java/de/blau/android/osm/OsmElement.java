@@ -83,7 +83,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
-     * @return the if of the object (< 0 are temporary ids)
+     * @return the if of the object (&lt; 0 are temporary ids)
      */
     public long getOsmId() {
         return osmId;
@@ -316,9 +316,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * Write the tags in XML format
      * 
      * @param s the Serializer
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException
+     * @throws IllegalArgumentException if the serializer encountered an illegal argument
+     * @throws IllegalStateException if the serializer detects an illegal state
+     * @throws IOException if writing to the serializer fails
      */
     protected void tagsToXml(@NonNull final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
         if (tags != null) {
@@ -337,7 +337,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param s the Serializer
      * @param changeSetId the current changeset id or null
      * @param josm if true use josm format
-     * @throws IOException
+     * @throws IOException if writing to the serializer fails
      */
     protected void attributesToXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm) throws IOException {
         s.attribute("", "id", Long.toString(osmId));

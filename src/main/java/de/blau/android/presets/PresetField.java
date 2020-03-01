@@ -312,9 +312,9 @@ public abstract class PresetField {
      * Output the field in XML format
      * 
      * @param s an XmlSerialzer instance
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException
+     * @throws IllegalArgumentException if the serializer encountered an illegal argument
+     * @throws IllegalStateException if the serializer detects an illegal state
+     * @throws IOException if writing to the serializer fails
      */
     public abstract void toXml(@NonNull XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException;
 

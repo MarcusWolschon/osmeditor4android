@@ -204,7 +204,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
     private final SimpleAction simpleAction;
 
     /**
-     * Construct a callback for when a long click has occurred
+     * Construct a callback for when a simple action has been selected
      * 
      * @param manager the EasyEditManager instance
      * @param simpleMode Enum indicating what to do

@@ -1216,6 +1216,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * Set the title and PresetItem
          * 
          * @param preset the PresetItem
+         * @param untagged the object has no tags
          */
         public void setTitle(@Nullable PresetItem preset, boolean untagged) {
             if (preset != null) {

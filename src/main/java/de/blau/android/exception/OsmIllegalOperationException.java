@@ -1,5 +1,7 @@
 package de.blau.android.exception;
 
+import android.support.annotation.NonNull;
+
 public class OsmIllegalOperationException extends RuntimeException {
 
     /**
@@ -7,12 +9,21 @@ public class OsmIllegalOperationException extends RuntimeException {
      */
     private static final long serialVersionUID = 1L;
 
-    public OsmIllegalOperationException(String string) {
-        super(string);
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     */
+    public OsmIllegalOperationException(String message) {
+        super(message);
     }
 
-    public OsmIllegalOperationException(OsmIllegalOperationException e) {
-        super(e.getMessage());
+    /**
+     * Construct a new exception from an existing one
+     * 
+     * @param original the original exception
+     */
+    public OsmIllegalOperationException(@NonNull OsmIllegalOperationException original) {
+        super(original.getMessage());
     }
-
 }

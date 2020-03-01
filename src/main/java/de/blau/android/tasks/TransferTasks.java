@@ -656,7 +656,6 @@ public final class TransferTasks {
      * @param uri Uri to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
-     * @throws FileNotFoundException
      */
     public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final Uri uri, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
@@ -674,7 +673,6 @@ public final class TransferTasks {
      * @param is InputStream to read
      * @param add if true the elements will be added to the existing ones, otherwise replaced
      * @param postLoad callback to execute once stream has been loaded
-     * @throws FileNotFoundException
      */
     public static void readCustomBugs(@NonNull final FragmentActivity activity, @NonNull final InputStream is, final boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {

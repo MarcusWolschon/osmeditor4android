@@ -54,7 +54,7 @@ public class Commands {
     /**
      * Construct a new instance
      * 
-     * @param main
+     * @param main the current Main instance
      */
     public Commands(@NonNull Main main) {
         this.main = main;
@@ -149,6 +149,16 @@ public class Commands {
 
     }
 
+    /**
+     * "add" a Node
+     * 
+     * @param node the Node
+     * @param name the name of the establishment
+     * @param pi the PresetItem
+     * @param logic the current logic instance
+     * @param original the text the voice recognition understood
+     * @return if successful
+     */
     private boolean addNode(@Nullable Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic, @NonNull String original) {
         if (node != null) {
             Snack.toastTopInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
@@ -202,7 +212,15 @@ public class Commands {
         return null;
     }
 
-    private Note createNote(String[] words, Location location) {
+    /**
+     * Create Note at a Location
+     * 
+     * @param words the text voice recognition understood
+     * @param location the Location the Note should be created at
+     * @return the created Note or null
+     */
+    @Nullable
+    private Note createNote(@NonNull String[] words, @Nullable Location location) {
         if (location == null) {
             location = getLocation();
         }
@@ -226,6 +244,12 @@ public class Commands {
         return null;
     }
 
+    /**
+     * Get the current Location
+     * 
+     * @return the Location or null if it could not be determined
+     */
+    @Nullable
     private Location getLocation() {
         LocationManager locationManager = (LocationManager) main.getSystemService(android.content.Context.LOCATION_SERVICE);
         if (locationManager != null) {
@@ -239,7 +263,14 @@ public class Commands {
         return null;
     }
 
-    private boolean match(int resId, String input) {
+    /**
+     * Match a String from voice input with the contents of a resource
+     * 
+     * @param resId the id of the resource
+     * @param input the input String
+     * @return true if the input matches
+     */
+    private boolean match(int resId, @NonNull String input) {
         final int maxDistance = 1;
         int distance = OptimalStringAlignment.editDistance(main.getString(resId), input, maxDistance);
         return distance >= 0 && distance <= maxDistance;

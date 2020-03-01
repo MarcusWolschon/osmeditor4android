@@ -15,13 +15,27 @@ public class OsmServerException extends OsmException {
     private String    type  = ELEMENT_TYPE_NONE;
     private long      osmId = -1;
 
-    public OsmServerException(final int errorCode, final String string) {
-        super(string);
+    /**
+     * Construct a new exception
+     * 
+     * @param errorCode the error code
+     * @param message the error message
+     */
+    public OsmServerException(final int errorCode, final String message) {
+        super(message);
         this.errorCode = errorCode;
     }
 
-    public OsmServerException(final int errorCode, final String type, final long osmId, final String string) {
-        super(string);
+    /**
+     * Construct a new exception
+     * 
+     * @param errorCode the error code
+     * @param type the type of the affected OSM element
+     * @param osmId the id of the affected OSM element
+     * @param message the error message
+     */
+    public OsmServerException(final int errorCode, final String type, final long osmId, final String message) {
+        super(message);
         this.errorCode = errorCode;
         this.type = type;
         this.osmId = osmId;

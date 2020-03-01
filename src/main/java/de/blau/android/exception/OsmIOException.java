@@ -7,12 +7,22 @@ public class OsmIOException extends OsmException {
      */
     private static final long serialVersionUID = 3180633569202678654L;
 
-    public OsmIOException(final String string) {
-        super(string);
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     */
+    public OsmIOException(final String message) {
+        super(message);
     }
 
-    public OsmIOException(final String string, final Throwable e) {
-        super(string, e);
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     * @param cause the original Exception
+     */
+    public OsmIOException(final String message, final Throwable cause) {
+        super(message, cause);
     }
-
 }

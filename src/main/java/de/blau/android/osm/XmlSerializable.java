@@ -14,9 +14,9 @@ interface XmlSerializable {
      * 
      * @param serializer the serializer
      * @param changeSetId an optional changeset id
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException
+     * @throws IllegalArgumentException if the serializer encountered an illegal argument
+     * @throws IllegalStateException if the serializer detects an illegal state
+     * @throws IOException if writing to the serializer fails
      */
     void toXml(@NonNull XmlSerializer serializer, @Nullable Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException;
 }

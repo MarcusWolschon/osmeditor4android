@@ -9,13 +9,23 @@ public class OsmException extends IOException {
      */
     private static final long serialVersionUID = 9160300298635675666L;
 
-    public OsmException(final String string) {
-        super(string);
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     */
+    public OsmException(final String message) {
+        super(message);
     }
 
-    OsmException(final String string, final Throwable e) {
-        super(string);
-        initCause(e);
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     * @param cause the original Exception
+     */
+    OsmException(final String message, final Throwable cause) {
+        super(message);
+        initCause(cause);
     }
-
 }

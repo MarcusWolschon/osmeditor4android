@@ -147,7 +147,7 @@ public class Changeset {
              * @param serializer the serializer
              * @param key the key
              * @param value the value
-             * @throws IOException
+             * @throws IOException if writing to the serializer fails
              */
             private void addTag(@NonNull XmlSerializer serializer, @NonNull String key, @NonNull String value) throws IOException {
                 serializer.startTag("", OsmXml.TAG);

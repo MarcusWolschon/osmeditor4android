@@ -799,10 +799,20 @@ public class Preferences {
         return addressTags;
     }
 
+    /**
+     * Get the maximum distance in meters from the current location that we generate alerts for
+     * 
+     * @return the maximum distance in meters
+     */
     public int getMaxAlertDistance() {
         return maxAlertDistance;
     }
 
+    /**
+     * Check if voice commands are enabled
+     * 
+     * @return true if voice commands are enabled
+     */
     public boolean voiceCommandsEnabled() {
         return voiceCommandsEnabled;
     }
@@ -933,10 +943,20 @@ public class Preferences {
         return prefs.getBoolean(key, false);
     }
 
+    /**
+     * Set the contrast value
+     * 
+     * @param cValue the contrast value
+     */
     public void setContrastValue(float cValue) {
         prefs.edit().putFloat(r.getString(R.string.config_contrastValue_key), cValue).commit();
     }
 
+    /**
+     * Get the contrast value
+     * 
+     * @return the contrast value
+     */
     public float getContrastValue() {
         String key = r.getString(R.string.config_contrastValue_key);
         if (!prefs.contains(key)) {
@@ -1152,6 +1172,11 @@ public class Preferences {
         prefs.edit().putString(r.getString(R.string.config_overlay_category_key), category != null ? category.name() : null).commit();
     }
 
+    /**
+     * Check if hardware acceleration is enabled
+     * 
+     * @return true if hardware acceleration is enabled
+     */
     public boolean hwAccelerationEnabled() {
         return hwAccelerationEnabled;
     }

@@ -235,9 +235,9 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      * @param s the XML serializer
      * @param changeSetId the current changeset id or null
      * @param josm if true use JOSM format
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException
+     * @throws IllegalArgumentException if the serializer encountered an illegal argument
+     * @throws IllegalStateException if the serializer detects an illegal state
+     * @throws IOException if writing to the serializer fails
      */
     private void toXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm)
             throws IllegalArgumentException, IllegalStateException, IOException {

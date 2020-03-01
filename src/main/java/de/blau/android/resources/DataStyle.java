@@ -480,9 +480,9 @@ public final class DataStyle extends DefaultHandler {
          * Dump this Style in XML format, not very abstracted and closely tied to the implementation
          * 
          * @param s an XmlSerialzer instance
-         * @throws IllegalArgumentException
-         * @throws IllegalStateException
-         * @throws IOException
+         * @throws IllegalArgumentException if the serializer encountered an illegal argument
+         * @throws IllegalStateException if the serializer detects an illegal state
+         * @throws IOException if writing to the serializer fails
          */
         public void toXml(@NonNull final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
             s.startTag("", "feature");

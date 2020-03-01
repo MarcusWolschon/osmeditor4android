@@ -2334,9 +2334,9 @@ public class Preset implements Serializable {
          * Serialize the element to XML
          * 
          * @param s the XmlSerializer
-         * @throws IllegalArgumentException
-         * @throws IllegalStateException
-         * @throws IOException
+         * @throws IllegalArgumentException if the serializer encountered an illegal argument
+         * @throws IllegalStateException if the serializer detects an illegal state
+         * @throws IOException if writing to the serializer fails
          */
         public abstract void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException;
     }
@@ -4373,9 +4373,9 @@ public class Preset implements Serializable {
      * Convert this Preset to XML
      * 
      * @param s an XmlSerializer instance
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException
+     * @throws IllegalArgumentException if the serializer encountered an illegal argument
+     * @throws IllegalStateException if the serializer detects an illegal state
+     * @throws IOException if writing to the serializer fails
      */
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
         s.startDocument(OsmXml.UTF_8, null);

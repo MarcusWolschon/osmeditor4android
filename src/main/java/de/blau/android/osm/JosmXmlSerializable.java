@@ -16,9 +16,9 @@ public interface JosmXmlSerializable {
      * Generate JOSM format OSM XML files
      * 
      * @param serializer the XML serializer
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException
+     * @throws IllegalArgumentException if the serializer encountered an illegal argument
+     * @throws IllegalStateException if the serializer detects an illegal state
+     * @throws IOException if writing to the serializer fails
      */
     void toJosmXml(XmlSerializer serializer) throws IllegalArgumentException, IllegalStateException, IOException;
 }

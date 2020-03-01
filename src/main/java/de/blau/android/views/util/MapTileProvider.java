@@ -28,8 +28,6 @@ import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Util;
 
 /**
- * 
- * <br/>
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 

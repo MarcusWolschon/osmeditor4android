@@ -13,12 +13,12 @@ public class IllegalOperationException extends RuntimeException {
      */
     private static final long serialVersionUID = 1L;
 
-    public IllegalOperationException(String string) {
-        super(string);
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     */
+    public IllegalOperationException(String message) {
+        super(message);
     }
-
-    public IllegalOperationException(IllegalOperationException e) {
-        super(e.getMessage());
-    }
-
 }

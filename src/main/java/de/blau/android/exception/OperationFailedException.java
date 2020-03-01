@@ -7,15 +7,22 @@ public class OperationFailedException extends RuntimeException {
      */
     private static final long serialVersionUID = 1L;
 
-    public OperationFailedException(String string) {
-        super(string);
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     */
+    public OperationFailedException(String message) {
+        super(message);
     }
 
-    public OperationFailedException(OperationFailedException e) {
-        super(e.getMessage());
-    }
-
-    public OperationFailedException(String string, Exception e) {
-        super(string, e);
+    /**
+     * Construct a new exception
+     * 
+     * @param message the error message
+     * @param cause the original Exception
+     */
+    public OperationFailedException(String message, Exception cause) {
+        super(message, cause);
     }
 }
