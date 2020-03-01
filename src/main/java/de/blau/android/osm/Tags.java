@@ -220,6 +220,7 @@ public final class Tags {
     //
     public static final String KEY_ELE        = "ele";
     public static final String KEY_ELE_MSL    = "ele:msl";
+    public static final String KEY_ELE_WGS84  = "ele:wgs84";
     public static final String KEY_SOURCE_ELE = "ele:source";
     //
     public static final String VALUE_YES  = "yes";

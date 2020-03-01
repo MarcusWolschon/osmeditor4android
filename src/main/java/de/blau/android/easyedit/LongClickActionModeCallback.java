@@ -280,7 +280,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                                 TreeMap<String, String> tags = new TreeMap<>(node.getTags());
                                 if (location.hasAltitude()) {
                                     tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", location.getAltitude()));
-                                    tags.put(Tags.KEY_ELE_MSL, String.format(Locale.US, "%.1f", location.getAltitude()));
+                                    tags.put(Tags.KEY_ELE_WGS84, String.format(Locale.US, "%.1f", location.getAltitude()));
                                     tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
                                 }
                                 tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
