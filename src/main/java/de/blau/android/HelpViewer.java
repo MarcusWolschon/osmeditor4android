@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -34,6 +35,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -79,10 +81,11 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 
     private ActionBarDrawerToggle mDrawerToggle;
     // drawer that will be our ToC
-    private DrawerLayout           mDrawerLayout;
-    private ListView               mDrawerList;
-    private ArrayAdapter<HelpItem> tocAdapter;
-    private boolean                rtl = false;
+    private DrawerLayout               mDrawerLayout;
+    private ListView                   mDrawerList;
+    private HighlightAdapter<HelpItem> tocAdapter;
+    private boolean                    rtl      = false;
+    private int                        selected = 0;
 
     /**
      * Start this Activity
@@ -229,10 +232,11 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             HelpItem[] toc = new HelpItem[items.size()];
             items.toArray(toc);
 
-            tocAdapter = new ArrayAdapter<>(this, R.layout.help_drawer_item, R.id.help_drawer_item, toc);
+            tocAdapter = new HighlightAdapter<HelpItem>(this, R.layout.help_drawer_item, R.id.help_drawer_item, toc);
 
             mDrawerList.setAdapter(tocAdapter);
             mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+            mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
             String topicFile = "no_help";
             HelpItem tempTopic = tocList.get(topic);
@@ -243,13 +247,21 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                 }
             }
 
-            String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFile + HTML_SUFFIX;
+            String topicFileHtml = topicFile + HTML_SUFFIX;
+            String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFileHtml;
             Log.d(DEBUG_TAG, "1 Looking for help file: " + helpFile);
-            if (!defaultList.contains(topicFile + HTML_SUFFIX)) {
-                helpFile = "help/en/" + topicFile + HTML_SUFFIX;
-                if (!enList.contains(topicFile + HTML_SUFFIX)) {
+            if (!defaultList.contains(topicFileHtml)) {
+                helpFile = "help/en/" + topicFileHtml;
+                if (!enList.contains(topicFileHtml)) {
                     helpFile = "help/en/no_help.html";
                     mDrawerLayout.openDrawer(mDrawerList);
+                }
+            } else {
+                for (int i = 0; i < toc.length; i++) {
+                    if (toc[i].equals(tempTopic)) {
+                        selected = i;
+                        break;
+                    }
                 }
             }
             if (savedInstanceState != null) {
@@ -259,6 +271,32 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             }
         } catch (IOException e) {
             Log.d(DEBUG_TAG, "Caught exception " + e);
+        }
+    }
+
+    class HighlightAdapter<T> extends ArrayAdapter<T> {
+
+        /**
+         * Construct a new adapter
+         * 
+         * @param context The current context.
+         * @param resource The resource ID for a layout file containing a layout to use when instantiating views
+         * @param textViewResourceId The id of the TextView within the layout resource to be populated
+         * @param objects The objects to represent in the ListView.
+         */
+        public HighlightAdapter(Context context, int resource, int textViewResourceId, T[] objects) {
+            super(context, resource, textViewResourceId, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+            if (position == selected) {
+                view.setBackgroundResource(R.color.dark_grey);
+            } else {
+                view.setBackgroundResource(R.color.light_grey);
+            }
+            return view;
         }
     }
 
@@ -341,6 +379,9 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             mDrawerLayout.closeDrawer(mDrawerList);
             mDrawerList.setSelected(false);
             getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + helpItem.topic);
+            mDrawerList.setSelection(position);
+            selected = position;
+            tocAdapter.notifyDataSetChanged();
         }
     }
 
