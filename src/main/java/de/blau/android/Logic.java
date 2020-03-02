@@ -1619,6 +1619,7 @@ public class Logic {
      * @param latD WGS84 latitude
      * @return the created node
      */
+    @NonNull
     public synchronized Node performAddNode(@Nullable final Activity activity, Double lonD, Double latD) {
         int lon = (int) (lonD * 1E7D);
         int lat = (int) (latD * 1E7D);
@@ -1633,6 +1634,7 @@ public class Logic {
      * @param latE7 WGS84*1E7 latitude
      * @return the created node
      */
+    @NonNull
     public synchronized Node performAddNode(final Activity activity, int lonE7, int latE7) {
         Log.d(DEBUG_TAG, "performAddNode");
         createCheckpoint(activity, R.string.undo_action_add);
