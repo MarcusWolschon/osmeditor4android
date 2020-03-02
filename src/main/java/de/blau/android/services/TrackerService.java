@@ -797,43 +797,43 @@ public class TrackerService extends Service implements Exportable {
                         double lat = Double.NaN;
                         double lon = Double.NaN;
                         // double hdop = Double.NaN; currently unused
-                        double height = Double.NaN;
+                        double mslHeight = Double.NaN;
+                        double geoidCorrection = Double.NaN;
                         try {
                             if (s.equals("GNS")) {
-                                String[] values = withoutChecksum.split(",", -12); // java
-                                                                                   // magic
+                                String[] values = withoutChecksum.split(",", -12); // java magic
                                 if (values.length == 13) {
                                     String value6 = values[6].toUpperCase(Locale.US);
                                     if ((!value6.startsWith("NN") || !value6.equals("N")) && Integer.parseInt(values[7]) >= 4) {
                                         // at least one "good" system needs a
                                         // fix
-                                        lat = nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
-                                        lon = nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
+                                        lat = latFromNmea(values);
+                                        lon = lonFromNmea(values);
                                         // hdop = Double.parseDouble(values[8]);
-                                        height = Double.parseDouble(values[9]);
+                                        mslHeight = Double.parseDouble(values[9]);
+                                        geoidCorrection = Double.parseDouble(values[10]);
                                         posUpdate = true;
                                     }
                                 } else {
                                     throw new UnsupportedFormatException(Integer.toString(values.length));
                                 }
                             } else if (s.equals("GGA")) {
-                                String[] values = withoutChecksum.split(",", -14); // java
-                                                                                   // magic
+                                String[] values = withoutChecksum.split(",", -14);
                                 if (values.length == 15) {
                                     // we need a fix
                                     if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) {
-                                        lat = nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
-                                        lon = nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
+                                        lat = latFromNmea(values);
+                                        lon = lonFromNmea(values);
                                         // hdop = Double.parseDouble(values[8]);
-                                        height = Double.parseDouble(values[9]);
+                                        mslHeight = Double.parseDouble(values[9]);
+                                        geoidCorrection = Double.parseDouble(values[11]);
                                         posUpdate = true;
                                     }
                                 } else {
                                     throw new UnsupportedFormatException(Integer.toString(values.length));
                                 }
                             } else if (s.equals("VTG")) {
-                                String[] values = withoutChecksum.split(",", -11); // java
-                                                                                   // magic
+                                String[] values = withoutChecksum.split(",", -11);
                                 if (values.length == 12) {
                                     if (!values[9].toUpperCase(Locale.US).startsWith("N")) {
                                         double course = Double.parseDouble(values[1]);
@@ -898,7 +898,7 @@ public class TrackerService extends Service implements Exportable {
                         }
 
                         if (posUpdate) { // we could do filtering etc here
-                            nmeaLocation.setAltitude(height);
+                            nmeaLocation.setAltitude(mslHeight + geoidCorrection);
                             nmeaLocation.setLatitude(lat);
                             nmeaLocation.setLongitude(lon);
                             // can't call something on the UI thread directly
@@ -918,6 +918,22 @@ public class TrackerService extends Service implements Exportable {
             Log.e(DEBUG_TAG, "NMEA sentance " + sentence + " caused exception " + e);
             ACRAHelper.nocrashReport(e, e.getMessage());
         }
+    }
+
+    /**
+     * @param values
+     * @return
+     */
+    double lonFromNmea(String[] values) {
+        return nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
+    }
+
+    /**
+     * @param values
+     * @return
+     */
+    double latFromNmea(String[] values) {
+        return nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
     }
 
     /**
