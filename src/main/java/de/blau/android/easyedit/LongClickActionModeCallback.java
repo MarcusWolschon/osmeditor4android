@@ -37,6 +37,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.propertyeditor.Address;
+import de.blau.android.services.TrackerService;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
@@ -262,12 +263,22 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             logic.hideCrosshairs();
             try {
                 logic.setSelectedNode(null);
-                logic.performAdd(main, x, y);
-                Node node = logic.getSelectedNode();
-                if (locationManager != null && node != null) {
+                if (locationManager != null) {
                     Location location = null;
                     try {
-                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        // try our sources first
+                        TrackerService tracker = main.getTracker();
+                        if (tracker != null) {
+                            Location tempLocation = tracker.getLastLocation();
+                            String provider = tempLocation.getProvider();
+                            if (tempLocation != null && (provider.equals(main.getString(R.string.gps_source_nmea)))
+                                    || provider.equals(LocationManager.GPS_PROVIDER)) {
+                                location = tempLocation;
+                            }
+                        }
+                        if (location == null) {
+                            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        }
                     } catch (SecurityException sex) {
                         // can be safely ignored, this is only called when GPS is enabled
                     }
@@ -276,7 +287,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         double lat = location.getLatitude();
                         if (Util.notZero(lon) || Util.notZero(lat)) {
                             if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
-                                logic.performSetPosition(main, node, lon, lat);
+                                Node node = logic.performAddNode(main, lon, lat);
                                 TreeMap<String, String> tags = new TreeMap<>(node.getTags());
                                 if (location.hasAltitude()) {
                                     tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", location.getAltitude()));
@@ -285,13 +296,13 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                                 }
                                 tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
                                 logic.setTags(main, node, tags);
+                                main.edit(node);
                             }
                         } else {
                             Snack.barError(main, R.string.toast_null_island);
                         }
                     }
                 }
-                manager.finish();
             } catch (OsmIllegalOperationException e) {
                 Snack.barError(main, e.getLocalizedMessage());
                 Log.d(DEBUG_TAG, "Caught exception " + e);
