@@ -220,7 +220,7 @@ public final class TableLayoutUtils {
         boolean isTitle = cell1 != null && cell2 == null && cell3 == null;
         if (isTitle) { // heading
             span.setSpan(new StyleSpan(Typeface.BOLD), 0, span.length(), 0);
-        } else if (highlightColorAttr != -1 && !"".equals(cell1) && (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString())))) {
+        } else if (highlightColorAttr != -1 && (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString())))) {
             // note a CharSequence doesn't necessarily have a content aware equals, so we need to convert to String
             // first
             setSpanColor(activity, span, highlightColorAttr, highlightColorFallback);
