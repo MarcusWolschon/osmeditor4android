@@ -133,7 +133,7 @@ public class WayActionsTest {
         TestUtils.clickAtCoordinates(map, 8.38877, 47.389202, true);
         device.waitForIdle(1000);
         TestUtils.clickUp(device);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device);
         device.waitForIdle(1000);
         Way way = App.getLogic().getSelectedWay();

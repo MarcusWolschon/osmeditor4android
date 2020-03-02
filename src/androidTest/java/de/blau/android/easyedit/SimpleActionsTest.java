@@ -147,7 +147,7 @@ public class SimpleActionsTest {
         TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, true);
         device.waitForIdle(1000);
         TestUtils.clickUp(device);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device);
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);

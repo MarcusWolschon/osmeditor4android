@@ -34,7 +34,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.propertyeditor.PropertyEditorTest;
 import de.blau.android.resources.TileLayerServer;
 
 @RunWith(AndroidJUnit4.class)

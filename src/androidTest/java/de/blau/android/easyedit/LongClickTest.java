@@ -115,7 +115,7 @@ public class LongClickTest {
         TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, false);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device);
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
@@ -138,7 +138,7 @@ public class LongClickTest {
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
         TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, true);
         TestUtils.clickUp(device);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device);
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
