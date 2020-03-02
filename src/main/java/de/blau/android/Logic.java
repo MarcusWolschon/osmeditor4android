@@ -1204,8 +1204,10 @@ public class Logic {
                 selectedTask = taskLayer.getSelected();
             }
             if (((selectedNodes != null && selectedNodes.size() == 1) || selectedTask != null) && selectedWays == null) {
-                float tolerance = prefs.largeDragArea() ? DataStyle.getCurrent().getLargDragToleranceRadius() : DataStyle.getCurrent().getNodeToleranceValue();
-                GeoPoint point = selectedTask != null ? selectedTask : selectedNodes.get(0);
+                Node selectedNode = selectedNodes.get(0);
+                DataStyle currentStyle = DataStyle.getCurrent();
+                float tolerance = prefs.largeDragArea() ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
+                GeoPoint point = selectedTask != null ? selectedTask : selectedNode;
                 if (clickDistance(point, x, y, tolerance) != null) {
                     draggingNode = selectedTask == null;
                     draggingNote = selectedTask != null;

@@ -119,6 +119,33 @@ public final class DataStyle extends DefaultHandler {
     public static final String MIN_HANDLE_LEN                = "min_handle_length";
     public static final String ICON_ZOOM_LIMIT               = "icon_zoom_limit";
 
+    // XML elements for the config files
+    private static final String INTERVAL_ELEMENT      = "interval";
+    private static final String DASH_ELEMENT          = "dash";
+    private static final String PROFILE_ELEMENT       = "profile";
+    private static final String CONFIG_ELEMENT        = "config";
+    private static final String FEATURE_ELEMENT       = "feature";
+    private static final String DONTRENDER_ATTR       = "dontrender";
+    private static final String MIN_VISIBLE_ZOOM_ATTR = "minVisibleZoom";
+    private static final String UPDATE_WIDTH_ATTR     = "updateWidth";
+    private static final String WIDTH_FACTOR_ATTR     = "widthFactor";
+    private static final String AREA_ATTR             = "area";
+    private static final String CLOSED_ATTR           = "closed";
+    private static final String ONEWAY_ATTR           = "oneway";
+    private static final String COLOR_ATTR            = "color";
+    private static final String STYLE_ATTR            = "style";
+    private static final String CAP_ATTR              = "cap";
+    private static final String JOIN_ATTR             = "join";
+    private static final String STROKEWIDTH_ATTR      = "strokewidth";
+    private static final String TEXTSIZE_ATTR         = "textsize";
+    private static final String PHASE_ATTR            = "phase";
+    private static final String LENGTH_ATTR           = "length";
+    private static final String TYPEFACESTYLE_ATTR    = "typefacestyle";
+    private static final String SHADOW_ATTR           = "shadow";
+    private static final String PATH_PATTERN_ATTR     = "pathPattern";
+    private static final String ARROW_STYLE_ATTR      = "arrowStyle";
+    private static final String CASING_STYLE_ATTR     = "casingStyle";
+
     private static final int DEFAULT_MIN_VISIBLE_ZOOM = 15;
 
     public class FeatureStyle {
@@ -335,6 +362,8 @@ public final class DataStyle extends DefaultHandler {
             dashPath = new DashPath();
             dashPath.intervals = intervals;
             dashPath.phase = phase;
+            DashPathEffect dp = new DashPathEffect(intervals, dashPath.phase);
+            paint.setPathEffect(dp);
         }
 
         /**
@@ -485,43 +514,42 @@ public final class DataStyle extends DefaultHandler {
          * @throws IOException if writing to the serializer fails
          */
         public void toXml(@NonNull final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-            s.startTag("", "feature");
-            s.attribute("", "dontrender", Boolean.toString(dontrender));
-            s.attribute("", "minVisibleZoom", Integer.toString(minVisibleZoom));
-            boolean updateWidth = updateWidth();
-            s.attribute("", "updateWidth", Boolean.toString(updateWidth));
-            s.attribute("", "widthFactor", Float.toString(getWidthFactor()));
-            s.attribute("", "area", Boolean.toString(isArea()));
+            s.startTag("", FEATURE_ELEMENT);
+            s.attribute("", DONTRENDER_ATTR, Boolean.toString(dontrender));
+            s.attribute("", MIN_VISIBLE_ZOOM_ATTR, Integer.toString(minVisibleZoom));
+            s.attribute("", UPDATE_WIDTH_ATTR, Boolean.toString(updateWidth()));
+            s.attribute("", WIDTH_FACTOR_ATTR, Float.toString(getWidthFactor()));
+            s.attribute("", AREA_ATTR, Boolean.toString(isArea()));
             if (closed != null) {
-                s.attribute("", "closed", Boolean.toString(closed));
+                s.attribute("", CLOSED_ATTR, Boolean.toString(closed));
             }
-            s.attribute("", "oneway", Boolean.toString(oneway));
+            s.attribute("", ONEWAY_ATTR, Boolean.toString(oneway));
             //
-            s.attribute("", "color", Integer.toHexString(getPaint().getColor()));
+            s.attribute("", COLOR_ATTR, Integer.toHexString(getPaint().getColor()));
             // alpha should be contained in color
-            s.attribute("", "style", getPaint().getStyle().toString());
-            s.attribute("", "cap", getPaint().getStrokeCap().toString());
-            s.attribute("", "join", getPaint().getStrokeJoin().toString());
-            if (!updateWidth) {
-                s.attribute("", "strokewidth", Float.toString(getPaint().getStrokeWidth()));
+            s.attribute("", STYLE_ATTR, getPaint().getStyle().toString());
+            s.attribute("", CAP_ATTR, getPaint().getStrokeCap().toString());
+            s.attribute("", JOIN_ATTR, getPaint().getStrokeJoin().toString());
+            if (!updateWidth()) {
+                s.attribute("", STROKEWIDTH_ATTR, Float.toString(getPaint().getStrokeWidth()));
             }
             Typeface tf = getPaint().getTypeface();
             if (tf != null) {
-                s.attribute("", "typefacestyle", Integer.toString(tf.getStyle()));
-                s.attribute("", "textsize", Float.toString(getPaint().getTextSize()));
+                s.attribute("", TYPEFACESTYLE_ATTR, Integer.toString(tf.getStyle()));
+                s.attribute("", TEXTSIZE_ATTR, Float.toString(getPaint().getTextSize()));
             }
             DashPath dp = getDashPath();
             if (dp != null) {
-                s.startTag("", "dash");
-                s.attribute("", "phase", Float.toString(dp.phase));
+                s.startTag("", DASH_ELEMENT);
+                s.attribute("", PHASE_ATTR, Float.toString(dp.phase));
                 for (int i = 0; i < dp.intervals.length; i++) {
-                    s.startTag("", "interval");
-                    s.attribute("", "length", Float.toString(dp.intervals[i]));
-                    s.endTag("", "interval");
+                    s.startTag("", INTERVAL_ELEMENT);
+                    s.attribute("", LENGTH_ATTR, Float.toString(dp.intervals[i]));
+                    s.endTag("", INTERVAL_ELEMENT);
                 }
-                s.endTag("", "dash");
+                s.endTag("", DASH_ELEMENT);
             }
-            s.endTag("", "feature");
+            s.endTag("", FEATURE_ELEMENT);
         }
 
         @Override
@@ -1187,12 +1215,12 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * start parsing a config file
+     * Start parsing a config file
      * 
      * @param in the InputStream
-     * @throws SAXException
-     * @throws IOException
-     * @throws ParserConfigurationException
+     * @throws SAXException if parsing fails
+     * @throws IOException if reading the InputStream fails
+     * @throws ParserConfigurationException if something is wrong with the parser
      */
     private void start(@NonNull final InputStream in) throws SAXException, IOException, ParserConfigurationException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
@@ -1214,7 +1242,7 @@ public final class DataStyle extends DefaultHandler {
     @Override
     public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
         try {
-            if (element.equals("profile")) {
+            if (element.equals(PROFILE_ELEMENT)) {
                 name = atts.getValue("name");
                 String format = atts.getValue("format");
                 if (format != null) {
@@ -1226,7 +1254,7 @@ public final class DataStyle extends DefaultHandler {
                 Snack.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, name));
                 Log.e(DEBUG_TAG, "format attribute missing or wrong for " + name);
                 throw new SAXException("format attribute missing or wrong for " + name);
-            } else if (element.equals("config")) {
+            } else if (element.equals(CONFIG_ELEMENT)) {
                 type = atts.getValue("type");
                 if (type != null) {
                     switch (type) {
@@ -1257,7 +1285,7 @@ public final class DataStyle extends DefaultHandler {
                         Log.e(DEBUG_TAG, "unknown config type " + type);
                     }
                 }
-            } else if (element.equals("feature")) {
+            } else if (element.equals(FEATURE_ELEMENT)) {
                 type = atts.getValue("type");
                 if (tempFeatureStyle != null) { // we already have a style, save it
                     styleStack.push(tempFeatureStyle);
@@ -1275,49 +1303,49 @@ public final class DataStyle extends DefaultHandler {
                     tempFeatureStyle = new FeatureStyle(type);
                 }
 
-                String areaString = atts.getValue("area");
+                String areaString = atts.getValue(AREA_ATTR);
                 if (areaString != null) {
                     tempFeatureStyle.setArea(Boolean.parseBoolean(areaString));
                 }
 
-                String dontrenderString = atts.getValue("dontrender");
+                String dontrenderString = atts.getValue(DONTRENDER_ATTR);
                 if (dontrenderString != null) {
                     tempFeatureStyle.setDontRender(Boolean.parseBoolean(dontrenderString));
                 }
 
-                String updateWidthString = atts.getValue("updateWidth");
+                String updateWidthString = atts.getValue(UPDATE_WIDTH_ATTR);
                 if (updateWidthString != null) {
                     tempFeatureStyle.setUpdateWidth(Boolean.parseBoolean(updateWidthString));
                 }
 
-                String widthFactorString = atts.getValue("widthFactor");
+                String widthFactorString = atts.getValue(WIDTH_FACTOR_ATTR);
                 if (widthFactorString != null) {
                     tempFeatureStyle.setWidthFactor(Float.parseFloat(widthFactorString));
                 }
 
-                String colorString = atts.getValue("color");
+                String colorString = atts.getValue(COLOR_ATTR);
                 if (colorString != null) {
                     tempFeatureStyle.setColor((int) Long.parseLong(colorString, 16)); // workaround highest bit
                 }
 
-                String styleString = atts.getValue("style");
+                String styleString = atts.getValue(STYLE_ATTR);
                 if (styleString != null) {
                     Style style = Style.valueOf(styleString);
                     tempFeatureStyle.getPaint().setStyle(style);
                 }
 
-                String capString = atts.getValue("cap");
+                String capString = atts.getValue(CAP_ATTR);
                 if (capString != null) {
                     tempFeatureStyle.getPaint().setStrokeCap(Cap.valueOf(capString));
                 }
 
-                String joinString = atts.getValue("join");
+                String joinString = atts.getValue(JOIN_ATTR);
                 if (joinString != null) {
-                    tempFeatureStyle.getPaint().setStrokeJoin(Join.valueOf(atts.getValue("join")));
+                    tempFeatureStyle.getPaint().setStrokeJoin(Join.valueOf(joinString));
                 }
 
                 if (!tempFeatureStyle.updateWidth()) {
-                    String strokeWidthString = atts.getValue("strokeWidth");
+                    String strokeWidthString = atts.getValue(STROKEWIDTH_ATTR);
                     if (strokeWidthString != null) {
                         float strokeWidth = Density.dpToPx(ctx, Float.parseFloat(strokeWidthString));
                         tempFeatureStyle.setStrokeWidth(strokeWidth);
@@ -1330,45 +1358,45 @@ public final class DataStyle extends DefaultHandler {
                     }
                 }
 
-                if (atts.getValue("typefacestyle") != null) {
-                    tempFeatureStyle.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
-                    tempFeatureStyle.getPaint().setTextSize(Density.dpToPx(ctx, Float.parseFloat(atts.getValue("textsize"))));
-                    if (atts.getValue("shadow") != null) {
-                        tempFeatureStyle.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
+                if (atts.getValue(TYPEFACESTYLE_ATTR) != null) {
+                    tempFeatureStyle.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue(TYPEFACESTYLE_ATTR))));
+                    tempFeatureStyle.getPaint().setTextSize(Density.dpToPx(ctx, Float.parseFloat(atts.getValue(TEXTSIZE_ATTR))));
+                    if (atts.getValue(SHADOW_ATTR) != null) {
+                        tempFeatureStyle.getPaint().setShadowLayer(Integer.parseInt(atts.getValue(SHADOW_ATTR)), 0, 0, Color.BLACK);
                     }
                 }
 
-                if (atts.getValue("pathPattern") != null) {
-                    tempFeatureStyle.setPathPattern(PathPatterns.get(atts.getValue("pathPattern")));
+                if (atts.getValue(PATH_PATTERN_ATTR) != null) {
+                    tempFeatureStyle.setPathPattern(PathPatterns.get(atts.getValue(PATH_PATTERN_ATTR)));
                 }
 
-                String minVisibleZoomString = atts.getValue("minVisibleZoom");
+                String minVisibleZoomString = atts.getValue(MIN_VISIBLE_ZOOM_ATTR);
                 if (minVisibleZoomString != null) {
-                    tempFeatureStyle.setMinVisibleZoom((int) Integer.parseInt(minVisibleZoomString));
+                    tempFeatureStyle.setMinVisibleZoom(Integer.parseInt(minVisibleZoomString));
                 }
 
-                String arrowStyle = atts.getValue("arrowStyle");
+                String arrowStyle = atts.getValue(ARROW_STYLE_ATTR);
                 if (arrowStyle != null) {
                     tempFeatureStyle.setArrowStyle(internalStyles.get(arrowStyle));
                 }
 
-                String casingStyle = atts.getValue("casingStyle");
+                String casingStyle = atts.getValue(CASING_STYLE_ATTR);
                 if (casingStyle != null) {
                     tempFeatureStyle.setCasingStyle(internalStyles.get(casingStyle));
                 }
 
-                tempFeatureStyle.setCheckOneway(atts.getValue("oneway") != null);
+                tempFeatureStyle.setCheckOneway(atts.getValue(ONEWAY_ATTR) != null);
 
-                String closedString = atts.getValue("closed");
+                String closedString = atts.getValue(CLOSED_ATTR);
                 if (closedString != null) {
                     tempFeatureStyle.setClosed(Boolean.parseBoolean(closedString));
                 }
 
-            } else if (element.equals("dash")) {
-                tempPhase = Float.parseFloat(atts.getValue("phase"));
+            } else if (element.equals(DASH_ELEMENT)) {
+                tempPhase = Float.parseFloat(atts.getValue(PHASE_ATTR));
                 tempIntervals = new ArrayList<>();
-            } else if (element.equals("interval")) {
-                tempIntervals.add(Float.parseFloat(atts.getValue("length")));
+            } else if (element.equals(INTERVAL_ELEMENT)) {
+                tempIntervals.add(Float.parseFloat(atts.getValue(LENGTH_ATTR)));
             }
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Parse Exception", e);
@@ -1438,7 +1466,7 @@ public final class DataStyle extends DefaultHandler {
             Log.i(DEBUG_TAG, "element is null");
             return;
         }
-        if (element.equals("feature")) {
+        if (element.equals(FEATURE_ELEMENT)) {
             if (tempFeatureStyle == null) {
                 Log.i(DEBUG_TAG, "FeatureStyle is null");
                 return;
@@ -1484,7 +1512,7 @@ public final class DataStyle extends DefaultHandler {
             } catch (NoSuchElementException e) {
                 tempFeatureStyle = null;
             }
-        } else if (element.equals("dash")) {
+        } else if (element.equals(DASH_ELEMENT)) {
             float[] tIntervals = new float[tempIntervals.size()];
             for (int i = 0; i < tIntervals.length; i++) {
                 tIntervals[i] = tempIntervals.get(i);
@@ -1497,9 +1525,9 @@ public final class DataStyle extends DefaultHandler {
      * Read an InputStream and parse the XML
      * 
      * @param is the InputStream
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
+     * @throws ParserConfigurationException if something is wrong with the parser
+     * @throws IOException if reading the InputStream fails
+     * @throws SAXException if parsing fails
      */
     private void read(@NonNull InputStream is) throws SAXException, IOException, ParserConfigurationException {
         InputStream inputStream = new BufferedInputStream(is);

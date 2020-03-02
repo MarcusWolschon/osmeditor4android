@@ -926,10 +926,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 featureStyleTagged = nodeFeatureStyleTaggedSelected;
                 featureStyleFont = labelTextStyleNormalSelected;
                 featureStyleFontSmall = labelTextStyleSmallSelected;
+                DataStyle currentStyle = DataStyle.getCurrent();
                 if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()
                         && tmpDrawingEditMode.elementsGeomEditiable()) {
                     // don't draw large areas in multi-select mode
-                    canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), nodeDragRadiusPaint);
+                    canvas.drawCircle(x, y, currentStyle.getLargDragToleranceRadius(), nodeDragRadiusPaint);
+                } else {
+                    canvas.drawCircle(x, y, currentStyle.getNodeToleranceValue(), nodeDragRadiusPaint);
                 }
             } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node))) {
                 featureStyle = nodeFeatureStyleRelation;
