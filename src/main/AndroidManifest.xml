@@ -188,7 +188,17 @@
             android:theme="@style/Theme.custom" />
         <activity
             android:name="HelpViewer"
-            android:theme="@style/Theme.customHelpViewer" />
+            android:icon="@drawable/ic_action_help_holo_light"
+            android:taskAffinity=".HelpViewer"
+            android:label="@string/help_app_label"
+            android:theme="@style/Theme.customHelpViewer"
+            android:process=":HelpViewerProcess" 
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".util.ThemedFilePickerActivity"
             android:label="@string/app_name"

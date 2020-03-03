@@ -88,6 +88,10 @@ public class HelpViewer extends BugFixedAppCompatActivity {
     private boolean                    rtl      = false;
     private int                        selected = 0;
 
+    private List<String> defaultList;
+    private List<String> enList;
+    private HelpItem[]   toc;
+
     /**
      * Start this Activity
      * 
@@ -131,12 +135,6 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 
         setContentView(R.layout.help_drawer);
 
-        // // Find the toolbar view inside the activity layout
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.helpToolbar);
-        // // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // // Make sure the toolbar exists in the activity and is not null
-        // setSupportActionBar(toolbar);
-
         ActionBar actionbar = getSupportActionBar();
         if (actionbar == null) {
             Log.d(DEBUG_TAG, "No actionbar"); // fail?
@@ -173,8 +171,8 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         try {
-            List<String> defaultList = Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage()));
-            List<String> enList = Arrays.asList(getResources().getAssets().list("help/en"));
+            defaultList = Arrays.asList(getResources().getAssets().list("help/" + Locale.getDefault().getLanguage()));
+            enList = Arrays.asList(getResources().getAssets().list("help/en"));
             String defaultLanguage = Locale.getDefault().getLanguage();
 
             TypedArray tocRes = getResources().obtainTypedArray(R.array.help_tableofcontents);
@@ -230,8 +228,10 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                     return one.topic.compareTo(two.topic); // sort the rest alphabetically
                 }
             });
-            HelpItem[] toc = new HelpItem[items.size()];
+            toc = new HelpItem[items.size()];
             items.toArray(toc);
+
+            String helpFile = getHelpFile(topic, defaultList, enList, toc);
 
             tocAdapter = new HighlightAdapter<>(this, R.layout.help_drawer_item, R.id.help_drawer_item, toc);
 
@@ -239,32 +239,6 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
             mDrawerList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
-            String topicFile = "no_help";
-            HelpItem tempTopic = tocList.get(topic);
-            if (tempTopic != null) {
-                String tempTopicFile = tempTopic.fileName;
-                if (tempTopicFile != null) {
-                    topicFile = tempTopicFile;
-                }
-            }
-
-            String topicFileHtml = topicFile + HTML_SUFFIX;
-            String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFileHtml;
-            Log.d(DEBUG_TAG, "1 Looking for help file: " + helpFile);
-            if (!defaultList.contains(topicFileHtml)) {
-                helpFile = "help/en/" + topicFileHtml;
-                if (!enList.contains(topicFileHtml)) {
-                    helpFile = "help/en/no_help.html";
-                    mDrawerLayout.openDrawer(mDrawerList);
-                }
-            } else {
-                for (int i = 0; i < toc.length; i++) {
-                    if (toc[i].equals(tempTopic)) {
-                        selected = i;
-                        break;
-                    }
-                }
-            }
             if (savedInstanceState != null) {
                 helpView.restoreState(savedInstanceState);
             } else {
@@ -273,6 +247,63 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         } catch (IOException e) {
             Log.d(DEBUG_TAG, "Caught exception " + e);
         }
+    }
+
+    /**
+     * Get the actual HTML help file
+     * 
+     * @param topic the topic
+     * @param defaultList list of files in the default language
+     * @param enList list of files in English
+     * @param toc the table of contents as a array of HelpItems
+     * @return the path to the help file
+     */
+    String getHelpFile(@NonNull String topic, @NonNull List<String> defaultList, @NonNull List<String> enList, @NonNull HelpItem[] toc) {
+        String topicFile = "no_help";
+        HelpItem tempTopic = tocList.get(topic);
+        if (tempTopic != null) {
+            String tempTopicFile = tempTopic.fileName;
+            if (tempTopicFile != null) {
+                topicFile = tempTopicFile;
+            }
+        }
+
+        String topicFileHtml = topicFile + HTML_SUFFIX;
+        String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFileHtml;
+        Log.d(DEBUG_TAG, "1 Looking for help file: " + helpFile);
+        if (!defaultList.contains(topicFileHtml)) {
+            helpFile = "help/en/" + topicFileHtml;
+            if (!enList.contains(topicFileHtml)) {
+                helpFile = "help/en/no_help.html";
+                mDrawerLayout.openDrawer(mDrawerList);
+            }
+        } else {
+            for (int i = 0; i < toc.length; i++) {
+                if (toc[i].equals(tempTopic)) {
+                    selected = i;
+                    break;
+                }
+            }
+        }
+        return helpFile;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Serializable s = intent.getSerializableExtra(TOPIC);
+        int topicId = R.string.help_introduction;
+        if (s != null) {
+            try {
+                topicId = (Integer) s;
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, "casting topic raised " + e);
+            }
+        } else {
+            Log.d(DEBUG_TAG, "Falling back to default topic");
+        }
+        helpView.loadUrl("file:///android_asset/" + getHelpFile(getString(topicId), defaultList, enList, toc));
+        tocAdapter.notifyDataSetChanged();
     }
 
     class HighlightAdapter<T> extends ArrayAdapter<T> {
