@@ -141,7 +141,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             return;
         }
         actionbar.setDisplayShowHomeEnabled(true);
-        actionbar.setTitle(getString(R.string.menu_help) + ": " + topic);
+        actionbar.setTitle(getString(R.string.help_title, topic));
         actionbar.setDisplayShowTitleEnabled(true);
         actionbar.show();
 
@@ -410,11 +410,20 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.fileName + HTML_SUFFIX);
             mDrawerLayout.closeDrawer(mDrawerList);
             mDrawerList.setSelected(false);
-            getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + helpItem.topic);
+            setTitle(helpItem.topic);
             mDrawerList.setSelection(position);
             selected = position;
             tocAdapter.notifyDataSetChanged();
         }
+    }
+    
+    /**
+     * Set the action bar title
+     * 
+     * @param topic the topic
+     */
+    private void setTitle(@NonNull String topic) {
+        getSupportActionBar().setTitle(getString(R.string.help_title, topic));
     }
 
     private class HelpViewWebViewClient extends WebViewClient {
@@ -430,7 +439,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             // webview
             if (url != null && url.startsWith(FileUtil.FILE_SCHEME_PREFIX)) {
                 Log.d(DEBUG_TAG, "orig " + url);
-                getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
+                setTitle(getTopic(url));
                 if (url.endsWith(".md")) { // on device we have pre-generated html
                     url = url.substring(0, url.length() - ".md".length()) + HTML_SUFFIX;
                     Log.d(DEBUG_TAG, "new " + url);
@@ -446,7 +455,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             if (url.startsWith(FileUtil.FILE_SCHEME_PREFIX)) {
-                getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
+                setTitle(getTopic(url));
             }
         }
 

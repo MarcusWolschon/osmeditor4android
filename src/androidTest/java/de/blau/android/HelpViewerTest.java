@@ -1,6 +1,5 @@
 package de.blau.android;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -9,7 +8,6 @@ import org.junit.runner.RunWith;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
-import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
@@ -45,23 +43,13 @@ public class HelpViewerTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
-        monitor = instrumentation.addMonitor(HelpViewer.class.getName(), null, false);
         main = (Main) mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
-    }
-
-    /**
-     * Post-test teardown
-     */
-    @After
-    public void teardown() {
-        instrumentation.removeMonitor(monitor);
     }
 
     /**
@@ -71,7 +59,10 @@ public class HelpViewerTest {
     public void startHelp() {
         TestUtils.clickOverflowButton();
         TestUtils.clickText(device, false, "Help", true);
-        Activity helpViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
-        Assert.assertTrue(helpViewer instanceof HelpViewer);
+        // Waiting with a monitor doesn't work in this case
+        Assert.assertTrue(TestUtils.findText(device, false, "Help: Main map display", 10000));
+        Assert.assertTrue(TestUtils.clickMenuButton("OK", false, true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "GPS sources", true));
+        Assert.assertTrue(TestUtils.findText(device, false, "Help: GPS sources", 10000));
     }
 }
