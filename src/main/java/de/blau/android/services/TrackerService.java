@@ -925,16 +925,20 @@ public class TrackerService extends Service implements Exportable {
     }
 
     /**
-     * @param values
-     * @return
+     * Get the longitude from the NMEA values
+     * 
+     * @param values and array holding the values
+     * @return the WGS84 longitude
      */
     double lonFromNmea(String[] values) {
         return nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
     }
 
     /**
-     * @param values
-     * @return
+     * Get the loatitudefrom the NMEA values
+     * 
+     * @param values and array holding the values
+     * @return the WGS84 latitude
      */
     double latFromNmea(String[] values) {
         return nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
