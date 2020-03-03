@@ -1270,7 +1270,7 @@ public final class DataStyle extends DefaultHandler {
                         createXPath(scale);
                         return;
                     case MIN_HANDLE_LEN:
-                        String lenStr = atts.getValue("length");
+                        String lenStr = atts.getValue(LENGTH_ATTR);
                         if (lenStr != null) {
                             minLenForHandle = Density.dpToPx(ctx, Float.parseFloat(lenStr));
                         }

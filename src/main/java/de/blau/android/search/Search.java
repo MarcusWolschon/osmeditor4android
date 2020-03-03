@@ -124,7 +124,6 @@ public final class Search {
                                 if (errorMsg == null) {
                                     logic.pushObjectSearch(text);
                                     if (activity instanceof Main) {
-                                        System.out.println("result " + errorMsg);
                                         Main main = (Main) activity;
                                         EasyEditManager easyEditManager = main.getEasyEditManager();
                                         if (easyEditManager.inElementSelectedMode()) {
@@ -140,7 +139,6 @@ public final class Search {
                                         for (Relation r : relationResult) {
                                             logic.addSelectedRelation(r);
                                         }
-                                        System.out.println("selected ways " + (logic.getSelectedWays()==null ? "null" : " count " + logic.getSelectedWays().size()));
                                         easyEditManager.editElements();
                                         main.zoomTo(logic.getSelectedElements());
                                         main.invalidateMap();

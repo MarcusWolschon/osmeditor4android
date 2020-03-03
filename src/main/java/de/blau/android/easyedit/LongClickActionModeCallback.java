@@ -270,10 +270,11 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         TrackerService tracker = main.getTracker();
                         if (tracker != null) {
                             Location tempLocation = tracker.getLastLocation();
-                            String provider = tempLocation.getProvider();
-                            if (tempLocation != null && (provider.equals(main.getString(R.string.gps_source_nmea)))
-                                    || provider.equals(LocationManager.GPS_PROVIDER)) {
-                                location = tempLocation;
+                            if (tempLocation != null) {
+                                String provider = tempLocation.getProvider();
+                                if (provider.equals(main.getString(R.string.gps_source_nmea)) || provider.equals(LocationManager.GPS_PROVIDER)) {
+                                    location = tempLocation;
+                                }
                             }
                         }
                         if (location == null) {

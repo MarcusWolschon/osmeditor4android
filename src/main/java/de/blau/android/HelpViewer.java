@@ -39,6 +39,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -232,11 +233,11 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             HelpItem[] toc = new HelpItem[items.size()];
             items.toArray(toc);
 
-            tocAdapter = new HighlightAdapter<HelpItem>(this, R.layout.help_drawer_item, R.id.help_drawer_item, toc);
+            tocAdapter = new HighlightAdapter<>(this, R.layout.help_drawer_item, R.id.help_drawer_item, toc);
 
             mDrawerList.setAdapter(tocAdapter);
             mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-            mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            mDrawerList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
             String topicFile = "no_help";
             HelpItem tempTopic = tocList.get(topic);
