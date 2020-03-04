@@ -219,9 +219,11 @@ public final class SelectFile {
      * @param uri The Uri to query.
      * @return the path
      * @author paulburke
+     * @author Simon Poole
      */
     @Nullable
     public static String getPath(@NonNull Context context, @NonNull Uri uri) {
+        Log.d(DEBUG_TAG, "getPath uri: " + uri.toString());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {
             if (isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
@@ -231,14 +233,24 @@ public final class SelectFile {
                 if ("primary".equalsIgnoreCase(type)) {
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
                 }
-
                 // TODO handle non-primary volumes
             } else if (isDownloadsDocument(uri)) { // DownloadsProvider
-
                 final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
+                if (id.startsWith("raw:")) {
+                    return id.replaceFirst("raw:", "");
+                }
+                try {
+                    long longId = Long.valueOf(id);
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), longId);
+                    String path = getDataColumn(context, contentUri, null, null);
+                    if (path == null) { // maybe Oreo, maybe some specific devices
+                        contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/my_downloads"), longId);
+                        return getDataColumn(context, contentUri, null, null);
+                    }
+                    return path;
+                } catch (NumberFormatException nfex) {
+                    Log.e(DEBUG_TAG, "getPath " + id + " id not a long");
+                }
             } else if ("content".equalsIgnoreCase(uri.getScheme())) {
                 return getDataColumn(context, uri, null, null);
             }
