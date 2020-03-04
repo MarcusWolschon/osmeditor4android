@@ -16,8 +16,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.orhanobut.mockwebserverplus.MockWebServerPlus;
-
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
@@ -35,7 +33,6 @@ import android.support.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
-import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
@@ -43,11 +40,10 @@ import de.blau.android.osm.Track;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.Track.WayPoint;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
-import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.FileUtil;
+import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -56,13 +52,13 @@ public class GpxTest {
     public static final int      TIMEOUT                = 115;
     private static final Pattern EXPORT_MESSAGE_PATTERN = Pattern.compile("^Exported\\sto\\s(.*\\.gpx)$", Pattern.CASE_INSENSITIVE);
 
-    MockWebServerPlus    mockServer      = null;
-    AdvancedPrefDatabase prefDB          = null;
-    Splash               splash          = null;
-    Main                 main            = null;
-    UiDevice             device          = null;
-    ActivityMonitor      monitor         = null;
-    Instrumentation      instrumentation = null;
+    Splash          splash          = null;
+    Main            main            = null;
+    UiDevice        device          = null;
+    ActivityMonitor monitor         = null;
+    Instrumentation instrumentation = null;
+    MockWebServer   tileServer      = null;
+    Preferences     prefs           = null;
 
     /**
      * Manual start of activity so that we can set up the monitor for main
@@ -87,6 +83,12 @@ public class GpxTest {
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
 
         TestUtils.grantPermissons();
+
+        prefs = new Preferences(main);
+        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
+        App.getLogic().setPrefs(prefs);
+        main.getMap().setPrefs(main, prefs);
+
         TestUtils.dismissStartUpDialogs(main);
     }
 
@@ -101,6 +103,11 @@ public class GpxTest {
         } else {
             System.out.println("main is null");
         }
+        try {
+            tileServer.close();
+        } catch (IOException e) {
+            // ignore
+        }
         instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
@@ -110,15 +117,11 @@ public class GpxTest {
      */
     @Test
     public void recordSaveAndImportGpx() {
-        Preferences prefs = new Preferences(main);
         Assert.assertNotNull(main);
-        // allow downloading tiles here
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
 
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
-        main.getMap().setPrefs(main, prefs);
         TestUtils.zoomToLevel(main, 19);
         TestUtils.clickButton("de.blau.android:id/follow", false);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
@@ -188,11 +191,7 @@ public class GpxTest {
      */
     @Test
     public void importWayPoints() {
-        Preferences prefs = new Preferences(main);
         Assert.assertNotNull(main);
-        // allow downloading tiles here
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
-        main.getMap().setPrefs(main, prefs);
         main.getTracker().getTrack().reset(); // clear out anything saved
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
@@ -226,15 +225,11 @@ public class GpxTest {
      */
     @Test
     public void followNetworkLocation() {
-        Preferences prefs = new Preferences(main);
         Assert.assertNotNull(main);
-        // allow downloading tiles here
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
 
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
-        main.getMap().setPrefs(main, prefs);
         TestUtils.zoomToLevel(main, 19);
         TestUtils.clickButton("de.blau.android:id/follow", false);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

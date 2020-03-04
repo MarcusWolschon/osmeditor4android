@@ -1,5 +1,6 @@
 package de.blau.android.imageryoffset;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -28,6 +29,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
+import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -39,6 +41,7 @@ public class OffsetTest {
     ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
     Preferences     prefs           = null;
+    MockWebServer   tileServer      = null;
 
     /**
      * Manual start of activity so that we can set up the monitor for main
@@ -63,12 +66,13 @@ public class OffsetTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
         TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+
         prefs = new Preferences(main);
-        // allow downloading tiles here
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
+        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
+
         main.getMap().setPrefs(main, prefs);
         TestUtils.resetOffsets(main.getMap());
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     /**
@@ -83,7 +87,11 @@ public class OffsetTest {
         } else {
             System.out.println("main is null");
         }
-        
+        try {
+            tileServer.close();
+        } catch (IOException e) {
+            // ignore
+        }
         instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }

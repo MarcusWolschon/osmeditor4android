@@ -33,12 +33,17 @@ import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerServer.Category;
+import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.osm.Track.TrackPoint;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.layers.MapTilesLayer;
+import okhttp3.mockwebserver.MockWebServer;
 
 /**
  * Various methods to support testing
@@ -1036,5 +1041,32 @@ public class TestUtils {
         } else {
             Log.e(DEBUG_TAG, "resetOffsets layer is null");
         }
+    }
+
+    /**
+     * Setup a mock web server that serves tiles from a MBT source and set it to the current source
+     * 
+     * @param context an Android Context
+     * @param prefs the current Preferences
+     * @param mbtSource the MBT file name
+     * @return a MockWebServer
+     */
+    public static MockWebServer setupTileServer(@NonNull Context context, @NonNull Preferences prefs, @NonNull String mbtSource) {
+        MockWebServer tileServer = new MockWebServer();
+        try {
+            tileServer.setDispatcher(new TileDispatcher(context, "ersatz_background.mbt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
+        System.out.println(tileUrl);
+        TileLayerDatabase db = new TileLayerDatabase(context);
+        TileLayerServer.addOrUpdateCustomLayer(context, db.getWritableDatabase(), "VESPUCCITEST", null, -1, -1, "Vespucci Test", new Provider(), Category.other,
+                0, 19, false, tileUrl);
+
+        // allow downloading tiles here
+        prefs.setBackGroundLayer("VESPUCCITEST");
+        return tileServer;
     }
 }

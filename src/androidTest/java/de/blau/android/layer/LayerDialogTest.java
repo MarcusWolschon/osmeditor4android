@@ -39,6 +39,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
+import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -56,6 +57,7 @@ public class LayerDialogTest {
     Splash               splash          = null;
     ActivityMonitor      monitor         = null;
     Instrumentation      instrumentation = null;
+    MockWebServer        tileServer      = null;
 
     @Rule
     public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
@@ -74,13 +76,13 @@ public class LayerDialogTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
         Assert.assertNotNull(main);
-
+        TestUtils.grantPermissons();
         Preferences prefs = new Preferences(main);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK); // need to have this on for testing here
+        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
+
         TestUtils.dismissStartUpDialogs(main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -110,6 +112,11 @@ public class LayerDialogTest {
             main.finish();
         } else {
             System.out.println("main is null");
+        }
+        try {
+            tileServer.close();
+        } catch (IOException e) {
+            // ignore
         }
         instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
@@ -211,11 +218,11 @@ public class LayerDialogTest {
     }
 
     /**
-     * Set the background layer to osm standard style
+     * Set the background layer to none
      */
     @Test
     public void backgroundLayer() {
-        UiObject2 menuButton = TestUtils.getLayerButton(device, "OpenStreetMap (Standard)", MENU_BUTTON);
+        UiObject2 menuButton = TestUtils.getLayerButton(device, "Vespucci Test", MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_select_imagery), true));
         TestUtils.clickText(device, true, main.getString(R.string.okay), true); // for the tip alert

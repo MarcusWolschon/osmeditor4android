@@ -1,5 +1,7 @@
 package de.blau.android.imageryoffset;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,6 +31,7 @@ import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.util.GeoMath;
 import okhttp3.HttpUrl;
+import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -41,6 +44,7 @@ public class OffsetModeTest {
     ActivityMonitor         monitor         = null;
     Instrumentation         instrumentation = null;
     MockWebServerPlus       mockServer      = null;
+    MockWebServer           tileServer      = null;
     Preferences             prefs           = null;
     Map                     map             = null;
 
@@ -64,20 +68,21 @@ public class OffsetModeTest {
         Assert.assertNotNull(main);
 
         TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+
         prefs = new Preferences(main);
 
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/");
         prefs.setOffsetServer(mockBaseUrl.toString());
 
-        // allow downloading tiles here
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
+        tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
+
         map = main.getMap();
         map.setPrefs(main, prefs);
         App.getLogic().setPrefs(prefs);
         main.invalidateOptionsMenu(); // to be sure that the menu entry is actually shown
         TestUtils.resetOffsets(main.getMap());
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     /**
@@ -93,7 +98,11 @@ public class OffsetModeTest {
         } else {
             System.out.println("main is null");
         }
-
+        try {
+            tileServer.close();
+        } catch (IOException e) {
+            // ignore
+        }
         instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
     }
