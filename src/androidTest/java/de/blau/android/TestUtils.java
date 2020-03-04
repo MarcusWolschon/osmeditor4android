@@ -964,7 +964,13 @@ public class TestUtils {
                 try {
                     androidButton.clickAndWaitForNewWindow();
                 } catch (UiObjectNotFoundException e2) {
-                    Assert.fail("Link to internal storage not found in drawer");
+                    android = new UiSelector().resourceIdMatches(".*:id/title").textStartsWith("Internal");
+                    androidButton = device.findObject(android);
+                    try {
+                        androidButton.clickAndWaitForNewWindow();
+                    } catch (UiObjectNotFoundException e3) {
+                        Assert.fail("Link to internal storage not found in drawer");
+                    }
                 }
             }
             UiScrollable appView = new UiScrollable(scrollableSelector);
