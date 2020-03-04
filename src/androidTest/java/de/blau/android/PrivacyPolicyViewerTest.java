@@ -61,5 +61,6 @@ public class PrivacyPolicyViewerTest {
         TestUtils.clickOverflowButton();
         TestUtils.clickText(device, false, "Privacy", true);
         Assert.assertTrue(TestUtils.findText(device, false, "Privacy statement", 30000));
+        Assert.assertTrue(TestUtils.clickMenuButton("Back", false, true));
     }
 }

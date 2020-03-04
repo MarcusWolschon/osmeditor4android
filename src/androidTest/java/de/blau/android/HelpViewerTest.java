@@ -6,8 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.orhanobut.mockwebserverplus.MockWebServerPlus;
-
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
@@ -24,7 +22,6 @@ import de.blau.android.resources.TileLayerServer;
 @LargeTest
 public class HelpViewerTest {
 
-    MockWebServerPlus    mockServer      = null;
     Context              context         = null;
     ActivityMonitor      monitor         = null;
     AdvancedPrefDatabase prefDB          = null;
@@ -64,5 +61,7 @@ public class HelpViewerTest {
         Assert.assertTrue(TestUtils.clickMenuButton("OK", false, true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPS sources", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Help: GPS sources", 10000));
+        Assert.assertTrue(TestUtils.clickMenuButton("Back", false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton("Back", false, true));
     }
 }
