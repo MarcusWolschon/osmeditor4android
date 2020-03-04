@@ -139,8 +139,7 @@ public class MBTileProviderDataBase {
                     }
                 } else { // old and slow
                     final Cursor c = mDatabase.query(T_MBTILES, new String[] { T_MBTILES_DATA }, T_MBTILES_WHERE,
-                            new String[] { aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) }, null,
-                            null, null);
+                            new String[] { Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) }, null, null, null);
                     try {
                         if (c.moveToFirst()) {
                             return c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA));
@@ -194,8 +193,7 @@ public class MBTileProviderDataBase {
                     }
                 } else { // old and slow
                     final Cursor c = mDatabase.query(T_MBTILES, new String[] { T_MBTILES_DATA }, T_MBTILES_WHERE,
-                            new String[] { aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) }, null,
-                            null, null);
+                            new String[] { Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) }, null, null, null);
                     try {
                         if (c.moveToFirst()) {
                             return new ByteArrayInputStream(c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA)));
