@@ -100,7 +100,7 @@ public class Server {
     /**
      * Location of optional read only OSM API
      */
-    private final String readonlyURL;
+    private String readonlyURL;
 
     /**
      * MapSplit tiled OSM data source
@@ -233,6 +233,7 @@ public class Server {
                 tempDB = new MBTileProviderDataBase(context, readOnlyUri, 1);
             } catch (SQLiteException sqlex) {
                 Log.e(DEBUG_TAG, "Unable to open db " + readOnlyUri);
+                readonlyURL = null;
             }
             mapSplitSource = tempDB;
         } else {
