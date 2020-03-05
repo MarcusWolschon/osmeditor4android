@@ -319,7 +319,7 @@ public class Server {
         if (userDetails == null) {
             // Haven't retrieved the details from OSM - try to
             try {
-                Response response = openConnectionForAuthenicatedAccess(getUserDetailsUrl(), HTTP_GET, (RequestBody) null);
+                Response response = openConnectionForAuthenticatedAccess(getUserDetailsUrl(), HTTP_GET, (RequestBody) null);
                 checkResponseCode(response);
                 XmlPullParser parser = xmlParserFactory.newPullParser();
                 parser.setInput(response.body().byteStream(), null);
@@ -382,7 +382,7 @@ public class Server {
     public Map<String, String> getUserPreferences() {
         Map<String, String> result = new HashMap<>();
         try {
-            Response response = openConnectionForAuthenicatedAccess(getUserPreferencesUrl(), HTTP_GET, (RequestBody) null);
+            Response response = openConnectionForAuthenticatedAccess(getUserPreferencesUrl(), HTTP_GET, (RequestBody) null);
             checkResponseCode(response);
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(response.body().byteStream(), null);
@@ -412,7 +412,7 @@ public class Server {
      */
     public void setUserPreference(@NonNull String key, @Nullable String value) throws OsmException {
         try {
-            Response response = openConnectionForAuthenicatedAccess(getSingleUserPreferencesUrl(key), HTTP_PUT,
+            Response response = openConnectionForAuthenticatedAccess(getSingleUserPreferencesUrl(key), HTTP_PUT,
                     RequestBody.create(null, value != null ? value : ""));
             int responseCode = response.code();
             if (responseCode != HttpURLConnection.HTTP_OK) {
@@ -434,7 +434,7 @@ public class Server {
      */
     public void deleteUserPreference(@NonNull String key) throws OsmException {
         try {
-            Response response = openConnectionForAuthenicatedAccess(getSingleUserPreferencesUrl(key), HTTP_DELETE, null);
+            Response response = openConnectionForAuthenticatedAccess(getSingleUserPreferencesUrl(key), HTTP_DELETE, null);
             int responseCode = response.code();
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 String message = Server.readStream(response.body().byteStream());
@@ -731,7 +731,7 @@ public class Server {
                 }
             }
         };
-        Response response = openConnectionForAuthenicatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body);
+        Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body);
         checkResponseCode(response, elem);
         return true;
     }
@@ -786,7 +786,7 @@ public class Server {
                     }
                 }
             };
-            Response response = openConnectionForAuthenicatedAccess(updateElementUrl, HTTP_PUT, body);
+            Response response = openConnectionForAuthenticatedAccess(updateElementUrl, HTTP_PUT, body);
             checkResponseCode(response, elem);
             in = response.body().byteStream();
             try {
@@ -837,7 +837,7 @@ public class Server {
      * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      */
-    private Response openConnectionForAuthenicatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
+    private Response openConnectionForAuthenticatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
             throws IOException, MalformedURLException, ProtocolException {
         Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
 
@@ -917,7 +917,7 @@ public class Server {
                     }
                 }
             };
-            Response response = openConnectionForAuthenicatedAccess(getCreateElementUrl(elem), HTTP_PUT, body);
+            Response response = openConnectionForAuthenticatedAccess(getCreateElementUrl(elem), HTTP_PUT, body);
             checkResponseCode(response);
             in = response.body().byteStream();
             try {
@@ -1014,7 +1014,7 @@ public class Server {
                 sendPayload(sink.outputStream(), xmlData, changesetId);
             }
         };
-        Response response = openConnectionForAuthenicatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
+        Response response = openConnectionForAuthenticatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
 
         checkResponseCode(response);
 
@@ -1037,7 +1037,7 @@ public class Server {
      */
     public void closeChangeset() throws MalformedURLException, ProtocolException, IOException {
         try {
-            Response response = openConnectionForAuthenicatedAccess(getCloseChangesetUrl(changesetId), HTTP_PUT, RequestBody.create(null, ""));
+            Response response = openConnectionForAuthenticatedAccess(getCloseChangesetUrl(changesetId), HTTP_PUT, RequestBody.create(null, ""));
             checkResponseCode(response);
         } finally {
             changesetId = -1;
@@ -1054,7 +1054,7 @@ public class Server {
     private Changeset getChangeset(long id) {
         Changeset result = null;
         try {
-            Response response = openConnectionForAuthenicatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null);
+            Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null);
             checkResponseCode(response);
             result = Changeset.parse(xmlParserFactory.newPullParser(), response.body().byteStream());
         } catch (IOException | XmlPullParserException e) {
@@ -1089,7 +1089,7 @@ public class Server {
                 sendPayload(sink.outputStream(), xmlData, changesetId);
             }
         };
-        Response response = openConnectionForAuthenicatedAccess(getChangesetUrl(changesetId), HTTP_PUT, body);
+        Response response = openConnectionForAuthenticatedAccess(getChangesetUrl(changesetId), HTTP_PUT, body);
         checkResponseCode(response);
         // ignore response for now
     }
@@ -1166,7 +1166,7 @@ public class Server {
                     }
                 }
             };
-            Response response = openConnectionForAuthenicatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body);
+            Response response = openConnectionForAuthenticatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body);
             processDiffUploadResult(delegator, response, xmlParserFactory.newPullParser());
         } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e1) {
             throw new OsmException(e1.getMessage());
@@ -1895,7 +1895,7 @@ public class Server {
             String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
             URL addCommentUrl = getAddNoteCommentUrl(Long.toString(bug.getId()), encodedComment);
 
-            Response response = openConnectionForAuthenicatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""));
+            Response response = openConnectionForAuthenticatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""));
 
             int responseCode = response.code();
             if (responseCode != HttpURLConnection.HTTP_OK) {
@@ -1941,7 +1941,7 @@ public class Server {
             String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
             URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
 
-            Response response = openConnectionForAuthenicatedAccess(addNoteUrl, HTTP_POST, RequestBody.create(null, ""));
+            Response response = openConnectionForAuthenticatedAccess(addNoteUrl, HTTP_POST, RequestBody.create(null, ""));
             if (!response.isSuccessful()) {
                 throwOsmServerException(response);
             }
@@ -1964,7 +1964,7 @@ public class Server {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "closing note " + bug.getId());
             URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
-            Response response = openConnectionForAuthenicatedAccess(closeNoteUrl, HTTP_POST, RequestBody.create(null, ""));
+            Response response = openConnectionForAuthenticatedAccess(closeNoteUrl, HTTP_POST, RequestBody.create(null, ""));
 
             int responseCode = response.code();
             if (responseCode != HttpURLConnection.HTTP_OK) {
@@ -2000,7 +2000,7 @@ public class Server {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "reopen note " + bug.getId());
             URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
-            Response response = openConnectionForAuthenicatedAccess(reopenNoteUrl, HTTP_POST, RequestBody.create(null, ""));
+            Response response = openConnectionForAuthenticatedAccess(reopenNoteUrl, HTTP_POST, RequestBody.create(null, ""));
             int responseCode = response.code();
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
@@ -2075,7 +2075,7 @@ public class Server {
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("description", description)
                 .addFormDataPart("tags", tags).addFormDataPart("visibility", visibility.name().toLowerCase(Locale.US))
                 .addFormDataPart("file", fileNamePart + ".gpx", gpxBody).build();
-        Response response = openConnectionForAuthenicatedAccess(getUploadTrackUrl(), HTTP_POST, requestBody);
+        Response response = openConnectionForAuthenticatedAccess(getUploadTrackUrl(), HTTP_POST, requestBody);
         if (!response.isSuccessful()) {
             throwOsmServerException(response);
         }
