@@ -176,6 +176,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
      * @param aTile tile spec
      * @return the tile or null if it wasn't in cache
      */
+    @Nullable
     public Bitmap getMapTileFromCache(@NonNull final MapTile aTile) {
         return mTileCache.getMapTile(aTile);
     }
@@ -402,6 +403,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
      * 
      * @return a String with cache usage information suitable for display
      */
+    @NonNull
     public String getCacheUsageInfo() {
         return mTileCache.getCacheUsageInfo();
     }
