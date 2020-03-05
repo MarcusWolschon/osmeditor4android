@@ -204,6 +204,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         int currentItem = -1; // used when restoring
         Logic logic = App.getLogic();
         if (logic == null) {
+            super.onCreate(savedInstanceState); // have to call through first
             // cause for this is currently unknown, but it isn't recoverable
             abort("Logic is null");
             return;
