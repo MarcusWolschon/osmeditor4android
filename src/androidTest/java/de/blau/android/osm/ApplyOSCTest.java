@@ -37,7 +37,7 @@ public class ApplyOSCTest {
     Context                     context  = null;
     AdvancedPrefDatabase        prefDB   = null;
     Main                        main     = null;
-    UiDevice                    mDevice  = null;
+    UiDevice                    device   = null;
     Logic                       logic    = null;
 
     @Rule
@@ -48,7 +48,7 @@ public class ApplyOSCTest {
      */
     @Before
     public void setup() {
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
@@ -56,8 +56,8 @@ public class ApplyOSCTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         prefDB = new AdvancedPrefDatabase(context);
         main.getMap().setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         try {
             TestUtils.copyFileFromResources(OSC_FILE, ".");
         } catch (IOException e) {
@@ -124,14 +124,14 @@ public class ApplyOSCTest {
         Assert.assertNotNull(r.getMember(Way.NAME, 119104094L));
 
         // apply OSC file
-        TestUtils.clickMenuButton("Transfer", false, false);
-        TestUtils.clickText(mDevice, false, "File", false);
-        TestUtils.clickText(mDevice, false, "Apply changes from OSC file", false);
+        TestUtils.clickMenuButton(device, "Transfer", false, false);
+        TestUtils.clickText(device, false, "File", false);
+        TestUtils.clickText(device, false, "Apply changes from OSC file", false);
         //
-        TestUtils.selectFile(mDevice, null, OSC_FILE);
+        TestUtils.selectFile(device, null, OSC_FILE);
 
-        TestUtils.findText(mDevice, false, "Loading", 2000); // spinner appears
-        TestUtils.textGone(mDevice, "Loading", 10000);// spinner goes away
+        TestUtils.findText(device, false, "Loading", 2000); // spinner appears
+        TestUtils.textGone(device, "Loading", 10000);// spinner goes away
 
         // check new data state
         Assert.assertNotNull(delegator.getApiStorage().getOsmElement(Way.NAME, 210558043L));

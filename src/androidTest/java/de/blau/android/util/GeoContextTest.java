@@ -62,8 +62,8 @@ public class GeoContextTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

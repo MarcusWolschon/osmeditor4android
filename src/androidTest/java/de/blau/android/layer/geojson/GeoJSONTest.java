@@ -61,8 +61,8 @@ public class GeoJSONTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = (Main) mActivityRule.getActivity();
         map = main.getMap();
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         Preferences prefs = new Preferences(context);
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
@@ -141,16 +141,16 @@ public class GeoJSONTest {
             switch (geometry.type()) {
             case GeoJSONConstants.POINT:
                 App.getLogic().setZoom(map, Map.SHOW_LABEL_LIMIT + 1);
-                TestUtils.unlock();
+                TestUtils.unlock(device);
                 Point p = (Point) geometry;
-                TestUtils.clickAtCoordinates(map, p.longitude(), p.latitude(), true);
+                TestUtils.clickAtCoordinates(device, map, p.longitude(), p.latitude(), true);
                 Assert.assertTrue(TestUtils.findText(device, false, GeoJSONConstants.POINT));
                 Assert.assertTrue(TestUtils.findText(device, false, "value0"));
                 device.pressBack();
                 break;
             case GeoJSONConstants.POLYGON:
-                TestUtils.unlock();
-                TestUtils.clickAtCoordinates(map, 100.5, 0.5, true);
+                TestUtils.unlock(device);
+                TestUtils.clickAtCoordinates(device, map, 100.5, 0.5, true);
                 Assert.assertTrue(TestUtils.findText(device, false, GeoJSONConstants.POLYGON));
                 Assert.assertTrue(TestUtils.findText(device, false, "value0"));
                 device.pressBack();

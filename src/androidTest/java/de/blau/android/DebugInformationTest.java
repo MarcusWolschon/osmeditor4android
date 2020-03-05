@@ -52,8 +52,8 @@ public class DebugInformationTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
 
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -69,7 +69,7 @@ public class DebugInformationTest {
      */
     @Test
     public void startDebugInformation() {
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Debug", true);
         Activity debugInformation = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(debugInformation instanceof DebugInformation);

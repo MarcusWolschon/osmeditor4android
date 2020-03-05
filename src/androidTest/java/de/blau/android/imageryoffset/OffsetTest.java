@@ -65,14 +65,14 @@ public class OffsetTest {
 
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
-        TestUtils.grantPermissons();
+        TestUtils.grantPermissons(device);
 
         prefs = new Preferences(main);
         tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
 
         main.getMap().setPrefs(main, prefs);
         TestUtils.resetOffsets(main.getMap());
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

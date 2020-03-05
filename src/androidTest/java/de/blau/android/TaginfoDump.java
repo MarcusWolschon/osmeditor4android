@@ -10,6 +10,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.presets.Preset;
 
 /**
@@ -30,9 +31,10 @@ public class TaginfoDump {
      */
     @Before
     public void setup() {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         Main main = mActivityRule.getActivity();
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

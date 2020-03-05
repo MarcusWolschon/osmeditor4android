@@ -37,7 +37,7 @@ public class AutoPresetTest {
     AdvancedPrefDatabase prefDB          = null;
     Instrumentation      instrumentation = null;
     Main                 main            = null;
-    UiDevice             mDevice         = null;
+    UiDevice             device          = null;
     Preferences          prefs           = null;
 
     @Rule
@@ -49,15 +49,15 @@ public class AutoPresetTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = (Main) mActivityRule.getActivity();
         prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         mockServer = new MockWebServerPlus();
         HttpUrl mockTaginfoUrl = mockServer.server().url("");
         System.out.println("mock api url " + mockTaginfoUrl.toString());

@@ -14,11 +14,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mozilla.javascript.EvaluatorException;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.javascript.Utils;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
@@ -29,8 +31,9 @@ import de.blau.android.resources.TileLayerServer;
 @LargeTest
 public class ScriptingTest {
 
-    Context context = null;
-    Main    main    = null;
+    Context  context = null;
+    UiDevice device  = null;
+    Main     main    = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -40,7 +43,9 @@ public class ScriptingTest {
      */
     @Before
     public void setup() {
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        context = instrumentation.getTargetContext();
+        device = UiDevice.getInstance(instrumentation);
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
@@ -48,8 +53,8 @@ public class ScriptingTest {
         main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

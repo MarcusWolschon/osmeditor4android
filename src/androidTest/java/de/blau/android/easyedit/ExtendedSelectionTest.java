@@ -58,8 +58,8 @@ public class ExtendedSelectionTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -84,7 +84,7 @@ public class ExtendedSelectionTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
     }
 
     /**
@@ -93,15 +93,15 @@ public class ExtendedSelectionTest {
     @Test
     public void selectNodes() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
-        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, false);
+        TestUtils.unlock(device);
+        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, false);
         Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false));
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
 
-        TestUtils.doubleClickAtCoordinates(map, 8.3877977, 47.3897371, false);
+        TestUtils.doubleClickAtCoordinates(device, map, 8.3877977, 47.3897371, false);
         Assert.assertTrue(TestUtils.clickText(device, false, "Excrement", false));
 
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));

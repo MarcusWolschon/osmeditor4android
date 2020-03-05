@@ -90,8 +90,8 @@ public class MapRouletteTest {
         prefs = new Preferences(context);
         App.getLogic().setPrefs(prefs);
         System.out.println(prefs.getServer().getReadWriteUrl());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -179,7 +179,7 @@ public class MapRouletteTest {
         App.getLogic().getViewBox().setBorders(map, boundingBox);
         map.setViewBox(App.getLogic().getViewBox());
         map.invalidate();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
@@ -247,12 +247,12 @@ public class MapRouletteTest {
     public void mapRouletteDialog() {
         mapRouletteDownload();
         MapRouletteTask b = (MapRouletteTask) t; // ugly but removes code duplication
-        TestUtils.unlock();
+        TestUtils.unlock(device);
         Assert.assertTrue(TestUtils.clickAtCoordinatesWaitNewWindow(device, main.getMap(), b.getLon(), b.getLat()));
         UiObject saveButton = device.findObject(new UiSelector().resourceId("android:id/button1"));
         try {
             Assert.assertTrue(saveButton.exists());
-            TestUtils.clickButton("de.blau.android:id/openstreetbug_state", true);
+            TestUtils.clickButton(device, "de.blau.android:id/openstreetbug_state", true);
             TestUtils.clickText(device, false, "Deleted", true);
             Assert.assertTrue(saveButton.isEnabled());
             TestUtils.clickText(device, false, "Save", true);

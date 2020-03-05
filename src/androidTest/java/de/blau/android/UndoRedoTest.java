@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
@@ -47,16 +48,17 @@ public class UndoRedoTest {
      */
     @Before
     public void setup() {
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
+        context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -77,7 +79,7 @@ public class UndoRedoTest {
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
         map.invalidate();
-        TestUtils.unlock();
+        TestUtils.unlock(device);
         device.waitForWindowUpdate(null, 2000);
     }
 
@@ -87,7 +89,7 @@ public class UndoRedoTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
     }
 
     /**
@@ -95,13 +97,13 @@ public class UndoRedoTest {
      */
     @Test
     public void dialog() {
-        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, true);
+        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false));
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_set_position), true));
         Assert.assertTrue(TestUtils.findText(device, false, "8.3878200"));
         Assert.assertTrue(TestUtils.findText(device, false, "47.3903390"));
@@ -117,7 +119,7 @@ public class UndoRedoTest {
         Assert.assertEquals((long) (8.3878100 * 1E7D), node.getLon());
 
         // start undo redo dialog and undo
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), true, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), true, true));
         Assert.assertTrue(TestUtils.findText(device, false, "Checkpoints", 5000));
         Assert.assertTrue(TestUtils.clickText(device, false, "Undo", false));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "3465444349", true)); // undo
@@ -125,7 +127,7 @@ public class UndoRedoTest {
         Assert.assertEquals((long) (8.3878200 * 1E7D), node.getLon());
 
         // start undo redo dialog and redo
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), true, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), true, true));
         Assert.assertTrue(TestUtils.findText(device, false, "Checkpoints", 5000));
         Assert.assertTrue(TestUtils.clickText(device, false, "Redo", false));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "3465444349", true)); // undo

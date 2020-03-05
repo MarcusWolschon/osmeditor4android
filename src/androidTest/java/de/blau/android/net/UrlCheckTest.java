@@ -17,6 +17,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.net.UrlCheck.CheckStatus;
@@ -32,6 +33,7 @@ public class UrlCheckTest {
     Context                 context     = null;
     Main                    main        = null;
     private Instrumentation instrumentation;
+    UiDevice                device      = null;
     HttpUrl                 mockBaseUrl = null;
 
     @Rule
@@ -43,6 +45,7 @@ public class UrlCheckTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         mockServer = new MockWebServerPlus();
@@ -52,8 +55,8 @@ public class UrlCheckTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock url " + mockBaseUrl.toString());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

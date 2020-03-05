@@ -22,6 +22,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.view.View;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -59,6 +60,7 @@ public class TileLayerServerTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
+        UiDevice device = UiDevice.getInstance(instrumentation);
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -66,8 +68,8 @@ public class TileLayerServerTest {
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
         Assert.assertNotNull(main);
 
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

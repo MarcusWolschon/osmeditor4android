@@ -82,14 +82,14 @@ public class GpxTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
 
-        TestUtils.grantPermissons();
+        TestUtils.grantPermissons(device);
 
         prefs = new Preferences(main);
         tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);
 
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -122,8 +122,8 @@ public class GpxTest {
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
-        TestUtils.zoomToLevel(main, 19);
-        TestUtils.clickButton("de.blau.android:id/follow", false);
+        TestUtils.zoomToLevel(device, main, 19);
+        TestUtils.clickButton(device, "de.blau.android:id/follow", false);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -212,9 +212,9 @@ public class GpxTest {
         viewBox.moveTo(map, foundWp.getLon(), foundWp.getLat());
         map.invalidate();
 
-        TestUtils.unlock();
+        TestUtils.unlock(device);
 
-        TestUtils.clickAtCoordinates(map, foundWp.getLon(), foundWp.getLat(), true);
+        TestUtils.clickAtCoordinates(device, map, foundWp.getLon(), foundWp.getLat(), true);
 
         Assert.assertTrue(TestUtils.clickText(device, true, "Create osm object from", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Church"));
@@ -230,8 +230,8 @@ public class GpxTest {
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
-        TestUtils.zoomToLevel(main, 19);
-        TestUtils.clickButton("de.blau.android:id/follow", false);
+        TestUtils.zoomToLevel(device, main, 19);
+        TestUtils.clickButton(device, "de.blau.android:id/follow", false);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
         Track track = new Track(main);

@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -68,8 +67,8 @@ public class CustomImageryTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
 
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -101,11 +100,11 @@ public class CustomImageryTest {
         prefs.setBackGroundLayer("NONE");
         main.getMap().setPrefs(main, prefs);
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
-        Assert.assertTrue(TestUtils.clickButton("de.blau.android:id/menu_config", true));
+        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true));
-        Assert.assertTrue(TestUtils.clickButton("de.blau.android:id/add", true));
-        Assert.assertTrue(TestUtils.clickButton("de.blau.android:id/file_button", true));
+        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/add", true));
+        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/file_button", true));
         TestUtils.selectFile(device, "mbtiles", "map.mbt");
         Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
         Assert.assertTrue(TestUtils.findText(device, false, "57.0527713171221"));
@@ -133,11 +132,11 @@ public class CustomImageryTest {
         prefs.setBackGroundLayer("NONE");
         main.getMap().setPrefs(main, prefs);
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
-        Assert.assertTrue(TestUtils.clickButton("de.blau.android:id/menu_config", true));
+        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true));
-        Assert.assertTrue(TestUtils.clickButton("de.blau.android:id/add", true));
-        Assert.assertTrue(TestUtils.clickButton("de.blau.android:id/file_button", true));
+        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/add", true));
+        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/file_button", true));
         TestUtils.selectFile(device, "mbtiles", "map-no-meta.mbt");
         UiObject url = device.findObject(new UiSelector().resourceId("de.blau.android:id/url"));
         try {

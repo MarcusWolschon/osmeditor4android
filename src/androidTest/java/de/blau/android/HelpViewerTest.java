@@ -45,8 +45,8 @@ public class HelpViewerTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -54,14 +54,14 @@ public class HelpViewerTest {
      */
     @Test
     public void startHelp() {
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Help", true);
         // Waiting with a monitor doesn't work in this case
         Assert.assertTrue(TestUtils.findText(device, false, "Help: Main map display", 10000));
-        Assert.assertTrue(TestUtils.clickMenuButton("OK", false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, "OK", false, true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPS sources", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Help: GPS sources", 10000));
-        Assert.assertTrue(TestUtils.clickMenuButton("Back", false, true));
-        Assert.assertTrue(TestUtils.clickMenuButton("Back", false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
     }
 }

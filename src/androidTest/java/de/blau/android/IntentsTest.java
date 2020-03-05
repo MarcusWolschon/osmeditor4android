@@ -21,6 +21,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.osm.Node;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -41,6 +42,7 @@ public class IntentsTest {
     ActivityMonitor      mainMonitor      = null;
     AdvancedPrefDatabase prefDB           = null;
     Instrumentation      instrumentation  = null;
+    UiDevice             device           = null;
     Main                 main             = null;
 
     @Rule
@@ -52,6 +54,7 @@ public class IntentsTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         App.getDelegator().reset(false);
@@ -76,8 +79,8 @@ public class IntentsTest {
         prefs.putString(R.string.config_osmoseServer_key, mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/");
         prefs.setBugsEnabled(true);
         // mainMonitor = instrumentation.addMonitor(Main.class.getName(), null, false);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -118,7 +121,7 @@ public class IntentsTest {
         // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
         Uri uri = Uri.parse("geo:47.3905,8.385");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        TestUtils.selectIntentRecipient();
+        TestUtils.selectIntentRecipient(device);
         GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(geoMonitor, 60000);
         Assert.assertNotNull(geo);
         // there currently doesn't seem to be a reasonable way to wait until we have downloaded
@@ -149,7 +152,7 @@ public class IntentsTest {
         // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
         Uri uri = Uri.parse("geo:47.3905,8.385?z=18");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        TestUtils.selectIntentRecipient();
+        TestUtils.selectIntentRecipient(device);
         GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(geoMonitor, 60000);
         Assert.assertNotNull(geo);
 
@@ -181,7 +184,7 @@ public class IntentsTest {
         Uri uri = Uri.parse(
                 "josm:/load_and_zoom?left=8.3844600&right=8.3879800&top=47.3911300&bottom=47.3892400&changeset_comment=thisisatest&select=node101792984&new_layer=true");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        TestUtils.selectIntentRecipient();
+        TestUtils.selectIntentRecipient(device);
         RemoteControlUrlActivity rc = (RemoteControlUrlActivity) instrumentation.waitForMonitorWithTimeout(rcMonitor, 60000);
         Assert.assertNotNull(rc);
 
@@ -192,20 +195,19 @@ public class IntentsTest {
         }
         Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
         Assert.assertTrue(18 <= main.getMap().getZoomLevel());
-        Assert.assertEquals(101792984L,App.getLogic().getSelectedNode().getOsmId());
+        Assert.assertEquals(101792984L, App.getLogic().getSelectedNode().getOsmId());
         Assert.assertEquals("thisisatest", App.getLogic().getDraftComment());
     }
-    
+
     /**
      * Test that JOSM rc intent for imagery config work
      */
     @Test
     public void rcImagery() {
         rcMonitor = instrumentation.addMonitor(RemoteControlUrlActivity.class.getName(), null, false);
-        Uri uri = Uri.parse(
-                "josm:/imagery?title=osmtest&type=tms&min_zoom=2&max_zoom=19&url=https://a.tile.openstreetmap.org/%7Bzoom%7D/%7Bx%7D/%7By%7D.png");
+        Uri uri = Uri.parse("josm:/imagery?title=osmtest&type=tms&min_zoom=2&max_zoom=19&url=https://a.tile.openstreetmap.org/%7Bzoom%7D/%7Bx%7D/%7By%7D.png");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        TestUtils.selectIntentRecipient();
+        TestUtils.selectIntentRecipient(device);
         RemoteControlUrlActivity rc = (RemoteControlUrlActivity) instrumentation.waitForMonitorWithTimeout(rcMonitor, 60000);
         Assert.assertNotNull(rc);
 
@@ -214,9 +216,9 @@ public class IntentsTest {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e1) {
         }
-        TileLayerServer tileServer = TileLayerServer.get(context, TileLayerServer.nameToId("osmtest") , false);
+        TileLayerServer tileServer = TileLayerServer.get(context, TileLayerServer.nameToId("osmtest"), false);
         Assert.assertEquals("osmtest", tileServer.getName());
         Assert.assertEquals(2, tileServer.getMinZoomLevel());
-        Assert.assertEquals(19, tileServer.getMaxZoomLevel());       
+        Assert.assertEquals(19, tileServer.getMaxZoomLevel());
     }
 }

@@ -16,11 +16,13 @@ import org.junit.runner.RunWith;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -51,14 +53,16 @@ public class ReadSaveData {
      */
     @Before
     public void setup() {
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        context = instrumentation.getTargetContext();
+        UiDevice device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -130,7 +134,7 @@ public class ReadSaveData {
             is.close();
         } catch (IOException e1) {
         }
-        
+
         // modify, for now just deletions
         Node node = delegator.getCurrentStorage().getNode(2522882577L);
         logic.performEraseNode(main, node, true);
@@ -138,7 +142,7 @@ public class ReadSaveData {
         logic.performEraseWay(main, way, true, true);
         Relation rel = delegator.getCurrentStorage().getRelation(6490362L);
         logic.performEraseRelation(main, rel, true);
-        
+
         // check
         Assert.assertNull(delegator.getCurrentStorage().getNode(2522882577L));
         Assert.assertNotNull(delegator.getApiStorage().getNode(2522882577L));
@@ -146,7 +150,7 @@ public class ReadSaveData {
         Assert.assertNotNull(delegator.getApiStorage().getWay(49855526L));
         Assert.assertNull(delegator.getCurrentStorage().getRelation(6490362L));
         Assert.assertNotNull(delegator.getApiStorage().getRelation(6490362L));
-        
+
         // write out
         final CountDownLatch signal2 = new CountDownLatch(1);
         logic.writeOsmFile(main, TEST_MODIFY_OSM, new SignalHandler(signal2));

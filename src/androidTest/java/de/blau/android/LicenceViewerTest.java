@@ -52,8 +52,8 @@ public class LicenceViewerTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
 
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -69,7 +69,7 @@ public class LicenceViewerTest {
      */
     @Test
     public void startViewer() {
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Authors and licenses", true);
         Activity licenseViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(licenseViewer instanceof LicenseViewer);

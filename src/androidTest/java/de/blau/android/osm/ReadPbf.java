@@ -30,7 +30,7 @@ public class ReadPbf {
     Context                     context  = null;
     AdvancedPrefDatabase        prefDB   = null;
     Main                        main     = null;
-    UiDevice                    mDevice  = null;
+    UiDevice                    device   = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -40,15 +40,15 @@ public class ReadPbf {
      */
     @Before
     public void setup() {
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         try {
             TestUtils.copyFileFromResources(PBF_FILE, ".");
         } catch (IOException e) {
@@ -69,13 +69,13 @@ public class ReadPbf {
      */
     @Test
     public void pbfRead() {
-        TestUtils.clickMenuButton("Transfer", false, false);
-        TestUtils.clickText(mDevice, false, "File", false);
-        TestUtils.clickText(mDevice, false, "Read from PBF file", false);
+        TestUtils.clickMenuButton(device, "Transfer", false, false);
+        TestUtils.clickText(device, false, "File", false);
+        TestUtils.clickText(device, false, "Read from PBF file", false);
         //
-        TestUtils.selectFile(mDevice, null, PBF_FILE);
-        TestUtils.findText(mDevice, false, "Loading", 2000); // spinner appears
-        TestUtils.textGone(mDevice, "Loading", 60000);// spinner goes away
+        TestUtils.selectFile(device, null, PBF_FILE);
+        TestUtils.findText(device, false, "Loading", 2000); // spinner appears
+        TestUtils.textGone(device, "Loading", 60000);// spinner goes away
         StorageDelegator delegator = App.getDelegator();
         Assert.assertNotNull(delegator.getOsmElement(Relation.NAME, 1252853L));
         Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 243055643L));

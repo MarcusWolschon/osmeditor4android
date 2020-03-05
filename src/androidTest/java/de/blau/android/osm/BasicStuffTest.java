@@ -14,11 +14,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -43,7 +45,9 @@ public class BasicStuffTest {
      */
     @Before
     public void setup() {
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        context = instrumentation.getTargetContext();
+        UiDevice device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
@@ -51,8 +55,8 @@ public class BasicStuffTest {
         main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(context);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, context);
     }
 
     /**

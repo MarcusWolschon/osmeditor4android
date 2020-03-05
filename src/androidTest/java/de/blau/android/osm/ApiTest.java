@@ -65,6 +65,7 @@ public class ApiTest {
     AdvancedPrefDatabase    prefDB     = null;
     Main                    main       = null;
     private Instrumentation instrumentation;
+    UiDevice                device     = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -75,6 +76,7 @@ public class ApiTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         mockServer = new MockWebServerPlus();
@@ -88,8 +90,8 @@ public class ApiTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock api url " + mockBaseUrl.toString());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -328,7 +330,7 @@ public class ApiTest {
         mockServer.enqueue("close_changeset");
         mockServer.enqueue("userdetails");
 
-        TestUtils.clickMenuButton("Transfer", false, true);
+        TestUtils.clickMenuButton(device, "Transfer", false, true);
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
         TestUtils.clickText(device, false, "Upload", true); // menu item

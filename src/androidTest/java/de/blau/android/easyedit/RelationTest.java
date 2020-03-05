@@ -2,8 +2,6 @@ package de.blau.android.easyedit;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -68,8 +66,8 @@ public class RelationTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -94,7 +92,7 @@ public class RelationTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
     }
 
     /**
@@ -103,9 +101,9 @@ public class RelationTest {
     @Test
     public void selectRelation() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Hiking", false));
         List<Relation> rels = App.getLogic().getSelectedRelations();
         Assert.assertNotNull(rels);
@@ -114,13 +112,13 @@ public class RelationTest {
         List<RelationMember> origMembers = relation.getMembers();
         Assert.assertEquals(6490362L, relation.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
-        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_information), true));
         Assert.assertTrue(TestUtils.findText(device, false, "hiking"));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true));
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.delete), false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.delete), false, true));
         Assert.assertEquals(OsmElement.STATE_DELETED, relation.getState());
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, relation.getState());
         TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         Assert.assertNotNull(relation.getMember(Way.NAME, 104148456L));
@@ -137,16 +135,16 @@ public class RelationTest {
     @Test
     public void createRelation() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
         Assert.assertEquals(104148456L, way.getOsmId());
         //
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
-        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
         Assert.assertTrue(TestUtils.clickText(device, false, "Create relation", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Add member"));
         TestUtils.clickUp(device);
@@ -166,6 +164,6 @@ public class RelationTest {
         Relation relation = relations.get(0);
         Assert.assertTrue(relation.getOsmId() < 0);
         Assert.assertTrue(relation.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON));
-        Assert.assertTrue(TestUtils.clickMenuButton("Delete", false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, "Delete", false, true));
     }
 }

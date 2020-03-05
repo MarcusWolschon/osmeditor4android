@@ -21,7 +21,6 @@ import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.util.rtree.RTree;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -32,7 +31,7 @@ public class PhotosTest {
     Context                     context     = null;
     AdvancedPrefDatabase        prefDB      = null;
     Main                        main        = null;
-    UiDevice                    mDevice     = null;
+    UiDevice                    device      = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -42,15 +41,15 @@ public class PhotosTest {
      */
     @Before
     public void setup() {
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         prefs.setPhotoLayerEnabled(true);
         main.getMap().setPrefs(main, prefs);
         try {
@@ -74,16 +73,16 @@ public class PhotosTest {
      */
     @Test
     public void selectDisplayDelete() {
-        TestUtils.zoomToLevel(main, 20);
-        TestUtils.unlock();
+        TestUtils.zoomToLevel(device, main, 20);
+        TestUtils.unlock(device);
         Assert.assertEquals(2, App.getPhotoIndex().count());
-        TestUtils.clickAtCoordinates(main.getMap(), 7.5886112, 47.5519448, true);
+        TestUtils.clickAtCoordinates(device, main.getMap(), 7.5886112, 47.5519448, true);
         // Assert.assertTrue(TestUtils.findText(mDevice, false, "Done", 1000));
 
-        TestUtils.clickMenuButton("delete", false, true);
-        Assert.assertTrue(TestUtils.clickText(mDevice, false, "Delete permamently", false));
-        Assert.assertTrue(TestUtils.clickText(mDevice, false, "Done", true));
-        TestUtils.clickMenuButton("Go to photo", false, true);
+        TestUtils.clickMenuButton(device, "delete", false, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Delete permamently", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Done", true));
+        TestUtils.clickMenuButton(device, "Go to photo", false, true);
         Assert.assertEquals(1, App.getPhotoIndex().count());
     }
 }

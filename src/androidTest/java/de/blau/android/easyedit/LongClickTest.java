@@ -73,8 +73,8 @@ public class LongClickTest {
 
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -100,7 +100,7 @@ public class LongClickTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
         App.getTaskStorage().reset();
     }
 
@@ -110,11 +110,11 @@ public class LongClickTest {
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();
-        TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, false);
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, false);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device);
         Node node = App.getLogic().getSelectedNode();
@@ -130,13 +130,13 @@ public class LongClickTest {
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();
-        TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        TestUtils.clickAtCoordinates(map, 8.3895763, 47.3901374, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
-        TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
         TestUtils.clickUp(device);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device);
@@ -154,11 +154,11 @@ public class LongClickTest {
     @Test
     public void newBug() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();
-        TestUtils.longClickAtCoordinates(map, 8.3890736, 47.3896628, true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.longClickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.openstreetbug_new_bug), false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.openstreetbug_new_bug), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/openstreetbug_comment"));
         try {

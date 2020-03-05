@@ -10,9 +10,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
@@ -43,10 +45,11 @@ public class PresetTest {
      */
     @Before
     public void setup() {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = (Main) mActivityRule.getActivity();
         presets = App.getCurrentPresets(main);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

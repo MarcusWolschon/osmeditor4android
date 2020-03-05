@@ -35,7 +35,7 @@ public class MapSplitSourceTest {
     Context                     context  = null;
     AdvancedPrefDatabase        prefDB   = null;
     Main                        main     = null;
-    UiDevice                    mDevice  = null;
+    UiDevice                    device   = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -45,7 +45,7 @@ public class MapSplitSourceTest {
      */
     @Before
     public void setup() {
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
@@ -54,8 +54,8 @@ public class MapSplitSourceTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         prefDB = new AdvancedPrefDatabase(context);
         main.getMap().setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         try {
             TestUtils.copyFileFromResources(MSF_FILE, ".");
         } catch (IOException e) {
@@ -80,25 +80,25 @@ public class MapSplitSourceTest {
     @Test
     public void configureAndLoad() {
         // configure the source in the preferences
-        TestUtils.clickMenuButton("Preferences", false, true);
+        TestUtils.clickMenuButton(device, "Preferences", false, true);
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
         try {
             appView.scrollIntoView(new UiSelector().text("Advanced preferences"));
         } catch (UiObjectNotFoundException e) {
             // if there is no scrollable then this will fail
         }
-        TestUtils.clickText(mDevice, false, "Advanced preferences", true);
-        TestUtils.clickText(mDevice, false, "Server settings", true);
-        TestUtils.clickText(mDevice, false, "OSM API URL", true);
-        TestUtils.longClickText(mDevice, "OpenStreetMap");
-        TestUtils.clickText(mDevice, false, "Edit", true);
-        TestUtils.clickButton("de.blau.android:id/listedit_file_button", true);
-        TestUtils.selectFile(mDevice, null, MSF_FILE);
-        Assert.assertTrue(TestUtils.clickText(mDevice, false, "OK", true));
-        TestUtils.clickMenuButton("Navigate up", false, true);
-        TestUtils.clickMenuButton("Navigate up", false, true);
-        TestUtils.clickMenuButton("Navigate up", false, true);
-        TestUtils.clickMenuButton("Navigate up", false, true);
+        TestUtils.clickText(device, false, "Advanced preferences", true);
+        TestUtils.clickText(device, false, "Server settings", true);
+        TestUtils.clickText(device, false, "OSM API URL", true);
+        TestUtils.longClickText(device, "OpenStreetMap");
+        TestUtils.clickText(device, false, "Edit", true);
+        TestUtils.clickButton(device, "de.blau.android:id/listedit_file_button", true);
+        TestUtils.selectFile(device, null, MSF_FILE);
+        Assert.assertTrue(TestUtils.clickText(device, false, "OK", true));
+        TestUtils.clickMenuButton(device, "Navigate up", false, true);
+        TestUtils.clickMenuButton(device, "Navigate up", false, true);
+        TestUtils.clickMenuButton(device, "Navigate up", false, true);
+        TestUtils.clickMenuButton(device, "Navigate up", false, true);
 
         Map map = main.getMap();
         map.getViewBox().fitToBoundingBox(map, new BoundingBox(9.51749D, 47.13685D, 9.52597D, 47.14135D));
@@ -108,10 +108,10 @@ public class MapSplitSourceTest {
         } catch (InterruptedException e) {
         }
         // read some data from the source
-        TestUtils.clickMenuButton("Transfer", false, false);
-        TestUtils.clickText(mDevice, false, "Load current view", false);
-        TestUtils.findText(mDevice, false, "Loading", 2000); // spinner appears
-        TestUtils.textGone(mDevice, "Loading", 60000);// spinner goes away
+        TestUtils.clickMenuButton(device, "Transfer", false, false);
+        TestUtils.clickText(device, false, "Load current view", false);
+        TestUtils.findText(device, false, "Loading", 2000); // spinner appears
+        TestUtils.textGone(device, "Loading", 60000);// spinner goes away
         StorageDelegator delegator = App.getDelegator();
         Assert.assertNotNull(delegator.getOsmElement(Relation.NAME, 1252853L));
         Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 243055643L));

@@ -31,18 +31,13 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
-import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
-import de.blau.android.prefs.AdvancedPrefDatabase.GeocoderType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -73,8 +68,8 @@ public class ObjectSearchTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
 
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -96,7 +91,7 @@ public class ObjectSearchTest {
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
         map.invalidate();
-        TestUtils.unlock();
+        TestUtils.unlock(device);
         logic.setLastObjectSearches(new ArrayList<>());
         device.waitForWindowUpdate(null, 2000);
     }
@@ -107,7 +102,7 @@ public class ObjectSearchTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
     }
 
     /**
@@ -115,7 +110,7 @@ public class ObjectSearchTest {
      */
     @Test
     public void single() {
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Search for objects", true);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
         try {
@@ -124,7 +119,7 @@ public class ObjectSearchTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton("android:id/button1", true);
+        TestUtils.clickButton(device, "android:id/button1", true);
         device.waitForWindowUpdate(null, 500);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(1, selected.size());
@@ -137,7 +132,7 @@ public class ObjectSearchTest {
      */
     @Test
     public void multiple() {
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Search for objects", true);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
         try {
@@ -146,7 +141,7 @@ public class ObjectSearchTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton("android:id/button1", true);
+        TestUtils.clickButton(device, "android:id/button1", true);
         device.waitForWindowUpdate(null, 500);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(4, selected.size());
@@ -161,7 +156,7 @@ public class ObjectSearchTest {
      */
     @Test
     public void preset() {
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Search for objects", true);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
         try {
@@ -170,7 +165,7 @@ public class ObjectSearchTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton("android:id/button1", true);
+        TestUtils.clickButton(device, "android:id/button1", true);
         device.waitForWindowUpdate(null, 500);
         List<OsmElement> selected = logic.getSelectedElements();
         Assert.assertEquals(9, selected.size());

@@ -76,14 +76,14 @@ public class LayerDialogTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
         Assert.assertNotNull(main);
-        TestUtils.grantPermissons();
+        TestUtils.grantPermissons(device);
         Preferences prefs = new Preferences(main);
         tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
 
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("test2.osm");
@@ -127,7 +127,7 @@ public class LayerDialogTest {
      */
     @Test
     public void dataLayer() {
-        TestUtils.zoomToLevel(main, 21);
+        TestUtils.zoomToLevel(device, main, 21);
         String dataLayerName = map.getDataLayer().getName();
         UiObject2 extentButton = TestUtils.getLayerButton(device, dataLayerName, EXTENT_BUTTON);
         extentButton.clickAndWait(Until.newWindow(), 2000);
@@ -143,8 +143,8 @@ public class LayerDialogTest {
         visibleButton.click();
         TestUtils.clickText(device, true, main.getString(R.string.done), false);
         Assert.assertFalse(map.getDataLayer().isVisible());
-        TestUtils.unlock();
-        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, false);
+        TestUtils.unlock(device);
+        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, false);
         Assert.assertFalse(TestUtils.clickText(device, false, "Toilets", false)); // nothing should happen
         visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
@@ -159,14 +159,14 @@ public class LayerDialogTest {
      */
     @Test
     public void dataLayerPrune() {
-        TestUtils.zoomToLevel(main, 22);
+        TestUtils.zoomToLevel(device, main, 22);
         String dataLayerName = map.getDataLayer().getName();
         StorageDelegator delegator = App.getDelegator();
         Assert.assertEquals(929, delegator.getCurrentStorage().getNodeCount());
         Assert.assertEquals(99, delegator.getCurrentStorage().getWayCount());
         Assert.assertEquals(5, delegator.getCurrentStorage().getRelationCount());
-        TestUtils.unlock();
-        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, true);
+        TestUtils.unlock(device);
+        TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         Assert.assertTrue(TestUtils.findText(device, false, main.getString(R.string.actionmode_nodeselect)));
         TestUtils.clickUp(device);
         UiObject2 menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);

@@ -10,9 +10,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.support.design.widget.Snackbar;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.view.View;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
@@ -37,10 +39,11 @@ public class SnackbarTest {
      */
     @Before
     public void setup() {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
         v = main.findViewById(android.R.id.content);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -63,7 +66,7 @@ public class SnackbarTest {
         Assert.assertTrue(Snack.infoQueue.contains(s3));
 
         // just to be sure that our assumptions are true
-        Assert.assertEquals(3, Snack.QUEUE_CAPACITY); // NOSONAR 
+        Assert.assertEquals(3, Snack.QUEUE_CAPACITY); // NOSONAR
         Snack.enqueue(Snack.infoQueue, s4);
 
         Assert.assertFalse(Snack.infoQueue.contains(s1));

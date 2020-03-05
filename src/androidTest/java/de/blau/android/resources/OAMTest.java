@@ -12,11 +12,13 @@ import org.junit.runner.RunWith;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
@@ -43,7 +45,9 @@ public class OAMTest {
      */
     @Before
     public void setup() {
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        context = instrumentation.getTargetContext();
+        UiDevice device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
@@ -61,8 +65,8 @@ public class OAMTest {
         prefs = new Preferences(context);
         App.getLogic().setPrefs(prefs);
         System.out.println(prefs.getServer().getReadWriteUrl());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

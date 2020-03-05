@@ -85,8 +85,8 @@ public class OsmoseTest {
         prefs = new Preferences(context);
         App.getLogic().setPrefs(prefs);
         System.out.println(prefs.getServer().getReadWriteUrl());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -254,7 +254,7 @@ public class OsmoseTest {
     public void osmoseDialog() {
         osmoseDownload();
         OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
-        TestUtils.unlock();
+        TestUtils.unlock(device);
         try {
             Map map = main.getMap();
             MapOverlay layer = map.getTaskLayer();
@@ -268,7 +268,7 @@ public class OsmoseTest {
             Assert.assertTrue(TestUtils.clickAtCoordinatesWaitNewWindow(device, main.getMap(), b.getLon(), b.getLat()));
             UiObject saveButton = device.findObject(new UiSelector().resourceId("android:id/button1"));
             Assert.assertTrue(saveButton.exists());
-            TestUtils.clickButton("de.blau.android:id/openstreetbug_state", true);
+            TestUtils.clickButton(device, "de.blau.android:id/openstreetbug_state", true);
             TestUtils.clickText(device, false, "Closed", true);
             Assert.assertTrue(saveButton.isEnabled());
             TestUtils.clickText(device, false, "Save", true);

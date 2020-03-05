@@ -53,8 +53,8 @@ public class DragTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -78,7 +78,7 @@ public class DragTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
     }
 
     /**
@@ -100,7 +100,7 @@ public class DragTest {
         }
 
         BoundingBox before = new BoundingBox(map.getViewBox());
-        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, false, 100);
+        TestUtils.drag(device, map, 8.38782, 47.390339, 8.388, 47.391, false, 100);
         BoundingBox after = new BoundingBox(map.getViewBox());
 
         double diffLon = 8.38782 - 8.388;

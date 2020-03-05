@@ -73,8 +73,8 @@ public class SimpleActionsTest {
 
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -102,7 +102,7 @@ public class SimpleActionsTest {
         if (logic != null) {
             logic.deselectAll();
         }
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
         App.getTaskStorage().reset();
     }
 
@@ -112,12 +112,12 @@ public class SimpleActionsTest {
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();
-        TestUtils.clickButton("de.blau.android:id/simpleButton", true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickButton(device, "de.blau.android:id/simpleButton", true);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node), true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
-        TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
 
         Node node = App.getLogic().getSelectedNode();
@@ -133,18 +133,18 @@ public class SimpleActionsTest {
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();
-        TestUtils.clickButton("de.blau.android:id/simpleButton", true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickButton(device, "de.blau.android:id/simpleButton", true);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
-        TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         device.waitForIdle(1000);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
         device.waitForIdle(1000);
-        TestUtils.clickAtCoordinates(map, 8.3895763, 47.3901374, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         device.waitForIdle(1000);
-        TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
         device.waitForIdle(1000);
         TestUtils.clickUp(device);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
@@ -163,12 +163,12 @@ public class SimpleActionsTest {
     @Test
     public void newBug() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();
-        TestUtils.clickButton("de.blau.android:id/simpleButton", true);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.unlock(device);
+        TestUtils.clickButton(device, "de.blau.android:id/simpleButton", true);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_map_note), true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_note)));
-        TestUtils.clickAtCoordinates(map, 8.3890736, 47.3896628, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/openstreetbug_comment"));
         try {

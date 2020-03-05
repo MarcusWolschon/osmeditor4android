@@ -67,7 +67,7 @@ public class OffsetModeTest {
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
         Assert.assertNotNull(main);
 
-        TestUtils.grantPermissons();
+        TestUtils.grantPermissons(device);
 
         prefs = new Preferences(main);
 
@@ -82,7 +82,7 @@ public class OffsetModeTest {
         App.getLogic().setPrefs(prefs);
         main.invalidateOptionsMenu(); // to be sure that the menu entry is actually shown
         TestUtils.resetOffsets(main.getMap());
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -91,7 +91,7 @@ public class OffsetModeTest {
     @After
     public void teardown() {
         if (main != null) {
-            TestUtils.zoomToLevel(main, 18);
+            TestUtils.zoomToLevel(device, main, 18);
             TestUtils.resetOffsets(main.getMap());
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
@@ -112,7 +112,7 @@ public class OffsetModeTest {
      */
     @Test
     public void createOffset() {
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
         try {
             BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
             App.getLogic().getViewBox().setBorders(map, bbox);
@@ -126,25 +126,25 @@ public class OffsetModeTest {
             Assert.fail(e.getMessage());
         }
 
-        if (!TestUtils.clickMenuButton("Tools", false, true)) {
-            TestUtils.clickOverflowButton();
+        if (!TestUtils.clickMenuButton(device, "Tools", false, true)) {
+            TestUtils.clickOverflowButton(device);
             TestUtils.clickText(device, false, "Tools", true);
         }
         Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
         TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
         tileLayerConfiguration.setOffset(0, 0);
-        TestUtils.zoomToLevel(main, tileLayerConfiguration.getMaxZoom());
+        TestUtils.zoomToLevel(device, main, tileLayerConfiguration.getMaxZoom());
         int zoomLevel = map.getZoomLevel();
         Offset offset = tileLayerConfiguration.getOffset(zoomLevel);
         Assert.assertEquals(0D, offset.getDeltaLat(), 0.1E-4);
         Assert.assertEquals(0D, offset.getDeltaLon(), 0.1E-4);
-        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, true, 50);
-        TestUtils.clickOverflowButton();
+        TestUtils.drag(device, map, 8.38782, 47.390339, 8.388, 47.391, true, 50);
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Save to database", true);
         // 74.22 m
         TestUtils.clickText(device, false, "Cancel", true);
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Apply", true);
         TestUtils.clickUp(device);
         try {
@@ -164,7 +164,7 @@ public class OffsetModeTest {
     @Test
     public void downloadOffset() {
         mockServer.enqueue("imagery_offset");
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
         try {
             BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
             App.getLogic().getViewBox().setBorders(map, bbox);
@@ -178,16 +178,16 @@ public class OffsetModeTest {
             Assert.fail(e.getMessage());
         }
 
-        if (!TestUtils.clickMenuButton("Tools", false, true)) {
-            TestUtils.clickOverflowButton();
+        if (!TestUtils.clickMenuButton(device, "Tools", false, true)) {
+            TestUtils.clickOverflowButton(device);
             TestUtils.clickText(device, false, "Tools", true);
         }
         Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
         TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
-        TestUtils.zoomToLevel(main, tileLayerConfiguration.getMaxZoom());
+        TestUtils.zoomToLevel(device, main, tileLayerConfiguration.getMaxZoom());
         int zoomLevel = map.getZoomLevel();
-        TestUtils.clickMenuButton("From database", false, true);
+        TestUtils.clickMenuButton(device, "From database", false, true);
         TestUtils.clickText(device, false, "Apply", true);
         TestUtils.clickUp(device);
         try {

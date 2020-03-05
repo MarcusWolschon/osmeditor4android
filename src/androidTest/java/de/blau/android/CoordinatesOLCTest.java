@@ -1,10 +1,6 @@
 package de.blau.android;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -28,20 +24,11 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
-import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.exception.IllegalOperationException;
-import de.blau.android.osm.ApiTest;
-import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
-import de.blau.android.prefs.AdvancedPrefDatabase.GeocoderType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -72,8 +59,8 @@ public class CoordinatesOLCTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
 
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -82,7 +69,7 @@ public class CoordinatesOLCTest {
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
         map.invalidate();
-        TestUtils.unlock();
+        TestUtils.unlock(device);
         device.waitForWindowUpdate(null, 2000);
     }
 
@@ -92,7 +79,7 @@ public class CoordinatesOLCTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
     }
 
     /**
@@ -109,7 +96,7 @@ public class CoordinatesOLCTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton("android:id/button1", true);
+        TestUtils.clickButton(device, "android:id/button1", true);
         ViewBox box = map.getViewBox();
         double[] center = box.getCenter();
         Assert.assertEquals(0.2D, center[0], 0.01);
@@ -130,7 +117,7 @@ public class CoordinatesOLCTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton("android:id/button1", true);
+        TestUtils.clickButton(device, "android:id/button1", true);
         ViewBox box = map.getViewBox();
         double[] center = box.getCenter();
         Assert.assertEquals(103.85452D, center[0], 0.01);

@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.app.Instrumentation;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
@@ -19,6 +20,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -47,7 +49,9 @@ public class GeometryEditsTest {
      */
     @Before
     public void setup() {
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        context = instrumentation.getTargetContext();
+        UiDevice device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
@@ -59,8 +63,8 @@ public class GeometryEditsTest {
         Map map = logic.getMap();
         logic.setZoom(map, 18);
         map.getViewBox().moveTo(map, 0, 0);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(context);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, context);
     }
 
     /**
@@ -71,8 +75,8 @@ public class GeometryEditsTest {
     }
 
     /**
-     * Create a way, split it, create a turn restriction on it, split one of the ways, merge the two resulting ways back in
-     * to one, add the way to a normal relation, split it again
+     * Create a way, split it, create a turn restriction on it, split one of the ways, merge the two resulting ways back
+     * in to one, add the way to a normal relation, split it again
      */
     @UiThreadTest
     @Test
@@ -94,7 +98,7 @@ public class GeometryEditsTest {
             List<Way> wList1 = logic.getWaysForNode(n3);
             Assert.assertEquals(1, wList1.size());
             Way w2 = wList1.get(0);
-            
+
             Relation r1 = logic.createRestriction(main, w1, n2, w2, "test rest");
             List<OsmElement> mList1 = r1.getMemberElements();
             Assert.assertEquals(3, mList1.size());
@@ -191,15 +195,15 @@ public class GeometryEditsTest {
             List<Way> wList1 = logic.getWaysForNode(n3);
             Assert.assertEquals(1, wList1.size());
             Way w2 = wList1.get(0);
-            
-            // create destination_sign relation from a turn restriction for convenience 
+
+            // create destination_sign relation from a turn restriction for convenience
             Relation r1 = logic.createRestriction(main, w1, n2, w2, Tags.VALUE_DESTINATION_SIGN);
-            java.util.Map<String,String> tags = new TreeMap<>(r1.getTags());
+            java.util.Map<String, String> tags = new TreeMap<>(r1.getTags());
             tags.put(Tags.KEY_TYPE, Tags.VALUE_DESTINATION_SIGN);
             logic.setTags(null, r1, tags);
             List<RelationMember> vias = r1.getMembersWithRole(Tags.ROLE_VIA);
             Assert.assertEquals(1, vias.size());
-            vias.get(0).setRole(Tags.ROLE_INTERSECTION);            
+            vias.get(0).setRole(Tags.ROLE_INTERSECTION);
 
             // split way 2
             logic.performSplit(main, n3);
@@ -232,7 +236,7 @@ public class GeometryEditsTest {
         logic.performAdd(main, 200.0f, 200.0f);
         logic.performAdd(main, 250.0f, 250.0f);
     }
-        
+
     /**
      * Split a way that is present in a relation twice
      */

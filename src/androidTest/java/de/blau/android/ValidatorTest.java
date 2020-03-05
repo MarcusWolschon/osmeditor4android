@@ -14,9 +14,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.view.View;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.ApiTest;
@@ -41,15 +43,16 @@ public class ValidatorTest {
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
- 
+
     /**
      * Pre-test setup
      */
     @Before
     public void setup() {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -74,7 +77,7 @@ public class ValidatorTest {
             is.close();
         } catch (IOException e1) {
         }
-        
+
         Node zumRueden = (Node) App.getDelegator().getOsmElement(Node.NAME, 370530329);
         Assert.assertNotNull(zumRueden);
         Validator validator = App.getDefaultValidator(main);
@@ -137,7 +140,7 @@ public class ValidatorTest {
         // SQLiteDatabase db = new ValidatorRulesDatabaseHelper(main).getWritableDatabase();
         // ValidatorRulesDatabase.updateResurvey(db, id, key, value, days);
     }
-    
+
     /**
      * Localized validation test
      */
@@ -159,7 +162,7 @@ public class ValidatorTest {
             is.close();
         } catch (IOException e1) {
         }
-        
+
         Way constitutionHill = (Way) App.getDelegator().getOsmElement(Way.NAME, 451984385L);
         Validator validator = App.getDefaultValidator(main);
         Assert.assertEquals(Validator.OK, constitutionHill.hasProblem(main, validator));

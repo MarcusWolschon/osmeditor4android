@@ -11,6 +11,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.view.View;
 import de.blau.android.prefs.Preferences;
 
@@ -23,9 +24,10 @@ import de.blau.android.prefs.Preferences;
 @LargeTest
 public class PreferenceTest {
 
-    Main main = null;
-    View v    = null;
-    Context context = null;
+    Main     main    = null;
+    View     v       = null;
+    Context  context = null;
+    UiDevice device  = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -36,9 +38,10 @@ public class PreferenceTest {
     @Before
     public void setup() {
         main = mActivityRule.getActivity();
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(context);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, context);
     }
 
     /**

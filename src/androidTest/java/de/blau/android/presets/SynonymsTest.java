@@ -9,9 +9,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -38,8 +40,9 @@ public class SynonymsTest {
     @Before
     public void setup() {
         main = (Main) mActivityRule.getActivity();
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**

@@ -71,8 +71,8 @@ public class AddressTest {
         });
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -98,7 +98,7 @@ public class AddressTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
         App.getTaskStorage().reset();
     }
 
@@ -109,17 +109,17 @@ public class AddressTest {
     @Test
     public void newAddress() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        TestUtils.clickMenuButton(main.getString(R.string.tag_menu_address), false, true);
+        TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_address), false, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         Assert.assertTrue(TestUtils.findText(device, false, "Bergstrasse"));
-        Assert.assertTrue(TestUtils.clickMenuButton("More options", false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, "More options", false, true));
         TestUtils.clickText(device, false, main.getString(R.string.tag_menu_reset_address_prediction), true);
-        Assert.assertTrue(TestUtils.clickMenuButton(main.getString(R.string.tag_menu_address), false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_address), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, "35"));
         TestUtils.clickHome(device);
     }

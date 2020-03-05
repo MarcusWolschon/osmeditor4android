@@ -78,8 +78,8 @@ public class SearchTest {
         prefDB.addGeocoder("Nominatim2", "Nominatim2", GeocoderType.NOMINATIM, 0, mockBaseUrl.toString(), true);
         prefDB.addGeocoder("Photon", "Photon", GeocoderType.PHOTON, 0, mockBaseUrl.toString(), true);
 
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -102,7 +102,7 @@ public class SearchTest {
     public void nominatim() {
         // http://nominatim.openstreetmap.org/search?q=bergdietikon&viewboxlbrt=-8.6723573%2C24.892276%2C34.6636399%2C66.2221988&format=jsonv2
         mockServer.enqueue("nominatim");
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Find", true);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/location_search_edit"));
         try {
@@ -111,7 +111,7 @@ public class SearchTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton("de.blau.android:id/location_search_geocoder", true);
+        TestUtils.clickButton(device, "de.blau.android:id/location_search_geocoder", true);
         Assert.assertTrue(TestUtils.clickText(device, true, "Nominatim2", true));
         Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));
@@ -129,7 +129,7 @@ public class SearchTest {
     public void photon() {
         // http://photon.komoot.de/api?q=bergdietikon&lat=49.7333397512672&lon=12.9956413&limit=10
         mockServer.enqueue("photon");
-        TestUtils.clickOverflowButton();
+        TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Find", true);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/location_search_edit"));
         try {
@@ -138,7 +138,7 @@ public class SearchTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton("de.blau.android:id/location_search_geocoder", true);
+        TestUtils.clickButton(device, "de.blau.android:id/location_search_geocoder", true);
         Assert.assertTrue(TestUtils.clickText(device, true, "Photon", true));
         Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));

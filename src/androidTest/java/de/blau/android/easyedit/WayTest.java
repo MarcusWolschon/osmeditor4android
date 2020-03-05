@@ -63,8 +63,8 @@ public class WayTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
@@ -89,7 +89,7 @@ public class WayTest {
     @After
     public void teardown() {
         logic.deselectAll();
-        TestUtils.zoomToLevel(main, 18);
+        TestUtils.zoomToLevel(device, main, 18);
     }
 
     /**
@@ -98,9 +98,9 @@ public class WayTest {
     @Test
     public void selectWay() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
@@ -119,13 +119,13 @@ public class WayTest {
         logic.setTags(main, shouldntBeDeleted1, tags);
         //
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
-        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
         String menuInfo = context.getString(R.string.menu_information);
         TestUtils.scrollTo(menuInfo);
         Assert.assertTrue(TestUtils.clickText(device, false, menuInfo, true));
         Assert.assertTrue(TestUtils.findText(device, false, "asphalt"));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true));
-        Assert.assertTrue(TestUtils.clickOverflowButton());
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
         String menuDelete = context.getString(R.string.delete);
         TestUtils.scrollTo(menuDelete);
         Assert.assertTrue(TestUtils.clickText(device, false, menuDelete, true));
@@ -138,11 +138,11 @@ public class WayTest {
         Node shouldntBeDeleted2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766174);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, shouldntBeDeleted2.getState());
         // undo
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         Assert.assertTrue(way.hasParentRelation(6490362L));
-        Assert.assertEquals(1,way.getParentRelations().size());
+        Assert.assertEquals(1, way.getParentRelations().size());
         List<Node> nodes = way.getNodes();
         Assert.assertEquals(origWayNodes.size(), nodes.size());
         for (int i = 0; i < nodes.size(); i++) {
@@ -156,9 +156,9 @@ public class WayTest {
     @Test
     public void geometryImprovement() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
-        TestUtils.zoomToLevel(main, 21);
-        TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
         Way way = App.getLogic().getSelectedWay();
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
@@ -169,12 +169,12 @@ public class WayTest {
         int originalNodeCount = App.getDelegator().getApiNodeCount();
 
         // drag a handle
-        TestUtils.drag(map, 8.3893800, 47.389559, 8.38939, 47.389550, false, 10);
+        TestUtils.drag(device, map, 8.3893800, 47.389559, 8.38939, 47.389550, false, 10);
         Assert.assertEquals(origWayNodes.size() + 1, way.getNodes().size());
         Assert.assertEquals(originalNodeCount + 1, App.getDelegator().getApiNodeCount());
 
         // undo
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
         List<Node> nodes = way.getNodes();

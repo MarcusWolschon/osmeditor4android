@@ -48,7 +48,7 @@ public class PresetEditorTest {
     AdvancedPrefDatabase prefDB          = null;
     Instrumentation      instrumentation = null;
     Main                 main            = null;
-    UiDevice             mDevice         = null;
+    UiDevice             device          = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -66,9 +66,9 @@ public class PresetEditorTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(main);
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
     }
 
     /**
@@ -103,23 +103,23 @@ public class PresetEditorTest {
         }
         response.setBody(buffer);
         mockServer.server().enqueue(response);
-        TestUtils.clickText(mDevice, false, main.getString(R.string.urldialog_add_preset), false);
-        mDevice.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/listedit_editName")), 500);
-        UiObject name = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/listedit_editName"));
+        TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false);
+        device.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/listedit_editName")), 500);
+        UiObject name = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/listedit_editName"));
         try {
             name.setText("Test");
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        UiObject value = mDevice.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/listedit_editValue"));
+        UiObject value = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/listedit_editValue"));
         try {
             value.setText(url.toString());
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickText(mDevice, true, main.getString(R.string.okay), true);
-        TestUtils.clickText(mDevice, false, "Test", false);
-        TestUtils.clickHome(mDevice);
+        TestUtils.clickText(device, true, main.getString(R.string.okay), true);
+        TestUtils.clickText(device, false, "Test", false);
+        TestUtils.clickHome(device);
         App.resetPresets();
         Preset[] presets = App.getCurrentPresets(main);
         Assert.assertEquals(3, presets.length);
