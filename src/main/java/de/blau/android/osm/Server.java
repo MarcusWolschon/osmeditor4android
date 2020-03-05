@@ -52,6 +52,7 @@ import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
@@ -100,7 +101,7 @@ public class Server {
     /**
      * Location of optional read only OSM API
      */
-    private final String readonlyURL;
+    private String readonlyURL;
 
     /**
      * MapSplit tiled OSM data source
@@ -194,7 +195,7 @@ public class Server {
      * @param api an API object containing the current settings
      * @param generator how we identify ourself for APIs
      */
-    public Server(Context context, final API api, final String generator) {
+    public Server(@NonNull Context context, @NonNull final API api, @NonNull final String generator) {
         Log.d(DEBUG_TAG, "constructor");
         if (api.url != null && !api.url.equals("")) {
             this.serverURL = api.url;
@@ -233,6 +234,9 @@ public class Server {
                 tempDB = new MBTileProviderDataBase(context, readOnlyUri, 1);
             } catch (SQLiteException sqlex) {
                 Log.e(DEBUG_TAG, "Unable to open db " + readOnlyUri);
+                Snack.toastTopError(context, context.getString(R.string.toast_unable_to_open_offline_data, getReadOnlyUrl(), sqlex.getLocalizedMessage()));
+                // zap readonly api as it is broken
+                this.readonlyURL = null;
             }
             mapSplitSource = tempDB;
         } else {
@@ -657,40 +661,43 @@ public class Server {
     public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, int connectTimeout, int readTimeout)
             throws IOException, OsmServerException {
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
-
-        Request request = new Request.Builder().url(url).build();
-        OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).readTimeout(readTimeout,
-                TimeUnit.MILLISECONDS);
-        // if (oauth) {
-        // OAuthHelper oa = new OAuthHelper();
-        // OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadOnlyUrl()));
-        // if (consumer != null) {
-        // consumer.setTokenWithSecret(accesstoken, accesstokensecret);
-        // builder.addInterceptor(new SigningInterceptor(consumer));
-        // }
-        // }
-        OkHttpClient client = builder.build();
-        Call readCall = client.newCall(request);
-        Response readCallResponse = readCall.execute();
-        if (readCallResponse.isSuccessful()) {
-            ResponseBody responseBody = readCallResponse.body();
-            return responseBody.byteStream();
-        } else {
-            if (context instanceof Activity) {
-                final int responseCode = readCallResponse.code();
-                final String responseMessage = readCallResponse.message();
-                if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
-                    ((Activity) context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage));
-                        }
-                    });
-                } else {
-                    ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, responseMessage));
+        try {
+            Request request = new Request.Builder().url(url).build();
+            OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).readTimeout(readTimeout,
+                    TimeUnit.MILLISECONDS);
+            // if (oauth) {
+            // OAuthHelper oa = new OAuthHelper();
+            // OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadOnlyUrl()));
+            // if (consumer != null) {
+            // consumer.setTokenWithSecret(accesstoken, accesstokensecret);
+            // builder.addInterceptor(new SigningInterceptor(consumer));
+            // }
+            // }
+            OkHttpClient client = builder.build();
+            Call readCall = client.newCall(request);
+            Response readCallResponse = readCall.execute();
+            if (readCallResponse.isSuccessful()) {
+                ResponseBody responseBody = readCallResponse.body();
+                return responseBody.byteStream();
+            } else {
+                if (context instanceof Activity) {
+                    final int responseCode = readCallResponse.code();
+                    final String responseMessage = readCallResponse.message();
+                    if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
+                        ((Activity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage));
+                            }
+                        });
+                    } else {
+                        ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, responseMessage));
+                    }
                 }
+                throwOsmServerException(readCallResponse);
             }
-            throwOsmServerException(readCallResponse);
+        } catch (IllegalArgumentException iaex) {
+            ACRAHelper.nocrashReport(null, iaex.getMessage());
         }
         return null;
     }
