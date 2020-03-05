@@ -1,6 +1,7 @@
 package de.blau.android.prefs;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +17,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * The handling of PreferenceScreen is partially based on
@@ -66,6 +68,12 @@ public abstract class PrefEditorActivity extends AppCompatActivity implements Pr
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Util.clearCaches(this, newConfig);
     }
 
     /**

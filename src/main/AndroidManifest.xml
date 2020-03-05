@@ -52,7 +52,7 @@
         </activity>
         <activity
             android:name=".Main"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:launchMode="singleTask"
             android:theme="@style/Theme.customMain" >
             <meta-data
@@ -83,33 +83,34 @@
         <activity
             android:name=".prefs.PrefEditor"
             android:label="@string/menu_config"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.AppCompatPrefs" />
         <activity
             android:name=".prefs.AdvancedPrefEditor"
             android:label="@string/app_name_version"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.AppCompatPrefs" />
         <activity
             android:name="BoxPicker"
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".propertyeditor.PropertyEditor"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.customTagEditor" />
         <activity
             android:name=".prefs.APIEditorActivity"
             android:label="@string/manage_apis"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.PresetEditorActivity"
             android:label="@string/manage_presets"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.GeocoderEditorActivity"
             android:label="@string/manage_geocoders"
-            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale"
             android:theme="@style/Theme.custom" />
         <activity
             android:name=".prefs.VespucciURLActivity"

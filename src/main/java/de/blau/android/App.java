@@ -169,7 +169,7 @@ public class App extends android.app.Application {
     }
 
     /**
-     * Retrieve the saved COnfiguration object
+     * Retrieve the saved Configuration object
      * 
      * @return the saved Configuration or null
      */

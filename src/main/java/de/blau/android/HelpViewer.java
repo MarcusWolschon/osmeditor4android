@@ -394,6 +394,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        Util.clearCaches(this, newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -416,7 +417,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             tocAdapter.notifyDataSetChanged();
         }
     }
-    
+
     /**
      * Set the action bar title
      * 

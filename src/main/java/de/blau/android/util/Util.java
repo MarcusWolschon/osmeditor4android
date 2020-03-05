@@ -576,7 +576,7 @@ public final class Util {
     public static void clearCaches(@NonNull Context context, @NonNull Configuration newConfig) {
         Configuration oldConfig = App.getConfiguration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi) {
+            if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi || oldConfig.fontScale != newConfig.fontScale) {
                 // if the density has changed the icons will have wrong dimension remove them
                 clearIconCaches(context);
                 App.setConfiguration(newConfig);

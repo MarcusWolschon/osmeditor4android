@@ -1867,11 +1867,13 @@ public class Preset implements Serializable {
      */
     public abstract class PresetElement implements Serializable {
 
+        private static final int         VIEW_PADDING     = 4;
+        private static final int         VIEW_SIDE_LENGTH = 72;
         public static final int          ICON_SIZE_DP     = 36;
         /**
          * 
          */
-        private static final long        serialVersionUID = 5L;
+        private static final long        serialVersionUID = 6L;
         String                           name;
         String                           nameContext      = null;
         private String                   iconpath;
@@ -1972,7 +1974,7 @@ public class Preset implements Serializable {
         @NonNull
         public Drawable getIcon() {
             if (icon == null) {
-                icon = getIcon(iconpath, ICON_SIZE_DP);
+                icon = getIcon(iconpath, (int) (ICON_SIZE_DP * App.getConfiguration().fontScale));
             }
             return icon;
         }
@@ -2058,8 +2060,6 @@ public class Preset implements Serializable {
          */
         private TextView getBaseView(@NonNull Context ctx, boolean selected) {
             Resources res = ctx.getResources();
-            // GradientDrawable shape = new GradientDrawable();
-            // shape.setCornerRadius(8);
             TextView v = new TextView(ctx);
             float density = res.getDisplayMetrics().density;
             v.setText(getTranslatedName());
@@ -2067,14 +2067,18 @@ public class Preset implements Serializable {
             v.setMaxLines(3);
             TextSize.setIconTextSize(v);
             v.setEllipsize(TextUtils.TruncateAt.END);
-            v.setPadding((int) (4 * density), (int) (4 * density), (int) (4 * density), (int) (4 * density));
+            float scale = App.getConfiguration().fontScale * density;
+            float padding = VIEW_PADDING * scale;
+            v.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
             Drawable viewIcon = getIcon();
             v.setCompoundDrawables(null, viewIcon, null, null);
             // this seems to be necessary to work around
             // https://issuetracker.google.com/issues/37003658
-            v.setLayoutParams(new LinearLayout.LayoutParams((int) (72 * density), (int) (72 * density)));
-            v.setWidth((int) (72 * density));
-            v.setHeight((int) (72 * density));
+
+            float sideLength = VIEW_SIDE_LENGTH * scale;
+            v.setLayoutParams(new LinearLayout.LayoutParams((int) sideLength, (int) sideLength));
+            v.setWidth((int) sideLength);
+            v.setHeight((int) sideLength);
             v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
             v.setSaveEnabled(false);
             return v;

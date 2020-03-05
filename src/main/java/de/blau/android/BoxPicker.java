@@ -7,6 +7,7 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -45,6 +46,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Util;
 
 /**
  * Activity in which the user can pick a Location and a radius (more precisely: a square with "radius" as half of the
@@ -257,6 +259,12 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Util.clearCaches(this, newConfig);
     }
 
     /**

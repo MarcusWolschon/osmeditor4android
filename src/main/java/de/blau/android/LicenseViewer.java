@@ -2,6 +2,7 @@ package de.blau.android;
 
 import java.io.InputStreamReader;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
+import de.blau.android.util.Util;
 
 /**
  * Show licence and author information for the app
@@ -59,6 +61,12 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Util.clearCaches(this, newConfig);
+    }
+
     /**
      * Load a text file in to a String
      * 
@@ -79,7 +87,7 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
      */
     private void load(@NonNull String filename, @NonNull StringBuilder builder) {
         builder.append("== " + filename + " ==\n");
-        try (InputStreamReader reader = new InputStreamReader(getAssets().open(filename), OsmXml.UTF_8)) {           
+        try (InputStreamReader reader = new InputStreamReader(getAssets().open(filename), OsmXml.UTF_8)) {
             int read = 0;
             do {
                 char[] buf = new char[4096];
