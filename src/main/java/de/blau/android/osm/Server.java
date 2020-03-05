@@ -577,7 +577,8 @@ public class Server {
      * @throws OsmServerException thrown for API specific errors
      * @throws IOException thrown general IO problems
      */
-    public InputStream getStreamForBox(@Nullable final Context context, final BoundingBox box) throws OsmServerException, IOException {
+    @NonNull
+    public InputStream getStreamForBox(@Nullable final Context context, @NonNull final BoundingBox box) throws OsmServerException, IOException {
         Log.d(DEBUG_TAG, "getStreamForBox");
         URL url = new URL(getReadOnlyUrl() + "map?bbox=" + box.toApiString());
         return openConnection(context, url);
@@ -594,6 +595,7 @@ public class Server {
      * @throws OsmServerException thrown for API specific errors
      * @throws IOException thrown general IO problems
      */
+    @NonNull
     public InputStream getStreamForElement(@Nullable final Context context, @Nullable final String mode, @NonNull final String type, final long id)
             throws OsmServerException, IOException {
         Log.d(DEBUG_TAG, "getStreamForElement");
@@ -611,6 +613,7 @@ public class Server {
      * @throws OsmServerException thrown for API specific errors
      * @throws IOException thrown general IO problems
      */
+    @NonNull
     public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids)
             throws OsmServerException, IOException {
         Log.d(DEBUG_TAG, "getStreamForElements");
@@ -643,6 +646,7 @@ public class Server {
      * @throws IOException
      * @throws OsmServerException
      */
+    @NonNull
     public static InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException, OsmServerException {
         return openConnection(context, url, TIMEOUT, TIMEOUT);
     }
@@ -655,9 +659,11 @@ public class Server {
      * @param connectTimeout connection timeout in ms
      * @param readTimeout read timeout in ms
      * @return the InputStream
-     * @throws IOException
-     * @throws OsmServerException
+     * @throws IOException on any IO and other error
+     * @throws OsmServerException if we got an error from the remote server
+     * 
      */
+    @NonNull
     public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, int connectTimeout, int readTimeout)
             throws IOException, OsmServerException {
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
@@ -697,9 +703,9 @@ public class Server {
                 throwOsmServerException(readCallResponse);
             }
         } catch (IllegalArgumentException iaex) {
-            ACRAHelper.nocrashReport(null, iaex.getMessage());
+            throw new IOException("Illegal argument", iaex);
         }
-        return null;
+        throw new IOException("openCOnnection this can't happen"); // this is actually unreachable
     }
 
     /**
@@ -1805,12 +1811,6 @@ public class Server {
             Log.d(DEBUG_TAG, "getNotesForBox");
             URL url = getNotesForBox(limit, area);
             InputStream is = openConnection(null, url);
-
-            if (is == null) {
-                return new ArrayList<>(); // TODO Return empty list ... this is better than throwing an uncatched
-                                          // exception, but we should provide some user feedback
-            }
-
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             int eventType;
@@ -1847,12 +1847,6 @@ public class Server {
             Log.d(DEBUG_TAG, "getNote");
             URL url = getNoteUrl(Long.toString(id));
             InputStream is = openConnection(null, url);
-            if (is == null) {
-                return null; // TODO Return empty list ... this is better than throwing an uncatched exception, but we
-                             // should provide some user feedback
-                // throw new UnexpectedRequestException(con);
-            }
-
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(new BufferedInputStream(is, StreamUtils.IO_BUFFER_SIZE), null);
             int eventType;
