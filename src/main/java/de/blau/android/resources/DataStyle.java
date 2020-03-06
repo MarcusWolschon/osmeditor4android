@@ -136,7 +136,7 @@ public final class DataStyle extends DefaultHandler {
     private static final String STYLE_ATTR            = "style";
     private static final String CAP_ATTR              = "cap";
     private static final String JOIN_ATTR             = "join";
-    private static final String STROKEWIDTH_ATTR      = "strokewidth";
+    private static final String STROKEWIDTH_ATTR      = "strokeWidth";
     private static final String TEXTSIZE_ATTR         = "textsize";
     private static final String PHASE_ATTR            = "phase";
     private static final String LENGTH_ATTR           = "length";
