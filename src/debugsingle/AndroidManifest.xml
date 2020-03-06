@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.blau.android" >
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+
+        <!--
+        The following are run in separate processes when not testing,
+        however then we do not get any coverage information
+        -->
+
+        <activity
+            android:name="HelpViewer"
+            android:launchMode="singleTask"
+            android:taskAffinity=".HelpViewer"
+            tools:node="replace" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".services.MapTileProviderService"
+            android:exported="false"
+            android:label="MapTileProviderService"
+            tools:node="replace" >
+            <intent-filter>
+                <action android:name="de.blau.android.services.IMapTileProviderService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
