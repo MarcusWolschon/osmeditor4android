@@ -76,7 +76,6 @@ public class MapTileProviderServiceTest {
      */
     @Test
     public void startService() {
-
         MapTileProvider provider = new MapTileProvider(context, new TileHandler());
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
@@ -84,7 +83,6 @@ public class MapTileProviderServiceTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(provider.connected());
-        System.out.println(provider.getCacheUsageInfo());
         provider.update();
         MapTile tile = new MapTile(RENDERER, 19, 274337, 183513);
         Assert.assertNull(provider.getMapTile(tile, 123456L));
@@ -111,7 +109,6 @@ public class MapTileProviderServiceTest {
 
         @Override
         public void handleMessage(final Message msg) {
-            System.out.println("Message " + msg);
             if (msg.what == MapTile.MAPTILE_SUCCESS_ID) {
                 signal.countDown();
             }
