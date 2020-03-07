@@ -1020,7 +1020,7 @@ public class TileLayerServer implements Serializable {
                 }
             }
 
-            if (type == null || url == null || (isWMS && proj == null) || TYPE_WMS_ENDPOINT.equals(type)) {
+            if (type == null || url == null || (isWMS && proj == null) || TYPE_WMS_ENDPOINT.equals(type) || url.contains("{apikey}")) {
                 Log.w(DEBUG_TAG, "skipping name " + name + " id " + id + " type " + type + " url " + url);
                 if (TYPE_WMS.equals(type)) {
                     Log.w(DEBUG_TAG, "projections: " + projections);
