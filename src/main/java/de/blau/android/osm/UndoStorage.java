@@ -440,8 +440,20 @@ public class UndoStorage implements Serializable {
             // we sort according to element type and relation membership so that
             // all member elements should be restored before their parents
             Collections.sort(list, elementOrder);
+            boolean restoredNode = false;
             for (UndoElement ue : list) {
+                if (ue instanceof UndoNode) {
+                    restoredNode = true;
+                }
                 ok = ok && ue.restore();
+            }
+            if (restoredNode) {
+                // zap the bounding box of all ways as their geometry may have changed
+                //
+                // this looks expensive but is actually the cheapest option
+                for (Way way : currentStorage.getWays()) {
+                    way.invalidateBoundingBox();
+                }
             }
             return ok;
         }
