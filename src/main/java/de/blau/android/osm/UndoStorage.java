@@ -39,6 +39,7 @@ import de.blau.android.util.ACRAHelper;
  * to calls to updateIcon. You have been warned.
  * 
  * @author Jan Schejbal
+ * @author Simon Poole
  */
 public class UndoStorage implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -211,6 +212,31 @@ public class UndoStorage implements Serializable {
     }
 
     /**
+     * Get the current BoundingBox of the elements affected by the last Checkpoint
+     * 
+     * @return a BoundingBox or null
+     */
+    @Nullable
+    public BoundingBox getCurrentBounds() {
+        if (undoCheckpoints.isEmpty()) {
+            return null;
+        }
+        Checkpoint checkpoint = undoCheckpoints.getLast();
+        BoundingBox result = null;
+        for (UndoElement ue : checkpoint.elements.values()) {
+            BoundingBox box = ue.element.getBounds();
+            if (box != null) {
+                if (result == null) {
+                    result = box;
+                } else {
+                    result.union(box);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Get the BoundingBox of the last Checkpoint
      * 
      * @return a BoundingBox or null
@@ -233,7 +259,7 @@ public class UndoStorage implements Serializable {
     public BoundingBox getBounds(@NonNull Checkpoint checkpoint) {
         BoundingBox result = null;
         for (UndoElement ue : checkpoint.elements.values()) {
-            BoundingBox box = ue.getBounds();
+            BoundingBox box = ue.getBounds(checkpoint);
             if (box != null) {
                 if (result == null) {
                     result = box;
@@ -373,7 +399,7 @@ public class UndoStorage implements Serializable {
          * 
          * @param name name of the checkpoint
          */
-        public Checkpoint(String name) {
+        public Checkpoint(@NonNull String name) {
             this.name = name;
         }
 
@@ -678,10 +704,11 @@ public class UndoStorage implements Serializable {
         /**
          * Get a BoundingBox for the element
          * 
+         * @param checkpoint the Checkpoint this element is located in
          * @return a BoundingBox or null
          */
         @Nullable
-        public abstract BoundingBox getBounds();
+        public abstract BoundingBox getBounds(@NonNull Checkpoint checkpoint);
     }
 
     /**
@@ -730,7 +757,7 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public BoundingBox getBounds() {
+        public BoundingBox getBounds(Checkpoint checkpoint) {
             return new BoundingBox(getLon(), getLat());
         }
     }
@@ -770,6 +797,7 @@ public class UndoStorage implements Serializable {
                 // if no nodes we are restoring to pre-creation state without nodes which is ok
                 Log.e(DEBUG_TAG, element.getDescription() + " is missing all nodes");
                 // note this still allows ways with 1 node to be created which might be necessary
+                ((Way) element).invalidateBoundingBox();
                 return false;
             }
             // now we can restore with confidence
@@ -827,16 +855,8 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public BoundingBox getBounds() {
-            BoundingBox result = null;
-            for (Node n : nodes) {
-                if (result == null) {
-                    result = new BoundingBox(n.getLon(), n.getLat());
-                } else {
-                    result.union(n.getLon(), n.getLat());
-                }
-            }
-            return result;
+        public BoundingBox getBounds(Checkpoint checkpoint) {
+            return UndoStorage.getBounds(checkpoint, nodes);
         }
     }
 
@@ -846,6 +866,8 @@ public class UndoStorage implements Serializable {
      * @see UndoElement
      */
     public class UndoRelation extends UndoElement implements Serializable {
+
+        private static final String        DEBUG_TAG        = "UndoRelation";
         private static final long          serialVersionUID = 1L;
         private final List<RelationMember> members;
 
@@ -917,19 +939,8 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public BoundingBox getBounds() {
-            BoundingBox result = null;
-            for (RelationMember rm : getMembers()) {
-                OsmElement e = rm.getElement();
-                if (e != null) {
-                    if (result == null) {
-                        result = new BoundingBox(e.getBounds());
-                    } else {
-                        result.union(e.getBounds());
-                    }
-                }
-            }
-            return result;
+        public BoundingBox getBounds(Checkpoint checkpoint) {
+            return UndoStorage.getBounds(checkpoint, getMembers(), 1);
         }
     }
 
@@ -990,6 +1001,93 @@ public class UndoStorage implements Serializable {
             UndoElement undoElement = undoCheckpoints.get(i).elements.get(element);
             if (undoElement != null) {
                 result = undoElement;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Return a bounding box covering the relation with loop protection
+     * 
+     * This will stop when depth > MAX_DEPTH
+     * 
+     * The method tries to use any element that is contained in the Checkpoint, if this is not the top checkpoint and
+     * the relation contains elements that were changed in later checkpoints the result will be incorrect.
+     * 
+     * @param checkpoint the current Checkpoint holding the element
+     * @param members the relation members
+     * @param depth current depth in the tree we are at
+     * @return the BoundingBox or null if it cannot be determined
+     */
+    @Nullable
+    private static BoundingBox getBounds(@NonNull Checkpoint checkpoint, @NonNull List<RelationMember> members, int depth) {
+        // NOTE this will only return a bb covering the downloaded elements
+        BoundingBox result = null;
+        if (depth <= 3) { // FIXME use the same value as in Relation
+            for (RelationMember rm : members) {
+                OsmElement e = rm.getElement();
+                UndoElement ue = checkpoint.elements.get(e);
+                BoundingBox box = null;
+                if (ue != null) {
+                    if (ue instanceof UndoRelation) {
+                        box = getBounds(checkpoint, ((UndoRelation) ue).getMembers(), depth + 1);
+                    } else if (ue instanceof UndoWay) {
+                        box = getBounds(checkpoint, ((UndoWay) ue).nodes);
+                    } else {
+                        box = ue.getBounds(checkpoint);
+                    }
+                } else if (e != null) {
+                    if (e instanceof Relation) {
+                        box = getBounds(checkpoint, ((Relation) e).getMembers(), depth + 1);
+                    } else if (e instanceof Way) {
+                        box = getBounds(checkpoint, ((Way) e).getNodes());
+                    } else {
+                        box = e.getBounds();
+                    }
+                }
+                if (box != null) {
+                    if (result == null) {
+                        result = box;
+                    } else {
+                        if (box != null) {
+                            result.union(box);
+                        }
+                    }
+                }
+            }
+        } else {
+            Log.e(DEBUG_TAG, "getBounds relation nested too deep");
+        }
+        return result;
+    }
+
+    /**
+     * Return a bounding box covering a way
+     * 
+     * The method tries to use any node that is contained in the Checkpoint, if this is not the top checkpoint and the
+     * way contains nodes that were changed in later checkpoints the result will be incorrect.
+     * 
+     * @param checkpoint the current Checkpoint holding the way
+     * @param nodes the list of way nodes
+     * @return the BoundingBox or null (for a degenerate Way with no nodes)
+     */
+    @Nullable
+    private static BoundingBox getBounds(@NonNull Checkpoint checkpoint, @NonNull List<Node> nodes) {
+        BoundingBox result = null;
+        for (Node n : nodes) {
+            UndoNode un = (UndoNode) checkpoint.elements.get(n);
+            if (un == null) {
+                if (result == null) {
+                    result = new BoundingBox(n.getLon(), n.getLat());
+                } else {
+                    result.union(n.getLon(), n.getLat());
+                }
+            } else {
+                if (result == null) {
+                    result = new BoundingBox(un.getLon(), un.getLat());
+                } else {
+                    result.union(un.getLon(), un.getLat());
+                }
             }
         }
         return result;

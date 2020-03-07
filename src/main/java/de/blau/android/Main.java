@@ -2054,7 +2054,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_goto_last_edit:
-            BoundingBox box = logic.getUndo().getLastBounds();
+            BoundingBox box = logic.getUndo().getCurrentBounds();
             if (box != null) {
                 setFollowGPS(false);
                 if (box.isEmpty()) {
@@ -3376,9 +3376,36 @@ public class Main extends FullScreenAppCompatActivity
         private final String DEBUG_TAG = UndoListener.class.getName();
 
         @Override
-        public void onClick(View arg0) {
+        public void onClick(View view) {
             Log.d(DEBUG_TAG, "normal click");
             final Logic logic = App.getLogic();
+            BoundingBox undoBox = logic.getUndo().getLastBounds();
+            if (undoBox != null && !map.getViewBox().intersects(undoBox)) {
+                // undo location is not in view
+                new AlertDialog.Builder(Main.this).setTitle(R.string.undo_location_title).setMessage(R.string.undo_location_text)
+                        .setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.undo_location_undo_anyway, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                undo(logic);
+                            }
+                        }).setPositiveButton(R.string.undo_location_zoom, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                map.getViewBox().fitToBoundingBox(map, undoBox);
+                                undo(logic);
+                            }
+                        }).create().show();
+                return;
+            }
+            undo(logic);
+        }
+
+        /**
+         * Actually undo
+         * 
+         * @param logic the current Logic instance
+         */
+        void undo(@NonNull final Logic logic) {
             String name = logic.undo();
             if (name != null) {
                 Snack.toastTopInfo(Main.this, getResources().getString(R.string.undo) + ": " + name);

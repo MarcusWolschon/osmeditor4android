@@ -299,6 +299,11 @@
     <string name="undo_redo_one">Just selected checkpoint (unsafe)</string>
     <string name="undo_all">Undo all later checkpoints (safe)</string>
     <string name="redo_all">Redo all earlier checkpoints (safe)</string>
+    <!-- Undo location not in view dialog -->
+    <string name="undo_location_title">Undo location is not in view</string>
+    <string name="undo_location_text">The location that will be affected by the undo is not in view.</string>
+    <string name="undo_location_undo_anyway">Undo anyway</string>
+    <string name="undo_location_zoom">Zoom to location, then undo</string>
     <!--  Feedback activity  -->
     <string name="feedback_with_displayname">Send with your OpenStreetMap display name</string>
     <string name="feedback_displayname_hint">OpenStreetMap display name not retrieved yet</string>
