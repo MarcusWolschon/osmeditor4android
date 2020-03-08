@@ -3307,13 +3307,13 @@ public class Logic {
                 synchronized (Logic.this) {
                     try (final InputStream in = new BufferedInputStream(is)) {
                         OsmChangeParser oscParser = new OsmChangeParser();
-                        oscParser.clearBoundingBoxes(); // this removes the default bounding box                      
+                        oscParser.clearBoundingBoxes(); // this removes the default bounding box
                         oscParser.start(in);
                         StorageDelegator sd = getDelegator();
                         createCheckpoint(activity, R.string.undo_action_apply_osc);
                         if (!sd.applyOsc(oscParser.getStorage(), null)) {
                             removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
-                            return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, "Applying OSC file failed");
+                            return new ReadAsyncResult(ErrorCodes.APPLYING_OSC_FAILED);
                         }
                         if (map != null) {
                             viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous

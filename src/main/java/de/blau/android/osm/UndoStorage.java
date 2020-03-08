@@ -103,6 +103,24 @@ public class UndoStorage implements Serializable {
     }
 
     /**
+     * Construct a copy of a UndoStorage
+     * 
+     * @param undoStorage the UndoStorage to copy
+     * @param currentStorage the currentStorage to use
+     * @param apiStorage the apiStorage to use
+     */
+    public UndoStorage(@NonNull UndoStorage undoStorage, @NonNull Storage currentStorage, @NonNull Storage apiStorage) {
+        this.currentStorage = currentStorage;
+        this.apiStorage = apiStorage;
+        for (Checkpoint cp : undoStorage.undoCheckpoints) {
+            undoCheckpoints.add(new Checkpoint(cp));
+        }
+        for (Checkpoint cp : undoStorage.redoCheckpoints) {
+            redoCheckpoints.add(new Checkpoint(cp));
+        }
+    }
+
+    /**
      * Set currentStorage without creating a new instance
      * 
      * @param currentStorage the current OsmElement storage
@@ -373,8 +391,18 @@ public class UndoStorage implements Serializable {
          * 
          * @param name name of the checkpoint
          */
-        public Checkpoint(String name) {
+        public Checkpoint(@NonNull String name) {
             this.name = name;
+        }
+
+        /**
+         * Construct a copy of a checkpoint
+         * 
+         * @param cp the original Checkpoint
+         */
+        public Checkpoint(@NonNull Checkpoint cp) {
+            name = cp.name;
+            elements.putAll(cp.elements);
         }
 
         /**
@@ -399,6 +427,7 @@ public class UndoStorage implements Serializable {
             if (elements.containsKey(element)) {
                 return;
             }
+            Log.d(DEBUG_TAG, "Saving " + element.getDescription(true) + " current " + inCurrentStorage + " api " + inApiStorage);
             if (element instanceof Node) {
                 elements.put(element, new UndoNode((Node) element, inCurrentStorage, inApiStorage));
             } else if (element instanceof Way) {
@@ -434,7 +463,7 @@ public class UndoStorage implements Serializable {
             List<UndoElement> list = new ArrayList<>(elements.values());
             if (redoCheckpoint != null) {
                 for (UndoElement ue : list) {
-                    redoCheckpoint.add(ue.element); // save current state
+                    redoCheckpoint.add(getUptodateElement(ue.element)); // save current state
                 }
             }
             // we sort according to element type and relation membership so that
@@ -445,7 +474,7 @@ public class UndoStorage implements Serializable {
                 if (ue instanceof UndoNode) {
                     restoredNode = true;
                 }
-                ok = ok && ue.restore();
+                ok = (ue.restore() != null) && ok;
             }
             if (restoredNode) {
                 // zap the bounding box of all ways as their geometry may have changed
@@ -455,6 +484,7 @@ public class UndoStorage implements Serializable {
                     way.invalidateBoundingBox();
                 }
             }
+            App.getDelegator().fixupBacklinks();
             return ok;
         }
 
@@ -511,7 +541,7 @@ public class UndoStorage implements Serializable {
         private final boolean inCurrentStorage;
         private final boolean inApiStorage;
 
-        private final ArrayList<Relation> parentRelations;
+        private final ArrayList<Relation> parentRelations; // FIXME remove in next major revision
 
         /**
          * Create a new undo object
@@ -531,11 +561,7 @@ public class UndoStorage implements Serializable {
             state = originalElement.state;
             tags = originalElement.tags == null ? new TreeMap<>() : new TreeMap<>(originalElement.tags);
 
-            if (originalElement.parentRelations != null) {
-                parentRelations = new ArrayList<>(originalElement.parentRelations);
-            } else {
-                parentRelations = null;
-            }
+            parentRelations = null;
         }
 
         /**
@@ -543,47 +569,38 @@ public class UndoStorage implements Serializable {
          * 
          * @return true if the restore was successful
          */
-        public boolean restore() {
+        public OsmElement restore() {
             // Restore element existence
-            Log.e(DEBUG_TAG, "restoring " + element.getDescription() + " current " + inCurrentStorage + " api " + inApiStorage);
+            Log.e(DEBUG_TAG, "restoring " + element.getDescription() + " state " + state + " current " + inCurrentStorage + " api " + inApiStorage);
+            OsmElement restored = getUptodateElement(element);
             try {
                 if (inCurrentStorage) {
-                    currentStorage.insertElementSafe(element);
+                    currentStorage.insertElementSafe(restored);
                 } else {
-                    currentStorage.removeElement(element);
+                    Log.e(DEBUG_TAG, "removing from current");
+                    currentStorage.removeElement(restored);
                 }
                 if (inApiStorage) {
-                    apiStorage.insertElementSafe(element);
+                    apiStorage.insertElementSafe(restored);
                 } else {
-                    apiStorage.removeElement(element);
+                    Log.e(DEBUG_TAG, "removing from api");
+                    apiStorage.removeElement(restored);
                 }
             } catch (StorageException e) {
                 Log.e(DEBUG_TAG, "restore got " + e.getMessage());
-                return false;
+                return null;
             }
 
             // restore saved values
-            element.osmId = osmId;
-            element.osmVersion = osmVersion;
-            element.state = state;
-            element.setTags(tags);
+            restored.osmId = osmId;
+            restored.osmVersion = osmVersion;
+            restored.state = state;
+            restored.setTags(tags);
 
             // zap error state
-            element.resetHasProblem();
+            restored.resetHasProblem();
 
-            if (parentRelations != null) {
-                element.parentRelations = new ArrayList<>();
-                for (Relation r : parentRelations) {
-                    if (currentStorage.contains(r)) {
-                        element.parentRelations.add(r);
-                    } else {
-                        Log.e(DEBUG_TAG, element.getDescription() + " is a member of " + r.getDescription() + " which is missing");
-                    }
-                }
-            } else {
-                element.parentRelations = null;
-            }
-            return true;
+            return restored;
         }
 
         /**
@@ -708,11 +725,12 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public boolean restore() {
-            boolean ok = super.restore();
-            ((Node) element).lat = lat;
-            ((Node) element).lon = getLon();
-            return ok;
+        public OsmElement restore() {
+            OsmElement restored = super.restore();
+
+            ((Node) restored).lat = lat;
+            ((Node) restored).lon = lon;
+            return restored;
         }
 
         /**
@@ -757,7 +775,8 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public boolean restore() {
+        public OsmElement restore() {
+            OsmElement restored = super.restore();
             // check that at least one node is available
             int inStorage = 0;
             for (Node n : nodes) {
@@ -768,30 +787,33 @@ public class UndoStorage implements Serializable {
             boolean deleted = super.state == OsmElement.STATE_DELETED;
             if (inStorage == 0 && nodes.size() > 0 && !deleted) {
                 // if no nodes we are restoring to pre-creation state without nodes which is ok
-                Log.e(DEBUG_TAG, element.getDescription() + " is missing all nodes");
+                Log.e(DEBUG_TAG, "#" + element.getOsmId() + " " + element.getDescription() + " is missing all nodes");
                 // note this still allows ways with 1 node to be created which might be necessary
-                return false;
+                return null;
             }
             // now we can restore with confidence
-            boolean ok = super.restore();
-            ((Way) element).nodes.clear();
-            for (Node n : nodes) {
-                if (currentStorage.contains(n) || deleted) {
-                    ((Way) element).nodes.add(n); // only add undeleted way nodes except if we are deleted
-                } else {
-                    ok = false;
-                    element.updateState(OsmElement.STATE_MODIFIED);
-                    try {
-                        apiStorage.insertElementSafe(element);
-                    } catch (StorageException e) {
-                        // TODO Handle OOM
+            if (restored != null) {
+                ((Way) restored).nodes.clear();
+                for (Node n : nodes) {
+                    Node wayNode = currentStorage.getNode(n.getOsmId());
+                    if (wayNode != null || deleted) {
+                        ((Way) restored).nodes.add(wayNode != null ? wayNode : n); // only add undeleted way nodes
+                                                                                   // except if we are deleted
+                    } else {
+                        Log.w(DEBUG_TAG, "#" + element.getOsmId() + " " + element.getDescription() + " missing node " + n.getOsmId());
+                        restored.updateState(OsmElement.STATE_MODIFIED);
+                        try {
+                            apiStorage.insertElementSafe(restored);
+                        } catch (StorageException e) {
+                            // TODO Handle OOM
+                        }
                     }
                 }
+                // reset the style
+                ((Way) restored).setStyle(null);
+                ((Way) restored).invalidateBoundingBox();
             }
-            // reset the style
-            ((Way) element).setStyle(null);
-            ((Way) element).invalidateBoundingBox();
-            return ok;
+            return restored;
         }
 
         /*
@@ -866,26 +888,31 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public boolean restore() {
-            boolean ok = super.restore();
-            ((Relation) element).members.clear();
-            for (RelationMember rm : members) {
-                OsmElement rmElement = rm.getElement();
-                if (rmElement == null || currentStorage.contains(rmElement)) {
-                    ((Relation) element).members.add(rm); // only add undeleted members or ones that haven't been
-                                                          // downloaded
-                } else {
-                    Log.e(DEBUG_TAG, rmElement.getDescription() + " member of " + element.getDescription() + " is deleted");
-                    ok = false;
-                    element.updateState(OsmElement.STATE_MODIFIED);
-                    try {
-                        apiStorage.insertElementSafe(element);
-                    } catch (StorageException e) {
-                        // TODO Handle OOM
+        public OsmElement restore() {
+            OsmElement restored = super.restore();
+            if (restored != null) {
+                ((Relation) restored).members.clear();
+                for (RelationMember rm : members) {
+                    OsmElement rmElement = rm.getElement();
+                    OsmElement rmStorage = currentStorage.getOsmElement(rm.getType(), rm.getRef());
+                    Log.d(DEBUG_TAG, "rmElement " + rmElement + " rmStorage " + rmStorage);
+                    if (rmElement == null || rmStorage != null) {
+                        rm.setElement(rmStorage);
+                        ((Relation) restored).members.add(rm); // only add undeleted members or ones that haven't been
+                                                               // downloaded
+                    } else {
+                        Log.e(DEBUG_TAG, rmElement.getDescription() + " member of " + restored.getDescription() + " is deleted");
+                        // ok = false;
+                        restored.updateState(OsmElement.STATE_MODIFIED);
+                        try {
+                            apiStorage.insertElementSafe(restored);
+                        } catch (StorageException e) {
+                            // TODO Handle OOM
+                        }
                     }
                 }
             }
-            return ok;
+            return restored;
         }
 
         /**
@@ -984,14 +1011,39 @@ public class UndoStorage implements Serializable {
     @Nullable
     public UndoElement getOriginal(@NonNull OsmElement element) {
         UndoElement result = null;
+        String name = element.getName();
+        long osmId = element.getOsmId();
         int checkpointCount = undoCheckpoints.size();
         // loop over most recent to oldest checkpoint
         for (int i = checkpointCount - 1; i >= 0; i--) {
-            UndoElement undoElement = undoCheckpoints.get(i).elements.get(element);
-            if (undoElement != null) {
-                result = undoElement;
+            for (UndoElement undoElement : undoCheckpoints.get(i).elements.values()) {
+                if (undoElement.element.getName().equals(name) && undoElement.osmId == osmId) {
+                    result = undoElement;
+                    break;
+                }
             }
         }
         return result;
+    }
+
+    /**
+     * See if an element with same id and type is in storage, if yes use that
+     * 
+     * @param element the original element
+     * @return the current object or the original one
+     */
+    @NonNull
+    OsmElement getUptodateElement(@NonNull OsmElement element) {
+        // see if an element with same id and type is in storage, if yes use that
+        OsmElement currentElement = currentStorage.getOsmElement(element.getName(), element.getOsmId());
+        if (currentElement == null) {
+            OsmElement apiElement = apiStorage.getOsmElement(element.getName(), element.getOsmId());
+            if (apiElement != null) {
+                element = apiElement;
+            }
+        } else {
+            element = currentElement;
+        }
+        return element;
     }
 }

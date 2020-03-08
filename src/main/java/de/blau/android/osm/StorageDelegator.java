@@ -3054,57 +3054,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
             // fixup relation back links and memberships
 
-            // zap all existing backlinks for our "old" relations
-            for (Relation r : currentStorage.getRelations()) {
-                for (RelationMember rm : r.getMembers()) {
-                    if (rm.getType().equals(Node.NAME)) {
-                        Node n = nodeIndex.get(rm.getRef());
-                        if (n != null) {
-                            n.clearParentRelations();
-                        }
-                    } else if (rm.getType().equals(Way.NAME)) {
-                        Way w = wayIndex.get(rm.getRef());
-                        if (w != null) {
-                            w.clearParentRelations();
-                        }
-                    } else if (rm.getType().equals(Relation.NAME)) {
-                        Relation r2 = relationIndex.get(rm.getRef());
-                        if (r2 != null) {
-                            r2.clearParentRelations();
-                        }
-                    }
-                }
-            }
-
-            // add backlinks for all "new" relations
-            for (Relation r : temp.getRelations()) {
-                for (RelationMember rm : r.getMembers()) {
-                    if (rm.getType().equals(Node.NAME)) {
-                        Node n = nodeIndex.get(rm.getRef());
-                        if (n != null) { // if node is downloaded always re-set it
-                            rm.setElement(n);
-                            n.addParentRelation(r);
-                        } else { // check if deleted
-                            memberIsDeleted(r, rm);
-                        }
-                    } else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
-                        Way w = wayIndex.get(rm.getRef());
-                        if (w != null) {
-                            rm.setElement(w);
-                            w.addParentRelation(r);
-                        } else if (memberIsDeleted(r, rm)) {
-                            return false;
-                        }
-                    } else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
-                        Relation r2 = relationIndex.get(rm.getRef());
-                        if (r2 != null) {
-                            rm.setElement(r2);
-                            r2.addParentRelation(r);
-                        } else if (memberIsDeleted(r, rm)) {
-                            return false;
-                        }
-                    }
-                }
+            if (!redoBacklinks(temp, nodeIndex, wayIndex, relationIndex)) {
+                Log.e(DEBUG_TAG, "mergeData redoBacklinks failed");
+                return false;
             }
 
             Log.d(DEBUG_TAG, "mergeData fixuped relations");
@@ -3117,6 +3069,73 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         currentStorage = temp;
         undo.setCurrentStorage(temp);
         return true; // Success
+    }
+
+    /**
+     * Redo all backlinks
+     * 
+     * @param tempCurrent temp storage
+     * @param nodeIndex index to the nodes in temp
+     * @param wayIndex index to the ways in temp
+     * @param relationIndex index to the relations in temp
+     */
+    private boolean redoBacklinks(@NonNull Storage tempCurrent, @NonNull LongOsmElementMap<Node> nodeIndex, @NonNull LongOsmElementMap<Way> wayIndex, @NonNull LongOsmElementMap<Relation> relationIndex) {
+        // zap all existing backlinks for our "old" relations
+        for (Relation r : currentStorage.getRelations()) {
+            for (RelationMember rm : r.getMembers()) {
+                if (rm.getType().equals(Node.NAME)) {
+                    Node n = nodeIndex.get(rm.getRef());
+                    if (n != null) {
+                        n.clearParentRelations();
+                    }
+                } else if (rm.getType().equals(Way.NAME)) {
+                    Way w = wayIndex.get(rm.getRef());
+                    if (w != null) {
+                        w.clearParentRelations();
+                    }
+                } else if (rm.getType().equals(Relation.NAME)) {
+                    Relation r2 = relationIndex.get(rm.getRef());
+                    if (r2 != null) {
+                        r2.clearParentRelations();
+                    }
+                }
+            }
+        }
+
+        // add backlinks for all "new" relations
+        for (Relation r : tempCurrent.getRelations()) {
+            for (RelationMember rm : r.getMembers()) {
+                if (rm.getType().equals(Node.NAME)) {
+                    Node n = nodeIndex.get(rm.getRef());
+                    if (n != null) { // if node is downloaded always re-set it
+                        rm.setElement(n);
+                        n.addParentRelation(r);
+                    } else if (memberIsDeleted(r, rm)) {
+                        Log.e(DEBUG_TAG, "redoBacklinks node " + rm.getRef() + " missing");
+                        return false;
+                    }
+                } else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
+                    Way w = wayIndex.get(rm.getRef());
+                    if (w != null) {
+                        rm.setElement(w);
+                        w.addParentRelation(r);
+                    } else if (memberIsDeleted(r, rm)) {
+                        Log.e(DEBUG_TAG, "redoBacklinks way " + rm.getRef() + " missing");
+                        return false;
+                    }
+                } else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
+                    Relation r2 = relationIndex.get(rm.getRef());
+                    if (r2 != null) {
+                        rm.setElement(r2);
+                        r2.addParentRelation(r);
+                    } else if (memberIsDeleted(r, rm)) {
+                        Log.e(DEBUG_TAG, "redoBacklinks relation " + rm.getRef() + " missing");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true; // sucessful
     }
 
     /**
@@ -3215,6 +3234,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // make temp copy of current storage (we may have to abort
         Storage tempCurrent = new Storage(currentStorage);
         Storage tempApi = new Storage(apiStorage);
+        UndoStorage tempUndo = new UndoStorage(undo, tempCurrent, tempApi);
 
         // retrieve the maps
         LongOsmElementMap<Node> nodeIndex = tempCurrent.getNodeIndex();
@@ -3236,7 +3256,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (!nodeIndex.containsKey(n.getOsmId()) && apiNode == null) { // new node no problem
                     tempCurrent.insertNodeUnsafe(n);
                     tempApi.insertNodeUnsafe(n);
-                    undo.save(n, false, false);
+                    tempUndo.save(n, false, false);
                     if (postMerge != null) {
                         postMerge.handler(n);
                     }
@@ -3245,10 +3265,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         if (apiNode.getOsmVersion() > n.getOsmVersion()) {
                             continue; // can use node we already have
                         } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
-                            undo.save(apiNode);
-                            apiNode.updateFrom(n);
+                            tempUndo.save(apiNode);
+                            tempApi.insertElementUnsafe(n);
                             if (state == OsmElement.STATE_MODIFIED) {
-                                tempCurrent.insertElementSafe(apiNode);
+                                tempCurrent.insertElementUnsafe(n);
                             }
                             continue;
                         } else {
@@ -3260,9 +3280,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     if (existingNode != null) {
                         if (existingNode.getOsmVersion() <= n.getOsmVersion()) {
                             // so that we can abort cleanly, we actually need to replace the current element
-                            undo.save(existingNode, true, true);
-                            existingNode.updateFrom(n);
-                            tempApi.insertNodeUnsafe(existingNode);
+                            tempUndo.save(existingNode, true, false);
+                            tempApi.insertNodeUnsafe(n);
+                            tempCurrent.insertElementUnsafe(n);
                             if (postMerge != null) {
                                 postMerge.handler(n);
                             }
@@ -3285,7 +3305,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (!wayIndex.containsKey(w.getOsmId()) && apiWay == null) { // new way no problem
                     tempCurrent.insertWayUnsafe(w);
                     tempApi.insertWayUnsafe(w);
-                    undo.save(w, false, false);
+                    tempUndo.save(w, false, false);
                     if (postMerge != null) {
                         postMerge.handler(w);
                     }
@@ -3294,10 +3314,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         if (apiWay.getOsmVersion() > w.getOsmVersion()) {
                             continue; // can use node we already have
                         } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
-                            undo.save(apiWay);
-                            apiWay.updateFrom(w);
+                            tempUndo.save(apiWay);
+                            tempApi.insertElementUnsafe(w);
                             if (state == OsmElement.STATE_MODIFIED) {
-                                tempCurrent.insertElementSafe(apiWay);
+                                tempCurrent.insertElementSafe(w);
                             }
                             continue;
                         } else {
@@ -3308,9 +3328,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     Way existingWay = wayIndex.get(w.getOsmId());
                     if (existingWay != null) {
                         if (existingWay.getOsmVersion() <= w.getOsmVersion()) {
-                            undo.save(existingWay, true, true);
-                            existingWay.updateFrom(w);
-                            tempApi.insertWayUnsafe(existingWay);
+                            tempUndo.save(existingWay, true, false);
+                            tempApi.insertWayUnsafe(w);
+                            tempCurrent.insertElementUnsafe(w);
                             if (postMerge != null) {
                                 postMerge.handler(w);
                             }
@@ -3359,7 +3379,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 if (!relationIndex.containsKey(r.getOsmId()) && apiRelation == null) { // new relation no problem
                     tempCurrent.insertRelationUnsafe(r);
                     tempApi.insertRelationUnsafe(r);
-                    undo.save(r, false, false);
+                    tempUndo.save(r, false, false);
                     if (postMerge != null) {
                         postMerge.handler(r);
                     }
@@ -3368,10 +3388,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                         if (apiRelation.getOsmVersion() > r.getOsmVersion()) {
                             continue; // can use relation we already have
                         } else if (state == OsmElement.STATE_DELETED || state == OsmElement.STATE_MODIFIED) {
-                            undo.save(apiRelation);
-                            apiRelation.updateFrom(r);
+                            tempUndo.save(apiRelation);
+                            tempApi.insertElementUnsafe(r);
                             if (state == OsmElement.STATE_MODIFIED) {
-                                tempCurrent.insertElementSafe(apiRelation);
+                                tempCurrent.insertElementUnsafe(r);
                             }
                             continue;
                         } else {
@@ -3382,9 +3402,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     Relation existingRelation = relationIndex.get(r.getOsmId());
                     if (existingRelation != null) {
                         if (existingRelation.getOsmVersion() <= r.getOsmVersion()) {
-                            undo.save(existingRelation, true, true);
-                            existingRelation.updateFrom(r);
-                            tempApi.insertRelationUnsafe(existingRelation);
+                            tempUndo.save(existingRelation, true, false);
+                            tempApi.insertRelationUnsafe(r);
+                            tempCurrent.insertElementUnsafe(r);
                             if (postMerge != null) {
                                 postMerge.handler(r);
                             }
@@ -3397,57 +3417,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
             // fixup relation back links and memberships
 
-            // zap all existing backlinks for our "old" relations
-            for (Relation r : currentStorage.getRelations()) {
-                for (RelationMember rm : r.getMembers()) {
-                    if (rm.getType().equals(Node.NAME)) {
-                        Node n = nodeIndex.get(rm.getRef());
-                        if (n != null) {
-                            n.clearParentRelations();
-                        }
-                    } else if (rm.getType().equals(Way.NAME)) {
-                        Way w = wayIndex.get(rm.getRef());
-                        if (w != null) {
-                            w.clearParentRelations();
-                        }
-                    } else if (rm.getType().equals(Relation.NAME)) {
-                        Relation r2 = relationIndex.get(rm.getRef());
-                        if (r2 != null) {
-                            r2.clearParentRelations();
-                        }
-                    }
-                }
-            }
-
-            // add backlinks for all "new" relations
-            for (Relation r : tempCurrent.getRelations()) {
-                for (RelationMember rm : r.getMembers()) {
-                    if (rm.getType().equals(Node.NAME)) {
-                        Node n = nodeIndex.get(rm.getRef());
-                        if (n != null) { // if node is downloaded always re-set it
-                            rm.setElement(n);
-                            n.addParentRelation(r);
-                        } else if (memberIsDeleted(r, rm)) {
-                            return false;
-                        }
-                    } else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
-                        Way w = wayIndex.get(rm.getRef());
-                        if (w != null) {
-                            rm.setElement(w);
-                            w.addParentRelation(r);
-                        } else if (memberIsDeleted(r, rm)) {
-                            return false;
-                        }
-                    } else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
-                        Relation r2 = relationIndex.get(rm.getRef());
-                        if (r2 != null) {
-                            rm.setElement(r2);
-                            r2.addParentRelation(r);
-                        } else if (memberIsDeleted(r, rm)) {
-                            return false;
-                        }
-                    }
-                }
+            if (!redoBacklinks(tempCurrent, nodeIndex, wayIndex, relationIndex)) {
+                Log.e(DEBUG_TAG, "applyOsc redoBacklinks failed");
+                return false;
             }
 
             Log.d(DEBUG_TAG, "applyOsc fixuped relations");
@@ -3457,10 +3429,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             return false;
         }
 
+        Log.d(DEBUG_TAG, "applyOsc finshed");
+        undo = tempUndo;
         currentStorage = tempCurrent;
-        undo.setCurrentStorage(tempCurrent);
         apiStorage = tempApi;
-        undo.setApiStorage(tempApi);
         return true; // Success
     }
 

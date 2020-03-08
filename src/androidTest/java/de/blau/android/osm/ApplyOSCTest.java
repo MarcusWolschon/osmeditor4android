@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -22,6 +23,7 @@ import android.support.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.API;
@@ -93,35 +95,17 @@ public class ApplyOSCTest {
     }
 
     /**
-     * Read an OSC file on existing data and do some superficial checks that that was successful
+     * Read an OSC file on existing data and do some superficial checks that that was successful,
+     * further we undo the changes and check if everything reverted to the original state.
      */
     @Test
     public void readAndApply() {
         StorageDelegator delegator = App.getDelegator();
-
-        // check initial data state
-        Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 210558043L));
-        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392996L));
-        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392994L));
-        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392992L));
-        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392993L));
-        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392996L));
-
         Way w = (Way) delegator.getOsmElement(Way.NAME, 210558045L);
-        Assert.assertNotNull(w);
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, w.getState());
-        Assert.assertTrue(w.hasTag("addr:housenumber", "4"));
-
         Node n = (Node) delegator.getOsmElement(Node.NAME, 416426220L);
-        Assert.assertNotNull(n);
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
-        System.out.println("Lat " + n.getLat());
-        Assert.assertEquals(47.3898033D, n.getLat() / 1E7D, 0.00000001);
-        Assert.assertEquals(8.3888382D, n.getLon() / 1E7D, 0.00000001);
-
         Relation r = (Relation) delegator.getOsmElement(Relation.NAME, 1638705L);
-        Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
-        Assert.assertNotNull(r.getMember(Way.NAME, 119104094L));
+        
+        checkInitialState(delegator);
 
         // apply OSC file
         TestUtils.clickMenuButton("Transfer", false, false);
@@ -176,5 +160,48 @@ public class ApplyOSCTest {
         r = (Relation) delegator.getOsmElement(Relation.NAME, 1638705L);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, r.getState());
         Assert.assertNull(r.getMember(Way.NAME, 119104094L));
+        
+        TestUtils.unlock();
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
+        TestUtils.clickText(mDevice, false, "OK", true);
+        try {
+            Thread.sleep(5000); // NOSONAR
+        } catch (InterruptedException e) {
+        }
+        checkInitialState(delegator);
+    }
+
+    /**
+     * Check that the data is in the state we think it should be
+     * 
+     * @param delegator the StorageDelegator
+     */
+    private void checkInitialState(@NonNull StorageDelegator delegator) {
+        // check initial data state
+        Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 210558043L));
+        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392996L));
+        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392994L));
+        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392992L));
+        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392993L));
+        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 2206392996L));
+
+        Way w = (Way) delegator.getOsmElement(Way.NAME, 210558045L);
+        Assert.assertNotNull(w);
+        Assert.assertEquals(OsmElement.STATE_UNCHANGED, w.getState());
+        Assert.assertTrue(w.hasTag("addr:housenumber", "4"));
+
+        Node n = (Node) delegator.getOsmElement(Node.NAME, 416426220L);
+        Assert.assertNotNull(n);
+        Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
+        System.out.println("Lat " + n.getLat());
+        Assert.assertEquals(47.3898033D, n.getLat() / 1E7D, 0.00000001);
+        Assert.assertEquals(8.3888382D, n.getLon() / 1E7D, 0.00000001);
+
+        Relation r = (Relation) delegator.getOsmElement(Relation.NAME, 1638705L);
+        Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
+        Assert.assertNotNull(r.getMember(Way.NAME, 119104094L));
+        Way w2 = (Way) delegator.getOsmElement(Way.NAME, 119104094L);
+        Assert.assertNotNull(w2);
+        Assert.assertTrue(w2.getParentRelations().contains(r));
     }
 }
