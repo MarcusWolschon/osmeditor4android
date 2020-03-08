@@ -2,6 +2,7 @@ package de.blau.android.easyedit;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
@@ -297,7 +298,10 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             main.performTagEdit(element, null, false, false);
             return true;
         } else if (c == Util.getShortCut(main, R.string.shortcut_paste_tags)) {
-            main.performTagEdit(element, null, new HashMap<>(App.getTagClipboard(main).paste()), false);
+            Map<String, String> tags = App.getTagClipboard(main).paste();
+            if (tags != null) {
+                main.performTagEdit(element, null, new HashMap<>(tags), false);
+            }
             return true;
         }
         return false;
