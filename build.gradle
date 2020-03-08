@@ -442,7 +442,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     implementation "com.adobe.xmp:xmpcore:6.1.10"
     implementation "com.drewnoakes:metadata-extractor:2.13.0"
-    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "com.google.code.gson:gson:2.8.5"
     implementation 'com.google.protobuf:protobuf-java:2.6.1'
     implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
     implementation ('com.faendir.rhino:rhino-android:1.5.1') { exclude group: 'org.mozilla' }
