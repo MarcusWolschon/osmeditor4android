@@ -3887,7 +3887,6 @@ public class Main extends FullScreenAppCompatActivity
                         return true;
                     default:
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-
                             Character c = Character.toLowerCase((char) event.getUnicodeChar());
                             if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
                                 logic.zoom(Logic.ZOOM_IN);
