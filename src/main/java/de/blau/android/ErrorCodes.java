@@ -48,4 +48,5 @@ public final class ErrorCodes {
     public static final int UNKNOWN_ERROR            = 54;
     public static final int NO_DATA                  = 55;
     public static final int REQUIRED_FEATURE_MISSING = 56;
+    public static final int APPLYING_OSC_FAILED      = 57;
 }

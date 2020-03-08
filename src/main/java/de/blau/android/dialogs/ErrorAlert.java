@@ -143,6 +143,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return "no_data";
         case ErrorCodes.REQUIRED_FEATURE_MISSING:
             return "required_feature_missing";
+        case ErrorCodes.APPLYING_OSC_FAILED:
+            return "applying_osc_failed";
         default:
             // nothing
         }
@@ -199,6 +201,8 @@ public class ErrorAlert extends ImmersiveDialogFragment {
             return createNewInstance(R.string.no_data_title, R.string.no_data_message, msg);
         case ErrorCodes.REQUIRED_FEATURE_MISSING:
             return createNewInstance(R.string.required_feature_missing_title, R.string.required_feature_missing_message, msg);
+        case ErrorCodes.APPLYING_OSC_FAILED:
+            return createNewInstance(R.string.applying_osc_failed_title, R.string.applying_osc_failed_message, msg);
         default:
             // ignore
         }
