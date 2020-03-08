@@ -613,7 +613,7 @@ public class Logic {
      */
     public void removeCheckpoint(@Nullable Activity activity, int stringId, boolean force) {
         Resources r = activity != null ? activity.getResources() : App.resources();
-        getDelegator().getUndo().removeCheckpoint(r.getString(stringId));
+        getDelegator().getUndo().removeCheckpoint(r.getString(stringId), force);
     }
 
     /**
@@ -3067,43 +3067,45 @@ public class Logic {
         new ReadAsyncClass(activity, is, false, postLoad) {
             @Override
             protected ReadAsyncResult doInBackground(Boolean... arg) {
-                try {
-                    final OsmParser osmParser = new OsmParser();
-                    osmParser.clearBoundingBoxes(); // this removes the default bounding box
-                    final InputStream in = new BufferedInputStream(is);
+                synchronized (Logic.this) {
                     try {
-                        osmParser.start(in);
-                        StorageDelegator sd = getDelegator();
-                        sd.reset(false);
-                        sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
-                        sd.fixupApiStorage();
-                        if (!add && sd.getBoundingBoxes().isEmpty()) {
-                            // ensure a valid bounding box
-                            sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
+                        final OsmParser osmParser = new OsmParser();
+                        osmParser.clearBoundingBoxes(); // this removes the default bounding box
+                        final InputStream in = new BufferedInputStream(is);
+                        try {
+                            osmParser.start(in);
+                            StorageDelegator sd = getDelegator();
+                            sd.reset(false);
+                            sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
+                            sd.fixupApiStorage();
+                            if (!add && sd.getBoundingBoxes().isEmpty()) {
+                                // ensure a valid bounding box
+                                sd.addBoundingBox(sd.getCurrentStorage().calcBoundingBoxFromData());
+                            }
+                            if (map != null) {
+                                viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                            }
+                        } finally {
+                            SavingHelper.close(in);
                         }
-                        if (map != null) {
-                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                    } catch (SAXException e) {
+                        Log.e(DEBUG_TAG, "Problem parsing", e);
+                        Exception ce = e.getException();
+                        if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
+                            return new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
+                        } else {
+                            return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                         }
-                    } finally {
-                        SavingHelper.close(in);
-                    }
-                } catch (SAXException e) {
-                    Log.e(DEBUG_TAG, "Problem parsing", e);
-                    Exception ce = e.getException();
-                    if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        return new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
-                    } else {
+                    } catch (ParserConfigurationException e) {
+                        // crash and burn
+                        Log.e(DEBUG_TAG, "Problem parsing", e);
                         return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                    } catch (IOException e) {
+                        Log.e(DEBUG_TAG, "Problem reading", e);
+                        return new ReadAsyncResult(ErrorCodes.NO_CONNECTION, e.getMessage());
                     }
-                } catch (ParserConfigurationException e) {
-                    // crash and burn
-                    Log.e(DEBUG_TAG, "Problem parsing", e);
-                    return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
-                } catch (IOException e) {
-                    Log.e(DEBUG_TAG, "Problem reading", e);
-                    return new ReadAsyncResult(ErrorCodes.NO_CONNECTION, e.getMessage());
+                    return new ReadAsyncResult(ErrorCodes.OK, null);
                 }
-                return new ReadAsyncResult(ErrorCodes.OK, null);
             }
         }.execute(add);
     }
@@ -3246,32 +3248,34 @@ public class Logic {
      *            ones)
      * @param postLoad callback to execute once stream has been loaded
      */
-    private void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+    private synchronized void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
         new ReadAsyncClass(activity, is, add, postLoad) {
             @Override
             protected ReadAsyncResult doInBackground(Boolean... arg) {
-                try {
-                    Storage storage = new Storage();
+                synchronized (Logic.this) {
                     try {
-                        BlockReaderAdapter opp = new OsmPbfParser(storage);
-                        new BlockInputStream(is, opp).process();
-                        StorageDelegator sd = getDelegator();
-                        sd.reset(false);
-                        sd.setCurrentStorage(storage); // this sets dirty flag
-                        sd.fixupApiStorage();
-                        if (map != null) {
-                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                        Storage storage = new Storage();
+                        try {
+                            BlockReaderAdapter opp = new OsmPbfParser(storage);
+                            new BlockInputStream(is, opp).process();
+                            StorageDelegator sd = getDelegator();
+                            sd.reset(false);
+                            sd.setCurrentStorage(storage); // this sets dirty flag
+                            sd.fixupApiStorage();
+                            if (map != null) {
+                                viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                            }
+                        } finally {
+                            SavingHelper.close(is);
                         }
-                    } finally {
-                        SavingHelper.close(is);
+                    } catch (IOException | RuntimeException e) {
+                        Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
+                        return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                     }
-                } catch (IOException | RuntimeException e) {
-                    Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
-                    return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                    return new ReadAsyncResult(ErrorCodes.OK, null);
                 }
-                return new ReadAsyncResult(ErrorCodes.OK, null);
             }
         }.execute(add);
     }
@@ -3292,26 +3296,28 @@ public class Logic {
         new ReadAsyncClass(activity, is, false, postLoad) {
             @Override
             protected ReadAsyncResult doInBackground(Boolean... arg) {
-                try {
-                    OsmChangeParser oscParser = new OsmChangeParser();
-                    oscParser.clearBoundingBoxes(); // this removes the default bounding box
-                    final InputStream in = new BufferedInputStream(is);
-                    oscParser.start(in);
-                    StorageDelegator sd = getDelegator();
-                    createCheckpoint(activity, R.string.undo_action_apply_osc);
-                    if (!sd.applyOsc(oscParser.getStorage(), null)) {
-                        removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
+                synchronized (Logic.this) {
+                    try (final InputStream in = new BufferedInputStream(is)) {
+                        OsmChangeParser oscParser = new OsmChangeParser();
+                        oscParser.clearBoundingBoxes(); // this removes the default bounding box                      
+                        oscParser.start(in);
+                        StorageDelegator sd = getDelegator();
+                        createCheckpoint(activity, R.string.undo_action_apply_osc);
+                        if (!sd.applyOsc(oscParser.getStorage(), null)) {
+                            removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
+                            return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, "Applying OSC file failed");
+                        }
+                        if (map != null) {
+                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
+                        }
+                    } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
+                        Log.e(DEBUG_TAG, "Problem parsing OSC ", e);
+                        return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
+                    } finally {
+                        SavingHelper.close(is);
                     }
-                    if (map != null) {
-                        viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
-                    }
-                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
-                    Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
-                    return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
-                } finally {
-                    SavingHelper.close(is);
+                    return new ReadAsyncResult(ErrorCodes.OK, null);
                 }
-                return new ReadAsyncResult(ErrorCodes.OK, null);
             }
         }.execute();
     }
