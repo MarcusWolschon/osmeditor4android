@@ -4,8 +4,8 @@
     <issue
         id="GradleCompatible"
         message="All com.android.support libraries must use the exact same version specification (mixing versions can lead to runtime crashes). Found versions 28.0.0, 24.2.1. Examples include `com.android.support:animated-vector-drawable:28.0.0` and `com.android.support:support-media-compat:24.2.1`"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="build.gradle"/>
     </issue>
@@ -15,11 +15,11 @@
         message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
         errorLine1="    currentImplementation &quot;com.android.support:appcompat-v7:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="414"
+            line="413"
             column="5"/>
     </issue>
 
@@ -28,8 +28,21 @@
         message="When using a `compileSdkVersion` android-O revision 2 or higher, the support library version should be 26.0.0-beta1 or higher (was 25.3.1)"
         errorLine1="    currentImplementation &quot;com.android.support:appcompat-v7:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
+        <location
+            file="build.gradle"
+            line="413"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleCompatible"
+        message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
+        errorLine1="    currentImplementation &quot;com.android.support:recyclerview-v7:$supportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="414"
@@ -39,10 +52,10 @@
     <issue
         id="GradleCompatible"
         message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
-        errorLine1="    currentImplementation &quot;com.android.support:recyclerview-v7:$supportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        errorLine1="    currentImplementation &quot;com.android.support:preference-v7:$supportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="415"
@@ -52,10 +65,10 @@
     <issue
         id="GradleCompatible"
         message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
-        errorLine1="    currentImplementation &quot;com.android.support:preference-v7:$supportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        errorLine1="    currentImplementation &quot;com.android.support:design:$supportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="416"
@@ -65,26 +78,13 @@
     <issue
         id="GradleCompatible"
         message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
-        errorLine1="    currentImplementation &quot;com.android.support:design:$supportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
-        <location
-            file="build.gradle"
-            line="417"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="GradleCompatible"
-        message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
         errorLine1="    currentImplementation &quot;com.android.support:support-compat:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="419"
+            line="418"
             column="5"/>
     </issue>
 
@@ -93,11 +93,11 @@
         message="All com.android.support libraries must use the exact same version specification (mixing versions can lead to runtime crashes). Found versions 27.1.0, 25.3.1. Examples include `com.android.support:exifinterface:27.1.0` and `com.android.support:animated-vector-drawable:25.3.1`"
         errorLine1="    currentImplementation &quot;com.android.support:exifinterface:$supportLibVersion&quot;"
         errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="420"
+            line="419"
             column="28"/>
     </issue>
 
@@ -106,11 +106,11 @@
         message="This support library should not use a different version (27) than the `compileSdkVersion` (28)"
         errorLine1="    currentImplementation &quot;com.android.support:exifinterface:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="420"
+            line="419"
             column="5"/>
     </issue>
 
@@ -119,11 +119,11 @@
         message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
         errorLine1="    legacyImplementation &quot;com.android.support:appcompat-v7:$legacySupportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="425"
+            line="424"
             column="5"/>
     </issue>
 
@@ -132,8 +132,21 @@
         message="When using a `compileSdkVersion` android-O revision 2 or higher, the support library version should be 26.0.0-beta1 or higher (was 25.3.1)"
         errorLine1="    legacyImplementation &quot;com.android.support:appcompat-v7:$legacySupportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
+        <location
+            file="build.gradle"
+            line="424"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleCompatible"
+        message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
+        errorLine1="    legacyImplementation &quot;com.android.support:recyclerview-v7:$legacySupportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="425"
@@ -143,10 +156,10 @@
     <issue
         id="GradleCompatible"
         message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
-        errorLine1="    legacyImplementation &quot;com.android.support:recyclerview-v7:$legacySupportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        errorLine1="    legacyImplementation &quot;com.android.support:preference-v7:$legacySupportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="426"
@@ -156,10 +169,10 @@
     <issue
         id="GradleCompatible"
         message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
-        errorLine1="    legacyImplementation &quot;com.android.support:preference-v7:$legacySupportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        errorLine1="    legacyImplementation &quot;com.android.support:design:$legacySupportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="427"
@@ -169,26 +182,13 @@
     <issue
         id="GradleCompatible"
         message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
-        errorLine1="    legacyImplementation &quot;com.android.support:design:$legacySupportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
-        <location
-            file="build.gradle"
-            line="428"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="GradleCompatible"
-        message="This support library should not use a different version (25) than the `compileSdkVersion` (28)"
         errorLine1="    legacyImplementation &quot;com.android.support:support-compat:$legacySupportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="430"
+            line="429"
             column="5"/>
     </issue>
 
@@ -197,11 +197,11 @@
         message="This support library should not use a different version (27) than the `compileSdkVersion` (28)"
         errorLine1="    legacyImplementation &quot;com.android.support:exifinterface:$legacySupportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="431"
+            line="430"
             column="5"/>
     </issue>
 
@@ -212,7 +212,7 @@
         errorLine2="    ^">
         <location
             file="src\main\res\values\helptopics.xml"
-            line="48"
+            line="50"
             column="5"/>
         <location
             file="src\main\res\values-bg\helptopics.xml"
@@ -359,7 +359,7 @@
         errorLine2="    ^">
         <location
             file="src\main\res\values\helptopics.xml"
-            line="89"
+            line="91"
             column="5"/>
         <location
             file="src\main\res\values-bg\helptopics.xml"
@@ -506,7 +506,7 @@
         errorLine2="    ^">
         <location
             file="src\main\res\values\strings.xml"
-            line="1121"
+            line="1132"
             column="5"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -617,7 +617,7 @@
         errorLine2="    ^">
         <location
             file="src\main\res\values\strings.xml"
-            line="1184"
+            line="1195"
             column="5"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -929,7 +929,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="896"
+            line="906"
             column="9"/>
     </issue>
 
@@ -940,7 +940,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="919"
+            line="929"
             column="9"/>
     </issue>
 
@@ -951,7 +951,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="937"
+            line="952"
             column="9"/>
     </issue>
 
@@ -962,7 +962,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="955"
+            line="975"
             column="9"/>
     </issue>
 
@@ -973,7 +973,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="978"
+            line="998"
             column="9"/>
     </issue>
 
@@ -984,7 +984,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1010"
+            line="1030"
             column="9"/>
     </issue>
 
@@ -995,7 +995,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1033"
+            line="1053"
             column="9"/>
     </issue>
 
@@ -1006,7 +1006,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1056"
+            line="1076"
             column="9"/>
     </issue>
 
@@ -1017,7 +1017,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1079"
+            line="1099"
             column="9"/>
     </issue>
 
@@ -1028,7 +1028,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1127"
+            line="1147"
             column="9"/>
     </issue>
 
@@ -1039,7 +1039,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1152"
+            line="1172"
             column="9"/>
     </issue>
 
@@ -1050,7 +1050,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1165"
+            line="1190"
             column="9"/>
     </issue>
 
@@ -1061,7 +1061,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1206"
+            line="1231"
             column="9"/>
     </issue>
 
@@ -1072,7 +1072,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
-            line="1268"
+            line="1293"
             column="17"/>
     </issue>
 
@@ -1116,7 +1116,7 @@
         errorLine2="                                              ~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\presets\Preset.java"
-            line="2259"
+            line="2263"
             column="47"/>
     </issue>
 
@@ -1136,8 +1136,8 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_ALWAYS`"
         errorLine1="            MenuCompat.setShowAsAction(itemBack, MenuItem.SHOW_AS_ACTION_ALWAYS);"
         errorLine2="                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\PhotoViewerFragment.java"
             line="162"
@@ -1149,8 +1149,8 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_ALWAYS`"
         errorLine1="        MenuCompat.setShowAsAction(shareItem, MenuItem.SHOW_AS_ACTION_ALWAYS);"
         errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\PhotoViewerFragment.java"
             line="165"
@@ -1162,8 +1162,8 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_ALWAYS`"
         errorLine1="            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);"
         errorLine2="                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\PhotoViewerFragment.java"
             line="168"
@@ -1175,8 +1175,8 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_ALWAYS`"
         errorLine1="            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);"
         errorLine2="                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\PhotoViewerFragment.java"
             line="173"
@@ -1188,8 +1188,8 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_ALWAYS`"
         errorLine1="            MenuCompat.setShowAsAction(itemForward, MenuItem.SHOW_AS_ACTION_ALWAYS);"
         errorLine2="                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\PhotoViewerFragment.java"
             line="177"
@@ -1201,11 +1201,11 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_ALWAYS`"
         errorLine1="                MenuItem.SHOW_AS_ACTION_ALWAYS);"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\prefs\PrefEditorActivity.java"
-            line="51"
+            line="53"
             column="17"/>
     </issue>
 
@@ -1214,8 +1214,8 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_ALWAYS`"
         errorLine1="                MenuItem.SHOW_AS_ACTION_ALWAYS);"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\prefs\PresetEditorActivity.java"
             line="135"
@@ -1227,8 +1227,8 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_NEVER`"
         errorLine1="                MenuItem.SHOW_AS_ACTION_NEVER);"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\SelectedRowsActionModeCallback.java"
             line="80"
@@ -1240,8 +1240,8 @@
         message="Field requires API level 11 (current min is 9): `android.view.MenuItem#SHOW_AS_ACTION_NEVER`"
         errorLine1="                MenuItem.SHOW_AS_ACTION_NEVER);"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\SelectedRowsActionModeCallback.java"
             line="82"
@@ -1259,56 +1259,56 @@
         id="InvalidPackage"
         message="Invalid package reference in library; not included in Android: `java.awt.event`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.9\51c35c22a90301391744611b871b37b4e3a5913f\rhino-1.7.9.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in library; not included in Android: `java.awt`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.9\51c35c22a90301391744611b871b37b4e3a5913f\rhino-1.7.9.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in library; not included in Android: `javax.swing.event`. Referenced from `org.mozilla.javascript.tools.debugger.EvalTextArea`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.9\51c35c22a90301391744611b871b37b4e3a5913f\rhino-1.7.9.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in library; not included in Android: `javax.swing.filechooser`. Referenced from `org.mozilla.javascript.tools.debugger.SwingGui.1`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.9\51c35c22a90301391744611b871b37b4e3a5913f\rhino-1.7.9.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in library; not included in Android: `javax.swing.table`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.9\51c35c22a90301391744611b871b37b4e3a5913f\rhino-1.7.9.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in library; not included in Android: `javax.swing.text`. Referenced from `org.mozilla.javascript.tools.debugger.EvalTextArea`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.9\51c35c22a90301391744611b871b37b4e3a5913f\rhino-1.7.9.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in library; not included in Android: `javax.swing.tree`. Referenced from `org.mozilla.javascript.tools.debugger.MyTreeTable`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.9\51c35c22a90301391744611b871b37b4e3a5913f\rhino-1.7.9.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in library; not included in Android: `javax.swing`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.9\51c35c22a90301391744611b871b37b4e3a5913f\rhino-1.7.9.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
@@ -1338,8 +1338,8 @@
         message="Call requires API level 24 (current min is 14): android.location.OnNmeaMessageListener#onNmeaMessage"
         errorLine1="                                newListener.onNmeaMessage(input.readLine(), -1);"
         errorLine2="                                            ~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\services\util\NmeaTcpClientServer.java"
             line="110"
@@ -1351,8 +1351,8 @@
         message="Call requires API level 24 (current min is 9): android.location.OnNmeaMessageListener#onNmeaMessage"
         errorLine1="                                newListener.onNmeaMessage(input.readLine(), -1);"
         errorLine2="                                            ~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\services\util\NmeaTcpClientServer.java"
             line="110"
@@ -1364,8 +1364,8 @@
         message="Call requires API level 19 (current min is 14): android.content.ContentResolver#takePersistableUriPermission"
         errorLine1="                    main.getContentResolver().takePersistableUriPermission(uri, intentFlags);"
         errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\PhotoUriHandler.java"
             line="56"
@@ -1377,8 +1377,8 @@
         message="Call requires API level 19 (current min is 9): android.content.ContentResolver#takePersistableUriPermission"
         errorLine1="                    main.getContentResolver().takePersistableUriPermission(uri, intentFlags);"
         errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\PhotoUriHandler.java"
             line="56"
@@ -1390,8 +1390,8 @@
         message="Call requires API level 24 (current min is 14): android.location.LocationManager#addNmeaListener"
         errorLine1="                                    locationManager.addNmeaListener(newNmeaListener);"
         errorLine2="                                                    ~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\services\TrackerService.java"
             line="632"
@@ -1403,8 +1403,8 @@
         message="Call requires API level 24 (current min is 9): android.location.LocationManager#addNmeaListener"
         errorLine1="                                    locationManager.addNmeaListener(newNmeaListener);"
         errorLine2="                                                    ~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\services\TrackerService.java"
             line="632"
@@ -1416,8 +1416,8 @@
         message="Call requires API level 24 (current min is 14): android.location.LocationManager#removeNmeaListener"
         errorLine1="                locationManager.removeNmeaListener(newNmeaListener);"
         errorLine2="                                ~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\services\TrackerService.java"
             line="665"
@@ -1429,8 +1429,8 @@
         message="Call requires API level 24 (current min is 9): android.location.LocationManager#removeNmeaListener"
         errorLine1="                locationManager.removeNmeaListener(newNmeaListener);"
         errorLine2="                                ~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\services\TrackerService.java"
             line="665"
@@ -1442,8 +1442,8 @@
         message="`android:overlapAnchor` requires API level 21 (current min is 14)"
         errorLine1="     &lt;item name=&quot;android:overlapAnchor&quot;>false&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="69"
@@ -1455,8 +1455,8 @@
         message="`android:overlapAnchor` requires API level 21 (current min is 9)"
         errorLine1="     &lt;item name=&quot;android:overlapAnchor&quot;>false&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="69"
@@ -1468,8 +1468,8 @@
         message="`android:overlapAnchor` requires API level 21 (current min is 14)"
         errorLine1="     &lt;item name=&quot;android:overlapAnchor&quot;>false&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="73"
@@ -1481,8 +1481,8 @@
         message="`android:overlapAnchor` requires API level 21 (current min is 9)"
         errorLine1="     &lt;item name=&quot;android:overlapAnchor&quot;>false&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="73"
@@ -1494,8 +1494,8 @@
         message="`android:overlapAnchor` requires API level 21 (current min is 14)"
         errorLine1="     &lt;item name=&quot;android:overlapAnchor&quot;>false&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="83"
@@ -1507,8 +1507,8 @@
         message="`android:overlapAnchor` requires API level 21 (current min is 9)"
         errorLine1="     &lt;item name=&quot;android:overlapAnchor&quot;>false&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="83"
@@ -1520,8 +1520,8 @@
         message="`android:overlapAnchor` requires API level 21 (current min is 14)"
         errorLine1="     &lt;item name=&quot;android:overlapAnchor&quot;>false&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="87"
@@ -1533,8 +1533,8 @@
         message="`android:overlapAnchor` requires API level 21 (current min is 9)"
         errorLine1="     &lt;item name=&quot;android:overlapAnchor&quot;>false&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="87"
@@ -1546,8 +1546,8 @@
         message="`android:windowActionBar` requires API level 11 (current min is 9)"
         errorLine1="     &lt;item name=&quot;android:windowActionBar&quot;>true&lt;/item>"
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\styles.xml"
             line="339"
@@ -1559,8 +1559,8 @@
         message="Attribute `largeHeap` is only used in API level 11 and higher (current min is 9)"
         errorLine1="        android:largeHeap=&quot;true&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\AndroidManifest.xml"
             line="38"
@@ -1572,8 +1572,8 @@
         message="Attribute `resizeableActivity` is only used in API level 24 and higher (current min is 14)"
         errorLine1="        android:resizeableActivity=&quot;true&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\AndroidManifest.xml"
             line="39"
@@ -1585,8 +1585,8 @@
         message="Attribute `resizeableActivity` is only used in API level 24 and higher (current min is 9)"
         errorLine1="        android:resizeableActivity=&quot;true&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\AndroidManifest.xml"
             line="39"
@@ -1598,8 +1598,8 @@
         message="Attribute `networkSecurityConfig` is only used in API level 24 and higher (current min is 14)"
         errorLine1="        android:networkSecurityConfig=&quot;@xml/network_security_config&quot; >"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\AndroidManifest.xml"
             line="42"
@@ -1611,8 +1611,8 @@
         message="Attribute `networkSecurityConfig` is only used in API level 24 and higher (current min is 9)"
         errorLine1="        android:networkSecurityConfig=&quot;@xml/network_security_config&quot; >"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\AndroidManifest.xml"
             line="42"
@@ -1624,8 +1624,8 @@
         message="Attribute `alpha` is only used in API level 11 and higher (current min is 9)"
         errorLine1="          android:alpha=&quot;0.28&quot;"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\color\control_checkable_material.xml"
             line="20"
@@ -1637,8 +1637,8 @@
         message="Attribute `alpha` is only used in API level 11 and higher (current min is 9)"
         errorLine1="          android:alpha=&quot;0.28&quot;"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\color\control_checkable_material.xml"
             line="23"
@@ -1650,8 +1650,8 @@
         message="Attribute `elevation` is only used in API level 21 and higher (current min is 14)"
         errorLine1="          android:elevation=&quot;16dp&quot;"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\indoor_controls_left.xml"
             line="48"
@@ -1663,8 +1663,8 @@
         message="Attribute `elevation` is only used in API level 21 and higher (current min is 9)"
         errorLine1="          android:elevation=&quot;16dp&quot;"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\indoor_controls_left.xml"
             line="48"
@@ -1676,8 +1676,8 @@
         message="Attribute `elevation` is only used in API level 21 and higher (current min is 14)"
         errorLine1="          android:elevation=&quot;16dp&quot;"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\indoor_controls_right.xml"
             line="48"
@@ -1689,8 +1689,8 @@
         message="Attribute `elevation` is only used in API level 21 and higher (current min is 9)"
         errorLine1="          android:elevation=&quot;16dp&quot;"
         errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\indoor_controls_right.xml"
             line="48"
@@ -1702,8 +1702,8 @@
         message="Attribute `backgroundTint` is only used in API level 21 and higher (current min is 14)"
         errorLine1="        android:backgroundTint=&quot;@android:color/transparent&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\layers_view.xml"
             line="50"
@@ -1715,8 +1715,8 @@
         message="Attribute `backgroundTint` is only used in API level 21 and higher (current min is 9)"
         errorLine1="        android:backgroundTint=&quot;@android:color/transparent&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\layers_view.xml"
             line="50"
@@ -1728,8 +1728,8 @@
         message="Attribute `stateListAnimator` is only used in API level 21 and higher (current min is 14)"
         errorLine1="        android:stateListAnimator=&quot;@null&quot;/>"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\layers_view.xml"
             line="51"
@@ -1741,8 +1741,8 @@
         message="Attribute `stateListAnimator` is only used in API level 21 and higher (current min is 9)"
         errorLine1="        android:stateListAnimator=&quot;@null&quot;/>"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\layers_view.xml"
             line="51"
@@ -1754,8 +1754,8 @@
         message="Attribute `drawableTint` is only used in API level 23 and higher (current min is 14)"
         errorLine1="            android:drawableTint=&quot;?attr/colorAccent&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\preset_pane.xml"
             line="27"
@@ -1767,8 +1767,8 @@
         message="Attribute `drawableTint` is only used in API level 23 and higher (current min is 9)"
         errorLine1="            android:drawableTint=&quot;?attr/colorAccent&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\preset_pane.xml"
             line="27"
@@ -1780,8 +1780,8 @@
         message="Attribute `spinnerMode` is only used in API level 11 and higher (current min is 9)"
         errorLine1="            android:spinnerMode=&quot;dropdown&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\relation_membership_row.xml"
             line="57"
@@ -1793,8 +1793,8 @@
         message="Attribute `overlapAnchor` is only used in API level 21 and higher (current min is 14)"
         errorLine1="            android:overlapAnchor=&quot;false&quot; />"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\relation_membership_row.xml"
             line="59"
@@ -1806,8 +1806,8 @@
         message="Attribute `overlapAnchor` is only used in API level 21 and higher (current min is 9)"
         errorLine1="            android:overlapAnchor=&quot;false&quot; />"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\relation_membership_row.xml"
             line="59"
@@ -2105,8 +2105,8 @@
         message="The logging tag can be at most 23 characters, was 26 (ExtendedPreferenceFragment)"
         errorLine1="                        Log.d(DEBUG_TAG, &quot;onPreferenceChange &quot; + ex);"
         errorLine2="                              ~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\current\java\de\blau\android\prefs\ExtendedPreferenceFragment.java"
             line="78"
@@ -2118,8 +2118,8 @@
         message="The logging tag can be at most 23 characters, was 26 (ExtendedPreferenceFragment)"
         errorLine1="                        Log.d(DEBUG_TAG, &quot;onPreferenceChange &quot; + ex);"
         errorLine2="                              ~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\legacy\java\de\blau\android\prefs\ExtendedPreferenceFragment.java"
             line="78"
@@ -2131,8 +2131,8 @@
         message="The logging tag can be at most 23 characters, was 26 (ExtendedPreferenceFragment)"
         errorLine1="                        Log.d(DEBUG_TAG, &quot;onPreferenceChange &quot; + ex);"
         errorLine2="                              ~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\current\java\de\blau\android\prefs\ExtendedPreferenceFragment.java"
             line="111"
@@ -2144,8 +2144,8 @@
         message="The logging tag can be at most 23 characters, was 26 (ExtendedPreferenceFragment)"
         errorLine1="                        Log.d(DEBUG_TAG, &quot;onPreferenceChange &quot; + ex);"
         errorLine2="                              ~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\legacy\java\de\blau\android\prefs\ExtendedPreferenceFragment.java"
             line="111"
@@ -2165,33 +2165,48 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of ch.poole.gradle:markdown-gradle-plugin than 0.2.0 is available: 0.2.1"
-        errorLine1="        classpath &apos;ch.poole.gradle:markdown-gradle-plugin:0.2.0&apos;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        message="A newer version of com.getkeepsafe.dexcount:dexcount-gradle-plugin than 0.8.4 is available: 1.0.2"
+        errorLine1="        classpath &apos;com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.4&apos;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="15"
+            line="19"
             column="9"/>
     </issue>
 
     <issue
         id="GradleDependency"
-        message="A newer version of ch.poole:preset-utils than 0.8.1 is available: 0.13.0"
-        errorLine1="        classpath &quot;ch.poole:preset-utils:0.8.1&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle"
-            line="17"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of ch.acra:acra-http than 5.0.2 is available: 5.4.0"
+        message="A newer version of ch.acra:acra-http than 5.0.2 is available: 5.5.0"
         errorLine1="    currentImplementation (&quot;ch.acra:acra-http:$acraVersion&quot;) { exclude group: &apos;com.android.support&apos; }"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
+        <location
+            file="build.gradle"
+            line="411"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of ch.acra:acra-http than 5.4.0 is available: 5.5.0"
+        errorLine1="    currentImplementation (&quot;ch.acra:acra-http:$acraVersion&quot;) { exclude group: &apos;com.android.support&apos; }"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
+        <location
+            file="build.gradle"
+            line="411"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of ch.acra:acra-dialog than 5.0.2 is available: 5.5.0"
+        errorLine1="    currentImplementation (&quot;ch.acra:acra-dialog:$acraVersion&quot;) { exclude group: &apos;com.android.support&apos; }"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="412"
@@ -2200,14 +2215,14 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of ch.acra:acra-dialog than 5.0.2 is available: 5.4.0"
+        message="A newer version of ch.acra:acra-dialog than 5.4.0 is available: 5.5.0"
         errorLine1="    currentImplementation (&quot;ch.acra:acra-dialog:$acraVersion&quot;) { exclude group: &apos;com.android.support&apos; }"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="build.gradle"
-            line="413"
+            line="412"
             column="5"/>
     </issue>
 
@@ -2216,11 +2231,11 @@
         message="A newer version of com.android.support:appcompat-v7 than 25.3.1 is available: 28.0.0"
         errorLine1="    currentImplementation &quot;com.android.support:appcompat-v7:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="414"
+            line="413"
             column="5"/>
     </issue>
 
@@ -2229,11 +2244,11 @@
         message="A newer version of com.android.support:recyclerview-v7 than 25.3.1 is available: 28.0.0"
         errorLine1="    currentImplementation &quot;com.android.support:recyclerview-v7:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="415"
+            line="414"
             column="5"/>
     </issue>
 
@@ -2242,11 +2257,11 @@
         message="A newer version of com.android.support:preference-v7 than 25.3.1 is available: 28.0.0"
         errorLine1="    currentImplementation &quot;com.android.support:preference-v7:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="416"
+            line="415"
             column="5"/>
     </issue>
 
@@ -2255,11 +2270,11 @@
         message="A newer version of com.android.support:design than 25.3.1 is available: 28.0.0"
         errorLine1="    currentImplementation &quot;com.android.support:design:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="417"
+            line="416"
             column="5"/>
     </issue>
 
@@ -2268,11 +2283,11 @@
         message="A newer version of com.android.support:support-compat than 25.3.1 is available: 28.0.0"
         errorLine1="    currentImplementation &quot;com.android.support:support-compat:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="419"
+            line="418"
             column="5"/>
     </issue>
 
@@ -2281,19 +2296,30 @@
         message="A newer version of com.android.support:exifinterface than 27.1.0 is available: 28.0.0"
         errorLine1="    currentImplementation &quot;com.android.support:exifinterface:$supportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="420"
+            line="419"
             column="5"/>
     </issue>
 
     <issue
         id="GradleDependency"
-        message="A newer version of ch.acra:acra-http than 5.0.2 is available: 5.4.0"
+        message="A newer version of ch.acra:acra-http than 5.0.2 is available: 5.5.0"
         errorLine1="    legacyImplementation (&quot;ch.acra:acra-http:5.0.2&quot;) { exclude group: &apos;com.android.support&apos; }"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="422"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of ch.acra:acra-dialog than 5.0.2 is available: 5.5.0"
+        errorLine1="    legacyImplementation (&quot;ch.acra:acra-dialog:5.0.2&quot;) { exclude group: &apos;com.android.support&apos; }"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
             line="423"
@@ -2302,9 +2328,11 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of ch.acra:acra-dialog than 5.0.2 is available: 5.4.0"
-        errorLine1="    legacyImplementation (&quot;ch.acra:acra-dialog:5.0.2&quot;) { exclude group: &apos;com.android.support&apos; }"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        message="A newer version of com.android.support:appcompat-v7 than 25.3.1 is available: 28.0.0"
+        errorLine1="    legacyImplementation &quot;com.android.support:appcompat-v7:$legacySupportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="424"
@@ -2313,11 +2341,11 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.android.support:appcompat-v7 than 25.3.1 is available: 28.0.0"
-        errorLine1="    legacyImplementation &quot;com.android.support:appcompat-v7:$legacySupportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        message="A newer version of com.android.support:recyclerview-v7 than 25.3.1 is available: 28.0.0"
+        errorLine1="    legacyImplementation &quot;com.android.support:recyclerview-v7:$legacySupportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="425"
@@ -2326,11 +2354,11 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.android.support:recyclerview-v7 than 25.3.1 is available: 28.0.0"
-        errorLine1="    legacyImplementation &quot;com.android.support:recyclerview-v7:$legacySupportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        message="A newer version of com.android.support:preference-v7 than 25.3.1 is available: 28.0.0"
+        errorLine1="    legacyImplementation &quot;com.android.support:preference-v7:$legacySupportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="426"
@@ -2339,11 +2367,11 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.android.support:preference-v7 than 25.3.1 is available: 28.0.0"
-        errorLine1="    legacyImplementation &quot;com.android.support:preference-v7:$legacySupportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        message="A newer version of com.android.support:design than 25.3.1 is available: 28.0.0"
+        errorLine1="    legacyImplementation &quot;com.android.support:design:$legacySupportLibVersion&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
             line="427"
@@ -2352,27 +2380,14 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.android.support:design than 25.3.1 is available: 28.0.0"
-        errorLine1="    legacyImplementation &quot;com.android.support:design:$legacySupportLibVersion&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
-        <location
-            file="build.gradle"
-            line="428"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
         message="A newer version of com.android.support:support-compat than 25.3.1 is available: 28.0.0"
         errorLine1="    legacyImplementation &quot;com.android.support:support-compat:$legacySupportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="430"
+            line="429"
             column="5"/>
     </issue>
 
@@ -2381,22 +2396,77 @@
         message="A newer version of com.android.support:exifinterface than 27.1.0 is available: 28.0.0"
         errorLine1="    legacyImplementation &quot;com.android.support:exifinterface:$legacySupportLibVersion&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"
-            line="431"
+            line="430"
             column="5"/>
     </issue>
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.google.protobuf:protobuf-java than 2.6.1 is available: 3.6.1"
+        message="A newer version of com.google.code.gson:gson than 2.8.5 is available: 2.8.6"
+        errorLine1="    implementation &quot;com.google.code.gson:gson:2.8.5&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="438"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.protobuf:protobuf-java than 2.6.1 is available: 3.11.4"
         errorLine1="    implementation &apos;com.google.protobuf:protobuf-java:2.6.1&apos;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="440"
+            line="439"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.faendir.rhino:rhino-android than 1.5.1 is available: 1.5.2"
+        errorLine1="    implementation (&apos;com.faendir.rhino:rhino-android:1.5.1&apos;) { exclude group: &apos;org.mozilla&apos; }"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="441"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.mozilla:rhino than 1.7.11 is available: 1.7.12"
+        errorLine1="    implementation &quot;org.mozilla:rhino:1.7.11&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="442"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of ch.poole:OpeningHoursParser than 0.18.0 is available: 0.21.0"
+        errorLine1="    implementation &quot;ch.poole:OpeningHoursParser:0.18.0&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="447"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.hamcrest:hamcrest-library than 1.3 is available: 2.2"
+        errorLine1="    androidTestImplementation &quot;org.hamcrest:hamcrest-library:1.3&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="472"
             column="5"/>
     </issue>
 
@@ -2438,8 +2508,8 @@
         message="TypedArrayUtils can only be called from within the same library group (groupId=com.android.support)"
         errorLine1="        mEntries = TypedArrayUtils.getTextArray(a, R.styleable.MultiSelectListPreference_entries, R.styleable.MultiSelectListPreference_android_entries);"
         errorLine2="                   ~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\legacy\java\de\blau\android\prefs\MultiSelectListPreference.java"
             line="56"
@@ -2451,8 +2521,8 @@
         message="TypedArrayUtils can only be called from within the same library group (groupId=com.android.support)"
         errorLine1="        mEntryValues = TypedArrayUtils.getTextArray(a, R.styleable.MultiSelectListPreference_entryValues,"
         errorLine2="                       ~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\legacy\java\de\blau\android\prefs\MultiSelectListPreference.java"
             line="58"
@@ -2488,7 +2558,7 @@
         errorLine2="                                                                                ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\presets\Preset.java"
-            line="2476"
+            line="2480"
             column="81"/>
     </issue>
 
@@ -2499,7 +2569,7 @@
         errorLine2="                                                                                ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\presets\Preset.java"
-            line="3747"
+            line="3751"
             column="81"/>
     </issue>
 
@@ -2972,7 +3042,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="144"
+            line="147"
             column="5"/>
     </issue>
 
@@ -2983,7 +3053,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="348"
+            line="357"
             column="5"/>
     </issue>
 
@@ -2994,7 +3064,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="418"
+            line="427"
             column="5"/>
     </issue>
 
@@ -3005,7 +3075,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="426"
+            line="435"
             column="5"/>
     </issue>
 
@@ -3016,7 +3086,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="507"
+            line="517"
             column="5"/>
     </issue>
 
@@ -3027,7 +3097,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="849"
+            line="860"
             column="5"/>
     </issue>
 
@@ -3038,7 +3108,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="879"
+            line="890"
             column="5"/>
     </issue>
 
@@ -3049,7 +3119,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="882"
+            line="893"
             column="5"/>
     </issue>
 
@@ -3060,7 +3130,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="897"
+            line="908"
             column="5"/>
     </issue>
 
@@ -3071,7 +3141,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="903"
+            line="914"
             column="5"/>
     </issue>
 
@@ -3082,7 +3152,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="925"
+            line="936"
             column="5"/>
     </issue>
 
@@ -3093,7 +3163,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="951"
+            line="962"
             column="5"/>
     </issue>
 
@@ -3104,7 +3174,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="571"
+            line="583"
             column="5"/>
         <location
             file="src\main\res\values-el\strings.xml"
@@ -3315,8 +3385,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Authorize.java"
             line="124"
@@ -3328,8 +3398,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= 11) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\BugFixedAppCompatActivity.java"
             line="26"
@@ -3341,8 +3411,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\ClipboardUtils.java"
             line="58"
@@ -3354,8 +3424,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\ClipboardUtils.java"
             line="80"
@@ -3367,8 +3437,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\ClipboardUtils.java"
             line="181"
@@ -3380,8 +3450,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\layer\tasks\ConfigurationDialog.java"
             line="88"
@@ -3393,8 +3463,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\DebugInformation.java"
             line="60"
@@ -3406,8 +3476,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\DownloadActivity.java"
             line="124"
@@ -3419,8 +3489,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\DownloadActivity.java"
             line="156"
@@ -3432,8 +3502,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\FixedChromaDialog.java"
             line="108"
@@ -3445,8 +3515,8 @@
         message="Unnecessary; SDK_INT is always >= 9"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\FixedChromaDialog.java"
             line="108"
@@ -3458,11 +3528,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\HelpViewer.java"
-            line="153"
+            line="155"
             column="13"/>
     </issue>
 
@@ -3471,8 +3541,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\ImmersiveDialogFragment.java"
             line="25"
@@ -3484,8 +3554,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\ImmersiveDialogFragment.java"
             line="34"
@@ -3497,8 +3567,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\ImmersiveDialogFragment.java"
             line="42"
@@ -3510,8 +3580,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\services\util\MBTileProviderDataBase.java"
             line="113"
@@ -3523,11 +3593,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\services\util\MBTileProviderDataBase.java"
-            line="177"
+            line="176"
             column="21"/>
     </issue>
 
@@ -3536,8 +3606,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { // 12"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Main.java"
             line="516"
@@ -3549,8 +3619,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Main.java"
             line="1365"
@@ -3562,8 +3632,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Main.java"
             line="1380"
@@ -3575,8 +3645,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Main.java"
             line="1832"
@@ -3588,11 +3658,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="3928"
+            line="3956"
             column="29"/>
     </issue>
 
@@ -3601,8 +3671,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Map.java"
             line="197"
@@ -3614,8 +3684,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB /* &amp;&amp; Build.VERSION.SDK_INT &lt; 18 */ &amp;&amp; mIsHardwareAccelerated != null) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Map.java"
             line="574"
@@ -3627,8 +3697,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;"
         errorLine2="               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\layer\tasks\MapOverlay.java"
             line="279"
@@ -3640,11 +3710,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\views\util\MapTileProvider.java"
-            line="394"
+            line="393"
             column="21"/>
     </issue>
 
@@ -3653,8 +3723,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\services\util\MapTileProviderDataBase.java"
             line="235"
@@ -3666,8 +3736,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
             line="143"
@@ -3679,8 +3749,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
             line="200"
@@ -3692,8 +3762,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\prefs\Preferences.java"
             line="655"
@@ -3705,8 +3775,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="            if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\ProgressDialog.java"
             line="98"
@@ -3718,11 +3788,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\PropertyEditor.java"
-            line="418"
+            line="419"
             column="13"/>
     </issue>
 
@@ -3731,8 +3801,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\RelationMembersFragment.java"
             line="507"
@@ -3744,8 +3814,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\RelationMembershipFragment.java"
             line="237"
@@ -3757,8 +3827,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\SavingHelper.java"
             line="421"
@@ -3770,8 +3840,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\Screen.java"
             line="31"
@@ -3783,8 +3853,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\Screen.java"
             line="62"
@@ -3796,8 +3866,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\SizedFixedImmersiveDialogFragment.java"
             line="25"
@@ -3809,8 +3879,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\SizedFixedImmersiveDialogFragment.java"
             line="34"
@@ -3822,8 +3892,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\SizedFixedImmersiveDialogFragment.java"
             line="42"
@@ -3835,8 +3905,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\util\SizedFixedImmersiveDialogFragment.java"
             line="80"
@@ -3848,8 +3918,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB &amp;&amp; sex instanceof SQLiteDatabaseLockedException) {"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\Splash.java"
             line="64"
@@ -3861,8 +3931,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\TableLayoutUtils.java"
             line="233"
@@ -3874,8 +3944,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\TableLayoutUtils.java"
             line="303"
@@ -3887,8 +3957,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (!isUrl &amp;&amp; Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\TableLayoutUtils.java"
             line="339"
@@ -3900,8 +3970,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\TableLayoutUtils.java"
             line="382"
@@ -3913,8 +3983,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\dialogs\TableLayoutUtils.java"
             line="409"
@@ -3926,8 +3996,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\TagEditorFragment.java"
             line="1045"
@@ -3939,11 +4009,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                } else if (Tags.OPENING_HOURS_SYNTAX.contains(key) &amp;&amp; Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                                                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\tagform\TagFormFragment.java"
-            line="938"
+            line="939"
             column="71"/>
     </issue>
 
@@ -3952,11 +4022,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                || ValueType.OPENING_HOURS_MIXED == valueType &amp;&amp; Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB;"
         errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\tagform\TagFormFragment.java"
-            line="962"
+            line="963"
             column="66"/>
     </issue>
 
@@ -3965,8 +4035,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\tasks\TaskFragment.java"
             line="194"
@@ -3978,8 +4048,8 @@
         message="Unnecessary; SDK_INT is never &lt; 14"
         errorLine1="        if (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\propertyeditor\tagform\TextRow.java"
             line="171"
@@ -3991,8 +4061,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\resources\TileLayerServer.java"
             line="1156"
@@ -4004,8 +4074,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\resources\TileLayerServer.java"
             line="1175"
@@ -4017,8 +4087,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\resources\TileLayerServer.java"
             line="1181"
@@ -4030,8 +4100,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\resources\TileLayerServer.java"
             line="1234"
@@ -4043,8 +4113,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\resources\TileLayerServer.java"
             line="1259"
@@ -4056,8 +4126,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\resources\TileLayerServer.java"
             line="1270"
@@ -4069,11 +4139,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= 11) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\tasks\TransferTasks.java"
-            line="312"
+            line="311"
             column="13"/>
     </issue>
 
@@ -4082,11 +4152,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= 11) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\tasks\TransferTasks.java"
-            line="418"
+            line="417"
             column="13"/>
     </issue>
 
@@ -4095,11 +4165,11 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        if (Build.VERSION.SDK_INT >= 11) {"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\tasks\TransferTasks.java"
-            line="507"
+            line="506"
             column="13"/>
     </issue>
 
@@ -4108,8 +4178,8 @@
         message="Unnecessary; SDK_INT is always >= 14"
         errorLine1="        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\java\de\blau\android\layer\photos\Util.java"
             line="30"
@@ -4119,8 +4189,8 @@
     <issue
         id="ObsoleteSdkInt"
         message="This folder configuration (`v14`) is unnecessary; `minSdkVersion` is 14. Merge all the resources in this folder into `layout`."
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout-v14"/>
     </issue>
@@ -4128,8 +4198,8 @@
     <issue
         id="ObsoleteSdkInt"
         message="This folder configuration (`v11`) is unnecessary; `minSdkVersion` is 14. Merge all the resources in this folder into `menu`."
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\menu-v11"/>
     </issue>
@@ -4137,8 +4207,8 @@
     <issue
         id="ObsoleteSdkInt"
         message="This folder configuration (`v11`) is unnecessary; `minSdkVersion` is 14. Merge all the resources in this folder into `xml`."
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\xml-v11"/>
     </issue>
@@ -4146,8 +4216,8 @@
     <issue
         id="ObsoleteSdkInt"
         message="This folder configuration (`v14`) is unnecessary; `minSdkVersion` is 14. Merge all the resources in this folder into `xml`."
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\xml-v14"/>
     </issue>
@@ -4201,8 +4271,8 @@
         message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                new AsyncTask&lt;Void, UserDetails, UserDetails>() {"
         errorLine2="                ^"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\current\java\de\blau\android\Feedback.java"
             line="138"
@@ -4216,7 +4286,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="1956"
+            line="1960"
             column="9"/>
     </issue>
 
@@ -4227,7 +4297,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2455"
+            line="2459"
             column="9"/>
     </issue>
 
@@ -4238,7 +4308,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2552"
+            line="2556"
             column="9"/>
     </issue>
 
@@ -4249,7 +4319,7 @@
         errorLine2="              ~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2714"
+            line="2718"
             column="15"/>
     </issue>
 
@@ -4260,7 +4330,7 @@
         errorLine2="              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2780"
+            line="2784"
             column="15"/>
     </issue>
 
@@ -4271,7 +4341,7 @@
         errorLine2="              ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="2880"
+            line="2884"
             column="15"/>
     </issue>
 
@@ -4282,7 +4352,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3063"
+            line="3067"
             column="9"/>
     </issue>
 
@@ -4293,7 +4363,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3161"
+            line="3167"
             column="9"/>
     </issue>
 
@@ -4304,7 +4374,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3248"
+            line="3254"
             column="9"/>
     </issue>
 
@@ -4315,7 +4385,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3288"
+            line="3296"
             column="9"/>
     </issue>
 
@@ -4326,7 +4396,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3338"
+            line="3348"
             column="9"/>
     </issue>
 
@@ -4337,7 +4407,7 @@
         errorLine2="                                                ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3393"
+            line="3403"
             column="49"/>
     </issue>
 
@@ -4348,7 +4418,7 @@
         errorLine2="                                                ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3482"
+            line="3492"
             column="49"/>
     </issue>
 
@@ -4359,7 +4429,7 @@
         errorLine2="                                                ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3533"
+            line="3543"
             column="49"/>
     </issue>
 
@@ -4370,7 +4440,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3656"
+            line="3666"
             column="9"/>
     </issue>
 
@@ -4381,7 +4451,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3769"
+            line="3779"
             column="9"/>
     </issue>
 
@@ -4392,7 +4462,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\Logic.java"
-            line="3844"
+            line="3854"
             column="9"/>
     </issue>
 
@@ -4700,7 +4770,7 @@
         errorLine2="                ^">
         <location
             file="src\main\java\de\blau\android\tasks\TransferTasks.java"
-            line="452"
+            line="451"
             column="17"/>
     </issue>
 
@@ -4753,8 +4823,8 @@
         message="Use `new SparseArray&lt;Listener>(...)` instead for better performance"
         errorLine1="    java.util.Map&lt;Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap&lt;>();"
         errorLine2="                                                                                     ~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\current\java\de\blau\android\Feedback.java"
             line="47"
@@ -4995,8 +5065,8 @@
     <issue
         id="UnusedResources"
         message="The resource `R.string.reporter` appears to be unused"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="build.gradle"/>
     </issue>
@@ -5225,7 +5295,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="260"
+            line="263"
             column="13"/>
         <location
             file="src\main\res\values-bg\strings.xml"
@@ -5316,7 +5386,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="298"
+            line="301"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5385,11 +5455,11 @@
         message="The resource `R.string.feedback_with_displayname` appears to be unused"
         errorLine1="    &lt;string name=&quot;feedback_with_displayname&quot;>Send with your OpenStreetMap display name&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\strings.xml"
-            line="303"
+            line="311"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5450,11 +5520,11 @@
         message="The resource `R.string.feedback_displayname_hint` appears to be unused"
         errorLine1="    &lt;string name=&quot;feedback_displayname_hint&quot;>OpenStreetMap display name not retrieved yet&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\strings.xml"
-            line="304"
+            line="312"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5515,11 +5585,11 @@
         message="The resource `R.string.feedback_title` appears to be unused"
         errorLine1="    &lt;string name=&quot;feedback_title&quot;>Feedback for the developers&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\strings.xml"
-            line="305"
+            line="313"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5592,11 +5662,11 @@
         message="The resource `R.string.default_channel_name` appears to be unused"
         errorLine1="    &lt;string name=&quot;default_channel_name&quot;>Vespucci default&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\strings.xml"
-            line="322"
+            line="331"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5637,11 +5707,11 @@
         message="The resource `R.string.default_channel_description` appears to be unused"
         errorLine1="    &lt;string name=&quot;default_channel_description&quot;>Default notification channel&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\values\strings.xml"
-            line="323"
+            line="332"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5684,7 +5754,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="342"
+            line="351"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -5779,7 +5849,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="358"
+            line="367"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5850,7 +5920,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="365"
+            line="374"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5917,7 +5987,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="376"
+            line="385"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -5992,7 +6062,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="419"
+            line="428"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6079,7 +6149,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="420"
+            line="429"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -6138,7 +6208,7 @@
         errorLine2="            ~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="470"
+            line="480"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6269,7 +6339,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="520"
+            line="530"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -6364,7 +6434,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="525"
+            line="535"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6467,7 +6537,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="595"
+            line="607"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -6622,7 +6692,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="596"
+            line="608"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6769,7 +6839,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="602"
+            line="614"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -6912,7 +6982,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="612"
+            line="624"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7055,7 +7125,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="613"
+            line="625"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7146,7 +7216,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="614"
+            line="626"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7269,7 +7339,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="658"
+            line="670"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7352,7 +7422,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="677"
+            line="689"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7451,7 +7521,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="685"
+            line="696"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7522,7 +7592,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="697"
+            line="708"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7597,7 +7667,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="699"
+            line="710"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7672,7 +7742,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="705"
+            line="716"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7763,7 +7833,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="730"
+            line="741"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7826,7 +7896,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="733"
+            line="744"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -7901,7 +7971,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="783"
+            line="794"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -7976,7 +8046,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="785"
+            line="796"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8051,7 +8121,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="789"
+            line="800"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8130,7 +8200,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="792"
+            line="803"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8205,7 +8275,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="793"
+            line="804"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8272,7 +8342,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="794"
+            line="805"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8339,7 +8409,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="795"
+            line="806"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8454,7 +8524,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="816"
+            line="827"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8601,7 +8671,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="885"
+            line="896"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8676,7 +8746,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="886"
+            line="897"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8731,7 +8801,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="908"
+            line="919"
             column="13"/>
         <location
             file="src\main\res\values-cs-rCZ\strings.xml"
@@ -8794,7 +8864,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="971"
+            line="982"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8869,7 +8939,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="990"
+            line="1001"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -8996,7 +9066,7 @@
         errorLine2="            ~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1001"
+            line="1012"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -9151,7 +9221,7 @@
         errorLine2="            ~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1014"
+            line="1025"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -9286,7 +9356,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1078"
+            line="1089"
             column="13"/>
         <location
             file="src\main\res\values-ar\strings.xml"
@@ -9437,7 +9507,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\values\strings.xml"
-            line="1080"
+            line="1091"
             column="13"/>
         <location
             file="src\main\res\values-ca\strings.xml"
@@ -9736,6 +9806,17 @@
             file="src\main\res\values\values.xml"
             line="12"
             column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.vespucci_help_logo` appears to be unused"
+        errorLine1="&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src\main\res\mipmap-anydpi-v26\vespucci_help_logo.xml"
+            line="2"
+            column="1"/>
     </issue>
 
     <issue
@@ -13232,6 +13313,13 @@
 
     <issue
         id="IconLocation"
+        message="Found bitmap drawable `res/drawable/vespucci_help_logo_foreground.png` in densityless folder">
+        <location
+            file="src\main\res\drawable\vespucci_help_logo_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
         message="Found bitmap drawable `res/drawable/vespucci_logo.png` in densityless folder">
         <location
             file="src\main\res\drawable\vespucci_logo.png"/>
@@ -13270,8 +13358,8 @@
         message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
         errorLine1="        &lt;Button"
         errorLine2="         ~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\location_picker_view.xml"
             line="155"
@@ -13283,8 +13371,8 @@
         message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
         errorLine1="        &lt;Button"
         errorLine2="         ~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\location_picker_view.xml"
             line="164"
@@ -13294,10 +13382,23 @@
     <issue
         id="GoogleAppIndexingWarning"
         message="App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent filter. See issue explanation for more details."
+        errorLine1="    &lt;application>"
+        errorLine2="    ^"
+        includedVariants="currentDebugsingle,legacyDebugsingle"
+        excludedVariants="currentDebug,currentRelease,legacyDebug,legacyRelease">
+        <location
+            file="src\debugsingle\AndroidManifest.xml"
+            line="6"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GoogleAppIndexingWarning"
+        message="App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent filter. See issue explanation for more details."
         errorLine1="    &lt;application"
         errorLine2="    ^"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\current\AndroidManifest.xml"
             line="7"
@@ -13465,7 +13566,7 @@
         errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\PrefEditorActivity.java"
-            line="51"
+            line="53"
             column="26"/>
     </issue>
 
@@ -13636,8 +13737,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="        &lt;EditText"
         errorLine2="         ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\conditionalrestriction.xml"
             line="21"
@@ -13649,8 +13750,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\debug_js.xml"
             line="18"
@@ -13662,8 +13763,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="                &lt;EditText"
         errorLine2="                 ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\layer_item.xml"
             line="34"
@@ -13675,8 +13776,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\layer_item.xml"
             line="65"
@@ -13688,8 +13789,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\layer_item.xml"
             line="119"
@@ -13701,8 +13802,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\layer_item.xml"
             line="131"
@@ -13714,8 +13815,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\layer_item.xml"
             line="144"
@@ -13727,8 +13828,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\layer_item.xml"
             line="157"
@@ -13740,8 +13841,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
             line="14"
@@ -13753,8 +13854,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
             line="26"
@@ -13766,8 +13867,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
             line="51"
@@ -13779,8 +13880,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\listedit_apiedit.xml"
             line="61"
@@ -13792,8 +13893,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\listedit_geocoderedit.xml"
             line="14"
@@ -13805,8 +13906,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\listedit_geocoderedit.xml"
             line="39"
@@ -13818,8 +13919,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\listedit_presetedit.xml"
             line="14"
@@ -13831,8 +13932,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\listedit_presetedit.xml"
             line="40"
@@ -13844,8 +13945,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\location_picker_view.xml"
             line="50"
@@ -13857,8 +13958,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\location_picker_view.xml"
             line="66"
@@ -13870,8 +13971,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="        &lt;EditText"
         errorLine2="         ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\location_picker_view.xml"
             line="90"
@@ -13883,8 +13984,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\login_edit.xml"
             line="15"
@@ -13896,8 +13997,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\login_edit.xml"
             line="30"
@@ -13909,8 +14010,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\number_picker_custom_layout.xml"
             line="20"
@@ -13922,8 +14023,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\number_picker_custom_small_layout.xml"
             line="20"
@@ -13935,8 +14036,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="        &lt;EditText"
         errorLine2="         ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\openstreetbug_edit.xml"
             line="58"
@@ -13948,8 +14049,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="        &lt;EditText"
         errorLine2="         ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\preset_pane.xml"
             line="19"
@@ -13961,8 +14062,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\query_entry.xml"
             line="10"
@@ -13974,8 +14075,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="  &lt;EditText"
         errorLine2="   ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\save_file.xml"
             line="11"
@@ -13987,8 +14088,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="  &lt;EditText"
         errorLine2="   ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\save_imagery_offset.xml"
             line="14"
@@ -14000,8 +14101,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="   &lt;EditText"
         errorLine2="    ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\save_imagery_offset.xml"
             line="35"
@@ -14013,8 +14114,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\set_position.xml"
             line="42"
@@ -14026,8 +14127,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="            &lt;EditText"
         errorLine2="             ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\set_position.xml"
             line="64"
@@ -14039,8 +14140,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="     &lt;EditText"
         errorLine2="      ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\tagfilter_item.xml"
             line="64"
@@ -14052,8 +14153,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="     &lt;EditText"
         errorLine2="      ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\tagfilter_item.xml"
             line="76"
@@ -14065,8 +14166,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\upload_gpx.xml"
             line="18"
@@ -14078,8 +14179,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1="    &lt;EditText"
         errorLine2="     ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\upload_gpx.xml"
             line="39"
@@ -14091,8 +14192,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1=" &lt;EditText "
         errorLine2="  ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\validator_ruleset_check_item.xml"
             line="18"
@@ -14104,8 +14205,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1=" &lt;EditText "
         errorLine2="  ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\validator_ruleset_resurvey_item.xml"
             line="18"
@@ -14117,8 +14218,8 @@
         message="Missing `autofillHints` attribute"
         errorLine1=" &lt;EditText "
         errorLine2="  ~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\validator_ruleset_resurvey_item.xml"
             line="40"
@@ -14165,7 +14266,7 @@
         errorLine2="                       ~~~~~~~">
         <location
             file="src\main\java\de\blau\android\Main.java"
-            line="3456"
+            line="3483"
             column="24"/>
     </issue>
 
@@ -14913,7 +15014,7 @@
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\BoxPicker.java"
-            line="229"
+            line="231"
             column="25"/>
     </issue>
 
@@ -14924,7 +15025,7 @@
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\BoxPicker.java"
-            line="230"
+            line="232"
             column="25"/>
     </issue>
 
@@ -15120,8 +15221,8 @@
         message="To support older versions than API 17 (project specifies 14) you should **also** add `android:paddingRight=&quot;5dp&quot;`"
         errorLine1="                        android:paddingEnd=&quot;5dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\upload_tabs.xml"
             line="69"
@@ -15133,8 +15234,8 @@
         message="To support older versions than API 17 (project specifies 9) you should **also** add `android:paddingRight=&quot;5dp&quot;`"
         errorLine1="                        android:paddingEnd=&quot;5dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\upload_tabs.xml"
             line="69"
@@ -15146,8 +15247,8 @@
         message="To support older versions than API 17 (project specifies 14) you should **also** add `android:paddingRight=&quot;5dp&quot;`"
         errorLine1="                        android:paddingEnd=&quot;5dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~"
-        includedVariants="currentDebug,currentRelease"
-        excludedVariants="legacyDebug,legacyRelease">
+        includedVariants="currentDebug,currentDebugsingle,currentRelease"
+        excludedVariants="legacyDebug,legacyDebugsingle,legacyRelease">
         <location
             file="src\main\res\layout\upload_tabs.xml"
             line="101"
@@ -15159,8 +15260,8 @@
         message="To support older versions than API 17 (project specifies 9) you should **also** add `android:paddingRight=&quot;5dp&quot;`"
         errorLine1="                        android:paddingEnd=&quot;5dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~"
-        includedVariants="legacyDebug,legacyRelease"
-        excludedVariants="currentDebug,currentRelease">
+        includedVariants="legacyDebug,legacyDebugsingle,legacyRelease"
+        excludedVariants="currentDebug,currentDebugsingle,currentRelease">
         <location
             file="src\main\res\layout\upload_tabs.xml"
             line="101"
