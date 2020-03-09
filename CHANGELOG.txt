@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.0.19: Update imagery and presets, invalidate all way bounding boxes if a node has been restored, re-factor OSC and Undo code, 
+
 14.0.18: Set default resurvey time for new entries to 365 days, use wgs height from NMEA sources, handle "raw" Uris from SAF, zap RO source if offline data is not available.
 
 14.0.17: Fix coordinate overflow in centroid calculation when cutting or copying multiple elements, maintain inter-way connections properly for C&P.
