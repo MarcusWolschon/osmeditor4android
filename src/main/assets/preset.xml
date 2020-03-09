@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.7.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.8.3" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -90,7 +90,7 @@
         <reference ref="layer"/>
     </chunk>
     <chunk id="tunnel">
-        <combo key="tunnel" text="Tunnel" values="yes,building_passage" display_values="Yes,Building passage," values_sort="false" match="key"/>
+        <combo key="tunnel" text="Tunnel" values="yes,building_passage" display_values="Yes,Building passage" values_sort="false" match="key"/>
             <optional>
                 <reference ref="layer"/>
                 <text key="width" text="Width (meters)"/>
@@ -609,7 +609,7 @@
     <chunk id="population_postcode_website">
         <text key="population" text="Population"/>
         <text key="postal_code" text="Postal code"/>
-        <text key="website" text="Website"/>
+        <text key="website" text="Website" value_type="website"/>
     </chunk>
     <chunk id="route_hikebike_optionals">
         <check key="network:type" text="Node network" value_on="node_network" disable_off="true" />
@@ -937,6 +937,7 @@
      <role key="" text="route segment" requisite="optional" type="way,closedway" member_expression="highway|route=ferry|leisure=track"/>
      <role key="forward" text="forward segment" requisite="optional" type="way,closedway" />
      <role key="backward" text="backward segment" requisite="optional" type="way,closedway" />
+     <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
   </chunk>
   <chunk id="route_start_stop_roles">
      <role key="start" text="start endpoint" requisite="optional" type="node" />
@@ -1113,7 +1114,7 @@
       <check key="climbing:summit_log" text="Summit/route log/register" />
       <check key="indoor" text="Climbing routes indoor" />
       <check key="outdoor" text="Climbing routes outdoor" />          
-      <text key="website" text="Web site" />
+      <text key="website" text="Website"  value_type="website" />
       <combo key="opening_hours" text="Opening Hours" value_type="opening_hours" delimiter="|" values="24/7|sunset-sunrise open; sunrise-sunset closed|Mar-Jun closed; Jul-Feb Mo-Su,PH sunrise-sunset|Mo-Fr 15:00-22:00; Sa-Su 11:00-22:00" values_no_i18n="true"/>
       <combo key="fee" text="Fee" value_type="opening_hours_mixed" values="yes,no,Sa-Su 08:00-20:00"/>
       <reference ref="facility_access"/>
@@ -1158,6 +1159,16 @@
         <check key="scuba_diving:trimix_filling" text="Trimix" disable_off="true"/>
         <check key="scuba_diving:oxygen_filling" text="Oxygen" disable_off="true"/>
       </checkgroup>
+  </chunk>
+  <chunk id="communication_types">
+    <label text="Communication types:" />
+    <checkgroup text="Communication types" columns="2">
+      <check key="communication:mobile_phone" text="Mobile phone" />
+      <check key="communication:radio" text="Radio" />
+      <check key="communication:television" text="Television" />
+      <check key="communication:microwave" text="Microwave" />
+      <check key="communication:bos" text="BOS" />
+    </checkgroup>
   </chunk>
   <!--  Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -2262,7 +2273,7 @@
         <item name="Motorcar and -cycle (CH)" region="CH" icon="icons/png/no_motor_vehicles.png" type="node,way,closedway" preset_name_label="true">
             <link wiki="Key:access"/>
             <space/>
-            <combo key="motorcar" text="Motorcar" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no" display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,,No access" values_context="access" values_sort="false" match="key"/>
+            <combo key="motorcar" text="Motorcar" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no" display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
             <combo key="motorcar:conditional" text="Motorcar @" long_text="Conditional restriction for motorcars" delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key"/>
             <combo key="motorcycle" text="Motorcycle" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no" display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
             <combo key="motorcycle:conditional" text="Motorcycle @" long_text="Conditional restriction for motorcycles" delimiter="|" values="yes @ wet|no @ dry|destination @ rain|delivery @ snow|agricultural @ hazmat|forestry @ weight=0|private @ length=0|no @ width=0" values_sort="false" match="key"/>
@@ -2607,8 +2618,16 @@
             <link wiki="Tag:route=ferry"/>
             <key key="route" value="ferry"/>
             <optional>
-                <text key="name" text="Name"/>
+                <reference ref="name_ref_operator" />
+                <reference ref="oh_wheelchair" />
+                <space />
+                <combo key="duration" text="Duration (M, MM, HH:MM, or HH:MM:SS)" values="5,10,15,20,30,60,120" values_no_i18n="true" />
+                <combo key="interval" text="Interval (M, MM, HH:MM, or HH:MM:SS)" values="5,10,15,20,30,60,120" values_no_i18n="true" />
+                <reference ref="fee" />
+                <combo key="ferry" text="Highway type connected" values="trunk,primary,secondary,tertiary,unclassified" values_context="Highway" />
+                <check key="ferry:cable" text="Reaction ferry" />
             </optional>
+            <reference ref="road_access_restrictions"/>
         </item> <!-- Ferry Route -->
         <separator/>
         <item name="Marina" icon="icons/png/transport_marina.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -3094,7 +3113,8 @@
             <checkgroup text="Types of vehicles which can be charged" columns="4">
                 <check key="bicycle" text="Bicycle" disable_off="true"/>
                 <check key="scooter" text="Scooter" disable_off="true"/>
-                <check key="car" text="Car" disable_off="true"/>
+                <check key="motorcar" text="Car" disable_off="true"/>
+                <check key="motorcycle" text="Motorcycle" disable_off="true"/>
                 <check key="truck" text="Truck" disable_off="true"/>
             </checkgroup>
             <space/>
@@ -3180,7 +3200,7 @@
             <text key="network" text="Network" />
             <text key="capacity" text="Capacity" />
             <reference ref="name_oh_wheelchair" />
-            <text key="website" text="Website" />
+            <text key="website" text="Website"  value_type="website"/>
         </item> <!-- Pooling -->
         <item name="Sharing" icon="icons/png/transport_car_share.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=car_sharing"/>
@@ -3190,7 +3210,7 @@
             <text key="capacity" text="Capacity" value_type="integer"/>
             <reference ref="level"/>
             <reference ref="name_oh_wheelchair"/>
-            <text key="website" text="Website"/>
+            <text key="website" text="Website" value_type="website"/>
         </item> <!-- Sharing -->
         <item name="Vehicle Inspection" icon="icons/png/transport_vehicle_inspection.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=vehicle_inspection"/>
@@ -3198,7 +3218,7 @@
             <key key="amenity" value="vehicle_inspection"/>
             <text key="operator" text="Operator"/>
             <reference ref="name_oh_wheelchair"/>
-            <text key="website" text="Website"/>
+            <text key="website" text="Website" value_type="website"/>
         </item> <!-- Sharing -->
     </group> <!-- Car -->
     <group name="Motorcycle" icon="icons/png/transport_motorcycle.png">
@@ -3310,16 +3330,16 @@
             <link wiki="Proposed_features/Public_Transport#Route"/>
             <space/>
             <key key="type" value="route"/>
-            <combo key="route" text="Route type" values="bus,trolleybus" display_values="Bus,Trolleybus" values_searchable="true" match="keyvalue!"/>
+            <combo key="route" text="Route type" values="bus,share_taxi,trolleybus" display_values="Bus,Share taxi,Trolleybus" values_searchable="true" match="keyvalue!"/>
             <key key="public_transport:version" text="Version" value="2"/> <!-- only validate marked relations in order to avoid false positives -->
             <reference ref="name_ref"/>
             <optional>
                 <reference ref="public_transport_route_optionals"/>
             </optional>
             <roles>
-                <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR trolleybus=yes)"/>
-                <role key="stop_exit_only" text="stop position (exit only)" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR trolleybus=yes)"/>
-                <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR trolleybus=yes)"/>
+                <role key="stop" text="stop position" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR share_taxi=yes OR trolleybus=yes)"/>
+                <role key="stop_exit_only" text="stop position (exit only)" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR share_taxi=yes OR trolleybus=yes)"/>
+                <role key="stop_entry_only" text="stop position (entry only)" requisite="optional" type="node" member_expression="public_transport=stop_position (bus=yes OR share_taxi=yes OR trolleybus=yes)"/>
                 <role key="platform" text="platform" requisite="optional" type="node,way,closedway,multipolygon" member_expression="public_transport=platform"/>
                 <role key="platform_exit_only" text="platform (exit only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform"/>
                 <role key="platform_entry_only" text="platform (entry only)" requisite="optional" type="node,way,closedway" member_expression="public_transport=platform"/>
@@ -3331,7 +3351,7 @@
             <link wiki="Proposed_features/Public_Transport#Route_master"/>
             <space/>
             <key key="type" value="route_master"/>
-            <combo key="route_master" text="Route type" values="train,subway,monorail,tram,bus,trolleybus,aerialway,ferry"/>
+            <combo key="route_master" text="Route type" values="train,subway,monorail,tram,bus,trolleybus,share_taxi,aerialway,ferry" display_values="Train,Subway,Monorail,Tram,Bus,Trolleybus,Share taxi,Aerialway,Ferry"/>
             <reference ref="name_ref"/>
             <optional>
                 <text key="operator" text="Operator"/>
@@ -3477,7 +3497,8 @@
     <group name="Public Transport (Legacy)" icon="icons/png/transport_bus_stop.png">
         <item name="Public transport route (Legacy)" icon="icons/png/transport_route_sp.png" type="relation" preset_name_label="true">
             <key key="type" value="route"/>
-            <combo key="route" text="Route type" values="train,subway,monorail,tram,bus,trolleybus,aerialway,ferry" values_searchable="true" match="keyvalue!"/>
+            <combo key="route" text="Route type" values="train,subway,monorail,tram,bus,trolleybus,share_taxi,aerialway,ferry" 
+                display_values="Train,Subway,Monorail,Tram,Bus,Trolleybus,Share taxi,Aerialway,Ferry" values_searchable="true" match="keyvalue!"/>
             <key key="public_transport:version" text="Version" value="1" match="none"/>  <!-- only validate marked relations in order to avoid false positives -->
             <reference ref="name_ref"/>
             <optional>
@@ -5110,7 +5131,7 @@
         </item> <!-- Music School -->
     </group> <!-- Education -->
     <group name="Health" icon="icons/png/health_pharmacy.png">
-        <item name="Hospital" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Hospital" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
             <link wiki="Tag:amenity=hospital"/>
             <space/>
             <key key="amenity" value="hospital" match="keyvalue"/>
@@ -5118,7 +5139,7 @@
             <reference ref="name_operator"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Hospital -->
-        <item name="Clinic" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Clinic" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
             <link wiki="Tag:amenity=clinic"/>
             <space/>
             <key key="amenity" value="clinic" match="keyvalue"/>
@@ -5127,7 +5148,7 @@
             <reference ref="name_operator_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Clinic -->
-        <item name="Doctor's Office" icon="icons/png/health_doctors.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Doctor's Office" icon="icons/png/health_doctors.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
             <link wiki="Tag:amenity=doctors"/>
             <space/>
             <key key="amenity" value="doctors" match="keyvalue"/>
@@ -5136,7 +5157,7 @@
             <reference ref="name_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Doctor's Office -->
-        <item name="Dentist" icon="icons/png/health_dentist.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Dentist" icon="icons/png/health_dentist.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
             <link wiki="Tag:amenity=dentist"/>
             <space/>
             <key key="amenity" value="dentist" match="keyvalue"/>
@@ -5775,6 +5796,9 @@
             <combo key="weather_protection" text="Weather protection" values="awning,canopy,parasol,pavilion,roof,trees" 
                 display_values="Awning,Canopy,Parasol,Pavilion,Roof,Trees" values_searchable="true" match="key"/>
             <check key="heating" text="Heating" />
+            <optional>
+                <reference ref="name_operator_oh_wheelchair" />
+            </optional>
         </item> <!-- Outdoor seating -->
         <item name="Shelter" icon="icons/png/accommodation_shelter2.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=shelter"/>
@@ -6338,10 +6362,14 @@
             <key key="sport" value="gaelic_games"/>
             <reference ref="name_leisure_pitch"/>
             <optional>
-                <check key="gaelic_games:hurling" text="Hurling" disable_off="true"/>
-                <check key="gaelic_games:football" text="Football" disable_off="true"/>
-                <check key="gaelic_games:camogie" text="Camogie" disable_off="true"/>
-                <check key="gaelic_games:rounders" text="Rounders" disable_off="true"/>
+                <label text="Games:" />
+                <checkgroup text="Games" columns="2">
+                    <check key="gaelic_games:hurling" text="Hurling" disable_off="true"/>
+                    <check key="gaelic_games:football" text="Football" disable_off="true"/>
+                    <check key="gaelic_games:camogie" text="Camogie" disable_off="true"/>
+                    <check key="gaelic_games:rounders" text="Rounders" disable_off="true"/>
+                    <check key="gaelic_games:handball" text="Handball" disable_off="true"/>
+                </checkgroup>
             </optional>
         </item> <!-- Gaelic Games -->
         <item name="Rugby League" icon="icons/png/sport_football_21036.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -6525,8 +6553,8 @@
 			<link wiki="Key:building"/>
 			<space/>
 			<combo key="building" text="Building" 
-                values="allotment_house,apartments,bakehouse,barn,basilica,bungalow,cabin,cathedral,chapel,church,college,commercial,construction,cowshed,detached,dormitory,farm,farm_auxiliary,garage,garages,gasometer,ger,grandstand,greenhouse,hangar,hospital,hotel,house,hut,industrial,kindergarten,manufacture,mosque,office,public,residential,retail,roof,ruins,school,semidetached_house,service,shed,stable,static_caravan,storage_tank,supermarket,synagogue,temple,terrace,toilets,train_station,transformer_tower,transportation,university,warehouse,yes" 
-                display_values="Allotment house,Apartments,Bakehouse,Barn,Basilica,Bungalow,Cabin,Cathedral,Chapel,Church,College,Commercial,Construction,Cowshed,Detached,Dormitory,Farm,Farm auxiliary,Garage,Garages,Gasometer,Ger,Grandstand,Greenhouse,Hangar,Hospital,Hotel,House,Hut,Industrial,Kindergarten,Manufacture,Mosque,Office,Public,Residential,Retail,Roof,Ruins,School,Semidetached house,Service,Shed,Stable,Static caravan,Storage tank,Supermarket,Synagogue,Temple,Terrace,Toilets,Train station,Transformer tower,Transportation,University,Warehouse,Yes"
+                values="allotment_house,apartments,bakehouse,barn,basilica,bungalow,cabin,cathedral,chapel,church,college,commercial,construction,cowshed,detached,dormitory,farm,farm_auxiliary,fire_station,garage,garages,gasometer,ger,grandstand,greenhouse,hangar,hospital,hotel,house,hut,industrial,kindergarten,manufacture,mosque,office,public,residential,retail,roof,ruins,school,semidetached_house,service,shed,stable,static_caravan,storage_tank,supermarket,synagogue,temple,terrace,toilets,train_station,transformer_tower,transportation,university,warehouse,yes" 
+                display_values="Allotment house,Apartments,Bakehouse,Barn,Basilica,Bungalow,Cabin,Cathedral,Chapel,Church,College,Commercial,Construction,Cowshed,Detached,Dormitory,Farm,Farm auxiliary,Fire station,Garage,Garages,Gasometer,Ger,Grandstand,Greenhouse,Hangar,Hospital,Hotel,House,Hut,Industrial,Kindergarten,Manufacture,Mosque,Office,Public,Residential,Retail,Roof,Ruins,School,Semidetached house,Service,Shed,Stable,Static caravan,Storage tank,Supermarket,Synagogue,Temple,Terrace,Toilets,Train station,Transformer tower,Transportation,University,Warehouse,Yes"
                 values_context="building" default="yes" match="keyvalue!" values_searchable="true"/>
 			<reference ref="additional_building_tags"/>
 			<preset_link preset_name="Address"/>
@@ -6721,6 +6749,7 @@
             	<text key="name" text="Name"/>
                 <text key="height" text="Height (meters)"/>
                 <text key="operator" text="Operator"/>
+                <reference ref="communication_types"/>
             </optional>
         </item> <!-- Tower -->
         <item name="Mast" icon="icons/png/poi_mast_22028.png" type="node,closedway" preset_name_label="true">
@@ -6732,6 +6761,7 @@
             	<text key="name" text="Name"/>
                 <text key="height" text="Height (meters)"/>
                 <text key="operator" text="Operator"/>
+                <reference ref="communication_types"/>
             </optional>
         </item> <!-- Tower -->
         <item name="Flagpole" icon="icons/png/man_made_flagpole_22023.png" type="node" preset_name_label="true">
@@ -7568,6 +7598,7 @@
             values="memorial,ruins,archaeological_site,wayside_shrine,monument,castle,building,charcoal_pile,boundary_stone,tomb,citywalls,mine_shaft,mine,railway,manor,hollow_way,milestone,church,fort,city_gate,wreck,house,stone,wayside_chapel,bunker,pa,farm,roman_road,aircraft,bomb_crater,battlefield,cannon,monastery,bridge,tower,ship,industrial,pillory" 
             display_values="Memorial,Ruins,Archaeological site,Wayside shrine,Monument,Castle,Building,Charcoal pile,Boundary stone,Tomb,Citywalls,Mine shaft,Mine,Railway,Manor,Hollow way,Milestone,Church,Fort,City gate,Wreck,House,Stone,Wayside chapel,Bunker,Pa,Farm,Roman road,Aircraft,Bomb crater,Battlefield,Cannon,Monastery,Bridge,Tower,Ship,Industrial,Pillory"  match="keyvalue!"/>
          <reference ref="name_wikipedia"/>
+         <text key="description" text="Description" length="255"/>
          <check key="ruins" text="Ruins"/>
          <reference ref="link_contact_address_payment"/>
     </item> <!-- Historic object -->
@@ -7685,7 +7716,13 @@
          <space/>
          <key key="historic" value="boundary_stone"/>
          <text key="name" text="Name"/>
-     </item> <!-- Boundary Stone -->
+     </item> <!-- Boundary Stone -->    
+     <item name="Pillory" icon="icons/png/tourist_empty.png" type="node,closedway" preset_name_label="true">
+         <link wiki="Tag:historic=pillory"/>
+         <space/>
+         <key key="historic" value="pillory"/>
+         <text key="description" text="Description" length="255"/>
+     </item> <!-- Pillory -->
      <item name="Wreck" icon="icons/png/tourist_wreck_19033.png" type="node,closedway,multipolygon" preset_name_label="true">
      	  <link wiki="Tag:historic=wreck"/>
          <space/>
@@ -7821,7 +7858,7 @@
             <space/>
             <key key="amenity" value="marketplace"/>
             <reference ref="name_operator_oh_wheelchair"/>
-            <text key="website" text="Website"/>
+            <text key="website" text="Website" value_type="website"/>
             <reference ref="organic"/>
         </item> <!-- Public Market -->
         <item name="Greengrocer" icon="icons/png/shopping_greengrocer.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8681,7 +8718,7 @@
         <preset_link preset_name="Payment Methods"/>
         <reference ref="optional_level"/>
     </item> <!-- Vending Machine -->
-    <item name="Payment Methods" icon="icons/png/money_payment_methods.png" type="node,way,closedway,,multipolygon,relation" preset_name_label="true">
+    <item name="Payment Methods" icon="icons/png/money_payment_methods.png" type="node,way,closedway,multipolygon,relation" preset_name_label="true">
         <link wiki="Key:payment"/>
         <space/>
         <check key="payment:cash" text="Cash" match="keyvalue"/>
@@ -8711,6 +8748,8 @@
             <check key="payment:mastercard" text="Mastercard" match="keyvalue" disable_off="true"/>
             <check key="payment:visa" text="Visa" match="keyvalue" disable_off="true"/>
         </checkgroup>
+        <space/>
+        <check key="payment:contactless" text="Contactless payment" match="keyvalue" />
         <space/>
         <check key="payment:electronic_purses" text="Electronic purses" match="keyvalue"/>
         <checkgroup text="Electronic purses type" columns="4">
@@ -8933,7 +8972,7 @@
             <key key="place" value="quarter"/>
             <reference ref="name_wikipedia"/>
             <text key="population" text="Population"/>
-            <text key="website" text="Website"/>
+            <text key="website" text="Website" value_type="website"/>
         </item> <!-- Quarter -->
         <item name="Neighbourhood" icon="presets/places.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:place=neighbourhood"/>
@@ -8941,7 +8980,7 @@
             <key key="place" value="neighbourhood"/>
             <reference ref="name_wikipedia"/>
             <text key="population" text="Population"/>
-            <text key="website" text="Website"/>
+            <text key="website" text="Website" value_type="website"/>
         </item> <!-- Neighbourhood -->
         <item name="City block" icon="presets/places.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:place=city_block"/>
@@ -8949,7 +8988,7 @@
             <key key="place" value="city_block"/>
             <reference ref="name_wikipedia"/>
             <text key="population" text="Population"/>
-            <text key="website" text="Website"/>
+            <text key="website" text="Website" value_type="website"/>
         </item> <!-- City block -->
         <item name="Farm" icon="icons/png/poi_farm_22120.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:place=farm"/>
@@ -9509,7 +9548,7 @@
         <item name="Contact" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation,multipolygon" preset_name_label="true">
             <link wiki="Annotations"/>
             <space/>
-            <text key="website" text="Website" match="key"/>
+            <text key="website" text="Website" match="key" value_type="website"/>
             <text key="email" text="Email Address" match="key"/>
             <space/>
             <text key="phone" text="Phone number" match="key" value_type="phone"/>
@@ -9522,7 +9561,7 @@
         <item name="Contact ('contact:*')" icon="icons/png/osm_contact_sp.png" type="node,way,closedway,relation,multipolygon" preset_name_label="true">
             <link wiki="Key:contact"/>
             <space/>
-            <text key="contact:website" text="Website" match="key"/>
+            <text key="contact:website" text="Website" match="key" value_type="website"/>
             <text key="contact:email" text="Email Address" match="key"/>
             <space/>
             <text key="contact:phone" text="Phone number" match="key" value_type="phone"/>
@@ -9827,6 +9866,7 @@
                     <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
                     <role key="" text="infrastructure" requisite="optional" type="node,closedway" member_expression="tourism OR amenity"/>
                     <role key="" text="natural" requisite="optional" type="node,closedway" member_expression="natural=peak OR natural=volcano OR mountain_pass=yes OR natural=water OR tourism=viewpoint OR amenity=drinking_water OR natural=spring OR place=locality"/>
+                    <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Riding Route -->
             <item name="Piste Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
@@ -9848,6 +9888,7 @@
                     <role key="shortcut" text="shortcut segment" requisite="optional" type="way"/>
                     <role key="variant" text="variant segment" requisite="optional" type="way"/>
                     <role key="start" text="entry points" requisite="optional" type="node"/>
+                    <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Piste Route -->
             <item name="Ski Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
@@ -9868,6 +9909,7 @@
                     <role key="shortcut" text="shortcut segment" requisite="optional" type="way"/>
                     <role key="variant" text="variant segment" requisite="optional" type="way"/>
                     <role key="start" text="entry points" requisite="optional" type="node"/>
+                    <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Ski Route -->
             <item name="Inline Skating Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
@@ -9896,6 +9938,7 @@
                 <roles>
                     <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
                     <role key="fork" text="fork node for alternative routes" requisite="optional" type="node"/>
+                    <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Detour Route -->
             <item name="Power Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
@@ -9933,6 +9976,7 @@
                     <role key="forward" text="forward segment" requisite="optional" type="way,closedway" member_expression="highway|route=ferry"/>
                     <role key="backward" text="backward segment" requisite="optional" type="way,closedway" member_expression="highway|route=ferry"/>
                     <role key="link" text="link segment" requisite="optional" type="way,closedway" member_expression="highway|route=ferry"/>
+                    <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
                 </roles>
             </item> <!-- Road Route -->
             <separator/>
