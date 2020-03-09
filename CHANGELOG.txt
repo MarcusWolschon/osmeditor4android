@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.1.0-4: Update translations, presets and imagery, re-factor OSC and Undo code, add warning when area affected by undo is not in view, invalidate all way bounding boxes if a node has been restored, scale preset "button" view with accessibility setting fontScale, handle "raw" Uris and general robustness improvements, run the HelpViewer in a separate task, display a drag ring around selected Nodes instead of just highlighting, use and indicate wgs84 ellipsoid height consistently, show a different header for untagged objects
+
 14.1.0-3: Fix preset based object search, don't use Integer.min (doesn't exist on Android <= 6), minor fixes.
 
 14.1.0-2: Change location indication styling when location is stale,set default resurvey time for new entries to 365 days, re-factor apikey support, always make added fields in custom presets non-optional, improvements layer configuration update, add support for filtering roles based on member_expression, on relation change force recalc of matching preset, add support for member_expression and other role field attributes, add initial support for JOSM style object searching
