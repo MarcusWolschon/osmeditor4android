@@ -644,13 +644,11 @@ public class PropertyEditorTest {
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_M);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_C);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_D);
-
         Assert.assertTrue(TestUtils.findText(device, false, "MCB", 5000));
         Assert.assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
-
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_O);
-        Assert.assertTrue(TestUtils.findText(device, false, "Dojo", 5000));
-        // Assert.assertFalse(TestUtils.findText(mDevice, false, "MCB", 1000)); not clear why this doesn't work
+        instrumentation.sendCharacterSync(KeyEvent.KEYCODE_N);
+        Assert.assertTrue(TestUtils.textGone(device, "MCB", 5000));
         Assert.assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
     }
 
