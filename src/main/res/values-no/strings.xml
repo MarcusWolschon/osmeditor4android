@@ -6,6 +6,7 @@
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
   <string name="transfer_download_current_upload">Last opp</string>
   <string name="transfer_download_current_download">Avbryt og last ned</string>
+  <!---->
   <string name="progress_title">Leser</string>
   <string name="progress_message">Leser inn i minne…</string>
   <string name="progress_download_message">Laster ned data fra teneren…</string>
@@ -51,6 +52,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->

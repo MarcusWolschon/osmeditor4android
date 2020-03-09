@@ -55,6 +55,7 @@
   <string name="invalid_data_read_message">Por favor consulta a documentación sobre os formatos de ficheiros suportados e sobre os campos requiridos.</string>
   <string name="file_write_failed_title">Non se puido escribir no ficheiro</string>
   <string name="file_write_failed_message">O Vespucci non puido mudar ou gardar o ficheiro.</string>
+  <!---->
   <string name="welcome_title">Benvido</string>
   <string name="welcome_message">Grazas por instalar o Vespucci.\n&lt;br&gt;&lt;br&gt;Para comezar tes de coñecer tres cousas:\n&lt;ul&gt;&lt;li&gt;premendo na icona do cadeado na esquina superior esquerda trocarás entre o modo bloqueado (non editar) e o modo desbloqueado,&lt;/li&gt;&lt;li&gt;para editar o OpenStreetMap primeiro tes de baixar os datos na área onde queres mudar algo (achega a vista antes de tentar baixar),&lt;/li&gt;&lt;li&gt;para engadir un novo obxecto: preme no botón verde, selecciona o que queres engadir e preme no lugar onde queres engadir.&lt;/li&gt;&lt;/ul&gt;\nXa estás preparado. Comeza a cartografar e divírtete!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;O teu dispositivo ten unha \"barra de navegación\" que está agochada. Desliza dende abaixo para amosala novamente.</string>
@@ -280,6 +281,7 @@
   <string name="undo_redo_one">Só a mudanza selecionada (non seguro)</string>
   <string name="undo_all">Desfacer tódolos puntos de control posteriores (seguro)</string>
   <string name="redo_all">Refacer tódolos puntos de control anteriores (seguro)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Enviar co teu nome visíbel do OpenStreetMap</string>
   <string name="feedback_displayname_hint">O teu nome visíbel do OpenStreetMap aínda non foi obtido</string>
@@ -471,6 +473,7 @@
   <string name="tag_restriction_add_expression">Engadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Engadir horas abertas</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Elemento descoñecido (sen predefinido atopado)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Elixe o raio:</string>
@@ -558,7 +561,6 @@
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Ordes de voz</string>
   <string name="menu_set_name">Estabelecer nome</string>
-  <string name="tag_form_unknown_element">Elemento descoñecido (sen predefinido atopado)</string>
   <string name="menu_tools">Ferramentas...</string>
   <string name="menu_tools_imagery">Máis ferramentas das imaxes</string>
   <string name="menu_tools_add_imagery_from_oam">Engadir imaxes dende o OAM</string>

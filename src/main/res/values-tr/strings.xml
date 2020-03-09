@@ -34,6 +34,7 @@
   <string name="invalid_data_read_title">Geçersiz veri okundu</string>
   <string name="file_write_failed_title">Dosyaya yazılamadı</string>
   <string name="file_write_failed_message">Vespucci dosya değiştirilemedi veya kaydedilemedi.</string>
+  <!---->
   <string name="welcome_title">Hoşgeldiniz!</string>
   <string name="read_introduction">Tanıtım okuyun</string>
   <string name="upgrade_title">Bu Vespucci\'nin yeni bir versiyon</string>
@@ -143,6 +144,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->

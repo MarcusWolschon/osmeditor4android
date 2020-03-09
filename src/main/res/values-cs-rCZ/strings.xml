@@ -56,6 +56,7 @@
   <string name="invalid_data_read_message">Podporované formáty souborů a vyžadované položky formátu naleznete v dokumentaci.</string>
   <string name="file_write_failed_title">Soubor nelze zapsat</string>
   <string name="file_write_failed_message">Do vybraného souboru nelze zapisovat.</string>
+  <!---->
   <string name="welcome_title">Vítejte</string>
   <string name="welcome_message">Děkujeme, že používáte Vespucci.\n&lt;br&gt;&lt;br&gt;Pro začátek potřebujete znát tři věci:\n&lt;ul&gt;&lt;li&gt;klepnutí na ikonu zámku v levém horním rohu přepnete mezi uzamčeným režimem (bez možnosti úprav) a odemčeným režimem,&lt;/li&gt;&lt;li&gt;pro úpravu OpenStreetMap potřebujete stáhnout oblast, kterou plánujete upravovat (mapu si před tím dostatečně přibližte),&lt;/li&gt;&lt;li&gt;pro přidání nového objektu: klepněte na velké zelené tlačítko a zvolte, co chcete přidat, poté klepnutím určete pozici na mapě.&lt;/li&gt;&lt;/ul&gt;\nNyní jste připraveni začít mapovat. Příjemnou zábavu!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Používáte zařízení se skrytými softwarovými tlačítky. Zobrazíte je gestem od spodního okraje.</string>
@@ -295,6 +296,7 @@
   <string name="undo_redo_one">Pouze zvolený kontrolní bod (nebezpečné)</string>
   <string name="undo_all">Vrátit i novější body (bezpečné)</string>
   <string name="redo_all">Obnovit i předchozí body (bezpečné)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Poslat vaší OpenStreetMap přezdívkou</string>
   <string name="feedback_displayname_hint">OpenStreetMap zobrazované jméno zatím nezjištěno</string>
@@ -553,6 +555,7 @@
   <string name="tag_restriction_add_opening_hours">Přidat otevírací hodiny</string>
   <string name="tag_restriction_value_hint">Podmíněné omezení</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Vytvořit vlastní předvolbu</string>
   <string name="create_preset_title">Název vlastní předvolby</string>
@@ -672,7 +675,6 @@
   <string name="menu_information">Informace</string>
   <string name="menu_voice_commands">Hlasové příkazy</string>
   <string name="menu_set_name">Zadat název</string>
-  <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
   <string name="menu_tools">Nástroje...</string>
   <string name="menu_tools_imagery">Další nástroje snímků</string>
   <string name="menu_tools_add_imagery_from_oam">Přidat snímky z OAM</string>

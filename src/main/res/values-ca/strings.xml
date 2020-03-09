@@ -54,6 +54,7 @@
   <string name="invalid_data_read_message">Consulta la documentació sobre els formats de fitxer admesos i els camps de dades necessaris.</string>
   <string name="file_write_failed_title">No s\'ha pogut escriure en el fitxer</string>
   <string name="file_write_failed_message">Vespucci no pot canviar ni desar el fitxer.</string>
+  <!---->
   <string name="welcome_title">Us donem la benvinguda</string>
   <string name="welcome_message">Gràcies per instal·lar Vespucci\n&lt;br&gt;&lt;br&gt;Per començar has de conèixer tres coses\n&lt;ul&gt;&lt;li&gt;si toques la icona de bloqueig a la cantonada superior esquerra es canviarà entre bloquejat (sense edició ) i el mode desbloquejat,,&lt;/li&gt;&lt;li&gt; per editar OpenStreetMap necessites baixar-te les dades de la zona que vols canviar (amplia abans de fer-ho),&lt;/li&gt;&lt;li&gt; per afegir un objecte nou: toca el botó verd gran i selecciona el que vols afegir i, a continuació, toca la posició que vulguis localitzar. &lt;/li&gt;&lt;/ul&gt;\nComença a mapejar i diverteix-te !</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;El teu dispositiu té \"tecles programables\" ocultes. Llisca des d\'abaix per mostrar-les de nou.</string>
@@ -262,6 +263,7 @@
   <string name="undo_redo_one">Només el punt de control seleccionat (no segur)</string>
   <string name="undo_all">Desfer tots els punts de control posteriors (segur)</string>
   <string name="redo_all">Refer tots els punts de control anteriors (segur)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Enviar amb el teu nom d\'usuari d\'OpenStreetMap</string>
   <string name="feedback_displayname_hint">El nom d\'usuari d’OpenStreetMap encara no s’ha recuperat</string>
@@ -420,6 +422,7 @@
   <string name="tag_restriction_add_opening_hours">Afegeix horaris d\'apertura</string>
   <string name="tag_restriction_value_hint">Restricció condicional</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Element desconegut (no s\'ha trobat cap preconfiguració)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Trieu un radi:</string>
@@ -501,7 +504,6 @@
   <string name="menu_information">Informació</string>
   <string name="menu_voice_commands">Ordres de veu</string>
   <string name="menu_set_name">Estableix un nom</string>
-  <string name="tag_form_unknown_element">Element desconegut (no s\'ha trobat cap preconfiguració)</string>
   <string name="menu_tools">Eines...</string>
   <string name="menu_tools_imagery">Més eines d\'imatgeria</string>
   <string name="menu_tools_add_imagery_from_oam">Afegeix imatgeria des de OAM</string>

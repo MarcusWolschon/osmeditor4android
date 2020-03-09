@@ -28,6 +28,7 @@
   <string name="bounding_box_too_large_title">Preberaná oblasť je príliš veľká</string>
   <string name="out_of_memory_title">Nedostatok pamäte</string>
   <string name="invalid_data_received_title">Prijaté neplatné údaje</string>
+  <!---->
   <string name="welcome_title">Vitajte</string>
   <string name="upgrade_title">Toto je nová verzia aplikácie Vespucci</string>
   <string name="read_upgrade">Prečítať o novej verzii</string>
@@ -155,6 +156,7 @@
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrolné body</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_title">Spätná väzba pre vývojárov</string>
   <!--BoxPicker-->
@@ -276,6 +278,7 @@
   <string name="tag_restriction_add_simple_condition">Pridať jednoduchú podmienku</string>
   <string name="tag_restriction_add_expression">Pridať výraz</string>
   <string name="tag_restriction_add_opening_hours">Pridať otváraciu dobu</string>
+  <string name="tag_form_unknown_element">Neznámy prvok (nenašla sa žiadna predvoľba)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Zvoľte okruh:</string>
@@ -341,7 +344,6 @@
   <string name="menu_information">Informácie</string>
   <string name="menu_voice_commands">Hlasové povely</string>
   <string name="menu_set_name">Nastaviť názov</string>
-  <string name="tag_form_unknown_element">Neznámy prvok (nenašla sa žiadna predvoľba)</string>
   <string name="menu_tools">Nástroje…</string>
   <string name="menu_tools_imagery">Viac nástrojov obrázkov</string>
   <string name="menu_tools_background_properties">Vlastnosti pozadia</string>

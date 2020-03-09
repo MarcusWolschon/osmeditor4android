@@ -56,12 +56,13 @@
   <string name="invalid_data_read_message">Пожалуйста, обратитесь к документации о поддерживаемых форматах файлов и обязательных полях данных.</string>
   <string name="file_write_failed_title">Не удалось записать в файл.</string>
   <string name="file_write_failed_message">Vespucci не смог изменить или сохранить файл.</string>
+  <!---->
   <string name="welcome_title">Добро пожаловать</string>
   <string name="welcome_message">Спасибо за установку Vespucci.\n&lt;br&gt;&lt;br&gt;Для начала достаточно знать эти три вещи:\n&lt;ul&gt;&lt;li&gt;Нажатие на значке замка в левом верхнем углу переключает между режимами редактирования (замок открыт) и блокировки правок;&lt;/li&gt;&lt;li&gt;Для редактирования OpenStreetMap вам нужно сперва загрузить данные для области, где вы хотите что-либо изменить (выберите нужный масштаб перед этим);&lt;/li&gt;&lt;li&gt;Для добавления объекта нажмите на большую зелёную кнопку и выберите, что вы хотите добавить, а затем нажмите на место, где хотите его установить.&lt;/li&gt;&lt;/ul&gt;\nЭто все, что вам необходимо знать для начала. Успехов!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваше устройство имеет настраиваемые кнопки (\"soft keys\"), которые пока скрыты. Пролистывание от нижнего края покажет их снова. </string>
   <string name="read_introduction">Прочесть введение</string>
   <string name="upgrade_title">Это новая версия Vespucci</string>
-  <string name="upgrade_message">Новые функции и возможности описаны в примечаниях к обновлению.</string>
+  <string name="upgrade_message">Новые функции и возможности описаны в примечаниях к версии.</string>
   <string name="read_upgrade">Прочитать о новой версии</string>
   <string name="progress_title">Загрузка</string>
   <string name="progress_message">Загрузка данных в память…</string>
@@ -151,6 +152,9 @@
   <string name="geocoder_prompt">через</string>
   <string name="geocoder_limit_label">в видимой области</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Поиск объектов</string>
+  <string name="search_objects_hint">Введите выражение JOSM для фильтра/поиска</string>
+  <string name="search_objects_unsupported">Неподдерживаемое выражение \"%1$s\"</string>
   <!---->
   <string name="preset_search_hint">Строка поиска заготовок</string>
   <string name="preset_autopreset">Заготовка</string>
@@ -180,7 +184,12 @@
   <string name="feature_information">Информация о функциях GeoJSON</string>
   <string name="copy_properties">Скопировать свойства</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Данные в памяти</string>
+  <string name="total">Всего</string>
+  <string name="changed">Изменено</string>
+  <string name="ways">Линии</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Атрибуция</string>
   <!---->
   <string name="error">Ошибка</string>
   <string name="warning">Предупреждение</string>
@@ -258,12 +267,19 @@
   <string name="layer_change_style">Изменить стиль</string>
   <string name="layer_select_imagery">Выберите источник</string>
   <string name="layer_category_all">Все</string>
+  <string name="layer_category_photo">Аэроснимки</string>
+  <string name="layer_category_historicphoto">Старые аэроснимки</string>
   <string name="layer_category_map">Карта</string>
+  <string name="layer_category_historicmap">Старая карта</string>
+  <string name="layer_category_osmbasedmap">Карта на основе OSM</string>
+  <string name="layer_category_qa">Ошибки/заметки</string>
+  <string name="layer_category_other">Другое</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Минимальный масштаб</string>
   <string name="layer_info_max_zoom">Максимальный масштаб</string>
   <string name="layer_info_start_date">Дата открытия</string>
   <string name="layer_info_end_date">Дата закрытия</string>
+  <string name="layer_info_terms">Условия</string>
   <string name="layer_info_privacy_policy">Политика конфиденциальности</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Удалить фото</string>
@@ -277,6 +293,7 @@
   <string name="undo_redo_one">Только выбранная контрольная точка (небезопасно)</string>
   <string name="undo_all">Отменить все предыдущие контрольные точки (безопасно)</string>
   <string name="redo_all">Повторить все предыдущие контрольные точки (безопасно)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Отправить от имени вашей учётной записи OpenStreetMap</string>
   <string name="feedback_displayname_hint">Отображаемое имя вашей учётной записи OpenStreetMap еще не получено</string>
@@ -290,6 +307,8 @@
   <string name="tip_check_label">Больше не показывать советы</string>
   <string name="tip_undo">Долгое нажание на кнопке \"Отменить\" покажет всю историю действий.</string>
   <string name="tip_imagery_privacy">Слои фона и наложений предоставляются сторонними организациями. Использование таких слоев подразумевает передачу им вашего сетевого адреса и приблизительного местоположения области, которую вы просматриваете.&lt;p&gt;Если доступна информация о политике конфиденциальности, ‎‎ее‎‎ можно будет найти в меню \"Инфо\" диалога слоя.</string>
+  <string name="tip_pan_and_zoom_auto_download">Масштаб на основе автозагрузки  должен использоваться осторожно, так каr он потенциально может создать условия, когда вызовы OpenStreetMap API могут стать платными.&lt;p&gt;Нагрузки на API-сервера можно избежать при использовании заранее загруженных данных.</string>
+  <string name="tip_locked_mode">Вы не можете редактировать в заблокированном режиме, но долгое нажатие на объекте покажет его дополнительную информацию.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -338,6 +357,7 @@
   <string name="toast_untagged_way">Линия без тегов</string>
   <string name="toast_untagged_relation">Отношение без тегов</string>
   <string name="toast_unconnected_end_node">Точка рядом с элементом и может быть присоединена</string>
+  <string name="toast_degenerate_way">Вырожденная линия</string>
   <!---->
   <string name="toast_oauth_retry">Повторите передачу после разрешения OAuth-доступа в вашем профиле OSM.</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
@@ -522,6 +542,7 @@
   <string name="menu_deselect_all">Снять выделение</string>
   <string name="menu_preset_help">Справка по заготовке</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Добавить теги для разных языков</string>
   <string name="tag_restriction_header">Значение</string>
   <string name="tag_restriction_when">когда</string>
   <string name="tag_restriction_and">и</string>
@@ -531,6 +552,8 @@
   <string name="tag_restriction_add_opening_hours">Добавить время работы</string>
   <string name="tag_restriction_value_hint">Условное ограничение</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Неизвестный элемент (заготовка не найдена)</string>
+  <string name="tag_form_untagged_element">Элемент без тегов</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Создать свою заготовку</string>
   <string name="create_preset_title">Название своей заготовки</string>
@@ -560,6 +583,7 @@
   <string name="location_olc">Код места OLC</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Загрузить файлы</string>
+  <string name="allow_all_networks">Разрешить для всех сетей</string>
   <!--Strings in Go to coordinates-->
   <string name="go_to_coordinates_title">Перейти к координатам</string>
   <string name="go_to_coordinates_hint">Введите координаты или код места OLC</string>
@@ -604,8 +628,8 @@
   <string name="menu_gps_import">Импорт GPS-трека</string>
   <string name="menu_gps_goto_start">Перейти к началу GPX-трека</string>
   <string name="menu_gps_goto_first_waypoint">Перейти к первой путевой точке</string>
-  <string name="menu_enable_gps_autodownload">Место на основе авто-загрузки</string>
-  <string name="menu_enable_pan_and_zoom_auto_download">Масштаб на основе авто-загрузки</string>
+  <string name="menu_enable_gps_autodownload">Место на основе автозагрузки</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Масштаб на основе автозагрузки</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Загрузить текущее место</string>
   <string name="menu_transfer_download_replace">Очистить и загрузить текущее место</string>
@@ -651,7 +675,6 @@
   <string name="menu_information">Инфо</string>
   <string name="menu_voice_commands">Голосовые команды</string>
   <string name="menu_set_name">Задать название</string>
-  <string name="tag_form_unknown_element">Неизвестный элемент (заготовка не найдена)</string>
   <string name="menu_tools">Инструменты...</string>
   <string name="menu_tools_imagery">Настроить снимки</string>
   <string name="menu_tools_add_imagery_from_oam">Добавить снимки из OAM</string>
@@ -680,6 +703,7 @@
   <!--Menus in layers dialog-->
   <string name="menu_layers">Слои…</string>
   <string name="menu_layers_load_geojson">Загрузить слой GeoJSON</string>
+  <string name="menu_layers_add_backgroundlayer">Добавить слой фоновых аэроснимков</string>
   <string name="menu_layers_add_overlaylayer">Добавить слой изображений поверх фона карты</string>
   <string name="menu_layers_add_tasklayer">Добавить слой задач</string>
   <string name="menu_layers_add_grid">Добавить сетку</string>
@@ -836,7 +860,7 @@
   <string name="config_maxStrokeWidth_current">%1$d пикс.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Данные и редактирование</string>
-  <string name="config_category_editing_summary">Авто-загрузка, сохранение изменений, оповещения</string>
+  <string name="config_category_editing_summary">Автозагрузка, сохранение изменений, оповещения</string>
   <string name="config_forceContextMenu_title">Контекстное меню</string>
   <string name="config_forceContextMenu_summary">Всегда показывать контекстное меню, если выбор элементов неоднозначен.</string>
   <string name="config_address_tags">Теги адреса</string>
@@ -862,9 +886,11 @@
   <string name="config_orthogonalizeThreshold_title">Предел выпрямления углов</string>
   <string name="config_orthogonalizeThreshold_summary">Предел в ° свыше которого углы игнорируются</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_autoformatPhoneNumbers_title">Форматирование телефонов</string>
+  <string name="config_autoformatPhoneNumbers_summary">Автоматически форматировать номера телефонов</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">Автозагрузка</string>
-  <string name="config_category_auto_download_summary">Параметры автоматической загрузки данных и задач.</string>
+  <string name="config_category_auto_download_summary">Параметры автоматической загрузки данных и задач</string>
   <string name="config_extTriggeredDownloadRadius_title">Радиус загрузки</string>
   <string name="config_extTriggeredDownloadRadius_summary">Радиус (м) активируемой извне загрузки, 0 = только центр карты.</string>
   <string name="config_downloadRadius_current">%1$d м</string>
@@ -875,13 +901,13 @@
   <string name="config_autoPruneNodeLimit_summary">Число точек в памяти, после которого будет запущена очистка.</string>
   <string name="config_autoPruneNodeLimit_current">%1$d точек</string>
   <string name="config_panAndZoomLimit_title">Минимальный масштаб</string>
-  <string name="config_panAndZoomLimit_summary">Минимальный уровень масштаба для авто-загрузки.</string>
+  <string name="config_panAndZoomLimit_summary">Минимальный уровень масштаба для автозагрузки.</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Фильтр задач</string>
   <string name="config_bugFilter_summary">Выберите элементы, отображаемые на слое заметок, ошибок и задач.</string>
   <string name="config_bugDownloadRadius_title">Радиус загрузки задач</string>
   <string name="config_bugDownloadRadius_summary">Радиус (м) загрузки задач</string>
-  <string name="config_maxBugDownloadSpeed_title">Макс. скорость загрузки задач</string>
+  <string name="config_maxBugDownloadSpeed_title">Макс. скорость автозагрузки задач</string>
   <string name="config_maxBugDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка заметок, ошибок и задач приостанавливается.</string>
   <!--Location Settings-->
   <string name="config_category_gps">Местоположение</string>
@@ -900,6 +926,9 @@
   <string name="config_leaveGpsDisabled_summary">Не предлагать включить GPS/GNSS, если выключен.</string>
   <string name="config_gps_network_title">Резервное местоположение по сети</string>
   <string name="config_gps_network_summary">Если GPS/GNSS не доступен или не разрешен, пробовать определять приблизительное местоположение по сотовой сети</string>
+  <string name="config_gnssTimeToStale_title">Устаревшее место после</string>
+  <string name="config_gnssTimeToStale_summary">Время (в секундах), после которого местоположение должно считаться устаревшим.</string>
+  <string name="config_gnssTimeToStale_current">%1$d сек</string>
   <!--Server Settings-->
   <string name="config_category_server">Серверы</string>
   <string name="config_category_server_summary">Параметры OSM API и других серверов.</string>
@@ -1107,13 +1136,22 @@
     <item>NMEA от TCP сервера</item>
   </string-array>
   <string-array name="bug_state">
-    <item>Открытая</item>
-    <item>Закрытая</item>
-    <item>Несуществующая</item>
+    <item>Не исправлено</item>
+    <item>Исправлено</item>
+    <item>Все правильно</item>
   </string-array>
   <string-array name="note_state">
     <item>Открытая</item>
     <item>Закрытая</item>
+  </string-array>
+  <string-array name="maproulette_state">
+    <item>Не исправлено</item>
+    <item>Исправлено</item>
+    <item>Все правильно</item>
+    <item>Пропущено</item>
+    <item>Удалено</item>
+    <item>Уже исправлено</item>
+    <item>Слишком сложно</item>
   </string-array>
   <string-array name="followGPSbutton_entries">
     <item>Слева</item>
@@ -1146,4 +1184,12 @@
     <item>Отношения+</item>
   </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
+  <string-array name="checkstatus_entries">
+    <item>HTTP</item>
+    <item>HTTPS</item>
+    <item>Домен не существует</item>
+    <item>Домен недоступен</item>
+    <item>Неверный URL</item>
+    <item>Неверный аргумент</item>
+  </string-array>
 </resources>

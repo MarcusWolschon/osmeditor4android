@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="bugfilter_notes_entry">Minnispunktar</string>
+  <string name="bugfilter_osmose_error_entry">Villa í Osmose</string>
+  <string name="bugfilter_osmose_warning_entry">Osmose aðvörun</string>
+  <string name="bugfilter_osmose_minor_issue_entry">Minniháttar vandamál í Osmose</string>
+  <string name="bugfilter_custom_entry">Sérsniðið</string>
+</resources>

@@ -6,6 +6,7 @@
   <string name="transfer_download_current_dialog_title">Atenţie!</string>
   <string name="transfer_download_current_upload">Încarcă</string>
   <string name="transfer_download_current_download">Renunţă şi descarcă</string>
+  <!---->
   <string name="progress_title">Încarcă</string>
   <string name="progress_message">Încarcă informaţia în memorie...</string>
   <string name="progress_download_message">Descarcă informaţia de la server…</string>
@@ -59,6 +60,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->

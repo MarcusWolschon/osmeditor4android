@@ -8,6 +8,7 @@
   <string name="upload_conflict_title">上传冲突</string>
   <string name="use_local_version">使用本地版本</string>
   <string name="use_server_version">使用服务器上的版本</string>
+  <!---->
   <string name="read_upgrade">了解新版本</string>
   <string name="progress_title">加载</string>
   <string name="progress_message">加载数据到内存中…</string>
@@ -76,6 +77,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->

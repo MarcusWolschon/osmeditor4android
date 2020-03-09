@@ -53,6 +53,7 @@
   <string name="invalid_data_read_message">Будь ласка, ознайомтесь з документацією щодо підтримки файлових форматів та обов\'язкових полів в даних.</string>
   <string name="file_write_failed_title">Збій запису у файл</string>
   <string name="file_write_failed_message">Веспуччі не в змозі змінити або зберегти цей файл.</string>
+  <!---->
   <string name="welcome_title">Ласкаво просимо!</string>
   <string name="welcome_message">Дякуємо вам за вибір Веспуччі.\n&lt;br&gt;&lt;br&gt;Перед тим як розпочати вам потрібно знати три речі:\n&lt;ul&gt;&lt;li&gt;натискання на позначку замка у лівому куті зверху вмикає та вимикає режим редагування,&lt;/li&gt;&lt;li&gt;для внесення змін в  OpenStreetMap вам треба завантажити дані для обраної ділянки (наблизьтесь до неї спершу ніж робити це),&lt;/li&gt;&lt;li&gt;для додавання об\'єктів: натисніть на велику зелену кнопку та оберіть, що ви бажаєте додати, тицьніть у місце куди ви бажаєте додати новий об\'єкт.&lt;/li&gt;&lt;/ul&gt;\nТепер ви готові розпочати. Вперед, отримуйте від цього задоволення!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваш пристрій має віртуальні кнопки, що не показуються зараз на екрані, проведіть пальцем вгору від нижнього краю екрану щоб побачити їх.</string>
@@ -227,6 +228,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
@@ -367,6 +369,7 @@
   <string name="tag_restriction_add_opening_hours">Додати час роботи</string>
   <string name="tag_restriction_value_hint">Умовні обмеження</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Виберіть радіус: </string>
@@ -437,7 +440,6 @@
   <string name="menu_information">Інформація</string>
   <string name="menu_voice_commands">Голосові команди</string>
   <string name="menu_set_name">Назва</string>
-  <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
   <string name="menu_tools">Інструменти…</string>
   <string name="menu_tools_background_properties">Властивості фону</string>
   <!---->

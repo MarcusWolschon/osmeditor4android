@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normal</string>
   <string name="mode_indoor">Indendørs</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
@@ -9,7 +10,10 @@
   <string name="upload_conflict_title">Upload konflikt</string>
   <string name="use_local_version">Brug lokal version</string>
   <string name="use_server_version">Brug version på server</string>
+  <string name="unknown_error_title">Ukendt fejl</string>
+  <string name="no_data_title">Ingen data</string>
   <string name="go_to_openstreetmap">Gå til openstreetmap.org</string>
+  <!---->
   <string name="read_upgrade">Læs om den nye version</string>
   <string name="progress_title">Læser</string>
   <string name="progress_message">Læser ind i memory…</string>
@@ -39,6 +43,7 @@
   <string name="imagery_offset_date">Oprettet</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Afstand</string>
+  <string name="WGS84">WGS84</string>
   <!--Search/Find dialog-->
   <string name="search_results_title">Søgeresultater</string>
   <string name="find_message">Indtast søgetekst</string>
@@ -51,6 +56,7 @@
   <string name="closed">Lukket</string>
   <string name="version">Version</string>
   <string name="length_m">Længde (m)</string>
+  <string name="empty_role">Tom rolle</string>
   <string name="last_edited">Senest rettet</string>
   <!--GeoJSON feature display dialog-->
   <!--API/Data layer info dialog-->
@@ -67,15 +73,22 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_data">OSM data</string>
   <!--Layer info dialog-->
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->
   <!--Tips-->
   <!--NumberPicker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
@@ -88,7 +101,9 @@
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
+  <string name="okay">OK</string>
   <string name="cancel">Annulér</string>
+  <string name="done">Færdig</string>
   <string name="locked">Låst</string>
   <string name="next">Næste</string>
   <string name="replace">Erstat</string>
@@ -134,8 +149,10 @@
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Vælg radius:</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Sidst kendte position:</string>
   <string name="location_current_text">Nuværende position:</string>
+  <string name="location_text_unknown">Ukendt</string>
   <string name="location_last_text_parameterized">Sidste kendte position: %1$s</string>
   <string name="location_current_text_parameterized">Nuværende position: %1$s</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
@@ -155,12 +172,16 @@
   <string name="menu_erase">Slet knude</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Opdel</string>
+  <string name="menu_remove_node_from_way">Fjern node fra vej</string>
   <string name="menu_append">Fortsæt</string>
   <string name="menu_edit_relation">Ret relation</string>
   <string name="menu_add_relation_member">Tilføj medlem</string>
+  <string name="menu_select_relation_members">Vælg medlemmer</string>
   <string name="menu_tag">Ret tags</string>
+  <string name="menu_openstreetbug">Tilføj note</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Kamera</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Vis lokalitet</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Download nuværende udsnit</string>
@@ -175,6 +196,9 @@
   <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Nulstil</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f meter</string>
+  <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <!---->
   <!--element action mode menu-->
@@ -189,6 +213,10 @@
   <string name="actionmode_relationselect">Relation valgt</string>
   <string name="actionmode_createpath">Opretter sti</string>
   <!--EasyEdit action mode sub-titles-->
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 objekt</item>
+    <item quantity="other">%1$d objekter</item>
+  </plurals>
   <!--Simple Action Mode-->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kortbaggrund</string>
@@ -201,12 +229,24 @@
   <!--User Interface Settings-->
   <string name="config_iconbutton_title">Vis knude-ikoner</string>
   <string name="config_showTolerance_title">Vis tolerance</string>
+  <string name="config_maxInlineValues_current">%1$d Værdier</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_maxStrokeWidth_title">Max linjebredde</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
+  <string name="config_maxAlertDistance_current">%1$d meter</string>
+  <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Download radius</string>
+  <string name="config_downloadRadius_current">%1$d meter</string>
+  <string name="config_downloadSpeed_current">%1$d km/t</string>
+  <string name="config_autoPruneNodeLimit_current">%1$d Noder</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA netværks kilde</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_current">%1$d meter</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_loginbutton_title">Brugerkonto</string>
@@ -223,6 +263,7 @@
   <string name="urldialog_add_api">Tilføj API</string>
   <string name="urldialog_nodata_text">Konfigurations-URL\'en indeholder ikke gyldige data</string>
   <!--API configuration-->
+  <string name="api_name">API navn</string>
   <string name="api_url">API URL</string>
   <!--common terms-->
   <string name="add">Tilføj</string>
@@ -242,20 +283,58 @@
   <string name="address_housenumber">Adresse %1$s</string>
   <string name="address_housenumber_street">Adresse %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_join">Sammenlæg</string>
+  <string name="undo_action_cut">Klip</string>
+  <string name="undo_action_paste">Indsæt</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="alert_distance_direction">i %1$d m %2$s</string>
+  <string name="bearing_ne">NØ ↗</string>
+  <string name="bearing_e">Ø →</string>
+  <string name="bearing_se">SØ ↘</string>
+  <string name="bearing_s">S ↓</string>
+  <string name="bearing_sw">SV ↙</string>
+  <string name="bearing_w">V ←</string>
+  <string name="bearing_nw">NV ↖</string>
+  <string name="bearing_n">N ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">Rolle</string>
+  <string name="role_lc">Rolle</string>
   <string name="membership_relation_heading">Medlem af relation</string>
   <string name="relation">Relation</string>
   <string name="relations">Relationer</string>
+  <string name="position">Position</string>
   <string name="type">Type</string>
   <string name="object">Objekt</string>
   <string name="deleterelation">Slet relation</string>
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 dag</item>
+    <item quantity="other">%1$d dage</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 time</item>
+    <item quantity="other">%1$d timer</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 minut</item>
+    <item quantity="other">%1$d minutter</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 sekund</item>
+    <item quantity="other">%1$d sekunder</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 km</item>
+    <item quantity="other">%1$d km</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 meter</item>
+    <item quantity="other">%1$d meter</item>
+  </plurals>
   <!--Help system-->
+  <string name="toast_nohelp">Ingen hjælp her.</string>
   <!--Arrays-->
   <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

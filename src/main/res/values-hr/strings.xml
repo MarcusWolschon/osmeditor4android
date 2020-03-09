@@ -17,6 +17,7 @@
   <string name="use_server_version">Koristi verziju sa poslužitelja</string>
   <string name="no_login_data_title">Prijava nije uspjela</string>
   <string name="data_conflict_title">Konflikt u verzijama</string>
+  <!---->
   <string name="welcome_title">Dobrodošli</string>
   <string name="progress_title">Učitavanje</string>
   <string name="progress_message">Učitavanje podataka u memoriju…</string>
@@ -73,6 +74,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->

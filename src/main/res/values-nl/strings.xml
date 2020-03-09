@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
+  <string name="mode_easy">Normaal</string>
+  <string name="mode_tag_only">Tags alleen</string>
+  <string name="mode_indoor">Binnen</string>
+  <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Let op!</string>
+  <string name="transfer_download_current_dialog_message">Je hebt wijzigingen gemaakt. Wil je uploaden in plaats van ze verwerpen?</string>
+  <string name="transfer_download_current_upload">Uploaden</string>
+  <string name="transfer_download_current_download">Verwerp &amp; download</string>
+  <string name="transfer_download_current_back">Terug (doe niks)</string>
+  <string name="upload_problem_title">Kon niet uploaden</string>
+  <string name="upload_problem_message">Sommige of alle data is niet geüpload. Probeer het later opnieuw.</string>
+  <string name="bad_request_message">De API antwoordde met een fout, sla je data op en rapporteer de fout:\n\n</string>
+  <string name="upload_conflict_title">Uploadconflict</string>
+  <string name="upload_conflict_message_version">%1$s \nheeft lokale versie %2$d \nen de server %3$d</string>
+  <string name="upload_conflict_message_deleted">%1$s \nheeft lokale versie %2$d \nen is verwijderd op de server</string>
+  <string name="upload_conflict_message_referential">%1$s \nwas lokaal verwijderd maar heeft nog verwijzingen op de server</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nwas al verwijderd op de server</string>
+  <string name="use_local_version">Gebruik lokale versie</string>
+  <string name="use_server_version">Gebruik versie op server</string>
+  <string name="no_login_data_title">Kon niet authenticeren</string>
+  <string name="no_login_data_message">Als je OAuth gebruikt is dit waarschijnlijk een bug, verstuur alsjeblieft een probleemrapportage, als je gebruikersnaam en wachtwoord gebruikt (niet aanbevolen), controleer dan of ze correct zijn. </string>
+  <string name="no_connection_title">Geen verbinding met server</string>
+  <string name="no_connection_message">Kon niet verbinden met de OSM server. Controleer of je verbonden bent met het internet, of probeer het later opnieuw.</string>
+  <string name="ssl_handshake_failed">Kon niet verbinden met de OSM server, omdat de HTTPS onderhandeling mislukte. Probeer te wisselen naar een onversleutelde verbinding in de API voorkeuren.</string>
+  <string name="wrong_login_data_title">Kon niet authenticeren</string>
+  <string name="unknown_error_title">Onbekende fout</string>
+  <string name="no_data_title">Geen data</string>
+  <string name="required_feature_missing_title">Missend of uitgeschakeld component</string>
+  <string name="required_feature_missing_message">Deze functie is afhankelijk van een missend of uitgeschakeld systeemonderdeel.</string>
+  <string name="go_to_openstreetmap">Ga naar openstreetmap.org</string>
+  <string name="data_conflict_title">Versieconflict</string>
+  <string name="bounding_box_too_large_title">Downloadgebied te groot</string>
+  <string name="invalid_data_received_title">Ongeldige data ontvangen</string>
+  <string name="invalid_data_read_title">Ongeldige data gelezen</string>
+  <!---->
+  <string name="welcome_title">Welkom</string>
+  <string name="read_introduction">Lees de introductie</string>
+  <string name="upgrade_title">Dit is een nieuwe Vespucci versie</string>
+  <string name="upgrade_message">Nieuwe functies en gedrag zijn gedetailleerd in de release-opmerkingen.</string>
+  <string name="read_upgrade">Lees over de nieuwe versie</string>
+  <string name="progress_title">Laden</string>
+  <string name="progress_general_title">Even geduld a.u.b.</string>
+  <string name="progress_deleting_message">Verwijderen…</string>
+  <string name="progress_searching_message">Zoeken…</string>
+  <string name="progress_saving_message">Opslaan…</string>
+  <string name="progress_uploading_message">Uploaden…</string>
+  <string name="progress_preset_message">Voorkeuzen downloaden…</string>
+  <string name="progress_query_oam">OAM opvragen…</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" verwijderd</string>
+  <string name="changes_changed">\"%1$s\" gewijzigd</string>
+  <string name="changes_created">\"%1$s\" aangemaakt</string>
+  <string name="confirm_upload_title">Upload wijzigingen</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Upload deze wijziging?</item>
+    <item quantity="other">Upload deze %1$d wijzigingen?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">Wijzigingen</string>
+  <string name="upload_comment_label">Opmerking:</string>
+  <string name="upload_source_label">Bron:</string>
+  <string name="upload_close_open_changeset_label">Sluit eerst open wijzigingenset:</string>
+  <string name="upload_close_changeset_label">Sluit wijzigingenset:</string>
+  <string name="upload_request_review_label">Verzoek controle:</string>
+  <!---->
+  <string name="upload_gpx_description_label">Beschrijving</string>
+  <string name="upload_gpx_tags_label">Tags</string>
+  <string name="upload_gpx_visibility_label">Zichtbaarheid</string>
+  <string name="upload_validation_error_empty_comment">Opmerking zou niet leeg moeten zijn</string>
+  <string name="upload_validation_error_empty_source">Bron zou niet leeg moeten zijn</string>
+  <!--task fragment-->
+  <string name="openstreetbug_new_title">Nieuwe opmerking</string>
+  <string name="openstreetbug_new_bug">Meld probleem</string>
+  <string name="openstreetbug_bug_title">Probleem</string>
+  <string name="openstreetbug_new_nodeway">Creëer node/weg</string>
+  <string name="openstreetbug_edit_title">Bewerk opmerking</string>
+  <string name="openstreetbug_comment_label">Opemerking:</string>
+  <string name="openstreetbug_unknown_task_type">Onbekend taaktype</string>
+  <string name="openstreetbug_not_supported">%1$s is niet ondersteund.</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Aangepast</string>
+  <string name="maproulette_task_title">MapRoulette Taak</string>
+  <string name="maproulette_task_disable">Uitschakelen</string>
+  <string name="maproulette_task_apikey_set">MapRoulette API-sleutel opgeslagen</string>
+  <string name="maproulette_task_no_apikey">Geen MapRoulette API-sleutel</string>
+  <!--Unsaved data dialog-->
+  <string name="unsaved_data_title">Let op!</string>
+  <string name="unsaved_data_message">Je niet opgeslagen wijzigingen worden verworpen als je verder gaat.</string>
+  <string name="unsaved_data_proceed">Verwerp &amp; ga verder</string>
+  <!--Imagery offset dialog-->
+  <string name="imagery_offset_description">Beschrijving</string>
+  <string name="imagery_offset_author">Auteur</string>
+  <string name="imagery_offset_date">Aangemaakt</string>
+  <string name="imagery_offset_distance">Afstand</string>
+  <string name="WGS84">WGS84</string>
+  <string name="tag_editor_name_suggestion">Naamsuggestie</string>
+  <!--Search/Find dialog-->
+  <string name="search_results_title">Zoekresultaten</string>
+  <string name="search_online">Zoek online</string>
+  <string name="find_message">Voer zoekwaarde in</string>
+  <string name="geocoder_prompt">met</string>
+  <string name="geocoder_limit_label">in beeld</string>
+  <!--Search objects dialog-->
+  <string name="search_objects_title">Zoek naar objecten</string>
+  <!---->
+  <string name="search">Zoeken</string>
+  <string name="no_valid_preset">Geen geldige voorkeuze!</string>
+  <!--element information dialog-->
+  <string name="element_information">Elementinfo</string>
+  <string name="relation_membership">Relatielidmaatschap</string>
+  <string name="problem">Probleem</string>
+  <string name="members">Leden</string>
+  <string name="closed">Gesloten</string>
+  <string name="version">Versie</string>
+  <string name="length_m">Lengte (m)</string>
+  <string name="not_downloaded">Niet gedownload.</string>
+  <string name="empty_role">Lege rol</string>
+  <string name="last_edited">Laatst bewerkt</string>
+  <string name="original">Origineel</string>
+  <string name="current">Huidige</string>
+  <string name="goto_element">Ga naar element</string>
+  <!--GeoJSON feature display dialog-->
+  <string name="copy_properties">Kopieer eigenschappen</string>
+  <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Data in geheugen</string>
+  <string name="total">Totaal</string>
+  <string name="changed">Gewijzigd</string>
+  <string name="ways">Wegen</string>
+  <!--Tile layer info dialog-->
+  <string name="attribution">Attributie</string>
+  <!---->
+  <string name="error">Fout</string>
+  <string name="warning">Waarschuwing</string>
+  <string name="minor_issue">Kleine fout</string>
+  <string name="unknown_error_level">Onbekend foutniveau</string>
+  <!--hidden object warning dialog-->
+  <!--This concerns a shown message that should be shown every time-->
+  <string name="attached_object_warning_continue">OK, blijf weergeven</string>
+  <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">OK, negeren</string>
+  <!--debug dialog-->
+  <!--JS console dialog-->
+  <string name="js_console_msg_debug">Debug modus!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <string name="empty_relation_title">Lege relatie</string>
+  <string name="add_members">Leden toevoegen</string>
+  <string name="leave_empty">Laat leeg</string>
+  <!--GPX waypoint dialog-->
+  <string name="description">Beschrijving</string>
+  <string name="created">Aangemaakt</string>
+  <string name="altitude">Hoogte</string>
+  <string name="create_osm_object">Creëer OSM object</string>
+  <!--Custom imagery dialogs-->
+  <string name="coverage">Dekking</string>
+  <string name="delete_layer">Verwijder laag?</string>
+  <!--Layer style dialog-->
+  <string name="layer_style_title">Laagstijl</string>
+  <string name="layer_style_color">Kleur</string>
+  <string name="layer_style_label">Label</string>
+  <!--Layer dialog-->
+  <string name="layer_grid">Raster</string>
+  <string name="layer_photos">Foto\'s</string>
+  <string name="layer_tasks">Taken</string>
+  <string name="layer_category_all">Alle</string>
+  <string name="layer_category_photo">Luchtfoto\'s</string>
+  <string name="layer_category_historicphoto">Verouderde luchtfoto\'s</string>
+  <string name="layer_category_map">Kaart</string>
+  <string name="layer_category_historicmap">Verouderde kaart</string>
+  <string name="layer_category_osmbasedmap">OSM-gebaseerde kaart</string>
+  <string name="layer_category_other">Overig</string>
+  <!--Layer info dialog-->
+  <string name="layer_info_terms">Voorwaarden</string>
+  <string name="layer_info_privacy_policy">Privacybeleid</string>
+  <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Verwijder foto</string>
+  <string name="photo_viewer_delete_button">Permanent verwijderen</string>
+  <string name="photo_viewer_goto">Ga naar foto</string>
+  <!--API info dialog-->
+  <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
+  <!--Feedback activity-->
+  <!--BoxPicker-->
+  <!--Clear/Reset GPX Track-->
+  <!--Tips-->
+  <string name="tip_title">Wist je dat?</string>
+  <!--NumberPicker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
+  <!--NotificationChannels-->
+  <string name="default_channel_name">Vespucci standaard</string>
+  <!--Toaster-->
+  <string name="toast_name_empty">Kies een naam</string>
+  <string name="toast_unlock_to_edit">Ontgrendel om te bewerken</string>
+  <string name="toast_save_done">Opgeslagen</string>
+  <string name="toast_save_failed">Kon niet opslaan</string>
+  <string name="toast_export_failed">Kon niet exporteren</string>
+  <string name="toast_export_success">Geëxporteerd naar %1$s</string>
+  <string name="toast_untagged_relation">Ongetagde relatie</string>
+  <!---->
+  <string name="toast_timeout">Timeout van server</string>
+  <string name="toast_nothing_found">Niks gevonden</string>
+  <string name="toast_file_not_found">%1$s niet gevonden.</string>
+  <string name="toast_camera_error">Kon camera app niet starten: %1$s</string>
+  <string name="toast_storage_error">%1$s is niet schrijfbaar door Vespucci.\nDit kan komen door onvoldoende machtigingen of een technische fout met je apparaat.</string>
+  <string name="toast_min_one_preset">Minstens een voorkeuze moet geselecteerd zijn!</string>
+  <string name="toast_invalid_apiurl">Ongeldige API URL</string>
+  <string name="toast_no_coverage">%1$s heeft geen dekking hier</string>
+  <string name="toast_file_exists">%1$s bestand bestaat.</string>
+  <string name="toast_invalid_object">Ongeldig object</string>
+  <string name="toast_using_network_location">Gebruikt netwerklocatie</string>
+  <string name="toast_using_gps_location">Gebruikt GPS/GNSS locatie</string>
+  <!--Error messages-->
+  <!--Some generic labels/buttons-->
+  <string name="yes">Ja</string>
+  <string name="no">Nee</string>
+  <string name="okay">OK</string>
+  <string name="cancel">Annuleren</string>
+  <string name="dismiss">Negeren</string>
+  <string name="done">Klaar</string>
+  <string name="locked">Vergrendeld</string>
+  <string name="next">Volgende</string>
+  <string name="apply">Toepassen</string>
+  <string name="set">Instellen</string>
+  <string name="replace">Vervangen</string>
+  <string name="save">Opslaan</string>
+  <string name="save_and_set">Opslaan en instellen</string>
+  <string name="back">Terug</string>
+  <string name="forward">Vooruit</string>
+  <string name="keep">Behouden</string>
+  <string name="enable">Inschakelen</string>
+  <string name="disable">Uitschakelen</string>
+  <string name="clear">Wissen</string>
+  <string name="discard">Verwerpen</string>
+  <string name="retry">Opnieuw proberen</string>
+  <string name="check">Controleren</string>
+  <!--Read a file-->
+  <string name="read">Lezen</string>
+  <string name="overwrite">Overschrijven</string>
+  <string name="share">Delen</string>
+  <string name="share_position">Deel positie</string>
+  <string name="share_on_openstreetmap">Deel op OpenStreetMap</string>
+  <string name="min">Min.</string>
+  <string name="max">Max.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">Geen</string>
+  <!--Dialog for back button-->
+  <string name="exit_title">Vespucci verlaten</string>
+  <!--Strings in PorpertyEditor-->
+  <!--Custom preset creation-->
+  <!--Strings in Box/LocationPicker-->
+  <!--Strings in DownloadActivity-->
+  <!--Strings in Go to coordinates-->
+  <!--Menu-->
+  <string name="menu_find">Zoeken</string>
+  <string name="menu_transfer_download_current">Download huidig gebied</string>
+  <!---->
+  <!--Background alignment-->
+  <!--Menus in layers dialog-->
+  <!---->
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <!--EasyEdit context menus-->
+  <!--EasyEdit action mode titles-->
+  <!--EasyEdit action mode sub-titles-->
+  <!--Simple Action Mode-->
+  <!--Preferences-->
+  <string name="config_backgroundLayer_title">Kaartachtergrond</string>
+  <string name="config_customlayers_title">Aangepaste lagen</string>
+  <!--Validator preferences-->
+  <!--opening hours templates-->
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <!--Data and Editing Settings-->
+  <!--Auto-download settings-->
+  <!--Location Settings-->
+  <!--Server Settings-->
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <!--Experimental-->
+  <!---->
+  <!--preset downloader messages-->
+  <!--url handler activity-->
+  <string name="urldialog_add_preset">Voorkeuze toevoegen</string>
+  <string name="urldialog_preset_exists">Deze voorkeuze bestaat al</string>
+  <string name="urldialog_preset_download_successful">Voorkeuze gedownload.</string>
+  <!--API configuration-->
+  <!--common terms-->
+  <!---->
+  <!--"default" is a reserved Java keyword…-->
+  <string name="gps_failure">GPS inschakelen mislukt</string>
+  <!--element description-->
+  <string name="address_housenumber">Adres %1$s</string>
+  <string name="address_housenumber_street">Adres %1$s %2$s</string>
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">Node verplaatst</string>
+  <string name="undo_action_moveway">Weg verplaatst</string>
+  <string name="undo_action_moveobjects">Objecten verplaatst</string>
+  <!--ACRA-->
+  <!--Exceptions messages-->
+  <!--Notifications-->
+  <!--Misc relation related stuff-->
+  <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
+  <!--The entries need to match the order of the CheckStatus enum-->
+</resources>

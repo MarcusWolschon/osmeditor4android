@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Húsnúmer (addr:housenumber)</item>
+    <item>Gata (addr:street)</item>
+    <item>Póstnúmer (addr:postcode)</item>
+    <item>Borg/Bær/Þorp/..  (addr:city)</item>
+    <item>Land (addr:country)</item>
+    <item>Fullt heimilisfang (addr:full)</item>
+    <item>Staður (addr:place)</item>
+    <item>Byggðakjarni (addr:hamlet)</item>
+    <item>Úthverfi (addr:suburb)</item>
+    <item>Undirumdæmi (addr:subdistrict)</item>
+    <item>Umdæmi (addr:district)</item>
+    <item>Hérað (addr:province)</item>
+    <item>Fylki/Ríki (addr:state)</item>
+    <item>Íbúðir (addr:flats)</item>
+    <item>Dyr (addr:door)</item>
+    <item>Eining (addr:unit)</item>
+  </string-array>
+</resources>

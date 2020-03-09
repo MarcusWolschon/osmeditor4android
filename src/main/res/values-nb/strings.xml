@@ -30,6 +30,7 @@
   <string name="bounding_box_too_large_title">Området du har valgt er for stort</string>
   <string name="out_of_memory_title">Tomt for minne</string>
   <string name="file_write_failed_title">Kunne ikke skrive til fil</string>
+  <!---->
   <string name="welcome_title">Velkommen</string>
   <string name="read_introduction">Les introduksjonen</string>
   <string name="upgrade_title">Dette er ny Vespucci versjon</string>
@@ -123,6 +124,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Last ned OpenStreetMap-data</string>
@@ -176,6 +178,7 @@
   <string name="tag_menu_download">Last ned</string>
   <string name="menu_preset_help">Mal hjelp</string>
   <string name="tag_restriction_header">Verdi</string>
+  <string name="tag_form_unknown_element">Ukjent element (ingen mal funnet)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Velg radius:</string>
@@ -217,7 +220,6 @@
   <string name="menu_zoom_to_selection">Zoom til valg</string>
   <string name="menu_rotate">Roter</string>
   <string name="menu_circulize">Lag sirkel</string>
-  <string name="tag_form_unknown_element">Ukjent element (ingen mal funnet)</string>
   <string name="menu_tools_flush_all_tile_caches">Tøm alle mellomlagrede fliser</string>
   <!---->
   <string name="menu_privacy">Personvern</string>

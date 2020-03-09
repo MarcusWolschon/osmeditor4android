@@ -12,6 +12,7 @@
   <string name="upload_conflict_title">Conflito no upload</string>
   <string name="use_local_version">Usar versão local</string>
   <string name="use_server_version">Usar versão no servidor</string>
+  <!---->
   <string name="read_upgrade">Leia sobre a nova versão</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados na memória...</string>
@@ -67,6 +68,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->

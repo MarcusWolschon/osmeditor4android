@@ -56,6 +56,7 @@
   <string name="invalid_data_read_message">請看說明文件察看支援的檔案格式，以及需要的資料欄位 。</string>
   <string name="file_write_failed_title">檔案寫入失敗</string>
   <string name="file_write_failed_message">Vespucci 無法變更或儲存檔案。</string>
+  <!---->
   <string name="welcome_title">歡迎</string>
   <string name="welcome_message">感謝你安裝 Vespucci.\n&lt;br&gt;&lt;br&gt;要開始使用前，你必須知道三件事情：\n&lt;ul&gt;&lt;li&gt;點左上角鎖圖示會在鎖定 (無編輯) 和解除鎖定模式之間切換，&lt;/li&gt;&lt;li&gt;，要編輯開放街圖，你必須到你想要變更的區域，先下載資料才行 (做之前先放大區域)。&lt;/li&gt;&lt;li&gt;t要加新的物件，按住大的綠色按鈕，然後選擇你想加的東西，接著點你想加的位置。&lt;/li&gt;&lt;/ul&gt;\n你已經準備好了，開始畫地圖然後找點樂子！</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的裝置有\"虛擬鍵\"而且已經隱藏，從底部滑動會再次顯示。</string>
@@ -150,6 +151,9 @@
   <string name="geocoder_prompt">與</string>
   <string name="geocoder_limit_label">視線內</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">搜尋物件</string>
+  <string name="search_objects_hint">輸入 JOSM 過濾/搜尋表示式</string>
+  <string name="search_objects_unsupported">不支援的表示式 \"%1$s\"</string>
   <!---->
   <string name="preset_search_hint">預置搜尋字串</string>
   <string name="preset_autopreset">自動預設</string>
@@ -179,7 +183,12 @@
   <string name="feature_information">GeoJSON 圖徵資訊 </string>
   <string name="copy_properties">複製性質</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">記憶體中的資料</string>
+  <string name="total">總共</string>
+  <string name="changed">已變動</string>
+  <string name="ways">路徑</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">署名</string>
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -258,6 +267,14 @@
   <string name="layer_flush_tile_cache">清理圖磚暫存檔</string>
   <string name="layer_change_style">改變樣式</string>
   <string name="layer_select_imagery">選擇影像</string>
+  <string name="layer_category_all">所有</string>
+  <string name="layer_category_photo">空照影像</string>
+  <string name="layer_category_historicphoto">過期的空照影像</string>
+  <string name="layer_category_map">地圖</string>
+  <string name="layer_category_historicmap">過期的地圖</string>
+  <string name="layer_category_osmbasedmap">OSM 為基準的地圖</string>
+  <string name="layer_category_qa">QA</string>
+  <string name="layer_category_other">其他</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小縮小</string>
   <string name="layer_info_max_zoom">最大放大</string>
@@ -280,6 +297,7 @@
   <string name="undo_redo_one">只有選取的檢查點 (不安全)</string>
   <string name="undo_all">取消所有後來的檢查點 (安全)</string>
   <string name="redo_all">重復所有先前的檢查點 (安全)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">傳送時附上你的開放街圖顯示名稱</string>
   <string name="feedback_displayname_hint">還沒收到開放街圖顯示名稱 </string>
@@ -458,6 +476,7 @@
   <string name="discard">放棄</string>
   <string name="retry">重試</string>
   <string name="prune">剪裁</string>
+  <string name="check">檢查</string>
   <!--Read a file-->
   <string name="read">讀取</string>
   <string name="overwrite">覆寫</string>
@@ -520,6 +539,7 @@
   <string name="menu_deselect_all">取消選取全部</string>
   <string name="menu_preset_help">預置幫助</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">所有語言標籤</string>
   <string name="tag_restriction_header">數值</string>
   <string name="tag_restriction_when">當</string>
   <string name="tag_restriction_and">和</string>
@@ -529,6 +549,8 @@
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
   <string name="tag_restriction_value_hint">修件限制</string>
   <string name="ugly_checkgroup_hint">%1$s,...</string>
+  <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
+  <string name="tag_form_untagged_element">沒有標示標籤的元素</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">創建客製預置</string>
   <string name="create_preset_title">客製預置名稱</string>
@@ -649,7 +671,6 @@
   <string name="menu_information">資訊</string>
   <string name="menu_voice_commands">聲音指令</string>
   <string name="menu_set_name">設定名稱</string>
-  <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
   <string name="menu_tools">工具...</string>
   <string name="menu_tools_imagery">更多影像工具</string>
   <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>
@@ -860,6 +881,7 @@
   <string name="config_orthogonalizeThreshold_title">方角化的閾值</string>
   <string name="config_orthogonalizeThreshold_summary">° 以內的閾值角度將被忽略</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_autoformatPhoneNumbers_title">自動格式的電話號碼</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
   <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>

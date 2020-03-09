@@ -17,6 +17,7 @@
   <string name="forbidden_login_title">Cấm đăng nhập</string>
   <string name="go_to_openstreetmap">Đi đến openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Khu vực tải về quá lớn</string>
+  <!---->
   <string name="read_upgrade">Tìm hiểu về phiên bản mới</string>
   <string name="progress_title">Đang tải</string>
   <string name="progress_message">Đang tải dữ liệu vào bộ nhớ…</string>
@@ -153,6 +154,7 @@
   <string name="checkpoints">Điểm Đánh dấu</string>
   <string name="undo_all">Hoàn tác tất cả các điểm đánh dấu sau (chắc chắn)</string>
   <string name="redo_all">Làm lại tất cả các điểm đánh dấu trước (chắc chắn)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Tải về dữ liệu OpenStreetMap</string>
@@ -289,6 +291,7 @@
   <string name="tag_restriction_add_simple_condition">Thêm điều kiện đơn giản</string>
   <string name="tag_restriction_add_expression">Thêm biểu thức</string>
   <string name="tag_restriction_add_opening_hours">Thêm giờ mở cửa</string>
+  <string name="tag_form_unknown_element">Phần tử không rõ (không tìm thấy thẻ đặt trước)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Chọn bán kính:</string>
@@ -355,7 +358,6 @@
   <string name="menu_information">Thông tin</string>
   <string name="menu_voice_commands">Lệnh bằng giọng nói</string>
   <string name="menu_set_name">Đặt tên</string>
-  <string name="tag_form_unknown_element">Phần tử không rõ (không tìm thấy thẻ đặt trước)</string>
   <string name="menu_tools">Công cụ</string>
   <string name="menu_tools_imagery">Thêm công cụ hình ảnh</string>
   <string name="menu_tools_add_imagery_from_oam">Thêm hình ảnh OAM</string>

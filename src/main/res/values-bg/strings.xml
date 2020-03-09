@@ -17,6 +17,7 @@
   <string name="forbidden_login_title">Входът забранен</string>
   <string name="go_to_openstreetmap">Отидете на openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Районът за сваляне е твърде голям.</string>
+  <!---->
   <string name="read_upgrade">Прочетете за новата версия</string>
   <string name="progress_title">Зареждане</string>
   <string name="progress_message">Зареждане на данните в паметта...</string>
@@ -137,6 +138,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Свалете OpenStreetMap данни</string>

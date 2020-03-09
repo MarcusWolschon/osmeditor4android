@@ -56,6 +56,7 @@
   <string name="invalid_data_read_message">Tekintse meg a dokumentációt a támogatott fájlformátumokért és a szükséges adatmezőkért.</string>
   <string name="file_write_failed_title">Nem lehet a fájlba írni</string>
   <string name="file_write_failed_message">A Vespucci nem tudta módosítani vagy menteni a fájlt.</string>
+  <!---->
   <string name="welcome_title">Üdvözöljük</string>
   <string name="welcome_message">Köszönjük hogy telepítette a Vespuccit.\n&lt;br&gt;&lt;br&gt;Az elinduláshoz három dolgot kell tudni:\n&lt;ul&gt;&lt;li&gt;a bal felső sarokban lévő zár ikon vált a zárolt (nincs szerkesztés) és feloldott mód között,&lt;/li&gt;&lt;li&gt;az OpenStreetMap szerkesztéséhez először le kell töltenie a terület adatait, ahol változtatni akar (először nagyítson bele),&lt;/li&gt;&lt;li&gt;új objektum hozzáadásához: koppintson a nagy zöld gombra, és válassza ki hogy mit akar hozzáadni, majd koppintson a helyre, ahová tenni szeretné.&lt;/li&gt;&lt;/ul&gt;\nMost már indulásra kész. Kezdjen térképezni, és érezze jól magát!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Az eszköze rendelkezik „szoftveres gombokkal”, melyek nem láthatóak. Húzza fel őket lentről a megjelenítésükhöz.</string>
@@ -151,6 +152,9 @@
   <string name="geocoder_prompt">ezzel:</string>
   <string name="geocoder_limit_label">a nézetben</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Objektum keresése</string>
+  <string name="search_objects_hint">JOSM szűrő-/keresőkifejezés megadása</string>
+  <string name="search_objects_unsupported">Nem támogatott kifejezés: „%1$s”</string>
   <!---->
   <string name="preset_search_hint">Előbeállítás-kereső szöveg</string>
   <string name="preset_autopreset">Automatikus előbeállítás</string>
@@ -295,6 +299,7 @@ elemek megkövetelése</string>
   <string name="undo_redo_one">Épp kijelölt ellenőrzőpont (nem biztonságos)</string>
   <string name="undo_all">Összes későbbi ellenőrzőpont visszavonása (biztonságos)</string>
   <string name="redo_all">Összes korábbi ellenőrzőpont visszaállítása (biztonságos)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Elküldés az OpenStreetMap megjelenítendő nevével</string>
   <string name="feedback_displayname_hint">Az OpenStreetMap megjelenítendő neve még nem volt lekérdezve</string>
@@ -551,6 +556,7 @@ elemek megkövetelése</string>
   <string name="tag_restriction_add_opening_hours">Nyitva tartás hozzáadása</string>
   <string name="tag_restriction_value_hint">Feltételes korlátozás</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Ismeretlen elem (nem található előbeállítás)</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Egyéni előbeállítás létrehozása</string>
   <string name="create_preset_title">Egyéni előbeállítás neve</string>
@@ -670,7 +676,6 @@ elemek megkövetelése</string>
   <string name="menu_information">Infó</string>
   <string name="menu_voice_commands">Hangutasítások</string>
   <string name="menu_set_name">Név beállítása</string>
-  <string name="tag_form_unknown_element">Ismeretlen elem (nem található előbeállítás)</string>
   <string name="menu_tools">Eszközök…</string>
   <string name="menu_tools_imagery">További légifelvétel-eszközök</string>
   <string name="menu_tools_add_imagery_from_oam">Légifelvétel hozzáadása az OpenAerialMapről (OAM)</string>
@@ -922,6 +927,9 @@ elemek megkövetelése</string>
   <string name="config_leaveGpsDisabled_summary">Ne kérje a GPS/GNSS bekapcsolását, ha az ki van kapcsolva.</string>
   <string name="config_gps_network_title">Hálózati helyadatok használata tartalékként</string>
   <string name="config_gps_network_summary">Ha nincs elérhető vagy engedélyezett GPS/GNSS helymeghatározás, akkor a hálózati helyadatokat használja tartalékként.</string>
+  <string name="config_gnssTimeToStale_title">Pozíció elavulása ennyi idő után:</string>
+  <string name="config_gnssTimeToStale_summary">Az az életkor (másodperc), amelyet követően egy pozíció elavultnak minősül.</string>
+  <string name="config_gnssTimeToStale_current">%1$d másodperc</string>
   <!--Server Settings-->
   <string name="config_category_server">Kiszolgálóbeállítások</string>
   <string name="config_category_server_summary">OSM API és más kiszolgálók beállításai.</string>
@@ -1165,4 +1173,12 @@ elemek megkövetelése</string>
     <item>Kapcsolatok+</item>
   </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
+  <string-array name="checkstatus_entries">
+    <item>http</item>
+    <item>https</item>
+    <item>A domain nem létezik</item>
+    <item>A domain nem érhető el</item>
+    <item>Hibás URL</item>
+    <item>Érvénytelen argumentum</item>
+  </string-array>
 </resources>

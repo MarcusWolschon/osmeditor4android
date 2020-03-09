@@ -14,6 +14,7 @@
   <string name="use_local_version">از نسخهٔ من استفاده کن</string>
   <string name="use_server_version">از نسخهٔ سرور استفاده کن</string>
   <string name="go_to_openstreetmap">برو به openstreetmap.org</string>
+  <!---->
   <string name="progress_title">در حال بارگزاری</string>
   <string name="progress_message">بارگزاری داده ها در حافظه… </string>
   <string name="progress_download_message">دانلود داده ها از سرور… </string>
@@ -78,6 +79,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <!--Clear/Reset GPX Track-->

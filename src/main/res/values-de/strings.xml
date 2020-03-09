@@ -56,6 +56,9 @@
   <string name="invalid_data_read_message">Bitte die Dokumentation zu unterstützten Dateiformaten und erforderlichen Datenfeldern lesen.</string>
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
+  <string name="applying_osc_failed_title">OSC Datei konnte nicht verarbeitet werden</string>
+  <string name="applying_osc_failed_message">Wahrscheinlich waren die ursprünglichen Daten die benötigt werden um die Änderungen durchzuführen nicht geladen.</string>
+  <!---->
   <string name="welcome_title">Willkommen</string>
   <string name="welcome_message">Danke, dass Sie Vespucci installiert haben.\n&lt;br&gt;&lt;br&gt;Um anzufangen, müssen Sie 3 Sachen wissen:\n&lt;ul&gt;&lt;li&gt;durch Antippen des Schlosses in der oberen linken Ecke schalten Sie zwischen dem gesperrten (keine Bearbeitung) und dem entsperrten Status um,&lt;/li&gt;&lt;li&gt;um OpenStreetMap zu editieren, müssen Sie zuerst das Gebiet, das Sie bearbeiten wollen, herunterladen (es empfiehlt sich zuerst hineinzuzoomen),&lt;/li&gt;&lt;li&gt;um ein neues Objekt zu erstellen, müssen Sie den großen grünen Knopf antippen, auswählen, was Sie hinzufügen wollen, und dann die entsprechende Bildschirmposition berühren.&lt;/li&gt;&lt;/ul&gt;\nViel Spaß beim Kartieren!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Das Gerät besitzt \"Software\"-Tasten, die ausgeblendet sind. Ein Wisch von der unteren Kante blendet sie wieder ein.</string>
@@ -297,6 +300,11 @@
   <string name="undo_redo_one">Nur den ausgewählten Sicherungspunkt (unsicher)</string>
   <string name="undo_all">Alle späteren Sicherungspunkte rückgängig machen (sicher)</string>
   <string name="redo_all">Alle früheren Sicherungspunkte wiederherstellen (sicher)</string>
+  <!--Undo location not in view dialog-->
+  <string name="undo_location_title">Undo-Bereich nicht sichtbar</string>
+  <string name="undo_location_text">Der Bereich der vom Undo geändert würde, wird nicht angezeigt.</string>
+  <string name="undo_location_undo_anyway">Undo trotzdem durchführen</string>
+  <string name="undo_location_zoom">Zuerst auf das Gebiet zoomen</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Mit OpenStreetMap-Benutzernamen senden</string>
   <string name="feedback_displayname_hint">OpenStreetMap-Benutzername noch nicht abgerufen</string>
@@ -312,6 +320,7 @@
   <string name="tip_imagery_privacy">Hintergrund- und Vordergrundlayer werden von Dritten angeboten. Beim Verwenden eines Layers werden Ihre Netzwerkadresse und ein Anhaltspunkt für das betrachtete Gebiet an den Anbieter übertragen.  &lt;p&gt;
 Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den Menüpunkt \"Info\" in der Anforderung für den Layer eingesehen werden.</string>
   <string name="tip_pan_and_zoom_auto_download">Das automatische Laden der aktuellen Ansicht sollte mit Vorsicht verwendet werden, da es das Potential hat, sowohl die OpenStreetMap API als auch dieses Gerät erheblich zu belasten.&lt;p&gt;Ersteres kann durch die Verwendung einer Offlinedatenquelle vermieden werden.</string>
+  <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Click auf ein Objekt zeigt Detailinformationen an.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -454,6 +463,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_phone_number_reformatted">Telefonnummer neu formatiert</string>
   <string name="toast_members_not_downloaded">Einige Relationsmitglieder sind nicht heruntergeladen</string>
   <string name="toast_restart_required">Vespucci muss neu gestartet werden um diese Änderungen anzuwenden</string>
+  <string name="toast_unable_to_open_offline_data">Offline Daten können nicht geöffnet werden %1$s %2$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -554,6 +564,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="tag_restriction_add_opening_hours">Öffnungszeiten hinzufügen</string>
   <string name="tag_restriction_value_hint">Bedingte Beschränkung</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Unbekanntes Element (keine Vorlage gefunden)</string>
+  <string name="tag_form_untagged_element">Element ohne Attribute</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Benutzerdefinierte Vorlage erstellen</string>
   <string name="create_preset_title">Benutzerdefinierter Vorlagenname</string>
@@ -673,7 +685,6 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Sprachbefehle</string>
   <string name="menu_set_name">Namen festlegen</string>
-  <string name="tag_form_unknown_element">Unbekanntes Element (keine Vorlage gefunden)</string>
   <string name="menu_tools">Werkzeuge…</string>
   <string name="menu_tools_imagery">Mehr Hintergrundtools</string>
   <string name="menu_tools_add_imagery_from_oam">Hintergrund von OAM hinzufügen</string>

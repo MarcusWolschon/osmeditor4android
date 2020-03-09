@@ -56,6 +56,7 @@
   <string name="invalid_data_read_message">נא לפנות לתיעוד בנוגע לסוגי קבצים נתמכים ושדות נתונים נדרשים.</string>
   <string name="file_write_failed_title">לא ניתן לכתוב לקובץ</string>
   <string name="file_write_failed_message">לווספוצ׳י אין אפשרות לשנות או לשמור את הקובץ.</string>
+  <!---->
   <string name="welcome_title">ברוך בואך</string>
   <string name="welcome_message">תודה לך על התקנת וספוצ׳י.\n&lt;br&gt;&lt;br&gt;כדי להתחיל עליך לדעת שלושה דברים:\n&lt;ul&gt;&lt;li&gt;נגיעה בסמל המנעול בפינה השמאלית העליונה תחליף בין מצב נעול (אין עריכה) לפתוח,&lt;/li&gt;&lt;li&gt;כדי לערוך את OpenStreetMap עליך להוריד תחילה את הנתונים עבור האזור שבו ברצונך לערוך שינויים (יש להתקרב לפני ניסיון ביצוע שינויים),&lt;/li&gt;&lt;li&gt;כדי להוסיף פריט חדש: יש לגעת בכפתור הירוק הגדול, לאחר מכן לגעת במיקום בו ברצונך למקם אותו.&lt;/li&gt;&lt;/ul&gt;\nההכנות הסתיימו. אפשר להתחיל למפות וליהנות!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;למכשיר שלך יש „מקשי תכנה” שמוסתרים בתצוגה. יש להחליק מתחת המסך כדי להציג אותם שוב.</string>
@@ -151,6 +152,9 @@
   <string name="geocoder_prompt">עם</string>
   <string name="geocoder_limit_label">בתצוגה</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">חיפוש אחר פריטים</string>
+  <string name="search_objects_hint">נא למלא ביטוי מסנן/חיפוש של JOSM</string>
+  <string name="search_objects_unsupported">הביטוי „%1$s” אינו נתמך</string>
   <!---->
   <string name="preset_search_hint">מחרוזת חיפוש ערכה מוגדרת</string>
   <string name="preset_autopreset">ערכה מוגדרת</string>
@@ -294,6 +298,7 @@
   <string name="undo_redo_one">רק נקודת הביקורת הנבחרת (לא בטיחותי)</string>
   <string name="undo_all">ביטול כל נקודות הביקורת האחרונות (בטיחותי)</string>
   <string name="redo_all">שחזור הביטול של כל נקודות הביקורת המוקדמות (בטיחותי)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">שליחה עם שם התצוגה שלך ב־OpenStreetMap</string>
   <string name="feedback_displayname_hint">שם התצוגה ב־OpenStreetMap לא התקבל עדיין</string>
@@ -309,6 +314,7 @@
   <string name="tip_imagery_privacy">שכבות על ורקע מסופקות על ידי צד־שלישי. בשימוש בשכבה מעביר את כתובת הרשת שלך לצד ציון מעורפל של האזור הנצפה לספק.&lt;p&gt;אם הספק סיפק פרטי מדיניות פרטיות, ניתן לצפות בהם דרך הפריט „מידע” בתפריט שבתיבת הדו־שיח של השכבה.</string>
   <string name="tip_pan_and_zoom_auto_download">בהורדה אוטומטית בסריקה ובתקריב יש להשתמש בזהירות כיוון שמצב זה עשוי להעמיס על מנשקי ה־API של OpenStreetMap ועל המכשיר שלך&lt;p&gt;ניתן להקל מהעומס על שרתי ה־API ע״י שימוש
 במקור נתונים בלתי מקוון.</string>
+  <string name="tip_locked_mode">במצב נעול לא ניתן לערוך אבל לחיצה ארוכה על פריט תציג עליו יותר מידע.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -554,6 +560,7 @@
   <string name="tag_restriction_add_opening_hours">הוספת שעות פתיחה</string>
   <string name="tag_restriction_value_hint">הגבלה מותנית</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">רכיב לא ידוע (לא נמצאה ערכה מוגדרת)</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">יצירת ערכה מוגדרת בהתאמתך</string>
   <string name="create_preset_title">שם מותאם אישית לערכה מוגדרת</string>
@@ -672,7 +679,6 @@
   <string name="menu_information">מידע</string>
   <string name="menu_voice_commands">פקודות קוליות</string>
   <string name="menu_set_name">הגדרת שם</string>
-  <string name="tag_form_unknown_element">רכיב לא ידוע (לא נמצאה ערכה מוגדרת)</string>
   <string name="menu_tools">כלים…</string>
   <string name="menu_tools_imagery">כלי תמונות רקע נוספים</string>
   <string name="menu_tools_add_imagery_from_oam">הוספת תמונות רקע מ־OAM</string>
@@ -926,6 +932,9 @@
   <string name="config_leaveGpsDisabled_summary">לא לבקש להפעיל או לכבות את ה־GPS/GNSS.</string>
   <string name="config_gps_network_title">נסיגה למיקום דרך הרשת</string>
   <string name="config_gps_network_summary">אם לא קיים אמצעי איכון GPS/GNSS או שהוא כבוי, תתבצע נסיגה לספק רשת.</string>
+  <string name="config_gnssTimeToStale_title">מקום מיושן לאחר</string>
+  <string name="config_gnssTimeToStale_summary">הגיל (בשניות) שיחלוף על מקום בטרם ייחשב למיושן.</string>
+  <string name="config_gnssTimeToStale_current">%1$d שנ׳</string>
   <!--Server Settings-->
   <string name="config_category_server">הגדרות שרת</string>
   <string name="config_category_server_summary">ה־API של OSM והגדרות לשרתים אחרים.</string>
@@ -1181,4 +1190,12 @@
     <item>יחסים+</item>
   </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
+  <string-array name="checkstatus_entries">
+    <item>HTTP</item>
+    <item>HTTPS</item>
+    <item>שם התחום לא קיים</item>
+    <item>שם התחום בלתי נגיש</item>
+    <item>כתובת שגויה</item>
+    <item>משתנה שגוי</item>
+  </string-array>
 </resources>

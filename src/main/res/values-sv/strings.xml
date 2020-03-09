@@ -35,6 +35,7 @@
   <string name="invalid_data_received_message">Om du inte orsakade felet, vänligen lämna in en felrapport.</string>
   <string name="file_write_failed_title">Kunde inte skriva till fil</string>
   <string name="file_write_failed_message">Vespucci kunde inte ändra eller spara filen.</string>
+  <!---->
   <string name="welcome_title">Välkommen</string>
   <string name="read_introduction">Läs introduktionen</string>
   <string name="upgrade_title">Detta är en ny Vespucci version</string>
@@ -179,6 +180,7 @@
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrollpunkter</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_title">Återkoppling för utvecklarna</string>
   <!--BoxPicker-->
@@ -312,6 +314,7 @@
   <string name="tag_restriction_and">och</string>
   <string name="tag_restriction_add_opening_hours">Lägg till öppettider</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Välj radie:</string>
@@ -398,7 +401,6 @@
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Röstkommandon</string>
   <string name="menu_set_name">Sätt namn</string>
-  <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <string name="menu_tools">Verktyg...</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
   <string name="menu_tools_clear_clipboard">Rensa urklipp</string>

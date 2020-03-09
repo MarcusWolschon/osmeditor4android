@@ -56,6 +56,7 @@
   <string name="invalid_data_read_message">Zapoznaj się z dokumentacją dotyczącą obsługiwanych formatów plików i wymaganych pól danych.</string>
   <string name="file_write_failed_title">Nie można zapisać do pliku</string>
   <string name="file_write_failed_message">Vespucci nie może zmienić ani zapisać pliku.</string>
+  <!---->
   <string name="welcome_title">Witaj</string>
   <string name="welcome_message">Dziękujemy za zainstalowanie Vespucci.\n&lt;br&gt;&lt;br&gt;Przed rozpoczęciem powinieneś wiedzieć trzy rzeczy:\n&lt;ul&gt;&lt;li&gt;dotknięcie ikony kłódki w lewym górnym rogu przełącza pomiędzy trybem zablokowanym (brak edycji) i odblokowanym,&lt;/li&gt;&lt;li&gt;aby edytować OpenStreetMap potrzebujesz najpierw pobrać dane dla obszaru, w którym chcesz coś zmienić (na początek przybliż mapę),&lt;/li&gt;&lt;li&gt;aby dodać nowy obiekt: przytrzymaj duży zielony przycisk i wybierz, co chcesz dodać, a następnie dotknij pozycję, w której chcesz umieścić ten obiekt.&lt;/li&gt;&lt;/ul&gt;\nTeraz jesteś już gotowy. Zacznij mapować i baw się dobrze!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Twoje urządzenie ma \"dotykowe przyciski\", które są ukryte. Przesuń od dołu ekranu, aby je pokazać ponownie.</string>
@@ -282,6 +283,7 @@
   <string name="undo_redo_one">Tylko wybrany punkt kontrolny (niebezpieczne)</string>
   <string name="undo_all">Cofnij wszystkich późniejsze punkty kontrolne (bezpieczne)</string>
   <string name="redo_all">Przywróć wszystkie wcześniejsze punkty kontrolne (bezpieczne)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Prześlij wraz ze swoją wyświetlaną nazwą OpenStreetMap</string>
   <string name="feedback_displayname_hint">Wyświetlana nazwa OpenStreetMap nie została jeszcze pobrana</string>
@@ -533,6 +535,7 @@
   <string name="tag_restriction_add_opening_hours">Dodaj godziny otwarcia</string>
   <string name="tag_restriction_value_hint">Ograniczenia warunkowe</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Nieznany element (brak szablonu)</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Utwórz własny szablon</string>
   <string name="create_preset_title">Nazwa własnego szablonu</string>
@@ -647,7 +650,6 @@
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Polecenia głosowe</string>
   <string name="menu_set_name">Nazwij</string>
-  <string name="tag_form_unknown_element">Nieznany element (brak szablonu)</string>
   <string name="menu_tools">Narzędzia...</string>
   <string name="menu_tools_imagery">Więcej narzędzi</string>
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>

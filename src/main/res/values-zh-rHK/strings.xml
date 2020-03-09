@@ -54,6 +54,7 @@
   <string name="invalid_data_read_message">請看說明文件察看支援的檔案格式，以及需要的資料欄位 。</string>
   <string name="file_write_failed_title">檔案寫入失敗</string>
   <string name="file_write_failed_message">Vespucci 無法變更或儲存檔案。</string>
+  <!---->
   <string name="welcome_title">歡迎</string>
   <string name="welcome_message">感謝你安裝 Vespucci.\n&lt;br&gt;&lt;br&gt;要開始使用前，你必須知道三件事情：\n&lt;ul&gt;&lt;li&gt;點左上角鎖圖示會在鎖定 (無編輯) 和解除鎖定模式之間切換，&lt;/li&gt;&lt;li&gt;，要編輯開放街圖，你必須到你想要變更的區域，先下載資料才行 (做之前先放大區域)。&lt;/li&gt;&lt;li&gt;t要加新的物件，按住大的綠色按鈕，然後選擇你想加的東西，接著點你想加的位置。&lt;/li&gt;&lt;/ul&gt;\n你已經準備好了，開始畫地圖然後找點樂子！</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的裝置有\"虛擬鍵\"而且已經隱藏，從底部滑動會再次顯示。</string>
@@ -261,6 +262,7 @@
   <string name="undo_redo_one">只有選取的檢查點 (不安全)</string>
   <string name="undo_all">取消所有後來的檢查點 (安全)</string>
   <string name="redo_all">重復所有先前的檢查點 (安全)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_with_displayname">傳送時附上你的開放街圖顯示名稱</string>
   <string name="feedback_displayname_hint">還沒收到開放街圖顯示名稱 </string>
@@ -480,6 +482,7 @@
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
   <string name="tag_restriction_value_hint">修件限制</string>
   <string name="ugly_checkgroup_hint">%1$s,...</string>
+  <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">選取半徑：</string>
@@ -577,7 +580,6 @@
   <string name="menu_information">資訊</string>
   <string name="menu_voice_commands">聲音指令</string>
   <string name="menu_set_name">設定名稱</string>
-  <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
   <string name="menu_tools">工具...</string>
   <string name="menu_tools_imagery">更多影像工具</string>
   <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>

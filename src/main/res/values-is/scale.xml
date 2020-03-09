@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Ekkert</item>
+    <item>Kvarði (metrakerfi)</item>
+    <item>Hnitanet (metrakerfi)</item>
+    <item>Kvarði (imperial)</item>
+    <item>Hnitanet (imperial)</item>
+  </string-array>
+</resources>

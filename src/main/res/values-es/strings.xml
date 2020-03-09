@@ -32,15 +32,20 @@
   <string name="unknown_error_title">Error desconocido</string>
   <string name="no_data_title">Sin datos</string>
   <string name="no_data_message">La fuente de datos configurada no tiene cobertura aquí.</string>
+  <string name="required_feature_missing_title">Componente faltante o inhabilitado</string>
+  <string name="required_feature_missing_message">Esta característica depende de un componente del sistema faltante o inhabilitado.</string>
   <string name="go_to_openstreetmap">Ir a openstreetmap.org</string>
   <string name="data_conflict_title">Conflicto de versión</string>
   <string name="invalid_bounding_box_title">Caja de delimitación inválida</string>
   <string name="bounding_box_too_large_title">Área de descarga demasiado grande</string>
+  <string name="api_offline_title">API sin conexión</string>
+  <string name="api_offline_message">La API está actualmente sin conexión, ningún dato puede ser recuperado o escrito.</string>
   <string name="out_of_memory_title">Sin memoria</string>
   <string name="out_of_memory_message">Vespucci no pudo cargar los datos pedidos. Vuelva a intentar con un área más reducida.</string>
   <string name="out_of_memory_dirty_message">Vespucci no pudo descargar los datos indicados. Guarde sus ediciones, vuelva a arrancar, y escoja un área más reducida.</string>
   <string name="invalid_data_received_title">Datos recibidos no válidos</string>
   <string name="file_write_failed_message">Vespucci no pudo alterar o guardar el archivo.</string>
+  <!---->
   <string name="welcome_title">Bienvenido</string>
   <string name="welcome_message">Gracias por instalar Vespucci\n&lt;br&gt;&lt;br&gt; Para comenzar, necesita saber tres cosas:\n&lt;ul&gt;&lt;li&gt; al tocar el ícono de candado en la esquina superior izquierda se cambiará entre el modo bloqueado (sin edición) y desbloqueado,&lt;/li&gt;&lt;li&gt; para editar OpenStreetMap antes que nada necesita descargar los datos para el área donde desea cambiar algo (acerque antes de intentarlo),&lt;/li&gt;&lt;li&gt; para agregar un nuevo objeto: toque el botón verde grande y seleccione lo que desea agregar, luego toque la posición donde desea ubicarlo.&lt;/li&gt;&lt;/ul&gt;\nUsted lo tiene todo listo para empezar ya. Mapee y disfrute!</string>
   <string name="read_introduction">Lea la introducción</string>
@@ -81,7 +86,24 @@
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarea desconocida</string>
   <string name="openstreetbug_not_supported">%1$s no está soportado.</string>
+  <string name="note_description">Nota: %1$s - %2$s</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
+  <string name="generic_bug">Error</string>
   <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Personalizado</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_element_1">%1$s (no descargado) #%2$d</string>
+  <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">Tarea de MapRoulette</string>
+  <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
+  <string name="maproulette_task_explanations">Explicaciones </string>
+  <string name="maproulette_task_set_apikey">Establecer la clave API de MapRoulette</string>
+  <string name="maproulette_task_apikey_not_set">Incapaz de establecer la clave API de MapRoulette </string>
+  <string name="maproulette_task_disable">Deshabilitar</string>
+  <string name="maproulette_task_apikey_set">Clave API de MapRoulette guardada</string>
+  <string name="maproulette_task_no_apikey">No hay clave API de MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_proceed">Descartar &amp; continuar</string>
@@ -93,6 +115,7 @@
   <string name="imagery_offset_date">Creado</string>
   <string name="imagery_offset_zoom">Acercamiento</string>
   <string name="imagery_offset_distance">Distancia</string>
+  <string name="zoom_and_offset">Z %1$d compensar %2$s/%3$s</string>
   <string name="set_position_datum_label">Datum geodésico</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Nombre sugerido</string>
@@ -172,14 +195,23 @@
   <string name="layer_flush_tile_cache">Limpiar la caché de teselas</string>
   <string name="layer_change_style">Cambiar estilo</string>
   <string name="layer_select_imagery">Seleccionar imágenes</string>
+  <string name="layer_category_map">Mapa</string>
   <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">Zoom mínimo</string>
+  <string name="layer_info_max_zoom">Zoom máximo</string>
   <string name="layer_info_terms">Condiciones</string>
+  <string name="layer_info_privacy_policy">Política de privacidad</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">Borrar foto</string>
+  <string name="photo_viewer_delete_button">Borrar permanentemente</string>
   <!--API info dialog-->
+  <string name="api_info_attribution">Atribución</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
+  <string name="undo_redo_title">Deshacer - rehacer</string>
   <string name="undo_all">Deshacer todos los puntos de control posteriores (seguro)</string>
   <string name="redo_all">Rehacer todos los puntos de control anteriores (seguro)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Descargar datos de OpenStreetMap</string>
@@ -191,9 +223,14 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <!--Toaster-->
+  <string name="toast_permission_denied">Permisos denegados %1$s</string>
+  <string name="toast_name_empty">Elige un nombre</string>
+  <string name="toast_url_empty">Introduce una URL</string>
   <string name="toast_no_changes">No cambió nada aún…</string>
   <string name="clear_anyway">¿Borrar de todas formas?</string>
+  <string name="toast_not_in_edit_range">Por favor haga zoom aquí para editar (Volúmen ↑/↓ or lens/shift)</string>
   <string name="toast_unlock_to_edit">Desbloquee para editar</string>
+  <string name="toast_save_done">Guardado</string>
   <string name="toast_export_success">Exportado a %1$s</string>
   <string name="toast_preset_overwrote_tags">Nota - predefinido sobrescribe etiqueta(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobrescribe etiqueta(s)</string>
@@ -311,9 +348,12 @@
   <string name="tag_restriction_when">cuando</string>
   <string name="tag_restriction_and">y</string>
   <string name="tag_restriction_add_restriction">Añadir restricción</string>
-  <string name="tag_restriction_add_simple_condition">Añadir simple condición</string>
+  <string name="tag_restriction_add_simple_condition">Añadir condición simple</string>
   <string name="tag_restriction_add_expression">Añadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Añadir horas de apertura</string>
+  <string name="tag_restriction_value_hint">Restricción condicional</string>
+  <string name="ugly_checkgroup_hint">%1$s, …</string>
+  <string name="tag_form_unknown_element">Elemento desconocido (sin preestablecido)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Elegir radio:</string>
@@ -321,18 +361,27 @@
   <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Última localización conocida:</string>
   <string name="location_current_text">Localización actual:</string>
+  <string name="location_text_unknown">Desconocido</string>
   <string name="location_last_text_parameterized">Última localización conocida: %1$s</string>
   <string name="location_current_text_parameterized">Localización actual: %1$s</string>
   <string name="location_text_metadata_location">
 \nLat %1$4g, Lon %2$4g\nhace %3$s %4$s</string>
+  <string name="location_text_metadata_accuracy">Precisión %1$2.0f metros, </string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">Desde coordenadas:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
   <string name="location_search_label">Buscar:</string>
   <string name="location_load_button">Cargar</string>
   <string name="location_load_dismiss">Ir al mapa</string>
+  <string name="location_nan_title">¡Entrada errónea!</string>
   <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Descargar archivos</string>
+  <string name="allow_all_networks">Permitir todas las redes</string>
   <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Ir a coordenadas</string>
+  <string name="no_nominatim_server">No se ha encontrado un servidor Nominatim configurado</string>
+  <string name="no_nominatim_result">Servidor Nominatim no encontrado %1$s</string>
   <!--Menu-->
   <string name="menu_move">Mover</string>
   <string name="menu_edit">Editar</string>
@@ -340,9 +389,11 @@
   <string name="menu_config">Preferencias</string>
   <string name="menu_find">Buscar</string>
   <string name="menu_help">Ayuda</string>
+  <string name="menu_view">Vista</string>
   <string name="menu_erase">Eliminar nodo</string>
   <string name="menu_set_position">Posición</string>
   <string name="menu_split">Dividir</string>
+  <string name="menu_remove_node_from_way">Eliminar nodo de la vía</string>
   <string name="menu_extract">Extraer nodo</string>
   <string name="menu_append">Anexar</string>
   <string name="menu_relation">Crear relación</string>
@@ -350,10 +401,14 @@
   <string name="menu_add_relation_member">Añadir miembro</string>
   <string name="menu_select_relation_members">Miembros seleccionados</string>
   <string name="menu_tag">Editar etiquetas</string>
+  <string name="menu_openstreetbug">Añadir nota</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Cámara</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Mostrar ubicación</string>
   <string name="menu_gps_follow">Seguir ubicación</string>
+  <string name="menu_gps_goto">Ir a la localización actual</string>
+  <string name="menu_gps_goto_coordinates">Ir a las coordenadas…</string>
   <string name="menu_gps_upload">Subir traza GPX</string>
   <string name="menu_gps_export">Exportar traza GPX</string>
   <string name="menu_gps_import">Importar traza GPX</string>
@@ -362,8 +417,11 @@
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
   <string name="menu_transfer_close_changeset">Cerrar el conjunto de cambios actual</string>
   <string name="menu_transfer_export">Exportar cambios a un fichero OSC</string>
+  <string name="menu_transfer_bugs">Tareas…</string>
   <string name="menu_transfer_bugs_upload">Subir todo</string>
+  <string name="menu_transfer_bugs_upload_long">Subir todas las tareas</string>
   <string name="menu_transfer_bugs_clear">Limpiar</string>
+  <string name="menu_transfer_bugs_clear_long">Limpiar tareas</string>
   <string name="menu_transfer_write_custom_bugs">Guardar tareas personalizadas abiertas...</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -380,25 +438,32 @@
   <string name="menu_information">Información</string>
   <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_set_name">Establecer nombre</string>
-  <string name="tag_form_unknown_element">Elemento desconocido (sin preestablecido)</string>
   <string name="menu_tools">Herramientas...</string>
   <string name="menu_tools_imagery">Más herramientas de imágenes</string>
   <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpiar todas las cachés de teselas</string>
   <string name="menu_tools_background_properties">Propiedades del fondo</string>
   <string name="menu_tools_update_imagery_configuration">Actualizar la configuración de la capa de imágenes</string>
+  <string name="menu_tools_clear_clipboard">Limpiar portapapeles</string>
   <!---->
+  <string name="menu_simple_actions">Modo simple</string>
   <string name="menu_privacy">Privacidad</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Alinear fondo</string>
   <string name="menu_tools_background_align_reset">Restablecer</string>
   <string name="menu_tools_background_align_zero">Cero</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Desde la base de datos</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Desde el dispositivo</string>
+  <string name="menu_tools_background_align_save_db">Guardar en la base de datos</string>
+  <string name="menu_tools_background_align_save_device">Guardar en el dispositivo</string>
+  <string name="menu_tools_background_align_apply2all">Aplicar (todos los niveles de zoom)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f metros</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Capas...</string>
   <string name="menu_layers_load_geojson">Cargar capa GeoJSON</string>
+  <string name="menu_layers_configure">Configurar…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar desplazamiento almacenado a las imágenes</string>
   <string name="menu_tools_background_contrast">Contraste</string>
@@ -415,15 +480,22 @@
   <string name="menu_merge">Combinar</string>
   <string name="menu_reverse">Invertir</string>
   <string name="reverse_anyway">Invertir de todas formas</string>
-  <string name="deleteway_wayandnodes">Suprimir vía</string>
+  <string name="deleteway_wayonly">Eliminar solo la vía</string>
+  <string name="deleteway_wayandnodes">Eliminar vía</string>
   <string name="deletenode">Borrar nodo</string>
   <!--EasyEdit context menus-->
+  <string name="merge_context_title">Unir con  …</string>
+  <string name="merge_with_all_ways">… todas las vías cercanas</string>
+  <string name="merge_with_all_nodes">… todos los nodos cercanos</string>
+  <string name="delete_note_description">¡Borrar la nota no podrá ser revertido!</string>
+  <string name="delete_note">Borrar nodo</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vía seleccionada</string>
   <string name="actionmode_nodeselect">Nodo seleccionado</string>
   <string name="actionmode_relationselect">Relación seleccionada</string>
   <string name="actionmode_createpath">Creando camino</string>
   <string name="actionmode_multiselect">Multiselección</string>
+  <string name="actionmode_newnoteselect">Nueva nota seleccionada</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Dividir ruta cerrada, 1er nodo</string>
   <string name="actionmode_closed_way_split_2">Dividir ruta cerrada, 2º nodo</string>
@@ -433,9 +505,24 @@
   <string name="actionmode_restriction_restart_via">Volver a seleccionar el segmento «via»</string>
   <string name="actionmode_restriction_to">Añadir segmento «a»</string>
   <string name="actionmode_restriction_restart_to">Volver a seleccionar el segmento «a»</string>
+  <string name="actionmode_restriction_split_from">Dividir «desde» el segmento</string>
+  <string name="actionmode_restriction_split_via">Dividir segmento de «vía»</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 objeto</item>
+    <item quantity="other">%1$d objetos</item>
+  </plurals>
   <string name="actionmode_rotateway">Rotar vía</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Añadir nodo</string>
   <string name="simple_add_node">Pulse en la posición de la pantalla</string>
+  <string name="menu_add_way">Añadir vía</string>
+  <string name="simple_add_way">Pulse en la posición de la pantalla</string>
+  <string name="menu_add_map_note">Añadir nota al mapa</string>
+  <string name="simple_add_note">Pulse en la posición de la pantalla</string>
+  <string name="menu_paste_object">Pegar objeto</string>
+  <string name="simple_paste">Pulse en la posición de la pantalla</string>
+  <string name="menu_paste_multiple">Pegar múltiples veces</string>
+  <string name="simple_paste_multiple">Pulse en la posición de la pantalla</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Mapa de fondo</string>
   <string name="config_overlayLayer_title">Superposición de mapa</string>

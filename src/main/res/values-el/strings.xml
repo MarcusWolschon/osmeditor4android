@@ -30,6 +30,7 @@
   <string name="go_to_openstreetmap">Πηγαίνετε στο openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Η περιοχή λήψης είναι πολύ μεγάλη</string>
   <string name="file_write_failed_message">Το Vespucci δεν μπορεί να αλλάξει ή να αποθηκεύσει το αρχείο.</string>
+  <!---->
   <string name="welcome_title">Καλώς ήλθατε</string>
   <string name="read_introduction">Διαβάστε την εισαγωγή</string>
   <string name="upgrade_title">Αυτή είναι μια νέα έκδοση Vespucci</string>
@@ -191,6 +192,7 @@
   <string name="undo_redo_title">Αναίρεση - επανάληψη</string>
   <string name="undo_all">Αναίρεση όλων των επόμενων σημείων ελέγχου (ασφαλές)</string>
   <string name="redo_all">Επαναλάβετε όλα τα προηγούμενα σημεία ελέγχου (ασφαλές)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Κατεβάστε τα δεδομένα του OpenStreetMap</string>
@@ -327,6 +329,7 @@
   <string name="tag_restriction_add_simple_condition">Προσθήκη απλής κατάστασης</string>
   <string name="tag_restriction_add_expression">Προσθήκη έκφρασης</string>
   <string name="tag_restriction_add_opening_hours">Προσθήκη τις ώρες λειτουργίας</string>
+  <string name="tag_form_unknown_element">Άγνωστο στοιχείο (δεν βρέθηκε προεπιλογή)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
@@ -392,7 +395,6 @@
   <string name="menu_information">Πληροφορίες</string>
   <string name="menu_voice_commands">Φωνητικές εντολές</string>
   <string name="menu_set_name">Ορισμός ονόματος</string>
-  <string name="tag_form_unknown_element">Άγνωστο στοιχείο (δεν βρέθηκε προεπιλογή)</string>
   <string name="menu_tools">Εργαλεία...</string>
   <string name="menu_tools_imagery">Περισσότερα εργαλεία εικόνων</string>
   <string name="menu_tools_add_imagery_from_oam">Προσθήκη εικόνων από το OAM</string>

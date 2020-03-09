@@ -24,6 +24,7 @@
   <string name="forbidden_login_title">Saioa hastea debekatuta</string>
   <string name="go_to_openstreetmap">Bisitatu openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Deskarga-area handiegia </string>
+  <!---->
   <string name="welcome_title">Ongi etorri</string>
   <string name="read_introduction">Irakurri sarrera</string>
   <string name="read_upgrade">Irakurri bertsio berriari buruz</string>
@@ -145,6 +146,7 @@
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Deskargatu OpenStreetMap datuak</string>
@@ -255,6 +257,7 @@
   <string name="tag_restriction_add_simple_condition">Gehitu baldintza sinplea</string>
   <string name="tag_restriction_add_expression">Gehitu adierazpena</string>
   <string name="tag_restriction_add_opening_hours">Gehitu irekiera-orduak</string>
+  <string name="tag_form_unknown_element">Elementu ezezaguna (ez da aurre-ezarpenik aurkitu)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Erradioa aukeratu:</string>
@@ -313,7 +316,6 @@
   <string name="menu_rotate">Biratu</string>
   <string name="menu_information">Informazioa</string>
   <string name="menu_voice_commands">Ahots-aginduak</string>
-  <string name="tag_form_unknown_element">Elementu ezezaguna (ez da aurre-ezarpenik aurkitu)</string>
   <string name="menu_tools">Tresnak…</string>
   <string name="menu_tools_imagery">Irudien tresna gehiago</string>
   <string name="menu_tools_add_imagery_from_oam">Gehitu irudiak OAM-etik</string>

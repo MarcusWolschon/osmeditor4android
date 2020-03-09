@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>Geen</item>
+    <item>Schaal (metrisch)</item>
+    <item>Rooster (metrisch)</item>
+    <item>Schaal (imperiaal)</item>
+    <item>Rooster (imperiaal)</item>
+  </string-array>
+</resources>

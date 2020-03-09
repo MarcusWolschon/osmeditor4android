@@ -19,6 +19,7 @@
   <string name="forbidden_login_title">ログインが禁止されています</string>
   <string name="go_to_openstreetmap">openstreetmap.orgへ移動</string>
   <string name="bounding_box_too_large_title">ダウンロード範囲が大きすぎます</string>
+  <!---->
   <string name="upgrade_message">新機能や動作について詳しくはリリースノートをご覧ください</string>
   <string name="read_upgrade">新しいバージョンに関してお読みください</string>
   <string name="progress_title">ロード中</string>
@@ -161,6 +162,7 @@
   <string name="checkpoints">チェックポイント</string>
   <string name="undo_all">以後のチェックポイントを全て取り消し (安全)</string>
   <string name="redo_all">以前のチェックポイントを全てやり直し (安全)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OpenStreetMapデータをダウンロード</string>
@@ -307,6 +309,7 @@
   <string name="tag_restriction_add_simple_condition">単純な条件を追加</string>
   <string name="tag_restriction_add_expression">表現を追加</string>
   <string name="tag_restriction_add_opening_hours">営業時間を追加</string>
+  <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">半径を選択:</string>
@@ -379,7 +382,6 @@
   <string name="menu_information">情報</string>
   <string name="menu_voice_commands">音声コマンド</string>
   <string name="menu_set_name">名前をセット</string>
-  <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
   <string name="menu_tools">ツール…</string>
   <string name="menu_tools_imagery">別の画像ツール</string>
   <string name="menu_tools_add_imagery_from_oam">OAMから画像を追加</string>

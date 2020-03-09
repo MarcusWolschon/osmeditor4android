@@ -15,13 +15,17 @@
   <string name="upload_problem_message">Alcuni o tutti i dati non sono stati caricati. Prova di nuovo più tardi.</string>
   <string name="bad_request_message">Le API hanno risposto con un errore. Salva i tuoi i dati e segnala il problema:\n\n</string>
   <string name="upload_conflict_title">Conflitto di caricamento</string>
-  <string name="upload_conflict_message_deleted">%1$s \nha una versione locale %2$d \ne sul server è stato eliminato</string>
+  <string name="upload_conflict_message_version">%1$s \nha la versione locale %2$d \ne il server %3$d</string>
+  <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$d \ne sul server è stato eliminato</string>
+  <string name="upload_conflict_message_referential">%1$s \nè stato eliminato localmente \nma sul server ha dei riferimenti</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nera già stato eliminato sul server</string>
   <string name="use_local_version">Utilizza la tua versione </string>
   <string name="use_server_version">Utilizza la versione già presente sul server</string>
   <string name="no_login_data_title">Autenticazione fallita</string>
   <string name="no_login_data_message">Se stai usando OAuth questo è probabilmente un bug; per favore invia un report. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
   <string name="no_connection_title">Nessuna connessione col server</string>
   <string name="no_connection_message">Non è stato possibile connettersi al server OSM. Per favore controlla di essere connesso a Internet o riprova più tardi.</string>
+  <string name="ssl_handshake_failed">Impossibile collegarsi al server OSM perché la negoziazione HTTPS è fallita. Prova a passare ad una connessione non cifrata nelle preferenze delle API.</string>
   <string name="wrong_login_data_title">Autenticazione fallita</string>
   <string name="wrong_login_data_message">Se utilizzi OAuth, riautenticati e prova di nuovo. Se stai usando nome utente e password (sconsigliato), controlla di averli inseriti correttamente.</string>
   <string name="wrong_login_data_re_authenticate">Esegui nuovamente autenticazione</string>
@@ -43,6 +47,7 @@
   <string name="invalid_data_read_message">Per favore consulta la documentazione sui formati di file supportati e i campi di dati necessari.</string>
   <string name="file_write_failed_title">Impossibile scrivere sul file</string>
   <string name="file_write_failed_message">Vespucci non è riuscito a salvare il file</string>
+  <!---->
   <string name="welcome_title">Benvenuto</string>
   <string name="read_introduction">Leggi l\'introduzione</string>
   <string name="upgrade_title">Questa è una nuova versione di Vespucci</string>
@@ -228,6 +233,7 @@
   <string name="undo_redo_title">Annulla</string>
   <string name="undo_all">Annulla tutti i punti di controllo successivi (sicuro)</string>
   <string name="redo_all">Ripeti tutti i punti di controllo precedenti (sicuro)</string>
+  <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <string name="feedback_title">Feedback per gli sviluppatori</string>
   <!--BoxPicker-->
@@ -405,6 +411,7 @@
   <string name="tag_restriction_add_simple_condition">Aggiungi una semplice condizione</string>
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
+  <string name="tag_form_unknown_element">Elemento sconosciuto (nessun predefinito trovato)</string>
   <!--Custom preset creation-->
   <string name="create_preset_default_name">%1$spersonalizzato</string>
   <!--Strings in Box/LocationPicker-->
@@ -508,7 +515,6 @@
   <string name="menu_information">Informazioni</string>
   <string name="menu_voice_commands">Comandi vocali</string>
   <string name="menu_set_name">Imposta un nome</string>
-  <string name="tag_form_unknown_element">Elemento sconosciuto (nessun predefinito trovato)</string>
   <string name="menu_tools">Strumenti...</string>
   <string name="menu_tools_imagery">Ulteriori strumenti per le immagini</string>
   <string name="menu_tools_add_imagery_from_oam">Aggiungi immagini da OAM</string>
