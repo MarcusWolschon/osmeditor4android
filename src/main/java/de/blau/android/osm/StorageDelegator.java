@@ -269,9 +269,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 }
             }
         }
-        Filter filter = App.getLogic().getFilter();
-        if (filter != null) {
-            filter.onElementChanged(pre, post);
+        Logic logic = App.getLogic();
+        if (logic != null) { // this might be null in testing
+            Filter filter = logic.getFilter();
+            if (filter != null) {
+                filter.onElementChanged(pre, post);
+            }
         }
     }
 
@@ -680,6 +683,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Arrange way nodes in a circle
      * 
+     * FIXME use w,h,v parameters instead of map for testing
+     * 
      * @param map current map view
      * @param way way to circulize
      */
@@ -788,6 +793,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * squared.
      * 
      * This function converts to and then operates on screen coordinates.
+     * 
+     * FIXME use w,h,v parameters instead of map for testing
      * 
      * @param map current map view
      * @param ways List of Way to square
@@ -1949,7 +1956,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove downloaded element from a relation
      * 
-     * Note the element does not need to have its state changed of be stored in the API storage since the parent
+     * Note the element does not need to have its state changed or be stored in the API storage since the parent
      * relation back link is just internal.
      * 
      * @param element element to remove
@@ -2378,7 +2385,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // way nodes have to wait till we have removed all the ways
         for (OsmElement removeElement : toCut) {
             if (removeElement instanceof Way) {
-                List<Node> nodes = new ArrayList<>(((Way) removeElement).getNodes());
+                Set<Node> nodes = new HashSet<>(((Way) removeElement).getNodes());
                 for (Node nd : nodes) {
                     removeNode(nd); //
                 }
@@ -3074,7 +3081,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param wayIndex index to the ways in temp
      * @param relationIndex index to the relations in temp
      */
-    private boolean redoBacklinks(@NonNull Storage tempCurrent, @NonNull LongOsmElementMap<Node> nodeIndex, @NonNull LongOsmElementMap<Way> wayIndex, @NonNull LongOsmElementMap<Relation> relationIndex) {
+    private boolean redoBacklinks(@NonNull Storage tempCurrent, @NonNull LongOsmElementMap<Node> nodeIndex, @NonNull LongOsmElementMap<Way> wayIndex,
+            @NonNull LongOsmElementMap<Relation> relationIndex) {
         // zap all existing backlinks for our "old" relations
         for (Relation r : currentStorage.getRelations()) {
             for (RelationMember rm : r.getMembers()) {
