@@ -193,7 +193,6 @@
             android:taskAffinity=".HelpViewer"
             android:label="@string/help_app_label"
             android:theme="@style/Theme.customHelpViewer"
-            android:process=":HelpViewerProcess" 
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

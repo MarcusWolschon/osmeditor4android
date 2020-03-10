@@ -68,11 +68,9 @@ Automated testing has come relatively late to Vespucci, however we have made lar
 
 Tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS versions all tests run on successfully are 8.0 and later. The current expectation is that all tests should pass, if this doesn't happen (for example because default applications and other android app settings have been changed) restarting the emulator should typically help.
 
-As activities and services running in separate processes will not produce accessible test coverage reports we've configured an additional build type ``debugsingle`` that modifies the manifest in a way that they run in the "main" process for instrumentation test purposes.
+On an Intel based emulator the tests currently take something around 45 minutes to complete if run with ``connectedCurrentDebugAndroidTest``.
 
-On an Intel based emulator the tests currently take something around 45 minutes to complete if run with ``connectedCurrentDebugsingleAndroidTest``.
-
-The time to run the tests can be reduced substantially by running ``spoonCurrentDebugsingleAndroidTest`` spoon will execute the tests sharded over as many emulators that are currently running on the system, the additional bonus is that the test output is much easier to consume and understand.
+The time to run the tests can be reduced substantially by running ``spoonCurrentDebugAndroidTest`` spoon will execute the tests sharded over as many emulators that are currently running on the system, the additional bonus is that the test output is much easier to consume and understand.
 
 To make running individual tests simpler refreshing the gradle tasks (assuming there was a prior complete run of the tests) will create individual tasks for the tests, for the failed ones in the "failed tests" group, for successful ones in the "successful tests" group. 
 
