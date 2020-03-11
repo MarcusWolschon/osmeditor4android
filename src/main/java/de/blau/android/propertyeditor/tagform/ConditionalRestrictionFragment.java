@@ -209,7 +209,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             Log.d(DEBUG_TAG, "Parsing template " + t);
             ConditionalRestrictionParser parser = new ConditionalRestrictionParser(new ByteArrayInputStream(t.getBytes()));
             try {
-                ArrayList<Restriction> list = parser.restrictions();
+                List<Restriction> list = parser.restrictions();
                 for (Restriction r : list) {
                     String v = r.getValue();
                     try {
@@ -809,7 +809,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
         boolean strictSucceeded = false;
         boolean lenientSucceeded = false;
-        ArrayList<Rule> rules = null;
+        List<Rule> rules = null;
         final Preferences prefs = new Preferences(getActivity());
 
         String value = c.term1();

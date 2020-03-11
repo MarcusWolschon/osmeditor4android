@@ -141,7 +141,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
 
         boolean strictSucceeded = false;
         boolean lenientSucceeded = false;
-        ArrayList<Rule> rules = null;
+        List<Rule> rules = null;
 
         OpeningHoursParser parser = new OpeningHoursParser(new ByteArrayInputStream(value.getBytes()));
 
