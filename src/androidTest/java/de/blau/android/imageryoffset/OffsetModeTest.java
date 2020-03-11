@@ -81,8 +81,8 @@ public class OffsetModeTest {
         map.setPrefs(main, prefs);
         App.getLogic().setPrefs(prefs);
         TestUtils.resetOffsets(main.getMap());
-        main.invalidateOptionsMenu(); // to be sure that the menu entry is actually shown
         TestUtils.dismissStartUpDialogs(device, main);
+        main.invalidateOptionsMenu(); // to be sure that the menu entry is actually shown
     }
 
     /**
