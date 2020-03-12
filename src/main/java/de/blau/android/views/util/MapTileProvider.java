@@ -38,7 +38,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  * 
  */
-public class MapTileProvider implements ServiceConnection, MapViewConstants {
+public class MapTileProvider implements ServiceConnection {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -162,7 +162,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             return tile;
         } else {
             // from service
-            if (DEBUGMODE) {
+            if (MapViewConstants.DEBUGMODE) {
                 Log.i(DEBUG_TAG, "Memory MapTileCache failed for: " + aTile.toString());
             }
             preCacheTile(aTile, owner);
@@ -328,7 +328,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             } finally {
                 pending.remove(id);
             }
-            if (DEBUGMODE) {
+            if (MapViewConstants.DEBUGMODE) {
                 Log.i(DEBUG_TAG, "MapTile download success." + t.toString());
             }
         }

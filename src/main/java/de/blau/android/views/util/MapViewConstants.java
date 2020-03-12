@@ -6,17 +6,18 @@ package de.blau.android.views.util;
  * @author Nicolas Gramlich
  *
  */
-public interface MapViewConstants {
-    // ===========================================================
-    // Final Fields
-    // ===========================================================
+public final class MapViewConstants {
+    
+    /**
+     * Private constructor to avoid instantaion
+     */
+    private MapViewConstants() {
+        // empty
+    }
 
-    boolean DEBUGMODE = false;
+    public static final boolean DEBUGMODE = false;
 
-    int MAPTILE_LATITUDE_INDEX  = 0;
-    int MAPTILE_LONGITUDE_INDEX = 1;
+    public static final int MAPTILE_LATITUDE_INDEX  = 0;
+    public static final int MAPTILE_LONGITUDE_INDEX = 1;
 
-    // ===========================================================
-    // Methods
-    // ===========================================================
 }

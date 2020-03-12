@@ -17,7 +17,7 @@ import de.blau.android.services.util.MapTile;
  * @author Simon Poole
  *
  */
-public class MapTileCache implements MapViewConstants {
+public class MapTileCache {
     // ===========================================================
     // Constants
     // ===========================================================

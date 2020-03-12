@@ -41,7 +41,7 @@ import de.blau.android.views.util.MapViewConstants;
  * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
-public class MapTileProviderDataBase implements MapViewConstants {
+public class MapTileProviderDataBase {
 
     private static final String TILE_MARKED_INVALID_IN_DATABASE = "Tile marked invalid in database";
 
@@ -167,7 +167,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
      * @throws IOException
      */
     public int addTile(@NonNull final MapTile aTile, @Nullable final byte[] tile_data) throws IOException {
-        if (DEBUGMODE) {
+        if (MapViewConstants.DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "adding " + aTile);
         }
         try {
@@ -181,7 +181,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
                 cv.put(T_FSCACHE_FILESIZE, tile_data != null ? tile_data.length : 0); // 0 == invalid
                 cv.put(T_FSCACHE_DATA, tile_data);
                 long result = mDatabase.insertOrThrow(T_FSCACHE, null, cv);
-                if (DEBUGMODE) {
+                if (MapViewConstants.DEBUGMODE) {
                     Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Inserting new tile result " + result);
                 }
                 return tile_data != null ? tile_data.length : 0;
@@ -196,7 +196,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
                 cv.put(T_FSCACHE_FILESIZE, tile_data.length);
                 cv.put(T_FSCACHE_DATA, tile_data);
                 long result = mDatabase.update(T_FSCACHE, cv, T_FSCACHE_WHERE, tileToWhereArgs(aTile));
-                if (DEBUGMODE) {
+                if (MapViewConstants.DEBUGMODE) {
                     Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Inserting tile for invalid one result " + result);
                 }
                 return tile_data.length;
@@ -227,7 +227,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
      * @throws IOException
      */
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
-        if (DEBUGMODE) {
+        if (MapViewConstants.DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from file");
         }
         try {
@@ -287,7 +287,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
         } catch (SQLiteException sex) { // handle these exceptions the same
             throw new IOException(sex.getMessage());
         }
-        if (DEBUGMODE) {
+        if (MapViewConstants.DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
         }
         return null;
@@ -466,7 +466,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (DEBUGMODE) {
+            if (MapViewConstants.DEBUGMODE) {
                 Log.w(MapTileFilesystemProvider.DEBUG_TAG,
                         "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
             }
