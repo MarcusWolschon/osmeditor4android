@@ -11,9 +11,9 @@ public class OsmServerException extends OsmException {
      */
     private static final long serialVersionUID = 2767654576083786633L;
 
-    private final int errorCode;
-    private String    type  = ELEMENT_TYPE_NONE;
-    private long      osmId = -1;
+    private final int    errorCode;
+    private final String type;
+    private final long   osmId;
 
     /**
      * Construct a new exception
@@ -24,6 +24,8 @@ public class OsmServerException extends OsmException {
     public OsmServerException(final int errorCode, final String message) {
         super(message);
         this.errorCode = errorCode;
+        type = ELEMENT_TYPE_NONE;
+        osmId = -1;
     }
 
     /**

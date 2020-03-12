@@ -12,7 +12,7 @@ public class StorageException extends RuntimeException {
      * Out of memory
      */
     public static final int OOM = 0;
-    private int             code;
+    private final int       code;
 
     /**
      * Construct a new exception
