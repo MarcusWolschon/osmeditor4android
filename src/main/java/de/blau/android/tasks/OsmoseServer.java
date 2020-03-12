@@ -28,7 +28,8 @@ final class OsmoseServer {
 
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 
-    private static final String       apiPath            = "/api/0.2/";
+    private static final String apiPath = "/api/0.2/"; // NOSONAR
+
     /**
      * the list of supported languages was simply generated from the list of .po in the osmose repo and tested against
      * the API

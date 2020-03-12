@@ -52,7 +52,6 @@ import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
-import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;

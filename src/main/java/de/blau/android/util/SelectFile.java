@@ -240,7 +240,7 @@ public final class SelectFile {
                     return id.replaceFirst("raw:", "");
                 }
                 try {
-                    long longId = Long.valueOf(id);
+                    long longId = Long.parseLong(id);
                     Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), longId);
                     String path = getDataColumn(context, contentUri, null, null);
                     if (path == null) { // maybe Oreo, maybe some specific devices
