@@ -14,7 +14,7 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="28"
-        tools:overrideLibrary="android.support.test.uiautomator.v18" />
+        tools:overrideLibrary="android.support.test.uiautomator.v18, com.squareup.spoon" />
 
     <instrumentation
         android:name="android.support.test.runner.AndroidJUnitRunner"

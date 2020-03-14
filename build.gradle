@@ -420,7 +420,7 @@ dependencies {
     legacyImplementation "com.android.support:recyclerview-v7:$legacySupportLibVersion"
     legacyImplementation "com.android.support:preference-v7:$legacySupportLibVersion"
     legacyImplementation "com.android.support:design:$legacySupportLibVersion"
-    legacyImplementation "com.android.support:support-annotations:$legacySupportLibVersion"
+    legacyImplementation ("com.android.support:support-annotations:$legacySupportLibVersion") { force = true }
     legacyImplementation "com.android.support:support-compat:$legacySupportLibVersion"
     legacyImplementation "com.android.support:exifinterface:$legacySupportLibVersion"
     implementation "com.nononsenseapps:filepicker:4.2.1"
