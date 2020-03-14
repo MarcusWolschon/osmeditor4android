@@ -966,7 +966,8 @@ public class TestUtils {
      */
     public static void selectFile(@NonNull UiDevice device, @Nullable String directory, @NonNull String fileName) {
         UiSelector scrollableSelector = Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? new UiSelector().className("android.widget.FrameLayout")
-                : new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView");
+                : Build.VERSION.SDK_INT > Build.VERSION_CODES.N ? new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView")
+                        : new UiSelector().scrollable(true).className("android.widget.ListView");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             TestUtils.clickOverflowButton(device);
             if (!TestUtils.clickText(device, false, "Show", false)) {
@@ -974,29 +975,16 @@ public class TestUtils {
             }
             TestUtils.clickMenuButton(device, "List view", false, false);
             TestUtils.clickMenuButton(device, "Show roots", false, true);
-            UiSelector android = new UiSelector().resourceIdMatches(".*:id/title").textStartsWith("Android SDK");
+            UiSelector android = new UiSelector().resourceIdMatches(".*:id/title").textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)");
             UiObject androidButton = device.findObject(android);
             try {
                 androidButton.clickAndWaitForNewWindow();
             } catch (UiObjectNotFoundException e1) {
-                android = new UiSelector().resourceIdMatches(".*:id/title").textStartsWith("AOSP");
-                androidButton = device.findObject(android);
-                try {
-                    androidButton.clickAndWaitForNewWindow();
-                } catch (UiObjectNotFoundException e2) {
-                    android = new UiSelector().resourceIdMatches(".*:id/title").textStartsWith("Internal");
-                    androidButton = device.findObject(android);
-                    try {
-                        androidButton.clickAndWaitForNewWindow();
-                    } catch (UiObjectNotFoundException e3) {
-                        Assert.fail("Link to internal storage not found in drawer");
-                    }
-                }
+                Assert.fail("Link to internal storage not found in drawer");
             }
             UiScrollable appView = new UiScrollable(scrollableSelector);
             try {
                 System.out.println("selectFile " + appView.getClassName());
-
             } catch (UiObjectNotFoundException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
