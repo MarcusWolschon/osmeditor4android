@@ -268,7 +268,7 @@ public class OsmoseTest {
             Assert.assertTrue(TestUtils.clickAtCoordinatesWaitNewWindow(device, main.getMap(), b.getLon(), b.getLat()));
             UiObject saveButton = device.findObject(new UiSelector().resourceId("android:id/button1"));
             Assert.assertTrue(saveButton.exists());
-            TestUtils.clickButton(device, "de.blau.android:id/openstreetbug_state", true);
+            TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/openstreetbug_state", true);
             TestUtils.clickText(device, false, "Closed", true);
             Assert.assertTrue(saveButton.isEnabled());
             TestUtils.clickText(device, false, "Save", true);

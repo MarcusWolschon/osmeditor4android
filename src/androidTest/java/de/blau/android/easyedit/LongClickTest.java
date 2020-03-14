@@ -160,7 +160,7 @@ public class LongClickTest {
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.openstreetbug_new_bug), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
-        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/openstreetbug_comment"));
+        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/openstreetbug_comment"));
         try {
             editText.click(); // NOTE this seems to be necessary
             editText.setText("test");

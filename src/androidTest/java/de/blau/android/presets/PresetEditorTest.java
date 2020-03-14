@@ -104,14 +104,14 @@ public class PresetEditorTest {
         response.setBody(buffer);
         mockServer.server().enqueue(response);
         TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false);
-        device.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/listedit_editName")), 500);
-        UiObject name = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/listedit_editName"));
+        device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
+        UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
         try {
             name.setText("Test");
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        UiObject value = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/listedit_editValue"));
+        UiObject value = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editValue"));
         try {
             value.setText(url.toString());
         } catch (UiObjectNotFoundException e) {

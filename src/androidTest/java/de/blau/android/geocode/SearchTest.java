@@ -104,14 +104,14 @@ public class SearchTest {
         mockServer.enqueue("nominatim");
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Find", true);
-        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/location_search_edit"));
+        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/location_search_edit"));
         try {
             searchEditText.click();
             searchEditText.setText("bergdietikon");
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton(device, "de.blau.android:id/location_search_geocoder", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/location_search_geocoder", true);
         Assert.assertTrue(TestUtils.clickText(device, true, "Nominatim2", true));
         Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));
@@ -131,14 +131,14 @@ public class SearchTest {
         mockServer.enqueue("photon");
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Find", true);
-        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/location_search_edit"));
+        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/location_search_edit"));
         try {
             searchEditText.click();
             searchEditText.setText("bergdietikon");
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickButton(device, "de.blau.android:id/location_search_geocoder", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/location_search_geocoder", true);
         Assert.assertTrue(TestUtils.clickText(device, true, "Photon", true));
         Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));

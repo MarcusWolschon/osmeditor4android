@@ -100,11 +100,11 @@ public class CustomImageryTest {
         prefs.setBackGroundLayer("NONE");
         main.getMap().setPrefs(main, prefs);
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
-        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/menu_config", true));
+        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true));
-        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/add", true));
-        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/file_button", true));
+        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
         TestUtils.selectFile(device, "mbtiles", "map.mbt");
         Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
         Assert.assertTrue(TestUtils.findText(device, false, "57.0527713171221"));
@@ -132,13 +132,13 @@ public class CustomImageryTest {
         prefs.setBackGroundLayer("NONE");
         main.getMap().setPrefs(main, prefs);
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
-        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/menu_config", true));
+        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true));
-        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/add", true));
-        Assert.assertTrue(TestUtils.clickButton(device, "de.blau.android:id/file_button", true));
+        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
+        Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
         TestUtils.selectFile(device, "mbtiles", "map-no-meta.mbt");
-        UiObject url = device.findObject(new UiSelector().resourceId("de.blau.android:id/url"));
+        UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
         try {
             Assert.assertEquals("", url.getText()); // url not set
         } catch (UiObjectNotFoundException e) {

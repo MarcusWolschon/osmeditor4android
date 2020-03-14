@@ -112,7 +112,7 @@ public class ObjectSearchTest {
     public void single() {
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Search for objects", true);
-        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
+        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
             searchEditText.setText("\"addr:street\"=Kirchstrasse \"addr:housenumber\"=4");
@@ -134,7 +134,7 @@ public class ObjectSearchTest {
     public void multiple() {
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Search for objects", true);
-        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
+        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
             searchEditText.setText("\"addr:housenumber\"=4");
@@ -158,7 +158,7 @@ public class ObjectSearchTest {
     public void preset() {
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Search for objects", true);
-        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
+        UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
             searchEditText.setText("preset:\"Highways|Streets|Residential\"");

@@ -343,10 +343,11 @@ public class ApiTest {
             Assert.fail(e1.getMessage());
         }
         device.waitForIdle();
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/upload_comment", true));
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_comment", true));
         instrumentation.sendStringSync("comment 1");
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER);
-        // Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/upload_source", true));
+        // Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_source",
+        // true));
         instrumentation.sendStringSync("source 1");
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_BACK);
         try {
@@ -683,7 +684,7 @@ public class ApiTest {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         mockServer.enqueue("userdetails");
         Logic logic = App.getLogic();
-        UiObject snackbarTextView = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/snackbar_text"));
+        UiObject snackbarTextView = mDevice.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/snackbar_text"));
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         logic.checkForMail(main, s);
         Assert.assertTrue(snackbarTextView.waitForExists(5000));

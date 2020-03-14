@@ -87,9 +87,9 @@ public class CoordinatesOLCTest {
      */
     @Test
     public void coordinates() {
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Go to coordinates", true));
-        UiObject coordEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
+        UiObject coordEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             coordEditText.click();
             coordEditText.setText("0.1 / 0.2");
@@ -108,9 +108,9 @@ public class CoordinatesOLCTest {
      */
     @Test
     public void OLC() {
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Go to coordinates", true));
-        UiObject coordEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/text_line_edit"));
+        UiObject coordEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             coordEditText.click();
             coordEditText.setText("6PH57VP3+PR6");

@@ -186,14 +186,14 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false);
-        device.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/editKey")), 500);
-        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editKey"));
+        device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editKey")), 500);
+        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey"));
         try {
             editText.setText("key");
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editValue"));
+        editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue"));
         try {
             editText.setText("value");
         } catch (UiObjectNotFoundException e) {
@@ -280,7 +280,7 @@ public class PropertyEditorTest {
         openingHours.click();
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.load_templates_title)));
         Assert.assertTrue(TestUtils.clickText(device, false, "24 Hours", true));
-        TestUtils.clickButton(device, "de.blau.android:id/save", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/save", true);
 
         TestUtils.scrollTo("Contact");
         Assert.assertTrue(TestUtils.clickText(device, false, "Contact", false));
@@ -634,7 +634,7 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
-        UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/preset_search_edit");
+        UiSelector uiSelector = new UiSelector().resourceId(device.getCurrentPackageName() + ":id/preset_search_edit");
         UiObject field = device.findObject(uiSelector);
         try {
             field.click();
@@ -683,7 +683,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(found);
         found = TestUtils.clickText(device, true, getTranslatedPresetItemName("Steps"), true);
         Assert.assertTrue(found);
-        TestUtils.clickButton(device, "de.blau.android:id/tag_menu_apply_preset_with_optional", false);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/tag_menu_apply_preset_with_optional", false);
         device.waitForIdle(1000);
         UiObject2 handrail = null;
         try {
@@ -751,7 +751,7 @@ public class PropertyEditorTest {
         Assert.assertNotNull(conditionalMaxSpeed);
         conditionalMaxSpeed.click();
         Assert.assertTrue(TestUtils.findText(device, false, "50 @"));
-        TestUtils.clickButton(device, "de.blau.android:id/save", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/save", true);
     }
 
     /**
@@ -782,10 +782,10 @@ public class PropertyEditorTest {
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false);
-        device.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/editValue")), 500);
+        device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editValue")), 500);
 
-        UiObject keyEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editKey"));
-        UiObject valueEditText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editValue"));
+        UiObject keyEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editKey"));
+        UiObject valueEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue"));
 
         String key = Tags.KEY_BUILDING;
         String value = Tags.VALUE_YES;
@@ -831,8 +831,8 @@ public class PropertyEditorTest {
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         TestUtils.clickText(device, true, main.getString(R.string.tag_details), false);
-        device.wait(Until.findObject(By.clickable(true).res("de.blau.android:id/editValue")), 500);
-        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/editValue"));
+        device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/editValue")), 500);
+        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/editValue"));
         String edited = "edited";
         try {
             editText.click(); // NOTE this seems to be necessary

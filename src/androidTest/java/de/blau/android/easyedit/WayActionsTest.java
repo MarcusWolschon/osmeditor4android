@@ -114,7 +114,7 @@ public class WayActionsTest {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
-        TestUtils.clickButton(device, "de.blau.android:id/simpleButton", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
         TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
@@ -142,7 +142,7 @@ public class WayActionsTest {
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickOverflowButton(device);
         TestUtils.clickText(device, false, "Straighten", false);
-        device.wait(Until.findObject(By.res("de.blau.android:string/Done")), 1000);
+        device.wait(Until.findObject(By.res(device.getCurrentPackageName() + ":string/Done")), 1000);
         coords = Coordinates.nodeListToCooardinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
         v1 = coords[0].subtract(coords[1]);
         v2 = coords[2].subtract(coords[1]);

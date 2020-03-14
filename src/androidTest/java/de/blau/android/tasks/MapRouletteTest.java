@@ -252,7 +252,7 @@ public class MapRouletteTest {
         UiObject saveButton = device.findObject(new UiSelector().resourceId("android:id/button1"));
         try {
             Assert.assertTrue(saveButton.exists());
-            TestUtils.clickButton(device, "de.blau.android:id/openstreetbug_state", true);
+            TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/openstreetbug_state", true);
             TestUtils.clickText(device, false, "Deleted", true);
             Assert.assertTrue(saveButton.isEnabled());
             TestUtils.clickText(device, false, "Save", true);

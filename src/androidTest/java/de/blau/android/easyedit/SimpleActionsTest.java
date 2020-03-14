@@ -114,7 +114,7 @@ public class SimpleActionsTest {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
-        TestUtils.clickButton(device, "de.blau.android:id/simpleButton", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node), true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
@@ -135,7 +135,7 @@ public class SimpleActionsTest {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
-        TestUtils.clickButton(device, "de.blau.android:id/simpleButton", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
@@ -165,12 +165,12 @@ public class SimpleActionsTest {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
-        TestUtils.clickButton(device, "de.blau.android:id/simpleButton", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_map_note), true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_note)));
         TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
-        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/openstreetbug_comment"));
+        UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/openstreetbug_comment"));
         try {
             editText.click(); // NOTE this seems to be necessary
             editText.setText("test");

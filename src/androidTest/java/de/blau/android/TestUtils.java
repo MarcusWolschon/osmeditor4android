@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.mediacompat.BuildConfig;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiDevice;
@@ -179,7 +180,7 @@ public class TestUtils {
      * @param device the UiDevice
      */
     public static void pinchOut(@NonNull UiDevice device) {
-        UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/map_view");
+        UiSelector uiSelector = new UiSelector().resourceId(device.getCurrentPackageName() + ":id/map_view");
         try {
             device.findObject(uiSelector).pinchOut(75, 100);
         } catch (UiObjectNotFoundException e) {
@@ -193,7 +194,7 @@ public class TestUtils {
      * @param device the UiDevice
      */
     public static void pinchIn(@NonNull UiDevice device) {
-        UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/map_view");
+        UiSelector uiSelector = new UiSelector().resourceId(device.getCurrentPackageName() + ":id/map_view");
         try {
             device.findObject(uiSelector).pinchIn(75, 100);
         } catch (UiObjectNotFoundException e) {
@@ -481,7 +482,7 @@ public class TestUtils {
      */
     public static void unlock(@NonNull UiDevice device) {
         if (App.getLogic().isLocked()) {
-            UiObject lock = device.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
+            UiObject lock = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
             try {
                 lock.click();
                 device.waitForIdle();
@@ -510,13 +511,13 @@ public class TestUtils {
                 if (level - currentLevel > 3) {
                     pinchOut(device);
                 } else {
-                    clickButton(device, "de.blau.android:id/zoom_in", false);
+                    clickButton(device, device.getCurrentPackageName() + ":id/zoom_in", false);
                 }
             } else {
                 if (currentLevel - level > 3) {
                     pinchIn(device);
                 } else {
-                    clickButton(device, "de.blau.android:id/zoom_out", false);
+                    clickButton(device, device.getCurrentPackageName() + ":id/zoom_out", false);
                 }
             }
             currentLevel = map.getZoomLevel();
@@ -761,7 +762,7 @@ public class TestUtils {
      * @param device UiDevice object
      */
     public static void clickUp(@NonNull UiDevice device) {
-        clickResource(device, true, "de.blau.android:id/action_mode_close_button", true);
+        clickResource(device, true, device.getCurrentPackageName() + ":id/action_mode_close_button", true);
     }
 
     /**
@@ -947,7 +948,7 @@ public class TestUtils {
      * @return an UiObject2 for the button in question
      */
     public static UiObject2 getLayerButton(@NonNull UiDevice device, @NonNull String layer, int buttonIndex) {
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/layers", true));
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/layers", true));
         BySelector bySelector = By.text(layer);
         UiObject2 layerName = device.wait(Until.findObject(bySelector), 500);
         UiObject2 tableRow = layerName.getParent();

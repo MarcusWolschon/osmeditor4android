@@ -72,9 +72,9 @@ public class GpxTest {
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
-        // this sets the mock location permission
-        instrumentation.getUiAutomation().executeShellCommand("appops set de.blau.android 58 allow");
         device = UiDevice.getInstance(instrumentation);
+        // this sets the mock location permission
+        instrumentation.getUiAutomation().executeShellCommand("appops set " + device.getCurrentPackageName() + " 58 allow");
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -123,8 +123,8 @@ public class GpxTest {
         prefs.setGpsDistance(0);
 
         TestUtils.zoomToLevel(device, main, 19);
-        TestUtils.clickButton(device, "de.blau.android:id/follow", false);
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
@@ -147,13 +147,13 @@ public class GpxTest {
         }
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
         Assert.assertEquals(trackSize, recordedTrack.size());
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
         compareTrack(track, recordedTrack);
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
 
-        UiObject snackbarTextView = device.findObject(new UiSelector().resourceId("de.blau.android:id/snackbar_text"));
+        UiObject snackbarTextView = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/snackbar_text"));
         Assert.assertTrue(TestUtils.clickText(device, false, "Export GPX track", false));
         //
         Assert.assertTrue(snackbarTextView.waitForExists(5000));
@@ -171,7 +171,7 @@ public class GpxTest {
 
         // need to wait for the snackbar to go away
         snackbarTextView.waitUntilGone(5000);
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
         TestUtils.selectFile(device, null, filename);
@@ -231,7 +231,7 @@ public class GpxTest {
         prefs.setGpsDistance(0);
 
         TestUtils.zoomToLevel(device, main, 19);
-        TestUtils.clickButton(device, "de.blau.android:id/follow", false);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
         Track track = new Track(main);
@@ -244,7 +244,7 @@ public class GpxTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
         // compare roughly with last location
         TrackPoint lastPoint = track.getTrack().get(track.getTrack().size() - 1);

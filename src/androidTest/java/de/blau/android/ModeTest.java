@@ -67,7 +67,7 @@ public class ModeTest {
      */
     @Test
     public void lock() {
-        UiObject lock = device.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
+        UiObject lock = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
 
         logic.setLocked(true);
         logic.setZoom(main.getMap(), 20);
@@ -80,7 +80,7 @@ public class ModeTest {
             }
         });
         device.waitForIdle();
-        UiObject map = device.findObject(new UiSelector().resourceId("de.blau.android:id/map_view"));
+        UiObject map = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/map_view"));
         Assert.assertTrue(map.exists());
         Assert.assertTrue(logic.isLocked());
         try {

@@ -92,7 +92,7 @@ public class MapSplitSourceTest {
         TestUtils.clickText(device, false, "OSM API URL", true);
         TestUtils.longClickText(device, "OpenStreetMap");
         TestUtils.clickText(device, false, "Edit", true);
-        TestUtils.clickButton(device, "de.blau.android:id/listedit_file_button", true);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/listedit_file_button", true);
         TestUtils.selectFile(device, null, MSF_FILE);
         Assert.assertTrue(TestUtils.clickText(device, false, "OK", true));
         TestUtils.clickMenuButton(device, "Navigate up", false, true);
