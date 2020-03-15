@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:21+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2020-03-10 19:24+0000\n"
+"Last-Translator: kjon kjon <kjon@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3922,7 +3922,7 @@ msgstr "Fitnessgerät"
 
 #: master_preset.xml:9839(item:name|group:Routes|preset:Fitness_Trail)
 msgid "Fitness Trail"
-msgstr ""
+msgstr "Trimm-Dich-Pfad"
 
 #: master_preset.xml:4359(combo:text|group:Leisure|preset:Fitness_Station|key:fitness_station)
 msgid "Fitness station"
@@ -11103,7 +11103,7 @@ msgstr "Technologie"
 #: master_preset.xml:7037(combo:display_values|group:Man_Made|preset:Street_cabinet|key:street_cabinet)
 #: master_preset.xml:7558(group:name|group:Telecom)
 msgid "Telecom"
-msgstr ""
+msgstr "Telekommunikation"
 
 #: master_preset.xml:7559(item:name|group:Telecom|preset:Telecom_Street_Cabinet)
 msgid "Telecom Street Cabinet"
@@ -12908,7 +12908,7 @@ msgstr "Kernspaltung"
 #: master_preset.xml:9851(role:text|group:Routes|preset:Fitness_Trail|key:)
 #: master_preset.xml:9852(role:text|group:Routes|preset:Fitness_Trail|key:station)
 msgid "fitness station"
-msgstr ""
+msgstr "Fitnessgerät"
 
 #: master_preset.xml:9940(role:text|group:Routes|preset:Detour_Route|key:fork)
 msgid "fork node for alternative routes"
@@ -12952,7 +12952,7 @@ msgstr "Vergasung"
 #: master_preset.xml:9941(role:text|group:Routes|preset:Detour_Route|key:guidepost)
 #: master_preset.xml:9979(role:text|group:Routes|preset:Road_Route|key:guidepost)
 msgid "guidepost"
-msgstr ""
+msgstr "Wegweiser"
 
 #: master_preset.xml:3347(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:hail_and_ride)
 msgid "hail and ride route segment"
@@ -17568,7 +17568,7 @@ msgstr "Rad"
 #: master_preset.xml:6929(combo:display_values|group:Man_Made|preset:Marker|key:marker)
 msgctxt "marker"
 msgid "Aerial"
-msgstr ""
+msgstr "Luftmarkierung"
 
 #: master_preset.xml:6929(combo:display_values|group:Man_Made|preset:Marker|key:marker)
 msgctxt "marker"
@@ -17633,7 +17633,7 @@ msgstr "Abwasser"
 #: master_preset.xml:6944(combo:display_values|group:Man_Made|preset:Manhole|key:manhole)
 msgctxt "manhole"
 msgid "Telecom"
-msgstr ""
+msgstr "Telekommunikation"
 
 #: master_preset.xml:6944(combo:text|group:Man_Made|preset:Manhole|key:manhole)
 msgctxt "manhole"

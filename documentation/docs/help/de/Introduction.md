@@ -1,10 +1,10 @@
 # Einführung in Vespucci
 
-Vespucci ist ein Editor für OpenStreetMap, der die meisten Funktionen unterstützt, die in ähnlichen Programmen auf normalen Rechnern vorhanden sind. Es ist erfolgreich auf Googles Android 2.3 bis 7.0 und verschiedenen auf AOSP basierenden Varianten getestet worden. Wichtig: während die Leistung von Handys und Tablets ihre stationären Konkurrenten auf vielen Gebieten eingeholt hat, darf, vor allem bei älteren Geräten, auch nicht vergessen werden, dass sie eher wenig Hauptspeicher zur Verfügung haben und auch deutlich langsamer bei bestimmten Operationen sein können. Dies sollte man beim Bearbeiten im Auge behalten und zum Beispiel die bearbeiteten Gebiete eher kleiner wählen.   
+Vespucci ist ein vollwertiger OpenStreetMap-Editor, der die meisten Funktionen von Desktop-Editoren beherrscht. Er wurde erfolgreich auf Googles Android 2.3 bis 10.0 und verschiedenen AOSP-basierten Varianten getestet. Achtung: Während die Leistung mobiler Geräte mit der von Desktop-Konkurrenten aufgeholt hat, haben vor allem ältere Geräte nur sehr begrenzten Speicher zur Verfügung und sind meist recht langsam. Bei der Verwendung von Vespucci sollten Sie dies berücksichtigen und z.B. die zu bearbeitenden Bereiche auf eine angemessene Größe beschränken. 
 
 ## Erstmaliger Gebrauch
 
-Beim ersten Start zeigt Vespucci das Formular "Weitere Position herunterladen"/"Bereich laden". Falls Koordinaten angezeigt werden und der Download sofort erfolgen soll, kann die entsprechende Option gewählt und der Radius um die Position, die heruntergeladen werden soll, festgelegt werden. Auf langsamen Geräten sollte nur ein kleiner Bereich ausgewählt werden. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 Alternativ kann das Formular mit "Zur Karte" geschlossen und direkt zur Karte gewechselt werden, hier das Gebiet, das bearbeitet werden soll, herangezoomt und dann die Daten dazu geladen werden (siehe unten "Mit Vespucci OSM-Daten bearbeiten").
 
@@ -21,7 +21,8 @@ Entweder das Icon zur Übertragung ![Transfer](../images/menu_transfer.png) oder
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -123,11 +124,11 @@ Ausgewählte Knoten und Wege können kopiert oder ausgeschnitten und dann einmal
 
 #### Effizient Adressen eintragen
 
-Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
+Vespucci besitzt eine ![Address](../images/address.png) Funktion "Adresseigenschaften hinzufügen", die durch Vorhersage fortlaufender Hausnummern versucht, die Adresserfassung effizienter zu machen. Sie kann ausgewählt werden:
 
-* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* nach langem Drücken: Vespucci erstellt einen Knoten an der markierten Stelle, versucht, eine wahrscheinliche Hausnummer vorherzusagen, und schlägt weitere, kürzlich verwendete Adresswerte vor. Falls der Punkt auf einem Gebäudeumriss liegt, wird automatisch ein Knoten mit dem Tag "entrance=yes" erstellt. Dann wird der Eigenschaftseditor gestartet, um allfällige Korrekturen und weitere Änderungen zu ermöglichen. 
+*  in den Modi "Knoten/Weg ausgewählt": Vespucci fügt, wie oben beschrieben, Adresswerte hinzu und startet den Eigenschaftseditor.
+* im Eigenschaftseditor.
 
 Die Hausnummernvorhersage benötigt typischerweise mindestens die Eingabe von je 2 Hausnummern auf jeder Seite der Straße, je mehr Nummern in den Daten vorhanden sind desto besser funktioniert die Vorhersage. 
 
@@ -205,7 +206,7 @@ In den Modus kann durch einen langen Druck auf das Schlosssymbol gewechselt werd
 
 ### Prüfungen konfigurieren
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Im Augenblick sind zwei der Tests konfigurierbar, beide können durch Auswahl der "Validierungseinstellungen" in den "Einstellungen" geändert werden. (Die Tests für FIXME-Tags und  für fehlende "type"-Tags bei Relationen sind derzeit nicht konfigurierbar.)  
 
 Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests", die untere die Tests auf "Fehlende Tags". Einträge können durch anklicken bearbeitet werden, der grüne Menüknopf erlaubt es weitere Einträge hinzuzufügen.
 
@@ -213,12 +214,14 @@ Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests",
 
 Überprüfungstest-Einträge haben die folgenden Eigenschaften:
 
-* **Schlüssel** - Schlüssel des Tags.
-* **Wert** - Wert des Tags, falls leer wird der Wert des Tags ignoriert..
-* **Alter** - wie viele Tage nach der letzten Änderung des Objekts soll es wieder überprüft  werden. Existiert ein "check_date"-Eintrag wird dieses Datum verwendet, ansonsten das der letzten Änderung. Wird der Wert auf Null gesetzt wird das Alter ignoriert.
-* **Regulärer Ausdruck** - falls ausgewählt wird angenommen, dass **Wert** ein JAVA regulärer Ausdruck ist.
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 "Schlüssel" und "Wert" werden mit den _existierenden_ Tags des Objektes verglichen.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Tests auf fehlende Tags
 
@@ -240,31 +243,31 @@ Eine Alternative zu obigem. Objekte werden entweder durch Einzelvorlagen oder Vo
 
 ## Vespucci individuell anpassen
 
-Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
+Viele Gesichtspunkte der App können angepasst werden. Wenn man nach etwas Bestimmtem sucht und es nicht findet, die [Vespucci Website](https://vespucci.io/) ist durchsuchbar und enthält zusätzliche Informationen, was auf dem Gerät möglich ist.
 
-### Layer settings
+### Ebeneneigenschaften
 
-Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+Die Ebeneneigenschaften können über den Ebenen-Schalter (obere rechte Ecke) geändert werden, alle anderen Festlegungen sind über die Einstellungen im Hauptmenü zugänglich.
 
-* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Hintergrundebene - Es steht eine große Anzahl von Luft- und Satellitenaufnahmen zur Verfügung, die Standardeinstellung hierfür ist die Karte von openstreetmap.org im "Standard Style".
+* Überlagerungsebene - Dies sind halbtransparente Ebenen mit zusätzlichen Informationen wie z. B. GPX-Tracks. Das Hinzufügen kann auf älteren Geräten und solchen mit wenig Speicher zu Problemen führen. Standard: keine.
+* Anzeige von Hinweisen/Fehlern - Offene Hinweise und Fehler werden durch einen gelben, geschlossene durch einen grünen Käfer angezeigt. Standard: ein.
+* Fotoebene - Zeigt geo-referenzierte Fotos als rotes Kamera-Symbol an. Falls Informationen zur Ausrichtung enthalten sind, wird das Symbol entsprechend gedreht. Standard: aus.
 
-#### Preferences
+#### Einstellungen
 
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Bildschirm eingeschaltet lassen. Standard: aus.
+* Große Knoten-Verschiebefläche. Das Bewegen von Knoten auf einem Gerät mit Touchscreen ist problematisch, da die Finger die aktuelle Position auf dem Display verdecken. Nach Einschalten dieser Funktion steht eine größere Fläche rund um den Knoten zur Verfügung, an der er außerhalb der Mitte angefasst und gezogen werden kann (Die Objektauswahl und andere Operationen verwenden weiterhin den normalen Toleranzbereich für Berührungen). Standard: aus.
 
-The full description can be found here [Preferences](Preferences.md)
+Die vollständige Beschreibung findet man hier [Einstellungen] (Preferences.md)
 
 Erweiterte Einstellungen
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+* Knotensymbole. Standard: ein.
+* Kontextmenü immer anzeigen. Wenn eingeschaltet, wird bei jedem Auswahlvorgang das Kontextmenü angezeigt, ausgeschaltet wird das Menü nur dann angezeigt, wenn keine eindeutige Auswahl bestimmt werden kann. Voreinstellung: aus (war früher eingeschaltet).
+* Helles Thema aktivieren. Bei modernen Geräten ist dies standardmäßig eingeschaltet. Die Aktivierung bei älteren Android-Versionen führt wahrscheinlich zu einem nicht einheitlichen Aussehen. 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+Die vollständige Beschreibung findet man hier [Erweiterte Einstellungen] (Advanced%20Preferences.md)
 
 ## Fehler melden
 

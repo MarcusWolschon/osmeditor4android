@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Vespucci\nHjálp</string>
+    <string name="help_title">Hjálp: %1$s</string>
     <string name="help_introduction">Kynning</string>
+    <string name="help_main">Aðal-kortagluggi</string>
+    <string name="help_simple_actions">Einfaldar aðgerðir</string>
     <string name="help_addrelationmember">Vensl valin</string>
+    <string name="help_multiselect">Velja margt</string>
+    <string name="help_longclick">Búa til ný atriði</string>
     <string name="help_nodeselection">Hnútur valinn</string>
+    <string name="help_pathcreation">Búa til ný atriði</string>
     <string name="help_relationselection">Vensl valin</string>
     <string name="help_wayselection">Ferill valinn</string>
+    <string name="help_aligningbackgroundiamgery">Hnikun bakgrunnsmynda</string>
+    <string name="help_propertyeditor">Eigindaritill</string>
+    <string name="help_preferences">Kjörstillingar</string>
+    <string name="help_advanced_preferences">Ítarlegri stillingar</string>
     <string name="help_presets">Forstillingar</string>
+    <string name="help_conflictresolution">Lausn árekstra</string>
+    <string name="help_gpssources">GPS-gagnagjafar</string>
+    <string name="help_keyboard">Lyklaborð</string>
+    <string name="help_tagfilter">Merkjasía</string>
+    <string name="help_presetfilter">Forstillt sía</string>
+    <string name="help_opening_hours">Opnunartímar</string>
+    <string name="help_newnoteselection">Nýr minnispunktur valinn</string>
+    <string name="help_voice_commands">Raddskipanir</string>
+    <string name="help_upgrade">Útgáfuupplýsingar 14.1</string>
+    <string name="help_upgrade_140">Útgáfuupplýsingar 14.0</string>
+    <string name="help_upgrade_131">Útgáfuupplýsingar 13.1</string>
+    <string name="help_upgrade_130">Útgáfuupplýsingar 13.0</string>
+    <string name="help_upgrade_121">Útgáfuupplýsingar 12.1</string>
+    <string name="help_upgrade_120">Útgáfuupplýsingar 12.0</string>
+    <string name="help_upgrade_112">Útgáfuupplýsingar 11.2</string>
+    <string name="help_upgrade_111">Útgáfuupplýsingar 11.1</string>
+    <string name="help_upgrade_110">Útgáfuupplýsingar 11.0</string>
+    <string name="help_upgrade_102">Útgáfuupplýsingar 10.2</string>
+    <string name="help_upgrade_101">Útgáfuupplýsingar 10.1</string>
+    <string name="help_upgrade_100">Útgáfuupplýsingar 10.0</string>
+    <string name="help_upgrade_099">Útgáfuupplýsingar 0.9.9</string>
+    <string name="help_upgrade_098">Útgáfuupplýsingar 0.9.8</string>
+    <string name="help_upgrade_097">Útgáfuupplýsingar 0.9.7</string>
+    <string name="help_upgrade_096">Útgáfuupplýsingar 0.9.6</string>
+    <string name="help_privacy">Persónuvernd</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

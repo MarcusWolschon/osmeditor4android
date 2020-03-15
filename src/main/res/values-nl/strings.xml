@@ -26,15 +26,19 @@
   <string name="no_connection_message">Kon niet verbinden met de OSM server. Controleer of je verbonden bent met het internet, of probeer het later opnieuw.</string>
   <string name="ssl_handshake_failed">Kon niet verbinden met de OSM server, omdat de HTTPS onderhandeling mislukte. Probeer te wisselen naar een onversleutelde verbinding in de API voorkeuren.</string>
   <string name="wrong_login_data_title">Kon niet authenticeren</string>
+  <string name="not_found_title">Element niet gevonden</string>
   <string name="unknown_error_title">Onbekende fout</string>
   <string name="no_data_title">Geen data</string>
+  <string name="no_data_message">De geconfigureerde databron heeft geen dekking hier.</string>
   <string name="required_feature_missing_title">Missend of uitgeschakeld component</string>
   <string name="required_feature_missing_message">Deze functie is afhankelijk van een missend of uitgeschakeld systeemonderdeel.</string>
   <string name="go_to_openstreetmap">Ga naar openstreetmap.org</string>
   <string name="data_conflict_title">Versieconflict</string>
+  <string name="data_conflict_message">Data van de download zou conflicteren met je bewerkingen. Upload alsjeblieft je data voor het opnieuw te proberen.</string>
   <string name="bounding_box_too_large_title">Downloadgebied te groot</string>
   <string name="invalid_data_received_title">Ongeldige data ontvangen</string>
   <string name="invalid_data_read_title">Ongeldige data gelezen</string>
+  <string name="file_write_failed_title">Kon niet naar bestand schrijven</string>
   <!---->
   <string name="welcome_title">Welkom</string>
   <string name="read_introduction">Lees de introductie</string>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2020-03-13 11:56+0000\n"
+"Last-Translator: Iváns\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10589,7 +10589,7 @@ msgstr ""
 #: master_preset.xml:3732(combo:text|group:Accommodation|preset:Holiday_apartment|key:stars)
 #: master_preset.xml:856(combo:text|key:stars)
 msgid "Stars"
-msgstr ""
+msgstr "Estrelas"
 
 #: master_preset.xml:4802(text:text|group:Culture|preset:Artwork|key:start_date)
 #: master_preset.xml:7161(text:text|group:Power|preset:Power_Plant|key:start_date)

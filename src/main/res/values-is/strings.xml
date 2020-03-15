@@ -7,21 +7,26 @@
   <string name="mode_correct">C-hamur</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varúð!</string>
+  <string name="transfer_download_current_dialog_message">Þú gerðir breytingar. Viltu senda þær inn í stað þess að henda þeim?</string>
   <string name="transfer_download_current_upload">Uppfæra</string>
   <string name="transfer_download_current_download">Henda og sækja</string>
   <string name="transfer_download_current_back">Til baka (ekki gera neitt)</string>
   <string name="upload_problem_title">Gat ekki sent inn</string>
+  <string name="upload_problem_message">Sum eða öll gögnin voru ekki send inn. Prófaðu aftur síðar.</string>
   <string name="upload_conflict_title">Árekstur í innsendingu</string>
   <string name="use_local_version">Nota útgáfu tækis</string>
   <string name="use_server_version">Nota útgáfu á þjóni</string>
   <string name="no_login_data_title">Gat ekki auðkennt</string>
+  <string name="no_connection_title">Engin tenging við þjón</string>
   <string name="wrong_login_data_title">Gat ekki auðkennt</string>
   <string name="wrong_login_data_re_authenticate">Auðkenndu aftur</string>
   <string name="forbidden_login_title">Innskráning óheimil</string>
+  <string name="not_found_title">Eining fannst ekki</string>
   <string name="unknown_error_title">Óþekkt villa</string>
   <string name="no_data_title">Engin gögn</string>
   <string name="go_to_openstreetmap">Farðu á openstreetmap.org</string>
   <string name="data_conflict_title">Árekstur á milli útgáfa</string>
+  <string name="invalid_bounding_box_title">Ógild umgjörð</string>
   <string name="out_of_memory_title">Ekki nægilegt minni</string>
   <string name="file_write_failed_title">Gat ekki skrifað í skrá</string>
   <!---->
@@ -58,6 +63,7 @@
   <string name="openstreetbug_new_title">Nýr minnispunktur</string>
   <string name="openstreetbug_new_bug">Tilkynna vandamál</string>
   <string name="openstreetbug_bug_title">Vandamál</string>
+  <string name="openstreetbug_new_nodeway">Búa til hnút/leið</string>
   <string name="openstreetbug_edit_title">Breyta minnispunkti</string>
   <string name="openstreetbug_comment_label">Athugasemd:</string>
   <string name="openstreetbug_not_supported">%1$s er ekki stutt.</string>
@@ -95,9 +101,12 @@
   <string name="find_message">Leitarstrengur</string>
   <string name="geocoder_prompt">með</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Leita að hlutum</string>
   <!---->
   <string name="search">Leita</string>
   <string name="save_file">Vista í</string>
+  <string name="existing_track_title">Fyrirliggjandi gögn í GPX-ferli</string>
+  <string name="delete_tags">Á í alvörunni að eyða öllum merkjum fyrir \"%1$s\" hlutinn?</string>
   <!--element information dialog-->
   <string name="id">Auðkenni</string>
   <string name="nodes">Hnútar</string>
@@ -143,6 +152,7 @@
   <string name="description">Lýsing</string>
   <string name="created">Búið til</string>
   <string name="altitude">Hæð</string>
+  <string name="create_osm_object">Búa til OSM-hlut</string>
   <!--Custom imagery dialogs-->
   <string name="overlay">Yfirlag</string>
   <string name="coverage">Þekja</string>
@@ -150,12 +160,14 @@
   <string name="coverage_left">Vinstri</string>
   <string name="coverage_right">Hægri</string>
   <string name="coverage_bottom">Neðst</string>
+  <string name="toast_invalid_box">Ógild eða ófullgerð umgjörð</string>
   <string name="delete_layer">Eyða lagi?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Stíll lags</string>
   <string name="layer_style_stroke_width">Breidd línu</string>
   <string name="layer_style_color">Litur</string>
   <string name="layer_style_label">Skýring</string>
+  <string name="json_object_not_displayed">JSON-hlutur (ekki birtur)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_grid">Hnitanet</string>
@@ -179,15 +191,19 @@
   <string name="layer_info_max_zoom">Hám. aðdráttur</string>
   <string name="layer_info_start_date">Upphafsdagur</string>
   <string name="layer_info_end_date">Lokadagur</string>
+  <string name="layer_info_terms">Skilmálar</string>
+  <string name="layer_info_privacy_policy">Meðferð persónuupplýsinga</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Eyða mynd</string>
   <string name="photo_viewer_delete_button">Eyða endanlega</string>
   <string name="photo_viewer_goto">Fara á mynd</string>
   <!--API info dialog-->
+  <string name="api_info_bounds">Umgjörð</string>
   <string name="api_info_attribution">Tileinkun</string>
   <!--Undo - Redo dialog-->
   <string name="undo_redo_title">Afturkalla - endurtaka</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_undo_anyway">Afturkalla samt</string>
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Sækja OpenStreetMap-gögn</string>
@@ -207,6 +223,7 @@
   <string name="toast_no_changes">Þú hefur ekki gert neinar breytingar...</string>
   <string name="clear_anyway">Hreinsa samt?</string>
   <string name="toast_upload_success">Sent inn á OSM-vefþjón.</string>
+  <string name="toast_not_in_edit_range">Renndu að til að breyta (hljóðstyrkur ↑/↓ eða linsa/skipta)</string>
   <string name="toast_unlock_to_edit">Aflæsa til að breyta</string>
   <string name="toast_save_done">Vistað</string>
   <string name="toast_save_failed">Gat ekki vistað</string>
@@ -225,35 +242,57 @@
   <string name="coordinates_out_of_range">Lengdargráða þarf að vera milli -180°/+180°, breiddargráða milli -85°/+85°</string>
   <string name="toast_nothing_found">Ekkert fannst</string>
   <string name="toast_file_not_found">%1$s fannst ekki.</string>
+  <string name="toast_file_exists">%1$s skrá er til.</string>
+  <string name="toast_needs_resurvey">Hlutur gæti verið úreltur</string>
+  <string name="toast_invalid_object">Ógildur hlutur</string>
+  <string name="toast_illegal_operation">Óleyfileg aðgerð: %1$s</string>
+  <string name="toast_using_network_location">Nota staðsetningu úr netkerfi</string>
+  <string name="toast_using_gps_location">Nota staðsetningu úr GPS/GNSS</string>
+  <string name="toast_merged">Sameinað</string>
   <string name="toast_updated">Uppfærði %1$s</string>
+  <string name="toast_file_already_exists">Skráin %1$s er þegar til</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Já</string>
   <string name="no">Nei</string>
   <string name="okay">Í lagi</string>
   <string name="cancel">Hætta við</string>
+  <string name="dismiss">Hafna</string>
+  <string name="done">Lokið</string>
   <string name="locked">Læst</string>
   <string name="next">Næst</string>
   <string name="apply">Framkvæma</string>
   <string name="set">Setja</string>
   <string name="replace">Skipta út</string>
   <string name="save">Vista</string>
+  <string name="save_and_set">Vista og stilla</string>
   <string name="back">Til baka</string>
   <string name="forward">Áfram</string>
   <string name="keep">Geyma</string>
+  <string name="enable">Virkja</string>
+  <string name="disable">Gera óvirkt</string>
   <string name="clear">Hreinsa</string>
   <string name="discard">Henda</string>
   <string name="retry">Reyna aftur</string>
   <!--Read a file-->
+  <string name="read">Lesa</string>
+  <string name="overwrite">Skrifa yfir</string>
+  <string name="share">Deila</string>
+  <string name="share_position">Deila staðsetningu</string>
+  <string name="share_on_openstreetmap">Deila á OpenStreetMap</string>
+  <string name="min">Lágm.</string>
+  <string name="max">Hám.</string>
   <string name="geojson_object">%1$s (%2$s)</string>
   <string name="none">Ekkert</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Hætta í Vespucci</string>
   <string name="exit_text">Viltu örugglega hætta? </string>
   <!--Strings in PorpertyEditor-->
   <string name="key">lykill</string>
   <string name="Key">Lykill</string>
   <string name="value">gildi</string>
   <string name="Value">Gildi</string>
+  <string name="multiselect_header_short">Gildi (%1$d)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Bæta við heimilisfangasvæðum</string>
   <string name="tag_menu_sourcesurvey">Skoðað á vettvangi</string>
@@ -262,15 +301,39 @@
   <string name="tag_menu_addtorelation">Bæta við vensl</string>
   <string name="tag_menu_reset_address_prediction">Núllstilla ágiskanir heimilisfanga</string>
   <string name="tag_menu_exit_no_save">Hætta\nán þess að vista</string>
+  <string name="tag_menu_top">Skruna efst</string>
+  <string name="tag_menu_bottom">Skruna neðst</string>
   <string name="tag_dialog_value_hint">Smelltu fyrir gildi</string>
+  <string name="tag_action_tag_title">Merki valin</string>
+  <string name="tag_details">Nánar</string>
+  <string name="tag_not_set">Ekki stillt</string>
+  <string name="tag_menu_move_up">Færa upp</string>
+  <string name="tag_menu_move_top">Færa efst</string>
+  <string name="tag_menu_move_down">Færa niður</string>
+  <string name="tag_menu_move_bottom">Færa neðst</string>
+  <string name="tag_menu_sort">Raða</string>
+  <string name="tag_menu_reverse_order">Öfug röð</string>
+  <string name="tag_menu_download">Sækja</string>
+  <string name="tag_menu_js_console">JS-stjórnborð</string>
   <string name="menu_up">Upp</string>
   <string name="menu_top">Efst</string>
+  <string name="menu_select_all">Velja allt</string>
+  <string name="menu_deselect_all">Afvelja allt</string>
+  <string name="menu_preset_help">Hjálp við forstillingar</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i18n">Bæta við tungumálamerkjum</string>
   <string name="tag_restriction_header">Gildi</string>
+  <string name="tag_restriction_when">þegar</string>
+  <string name="tag_restriction_and">og</string>
   <string name="tag_restriction_add_restriction">Bæta við hindrun</string>
+  <string name="tag_restriction_add_simple_condition">Bæta við einföldu skilyrði</string>
+  <string name="tag_restriction_add_expression">Bæta við segð</string>
+  <string name="tag_restriction_add_opening_hours">Bæta við opnunartíma</string>
+  <string name="tag_restriction_value_hint">Skilyrt takmörkun</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">Búa til sérsniðna forstillingu</string>
+  <string name="create_preset_title">Nafn á sérsniðinni forstillingu</string>
   <string name="create_preset_default_name">Sérsniðið  %1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Veldu radíus:</string>
@@ -290,6 +353,7 @@
   <string name="location_search_label">Leita:</string>
   <string name="location_load_button">Hlaða inn</string>
   <string name="location_load_dismiss">Skoða kort</string>
+  <string name="location_nan_title">Villa í inntaki!</string>
   <string name="location_olc">OLC</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Sækja skrár</string>
@@ -305,9 +369,11 @@
   <string name="menu_erase">Eyða hnút</string>
   <string name="menu_set_position">Staðsetning</string>
   <string name="menu_split">Skipta</string>
+  <string name="menu_remove_node_from_way">Fjarlægja hnút úr leið</string>
   <string name="menu_extract">Lesa hnút</string>
   <string name="menu_append">Bæta við</string>
   <string name="menu_relation">Búa til vensl</string>
+  <string name="menu_edit_relation">Breyta venslum</string>
   <string name="menu_add_relation_member">Bæta við</string>
   <string name="menu_select_relation_members">Velja</string>
   <string name="menu_tag">Breyta merkjum</string>
@@ -316,12 +382,30 @@
   <string name="menu_camera">Myndavél</string>
   <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Sýna staðsetningu</string>
+  <string name="menu_gps_follow">Fylgja staðsetningu</string>
+  <string name="menu_gps_start">Hefja GPX-feril</string>
+  <string name="menu_gps_pause">Gera hlé á GPX-ferlun</string>
+  <string name="menu_gps_clear">Hreinsa GPX-feril og ferilpunkta hans</string>
+  <string name="menu_gps_track_managment">Umsýsla GPX-ferla…</string>
+  <string name="menu_gps_upload">Senda inn GPX-feril</string>
+  <string name="menu_gps_export">Flytja út GPX-feril</string>
+  <string name="menu_gps_import">Flytja inn GPX-feril</string>
+  <string name="menu_gps_goto_start">Fara á upphaf GPX-ferils</string>
   <string name="menu_transfer">Færi gögn...</string>
   <string name="menu_transfer_download_current">Niðurhala núverandi sýn</string>
+  <string name="menu_transfer_download_replace">Hreinsa og niðurhala núverandi sýn</string>
+  <string name="menu_transfer_load_current">Hlaða inn núverandi sýn</string>
+  <string name="menu_transfer_load_replace">Hreinsa og hlaða inn núverandi sýn</string>
   <string name="menu_transfer_upload">Uppfæra á OSM</string>
   <string name="menu_transfer_close_changeset">Loka núverandi breytingasetti</string>
   <string name="menu_transfer_file">Skrá…</string>
+  <string name="menu_transfer_read_file">Lesa úr JOSM-skrá…</string>
+  <string name="menu_transfer_save_file">Vista í JOSM-skrá…</string>
+  <string name="menu_transfer_download_msf">Sækja gögn fyrir notkun án nettengingar…</string>
+  <string name="menu_transfer_bugs">Verkefni…</string>
   <string name="menu_transfer_bugs_clear">Hreinsa</string>
+  <string name="menu_transfer_bugs_clear_long">Hreinsa verkefni</string>
+  <string name="menu_save">Vista sem skrá</string>
   <string name="menu_join">Sameina</string>
   <string name="menu_unjoin">Sundra</string>
   <string name="menu_copy">Afrita</string>
@@ -329,43 +413,76 @@
   <string name="menu_paste">Líma</string>
   <string name="menu_paste_tags">Líma merki</string>
   <string name="menu_paste_from_clipboard">Líma af klippiborði</string>
+  <string name="menu_zoom_to_selection">Renna að völdu</string>
   <string name="menu_rotate">Snúa</string>
+  <string name="menu_orthogonalize">Hornrétta</string>
+  <string name="menu_straighten">Slétta</string>
   <string name="menu_circulize">Raða í hring</string>
   <string name="menu_split_polygon">Skipta upp í marghyrninga</string>
   <string name="menu_extend_selection">Útvíkka val</string>
   <string name="menu_information">Upplýsingar</string>
+  <string name="menu_voice_commands">Raddskipanir</string>
   <string name="menu_tools">Verkfæri…</string>
   <string name="menu_tools_background_properties">Bakgrunnsstillingar</string>
+  <string name="menu_tools_clear_clipboard">Hreinsa klippiborð</string>
   <!---->
+  <string name="menu_privacy">Persónuvernd</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Hnika bakgrunni</string>
   <string name="menu_tools_background_align_reset">Endurstilla</string>
   <string name="menu_tools_background_align_zero">Núll</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Úr gagnagrunni</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Af tæki</string>
+  <string name="menu_tools_background_align_save_db">Vista í gagnagrunn</string>
+  <string name="menu_tools_background_align_save_device">Vista á tæki</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f metri</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
+  <string name="menu_layers">Lög…</string>
+  <string name="menu_layers_load_geojson">Hlaða inn GeoJSON-lagi</string>
+  <string name="menu_layers_add_backgroundlayer">Bæta við bakgrunnsmyndalagi</string>
+  <string name="menu_layers_add_overlaylayer">Bæta við yfirlagsmyndalagi</string>
+  <string name="menu_layers_add_tasklayer">Bæta við verkefnalagi</string>
+  <string name="menu_layers_add_grid">Bæta við hnitaneti</string>
+  <string name="menu_layers_add_photolayer">Bæta við ljósmyndalagi</string>
   <!---->
   <string name="menu_tools_background_contrast">Birtuskil</string>
   <string name="menu_enable_tagfilter">Merkjasía</string>
   <!--element action mode menu-->
+  <string name="menu_tags">Eiginleikar</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Aðgerðaferill</string>
   <string name="menu_merge">Sameina</string>
   <string name="menu_reverse">Snúa við</string>
   <string name="reverse_anyway">Snúa samt við</string>
+  <string name="deleteway_wayandnodes">Eyða leið</string>
   <string name="deletenode">Eyða hnúti</string>
   <!--EasyEdit context menus-->
-  <string name="merge_with_all_nodes">… allir nálægir hnútar</string>
+  <string name="split_context_title">Skipta …</string>
+  <string name="split_all_ways">… öllum leiðum</string>
+  <string name="merge_context_title">Sameina við …</string>
+  <string name="merge_with_all_ways">… allar nálægar leiðir</string>
+  <string name="merge_with_all_nodes">… alla nálæga hnúta</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Leið valin</string>
   <string name="actionmode_nodeselect">Hnútur valinn</string>
   <string name="actionmode_relationselect">Vensl valin</string>
   <string name="actionmode_createpath">Búa til feril</string>
+  <string name="actionmode_newnoteselect">Nýr minnispunktur valinn</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Skipta upp leið, fyrsti hnútur</string>
   <string name="actionmode_closed_way_split_2">Skipta um lokaðri leið, annar hnútur</string>
+  <string name="actionmode_restriction">Bæta við takmörkun á beygju</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 hlutur</item>
+    <item quantity="other">%1$d hlutir</item>
+  </plurals>
+  <string name="actionmode_rotateway">Snúa leið</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Bæta við hnúti</string>
+  <string name="menu_add_way">Bæta við leið</string>
+  <string name="menu_paste_object">Líma hlut</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Bakgrunnur korts</string>
   <string name="config_overlayLayer_title">Kortlag</string>
@@ -388,14 +505,18 @@
   <string name="config_showCameraAction_title">Sýna myndavélaraðgerð</string>
   <string name="config_showTolerance_title">Sýna vikmörk</string>
   <string name="config_splitActionBarEnabled_title">Virkja klofna aðgerðastiku</string>
+  <string name="config_maxInlineValues_current">%1$d gildi</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_summary">Mýkir línur. </string>
   <string name="config_maxStrokeWidth_title">Mesta línubreidd</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
+  <string name="config_address_tags">Heimilisfangamerki</string>
   <string name="config_enableNameSuggestions_title">Virkja nafnatillögur</string>
   <string name="config_generateAlerts_title">Birta tilkynningar</string>
   <string name="config_generateAlerts_summary">Birta tilkynningar fyrir gögn með vandamál eða minnispunkta</string>
+  <string name="config_notificationCacheSize_current">%1$d tilkynningar</string>
+  <string name="config_maxAlertDistance_current">%1$d metrar</string>
   <string name="config_closeChangesetOnSave_title">Loka breytingasetti</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <!--Auto-download settings-->
@@ -403,27 +524,38 @@
   <string name="config_downloadRadius_current">%1$d metrar</string>
   <string name="config_downloadSpeed_current">%1$d km/klst</string>
   <string name="config_autoPruneNodeLimit_current">%1$d hnútar</string>
+  <string name="config_panAndZoomLimit_title">Takmörk aðdráttar</string>
   <string name="config_panAndZoomLimit_current">%1$d</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA netgagnagjafi</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_current">%1$d metrar</string>
   <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
+  <string name="config_category_server">Stillingar netþjóns</string>
   <string name="config_apibutton_title">OSM API veffang</string>
   <string name="config_loginbutton_title">Notandaaðgangur</string>
+  <string name="config_osmoseServer_title">OSMOSE-netþjónn</string>
+  <string name="config_osmoseServer_summary">URL-slóð á OSMOSE-netþjón.</string>
   <!--Layer download and storage-->
+  <string name="config_downLoadThreads_current">%1$d þræðir</string>
   <string name="config_tileCacheSize_title">Stærð skyndiminnis kortatígla</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Ýmislegt</string>
   <string name="config_showStats_title">Birta tölfræði</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Á tilraunastigi</string>
+  <string name="config_js_console_title">Virkja JS-stjórnborð</string>
+  <string name="config_voiceCommandsEnabled_title">Virkja raddskipanir</string>
+  <string name="config_voiceCommandsEnabled_summary">Virkja stuðning við raddskipanir</string>
   <!---->
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Nota OAuth</string>
   <string name="listedit_enable_oauth">Virkja OAuth</string>
   <string name="config_username_title">OSM-notandanafn</string>
   <string name="config_password_title">OSM-lykilorð</string>
+  <string name="listedit_use_translations">Nota þýðingar</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uppfæra forstillingar</string>
   <string name="preset_download_parse_failed">Forstilliskrá inniheldur villu. Forstillingar munu ekki virka. </string>
@@ -443,20 +575,31 @@
   <string name="name">Nafn</string>
   <string name="url">Slóð</string>
   <string name="default_">Sjálfgefið</string>
+  <string name="regular_expression">Regluleg segð</string>
   <string name="state">Staða</string>
   <!---->
+  <string name="empty_list">Engar færslur</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Forstilling</string>
   <string name="api">API</string>
   <string name="undo">Afturkalla</string>
   <string name="redo">Endurtaka</string>
   <string name="undo_nothing">ekkert til að afturkalla</string>
+  <string name="tracking_active_title">Vespucci bakgrunnsþjónusta</string>
+  <string name="tracking_active_title_short">Bakgrunnsþjónusta virk</string>
   <string name="gps_failure">Gat ekki kveikt á GPS</string>
   <!--element description-->
+  <string name="address_housenumber">Heimilisfang %1$s</string>
+  <string name="address_housenumber_street">Heimilisfang %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_moveobjects">Hlutir færðir</string>
+  <string name="undo_action_delete_objects">Hlutum eytt</string>
   <string name="undo_action_set_tags">Merkingar</string>
   <string name="undo_action_cut">Klippa</string>
   <string name="undo_action_paste">Líma</string>
+  <string name="undo_action_circulize">Raða í hring</string>
+  <string name="undo_action_fix_conflict">Lausn árekstra</string>
+  <string name="undo_action_remove_node_from_way">Fjarlægja hnút úr leið</string>
   <!--ACRA-->
   <string name="report_failure">Gat ekki sent inn skýrslu</string>
   <!--Exceptions messages-->
@@ -511,6 +654,7 @@
     <item quantity="other">%1$d metrar</item>
   </plurals>
   <!--Help system-->
+  <string name="toast_nohelp">Engin hjálp hér.</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>einka</item>
@@ -524,5 +668,47 @@
     <item>NMEA frá TCP</item>
     <item>NMEA frá TCP þjóni</item>
   </string-array>
+  <string-array name="note_state">
+    <item>Opið</item>
+    <item>Lokað</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Vinstri</item>
+    <item>Hægri</item>
+    <item>Ekkert</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>Sjálfvirkt</item>
+    <item>Aldrei</item>
+    <item>Þvinga</item>
+    <item>Engin stöðustika</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>Aldrei</item>
+    <item>Þvinga</item>
+    <item>Engin stöðustika</item>
+  </string-array>
+  <string-array name="map_orientation_entries">
+    <item>Sjálfvirkt</item>
+    <item>Læst</item>
+    <item>Lóðrétt</item>
+    <item>Lárétt</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Allt</item>
+    <item>Hnútar</item>
+    <item>Leiðir</item>
+    <item>Leiðir+</item>
+    <item>Vensl</item>
+    <item>Vensl+</item>
+  </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
+  <string-array name="checkstatus_entries">
+    <item>HTTP</item>
+    <item>HTTPS</item>
+    <item>Lénið er ekki til</item>
+    <item>Ekki næst í lénið</item>
+    <item>Gölluð URL-slóð</item>
+    <item>Ógild breyta</item>
+  </string-array>
 </resources>

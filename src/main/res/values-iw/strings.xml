@@ -56,6 +56,8 @@
   <string name="invalid_data_read_message">נא לפנות לתיעוד בנוגע לסוגי קבצים נתמכים ושדות נתונים נדרשים.</string>
   <string name="file_write_failed_title">לא ניתן לכתוב לקובץ</string>
   <string name="file_write_failed_message">לווספוצ׳י אין אפשרות לשנות או לשמור את הקובץ.</string>
+  <string name="applying_osc_failed_title">החלת קובץ ה־OSC נכשלה</string>
+  <string name="applying_osc_failed_message">כנראה שלא טענת את הנתונים המקוריים שנדרשים לטובת החלת השינויים.</string>
   <!---->
   <string name="welcome_title">ברוך בואך</string>
   <string name="welcome_message">תודה לך על התקנת וספוצ׳י.\n&lt;br&gt;&lt;br&gt;כדי להתחיל עליך לדעת שלושה דברים:\n&lt;ul&gt;&lt;li&gt;נגיעה בסמל המנעול בפינה השמאלית העליונה תחליף בין מצב נעול (אין עריכה) לפתוח,&lt;/li&gt;&lt;li&gt;כדי לערוך את OpenStreetMap עליך להוריד תחילה את הנתונים עבור האזור שבו ברצונך לערוך שינויים (יש להתקרב לפני ניסיון ביצוע שינויים),&lt;/li&gt;&lt;li&gt;כדי להוסיף פריט חדש: יש לגעת בכפתור הירוק הגדול, לאחר מכן לגעת במיקום בו ברצונך למקם אותו.&lt;/li&gt;&lt;/ul&gt;\nההכנות הסתיימו. אפשר להתחיל למפות וליהנות!</string>
@@ -299,6 +301,10 @@
   <string name="undo_all">ביטול כל נקודות הביקורת האחרונות (בטיחותי)</string>
   <string name="redo_all">שחזור הביטול של כל נקודות הביקורת המוקדמות (בטיחותי)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">מיקום הביטול לא בתצוגה</string>
+  <string name="undo_location_text">המיקום שיושפע מהביטול אינו מופיע בתצוגה.</string>
+  <string name="undo_location_undo_anyway">לבטל בכל זאת</string>
+  <string name="undo_location_zoom">להתמקד על המיקום ואז לבטל</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">שליחה עם שם התצוגה שלך ב־OpenStreetMap</string>
   <string name="feedback_displayname_hint">שם התצוגה ב־OpenStreetMap לא התקבל עדיין</string>
@@ -460,6 +466,7 @@
   <string name="toast_phone_number_reformatted">מספר הטלפון אורגן מחדש</string>
   <string name="toast_members_not_downloaded">חלק מהחברים ביחס לא התקבלו</string>
   <string name="toast_restart_required">עליך להפעיל את וספוצ׳י מחדש כדי שהשינויים ייכנסו לתוקף</string>
+  <string name="toast_unable_to_open_offline_data">לא ניתן לפתוח את הנתונים הבלתי מקוונים %1$s%2$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
   <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>

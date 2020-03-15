@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2020-03-12 17:32+0000\n"
+"Last-Translator: Marco <marcxosm@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5600,7 +5600,7 @@ msgstr ""
 
 #: master_preset.xml:5770(item:name|group:Facilities|preset:Lavoir)
 msgid "Lavoir"
-msgstr ""
+msgstr "Lavatoio"
 
 #: master_preset.xml:6440(item:name|group:Sport_(Ball)|preset:Lawn_Bowling)
 msgid "Lawn Bowling"
@@ -16171,12 +16171,12 @@ msgstr "Isola"
 #: master_preset.xml:1823(item:name|group:Traffic_Calming|preset:Table)
 msgctxt "traffic_calming"
 msgid "Table"
-msgstr "Attraversamento pedonale rialzato"
+msgstr "Dosso lungo"
 
 #: master_preset.xml:1928(item:name|preset:Named_Junction)
 msgctxt "junction=yes"
 msgid "Named Junction"
-msgstr ""
+msgstr "Incrocio con nome"
 
 #: master_preset.xml:2094(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
@@ -16191,7 +16191,7 @@ msgstr ""
 #: master_preset.xml:2138(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr "Altalena"
+msgstr "Oscillante"
 
 #: master_preset.xml:2138(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"

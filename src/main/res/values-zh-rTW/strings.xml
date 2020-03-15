@@ -56,6 +56,8 @@
   <string name="invalid_data_read_message">請看說明文件察看支援的檔案格式，以及需要的資料欄位 。</string>
   <string name="file_write_failed_title">檔案寫入失敗</string>
   <string name="file_write_failed_message">Vespucci 無法變更或儲存檔案。</string>
+  <string name="applying_osc_failed_title">套用 OSC 檔案失敗</string>
+  <string name="applying_osc_failed_message">最有可能你還沒有載入所有套用到此次變更的原始資料。</string>
   <!---->
   <string name="welcome_title">歡迎</string>
   <string name="welcome_message">感謝你安裝 Vespucci.\n&lt;br&gt;&lt;br&gt;要開始使用前，你必須知道三件事情：\n&lt;ul&gt;&lt;li&gt;點左上角鎖圖示會在鎖定 (無編輯) 和解除鎖定模式之間切換，&lt;/li&gt;&lt;li&gt;，要編輯開放街圖，你必須到你想要變更的區域，先下載資料才行 (做之前先放大區域)。&lt;/li&gt;&lt;li&gt;t要加新的物件，按住大的綠色按鈕，然後選擇你想加的東西，接著點你想加的位置。&lt;/li&gt;&lt;/ul&gt;\n你已經準備好了，開始畫地圖然後找點樂子！</string>
@@ -298,6 +300,10 @@
   <string name="undo_all">取消所有後來的檢查點 (安全)</string>
   <string name="redo_all">重復所有先前的檢查點 (安全)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">復原的位置並不在視野內</string>
+  <string name="undo_location_text">被這次復原影響的位置並不在視野內。</string>
+  <string name="undo_location_undo_anyway">還是進行復原</string>
+  <string name="undo_location_zoom">縮放到位置，並且開始復原</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">傳送時附上你的開放街圖顯示名稱</string>
   <string name="feedback_displayname_hint">還沒收到開放街圖顯示名稱 </string>
@@ -313,6 +319,7 @@
   <string name="tip_imagery_privacy">背景和重疊圖層由第三方提供，使用圖層能夠穿透你的網路地址，並且用提供者的粗略指示，顯示你感興趣的區域。&lt;p&gt;I 如果提供者有補充的隱私政策資訊，你可以在圖層對話中的\"資訊\"選單找到。</string>
   <string name="tip_pan_and_zoom_auto_download">平移和縮放自動下載功能應當小心使用，因為會造成 OpenStreetMap APIs 還有你的裝置的負擔。&lt;p&gt; API 伺服器的負責可以用
 離線資料來源來避免。</string>
+  <string name="tip_locked_mode">在鎖定模式下你無法編輯，但對物件長按之後會開啟視窗顯示詳細的資訊。</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -339,6 +346,7 @@
   <string name="toast_export_success">已匯出到  %1$s</string>
   <string name="toast_preset_overwrote_tags">注意 - 預設組合將覆蓋標籤(們)</string>
   <string name="toast_merge_overwrote_tags">注意 - 這動作將覆蓋標籤(們)</string>
+  <string name="toast_cant_autoapply_preset">這個預置無法自動套用</string>
   <string name="toast_oneway_reversed">您已反轉了單行道或道路方向依據的標籤。請檢查標籤並在需要時訂正。</string>
   <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標籤值，在相同的關係，方向是依據相互關係或不同的角色。請檢查標籤和角色，並在有必要時訂正。</string>
   <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件，它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
@@ -424,6 +432,8 @@
   <string name="toast_using_network_location">使用網路位置</string>
   <string name="toast_using_gps_location">使用 GPS/GNSS 位置</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS 已停用，GPX 記錄已中止</string>
+  <string name="toast_remote_nmea_connection">遠端 NMEA 連線從/到 %1$s</string>
+  <string name="toast_remote_nmea_connection_closed">遠端 NMEA 連線關閉</string>
   <string name="toast_tags_copied">標籤已複製到剪貼簿</string>
   <string name="toast_tags_cut">標籤已剪下到剪貼簿</string>
   <string name="toast_properties_copied">性質已複製到剪貼簿</string>
@@ -449,6 +459,8 @@
   <string name="toast_download_started">下載%1$s要開始了</string>
   <string name="toast_phone_number_reformatted">重新格式化電話號碼</string>
   <string name="toast_members_not_downloaded">有些關係成員並未下載</string>
+  <string name="toast_restart_required">你需要重新啟動 Vespucci 來啟動變更</string>
+  <string name="toast_unable_to_open_offline_data">無法開啟離線資料 %1$s%2$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
   <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
@@ -882,6 +894,7 @@
   <string name="config_orthogonalizeThreshold_summary">° 以內的閾值角度將被忽略</string>
   <string name="config_orthogonalizeThreshold_current">%1$d°</string>
   <string name="config_autoformatPhoneNumbers_title">自動格式的電話號碼</string>
+  <string name="config_autoformatPhoneNumbers_summary">啟用電話號碼的自動格式化功能</string>
   <!--Auto-download settings-->
   <string name="config_category_auto_download">自動下載設定</string>
   <string name="config_category_auto_download_summary">資料和任務自動下載的設定</string>
@@ -920,6 +933,9 @@
   <string name="config_leaveGpsDisabled_summary">不再問 GPS/GNSS 被關閉時是否打開。</string>
   <string name="config_gps_network_title">回退到網路位置</string>
   <string name="config_gps_network_summary">如果沒有開或是沒有偵測 GPS/GNSS 的話，回退到網路提供者。</string>
+  <string name="config_gnssTimeToStale_title">之後的過時位置</string>
+  <string name="config_gnssTimeToStale_summary">位置所需要的壽命 (以秒計算) 被認為是過時的。</string>
+  <string name="config_gnssTimeToStale_current">%1$d秒</string>
   <!--Server Settings-->
   <string name="config_category_server">伺服器設定</string>
   <string name="config_category_server_summary">OSM API 和其他伺服器設定。</string>
@@ -1157,4 +1173,12 @@
     <item>關係+</item>
   </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
+  <string-array name="checkstatus_entries">
+    <item>HTTP</item>
+    <item>HTTPS</item>
+    <item>網域並不存在</item>
+    <item>網域無法到達</item>
+    <item>網址格式錯誤</item>
+    <item>無效的參數</item>
+  </string-array>
 </resources>
