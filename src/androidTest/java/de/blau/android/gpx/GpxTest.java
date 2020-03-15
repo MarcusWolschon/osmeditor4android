@@ -24,6 +24,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -115,6 +116,7 @@ public class GpxTest {
     /**
      * Replay a pre-recorded track and check that we record the same
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void recordSaveAndImportGpx() {
         Assert.assertNotNull(main);
@@ -189,6 +191,7 @@ public class GpxTest {
     /**
      * Import a track file with waypoints and create an OSM object from one of them
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void importWayPoints() {
         Assert.assertNotNull(main);

@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -99,6 +100,7 @@ public class NodeTest {
     /**
      * Select, show info dialog, show position dialog, delete, undelete
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void selectNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
@@ -127,6 +129,7 @@ public class NodeTest {
     /**
      * Select, drag, undo
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void dragNode() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
@@ -151,6 +154,7 @@ public class NodeTest {
     /**
      * Select, unjoin, merge
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void unjoinMergeWays() {
         TestUtils.zoomToLevel(device, main, 21);

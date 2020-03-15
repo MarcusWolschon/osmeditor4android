@@ -24,6 +24,7 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -78,6 +79,7 @@ public class GeoJSONTest {
     /**
      * Import a FeatureCollection
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void importFeatureCollection() {
         de.blau.android.layer.geojson.MapOverlay layer = main.getMap().getGeojsonLayer();
@@ -126,6 +128,7 @@ public class GeoJSONTest {
     /**
      * Show a Feature in the info dialog
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void showFeatureInfo() {
         de.blau.android.layer.geojson.MapOverlay layer = main.getMap().getGeojsonLayer();
@@ -162,6 +165,7 @@ public class GeoJSONTest {
     /**
      * Import individual geometries
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void importGeometries() {
         de.blau.android.layer.geojson.MapOverlay layer = main.getMap().getGeojsonLayer();

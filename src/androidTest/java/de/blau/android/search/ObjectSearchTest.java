@@ -90,7 +90,12 @@ public class ObjectSearchTest {
         map.getViewBox().fitToBoundingBox(map, map.getDataLayer().getExtent());
         logic.updateStyle();
         map.getDataLayer().setVisible(true);
-        map.invalidate();
+        main.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                map.invalidate();
+            }
+        });
         TestUtils.unlock(device);
         logic.setLastObjectSearches(new ArrayList<>());
         device.waitForWindowUpdate(null, 2000);

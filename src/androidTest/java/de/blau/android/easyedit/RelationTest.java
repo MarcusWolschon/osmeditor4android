@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -98,6 +99,7 @@ public class RelationTest {
     /**
      * Select, show info dialog, delete, undelete
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void selectRelation() {
         map.getDataLayer().setVisible(true);
@@ -132,6 +134,7 @@ public class RelationTest {
     /**
      * Select way, create relation, set tag, delete
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void createRelation() {
         map.getDataLayer().setVisible(true);

@@ -16,6 +16,7 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -95,6 +96,7 @@ public class UndoRedoTest {
     /**
      * Change a node, show the undo/redo dialog, undo, redo
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void dialog() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);

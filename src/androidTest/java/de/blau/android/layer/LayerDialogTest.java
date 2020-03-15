@@ -17,6 +17,7 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -157,6 +158,7 @@ public class LayerDialogTest {
     /**
      * Show dialog, zoom to extent, hide layer, try to select object, show layer
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void dataLayerPrune() {
         TestUtils.zoomToLevel(device, main, 22);

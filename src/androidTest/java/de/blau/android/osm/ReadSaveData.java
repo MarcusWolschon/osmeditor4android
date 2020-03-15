@@ -20,6 +20,7 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -115,6 +116,7 @@ public class ReadSaveData {
     /**
      * Read a file in OSM/JOSM XML format, then write it and check if the contents are the same
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void dataReadModifySave() {
         final CountDownLatch signal1 = new CountDownLatch(1);

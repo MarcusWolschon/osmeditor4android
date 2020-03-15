@@ -308,6 +308,7 @@ public class PropertyEditorTest {
      * and sidewalk:left checkboxes, change role in relation check that changed keys end up in the MRU tags, undo the
      * role change.
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void way() {
         final CountDownLatch signal = new CountDownLatch(1);

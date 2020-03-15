@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -71,6 +72,7 @@ public class PhotosTest {
     /**
      * Select a photograph from the photo layer and show it in the internal viewer
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void selectDisplayDelete() {
         TestUtils.zoomToLevel(device, main, 20);

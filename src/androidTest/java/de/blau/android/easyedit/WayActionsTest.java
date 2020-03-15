@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
@@ -109,6 +110,7 @@ public class WayActionsTest {
     /**
      * Create a new way from menu and clicks at two more locations and finishing via home button, then square
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void square() {
         map.getDataLayer().setVisible(true);
@@ -156,6 +158,7 @@ public class WayActionsTest {
     /**
      * Select, remove two nodes
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void removeNodeFromWay() {
         map.getDataLayer().setVisible(true);

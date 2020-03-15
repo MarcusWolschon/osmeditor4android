@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -112,6 +113,7 @@ public class MapRouletteTest {
      * Download some MapRoulette tasks and check that a certain one exists, then re-download and check that it got
      * correctly merged
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void mapRouletteDownload() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -189,6 +191,7 @@ public class MapRouletteTest {
     /**
      * Update a MapRoulette task
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void mapRouletteUpdate() {
         mapRouletteDownload();
@@ -216,6 +219,7 @@ public class MapRouletteTest {
     /**
      * Check that we handle error messages from the MapRoulette server correctly
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void mapRouletteUpdateFail() {
         mapRouletteDownload();
@@ -243,6 +247,7 @@ public class MapRouletteTest {
     /**
      * Close a MapRoulette task via dialog
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void mapRouletteDialog() {
         mapRouletteDownload();

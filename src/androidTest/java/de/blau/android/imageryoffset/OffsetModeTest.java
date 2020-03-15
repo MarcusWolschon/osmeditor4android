@@ -16,6 +16,7 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -110,6 +111,7 @@ public class OffsetModeTest {
     /**
      * Start offset mode and drag the screen
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void createOffset() {
         TestUtils.zoomToLevel(device, main, 18);
@@ -161,6 +163,7 @@ public class OffsetModeTest {
     /**
      * Start offset mode and download a offset
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void downloadOffset() {
         mockServer.enqueue("imagery_offset");

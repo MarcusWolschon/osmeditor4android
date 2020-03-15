@@ -14,6 +14,7 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -85,6 +86,7 @@ public class CoordinatesOLCTest {
     /**
      * Go to a coordinate pair
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void coordinates() {
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
@@ -106,6 +108,7 @@ public class CoordinatesOLCTest {
     /**
      * Search for multiple objects
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void OLC() {
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));

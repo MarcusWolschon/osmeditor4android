@@ -18,6 +18,7 @@ import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -106,6 +107,7 @@ public class AddressTest {
      * Create a new Node by long click and check that we get correct street suggestion and then correct house number
      * from prediction
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void newAddress() {
         map.getDataLayer().setVisible(true);

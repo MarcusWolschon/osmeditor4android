@@ -970,17 +970,33 @@ public class TestUtils {
                         : new UiSelector().scrollable(true).className("android.widget.ListView");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             TestUtils.clickOverflowButton(device);
-            if (!TestUtils.clickText(device, false, "Show", false)) {
-                TestUtils.clickAt(device, device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
-            }
-            TestUtils.clickMenuButton(device, "List view", false, false);
-            TestUtils.clickMenuButton(device, "Show roots", false, true);
-            UiSelector android = new UiSelector().resourceIdMatches(".*:id/title").textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)");
-            UiObject androidButton = device.findObject(android);
-            try {
-                androidButton.clickAndWaitForNewWindow();
-            } catch (UiObjectNotFoundException e1) {
-                Assert.fail("Link to internal storage not found in drawer");
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && !TestUtils.findText(device, false, "SDCARD", 2000)) {
+                // old stuff
+                TestUtils.clickText(device, false, "Settings", true);
+                UiObject cb = device.findObject(new UiSelector().resourceId("android:id/checkbox"));
+                try {
+                    if (!cb.isChecked()) {
+                        TestUtils.clickText(device, false, "Display advanced devices", false);
+                    }
+                } catch (UiObjectNotFoundException e) {
+                    Assert.fail("Coudn't turn on SDCARD view");
+                }
+                TestUtils.clickText(device, false, "Settings", true);
+                TestUtils.clickText(device, false, "SDCARD", true);
+            } else {
+                if (!TestUtils.clickText(device, false, "Show", false)) {
+                    TestUtils.clickAt(device, device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
+                }
+                TestUtils.clickMenuButton(device, "List view", false, false);
+                TestUtils.clickMenuButton(device, "Show roots", false, true);
+
+                UiSelector android = new UiSelector().resourceIdMatches(".*:id/title").textMatches("(^Android SDK.*)|(^AOSP.*)|(^Internal.*)|(^Samsung.*)");
+                UiObject androidButton = device.findObject(android);
+                try {
+                    androidButton.clickAndWaitForNewWindow();
+                } catch (UiObjectNotFoundException e1) {
+                    Assert.fail("Link to internal storage not found in drawer");
+                }
             }
             UiScrollable appView = new UiScrollable(scrollableSelector);
             try {

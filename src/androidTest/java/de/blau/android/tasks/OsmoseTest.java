@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
+import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -250,6 +251,7 @@ public class OsmoseTest {
     /**
      * Close a MapRoulette task via dialog
      */
+    @SdkSuppress(minSdkVersion=26)
     @Test
     public void osmoseDialog() {
         osmoseDownload();
