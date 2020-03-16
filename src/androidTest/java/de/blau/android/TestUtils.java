@@ -21,7 +21,6 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.mediacompat.BuildConfig;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiDevice;
@@ -33,12 +32,12 @@ import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.osm.Track.TrackPoint;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.resources.TileLayerServer.Category;
 import de.blau.android.resources.TileLayerServer.Provider;
-import de.blau.android.osm.Track.TrackPoint;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -76,7 +75,9 @@ public class TestUtils {
      */
     public static void dismissStartUpDialogs(@NonNull UiDevice device, @NonNull Context ctx) {
         clickText(device, true, ctx.getResources().getString(R.string.okay), false);
-        clickText(device, true, ctx.getResources().getString(R.string.location_load_dismiss), false);
+        if (findText(device, false, "Download", 2000)) {
+            clickHome(device);
+        }
     }
 
     /**
@@ -982,6 +983,7 @@ public class TestUtils {
                     Assert.fail("Coudn't turn on SDCARD view");
                 }
                 TestUtils.clickText(device, false, "Settings", true);
+                TestUtils.clickResource(device, false, "android:id/up", true);
                 TestUtils.clickText(device, false, "SDCARD", true);
             } else {
                 if (!TestUtils.clickText(device, false, "Show", false)) {
