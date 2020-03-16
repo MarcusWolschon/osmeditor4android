@@ -105,7 +105,7 @@ public class MapSplitSourceTest {
         map.invalidate();
         try {
             Thread.sleep(1000); // NOSONAR
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) { // NOSONAR
         }
         // read some data from the source
         TestUtils.clickMenuButton(device, "Transfer", false, false);
@@ -115,9 +115,6 @@ public class MapSplitSourceTest {
         StorageDelegator delegator = App.getDelegator();
         Assert.assertNotNull(delegator.getOsmElement(Relation.NAME, 1252853L));
         Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 243055643L));
-        Storage current = delegator.getCurrentStorage();
-        Assert.assertEquals(5364, current.getNodes().size());
-        Assert.assertEquals(697, current.getWays().size());
-        Assert.assertEquals(60, current.getRelations().size());
+        Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 49939577L));
     }
 }
