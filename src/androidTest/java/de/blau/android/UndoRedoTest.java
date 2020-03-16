@@ -100,7 +100,7 @@ public class UndoRedoTest {
     @Test
     public void dialog() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false));
+        TestUtils.clickText(device, false, "Toilets", false);
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
