@@ -8,9 +8,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.location.Criteria;
@@ -18,6 +21,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,6 +36,8 @@ import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
@@ -1101,4 +1108,31 @@ public class TestUtils {
         prefs.setBackGroundLayer("VESPUCCITEST");
         return tileServer;
     }
+    
+    /**
+     * Try to hide any visible soft keyboard
+     * 
+     * FIXME doesn't seem to work
+     * 
+     * @param activity the current Activity
+     */
+    public static void hideSoftKeyboard(@NonNull Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = activity.getWindow().getCurrentFocus();
+        if (view != null) {
+            final CountDownLatch signal = new CountDownLatch(1);
+            ResultReceiver receiver = new ResultReceiver(null) {
+                @Override
+                protected void onReceiveResult(int resultCode, Bundle resultData) {
+                    signal.countDown();
+                }
+            };
+            imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0, receiver);
+            try {
+                signal.await(10, TimeUnit.SECONDS); // NOSONAR
+            } catch (InterruptedException e) { // NOSONAR
+                Log.w(DEBUG_TAG, "Keyboed hiding failed");
+            }
+        }
+    }    
 }

@@ -1,7 +1,5 @@
 package de.blau.android;
 
-import java.util.concurrent.CountDownLatch;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,11 +19,6 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
-import de.blau.android.App;
-import de.blau.android.Logic;
-import de.blau.android.Main;
-import de.blau.android.Map;
-import de.blau.android.TestUtils;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -62,7 +55,6 @@ public class CoordinatesOLCTest {
 
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
-        final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
         TestUtils.stopEasyEdit(main);
