@@ -54,8 +54,10 @@ public class HelpViewerTest {
      */
     @Test
     public void startHelp() {
-        TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Help", true);
+        if (!TestUtils.clickMenuButton(device, "Help", false, true)) {
+            TestUtils.clickOverflowButton(device);
+            TestUtils.clickText(device, false, "Help", true);
+        }
         // Waiting with a monitor doesn't work in this case
         Assert.assertTrue(TestUtils.findText(device, false, "Help: Main map display", 10000));
         Assert.assertTrue(TestUtils.clickMenuButton(device, "OK", false, true));
