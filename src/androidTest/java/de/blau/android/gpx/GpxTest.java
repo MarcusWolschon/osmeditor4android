@@ -75,7 +75,7 @@ public class GpxTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         // this sets the mock location permission
-        instrumentation.getUiAutomation().executeShellCommand("appops set " + device.getCurrentPackageName() + " 58 allow");
+        instrumentation.getUiAutomation().executeShellCommand("appops set de.blau.android 58 allow");
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -106,7 +106,7 @@ public class GpxTest {
         }
         try {
             tileServer.close();
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             // ignore
         }
         instrumentation.removeMonitor(monitor);
@@ -116,7 +116,7 @@ public class GpxTest {
     /**
      * Replay a pre-recorded track and check that we record the same
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void recordSaveAndImportGpx() {
         Assert.assertNotNull(main);
@@ -191,7 +191,7 @@ public class GpxTest {
     /**
      * Import a track file with waypoints and create an OSM object from one of them
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void importWayPoints() {
         Assert.assertNotNull(main);
