@@ -102,8 +102,10 @@ public class SearchTest {
     public void nominatim() {
         // http://nominatim.openstreetmap.org/search?q=bergdietikon&viewboxlbrt=-8.6723573%2C24.892276%2C34.6636399%2C66.2221988&format=jsonv2
         mockServer.enqueue("nominatim");
-        TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Find", true);
+        if (!TestUtils.clickMenuButton(device, "Find", false, true)) {
+            TestUtils.clickOverflowButton(device);
+            TestUtils.clickText(device, false, "Find", true);
+        }
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/location_search_edit"));
         try {
             searchEditText.click();
@@ -129,8 +131,10 @@ public class SearchTest {
     public void photon() {
         // http://photon.komoot.de/api?q=bergdietikon&lat=49.7333397512672&lon=12.9956413&limit=10
         mockServer.enqueue("photon");
-        TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Find", true);
+        if (!TestUtils.clickMenuButton(device, "Find", false, true)) {
+            TestUtils.clickOverflowButton(device);
+            TestUtils.clickText(device, false, "Find", true);
+        }
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/location_search_edit"));
         try {
             searchEditText.click();
