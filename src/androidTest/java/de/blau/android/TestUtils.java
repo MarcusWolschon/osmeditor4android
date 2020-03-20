@@ -884,6 +884,7 @@ public class TestUtils {
                     }
                     loc.setTime(System.currentTimeMillis());
                     loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+                    System.out.println("injecting " + loc.toString());
                     locationManager.setTestProviderLocation(provider, loc);
                     try {
                         Thread.sleep(interval); // NOSONAR
@@ -1108,7 +1109,7 @@ public class TestUtils {
         prefs.setBackGroundLayer("VESPUCCITEST");
         return tileServer;
     }
-    
+
     /**
      * Try to hide any visible soft keyboard
      * 
@@ -1134,5 +1135,5 @@ public class TestUtils {
                 Log.w(DEBUG_TAG, "Keyboed hiding failed");
             }
         }
-    }    
+    }
 }

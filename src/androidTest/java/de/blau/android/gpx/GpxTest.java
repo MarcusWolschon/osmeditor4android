@@ -83,13 +83,12 @@ public class GpxTest {
 
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 60000); // wait for main
 
-        TestUtils.grantPermissons(device);
-
         prefs = new Preferences(main);
         tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);
 
+        TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
     }
 
@@ -121,24 +120,45 @@ public class GpxTest {
     public void recordSaveAndImportGpx() {
         Assert.assertNotNull(main);
 
+        // wait for the trackerservice to start
+        // unluckily there doesn't seem to be any elegant way to do this
+        int retries = 0;
+        synchronized (device) {
+            while (main.getTracker() == null && retries < 60) {
+                try {
+                    device.wait(1000);
+                } catch (InterruptedException e) {
+                    // Ignore
+                }
+                retries++;
+                if (retries >= 60) {
+                    Assert.fail("Tracker service didn't start");
+                }
+            }
+        }
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
         TestUtils.zoomToLevel(device, main, 19);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
-        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
+
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
         Track track = new Track(main);
         track.importFromGPX(is);
+
         // set a different current location so that the first point always gets recorded
         int trackSize = track.getTrack().size();
-        TrackPoint point = track.getTrack().get(trackSize / 2);
+        TrackPoint startPoint = track.getTrack().get(trackSize / 2);
         Location loc = new Location(LocationManager.GPS_PROVIDER);
-        loc.setLatitude(point.getLatitude());
-        loc.setLongitude(point.getLongitude());
+        loc.setLatitude(startPoint.getLatitude());
+        loc.setLongitude(startPoint.getLongitude());
         main.getTracker().updateLocation(loc);
+        main.invalidateOptionsMenu();
+
+        Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
+
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
@@ -147,10 +167,11 @@ public class GpxTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
-        Assert.assertEquals(trackSize, recordedTrack.size());
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
+        List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
+
+        Assert.assertEquals(trackSize, recordedTrack.size());
         compareTrack(track, recordedTrack);
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
@@ -158,7 +179,7 @@ public class GpxTest {
         UiObject snackbarTextView = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/snackbar_text"));
         Assert.assertTrue(TestUtils.clickText(device, false, "Export GPX track", false));
         //
-        Assert.assertTrue(snackbarTextView.waitForExists(5000));
+        Assert.assertTrue(snackbarTextView.waitForExists(10000));
         String filename = null;
         try {
             String t = snackbarTextView.getText();
