@@ -377,7 +377,7 @@ public class SavingHelper<T extends Serializable> {
                 // workaround for android bug - make sure export file shows up via MTP
                 if (ctx != null && outfile != null) {
                     try {
-                        triggerMediaScanner(ctx, outfile);
+                        triggerMediaScanner(ctx.getApplicationContext(), outfile);
                     } catch (Exception ignored) {
                         Log.e(DEBUG_TAG, "Toast in asyncExport failed with " + ignored.getMessage());
                     } catch (Error ignored) { // NOSONAR crashing is not an option
