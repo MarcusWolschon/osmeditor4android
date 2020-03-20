@@ -2129,7 +2129,7 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_gps_export:
             if (getTracker() != null) {
-                SavingHelper.asyncExport(this, getTracker());
+                SavingHelper.asyncExport(getApplicationContext(), getTracker());
             }
             return true;
 
