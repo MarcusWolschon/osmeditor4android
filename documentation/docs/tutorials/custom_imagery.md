@@ -11,7 +11,7 @@ OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913), support for layers
 To add a custom layer goto the _Advanced preferences_ screen and select _Custom imagery_, press the _+_ button to add a new layer. In the form you can set
 
 * a __Name__ this is what is displayed in the _Preferences_ selection form. This field is _required_.
-* an __URL__ the URL for the source with place holders in the same format as the [Editor Layer Index](https://github.com/osmlab/editor-layer-index) (short ELI) that Vespucci and iD use as source for standard imagery. This field is _required_.
+* an __URL__ the URL for the source with place holders in the same format as the [JOSM imagery sources](https://josm.openstreetmap.de/wiki/Maps) that Vespucci, JOSM and Go Map!! use as source for standard imagery. This field is _required_.
 * the__Overlay__ flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer.
 * __Coverage__ left, bottom, right and top coordinates of a coverage bounding box in WGS84 coordinates, if the values are empty it is assumed that the layer covers the whole visible web-mercator area, that is -180°, -85°, 180°, 85°.
 * __Zoom__ _Min_ and _Max_ zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.
@@ -28,23 +28,21 @@ __{x}__ the x tile number
 
 __{y}__ the y tile number
 
-__{-y}__ the y tile number for sources using TMS tile numbering. _ELI_, _iD_,  _Vespucci_
+__{-y}__ the y tile number for sources using TMS tile numbering. _JOSM_, _iD_,  _Vespucci_
 
 __{ty}__ alternative for the y tile number for sources using TMS tile numbering. _iD_, _Vespucci_
 
-__{switch:a,b,c}__ rotating server selection (replace _a,b,c_ by the actual sub-domains). _ELI_, _iD_, _Vespucci_
+__{switch:a,b,c}__ rotating server selection (replace _a,b,c_ by the actual sub-domains). _JOSM_, _iD_, _Vespucci_
 
 __{quadkey}__ used for Bing. _Vespucci_
 
-__{u}__ used for Bing. _iD_
+__{proj}__ projection for WMS servers. _JOSM_, _Vespucci (only in configuration files)_
 
-__{proj}__ projection for WMS servers. _ELI_, _Vespucci (only in configuration files)_
+__{width}__ tile width for WMS servers. _JOSM_, _Vespucci_
 
-__{width}__ tile width for WMS servers. _ELI_, _Vespucci_
+__{height}__ tile height for WMS servers. _JOSM_, _Vespucci_
 
-__{height}__ tile height for WMS servers. _ELI_, _Vespucci_
-
-__{bbox}__ bounding box in _proj_ coordinates for WMS servers. _ELI_, _Vespucci_
+__{bbox}__ bounding box in _proj_ coordinates for WMS servers. _JOSM_, _Vespucci_
 
 __{subdomain}__ reserved, used internally by _Vespucci_
 

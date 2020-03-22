@@ -2439,7 +2439,7 @@ public class Main extends FullScreenAppCompatActivity
                 @Override
                 protected Void doInBackground(Void... params) {
                     try {
-                        TileLayerServer.updateFromEli(Main.this, db.getWritableDatabase());
+                        TileLayerServer.updateFromJOSMImagery(Main.this, db.getWritableDatabase());
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Update imagery conf. " + e.getMessage());
                         Util.toastDowloadError(Main.this, e);
