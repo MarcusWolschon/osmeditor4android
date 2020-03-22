@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -120,10 +119,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
 
         synchronized (downloadWebViewLock) {
             downloadWebView.getSettings().setUserAgentString(App.getUserAgent());
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                downloadWebView.getSettings().setAllowContentAccess(true);
-            }
+            downloadWebView.getSettings().setAllowContentAccess(true);
             downloadWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             downloadWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             downloadWebView.requestFocus(View.FOCUS_DOWN);
@@ -153,9 +149,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                         // Start download
                         DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
                                 .setDestinationInExternalFilesDir(DownloadActivity.this, Environment.DIRECTORY_DOWNLOADS, filename);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                        }
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         if (!allNetworks) {
                             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
                         }

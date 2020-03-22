@@ -416,9 +416,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         Log.d(DEBUG_TAG, "onConfigurationChanged");
         Util.clearCaches(this, newConfig);
         super.onConfigurationChanged(newConfig);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            this.recreate();
-        }
+        this.recreate();
     }
 
     @Override

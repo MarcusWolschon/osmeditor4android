@@ -17,7 +17,6 @@ import java.util.TreeSet;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,7 +28,6 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.TextUtils.TruncateAt;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -1041,10 +1039,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final List<String> tagValues, final int position,
             boolean applyDefault) {
         final TagEditRow row = (TagEditRow) inflater.inflate(R.layout.tag_edit_row, rowLayout, false);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
-            row.valueEdit.setEllipsize(TruncateAt.END);
-        }
 
         boolean same = true;
         if (tagValues.size() > 1) {

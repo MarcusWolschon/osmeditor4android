@@ -10,7 +10,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -85,9 +84,6 @@ public class ConfigurationDialog extends SizedFixedImmersiveDialogFragment {
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            throw new IllegalStateException("Only SDK 11 and higher supported");
-        }
         final FragmentActivity activity = getActivity();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         Resources r = activity.getResources();

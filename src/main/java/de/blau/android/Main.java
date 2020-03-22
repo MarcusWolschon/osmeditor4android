@@ -512,11 +512,7 @@ public class Main extends FullScreenAppCompatActivity
         map.setOnTouchListener(mapTouchListener);
         map.setOnCreateContextMenuListener(mapTouchListener);
         map.setOnKeyListener(new MapKeyListener());
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { // 12
-                                                                     // upwards
-            map.setOnGenericMotionListener(new MotionEventListener());
-        }
+        map.setOnGenericMotionListener(new MotionEventListener());
 
         mapLayout.addView(map, 0); // index 0 so that anything in the layout
                                    // comes after it/on top
@@ -1358,15 +1354,6 @@ public class Main extends FullScreenAppCompatActivity
         App.getLogic().saveEditingState(this);
         // save tag clipboard
         App.getTagClipboard(this).save(this);
-        // onPause is the last lifecycle callback guaranteed to be called on
-        // pre-honeycomb devices
-        // on honeycomb and later, onStop is also guaranteed to be called, so we
-        // can defer saving.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            saveData();
-            App.getMruTags().save(this);
-        }
-
         super.onPause();
     }
 
@@ -1374,13 +1361,8 @@ public class Main extends FullScreenAppCompatActivity
     protected void onStop() {
         Log.d(DEBUG_TAG, "onStop");
         // editing state has been saved in onPause
-
-        // On devices with Android versions before Honeycomb, we already save
-        // data in onPause
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            saveData();
-            App.getMruTags().save(this);
-        }
+        saveData();
+        App.getMruTags().save(this);
         super.onStop();
     }
 
@@ -1828,11 +1810,6 @@ public class Main extends FullScreenAppCompatActivity
                 .setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
 
         menu.findItem(R.id.menu_simple_actions).setChecked(prefs.areSimpleActionsEnabled());
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            // will run out of memory on old Android versions
-            menu.findItem(R.id.menu_tools_update_imagery_configuration).setVisible(false);
-        }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || !BuildConfig.FLAVOR.equals(Flavors.CURRENT)) {
             // the library providing the UI is not supported under SDK 15, in reality 15 doesn't work
@@ -3953,45 +3930,43 @@ public class Main extends FullScreenAppCompatActivity
                         updateZoomControls();
                         return true;
                     default:
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            Character c = Character.toLowerCase((char) event.getUnicodeChar());
-                            if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
-                                logic.zoom(Logic.ZOOM_IN);
-                                updateZoomControls();
-                                return true;
-                            } else if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
-                                logic.zoom(Logic.ZOOM_OUT);
-                                updateZoomControls();
-                                return true;
-                            }
-                            if (event.isCtrlPressed()) {
-                                // get rid of Ctrl key
-                                char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
-                                // menu based shortcuts don't seem to work (anymore) so we do this on foot
-                                if (getEasyEditManager().isProcessingAction()) {
-                                    if (getEasyEditManager().processShortcut(shortcut)) {
-                                        return true;
-                                    }
-                                } else if (logic.getMode().elementsSelectable()) {
-                                    if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
-                                        HelpViewer.start(Main.this, R.string.help_main);
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
-                                        Main.this.undoListener.onClick(null);
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
-                                        Main.this.toggleFollowGPS();
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
-                                        Main.this.gotoCurrentLocation();
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
-                                        Main.this.onMenuDownloadCurrent(true);
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
-                                        Main.this.downLoadBugs(map.getViewBox().copy());
-                                        return true;
-                                    }
+                        Character c = Character.toLowerCase((char) event.getUnicodeChar());
+                        if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
+                            logic.zoom(Logic.ZOOM_IN);
+                            updateZoomControls();
+                            return true;
+                        } else if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
+                            logic.zoom(Logic.ZOOM_OUT);
+                            updateZoomControls();
+                            return true;
+                        }
+                        if (event.isCtrlPressed()) {
+                            // get rid of Ctrl key
+                            char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
+                            // menu based shortcuts don't seem to work (anymore) so we do this on foot
+                            if (getEasyEditManager().isProcessingAction()) {
+                                if (getEasyEditManager().processShortcut(shortcut)) {
+                                    return true;
+                                }
+                            } else if (logic.getMode().elementsSelectable()) {
+                                if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
+                                    HelpViewer.start(Main.this, R.string.help_main);
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
+                                    Main.this.undoListener.onClick(null);
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
+                                    Main.this.toggleFollowGPS();
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
+                                    Main.this.gotoCurrentLocation();
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
+                                    Main.this.onMenuDownloadCurrent(true);
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
+                                    Main.this.downLoadBugs(map.getViewBox().copy());
+                                    return true;
                                 }
                             }
                         }

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
@@ -390,9 +389,7 @@ public class MapTileProvider implements ServiceConnection {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inPreferredConfig = Bitmap.Config.RGB_565;
                 mNoTilesTile = BitmapFactory.decodeResource(mCtx.getResources(), R.drawable.no_tiles, options);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-                    Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
-                }
+                Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
             }
         }
         return mNoTilesTile;

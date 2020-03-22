@@ -1,12 +1,9 @@
 package de.blau.android.util;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.os.Build;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Display;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,26 +19,20 @@ public abstract class SizedFixedImmersiveDialogFragment extends DialogFragment {
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // Make the dialog non-focusable before showing it
-            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-        }
+        // Make the dialog non-focusable before showing it
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
 
     @Override
     public void show(FragmentManager manager, String tag) {
         super.show(manager, tag);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            showImmersive(manager);
-        }
+        showImmersive(manager);
     }
 
     @Override
     public int show(FragmentTransaction transaction, String tag) {
         int result = super.show(transaction, tag);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            showImmersive(getFragmentManager());
-        }
+        showImmersive(getFragmentManager());
         return result;
     }
 
@@ -50,7 +41,6 @@ public abstract class SizedFixedImmersiveDialogFragment extends DialogFragment {
      * 
      * @param manager our FragmentManager
      */
-    @SuppressLint("NewApi")
     private void showImmersive(FragmentManager manager) {
         // It is necessary to call executePendingTransactions() on the FragmentManager
         // before hiding the navigation bar, because otherwise getWindow() would raise a
@@ -77,15 +67,7 @@ public abstract class SizedFixedImmersiveDialogFragment extends DialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null) {
             int dialogWidth = (int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                dialog.getWindow().setLayout(dialogWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
-            } else {
-                // workaround the popupmenu being clipped in at least 2.3 by simply making the dialog as large as
-                // possible, ugly but works
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                // noinspection deprecation
-                dialog.getWindow().setLayout(dialogWidth, (int) (display.getHeight() * 0.9)); // NOSONAR
-            }
+            dialog.getWindow().setLayout(dialogWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 }

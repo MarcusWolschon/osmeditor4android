@@ -1,10 +1,8 @@
 package de.blau.android.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Point;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.Display;
 
@@ -23,19 +21,11 @@ public final class Screen {
      * @param activity the calling Activity
      * @return true if we are in landscape orientation
      */
-    @SuppressLint("NewApi")
     public static boolean isLandscape(@NonNull Activity activity) {
         // reliable determine if we are in landscape mode
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            display.getSize(size);
-        } else {
-            // noinspection deprecation
-            size.x = display.getWidth();
-            // noinspection deprecation
-            size.y = display.getHeight();
-        }
+        display.getSize(size);
         return isLarge(activity) && size.x > size.y;
     }
 
@@ -59,15 +49,7 @@ public final class Screen {
     public static int getScreenSmallDimemsion(@NonNull Activity activity) {
         Point size = new Point();
         Display display = activity.getWindowManager().getDefaultDisplay();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            display.getSize(size);
-        } else {
-            // noinspection deprecation
-            size.x = display.getWidth(); // NOSONAR
-            // noinspection deprecation
-            size.y = display.getHeight(); // NOSONAR
-        }
-
+        display.getSize(size);
         if (size.x < size.y) {
             return size.x;
         }

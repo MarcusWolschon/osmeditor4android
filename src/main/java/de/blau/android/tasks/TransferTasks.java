@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -308,11 +307,7 @@ public final class TransferTasks {
                 }
             }
         };
-        if (Build.VERSION.SDK_INT >= 11) {
-            a.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            a.execute();
-        }
+        a.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         try {
             return a.get();
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
@@ -414,11 +409,7 @@ public final class TransferTasks {
 
         // FIXME seems as if AsyncTask tends to run out of threads here .... not clear if executeOnExecutor actually
         // helps
-        if (Build.VERSION.SDK_INT >= 11) {
-            ct.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            ct.execute();
-        }
+        ct.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         try {
             return ct.get().getError() == ErrorCodes.OK;
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
@@ -503,11 +494,7 @@ public final class TransferTasks {
                 }
             }
         };
-        if (Build.VERSION.SDK_INT >= 11) {
-            a.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            a.execute();
-        }
+        a.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         try {
             return a.get();
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question

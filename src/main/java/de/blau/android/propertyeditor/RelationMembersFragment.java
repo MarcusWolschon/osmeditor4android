@@ -504,10 +504,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             row = (RelationMemberRow) inflater.inflate(R.layout.relation_member_row, membersVerticalLayout, false);
         }
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
-            row.roleEdit.setEllipsize(TruncateAt.END);
-        }
-
         row.setValues(getActivity(), pos, rmd, c);
 
         // need to do this before the listener is set

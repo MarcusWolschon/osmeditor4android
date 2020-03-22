@@ -151,12 +151,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         WebSettings helpSettings = helpView.getSettings();
         helpSettings.setDefaultFontSize(12);
         helpSettings.setSupportZoom(true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            helpSettings.setDisplayZoomControls(false); // don't display +-
-        } else {
-            helpSettings.setBuiltInZoomControls(true);
-        }
+        helpSettings.setDisplayZoomControls(false); // don't display +-
         helpView.setWebViewClient(new HelpViewWebViewClient());
         fl.addView(helpView);
 

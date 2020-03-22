@@ -2,7 +2,6 @@ package de.blau.android.dialogs;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -95,9 +94,6 @@ public final class ProgressDialog {
         ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
         if (progressBar.getIndeterminateDrawable() != null) {
             PorterDuff.Mode mode = android.graphics.PorterDuff.Mode.SRC_IN;
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-                mode = android.graphics.PorterDuff.Mode.MULTIPLY; // ugly but at least it animates
-            }
             progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), mode);
         }
         builder.setView(layout);

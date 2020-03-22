@@ -18,7 +18,6 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -640,7 +639,7 @@ public class App extends android.app.Application {
     @Nullable
     public static PhoneNumberUtil getPhoneNumberUtil(@NonNull Context ctx) {
         synchronized (phoneNumberUtilLock) {
-            if (phoneNumberUtil == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (phoneNumberUtil == null) {
                 phoneNumberUtil = PhoneNumberUtil.createInstance(ctx);
             }
             return phoneNumberUtil;

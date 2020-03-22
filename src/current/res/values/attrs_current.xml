@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- this fixes undocumented breakage in the 28.0.0 support library -->
-    <attr name="textColorError" type="color|reference"/>
-</resources>

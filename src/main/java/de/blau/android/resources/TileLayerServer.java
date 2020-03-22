@@ -48,7 +48,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -1153,9 +1152,7 @@ public class TileLayerServer implements Serializable {
         AssetManager assetManager = ctx.getAssets();
         long start = System.currentTimeMillis();
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                writableDb.beginTransaction();
-            }
+            writableDb.beginTransaction();
             // entries in earlier files will not be overwritten by later ones
             if (newConfig) {
                 // delete old
@@ -1172,15 +1169,11 @@ public class TileLayerServer implements Serializable {
                     throw e;
                 }
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                writableDb.setTransactionSuccessful();
-            }
+            writableDb.setTransactionSuccessful();
         } catch (IOException e) {
             // already logged
         } finally {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                writableDb.endTransaction();
-            }
+            writableDb.endTransaction();
         }
         Log.d(DEBUG_TAG, " elapsed time " + (System.currentTimeMillis() - start) / 1000);
     }
@@ -1231,9 +1224,7 @@ public class TileLayerServer implements Serializable {
         Log.d(DEBUG_TAG, "Updating from editor-layer-index");
         AssetManager assetManager = ctx.getAssets();
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                writeableDb.beginTransaction();
-            }
+            writeableDb.beginTransaction();
             // delete old
             TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
             TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
@@ -1256,9 +1247,7 @@ public class TileLayerServer implements Serializable {
                     ResponseBody responseBody = eliCallResponse.body();
                     is = responseBody.byteStream();
                     parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, true);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        writeableDb.setTransactionSuccessful();
-                    }
+                    writeableDb.setTransactionSuccessful();
                     getListsLocked(ctx, writeableDb, true);
                 } else {
                     throw new IOException(eliCallResponse.message());
@@ -1267,9 +1256,7 @@ public class TileLayerServer implements Serializable {
                 SavingHelper.close(is);
             }
         } finally {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                writeableDb.endTransaction();
-            }
+            writeableDb.endTransaction();
         }
         MapTilesLayer layer = App.getLogic().getMap().getBackgroundLayer();
         if (layer != null) {

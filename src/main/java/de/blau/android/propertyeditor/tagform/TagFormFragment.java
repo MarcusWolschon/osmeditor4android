@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -936,7 +935,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             } else { // no preset here so we can only handle hardwired stuff specially
                 if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
                     rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, null, null, key, value, null, allTags));
-                } else if (Tags.OPENING_HOURS_SYNTAX.contains(key) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                } else if (Tags.OPENING_HOURS_SYNTAX.contains(key)) {
                     // FIXME need at least SDK 12 for now
                     rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, null, null, key, value, null));
                 } else {
@@ -959,8 +958,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return true if the key has opening_hours semantics
      */
     public boolean isOpeningHours(@NonNull final String key, @NonNull ValueType valueType) {
-        return Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType
-                || ValueType.OPENING_HOURS_MIXED == valueType && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB;
+        return Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType || ValueType.OPENING_HOURS_MIXED == valueType;
     }
 
     /**

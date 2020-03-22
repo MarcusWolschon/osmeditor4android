@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.location.Location;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -275,8 +274,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     @Override
     public boolean enableConfiguration() {
-        // multi choice preferences are not supported on old SKD versions
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+        return true;
     }
 
     @Override

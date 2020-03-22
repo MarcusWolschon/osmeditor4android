@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -191,9 +190,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
             comments.setText(Util.fromHtml(((Note) task).getComment())); // ugly
             comments.setAutoLinkMask(Linkify.WEB_URLS);
             comments.setMovementMethod(LinkMovementMethod.getInstance());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                comments.setTextIsSelectable(true);
-            }
+            comments.setTextIsSelectable(true);
             NoteComment nc = ((Note) task).getLastComment();
             elementLayout.setVisibility(View.GONE); // not used for notes
             if ((task.isNew() && ((Note) task).count() == 0) || (nc != null && !nc.isNew())) {

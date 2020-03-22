@@ -140,9 +140,7 @@ public class Preferences {
         maxBugDownloadSpeed = getIntPref(R.string.config_maxBugDownloadSpeed_key, 30);
 
         taskFilter = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            taskFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), taskFilter);
-        }
+        taskFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), taskFilter);
 
         isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
         isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
@@ -197,9 +195,7 @@ public class Preferences {
         lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), true);
 
         addressTags = new HashSet<>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
-        }
+        addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
 
         voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
 
@@ -652,13 +648,11 @@ public class Preferences {
      * @param tasks the tasks to use, if null the default setting will be set (all on)
      */
     public void setTaskFilter(@Nullable Set<String> tasks) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (tasks == null) {
-                tasks = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
-            }
-            taskFilter = tasks;
-            prefs.edit().putStringSet(r.getString(R.string.config_bugFilter_key), tasks).commit();
+        if (tasks == null) {
+            tasks = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
         }
+        taskFilter = tasks;
+        prefs.edit().putStringSet(r.getString(R.string.config_bugFilter_key), tasks).commit();
     }
 
     /**

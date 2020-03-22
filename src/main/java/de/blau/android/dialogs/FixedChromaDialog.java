@@ -10,7 +10,6 @@ import com.pavelsikun.vintagechroma.view.ChromaView;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -102,19 +101,14 @@ public class FixedChromaDialog extends com.pavelsikun.vintagechroma.ChromaDialog
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         final Dialog ad = super.onCreateDialog(savedInstanceState);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            Log.e("FixedChromaDialog", "setting listener");
-            ad.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    fixedMeasureLayout((AlertDialog) ad);
-                }
-            });
-        }
-
+        Log.e("FixedChromaDialog", "setting listener");
+        ad.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                fixedMeasureLayout((AlertDialog) ad);
+            }
+        });
         return ad;
     }
 

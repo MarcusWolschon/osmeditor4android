@@ -1,6 +1,5 @@
 package de.blau.android.services.util;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +13,6 @@ import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
-import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -110,42 +108,30 @@ public class MBTileProviderDataBase {
         }
         try {
             if (mDatabase.isOpen()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    SQLiteStatement get = null;
-                    try {
-                        get = getStatements.acquire();
-                        if (get == null) {
-                            Log.e(DEBUG_TAG, "statement null");
-                            return null;
-                        }
-                        bindTile(aTile, get);
-                        ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
-                        while ((bytesRead = acis.read(buffer)) != -1) {
-                            bos.write(buffer, 0, bytesRead);
-                        }
-                        acis.close();
-                        return bos.toByteArray();
-                    } catch (SQLiteDoneException sde) {
-                        // nothing found
+                SQLiteStatement get = null;
+                try {
+                    get = getStatements.acquire();
+                    if (get == null) {
+                        Log.e(DEBUG_TAG, "statement null");
                         return null;
-                    } finally {
-                        if (get != null) {
-                            getStatements.release(get);
-                        }
                     }
-                } else { // old and slow
-                    final Cursor c = mDatabase.query(T_MBTILES, new String[] { T_MBTILES_DATA }, T_MBTILES_WHERE,
-                            new String[] { Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) }, null, null, null);
-                    try {
-                        if (c.moveToFirst()) {
-                            return c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA));
-                        }
-                    } finally {
-                        c.close();
+                    bindTile(aTile, get);
+                    ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = acis.read(buffer)) != -1) {
+                        bos.write(buffer, 0, bytesRead);
+                    }
+                    acis.close();
+                    return bos.toByteArray();
+                } catch (SQLiteDoneException sde) {
+                    // nothing found
+                    return null;
+                } finally {
+                    if (get != null) {
+                        getStatements.release(get);
                     }
                 }
             }
@@ -173,33 +159,21 @@ public class MBTileProviderDataBase {
         }
         try {
             if (mDatabase.isOpen()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    SQLiteStatement get = null;
-                    try {
-                        get = getStatements.acquire();
-                        if (get == null) {
-                            Log.e(DEBUG_TAG, "statement null");
-                            return null;
-                        }
-                        bindTile(aTile, get);
-                        return new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
-                    } catch (SQLiteDoneException sde) {
-                        // nothing found
+                SQLiteStatement get = null;
+                try {
+                    get = getStatements.acquire();
+                    if (get == null) {
+                        Log.e(DEBUG_TAG, "statement null");
                         return null;
-                    } finally {
-                        if (get != null) {
-                            getStatements.release(get);
-                        }
                     }
-                } else { // old and slow
-                    final Cursor c = mDatabase.query(T_MBTILES, new String[] { T_MBTILES_DATA }, T_MBTILES_WHERE,
-                            new String[] { Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) }, null, null, null);
-                    try {
-                        if (c.moveToFirst()) {
-                            return new ByteArrayInputStream(c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA)));
-                        }
-                    } finally {
-                        c.close();
+                    bindTile(aTile, get);
+                    return new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
+                } catch (SQLiteDoneException sde) {
+                    // nothing found
+                    return null;
+                } finally {
+                    if (get != null) {
+                        getStatements.release(get);
                     }
                 }
             }

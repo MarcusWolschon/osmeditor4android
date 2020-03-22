@@ -7,7 +7,6 @@ import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -57,9 +56,7 @@ public class DebugInformation extends AppCompatActivity {
 
         textFull.setAutoLinkMask(0);
         textFull.setText(getDebugText("\n"));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            textFull.setTextIsSelectable(true);
-        }
+        textFull.setTextIsSelectable(true);
 
         setContentView(container);
     }

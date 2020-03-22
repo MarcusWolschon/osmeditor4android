@@ -1,7 +1,6 @@
 package de.blau.android.prefs;
 
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.util.Log;
@@ -43,9 +42,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
                 loginpref.setSummary(current.user != null && !"".equals(current.user) ? current.user : r.getString(R.string.config_username_summary));
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            setListPreferenceSummary(R.string.config_fullscreenMode_key, true);
-        }
+        setListPreferenceSummary(R.string.config_fullscreenMode_key, true);
         setListPreferenceSummary(R.string.config_mapOrientation_key, false);
         setListPreferenceSummary(R.string.config_gps_source_key, false);
         setEditTextPreferenceSummary(R.string.config_offsetServer_key, false);

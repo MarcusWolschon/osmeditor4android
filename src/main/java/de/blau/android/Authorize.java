@@ -121,9 +121,7 @@ public class Authorize extends FullScreenAppCompatActivity {
             oAuthWebView.getSettings().setUserAgentString(App.getUserAgent());
             setContentView(oAuthWebView);
             oAuthWebView.getSettings().setJavaScriptEnabled(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                oAuthWebView.getSettings().setAllowContentAccess(true);
-            }
+            oAuthWebView.getSettings().setAllowContentAccess(true);
             oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             oAuthWebView.requestFocus(View.FOCUS_DOWN);
@@ -136,8 +134,9 @@ public class Authorize extends FullScreenAppCompatActivity {
                                                Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
                                            }
                                        };
+
                 /**
-                 * @deprecated since API 24                       
+                 * @deprecated since API 24
                  */
                 @Deprecated
                 @Override
