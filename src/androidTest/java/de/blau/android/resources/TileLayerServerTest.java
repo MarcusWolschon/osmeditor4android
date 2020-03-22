@@ -163,7 +163,7 @@ public class TileLayerServerTest {
         InputStream is = loader.getResourceAsStream("imagery_test.geojson");
         try {
             TileLayerDatabase db = new TileLayerDatabase(main);
-            TileLayerServer.parseImageryFile(main, db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI, is, false);
+            TileLayerServer.parseImageryFile(main, db.getWritableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, false);
             TileLayerServer.getListsLocked(main, db.getReadableDatabase(), true);
             db.close();
         } catch (IOException e) {
