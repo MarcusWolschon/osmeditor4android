@@ -44,6 +44,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.Util;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
@@ -171,7 +172,6 @@ public class GpxTest {
         Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
 
-        Assert.assertEquals(trackSize, recordedTrack.size());
         compareTrack(track, recordedTrack);
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
@@ -290,20 +290,32 @@ public class GpxTest {
     }
 
     /**
-     * Check if two tracks are equal
+     * Check if two tracks are equal, ignores up to two missing points
      * 
      * @param track reference track
      * @param recordedTrack new track
      */
     private void compareTrack(Track track, List<TrackPoint> recordedTrack) {
-        Assert.assertEquals(track.getTrack().size(), recordedTrack.size());
+        List<TrackPoint> trackPoints = track.getTrackPoints();
+        int trackSize = trackPoints.size();
+        int recordedTrackSize = recordedTrack.size();
+        // compare with a bit of tolerance
+        Assert.assertTrue((recordedTrackSize >= (trackSize - 2)) && (recordedTrackSize <= trackSize));
         int i = 0;
-        for (TrackPoint tp : track.getTrackPoints()) {
-            TrackPoint recordedTrackPoint = recordedTrack.get(i);
+        int offset = 0;
+        TrackPoint trackPoint = trackPoints.get(0);
+        TrackPoint trackPoint2 = recordedTrack.get(0);
+        if (!Util.equals(trackPoint.getLatitude(), trackPoint2.getLatitude(), 0.000001)
+                || !Util.equals(trackPoint.getLongitude(), trackPoint2.getLongitude(), 0.000001)) {
+            i = 1;
+            offset = 1;
+        }
+        for (; i < Math.min(trackSize, recordedTrackSize); i++) {
+            TrackPoint tp = trackPoints.get(i);
+            TrackPoint recordedTrackPoint = recordedTrack.get(i - offset);
             Assert.assertEquals(tp.getLatitude(), recordedTrackPoint.getLatitude(), 0.000001);
             Assert.assertEquals(tp.getLongitude(), recordedTrackPoint.getLongitude(), 0.000001);
             Assert.assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(), 0.000001);
-            i++;
         }
     }
 }

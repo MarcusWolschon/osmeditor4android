@@ -433,6 +433,18 @@ public final class Util {
     }
 
     /**
+     * Check if two floating point values are the same within a tolereance range
+     * 
+     * @param d1 value 1
+     * @param d2 value 2
+     * @param tolerance the tolerance
+     * @return true if the difference between the values is smaller than the tolerance
+     */
+    public static boolean equals(double d1, double d2, double tolerance) {
+        return Math.abs(d1 - d2) < tolerance;
+    }
+
+    /**
      * Remove formating from s and truncate it if necessary, typically used in a TextWatcher
      * 
      * @param activity if non-null and the string has been truncated display a toast with this activity
