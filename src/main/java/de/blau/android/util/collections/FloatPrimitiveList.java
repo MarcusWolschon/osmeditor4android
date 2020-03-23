@@ -2,7 +2,7 @@ package de.blau.android.util.collections;
 
 import java.util.Arrays;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Simple list like collection for primitive float values

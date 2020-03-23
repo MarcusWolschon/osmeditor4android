@@ -1,6 +1,6 @@
 package de.blau.android.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;

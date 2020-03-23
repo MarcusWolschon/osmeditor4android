@@ -2,7 +2,7 @@ package de.blau.android.prefs;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.preference.Preference;
+import androidx.preference.Preference;
 import android.util.Log;
 import de.blau.android.R;
 

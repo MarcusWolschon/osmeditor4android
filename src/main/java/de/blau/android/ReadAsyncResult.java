@@ -1,6 +1,6 @@
 package de.blau.android;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public class ReadAsyncResult {
     private final int    code;

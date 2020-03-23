@@ -1,6 +1,6 @@
 package de.blau.android.services.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * This class merely holds the coordinates embedded in the url of a tile.

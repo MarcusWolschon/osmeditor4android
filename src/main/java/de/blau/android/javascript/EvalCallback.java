@@ -1,6 +1,6 @@
 package de.blau.android.javascript;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Callback interface for evaluating JS

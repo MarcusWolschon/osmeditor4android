@@ -1,6 +1,6 @@
 package de.blau.android.osm;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Callback for operations after an element has been merged into our in memory storage

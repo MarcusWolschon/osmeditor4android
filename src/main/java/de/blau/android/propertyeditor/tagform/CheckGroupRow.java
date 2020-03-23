@@ -3,8 +3,8 @@ package de.blau.android.propertyeditor.tagform;
 import com.buildware.widget.indeterm.IndeterminateCheckBox.OnStateChangedListener;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import de.blau.android.views.TriStateCheckBox;
 

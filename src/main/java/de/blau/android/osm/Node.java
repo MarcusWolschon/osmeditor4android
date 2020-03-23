@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 

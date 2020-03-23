@@ -1,9 +1,9 @@
 package de.blau.android.prefs;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceDialogFragmentCompat;
+import androidx.annotation.NonNull;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceDialogFragmentCompat;
 import android.view.View;
 import android.widget.EditText;
 import de.blau.android.R;

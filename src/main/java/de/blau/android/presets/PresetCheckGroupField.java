@@ -9,8 +9,8 @@ import java.util.Set;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 
 public class PresetCheckGroupField extends PresetField {

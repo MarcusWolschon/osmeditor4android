@@ -2,7 +2,7 @@ package de.blau.android.validation;
 
 import java.util.regex.Pattern;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * Container for last edit age configuration

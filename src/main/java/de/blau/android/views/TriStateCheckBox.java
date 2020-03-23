@@ -4,10 +4,10 @@ import com.buildware.widget.indeterm.IndeterminateCheckBox;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnLongClickListener;
+
 import de.blau.android.R;
 
 public class TriStateCheckBox extends IndeterminateCheckBox {

@@ -3,9 +3,9 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.view.ActionMode;
-import android.support.v7.view.ActionMode.Callback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.view.ActionMode.Callback;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.HapticFeedbackConstants;

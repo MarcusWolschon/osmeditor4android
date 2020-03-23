@@ -39,20 +39,20 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.view.ActionMode;
-import android.support.v7.widget.ActionMenuView;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.view.MenuItemCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -380,7 +380,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Optional bottom toolbar
      */
-    private android.support.v7.widget.ActionMenuView bottomBar = null;
+    private androidx.appcompat.widget.ActionMenuView bottomBar = null;
 
     /**
      * Layer control
@@ -604,7 +604,7 @@ public class Main extends FullScreenAppCompatActivity
         setSupportActionBar(toolbar);
 
         if (prefs.splitActionBarEnabled()) {
-            setBottomBar((android.support.v7.widget.ActionMenuView) findViewById(R.id.bottomToolbar));
+            setBottomBar((androidx.appcompat.widget.ActionMenuView) findViewById(R.id.bottomToolbar));
         } else {
             findViewById(R.id.bottomBar).setVisibility(View.GONE);
         }
@@ -4290,14 +4290,14 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * @return the bottomToolbar
      */
-    public android.support.v7.widget.ActionMenuView getBottomBar() {
+    public androidx.appcompat.widget.ActionMenuView getBottomBar() {
         return bottomBar;
     }
 
     /**
      * @param bottomBar the bottomToolbar to set
      */
-    private void setBottomBar(android.support.v7.widget.ActionMenuView bottomBar) {
+    private void setBottomBar(androidx.appcompat.widget.ActionMenuView bottomBar) {
         MenuUtil.setupBottomBar(this, bottomBar, isFullScreen(), prefs.lightThemeEnabled());
         this.bottomBar = bottomBar;
     }

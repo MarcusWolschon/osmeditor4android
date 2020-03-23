@@ -2,7 +2,7 @@ package de.blau.android.filter;
 
 import java.util.List;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;

@@ -5,12 +5,12 @@
     android:id="@+id/pane_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.viewpager.widget.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
-    <android.support.v7.widget.ActionMenuView
+    </androidx.viewpager.widget.ViewPager>
+    <androidx.appcompat.widget.ActionMenuView
         android:id="@+id/photoMenuView"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

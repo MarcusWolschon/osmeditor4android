@@ -1,6 +1,6 @@
 package de.blau.android.exception;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Used file format issues

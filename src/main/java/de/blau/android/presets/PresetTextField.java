@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class PresetTextField extends PresetField implements PresetFieldJavaScript {
     /**

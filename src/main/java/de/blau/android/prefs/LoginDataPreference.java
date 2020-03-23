@@ -1,9 +1,9 @@
 package de.blau.android.prefs;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.preference.DialogPreference;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.preference.DialogPreference;
 import android.util.AttributeSet;
 import de.blau.android.R;
 

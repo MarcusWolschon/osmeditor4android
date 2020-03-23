@@ -2,7 +2,7 @@ package de.blau.android;
 
 import java.util.concurrent.CountDownLatch;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class SignalHandler extends PostAsyncActionHandler {
     final CountDownLatch signal;

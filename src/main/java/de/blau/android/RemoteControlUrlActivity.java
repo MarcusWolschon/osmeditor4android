@@ -9,7 +9,7 @@ import java.util.List;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;

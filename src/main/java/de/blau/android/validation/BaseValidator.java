@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;

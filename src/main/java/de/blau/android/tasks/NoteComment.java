@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.osm.JosmXmlSerializable;
 import de.blau.android.util.DateFormatter;

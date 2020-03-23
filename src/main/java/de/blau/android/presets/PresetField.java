@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
 import de.blau.android.presets.Preset.MatchType;
 import de.blau.android.presets.Preset.UseLastAsDefault;

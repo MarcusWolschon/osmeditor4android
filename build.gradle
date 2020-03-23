@@ -39,6 +39,7 @@ allprojects {
         jcenter()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
         mavenLocal()
+        google()
         //        		flatDir {
         //                	dirs 'lib'
         //            	}
@@ -251,7 +252,7 @@ android {
     defaultConfig {
         versionCode project.getVersionCode()
         versionName "${project.getVersionName()}"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         def reporter = System.getenv('VESPUCCI_REPORTER')
         if (reporter == null) {
             reporter = "";
@@ -397,14 +398,14 @@ ext {
 dependencies {
     implementation ("ch.acra:acra-http:$acraVersion") { exclude group: 'com.android.support' }
     implementation ("ch.acra:acra-dialog:$acraVersion") { exclude group: 'com.android.support' }
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
-    implementation "com.android.support:preference-v7:$supportLibVersion"
-    implementation "com.android.support:design:$supportLibVersion"
-    implementation "com.android.support:support-annotations:$supportLibVersion"
-    implementation "com.android.support:support-compat:$supportLibVersion"
-    implementation "com.android.support:exifinterface:$supportLibVersion"
-    implementation "com.android.support:preference-v14:$supportLibVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.preference:preference:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.core:core:1.0.0'
+    implementation 'androidx.exifinterface:exifinterface:1.0.0'
+    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.3.1'
     implementation "com.nononsenseapps:filepicker:4.2.1"
     implementation "oauth.signpost:signpost-core:$signpostVersion"
@@ -444,15 +445,15 @@ dependencies {
     testImplementation 'net.sf.kxml:kxml2:2.3.0'
 
     // Instrumentation tests
-    androidTestImplementation "com.android.support.test:runner:1.0.2"
-    androidTestImplementation "com.android.support.test:rules:1.0.2"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
     androidTestImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
-    androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:2.1.3"
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation "com.squareup.spoon:spoon-client:2.0.0-SNAPSHOT"
 }
 

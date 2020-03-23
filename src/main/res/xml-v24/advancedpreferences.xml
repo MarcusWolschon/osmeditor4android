@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/config_advancedprefs">
-    <android.support.v7.preference.PreferenceScreen
+    <androidx.preference.PreferenceScreen
         android:key="config_category_view"
         android:title="@string/config_category_view"
         android:summary="@string/config_category_view_summary">
@@ -116,8 +116,8 @@
             app:spt_minValue="8"
             app:spt_currentValueText="@string/config_maxStrokeWidth_current"
             app:spt_setWrapSelectorWheel="false" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_editing"
         android:title="@string/config_category_editing"
         android:summary="@string/config_category_editing_summary">
@@ -203,8 +203,8 @@
             android:key="@string/config_autoformatPhoneNumbers_key"
             android:summary="@string/config_autoformatPhoneNumbers_summary"
             android:title="@string/config_autoformatPhoneNumbers_title" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_auto_download"
         android:title="@string/config_category_auto_download"
         android:summary="@string/config_category_auto_download_summary">
@@ -280,8 +280,8 @@
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_downloadSpeed_current"
             app:spt_setWrapSelectorWheel="false" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_gps"
         android:title="@string/config_category_gps"
         android:summary="@string/config_category_gps_summary">
@@ -342,8 +342,8 @@
             app:spt_minValue="1"
             app:spt_currentValueText="@string/config_gnssTimeToStale_current"
             app:spt_setWrapSelectorWheel="false" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_server"
         android:title="@string/config_category_server"
         android:summary="@string/config_category_server_summary">
@@ -374,8 +374,8 @@
             android:key="@string/config_geocoder_button_key"
             android:summary="@string/config_geocoderbutton_summary"
             android:title="@string/config_geocoderbutton_title" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_layers"
         android:title="@string/config_category_layers"
         android:summary="@string/config_category_layers_summary">
@@ -402,8 +402,8 @@
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_tileCache_current"
             app:spt_setWrapSelectorWheel="false" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_misc"
         android:title="@string/config_category_misc">
         <CheckBoxPreference
@@ -417,8 +417,8 @@
             android:key="@string/config_showStats_key"
             android:summary="@string/config_showStats_summary"
             android:title="@string/config_showStats_title" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_experimental"
         android:title="@string/config_category_experimental">
         <android.support.v7.preference.CheckBoxPreference
@@ -436,5 +436,5 @@
             android:key="@string/config_enableHwAcceleration_key"
             android:summary="@string/config_enableHwAcceleration_summary"
             android:title="@string/config_enableHwAcceleration_title" />
-    </android.support.v7.preference.PreferenceScreen>
-</android.support.v7.preference.PreferenceScreen>
+    </androidx.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

@@ -1,7 +1,7 @@
 package de.blau.android.presets;
 
-import android.support.annotation.NonNull;
-import android.support.v4.widget.TextViewCompat;
+import androidx.annotation.NonNull;
+import androidx.core.widget.TextViewCompat;
 import android.util.TypedValue;
 import android.widget.TextView;
 

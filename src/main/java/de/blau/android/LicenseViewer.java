@@ -4,9 +4,9 @@ import java.io.InputStreamReader;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;

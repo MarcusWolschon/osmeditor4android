@@ -2,7 +2,7 @@ package de.blau.android.util;
 
 import java.util.Comparator;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.presets.Preset.PresetItem;
 
 /**

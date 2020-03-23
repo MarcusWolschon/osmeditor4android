@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import com.google.gson.stream.JsonReader;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.util.SavingHelper;
 
