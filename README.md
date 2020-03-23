@@ -59,7 +59,7 @@ Important note: if you are building your own version, particularly if you are ma
 
 Vespucci utilizes a number of independent, separately maintained, projects. The most relevant of these are
 
-* [Editor Layer Index](https://github.com/osmlab/editor-layer-index) background and overlay layers configuration
+* [JOSM](https://josm.openstreetmap.de/wiki/Maps) background and overlay layers configuration
 * [Beautified JOSM Preset](https://github.com/simonpoole/beautified-JOSM-preset) presets
 * [OpeningHoursFragment](https://github.com/simonpoole/OpeningHoursFragment) opening hours user interface
 * [Name Suggestion Index](https://github.com/osmlab/name-suggestion-index) name/brand-related tag suggestions database
