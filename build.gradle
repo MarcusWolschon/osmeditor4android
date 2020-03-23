@@ -88,11 +88,11 @@ updatePreset.description = 'Update the default preset from http://simonpoole.git
 
 task updateImagery(type: Download) {
     acceptAnyCertificate true
-    src 'https://osmlab.github.io/editor-layer-index/imagery.geojson'
+    src 'https://josm.openstreetmap.de/maps?format=geojson'
     dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
 }
 updateImagery.group = 'vespucci'
-updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
+updateImagery.description = 'Update the background layer configuration from https://josm.openstreetmap.de/wiki/Maps'
 
 task update3rdPartyDocs() {
 }
