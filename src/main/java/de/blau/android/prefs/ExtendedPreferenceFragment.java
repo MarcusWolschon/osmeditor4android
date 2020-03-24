@@ -17,7 +17,7 @@ import de.blau.android.util.Snack;
 
 public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompat {
 
-    protected static final String DEBUG_TAG = "ExtendedPreferenceFragment";
+    protected static final String DEBUG_TAG = "ExtendedPref...Frag..";
 
     @Override
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
