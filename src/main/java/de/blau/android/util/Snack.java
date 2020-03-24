@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import java.util.LinkedList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -500,6 +501,7 @@ public final class Snack {
      * @param action action text
      * @param listener called when action is selected
      */
+    @SuppressLint("WrongConstant") 
     public static void barInfo(@Nullable View v, @NonNull String msg, String action, View.OnClickListener listener) {
         if (v == null) {
             Log.e(DEBUG_TAG, "null View in barInfo");
