@@ -2,9 +2,10 @@ package de.blau.android.dialogs;
 
 import java.util.List;
 
-import com.pavelsikun.vintagechroma.IndicatorMode;
-import com.pavelsikun.vintagechroma.OnColorSelectedListener;
-import com.pavelsikun.vintagechroma.colormode.ColorMode;
+import com.kunzisoft.androidclearchroma.ChromaDialog;
+import com.kunzisoft.androidclearchroma.IndicatorMode;
+import com.kunzisoft.androidclearchroma.colormode.ColorMode;
+import com.kunzisoft.androidclearchroma.listener.OnColorSelectedListener;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -52,6 +53,9 @@ public class LayerStyle extends ImmersiveDialogFragment {
     private static final String LAYERINDEX = "layer_index";
 
     private final Map map;
+
+    private StyleableLayer layer;
+    private View           colorView;
 
     /**
      * Show an instance of this dialog
@@ -116,13 +120,13 @@ public class LayerStyle extends ImmersiveDialogFragment {
         View labelContainer = layout.findViewById(R.id.layer_label_container);
         SeekBar seeker = (SeekBar) layout.findViewById(R.id.layer_line_width);
         View lineWidthView = (View) layout.findViewById(R.id.layer_line_width_view);
-        final View colorView = (View) layout.findViewById(R.id.layer_color);
+        colorView = (View) layout.findViewById(R.id.layer_color);
 
         int layerIndex = getArguments().getInt(LAYERINDEX);
         MapViewLayer tempLayer = map.getLayer(layerIndex);
         if (tempLayer instanceof StyleableLayer) {
             builder.setTitle(tempLayer.getName());
-            final StyleableLayer layer = (StyleableLayer) tempLayer;
+            layer = (StyleableLayer) tempLayer;
             final List<String> labelKeys = layer.getLabelList();
             if (labelKeys != null && !labelKeys.isEmpty()) {
                 final Spinner labelSpinner = (Spinner) layout.findViewById(R.id.layer_style_label);
@@ -158,19 +162,28 @@ public class LayerStyle extends ImmersiveDialogFragment {
             colorView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    new FixedChromaDialog.Builder().initialColor(layer.getColor()).colorMode(ColorMode.ARGB).indicatorMode(IndicatorMode.HEX)
-                            .onColorSelected(new OnColorSelectedListener() {
-                                @Override
-                                public void onColorSelected(int color) {
-                                    layer.setColor(color);
-                                    colorView.setBackgroundColor(color);
-                                    map.invalidate();
-                                }
-                            }).create().show(getChildFragmentManager(), "ChromaDialog");
+                    ChromaDialog chromaDialog = new ChromaDialog.Builder().initialColor(layer.getColor()).colorMode(ColorMode.ARGB)
+                            .indicatorMode(IndicatorMode.HEX).create();
+                    chromaDialog.setOnColorSelectedListener(new OnColorSelectedListener() {
+
+                        @Override
+                        public void onNegativeButtonClick(int color) {
+                            // do nothing
+                        }
+
+                        @Override
+                        public void onPositiveButtonClick(int color) {
+                            layer.setColor(color);
+                            colorView.setBackgroundColor(color);
+                            map.invalidate();
+                        }
+                    });
+                    chromaDialog.show(getChildFragmentManager(), "ChromaDialog");
                 }
             });
 
             lineWidthView.setBackgroundColor(Color.BLACK);
+
             LayoutParams layoutParams = lineWidthView.getLayoutParams();
             layoutParams.height = (int) layer.getStrokeWidth();
             lineWidthView.setLayoutParams(layoutParams);
@@ -181,6 +194,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
         builder.setPositiveButton(R.string.okay, doNothingListener);
 
         return builder.create();
+
     }
 
     @Override
