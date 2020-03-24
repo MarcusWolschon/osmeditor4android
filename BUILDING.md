@@ -1,7 +1,7 @@
 
 # Building Vespucci
 
-We extensively use the support libraries (currently not the androidx variants). Given that Google randomly makes incompatible changes to these and regularly drops existing functionality, you are on your own if you use any other version than what is configured for gradle.
+We extensively use the androidx libraries. Given that Google randomly makes incompatible changes to these and regularly drops existing functionality, you are on your own if you use any other version than what is configured for gradle.
 
 See [translations document](TRANSLATIONS.md) for information on how Vespucci is translated.
 
@@ -17,8 +17,8 @@ See [https://commonsware.com/blog/2018/01/08/android-version-ratchet.html](https
 
 Currently the split is as follows:
 
-  _current_ Android 14 / 4.0 "Ice Cream Sandwich" and later - support library version 27
-  _legacy_ Android 9 / 2.3 "Gingerbread" and later - support library version 25
+  _current_ Android 14 / 4.0 "Ice Cream Sandwich" and later - androidx version1.0.0
+  _legacy_ currently not configured as there is no practical way to do so
 
 ## Building with gradle (Eclipse or command line)
 
