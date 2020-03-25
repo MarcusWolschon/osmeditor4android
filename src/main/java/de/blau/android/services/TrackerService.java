@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +17,7 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.location.GpsStatus;
 import android.location.GpsStatus.NmeaListener;
 import android.location.Location;
 import android.location.LocationListener;
@@ -137,6 +140,9 @@ public class TrackerService extends Service implements Exportable {
     private long staleGPSMilli = 20000L;              // 20 seconds
     private long staleGPSNano  = staleGPSMilli * 1000;
 
+    private Method addNmeaListener    = null;
+    private Method removeNmeaListener = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -157,6 +163,15 @@ public class TrackerService extends Service implements Exportable {
             oldNmeaListener = new OldNmeaListener();
         } else {
             newNmeaListener = new NewNmeaListener();
+        }
+
+        // see https://issuetracker.google.com/issues/141019880
+        try {
+            // noinspection JavaReflectionMemberAccess
+            addNmeaListener = LocationManager.class.getMethod("addNmeaListener", GpsStatus.NmeaListener.class);
+            removeNmeaListener = LocationManager.class.getMethod("removeNmeaListener", GpsStatus.NmeaListener.class);
+        } catch (NoSuchMethodException | SecurityException e) {
+            Log.e(DEBUG_TAG, "reflection didn't find addNmeaListener or removeNmeaListener " + e.getMessage());
         }
     }
 
@@ -185,8 +200,7 @@ public class TrackerService extends Service implements Exportable {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
             Log.e(DEBUG_TAG, "Received null intent"); //
-            return START_STICKY; // NOTE not clear how or if we should return an
-                                 // error here
+            return START_STICKY; // NOTE not clear how or if we should return an error here
         }
         if (intent.getBooleanExtra(TRACK_KEY, false)) {
             startTrackingInternal();
@@ -627,7 +641,13 @@ public class TrackerService extends Service implements Exportable {
                             if (useNema) {
                                 source = GpsSource.NMEA;
                                 if (useOldNmea) {
-                                    locationManager.addNmeaListener(oldNmeaListener); // NOSONAR
+                                    if (addNmeaListener != null) {
+                                        try {
+                                            addNmeaListener.invoke(locationManager, oldNmeaListener);
+                                        } catch (IllegalAccessException | InvocationTargetException e) {
+                                            // IGNORE
+                                        }
+                                    }
                                 } else {
                                     locationManager.addNmeaListener(newNmeaListener);
                                 }
@@ -660,7 +680,13 @@ public class TrackerService extends Service implements Exportable {
                 // can be safely ignored
             }
             if (useOldNmea) {
-                locationManager.removeNmeaListener(oldNmeaListener); // NOSONAR
+                if (removeNmeaListener != null) {
+                    try {
+                        removeNmeaListener.invoke(locationManager, oldNmeaListener);
+                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                        // IGNORE
+                    }
+                }
             } else {
                 locationManager.removeNmeaListener(newNmeaListener);
             }
