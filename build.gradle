@@ -11,12 +11,12 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.6.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.1'
         classpath 'org.jacoco:org.jacoco.core:0.8.5'
         classpath "ch.poole:preset-utils:0.13.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.4'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.0'
         classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
     }
 }
@@ -25,7 +25,7 @@ plugins {
     id "de.undercouch.download" version "4.0.4"
     id "org.sonarqube" version "2.8"
     id "net.ltgt.apt" version "0.21"
-    id "com.github.ben-manes.versions" version "0.21.0"
+    id "com.github.ben-manes.versions" version "0.28.0"
 }
 import de.undercouch.gradle.tasks.download.Download
 
@@ -54,11 +54,6 @@ apply plugin: 'ch.poole.gradle.markdown'
 apply plugin: 'jacoco'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'com.jaredsburrows.spoon'
-
-ext {
-    adb = android.getAdbExe().toString()
-    private_assets = "$projectDir/../private_assets"
-}
 
 markdownToHtml {
     sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help')
@@ -98,16 +93,6 @@ task updateImagery(type: Download) {
 }
 updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
-
-task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
-    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
-}
-
-task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
-    commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
-}
-updateTaginfoJson.group = 'vespucci'
-updateTaginfoJson.description = 'Update the taginfo.json file from test device'
 
 task update3rdPartyDocs() {
 }
@@ -229,14 +214,8 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
     updateSynonyms.dependsOn name
 }
 
-task enableFreeform(type: Exec) {
-    commandLine adb, 'shell', 'settings', 'put', 'global', 'enable_freeform_support', '1'
-}
-enableFreeform.group = 'emulators'
-enableFreeform.description = 'turn on free form window support'
-
-apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3-flavors'
-// apply from: '../gradle-tasks/eclipse-android-3-flavors'
+apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3.6-flavors'
+// apply from: '../gradle-tasks/eclipse-android-3.6-flavors'
 
 sonarqube {
     // we've not converted to Java 8 source yet, so analyse as for 7/1.7
@@ -248,7 +227,12 @@ sonarqube {
     }
 }
 
+ext {
+    private_assets = "$projectDir/../private_assets"
+}
+    
 android {
+    
     defaultConfig {
         versionCode project.getVersionCode()
         versionName "${project.getVersionName()}"
@@ -276,7 +260,7 @@ android {
     }
 
     // this, unluckily, cannot be set per flavour
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     // Specifies one flavor dimension.
     flavorDimensions "api"
@@ -284,7 +268,7 @@ android {
         current {
             dimension "api"
             minSdkVersion 14
-            targetSdkVersion 28
+            targetSdkVersion 29
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "content_provider", "de.blau.android.provider"
@@ -311,7 +295,7 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
-
+    
     sourceSets {
         main.assets.srcDirs += files("$private_assets".toString())
     }
@@ -322,20 +306,41 @@ android {
     }
 }
 
-android.applicationVariants.all { variant ->
-    task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-        description "Generates Javadoc for $variant.name."
-        group "Documentation"
-        source = variant.javaCompile.source
-        classpath = files(variant.javaCompile.classpath.files) + files(android.bootClasspath) + files(variant.javaCompile.destinationDir)
-        options.links("http://docs.oracle.com/javase/7/docs/api/");
-        options.links("http://d.android.com/reference/");
-        exclude '**/BuildConfig.java'
-        exclude '**/R.java'
-    }
+ext {
+    adb = android.getAdbExe().toString()
 }
 
+task enableFreeform(type: Exec) {
+    commandLine adb, 'shell', 'settings', 'put', 'global', 'enable_freeform_support', '1'
+}
+enableFreeform.group = 'emulators'
+enableFreeform.description = 'turn on free form window support'
+
+task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
+    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
+}
+
+task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
+    commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
+}
+updateTaginfoJson.group = 'vespucci'
+updateTaginfoJson.description = 'Update the taginfo.json file from test device'
+
+
 afterEvaluate{
+    android.applicationVariants.all { variant ->
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+            description "Generates Javadoc for $variant.name."
+            group "Documentation"
+            source = variant.javaCompile.source
+            classpath = files(variant.javaCompile.classpath.files) + files(android.bootClasspath) + files(variant.javaCompile.destinationDir)
+            options.links("http://docs.oracle.com/javase/7/docs/api/");
+            options.links("http://d.android.com/reference/");
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+        }
+    }
+
     // these tasks needs to be created after the uninstall tasks
 
     // hardwired single test, this is only needed during initial developement, once the whole test suite has been run
