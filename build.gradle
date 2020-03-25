@@ -491,7 +491,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     description = "Generate Jacoco coverage reports"
 
     classDirectories = fileTree(
-            dir: 'build/intermediates/app_classes/currentDebug/packageAppClassesCurrentDebug/',
+            dir: 'build/intermediates/app_classes/currentDebug/',
             excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*'])
 
     additionalSourceDirs = files(coverageSourceDirs)
