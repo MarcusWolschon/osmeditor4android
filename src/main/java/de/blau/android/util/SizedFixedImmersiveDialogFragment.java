@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
  */
 public abstract class SizedFixedImmersiveDialogFragment extends DialogFragment {
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);

@@ -85,7 +85,7 @@ public class NmeaTcpClient implements Runnable {
     }
 
     @Override
-    @TargetApi(19)
+    @TargetApi(24)
     public void run() {
         boolean useOldListener = newListener == null;
         OutputStreamWriter osw = null;

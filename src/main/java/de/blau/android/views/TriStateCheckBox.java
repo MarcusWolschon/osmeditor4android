@@ -2,6 +2,7 @@ package de.blau.android.views;
 
 import com.buildware.widget.indeterm.IndeterminateCheckBox;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import androidx.core.content.ContextCompat;
@@ -48,6 +49,7 @@ public class TriStateCheckBox extends IndeterminateCheckBox {
     /**
      * Setup the ColorTintList and the OnLongClickListener
      */
+    @SuppressLint("RestrictedApi")
     private void init() {
         ColorStateList colorStateList = ContextCompat.getColorStateList(getContext(), R.color.control_checkable_material);
         setSupportButtonTintList(colorStateList);

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import android.annotation.TargetApi;
 import android.location.GpsStatus.NmeaListener;
 import android.location.OnNmeaMessageListener;
 import android.os.Handler;
@@ -84,6 +85,7 @@ public class NmeaTcpClientServer implements Runnable {
         canceled = true;
     }
 
+    @TargetApi(24)
     @Override
     public void run() {
         DataOutputStream dos = null;

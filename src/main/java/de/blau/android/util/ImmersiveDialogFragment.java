@@ -18,6 +18,7 @@ import android.view.WindowManager;
  */
 public abstract class ImmersiveDialogFragment extends DialogFragment {
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);

@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
@@ -170,7 +171,7 @@ public class TrackerService extends Service implements Exportable {
             // noinspection JavaReflectionMemberAccess
             addNmeaListener = LocationManager.class.getMethod("addNmeaListener", GpsStatus.NmeaListener.class);
             removeNmeaListener = LocationManager.class.getMethod("removeNmeaListener", GpsStatus.NmeaListener.class);
-        } catch (NoSuchMethodException | SecurityException e) {
+        } catch (Exception e) { // NOSONAR
             Log.e(DEBUG_TAG, "reflection didn't find addNmeaListener or removeNmeaListener " + e.getMessage());
         }
     }
@@ -564,6 +565,7 @@ public class TrackerService extends Service implements Exportable {
      * If required initialize the Location sources and start updating
      */
     @SuppressWarnings("deprecation")
+    @TargetApi(24)
     private void updateGPSState() {
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
         if (needed && !gpsEnabled) {
@@ -644,7 +646,7 @@ public class TrackerService extends Service implements Exportable {
                                     if (addNmeaListener != null) {
                                         try {
                                             addNmeaListener.invoke(locationManager, oldNmeaListener);
-                                        } catch (IllegalAccessException | InvocationTargetException e) {
+                                        } catch (Exception e) { // NOSONAR
                                             // IGNORE
                                         }
                                     }
@@ -683,7 +685,7 @@ public class TrackerService extends Service implements Exportable {
                 if (removeNmeaListener != null) {
                     try {
                         removeNmeaListener.invoke(locationManager, oldNmeaListener);
-                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    } catch (Exception e) { // NOSONAR
                         // IGNORE
                     }
                 }

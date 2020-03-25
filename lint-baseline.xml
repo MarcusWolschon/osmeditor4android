@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="4" by="lint 3.2.1" client="gradle" variant="all" version="3.2.1">
-
-    <issue
-        id="GradleCompatible"
-        message="All com.android.support libraries must use the exact same version specification (mixing versions can lead to runtime crashes). Found versions 27.1.0, 24.2.1. Examples include `com.android.support:exifinterface:27.1.0` and `com.android.support:animated-vector-drawable:24.2.1`">
-        <location
-            file="build.gradle"/>
-    </issue>
+<issues format="5" by="lint 3.6.0" client="gradle" variant="all" version="3.6.0">
 
     <issue
         id="InconsistentArrays"
@@ -948,131 +941,76 @@
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `java.applet`. Referenced from `javassist.tools.rmi.ObjectImporter`.">
+        message="Invalid package reference in org.javassist:javassist; not included in Android: `java.applet`. Referenced from `javassist.tools.rmi.ObjectImporter`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.javassist\javassist\3.21.0-GA\598244f595db5c5fb713731eddbb1c91a58d959b\javassist-3.21.0-GA.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `java.awt.event`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
+        message="Invalid package reference in org.mozilla:rhino; not included in Android: `java.awt.event`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `java.awt`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
+        message="Invalid package reference in org.mozilla:rhino; not included in Android: `java.awt`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `javax.swing.event`. Referenced from `org.mozilla.javascript.tools.debugger.EvalTextArea`.">
+        message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.event`. Referenced from `org.mozilla.javascript.tools.debugger.EvalTextArea`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `javax.swing.filechooser`. Referenced from `org.mozilla.javascript.tools.debugger.SwingGui.1`.">
+        message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.filechooser`. Referenced from `org.mozilla.javascript.tools.debugger.SwingGui.1`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `javax.swing.table`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
+        message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.table`. Referenced from `org.mozilla.javascript.tools.debugger.MyTableModel`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `javax.swing.text`. Referenced from `org.mozilla.javascript.tools.debugger.EvalTextArea`.">
+        message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.text`. Referenced from `org.mozilla.javascript.tools.debugger.EvalTextArea`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `javax.swing.tree`. Referenced from `org.mozilla.javascript.tools.debugger.MyTreeTable`.">
+        message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.tree`. Referenced from `org.mozilla.javascript.tools.debugger.MyTreeTable`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
-        message="Invalid package reference in library; not included in Android: `javax.swing`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
+        message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
             file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="NewApi"
-        message="Call requires API level 24 (current min is 19): android.location.OnNmeaMessageListener#onNmeaMessage"
-        errorLine1="                    newListener.onNmeaMessage(firstLine, -1);"
-        errorLine2="                                ~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\services\util\NmeaTcpClient.java"
-            line="118"
-            column="33"/>
-    </issue>
-
-    <issue
-        id="NewApi"
-        message="Call requires API level 24 (current min is 19): android.location.OnNmeaMessageListener#onNmeaMessage"
-        errorLine1="                        newListener.onNmeaMessage(input.readLine(), -1);"
-        errorLine2="                                    ~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\services\util\NmeaTcpClient.java"
-            line="127"
-            column="37"/>
-    </issue>
-
-    <issue
-        id="NewApi"
-        message="Call requires API level 24 (current min is 14): android.location.OnNmeaMessageListener#onNmeaMessage"
-        errorLine1="                                newListener.onNmeaMessage(input.readLine(), -1);"
-        errorLine2="                                            ~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\services\util\NmeaTcpClientServer.java"
-            line="110"
-            column="45"/>
-    </issue>
-
-    <issue
-        id="NewApi"
-        message="Call requires API level 19 (current min is 14): android.content.ContentResolver#takePersistableUriPermission"
+        message="Call requires API level 19 (current min is 14): `android.content.ContentResolver#takePersistableUriPermission`"
         errorLine1="                    main.getContentResolver().takePersistableUriPermission(uri, intentFlags);"
         errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\PhotoUriHandler.java"
             line="56"
             column="47"/>
-    </issue>
-
-    <issue
-        id="NewApi"
-        message="Call requires API level 24 (current min is 14): android.location.LocationManager#addNmeaListener"
-        errorLine1="                                    locationManager.addNmeaListener(newNmeaListener);"
-        errorLine2="                                                    ~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\services\TrackerService.java"
-            line="632"
-            column="53"/>
-    </issue>
-
-    <issue
-        id="NewApi"
-        message="Call requires API level 24 (current min is 14): android.location.LocationManager#removeNmeaListener"
-        errorLine1="                locationManager.removeNmeaListener(newNmeaListener);"
-        errorLine2="                                ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\services\TrackerService.java"
-            line="665"
-            column="33"/>
     </issue>
 
     <issue
@@ -1495,8 +1433,8 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.android.tools.build:gradle than 3.2.1 is available: 3.6.1"
-        errorLine1="        classpath &apos;com.android.tools.build:gradle:3.2.1&apos;"
+        message="A newer version of com.android.tools.build:gradle than 3.6.0 is available: 3.6.1"
+        errorLine1="        classpath &apos;com.android.tools.build:gradle:3.6.0&apos;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
@@ -1506,8 +1444,8 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.getkeepsafe.dexcount:dexcount-gradle-plugin than 0.8.4 is available: 1.0.2"
-        errorLine1="        classpath &apos;com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.4&apos;"
+        message="A newer version of com.getkeepsafe.dexcount:dexcount-gradle-plugin than 1.0.0 is available: 1.0.2"
+        errorLine1="        classpath &apos;com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.0&apos;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
@@ -1522,7 +1460,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="398"
+            line="403"
             column="5"/>
     </issue>
 
@@ -1533,7 +1471,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="399"
+            line="404"
             column="5"/>
     </issue>
 
@@ -1544,7 +1482,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="401"
+            line="406"
             column="5"/>
     </issue>
 
@@ -1555,7 +1493,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="403"
+            line="408"
             column="5"/>
     </issue>
 
@@ -1566,7 +1504,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="405"
+            line="410"
             column="5"/>
     </issue>
 
@@ -1577,7 +1515,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="406"
+            line="411"
             column="5"/>
     </issue>
 
@@ -1588,7 +1526,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="416"
+            line="421"
             column="5"/>
     </issue>
 
@@ -1599,7 +1537,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="417"
+            line="422"
             column="5"/>
     </issue>
 
@@ -1610,7 +1548,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="419"
+            line="424"
             column="5"/>
     </issue>
 
@@ -1621,7 +1559,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="420"
+            line="425"
             column="5"/>
     </issue>
 
@@ -1632,7 +1570,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="448"
+            line="453"
             column="5"/>
     </issue>
 
@@ -1643,7 +1581,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="449"
+            line="454"
             column="5"/>
     </issue>
 
@@ -1654,7 +1592,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="451"
+            line="456"
             column="5"/>
     </issue>
 
@@ -1682,7 +1620,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@color/material_deep_teal_200` is marked as private in com.google.android.material:material"
+        message="The resource `@color/material_deep_teal_200` is marked as private in androidx.preference:preference"
         errorLine1="            v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_200 : R.color.dark_grey));"
         errorLine2="                                                                                ~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1693,7 +1631,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@color/material_deep_teal_500` is marked as private in com.google.android.material:material"
+        message="The resource `@color/material_deep_teal_500` is marked as private in androidx.preference:preference"
         errorLine1="            v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));"
         errorLine2="                                                                                ~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1704,7 +1642,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@dimen/abc_dialog_padding_top_material` is marked as private in com.google.android.material:material"
+        message="The resource `@dimen/abc_dialog_padding_top_material` is marked as private in androidx.preference:preference"
         errorLine1="    android:paddingTop=&quot;@dimen/abc_dialog_padding_top_material&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1715,7 +1653,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@dimen/abc_dialog_padding_top_material` is marked as private in com.google.android.material:material"
+        message="The resource `@dimen/abc_dialog_padding_top_material` is marked as private in androidx.preference:preference"
         errorLine1="    android:paddingBottom=&quot;@dimen/abc_dialog_padding_top_material&quot;"
         errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1726,7 +1664,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@color/material_deep_teal_200` is marked as private in com.google.android.material:material"
+        message="The resource `@color/material_deep_teal_200` is marked as private in androidx.preference:preference"
         errorLine1="        android:centerColor=&quot;@color/material_deep_teal_200&quot;"
         errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1737,7 +1675,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@color/material_deep_teal_500` is marked as private in com.google.android.material:material"
+        message="The resource `@color/material_deep_teal_500` is marked as private in androidx.preference:preference"
         errorLine1="        android:centerColor=&quot;@color/material_deep_teal_500&quot;"
         errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1748,7 +1686,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@color/material_deep_teal_200` is marked as private in com.google.android.material:material"
+        message="The resource `@color/material_deep_teal_200` is marked as private in androidx.preference:preference"
         errorLine1="        android:centerColor=&quot;@color/material_deep_teal_200&quot;"
         errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1759,7 +1697,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@color/material_deep_teal_500` is marked as private in com.google.android.material:material"
+        message="The resource `@color/material_deep_teal_500` is marked as private in androidx.preference:preference"
         errorLine1="        android:centerColor=&quot;@color/material_deep_teal_500&quot;"
         errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1770,7 +1708,7 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@dimen/abc_dialog_padding_top_material` is marked as private in com.google.android.material:material"
+        message="The resource `@dimen/abc_dialog_padding_top_material` is marked as private in androidx.preference:preference"
         errorLine1="    android:paddingTop=&quot;@dimen/abc_dialog_padding_top_material&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -1781,13 +1719,585 @@
 
     <issue
         id="PrivateResource"
-        message="The resource `@dimen/abc_dialog_padding_top_material` is marked as private in com.google.android.material:material"
+        message="The resource `@dimen/abc_dialog_padding_top_material` is marked as private in androidx.preference:preference"
         errorLine1="    android:paddingBottom=&quot;@dimen/abc_dialog_padding_top_material&quot;"
         errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\layout\tip.xml"
             line="7"
             column="28"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="86"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="86"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="86"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="95"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="95"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="95"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="112"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="112"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="112"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="160"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="160"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="165"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="171"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="171"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="176"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="188"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="188"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="193"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="210"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="210"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="215"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="222"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="222"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="227"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="234"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="234"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="239"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="246"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="246"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="251"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="258"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="258"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="263"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="270"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="270"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;decimal&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="275"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="301"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="301"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="306"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="313"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="313"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="318"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="334"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="334"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="339"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="380"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="380"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="385"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v19\advancedpreferences.xml"
+            line="391"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\advancedpreferences.xml"
+            line="391"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="            android:numeric=&quot;integer&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml-v24\advancedpreferences.xml"
+            line="396"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Deprecated"
+        message="`android:numeric` is deprecated: Use `inputType` instead"
+        errorLine1="                android:numeric=&quot;integer&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\xml\preferences.xml"
+            line="45"
+            column="17"/>
     </issue>
 
     <issue
@@ -2554,6 +3064,17 @@
     </issue>
 
     <issue
+        id="InsecureBaseConfiguration"
+        message="Setting `cleartextTrafficPermitted` to `&quot;true&quot;` by default is not recommended"
+        errorLine1="    &lt;base-config cleartextTrafficPermitted=&quot;true&quot;>"
+        errorLine2="                                            ~~~~">
+        <location
+            file="src\main\res\xml\network_security_config.xml"
+            line="3"
+            column="45"/>
+    </issue>
+
+    <issue
         id="ObsoleteLayoutParam"
         message="Invalid layout param in a `LinearLayout`: `layout_toRightOf`"
         errorLine1="                    android:layout_toRightOf=&quot;@id/key_title&quot;"
@@ -2599,7 +3120,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="        ^">
         <location
@@ -2610,7 +3131,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback.OffsetLoader)"
+        message="This `AsyncTask` class should be static or leaks might occur (de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback.OffsetLoader)"
         errorLine1="    private class OffsetLoader extends AsyncTask&lt;Double, Void, List&lt;ImageryOffset>> {"
         errorLine2="                  ~~~~~~~~~~~~">
         <location
@@ -2621,7 +3142,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback.OffsetSaver)"
+        message="This `AsyncTask` class should be static or leaks might occur (de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback.OffsetSaver)"
         errorLine1="    private class OffsetSaver extends AsyncTask&lt;ImageryOffset, Void, Integer> {"
         errorLine2="                  ~~~~~~~~~~~">
         <location
@@ -2632,7 +3153,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                AsyncTask&lt;Void, Void, Server.UserDetails> loader = new AsyncTask&lt;Void, Void, Server.UserDetails>() {"
         errorLine2="                                                                   ^">
         <location
@@ -2643,7 +3164,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                new AsyncTask&lt;Void, UserDetails, UserDetails>() {"
         errorLine2="                ^">
         <location
@@ -2654,7 +3175,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="        ^">
         <location
@@ -2665,7 +3186,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Boolean, Void, ReadAsyncResult>() {"
         errorLine2="        ^">
         <location
@@ -2676,7 +3197,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, ReadAsyncResult>() {"
         errorLine2="        ^">
         <location
@@ -2687,7 +3208,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (GetElementTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (GetElementTask)"
         errorLine1="        class GetElementTask extends AsyncTask&lt;Void, Void, OsmElement> {"
         errorLine2="              ~~~~~~~~~~~~~~">
         <location
@@ -2698,7 +3219,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (DownLoadElementTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (DownLoadElementTask)"
         errorLine1="        class DownLoadElementTask extends AsyncTask&lt;Void, Void, Integer> {"
         errorLine2="              ~~~~~~~~~~~~~~~~~~~">
         <location
@@ -2709,7 +3230,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (DownLoadElementsTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (DownLoadElementsTask)"
         errorLine1="        class DownLoadElementsTask extends AsyncTask&lt;Void, Void, Integer> {"
         errorLine2="              ~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -2720,7 +3241,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous de.blau.android.ReadAsyncClass)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous de.blau.android.ReadAsyncClass)"
         errorLine1="        new ReadAsyncClass(activity, is, false, postLoad) {"
         errorLine2="        ^">
         <location
@@ -2731,7 +3252,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Integer>() {"
         errorLine2="        ^">
         <location
@@ -2742,7 +3263,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous de.blau.android.ReadAsyncClass)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous de.blau.android.ReadAsyncClass)"
         errorLine1="        new ReadAsyncClass(activity, is, add, postLoad) {"
         errorLine2="        ^">
         <location
@@ -2753,7 +3274,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous de.blau.android.ReadAsyncClass)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous de.blau.android.ReadAsyncClass)"
         errorLine1="        new ReadAsyncClass(activity, is, false, postLoad) {"
         errorLine2="        ^">
         <location
@@ -2764,7 +3285,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="        ^">
         <location
@@ -2775,7 +3296,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        AsyncTask&lt;Void, Void, Integer> loader = new AsyncTask&lt;Void, Void, Integer>() {"
         errorLine2="                                                ^">
         <location
@@ -2786,7 +3307,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        AsyncTask&lt;Void, Void, Integer> loader = new AsyncTask&lt;Void, Void, Integer>() {"
         errorLine2="                                                ^">
         <location
@@ -2797,7 +3318,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        AsyncTask&lt;Void, Void, Integer> loader = new AsyncTask&lt;Void, Void, Integer>() {"
         errorLine2="                                                ^">
         <location
@@ -2808,7 +3329,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, UploadResult>() {"
         errorLine2="        ^">
         <location
@@ -2819,7 +3340,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Integer>() {"
         errorLine2="        ^">
         <location
@@ -2830,7 +3351,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Integer>() {"
         errorLine2="        ^">
         <location
@@ -2841,7 +3362,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        AsyncTask&lt;Void, Void, Void> save = new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="                                           ^">
         <location
@@ -2852,7 +3373,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        AsyncTask&lt;Void, Void, Void> load = new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="                                           ^">
         <location
@@ -2863,7 +3384,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="Do not place Android context classes in static fields (static reference to `Main` which has field `mapLayout` pointing to `RelativeLayout`); this is a memory leak (and also breaks Instant Run)"
+        message="Do not place Android context classes in static fields (static reference to `Main` which has field `mapLayout` pointing to `RelativeLayout`); this is a memory leak"
         errorLine1="    private static Main runningInstance;"
         errorLine2="            ~~~~~~">
         <location
@@ -2874,7 +3395,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                new AsyncTask&lt;Void, Integer, Void>() {"
         errorLine2="                ^">
         <location
@@ -2885,7 +3406,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="            new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="            ^">
         <location
@@ -2896,7 +3417,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="    private final AsyncTask&lt;PostAsyncActionHandler, Integer, Void> indexPhotos = new AsyncTask&lt;PostAsyncActionHandler, Integer, Void>() {"
         errorLine2="                                                                                 ^">
         <location
@@ -2907,7 +3428,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="                ^">
         <location
@@ -2918,7 +3439,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="        ^">
         <location
@@ -2929,7 +3450,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (RequestTokenTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (RequestTokenTask)"
         errorLine1="        class RequestTokenTask extends AsyncTask&lt;Void, Void, String> {"
         errorLine2="              ~~~~~~~~~~~~~~~~">
         <location
@@ -2940,7 +3461,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                (new AsyncTask&lt;Void, Void, Object>() {"
         errorLine2="                 ^">
         <location
@@ -2951,7 +3472,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Integer, Integer>() {"
         errorLine2="        ^">
         <location
@@ -2962,7 +3483,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        AsyncTask&lt;Void, Void, ArrayList&lt;PresetElement>> list = new AsyncTask&lt;Void, Void, ArrayList&lt;PresetElement>>() {"
         errorLine2="                                                               ^">
         <location
@@ -2973,7 +3494,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (de.blau.android.propertyeditor.PresetSearchResultsFragment.OnlineQuery)"
+        message="This `AsyncTask` class should be static or leaks might occur (de.blau.android.propertyeditor.PresetSearchResultsFragment.OnlineQuery)"
         errorLine1="    class OnlineQuery extends AsyncTask&lt;Void, Void, List&lt;PresetElement>> {"
         errorLine2="          ~~~~~~~~~~~">
         <location
@@ -3017,7 +3538,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="Do not place Android context classes in static fields (static reference to `SelectedRowsActionModeCallback` which has field `rows` pointing to `LinearLayout`); this is a memory leak (and also breaks Instant Run)"
+        message="Do not place Android context classes in static fields (static reference to `SelectedRowsActionModeCallback` which has field `rows` pointing to `LinearLayout`); this is a memory leak"
         errorLine1="    private static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;"
         errorLine2="            ~~~~~~">
         <location
@@ -3028,7 +3549,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="Do not place Android context classes in static fields (static reference to `SelectedRowsActionModeCallback` which has field `rows` pointing to `LinearLayout`); this is a memory leak (and also breaks Instant Run)"
+        message="Do not place Android context classes in static fields (static reference to `SelectedRowsActionModeCallback` which has field `rows` pointing to `LinearLayout`); this is a memory leak"
         errorLine1="    private static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;"
         errorLine2="            ~~~~~~">
         <location
@@ -3039,7 +3560,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                        new AsyncTask&lt;Void, Void, String>() {"
         errorLine2="                        ^">
         <location
@@ -3050,7 +3571,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="        ^">
         <location
@@ -3061,7 +3582,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="Do not place Android context classes in static fields (static reference to `SelectedRowsActionModeCallback` which has field `rows` pointing to `LinearLayout`); this is a memory leak (and also breaks Instant Run)"
+        message="Do not place Android context classes in static fields (static reference to `SelectedRowsActionModeCallback` which has field `rows` pointing to `LinearLayout`); this is a memory leak"
         errorLine1="    private static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;"
         errorLine2="            ~~~~~~">
         <location
@@ -3072,7 +3593,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                    (new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="                     ^">
         <location
@@ -3083,7 +3604,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                new AsyncTask&lt;String, Void, Void>() {"
         errorLine2="                ^">
         <location
@@ -3094,7 +3615,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                new AsyncTask&lt;String, Void, Void>() {"
         errorLine2="                ^">
         <location
@@ -3105,7 +3626,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="        ^">
         <location
@@ -3116,18 +3637,18 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="        new AsyncTask&lt;Void, Void, Integer>() {"
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\services\TrackerService.java"
-            line="706"
+            line="734"
             column="9"/>
     </issue>
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                new AsyncTask&lt;Void, Void, Void>() {"
         errorLine2="                ^">
         <location
@@ -3138,7 +3659,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                        AsyncTask&lt;String, Void, UrlCheck.Result> loader = new AsyncTask&lt;String, Void, UrlCheck.Result>() {"
         errorLine2="                                                                          ^">
         <location
@@ -3149,7 +3670,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (anonymous android.os.AsyncTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (anonymous android.os.AsyncTask)"
         errorLine1="                        final AsyncTask&lt;String, Void, String> runner = new AsyncTask&lt;String, Void, String>() {"
         errorLine2="                                                                       ^">
         <location
@@ -3160,90 +3681,13 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (OAuthAccessTokenTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (OAuthAccessTokenTask)"
         errorLine1="        class OAuthAccessTokenTask extends AsyncTask&lt;String, Void, Boolean> {"
         errorLine2="              ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\prefs\VespucciURLActivity.java"
             line="187"
             column="15"/>
-    </issue>
-
-    <issue
-        id="UseSparseArrays"
-        message="Use `new android.support.v4.util.LongSparseArray(...)` instead for better performance"
-        errorLine1="                                    undoMembersMap = new HashMap&lt;>();"
-        errorLine2="                                                     ~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\dialogs\ElementInfo.java"
-            line="487"
-            column="54"/>
-    </issue>
-
-    <issue
-        id="UseSparseArrays"
-        message="Use `new SparseArray&lt;Listener>(...)` instead for better performance"
-        errorLine1="    java.util.Map&lt;Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap&lt;>();"
-        errorLine2="                                                                                     ~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\Feedback.java"
-            line="47"
-            column="86"/>
-    </issue>
-
-    <issue
-        id="UseSparseArrays"
-        message="Use `new SparseArray&lt;Listener>(...)` instead for better performance"
-        errorLine1="    java.util.Map&lt;Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap&lt;>();"
-        errorLine2="                                                                                     ~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\Main.java"
-            line="447"
-            column="86"/>
-    </issue>
-
-    <issue
-        id="UseSparseArrays"
-        message="Use `new android.support.v4.util.LongSparseArray(...)` instead for better performance"
-        errorLine1="        Map&lt;Long, Boolean> keyMap = new HashMap&lt;>();"
-        errorLine2="                                    ~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\osm\StorageDelegator.java"
-            line="1613"
-            column="37"/>
-    </issue>
-
-    <issue
-        id="UseSparseArrays"
-        message="Use `new android.support.v4.util.LongSparseArray(...)` instead for better performance"
-        errorLine1="        Map&lt;Long, Node> processedNodes = new HashMap&lt;>();"
-        errorLine2="                                         ~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\osm\StorageDelegator.java"
-            line="2306"
-            column="42"/>
-    </issue>
-
-    <issue
-        id="UseSparseArrays"
-        message="Use `new android.support.v4.util.LongSparseArray(...)` instead for better performance"
-        errorLine1="        Map&lt;Long, Node> replacedNodes = new HashMap&lt;>();"
-        errorLine2="                                        ~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\osm\StorageDelegator.java"
-            line="2343"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="UseSparseArrays"
-        message="Use `new android.support.v4.util.LongSparseArray(...)` instead for better performance"
-        errorLine1="        challenges = new HashMap&lt;>();"
-        errorLine2="                     ~~~~~~~~~~~~~~~">
-        <location
-            file="src\main\java\de\blau\android\tasks\TaskStorage.java"
-            line="54"
-            column="22"/>
     </issue>
 
     <issue
@@ -8314,6 +8758,105 @@
             file="src\main\res\layout\upload_tabs.xml"
             line="46"
             column="14"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\layer_item.xml"
+            line="227"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="     &lt;View xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;   "
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\layer_list_item.xml"
+            line="22"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\layer_selection_dialog.xml"
+            line="37"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\pane_view.xml"
+            line="28"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\pane_view_fullscreen.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="    &lt;androidx.viewpager.widget.ViewPager xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\photo_viewer.xml"
+            line="8"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="                xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\upload_tabs.xml"
+            line="47"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="     &lt;View xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;   "
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\validator_ruleset_list_check_item.xml"
+            line="36"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="RedundantNamespace"
+        message="This namespace declaration is redundant"
+        errorLine1="     &lt;View xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;   "
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\layout\validator_ruleset_list_resurvey_item.xml"
+            line="42"
+            column="12"/>
     </issue>
 
     <issue
