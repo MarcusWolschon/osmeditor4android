@@ -303,7 +303,8 @@ i-->
         <div class="container">
 <!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vespucci-141-beta-highlights">Vespucci 14.1 BETA Highlights</a></li>
+        <li class="main active"><a href="#vespucci-141-highlights">Vespucci 14.1 Highlights</a></li>
+            <li><a href="#drag-ring-around-selected-nodes">Drag "ring" around selected nodes</a></li>
             <li><a href="#add-and-check-website-tags-with-dialog">Add and check website tags with dialog</a></li>
             <li><a href="#preset-matching-improvements">Preset matching improvements</a></li>
             <li><a href="#data-rendering">Data rendering</a></li>
@@ -313,6 +314,7 @@ i-->
             <li><a href="#object-search">Object search</a></li>
             <li><a href="#indication-of-stale-location">Indication of stale location</a></li>
             <li><a href="#private-api-keys-support">Private api keys support</a></li>
+            <li><a href="#help-viewer">Help viewer</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -320,8 +322,10 @@ i-->
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="vespucci-141-beta-highlights">Vespucci 14.1 BETA Highlights</h1>
+<h1 id="vespucci-141-highlights">Vespucci 14.1 Highlights</h1>
 <p>This is a minor release with many small improvements. 14.1 is the last release that will support devices with Android versions older than 4.0 / API 14, if you have been using the "current" releases from F-Droid or the google play store nothing will change for you, if you have been using the "legacy" build, you will either need a new device or try to upgrade the Android version on your existing one.</p>
+<h3 id="drag-ring-around-selected-nodes">Drag "ring" around selected nodes</h3>
+<p>To make selection status clearer selected nodes now have a small ring around them indicating the area that can be used for dragging. This is the same principle as the "large drag area" that has been available for many years. </p>
 <h3 id="add-and-check-website-tags-with-dialog">Add and check website tags with dialog</h3>
 <p>This replaces the prior pre-filled in <em>http://</em> prefix in the text fields with a dialog that allows checking the domain on the fly, and adding the correct protocol automatically. This requires network connectivity to work.</p>
 <h3 id="preset-matching-improvements">Preset matching improvements</h3>
@@ -345,7 +349,9 @@ i-->
 <p>For example so that users of the F-Droid build can actually log in securely with OAuth without having to store their login credentials on the device, we need to include the OAuth client keys as F-Droid has no provision for keeping keys private (this does create the vulnerability that an app could masquerade as Vespucci, but the impacts of that are very limited).</p>
 <p>For keys that are used solely to access services that are not critical the situation is different. The main use of these today is to access imagery sources, starting with this release, private imagery keys are provided at build time and are no longer stored in the source code repository with the exception of the Bing key that will remain for now. As a consequence the Thunderforest maps and the MAXAR aerial imagery will no longer be available in the F-Droid build.</p>
 <p>In the current implementation there is no way to set your own keys or otherwise manage them, for imagery keys this is not an issue as you can simply add a custom imagery entry that directly contains the key. In the future we might provide such a management facility.</p>
-<p>From a formal security point of view all of this is naturally a bit of snake oil as for example imagery apikeys that are used in urls are trivial to snoop, but at least that implies putting some effort in to finding the keys over simply scraping github repositories. </p>
+<p>From a formal security point of view all of this is naturally a bit of snake oil as for example imagery apikeys that are used in urls are trivial to snoop, but at least that implies putting some effort in to finding the keys over simply scraping github repositories.</p>
+<h3 id="help-viewer">Help viewer</h3>
+<p>The help viewer can now be accessed without starting the full app first, this has the added advantage that the viewer can be used in split window mode on devices that support it, or at least be used without restarting the activity. </p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Improvements custom imagery, OAM support and imagery layer info</li>
@@ -357,6 +363,10 @@ i-->
 <li>Support autoapply preset attribute to avoid applying preset automatically when it will break things.</li>
 <li>Use Note specific icons</li>
 <li>Add support for tunnel and bridge specific rendering for some roads</li>
+<li>Changing the accessibility font size setting will scale the preset "buttons" too.</li>
+<li>Untagged objects now have a different header in the property editor.</li>
+<li>Files that were downloaded with Firefox mobile couldn't be accessed, this has been resolved.</li>
+<li>Re-factored undo and OSC code.</li>
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
@@ -371,7 +381,8 @@ i-->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vespucci-141-beta-highlights">Vespucci 14.1 BETA Highlights</a></li>
+        <li class="main active"><a href="#vespucci-141-highlights">Vespucci 14.1 Highlights</a></li>
+            <li><a href="#drag-ring-around-selected-nodes">Drag "ring" around selected nodes</a></li>
             <li><a href="#add-and-check-website-tags-with-dialog">Add and check website tags with dialog</a></li>
             <li><a href="#preset-matching-improvements">Preset matching improvements</a></li>
             <li><a href="#data-rendering">Data rendering</a></li>
@@ -381,6 +392,7 @@ i-->
             <li><a href="#object-search">Object search</a></li>
             <li><a href="#indication-of-stale-location">Indication of stale location</a></li>
             <li><a href="#private-api-keys-support">Private api keys support</a></li>
+            <li><a href="#help-viewer">Help viewer</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -388,8 +400,10 @@ i-->
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="vespucci-141-beta-highlights">Vespucci 14.1 BETA Highlights</h1>
+<h1 id="vespucci-141-highlights">Vespucci 14.1 Highlights</h1>
 <p>This is a minor release with many small improvements. 14.1 is the last release that will support devices with Android versions older than 4.0 / API 14, if you have been using the "current" releases from F-Droid or the google play store nothing will change for you, if you have been using the "legacy" build, you will either need a new device or try to upgrade the Android version on your existing one.</p>
+<h3 id="drag-ring-around-selected-nodes">Drag "ring" around selected nodes</h3>
+<p>To make selection status clearer selected nodes now have a small ring around them indicating the area that can be used for dragging. This is the same principle as the "large drag area" that has been available for many years. </p>
 <h3 id="add-and-check-website-tags-with-dialog">Add and check website tags with dialog</h3>
 <p>This replaces the prior pre-filled in <em>http://</em> prefix in the text fields with a dialog that allows checking the domain on the fly, and adding the correct protocol automatically. This requires network connectivity to work.</p>
 <h3 id="preset-matching-improvements">Preset matching improvements</h3>
@@ -413,7 +427,9 @@ i-->
 <p>For example so that users of the F-Droid build can actually log in securely with OAuth without having to store their login credentials on the device, we need to include the OAuth client keys as F-Droid has no provision for keeping keys private (this does create the vulnerability that an app could masquerade as Vespucci, but the impacts of that are very limited).</p>
 <p>For keys that are used solely to access services that are not critical the situation is different. The main use of these today is to access imagery sources, starting with this release, private imagery keys are provided at build time and are no longer stored in the source code repository with the exception of the Bing key that will remain for now. As a consequence the Thunderforest maps and the MAXAR aerial imagery will no longer be available in the F-Droid build.</p>
 <p>In the current implementation there is no way to set your own keys or otherwise manage them, for imagery keys this is not an issue as you can simply add a custom imagery entry that directly contains the key. In the future we might provide such a management facility.</p>
-<p>From a formal security point of view all of this is naturally a bit of snake oil as for example imagery apikeys that are used in urls are trivial to snoop, but at least that implies putting some effort in to finding the keys over simply scraping github repositories. </p>
+<p>From a formal security point of view all of this is naturally a bit of snake oil as for example imagery apikeys that are used in urls are trivial to snoop, but at least that implies putting some effort in to finding the keys over simply scraping github repositories.</p>
+<h3 id="help-viewer">Help viewer</h3>
+<p>The help viewer can now be accessed without starting the full app first, this has the added advantage that the viewer can be used in split window mode on devices that support it, or at least be used without restarting the activity. </p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Improvements custom imagery, OAM support and imagery layer info</li>
@@ -425,6 +441,10 @@ i-->
 <li>Support autoapply preset attribute to avoid applying preset automatically when it will break things.</li>
 <li>Use Note specific icons</li>
 <li>Add support for tunnel and bridge specific rendering for some roads</li>
+<li>Changing the accessibility font size setting will scale the preset "buttons" too.</li>
+<li>Untagged objects now have a different header in the property editor.</li>
+<li>Files that were downloaded with Firefox mobile couldn't be accessed, this has been resolved.</li>
+<li>Re-factored undo and OSC code.</li>
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
