@@ -222,7 +222,7 @@ sonarqube {
     properties {
         property "sonar.java.source","1.7"
         property "sonar.sourceEncoding","UTF-8"
-        property "sonar.java.binaries", "build/intermediates/javac/currentDebug/compileCurrentDebugJavaWithJavac/classes"
+        property "sonar.java.binaries", "build/intermediates/app_classes/currentDebug/classes.jar"
         property "sonar.coverage.jacoco.xmlReportPaths","build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     }
 }
@@ -513,12 +513,12 @@ spoon {
     noAnimations = false
     adbTimeout = 5
     codeCoverage = true
-    shard = true
+    shard = false
     singleInstrumentationCall = true
     ignoreFailures = true
     clearAppDataBeforeEachTest = true
     // set these for individual text execution
-    // className = "de.blau.android.services.MapTileProviderServiceTest"
+    // className = "de.blau.android.imageryoffset.OffsetModeTest"
     // methodName = "..."
 }
 
