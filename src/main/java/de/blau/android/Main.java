@@ -451,11 +451,6 @@ public class Main extends FullScreenAppCompatActivity
     private static final float LARGE_FAB_ELEVATION = 16; // used for renabling elevation on the FABs
 
     /**
-     * While the activity is fully active (between onResume and onPause), this stores the currently active instance
-     */
-    private static Main runningInstance;
-
-    /**
      * {@inheritDoc}
      */
     @SuppressLint("NewApi")
@@ -934,8 +929,6 @@ public class Main extends FullScreenAppCompatActivity
             getTracker().setListener(Main.this);
         }
 
-        runningInstance = this;
-
         map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
         scheduleAutoLock();
 
@@ -1335,7 +1328,6 @@ public class Main extends FullScreenAppCompatActivity
     protected void onPause() {
         descheduleAutoLock();
         Log.d(DEBUG_TAG, "onPause mode " + App.getLogic().getMode());
-        runningInstance = null;
         try {
             unregisterReceiver(connectivityChangedReceiver);
         } catch (Exception e) {
@@ -1566,7 +1558,7 @@ public class Main extends FullScreenAppCompatActivity
                     ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
                     disableSimpleActionsButton();
                 }
-                onEditModeChanged();
+                updateActionbarEditMode();
                 map.invalidate();
             }
         });
@@ -1607,7 +1599,7 @@ public class Main extends FullScreenAppCompatActivity
                                 } else {
                                     ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
                                 }
-                                onEditModeChanged();
+                                updateActionbarEditMode();
                                 return true;
                             }
                         });
@@ -1657,20 +1649,10 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Force update any UI elements that are mode dependent
      */
-    private synchronized void updateActionbarEditMode() {
+    synchronized void updateActionbarEditMode() {
         Log.d(DEBUG_TAG, "updateActionbarEditMode");
         setLock(App.getLogic().getMode());
         invalidateOptionsMenu();
-    }
-
-    /**
-     * Static version to avoid calling the actual method on a non-existing instance
-     */
-    public static void onEditModeChanged() {
-        Log.d(DEBUG_TAG, "onEditModeChanged");
-        if (runningInstance != null) {
-            runningInstance.updateActionbarEditMode();
-        }
     }
 
     BottomBarClickListener bottomBarListener;
