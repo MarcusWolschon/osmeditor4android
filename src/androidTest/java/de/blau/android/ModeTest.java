@@ -78,7 +78,7 @@ public class ModeTest {
 
             @Override
             public void run() {
-                Main.onEditModeChanged();
+                main.updateActionbarEditMode();
             }
         });
         device.waitForIdle();

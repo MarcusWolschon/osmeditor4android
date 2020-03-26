@@ -387,7 +387,7 @@ public class Logic {
         }
         Mode oldMode = this.mode;
         this.mode = mode;
-        Main.onEditModeChanged();
+        main.updateActionbarEditMode();
         main.getMap().deselectObjects();
         deselectAll();
         oldMode.teardown(main, this);
