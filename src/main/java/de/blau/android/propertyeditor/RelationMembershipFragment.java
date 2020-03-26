@@ -103,7 +103,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             throw new ClassCastException(context.toString() + " must implement PropertyEditorListener");
         }
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override
@@ -111,7 +111,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @SuppressWarnings("unchecked")

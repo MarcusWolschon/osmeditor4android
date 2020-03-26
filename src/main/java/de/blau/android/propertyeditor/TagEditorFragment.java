@@ -249,7 +249,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     context.toString() + " must implement PropertyEditorListener, NameAdapters, FormUpdate, PresetFilterUpdate, OnPresetSelectedListener");
         }
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override

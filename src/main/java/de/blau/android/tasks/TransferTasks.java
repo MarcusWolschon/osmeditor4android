@@ -716,7 +716,7 @@ public final class TransferTasks {
                 if (activity instanceof Main) {
                     ((Main) activity).invalidateMap();
                 }
-                activity.supportInvalidateOptionsMenu();
+                activity.invalidateOptionsMenu();
             }
 
         }.execute(add);

@@ -344,7 +344,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         // fixes issues with onCreateOptionsMenu being called
         // before the view is inflated
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override
@@ -422,7 +422,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         scrollView.invalidate();
         FragmentActivity activity = getActivity();
         if (activity != null) {
-            activity.supportInvalidateOptionsMenu();
+            activity.invalidateOptionsMenu();
         }
     }
 
@@ -509,7 +509,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
         FragmentActivity activity = getActivity();
         if (activity != null) {
-            activity.supportInvalidateOptionsMenu();
+            activity.invalidateOptionsMenu();
         }
         return false;
     }

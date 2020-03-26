@@ -774,7 +774,7 @@ public class TrackerService extends Service implements Exportable {
                         }
                         Snack.barError(activity, R.string.toast_file_not_found);
                     }
-                    activity.supportInvalidateOptionsMenu();
+                    activity.invalidateOptionsMenu();
                 } catch (IllegalStateException e) {
                     // Avoid crash if activity is paused
                     Log.e(DEBUG_TAG, "onPostExecute", e);

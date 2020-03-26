@@ -787,7 +787,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             layer.setRendererInfo(tileServer);
         }
         if (activity instanceof Main) {
-            ((Main) activity).supportInvalidateOptionsMenu();
+            ((Main) activity).invalidateOptionsMenu();
         }
         setPrefs(activity, prefs);
     }

@@ -125,7 +125,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @SuppressWarnings("unchecked")

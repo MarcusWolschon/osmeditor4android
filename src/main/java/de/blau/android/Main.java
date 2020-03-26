@@ -234,7 +234,7 @@ public class Main extends FullScreenAppCompatActivity
                 if (getEasyEditManager().isProcessingAction()) {
                     getEasyEditManager().invalidate();
                 } else {
-                    supportInvalidateOptionsMenu();
+                    invalidateOptionsMenu();
                 }
             }
         }
@@ -1660,7 +1660,7 @@ public class Main extends FullScreenAppCompatActivity
     private synchronized void updateActionbarEditMode() {
         Log.d(DEBUG_TAG, "updateActionbarEditMode");
         setLock(App.getLogic().getMode());
-        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     /**
@@ -2913,7 +2913,7 @@ public class Main extends FullScreenAppCompatActivity
             // button
             // for visual feedback reasons we leave selected elements selected
             // (tag edit mode)
-            supportInvalidateOptionsMenu();
+            invalidateOptionsMenu();
             if (easyEditManager != null) {
                 easyEditManager.invalidate();
             }
@@ -4119,7 +4119,7 @@ public class Main extends FullScreenAppCompatActivity
 
     @Override
     public void onStateChanged() {
-        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     /**
@@ -4127,7 +4127,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void triggerMenuInvalidation() {
         Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
-        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
         if (easyEditManager != null && easyEditManager.isProcessingAction()) {
             easyEditManager.invalidate();
         }

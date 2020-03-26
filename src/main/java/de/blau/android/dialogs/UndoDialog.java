@@ -217,7 +217,7 @@ public class UndoDialog extends ImmersiveDialogFragment {
             if (activity instanceof Main) {
                 ((Main) activity).resync(logic);
                 ((Main) activity).invalidateMap();
-                ((Main) activity).supportInvalidateOptionsMenu();
+                ((Main) activity).invalidateOptionsMenu();
             }
         }
     }

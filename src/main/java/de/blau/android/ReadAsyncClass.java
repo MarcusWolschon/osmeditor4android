@@ -87,6 +87,6 @@ public abstract class ReadAsyncClass extends AsyncTask<Boolean, Void, ReadAsyncR
         if (map != null) {
             map.invalidate();
         }
-        activity.supportInvalidateOptionsMenu();
+        activity.invalidateOptionsMenu();
     }
 }

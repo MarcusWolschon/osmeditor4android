@@ -152,7 +152,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     context.toString() + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener, OnPresetSelectedListener");
         }
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override

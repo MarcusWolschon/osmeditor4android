@@ -161,7 +161,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
                 currentGroup = rootGroup;
                 currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
                 presetView.invalidate();
-                supportInvalidateOptionsMenu();
+                invalidateOptionsMenu();
                 return true;
             }
             return true;
@@ -172,7 +172,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
                     currentGroup = group;
                     currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
                     presetView.invalidate();
-                    supportInvalidateOptionsMenu();
+                    invalidateOptionsMenu();
                     return true;
                 }
             }
@@ -224,7 +224,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         currentGroup = group;
         currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
         presetView.invalidate();
-        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     @Override

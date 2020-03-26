@@ -137,7 +137,7 @@ class SelectedRowsActionModeCallback implements Callback {
         rowContainer.deselectHeaderCheckBox();
         rowContainer.deselectRow();
         currentAction = null;
-        ((AppCompatActivity) caller.getActivity()).supportInvalidateOptionsMenu();
+        ((AppCompatActivity) caller.getActivity()).invalidateOptionsMenu();
     }
 
     /**
