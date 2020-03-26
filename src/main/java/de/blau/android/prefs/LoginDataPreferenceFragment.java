@@ -36,18 +36,19 @@ public class LoginDataPreferenceFragment extends PreferenceDialogFragmentCompat 
         super.onBindDialogView(view);
         userEdit = (EditText) view.findViewById(R.id.loginedit_editUsername);
         passwordEdit = (EditText) view.findViewById(R.id.loginedit_editPassword);
-        AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
-        API api = db.getCurrentAPI();
-        userEdit.setText(api.user);
-        passwordEdit.setText(api.pass);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity())) {
+            API api = db.getCurrentAPI();
+            userEdit.setText(api.user);
+            passwordEdit.setText(api.pass);
+        }
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
-            AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
-            db.setCurrentAPILogin(userEdit.getText().toString(), passwordEdit.getText().toString());
+            try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity())) {
+                db.setCurrentAPILogin(userEdit.getText().toString(), passwordEdit.getText().toString());
+            }
         }
     }
-
 }

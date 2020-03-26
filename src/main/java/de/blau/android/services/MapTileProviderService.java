@@ -5,6 +5,7 @@ import java.io.File;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Environment;
@@ -178,8 +179,9 @@ public class MapTileProviderService extends Service {
          * Update the configuration
          */
         public void update() {
-            TileLayerDatabase db = new TileLayerDatabase(MapTileProviderService.this);
-            TileLayerServer.getListsLocked(MapTileProviderService.this, db.getReadableDatabase(), false);
+            try (TileLayerDatabase tlDb = new TileLayerDatabase(MapTileProviderService.this); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                TileLayerServer.getListsLocked(MapTileProviderService.this, db, false);
+            }
         }
     };
 }

@@ -58,10 +58,11 @@ public class TagFilterActivity extends ListActivity {
 
     private static final String QUERY = "SELECT rowid as _id, active, include, type, key, value FROM filterentries WHERE filter = '";
 
-    private String           filter          = null;
-    private SQLiteDatabase   db;
-    private Cursor           tagFilterCursor = null;
-    private TagFilterAdapter filterAdapter;
+    private String                  filter          = null;
+    private TagFilterDatabaseHelper tfDb;
+    private SQLiteDatabase          db;
+    private Cursor                  tagFilterCursor = null;
+    private TagFilterAdapter        filterAdapter;
 
     private class ViewHolder {
         int      id;
@@ -104,7 +105,8 @@ public class TagFilterActivity extends ListActivity {
             filterParam = savedInstanceState.getString(FILTER_KEY);
         }
         filter = filterParam;
-        db = new TagFilterDatabaseHelper(this).getWritableDatabase();
+        tfDb = new TagFilterDatabaseHelper(this);
+        db = tfDb.getWritableDatabase();
         tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
         filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
 
@@ -150,7 +152,12 @@ public class TagFilterActivity extends ListActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        db.close();
+        if (db != null) {
+            db.close();
+        }
+        if (tfDb != null) {
+            tfDb.close();
+        }
     }
 
     /**

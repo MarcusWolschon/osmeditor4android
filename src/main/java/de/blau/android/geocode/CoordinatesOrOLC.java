@@ -171,15 +171,16 @@ public class CoordinatesOrOLC {
      */
     @Nullable
     private static String getNominatimUrl(@NonNull final FragmentActivity activity) {
-        AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity);
-        final Geocoder[] geocoders = db.getActiveGeocoders();
-        String url = null;
-        for (Geocoder g : geocoders) {
-            if (g.type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
-                url = g.url;
-                break;
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+            final Geocoder[] geocoders = db.getActiveGeocoders();
+            String url = null;
+            for (Geocoder g : geocoders) {
+                if (g.type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
+                    url = g.url;
+                    break;
+                }
             }
+            return url;
         }
-        return url;
     }
 }

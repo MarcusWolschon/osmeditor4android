@@ -290,8 +290,9 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                     Uri photoUri = Uri.parse(photoList.get(pos));
                                     try {
                                         // delete from in memory and on device index
-                                        PhotoIndex index = new PhotoIndex(getContext());
-                                        index.deletePhoto(getContext(), photoUri);
+                                        try (PhotoIndex index = new PhotoIndex(getContext())) {
+                                            index.deletePhoto(getContext(), photoUri);
+                                        }
                                         // as the Photo was selected before calling this it will still have a
                                         // reference in the layer
                                         if (overlay != null) {

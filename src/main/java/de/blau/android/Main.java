@@ -2439,8 +2439,9 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
             if (server.getOAuth()) {
-                AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this);
-                prefdb.setAPIAccessToken(null, null);
+                try (AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this)) {
+                    prefdb.setAPIAccessToken(null, null);
+                }
             } else {
                 Snack.barError(this, R.string.toast_oauth_not_enabled);
             }
@@ -2785,10 +2786,10 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // reindexPhotos();
             if (imageFile != null) {
-                PhotoIndex pi = new PhotoIndex(this);
-                pi.addPhoto(imageFile);
+                try (PhotoIndex pi = new PhotoIndex(this)) {
+                    pi.addPhoto(imageFile);
+                }
                 if (prefs.isPhotoLayerEnabled()) {
                     map.invalidate();
                 }

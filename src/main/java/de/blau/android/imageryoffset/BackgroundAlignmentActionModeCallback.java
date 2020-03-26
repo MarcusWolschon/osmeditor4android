@@ -221,13 +221,13 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             protected Void doInBackground(Void... params) {
                 Log.i(DEBUG_TAG, "Saving offsets");
                 List<ImageryOffset> offsets = ImageryOffsetUtils.offsets2ImageryOffset(osmts, map.getViewBox(), null);
-                ImageryOffsetDatabase db = new ImageryOffsetDatabase(main);
-                SQLiteDatabase writableDb = db.getWritableDatabase();
-                ImageryOffsetDatabase.deleteOffset(writableDb, osmts.getImageryOffsetId());
-                for (ImageryOffset im : offsets) {
-                    ImageryOffsetDatabase.addOffset(writableDb, im);
+                try (ImageryOffsetDatabase db = new ImageryOffsetDatabase(main); SQLiteDatabase writableDb = db.getWritableDatabase()) {
+                    ImageryOffsetDatabase.deleteOffset(writableDb, osmts.getImageryOffsetId());
+                    for (ImageryOffset im : offsets) {
+                        ImageryOffsetDatabase.addOffset(writableDb, im);
+                    }
+                    return null;
                 }
-                return null;
             }
         }.execute();
 

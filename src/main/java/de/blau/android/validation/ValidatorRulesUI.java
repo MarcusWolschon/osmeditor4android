@@ -61,7 +61,8 @@ public class ValidatorRulesUI {
 
         alertDialog.setTitle(context.getString(R.string.validator_title, context.getString(R.string.default_)));
         alertDialog.setView(rulesetView);
-        final SQLiteDatabase writableDb = new ValidatorRulesDatabaseHelper(context).getWritableDatabase();
+        final ValidatorRulesDatabaseHelper vrDb = new ValidatorRulesDatabaseHelper(context); // NOSONAR will be closed when dismissed
+        final SQLiteDatabase writableDb = vrDb.getWritableDatabase();
         ListView resurveyList = (ListView) rulesetView.findViewById(R.id.listViewResurvey);
         resurveyCursor = ValidatorRulesDatabase.queryResurveyByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
         resurveyAdapter = new ResurveyAdapter(writableDb, context, resurveyCursor);
@@ -76,6 +77,7 @@ public class ValidatorRulesUI {
             public void onDismiss(DialogInterface dialog) {
                 resurveyCursor.close();
                 writableDb.close();
+                vrDb.close();
             }
         });
         final FloatingActionButton fab = (FloatingActionButton) rulesetView.findViewById(R.id.add);

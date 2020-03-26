@@ -84,10 +84,10 @@ public class BaseValidator implements Validator {
     private void init(@NonNull Context ctx) {
         // !!!! don't store ctx as that will cause a potential memory leak
         presets = App.getCurrentPresets(ctx);
-        SQLiteDatabase db = (new ValidatorRulesDatabaseHelper(ctx)).getReadableDatabase();
-        resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
-        checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
-        db.close();
+        try (ValidatorRulesDatabaseHelper vrDb = new ValidatorRulesDatabaseHelper(ctx); SQLiteDatabase db = vrDb.getReadableDatabase()) {
+            resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
+            checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
+        }
         cachedViewBox = null;
     }
 

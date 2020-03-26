@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,12 +52,13 @@ public final class OAMCatalogView {
         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
 
         dialogBuilder.setNeutralButton(R.string.done, null);
-        final TileLayerDatabase db = new TileLayerDatabase(activity);
+
         dialogBuilder.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface arg0) {
-                TileLayerDatabaseView.resetLayer(activity, db.getReadableDatabase());
-                db.close();
+                try (final TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                    TileLayerDatabaseView.resetLayer(activity, db);
+                }
             }
         });
         final AlertDialog dialog = dialogBuilder.create();
@@ -66,11 +68,13 @@ public final class OAMCatalogView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 OAMCatalog.Entry entry = catalog.get(position);
-                TileLayerDialog.showLayerDialog(activity, db.getWritableDatabase(), entry, new TileLayerDialog.OnUpdateListener() {
+                TileLayerDialog.showLayerDialog(activity, entry, new TileLayerDialog.OnUpdateListener() {
                     @Override
                     public void update() {
                         dialog.dismiss();
-                        TileLayerDatabaseView.resetLayer(activity, db.getReadableDatabase());
+                        try (final TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                            TileLayerDatabaseView.resetLayer(activity, db);
+                        }
                         if (updateListener != null) {
                             updateListener.update();
                         }

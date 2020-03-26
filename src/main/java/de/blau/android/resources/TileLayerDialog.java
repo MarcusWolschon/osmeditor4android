@@ -50,26 +50,22 @@ public class TileLayerDialog {
      * how a dialog for editing and saving a layer entry
      * 
      * @param activity Android Context
-     * @param writableDatabase a writable instance of the layer entry database
      * @param entry an entry from OAM
      * @param onUpdate call this if the DB has been updated
      */
-    public static void showLayerDialog(@NonNull FragmentActivity activity, @NonNull SQLiteDatabase writableDatabase, @Nullable Entry entry,
-            @Nullable final OnUpdateListener onUpdate) {
-        showLayerDialog(activity, writableDatabase, -1, entry, onUpdate);
+    public static void showLayerDialog(@NonNull FragmentActivity activity, @Nullable Entry entry, @Nullable final OnUpdateListener onUpdate) {
+        showLayerDialog(activity, -1, entry, onUpdate);
     }
 
     /**
      * Show a dialog for editing and saving a layer entry
      * 
      * @param activity Android Context
-     * @param db a writable instance of the layer entry database
      * @param id the rowid of the layer entry in the database or -1 if not saved yet
      * @param oamEntry an entry from OAM or null
      * @param onUpdate call this if the DB has been updated
      */
-    static void showLayerDialog(@NonNull final FragmentActivity activity, @NonNull final SQLiteDatabase db, final int id, @Nullable Entry oamEntry,
-            @Nullable final OnUpdateListener onUpdate) {
+    static void showLayerDialog(@NonNull final FragmentActivity activity, final int id, @Nullable Entry oamEntry, @Nullable final OnUpdateListener onUpdate) {
         final boolean existing = id > 0;
         final Preferences prefs = new Preferences(activity);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
@@ -97,7 +93,9 @@ public class TileLayerDialog {
             fileButton.setVisibility(View.GONE);
 
             if (oamEntry == null) {
-                layer = TileLayerDatabase.getLayerWithRowId(activity, db, id);
+                try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                    layer = TileLayerDatabase.getLayerWithRowId(activity, db, id);
+                }
                 nameEdit.setText(layer.getName());
                 urlEdit.setText(layer.getOriginalTileUrl());
                 overlayCheck.setChecked(layer.isOverlay());
@@ -147,7 +145,9 @@ public class TileLayerDialog {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
                         TileLayerDatabaseView.removeLayerSelection(prefs, finalLayer);
-                        TileLayerDatabase.deleteLayerWithRowId(db, id);
+                        try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                            TileLayerDatabase.deleteLayerWithRowId(db, id);
+                        }
                         if (onUpdate != null) {
                             onUpdate.update();
                         }
@@ -298,8 +298,10 @@ public class TileLayerDialog {
                 if (moan) { // abort and leave the dialog intact
                     return;
                 }
-                TileLayerServer.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, minZoom,
-                        maxZoom, isOverlay, tileUrl);
+                try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                    TileLayerServer.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category,
+                            minZoom, maxZoom, isOverlay, tileUrl);
+                }
                 if (onUpdate != null) {
                     onUpdate.update();
                 }

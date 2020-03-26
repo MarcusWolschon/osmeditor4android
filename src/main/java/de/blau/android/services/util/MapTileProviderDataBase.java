@@ -99,6 +99,7 @@ public class MapTileProviderDataBase {
     // Fields
     // ===========================================================
 
+    private final DatabaseHelper databaseHelper;
     private final SQLiteDatabase mDatabase;
 
     private static Pools.SynchronizedPool<SQLiteStatement> getStatements;
@@ -113,7 +114,8 @@ public class MapTileProviderDataBase {
      */
     public MapTileProviderDataBase(@NonNull final Context context) {
         Log.i(DEBUG_TAG, "creating database instance");
-        mDatabase = new DatabaseHelper(context).getWritableDatabase();
+        databaseHelper = new DatabaseHelper(context);
+        mDatabase = databaseHelper.getWritableDatabase();
         Preferences prefs = new Preferences(context);
         int maxThreads = prefs.getMaxTileDownloadThreads();
         getStatements = new Pools.SynchronizedPool<>(maxThreads);
@@ -347,7 +349,7 @@ public class MapTileProviderDataBase {
      * Delete all tiles from cache for a specific renderer
      * 
      * @param rendererID the tile server for which to remove the tiles or null to remove all tiles
-     * @throws EmptyCacheException
+     * @throws EmptyCacheException if the cache is empty
      */
     public synchronized void flushCache(@Nullable String rendererID) throws EmptyCacheException {
         mDatabase.beginTransaction();
@@ -464,6 +466,7 @@ public class MapTileProviderDataBase {
      */
     public void close() {
         mDatabase.close();
+        databaseHelper.close();
     }
 
     /**

@@ -50,7 +50,8 @@ public class TileLayerDatabaseView {
         View layerListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.custom_layer_title);
         alertDialog.setView(layerListView);
-        final SQLiteDatabase writableDb = new TileLayerDatabase(activity).getWritableDatabase();
+        final TileLayerDatabase tlDb = new TileLayerDatabase(activity); // NOSONAR will be closed when dismissed
+        final SQLiteDatabase writableDb = tlDb.getWritableDatabase();
         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
         layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
         layerAdapter = new LayerAdapter(writableDb, activity, layerCursor);
@@ -61,6 +62,7 @@ public class TileLayerDatabaseView {
             public void onDismiss(DialogInterface dialog) {
                 layerCursor.close();
                 writableDb.close();
+                tlDb.close();
             }
         });
 
@@ -93,7 +95,7 @@ public class TileLayerDatabaseView {
         fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                TileLayerDialog.showLayerDialog(activity, writableDb, -1, null, new TileLayerDialog.OnUpdateListener() {
+                TileLayerDialog.showLayerDialog(activity, -1, null, new TileLayerDialog.OnUpdateListener() {
                     @Override
                     public void update() {
                         newLayerCursor(writableDb);
@@ -143,7 +145,7 @@ public class TileLayerDatabaseView {
                 @Override
                 public void onClick(View v) {
                     Integer id = (Integer) view.getTag();
-                    TileLayerDialog.showLayerDialog(activity, db, id != null ? id : -1, null, new TileLayerDialog.OnUpdateListener() {
+                    TileLayerDialog.showLayerDialog(activity, id != null ? id : -1, null, new TileLayerDialog.OnUpdateListener() {
                         @Override
                         public void update() {
                             newLayerCursor(db);

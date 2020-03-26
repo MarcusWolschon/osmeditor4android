@@ -133,8 +133,6 @@ public class TagFilter extends CommonFilter {
     private static final long   serialVersionUID = 1L;
     private static final String DEBUG_TAG        = "TagFilter";
 
-    private transient SQLiteDatabase mDatabase;
-
     /**
      * Construct a new TagFilter
      * 
@@ -143,32 +141,32 @@ public class TagFilter extends CommonFilter {
     public TagFilter(@NonNull Context context) {
         super();
         init(context);
-        //
-        filter.clear();
-        // filter, include INTEGER DEFAULT 0, type TEXT DEFAULT '*', key TEXT DEFAULT '*', value DEFAULT '*', active
-        // INTEGER ;
-
-        Cursor dbresult = mDatabase.query("filterentries", new String[] { "include", "type", "key", "value", "active" }, "filter = ?",
-                new String[] { DEFAULT_FILTER }, null, null, null);
-        dbresult.moveToFirst();
-        for (int i = 0; i < dbresult.getCount(); i++) {
-            try {
-                filter.add(
-                        new FilterEntry(dbresult.getInt(0) == 1, dbresult.getString(1), dbresult.getString(2), dbresult.getString(3), dbresult.getInt(4) == 1));
-            } catch (PatternSyntaxException psex) {
-                Log.e(DEBUG_TAG, "exception getting FilterEntry " + psex.getMessage());
-                if (context instanceof Activity) {
-                    Snack.barError((Activity) context, context.getString(R.string.toast_invalid_filter_regexp, dbresult.getString(2), dbresult.getString(3)));
-                }
-            }
-            dbresult.moveToNext();
-        }
-        dbresult.close();
     }
 
     @Override
     public void init(Context context) {
-        mDatabase = new TagFilterDatabaseHelper(context).getReadableDatabase();
+        try (TagFilterDatabaseHelper tfDb = new TagFilterDatabaseHelper(context); SQLiteDatabase mDatabase = tfDb.getReadableDatabase()) {
+            //
+            filter.clear();
+            // filter, include INTEGER DEFAULT 0, type TEXT DEFAULT '*', key TEXT DEFAULT '*', value DEFAULT '*', active INTEGER ;
+            Cursor dbresult = mDatabase.query("filterentries", new String[] { "include", "type", "key", "value", "active" }, "filter = ?",
+                    new String[] { DEFAULT_FILTER }, null, null, null);
+            dbresult.moveToFirst();
+            for (int i = 0; i < dbresult.getCount(); i++) {
+                try {
+                    filter.add(new FilterEntry(dbresult.getInt(0) == 1, dbresult.getString(1), dbresult.getString(2), dbresult.getString(3),
+                            dbresult.getInt(4) == 1));
+                } catch (PatternSyntaxException psex) {
+                    Log.e(DEBUG_TAG, "exception getting FilterEntry " + psex.getMessage());
+                    if (context instanceof Activity) {
+                        Snack.barError((Activity) context,
+                                context.getString(R.string.toast_invalid_filter_regexp, dbresult.getString(2), dbresult.getString(3)));
+                    }
+                }
+                dbresult.moveToNext();
+            }
+            dbresult.close();
+        }
     }
 
     @Override

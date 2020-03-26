@@ -135,14 +135,15 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                     if (url.endsWith("." + FileExtensions.MSF)) {
                         Uri uri = Uri.parse(url);
                         final String filename = uri.getLastPathSegment();
-                        AdvancedPrefDatabase db = new AdvancedPrefDatabase(DownloadActivity.this);
-                        String apiId = db.getReadOnlyApiId(filename);
-                        if (apiId != null) {
-                            API[] apis = db.getAPIs(apiId);
-                            if (apis.length == 1) {
-                                File file = new File(Uri.parse(apis[0].readonlyurl).getPath());
-                                if (file.delete()) {
-                                    Log.i(DEBUG_TAG, "Deleted " + filename);
+                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(DownloadActivity.this)) {
+                            String apiId = db.getReadOnlyApiId(filename);
+                            if (apiId != null) {
+                                API[] apis = db.getAPIs(apiId);
+                                if (apis.length == 1) {
+                                    File file = new File(Uri.parse(apis[0].readonlyurl).getPath());
+                                    if (file.delete()) {
+                                        Log.i(DEBUG_TAG, "Deleted " + filename);
+                                    }
                                 }
                             }
                         }
