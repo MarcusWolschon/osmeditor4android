@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
-"Last-Translator: Roman Horník <roman.hornik@debian-linux.cz>\n"
+"PO-Revision-Date: 2020-03-21 13:57+0000\n"
+"Last-Translator: Martin Hloch <tomasokol@icloud.com>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -330,7 +330,7 @@ msgstr "Adresa"
 
 #: master_preset.xml:9540(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
-msgstr ""
+msgstr "interpolace adresy"
 
 #: master_preset.xml:9501(group:name|group:Addresses_and_Contact)
 msgid "Addresses and Contact"
@@ -1130,7 +1130,7 @@ msgstr "Pláž"
 
 #: master_preset.xml:4331(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
-msgstr ""
+msgstr "spravovaná pláž"
 
 #: master_preset.xml:6413(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"
@@ -1335,7 +1335,7 @@ msgstr "Kovář"
 
 #: master_preset.xml:5785(item:name|group:Facilities|preset:Bleachers)
 msgid "Bleachers"
-msgstr ""
+msgstr "nekryté tribuny"
 
 #: master_preset.xml:1757(combo:display_values|group:Waypoints|preset:Traffic_Signal|key:traffic_signals)
 msgid "Blink mode"
@@ -1477,7 +1477,7 @@ msgstr "Hranice"
 #: master_preset.xml:9629(list_entry:display_value|group:Relations|preset:Relations|value:boundary)
 #: master_preset.xml:9653(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
-msgstr ""
+msgstr "Hranice"
 
 #: master_preset.xml:7714(item:name|group:Historic_Places_&_Objects|preset:Boundary_Stone)
 msgid "Boundary Stone"
@@ -1561,7 +1561,7 @@ msgstr "Most"
 
 #: master_preset.xml:7138(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
-msgstr ""
+msgstr "opěra mostu"
 
 #: master_preset.xml:783(text:text|key:bridge:name)
 msgid "Bridge name"
@@ -1679,7 +1679,7 @@ msgstr "Bunkr"
 
 #: master_preset.xml:6838(item:name|group:Man_Made|preset:Bunker_Silo)
 msgid "Bunker Silo"
-msgstr ""
+msgstr "podzemní silo"
 
 #: master_preset.xml:475(multiselect:display_values|key:cuisine)
 msgid "Burger"
@@ -1699,7 +1699,7 @@ msgstr "Autobus"
 
 #: master_preset.xml:2807(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "autobusová dráha"
 
 #: master_preset.xml:3571(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
@@ -3572,7 +3572,7 @@ msgstr ""
 #: master_preset.xml:9635(list_entry:display_value|group:Relations|preset:Relations|value:enforcement)
 #: master_preset.xml:9756(item:name|preset:Enforcement)
 msgid "Enforcement"
-msgstr ""
+msgstr "zařízení pro dokumentaci dopravních přestupků"
 
 #: master_preset.xml:5701(check:text|group:Facilities|preset:Recycling_Container|key:recycling:engine_oil)
 #: master_preset.xml:5733(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:engine_oil)
@@ -3976,7 +3976,7 @@ msgstr ""
 
 #: master_preset.xml:9343(item:name|group:Land_use|preset:Flowerbed)
 msgid "Flowerbed"
-msgstr ""
+msgstr "květnatý pás"
 
 #: master_preset.xml:877(list_entry:display_value|value:flush)
 #: master_preset.xml:885(list_entry:display_value|value:flush)
@@ -4538,7 +4538,7 @@ msgstr ""
 
 #: master_preset.xml:9308(item:name|group:Land_use|preset:Greenhouse_Horticulture)
 msgid "Greenhouse Horticulture"
-msgstr ""
+msgstr "skleníky"
 
 #: master_preset.xml:1008(combo:display_values|key:roof:colour)
 #: master_preset.xml:1031(combo:display_values|key:building:colour)
@@ -4621,7 +4621,7 @@ msgstr ""
 
 #: master_preset.xml:4425(item:name|group:Leisure|preset:Hackerspace)
 msgid "Hackerspace"
-msgstr ""
+msgstr "hackerspace"
 
 #: master_preset.xml:8279(list_entry:short_description|group:For_the_body|preset:Beauty|value:hair_removal)
 msgid "Hair removal"
@@ -5174,7 +5174,7 @@ msgstr ""
 
 #: master_preset.xml:4076(item:name|group:Tourism|preset:Information_Terminal)
 msgid "Information Terminal"
-msgstr ""
+msgstr "informační panel/terminál"
 
 #: master_preset.xml:4078(label:text|group:Tourism|preset:Information_Terminal)
 msgid "Information access via electronic methods."
@@ -5735,7 +5735,7 @@ msgstr ""
 
 #: master_preset.xml:5393(item:name|group:Emergency|preset:Lifeguard)
 msgid "Lifeguard"
-msgstr ""
+msgstr "záchranný kruh"
 
 #: master_preset.xml:5398(item:name|group:Emergency|preset:Lifeguard_base)
 msgid "Lifeguard base"
@@ -5861,11 +5861,11 @@ msgstr ""
 #: master_preset.xml:2402(check:text|group:Water|preset:Canal|key:lock)
 #: master_preset.xml:2518(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lock"
-msgstr ""
+msgstr "zámek"
 
 #: master_preset.xml:2708(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
-msgstr ""
+msgstr "vrata zdymadel"
 
 #: master_preset.xml:5829(check:text|group:Facilities|preset:Hunting_Stand|key:lockable)
 msgid "Lockable"
@@ -6056,7 +6056,7 @@ msgstr ""
 
 #: master_preset.xml:6926(item:name|group:Man_Made|preset:Marker)
 msgid "Marker"
-msgstr ""
+msgstr "značka/označník"
 
 #: master_preset.xml:4210(list_entry:display_value|group:Leisure|preset:Animals|value:marmot)
 msgid "Marmot"
@@ -6278,7 +6278,7 @@ msgstr "Středozemní"
 
 #: master_preset.xml:1112(combo:display_values|key:climbing:quality)
 msgid "Medium"
-msgstr ""
+msgstr "materiál"
 
 #: master_preset.xml:4211(list_entry:display_value|group:Leisure|preset:Animals|value:meerkat)
 msgid "Meerkat"
@@ -6476,7 +6476,7 @@ msgstr ""
 
 #: master_preset.xml:2518(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Moat"
-msgstr ""
+msgstr "vodní příkop"
 
 #: master_preset.xml:8027(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
@@ -8301,7 +8301,7 @@ msgstr ""
 
 #: master_preset.xml:6910(item:name|group:Man_Made|preset:Pipeline_Valve)
 msgid "Pipeline Valve"
-msgstr ""
+msgstr "potrubní ventil"
 
 #: master_preset.xml:9872(item:name|group:Routes|preset:Piste_Route)
 msgid "Piste Route"
@@ -8591,7 +8591,7 @@ msgstr ""
 
 #: master_preset.xml:7544(item:name|preset:Power_Cable)
 msgid "Power Cable"
-msgstr ""
+msgstr "elektrický kabel"
 
 #: master_preset.xml:7409(item:name|preset:Power_Compensator)
 msgid "Power Compensator"
@@ -9746,7 +9746,7 @@ msgstr ""
 
 #: master_preset.xml:2182(item:name|group:Barriers|preset:Sally_Port)
 msgid "Sally Port"
-msgstr ""
+msgstr "výpadová brána skrze opevnění"
 
 #: master_preset.xml:9496(combo:display_values|group:Land_use|preset:Quarry|key:resource)
 msgid "Salt"
@@ -10151,7 +10151,7 @@ msgstr ""
 
 #: master_preset.xml:9189(item:name|group:Nature|preset:Shingle)
 msgid "Shingle"
-msgstr ""
+msgstr "oblázky"
 
 #: master_preset.xml:644(combo:display_values|key:religion)
 #: master_preset.xml:653(combo:display_values|key:religion)
@@ -10335,7 +10335,7 @@ msgstr ""
 
 #: master_preset.xml:2717(item:name|group:Shipping|preset:Slipway)
 msgid "Slipway"
-msgstr ""
+msgstr "lodní skluz"
 
 #: master_preset.xml:1082(multiselect:display_values|key:language)
 msgid "Slovak"
@@ -10932,7 +10932,7 @@ msgstr ""
 
 #: master_preset.xml:2135(item:name|group:Barriers|preset:Swing_Gate)
 msgid "Swing Gate"
-msgstr ""
+msgstr "otočná závora"
 
 #: master_preset.xml:7496(label:text|preset:Pole_with_Switch)
 msgid "Switch Attributes:"
@@ -11213,7 +11213,7 @@ msgstr ""
 
 #: master_preset.xml:1078(combo:text|key:playground:theme)
 msgid "Theme"
-msgstr ""
+msgstr "motiv"
 
 #: master_preset.xml:8301(list_entry:short_description|group:For_the_body|preset:Massage|value:therapeutic)
 msgid "Therapeutic"
@@ -11262,7 +11262,7 @@ msgstr ""
 
 #: master_preset.xml:2733(combo:display_values|group:Shipping|preset:Dock|key:dock)
 msgid "Tidal"
-msgstr ""
+msgstr "přílivový"
 
 #: master_preset.xml:7299(item:name|group:Power_Generator|preset:Tidal_Water_Turbine)
 msgid "Tidal Water Turbine"
@@ -11701,7 +11701,7 @@ msgstr ""
 
 #: master_preset.xml:2177(item:name|group:Barriers|preset:Turnstile)
 msgid "Turnstile"
-msgstr ""
+msgstr "turniket"
 
 #: master_preset.xml:2869(item:name|group:Railway|preset:Turntable)
 msgid "Turntable"
@@ -11962,7 +11962,7 @@ msgstr ""
 
 #: master_preset.xml:6930(combo:text|group:Man_Made|preset:Marker|key:utility)
 msgid "Utility"
-msgstr ""
+msgstr "služba"
 
 #: master_preset.xml:1082(multiselect:display_values|key:language)
 msgid "Uzbek"
@@ -12267,7 +12267,7 @@ msgstr ""
 
 #: master_preset.xml:5360(item:name|group:Emergency|preset:Water_Tank)
 msgid "Water Tank"
-msgstr ""
+msgstr "nádrž na vodu"
 
 #: master_preset.xml:6948(item:name|group:Man_Made|preset:Water_Tower)
 msgid "Water Tower"
@@ -12567,7 +12567,7 @@ msgstr ""
 
 #: master_preset.xml:3650(item:name|group:Airport|preset:Windsock)
 msgid "Windsock"
-msgstr ""
+msgstr "větrný rukáv"
 
 #: master_preset.xml:7907(item:name|group:Food|preset:Wine)
 msgid "Wine"
@@ -12743,7 +12743,7 @@ msgstr ""
 
 #: master_preset.xml:2983(item:name|group:Aerialway|preset:Zip_Line)
 msgid "Zip Line"
-msgstr ""
+msgstr "Lanový skluz"
 
 #: master_preset.xml:9496(combo:display_values|group:Land_use|preset:Quarry|key:resource)
 msgid "Zircon"
@@ -14106,7 +14106,7 @@ msgstr ""
 #: master_preset.xml:6014(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Skating"
-msgstr ""
+msgstr "bruslení"
 
 #: master_preset.xml:560(combo:display_values|key:sport)
 msgctxt "sport"
@@ -15414,7 +15414,7 @@ msgstr ""
 #: master_preset.xml:6558(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Grandstand"
-msgstr ""
+msgstr "tribuna"
 
 #: master_preset.xml:6558(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:6596(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
@@ -16485,7 +16485,7 @@ msgstr ""
 #: master_preset.xml:3263(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Informal"
-msgstr ""
+msgstr "neformální"
 
 #: master_preset.xml:3263(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
@@ -17644,7 +17644,7 @@ msgstr "Maják"
 #: master_preset.xml:7114(item:name|group:Man_Made|preset:Beehive)
 msgctxt "man_made"
 msgid "Beehive"
-msgstr ""
+msgstr "včelín"
 
 #: master_preset.xml:7014(item:name|group:Man_Made|preset:Dolphin)
 msgctxt "man_made"

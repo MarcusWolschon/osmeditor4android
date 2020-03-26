@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
+"PO-Revision-Date: 2020-03-24 17:46+0000\n"
 "Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -5247,7 +5247,7 @@ msgstr ""
 
 #: master_preset.xml:5658(item:name|group:Facilities|preset:Internet_Access)
 msgid "Internet Access"
-msgstr ""
+msgstr "Acesso à internet"
 
 #: master_preset.xml:5651(item:name|group:Facilities|preset:Internet_Cafe)
 msgid "Internet Cafe"
@@ -8591,7 +8591,7 @@ msgstr ""
 
 #: master_preset.xml:7544(item:name|preset:Power_Cable)
 msgid "Power Cable"
-msgstr ""
+msgstr "Cabo de energia"
 
 #: master_preset.xml:7409(item:name|preset:Power_Compensator)
 msgid "Power Compensator"
