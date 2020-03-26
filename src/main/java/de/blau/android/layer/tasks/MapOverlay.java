@@ -296,9 +296,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
         if (readingLock.tryLock()) {
             try {
                 // TODO this doesn't really help with error conditions need to throw exception
-                if (savingHelper.save(context, FILENAME, selected, true)) {
-
-                } else {
+                if (!savingHelper.save(context, FILENAME, selected, true)) {
                     // this is essentially catastrophic and can only happen if something went really wrong
                     // running out of memory or disk, or HW failure
                     if (context instanceof Activity) {

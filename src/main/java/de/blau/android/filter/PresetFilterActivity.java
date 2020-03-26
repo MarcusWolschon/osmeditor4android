@@ -25,7 +25,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.Snack;
 
 /**
- * Activity for editing filter entries. Due to the diffiulties in using a ListView for editable items, this is a rather
+ * Activity for editing filter entries. Due to the difficulties in using a ListView for editable items, this is a rather
  * hackish and inefficient, but given that we are only going to have a small number of items likely OK.
  * 
  * @author simon
@@ -64,6 +64,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         try {
             filter = (PresetFilter) App.getLogic().getFilter();
         } catch (ClassCastException ccex) {
+            // IGNORE
         }
         if (filter == null) {
             Snack.barError(this, "illegal state " + filter);
