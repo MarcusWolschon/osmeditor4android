@@ -509,7 +509,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 sb.append((char) cp);
             }
         } catch (OutOfMemoryError oom) {
-            sb = null; // might or might not work
             Snack.toastTopError(ctx, R.string.out_of_memory_title);
             Log.e(DEBUG_TAG, "Out of memory error " + oom.getMessage());
             return false;
