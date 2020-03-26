@@ -31,7 +31,7 @@ import de.blau.android.validation.Validator;
  */
 public class Relation extends OsmElement implements BoundedObject, StyleableFeature {
 
-    private static final int MAX_DEPTH = 3;
+    static final int MAX_DEPTH = 3;
 
     /**
      * 

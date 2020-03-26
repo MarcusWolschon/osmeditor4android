@@ -566,7 +566,7 @@ public class UndoStorage implements Serializable {
         private final boolean inCurrentStorage;
         private final boolean inApiStorage;
 
-        private final ArrayList<Relation> parentRelations; // FIXME remove in next major revision
+        private final List<Relation> parentRelations;
 
         /**
          * Create a new undo object
@@ -586,11 +586,7 @@ public class UndoStorage implements Serializable {
             state = originalElement.state;
             tags = originalElement.tags == null ? new TreeMap<>() : new TreeMap<>(originalElement.tags);
 
-            if (originalElement.parentRelations != null) {
-                parentRelations = new ArrayList<>(originalElement.parentRelations);
-            } else {
-                parentRelations = null;
-            }
+            parentRelations = element.getParentRelations() != null ? new ArrayList<>(element.getParentRelations()) : null;
         }
 
         /**
@@ -789,8 +785,8 @@ public class UndoStorage implements Serializable {
      * @see UndoElement
      */
     public class UndoWay extends UndoElement implements Serializable {
-        private static final long     serialVersionUID = 1L;
-        private final ArrayList<Node> nodes;
+        private static final long serialVersionUID = 2L;
+        private final List<Node>  nodes;
 
         /**
          * Create a new undo object
@@ -926,7 +922,6 @@ public class UndoStorage implements Serializable {
                                                                // downloaded
                     } else {
                         Log.e(DEBUG_TAG, rmElement.getDescription() + " member of " + restored.getDescription() + " is deleted");
-                        // ok = false;
                         restored.updateState(OsmElement.STATE_MODIFIED);
                         try {
                             apiStorage.insertElementSafe(restored);
@@ -1056,7 +1051,7 @@ public class UndoStorage implements Serializable {
     private static BoundingBox getBounds(@NonNull Checkpoint checkpoint, @NonNull List<RelationMember> members, int depth) {
         // NOTE this will only return a bb covering the downloaded elements
         BoundingBox result = null;
-        if (depth <= 3) { // FIXME use the same value as in Relation
+        if (depth <= Relation.MAX_DEPTH) {
             for (RelationMember rm : members) {
                 OsmElement e = rm.getElement();
                 UndoElement ue = checkpoint.elements.get(e);
@@ -1125,7 +1120,6 @@ public class UndoStorage implements Serializable {
         }
         return result;
     }
-    
 
     /**
      * See if an element with same id and type is in storage, if yes use that
