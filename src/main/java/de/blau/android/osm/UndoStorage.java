@@ -586,7 +586,11 @@ public class UndoStorage implements Serializable {
             state = originalElement.state;
             tags = originalElement.tags == null ? new TreeMap<>() : new TreeMap<>(originalElement.tags);
 
-            parentRelations = null;
+            if (originalElement.parentRelations != null) {
+                parentRelations = new ArrayList<>(originalElement.parentRelations);
+            } else {
+                parentRelations = null;
+            }
         }
 
         /**
