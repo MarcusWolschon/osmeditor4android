@@ -674,7 +674,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 break;
             }
             addSecondaryPreset(nonAssignedPreset);
-            nonAssigned = addPresetsToTags(nonAssignedPreset, (LinkedHashMap<String, String>) nonAssigned);
+            nonAssigned = addPresetsToTags(nonAssignedPreset, nonAssigned);
             nonAssignedCount = nonAssigned.size();
         }
     }

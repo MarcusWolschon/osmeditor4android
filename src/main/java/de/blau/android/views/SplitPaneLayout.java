@@ -226,7 +226,7 @@ public class SplitPaneLayout extends ViewGroup {
                         temp.offset((x - lastX), 0);
                         break;
                     case ORIENTATION_VERTICAL:
-                        temp.offset(0, (int) (y - lastY));
+                        temp.offset(0, y - lastY);
                         break;
                     }
                     lastX = x;

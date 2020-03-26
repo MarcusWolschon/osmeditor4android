@@ -35,8 +35,8 @@ public final class GeoMath {
     public static final double MAX_LON    = 180;
     public static final int    MAX_LON_E7 = (int) (MAX_LON * 1E7);
 
-    public static final double MAX_MLAT    = GeoMath.latE7ToMercator((int) (MAX_COMPAT_LAT_E7));
-    public static final int    MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int) (MAX_COMPAT_LAT_E7));
+    public static final double MAX_MLAT    = GeoMath.latE7ToMercator(MAX_COMPAT_LAT_E7);
+    public static final int    MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7(MAX_COMPAT_LAT_E7);
 
     public static final int EARTH_RADIUS_EQUATOR = 6378137;
 
@@ -330,7 +330,7 @@ public final class GeoMath {
      * @return the x screen-coordinate for this longitude value.
      */
     public static float lonToX(final int screenWidth, final BoundingBox viewBox, final double lon) {
-        return (float) ((double) (lon * 1E7D - viewBox.getLeft()) / (double) viewBox.getWidth()) * screenWidth;
+        return (float) ((lon * 1E7D - viewBox.getLeft()) / (double) viewBox.getWidth()) * screenWidth;
     }
 
     /**

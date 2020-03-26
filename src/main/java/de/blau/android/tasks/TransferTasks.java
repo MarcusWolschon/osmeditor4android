@@ -285,7 +285,7 @@ public final class TransferTasks {
         AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... params) {
-                return OsmoseServer.changeState(context, (OsmoseBug) b);
+                return OsmoseServer.changeState(context, b);
             }
 
             @Override

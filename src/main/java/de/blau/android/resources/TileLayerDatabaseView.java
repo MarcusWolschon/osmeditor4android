@@ -47,7 +47,7 @@ public class TileLayerDatabaseView {
      */
     public void manageLayers(@NonNull final FragmentActivity activity) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-        View layerListView = (View) LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
+        View layerListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.custom_layer_title);
         alertDialog.setView(layerListView);
         final SQLiteDatabase writableDb = new TileLayerDatabase(activity).getWritableDatabase();

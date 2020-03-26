@@ -65,7 +65,7 @@ public final class InputTypeUtil {
                 } else if (o instanceof StringWithDescription) {
                     emptyAdapter = "".equals(((StringWithDescription) o).getValue());
                 } else if (o instanceof String) {
-                    emptyAdapter = "".equals((String) o);
+                    emptyAdapter = "".equals(o);
                 }
             }
         }

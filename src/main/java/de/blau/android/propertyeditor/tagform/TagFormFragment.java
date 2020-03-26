@@ -604,7 +604,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 editableView1.setTitle(preset, false);
                 editableView1.setListeners(tagListener, this);
                 ll.addView(editableView1, pos++);
-                nonEditable = addTagsToViews(editableView1, preset, (LinkedHashMap<String, String>) nonEditable);
+                nonEditable = addTagsToViews(editableView1, preset, nonEditable);
             }
         } else {
             nonEditable = allTags;

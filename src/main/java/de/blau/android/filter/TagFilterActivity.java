@@ -258,7 +258,7 @@ public class TagFilterActivity extends ListActivity {
      */
     private void update(@NonNull ViewHolder vh) {
         Log.d(DEBUG_TAG, "saving contents for id " + vh.id);
-        updateRow(vh.id, filter, vh.active.isChecked(), "+".equals((String) vh.mode.getSelectedItem()), vh.type.getSelectedItemPosition(),
+        updateRow(vh.id, filter, vh.active.isChecked(), "+".equals(vh.mode.getSelectedItem()), vh.type.getSelectedItemPosition(),
                 vh.keyView.getText().toString(), vh.valueView.getText().toString());
     }
 

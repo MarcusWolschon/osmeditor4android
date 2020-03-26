@@ -119,8 +119,8 @@ public class LayerStyle extends ImmersiveDialogFragment {
         View layout = inflater.inflate(R.layout.layer_style, null);
         View labelContainer = layout.findViewById(R.id.layer_label_container);
         SeekBar seeker = (SeekBar) layout.findViewById(R.id.layer_line_width);
-        View lineWidthView = (View) layout.findViewById(R.id.layer_line_width_view);
-        colorView = (View) layout.findViewById(R.id.layer_color);
+        View lineWidthView = layout.findViewById(R.id.layer_line_width_view);
+        colorView = layout.findViewById(R.id.layer_color);
 
         int layerIndex = getArguments().getInt(LAYERINDEX);
         MapViewLayer tempLayer = map.getLayer(layerIndex);

@@ -554,7 +554,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         int screenLeft = (int) GeoMath.lonE7ToX(w, osmv.getViewBox(), (int) ((west + lonOffset) * 1E7));
 
         // calculate here to avoid rounding differences
-        int tileWidth = 1 + (int) Math.floor((double) (east - west) * 1E7 * w / osmv.getViewBox().getWidth());
+        int tileWidth = 1 + (int) Math.floor((east - west) * 1E7D * w / osmv.getViewBox().getWidth());
 
         int screenTop = (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((north + latOffset) * 1E7));
         int screenBottom = squareTiles ? screenTop + tileWidth

@@ -50,7 +50,7 @@ public class ValidatorRulesUI {
      */
     public void manageRulesetContents(@NonNull final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        View rulesetView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list, null);
+        View rulesetView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list, null);
         ExtendedViewPager pager = (ExtendedViewPager) rulesetView.findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);
@@ -175,13 +175,12 @@ public class ValidatorRulesUI {
      */
     private void showResurveyDialog(@NonNull final Context context, @NonNull final SQLiteDatabase db, final boolean existing, final int id) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        View templateView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_resurvey_item, null);
+        View templateView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_resurvey_item, null);
         alertDialog.setView(templateView);
 
         final EditText keyEdit = (EditText) templateView.findViewById(R.id.resurvey_key);
         final EditText valueEdit = (EditText) templateView.findViewById(R.id.resurvey_value);
         final CheckBox regexpCheck = (CheckBox) templateView.findViewById(R.id.resurvey_is_regexp);
-        // final EditText daysEdit = (EditText) templateView.findViewById(R.id.resurvey_days);
         final NumberPicker daysPicker = (NumberPicker) templateView.findViewById(R.id.resurvey_days);
         if (existing) {
             Cursor cursor = db.rawQuery(ValidatorRulesDatabase.QUERY_RESURVEY_BY_ROWID, new String[] { Integer.toString(id) });
@@ -312,7 +311,7 @@ public class ValidatorRulesUI {
      */
     private void showCheckDialog(@NonNull final Context context, @NonNull final SQLiteDatabase db, final boolean existing, final int id) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        View templateView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_check_item, null);
+        View templateView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_check_item, null);
         alertDialog.setView(templateView);
 
         final EditText keyEdit = (EditText) templateView.findViewById(R.id.check_key);

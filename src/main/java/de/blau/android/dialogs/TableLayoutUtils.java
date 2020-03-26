@@ -210,11 +210,11 @@ public final class TableLayoutUtils {
         SpannableString span = new SpannableString((CharSequence) cell1);
         SpannableString span2 = null;
         if (cell2 != null) {
-            span2 = new SpannableString((CharSequence) cell2);
+            span2 = new SpannableString(cell2);
         }
         SpannableString span3 = null;
         if (cell3 != null) {
-            span3 = new SpannableString((CharSequence) cell3);
+            span3 = new SpannableString(cell3);
         }
         boolean isTitle = cell1 != null && cell2 == null && cell3 == null;
         if (isTitle) { // heading

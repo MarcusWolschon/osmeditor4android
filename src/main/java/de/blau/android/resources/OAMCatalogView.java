@@ -45,7 +45,7 @@ public final class OAMCatalogView {
     public static void displayLayers(@NonNull final FragmentActivity activity, @NonNull final List<OAMCatalog.Entry> catalog, @Nullable final BoundingBox box,
             @Nullable final TileLayerDialog.OnUpdateListener updateListener) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        View layerListView = (View) LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
+        View layerListView = LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
         dialogBuilder.setTitle(R.string.oam_layer_title);
         dialogBuilder.setView(layerListView);
         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
