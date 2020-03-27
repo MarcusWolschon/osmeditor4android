@@ -493,7 +493,7 @@ public class TestUtils {
             UiObject lock = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
             try {
                 lock.click();
-                device.waitForIdle();
+                device.waitForWindowUpdate(null, 1000);
             } catch (UiObjectNotFoundException e) {
                 Assert.fail(e.getMessage());
             }

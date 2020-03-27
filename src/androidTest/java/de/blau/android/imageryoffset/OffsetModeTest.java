@@ -111,27 +111,10 @@ public class OffsetModeTest {
     /**
      * Start offset mode and drag the screen
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void createOffset() {
-        TestUtils.zoomToLevel(device, main, 18);
-        try {
-            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
-            App.getLogic().getViewBox().setBorders(map, bbox);
-            map.setViewBox(App.getLogic().getViewBox());
-            map.invalidate();
-            try {
-                Thread.sleep(5000); // NOSONAR
-            } catch (InterruptedException e) {
-            }
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
-
-        if (!TestUtils.clickMenuButton(device, "Tools", false, true)) {
-            TestUtils.clickOverflowButton(device);
-            TestUtils.clickText(device, false, "Tools", true);
-        }
+        startMode();
         Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
         TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
@@ -161,22 +144,20 @@ public class OffsetModeTest {
     }
 
     /**
-     * Start offset mode and download a offset
+     * Zoom in and start the alignment mode
      */
-    @SdkSuppress(minSdkVersion=26)
-    @Test
-    public void downloadOffset() {
-        mockServer.enqueue("imagery_offset");
+    void startMode() {
         TestUtils.zoomToLevel(device, main, 18);
         try {
             BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
             App.getLogic().getViewBox().setBorders(map, bbox);
             map.setViewBox(App.getLogic().getViewBox());
-            map.invalidate();
+            map.invalidate();      
             try {
                 Thread.sleep(5000); // NOSONAR
             } catch (InterruptedException e) {
             }
+            main.invalidateOptionsMenu();
         } catch (OsmException e) {
             Assert.fail(e.getMessage());
         }
@@ -185,6 +166,25 @@ public class OffsetModeTest {
             TestUtils.clickOverflowButton(device);
             TestUtils.clickText(device, false, "Tools", true);
         }
+        if (!TestUtils.findText(device, false, "Align background")) {
+            // retry
+            device.pressBack();
+            device.waitForWindowUpdate(null, 2000);
+            if (!TestUtils.clickMenuButton(device, "Tools", false, true)) {
+                TestUtils.clickOverflowButton(device);
+                TestUtils.clickText(device, false, "Tools", true);
+            }
+        }
+    }
+
+    /**
+     * Start offset mode and download a offset
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void downloadOffset() {
+        mockServer.enqueue("imagery_offset");
+        startMode();
         Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
         TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();

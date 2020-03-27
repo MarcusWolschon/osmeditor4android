@@ -119,7 +119,7 @@ public class UndoRedoTest {
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.set), true));
         Assert.assertEquals(OsmElement.STATE_MODIFIED, node.getState());
         Assert.assertEquals((long) (8.3878100 * 1E7D), node.getLon());
-
+        TestUtils.unlock(device);
         // start undo redo dialog and undo
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), true, true));
         Assert.assertTrue(TestUtils.findText(device, false, "Checkpoints", 5000));
