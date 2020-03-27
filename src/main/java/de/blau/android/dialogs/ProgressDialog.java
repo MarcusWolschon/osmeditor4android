@@ -1,11 +1,12 @@
 package de.blau.android.dialogs;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.core.graphics.BlendModeColorFilterCompat;
+import androidx.core.graphics.BlendModeCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -93,8 +94,8 @@ public final class ProgressDialog {
         message.setText(messageId);
         ProgressBar progressBar = (ProgressBar) layout.findViewById(R.id.progressBar);
         if (progressBar.getIndeterminateDrawable() != null) {
-            PorterDuff.Mode mode = android.graphics.PorterDuff.Mode.SRC_IN;
-            progressBar.getIndeterminateDrawable().setColorFilter(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), mode);
+            progressBar.getIndeterminateDrawable().setColorFilter(BlendModeColorFilterCompat
+                    .createBlendModeColorFilterCompat(ThemeUtils.getStyleAttribColorValue(ctx, R.attr.colorAccent, 0), BlendModeCompat.SRC_IN));
         }
         builder.setView(layout);
 

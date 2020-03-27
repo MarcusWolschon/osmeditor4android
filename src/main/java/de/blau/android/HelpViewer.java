@@ -19,13 +19,14 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.core.graphics.BlendModeColorFilterCompat;
+import androidx.core.graphics.BlendModeCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
@@ -346,7 +347,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             item.setEnabled(canGoForward);
             item.setIcon(ThemeUtils.getResIdFromAttribute(this, rtl ? R.attr.menu_back : R.attr.menu_forward));
             if (!canGoForward) {
-                item.getIcon().mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                item.getIcon().mutate().setColorFilter(BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.GRAY, BlendModeCompat.SRC_IN));
             }
         }
         return true;

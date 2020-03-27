@@ -9,15 +9,9 @@ import java.util.Map.Entry;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -35,6 +29,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.BlendModeColorFilterCompat;
+import androidx.core.graphics.BlendModeCompat;
 import de.blau.android.R;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
@@ -250,7 +251,8 @@ public abstract class URLListEditActivity extends ListActivity
      */
     void changeBackgroundColor(@Nullable TextView textView, int colorRes) {
         if (textView != null && textView.getBackground() != null) {
-            textView.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, colorRes), PorterDuff.Mode.SRC_ATOP);
+            textView.getBackground().mutate().setColorFilter(
+                    BlendModeColorFilterCompat.createBlendModeColorFilterCompat(ContextCompat.getColor(this, colorRes), BlendModeCompat.SRC_ATOP));
         }
     }
 
@@ -567,10 +569,6 @@ public abstract class URLListEditActivity extends ListActivity
         public ListItem(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
-
-        // public ListItem(Context context, AttributeSet attrs, int defStyle) {
-        // super(context, attrs, defStyle);
-        // }
 
         @Override
         protected void onFinishInflate() {
