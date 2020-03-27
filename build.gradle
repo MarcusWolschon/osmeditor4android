@@ -394,7 +394,6 @@ afterEvaluate{
 ext {
     okHttpVersion = "3.12.2" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
     signpostVersion = "1.2.1.2"
-    androidxVersion = "1.0.0"
     acraVersion = "5.4.0"
     mapboxVersion = "4.5.0"
 }
@@ -402,14 +401,16 @@ ext {
 dependencies {
     implementation ("ch.acra:acra-http:$acraVersion") { exclude group: 'com.android.support' }
     implementation ("ch.acra:acra-dialog:$acraVersion") { exclude group: 'com.android.support' }
-    implementation "androidx.appcompat:appcompat:$androidxVersion"
-    implementation "androidx.recyclerview:recyclerview:$androidxVersion"
-    implementation "androidx.preference:preference:$androidxVersion"
-    implementation "com.google.android.material:material:$androidxVersion"
-    implementation "androidx.annotation:annotation:$androidxVersion"
-    implementation "androidx.core:core:$androidxVersion"
-    implementation "androidx.exifinterface:exifinterface:$androidxVersion"
-    implementation "androidx.legacy:legacy-preference-v14:$androidxVersion"
+    // android support and other libraries
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.preference:preference:1.1.0"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation "androidx.annotation:annotation:1.1.0"
+    implementation "androidx.core:core:1.2.0"
+    implementation "androidx.exifinterface:exifinterface:1.1.0"
+    implementation "androidx.legacy:legacy-preference-v14:1.0.0"
+    //
     implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
     implementation "com.nononsenseapps:filepicker:4.2.1"
     implementation "oauth.signpost:signpost-core:$signpostVersion"
@@ -513,7 +514,7 @@ spoon {
     noAnimations = false
     adbTimeout = 5
     codeCoverage = true
-    shard = false
+    shard = true
     singleInstrumentationCall = true
     ignoreFailures = true
     clearAppDataBeforeEachTest = true
