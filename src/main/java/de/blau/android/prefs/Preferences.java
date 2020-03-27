@@ -65,7 +65,7 @@ public class Preferences {
     private final boolean autoApplyPreset;
     private final boolean closeChangesetOnSave;
     private final boolean splitActionBarEnabled;
-    private final String  gpsSource;
+    private String        gpsSource;
     private final String  gpsTcpSource;
     private String        offsetServer;
     private final String  osmoseServer;
@@ -503,6 +503,16 @@ public class Preferences {
      */
     public String getGpsSource() {
         return gpsSource;
+    }
+
+    /**
+     * Set the GPS/GNSS source to use
+     * 
+     * @param sourceRes the string resource id of the source
+     */
+    public void setGpsSource(int sourceRes) {
+        gpsSource = r.getString(sourceRes);
+        prefs.edit().putString(r.getString(R.string.config_gps_source_key), gpsSource).commit();
     }
 
     /**

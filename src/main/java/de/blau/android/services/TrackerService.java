@@ -805,7 +805,7 @@ public class TrackerService extends Service implements Exportable {
      * 
      * @param sentence the NMEA sentence including checksum
      */
-    private void processNmeaSentance(@NonNull String sentence) {
+    private void processNmeaSentence(@NonNull String sentence) {
         boolean posUpdate = false;
         try {
             if (sentence.length() > 9) { // everything shorter is invalid
@@ -820,7 +820,6 @@ public class TrackerService extends Service implements Exportable {
                     if (receivedChecksum == checksum) {
                         String talker = withoutChecksum.substring(0, 2);
                         String s = withoutChecksum.substring(2, 5);
-
                         double lat = Double.NaN;
                         double lon = Double.NaN;
                         // double hdop = Double.NaN; currently unused
@@ -1199,7 +1198,7 @@ public class TrackerService extends Service implements Exportable {
     class OldNmeaListener implements NmeaListener { // NOSONAR
         @Override
         public void onNmeaReceived(long timestamp, String nmea) {
-            processNmeaSentance(nmea);
+            processNmeaSentence(nmea);
         }
     }
 
@@ -1207,7 +1206,7 @@ public class TrackerService extends Service implements Exportable {
     class NewNmeaListener implements OnNmeaMessageListener {
         @Override
         public void onNmeaMessage(String message, long timestamp) {
-            processNmeaSentance(message);
+            processNmeaSentence(message);
         }
     }
 }
