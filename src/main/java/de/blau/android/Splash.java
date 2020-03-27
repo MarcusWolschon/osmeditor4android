@@ -83,13 +83,10 @@ public class Splash extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 if (newInstall || newConfig) {
                     AssetManager assetManager = getAssets();
-                    KeyDatabaseHelper keys = new KeyDatabaseHelper(Splash.this);
-                    try {
+                    try (KeyDatabaseHelper keys = new KeyDatabaseHelper(Splash.this)) {
                         keys.keysFromStream(assetManager.open(Files.FILE_NAME_KEYS));
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Error reading keys file " + e.getMessage());
-                    } finally {
-                        keys.close();
                     }
                 }
                 try {
