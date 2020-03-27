@@ -58,7 +58,7 @@
             android:key="@string/config_mapOrientation_key"
             android:summary="@string/config_map_orientation_summary"
             android:title="@string/config_map_orientation_title" />
-        <androidx.preference.CheckBoxPreferencee
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_showTolerance_key"
             android:summary="@string/config_showTolerance_summary"
