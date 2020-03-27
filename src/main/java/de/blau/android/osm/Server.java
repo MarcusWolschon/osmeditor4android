@@ -1155,7 +1155,6 @@ public class Server {
      * @throws IOException
      */
     public void diffUpload(final StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {
-        InputStream in = null;
         try {
             for (OsmElement elem : delegator.getApiStorage().getElements()) {
                 if (elem.state != OsmElement.STATE_DELETED) {
@@ -1182,8 +1181,6 @@ public class Server {
             processDiffUploadResult(delegator, response, xmlParserFactory.newPullParser());
         } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e1) {
             throw new OsmException(e1.getMessage());
-        } finally {
-            SavingHelper.close(in);
         }
     }
 
