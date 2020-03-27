@@ -105,9 +105,9 @@ public class NmeaTcpClientServer implements Runnable {
                         String line = input.readLine();
                         if (line != null) {
                             if (newListener == null) {
-                                oldListener.onNmeaReceived(-1, input.readLine());
+                                oldListener.onNmeaReceived(-1, line);
                             } else {
-                                newListener.onNmeaMessage(input.readLine(), -1);
+                                newListener.onNmeaMessage(line, -1);
                             }
                         } else {
                             NmeaTcpClient.closedMessage(handler);
