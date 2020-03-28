@@ -28,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
+import androidx.test.uiautomator.Configurator;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
@@ -377,12 +378,12 @@ public class TestUtils {
      * @param y screen y coordinate
      */
     public static void doubleClickAt(@NonNull UiDevice device, float x, float y) {
+        Configurator cc = Configurator.getInstance();
+        long defaultAckTimeout = cc.getActionAcknowledgmentTimeout();
+        cc.setActionAcknowledgmentTimeout(40);
         device.click((int) x, (int) y);
-        try {
-            Thread.sleep(100); // NOSONAR
-        } catch (InterruptedException e) {
-        }
         device.click((int) x, (int) y);
+        cc.setActionAcknowledgmentTimeout(defaultAckTimeout);
     }
 
     /**
