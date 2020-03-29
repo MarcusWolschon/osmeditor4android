@@ -100,9 +100,7 @@ public class SimpleActionsTest {
      */
     @After
     public void teardown() {
-        if (logic != null) {
-            logic.deselectAll();
-        }
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
         App.getTaskStorage().reset();
     }
@@ -110,7 +108,7 @@ public class SimpleActionsTest {
     /**
      * Create a new Node
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
@@ -132,7 +130,7 @@ public class SimpleActionsTest {
     /**
      * Create a new way from menu and clicks at two more locations and finishing via home button
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
@@ -163,7 +161,7 @@ public class SimpleActionsTest {
     /**
      * Create a new Note
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newBug() {
         map.getDataLayer().setVisible(true);

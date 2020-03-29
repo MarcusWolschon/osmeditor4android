@@ -89,14 +89,14 @@ public class WayTest {
      */
     @After
     public void teardown() {
-        logic.deselectAll();
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
     }
 
     /**
      * Select, show info dialog, delete (check that nodes are deleted), undelete
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void selectWay() {
         map.getDataLayer().setVisible(true);
@@ -155,7 +155,7 @@ public class WayTest {
     /**
      * Select, drag way handle, undo
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void geometryImprovement() {
         map.getDataLayer().setVisible(true);

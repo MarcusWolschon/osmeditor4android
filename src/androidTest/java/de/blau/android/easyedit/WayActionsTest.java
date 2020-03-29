@@ -100,9 +100,7 @@ public class WayActionsTest {
      */
     @After
     public void teardown() {
-        if (logic != null) {
-            logic.deselectAll();
-        }
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
         App.getTaskStorage().reset();
     }
@@ -110,7 +108,7 @@ public class WayActionsTest {
     /**
      * Create a new way from menu and clicks at two more locations and finishing via home button, then square
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void square() {
         map.getDataLayer().setVisible(true);
@@ -158,7 +156,7 @@ public class WayActionsTest {
     /**
      * Select, remove two nodes
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void removeNodeFromWay() {
         map.getDataLayer().setVisible(true);

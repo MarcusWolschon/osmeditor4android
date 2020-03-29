@@ -99,6 +99,7 @@ public class GpxTest {
     @After
     public void teardown() {
         if (main != null) {
+            TestUtils.stopEasyEdit(main);
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
         } else {

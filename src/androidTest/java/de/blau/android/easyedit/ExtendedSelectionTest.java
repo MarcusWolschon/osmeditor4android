@@ -83,7 +83,7 @@ public class ExtendedSelectionTest {
      */
     @After
     public void teardown() {
-        logic.deselectAll();
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
     }
 

@@ -725,7 +725,7 @@ public class TestUtils {
             bySelector = By.res(resourceId);
             uiSelector = new UiSelector().resourceId(resourceId);
         }
-        device.wait(Until.findObject(bySelector), 500);
+        device.wait(Until.findObject(bySelector), 5000);
         UiObject button = device.findObject(uiSelector);
         if (button.exists()) {
             try {

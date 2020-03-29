@@ -127,10 +127,10 @@ public class NmeaTest {
         // set min distance to 1m
         prefs.setGpsDistance(0);
 
+        main.invalidateOptionsMenu();
+
         TestUtils.zoomToLevel(device, main, 19);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
-
-        main.invalidateOptionsMenu();
 
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
