@@ -5,11 +5,12 @@ import java.util.List;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,18 +46,19 @@ public final class OAMCatalogView {
     public static void displayLayers(@NonNull final FragmentActivity activity, @NonNull final List<OAMCatalog.Entry> catalog, @Nullable final BoundingBox box,
             @Nullable final TileLayerDialog.OnUpdateListener updateListener) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        View layerListView = (View) LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
+        View layerListView = LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
         dialogBuilder.setTitle(R.string.oam_layer_title);
         dialogBuilder.setView(layerListView);
         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
 
         dialogBuilder.setNeutralButton(R.string.done, null);
-        final TileLayerDatabase db = new TileLayerDatabase(activity);
+
         dialogBuilder.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface arg0) {
-                TileLayerDatabaseView.resetLayer(activity, db.getReadableDatabase());
-                db.close();
+                try (final TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                    TileLayerDatabaseView.resetLayer(activity, db);
+                }
             }
         });
         final AlertDialog dialog = dialogBuilder.create();
@@ -66,11 +68,13 @@ public final class OAMCatalogView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 OAMCatalog.Entry entry = catalog.get(position);
-                TileLayerDialog.showLayerDialog(activity, db.getWritableDatabase(), entry, new TileLayerDialog.OnUpdateListener() {
+                TileLayerDialog.showLayerDialog(activity, entry, new TileLayerDialog.OnUpdateListener() {
                     @Override
                     public void update() {
                         dialog.dismiss();
-                        TileLayerDatabaseView.resetLayer(activity, db.getReadableDatabase());
+                        try (final TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                            TileLayerDatabaseView.resetLayer(activity, db);
+                        }
                         if (updateListener != null) {
                             updateListener.update();
                         }

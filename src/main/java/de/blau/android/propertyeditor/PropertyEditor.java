@@ -15,18 +15,18 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ActionMode;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerTabStrip;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -303,8 +303,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         ArrayList<LinkedHashMap<String, String>> tags = new ArrayList<>();
         originalTags = new ArrayList<>();
         for (PropertyEditorData aLoadData : loadData) {
-            originalTags.add((LinkedHashMap<String, String>) (aLoadData.originalTags != null ? aLoadData.originalTags : aLoadData.tags));
-            tags.add((LinkedHashMap<String, String>) aLoadData.tags);
+            originalTags.add(aLoadData.originalTags != null ? aLoadData.originalTags : aLoadData.tags);
+            tags.add(aLoadData.tags);
         }
 
         if (loadData.length == 1) { // for now no support of relations and form for multi-select
@@ -416,9 +416,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         Log.d(DEBUG_TAG, "onConfigurationChanged");
         Util.clearCaches(this, newConfig);
         super.onConfigurationChanged(newConfig);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            this.recreate();
-        }
+        this.recreate();
     }
 
     @Override

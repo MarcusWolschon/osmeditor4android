@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 

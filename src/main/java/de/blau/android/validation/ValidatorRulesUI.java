@@ -5,12 +5,12 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.PopupMenu;
+import androidx.annotation.NonNull;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.viewpager.widget.PagerTabStrip;
+import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -50,7 +50,7 @@ public class ValidatorRulesUI {
      */
     public void manageRulesetContents(@NonNull final Context context) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        View rulesetView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list, null);
+        View rulesetView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_list, null);
         ExtendedViewPager pager = (ExtendedViewPager) rulesetView.findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);
@@ -61,7 +61,8 @@ public class ValidatorRulesUI {
 
         alertDialog.setTitle(context.getString(R.string.validator_title, context.getString(R.string.default_)));
         alertDialog.setView(rulesetView);
-        final SQLiteDatabase writableDb = new ValidatorRulesDatabaseHelper(context).getWritableDatabase();
+        final ValidatorRulesDatabaseHelper vrDb = new ValidatorRulesDatabaseHelper(context); // NOSONAR will be closed when dismissed
+        final SQLiteDatabase writableDb = vrDb.getWritableDatabase();
         ListView resurveyList = (ListView) rulesetView.findViewById(R.id.listViewResurvey);
         resurveyCursor = ValidatorRulesDatabase.queryResurveyByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
         resurveyAdapter = new ResurveyAdapter(writableDb, context, resurveyCursor);
@@ -76,6 +77,7 @@ public class ValidatorRulesUI {
             public void onDismiss(DialogInterface dialog) {
                 resurveyCursor.close();
                 writableDb.close();
+                vrDb.close();
             }
         });
         final FloatingActionButton fab = (FloatingActionButton) rulesetView.findViewById(R.id.add);
@@ -175,13 +177,12 @@ public class ValidatorRulesUI {
      */
     private void showResurveyDialog(@NonNull final Context context, @NonNull final SQLiteDatabase db, final boolean existing, final int id) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        View templateView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_resurvey_item, null);
+        View templateView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_resurvey_item, null);
         alertDialog.setView(templateView);
 
         final EditText keyEdit = (EditText) templateView.findViewById(R.id.resurvey_key);
         final EditText valueEdit = (EditText) templateView.findViewById(R.id.resurvey_value);
         final CheckBox regexpCheck = (CheckBox) templateView.findViewById(R.id.resurvey_is_regexp);
-        // final EditText daysEdit = (EditText) templateView.findViewById(R.id.resurvey_days);
         final NumberPicker daysPicker = (NumberPicker) templateView.findViewById(R.id.resurvey_days);
         if (existing) {
             Cursor cursor = db.rawQuery(ValidatorRulesDatabase.QUERY_RESURVEY_BY_ROWID, new String[] { Integer.toString(id) });
@@ -312,7 +313,7 @@ public class ValidatorRulesUI {
      */
     private void showCheckDialog(@NonNull final Context context, @NonNull final SQLiteDatabase db, final boolean existing, final int id) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        View templateView = (View) LayoutInflater.from(context).inflate(R.layout.validator_ruleset_check_item, null);
+        View templateView = LayoutInflater.from(context).inflate(R.layout.validator_ruleset_check_item, null);
         alertDialog.setView(templateView);
 
         final EditText keyEdit = (EditText) templateView.findViewById(R.id.check_key);

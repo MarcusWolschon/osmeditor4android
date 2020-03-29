@@ -3,7 +3,7 @@ package de.blau.android.util;
 import java.util.List;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 

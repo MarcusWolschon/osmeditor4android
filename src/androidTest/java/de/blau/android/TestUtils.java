@@ -24,17 +24,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.BySelector;
-import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObject2;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiScrollable;
-import android.support.test.uiautomator.UiSelector;
-import android.support.test.uiautomator.Until;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.test.uiautomator.By;
+import androidx.test.uiautomator.BySelector;
+import androidx.test.uiautomator.Configurator;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObject2;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiScrollable;
+import androidx.test.uiautomator.UiSelector;
+import androidx.test.uiautomator.Until;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -377,12 +378,12 @@ public class TestUtils {
      * @param y screen y coordinate
      */
     public static void doubleClickAt(@NonNull UiDevice device, float x, float y) {
+        Configurator cc = Configurator.getInstance();
+        long defaultAckTimeout = cc.getActionAcknowledgmentTimeout();
+        cc.setActionAcknowledgmentTimeout(40);
         device.click((int) x, (int) y);
-        try {
-            Thread.sleep(100); // NOSONAR
-        } catch (InterruptedException e) {
-        }
         device.click((int) x, (int) y);
+        cc.setActionAcknowledgmentTimeout(defaultAckTimeout);
     }
 
     /**
@@ -493,7 +494,7 @@ public class TestUtils {
             UiObject lock = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
             try {
                 lock.click();
-                device.waitForIdle();
+                device.waitForWindowUpdate(null, 1000);
             } catch (UiObjectNotFoundException e) {
                 Assert.fail(e.getMessage());
             }
@@ -724,7 +725,7 @@ public class TestUtils {
             bySelector = By.res(resourceId);
             uiSelector = new UiSelector().resourceId(resourceId);
         }
-        device.wait(Until.findObject(bySelector), 500);
+        device.wait(Until.findObject(bySelector), 5000);
         UiObject button = device.findObject(uiSelector);
         if (button.exists()) {
             try {

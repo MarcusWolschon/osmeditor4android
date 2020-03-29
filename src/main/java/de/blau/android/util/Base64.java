@@ -1,6 +1,6 @@
 package de.blau.android.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * -- 24.11.2008, (mb)

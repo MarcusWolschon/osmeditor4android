@@ -2,7 +2,7 @@ package de.blau.android.listener;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.Main;
 
 /**

@@ -23,9 +23,8 @@ import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.OnScanCompletedListener;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -418,9 +417,6 @@ public class SavingHelper<T extends Serializable> {
      */
     @TargetApi(11)
     private static void triggerMediaScanner(@NonNull Context context, @NonNull File scanfile) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            return; // API 11 - lower versions do not have MTP
-        }
         try {
             String path = scanfile.getCanonicalPath();
             Log.i(DEBUG_TAG, "Triggering media scan for " + path);

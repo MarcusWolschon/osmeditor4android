@@ -1,6 +1,6 @@
 package de.blau.android.propertyeditor;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import de.blau.android.osm.OsmElement.ElementType;
 
 /**

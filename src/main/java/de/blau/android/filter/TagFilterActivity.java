@@ -7,11 +7,11 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v7.app.ActionBar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.appcompat.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -58,10 +58,11 @@ public class TagFilterActivity extends ListActivity {
 
     private static final String QUERY = "SELECT rowid as _id, active, include, type, key, value FROM filterentries WHERE filter = '";
 
-    private String           filter          = null;
-    private SQLiteDatabase   db;
-    private Cursor           tagFilterCursor = null;
-    private TagFilterAdapter filterAdapter;
+    private String                  filter          = null;
+    private TagFilterDatabaseHelper tfDb;
+    private SQLiteDatabase          db;
+    private Cursor                  tagFilterCursor = null;
+    private TagFilterAdapter        filterAdapter;
 
     private class ViewHolder {
         int      id;
@@ -104,7 +105,8 @@ public class TagFilterActivity extends ListActivity {
             filterParam = savedInstanceState.getString(FILTER_KEY);
         }
         filter = filterParam;
-        db = new TagFilterDatabaseHelper(this).getWritableDatabase();
+        tfDb = new TagFilterDatabaseHelper(this);
+        db = tfDb.getWritableDatabase();
         tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
         filterAdapter = new TagFilterAdapter(this, tagFilterCursor);
 
@@ -150,7 +152,12 @@ public class TagFilterActivity extends ListActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        db.close();
+        if (db != null) {
+            db.close();
+        }
+        if (tfDb != null) {
+            tfDb.close();
+        }
     }
 
     /**
@@ -258,7 +265,7 @@ public class TagFilterActivity extends ListActivity {
      */
     private void update(@NonNull ViewHolder vh) {
         Log.d(DEBUG_TAG, "saving contents for id " + vh.id);
-        updateRow(vh.id, filter, vh.active.isChecked(), "+".equals((String) vh.mode.getSelectedItem()), vh.type.getSelectedItemPosition(),
+        updateRow(vh.id, filter, vh.active.isChecked(), "+".equals(vh.mode.getSelectedItem()), vh.type.getSelectedItemPosition(),
                 vh.keyView.getText().toString(), vh.valueView.getText().toString());
     }
 

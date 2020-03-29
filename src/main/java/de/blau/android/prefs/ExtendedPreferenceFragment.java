@@ -1,23 +1,23 @@
 package de.blau.android.prefs;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
-import android.support.v7.preference.Preference.OnPreferenceChangeListener;
+import androidx.preference.MultiSelectListPreference;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.ListPreference;
+import androidx.preference.MultiSelectListPreferenceDialogFragmentCompat;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.Preference.OnPreferenceChangeListener;
 import android.util.Log;
 import ch.poole.android.numberpickerpreference.NumberPickerPreference;
 import ch.poole.android.numberpickerpreference.NumberPickerPreferenceFragment;
 import de.blau.android.R;
-import de.blau.android.prefs.MultiSelectListPreferenceDialogFragment;
 import de.blau.android.util.Snack;
 
 public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompat {
 
-    protected static final String DEBUG_TAG = "ExtendedPreferenceFragment";
+    protected static final String DEBUG_TAG = "ExtendedPref...Frag..";
 
     @Override
     public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
@@ -30,7 +30,7 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
             fragment.setTargetFragment(this, 0);
             fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.LOGINDATA");
         } else if (preference instanceof MultiSelectListPreference) {
-            fragment = MultiSelectListPreferenceDialogFragment.newInstance(preference.getKey());
+            fragment = MultiSelectListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
             fragment.setTargetFragment(this, 0);
             fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
         } else if (preference instanceof NumberPickerPreference) {

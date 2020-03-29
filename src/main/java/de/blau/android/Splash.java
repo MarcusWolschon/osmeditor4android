@@ -10,10 +10,9 @@ import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import de.blau.android.contract.Files;
 import de.blau.android.dialogs.Progress;
@@ -61,7 +60,7 @@ public class Splash extends AppCompatActivity {
                 try {
                     lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI);
                 } catch (SQLiteException sex) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && sex instanceof SQLiteDatabaseLockedException) {
+                    if (sex instanceof SQLiteDatabaseLockedException) {
                         Log.e(DEBUG_TAG, "tile layer database is locked");
                         cancel(true);
                     }
@@ -84,13 +83,10 @@ public class Splash extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 if (newInstall || newConfig) {
                     AssetManager assetManager = getAssets();
-                    KeyDatabaseHelper keys = new KeyDatabaseHelper(Splash.this);
-                    try {
+                    try (KeyDatabaseHelper keys = new KeyDatabaseHelper(Splash.this)) {
                         keys.keysFromStream(assetManager.open(Files.FILE_NAME_KEYS));
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Error reading keys file " + e.getMessage());
-                    } finally {
-                        keys.close();
                     }
                 }
                 try {

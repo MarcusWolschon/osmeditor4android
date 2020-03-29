@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public final class DateFormatter {
 

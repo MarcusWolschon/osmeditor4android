@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.presets.ValueWithCount;
 
 @SuppressWarnings("NullableProblems")

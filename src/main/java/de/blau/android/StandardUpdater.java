@@ -1,6 +1,6 @@
 package de.blau.android;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.filter.Filter;
 
 public class StandardUpdater implements Filter.Update {

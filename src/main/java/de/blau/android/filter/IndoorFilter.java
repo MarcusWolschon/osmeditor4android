@@ -4,7 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

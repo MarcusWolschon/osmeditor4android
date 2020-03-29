@@ -5,10 +5,9 @@ import java.util.Map;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.InputType;
-import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -168,9 +167,6 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         ourKeyView.setText(hint != null ? hint : key);
         ourKeyView.setTag(key);
         final CustomAutoCompleteTextView ourValueView = row.getValueView();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
-            ourValueView.setEllipsize(TruncateAt.END);
-        }
 
         if (field instanceof PresetTextField) {
             final int length = ((PresetTextField) field).length();

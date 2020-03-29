@@ -11,10 +11,10 @@ import java.util.regex.Pattern;
 import com.google.openlocationcode.OpenLocationCode;
 import com.google.openlocationcode.OpenLocationCode.CodeArea;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import android.util.Log;
 import android.widget.EditText;
 import de.blau.android.App;
@@ -171,15 +171,16 @@ public class CoordinatesOrOLC {
      */
     @Nullable
     private static String getNominatimUrl(@NonNull final FragmentActivity activity) {
-        AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity);
-        final Geocoder[] geocoders = db.getActiveGeocoders();
-        String url = null;
-        for (Geocoder g : geocoders) {
-            if (g.type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
-                url = g.url;
-                break;
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+            final Geocoder[] geocoders = db.getActiveGeocoders();
+            String url = null;
+            for (Geocoder g : geocoders) {
+                if (g.type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
+                    url = g.url;
+                    break;
+                }
             }
+            return url;
         }
-        return url;
     }
 }

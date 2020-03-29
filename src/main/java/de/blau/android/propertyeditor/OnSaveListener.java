@@ -1,6 +1,6 @@
 package de.blau.android.propertyeditor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Generic interface to use when a tag needs to be saved by a callback

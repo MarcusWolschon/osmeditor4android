@@ -40,11 +40,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -387,7 +387,7 @@ public class Logic {
         }
         Mode oldMode = this.mode;
         this.mode = mode;
-        Main.onEditModeChanged();
+        main.updateActionbarEditMode();
         main.getMap().deselectObjects();
         deselectAll();
         oldMode.teardown(main, this);
@@ -590,7 +590,7 @@ public class Logic {
         getDelegator().getUndo().createCheckpoint(r.getString(stringId));
         getDelegator().recordImagery(map);
         if (firstCheckpoint && activity instanceof AppCompatActivity) {
-            ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
+            ((AppCompatActivity) activity).invalidateOptionsMenu();
         }
     }
 
@@ -719,7 +719,7 @@ public class Logic {
         map.setViewBox(viewBox);
         DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
         invalidateMap();
-        activity.supportInvalidateOptionsMenu();
+        activity.invalidateOptionsMenu();
     }
 
     /**
@@ -2516,7 +2516,7 @@ public class Logic {
                     }
                     invalidateMap();
                 }
-                activity.supportInvalidateOptionsMenu();
+                activity.invalidateOptionsMenu();
             }
         }.execute(add);
     }
@@ -3458,7 +3458,7 @@ public class Logic {
                         invalidateMap();
                     }
                     // this updates the Undo icon if present
-                    activity.supportInvalidateOptionsMenu();
+                    activity.invalidateOptionsMenu();
                     if (result == READ_BACKUP) {
                         Snack.barError(activity, R.string.toast_used_backup);
                     }
@@ -3625,7 +3625,7 @@ public class Logic {
             if (map != null) {
                 invalidateMap();
             }
-            activity.supportInvalidateOptionsMenu();
+            activity.invalidateOptionsMenu();
             if (result == READ_BACKUP) {
                 Snack.barError(activity, R.string.toast_used_backup);
             }
@@ -3738,7 +3738,7 @@ public class Logic {
                     save(activity); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
                     Snack.barInfo(activity, R.string.toast_upload_success);
                     getDelegator().clearUndo(); // only clear on successful upload
-                    activity.supportInvalidateOptionsMenu();
+                    activity.invalidateOptionsMenu();
                 }
                 activity.getCurrentFocus().invalidate();
                 if (!activity.isFinishing()) {

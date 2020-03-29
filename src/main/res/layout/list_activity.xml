@@ -22,7 +22,7 @@
                android:text="@string/empty_list"
                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"
         android:visibility="gone"
         android:layout_width="wrap_content"

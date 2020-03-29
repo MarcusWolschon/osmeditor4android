@@ -40,9 +40,9 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.R;
@@ -509,7 +509,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 sb.append((char) cp);
             }
         } catch (OutOfMemoryError oom) {
-            sb = null; // might or might not work
             Snack.toastTopError(ctx, R.string.out_of_memory_title);
             Log.e(DEBUG_TAG, "Out of memory error " + oom.getMessage());
             return false;

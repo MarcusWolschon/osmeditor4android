@@ -23,8 +23,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.HapticFeedbackConstants;
@@ -226,7 +226,7 @@ public class SplitPaneLayout extends ViewGroup {
                         temp.offset((x - lastX), 0);
                         break;
                     case ORIENTATION_VERTICAL:
-                        temp.offset(0, (int) (y - lastY));
+                        temp.offset(0, y - lastY);
                         break;
                     }
                     lastX = x;

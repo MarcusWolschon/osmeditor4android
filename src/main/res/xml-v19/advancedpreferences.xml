@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/config_advancedprefs">
-    <android.support.v7.preference.PreferenceScreen
+    <androidx.preference.PreferenceScreen
         android:key="config_category_view"
         android:title="@string/config_category_view"
         android:summary="@string/config_category_view_summary">
-        <CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:title="@string/config_iconbutton_title"
             android:key="@string/config_showIcons_key"
             android:summary="@string/config_iconbutton_summary"
             android:defaultValue="true" />
-        <CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:title="@string/config_showWayIcons_title"
             android:key="@string/config_showWayIcons_key"
             android:summary="@string/config_showWayIcons_summary"
             android:defaultValue="true" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_tagFormEnabled_key"
             android:summary="@string/config_tagFormEnabled_summary"
             android:title="@string/config_tagFormEnabled_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_showCameraAction_key"
             android:summary="@string/config_showCameraAction_summary"
             android:title="@string/config_showCameraAction_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_useInternalPhotoViewer_key"
             android:summary="@string/config_useInternalPhotoViewer_summary"
             android:title="@string/config_useInternalPhotoViewer_title" />
-        <android.support.v7.preference.ListPreference
+        <androidx.preference.ListPreference
             android:defaultValue="@string/follow_GPS_left"
             android:entries="@array/followGPSbutton_entries"
             android:entryValues="@array/followGPSbutton_values"
             android:key="@string/config_followGPSbutton_key"
             android:summary="@string/config_followGPSbutton_summary"
             android:title="@string/config_followGPSbutton_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_alwaysDrawBoundingBoxes_key"
             android:summary="@string/config_alwaysDrawBoundingBoxes_summary"
             android:title="@string/config_alwaysDrawBoundingBoxes_title" />
-        <android.support.v7.preference.ListPreference
+        <androidx.preference.ListPreference
             android:defaultValue="@string/full_screen_auto"
             android:entries="@array/full_screen_preference_entries"
             android:entryValues="@array/full_screen_preference_values"
             android:key="@string/config_fullscreenMode_key"
             android:summary="@string/config_fullscreenMode_summary"
             android:title="@string/config_fullscreenMode_title" />
-        <android.support.v7.preference.ListPreference
+        <androidx.preference.ListPreference
             android:defaultValue="@string/map_orientation_auto"
             android:entries="@array/map_orientation_entries"
             android:entryValues="@array/map_orientation_values"
             android:key="@string/config_mapOrientation_key"
             android:summary="@string/config_map_orientation_summary"
             android:title="@string/config_map_orientation_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_showTolerance_key"
             android:summary="@string/config_showTolerance_summary"
             android:title="@string/config_showTolerance_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_use_back_for_undo_key"
             android:summary="@string/config_use_back_for_undo_summary"
             android:title="@string/config_use_back_for_undo_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableLightTheme_key"
             android:summary="@string/config_enableLightTheme_summary"
             android:title="@string/config_enableLightTheme_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_splitActionBarEnabled_key"
             android:summary="@string/config_splitActionBarEnabled_summary"
@@ -100,7 +100,7 @@
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_autoLockDelay_current"
             app:spt_setWrapSelectorWheel="false" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableAntiAliasing_key"
             android:summary="@string/config_enableAntiAliasing_summary"
@@ -116,39 +116,39 @@
             app:spt_minValue="8"
             app:spt_currentValueText="@string/config_maxStrokeWidth_current"
             app:spt_setWrapSelectorWheel="false" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_editing"
         android:title="@string/config_category_editing"
         android:summary="@string/config_category_editing_summary">
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_forceContextMenu_key"
             android:summary="@string/config_forceContextMenu_summary"
             android:title="@string/config_forceContextMenu_title" />
-        <android.support.v14.preference.MultiSelectListPreference
+        <androidx.preference.MultiSelectListPreference
             android:key="@string/config_addressTags_key"
             android:title="@string/config_address_tags"
             android:summary="@string/config_address_tags_summary"
             android:entries="@array/address_tags_entries"
             android:entryValues="@array/address_tags_values"
             android:defaultValue="@array/address_tags_defaults" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_autoApplyPreset_key"
             android:summary="@string/config_autoApplyPreset_summary"
             android:title="@string/config_autoApplyPreset_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableNameSuggestions_key"
             android:summary="@string/config_enableNameSuggestions_summary"
             android:title="@string/config_enableNameSuggestions_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableNameSuggestionsPresets_key"
             android:summary="@string/config_enableNameSuggestionsPresets_summary"
             android:title="@string/config_enableNameSuggestionsPresets_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_generateAlerts_key"
             android:summary="@string/config_generateAlerts_summary"
@@ -176,7 +176,7 @@
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_maxAlertDistance_current"
             app:spt_setWrapSelectorWheel="false" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_closeChangesetOnSave_key"
             android:summary="@string/config_closeChangesetOnSave_summary"
@@ -193,13 +193,13 @@
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_orthogonalizeThreshold_current"
             app:spt_setWrapSelectorWheel="false" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_autoformatPhoneNumbers_key"
             android:summary="@string/config_autoformatPhoneNumbers_summary"
             android:title="@string/config_autoformatPhoneNumbers_title" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_auto_download"
         android:title="@string/config_category_auto_download"
         android:summary="@string/config_category_auto_download_summary">
@@ -275,19 +275,19 @@
             app:spt_increment="5"
             app:spt_currentValueText="@string/config_downloadSpeed_current"
             app:spt_setWrapSelectorWheel="false" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_gps"
         android:title="@string/config_category_gps"
         android:summary="@string/config_category_gps_summary">
-        <android.support.v7.preference.ListPreference
+        <androidx.preference.ListPreference
             android:defaultValue="internal"
             android:entries="@array/gps_source"
             android:entryValues="@array/gps_source_keys"
             android:key="@string/config_gps_source_key"
             android:summary="@string/config_gps_source_summary"
             android:title="@string/config_gps_source_title" />
-        <android.support.v7.preference.EditTextPreference
+        <androidx.preference.EditTextPreference
             android:defaultValue="127.0.0.1:1958"
             android:dialogTitle="@string/config_gps_source_tcp_title"
             android:key="@string/config_gps_source_tcp_key"
@@ -317,12 +317,12 @@
             app:spt_minValue="1"
             app:spt_currentValueText="@string/config_gps_distance_current"
             app:spt_setWrapSelectorWheel="false" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_leaveGpsDisabled_key"
             android:summary="@string/config_leaveGpsDisabled_summary"
             android:title="@string/config_leaveGpsDisabled_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_gps_network_key"
             android:summary="@string/config_gps_network_summary"
@@ -337,40 +337,39 @@
             app:spt_minValue="1"
             app:spt_currentValueText="@string/config_gnssTimeToStale_current"
             app:spt_setWrapSelectorWheel="false" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_server"
         android:title="@string/config_category_server"
         android:summary="@string/config_category_server_summary">
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="@string/config_api_button_key"
             android:summary="@string/config_apibutton_summary"
-            android:title="@string/config_apibutton_title">
-        </android.support.v7.preference.Preference>
+            android:title="@string/config_apibutton_title" />
         <de.blau.android.prefs.LoginDataPreference
             android:dialogTitle="@string/config_loginbutton_title"
             android:key="@string/config_loginbutton_key"
             android:singleLine="true"
             android:summary="@string/config_username_summary"
             android:title="@string/config_loginbutton_title" />
-        <android.support.v7.preference.EditTextPreference
+        <androidx.preference.EditTextPreference
             android:defaultValue="https://offsets.textual.ru/"
             android:key="@string/config_offsetServer_key"
             android:summary="@string/config_offsetServer_summary"
             android:dialogMessage="@string/config_offsetServer_summary"
             android:title="@string/config_offsetServer_title" />
-        <android.support.v7.preference.EditTextPreference
+        <androidx.preference.EditTextPreference
             android:defaultValue="https://osmose.openstreetmap.fr/"
             android:key="@string/config_osmoseServer_key"
             android:summary="@string/config_osmoseServer_summary"
             android:dialogMessage="@string/config_osmoseServer_summary"
             android:title="@string/config_osmoseServer_title" />
-        <android.support.v7.preference.Preference
+        <androidx.preference.Preference
             android:key="@string/config_geocoder_button_key"
             android:summary="@string/config_geocoderbutton_summary"
             android:title="@string/config_geocoderbutton_title" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_layers"
         android:title="@string/config_category_layers"
         android:summary="@string/config_category_layers_summary">
@@ -397,39 +396,39 @@
             app:spt_increment="10"
             app:spt_currentValueText="@string/config_tileCache_current"
             app:spt_setWrapSelectorWheel="false" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_misc"
         android:title="@string/config_category_misc">
-        <CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="acra.enable"
             android:summaryOff="@string/pref_acra_disabled"
             android:summaryOn="@string/pref_acra_enabled"
             android:title="@string/pref_enable_acra" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_showStats_key"
             android:summary="@string/config_showStats_summary"
             android:title="@string/config_showStats_title" />
-    </android.support.v7.preference.PreferenceScreen>
-    <android.support.v7.preference.PreferenceScreen
+    </androidx.preference.PreferenceScreen>
+    <androidx.preference.PreferenceScreen
         android:key="config_category_experimental"
         android:title="@string/config_category_experimental">
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_js_console_key"
             android:summary="@string/config_js_console_summary"
             android:title="@string/config_js_console_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_voiceCommandsEnabled_key"
             android:summary="@string/config_voiceCommandsEnabled_summary"
             android:title="@string/config_voiceCommandsEnabled_title" />
-        <android.support.v7.preference.CheckBoxPreference
+        <androidx.preference.CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/config_enableHwAcceleration_key"
             android:summary="@string/config_enableHwAcceleration_summary"
             android:title="@string/config_enableHwAcceleration_title" />
-    </android.support.v7.preference.PreferenceScreen>
-</android.support.v7.preference.PreferenceScreen>
+    </androidx.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

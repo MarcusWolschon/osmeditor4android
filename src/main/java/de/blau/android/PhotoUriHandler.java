@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.contract.Ui;
 import de.blau.android.photos.Photo;
@@ -35,28 +35,29 @@ class PhotoUriHandler extends PostAsyncActionHandler {
     public void onSuccess() {
         try {
             Photo photo = new Photo(main, uri);
-            PhotoIndex pi = new PhotoIndex(main);
-            // check if this is an existing indexed photo
-            boolean exists = false;
-            Collection<Photo> existing = pi.getPhotos(photo.getBounds());
-            String displayName = SelectFile.getDisplaynameColumn(main, uri);
-            if (displayName != null) {
-                for (Photo p : existing) {
-                    if (displayName.equals(SelectFile.getDisplaynameColumn(main, p.getRefUri(main)))) {
-                        photo = p;
-                        exists = true;
-                        break;
+            try (PhotoIndex pi = new PhotoIndex(main)) {
+                // check if this is an existing indexed photo
+                boolean exists = false;
+                Collection<Photo> existing = pi.getPhotos(photo.getBounds());
+                String displayName = SelectFile.getDisplaynameColumn(main, uri);
+                if (displayName != null) {
+                    for (Photo p : existing) {
+                        if (displayName.equals(SelectFile.getDisplaynameColumn(main, p.getRefUri(main)))) {
+                            photo = p;
+                            exists = true;
+                            break;
+                        }
                     }
                 }
-            }
-            if (!exists) {
-                int intentFlags = main.getIntent().getFlags();
-                if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) {
-                    Log.d(DEBUG_TAG, "Persisting permissions for " + uri);
-                    main.getContentResolver().takePersistableUriPermission(uri, intentFlags);
-                    pi.addPhoto(photo);
-                } else { // can't persist, add just to the in memory index
-                    PhotoIndex.addToIndex(photo);
+                if (!exists) {
+                    int intentFlags = main.getIntent().getFlags();
+                    if ((intentFlags & Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION) != 0) {
+                        Log.d(DEBUG_TAG, "Persisting permissions for " + uri);
+                        main.getContentResolver().takePersistableUriPermission(uri, intentFlags);
+                        pi.addPhoto(photo);
+                    } else { // can't persist, add just to the in memory index
+                        PhotoIndex.addToIndex(photo);
+                    }
                 }
             }
             main.setFollowGPS(false);
@@ -70,7 +71,7 @@ class PhotoUriHandler extends PostAsyncActionHandler {
             map.getViewBox().moveTo(map, photo.getLon(), photo.getLat());
             map.invalidate();
         } catch (NumberFormatException | IOException e) {
-            Log.e(DEBUG_TAG,e.getMessage());
+            Log.e(DEBUG_TAG, e.getMessage());
             Snack.toastTopError(main, main.getString(R.string.toast_error_accessing_photo, uri));
         }
     }

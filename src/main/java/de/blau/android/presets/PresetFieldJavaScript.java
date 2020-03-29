@@ -1,6 +1,6 @@
 package de.blau.android.presets;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public interface PresetFieldJavaScript {
 

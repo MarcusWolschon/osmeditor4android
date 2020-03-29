@@ -1,7 +1,7 @@
 package de.blau.android.prefs;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Data structure class for API data

@@ -2,7 +2,7 @@ package de.blau.android.net;
 
 import java.io.IOException;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;

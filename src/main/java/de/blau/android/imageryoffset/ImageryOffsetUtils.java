@@ -5,9 +5,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.osm.ViewBox;
@@ -40,43 +41,43 @@ public final class ImageryOffsetUtils {
             Log.d(DEBUG_TAG, "applyImageryOffsets tileServerConfig is null");
             return;
         }
-        ImageryOffsetDatabase offsetDb = new ImageryOffsetDatabase(ctx);
-        List<ImageryOffset> offsets = ImageryOffsetDatabase.getOffsets(offsetDb.getReadableDatabase(), tileServerConfig.getImageryOffsetId());
-        double centerLat = 0D;
-        double centerLon = 0D;
-        if (bbox != null) {
-            centerLat = bbox.getCenterLat();
-            centerLon = (bbox.getLeft() + bbox.getWidth() / 2d) / 1E7d;
-        }
-        if (!tileServerConfig.isMetadataLoaded()) {
-            Log.e(DEBUG_TAG, "Meta-data for " + tileServerConfig + " not loaded");
-            return;
-        }
-        boolean appliedOffset = false;
-        for (ImageryOffset offset : offsets) {
+        try (ImageryOffsetDatabase offsetDb = new ImageryOffsetDatabase(ctx); SQLiteDatabase db = offsetDb.getReadableDatabase()) {
+            List<ImageryOffset> offsets = ImageryOffsetDatabase.getOffsets(db, tileServerConfig.getImageryOffsetId());
+            double centerLat = 0D;
+            double centerLon = 0D;
             if (bbox != null) {
-                double distance = GeoMath.haversineDistance(centerLon, centerLat, offset.getLon(), offset.getLat());
-                Log.d(DEBUG_TAG,
-                        "applyImageryOffsets distance is " + distance + " " + centerLon + " " + centerLat + " " + offset.getLon() + " " + offset.getLat());
-                if (distance > MAX_OFFSET_DISTANCE) {
-                    Log.d(DEBUG_TAG, "not applying");
-                    continue;
+                centerLat = bbox.getCenterLat();
+                centerLon = (bbox.getLeft() + bbox.getWidth() / 2d) / 1E7d;
+            }
+            if (!tileServerConfig.isMetadataLoaded()) {
+                Log.e(DEBUG_TAG, "Meta-data for " + tileServerConfig + " not loaded");
+                return;
+            }
+            boolean appliedOffset = false;
+            for (ImageryOffset offset : offsets) {
+                if (bbox != null) {
+                    double distance = GeoMath.haversineDistance(centerLon, centerLat, offset.getLon(), offset.getLat());
+                    Log.d(DEBUG_TAG,
+                            "applyImageryOffsets distance is " + distance + " " + centerLon + " " + centerLat + " " + offset.getLon() + " " + offset.getLat());
+                    if (distance > MAX_OFFSET_DISTANCE) {
+                        Log.d(DEBUG_TAG, "not applying");
+                        continue;
+                    }
+                }
+                double deltaLon = offset.getLon() - offset.getImageryLon();
+                double deltaLat = offset.getLat() - offset.getImageryLat();
+                for (int z = offset.getMinZoom(); z <= offset.getMaxZoom(); z++) {
+                    Offset oldOffset = tileServerConfig.getOffset(z);
+                    if (oldOffset == null || oldOffset.getDeltaLon() != deltaLon || oldOffset.getDeltaLat() != deltaLat) {
+                        tileServerConfig.setOffset(z, deltaLon, deltaLat);
+                        appliedOffset = true;
+                    }
                 }
             }
-            double deltaLon = offset.getLon() - offset.getImageryLon();
-            double deltaLat = offset.getLat() - offset.getImageryLat();
-            for (int z = offset.getMinZoom(); z <= offset.getMaxZoom(); z++) {
-                Offset oldOffset = tileServerConfig.getOffset(z);
-                if (oldOffset == null || oldOffset.getDeltaLon() != deltaLon || oldOffset.getDeltaLat() != deltaLat) {
-                    tileServerConfig.setOffset(z, deltaLon, deltaLat);
-                    appliedOffset = true;
+            if (bbox != null && appliedOffset) {
+                if (Looper.myLooper() != null) {
+                    Snack.toastTopInfo(ctx, R.string.toast_applied_offset);
                 }
-            }
-        }
-        offsetDb.close();
-        if (bbox != null && appliedOffset) {
-            if (Looper.myLooper() != null) {
-                Snack.toastTopInfo(ctx, R.string.toast_applied_offset);
             }
         }
     }

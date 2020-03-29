@@ -32,9 +32,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Authorize;
@@ -1155,7 +1155,6 @@ public class Server {
      * @throws IOException
      */
     public void diffUpload(final StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {
-        InputStream in = null;
         try {
             for (OsmElement elem : delegator.getApiStorage().getElements()) {
                 if (elem.state != OsmElement.STATE_DELETED) {
@@ -1182,8 +1181,6 @@ public class Server {
             processDiffUploadResult(delegator, response, xmlParserFactory.newPullParser());
         } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e1) {
             throw new OsmException(e1.getMessage());
-        } finally {
-            SavingHelper.close(in);
         }
     }
 

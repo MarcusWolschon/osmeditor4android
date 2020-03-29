@@ -11,12 +11,11 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils.TruncateAt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -126,7 +125,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @SuppressWarnings("unchecked")
@@ -502,10 +501,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             row = (RelationMemberRow) inflater.inflate(R.layout.relation_member_downloaded_row, membersVerticalLayout, false);
         } else {
             row = (RelationMemberRow) inflater.inflate(R.layout.relation_member_row, membersVerticalLayout, false);
-        }
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
-            row.roleEdit.setEllipsize(TruncateAt.END);
         }
 
         row.setValues(getActivity(), pos, rmd, c);

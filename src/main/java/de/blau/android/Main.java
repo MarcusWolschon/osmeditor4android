@@ -39,20 +39,20 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.view.ActionMode;
-import android.support.v7.widget.ActionMenuView;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.view.MenuItemCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -234,7 +234,7 @@ public class Main extends FullScreenAppCompatActivity
                 if (getEasyEditManager().isProcessingAction()) {
                     getEasyEditManager().invalidate();
                 } else {
-                    supportInvalidateOptionsMenu();
+                    invalidateOptionsMenu();
                 }
             }
         }
@@ -380,7 +380,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Optional bottom toolbar
      */
-    private android.support.v7.widget.ActionMenuView bottomBar = null;
+    private androidx.appcompat.widget.ActionMenuView bottomBar = null;
 
     /**
      * Layer control
@@ -451,11 +451,6 @@ public class Main extends FullScreenAppCompatActivity
     private static final float LARGE_FAB_ELEVATION = 16; // used for renabling elevation on the FABs
 
     /**
-     * While the activity is fully active (between onResume and onPause), this stores the currently active instance
-     */
-    private static Main runningInstance;
-
-    /**
      * {@inheritDoc}
      */
     @SuppressLint("NewApi")
@@ -512,11 +507,7 @@ public class Main extends FullScreenAppCompatActivity
         map.setOnTouchListener(mapTouchListener);
         map.setOnCreateContextMenuListener(mapTouchListener);
         map.setOnKeyListener(new MapKeyListener());
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) { // 12
-                                                                     // upwards
-            map.setOnGenericMotionListener(new MotionEventListener());
-        }
+        map.setOnGenericMotionListener(new MotionEventListener());
 
         mapLayout.addView(map, 0); // index 0 so that anything in the layout
                                    // comes after it/on top
@@ -608,7 +599,7 @@ public class Main extends FullScreenAppCompatActivity
         setSupportActionBar(toolbar);
 
         if (prefs.splitActionBarEnabled()) {
-            setBottomBar((android.support.v7.widget.ActionMenuView) findViewById(R.id.bottomToolbar));
+            setBottomBar((androidx.appcompat.widget.ActionMenuView) findViewById(R.id.bottomToolbar));
         } else {
             findViewById(R.id.bottomBar).setVisibility(View.GONE);
         }
@@ -937,8 +928,6 @@ public class Main extends FullScreenAppCompatActivity
         if (getTracker() != null) {
             getTracker().setListener(Main.this);
         }
-
-        runningInstance = this;
 
         map.setKeepScreenOn(prefs.isKeepScreenOnEnabled());
         scheduleAutoLock();
@@ -1339,7 +1328,6 @@ public class Main extends FullScreenAppCompatActivity
     protected void onPause() {
         descheduleAutoLock();
         Log.d(DEBUG_TAG, "onPause mode " + App.getLogic().getMode());
-        runningInstance = null;
         try {
             unregisterReceiver(connectivityChangedReceiver);
         } catch (Exception e) {
@@ -1358,15 +1346,6 @@ public class Main extends FullScreenAppCompatActivity
         App.getLogic().saveEditingState(this);
         // save tag clipboard
         App.getTagClipboard(this).save(this);
-        // onPause is the last lifecycle callback guaranteed to be called on
-        // pre-honeycomb devices
-        // on honeycomb and later, onStop is also guaranteed to be called, so we
-        // can defer saving.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            saveData();
-            App.getMruTags().save(this);
-        }
-
         super.onPause();
     }
 
@@ -1374,13 +1353,8 @@ public class Main extends FullScreenAppCompatActivity
     protected void onStop() {
         Log.d(DEBUG_TAG, "onStop");
         // editing state has been saved in onPause
-
-        // On devices with Android versions before Honeycomb, we already save
-        // data in onPause
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            saveData();
-            App.getMruTags().save(this);
-        }
+        saveData();
+        App.getMruTags().save(this);
         super.onStop();
     }
 
@@ -1584,7 +1558,7 @@ public class Main extends FullScreenAppCompatActivity
                     ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
                     disableSimpleActionsButton();
                 }
-                onEditModeChanged();
+                updateActionbarEditMode();
                 map.invalidate();
             }
         });
@@ -1625,7 +1599,7 @@ public class Main extends FullScreenAppCompatActivity
                                 } else {
                                     ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
                                 }
-                                onEditModeChanged();
+                                updateActionbarEditMode();
                                 return true;
                             }
                         });
@@ -1675,20 +1649,10 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Force update any UI elements that are mode dependent
      */
-    private synchronized void updateActionbarEditMode() {
+    synchronized void updateActionbarEditMode() {
         Log.d(DEBUG_TAG, "updateActionbarEditMode");
         setLock(App.getLogic().getMode());
-        supportInvalidateOptionsMenu();
-    }
-
-    /**
-     * Static version to avoid calling the actual method on a non-existing instance
-     */
-    public static void onEditModeChanged() {
-        Log.d(DEBUG_TAG, "onEditModeChanged");
-        if (runningInstance != null) {
-            runningInstance.updateActionbarEditMode();
-        }
+        invalidateOptionsMenu();
     }
 
     BottomBarClickListener bottomBarListener;
@@ -1828,11 +1792,6 @@ public class Main extends FullScreenAppCompatActivity
                 .setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
 
         menu.findItem(R.id.menu_simple_actions).setChecked(prefs.areSimpleActionsEnabled());
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            // will run out of memory on old Android versions
-            menu.findItem(R.id.menu_tools_update_imagery_configuration).setVisible(false);
-        }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT || !BuildConfig.FLAVOR.equals(Flavors.CURRENT)) {
             // the library providing the UI is not supported under SDK 15, in reality 15 doesn't work
@@ -2462,8 +2421,9 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
             if (server.getOAuth()) {
-                AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this);
-                prefdb.setAPIAccessToken(null, null);
+                try (AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this)) {
+                    prefdb.setAPIAccessToken(null, null);
+                }
             } else {
                 Snack.barError(this, R.string.toast_oauth_not_enabled);
             }
@@ -2808,10 +2768,10 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // reindexPhotos();
             if (imageFile != null) {
-                PhotoIndex pi = new PhotoIndex(this);
-                pi.addPhoto(imageFile);
+                try (PhotoIndex pi = new PhotoIndex(this)) {
+                    pi.addPhoto(imageFile);
+                }
                 if (prefs.isPhotoLayerEnabled()) {
                     map.invalidate();
                 }
@@ -2936,7 +2896,7 @@ public class Main extends FullScreenAppCompatActivity
             // button
             // for visual feedback reasons we leave selected elements selected
             // (tag edit mode)
-            supportInvalidateOptionsMenu();
+            invalidateOptionsMenu();
             if (easyEditManager != null) {
                 easyEditManager.invalidate();
             }
@@ -3953,45 +3913,43 @@ public class Main extends FullScreenAppCompatActivity
                         updateZoomControls();
                         return true;
                     default:
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            Character c = Character.toLowerCase((char) event.getUnicodeChar());
-                            if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
-                                logic.zoom(Logic.ZOOM_IN);
-                                updateZoomControls();
-                                return true;
-                            } else if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
-                                logic.zoom(Logic.ZOOM_OUT);
-                                updateZoomControls();
-                                return true;
-                            }
-                            if (event.isCtrlPressed()) {
-                                // get rid of Ctrl key
-                                char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
-                                // menu based shortcuts don't seem to work (anymore) so we do this on foot
-                                if (getEasyEditManager().isProcessingAction()) {
-                                    if (getEasyEditManager().processShortcut(shortcut)) {
-                                        return true;
-                                    }
-                                } else if (logic.getMode().elementsSelectable()) {
-                                    if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
-                                        HelpViewer.start(Main.this, R.string.help_main);
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
-                                        Main.this.undoListener.onClick(null);
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
-                                        Main.this.toggleFollowGPS();
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
-                                        Main.this.gotoCurrentLocation();
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
-                                        Main.this.onMenuDownloadCurrent(true);
-                                        return true;
-                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
-                                        Main.this.downLoadBugs(map.getViewBox().copy());
-                                        return true;
-                                    }
+                        Character c = Character.toLowerCase((char) event.getUnicodeChar());
+                        if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
+                            logic.zoom(Logic.ZOOM_IN);
+                            updateZoomControls();
+                            return true;
+                        } else if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_out)) {
+                            logic.zoom(Logic.ZOOM_OUT);
+                            updateZoomControls();
+                            return true;
+                        }
+                        if (event.isCtrlPressed()) {
+                            // get rid of Ctrl key
+                            char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
+                            // menu based shortcuts don't seem to work (anymore) so we do this on foot
+                            if (getEasyEditManager().isProcessingAction()) {
+                                if (getEasyEditManager().processShortcut(shortcut)) {
+                                    return true;
+                                }
+                            } else if (logic.getMode().elementsSelectable()) {
+                                if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
+                                    HelpViewer.start(Main.this, R.string.help_main);
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
+                                    Main.this.undoListener.onClick(null);
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
+                                    Main.this.toggleFollowGPS();
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
+                                    Main.this.gotoCurrentLocation();
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
+                                    Main.this.onMenuDownloadCurrent(true);
+                                    return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
+                                    Main.this.downLoadBugs(map.getViewBox().copy());
+                                    return true;
                                 }
                             }
                         }
@@ -4144,7 +4102,7 @@ public class Main extends FullScreenAppCompatActivity
 
     @Override
     public void onStateChanged() {
-        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     /**
@@ -4152,7 +4110,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void triggerMenuInvalidation() {
         Log.d(DEBUG_TAG, "triggerMenuInvalidation called");
-        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
         if (easyEditManager != null && easyEditManager.isProcessingAction()) {
             easyEditManager.invalidate();
         }
@@ -4315,14 +4273,14 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * @return the bottomToolbar
      */
-    public android.support.v7.widget.ActionMenuView getBottomBar() {
+    public androidx.appcompat.widget.ActionMenuView getBottomBar() {
         return bottomBar;
     }
 
     /**
      * @param bottomBar the bottomToolbar to set
      */
-    private void setBottomBar(android.support.v7.widget.ActionMenuView bottomBar) {
+    private void setBottomBar(androidx.appcompat.widget.ActionMenuView bottomBar) {
         MenuUtil.setupBottomBar(this, bottomBar, isFullScreen(), prefs.lightThemeEnabled());
         this.bottomBar = bottomBar;
     }

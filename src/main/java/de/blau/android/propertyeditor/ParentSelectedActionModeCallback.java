@@ -1,8 +1,8 @@
 package de.blau.android.propertyeditor;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.view.ActionMode;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.view.ActionMode;
 import android.view.Menu;
 import android.widget.LinearLayout;
 import de.blau.android.R;

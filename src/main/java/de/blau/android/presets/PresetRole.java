@@ -2,8 +2,8 @@ package de.blau.android.presets;
 
 import java.util.Locale;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;

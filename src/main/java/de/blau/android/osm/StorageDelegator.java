@@ -22,8 +22,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -380,7 +380,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                     imageryRecorded = true;
                 }
             } catch (Exception ignored) { // never fail on anything here
+                // IGNORE
             } catch (Error ignored) {
+                // IGNORE
             }
         }
     }

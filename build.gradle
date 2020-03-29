@@ -11,12 +11,12 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.6.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.1'
         classpath 'org.jacoco:org.jacoco.core:0.8.5'
         classpath "ch.poole:preset-utils:0.13.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.4'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.0'
         classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
     }
 }
@@ -25,7 +25,7 @@ plugins {
     id "de.undercouch.download" version "4.0.4"
     id "org.sonarqube" version "2.8"
     id "net.ltgt.apt" version "0.21"
-    id "com.github.ben-manes.versions" version "0.21.0"
+    id "com.github.ben-manes.versions" version "0.28.0"
 }
 import de.undercouch.gradle.tasks.download.Download
 
@@ -39,6 +39,7 @@ allprojects {
         jcenter()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
         mavenLocal()
+        google()
         //        		flatDir {
         //                	dirs 'lib'
         //            	}
@@ -53,11 +54,6 @@ apply plugin: 'ch.poole.gradle.markdown'
 apply plugin: 'jacoco'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'com.jaredsburrows.spoon'
-
-ext {
-    adb = android.getAdbExe().toString()
-    private_assets = "$projectDir/../private_assets"
-}
 
 markdownToHtml {
     sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help')
@@ -97,16 +93,6 @@ task updateImagery(type: Download) {
 }
 updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
-
-task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
-    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
-}
-
-task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
-    commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
-}
-updateTaginfoJson.group = 'vespucci'
-updateTaginfoJson.description = 'Update the taginfo.json file from test device'
 
 task update3rdPartyDocs() {
 }
@@ -228,30 +214,29 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
     updateSynonyms.dependsOn name
 }
 
-task enableFreeform(type: Exec) {
-    commandLine adb, 'shell', 'settings', 'put', 'global', 'enable_freeform_support', '1'
-}
-enableFreeform.group = 'emulators'
-enableFreeform.description = 'turn on free form window support'
-
-apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3-flavors'
-// apply from: '../gradle-tasks/eclipse-android-3-flavors'
+apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3.6-flavors'
+// apply from: '../gradle-tasks/eclipse-android-3.6-flavors'
 
 sonarqube {
     // we've not converted to Java 8 source yet, so analyse as for 7/1.7
     properties {
         property "sonar.java.source","1.7"
         property "sonar.sourceEncoding","UTF-8"
-        property "sonar.java.binaries", "build/intermediates/javac/currentDebug/compileCurrentDebugJavaWithJavac/classes"
+        property "sonar.java.binaries", "build/intermediates/app_classes/currentDebug/classes.jar"
         property "sonar.coverage.jacoco.xmlReportPaths","build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
     }
 }
 
+ext {
+    private_assets = "$projectDir/../private_assets"
+}
+    
 android {
+    
     defaultConfig {
         versionCode project.getVersionCode()
         versionName "${project.getVersionName()}"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         def reporter = System.getenv('VESPUCCI_REPORTER')
         if (reporter == null) {
             reporter = "";
@@ -275,7 +260,7 @@ android {
     }
 
     // this, unluckily, cannot be set per flavour
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     // Specifies one flavor dimension.
     flavorDimensions "api"
@@ -283,18 +268,10 @@ android {
         current {
             dimension "api"
             minSdkVersion 14
-            targetSdkVersion 28
+            targetSdkVersion 29
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "content_provider", "de.blau.android.provider"
-        }
-       legacy {
-            dimension "api"
-            minSdkVersion 9
-            targetSdkVersion 25
-            applicationIdSuffix ".legacy"
-            versionNameSuffix "-legacy"
-            resValue "string", "content_provider", "de.blau.android.legacy.provider"
         }
     }
 
@@ -318,7 +295,7 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
-
+    
     sourceSets {
         main.assets.srcDirs += files("$private_assets".toString())
     }
@@ -329,20 +306,41 @@ android {
     }
 }
 
-android.applicationVariants.all { variant ->
-    task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-        description "Generates Javadoc for $variant.name."
-        group "Documentation"
-        source = variant.javaCompile.source
-        classpath = files(variant.javaCompile.classpath.files) + files(android.bootClasspath) + files(variant.javaCompile.destinationDir)
-        options.links("http://docs.oracle.com/javase/7/docs/api/");
-        options.links("http://d.android.com/reference/");
-        exclude '**/BuildConfig.java'
-        exclude '**/R.java'
-    }
+ext {
+    adb = android.getAdbExe().toString()
 }
 
+task enableFreeform(type: Exec) {
+    commandLine adb, 'shell', 'settings', 'put', 'global', 'enable_freeform_support', '1'
+}
+enableFreeform.group = 'emulators'
+enableFreeform.description = 'turn on free form window support'
+
+task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
+    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
+}
+
+task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
+    commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
+}
+updateTaginfoJson.group = 'vespucci'
+updateTaginfoJson.description = 'Update the taginfo.json file from test device'
+
+
 afterEvaluate{
+    android.applicationVariants.all { variant ->
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+            description "Generates Javadoc for $variant.name."
+            group "Documentation"
+            source = variant.javaCompile.source
+            classpath = files(variant.javaCompile.classpath.files) + files(android.bootClasspath) + files(variant.javaCompile.destinationDir)
+            options.links("http://docs.oracle.com/javase/7/docs/api/");
+            options.links("http://d.android.com/reference/");
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+        }
+    }
+
     // these tasks needs to be created after the uninstall tasks
 
     // hardwired single test, this is only needed during initial developement, once the whole test suite has been run
@@ -396,33 +394,24 @@ afterEvaluate{
 ext {
     okHttpVersion = "3.12.2" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
     signpostVersion = "1.2.1.2"
-    supportLibVersion = "28.0.0"
-    legacySupportLibVersion = "25.3.1"
     acraVersion = "5.4.0"
     mapboxVersion = "4.5.0"
 }
 
 dependencies {
-    currentImplementation ("ch.acra:acra-http:$acraVersion") { exclude group: 'com.android.support' }
-    currentImplementation ("ch.acra:acra-dialog:$acraVersion") { exclude group: 'com.android.support' }
-    currentImplementation "com.android.support:appcompat-v7:$supportLibVersion"
-    currentImplementation "com.android.support:recyclerview-v7:$supportLibVersion"
-    currentImplementation "com.android.support:preference-v7:$supportLibVersion"
-    currentImplementation "com.android.support:design:$supportLibVersion"
-    currentImplementation "com.android.support:support-annotations:$supportLibVersion"
-    currentImplementation "com.android.support:support-compat:$supportLibVersion"
-    currentImplementation "com.android.support:exifinterface:$supportLibVersion"
-    currentImplementation "com.android.support:preference-v14:$supportLibVersion"
-    currentImplementation 'com.heinrichreimersoftware:android-issue-reporter:1.3.1'
-    legacyImplementation ("ch.acra:acra-http:5.0.2") { exclude group: 'com.android.support' }
-    legacyImplementation ("ch.acra:acra-dialog:5.0.2") { exclude group: 'com.android.support' }
-    legacyImplementation "com.android.support:appcompat-v7:$legacySupportLibVersion"
-    legacyImplementation "com.android.support:recyclerview-v7:$legacySupportLibVersion"
-    legacyImplementation "com.android.support:preference-v7:$legacySupportLibVersion"
-    legacyImplementation "com.android.support:design:$legacySupportLibVersion"
-    legacyImplementation ("com.android.support:support-annotations:$legacySupportLibVersion") { force = true }
-    legacyImplementation "com.android.support:support-compat:$legacySupportLibVersion"
-    legacyImplementation "com.android.support:exifinterface:$legacySupportLibVersion"
+    implementation ("ch.acra:acra-http:$acraVersion") { exclude group: 'com.android.support' }
+    implementation ("ch.acra:acra-dialog:$acraVersion") { exclude group: 'com.android.support' }
+    // android support and other libraries
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.preference:preference:1.1.0"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation "androidx.annotation:annotation:1.1.0"
+    implementation "androidx.core:core:1.2.0"
+    implementation "androidx.exifinterface:exifinterface:1.1.0"
+    implementation "androidx.legacy:legacy-preference-v14:1.0.0"
+    //
+    implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
     implementation "com.nononsenseapps:filepicker:4.2.1"
     implementation "oauth.signpost:signpost-core:$signpostVersion"
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
@@ -437,13 +426,13 @@ dependencies {
     implementation "org.mozilla:rhino:1.7.11"
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:$mapboxVersion"
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
-    implementation 'com.pavelsikun:vintage-chroma:1.5'
+    implementation 'com.github.Kunzisoft:AndroidClearChroma:2.3'
     implementation "ch.poole:PoParser:0.7.2"
     implementation "ch.poole:OpeningHoursParser:0.21.1"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
-    implementation "ch.poole:OpeningHoursFragment:0.7.0"
+    implementation "ch.poole:OpeningHoursFragment:0.8.0"
     implementation 'ch.poole.android:numberpicker:1.0.9'
-    implementation 'ch.poole.android:numberpickerpreference:1.0.1'
+    implementation 'ch.poole.android:numberpickerpreference:2.0.0'
     implementation "ch.poole.osm:JosmFilterParser:0.2.0"
     implementation 'de.westnordost:countryboundaries:1.5'
     implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
@@ -461,16 +450,15 @@ dependencies {
     testImplementation 'net.sf.kxml:kxml2:2.3.0'
 
     // Instrumentation tests
-    androidTestImplementation "com.android.support.test:runner:1.0.2"
-    androidTestLegacyImplementation ("com.android.support:support-annotations:$legacySupportLibVersion") { force = true }
-    androidTestImplementation "com.android.support.test:rules:1.0.2"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
     androidTestImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
-    androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:2.1.3"
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation "com.squareup.spoon:spoon-client:2.0.0-SNAPSHOT"
 }
 
@@ -504,7 +492,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     description = "Generate Jacoco coverage reports"
 
     classDirectories = fileTree(
-            dir: 'build/intermediates/app_classes/currentDebug/packageAppClassesCurrentDebug/',
+            dir: 'build/intermediates/app_classes/currentDebug/',
             excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*'])
 
     additionalSourceDirs = files(coverageSourceDirs)
@@ -531,7 +519,7 @@ spoon {
     ignoreFailures = true
     clearAppDataBeforeEachTest = true
     // set these for individual text execution
-    // className = "de.blau.android.services.MapTileProviderServiceTest"
+    // className = "de.blau.android.imageryoffset.OffsetModeTest"
     // methodName = "..."
 }
 

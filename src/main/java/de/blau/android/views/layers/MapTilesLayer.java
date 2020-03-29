@@ -18,9 +18,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -554,7 +554,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         int screenLeft = (int) GeoMath.lonE7ToX(w, osmv.getViewBox(), (int) ((west + lonOffset) * 1E7));
 
         // calculate here to avoid rounding differences
-        int tileWidth = 1 + (int) Math.floor((double) (east - west) * 1E7 * w / osmv.getViewBox().getWidth());
+        int tileWidth = 1 + (int) Math.floor((east - west) * 1E7D * w / osmv.getViewBox().getWidth());
 
         int screenTop = (int) GeoMath.latE7ToY(h, w, osmv.getViewBox(), (int) ((north + latOffset) * 1E7));
         int screenBottom = squareTiles ? screenTop + tileWidth

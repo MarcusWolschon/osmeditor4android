@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.services.util.MBTileProviderDataBase;

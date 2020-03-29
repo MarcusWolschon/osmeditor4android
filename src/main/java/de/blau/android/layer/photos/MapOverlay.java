@@ -11,11 +11,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.PostAsyncActionHandler;
@@ -79,7 +78,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
      */
     private boolean enabled = false;
 
-    /** last selected photo, may not be stil displayed */
+    /** last selected photo, may not be still displayed */
     private Photo selected = null;
 
     /**
@@ -264,7 +263,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
             Uri photoUri = photo.getRefUri(context);
             if (photoUri != null) {
                 Preferences prefs = map.getPrefs();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH && prefs.useInternalPhotoViewer()) {
+                if (prefs.useInternalPhotoViewer()) {
                     ArrayList<String> uris = new ArrayList<>();
                     int position = 0;
                     for (int i = 0; i < photos.size(); i++) {

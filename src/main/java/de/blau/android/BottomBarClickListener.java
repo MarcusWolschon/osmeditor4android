@@ -2,7 +2,7 @@ package de.blau.android;
 
 import java.io.Serializable;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -13,7 +13,7 @@ import android.view.MenuItem;
  * @author simon
  *
  */
-public class BottomBarClickListener implements android.support.v7.widget.ActionMenuView.OnMenuItemClickListener, Serializable {
+public class BottomBarClickListener implements androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener, Serializable {
     private static final long serialVersionUID = 1L;
     transient Main            main;
 

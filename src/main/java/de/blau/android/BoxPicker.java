@@ -12,9 +12,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -175,50 +175,51 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
         // the following shares a lot of code with SearchForm, but is unluckily slightly different
         final Spinner searchGeocoder = (Spinner) findViewById(R.id.location_search_geocoder);
-        AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
-        final Geocoder[] geocoders = db.getActiveGeocoders();
-        String[] geocoderNames = new String[geocoders.length];
-        for (int i = 0; i < geocoders.length; i++) {
-            geocoderNames[i] = geocoders[i].name;
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, geocoderNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        searchGeocoder.setAdapter(adapter);
-        int geocoderIndex = prefs.getGeocoder();
-        // if a non-active geocoder is selected revert to default
-        if (geocoderIndex > adapter.getCount() - 1) {
-            geocoderIndex = 0;
-            prefs.setGeocoder(geocoderIndex);
-        }
-        searchGeocoder.setSelection(geocoderIndex);
-        searchGeocoder.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-                prefs.setGeocoder(pos);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(this)) {
+            final Geocoder[] geocoders = db.getActiveGeocoders();
+            String[] geocoderNames = new String[geocoders.length];
+            for (int i = 0; i < geocoders.length; i++) {
+                geocoderNames[i] = geocoders[i].name;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // required by OnItemSelectedListener but not needed
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, geocoderNames);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            searchGeocoder.setAdapter(adapter);
+            int geocoderIndex = prefs.getGeocoder();
+            // if a non-active geocoder is selected revert to default
+            if (geocoderIndex > adapter.getCount() - 1) {
+                geocoderIndex = 0;
+                prefs.setGeocoder(geocoderIndex);
             }
-        });
-
-        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH
-                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    Search search = new Search(BoxPicker.this, null, BoxPicker.this);
-                    search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), null, false);
-                    return true;
+            searchGeocoder.setSelection(geocoderIndex);
+            searchGeocoder.setOnItemSelectedListener(new OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+                    prefs.setGeocoder(pos);
                 }
-                return false;
-            }
-        });
 
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setTitle(title);
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    // required by OnItemSelectedListener but not needed
+                }
+            });
+
+            searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH
+                            || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                        Search search = new Search(BoxPicker.this, null, BoxPicker.this);
+                        search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), null, false);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            ActionBar actionbar = getSupportActionBar();
+            actionbar.setDisplayHomeAsUpEnabled(true);
+            actionbar.setTitle(title);
+        }
     }
 
     @Override

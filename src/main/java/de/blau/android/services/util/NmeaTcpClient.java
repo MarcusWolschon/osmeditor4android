@@ -11,7 +11,7 @@ import android.location.GpsStatus.NmeaListener;
 import android.location.OnNmeaMessageListener;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.SavingHelper;
@@ -85,7 +85,7 @@ public class NmeaTcpClient implements Runnable {
     }
 
     @Override
-    @TargetApi(19)
+    @TargetApi(24)
     public void run() {
         boolean useOldListener = newListener == null;
         OutputStreamWriter osw = null;

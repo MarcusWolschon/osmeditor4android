@@ -5,16 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.location.GpsStatus;
 import android.location.GpsStatus.NmeaListener;
 import android.location.Location;
 import android.location.LocationListener;
@@ -32,11 +35,11 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -137,6 +140,9 @@ public class TrackerService extends Service implements Exportable {
     private long staleGPSMilli = 20000L;              // 20 seconds
     private long staleGPSNano  = staleGPSMilli * 1000;
 
+    private Method addNmeaListener    = null;
+    private Method removeNmeaListener = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -157,6 +163,15 @@ public class TrackerService extends Service implements Exportable {
             oldNmeaListener = new OldNmeaListener();
         } else {
             newNmeaListener = new NewNmeaListener();
+        }
+
+        // see https://issuetracker.google.com/issues/141019880
+        try {
+            // noinspection JavaReflectionMemberAccess
+            addNmeaListener = LocationManager.class.getMethod("addNmeaListener", GpsStatus.NmeaListener.class);
+            removeNmeaListener = LocationManager.class.getMethod("removeNmeaListener", GpsStatus.NmeaListener.class);
+        } catch (Exception e) { // NOSONAR
+            Log.e(DEBUG_TAG, "reflection didn't find addNmeaListener or removeNmeaListener " + e.getMessage());
         }
     }
 
@@ -185,8 +200,7 @@ public class TrackerService extends Service implements Exportable {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
             Log.e(DEBUG_TAG, "Received null intent"); //
-            return START_STICKY; // NOTE not clear how or if we should return an
-                                 // error here
+            return START_STICKY; // NOTE not clear how or if we should return an error here
         }
         if (intent.getBooleanExtra(TRACK_KEY, false)) {
             startTrackingInternal();
@@ -550,6 +564,7 @@ public class TrackerService extends Service implements Exportable {
      * If required initialize the Location sources and start updating
      */
     @SuppressWarnings("deprecation")
+    @TargetApi(24)
     private void updateGPSState() {
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
         if (needed && !gpsEnabled) {
@@ -627,7 +642,13 @@ public class TrackerService extends Service implements Exportable {
                             if (useNema) {
                                 source = GpsSource.NMEA;
                                 if (useOldNmea) {
-                                    locationManager.addNmeaListener(oldNmeaListener); // NOSONAR
+                                    if (addNmeaListener != null) {
+                                        try {
+                                            addNmeaListener.invoke(locationManager, oldNmeaListener);
+                                        } catch (Exception e) { // NOSONAR
+                                            // IGNORE
+                                        }
+                                    }
                                 } else {
                                     locationManager.addNmeaListener(newNmeaListener);
                                 }
@@ -660,7 +681,13 @@ public class TrackerService extends Service implements Exportable {
                 // can be safely ignored
             }
             if (useOldNmea) {
-                locationManager.removeNmeaListener(oldNmeaListener); // NOSONAR
+                if (removeNmeaListener != null) {
+                    try {
+                        removeNmeaListener.invoke(locationManager, oldNmeaListener);
+                    } catch (Exception e) { // NOSONAR
+                        // IGNORE
+                    }
+                }
             } else {
                 locationManager.removeNmeaListener(newNmeaListener);
             }
@@ -746,7 +773,7 @@ public class TrackerService extends Service implements Exportable {
                         }
                         Snack.barError(activity, R.string.toast_file_not_found);
                     }
-                    activity.supportInvalidateOptionsMenu();
+                    activity.invalidateOptionsMenu();
                 } catch (IllegalStateException e) {
                     // Avoid crash if activity is paused
                     Log.e(DEBUG_TAG, "onPostExecute", e);
@@ -778,7 +805,7 @@ public class TrackerService extends Service implements Exportable {
      * 
      * @param sentence the NMEA sentence including checksum
      */
-    private void processNmeaSentance(@NonNull String sentence) {
+    private void processNmeaSentence(@NonNull String sentence) {
         boolean posUpdate = false;
         try {
             if (sentence.length() > 9) { // everything shorter is invalid
@@ -793,7 +820,6 @@ public class TrackerService extends Service implements Exportable {
                     if (receivedChecksum == checksum) {
                         String talker = withoutChecksum.substring(0, 2);
                         String s = withoutChecksum.substring(2, 5);
-
                         double lat = Double.NaN;
                         double lon = Double.NaN;
                         // double hdop = Double.NaN; currently unused
@@ -1172,7 +1198,7 @@ public class TrackerService extends Service implements Exportable {
     class OldNmeaListener implements NmeaListener { // NOSONAR
         @Override
         public void onNmeaReceived(long timestamp, String nmea) {
-            processNmeaSentance(nmea);
+            processNmeaSentence(nmea);
         }
     }
 
@@ -1180,7 +1206,7 @@ public class TrackerService extends Service implements Exportable {
     class NewNmeaListener implements OnNmeaMessageListener {
         @Override
         public void onNmeaMessage(String message, long timestamp) {
-            processNmeaSentance(message);
+            processNmeaSentence(message);
         }
     }
 }

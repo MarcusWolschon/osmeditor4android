@@ -9,7 +9,7 @@ import java.util.List;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
@@ -205,9 +205,10 @@ public class RemoteControlUrlActivity extends UrlActivity {
                     } catch (Exception e) {
                         // ignore
                     }
-                    final SQLiteDatabase db = new TileLayerDatabase(this).getWritableDatabase();
-                    TileLayerServer.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerServer.Provider(), null, minZoom, maxZoom,
-                            false, url);
+                    try (TileLayerDatabase tlDb = new TileLayerDatabase(this); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                        TileLayerServer.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerServer.Provider(), null, minZoom, maxZoom,
+                                false, url);
+                    }
                     prefs.setBackGroundLayer(id);
                     intent.setAction(Main.ACTION_UPDATE);
                     return true;

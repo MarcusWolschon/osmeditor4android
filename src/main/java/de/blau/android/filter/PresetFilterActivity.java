@@ -3,10 +3,10 @@ package de.blau.android.filter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +25,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.Snack;
 
 /**
- * Activity for editing filter entries. Due to the diffiulties in using a ListView for editable items, this is a rather
+ * Activity for editing filter entries. Due to the difficulties in using a ListView for editable items, this is a rather
  * hackish and inefficient, but given that we are only going to have a small number of items likely OK.
  * 
  * @author simon
@@ -64,6 +64,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         try {
             filter = (PresetFilter) App.getLogic().getFilter();
         } catch (ClassCastException ccex) {
+            // IGNORE
         }
         if (filter == null) {
             Snack.barError(this, "illegal state " + filter);
@@ -161,7 +162,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
                 currentGroup = rootGroup;
                 currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
                 presetView.invalidate();
-                supportInvalidateOptionsMenu();
+                invalidateOptionsMenu();
                 return true;
             }
             return true;
@@ -172,7 +173,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
                     currentGroup = group;
                     currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
                     presetView.invalidate();
-                    supportInvalidateOptionsMenu();
+                    invalidateOptionsMenu();
                     return true;
                 }
             }
@@ -224,7 +225,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         currentGroup = group;
         currentGroup.getGroupView(this, presetView, this, null, filter.getPresetElement(), null);
         presetView.invalidate();
-        supportInvalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     @Override

@@ -1,6 +1,6 @@
 package de.blau.android.osm;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 
 public interface StyleableFeature {

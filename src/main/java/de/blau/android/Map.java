@@ -21,9 +21,9 @@ import android.graphics.Region;
 import android.location.Location;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -194,9 +194,7 @@ public class Map extends View implements IMapView {
 
         iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     /**
@@ -571,7 +569,7 @@ public class Map extends View implements IMapView {
      * @return true if the canvas supports proper clipping with Op.DIFFERENCE
      */
     private boolean hasFullClippingSupport(Canvas c) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB /* && Build.VERSION.SDK_INT < 18 */ && mIsHardwareAccelerated != null) {
+        if (mIsHardwareAccelerated != null) {
             try {
                 return !(Boolean) mIsHardwareAccelerated.invoke(c, (Object[]) null);
             } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {

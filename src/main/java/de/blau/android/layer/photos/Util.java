@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.contract.MimeTypes;
 
 public final class Util {
@@ -27,7 +27,7 @@ public final class Util {
         int flags = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT;
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        } else {
             flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK;
         }
         myIntent.setFlags(flags);

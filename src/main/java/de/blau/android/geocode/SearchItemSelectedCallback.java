@@ -1,6 +1,6 @@
 package de.blau.android.geocode;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.geocode.Search.SearchResult;
 
 /**
