@@ -69,7 +69,7 @@ public class TileLayerDialog {
         final boolean existing = id > 0;
         final Preferences prefs = new Preferences(activity);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-        final View templateView = (View) LayoutInflater.from(activity).inflate(R.layout.layer_item, null);
+        final View templateView = LayoutInflater.from(activity).inflate(R.layout.layer_item, null);
         alertDialog.setView(templateView);
 
         final EditText nameEdit = (EditText) templateView.findViewById(R.id.name);
