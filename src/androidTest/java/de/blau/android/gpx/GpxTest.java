@@ -22,15 +22,15 @@ import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.LargeTest;
-import android.support.test.filters.SdkSuppress;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiSelector;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.filters.LargeTest;
+import androidx.test.filters.SdkSuppress;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -44,6 +44,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.Util;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
@@ -98,6 +99,7 @@ public class GpxTest {
     @After
     public void teardown() {
         if (main != null) {
+            TestUtils.stopEasyEdit(main);
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
         } else {
@@ -171,7 +173,6 @@ public class GpxTest {
         Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
 
-        Assert.assertEquals(trackSize, recordedTrack.size());
         compareTrack(track, recordedTrack);
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
@@ -290,20 +291,32 @@ public class GpxTest {
     }
 
     /**
-     * Check if two tracks are equal
+     * Check if two tracks are equal, ignores up to two missing points
      * 
      * @param track reference track
      * @param recordedTrack new track
      */
     private void compareTrack(Track track, List<TrackPoint> recordedTrack) {
-        Assert.assertEquals(track.getTrack().size(), recordedTrack.size());
+        List<TrackPoint> trackPoints = track.getTrackPoints();
+        int trackSize = trackPoints.size();
+        int recordedTrackSize = recordedTrack.size();
+        // compare with a bit of tolerance
+        Assert.assertTrue((recordedTrackSize >= (trackSize - 2)) && (recordedTrackSize <= trackSize));
         int i = 0;
-        for (TrackPoint tp : track.getTrackPoints()) {
-            TrackPoint recordedTrackPoint = recordedTrack.get(i);
+        int offset = 0;
+        TrackPoint trackPoint = trackPoints.get(0);
+        TrackPoint trackPoint2 = recordedTrack.get(0);
+        if (!Util.equals(trackPoint.getLatitude(), trackPoint2.getLatitude(), 0.000001)
+                || !Util.equals(trackPoint.getLongitude(), trackPoint2.getLongitude(), 0.000001)) {
+            i = 1;
+            offset = 1;
+        }
+        for (; i < Math.min(trackSize, recordedTrackSize); i++) {
+            TrackPoint tp = trackPoints.get(i);
+            TrackPoint recordedTrackPoint = recordedTrack.get(i - offset);
             Assert.assertEquals(tp.getLatitude(), recordedTrackPoint.getLatitude(), 0.000001);
             Assert.assertEquals(tp.getLongitude(), recordedTrackPoint.getLongitude(), 0.000001);
             Assert.assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(), 0.000001);
-            i++;
         }
     }
 }

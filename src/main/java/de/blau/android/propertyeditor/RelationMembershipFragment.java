@@ -9,12 +9,10 @@ import java.util.Set;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils.TruncateAt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -105,7 +103,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             throw new ClassCastException(context.toString() + " must implement PropertyEditorListener");
         }
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override
@@ -113,7 +111,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @SuppressWarnings("unchecked")
@@ -233,10 +231,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     private RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, @NonNull String elementType,
             int memberPos, final int position, boolean showSpinner) {
         RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
-            row.roleEdit.setEllipsize(TruncateAt.END);
-        }
 
         if (r != null) {
             row.setValues(role, r, elementType, memberPos);
@@ -409,7 +403,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                         counter.put(role, position++);
                     }
                 }
-                List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), owner.getElement(), ((EditorUpdate) owner).getKeyValueMapSingle(true));
+                List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), owner.getElement(), owner.getKeyValueMapSingle(true));
                 if (tempPresetRoles != null) {
                     Collections.sort(tempPresetRoles);
                     for (PresetRole presetRole : tempPresetRoles) {

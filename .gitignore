@@ -2,7 +2,6 @@
 .gradle/
 build/
 .gradletasknamecache
-gradle.properties
 
 
 # Eclipse

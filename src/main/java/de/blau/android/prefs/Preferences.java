@@ -10,9 +10,9 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.os.Build;
-import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -65,7 +65,7 @@ public class Preferences {
     private final boolean autoApplyPreset;
     private final boolean closeChangesetOnSave;
     private final boolean splitActionBarEnabled;
-    private final String  gpsSource;
+    private String        gpsSource;
     private final String  gpsTcpSource;
     private String        offsetServer;
     private final String  osmoseServer;
@@ -94,6 +94,8 @@ public class Preferences {
     private final int     orthogonalizeThreshold;
     private final boolean autoformatPhoneNumbers;
     private final int     gnssTimeToStale;
+    private final int     uploadOkLimit;
+    private final int     uploadWarnLimit;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -140,9 +142,7 @@ public class Preferences {
         maxBugDownloadSpeed = getIntPref(R.string.config_maxBugDownloadSpeed_key, 30);
 
         taskFilter = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            taskFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), taskFilter);
-        }
+        taskFilter = prefs.getStringSet(r.getString(R.string.config_bugFilter_key), taskFilter);
 
         isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
         isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
@@ -197,9 +197,7 @@ public class Preferences {
         lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), true);
 
         addressTags = new HashSet<>(Arrays.asList(r.getStringArray(R.array.address_tags_defaults)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
-        }
+        addressTags = prefs.getStringSet(r.getString(R.string.config_addressTags_key), addressTags);
 
         voiceCommandsEnabled = prefs.getBoolean(r.getString(R.string.config_voiceCommandsEnabled_key), false);
 
@@ -245,6 +243,9 @@ public class Preferences {
         autoformatPhoneNumbers = prefs.getBoolean(r.getString(R.string.config_autoformatPhoneNumbers_key), true);
 
         gnssTimeToStale = getIntPref(R.string.config_gnssTimeToStale_key, 60);
+
+        uploadOkLimit = getIntPref(R.string.config_uploadOk_key, 50);
+        uploadWarnLimit = getIntPref(R.string.config_uploadWarn_key, 200);
     }
 
     /**
@@ -510,6 +511,16 @@ public class Preferences {
     }
 
     /**
+     * Set the GPS/GNSS source to use
+     * 
+     * @param sourceRes the string resource id of the source
+     */
+    public void setGpsSource(int sourceRes) {
+        gpsSource = r.getString(sourceRes);
+        prefs.edit().putString(r.getString(R.string.config_gps_source_key), gpsSource).commit();
+    }
+
+    /**
      * Get the current GPS/GNSS tcp source
      * 
      * @return a String with the source name
@@ -652,13 +663,11 @@ public class Preferences {
      * @param tasks the tasks to use, if null the default setting will be set (all on)
      */
     public void setTaskFilter(@Nullable Set<String> tasks) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (tasks == null) {
-                tasks = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
-            }
-            taskFilter = tasks;
-            prefs.edit().putStringSet(r.getString(R.string.config_bugFilter_key), tasks).commit();
+        if (tasks == null) {
+            tasks = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
         }
+        taskFilter = tasks;
+        prefs.edit().putStringSet(r.getString(R.string.config_bugFilter_key), tasks).commit();
     }
 
     /**
@@ -1261,6 +1270,24 @@ public class Preferences {
      */
     public int getGnssTimeToStale() {
         return gnssTimeToStale;
+    }
+
+    /**
+     * Get the limit below which we don't show a warning
+     * 
+     * @return the number of elements we still consider OK to have a pending upload
+     */
+    public int getUploadOkLimit() {
+        return uploadOkLimit;
+    }
+
+    /**
+     * Get the limit below which we don't show an error
+     * 
+     * @return the number of elements we still consider to not be an error to have a pending upload
+     */
+    public int getUploadWarnLimit() {
+        return uploadWarnLimit;
     }
 
     /**

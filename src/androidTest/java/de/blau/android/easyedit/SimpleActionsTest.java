@@ -14,15 +14,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.LargeTest;
-import android.support.test.filters.SdkSuppress;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiSelector;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.filters.LargeTest;
+import androidx.test.filters.SdkSuppress;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -100,9 +100,7 @@ public class SimpleActionsTest {
      */
     @After
     public void teardown() {
-        if (logic != null) {
-            logic.deselectAll();
-        }
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
         App.getTaskStorage().reset();
     }
@@ -110,7 +108,7 @@ public class SimpleActionsTest {
     /**
      * Create a new Node
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
@@ -132,7 +130,7 @@ public class SimpleActionsTest {
     /**
      * Create a new way from menu and clicks at two more locations and finishing via home button
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
@@ -163,7 +161,7 @@ public class SimpleActionsTest {
     /**
      * Create a new Note
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newBug() {
         map.getDataLayer().setVisible(true);

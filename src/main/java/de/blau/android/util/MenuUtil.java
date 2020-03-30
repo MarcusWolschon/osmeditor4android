@@ -2,9 +2,9 @@ package de.blau.android.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.ActionMenuView;
+import androidx.annotation.NonNull;
+import androidx.core.view.MenuItemCompat;
+import androidx.appcompat.widget.ActionMenuView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;

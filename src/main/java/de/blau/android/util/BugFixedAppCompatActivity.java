@@ -2,8 +2,7 @@ package de.blau.android.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -23,9 +22,6 @@ public abstract class BugFixedAppCompatActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-        if (Build.VERSION.SDK_INT >= 11) {
-            return super.onCreateView(parent, name, context, attrs);
-        }
-        return null;
+        return super.onCreateView(parent, name, context, attrs);
     }
 }

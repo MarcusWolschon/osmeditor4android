@@ -1,7 +1,7 @@
 package de.blau.android.prefs;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import de.blau.android.R;
 
 /**

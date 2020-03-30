@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
@@ -84,10 +84,10 @@ public class BaseValidator implements Validator {
     private void init(@NonNull Context ctx) {
         // !!!! don't store ctx as that will cause a potential memory leak
         presets = App.getCurrentPresets(ctx);
-        SQLiteDatabase db = (new ValidatorRulesDatabaseHelper(ctx)).getReadableDatabase();
-        resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
-        checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
-        db.close();
+        try (ValidatorRulesDatabaseHelper vrDb = new ValidatorRulesDatabaseHelper(ctx); SQLiteDatabase db = vrDb.getReadableDatabase()) {
+            resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
+            checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
+        }
         cachedViewBox = null;
     }
 

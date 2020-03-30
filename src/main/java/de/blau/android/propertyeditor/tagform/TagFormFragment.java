@@ -20,15 +20,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -153,7 +152,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     context.toString() + " must implement OnPresetSelectedListener, NameAdapters, PropertyEditorListener, OnPresetSelectedListener");
         }
         setHasOptionsMenu(true);
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     @Override
@@ -605,7 +604,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 editableView1.setTitle(preset, false);
                 editableView1.setListeners(tagListener, this);
                 ll.addView(editableView1, pos++);
-                nonEditable = addTagsToViews(editableView1, preset, (LinkedHashMap<String, String>) nonEditable);
+                nonEditable = addTagsToViews(editableView1, preset, nonEditable);
             }
         } else {
             nonEditable = allTags;
@@ -936,7 +935,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             } else { // no preset here so we can only handle hardwired stuff specially
                 if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
                     rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, null, null, key, value, null, allTags));
-                } else if (Tags.OPENING_HOURS_SYNTAX.contains(key) && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                } else if (Tags.OPENING_HOURS_SYNTAX.contains(key)) {
                     // FIXME need at least SDK 12 for now
                     rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, null, null, key, value, null));
                 } else {
@@ -959,8 +958,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return true if the key has opening_hours semantics
      */
     public boolean isOpeningHours(@NonNull final String key, @NonNull ValueType valueType) {
-        return Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType
-                || ValueType.OPENING_HOURS_MIXED == valueType && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB;
+        return Tags.OPENING_HOURS_SYNTAX.contains(key) || ValueType.OPENING_HOURS == valueType || ValueType.OPENING_HOURS_MIXED == valueType;
     }
 
     /**

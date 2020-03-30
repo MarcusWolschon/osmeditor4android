@@ -535,3 +535,528 @@ spoon {
     // methodName = "..."
 }
 
+// Top-level build file where you can add
+// configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://dl.bintray.com/content/simonpoole/gradle' }
+        maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
+        google()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.0'
+        classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.1'
+        classpath 'org.jacoco:org.jacoco.core:0.8.5'
+        classpath "ch.poole:preset-utils:0.13.0"
+        classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.0'
+        classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
+    }
+}
+
+plugins {
+    id "de.undercouch.download" version "4.0.4"
+    id "org.sonarqube" version "2.8"
+    id "net.ltgt.apt" version "0.21"
+    id "com.github.ben-manes.versions" version "0.28.0"
+}
+import de.undercouch.gradle.tasks.download.Download
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://dl.bintray.com/content/simonpoole/div' }
+        maven { url 'https://dl.bintray.com/content/simonpoole/android' }
+        maven { url "https://maven.google.com" }
+        maven { url "https://jitpack.io" }
+        jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // For Spoon snapshot, until 2.0.0 is released
+        mavenLocal()
+        google()
+        //        		flatDir {
+        //                	dirs 'lib'
+        //            	}
+    }
+}
+
+// Project level build file starts here
+apply plugin: 'eclipse'
+apply plugin: 'com.android.application'
+apply plugin: "net.ltgt.apt"
+apply plugin: 'ch.poole.gradle.markdown'
+apply plugin: 'jacoco'
+apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.jaredsburrows.spoon'
+
+markdownToHtml {
+    sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help')
+    inputEncoding ="utf8"
+    outputDir = new File(projectDir.getPath() + '/src/main/assets/help')
+    outputEncoding = "utf8"
+    configuration.template = projectDir.getPath() + "/documentation/html_template.tpl"
+}
+
+task downloadPresetIconsZipFile(type: Download) {
+    doFirst {
+        delete projectDir.getPath() + '/src/main/assets/images/icons/png'
+    }
+    acceptAnyCertificate true
+    src 'https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_icons.zip'
+    dest new File(projectDir.getPath() + '/src/main/assets/images/icons/png', 'vespucci_icons.zip')
+}
+
+task downloadPresetFile(type: Download) {
+    acceptAnyCertificate true
+    src 'https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/vespucci_preset_build.xml'
+    dest new File(projectDir.getPath() + '/src/main/assets/preset.xml')
+}
+
+task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"], type: Copy) {
+    from zipTree(downloadPresetIconsZipFile.dest)
+    into projectDir.getPath() + '/src/main/assets/images/icons/png'
+    doLast { delete downloadPresetIconsZipFile.dest }
+}
+updatePreset.group = 'vespucci'
+updatePreset.description = 'Update the default preset from http://simonpoole.github.io/beautified-JOSM-preset/'
+
+task updateImagery(type: Download) {
+    acceptAnyCertificate true
+    src 'https://osmlab.github.io/editor-layer-index/imagery.geojson'
+    dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
+}
+updateImagery.group = 'vespucci'
+updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
+
+task update3rdPartyDocs() {
+}
+update3rdPartyDocs.group = 'vespucci'
+update3rdPartyDocs.description = 'Update markdown help files for 3rd party libraries'
+
+['de', 'en', 'es', 'fi', 'fr', 'gl', 'hu', 'it', 'iw', 'pl', 'pt', 'zh-rTW'].each { lang ->
+    def name="updateOpeningHoursDoc${lang.capitalize()}"
+    task (name,type: Download) {
+        acceptAnyCertificate true
+        src "https://raw.githubusercontent.com/simonpoole/OpeningHoursFragment/master/lib/documentation/docs/help/${lang}/Opening%20hours.md"
+        dest new File(projectDir.getPath() + "/documentation/docs/help/${lang}/Opening hours.md")
+    }
+    update3rdPartyDocs.dependsOn name
+}
+
+task updateTranslations(type: Exec) {
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine 'cmd', '/c', 'tx.exe', 'pull', '-a'
+    } else {
+        commandLine 'tx', 'pull', '-a'
+    }
+}
+updateTranslations.group = 'vespucci'
+updateTranslations.description = 'Update translations by executing the transifex tx utility'
+
+task updateSynonyms() {
+}
+updateSynonyms.group = 'vespucci'
+updateSynonyms.description = 'Update synonym files from iD editor repo'
+
+[
+    'af',
+    'ar',
+    'ast',
+    'bg',
+    'bs',
+    'ca',
+    'cs',
+    'da',
+    'de',
+    'dv',
+    'el',
+    'en-GB',
+    'en',
+    'eo',
+    'es',
+    'et',
+    'eu',
+    'fa',
+    'fi',
+    'fr',
+    'gan',
+    'gl',
+    'gu',
+    'he',
+    'hi',
+    'hr',
+    'hu',
+    'hy',
+    'ia',
+    'id',
+    'is',
+    'it',
+    'ja',
+    'jv',
+    'km',
+    'kn',
+    'ko',
+    'ku',
+    'lij',
+    'lt',
+    'lv',
+    'mg',
+    'mk',
+    'ml',
+    'mn',
+    'ms',
+    'ne',
+    'nl',
+    'nn',
+    'no',
+    'nv',
+    'pl',
+    'pt-BR',
+    'pt',
+    'rm',
+    'ro',
+    'ru',
+    'sc',
+    'si',
+    'sk',
+    'sl',
+    'sq',
+    'sr',
+    'sv',
+    'ta',
+    'te',
+    'th',
+    'tl',
+    'tr',
+    'uk',
+    'ur',
+    'vi',
+    'yue',
+    'zh-CN',
+    'zh-HK',
+    'zh-TW',
+    'zh'
+].each { lang ->
+    def name="updateSynonyms${lang.capitalize()}"
+    task (name,type: JavaExec) {
+        main = "ch.poole.osm.presetutils.Synonyms"
+        classpath = buildscript.configurations.classpath
+        args('-l',    "$lang",
+                '-x',    "military",
+                '-o',    "src/main/assets/synonyms/synonyms.$lang")
+    }
+    updateSynonyms.dependsOn name
+}
+
+apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3.6-flavors'
+// apply from: '../gradle-tasks/eclipse-android-3.6-flavors'
+
+sonarqube {
+    // we've not converted to Java 8 source yet, so analyse as for 7/1.7
+    properties {
+        property "sonar.java.source","1.7"
+        property "sonar.sourceEncoding","UTF-8"
+        property "sonar.java.binaries", "build/intermediates/app_classes/currentDebug/classes.jar"
+        property "sonar.coverage.jacoco.xmlReportPaths","build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+    }
+}
+
+ext {
+    private_assets = "$projectDir/../private_assets"
+}
+    
+android {
+    
+    defaultConfig {
+        versionCode project.getVersionCode()
+        versionName "${project.getVersionName()}"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        def reporter = System.getenv('VESPUCCI_REPORTER')
+        if (reporter == null) {
+            reporter = "";
+        }
+        resValue("string", "reporter", reporter)
+    }
+    
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-shrink-only.txt','proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-shrink-only.txt','proguard-test.txt','proguard-rules.pro'
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+        }
+    }
+
+    // this, unluckily, cannot be set per flavour
+    compileSdkVersion 29
+
+    // Specifies one flavor dimension.
+    flavorDimensions "api"
+    productFlavors {
+        current {
+            dimension "api"
+            minSdkVersion 14
+            targetSdkVersion 29
+            applicationIdSuffix ""
+            versionNameSuffix ""
+            resValue "string", "content_provider", "de.blau.android.provider"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.all {
+            jacoco { includeNoLocationClasses = true }
+            testLogging {
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen {false}
+                showStandardStreams = true
+            }
+        }
+    }
+
+    dexOptions {
+        jumboMode = true
+        javaMaxHeapSize "4g"
+    }
+    
+    sourceSets {
+        main.assets.srcDirs += files("$private_assets".toString())
+    }
+    
+    lintOptions {
+        abortOnError true
+        baseline file("lint-baseline.xml")
+    }
+}
+
+ext {
+    adb = android.getAdbExe().toString()
+}
+
+task enableFreeform(type: Exec) {
+    commandLine adb, 'shell', 'settings', 'put', 'global', 'enable_freeform_support', '1'
+}
+enableFreeform.group = 'emulators'
+enableFreeform.description = 'turn on free form window support'
+
+task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
+    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
+}
+
+task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
+    commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
+}
+updateTaginfoJson.group = 'vespucci'
+updateTaginfoJson.description = 'Update the taginfo.json file from test device'
+
+
+afterEvaluate{
+    android.applicationVariants.all { variant ->
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+            description "Generates Javadoc for $variant.name."
+            group "Documentation"
+            source = variant.javaCompile.source
+            classpath = files(variant.javaCompile.classpath.files) + files(android.bootClasspath) + files(variant.javaCompile.destinationDir)
+            options.links("http://docs.oracle.com/javase/7/docs/api/");
+            options.links("http://d.android.com/reference/");
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+        }
+    }
+
+    // these tasks needs to be created after the uninstall tasks
+
+    // hardwired single test, this is only needed during initial developement, once the whole test suite has been run
+    // any new test will be included automatically
+    // it would probably be better to somehow get the test name interactively from the user
+    android.productFlavors.all { flavor ->
+        task ("runSingleConnected${flavor.name.capitalize()}Test",
+        dependsOn: ["install${flavor.name.capitalize()}Debug", "install${flavor.name.capitalize()}DebugAndroidTest"],
+        type: Exec) {
+            group = 'vespucci'
+            description = "Run a single test method on device (configuration needs to be edited) for the ${flavor.name} flavor"
+            def toRun = "de.blau.android.services.MapTileProviderServiceTest"
+            // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
+            commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
+            finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
+        }
+    }
+
+    // this task will generate tasks for each test that was run in the last on device test
+    // it doesn't depend on it directly as that would require waiting for all the tests to execute first
+    // so the best strategy seems to simply refresh the build after the on device tests have been ran
+    // tests are split up over two categories depending if they failed or not
+    task generateTestTasks {
+        android.productFlavors.all { flavor ->
+            def flavorName = flavor.name.toUpperCase()
+            def fileRegex = "TEST.*-${flavorName}\\.xml"
+            def fileList = new File(projectDir.getPath() +"/build/outputs/androidTest-results/connected/flavors/${flavorName}/").listFiles().findAll { it.name ==~ /${fileRegex}/ }
+            if (!fileList.empty) {
+                def tests = (new XmlParser()).parse(fileList.get(0)) // assume all tests outputs are equivalent
+                tests.'testcase'.each { testcase ->
+                    def toRun = testcase.@classname + "#" + testcase.@name
+                    task ("run${flavor.name.capitalize()}${toRun.capitalize()}",
+                    dependsOn: ["install${flavor.name.capitalize()}Debug", "install${flavor.name.capitalize()}DebugAndroidTest"],
+                    type: Exec) {
+                        if (testcase.failure.size() == 0) {
+                            group = 'sucessful tests'
+                        } else {
+                            group = "failed tests"
+                        }
+                        description = "Run test " + toRun
+                        // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
+                        commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
+                        finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
+                    }
+                }
+            }
+        }
+    }
+}
+
+ext {
+    okHttpVersion = "3.12.2" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
+    signpostVersion = "1.2.1.2"
+    acraVersion = "5.4.0"
+    mapboxVersion = "4.5.0"
+}
+
+dependencies {
+    implementation ("ch.acra:acra-http:$acraVersion") { exclude group: 'com.android.support' }
+    implementation ("ch.acra:acra-dialog:$acraVersion") { exclude group: 'com.android.support' }
+    // android support and other libraries
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.preference:preference:1.1.0"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation "androidx.annotation:annotation:1.1.0"
+    implementation "androidx.core:core:1.2.0"
+    implementation "androidx.exifinterface:exifinterface:1.1.0"
+    implementation "androidx.legacy:legacy-preference-v14:1.0.0"
+    //
+    implementation 'com.heinrichreimersoftware:android-issue-reporter:1.4'
+    implementation "com.nononsenseapps:filepicker:4.2.1"
+    implementation "oauth.signpost:signpost-core:$signpostVersion"
+    implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.adobe.xmp:xmpcore:6.1.10"
+    implementation "com.drewnoakes:metadata-extractor:2.13.0"
+    implementation "com.google.code.gson:gson:2.8.5"
+    implementation 'com.google.protobuf:protobuf-java:2.6.1'
+    implementation 'com.google.openlocationcode:openlocationcode:1.0.4'
+    implementation ('com.faendir.rhino:rhino-android:1.5.1') { exclude group: 'org.mozilla' }
+    implementation "org.mozilla:rhino:1.7.11"
+    implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:$mapboxVersion"
+    implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
+    implementation 'com.github.Kunzisoft:AndroidClearChroma:2.3'
+    implementation "ch.poole:PoParser:0.7.2"
+    implementation "ch.poole:OpeningHoursParser:0.21.1"
+    implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
+    implementation "ch.poole:OpeningHoursFragment:0.8.0"
+    implementation 'ch.poole.android:numberpicker:1.0.9'
+    implementation 'ch.poole.android:numberpickerpreference:2.0.0'
+    implementation "ch.poole.osm:JosmFilterParser:0.2.0"
+    implementation 'de.westnordost:countryboundaries:1.5'
+    implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
+    implementation 'de.ruedigermoeller:fst:2.57'
+    implementation 'org.openstreetmap.osmosis:osmosis-osm-binary:0.47'
+    implementation 'com.zaxxer:SparseBitSet:1.2'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    implementation 'io.michaelrocks:libphonenumber-android:8.11.5'
+    // for temp stuff during dev
+    // implementation(name:'alibrary', ext:'jar')
+
+    // Unit tests
+    testImplementation "junit:junit:4.13"
+    testImplementation 'xmlpull:xmlpull:1.1.3.1'
+    testImplementation 'net.sf.kxml:kxml2:2.3.0'
+
+    // Instrumentation tests
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+    androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18-android"
+    androidTestImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
+        exclude group: 'org.yaml', module: 'snakeyaml'
+    }
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation "com.squareup.spoon:spoon-client:2.0.0-SNAPSHOT"
+}
+
+int getVersionCode() {
+    def xml = getXmlFromFile("${android.sourceSets.main.manifest.srcFile}")
+    return xml.@'android:versionCode'.toInteger()
+}
+
+String getVersionName() {
+    def xml = getXmlFromFile("${android.sourceSets.main.res.srcDirs[0]}/values/appname.xml")
+    def versionName = xml.string.find { it.@name == 'app_version' }.toString()
+    if (versionName == null || versionName.length() == 0) {
+        throw new NullPointerException("Failure extracting version name.")
+    }
+    return versionName
+}
+
+def getXmlFromFile(String xmlFilePath) {
+    def xml = new XmlSlurper().parse(new File(xmlFilePath))
+    if (xml == null) {
+        throw new NullPointerException("Failure reading from " + xmlFilePath)
+    }
+    return xml;
+}
+
+def coverageSourceDirs = ['src/main/java']
+
+task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") {
+    group = "Verification"
+
+    description = "Generate Jacoco coverage reports"
+
+    classDirectories = fileTree(
+            dir: 'build/intermediates/app_classes/currentDebug/',
+            excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*'])
+
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData     = fileTree(
+            dir     : "$buildDir",
+            include : ['jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec', 'spoon-output/currentDebug/coverage/merged-coverage.ec'])
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    sourceDirectories = files(coverageSourceDirs)
+}
+
+spoon {
+    // https://github.com/jaredsburrows/gradle-spoon-plugin for configuration
+    debug = true
+    noAnimations = false
+    adbTimeout = 5
+    codeCoverage = true
+    shard = true
+    singleInstrumentationCall = true
+    ignoreFailures = true
+    clearAppDataBeforeEachTest = true
+    // set these for individual text execution
+    // className = "de.blau.android.imageryoffset.OffsetModeTest"
+    // methodName = "..."
+}
+

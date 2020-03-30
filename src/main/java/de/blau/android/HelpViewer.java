@@ -19,17 +19,18 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.graphics.BlendModeColorFilterCompat;
+import androidx.core.graphics.BlendModeCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -151,12 +152,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         WebSettings helpSettings = helpView.getSettings();
         helpSettings.setDefaultFontSize(12);
         helpSettings.setSupportZoom(true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            helpSettings.setDisplayZoomControls(false); // don't display +-
-        } else {
-            helpSettings.setBuiltInZoomControls(true);
-        }
+        helpSettings.setDisplayZoomControls(false); // don't display +-
         helpView.setWebViewClient(new HelpViewWebViewClient());
         fl.addView(helpView);
 
@@ -351,7 +347,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             item.setEnabled(canGoForward);
             item.setIcon(ThemeUtils.getResIdFromAttribute(this, rtl ? R.attr.menu_back : R.attr.menu_forward));
             if (!canGoForward) {
-                item.getIcon().mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                item.getIcon().mutate().setColorFilter(BlendModeColorFilterCompat.createBlendModeColorFilterCompat(Color.GRAY, BlendModeCompat.SRC_IN));
             }
         }
         return true;

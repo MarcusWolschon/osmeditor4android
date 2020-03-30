@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ActionMode;
-import android.support.v7.widget.ActionMenuView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.ActionMenuView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -215,7 +215,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected Menu replaceMenu(Menu menu, final ActionMode actionMode, final ActionMode.Callback callback) {
         if (cabBottomBar != null) {
             menu = cabBottomBar.getMenu();
-            android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
+            androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener listener = new androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     return callback.onActionItemClicked(actionMode, item);

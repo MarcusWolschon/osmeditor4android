@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
-"Last-Translator: Johannes Nilsen <johanil2@online.no>\n"
+"PO-Revision-Date: 2020-03-17 00:41+0000\n"
+"Last-Translator: forteller <transifex.hei@antichef.net>\n"
 "Language-Team: Norwegian (http://www.transifex.com/openstreetmap/presets/language/no/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -9745,7 +9745,7 @@ msgstr ""
 
 #: master_preset.xml:9496(combo:display_values|group:Land_use|preset:Quarry|key:resource)
 msgid "Salt"
-msgstr ""
+msgstr "Salt"
 
 #: master_preset.xml:9323(item:name|group:Land_use|preset:Salt_Pond)
 msgid "Salt Pond"
@@ -11208,7 +11208,7 @@ msgstr ""
 
 #: master_preset.xml:1078(combo:text|key:playground:theme)
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: master_preset.xml:8301(list_entry:short_description|group:For_the_body|preset:Massage|value:therapeutic)
 msgid "Therapeutic"

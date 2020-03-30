@@ -10,12 +10,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBar;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.ActionBar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -120,10 +119,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
 
         synchronized (downloadWebViewLock) {
             downloadWebView.getSettings().setUserAgentString(App.getUserAgent());
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                downloadWebView.getSettings().setAllowContentAccess(true);
-            }
+            downloadWebView.getSettings().setAllowContentAccess(true);
             downloadWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             downloadWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             downloadWebView.requestFocus(View.FOCUS_DOWN);
@@ -139,23 +135,22 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                     if (url.endsWith("." + FileExtensions.MSF)) {
                         Uri uri = Uri.parse(url);
                         final String filename = uri.getLastPathSegment();
-                        AdvancedPrefDatabase db = new AdvancedPrefDatabase(DownloadActivity.this);
-                        String apiId = db.getReadOnlyApiId(filename);
-                        if (apiId != null) {
-                            API[] apis = db.getAPIs(apiId);
-                            if (apis.length == 1) {
-                                File file = new File(Uri.parse(apis[0].readonlyurl).getPath());
-                                if (file.delete()) {
-                                    Log.i(DEBUG_TAG, "Deleted " + filename);
+                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(DownloadActivity.this)) {
+                            String apiId = db.getReadOnlyApiId(filename);
+                            if (apiId != null) {
+                                API[] apis = db.getAPIs(apiId);
+                                if (apis.length == 1) {
+                                    File file = new File(Uri.parse(apis[0].readonlyurl).getPath());
+                                    if (file.delete()) {
+                                        Log.i(DEBUG_TAG, "Deleted " + filename);
+                                    }
                                 }
                             }
                         }
                         // Start download
                         DownloadManager.Request request = new DownloadManager.Request(uri).setAllowedOverRoaming(false).setTitle(filename)
                                 .setDestinationInExternalFilesDir(DownloadActivity.this, Environment.DIRECTORY_DOWNLOADS, filename);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                        }
+                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         if (!allNetworks) {
                             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
                         }

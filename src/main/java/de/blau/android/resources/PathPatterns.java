@@ -6,8 +6,8 @@ import java.util.Map;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.PathDashPathEffect.Style;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 abstract class PathPattern {
     /**

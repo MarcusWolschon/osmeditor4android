@@ -1,7 +1,7 @@
 package de.blau.android.propertyeditor;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.InputType;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
@@ -65,7 +65,7 @@ public final class InputTypeUtil {
                 } else if (o instanceof StringWithDescription) {
                     emptyAdapter = "".equals(((StringWithDescription) o).getValue());
                 } else if (o instanceof String) {
-                    emptyAdapter = "".equals((String) o);
+                    emptyAdapter = "".equals(o);
                 }
             }
         }

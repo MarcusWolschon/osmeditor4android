@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2020-03-15 17:02+0000\n"
+"Last-Translator: Jorieke\n"
 "Language-Team: Dutch (http://www.transifex.com/openstreetmap/presets/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3335,7 +3335,7 @@ msgstr ""
 
 #: master_preset.xml:8694(list_entry:short_description|preset:Vending_Machine|value:drinks)
 msgid "Drinks"
-msgstr ""
+msgstr "Dranken"
 
 #: master_preset.xml:3878(check:text|group:Food+Drinks|preset:Fast_Food|key:drive_through)
 #: master_preset.xml:5629(check:text|group:Facilities|preset:Post_Box|key:drive_through)
@@ -3896,7 +3896,7 @@ msgstr ""
 #: master_preset.xml:4586(item:name|preset:Fishing)
 #: master_preset.xml:8395(item:name|group:Sports_and_hobbies|preset:Fishing)
 msgid "Fishing"
-msgstr ""
+msgstr "Vissen"
 
 #: master_preset.xml:5977(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
@@ -4261,7 +4261,7 @@ msgstr ""
 
 #: master_preset.xml:6366(checkgroup:text|group:Sport_(Ball)|preset:Gaelic_Games)
 msgid "Games"
-msgstr ""
+msgstr "Spelletjes"
 
 #: master_preset.xml:6365(label:text|group:Sport_(Ball)|preset:Gaelic_Games)
 msgid "Games:"
@@ -5782,7 +5782,7 @@ msgstr ""
 
 #: master_preset.xml:1706(combo:display_values|group:Ways|preset:Steps|key:ramp:wheelchair)
 msgid "Limited"
-msgstr ""
+msgstr "Beperkt"
 
 #: master_preset.xml:2529(label:text|group:Water|preset:Coastline)
 msgid ""
@@ -5856,7 +5856,7 @@ msgstr ""
 #: master_preset.xml:2402(check:text|group:Water|preset:Canal|key:lock)
 #: master_preset.xml:2518(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lock"
-msgstr ""
+msgstr "Slot"
 
 #: master_preset.xml:2708(item:name|group:Shipping|preset:Lock_Gate)
 msgid "Lock Gate"
@@ -5864,7 +5864,7 @@ msgstr ""
 
 #: master_preset.xml:5829(check:text|group:Facilities|preset:Hunting_Stand|key:lockable)
 msgid "Lockable"
-msgstr ""
+msgstr "Vergrendelbaar"
 
 #: master_preset.xml:10287(item:name|group:Crafts|preset:Locksmith)
 #: master_preset.xml:8517(item:name|group:Other|preset:Locksmith)
@@ -8862,7 +8862,7 @@ msgstr ""
 
 #: master_preset.xml:6999(combo:text|group:Man_Made|preset:Water_Well|key:pump)
 msgid "Pump"
-msgstr ""
+msgstr "Pomp"
 
 #: master_preset.xml:6972(item:name|group:Man_Made|preset:Pumping_station)
 msgid "Pumping station"
@@ -11208,7 +11208,7 @@ msgstr ""
 
 #: master_preset.xml:1078(combo:text|key:playground:theme)
 msgid "Theme"
-msgstr ""
+msgstr "Thema"
 
 #: master_preset.xml:8301(list_entry:short_description|group:For_the_body|preset:Massage|value:therapeutic)
 msgid "Therapeutic"
@@ -11335,7 +11335,7 @@ msgstr ""
 
 #: master_preset.xml:297(check:text|key:toilets)
 msgid "Toilets"
-msgstr ""
+msgstr "Toiletten"
 
 #: master_preset.xml:5576(item:name|group:Facilities|preset:Toilets/Restrooms)
 msgid "Toilets/Restrooms"
@@ -12205,7 +12205,7 @@ msgstr ""
 #: master_preset.xml:6930(combo:display_values|group:Man_Made|preset:Marker|key:utility)
 #: master_preset.xml:7037(combo:display_values|group:Man_Made|preset:Street_cabinet|key:street_cabinet)
 msgid "Waste"
-msgstr ""
+msgstr "Afval"
 
 #: master_preset.xml:5749(item:name|group:Facilities|preset:Waste_Basket/Trash_Can)
 msgid "Waste Basket/Trash Can"
@@ -16480,7 +16480,7 @@ msgstr ""
 #: master_preset.xml:3263(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"
 msgid "Informal"
-msgstr ""
+msgstr "Informeel"
 
 #: master_preset.xml:3263(combo:display_values|group:Bicycle|preset:Parking|key:bicycle_parking)
 msgctxt "bicycle"

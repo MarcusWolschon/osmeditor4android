@@ -11,9 +11,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.util.Density;
@@ -198,7 +198,8 @@ public class PresetIconManager {
                 return externalAssets.open(path);
             }
         } catch (Exception e) {
-        } // ignore
+            // IGNORE
+        }
 
         if (!allowDefault) {
             Log.e(DEBUG_TAG, "Failed to load preset-specific asset " + path + "[externalAssetPackage=" + externalAssetPackage + "]");
@@ -211,13 +212,15 @@ public class PresetIconManager {
                 return externalDefaultAssets.open(path);
             }
         } catch (Exception e) {
-        } // ignore
+            // IGNORE
+        }
 
         // and finally built-in assets
         try {
             return internalAssets.open(path);
         } catch (Exception e) {
-        } // ignore
+            // IGNORE
+        }
 
         // if everything fails
         Log.e(DEBUG_TAG, "Could not load asset " + path + " from any source " + "[externalAssetPackage=" + externalAssetPackage + "]");

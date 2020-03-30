@@ -3,11 +3,10 @@ package de.blau.android.dialogs;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.view.ViewCompat;
 import android.text.SpannableString;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
@@ -211,11 +210,11 @@ public final class TableLayoutUtils {
         SpannableString span = new SpannableString((CharSequence) cell1);
         SpannableString span2 = null;
         if (cell2 != null) {
-            span2 = new SpannableString((CharSequence) cell2);
+            span2 = new SpannableString(cell2);
         }
         SpannableString span3 = null;
         if (cell3 != null) {
-            span3 = new SpannableString((CharSequence) cell3);
+            span3 = new SpannableString(cell3);
         }
         boolean isTitle = cell1 != null && cell2 == null && cell3 == null;
         if (isTitle) { // heading
@@ -228,11 +227,8 @@ public final class TableLayoutUtils {
             setSpanColor(activity, span3, highlightColorAttr, highlightColorFallback);
         }
         cell.setText(span);
-
         cell.setEllipsize(TruncateAt.MARQUEE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            cell.setTextIsSelectable(true);
-        }
+        cell.setTextIsSelectable(true);
         tr.addView(cell);
         if (isTitle) {
             TableRow.LayoutParams trlp = (LayoutParams) cell.getLayoutParams();
@@ -300,9 +296,7 @@ public final class TableLayoutUtils {
             cell.setTypeface(null, Typeface.BOLD);
         }
         cell.setEllipsize(TruncateAt.MARQUEE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            cell.setTextIsSelectable(true);
-        }
+        cell.setTextIsSelectable(true);
         tr.addView(cell);
         TableRow.LayoutParams trp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         if (cell2 == null) {
@@ -336,7 +330,7 @@ public final class TableLayoutUtils {
             ViewCompat.setPaddingRelative(cell, 10, 0, 0, 0);
 
             cell.setEllipsize(TruncateAt.MARQUEE);
-            if (!isUrl && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if (!isUrl) {
                 cell.setTextIsSelectable(true);
             }
             if (tp != null) {
@@ -379,9 +373,7 @@ public final class TableLayoutUtils {
         cell.setText(text);
         cell.setSingleLine();
         cell.setTypeface(null, Typeface.BOLD);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            cell.setTextIsSelectable(true);
-        }
+        cell.setTextIsSelectable(true);
         tr.addView(cell);
 
         TableRow.LayoutParams trlp = (LayoutParams) cell.getLayoutParams();
@@ -406,9 +398,7 @@ public final class TableLayoutUtils {
         TableRow tr = new TableRow(activity);
         TextView cell = new TextView(activity);
         cell.setText(text);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            cell.setTextIsSelectable(true);
-        }
+        cell.setTextIsSelectable(true);
         tr.addView(cell);
 
         TableRow.LayoutParams trlp = (LayoutParams) cell.getLayoutParams();

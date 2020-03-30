@@ -10,7 +10,7 @@ import java.util.SortedMap;
 import org.jetbrains.annotations.NotNull;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import ch.poole.osm.josmfilterparser.ElementState.State;
 import ch.poole.osm.josmfilterparser.Meta;
 import ch.poole.osm.josmfilterparser.Type;

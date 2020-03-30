@@ -12,17 +12,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.widget.ActionMenuView;
-import android.support.v7.widget.ActionMenuView.OnMenuItemClickListener;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.view.MenuCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -290,8 +290,9 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                     Uri photoUri = Uri.parse(photoList.get(pos));
                                     try {
                                         // delete from in memory and on device index
-                                        PhotoIndex index = new PhotoIndex(getContext());
-                                        index.deletePhoto(getContext(), photoUri);
+                                        try (PhotoIndex index = new PhotoIndex(getContext())) {
+                                            index.deletePhoto(getContext(), photoUri);
+                                        }
                                         // as the Photo was selected before calling this it will still have a
                                         // reference in the layer
                                         if (overlay != null) {

@@ -1,6 +1,6 @@
 package de.blau.android.layer;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
 
 public interface ExtentInterface {

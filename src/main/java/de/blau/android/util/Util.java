@@ -26,12 +26,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.NestedScrollView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
@@ -430,6 +430,18 @@ public final class Util {
      */
     public static boolean notZero(double a) {
         return a < -Double.MIN_VALUE || a > Double.MIN_VALUE;
+    }
+
+    /**
+     * Check if two floating point values are the same within a tolereance range
+     * 
+     * @param d1 value 1
+     * @param d2 value 2
+     * @param tolerance the tolerance
+     * @return true if the difference between the values is smaller than the tolerance
+     */
+    public static boolean equals(double d1, double d2, double tolerance) {
+        return Math.abs(d1 - d2) < tolerance;
     }
 
     /**

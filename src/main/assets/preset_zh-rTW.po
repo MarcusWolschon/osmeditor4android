@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
+"PO-Revision-Date: 2020-03-20 02:58+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -8589,7 +8589,7 @@ msgstr ""
 
 #: master_preset.xml:7544(item:name|preset:Power_Cable)
 msgid "Power Cable"
-msgstr ""
+msgstr "電纜"
 
 #: master_preset.xml:7409(item:name|preset:Power_Compensator)
 msgid "Power Compensator"

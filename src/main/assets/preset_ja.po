@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
+"PO-Revision-Date: 2020-03-23 10:10+0000\n"
 "Last-Translator: Shu Higashi <higa432@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -5243,7 +5243,7 @@ msgstr ""
 
 #: master_preset.xml:5658(item:name|group:Facilities|preset:Internet_Access)
 msgid "Internet Access"
-msgstr ""
+msgstr "インターネット接続利用料金"
 
 #: master_preset.xml:5651(item:name|group:Facilities|preset:Internet_Cafe)
 msgid "Internet Cafe"

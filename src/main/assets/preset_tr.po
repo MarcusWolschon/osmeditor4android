@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-03-09 14:37+0100\n"
-"PO-Revision-Date: 2020-03-09 14:15+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2020-03-20 17:58+0000\n"
+"Last-Translator: abc Def <hdogan1974@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/openstreetmap/presets/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -446,7 +446,7 @@ msgstr ""
 
 #: master_preset.xml:826(combo:display_values|key:aerodrome:type)
 msgid "Airfield"
-msgstr ""
+msgstr "Havaalanı"
 
 #: master_preset.xml:3588(group:name|group:Airport)
 msgid "Airport"
@@ -2095,7 +2095,7 @@ msgstr ""
 
 #: master_preset.xml:9761(combo:display_values|preset:Enforcement|key:enforcement)
 msgid "Check"
-msgstr ""
+msgstr "Denetle"
 
 #: master_preset.xml:927(combo:display_values|key:cash_withdrawal:type)
 msgid "Checkout"
@@ -2898,7 +2898,7 @@ msgstr "Ayrılmış Yaya Yolu"
 #: master_preset.xml:300(list_entry:short_description|value:designated)
 #: master_preset.xml:312(list_entry:short_description|value:designated)
 msgid "Dedicated facilities"
-msgstr ""
+msgstr "Ayrılmış tesisler"
 
 #: master_preset.xml:272(list_entry:short_description|value:room)
 #: master_preset.xml:291(list_entry:short_description|value:dedicated_room)
@@ -3599,7 +3599,7 @@ msgstr ""
 
 #: master_preset.xml:319(text:text|key:wheelchair:entrance_width)
 msgid "Entrance width in cm"
-msgstr ""
+msgstr "Geçiş alanı genişliği (cm)"
 
 #: master_preset.xml:10638(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Environment"
@@ -7199,7 +7199,7 @@ msgstr ""
 #: master_preset.xml:315(list_entry:short_description|value:no)
 #: master_preset.xml:581(combo:display_values|key:access)
 msgid "No access"
-msgstr ""
+msgstr "Erişim yok"
 
 #: master_preset.xml:109(check:text|key:noexit)
 msgid "No exit (cul-de-sac)"
@@ -7378,7 +7378,7 @@ msgstr ""
 
 #: master_preset.xml:325(text:text|key:wheelchair:rooms)
 msgid "Number of rooms suitable for wheelchairs"
-msgstr ""
+msgstr "Tekerlekli sandalyeler için uygun oda sayısı"
 
 #: master_preset.xml:6167(text:text|group:Sport|preset:Climbing_site|key:climbing:routes)
 msgid "Number of routes"
@@ -8009,7 +8009,7 @@ msgstr ""
 #: master_preset.xml:302(list_entry:short_description|value:limited)
 #: master_preset.xml:314(list_entry:short_description|value:limited)
 msgid "Partial access"
-msgstr ""
+msgstr "Kısmi erişim"
 
 #: master_preset.xml:3170(multiselect:display_values|group:Car|preset:Repair|key:service)
 #: master_preset.xml:3173(item:name|group:Car|preset:Parts)
@@ -9647,7 +9647,7 @@ msgstr ""
 #: master_preset.xml:7637(check:text|group:Historic_Places_&_Objects|preset:Building|key:ruins)
 #: master_preset.xml:7640(item:name|group:Historic_Places_&_Objects|preset:Ruins)
 msgid "Ruins"
-msgstr ""
+msgstr "Enkaz"
 
 #: master_preset.xml:1811(combo:display_values|group:Traffic_Calming|preset:Traffic_Calming|key:traffic_calming)
 #: master_preset.xml:1833(item:name|group:Traffic_Calming|preset:Rumble_strip)
@@ -10631,7 +10631,7 @@ msgstr ""
 
 #: master_preset.xml:320(text:text|key:wheelchair:step_height)
 msgid "Step height in cm"
-msgstr ""
+msgstr "Adım yüksekliği - cm"
 
 #: master_preset.xml:2171(combo:display_values|group:Barriers|preset:Stile|key:stile)
 msgid "Stepover"
@@ -11883,7 +11883,7 @@ msgstr ""
 #: master_preset.xml:301(list_entry:short_description|value:yes)
 #: master_preset.xml:313(list_entry:short_description|value:yes)
 msgid "Unrestricted access"
-msgstr ""
+msgstr "Kısıtlanmamış erişim"
 
 #: master_preset.xml:163(text:text|key:unsigned_ref)
 msgid "Unsigned reference"
@@ -14341,7 +14341,7 @@ msgstr "Hayır"
 #: master_preset.xml:600(combo:display_values|key:access)
 msgctxt "access"
 msgid "No access"
-msgstr ""
+msgstr "Erişim yok"
 
 #: master_preset.xml:2255(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2262(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -15669,7 +15669,7 @@ msgstr ""
 #: master_preset.xml:6596(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Ruins"
-msgstr ""
+msgstr "Enkaz"
 
 #: master_preset.xml:1044(list_entry:short_description|value:saltbox)
 #: master_preset.xml:6668(item:name|group:Roof_type|preset:Saltbox)
@@ -16274,7 +16274,7 @@ msgstr "Konum"
 #: master_preset.xml:6898(combo:display_values|group:Man_Made|preset:Pipeline|key:location)
 msgctxt "pipeline"
 msgid "Overground"
-msgstr ""
+msgstr "Yerüstü"
 
 #: master_preset.xml:5306(list_entry:display_value|group:Emergency|preset:Fire_Hydrant|value:pillar)
 msgctxt "pipeline"
@@ -17030,7 +17030,7 @@ msgstr ""
 #: master_preset.xml:4984(combo:display_values|group:Public_Building|preset:Police_facility|key:police)
 msgctxt "police"
 msgid "Naval base"
-msgstr ""
+msgstr "Deniz üssü"
 
 #: master_preset.xml:4984(combo:display_values|group:Public_Building|preset:Police_facility|key:police)
 msgctxt "police"
@@ -17040,7 +17040,7 @@ msgstr ""
 #: master_preset.xml:4984(combo:display_values|group:Public_Building|preset:Police_facility|key:police)
 msgctxt "police"
 msgid "Range"
-msgstr ""
+msgstr "Menzil"
 
 #: master_preset.xml:4984(combo:display_values|group:Public_Building|preset:Police_facility|key:police)
 msgctxt "police"
@@ -17259,7 +17259,7 @@ msgstr ""
 #: master_preset.xml:6056(item:name|group:Golf|preset:Bunker)
 msgctxt "golf"
 msgid "Bunker"
-msgstr ""
+msgstr "Sığınak"
 
 #: master_preset.xml:6092(item:name|group:Golf|preset:Driving_range)
 msgctxt "golf"
@@ -17750,7 +17750,7 @@ msgstr "Konum"
 #: master_preset.xml:7552(combo:display_values|preset:Power_Cable|key:location)
 msgctxt "power cable"
 msgid "Overground"
-msgstr ""
+msgstr "Yerüstü"
 
 #: master_preset.xml:7552(combo:display_values|preset:Power_Cable|key:location)
 msgctxt "power cable"
@@ -17810,7 +17810,7 @@ msgstr "Ada"
 #: master_preset.xml:8899(item:name|group:Places|preset:State)
 msgctxt "place"
 msgid "State"
-msgstr ""
+msgstr "Eyalet"
 
 #: master_preset.xml:9129(list_entry:display_value|group:Nature|preset:Tree|value:agricultural)
 msgctxt "tree denotation"
@@ -18091,7 +18091,7 @@ msgstr "Depo"
 #: master_preset.xml:9537(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:state)
 msgctxt "addr:"
 msgid "State"
-msgstr ""
+msgstr "Eyalet"
 
 #: master_preset.xml:9579(label:text|group:Annotation|preset:Description)
 msgctxt "description=*"
@@ -18176,4 +18176,4 @@ msgstr "Din"
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)
 msgid "translator-credits"
-msgstr ""
+msgstr "çevirmen-jenerikleri"

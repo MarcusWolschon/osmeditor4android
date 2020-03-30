@@ -21,15 +21,15 @@ import android.content.DialogInterface.OnClickListener;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.app.AppCompatDialog;
-import android.support.v7.view.ActionMode;
-import android.support.v7.view.ActionMode.Callback;
-import android.support.v7.widget.ActionMenuView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.MenuItemCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.view.ActionMode.Callback;
+import androidx.appcompat.widget.ActionMenuView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -145,7 +145,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         if (cabBottomBar != null) {
             menu = cabBottomBar.getMenu();
             final ActionMode actionMode = mode;
-            android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
+            androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener listener = new androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     return onActionItemClicked(actionMode, item);
@@ -221,13 +221,13 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             protected Void doInBackground(Void... params) {
                 Log.i(DEBUG_TAG, "Saving offsets");
                 List<ImageryOffset> offsets = ImageryOffsetUtils.offsets2ImageryOffset(osmts, map.getViewBox(), null);
-                ImageryOffsetDatabase db = new ImageryOffsetDatabase(main);
-                SQLiteDatabase writableDb = db.getWritableDatabase();
-                ImageryOffsetDatabase.deleteOffset(writableDb, osmts.getImageryOffsetId());
-                for (ImageryOffset im : offsets) {
-                    ImageryOffsetDatabase.addOffset(writableDb, im);
+                try (ImageryOffsetDatabase db = new ImageryOffsetDatabase(main); SQLiteDatabase writableDb = db.getWritableDatabase()) {
+                    ImageryOffsetDatabase.deleteOffset(writableDb, osmts.getImageryOffsetId());
+                    for (ImageryOffset im : offsets) {
+                        ImageryOffsetDatabase.addOffset(writableDb, im);
+                    }
+                    return null;
                 }
-                return null;
             }
         }.execute();
 

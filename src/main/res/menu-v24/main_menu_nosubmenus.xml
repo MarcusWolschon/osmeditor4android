@@ -71,7 +71,7 @@
     </item>
     <item
         android:id="@+id/menu_transfer"
-        android:icon="?attr/menu_transfer"
+        android:icon="@drawable/upload"
         android:title="@string/menu_transfer"
         app:showAsAction="ifRoom">
         <menu>

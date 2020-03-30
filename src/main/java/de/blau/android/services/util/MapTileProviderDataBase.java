@@ -18,11 +18,10 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.os.Build;
 import android.os.ParcelFileDescriptor;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.util.Pools;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pools;
 import android.util.Log;
 import de.blau.android.exception.InvalidTileException;
 import de.blau.android.prefs.Preferences;
@@ -100,6 +99,7 @@ public class MapTileProviderDataBase {
     // Fields
     // ===========================================================
 
+    private final DatabaseHelper databaseHelper;
     private final SQLiteDatabase mDatabase;
 
     private static Pools.SynchronizedPool<SQLiteStatement> getStatements;
@@ -114,7 +114,8 @@ public class MapTileProviderDataBase {
      */
     public MapTileProviderDataBase(@NonNull final Context context) {
         Log.i(DEBUG_TAG, "creating database instance");
-        mDatabase = new DatabaseHelper(context).getWritableDatabase();
+        databaseHelper = new DatabaseHelper(context);
+        mDatabase = databaseHelper.getWritableDatabase();
         Preferences prefs = new Preferences(context);
         int maxThreads = prefs.getMaxTileDownloadThreads();
         getStatements = new Pools.SynchronizedPool<>(maxThreads);
@@ -232,55 +233,39 @@ public class MapTileProviderDataBase {
         }
         try {
             if (mDatabase.isOpen()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    SQLiteStatement get = null;
-                    ParcelFileDescriptor pfd = null;
-                    try {
-                        get = getStatements.acquire();
-                        if (get == null) {
-                            Log.e(DEBUG_TAG, "statement null");
-                            return null;
-                        }
-                        get.bindString(1, aTile.rendererID);
-                        get.bindLong(2, aTile.zoomLevel);
-                        get.bindLong(3, aTile.x);
-                        get.bindLong(4, aTile.y);
-                        pfd = get.simpleQueryForBlobFileDescriptor();
-                        if (pfd == null) {
-                            throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
-                        }
-
-                        ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
-                        while ((bytesRead = acis.read(buffer)) != -1) {
-                            bos.write(buffer, 0, bytesRead);
-                        }
-                        acis.close();
-                        return bos.toByteArray();
-                    } catch (SQLiteDoneException sde) {
-                        // nothing found
+                SQLiteStatement get = null;
+                ParcelFileDescriptor pfd = null;
+                try {
+                    get = getStatements.acquire();
+                    if (get == null) {
+                        Log.e(DEBUG_TAG, "statement null");
                         return null;
-                    } finally {
-                        if (get != null) {
-                            getStatements.release(get);
-                        }
                     }
-                } else { // old and slow
-                    final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, tileToWhereArgs(aTile), null,
-                            null, null);
-                    try {
-                        if (c.moveToFirst()) {
-                            byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
-                            if (tile_data == null) {
-                                throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
-                            }
-                            return tile_data;
-                        }
-                    } finally {
-                        c.close();
+                    get.bindString(1, aTile.rendererID);
+                    get.bindLong(2, aTile.zoomLevel);
+                    get.bindLong(3, aTile.x);
+                    get.bindLong(4, aTile.y);
+                    pfd = get.simpleQueryForBlobFileDescriptor();
+                    if (pfd == null) {
+                        throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
+                    }
+
+                    ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = acis.read(buffer)) != -1) {
+                        bos.write(buffer, 0, bytesRead);
+                    }
+                    acis.close();
+                    return bos.toByteArray();
+                } catch (SQLiteDoneException sde) {
+                    // nothing found
+                    return null;
+                } finally {
+                    if (get != null) {
+                        getStatements.release(get);
                     }
                 }
             }
@@ -364,7 +349,7 @@ public class MapTileProviderDataBase {
      * Delete all tiles from cache for a specific renderer
      * 
      * @param rendererID the tile server for which to remove the tiles or null to remove all tiles
-     * @throws EmptyCacheException
+     * @throws EmptyCacheException if the cache is empty
      */
     public synchronized void flushCache(@Nullable String rendererID) throws EmptyCacheException {
         mDatabase.beginTransaction();
@@ -481,6 +466,7 @@ public class MapTileProviderDataBase {
      */
     public void close() {
         mDatabase.close();
+        databaseHelper.close();
     }
 
     /**

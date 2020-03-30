@@ -5,16 +5,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDialog;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
@@ -191,9 +190,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
             comments.setText(Util.fromHtml(((Note) task).getComment())); // ugly
             comments.setAutoLinkMask(Linkify.WEB_URLS);
             comments.setMovementMethod(LinkMovementMethod.getInstance());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                comments.setTextIsSelectable(true);
-            }
+            comments.setTextIsSelectable(true);
             NoteComment nc = ((Note) task).getLastComment();
             elementLayout.setVisibility(View.GONE); // not used for notes
             if ((task.isNew() && ((Note) task).count() == 0) || (nc != null && !nc.isNew())) {

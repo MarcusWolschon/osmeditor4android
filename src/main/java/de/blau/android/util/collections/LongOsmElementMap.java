@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
 

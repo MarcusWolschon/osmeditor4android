@@ -12,12 +12,12 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="28"
-        tools:overrideLibrary="android.support.test.uiautomator.v18, com.squareup.spoon" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="28" 
+        tools:overrideLibrary="android_libs.ub_uiautomator" />
 
     <instrumentation
-        android:name="android.support.test.runner.AndroidJUnitRunner"
+        android:name="androidx.test.runner.AndroidJUnitRunner"
         android:functionalTest="false"
         android:handleProfiling="false"
         android:label="Tests for de.blau.android"

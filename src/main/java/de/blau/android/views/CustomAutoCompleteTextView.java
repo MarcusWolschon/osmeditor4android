@@ -1,8 +1,8 @@
 package de.blau.android.views;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;

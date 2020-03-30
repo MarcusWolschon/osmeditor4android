@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmException;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;

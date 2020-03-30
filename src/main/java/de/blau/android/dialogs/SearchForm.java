@@ -4,13 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -133,91 +133,92 @@ public class SearchForm extends ImmersiveDialogFragment {
         // FIXME the following shares a lot of code with BoxPicker, but is unluckily slightly different
         final Spinner searchGeocoder = (Spinner) searchLayout.findViewById(R.id.location_search_geocoder);
         final CheckBox limitSearch = searchLayout.findViewById(R.id.location_search_limit);
-        AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
-        final Geocoder[] geocoders = db.getActiveGeocoders();
-        String[] geocoderNames = new String[geocoders.length];
-        for (int i = 0; i < geocoders.length; i++) {
-            geocoderNames[i] = geocoders[i].name;
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, geocoderNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        searchGeocoder.setAdapter(adapter);
-        final Preferences prefs = new Preferences(getActivity());
-        int geocoderIndex = prefs.getGeocoder();
-        // if a non-active geocoder is selected revert to default
-        if (geocoderIndex > adapter.getCount() - 1) {
-            geocoderIndex = 0;
-            prefs.setGeocoder(geocoderIndex);
-        }
-        searchGeocoder.setSelection(geocoderIndex);
-        searchGeocoder.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-                prefs.setGeocoder(pos);
-                if (geocoders[pos].type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
-                    limitSearch.setEnabled(true);
-                    limitSearch.setChecked(prefs.getGeocoderLimit());
-                } else {
-                    limitSearch.setEnabled(false);
-                    limitSearch.setChecked(false);
-                }
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity())) {
+            final Geocoder[] geocoders = db.getActiveGeocoders();
+            String[] geocoderNames = new String[geocoders.length];
+            for (int i = 0; i < geocoders.length; i++) {
+                geocoderNames[i] = geocoders[i].name;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // empty
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, geocoderNames);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            searchGeocoder.setAdapter(adapter);
+            final Preferences prefs = new Preferences(getActivity());
+            int geocoderIndex = prefs.getGeocoder();
+            // if a non-active geocoder is selected revert to default
+            if (geocoderIndex > adapter.getCount() - 1) {
+                geocoderIndex = 0;
+                prefs.setGeocoder(geocoderIndex);
             }
-        });
-        limitSearch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                prefs.setGeocoderLimit(isChecked);
-            }
-
-        });
-        searchBuilder.setPositiveButton(R.string.search, null);
-        searchBuilder.setNegativeButton(R.string.cancel, null);
-
-        final AppCompatDialog searchDialog = searchBuilder.create();
-
-        /*
-         * NOTE this is slightly hackish but needed to ensure the original dialog (this) gets dismissed
-         */
-        final SearchItemSelectedCallback realCallback = new SearchItemSelectedCallback() {
-
-            @Override
-            public void onItemSelected(SearchResult sr) {
-                searchDialog.dismiss();
-                callback.onItemSelected(sr);
-            }
-        };
-        Search search = new Search((AppCompatActivity) getActivity(), searchDialog, realCallback);
-
-        searchDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        search.find(geocoders[searchGeocoder.getSelectedItemPosition()], searchEdit.getText().toString(), bbox, limitSearch.isChecked());
+            searchGeocoder.setSelection(geocoderIndex);
+            searchGeocoder.setOnItemSelectedListener(new OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+                    prefs.setGeocoder(pos);
+                    if (geocoders[pos].type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
+                        limitSearch.setEnabled(true);
+                        limitSearch.setChecked(prefs.getGeocoderLimit());
+                    } else {
+                        limitSearch.setEnabled(false);
+                        limitSearch.setChecked(false);
                     }
-                });
-            }
-        });
-
-        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), bbox, limitSearch.isChecked());
                 }
-                return false;
-            }
-        });
 
-        return searchDialog;
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    // empty
+                }
+            });
+            limitSearch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    prefs.setGeocoderLimit(isChecked);
+                }
+
+            });
+            searchBuilder.setPositiveButton(R.string.search, null);
+            searchBuilder.setNegativeButton(R.string.cancel, null);
+
+            final AppCompatDialog searchDialog = searchBuilder.create();
+
+            /*
+             * NOTE this is slightly hackish but needed to ensure the original dialog (this) gets dismissed
+             */
+            final SearchItemSelectedCallback realCallback = new SearchItemSelectedCallback() {
+
+                @Override
+                public void onItemSelected(SearchResult sr) {
+                    searchDialog.dismiss();
+                    callback.onItemSelected(sr);
+                }
+            };
+            Search search = new Search((AppCompatActivity) getActivity(), searchDialog, realCallback);
+
+            searchDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                    positive.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            search.find(geocoders[searchGeocoder.getSelectedItemPosition()], searchEdit.getText().toString(), bbox, limitSearch.isChecked());
+                        }
+                    });
+                }
+            });
+
+            searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), bbox, limitSearch.isChecked());
+                    }
+                    return false;
+                }
+            });
+
+            return searchDialog;
+        }
     }
 
     @Override

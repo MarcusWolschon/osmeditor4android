@@ -9,12 +9,12 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.FragmentActivity;
+import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +47,11 @@ public class TileLayerDatabaseView {
      */
     public void manageLayers(@NonNull final FragmentActivity activity) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-        View layerListView = (View) LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
+        View layerListView = LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.custom_layer_title);
         alertDialog.setView(layerListView);
-        final SQLiteDatabase writableDb = new TileLayerDatabase(activity).getWritableDatabase();
+        final TileLayerDatabase tlDb = new TileLayerDatabase(activity); // NOSONAR will be closed when dismissed
+        final SQLiteDatabase writableDb = tlDb.getWritableDatabase();
         ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
         layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
         layerAdapter = new LayerAdapter(writableDb, activity, layerCursor);
@@ -61,6 +62,7 @@ public class TileLayerDatabaseView {
             public void onDismiss(DialogInterface dialog) {
                 layerCursor.close();
                 writableDb.close();
+                tlDb.close();
             }
         });
 
@@ -93,7 +95,7 @@ public class TileLayerDatabaseView {
         fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                TileLayerDialog.showLayerDialog(activity, writableDb, -1, null, new TileLayerDialog.OnUpdateListener() {
+                TileLayerDialog.showLayerDialog(activity, -1, null, new TileLayerDialog.OnUpdateListener() {
                     @Override
                     public void update() {
                         newLayerCursor(writableDb);
@@ -143,7 +145,7 @@ public class TileLayerDatabaseView {
                 @Override
                 public void onClick(View v) {
                     Integer id = (Integer) view.getTag();
-                    TileLayerDialog.showLayerDialog(activity, db, id != null ? id : -1, null, new TileLayerDialog.OnUpdateListener() {
+                    TileLayerDialog.showLayerDialog(activity, id != null ? id : -1, null, new TileLayerDialog.OnUpdateListener() {
                         @Override
                         public void update() {
                             newLayerCursor(db);

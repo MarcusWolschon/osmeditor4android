@@ -12,8 +12,8 @@ import java.util.TreeMap;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -31,7 +31,7 @@ import de.blau.android.validation.Validator;
  */
 public class Relation extends OsmElement implements BoundedObject, StyleableFeature {
 
-    private static final int MAX_DEPTH = 3;
+    static final int MAX_DEPTH = 3;
 
     /**
      * 
@@ -261,6 +261,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      */
     void removeMember(final RelationMember member) {
         while (members.remove(member)) {
+            // LOOP
         }
     }
 

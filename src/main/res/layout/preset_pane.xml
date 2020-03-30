@@ -32,7 +32,7 @@
             android:maxLines="1" 
             android:saveEnabled="false" />
 
-        <android.support.v7.widget.ActionMenuView
+        <androidx.appcompat.widget.ActionMenuView
             android:id="@+id/preset_menu"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

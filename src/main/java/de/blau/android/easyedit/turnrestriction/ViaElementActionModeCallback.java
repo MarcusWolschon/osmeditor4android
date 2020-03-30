@@ -3,8 +3,8 @@ package de.blau.android.easyedit.turnrestriction;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.support.annotation.NonNull;
-import android.support.v7.view.ActionMode;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import de.blau.android.R;

@@ -2,9 +2,9 @@ package de.blau.android.easyedit;
 
 import java.util.List;
 
-import android.support.annotation.NonNull;
-import android.support.v7.view.ActionMode;
-import android.support.v7.widget.PopupMenu;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;

@@ -2,8 +2,8 @@ package de.blau.android.osm;
 
 import java.io.Serializable;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * RelationMember stores the necessary information for a relation member, if the element field is null the element

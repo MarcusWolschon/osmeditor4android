@@ -2,7 +2,7 @@ package de.blau.android.osm;
 
 import java.io.Serializable;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class OsmElementFactory implements Serializable {
 

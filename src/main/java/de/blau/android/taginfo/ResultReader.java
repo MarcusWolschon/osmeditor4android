@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.google.gson.stream.JsonReader;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Process the input from a JsonReader

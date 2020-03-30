@@ -12,9 +12,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.location.Location;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
@@ -275,8 +274,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     @Override
     public boolean enableConfiguration() {
-        // multi choice preferences are not supported on old SKD versions
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+        return true;
     }
 
     @Override
@@ -298,9 +296,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
         if (readingLock.tryLock()) {
             try {
                 // TODO this doesn't really help with error conditions need to throw exception
-                if (savingHelper.save(context, FILENAME, selected, true)) {
-
-                } else {
+                if (!savingHelper.save(context, FILENAME, selected, true)) {
                     // this is essentially catastrophic and can only happen if something went really wrong
                     // running out of memory or disk, or HW failure
                     if (context instanceof Activity) {
