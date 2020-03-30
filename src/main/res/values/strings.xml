@@ -868,6 +868,11 @@ avoided by using an offline data source.</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this.</string>
     <string name="config_maxStrokeWidth_current">%1$d px</string>
+    <string name="config_uploadOk_title">Pending upload OK</string>
+    <string name="config_uploadOk_summary">Limit below which pending object uploads will be considered OK</string>
+    <string name="config_upload_current">%1$d objects</string>
+    <string name="config_uploadWarn_title">Pending upload warning</string>
+    <string name="config_uploadWarn_summary">Limit below which pending object uploads will have warning status</string>
     <!-- Data and Editing Settings -->
     <string name="config_category_editing">Data and edit settings</string>
     <string name="config_category_editing_summary">Auto-download, saving and notification settings.</string>

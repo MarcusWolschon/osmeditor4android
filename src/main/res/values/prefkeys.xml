@@ -96,6 +96,8 @@
     <string name="config_gnssTimeToStale_key">gnssTimeToStale</string>
     <string name="config_connectedNodeTolerance_key">connectedNodeTolerance</string>
     <string name="config_orthogonalizeThreshold_key">orthogonalizeThreshold</string>
+    <string name="config_uploadOk_key">uploadOkLimit</string>
+    <string name="config_uploadWarn_key">uploadWarnLimit</string>
 
     <string name="gps_source_internal">internal</string>
     <string name="gps_source_nmea">nmea</string>

@@ -22,6 +22,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -120,6 +121,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.Visibility;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.Track.WayPoint;
@@ -147,6 +149,7 @@ import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.BadgeDrawable;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.DownloadActivity;
 import de.blau.android.util.FileUtil;
@@ -1735,18 +1738,15 @@ public class Main extends FullScreenAppCompatActivity
         MenuItem undo = menu.findItem(R.id.menu_undo);
         UndoStorage undoStorage = logic.getUndo();
         undo.setVisible(!logic.isLocked() && (undoStorage.canUndo() || undoStorage.canRedo()));
-        View undoView = MenuItemCompat.getActionView(undo);
-        if (undoView == null) { // FIXME this is a temp workaround for pre-11
-                                // Android, we could probably simply always
-                                // do the following
-            Log.d(DEBUG_TAG, "undoView null");
-            Context context = ThemeUtils.getThemedContext(this, R.style.Theme_customMain_Light, R.style.Theme_customMain);
-            undoView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
-        }
+        View undoView = undo.getActionView();
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
 
         menu.findItem(R.id.menu_gps_goto_last_edit).setEnabled(undoStorage.canUndo());
+
+        LayerDrawable transfer = (LayerDrawable) menu.findItem(R.id.menu_transfer).getIcon();
+        final StorageDelegator delegator = App.getDelegator();
+        BadgeDrawable.setBadgeWithCount(this, transfer, delegator.getApiElementCount(), prefs.getUploadOkLimit(), prefs.getUploadWarnLimit());
 
         menu.findItem(R.id.menu_transfer_close_changeset).setVisible(server.hasOpenChangeset());
 
@@ -1759,7 +1759,7 @@ public class Main extends FullScreenAppCompatActivity
         }
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
-        menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && !App.getDelegator().getApiStorage().isEmpty());
+        menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && !delegator.getApiStorage().isEmpty());
         menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
         menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected && App.getTaskStorage().hasChanges());
         menu.findItem(R.id.menu_voice).setVisible(false); // don't display

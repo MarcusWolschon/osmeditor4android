@@ -94,6 +94,8 @@ public class Preferences {
     private final int     orthogonalizeThreshold;
     private final boolean autoformatPhoneNumbers;
     private final int     gnssTimeToStale;
+    private final int     uploadOkLimit;
+    private final int     uploadWarnLimit;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -241,6 +243,9 @@ public class Preferences {
         autoformatPhoneNumbers = prefs.getBoolean(r.getString(R.string.config_autoformatPhoneNumbers_key), true);
 
         gnssTimeToStale = getIntPref(R.string.config_gnssTimeToStale_key, 60);
+
+        uploadOkLimit = getIntPref(R.string.config_uploadOk_key, 50);
+        uploadWarnLimit = getIntPref(R.string.config_uploadWarn_key, 200);
     }
 
     /**
@@ -1265,6 +1270,24 @@ public class Preferences {
      */
     public int getGnssTimeToStale() {
         return gnssTimeToStale;
+    }
+
+    /**
+     * Get the limit below which we don't show a warning
+     * 
+     * @return the number of elements we still consider OK to have a pending upload
+     */
+    public int getUploadOkLimit() {
+        return uploadOkLimit;
+    }
+
+    /**
+     * Get the limit below which we don't show an error
+     * 
+     * @return the number of elements we still consider to not be an error to have a pending upload
+     */
+    public int getUploadWarnLimit() {
+        return uploadWarnLimit;
     }
 
     /**
