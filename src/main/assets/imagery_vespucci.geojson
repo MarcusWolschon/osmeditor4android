@@ -23,6 +23,29 @@
             "type": "Feature"
         },
         {
+            "geometry": null,
+            "properties": {
+                "attribution": {
+                    "required": true,
+                    "text": "\u00a9 OpenStreetMap contributors, CC-BY-SA 2.0",
+                    "url": "https://www.openstreetmap.org"
+                },
+                "default": true,
+                "description": "The default OpenStreetMap layer.",
+                "i18n": true,
+                "icon": "https://osmlab.github.io/editor-layer-index/sources/world/OpenStreetMap-GPS.png",
+                "id": "MAPNIK",
+                "max_zoom": 19,
+                "name": "OpenStreetMap (Standard)",
+                "type": "tms",
+                "category": "osmbasedmap",
+                "url": "https://{switch:a,b,c}.tile.openstreetmap.org/{zoom}/{x}/{y}.png",
+                "license_url": "https://wiki.osmfoundation.org/wiki/Terms_of_Use",
+                "privacy_policy_url": "https://wiki.osmfoundation.org/wiki/Privacy_Policy"
+            },
+            "type": "Feature"
+        },
+        {
             "properties": {
                 "name": "Bing aerial imagery",
                 "url": "http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&key={bingapikey}&include=ImageryProviders&output=xml",
