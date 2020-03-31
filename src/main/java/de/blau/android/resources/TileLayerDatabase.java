@@ -27,9 +27,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static final String  DATABASE_NAME    = "tilelayers";
     private static final int    DATABASE_VERSION = 6;
 
-    public static final String SOURCE_JOSM_IMAGERY    = "JOSM Imagery Sources";    // josm.openstreetmap.de/wiki/maps
-    public static final String SOURCE_CUSTOM = "custom"; // user added tile layers from file
-    public static final String SOURCE_MANUAL = "manual"; // user added tile layer
+    public static final String SOURCE_ELI          = "eli";    // editor-layer-index
+    public static final String SOURCE_JOSM_IMAGERY = "josm";   // josm.openstreetmap.de/wiki/maps
+    public static final String SOURCE_CUSTOM       = "custom"; // user added tile layers from file
+    public static final String SOURCE_MANUAL       = "manual"; // user added tile layer
 
     private static final String SOURCES_TABLE = "sources";
     static final String         NAME_FIELD    = "name";

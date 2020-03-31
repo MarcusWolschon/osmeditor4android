@@ -1156,6 +1156,7 @@ public class TileLayerServer implements Serializable {
             // entries in earlier files will not be overwritten by later ones
             if (newConfig) {
                 // delete old
+                TileLayerDatabase.deleteSource(writableDb, TileLayerDatabase.SOURCE_ELI);
                 TileLayerDatabase.deleteSource(writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
                 TileLayerDatabase.addSource(writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
             }
