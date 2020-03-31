@@ -203,7 +203,7 @@ public final class Snack {
         try {
             Snackbar snackbar = Snackbar.make(v, res, Snackbar.LENGTH_LONG);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueError(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barError got " + e.getMessage());
@@ -236,7 +236,7 @@ public final class Snack {
         try {
             Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueError(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barError got " + e.getMessage());
@@ -276,7 +276,7 @@ public final class Snack {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueError(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barError got " + e.getMessage());
@@ -342,7 +342,7 @@ public final class Snack {
         try {
             Snackbar snackbar = Snackbar.make(v, res, duration);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueInfo(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
@@ -411,7 +411,7 @@ public final class Snack {
         try {
             Snackbar snackbar = Snackbar.make(v, msg, duration);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueInfo(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
@@ -432,7 +432,7 @@ public final class Snack {
         try {
             Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueInfo(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
@@ -472,7 +472,7 @@ public final class Snack {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueInfo(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
@@ -501,7 +501,7 @@ public final class Snack {
      * @param action action text
      * @param listener called when action is selected
      */
-    @SuppressLint("WrongConstant") 
+    @SuppressLint("WrongConstant")
     public static void barInfo(@Nullable View v, @NonNull String msg, String action, View.OnClickListener listener) {
         if (v == null) {
             Log.e(DEBUG_TAG, "null View in barInfo");
@@ -513,7 +513,7 @@ public final class Snack {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(action, listener);
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueInfo(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
@@ -559,7 +559,7 @@ public final class Snack {
         try {
             Snackbar snackbar = Snackbar.make(v, res, duration);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueWarning(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
@@ -581,7 +581,7 @@ public final class Snack {
         try {
             Snackbar snackbar = Snackbar.make(v, msg, duration);
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueWarning(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
@@ -621,7 +621,7 @@ public final class Snack {
             snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
-            snackbar.setCallback(callback);
+            snackbar.addCallback(callback);
             enqueueWarning(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
