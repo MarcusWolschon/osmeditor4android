@@ -90,8 +90,8 @@ public class BadgeDrawable extends Drawable {
         mTextPaint.getTextBounds(countString, 0, countString.length(), mTxtRect);
 
         // Position the badge in the top-right quadrant of the icon.
-        float radius = ((Math.max(width, height) / 2)) / 2;
-        float halfWidth = Math.max(mTxtRect.width() / 2, radius);
+        float radius = (Math.max(width, height) / 2f) / 2;
+        float halfWidth = Math.max(mTxtRect.width() / 2f, radius);
         float centerX = (width - halfWidth - 1) + 5;
         float centerY = radius - 5;
         if (mCount < okLimit) {
@@ -110,7 +110,7 @@ public class BadgeDrawable extends Drawable {
             canvas.drawRect(centerX - halfWidth - 7.5f, centerY + radius + 7.5f, centerX + halfWidth + 7.5f, centerY - radius - 7.5f, mBadgePaint1);
             canvas.drawRect(centerX - halfWidth - 5.5f, centerY + radius + 5.5f, centerX + halfWidth + 5.5f, centerY - radius - 5.5f, mBadgePaint);
         }
-        float textHeight = mTxtRect.bottom - mTxtRect.top;
+        float textHeight = (float) mTxtRect.bottom - mTxtRect.top;
         float textY = centerY + (textHeight / 2f);
         canvas.drawText(countString, centerX, textY, mTextPaint);
     }
@@ -157,7 +157,7 @@ public class BadgeDrawable extends Drawable {
 
         // Reuse drawable if possible
         Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
-        if (reuse != null && reuse instanceof BadgeDrawable && ((BadgeDrawable) reuse).okLimit == okLimit && ((BadgeDrawable) reuse).warnLimit == warnLimit) {
+        if (reuse instanceof BadgeDrawable && ((BadgeDrawable) reuse).okLimit == okLimit && ((BadgeDrawable) reuse).warnLimit == warnLimit) {
             badge = (BadgeDrawable) reuse;
         } else {
             badge = new BadgeDrawable(context, okLimit, warnLimit);
