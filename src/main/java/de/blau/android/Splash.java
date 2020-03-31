@@ -58,7 +58,8 @@ public class Splash extends AppCompatActivity {
             protected void onPreExecute() {
                 long lastDatabaseUpdate = 0;
                 try {
-                    lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY);
+                    lastDatabaseUpdate = Math.max(TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY),
+                            TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI));
                 } catch (SQLiteException sex) {
                     if (sex instanceof SQLiteDatabaseLockedException) {
                         Log.e(DEBUG_TAG, "tile layer database is locked");
