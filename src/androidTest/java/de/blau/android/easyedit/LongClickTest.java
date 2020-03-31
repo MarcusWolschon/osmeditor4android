@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
@@ -21,6 +22,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import de.blau.android.App;
@@ -64,14 +66,6 @@ public class LongClickTest {
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
-        prefs.enableSimpleActions(false);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                main.hideSimpleActionsButton();
-            }
-        });
-
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
@@ -93,6 +87,32 @@ public class LongClickTest {
         }
         App.getTaskStorage().reset();
         TestUtils.stopEasyEdit(main);
+        switchSimpleMode(false);
+    }
+
+    /**
+     * Switch the simple mode checkbox/pref
+     * 
+     * @param on if true it should be turned on if it is not on, if false turned off
+     */
+    private void switchSimpleMode(boolean on) {
+        if (TestUtils.clickOverflowButton(device)) {
+            UiObject2 simpleMode = TestUtils.findObjectWithText(device, false, "Simple mode", 5000);
+            if (simpleMode != null) {
+                UiObject2 check = simpleMode.getParent().getParent().getChildren().get(1);
+                Assert.assertTrue(check.isCheckable());
+                if ((on && !check.isChecked()) || (!on && check.isChecked())) {
+                    check.click();
+                } else {
+                    device.pressBack();
+                }
+            } else {
+                Log.e("toggleSimpleMode", "Simple mode check not found");
+                device.pressBack();
+            }
+        } else {
+            Log.e("toggleSimpleMode", "no overflowbutton");
+        }
     }
 
     /**
@@ -102,6 +122,8 @@ public class LongClickTest {
     public void teardown() {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
+        TestUtils.clickOverflowButton(device);
+        switchSimpleMode(true);
         App.getTaskStorage().reset();
     }
 

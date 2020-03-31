@@ -681,13 +681,28 @@ public class TestUtils {
      * @return true if successful
      */
     public static boolean findText(@NonNull UiDevice device, boolean clickable, @NonNull String text, long wait) {
+        Log.w(DEBUG_TAG, "Searching for  " + text);
+        return findObjectWithText(device, clickable, text, wait) != null;
+    }
+
+    /**
+     * Find object with text on screen (case insensitive)
+     * 
+     * @param device UiDevice object
+     * @param clickable if true the search will be restricted to clickable objects
+     * @param text the text to find
+     * @param wait time to wait in ms before timing out
+     * @return a UiObject2 if sucessful or null
+     */
+    @Nullable
+    public static UiObject2 findObjectWithText(@NonNull UiDevice device, boolean clickable, @NonNull String text, long wait) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
         BySelector bySelector = By.textStartsWith(text);
         if (clickable) {
             bySelector = bySelector.clickable(true);
         }
-        return device.wait(Until.findObject(bySelector), wait) != null;
+        return device.wait(Until.findObject(bySelector), wait);
     }
 
     /**
