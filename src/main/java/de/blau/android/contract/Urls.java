@@ -37,7 +37,7 @@ public final class Urls {
     public static final String OSM_LOGIN = "https://www.openstreetmap.org/login";
     public static final String OSM_WIKI  = "https://wiki.openstreetmap.org/";
 
-    public static final String ELI = "https://osmlab.github.io/editor-layer-index/imagery.geojson";
+    public static final String JOSM_IMAGERY = "https://josm.openstreetmap.de/maps?format=geojson";
 
     public static final String OAM_SERVER = "https://api.openaerialmap.org/";
 

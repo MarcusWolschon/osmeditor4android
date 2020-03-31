@@ -1157,13 +1157,14 @@ public class TileLayerServer implements Serializable {
             if (newConfig) {
                 // delete old
                 TileLayerDatabase.deleteSource(writableDb, TileLayerDatabase.SOURCE_ELI);
-                TileLayerDatabase.addSource(writableDb, TileLayerDatabase.SOURCE_ELI);
+                TileLayerDatabase.deleteSource(writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
+                TileLayerDatabase.addSource(writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
             }
             String[] imageryFiles = { Files.FILE_NAME_VESPUCCI_IMAGERY, Files.FILE_NAME_USER_IMAGERY };
             for (String fn : imageryFiles) {
                 try {
                     InputStream is = assetManager.open(fn);
-                    parseImageryFile(ctx, writableDb, TileLayerDatabase.SOURCE_ELI, is, async);
+                    parseImageryFile(ctx, writableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, async);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "reading conf file " + fn + " got " + e.getMessage());
                     throw e;
@@ -1214,43 +1215,43 @@ public class TileLayerServer implements Serializable {
     }
 
     /**
-     * Read a file from the editor layer index containing layer configurations and update the database with them
+     * Read a file from the JOSM Imagery Sources containing layer configurations and update the database with them
      * 
      * @param ctx Android Context
      * @param writeableDb a writable SQLiteDatabase
      * @throws IOException if there was an IO error
      */
-    public static void updateFromEli(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) throws IOException {
-        Log.d(DEBUG_TAG, "Updating from editor-layer-index");
+    public static void updateFromJOSMImagery(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) throws IOException {
+        Log.d(DEBUG_TAG, "Updating from JOSM Imagery Sources");
         AssetManager assetManager = ctx.getAssets();
         try {
             writeableDb.beginTransaction();
             // delete old
-            TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
-            TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
+            TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
+            TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
 
             // still need to read out base config first
             try {
                 InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY);
-                parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, true);
+                parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, true);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
             }
             InputStream is = null;
             try {
-                Request request = new Request.Builder().url(Urls.ELI).build();
+                Request request = new Request.Builder().url(Urls.JOSM_IMAGERY).build();
                 OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
                         .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
-                Call eliCall = client.newCall(request);
-                Response eliCallResponse = eliCall.execute();
-                if (eliCallResponse.isSuccessful()) {
-                    ResponseBody responseBody = eliCallResponse.body();
+                Call josmImageryCall = client.newCall(request);
+                Response josmImageryCallResponse = josmImageryCall.execute();
+                if (josmImageryCallResponse.isSuccessful()) {
+                    ResponseBody responseBody = josmImageryCallResponse.body();
                     is = responseBody.byteStream();
-                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, true);
+                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, true);
                     writeableDb.setTransactionSuccessful();
                     getListsLocked(ctx, writeableDb, true);
                 } else {
-                    throw new IOException(eliCallResponse.message());
+                    throw new IOException(josmImageryCallResponse.message());
                 }
             } finally {
                 SavingHelper.close(is);

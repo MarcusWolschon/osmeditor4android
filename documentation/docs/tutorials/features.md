@@ -57,7 +57,7 @@ __Presets__          |                             |
                      | JavaScript scripting support |
                      | Create custom presets on the fly |
 __Backgrounds and Layers__ |              |
-                           | Supports the editor layer index                          |
+                           | Supports the JOSM Imagery Sources                        |
                            | On device tile caching                                   | 
                            | Custom background and overlays                           |
                            | OpenAerialMap support                                    |

@@ -192,13 +192,13 @@ Recommended practice, if you no longer need the previously loaded data and have 
 
 #### The aerial or satellite imagery is out of date
 
-Vespucci uses [the editor layer index](https://github.com/osmlab/editor-layer-index) for configuring the available backgrounds, just as the browser embedded editor iD and other applications do. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should open an issue on [the editor layer index issue tracker](https://github.com/osmlab/editor-layer-index/issues)
+Vespucci uses the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps) for configuring the available backgrounds, just as the browser embedded editor iD and other applications do. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps), or [open an issue on the JOSM issue tracker](https://josm.openstreetmap.de/newticket?component=Wiki%20content&keywords=imagery)
 
 #### How can I add a custom (aerial/satellite) imagery layer
 
-The preferred method is to add your imagery source to [the editor layer index](https://github.com/osmlab/editor-layer-index) so that it can be used by all OpenStreetMap editors. 
+The preferred method is to add your imagery source to the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps) so that it can be used by all OpenStreetMap editors. 
 
-From 10.1 on, the "Advanced preferences" contain an option to add custom imagery via a form, however adding to the editor layer index is still preferred. You can update the complete configuration at any time by selecting the corresponding menu entry in the "Tools" menu.
+From 10.1 on, the "Advanced preferences" contain an option to add custom imagery via a form, however adding to the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps) is still preferred. You can update the complete configuration at any time by selecting the corresponding menu entry in the "Tools" menu.
 
 #### Why can't you provide technical support on the google play store review section
 
