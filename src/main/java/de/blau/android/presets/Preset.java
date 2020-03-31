@@ -17,11 +17,13 @@ import java.io.Serializable;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -32,7 +34,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.Stack;
 import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -50,9 +51,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -63,6 +61,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
 import ch.poole.poparser.ParseException;
 import ch.poole.poparser.Po;
@@ -688,22 +689,22 @@ public class Preset implements Serializable {
 
         saxParser.parse(input, new DefaultHandler() {
             /** stack of group-subgroup-subsubgroup... where we currently are */
-            private Stack<PresetGroup>               groupstack        = new Stack<>();
+            private Deque<PresetGroup>          groupstack        = new ArrayDeque<>();
             /** item currently being processed */
-            private PresetItem                       currentItem       = null;
+            private PresetItem                  currentItem       = null;
             /** true if we are currently processing the optional section of an item */
-            private boolean                          inOptionalSection = false;
+            private boolean                     inOptionalSection = false;
             /** hold reference to chunks */
-            private HashMap<String, PresetItem>      chunks            = new HashMap<>();
+            private Map<String, PresetItem>     chunks            = new HashMap<>();
             /** store current combo or multiselect key */
-            private String                           listKey           = null;
-            private ArrayList<StringWithDescription> listValues        = null;
-            private String                           delimiter         = null;
+            private String                      listKey           = null;
+            private List<StringWithDescription> listValues        = null;
+            private String                      delimiter         = null;
             /** check groups */
-            private PresetCheckGroupField            checkGroup        = null;
-            private int                              checkGroupCounter = 0;
+            private PresetCheckGroupField       checkGroup        = null;
+            private int                         checkGroupCounter = 0;
             /** */
-            private String                           currentLabel      = null;
+            private String                      currentLabel      = null;
 
             {
                 groupstack.push(rootGroup);
