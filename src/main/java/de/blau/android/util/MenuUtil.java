@@ -2,15 +2,14 @@ package de.blau.android.util;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.core.view.MenuItemCompat;
-import androidx.appcompat.widget.ActionMenuView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.ActionMenuView;
 import de.blau.android.App;
 import de.blau.android.R;
 
@@ -51,7 +50,6 @@ public class MenuUtil {
      * 
      * @param menu the Menu to work on
      */
-    @SuppressWarnings("deprecation")
     public void setShowAlways(@NonNull Menu menu) {
 
         int nonVisibleItems = 0;
@@ -67,17 +65,15 @@ public class MenuUtil {
             tempMaxItems--;
         }
 
-        // Log.d("MenuUtil","menu size " + menu.size() + " maxItems " + maxItems + " nonVisible " + nonVisibleItems);
         for (int i = 0, j = 0; i < menu.size(); i++) { // max 10 even if we have more space
             MenuItem mi = menu.getItem(i);
-            // Log.d("MenuUtil","menu " + mi.getTitle());
             if (j < Math.min(tempMaxItems, 10)) {
                 if (mi.isVisible() && mi.getIcon() != null) {
-                    MenuItemCompat.setShowAsAction(menu.getItem(i), MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+                    menu.getItem(i).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                     j++;
                 }
             } else {
-                MenuItemCompat.setShowAsAction(menu.getItem(i), MenuItemCompat.SHOW_AS_ACTION_NEVER);
+                menu.getItem(i).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
             }
         }
     }

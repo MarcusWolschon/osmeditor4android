@@ -8,9 +8,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,6 +16,9 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;
@@ -175,7 +175,7 @@ public class Authorize extends FullScreenAppCompatActivity {
 
                 @SuppressWarnings("deprecation")
                 @Override
-                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) { // NOSONAR
                     finishOAuth();
                     Snack.toastTopError(view.getContext(), description);
                 }

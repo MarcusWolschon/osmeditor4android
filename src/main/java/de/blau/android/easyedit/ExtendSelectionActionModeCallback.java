@@ -5,18 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.MenuItemCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ActionMode;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ActionMode;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
@@ -153,11 +150,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             undo.setVisible(true);
             undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
         }
-        View undoView = MenuItemCompat.getActionView(undo);
-        if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android
-            Context context = ThemeUtils.getThemedContext(main, R.style.Theme_customMain_Light, R.style.Theme_customMain);
-            undoView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
-        }
+        View undoView = undo.getActionView();
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
 

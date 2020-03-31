@@ -3,16 +3,15 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.MenuCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.view.ActionMode.Callback;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.view.ActionMode.Callback;
+import androidx.fragment.app.Fragment;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditActionModeCallback;
@@ -76,10 +75,10 @@ class SelectedRowsActionModeCallback implements Callback {
         menu.clear();
         Context context = caller.getActivity();
         menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_delete));
-        MenuCompat.setShowAsAction(menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_SELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_select_all),
-                MenuItem.SHOW_AS_ACTION_NEVER);
-        MenuCompat.setShowAsAction(menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all),
-                MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_SELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_select_all)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
                 .setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
         return true;

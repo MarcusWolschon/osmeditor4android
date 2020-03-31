@@ -12,17 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.core.view.MenuCompat;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.widget.ActionMenuView;
-import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +19,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -159,22 +158,19 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         boolean multiple = photoList.size() > 1;
         if (multiple) {
             itemBack = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp);
-            MenuCompat.setShowAsAction(itemBack, MenuItem.SHOW_AS_ACTION_ALWAYS);
+            itemBack.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-        MenuItem shareItem = menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp);
-        MenuCompat.setShowAsAction(shareItem, MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         if (multiple) {
-            MenuItem item = menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp);
-            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (Uri.parse(photoList.get(startPos)).getAuthority().equals(getString(R.string.content_provider))) {
             // we can only delete stuff that is provided by our provider
-            MenuItem item = menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp);
-            MenuCompat.setShowAsAction(item, MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (multiple) {
             itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
-            MenuCompat.setShowAsAction(itemForward, MenuItem.SHOW_AS_ACTION_ALWAYS);
+            itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         menuView.setOnMenuItemClickListener(this);
         return layout;
