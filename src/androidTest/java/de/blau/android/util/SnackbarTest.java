@@ -82,7 +82,7 @@ public class SnackbarTest {
     public void infoQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
         final CountDownLatch signal = new CountDownLatch(1);
-        s.setCallback(new Snackbar.Callback() {
+        s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
             }
@@ -107,7 +107,7 @@ public class SnackbarTest {
     public void warningQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
         final CountDownLatch signal = new CountDownLatch(1);
-        s.setCallback(new Snackbar.Callback() {
+        s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
             }
@@ -132,7 +132,7 @@ public class SnackbarTest {
     public void errorQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
         final CountDownLatch signal = new CountDownLatch(1);
-        s.setCallback(new Snackbar.Callback() {
+        s.addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar s, int event) {
             }
