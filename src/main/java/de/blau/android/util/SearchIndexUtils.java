@@ -68,6 +68,10 @@ public final class SearchIndexUtils {
                 case '/':
                 case '_':
                 case '.':
+                case '-':
+                case ':':
+                case '+':
+                case ';':
                     if (b.length() > 0 && !Character.isWhitespace(b.charAt(b.length() - 1))) {
                         b.append(' ');
                     }
@@ -75,7 +79,7 @@ public final class SearchIndexUtils {
                 case '\'':
                     break;
                 default:
-                    Log.e(DEBUG_TAG, "Unexpected char " + c);
+                    // IGNORE
                 }
             }
         }
