@@ -200,6 +200,7 @@ public class GpxTest {
         Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
         TestUtils.selectFile(device, null, filename);
         Assert.assertTrue(TestUtils.clickText(device, false, "Replace", true));
+        TestUtils.textGone(device, "Imported", 10000);
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);
         try {
