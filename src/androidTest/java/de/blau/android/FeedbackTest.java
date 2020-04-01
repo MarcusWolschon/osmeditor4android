@@ -26,7 +26,6 @@ public class FeedbackTest {
 
     MockWebServerPlus    mockServer      = null;
     Context              context         = null;
-    ActivityMonitor      monitor         = null;
     AdvancedPrefDatabase prefDB          = null;
     Instrumentation      instrumentation = null;
     UiDevice             device          = null;
@@ -54,13 +53,16 @@ public class FeedbackTest {
     }
 
     /**
-     * Start up the feedback activits, which then should show the policy
+     * Start up the feedback activity
      */
     @Test
     public void startFeedback() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Feedback", true);
-        Assert.assertTrue(TestUtils.findText(device, false, "Feedback for the developers", 30000));
-        Assert.assertTrue(TestUtils.clickMenuButton(device, "Back", false, true));
+        ActivityMonitor monitor = instrumentation.addMonitor(Feedback.class.getName(), null, false);
+        TestUtils.clickText(device, false, "Provide feedback", true);
+        instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        instrumentation.removeMonitor(monitor);
+        Assert.assertTrue(TestUtils.findText(device, false, "Feedback for the developers", 10000));
+        device.pressBack();
     }
 }
