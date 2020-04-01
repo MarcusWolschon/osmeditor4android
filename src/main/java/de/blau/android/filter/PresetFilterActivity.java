@@ -191,6 +191,8 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         case R.id.menu_help:
             HelpViewer.start(this, R.string.help_presetfilter);
             break;
+        default:
+            Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return super.onOptionsItemSelected(item);
     }

@@ -229,6 +229,8 @@ public class TagFilterActivity extends ListActivity {
         case R.id.menu_help:
             HelpViewer.start(this, R.string.help_tagfilter);
             break;
+        default:
+            Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return super.onOptionsItemSelected(item);
     }

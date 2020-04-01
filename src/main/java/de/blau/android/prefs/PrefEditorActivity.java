@@ -64,6 +64,8 @@ public abstract class PrefEditorActivity extends AppCompatActivity implements Pr
         case MENUITEM_HELP:
             HelpViewer.start(this, getHelpTopic());
             return true;
+        default:
+            Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return super.onOptionsItemSelected(item);
     }

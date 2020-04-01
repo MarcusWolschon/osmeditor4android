@@ -138,8 +138,7 @@ public class PresetEditorActivity extends URLListEditActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         Log.d("AdvancedPrefEditor", "onOptionsItemSelected");
-        switch (item.getItemId()) {
-        case MENUITEM_HELP:
+        if (item.getItemId() == MENUITEM_HELP) {
             HelpViewer.start(this, R.string.help_presets);
             return true;
         }

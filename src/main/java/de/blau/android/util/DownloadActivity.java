@@ -249,8 +249,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }

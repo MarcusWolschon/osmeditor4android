@@ -2,6 +2,7 @@ package de.blau.android.listener;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import de.blau.android.Main;
@@ -11,6 +12,8 @@ import de.blau.android.osm.Server.Visibility;
  * @author mb
  */
 public class GpxUploadListener implements OnClickListener {
+
+    private static final String DEBUG_TAG = "GpxUploadListener";
 
     private final Main     caller;
     private final EditText descriptionField;
@@ -51,6 +54,8 @@ public class GpxUploadListener implements OnClickListener {
         case 3:
             visibility = Visibility.IDENTIFIABLE;
             break;
+        default:
+            Log.e(DEBUG_TAG, "Unknown spinner value " + visibilitySpinner.getSelectedItemPosition());
         }
         caller.performTrackUpload(descriptionField.getText().toString(), tagsField.getText().toString(), visibility);
     }

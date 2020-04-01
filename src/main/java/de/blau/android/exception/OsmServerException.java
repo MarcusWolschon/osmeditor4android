@@ -2,7 +2,11 @@ package de.blau.android.exception;
 
 import java.net.HttpURLConnection;
 
+import android.util.Log;
+
 public class OsmServerException extends OsmException {
+
+    private static final String DEBUG_TAG = "OsmServerException";
 
     private static final String ELEMENT_TYPE_NONE = "none";
 
@@ -119,6 +123,8 @@ public class OsmServerException extends OsmException {
             return "An internal error occurred. This is usually an uncaught Ruby exception and should be reported as a bug. There have been cases where such errors were caused by timeouts, i.e. a retry after a short waiting period could succeed. ";
         case HttpURLConnection.HTTP_UNAVAILABLE:
             return "The database has been taken offline for maintenance. ";
+        default:
+            Log.w(DEBUG_TAG, "Unknown error code " + errorCode);
         }
         return null;
     }

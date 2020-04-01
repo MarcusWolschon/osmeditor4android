@@ -288,6 +288,8 @@ public final class Utils {
                                         }
                                     });
                                     break;
+                                default:
+                                    Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
                                 }
                                 return true;
                             }

@@ -1422,8 +1422,7 @@ public class Main extends FullScreenAppCompatActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.d(DEBUG_TAG, "onRequestPermissionsResult");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-        case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
+        if (requestCode == REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS) {
             for (int i = 0; i < permissions.length; i++) {
                 if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted :)
@@ -1445,7 +1444,8 @@ public class Main extends FullScreenAppCompatActivity
                     whenPermissionsGranted = null;
                 }
             }
-            break;
+        } else {
+            Log.w(DEBUG_TAG, "Unknown request code " + requestCode);
         }
         triggerMenuInvalidation(); // update menus
     }
@@ -1860,7 +1860,6 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_config:
             PrefEditor.start(this);
             return true;
-
         case R.id.menu_find:
             descheduleAutoLock();
             SearchForm.showDialog(this, map.getViewBox());
@@ -1899,6 +1898,8 @@ public class Main extends FullScreenAppCompatActivity
                     newFilter = new PresetFilter(this);
                 }
                 break;
+            default:
+                Log.w(DEBUG_TAG, "Should't happen");
             }
             Filter currentFilter = logic.getFilter();
             if (currentFilter != null) {
@@ -1922,7 +1923,6 @@ public class Main extends FullScreenAppCompatActivity
             triggerMenuInvalidation();
             map.invalidate();
             return true;
-
         case R.id.menu_simple_actions:
             if (prefs.areSimpleActionsEnabled()) {
                 prefs.enableSimpleActions(false);
@@ -1934,7 +1934,6 @@ public class Main extends FullScreenAppCompatActivity
                 showSimpleActionsButton();
             }
             break;
-
         case R.id.menu_share:
             Util.sharePosition(this, map.getViewBox().getCenter(), map.getZoomLevel());
             break;
@@ -1942,11 +1941,9 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_help:
             HelpViewer.start(this, R.string.help_main);
             return true;
-
         // case R.id.menu_voice:
         //
         // return true;
-
         case R.id.menu_camera:
             Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             try {
@@ -1966,19 +1963,15 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }
             return true;
-
         case R.id.menu_gps_show:
             toggleShowGPS();
             return true;
-
         case R.id.menu_gps_follow:
             toggleFollowGPS();
             return true;
-
         case R.id.menu_gps_goto:
             gotoCurrentLocation();
             return true;
-
         case R.id.menu_gps_goto_coordinates:
             descheduleAutoLock();
             CoordinatesOrOLC.get(this, new CoordinatesOrOLC.HandleResult() {
@@ -2007,7 +2000,6 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             return true;
-
         case R.id.menu_gps_goto_last_edit:
             BoundingBox box = logic.getUndo().getCurrentBounds();
             if (box != null) {
@@ -2021,21 +2013,18 @@ public class Main extends FullScreenAppCompatActivity
                 map.invalidate();
             }
             return true;
-
         case R.id.menu_gps_start:
             if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().startTracking();
                 setFollowGPS(true);
             }
             return true;
-
         case R.id.menu_gps_pause:
             if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().stopTracking(false);
                 triggerMenuInvalidation();
             }
             return true;
-
         case R.id.menu_gps_clear:
             if (getTracker() != null) {
                 if (!getTracker().isEmpty()) {
@@ -2058,7 +2047,6 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }
             return true;
-
         case R.id.menu_gps_upload:
             if (server != null) {
                 descheduleAutoLock();
@@ -2081,13 +2069,11 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }
             return true;
-
         case R.id.menu_gps_export:
             if (getTracker() != null) {
                 SavingHelper.asyncExport(this, getTracker());
             }
             return true;
-
         case R.id.menu_gps_import:
             descheduleAutoLock();
             SelectFile.read(this, R.string.config_gpxPreferredDir_key, new ReadFile() {
@@ -2106,18 +2092,15 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             return true;
-
         case R.id.menu_gps_goto_start:
             gotoFirstTrackPoint();
             return true;
-
         case R.id.menu_gps_goto_first_waypoint:
             List<WayPoint> w = tracker.getWayPoints();
             if (w != null && !w.isEmpty()) {
                 gotoTrackPoint(logic, w.get(0));
             }
             return true;
-
         case R.id.menu_enable_gps_autodownload:
             Log.d(DEBUG_TAG, "gps auto download menu");
             if (prefs.getAutoDownload()) {
@@ -2132,7 +2115,6 @@ public class Main extends FullScreenAppCompatActivity
             startStopAutoDownload();
             map.setPrefs(this, prefs);
             break;
-
         case R.id.menu_enable_pan_and_zoom_auto_download:
             Log.d(DEBUG_TAG, "pan and zoom auto download menu");
             if (prefs.getPanAndZoomAutoDownload()) {
@@ -2148,19 +2130,15 @@ public class Main extends FullScreenAppCompatActivity
             startStopAutoDownload();
             map.setPrefs(this, prefs);
             break;
-
         case R.id.menu_transfer_download_current:
             onMenuDownloadCurrent(true);
             return true;
-
         case R.id.menu_transfer_download_replace:
             onMenuDownloadCurrent(false);
             return true;
-
         case R.id.menu_transfer_upload:
             confirmUpload();
             return true;
-
         case R.id.menu_transfer_close_changeset:
             if (server.hasOpenChangeset()) {
                 // fail silently if it doesn't work, next upload will open a new
@@ -2183,7 +2161,6 @@ public class Main extends FullScreenAppCompatActivity
                 }.execute();
             }
             return true;
-
         case R.id.menu_transfer_export:
             SavingHelper.asyncExport(this, delegator);
             return true;
@@ -2209,11 +2186,9 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             return true;
-
         case R.id.menu_transfer_read_file:
         case R.id.menu_transfer_read_pbf_file:
             descheduleAutoLock();
-            // showFileChooser(READ_OSM_FILE_SELECT_CODE);
             final ReadFile readFile = new ReadFile() {
                 private static final long serialVersionUID = 1L;
 
@@ -2254,7 +2229,6 @@ public class Main extends FullScreenAppCompatActivity
                 SelectFile.read(this, R.string.config_osmPreferredDir_key, readFile);
             }
             return true;
-
         case R.id.menu_transfer_save_file:
             descheduleAutoLock();
             SelectFile.save(this, R.string.config_osmPreferredDir_key, new SaveFile() {
@@ -2275,7 +2249,6 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_bugs_download_current:
             downLoadBugs(map.getViewBox().copy());
             return true;
-
         case R.id.menu_transfer_bugs_upload:
             if (App.getTaskStorage().hasChanges()) {
                 TransferTasks.upload(this, server, null);
@@ -2320,7 +2293,6 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_read_custom_bugs:
             descheduleAutoLock();
-            // showFileChooser(READ_OSM_FILE_SELECT_CODE);
             SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
                 private static final long serialVersionUID = 1L;
 
@@ -2346,12 +2318,10 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             return true;
-
         case R.id.menu_undo:
             // should not happen
             undoListener.onClick(null);
             return true;
-
         case R.id.menu_tools_flush_all_tile_caches:
             Snack.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, new OnClickListener() {
                 @Override
@@ -2364,7 +2334,6 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             return true;
-
         case R.id.menu_tools_background_align:
             // protect against weird state
             Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT;
@@ -2377,11 +2346,9 @@ public class Main extends FullScreenAppCompatActivity
                 Log.e(DEBUG_TAG, isex.getMessage());
             }
             return true;
-
         case R.id.menu_tools_apply_local_offset:
             ImageryOffsetUtils.applyImageryOffsets(this, map.getBackgroundLayer().getTileLayerConfiguration(), null);
             return true;
-
         case R.id.menu_tools_update_imagery_configuration:
             new AsyncTask<Void, Void, Void>() {
                 TileLayerDatabase db = new TileLayerDatabase(Main.this);
@@ -2410,11 +2377,9 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }.execute();
             return true;
-
         case R.id.tag_menu_reset_address_prediction:
             Address.resetLastAddresses(this);
             return true;
-
         case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
             if (server.getOAuth()) {
                 try (AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this)) {
@@ -2424,7 +2389,6 @@ public class Main extends FullScreenAppCompatActivity
                 Snack.barError(this, R.string.toast_oauth_not_enabled);
             }
             return true;
-
         case R.id.menu_tools_oauth_authorisation: // immediately start
                                                   // authorization handshake
             if (server.getOAuth()) {
@@ -2432,7 +2396,6 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 Snack.barError(this, R.string.toast_oauth_not_enabled);
             }
-
             return true;
         case R.id.menu_tools_set_maproulette_apikey:
             MapRouletteApiKey.set(this, server, true);
@@ -2455,6 +2418,8 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_debug:
             startActivity(new Intent(this, DebugInformation.class));
             return true;
+        default:
+            Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return false;
 
@@ -3878,6 +3843,8 @@ public class Main extends FullScreenAppCompatActivity
                         // this stops the piercing beep related to volume
                         // adjustments
                         return true;
+                    default:
+                        // IGNORE
                     }
                 }
                 break;
@@ -3952,6 +3919,8 @@ public class Main extends FullScreenAppCompatActivity
                     }
                 }
                 break;
+            default:
+                Log.w(DEBUG_TAG, "Unknown key event " + event.getAction());
             }
             return false;
         }
@@ -3980,8 +3949,7 @@ public class Main extends FullScreenAppCompatActivity
         public boolean onGenericMotion(View arg0, MotionEvent event) {
             final Logic logic = App.getLogic();
             if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)) {
-                switch (event.getAction()) {
-                case MotionEvent.ACTION_SCROLL:
+                if (event.getAction() == MotionEvent.ACTION_SCROLL) {
                     if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) > 0.0f) {
                         logic.zoom(Logic.ZOOM_IN);
                     } else {

@@ -146,20 +146,17 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.urldialog_buttonAddPreset:
+        if (v.getId() == R.id.urldialog_buttonAddPreset) {
             CheckBox enableCheckBox = (CheckBox) mainView.findViewById(R.id.urldialog_checkboxEnable);
             boolean enable = enableCheckBox != null && enableCheckBox.isChecked();
             PresetEditorActivity.startForResult(this, presetname, preseturl, enable, REQUEST_PRESETEDIT);
-            break;
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         Log.d(DEBUG_TAG, "onOptionsItemSelected");
-        switch (item.getItemId()) {
-        case android.R.id.home:
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }

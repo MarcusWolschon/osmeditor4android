@@ -96,6 +96,8 @@ public class MapRouletteTask extends Task {
                             case "lng":
                                 task.lon = (int) (reader.nextDouble() * 1E7D);
                                 break;
+                            default:
+                                Log.e(DEBUG_TAG, "Unexpected element in point");
                             }
                         }
                         reader.endObject();

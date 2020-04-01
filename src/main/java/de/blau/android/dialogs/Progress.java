@@ -149,6 +149,8 @@ public class Progress extends ImmersiveDialogFragment {
             return "dialog_progress_building_imagery_database";
         case PROGRESS_QUERY_OAM:
             return "dialog_progress_query_oam";
+        default:
+            Log.w(DEBUG_TAG, "Unknown dialog type " + dialogType);
         }
         return null;
     }

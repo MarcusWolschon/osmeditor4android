@@ -865,6 +865,8 @@ public class Server {
             case HTTP_DELETE:
                 requestBuilder.delete(body);
                 break;
+            default:
+                Log.e(DEBUG_TAG, "Unknown request method " + requestMethod);
             }
         } else {
             if (HTTP_DELETE.equals(requestMethod)) {

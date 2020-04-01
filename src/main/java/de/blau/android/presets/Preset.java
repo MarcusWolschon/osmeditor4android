@@ -285,6 +285,8 @@ public class Preset implements Serializable {
             case "keyvalue!":
                 type = MatchType.KEY_VALUE_NEG;
                 break;
+            default:
+                Log.e(DEBUG_TAG, "Unknown match type string " + matchString);
             }
             if (type != null) {
                 return type;
@@ -335,6 +337,8 @@ public class Preset implements Serializable {
             case "wikidata":
                 type = WIKIDATA;
                 break;
+            default:
+                Log.e(DEBUG_TAG, "Unknown value type string " + typeString);
             }
             return type;
         }

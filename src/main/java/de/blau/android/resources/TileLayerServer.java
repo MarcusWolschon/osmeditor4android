@@ -2064,6 +2064,8 @@ public class TileLayerServer implements Serializable {
                     case "bbox":
                         builder.append(wmsBox(aTile));
                         break;
+                    default:
+                        Log.e(DEBUG_TAG, "Unknown place holder " + p);
                     }
                 } else {
                     param.append(c);

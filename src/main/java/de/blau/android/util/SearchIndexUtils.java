@@ -74,6 +74,8 @@ public final class SearchIndexUtils {
                     break;
                 case '\'':
                     break;
+                default:
+                    Log.e(DEBUG_TAG, "Unexpected char " + c);
                 }
             }
         }

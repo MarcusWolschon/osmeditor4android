@@ -206,6 +206,8 @@ public abstract class URLListEditActivity extends ListActivity
         case MENUITEM_DELETE:
             deleteItem(selectedItem);
             break;
+        default:
+            Log.w(DEBUG_TAG, "Unknown menu item " + itemId);
         }
         return true;
     }

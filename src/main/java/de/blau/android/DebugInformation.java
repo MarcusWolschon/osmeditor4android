@@ -8,6 +8,7 @@ import org.acra.ACRA;
 import android.annotation.SuppressLint;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,8 @@ import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 public class DebugInformation extends AppCompatActivity {
+    private static final String DEBUG_TAG = "DebugInformation";
+
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @SuppressLint("NewApi")
@@ -63,10 +66,11 @@ public class DebugInformation extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
+        } else {
+            Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return super.onOptionsItemSelected(item);
     }

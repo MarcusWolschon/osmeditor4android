@@ -68,6 +68,8 @@ public class PresetRole implements Comparable<PresetRole> {
                 case Relation.NAME:
                     appliesToRelation = true;
                     break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown element type " + type);
                 }
             }
         }
@@ -127,6 +129,8 @@ public class PresetRole implements Comparable<PresetRole> {
                 return appliesToWay;
             case Relation.NAME:
                 return appliesToRelation;
+            default:
+                Log.e(DEBUG_TAG, "Unknown element type " + type);
             }
         }
         return true;

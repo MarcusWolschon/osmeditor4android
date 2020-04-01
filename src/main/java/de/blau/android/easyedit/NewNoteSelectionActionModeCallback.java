@@ -2,6 +2,7 @@ package de.blau.android.easyedit;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
@@ -15,6 +16,7 @@ import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.Util;
 
 public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallback {
+    private static final String DEBUG_TAG = "NewNoteSel...";
 
     private static final int MENUITEM_VIEW   = 1;
     private static final int MENUITEM_DELETE = 2;
@@ -83,6 +85,8 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
                         }
                     }).show();
             break;
+        default:
+            Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return true;
     }

@@ -589,6 +589,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                                 : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
                     case 4:
                         return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                    default:
+                        // ERROR
                     }
                 } else {
                     switch (position) {
@@ -601,6 +603,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                                 : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
                     case 3:
                         return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                    default:
+                        // ERROR
                     }
                 }
             } else {
@@ -618,6 +622,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                                 : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
                     case 3:
                         return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                    default:
+                        // ERROR
                     }
                 } else {
                     switch (position) {
@@ -628,9 +634,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                                 : (instantiate ? relationMembershipFragment() : relationMembershipFragment);
                     case 2:
                         return instantiate ? relationMembershipFragment() : relationMembershipFragment;
+                    default:
+                        // ERROR
                     }
                 }
             }
+            Log.e(DEBUG_TAG, "Unknown position " + position);
             return null;
         }
 
@@ -650,6 +659,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                         return isRelation ? getString(R.string.members) : getString(R.string.relations);
                     case 4:
                         return getString(R.string.relations);
+                    default:
+                        // ERROR
                     }
                 } else {
                     switch (position) {
@@ -661,6 +672,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                         return isRelation ? getString(R.string.members) : getString(R.string.relations);
                     case 3:
                         return getString(R.string.relations);
+                    default:
+                        // ERROR
                     }
                 }
             } else {
@@ -674,6 +687,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                         return isRelation ? getString(R.string.members) : getString(R.string.relations);
                     case 3:
                         return getString(R.string.relations);
+                    default:
+                        // ERROR
                     }
                 } else {
                     switch (position) {
@@ -683,9 +698,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                         return isRelation ? getString(R.string.members) : getString(R.string.relations);
                     case 2:
                         return getString(R.string.relations);
+                    default:
+                        // ERROR
                     }
                 }
             }
+            Log.e(DEBUG_TAG, "Unknown position " + position);
             return "error";
         }
 
