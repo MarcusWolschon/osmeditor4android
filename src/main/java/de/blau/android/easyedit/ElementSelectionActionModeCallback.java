@@ -6,17 +6,14 @@ import java.util.Map;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.core.view.MenuItemCompat;
-import androidx.appcompat.view.ActionMode;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
@@ -132,13 +129,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         } else {
             undo.setVisible(false);
         }
-        View undoView = MenuItemCompat.getActionView(undo);
-        if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply
-                                // always do the following
-            Log.d(DEBUG_TAG, "undoView null");
-            Context context = ThemeUtils.getThemedContext(main, R.style.Theme_customMain_Light, R.style.Theme_customMain);
-            undoView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
-        }
+        View undoView = undo.getActionView();
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
 
