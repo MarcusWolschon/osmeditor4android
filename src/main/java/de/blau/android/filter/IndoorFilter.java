@@ -2,9 +2,10 @@ package de.blau.android.filter;
 
 import java.util.List;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.content.Context;
 import android.os.Build;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,6 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Density;
-import de.blau.android.util.Util;
 
 /**
  * Filter plus UI for indoor tagging see https://wiki.openstreetmap.org/wiki/Simple_Indoor_Tagging
@@ -337,7 +337,7 @@ public class IndoorFilter extends InvertableFilter {
                 update.execute();
             }
         });
-        Util.setAlpha(levelUp, Main.FABALPHA);
+        levelUp.setAlpha(Main.FABALPHA);
         levelText.setText(Integer.toString(getLevel()));
         levelTextButton.setClickable(true);
         levelTextButton.setOnClickListener(new OnClickListener() {
@@ -347,7 +347,7 @@ public class IndoorFilter extends InvertableFilter {
                 setupControls(true);
             }
         });
-        Util.setAlpha(levelTextButton, Main.FABALPHA);
+        levelTextButton.setAlpha(Main.FABALPHA);
         levelDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -357,7 +357,7 @@ public class IndoorFilter extends InvertableFilter {
                 update.execute();
             }
         });
-        Util.setAlpha(levelDown, Main.FABALPHA);
+        levelDown.setAlpha(Main.FABALPHA);
         setupControls(false);
     }
 

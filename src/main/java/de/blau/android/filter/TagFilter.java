@@ -9,26 +9,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Snack;
-import de.blau.android.util.Util;
 
 /**
  * Filter plus UI for filtering on tags NOTE: the relevant ways should be processed before nodes
@@ -246,7 +246,7 @@ public class TagFilter extends CommonFilter {
                 TagFilterActivity.start(context, DEFAULT_FILTER);
             }
         });
-        Util.setAlpha(tagFilterButton, Main.FABALPHA);
+        tagFilterButton.setAlpha(Main.FABALPHA);
         setupControls(false);
     }
 

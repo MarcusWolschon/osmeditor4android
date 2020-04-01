@@ -529,7 +529,7 @@ public class Main extends FullScreenAppCompatActivity
             ColorStateList followTint = ContextCompat.getColorStateList(this, R.color.follow);
             Util.setBackgroundTintList(follow, followTint);
         }
-        Util.setAlpha(follow, Main.FABALPHA);
+        follow.setAlpha(Main.FABALPHA);
 
         // Set up the zoom in/out controls
         zoomControls = mapLayout.findViewById(R.id.zoom_controls);
@@ -553,7 +553,7 @@ public class Main extends FullScreenAppCompatActivity
 
         // simple actions mode button
         simpleActionsButton = (FloatingActionButton) getLayoutInflater().inflate(R.layout.simple_button, null);
-        Util.setAlpha(simpleActionsButton, Main.FABALPHA);
+        simpleActionsButton.setAlpha(Main.FABALPHA);
         RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
         rlp.addRule(RelativeLayout.ABOVE, R.id.zoom_controls);

@@ -58,8 +58,8 @@ public class ZoomControls extends LinearLayout {
             Util.setBackgroundTintList(zoomIn, zoomTint);
             Util.setBackgroundTintList(zoomOut, zoomTint);
         }
-        Util.setAlpha(zoomIn, Main.FABALPHA);
-        Util.setAlpha(zoomOut, Main.FABALPHA);
+        zoomIn.setAlpha(Main.FABALPHA);
+        zoomOut.setAlpha(Main.FABALPHA);
     }
 
     @SuppressLint("ClickableViewAccessibility")

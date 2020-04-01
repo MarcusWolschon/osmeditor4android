@@ -3,17 +3,18 @@ package de.blau.android.filter;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -25,7 +26,6 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Util;
 
 /**
  * Filter plus UI for filtering on presets NOTE: the relevant ways should be processed before nodes
@@ -200,7 +200,7 @@ public class PresetFilter extends CommonFilter {
                 PresetFilterActivity.start(context);
             }
         });
-        Util.setAlpha(presetFilterButton, Main.FABALPHA);
+        presetFilterButton.setAlpha(Main.FABALPHA);
         setupControls(false);
     }
 
