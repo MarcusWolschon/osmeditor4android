@@ -5,8 +5,6 @@
     <config type="icon_zoom_limit" zoom="15" />
     <!-- Vespucci internal styles -->
     <feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokeWidth="0.0" />
-    <feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
-    <feature type="problem_way" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
     <feature type="way_direction" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
     <feature type="handle" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
     <feature type="selected_way" updateWidth="true" widthFactor="2.0" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" />
@@ -27,14 +25,30 @@
     <feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
     <feature type="selected_node_tagged" updateWidth="true" widthFactor="2.0" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
     <feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
-    <feature type="problem_node" updateWidth="true" widthFactor="2.0" color="ffff00ff" style="STROKE" cap="ROUND" join="MITER" />
-    <feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
     <feature type="node_drag_radius" updateWidth="false" widthFactor="1.0" strokeWidth="10.0" color="80f6e497" style="STROKE" cap="BUTT" join="MITER">
         <dash phase="1.0">
             <interval length="40.0" />
             <interval length="20.0" />
         </dash>
     </feature>
+    <!-- Validation -->
+    <feature type="problem_node" updateWidth="true" widthFactor="2.0" color="ffff00ff" style="STROKE" cap="ROUND" join="MITER" />
+    <feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
+    <feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
+    <feature type="problem_way" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
+    <!--  Code based validation styles -->
+    <!--  AGE                  = 0x00000002 -->
+    <!--  FIXME                = 0x00000004 -->
+    <!--  MISSING_TAG          = 0x00000008 -->
+    <!--  HIGHWAY_NAME         = 0x00000010 -->
+    <!--  HIGHWAY_ROAD         = 0x00000020 -->
+    <!--  NO_TYPE              = 0x00000040 -->
+    <!--  IMPERIAL_UNITS       = 0x00000080 -->
+    <!--  INVALID_OBJECT       = 0x00000100 -->
+    <!--  UNTAGGED             = 0x00000200 -->
+    <!--  UNCONNECTED_END_NODE = 0x00000400 -->
+    <!--  DEGENERATE_WAY       = 0x00000800 -->
+    <feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" />
     
     <!-- Arrow styles -->
     <feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" />
