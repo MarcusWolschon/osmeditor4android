@@ -26,14 +26,7 @@ public class PbfTest {
      */
     @Test
     public void readPbf() {
-        InputStream input = PbfTest.class.getResourceAsStream("/liechtenstein-latest.osm.pbf");
-        Storage storage = new Storage();
-        BlockReaderAdapter brad = new OsmPbfParser(storage);
-        try {
-            new BlockInputStream(input, brad).process();
-        } catch (IOException e) {
-            fail(e.getMessage());
-        }
+        Storage storage = read();
         try {
             File file = File.createTempFile("liechtenstein-latest.osm", ".xml");
             System.out.println(file.getAbsolutePath());
@@ -52,5 +45,22 @@ public class PbfTest {
         } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException | IOException | NoSuchAlgorithmException e) {
             fail(e.getMessage());
         }
+    }
+
+    /**
+     * Read and parse a pbf from resources
+     * 
+     * @return a Storage instance containing the data
+     */
+    public static Storage read() {
+        InputStream input = PbfTest.class.getResourceAsStream("/liechtenstein-latest.osm.pbf");
+        Storage storage = new Storage();
+        BlockReaderAdapter brad = new OsmPbfParser(storage);
+        try {
+            new BlockInputStream(input, brad).process();
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        return storage;
     }
 }

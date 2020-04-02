@@ -3194,7 +3194,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Safely remove data that is not in/intersects with the provided BoundingBox
      * 
-     * Doesn't bother with relations, skips selected elements and elements that are relation members
+     * Doesn't bother with relations, skips selected elements, removes BoundingBoxes
+     * 
+     * FIXME to determine if an element is selected this uses the current Logic instance
      * 
      * @param box the BoundingBox
      */
@@ -3204,8 +3206,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         LongHashSet keepNodes = new LongHashSet();
 
         for (Way w : currentStorage.getWays()) {
-            if (apiStorage.getWay(w.getOsmId()) == null && !w.hasParentRelations() && !box.intersects(w.getBounds()) && !logic.isSelected(w)) {
+            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds()) && !logic.isSelected(w)) {
                 currentStorage.removeWay(w);
+                removeReferenceFromParents(logic, w);
             } else { // keeping so we need to keep the nodes
                 for (Node n : w.getNodes()) {
                     keepNodes.put(n.getOsmId());
@@ -3214,13 +3217,93 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         for (Node n : currentStorage.getNodes()) {
             long nodeId = n.getOsmId();
-            if (apiStorage.getNode(nodeId) == null && !n.hasParentRelations() && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)
-                    && !logic.isSelected(n)) {
+            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId) && !logic.isSelected(n)) {
                 currentStorage.removeNode(n);
+                removeReferenceFromParents(logic, n);
             }
         }
         BoundingBox.prune(this, box);
         dirty();
+    }
+
+    /**
+     * Remove the references to downloaded elements from parent Relations
+     * 
+     * @param logic the current Logic instance FIXME this is an architectural wart
+     * @param e the OsmElement we want to remove references for
+     */
+    private void removeReferenceFromParents(@NonNull Logic logic, @NonNull OsmElement e) {
+        List<Relation> parents = e.getParentRelations();
+        if (parents != null) {
+            for (Relation parent : parents) { // remove link from parent relations
+                List<RelationMember> members = parent.getAllMembers(parent);
+                for (RelationMember member : members) {
+                    member.setElement(null);
+                }
+            }
+            logic.removeSelectedRelationElement(e);
+        }
+    }
+
+    /**
+     * Remove all unchanged elements, retaining parent Relations for changed ones
+     */
+    public synchronized void pruneAll() {
+        LongHashSet keepNodes = new LongHashSet();
+        LongHashSet keepRelations = new LongHashSet();
+
+        for (Way w : currentStorage.getWays()) {
+            if (apiStorage.getWay(w.getOsmId()) == null) {
+                currentStorage.removeWay(w);
+            } else { // keeping so we need to keep the nodes
+                for (Node n : w.getNodes()) {
+                    keepNodes.put(n.getOsmId());
+                }
+                keepParents(keepRelations, w);
+            }
+        }
+        for (Node n : currentStorage.getNodes()) {
+            long nodeId = n.getOsmId();
+            if (apiStorage.getNode(nodeId) == null && !keepNodes.contains(nodeId)) {
+                currentStorage.removeNode(n);
+            } else {
+                keepNodes.put(nodeId);
+                keepParents(keepRelations, n);
+            }
+        }
+        for (Relation r : currentStorage.getRelations()) {
+            long relationId = r.getOsmId();
+            if (apiStorage.getRelation(relationId) != null) {
+                keepRelations.put(relationId);
+                keepParents(keepRelations, r);
+            }
+        }
+        for (Relation r : currentStorage.getRelations()) {
+            if (!keepRelations.contains(r.getOsmId())) {
+                currentStorage.removeRelation(r);
+            }
+        }
+        fixupBacklinks();
+        dirty();
+    }
+
+    /**
+     * Recursively add parent relations to keep
+     * 
+     * @param keepRelations the Set of relations to keep
+     * @param e the OsmElement the parents of we want to keep
+     */
+    void keepParents(@NonNull LongHashSet keepRelations, @NonNull OsmElement e) {
+        List<Relation> parents = e.getParentRelations();
+        if (parents != null) {
+            for (Relation r : parents) {
+                long relationId = r.getOsmId();
+                if (!keepRelations.contains(relationId)) {
+                    keepRelations.put(relationId);
+                    keepParents(keepRelations, r);
+                }
+            }
+        }
     }
 
     /**

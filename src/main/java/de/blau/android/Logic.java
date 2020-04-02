@@ -497,7 +497,7 @@ public class Logic {
      * 
      * @param direction the direction of the translation.
      */
-    public void translate(final CursorPaddirection direction) {
+    public void translate(@NonNull final CursorPaddirection direction) {
         float translation = viewBox.getWidth() * TRANSLATION_FACTOR;
         try {
             switch (direction) {
@@ -2689,14 +2689,21 @@ public class Logic {
     }
 
     /**
-     * Re-downloads the same area as last time
+     * Re-downloads the same areas that we already have
      * 
      * @param activity activity this was called from
+     * @param reset storage before reloading if true, discards any changes! If false this updates the data.
      * @see #downloadBox(activity, BoundingBox, boolean)
      */
-    void downloadLast(final FragmentActivity activity) {
-        getDelegator().reset(false);
-        for (BoundingBox box : getDelegator().getBoundingBoxes()) {
+    void redownload(@NonNull final FragmentActivity activity, boolean reset) {
+        List<BoundingBox> boxes = new ArrayList<>(getDelegator().getBoundingBoxes());
+        if (reset) {
+            getDelegator().reset(false);
+        } else {
+            getDelegator().pruneAll();
+            getDelegator().getCurrentStorage().clearBoundingBoxList();
+        }
+        for (BoundingBox box : boxes) {
             if (box != null && box.isValidForApi()) {
                 downloadBox(activity, box, true, null);
             }
@@ -4601,6 +4608,23 @@ public class Logic {
     @Nullable
     public List<Way> getSelectedRelationWays() {
         return selectedRelationWays;
+    }
+
+    /**
+     * Remove a selected member element
+     * 
+     * @param e the element
+     */
+    public void removeSelectedRelationElement(@NonNull OsmElement e) {
+        if (e instanceof Node) {
+            removeSelectedRelationNode((Node) e);
+        } else if (e instanceof Way) {
+            removeSelectedRelationWay((Way) e);
+        } else if (e instanceof Relation) {
+            removeSelectedRelationRelation((Relation) e);
+        } else {
+            Log.e(DEBUG_TAG, "removeSelectedRelationElement unknown element " + e);
+        }
     }
 
     /**

@@ -9,8 +9,11 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.junit.Test;
+import org.mozilla.javascript.ast.Name;
 
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmException;
@@ -98,16 +101,92 @@ public class StorageDelegatorTest {
         OsmElementFactory factory = d.getFactory();
         Way w = factory.createWayWithNewId();
         Node n0 = factory.createNodeWithNewId(toE7(51.478), toE7(0));
+        d.insertElementSafe(n0);
         w.addNode(n0);
         Node n1 = factory.createNodeWithNewId(toE7(51.478), toE7(0.003));
+        d.insertElementSafe(n1);
         w.addNode(n1);
         Node n2 = factory.createNodeWithNewId(toE7(51.476), toE7(0.003));
+        d.insertElementSafe(n2);
         w.addNode(n2);
         Node n3 = factory.createNodeWithNewId(toE7(51.476), toE7(0));
+        d.insertElementSafe(n3);
         w.addNode(n3);
         w.addNode(n0); // close
         d.insertElementSafe(w);
         return w;
+    }
+
+    /**
+     * Load some data modify a way and a node, then prune
+     */
+    @Test
+    public void pruneAll() {
+        StorageDelegator d = new StorageDelegator();
+        d.setCurrentStorage(PbfTest.read());
+        assertEquals(0, d.getApiElementCount());
+        assertEquals(258905, d.getCurrentStorage().getNodeCount());
+        assertEquals(26454, d.getCurrentStorage().getWayCount());
+        assertEquals(751, d.getCurrentStorage().getRelationCount());
+        Way w = (Way) d.getOsmElement(Way.NAME, 571067343L);
+        int wayNodeCount = w.nodeCount();
+        assertNotNull(w);
+        int parentCount = w.getParentRelations().size();
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put("test", "pruneAll");
+        d.getUndo().createCheckpoint("pruneAll");
+        d.setTags(w, tags);
+        assertEquals(1, d.getApiElementCount());
+        Node n = (Node) d.getOsmElement(Node.NAME, 761534749L);
+        assertNotNull(n);
+        n.setLat(toE7(47.1187142));
+        n.setLon(toE7(9.5430107));
+        d.insertElementSafe(n);
+        d.pruneAll();
+        assertNotNull(d.getOsmElement(Way.NAME, 571067343L));
+        assertNotNull(d.getOsmElement(Node.NAME, 761534749L));
+        assertEquals(wayNodeCount + 1, d.getCurrentStorage().getNodeCount());
+        assertEquals(1, d.getCurrentStorage().getWayCount());
+        assertEquals(32, d.getCurrentStorage().getRelationCount());
+        assertEquals(parentCount, d.getOsmElement(Way.NAME, 571067343L).getParentRelations().size());
+    }
+
+    /**
+     * Load some data modify a way and a node, then merge some data
+     */
+    @Test
+    public void merge() {
+        StorageDelegator d = new StorageDelegator();
+        d.setCurrentStorage(PbfTest.read());
+        assertEquals(0, d.getApiElementCount());
+        final int nodeCount = 258905;
+        assertEquals(nodeCount, d.getCurrentStorage().getNodeCount());
+        final int wayCount = 26454;
+        assertEquals(wayCount, d.getCurrentStorage().getWayCount());
+        assertEquals(751, d.getCurrentStorage().getRelationCount());
+        Way w = (Way) d.getOsmElement(Way.NAME, 571067343L);
+        assertNotNull(w);
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put("test", "merge");
+        d.getUndo().createCheckpoint("merge");
+        d.setTags(w, tags);
+        assertEquals(1, d.getApiElementCount());
+        Node n = (Node) d.getOsmElement(Node.NAME, 761534749L);
+        assertNotNull(n);
+        n.setLat(toE7(47.1187142));
+        n.setLon(toE7(9.5430107));
+        d.insertElementSafe(n);
+
+        StorageDelegator d2 = new StorageDelegator();
+        Way w2 = addWayToStorage(d2);
+
+        d.mergeData(d2.getCurrentStorage(), null);
+
+        assertNotNull(d.getOsmElement(Way.NAME, 571067343L));
+        assertNotNull(d.getOsmElement(Way.NAME, w2.getOsmId()));
+        assertNotNull(d.getOsmElement(Node.NAME, 761534749L));
+        assertEquals(nodeCount + 4, d.getCurrentStorage().getNodeCount());
+        assertEquals(wayCount + 1, d.getCurrentStorage().getWayCount());
     }
 
     /**

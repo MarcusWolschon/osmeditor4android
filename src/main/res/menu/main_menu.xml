@@ -100,6 +100,9 @@
                     android:title="@string/menu_enable_pan_and_zoom_auto_download" />
             </group>
             <item
+                android:id="@+id/menu_transfer_update"
+                android:title="@string/menu_transfer_update" />
+            <item
                 android:id="@+id/menu_transfer_close_changeset"
                 android:title="@string/menu_transfer_close_changeset" />
             <item android:title="@string/menu_transfer_file">

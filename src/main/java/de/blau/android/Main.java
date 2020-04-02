@@ -859,9 +859,9 @@ public class Main extends FullScreenAppCompatActivity
             }
         };
         synchronized (loadOnResumeLock) {
-            if (redownloadOnResume) {
+            if (redownloadOnResume) { // if true replaces anything downloaded
                 redownloadOnResume = false;
-                logic.downloadLast(this);
+                logic.redownload(this, true);
             } else if (loadOnResume) {
                 // this is fairly convoluted as we need to have permissions before we can load
                 // the layers which in turn need to be loaded before we retrieve the task data
@@ -1758,6 +1758,8 @@ public class Main extends FullScreenAppCompatActivity
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
         menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && !delegator.getApiStorage().isEmpty());
+        menu.findItem(R.id.menu_transfer_update).setEnabled(networkConnected && !hasMapSplitSource);
+
         menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
         menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected && App.getTaskStorage().hasChanges());
         menu.findItem(R.id.menu_voice).setVisible(false); // don't display
@@ -2138,6 +2140,9 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_upload:
             confirmUpload();
+            return true;
+        case R.id.menu_transfer_update:
+            logic.redownload(this, false);
             return true;
         case R.id.menu_transfer_close_changeset:
             if (server.hasOpenChangeset()) {
@@ -3930,7 +3935,7 @@ public class Main extends FullScreenAppCompatActivity
          * 
          * @param direction pan direction
          */
-        private void translate(final CursorPaddirection direction) {
+        private void translate(@NonNull final CursorPaddirection direction) {
             setFollowGPS(false);
             App.getLogic().translate(direction);
         }
@@ -4008,7 +4013,7 @@ public class Main extends FullScreenAppCompatActivity
      * Sets the activity to re-download the last downloaded area on startup (use e.g. when the API URL is changed)
      */
     public static void prepareRedownload() {
-        // redownloadOnResume = true;
+        redownloadOnResume = true;
     }
 
     @Override
