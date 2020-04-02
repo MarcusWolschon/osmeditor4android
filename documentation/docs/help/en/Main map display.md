@@ -114,6 +114,7 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
  * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
  * **Upload data to OSM server** - upload edits to OpenStreetMap, the entry is disabled if you haven't changed anything yet, or there is no network available *(requires authentication)* *(requires network connectivity)*
+ * **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
  * **Close current changeset** - manually close the current changeset *(only available if a changeset is open)*
  * **Location based auto download** - download an area around the current location automatically *(requires network connectivity)* *(requires GPS)*
  * **Pan and zoom auto download** - download the area shown in the current screen automatically *(requires network connectivity)*

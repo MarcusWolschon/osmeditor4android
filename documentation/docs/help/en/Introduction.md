@@ -18,9 +18,10 @@ Depending on screen size and age of your device editing actions may either be ac
 
 Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
+* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity or offline data source)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
+* **Update data** - re-download data for all areas and update what is in memory *(requires network connectivity)*
 * **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
