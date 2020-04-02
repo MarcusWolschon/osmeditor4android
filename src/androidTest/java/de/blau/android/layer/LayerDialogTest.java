@@ -178,11 +178,10 @@ public class LayerDialogTest {
         TestUtils.clickText(device, true, main.getString(R.string.done), false);
 
         Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 3465444349L));
-        Assert.assertNotNull(delegator.getOsmElement(Way.NAME, 206010144L)); // is member of a relation
         Assert.assertNull(delegator.getOsmElement(Way.NAME, 206010346L));
 
-        Assert.assertEquals(469, delegator.getCurrentStorage().getNodeCount());
-        Assert.assertEquals(21, delegator.getCurrentStorage().getWayCount());
+        Assert.assertEquals(387, delegator.getCurrentStorage().getNodeCount());
+        Assert.assertEquals(14, delegator.getCurrentStorage().getWayCount());
         Assert.assertEquals(5, delegator.getCurrentStorage().getRelationCount());
     }
 
