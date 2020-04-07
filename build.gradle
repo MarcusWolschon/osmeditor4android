@@ -439,7 +439,7 @@ dependencies {
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
     implementation 'com.pavelsikun:vintage-chroma:1.5'
     implementation "ch.poole:PoParser:0.7.2"
-    implementation "ch.poole:OpeningHoursParser:0.21.1"
+    implementation "ch.poole:OpeningHoursParser:0.21.2"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
     implementation "ch.poole:OpeningHoursFragment:0.7.0"
     implementation 'ch.poole.android:numberpicker:1.0.9'
