@@ -4,7 +4,7 @@ Vespucci ist ein vollwertiger OpenStreetMap-Editor, der die meisten Funktionen v
 
 ## Erstmaliger Gebrauch
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+Beim Start Vespucci prüft die notwendigen Rechte, sendet eine Begrüßungsmeldung  und zeigt ein Dialog zum "Download andere Orte"/"Load Region" an. Wenn Koordinate angezeigt sind und du möchtest sofort herunterladen, du kannst die passende Option selektieren und das gewünschte eingeben vom Ort, aus dem du herunterladen willst. Auf langsamen Geräten sollte keine große Region selektiert werden.   
 
 Alternativ kann das Formular mit "Zur Karte" geschlossen und direkt zur Karte gewechselt werden, hier das Gebiet, das bearbeitet werden soll, herangezoomt und dann die Daten dazu geladen werden (siehe unten "Mit Vespucci OSM-Daten bearbeiten").
 
@@ -221,7 +221,7 @@ Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests",
 
 "Schlüssel" und "Wert" werden mit den _existierenden_ Tags des Objektes verglichen.
 
-The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
+Die _Annotations_ Gruppe in der standard Vorbelegung beinhaltet ein Element, der automatisch ein tag "_check_date_" mit dem aktuellen Datum addieren wird.
 
 #### Tests auf fehlende Tags
 

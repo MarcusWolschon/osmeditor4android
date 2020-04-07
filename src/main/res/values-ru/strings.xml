@@ -294,6 +294,7 @@
   <string name="undo_all">Отменить все предыдущие контрольные точки (безопасно)</string>
   <string name="redo_all">Повторить все предыдущие контрольные точки (безопасно)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_undo_anyway">Всё равно отменить</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Отправить от имени вашей учётной записи OpenStreetMap</string>
   <string name="feedback_displayname_hint">Отображаемое имя вашей учётной записи OpenStreetMap еще не получено</string>

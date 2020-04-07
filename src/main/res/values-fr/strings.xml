@@ -56,6 +56,8 @@
   <string name="invalid_data_read_message">Consultez la documentation sur les formats de fichiers supportés et les champs requis.</string>
   <string name="file_write_failed_title">Impossible d\'écrire dans le fichier</string>
   <string name="file_write_failed_message">Vespucci n\'a pas pu modifier ou sauvegarder le fichier.</string>
+  <string name="applying_osc_failed_title">Échec à l\'application du fichier OSC</string>
+  <string name="applying_osc_failed_message">Le plus probable est que vous ayez oublié de charger une partie des données requises pour appliquer les changements.</string>
   <!---->
   <string name="welcome_title">Bienvenue</string>
   <string name="welcome_message">Merci d\'avoir installé Vespucci.\n&lt;br&gt;&lt;br&gt;Pour commencer vous devrez connaître trois choses :\n&lt;ul&gt;&lt;li&gt;appuyez sur l\'icône de verrouillage en haut à gauche pour passer du mode verrouillé (pas de modification) au mode déverrouillé ;&lt;/li&gt;&lt;li&gt;pour modifier OpenStreetMap vous devez d\'abord télécharger les données pour la zone que vous voulez modifier (zoomez un peu avant) ;&lt;/li&gt;&lt;li&gt;pour ajouter un nouvel objet : appuyez sur le grand bouton vert et sélectionnez ce que vous voulez ajouter, puis appuyez à la position où vous voulez le palcer.&lt;/li&gt;&lt;/ul&gt;\nVous pouvez y aller maintenant. Commencez à cartographier et amusez-vous bien !</string>
@@ -99,7 +101,7 @@
   <string name="upload_validation_error_empty_comment">Un commentaire ne doit pas être vide</string>
   <string name="upload_validation_error_empty_source">La source ne doit pas être vide</string>
   <!--task fragment-->
-  <string name="openstreetbug_new_title">Nouvelle Note</string>
+  <string name="openstreetbug_new_title">Nouvelle note</string>
   <string name="openstreetbug_new_bug">Signaler un problème</string>
   <string name="openstreetbug_bug_title">Problème</string>
   <string name="openstreetbug_new_nodeway">Créer un nœud ou un chemin</string>
@@ -153,6 +155,8 @@
   <string name="geocoder_limit_label">visible</string>
   <!--Search objects dialog-->
   <string name="search_objects_title">Rechercher des objets</string>
+  <string name="search_objects_hint">Saisissez une expression de recherche ou de filtre JOSM</string>
+  <string name="search_objects_unsupported">Expression « %1$s » non prise en charge</string>
   <!---->
   <string name="preset_search_hint">Chaîne de recherche dans les modèles d\'attirbuts</string>
   <string name="preset_autopreset">Modèle d\'attributs automatique</string>
@@ -184,8 +188,10 @@
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Données dans la mémoire</string>
   <string name="total">Total</string>
+  <string name="changed">Changés</string>
   <string name="ways">Chemins</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Attribution</string>
   <!---->
   <string name="error">Erreur</string>
   <string name="warning">Avertissement</string>
@@ -269,6 +275,8 @@
   <string name="layer_category_historicphoto">Images aériennes obsolète</string>
   <string name="layer_category_map">Carte</string>
   <string name="layer_category_historicmap">Carte obsolète</string>
+  <string name="layer_category_osmbasedmap">Carte basée sur OSM</string>
+  <string name="layer_category_qa">Contrôle qualité</string>
   <string name="layer_category_other">Autre</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Zoom minimal</string>
@@ -293,6 +301,10 @@
   <string name="undo_all">Annuler tous les points de contrôles suivants (sûr)</string>
   <string name="redo_all">Refaire tous les points de contrôles précédents (sûr)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">L\'emplacement d\'annulation n\'est pas visible</string>
+  <string name="undo_location_text">L\'emplacement qui sera affecté par l\'annulation n\'est pas affiché sur l\'écran.</string>
+  <string name="undo_location_undo_anyway">Annuler tout de même</string>
+  <string name="undo_location_zoom">Zoomer sur l\'emplacement puis annuler</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Envoyer avec votre nom d\'affichage OpenStreetMap</string>
   <string name="feedback_displayname_hint">Nom d\'affichage OpenStreetMap pas encore récupéré</string>
@@ -307,6 +319,7 @@
   <string name="tip_undo">Un appui long sur le bouton de retour montrera tous les points d\'actions à annuler ou à refaire.</string>
   <string name="tip_imagery_privacy">Les couches de fond et les surcouches sont fournies par des tierces parties. L\'utilisation d\'une couche transmet votre adresse réseau et une indication imprécise des lieux que vous regardez au fournisseur du service. &lt;p&gt;Si le fournisseur a fournit une information sur sa politique de vie privée, vous pouvez la visualiser dans le menu « Info » du dialogue de la couche en question.</string>
   <string name="tip_pan_and_zoom_auto_download">Vous devriez faire attention avec le téléchargement automatique au déplacement et au zoom  parce qu\'il peut être très demandeur pour les API d\'OpenStreetMap et votre appareil. &lt;p&gt;Vous pouvez éviter de charger les serveurs d\'API en utilisant une source de données hors-ligne.</string>
+  <string name="tip_locked_mode">En mode de verrouillage vous ne pouvez rien modifier, mais un appuie long sur un objet ouvrira un écran avec ses informations détaillées.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -333,6 +346,7 @@
   <string name="toast_export_success">Exporté vers %1$s</string>
   <string name="toast_preset_overwrote_tags">Remarque : le modèle d\'attribut a réécrit certains attributs</string>
   <string name="toast_merge_overwrote_tags">Remarque : l\'opération a réécrit certains attributs</string>
+  <string name="toast_cant_autoapply_preset">Ce modèle ne peut pas être appliqué automatiquement</string>
   <string name="toast_oneway_reversed">Vous avez inversé une route à sens unique (oneway), ou un chemin contenant un attribut dépendant de la direction. Vérifiez les attributs et corrigez-les si nécessaire.</string>
   <string name="toast_merge_tag_conflict">Vous avez fusionné des éléments ayant des attributs incompatibles, dépendant du sens, ou ayant des rôles différents dans une même relation.  Vérifiez les attributs et les rôles et corrigez-les si nécessaire.</string>
   <string name="toast_potential_merge_tag_conflict">Vous essayez de fusionner des élément avec des valeurs d\'attributs incompatibles.\n\nVérifiez les attributs et corrigez-les avant de réessayer.</string>
@@ -420,6 +434,8 @@
   <string name="toast_using_network_location">Utilisation de l\'emplacement par le réseau</string>
   <string name="toast_using_gps_location">Utilisation de l\'emplacement du GPS / GNSS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS / GNSS désactivé, suivi terminé</string>
+  <string name="toast_remote_nmea_connection">Connexion NMEA distante depuis/vers %1$s</string>
+  <string name="toast_remote_nmea_connection_closed">Connexion NMEA distante fermée</string>
   <string name="toast_tags_copied">Attributs copiés dans le presse-papier</string>
   <string name="toast_tags_cut">Attributs coupés dans le presse-papier</string>
   <string name="toast_properties_copied">Propriétés copiées dans le presse-papier</string>
@@ -445,6 +461,8 @@
   <string name="toast_download_started">Téléchargement de %1$s démarré</string>
   <string name="toast_phone_number_reformatted">Numéro de téléphone reformaté</string>
   <string name="toast_members_not_downloaded">Certains membres de la relation n\'ont pas été chargés</string>
+  <string name="toast_restart_required">Vous devez redémarrer Vespucci pour que les changements prennent effet</string>
+  <string name="toast_unable_to_open_offline_data">Impossible d\'ouvrir les données hors-ligne %1$s %2$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Les sources MapSplit doivent avoir un niveau de zoom min et max</string>
   <string name="error_pbf_no_version">Informations de version manquantes dans le fichier PBF</string>
@@ -472,6 +490,7 @@
   <string name="discard">Supprimer</string>
   <string name="retry">Réessayer</string>
   <string name="prune">Élaguer</string>
+  <string name="check">Vérifier</string>
   <!--Read a file-->
   <string name="read">Lire</string>
   <string name="overwrite">Écrire par dessus</string>
@@ -494,7 +513,7 @@
   <string name="multiselect_header_short">Valeurs (%1$d)</string>
   <string name="multiselect_header_long">Valeurs (pour %1$d éléments)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/FR:Map_Features</string>
-  <string name="tag_menu_address">Ajouter un attribut d\'adresse</string>
+  <string name="tag_menu_address">Ajouter des attributs d\'adresse</string>
   <string name="tag_menu_sourcesurvey">Vérifié sur le terrain</string>
   <string name="tag_menu_preset">Modèles d\'attributs</string>
   <string name="tag_menu_apply_preset">Appliquer le modèle</string>
@@ -917,6 +936,9 @@
   <string name="config_leaveGpsDisabled_summary">Ne pas demander à l\'utilisateur d\'activer le GPS / GNSS s\'il est désactivé</string>
   <string name="config_gps_network_title">Utiliser la localisation du réseau si le GPS n\'est pas disponible</string>
   <string name="config_gps_network_summary">Si le GPS / GNSS n\'est pas présent ou activé, utiliser le fournisseur réseau</string>
+  <string name="config_gnssTimeToStale_title">Emplacement bloqué après</string>
+  <string name="config_gnssTimeToStale_summary">L\'âge d\'un point gps (en secondes) pour le considérer comme bloqué.</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_category_server">Paramètres du serveur</string>
   <string name="config_category_server_summary">Configuration de l\'API OSM et d\'autres serveurs.</string>
@@ -1160,4 +1182,12 @@
     <item>Relations + </item>
   </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
+  <string-array name="checkstatus_entries">
+    <item>HTTP</item>
+    <item>HTTPS</item>
+    <item>Le domaine n\'existe pas</item>
+    <item>Le domaine n\'est pas atteignable</item>
+    <item>URL mal formée</item>
+    <item>Argument invalide</item>
+  </string-array>
 </resources>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>هیچ</item>
+    <item>مقیاس (متری)</item>
+    <item>شبکه (متری)</item>
+    <item>مقیاس (امپراطوری)</item>
+    <item>شبکه (امپراطوری)</item>
+  </string-array>
+</resources>

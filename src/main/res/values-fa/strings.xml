@@ -2,228 +2,1184 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">عادی</string>
-  <string name="mode_tag_only">فقط برچسب</string>
-  <string name="mode_indoor">فضای داخلی</string>
+  <string name="mode_tag_only">فقط تگ</string>
+  <string name="mode_indoor">داخلی</string>
+  <string name="mode_correct">حالت C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">احتیاط! </string>
-  <string name="transfer_download_current_dialog_message">شما تغییراتی انجام داده‌اید. می‌خواهید به‌جای دورانداختن، آن‌ها را آپلود کنید؟ </string>
-  <string name="transfer_download_current_upload">آپلود</string>
-  <string name="transfer_download_current_download">دورانداختن و دانلود</string>
-  <string name="bad_request_message">‏API با خطا پاسخ داد. لطفاً اطلاعاتتان را ذخیره کنید و این مشکل را گزارش دهید:\n\n</string>
-  <string name="upload_conflict_title">تداخل آپلود</string>
+  <string name="transfer_download_current_dialog_message">تغییراتی انجام داده‌اید. می‌خواهید به‌جای دورانداختن، آن‌ها را بارگذاری کنید؟ </string>
+  <string name="transfer_download_current_upload">بارگذاری</string>
+  <string name="transfer_download_current_download">دورانداختن و بارگیری</string>
+  <string name="transfer_download_current_back">برگشت (کاری نکن)</string>
+  <string name="upload_problem_title">نمی‌توان بارگذاری کرد</string>
+  <string name="upload_problem_message">همه یا بخشی از داده بارگذاری نشد. بعداً تلاش کنید.</string>
+  <string name="bad_request_message">‏API با خطا پاسخ داد. لطفاً دادهٔ خود را ذخیره کنید و این مسئله را گزارش دهید:\n\n</string>
+  <string name="upload_conflict_title">تداخل در بارگذاری</string>
+  <string name="upload_conflict_message_version">%1$s \nروی دستگاه شما نسخهٔ %2$d است \nو روی کارساز نسخهٔ %3$d است</string>
+  <string name="upload_conflict_message_deleted">%1$s \nروی دستگاه شما نسخهٔ %2$d است \nو روی کارساز حذف شده است</string>
+  <string name="upload_conflict_message_referential">%1$s \nروی دستگاه شما حذف شده است \nاما در کارساز به آن ارجاع وجود دارد</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nقبلاً از روی کارساز حذف شده است</string>
   <string name="use_local_version">از نسخهٔ من استفاده کن</string>
-  <string name="use_server_version">از نسخهٔ سرور استفاده کن</string>
+  <string name="use_server_version">از نسخهٔ کارساز استفاده کن</string>
+  <string name="no_login_data_title">احراز هویت ناموفق بود</string>
+  <string name="no_login_data_message">اگر از OAuth استفاده می‌کنید، احتمالاً این باگ است، لطفاً یک گزارش مشکل بفرستید. اگر از نام کاربری و گذرواژه استفاده می‌کنید (توصیه نمی‌شود) لطفاً ببینید درست وارد شده باشند.</string>
+  <string name="no_connection_title">اتصالی با کارساز برقرار نیست</string>
+  <string name="no_connection_message">هم‌اکنون نمی‌توان به کارساز OSM متصل شد. لطفاً اتصال اینترنت‌تان را بررسی کنید یا بعداً دوباره تلاش کنید. </string>
+  <string name="ssl_handshake_failed">نمی‌توان به کارساز OSM متصل شد زیرا HTTPS negotiation ناموفق بود. در تنظیمات API یک اتصال رمزنشده را امتحان کنید.</string>
+  <string name="wrong_login_data_title">احراز هویت ناموفق بود</string>
+  <string name="wrong_login_data_message">اگر از OAuth استفاده می‌کنید، دوباره احراز هویت کنید و مجدداً تلاش نمایید. اگر از نام کاربری و گذرواژه استفاده می‌کنید (توصیه نمی‌شود)  لطفاً ببینید درست وارد شده باشند.</string>
+  <string name="wrong_login_data_re_authenticate">احراز هویت مجدد</string>
+  <string name="forbidden_login_title">ورود ممنوع</string>
+  <string name="not_found_title">عنصر یافت نشد</string>
+  <string name="not_found_message">‏API عنصر یا بستهٔ تغییری با شناسهٔ مشخص‌شده پیدا نکرد.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_error_title">خطای ناشناخته</string>
+  <string name="unknown_error_message">کد خطای بازگردانده‌شده از API یا پیام را نمی‌توان پردازش کرد.&lt;br&gt;&lt;br&gt;</string>
+  <string name="no_data_title">بدون داده</string>
+  <string name="no_data_message">منبع پیکربندی‌شده برای داده اینجا را پوشش نمی‌دهد.</string>
+  <string name="required_feature_missing_title">کمبود جزء یا غیرفعال‌بودن آن</string>
+  <string name="required_feature_missing_message">این قابلیت وابسته به یکی از اجزای سیستم است که وجود ندارد یا غیرفعال است.</string>
   <string name="go_to_openstreetmap">برو به openstreetmap.org</string>
+  <string name="data_conflict_title">تداخل نسخه</string>
+  <string name="data_conflict_message">داده‌ای که بارگیری می‌شود با ویرایش‌های شما تداخل دارد. لطفاً پیش از تلاش مجدد، دادهٔ خود را بارگذاری کنید.</string>
+  <string name="invalid_bounding_box_title">کادر محصورکنندهٔ نامعتبر</string>
+  <string name="invalid_bounding_box_message">محدودهٔ انتخابی از محدودیت‌های API فراتر است. لطفاً محدودهٔ دیگری انتخاب کنید.</string>
+  <string name="bounding_box_too_large_title">محدودهٔ بارگیری خیلی بزرگ</string>
+  <string name="bounding_box_too_large_message">محدوده‌ای که می‌خواهید بارگیری کنید خیلی بزرگ است یا دربردارندهٔ دادهٔ زیادی است.\n\nلطفاً بیشتر زوم کنید و دوباره تلاش نمایید.</string>
+  <string name="api_offline_title">‏API آفلاین</string>
+  <string name="api_offline_message">‏API هم‌اکنون آفلاین است. نوشتن یا دریافت داده ممکن نیست.</string>
+  <string name="out_of_memory_title">کبود حافظه</string>
+  <string name="out_of_memory_message">‏Vespucci نمی‌تواند دادهٔ درخواستی را بار کند. لطفاً مجدداً شروع کنید و محدودهٔ کوچکتری را بار نمایید.</string>
+  <string name="out_of_memory_dirty_message">‏Vespucci نمی‌تواند دادهٔ درخواستی را بار کند. لطفاً ویرایش‌های خود را ذخیره کنید، مجدداً شروع کنید و محدودهٔ کوچکتری را بار نمایید.</string>
+  <string name="invalid_data_received_title">دریافت دادهٔ نامعتبر</string>
+  <string name="invalid_data_received_message">اگر خودتان مسبب خطا نبوده‌اید، لطفاً یک گزارش خطا بفرستید.</string>
+  <string name="invalid_data_read_title">خوانش پروندهٔ نامعتبر</string>
+  <string name="invalid_data_read_message">برای آگاهی از قالب‌های پشتیبانی‌شدهٔ پرونده و فیلدهای لازم، مستندات را ببینید.</string>
+  <string name="file_write_failed_title">ناتوان از نوشتن در پرونده</string>
+  <string name="file_write_failed_message">‏Vespucci نمی‌تواند پرونده را تغییر دهد یا ذخیره کند.</string>
+  <string name="applying_osc_failed_title">به‌کارگیری پروندهٔ OSC ناموفق بود</string>
+  <string name="applying_osc_failed_message">به احتمال زیاد همهٔ دادهٔ اولیه که برای به‌کاربستن تغییرات نیاز است را بار نکرده‌اید.</string>
   <!---->
-  <string name="progress_title">در حال بارگزاری</string>
-  <string name="progress_message">بارگزاری داده ها در حافظه… </string>
-  <string name="progress_download_message">دانلود داده ها از سرور… </string>
-  <string name="progress_general_title">لطفا صبر کنید</string>
-  <string name="progress_deleting_message">در حال حذف… </string>
+  <string name="welcome_title">خوش آمدید</string>
+  <string name="welcome_message">سپاس که Vespucci را نصب کردید.\n&lt;br&gt;&lt;br&gt;برای آغاز لازم است سه چیز را بدانید:\n&lt;ul&gt;&lt;li&gt;با زدن روی نماد قفل در گوشهٔ بالا چپ بین حالت‌های قفل (ویرایش غیرفعال) و قفل‌نشده جابه‌جا می‌شوید،&lt;/li&gt;&lt;li&gt;برای ویرایش OpenStreetMap لازم است ابتدا دادهٔ محدودهٔ موردنظر خود را بارگیری کنید (قبل آن زوم کنید)،&lt;/li&gt;&lt;li&gt;برای افزودن چیز جدید: روی دکمهٔ بزرگ سبزرنگ بزنید و چیزی را که می‌خواهید بیفزایید انتخاب کنید. سپس مکان موردنظر خود را لمس کنید تا در آنجا قرارش دهید.&lt;/li&gt;&lt;/ul&gt;\nاکنون که آماده‌اید، نقشه بکشید و خوش بگذرانید!</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;دستگاه شما «کلیدهای نرم» دارد که از دید پنهان هستند. انگشت را از پایین به بالا بکشید تا دوباره نمایان شوند.</string>
+  <string name="read_introduction">خواندن معرفی</string>
+  <string name="upgrade_title">این نسخهٔ جدید Vespucci است</string>
+  <string name="upgrade_message">قابلیت‌های و رفتارهای جدید در یادداشت‌های انتشار، ذکر شده است.</string>
+  <string name="read_upgrade">دربارهٔ نسخهٔ جدید بخوانید</string>
+  <string name="progress_title">بارکردن</string>
+  <string name="progress_message">بارکردن داده در حافظه… </string>
+  <string name="progress_download_message">بارگیری داده از کارساز...</string>
+  <string name="progress_general_title">لطفاً صبر کنید</string>
+  <string name="progress_deleting_message">حذف… </string>
   <string name="progress_searching_message">جستجو… </string>
   <string name="progress_saving_message">ذخیره‌سازی… </string>
-  <string name="progress_uploading_message">در حال آپلود...</string>
-  <string name="progress_running_message">در حال اجرا...</string>
+  <string name="progress_uploading_message">بارگذاری...</string>
+  <string name="progress_preset_message">بارگیری پیش‌تنظیم...</string>
+  <string name="progress_running_message">اجرا...</string>
+  <string name="progress_oauth">بارکردن حساب شما در openstreetmap.org برای احراز هویت OAuth...</string>
+  <string name="progress_building_imagery_database">ساخت پایگاه‌دادهٔ تصاویر...</string>
+  <string name="progress_query_oam">پرس‌وجوی OAM...</string>
   <!--Confirm upload dialog-->
-  <string name="changes_deleted">\"%1$s\" حذف شد</string>
-  <string name="changes_changed">\"%1$s\" تغییر کرد</string>
-  <string name="changes_created">\"%1$s\" ایجاد شد</string>
-  <string name="upload_comment_label">نظر:</string>
+  <string name="changes_deleted">«%1$s» حذف شد</string>
+  <string name="changes_changed">«%1$s» تغییر کرد</string>
+  <string name="changes_created">«%1$s» ایجاد شد</string>
+  <string name="confirm_upload_title">بارگذاری تغییرات</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">این تغییر بارگذاری شود؟</item>
+    <item quantity="other">این %1$d تغییر بارگذاری شود؟</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">تغییرات</string>
+  <string name="upload_comment_label">توضیح</string>
   <string name="upload_source_label">منبع: </string>
+  <string name="upload_close_open_changeset_label">ابتدا بستهٔ تغییر باز را ببند:</string>
+  <string name="upload_close_changeset_label">بستن بستهٔ تغییر:</string>
+  <string name="upload_request_review_label">درخواست بازبینی:</string>
   <!---->
-  <string name="upload_gpx_description_label">توضیح</string>
-  <string name="upload_gpx_tags_label">برچسب ها</string>
-  <string name="upload_gpx_visibility_label">دید</string>
+  <string name="upload_gpx_description_label">توضیحات</string>
+  <string name="upload_gpx_tags_label">تگ‌ها</string>
+  <string name="upload_gpx_visibility_label">نمایانی</string>
+  <string name="upload_validation_error_empty_comment">توضیح نباید خالی باشد</string>
+  <string name="upload_validation_error_empty_source">منبع نباید خالی باشد</string>
   <!--task fragment-->
-  <string name="openstreetbug_bug_title">موضوع</string>
+  <string name="openstreetbug_new_title">یادداشت جدید</string>
+  <string name="openstreetbug_new_bug">گزارش مسئله</string>
+  <string name="openstreetbug_bug_title">مسئله</string>
+  <string name="openstreetbug_new_nodeway">ایجاد گره/راه</string>
+  <string name="openstreetbug_edit_title">ویرایش یادداشت</string>
   <string name="openstreetbug_comment_label">نظر: </string>
+  <string name="openstreetbug_commit_ok">تغییرات وظیفه ذخیره شد</string>
+  <string name="openstreetbug_commit_fail">ذخیره‌سازی تغییرات وظیفه ناموفق بود</string>
+  <string name="openstreetbug_unknown_task_type">نوع ناشناخته از وظیفه</string>
+  <string name="openstreetbug_not_supported">‏%1$s پشتیبانی نمی‌شود.</string>
+  <string name="note_description">یادداشت: %1$s - %2$s</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
+  <string name="generic_bug">باگ</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">سفارشی</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;&lt;br&gt;%4$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;آخرین به‌روزرسانی:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_element_1">%1$s (بارگیری نشده) #%2$d</string>
+  <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">وظیفهٔ مپ‌رولت</string>
+  <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
+  <string name="maproulette_task_explanations">توضیحات</string>
+  <string name="maproulette_task_set_apikey">تنظیم کلید API برای مپیلاری</string>
+  <string name="maproulette_task_apikey_not_set">ذخیره‌سازی کلید API مپ‌رولت ناموفق بود</string>
+  <string name="maproulette_task_disable">غیرفعال</string>
+  <string name="maproulette_task_apikey_set">کلید API مپ‌رولت ذخیره شد</string>
+  <string name="maproulette_task_no_apikey">کلید API مپ‌رولت وجود ندارد</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">احتیاط! </string>
-  <string name="unsaved_data_proceed">دور انداختن و پیش روی</string>
+  <string name="unsaved_data_message">اگر ادامه دهید تغییرات ذخیره‌نشده‌تان از بین می‌رود.</string>
+  <string name="unsaved_data_proceed">دورانداختن و ادامه</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">آفست تصویر</string>
   <string name="imagery_offset_description">شرح</string>
-  <string name="imagery_offset_not_found">تطبیقی در شعاع ۱۰ کیلومتری یافت نشد! </string>
-  <string name="imagery_offset_author">خالق</string>
+  <string name="imagery_offset_not_found">در شعاع ۱۰کیلومتری آفستی یافت نشد! </string>
+  <string name="imagery_offset_author">تنظیم‌کننده</string>
   <string name="imagery_offset_offset">تطبیق</string>
-  <string name="imagery_offset_date">ایجاد شده</string>
-  <string name="imagery_offset_zoom">زووم</string>
+  <string name="imagery_offset_date">تاریخ ایجاد</string>
+  <string name="imagery_offset_zoom">زوم</string>
   <string name="imagery_offset_distance">مسافت</string>
+  <string name="zoom_and_offset">زوم %1$d آفست %2$s/%3$s</string>
   <string name="set_position_datum_label">مبنای Geodetic</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">پیشنهاد نام</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">این پیشنهاد مقادیر محبوب‌تر را جانشین برخی از مقدارهای تگ می‌کند.</string>
   <string name="search_results_title">نتایج جستجو</string>
+  <string name="search_online">جستجوی آنلاین</string>
   <string name="find_message">ورود متن جستجو</string>
   <string name="geocoder_prompt">با</string>
+  <string name="geocoder_limit_label">در دید</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">جستجوی اشیا</string>
+  <string name="search_objects_hint">یک عبارت جستجو/پالایهٔ JOSM وارد کنید</string>
+  <string name="search_objects_unsupported">عبارت پشتیبانی‌نشده «%1$s»</string>
   <!---->
+  <string name="preset_search_hint">عبارت جستجوی پیش‌تنظیم</string>
+  <string name="preset_autopreset">پیش‌تنظیم خودکار</string>
   <string name="search">جستجو</string>
+  <string name="no_valid_preset">پیش‌تنظیم معتبری نیست!</string>
+  <string name="save_file">ذخیره در</string>
+  <string name="existing_track_title">دادهٔ رد GPX موجود است</string>
+  <string name="existing_track_message">از قبل دادهٔ رد GPX موجود است. می‌توانید ابتدا لغو کنید و آن را ذخیره نمایید.</string>
+  <string name="delete_tags">واقعاً همهٔ تگ‌های «%1$s» را حذف می‌کنید؟</string>
   <!--element information dialog-->
-  <string name="closed">بسته شده</string>
+  <string name="element_information">اطلاعات عنصر</string>
+  <string name="id">شناسه</string>
+  <string name="nodes">گره</string>
+  <string name="relation_membership">عضویت رابطه</string>
+  <string name="problem">مشکل</string>
+  <string name="members">عضوها</string>
+  <string name="closed">بسته</string>
   <string name="version">نسخه</string>
+  <string name="length_m">طول (متر)</string>
+  <string name="not_downloaded">بارگیری نشده</string>
+  <string name="empty_role">نقش تهی</string>
+  <string name="last_edited">آخرین ویرایش</string>
+  <string name="original">اولیه</string>
+  <string name="current">کنونی</string>
+  <string name="goto_element">برو به عنصر</string>
   <!--GeoJSON feature display dialog-->
+  <string name="feature_information">اطلاعات GeoJSON feature</string>
+  <string name="copy_properties">کپی خصوصیت‌ها</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">داده در حافظه</string>
+  <string name="total">کل</string>
+  <string name="changed">تغییریافته</string>
+  <string name="ways">راه</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">یادکرد</string>
   <!---->
+  <string name="error">خطا</string>
+  <string name="warning">هشدار</string>
+  <string name="minor_issue">مسئلهٔ کوچک</string>
+  <string name="unknown_error_level">سطح خطای ناشناخته</string>
   <!--hidden object warning dialog-->
+  <string name="attached_object_warning_title">این کنش بر اشیای پنهان متصل اثر می‌گذارد!</string>
+  <string name="attached_object_warning_message">شیء تغییریافته به عناصر پنهانی متصل است که همراه با آن تغییر می‌کنند.</string>
   <!--This concerns a shown message that should be shown every time-->
+  <string name="attached_object_warning_continue">خب، باز نشان بده</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">خب، دیگر نشان نده</string>
   <!--debug dialog-->
+  <string name="send_debug_information">ارسال اطلاعات اشکال‌زدایی</string>
   <!--JS console dialog-->
+  <string name="evaluate">ارزیابی</string>
+  <string name="js_console_msg_live">حالت زنده!</string>
+  <string name="js_console_msg_debug">حالت اشکال‌زدایی!</string>
+  <string name="js_console_input_hint">جاوااسکریپت را اینجا بنویسید</string>
+  <string name="js_console_output_hint">خروجی اینجا ظاهر می‌شود</string>
   <!--Validator dialogs-->
+  <string name="validator_title">مجموعهٔ قواعد %1$s اعتبارسنج</string>
+  <string name="resurvey_entries">بازنقشه‌برداری</string>
+  <string name="edit_resurvey_title">ویرایش مدخل بازنقشه‌برداری</string>
+  <string name="add_resurvey_title">افزودن مدخل مدخل بازنقشه‌برداری</string>
+  <string name="check_entries">بررسی</string>
+  <string name="edit_check_title">ویرایش مدخل بررسی</string>
+  <string name="add_check_title">افزودن مدخل بررسی</string>
+  <string name="max_age">بیشینهٔ عمر</string>
+  <string name="age">عمر</string>
+  <string name="check_opt">لازم\nاختیاری</string>
+  <string name="check_optional">اختیاریِ لازم</string>
+  <string name="add_resurvey_entry">افزودن مدخل بازنقشه‌برداری</string>
+  <string name="add_check_entry">افزودن مدخل بررسی</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">رابطهٔ تهی</string>
+  <string name="empty_relation_message">رابطهٔ %1$s هیچ عضوی ندارد.\n\nاگر به همین شکل رهایش کنید، در Vespucci قابل‌ویرایش نخواهد بود.</string>
+  <string name="add_members">افزودن عضوها</string>
+  <string name="leave_empty">تهی بماند</string>
   <!--GPX waypoint dialog-->
+  <string name="waypoint_title">نقطهٔ بین‌راهی GPX</string>
+  <string name="waypoint_description">نقطهٔ بین‌راهی: %1$s</string>
+  <string name="description">توضیح</string>
+  <string name="created">تاریخ ایجاد</string>
+  <string name="altitude">ارتفاع</string>
+  <string name="create_osm_object">ساخت شیء OSM</string>
+  <string name="create_osm_object_search">ساخت شیء OSM با جستجوی پیش‌تنظیم</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">تصویر سفارشی</string>
+  <string name="oam_layer_title">تصویر OAM </string>
+  <string name="edit_layer_title">ویرایش مدخل لایه</string>
+  <string name="add_layer_title">افزودن مدخل لایه</string>
+  <string name="overlay">رولایه</string>
+  <string name="coverage">پوشش</string>
+  <string name="coverage_top">بالا</string>
+  <string name="coverage_left">چپ</string>
+  <string name="coverage_right">راست</string>
+  <string name="coverage_bottom">پایین</string>
+  <string name="toast_invalid_box">کادر نامعتبر یا ناقص</string>
+  <string name="delete_layer">لایه حذف شود؟</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">سبک لایه</string>
+  <string name="layer_style_stroke_width">پهنای خط دور</string>
+  <string name="layer_style_color">رنگ</string>
+  <string name="layer_style_label">برچسب</string>
+  <string name="json_object_not_displayed">شیء JSON (نمایش نیافته)</string>
+  <string name="json_array_not_displayed">آرایهٔ JSON (نمایش نیافته)</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">شبکه</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">عکس‌ها</string>
+  <string name="layer_tasks">وظیفه‌ها</string>
+  <string name="layer_data">دادهٔ OSM</string>
+  <string name="layer_data_name">دادهٔ %1$s</string>
+  <string name="layer_flush_tile_cache">پاک‌سازی نهان‌گاه کاشی‌ها</string>
+  <string name="layer_change_style">تغییر سبک</string>
+  <string name="layer_select_imagery">انتخاب تصویر</string>
+  <string name="layer_category_all">همه</string>
+  <string name="layer_category_photo">تصویر هوایی</string>
+  <string name="layer_category_historicphoto">تصویر هوایی تاریخ‌گذشته</string>
+  <string name="layer_category_map">نقشه</string>
+  <string name="layer_category_historicmap">نقشهٔ تاریخ‌گذشته</string>
+  <string name="layer_category_osmbasedmap">نقشهٔ OSM-پایه</string>
+  <string name="layer_category_qa">تضمین کیفیت</string>
+  <string name="layer_category_other">سایر</string>
   <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">کمینهٔ زوم</string>
+  <string name="layer_info_max_zoom">بیشینهٔ زوم</string>
+  <string name="layer_info_start_date">تاریخ آغاز</string>
+  <string name="layer_info_end_date">تاریخ پایان</string>
+  <string name="layer_info_terms">قوانین</string>
+  <string name="layer_info_privacy_policy">سیاست حریم خصوصی</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_title">حذف عکس</string>
+  <string name="photo_viewer_delete_button">حذف همیشگی</string>
+  <string name="photo_viewer_goto">برو به عکس</string>
   <!--API info dialog-->
+  <string name="api_info_bounds">کادر محصورکننده</string>
+  <string name="api_info_attribution">انتساب</string>
+  <string name="api_info_mapsplit_source">منبع فقط خواندنی MapSplit</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">نقاط راهنما</string>
+  <string name="undo_redo_title">واگرد - ازنو</string>
+  <string name="undo_redo_one">فقط نقطهٔ راهنمای انتخاب‌شده (ناامن)</string>
+  <string name="undo_all">واگردانی همهٔ نقاط راهنمای آخر (امن)</string>
+  <string name="redo_all">ازنو انجام دادن همهٔ نقاط راهنمای اخیر (امن)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">موقعیت واگردانی خارج از دید است</string>
+  <string name="undo_location_text">مکانی که واگرد می‌شود در دید نیست.</string>
+  <string name="undo_location_undo_anyway">واگرد</string>
+  <string name="undo_location_zoom">زوم روی مکان، سپس واگرد</string>
   <!--Feedback activity-->
+  <string name="feedback_with_displayname">با نام نمایشی شما در OpenStreetMap فرستاده شود</string>
+  <string name="feedback_displayname_hint">نام نمایشی OpenStreetMap  هنوز دریافت نشده</string>
+  <string name="feedback_title">بازخورد به توسعه‌دهندگان</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">بارگیری دادهٔ OpenStreetMap </string>
   <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">توقف ردگیری و حذف همهٔ نقاط ذخیره‌شدهٔ رد. این کار برگشت‌پذیر نیست.</string>
   <!--Tips-->
+  <string name="tip_title">می‌دانستید؟</string>
+  <string name="tip_check_label">نکات اختیاری را دیگر نشان نده</string>
+  <string name="tip_undo">نگه‌داشتن دکمهٔ واگرد همهٔ نقاط راهنمای واگرد/ازنو را نمایش می‌دهد.</string>
+  <string name="tip_imagery_privacy">لایه‌های پس‌زمینه و رولایه از منابع شخص ثالث فراهم شده. با استفاده از هر لایه، آدرس شبکهٔ شما و اطلاعات تقریبی از منطقه‌ای که مشاهده می‌کنید برای ارائه‌دهنده ارسال می‌شود.&lt;p&gt;اگر ارائه‌دهنده دربارهٔ سیاست حریم خصوصی‌اش چیزی فراهم کرده باشد، می‌توانید آن را در کادر لایه » اطلاعات مشاهده کنید.</string>
+  <string name="tip_pan_and_zoom_auto_download">قابلیت «بارگیری خودکار همزمان با جابه‌جایی و زوم» را باید با احتیاط به کار برد زیرا به‌طور بالقوه می‌تواند به API اوپن‌استریت‌مپ و نیز  به دستگاه شما فشار زیادی وارد کند. &lt;p&gt; می‌توان با استفاده از منبع دادهٔ آفلاین از واردآمدن فشار بر کارسازهای API پیشگیری کرد.</string>
+  <string name="tip_locked_mode">در حالت قفل نمی‌توانید ویرایش کنید، اما با لمس طولانی یک شیء، جزئیاتی از آن نمایش می‌یابد.</string>
   <!--NumberPicker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">پیشفرض وسپوچی</string>
+  <string name="default_channel_description">کانال اعلان پیشفرض</string>
+  <string name="qa_channel_name">Vespucci QA</string>
+  <string name="qa_channel_description">کانال هشدار تضمین کیفیت برای وظیفه‌ها و مشکلات داده</string>
   <!--Toaster-->
-  <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
-  <string name="toast_unlock_to_edit">قفل گشایی برای ویرایش</string>
-  <string name="toast_export_success">خارج سازی به %1$s</string>
+  <string name="toast_permission_denied">اجازه داده نشد %1$s</string>
+  <string name="toast_name_empty">نامی برگزینید</string>
+  <string name="toast_url_empty">یک URL وارد کنید</string>
+  <string name="toast_min_zoom">زوم کمینه را کمتر از بیشینه تنظیم کنید</string>
+  <string name="toast_no_changes">هنوز چیزی را تغییر نداده‌اید‏...</string>
+  <string name="toast_unsaved_changes">ابتدا تغییرات ذخیره‌نشدهٔ خود را بارگذاری کنید.</string>
+  <string name="clear_anyway">در هر صورت پاک شود؟</string>
+  <string name="toast_upload_success">در کارساز OSM بارگذاری شد.</string>
+  <string name="toast_not_in_edit_range">لطفاً برای ویرایش زوم کنید (کلیدهای صدا ↑/↓ یا lens/shift)</string>
+  <string name="toast_unlock_to_edit">برای ویرایش قفل را باز کنید</string>
+  <string name="toast_save_done">ذخیره شد</string>
+  <string name="toast_save_failed">نمی‌توان ذخیره کرد</string>
+  <string name="toast_export_failed">نمی‌توان برون‌برد کرد</string>
+  <string name="toast_export_success">به %1$s برون‌برد شد</string>
+  <string name="toast_preset_overwrote_tags">توجه - پیش‌تنظیم تگ(ها) را بَرنویسی کرد</string>
+  <string name="toast_merge_overwrote_tags">توجه - کنش تگ(ها) را بَرنویسی کرد</string>
+  <string name="toast_cant_autoapply_preset">این پیش‌تنظیم به‌طور خودکار به کار بسته نمی‌شود</string>
+  <string name="toast_oneway_reversed">خیابانی یکطرفه یا راهی با تگ‌های وابسته به جهت را معکوس نمودید. لطفاً تگ‌ها را بررسی و در صورت نیاز آن‌ها را اصلاح نمایید.</string>
+  <string name="toast_merge_tag_conflict">عناصری را ادغام کردید که مقدار تگ‌ها، مفاهیم وابسته به جهت آن‌ها یا نقشی که در رابطهٔ یکسان دارند، با هم تداخل دارد. لطفاً تگ‌ها و نقش‌ها را بررسی و در صورت نیاز آن‌ها را اصلاح کنید.</string>
+  <string name="toast_potential_merge_tag_conflict">تلاش می‌کنید عناصری را ادغام نمایید که مقدارهای تگ آن‌ها با هم تداخل دارد.\n\nلطفاً تگ‌ها را بررسی کنید و پیش از تلاش مجدد آن‌ها را اصلاح نمایید.</string>
+  <string name="toast_state_file_failed">پروندهٔ state غیرقابل‌خواندن یا خراب
+</string>
+  <string name="toast_way_nodes_moved">%1$d گره در راهِ جابه‌جاشده</string>
+  <plurals name="toast_unread_mail">
+    <item quantity="one">یک پیام نخوانده دارید</item>
+    <item quantity="other">%1$d پیام نخوانده دارید</item>
+  </plurals>
+  <string name="read_mail">خوانده شد</string>
+  <string name="toast_photo_indexing_started">پویش عکس‌های زمین‌مرجع آغاز شد</string>
+  <string name="toast_photo_indexing_finished">پویش عکس‌های زمین‌مرجع پایان یافت</string>
+  <string name="toast_download_failed">بارگیری با کد خطای %1$d شکست خورد، پیام %2$s</string>
+  <string name="toast_unsurveyed_road">جادهٔ نقشه‌برداری‌نشده</string>
+  <string name="toast_noname">جاده نام یا ref ندارد</string>
+  <string name="toast_notype">نوع رابطه مشخص نشده</string>
+  <string name="toast_untagged_way">راه بی‌تگ</string>
+  <string name="toast_untagged_relation">رابطهٔ بی‌تگ</string>
+  <string name="toast_unconnected_end_node">گره نزدیک عنصری است که می‌تواند به آن متصل شود</string>
   <!---->
+  <string name="toast_oauth_retry">پس از اینکه اجازه دادید OAuth به حساب OSMتان دسترسی داشته باشد دوباره برای بارگذاری تلاش کنید.</string>
+  <string name="toast_oauth">لطفاً دسترسی به حساب OSM خود را برای OAuth مجاز کنید.</string>
+  <string name="toast_no_oauth">برای API کنونی هیچ پیکربندی OAuth انجام نشده است. لطفاً نام کاربری و گذرواژه را تنظیم کنید.</string>
+  <string name="toast_oauth_not_enabled">‏OAuth برای API کنونی فعال نشده است.</string>
+  <string name="toast_oauth_timeout">هنگام دست‌دهی برای احراز هویت، مهلت پایان یافت. لطفاً مجدداً تلاش کنید.</string>
+  <string name="toast_oauth_communication">هنگام دست‌دهی برای احراز هویت، خطای ارتباطی رخ داد. لطفاً مجدداً تلاش کنید.</string>
+  <string name="toast_oauth_handshake_failed">پیشبرد دست‌دهی احراز هویت ناموفق بود: %1$s</string>
+  <string name="toast_timeout">پایان مهلت از سمت کارساز</string>
+  <string name="coordinates_out_of_range">طول جغرافیایی باید بین  ‎-180°/+180° باشد، عرض جغرافیایی بین ‎-85°/85°</string>
+  <string name="toast_nothing_found">چیزی پیدا نشد</string>
+  <string name="toast_statesave_failed">ذخیره‌سازی وضعیت کنونی ناموفق بود!\nاین خطایی مهلک است. در حال تلاش برای نوشتن پرونده‌ای که بتوان بعداً با JOSM بازیابی‌اش کرد.</string>
+  <string name="toast_missing_filemanager">لطفاً یک مدیر پرونده نصب کنید.</string>
+  <string name="toast_outside_of_download">برای ویرایش این محدوده دادهٔ بیشتری بارگیری کنید.</string>
+  <string name="toast_file_not_found">‏%1$s پیدا نشد.</string>
+  <plurals name="toast_imported_track_points">
+    <item quantity="one">%1$d نقطهٔ رد و 1 نقطهٔ بین‌راهی GPX درون‌برد شد.</item>
+    <item quantity="other">%1$d نقطهٔ رد و %2$d نقطهٔ بین‌راهی GPX درون‌برد شد.</item>
+  </plurals>
+  <string name="toast_unknown_voice_command">ببخشید، هم‌اکنون %1$s فهمیده نشد</string>
+  <string name="toast_inconsistent_state">وضعیت ناپایدار تشخیص داده شد. لطفاً گزارش خطا را بفرستید.</string>
+  <string name="toast_camera_error">اجرای برنامهٔ دوربین ناموفق بود: %1$s</string>
+  <string name="toast_no_voice">امکاناتی برای تشخیص گفتار وجود ندارد</string>
+  <string name="toast_storage_error">وسپوچی نمی‌تواند %1$s را بنویسد.\n ممکن است به‌سبب مجوزهای ناکافی یا مسئله‌ای فنی در دستگاهتان باشد.</string>
+  <string name="toast_no_suitable_storage">سیستم مکان مناسبی برای پایگاه‌دادهٔ کاشی باز نگرداند.</string>
+  <string name="toast_min_one_preset">دست‌کم باید یک پیش‌تنظیم انتخاب شود!</string>
+  <string name="toast_min_one_geocoder">دست‌کم یک geocoder باید انتخاب شود!</string>
+  <string name="toast_used_backup">پروندهٔ وضعیت خراب است. درعوض پروندهٔ پشتیبان به کار گرفته شد.</string>
+  <string name="toast_used_bug_backup">پروندهٔ وضعیت باگ خراب است. درعوض پروندهٔ پشتیبان به کار گرفته شد.</string>
+  <string name="toast_split_from">راه from دو نیم شد</string>
+  <string name="toast_split_via">راه «via» دو نیم شد</string>
+  <string name="toast_split_from_and_via">راه from و via دو نیم شدند</string>
+  <string name="toast_split_to">راه to دو نیم شد</string>
+  <string name="toast_tile_database_issue_short">مسئله با پایگاه‌دادهٔ کاشی</string>
+  <string name="toast_tile_database_issue">مسئله‌ای جدی مربوط به پایگاه‌دادهٔ کاشی نقشه وجود دارد \n%1$s\nلطفاً پرسش‌های رایج را در https://vespucci.io مطالعه کنید.</string>
+  <string name="toast_invalid_apiurl">‏API URL نامعتبر</string>
+  <string name="toast_invalid_readonlyurl">‏ReadOnly API URL نامعتبر</string>
+  <string name="toast_invalid_notesurl">‏API URL یادداشت‌ها نامعتبر است</string>
+  <string name="toast_invalid_preseturl">‏URL پیش‌تنظیم نامعتبر است</string>
+  <string name="toast_invalid_filter_regexp">عبارت باقاعده در پالایه با key=\\"%1$s\\" value=\\"%2$s\\"‎ نامعتبر است</string>
+  <string name="toast_error_accessing_photo">دسترسی به عکس %1$s ممکن نیست</string>
+  <string name="toast_security_error_accessing_photo">دسترسی به عکس  %1$s مجاز نیست</string>
+  <string name="toast_no_voice_recognition">امکانات تشخیص گفتار یافت نشد</string>
+  <string name="toast_no_coverage">‏%1$s اینجا را پوشش نمی‌دهد</string>
+  <string name="toast_file_exists">پروندهٔ %1$s وجود دارد.</string>
+  <string name="toast_needs_resurvey">شیء ممکن است تاریخ‌گذشته باشد</string>
+  <string name="toast_missing_key">کمبود کلید %1$s </string>
+  <string name="toast_invalid_object">شیء نامعتبر</string>
+  <string name="toast_openinghours_invalid">مقدار ساعت کاری برای %1$s نامعتبر است</string>
+  <string name="toast_openinghours_autocorrected">مقدار ساعت کاری برای %1$s به‌طور خودکار درست شد</string>
+  <string name="toast_exit_multiselect">برای خروج در فضایی خالی را دو بار پیاپی لمس کنید یا روی → بزنید</string>
+  <string name="toast_exit_actionmode">برای ذخیره و خروج روی → بزنید</string>
+  <string name="toast_abort_actionmode">برای لغو روی → بزنید</string>
+  <string name="toast_null_island">لطفاً در ‎0°/0° (جزیرهٔ پوچ) عنصری اضافه نکنید</string>
+  <string name="toast_string_too_long">رشته بسیار طولانی است (%1$d نویسه). کوتاه شد!</string>
+  <string name="toast_illegal_operation">کنش غیرمجاز: %1$s</string>
+  <string name="toast_preset_creation_failed">ساخت پیش‌تنظیم \"%1$s\": %2$s‎ ناموفق بود</string>
+  <string name="toast_imperial_units">یکاهای امپراطوری وجود ندارد</string>
+  <string name="toast_server_connection_failed">نمی‌توان به کارساز متصل شد: %1$s</string>
+  <string name="toast_flus_all_caches">این کار همهٔ نهان‌گاه‌های کاشی را پاک‌سازی می‌کند!</string>
+  <string name="toast_applied_offset">آفست تصویر به کار گرفته شد.</string>
+  <string name="toast_unsupported_format">قالب پشتیبانی‌نشده: %1$s</string>
+  <string name="toast_returning_less_than_found">در حال برگرداندن %1$d از %2$d مدخل یافته</string>
+  <string name="toast_not_mbtiles">پرونده در قالب MBTiles نیست</string>
+  <string name="toast_using_network_location">استفاده از موقعیت شبکه</string>
+  <string name="toast_using_gps_location">استفاده از موقعیت GPS/GNSS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">موقعیت‌یابی GPS/GNSS خاموش شد، ردیابی GPX متوقف شد</string>
+  <string name="toast_remote_nmea_connection">اتصال راه دور NMEA از/به %1$s</string>
+  <string name="toast_remote_nmea_connection_closed">اتصال راه دور NMEA بسته شد</string>
+  <string name="toast_tags_copied">تگ‌ها در بریده‌دادن کپی شد</string>
+  <string name="toast_tags_cut">تگ‌ها به بریده‌دادن انتقال یافت</string>
+  <string name="toast_properties_copied">خصوصیت‌ها به بریده‌دان کپی شد</string>
+  <string name="toast_task_conflict">‏%1$s روی کارساز تغییر کرده است. ابتدا بارگذاری و سپس مجدداً بارگیری کنید.</string>
+  <string name="toast_move_note_warning">فقط یادداشت‌های تازه را می‌توان جابه‌جا کرد</string>
+  <string name="toast_task_layer_disabled">لایهٔ وظیفه غیرفعال شد</string>
+  <string name="toast_unable_to_create_task_layer">ایجاد لایهٔ وظیفه ناموفق بود</string>
+  <string name="toast_merged">ادغام شد</string>
+  <string name="toast_long_press_simple_mode">لمس طولانی در حالت ساده کار نمی‌کند</string>
+  <string name="toast_invalid_style_file">قالب نامعتبر پروندهٔ سبک برای %1$s</string>
+  <string name="toast_no_geometry">هندسه‌ای برای عنصر یافت نشد</string>
+  <string name="toast_added_api_entry_for">مدخل API برای %1$s افزوده شد</string>
+  <string name="toast_updated">‏%1$s به‌روز شد</string>
+  <string name="toast_cannot_resume_download_of">نمی‌توان بارگیری %1$s را از سر گرفت</string>
+  <string name="toast_device_not_found_for">دستگاه برای %1$s یافت نشد</string>
+  <string name="toast_file_already_exists">پروندهٔ %1$s وجود دارد</string>
+  <string name="toast_file_error_for">خطای پرونده برای %1$s</string>
+  <string name="toast_http_data_error_for">خطای دادهٔ HTTP برای %1$s</string>
+  <string name="toast_error_insufficient_space_for">برای %1$s فضای دستگاه کافی نیست</string>
+  <string name="toast_error_too_many_redirects_for">تغییرمسیرهای خیلی زیاد برای %1$s</string>
+  <string name="toast_error_too_unhandled_http_code_for">کد HTTP مهارنشده برای %1$s</string>
+  <string name="toast_unknown_error_for">خطای ناشناخته برای  %1$s</string>
+  <string name="toast_download_started">بارگیری %1$s آغاز شد</string>
+  <string name="toast_phone_number_reformatted">شماره‌تلفن مجدداً قالب‌دهی شد</string>
+  <string name="toast_members_not_downloaded">برخی از عضوهای رابطه بارگیری نشده‌ است</string>
+  <string name="toast_restart_required">برای به کار بستن تغییرات باید وسپوچی را مجدداً باز کنید</string>
+  <string name="toast_unable_to_open_offline_data">ناتوان از بازکردن دادهٔ آفلاین  ‎%1$s %2$s</string>
   <!--Error messages-->
+  <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
+  <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>
+  <string name="error_pbf_unknown_relation_member_type">نوع ناشناختهٔ %1$s برای عضو رابطه</string>
   <!--Some generic labels/buttons-->
   <string name="yes">بله</string>
   <string name="no">خير</string>
-  <string name="cancel">لغو کردن</string>
-  <string name="locked">قفل شده</string>
+  <string name="okay">خب</string>
+  <string name="cancel">لغو</string>
+  <string name="dismiss">رهاکردن</string>
+  <string name="done">تمام</string>
+  <string name="locked">قفل</string>
+  <string name="next">بعدی</string>
+  <string name="apply">به‌کارگیری</string>
+  <string name="set">تنظیم</string>
+  <string name="replace">جانشینی</string>
   <string name="save">ذخیره</string>
-  <string name="forward">به جلو</string>
+  <string name="save_and_set">ذخیره و تنظیم</string>
+  <string name="back">عقب</string>
+  <string name="forward">جلو</string>
+  <string name="keep">حفظ</string>
+  <string name="enable">فعال</string>
+  <string name="disable">غیرفعال</string>
+  <string name="clear">پاک‌سازی</string>
+  <string name="discard">دورانداختن</string>
+  <string name="retry">تلاش مجدد</string>
+  <string name="prune">هرس</string>
+  <string name="check">بررسی</string>
   <!--Read a file-->
+  <string name="read">خواندن</string>
+  <string name="overwrite">بَرنویسی</string>
+  <string name="share">همرسانی</string>
+  <string name="share_position">همرسانی موقعیت</string>
+  <string name="share_on_openstreetmap">همرسانی در OpenStreetMap</string>
+  <string name="min">کمینه</string>
+  <string name="max">بیشینه</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">هیچ</string>
   <!--Dialog for back button-->
+  <string name="exit_title">خروج از وسپوچی</string>
+  <string name="exit_text">واقعاً خارج می‌شوید؟</string>
+  <string name="pause_exit_text">ردگیری را نگه می‌دارید و خارج می‌شوید؟</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">کليد</string>
+  <string name="Key">کلید</string>
   <string name="value">مقدار</string>
-  <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
-  <string name="tag_menu_sourcesurvey">بررسی</string>
-  <string name="tag_menu_preset">پیش تنظیم</string>
-  <string name="tag_menu_revert">برگشت</string>
+  <string name="Value">مقدار</string>
+  <string name="multiselect_header_short">مقدار (%1$d)</string>
+  <string name="multiselect_header_long">مقدارها (برای %1$d عنصر)</string>
+  <string name="link_mapfeatures">https://wiki.openstreetmap.org/wiki/Fa:Map_Features</string>
+  <string name="tag_menu_address">افزودن تگ‌های نشانی</string>
+  <string name="tag_menu_sourcesurvey">بررسی میدانی</string>
+  <string name="tag_menu_preset">پیش‌تنظیم‌ها</string>
+  <string name="tag_menu_apply_preset">به‌کارگیری پیش‌تنظیم</string>
+  <string name="tag_menu_apply_preset_with_optional">به‌کارگیری پیش‌تنظیم با کلیدهای اختیاری</string>
+  <string name="tag_menu_revert">واگرد</string>
+  <string name="tag_menu_mapfeatures">ویکی این عارضهٔ نقشه</string>
   <string name="tag_menu_addtorelation">افزودن به رابطه</string>
+  <string name="tag_menu_resetMRU">بازنشانی پیش‌تنظیم</string>
+  <string name="tag_menu_reset_address_prediction">بازنشانی پیشبینی نشانی</string>
+  <string name="tag_menu_exit_no_save">خروج\nبدون ذخیره‌سازی</string>
+  <string name="tag_menu_delete_unassociated_tags">حذف تگ‌های ناوابسته</string>
+  <string name="tag_menu_top">پیمایش به بالا</string>
+  <string name="tag_menu_bottom">پیمایش به پایین</string>
+  <string name="tag_value_hint">مقداری بنویسید</string>
+  <string name="tag_autocomplete_value_hint">برای مقداردهی، بنویسید یا لمس کنید</string>
+  <string name="tag_autocomplete_name_hint">برای پیشنهادهای نام، بنویسید یا لمس کنید</string>
+  <string name="tag_tap_to_edit_hint">لمس برای ویرایش</string>
+  <string name="tag_multi_value_hint">چندین مقدار</string>
+  <string name="tag_dialog_value_hint">لمس برای مقدارها</string>
+  <string name="tag_action_tag_title">تگ(ها) انتخاب شد</string>
+  <string name="tag_action_members_title">عضو(ها) انتخاب شد</string>
+  <string name="tag_action_parents_title">رابطه(ها) انتخاب شد</string>
+  <string name="tag_additional_properties">خصوصیات بیشتر</string>
   <string name="tag_details">جزئیات</string>
+  <string name="tag_not_set">تنظیم نشده</string>
+  <string name="tag_menu_move_up">برو بالا</string>
+  <string name="tag_menu_move_top">برو ابتدا</string>
+  <string name="tag_menu_move_down">برو پایین</string>
+  <string name="tag_menu_move_bottom">برو انتها</string>
+  <string name="tag_menu_sort">مرتب‌سازی</string>
+  <string name="tag_menu_reverse_order">ترتیب برعکس</string>
+  <string name="tag_menu_download">بارگیری</string>
+  <string name="tag_menu_js_console">JS console</string>
   <string name="menu_up">بالا</string>
+  <string name="menu_top">ابتدا</string>
+  <string name="menu_select_all">انتخاب همه</string>
+  <string name="menu_deselect_all">انتخاب هیچ</string>
+  <string name="menu_preset_help">راهنمای پیش‌تنظیم</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">افزودن تگ‌های زبان</string>
+  <string name="tag_restriction_header">مقدار</string>
+  <string name="tag_restriction_when">چه زمانی</string>
+  <string name="tag_restriction_and">و</string>
+  <string name="tag_restriction_add_restriction">افزودن محدودیت</string>
+  <string name="tag_restriction_add_simple_condition">افزودن شرط ساده</string>
+  <string name="tag_restriction_add_expression">افزودن عبارت</string>
+  <string name="tag_restriction_add_opening_hours">افزودن ساعت کار</string>
+  <string name="tag_restriction_value_hint">محدودیت شرطی</string>
+  <string name="ugly_checkgroup_hint">%1$s، …</string>
+  <string name="tag_form_unknown_element">عنصر ناشناخته (پیش‌تنظیمی یافت نشد)</string>
+  <string name="tag_form_untagged_element">عنصر بی‌تگ</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">ساخت پیش‌تنظیم سفارشی</string>
+  <string name="create_preset_title">نام پیش‌تنظیم سفارشی</string>
+  <string name="create_preset_default_name">سفارشی %1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">انتخاب شعاع:</string>
   <string name="location_default_radius">300 متر</string>
-  <string name="location_last_text">آخرین مکان شناخته شده:</string>
-  <string name="location_current_text">مکان فعلی:</string>
-  <string name="location_last_text_parameterized">آخرین مکان شناخته شده: %1$s</string>
-  <string name="location_current_text_parameterized">مکان فعلی: %1$s</string>
+  <string name="location_radius">%1$dm</string>
+  <string name="location_last_text">آخرین مکان:</string>
+  <string name="location_current_text">مکان کنونی:</string>
+  <string name="location_text_unknown">ناشناخته</string>
+  <string name="location_last_text_parameterized">آخرین مکان: %1$s</string>
+  <string name="location_current_text_parameterized">مکان کنونی: %1$s</string>
+  <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s پیش</string>
+  <string name="location_text_metadata_accuracy">صحت %1$2.0f متر،</string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">از مختصات:</string>
   <string name="location_lat_label">عرض:</string>
   <string name="location_lon_label">طول:</string>
-  <string name="location_load_button">بارگیری</string>
+  <string name="location_search_label">جستجو:</string>
+  <string name="location_load_button">بارکردن</string>
+  <string name="location_load_dismiss">برو به نقشه</string>
+  <string name="location_nan_title">ورودی خطا دارد!</string>
+  <string name="location_nan_message">لطفاً مختصات را در قالب اعشاری وارد کنید (مثال: \\"52.333572\\",\\"8.741185\\"). عرض باید بین -85.0 و +85.0 باشد، طول بین -175.0 و +175.0.</string>
+  <string name="location_olc">OLC</string>
   <!--Strings in DownloadActivity-->
+  <string name="download_files_title">بارگیری پرونده‌ها</string>
+  <string name="allow_all_networks">اجازه به همهٔ شبکه‌ها</string>
   <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">برو به مختصات</string>
+  <string name="go_to_coordinates_hint">مختصات یا کد OLC وارد کنید</string>
+  <string name="unparseable_coordinates">مختصات ناخوانا</string>
+  <string name="network_required">برای جستجوی مکانی به شبکه نیاز است</string>
+  <string name="no_nominatim_server">کارساز پیکربندی‌شده برای Nominatim یافت نشد</string>
+  <string name="no_nominatim_result">کارساز Nominatim، ‏%1$s را نیافت</string>
   <!--Menu-->
-  <string name="menu_move">جابجایی</string>
+  <string name="menu_move">جابه‌جایی</string>
   <string name="menu_edit">ويرايش</string>
   <string name="menu_add">جديد</string>
   <string name="menu_config">ترجیحات</string>
-  <string name="menu_help">کمک</string>
-  <string name="menu_erase">پاک کردن گره</string>
-  <string name="menu_set_position">مکان</string>
-  <string name="menu_split">جدا کردن</string>
-  <string name="menu_append">پیوست کردن</string>
-  <string name="menu_tag">ویرایش برچسب ها</string>
-  <string name="menu_easyedit">ویرایش ساده</string>
+  <string name="menu_find">یافتن</string>
+  <string name="menu_help">راهنما</string>
+  <string name="menu_view">نما</string>
+  <string name="menu_erase">پاک‌کردن گره</string>
+  <string name="menu_set_position">موقعیت</string>
+  <string name="menu_split">دونیم‌کردن</string>
+  <string name="menu_remove_node_from_way">حذف گره از راه</string>
+  <string name="menu_extract">استخراج گره</string>
+  <string name="menu_append">ادامه‌دادن</string>
+  <string name="menu_relation">ساخت رابطه</string>
+  <string name="menu_edit_relation">ویرایش رابطه</string>
+  <string name="menu_add_relation_member">افزودن عضو</string>
+  <string name="menu_select_relation_members">انتخاب عضوها</string>
+  <string name="menu_tag">ویرایش تگ‌ها</string>
+  <string name="menu_openstreetbug">افزودن یادداشت</string>
+  <string name="menu_easyedit">ویرایش آسان</string>
   <string name="menu_camera">دوربین</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">نمایش مکان</string>
-  <string name="menu_transfer">انتقال...</string>
-  <string name="menu_transfer_download_current">دانلود نمای فعلی</string>
-  <string name="menu_transfer_upload">آپلود داده ها در سرور OSM</string>
-  <string name="menu_join">پیوستن</string>
-  <string name="menu_unjoin">جدا کردن</string>
+  <string name="menu_gps_follow">دنبال‌کردن مکان</string>
+  <string name="menu_gps_goto">برو به مکان کنونی</string>
+  <string name="menu_gps_goto_coordinates">برو به مختصات...</string>
+  <string name="menu_gps_goto_last_edit">برو به آخرین ویرایش</string>
+  <string name="menu_gps_start">آغاز رد GPX</string>
+  <string name="menu_gps_pause">نگه‌داشتن رد GPX</string>
+  <string name="menu_gps_clear">پاک‌سازی رد GPX و نقاط بین‌راهی آن</string>
+  <string name="menu_gps_track_managment">مدیریت رد GPX...</string>
+  <string name="menu_gps_upload">بارگذاری رد GPX</string>
+  <string name="menu_gps_export">برون‌برد رد GPX</string>
+  <string name="menu_gps_import">درون‌برد رد GPX</string>
+  <string name="menu_gps_goto_start">برو به ابتدای رد GPX</string>
+  <string name="menu_gps_goto_first_waypoint">برو به اولین نقطهٔ بین‌راهی</string>
+  <string name="menu_enable_gps_autodownload">بارگیری خودکار مکان‌محور</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">بارگیری خودکار با جابه‌جایی و زوم</string>
+  <string name="menu_transfer">داده‌رسانی...</string>
+  <string name="menu_transfer_download_current">بارگیری نمای کنونی</string>
+  <string name="menu_transfer_download_replace">پاک‌سازی و بارگیری نمای کنونی</string>
+  <string name="menu_transfer_load_current">بارکردن نمای کنونی</string>
+  <string name="menu_transfer_load_replace">پاک‌سازی و بارکردن نمای کنونی</string>
+  <string name="menu_transfer_upload">بارگذاری داده در کارساز OSM</string>
+  <string name="menu_transfer_close_changeset">بستن بستهٔ تغییر جاری</string>
+  <string name="menu_transfer_file">پرونده...</string>
+  <string name="menu_transfer_export">برون‌برد تغییرات به پروندهٔ OSC</string>
+  <string name="menu_transfer_apply_osc_file">به‌کارگیری تغییرات از پروندهٔ OSC</string>
+  <string name="menu_transfer_read_file">خواندن از پروندهٔ JOSM...</string>
+  <string name="menu_transfer_read_pbf_file">خواندن از پروندهٔ PBF</string>
+  <string name="menu_transfer_save_file">ذخیره در پروندهٔ JOSM...</string>
+  <string name="menu_transfer_download_msf">بارگیری داده برای استفادهٔ آفلاین...</string>
+  <string name="menu_transfer_bugs">وظیفه‌ها...</string>
+  <string name="menu_transfer_bugs_download_current">بارگیری وظیفه‌های نمای کنونی</string>
+  <string name="menu_transfer_bugs_upload">بارگذاری همه</string>
+  <string name="menu_transfer_bugs_upload_long">بارگذاری همهٔ وظیفه‌ها</string>
+  <string name="menu_transfer_bugs_clear">پاک‌سازی</string>
+  <string name="menu_transfer_bugs_clear_long">پاک‌سازی وظیفه‌ها</string>
+  <string name="menu_transfer_autodownload_long">بارگیری خودکار وظیفه‌ها</string>
+  <string name="menu_transfer_save_notes_all">ذخیره‌سازی همهٔ یادداشت‌ها...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">ذخیره‌سازی یادداشت‌های جدید و تغییرکرده...</string>
+  <string name="menu_transfer_read_custom_bugs">بارکردن وظیفه‌های سفارشی...</string>
+  <string name="menu_transfer_write_custom_bugs">ذخیره‌سازی وظیفه‌های سفارشی باز...</string>
+  <string name="menu_save">ذخیره در قالب پرونده</string>
+  <string name="menu_join">پیوند</string>
+  <string name="menu_unjoin">جداسازی</string>
+  <string name="menu_copy">کپی</string>
+  <string name="menu_cut">برش</string>
+  <string name="menu_paste">درج</string>
+  <string name="menu_paste_tags">درج تگ‌ها</string>
+  <string name="menu_paste_from_clipboard">درج از بریده‌دادن</string>
+  <string name="menu_zoom_to_selection">زوم روی انتخاب</string>
   <string name="menu_rotate">چرخش</string>
+  <string name="menu_orthogonalize">قائمه‌کردن</string>
+  <string name="menu_straighten">راست‌کردن</string>
+  <string name="menu_circulize">چیدن روی دایره</string>
+  <string name="menu_split_polygon">تقسیم به دو چندضلعی</string>
+  <string name="menu_unjoin_dissimilar">جداسازی ناهمسان</string>
+  <string name="menu_newnode_gps">گره جدید در موقعیت GPS</string>
+  <string name="menu_extend_selection">گسترش انتخاب</string>
+  <string name="menu_information">اطلاعات</string>
+  <string name="menu_voice_commands">فرمان‌های صوتی</string>
+  <string name="menu_set_name">تنظیم نام</string>
+  <string name="menu_tools">ابزارها...</string>
+  <string name="menu_tools_imagery">دیگر ابزارهای تصویر...</string>
+  <string name="menu_tools_add_imagery_from_oam">افزودن تصویر از OAM</string>
+  <string name="menu_tools_flush_all_tile_caches">پاک‌سازی همهٔ نهان‌گاه‌های کاشی</string>
+  <string name="menu_tools_background_properties">خصوصیات پس‌زمینه</string>
+  <string name="menu_tools_update_imagery_configuration">به‌روزرسانی پیکربندی لایهٔ تصویر</string>
+  <string name="menu_tools_zoom_to_layer_extent">زوم به گسترهٔ لایهٔ پس‌زمینه</string>
+  <string name="menu_tools_clear_clipboard">پاک‌سازی بریده‌دان</string>
   <!---->
+  <string name="menu_simple_actions">حالت آسان</string>
+  <string name="menu_feedback">بازخورد</string>
+  <string name="menu_preset_feedback">بازخورد دربارهٔ پیش‌تنظیم</string>
+  <string name="menu_privacy">حریم خصوصی</string>
   <!--Background alignment-->
-  <string name="menu_tools_background_align_reset">باز نشانی</string>
+  <string name="menu_tools_background_align">ترازکردن پس‌زمینه</string>
+  <string name="menu_tools_background_align_reset">بازنشانی</string>
+  <string name="menu_tools_background_align_zero">صفر</string>
+  <string name="menu_tools_background_align_retrieve_from_db">از پایگاه‌داده</string>
+  <string name="menu_tools_background_align_retrieve_from_device">از دستگاه</string>
+  <string name="menu_tools_background_align_save_db">ذخیره در پایگاه‌داده</string>
+  <string name="menu_tools_background_align_save_device">ذخیره در دستگاه</string>
+  <string name="menu_tools_background_align_apply2all">به‌کارگیری (همهٔ زوم‌ها)</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f متر</string>
+  <string name="distance_km">%1$.3f کیلومتر</string>
   <!--Menus in layers dialog-->
+  <string name="menu_layers">لایه‌ها...</string>
+  <string name="menu_layers_load_geojson">بارکردن لایهٔ GeoJSON</string>
+  <string name="menu_layers_add_backgroundlayer">افزودن لایهٔ تصویر پس‌زمینه</string>
+  <string name="menu_layers_add_overlaylayer">افزودن لایهٔ تصویر رویی</string>
+  <string name="menu_layers_add_tasklayer">افزودن لایهٔ وظیفه</string>
+  <string name="menu_layers_add_grid">افزودن شبکه</string>
+  <string name="menu_layers_add_photolayer">افزودن لایهٔ عکس</string>
+  <string name="menu_layers_configure">پیکربندی...</string>
   <!---->
+  <string name="menu_tools_apply_local_offset">به‌کارگیری آفست ذخیره‌شده بر تصویر</string>
+  <string name="menu_tools_background_contrast">پادنمایی</string>
+  <string name="menu_tools_oauth_reset">بازنشانی OAuth</string>
+  <string name="menu_tools_oauth_authorisation">احراز هویت OAuth</string>
+  <string name="menu_enable_tagfilter">پالایهٔ تگ</string>
+  <string name="menu_enable_presetfilter">پالایهٔ پیش‌تنظیم</string>
+  <string name="preset_menu_waynodes">شامل گره‌های راه</string>
+  <string name="preset_menu_invert">برعکس‌کردن پالایه‌ها</string>
   <!--element action mode menu-->
+  <string name="menu_tags">خصوصیات</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">تاریخچه</string>
-  <string name="menu_merge">پیوند دادن</string>
+  <string name="menu_merge">پیوند</string>
   <string name="menu_reverse">معکوس کردن</string>
+  <string name="notreversable_description">این راه برعکس نمی‌شود زیرا با مشخصه‌های وابسته به جهت تگ‌گذاری شده است. برعکس‌کردنش تگ‌گذاری را خراب می‌کند.</string>
+  <string name="reverse_anyway">به‌هرحال برعکس شود</string>
+  <string name="deleteway_description">در حال حذف یک راه هستید.\n\nمی‌توانید همهٔ گره‌ها را نگه دارید یا آن‌هایی را حذف کنید که فقط متعلق به این راه و بی‌تگ هستند.</string>
+  <string name="deleteway_relation_description">در حال حذف یک راه هستید که عضوی از یک یا چند رابطه است. حذف این‌گونه راه‌ها که رابطه‌ای بر آن‌ها سوار است، می‌تواند render را نامعتبر کند.</string>
+  <string name="deleteway_nodesnotdownloaded_description">راه شامل گره‌هایی است که بیرون از محدودهٔ بارگیری‌شده قرار دارند و بنابراین حذفش می‌تواند منجر به وضعیتی ناپایدار شود. پیش از تلاش مجدد، تمام راه را بارگیری کنید.</string>
+  <string name="deleteway_wayonly">فقط حذف راه</string>
+  <string name="deleteway_wayandnodes">حذف راه</string>
+  <string name="deletenode_relation_description">در حال حذف یک گره هستید که عضوی از یک یا چند رابطه است. حذف این‌گونه گره‌ها که رابطه‌ای بر آن‌ها سوار است، می‌تواند render را نامعتبر کند.</string>
+  <string name="deletenode">حذف گره</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">دو نیم کردن...</string>
+  <string name="split_all_ways">... همهٔ راه‌ها</string>
+  <string name="merge_context_title">ادغام با …</string>
+  <string name="merge_with_all_ways">… همهٔ راه‌های نزدیک</string>
+  <string name="merge_with_all_nodes">… همهٔ گره‌های نزدیک</string>
+  <string name="delete_note_description">حذف یادداشت برگشت‌پذیر نیست!</string>
+  <string name="delete_note">حذف یادداشت</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">راه انتخاب شد</string>
   <string name="actionmode_nodeselect">گره انتخاب شد</string>
+  <string name="actionmode_relationselect">رابطه انتخاب شد</string>
   <string name="actionmode_createpath">ایجاد مسیر</string>
+  <string name="actionmode_multiselect">چندانتخابی</string>
+  <string name="actionmode_newnoteselect">یادداشت جدید انتخاب شد</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">دونیم‌کردن راه بسته، گره اول</string>
+  <string name="actionmode_closed_way_split_2">دونیم‌کردن راه بسته، گره دوم</string>
+  <string name="actionmode_restriction">افزودن محدودیت گردش</string>
+  <string name="actionmode_restriction_restart_from">پارهٔ from را دوباره انتخاب کنید</string>
+  <string name="actionmode_restriction_select_from">پارهٔ from را انتخاب کنید</string>
+  <string name="actionmode_restriction_via">عنصر/پارهٔ via را بیفزایید</string>
+  <string name="actionmode_restriction_restart_via">پارهٔ via را دوباره انتخاب کنید</string>
+  <string name="actionmode_restriction_to">پارهٔ to را بیفزایید</string>
+  <string name="actionmode_restriction_restart_to">پارهٔ to را دوباره انتخاب کنید</string>
+  <string name="actionmode_restriction_split_from">پارهٔ from را دو نیم کنید</string>
+  <string name="actionmode_restriction_split_via">پارهٔ via را دو نیم کنید</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 شیء</item>
+    <item quantity="other">%1$d شیء</item>
+  </plurals>
+  <string name="actionmode_rotateway">چرخش راه</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">افزودن گره</string>
+  <string name="simple_add_node">موقعیت موردنظر از صفحه را لمس کنید</string>
+  <string name="menu_add_node_tags">افزودن گره تگ‌دار</string>
+  <string name="menu_add_way">افزودن راه</string>
+  <string name="simple_add_way">موقعیت موردنظر از صفحه را لمس کنید</string>
+  <string name="menu_add_map_note">افزودن یادداشت نقشه</string>
+  <string name="simple_add_note">موقعیت موردنظر از صفحه را لمس کنید</string>
+  <string name="menu_paste_object">درج شیء</string>
+  <string name="simple_paste">موقعیت موردنظر از صفحه را لمس کنید</string>
+  <string name="menu_paste_multiple">درج چندین‌باره</string>
+  <string name="simple_paste_multiple">موقعیت موردنظر از صفحه را لمس کنید</string>
   <!--Preferences-->
-  <string name="config_backgroundLayer_title">نقشه پس زمینه</string>
+  <string name="config_backgroundLayer_title">پس‌زمینهٔ نقشه</string>
+  <string name="config_backgroundLayer_summary">پس‌زمینهٔ کاشی-پایهٔ نقشه</string>
+  <string name="config_overlayLayer_title">رولایهٔ نقشه</string>
+  <string name="config_overlayLayer_summary">رولایهٔ کاشی-پایهٔ نقشه</string>
+  <string name="config_customlayers_title">لایه‌های سفارشی</string>
+  <string name="config_customlayers_summary">پیکربندی لایه‌هایی که در پیکربندی پیشفرض نیستند.</string>
+  <string name="config_scale_title">نمایش مقیاس</string>
+  <string name="config_scale_summary">نوع مقیاس نمایش‌یافته بر نقشه.</string>
+  <string name="config_mapProfile_title">سبک داده</string>
+  <string name="config_mapProfile_summary">سبک لایهٔ داده را انتخاب کنید.</string>
+  <string name="config_enableOpenStreetBugs_title">نمایش وظیفه‌ها</string>
+  <string name="config_enableOpenStreetBugs_summary">نمایش، ویرایش و ایجاد یادداشت‌ها، باگ‌ها و وظیفه‌ها.</string>
+  <string name="config_enablePhotoLayer_title">فعال‌سازی لایهٔ عکس</string>
+  <string name="config_enablePhotoLayer_summary">نمایش عکس‌های زمین‌مرجع.</string>
+  <string name="config_enableKeepScreenOn_title">روشن‌ماندن صفحه</string>
+  <string name="config_enableKeepScreenOn_summary">از خاموش‌شدن صفحه برای ذخیرهٔ نیرو جلوگیری نمی‌کند.</string>
+  <string name="config_largeDragArea_title">فضای بزرگ برای کشیدن گره</string>
+  <string name="config_largeDragArea_summary">فضایی بزرگ‌تر برای جابه‌جاکردن گره در اختیارتان می‌گذارد.</string>
   <string name="config_advancedprefs">ترجیحات پیشرفته</string>
-  <string name="config_presetbutton_title">پیش تنظیم</string>
+  <string name="config_moreprefs">تنظیمات بیشتر...</string>
+  <string name="config_presetbutton_title">پیش‌تنظیم‌ها</string>
+  <string name="config_presetbutton_summary">افزودن و فعال‌سازی پیش‌تنظیم‌های سازگار با JOSM</string>
+  <string name="config_built_in_preset">پیش‌تنظیم توکار</string>
   <!--Validator preferences-->
+  <string name="config_validatorprefs_title">تنظیمات اعتبارسنج</string>
+  <string name="config_validatorprefs_summary">قواعد اعتبارسنجی را پیکربندی کنید.</string>
+  <string name="config_connectedNodeTolerance_title">تاب‌آوری نقطهٔ اتصال</string>
+  <string name="config_connectedNodeTolerance_summary">اگر فاصلهٔ گره پایانی معبری تا معبر دیگر کمتر از این مقدار (به متر) باشد، باید به آن متصل شود</string>
   <!--opening hours templates-->
+  <string name="config_opening_hours_title">الگوهای ساعت کاری</string>
+  <string name="config_opening_hours_summary">الگوهای ساعت کاری را بار، ذخیره و حذف کنید</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">سازندگان و پروانه‌ها</string>
+  <string name="config_debugbutton_title">اشکال‌زدایی</string>
   <string name="config_category_info">درباره</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
-  <string name="config_iconbutton_title">نمایش آیکون های گره</string>
-  <string name="config_iconbutton_summary">نمایش آیکون بهترین پیش تنظیم سازگار دور گره ها.</string>
-  <string name="config_showTolerance_title">نمایش تحمل</string>
-  <string name="config_enableAntiAliasing_summary">خط ها را صافتر می سازد.</string>
-  <string name="config_maxStrokeWidth_title">حداکثر عرض خط</string>
+  <string name="config_category_view">تنظیمات واسط کاربری</string>
+  <string name="config_category_view_summary">گزینه‌های پیکربندی چیدمان و نمایش.</string>
+  <string name="config_iconbutton_title">نمایش نمادهای گره</string>
+  <string name="config_iconbutton_summary">روی گره‌ها نماد جورترین پیش‌تنظیم را نشان بده.</string>
+  <string name="config_showWayIcons_title">نماد نقاط توجه (POI) را روی ساختمان‌ها نشان بده</string>
+  <string name="config_showWayIcons_summary">روی ساختمان‌ها نماد جورترین پیش‌تنظیم را نشان بده.</string>
+  <string name="config_tagFormEnabled_title">نمایش فرم تگ</string>
+  <string name="config_tagFormEnabled_summary">فرم تگ را برای ویرایش نشان بده.</string>
+  <string name="config_showCameraAction_title">نمایش کنش دوربین</string>
+  <string name="config_showCameraAction_summary">نماد دوربین را در نوار کنش نشان بده.</string>
+  <string name="config_useInternalPhotoViewer_title">استفاده از نمایشگر عکس توکار</string>
+  <string name="config_useInternalPhotoViewer_summary">نمایشگر عکس توکار را به کار ببر. اگر خاموش باشد نمایشگر خارجی استفاده می‌شود.</string>
+  <string name="config_followGPSbutton_title">چیدمان دکمهٔ «دنبال‌کردن موقعیت»</string>
+  <string name="config_followGPSbutton_summary">جایی که دکمهٔ «دنبال‌کردن موقعیت» قرار می‌گیرد.</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">همیشه محدوده‌های بارگیری‌نشده را تاریک کن</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">در حالت قفل، محدوده‌های بارگیری‌نشده را تاریک می‌کند.</string>
+  <string name="config_fullscreenMode_title">حالت تمام‌صفحه</string>
+  <string name="config_fullscreenMode_summary">رفتار در دستگاه‌های دارای کلیدهای «نرم».</string>
+  <string name="config_map_orientation_title">جهت صفحهٔ نقشه</string>
+  <string name="config_map_orientation_summary">رفتار صفحهٔ نقشه با تغییرکردن جهت دستگاه.</string>
+  <string name="config_showTolerance_title">نمایش هاله</string>
+  <string name="config_showTolerance_summary">محدوده‌ای دور عنصر برای انتخاب آن نمایش می‌دهد (فضای انتخاب).</string>
+  <string name="config_use_back_for_undo_title">استفاده از دکمهٔ عقب برای واگرد</string>
+  <string name="config_use_back_for_undo_summary">در نمای اصلی ویرایش، برای برگرداندن ویرایش دکمهٔ عقب را بزنید.</string>
+  <string name="config_enableLightTheme_title">پوستهٔ روشن</string>
+  <string name="config_enableLightTheme_summary">پس‌زمینه‌های روشن و سفید.</string>
+  <string name="config_splitActionBarEnabled_title">فعال‌سازی نوار کنش دوبخشی</string>
+  <string name="config_splitActionBarEnabled_summary">می‌توانید نوار کنش را دو بخش کنید. کاربرد بسته به دستگاه. نیازمند راه‌اندازی مجدد وسپوچی و اندروید ۴.۰ یا بالاتر.</string>
+  <string name="config_maxInlineValues_title">بیشترین تعداد مقادیر درخط</string>
+  <string name="config_maxInlineValues_summary">بیشترین تعداد مقادیر که در فرم خصوصیت‌ها نمایان باشد.</string>
+  <string name="config_maxInlineValues_current">%1$d مقدار</string>
+  <string name="config_autoLockDelay_title">مدت انتظار پیش از قفل‌شدن خودکار</string>
+  <string name="config_autoLockDelay_summary">تعداد ثانیه‌های انتظار پیش از قفل‌شدن خودکار. 0 آن را غیرفعال می‌کند.</string>
+  <string name="config_autoLockDelay_current">%1$d ثانیه</string>
+  <string name="config_enableAntiAliasing_title">فعال‌سازی ضدپلّگی</string>
+  <string name="config_enableAntiAliasing_summary">خط‌ها را هموارتر می‌کند.</string>
+  <string name="config_enableHwAcceleration_title">فعال‌سازی شتاب‌دهی سخت‌افزاری</string>
+  <string name="config_enableHwAcceleration_summary">امکان استفاده از شتاب‌دهی سخت‌افزاری را فراهم می‌کند، اگر و هرجا پشتیبانی شود. در حال حاضر تنظیم این گزینه تأثیری ندارد.</string>
+  <string name="config_maxStrokeWidth_title">بیشترین پهنای خط</string>
+  <string name="config_maxStrokeWidth_summary">راهی را ضخیم‌تر از این رسم نکن.</string>
+  <string name="config_maxStrokeWidth_current">%1$d پیکسل</string>
   <!--Data and Editing Settings-->
+  <string name="config_category_editing">تنظیمات داده و ویرایش</string>
+  <string name="config_category_editing_summary">بارگیری خودکار، ذخیره‌سازی و تنظیمات اعلان.</string>
+  <string name="config_forceContextMenu_title">نمایش همیشگی منوی زمینه</string>
+  <string name="config_forceContextMenu_summary">همیشه اگر انتخاب مبهم است منوی زمینه را نشان بده.</string>
+  <string name="config_address_tags">تگ‌های نشانی</string>
+  <string name="config_address_tags_summary">تگ‌هایی که برای پیشبینی نشانی به کار می‌رود.</string>
+  <string name="config_enableNameSuggestions_title">فعال‌سازی پیشنهادهای نام</string>
+  <string name="config_enableNameSuggestions_summary">پیشنهادهای تگ نام را فعال کنید.</string>
+  <string name="config_enableNameSuggestionsPresets_title">فعال‌سازی پیش‌تنظیم‌های پیشنهاد نام</string>
+  <string name="config_enableNameSuggestionsPresets_summary">هنگامی که پیشنهاد نام انتخاب شده به‌طور خودکار پیش‌تنظیم را بیفزا.</string>
+  <string name="config_autoApplyPreset_title">فعال‌سازی به‌کارگیری خودکار پیش‌تنظیم</string>
+  <string name="config_autoApplyPreset_summary">هنگامی که ویرایشگر خصوصیت آغاز می‌شود به‌طور خودکار پیش‌تنظیم را به کار ببند.</string>
+  <string name="config_generateAlerts_title">تولید اعلان‌ها</string>
+  <string name="config_generateAlerts_summary">برای دادهٔ مشکل‌دار یا یادداشت‌ها اعلان تولید کن</string>
+  <string name="config_groupAlertsOnly_title">فقط هشدار صوتی گروهی</string>
+  <string name="config_groupAlertsOnly_summary">فقط برای گروه اعلان‌ها یک بار هشدار (صوتی) بده</string>
+  <string name="config_notificationCacheSize_title">بیشترین تعداد اعلان‌های نمایش‌یافته</string>
+  <string name="config_notificationCacheSize_summary">بیشترین تعداد اعلان‌های نمایش‌یافته برای هر نوع (کمترین 1).</string>
+  <string name="config_notificationCacheSize_current">%1$d اعلان</string>
+  <string name="config_maxAlertDistance_title">بیشترین مسافت برای اعلان</string>
+  <string name="config_maxAlertDistance_summary">بیشترین مسافتی که مشکل یا یادداشت باید از موقعیت کنونی داشته باشد تا اعلان تولید شود.</string>
+  <string name="config_maxAlertDistance_current">%1$d متر</string>
+  <string name="config_closeChangesetOnSave_title">بستن بسته‌های تغییر</string>
+  <string name="config_closeChangesetOnSave_summary">به‌طور پیشفرض هنگام ذخیره‌سازی، بسته‌های تغییر را ببند.</string>
+  <string name="config_enableAutoPresets_title">فعال‌سازی ساخت خودکار پیش‌تنظیم</string>
+  <string name="config_enableAutoPresets_summary">ساخت پیش‌تنظیم از taginfo مجاز باشد.</string>
+  <string name="config_orthogonalizeThreshold_title">آستانهٔ قائمگی</string>
+  <string name="config_orthogonalizeThreshold_summary">آستانه به درجه که زاویه‌های فراتر از آن نادیده گرفته می‌شوند</string>
+  <string name="config_orthogonalizeThreshold_current">%1$d°</string>
+  <string name="config_autoformatPhoneNumbers_title">قالب‌بندی خودکار شماره‌تلفن‌ها</string>
+  <string name="config_autoformatPhoneNumbers_summary">قالب‌دهی خودکار شماره‌تلفن‌ها را فعال می‌کند</string>
   <!--Auto-download settings-->
+  <string name="config_category_auto_download">تنظیمات بارگیری خودکار</string>
+  <string name="config_category_auto_download_summary">تنظیمات بارگیری خودکار داده و وظیفه</string>
+  <string name="config_extTriggeredDownloadRadius_title">شعاع بارگیری</string>
+  <string name="config_extTriggeredDownloadRadius_summary">شعاع بارگیری (به متر) برای وقتی که از بیرون برنامه فرمان بارگیری صادر می‌شود. 0 فقط مرکزیت نقشه را تنظیم می‌کند (بدون بارگیری).</string>
+  <string name="config_downloadRadius_current">%1$d متر</string>
+  <string name="config_maxDownloadSpeed_title">بیشترین سرعت بارگیری خودکار</string>
+  <string name="config_maxDownloadSpeed_summary">محدودیت (به کیلومتر/ساعت) که برای بیش از آن بارگیریِ خوکار لغو می‌شود.</string>
+  <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_autoPruneNodeLimit_title">حد هرس خودکار</string>
+  <string name="config_autoPruneNodeLimit_summary">شمار گره‌های مقیم در حافظه که با رسیدن به این تعداد، هرس انجام می‌شود.</string>
+  <string name="config_autoPruneNodeLimit_current">%1$d گره</string>
+  <string name="config_panAndZoomLimit_title">محدودیت زوم</string>
+  <string name="config_panAndZoomLimit_summary">کمترین سطح زوم برای بارگیری خودکار هنگام جابه‌جایی و زوم.</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
+  <string name="config_bugFilter_title">پالایهٔ وظیفه</string>
+  <string name="config_bugFilter_summary">انتخاب کنید چه عنصرهایی در لایهٔ یادداشت‌ها، باگ‌ها و وظیفه نمایش یابند.</string>
+  <string name="config_bugDownloadRadius_title">شعاع بارگیری وظیفه</string>
+  <string name="config_bugDownloadRadius_summary">شعاع بارگیری وظیفه (به متر).</string>
+  <string name="config_maxBugDownloadSpeed_title">بیشینهٔ سرعت بارگیری خودکار وظیفه</string>
+  <string name="config_maxBugDownloadSpeed_summary">محدودیتی (به کیلومتر بر ساعت) که برای فراتر از آن بارگیری خودکار باگ‌ها و وظیفه لغو می‌شود.</string>
   <!--Location Settings-->
+  <string name="config_category_gps">تنظیمات مکان</string>
+  <string name="config_category_gps_summary">پارامترهای GPS/GNSS و سایر ارائه‌دهندگان مکان.</string>
+  <string name="config_gps_source_title">منبع GPS/GNSS</string>
+  <string name="config_gps_source_summary">منبع به‌روزرسانی‌های مکانی GPS/GNSS.</string>
+  <string name="config_gps_source_tcp_title">منبع شبکهٔ NMEA</string>
+  <string name="config_gps_source_tcp_summary">نشانی منبع TCP NMEA در قالب host:port.</string>
+  <string name="config_gps_interval_title">کمترین بازهٔ GPS/GNSS</string>
+  <string name="config_gps_interval_summary">کمترین بازهٔ زمانی برای اعلان‌های مکانی GPS/GNSS، به میلی‌ثانیه. مقدارهای کمتر مصرف باتری را افزایش می‌دهد.</string>
+  <string name="config_gps_interval_current">%1$d میلی‌ثانیه</string>
+  <string name="config_gps_distance_title">کمترین مسافت GPS/GNSS</string>
+  <string name="config_gps_distance_summary">کمترین مسافت میانی برای اعلان‌های GPS/GNSS، به متر. مقدارهای کمتر مصرف باتری را افزایش می‌دهد.</string>
+  <string name="config_gps_distance_current">%1$d متر</string>
+  <string name="config_leaveGpsDisabled_title">‏GPS/GNSS خاموش بماند</string>
+  <string name="config_leaveGpsDisabled_summary">برای روشن‌کردن GPS/GNSS درخواست نکن.</string>
+  <string name="config_gps_network_title">برگشت به مکان شبکه</string>
+  <string name="config_gps_network_summary">اگر موقعیت‌یابی GPS/GNSS در دسترس نیست یا خاموش است، از ارائه‌دهندهٔ شبکه استفاده کن.</string>
+  <string name="config_gnssTimeToStale_title">کهنه‌شدن موقعیت پس از</string>
+  <string name="config_gnssTimeToStale_summary">عمری (به ثانیه) که از یک موقعیت مکانی باید بگذرد تا کهنه تلقی شود.</string>
+  <string name="config_gnssTimeToStale_current">%1$d ثانیه</string>
   <!--Server Settings-->
-  <string name="config_apibutton_title">آدرس ای پی آی OSM</string>
+  <string name="config_category_server">تنظیمات کارساز</string>
+  <string name="config_category_server_summary">‏OSM API و پیکربندی سایر کارسازها.</string>
+  <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">اینجا می‌توانید API URL غیراستاندارد تنظیم کنید. معمولاً نباید تغییر کند!</string>
   <string name="config_loginbutton_title">حساب کاربری</string>
+  <string name="config_username_summary">فقط اگر از OAuth استفاده نمی‌کنید، برای بارگذاری دادهٔ OSM به پیکربندی نیاز دارید. در https://www.openstreetmap.org/user/new برای خود حساب کاربری بسازید.</string>
+  <string name="config_offsetServer_title">کارساز آفست</string>
+  <string name="config_offsetServer_summary">‏URL برای کارساز آفست تصویر.</string>
+  <string name="config_osmoseServer_title">کارساز OSMOSE</string>
+  <string name="config_osmoseServer_summary">‏URL برای کارساز OSMOSE.</string>
+  <string name="config_geocoderbutton_title">پیکربندی زمین‌کدیاب‌ها</string>
+  <string name="config_geocoderbutton_summary">زمین‌کدیاب‌ها را برای بهره‌گیری از قابلیت جستجو بیفزایید، بویرایید و حذف کنید.</string>
   <!--Layer download and storage-->
+  <string name="config_category_layers">ذخیره‌گاه و بارگیری لایه</string>
+  <string name="config_category_layers_summary">ذخیره‌گاه و بارگیری تصویر پس‌زمینهٔ کاشی-پایه</string>
+  <string name="config_maxTileDownloadThreads_title">بیشینهٔ تعداد ریسه‌های بارگیری</string>
+  <string name="config_maxTileDownloadThreads_summary">بیشترین تعداد ریسه‌ها برای بارگیری کاشی‌ها</string>
+  <string name="config_downLoadThreads_current">%1$d ریسه</string>
+  <string name="config_tileCacheSize_title">اندازهٔ نهان‌گاه کاشی</string>
+  <string name="config_tileCacheSize_summary">فضای ذخیرهٔ کل برای ذخیرهٔ کاشی‌ها در حافظهٔ نهان، به مگابایت.</string>
+  <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
+  <string name="config_category_misc">سایر</string>
+  <string name="pref_enable_acra">گزارش فروپاشی‌های برنامه</string>
+  <string name="pref_acra_enabled">گزارشگری فروپاشی فعال شد</string>
+  <string name="pref_acra_disabled">گزارشگری فروپاشی غیرفعال شد</string>
   <string name="config_showStats_title">نمایش آمار</string>
+  <string name="config_showStats_summary">آمار داده و FPS را در گوشهٔ چپ پایین نشان می‌دهد.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">آزمایشی</string>
+  <string name="config_js_console_title">فعال‌سازی JS console</string>
+  <string name="config_js_console_summary">‏JS console را در حالت «زنده» در اختیارتان می‌گذارد.</string>
+  <string name="config_voiceCommandsEnabled_title">فعال‌سازی فرمان‌های صوتی</string>
+  <string name="config_voiceCommandsEnabled_summary">پشتیبانی از فرمان‌های صوتی را فعال می‌کند.</string>
   <!---->
+  <string name="manage_apis">مدیریت APIها</string>
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">استفاده از OAuth</string>
+  <string name="listedit_enable_oauth">فعال‌سازی OAuth</string>
+  <string name="config_username_title">نام کاربری OSM</string>
+  <string name="config_password_title">گذرواژهٔ OSM</string>
+  <string name="config_password_summary">با گذرواژهٔ ویکی اشتباه نگیرید. به یاد بسپارید: گذرواژه در قالب متن ساده ذخیره و منتقل می‌شود!</string>
+  <string name="manage_presets">مدیریت پیش‌تنظیم‌ها</string>
+  <string name="listedit_use_translations">استفاده از ترجمه‌ها</string>
+  <string name="manage_geocoders">مدیریت زمین‌کدیاب‌ها</string>
   <!--preset downloader messages-->
-  <string name="preset_update">بروزرسانی پیش تنظیم ها</string>
-  <string name="preset_download_parse_failed">پرونده ی پیش تنظیم ها نامعتبر است. پیش تنظیم ها کار نمی کنند.</string>
+  <string name="preset_update">به‌روزرسانی پیش‌تنظیم</string>
+  <string name="preset_download_successful">پیش‌تنظیم بارگیری شد</string>
+  <string name="preset_download_failed">بارگیری پروندهٔ پیش‌تنظیم ناموفق بود. پیش‌تنظیم کار نخواهد کرد.</string>
+  <string name="preset_download_parse_failed">پروندهٔ پیش‌تنظیم نامعتبر است. پیش‌تنظیم کار نخواهد کرد.</string>
+  <string name="preset_download_missing_images">پروندهٔ پیش‌تنظیم بارگیری شد. البته چند نماد ناموجود بارگیری نشد.</string>
+  <string name="preset_download_title">بارگیر پیش‌تنظیم</string>
   <!--url handler activity-->
-  <string name="urldialog_add_preset">افزودن پیش تنظیم</string>
-  <string name="urldialog_preset_exists">این پیش تنظیم از قبل وجود دارد</string>
-  <string name="urldialog_api_exists">یک ای پی آی با این آدرس از قبل وجود دارد. هرچند، میتوانید یکی دیگر اضاف کنید (مثلا : با تغییر حساب به سادگی)</string>
-  <string name="urldialog_add_api">افزودن ای پی آی</string>
-  <string name="urldialog_nodata_text">آدرس پیکربندی دارای داده های معتبر نیست.</string>
+  <string name="urldialog_add_preset">افزودن پیش‌تنظیم</string>
+  <string name="urldialog_preset_exists">این پیش‌تنظیم از قبل وجود دارد</string>
+  <string name="urldialog_preset_download_successful">پیش‌تنظیم بارگیری شد.</string>
+  <string name="urldialog_api_exists">یک API با این نشانی از قبل وجود دارد. البته، می‌توانید یکی دیگر بیفزایید (مثلاً برای جابه‌جایی آسان بین حساب‌ها).</string>
+  <string name="urldialog_add_api">افزودن API</string>
+  <string name="urldialog_nodata_text">‏URL پیکربندی حاوی دادهٔ معتبر نیست.</string>
+  <string name="urldialog_add_geocoder">افزودن زمین‌کدیاب</string>
   <!--API configuration-->
+  <string name="api_name">نام API</string>
+  <string name="api_url">API URL</string>
+  <string name="readonly_url">‏API URL فقط خواندنی (اختیاری)</string>
+  <string name="notes_url">‏API URL یادداشت‌ها (اختیاری)</string>
+  <string name="copy_of">کپی از %1$s</string>
   <!--common terms-->
   <string name="add">افزودن</string>
   <string name="edit">ویرایش</string>
   <string name="delete">حذف</string>
   <string name="name">نام</string>
   <string name="url">URL</string>
-  <string name="default_">پیش فرض</string>
+  <string name="default_">پیشفرض</string>
+  <string name="regular_expression">عبارت باقاعده</string>
+  <string name="state">وضعیت</string>
   <!---->
+  <string name="empty_list">بدون مدخل</string>
+  <string name="geocoder_type">نوع زمین‌کدیاب</string>
   <!--"default" is a reserved Java keyword…-->
-  <string name="preset">پیش تنظیم</string>
-  <string name="api">ای پی آی</string>
-  <string name="undo">به عقب</string>
-  <string name="redo">به جلو</string>
-  <string name="undo_nothing">چیزی برای به عقب نیست</string>
-  <string name="gps_failure">خطا در فعالسازی جی پی اس</string>
+  <string name="preset">پیش‌تنظیم</string>
+  <string name="api">API</string>
+  <string name="undo">واگرد</string>
+  <string name="redo">ازنو</string>
+  <string name="undo_nothing">چیزی برای واگرد نیست</string>
+  <string name="tracking_active_title">سرویس پس‌زمینهٔ وسپوچی</string>
+  <string name="tracking_active_title_short">سرویس پس‌زمینه فعال است</string>
+  <string name="tracking_active_text">ضبط رد GPS یا بارگیری خودکار</string>
+  <string name="tracking_long_text">وسپوچی در حال ضبط رد GPX یا در حال بارگیری خودکار است. برای خروج کامل، دکمهٔ زیر یا دکمهٔ برگشت برنامه را بزنید.</string>
+  <string name="gps_failure">فعال‌سازی GPS ناموفق بود</string>
   <!--element description-->
+  <string name="address_housenumber">نشانی %1$s</string>
+  <string name="address_housenumber_street">نشانی %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">گره جابه‌جا شد</string>
+  <string name="undo_action_moveway">راه جابه‌جا شد</string>
+  <string name="undo_action_moveobjects">اشیا جابه‌جا شد</string>
+  <string name="undo_action_add">درج</string>
+  <string name="undo_action_append">ادامه‌دادن راه</string>
+  <string name="undo_action_deletenode">حذف گره</string>
+  <string name="undo_action_deleteway">حذف راه</string>
+  <string name="undo_action_delete_objects">اشیا حذف شد</string>
+  <string name="undo_action_split_ways">راه‌ها دو نیم شد</string>
+  <string name="undo_action_split_way">راه دو نیم شد</string>
+  <string name="undo_action_merge_ways">ادغام راه</string>
+  <string name="undo_action_reverse_way">برعکس‌کردن راه</string>
+  <string name="undo_action_set_tags">تگ‌گذاری</string>
+  <string name="undo_action_join">متصل‌کردن</string>
+  <string name="undo_action_unjoin_ways">جداسازی راه</string>
+  <string name="undo_action_create_relation">ساخت رابطه</string>
+  <string name="undo_action_delete_relation">حذف رابطه</string>
+  <string name="undo_action_update_relations">به‌روزآوری رابطه</string>
+  <string name="undo_action_cut">برش</string>
+  <string name="undo_action_paste">درج</string>
+  <string name="undo_action_rotateway">چرخش راه</string>
+  <string name="undo_action_orthogonalize">قائمه‌کردن راه</string>
+  <string name="undo_action_circulize">چیدن روی دایره</string>
+  <string name="undo_action_fix_conflict">حل تداخل</string>
+  <string name="undo_action_extract_node">استخراج گره</string>
+  <string name="undo_action_apply_osc">به‌کارگیری پروندهٔ OSC</string>
+  <string name="undo_action_remove_node_from_way">حذف گره از راه</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">وسپوچی در آخرین اجرای خود فروپاشید یا با مسئله‌ای جدی مواجه شد.\n\nلطفاْ با زدن روی OK و فرستادن گزارش خطا کمک کنید.\n</string>
+  <string name="crash_dialog_comment_prompt">اگر فکر می‌کنید اطلاعات دیگری نیز کمک‌کننده است، آن را بنویسید و (اختیاری) اگر بازخورد ما را می‌خواهید نام کاربری خود در OSM را بنویسید.\n\nسپاس.</string>
+  <string name="report_success">گزارش شد.</string>
+  <string name="report_failure">فرستادن گزارش ناموفق بود.</string>
   <!--Exceptions messages-->
+  <string name="exception_too_many_nodes">این کنش راهی با گره‌های بسیار خواهد ساخت.</string>
   <!--Notifications-->
+  <string name="alert_data_issue">مسئله در دادهٔ OSM یافت شد</string>
+  <string name="alert_note">یادداشت OSM در نزدیکی یافت شد</string>
+  <string name="alert_bug">باگ OSM در نزدیکی یافت شد</string>
+  <string name="alert_distance_direction">در %1$d متر %2$s</string>
+  <string name="bearing_ne">NE ↗</string>
+  <string name="bearing_e">E →</string>
+  <string name="bearing_se">SE ↘</string>
+  <string name="bearing_s">S ↓</string>
+  <string name="bearing_sw">SW ↙</string>
+  <string name="bearing_w">W ←</string>
+  <string name="bearing_nw">NW ↖</string>
+  <string name="bearing_n">N ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">نقش</string>
+  <string name="role_lc">نقش</string>
+  <string name="membership_relation_heading">عضو رابطه</string>
   <string name="relation">رابطه</string>
+  <string name="relations">رابطه</string>
+  <string name="position">موقعیت</string>
   <string name="type">نوع</string>
+  <string name="object">شیء</string>
+  <string name="deleterelation_relation_description">در حال حذف یک رابطه هستید که عضوی از یک یا چند رابطه است. حذف این‌گونه رابطه‌ها که رابطه‌ای بر آن‌ها سوار است، می‌تواند render را نامعتبر کند.</string>
+  <string name="deleterelation">حذف رابطه</string>
+  <string name="delete_from_relation_description">در حال حذف این عنصر از یک رابطه هستید.</string>
+  <string name="unset_relation_type">برداشتن نوع رابطه</string>
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 روز</item>
+    <item quantity="other">%1$d روز</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 ساعت</item>
+    <item quantity="other">%1$d ساعت</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 دقیقه</item>
+    <item quantity="other">%1$d دقیقه</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 ثانیه</item>
+    <item quantity="other">%1$d ثانیه</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 کیلومتر</item>
+    <item quantity="other">%1$d کیلومتر</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 متر</item>
+    <item quantity="other">%1$d متر</item>
+  </plurals>
   <!--Help system-->
+  <string name="toast_nohelp">این راهنما ندارد.</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>خصوصی</item>
+    <item>عمومی</item>
+    <item>قابل‌ردگیری</item>
+    <item>قابل‌شناسایی</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>داخلی</item>
+    <item>داخلی NMEA</item>
+    <item>‏NMEA از کارخواه TCP</item>
+    <item>‏NMEA از کارساز TCP</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>باز</item>
+    <item>بسته</item>
+    <item>مثبت کاذب</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>باز</item>
+    <item>بسته</item>
+  </string-array>
+  <string-array name="maproulette_state">
+    <item>باز</item>
+    <item>بسته</item>
+    <item>مثبت کاذب</item>
+    <item>رهاشده</item>
+    <item>حذف‌شده</item>
+    <item>قبلاً اصلاح شده</item>
+    <item>خیلی سخت</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>چپ</item>
+    <item>راست</item>
+    <item>هیچ</item>
+  </string-array>
+  <string-array name="full_screen_preference_entries">
+    <item>خودکار</item>
+    <item>هرگز</item>
+    <item>اجبار</item>
+  </string-array>
+  <string-array name="full_screen_preference_no_auto_entries">
+    <item>هرگز</item>
+    <item>اجبار</item>
+    <item>بدون نوار وضعیت</item>
+    <item></item>
+  </string-array>
+  <string-array name="map_orientation_entries">
+    <item>خودکار</item>
+    <item>قفل</item>
+    <item>عمودی</item>
+    <item>افقی</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>همه</item>
+    <item>گره‌ها</item>
+    <item>راه‌ها</item>
+  </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
+  <string-array name="checkstatus_entries">
+    <item></item>
+    <item></item>
+    <item>دامنه وجود ندارد</item>
+  </string-array>
 </resources>
