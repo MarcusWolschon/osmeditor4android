@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.1.2: Update translations, imagery and presets, fix issue in NMEA output where only every 2nd entry would be read, update OpeningHoursParser dependency to fix issue with persio-arabic digits.
+
 14.1.1: Fix regression when comparing old versions caused by removing parent relations field in undo element.
 
 14.1.0: Update translations, update release notes for release.
