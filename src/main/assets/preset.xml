@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.8.11" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.8.12" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -570,7 +570,7 @@
         <combo key="fee" text="Fee" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_sort="false" editable="true"/>
     </chunk>
     <chunk id="parking_name_type_ref">
-        <combo key="parking" text="Type" values="multi-storey,surface,underground,rooftop" display_values="Multi-storey,Surface,Underground,Rooftop" values_context="parking"/>
+        <combo key="parking" text="Type" values="multi-storey,surface,underground,rooftop,sheds,carports,garage_boxes" display_values="Multi-storey,Surface,Underground,Rooftop,Sheds,Carports,Garage boxes" values_context="parking"/>
         <optional>
             <text key="name" text="Name"/>
         	<text key="ref" text="Reference number"/>
@@ -2532,7 +2532,8 @@
             <space/>
             <key key="natural" value="water"/>
             <text key="name" text="Name"/>
-            <combo key="water" text="Water Body" values="canal,basin,fish_pass,lake,lagoon,moat,oxbow,pond,reflecting_pool,reservoir,river,stream_pool,lock,wastewater" match="key" display_values="Canal,Basin,Fish pass,Lake,Lagoon,Moat,Oxbow,Pond,Reflecting pool,Reservoir,River,Stream pool,Lock,Wastewater" values_searchable="true"/>
+            <combo key="water" text="Water Body" values="canal,basin,fish_pass,lake,lagoon,moat,oxbow,pond,reflecting_pool,reservoir,river,stream,stream_pool,lock,wastewater" 
+                display_values="Canal,Basin,Fish pass,Lake,Lagoon,Moat,Oxbow,Pond,Reflecting pool,Reservoir,River,Stream,Stream pool,Lock,Wastewater" match="key" values_searchable="true"/>
             <check key="salt" text="Salt Water" disable_off="true"/>
             <check key="intermittent" text="Is the water body intermittent (doesn't permanently contain water)?" disable_off="true"/>
             <check key="tidal" text="In the tidal range" disable_off="true"/>
@@ -2690,6 +2691,9 @@
             <link wiki="Tag:waterway=water_point"/>
             <key key="waterway" value="water_point"/>
             <check key="drinking_water" text="Drinking Water"/>
+            <optional>
+                <reference ref="facility_access"/>
+            </optional>
         </item> <!-- Water point -->
         <item name="Sanitary dump station" icon="icons/png/water_sanitary_dump_station.png" type="node" preset_name_label="true">
             <link wiki="Tag:waterway=sanitary_dump_station"/>
@@ -2767,6 +2771,7 @@
                 <combo key="usage" text="Usage" values="main,branch,industrial,military,tourism,freight"
                     display_values="Main,Branch,Industrial,Military,Tourism,Freight" />
                 <reference ref="railway_service_gauge_electrified"/>
+                <check key="highspeed" text="Highspeed" disable_off="true"/>
             </optional>
         </item> <!-- Rail -->
         <item name="Narrow Gauge Rail" icon="icons/png/transport_train_station.png" type="way" preset_name_label="true">
@@ -2859,7 +2864,6 @@
                 <reference ref="railway_service"/>
             </optional>
         </item> <!-- Abandoned Rail -->
-        <separator/>
         <item name="Level Crossing" icon="icons/png/level_crossing.png" type="node" preset_name_label="true">
             <link wiki="Tag:railway=level_crossing"/>
             <key key="railway" value="level_crossing"/>
@@ -4165,6 +4169,13 @@
             </optional>
             <text key="description" text="Detailed description" length="255"/>
         </item> <!-- Other Information Point -->
+        <item name="Route marker" icon="icons/png/tourist_marker.png" type="node" preset_name_label="true">
+            <link wiki="Tag:information=route_marker"/>
+            <label text="A marker along a route."/>
+            <space/>
+            <key key="tourism" value="information"/>
+            <key key="information" value="route_marker"/>
+        </item> <!-- Route marker -->
     </group> <!-- Tourism -->
     <group name="Leisure" icon="icons/png/tourist_theme_park.png">
         <item name="Movie Theater/Cinema" icon="icons/png/tourist_cinema2.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -4492,6 +4503,12 @@
             <reference ref="oh_wheelchair"/>
             <check key="lit" text="Lit" disable_off="true"/>
         </item> <!-- Dog Park -->
+        <item name="Minature railway" icon="icons/png/tourist_disused_railway.png" type="way" preset_name_label="true">
+            <link wiki="Tag:railway=minature"/>
+            <key key="railway" value="minature"/>
+            <reference ref="optional_name"/>
+        </item> <!-- Minature railway -->
+        <separator/>
         <separator/>
         <item name="Playground" icon="icons/png/amenity_playground.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=playground"/>
@@ -5928,6 +5945,7 @@
                 <text key="name" text="Name"/>
                 <text key="description" text="Description" length="255"/>
                 <reference ref="level"/>
+                <reference ref="facility_access"/>
             </optional>
         </item> <!-- Drinking Water -->
         <item name="Water Point" icon="icons/png/amenity_water_point_34025.png" type="node" preset_name_label="true">
@@ -5938,6 +5956,9 @@
             <optional>
                 <text key="name" text="Name"/>
                 <text key="description" text="Description" length="255"/>
+                <check key="indoor" text="Indoor" />
+                <reference ref="level"/>
+                <reference ref="facility_access"/>
             </optional>
         </item> <!-- Water Point -->
         <item name="Animal shelter" icon="icons/png/amenity_animal_shelter_12315.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7090,7 +7111,7 @@
             <optional>
             	<text key="name" text="Name"/>
             </optional>
-            <check key="drinking_water" text="Drinking Water" disable_off="true" match="key"/>
+            <check key="drinking_water" text="Drinking Water" match="key"/>
         </item> <!-- Fountain -->
         <item name="Water Well" icon="icons/png/man_made_water_well_22083.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=water_well"/>
@@ -7101,6 +7122,17 @@
                 <combo key="pump" text="Pump" values="yes,no,manual,powered" display_values="Yes,No,Manual,Powered" values_sort="false"/>
             </optional>
         </item> <!-- Water Well -->
+        <item name="Water tap" icon="icons/png/man_made_water_point_34025.png" type="node" preset_name_label="true">
+            <link wiki="Tag:man_made=water_tap"/>
+            <space/>
+            <key key="man_made" value="water_tap"/>
+            <check key="drinking_water" text="Drinking Water" match="key"/>
+            <optional>
+                <check key="indoor" text="Indoor" />
+                <reference ref="level"/>
+                <reference ref="facility_access"/>
+            </optional>
+        </item> <!-- Water tap -->
         <separator/>
         <item name="Lighthouse" icon="icons/png/transport_lighthouse.png" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=lighthouse"/>
@@ -7819,6 +7851,12 @@
          <text key="start_date" text="Start date"/>
          <text key="inscription" text="Inscription" length="255"/>
      </item> <!-- Wayside Shrine -->
+     <item name="Torii" icon="icons/png/tourist_shinto3.png" type="node,closedway" preset_name_label="true">
+         <link wiki="Tag:man_made=torii"/>
+         <space/>
+         <key key="man_made" value="torii"/>
+         <reference ref="optional_name"/>
+     </item> <!-- Torii -->
      <item name="Boundary Stone" icon="icons/png/poi_boundary_stone_19004.png" type="node,closedway" preset_name_label="true">
          <link wiki="Tag:historic=boundary_stone"/>
          <space/>
