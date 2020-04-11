@@ -185,5 +185,11 @@ public class SimpleActionsTest {
         Task t = tasks.get(0);
         Assert.assertTrue(t instanceof Note);
         Assert.assertTrue("test".equals(((Note) t).getComment()));
+        // new note mode
+        TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_newnoteselect)));
+        TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
+        Assert.assertTrue(TestUtils.findText(device, false, "test"));
+        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.cancel), true));
     }
 }
