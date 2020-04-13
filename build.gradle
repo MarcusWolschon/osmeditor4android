@@ -63,6 +63,15 @@ markdownToHtml {
     configuration.template = projectDir.getPath() + "/documentation/html_template.tpl"
 }
 
+task markdownToHtmlRtl(type: ch.poole.gradle.markdown.MarkdownToHtmlTask) {
+    sourceDir =  new File(projectDir.getPath() + '/documentation/docs/help-rtl')
+    inputEncoding ="utf8"
+    outputDir = new File(projectDir.getPath() + '/src/main/assets/help')
+    outputEncoding = "utf8"
+    configuration.template = projectDir.getPath() + "/documentation/html_template_rtl.tpl"
+}
+markdownToHtml.dependsOn markdownToHtmlRtl
+
 task downloadPresetIconsZipFile(type: Download) {
     doFirst {
         delete projectDir.getPath() + '/src/main/assets/images/icons/png'
@@ -99,11 +108,21 @@ task update3rdPartyDocs() {
 update3rdPartyDocs.group = 'vespucci'
 update3rdPartyDocs.description = 'Update markdown help files for 3rd party libraries'
 
-['de', 'en', 'es', 'fi', 'fr', 'gl', 'hu', 'it', 'iw', 'pl', 'pt', 'zh-rTW'].each { lang ->
+['de', 'en', 'es', 'fi', 'fr', 'gl', 'hu', 'it', 'pl', 'pt', 'zh-rTW'].each { lang ->
     def name="updateOpeningHoursDoc${lang.capitalize()}"
     task (name,type: Download) {
         acceptAnyCertificate true
         src "https://raw.githubusercontent.com/simonpoole/OpeningHoursFragment/master/lib/documentation/docs/help/${lang}/Opening%20hours.md"
+        dest new File(projectDir.getPath() + "/documentation/docs/help/${lang}/Opening hours.md")
+    }
+    update3rdPartyDocs.dependsOn name
+}
+
+['fa','iw'].each { lang ->
+    def name="updateOpeningHoursDoc${lang.capitalize()}"
+    task (name,type: Download) {
+        acceptAnyCertificate true
+        src "https://raw.githubusercontent.com/simonpoole/OpeningHoursFragment/master/lib/documentation/docs/help-rtl/${lang}/Opening%20hours.md"
         dest new File(projectDir.getPath() + "/documentation/docs/help/${lang}/Opening hours.md")
     }
     update3rdPartyDocs.dependsOn name
@@ -114,6 +133,10 @@ task updateTranslations(type: Exec) {
         commandLine 'cmd', '/c', 'tx.exe', 'pull', '-a'
     } else {
         commandLine 'tx', 'pull', '-a'
+    }
+    doLast {
+        ant.move(file: projectDir.getPath() + "/documentation/docs/help/fa", tofile: projectDir.getPath() + "/documentation/docs/help-rtl/fa")
+        ant.move(file: projectDir.getPath() + "/documentation/docs/help/iw", tofile: projectDir.getPath() + "/documentation/docs/help-rtl/iw")
     }
 }
 updateTranslations.group = 'vespucci'
