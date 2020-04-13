@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">راهنمای\nVespucci</string>
+    <string name="help_title">راهنما: %1$s</string>
     <string name="help_introduction">معرفی</string>
-    <string name="help_main">نمایش نقشه اصلی</string>
-    <string name="help_addrelationmember">رابطه انتخاب شده است</string>
-    <string name="help_multiselect">انتخاب چندگانه</string>
+    <string name="help_main">نمای اصلی نقشه</string>
+    <string name="help_simple_actions">کنش‌های ساده</string>
+    <string name="help_addrelationmember">انتخاب رابطه</string>
+    <string name="help_multiselect">انتخاب چندتایی</string>
     <string name="help_longclick">ایجاد اشیاء جدید</string>
-    <string name="help_nodeselection">گره انتخاب شد</string>
+    <string name="help_nodeselection">انتخاب گره</string>
     <string name="help_pathcreation">ایجاد اشیاء جدید</string>
-    <string name="help_relationselection">رابطه انتخاب شده است</string>
-    <string name="help_wayselection">راه انتخاب شده است</string>
-    <string name="help_propertyeditor">ویژگی ویرایشگر</string>
-    <string name="help_presets">پیش تنظیم</string>
+    <string name="help_relationselection">انتخاب رابطه</string>
+    <string name="help_wayselection">انتخاب راه</string>
+    <string name="help_aligningbackgroundiamgery">ترازکردن تصویر پس‌زمینه</string>
+    <string name="help_propertyeditor">ویرایشگر خصوصیت</string>
+    <string name="help_preferences">ترجیحات</string>
+    <string name="help_advanced_preferences">ترجیحات پیشرفته</string>
+    <string name="help_presets">پیش‌تنظیم‌ها</string>
+    <string name="help_conflictresolution">حل تداخل</string>
     <string name="help_gpssources">منابع GPS</string>
-    <string name="help_keyboard">صفحه کلید</string>
-    <string name="help_tagfilter">فیلتر برچسب</string>
-    <string name="help_opening_hours">ساعات کار</string>
+    <string name="help_keyboard">صفحه‌کلید</string>
+    <string name="help_tagfilter">پالایش با تگ</string>
+    <string name="help_presetfilter">پالایش با پیش‌تنظیم</string>
+    <string name="help_opening_hours">ساعت‌های کاری</string>
+    <string name="help_newnoteselection">انتخاب یادداشت تازه</string>
+    <string name="help_voice_commands">فرمان‌های صوتی</string>
+    <string name="help_upgrade">یادداشت‌های عرضهٔ 14.1</string>
+    <string name="help_upgrade_140">یادداشت‌های عرضهٔ 14.0</string>
+    <string name="help_upgrade_131">یادداشت‌های عرضهٔ 13.1</string>
+    <string name="help_upgrade_130">یادداشت‌های عرضهٔ 13.0 </string>
+    <string name="help_upgrade_121">یادداشت‌های عرضهٔ 12.1 </string>
+    <string name="help_upgrade_120">یادداشت‌های عرضهٔ 12.0 </string>
+    <string name="help_upgrade_112">یادداشت‌های عرضهٔ 11.2 </string>
+    <string name="help_upgrade_111">یادداشت‌های عرضهٔ 11.1 </string>
+    <string name="help_upgrade_110">یادداشت‌های عرضهٔ 11.0 </string>
+    <string name="help_upgrade_102">یادداشت‌های عرضهٔ 10.2 </string>
+    <string name="help_upgrade_101">یادداشت‌های عرضهٔ 10.1 </string>
+    <string name="help_upgrade_100">یادداشت‌های عرضهٔ 10.0 </string>
+    <string name="help_upgrade_099">یادداشت‌های عرضهٔ 0.9.9 </string>
+    <string name="help_upgrade_098">یادداشت‌های عرضهٔ 0.9.8 </string>
+    <string name="help_upgrade_097">یادداشت‌های عرضهٔ 0.9.7 </string>
+    <string name="help_upgrade_096">یادداشت‌های عرضهٔ 0.9.6 </string>
+    <string name="help_privacy">حریم خصوصی</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

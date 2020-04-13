@@ -1,10 +1,10 @@
 # היכרות עם וספוצ׳י
 
-וספוצ׳י הוא עורך שמכיל את רוב התכונות שיש בעורכים למחשב שולחני לטובת עריכת OpenStreetMap. האפשרות להפעיל את העורך נבדקה על גבי Android 2.3 עד 7.0 ושלל הגוונים של AOSP ונמצאה חיובית. רק אזהרה קטנה: על אף שיכולות המכשירים הניידים משתכללות ומתקרבות לאלו של עמיתיהם השולחניים, למכשירים ישנים במיוחד יש כמות זיכרון מוגבלת מאוד והם נוטים להיות מאוד אטיים. כדאי לקחת זאת בחשבון בעת השימוש בווספוצ׳י ולהגביל, למשל, את האזורים שבעריכה לגודל סביר. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## שימוש ראשון
 
-בהפעלה יציג בפניך וספוצ׳י את תיבת הדו־שיח „הורדת מיקום אחר”/„טעינת אזור”. אם נקודות הציון מופיעות בפניך וברצונך להוריד מיידית, ניתן לבחור את האפשרות המתאימה ולהגדיר את הרדיוס מסביב למיקום אותו ברצונך להוריד. במכשירים אטיים אין לבחור בשטחים גדולים. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 לחלופין ניתן להתעלם מתיבת הדו־שיח על ידי לחיצה על הכפתור „מעבר למפה” ולשוטט ולהתקרב למיקום אותו ברצונך לערוך ואז להוריד את הנתונים (לעיון נוסף: „עריכה עם וספוצ׳י”).
 
@@ -21,7 +21,8 @@
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -33,7 +34,7 @@
 
 #### נעילה, שחרור, החלפת מצבים
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+כדי להימנע מעריכות בלתי רצויות, וספוצ׳י מתחיל במצב „נעול”, מצב שמאפשר רק תקריב והזזת המפה. יש לגעת בסמל ![Locked](../images/locked.png) כדי לשחרר את המסך. 
 
 נגיעה ארוכה בכפתור המנעול תציג תפריט שמציג 4 אפשרויות נכון לעכשיו:
 
@@ -44,7 +45,7 @@ To avoid accidental edits Vespucci starts in "locked" mode, a mode that only all
 
 #### נגיעה בודדה, כפולה וארוכה
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+כבררת מחדל, למפרקים ולדרכים שניתן לבחור יש אזור כתום סביבם שמציין בערך היכן עליך לגעת כדי לבחור פריט. לרשותך שלוש אפשרויות:
 
 * Single tap: Selects object. 
     * An isolated node/way is highlighted immediately. 
@@ -70,19 +71,19 @@ Once the selection has completed you will see (either as buttons or as menu item
 
 #### פריטים נבחרים: עריכת תגיות
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+נגיעה שנייה בפריט הנבחר פותחת את עורך התגיות וכך ניתן לערוך התגיות שמשויכות לפריט.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+נא לשים לב שפריטים חופפים (כגון מפרק על דרך) מעלים את תפריט הבחירה בפעם השנייה. בחירה באותו הפריט מעלה את עורך התגיות, בחירה בפריט אחר פשוט מעבירה את הבחירה אליו.
 
 #### פריטים נבחרים: העברת צומת או דרך
 
 Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
 
-#### Adding a new Node/Point or Way 
+#### הוספת צומת/נקודה או דרך חדשים 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+בהתחלה היישומון נטען ב„מצב פשוט”, ניתן לשנות זאת בתפריט הראשי על ידי ביטול סימון התיבה המתאימה.
 
-##### Simple mode
+##### מצב פשוט
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
@@ -103,7 +104,7 @@ Long press where you want the node to be or the way to start. You will see a bla
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
+ניתן גם להשתמש בפריט מהתפריט: ניתן לעיין ב[יצירת פריטים חדשים](Creating%20new%20objects.md) לקבלת מידע נוסף.
 
 #### הוספת שטח
 
@@ -129,13 +130,13 @@ Vespucci has an ![Address](../images/address.png) "add address tags" function th
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
 * in the property editor.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+חיזוי מספרי בתים בדרך כלל דורש ציון של לפחות שני מספרי בתים בכל צד של הדרך כדי שיעבוד, ככל שיש יותר מספרים בנתונים כך עדיף.
 
 כדאי להשתמש באפשרות זו יחד עם המצב [הורדה אוטומטית](#download).  
 
 #### הוספת הגבלות פנייה
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+לווספוצ׳י יש דרך מהירה להוסיף הגבלות פניה. אם יש צורך הוא יפצל דרכים אוטומטית ויבקש ממך לבחור רכיבים מחדש. 
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
 * select "Add restriction" from the menu
@@ -153,11 +154,11 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 
 נא לבחור את אותו הכפתור או הפריט בתפריט לטובת ההורדה ועתה לבחור ב־„העלאת נתונים לשרת OSM”.
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+וספוצ׳י תומך באימות OAuth וגם בשיטה הקלסית של שם משתמש וססמה. OAuth עדיף בכל מקרה כיוון שהוא מונע מצב של שליחת ססמאות בטקסט פשוט.
 
 New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+אם ברצונך לשמור את העבודה שביצעת ואין לך חיבור לאינטרנט, ניתן לשמור לקובץ ‎.osm תואם JOSM ולהעלות לאחר מכן עם וספוצ׳י או עם JOSM. 
 
 #### פתרון סתירות בהעלאה
 
@@ -181,11 +182,11 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Custom
+* הערות
+* שגיאה ב־Osmose
+* אזהרה ב־Osmose
+* תקלה מזערית ב־Osmose
+* מותאם אישית
 
 <a id="indoor"></a>
 
@@ -215,17 +216,19 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
 * **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **מפתח** ו**ערך** מאומתים מול תגיות _קיימות_ של הפריטים המבוקשים.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### רשומות בדיקה
 
 לרשומות בדיקה יש את שני המאפיינים הבאים:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
+* **מפתח** - מפתח שאמור להיות קיים בפריט לפי הערכה המתאימה.
+* **דרישת רשות** - לדרוש את המפתח אפילו אם המפתח הוא בין תגיות הרשות של הערכה המתאימה.
 
 This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
@@ -233,7 +236,7 @@ This check works by first determining the matching preset and then checking if *
 
 ### מסנן על בסיס תגיות
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
+ניתן להפעיל מסנן מהתפריט הראשי, לאחר מכן ניתן לשנות אותו על ידי לחיצה על סמל המסנן. ניתן למצוא תיעוד נוסף כאן  [מסנן תגיות](Tag%20filter.md).
 
 ### מסנן על בסיס ערכות מוגדרות
 
@@ -241,23 +244,23 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## התאמת וספוצ׳י לטעמך
 
-Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
+ניתן להתאים היבטים מגוונים של היישומון, אם מעניין אותך משהו מסוים ולא הצלחת למצוא, [באתר של וספוצ׳י](https://vespucci.io/) זמין לביצוע חיפושים ומכיל מידע נוסף על מה שזמין במכשיר.
 
-### Layer settings
+### הגדרות שכבה
 
-Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+ניתן לערוך את הגדרות השכבה דרך בקרת השכבה (בפינה הימנית העליונה), כל שאר ההגדרות נגישות דרך כפתור ההעדפות בתפריט הראשי.
 
 * Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
 * Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
 * Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
 * Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
 
-#### Preferences
+#### העדפות
 
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
-The full description can be found here [Preferences](Preferences.md)
+כאן ניתן למצוא את התיאור המלא [העדפות](Preferences.md)
 
 #### העדפות מתקדמות
 
@@ -265,12 +268,12 @@ The full description can be found here [Preferences](Preferences.md)
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+כאן ניתן למצוא את התיאור המלא [העדפות מתקדמות](Advanced%20preferences.md)
 
 ## דיווח על תקלות
 
 If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+אם מעניין אותך לדון במשהו שקשור בווספוצ׳י, ניתן לפתוח דיון ב[קבוצת וספוצ׳י ב־Google](https://groups.google.com/forum/#!forum/osmeditor4android) או ב[פורום Android של OpenStreetMap](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

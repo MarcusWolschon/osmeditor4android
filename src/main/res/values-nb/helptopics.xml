@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_title">Hjelp: %1$s</string>
     <string name="help_introduction">Introduksjon</string>
     <string name="help_addrelationmember">Relasjon valgt</string>
     <string name="help_multiselect">Flervalg</string>
@@ -10,6 +11,8 @@
     <string name="help_wayselection">Veg valgt</string>
     <string name="help_aligningbackgroundiamgery">Kalibrere bakgrunn/ortofoto</string>
     <string name="help_propertyeditor">Egenskapsredigering</string>
+    <string name="help_preferences">Preferanser</string>
+    <string name="help_advanced_preferences">Avanserte preferanser</string>
     <string name="help_presets">Knapper</string>
     <string name="help_gpssources">GPS-kilder</string>
     <string name="help_keyboard">Tastatur</string>
