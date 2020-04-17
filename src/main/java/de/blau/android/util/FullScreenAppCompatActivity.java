@@ -123,7 +123,7 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
         fullScreen = false;
         String fullScreenPref = prefs.getFullscreenMode();
         if (fullScreenPref.equals(getString(R.string.full_screen_auto))) {
-            fullScreen = hasNavBar(getResources())
+            fullScreen = hasNavBar(getResources()) || isEdgeToEdgeEnabled(getResources()) == 0
                     || (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
             Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " KEYCODE_BACK " + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) + " KEYCODE_HOME "
                     + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
@@ -149,6 +149,8 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
     /**
      * Test if the device has a navigation bar
      * 
+     * This uses an undocumented internal resource id, but there is nothing else
+     * 
      * @param resources to retrieve the setting from
      * @return true if the device has a navigation bar
      * 
@@ -156,8 +158,30 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
      *      "https://stackoverflow.com/questions/28983621/detect-soft-navigation-bar-availability-in-android-device-progmatically">Detect
      *      soft navigation bar availability</a>
      */
-    public boolean hasNavBar(@NonNull Resources resources) {
+    private static boolean hasNavBar(@NonNull Resources resources) {
         int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");
         return id > 0 && resources.getBoolean(id);
+    }
+
+    /**
+     * Determine which navigation mode the device supports
+     * 
+     * This uses an undocumented internal resource id, but there is nothing else
+     * 
+     * @param resources to retrieve the setting from
+     * @return 0 : Navigation is displaying with 3 buttons, 1 : displaying with 2 button(Android P navigation mode), 2 :
+     *         Full screen gesture(Gesture on android Q)
+     *
+     * @see <a href=
+     *      "https://stackoverflow.com/questions/56689210/how-to-detect-full-screen-gesture-mode-in-android-10">yHow to
+     *      detect full screen gesture mode in android 10</a>
+     */
+    private static int isEdgeToEdgeEnabled(@NonNull Resources resources) {
+        int resourceId = resources.getIdentifier("config_navBarInteractionMode", "integer", "android");
+        if (resourceId > 0) {
+            Log.e(DEBUG_TAG, "isEdgeToEdgeEnabled returning " + resources.getInteger(resourceId));
+            return resources.getInteger(resourceId);
+        }
+        return 0;
     }
 }
