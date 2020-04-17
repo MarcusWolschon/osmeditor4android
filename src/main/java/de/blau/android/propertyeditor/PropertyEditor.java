@@ -15,18 +15,6 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.PagerTabStrip;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -36,6 +24,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerTabStrip;
+import androidx.viewpager.widget.ViewPager;
 import de.blau.android.App;
 import de.blau.android.Feedback;
 import de.blau.android.Logic;
@@ -61,7 +62,6 @@ import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.tagform.TagFormFragment;
 import de.blau.android.util.BaseFragment;
-import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.Screen;
@@ -82,8 +82,8 @@ import de.blau.android.views.ExtendedViewPager;
  * @author mb
  * @author simon
  */
-public class PropertyEditor extends BugFixedAppCompatActivity implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate,
-        PresetUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
+public class PropertyEditor extends AppCompatActivity implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate, PresetUpdate,
+        NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
 
     private static final String CURRENTITEM            = "current_item";
     private static final String PANELAYOUT             = "pane_layout";

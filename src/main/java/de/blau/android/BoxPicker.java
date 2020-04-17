@@ -12,9 +12,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -34,6 +31,10 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.geocode.Search;
@@ -44,7 +45,6 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
-import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Util;
 
@@ -59,7 +59,7 @@ import de.blau.android.util.Util;
  * @author mb
  * @author Simon Poole
  */
-public class BoxPicker extends BugFixedAppCompatActivity implements LocationListener, SearchItemSelectedCallback {
+public class BoxPicker extends AppCompatActivity implements LocationListener, SearchItemSelectedCallback {
 
     private static final int MINUTE_SECONDS = 60;
 

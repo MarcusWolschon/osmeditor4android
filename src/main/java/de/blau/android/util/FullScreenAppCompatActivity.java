@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -18,7 +19,7 @@ import de.blau.android.prefs.Preferences;
  * @author Simon Poole
  *
  */
-public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActivity {
+public abstract class FullScreenAppCompatActivity extends AppCompatActivity {
 
     private static final String DEBUG_TAG  = FullScreenAppCompatActivity.class.getSimpleName();
     private boolean             fullScreen = false;

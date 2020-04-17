@@ -22,15 +22,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.graphics.BlendModeColorFilterCompat;
-import androidx.core.graphics.BlendModeCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,10 +36,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.BlendModeColorFilterCompat;
+import androidx.core.graphics.BlendModeCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -59,7 +59,7 @@ import de.blau.android.util.Util;
  * @author Simon Poole
  *
  */
-public class HelpViewer extends BugFixedAppCompatActivity {
+public class HelpViewer extends AppCompatActivity {
 
     private static final String HTML_SUFFIX = ".html";
     private static final String DEBUG_TAG   = HelpViewer.class.getName();
