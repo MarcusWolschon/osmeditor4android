@@ -124,7 +124,7 @@ public abstract class FullScreenAppCompatActivity extends AppCompatActivity {
         fullScreen = false;
         String fullScreenPref = prefs.getFullscreenMode();
         if (fullScreenPref.equals(getString(R.string.full_screen_auto))) {
-            fullScreen = hasNavBar(getResources()) || isEdgeToEdgeEnabled(getResources()) == 0
+            fullScreen = (hasNavBar(getResources()) && isEdgeToEdgeEnabled(getResources()) == 0)
                     || (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
             Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " KEYCODE_BACK " + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) + " KEYCODE_HOME "
                     + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
@@ -180,7 +180,6 @@ public abstract class FullScreenAppCompatActivity extends AppCompatActivity {
     private static int isEdgeToEdgeEnabled(@NonNull Resources resources) {
         int resourceId = resources.getIdentifier("config_navBarInteractionMode", "integer", "android");
         if (resourceId > 0) {
-            Log.e(DEBUG_TAG, "isEdgeToEdgeEnabled returning " + resources.getInteger(resourceId));
             return resources.getInteger(resourceId);
         }
         return 0;
