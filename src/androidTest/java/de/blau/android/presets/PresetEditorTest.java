@@ -119,7 +119,7 @@ public class PresetEditorTest {
         }
         TestUtils.clickText(device, true, main.getString(R.string.okay), true);
         TestUtils.clickText(device, false, "Test", false);
-        TestUtils.clickHome(device);
+        TestUtils.clickHome(device, true);
         App.resetPresets();
         Preset[] presets = App.getCurrentPresets(main);
         Assert.assertEquals(3, presets.length);

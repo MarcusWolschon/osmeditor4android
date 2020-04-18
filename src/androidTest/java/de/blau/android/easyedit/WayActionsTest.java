@@ -127,7 +127,7 @@ public class WayActionsTest {
         device.waitForIdle(1000);
         TestUtils.clickUp(device);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
-        TestUtils.clickHome(device);
+        TestUtils.clickHome(device, true);
         device.waitForIdle(1000);
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);

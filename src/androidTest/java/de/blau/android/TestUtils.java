@@ -84,7 +84,7 @@ public class TestUtils {
     public static void dismissStartUpDialogs(@NonNull UiDevice device, @NonNull Context ctx) {
         clickText(device, true, ctx.getResources().getString(R.string.okay), false);
         if (findText(device, false, "Download", 2000)) {
-            clickHome(device);
+            clickHome(device, false);
         }
     }
 
@@ -765,9 +765,10 @@ public class TestUtils {
      * Click "Home" button in Activity app bars
      * 
      * @param device UiDevice object
+     * @param fail if true fail if object is not found
      * @return true if the button was clicked
      */
-    public static boolean clickHome(@NonNull UiDevice device) {
+    public static boolean clickHome(@NonNull UiDevice device, boolean fail) {
         UiObject homeButton = device.findObject(new UiSelector().clickable(true).descriptionStartsWith("Navigate up"));
         if (!homeButton.exists()) {
             homeButton = device.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
@@ -775,7 +776,9 @@ public class TestUtils {
         try {
             return homeButton.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            if (fail) {
+                Assert.fail(e.getMessage());
+            }
             return false; // can't actually be reached
         }
     }

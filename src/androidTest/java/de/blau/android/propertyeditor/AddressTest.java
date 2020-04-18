@@ -123,6 +123,6 @@ public class AddressTest {
         TestUtils.clickText(device, false, main.getString(R.string.tag_menu_reset_address_prediction), true);
         Assert.assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_address), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, "35"));
-        TestUtils.clickHome(device);
+        TestUtils.clickHome(device, true);
     }
 }

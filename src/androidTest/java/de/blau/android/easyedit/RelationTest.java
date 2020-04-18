@@ -161,7 +161,7 @@ public class RelationTest {
         Assert.assertNotNull(relationType);
         relationType.click();
         relationType.setText(Tags.VALUE_MULTIPOLYGON); // can't find text in drop downs
-        TestUtils.clickHome(device);
+        TestUtils.clickHome(device, true);
         List<Relation> relations = App.getLogic().getSelectedRelations();
         Assert.assertEquals(1, relations.size());
         Relation relation = relations.get(0);
