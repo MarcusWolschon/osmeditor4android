@@ -344,7 +344,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Flag indicating whether the map will be re-downloaded once the activity resumes
      */
-    private static boolean redownloadOnResume;
+    private static boolean redownloadOnResume = false;
 
     /**
      * Flag indicating whether data should be loaded from a file when the activity resumes. Lock is needed because we
@@ -859,7 +859,7 @@ public class Main extends FullScreenAppCompatActivity
             }
         };
         synchronized (loadOnResumeLock) {
-            if (redownloadOnResume) { // if true replaces anything downloaded
+            if (redownloadOnResume) { // if true replaces anything downloaded FIXME this probably doesn't make sense
                 redownloadOnResume = false;
                 logic.redownload(this, true);
             } else if (loadOnResume) {
