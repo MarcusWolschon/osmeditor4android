@@ -50,7 +50,7 @@ public class ReadPbf {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            TestUtils.copyFileFromResources(PBF_FILE, ".");
+            TestUtils.copyFileFromResources(main, PBF_FILE, ".", false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -70,10 +70,10 @@ public class ReadPbf {
     @Test
     public void pbfRead() {
         TestUtils.clickMenuButton(device, "Transfer", false, false);
-        TestUtils.clickText(device, false, "File", false);
-        TestUtils.clickText(device, false, "Read from PBF file", false);
+        TestUtils.clickText(device, false, "File", false, false);
+        TestUtils.clickText(device, false, "Read from PBF file", false, false);
         //
-        TestUtils.selectFile(device, null, PBF_FILE);
+        TestUtils.selectFile(device, main, null, PBF_FILE, false);
         TestUtils.findText(device, false, "Loading", 2000); // spinner appears
         TestUtils.textGone(device, "Loading", 60000);// spinner goes away
         StorageDelegator delegator = App.getDelegator();

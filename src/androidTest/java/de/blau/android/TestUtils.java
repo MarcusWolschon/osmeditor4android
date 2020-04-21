@@ -24,8 +24,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.Configurator;
@@ -36,9 +40,7 @@ import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiScrollable;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
-import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import de.blau.android.contract.Paths;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.prefs.Preferences;
@@ -48,7 +50,6 @@ import de.blau.android.resources.TileLayerServer.Category;
 import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.mockwebserver.MockWebServer;
 
@@ -70,7 +71,7 @@ public class TestUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean notdone = true;
             while (notdone) {
-                notdone = clickText(device, true, "allow", true) || clickText(device, true, "zulassen", false);
+                notdone = clickText(device, true, "allow", true, false) || clickText(device, true, "zulassen", false, false);
             }
         }
     }
@@ -82,7 +83,7 @@ public class TestUtils {
      * @param ctx Android context
      */
     public static void dismissStartUpDialogs(@NonNull UiDevice device, @NonNull Context ctx) {
-        clickText(device, true, ctx.getResources().getString(R.string.okay), false);
+        clickText(device, true, ctx.getResources().getString(R.string.okay), false, false);
         if (findText(device, false, "Download", 2000)) {
             clickHome(device, false);
         }
@@ -99,15 +100,15 @@ public class TestUtils {
         device.waitForWindowUpdate(null, 1000);
         if (findText(device, false, "Open with Vespucci")) {
             if (findText(device, false, "Share on OpenStreetMap")) {
-                clickText(device, false, "Just once", false);
+                clickText(device, false, "Just once", false, false);
             } else {
                 // Open with Vespucci was actually Share on OpenStreetMap
-                clickText(device, false, "Vespucci", false);
+                clickText(device, false, "Vespucci", false, false);
             }
         } else {
-            clickText(device, false, "Vespucci", false);
-            if (!clickText(device, false, "Just once", false)) {
-                clickText(device, false, "Nur diesmal", false);
+            clickText(device, false, "Vespucci", false, false);
+            if (!clickText(device, false, "Just once", false, false)) {
+                clickText(device, false, "Nur diesmal", false, false);
             }
         }
     }
@@ -554,17 +555,28 @@ public class TestUtils {
      * @return true if successful
      */
     public static boolean clickText(@NonNull UiDevice device, boolean clickable, @NonNull String text, boolean waitForNewWindow) {
+        return clickText(device, clickable, text, waitForNewWindow, false);
+    }
+
+    /**
+     * Click a text on screen (case insensitive, start of a string, if exact is false)
+     * 
+     * @param device UiDevice object
+     * @param clickable clickable if true the search will be restricted to clickable objects
+     * @param text text to search (case insensitive, uses textStartsWith)
+     * @param waitForNewWindow set the wait for new window flag if true
+     * @param exact if true use an exact text match
+     * @return true if successful
+     */
+    public static boolean clickText(@NonNull UiDevice device, boolean clickable, @NonNull String text, boolean waitForNewWindow, boolean exact) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
-        BySelector bySelector = null;
-        UiSelector uiSelector = null;
+        BySelector bySelector = exact ? By.text(text) : By.textStartsWith(text);
+        UiSelector uiSelector = exact ? new UiSelector().text(text) : new UiSelector().textStartsWith(text);
         // NOTE order of the selector terms is significant
         if (clickable) {
-            bySelector = By.clickable(true).textStartsWith(text);
-            uiSelector = new UiSelector().clickable(true).textStartsWith(text);
-        } else {
-            bySelector = By.textStartsWith(text);
-            uiSelector = new UiSelector().textStartsWith(text);
+            bySelector = bySelector.clickable(true);
+            uiSelector = uiSelector.clickable(true);
         }
         device.wait(Until.findObject(bySelector), 500);
         UiObject button = device.findObject(uiSelector);
@@ -944,26 +956,28 @@ public class TestUtils {
     /**
      * Copy a file from resources to a sub-directory of the public Vespucci directory
      * 
+     * @param context Android Context
      * @param fileName the name of the file to copy
      * @param destination the destination sub-directory
+     * @param useVespucciDir if true use the Vespucci directory instead of the standard ones
      * @throws IOException if copying goes wrong
      */
-    public static void copyFileFromResources(@NonNull String fileName, @NonNull String destination) throws IOException {
+    public static void copyFileFromResources(@NonNull Context context, @NonNull String fileName, @NonNull String destination, boolean useVespucciDir)
+            throws IOException {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream(fileName);
 
-        File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), destination);
+        File[] storageDirectories = ContextCompat.getExternalFilesDirs(context, null);
+        File destinationDir = FileUtil.getPublicDirectory(useVespucciDir ? FileUtil.getPublicDirectory() : storageDirectories[0], destination);
         File destinationFile = new File(destinationDir, fileName);
-        OutputStream os = new FileOutputStream(destinationFile);
+        try (OutputStream os = new FileOutputStream(destinationFile); InputStream is = loader.getResourceAsStream(fileName)) {
 
-        byte[] buffer = new byte[8 * 1024];
-        int bytesRead;
-        while ((bytesRead = is.read(buffer)) != -1) {
-            os.write(buffer, 0, bytesRead);
+            byte[] buffer = new byte[8 * 1024];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.flush();
         }
-        os.flush();
-        SavingHelper.close(is);
-        SavingHelper.close(os);
     }
 
     /**
@@ -989,10 +1003,13 @@ public class TestUtils {
      * Select a file from the file picker
      * 
      * @param device the current UiDevice
+     * @param context Android Context
      * @param directory optional sub-directory
      * @param fileName the name of the file
+     * @param useVespucciDir if true ise the Vespucci directory on external storage
      */
-    public static void selectFile(@NonNull UiDevice device, @Nullable String directory, @NonNull String fileName) {
+    public static void selectFile(@NonNull UiDevice device, @NonNull Context context, @Nullable String directory, @NonNull String fileName,
+            boolean useVespucciDir) {
         UiSelector scrollableSelector = Build.VERSION.SDK_INT > Build.VERSION_CODES.P ? new UiSelector().className("android.widget.FrameLayout")
                 : Build.VERSION.SDK_INT > Build.VERSION_CODES.N ? new UiSelector().scrollable(true).className("android.support.v7.widget.RecyclerView")
                         : new UiSelector().scrollable(true).className("android.widget.ListView");
@@ -1000,20 +1017,20 @@ public class TestUtils {
             TestUtils.clickOverflowButton(device);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && !TestUtils.findText(device, false, "SDCARD", 2000)) {
                 // old stuff
-                TestUtils.clickText(device, false, "Settings", true);
+                TestUtils.clickText(device, false, "Settings", true, false);
                 UiObject cb = device.findObject(new UiSelector().resourceId("android:id/checkbox"));
                 try {
                     if (!cb.isChecked()) {
-                        TestUtils.clickText(device, false, "Display advanced devices", false);
+                        TestUtils.clickText(device, false, "Display advanced devices", false, false);
                     }
                 } catch (UiObjectNotFoundException e) {
                     Assert.fail("Coudn't turn on SDCARD view");
                 }
-                TestUtils.clickText(device, false, "Settings", true);
+                TestUtils.clickText(device, false, "Settings", true, false);
                 TestUtils.clickResource(device, false, "android:id/up", true);
-                TestUtils.clickText(device, false, "SDCARD", true);
+                TestUtils.clickText(device, false, "SDCARD", true, false);
             } else {
-                if (!TestUtils.clickText(device, false, "Show", false)) {
+                if (!TestUtils.clickText(device, false, "Show", false, false)) {
                     TestUtils.clickAt(device, device.getDisplayWidth() / 2, device.getDisplayHeight() / 2);
                 }
                 TestUtils.clickMenuButton(device, "List view", false, false);
@@ -1027,45 +1044,60 @@ public class TestUtils {
                     Assert.fail("Link to internal storage not found in drawer");
                 }
             }
-            UiScrollable appView = new UiScrollable(scrollableSelector);
-            try {
-                System.out.println("selectFile " + appView.getClassName());
-            } catch (UiObjectNotFoundException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+            String storagePath = "Android/data/" + context.getPackageName() + "/files";
+            if (useVespucciDir) {
+                storagePath = Paths.DIRECTORY_PATH_VESPUCCI;
             }
-            try {
-                appView.scrollIntoView(new UiSelector().text("Vespucci"));
-            } catch (UiObjectNotFoundException e) {
-                // if there is no scrollable then this will fail
-            }
-            TestUtils.clickText(device, false, "Vespucci", true);
+            selectDirectory(device, storagePath, scrollableSelector);
         }
-        UiScrollable appView;
         if (directory != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                appView = new UiScrollable(scrollableSelector);
-            } else {
-                appView = new UiScrollable(new UiSelector().scrollable(true));
-            }
-            try {
-                appView.scrollIntoView(new UiSelector().text(directory));
-            } catch (UiObjectNotFoundException e) {
-                // if there is no scrollable then this will fail
-            }
-            TestUtils.clickText(device, false, directory, true);
+            scrollToAndSelect(device, directory, scrollableSelector);
         }
+        scrollToAndSelect(device, fileName, scrollableSelector);
+    }
+
+    /**
+     * Iterate over the specified path selecting the entry in the SAF file selector one after the other
+     * 
+     * @param device the UiDevice
+     * @param path the path
+     * @param scrollableSelector what Android widget is used for scrolling
+     */
+    private static void selectDirectory(@NonNull UiDevice device, @NonNull String path, @NonNull UiSelector scrollableSelector) {
+        System.out.println("Path: " + path);
+        String[] dirs = path.split("/");
+        if (dirs.length > 0) {
+            for (String dir : dirs) {
+                if (!"".equals(dir)) {
+                    scrollToAndSelect(device, dir, scrollableSelector);
+                }
+            }
+        }
+    }
+
+    /**
+     * Scroll to an entry in the SAF file selector and select it
+     * 
+     * 
+     * @param device the UiDevice
+     * @param entry the text of the entry to select
+     * @param scrollableSelector what Android widget is used for scrolling
+     */
+    private static void scrollToAndSelect(@NonNull UiDevice device, @NonNull String entry, @NonNull UiSelector scrollableSelector) {
+        UiScrollable appView;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             appView = new UiScrollable(scrollableSelector);
         } else {
             appView = new UiScrollable(new UiSelector().scrollable(true));
         }
         try {
-            appView.scrollIntoView(new UiSelector().text(fileName));
+            appView.scrollIntoView(new UiSelector().text(entry));
         } catch (UiObjectNotFoundException e) {
             // if there is no scrollable then this will fail
         }
-        TestUtils.clickText(device, false, fileName, true);
+        if (!TestUtils.clickText(device, false, entry, true, true)) {
+            Assert.fail("scrollToAndSelect failed click on " + entry);
+        }
     }
 
     /**
@@ -1119,11 +1151,11 @@ public class TestUtils {
         }
 
         String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
-        System.out.println(tileUrl);
-        TileLayerDatabase db = new TileLayerDatabase(context);
-        TileLayerServer.addOrUpdateCustomLayer(context, db.getWritableDatabase(), "VESPUCCITEST", null, -1, -1, "Vespucci Test", new Provider(), Category.other,
-                0, 19, false, tileUrl);
-
+        System.out.println(tileUrl); // NOSONAR
+        try (TileLayerDatabase db = new TileLayerDatabase(context)) {
+            TileLayerServer.addOrUpdateCustomLayer(context, db.getWritableDatabase(), "VESPUCCITEST", null, -1, -1, "Vespucci Test", new Provider(),
+                    Category.other, 0, 19, false, tileUrl);
+        }
         // allow downloading tiles here
         prefs.setBackGroundLayer("VESPUCCITEST");
         return tileServer;

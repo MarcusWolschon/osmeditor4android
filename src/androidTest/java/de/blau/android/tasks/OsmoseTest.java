@@ -251,7 +251,7 @@ public class OsmoseTest {
     /**
      * Close a MapRoulette task via dialog
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void osmoseDialog() {
         osmoseDownload();
@@ -271,9 +271,9 @@ public class OsmoseTest {
             UiObject saveButton = device.findObject(new UiSelector().resourceId("android:id/button1"));
             Assert.assertTrue(saveButton.exists());
             TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/openstreetbug_state", true);
-            TestUtils.clickText(device, false, "Closed", true);
+            TestUtils.clickText(device, false, "Closed", true, false);
             Assert.assertTrue(saveButton.isEnabled());
-            TestUtils.clickText(device, false, "Save", true);
+            TestUtils.clickText(device, false, "Save", true, false);
             Assert.assertTrue(b.isClosed());
         } catch (UiObjectNotFoundException | OsmException e) {
             Assert.fail(e.getMessage());

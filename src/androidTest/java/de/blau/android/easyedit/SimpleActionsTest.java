@@ -115,7 +115,7 @@ public class SimpleActionsTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
@@ -137,7 +137,7 @@ public class SimpleActionsTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
         device.waitForIdle(1000);
@@ -168,7 +168,7 @@ public class SimpleActionsTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_map_note), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_map_note), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_note)));
         TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
@@ -179,7 +179,7 @@ public class SimpleActionsTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true));
+        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true, false));
         List<Task> tasks = App.getTaskStorage().getTasks();
         Assert.assertTrue(tasks.size() == 1);
         Task t = tasks.get(0);
@@ -190,6 +190,6 @@ public class SimpleActionsTest {
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_newnoteselect)));
         TestUtils.clickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
         Assert.assertTrue(TestUtils.findText(device, false, "test"));
-        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.cancel), true));
+        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.cancel), true, false));
     }
 }

@@ -159,7 +159,7 @@ public class GpxTest {
         main.invalidateOptionsMenu();
 
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false, false));
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
@@ -170,15 +170,15 @@ public class GpxTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
 
         compareTrack(track, recordedTrack);
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true, false));
 
         UiObject snackbarTextView = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/snackbar_text"));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Export GPX track", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Export GPX track", false, false));
         //
         Assert.assertTrue(snackbarTextView.waitForExists(10000));
         String filename = null;
@@ -196,10 +196,10 @@ public class GpxTest {
         // need to wait for the snackbar to go away
         snackbarTextView.waitUntilGone(5000);
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
-        TestUtils.selectFile(device, null, filename);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Replace", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true, false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true, false));
+        TestUtils.selectFile(device, main, null, filename, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Replace", true, false));
         TestUtils.textGone(device, "Imported", 10000);
         recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
         compareTrack(track, recordedTrack);
@@ -242,7 +242,7 @@ public class GpxTest {
 
         TestUtils.clickAtCoordinates(device, map, foundWp.getLon(), foundWp.getLat(), true);
 
-        Assert.assertTrue(TestUtils.clickText(device, true, "Create osm object from", true));
+        Assert.assertTrue(TestUtils.clickText(device, true, "Create osm object from", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Church"));
     }
 
@@ -271,7 +271,7 @@ public class GpxTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         // compare roughly with last location
         TrackPoint lastPoint = track.getTrack().get(track.getTrack().size() - 1);
         ViewBox box = main.getMap().getViewBox();

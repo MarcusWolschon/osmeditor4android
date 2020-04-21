@@ -107,7 +107,7 @@ public class AddressTest {
      * Create a new Node by long click and check that we get correct street suggestion and then correct house number
      * from prediction
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newAddress() {
         map.getDataLayer().setVisible(true);
@@ -120,7 +120,7 @@ public class AddressTest {
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         Assert.assertTrue(TestUtils.findText(device, false, "Bergstrasse"));
         Assert.assertTrue(TestUtils.clickMenuButton(device, "More options", false, true));
-        TestUtils.clickText(device, false, main.getString(R.string.tag_menu_reset_address_prediction), true);
+        TestUtils.clickText(device, false, main.getString(R.string.tag_menu_reset_address_prediction), true, false);
         Assert.assertTrue(TestUtils.clickMenuButton(device, main.getString(R.string.tag_menu_address), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, "35"));
         TestUtils.clickHome(device, true);

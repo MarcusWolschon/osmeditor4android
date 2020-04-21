@@ -54,8 +54,8 @@ public class PhotosTest {
         prefs.setPhotoLayerEnabled(true);
         main.getMap().setPrefs(main, prefs);
         try {
-            TestUtils.copyFileFromResources(PHOTO_FILE, "Pictures");
-            TestUtils.copyFileFromResources(PHOTO_FILE2, "Pictures");
+            TestUtils.copyFileFromResources(main, PHOTO_FILE, "Pictures", true);
+            TestUtils.copyFileFromResources(main, PHOTO_FILE2, "Pictures", true);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -72,7 +72,7 @@ public class PhotosTest {
     /**
      * Select a photograph from the photo layer and show it in the internal viewer
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void selectDisplayDelete() {
         TestUtils.zoomToLevel(device, main, 20);
@@ -82,8 +82,8 @@ public class PhotosTest {
         // Assert.assertTrue(TestUtils.findText(mDevice, false, "Done", 1000));
 
         TestUtils.clickMenuButton(device, "delete", false, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Delete permamently", false));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Done", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Delete permamently", false, false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Done", true, false));
         TestUtils.clickMenuButton(device, "Go to photo", false, true);
         Assert.assertEquals(1, App.getPhotoIndex().count());
     }

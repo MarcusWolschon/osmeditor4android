@@ -70,7 +70,7 @@ public class LicenceViewerTest {
     @Test
     public void startViewer() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Authors and licenses", true);
+        TestUtils.clickText(device, false, "Authors and licenses", true, false);
         Activity licenseViewer = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(licenseViewer instanceof LicenseViewer);
     }

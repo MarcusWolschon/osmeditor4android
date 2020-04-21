@@ -78,7 +78,6 @@ public class IntentsTest {
         mockBaseUrl = mockServerOsmose.server().url("/en/api/0.2/");
         prefs.putString(R.string.config_osmoseServer_key, mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/");
         prefs.setBugsEnabled(true);
-        // mainMonitor = instrumentation.addMonitor(Main.class.getName(), null, false);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
     }

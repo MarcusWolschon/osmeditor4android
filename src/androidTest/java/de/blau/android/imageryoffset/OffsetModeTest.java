@@ -115,7 +115,7 @@ public class OffsetModeTest {
     @Test
     public void createOffset() {
         startMode();
-        Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
         TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
         tileLayerConfiguration.setOffset(0, 0);
@@ -126,11 +126,11 @@ public class OffsetModeTest {
         Assert.assertEquals(0D, offset.getDeltaLon(), 0.1E-4);
         TestUtils.drag(device, map, 8.38782, 47.390339, 8.388, 47.391, true, 50);
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Save to database", true);
+        TestUtils.clickText(device, false, "Save to database", true, false);
         // 74.22 m
-        TestUtils.clickText(device, false, "Cancel", true);
+        TestUtils.clickText(device, false, "Cancel", true, false);
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Apply", true);
+        TestUtils.clickText(device, false, "Apply", true, false);
         TestUtils.clickUp(device);
         try {
             Thread.sleep(5000); // NOSONAR
@@ -152,7 +152,7 @@ public class OffsetModeTest {
             BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
             App.getLogic().getViewBox().setBorders(map, bbox);
             map.setViewBox(App.getLogic().getViewBox());
-            map.invalidate();      
+            map.invalidate();
             try {
                 Thread.sleep(5000); // NOSONAR
             } catch (InterruptedException e) {
@@ -164,7 +164,7 @@ public class OffsetModeTest {
 
         if (!TestUtils.clickMenuButton(device, "Tools", false, true)) {
             TestUtils.clickOverflowButton(device);
-            TestUtils.clickText(device, false, "Tools", true);
+            TestUtils.clickText(device, false, "Tools", true, false);
         }
         if (!TestUtils.findText(device, false, "Align background")) {
             // retry
@@ -172,7 +172,7 @@ public class OffsetModeTest {
             device.waitForWindowUpdate(null, 2000);
             if (!TestUtils.clickMenuButton(device, "Tools", false, true)) {
                 TestUtils.clickOverflowButton(device);
-                TestUtils.clickText(device, false, "Tools", true);
+                TestUtils.clickText(device, false, "Tools", true, false);
             }
         }
     }
@@ -185,13 +185,13 @@ public class OffsetModeTest {
     public void downloadOffset() {
         mockServer.enqueue("imagery_offset");
         startMode();
-        Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
         TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
         TestUtils.zoomToLevel(device, main, tileLayerConfiguration.getMaxZoom());
         int zoomLevel = map.getZoomLevel();
         TestUtils.clickMenuButton(device, "From database", false, true);
-        TestUtils.clickText(device, false, "Apply", true);
+        TestUtils.clickText(device, false, "Apply", true, false);
         TestUtils.clickUp(device);
         try {
             Thread.sleep(5000); // NOSONAR

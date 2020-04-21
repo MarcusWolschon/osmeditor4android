@@ -70,7 +70,7 @@ public class DebugInformationTest {
     @Test
     public void startDebugInformation() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Debug", true);
+        TestUtils.clickText(device, false, "Debug", true, false);
         Activity debugInformation = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(debugInformation instanceof DebugInformation);
     }

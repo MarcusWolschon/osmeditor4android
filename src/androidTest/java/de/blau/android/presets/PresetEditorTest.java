@@ -103,7 +103,7 @@ public class PresetEditorTest {
         }
         response.setBody(buffer);
         mockServer.server().enqueue(response);
-        TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false);
+        TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
         UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
         try {
@@ -117,8 +117,8 @@ public class PresetEditorTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickText(device, true, main.getString(R.string.okay), true);
-        TestUtils.clickText(device, false, "Test", false);
+        TestUtils.clickText(device, true, main.getString(R.string.okay), true, false);
+        TestUtils.clickText(device, false, "Test", false, false);
         TestUtils.clickHome(device, true);
         App.resetPresets();
         Preset[] presets = App.getCurrentPresets(main);

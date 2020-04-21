@@ -59,7 +59,7 @@ public class FeedbackTest {
     public void startFeedback() {
         TestUtils.clickOverflowButton(device);
         ActivityMonitor monitor = instrumentation.addMonitor(Feedback.class.getName(), null, false);
-        TestUtils.clickText(device, false, "Provide feedback", true);
+        TestUtils.clickText(device, false, "Provide feedback", true, false);
         instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         instrumentation.removeMonitor(monitor);
         Assert.assertTrue(TestUtils.findText(device, false, "Feedback for the developers", 10000));

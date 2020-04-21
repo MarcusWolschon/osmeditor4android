@@ -95,14 +95,14 @@ public class ExtendedSelectionTest {
         map.getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, false);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false, false));
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
 
         TestUtils.doubleClickAtCoordinates(device, map, 8.3877977, 47.3897371, false);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Excrement", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Excrement", false, false));
 
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
 

@@ -92,7 +92,7 @@ public class CustomImageryTest {
     @Test
     public void customImageryValidMBTiles() {
         try {
-            TestUtils.copyFileFromResources("map.mbt", "mbtiles");
+            TestUtils.copyFileFromResources(main, "map.mbt", "mbtiles", false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -102,15 +102,15 @@ public class CustomImageryTest {
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
-        TestUtils.selectFile(device, "mbtiles", "map.mbt");
+        TestUtils.selectFile(device, main, "mbtiles", "map.mbt", false);
         Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
         Assert.assertTrue(TestUtils.findText(device, false, "57.0527713171221"));
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.save_and_set), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "My Map"));
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.done), true, false));
         Assert.assertTrue(TestUtils.clickHome(device, true));
         UiObject2 extentButton = TestUtils.getLayerButton(device, "My Map", LayerDialogTest.EXTENT_BUTTON);
         extentButton.clickAndWait(Until.newWindow(), 2000);
@@ -124,7 +124,7 @@ public class CustomImageryTest {
     @Test
     public void customImageryInvalidMBTiles() {
         try {
-            TestUtils.copyFileFromResources("map-no-meta.mbt", "mbtiles");
+            TestUtils.copyFileFromResources(main, "map-no-meta.mbt", "mbtiles", false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -134,10 +134,10 @@ public class CustomImageryTest {
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
         instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.config_customlayers_title), true, false));
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/add", true));
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/file_button", true));
-        TestUtils.selectFile(device, "mbtiles", "map-no-meta.mbt");
+        TestUtils.selectFile(device, main, "mbtiles", "map-no-meta.mbt", false);
         UiObject url = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/url"));
         try {
             Assert.assertEquals("", url.getText()); // url not set

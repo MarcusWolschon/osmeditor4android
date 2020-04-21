@@ -103,7 +103,7 @@ public class WayTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
@@ -124,14 +124,14 @@ public class WayTest {
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
         String menuInfo = context.getString(R.string.menu_information);
         TestUtils.scrollTo(menuInfo);
-        Assert.assertTrue(TestUtils.clickText(device, false, menuInfo, true));
+        Assert.assertTrue(TestUtils.clickText(device, false, menuInfo, true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "asphalt"));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
         String menuDelete = context.getString(R.string.delete);
         TestUtils.scrollTo(menuDelete);
-        Assert.assertTrue(TestUtils.clickText(device, false, menuDelete, true));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.deleteway_wayandnodes), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, menuDelete, true, false));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.deleteway_wayandnodes), true, false));
         Assert.assertEquals(OsmElement.STATE_DELETED, way.getState());
         Assert.assertEquals(OsmElement.STATE_DELETED, shouldBeDeleted1.getState());
         Node shouldBeDeleted2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 635762221);
@@ -142,7 +142,7 @@ public class WayTest {
         // undo
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
         Assert.assertTrue(way.hasParentRelation(6490362L));
         Assert.assertEquals(1, way.getParentRelations().size());
         List<Node> nodes = way.getNodes();
@@ -162,7 +162,7 @@ public class WayTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
         Assert.assertNotNull(way);
@@ -179,7 +179,7 @@ public class WayTest {
         // undo
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
         List<Node> nodes = way.getNodes();
         Assert.assertEquals(origWayNodes.size(), nodes.size());
         for (int i = 0; i < nodes.size(); i++) {

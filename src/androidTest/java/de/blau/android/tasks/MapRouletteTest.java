@@ -113,7 +113,7 @@ public class MapRouletteTest {
      * Download some MapRoulette tasks and check that a certain one exists, then re-download and check that it got
      * correctly merged
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void mapRouletteDownload() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -191,7 +191,7 @@ public class MapRouletteTest {
     /**
      * Update a MapRoulette task
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void mapRouletteUpdate() {
         mapRouletteDownload();
@@ -219,7 +219,7 @@ public class MapRouletteTest {
     /**
      * Check that we handle error messages from the MapRoulette server correctly
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void mapRouletteUpdateFail() {
         mapRouletteDownload();
@@ -247,7 +247,7 @@ public class MapRouletteTest {
     /**
      * Close a MapRoulette task via dialog
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void mapRouletteDialog() {
         mapRouletteDownload();
@@ -258,9 +258,9 @@ public class MapRouletteTest {
         try {
             Assert.assertTrue(saveButton.exists());
             TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/openstreetbug_state", true);
-            TestUtils.clickText(device, false, "Deleted", true);
+            TestUtils.clickText(device, false, "Deleted", true, false);
             Assert.assertTrue(saveButton.isEnabled());
-            TestUtils.clickText(device, false, "Save", true);
+            TestUtils.clickText(device, false, "Save", true, false);
             Assert.assertTrue(b.isClosed());
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());

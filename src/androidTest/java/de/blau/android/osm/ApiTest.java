@@ -333,7 +333,7 @@ public class ApiTest {
         TestUtils.clickMenuButton(device, "Transfer", false, true);
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
-        TestUtils.clickText(device, false, "Upload", true); // menu item
+        TestUtils.clickText(device, false, "Upload", true, false); // menu item
 
         UiSelector uiSelector = new UiSelector().className("android.widget.Button").instance(1); // dialog upload button
         UiObject button = device.findObject(uiSelector);

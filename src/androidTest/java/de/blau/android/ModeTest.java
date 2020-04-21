@@ -66,7 +66,7 @@ public class ModeTest {
     /**
      * Lock, unlock, cycle through the modes
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void lock() {
         UiObject lock = device.findObject(new UiSelector().resourceId(device.getCurrentPackageName() + ":id/floatingLock"));
@@ -98,7 +98,7 @@ public class ModeTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(tip.waitForExists(5000));
-        TestUtils.clickText(device, true, main.getString(R.string.okay), true); // for the tip alert
+        TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // for the tip alert
         device.waitForIdle();
 
         // need to be adapted for new menu
@@ -117,7 +117,7 @@ public class ModeTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_tag_only), true);
+        TestUtils.clickText(device, false, main.getString(R.string.mode_tag_only), true, false);
         Assert.assertEquals(Mode.MODE_TAG_EDIT, logic.getMode());
 
         try {
@@ -125,7 +125,7 @@ public class ModeTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_indoor), true);
+        TestUtils.clickText(device, false, main.getString(R.string.mode_indoor), true, false);
         Assert.assertEquals(Mode.MODE_INDOOR, logic.getMode());
 
         try {
@@ -133,7 +133,7 @@ public class ModeTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_correct), true);
+        TestUtils.clickText(device, false, main.getString(R.string.mode_correct), true, false);
         Assert.assertEquals(Mode.MODE_CORRECT, logic.getMode());
 
         try {
@@ -141,7 +141,7 @@ public class ModeTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickText(device, false, main.getString(R.string.mode_easy), true);
+        TestUtils.clickText(device, false, main.getString(R.string.mode_easy), true, false);
         Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode());
     }
 }

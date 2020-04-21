@@ -96,17 +96,17 @@ public class UndoRedoTest {
     /**
      * Change a node, show the undo/redo dialog, undo, redo
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dialog() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
-        TestUtils.clickText(device, false, "Toilets", false);
+        TestUtils.clickText(device, false, "Toilets", false, false);
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_set_position), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_set_position), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "8.3878200"));
         Assert.assertTrue(TestUtils.findText(device, false, "47.3903390"));
         UiObject editText = device.findObject(new UiSelector().clickable(true).textStartsWith("8.3878200"));
@@ -116,14 +116,14 @@ public class UndoRedoTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.set), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.set), true, false));
         Assert.assertEquals(OsmElement.STATE_MODIFIED, node.getState());
         Assert.assertEquals((long) (8.3878100 * 1E7D), node.getLon());
         TestUtils.unlock(device);
         // start undo redo dialog and undo
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), true, true));
         Assert.assertTrue(TestUtils.findText(device, false, "Checkpoints", 5000));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Undo", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Undo", false, false));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "3465444349", true)); // undo
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
         Assert.assertEquals((long) (8.3878200 * 1E7D), node.getLon());
@@ -131,7 +131,7 @@ public class UndoRedoTest {
         // start undo redo dialog and redo
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), true, true));
         Assert.assertTrue(TestUtils.findText(device, false, "Checkpoints", 5000));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Redo", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Redo", false, false));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "3465444349", true)); // undo
         Assert.assertEquals(OsmElement.STATE_MODIFIED, node.getState());
         Assert.assertEquals((long) (8.3878100 * 1E7D), node.getLon());

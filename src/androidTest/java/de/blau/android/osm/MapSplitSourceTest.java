@@ -57,7 +57,7 @@ public class MapSplitSourceTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            TestUtils.copyFileFromResources(MSF_FILE, ".");
+            TestUtils.copyFileFromResources(main, MSF_FILE, ".", false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -87,14 +87,14 @@ public class MapSplitSourceTest {
         } catch (UiObjectNotFoundException e) {
             // if there is no scrollable then this will fail
         }
-        TestUtils.clickText(device, false, "Advanced preferences", true);
-        TestUtils.clickText(device, false, "Server settings", true);
-        TestUtils.clickText(device, false, "OSM API URL", true);
+        TestUtils.clickText(device, false, "Advanced preferences", true, false);
+        TestUtils.clickText(device, false, "Server settings", true, false);
+        TestUtils.clickText(device, false, "OSM API URL", true, false);
         TestUtils.longClickText(device, "OpenStreetMap");
-        TestUtils.clickText(device, false, "Edit", true);
+        TestUtils.clickText(device, false, "Edit", true, false);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/listedit_file_button", true);
-        TestUtils.selectFile(device, null, MSF_FILE);
-        Assert.assertTrue(TestUtils.clickText(device, false, "OK", true));
+        TestUtils.selectFile(device, main, null, MSF_FILE, false);
+        Assert.assertTrue(TestUtils.clickText(device, false, "OK", true, false));
         TestUtils.clickMenuButton(device, "Navigate up", false, true);
         TestUtils.clickMenuButton(device, "Navigate up", false, true);
         TestUtils.clickMenuButton(device, "Navigate up", false, true);
@@ -109,7 +109,7 @@ public class MapSplitSourceTest {
         }
         // read some data from the source
         TestUtils.clickMenuButton(device, "Transfer", false, false);
-        TestUtils.clickText(device, false, "Load current view", false);
+        TestUtils.clickText(device, false, "Load current view", false, false);
         TestUtils.findText(device, false, "Loading", 2000); // spinner appears
         TestUtils.textGone(device, "Loading", 60000);// spinner goes away
         StorageDelegator delegator = App.getDelegator();

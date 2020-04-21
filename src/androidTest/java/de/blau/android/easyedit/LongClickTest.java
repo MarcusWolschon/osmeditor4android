@@ -193,7 +193,7 @@ public class LongClickTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true));
+        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true, false));
         List<Task> tasks = App.getTaskStorage().getTasks();
         Assert.assertTrue(tasks.size() == 1);
         Task t = tasks.get(0);

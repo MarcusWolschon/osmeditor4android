@@ -5,11 +5,11 @@ import java.io.IOException;
 
 import android.content.Context;
 import android.net.Uri;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.MapTile;
-import de.blau.android.util.FileUtil;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -28,8 +28,9 @@ public class TileDispatcher extends Dispatcher {
      */
     public TileDispatcher(@NonNull Context context, @NonNull String mbtSource) throws IOException {
         try {
-            TestUtils.copyFileFromResources(mbtSource, "/");
-            tileDb = new MBTileProviderDataBase(context, Uri.fromFile(new File(FileUtil.getPublicDirectory(), mbtSource)), 1);
+            TestUtils.copyFileFromResources(context, mbtSource, "/", false);
+            File[] storageDirectories = ContextCompat.getExternalFilesDirs(context, null);
+            tileDb = new MBTileProviderDataBase(context, Uri.fromFile(new File(storageDirectories[0], mbtSource)), 1);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "mbt file not found " + e.getMessage());
             throw e;
@@ -42,7 +43,7 @@ public class TileDispatcher extends Dispatcher {
             int x = Integer.parseInt(request.getRequestUrl().pathSegments().get(1));
             int y = Integer.parseInt(request.getRequestUrl().pathSegments().get(2));
             int z = Integer.parseInt(request.getRequestUrl().pathSegments().get(0));
-            MapTile tile = new MapTile(null, z, x, y);
+            MapTile tile = new MapTile("", z, x, y);
             byte[] bytes = tileDb.getTile(tile);
             if (bytes != null) {
                 data.write(bytes);

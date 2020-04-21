@@ -78,11 +78,11 @@ public class CoordinatesOLCTest {
     /**
      * Go to a coordinate pair
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void coordinates() {
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Go to coordinates", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Go to coordinates", true, false));
         UiObject coordEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             coordEditText.click();
@@ -100,11 +100,11 @@ public class CoordinatesOLCTest {
     /**
      * Search for multiple objects
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void OLC() {
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Go to coordinates", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Go to coordinates", true, false));
         UiObject coordEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             coordEditText.click();

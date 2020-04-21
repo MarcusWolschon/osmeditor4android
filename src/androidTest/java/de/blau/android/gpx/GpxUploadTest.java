@@ -53,6 +53,8 @@ public class GpxUploadTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
+        TestUtils.grantPermissons(device);
+        TestUtils.dismissStartUpDialogs(device, main);
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         prefDB = new AdvancedPrefDatabase(main);
@@ -64,8 +66,6 @@ public class GpxUploadTest {
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);
 
-        TestUtils.grantPermissons(device);
-        TestUtils.dismissStartUpDialogs(device, main);
         TestUtils.stopEasyEdit(main);
     }
 
@@ -116,22 +116,22 @@ public class GpxUploadTest {
         }
 
         try {
-            TestUtils.copyFileFromResources(GPX_FILE, "/");
+            TestUtils.copyFileFromResources(main, GPX_FILE, "/", false);
             clickGpsButton();
             if (TestUtils.findObjectWithText(device, false, "Clear", 1000).getParent().getParent().getParent().isEnabled()) {
-                TestUtils.clickText(device, false, "Clear", true);
-                TestUtils.clickText(device, false, "Clear anyway", true);
+                TestUtils.clickText(device, false, "Clear", true, false);
+                TestUtils.clickText(device, false, "Clear anyway", true, false);
                 clickGpsButton();
             }
-            Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
-            Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
-            TestUtils.selectFile(device, null, GPX_FILE);
+            Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true, false));
+            Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true, false));
+            TestUtils.selectFile(device, main, null, GPX_FILE, false);
             TestUtils.textGone(device, "Imported", 10000);
             clickGpsButton();
-            Assert.assertTrue(TestUtils.clickText(device, false, "Go to start", true));
+            Assert.assertTrue(TestUtils.clickText(device, false, "Go to start", true, false));
             clickGpsButton();
-            Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
-            Assert.assertTrue(TestUtils.clickText(device, false, "Upload", true));
+            Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true, false));
+            Assert.assertTrue(TestUtils.clickText(device, false, "Upload", true, false));
             mockServer.enqueue("200");
             Assert.assertTrue(TestUtils.clickResource(device, false, "android:id/button1", true));
             Assert.assertTrue(TestUtils.textGone(device, "Uploading", 5000));

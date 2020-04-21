@@ -142,15 +142,15 @@ public class LayerDialogTest {
         //
         UiObject2 visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
-        TestUtils.clickText(device, true, main.getString(R.string.done), false);
+        TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
         Assert.assertFalse(map.getDataLayer().isVisible());
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, false);
-        Assert.assertFalse(TestUtils.clickText(device, false, "Toilets", false)); // nothing should happen
+        Assert.assertFalse(TestUtils.clickText(device, false, "Toilets", false, false)); // nothing should happen
         visibleButton = TestUtils.getLayerButton(device, dataLayerName, VISIBLE_BUTTON);
         visibleButton.click();
 
-        TestUtils.clickText(device, true, main.getString(R.string.done), false);
+        TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
         Assert.assertTrue(map.getDataLayer().isVisible());
 
     }
@@ -158,7 +158,7 @@ public class LayerDialogTest {
     /**
      * Show dialog, zoom to extent, hide layer, try to select object, show layer
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dataLayerPrune() {
         TestUtils.zoomToLevel(device, main, 22);
@@ -173,9 +173,9 @@ public class LayerDialogTest {
         TestUtils.clickUp(device);
         UiObject2 menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.prune), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.prune), true, false));
 
-        TestUtils.clickText(device, true, main.getString(R.string.done), false);
+        TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
 
         Assert.assertNotNull(delegator.getOsmElement(Node.NAME, 3465444349L));
         Assert.assertNull(delegator.getOsmElement(Way.NAME, 206010346L));
@@ -192,7 +192,7 @@ public class LayerDialogTest {
     public void taskLayer() {
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_tasks), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.disable), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.disable), true, false));
         Preferences prefs = new Preferences(main);
         Assert.assertFalse(prefs.areBugsEnabled());
         prefs.setBugsEnabled(true);
@@ -214,7 +214,7 @@ public class LayerDialogTest {
         extentButton.click();
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         Assert.assertFalse(map.getGeojsonLayer().isEnabled());
     }
 
@@ -225,9 +225,9 @@ public class LayerDialogTest {
     public void backgroundLayer() {
         UiObject2 menuButton = TestUtils.getLayerButton(device, "Vespucci Test", MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_select_imagery), true));
-        TestUtils.clickText(device, true, main.getString(R.string.okay), true); // for the tip alert
-        TestUtils.clickText(device, true, main.getString(R.string.none), true);
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_select_imagery), true, false));
+        TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // for the tip alert
+        TestUtils.clickText(device, true, main.getString(R.string.none), true, false);
         Preferences prefs = new Preferences(main);
         Assert.assertEquals(TileLayerServer.LAYER_NONE, prefs.backgroundLayer());
     }

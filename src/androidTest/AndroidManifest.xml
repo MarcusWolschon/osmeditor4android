@@ -23,7 +23,7 @@
         android:label="Tests for de.blau.android"
         android:targetPackage="de.blau.android" />
 
-    <application>
+    <application android:requestLegacyExternalStorage="true">
         <uses-library android:name="android.test.runner" />
     </application>
 

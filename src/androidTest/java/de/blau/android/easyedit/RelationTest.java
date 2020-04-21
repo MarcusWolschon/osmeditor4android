@@ -106,7 +106,7 @@ public class RelationTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Hiking", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Hiking", false, false));
         List<Relation> rels = App.getLogic().getSelectedRelations();
         Assert.assertNotNull(rels);
         Assert.assertEquals(1, rels.size());
@@ -115,14 +115,14 @@ public class RelationTest {
         Assert.assertEquals(6490362L, relation.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_information), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_information), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "hiking"));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true, false));
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.delete), false, true));
         Assert.assertEquals(OsmElement.STATE_DELETED, relation.getState());
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, relation.getState());
-        TestUtils.clickText(device, true, context.getString(R.string.okay), true); // for the tip alert
+        TestUtils.clickText(device, true, context.getString(R.string.okay), true, false); // for the tip alert
         Assert.assertNotNull(relation.getMember(Way.NAME, 104148456L));
         List<RelationMember> members = relation.getMembers();
         Assert.assertEquals(origMembers.size(), members.size());
@@ -141,14 +141,14 @@ public class RelationTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
         Assert.assertEquals(104148456L, way.getOsmId());
         //
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Create relation", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Create relation", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Add member"));
         TestUtils.clickUp(device);
         Assert.assertTrue(TestUtils.findText(device, false, "Relation type"));

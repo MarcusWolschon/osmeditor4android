@@ -104,7 +104,7 @@ public class SearchTest {
         mockServer.enqueue("nominatim");
         if (!TestUtils.clickMenuButton(device, "Find", false, true)) {
             TestUtils.clickOverflowButton(device);
-            TestUtils.clickText(device, false, "Find", true);
+            TestUtils.clickText(device, false, "Find", true, false);
         }
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/location_search_edit"));
         try {
@@ -114,11 +114,11 @@ public class SearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/location_search_geocoder", true);
-        Assert.assertTrue(TestUtils.clickText(device, true, "Nominatim2", true));
-        Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
+        Assert.assertTrue(TestUtils.clickText(device, true, "Nominatim2", true, false));
+        Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));
         Assert.assertTrue(TestUtils.findText(device, false, "Bergdietikon"));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Bergdietikon", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Bergdietikon", true, false));
         ViewBox vb = ((Main) main).getMap().getViewBox();
         Assert.assertEquals(47.3898401D, vb.getCenterLat(), 0.001D);
         Assert.assertEquals(8.3865262D, ((vb.getRight() - vb.getLeft()) / 2 + vb.getLeft()) / 1E7D, 0.001D);
@@ -133,7 +133,7 @@ public class SearchTest {
         mockServer.enqueue("photon");
         if (!TestUtils.clickMenuButton(device, "Find", false, true)) {
             TestUtils.clickOverflowButton(device);
-            TestUtils.clickText(device, false, "Find", true);
+            TestUtils.clickText(device, false, "Find", true, false);
         }
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/location_search_edit"));
         try {
@@ -143,8 +143,8 @@ public class SearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/location_search_geocoder", true);
-        Assert.assertTrue(TestUtils.clickText(device, true, "Photon", true));
-        Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
+        Assert.assertTrue(TestUtils.clickText(device, true, "Photon", true, false));
+        Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "Bergdietikon", true));
         ViewBox vb = ((Main) main).getMap().getViewBox();

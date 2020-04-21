@@ -61,7 +61,7 @@ public class ApplyOSCTest {
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
         try {
-            TestUtils.copyFileFromResources(OSC_FILE, ".");
+            TestUtils.copyFileFromResources(main, OSC_FILE, ".", false);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
@@ -109,10 +109,10 @@ public class ApplyOSCTest {
 
         // apply OSC file
         TestUtils.clickMenuButton(device, "Transfer", false, false);
-        TestUtils.clickText(device, false, "File", false);
-        TestUtils.clickText(device, false, "Apply changes from OSC file", false);
+        TestUtils.clickText(device, false, "File", false, false);
+        TestUtils.clickText(device, false, "Apply changes from OSC file", false, false);
         //
-        TestUtils.selectFile(device, null, OSC_FILE);
+        TestUtils.selectFile(device, main, null, OSC_FILE, false);
 
         TestUtils.findText(device, false, "Loading", 2000); // spinner appears
         TestUtils.textGone(device, "Loading", 10000);// spinner goes away
@@ -162,7 +162,7 @@ public class ApplyOSCTest {
 
         TestUtils.unlock(device);
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
-        TestUtils.clickText(device, false, "OK", true);
+        TestUtils.clickText(device, false, "OK", true, false);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {

@@ -133,7 +133,7 @@ public class NmeaTest {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/follow", false);
 
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false, false));
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
@@ -144,7 +144,7 @@ public class NmeaTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
         Assert.assertEquals(215, recordedTrack.size());
         Location lastLocation = main.getTracker().getLastLocation();

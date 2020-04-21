@@ -115,7 +115,7 @@ public class WayActionsTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
         TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
         device.waitForIdle(1000);
@@ -141,7 +141,7 @@ public class WayActionsTest {
         Assert.assertEquals(92.33, theta, 0.1);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Straighten", false);
+        TestUtils.clickText(device, false, "Straighten", false, false);
         device.wait(Until.findObject(By.res(device.getCurrentPackageName() + ":string/Done")), 1000);
         coords = Coordinates.nodeListToCooardinateArray(map.getWidth(), map.getHeight(), map.getViewBox(), way.getNodes());
         v1 = coords[0].subtract(coords[1]);
@@ -163,7 +163,7 @@ public class WayActionsTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         List<Node> origWayNodes = new ArrayList<>(way.getNodes());
         Assert.assertNotNull(way);
@@ -171,7 +171,7 @@ public class WayActionsTest {
         //
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_remove_node_from_way), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_remove_node_from_way), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_remove_node_from_way)));
         // delete an untagged way node somewhere in the middle
         int origSize = way.getNodes().size();
@@ -181,10 +181,10 @@ public class WayActionsTest {
         Assert.assertEquals(origSize - 1, way.getNodes().size());
         // delete the end node that is shared by some other ways
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_remove_node_from_way), true));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_remove_node_from_way), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_remove_node_from_way)));
         origSize = way.getNodes().size();
         Node testNode2 = way.getLastNode();

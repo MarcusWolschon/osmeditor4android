@@ -116,7 +116,7 @@ public class ObjectSearchTest {
     @Test
     public void single() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Search for objects", true);
+        TestUtils.clickText(device, false, "Search for objects", true, false);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
@@ -138,7 +138,7 @@ public class ObjectSearchTest {
     @Test
     public void multiple() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Search for objects", true);
+        TestUtils.clickText(device, false, "Search for objects", true, false);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
@@ -162,7 +162,7 @@ public class ObjectSearchTest {
     @Test
     public void preset() {
         TestUtils.clickOverflowButton(device);
-        TestUtils.clickText(device, false, "Search for objects", true);
+        TestUtils.clickText(device, false, "Search for objects", true, false);
         UiObject searchEditText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/text_line_edit"));
         try {
             searchEditText.click();
