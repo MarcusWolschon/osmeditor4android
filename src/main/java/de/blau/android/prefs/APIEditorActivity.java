@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.Logic;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
 import de.blau.android.util.DatabaseUtil;
@@ -113,6 +114,10 @@ public class APIEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemClicked(ListEditItem item) {
+        API current = db.getCurrentAPI();
+        if (!item.id.equals(current.id)) {
+            Main.prepareRedownload();
+        }
         db.selectAPI(item.id);
         // this is a bit hackish, but only one can be selected
         for (ListEditItem lei : items) {

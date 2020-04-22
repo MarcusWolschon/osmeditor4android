@@ -214,9 +214,6 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             throw new IllegalOperationException("Non-existant API selected");
         }
         prefs.edit().putString(PREF_SELECTED_API, id).commit();
-        if (id.equals(currentAPI)) {
-            Main.prepareRedownload();
-        }
         currentAPI = id;
         resetCurrentServer();
     }
