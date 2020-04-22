@@ -111,17 +111,15 @@ public class NmeaTest {
         // wait for the trackerservice to start
         // unluckily there doesn't seem to be any elegant way to do this
         int retries = 0;
-        synchronized (device) {
-            while (main.getTracker() == null && retries < 60) {
-                try {
-                    device.wait(1000);
-                } catch (InterruptedException e) {
-                    // Ignore
-                }
-                retries++;
-                if (retries >= 60) {
-                    Assert.fail("Tracker service didn't start");
-                }
+        while (main.getTracker() == null && retries < 60) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // Ignore
+            }
+            retries++;
+            if (retries >= 60) {
+                Assert.fail("Tracker service didn't start");
             }
         }
         // set min distance to 1m
@@ -134,6 +132,19 @@ public class NmeaTest {
 
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false, false));
+        // wait for the tracking to actually start
+        retries = 0;
+        while (!main.getTracker().isTracking() && retries < 60) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // Ignore
+            }
+            retries++;
+            if (retries >= 60) {
+                Assert.fail("Tracker service didn't start tracking");
+            }
+        }
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
@@ -146,7 +157,7 @@ public class NmeaTest {
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true, false));
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
-        Assert.assertEquals(215, recordedTrack.size());
+        Assert.assertEquals(216, recordedTrack.size());
         Location lastLocation = main.getTracker().getLastLocation();
         Assert.assertEquals(47.39804275, lastLocation.getLatitude(), 0.000001);
         Assert.assertEquals(8.376432616666667, lastLocation.getLongitude(), 0.000001);
