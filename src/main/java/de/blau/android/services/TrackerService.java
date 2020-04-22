@@ -203,10 +203,13 @@ public class TrackerService extends Service implements Exportable {
             return START_STICKY; // NOTE not clear how or if we should return an error here
         }
         if (intent.getBooleanExtra(TRACK_KEY, false)) {
+            Log.d(DEBUG_TAG, "Start tracking");
             startTrackingInternal();
         } else if (intent.getBooleanExtra(AUTODOWNLOAD_KEY, false)) {
+            Log.d(DEBUG_TAG, "Start autodownload");
             startAutoDownloadInternal();
         } else if (intent.getBooleanExtra(BUGAUTODOWNLOAD_KEY, false)) {
+            Log.d(DEBUG_TAG, "Start task autodownload");
             startBugAutoDownloadInternal();
         } else {
             Log.d(DEBUG_TAG, "Received intent with unknown meaning");
@@ -561,16 +564,21 @@ public class TrackerService extends Service implements Exportable {
     }
 
     /**
-     * If required initialize the Location sources and start updating
+     * If required initialize the Location sources and start updating, also check for source configuration changes
      */
     @SuppressWarnings("deprecation")
     @TargetApi(24)
     private void updateGPSState() {
+        prefs = new Preferences(this);
+        String gpsSource = prefs.getGpsSource();
+        boolean useTcpClient = gpsSource.equals(prefTcpClient);
+        boolean useTcpServer = gpsSource.equals(prefTcpServer);
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
-        if (needed && !gpsEnabled) {
+        // update configuration
+        if ((needed && !gpsEnabled) || (gpsEnabled && ((useTcpClient || useTcpServer) && source != GpsSource.TCP)
+                || (!(useTcpClient || useTcpServer) && source == GpsSource.TCP))) {
             Log.d(DEBUG_TAG, "Enabling GPS updates");
             cancelNmeaClients(); // always do this
-            prefs = new Preferences(this);
             nmeaLocation.removeSpeed(); // be sure that these are not set
             nmeaLocation.removeBearing();
             try {
@@ -610,8 +618,7 @@ public class TrackerService extends Service implements Exportable {
                         }
                     }
                 };
-                boolean useTcpClient = prefs.getGpsSource().equals(prefTcpClient);
-                if (useTcpClient || prefs.getGpsSource().equals(prefTcpServer)) {
+                if (useTcpClient || useTcpServer) {
                     source = GpsSource.TCP;
                     if (useTcpClient && tcpClient == null) {
                         if (useOldNmea) {
@@ -631,8 +638,8 @@ public class TrackerService extends Service implements Exportable {
                         t.start();
                     }
                 } else {
-                    boolean useNema = prefs.getGpsSource().equals(prefNmea);
-                    if (useNema || prefs.getGpsSource().equals(prefInternal)) {
+                    boolean useNema = gpsSource.equals(prefNmea);
+                    if (useNema || gpsSource.equals(prefInternal)) {
                         source = GpsSource.INTERNAL;
                         staleGPSMilli = prefs.getGpsInterval() * 20L; // 20 times the intended interval
                         staleGPSNano = staleGPSMilli * 1000; // convert to nanoseconds
