@@ -273,7 +273,6 @@ public class OsmParser extends DefaultHandler {
             String version = atts.getValue("version");
             long osmVersion = version == null ? 0 : Long.parseLong(version); // hack for JOSM file
                                                                              // format support
-            String action = atts.getValue(JOSM_ACTION);
 
             String timestampStr = atts.getValue("timestamp");
             long timestamp = -1L;
@@ -285,6 +284,7 @@ public class OsmParser extends DefaultHandler {
                 }
             }
 
+            String action = atts.getValue(JOSM_ACTION);
             if (action != null) {
                 if (action.equalsIgnoreCase(OSM_CHANGE_MODIFY)) {
                     status = OsmElement.STATE_MODIFIED;
