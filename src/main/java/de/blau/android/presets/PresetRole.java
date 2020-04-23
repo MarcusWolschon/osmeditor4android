@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 
@@ -33,6 +34,8 @@ public class PresetRole implements Comparable<PresetRole> {
     private boolean appliesToWay;
     private boolean appliesToNode;
     private boolean appliesToRelation;
+    private boolean appliesToClosedWay;
+    private boolean appliesToArea;
 
     private String memberExpression;
 
@@ -68,6 +71,11 @@ public class PresetRole implements Comparable<PresetRole> {
                 case Relation.NAME:
                     appliesToRelation = true;
                     break;
+                case Preset.CLOSEDWAY:
+                    appliesToClosedWay = true;
+                case Preset.MULTIPOLYGON:
+                case Preset.AREA:
+                    appliesToArea = true;
                 default:
                     Log.e(DEBUG_TAG, "Unknown element type " + type);
                 }
@@ -86,6 +94,7 @@ public class PresetRole implements Comparable<PresetRole> {
         this.appliesToWay = field.appliesToWay;
         this.appliesToNode = field.appliesToNode;
         this.appliesToRelation = field.appliesToRelation;
+        this.appliesToClosedWay = field.appliesToClosedWay;
     }
 
     /**
@@ -117,7 +126,9 @@ public class PresetRole implements Comparable<PresetRole> {
     /**
      * Test what kind of elements this PresetRole applies to
      * 
-     * @param type the ElementType to check for
+     * This version is used if the element hasn't been downloaded
+     * 
+     * @param type the type of element to check for
      * @return true if applicable
      */
     public boolean appliesTo(@Nullable String type) {
@@ -129,6 +140,32 @@ public class PresetRole implements Comparable<PresetRole> {
                 return appliesToWay;
             case Relation.NAME:
                 return appliesToRelation;
+            default:
+                Log.e(DEBUG_TAG, "Unknown element type " + type);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Test what kind of elements this PresetRole applies to
+     * 
+     * @param type the ElementType to check for
+     * @return true if applicable
+     */
+    public boolean appliesTo(@Nullable ElementType type) {
+        if (type != null) {
+            switch (type) {
+            case NODE:
+                return appliesToNode;
+            case WAY:
+                return appliesToWay;
+            case RELATION:
+                return appliesToRelation;
+            case CLOSEDWAY:
+                return appliesToClosedWay;
+            case AREA:
+                return appliesToArea;
             default:
                 Log.e(DEBUG_TAG, "Unknown element type " + type);
             }

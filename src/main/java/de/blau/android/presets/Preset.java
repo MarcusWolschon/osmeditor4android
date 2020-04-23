@@ -182,9 +182,9 @@ public class Preset implements Serializable {
     private static final String OBJECT_KEYS                = "object_keys";
     private static final String GROUP                      = "group";
     private static final String PRESETS                    = "presets";
-    private static final String AREA                       = "area";
-    private static final String MULTIPOLYGON               = "multipolygon";
-    private static final String CLOSEDWAY                  = "closedway";
+    static final String         AREA                       = "area";
+    static final String         MULTIPOLYGON               = "multipolygon";
+    static final String         CLOSEDWAY                  = "closedway";
     private static final String LABEL                      = "label";
     private static final String ITEMS_SORT                 = "items_sort";
     private static final String SPACE                      = "space";
@@ -3190,13 +3190,15 @@ public class Preset implements Serializable {
                 result = new ArrayList<>();
                 Wrapper wrapper = new Wrapper(context);
                 wrapper.setElement(element);
+                ElementType type = element.getType();
+                Map<String, String> tagsToUse = tags != null ? tags : element.getTags();
                 for (PresetRole role : roles) {
-                    if (role.appliesTo(element.getName())) {
+                    if (role.appliesTo(type)) {
                         String memberExpression = role.getMemberExpression();
                         if (memberExpression != null) {
                             JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(memberExpression.getBytes()));
                             try { // test if this matches the member expression
-                                if (!parser.condition().eval(Wrapper.toJosmFilterType(element), wrapper, tags != null ? tags : element.getTags())) {
+                                if (!parser.condition().eval(Wrapper.toJosmFilterType(element), wrapper, tagsToUse)) {
                                     continue;
                                 }
                             } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException e) {

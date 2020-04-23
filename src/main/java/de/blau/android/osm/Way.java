@@ -432,7 +432,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
         if (nodes.size() < 2) {
             return ElementType.WAY; // should not happen
         }
-        if (getFirstNode().equals(getLastNode())) {
+        if (isClosed()) {
             return ElementType.CLOSEDWAY;
         } else {
             return ElementType.WAY;
@@ -441,7 +441,18 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
 
     @Override
     public ElementType getType(Map<String, String> tags) {
-        return getType();
+        ElementType type = getType();
+        if (type == ElementType.CLOSEDWAY) {
+            /*
+             * From a systematic pov it would be better to get this from a preset, however the current matching preset
+             * isn't available here and using the style is far cheaper.
+             */
+            FeatureStyle style = getStyle();
+            if (style != null && style.isArea()) {
+                return ElementType.AREA;
+            }
+        }
+        return type;
     }
 
     @Override
