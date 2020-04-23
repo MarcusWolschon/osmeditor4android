@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,6 +146,7 @@ public final class DataStyle extends DefaultHandler {
     private static final String PATH_PATTERN_ATTR     = "pathPattern";
     private static final String ARROW_STYLE_ATTR      = "arrowStyle";
     private static final String CASING_STYLE_ATTR     = "casingStyle";
+    private static final String VALIDATION            = "validation";
 
     private static final int DEFAULT_MIN_VISIBLE_ZOOM = 15;
 
@@ -568,10 +570,11 @@ public final class DataStyle extends DefaultHandler {
         }
     }
 
-    private String                    name;
-    private Map<String, FeatureStyle> internalStyles;
-    private FeatureStyle              wayStyles;
-    private FeatureStyle              relationStyles;
+    private String                     name;
+    private Map<String, FeatureStyle>  internalStyles;
+    private Map<Integer, FeatureStyle> validationStyles;
+    private FeatureStyle               wayStyles;
+    private FeatureStyle               relationStyles;
 
     private static DataStyle                  currentStyle;
     private static HashMap<String, DataStyle> availableStyles = new HashMap<>();
@@ -660,6 +663,7 @@ public final class DataStyle extends DefaultHandler {
 
         Log.i(DEBUG_TAG, "setting up default profile elements");
         internalStyles = new HashMap<>();
+        validationStyles = new HashMap<>();
 
         Paint standardPath = new Paint();
         standardPath.setStyle(Style.STROKE);
@@ -1149,6 +1153,21 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
+     * Get the validation FeatureStyle specified by code from current profile
+     * 
+     * @param code the validation code for the object
+     * @return the style or the default problem style if not found
+     */
+    @Nullable
+    public static FeatureStyle getValidationStyle(int code) {
+        FeatureStyle style = currentStyle.validationStyles.get(code);
+        if (style == null) {
+            return getInternal(DataStyle.PROBLEM_WAY);
+        }
+        return style;
+    }
+
+    /**
      * Get the current DataStyle
      * 
      * @return the current DataStyle
@@ -1231,13 +1250,14 @@ public final class DataStyle extends DefaultHandler {
     /**
      * vars for the XML parser
      */
-    private FeatureStyle             tempFeatureStyle;
-    String                           type       = null;
-    String                           tags       = null;
-    private ArrayList<Float>         tempIntervals;
-    private float                    tempPhase;
-    private FeatureStyle             parent     = null;
-    private ArrayDeque<FeatureStyle> styleStack = new ArrayDeque<>();
+    private FeatureStyle        tempFeatureStyle;
+    String                      type           = null;
+    String                      tags           = null;
+    int                         validationCode = 0;
+    private List<Float>         tempIntervals;
+    private float               tempPhase;
+    private FeatureStyle        parent         = null;
+    private Deque<FeatureStyle> styleStack     = new ArrayDeque<>();
 
     @Override
     public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
@@ -1392,6 +1412,11 @@ public final class DataStyle extends DefaultHandler {
                     tempFeatureStyle.setClosed(Boolean.parseBoolean(closedString));
                 }
 
+                validationCode = 0; // reset
+                String codeString = atts.getValue("code");
+                if (codeString != null) {
+                    validationCode = Integer.parseInt(codeString);
+                }
             } else if (element.equals(DASH_ELEMENT)) {
                 tempPhase = Float.parseFloat(atts.getValue(PHASE_ATTR));
                 tempIntervals = new ArrayList<>();
@@ -1486,6 +1511,11 @@ public final class DataStyle extends DefaultHandler {
                     parent = relationStyles;
                 } else {
                     parent.addStyle(tempFeatureStyle);
+                }
+                break;
+            case VALIDATION:
+                if (validationCode > 0) {
+                    validationStyles.put(validationCode, tempFeatureStyle);
                 }
                 break;
             default:

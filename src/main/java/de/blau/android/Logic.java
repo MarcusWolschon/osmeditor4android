@@ -4108,6 +4108,7 @@ public class Logic {
     /**
      * @return the selectedNode (currently simply the first in the list)
      */
+    @Nullable
     public final synchronized Node getSelectedNode() {
         if (selectedNodes != null && !selectedNodes.isEmpty()) {
             if (!exists(selectedNodes.get(0))) {
@@ -4125,6 +4126,7 @@ public class Logic {
      * 
      * @return a List of Nodes that are selected
      */
+    @Nullable
     public List<Node> getSelectedNodes() {
         return selectedNodes;
     }
@@ -4141,6 +4143,7 @@ public class Logic {
     /**
      * @return the selectedWay (currently simply the first in the list)
      */
+    @Nullable
     public final synchronized Way getSelectedWay() {
         if (selectedWays != null && !selectedWays.isEmpty()) {
             if (!exists(selectedWays.get(0))) {

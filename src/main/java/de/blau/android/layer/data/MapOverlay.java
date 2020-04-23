@@ -187,6 +187,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /** Caches the preset during one onDraw pass */
     private Preset[] tmpPresets;
 
+    /** Last validation color that we used */
+    int nodeValidationColor = 0;
+
     /** Caches the Paint used for node tolerance */
     private Paint nodeTolerancePaint;
     private Paint nodeTolerancePaint2;
@@ -382,7 +385,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         }
         zoomLevel = map.getZoomLevel();
 
-        // set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
         final Logic logic = App.getLogic();
         tmpDrawingEditMode = logic.getMode();
         tmpFilter = logic.getFilter();
@@ -950,6 +952,17 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             featureStyleTagged = nodeFeatureStyleTaggedProblem;
             featureStyleFont = nodeFeatureStyleFontProblem;
             featureStyleFontSmall = nodeFeatureStyleFontSmallProblem;
+            int validationColor = DataStyle.getValidationStyle(node.getCachedProblems()).getPaint().getColor();
+            if (validationColor != nodeValidationColor) {
+                // this is a bit of an improvement over always setting the color
+                featureStyle.setColor(validationColor);
+                featureStyleThin.setColor(validationColor);
+                featureStyleThin.setColor(validationColor);
+                featureStyleTagged.setColor(validationColor);
+                featureStyleFont.setColor(validationColor);
+                featureStyleFontSmall.setColor(validationColor);
+                nodeValidationColor = validationColor;
+            }
             hasProblem = true;
         }
 
@@ -1035,8 +1048,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param strokeWidth current stroke scaling factor
      * @param withIcon offset the label so that we don't overlap an icon
      */
-    private void paintLabel(final float x, final float y, final Canvas canvas, final FeatureStyle featureStyleThin, final OsmElement e, final float strokeWidth,
-            final boolean withIcon) {
+    private void paintLabel(final float x, final float y, @NonNull final Canvas canvas, @NonNull final FeatureStyle featureStyleThin,
+            @NonNull final OsmElement e, final float strokeWidth, final boolean withIcon) {
         Paint paint = featureStyleThin.getPaint();
         SortedMap<String, String> tags = e.getTags();
         String label = labelCache.get(tags); // may be null!
@@ -1077,7 +1090,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param element element we want to find an icon for
      * @return icon or null if none is found
      */
-    private Bitmap getIcon(OsmElement element) {
+    @Nullable
+    private Bitmap getIcon(@NonNull OsmElement element) {
         SortedMap<String, String> tags = element.getTags();
         boolean isWay = element instanceof Way;
         WeakHashMap<Object, Bitmap> tempCache = isWay ? areaIconCache : iconCache;
@@ -1140,7 +1154,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param featureStyle style key
      * @return true if an icon was found and drawn
      */
-    private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, FeatureStyle featureStyle) {
+    private boolean paintNodeIcon(@NonNull OsmElement element, @NonNull Canvas canvas, float x, float y, @Nullable FeatureStyle featureStyle) {
         Bitmap icon = getIcon(element);
         if (icon != null) {
             float w2 = icon.getWidth() / 2f;
@@ -1165,7 +1179,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param y screen y
      * @param paint the parameters to use for the colour
      */
-    private void drawNodeTolerance(final Canvas canvas, final boolean isTagged, final float x, final float y, final Paint paint) {
+    private void drawNodeTolerance(@NonNull final Canvas canvas, final boolean isTagged, final float x, final float y, @NonNull final Paint paint) {
         canvas.drawCircle(x, y, isTagged ? paint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth() / 2, paint);
     }
 
@@ -1177,11 +1191,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param displayHandles draw geometry improvement handles
      * @param drawTolerance if true draw the halo
      */
-    private void paintWay(final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
+    private void paintWay(@NonNull final Canvas canvas, @NonNull final Way way, final boolean displayHandles, boolean drawTolerance) {
 
         FeatureStyle style;
         if (way.hasProblem(context, validator) != Validator.OK) {
-            style = DataStyle.getInternal(DataStyle.PROBLEM_WAY);
+            style = DataStyle.getValidationStyle(way.getCachedProblems());
         } else {
             style = DataStyle.matchStyle(way);
         }
@@ -1377,7 +1391,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param paint the paint to use for drawing the arrows
      * @param addHandles if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
      */
-    private void drawWayArrows(Canvas canvas, float[] linePoints, int linePointsSize, boolean reverse, Paint paint, boolean addHandles) {
+    private void drawWayArrows(@NonNull Canvas canvas, float[] linePoints, int linePointsSize, boolean reverse, @NonNull Paint paint, boolean addHandles) {
         double minLen = DataStyle.getCurrent().getMinLenForHandle();
         int ptr = 0;
         while (ptr < linePointsSize) {
@@ -1433,7 +1447,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * @param aSelectedNodes the currently selected nodes to edit.
      */
-    public void setSelectedNodes(final List<Node> aSelectedNodes) {
+    public void setSelectedNodes(@Nullable final List<Node> aSelectedNodes) {
         tmpDrawingSelectedNodes = aSelectedNodes;
     }
 
@@ -1441,7 +1455,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * 
      * @param aSelectedWays the currently selected ways to edit.
      */
-    public void setSelectedWays(final List<Way> aSelectedWays) {
+    public void setSelectedWays(@Nullable final List<Way> aSelectedWays) {
         tmpDrawingSelectedWays = aSelectedWays;
     }
 
@@ -1464,6 +1478,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * Update cached Paint and FeatureStyle objects
      */
     public void updateStyle() {
+        nodeValidationColor = 0;
         // changes when style changes
         nodeTolerancePaint = DataStyle.getInternal(DataStyle.NODE_TOLERANCE).getPaint();
         nodeTolerancePaint2 = DataStyle.getInternal(DataStyle.NODE_TOLERANCE_2).getPaint();

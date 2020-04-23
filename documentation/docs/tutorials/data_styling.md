@@ -102,7 +102,34 @@ labeltext_small_problem       |
 labeltext_background          | 
 geojson_default               | Default style for the geojson layer
 
-### Example
+### Validation styling
+
+In a limited fashion the default validation styling can be overridden, by adding __feature__ elements with __type__ set to __validation__ and __code__ set to the error value that should be styled. Nodes will only use the colour specified.
+
+#### Error codes ####
+
+These are individual bits that are combined for the final value:
+
+Validation check     | Error value
+---------------------|------------
+AGE                  | 0x00000002
+FIXME                | 0x00000004
+MISSING_TAG          | 0x00000008
+HIGHWAY_NAME         | 0x00000010
+HIGHWAY_ROAD         | 0x00000020
+NO_TYPE              | 0x00000040
+IMPERIAL_UNITS       | 0x00000080
+INVALID_OBJECT       | 0x00000100
+UNTAGGED             | 0x00000200
+UNCONNECTED_END_NODE | 0x00000400
+DEGENERATE_WAY       | 0x00000800  
+
+#### Example ####
+
+     <feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" />
+
+
+### Complete Example
 
     <?xml version='1.0' encoding='UTF-8' ?>
     <profile name="Color Round Nodes" format="0.2.0">
