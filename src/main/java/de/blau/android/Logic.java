@@ -1206,7 +1206,7 @@ public class Logic {
             if (((selectedNodes != null && selectedNodes.size() == 1) || selectedTask != null) && selectedWays == null) {
                 DataStyle currentStyle = DataStyle.getCurrent();
                 float tolerance = prefs.largeDragArea() ? currentStyle.getLargDragToleranceRadius() : currentStyle.getNodeToleranceValue();
-                GeoPoint point = selectedTask != null ? selectedTask :  selectedNodes.get(0);
+                GeoPoint point = selectedTask != null ? selectedTask : selectedNodes.get(0);
                 if (clickDistance(point, x, y, tolerance) != null) {
                     draggingNode = selectedTask == null;
                     draggingNote = selectedTask != null;
@@ -2691,10 +2691,12 @@ public class Logic {
      * Re-downloads the same areas that we already have
      * 
      * @param activity activity this was called from
-     * @param reset storage before reloading if true, discards any changes! If false this updates the data.
+     * @param reset storage before reloading if true, discards any changes! If false this updates the unchanged data.
+     * @param postLoadHandler handler to run once download is complete
+     * 
      * @see #downloadBox(activity, BoundingBox, boolean)
      */
-    void redownload(@NonNull final FragmentActivity activity, boolean reset) {
+    void redownload(@NonNull final FragmentActivity activity, boolean reset, @Nullable PostAsyncActionHandler postLoadHandler) {
         List<BoundingBox> boxes = new ArrayList<>(getDelegator().getBoundingBoxes());
         if (reset) {
             getDelegator().reset(false);
@@ -2702,11 +2704,59 @@ public class Logic {
             getDelegator().pruneAll();
             getDelegator().getCurrentStorage().clearBoundingBoxList();
         }
-        for (BoundingBox box : boxes) {
-            if (box != null && box.isValidForApi()) {
-                downloadBox(activity, box, true, null);
+        final Validator validator = App.getDefaultValidator(activity);
+        final PostMergeHandler postMerge = new PostMergeHandler() {
+            @Override
+            public void handler(OsmElement e) {
+                e.hasProblem(activity, validator);
             }
-        }
+        };
+        new AsyncTask<Void, Void, ReadAsyncResult>() {
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(activity, Progress.PROGRESS_DOWNLOAD);
+            }
+
+            @Override
+            protected ReadAsyncResult doInBackground(Void... arg) {
+                for (BoundingBox box : boxes) {
+                    if (box != null && box.isValidForApi()) {
+                        ReadAsyncResult result = download(activity, prefs.getServer(), box, postMerge, null, true, true);
+                        if (result.getCode() != 0) {
+                            return result;
+                        }
+                    }
+                }
+                return new ReadAsyncResult(ErrorCodes.OK, null);
+            }
+
+            @Override
+            protected void onPostExecute(ReadAsyncResult result) {
+                Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
+                int code = result.getCode();
+                if (code != 0) {
+                    try {
+                        if (!activity.isFinishing()) {
+                            ErrorAlert.showDialog(activity, result);
+                        }
+                    } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
+                                             // however report, don't crash
+                        ACRAHelper.nocrashReport(ex, ex.getMessage());
+                    }
+                    for (BoundingBox box : boxes) { // recreate the boundingbox list
+                        getDelegator().addBoundingBox(box);
+                    }
+                    if (postLoadHandler != null) {
+                        postLoadHandler.onError();
+                    }
+                } else {
+                    if (postLoadHandler != null) {
+                        postLoadHandler.onSuccess();
+                    }
+                }
+            }
+        }.execute();
+
     }
 
     /**

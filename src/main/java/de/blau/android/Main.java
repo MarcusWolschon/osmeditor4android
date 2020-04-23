@@ -861,7 +861,7 @@ public class Main extends FullScreenAppCompatActivity
         synchronized (loadOnResumeLock) {
             if (redownloadOnResume) { // if true replaces anything downloaded FIXME this probably doesn't make sense
                 redownloadOnResume = false;
-                logic.redownload(this, true);
+                logic.redownload(this, true, null);
             } else if (loadOnResume) {
                 // this is fairly convoluted as we need to have permissions before we can load
                 // the layers which in turn need to be loaded before we retrieve the task data
@@ -2142,7 +2142,7 @@ public class Main extends FullScreenAppCompatActivity
             confirmUpload();
             return true;
         case R.id.menu_transfer_update:
-            logic.redownload(this, false);
+            logic.redownload(this, false, null);
             return true;
         case R.id.menu_transfer_close_changeset:
             if (server.hasOpenChangeset()) {
