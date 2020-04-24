@@ -43,6 +43,8 @@ public class Progress extends ImmersiveDialogFragment {
 
     public static final int PROGRESS_QUERY_OAM = 11;
 
+    public static final int PROGRESS_PRUNING = 12;
+
     private int dialogType;
 
     /**
@@ -116,6 +118,7 @@ public class Progress extends ImmersiveDialogFragment {
         dismissDialog(activity, PROGRESS_RUNNING);
         dismissDialog(activity, PROGRESS_BUILDING_IMAGERY_DATABASE);
         dismissDialog(activity, PROGRESS_QUERY_OAM);
+        dismissDialog(activity, PROGRESS_PRUNING);
     }
 
     /**
@@ -149,6 +152,8 @@ public class Progress extends ImmersiveDialogFragment {
             return "dialog_progress_building_imagery_database";
         case PROGRESS_QUERY_OAM:
             return "dialog_progress_query_oam";
+        case PROGRESS_PRUNING:
+            return "dialog_progress_pruning";
         default:
             Log.w(DEBUG_TAG, "Unknown dialog type " + dialogType);
         }

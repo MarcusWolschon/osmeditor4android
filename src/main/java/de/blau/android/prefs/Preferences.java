@@ -96,6 +96,7 @@ public class Preferences {
     private final int     gnssTimeToStale;
     private final int     uploadOkLimit;
     private final int     uploadWarnLimit;
+    private final int     dataWarnLimit;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -246,6 +247,8 @@ public class Preferences {
 
         uploadOkLimit = getIntPref(R.string.config_uploadOk_key, 50);
         uploadWarnLimit = getIntPref(R.string.config_uploadWarn_key, 200);
+        
+        dataWarnLimit = getIntPref(R.string.config_dataWarn_key, 50000);
     }
 
     /**
@@ -1288,6 +1291,15 @@ public class Preferences {
      */
     public int getUploadWarnLimit() {
         return uploadWarnLimit;
+    }
+    
+    /**
+     * Get the limit at which we show a warning that too much data is loaded
+     * 
+     * @return the number of elements at which we start showing a warning
+     */
+    public int getDataWarnLimit() {
+        return dataWarnLimit;
     }
 
     /**

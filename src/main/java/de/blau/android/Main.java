@@ -98,6 +98,7 @@ import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
 import de.blau.android.dialogs.Tip;
+import de.blau.android.dialogs.TooMuchData;
 import de.blau.android.dialogs.UndoDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
@@ -2722,7 +2723,7 @@ public class Main extends FullScreenAppCompatActivity
         if (App.getLogic().hasChanges() && !add) {
             DownloadCurrentWithChanges.showDialog(this);
         } else {
-            performCurrentViewHttpLoad(this, add);
+            performCurrentViewHttpLoad(add);
         }
     }
 
@@ -2922,12 +2923,15 @@ public class Main extends FullScreenAppCompatActivity
      * @param main the instance of Main calling this
      * @param add if true merge the data with the current contents, if false replace
      */
-    public static void performCurrentViewHttpLoad(final Main main, boolean add) {
-        final Map map = main.getMap();
-        App.getLogic().downloadBox(main, map.getViewBox().copy(), add, null);
-        Preferences prefs = main.prefs;
+    public void performCurrentViewHttpLoad(boolean add) {
+        int nodeCount = App.getDelegator().getCurrentStorage().getNodeCount();
+        if (add && nodeCount >= prefs.getDataWarnLimit()) {
+            TooMuchData.showDialog(this, nodeCount);
+            return;
+        }
+        App.getLogic().downloadBox(this, map.getViewBox().copy(), add, null);
         if (prefs.areBugsEnabled()) { // always adds bugs for now
-            main.downLoadBugs(map.getViewBox().copy());
+            downLoadBugs(map.getViewBox().copy());
         }
     }
 

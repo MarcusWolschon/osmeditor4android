@@ -21,6 +21,6 @@ public class DownloadCurrentListener implements OnClickListener {
 
     @Override
     public void onClick(final DialogInterface dialog, final int which) {
-        Main.performCurrentViewHttpLoad(caller, false);
+        caller.performCurrentViewHttpLoad(false);
     }
 }

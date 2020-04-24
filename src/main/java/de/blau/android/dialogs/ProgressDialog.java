@@ -79,6 +79,10 @@ public final class ProgressDialog {
             titleId = R.string.progress_general_title;
             messageId = R.string.progress_query_oam;
             break;
+        case Progress.PROGRESS_PRUNING:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_pruning;
+            break;
         default:
             return null;
         }
