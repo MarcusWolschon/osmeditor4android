@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
@@ -624,7 +625,24 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (layer != null) {
-                            ((PruneableInterface) layer).prune();
+                            new AsyncTask<Void, Void, Void>() {
+                                @Override
+                                protected void onPreExecute() {
+                                    Progress.showDialog(activity, Progress.PROGRESS_PRUNING);
+                                }
+
+                                @Override
+                                protected Void doInBackground(Void... arg) {
+                                    ((PruneableInterface) layer).prune();
+                                    return null;
+                                }
+
+                                @Override
+                                protected void onPostExecute(Void result) {
+                                    Progress.dismissDialog(activity, Progress.PROGRESS_PRUNING);
+                                }
+                            }.execute();
+
                         }
                         return true;
                     }
