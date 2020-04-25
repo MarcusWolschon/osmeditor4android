@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.DialogInterface;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
      * @param manager the EasyEditManager instance
      * @param relation the selected Relation
      */
-    public RelationSelectionActionModeCallback(EasyEditManager manager, Relation relation) {
+    public RelationSelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation) {
         super(manager, relation);
     }
 
@@ -56,7 +57,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
      * @param mode current ActionMode
      * @return true if Relation is empty
      */
-    private boolean checkForEmptyRelation(ActionMode mode) {
+    private boolean checkForEmptyRelation(@NonNull ActionMode mode) {
         if (element != null && (((Relation) element).getMembers() == null || ((Relation) element).getMembers().isEmpty())) {
             EmptyRelation.showDialog(main, ((Relation) element).getOsmId());
             mode.finish();
