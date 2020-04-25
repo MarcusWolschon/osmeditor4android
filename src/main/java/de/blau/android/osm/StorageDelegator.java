@@ -1932,8 +1932,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     private void removeElementFromRelations(@NonNull final OsmElement element) {
         try {
             if (element.hasParentRelations()) {
-                ArrayList<Relation> relations = new ArrayList<>(element.getParentRelations()); // need copy!
-                ArrayList<OsmElement> changedElements = new ArrayList<>();
+                List<Relation> relations = new ArrayList<>(element.getParentRelations()); // need copy!
+                List<OsmElement> changedElements = new ArrayList<>();
                 for (Relation r : relations) {
                     Log.i(DEBUG_TAG, "removing " + element.getName() + " #" + element.getOsmId() + " from relation #" + r.getOsmId());
                     dirty = true;
