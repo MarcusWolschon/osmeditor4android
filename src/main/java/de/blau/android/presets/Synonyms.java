@@ -15,9 +15,9 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetItem;

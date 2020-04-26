@@ -6,9 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.Log;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;

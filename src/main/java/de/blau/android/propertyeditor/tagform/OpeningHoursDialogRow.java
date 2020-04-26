@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import ch.poole.openinghoursfragment.OpeningHoursFragment;
 import ch.poole.openinghoursfragment.ValueWithDescription;
 import ch.poole.openinghoursparser.OpeningHoursParser;

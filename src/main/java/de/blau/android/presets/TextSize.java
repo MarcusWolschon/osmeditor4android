@@ -1,9 +1,9 @@
 package de.blau.android.presets;
 
-import androidx.annotation.NonNull;
-import androidx.core.widget.TextViewCompat;
 import android.util.TypedValue;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.core.widget.TextViewCompat;
 
 public final class TextSize {
     

@@ -3,11 +3,11 @@ package de.blau.android.propertyeditor.tagform;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import de.blau.android.R;
 
 abstract class ShowDialogOnClickListener implements OnClickListener {

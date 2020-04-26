@@ -11,8 +11,8 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.util.SavingHelper;
 
 /**

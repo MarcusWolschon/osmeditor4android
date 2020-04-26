@@ -1,15 +1,15 @@
 package de.blau.android.prefs;
 
 import android.os.Bundle;
-import androidx.preference.MultiSelectListPreference;
-import androidx.fragment.app.DialogFragment;
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.ListPreference;
+import androidx.preference.MultiSelectListPreference;
 import androidx.preference.MultiSelectListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.Preference.OnPreferenceChangeListener;
-import android.util.Log;
+import androidx.preference.PreferenceFragmentCompat;
 import ch.poole.android.numberpickerpreference.NumberPickerPreference;
 import ch.poole.android.numberpickerpreference.NumberPickerPreferenceFragment;
 import de.blau.android.R;

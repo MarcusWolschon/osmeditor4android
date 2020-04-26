@@ -8,13 +8,13 @@ import java.util.concurrent.TimeoutException;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialog;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;

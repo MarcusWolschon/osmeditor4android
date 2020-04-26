@@ -2,13 +2,13 @@ package de.blau.android.easyedit;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.PopupMenu;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;

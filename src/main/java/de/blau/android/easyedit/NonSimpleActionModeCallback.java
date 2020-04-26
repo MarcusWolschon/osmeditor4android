@@ -1,9 +1,9 @@
 package de.blau.android.easyedit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
 import de.blau.android.prefs.Preferences;
 
 /**

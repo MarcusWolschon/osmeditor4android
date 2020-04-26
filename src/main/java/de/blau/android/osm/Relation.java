@@ -12,9 +12,9 @@ import java.util.TreeMap;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;

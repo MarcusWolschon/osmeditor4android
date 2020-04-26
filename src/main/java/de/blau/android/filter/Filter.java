@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.view.ViewGroup;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.osm.Node;

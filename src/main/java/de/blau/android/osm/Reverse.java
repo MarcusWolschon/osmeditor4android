@@ -11,9 +11,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 
 /**
  * Logic for reversing direction dependent tags, this is one of the more arcane things about the OSM data model

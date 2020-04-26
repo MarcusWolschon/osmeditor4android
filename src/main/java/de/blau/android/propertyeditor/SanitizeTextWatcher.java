@@ -1,9 +1,9 @@
 package de.blau.android.propertyeditor;
 
 import android.app.Activity;
-import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import androidx.annotation.Nullable;
 import de.blau.android.util.Util;
 
 public class SanitizeTextWatcher implements TextWatcher {

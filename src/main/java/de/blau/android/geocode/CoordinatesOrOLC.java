@@ -11,12 +11,12 @@ import java.util.regex.Pattern;
 import com.google.openlocationcode.OpenLocationCode;
 import com.google.openlocationcode.OpenLocationCode.CodeArea;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatDialog;
 import android.util.Log;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.TextLineDialog;

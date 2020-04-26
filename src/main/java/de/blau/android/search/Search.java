@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.AsyncTask;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatDialog;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.fragment.app.FragmentActivity;
 import ch.poole.osm.josmfilterparser.Condition;
 import ch.poole.osm.josmfilterparser.JosmFilterParser;
 import ch.poole.osm.josmfilterparser.ParseException;

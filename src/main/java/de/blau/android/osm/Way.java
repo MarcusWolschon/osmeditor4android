@@ -9,9 +9,9 @@ import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;

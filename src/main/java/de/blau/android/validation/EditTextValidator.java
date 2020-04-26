@@ -1,9 +1,9 @@
 package de.blau.android.validation;
 
-import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
 
 abstract class EditTextValidator implements TextWatcher, FormValidation {
 

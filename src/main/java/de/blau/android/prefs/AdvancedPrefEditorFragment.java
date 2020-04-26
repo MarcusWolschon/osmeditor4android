@@ -2,8 +2,8 @@ package de.blau.android.prefs;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import androidx.preference.Preference;
 import android.util.Log;
+import androidx.preference.Preference;
 import de.blau.android.R;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {

@@ -2,12 +2,12 @@ package de.blau.android.util;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Workaround for immersive mode breaking when dialogs are shown

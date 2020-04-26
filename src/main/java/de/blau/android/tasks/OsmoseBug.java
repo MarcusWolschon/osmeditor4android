@@ -11,8 +11,8 @@ import java.util.List;
 import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;

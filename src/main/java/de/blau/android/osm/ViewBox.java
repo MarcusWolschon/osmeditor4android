@@ -1,8 +1,8 @@
 package de.blau.android.osm;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;

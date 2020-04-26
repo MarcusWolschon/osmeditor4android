@@ -24,7 +24,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.search.Search;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;

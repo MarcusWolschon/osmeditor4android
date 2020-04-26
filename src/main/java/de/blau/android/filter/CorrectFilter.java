@@ -1,9 +1,9 @@
 package de.blau.android.filter;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.validation.Validator;

@@ -1,10 +1,10 @@
 package de.blau.android.prefs;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.DialogPreference;
-import android.util.AttributeSet;
 import de.blau.android.R;
 
 /**

@@ -1,8 +1,8 @@
 package de.blau.android.util;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.contract.Files;
 

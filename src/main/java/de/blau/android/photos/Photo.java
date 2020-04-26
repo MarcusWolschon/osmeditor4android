@@ -5,11 +5,11 @@ import java.io.IOException;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.exifinterface.media.ExifInterface;
 import androidx.core.content.FileProvider;
-import android.util.Log;
+import androidx.exifinterface.media.ExifInterface;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.ExtendedExifInterface;

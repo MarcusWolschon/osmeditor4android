@@ -1,7 +1,7 @@
 package de.blau.android.validation;
 
-import androidx.annotation.NonNull;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
 
 public class NotEmptyValidator extends EditTextValidator {
 

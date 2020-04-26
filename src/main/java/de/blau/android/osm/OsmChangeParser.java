@@ -3,8 +3,8 @@ package de.blau.android.osm;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmParseException;
 import de.blau.android.exception.StorageException;
 

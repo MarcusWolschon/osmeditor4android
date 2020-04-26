@@ -1,11 +1,11 @@
 package de.blau.android;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import androidx.annotation.NonNull;
 
 /**
  * From: http://android-developers.blogspot.com/2010/07/how-to-have-your-cupcake-and-eat-it-too.html

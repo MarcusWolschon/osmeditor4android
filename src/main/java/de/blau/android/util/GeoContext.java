@@ -13,9 +13,9 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;

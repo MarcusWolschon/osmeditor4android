@@ -1,11 +1,11 @@
 package de.blau.android.views;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 
 /**
  * Wrapper to work around multiLineText restrictions imposed by google, in particular this will stop the IME consuming

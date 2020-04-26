@@ -7,8 +7,8 @@ import java.io.Serializable;
 
 import com.google.gson.stream.JsonReader;
 
-import androidx.annotation.Nullable;
 import android.util.Log;
+import androidx.annotation.Nullable;
 import de.blau.android.util.SavingHelper;
 
 public class MapRouletteChallenge implements Serializable {

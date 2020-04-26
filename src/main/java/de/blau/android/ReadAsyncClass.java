@@ -3,10 +3,10 @@ package de.blau.android;
 import java.io.InputStream;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import android.util.Log;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OsmException;

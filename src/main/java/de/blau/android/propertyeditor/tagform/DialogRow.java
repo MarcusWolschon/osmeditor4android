@@ -2,12 +2,12 @@ package de.blau.android.propertyeditor.tagform;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;

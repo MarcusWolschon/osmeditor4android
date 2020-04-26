@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;

@@ -1,11 +1,11 @@
 package de.blau.android.propertyeditor;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.InputType;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.names.Names;
 import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.ValueWithCount;

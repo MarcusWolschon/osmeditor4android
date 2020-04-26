@@ -1,11 +1,11 @@
 package de.blau.android.dialogs;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.util.Log;
 
 public final class Util {
     private static final String DEBUG_TAG = "dialogs.Util";

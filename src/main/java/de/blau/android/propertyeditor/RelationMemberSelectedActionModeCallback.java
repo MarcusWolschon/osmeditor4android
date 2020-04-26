@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;

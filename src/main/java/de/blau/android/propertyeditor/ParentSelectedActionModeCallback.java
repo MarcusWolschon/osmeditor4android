@@ -1,10 +1,10 @@
 package de.blau.android.propertyeditor;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.view.ActionMode;
 import android.view.Menu;
 import android.widget.LinearLayout;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.Fragment;
 import de.blau.android.R;
 
 public class ParentSelectedActionModeCallback extends SelectedRowsActionModeCallback {

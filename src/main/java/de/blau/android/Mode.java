@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.filter.CorrectFilter;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.IndoorFilter;

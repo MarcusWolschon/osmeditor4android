@@ -1,12 +1,12 @@
 package de.blau.android.views;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.PagerTabStrip;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerTabStrip;
 
 public class ExtendedPagerTabStrip extends PagerTabStrip {
 

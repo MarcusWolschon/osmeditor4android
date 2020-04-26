@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.util.collections.LongHashSet;

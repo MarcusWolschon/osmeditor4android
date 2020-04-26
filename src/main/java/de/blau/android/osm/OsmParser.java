@@ -16,8 +16,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmParseException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.util.DateFormatter;

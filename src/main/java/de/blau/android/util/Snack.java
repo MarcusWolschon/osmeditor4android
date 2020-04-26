@@ -2,19 +2,20 @@ package de.blau.android.util;
 
 import java.util.LinkedList;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import de.blau.android.R;
 
 /**

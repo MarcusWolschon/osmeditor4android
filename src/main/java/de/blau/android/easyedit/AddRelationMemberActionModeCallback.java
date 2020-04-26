@@ -3,11 +3,11 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuItem;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;

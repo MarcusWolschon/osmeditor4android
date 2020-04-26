@@ -15,11 +15,11 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import android.util.Log;
-import android.view.View;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 

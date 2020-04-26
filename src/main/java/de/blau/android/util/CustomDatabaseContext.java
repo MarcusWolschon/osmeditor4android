@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 
 /**
  * From http://stackoverflow.com/questions/5332328/sqliteopenhelper-problem-with- fully-qualified-db-path-name

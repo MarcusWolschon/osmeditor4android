@@ -11,8 +11,8 @@ import android.location.GpsStatus.NmeaListener;
 import android.location.OnNmeaMessageListener;
 import android.os.Handler;
 import android.os.Message;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.SavingHelper;
 

@@ -14,9 +14,9 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;

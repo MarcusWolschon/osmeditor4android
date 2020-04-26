@@ -2,11 +2,11 @@ package de.blau.android.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import android.util.Log;
 import de.blau.android.util.ImmersiveDialogFragment;
 
 /**

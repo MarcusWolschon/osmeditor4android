@@ -12,9 +12,9 @@ import com.mapbox.geojson.Polygon;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.util.collections.FloatPrimitiveList;

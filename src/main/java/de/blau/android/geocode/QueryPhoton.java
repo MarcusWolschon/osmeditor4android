@@ -19,10 +19,10 @@ import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 
 import android.net.Uri;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.osm.OsmXml;

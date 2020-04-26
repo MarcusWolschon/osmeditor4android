@@ -12,9 +12,9 @@ import com.drew.metadata.exif.GpsDirectory;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.exifinterface.media.ExifInterface;
-import android.util.Log;
 
 /**
  * Workaround android SDK brokeness While it is possible to write the direction values, it is not possible to read them

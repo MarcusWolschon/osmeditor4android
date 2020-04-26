@@ -8,8 +8,8 @@ import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.osm.Tags;
 import okhttp3.Call;

@@ -2,9 +2,9 @@ package de.blau.android;
 
 import java.io.Serializable;
 
-import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
+import androidx.annotation.NonNull;
 
 /**
  * On some devices Android tries to serialize the bottom menu, causing a runtime crash if we create the listener in any

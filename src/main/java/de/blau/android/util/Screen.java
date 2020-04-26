@@ -3,8 +3,8 @@ package de.blau.android.util;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Point;
-import androidx.annotation.NonNull;
 import android.view.Display;
+import androidx.annotation.NonNull;
 
 public final class Screen {
 

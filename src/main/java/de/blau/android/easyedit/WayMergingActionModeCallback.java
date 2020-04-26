@@ -3,10 +3,10 @@ package de.blau.android.easyedit;
 import java.util.Set;
 
 import android.content.res.Resources.NotFoundException;
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.MergeResult;

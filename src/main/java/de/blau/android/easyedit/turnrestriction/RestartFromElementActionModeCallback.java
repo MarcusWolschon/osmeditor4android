@@ -2,10 +2,10 @@ package de.blau.android.easyedit.turnrestriction;
 
 import java.util.Set;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;

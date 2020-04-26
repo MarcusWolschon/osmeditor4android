@@ -4,10 +4,10 @@ import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.core.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.core.graphics.drawable.DrawableCompat;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 

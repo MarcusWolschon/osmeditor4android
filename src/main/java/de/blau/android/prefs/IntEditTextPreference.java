@@ -1,10 +1,10 @@
 package de.blau.android.prefs;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.EditTextPreference;
-import android.util.AttributeSet;
 
 /**
  * Save the string from an EditTextPreference as an int and the same for retrieving From

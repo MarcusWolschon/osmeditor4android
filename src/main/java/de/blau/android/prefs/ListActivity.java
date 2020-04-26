@@ -1,13 +1,13 @@
 package de.blau.android.prefs;
 
 import android.annotation.SuppressLint;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * This is a quick hack around the issue that there is no Fragment version of SherlockListActivity

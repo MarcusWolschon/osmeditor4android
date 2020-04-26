@@ -3,9 +3,9 @@ package de.blau.android.util;
 import java.io.Serializable;
 import java.util.Locale;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 
 /**
  * Container for data from a geo url

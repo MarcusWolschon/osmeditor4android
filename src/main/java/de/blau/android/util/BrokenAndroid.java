@@ -11,9 +11,9 @@ import com.google.gson.stream.JsonReader;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Build;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 
 /**
  * Class to determine certain device specific brokeness

@@ -2,9 +2,9 @@ package de.blau.android.easyedit;
 
 import java.util.Set;
 
+import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
-import android.view.Menu;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;

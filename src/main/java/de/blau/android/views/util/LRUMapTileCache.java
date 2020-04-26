@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 import de.blau.android.exception.StorageException;
 
 /**

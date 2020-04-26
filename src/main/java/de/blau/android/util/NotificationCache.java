@@ -6,8 +6,8 @@ import java.util.List;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.prefs.Preferences;
 
 /**

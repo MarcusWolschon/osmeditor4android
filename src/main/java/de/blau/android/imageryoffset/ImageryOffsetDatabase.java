@@ -10,8 +10,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 
 public class ImageryOffsetDatabase extends SQLiteOpenHelper {
     private static final String DEBUG_TAG        = "OffsetDatabase";

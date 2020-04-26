@@ -6,8 +6,8 @@ import java.util.Date;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.osm.JosmXmlSerializable;
 import de.blau.android.util.DateFormatter;
 

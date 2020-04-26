@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import android.content.Intent;
 import android.net.Uri;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.contract.Ui;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;

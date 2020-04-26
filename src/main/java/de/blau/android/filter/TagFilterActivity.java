@@ -1,5 +1,7 @@
 package de.blau.android.filter;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +9,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.cursoradapter.widget.CursorAdapter;
-import androidx.appcompat.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -31,6 +28,10 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.cursoradapter.widget.CursorAdapter;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.ListActivity;

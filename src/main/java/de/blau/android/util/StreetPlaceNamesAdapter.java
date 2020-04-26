@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.presets.ValueWithCount;

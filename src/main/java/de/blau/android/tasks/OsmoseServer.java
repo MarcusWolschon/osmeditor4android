@@ -12,8 +12,8 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;

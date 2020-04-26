@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 
 import org.xml.sax.XMLReader;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -26,12 +28,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.FragmentActivity;
-import androidx.core.view.ViewCompat;
-import androidx.core.widget.NestedScrollView;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
@@ -40,6 +36,11 @@ import android.text.style.MetricAffectingSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
