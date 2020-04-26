@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -1152,13 +1153,12 @@ public class Server {
      * Upload edits in OCS format and process the server response
      * 
      * @param delegator reference to the StorageDelegator
-     * @throws MalformedURLException if the URL can't be constructed properly
-     * @throws ProtocolException
-     * @throws IOException
+     * @param storage a Storage element hold the elements to upload
+     * @throws IOException if writing the output doesn't work
      */
-    public void diffUpload(final StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {
+    public void diffUpload(@NonNull final StorageDelegator delegator, @NonNull final Storage storage) throws IOException {
         try {
-            for (OsmElement elem : delegator.getApiStorage().getElements()) {
+            for (OsmElement elem : storage.getElements()) {
                 if (elem.state != OsmElement.STATE_DELETED) {
                     discardedTags.remove(elem);
                 }
@@ -1172,7 +1172,7 @@ public class Server {
                 @Override
                 public void writeTo(BufferedSink sink) throws IOException {
                     try {
-                        OsmXml.writeOsmChange(delegator.getApiStorage(), sink.outputStream(), changesetId, getCachedCapabilities().getMaxElementsInChangeset(),
+                        OsmXml.writeOsmChange(storage, sink.outputStream(), changesetId, getCachedCapabilities().getMaxElementsInChangeset(),
                                 App.getUserAgent());
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                         throw new IOException(e);

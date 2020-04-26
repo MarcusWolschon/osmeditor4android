@@ -97,7 +97,7 @@ public class TooMuchData extends ImmersiveDialogFragment {
             builder.setPositiveButton(R.string.upload_data_now, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((Main) activity).confirmUpload();
+                    ((Main) activity).confirmUpload(null);
                 }
             });
             builder.setNegativeButton(R.string.prune_data_now, new OnClickListener() {

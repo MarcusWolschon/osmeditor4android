@@ -3697,26 +3697,13 @@ public class Logic {
      * @param activity Activity this is called from
      * @param comment Changeset comment.
      * @param source The changeset source tag to add.
-     * @param closeChangeset Whether to close the changeset after upload or not.
-     * @param extraTags Additional tags to add to changeset
-     */
-    public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, final boolean closeChangeset,
-            @Nullable java.util.Map<String, String> extraTags) {
-        upload(activity, comment, source, false, closeChangeset, extraTags);
-    }
-
-    /**
-     * Uploads to the server in the background.
-     * 
-     * @param activity Activity this is called from
-     * @param comment Changeset comment.
-     * @param source The changeset source tag to add.
      * @param closeOpenChangeset If true try to close any open changeset first
      * @param closeChangeset Whether to close the changeset after upload or not.
      * @param extraTags Additional tags to add to changeset
+     * @param elements List of OsmElement to upload if null all changed elements will be uploaded
      */
     public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, boolean closeOpenChangeset,
-            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags) {
+            final boolean closeChangeset, @Nullable java.util.Map<String, String> extraTags, @Nullable List<OsmElement> elements) {
         final String PROGRESS_TAG = "data";
         final Server server = prefs.getServer();
         new AsyncTask<Void, Void, UploadResult>() {
@@ -3737,7 +3724,7 @@ public class Logic {
                         result.setError(ErrorCodes.API_OFFLINE);
                         return result;
                     }
-                    getDelegator().uploadToServer(server, comment, source, closeOpenChangeset, closeChangeset, extraTags);
+                    getDelegator().uploadToServer(server, comment, source, closeOpenChangeset, closeChangeset, extraTags, elements);
                 } catch (final OsmServerException e) {
                     result.setHttpError(e.getErrorCode());
                     result.setMessage(e.getMessageWithDescription());

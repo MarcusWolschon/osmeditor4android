@@ -59,6 +59,10 @@ public class WayTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
+        prefDB = new AdvancedPrefDatabase(context);
+        prefDB.deleteAPI("Test");
+        prefDB.addAPI("Test", "Test", "", null, null, "user", "pass", false);
+        prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
@@ -91,6 +95,7 @@ public class WayTest {
     public void teardown() {
         TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
+        prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
     }
 
     /**
@@ -153,7 +158,7 @@ public class WayTest {
     }
 
     /**
-     * Select, drag way handle, undo
+     * Select, drag way handle, try to upload, undo
      */
     @SdkSuppress(minSdkVersion = 26)
     @Test
@@ -175,6 +180,13 @@ public class WayTest {
         TestUtils.drag(device, map, 8.3893800, 47.389559, 8.38939, 47.389550, false, 10);
         Assert.assertEquals(origWayNodes.size() + 1, way.getNodes().size());
         Assert.assertEquals(originalNodeCount + 1, App.getDelegator().getApiNodeCount());
+
+        // try to upload the way, check that we have two elements and then cancel
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo("Upload element");
+        Assert.assertTrue(TestUtils.clickText(device, false, "Upload element", true, true));
+        Assert.assertTrue(TestUtils.findText(device, false, "Upload these 2 changes?"));
+        Assert.assertTrue(TestUtils.clickText(device, false, "NO", true, true));
 
         // undo
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));

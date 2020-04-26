@@ -1,21 +1,19 @@
 package de.blau.android.dialogs;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
-import android.util.Log;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.Logic;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.UploadResult;
 import de.blau.android.osm.OsmElement;
@@ -87,15 +85,6 @@ public class UploadConflict extends ImmersiveDialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(DEBUG_TAG, "onAttach");
-        if (!(context instanceof Main)) {
-            throw new ClassCastException(context.toString() + " can only be called from Main");
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         result = (UploadResult) getArguments().getSerializable(UPLOADRESULT);
@@ -130,7 +119,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     builder.setPositiveButton(R.string.retry, new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ((Main) getActivity()).confirmUpload(); // FIXME this should be made independent from Main
+                            ConfirmUpload.showDialog(getActivity(), null);
                         }
                     });
                     return builder.create();
@@ -145,7 +134,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         logic.fixElementWithConflict(getActivity(), newVersion, elementLocal, elementOnServer);
-                        ((Main) getActivity()).confirmUpload(); // FIXME this should be made independent from Main
+                        ConfirmUpload.showDialog(getActivity(), null);
                     }
                 });
             }
@@ -159,8 +148,8 @@ public class UploadConflict extends ImmersiveDialogFragment {
                     } else { // delete local element
                         logic.updateToDeleted(getActivity(), elementLocal);
                     }
-                    if (!storageDelegator.getApiStorage().isEmpty()) {
-                        ((Main) getActivity()).confirmUpload(); // FIXME this should be made independent from Main
+                    if (!storageDelegator.hasChanges()) {
+                        ConfirmUpload.showDialog(getActivity(), null);
                     }
                 }
             });

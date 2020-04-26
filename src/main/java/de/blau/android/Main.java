@@ -2140,7 +2140,7 @@ public class Main extends FullScreenAppCompatActivity
             onMenuDownloadCurrent(false);
             return true;
         case R.id.menu_transfer_upload:
-            confirmUpload();
+            confirmUpload(null);
             return true;
         case R.id.menu_transfer_update:
             logic.redownload(this, false, null);
@@ -2936,38 +2936,6 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Upload changes to the OSM data and tasks to the API, if there are changes
-     * 
-     * @param comment Textual comment associated with the change set.
-     * @param source Source of the change.
-     * @param closeOpenChangeset If true try to close any open changeset first
-     * @param closeChangeset Boolean flag indicating whether the change set should be closed or kept open.
-     * @param extraTags Additional tags to add to the changeset
-     */
-    public void performUpload(@Nullable final String comment, @Nullable final String source, final boolean closeOpenChangeset, final boolean closeChangeset,
-            @Nullable java.util.Map<String, String> extraTags) {
-        final Logic logic = App.getLogic();
-        final Server server = prefs.getServer();
-        if (server != null && server.isLoginSet()) {
-            boolean hasDataChanges = logic.hasChanges();
-            boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
-            if (hasDataChanges || hasBugChanges) {
-                if (hasDataChanges) {
-                    logic.upload(this, comment, source, closeOpenChangeset, closeChangeset, extraTags);
-                }
-                if (hasBugChanges) {
-                    TransferTasks.upload(this, server, null);
-                }
-                logic.checkForMail(this, server);
-            } else {
-                Snack.barInfo(this, R.string.toast_no_changes);
-            }
-        } else {
-            ErrorAlert.showDialog(this, ErrorCodes.NO_LOGIN_DATA);
-        }
-    }
-
-    /**
      * Check login parameters and start the track upload
      * 
      * @param description OSM GPX API description value
@@ -2989,14 +2957,16 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Check if there are changes present and then show the upload dialog, getting authorisation if necessary
+     * 
+     * @param elements List of OsmElements to upload, if null all changes are uploaded
      */
-    public void confirmUpload() {
+    public void confirmUpload(@Nullable List<OsmElement> elements) {
         PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
             private static final long serialVersionUID = 1L;
 
             @Override
             public void onSuccess() {
-                ConfirmUpload.showDialog(Main.this);
+                ConfirmUpload.showDialog(Main.this, elements);
             }
 
             @Override
@@ -3007,7 +2977,7 @@ public class Main extends FullScreenAppCompatActivity
         final Server server = prefs.getServer();
         if (App.getLogic().hasChanges()) {
             if (Server.checkOsmAuthentication(this, server, restartAction)) {
-                ConfirmUpload.showDialog(this);
+                ConfirmUpload.showDialog(this, elements);
             }
         } else {
             Snack.barInfo(this, R.string.toast_no_changes);

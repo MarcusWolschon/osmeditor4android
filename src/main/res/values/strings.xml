@@ -472,6 +472,10 @@ avoided by using an offline data source.</string>
     <string name="toast_members_not_downloaded">Some relation members are not downloaded</string>
     <string name="toast_restart_required">You need to restart Vespucci for the change to take effect</string>
     <string name="toast_unable_to_open_offline_data">Unable to open offline data %1$s %2$s</string>
+    <plurals name="added_required_elements">
+        <item quantity="one">Added required element</item>
+        <item quantity="other">Added %1$d required elements</item>
+    </plurals>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -693,6 +697,8 @@ avoided by using an offline data source.</string>
     <string name="menu_extend_selection">Extend selection</string>
     <string name="menu_information">Info</string>
     <string name="menu_voice_commands">Voice commands</string>
+    <string name="menu_upload_element">Upload element</string>
+    <string name="menu_upload_elements">Upload elements</string>
     <string name="menu_set_name">Set name</string>
     <string name="menu_tools">Tools…</string>
     <string name="menu_tools_imagery">More imagery tools</string>

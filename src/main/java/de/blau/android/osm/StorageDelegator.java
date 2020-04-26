@@ -2797,20 +2797,21 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param closeOpenChangeset if true close any open Changeset first
      * @param closeChangeset if true close the Changeset
      * @param extraTags Additional tags to add
-     * @throws MalformedURLException
-     * @throws ProtocolException
-     * @throws OsmServerException
-     * @throws IOException
+     * @param elements List of OsmElement to upload if null all changed elements will be uploaded
+     * @throws IOException if the upload doesn't work
      */
-    public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeOpenChangeset, boolean closeChangeset,
-            @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, OsmServerException, IOException {
+    public synchronized void uploadToServer(@NonNull final Server server, @Nullable final String comment, @Nullable String source, boolean closeOpenChangeset,
+            boolean closeChangeset, @Nullable Map<String, String> extraTags, @Nullable List<OsmElement> elements) throws IOException {
 
         dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
         removeUnchanged();
         // upload methods set dirty flag too, in case the file is saved during an upload
-        boolean split = getApiElementCount() > server.getCapabilities().getMaxElementsInChangeset();
+        boolean fullUpload = elements == null;
+        int uploadElementCount = fullUpload ? getApiElementCount() : elements.size();
+        int notUploadedElementCount = getApiElementCount() - uploadElementCount; // will be zero for normal uploads
+        boolean split = uploadElementCount > server.getCapabilities().getMaxElementsInChangeset();
         int part = 1;
-        int elementCount = getApiElementCount();
+        int elementCount = uploadElementCount;
         while (elementCount > 0) {
             String tmpSource = source;
             if (split) {
@@ -2819,7 +2820,16 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             server.openChangeset(closeOpenChangeset, comment, tmpSource, Util.listToOsmList(imagery), extraTags);
             try {
                 lock();
-                server.diffUpload(this);
+                if (fullUpload) {
+                    server.diffUpload(this, getCurrentStorage());
+                } else {
+                    Storage storage = new Storage();
+                    // if we are uploading more than the limit elements
+                    // this will work as uploaded elements will have
+                    // unmodified status
+                    storage.addChangedElements(elements);
+                    server.diffUpload(this, storage);
+                }
             } finally {
                 unlock();
             }
@@ -2829,8 +2839,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             }
             part++;
             int currentElementCount = getApiElementCount();
-            if (currentElementCount < elementCount) {
-                elementCount = currentElementCount;
+            if (currentElementCount < notUploadedElementCount + elementCount) {
+                elementCount = currentElementCount - notUploadedElementCount;
             } else {
                 // element count didn't do anything, that should cause an exception to be
                 // thrown in diffUpload, but it is conceivable that that doesn't happen
@@ -2843,7 +2853,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
         // reset imagery recording for next upload
         imagery = new ArrayList<>();
-        setImageryRecorded(false);
+        if (fullUpload) {
+            setImageryRecorded(false);
+        }
     }
 
     /**

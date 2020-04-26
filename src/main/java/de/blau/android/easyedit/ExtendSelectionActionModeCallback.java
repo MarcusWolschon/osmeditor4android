@@ -37,8 +37,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private static final int MENUITEM_RELATION          = 7;
     private static final int MENUITEM_ORTHOGONALIZE     = 8;
     private static final int MENUITEM_MERGE_POLYGONS    = 9;
-    private static final int MENUITEM_ZOOM_TO_SELECTION = 33;
-    private static final int MENUITEM_SEARCH_OBJECTS    = 34;
+    private static final int MENUITEM_UPLOAD            = 31;
+    private static final int MENUITEM_ZOOM_TO_SELECTION = 34;
+    private static final int MENUITEM_SEARCH_OBJECTS    = 35;
 
     private List<OsmElement> selection;
     private List<OsmElement> sortedWays;
@@ -182,11 +183,20 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         // }
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
+
+        boolean changedElementsSelected = false;
+        for (OsmElement e : selection) {
+            if (!e.isUnchanged()) {
+                changedElementsSelected = true;
+                break;
+            }
+        }
+        menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_elements).setEnabled(changedElementsSelected);
+
         menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
-        Preferences prefs = new Preferences(main);
         menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console)
-                .setEnabled(prefs.isJsConsoleEnabled());
+                .setEnabled(logic.getPrefs().isJsConsoleEnabled());
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
@@ -295,6 +305,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 break;
             case MENUITEM_SEARCH_OBJECTS:
                 Search.search(main);
+                break;
+            case MENUITEM_UPLOAD:
+                main.descheduleAutoLock();
+                main.confirmUpload(ElementSelectionActionModeCallback.addRequiredElements(main, new ArrayList<>(selection)));
                 break;
             case ElementSelectionActionModeCallback.MENUITEM_PREFERENCES:
                 PrefEditor.start(main);

@@ -2,10 +2,12 @@ package de.blau.android.easyedit;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -22,11 +24,13 @@ import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.search.Search;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -51,12 +55,13 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final int    MENUITEM_EXTEND_SELECTION = 8;
     private static final int    MENUITEM_ELEMENT_INFO     = 9;
 
-    protected static final int MENUITEM_SHARE_POSITION    = 31;
-    private static final int   MENUITEM_TAG_LAST          = 32;
-    private static final int   MENUITEM_ZOOM_TO_SELECTION = 33;
-    private static final int   MENUITEM_SEARCH_OBJECTS    = 34;
-    static final int           MENUITEM_PREFERENCES       = 35;
-    static final int           MENUITEM_JS_CONSOLE        = 36;
+    private static final int   MENUITEM_UPLOAD            = 31;
+    protected static final int MENUITEM_SHARE_POSITION    = 32;
+    private static final int   MENUITEM_TAG_LAST          = 33;
+    private static final int   MENUITEM_ZOOM_TO_SELECTION = 34;
+    private static final int   MENUITEM_SEARCH_OBJECTS    = 35;
+    static final int           MENUITEM_PREFERENCES       = 36;
+    static final int           MENUITEM_JS_CONSOLE        = 37;
 
     OsmElement element = null;
 
@@ -157,6 +162,8 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
+        menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element).setEnabled(!element.isUnchanged());
+
         menu.add(GROUP_BASE, MENUITEM_SHARE_POSITION, Menu.CATEGORY_SYSTEM | 10, R.string.share_position);
         menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
@@ -215,6 +222,10 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             } else {
                 ElementInfo.showDialog(main, element);
             }
+            break;
+        case MENUITEM_UPLOAD:
+            main.descheduleAutoLock();
+            main.confirmUpload(addRequiredElements(main, Util.wrapInList(element)));
             break;
         case MENUITEM_PREFERENCES:
             PrefEditor.start(main);
@@ -316,5 +327,36 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             result.clear();
         }
         return result;
+    }
+
+    /**
+     * Add any required referenced elements to upload
+     * 
+     * @param context and Android Context
+     * @param elements the List of elements
+     * @return the List of elements for convenience
+     */
+    static List<OsmElement> addRequiredElements(@NonNull final Context context, @NonNull final List<OsmElement> elements) {
+        int originalSize = elements.size();
+        for (OsmElement e : elements) {
+            if (e instanceof Way) {
+                for (Node n : ((Way) e).getNodes()) {
+                    if (n.getOsmId() < 0 && !elements.contains(n)) {
+                        elements.add(n);
+                    }
+                }
+            } else if (e instanceof Relation) {
+                for (RelationMember rm : ((Relation) e).getMembers()) {
+                    if (rm.getRef() < 0 && !elements.contains(rm.getElement())) {
+                        elements.add(rm.getElement());
+                    }
+                }
+            }
+        }
+        int added = elements.size() - originalSize;
+        if (added > 0) {
+            Snack.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
+        }
+        return elements;
     }
 }

@@ -23,6 +23,6 @@ public class ConfirmUploadListener implements OnClickListener {
 
     @Override
     public void onClick(final DialogInterface dialog, final int which) {
-        caller.confirmUpload();
+        caller.confirmUpload(null);
     }
 }

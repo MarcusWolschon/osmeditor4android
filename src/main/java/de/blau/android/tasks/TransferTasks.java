@@ -25,10 +25,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Main;
@@ -187,23 +187,24 @@ public final class TransferTasks {
     /**
      * Upload Notes or bugs to server, needs to be called from main for now (mainly for OAuth dependency)
      * 
-     * @param main instance of main calling this
+     * @param activity activity calling this
      * @param server current server configuration
      * @param postUploadHandler execute code after an upload
      */
-    public static void upload(@NonNull final Main main, @NonNull final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
+    public static void upload(@NonNull final FragmentActivity activity, @NonNull final Server server,
+            @Nullable final PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "tasks";
 
-        Set<String> bugFilter = main.getMap().getPrefs().taskFilter();
+        Set<String> bugFilter = App.getLogic().getPrefs().taskFilter();
         final List<Task> queryResult = App.getTaskStorage().getTasks();
         // check if we need to oAuth first
         for (Task b : queryResult) {
-            if (b.hasBeenChanged() && b instanceof Note && bugFilter.contains(main.getString(R.string.bugfilter_notes))) {
+            if (b.hasBeenChanged() && b instanceof Note && bugFilter.contains(activity.getString(R.string.bugfilter_notes))) {
                 PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
                     @Override
                     public void onSuccess() {
-                        Preferences prefs = new Preferences(main);
-                        upload(main, prefs.getServer(), postUploadHandler);
+                        Preferences prefs = new Preferences(activity);
+                        upload(activity, prefs.getServer(), postUploadHandler);
                     }
 
                     @Override
@@ -211,7 +212,7 @@ public final class TransferTasks {
                         // Ignore
                     }
                 };
-                if (!Server.checkOsmAuthentication(main, server, restartAction)) {
+                if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
                     return;
                 }
             }
@@ -219,7 +220,7 @@ public final class TransferTasks {
         new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected void onPreExecute() {
-                Progress.showDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+                Progress.showDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
                 Log.d(DEBUG_TAG, "starting up load of total " + queryResult.size() + " tasks");
             }
 
@@ -229,21 +230,21 @@ public final class TransferTasks {
                 for (Task b : queryResult) {
                     if (b.hasBeenChanged()) {
                         Log.d(DEBUG_TAG, b.getDescription());
-                        if (b instanceof Note && bugFilter.contains(main.getString(R.string.bugfilter_notes))) {
+                        if (b instanceof Note && bugFilter.contains(activity.getString(R.string.bugfilter_notes))) {
                             Note n = (Note) b;
                             NoteComment nc = n.getLastComment();
                             if (nc != null && nc.isNew()) {
-                                uploadFailed = !uploadNote(main, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
+                                uploadFailed = !uploadNote(activity, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
                             } else {
                                 // just a state change
-                                uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed;
+                                uploadFailed = !uploadNote(activity, server, n, null, n.isClosed(), true, null) || uploadFailed;
                             }
-                        } else if (b instanceof OsmoseBug && (bugFilter.contains(main.getString(R.string.bugfilter_osmose_error))
-                                || bugFilter.contains(main.getString(R.string.bugfilter_osmose_warning))
-                                || bugFilter.contains(main.getString(R.string.bugfilter_osmose_minor_issue)))) {
-                            uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b) || uploadFailed;
-                        } else if (b instanceof MapRouletteTask && bugFilter.contains(main.getString(R.string.bugfilter_maproulette))) {
-                            uploadFailed = !updateMapRouletteTask(main, server, (MapRouletteTask) b, true, null) || uploadFailed;
+                        } else if (b instanceof OsmoseBug && (bugFilter.contains(activity.getString(R.string.bugfilter_osmose_error))
+                                || bugFilter.contains(activity.getString(R.string.bugfilter_osmose_warning))
+                                || bugFilter.contains(activity.getString(R.string.bugfilter_osmose_minor_issue)))) {
+                            uploadFailed = !OsmoseServer.changeState(activity, (OsmoseBug) b) || uploadFailed;
+                        } else if (b instanceof MapRouletteTask && bugFilter.contains(activity.getString(R.string.bugfilter_maproulette))) {
+                            uploadFailed = !updateMapRouletteTask(activity, server, (MapRouletteTask) b, true, null) || uploadFailed;
                         }
                     }
                 }
@@ -252,18 +253,20 @@ public final class TransferTasks {
 
             @Override
             protected void onPostExecute(Boolean uploadFailed) {
-                Progress.dismissDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+                Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
                 if (Boolean.FALSE.equals(uploadFailed)) {
                     if (postUploadHandler != null) {
                         postUploadHandler.onSuccess();
                     }
-                    Snack.barInfo(main, R.string.openstreetbug_commit_ok);
-                    main.invalidateMap();
+                    Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
+                    if (activity instanceof Main) {
+                        ((Main) activity).invalidateMap();
+                    }
                 } else {
                     if (postUploadHandler != null) {
                         postUploadHandler.onError();
                     }
-                    Snack.barError(main, R.string.openstreetbug_commit_fail);
+                    Snack.barError(activity, R.string.openstreetbug_commit_fail);
                 }
             }
         }.execute();

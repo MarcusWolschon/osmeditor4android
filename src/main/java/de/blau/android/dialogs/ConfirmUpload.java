@@ -14,18 +14,6 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.viewpager.widget.PagerTabStrip;
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -44,14 +32,25 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.PagerTabStrip;
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import de.blau.android.App;
 import de.blau.android.Logic;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
@@ -73,15 +72,16 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = ConfirmUpload.class.getSimpleName();
 
-    public static final String TAG = "fragment_confirm_upload";
+    public static final String  TAG          = "fragment_confirm_upload";
+    private static final String ELEMENTS_KEY = "elements";
 
     private static final int NO_PAGE   = -1;
     public static final int  TAGS_PAGE = 1;
 
     private ExtendedViewPager pager = null;
 
-    AutoCompleteTextView comment;
-    AutoCompleteTextView source;
+    private AutoCompleteTextView comment;
+    private AutoCompleteTextView source;
 
     private Resources resources;
 
@@ -90,11 +90,11 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * 
      * @param activity the calling FragmentActivity
      */
-    public static void showDialog(FragmentActivity activity) {
+    public static void showDialog(@NonNull FragmentActivity activity, @Nullable List<OsmElement> elements) {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
-        ConfirmUpload confirmUploadDialogFragment = newInstance();
+        ConfirmUpload confirmUploadDialogFragment = newInstance(elements);
         try {
             confirmUploadDialogFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
@@ -108,7 +108,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * 
      * @param activity the calling FragmentActivity
      */
-    public static void dismissDialog(FragmentActivity activity) {
+    public static void dismissDialog(@NonNull FragmentActivity activity) {
         Util.dismissDialog(activity, TAG);
     }
 
@@ -117,25 +117,24 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * 
      * @return a new ConfirmUpload instance
      */
-    private static ConfirmUpload newInstance() {
+    @NonNull
+    private static ConfirmUpload newInstance(@Nullable List<OsmElement> elements) {
         ConfirmUpload f = new ConfirmUpload();
+        Bundle args = new Bundle();
+        if (elements != null) {
+            args.putSerializable(ELEMENTS_KEY, new ArrayList<>(elements));
+        }
+        f.setArguments(args);
         f.setShowsDialog(true);
         return f;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(DEBUG_TAG, "onAttach");
-        if (!(context instanceof Main)) {
-            throw new ClassCastException(context.toString() + " can only be called from Main");
-        }
     }
 
     @NonNull
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        final List<OsmElement> elements = (List<OsmElement>) getArguments().getSerializable(ELEMENTS_KEY);
+
         FragmentActivity activity = getActivity();
         resources = getResources();
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
@@ -183,10 +182,10 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
         // Review page
         TextView changesHeading = (TextView) layout.findViewById(R.id.review_heading);
-        int changeCount = App.getDelegator().getApiElementCount();
+        int changeCount = elements == null ? App.getDelegator().getApiElementCount() : elements.size();
         changesHeading.setText(getResources().getQuantityString(R.plurals.confirm_upload_text, changeCount, changeCount));
         ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
-        final ChangedElement[] changes = getPendingChanges();
+        final ChangedElement[] changes = getPendingChanges(elements == null ? App.getLogic().getPendingChangedElements() : elements);
         changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, App.getDefaultValidator(getContext())));
         changesView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -273,7 +272,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(
-                new UploadListener((Main) activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, validators));
+                new UploadListener(activity, comment, source, openChangeset ? closeOpenChangeset : null, closeChangeset, requestReview, validators, elements));
 
         return dialog;
     }
@@ -308,7 +307,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * @param activity the activity this fragment was created by
      * @param item index of page to show
      */
-    public static void showPage(@NonNull AppCompatActivity activity, int item) {
+    public static void showPage(@NonNull FragmentActivity activity, int item) {
         FragmentManager fm = activity.getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(TAG);
         if (fragment != null) {
@@ -322,7 +321,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * @param activity the activity this fragment was created by
      * @return the current page index (or a value indicating that something went wrong)
      */
-    public static int getPage(@NonNull AppCompatActivity activity) {
+    public static int getPage(@NonNull FragmentActivity activity) {
         FragmentManager fm = activity.getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(TAG);
         if (fragment != null) {
@@ -357,9 +356,8 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
      * 
      * @return a List of all pending pending elements to upload
      */
-    private ChangedElement[] getPendingChanges() {
-
-        List<OsmElement> changedElements = App.getLogic().getPendingChangedElements();
+    @NonNull
+    private ChangedElement[] getPendingChanges(@NonNull List<OsmElement> changedElements) {
         List<ChangedElement> result = new ArrayList<>();
         for (OsmElement e : changedElements) {
             result.add(new ChangedElement(e));

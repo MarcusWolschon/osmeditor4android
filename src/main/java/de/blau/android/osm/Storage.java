@@ -494,9 +494,9 @@ public class Storage implements Serializable {
         if (nodes != null) {
             for (Node n : nodes) {
                 if (result == null) {
-                    result = new BoundingBox(n.getLon(),n.getLat());
+                    result = new BoundingBox(n.getLon(), n.getLat());
                 } else {
-                    result.union(n.getLon(),n.getLat());
+                    result.union(n.getLon(), n.getLat());
                 }
             }
         }
@@ -607,5 +607,18 @@ public class Storage implements Serializable {
             }
         }
         nodeIsRef = null;
+    }
+
+    /**
+     * Add any changed elements in the input to this Storage
+     * 
+     * @param elements the List of OsmElements to add
+     */
+    public void addChangedElements(@NonNull List<OsmElement> elements) {
+        for (OsmElement e : elements) {
+            if (!e.isUnchanged()) {
+                insertElementUnsafe(e);
+            }
+        }
     }
 }
