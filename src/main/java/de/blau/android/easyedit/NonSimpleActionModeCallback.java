@@ -4,7 +4,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Extend this class instead of EasyEditActionModeCallback if you need to disable the SimpleActionButton
@@ -33,6 +36,17 @@ public class NonSimpleActionModeCallback extends EasyEditActionModeCallback impl
         if (prefs.areSimpleActionsEnabled()) {
             main.disableSimpleActionsButton();
         }
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        menu = replaceMenu(menu, mode, this);
+        super.onPrepareActionMode(mode, menu);
+        menu.clear();
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        arrangeMenu(menu);
         return true;
     }
 
