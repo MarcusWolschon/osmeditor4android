@@ -152,7 +152,6 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         menu = replaceMenu(menu, mode, this);
-        super.onPrepareActionMode(mode, menu);
         menu.clear();
         menuUtil.reset();
         menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo))

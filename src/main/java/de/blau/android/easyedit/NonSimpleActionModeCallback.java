@@ -37,6 +37,17 @@ public class NonSimpleActionModeCallback extends EasyEditActionModeCallback impl
     }
 
     @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        menu = replaceMenu(menu, mode, this);
+        super.onPrepareActionMode(mode, menu);
+        menu.clear();
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        arrangeMenu(menu);
+        return true;
+    }
+
+    @Override
     public void onDestroyActionMode(ActionMode mode) {
         super.onDestroyActionMode(mode);
         if (prefs.areSimpleActionsEnabled()) {
