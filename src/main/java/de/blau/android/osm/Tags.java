@@ -95,6 +95,9 @@ public final class Tags {
     public static final String VALUE_TRACK          = "track";
     public static final String KEY_TRACKTYPE        = "tracktype";
     public static final String KEY_SIDEWALK         = "sidewalk";
+    public static final String KEY_BRIDGE           = "bridge";
+    public static final String KEY_TUNNEL           = "tunnel";
+    public static final String VALUE_CULVERT        = "culvert";
     public static final String KEY_BARRIER          = "barrier";
     public static final String VALUE_RETAINING_WALL = "retaining_wall";
     public static final String VALUE_KERB           = "kerb";
@@ -107,11 +110,12 @@ public final class Tags {
     public static final String VALUE_REVERSE        = "reverse";
     public static final String KEY_WATERWAY         = "waterway";
     public static final String VALUE_RIVERBANK      = "riverbank";
-    public static final String KEY_LANDUSE          = "landuse";
-    public static final String KEY_NATURAL          = "natural";
-    public static final String VALUE_CLIFF          = "cliff";
-    public static final String VALUE_COASTLINE      = "coastline";
-    public static final String KEY_PLACE            = "place";
+
+    public static final String KEY_LANDUSE     = "landuse";
+    public static final String KEY_NATURAL     = "natural";
+    public static final String VALUE_CLIFF     = "cliff";
+    public static final String VALUE_COASTLINE = "coastline";
+    public static final String KEY_PLACE       = "place";
 
     public static final String KEY_OPERATOR        = "operator";
     public static final String KEY_BRAND           = "brand";

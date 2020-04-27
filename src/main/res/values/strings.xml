@@ -476,6 +476,7 @@ avoided by using an offline data source.</string>
         <item quantity="one">Added required element</item>
         <item quantity="other">Added %1$d required elements</item>
     </plurals>
+    <string name="toast_out_of_memory">OUT OF MEMORY!</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -693,6 +694,7 @@ avoided by using an offline data source.</string>
     <string name="menu_circulize">Arrange in circle</string>
     <string name="menu_split_polygon">Split in to polygons</string>
     <string name="menu_unjoin_dissimilar">Unjoin dissimilar</string>
+    <string name="menu_extract_segment">Extract segment</string>
     <string name="menu_newnode_gps">New node at GPS position</string>
     <string name="menu_extend_selection">Extend selection</string>
     <string name="menu_information">Info</string>
@@ -785,6 +787,8 @@ avoided by using an offline data source.</string>
     <string name="actionmode_restriction_restart_to">Re-select \"to\" segment</string>
     <string name="actionmode_restriction_split_from">Split \"from\" segment</string>
     <string name="actionmode_restriction_split_via">Split \"via\" segment</string>
+    <string name="actionmode_extract_segment_select">Select segment</string>
+    <string name="actionmode_extract_segment_set_tags">Set tags</string>
     <plurals name="actionmode_object_count">
         <item quantity="one">1 object</item>
         <item quantity="other">%1$d objects</item>
@@ -1083,6 +1087,7 @@ avoided by using an offline data source.</string>
     <string name="undo_action_extract_node">Node extraction</string>
     <string name="undo_action_apply_osc">Apply OSC file</string>
     <string name="undo_action_remove_node_from_way">Remove node from way</string>
+    <string name="undo_action_extract_segment">Extract segment</string>
     <!-- ACRA -->
     <string name="crash_dialog_text">Vespucci crashed or encountered a serious issue the last time it ran.\n\nPlease help by clicking by \'OK\' to send an error report.\n</string>
     <string name="crash_dialog_comment_prompt">Add any further info you believe might help and (optionally,) your OSM user name if you want feedback.\n\nThank you.</string>
@@ -1116,6 +1121,10 @@ avoided by using an offline data source.</string>
     <string name="deleterelation">Delete relation</string>
     <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
     <string name="unset_relation_type">Unset relation type</string>
+    <!-- Things -->
+    <string name="bridge">Bridge</string>
+    <string name="tunnel">Tunnel</string>
+    <string name="culvert">Culvert</string>
     <!-- time and distance -->
     <plurals name="days">
         <item quantity="one">1 day</item>

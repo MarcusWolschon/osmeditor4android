@@ -780,7 +780,7 @@ public class Logic {
      * @param y y display coordinate
      * @return a hash map mapping Ways to distances
      */
-    private HashMap<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
+    private java.util.Map<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
         return getClickedWaysWithDistances(true, x, y);
     }
 
@@ -792,7 +792,7 @@ public class Logic {
      * @param y y display coordinate
      * @return a hash map mapping Ways to distances
      */
-    private HashMap<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
+    private java.util.Map<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
         HashMap<Way, Double> result = new HashMap<>();
         boolean showWayIcons = prefs.getShowWayIcons();
 
@@ -1100,7 +1100,7 @@ public class Logic {
     private Way getClickedWay(final float x, final float y) {
         Way bestWay = null;
         Double bestDistance = Double.MAX_VALUE;
-        HashMap<Way, Double> candidates = getClickedWaysWithDistances(x, y);
+        java.util.Map<Way, Double> candidates = getClickedWaysWithDistances(x, y);
         for (Entry<Way, Double> candidate : candidates.entrySet()) {
             if (candidate.getValue() < bestDistance) {
                 bestWay = candidate.getKey();
@@ -1793,18 +1793,42 @@ public class Logic {
     }
 
     /**
+     * Do some clean up and display toast after we've received an Exception from the delegator
+     * 
+     * In general this should not happen with correct inputs.
+     * 
+     * @param activity the calling activity or null
+     * @param ex the Exception to handle
+     */
+    private void handleDelegatorException(@Nullable final FragmentActivity activity, @NonNull Exception ex) {
+        if (ex instanceof OsmIllegalOperationException) {
+            dismissAttachedObjectWarning(activity);
+            if (activity != null) {
+                Snack.toastTopError(activity, activity.getString(R.string.toast_illegal_operation, ex.getMessage()));
+            }
+            rollback();
+            invalidateMap();
+        } else if (ex instanceof StorageException) {
+            if (activity != null) {
+                Snack.barError(activity, R.string.toast_out_of_memory);
+            }
+        }
+    }
+
+    /**
      * Splits all ways containing the node will be split at the nodes position
      * 
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param node node to split at
      */
     public synchronized void performSplit(@Nullable final FragmentActivity activity, @NonNull final Node node) {
-        if (node != null) {
-            // setSelectedNode(node);
+        try {
             createCheckpoint(activity, R.string.undo_action_split_ways);
             displayAttachedObjectWarning(activity, node); // needs to be done before split
             getDelegator().splitAtNode(node);
             invalidateMap();
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
         }
     }
 
@@ -1818,17 +1842,21 @@ public class Logic {
      */
     @Nullable
     public synchronized Way performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
-        // setSelectedNode(node);
         createCheckpoint(activity, R.string.undo_action_split_way);
-        Way result = getDelegator().splitAtNode(way, node);
-        invalidateMap();
-        return result;
+        try {
+            Way result = getDelegator().splitAtNode(way, node);
+            invalidateMap();
+            return result;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            return null;
+        }
     }
 
     /**
      * Split a closed way, needs two nodes
      * 
-     * @param activity activity we were called fron
+     * @param activity activity we were called from
      * @param way Way to split
      * @param node1 first split point
      * @param node2 second split point
@@ -1836,12 +1864,53 @@ public class Logic {
      * @return null if the split fails, the two ways otherwise
      */
     @Nullable
-    public synchronized Way[] performClosedWaySplit(@Nullable Activity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
+    public synchronized Way[] performClosedWaySplit(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2,
             boolean createPolygons) {
         createCheckpoint(activity, R.string.undo_action_split_way);
-        Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
-        invalidateMap();
-        return result;
+        try {
+            displayAttachedObjectWarning(activity, way);
+            Way[] result = getDelegator().splitAtNodes(way, node1, node2, createPolygons);
+            invalidateMap();
+            return result;
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            return null;
+        }
+    }
+
+    /**
+     * Extract a segment from a way (the way between two nodes of the same way)
+     * 
+     * @param activity activity we were called fron
+     * @param way Unclosed Way to split
+     * @param node1 first split point
+     * @param node2 second split point
+     * @return null if the split fails, the segment otherwise
+     */
+    @Nullable
+    public synchronized Way performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
+        createCheckpoint(activity, R.string.undo_action_extract_segment);
+        try {
+            displayAttachedObjectWarning(activity, way);
+            if (way.isEndNode(node1)) {
+                Way newWay = getDelegator().splitAtNode(way, node2);
+                invalidateMap();
+                return newWay.isEndNode(node1) ? newWay : way;
+            } else if (way.isEndNode(node2)) {
+                Way newWay = getDelegator().splitAtNode(way, node1);
+                invalidateMap();
+                return newWay.isEndNode(node2) ? newWay : way;
+            } else {
+                Way newWay = getDelegator().splitAtNode(way, node1);
+                boolean splitOriginal = way.hasNode(node2);
+                Way newWay2 = getDelegator().splitAtNode(way.hasNode(node2) ? way : newWay, node2);
+                invalidateMap();
+                return newWay2.hasNode(node1) && newWay2.hasNode(node2) ? newWay2 : (splitOriginal ? way : newWay);
+            }
+        } catch (OsmIllegalOperationException | StorageException ex) {
+            handleDelegatorException(activity, ex);
+            return null;
+        }
     }
 
     /**
@@ -5237,9 +5306,7 @@ public class Logic {
      * @param e the OsmELement
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e) {
-        ArrayList<T> a = new ArrayList<>();
-        a.add(e);
-        displayAttachedObjectWarning(activity, a);
+        displayAttachedObjectWarning(activity, Util.wrapInList(e));
     }
 
     /**
@@ -5251,8 +5318,7 @@ public class Logic {
      * @param e2 2nd OsmELement
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e1, T e2) {
-        ArrayList<T> a = new ArrayList<>();
-        a.add(e1);
+        List<T> a = Util.wrapInList(e1);
         a.add(e2);
         displayAttachedObjectWarning(activity, a);
     }
@@ -5268,8 +5334,7 @@ public class Logic {
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, @NonNull T e1, @NonNull T e2,
             boolean checkRelationsOnly) {
-        ArrayList<T> a = new ArrayList<>();
-        a.add(e1);
+        List<T> a = Util.wrapInList(e1);
         a.add(e2);
         displayAttachedObjectWarning(activity, a, checkRelationsOnly);
     }
@@ -5340,7 +5405,7 @@ public class Logic {
      */
     private void dismissAttachedObjectWarning(@Nullable FragmentActivity activity) {
         if (activity != null) {
-            AttachedObjectWarning.showDialog(activity);
+            AttachedObjectWarning.dismissDialog(activity);
         }
     }
 

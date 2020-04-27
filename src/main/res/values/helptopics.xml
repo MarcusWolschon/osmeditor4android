@@ -14,6 +14,7 @@
     <string name="help_addingrestriction" translatable="false">@string/help_wayselection</string>
     <string name="help_appendtoway" translatable="false">@string/help_wayselection</string>
     <string name="help_mergingways" translatable="false">@string/help_wayselection</string>
+    <string name="help_extractsegment" translatable="false">@string/help_wayselection</string>
     <string name="help_wayselection">Way selected</string>
     <string name="help_waysplitting" translatable="false">@string/help_wayselection</string>
     <string name="help_closedwaysplitting" translatable="false">@string/help_wayselection</string>

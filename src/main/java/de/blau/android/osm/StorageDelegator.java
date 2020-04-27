@@ -1130,8 +1130,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param way way to split
      * @param node node to split at
-     * @return the new Way or null if the split wasn't successful
+     * @return the new Way
      */
+    @NonNull 
     public Way splitAtNode(@NonNull final Way way, @NonNull final Node node) {
         Log.d(DEBUG_TAG, "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
         // undo - old way is saved here, new way is saved at insert
@@ -1143,9 +1144,10 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         // the following condition is fairly obscure and should likely be replaced by checking for position of the node
         // in the way
         if (nodes.size() < 3 || (way.isEndNode(node) && (way.isClosed() ? occurances == 2 : occurances == 1))) {
-            // protect against producing single node ways FIXME give feedback that this is not good
-            Log.d(DEBUG_TAG, "splitAtNode can't split " + nodes.size() + " node long way at this node");
-            return null;
+            // protect against producing single node ways
+            String msg = "splitAtNode can't split " + nodes.size() + " node long way at this node";
+            Log.d(DEBUG_TAG, msg);
+            throw new OsmIllegalOperationException(msg);
         }
         // we assume this node is only contained in the way once.
         // else the user needs to split the remaining way again.
@@ -1164,8 +1166,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             first = false;
         }
         if (nodesForNewWay.size() <= 1) {
-            Log.d(DEBUG_TAG, "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)");
-            return null; // do not create 1-node way
+            String msg = "splitAtNode can't split, new way would have " + nodesForNewWay.size() + " node(s)";
+            Log.d(DEBUG_TAG, msg);
+            throw new OsmIllegalOperationException(msg);
         }
         ArrayList<OsmElement> changedElements = new ArrayList<>();
         try {
@@ -1183,9 +1186,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             onElementChanged(null, changedElements);
             return newWay;
         } catch (StorageException e) {
-            // TODO handle OOM
             Log.e(DEBUG_TAG, "splitAtNode got " + e.getMessage());
-            return null;
+            throw e;
         }
     }
 

@@ -36,6 +36,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private static final int    MENUITEM_UNJOIN            = 20;
     private static final int    MENUITEM_UNJOIN_DISSIMILAR = 21;
     private static final int    MENUITEM_REMOVE_NODE       = 22;
+    private static final int    MENUITEM_EXTRACT_SEGMENT   = 23;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
@@ -47,7 +48,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
      * @param manager the EasyEditManager instance
      * @param way the selected Way
      */
-    WaySelectionActionModeCallback(EasyEditManager manager, Way way) {
+    WaySelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way) {
         super(manager, way);
         Log.d(DEBUG_TAG, "constructor");
         findConnectedWays(way);
@@ -84,7 +85,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         Way way = (Way) element;
         int size = way.getNodes().size();
         boolean closed = way.isClosed();
-        if (way.getTags().containsKey(Tags.KEY_BUILDING) && !way.getTags().containsKey(Tags.KEY_ADDR_HOUSENUMBER)) {
+        if (way.hasTagKey(Tags.KEY_BUILDING) && !way.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
             menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
         }
         menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_reverse));
@@ -121,6 +122,9 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         if (isJoined((Way) element)) {
             menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin);
             menu.add(Menu.NONE, MENUITEM_UNJOIN_DISSIMILAR, Menu.NONE, R.string.menu_unjoin_dissimilar);
+        }
+        if (size >= 3 && !closed) {
+            menu.add(Menu.NONE, MENUITEM_EXTRACT_SEGMENT, Menu.NONE, R.string.menu_extract_segment);
         }
         arrangeMenu(menu);
         return true;
@@ -178,7 +182,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
             case MENUITEM_ORTHOGONALIZE:
                 logic.performOrthogonalize(main, way);
                 manager.invalidate();
-                break; // FIXME move to asynctask
+                break;
             case MENUITEM_CIRCULIZE:
                 logic.performCirculize(main, way);
                 manager.invalidate();
@@ -198,6 +202,9 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 break;
             case MENUITEM_SHARE_POSITION:
                 Util.sharePosition(main, Geometry.centroidLonLat(way), main.getMap().getZoomLevel());
+                break;
+            case MENUITEM_EXTRACT_SEGMENT:
+                main.startSupportActionMode(new WaySegmentActionModeCallback(manager, way));
                 break;
             default:
                 return false;

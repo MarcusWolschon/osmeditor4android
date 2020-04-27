@@ -79,7 +79,7 @@ public class RestrictionClosedWaySplittingActionModeCallback extends NonSimpleAc
                 return true;
             }
         }
-        // FIXME toast here?
+        // logic has already toasted
         Log.d(DEBUG_TAG, "split failed at element " + (element != null ? element : "null"));
         manager.finish();
         return true;
