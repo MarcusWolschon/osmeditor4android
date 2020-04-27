@@ -73,11 +73,13 @@ public class PresetRole implements Comparable<PresetRole> {
                     break;
                 case Preset.CLOSEDWAY:
                     appliesToClosedWay = true;
+                    break;
                 case Preset.MULTIPOLYGON:
                 case Preset.AREA:
                     appliesToArea = true;
+                    break;
                 default:
-                    Log.e(DEBUG_TAG, "Unknown element type " + type);
+                    unknownType(type);
                 }
             }
         }
@@ -141,10 +143,19 @@ public class PresetRole implements Comparable<PresetRole> {
             case Relation.NAME:
                 return appliesToRelation;
             default:
-                Log.e(DEBUG_TAG, "Unknown element type " + type);
+                unknownType(type);
             }
         }
         return true;
+    }
+
+    /**
+     * Log a message when we account an unknown element type
+     * 
+     * @param type the unknown type
+     */
+    void unknownType(@NonNull String type) {
+        Log.e(DEBUG_TAG, "Unknown element type " + type);
     }
 
     /**
@@ -167,7 +178,7 @@ public class PresetRole implements Comparable<PresetRole> {
             case AREA:
                 return appliesToArea;
             default:
-                Log.e(DEBUG_TAG, "Unknown element type " + type);
+                unknownType(type.toString());
             }
         }
         return true;
