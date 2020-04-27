@@ -447,7 +447,6 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
              * From a systematic pov it would be better to get this from a preset, however the current matching preset
              * isn't available here and using the style is far cheaper.
              */
-            FeatureStyle style = getStyle();
             if (style != null && style.isArea()) {
                 return ElementType.AREA;
             }
