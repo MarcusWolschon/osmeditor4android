@@ -34,8 +34,6 @@ import org.openstreetmap.osmosis.osmbinary.file.BlockReaderAdapter;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.sun.demo.jvmti.hprof.Tracker;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
