@@ -38,7 +38,7 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
         helpTopic = R.string.help_extractsegment;
         super.onCreateActionMode(mode, menu);
         Log.d(DEBUG_TAG, "onCreateActionMode");
-        logic.setSelectedWay((Way) way);
+        logic.setSelectedWay(way);
         main.invalidateMap();
         mode.setTitle(R.string.menu_extract_segment);
         mode.setSubtitle(R.string.actionmode_extract_segment_set_tags);
