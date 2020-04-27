@@ -32,6 +32,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -155,6 +156,41 @@ public class WayTest {
         for (int i = 0; i < nodes.size(); i++) {
             Assert.assertEquals(origWayNodes.get(i), nodes.get(i));
         }
+    }
+
+    /**
+     * Select, extract segment, turn into a bridge
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void extractSegment() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        Way way = App.getLogic().getSelectedWay();
+        Assert.assertNotNull(way);
+        Assert.assertEquals(104148456L, way.getOsmId());
+
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo("Extract segment");
+        Assert.assertTrue(TestUtils.clickText(device, false, "Extract segment", true, false));
+        Assert.assertTrue(TestUtils.findText(device, false, "Select segment"));
+
+        TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        Assert.assertTrue(TestUtils.findText(device, false, "Set tags"));
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.bridge), false, true));
+
+        // should be in property editor now
+        Assert.assertTrue(TestUtils.findText(device, false, "Bridge"));
+        Assert.assertTrue(TestUtils.clickHome(device, true));
+
+        Way segment = logic.getSelectedWay();
+        Assert.assertNotNull(segment);
+        Assert.assertEquals(2, segment.nodeCount());
+        Assert.assertTrue(segment.hasTag(Tags.KEY_BRIDGE, Tags.VALUE_YES));
+        Assert.assertTrue(segment.hasTag(Tags.KEY_LAYER, "1"));
     }
 
     /**

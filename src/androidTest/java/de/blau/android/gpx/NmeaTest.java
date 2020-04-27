@@ -113,7 +113,7 @@ public class NmeaTest {
         int retries = 0;
         while (main.getTracker() == null && retries < 60) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1000); // NOSONAR
             } catch (InterruptedException e) {
                 // Ignore
             }
@@ -136,7 +136,7 @@ public class NmeaTest {
         retries = 0;
         while (!main.getTracker().isTracking() && retries < 60) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1000);  // NOSONAR
             } catch (InterruptedException e) {
                 // Ignore
             }
