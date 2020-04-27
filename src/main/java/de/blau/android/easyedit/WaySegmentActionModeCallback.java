@@ -3,7 +3,6 @@ package de.blau.android.easyedit;
 import java.util.HashSet;
 import java.util.List;
 
-import android.view.ContextMenu;
 import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
@@ -13,7 +12,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Geometry;
-import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
 public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {

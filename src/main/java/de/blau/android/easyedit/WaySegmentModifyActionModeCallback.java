@@ -1,25 +1,14 @@
 package de.blau.android.easyedit;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
-import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
-import de.blau.android.osm.Node;
-import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
-import de.blau.android.util.Geometry;
-import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
