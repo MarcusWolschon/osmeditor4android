@@ -13,7 +13,6 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.junit.Test;
-import org.mozilla.javascript.ast.Name;
 
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmException;
@@ -29,7 +28,7 @@ public class StorageDelegatorTest {
     @Test
     public void rotate() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d);
+        Way w = addWayToStorage(d, true);
         Node n0 = w.getNodes().get(0);
 
         try {
@@ -51,7 +50,7 @@ public class StorageDelegatorTest {
     @Test
     public void copy() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d);
+        Way w = addWayToStorage(d, true);
 
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
@@ -74,7 +73,7 @@ public class StorageDelegatorTest {
     @Test
     public void cut() {
         StorageDelegator d = new StorageDelegator();
-        Way w = addWayToStorage(d);
+        Way w = addWayToStorage(d, true);
 
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
@@ -94,9 +93,10 @@ public class StorageDelegatorTest {
      * Add a test way to storage and return it
      * 
      * @param d the StorageDeleagot instance
+     * @param close if true close the way
      * @return the way
      */
-    Way addWayToStorage(@NonNull StorageDelegator d) {
+    Way addWayToStorage(@NonNull StorageDelegator d, boolean close) {
         d.getUndo().createCheckpoint("add test way");
         OsmElementFactory factory = d.getFactory();
         Way w = factory.createWayWithNewId();
@@ -112,7 +112,9 @@ public class StorageDelegatorTest {
         Node n3 = factory.createNodeWithNewId(toE7(51.476), toE7(0));
         d.insertElementSafe(n3);
         w.addNode(n3);
-        w.addNode(n0); // close
+        if (close) {
+            w.addNode(n0); // close
+        }
         d.insertElementSafe(w);
         return w;
     }
@@ -178,7 +180,7 @@ public class StorageDelegatorTest {
         d.insertElementSafe(n);
 
         StorageDelegator d2 = new StorageDelegator();
-        Way w2 = addWayToStorage(d2);
+        Way w2 = addWayToStorage(d2, true);
 
         d.mergeData(d2.getCurrentStorage(), null);
 
@@ -187,6 +189,66 @@ public class StorageDelegatorTest {
         assertNotNull(d.getOsmElement(Node.NAME, 761534749L));
         assertEquals(nodeCount + 4, d.getCurrentStorage().getNodeCount());
         assertEquals(wayCount + 1, d.getCurrentStorage().getWayCount());
+    }
+
+    /**
+     * Split way at node
+     */
+    @Test
+    public void split() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n = w.getNodes().get(2);
+        Way newWay = d.splitAtNode(w, n);
+        assertEquals(n, w.getLastNode());
+        assertEquals(n, newWay.getFirstNode());
+        assertEquals(2, newWay.nodeCount());
+    }
+
+    /**
+     * Split closed way
+     */
+    @Test
+    public void splitClosed1() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, true);
+        assertTrue(w.isClosed());
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n1 = w.getNodes().get(1);
+        Node n2 = w.getNodes().get(2);
+        Way[] newWays = d.splitAtNodes(w, n1, n2, false);
+        assertNotNull(newWays);
+        assertEquals(2, newWays.length);
+        assertTrue(newWays[0].hasNode(n1));
+        assertTrue(newWays[0].hasNode(n2));
+        assertTrue(newWays[1].hasNode(n1));
+        assertTrue(newWays[1].hasNode(n2));
+    }
+
+    /**
+     * Split closed way
+     */
+    @Test
+    public void splitClosed2() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, true);
+        assertTrue(w.isClosed());
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n1 = w.getNodes().get(1);
+        Node n2 = w.getNodes().get(3);
+        Way[] newWays = d.splitAtNodes(w, n1, n2, true);
+        assertNotNull(newWays);
+        assertEquals(2, newWays.length);
+        assertTrue(newWays[0].hasNode(n1));
+        assertTrue(newWays[0].hasNode(n2));
+        assertTrue(newWays[1].hasNode(n1));
+        assertTrue(newWays[1].hasNode(n2));
+        assertTrue(newWays[0].isClosed());
+        assertTrue(newWays[1].isClosed());
     }
 
     /**
