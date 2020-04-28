@@ -1132,7 +1132,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param node node to split at
      * @return the new Way
      */
-    @NonNull 
+    @NonNull
     public Way splitAtNode(@NonNull final Way way, @NonNull final Node node) {
         Log.d(DEBUG_TAG, "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
         // undo - old way is saved here, new way is saved at insert
@@ -2156,7 +2156,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         for (Long l : parents.getKeys()) {
             Log.d(DEBUG_TAG, "updateParentRelations new parent " + l);
             if (l != -1) { //
-                Relation r = (Relation) currentStorage.getOsmElement(Relation.NAME, l);
+                Relation r = (Relation) currentStorage.getRelation(l);
                 if (!origParents.contains(r)) {
                     for (RelationMemberPosition rmp : parents.get(l)) {
                         Log.d(DEBUG_TAG, "updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());

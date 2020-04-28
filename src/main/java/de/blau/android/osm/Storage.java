@@ -94,19 +94,20 @@ public class Storage implements Serializable {
     /**
      * Get a OsmElement
      * 
-     * @param type the element type as a String (NODE, WAY, RELATION)
+     * @param type the element type as a String ("node", "way", "relation")
      * @param osmId the id
      * @return the OsmElement or null if not found
      */
     @Nullable
     public OsmElement getOsmElement(@NonNull final String type, final long osmId) {
-        if (type.equalsIgnoreCase(Node.NAME)) {
+        if (Node.NAME.equals(type)) {
             return getNode(osmId);
-        } else if (type.equalsIgnoreCase(Way.NAME)) {
+        } else if (Way.NAME.equals(type)) {
             return getWay(osmId);
-        } else if (type.equalsIgnoreCase(Relation.NAME)) {
+        } else if (Relation.NAME.equals(type)) {
             return getRelation(osmId);
         }
+        Log.e(DEBUG_TAG, "Unknown element type " + type);
         return null;
     }
 
@@ -122,7 +123,7 @@ public class Storage implements Serializable {
     /**
      * Return all nodes in a bounding box
      * 
-     * Notes: - currently this does a sequential scan of all nodes - zsing a for loop instead of for each is twice as
+     * Notes: - currently this does a sequential scan of all nodes - using a for loop instead of for each is twice as
      * fast
      * 
      * @param box bounding box to search in
@@ -130,7 +131,21 @@ public class Storage implements Serializable {
      */
     @NonNull
     public List<Node> getNodes(@NonNull BoundingBox box) {
-        List<Node> result = new ArrayList<>(nodes.size());
+        return getNodes(box, new ArrayList<>(1000));
+    }
+
+    /**
+     * Return all nodes in a bounding box
+     * 
+     * Notes: - currently this does a sequential scan of all nodes - using a for loop instead of for each is twice as
+     * fast
+     * 
+     * @param box bounding box to search in
+     * @param result List of Node to hold the result
+     * @return a list of all nodes in box
+     */
+    @NonNull
+    public List<Node> getNodes(@NonNull BoundingBox box, @NonNull List<Node> result) {
         List<Node> list = nodes.values();
         int listSize = list.size();
         for (int i = 0; i < listSize; i++) {
@@ -170,7 +185,20 @@ public class Storage implements Serializable {
      */
     @NonNull
     public List<Way> getWays(@NonNull BoundingBox box) {
-        List<Way> result = new ArrayList<>(ways.size());
+        return getWays(box, new ArrayList<>(1000));
+    }
+
+    /**
+     * Return all ways covered or possibly intersecting a bounding box
+     * <p>
+     * Note: currently this does a sequential scan of all ways
+     * 
+     * @param box bounding box to search in
+     * @param result List of Way to hold the result
+     * @return a list of all ways in box
+     */
+    @NonNull
+    public List<Way> getWays(@NonNull BoundingBox box, @NonNull List<Way> result) {
         BoundingBox newBox = new BoundingBox(); // avoid creating new instances
         List<Way> list = ways.values();
         int listSize = list.size();
@@ -431,7 +459,8 @@ public class Storage implements Serializable {
     /**
      * Get all ways that node is a vertex of
      * 
-     * This method currently does a sequential scan of all ways in storage and should be avoided
+     * This method currently does a sequential scan of all ways in storage and should be avoided, note checking against
+     * the ways bounding boxes is slower than this
      * 
      * @param node node to search for
      * @return list containing all ways containing node
@@ -439,10 +468,8 @@ public class Storage implements Serializable {
     @NonNull
     public List<Way> getWays(@NonNull final Node node) {
         List<Way> mWays = new ArrayList<>();
-        // BoundingBox box = new BoundingBox();
         for (Way way : ways) {
-            // box = way.getBounds(box);
-            if (/* box.contains(node.getLon(), node.getLat()) && */way.hasNode(node)) {
+            if (way.hasNode(node)) {
                 mWays.add(way);
             }
         }
