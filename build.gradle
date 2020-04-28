@@ -103,6 +103,15 @@ task updateImagery(type: Download) {
 updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://josm.openstreetmap.de/wiki/Maps'
 
+task updateGeocontext(type: Download) {
+    acceptAnyCertificate true
+    src 'https://raw.githubusercontent.com/simonpoole/geocontext/master/geocontext.json'
+    dest new File(projectDir.getPath() + '/src/main/assets/geocontext.json')
+}
+updateGeocontext.group = 'vespucci'
+updateGeocontext.description = 'Update the geocontext configuration'
+
+
 task update3rdPartyDocs() {
 }
 update3rdPartyDocs.group = 'vespucci'
