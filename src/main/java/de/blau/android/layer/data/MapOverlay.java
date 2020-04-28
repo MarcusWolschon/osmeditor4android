@@ -252,7 +252,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private float[][] coord = null;
 
-    private FloatPrimitiveList points = new FloatPrimitiveList(); // allocate this just once
+    private FloatPrimitiveList points      = new FloatPrimitiveList(); // allocate these just once
+    private List<Node>         nodesResult = new ArrayList<>(1000);
+    private List<Way>          waysResult  = new ArrayList<>(1000);
 
     /**
      * Stuff for multipolygon support Instantiate these objects just once
@@ -420,8 +422,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         paintRelations.clear();
 
         // first find all nodes that we need to display
-
-        List<Node> paintNodes = delegator.getCurrentStorage().getNodes(viewBox);
+        nodesResult.clear();
+        List<Node> paintNodes = delegator.getCurrentStorage().getNodes(viewBox, nodesResult);
 
         // the following should guarantee that if the selected node is off screen but the handle not, the handle gets
         // drawn, this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
@@ -443,7 +445,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 && !tmpLocked && (showTolerance || tmpDrawingEditMode.elementsSelectable());
 
         // Paint all ways
-        List<Way> ways = delegator.getCurrentStorage().getWays(viewBox);
+        waysResult.clear();
+        List<Way> ways = delegator.getCurrentStorage().getWays(viewBox, waysResult);
 
         List<Way> waysToDraw = ways;
         if (filterMode) {
