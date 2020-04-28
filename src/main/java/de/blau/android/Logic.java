@@ -350,7 +350,7 @@ public class Logic {
         DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
         DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
         // zap the cached style for all ways
-        for (Way w : getDelegator().getCurrentStorage().getWays()) {
+        for (Way w : getWays()) {
             w.setStyle(null);
         }
         for (Relation r : getDelegator().getCurrentStorage().getRelations()) {
@@ -731,7 +731,7 @@ public class Logic {
      */
     @NonNull
     public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
-        ArrayList<OsmElement> result = new ArrayList<>();
+        List<OsmElement> result = new ArrayList<>();
         result.addAll(getClickedNodes(x, y));
         result.addAll(getClickedWays(x, y));
         if (returnRelations) {
@@ -776,27 +776,16 @@ public class Logic {
     /**
      * Returns all ways within way tolerance from the given coordinates, and their distances from them.
      * 
-     * @param x x display coordinate
-     * @param y y display coordinate
-     * @return a hash map mapping Ways to distances
-     */
-    private java.util.Map<Way, Double> getClickedWaysWithDistances(final float x, final float y) {
-        return getClickedWaysWithDistances(true, x, y);
-    }
-
-    /**
-     * Returns all ways within way tolerance from the given coordinates, and their distances from them.
-     * 
      * @param includeClosed include closed ways in the result if true
      * @param x x display coordinate
      * @param y y display coordinate
      * @return a hash map mapping Ways to distances
      */
     private java.util.Map<Way, Double> getClickedWaysWithDistances(boolean includeClosed, final float x, final float y) {
-        HashMap<Way, Double> result = new HashMap<>();
+        java.util.Map<Way, Double> result = new HashMap<>();
         boolean showWayIcons = prefs.getShowWayIcons();
 
-        List<Way> ways = filter != null ? filter.getVisibleWays() : getDelegator().getCurrentStorage().getWays(map.getViewBox());
+        List<Way> ways = getCLickableWays();
 
         for (Way way : ways) {
             if (way.isClosed() && !includeClosed) {
@@ -805,22 +794,22 @@ public class Logic {
             boolean added = false;
             List<Node> wayNodes = way.getNodes();
 
-            if (clickableElements != null && !clickableElements.contains(way)) {
-                continue;
-            }
-
             double A = 0;
             double Y = 0;
             double X = 0;
-            float node1X = Float.MAX_VALUE;
-            float node1Y = Float.MAX_VALUE;
+            float node1X = -Float.MAX_VALUE;
+            float node1Y = -Float.MAX_VALUE;
+            boolean firstNode = true;
             // Iterate over all WayNodes, but not the last one.
-            for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
-                Node node1 = wayNodes.get(k);
+            int wayNodesSize = wayNodes.size();
+            Node node1 = wayNodes.get(0);
+            for (int k = 0; k < wayNodesSize - 1; ++k) {
+
                 Node node2 = wayNodes.get(k + 1);
-                if (node1X == Float.MAX_VALUE) {
+                if (firstNode) {
                     node1X = lonE7ToX(node1.getLon());
                     node1Y = latE7ToY(node1.getLat());
+                    firstNode = false;
                 }
                 float node2X = lonE7ToX(node2.getLon());
                 float node2Y = latE7ToY(node2.getLat());
@@ -836,6 +825,7 @@ public class Logic {
                 A = A + d;
                 X = X + (node1X + node2X) * d;
                 Y = Y + (node1Y + node2Y) * d;
+                node1 = node2;
                 node1X = node2X;
                 node1Y = node2Y;
             }
@@ -849,6 +839,27 @@ public class Logic {
             }
         }
         return result;
+    }
+
+    /**
+     * Get a List of Ways that could be clicked
+     * 
+     * @return a List of Ways
+     */
+    @NonNull
+    List<Way> getCLickableWays() {
+        List<Way> ways;
+        if (clickableElements != null) {
+            ways = new ArrayList<>();
+            for (OsmElement e : clickableElements) {
+                if (e instanceof Way) {
+                    ways.add((Way) e);
+                }
+            }
+        } else {
+            ways = filter != null ? filter.getVisibleWays() : getWays(map.getViewBox());
+        }
+        return ways;
     }
 
     /**
@@ -894,23 +905,34 @@ public class Logic {
 
         Handle result = null;
         double bestDistance = Double.MAX_VALUE;
+        float wayToleranceValue = DataStyle.getCurrent().getWayToleranceValue();
+        float minLenForHandle = DataStyle.getCurrent().getMinLenForHandle();
 
-        for (Way way : getDelegator().getCurrentStorage().getWays()) {
+        List<Way> ways = filter != null ? filter.getVisibleWays() : getDelegator().getCurrentStorage().getWays(map.getViewBox());
+        if (filter != null && getSelectedWays() != null) { // selected Ways are always visible if a filter is applied
+            ways.addAll(getSelectedWays());
+        }
+
+        for (Way way : ways) {
             List<Node> wayNodes = way.getNodes();
 
-            if (clickableElements != null && !clickableElements.contains(way)) {
-                continue;
-            }
-
+            float node1X = -Float.MAX_VALUE;
+            float node1Y = -Float.MAX_VALUE;
+            boolean firstNode = true;
             // Iterate over all WayNodes, but not the last one.
-            for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
-                Node node1 = wayNodes.get(k);
+            int wayNodesSize = wayNodes.size();
+            Node node1 = wayNodes.get(0);
+            for (int k = 0; k < wayNodesSize - 1; ++k) {
                 Node node2 = wayNodes.get(k + 1);
-                // TODO only project once per node
-                float node1X = lonE7ToX(node1.getLon());
-                float node1Y = latE7ToY(node1.getLat());
-                float xDelta = lonE7ToX(node2.getLon()) - node1X;
-                float yDelta = latE7ToY(node2.getLat()) - node1Y;
+                if (firstNode) {
+                    node1X = lonE7ToX(node1.getLon());
+                    node1Y = latE7ToY(node1.getLat());
+                    firstNode = false;
+                }
+                float node2X = lonE7ToX(node2.getLon());
+                float node2Y = latE7ToY(node2.getLat());
+                float xDelta = node2X - node1X;
+                float yDelta = node2Y - node1Y;
 
                 float handleX = node1X + xDelta / 2;
                 float handleY = node1Y + yDelta / 2;
@@ -918,16 +940,20 @@ public class Logic {
                 float differenceX = Math.abs(handleX - x);
                 float differenceY = Math.abs(handleY - y);
 
-                if ((differenceX > DataStyle.getCurrent().getWayToleranceValue()) && (differenceY > DataStyle.getCurrent().getWayToleranceValue())) {
+                node1 = node2;
+                node1X = node2X;
+                node1Y = node2Y;
+
+                if ((differenceX > wayToleranceValue) && (differenceY > wayToleranceValue)) {
                     continue;
                 }
-                if (Math.hypot(xDelta, yDelta) <= DataStyle.getCurrent().getMinLenForHandle()) {
+
+                if (Math.hypot(xDelta, yDelta) <= minLenForHandle) {
                     continue;
                 }
 
                 double dist = Math.hypot(differenceX, differenceY);
-                // TODO better choice for tolerance
-                if ((dist <= DataStyle.getCurrent().getWayToleranceValue()) && (dist < bestDistance)) {
+                if ((dist <= wayToleranceValue) && (dist < bestDistance)) {
                     if (filter != null) {
                         if (filter.include(way, isSelected(way))) {
                             bestDistance = dist;
@@ -993,15 +1019,8 @@ public class Logic {
     @NonNull
     private java.util.Map<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
         java.util.Map<Node, Double> result = new HashMap<>();
-        List<Node> nodes = filter != null ? filter.getVisibleNodes() : getDelegator().getCurrentStorage().getNodes(map.getViewBox());
-        if (filter != null && getSelectedNodes() != null) { // selected nodes are always visible if a filter is applied
-            nodes.addAll(getSelectedNodes());
-        }
+        List<Node> nodes = getClickableNodes();
         for (Node node : nodes) {
-            if (clickableElements != null && !clickableElements.contains(node)) {
-                continue;
-            }
-
             int lat = node.getLat();
             int lon = node.getLon();
 
@@ -1013,6 +1032,35 @@ public class Logic {
             }
         }
         return result;
+    }
+
+    /**
+     * Get all nodes that could be clicked
+     * 
+     * @return a List of Nodes
+     */
+    @NonNull
+    List<Node> getClickableNodes() {
+        List<Node> nodes;
+        if (clickableElements != null) {
+            nodes = new ArrayList<>();
+            for (OsmElement e : clickableElements) {
+                if (e instanceof Node) {
+                    nodes.add((Node) e);
+                }
+            }
+        } else {
+            if (filter != null) {
+                nodes = filter.getVisibleNodes();
+                if (getSelectedNodes() != null) { // selected Nodes are always visible if a filter is
+                    // applied
+                    nodes.addAll(getSelectedNodes());
+                }
+            } else {
+                nodes = getDelegator().getCurrentStorage().getNodes(map.getViewBox());
+            }
+        }
+        return nodes;
     }
 
     /**
@@ -1100,7 +1148,7 @@ public class Logic {
     private Way getClickedWay(final float x, final float y) {
         Way bestWay = null;
         Double bestDistance = Double.MAX_VALUE;
-        java.util.Map<Way, Double> candidates = getClickedWaysWithDistances(x, y);
+        java.util.Map<Way, Double> candidates = getClickedWaysWithDistances(true, x, y);
         for (Entry<Way, Double> candidate : candidates.entrySet()) {
             if (candidate.getValue() < bestDistance) {
                 bestWay = candidate.getKey();
@@ -2390,7 +2438,7 @@ public class Logic {
             }
         }
         if (ways == null) {
-            ways = getDelegator().getCurrentStorage().getWays();
+            ways = getDelegator().getCurrentStorage().getWays(map.getViewBox());
         }
         Node savedNode1 = null;
         Node savedNode2 = null;
@@ -2403,12 +2451,19 @@ public class Logic {
                 continue;
             }
             List<Node> wayNodes = way.getNodes();
-            for (int k = 1, wayNodesSize = wayNodes.size(); k < wayNodesSize; ++k) {
-                Node node1 = wayNodes.get(k - 1);
+            float node1X = -Float.MAX_VALUE;
+            float node1Y = -Float.MAX_VALUE;
+            boolean firstNode = true;
+            Node node1 = wayNodes.get(0);
+            int wayNodesSize = wayNodes.size();
+            for (int k = 1; k < wayNodesSize; ++k) {
                 Node node2 = wayNodes.get(k);
-                // TODO only project once per node
-                float node1X = lonE7ToX(node1.getLon());
-                float node1Y = latE7ToY(node1.getLat());
+
+                if (firstNode) {
+                    node1X = lonE7ToX(node1.getLon());
+                    node1Y = latE7ToY(node1.getLat());
+                    firstNode = false;
+                }
                 float node2X = lonE7ToX(node2.getLon());
                 float node2Y = latE7ToY(node2.getLat());
 
@@ -2430,6 +2485,9 @@ public class Logic {
                         savedWaysSameDirection.add(false);
                     }
                 }
+                node1 = node2;
+                node1X = node2X;
+                node1Y = node2Y;
             }
         }
         // way(s) found in tolerance range
