@@ -13,6 +13,7 @@ import androidx.appcompat.view.ActionMode.Callback;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.RestartFromElementActionModeCallback;
@@ -36,6 +37,8 @@ import de.blau.android.validation.Validator;
 public class EasyEditManager {
 
     private static final String DEBUG_TAG = EasyEditManager.class.getSimpleName();
+
+    private static final int INVALIDATION_DELAY = 100; // minimum delay before action mode will be invalidated
 
     private final Main                 main;
     private final Logic                logic;
@@ -311,6 +314,14 @@ public class EasyEditManager {
         }
     }
 
+    private Runnable invalidateMode = new Runnable() {
+        @Override
+        public void run() {
+            currentActionMode.invalidate();
+
+        }
+    };
+
     /**
      * Invalidate the menu of the current ActionMode
      */
@@ -320,7 +331,11 @@ public class EasyEditManager {
                 if (currentActionModeCallback != null) {
                     currentActionModeCallback.update();
                 }
-                currentActionMode.invalidate();
+                Map map = main.getMap();
+                if (map != null) {
+                    map.removeCallbacks(invalidateMode);
+                    map.postDelayed(invalidateMode, INVALIDATION_DELAY);
+                }
             }
         }
     }
