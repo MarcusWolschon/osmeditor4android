@@ -1,4 +1,4 @@
-package de.blau.android.osm;
+package de.blau.android.gpx;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -11,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,9 +37,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import de.blau.android.R;
-import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.util.SavingHelper;
 
 /**
@@ -49,29 +46,12 @@ import de.blau.android.util.SavingHelper;
  * wear.
  */
 public class Track extends DefaultHandler implements GpxTimeFormater {
-    private static final String SYM_ELEMENT = "sym";
-
-    private static final String TYPE_ELEMENT = "type";
-
-    private static final String DESCRIPTION_ELEMENT = "description";
-
-    private static final String NAME_ELEMENT = "name";
-
-    private static final String WPT_ELEMENT = "wpt";
-
-    private static final String ELE_ELEMENT = "ele";
-
-    private static final String TIME_ELEMENT = "time";
-
-    private static final String TRKPT_ELEMENT = "trkpt";
-
-    private static final String TRKSEG_ELEMENT = "trkseg";
-
-    private static final String TRK_ELEMENT = "trk";
-
-    private static final String GPX_ELEMENT = "gpx";
 
     private static final String DEBUG_TAG = "Track";
+
+    private static final String TRKSEG_ELEMENT = "trkseg";
+    private static final String TRK_ELEMENT    = "trk";
+    private static final String GPX_ELEMENT    = "gpx";
 
     private final List<TrackPoint> currentTrack;
 
@@ -590,27 +570,27 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
                 Log.d(DEBUG_TAG, "parsing trkseg");
                 newSegment = true;
                 break;
-            case TRKPT_ELEMENT:
-            case WPT_ELEMENT:
+            case TrackPoint.TRKPT_ELEMENT:
+            case WayPoint.WPT_ELEMENT:
                 parsedLat = Double.parseDouble(atts.getValue("lat"));
                 parsedLon = Double.parseDouble(atts.getValue("lon"));
                 break;
-            case TIME_ELEMENT:
+            case TrackPoint.TIME_ELEMENT:
                 state = State.TIME;
                 break;
-            case ELE_ELEMENT:
+            case TrackPoint.ELE_ELEMENT:
                 state = State.ELE;
                 break;
-            case NAME_ELEMENT:
+            case WayPoint.NAME_ELEMENT:
                 state = State.NAME;
                 break;
-            case DESCRIPTION_ELEMENT:
+            case WayPoint.DESCRIPTION_ELEMENT:
                 state = State.DESC;
                 break;
-            case TYPE_ELEMENT:
+            case WayPoint.TYPE_ELEMENT:
                 state = State.TYPE;
                 break;
-            case SYM_ELEMENT:
+            case WayPoint.SYM_ELEMENT:
                 state = State.SYM;
                 break;
             default:
@@ -671,14 +651,14 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
             break;
         case TRKSEG_ELEMENT:
             break;
-        case TRKPT_ELEMENT:
+        case TrackPoint.TRKPT_ELEMENT:
             currentTrack.add(new TrackPoint(newSegment ? TrackPoint.FLAG_NEWSEGMENT : 0, parsedLat, parsedLon, parsedEle, parsedTime));
             newSegment = false;
             parsedEle = Double.NaN;
             parsedTime = 0L;
             state = State.NONE;
             break;
-        case WPT_ELEMENT:
+        case WayPoint.WPT_ELEMENT:
             currentWayPoints.add(new WayPoint(parsedLat, parsedLon, parsedEle, parsedTime, parsedName, parsedDescription, parsedType, parsedSymbol));
             parsedEle = Double.NaN;
             parsedTime = 0L;
@@ -688,12 +668,12 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
             parsedSymbol = null;
             state = State.NONE;
             break;
-        case TIME_ELEMENT:
-        case ELE_ELEMENT:
-        case NAME_ELEMENT:
-        case DESCRIPTION_ELEMENT:
-        case TYPE_ELEMENT:
-        case SYM_ELEMENT:
+        case TrackPoint.TIME_ELEMENT:
+        case TrackPoint.ELE_ELEMENT:
+        case WayPoint.NAME_ELEMENT:
+        case WayPoint.DESCRIPTION_ELEMENT:
+        case WayPoint.TYPE_ELEMENT:
+        case WayPoint.SYM_ELEMENT:
             state = State.NONE;
             break;
         default:
@@ -710,349 +690,4 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         return currentTrack;
     }
 
-    /**
-     * This is a class to store location points and provide storing/serialization for them. Everything considered less
-     * relevant is commented out to save space. If you chose that this should be included in the GPX, uncomment it,
-     * increment {@link #FORMAT_VERSION}, set the correct {@link #RECORD_SIZE} and rewrite
-     * {@link #fromStream(DataInputStream)}, {@link #toStream(DataOutputStream)} and {@link #getGPXString()}.
-     * 
-     * @author Jan
-     */
-    public static class TrackPoint implements InterruptibleGeoPoint, Serializable {
-
-        // private static final SimpleDateFormat ISO8601FORMAT;
-        // private static final Calendar calendarInstance = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        // static {
-        // // Hardcode 'Z' timezone marker as otherwise '+0000' will be used, which is invalid in GPX
-        // ISO8601FORMAT = new SimpleDateFormat(DATE_PATTERN_ISO8601_UTC);
-        // ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
-        // }
-
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
-
-        public static final int FORMAT_VERSION = 2;
-        public static final int RECORD_SIZE    = 1 + 4 * 8;
-
-        public static final byte FLAG_NEWSEGMENT = 1;
-        public final byte        flags;
-        public final double      latitude;
-        public final double      longitude;
-        public final double      altitude;
-        public final long        time;
-        // public final Float accuracy;
-        // public final Float bearing;
-        // public final Float speed;
-
-        /**
-         * Construct a TrackPoint from a location
-         * 
-         * @param loc the Location we want to use
-         * @param isNewSegment true id we are starting a new segment
-         */
-        public TrackPoint(@NonNull Location loc, boolean isNewSegment) {
-            flags = encodeFlags(isNewSegment);
-            latitude = loc.getLatitude();
-            longitude = loc.getLongitude();
-            altitude = loc.hasAltitude() ? loc.getAltitude() : Double.NaN;
-            time = loc.getTime();
-            // accuracy = original.hasAccuracy() ? original.getAccuracy() : null;
-            // bearing = original.hasBearing() ? original.getBearing() : null;
-            // speed = original.hasSpeed() ? original.getSpeed() : null;
-        }
-
-        /**
-         * Construct a TrackPoint
-         * 
-         * @param flags flags (new segment)
-         * @param latitude the latitude (WGS84)
-         * @param longitude the longitude (WSG84)
-         * @param altitude altitude in meters
-         * @param time time (ms since the epoch)
-         */
-        public TrackPoint(byte flags, double latitude, double longitude, double altitude, long time) {
-            // Log.d(DEBUG_TAG,"new trkpt " + flags + " " + latitude+ " " + longitude+ " " + altitude+ " " + time);
-            this.flags = flags;
-            this.latitude = latitude;
-            this.longitude = longitude;
-            this.altitude = altitude;
-            this.time = time;
-        }
-
-        /**
-         * Construct a TrackPoint
-         * 
-         * @param flags flags (new segment)
-         * @param latitude the latitude (WGS84)
-         * @param longitude the longitude (WSG84)
-         * @param time time (ms since the epoch)
-         */
-        public TrackPoint(byte flags, double latitude, double longitude, long time) {
-            this(flags, latitude, longitude, Double.NaN, time);
-        }
-
-        /**
-         * Loads a track point from a {@link DataInputStream}
-         * 
-         * @param stream the stream from which to load
-         * @return the loaded data point
-         * @throws IOException if anything goes wrong
-         */
-        public static TrackPoint fromStream(DataInputStream stream) throws IOException {
-            return new TrackPoint(stream.readByte(), // flags
-                    stream.readDouble(), // lat
-                    stream.readDouble(), // lon
-                    stream.readDouble(), // alt
-                    stream.readLong() // time
-            );
-        }
-
-        /**
-         * Writes the current track point to the data output stream
-         * 
-         * @param stream target stream
-         * @throws IOException
-         */
-        public void toStream(DataOutputStream stream) throws IOException {
-            stream.writeByte(flags);
-            stream.writeDouble(latitude);
-            stream.writeDouble(longitude);
-            stream.writeDouble(altitude);
-            stream.writeLong(time);
-        }
-
-        @Override
-        public int getLat() {
-            return (int) (latitude * 1E7);
-        }
-
-        @Override
-        public int getLon() {
-            return (int) (longitude * 1E7);
-        }
-
-        /**
-         * Get the latitude
-         * 
-         * @return the latitude in WGS84 coordinates
-         */
-        public double getLatitude() {
-            return latitude;
-        }
-
-        /**
-         * Get the longitude
-         * 
-         * @return the longitude in WGS84 coordinates
-         */
-        public double getLongitude() {
-            return longitude;
-        }
-
-        /**
-         * Return the time as milliseconds since the epoch
-         * 
-         * @return time in milliseconds
-         */
-        public long getTime() {
-            return time;
-        }
-
-        /**
-         * Check if this object has an altitude value
-         * 
-         * @return true if we have a valid altitude
-         */
-        public boolean hasAltitude() {
-            return !Double.isNaN(altitude);
-        }
-        // public boolean hasAccuracy() { return accuracy != null; }
-        // public boolean hasBearing() { return bearing != null; }
-        // public boolean hasSpeed() { return speed != null; }
-
-        /**
-         * Get the alitude
-         * 
-         * @return the altitude
-         */
-        public double getAltitude() {
-            return !Double.isNaN(altitude) ? altitude : 0d;
-        }
-        // public float getAccuracy() { return accuracy != null ? accuracy : 0f; }
-        // public float getBearing() { return bearing != null ? bearing : 0f; }
-        // public float getSpeed() { return speed != null ? speed : 0f; }
-
-        /**
-         * Encode flag values in to a byte
-         * 
-         * @param isNewSegment if true this starts a new segment
-         * @return the byte value holding the flags
-         */
-        private byte encodeFlags(boolean isNewSegment) {
-            byte result = 0;
-            if (isNewSegment) {
-                result += FLAG_NEWSEGMENT;
-            }
-            return result;
-        }
-
-        /**
-         * Check if this ibject marks the beginning of a new segment
-         * 
-         * @return true if a new segment starts here
-         */
-        public boolean isNewSegment() {
-            return (flags & FLAG_NEWSEGMENT) > 0;
-        }
-
-        /**
-         * Adds a GPX trkpt (track point) tag to the given serializer (synchronized due to use of calendarInstance)
-         * 
-         * @param serializer the xml serializer to use for output
-         * @param gtf class providing a formatter to GPX time data
-         * @throws IOException
-         */
-        public synchronized void toXml(XmlSerializer serializer, GpxTimeFormater gtf) throws IOException {
-            serializer.startTag(null, TRKPT_ELEMENT);
-            serializer.attribute(null, "lat", String.format(Locale.US, "%f", latitude));
-            serializer.attribute(null, "lon", String.format(Locale.US, "%f", longitude));
-            if (hasAltitude()) {
-                serializer.startTag(null, ELE_ELEMENT).text(String.format(Locale.US, "%f", altitude)).endTag(null, ELE_ELEMENT);
-            }
-            serializer.startTag(null, TIME_ELEMENT).text(gtf.format(time)).endTag(null, TIME_ELEMENT);
-            serializer.endTag(null, TRKPT_ELEMENT);
-        }
-
-        @Override
-        public String toString() {
-            return String.format(Locale.US, "%f, %f", latitude, longitude);
-        }
-
-        @Override
-        public boolean isInterrupted() {
-            return isNewSegment();
-        }
-    }
-
-    public static class WayPoint extends TrackPoint {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
-
-        private String name;
-        private String description;
-        private String type;
-        private String symbol;
-
-        /**
-         * Construct a new WayPoint
-         * 
-         * @param latitude the latitude (WGS84)
-         * @param longitude the longitude (WSG84)
-         * @param altitude altitude in meters
-         * @param time time (ms since the epoch)
-         * @param name optional name value
-         * @param description optional description
-         * @param type optional type value
-         * @param symbol optional symbol
-         */
-        public WayPoint(double latitude, double longitude, double altitude, long time, @Nullable String name, @Nullable String description,
-                @Nullable String type, @Nullable String symbol) {
-            super((byte) 0, latitude, longitude, altitude, time);
-            this.name = name;
-            this.description = description;
-            this.type = type;
-            this.symbol = symbol;
-        }
-
-        /**
-         * Adds a GPX trkpt (track point) tag to the given serializer (synchronized due to use of calendarInstance)
-         * 
-         * @param serializer the xml serializer to use for output
-         * @param gtf class providing a formatter to GPX time data
-         * @throws IOException
-         */
-        @Override
-        public synchronized void toXml(XmlSerializer serializer, GpxTimeFormater gtf) throws IOException {
-            serializer.startTag(null, WPT_ELEMENT);
-            serializer.attribute(null, "lat", String.format(Locale.US, "%f", latitude));
-            serializer.attribute(null, "lon", String.format(Locale.US, "%f", longitude));
-            if (hasAltitude()) {
-                serializer.startTag(null, ELE_ELEMENT).text(String.format(Locale.US, "%f", altitude)).endTag(null, ELE_ELEMENT);
-            }
-            serializer.startTag(null, TIME_ELEMENT).text(gtf.format(time)).endTag(null, TIME_ELEMENT);
-            if (name != null) {
-                serializer.startTag(null, NAME_ELEMENT).text(name).endTag(null, NAME_ELEMENT);
-            }
-            if (description != null) {
-                serializer.startTag(null, DESCRIPTION_ELEMENT).text(description).endTag(null, DESCRIPTION_ELEMENT);
-            }
-            if (type != null) {
-                serializer.startTag(null, TYPE_ELEMENT).text(type).endTag(null, TYPE_ELEMENT);
-            }
-            if (symbol != null) {
-                serializer.startTag(null, SYM_ELEMENT).text(symbol).endTag(null, SYM_ELEMENT);
-            }
-            serializer.endTag(null, WPT_ELEMENT);
-        }
-
-        @Override
-        public String toString() {
-            return String.format(Locale.US, "%f, %f", latitude, longitude);
-        }
-
-        @Override
-        public boolean isInterrupted() {
-            return isNewSegment();
-        }
-
-        /**
-         * Get the symbol value
-         * 
-         * @return the symbol value
-         */
-        public String getSymbol() {
-            return symbol;
-        }
-
-        /**
-         * @return the name
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         * @return the description
-         */
-        public String getDescription() {
-            return description;
-        }
-
-        /**
-         * @return the type
-         */
-        public String getType() {
-            return type;
-        }
-
-        /**
-         * Generate a short description suitable for a menu
-         * 
-         * @param ctx Android Context
-         * @return the description
-         */
-        public String getShortDescription(@NonNull Context ctx) {
-            if (getName() != null) {
-                return ctx.getString(R.string.waypoint_description, getName());
-            }
-            if (getType() != null) {
-                return ctx.getString(R.string.waypoint_description, getType());
-            }
-            return ctx.getString(R.string.waypoint_description, toString());
-        }
-    }
 }

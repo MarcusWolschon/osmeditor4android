@@ -1,4 +1,4 @@
-package de.blau.android.osm;
+package de.blau.android.gpx;
 
 public interface GpxTimeFormater {
     /**

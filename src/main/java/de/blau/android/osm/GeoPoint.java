@@ -1,7 +1,5 @@
 package de.blau.android.osm;
 
-import de.blau.android.osm.Track.TrackPoint;
-
 /**
  * Something that has a latitude and longitude and can return it in 1E7 format (e.g. {@link Node} and
  * {@link TrackPoint}).

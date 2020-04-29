@@ -46,6 +46,7 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
+import de.blau.android.gpx.Track;
 import de.blau.android.net.OAuthHelper;
 import de.blau.android.prefs.API;
 import de.blau.android.services.util.MBTileProviderDataBase;
