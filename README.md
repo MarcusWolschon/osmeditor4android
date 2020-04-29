@@ -51,7 +51,9 @@ Detailed documentation can be found on the [Vespucci Website](https://vespucci.i
 
 Here is how you can start developing.
 
-Currently building is supported with eclipse, android studio and gradle, see [build instructions](BUILDING.md).
+Currently building is supported with gradle in eclipse, android studio and naturally gradle on the command line, see [build instructions](BUILDING.md).
+
+If you are interested in adding a feature or other development work, please reach out to us before embarking on something that might be already in work or a fools errand. 
 
 Important note: if you are building your own version, particularly if you are making it available to third parties, please change app_version and app_name_version in res/values/appname.xml to something that makes it clear that this is not an "official" release and clearly identifies your builds.
 
