@@ -24,5 +24,7 @@ jobs:
         java-version: 1.8
     - name: Build with Gradle
       run: ./gradlew assembleCurrentDebug
+    - name: Run unit tests
+      run: ./gradlew testCurrentDebugUnitTest
     - name: Run lint
       run: ./gradlew lint
