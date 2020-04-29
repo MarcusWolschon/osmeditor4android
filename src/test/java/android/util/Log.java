@@ -28,10 +28,10 @@ public class Log {
      * 
      * @param tag log tag
      * @param msg message
-     * @param e Exception that caused the error
+     * @param e Throwable that caused the error
      * @return not documented
      */
-    public static int d(String tag, String msg, Exception e) {
+    public static int d(String tag, String msg, Throwable e) {
         System.out.println("DEBUG: " + tag + ": " + msg + " " + e.getMessage());
         return 0;
     }
@@ -65,10 +65,10 @@ public class Log {
      * 
      * @param tag log tag
      * @param msg message
-     * @param e Exception that caused the error
+     * @param e Throwable that caused the error
      * @return not documented
      */
-    public static int w(String tag, String msg, Exception e) {
+    public static int w(String tag, String msg, Throwable e) {
         System.out.println("WARN: " + tag + ": " + msg + " " + e.getMessage());
         return 0;
     }
@@ -90,10 +90,10 @@ public class Log {
      * 
      * @param tag log tag
      * @param msg message
-     * @param e Exception that caused the error
+     * @param e Throwable that caused the error
      * @return not documented
      */
-    public static int e(String tag, String msg, Exception e) {
+    public static int e(String tag, String msg, Throwable e) {
         System.out.println("ERROR: " + tag + ": " + msg + " " + e.getMessage());
         return 0;
     }
