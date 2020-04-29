@@ -110,11 +110,11 @@
         "left-hand-traffic": true
     },
     "hk": {
-        "left-hand-traffic": true
+        "left-hand-traffic": true,
         "languages": [
             "zh",
             "en"
-        ]
+        ],
         "speed-limits": [
             8,
             50,
@@ -166,7 +166,7 @@
         "left-hand-traffic": true
     },
     "mo": {
-        "left-hand-traffic": true
+        "left-hand-traffic": true,
         "languages": [
             "zh",
             "pt"
