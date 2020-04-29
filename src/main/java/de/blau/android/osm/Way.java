@@ -548,7 +548,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     }
 
     /**
-     * Called if geometry has changed and caced bbox is invalid
+     * Called if geometry has changed and cached bbox is invalid
      */
     public void invalidateBoundingBox() {
         left = Integer.MIN_VALUE;

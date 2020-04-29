@@ -822,9 +822,13 @@ public class UndoStorage implements Serializable {
                 ((Way) restored).nodes.clear();
                 for (Node n : nodes) {
                     Node wayNode = currentStorage.getNode(n.getOsmId());
-                    if (wayNode != null || deleted) {
-                        ((Way) restored).nodes.add(wayNode != null ? wayNode : n); // only add undeleted way nodes
+                    boolean nodeNotNull = wayNode != null;
+                    if (nodeNotNull || deleted) {
+                        ((Way) restored).nodes.add(nodeNotNull ? wayNode : n); // only add undeleted way nodes
                                                                                    // except if we are deleted
+                        if (nodeNotNull) {
+                            wayNode.resetHasProblem();
+                        }
                     } else {
                         Log.w(DEBUG_TAG, "#" + element.getOsmId() + " " + element.getDescription() + " missing node " + n.getOsmId());
                         restored.updateState(OsmElement.STATE_MODIFIED);
