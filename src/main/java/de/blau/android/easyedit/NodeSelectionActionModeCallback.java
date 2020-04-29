@@ -9,6 +9,7 @@ import java.util.SortedMap;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,17 +36,23 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
-    private static final int MENUITEM_APPEND       = 10;
-    private static final int MENUITEM_JOIN         = 11;
-    private static final int MENUITEM_UNJOIN       = 12;
-    private static final int MENUITEM_EXTRACT      = 13;
-    private static final int MENUITEM_RESTRICTION  = 14;
+    private static final String DEBUG_TAG             = "NodeSelectionAction...";
+    private static final int    MENUITEM_APPEND       = 10;
+    private static final int    MENUITEM_JOIN         = 11;
+    private static final int    MENUITEM_UNJOIN       = 12;
+    private static final int    MENUITEM_EXTRACT      = 13;
+    private static final int    MENUITEM_RESTRICTION  = 14;
     /** */
-    private static final int MENUITEM_SET_POSITION = 16;
-    private static final int MENUITEM_ADDRESS      = 17;
+    private static final int    MENUITEM_SET_POSITION = 16;
+    private static final int    MENUITEM_ADDRESS      = 17;
 
     private List<OsmElement> joinableElements = null;
     private List<Way>        highways         = new ArrayList<>();
+    private MenuItem         joinItem;
+    private MenuItem         appendItem;
+    private MenuItem         unjoinItem;
+    private MenuItem         extractItem;
+    private MenuItem         restrictionItem;
 
     /**
      * Construct a callback for Node selection
@@ -65,50 +72,75 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         main.invalidateMap();
         mode.setTitle(R.string.actionmode_nodeselect);
         mode.setSubtitle(null);
-        // mode.setTitleOptionalHint(true); // no need to display the title, only available in 4.1 up
+
+        menu = replaceMenu(menu, mode, this);
+        SortedMap<String, String> tags = ((Node) element).getTags();
+        if (!tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER) && !tags.containsKey(Tags.KEY_HIGHWAY)) {
+            // exclude some stuff that typically doesn't have an address
+            menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
+        }
+
+        appendItem = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
+
+        joinItem = menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge))
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
+
+        unjoinItem = menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_unjoin));
+
+        extractItem = menu.add(Menu.NONE, MENUITEM_EXTRACT, Menu.NONE, R.string.menu_extract)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_extract_node));
+
+        restrictionItem = menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_add_restriction));
+
+        menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
         return true;
     }
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         menu = replaceMenu(menu, mode, this);
+        boolean updated = super.onPrepareActionMode(mode, menu);
+        Log.d(DEBUG_TAG, "onPrepareActionMode");
 
-        super.onPrepareActionMode(mode, menu);
-        SortedMap<String, String> tags = ((Node) element).getTags();
-        if (!tags.containsKey(Tags.KEY_ADDR_HOUSENUMBER) && !tags.containsKey(Tags.KEY_HIGHWAY)) {
-            // exclude some stuff that typically doesn't have an address
-            menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
-        }
-        if (logic.isEndNode((Node) element)) {
-            menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
-        }
         joinableElements = logic.findJoinableElements((Node) element);
-        if (!joinableElements.isEmpty()) {
-            menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge))
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
-        }
+        updated |= setItemVisibility(!joinableElements.isEmpty(), joinItem, false);
+
         List<Way> ways = logic.getFilteredWaysForNode((Node) element);
+        updated |= setItemVisibility(isEndNode(ways, (Node) element), appendItem, false);
+
         int wayMembershipCount = ways.size();
-        if (wayMembershipCount > 1) {
-            menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_unjoin));
-        }
-        if (wayMembershipCount > 0) {
-            menu.add(Menu.NONE, MENUITEM_EXTRACT, Menu.NONE, R.string.menu_extract).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_extract_node));
-        }
+        updated |= setItemVisibility(wayMembershipCount > 1, unjoinItem, false);
+        updated |= setItemVisibility(wayMembershipCount > 0, extractItem, false);
+
         for (Way w : ways) {
             if (w.hasTagKey(Tags.KEY_HIGHWAY)) {
                 highways.add(w);
             }
         }
-        if (highways.size() >= 2) {
-            menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_add_restriction));
-        }
+        updated |= setItemVisibility(highways.size() >= 2, restrictionItem, false);
 
-        menu.add(Menu.NONE, MENUITEM_SET_POSITION, Menu.CATEGORY_SYSTEM, R.string.menu_set_position)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
-        arrangeMenu(menu);
-        return true;
+        if (updated) {
+            arrangeMenu(menu);
+        }
+        return updated;
+    }
+
+    /**
+     * Determine from a list of ways if node is an end node
+     * 
+     * @param ways the List of Way
+     * @param node the Node
+     * @return true is an end node in any of them
+     */
+    private boolean isEndNode(@NonNull List<Way> ways, @NonNull Node node) {
+        for (Way w : ways) {
+            if (w.isEndNode(node)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

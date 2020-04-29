@@ -67,7 +67,10 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
     boolean deselect = true;
 
-    UndoListener undoListener;
+    UndoListener     undoListener;
+    private MenuItem undoItem;
+    private MenuItem uploadItem;
+    private MenuItem pasteItem;
 
     /**
      * Construct a new ActionModeCallback
@@ -89,6 +92,52 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         logic.setSelectedRelationWays(null);
         logic.setSelectedRelationNodes(null);
         main.getMap().deselectObjects();
+
+        // setup menu
+        menu = replaceMenu(menu, mode, this);
+        menu.clear();
+        menuUtil.reset();
+        main.getMenuInflater().inflate(R.menu.undo_action, menu);
+        undoItem = menu.findItem(R.id.undo_action);
+
+        View undoView = undoItem.getActionView();
+        undoView.setOnClickListener(undoListener);
+        undoView.setOnLongClickListener(undoListener);
+
+        menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit))
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
+        menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
+        if (!(element instanceof Relation)) {
+            menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy)
+                    .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
+            menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut))
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
+        }
+        pasteItem = menu.add(Menu.NONE, MENUITEM_PASTE_TAGS, Menu.CATEGORY_SECONDARY, R.string.menu_paste_tags)
+                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste_tags));
+
+        menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_multi_select));
+        menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
+        if (element.getOsmId() > 0) {
+            menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
+        }
+        menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information)
+                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));
+        menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
+        menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
+
+        uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element);
+
+        menu.add(GROUP_BASE, MENUITEM_SHARE_POSITION, Menu.CATEGORY_SYSTEM | 10, R.string.share_position);
+        menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
+        Preferences prefs = new Preferences(main);
+        menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         return true;
     }
 
@@ -122,56 +171,59 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         menu = replaceMenu(menu, mode, this);
+        boolean updated = false;
         super.onPrepareActionMode(mode, menu);
-        menu.clear();
-        menuUtil.reset();
-
-        main.getMenuInflater().inflate(R.menu.undo_action, menu);
-        MenuItem undo = menu.findItem(R.id.undo_action);
         if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
-            undo.setVisible(true);
-            undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
+            if (!undoItem.isVisible()) {
+                undoItem.setVisible(true);
+                undoItem.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
+                updated = true;
+            }
+        } else if (undoItem.isVisible()) {
+            undoItem.setVisible(false);
+            updated = true;
+        }
+
+        updated |= setItemVisibility(!element.isUnchanged(), uploadItem, true);
+        updated |= setItemVisibility(!App.getTagClipboard(main).isEmpty(), pasteItem, true);
+        return updated;
+    }
+
+    /**
+     * Set a menus visibility or enabled status
+     * 
+     * @param condition the condition visibility depends on
+     * @param item the MenuItem
+     * @param setEnabled set enabled status instead of visibility
+     * @return true if the visibility was changed
+     */
+    static boolean setItemVisibility(boolean condition, @NonNull MenuItem item, boolean setEnabled) {
+        if (condition) {
+            if (setEnabled) {
+                if (!item.isEnabled()) {
+                    item.setEnabled(true);
+                    return true;
+                }
+            } else {
+                if (!item.isVisible()) {
+                    item.setVisible(true);
+                    return true;
+                }
+            }
         } else {
-            undo.setVisible(false);
+            if (setEnabled) {
+                if (item.isEnabled()) {
+                    item.setEnabled(false);
+                    return true;
+                }
+            } else {
+                if (item.isVisible()) {
+                    item.setVisible(false);
+                    return true;
+                }
+            }
         }
-        View undoView = undo.getActionView();
-        undoView.setOnClickListener(undoListener);
-        undoView.setOnLongClickListener(undoListener);
-
-        menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
-        menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
-        if (!(element instanceof Relation)) {
-            menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy)
-                    .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
-            menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut))
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
-        }
-        menu.add(Menu.NONE, MENUITEM_PASTE_TAGS, Menu.CATEGORY_SECONDARY, R.string.menu_paste_tags)
-                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste_tags)).setEnabled(!App.getTagClipboard(main).isEmpty());
-
-        menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_multi_select));
-        menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
-        if (element.getOsmId() > 0) {
-            menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
-        }
-        menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information)
-                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));
-        menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
-        menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
-        menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element).setEnabled(!element.isUnchanged());
-
-        menu.add(GROUP_BASE, MENUITEM_SHARE_POSITION, Menu.CATEGORY_SYSTEM | 10, R.string.share_position);
-        menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
-        Preferences prefs = new Preferences(main);
-        menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
-        return true;
+        return false;
     }
 
     @Override

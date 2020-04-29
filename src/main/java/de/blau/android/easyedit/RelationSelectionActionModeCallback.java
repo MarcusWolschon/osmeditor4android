@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.dialogs.EmptyRelation;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
@@ -25,6 +26,8 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
 
     private static final int MENUITEM_ADD_RELATION_MEMBERS    = 10;
     private static final int MENUITEM_SELECT_RELATION_MEMBERS = 11;
+
+    private MenuItem selectMembersItem;
 
     /**
      * Construct a new ActionModeCallback
@@ -48,6 +51,14 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
         mode.setTitle(R.string.actionmode_relationselect);
         mode.setSubtitle(null);
         main.invalidateMap();
+
+        // menu setup
+        menu = replaceMenu(menu, mode, this);
+        menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_add_member));
+        selectMembersItem = menu.add(Menu.NONE, MENUITEM_SELECT_RELATION_MEMBERS, Menu.NONE, R.string.menu_select_relation_members)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_members));
+
         return true;
     }
 
@@ -72,15 +83,14 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
             return true;
         }
         menu = replaceMenu(menu, mode, this);
-        super.onPrepareActionMode(mode, menu);
-        menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_add_member));
-        if (((Relation) element).getMembers() != null) {
-            menu.add(Menu.NONE, MENUITEM_SELECT_RELATION_MEMBERS, Menu.NONE, R.string.menu_select_relation_members)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_members));
+        boolean updated = super.onPrepareActionMode(mode, menu);
+
+        updated |= setItemVisibility(((Relation) element).getMembers() != null, selectMembersItem, false);
+        
+        if (updated) {
+            arrangeMenu(menu);
         }
-        arrangeMenu(menu);
-        return true;
+        return updated;
     }
 
     @Override
@@ -94,7 +104,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
                 List<OsmElement> selection = new ArrayList<>();
                 List<RelationMember> members = ((Relation) element).getMembers();
                 if (members != null) {
-                    for (RelationMember rm : ((Relation) element).getMembers()) {
+                    for (RelationMember rm : members) {
                         OsmElement e = rm.getElement();
                         if (e != null) {
                             selection.add(e);

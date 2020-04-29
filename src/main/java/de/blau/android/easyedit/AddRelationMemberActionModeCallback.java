@@ -27,7 +27,7 @@ public class AddRelationMemberActionModeCallback extends NonSimpleActionModeCall
 
     private ArrayList<OsmElement> members;
     private Relation              relation    = null;
-    private MenuItem              revert      = null;
+    private MenuItem              revertItem  = null;
     private boolean               backPressed = false;
     private boolean               existing    = false;
 
@@ -100,21 +100,26 @@ public class AddRelationMemberActionModeCallback extends NonSimpleActionModeCall
         super.onCreateActionMode(mode, menu);
         logic.setReturnRelations(true); // can add relations
 
-        menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
-        revert = menu.findItem(MENUITEM_REVERT);
-        revert.setVisible(false);
+        // menu setup
+        menu = replaceMenu(menu, mode, this);
+        revertItem = menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert)
+                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help)
+                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help));
+        arrangeMenu(menu); // needed at least once
         setClickableElements();
         return true;
     }
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-        if (!members.isEmpty()) {
-            revert.setVisible(true);
+        menu = replaceMenu(menu, mode, this);
+
+        boolean updated = ElementSelectionActionModeCallback.setItemVisibility(!members.isEmpty(), revertItem, false);
+        if (updated) {
+            arrangeMenu(menu);
         }
-        arrangeMenu(menu);
-        return true;
+        return updated;
     }
 
     @Override
@@ -152,9 +157,7 @@ public class AddRelationMemberActionModeCallback extends NonSimpleActionModeCall
         super.handleElementClick(element);
         addElement(element);
         setClickableElements();
-        if (!members.isEmpty()) {
-            revert.setVisible(true);
-        }
+        mode.invalidate();
         main.invalidateMap();
         return true;
     }

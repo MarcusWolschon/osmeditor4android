@@ -47,6 +47,14 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
     private boolean deselect = true;
 
+    private MenuItem undoItem;
+
+    private MenuItem mergeItem;
+
+    private MenuItem orthogonalizeItem;
+
+    private MenuItem uploadItem;
+
     /**
      * Construct an Multi-Select actionmode from a List of OsmElements
      * 
@@ -135,22 +143,15 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         setSubTitle(mode);
         super.onCreateActionMode(mode, menu);
         logic.setReturnRelations(true); // can add relations
-        return true;
-    }
 
-    @SuppressLint("InflateParams")
-    @Override
-    public boolean onPrepareActionMode(@NonNull ActionMode mode, @NonNull Menu menu) {
+        // setup menus
         menu = replaceMenu(menu, mode, this);
         menu.clear();
         menuUtil.reset();
         main.getMenuInflater().inflate(R.menu.undo_action, menu);
-        MenuItem undo = menu.findItem(R.id.undo_action);
-        if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
-            undo.setVisible(true);
-            undo.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
-        }
-        View undoView = undo.getActionView();
+        undoItem = menu.findItem(R.id.undo_action);
+
+        View undoView = undoItem.getActionView();
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
 
@@ -164,17 +165,14 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut)
                     .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
         }
-        if (sortedWays != null) {
-            menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
-        }
+
+        mergeItem = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
+
         menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
 
-        List<Way> selectedWays = logic.getSelectedWays();
-        if (selectedWays != null && !selectedWays.isEmpty()) {
-            menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
-        }
+        orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
 
         // // for now just two
         // if (selection.size() == 2 && canMerge(selection)) {
@@ -183,14 +181,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
 
-        boolean changedElementsSelected = false;
-        for (OsmElement e : selection) {
-            if (!e.isUnchanged()) {
-                changedElementsSelected = true;
-                break;
-            }
-        }
-        menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_elements).setEnabled(changedElementsSelected);
+        uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_elements);
 
         menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
@@ -198,8 +189,42 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 .setEnabled(logic.getPrefs().isJsConsoleEnabled());
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
-        arrangeMenu(menu);
         return true;
+    }
+
+    @SuppressLint("InflateParams")
+    @Override
+    public boolean onPrepareActionMode(@NonNull ActionMode mode, @NonNull Menu menu) {
+        menu = replaceMenu(menu, mode, this);
+        boolean updated = false;
+        if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
+            if (!undoItem.isVisible()) {
+                undoItem.setVisible(true);
+                undoItem.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
+                updated = true;
+            }
+        } else if (undoItem.isVisible()) {
+            undoItem.setVisible(false);
+            updated = true;
+        }
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(sortedWays != null, mergeItem, false);
+
+        List<Way> selectedWays = logic.getSelectedWays();
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(selectedWays != null && !selectedWays.isEmpty(), orthogonalizeItem, false);
+
+        boolean changedElementsSelected = false;
+        for (OsmElement e : selection) {
+            if (!e.isUnchanged()) {
+                changedElementsSelected = true;
+                break;
+            }
+        }
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(changedElementsSelected, uploadItem, true);
+
+        if (updated) {
+            arrangeMenu(menu);
+        }
+        return updated;
     }
 
     /**

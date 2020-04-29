@@ -41,6 +41,19 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
     private Set<OsmElement> cachedViaElements;
+    private MenuItem        addressItem;
+    private MenuItem        splitItem;
+    private MenuItem        mergeItem;
+    private MenuItem        appendItem;
+    private MenuItem        restrictionItem;
+    private MenuItem        orthogonalizeItem;
+    private MenuItem        circulizeItem;
+    private MenuItem        splitPolygonItem;
+    private MenuItem        removeNodeItem;
+    private MenuItem        unjoinItem;
+    private MenuItem        unjoinDissimilarItem;
+    private MenuItem        extractSegmentItem;
+    private String          orthogonalizeTitle;
 
     /**
      * Construct a new ActionModeCallback
@@ -74,60 +87,95 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         main.invalidateMap();
         mode.setTitle(R.string.actionmode_wayselect);
         mode.setSubtitle(null);
+
+        menu = replaceMenu(menu, mode, this);
+
+        addressItem = menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
+
+        menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_reverse));
+
+        splitItem = menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
+
+        mergeItem = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
+
+        appendItem = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
+
+        restrictionItem = menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_add_restriction));
+
+        orthogonalizeTitle = main.getString(R.string.menu_orthogonalize);
+        orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, orthogonalizeTitle)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
+
+        menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
+
+        circulizeItem = menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
+
+        splitPolygonItem = menu.add(Menu.NONE, MENUITEM_SPLIT_POLYGON, Menu.NONE, R.string.menu_split_polygon);
+
+        removeNodeItem = menu.add(Menu.NONE, MENUITEM_REMOVE_NODE, Menu.NONE, R.string.menu_remove_node_from_way);
+
+        unjoinItem = menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin);
+        unjoinDissimilarItem = menu.add(Menu.NONE, MENUITEM_UNJOIN_DISSIMILAR, Menu.NONE, R.string.menu_unjoin_dissimilar);
+
+        extractSegmentItem = menu.add(Menu.NONE, MENUITEM_EXTRACT_SEGMENT, Menu.NONE, R.string.menu_extract_segment);
+
         return true;
     }
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         menu = replaceMenu(menu, mode, this);
-        super.onPrepareActionMode(mode, menu);
+        boolean updated = super.onPrepareActionMode(mode, menu);
         Log.d(DEBUG_TAG, "onPrepareActionMode");
+
         Way way = (Way) element;
         int size = way.getNodes().size();
         boolean closed = way.isClosed();
-        if (way.hasTagKey(Tags.KEY_BUILDING) && !way.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER)) {
-            menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
-        }
-        menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_reverse));
 
-        if (size > 2) {
-            menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
-        }
-        if (!cachedMergeableWays.isEmpty()) {
-            menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
-        }
-        if (!cachedAppendableNodes.isEmpty()) {
-            menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
-        }
-        if (way.getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty()) {
-            menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_add_restriction));
-        }
+        updated = setItemVisibility(way.hasTagKey(Tags.KEY_BUILDING) && !way.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER), addressItem, false);
 
-        if (size > 2) {
-            menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, closed ? R.string.menu_orthogonalize : R.string.menu_straighten)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
-        }
-        menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
-        if (size > 3 && closed) {
-            menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
-            if (size > 4) { // 5 nodes is the minimum required to be able to split in
-                            // to two polygons
-                menu.add(Menu.NONE, MENUITEM_SPLIT_POLYGON, Menu.NONE, R.string.menu_split_polygon);
+        updated |= setItemVisibility(size > 2, splitItem, false);
+
+        updated |= setItemVisibility(!cachedMergeableWays.isEmpty(), mergeItem, false);
+
+        updated |= setItemVisibility(!cachedAppendableNodes.isEmpty(), appendItem, false);
+
+        updated |= setItemVisibility(way.getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty(), restrictionItem, false);
+
+        updated |= setItemVisibility(size > 2, orthogonalizeItem, false);
+        if (orthogonalizeItem.isVisible()) {
+            if (closed) {
+                if (!orthogonalizeItem.getTitle().equals(orthogonalizeTitle)) {
+                    orthogonalizeItem.setTitle(orthogonalizeTitle);
+                    updated = true;
+                }
+            } else {
+                if (orthogonalizeItem.getTitle().equals(orthogonalizeTitle)) {
+                    orthogonalizeItem.setTitle(R.string.menu_straighten);
+                    updated = true;
+                }
             }
         }
-        if (size >= 4 || (!closed && size >= 3)) {
-            menu.add(Menu.NONE, MENUITEM_REMOVE_NODE, Menu.NONE, R.string.menu_remove_node_from_way);
+
+        updated |= setItemVisibility(size > 3 && closed, circulizeItem, false);
+
+        // 5 nodes is the minimum required to be able to split in to two polygons
+        updated |= setItemVisibility(size > 4 && closed, splitPolygonItem, false);
+
+        updated |= setItemVisibility(size >= 4 || (!closed && size >= 3), removeNodeItem, false);
+
+        boolean joined = isJoined(way);
+        updated |= setItemVisibility(joined, unjoinItem, false);
+        updated |= setItemVisibility(joined, unjoinDissimilarItem, false);
+
+        updated |= setItemVisibility(size >= 3 && !closed, extractSegmentItem, false);
+
+        if (updated) {
+            arrangeMenu(menu);
         }
-        if (isJoined((Way) element)) {
-            menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin);
-            menu.add(Menu.NONE, MENUITEM_UNJOIN_DISSIMILAR, Menu.NONE, R.string.menu_unjoin_dissimilar);
-        }
-        if (size >= 3 && !closed) {
-            menu.add(Menu.NONE, MENUITEM_EXTRACT_SEGMENT, Menu.NONE, R.string.menu_extract_segment);
-        }
-        arrangeMenu(menu);
-        return true;
+        return updated;
     }
 
     /**
