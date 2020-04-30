@@ -100,9 +100,7 @@ public class WayActionsTest {
      */
     @After
     public void teardown() {
-        if (logic != null) {
-            logic.deselectAll();
-        }
+        TestUtils.stopEasyEdit(main);
         TestUtils.zoomToLevel(device, main, 18);
         App.getTaskStorage().reset();
     }
@@ -110,7 +108,7 @@ public class WayActionsTest {
     /**
      * Create a new way from menu and clicks at two more locations and finishing via home button, then square
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void square() {
         map.getDataLayer().setVisible(true);
@@ -120,17 +118,17 @@ public class WayActionsTest {
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
         TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
-        device.waitForIdle(1000);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
-        device.waitForIdle(1000);
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
+
         TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
-        device.waitForIdle(1000);
+        try {
+            Thread.sleep(1000); // NOSONAR
+        } catch (InterruptedException e) {
+        }
         TestUtils.clickAtCoordinates(device, map, 8.38877, 47.389202, true);
-        device.waitForIdle(1000);
         TestUtils.clickUp(device);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device);
-        device.waitForIdle(1000);
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
         Assert.assertTrue(way.getOsmId() < 0);
@@ -158,7 +156,7 @@ public class WayActionsTest {
     /**
      * Select, remove two nodes
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void removeNodeFromWay() {
         map.getDataLayer().setVisible(true);
