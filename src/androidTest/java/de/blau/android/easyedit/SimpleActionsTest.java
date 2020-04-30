@@ -140,13 +140,13 @@ public class SimpleActionsTest {
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
-        device.waitForIdle(1000);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
-        device.waitForIdle(1000);
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
-        device.waitForIdle(1000);
+        try {
+            Thread.sleep(1000); // NOSONAR
+        } catch (InterruptedException e) {
+        }
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
-        device.waitForIdle(1000);
         TestUtils.clickUp(device);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device, true);
