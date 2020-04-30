@@ -134,7 +134,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         int size = way.getNodes().size();
         boolean closed = way.isClosed();
 
-        updated = setItemVisibility(way.hasTagKey(Tags.KEY_BUILDING) && !way.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER), addressItem, false);
+        updated |= setItemVisibility(way.hasTagKey(Tags.KEY_BUILDING) && !way.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER), addressItem, false);
 
         updated |= setItemVisibility(size > 2, splitItem, false);
 
