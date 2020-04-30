@@ -48,13 +48,6 @@ public class WayPoint extends TrackPoint {
         this.symbol = symbol;
     }
 
-    /**
-     * Adds a GPX trkpt (track point) tag to the given serializer (synchronized due to use of calendarInstance)
-     * 
-     * @param serializer the xml serializer to use for output
-     * @param gtf class providing a formatter to GPX time data
-     * @throws IOException
-     */
     @Override
     public synchronized void toXml(XmlSerializer serializer, GpxTimeFormater gtf) throws IOException {
         serializer.startTag(null, WPT_ELEMENT);

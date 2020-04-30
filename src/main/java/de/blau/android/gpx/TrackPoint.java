@@ -97,7 +97,7 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
      * @return the loaded data point
      * @throws IOException if anything goes wrong
      */
-    public static TrackPoint fromStream(DataInputStream stream) throws IOException {
+    public static TrackPoint fromStream(@NonNull DataInputStream stream) throws IOException {
         return new TrackPoint(stream.readByte(), // flags
                 stream.readDouble(), // lat
                 stream.readDouble(), // lon
@@ -112,7 +112,7 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
      * @param stream target stream
      * @throws IOException if writing to the stream fails
      */
-    public void toStream(DataOutputStream stream) throws IOException {
+    public void toStream(@NonNull DataOutputStream stream) throws IOException {
         stream.writeByte(flags);
         stream.writeDouble(latitude);
         stream.writeDouble(longitude);
@@ -209,9 +209,9 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
      * 
      * @param serializer the xml serializer to use for output
      * @param gtf class providing a formatter to GPX time data
-     * @throws IOException
+     * @throws IOException if writing to the Serializer goes wrong
      */
-    public synchronized void toXml(XmlSerializer serializer, GpxTimeFormater gtf) throws IOException {
+    public synchronized void toXml(@NonNull XmlSerializer serializer, @NonNull GpxTimeFormater gtf) throws IOException {
         serializer.startTag(null, TRKPT_ELEMENT);
         serializer.attribute(null, "lat", String.format(Locale.US, "%f", latitude));
         serializer.attribute(null, "lon", String.format(Locale.US, "%f", longitude));
