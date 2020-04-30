@@ -381,8 +381,12 @@ public class TestUtils {
     public static void doubleClickAt(@NonNull UiDevice device, float x, float y) {
         Configurator cc = Configurator.getInstance();
         long defaultAckTimeout = cc.getActionAcknowledgmentTimeout();
-        cc.setActionAcknowledgmentTimeout(40);
+        cc.setActionAcknowledgmentTimeout(50);
         device.click((int) x, (int) y);
+        try {
+            Thread.sleep(50); // NOSONAR
+        } catch (InterruptedException e) {
+        }
         device.click((int) x, (int) y);
         cc.setActionAcknowledgmentTimeout(defaultAckTimeout);
     }
