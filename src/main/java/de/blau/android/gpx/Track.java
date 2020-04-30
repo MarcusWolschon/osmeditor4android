@@ -689,5 +689,4 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
     public List<TrackPoint> getTrack() {
         return currentTrack;
     }
-
 }

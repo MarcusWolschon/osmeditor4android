@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.gpx.LoadTrack;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -109,7 +110,7 @@ public class ImportTrack extends ImmersiveDialogFragment {
                 if (main != null) {
                     main.getTracker().stopTracking(true);
                     try {
-                        main.getTracker().importGPXFile(main, uri, null);
+                        LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
                     } catch (FileNotFoundException e) {
                         try {
                             Snack.barError(main, main.getResources().getString(R.string.toast_file_not_found, uri.toString()));
@@ -127,7 +128,7 @@ public class ImportTrack extends ImmersiveDialogFragment {
                 if (main != null) {
                     main.getTracker().stopTracking(false);
                     try {
-                        main.getTracker().importGPXFile(main, uri, null);
+                        LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
                     } catch (FileNotFoundException e) {
                         try {
                             Snack.barError(main, main.getResources().getString(R.string.toast_file_not_found, uri.toString()));

@@ -109,6 +109,7 @@ import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
 import de.blau.android.geocode.CoordinatesOrOLC;
 import de.blau.android.geocode.Search.SearchResult;
+import de.blau.android.gpx.LoadTrack;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
@@ -1206,7 +1207,7 @@ public class Main extends FullScreenAppCompatActivity
         } else {
             getTracker().stopTracking(false);
             try {
-                getTracker().importGPXFile(Main.this, uri, new PostAsyncActionHandler() {
+                LoadTrack.fromFile(Main.this, uri, getTracker().getTrack(), new PostAsyncActionHandler() {
                     @Override
                     public void onSuccess() {
                         gotoFirstTrackPoint();

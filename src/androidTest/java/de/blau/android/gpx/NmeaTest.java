@@ -28,7 +28,6 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
-import de.blau.android.gpx.TrackPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import okhttp3.mockwebserver.MockWebServer;
@@ -136,7 +135,7 @@ public class NmeaTest {
         retries = 0;
         while (!main.getTracker().isTracking() && retries < 60) {
             try {
-                Thread.sleep(1000);  // NOSONAR
+                Thread.sleep(1000); // NOSONAR
             } catch (InterruptedException e) {
                 // Ignore
             }
