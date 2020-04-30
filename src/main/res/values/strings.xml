@@ -197,9 +197,9 @@
     <string name="attribution">Attribution</string>
     <!-- Too much data dialog -->
     <string name="too_much_data_title">Too much data loaded!</string>
-    <string name="too_much_data_message">You have %1$d Nodes loaded this is larger than the configured limit. This will lead to slowdown, and if you add more, to potential issues saving state.</string>
-    <string name="upload_data_now">Upload changes now</string>
-    <string name="prune_data_now">Prune data now</string>
+    <string name="too_much_data_message">You have %1$d Nodes loaded and have exceeded the configured limit. This will lead to slowdown, and if you add more data, to potential issues saving state.</string>
+    <string name="upload_data_now">Upload changes</string>
+    <string name="prune_data_now">Prune data</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>
