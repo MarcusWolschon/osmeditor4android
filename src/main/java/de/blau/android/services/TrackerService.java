@@ -1,15 +1,10 @@
 package de.blau.android.services;
 
-import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
@@ -25,8 +20,6 @@ import android.location.LocationManager;
 import android.location.OnNmeaMessageListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,30 +27,25 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.os.SystemClock;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Main;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
-import de.blau.android.dialogs.Progress;
-import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.gpx.Track;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.services.util.Nmea;
 import de.blau.android.services.util.NmeaTcpClient;
 import de.blau.android.services.util.NmeaTcpClientServer;
 import de.blau.android.tasks.TransferTasks;
-import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -190,9 +178,11 @@ public class TrackerService extends Service implements Exportable {
     private void cancelNmeaClients() {
         if (tcpClient != null) {
             tcpClient.cancel();
+            tcpClient = null;
         }
         if (tcpServer != null) {
             tcpServer.cancel();
+            tcpServer = null;
         }
     }
 
@@ -304,6 +294,7 @@ public class TrackerService extends Service implements Exportable {
 
     /**
      * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
+     * 
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startInternal() {
@@ -578,9 +569,9 @@ public class TrackerService extends Service implements Exportable {
         if ((needed && !gpsEnabled) || (gpsEnabled && ((useTcpClient || useTcpServer) && source != GpsSource.TCP)
                 || (!(useTcpClient || useTcpServer) && source == GpsSource.TCP))) {
             Log.d(DEBUG_TAG, "Enabling GPS updates");
-            cancelNmeaClients(); // always do this
             nmeaLocation.removeSpeed(); // be sure that these are not set
             nmeaLocation.removeBearing();
+            Nmea.reset();
             try {
                 Location last = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if (last == null && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -638,6 +629,7 @@ public class TrackerService extends Service implements Exportable {
                         t.start();
                     }
                 } else {
+                    cancelNmeaClients(); // not needed any more
                     boolean useNema = gpsSource.equals(prefNmea);
                     if (useNema || gpsSource.equals(prefInternal)) {
                         source = GpsSource.INTERNAL;
@@ -734,209 +726,6 @@ public class TrackerService extends Service implements Exportable {
      */
     public Track getTrack() {
         return track;
-    }
-
-    enum GnssSystem {
-        NONE, // pre-fix
-        BEIDOU, GLONASS, GPS, GALILEO, MULTIPLE
-    }
-
-    private GnssSystem system = GnssSystem.NONE;
-
-    /**
-     * Minimal parsing of two NMEA 0183 sentences TODO add fix type filtering TODO do something with the hdop value
-     * 
-     * @param sentence the NMEA sentence including checksum
-     */
-    private void processNmeaSentence(@NonNull String sentence) {
-        boolean posUpdate = false;
-        try {
-            if (sentence.length() > 9) { // everything shorter is invalid
-                int star = sentence.indexOf('*');
-                if (star > 5 && sentence.length() >= star + 3) {
-                    String withoutChecksum = sentence.substring(1, star);
-                    int receivedChecksum = Integer.parseInt(sentence.substring(star + 1, star + 3), 16);
-                    int checksum = 0;
-                    for (byte b : withoutChecksum.getBytes()) {
-                        checksum = checksum ^ b;
-                    }
-                    if (receivedChecksum == checksum) {
-                        String talker = withoutChecksum.substring(0, 2);
-                        String s = withoutChecksum.substring(2, 5);
-                        double lat = Double.NaN;
-                        double lon = Double.NaN;
-                        // double hdop = Double.NaN; currently unused
-                        double mslHeight = Double.NaN;
-                        double geoidCorrection = Double.NaN;
-                        try {
-                            if (s.equals("GNS")) {
-                                String[] values = withoutChecksum.split(",", -12); // java magic
-                                if (values.length == 13) {
-                                    String value6 = values[6].toUpperCase(Locale.US);
-                                    if ((!value6.startsWith("NN") || !value6.equals("N")) && Integer.parseInt(values[7]) >= 4) {
-                                        // at least one "good" system needs a
-                                        // fix
-                                        lat = latFromNmea(values);
-                                        lon = lonFromNmea(values);
-                                        // hdop = Double.parseDouble(values[8]);
-                                        mslHeight = Double.parseDouble(values[9]);
-                                        geoidCorrection = Double.parseDouble(values[10]);
-                                        posUpdate = true;
-                                    }
-                                } else {
-                                    throw new UnsupportedFormatException(Integer.toString(values.length));
-                                }
-                            } else if (s.equals("GGA")) {
-                                String[] values = withoutChecksum.split(",", -14);
-                                if (values.length == 15) {
-                                    // we need a fix
-                                    if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) {
-                                        lat = latFromNmea(values);
-                                        lon = lonFromNmea(values);
-                                        // hdop = Double.parseDouble(values[8]);
-                                        mslHeight = Double.parseDouble(values[9]);
-                                        geoidCorrection = Double.parseDouble(values[11]);
-                                        posUpdate = true;
-                                    }
-                                } else {
-                                    throw new UnsupportedFormatException(Integer.toString(values.length));
-                                }
-                            } else if (s.equals("VTG")) {
-                                String[] values = withoutChecksum.split(",", -11);
-                                if (values.length == 12) {
-                                    if (!values[9].toUpperCase(Locale.US).startsWith("N")) {
-                                        double course = Double.parseDouble(values[1]);
-                                        nmeaLocation.setBearing((float) course);
-                                        double speed = Double.parseDouble(values[7]);
-                                        nmeaLocation.setSpeed((float) (speed / 3.6D));
-                                    }
-                                } else {
-                                    throw new UnsupportedFormatException(Integer.toString(values.length));
-                                }
-                            } else {
-                                // unsupported sentence
-                                return;
-                            }
-                        } catch (NumberFormatException e) {
-                            Log.d(DEBUG_TAG, "Invalid number format in " + sentence);
-                            return;
-                        } catch (UnsupportedFormatException e) {
-                            Log.d(DEBUG_TAG, "Invalid number " + e.getMessage() + " of values in " + sentence);
-                            return;
-                        }
-                        // the following assumes that the behaviour of the GPS
-                        // receiver will not change
-                        // and that multiple systems are better than GPS which
-                        // in turn is better than GLONASS ... this
-                        // naturally may not be really true
-                        if (system == GnssSystem.NONE) { // take whatever we get
-                            switch (talker) {
-                            case "GP":
-                                system = GnssSystem.GPS;
-                                break;
-                            case "GL":
-                                system = GnssSystem.GLONASS;
-                                break;
-                            case "GN":
-                                system = GnssSystem.MULTIPLE;
-                                break;
-                            case "BD": // Beidou
-                            case "GA": // Galileo
-                            default:
-                                // new system we don't know about? BEIDOU
-                                // probably best ignored for now
-                                return;
-                            }
-                        } else if (system == GnssSystem.GLONASS) {
-                            if (talker.equals("GP")) {
-                                system = GnssSystem.GPS;
-                            } else if (talker.equals("GN")) {
-                                system = GnssSystem.MULTIPLE;
-                            }
-                        } else if (system == GnssSystem.GPS) {
-                            if (talker.equals("GL")) {
-                                // ignore
-                                return;
-                            } else if (talker.equals("GN")) {
-                                system = GnssSystem.MULTIPLE;
-                            }
-                        } else if (system == GnssSystem.MULTIPLE) {
-                            if (!talker.equals("GN")) {
-                                return;
-                            }
-                        }
-
-                        if (posUpdate) { // we could do filtering etc here
-                            nmeaLocation.setAltitude(mslHeight + geoidCorrection);
-                            nmeaLocation.setLatitude(lat);
-                            nmeaLocation.setLongitude(lon);
-                            // we only really need to know this for determining how old the fix is
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                                nmeaLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-                            }
-                            // can't call something on the UI thread directly
-                            // need to send a message
-                            Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, nmeaLocation);
-                            newLocation.sendToTarget();
-                            if (tracking) {
-                                track.addTrackPoint(nmeaLocation);
-                            }
-                            autoLoadDataAndBugs(new Location(nmeaLocation));
-                            lastLocation = nmeaLocation;
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Log.e(DEBUG_TAG, "NMEA sentance " + sentence + " caused exception " + e);
-            ACRAHelper.nocrashReport(e, e.getMessage());
-        }
-    }
-
-    /**
-     * Get the longitude from the NMEA values
-     * 
-     * @param values and array holding the values
-     * @return the WGS84 longitude
-     */
-    double lonFromNmea(String[] values) {
-        return nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
-    }
-
-    /**
-     * Get the loatitudefrom the NMEA values
-     * 
-     * @param values and array holding the values
-     * @return the WGS84 latitude
-     */
-    double latFromNmea(String[] values) {
-        return nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
-    }
-
-    /**
-     * Convert from NMEA format to decimal (there is already a method in Location so this is not really necessary)
-     * 
-     * @param nmea longitude value
-     * @return the longitude
-     * @throws NumberFormatException if the value can't be parsed
-     */
-    private Double nmeaLonToDecimal(@NonNull String nmea) throws NumberFormatException {
-        int deg = Integer.parseInt(nmea.substring(0, 3));
-        Double min = Double.parseDouble(nmea.substring(3));
-        return deg + min / 60d;
-    }
-
-    /**
-     * Convert from NMEA format to decimal (there is already a method in Location so this is not really necessary)
-     * 
-     * @param nmea latitude value
-     * @return the latitude
-     * @throws NumberFormatException if the value can't be parsed
-     */
-    private Double nmeaLatToDecimal(@NonNull String nmea) throws NumberFormatException {
-        int deg = Integer.parseInt(nmea.substring(0, 2));
-        Double min = Double.parseDouble(nmea.substring(2));
-        return deg + min / 60d;
     }
 
     /**
@@ -1137,6 +926,26 @@ public class TrackerService extends Service implements Exportable {
         }
     }
 
+    /**
+     * Process incoming NMEA sentences
+     * 
+     * @param sentence the NMEA sentence
+     */
+    private void processNmeaSentence(@NonNull String sentence) {
+        Location loc = Nmea.processSentence(sentence, nmeaLocation);
+        if (loc != null) { // we could do filtering etc here
+            // can't call something on the UI thread directly
+            // need to send a message
+            Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, loc);
+            newLocation.sendToTarget();
+            if (tracking) {
+                track.addTrackPoint(loc);
+            }
+            autoLoadDataAndBugs(new Location(loc));
+            lastLocation = loc;
+        }
+    }
+    
     @SuppressWarnings("deprecation")
     class OldNmeaListener implements NmeaListener { // NOSONAR
         @Override

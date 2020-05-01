@@ -1,7 +1,6 @@
 package de.blau.android.services.util;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -13,7 +12,6 @@ import android.location.OnNmeaMessageListener;
 import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
-import de.blau.android.util.SavingHelper;
 
 /**
  * The current android RTKLIB port doesn't support TCP servers. just clients ... so we run one
@@ -31,6 +29,7 @@ public class NmeaTcpClientServer implements Runnable {
     final NmeaListener          oldListener;
     final OnNmeaMessageListener newListener;
     final Handler               handler;
+    Socket                      socket;
 
     /**
      * Create an instance of a server that will read lines from a socket until it is stopped
@@ -82,60 +81,57 @@ public class NmeaTcpClientServer implements Runnable {
      * Stop reading input and exit
      */
     public void cancel() {
+        Log.w(DEBUG_TAG, "Stopping server");
         canceled = true;
+        try {
+            if (socket != null) {
+                socket.close();
+            }
+        } catch (Exception ex) {
+            // Ignore
+        }
     }
 
     @TargetApi(24)
     @Override
     public void run() {
-        DataOutputStream dos = null;
-        BufferedReader input = null;
-        ServerSocket serverSocket = null;
-        try {
-            serverSocket = new ServerSocket(port);
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
             while (!canceled) {
                 Log.d(DEBUG_TAG, "Listening for incoming connection on " + port);
-                Socket socket = serverSocket.accept();
+                socket = serverSocket.accept();
                 Log.d(DEBUG_TAG, "Incoming connection from " + socket.getRemoteSocketAddress().toString() + " ...");
                 NmeaTcpClient.connectionMessage(handler, socket.getRemoteSocketAddress().toString());
-                dos = new DataOutputStream(socket.getOutputStream());
+                readFromSocket(socket);
+            }
+        } catch (Throwable e) { // NOSONAR
+            Log.w(DEBUG_TAG, "Exception  " + e);
+            NmeaTcpClient.reportError(handler, e);
+        }
+    }
 
-                InputStreamReader isr = new InputStreamReader(socket.getInputStream());
-                input = new BufferedReader(isr);
-                try {
-                    while (!canceled) {
-                        String line = input.readLine();
-                        if (line != null) {
-                            if (newListener == null) {
-                                oldListener.onNmeaReceived(-1, line);
-                            } else {
-                                newListener.onNmeaMessage(line, -1);
-                            }
-                        } else {
-                            NmeaTcpClient.closedMessage(handler);
-                            break; // EOF
-                        }
+    /**
+     * Read sentences from socket until closed or canceled
+     * 
+     * @param socket the Socket
+     */
+    private void readFromSocket(@NonNull Socket socket) {
+        try (InputStreamReader isr = new InputStreamReader(socket.getInputStream()); BufferedReader input = new BufferedReader(isr)) {
+            while (!canceled) {
+                String line = input.readLine();
+                if (line != null) {
+                    if (newListener == null) {
+                        oldListener.onNmeaReceived(-1, line);
+                    } else {
+                        newListener.onNmeaMessage(line, -1);
                     }
-                } catch (IOException ioex) {
-                    // happens if client closes the socket
-                    SavingHelper.close(dos);
-                    SavingHelper.close(input);
+                } else {
+                    NmeaTcpClient.closedMessage(handler);
+                    break; // EOF
                 }
             }
-        } catch (Exception e) {
-            NmeaTcpClient.reportError(handler, e);
-        } catch (Error e) {
-            NmeaTcpClient.reportError(handler, e);
-        } finally {
-            SavingHelper.close(dos);
-            SavingHelper.close(input);
-            if (serverSocket != null) {
-                try {
-                    serverSocket.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
+        } catch (IOException ioex) {
+            Log.w(DEBUG_TAG, "Exception reading from socket " + ioex);
+            // happens if client closes the socket
         }
     }
 }
