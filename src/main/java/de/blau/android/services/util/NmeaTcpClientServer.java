@@ -92,7 +92,6 @@ public class NmeaTcpClientServer implements Runnable {
         }
     }
 
-    @TargetApi(24)
     @Override
     public void run() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
@@ -114,6 +113,7 @@ public class NmeaTcpClientServer implements Runnable {
      * 
      * @param socket the Socket
      */
+    @TargetApi(24)
     private void readFromSocket(@NonNull Socket socket) {
         try (InputStreamReader isr = new InputStreamReader(socket.getInputStream()); BufferedReader input = new BufferedReader(isr)) {
             while (!canceled) {
