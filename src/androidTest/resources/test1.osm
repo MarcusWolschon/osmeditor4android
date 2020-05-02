@@ -1003,7 +1003,7 @@
     <tag k='addr:street' v='Schulstrasse' />
     <tag k='building' v='residential' />
   </way>
-  <way id='210461100' timestamp='2013-10-22T10:14:09Z' uid='92387' user='SimonPoole' visible='true' version='3' changeset='18483571'>
+  <way id='210461100' timestamp='2013-10-22T10:14:09Z' action='delete' uid='92387' user='SimonPoole' visible='true' version='3' changeset='18483571'>
     <nd ref='2205498713' />
     <nd ref='2205498717' />
     <nd ref='2205498702' />

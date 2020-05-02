@@ -8,6 +8,7 @@
   	<way old_id="-1545" new_id="123" new_version="1"/>
   	<way old_id="27009604" new_id="27009604" new_version="19"/>
   	<way old_id="210461089" new_id="210461089" new_version="4"/>
+    <way old_id="210461100" />
  	<relation old_id="1638705" new_id="1638705" new_version="21"/>
  	<relation old_id="2807173" new_id="2807173" new_version="4"/>
 </diffResult>

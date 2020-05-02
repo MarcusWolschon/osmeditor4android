@@ -2821,7 +2821,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             try {
                 lock();
                 if (fullUpload) {
-                    server.diffUpload(this, getCurrentStorage());
+                    server.diffUpload(this, getApiStorage());
                 } else {
                     Storage storage = new Storage();
                     // if we are uploading more than the limit elements

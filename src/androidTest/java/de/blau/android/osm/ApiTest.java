@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -14,12 +15,18 @@ import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
@@ -60,7 +67,11 @@ import okhttp3.mockwebserver.RecordedRequest;
 @LargeTest
 public class ApiTest {
 
-    public static final int TIMEOUT    = 90;
+    public static final int TIMEOUT = 90;
+
+    private static final String SOURCE_1  = "source 1";
+    private static final String COMMENT_1 = "comment 1";
+
     MockWebServerPlus       mockServer = null;
     Context                 context    = null;
     AdvancedPrefDatabase    prefDB     = null;
@@ -269,7 +280,7 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
+        Assert.assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
@@ -317,7 +328,7 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
+        Assert.assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
@@ -344,7 +355,7 @@ public class ApiTest {
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
         Assert.assertEquals(7L, n.getOsmVersion());
-        Assert.assertEquals(31, App.getDelegator().getApiElementCount());
+        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
     }
 
     /**
@@ -363,10 +374,18 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
+        Assert.assertEquals(33, App.getDelegator().getApiElementCount());
+        Assert.assertEquals(27, App.getDelegator().getApiNodeCount());
+        Assert.assertEquals(4, App.getDelegator().getApiWayCount());
+        Assert.assertEquals(2, App.getDelegator().getApiRelationCount());
+
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+
+        Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 210461100);
+        Assert.assertNotNull(w);
+        Assert.assertEquals(OsmElement.STATE_DELETED, w.getState());
 
         mockServer.enqueue("capabilities1"); // for whatever reason this gets asked for twice
         mockServer.enqueue("capabilities1");
@@ -389,11 +408,11 @@ public class ApiTest {
         }
         device.waitForIdle();
         Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_comment", true));
-        instrumentation.sendStringSync("comment 1");
+        instrumentation.sendStringSync(COMMENT_1);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_ENTER);
         // Assert.assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/upload_source",
         // true));
-        instrumentation.sendStringSync("source 1");
+        instrumentation.sendStringSync(SOURCE_1);
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_BACK);
         try {
             button.clickAndWaitForNewWindow();
@@ -411,6 +430,34 @@ public class ApiTest {
         Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, 2807173);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
         Assert.assertEquals(4L, r.getOsmVersion());
+        // check that we actually sent what was expected
+        try {
+            mockServer.takeRequest(); // capabilities query
+            mockServer.takeRequest(); // capabilities query
+            RecordedRequest recordedRequest = mockServer.takeRequest(); // changeset
+            // this currently doesn't work
+            // Changeset changeset = Changeset.parse(XmlPullParserFactory.newInstance().newPullParser(),
+            // new ByteArrayInputStream(recordedRequest.getBody().readByteArray()));
+            // Assert.assertEquals(COMMENT_1, changeset.tags.get("comment"));
+            // Assert.assertEquals(SOURCE_1, changeset.tags.get("source"));
+            recordedRequest = mockServer.takeRequest(); // diff upload
+            OsmChangeParser ocParser = new OsmChangeParser();
+            ocParser.start(new ByteArrayInputStream(recordedRequest.getBody().readByteArray()));
+            Storage storage = ocParser.getStorage();
+            Assert.assertEquals(27, storage.getNodeCount());
+            Assert.assertEquals(4, storage.getWayCount());
+            Assert.assertEquals(2, storage.getRelationCount());
+
+            n = (Node) storage.getOsmElement(Node.NAME, 101792984);
+            Assert.assertNotNull(n);
+            Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
+
+            w = (Way) storage.getOsmElement(Way.NAME, 210461100);
+            Assert.assertNotNull(w);
+            Assert.assertEquals(OsmElement.STATE_DELETED, w.getState());
+        } catch (InterruptedException | SAXException | IOException | ParserConfigurationException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -429,7 +476,7 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
+        Assert.assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
@@ -472,7 +519,7 @@ public class ApiTest {
             Assert.fail(e.getMessage());
         }
 
-        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
+        Assert.assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
@@ -595,7 +642,7 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
+        Assert.assertEquals(33, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
