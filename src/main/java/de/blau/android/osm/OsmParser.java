@@ -87,7 +87,7 @@ public class OsmParser extends DefaultHandler {
         }
     }
 
-    private ArrayList<MissingRelation> missingRelations = new ArrayList<>();
+    private List<MissingRelation> missingRelations = new ArrayList<>();
 
     protected LongOsmElementMap<Node> nodeIndex = null;
     private LongOsmElementMap<Way>    wayIndex  = null;
