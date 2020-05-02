@@ -27,12 +27,9 @@ import de.blau.android.util.Util;
 public class Changeset {
     private static final String DEBUG_TAG = "Changeset";
 
-    long osmId = -1;
-
-    boolean open = false;
-
-    String generator;
-
+    long                          osmId = -1;
+    boolean                       open  = false;
+    String                        generator;
     final TreeMap<String, String> tags;
 
     /**
@@ -101,7 +98,7 @@ public class Changeset {
             String tagName = parser.getName();
             if (eventType == XmlPullParser.START_TAG) {
                 switch (tagName) {
-                case "changeset":
+                case OsmXml.CHANGESET:
                     result.open = "true".equals(parser.getAttributeValue(null, "open"));
                     try {
                         result.osmId = Long.parseLong(parser.getAttributeValue(null, "id"));
@@ -109,7 +106,7 @@ public class Changeset {
                         throw new XmlPullParserException(nex.getMessage());
                     }
                     break;
-                case "tag":
+                case OsmXml.TAG:
                     String k = parser.getAttributeValue(null, "k");
                     String v = parser.getAttributeValue(null, "v");
                     result.tags.put(k, v);
