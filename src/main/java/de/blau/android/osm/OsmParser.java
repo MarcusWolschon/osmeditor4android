@@ -293,6 +293,8 @@ public class OsmParser extends DefaultHandler {
                     }
                 } else if (action.equalsIgnoreCase(OSM_CHANGE_DELETE)) {
                     status = OsmElement.STATE_DELETED;
+                } else {
+                    throw new OsmParseException("Unknown action " + action);
                 }
             }
 
