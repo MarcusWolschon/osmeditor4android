@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.8.12" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.8.17" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -745,6 +745,7 @@
         </optional>
     </chunk>
     <chunk id="power_pole">
+        <combo key="pole:type" text="Pole type" values="termination,branch,transposing,crossing,transition" display_values="Termination,Branch,Transposing,Crossing,Transition" text_context="power" values_context="power"/>
         <text key="height" text="Height (meters)"/>
         <reference ref="material"/>
         <combo key="line_attachment" text="Line attachment" values="anchor,pin,pulley,suspension" display_values="Anchor,Pin,Pulley,Suspension" values_context="power" />
@@ -1169,6 +1170,8 @@
       <check key="communication:television" text="Television" />
       <check key="communication:microwave" text="Microwave" />
       <check key="communication:bos" text="BOS" />
+      <check key="communication:satellite" text="Satellite" />
+      <check key="communication:amateur_radio" text="Amateur radio" />
     </checkgroup>
   </chunk>
   <chunk id="lgbtq">
@@ -1176,6 +1179,41 @@
     <combo key="lgbtq:women" text="LGBTQ women" length="3" values="primary,only,no" display_values="Primary,Only,No" values_sort="false" match="none" editable="true" />
     <combo key="lgbtq:men" text="LGBTQ men" length="3" values="primary,only,no" display_values="Primary,Only,No" values_sort="false" match="none" editable="true" />  
     <combo key="lgbtq:trans" text="LGBTQ transgender" length="3" values="primary,only,no" display_values="Primary,Only,No" values_sort="false" match="none" editable="true" />     
+  </chunk>
+  <chunk id="recycling_accepted_material">
+    <checkgroup text="Accepted material" columns="4">
+        <check key="recycling:aluminium" text="Aluminium" disable_off="true"/>
+        <check key="recycling:batteries" text="Batteries" disable_off="true"/>
+        <check key="recycling:cans" text="Cans" disable_off="true"/>
+        <check key="recycling:cardboard" text="Cardboard" disable_off="true"/>
+        <check key="recycling:clothes" text="Clothes" disable_off="true"/>
+        <check key="recycling:coffee_capsules" text="Coffee capsules" disable_off="true"/>
+        <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true"/>
+        <check key="recycling:drugs" text="Drugs" disable_off="true"/>
+        <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true"/>
+        <check key="recycling:engine_oil" text="Engine oil" disable_off="true"/>
+        <check key="recycling:glass" text="Glass" disable_off="true"/>
+        <check key="recycling:glass_bottles" text="Glass Bottles" disable_off="true"/>
+        <check key="recycling:green_waste" text="Green Waste" disable_off="true"/>
+        <check key="recycling:paper" text="Paper" disable_off="true"/>
+        <check key="recycling:PET" text="PET" disable_off="true"/>
+        <check key="recycling:plastic" text="Plastic" disable_off="true"/>
+        <check key="recycling:plastic_bottles" text="Plastic Bottles" disable_off="true"/>
+        <check key="recycling:plastic_packaging" text="Plastic Packaging" disable_off="true"/>
+        <check key="recycling:scrap_metal" text="Scrap Metal" disable_off="true"/>
+        <check key="recycling:shoes" text="Shoes" disable_off="true"/>
+        <check key="recycling:small_appliances" text="Small Appliances" disable_off="true"/>
+        <check key="recycling:waste" text="Waste" disable_off="true"/>
+    </checkgroup>
+  </chunk>
+  <chunk id="waste">
+    <multiselect key="waste" text="Accepted waste" delimiter=";" match="key" >
+        <list_entry value="trash" short_description="Trash"/>    
+        <list_entry value="organic" short_description="Organic"/>
+        <list_entry value="plastic" short_description="Plastic"/>
+        <list_entry value="excrements" short_description="Excerements"/>
+        <list_entry value="grey_water" short_description="Grey water"/>
+    </multiselect>
   </chunk>
   <!--  Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
@@ -1443,7 +1481,7 @@
             </optional>
             <reference ref="road_access_restrictions"/>
         </item> <!-- Parking Aisle -->
-        <item name="Escape" icon="icons/png/highway_highway_sp.png" type="way" preset_name_label="true">
+        <item name="Escape" icon="icons/png/escape.png" type="way" preset_name_label="true">
             <link wiki="Tag:highway=escape"/>
             <space/>
             <key key="highway" value="escape"/>
@@ -1565,7 +1603,7 @@
 				<multiselect key="destination:ref:lanes:backward" text="Refs per lane opposite to way direction" delimiter="|" match="key" editable="true" />
 				<multiselect key="maxspeed:lanes:backward" text="Maxspeed per lane opposite to way direction" delimiter="|" match="key" editable="true" />
         	</item> <!-- Bi-directional roads -->
-            <item name="Public transport lanes" type="way,closedway" preset_name_label="true">
+            <item name="Public transport lanes" icon="icons/png/bus-lane.png" type="way,closedway" preset_name_label="true">
                 <link wiki="http://Lanes"/>
                 <combo key="lanes:psv" text="PSV Lanes" values="1,2,3,4,5,6" length="3" match="none" value_type="integer" />
                 <combo key="lanes:psv:forward" text="PSV Lanes &#x2192;" long_text="Number of PSV lanes in way direction" values="1,2,3,4,5" length="3" match="none" value_type="integer" />
@@ -1869,6 +1907,10 @@
             <link wiki="Tag:highway=passing_place"/>
             <key key="highway" value="passing_place"/>
         </item> <!-- Passing Place -->
+        <item name="Emergency bay" icon="icons/png/emergency_bay.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:highway=emergency_bay"/>
+            <key key="highway" value="emergency_bay"/>
+        </item> <!-- Emergency bay -->
         <item name="Turning Circle" icon="icons/png/transport_turning_circle.png" type="node" preset_name_label="true">
             <link wiki="Tag:highway=turning_circle"/>
             <key key="highway" value="turning_circle"/>
@@ -1932,6 +1974,9 @@
             <key key="highway" value="milestone"/>
             <text key="distance" text="Distance (kilometers)"/>
             <text key="ref" text="Reference"/>
+            <optional>
+                <combo key="direction" text="For direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
+            </optional>
         </item> <!-- Highway Milestone -->
         <item name="Named Junction" name_context="junction=yes" type="node,closedway" preset_name_label="true">
             <link wiki="Tag:junction=yes"/>
@@ -2369,6 +2414,14 @@
             <combo key="4wd_only" text="4WD only" values="yes,recommended,no" display_values="Yes,Recommended,No" match="key" />
         </item> <!-- Other mode restrictions -->
     </group>  <!-- access restrictions -->
+    <item name="Street area" icon="icons/png/street_area.png" type="closedway,multipolygon" preset_name_label="true">
+        <link wiki="Key:area:highway"/>
+        <combo key="area:highway" text="Street type" match="key" values_context="Highway"
+            values="bus_stop,crossing,cycleway,footway,junction,living_street,motorway,motorway_link,,parking_space,parking_lane,pedestrian,primary,primary_link,residential,secondary,secondary_link,service,steps,tertiary,tertiary_link,traffic_island,trunk,trunk_link,unclassified,yes"      
+            display_values="Bus stop,Crossing,Cycleway,Footway,Junction,Living street,Motorway,Motorway link,Parking space,Parking lane,Pedestrian,Primary,Primary link,Residential,Secondary,Secondary link,Service,Steps,Tertiary,Tertiary link,Traffic island,Trunk,Trunk link,Unclassified,Yes"/>      
+        <reference ref="surface" />
+        <reference ref="road_access_restrictions" />
+    </item> <!-- Street area -->
   </group> <!-- Highways -->
   <group name="Water" icon="icons/png/water_water_24008.png">
     <group name="Water" icon="icons/png/water_water_24008.png">
@@ -2468,6 +2521,15 @@
             <key key="waterway" value="dam"/>
             <reference ref="name_wikipedia"/>
         </item> <!-- Dam -->
+        <item name="Fish pass" icon="icons/png/water_fish_29063.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:waterway=fish_pass"/>
+            <space/>
+            <key key="waterway" value="fish_pass"/>
+            <reference ref="optional_name"/>
+            <check key="tunnel" text="Tunnel" disable_off="true" />
+            <text key="width" text="Width (Meters)" value_type="integer" />
+            <check key="seasonal" text="Seasonal" />
+        </item> <!-- Fish pass -->
         <item name="Groyne" icon="icons/png/water_groyne_34006.png" type="way,closedway" preset_name_label="true">
             <link wiki="Tag:man_made=groyne"/>
             <key key="man_made" value="groyne"/>
@@ -2760,6 +2822,15 @@
             <space/>
             <key key="amenity" value="boat_storage"/>
         </item> <!-- Dock -->
+        <item name="Waterway milestone" icon="icons/png/water_milestone_34008.png" type="node" preset_name_label="true">
+            <link wiki="Tag:waterway=milestone"/>
+            <key key="waterway" value="milestone"/>
+            <text key="distance" text="Distance (kilometers)"/>
+            <text key="ref" text="Reference"/>
+            <optional>
+                <combo key="direction" text="For direction" values="forward,backward,both" display_values="Forward,Backward,Both"/>
+            </optional>
+        </item> <!-- Waterway milestone -->
     </group> <!-- Shipping -->
   </group> <!-- Water -->
   <group name="Transport" icon="icons/png/transport_train_station2.png">
@@ -2927,6 +2998,16 @@
             <text key="ref" text="Reference"/>
             <text key="operator" text="Operator"/>
         </item> <!-- Derail -->
+        <item name="Yard" icon="icons/png/transport_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <key key="railway" value="yard" />
+            <text key="operator" text="Operator" />
+            <reference ref="name_ref"/>
+        </item> <!-- Yard -->
+        <item name="Train wash" icon="icons/png/transport_train_wash.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <key key="railway" value="train_wash" />
+            <text key="operator" text="Operator" />
+            <text key="ref" text="Reference"/>
+        </item> <!-- Train wash -->
     </group> <!-- Railway -->
     <group name="Aerialway" icon="icons/png/transport_aerialway_10001.png">
         <item name="Cable Car" icon="icons/png/transport_aerialway_10001.png" gtype="way" preset_name_label="true">
@@ -4127,6 +4208,12 @@
                 <label text="... other transportation modes possible"/>
             </optional>
         </item> <!-- Guidepost -->
+        <item name="Trailhead" icon="icons/png/tourist_empty.png"  type="node" preset_name_label="true">
+            <key key="highway" value="trailhead" />
+            <text key="name" text="Name" i18n="true" />
+            <text key="operator" text="Operator" />
+            <text key="ele" text="Elevation" value_type="integer" />
+        </item> <!-- Trailhead -->
         <item name="Information Terminal" icon="icons/png/tourist_information_terminal_20008.png" type="node" preset_name_label="true">
             <link wiki="Key:information"/>
             <label text="Information access via electronic methods."/>
@@ -4353,6 +4440,7 @@
                 <list_entry value="log_flume" display_value="Log flume"/>
                 <list_entry value="maze" display_value="Maze"/>
                 <list_entry value="pirate_ship" display_value="Pirate ship"/>
+                <list_entry value="river_rafting" display_value="River rafting"/>
                 <list_entry value="roller_coaster" display_value="Roller coaster"/>
                 <list_entry value="slide" display_value="Slide"/>
                 <list_entry value="swing" display_value="Swing"/>
@@ -4508,7 +4596,13 @@
             <key key="railway" value="minature"/>
             <reference ref="optional_name"/>
         </item> <!-- Minature railway -->
-        <separator/>
+        <item name="Toy library" icon="icons/png/amenity_toys.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=toy_library"/>
+            <space/>
+            <key key="amenity" value="toy_library"/>
+            <reference ref="name_operator_oh_wheelchair_level_toilets"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Tpy library -->
         <separator/>
         <item name="Playground" icon="icons/png/amenity_playground.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:leisure=playground"/>
@@ -4852,6 +4946,13 @@
             	<reference ref="oh"/>
             	<combo key="public_bookcase:type" text="Type" values="building,glass_cabinet,metal_cabinet,movable_cabinet,phone_box,reading_box,sculpture,shelf,shelter,wooden_cabinet" display_values="Building,Glass cabinet,Metal cabinet,Movable cabinet,Phone booth,Reading box,Sculpture,Shelf,Shelter,Wooden cabinet"/>
             </optional>
+        </item> <!-- Public bookcase -->
+        <item name="Planetarium" icon="icons/png/amenity_planetarium.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=planetarium"/>
+            <space/>
+            <key key="amenity" value="planetarium"/>
+            <reference ref="name_operator_oh_wheelchair_level_toilets"/>
+            <reference ref="link_contact_address_payment"/>
         </item> <!-- Library -->
         <item name="Arts Centre" icon="icons/png/amenity_arts_centre_12001.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=arts_centre"/>
@@ -5199,6 +5300,14 @@
             <combo key="operator:type" text="Operator type" values="public,private" display_values="Public,Private"/>
             <reference ref="link_contact_address"/>
         </item> <!-- Music School -->
+        <item name="Tutoring school" icon="icons/png/education_funnel.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=prep_school"/>
+            <space/>
+            <key key="amenity" value="prep_school" />
+            <reference ref="name_operator_wheelchair_level"/>
+            <reference ref="optional_oh"/>
+            <reference ref="education_operator_type"/>
+        </item> <!--Tutoring school -->
     </group> <!-- Education -->
     <group name="Health" icon="icons/png/health_pharmacy.png">
         <item name="Hospital" icon="icons/png/health_hospital.png" type="node,closedway,multipolygon" autoapply="false" min_match="1" preset_name_label="true">
@@ -5389,6 +5498,12 @@
             <reference ref="level"/>
             <check key="indoor" text="Indoor" match="none"/>
         </item> <!-- Fire Extinguisher -->
+        <item name="Fire Alarm Box" icon="icons/png/emergency_fire_alarm.png" type="node" preset_name_label="true">
+            <key key="emergency" value="fire_alarm_box" />
+            <text key="ref" text="Reference Code" />
+            <reference ref="level"/>
+            <check key="indoor" text="Indoor" match="none"/>
+        </item> <!-- Fire Alarm Box -->
         <item name="Fire Hose" icon="icons/png/emergency_fire_hose_17010.png" type="node" preset_name_label="true">
             <link wiki="Tag:emergency=fire_hose"/>
             <space/>
@@ -5524,6 +5639,10 @@
             <label text="(Use number as shown on plate.)"/>
             <space/>
         </item> <!-- Emergency Access Point -->
+        <item name="Mountain Rescue" icon="icons/png/emergency_mountain_rescue_17040.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <key key="emergency" value="mountain_rescue" />
+            <reference ref="link_contact_address"/>
+        </item> <!-- Mountain Rescue -->
     </group> <!-- Emergency -->
     <group name="Social Facilities" icon="icons/png/amenity_outreach_12252.png">
         <item name="Ambulatory Care" icon="icons/png/amenity_ambulatory_care_12248.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -5788,37 +5907,26 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
         </item> <!-- Photo booth -->
         <separator/>
+        <item name="Bottle return" icon="icons/png/amenity_bottle_return.png" type="node" preset_name_label="true">
+            <link wiki="Tag:vending=bottle_return"/>
+            <space/>
+            <key key="amenity" value="vending_machine"/>
+            <key key="vending" value="bottle_return"/>
+             <checkgroup text="Accepted bottles" columns="4">
+                <check key="recycling:cans" text="Cans" disable_off="true"/>
+                <check key="recycling:glass_bottles" text="Glass Bottles" disable_off="true"/>
+                <check key="recycling:plastic_bottles" text="Plastic Bottles" disable_off="true"/>
+            </checkgroup>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+        </item> <!-- Bottle return -->
         <item name="Recycling Container" icon="icons/png/amenity_recycling.png" type="node,closedway" preset_name_label="true">
-           <link wiki="Tag:amenity=recycling"/>
+            <link wiki="Tag:amenity=recycling"/>
             <space/>
             <key key="amenity" value="recycling"/>
             <key key="recycling_type" value="container"/>
             <reference ref="oh_wheelchair"/>
             <space/>
-            <checkgroup text="Accepted material" columns="4">
-                <check key="recycling:aluminium" text="Aluminium" disable_off="true"/>
-                <check key="recycling:batteries" text="Batteries" disable_off="true"/>
-                <check key="recycling:cans" text="Cans" disable_off="true"/>
-                <check key="recycling:cardboard" text="Cardboard" disable_off="true"/>
-                <check key="recycling:clothes" text="Clothes" disable_off="true"/>
-                <check key="recycling:coffee_capsules" text="Coffee capsules" disable_off="true"/>
-                <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true"/>
-		        <check key="recycling:drugs" text="Drugs" disable_off="true"/>
-                <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true"/>
-                <check key="recycling:engine_oil" text="Engine oil" disable_off="true"/>
-                <check key="recycling:glass" text="Glass" disable_off="true"/>
-                <check key="recycling:glass_bottles" text="Glass Bottles" disable_off="true"/>
-                <check key="recycling:green_waste" text="Green Waste" disable_off="true"/>
-                <check key="recycling:paper" text="Paper" disable_off="true"/>
-                <check key="recycling:PET" text="PET" disable_off="true"/>
-                <check key="recycling:plastic" text="Plastic" disable_off="true"/>
-                <check key="recycling:plastic_bottles" text="Plastic Bottles" disable_off="true"/>
-                <check key="recycling:plastic_packaging" text="Plastic Packaging" disable_off="true"/>
-                <check key="recycling:scrap_metal" text="Scrap Metal" disable_off="true"/>
-                <check key="recycling:shoes" text="Shoes" disable_off="true"/>
-                <check key="recycling:small_appliances" text="Small Appliances" disable_off="true"/>
-                <check key="recycling:waste" text="Waste" disable_off="true"/>
-            </checkgroup>
+            <reference ref="recycling_accepted_material"/>
         </item> <!-- Recycling Container-->
         <item name="Recycling Centre" icon="icons/png/amenity_recycling.png" type="node,closedway,multipolygon" preset_name_label="true">
            <link wiki="Tag:amenity=recycling"/>
@@ -5827,41 +5935,26 @@
             <key key="recycling_type" value="centre"/>
             <reference ref="name_operator_oh_wheelchair"/>
             <space/>
-            <checkgroup text="Accepted material" columns="4">
-                <check key="recycling:aluminium" text="Aluminium" disable_off="true"/>
-                <check key="recycling:batteries" text="Batteries" disable_off="true"/>
-                <check key="recycling:cans" text="Cans" disable_off="true"/>
-                <check key="recycling:cardboard" text="Cardboard" disable_off="true"/>
-                <check key="recycling:clothes" text="Clothes" disable_off="true"/>
-                <check key="recycling:coffee_capsules" text="Coffee capsules" disable_off="true"/>
-                <check key="recycling:cooking_oil" text="Cooking oil" disable_off="true"/>
-		        <check key="recycling:drugs" text="Drugs" disable_off="true"/>
-                <check key="recycling:electrical_appliances" text="Electrical Appliances" disable_off="true"/>
-                <check key="recycling:engine_oil" text="Engine oil" disable_off="true"/>
-                <check key="recycling:glass" text="Glass" disable_off="true"/>
-                <check key="recycling:glass_bottles" text="Glass Bottles" disable_off="true"/>
-                <check key="recycling:green_waste" text="Green Waste" disable_off="true"/>
-                <check key="recycling:paper" text="Paper" disable_off="true"/>
-                <check key="recycling:PET" text="PET" disable_off="true"/>
-                <check key="recycling:plastic" text="Plastic" disable_off="true"/>
-                <check key="recycling:plastic_bottles" text="Plastic Bottles" disable_off="true"/>
-                <check key="recycling:plastic_packaging" text="Plastic Packaging" disable_off="true"/>
-                <check key="recycling:scrap_metal" text="Scrap Metal" disable_off="true"/>
-                <check key="recycling:shoes" text="Shoes" disable_off="true"/>
-                <check key="recycling:small_appliances" text="Small Appliances" disable_off="true"/>
-                <check key="recycling:waste" text="Waste" disable_off="true"/>
-            </checkgroup>
+            <reference ref="recycling_accepted_material"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Recycling Centre-->
         <item name="Waste Basket/Trash Can" icon="icons/png/amenity_waste_bin.png" type="node" preset_name_label="true">
             <link wiki="Tag:amenity=waste_basket"/>
             <key key="amenity" value="waste_basket"/>
-            <combo key="waste" text="Waste" values="trash,dog_excrement" display_values="Trash,Dog excrement" match="none"/>
+            <combo key="waste" text="Waste" values="trash,dog_excrement,cigarettes" display_values="Trash,Dog excrement,Cigarettes" match="none"/>
         </item> <!-- Waste Basket/Trash Can -->
         <item name="Waste Disposal/Dumpster" icon="icons/png/amenity_waste_disposal_12312.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=waste_disposal"/>
             <key key="amenity" value="waste_disposal"/>
+            <reference ref="waste"/>
+            <reference ref="name_operator_oh_wheelchair"/>
         </item> <!-- Waste Disposal/Dumpster -->
+        <item name="Waste transfer station" icon="icons/png/amenity_garbage_truck.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:amenity=waste_transfer_station"/>
+            <key key="amenity" value="waste_transfer_station"/>
+            <reference ref="waste"/>
+            <reference ref="name_operator_oh_wheelchair"/>
+        </item> <!-- Waste transfer station -->
         <item name="Sanitary Dump Station" icon="icons/png/amenity_sanitary_dump_station.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Toilet_Holding_Tank_Disposal"/>
             <space/>
@@ -6064,7 +6157,7 @@
             <space/>
             <key key="amenity" value="weighbridge"/>
             <text key="operator" text="Operator"/>
-        </item> <!-- Weighbridge -->  
+        </item> <!-- Weighbridge --> 
     </group> <!-- Facilities -->
   </group>  <!-- Facilities -->
   <group name="Sports" icon="icons/png/sport_soccer.png">
@@ -6142,7 +6235,14 @@
             <multiselect key="sport" text="Sport" values="curling;ice_hockey;ice_skating" display_values="Curling;Ice hockey;Ice skating" values_context="sport"/>
             <reference ref="name_oh_wheelchair"/>
             <reference ref="link_contact_address_payment"/>
-        </item> <!-- Dive centre -->
+        </item> <!-- Ice rink -->
+        <item name="Bowling alley" icon="icons/png/sport_bowling_21179.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:leisure=bowling_alley"/>
+            <space/>
+            <key key="leisure" value="bowling_alley"/>
+            <reference ref="name_oh_wheelchair"/>
+            <reference ref="name_oh_wheelchair_level_toilets"/>
+        </item> <!-- Bowling alley -->
         <group name="Golf" icon="icons/png/sport_golf.png">
             <item name="Golf Course" icon="icons/png/sport_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <link wiki="Tag:leisure=golf_course"/>
@@ -6675,8 +6775,8 @@
 			<link wiki="Key:building"/>
 			<space/>
 			<combo key="building" text="Building" 
-                values="allotment_house,apartments,bakehouse,barn,basilica,bungalow,cabin,cathedral,chapel,church,college,commercial,construction,cowshed,detached,dormitory,farm,farm_auxiliary,fire_station,garage,garages,gasometer,ger,grandstand,greenhouse,hangar,hospital,hotel,house,hut,industrial,kindergarten,manufacture,mosque,office,public,residential,retail,roof,ruins,school,semidetached_house,service,shed,stable,static_caravan,storage_tank,supermarket,synagogue,temple,terrace,toilets,train_station,transformer_tower,transportation,university,warehouse,yes" 
-                display_values="Allotment house,Apartments,Bakehouse,Barn,Basilica,Bungalow,Cabin,Cathedral,Chapel,Church,College,Commercial,Construction,Cowshed,Detached,Dormitory,Farm,Farm auxiliary,Fire station,Garage,Garages,Gasometer,Ger,Grandstand,Greenhouse,Hangar,Hospital,Hotel,House,Hut,Industrial,Kindergarten,Manufacture,Mosque,Office,Public,Residential,Retail,Roof,Ruins,School,Semidetached house,Service,Shed,Stable,Static caravan,Storage tank,Supermarket,Synagogue,Temple,Terrace,Toilets,Train station,Transformer tower,Transportation,University,Warehouse,Yes"
+                values="allotment_house,apartments,bakehouse,barn,basilica,boathouse,bungalow,bunker,cabin,cathedral,chapel,church,college,commercial,construction,cowshed,detached,dormitory,farm,farm_auxiliary,fire_station,garage,garages,gasometer,ger,grandstand,greenhouse,hangar,hospital,hotel,house,houseboat,hut,industrial,kindergarten,manufacture,mosque,office,pavilion,public,residential,retail,roof,ruins,school,semidetached_house,service,shed,stable,stadium,static_caravan,storage_tank,supermarket,synagogue,temple,terrace,toilets,train_station,transformer_tower,transportation,university,warehouse,yes" 
+                display_values="Allotment house,Apartments,Bakehouse,Barn,Basilica,Boathose,Bungalow,Bunker,Cabin,Cathedral,Chapel,Church,College,Commercial,Construction,Cowshed,Detached,Dormitory,Farm,Farm auxiliary,Fire station,Garage,Garages,Gasometer,Ger,Grandstand,Greenhouse,Hangar,Hospital,Hotel,House,Houseboat,Hut,Industrial,Kindergarten,Manufacture,Mosque,Office,Pavilion,Public,Residential,Retail,Roof,Ruins,School,Semidetached house,Service,Shed,Stable,Stadium,Static caravan,Storage tank,Supermarket,Synagogue,Temple,Terrace,Toilets,Train station,Transformer tower,Transportation,University,Warehouse,Yes"
                 values_context="building" default="yes" match="keyvalue!" values_searchable="true"/>
 			<reference ref="additional_building_tags"/>
 			<preset_link preset_name="Address"/>
@@ -6820,6 +6920,21 @@
 			<key key="building" value="entrance"/>
 			<preset_link preset_name="Address"/>
 		</item> <!-- Entrance (deprecated) -->
+        <item name="Loading dock" icon="icons/png/amenity_forklift.png" type="node,way" preset_name_label="true">
+            <link wiki="Tag:amenity=loading_dock"/>
+            <space/>
+            <key key="amenity" value="loading_dock"/>
+            <text key="ref" text="Reference Code" />
+            <text key="operator" text="Operator" />
+            <reference ref="facility_access" />
+            <reference ref="door_type" />
+            <reference ref="colours" />
+            <text key="width" text="Width (Meters)" />
+            <text key="maxwidth" text="Max. width (Meters)" />
+            <text key="height" text="Height (Meters)"  />
+            <text key="maxheight" text="Max. heeight (Meters)" />
+            <check key="automatic_door" text="Automatic door" />
+        </item> <!-- Loading dock -->  
 	</group> <!-- Buildings -->
     <group name="Indoor elements" icon="icons/png/indoor_floorplan.png" >
         <item name="Indoor area" icon="icons/png/indoor_area.png" type="closedway,multipolygon" preset_name_label="true">
@@ -6841,7 +6956,7 @@
             <text key="ref" text="Reference Code" />
             <reference ref="door_type" />
             <reference ref="facility_access" />
-            <text key="width" text="Width (Meters)" value_type="integer" />
+            <text key="width" text="Width (Meters)" />
             <text key="height" text="Height (Meters)" value_type="integer" />
         </item>
         <item name="Room" icon="icons/png/indoor_room.png" type="closedway,multipolygon" preset_name_label="true">
@@ -6887,6 +7002,17 @@
                 <reference ref="communication_types"/>
             </optional>
         </item> <!-- Tower -->
+        <item name="Antenna" icon="icons/png/man_made_antenna_22088.png" type="node" preset_name_label="true">
+            <link wiki="Tag:man_made=antenna"/>
+            <space/>
+            <key key="man_made" value="antenna" />
+            <optional>
+                <text key="name" text="Name"/>
+                <text key="height" text="Height (meters)"/>
+                <text key="operator" text="Operator"/>
+                <reference ref="communication_types"/>
+            </optional>
+         </item> <!-- Antenna -->
         <item name="Flagpole" icon="icons/png/man_made_flagpole_22023.png" type="node" preset_name_label="true">
             <link wiki="Tag:man_made=flagpole"/>
             <key key="man_made" value="flagpole"/>
@@ -7252,6 +7378,24 @@
                 <text key="operator" text="Operator"/>
             </optional>
         </item> <!-- Beehive -->
+        <item name="Observatory" icon="icons/png/man_made_observatory.png" name_context="man_made" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:man_made=observatory"/>
+            <key key="man_made" value="observatory"/>
+            <multiselect key="observatory:type" text="Obervatory type" values_searchable="true">
+                <list_entry value="astronomical" short_description="Astronomical"/>
+                <list_entry value="meteorological" short_description="Meteorological"/>
+                <list_entry value="gravitational" short_description="gravitational"/>
+            </multiselect>
+            <reference ref="name_wikipedia"/>
+        </item> <!-- Observatory -->
+        <item name="Telescope" icon="icons/png/man_made_telescope.png" name_context="man_made" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:man_made=telescope"/>
+            <key key="man_made" value="telescope"/>
+            <combo key="telescope:type" text="Type" values="optical,radio,gamma" display_values="Optical,Radio,Gamma ray" />
+            <text key="telescope:diameter" text="Diameter in meters" />
+            <combo key="telescope:construction" text="Construction" values="dish,dome" display_values="Dish,Dome" />
+            <reference ref="name_wikipedia"/>
+        </item> <!-- Telescope -->
     </group> <!-- Man Made -->
     <group name="Bridges" icon="icons/png/highway_bridge_sp.png">
         <item name="Bridge" icon="icons/png/highway_bridge_sp.png" type="way,relation,multipolygon" preset_name_label="true">
@@ -7620,7 +7764,7 @@
             <key key="power" value="pole"/>
             <reference ref="power_pole"/>
         </item> <!-- Pole -->
-        <item name="Pole with Switch" icon="presets/power/pole_switch.svg" type="node" preset_name_label="true">
+        <item name="Pole with Switch" icon="icons/png/power_pole_with_switch.png" type="node" preset_name_label="true">
             <link wiki="Tag:power=pole"/>
             <space/>
             <key key="power" value="pole"/>
@@ -7634,7 +7778,7 @@
                 <reference ref="cables"/>
             </optional>
         </item> <!-- Pole with Switch -->
-        <item name="Pole with Transformer" icon="icons/png/power_transformer_26042.png" type="node" preset_name_label="true">
+        <item name="Pole with Transformer" icon="icons/png/power_pole_with_transformer.png" type="node" preset_name_label="true">
             <link wiki="Tag:power=pole"/>
             <space/>
             <key key="power" value="pole"/>
@@ -7839,6 +7983,7 @@
          <reference ref="religious_catholic_christian" />
          <text key="start_date" text="Start date"/>
          <text key="inscription" text="Inscription" length="255"/>
+	 <text key="material" text="Material"/>
      </item> <!-- Wayside Cross -->
      <item name="Wayside Shrine" icon="icons/png/tourist_wayside_shrine.png" type="node,closedway" preset_name_label="true">
          <link wiki="Tag:historic=wayside_shrine"/>
@@ -8386,6 +8531,20 @@
             <reference ref="name_operator_oh_wheelchair_level"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Candles -->
+        <item name="Tiles" icon="icons/png/shopping_tiler_16086.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=tiles"/>
+            <space/>
+            <key key="shop" value="tiles"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Tiles -->
+        <item name="Pottery" icon="icons/png/shopping_pottery_16064.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=pottery"/>
+            <space/>
+            <key key="shop" value="pottery"/>
+            <reference ref="name_operator_oh_wheelchair_level"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Pottery -->
     </group> <!-- Home furnishing and decoration -->
     <group name="Printed Material" icon="icons/png/shopping_stationery_29130.png">
         <item name="Stationery" icon="icons/png/shopping_stationery_29130.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8867,16 +9026,21 @@
         	<list_entry value="admission_tickets" short_description="Admission tickets"/>
             <list_entry value="animal_feed" short_description="Animal feed"/>
             <list_entry value="bicycle_tube" short_description="Bicycle tubes"/>
+            <list_entry value="bread" short_description="Bread"/>
             <list_entry value="cigarettes" short_description="Cigarettes"/>
             <list_entry value="chewing_gums" short_description="Chewing gums"/>
             <list_entry value="coffee" short_description="Coffee"/>
             <list_entry value="condoms" short_description="Condoms"/>
             <list_entry value="drinks" short_description="Drinks"/>
+            <list_entry value="eggs" short_description="Eggs"/>
+            <list_entry value="electronics" short_description="Electronics"/>
             <list_entry value="elongated_coin" short_description="Elongated coin"/>
             <list_entry value="excrement_bags" short_description="Excrement bags"/>
             <list_entry value="feminine_hygiene" short_description="Feminine hygiene articles"/> 
             <list_entry value="food" short_description="Food"/>
             <list_entry value="fuel" short_description="Fuel"/>
+            <list_entry value="ice_cream" short_description="Ice cream"/>
+            <list_entry value="ice_cubes" short_description="Ice cubes"/>
             <list_entry value="milk" short_description="Milk"/>
             <list_entry value="newspapers" short_description="Newspapers"/>
             <list_entry value="parking_tickets" short_description="Parking tickets"/>
@@ -9449,6 +9613,15 @@
                 <text key="width" text="Width (meters)"/>
             </optional>
         </item> <!-- Stone -->
+        <item name="Shrub" icon="icons/png/natural_shrub.png" type="node" preset_name_label="true">
+            <link wiki="Tag:natural=shrub"/>
+            <label text="A single shrub."/>
+            <space/>
+            <key key="natural" value="shrub"/>
+            <text key="height" text="Height (m)"/>
+            <text key="width" text="Width (m)"/>
+            <reference ref="genus_species_taxon"/>
+        </item> <!-- Shrub -->
     </group> <!-- Nature -->
     <group name="Land use" icon="icons/png/landuse_landuse_sp.png">
         <item name="Farmyard" icon="icons/png/landuse_farm_22120.png" type="closedway,multipolygon" preset_name_label="true">
@@ -9940,6 +10113,13 @@
 				<reference ref="turn_restriction_roles"/>
 			</item> <!-- Straight on only -->
         </group> <!-- Turn Restrictions -->
+        <item name="Lane connectivity" icon="icons/png/only_straight_on.png" type="relation" preset_name_label="true">
+            <link wiki="Relation:connectivity"/>
+            <space/>
+            <key key="type" value="connectivity"/>
+            <multiselect key="connectivity" text="From lane : to lanes" delimiter="|" match="key" editable="true" />
+            <reference ref="turn_restriction_roles"/>
+        </item> <!-- Lane connectivity -->
         <item name="Enforcement" icon="icons/png/highway_speed_camera_18025.png" type="relation" preset_name_label="true">
             <link wiki="Relation:enforcement"/>
             <space/>
@@ -10139,6 +10319,13 @@
                     <role key="substation" text="Power Substation" requisite="optional" type="way,closedway,multipolygon" member_expression="power"/>
                 </roles>
             </item> <!-- Power Route -->
+            <item name="Pipeline route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
+                <link wiki="Tag:route=pipeline"/>
+                <space/>
+                <key key="type" value="route"/>
+                <key key="route" value="pipeline"/>
+                <reference ref="name_ref_operator"/>
+            </item> <!-- Pipeline route -->
             <item name="Railway Route" icon="icons/png/osm_route_sp.png" type="relation" preset_name_label="true">
                 <link wiki="Tag:route=railway"/>
                 <space/>
