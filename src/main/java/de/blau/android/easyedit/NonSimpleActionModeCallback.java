@@ -4,7 +4,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
+import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Extend this class instead of EasyEditActionModeCallback if you need to disable the SimpleActionButton
