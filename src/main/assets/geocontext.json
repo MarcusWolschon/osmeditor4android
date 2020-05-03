@@ -54,9 +54,6 @@
             "gsw"
         ]
     },
-    "cn-hk": {
-        "left-hand-traffic": true
-    },
     "cy": {
         "left-hand-traffic": true
     },
@@ -112,6 +109,21 @@
     "gy": {
         "left-hand-traffic": true
     },
+    "hk": {
+        "left-hand-traffic": true,
+        "languages": [
+            "zh",
+            "en"
+        ],
+        "speed-limits": [
+            8,
+            50,
+            70,
+            80,
+            100,
+            110
+        ]
+    },
     "id": {
         "left-hand-traffic": true
     },
@@ -152,6 +164,13 @@
     },
     "ls": {
         "left-hand-traffic": true
+    },
+    "mo": {
+        "left-hand-traffic": true,
+        "languages": [
+            "zh",
+            "pt"
+        ]
     },
     "mt": {
         "left-hand-traffic": true
