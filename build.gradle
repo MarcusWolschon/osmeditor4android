@@ -225,9 +225,10 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
     task (name,type: JavaExec) {
         main = "ch.poole.osm.presetutils.Synonyms"
         classpath = buildscript.configurations.classpath
-        args('-l',    "$lang",
-                '-x',    "military",
-                '-o',    "src/main/assets/synonyms/synonyms.$lang")
+        args('-u', 'https://raw.githubusercontent.com/openstreetmap/iD/release/dist/locales/',
+             '-l',    "$lang",
+             '-x',    "military",
+             '-o',    "src/main/assets/synonyms/synonyms.$lang")
     }
     updateSynonyms.dependsOn name
 }
