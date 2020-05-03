@@ -14,7 +14,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.6.0'
         classpath 'ch.poole.gradle:markdown-gradle-plugin:0.2.1'
         classpath 'org.jacoco:org.jacoco.core:0.8.5'
-        classpath "ch.poole:preset-utils:0.13.0"
+        classpath "ch.poole:preset-utils:0.15.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.0'
         classpath 'com.jaredsburrows:gradle-spoon-plugin:1.5.0'
@@ -239,9 +239,10 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
     task (name,type: JavaExec) {
         main = "ch.poole.osm.presetutils.Synonyms"
         classpath = buildscript.configurations.classpath
-        args('-l',    "$lang",
-                '-x',    "military",
-                '-o',    "src/main/assets/synonyms/synonyms.$lang")
+        args('-u', 'https://raw.githubusercontent.com/openstreetmap/iD/release/dist/locales/',
+             '-l', "$lang",
+             '-x', "military",
+             '-o', "src/main/assets/synonyms/synonyms.$lang")
     }
     updateSynonyms.dependsOn name
 }
