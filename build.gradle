@@ -156,85 +156,21 @@ task updateSynonyms() {
 updateSynonyms.group = 'vespucci'
 updateSynonyms.description = 'Update synonym files from iD editor repo'
 
-[
-    'af',
-    'ar',
-    'ast',
-    'bg',
-    'bs',
-    'ca',
-    'cs',
-    'da',
-    'de',
-    'dv',
-    'el',
-    'en-GB',
-    'en',
-    'eo',
-    'es',
-    'et',
-    'eu',
-    'fa',
-    'fi',
-    'fr',
-    'gan',
-    'gl',
-    'gu',
-    'he',
-    'hi',
-    'hr',
-    'hu',
-    'hy',
-    'ia',
-    'id',
-    'is',
-    'it',
-    'ja',
-    'jv',
-    'km',
-    'kn',
-    'ko',
-    'ku',
-    'lij',
-    'lt',
-    'lv',
-    'mg',
-    'mk',
-    'ml',
-    'mn',
-    'ms',
-    'ne',
-    'nl',
-    'nn',
-    'no',
-    'nv',
-    'pl',
-    'pt-BR',
-    'pt',
-    'rm',
-    'ro',
-    'ru',
-    'sc',
-    'si',
-    'sk',
-    'sl',
-    'sq',
-    'sr',
-    'sv',
-    'ta',
-    'te',
-    'th',
-    'tl',
-    'tr',
-    'uk',
-    'ur',
-    'vi',
-    'yue',
-    'zh-CN',
-    'zh-HK',
-    'zh-TW',
-    'zh'
-].each { lang ->
+def dir = 'https://api.github.com/repos/openstreetmap/iD/contents/dist/locales?ref=release'
+ 
+// generate tasks for processing files containing synoynms from iD repo
+// download directory listing via GitHub API
+def contentsFile = new File(buildDir, "directory_contents.json")
+download {
+    src dir
+    dest contentsFile
+}
+
+// parse directory listing
+def contents = new groovy.json.JsonSlurper().parseFile(contentsFile, "utf-8")
+def langs = contents.collect { it.name.replace('.json', '') }
+
+langs.each { lang ->
     def name="updateSynonyms${lang.capitalize()}"
     task (name,type: JavaExec) {
         main = "ch.poole.osm.presetutils.Synonyms"
@@ -246,7 +182,10 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
     }
     updateSynonyms.dependsOn name
 }
-
+// delete downloaded directory listing
+contentsFile.delete() 
+// done
+    
 apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3.6-flavors'
 // apply from: '../gradle-tasks/eclipse-android-3.6-flavors'
 
