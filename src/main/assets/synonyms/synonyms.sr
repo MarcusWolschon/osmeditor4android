@@ -8,12 +8,6 @@
 "aerialway/cable_car":[
 "Жичара"
 ],
-"aerialway/gondola":[
-"Гондола"
-],
-"aeroway":[
-"Авио-пут"
-],
 "aeroway/aerodrome":[
 "Аеродром"
 ],
@@ -296,9 +290,6 @@
 "amenity/school":[
 "Школско двориште"
 ],
-"amenity/scrapyard":[
-"Ауто-отпад"
-],
 "amenity/shelter":[
 "Склониште"
 ],
@@ -332,9 +323,6 @@
 ],
 "amenity/studio":[
 "Студио"
-],
-"amenity/swimming_pool":[
-"Базен"
 ],
 "amenity/taxi":[
 "Такси стајалиште"
@@ -1228,9 +1216,6 @@
 "leisure/track/cycling":[
 "Бициклистичка стаза"
 ],
-"leisure/track/cycling_point":[
-"Бициклистичка стаза"
-],
 "leisure/water_park":[
 "аква-парк",
 "водени парк",
@@ -1589,26 +1574,8 @@
 "railway/disused":[
 "Некоришћена железница"
 ],
-"railway/funicular":[
-"Успињача"
-],
-"railway/monorail":[
-"Пруга са једним колосеком"
-],
-"railway/narrow_gauge":[
-"Уски колосек"
-],
-"railway/rail":[
-"Шина"
-],
-"railway/subway":[
-"Подземна железница"
-],
 "railway/subway_entrance":[
 "Улаз у подземну железницу"
-],
-"railway/tram":[
-"Трамвај"
 ],
 "relation":[
 "Однос"
@@ -1716,9 +1683,6 @@
 ],
 "shop/fashion":[
 "Бутик"
-],
-"shop/fishmonger":[
-"Рибарница"
 ],
 "shop/florist":[
 "Цвећар"

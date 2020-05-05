@@ -5,9 +5,6 @@
 "advertising/billboard":[
 "Auglýsingaspjald"
 ],
-"aerialway":[
-"Víralyfta"
-],
 "aerialway/cable_car":[
 "Kláfur"
 ],
@@ -16,9 +13,6 @@
 ],
 "aerialway/drag_lift":[
 "Toglyfta"
-],
-"aerialway/gondola":[
-"Eggjalyfta"
 ],
 "aerialway/goods":[
 "Vöruvíralyfta"
@@ -37,9 +31,6 @@
 ],
 "aerialway/rope_tow":[
 "Kaðallyfta"
-],
-"aeroway":[
-"Loftlína"
 ],
 "aeroway/aerodrome":[
 "Flugvöllur"
@@ -352,9 +343,6 @@
 "amenity/recycling_container":[
 "Endurvinnslugámur"
 ],
-"amenity/register_office":[
-"Skráningarskrifstofa"
-],
 "amenity/restaurant":[
 "Veitingahús"
 ],
@@ -418,9 +406,6 @@
 "amenity/school":[
 "Skólalóð"
 ],
-"amenity/scrapyard":[
-"Brotajárnshaugur"
-],
 "amenity/shelter":[
 "Skýli"
 ],
@@ -450,9 +435,6 @@
 ],
 "amenity/studio":[
 "Upptökustúdíó"
-],
-"amenity/swimming_pool":[
-"Sundlaug"
 ],
 "amenity/taxi":[
 "Leigubílastæði"
@@ -1141,6 +1123,12 @@
 "highway/primary_link":[
 "Stofnrein"
 ],
+"highway/raceway":[
+"Kappakstursbraut"
+],
+"highway/raceway/motocross":[
+"Mótocrossbraut"
+],
 "highway/residential":[
 "Íbúðagata"
 ],
@@ -1200,7 +1188,15 @@
 "Safnbrautarrein"
 ],
 "highway/track":[
-"Vegslóði án viðhalds"
+"4x4",
+"aðkoma slökkviliðs",
+"utanvegaslóð",
+"vegslóði án þjónustu",
+"skógarvegur",
+"fjórhjóladrifs",
+"bændaslóðar",
+"Vegslóði án viðhalds",
+"virkjanavegir"
 ],
 "highway/traffic_mirror":[
 "Umferðarspegill"
@@ -1264,9 +1260,6 @@
 ],
 "junction":[
 "Tenging"
-],
-"landuse/allotments":[
-"Samfélagsgarður"
 ],
 "landuse/aquaculture":[
 "Vatnseldi"
@@ -1550,6 +1543,12 @@
 "leisure/track":[
 "Keppnisbraut (ekki mótorsport)"
 ],
+"leisure/track/cycling":[
+"Hjólreiðabraut"
+],
+"leisure/track/horse_racing":[
+"Kappreiðabraut"
+],
 "leisure/track/running":[
 "Hlaupabraut"
 ],
@@ -1585,9 +1584,6 @@
 ],
 "man_made/gasometer":[
 "Gasmælir"
-],
-"man_made/groyne":[
-"Öldubrjótur"
 ],
 "man_made/lighthouse":[
 "Viti"
@@ -2102,41 +2098,20 @@
 "railway/disused":[
 "Ónotaðir lestarteinar"
 ],
-"railway/funicular":[
-"Toglest"
-],
 "railway/halt":[
 "Lestarstöð (stöðvun / beiðni)"
 ],
 "railway/level_crossing":[
 "Þverun járnbrautar (vegur)"
 ],
-"railway/light_rail":[
-"Léttlest"
-],
 "railway/milestone":[
 "Vegalengdarmerki járnbrautar"
-],
-"railway/miniature":[
-"Smájárnbraut"
-],
-"railway/monorail":[
-"Einteinungur"
-],
-"railway/narrow_gauge":[
-"Mjótt lestarspor"
-],
-"railway/rail":[
-"Lestarteinar"
 ],
 "railway/signal":[
 "Lestarmerki"
 ],
 "railway/station":[
 "Lestarstöð"
-],
-"railway/subway":[
-"Neðanjarðarlest"
 ],
 "railway/subway_entrance":[
 "Inngangur að neðanjarðarlest"
@@ -2146,9 +2121,6 @@
 ],
 "railway/train_wash":[
 "Lestarvagnaþvottur"
-],
-"railway/tram":[
-"Sporvagn"
 ],
 "railway/tram_stop":[
 "Staðsetning stöðvunar sporvagna"
@@ -2324,23 +2296,14 @@
 "shop/fashion":[
 "Tískuverslun"
 ],
-"shop/fishmonger":[
-"Fisksali"
-],
 "shop/florist":[
 "Blómabúð"
 ],
 "shop/frame":[
 "Innrömmun"
 ],
-"shop/frozen_food":[
-"Frosin matvæli"
-],
 "shop/funeral_directors":[
 "Útfararheimili"
-],
-"shop/furnace":[
-"Arinvöruverslun"
 ],
 "shop/furniture":[
 "Húsgagnaverslun"

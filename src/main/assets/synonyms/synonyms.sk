@@ -15,9 +15,6 @@
 "bilboardy",
 "pútač"
 ],
-"aerialway":[
-"Vzdušná doprava"
-],
 "aerialway/cable_car":[
 "kyvadlova lanovka",
 "kabínka",
@@ -37,14 +34,6 @@
 "lyžiarsky vlek",
 "lyziarsky vlek",
 "Vlek"
-],
-"aerialway/gondola":[
-"kyvadlova lanovka",
-"kabínka",
-"kabinka",
-"Kyvadlová lanovka",
-"kyvadlo",
-"lanovka"
 ],
 "aerialway/goods":[
 "Zásobovacia lanovka",
@@ -71,9 +60,6 @@
 "aerialway/rope_tow":[
 "Lanový vlek",
 "lanovy vlek"
-],
-"aeroway":[
-"Letectvo"
 ],
 "aeroway/aerodrome":[
 "príletová hala",
@@ -654,9 +640,6 @@
 "Recyklačné centrum",
 "recyklacne centrum"
 ],
-"amenity/register_office":[
-"Matričný úrad"
-],
 "amenity/restaurant":[
 "jedáleň",
 "jedalen",
@@ -687,9 +670,6 @@
 "druzina",
 "skola",
 "Skolsky areal"
-],
-"amenity/scrapyard":[
-"Vrakovisko"
 ],
 "amenity/shelter":[
 "Prístrešok",
@@ -734,9 +714,6 @@
 "amenity/studio":[
 "Štúdio",
 "Studio"
-],
-"amenity/swimming_pool":[
-"Plaváreň"
 ],
 "amenity/taxi":[
 "taxislužba",
@@ -1942,12 +1919,6 @@
 "Križovatka",
 "krizovatka"
 ],
-"landuse/allotments":[
-"Komunitná záhrada",
-"poestvateľská plocha",
-"pestovatelska plocha",
-"komunitna zahrada"
-],
 "landuse/basin":[
 "Zadržiavacia nádrž"
 ],
@@ -2796,39 +2767,8 @@
 "zeleznica mimo prevadzky",
 "Železnica mimo prevádzky"
 ],
-"railway/funicular":[
-"lanova draha",
-"lanova zeleznica",
-"Lanová dráha"
-],
-"railway/monorail":[
-"Jednokoľajnicová dráha",
-"jednokolajka",
-"jednokolajnicova draha",
-"monorail"
-],
-"railway/narrow_gauge":[
-"Úzkorozchodná železnica",
-"uzkokolajka",
-"uzkorozchodna zeleznica",
-"úzkoľajka"
-],
-"railway/rail":[
-"zeleznicna trat",
-"trať",
-"trat",
-"zeleznica",
-"železnica",
-"Železničná trať"
-],
 "railway/station":[
 "Vlaková stanica"
-],
-"railway/subway":[
-"Metro",
-"metro",
-"podzemna draha",
-"podzemná dráha"
 ],
 "railway/subway_entrance":[
 "Vstup do metra",
@@ -2836,11 +2776,6 @@
 "metro",
 "stanica metra",
 "podchod"
-],
-"railway/tram":[
-"tramvaj",
-"elektricka",
-"Električka"
 ],
 "relation":[
 "Relácia",
@@ -3156,9 +3091,6 @@
 "shop/fashion":[
 "Obchod s módnymi doplnkami"
 ],
-"shop/fishmonger":[
-"Predaj rýb"
-],
 "shop/florist":[
 "kytice",
 "Kvetinárstvo",
@@ -3178,9 +3110,6 @@
 "pohreb",
 "pohrebnictvo",
 "Pohrebný ústav"
-],
-"shop/furnace":[
-"Obchod so kotlami"
 ],
 "shop/furniture":[
 "nabytok",

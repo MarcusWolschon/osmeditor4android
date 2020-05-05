@@ -33,9 +33,6 @@
 "annonspelare",
 "annonsering"
 ],
-"aerialway":[
-"Linbana"
-],
 "aerialway/cable_car":[
 "Kabinbana",
 "linbana",
@@ -54,13 +51,6 @@
 "Draglift",
 "lift",
 "linbana",
-"skidlift"
-],
-"aerialway/gondola":[
-"Gondolbana",
-"lift",
-"linbana",
-"Gondol",
 "skidlift"
 ],
 "aerialway/goods":[
@@ -148,9 +138,6 @@
 "linbana",
 "travers",
 "Zipline"
-],
-"aeroway":[
-"Flygtrafik"
 ],
 "aeroway/aerodrome":[
 "flyghamn",
@@ -1621,6 +1608,16 @@
 "omröstningsapparat",
 "Permanent vallokal"
 ],
+"amenity/post_box":[
+"brevlåda",
+"brevinlämning",
+"brevinkast",
+"postfack",
+"postbox",
+"Brevlåda",
+"paketinlämning",
+"postlåda"
+],
 "amenity/post_depot":[
 "brevsortering",
 "post",
@@ -1797,9 +1794,6 @@
 "burkar",
 "återvinning",
 "sopor"
-],
-"amenity/register_office":[
-"Registreringsbyrå"
 ],
 "amenity/restaurant":[
 "café. matsal",
@@ -2356,9 +2350,6 @@
 "skolområde",
 "lågstadium"
 ],
-"amenity/scrapyard":[
-"Bilskrot"
-],
 "amenity/shelter":[
 "väntkur",
 "grotta",
@@ -2534,9 +2525,6 @@
 "film",
 "video",
 "filmproduktion"
-],
-"amenity/swimming_pool":[
-"Simbassäng"
 ],
 "amenity/taxi":[
 "taxificka",
@@ -2972,6 +2960,14 @@
 "Pariserhjul",
 "nöjeskarusell"
 ],
+"attraction/bumper_car":[
+"åkattraktion",
+"Radiobilar",
+"nöjespark",
+"temapark",
+"radiobil",
+"tivoli"
+],
 "attraction/bungee_jumping":[
 "Bungyjump",
 "bungee jump",
@@ -2999,6 +2995,15 @@
 "Mörk åktur",
 "nöjeskarusell"
 ],
+"attraction/drop_tower":[
+"åkattraktion",
+"karusell",
+"nöjespark",
+"temapark",
+"tivoli",
+"Fritt fall",
+"nöjeskarusell"
+],
 "attraction/maze":[
 "Trojeborg",
 "slingergång",
@@ -3006,6 +3011,32 @@
 "Labyrint",
 "Trojaborg",
 "irrgång"
+],
+"attraction/pirate_ship":[
+"karusell",
+"roterande båt",
+"vikingaskepp",
+"Åkattraktion",
+"nöjespark",
+"temapark",
+"gunga",
+"tivoli",
+"Båtgunga",
+"piratskepp",
+"gungande båt",
+"nöjeskarusell"
+],
+"attraction/river_rafting":[
+"karusell",
+"Åkattraktion",
+"nöjespark",
+"temapark",
+"forsbana",
+"fors",
+"tivoli",
+"Forsränning",
+"Vattenbana",
+"nöjeskarusell"
 ],
 "attraction/roller_coaster":[
 "åkattraktion",
@@ -3653,6 +3684,20 @@
 "Industribyggnad",
 "industri",
 "fabrik"
+],
+"building/kindergarten":[
+"dagishus",
+"förskolehus",
+"kindergarten",
+"förskolebyggnad",
+"Förskola",
+"barnomsorg",
+"dagis",
+"lekskola",
+"dagisbyggnad",
+"daghem",
+"lekis",
+"Förskolebyggnad"
 ],
 "building/mosque":[
 "Moskébyggnad",
@@ -4438,6 +4483,21 @@
 "emergency/yes":[
 "Åtkomst för utryckningsfordon – Ja"
 ],
+"entrance":[
+"entré",
+"huvudentré",
+"dörr",
+"utgång",
+"Ingång",
+"Entré / utgång"
+],
+"entrance/emergency":[
+"dörr",
+"branddörr",
+"brandutgång",
+"Nödutgång",
+"utgång"
+],
 "ford":[
 "vad",
 "Vadställe",
@@ -4728,6 +4788,9 @@
 "tal",
 "terapi",
 "talstörning"
+],
+"highway":[
+"Vägobjekt"
 ],
 "highway/bridleway":[
 "rida",
@@ -5525,6 +5588,13 @@
 "Dörr inomhus",
 "utgång"
 ],
+"indoor/elevator":[
+"hiss",
+"hisschakt",
+"schakt",
+"Innomhushisschakt",
+"innomhushisschakt"
+],
 "indoor/room":[
 "lobby",
 "foajé",
@@ -5582,14 +5652,8 @@
 "övergångsställe",
 "rondell"
 ],
-"landuse/allotments":[
-"odlingslott",
-"lott",
-"koloniträdgård",
-"koloniområde",
-"Kolonilott",
-"Koloniområde",
-"täppa"
+"landuse":[
+"Markanvändning"
 ],
 "landuse/aquaculture":[
 "Fiskodling",
@@ -5641,6 +5705,15 @@
 "kommersiellt",
 "butiksområde",
 "affärsområde"
+],
+"landuse/construction":[
+"Byggarbetsplats",
+"bygge",
+"byggarbete",
+"byggnadsplats",
+"byggnation",
+"Byggnad under uppförande",
+"Byggnad under konstruktion"
 ],
 "landuse/farm":[
 "Åkermark"
@@ -6662,9 +6735,6 @@
 "leisure/track/cycling":[
 "Tävlingsbana (Cykel)"
 ],
-"leisure/track/cycling_point":[
-"Tävlingsbana (Cykel)"
-],
 "leisure/track/horse_racing":[
 "kapplöpning",
 "galopp",
@@ -6675,28 +6745,7 @@
 "Hästkapplöpning",
 "häst"
 ],
-"leisure/track/horse_racing_point":[
-"kapplöpning",
-"galopp",
-"kapplöpningsbana",
-"trav",
-"Tävlingsbana (Hästkapplöpning)",
-"Hästkapplöpningsbana",
-"Hästkapplöpning",
-"häst"
-],
 "leisure/track/running":[
-"kapplöpningsbana",
-"Löpning",
-"sprint",
-"språng",
-"springa",
-"Tävlingsbana (Löpning)",
-"Tävlingsbana",
-"löpbana",
-"löparbana"
-],
-"leisure/track/running_point":[
 "kapplöpningsbana",
 "Löpning",
 "sprint",
@@ -6719,6 +6768,9 @@
 "sträcka",
 "streck",
 "Linje"
+],
+"man_made":[
+"Människoskapat objekt"
 ],
 "man_made/adit":[
 "gruvhål",
@@ -6834,18 +6886,27 @@
 "stadsgas",
 "naturgas"
 ],
-"man_made/groyne":[
-"Hövd, vågbrytare vinkelrätt mot kusten",
-"vågbrytare",
-"pir",
-"erosion",
-"hövd",
-"erosionsskydd"
-],
 "man_made/lighthouse":[
 "fyrtorn",
 "fyrskepp",
 "Fyr"
+],
+"man_made/manhole":[
+"Brunnslock",
+"dagvatten",
+"telefoni",
+"dagvattenbrunn",
+"manhålslucka",
+"Rensbrunn",
+"Gatubrunn",
+"manlucka",
+"avlopp",
+"telekom",
+"Brandpost",
+"a-brunn",
+"avloppsbrunn",
+"brunn",
+"manhål"
 ],
 "man_made/mast":[
 "mobiltelefon torn",
@@ -7731,7 +7792,12 @@
 "Läkare"
 ],
 "office/political_party":[
-"Partikontor"
+"Partikontor",
+"partihögkvarter",
+"partikontor",
+"politik",
+"parti",
+"politiskt parti"
 ],
 "office/private_investigator":[
 "detektiv",
@@ -7840,6 +7906,54 @@
 "Vattenleverantör",
 "vattenbolag"
 ],
+"piste/ice_skate":[
+"rink",
+"skridskorink",
+"isbana",
+"skridskor",
+"skridskoåkning",
+"Skridskoled",
+"skridskobana",
+"is",
+"pist"
+],
+"piste/nordic":[
+"off-pist",
+"skidor",
+"Längdskidåkning",
+"skating",
+"skidspår",
+"längdåkning",
+"pist",
+"längdskidor",
+"Längdskidspår"
+],
+"piste/piste":[
+"längdskidspår",
+"isåkning",
+"off-pist",
+"vintervandring",
+"skridsko",
+"alpin",
+"skidor",
+"utför",
+"skidtur",
+"släde",
+"Vintersportspår",
+"alpint",
+"skida",
+"is",
+"utförsåkning",
+"pist",
+"häst",
+"längdskidor",
+"skidåkning",
+"Vintersportspår / Pist",
+"snöskor",
+"skridskoåkning",
+"offpist",
+"snowboard"
+],
 "piste/skitour":[
 "skidturåkning",
 "skidåkning",
@@ -7848,6 +7962,30 @@
 "skidspår",
 "Skidturspår",
 "pist"
+],
+"piste/sled":[
+"kälke",
+"bob",
+"rodel",
+"släde",
+"snowracer",
+"pulkabacke",
+"pulka",
+"Pulkabacke",
+"pist"
+],
+"piste/sleigh":[
+"hundspann",
+"kälke",
+"slädspår",
+"husky",
+"hundsläde",
+"Slädspår",
+"Släde",
+"slädpist",
+"pist",
+"häst",
+"hästsläde"
 ],
 "place":[
 "Plats"
@@ -8782,11 +8920,6 @@
 "övergiven tågbana",
 "Oanvänd järnväg"
 ],
-"railway/funicular":[
-"Bergbana ",
-"linbana",
-"Bergbana"
-],
 "railway/halt":[
 "Mindre järnvägshållplats"
 ],
@@ -8802,14 +8935,6 @@
 "korsning",
 "järnvägsövergång"
 ],
-"railway/light_rail":[
-"smalspår",
-"smalspårig järnväg",
-"Snabbspårväg / stadsbana",
-"stadsbana",
-"järnväg",
-"snabbspårväg"
-],
 "railway/milestone":[
 "Kilometerstolpe",
 "kilometertavla",
@@ -8819,46 +8944,8 @@
 "Kilometerstolpe vid järnväg",
 "avståndsmärke"
 ],
-"railway/miniature":[
-"smalspår",
-"smalspårig järnväg",
-"trädgårdsjärnväg",
-"Åkbar miniatyrjärnväg",
-"Miniatyrjärnväg"
-],
-"railway/monorail":[
-"Monorail",
-"kollektivtrafik",
-"enskensbana",
-"linjetrafik",
-"transport",
-"balkbana",
-"spår",
-"räls"
-],
-"railway/narrow_gauge":[
-"smalspår",
-"Smalspårbana"
-],
 "railway/platform":[
 "Järnvägsperrong"
-],
-"railway/rail":[
-"Räls",
-"järnvägsspår",
-"spår",
-"bana"
-],
-"railway/rail/highspeed":[
-"snabbspår",
-"järnvägsspår",
-"snabbjärnväg",
-"höghastighet",
-"Järnväg",
-"Höghastighetsbana",
-"spår",
-"bana",
-"räls"
 ],
 "railway/signal":[
 "semafor",
@@ -8873,11 +8960,6 @@
 ],
 "railway/station":[
 "Järnvägsstation"
-],
-"railway/subway":[
-"T-bana",
-"metro",
-"Tunnelbana"
 ],
 "railway/subway_entrance":[
 "Tunnelbaneingång",
@@ -8896,11 +8978,6 @@
 "tvätthall",
 "Tågtvätt",
 "loktvätt"
-],
-"railway/tram":[
-"Spårvagn",
-"spårväg",
-"motorvagn"
 ],
 "railway/tram_stop":[
 "Stopposition för spårvagn"
@@ -9462,9 +9539,6 @@
 "bete",
 "Fiskeaffär"
 ],
-"shop/fishmonger":[
-"Fiskhandlare"
-],
 "shop/florist":[
 "Florist",
 "bukett",
@@ -9477,19 +9551,6 @@
 "Ramaffär",
 "ramar",
 "inramning"
-],
-"shop/frozen_food":[
-"Fryst mat",
-"färdigmat",
-"mat",
-"färdigrätter",
-"lunch",
-"matlådor",
-"frys",
-"snabbmat",
-"frysmat",
-"färdigrätt",
-"fryst"
 ],
 "shop/fuel":[
 "Bränsleaffär",
@@ -9515,9 +9576,6 @@
 "begravningsbyrå",
 "gravstenar",
 "begravningsceremoni"
-],
-"shop/furnace":[
-"Värmepannor"
 ],
 "shop/furniture":[
 "möbelgrossist",

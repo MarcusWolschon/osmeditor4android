@@ -9,9 +9,6 @@
 "廣告板",
 "Billboard"
 ],
-"aerialway":[
-"纜車路線"
-],
 "aerialway/cable_car":[
 "纜車",
 "Cable Car"
@@ -23,13 +20,6 @@
 "aerialway/drag_lift":[
 "牽引纜車",
 "Drag Lift"
-],
-"aerialway/gondola":[
-"吊籃",
-"空中纜車",
-"吊船",
-"吊艙",
-"Gondola"
 ],
 "aerialway/goods":[
 "Goods Aerialway",
@@ -56,9 +46,6 @@
 ],
 "aerialway/rope_tow":[
 "牽繩"
-],
-"aeroway":[
-"航空設施"
 ],
 "aeroway/aerodrome":[
 "飛機",
@@ -635,9 +622,6 @@
 "回收箱",
 "回收桶"
 ],
-"amenity/register_office":[
-"人事登記處"
-],
 "amenity/restaurant":[
 "Restaurant",
 "餐廳",
@@ -734,9 +718,6 @@
 "學校範圍",
 "國際學校"
 ],
-"amenity/scrapyard":[
-"廢料場"
-],
 "amenity/shelter":[
 "避雨亭",
 "避難",
@@ -786,9 +767,6 @@
 "影樓",
 "放映室",
 "工藝室"
-],
-"amenity/swimming_pool":[
-"游泳池"
 ],
 "amenity/taxi":[
 "Taxi Stand",
@@ -1931,9 +1909,6 @@
 "交界處",
 "十字路口"
 ],
-"landuse/allotments":[
-"社區園圃"
-],
 "landuse/aquaculture":[
 "水產養殖",
 "水產",
@@ -2320,10 +2295,6 @@
 "煤氣鼓",
 "石油氣鼓",
 "氣鼓"
-],
-"man_made/groyne":[
-"防波堤",
-"防波板"
 ],
 "man_made/lighthouse":[
 "燈塔",
@@ -2820,11 +2791,6 @@
 "Disused Railway",
 "廢棄的鐵路"
 ],
-"railway/funicular":[
-"纜索鐵道",
-"纜車",
-"索道"
-],
 "railway/level_crossing":[
 "Railway Crossing (Road)",
 "鐵路交滙處 (道路)"
@@ -2833,38 +2799,11 @@
 "鐵道里程碑",
 "Railway Milestone"
 ],
-"railway/monorail":[
-"單軌電車",
-"Monorail",
-"單軌",
-"單軌鐵路",
-"單軌火車"
-],
-"railway/narrow_gauge":[
-"窄軌鐵路",
-"窄軌鐵道"
-],
-"railway/rail":[
-"Rail",
-"鐵軌",
-"火車軌",
-"路軌",
-"軌"
-],
 "railway/signal":[
 "Railway Signal",
 "鐵路信號",
 "鐵道信號",
 "鐵路訊號"
-],
-"railway/subway":[
-"捷運",
-"MTR",
-"Mass Transit Railway",
-"地下鐵",
-"地下鐵路",
-"Subway",
-"地鐵"
 ],
 "railway/subway_entrance":[
 "地鐵口",
@@ -2885,10 +2824,6 @@
 "火車洗滌器",
 "火車清洗處",
 "火車洗車機"
-],
-"railway/tram":[
-"Tram",
-"電車"
 ],
 "relation":[
 "Relation",
@@ -3149,9 +3084,6 @@
 "shop/fashion":[
 "時裝店"
 ],
-"shop/fishmonger":[
-"魚檔"
-],
 "shop/florist":[
 "Florist",
 "花舖",
@@ -3165,9 +3097,6 @@
 ],
 "shop/funeral_directors":[
 "殯儀館"
-],
-"shop/furnace":[
-"暖氣爐店"
 ],
 "shop/furniture":[
 "Furniture Store",

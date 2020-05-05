@@ -236,17 +236,11 @@
 "amenity/recycling_container":[
 "Birziklatze ontzi"
 ],
-"amenity/register_office":[
-"Erregistro bulegoa"
-],
 "amenity/restaurant":[
 "Jatetxe"
 ],
 "amenity/school":[
 "Eskola eremu"
-],
-"amenity/scrapyard":[
-"Txatarra metaketa"
 ],
 "amenity/shelter":[
 "Aterpetxe"
@@ -286,9 +280,6 @@
 ],
 "amenity/studio":[
 "Estudio"
-],
-"amenity/swimming_pool":[
-"Igerileku"
 ],
 "amenity/taxi":[
 "Taxi postu"

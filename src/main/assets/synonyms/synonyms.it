@@ -30,9 +30,6 @@
 "espositori",
 "cilindro"
 ],
-"aerialway":[
-"Trasporto a fune"
-],
 "aerialway/cable_car":[
 "tramvia",
 "tranvia",
@@ -48,11 +45,6 @@
 "sci",
 "Sciovia",
 "lift"
-],
-"aerialway/gondola":[
-"cabinovia",
-"Cabinovia",
-"ovovia"
 ],
 "aerialway/goods":[
 "funivia",
@@ -105,9 +97,6 @@
 "Teleferica",
 "foefie",
 "traverso"
-],
-"aeroway":[
-"Aeroporto"
 ],
 "aeroway/aerodrome":[
 "aeroplano",
@@ -846,6 +835,14 @@
 "scuola",
 "inglese"
 ],
+"amenity/lavoir":[
+"pulizia",
+"lavatoio",
+"abiti",
+"lavanderia",
+"risciacquo",
+"Lavatoio"
+],
 "amenity/letter_box":[
 "Cassetta delle lettere"
 ],
@@ -1240,9 +1237,6 @@
 "giornali",
 "riciclo"
 ],
-"amenity/register_office":[
-"Anagrafe"
-],
 "amenity/restaurant":[
 "caffè",
 "griglieria",
@@ -1484,9 +1478,6 @@
 "università",
 "Area scolastica"
 ],
-"amenity/scrapyard":[
-"Sfasciacarrozze"
-],
 "amenity/shelter":[
 "rifugio",
 "grotta",
@@ -1604,9 +1595,6 @@
 ],
 "amenity/studio/video":[
 "Studio di produzione video"
-],
-"amenity/swimming_pool":[
-"Piscina"
 ],
 "amenity/taxi":[
 "taxi",
@@ -1828,6 +1816,11 @@
 "gelato",
 "Macchinetta del gelato",
 "gelati"
+],
+"amenity/vending_machine/ice_cubes":[
+"cubetti",
+"ghiaccio",
+"Macchinetta del ghiaccio"
 ],
 "amenity/vending_machine/newspapers":[
 "quotidiani",
@@ -2710,6 +2703,11 @@
 "craft/chimney_sweeper":[
 "Spazzacamino"
 ],
+"craft/cleaning":[
+"Ditta di pulizie",
+"pulizia",
+"disinfezione"
+],
 "craft/clockmaker":[
 "orologi",
 "Costruttore di orologi"
@@ -3017,6 +3015,13 @@
 ],
 "emergency/yes":[
 "Accesso di emergenza"
+],
+"entrance/emergency":[
+"incendio",
+"fuoco",
+"porta antincendio",
+"Uscita di emergenza",
+"antincendio"
 ],
 "ford":[
 "Guado",
@@ -3891,15 +3896,6 @@
 "uscita",
 "Svincolo"
 ],
-"landuse/allotments":[
-"pubblico",
-"orti urbani",
-"Orti in concessione",
-"orto",
-"lotto",
-"orti",
-"concessione"
-],
 "landuse/aquaculture":[
 "maricoltura",
 "ostriche",
@@ -4512,19 +4508,6 @@
 "ciclismo",
 "pista ciclismo"
 ],
-"leisure/track/cycling_point":[
-"bicicletta",
-"velodromo",
-"corsa",
-"ciclo",
-"biciclette",
-"velocipede",
-"gara",
-"velocipedi",
-"Pista ciclistica",
-"pista",
-"cicli"
-],
 "leisure/track/horse_racing":[
 "Pista per la corsa dei cavalli",
 "scommesse",
@@ -4533,18 +4516,6 @@
 "pista",
 "corsa equestre",
 "corsa dei cavalli"
-],
-"leisure/track/horse_racing_point":[
-"Pista ippica",
-"ippodromo",
-"equestre",
-"corsa",
-"equino",
-"gara",
-"scommesse",
-"cavalli",
-"pista",
-"galoppo"
 ],
 "leisure/track/running":[
 "camminata",
@@ -4556,23 +4527,6 @@
 "distanza",
 "Pista da corsa",
 "decathlon",
-"pista"
-],
-"leisure/track/running_point":[
-"camminata",
-"a piedi",
-"maratona",
-"lunga distanza",
-"atletica",
-"piedi",
-"decathlon",
-"percorso",
-"cammino",
-"running",
-"media distanza",
-"piede",
-"gara",
-"Pista da corsa",
 "pista"
 ],
 "leisure/water_park":[
@@ -4696,11 +4650,6 @@
 "man_made/gasometer":[
 "Gasometro",
 "gazometro"
-],
-"man_made/groyne":[
-"pennelli",
-"briglia",
-"Pennello"
 ],
 "man_made/lighthouse":[
 "Faro"
@@ -5321,21 +5270,31 @@
 "Luogo"
 ],
 "place/city":[
-"Città"
+"metropoli",
+"luogo",
+"Città",
+"cittadina"
 ],
 "place/city_block":[
 "manzana",
+"Isolato urbano",
+"caseggiato",
+"edifici",
 "gruppo",
-"Isolato",
 "blocco",
-"isolato"
+"palazzi"
 ],
 "place/farm":[
-"Azienda agricola"
+"Fattoria o cascina"
 ],
 "place/hamlet":[
-"Paese",
-"Borgo"
+"paese",
+"località",
+"insediamento",
+"luogo",
+"villaggio",
+"frazione",
+"Piccolo borgo"
 ],
 "place/island":[
 "Isola"
@@ -5344,13 +5303,24 @@
 "Isoletta"
 ],
 "place/isolated_dwelling":[
-"Insediamento rurale isolato",
-"Case Sparse"
+"località",
+"borgo",
+"insediamento",
+"luogo",
+"dimora",
+"Abitazione isolata",
+"frazione",
+"alloggio",
+"isolato"
 ],
 "place/locality":[
-"non popolato)",
-"Località",
-"Località (luogo con nome"
+"località",
+"zona",
+"posto",
+"Località non popolata",
+"sito",
+"luogo",
+"isolato"
 ],
 "place/neighbourhood":[
 "Zona",
@@ -5377,12 +5347,17 @@
 "Sobborgo"
 ],
 "place/town":[
-"Paese",
-"Centro abitato tra 10000 e 100000 abitanti"
+"paese",
+"luogo",
+"Cittadina",
+"città"
 ],
 "place/village":[
+"località",
 "Paese",
-"Villaggio",
+"borgo",
+"luogo",
+"cittadina",
 "villaggio",
 "frazione"
 ],
@@ -5777,24 +5752,11 @@
 "Ferrovia di disuso",
 "Ferrovia in disuso"
 ],
-"railway/funicular":[
-"treno",
-"Funicolare",
-"funicolare",
-"trenino"
-],
 "railway/halt":[
 "Fermata ferroviaria (facoltativa/su richiesta)"
 ],
 "railway/level_crossing":[
 "Passaggio a livello (strada)"
-],
-"railway/light_rail":[
-"tranvia",
-"metropolitana",
-"Metropolitana di superficie",
-"metrotranvia",
-"metropolitana di superficie"
 ],
 "railway/milestone":[
 "pietra",
@@ -5802,30 +5764,8 @@
 "Pietra miliare ferroviaria",
 "miliare"
 ],
-"railway/miniature":[
-"scartamento ridotto",
-"treno in miniatura",
-"Ferrovia in miniatura",
-"binario",
-"scartamento minimo",
-"trenino",
-"ferrovia"
-],
-"railway/monorail":[
-"Monorotaia"
-],
-"railway/narrow_gauge":[
-"scartamento ridotto",
-"Ferrovia a scartamento ridotto"
-],
 "railway/platform":[
 "Banchina ferroviaria"
-],
-"railway/rail":[
-"Ferrovia"
-],
-"railway/rail/highspeed":[
-"Alta velocità"
 ],
 "railway/signal":[
 "Segnale ferroviario",
@@ -5835,9 +5775,6 @@
 ],
 "railway/station":[
 "Stazione ferroviaria"
-],
-"railway/subway":[
-"Metropolitana"
 ],
 "railway/subway_entrance":[
 "Entrata di metropolitana",
@@ -5855,9 +5792,6 @@
 "Lavaggio treni",
 "lavaggio",
 "treni"
-],
-"railway/tram":[
-"Tram"
 ],
 "railway/tram_stop":[
 "Fermata del tram"
@@ -6208,22 +6142,12 @@
 "mosche",
 "pescatori"
 ],
-"shop/fishmonger":[
-"Pescivendolo"
-],
 "shop/florist":[
 "Fioraio"
 ],
 "shop/frame":[
 "Corniceria",
 "Negozio di cornici"
-],
-"shop/frozen_food":[
-"Cibo surgelato",
-"pesce surgelato",
-"surgelati",
-"ghiaccio",
-"cibo surgelato"
 ],
 "shop/fuel":[
 "Negozio di carburanti"
@@ -6232,9 +6156,6 @@
 "cimitero",
 "funerale",
 "Casa funeraria"
-],
-"shop/furnace":[
-"Negozio di caldaie"
 ],
 "shop/furniture":[
 "Negozio di mobili"
@@ -6329,7 +6250,7 @@
 "shop/interior_decoration":[
 "decorazioni",
 "interni",
-"Negozio di casalinghi",
+"Negozio di decorazioni per interni",
 "casalinghi"
 ],
 "shop/jewelry":[

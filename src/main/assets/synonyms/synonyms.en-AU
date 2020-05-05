@@ -1,0 +1,122 @@
+{
+"amenity/arts_centre":[
+"Arts Centre"
+],
+"amenity/community_centre":[
+"Community Centre"
+],
+"amenity/community_centre/lgbtq":[
+"LGBTQ+ Community Centre"
+],
+"amenity/conference_centre":[
+"Convention Centre"
+],
+"amenity/dive_centre":[
+"Dive Centre"
+],
+"amenity/fuel":[
+"Service Station"
+],
+"amenity/payment_centre":[
+"Payment Centre"
+],
+"amenity/pharmacy":[
+"Pharmacy"
+],
+"amenity/recycling_centre":[
+"Recycling Centre"
+],
+"amenity/social_centre":[
+"Social Centre"
+],
+"amenity/vending_machine/fuel":[
+"Fuel Pump"
+],
+"barrier/kerb":[
+"Kerb"
+],
+"barrier/kerb/flush":[
+"Flush Kerb"
+],
+"barrier/kerb/lowered":[
+"Lowered Kerb"
+],
+"healthcare/birthing_center":[
+"Birthing Centre"
+],
+"healthcare/blood_donation":[
+"Blood Donor Centre"
+],
+"highway/construction":[
+"Road Under Construction"
+],
+"highway/crossing/marked":[
+"Marked Crossing"
+],
+"highway/crossing/marked-raised":[
+"Marked Crossing (Raised)"
+],
+"highway/crossing/zebra":[
+"Marked Crossing"
+],
+"highway/crossing/zebra-raised":[
+"Marked Crossing (Raised)"
+],
+"highway/cycleway/bicycle_foot":[
+"Shared Path"
+],
+"highway/footway/marked":[
+"Marked Crossing"
+],
+"highway/footway/marked-raised":[
+"Marked Crossing (Raised)"
+],
+"highway/footway/sidewalk":[
+"Footpath (sidewalk)"
+],
+"highway/footway/zebra":[
+"Marked Zebra Crossing"
+],
+"highway/footway/zebra-raised":[
+"Marked Zebra Crossing (Raised)"
+],
+"highway/give_way":[
+"Give Way Sign"
+],
+"highway/living_street":[
+"Shared Zone Road"
+],
+"leisure/adult_gaming_centre":[
+"Adult Gaming Centre"
+],
+"leisure/fitness_centre":[
+"Gym / Fitness Centre"
+],
+"leisure/sports_centre":[
+"Sports Centre / Complex"
+],
+"shop/cheese":[
+"Cheesemonger",
+"Cheese Shop"
+],
+"shop/chemist":[
+"Chemist",
+"Pharmacy"
+],
+"shop/chocolate":[
+"Chocolatier",
+"Chocolate Shop"
+],
+"shop/garden_centre":[
+"Garden Centre"
+],
+"shop/tyres":[
+"Tyre Shop"
+],
+"telecom/data_center":[
+"Data Centre"
+],
+"tourism/caravan_site":[
+"Caravan Site"
+]
+}

@@ -26,9 +26,6 @@
 "kolumno",
 "reklamkolono"
 ],
-"aerialway":[
-"Kablotransporto"
-],
 "aerialway/cable_car":[
 "kablovojo",
 "Telfero unu-vagoneta (alterna)",
@@ -52,13 +49,6 @@
 "Skitelfero",
 "skitelfero",
 "telfero",
-"aertelfero"
-],
-"aerialway/gondola":[
-"kablovojo",
-"Telfero plur-vagoneta",
-"telfero",
-"gondolo",
 "aertelfero"
 ],
 "aerialway/goods":[
@@ -110,9 +100,6 @@
 "ŝnura kurso",
 "tirola kablotransporto",
 "Ŝnurega deglitejo"
-],
-"aeroway":[
-"Aertransporto"
 ],
 "aeroway/aerodrome":[
 "aviejo",
@@ -1024,9 +1011,6 @@
 "Centro de recikligo",
 "rubujo"
 ],
-"amenity/register_office":[
-"Oficejo de civila stato"
-],
 "amenity/restaurant":[
 "Restoracio",
 "picejo",
@@ -1139,9 +1123,6 @@
 "Lernejo (ISCED 1-3)",
 "instruejo"
 ],
-"amenity/scrapyard":[
-"Ferrubejo"
-],
 "amenity/shelter":[
 "budo",
 "sxirmejo",
@@ -1235,9 +1216,6 @@
 "filmejo",
 "radiostudio",
 "Studio"
-],
-"amenity/swimming_pool":[
-"Naĝejo"
 ],
 "amenity/taxi":[
 "taksio",
@@ -3294,16 +3272,6 @@
 "krucigo",
 "vojnodo"
 ],
-"landuse/allotments":[
-"etĝardeno",
-"parcelo",
-"laborista ĝardeno",
-"familia ĝardeno",
-"gxardenoj",
-"ĝardenoj",
-"ghardenoj",
-"Familiaj ĝardenoj"
-],
 "landuse/aquaculture":[
 "akvofarmo",
 "akvikultivo",
@@ -3969,21 +3937,7 @@
 "Kurejo bicikla",
 "konkursejo"
 ],
-"leisure/track/cycling_point":[
-"biciklkonkursejo",
-"biciklado",
-"dromo",
-"Kurejo bicikla",
-"konkursejo"
-],
 "leisure/track/horse_racing":[
-"hipodromo",
-"chevalkurejo",
-"Kurejo ĉevala",
-"ĉevalkurejo",
-"cxevalkurejo"
-],
-"leisure/track/horse_racing_point":[
 "hipodromo",
 "chevalkurejo",
 "Kurejo ĉevala",
@@ -3994,12 +3948,6 @@
 "Kurejo",
 "dromo",
 "kurado"
-],
-"leisure/track/running_point":[
-"Kurejo",
-"dromo",
-"kurado",
-"konkursejo"
 ],
 "leisure/water_park":[
 "Akvoparko",
@@ -4110,13 +4058,6 @@
 "man_made/gasometer":[
 "gasometro",
 "Gasujo (atmosfera premo)"
-],
-"man_made/groyne":[
-"ĝeto",
-"digo",
-"Ond-rompileto",
-"ondorompileto",
-"ondrompileto"
 ],
 "man_made/lighthouse":[
 "Lumturo",
@@ -5362,14 +5303,6 @@
 "eksa fervojlinio",
 "relvojo"
 ],
-"railway/funicular":[
-"kablovojo",
-"kablotramo",
-"Funikularo",
-"trajneto",
-"fervojeto",
-"telfero"
-],
 "railway/halt":[
 "Stacio fervoja (laŭpete)"
 ],
@@ -5380,57 +5313,13 @@
 "nivelpasejo",
 "trenpasejo"
 ],
-"railway/light_rail":[
-"malpeza fervojo",
-"tramo",
-"Fervojo malpeza",
-"malpeza trajno",
-"suburba fervojo"
-],
 "railway/milestone":[
 "Kilometra fosto (apud fervojo)",
 "cipo",
 "mejloŝtono"
 ],
-"railway/miniature":[
-"maketo",
-"vagonareto",
-"trajneto",
-"fervojeto",
-"Miniatura fervojo"
-],
-"railway/monorail":[
-"unurelvojo",
-"Relvojo unurela",
-"fervojo",
-"unurela fervojo"
-],
-"railway/narrow_gauge":[
-"trako",
-"relparo",
-"mallarĝŝpura fervojo",
-"etshpura fervojo",
-"etsxpura fervojo",
-"etŝpura fervojo",
-"erlvojo",
-"Relvojo etŝpura"
-],
 "railway/platform":[
 "Haltejo fervoja (atendejo)"
-],
-"railway/rail":[
-"trako",
-"relparo",
-"normalŝpura",
-"larĝŝpura",
-"erlvojo",
-"Relvojo normalŝpura"
-],
-"railway/rail/highspeed":[
-"grandrapida trajno",
-"rapidega trajno",
-"Fervojo altrapida",
-"altrapida trajno"
 ],
 "railway/signal":[
 "haltmontrilo",
@@ -5440,10 +5329,6 @@
 ],
 "railway/station":[
 "Stacio fervoja"
-],
-"railway/subway":[
-"subtera fervojo",
-"Metroo"
 ],
 "railway/subway_entrance":[
 "Metroa enirejo",
@@ -5465,12 +5350,6 @@
 "purigilo",
 "vagonara purigejo",
 "trajnolavejo"
-],
-"railway/tram":[
-"tramo",
-"tramvojo",
-"urbofervojo",
-"Relvojo trama"
 ],
 "railway/tram_stop":[
 "Haltejo trama (haltloko - trako)"
@@ -5919,9 +5798,6 @@
 "fiŝkaptado",
 "Fiŝkaptil-vendejo"
 ],
-"shop/fishmonger":[
-"Fiŝa vendejo"
-],
 "shop/florist":[
 "Florvendejo",
 "florovendejo",
@@ -5933,11 +5809,6 @@
 "bildkadroj",
 "pentraĵkadroj",
 "Bild-kadra vendejo"
-],
-"shop/frozen_food":[
-"Frostigit-manĝaĵo vendejo",
-"fridigita manĝaĵo",
-"frostigita manĝaĵo"
 ],
 "shop/fuel":[
 "gasboteloj",
@@ -5955,9 +5826,6 @@
 "enterigisto",
 "sepultisto",
 "Tombistejo"
-],
-"shop/furnace":[
-"Hejtila vendejo"
 ],
 "shop/furniture":[
 "mebloj",

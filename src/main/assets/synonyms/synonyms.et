@@ -362,9 +362,6 @@
 "Taaskasutuskeskus",
 "Ümbertöötluskeskus"
 ],
-"amenity/register_office":[
-"Perekonnaseisu osakond"
-],
 "amenity/restaurant":[
 "Restoran"
 ],
@@ -428,9 +425,6 @@
 ],
 "amenity/studio/video":[
 "Filmistuudio"
-],
-"amenity/swimming_pool":[
-"Ujumisbassein"
 ],
 "amenity/taxi":[
 "Taksopeatus"
@@ -544,8 +538,21 @@
 "Astmestik",
 "astmed"
 ],
+"barrier/swing_gate":[
+"värav",
+"auto",
+"tõkkepuu",
+"manuaalne",
+"käsitsi",
+"Tiib-tõkkepuu"
+],
 "barrier/toll_booth":[
 "Teemaksuputka"
+],
+"barrier/turnstile":[
+"Turnikee",
+"kolmeharuline",
+"pöördvärav"
 ],
 "barrier/wall":[
 "Sein",
@@ -1255,9 +1262,6 @@
 "junction":[
 "Ristmik"
 ],
-"landuse/allotments":[
-"Ühisaed"
-],
 "landuse/aquaculture":[
 "Akvakultuur"
 ],
@@ -1479,6 +1483,13 @@
 ],
 "leisure/slipway":[
 "väikesadam",
+"Slipp"
+],
+"leisure/slipway_point":[
+"paadi",
+"merre",
+"vettelaskmise",
+"laeva",
 "Slipp"
 ],
 "leisure/sports_centre":[
@@ -1912,35 +1923,15 @@
 "Kasutusest väljasolev raudtee",
 "raudtee"
 ],
-"railway/funicular":[
-"Köisraudtee"
-],
 "railway/level_crossing":[
 "ülesõit",
 "ristumine",
 "rongi",
 "Raudtee-ülesõidukoht"
 ],
-"railway/monorail":[
-"Monorelss",
-"üherööpmeline"
-],
-"railway/narrow_gauge":[
-"Kitsarööpaline raudtee"
-],
-"railway/rail":[
-"Raudtee",
-"rongitee"
-],
-"railway/subway":[
-"Metroo"
-],
 "railway/subway_entrance":[
 "Metroo sissepääs",
 "sissepääs"
-],
-"railway/tram":[
-"Tramm"
 ],
 "relation":[
 "seos",
@@ -2180,9 +2171,6 @@
 "shop/fishing":[
 "Kalastustarvete pood"
 ],
-"shop/fishmonger":[
-"Kalakauplus"
-],
 "shop/florist":[
 "Florist",
 "Lillepood"
@@ -2210,9 +2198,6 @@
 "puusärgid",
 "Matusebüroo",
 "matused"
-],
-"shop/furnace":[
-"Küttepood"
 ],
 "shop/furniture":[
 "Mööblipood"
@@ -2581,6 +2566,13 @@
 "püsinäitus",
 "Kunstiinstallatsioon",
 "kunst"
+],
+"tourism/artwork/sculpture":[
+"installatsioon",
+"postament",
+"kuju",
+"Skulptuur",
+"kunstiteos"
 ],
 "tourism/attraction":[
 "vaatamisväärsus",

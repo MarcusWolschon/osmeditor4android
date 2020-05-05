@@ -163,9 +163,6 @@
 "amenity/pub":[
 "பப் "
 ],
-"amenity/register_office":[
-"பதிவு அலுவலகம்"
-],
 "amenity/restaurant":[
 "உணவகம்"
 ],
@@ -174,9 +171,6 @@
 ],
 "amenity/social_facility/food_bank":[
 "உணவு வங்கி"
-],
-"amenity/swimming_pool":[
-"நீச்சல் குளம்"
 ],
 "amenity/telephone":[
 "தொலைபேசி"
@@ -614,29 +608,14 @@
 "railway/disused":[
 "பயன்படுத்தப்படாத இரயில்வே"
 ],
-"railway/light_rail":[
-"இலகு இரயில்"
-],
 "railway/milestone":[
 "இரயில்வே மைல்கல்"
-],
-"railway/monorail":[
-"மோனோ இரயில்"
-],
-"railway/rail":[
-"இரயில்"
 ],
 "railway/station":[
 "தொடருந்து நிலையம்"
 ],
-"railway/subway":[
-"சுரங்கப்பாதை"
-],
 "railway/subway_entrance":[
 "சுரங்கப்பாதை நுழைவுவாயில்"
-],
-"railway/tram":[
-"அமிழ் தண்டூர்தி"
 ],
 "relation":[
 "தொடர்பு"

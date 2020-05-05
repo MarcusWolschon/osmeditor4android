@@ -5,9 +5,6 @@
 "地址",
 "地埗"
 ],
-"aerialway":[
-"吊道"
-],
 "aerialway/cable_car":[
 "Cable Car",
 "䌫車",
@@ -16,10 +13,6 @@
 "aerialway/chair_lift":[
 "Chair Lift",
 "吊櫈"
-],
-"aerialway/gondola":[
-"吊船",
-"Gondola"
 ],
 "aerialway/magic_carpet":[
 "輸送帶",
@@ -33,9 +26,6 @@
 "纜車纜塔",
 "吊車塔",
 "Areialway Pylon"
-],
-"aeroway":[
-"航空設施"
 ],
 "aeroway/aerodrome":[
 "飛機",
@@ -290,9 +280,6 @@
 "避難所",
 "天遮",
 "天遮或亭"
-],
-"amenity/swimming_pool":[
-"游水池"
 ],
 "amenity/taxi":[
 "Taxi Stand",
@@ -1248,42 +1235,11 @@
 "railway/level_crossing":[
 "鐵道口（車道）"
 ],
-"railway/monorail":[
-"單軌電車",
-"Monorail",
-"單軌",
-"單軌鐵路"
-],
-"railway/narrow_gauge":[
-"窄軌火車",
-"Narrow Gauge Rails",
-"窄軌",
-"窄軌鐵路"
-],
-"railway/rail":[
-"Rail",
-"鐵軌",
-"火車軌",
-"路軌",
-"軌"
-],
-"railway/subway":[
-"MTR",
-"Mass Transit Railway",
-"地下鐵",
-"地下鐵路",
-"Subway",
-"地鐵"
-],
 "railway/subway_entrance":[
 "地鐵口",
 "Subway Entrance",
 "地下鐵路入口",
 "地鐵入口"
-],
-"railway/tram":[
-"Tram",
-"電車"
 ],
 "relation":[
 "Relation",
@@ -1409,9 +1365,6 @@
 "檔",
 "Produce Stand",
 "水果攤"
-],
-"shop/fishmonger":[
-"魚檔"
 ],
 "shop/florist":[
 "Florist",

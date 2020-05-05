@@ -43,9 +43,6 @@
 "cột quảng cáo",
 "cot ap phich"
 ],
-"aerialway":[
-"Cáp treo"
-],
 "aerialway/cable_car":[
 "Xe Cáp treo Lớn",
 "xe cap treo lon",
@@ -70,13 +67,6 @@
 "đường cáp kéo",
 "thang keo xki",
 "thang keo truot tuyet"
-],
-"aerialway/gondola":[
-"toa cap treo nho",
-"xe cap treo nho",
-"toa cáp treo nhỏ",
-"xe cáp treo nhỏ",
-"Xe Cáp treo Nhỏ"
 ],
 "aerialway/goods":[
 "cáp kéo hàng",
@@ -130,7 +120,7 @@
 "du day"
 ],
 "aeroway":[
-"Hàng không"
+"Liên quan đến Hàng không"
 ],
 "aeroway/aerodrome":[
 "phi truong",
@@ -206,6 +196,43 @@
 "sân máy bay trực thăng",
 "sàn đỗ trực thăng",
 "Sân bay Trực thăng"
+],
+"aeroway/holding_position":[
+"chỗ chờ dành cho máy bay",
+"vị trí chờ đợi dành cho máy bay",
+"vị trí chờ đợi dành cho phi cơ",
+"cho cho danh cho may bay",
+"cho cho danh cho phi co",
+"Vị trí Chờ đợi dành cho Máy bay",
+"chỗ chờ dành cho phi cơ",
+"vi tri cho doi danh cho phi co",
+"vi tri cho doi danh cho may bay"
+],
+"aeroway/jet_bridge":[
+"cầu hành khách",
+"cầu hàng không",
+"Cầu Hành khách",
+"cau hanh khach",
+"cau hang khong"
+],
+"aeroway/parking_position":[
+"vị trí đậu phi cơ",
+"cho do may bay",
+"cho do phi co",
+"Chỗ Đậu Máy bay",
+"chỗ đỗ phi cơ",
+"vi tri do may bay",
+"cho dau phi co",
+"vị trí đỗ máy bay",
+"chỗ đậu máy bay",
+"vi tri dau may bay",
+"cho dau may bay",
+"vi tri dau phi co",
+"chỗ đậu phi cơ",
+"vi tri do phi co",
+"vị trí đỗ phi cơ",
+"vị trí đậu máy bay",
+"chỗ đỗ máy bay"
 ],
 "aeroway/runway":[
 "duong cat ha canh",
@@ -414,6 +441,17 @@
 "gia dau xe dap",
 "dau xe dap",
 "do xe dap"
+],
+"amenity/bicycle_parking/building":[
+"bai do xe dap",
+"bãi đỗ xe đạp cao tầng",
+"Bãi Đậu Xe đạp Cao tầng",
+"bãi đậu xe đạp cao tầng",
+"bãi đỗ xe đạp",
+"bai dau xe dap cao tang",
+"bãi đậu xe đạp",
+"bai do xe dap cao tang",
+"bai dau xe dap"
 ],
 "amenity/bicycle_rental":[
 "cho muon xe dap",
@@ -789,6 +827,13 @@
 "trung tâm tiệc cưới",
 "trung tam cuoc hop"
 ],
+"amenity/exhibition_centre":[
+"Trung tâm Triển lãm",
+"trung tam trien lam",
+"hội chợ triển lãm",
+"hoi cho trien lam",
+"trung tâm triển lãm"
+],
 "amenity/fast_food":[
 "quán ăn nhanh",
 "tiệm ăn nhanh",
@@ -1090,6 +1135,17 @@
 "xăng",
 "tram xang dau"
 ],
+"amenity/gambling":[
+"nơi chơi bài",
+"phong danh bac",
+"phòng đánh bạc",
+"noi choi bai",
+"phòng chơi bài",
+"nơi đánh bạc",
+"phong choi bai",
+"noi danh bac",
+"Phòng Chơi bài"
+],
 "amenity/grave_yard":[
 "mo",
 "Nghĩa địa tại Nhà thờ",
@@ -1168,6 +1224,24 @@
 "ktv",
 "dàn karaoke",
 "phong karaoke"
+],
+"amenity/kindergarten":[
+"san nha tre",
+"san truong mau giao",
+"sân nhà giữ trẻ",
+"san nha giu tre",
+"san truong mam non",
+"sân nhà trẻ",
+"sân trường mầm non",
+"sân trường mẫu giáo",
+"Sân Nhà trẻ"
+],
+"amenity/kneipp_water_cure":[
+"Bồn tắm Trị liệu Kneipp",
+"bon tam kneipp",
+"bồn tắm kneipp",
+"bồn tắm trị liệu kneipp",
+"bon tam tri lieu kneipp"
 ],
 "amenity/language_school":[
 "truong ngon ngu",
@@ -1619,21 +1693,38 @@
 "bưu điện"
 ],
 "amenity/prep_school":[
+"day kem",
 "truong hoc them",
 "trung tâm học thêm",
 "trung tam luyen thi",
 "trung tâm luyện thi",
 "trường luyện thi",
+"dạy kèm",
 "truong luyen thi",
+"Trường Luyện thi / Dạy Kèm",
 "trường học thêm",
-"trung tam hoc them",
-"Trường Luyện thi"
+"trung tam hoc them"
 ],
 "amenity/prison":[
+"sân nhà giam",
+"tu",
 "sân nhà tù",
-"san nha tu",
+"tù",
+"nha giam",
 "sân tù",
+"sân nhà tạm giam",
 "san tu",
+"san nha tam giam",
+"nhà lao",
+"nhà tù",
+"san nha lao",
+"nha lao",
+"nhà tạm giam",
+"nha tam giam",
+"nhà giam",
+"san nha giam",
+"san nha tu",
+"sân nhà lao",
 "Sân Nhà tù"
 ],
 "amenity/pub":[
@@ -1691,9 +1782,6 @@
 "thung thu hoi",
 "Thùng Tái chế",
 "thung tai che"
-],
-"amenity/register_office":[
-"Văn phòng Hộ tịch"
 ],
 "amenity/restaurant":[
 "quán ăn nhanh",
@@ -2558,9 +2646,6 @@
 "Sân Trường",
 "sân trường học"
 ],
-"amenity/scrapyard":[
-"Bãi Phế liệu"
-],
 "amenity/shelter":[
 "Nhà trú",
 "diem tru an",
@@ -2819,9 +2904,6 @@
 "xưởng điện ảnh",
 "phòng quay phim",
 "hãng điện ảnh"
-],
-"amenity/swimming_pool":[
-"Hồ Bơi"
 ],
 "amenity/taxi":[
 "bến tắc xi",
@@ -3329,6 +3411,13 @@
 "nuoc uong danh cho thu vat",
 "vòi nước dành cho thú vật"
 ],
+"amenity/weighbridge":[
+"Trạm Cân Xe tải",
+"trạm cân xe tải",
+"cân xe tải",
+"can xe tai",
+"tram can xe tai"
+],
 "area":[
 "vùng",
 "Vùng",
@@ -3618,6 +3707,21 @@
 "hang rao cay",
 "hàng rào cây",
 "hang cay"
+],
+"barrier/height_restrictor":[
+"thanh chắn hạn chế chiều cao",
+"thanh han che chieu cao",
+"thanh chắn cầu vượt",
+"thanh chắn giới hạn chiều cao",
+"thanh chan gioi han chieu cao",
+"thanh giới hạn chiều cao",
+"cong cau vuot",
+"thanh hạn chế chiều cao",
+"thanh chan cau vuot",
+"thanh chan han che chieu cao",
+"cổng cầu vượt",
+"Thanh Giới hạn Chiều cao",
+"thanh gioi han chieu cao"
 ],
 "barrier/kerb":[
 "bờ lề đường",
@@ -3955,6 +4059,17 @@
 "toà nhà công nghiệp",
 "tòa nhà công nghiệp",
 "Tòa nhà Công nghiệp"
+],
+"building/kindergarten":[
+"truong mau giao",
+"Nhà trẻ",
+"nha tre",
+"trường mầm non",
+"nhà trẻ",
+"nhà giữ trẻ",
+"trường mẫu giáo",
+"truong mam non",
+"nha giu tre"
 ],
 "building/mosque":[
 "giao duong hoi giao",
@@ -4711,6 +4826,9 @@
 "disused/railway":[
 "Đường sắt Không hoạt động"
 ],
+"disused/shop":[
+"Tiệm Đóng cửa"
+],
 "embankment":[
 "Đường đắp cao"
 ],
@@ -4860,6 +4978,19 @@
 ],
 "emergency/yes":[
 "Dành cho Dịch vụ Khẩn cấp"
+],
+"entrance":[
+"cửa ra vào",
+"cửa ra",
+"cong vao",
+"cua ra vao",
+"cửa vào",
+"cua vao",
+"cổng vào",
+"loi vao",
+"lối vào",
+"cua ra",
+"Cửa Ra vào"
 ],
 "entrance/emergency":[
 "loi thoat khan cap",
@@ -5256,6 +5387,11 @@
 ],
 "highway/cycleway/crossing":[
 "Lối Đạp Xe đạp qua Đường"
+],
+"highway/cycleway/crossing/bicycle_foot":[
+"Lối Đi bộ & Xe đạp Qua đường",
+"lối đi bộ và xe đạp qua đường",
+"loi di bo va xe dap qua duong"
 ],
 "highway/cycleway/crossing/marked":[
 "vach ke duong cho xe dap",
@@ -6201,6 +6337,13 @@
 "indoor":[
 "Đối tượng trong Nhà"
 ],
+"indoor/area":[
+"khu vực trong nhà",
+"Khu vực Trong nhà",
+"khu vuc trong nha",
+"phong",
+"phòng"
+],
 "indoor/corridor":[
 "loi di trong nha",
 "Hành lang trong Nhà",
@@ -6221,6 +6364,11 @@
 "cua trong nha",
 "cua",
 "nguong cua"
+],
+"indoor/elevator":[
+"giếng thang máy",
+"gieng thang may",
+"Giếng Thang máy"
 ],
 "indoor/room":[
 "buong ngu",
@@ -6276,13 +6424,6 @@
 ],
 "landuse":[
 "Sử dụng Đất"
-],
-"landuse/allotments":[
-"khu vuon cong dong",
-"khu vuon gia dinh",
-"Khu Vườn Gia đình",
-"khu vườn cộng đồng",
-"khu vườn gia đình"
 ],
 "landuse/aquaculture":[
 "trong thuy san",
@@ -6858,6 +6999,18 @@
 "vuon",
 "Vườn"
 ],
+"leisure/garden/botanical":[
+"Vườn Bách thảo",
+"vườn bách thảo",
+"vuon bach thao"
+],
+"leisure/garden/community":[
+"khu vuon cong dong",
+"khu vuon gia dinh",
+"Khu Vườn Gia đình",
+"khu vườn cộng đồng",
+"khu vườn gia đình"
+],
 "leisure/golf_course":[
 "sân gôn",
 "san gon",
@@ -7063,6 +7216,17 @@
 "san bowling",
 "san co bong go",
 "san co bowling"
+],
+"leisure/pitch/chess":[
+"ban co vua to khong lo",
+"bàn cờ to khổng lồ",
+"ban co khong lo",
+"ban co to khong lo",
+"bàn cờ vua khổng lồ",
+"Bàn Cờ vua Khổng lồ",
+"bàn cờ khổng lồ",
+"bàn cờ vua to khổng lồ",
+"ban co vua khong lo"
 ],
 "leisure/pitch/cricket":[
 "san co crich-ke",
@@ -7276,6 +7440,13 @@
 "Sân vận động",
 "svđ"
 ],
+"leisure/swimming_area":[
+"chỗ sâu đễ bơi",
+"cho sau de boi",
+"vung sau de boi",
+"vũng sâu để bơi",
+"Vũng Sâu để Bơi"
+],
 "leisure/swimming_pool":[
 "hồ bơi",
 "ho tam",
@@ -7301,23 +7472,7 @@
 "trường đua ngựa",
 "duong dua ngua"
 ],
-"leisure/track/horse_racing_point":[
-"đường đua ngựa",
-"Đường Đua Ngựa",
-"truong dua ngua",
-"trường đua ngựa",
-"duong dua ngua"
-],
 "leisure/track/running":[
-"duong chay dua",
-"đường chạy đua",
-"đường chạy điền kinh",
-"Đường Chạy",
-"duong chay",
-"đường chạy",
-"duong chay dien kinh"
-],
-"leisure/track/running_point":[
 "duong chay dua",
 "đường chạy đua",
 "đường chạy điền kinh",
@@ -7454,6 +7609,15 @@
 "hàng cây chặt",
 "hang cay chat"
 ],
+"man_made/dyke":[
+"de",
+"con de",
+"bờ đê",
+"bo de",
+"đê",
+"con đê",
+"Đê"
+],
 "man_made/embankment":[
 "de",
 "đê",
@@ -7482,18 +7646,6 @@
 "thùng chứa khí",
 "Bể Khí",
 "thùng đựng khí"
-],
-"man_made/groyne":[
-"đập chắn sóng",
-"êpi",
-"dap chan song",
-"ê-pi",
-"de chan song",
-"Đê Chắn Sóng",
-"đê chắn sóng",
-"đê biển",
-"epi",
-"e-pi"
 ],
 "man_made/lighthouse":[
 "Hải đăng",
@@ -7672,6 +7824,11 @@
 "cột ăng ten tv",
 "cot angten truyen hinh"
 ],
+"man_made/mineshaft":[
+"Giếng Mỏ",
+"gieng mo",
+"giếng mỏ"
+],
 "man_made/monitoring_station":[
 "trạm giám sát ô nhiễm",
 "tram do thoi tiet",
@@ -7733,6 +7890,17 @@
 "tuyến đường ống",
 "tuyen duong ong",
 "đường ống"
+],
+"man_made/pipeline/underground":[
+"duong ong ngam",
+"đường ống ngầm",
+"cống",
+"đường ống dưới đất",
+"duong ong duoi dat",
+"cong",
+"rãnh",
+"ranh",
+"Đường ống Ngầm"
 ],
 "man_made/pumping_station":[
 "nhà máy bơm nước",
@@ -7978,6 +8146,11 @@
 "nui da",
 "doi da"
 ],
+"natural/geyser":[
+"mạch nước phun",
+"mach nuoc phun",
+"Mạch nước Phun"
+],
 "natural/glacier":[
 "sông băng",
 "song bang",
@@ -8141,6 +8314,11 @@
 "hồ",
 "Hồ",
 "ho nuoc"
+],
+"natural/water/moat":[
+"hào",
+"Hào",
+"hao"
 ],
 "natural/water/pond":[
 "Ao nước",
@@ -8316,6 +8494,13 @@
 "Văn phòng Làm việc Chung",
 "không gian làm việc chung"
 ],
+"office/diplomatic":[
+"Văn phòng Ngoại giao",
+"văn phòng ngoại giao",
+"van phong ngoai giao",
+"van phong ngoai vu",
+"văn phòng ngoại vụ"
+],
 "office/diplomatic/consulate":[
 "lãnh sự quán",
 "Lãnh sự quán",
@@ -8333,6 +8518,11 @@
 "dai su quan",
 "đại sứ quán",
 "toa dai su"
+],
+"office/diplomatic/liaison":[
+"van phong lien lac",
+"văn phòng liên lạc",
+"Văn phòng Liên lạc"
 ],
 "office/educational_institution":[
 "khu học chánh",
@@ -8927,6 +9117,37 @@
 "Khu Nhà máy Điện",
 "khu nha may dien",
 "khu nhà máy điện"
+],
+"power/plant/source/hydro":[
+"nhà máy thủy điện",
+"nhà máy thuỷ điện",
+"nha may thuy dien",
+"Nhà máy Thủy điện"
+],
+"power/plant/source/nuclear":[
+"Nhà máy Điện Hạt nhân",
+"nha may dien hat nhan",
+"lò phản ứng hạt nhân",
+"nha may hat nhan",
+"nhà máy hạt nhân",
+"lo phan ung hat nhan",
+"nhà máy điện hạt nhân"
+],
+"power/plant/source/solar":[
+"tấm quang năng",
+"trai quang nang",
+"trang trại điện mặt trời",
+"trang trai dien mat troi",
+"trang trai dien nang luong mat troi",
+"trại quang năng",
+"trang trại điện năng lượng mặt trời",
+"tam quang nang",
+"Trang trại Điện Mặt trời"
+],
+"power/plant/source/wind":[
+"trang trai gio",
+"trang trại gió",
+"Trang trại Gió"
 ],
 "power/pole":[
 "cột điện",
@@ -9695,6 +9916,17 @@
 "cua hang ruou",
 "tiệm rượu"
 ],
+"shop/anime":[
+"cửa hàng manga",
+"Tiệm Anime/Manga",
+"cửa hàng anime",
+"tiệm manga",
+"cua hang manga",
+"tiem anime",
+"tiệm anime",
+"cua hang anime",
+"tiem manga"
+],
 "shop/antiques":[
 "nơi bán đồ cổ",
 "cửa hiệu đồ cổ",
@@ -9954,6 +10186,25 @@
 "Tiệm Xe đạp",
 "tiem xe dap"
 ],
+"shop/boat":[
+"tiem tau thuyen",
+"tiem tau",
+"cua hang thuyen",
+"tiệm thuyền",
+"cửa hàng thuyền",
+"cua hang tau",
+"cua hang tau be",
+"cua hang tau thuyen",
+"tiem thuyen",
+"cửa hàng tàu thuyền",
+"tiem tau be",
+"tiệm tàu",
+"tiệm tàu bè",
+"tiệm tàu thuyền",
+"cửa hàng tàu bè",
+"cửa hàng tàu",
+"Tiệm Tàu thuyền"
+],
 "shop/bookmaker":[
 "văn phòng đánh cá ngựa",
 "tiem danh ca ngua",
@@ -10013,6 +10264,21 @@
 "cho ban xe co",
 "Tiệm Xe hơi",
 "tiem xe hoi"
+],
+"shop/car/second_hand":[
+"tiệm xe cũ",
+"cua hang o to cu",
+"cửa hàng xe cũ",
+"Tiệm Xe hơi Cũ",
+"cua hang xe cu",
+"tiem o to cu",
+"tiệm xe hơi cũ",
+"tiem xe hoi cu",
+"tiem xe cu",
+"cua hang xe hoi cu",
+"cửa hàng xe hơi cũ",
+"tiệm ô tô cũ",
+"cửa hàng ô tô cũ"
 ],
 "shop/car_parts":[
 "tiệm phụ tùng xe hơi",
@@ -10280,6 +10546,29 @@
 "tiệm nông thôn",
 "cửa hàng tạp hoá"
 ],
+"shop/craft":[
+"hoa gia",
+"but",
+"nội thất",
+"sơn",
+"cua hieu ban do thu cong",
+"Tiệm Bán đồ Thủ công",
+"hoa giả",
+"giấy",
+"cua hang ban do thu cong",
+"noi that",
+"cửa hàng bán đồ thủ công",
+"thu cong my nghe",
+"tiem ban do thu cong",
+"giay",
+"thủ công mỹ nghệ",
+"son",
+"tiệm bán đồ thủ công",
+"cửa hiệu bán đồ thủ công",
+"khắc gỗ",
+"bút",
+"khac go"
+],
 "shop/curtain":[
 "Tiệm Màn cửa",
 "cửa hiệu màn cửa",
@@ -10345,6 +10634,13 @@
 "tiem ngu kim",
 "Tiệm Vật liệu Xây dựng",
 "cửa hàng vật liệu xây dựng"
+],
+"shop/doors":[
+"cửa hàng cửa",
+"tiệm cửa",
+"cua hang cua",
+"Tiệm Cửa",
+"tiem cua"
 ],
 "shop/dry_cleaning":[
 "tiem giat kho",
@@ -10462,9 +10758,6 @@
 "tiệm câu cá",
 "tiem can cau"
 ],
-"shop/fishmonger":[
-"Tiệm Cá"
-],
 "shop/florist":[
 "chỗ bán hoa",
 "Tiệm Hoa",
@@ -10529,9 +10822,6 @@
 "nha quan",
 "nhà tang lễ",
 "nha tang le"
-],
-"shop/furnace":[
-"Tiệm Máy sưởi"
 ],
 "shop/furniture":[
 "đồ gỗ",
@@ -10903,6 +11193,17 @@
 "cua hang do da",
 "cửa hiệu quần áo da",
 "cửa hiệu đồ da"
+],
+"shop/lighting":[
+"cua hang den",
+"tiệm đèn",
+"cửa hàng đèn",
+"tiem den",
+"Tiệm Đèn sáng",
+"tiệm đèn sáng",
+"cửa hàng đèn sáng",
+"cua hang den sang",
+"tiem den sang"
 ],
 "shop/locksmith":[
 "Thợ khóa",
@@ -11420,6 +11721,15 @@
 "dep",
 "Tiệm Giày"
 ],
+"shop/spices":[
+"quay gia vi",
+"quầy gia vị",
+"tiệm gia vị",
+"tiem gia vi",
+"Tiệm Gia vị",
+"cua hang gia vi",
+"cửa hàng gia vị"
+],
 "shop/sports":[
 "khu vuc ban dung cu the thao",
 "cho ban dung cu the thao",
@@ -11581,6 +11891,16 @@
 "tiem xi ga",
 "cua hang thuoc la"
 ],
+"shop/tool_hire":[
+"cho thuê công cụ",
+"cho thuê dụng cụ",
+"dịch vụ cho thuê công cụ",
+"cho thue cong cu",
+"Cho thuê Công cụ",
+"cho thue dung cu",
+"dich vu cho thue cong cu",
+"dich vu cho thue dung cu"
+],
 "shop/toys":[
 "tiệm đồ chơi cho trẻ em",
 "cửa hàng đồ chơi",
@@ -11645,7 +11965,7 @@
 "cửa hiệu lốp xe"
 ],
 "shop/vacant":[
-"Tiệm Đóng cửa"
+"Tiệm Trống"
 ],
 "shop/vacuum_cleaner":[
 "cửa hàng máy hút bụi",
@@ -11811,6 +12131,16 @@
 "tiem ban ruou vang",
 "tiệm rượu vang"
 ],
+"telecom/data_center":[
+"trung tâm dữ liệu",
+"Trung tâm Dữ liệu",
+"trung tâm đa ta",
+"trung tam du lieu",
+"trung tam da ta"
+],
+"tourism":[
+"Liên quan đến Du lịch"
+],
 "tourism/alpine_hut":[
 "nhà nghỉ chân dành cho người leo núi",
 "tup leu tren nui",
@@ -11854,6 +12184,19 @@
 "công trình điêu khắc",
 "nghệ phẩm",
 "cong trinh dieu khac"
+],
+"tourism/artwork/bust":[
+"tuong nua nguoi",
+"Tượng Đầu",
+"tượng đầu",
+"tượng nửa người",
+"tuong dau"
+],
+"tourism/artwork/graffiti":[
+"tranh phun sơn",
+"Tranh Phun Sơn",
+"tranh phun son",
+"graffiti"
 ],
 "tourism/artwork/mural":[
 "tranh tường",
@@ -12009,6 +12352,13 @@
 "vien bao tang",
 "viện bảo tàng",
 "Bảo tàng"
+],
+"tourism/museum/history":[
+"Bảo tàng Lịch sử",
+"vien bao tang lich su",
+"viện bảo tàng lịch sử",
+"bảo tàng lịch sử",
+"bao tang lich su"
 ],
 "tourism/picnic_site":[
 "Nơi Ăn Ngoài trời",
@@ -12237,6 +12587,15 @@
 "bien gioi hanh chinh",
 "biên giới hành chính",
 "Ranh giới Hành chính"
+],
+"type/connectivity":[
+"ket noi lan duong",
+"các kết nối làn đường",
+"su ket noi lan duong",
+"sự kết nối làn đường",
+"Các Kết nối Làn đường",
+"cac ket noi lan duong",
+"kết nối làn đường"
 ],
 "type/enforcement":[
 "ép buộc",
@@ -12540,6 +12899,15 @@
 "tuyến đường xe điện",
 "tuyen duong xe dien"
 ],
+"type/route/trolleybus":[
+"tuyến xe điện bánh hơi",
+"tuyen xe buyt dien",
+"tuyen xe bus dien",
+"tuyen xe dien banh hoi",
+"tuyến xe bus điện",
+"tuyến xe buýt điện",
+"Tuyến Xe điện Bánh hơi"
+],
 "type/route_master":[
 "dịch vụ xe buýt",
 "dich vu xe buyt",
@@ -12570,6 +12938,9 @@
 "duong song",
 "đường sông",
 "đường thủy"
+],
+"waterway":[
+"Liên quan đến Đường thủy"
 ],
 "waterway/boatyard":[
 "xưởng đóng thuyền",

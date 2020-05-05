@@ -1,0 +1,488 @@
+{
+"address":[
+"ঠিকানা"
+],
+"aeroway/aerodrome":[
+"বিমানবন্দর"
+],
+"aeroway/helipad":[
+"হেলিপ্যাড"
+],
+"amenity":[
+"আমেনিটি"
+],
+"amenity/arts_centre":[
+"শিল্প কেন্দ্র"
+],
+"amenity/atm":[
+"এটিএম"
+],
+"amenity/bank":[
+"ব্যাংক"
+],
+"amenity/bar":[
+"পানশালা"
+],
+"amenity/bench":[
+"বেঞ্চ"
+],
+"amenity/bicycle_parking":[
+"সাইকেল পার্ক করার জায়গা"
+],
+"amenity/bicycle_rental":[
+"সাইকেল ভাড়া নেয়া"
+],
+"amenity/cafe":[
+"ক্যাফে"
+],
+"amenity/car_rental":[
+"গাড়ি ভাড়া"
+],
+"amenity/cinema":[
+"সিনেমা"
+],
+"amenity/drinking_water":[
+"পানীয় জল"
+],
+"amenity/embassy":[
+"দুতাবাস"
+],
+"amenity/fast_food":[
+"ফাস্টফুড"
+],
+"amenity/fire_station":[
+"দমকল"
+],
+"amenity/fountain":[
+"ঝর্না"
+],
+"amenity/fuel":[
+"গ্যাস স্টেশন"
+],
+"amenity/grave_yard":[
+"কবরখানা"
+],
+"amenity/library":[
+"পাঠাগার"
+],
+"amenity/marketplace":[
+"বাজার"
+],
+"amenity/place_of_worship":[
+"প্রার্থনাস্থল"
+],
+"amenity/place_of_worship/buddhist":[
+"বৌদ্ধ মন্দির"
+],
+"amenity/police":[
+"পুলিশ"
+],
+"amenity/post_office":[
+"ডাকঘর"
+],
+"amenity/pub":[
+"সরাইখানা"
+],
+"amenity/restaurant":[
+"রেস্তোরাঁ"
+],
+"amenity/telephone":[
+"টেলিফোন"
+],
+"amenity/theatre":[
+"থিয়েটার"
+],
+"amenity/toilets":[
+"শৌচাগার"
+],
+"amenity/townhall":[
+"টাউন হল"
+],
+"area":[
+"এলাকা"
+],
+"barrier/entrance":[
+"দ্বার"
+],
+"barrier/fence":[
+"বেড়া"
+],
+"barrier/gate":[
+"ফটক"
+],
+"barrier/wall":[
+"দেয়াল"
+],
+"boundary/administrative":[
+"প্রশাসনিক সীমানা"
+],
+"building":[
+"দালান"
+],
+"building/commercial":[
+"বানিজ্যিক ভবন"
+],
+"building/garage":[
+"গ্যারেজ"
+],
+"building/house":[
+"বাড়ি"
+],
+"building/hut":[
+"কুড়েঘর"
+],
+"building/industrial":[
+"শিল্পায়িত ভবন"
+],
+"building/residential":[
+"আবাসিক ভবন"
+],
+"emergency/phone":[
+"জরুরি ফোন"
+],
+"highway/cycleway":[
+"সাইকেলের রাস্তা"
+],
+"highway/footway":[
+"ফুটপাত"
+],
+"highway/motorway":[
+"মোটরওয়ে"
+],
+"highway/path":[
+"পথ"
+],
+"highway/primary":[
+"প্রাথমিক রাস্তা"
+],
+"highway/residential":[
+"আবাসিক রাস্তা"
+],
+"highway/road":[
+"অজানা রাস্তা"
+],
+"highway/secondary":[
+"দ্বিতীয় স্তরের রাস্তা"
+],
+"highway/service":[
+"সার্ভিস রোড"
+],
+"highway/service/alley":[
+"গলি"
+],
+"highway/steps":[
+"সিঁড়ি"
+],
+"highway/tertiary":[
+"প্রশাখা রাস্তা"
+],
+"highway/traffic_signals":[
+"ট্রাফিক সংকেত"
+],
+"highway/trunk":[
+"ট্রাঙ্ক রোড"
+],
+"historic":[
+"ঐতিহাসিক জায়গা"
+],
+"historic/castle":[
+"প্রাসাদ"
+],
+"historic/memorial":[
+"স্মরণচিহ্ন"
+],
+"historic/monument":[
+"স্মৃতিস্তম্ভ"
+],
+"historic/ruins":[
+"ধ্বংসাবশেষ"
+],
+"landuse/cemetery":[
+"কবরখানা"
+],
+"landuse/farmyard":[
+"খামার"
+],
+"landuse/grass":[
+"ঘাস"
+],
+"landuse/meadow":[
+"তৃণক্ষেত্র"
+],
+"landuse/orchard":[
+"ফলের বাগান"
+],
+"landuse/quarry":[
+"খনি"
+],
+"landuse/vineyard":[
+"আঙুরখেত"
+],
+"leisure/garden":[
+"বাগান"
+],
+"leisure/golf_course":[
+"গল্ফ মাঠ"
+],
+"leisure/park":[
+"উদ্যান"
+],
+"leisure/pitch/american_football":[
+"মার্কিন ফুটবল মাঠ"
+],
+"leisure/pitch/basketball":[
+"বাস্কেটবল কোর্ট"
+],
+"leisure/pitch/soccer":[
+"ফুটবল মাঠ"
+],
+"leisure/pitch/tennis":[
+"টেনিস কোর্ট"
+],
+"leisure/pitch/volleyball":[
+"ভলিবল মাঠ"
+],
+"leisure/playground":[
+"খেলার মাঠ"
+],
+"leisure/stadium":[
+"স্টেডিয়াম"
+],
+"leisure/swimming_pool":[
+"সুইমিং পুল"
+],
+"line":[
+"রেখা"
+],
+"man_made/lighthouse":[
+"বাতিঘর"
+],
+"man_made/pier":[
+"জাহাজঘাটা"
+],
+"man_made/pipeline":[
+"নল"
+],
+"man_made/tower":[
+"মিনার"
+],
+"man_made/water_tower":[
+"জল স্তম্ভ"
+],
+"natural/bay":[
+"উপসাগর"
+],
+"natural/beach":[
+"সৈকত"
+],
+"natural/coastline":[
+"তটরেখা"
+],
+"natural/glacier":[
+"হিমবাহ"
+],
+"natural/grassland":[
+"তৃণভুমি"
+],
+"natural/heath":[
+"স্বাস্থ্য"
+],
+"natural/peak":[
+"চূড়া"
+],
+"natural/spring":[
+"বসন্ত"
+],
+"natural/tree":[
+"গাছ"
+],
+"natural/water":[
+"জল"
+],
+"natural/water/lake":[
+"হ্রদ"
+],
+"natural/water/pond":[
+"পুকুর"
+],
+"natural/water/reservoir":[
+"জলাধার"
+],
+"natural/wetland":[
+"জলাজমি"
+],
+"office":[
+"কার্যালয়"
+],
+"office/ngo":[
+"এনজিও অফিস"
+],
+"office/physician":[
+"চিকিত্সক"
+],
+"office/telecommunication":[
+"টেলিকম অফিস"
+],
+"place":[
+"জায়গা"
+],
+"place/city":[
+"শহর"
+],
+"place/island":[
+"দ্বীপ"
+],
+"place/locality":[
+"অঞ্চল"
+],
+"place/town":[
+"উপনগর"
+],
+"place/village":[
+"গ্রাম"
+],
+"point":[
+"বিন্দু"
+],
+"railway/abandoned":[
+"পরিত্যক্ত রেলপথ"
+],
+"railway/disused":[
+"অব্যবহৃত রেলপথ"
+],
+"railway/subway_entrance":[
+"ভূতলপথ দ্বার"
+],
+"relation":[
+"সম্পর্ক"
+],
+"shop":[
+"দোকান"
+],
+"shop/bakery":[
+"বেকারি"
+],
+"shop/bicycle":[
+"সাইকেলের দোকান"
+],
+"shop/boutique":[
+"বুটিক"
+],
+"shop/butcher":[
+"কসাই"
+],
+"shop/car":[
+"গাড়ির ডিলারশিপ"
+],
+"shop/car_parts":[
+"গাড়ির যন্ত্রাংশের দোকান"
+],
+"shop/car_repair":[
+"গাড়ি মেরামতের দোকান"
+],
+"shop/clothes":[
+"জামাকাপড়ের দোকান"
+],
+"shop/computer":[
+"কম্পিউটারের দোকান"
+],
+"shop/department_store":[
+"ডিপার্টমেন্ট স্টোর"
+],
+"shop/doityourself":[
+"নিজে করুন স্টোর"
+],
+"shop/electronics":[
+"ইলেকট্রনিক্স-এর দোকান"
+],
+"shop/florist":[
+"ফুল ব্যবসায়ী"
+],
+"shop/furniture":[
+"আসবাবপত্রের দোকান"
+],
+"shop/gift":[
+"উপহারের দোকান"
+],
+"shop/mall":[
+"মল"
+],
+"shop/mobile_phone":[
+"মোবাইল ফোন-এর দোকান"
+],
+"shop/music":[
+"সঙ্গীতের দোকান"
+],
+"shop/optician":[
+"চক্ষুরোগের চিকিত্সক"
+],
+"shop/shoes":[
+"জুতোর দোকান"
+],
+"shop/sports":[
+"খেলার সামগ্রির দোকান"
+],
+"shop/supermarket":[
+"সুপারমার্কেট"
+],
+"shop/toys":[
+"খেলনার দোকান"
+],
+"tourism/attraction":[
+"পর্যটক আকর্ষণ"
+],
+"tourism/guest_house":[
+"অতিথিশালা"
+],
+"tourism/hostel":[
+"ছাত্রাবাস"
+],
+"tourism/hotel":[
+"হোটেল"
+],
+"tourism/information":[
+"তথ্য"
+],
+"tourism/motel":[
+"মোটেল"
+],
+"tourism/museum":[
+"প্রদর্শনশালা"
+],
+"tourism/picnic_site":[
+"পিকনিক-এর জায়গা"
+],
+"tourism/theme_park":[
+"থিম পার্ক"
+],
+"tourism/zoo":[
+"চিড়িয়াখানা"
+],
+"type/boundary":[
+"সীমানা"
+],
+"type/boundary/administrative":[
+"প্রশাসনিক সীমানা"
+],
+"type/route/bicycle":[
+"সাইকেলের রাস্তা"
+],
+"waterway/canal":[
+"খাল"
+],
+"waterway/dam":[
+"বাঁধ"
+],
+"waterway/drain":[
+"নালা"
+],
+"waterway/river":[
+"নদী"
+],
+"waterway/riverbank":[
+"নদীতীর"
+],
+"waterway/stream":[
+"পানিস্রোত"
+]
+}

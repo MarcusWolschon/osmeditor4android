@@ -2,9 +2,6 @@
 "address":[
 "Adres"
 ],
-"aeroway":[
-"Aanloopbaan"
-],
 "aeroway/aerodrome":[
 "Lughawe"
 ],
@@ -106,9 +103,6 @@
 ],
 "amenity/restaurant":[
 "Restaurant"
-],
-"amenity/swimming_pool":[
-"Swembad"
 ],
 "amenity/taxi":[
 "Taxi staanplek"
@@ -519,20 +513,8 @@
 "railway/disused":[
 "Ongebruikte spoorweg"
 ],
-"railway/monorail":[
-"Enkelspoorbaan"
-],
-"railway/rail":[
-"Treinspoor"
-],
-"railway/subway":[
-"Metro"
-],
 "railway/subway_entrance":[
 "Metro Ingang"
-],
-"railway/tram":[
-"Trem"
 ],
 "relation":[
 "Verhouding"
@@ -596,9 +578,6 @@
 ],
 "shop/farm":[
 "Padstal"
-],
-"shop/fishmonger":[
-"Viswinkel"
 ],
 "shop/florist":[
 "Bloemiste"

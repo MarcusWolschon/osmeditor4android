@@ -6,9 +6,6 @@
 "Reklam Panosu",
 "Bilbord"
 ],
-"aerialway":[
-"Teleferik Yolu"
-],
 "aerialway/cable_car":[
 "Teleferik"
 ],
@@ -17,9 +14,6 @@
 ],
 "aerialway/drag_lift":[
 "Kayak Teleferiği"
-],
-"aerialway/gondola":[
-"Gondol Teleferik"
 ],
 "aerialway/goods":[
 "Mal Teleferiği",
@@ -40,9 +34,6 @@
 ],
 "aerialway/rope_tow":[
 "Çekme Halat Teleferik"
-],
-"aeroway":[
-"Hava Yolu"
 ],
 "aeroway/aerodrome":[
 "Havaalanı"
@@ -369,9 +360,6 @@
 "amenity/recycling_centre":[
 "Geri Dönüşüm Merkezi"
 ],
-"amenity/register_office":[
-"Nüfus Dairesi"
-],
 "amenity/restaurant":[
 "Lokanta",
 "Restoran"
@@ -434,9 +422,6 @@
 "Okul Bahçesi",
 "Okul"
 ],
-"amenity/scrapyard":[
-"Hurdalık"
-],
 "amenity/shelter":[
 "Barınak"
 ],
@@ -465,9 +450,6 @@
 ],
 "amenity/studio":[
 "Stüdyo"
-],
-"amenity/swimming_pool":[
-"Yüzme Havuzu"
 ],
 "amenity/taxi":[
 "Taksi Durağı"
@@ -1347,9 +1329,6 @@
 "landuse":[
 "Arazi Kullanım Özelliği"
 ],
-"landuse/allotments":[
-"Hobi Bahçesi"
-],
 "landuse/aquaculture":[
 "Su Kültürü"
 ],
@@ -1626,9 +1605,6 @@
 ],
 "man_made/gasometer":[
 "Gazölçer"
-],
-"man_made/groyne":[
-"Kıyı Koruyucu Direk Şeridi"
 ],
 "man_made/lighthouse":[
 "Fener",
@@ -2157,25 +2133,11 @@
 "railway/disused":[
 "Kullanılmayan Demiryolu"
 ],
-"railway/funicular":[
-"Füniküler",
-"Kablolu Tren"
-],
 "railway/level_crossing":[
 "Hemzemin Geçit (Yol ile Kesişim)"
 ],
-"railway/monorail":[
-"Tekray",
-"Monoray"
-],
-"railway/narrow_gauge":[
-"Dar Demiryolu Geçidi"
-],
 "railway/platform":[
 "Tren Platformu"
-],
-"railway/rail":[
-"Demiryolu"
 ],
 "railway/signal":[
 "Demiryolu Sinyali"
@@ -2183,17 +2145,11 @@
 "railway/station":[
 "Tren İstasyonu"
 ],
-"railway/subway":[
-"Metro"
-],
 "railway/subway_entrance":[
 "Metro Girişi"
 ],
 "railway/train_wash":[
 "Tren Yıkama"
-],
-"railway/tram":[
-"Tramvay"
 ],
 "railway/yard":[
 "Demir Yolu Sahası"
@@ -2349,9 +2305,6 @@
 "shop/fashion":[
 "Giyim Mağazası"
 ],
-"shop/fishmonger":[
-"Balıkçı"
-],
 "shop/florist":[
 "Çiçekçi"
 ],
@@ -2360,9 +2313,6 @@
 ],
 "shop/funeral_directors":[
 "Cenaze Koordinatörü"
-],
-"shop/furnace":[
-"Soba Mağazası"
 ],
 "shop/furniture":[
 "Mobilya Mağazası"

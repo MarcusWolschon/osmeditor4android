@@ -1,0 +1,236 @@
+{
+"address":[
+"Cinwaanka"
+],
+"aeroway/runway":[
+"Gegada diyaaradaha"
+],
+"aeroway/terminal":[
+"Gagida Dayaaradeed"
+],
+"amenity/bank":[
+"Bangi"
+],
+"amenity/bar":[
+"Makhaayad"
+],
+"amenity/cafe":[
+"Kafateeriya"
+],
+"amenity/cinema":[
+"Shaneemo"
+],
+"amenity/fast_food":[
+"Cuntooyinka Fudud"
+],
+"amenity/hospital":[
+"Goob Isbitaal"
+],
+"amenity/library":[
+"Maktabad"
+],
+"amenity/place_of_worship":[
+"Goobta Cibaadada"
+],
+"amenity/restaurant":[
+"Maqaayad"
+],
+"amenity/school":[
+"Goobaha Dugsiyada"
+],
+"amenity/toilets":[
+"Musqulo"
+],
+"barrier":[
+"Xannibaadaha"
+],
+"building":[
+"Dhismo"
+],
+"building/commercial":[
+"Dhismaha Ganacsiga"
+],
+"building/house":[
+"Guri"
+],
+"building/industrial":[
+"Dhismaha Warshadaha"
+],
+"building/mosque":[
+"Dhismaha Masaajid"
+],
+"building/public":[
+"Dhismaha Dadweynaha"
+],
+"building/residential":[
+"Dhismo Degaan"
+],
+"building/retail":[
+"Dhismo Tafaariiqda"
+],
+"building/school":[
+"Dhismo Dugsiyada"
+],
+"building/stadium":[
+"Dhismo Garoon"
+],
+"ford":[
+"Tog"
+],
+"highway/path":[
+"Waddo"
+],
+"highway/primary":[
+"Wadada Koowaad"
+],
+"highway/residential":[
+"Waddada Guryaha"
+],
+"highway/service":[
+"Jidka Shaqaalaha"
+],
+"highway/tertiary":[
+"Waddada Sarre"
+],
+"highway/track":[
+"Jidka Jayga aan la Dayactirin"
+],
+"highway/unclassified":[
+"Waddo Yar/La cayimin"
+],
+"landuse/aquaculture":[
+"Xarumaha biyo-ku-noolka"
+],
+"landuse/cemetery":[
+"Xabaalaha"
+],
+"landuse/commercial":[
+"Aagga Ganacsiga"
+],
+"landuse/farm":[
+"Dhul beereed"
+],
+"landuse/farmland":[
+"Dhul beereed"
+],
+"landuse/grass":[
+"Aag cagaaran"
+],
+"landuse/industrial":[
+"Aagga Warshadaha"
+],
+"landuse/landfill":[
+"Qashin-qub"
+],
+"landuse/residential":[
+"Aag Degaan"
+],
+"landuse/retail":[
+"Goobta Tafaariiqda"
+],
+"leisure/marina":[
+"Deked"
+],
+"leisure/park":[
+"Jardiino"
+],
+"leisure/pitch/american_football":[
+"Garoonka Kubbada Cagta"
+],
+"leisure/pitch/cricket":[
+"Garoon Kiriket"
+],
+"leisure/sports_centre":[
+"Xarunta Cayaaraha"
+],
+"leisure/stadium":[
+"Garoon"
+],
+"line":[
+"Khad"
+],
+"man_made/pier":[
+"Dekedyaro"
+],
+"natural/bare_rock":[
+"Dhagax Weyn"
+],
+"natural/beach":[
+"Xeeb"
+],
+"natural/coastline":[
+"Xeeb"
+],
+"natural/water":[
+"Biyaha"
+],
+"natural/water/lake":[
+"Haro"
+],
+"natural/water/pond":[
+"Balli"
+],
+"natural/wetland":[
+"Dhul biyo-fadhiyaan"
+],
+"office/government":[
+"Xafiis Dowladeed"
+],
+"office/travel_agent":[
+"Wakaalad Socdaal"
+],
+"place":[
+"Goob"
+],
+"place/city":[
+"Magaalo"
+],
+"place/island":[
+"Jasiirad"
+],
+"place/locality":[
+"Deegaanka"
+],
+"place/town":[
+"Magaalo"
+],
+"power/line":[
+"Khadka Korantada"
+],
+"route/ferry":[
+"Wadada Doonta"
+],
+"shop":[
+"Dukaan"
+],
+"shop/car_repair":[
+"Garaash"
+],
+"shop/hardware":[
+"Dukaanka Qalabka"
+],
+"shop/mobile_phone":[
+"Dukaanka Taleefoonka Gacanta"
+],
+"shop/supermarket":[
+"Suuq-weyne"
+],
+"shop/travel_agency":[
+"Wakaalad Socdaal"
+],
+"tourism/hotel":[
+"Huteel"
+],
+"type/route/ferry":[
+"Wadada Doonta"
+],
+"type/waterway":[
+"Biyo Mareen"
+],
+"waterway/canal":[
+"Kanaal"
+],
+"waterway/dock":[
+"Kaabi qoyan / Kaabi qallalan"
+]
+}

@@ -23,9 +23,6 @@
 "advertising/totem":[
 "Reklámoszlop"
 ],
-"aerialway":[
-"Drótkötélpálya"
-],
 "aerialway/cable_car":[
 "sífelvonó",
 "Kabinos felvonó",
@@ -41,11 +38,6 @@
 "csákányos",
 "tányéros",
 "Húzólift"
-],
-"aerialway/gondola":[
-"gondolakabinos felvonó",
-"kabinos felvonó",
-"Gondola"
 ],
 "aerialway/goods":[
 "Teherfelvonó",
@@ -78,9 +70,6 @@
 ],
 "aerialway/zip_line":[
 "Kötélcsúszda"
-],
-"aeroway":[
-"Légi közeledés"
 ],
 "aeroway/aerodrome":[
 "repülőtér",
@@ -773,9 +762,6 @@
 "amenity/recycling_container":[
 "Szelektív hulladékgyűjtő konténer"
 ],
-"amenity/register_office":[
-"Anyakönyvi hivatal"
-],
 "amenity/restaurant":[
 "csárda",
 "ebédlő",
@@ -861,9 +847,6 @@
 "Iskola",
 "tanítás"
 ],
-"amenity/scrapyard":[
-"Szeméttelep"
-],
 "amenity/shelter":[
 "fedél",
 "esőkunyhó",
@@ -947,9 +930,6 @@
 ],
 "amenity/studio/video":[
 "Filmstúdió"
-],
-"amenity/swimming_pool":[
-"Úszómedence"
 ],
 "amenity/taxi":[
 "taxibeálló",
@@ -2562,10 +2542,6 @@
 "Elágazás",
 "csomópont"
 ],
-"landuse/allotments":[
-"közösségi kert",
-"Közpark"
-],
 "landuse/aquaculture":[
 "halgazdaság",
 "kagylótenyésztés",
@@ -3020,19 +2996,10 @@
 "leisure/track/cycling":[
 "Kerékpárpálya"
 ],
-"leisure/track/cycling_point":[
-"Kerékpárpálya"
-],
 "leisure/track/horse_racing":[
 "Lóversenypálya"
 ],
-"leisure/track/horse_racing_point":[
-"Lóversenypálya"
-],
 "leisure/track/running":[
-"Futópálya"
-],
-"leisure/track/running_point":[
 "Futópálya"
 ],
 "leisure/water_park":[
@@ -3106,11 +3073,6 @@
 "man_made/gasometer":[
 "Gáztartály",
 "gazométer"
-],
-"man_made/groyne":[
-"Keresztgát",
-"hullámtörő",
-"védőgát"
 ],
 "man_made/lighthouse":[
 "jelzőfény",
@@ -3957,11 +3919,6 @@
 "megszűnt vasútvonal",
 "Használaton kívüli vasút"
 ],
-"railway/funicular":[
-"Siklóvasút",
-"kötélvasút",
-"Sikló"
-],
 "railway/halt":[
 "Vasúti megálló (feltételes)"
 ],
@@ -3971,37 +3928,14 @@
 "átkelő",
 "Vasúti átjáró (közút)"
 ],
-"railway/light_rail":[
-"HÉV",
-"helyiérdekű vasút"
-],
 "railway/milestone":[
 "kilométerkő",
 "Vasúti mérföldkő",
 "mérföldkő",
 "vasút"
 ],
-"railway/miniature":[
-"Miniatűrvasút"
-],
-"railway/monorail":[
-"Egysínű vasút",
-"mágnesvasút",
-"nyeregvasút"
-],
-"railway/narrow_gauge":[
-"Keskeny nyomtávú vasút",
-"Kisvasút"
-],
 "railway/platform":[
 "Vasúti peron"
-],
-"railway/rail":[
-"Vasúti pálya",
-"Vasútvonal"
-],
-"railway/rail/highspeed":[
-"Nagysebességű vasút"
 ],
 "railway/signal":[
 "jelzés",
@@ -4011,10 +3945,6 @@
 ],
 "railway/station":[
 "Vasútállomás"
-],
-"railway/subway":[
-"Metró",
-"földalatti"
 ],
 "railway/subway_entrance":[
 "Metrólejáró",
@@ -4033,9 +3963,6 @@
 "vonat",
 "kocsimosó",
 "vasút"
-],
-"railway/tram":[
-"Villamos"
 ],
 "railway/tram_stop":[
 "Villamosmegállási pont"
@@ -4383,9 +4310,6 @@
 "shop/fishing":[
 "Horgászbolt"
 ],
-"shop/fishmonger":[
-"Halbolt"
-],
 "shop/florist":[
 "bonsai",
 "Virágárus",
@@ -4398,10 +4322,6 @@
 "Képkeretes",
 "Képkeretező"
 ],
-"shop/frozen_food":[
-"mirelit",
-"Fagyasztott élelmiszer"
-],
 "shop/fuel":[
 "Üzemanyagot árusító bolt"
 ],
@@ -4410,9 +4330,6 @@
 "temetkezési intézet",
 "temetkezési és hamvasztási ügyintézés",
 "Temetkezési iroda"
-],
-"shop/furnace":[
-"Kazánbolt (elavult)"
 ],
 "shop/furniture":[
 "bútor",

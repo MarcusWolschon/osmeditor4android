@@ -13,9 +13,6 @@
 "Oglasni pano",
 "oglasniki"
 ],
-"aerialway":[
-"Žičnica"
-],
 "aerialway/cable_car":[
 "kabinska žičnica",
 "Nihalka",
@@ -38,10 +35,6 @@
 "Vlečnica",
 "krožci",
 "sidro"
-],
-"aerialway/gondola":[
-"Kabinska žičnica",
-"gondola"
 ],
 "aerialway/goods":[
 "žičnica",
@@ -75,9 +68,6 @@
 "aerialway/rope_tow":[
 "vlečnica",
 "Vlečna vrv"
-],
-"aeroway":[
-"Letalstvo"
 ],
 "aeroway/aerodrome":[
 "Letališče",
@@ -503,9 +493,6 @@
 "amenity/recycling_centre":[
 "Center za recikliranje"
 ],
-"amenity/register_office":[
-"Prijavi urad"
-],
 "amenity/restaurant":[
 "gostilna",
 "Restavracija",
@@ -571,9 +558,6 @@
 "televizijski studio",
 "snemalni studio",
 "Studio"
-],
-"amenity/swimming_pool":[
-"Plavalni bazen"
 ],
 "amenity/taxi":[
 "Postajališče za taksi",
@@ -1860,9 +1844,6 @@
 "man_made/gasometer":[
 "Plinski rezervoar"
 ],
-"man_made/groyne":[
-"Leseni valolom"
-],
 "man_made/lighthouse":[
 "svetilničar",
 "Svetilnik"
@@ -2243,33 +2224,11 @@
 "zapuščena železnica",
 "Opuščena železnica"
 ],
-"railway/funicular":[
-"tirna vzpenjača",
-"Vzpenjača"
-],
 "railway/level_crossing":[
 "Železniški prehod (cesta)"
 ],
-"railway/monorail":[
-"Enotirna železnica",
-"monorail"
-],
-"railway/narrow_gauge":[
-"Ozkotirna železnica",
-"železnica z ozkimi tiri"
-],
-"railway/rail":[
-"Železniški tir",
-"železnica",
-"železniški tir",
-"tirnica"
-],
 "railway/station":[
 "Železniška postaja"
-],
-"railway/subway":[
-"metro",
-"Podzemna železnica"
 ],
 "railway/subway_entrance":[
 "Vhod podzemne železnice",
@@ -2277,10 +2236,6 @@
 ],
 "railway/switch":[
 "Kretnica"
-],
-"railway/tram":[
-"tramvaj",
-"Tramvaj"
 ],
 "relation":[
 "odnos",
@@ -2499,9 +2454,6 @@
 "shop/fashion":[
 "Trgovina z modnimi oblačili"
 ],
-"shop/fishmonger":[
-"Ribarnica"
-],
 "shop/florist":[
 "cvetličarstvo",
 "cvetlice",
@@ -2510,9 +2462,6 @@
 "shop/funeral_directors":[
 "pogrebni zavod",
 "Pogrebne storitve"
-],
-"shop/furnace":[
-"Trgovina s pečmi"
 ],
 "shop/furniture":[
 "pohištvo",

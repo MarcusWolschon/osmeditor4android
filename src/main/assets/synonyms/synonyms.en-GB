@@ -8,9 +8,6 @@
 "advertising/column":[
 "Advertising Column"
 ],
-"aerialway":[
-"Aerialway"
-],
 "aerialway/cable_car":[
 "Cable Car"
 ],
@@ -19,10 +16,6 @@
 ],
 "aerialway/drag_lift":[
 "Drag Lift"
-],
-"aerialway/gondola":[
-"Dangleway",
-"Gondola"
 ],
 "aerialway/goods":[
 "Goods Aerialway"
@@ -41,9 +34,6 @@
 ],
 "aerialway/rope_tow":[
 "Rope Tow Lift"
-],
-"aeroway":[
-"Aeroway"
 ],
 "aeroway/aerodrome":[
 "Airport"
@@ -295,6 +285,9 @@
 "amenity/police":[
 "Police"
 ],
+"amenity/post_box":[
+"Post Box"
+],
 "amenity/post_office":[
 "Post Office"
 ],
@@ -316,9 +309,6 @@
 "amenity/recycling_centre":[
 "Recycling Centre"
 ],
-"amenity/register_office":[
-"Register Office"
-],
 "amenity/restaurant":[
 "Restaurant"
 ],
@@ -327,9 +317,6 @@
 ],
 "amenity/school":[
 "School Grounds"
-],
-"amenity/scrapyard":[
-"Scrap Yard"
 ],
 "amenity/shelter":[
 "Shelter"
@@ -357,9 +344,6 @@
 ],
 "amenity/studio":[
 "Studio"
-],
-"amenity/swimming_pool":[
-"Swimming Pool"
 ],
 "amenity/taxi":[
 "Taxi Stand"
@@ -964,6 +948,9 @@
 "highway/footway/marked-raised":[
 "Marked Crossing (Raised)"
 ],
+"highway/footway/sidewalk":[
+"Pavement"
+],
 "highway/footway/zebra":[
 "Marked Crossing"
 ],
@@ -1117,9 +1104,6 @@
 "junction":[
 "Junction"
 ],
-"landuse/allotments":[
-"Allotments"
-],
 "landuse/aquaculture":[
 "Aquaculture"
 ],
@@ -1183,6 +1167,9 @@
 "landuse/plant_nursery":[
 "Plant Nursery"
 ],
+"landuse/pond":[
+"Pond"
+],
 "landuse/quarry":[
 "Quarry"
 ],
@@ -1194,6 +1181,9 @@
 ],
 "landuse/religious":[
 "Religious Area"
+],
+"landuse/reservoir":[
+"Reservoir"
 ],
 "landuse/residential":[
 "Residential Area"
@@ -1230,6 +1220,15 @@
 ],
 "leisure/dog_park":[
 "Dog Park"
+],
+"leisure/escape_game":[
+"Escape Room"
+],
+"leisure/firepit":[
+"Fire Pit"
+],
+"leisure/fishing":[
+"Fishing Spot"
 ],
 "leisure/fitness_centre":[
 "Gym / Fitness Centre"
@@ -1312,6 +1311,9 @@
 "leisure/pitch/american_football":[
 "American Football Field"
 ],
+"leisure/pitch/badminton":[
+"Badminton Court"
+],
 "leisure/pitch/basketball":[
 "Basketball Court"
 ],
@@ -1324,11 +1326,17 @@
 "leisure/pitch/bowls":[
 "Bowling Green"
 ],
+"leisure/pitch/chess":[
+"Giant Chess Board"
+],
 "leisure/pitch/cricket":[
 "Cricket Field"
 ],
 "leisure/pitch/equestrian":[
 "Riding Arena"
+],
+"leisure/pitch/netball":[
+"Netball Court"
 ],
 "leisure/pitch/rugby_league":[
 "Rugby League Pitch"
@@ -1363,6 +1371,9 @@
 "leisure/slipway":[
 "Slipway"
 ],
+"leisure/slipway_point":[
+"Slipway"
+],
 "leisure/sports_centre":[
 "Sports Centre / Complex"
 ],
@@ -1390,8 +1401,14 @@
 "man_made/antenna":[
 "Antenna"
 ],
+"man_made/beehive":[
+"Beehive"
+],
 "man_made/breakwater":[
 "Breakwater"
+],
+"man_made/cairn":[
+"Cairn"
 ],
 "man_made/chimney":[
 "Chimney"
@@ -1420,8 +1437,26 @@
 "man_made/lighthouse":[
 "Lighthouse"
 ],
+"man_made/manhole":[
+"Manhole"
+],
 "man_made/mast":[
 "Mast"
+],
+"man_made/mast/communication/mobile_phone":[
+"Mobile Phone Mast"
+],
+"man_made/mast/communication/radio":[
+"Radio Broadcast Mast"
+],
+"man_made/mast/communication/television":[
+"Television Broadcast Mast"
+],
+"man_made/mineshaft":[
+"Mineshaft"
+],
+"man_made/obelisk":[
+"Obelisk"
 ],
 "man_made/petroleum_well":[
 "Oil Well"
@@ -1449,6 +1484,15 @@
 ],
 "man_made/tower":[
 "Tower"
+],
+"man_made/tower/minaret":[
+"Minaret"
+],
+"man_made/tower/observation":[
+"Observation Tower"
+],
+"man_made/tunnel":[
+"Tunnel Area"
 ],
 "man_made/wastewater_plant":[
 "Wastewater Plant"
@@ -1525,17 +1569,29 @@
 "natural/scrub":[
 "Scrub"
 ],
+"natural/shrub":[
+"Shrub"
+],
 "natural/spring":[
 "Spring"
 ],
+"natural/stone":[
+"Unattached Stone / Boulder"
+],
 "natural/tree":[
 "Tree"
+],
+"natural/valley":[
+"Valley"
 ],
 "natural/volcano":[
 "Volcano"
 ],
 "natural/water":[
 "Water"
+],
+"natural/water/basin":[
+"Basin"
 ],
 "natural/water/lake":[
 "Lake"
@@ -1867,41 +1923,20 @@
 "railway/disused":[
 "Disused Railway"
 ],
-"railway/funicular":[
-"Funicular"
-],
 "railway/halt":[
 "Train Station (Halt / Request)"
 ],
 "railway/level_crossing":[
 "Level Crossing (Road)"
 ],
-"railway/light_rail":[
-"Light Rail"
-],
 "railway/milestone":[
 "Railway Milestone"
-],
-"railway/miniature":[
-"Miniature Railway"
-],
-"railway/monorail":[
-"Monorail"
-],
-"railway/narrow_gauge":[
-"Narrow Gauge Rail"
-],
-"railway/rail":[
-"Rail"
 ],
 "railway/signal":[
 "Railway Signal"
 ],
 "railway/station":[
 "Train Station"
-],
-"railway/subway":[
-"Subway"
 ],
 "railway/subway_entrance":[
 "Subway Entrance"
@@ -1911,9 +1946,6 @@
 ],
 "railway/train_wash":[
 "Train Wash"
-],
-"railway/tram":[
-"Tram"
 ],
 "railway/tram_stop":[
 "Tram Stopping Position"
@@ -2065,9 +2097,6 @@
 "shop/fashion":[
 "Fashion Shop"
 ],
-"shop/fishmonger":[
-"Fishmonger"
-],
 "shop/florist":[
 "Florist"
 ],
@@ -2076,9 +2105,6 @@
 ],
 "shop/funeral_directors":[
 "Funeral Home"
-],
-"shop/furnace":[
-"Furnace Shop"
 ],
 "shop/furniture":[
 "Furniture Shop"
@@ -2501,6 +2527,9 @@
 "waterway/canal":[
 "Canal"
 ],
+"waterway/canal/lock":[
+"Canal Lock"
+],
 "waterway/dam":[
 "Dam"
 ],
@@ -2515,6 +2544,12 @@
 ],
 "waterway/fuel":[
 "Marine Fuel Station"
+],
+"waterway/lock_gate":[
+"Lock Gate"
+],
+"waterway/milestone":[
+"Waterway Milestone"
 ],
 "waterway/river":[
 "River"

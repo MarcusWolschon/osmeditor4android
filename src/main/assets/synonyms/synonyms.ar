@@ -10,7 +10,7 @@
 "عمود إعلاني"
 ],
 "aerialway":[
-"كابلات معلقة في الهواء"
+"ميزة طيران"
 ],
 "aerialway/cable_car":[
 "تلفريك",
@@ -29,7 +29,7 @@
 "برج التلفريك ; المصعد التزلج"
 ],
 "aeroway":[
-"جوي"
+"ميزة Aeroway"
 ],
 "aeroway/aerodrome":[
 "مطار"
@@ -133,6 +133,9 @@
 "محل استئجار السيارات",
 "محل إيجار سيارات"
 ],
+"amenity/car_sharing":[
+"محطة مشاركة السيارات"
+],
 "amenity/car_wash":[
 "غسيل السيارات",
 "غسيل سيارات"
@@ -182,6 +185,9 @@
 ],
 "amenity/coworking_space":[
 "مساحة عمل مشتركة"
+],
+"amenity/crematorium":[
+"محرقة فرن لاحراق الجث"
 ],
 "amenity/dentist":[
 "طبيب أسنان"
@@ -301,6 +307,9 @@
 "amenity/internet_cafe":[
 "مقهى إنترنت"
 ],
+"amenity/kindergarten":[
+"مرحلة ما قبل المدرسة / رياض الأطفال"
+],
 "amenity/language_school":[
 "مدرسة لغات"
 ],
@@ -349,6 +358,9 @@
 "amenity/payment_terminal":[
 "محطة دفع نقود"
 ],
+"amenity/pharmacy":[
+"شباك صيدلية"
+],
 "amenity/place_of_worship":[
 "محل عبادة",
 "مكان عبادة"
@@ -391,6 +403,9 @@
 "شرطة",
 "الشرطة"
 ],
+"amenity/post_box":[
+"صندوق البريد"
+],
 "amenity/post_office":[
 "مكتب البريد",
 "مكتب بريد",
@@ -421,9 +436,6 @@
 ],
 "amenity/recycling_container":[
 "حاوية إعادة التدوير"
-],
-"amenity/register_office":[
-"مكتب السجل المدني"
 ],
 "amenity/restaurant":[
 "مطعم"
@@ -486,9 +498,6 @@
 "أرض مدرسة",
 "مدرسة"
 ],
-"amenity/scrapyard":[
-"مقبرة السيارات"
-],
 "amenity/shelter":[
 "ملجأ",
 "وقاء",
@@ -521,9 +530,6 @@
 "amenity/studio":[
 "أستوديو",
 "أستوديو; إذاعة; راديو; تلفزيون"
-],
-"amenity/swimming_pool":[
-"حوض سباحة"
 ],
 "amenity/taxi":[
 "موقف تاكسي",
@@ -577,6 +583,9 @@
 "amenity/vending_machine/elongated_coin":[
 "آلة بيع عُملة مسطحة"
 ],
+"amenity/vending_machine/excrement_bags":[
+"موزع حقائب الفضلات"
+],
 "amenity/vending_machine/food":[
 "آلة بيع مواد غذائية"
 ],
@@ -599,6 +608,12 @@
 "ماكينة تذاكر",
 "ماكينة بيع تذاكر وقوف"
 ],
+"amenity/vending_machine/public_transport_tickets":[
+"آلة بيع تذاكر العبور"
+],
+"amenity/vending_machine/sweets":[
+"آلة بيع الوجبات الخفيفة"
+],
 "amenity/veterinary":[
 "طبيب بيطري",
 "بيطري، طبيب حيوانات"
@@ -618,6 +633,9 @@
 "قمامة",
 "نفايات",
 "مهملات"
+],
+"amenity/water_point":[
+"RV مياه الشرب"
 ],
 "amenity/watering_place":[
 "مكان شرب للحيوانات"
@@ -639,6 +657,9 @@
 "attraction/roller_coaster":[
 "سفينة دوارة",
 "السفينة الدوارة"
+],
+"attraction/water_slide":[
+"التزلق على الماء"
 ],
 "barrier":[
 "مدينة محصنة",
@@ -807,6 +828,9 @@
 "building/industrial":[
 "مبنى صناعي"
 ],
+"building/kindergarten":[
+"مبنى الحضانة / رياض الأطفال"
+],
 "building/mosque":[
 "مبنى المسجد"
 ],
@@ -841,11 +865,17 @@
 "building/stadium":[
 "مبنى الملعب"
 ],
+"building/static_caravan":[
+"منزل متحرك ثابت"
+],
 "building/temple":[
 "مبنى المعبد"
 ],
 "building/terrace":[
 "صف منازل"
+],
+"building/train_station":[
+"مبنى محطة القطار"
 ],
 "building/transportation":[
 "مبنى للنقل العام"
@@ -949,11 +979,17 @@
 "craft/shoemaker":[
 "إسكافي"
 ],
+"craft/stonemason":[
+"مهنة البناء"
+],
 "craft/tailor":[
 "خياط"
 ],
 "craft/tiler":[
 "مركِّب البلاط"
+],
+"craft/tinsmith":[
+"سمكري"
 ],
 "craft/upholsterer":[
 "منجد; تنجيد; أثاث",
@@ -963,6 +999,12 @@
 "ساعاتي (ساعات يدوية)",
 "ساعاتي"
 ],
+"craft/window_construction":[
+"بناء النوافذ"
+],
+"embankment":[
+"سد"
+],
 "emergency/ambulance_station":[
 "محطة إسعاف",
 "محطة اسعاف"
@@ -970,16 +1012,55 @@
 "emergency/defibrillator":[
 "مزيل الرجفان"
 ],
+"emergency/designated":[
+"محدد لدخول الطوارئ"
+],
+"emergency/destination":[
+"وجهة وصول الطوارئ"
+],
 "emergency/fire_hydrant":[
 "خرطوم; مطافئ; إطفاء; اطفاء",
 "خرطوم إطفاء"
 ],
+"emergency/no":[
+"وصول الطوارئ لا"
+],
+"emergency/official":[
+"وصول الطوارئ رسمي"
+],
 "emergency/phone":[
 "هاتف طوارئ"
+],
+"emergency/private":[
+"وصول الطوارئ خاص"
+],
+"emergency/yes":[
+"وصول الطوارئ نعم"
+],
+"entrance":[
+"مدخل / مخرج"
 ],
 "ford":[
 "ممر مائي",
 "ممر مائي; ممر; مائي; ماء"
+],
+"golf/bunker":[
+"فخ الرمال"
+],
+"golf/fairway":[
+"ممر مائي"
+],
+"golf/green":[
+"وضع الأخضر"
+],
+"golf/hole":[
+"ثقب الجولف"
+],
+"golf/rough":[
+"الخام"
+],
+"golf/tee":[
+"مربع الإنطلاق"
 ],
 "healthcare":[
 "مرفق الرعاية الصحية"
@@ -1025,9 +1106,15 @@
 "معالج النطق",
 "معالج النطق، نطق"
 ],
+"highway":[
+"ميزة طريق سريع"
+],
 "highway/bridleway":[
 "طريق الخيول",
 "ممر للخيول"
+],
+"highway/bus_stop":[
+"موقف حافلة"
 ],
 "highway/corridor":[
 "ممر داخلي; رواق",
@@ -1081,6 +1168,9 @@
 ],
 "highway/primary_link":[
 "رابط لطريق رئيسي"
+],
+"highway/raceway":[
+"مضمار سباق السيارات"
 ],
 "highway/residential":[
 "طريق سكني",
@@ -1204,11 +1294,17 @@
 "قبر / ضريح",
 "قبر، ضريح"
 ],
+"historic/wayside_cross":[
+"تقاطع جانب الطريق"
+],
 "historic/wayside_shrine":[
 "مقام نصراني على الطريق"
 ],
 "junction":[
 "مفترق طرق"
+],
+"landuse":[
+"ميزة استخدام الأراضي"
 ],
 "landuse/aquaculture":[
 "مزرعة سمكية"
@@ -1225,6 +1321,9 @@
 "تجارية; تجاري; منطقة تجارة",
 "منطقة تجارية"
 ],
+"landuse/construction":[
+"منطقة بناء"
+],
 "landuse/farm":[
 "أرض زراعية"
 ],
@@ -1234,6 +1333,9 @@
 ],
 "landuse/farmyard":[
 "فناء المزرعة"
+],
+"landuse/forest":[
+"الغابات المدارة"
 ],
 "landuse/grass":[
 "عشب",
@@ -1294,6 +1396,9 @@
 "مزرعة عنب",
 "مزرعة العنب"
 ],
+"leisure":[
+"ميزة الترفيه"
+],
 "leisure/beach_resort":[
 "منتجع الشاطئ"
 ],
@@ -1314,9 +1419,18 @@
 "leisure/dog_park":[
 "حديقة كلاب"
 ],
+"leisure/firepit":[
+"حفرة نار"
+],
 "leisure/fitness_centre":[
 "مركز اللياقة البدنية",
 "مركز اللياقة البدنية، نادي صحي"
+],
+"leisure/fitness_centre/yoga":[
+"استوديو يوجا"
+],
+"leisure/fitness_station":[
+"محطة اللياقة البدنية في الهواء الطلق"
 ],
 "leisure/garden":[
 "حديقة"
@@ -1352,6 +1466,9 @@
 "منتزه، حديقة",
 "منتزه"
 ],
+"leisure/picnic_table":[
+"طاولة النزهة"
+],
 "leisure/pitch":[
 "ملعب رياضي"
 ],
@@ -1363,6 +1480,9 @@
 "كرة",
 "ريشة",
 "تنس الريشة"
+],
+"leisure/pitch/baseball":[
+"ملعب البيسبول"
 ],
 "leisure/pitch/basketball":[
 "ملعب كرة السلة"
@@ -1452,12 +1572,18 @@
 "line":[
 "طريق"
 ],
+"man_made":[
+"ميزة من صنع الانسان"
+],
 "man_made/adit":[
 "مدخل; منجم; كهف;",
 "مدخل منجم"
 ],
 "man_made/breakwater":[
 "كاسر الأمواج"
+],
+"man_made/bridge":[
+"منطقة جسر"
 ],
 "man_made/chimney":[
 "مدخنة"
@@ -1468,8 +1594,14 @@
 "man_made/cutline":[
 "خط الفصل"
 ],
+"man_made/embankment":[
+"سد"
+],
 "man_made/flagpole":[
 "سارية العلم"
+],
+"man_made/gasometer":[
+"مقياس الغاز"
 ],
 "man_made/lighthouse":[
 "منارة",
@@ -1530,6 +1662,9 @@
 ],
 "man_made/works":[
 "مصنع"
+],
+"natural":[
+"ميزة طبيعية"
 ],
 "natural/bare_rock":[
 "صخر; صخور; صخر عاري",
@@ -1624,6 +1759,9 @@
 "natural/wetland":[
 "أرض رطبة; مستنقع; هور",
 "أرض رطبة"
+],
+"natural/wood":[
+"خشب طبيعي"
 ],
 "noexit/yes":[
 "لا يوجد مخرج"
@@ -1729,6 +1867,9 @@
 "office/physician":[
 "طبيب"
 ],
+"office/political_party":[
+"مكتب الحزب السياسي"
+],
 "office/private_investigator":[
 "مكتب محقق"
 ],
@@ -1809,6 +1950,9 @@
 "point":[
 "نقطة"
 ],
+"power":[
+"ميزة طاقة"
+],
 "power/cable/underground":[
 "كابل كهرباء تحت الأرض"
 ],
@@ -1877,6 +2021,9 @@
 "محول كهربائي",
 "محول الكهربائي"
 ],
+"public_transport/platform":[
+"منصة العبور"
+],
 "public_transport/station":[
 "محطة عبور (ترانزيت)"
 ],
@@ -1942,6 +2089,9 @@
 "public_transport/stop_position_trolleybus":[
 "موقع وقوف حافلات كهربائية"
 ],
+"railway":[
+"ميزة سكة حديد"
+],
 "railway/abandoned":[
 "سكة حديد مهجورة",
 "سكة حديدية مهجورة"
@@ -1956,12 +2106,12 @@
 "مزلقان",
 "معبر سكة حديد (مسار)"
 ],
+"railway/derail":[
+"قطار السكك الحديدية"
+],
 "railway/disused":[
 "سكة حديد غير مستعملة",
 "سكة حديدة مهجورة"
-],
-"railway/funicular":[
-"قطار جبلي مائل"
 ],
 "railway/halt":[
 "موقف القطار"
@@ -1970,17 +2120,11 @@
 "معبر سكة حديد (طريق)",
 "معبر سكة حديد; معبر"
 ],
-"railway/light_rail":[
-"قطار خفيف"
+"railway/milestone":[
+"معلم السكك الحديدية"
 ],
-"railway/monorail":[
-"سكة حديدة مفردة"
-],
-"railway/narrow_gauge":[
-"سكك حديد ضيقة"
-],
-"railway/rail":[
-"قطار"
+"railway/platform":[
+"منصة القطار"
 ],
 "railway/signal":[
 "إشارات المرور ( السكك الحديدية )",
@@ -1988,9 +2132,6 @@
 ],
 "railway/station":[
 "محطة سكة حديد"
-],
-"railway/subway":[
-"مترو الأنفاق"
 ],
 "railway/subway_entrance":[
 "مدخل مترو الأنفاق"
@@ -2000,12 +2141,6 @@
 ],
 "railway/train_wash":[
 "غسيل قطارات"
-],
-"railway/tram":[
-"ترام",
-"سكك حديد",
-"مترو",
-"قطار"
 ],
 "railway/tram_stop":[
 "موقف ترام"
@@ -2032,6 +2167,9 @@
 "محل خمور",
 "خمور",
 "متجر خمور"
+],
+"shop/anime":[
+"متجر أنيمي / مانغا"
 ],
 "shop/antiques":[
 "متجر تحف وأنتيكات"
@@ -2145,6 +2283,9 @@
 "shop/cosmetics":[
 "متجر مستحضرات التجميل"
 ],
+"shop/craft":[
+"متجر الفنون والحرف"
+],
 "shop/curtain":[
 "ستائر",
 "محل بيع الستائر"
@@ -2182,13 +2323,13 @@
 "shop/fashion":[
 "متجر موضة"
 ],
-"shop/fishmonger":[
-"محل بيع أسماك"
-],
 "shop/florist":[
 "محل بيع الورود",
 "محل بيع زهور",
 "محل بيع ورود"
+],
+"shop/funeral_directors":[
+"بيت الدفن"
 ],
 "shop/furniture":[
 "محل أثاث"
@@ -2232,6 +2373,9 @@
 ],
 "shop/interior_decoration":[
 "متجر الديكور الداخلي"
+],
+"shop/jewelry":[
+"محل مجوهرات"
 ],
 "shop/kiosk":[
 "كشك"
@@ -2375,6 +2519,9 @@
 "قرطاسية",
 "محل بيع أدوات مكتبية"
 ],
+"shop/storage_rental":[
+"تأجير أماكن التخزين"
+],
 "shop/supermarket":[
 "سوبرماركت",
 "متجر كبير",
@@ -2383,6 +2530,9 @@
 "shop/tailor":[
 "ترزي",
 "خياط"
+],
+"shop/tattoo":[
+"صالون الوشم"
 ],
 "shop/tea":[
 "محل بيع الشاي،  شاي",
@@ -2448,8 +2598,14 @@
 "متجر بيع بالجملة",
 "محل بيع بالجملة"
 ],
+"shop/window_blind":[
+"متجر ستائر نوافذ"
+],
 "shop/wine":[
 "متجر نبيذ"
+],
+"tourism":[
+"ميزة سياحية"
 ],
 "tourism/alpine_hut":[
 "كوخ جبلي",
@@ -2529,6 +2685,15 @@
 "traffic_calming/bump":[
 "مطب"
 ],
+"traffic_calming/hump":[
+"مطب سرعة"
+],
+"traffic_calming/rumble_strip":[
+"شريط قرقعة للطرقات"
+],
+"traffic_calming/table":[
+"جدول السرعة"
+],
 "type/boundary":[
 "حدود"
 ],
@@ -2547,6 +2712,9 @@
 ],
 "type/restriction/no_right_turn":[
 "ممنوع الإنعطاف لليمين"
+],
+"type/restriction/no_straight_on":[
+"لا على التوالي"
 ],
 "type/restriction/no_u_turn":[
 "لا يوجد دوران"
@@ -2632,6 +2800,9 @@
 "type/waterway":[
 "مجرى مائي، ممر مائي",
 "مجرى مائي"
+],
+"waterway":[
+"ميزة الممر المائي"
 ],
 "waterway/boatyard":[
 "حوض بناء سفن; ورشة",

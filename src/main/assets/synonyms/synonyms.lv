@@ -11,9 +11,6 @@
 "aerialway/cable_car":[
 "Trosu Ceļš"
 ],
-"aeroway":[
-"Skrejceļš"
-],
 "aeroway/aerodrome":[
 "Lidosta"
 ],
@@ -349,9 +346,6 @@
 ],
 "amenity/studio":[
 "Studija"
-],
-"amenity/swimming_pool":[
-"Peldbaseins"
 ],
 "amenity/telephone":[
 "Telefons"
@@ -1350,23 +1344,8 @@
 "railway/disused":[
 "Nelietots dzelzceļš"
 ],
-"railway/miniature":[
-"Miniātura dzelzceļš"
-],
-"railway/monorail":[
-"Viensliežu vilciens"
-],
-"railway/narrow_gauge":[
-"Šaursliežu dzelzceļš"
-],
-"railway/rail":[
-"Sliedes"
-],
 "railway/station":[
 "Vilcienu Stacija"
-],
-"railway/subway":[
-"Metro"
 ],
 "railway/subway_entrance":[
 "Metro ieeja"
@@ -1377,9 +1356,6 @@
 ],
 "railway/train_wash":[
 "Vilcienu mazgātuve"
-],
-"railway/tram":[
-"Tramvajs"
 ],
 "relation":[
 "Relācija"

@@ -13,9 +13,6 @@
 "advertising/totem":[
 "Διαφημιστικό Στύλος"
 ],
-"aerialway":[
-"Τελεφερίκ"
-],
 "aerialway/cable_car":[
 "Τελεφερίκ"
 ],
@@ -25,9 +22,6 @@
 ],
 "aerialway/drag_lift":[
 "Αναβατήρας"
-],
-"aerialway/gondola":[
-"Γόνδολα"
 ],
 "aerialway/goods":[
 "Τελεφερίκ Αγαθών"
@@ -40,9 +34,6 @@
 ],
 "aerialway/pylon":[
 "Πυλώνας Τελεφερίκ"
-],
-"aeroway":[
-"Αεροδιάδρομος"
 ],
 "aeroway/aerodrome":[
 "Αεροδρόμιο",
@@ -327,6 +318,9 @@
 "Σταθμός καυσίμων",
 "Πρατήριο καυσίμων"
 ],
+"amenity/gambling":[
+"Αίθουσα Τυχερών Παιγνίων για Διασκέδαση"
+],
 "amenity/grave_yard":[
 "Κοιμητήριο",
 "Νεκροταφείο"
@@ -498,9 +492,6 @@
 "amenity/recycling_container":[
 "Κάδος Ανακύκλωσης"
 ],
-"amenity/register_office":[
-"Ληξιαρχείο"
-],
 "amenity/restaurant":[
 "κουτούκι",
 "Μαγειρείο",
@@ -576,9 +567,6 @@
 "δημοτικό",
 "σχολείο"
 ],
-"amenity/scrapyard":[
-"Μάντρα"
-],
 "amenity/shelter":[
 "Στέγαστρο"
 ],
@@ -604,7 +592,7 @@
 "Κοινωνικό Κέντρο"
 ],
 "amenity/social_facility":[
-"Μονάδα Κοινωνικών Παροχών"
+"Μονάδα Κοινωνικών Υπηρεσιών"
 ],
 "amenity/social_facility/food_bank":[
 "Τράπεζα Τροφίμων"
@@ -634,9 +622,6 @@
 ],
 "amenity/studio/video":[
 "Κινηματογραφικό Studio"
-],
-"amenity/swimming_pool":[
-"Πισίνα"
 ],
 "amenity/taxi":[
 "Πιάτσα ταξί",
@@ -871,7 +856,7 @@
 "Πύλη"
 ],
 "barrier/guard_rail":[
-"Σιδηροδρομικός Φράχτης"
+"Μεταλλικό Στηθαίο Ασφαλείας Οδών"
 ],
 "barrier/hedge":[
 "μπορντούρα",
@@ -912,6 +897,9 @@
 "barrier/wall":[
 "Μάντρα",
 "Τοίχος"
+],
+"barrier/wall/noise_barrier":[
+"Ηχοπέτασμα"
 ],
 "boundary":[
 "Οριο"
@@ -1767,9 +1755,6 @@
 "junction":[
 "Κόμβος"
 ],
-"landuse/allotments":[
-"Κοινωτικοί Κήποι"
-],
 "landuse/aquaculture":[
 "Ιχθυοκαλλιέργεια",
 "Ιχθυοτροφείο"
@@ -2131,19 +2116,10 @@
 "leisure/track/cycling":[
 "Ποδηλατική Πίστα"
 ],
-"leisure/track/cycling_point":[
-"Ποδηλατική Πίστα"
-],
 "leisure/track/horse_racing":[
 "Πίστα Ιπποδρομιών"
 ],
-"leisure/track/horse_racing_point":[
-"Πίστα Ιπποδρομιών"
-],
 "leisure/track/running":[
-"Στίβος"
-],
-"leisure/track/running_point":[
 "Στίβος"
 ],
 "leisure/water_park":[
@@ -2190,9 +2166,6 @@
 ],
 "man_made/gasometer":[
 "Αεριόμετρο"
-],
-"man_made/groyne":[
-"Λιμενοβραχίονας"
 ],
 "man_made/lighthouse":[
 "Φάρος"
@@ -2835,9 +2808,6 @@
 "railway/disused":[
 "Σιδηροτροχιά εκτός Χρήσης"
 ],
-"railway/funicular":[
-"Τελεφερίκ"
-],
 "railway/halt":[
 "Σιδηροδρομικός Σταθμός ( Σε Παραγγελία Στάσης )"
 ],
@@ -2847,29 +2817,14 @@
 "railway/milestone":[
 "Σιδηροδρομικό Χιλιομετρικό Σημείο"
 ],
-"railway/miniature":[
-"Μινιατούρα Σιδηρόδρομου"
-],
-"railway/narrow_gauge":[
-"Σιδηροτροχιά Στενού Εύρους"
-],
 "railway/platform":[
 "Αποβάθρα Τρένου δίπλα στη διαδρομή"
-],
-"railway/rail":[
-"Σιδηροδρομική Γραμμή",
-"Σιδηροτροχιά",
-"Ράγα"
 ],
 "railway/signal":[
 "Σιδηροδρομικό Σήμα"
 ],
 "railway/station":[
 "Σταθμός Τρένου δίπλα στη διαδρομή"
-],
-"railway/subway":[
-"Υπόγειος Σιδηρόδρομος",
-"Μετρό"
 ],
 "railway/subway_entrance":[
 "Είσοδος Μετρό",
@@ -2880,9 +2835,6 @@
 ],
 "railway/train_wash":[
 "Πλυντήριο Τρένου"
-],
-"railway/tram":[
-"Τραμ"
 ],
 "railway/tram_stop":[
 "Τοποθεσία Στάσης Τραμ πάνω στις ράγες"
@@ -3142,14 +3094,8 @@
 "shop/fishing":[
 "Είδη Αλιείας"
 ],
-"shop/fishmonger":[
-"Ψαράδικο"
-],
 "shop/florist":[
 "Ανθοπωλείο"
-],
-"shop/frozen_food":[
-"Κατεψυγμένα Τρόφιμα"
 ],
 "shop/fuel":[
 "Κατάστημα Καυσίμων"
@@ -3157,9 +3103,6 @@
 "shop/funeral_directors":[
 "Γραφείο Τελετών",
 "Γραφείο κηδειών"
-],
-"shop/furnace":[
-"Κατάστημα Κλιβάνων"
 ],
 "shop/furniture":[
 "Κατάστημα Επίπλων"

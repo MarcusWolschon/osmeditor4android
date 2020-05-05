@@ -15,9 +15,6 @@
 "تبلیغ",
 "تبلیغات"
 ],
-"aerialway":[
-"راه هوایی"
-],
 "aerialway/cable_car":[
 "بالابر",
 "تراموای برقی",
@@ -38,11 +35,6 @@
 "بالابر کشنده",
 "کشنده",
 "تله‌اسکی"
-],
-"aerialway/gondola":[
-"تله کابین",
-"کابین",
-"گوندولا"
 ],
 "aerialway/goods":[
 "راه هوایی محموله",
@@ -77,9 +69,6 @@
 "طناب بالابر",
 "طناب",
 "بالابر طنابی"
-],
-"aeroway":[
-"راه پروازی"
 ],
 "aeroway/aerodrome":[
 "پرواز",
@@ -481,9 +470,6 @@
 "سطل بازیافت",
 "بازیافت"
 ],
-"amenity/register_office":[
-"اداره ثبت"
-],
 "amenity/restaurant":[
 "خوردنی",
 "بار",
@@ -598,9 +584,6 @@
 ],
 "amenity/studio":[
 "استدیو"
-],
-"amenity/swimming_pool":[
-"استخر شنا"
 ],
 "amenity/taxi":[
 "تاکسی",
@@ -1612,10 +1595,6 @@
 "تقاطع",
 "چهارراه، سه راه، سه راهی، دوراهی"
 ],
-"landuse/allotments":[
-"باغچه مشارکتی",
-"باغ مشارکتی"
-],
 "landuse/aquaculture":[
 "مزرعه ماهی",
 "پرورش آبزیان",
@@ -1890,9 +1869,6 @@
 ],
 "man_made/gasometer":[
 "کنتور گاز"
-],
-"man_made/groyne":[
-"آبشکن"
 ],
 "man_made/lighthouse":[
 "فانوس دریایی"
@@ -2312,9 +2288,6 @@
 "railway/disused":[
 "راه آهن بلا استفاده"
 ],
-"railway/funicular":[
-"کابلی"
-],
 "railway/level_crossing":[
 "ریل",
 "راه آهن",
@@ -2323,24 +2296,8 @@
 "تقاطع",
 "قطار"
 ],
-"railway/monorail":[
-"مونوریل"
-],
-"railway/narrow_gauge":[
-"راه آهن باریک کابلی"
-],
-"railway/rail":[
-"ریل قطار"
-],
-"railway/subway":[
-"مترو"
-],
 "railway/subway_entrance":[
 "ورودی مترو"
-],
-"railway/tram":[
-"واگن برقی",
-"تراموا"
 ],
 "relation":[
 "رابطه"
@@ -2603,9 +2560,6 @@
 "قلاب ماهی گیری",
 "ماهی گیری"
 ],
-"shop/fishmonger":[
-"ماهی فروشی"
-],
 "shop/florist":[
 "گل فروشی"
 ],
@@ -2620,9 +2574,6 @@
 ],
 "shop/funeral_directors":[
 "غسالخانه"
-],
-"shop/furnace":[
-"فروشگاه مشعل و اجاق"
 ],
 "shop/furniture":[
 "میز و صندلی",
