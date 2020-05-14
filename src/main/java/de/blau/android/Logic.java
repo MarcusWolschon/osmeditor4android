@@ -3959,6 +3959,7 @@ public class Logic {
                 try {
                     server.uploadTrack(track, description, tags, visibility);
                 } catch (final OsmServerException e) {
+                    Log.e(DEBUG_TAG, e.getMessage());
                     switch (e.getErrorCode()) { // FIXME use the same mechanics as for data upload
                     case HttpURLConnection.HTTP_FORBIDDEN:
                     case HttpURLConnection.HTTP_UNAUTHORIZED:
@@ -3978,7 +3979,6 @@ public class Logic {
                         break;
                     // TODO: implement other state handling
                     default:
-                        Log.e(DEBUG_TAG, "", e);
                         ACRAHelper.nocrashReport(e, e.getMessage());
                         break;
                     }

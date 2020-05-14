@@ -54,7 +54,7 @@ public class SearchForm extends ImmersiveDialogFragment {
     private SearchItemSelectedCallback callback;
 
     /**
-     * Display a dialog asking for a search term and allowing selection of geocoers
+     * Display a dialog asking for a search term and allowing selection of geocoders
      * 
      * @param activity the calling FragmentActivity
      * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
@@ -122,7 +122,6 @@ public class SearchForm extends ImmersiveDialogFragment {
         LinearLayout searchLayout = (LinearLayout) inflater.inflate(R.layout.query_entry, null);
 
         Builder searchBuilder = new AlertDialog.Builder(getActivity());
-        // builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
         searchBuilder.setTitle(R.string.menu_find);
         searchBuilder.setMessage(R.string.find_message);
         searchBuilder.setView(searchLayout);

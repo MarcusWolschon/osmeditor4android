@@ -2,6 +2,8 @@ package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnShowListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.GpxUploadListener;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.validation.FormValidation;
+import de.blau.android.validation.NotEmptyValidator;
 
 /**
  * Display a dialog to select a file to upload
@@ -85,10 +89,21 @@ public class GpxUpload extends ImmersiveDialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         View layout = inflater.inflate(R.layout.upload_gpx, null);
         builder.setView(layout);
+        
+        EditText descriptionField = (EditText) layout.findViewById(R.id.upload_gpx_description);
+        final FormValidation descriptionValidator = new NotEmptyValidator(descriptionField, "Empty description");
+        
         builder.setPositiveButton(R.string.transfer_download_current_upload,
-                new GpxUploadListener((Main) getActivity(), (EditText) layout.findViewById(R.id.upload_gpx_description),
+                new GpxUploadListener((Main) getActivity(), descriptionField,
                         (EditText) layout.findViewById(R.id.upload_gpx_tags), (Spinner) layout.findViewById(R.id.upload_gpx_visibility)));
         builder.setNegativeButton(R.string.cancel, doNothingListener);
-        return builder.create();
+        AppCompatDialog dialog = builder.create();
+        dialog.setOnShowListener( new OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                descriptionValidator.validate();
+            }
+        });
+        return dialog;
     }
 }

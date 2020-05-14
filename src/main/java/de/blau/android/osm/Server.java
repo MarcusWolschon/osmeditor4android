@@ -2184,7 +2184,7 @@ public class Server {
         }
         InputStream in = response.body().byteStream();
         if (e == null) {
-            Log.d(DEBUG_TAG, "response code " + responsecode + "response message " + responseMessage);
+            Log.d(DEBUG_TAG, "response code " + responsecode + " response message " + responseMessage);
             throw new OsmServerException(responsecode, readStream(in));
         } else {
             throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), readStream(in));
