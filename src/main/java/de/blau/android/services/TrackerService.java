@@ -1,5 +1,6 @@
 package de.blau.android.services;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,6 +13,10 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.GpsStatus;
 import android.location.GpsStatus.NmeaListener;
 import android.location.Location;
@@ -20,6 +25,7 @@ import android.location.LocationManager;
 import android.location.OnNmeaMessageListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +48,7 @@ import de.blau.android.gpx.WayPoint;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.services.util.ExtendedLocation;
 import de.blau.android.services.util.Nmea;
 import de.blau.android.services.util.NmeaTcpClient;
 import de.blau.android.services.util.NmeaTcpClientServer;
@@ -50,24 +57,26 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
+import de.blau.android.util.egm96.EGM96;
 import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service implements Exportable {
 
-    private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
-
     private static final String DEBUG_TAG = "TrackerService";
+
+    private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
     private static final int LOCATION_UPDATE    = 0;
     public static final int  CONNECTION_FAILED  = 1;
     public static final int  CONNECTION_MESSAGE = 2;
     public static final int  CONNECTION_CLOSED  = 3;
 
-    private static final String AUTODOWNLOAD_KEY = "autodownload";
-
-    private static final String BUGAUTODOWNLOAD_KEY = "bugautodownload";
-
-    private static final String TRACK_KEY = "track";
+    private static final String TRACK_KEY            = "track";
+    private static final String AUTODOWNLOAD_KEY     = "autodownload";
+    private static final String BUGAUTODOWNLOAD_KEY  = "bugautodownload";
+    public static final String  CALIBRATE_KEY        = "calibrate";
+    public static final String  CALIBRATE_HEIGHT_KEY = "height";
+    public static final String  CALIBRATE_P0_KEY     = "p0";
 
     private final TrackerBinder mBinder = new TrackerBinder();
 
@@ -95,8 +104,7 @@ public class TrackerService extends Service implements Exportable {
 
     private Handler mHandler = null;
 
-    private NmeaTcpClient tcpClient = null;
-
+    private NmeaTcpClient       tcpClient = null;
     private NmeaTcpClientServer tcpServer = null;
 
     private enum GpsSource {
@@ -110,7 +118,7 @@ public class TrackerService extends Service implements Exportable {
     private String prefTcpClient;
     private String prefTcpServer;
 
-    private Location nmeaLocation;
+    private ExtendedLocation nmeaLocation;
 
     private ConnectivityManager connectivityManager;
 
@@ -131,6 +139,13 @@ public class TrackerService extends Service implements Exportable {
     private Method addNmeaListener    = null;
     private Method removeNmeaListener = null;
 
+    private SensorManager       sensorManager;
+    private PressureListener    pressureListener;
+    private boolean             useBarometricHeight = false;
+    private EGM96               egm;
+    private TemperatureListener temperatureListener;
+    private boolean             egmLoaded           = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -144,7 +159,7 @@ public class TrackerService extends Service implements Exportable {
         prefNmea = getString(R.string.gps_source_nmea);
         prefTcpClient = getString(R.string.gps_source_tcpclient);
         prefTcpServer = getString(R.string.gps_source_tcpserver);
-        nmeaLocation = new Location(prefNmea);
+        nmeaLocation = new ExtendedLocation(prefNmea);
         useOldNmea = Build.VERSION.SDK_INT < Build.VERSION_CODES.N;
 
         if (useOldNmea) {
@@ -161,6 +176,29 @@ public class TrackerService extends Service implements Exportable {
         } catch (Exception e) { // NOSONAR
             Log.e(DEBUG_TAG, "reflection didn't find addNmeaListener or removeNmeaListener " + e.getMessage());
         }
+
+        // pressure
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        if (prefs.useBarometricHeight() && pressure != null) {
+            pressureListener = new PressureListener();
+            sensorManager.registerListener(pressureListener, pressure, 1000);
+            Sensor temperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+            if (temperature != null) {
+                temperatureListener = new TemperatureListener();
+                sensorManager.registerListener(temperatureListener, temperature, 1000);
+            }
+        }
+        Uri egmFile = prefs.getEgmFile();
+        if (egmFile != null) {
+            try {
+                egm = new EGM96(egmFile.getPath());
+                egmLoaded = true;
+            } catch (IOException ioex) {
+                Log.e(DEBUG_TAG, "Error loading EGM " + ioex.getMessage());
+                Snack.toastTopInfo(this, "Error loading EGM " + ioex.getMessage());
+            }
+        }
     }
 
     @Override
@@ -169,6 +207,12 @@ public class TrackerService extends Service implements Exportable {
         stopTracking(false);
         track.close();
         cancelNmeaClients();
+        if (pressureListener != null) {
+            sensorManager.unregisterListener(pressureListener);
+        }
+        if (temperatureListener != null) {
+            sensorManager.unregisterListener(temperatureListener);
+        }
         super.onDestroy();
     }
 
@@ -201,6 +245,35 @@ public class TrackerService extends Service implements Exportable {
         } else if (intent.getBooleanExtra(BUGAUTODOWNLOAD_KEY, false)) {
             Log.d(DEBUG_TAG, "Start task autodownload");
             startBugAutoDownloadInternal();
+        } else if (intent.getBooleanExtra(CALIBRATE_KEY, false)) {
+            Log.d(DEBUG_TAG, "Calibrate height");
+            if (pressureListener != null) {
+                int height = intent.getIntExtra(CALIBRATE_HEIGHT_KEY, Integer.MIN_VALUE);
+                if (height != Integer.MIN_VALUE) {
+                    pressureListener.calibrate(height);
+                } else {
+                    float p0 = intent.getFloatExtra(CALIBRATE_P0_KEY, 0);
+                    if (p0 != 0) {
+                        pressureListener.setP0(p0);
+                    } else if (lastLocation != null) { // calibrate from GPS
+                        try {
+                            if (lastLocation instanceof ExtendedLocation && ((ExtendedLocation) lastLocation).hasGeoidHeight()) {
+                                pressureListener.calibrate((float) ((ExtendedLocation) lastLocation).getGeoidHeight());
+                            } else if (lastLocation.hasAltitude()) {
+                                double offset = getGeoidOffset(lastLocation.getLongitude(), lastLocation.getLatitude());
+                                Log.d(DEBUG_TAG, "Geoid offset " + offset);
+                                pressureListener.calibrate((float) (lastLocation.getAltitude() - offset));
+                            }
+                        } catch (IOException ioex) {
+                            Log.e(DEBUG_TAG, "Unable to open EGM84 model " + ioex.getMessage());
+                        }
+                    }
+                }
+                Snack.toastTopInfo(this, "New height " + pressureListener.barometricHeight + "m\nCurrent pressure " + pressureListener.millibarsOfPressure
+                        + " hPa\nReference pressure " + pressureListener.pressureAtSeaLevel + " hPa");
+            } else {
+                Log.e(DEBUG_TAG, "Calibration attemped but no pressure listener");
+            }
         } else {
             Log.d(DEBUG_TAG, "Received intent with unknown meaning");
         }
@@ -253,7 +326,7 @@ public class TrackerService extends Service implements Exportable {
         startInternal();
         tracking = true;
         track.markNewSegment();
-        updateGPSState();
+        init();
         if (externalListener != null) {
             externalListener.onStateChanged();
         }
@@ -270,7 +343,7 @@ public class TrackerService extends Service implements Exportable {
         }
         startInternal();
         downloading = true;
-        updateGPSState();
+        init();
         if (externalListener != null) {
             externalListener.onStateChanged();
         }
@@ -286,7 +359,7 @@ public class TrackerService extends Service implements Exportable {
         }
         startInternal();
         downloadingBugs = true;
-        updateGPSState();
+        init();
         if (externalListener != null) {
             externalListener.onStateChanged();
         }
@@ -369,7 +442,7 @@ public class TrackerService extends Service implements Exportable {
     private void stop() {
         if (!tracking && !downloading && !downloadingBugs) {
             Log.d(DEBUG_TAG, "Stopping auto-service");
-            updateGPSState();
+            init();
             stopForeground(true);
             stopSelf();
         }
@@ -467,6 +540,26 @@ public class TrackerService extends Service implements Exportable {
         @Override
         public void onLocationChanged(Location location) {
             if (source == GpsSource.INTERNAL) {
+                location = new ExtendedLocation(location);
+                ExtendedLocation loc = ((ExtendedLocation) location);
+                if (egmLoaded) {
+                    try {
+                        double offset = getGeoidOffset(location.getLongitude(), location.getLatitude());
+                        loc.setGeoidCorrection(offset);
+                        if (loc.hasAltitude()) {
+                            loc.setGeoidHeight(loc.getAltitude() - offset);
+                        }
+                    } catch (IOException ioex) {
+
+                    }
+                }
+                if (pressureListener != null && pressureListener.barometricHeight != 0) {
+                    if (useBarometricHeight) {
+                        loc.setUseBarometricHeight();
+                    }
+                    loc.setBarometricHeight(pressureListener.barometricHeight);
+                }
+
                 // Only use GPS provided locations for generating tracks
                 if (tracking && (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY)) {
                     track.addTrackPoint(location);
@@ -502,7 +595,8 @@ public class TrackerService extends Service implements Exportable {
         @Override
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
-                return; // ignore updates
+                return; // ignore
+                        // updates
             }
             if (lastLocation != null) {
                 boolean lastIsGpsLocation = LocationManager.GPS_PROVIDER.equals(lastLocation.getProvider());
@@ -514,7 +608,8 @@ public class TrackerService extends Service implements Exportable {
                         }
                     } else {
                         if (location.getTime() - lastLocation.getTime() < staleGPSMilli) {
-                            return; // this is not as reliable as the above
+                            return; // this is not as reliable as the
+                                    // above
                                     // but likely still OK
                         }
                     }
@@ -555,15 +650,53 @@ public class TrackerService extends Service implements Exportable {
     }
 
     /**
-     * If required initialize the Location sources and start updating, also check for source configuration changes
+     * Used to pass messages to the UI thread
+     *
+     */
+    class MessageHandler extends Handler {
+
+        /**
+         * Construct a new Handler
+         */
+        MessageHandler() {
+            super(Looper.getMainLooper());
+        }
+
+        @Override
+        public void handleMessage(Message inputMessage) {
+            switch (inputMessage.what) {
+            case LOCATION_UPDATE:
+                Location l = (Location) inputMessage.obj;
+                gpsListener.onLocationChanged(l);
+                break;
+            case CONNECTION_FAILED:
+                Snack.toastTopError(TrackerService.this, (String) inputMessage.obj);
+                break;
+            case CONNECTION_MESSAGE:
+                Snack.toastTopInfo(TrackerService.this, getString(R.string.toast_remote_nmea_connection, (String) inputMessage.obj));
+                break;
+            case CONNECTION_CLOSED:
+                Snack.toastTopInfo(TrackerService.this, R.string.toast_remote_nmea_connection_closed);
+                break;
+            default:
+                // ignore
+            }
+        };
+    }
+
+    /**
+     * If required, initialize the Location sources and start updating, also check for source configuration changes
      */
     @SuppressWarnings("deprecation")
     @TargetApi(24)
-    private void updateGPSState() {
+    private void init() {
         prefs = new Preferences(this);
         String gpsSource = prefs.getGpsSource();
         boolean useTcpClient = gpsSource.equals(prefTcpClient);
         boolean useTcpServer = gpsSource.equals(prefTcpServer);
+
+        useBarometricHeight = pressureListener != null && prefs.useBarometricHeight();
+
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
         // update configuration
         if ((needed && !gpsEnabled) || (gpsEnabled && ((useTcpClient || useTcpServer) && source != GpsSource.TCP)
@@ -586,29 +719,7 @@ public class TrackerService extends Service implements Exportable {
                 // Ignore
             }
             try {
-                // used to pass updates to UI thread
-                mHandler = new Handler(Looper.getMainLooper()) {
-                    @Override
-                    public void handleMessage(Message inputMessage) {
-                        switch (inputMessage.what) {
-                        case LOCATION_UPDATE:
-                            Location l = (Location) inputMessage.obj;
-                            gpsListener.onLocationChanged(l);
-                            break;
-                        case CONNECTION_FAILED:
-                            Snack.toastTopError(TrackerService.this, (String) inputMessage.obj);
-                            break;
-                        case CONNECTION_MESSAGE:
-                            Snack.toastTopInfo(TrackerService.this, getString(R.string.toast_remote_nmea_connection, (String) inputMessage.obj));
-                            break;
-                        case CONNECTION_CLOSED:
-                            Snack.toastTopInfo(TrackerService.this, R.string.toast_remote_nmea_connection_closed);
-                            break;
-                        default:
-                            // ignore
-                        }
-                    }
-                };
+                mHandler = new MessageHandler();
                 if (useTcpClient || useTcpServer) {
                     source = GpsSource.TCP;
                     if (useTcpClient && tcpClient == null) {
@@ -701,7 +812,7 @@ public class TrackerService extends Service implements Exportable {
      */
     public void setListenerNeedsGPS(boolean listenerNeedsGPS) {
         this.listenerNeedsGPS = listenerNeedsGPS;
-        updateGPSState();
+        init();
         if (listenerNeedsGPS && externalListener != null && lastLocation != null) {
             externalListener.onLocationChanged(lastLocation);
         }
@@ -932,20 +1043,26 @@ public class TrackerService extends Service implements Exportable {
      * @param sentence the NMEA sentence
      */
     private void processNmeaSentence(@NonNull String sentence) {
-        Location loc = Nmea.processSentence(sentence, nmeaLocation);
+        ExtendedLocation loc = Nmea.processSentence(sentence, nmeaLocation);
         if (loc != null) { // we could do filtering etc here
             // can't call something on the UI thread directly
             // need to send a message
             Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, loc);
             newLocation.sendToTarget();
             if (tracking) {
+                if (pressureListener != null) {
+                    if (useBarometricHeight) {
+                        loc.setUseBarometricHeight();
+                    }
+                    loc.setBarometricHeight(pressureListener.barometricHeight);
+                }
                 track.addTrackPoint(loc);
             }
             autoLoadDataAndBugs(new Location(loc));
             lastLocation = loc;
         }
     }
-    
+
     @SuppressWarnings("deprecation")
     class OldNmeaListener implements NmeaListener { // NOSONAR
         @Override
@@ -960,5 +1077,108 @@ public class TrackerService extends Service implements Exportable {
         public void onNmeaMessage(String message, long timestamp) {
             processNmeaSentence(message);
         }
+    }
+
+    class PressureListener implements SensorEventListener {
+        static final double ZERO_CELSIUS = 273.15;
+
+        float millibarsOfPressure = 0;;
+        float barometricHeight    = 0;
+        float pressureAtSeaLevel  = SensorManager.PRESSURE_STANDARD_ATMOSPHERE;
+        float temperature         = 15;
+
+        float tempP  = 0;
+        float mCount = 0;
+
+        /**
+         * Calibrate barometric height from current height
+         * 
+         * @param calibrationHeight current height from external source or GPS
+         * 
+         * @see <a href="https://en.wikipedia.org/wiki/Barometric_formula">Barometric formula</A>
+         */
+        private void calibrate(float calibrationHeight) {
+            // p0 = ph * (Th / (Th + 0.0065 * h))^-5.255
+            double temp = ZERO_CELSIUS + temperature;
+            pressureAtSeaLevel = (float) (millibarsOfPressure * Math.pow(temp / (temp + 0.0065 * calibrationHeight), -5.255));
+            recalc();
+            Log.d(DEBUG_TAG, "Calibration new p0 " + pressureAtSeaLevel + " current h " + calibrationHeight + " ambient temperature " + temp
+                    + " current pressure " + millibarsOfPressure);
+        }
+
+        /**
+         * Recalculate the current height after calibration
+         */
+        private void recalc() {
+            barometricHeight = SensorManager.getAltitude(pressureAtSeaLevel, millibarsOfPressure);
+            if (lastLocation instanceof ExtendedLocation) {
+                ((ExtendedLocation) lastLocation).setBarometricHeight(barometricHeight);
+            }
+        }
+
+        /**
+         * Set the reference sea level pressure
+         * 
+         * @param p0 the pressure in hPa
+         */
+        private void setP0(float p0) {
+            pressureAtSeaLevel = p0;
+            recalc();
+        }
+
+        /**
+         * Set the ambient temperature
+         * 
+         * @param temp the temperature in ° celsius
+         */
+        public void setTemperature(float temp) {
+            temperature = temp;
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor arg0, int arg1) {
+            // Ignore
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if (mCount == 10) {
+                millibarsOfPressure = tempP / 10;
+                recalc();
+                tempP = event.values[0];
+                mCount = 1;
+            } else {
+                tempP = tempP + event.values[0];
+                mCount++;
+            }
+        }
+    }
+
+    class TemperatureListener implements SensorEventListener {
+
+        @Override
+        public void onAccuracyChanged(Sensor arg0, int arg1) {
+            // Ignore
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if (pressureListener != null) {
+                pressureListener.setTemperature(event.values[0]);
+            }
+        }
+    }
+
+    /**
+     * Get the offset vs. msl altitude
+     * 
+     * Will lazily instantiate the model.
+     * 
+     * @param lon the WGS84 longitude
+     * @param lat the WGS84 latitude
+     * @return the offset in meters
+     */
+    private double getGeoidOffset(double lon, double lat) throws IOException {
+        return egm.getOffset(lat, lon);
     }
 }

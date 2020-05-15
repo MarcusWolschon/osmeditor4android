@@ -378,6 +378,11 @@
             app:spt_minValue="1"
             app:spt_currentValueText="@string/config_gnssTimeToStale_current"
             app:spt_setWrapSelectorWheel="false" />
+        <androidx.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/config_useBarometricHeight_key"
+            android:summary="@string/config_useBarometricHeight_summary"
+            android:title="@string/config_useBarometricHeight_title" />
     </androidx.preference.PreferenceScreen>
     <androidx.preference.PreferenceScreen
         android:key="config_category_server"

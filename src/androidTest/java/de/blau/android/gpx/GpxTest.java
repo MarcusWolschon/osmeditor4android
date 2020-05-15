@@ -273,7 +273,7 @@ public class GpxTest {
         TrackPoint lastPoint = track.getTrack().get(track.getTrack().size() - 1);
         ViewBox box = main.getMap().getViewBox();
         Assert.assertEquals(lastPoint.getLatitude(), box.getCenterLat(), 0.001);
-        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight()) / 2 + box.getRight()) / 1E7D, 0.001);
+        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight()) / 2d + box.getRight()) / 1E7D, 0.001);
     }
 
     /**
@@ -314,7 +314,7 @@ public class GpxTest {
             TrackPoint recordedTrackPoint = recordedTrack.get(i - offset);
             Assert.assertEquals(tp.getLatitude(), recordedTrackPoint.getLatitude(), 0.000001);
             Assert.assertEquals(tp.getLongitude(), recordedTrackPoint.getLongitude(), 0.000001);
-            Assert.assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(), 0.000001);
+            // we don't include altitude anymore Assert.assertEquals(tp.getAltitude(), recordedTrackPoint.getAltitude(), 0.000001);
         }
     }
 }

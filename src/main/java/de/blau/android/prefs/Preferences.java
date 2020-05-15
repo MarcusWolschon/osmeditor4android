@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -97,6 +98,7 @@ public class Preferences {
     private final int     uploadOkLimit;
     private final int     uploadWarnLimit;
     private final int     dataWarnLimit;
+    private final boolean useBarometricHeight;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -247,8 +249,10 @@ public class Preferences {
 
         uploadOkLimit = getIntPref(R.string.config_uploadOk_key, 50);
         uploadWarnLimit = getIntPref(R.string.config_uploadWarn_key, 200);
-        
+
         dataWarnLimit = getIntPref(R.string.config_dataWarn_key, 50000);
+
+        useBarometricHeight = prefs.getBoolean(r.getString(R.string.config_useBarometricHeight_key), false);
     }
 
     /**
@@ -1235,6 +1239,29 @@ public class Preferences {
     }
 
     /**
+     * Set the file to use for the EGM
+     * 
+     * @param egm an Uri for the file
+     */
+    public void setEgmFile(@Nullable Uri egm) {
+        prefs.edit().putString(r.getString(R.string.config_egmFile_key), egm == null ? null : egm.toString()).commit();
+    }
+
+    /**
+     * Retrieve an Uri for the EGM file
+     * 
+     * @return the Uri, or null if it hasn't been set (that is not downloaded)
+     */
+    @Nullable
+    public Uri getEgmFile() {
+        String uriString = prefs.getString(r.getString(R.string.config_egmFile_key), null);
+        if (uriString != null) {
+            return Uri.parse(uriString);
+        }
+        return null;
+    }
+
+    /**
      * Allow / disallow all networks for downloads
      * 
      * @param on value to set
@@ -1292,7 +1319,7 @@ public class Preferences {
     public int getUploadWarnLimit() {
         return uploadWarnLimit;
     }
-    
+
     /**
      * Get the limit at which we show a warning that too much data is loaded
      * 
@@ -1300,6 +1327,15 @@ public class Preferences {
      */
     public int getDataWarnLimit() {
         return dataWarnLimit;
+    }
+
+    /**
+     * Get if we should use barometric height instead of GPS derived
+     * 
+     * @return if we should use barometer derived height values
+     */
+    public boolean useBarometricHeight() {
+        return useBarometricHeight;
     }
 
     /**

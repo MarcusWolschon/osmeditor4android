@@ -11,6 +11,7 @@ import org.xmlpull.v1.XmlSerializer;
 import android.location.Location;
 import androidx.annotation.NonNull;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
+import de.blau.android.services.util.ExtendedLocation;
 
 /**
  * This is a class to store location points and provide storing/serialization for them. Everything considered less
@@ -54,7 +55,18 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
         flags = encodeFlags(isNewSegment);
         latitude = loc.getLatitude();
         longitude = loc.getLongitude();
-        altitude = loc.hasAltitude() ? loc.getAltitude() : Double.NaN;
+        if (loc instanceof ExtendedLocation) {
+            ExtendedLocation eLoc = (ExtendedLocation) loc;
+            if (eLoc.hasBarometricHeight() && eLoc.useBarometricHeight()) {
+                altitude = eLoc.getBarometricHeight();
+            } else if (eLoc.hasGeoidHeight()) {
+                altitude = eLoc.getGeoidHeight();
+            } else {
+                altitude = Double.NaN;
+            }
+        } else {
+            altitude = loc.hasAltitude() ? loc.getAltitude() : Double.NaN;
+        }
         time = loc.getTime();
         // accuracy = original.hasAccuracy() ? original.getAccuracy() : null;
         // bearing = original.hasBearing() ? original.getBearing() : null;
