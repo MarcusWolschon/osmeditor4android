@@ -96,10 +96,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     public StorageDelegator() {
         reset(false); // don't set dirty on instantiation
+        clipboard = new ClipboardStorage();
     }
 
     /**
      * Reset this instance to empty state
+     * 
+     * This maintains the clipboard as the user may want to keep it over data relaoads etc
      * 
      * @param dirty if true mark the (empty) contents as dirty (this is useful because if true old state files will be
      *            overwritten)
@@ -108,21 +111,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         this.dirty = dirty;
         apiStorage = new Storage();
         currentStorage = new Storage();
-        clipboard = new ClipboardStorage();
         undo = new UndoStorage(currentStorage, apiStorage);
         factory = new OsmElementFactory();
         imagery = new ArrayList<>();
     }
 
     /**
-     * Replace the current Storage object with a new one clipboard and api storage will be reset
+     * Replace the current Storage object with a new one and api storage will be reset
      * 
      * @param currentStorage the new Storage object to set
      */
     public synchronized void setCurrentStorage(@NonNull final Storage currentStorage) {
         dirty = true;
         apiStorage = new Storage();
-        clipboard = new ClipboardStorage();
         this.currentStorage = currentStorage;
         undo = new UndoStorage(currentStorage, apiStorage);
     }
