@@ -1,3 +1,4 @@
+package de.blau.android;
 import org.junit.Assert;
 import org.junit.Test;
 

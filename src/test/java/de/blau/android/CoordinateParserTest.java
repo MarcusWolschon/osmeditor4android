@@ -1,3 +1,4 @@
+package de.blau.android;
 import java.text.ParseException;
 
 import org.junit.Assert;
