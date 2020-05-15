@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingLeft="?attr/dialogPreferredPadding"
+    android:paddingRight="?attr/dialogPreferredPadding">
+    <EditText
+        android:id="@+id/barometer_calibration_edit"
+        android:inputType="text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:maxLines="1" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/barometer_calibration_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/barometer_calibration_label"
+            android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle" />
+        <Spinner
+            android:id="@+id/barometer_calibration_method"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/barometer_calibration_label" 
+            android:layout_toRightOf="@id/barometer_calibration_label"
+            android:layout_alignBottom="@id/barometer_calibration_label" 
+            android:entries="@array/barometer_calibration_entries" />
+    </RelativeLayout>
+</LinearLayout>

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import android.location.Location;
 import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
@@ -13,7 +12,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.util.ACRAHelper;
 
-public class Nmea {
+public final class Nmea {
 
     private static final String DEBUG_TAG = Nmea.class.getSimpleName();
 
@@ -82,7 +81,7 @@ public class Nmea {
     private Nmea() {
         // Ignore
     }
-    
+
     /**
      * Reset the NMEA processing
      */
@@ -102,7 +101,7 @@ public class Nmea {
      * @returns a Location object if we have a valid new fix otherwise null
      */
     @Nullable
-    public static Location processSentence(@NonNull String sentence, @NonNull Location nmeaLocation) {
+    public static ExtendedLocation processSentence(@NonNull String sentence, @NonNull ExtendedLocation nmeaLocation) {
         boolean posUpdate = false;
         try {
             int length = sentence.length();
@@ -127,7 +126,7 @@ public class Nmea {
                         double lat = Double.NaN;
                         double lon = Double.NaN;
                         double hdop = Double.NaN;
-                        double mslHeight = Double.NaN;
+                        double geoidHeight = Double.NaN;
                         double geoidCorrection = Double.NaN;
 
                         switch (sentenceType) {
@@ -143,7 +142,7 @@ public class Nmea {
                                     lat = latFromNmea(values);
                                     lon = lonFromNmea(values);
                                     hdop = Double.parseDouble(values[GNS_HDOP]);
-                                    mslHeight = Double.parseDouble(values[GNS_HEIGHT]);
+                                    geoidHeight = Double.parseDouble(values[GNS_HEIGHT]);
                                     geoidCorrection = Double.parseDouble(values[GNS_GEOID_CORRECTION]);
                                     posUpdate = true;
                                 }
@@ -159,7 +158,7 @@ public class Nmea {
                                     lat = latFromNmea(values);
                                     lon = lonFromNmea(values);
                                     hdop = Double.parseDouble(values[GGA_HDOP]);
-                                    mslHeight = Double.parseDouble(values[GGA_HEIGHT]);
+                                    geoidHeight = Double.parseDouble(values[GGA_HEIGHT]);
                                     geoidCorrection = Double.parseDouble(values[GGA_GEOID_CORRECTION]);
                                     posUpdate = true;
                                 }
@@ -181,7 +180,7 @@ public class Nmea {
                             }
                             break;
                         default:
-                            // unsupported sentence
+                            // unsupported sentence, we should never get here
                             return null;
                         }
 
@@ -203,9 +202,11 @@ public class Nmea {
                                 return null;
                             }
 
-                            nmeaLocation.setAltitude(mslHeight + geoidCorrection);
+                            nmeaLocation.setGeoidHeight(geoidHeight);
                             nmeaLocation.setLatitude(lat);
                             nmeaLocation.setLongitude(lon);
+                            nmeaLocation.setHdop(hdop);
+                            nmeaLocation.setGeoidCorrection(geoidCorrection);
                             // we only really need to know this for determining how old the fix is
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                                 nmeaLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());

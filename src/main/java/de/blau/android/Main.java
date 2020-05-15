@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -38,6 +39,7 @@ import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -85,11 +87,13 @@ import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Ui;
 import de.blau.android.contract.Urls;
+import de.blau.android.dialogs.BarometerCalibration;
 import de.blau.android.dialogs.ConfirmUpload;
 import de.blau.android.dialogs.DataLossActivity;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.dialogs.GpxUpload;
 import de.blau.android.dialogs.ImportTrack;
 import de.blau.android.dialogs.Layers;
@@ -1816,6 +1820,13 @@ public class Main extends FullScreenAppCompatActivity
 
         menu.findItem(R.id.menu_tools_background_align).setEnabled(map.getBackgroundLayer() != null);
 
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        menu.findItem(R.id.menu_tools_calibrate_height).setVisible(sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null && getTracker() != null);
+
+        boolean egmInstalled = prefs.getEgmFile() != null;
+        menu.findItem(R.id.menu_tools_install_egm).setVisible(!egmInstalled);
+        menu.findItem(R.id.menu_tools_remove_egm).setVisible(egmInstalled);
+
         if (getBottomBar() != null) {
             // menuUtil.evenlyDistributedToolbar(getBottomToolbar());
         }
@@ -2016,6 +2027,9 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 map.invalidate();
             }
+            return true;
+        case R.id.menu_gps_position_info:
+            GnssPositionInfo.showDialog(Main.this, getTracker());
             return true;
         case R.id.menu_gps_start:
             if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
@@ -2384,6 +2398,23 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }.execute();
             return true;
+        case R.id.menu_tools_install_egm:
+            DownloadManager mgr = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+            Uri egm96 = Uri.parse(Urls.EGM96);
+            String egmFile = egm96.getLastPathSegment();
+            DownloadManager.Request request = new DownloadManager.Request(egm96).setAllowedOverRoaming(false).setTitle(egmFile)
+                    .setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, egmFile)
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            mgr.enqueue(request);
+            return true;
+        case R.id.menu_tools_remove_egm:
+            Uri egmPath = prefs.getEgmFile();
+            if (egmPath != null) {
+                new File(egmPath.getPath()).delete();
+                prefs.setEgmFile(null);
+                invalidateOptionsMenu();
+            }
+            return true;
         case R.id.tag_menu_reset_address_prediction:
             Address.resetLastAddresses(this);
             return true;
@@ -2409,6 +2440,9 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_tools_clear_clipboard:
             App.getDelegator().clearClipboard();
+            return true;
+        case R.id.menu_tools_calibrate_height:
+            BarometerCalibration.showDialog(this);
             return true;
         case R.id.tag_menu_js_console:
             Main.showJsConsole(this);

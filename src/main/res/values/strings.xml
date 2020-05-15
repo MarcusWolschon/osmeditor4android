@@ -477,6 +477,8 @@ avoided by using an offline data source.</string>
         <item quantity="other">Added %1$d required elements</item>
     </plurals>
     <string name="toast_out_of_memory">OUT OF MEMORY!</string>
+    <string name="toast_egm_installed">EGM downloaded and installed</string>
+    <string name="toast_invalid_number_format">Invalid number format %1$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -604,6 +606,20 @@ avoided by using an offline data source.</string>
     <string name="location_nan_title">Erroneous input!</string>
     <string name="location_nan_message">Please insert decimal formatted coordinates (e.g. "52.333572","8.741185"). Lat. has to lay between -85.0 and +85.0, and Lon. has to lay between -175.0 and +175.0.</string>
     <string name="location_olc">OLC</string>
+    <!-- Strings in barometer calibration -->
+    <string name="barometer_calibration_label">Use</string>
+    <string name="barometer_calibration_current_height">current height (meters)</string>
+    <string name="barometer_calibration_current_reference_pressure">current reference pressure (hPa)</string>
+    <string name="barometer_calibration_gps">GNSS</string>
+    <string name="barometer_calibration_calibrate">Calibrate</string>
+    <!-- Strings in postition info -->
+    <string name="position_info_title">Current position information</string>
+    <string name="position_info_hdop">HDOP</string>
+    <string name="position_info_altitude">Altitude</string>
+    <string name="position_info_geoid_height">Height over the geoid</string>
+    <string name="position_info_barometric_height">Barometric height</string>
+    <string name="position_info_geoid_correction">Geoid correction</string>
+    <string name="position_info_ellipsoid_height">Height over the ellipsoid</string>
     <!-- Strings in DownloadActivity -->
     <string name="download_files_title">Download files</string>
     <string name="allow_all_networks">Allow all networks</string>
@@ -642,6 +658,7 @@ avoided by using an offline data source.</string>
     <string name="menu_gps_goto">Go to current location</string>
     <string name="menu_gps_goto_coordinates">Go to coordinates…</string>
     <string name="menu_gps_goto_last_edit">Go to last edit</string>
+    <string name="menu_gps_position_info">Current position info</string>
     <string name="menu_gps_start">Start GPX track</string>
     <string name="menu_gps_pause">Pause GPX tracking</string>
     <string name="menu_gps_clear">Clear GPX track and its waypoints</string>
@@ -703,13 +720,16 @@ avoided by using an offline data source.</string>
     <string name="menu_upload_elements">Upload elements</string>
     <string name="menu_set_name">Set name</string>
     <string name="menu_tools">Tools…</string>
-    <string name="menu_tools_imagery">More imagery tools</string>
+    <string name="menu_tools_imagery">More imagery tools…</string>
     <string name="menu_tools_add_imagery_from_oam">Add imagery from OAM</string>
     <string name="menu_tools_flush_all_tile_caches">Flush all tile caches</string>
     <string name="menu_tools_background_properties">Background properties</string>
     <string name="menu_tools_update_imagery_configuration">Update imagery layer configuration</string>
     <string name="menu_tools_zoom_to_layer_extent">Zoom to background layer extent</string>
     <string name="menu_tools_clear_clipboard">Clear clipboard</string>
+    <string name="menu_tools_calibrate_height">Calibrate pressure sensor</string>
+    <string name="menu_tools_install_egm">Install EGM</string>
+    <string name="menu_tools_remove_egm">Remove EGM</string>
     <!--  -->
     <string name="menu_simple_actions">Simple mode</string>  
     <string name="menu_feedback">Provide feedback</string> 
@@ -966,6 +986,8 @@ avoided by using an offline data source.</string>
     <string name="config_gnssTimeToStale_title">Stale location after</string>
     <string name="config_gnssTimeToStale_summary">The age (in seconds) that a location needs to have to be considered stale.</string>        
     <string name="config_gnssTimeToStale_current">%1$d s</string>
+    <string name="config_useBarometricHeight_title">Use barometric height</string>
+    <string name="config_useBarometricHeight_summary">Use height values in tracks from the air pressure sensor if available</string>
     <!-- Server Settings -->
     <string name="config_category_server">Server settings</string>
     <string name="config_category_server_summary">OSM API and configuration of other servers.</string>
@@ -1275,6 +1297,16 @@ avoided by using an offline data source.</string>
         <item>osmbasedmap</item>
         <item>qa</item>
         <item>other</item>
+    </string-array>
+    <string-array translatable="false" name="barometer_calibration_entries">
+        <item>@string/barometer_calibration_current_height</item>
+        <item>@string/barometer_calibration_current_reference_pressure</item>
+        <item>@string/barometer_calibration_gps</item>
+    </string-array>
+    <string-array translatable="false" name="barometer_calibration_values">
+        <item>current_height</item>
+        <item>current_reference_pressure</item>
+        <item>gnss</item>
     </string-array>
     <!-- The entries need to match the order of the CheckStatus enum -->
     <string-array name="checkstatus_entries">

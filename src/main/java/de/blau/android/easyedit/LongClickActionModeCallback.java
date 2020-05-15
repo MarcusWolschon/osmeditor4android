@@ -3,13 +3,11 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import android.content.Intent;
-import android.location.Location;
 import android.location.LocationManager;
 import android.speech.RecognizerIntent;
 import android.util.Log;
@@ -23,6 +21,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.dialogs.GnssPositionInfo;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
@@ -37,11 +36,9 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.propertyeditor.Address;
-import de.blau.android.services.TrackerService;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
-import de.blau.android.util.GeoMath;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -64,7 +61,6 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     private int                 startLat;
     private float               x;
     private float               y;
-    LocationManager             locationManager          = null;
     private List<OsmElement>    clickedNodes;
     private List<Way>           clickedNonClosedWays;
 
@@ -126,8 +122,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_paste));
         }
         // check if GPS is enabled
-        locationManager = (LocationManager) main.getSystemService(android.content.Context.LOCATION_SERVICE);
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if (((LocationManager) main.getSystemService(android.content.Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
         }
         menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
@@ -261,53 +256,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             return true;
         case MENUITEM_NEWNODE_GPS:
             logic.hideCrosshairs();
-            try {
-                logic.setSelectedNode(null);
-                if (locationManager != null) {
-                    Location location = null;
-                    try {
-                        // try our sources first
-                        TrackerService tracker = main.getTracker();
-                        if (tracker != null) {
-                            Location tempLocation = tracker.getLastLocation();
-                            if (tempLocation != null) {
-                                String provider = tempLocation.getProvider();
-                                if (provider.equals(main.getString(R.string.gps_source_nmea)) || provider.equals(LocationManager.GPS_PROVIDER)) {
-                                    location = tempLocation;
-                                }
-                            }
-                        }
-                        if (location == null) {
-                            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                        }
-                    } catch (SecurityException sex) {
-                        // can be safely ignored, this is only called when GPS is enabled
-                    }
-                    if (location != null) {
-                        double lon = location.getLongitude();
-                        double lat = location.getLatitude();
-                        if (Util.notZero(lon) || Util.notZero(lat)) {
-                            if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
-                                Node node = logic.performAddNode(main, lon, lat);
-                                TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-                                if (location.hasAltitude()) {
-                                    tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", location.getAltitude()));
-                                    tags.put(Tags.KEY_ELE_WGS84, String.format(Locale.US, "%.1f", location.getAltitude()));
-                                    tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_GPS);
-                                }
-                                tags.put(Tags.KEY_SOURCE, Tags.VALUE_GPS);
-                                logic.setTags(main, node, tags);
-                                main.edit(node);
-                            }
-                        } else {
-                            Snack.barError(main, R.string.toast_null_island);
-                        }
-                    }
-                }
-            } catch (OsmIllegalOperationException e) {
-                Snack.barError(main, e.getLocalizedMessage());
-                Log.d(DEBUG_TAG, "Caught exception " + e);
-            }
+            logic.setSelectedNode(null);
+            GnssPositionInfo.showDialog(main, main.getTracker());
             return true;
         case MENUITEM_NEWNODE_VOICE:
             logic.hideCrosshairs();

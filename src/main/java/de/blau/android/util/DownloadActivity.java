@@ -286,7 +286,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
     private void checkStatus(@NonNull final DownloadManager mgr, final long id, @NonNull final String filename) {
         Cursor queryCursor = mgr.query(new DownloadManager.Query().setFilterById(id));
         if (queryCursor == null) {
-            Log.e(DEBUG_TAG, "Download not found id: " + lastDownload);
+            Log.e(DEBUG_TAG, "Download not found id: " + id);
         } else {
             queryCursor.moveToFirst();
             int status = queryCursor.getInt(queryCursor.getColumnIndex(DownloadManager.COLUMN_STATUS));

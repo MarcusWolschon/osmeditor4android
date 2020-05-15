@@ -44,6 +44,9 @@
                 android:id="@+id/menu_gps_goto_last_edit"
                 android:title="@string/menu_gps_goto_last_edit" />
             <item
+                android:id="@+id/menu_gps_position_info"
+                android:title="@string/menu_gps_position_info" />
+            <item
                 android:id="@+id/menu_gps_start"
                 android:title="@string/menu_gps_start" />
             <item
@@ -207,6 +210,15 @@
             <item
                 android:id="@+id/menu_tools_clear_clipboard"
                 android:title="@string/menu_tools_clear_clipboard" />
+            <item
+                android:id="@+id/menu_tools_calibrate_height"
+                android:title="@string/menu_tools_calibrate_height" />
+            <item
+                android:id="@+id/menu_tools_install_egm"
+                android:title="@string/menu_tools_install_egm" />
+            <item
+                android:id="@+id/menu_tools_remove_egm"
+                android:title="@string/menu_tools_remove_egm" />
             <item
                 android:id="@+id/tag_menu_js_console"
                 android:title="@string/tag_menu_js_console"
