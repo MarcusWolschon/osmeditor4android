@@ -1,0 +1,1 @@
+This code and the data for the gravitational model was extracted from the [Nasa Worldwind project](https://github.com/NASAWorldWind/WorldWindJava)  
