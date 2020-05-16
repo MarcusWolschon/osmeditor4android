@@ -256,16 +256,12 @@ public class TrackerService extends Service implements Exportable {
                     if (p0 != 0) {
                         pressureListener.setP0(p0);
                     } else if (lastLocation != null) { // calibrate from GPS
-                        try {
-                            if (lastLocation instanceof ExtendedLocation && ((ExtendedLocation) lastLocation).hasGeoidHeight()) {
-                                pressureListener.calibrate((float) ((ExtendedLocation) lastLocation).getGeoidHeight());
-                            } else if (lastLocation.hasAltitude()) {
-                                double offset = getGeoidOffset(lastLocation.getLongitude(), lastLocation.getLatitude());
-                                Log.d(DEBUG_TAG, "Geoid offset " + offset);
-                                pressureListener.calibrate((float) (lastLocation.getAltitude() - offset));
-                            }
-                        } catch (IOException ioex) {
-                            Log.e(DEBUG_TAG, "Unable to open EGM84 model " + ioex.getMessage());
+                        if (lastLocation instanceof ExtendedLocation && ((ExtendedLocation) lastLocation).hasGeoidHeight()) {
+                            pressureListener.calibrate((float) ((ExtendedLocation) lastLocation).getGeoidHeight());
+                        } else if (lastLocation.hasAltitude()) {
+                            double offset = getGeoidOffset(lastLocation.getLongitude(), lastLocation.getLatitude());
+                            Log.d(DEBUG_TAG, "Geoid offset " + offset);
+                            pressureListener.calibrate((float) (lastLocation.getAltitude() - offset));
                         }
                     }
                 }
@@ -543,14 +539,10 @@ public class TrackerService extends Service implements Exportable {
                 location = new ExtendedLocation(location);
                 ExtendedLocation loc = ((ExtendedLocation) location);
                 if (egmLoaded) {
-                    try {
-                        double offset = getGeoidOffset(location.getLongitude(), location.getLatitude());
-                        loc.setGeoidCorrection(offset);
-                        if (loc.hasAltitude()) {
-                            loc.setGeoidHeight(loc.getAltitude() - offset);
-                        }
-                    } catch (IOException ioex) {
-
+                    double offset = getGeoidOffset(location.getLongitude(), location.getLatitude());
+                    loc.setGeoidCorrection(offset);
+                    if (loc.hasAltitude()) {
+                        loc.setGeoidHeight(loc.getAltitude() - offset);
                     }
                 }
                 if (pressureListener != null && pressureListener.barometricHeight != 0) {
@@ -681,7 +673,7 @@ public class TrackerService extends Service implements Exportable {
             default:
                 // ignore
             }
-        };
+        }
     }
 
     /**
@@ -702,8 +694,8 @@ public class TrackerService extends Service implements Exportable {
         if ((needed && !gpsEnabled) || (gpsEnabled && ((useTcpClient || useTcpServer) && source != GpsSource.TCP)
                 || (!(useTcpClient || useTcpServer) && source == GpsSource.TCP))) {
             Log.d(DEBUG_TAG, "Enabling GPS updates");
-            nmeaLocation.removeSpeed(); // be sure that these are not set
-            nmeaLocation.removeBearing();
+            nmeaLocation.removeSpeed(); // NOSONAR be sure that these are not set
+            nmeaLocation.removeBearing(); // NOSONAR
             Nmea.reset();
             try {
                 Location last = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -1082,7 +1074,7 @@ public class TrackerService extends Service implements Exportable {
     class PressureListener implements SensorEventListener {
         static final double ZERO_CELSIUS = 273.15;
 
-        float millibarsOfPressure = 0;;
+        float millibarsOfPressure = 0;
         float barometricHeight    = 0;
         float pressureAtSeaLevel  = SensorManager.PRESSURE_STANDARD_ATMOSPHERE;
         float temperature         = 15;
@@ -1178,7 +1170,7 @@ public class TrackerService extends Service implements Exportable {
      * @param lat the WGS84 latitude
      * @return the offset in meters
      */
-    private double getGeoidOffset(double lon, double lat) throws IOException {
+    private double getGeoidOffset(double lon, double lat) {
         return egm.getOffset(lat, lon);
     }
 }

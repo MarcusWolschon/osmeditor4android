@@ -9,7 +9,6 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Spanned;
@@ -29,9 +28,8 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.GeoJSONConstants;
-import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -42,7 +40,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class FeatureInfo extends ImmersiveDialogFragment {
+public class FeatureInfo extends InfoDialogFragment {
 
     private static final String FEATURE_KEY = "feature";
 
@@ -147,29 +145,7 @@ public class FeatureInfo extends ImmersiveDialogFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (!getShowsDialog()) {
-            return createView(container);
-        }
-        return null;
-    }
-
-    /**
-     * Create the view we want to display
-     * 
-     * @param container parent view or null
-     * @return the View
-     */
-    private View createView(@Nullable ViewGroup container) {
+    protected View createView(@Nullable ViewGroup container) {
         LayoutInflater inflater;
         FragmentActivity activity = getActivity();
         inflater = ThemeUtils.getLayoutInflater(activity);

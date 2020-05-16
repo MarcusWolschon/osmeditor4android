@@ -111,10 +111,7 @@ public class BarometerCalibration extends ImmersiveDialogFragment {
             }
         });
 
-        final AppCompatDialog dialog = dialogBuilder.create();
-
-        return dialog;
-
+        return dialogBuilder.create();
     }
 
     @Override

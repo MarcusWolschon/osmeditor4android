@@ -1,11 +1,9 @@
 package de.blau.android.dialogs;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import androidx.annotation.NonNull;
@@ -17,8 +15,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Screen;
+import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -28,7 +25,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public abstract class LayerInfo extends ImmersiveDialogFragment {
+public abstract class LayerInfo extends InfoDialogFragment {
 
     private static final String DEBUG_TAG = LayerInfo.class.getName();
 
@@ -69,23 +66,6 @@ public abstract class LayerInfo extends ImmersiveDialogFragment {
         return builder.create();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (!getShowsDialog()) {
-            return createView(container);
-        }
-        return null;
-    }
-
     /**
      * Create the view we want to display
      * 
@@ -98,14 +78,6 @@ public abstract class LayerInfo extends ImmersiveDialogFragment {
         LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         return (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
     }
-
-    /**
-     * Create the non-standard part of the dialog
-     * 
-     * @param container the parent view or null
-     * @return a View with the content to display
-     */
-    protected abstract View createView(@Nullable ViewGroup container);
 
     /**
      * Get the string resource formated as an italic string

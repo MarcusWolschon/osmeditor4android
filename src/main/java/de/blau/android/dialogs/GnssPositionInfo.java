@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.TreeMap;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.location.Location;
 import android.location.LocationManager;
@@ -34,9 +33,8 @@ import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.util.ExtendedLocation;
+import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -47,7 +45,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class GnssPositionInfo extends ImmersiveDialogFragment {
+public class GnssPositionInfo extends InfoDialogFragment {
 
     private static final String DEBUG_TAG = GnssPositionInfo.class.getName();
 
@@ -223,23 +221,6 @@ public class GnssPositionInfo extends ImmersiveDialogFragment {
         return builder.create();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (!getShowsDialog()) {
-            return createView(container);
-        }
-        return null;
-    }
-
     Runnable update = new Runnable() {
 
         @Override
@@ -253,13 +234,8 @@ public class GnssPositionInfo extends ImmersiveDialogFragment {
         }
     };
 
-    /**
-     * Create the view we want to display
-     * 
-     * @param container parent view or null
-     * @return the View
-     */
-    private View createView(@Nullable ViewGroup container) {
+    @Override
+    protected View createView(@Nullable ViewGroup container) {
         LayoutInflater inflater;
         FragmentActivity activity = getActivity();
         inflater = ThemeUtils.getLayoutInflater(activity);
