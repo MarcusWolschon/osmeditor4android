@@ -1820,8 +1820,8 @@ public class Main extends FullScreenAppCompatActivity
 
         menu.findItem(R.id.menu_tools_background_align).setEnabled(map.getBackgroundLayer() != null);
 
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        menu.findItem(R.id.menu_tools_calibrate_height).setVisible(sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null && getTracker() != null);
+        menu.findItem(R.id.menu_tools_calibrate_height)
+                .setVisible(sensorManager != null && sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) != null && getTracker() != null);
 
         boolean egmInstalled = prefs.getEgmFile() != null;
         menu.findItem(R.id.menu_tools_install_egm).setVisible(!egmInstalled);
@@ -3840,6 +3840,7 @@ public class Main extends FullScreenAppCompatActivity
      * A KeyListener for all key events.
      * 
      * @author mb
+     * @author simon
      */
     public class MapKeyListener implements OnKeyListener {
 
@@ -3848,6 +3849,8 @@ public class Main extends FullScreenAppCompatActivity
         public boolean onKey(final View v, final int keyCode, final KeyEvent event) {
             scheduleAutoLock();
             final Logic logic = App.getLogic();
+            boolean isProcessingAction = getEasyEditManager().isProcessingAction();
+            boolean inElementSelectedMode = getEasyEditManager().inElementSelectedMode();
             switch (event.getAction()) {
             case KeyEvent.ACTION_UP:
                 if (!v.onKeyUp(keyCode, event)) {
@@ -3889,6 +3892,17 @@ public class Main extends FullScreenAppCompatActivity
                         logic.zoom(Logic.ZOOM_OUT);
                         updateZoomControls();
                         return true;
+                    case KeyEvent.KEYCODE_CTRL_LEFT:
+                    case KeyEvent.KEYCODE_CTRL_RIGHT:
+                    case KeyEvent.KEYCODE_SHIFT_LEFT:
+                    case KeyEvent.KEYCODE_SHIFT_RIGHT:
+                    case KeyEvent.KEYCODE_ALT_LEFT:
+                    case KeyEvent.KEYCODE_ALT_RIGHT:
+                        // ignore
+                        return true;
+                    case KeyEvent.KEYCODE_ESCAPE:
+                        // default handling
+                        return false;
                     default:
                         Character c = Character.toLowerCase((char) event.getUnicodeChar());
                         if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
@@ -3904,11 +3918,10 @@ public class Main extends FullScreenAppCompatActivity
                             // get rid of Ctrl key
                             char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
                             // menu based shortcuts don't seem to work (anymore) so we do this on foot
-                            if (getEasyEditManager().isProcessingAction()) {
-                                if (getEasyEditManager().processShortcut(shortcut)) {
-                                    return true;
-                                }
-                            } else if (logic.getMode().elementsSelectable()) {
+                            if (isProcessingAction && getEasyEditManager().processShortcut(shortcut)) {
+                                return true;
+                            }
+                            if (logic.getMode().elementsSelectable() && (!isProcessingAction || inElementSelectedMode)) {
                                 if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
                                     HelpViewer.start(Main.this, R.string.help_main);
                                     return true;
@@ -3927,9 +3940,19 @@ public class Main extends FullScreenAppCompatActivity
                                 } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
                                     Main.this.downLoadBugs(map.getViewBox().copy());
                                     return true;
+                                } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_paste) && !App.getDelegator().clipboardIsEmpty()) {
+                                    ViewBox viewBox = logic.getViewBox();
+                                    double[] coords = viewBox.getCenter();
+                                    int width = getMap().getWidth();
+                                    int height = getMap().getHeight();
+                                    SimpleActionModeCallback.paste(Main.this, getEasyEditManager(), GeoMath.lonToX(width, viewBox, coords[0]),
+                                            GeoMath.latToY(height, width, viewBox, coords[1]));
+                                    return true;
                                 }
                             }
                         }
+                        // short cut not found
+                        Util.beep();
                     }
                 }
                 break;

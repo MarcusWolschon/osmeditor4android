@@ -2,11 +2,13 @@ package de.blau.android.easyedit;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.PopupMenu;
 import de.blau.android.App;
@@ -108,19 +110,9 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
 
             @Override
             public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                List<OsmElement> elements = App.getLogic().pasteFromClipboard(main, x, y);
-                if (elements != null && !elements.isEmpty()) {
-                    if (elements.size() > 1) {
-                        manager.finish();
-                        App.getLogic().setSelection(elements);
-                        manager.editElements();
-                    } else {
-                        manager.editElement(elements.get(0));
-                    }
-                } else {
-                    manager.finish();
-                }
+                paste(main, manager, x, y);
             }
+
         }) {
             @Override
             public boolean isEnabled() {
@@ -278,5 +270,28 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             }
         }
         return popup;
+    }
+
+    /**
+     * Paste objects to a location
+     * 
+     * @param activity optional calling Activity
+     * @param manager the current EasyEditManager
+     * @param x screen x
+     * @param y screen y
+     */
+    public static void paste(@Nullable final Activity activity, @NonNull final EasyEditManager manager, final float x, final float y) {
+        List<OsmElement> elements = App.getLogic().pasteFromClipboard(activity, x, y);
+        if (elements != null && !elements.isEmpty()) {
+            if (elements.size() > 1) {
+                manager.finish();
+                App.getLogic().setSelection(elements);
+                manager.editElements();
+            } else {
+                manager.editElement(elements.get(0));
+            }
+        } else {
+            manager.finish();
+        }
     }
 }

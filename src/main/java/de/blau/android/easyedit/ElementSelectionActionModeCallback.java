@@ -26,10 +26,12 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.UndoStorage.UndoElement;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.search.Search;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -357,8 +359,14 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 main.performTagEdit(element, null, new HashMap<>(tags), false);
             }
             return true;
+        } else if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
+            undoListener.onClick(null);
+            return true;
+        } else if (c == Util.getShortCut(main, R.string.shortcut_remove)) {
+            menuDelete(mode);
+            return true;
         }
-        return false;
+        return super.processShortcut(c);
     }
 
     /**

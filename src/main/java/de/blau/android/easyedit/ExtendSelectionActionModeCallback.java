@@ -294,34 +294,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 main.startSupportActionMode(new AddRelationMemberActionModeCallback(manager, selection));
                 break;
             case MENUITEM_ORTHOGONALIZE:
-                List<Way> selectedWays = logic.getSelectedWays();
-                if (selectedWays != null && !selectedWays.isEmpty()) {
-                    logic.performOrthogonalize(main, selectedWays);
-                }
+                orthogonalizeWays();
                 break;
             case MENUITEM_MERGE:
-                // check if the tags are the same for all ways first ... ignores direction dependent stuff
-                Map<String, String> firstTags = selection.get(0).getTags();
-                boolean ok = true;
-                for (int i = 1; i < selection.size(); i++) {
-                    if ((firstTags.isEmpty() && !selection.get(i).getTags().isEmpty()) || !firstTags.entrySet().equals(selection.get(i).getTags().entrySet())) {
-                        ok = false;
-                    }
-                }
-                if (!ok) {
-                    Snack.barWarning(main, R.string.toast_potential_merge_tag_conflict);
-                    main.performTagEdit(selection, false, false);
-                } else {
-                    try {
-                        MergeResult result = logic.performMerge(main, sortedWays);
-                        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) result.getElement()));
-                        if (result.hasIssue()) {
-                            showConflictAlert(result);
-                        }
-                    } catch (OsmIllegalOperationException e) {
-                        Snack.barError(main, e.getLocalizedMessage());
-                    }
-                }
+                mergeWays();
                 break;
             case MENUITEM_ZOOM_TO_SELECTION:
                 main.zoomTo(selection);
@@ -350,6 +326,44 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             }
         }
         return true;
+    }
+
+    /**
+     * Qrthogonalize any selected Ways
+     */
+    private void orthogonalizeWays() {
+        List<Way> selectedWays = logic.getSelectedWays();
+        if (selectedWays != null && !selectedWays.isEmpty()) {
+            logic.performOrthogonalize(main, selectedWays);
+        }
+    }
+
+    /**
+     * 
+     */
+    void mergeWays() {
+        // check if the tags are the same for all ways first ... ignores direction dependent stuff
+        Map<String, String> firstTags = selection.get(0).getTags();
+        boolean ok = true;
+        for (int i = 1; i < selection.size(); i++) {
+            if ((firstTags.isEmpty() && !selection.get(i).getTags().isEmpty()) || !firstTags.entrySet().equals(selection.get(i).getTags().entrySet())) {
+                ok = false;
+            }
+        }
+        if (!ok) {
+            Snack.barWarning(main, R.string.toast_potential_merge_tag_conflict);
+            main.performTagEdit(selection, false, false);
+        } else {
+            try {
+                MergeResult result = logic.performMerge(main, sortedWays);
+                main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) result.getElement()));
+                if (result.hasIssue()) {
+                    showConflictAlert(result);
+                }
+            } catch (OsmIllegalOperationException e) {
+                Snack.barError(main, e.getLocalizedMessage());
+            }
+        }
     }
 
     @Override
@@ -407,5 +421,35 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         Log.d(DEBUG_TAG, "onBackPressed");
         deselect = true;
         return super.onBackPressed(); // call the normal stuff
+    }
+
+    @Override
+    public boolean processShortcut(Character c) {
+        if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
+            logic.copyToClipboard(selection);
+            manager.finish();
+            return true;
+        } else if (c == Util.getShortCut(main, R.string.shortcut_cut)) {
+            logic.cutToClipboard(main, selection);
+            manager.finish();
+            return true;
+        } else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
+            main.performTagEdit(selection, false, false);
+            return true;
+        } else if (c == Util.getShortCut(main, R.string.shortcut_undo)) {
+            undoListener.onClick(null);
+            return true;
+        } else if (c == Util.getShortCut(main, R.string.shortcut_merge)) {
+            if (sortedWays != null) {
+                mergeWays();
+            } else {
+                Util.beep();
+            }
+            return true;
+        } else if (c == Util.getShortCut(main, R.string.shortcut_square)) {
+            orthogonalizeWays();
+            return true;
+        }
+        return super.processShortcut(c);
     }
 }

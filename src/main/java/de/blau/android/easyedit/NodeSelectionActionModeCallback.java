@@ -151,11 +151,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 main.startSupportActionMode(new PathCreationActionModeCallback(manager, (Node) element));
                 break;
             case MENUITEM_JOIN:
-                if (joinableElements.size() > 1) {
-                    manager.showContextMenu();
-                } else {
-                    mergeNodeWith(joinableElements);
-                }
+                mergeNode(joinableElements.size());
                 break;
             case MENUITEM_UNJOIN:
                 logic.performUnjoinWays(main, (Node) element);
@@ -255,6 +251,33 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         } else {
             logic.performEraseNode(main, (Node) element, true);
             mode.finish();
+        }
+    }
+
+    @Override
+    public boolean processShortcut(Character c) {
+        if (c == Util.getShortCut(main, R.string.shortcut_merge)) {
+            int count = joinableElements.size();
+            if (count > 0) {
+                mergeNode(count);
+            } else {
+                Util.beep();
+            }
+            return true;
+        }
+        return super.processShortcut(c);
+    }
+
+    /**
+     * Merge the selected node with any other available elements
+     * 
+     * @param count the number of elements available for merge
+     */
+    void mergeNode(int count) {
+        if (count > 1) {
+            manager.showContextMenu();
+        } else {
+            mergeNodeWith(joinableElements);
         }
     }
 

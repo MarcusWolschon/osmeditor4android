@@ -28,6 +28,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 
 /**
  * Base class for ActionMode callbacks inside {@link EasyEditManager}. Derived classes should call
@@ -150,13 +151,20 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         Log.d(DEBUG_TAG, "onActionItemClicked");
         if (item.getItemId() == MENUITEM_HELP) {
-            if (helpTopic != 0) {
-                HelpViewer.start(main, helpTopic);
-            } else {
-                Snack.barWarning(main, R.string.toast_nohelp); // this is essentially just an error message
-            }
+            startHelp();
         }
         return false;
+    }
+
+    /**
+     * Start the HelpViewer on the current topic
+     */
+    private void startHelp() {
+        if (helpTopic != 0) {
+            HelpViewer.start(main, helpTopic);
+        } else {
+            Snack.barWarning(main, R.string.toast_nohelp); // this is essentially just an error message
+        }
     }
 
     /**
@@ -176,6 +184,10 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @return true is an action was found
      */
     public boolean processShortcut(@NonNull Character c) {
+        if (c == Util.getShortCut(main, R.string.shortcut_help)) {
+            startHelp();
+            return true;
+        }
         return false;
     }
 

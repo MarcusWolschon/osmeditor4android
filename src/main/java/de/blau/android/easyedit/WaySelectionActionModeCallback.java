@@ -315,4 +315,14 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     protected void update() {
         findConnectedWays((Way) element);
     }
+
+    @Override
+    public boolean processShortcut(Character c) {
+        if (c == Util.getShortCut(main, R.string.shortcut_square)) {
+            logic.performOrthogonalize(main, (Way) element);
+            manager.invalidate();
+            return true;
+        }
+        return super.processShortcut(c);
+    }
 }

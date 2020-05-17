@@ -24,6 +24,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -688,5 +690,13 @@ public final class Util {
      */
     public static boolean supportsWebView(@NonNull Context ctx) {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH ? true : ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WEBVIEW);
+    }
+
+    /**
+     * Beep
+     */
+    public static void beep() {
+        ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200); 
     }
 }
