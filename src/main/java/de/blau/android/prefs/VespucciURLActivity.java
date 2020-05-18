@@ -43,12 +43,10 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
     private static final String DEBUG_TAG          = "VespucciURLActivity";
     private static final int    REQUEST_PRESETEDIT = 0;
 
-    private String               command;
     private String               preseturl;
     private String               presetname;
-    private PresetInfo           existingPreset    = null;
-    private String               oauth_token;
-    private String               oauth_verifier;
+    private String               oauthToken;
+    private String               oauthVerifier;
     private AdvancedPrefDatabase prefdb;
     private boolean              downloadSucessful = false;
 
@@ -73,12 +71,10 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
         Uri data = getIntent().getData();
         if (data != null) {
             try {
-                command = data.getPath();
-                Log.d(DEBUG_TAG, "Command " + command);
                 preseturl = data.getQueryParameter("preseturl");
                 presetname = data.getQueryParameter("presetname");
-                oauth_token = data.getQueryParameter("oauth_token");
-                oauth_verifier = data.getQueryParameter("oauth_verifier");
+                oauthToken = data.getQueryParameter("oauth_token");
+                oauthVerifier = data.getQueryParameter("oauth_verifier");
             } catch (Exception ex) {
                 Log.e(DEBUG_TAG, "Uri " + data + " caused " + ex);
                 ACRAHelper.nocrashReport(ex, ex.getMessage());
@@ -94,12 +90,12 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
     protected void onResume() {
         Log.i(DEBUG_TAG, "onResume");
         // determining what activity to do based purely on the parameters is rather hackish
-        if ((oauth_token != null) && (oauth_verifier != null)) {
+        if ((oauthToken != null) && (oauthVerifier != null)) {
             mainView.setVisibility(View.GONE);
-            Log.i(DEBUG_TAG, "got oauth verifier " + oauth_token + " " + oauth_verifier);
+            Log.i(DEBUG_TAG, "got oauth verifier " + oauthToken + " " + oauthVerifier);
             String errorMessage = null;
             try {
-                oAuthHandshake(oauth_verifier);
+                oAuthHandshake(oauthVerifier);
             } catch (OAuthException e) {
                 errorMessage = OAuthHelper.getErrorMessage(this, e);
             } catch (ExecutionException e) {
@@ -128,7 +124,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
 
                 ((TextView) mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
                 ((TextView) mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
-                existingPreset = prefdb.getPresetByURL(preseturl);
+                PresetInfo existingPreset = prefdb.getPresetByURL(preseturl);
                 if (downloadSucessful) {
                     mainView.findViewById(R.id.urldialog_textPresetSuccessful).setVisibility(View.VISIBLE);
                     mainView.findViewById(R.id.urldialog_textPresetExists).setVisibility(View.GONE);

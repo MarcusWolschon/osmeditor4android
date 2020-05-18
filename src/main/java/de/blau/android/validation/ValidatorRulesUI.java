@@ -40,7 +40,6 @@ public class ValidatorRulesUI {
      */
     private Cursor          resurveyCursor;
     private ResurveyAdapter resurveyAdapter;
-    private Cursor          checkCursor;
     private CheckAdapter    checkAdapter;
 
     /**
@@ -62,14 +61,15 @@ public class ValidatorRulesUI {
 
         alertDialog.setTitle(context.getString(R.string.validator_title, context.getString(R.string.default_)));
         alertDialog.setView(rulesetView);
-        final ValidatorRulesDatabaseHelper vrDb = new ValidatorRulesDatabaseHelper(context); // NOSONAR will be closed when dismissed
+        final ValidatorRulesDatabaseHelper vrDb = new ValidatorRulesDatabaseHelper(context); // NOSONAR will be closed
+                                                                                             // when dismissed
         final SQLiteDatabase writableDb = vrDb.getWritableDatabase();
         ListView resurveyList = (ListView) rulesetView.findViewById(R.id.listViewResurvey);
         resurveyCursor = ValidatorRulesDatabase.queryResurveyByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
         resurveyAdapter = new ResurveyAdapter(writableDb, context, resurveyCursor);
         resurveyList.setAdapter(resurveyAdapter);
         ListView checkList = (ListView) rulesetView.findViewById(R.id.listViewCheck);
-        checkCursor = ValidatorRulesDatabase.queryCheckByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
+        Cursor checkCursor = ValidatorRulesDatabase.queryCheckByName(writableDb, ValidatorRulesDatabase.DEFAULT_RULESET_NAME);
         checkAdapter = new CheckAdapter(writableDb, context, checkCursor);
         checkList.setAdapter(checkAdapter);
         alertDialog.setNeutralButton(R.string.done, null);

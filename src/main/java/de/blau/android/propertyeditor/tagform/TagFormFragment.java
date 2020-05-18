@@ -164,7 +164,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ScrollView rowLayout = null;
 
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
@@ -175,7 +174,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
 
         this.inflater = inflater;
-        rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, container, false);
+        ScrollView rowLayout = (ScrollView) inflater.inflate(R.layout.tag_form_view, container, false);
 
         boolean displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MRU_PRESETS);
         focusOnAddress = (Boolean) getArguments().getSerializable(FOCUS_ON_ADDRESS);
@@ -951,8 +950,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Check if a key has opening_hours semantics
      * 
-     * FIXME need at least SDK 12 for now
-     * 
      * @param key the key
      * @param valueType the ValueType
      * @return true if the key has opening_hours semantics
@@ -1102,7 +1099,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     public static class EditableLayout extends LinearLayout {
         private ImageView                     headerIconView;
         private TextView                      headerTitleView;
-        private LinearLayout                  rowLayout;
         private ImageButton                   applyPresetButton;
         private ImageButton                   applyPresetWithOptionalButton;
         private ImageButton                   copyButton;
@@ -1138,7 +1134,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
             headerIconView = (ImageView) findViewById(R.id.form_header_icon_view);
             headerTitleView = (TextView) findViewById(R.id.form_header_title);
-            rowLayout = (LinearLayout) findViewById(R.id.form_editable_row_layout);
             applyPresetButton = (ImageButton) findViewById(R.id.tag_menu_apply_preset);
             applyPresetWithOptionalButton = (ImageButton) findViewById(R.id.tag_menu_apply_preset_with_optional);
             copyButton = (ImageButton) findViewById(R.id.form_header_copy);

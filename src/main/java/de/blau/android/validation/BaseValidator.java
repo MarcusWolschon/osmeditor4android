@@ -53,8 +53,6 @@ public class BaseValidator implements Validator {
      * The following values are cached as long as the current view box doesn't change
      */
     private ViewBox cachedViewBox = null;
-    private double  centerLat;
-    private double  widthInMeters;
     private float   tolerance;
 
     /**
@@ -180,10 +178,11 @@ public class BaseValidator implements Validator {
         de.blau.android.Map map = logic.getMap();
 
         if (map != null) {
-            // we try to cache these fairly expensive to calculate values at least as long as the ViewBox hasn't changed
+            // we try to cache these (tolerance) fairly expensive to calculate values at least as long as the ViewBox
+            // hasn't changed
             if (!map.getViewBox().equals(cachedViewBox)) {
-                centerLat = map.getViewBox().getCenterLat();
-                widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft() / 1E7D, centerLat, map.getViewBox().getRight() / 1E7D, centerLat);
+                double centerLat = map.getViewBox().getCenterLat();
+                double widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft() / 1E7D, centerLat, map.getViewBox().getRight() / 1E7D, centerLat);
                 tolerance = (float) (map.getPrefs().getConnectedNodeTolerance() / widthInMeters * map.getWidth());
                 if (cachedViewBox == null) {
                     cachedViewBox = new ViewBox(map.getViewBox());

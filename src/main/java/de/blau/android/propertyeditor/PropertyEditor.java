@@ -112,8 +112,6 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
     RelationMembershipFragment relationMembershipFragment;
     RelationMembersFragment    relationMembersFragment;
 
-    private PropertyEditorPagerAdapter pagerAdapter;
-
     /**
      * The tag we use for Android-logging.
      */
@@ -325,7 +323,7 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
             Configuration config = getResources().getConfiguration();
             rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         }
-        pagerAdapter = new PropertyEditorPagerAdapter(getSupportFragmentManager(), rtl, tags);
+        PropertyEditorPagerAdapter pagerAdapter = new PropertyEditorPagerAdapter(getSupportFragmentManager(), rtl, tags);
         mViewPager = (ExtendedViewPager) findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);

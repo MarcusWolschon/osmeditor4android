@@ -73,7 +73,6 @@ public abstract class URLListEditActivity extends ListActivity
     static final int MENUITEM_ADDITIONAL_OFFSET = 1000;
 
     static final String      LISTITEM_ID_DEFAULT = AdvancedPrefDatabase.ID_DEFAULT;
-    private ListAdapter      adapter;
     final List<ListEditItem> items;
 
     ListEditItem selectedItem = null;
@@ -157,8 +156,7 @@ public abstract class URLListEditActivity extends ListActivity
 
     /** refreshes the data adapter (list content) */
     void updateAdapter() {
-        adapter = new ListEditAdapter(ctx, items);
-        setListAdapter(adapter);
+        setListAdapter(new ListEditAdapter(ctx, items));
     }
 
     @Override

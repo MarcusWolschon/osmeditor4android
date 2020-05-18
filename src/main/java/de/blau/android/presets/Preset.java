@@ -703,7 +703,6 @@ public class Preset implements Serializable {
             /** store current combo or multiselect key */
             private String                      listKey           = null;
             private List<StringWithDescription> listValues        = null;
-            private String                      delimiter         = null;
             /** check groups */
             private PresetCheckGroupField       checkGroup        = null;
             private int                         checkGroupCounter = 0;
@@ -966,7 +965,7 @@ public class Preset implements Serializable {
                         Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " key must be present  in text field");
                         throw new SAXException("key must be present in combo/multiselect field");
                     }
-                    delimiter = attr.getValue(DELIMITER);
+                    String delimiter = attr.getValue(DELIMITER);
                     if (delimiter == null) {
                         delimiter = multiselect ? MULTISELECT_DELIMITER : COMBO_DELIMITER;
                     }
