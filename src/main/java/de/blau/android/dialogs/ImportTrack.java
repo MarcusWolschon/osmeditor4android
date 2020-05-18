@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import java.io.FileNotFoundException;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,7 +18,6 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.gpx.LoadTrack;
 import de.blau.android.util.ImmersiveDialogFragment;
-import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -109,15 +106,7 @@ public class ImportTrack extends ImmersiveDialogFragment {
                 Main main = (Main) getActivity();
                 if (main != null) {
                     main.getTracker().stopTracking(true);
-                    try {
-                        LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
-                    } catch (FileNotFoundException e) {
-                        try {
-                            Snack.barError(main, main.getResources().getString(R.string.toast_file_not_found, uri.toString()));
-                        } catch (Exception ex) {
-                            // protect against translation errors
-                        }
-                    }
+                    LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
                 }
             }
         });
@@ -127,15 +116,7 @@ public class ImportTrack extends ImmersiveDialogFragment {
                 Main main = (Main) getActivity();
                 if (main != null) {
                     main.getTracker().stopTracking(false);
-                    try {
-                        LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
-                    } catch (FileNotFoundException e) {
-                        try {
-                            Snack.barError(main, main.getResources().getString(R.string.toast_file_not_found, uri.toString()));
-                        } catch (Exception ex) {
-                            // protect against translation errors
-                        }
-                    }
+                    LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
                 }
             }
         });

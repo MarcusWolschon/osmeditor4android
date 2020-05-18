@@ -1,7 +1,6 @@
 package de.blau.android.gpx;
 
 import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -34,10 +33,9 @@ public final class LoadTrack {
      * @param uri Uri for the file to read
      * @param track the target Track
      * @param handler handler to use after the file has been loaded if not null
-     * @throws FileNotFoundException if we couldn't locate the file
      */
     public static void fromFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @NonNull Track track,
-            @Nullable PostAsyncActionHandler handler) throws FileNotFoundException {
+            @Nullable PostAsyncActionHandler handler) {
 
         new AsyncTask<Void, Void, Integer>() {
 

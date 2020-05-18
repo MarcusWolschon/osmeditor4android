@@ -1210,27 +1210,18 @@ public class Main extends FullScreenAppCompatActivity
             ImportTrack.showDialog(Main.this, uri);
         } else {
             getTracker().stopTracking(false);
-            try {
-                LoadTrack.fromFile(Main.this, uri, getTracker().getTrack(), new PostAsyncActionHandler() {
-                    @Override
-                    public void onSuccess() {
-                        gotoFirstTrackPoint();
-                    }
-
-                    @Override
-                    public void onError() {
-                        // do nothing
-                    }
-                });
-                map.invalidate();
-            } catch (FileNotFoundException e) {
-                try {
-                    Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, uri.toString()));
-                } catch (Exception ex) {
-                    // protect against translation errors
-                    Log.d(DEBUG_TAG, "read got " + e.getMessage());
+            LoadTrack.fromFile(Main.this, uri, getTracker().getTrack(), new PostAsyncActionHandler() {
+                @Override
+                public void onSuccess() {
+                    gotoFirstTrackPoint();
                 }
-            }
+
+                @Override
+                public void onError() {
+                    // do nothing
+                }
+            });
+            map.invalidate();
         }
     }
 

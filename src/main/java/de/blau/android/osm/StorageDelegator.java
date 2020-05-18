@@ -2157,7 +2157,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         for (Long l : parents.getKeys()) {
             Log.d(DEBUG_TAG, "updateParentRelations new parent " + l);
             if (l != -1) { //
-                Relation r = (Relation) currentStorage.getRelation(l);
+                Relation r = currentStorage.getRelation(l);
                 if (!origParents.contains(r)) {
                     for (RelationMemberPosition rmp : parents.get(l)) {
                         Log.d(DEBUG_TAG, "updateParentRelations adding " + e.getDescription() + " to " + r.getDescription());
