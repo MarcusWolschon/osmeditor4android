@@ -2410,7 +2410,9 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_tools_remove_egm:
             Uri egmPath = prefs.getEgmFile();
             if (egmPath != null) {
-                new File(egmPath.getPath()).delete();
+                if (!new File(egmPath.getPath()).delete()) {
+                    Log.e(DEBUG_TAG, "Unable to delete " + egmPath);
+                }
                 prefs.setEgmFile(null);
                 invalidateOptionsMenu();
             }

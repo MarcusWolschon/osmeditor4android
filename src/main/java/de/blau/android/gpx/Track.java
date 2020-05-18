@@ -248,12 +248,12 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         try {
             if (saveFile.exists()) {
                 // append to existing save file
-                fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_APPEND);
-                out = new DataOutputStream(new BufferedOutputStream(fileOutput));
+                fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_APPEND); // NOSONAR closed in close
+                out = new DataOutputStream(new BufferedOutputStream(fileOutput)); // NOSONAR closed in close
             } else {
                 // no save file, create one
-                fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_PRIVATE);
-                out = new DataOutputStream(new BufferedOutputStream(fileOutput));
+                fileOutput = ctx.openFileOutput(SAVEFILE, Context.MODE_PRIVATE); // NOSONAR closed in close
+                out = new DataOutputStream(new BufferedOutputStream(fileOutput)); // NOSONAR closed in close
                 out.writeInt(TrackPoint.FORMAT_VERSION);
                 savedTrackPoints = 0;
             }
