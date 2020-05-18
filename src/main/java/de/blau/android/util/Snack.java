@@ -636,8 +636,10 @@ public final class Snack {
      * @param context Android Context that called this
      * @param msg the message to display
      */
-    public static void toastTopInfo(Context context, String msg) {
-        toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_SHORT);
+    public static void toastTopInfo(@Nullable Context context, @NonNull String msg) {
+        if (context != null) {
+            toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_SHORT);
+        }
     }
 
     /**
@@ -646,8 +648,10 @@ public final class Snack {
      * @param context Android Context that called this
      * @param msgRes the message resource to display
      */
-    public static void toastTopInfo(Context context, int msgRes) {
-        toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_LONG);
+    public static void toastTopInfo(@Nullable Context context, int msgRes) {
+        if (context != null) {
+            toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_info, R.color.material_teal), Toast.LENGTH_LONG);
+        }
     }
 
     /**
@@ -656,8 +660,10 @@ public final class Snack {
      * @param context Android Context that called this
      * @param msg the message to display
      */
-    public static void toastTopWarning(Context context, String msg) {
-        toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow), Toast.LENGTH_LONG);
+    public static void toastTopWarning(@Nullable Context context, @NonNull String msg) {
+        if (context != null) {
+            toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow), Toast.LENGTH_LONG);
+        }
     }
 
     /**
@@ -666,8 +672,10 @@ public final class Snack {
      * @param context Android Context that called this
      * @param msgRes the message resource to display
      */
-    public static void toastTopWarning(Context context, int msgRes) {
-        toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow), Toast.LENGTH_LONG);
+    public static void toastTopWarning(@Nullable Context context, int msgRes) {
+        if (context != null) {
+            toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow), Toast.LENGTH_LONG);
+        }
     }
 
     /**
@@ -676,8 +684,10 @@ public final class Snack {
      * @param context Android Context that called this
      * @param msgRes the message resource to display
      */
-    public static void toastTopError(Context context, int msgRes) {
-        toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
+    public static void toastTopError(@Nullable Context context, int msgRes) {
+        if (context != null) {
+            toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
+        }
     }
 
     /**
@@ -686,8 +696,10 @@ public final class Snack {
      * @param context Android Context that called this
      * @param msg the message to display
      */
-    public static void toastTopError(Context context, String msg) {
-        toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
+    public static void toastTopError(@Nullable Context context, @NonNull String msg) {
+        if (context != null) {
+            toastTop(context, msg, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_error, R.color.material_red), Toast.LENGTH_LONG);
+        }
     }
 
     /**
@@ -698,8 +710,10 @@ public final class Snack {
      * @param color background color of the message
      * @param duration how long to display the message
      */
-    private static void toastTop(Context context, int msgRes, int color, int duration) {
-        toastTop(context, context.getResources().getString(msgRes), color, duration);
+    private static void toastTop(@Nullable Context context, int msgRes, int color, int duration) {
+        if (context != null) {
+            toastTop(context, context.getResources().getString(msgRes), color, duration);
+        }
     }
 
     /**
@@ -710,7 +724,7 @@ public final class Snack {
      * @param color background color of the message
      * @param duration how long to display the message
      */
-    private static void toastTop(Context context, String msg, int color, int duration) {
+    private static void toastTop(@NonNull Context context, @NonNull String msg, int color, int duration) {
         try {
             LayoutInflater inflater = LayoutInflater.from(context);
             View layout = inflater.inflate(R.layout.toast, null);
