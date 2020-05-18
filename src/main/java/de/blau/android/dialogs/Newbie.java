@@ -90,11 +90,10 @@ public class Newbie extends ImmersiveDialogFragment {
         builder.setPositiveButton(R.string.okay, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Main main = (Main) getActivity();
-                if (main != null) {
-                    main.gotoBoxPicker(R.string.boxpicker_firsttimetitle);
+                FragmentActivity activity = getActivity();
+                if (activity instanceof Main) {
+                    ((Main) activity).gotoBoxPicker(R.string.boxpicker_firsttimetitle);
                 } else {
-                    // FIXME do something intelligent here
                     Log.e(DEBUG_TAG, "getActivity returned null in onClick");
                 }
             }
@@ -106,7 +105,6 @@ public class Newbie extends ImmersiveDialogFragment {
                 if (activity != null) {
                     HelpViewer.start(activity, R.string.help_introduction);
                 } else {
-                    // FIXME do something intelligent here
                     Log.e(DEBUG_TAG, "getActivity returned null in onClick");
                 }
             }

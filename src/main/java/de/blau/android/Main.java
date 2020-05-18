@@ -1470,11 +1470,11 @@ public class Main extends FullScreenAppCompatActivity
      * This needs to called after GPS permissions have been enabled
      */
     private void setupFollowButton() {
-        FloatingActionButton follow = getFollowButton();
-        if (follow != null) {
+        FloatingActionButton followButton = getFollowButton();
+        if (followButton != null) {
             String[] locationProviders = getEnabledLocationProviders();
             if (locationProviders != null) {
-                RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
+                RelativeLayout.LayoutParams params = (LayoutParams) followButton.getLayoutParams();
                 String followGPSbuttonPosition = prefs.followGPSbuttonPosition();
                 boolean isVisible = true;
                 if (getString(R.string.follow_GPS_left).equals(followGPSbuttonPosition)) {
@@ -1484,14 +1484,14 @@ public class Main extends FullScreenAppCompatActivity
                     params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
                     params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
                 } else if (getString(R.string.follow_GPS_none).equals(followGPSbuttonPosition)) {
-                    follow.hide();
+                    followButton.hide();
                     isVisible = false;
                 }
-                follow.setLayoutParams(params);
+                followButton.setLayoutParams(params);
                 // only show GPS symbol if we only have GPS
                 setFollowImage(locationProviders.length == 1 && LocationManager.GPS_PROVIDER.equals(locationProviders[0]), isVisible);
             } else {
-                follow.hide();
+                followButton.hide();
             }
         }
     }
@@ -1503,15 +1503,15 @@ public class Main extends FullScreenAppCompatActivity
      * @param isVisible true if the FAB is currently being shown
      */
     private void setFollowImage(boolean gps, boolean isVisible) {
-        FloatingActionButton follow = getFollowButton();
+        FloatingActionButton followButton = getFollowButton();
         int buttonRes = R.drawable.ic_filter_tilt_shift_black_36dp;
         if (gps) {
             buttonRes = R.drawable.ic_gps_fixed_black_36dp;
         }
-        follow.setImageResource(buttonRes);
+        followButton.setImageResource(buttonRes);
         if (isVisible) {
-            follow.hide(); // workaround https://issuetracker.google.com/issues/117476935
-            follow.show();
+            followButton.hide(); // workaround https://issuetracker.google.com/issues/117476935
+            followButton.show();
         }
     }
 
@@ -1526,8 +1526,7 @@ public class Main extends FullScreenAppCompatActivity
         //
         final FloatingActionButton lock = setLock(mode);
         if (lock == null) {
-            return; // FIXME not good but no other alternative right now,
-                    // already logged in setLock
+            return; // already logged in setLock
         }
         lock.setTag(mode.tag());
 
@@ -2554,9 +2553,9 @@ public class Main extends FullScreenAppCompatActivity
         File outDir = FileUtil.getPublicDirectory();
         outDir = FileUtil.getPublicDirectory(outDir, Paths.DIRECTORY_PATH_PICTURES);
         String imageFileName = DateFormatter.getFormattedString(DATE_PATTERN_IMAGE_FILE_NAME_PART);
-        File imageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);
-        Log.d(DEBUG_TAG, "getImageFile " + imageFile.getAbsolutePath());
-        return imageFile;
+        File newImageFile = File.createTempFile(imageFileName, Paths.FILE_EXTENSION_IMAGE, outDir);
+        Log.d(DEBUG_TAG, "getImageFile " + newImageFile.getAbsolutePath());
+        return newImageFile;
     }
 
     /**
@@ -4220,7 +4219,7 @@ public class Main extends FullScreenAppCompatActivity
         }
         setFollowGPS(false);
         BoundingBox result = null;
-        Map map = getMap();
+        Map mapView = getMap();
         if (elements.size() > 1 || !(elements.get(0) instanceof Node)) {
             for (OsmElement e : elements) {
                 if (e != null) {
@@ -4235,13 +4234,13 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }
         } else {
-            if (map.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
-                App.getLogic().setZoom(map, Ui.ZOOM_FOR_ZOOMTO);
+            if (mapView.getZoomLevel() < Ui.ZOOM_FOR_ZOOMTO) {
+                App.getLogic().setZoom(mapView, Ui.ZOOM_FOR_ZOOMTO);
             }
-            map.getViewBox().moveTo(map, ((Node) elements.get(0)).getLon(), ((Node) elements.get(0)).getLat());
+            mapView.getViewBox().moveTo(mapView, ((Node) elements.get(0)).getLon(), ((Node) elements.get(0)).getLat());
         }
         if (result != null) {
-            map.getViewBox().fitToBoundingBox(map, result);
+            mapView.getViewBox().fitToBoundingBox(mapView, result);
         }
     }
 
@@ -4297,9 +4296,9 @@ public class Main extends FullScreenAppCompatActivity
      * Display the "center on GPS position" button
      */
     private void hideFollowButton() {
-        FloatingActionButton follow = getFollowButton();
-        if (follow != null) {
-            follow.hide();
+        FloatingActionButton followButton = getFollowButton();
+        if (followButton != null) {
+            followButton.hide();
         }
     }
 

@@ -2599,10 +2599,10 @@ public class Logic {
             protected void onPostExecute(ReadAsyncResult result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
 
-                Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
-                if (map != null) {
+                Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
+                if (mainMap != null) {
                     try {
-                        viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
+                        viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
                     } catch (OsmException e) {
                         Log.d(DEBUG_TAG, "downloadBox got " + e.getMessage());
                     }
@@ -2616,6 +2616,7 @@ public class Logic {
                         }
                         break;
                     default:
+                        // do nothing
                     }
                     try {
                         if (!activity.isFinishing()) {
@@ -2633,10 +2634,10 @@ public class Logic {
                         postLoadHandler.onSuccess();
                     }
                 }
-                if (map != null) {
+                if (mainMap != null) {
                     DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
                     // this is always a manual download so make the layer visible
-                    de.blau.android.layer.data.MapOverlay dataLayer = map.getDataLayer();
+                    de.blau.android.layer.data.MapOverlay dataLayer = mainMap.getDataLayer();
                     if (dataLayer != null) {
                         dataLayer.setVisible(true);
                     }
@@ -3071,15 +3072,15 @@ public class Logic {
              * Convert a List&lt;Long&gt; to an array of long
              * 
              * @param list the List of Long
-             * @return an array holding the corresonding long values
+             * @return an array holding the corresponding long values
              */
             @NonNull
             long[] toLongArray(@NonNull List<Long> list) {
-                long[] result = new long[list.size()];
+                long[] array = new long[list.size()];
                 for (int i = 0; i < list.size(); i++) {
-                    result[i] = list.get(i);
+                    array[i] = list.get(i);
                 }
-                return result;
+                return array;
             }
 
             @Override
@@ -3379,10 +3380,10 @@ public class Logic {
             @Override
             protected void onPostExecute(Integer result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_SAVING);
-                Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
-                if (map != null) {
+                Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
+                if (mainMap != null) {
                     try {
-                        viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
+                        viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
                     } catch (OsmException e) {
                         Log.d(DEBUG_TAG, "writeOsmFile got " + e.getMessage());
                     }
@@ -3581,7 +3582,7 @@ public class Logic {
         final int READ_OK = 1;
         final int READ_BACKUP = 2;
 
-        final Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
+        final Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
 
         AsyncTask<Void, Void, Integer> loader = new AsyncTask<Void, Void, Integer>() {
 
@@ -3596,14 +3597,14 @@ public class Logic {
             @Override
             protected Integer doInBackground(Void... v) {
                 if (getDelegator().readFromFile(activity)) {
-                    if (map != null) {
-                        viewBox.setBorders(map, getDelegator().getLastBox());
+                    if (mainMap != null) {
+                        viewBox.setBorders(mainMap, getDelegator().getLastBox());
                     }
                     return READ_OK;
                 } else if (getDelegator().readFromFile(activity, StorageDelegator.FILENAME + ".backup")) {
                     getDelegator().dirty(); // we need to overwrite the saved state asap
-                    if (map != null) {
-                        viewBox.setBorders(map, getDelegator().getLastBox());
+                    if (mainMap != null) {
+                        viewBox.setBorders(mainMap, getDelegator().getLastBox());
                     }
                     return READ_BACKUP;
                 }
@@ -3620,12 +3621,12 @@ public class Logic {
                 }
                 if (result != READ_FAILED) {
                     Log.d(DEBUG_TAG, "loadfromFile: File read correctly");
-                    if (map != null) {
+                    if (mainMap != null) {
                         try {
-                            viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
+                            viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
                         } catch (Exception e) {
                             // invalid dimensions or similar error
-                            viewBox.setBorders(map, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
+                            viewBox.setBorders(mainMap, new BoundingBox(-GeoMath.MAX_LON, -GeoMath.MAX_COMPAT_LAT, GeoMath.MAX_LON, GeoMath.MAX_COMPAT_LAT));
                         }
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
@@ -3637,7 +3638,7 @@ public class Logic {
                     if (postLoad != null) {
                         postLoad.onSuccess();
                     }
-                    if (map != null) {
+                    if (mainMap != null) {
                         invalidateMap();
                     }
                     // this updates the Undo icon if present
@@ -3783,29 +3784,29 @@ public class Logic {
 
         int result = READ_FAILED;
 
-        Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
+        Map mainMap = activity instanceof Main ? ((Main) activity).getMap() : null;
         Progress.showDialog(activity, Progress.PROGRESS_LOADING);
 
         if (getDelegator().readFromFile(activity)) {
-            viewBox.setBorders(map, getDelegator().getLastBox());
+            viewBox.setBorders(mainMap, getDelegator().getLastBox());
             result = READ_OK;
         }
 
         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
         if (result != READ_FAILED) {
             Log.d(DEBUG_TAG, "syncLoadfromFile: File read correctly");
-            if (map != null) {
+            if (mainMap != null) {
                 try {
-                    viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
+                    viewBox.setRatio(mainMap, (float) mainMap.getWidth() / (float) mainMap.getHeight());
                 } catch (Exception e) {
                     // invalid dimensions or similar error
-                    viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_COMPAT_LAT, 180.0, GeoMath.MAX_COMPAT_LAT));
+                    viewBox.setBorders(mainMap, new BoundingBox(-180.0, -GeoMath.MAX_COMPAT_LAT, 180.0, GeoMath.MAX_COMPAT_LAT));
                 }
                 DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
                 loadEditingState((Main) activity, true);
             }
 
-            if (map != null) {
+            if (mainMap != null) {
                 invalidateMap();
             }
             activity.invalidateOptionsMenu();
