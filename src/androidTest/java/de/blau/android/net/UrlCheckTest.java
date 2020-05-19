@@ -1,9 +1,10 @@
 package de.blau.android.net;
 
+import static org.junit.Assert.assertSame;
+
 import java.io.IOException;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,12 +30,11 @@ import okhttp3.HttpUrl;
 @LargeTest
 public class UrlCheckTest {
 
-    MockWebServerPlus       mockServer  = null;
-    Context                 context     = null;
-    Main                    main        = null;
-    private Instrumentation instrumentation;
-    UiDevice                device      = null;
-    HttpUrl                 mockBaseUrl = null;
+    MockWebServerPlus mockServer  = null;
+    Context           context     = null;
+    Main              main        = null;
+    UiDevice          device      = null;
+    HttpUrl           mockBaseUrl = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -44,7 +44,7 @@ public class UrlCheckTest {
      */
     @Before
     public void setup() {
-        instrumentation = InstrumentationRegistry.getInstrumentation();
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
@@ -54,7 +54,7 @@ public class UrlCheckTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        System.out.println("mock url " + mockBaseUrl.toString());
+        System.out.println("mock url " + mockBaseUrl.toString()); // NOSONAR
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
     }
@@ -67,7 +67,7 @@ public class UrlCheckTest {
         try {
             mockServer.server().shutdown();
         } catch (IOException ioex) {
-            System.out.println("Stopping mock webserver exception " + ioex);
+            System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
         }
     }
 
@@ -79,7 +79,7 @@ public class UrlCheckTest {
         mockServer.enqueue("urlcheck1");
         mockServer.enqueue("urlcheck2");
         UrlCheck.Result result = UrlCheck.check(main, mockBaseUrl.host() + ":" + mockBaseUrl.port());
-        Assert.assertTrue(CheckStatus.HTTP == result.getStatus());
+        assertSame(CheckStatus.HTTP, result.getStatus());
     }
 
     // /**
@@ -107,7 +107,7 @@ public class UrlCheckTest {
     @Test
     public void noUrlExists() {
         UrlCheck.Result result = UrlCheck.check(main, mockBaseUrl.host() + ":" + mockBaseUrl.port());
-        Assert.assertTrue(CheckStatus.UNREACHABLE == result.getStatus());
+        assertSame(CheckStatus.UNREACHABLE, result.getStatus());
     }
 
     /**
@@ -118,6 +118,6 @@ public class UrlCheckTest {
         mockServer.enqueue("urlcheck1");
         mockServer.enqueue("urlcheck2");
         UrlCheck.Result result = UrlCheck.check(main, "http://" + mockBaseUrl.host() + ":" + mockBaseUrl.port());
-        Assert.assertTrue(CheckStatus.HTTP == result.getStatus());
+        assertSame(CheckStatus.HTTP, result.getStatus());
     }
 }

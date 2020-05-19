@@ -1,9 +1,10 @@
 package de.blau.android.presets;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class AutoPresetTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
-        main = (Main) mActivityRule.getActivity();
+        main = mActivityRule.getActivity();
         prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
@@ -60,7 +61,7 @@ public class AutoPresetTest {
         TestUtils.dismissStartUpDialogs(device, main);
         mockServer = new MockWebServerPlus();
         HttpUrl mockTaginfoUrl = mockServer.server().url("");
-        System.out.println("mock api url " + mockTaginfoUrl.toString());
+        System.out.println("mock api url " + mockTaginfoUrl.toString()); // NOSONAR
         prefs.setTaginfoServer(mockTaginfoUrl.toString());
     }
 
@@ -72,14 +73,14 @@ public class AutoPresetTest {
         try {
             mockServer.server().shutdown();
         } catch (IOException ioex) {
-            System.out.println("Stopping mock webserver exception " + ioex);
+            System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
         }
         try {
             // zap the generated preset file
             FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
                     FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
         } catch (IOException e) {
-            System.out.println("Removing auto-preset exception " + e);
+            System.out.println("Removing auto-preset exception " + e); // NOSONAR
         }
     }
 
@@ -104,7 +105,7 @@ public class AutoPresetTest {
 
         AutoPreset autoPreset = new AutoPreset(context);
         Preset fromTaginfo = autoPreset.fromTaginfo("payment", 3);
-        Assert.assertTrue(fromTaginfo.getItemByName("amenity payment_centre") != null);
-        Assert.assertTrue(fromTaginfo.getItemByName("amenity payment_terminal") != null);
+        assertNotNull(fromTaginfo.getItemByName("amenity payment_centre"));
+        assertNotNull(fromTaginfo.getItemByName("amenity payment_terminal"));
     }
 }

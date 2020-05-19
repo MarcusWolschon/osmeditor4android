@@ -1,5 +1,10 @@
 package de.blau.android.easyedit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -7,7 +12,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -77,13 +81,14 @@ public class LongClickTest {
         InputStream is = loader.getResourceAsStream("test2.osm");
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
+            fail(e.getMessage());
         }
         try {
             is.close();
         } catch (IOException e1) {
+            // IGNORE
         }
         App.getTaskStorage().reset();
         TestUtils.stopEasyEdit(main);
@@ -100,7 +105,7 @@ public class LongClickTest {
             UiObject2 simpleMode = TestUtils.findObjectWithText(device, false, "Simple mode", 5000);
             if (simpleMode != null) {
                 UiObject2 check = simpleMode.getParent().getParent().getChildren().get(1);
-                Assert.assertTrue(check.isCheckable());
+                assertTrue(check.isCheckable());
                 if ((on && !check.isChecked()) || (!on && check.isChecked())) {
                     check.click();
                 } else {
@@ -137,14 +142,14 @@ public class LongClickTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, false);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device, true);
         Node node = App.getLogic().getSelectedNode();
-        Assert.assertNotNull(node);
-        Assert.assertTrue(node.getOsmId() < 0);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+        assertNotNull(node);
+        assertTrue(node.getOsmId() < 0);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         TestUtils.clickUp(device);
     }
 
@@ -158,18 +163,18 @@ public class LongClickTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.longClickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
         TestUtils.clickUp(device);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device, true);
         Way way = App.getLogic().getSelectedWay();
-        Assert.assertNotNull(way);
-        Assert.assertTrue(way.getOsmId() < 0);
-        Assert.assertEquals(3, way.nodeCount());
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertNotNull(way);
+        assertTrue(way.getOsmId() < 0);
+        assertEquals(3, way.nodeCount());
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickUp(device);
     }
 
@@ -183,21 +188,21 @@ public class LongClickTest {
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
         TestUtils.longClickAtCoordinates(device, map, 8.3890736, 47.3896628, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.openstreetbug_new_bug), false, true));
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
+        assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.openstreetbug_new_bug), false, true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/openstreetbug_comment"));
         try {
             editText.click(); // NOTE this seems to be necessary
             editText.setText("test");
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
-        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true, false));
+        assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true, false));
         List<Task> tasks = App.getTaskStorage().getTasks();
-        Assert.assertTrue(tasks.size() == 1);
+        assertEquals(1, tasks.size());
         Task t = tasks.get(0);
-        Assert.assertTrue(t instanceof Note);
-        Assert.assertTrue("test".equals(((Note) t).getComment()));
+        assertTrue(t instanceof Note);
+        assertEquals("test", ((Note) t).getComment());
     }
 }

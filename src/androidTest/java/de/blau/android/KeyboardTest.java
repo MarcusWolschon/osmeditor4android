@@ -76,13 +76,14 @@ public class KeyboardTest {
         InputStream is = loader.getResourceAsStream("test2.osm");
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
         try {
             is.close();
         } catch (IOException e1) {
+            // ignore
         }
         TestUtils.stopEasyEdit(main);
     }
@@ -110,59 +111,48 @@ public class KeyboardTest {
         ViewBox viewBox = new ViewBox(App.getLogic().getViewBox());
 
         device.pressKeyCode(KeyEvent.KEYCODE_PLUS);
-        sleep();
+        TestUtils.sleep();
         Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
 
         device.pressKeyCode(KeyEvent.KEYCODE_MINUS);
-        sleep();
+        TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
         device.pressKeyCode(KeyEvent.KEYCODE_VOLUME_DOWN);
-        sleep();
+        TestUtils.sleep();
         Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
 
         device.pressKeyCode(KeyEvent.KEYCODE_VOLUME_UP);
-        sleep();
+        TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
         device.pressDPadRight();
-        sleep();
+        TestUtils.sleep();
         Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
         device.pressDPadLeft();
-        sleep();
+        TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
         device.pressDPadLeft();
-        sleep();
+        TestUtils.sleep();
         Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
         device.pressDPadRight();
-        sleep();
+        TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
         device.pressDPadUp();
-        sleep();
+        TestUtils.sleep();
         Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
         device.pressDPadDown();
-        sleep();
+        TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
 
         device.pressDPadDown();
-        sleep();
+        TestUtils.sleep();
         Assert.assertNotEquals(viewBox, App.getLogic().getViewBox());
         device.pressDPadUp();
-        sleep();
+        TestUtils.sleep();
         boxIsEqual(viewBox, App.getLogic().getViewBox());
-    }
-
-    /**
-     * Wait a second
-     */
-    void sleep() {
-        try {
-            Thread.sleep(1000); // NOSONAR
-        } catch (InterruptedException e) { // NOSONAR
-            // do nothing
-        }
     }
 
     /**
@@ -203,7 +193,7 @@ public class KeyboardTest {
 
         Assert.assertEquals(OsmElement.STATE_DELETED, way.getState());
         device.pressKeyCode(KeyEvent.KEYCODE_U, KeyEvent.META_CTRL_ON);
-        sleep();
+        TestUtils.sleep();
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         TestUtils.clickText(device, false, "Ok", false); // in case we get a tip
 
@@ -215,7 +205,7 @@ public class KeyboardTest {
         Assert.assertTrue(TestUtils.findText(device, false, WAY_SELECTED));
 
         device.pressKeyCode(KeyEvent.KEYCODE_C, KeyEvent.META_CTRL_ON);
-        sleep();
+        TestUtils.sleep();
         device.pressKeyCode(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
         way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);

@@ -1191,4 +1191,40 @@ public class TestUtils {
             }
         }
     }
+
+    /**
+     * Wait for the CountDownLatch to be triggered
+     * 
+     * @param signal the CountDownLatch
+     * @param timeout timeout in s
+     */
+    public static void signalAwait(@NonNull final CountDownLatch signal, long timeout) {
+        try {
+            signal.await(timeout, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
+            Assert.fail(e.getMessage());
+        }
+    }
+    
+    /**
+     * Wait a second
+     */
+    public static void sleep() {
+        sleep(1000);
+    }
+
+    /**
+     * Wait
+     * 
+     * Unluckily while this is bad because it can make testing load dependent there doesn't seem to be a way around this
+     * 
+     * @param snore number of ms to sleep
+     */
+    public static void sleep(long snore) {
+        try {
+            Thread.sleep(snore); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
+            // do nothing
+        }
+    }
 }

@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import de.blau.android.osm.BoundingBox;
@@ -30,9 +29,9 @@ public class CollectionTest {
      */
     @Test
     public void hashmap() {
-        LongOsmElementMap<Node> map = new LongOsmElementMap<Node>(10000);
+        LongOsmElementMap<Node> map = new LongOsmElementMap<>(10000);
 
-        ArrayList<Node> elements = new ArrayList<Node>(100000);
+        ArrayList<Node> elements = new ArrayList<>(100000);
         for (int i = 0; i < 100000; i++) {
             elements.add(OsmElementFactory.createNode((long) (Math.random() * Long.MAX_VALUE), 1L, System.currentTimeMillis() / 1000, OsmElement.STATE_CREATED,
                     0, 0));
@@ -106,7 +105,7 @@ public class CollectionTest {
         for (long i = 0; i < NODES; i++) {
             tree.insert(temp[(int) i]);
         }
-        System.out.println("Node insertion " + (System.currentTimeMillis() - start));
+        System.out.println("Node insertion " + (System.currentTimeMillis() - start)); // NOSONAR
         start = System.currentTimeMillis();
         for (int i = 0; i < NODES; i++) {
             Collection<Node> result = new ArrayList<>();
@@ -116,19 +115,19 @@ public class CollectionTest {
             tree.query(result, b);
             assertTrue(result.contains(temp[i]));
         }
-        System.out.println("Query " + (System.currentTimeMillis() - start));
+        System.out.println("Query " + (System.currentTimeMillis() - start)); // NOSONAR
         assertEquals(NODES, tree.count());
         // currently contains and remove doesn't work for nodes
         start = System.currentTimeMillis();
         for (long i = 0; i < NODES; i++) {
             assertTrue(tree.contains(temp[(int) i]));
         }
-        System.out.println("Contains " + (System.currentTimeMillis() - start));
+        System.out.println("Contains " + (System.currentTimeMillis() - start)); // NOSONAR
         start = System.currentTimeMillis();
         for (long i = 0; i < NODES; i++) {
             assertTrue(tree.remove(temp[(int) i]));
         }
-        System.out.println("Remove " + (System.currentTimeMillis() - start));
+        System.out.println("Remove " + (System.currentTimeMillis() - start)); // NOSONAR
         assertEquals(0, tree.count());
     }
 
@@ -137,16 +136,16 @@ public class CollectionTest {
      */
     @Test
     public void multihashmap() {
-        MultiHashMap<String, String> map = new MultiHashMap<String, String>();
+        MultiHashMap<String, String> map = new MultiHashMap<>();
         map.add("A", "1");
         map.add("A", "2");
         map.add("M", "3");
         Set<String> r = map.get("A");
-        Assert.assertTrue(r.size() == 2);
-        Assert.assertTrue(r.contains("1"));
-        Assert.assertTrue(r.contains("2"));
+        assertEquals(2, r.size());
+        assertTrue(r.contains("1"));
+        assertTrue(r.contains("2"));
         r = map.get("M");
-        Assert.assertTrue(r.size() == 1);
-        Assert.assertTrue(r.contains("3"));
+        assertEquals(2, r.size());
+        assertTrue(r.contains("3"));
     }
 }
