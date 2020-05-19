@@ -74,9 +74,11 @@ public class ScriptingTest {
         Assert.assertEquals("(0,0,0,0)", r);
         r = Utils.evalString(context, "sandbox2", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10,false);");
         Assert.assertEquals("(-899,-899,899,899)", r);
+        final String importError = "Sandbox should stop further importing";
+        final String importStatement = "importClass(Packages.de.blau.android.App);";
         try {
-            r = Utils.evalString(context, "sandbox3", "importClass(Packages.de.blau.android.App);");
-            Assert.fail("Sandbox should stop further importing");
+            r = Utils.evalString(context, "sandbox3", importStatement);
+            Assert.fail(importError);
         } catch (EvaluatorException ex) {
             // carry on
         }
@@ -88,22 +90,23 @@ public class ScriptingTest {
         r = Utils.evalString(context, "sandbox4", "a = new java.util.ArrayList(); a.add('value1'); tags.put('key1',a);tags", tags, tags, "test",
                 new HashMap<String, PresetItem>(), App.getCurrentPresets(context));
         Assert.assertEquals("{key=[value], key1=[value1]}", r);
+        Logic logic = App.getLogic();
         try {
-            r = Utils.evalString(context, "sandbox4", "importClass(Packages.de.blau.android.App);", App.getLogic());
-            Assert.fail("Sandbox should stop further importing");
+            r = Utils.evalString(context, "sandbox4", importStatement, logic);
+            Assert.fail(importError);
         } catch (EvaluatorException ex) {
             // carry on
         }
         // scope for general scripting
-        r = Utils.evalString(context, "sandbox5", "b = new BoundingBox();", App.getLogic());
+        r = Utils.evalString(context, "sandbox5", "b = new BoundingBox();", logic);
         Assert.assertEquals("(0,0,0,0)", r);
-        r = Utils.evalString(context, "sandbox6", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10,false);", App.getLogic());
+        r = Utils.evalString(context, "sandbox6", "b = GeoMath.createBoundingBoxForCoordinates(0,0,10,false);", logic);
         Assert.assertEquals("(-899,-899,899,899)", r);
-        r = Utils.evalString(context, "sandbox7", "logic.getModifiedNodes().size() + logic.getNodes().size()", App.getLogic());
+        r = Utils.evalString(context, "sandbox7", "logic.getModifiedNodes().size() + logic.getNodes().size()", logic);
         Assert.assertEquals("0", r);
         try {
-            r = Utils.evalString(context, "sandbox8", "importClass(Packages.de.blau.android.App);", App.getLogic());
-            Assert.fail("Sandbox should stop further importing");
+            r = Utils.evalString(context, "sandbox8", importStatement, logic);
+            Assert.fail(importError);
         } catch (EvaluatorException ex) {
             // carry on
         }
