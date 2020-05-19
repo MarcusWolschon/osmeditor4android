@@ -329,6 +329,7 @@
     <string name="tip_pan_and_zoom_auto_download">Pan and zoom auto download should be used with caution as it has the potential to severely tax both the OpenStreetMap APIs and your device.&lt;p&gt;The load on the API servers can be 
 avoided by using an offline data source.</string>
     <string name="tip_locked_mode">In locked mode you can\'t edit, but a long press on an object will open a display with detailed information.</string>
+    <string name="tip_longpress_simple_mode">In simple mode a long press will not do anything. Turn simple mode off in the main menu if you want to use long clicks to create objects.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
@@ -453,7 +454,6 @@ avoided by using an offline data source.</string>
     <string name="toast_task_layer_disabled">Task layer disabled</string>
     <string name="toast_unable_to_create_task_layer">Unable to create task layer</string>
     <string name="toast_merged">Merged</string>
-    <string name="toast_long_press_simple_mode">Long press is not available in simple mode</string>
     <string name="toast_invalid_style_file">Invalid style file format for %1$s</string>
     <string name="toast_no_geometry">No geometry for element found</string>
     <string name="toast_added_api_entry_for">Added API entry for %1$s</string>

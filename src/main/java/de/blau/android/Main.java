@@ -3515,7 +3515,8 @@ public class Main extends FullScreenAppCompatActivity
                     Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
                 }
             } else {
-                Snack.barWarningShort(Main.this, R.string.toast_long_press_simple_mode);
+                Tip.showDialog(Main.this, R.string.tip_longpress_simple_mode_key, R.string.tip_longpress_simple_mode);
+                Util.beep();
             }
 
             return true; // long click handled
