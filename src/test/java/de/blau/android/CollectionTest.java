@@ -145,7 +145,7 @@ public class CollectionTest {
         assertTrue(r.contains("1"));
         assertTrue(r.contains("2"));
         r = map.get("M");
-        assertEquals(2, r.size());
+        assertEquals(1, r.size());
         assertTrue(r.contains("3"));
     }
 }
