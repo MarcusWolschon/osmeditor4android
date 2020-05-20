@@ -1,6 +1,7 @@
 package de.blau.android.services.util;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * This class merely holds the coordinates embedded in the url of a tile.
@@ -34,7 +35,7 @@ public class MapTile {
      * @param tileX tile X coordinate
      * @param tileY tile Y coordinate
      */
-    public MapTile(@NonNull String rendererID, int zoomLevel, int tileX, int tileY) {
+    public MapTile(@Nullable String rendererID, int zoomLevel, int tileX, int tileY) {
         this.rendererID = rendererID;
         this.zoomLevel = zoomLevel;
         x = tileX;

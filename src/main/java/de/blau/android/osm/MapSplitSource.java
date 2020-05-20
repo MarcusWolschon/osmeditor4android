@@ -28,10 +28,6 @@ public final class MapSplitSource {
     /**
      * Read data for the specified BoundingBox from a tiled OSM datasource
      * 
-     * Currently this assumes that the area is covered by tiles at the max zoom, it would be fairly straightforward to
-     * zoom out if no data was found as we do for imagery, perhaps including skipping tiles covered by the higher zoom
-     * one.
-     * 
      * @param context an Android Context
      * @param mbTiles a MBTileProviderDataBase instance
      * @param box the BoundingBox
