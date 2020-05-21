@@ -9,7 +9,7 @@
     <string name="help_multiselect">Multiselect</string>
     <string name="help_longclick">Creating new objects</string>
     <string name="help_nodeselection">Node selected</string>
-    <string name="help_pathcreation">Creating new objects</string>
+    <string name="help_pathcreation">Adding way nodes</string>
     <string name="help_relationselection">Relation selected</string>
     <string name="help_addingrestriction" translatable="false">@string/help_wayselection</string>
     <string name="help_appendtoway" translatable="false">@string/help_wayselection</string>
@@ -58,6 +58,7 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_pathcreation</item>
         <item>@string/help_preferences</item>
         <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
@@ -99,6 +100,7 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Adding way nodes</item>
         <item>Preferences</item>
         <item>Advanced preferences</item>
     	<item>Presets</item>	
