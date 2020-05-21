@@ -3,6 +3,7 @@
     <issue id="AppCompatResource" severity="warning" />
     <issue id="ImpliedQuantity" severity="warning" />
     <issue id="MissingTranslation" severity="ignore" />
+    <issue id="ExtraTranslation" severity="ignore" />
     <issue id="MockLocation">
         <ignore path="src/androidTest/AndroidManifest.xml" />
     </issue>
