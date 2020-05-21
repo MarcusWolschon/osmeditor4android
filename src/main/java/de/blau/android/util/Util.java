@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,6 +44,9 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentActivity;
+import ch.poole.poparser.ParseException;
+import ch.poole.poparser.Po;
+import ch.poole.poparser.TokenMgrError;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
@@ -697,6 +701,25 @@ public final class Util {
      */
     public static void beep() {
         ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
-        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200); 
+        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
     }
+
+    /**
+     * Create a Po class from an InputStream
+     * 
+     * @param poFileStream the InputStream
+     * @return an Po object or null
+     */
+    @Nullable
+    public static Po parsePoFile(@Nullable InputStream poFileStream) {
+        if (poFileStream != null) {
+            try {
+                return new Po(poFileStream);
+            } catch (ParseException | TokenMgrError ignored) {
+                Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+            }
+        }
+        return null;
+    }
+
 }

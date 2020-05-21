@@ -70,6 +70,7 @@ import ch.poole.poparser.Po;
 import ch.poole.poparser.TokenMgrError;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -124,7 +125,6 @@ import de.blau.android.views.WrappingLayout;
 public class Preset implements Serializable {
 
     private static final String USE_LAST_AS_DEFAULT        = "use_last_as_default";
-    private static final String PO_EXT                     = ".po";
     private static final String DEFAULT_PRESET_TRANSLATION = "preset_";
     static final String         NO                         = "no";
     static final String         VALUE_TYPE                 = "value_type";
@@ -491,11 +491,11 @@ public class Preset implements Serializable {
                     try {
                         Locale locale = Locale.getDefault();
                         String language = locale.getLanguage();
-                        poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + locale + PO_EXT, true);
+                        poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + locale + "." + FileExtensions.PO, true);
                         if (poFileStream == null) {
-                            poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + language + PO_EXT, true);
+                            poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + language + "." + FileExtensions.PO, true);
                         }
-                        po = parserPoFile(poFileStream);
+                        po = de.blau.android.util.Util.parsePoFile(poFileStream);
                     } finally {
                         SavingHelper.close(poFileStream);
                     }
@@ -528,7 +528,7 @@ public class Preset implements Serializable {
                                     // no translations
                                 }
                             }
-                            po = parserPoFile(poFileStream);
+                            po = de.blau.android.util.Util.parsePoFile(poFileStream);
                         } finally {
                             SavingHelper.close(poFileStream);
                         }
@@ -567,7 +567,7 @@ public class Preset implements Serializable {
     /**
      * Get an input stream for a .po file, try full locale string first then just the language
      * 
-     * @param directory the director where the file is located
+     * @param directory the directory where the file is located
      * @param presetFilename the filename
      * @param locale the Locale
      * @return the InputStream
@@ -576,28 +576,10 @@ public class Preset implements Serializable {
     @NonNull
     private FileInputStream getPoInputStream(@NonNull File directory, @NonNull String presetFilename, @NonNull Locale locale) throws FileNotFoundException {
         try {
-            return new FileInputStream(new File(directory, presetFilename + locale.toString() + PO_EXT));
+            return new FileInputStream(new File(directory, presetFilename + locale.toString() + "." + FileExtensions.PO));
         } catch (FileNotFoundException fnfe) {
-            return new FileInputStream(new File(directory, presetFilename + locale.getLanguage() + PO_EXT));
+            return new FileInputStream(new File(directory, presetFilename + locale.getLanguage() + "." + FileExtensions.PO));
         }
-    }
-
-    /**
-     * Create a Po class from an InputStream
-     * 
-     * @param poFileStream the InputStream
-     * @return an Po object or null
-     */
-    @Nullable
-    private Po parserPoFile(@Nullable InputStream poFileStream) {
-        if (poFileStream != null) {
-            try {
-                return new Po(poFileStream);
-            } catch (ParseException | TokenMgrError ignored) {
-                Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
-            }
-        }
-        return null;
     }
 
     /**

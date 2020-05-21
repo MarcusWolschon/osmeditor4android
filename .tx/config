@@ -62,10 +62,16 @@ source_file = documentation/docs/playstore/en/title.txt
 source_lang = en
 minimum_perc = 100
 
-
 [presets.presetpot]
 type = PO
 file_filter = src/main/assets/preset_<lang>.po
 lang_map = cs: cs-rCZ, zh_TW: zh-rTW,  zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw
 source_lang = en
 minimum_perc = 5
+
+[vespucci.datastylepot]
+type = PO
+file_filter = src/main/assets/i18n/datastyle_<lang>.po
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW,  zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw
+source_lang = en
+minimum_perc = 100

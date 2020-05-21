@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
@@ -47,7 +48,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import ch.poole.poparser.Po;
 import de.blau.android.R;
+import de.blau.android.contract.FileExtensions;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmXml;
@@ -55,10 +58,13 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.StyleableFeature;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Density;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Version;
 
 public final class DataStyle extends DefaultHandler {
+
+    private static final String I18N_DATASTYLE = "i18n/datastyle_";
 
     private static final String DEBUG_TAG = "DataStyle";
 
@@ -1215,6 +1221,44 @@ public final class DataStyle extends DefaultHandler {
             }
         } // probably silly way of doing this
         return res;
+    }
+
+    /**
+     * Get the list of available Styles translated
+     * 
+     * @param activity the calling Activity
+     * @return list of available Styles translated (or untranslated if no translation is avilable)
+     */
+    @NonNull
+    public static String[] getStyleListTranslated(@NonNull Activity activity, String[] styleNames) {
+        Locale locale = Locale.getDefault();
+        String language = locale.getLanguage();
+        InputStream poFileStream = null;
+        try {
+            AssetManager assetManager = activity.getAssets();
+            try {
+                poFileStream = assetManager.open(I18N_DATASTYLE + locale + "." + FileExtensions.PO);
+            } catch (IOException ioex) {
+                poFileStream = assetManager.open(I18N_DATASTYLE + language + "." + FileExtensions.PO);
+            }
+            Po po = de.blau.android.util.Util.parsePoFile(poFileStream);
+            if (po != null) {
+                int len = styleNames.length;
+                String[] res = new String[len];
+                for (int i = 0; i < len; i++) {
+                    res[i] = po.t(styleNames[i]);
+                }
+                return res;
+            } else {
+                Log.w(DEBUG_TAG, "Error parsing translations for " + locale);
+                return styleNames;
+            }
+        } catch (IOException ioex) {
+            Log.w(DEBUG_TAG, "No translations found for " + locale);
+            return styleNames;
+        } finally {
+            SavingHelper.close(poFileStream);
+        }
     }
 
     /**

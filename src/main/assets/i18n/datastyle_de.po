@@ -1,0 +1,28 @@
+# 
+# Translators:
+# Simon Poole <sp8962@gmail.com>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-04-25 11:28+0200\n"
+"PO-Revision-Date: 2020-05-21 07:54+0000\n"
+"Last-Translator: Simon Poole <sp8962@gmail.com>, 2020\n"
+"Language-Team: German (https://www.transifex.com/openstreetmap/teams/26285/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Color Round Nodes"
+msgstr "Farbig, Runde Knoten"
+
+msgid "Color Round Nodes No Multipolygons"
+msgstr "Farbig, Runde Knoten, Keine Multipolygone"
+
+msgid "Pen Round Nodes"
+msgstr "Stift, Runde Knoten"

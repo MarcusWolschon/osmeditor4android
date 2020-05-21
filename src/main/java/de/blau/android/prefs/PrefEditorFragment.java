@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
@@ -46,26 +47,24 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
      * 
      * @param r the current resources
      */
-    private void setPreferenceListeners(final Resources r) {
+    private void setPreferenceListeners(@NonNull final Resources r) {
 
         Preferences prefs = new Preferences(getActivity());
 
         ListPreference mapProfilePref = (ListPreference) getPreferenceScreen().findPreference(r.getString(R.string.config_mapProfile_key));
         if (mapProfilePref != null) {
-            String[] profileList = DataStyle.getStyleList(getActivity());
-            mapProfilePref.setEntries(profileList);
-            mapProfilePref.setEntryValues(profileList);
+            final String[] styleList = DataStyle.getStyleList(getActivity());
+            final String[] styleListTranslated = DataStyle.getStyleListTranslated(getActivity(), styleList);
+            mapProfilePref.setEntryValues(styleList);
+            mapProfilePref.setEntries(styleListTranslated);
             OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     Log.d(DEBUG_TAG, "onPreferenceChange mapProfile");
                     String id = (String) newValue;
-                    String[] profileList = DataStyle.getStyleList(getActivity());
-                    String[] ids = profileList;
-                    String[] names = profileList;
-                    for (int i = 0; i < ids.length; i++) {
-                        if (ids[i].equals(id)) {
-                            preference.setSummary(names[i]);
+                    for (int i = 0; i < styleList.length; i++) {
+                        if (id.equals(styleList[i])) {
+                            preference.setSummary(styleListTranslated[i]);
                             break;
                         }
                     }
