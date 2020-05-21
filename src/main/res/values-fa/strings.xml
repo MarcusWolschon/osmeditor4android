@@ -291,6 +291,7 @@
   <string name="photo_viewer_goto">برو به عکس</string>
   <!--API info dialog-->
   <string name="api_info_bounds">کادر محصورکننده</string>
+  <string name="api_info_latest_date">آخرین تاریخ شامل شده</string>
   <string name="api_info_attribution">انتساب</string>
   <string name="api_info_mapsplit_source">منبع فقط خواندنی MapSplit</string>
   <!--Undo - Redo dialog-->
@@ -316,7 +317,7 @@
   <string name="tip_title">آیا می‌دانستید؟</string>
   <string name="tip_check_label">نکات اختیاری را دیگر نشان نده</string>
   <string name="tip_undo">نگه‌داشتن دکمهٔ واگرد، همهٔ نقاط بازگشت واگرد/ازنو را نمایش می‌دهد.</string>
-  <string name="tip_imagery_privacy">لایه‌های پس‌زمینه و رولایه از منابع شخص ثالث فراهم شده. با استفاده از هر لایه، آدرس شبکهٔ شما و اطلاعات تقریبی از منطقه‌ای که مشاهده می‌کنید برای ارائه‌دهنده ارسال می‌شود.&lt;p&gt;اگر ارائه‌دهنده دربارهٔ سیاست حریم خصوصی‌اش چیزی فراهم کرده باشد، می‌توانید آن را در کادر لایه » اطلاعات مشاهده کنید.</string>
+  <string name="tip_imagery_privacy">لایه‌های پس‌زمینه و رولایه از منابع ثالث فراهم شده. با استفاده از هر لایه، آدرس شبکهٔ شما و اطلاعات تقریبی از منطقه‌ای که مشاهده می‌کنید برای ارائه‌دهنده ارسال می‌شود.&lt;p&gt;اگر ارائه‌دهنده دربارهٔ سیاست حریم خصوصی‌اش چیزی فراهم کرده باشد، می‌توانید آن را در کادر لایه » اطلاعات مشاهده کنید.</string>
   <string name="tip_pan_and_zoom_auto_download">قابلیت «بارگیری خودکار همزمان با جابه‌جایی و زوم» را باید با احتیاط به کار برد زیرا به‌طور بالقوه می‌تواند به API اوپن‌استریت‌مپ و نیز  به دستگاه شما فشار زیادی وارد کند. &lt;p&gt; می‌توان با استفاده از منبع دادهٔ آفلاین از واردآمدن فشار بر کارسازهای API پیشگیری کرد.</string>
   <string name="tip_locked_mode">در حالت قفل نمی‌توانید ویرایش کنید، اما با لمس طولانی یک شیء، جزئیاتی از آن نمایش می‌یابد.</string>
   <!--NumberPicker-->
@@ -574,7 +575,7 @@
   <string name="location_radius">%1$d متر</string>
   <string name="location_last_text">آخرین مکان:</string>
   <string name="location_current_text">مکان کنونی:</string>
-  <string name="location_text_unknown">ناشناخته</string>
+  <string name="location_text_unknown">نامشخص</string>
   <string name="location_last_text_parameterized">آخرین مکان: %1$s</string>
   <string name="location_current_text_parameterized">مکان کنونی: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s پیش</string>

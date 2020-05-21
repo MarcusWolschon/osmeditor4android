@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-04-06 16:06+0200\n"
-"PO-Revision-Date: 2020-04-13 05:18+0000\n"
+"PO-Revision-Date: 2020-05-10 23:54+0000\n"
 "Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -3853,7 +3853,7 @@ msgstr ""
 
 #: master_preset.xml:2616(item:name|group:Shipping|preset:Ferry_Terminal)
 msgid "Ferry Terminal"
-msgstr ""
+msgstr "Ga Phà"
 
 #: master_preset.xml:6536(item:name|group:Sport_(Ball)|preset:Field_Hockey)
 msgid "Field Hockey"
@@ -5132,7 +5132,7 @@ msgstr ""
 #: master_preset.xml:9683(text:text|group:Addresses_and_Contact|preset:Contact|key:image)
 #: master_preset.xml:9696(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:image)
 msgid "Image"
-msgstr ""
+msgstr "Hình ảnh"
 
 #: master_preset.xml:1130(check:text|key:diplomatic:services:immigrant_visas)
 msgid "Immigrant visas"
@@ -8724,7 +8724,7 @@ msgstr ""
 
 #: master_preset.xml:7623(item:name|preset:Power_Cable)
 msgid "Power Cable"
-msgstr ""
+msgstr "Cáp Điện"
 
 #: master_preset.xml:7488(item:name|preset:Power_Compensator)
 msgid "Power Compensator"
@@ -14852,7 +14852,7 @@ msgstr ""
 #: master_preset.xml:776(combo:display_values|key:bridge)
 msgctxt "bridge"
 msgid "Boardwalk"
-msgstr ""
+msgstr "Lối đi Lót Ván"
 
 #: master_preset.xml:776(combo:text|key:bridge)
 msgctxt "bridge"
@@ -15476,7 +15476,7 @@ msgstr "Xây dựng"
 #: master_preset.xml:6675(combo:display_values|group:Buildings|preset:Building_part|key:building:part)
 msgctxt "building"
 msgid "Cowshed"
-msgstr ""
+msgstr "Chuồng Bò"
 
 #: master_preset.xml:1031(combo:display_values|key:building:use)
 msgctxt "building"

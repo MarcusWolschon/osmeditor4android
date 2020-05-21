@@ -26,6 +26,8 @@
   <string name="no_connection_message">Kon niet verbinden met de OSM server. Controleer of je verbonden bent met het internet, of probeer het later opnieuw.</string>
   <string name="ssl_handshake_failed">Kon niet verbinden met de OSM server, omdat de HTTPS onderhandeling mislukte. Probeer te wisselen naar een onversleutelde verbinding in de API voorkeuren.</string>
   <string name="wrong_login_data_title">Kon niet authenticeren</string>
+  <string name="wrong_login_data_re_authenticate">Herauthenticeren</string>
+  <string name="forbidden_login_title">Login niet toegestaan</string>
   <string name="not_found_title">Element niet gevonden</string>
   <string name="unknown_error_title">Onbekende fout</string>
   <string name="no_data_title">Geen data</string>
@@ -35,9 +37,19 @@
   <string name="go_to_openstreetmap">Ga naar openstreetmap.org</string>
   <string name="data_conflict_title">Versieconflict</string>
   <string name="data_conflict_message">Data van de download zou conflicteren met je bewerkingen. Upload alsjeblieft je data voor het opnieuw te proberen.</string>
+  <string name="invalid_bounding_box_title">Ongeldig bereik</string>
+  <string name="invalid_bounding_box_message">Het geselecteerde gebied voldoet niet aan API-beperkingen, kies alsjeblieft een andere.</string>
   <string name="bounding_box_too_large_title">Downloadgebied te groot</string>
+  <string name="bounding_box_too_large_message">Het gebied dat je probeert te downloaden is te groot of bevat te veel gegevens.\n\nZoom alsjeblieft verder in en probeer het opnieuw.</string>
+  <string name="api_offline_title">API offline</string>
+  <string name="api_offline_message">De API is op dit moment offline, geen data kan opgehaald of geschreven worden.</string>
+  <string name="out_of_memory_title">Geen geheugen meer</string>
+  <string name="out_of_memory_message">Vespucci kon de verzochte data niet laden. Probeer het alsjeblieft opnieuw met een kleiner gebied.</string>
+  <string name="out_of_memory_dirty_message">Vespucci kon de verzochte data niet laden. Sla alsjeblieft je bewerkingen op, en probeer het opnieuw met een kleiner gebied.</string>
   <string name="invalid_data_received_title">Ongeldige data ontvangen</string>
+  <string name="invalid_data_received_message">Als je de fout niet hebt veroorzaakt, rapporteer alsjeblieft een bug.</string>
   <string name="invalid_data_read_title">Ongeldige data gelezen</string>
+  <string name="invalid_data_read_message">Raadpleeg alsjeblieft de documentatie over ondersteunde bestandsformaten en vereiste gegevensvelden.</string>
   <string name="file_write_failed_title">Kon niet naar bestand schrijven</string>
   <!---->
   <string name="welcome_title">Welkom</string>
@@ -52,6 +64,7 @@
   <string name="progress_saving_message">Opslaan…</string>
   <string name="progress_uploading_message">Uploaden…</string>
   <string name="progress_preset_message">Voorkeuzen downloaden…</string>
+  <string name="progress_running_message">Uitvoeren…</string>
   <string name="progress_query_oam">OAM opvragen…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" verwijderd</string>
@@ -83,9 +96,12 @@
   <string name="openstreetbug_comment_label">Opemerking:</string>
   <string name="openstreetbug_unknown_task_type">Onbekend taaktype</string>
   <string name="openstreetbug_not_supported">%1$s is niet ondersteund.</string>
+  <string name="generic_bug">Bug</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">Aangepast</string>
   <string name="maproulette_task_title">MapRoulette Taak</string>
+  <string name="maproulette_task_explanations">Uitleg</string>
+  <string name="maproulette_task_set_apikey">Stel MapRoulette API-sleutel in</string>
   <string name="maproulette_task_disable">Uitschakelen</string>
   <string name="maproulette_task_apikey_set">MapRoulette API-sleutel opgeslagen</string>
   <string name="maproulette_task_no_apikey">Geen MapRoulette API-sleutel</string>
@@ -96,8 +112,11 @@
   <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Beschrijving</string>
   <string name="imagery_offset_author">Auteur</string>
+  <string name="imagery_offset_offset">Compensatie</string>
   <string name="imagery_offset_date">Aangemaakt</string>
+  <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Afstand</string>
+  <string name="set_position_datum_label">Geodetisch datum</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Naamsuggestie</string>
   <!--Search/Find dialog-->
@@ -109,10 +128,13 @@
   <!--Search objects dialog-->
   <string name="search_objects_title">Zoek naar objecten</string>
   <!---->
+  <string name="preset_autopreset">Auto-voorkeuze</string>
   <string name="search">Zoeken</string>
   <string name="no_valid_preset">Geen geldige voorkeuze!</string>
+  <string name="save_file">Opslaan naar</string>
   <!--element information dialog-->
   <string name="element_information">Elementinfo</string>
+  <string name="id">ID</string>
   <string name="relation_membership">Relatielidmaatschap</string>
   <string name="problem">Probleem</string>
   <string name="members">Leden</string>
@@ -148,6 +170,8 @@
   <!--JS console dialog-->
   <string name="js_console_msg_debug">Debug modus!</string>
   <!--Validator dialogs-->
+  <string name="max_age">Max. leeftijd</string>
+  <string name="age">Leeftijd</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Lege relatie</string>
   <string name="add_members">Leden toevoegen</string>
@@ -158,16 +182,28 @@
   <string name="altitude">Hoogte</string>
   <string name="create_osm_object">Creëer OSM object</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Aangepaste foto\'s</string>
+  <string name="oam_layer_title">OAM foto\'s</string>
+  <string name="edit_layer_title">Bewerk laag</string>
+  <string name="add_layer_title">Voeg laag toe</string>
+  <string name="overlay">Overlay</string>
   <string name="coverage">Dekking</string>
+  <string name="coverage_top">Bovenkant</string>
+  <string name="coverage_left">Links</string>
+  <string name="coverage_right">Rechts</string>
+  <string name="coverage_bottom">Onderkant</string>
+  <string name="toast_invalid_box">Ongeldig of incompleet bereik</string>
   <string name="delete_layer">Verwijder laag?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Laagstijl</string>
   <string name="layer_style_color">Kleur</string>
   <string name="layer_style_label">Label</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
   <string name="layer_grid">Raster</string>
   <string name="layer_photos">Foto\'s</string>
   <string name="layer_tasks">Taken</string>
+  <string name="layer_change_style">Verander stijl</string>
   <string name="layer_category_all">Alle</string>
   <string name="layer_category_photo">Luchtfoto\'s</string>
   <string name="layer_category_historicphoto">Verouderde luchtfoto\'s</string>
@@ -176,6 +212,8 @@
   <string name="layer_category_osmbasedmap">OSM-gebaseerde kaart</string>
   <string name="layer_category_other">Overig</string>
   <!--Layer info dialog-->
+  <string name="layer_info_start_date">Startdatum</string>
+  <string name="layer_info_end_date">Einddatum</string>
   <string name="layer_info_terms">Voorwaarden</string>
   <string name="layer_info_privacy_policy">Privacybeleid</string>
   <!--Photo viewer-->
@@ -183,10 +221,13 @@
   <string name="photo_viewer_delete_button">Permanent verwijderen</string>
   <string name="photo_viewer_goto">Ga naar foto</string>
   <!--API info dialog-->
+  <string name="api_info_bounds">Bereik</string>
+  <string name="api_info_attribution">Attributie</string>
   <!--Undo - Redo dialog-->
   <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Download OpenStreetMap-gegevens</string>
   <!--Clear/Reset GPX Track-->
   <!--Tips-->
   <string name="tip_title">Wist je dat?</string>
@@ -197,12 +238,20 @@
   <!--NotificationChannels-->
   <string name="default_channel_name">Vespucci standaard</string>
   <!--Toaster-->
+  <string name="toast_permission_denied">Toestemming geweigerd %1$s</string>
   <string name="toast_name_empty">Kies een naam</string>
+  <string name="toast_url_empty">Voer een URL in</string>
+  <string name="toast_no_changes">Je hebt nog niks veranderd…</string>
+  <string name="toast_unsaved_changes">Upload je niet opgeslagen wijzigingen eerst.</string>
+  <string name="clear_anyway">Desondanks wissen?</string>
+  <string name="toast_upload_success">Geüpload naar OSM server.</string>
   <string name="toast_unlock_to_edit">Ontgrendel om te bewerken</string>
   <string name="toast_save_done">Opgeslagen</string>
   <string name="toast_save_failed">Kon niet opslaan</string>
   <string name="toast_export_failed">Kon niet exporteren</string>
   <string name="toast_export_success">Geëxporteerd naar %1$s</string>
+  <string name="read_mail">Lezen</string>
+  <string name="toast_notype">Relatie mist type</string>
   <string name="toast_untagged_relation">Ongetagde relatie</string>
   <!---->
   <string name="toast_timeout">Timeout van server</string>
@@ -212,12 +261,34 @@
   <string name="toast_storage_error">%1$s is niet schrijfbaar door Vespucci.\nDit kan komen door onvoldoende machtigingen of een technische fout met je apparaat.</string>
   <string name="toast_min_one_preset">Minstens een voorkeuze moet geselecteerd zijn!</string>
   <string name="toast_invalid_apiurl">Ongeldige API URL</string>
+  <string name="toast_error_accessing_photo">Geen toegang tot foto %1$s</string>
+  <string name="toast_security_error_accessing_photo">Niet toegestaan om foto %1$s te laden</string>
   <string name="toast_no_coverage">%1$s heeft geen dekking hier</string>
   <string name="toast_file_exists">%1$s bestand bestaat.</string>
+  <string name="toast_missing_key">%1$s sleutel mist</string>
   <string name="toast_invalid_object">Ongeldig object</string>
+  <string name="toast_openinghours_autocorrected">Openingstijden waarde voor %1$s automatisch gecorrigeerd</string>
+  <string name="toast_server_connection_failed">Kon niet met server verbinden: %1$s</string>
+  <string name="toast_unsupported_format">Niet ondersteund formaat: %1$s</string>
+  <string name="toast_returning_less_than_found">Weergeeft %1$d van %2$d gevonden items</string>
   <string name="toast_using_network_location">Gebruikt netwerklocatie</string>
   <string name="toast_using_gps_location">Gebruikt GPS/GNSS locatie</string>
+  <string name="toast_tags_copied">Tags gekopieerd naar klembord</string>
+  <string name="toast_tags_cut">Tags geknipt naar klembord</string>
+  <string name="toast_properties_copied">Eigenschappen gekopieerd naar klembord</string>
+  <string name="toast_task_conflict">%1$s is veranderd op de server, upload eerst en download dan opnieuw</string>
+  <string name="toast_move_note_warning">Alleen nieuwe opmerkingen kunnen verplaatst worden</string>
+  <string name="toast_task_layer_disabled">Taaklaag uitgeschakeld</string>
+  <string name="toast_unable_to_create_task_layer">Taaklaag creëren mislukt</string>
+  <string name="toast_merged">Samengevoegd</string>
+  <string name="toast_long_press_simple_mode">Lang drukken is niet beschikbaar in simpele modus</string>
+  <string name="toast_unknown_error_for">Onbekende fout voor %1$s</string>
+  <string name="toast_download_started">Download van %1$s gestart</string>
+  <string name="toast_members_not_downloaded">Enkele relatieleden zijn niet gedownload</string>
+  <string name="toast_restart_required">Je moet Vespucci herstarten voor de wijziging om effect te hebben</string>
   <!--Error messages-->
+  <string name="error_pbf_no_version">Versie-informatie ontbreekt in PBF bestand</string>
+  <string name="error_pbf_unknown_relation_member_type">Onbekend relatielid-type %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nee</string>
@@ -253,49 +324,184 @@
   <string name="none">Geen</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vespucci verlaten</string>
+  <string name="exit_text">Weet je zeker dat je wilt verlaten?</string>
   <!--Strings in PorpertyEditor-->
+  <string name="key">sleutel</string>
+  <string name="Key">Sleutel</string>
+  <string name="value">waarde</string>
+  <string name="Value">Waarde</string>
+  <string name="multiselect_header_short">Waarden (%1$d)</string>
+  <string name="multiselect_header_long">Waarden (voor %1$d elementen)</string>
+  <string name="tag_menu_preset">Voorkeuzen</string>
+  <string name="tag_menu_apply_preset">Voorkeuze toepassen</string>
+  <string name="tag_menu_revert">Terugdraaien</string>
+  <string name="tag_menu_addtorelation">Voeg toe aan relatie</string>
+  <string name="tag_menu_resetMRU">Reset voorkeuzen</string>
+  <string name="tag_menu_exit_no_save">Verlaten\nzonder opslaan</string>
+  <string name="tag_menu_top">Scroll naar bovenkant</string>
+  <string name="tag_menu_bottom">Scroll naar onderkant</string>
+  <string name="tag_value_hint">Typ een waarde</string>
+  <string name="tag_autocomplete_value_hint">Typ of tik voor waarden</string>
+  <string name="tag_autocomplete_name_hint">Typ of tik voor naamsuggesties</string>
+  <string name="tag_tap_to_edit_hint">Tik om te bewerken</string>
+  <string name="tag_multi_value_hint">Meerdere waarden</string>
+  <string name="tag_dialog_value_hint">Tik voor waarden</string>
+  <string name="tag_action_tag_title">Tag(s) geselecteerd</string>
+  <string name="tag_details">Details</string>
+  <string name="tag_not_set">Niet ingesteld</string>
+  <string name="tag_menu_move_up">Verplaats omhoog</string>
+  <string name="tag_menu_move_top">Verplaats naar bovenkant</string>
+  <string name="tag_menu_move_down">Verplaats omlaag</string>
+  <string name="tag_menu_move_bottom">Verplaats naar onderkant</string>
+  <string name="tag_menu_sort">Sorteer</string>
+  <string name="tag_menu_reverse_order">Omgekeerde volgorde</string>
+  <string name="tag_menu_download">Download</string>
+  <string name="tag_menu_js_console">JS console</string>
+  <string name="menu_up">Omhoog</string>
+  <string name="menu_top">Bovenkant</string>
+  <string name="menu_select_all">Selecteer alles</string>
+  <string name="menu_deselect_all">Deselecteer alles</string>
+  <string name="menu_preset_help">Voorkeuzehulp</string>
+  <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_restriction_header">Waarde</string>
+  <string name="tag_restriction_when">als</string>
+  <string name="tag_restriction_and">en</string>
+  <string name="tag_restriction_add_restriction">Voeg beperking toe</string>
+  <string name="tag_restriction_add_opening_hours">Voeg openingstijden toe</string>
+  <string name="tag_form_untagged_element">Element zonder tags</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">Creëer aangepaste voorkeuze</string>
   <!--Strings in Box/LocationPicker-->
+  <string name="location_choose_radius">Kies straal:</string>
+  <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$dm</string>
+  <string name="location_last_text">Laatst bekende locatie:</string>
+  <string name="location_current_text">Huidige locatie:</string>
+  <string name="location_text_unknown">Onbekend</string>
+  <string name="location_last_text_parameterized">Laatst bekende locatie: %1$s</string>
+  <string name="location_current_text_parameterized">Huidige locatie: %1$s</string>
   <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Download bestanden</string>
   <!--Strings in Go to coordinates-->
   <!--Menu-->
+  <string name="menu_add">Nieuw</string>
+  <string name="menu_config">Voorkeuren</string>
   <string name="menu_find">Zoeken</string>
+  <string name="menu_help">Hulp</string>
+  <string name="menu_set_position">Positie</string>
+  <string name="menu_split">Splits</string>
   <string name="menu_transfer_download_current">Download huidig gebied</string>
   <!---->
+  <string name="menu_simple_actions">Simpele modus</string>
   <!--Background alignment-->
   <!--Menus in layers dialog-->
   <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <!--EasyEdit context menus-->
+  <string name="split_context_title">Splitsen …</string>
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
   <!--Simple Action Mode-->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kaartachtergrond</string>
   <string name="config_customlayers_title">Aangepaste lagen</string>
+  <string name="config_enableOpenStreetBugs_title">Weergeef taken</string>
+  <string name="config_enableKeepScreenOn_title">Houd scherm aan</string>
+  <string name="config_advancedprefs">Geavanceerde voorkeuren</string>
+  <string name="config_moreprefs">Meer instellingen…</string>
+  <string name="config_presetbutton_title">Voorkeuzen</string>
   <!--Validator preferences-->
   <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Auteurs en licenties</string>
+  <string name="config_category_info">Over</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
+  <string name="config_showCameraAction_title">Weergeef camera-actie</string>
+  <string name="config_fullscreenMode_title">Volledig scherm-modus</string>
   <!--Data and Editing Settings-->
+  <string name="config_maxAlertDistance_current">%1$d meter</string>
+  <string name="config_closeChangesetOnSave_title">Sluit wijzigingensets</string>
   <!--Auto-download settings-->
+  <string name="config_extTriggeredDownloadRadius_title">Downloadstraal</string>
+  <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_panAndZoomLimit_title">Zoomlimiet</string>
+  <string name="config_bugFilter_title">Taakfilter</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Locatie-instellingen</string>
+  <string name="config_category_gps_summary">GPS/GNSS parameters en andere locatieaanbieders.</string>
+  <string name="config_gps_source_title">GPS/GNSS bron</string>
+  <string name="config_gps_source_summary">Bron van GPS/GNSS locatie-updates.</string>
+  <string name="config_gps_source_tcp_title">NMEA netwerkbron.</string>
+  <string name="config_gps_source_tcp_summary">Adres van TCP NMEA bron als host:poort.</string>
+  <string name="config_gps_interval_title">Minimum GPS/GNSS interval</string>
+  <string name="config_gps_interval_summary">Het minimum tijdsinterval voor GPS/GNSS locatie notificaties, in milliseconden. Lagere waarden gebruiken meer batterij.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_title">Minimum GPS/GNSS afstand</string>
+  <string name="config_gps_distance_summary">De minimum afstand tussen GPS/GNSS notificaties, in meters. Lagere waarden gebruiken meer batterij.</string>
+  <string name="config_gps_distance_current">%1$d meter</string>
   <!--Server Settings-->
+  <string name="config_category_server">Serverinstellingen </string>
+  <string name="config_loginbutton_title">Gebruikersaccount</string>
+  <string name="config_osmoseServer_title">OSMOSE server</string>
+  <string name="config_osmoseServer_summary">URL voor de OSMOSE server.</string>
+  <string name="config_geocoderbutton_title">Configureer geocoders</string>
   <!--Layer download and storage-->
+  <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
+  <string name="config_category_misc">Overig</string>
+  <string name="config_showStats_title">Toon statistieken</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Experimenteel</string>
+  <string name="config_js_console_title">Activeer JS console</string>
+  <string name="config_voiceCommandsEnabled_title">Activeer spraakcommando\'s</string>
+  <string name="config_voiceCommandsEnabled_summary">Activeer spraakcommando-ondersteuning</string>
   <!---->
+  <string name="manage_apis">Beheer APIs</string>
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Gebruik OAuth</string>
+  <string name="listedit_enable_oauth">Activeer OAuth</string>
+  <string name="config_username_title">OSM gebruikersnaam</string>
+  <string name="config_password_title">OSM wachtwoord</string>
+  <string name="manage_presets">Beheer voorkeuzen</string>
+  <string name="listedit_use_translations">Gebruik vertalingen</string>
   <!--preset downloader messages-->
+  <string name="preset_download_successful">Voorkeuze gedownload</string>
+  <string name="preset_download_title">Voorkeuzedownloader</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Voorkeuze toevoegen</string>
   <string name="urldialog_preset_exists">Deze voorkeuze bestaat al</string>
   <string name="urldialog_preset_download_successful">Voorkeuze gedownload.</string>
+  <string name="urldialog_add_api">API toevoegen</string>
+  <string name="urldialog_nodata_text">De configuratie URL bevat geen geldige gegevens.</string>
+  <string name="urldialog_add_geocoder">Geocoder toevoegen</string>
   <!--API configuration-->
+  <string name="api_name">API naam</string>
+  <string name="api_url">API URL</string>
+  <string name="readonly_url">Alleen-lezen API URL (optioneel)</string>
+  <string name="notes_url">Opmerkingen API URL (optioneel)</string>
+  <string name="copy_of">Kopie van %1$s</string>
   <!--common terms-->
+  <string name="add">Toevoegen</string>
+  <string name="edit">Bewerken</string>
+  <string name="delete">Verwijderen</string>
+  <string name="name">Naam</string>
+  <string name="url">URL</string>
+  <string name="default_">Standaard</string>
+  <string name="regular_expression">Reguliere expressie</string>
+  <string name="state">Status</string>
   <!---->
+  <string name="empty_list">Geen items</string>
+  <string name="geocoder_type">Type Geocoder</string>
   <!--"default" is a reserved Java keyword…-->
+  <string name="preset">Voorkeuze</string>
+  <string name="api">API</string>
+  <string name="undo">Ongedaan maken</string>
+  <string name="redo">Opnieuw doen</string>
+  <string name="undo_nothing">niks om ongedaan te maken</string>
+  <string name="tracking_active_title">Vespucci achtergrondservice</string>
+  <string name="tracking_active_title_short">Achtergrondservice actief</string>
   <string name="gps_failure">GPS inschakelen mislukt</string>
   <!--element description-->
   <string name="address_housenumber">Adres %1$s</string>
@@ -304,11 +510,59 @@
   <string name="undo_action_movenode">Node verplaatst</string>
   <string name="undo_action_moveway">Weg verplaatst</string>
   <string name="undo_action_moveobjects">Objecten verplaatst</string>
+  <string name="undo_action_reverse_way">Weg omkeren</string>
+  <string name="undo_action_join">Samenvoeging</string>
+  <string name="undo_action_cut">Knippen</string>
+  <string name="undo_action_paste">Plakken</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_ne">NO ↗</string>
+  <string name="bearing_e">O →</string>
+  <string name="bearing_se">ZO ↘</string>
+  <string name="bearing_s">Z ↓</string>
+  <string name="bearing_sw">ZW ↙</string>
+  <string name="bearing_w">W ←</string>
+  <string name="bearing_nw">NW ↖</string>
+  <string name="bearing_n">N ↑</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rol</string>
+  <string name="role_lc">Rol</string>
+  <string name="membership_relation_heading">Lid van relatie</string>
+  <string name="relation">Relatie</string>
+  <string name="relations">Relaties</string>
+  <string name="position">Positie</string>
+  <string name="type">Type</string>
+  <string name="object">Object</string>
+  <string name="deleterelation_relation_description">Je staat op het punt om een relatie te verwijderen, die lid is van een of meer relaties. Een dergelijke relatie verwijderen, kan deze ongeldig maken.</string>
+  <string name="deleterelation">Verwijder relatie</string>
+  <string name="delete_from_relation_description">Je staat op het punt om dit element van een relatie te verwijderen.</string>
+  <string name="unset_relation_type">Niet ingesteld relatietype</string>
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 dag</item>
+    <item quantity="other">%1$d dagen</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 uur</item>
+    <item quantity="other">%1$d uur</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 minuut</item>
+    <item quantity="other">%1$d minuten</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 seconde</item>
+    <item quantity="other">%1$d seconden</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 km</item>
+    <item quantity="other">%1$d km</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 meter</item>
+    <item quantity="other">%1$d meter</item>
+  </plurals>
   <!--Help system-->
   <!--Arrays-->
   <!--The entries need to match the order of the CheckStatus enum-->
