@@ -2132,7 +2132,7 @@ public class TileLayerServer implements Serializable {
                         String versionStr = matcher.group(1);
                         if (versionStr != null) {
                             Version version = new Version(versionStr);
-                            if (version.getMajor() >= 1 && version.getMinor() >= 3) {
+                            if (version.largerThanOrEqual("1.3.0")) {
                                 Log.i(DEBUG_TAG, "WMS version " + versionStr + " flipping axis");
                                 wmsAxisOrder = WMS_AXIS_YX;
                             } else {

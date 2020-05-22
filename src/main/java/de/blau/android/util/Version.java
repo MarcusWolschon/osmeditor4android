@@ -12,7 +12,7 @@ public class Version {
     private int                 major     = 0;
     private int                 minor     = 0;
     private int                 patch     = 0;
-    private int                 beta      = 0;
+    private int                 beta      = -1;
 
     String               lastVersion;
     SavingHelper<String> savingHelperVersion;
@@ -119,5 +119,24 @@ public class Version {
      */
     public int getBeta() {
         return beta;
+    }
+
+    /**
+     * Checks if a version is larger or equals than one provided as a String
+     * 
+     * Ignores beta values
+     * 
+     * @param versionStr the version to compare to
+     * @return true if larger or equals
+     */
+    public boolean largerThanOrEqual(@NonNull String versionStr) {
+        Version v = new Version(versionStr);
+        return major > v.getMajor() || (major == v.getMajor() && minor >= v.getMinor())
+                || (major == v.getMajor() && minor == v.getMinor() && patch >= v.getPatch());
+    }
+
+    @Override
+    public String toString() {
+        return major + "." + minor + "." + patch + (beta >= 0 ? "." + beta : "");
     }
 }
