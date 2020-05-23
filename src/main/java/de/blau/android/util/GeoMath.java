@@ -554,7 +554,7 @@ public final class GeoMath {
     /**
      * Calculate the best zoom level based on an images nominal resolution
      * 
-     * @param resolution in metes/pixel
+     * @param resolution in meters/pixel
      * @param lat latitude in degrees
      * @return the zoom level
      */

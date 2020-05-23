@@ -197,12 +197,19 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         if (data.length == 0) {
                             throw new IOException("no tile data");
                         }
-                        // if tile is in BMP format, compress
-                        if (format != null && "BMP".equalsIgnoreCase(format.subtype())) {
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
-                            dataStream.reset();
-                            bitmap.compress(CompressFormat.PNG, 100, dataStream);
-                            data = dataStream.toByteArray();
+                        // check format
+                        if (format != null) {
+                            if ("BMP".equalsIgnoreCase(format.subtype())) {
+                                // if tile is in BMP format, compress
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
+                                dataStream.reset();
+                                bitmap.compress(CompressFormat.PNG, 100, dataStream);
+                                data = dataStream.toByteArray();
+                            } else if ("TEXT".equalsIgnoreCase(format.type())) {
+                                // this can't be a tile and is likely an error message
+                                Log.e(DEBUGTAG, responseBody.string());
+                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                            }
                         }
                         mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
                         MapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);

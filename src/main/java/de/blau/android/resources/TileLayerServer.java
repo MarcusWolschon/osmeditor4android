@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -406,19 +407,17 @@ public class TileLayerServer implements Serializable {
         @Nullable
         public CoverageArea getCoverageArea(double lon, double lat) {
             CoverageArea result = null;
-            if (!coverageAreas.isEmpty()) {
-                for (CoverageArea a : coverageAreas) {
-                    if (a.covers(lon, lat)) {
-                        if (result == null) {
+            for (CoverageArea a : coverageAreas) {
+                if (a.covers(lon, lat)) {
+                    if (result == null) {
+                        result = a;
+                    } else {
+                        if (a.zoomMax > result.zoomMax) {
                             result = a;
-                        } else {
-                            if (a.zoomMax > result.zoomMax) {
-                                result = a;
-                            }
                         }
                     }
-                    Log.d(DEBUG_TAG, "maxZoom " + a.zoomMax);
                 }
+                Log.d(DEBUG_TAG, "maxZoom " + a.zoomMax);
             }
             return result;
         }
@@ -453,6 +452,7 @@ public class TileLayerServer implements Serializable {
     private String                   name;
     private String                   type;
     private Category                 category;
+    private String                   source;
     private String                   tileUrl;
     private String                   originalUrl;
     private String                   imageFilenameExtension;
@@ -546,7 +546,6 @@ public class TileLayerServer implements Serializable {
                     }
                     if ("ImageUrl".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
                         tileUrl = parser.getText().trim();
-                        // Log.d("OpenStreetMapTileServer","loadInfo tileUrl " + tileUrl);
                         int extPos = tileUrl.lastIndexOf(".jpeg"); // TODO fix this awful hack
                         if (extPos >= 0) {
                             imageFilenameExtension = ".jpg";
@@ -660,7 +659,7 @@ public class TileLayerServer implements Serializable {
      * @param name the layer name
      * @param url the template url for the layer
      * @param type the special types of layer: "bing","scanex"
-     * @param category TODO
+     * @param category type of imagery
      * @param overlay true if this layer is an overlay
      * @param defaultLayer true if this should be used as the default
      * @param provider a Provider object containing detailed provider information
@@ -684,7 +683,7 @@ public class TileLayerServer implements Serializable {
      * @param async run loadInfo in a AsyncTask needed for main process
      */
     TileLayerServer(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, final String url, final String type, Category category,
-            final boolean overlay, final boolean defaultLayer, final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl,
+            final boolean overlay, final boolean defaultLayer, @Nullable final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl,
             byte[] logoBytes, final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj,
             final int preference, final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues,
             @Nullable String description, @Nullable String privacyPolicyUrl, boolean async) {
@@ -1018,10 +1017,11 @@ public class TileLayerServer implements Serializable {
             String[] noTileValues = null;
             JsonObject noTileHeaderObject = getJsonObject(properties, "no_tile_header");
             if (noTileHeaderObject != null) {
-                for (Entry<String, JsonElement> entry : noTileHeaderObject.entrySet()) {
+                Iterator<Entry<String, JsonElement>> it = noTileHeaderObject.entrySet().iterator();
+                if (it.hasNext()) { // we only support one entry
+                    Entry<String, JsonElement> entry = it.next();
                     noTileHeader = entry.getKey();
                     noTileValues = getJsonStringArray(noTileHeaderObject, noTileHeader);
-                    break; // only one entry supported for now
                 }
             }
 
@@ -1047,7 +1047,7 @@ public class TileLayerServer implements Serializable {
                 }
             }
 
-            if (type == null || url == null || (isWMS && proj == null) || TYPE_WMS_ENDPOINT.equals(type)) {
+            if (type == null || url == null || (isWMS && proj == null)) {
                 Log.w(DEBUG_TAG, "skipping name " + name + " id " + id + " type " + type + " url " + url);
                 if (TYPE_WMS.equals(type)) {
                     Log.w(DEBUG_TAG, "projections: " + projections);
@@ -1911,11 +1911,11 @@ public class TileLayerServer implements Serializable {
      * 
      * @param box bounding box to test coverage against
      * @param filtered only return servers that overlap/intersect with the bounding box
-     * @param category TODO
+     * @param category the caterory to retrieve or null for all
      * @return available tile layer IDs.
      */
     @NonNull
-    public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered, Category category) {
+    public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered, @Nullable Category category) {
         return getIds(overlayServerList, box, filtered, category);
     }
 
@@ -2539,9 +2539,11 @@ public class TileLayerServer implements Serializable {
      * 
      * @param provider Provider to use
      */
-    public void setProvider(Provider provider) {
+    public void setProvider(@Nullable Provider provider) {
         providers.clear();
-        providers.add(provider);
+        if (provider != null) {
+            providers.add(provider);
+        }
     }
 
     /**
@@ -2549,6 +2551,7 @@ public class TileLayerServer implements Serializable {
      * 
      * @return a BoundingBox covering all CoverageAreas
      */
+    @NonNull
     public BoundingBox getOverallCoverage() {
         if (providers.isEmpty() || providers.get(0).coverageAreas == null || providers.get(0).coverageAreas.isEmpty()) {
             return ViewBox.getMaxMercatorExtent();
@@ -2563,7 +2566,7 @@ public class TileLayerServer implements Serializable {
                 }
             }
         }
-        return box;
+        return box; // NOSONAR
     }
 
     /**
@@ -2634,30 +2637,30 @@ public class TileLayerServer implements Serializable {
      * @param name name of the layer
      * @param provider Provider object
      * @param category layer Category
+     * @param type type of the entry
      * @param minZoom minimum zoom level
      * @param maxZoom maximum zoom level
      * @param isOverlay if true add as an overlay
      * @param tileUrl the url for the tiles
      */
     public static void addOrUpdateCustomLayer(@NonNull final Context ctx, @NonNull final SQLiteDatabase db, @NonNull final String layerId,
-            @Nullable final TileLayerServer existingTileServer, final long startDate, final long endDate, @NonNull String name, @NonNull Provider provider,
-            Category category, int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
+            @Nullable final TileLayerServer existingTileServer, final long startDate, final long endDate, @NonNull String name, @Nullable Provider provider,
+            Category category, @Nullable String type, int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
         int tileSize = DEFAULT_TILE_SIZE;
         String proj = null;
         // hack, but saves people extracting and then having to re-select the projection
-        if (tileUrl.contains(EPSG_3857)) {
+        if (tileUrl.contains(EPSG_3857) || tileUrl.contains(EPSG_900913)) {
             proj = EPSG_3857;
-            tileSize = WMS_TILE_SIZE;
-        } else if (tileUrl.contains(EPSG_900913)) {
-            proj = EPSG_900913;
             tileSize = WMS_TILE_SIZE;
         } else if (tileUrl.contains(EPSG_4326)) {
             proj = EPSG_4326;
         }
+        if (type == null) {
+            type = proj == null ? TYPE_TMS : TYPE_WMS; // heuristic
+        }
         if (existingTileServer == null) {
-            TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, proj == null ? TYPE_TMS : TYPE_WMS, category, isOverlay, false, provider,
-                    null, null, null, null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null,
-                    null, null, true);
+            TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, type, category, isOverlay, false, provider, null, null, null, null,
+                    minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null, null, true);
             TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
         } else {
             existingTileServer.setProvider(provider);
@@ -2667,6 +2670,8 @@ public class TileLayerServer implements Serializable {
             existingTileServer.setMinZoom(minZoom);
             existingTileServer.setMaxZoom(maxZoom);
             existingTileServer.setCategory(category);
+            existingTileServer.setProj(proj);
+            existingTileServer.setType(type);
             TileLayerDatabase.updateLayer(db, existingTileServer);
         }
     }
@@ -2695,5 +2700,43 @@ public class TileLayerServer implements Serializable {
             return false; // needed key but didn't find it
         }
         return true;
+    }
+
+    /**
+     * Return the source of the entry
+     * 
+     * That is eli, josm, custom, manual see TileLayerDatabase for constants
+     * 
+     * @return the source
+     */
+    public String getSource() {
+        return source;
+    }
+
+    /**
+     * Set the source of the entry
+     * 
+     * @param source the source to set
+     */
+    public void setSource(@NonNull String source) {
+        this.source = source;
+    }
+
+    /**
+     * Set the projection used by the layer
+     * 
+     * @param proj the proj to set
+     */
+    private void setProj(@Nullable String proj) {
+        this.proj = proj;
+    }
+
+    /**
+     * Set the type of the entry (mainly tms, wms, wms_endpoint and some special cases)
+     * 
+     * @param type the type to set
+     */
+    private void setType(@NonNull String type) {
+        this.type = type;
     }
 }

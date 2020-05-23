@@ -206,8 +206,8 @@ public class RemoteControlUrlActivity extends UrlActivity {
                         // ignore
                     }
                     try (TileLayerDatabase tlDb = new TileLayerDatabase(this); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                        TileLayerServer.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerServer.Provider(), null, minZoom, maxZoom,
-                                false, url);
+                        TileLayerServer.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerServer.Provider(), null, null, minZoom,
+                                maxZoom, false, url);
                     }
                     prefs.setBackGroundLayer(id);
                     intent.setAction(Main.ACTION_UPDATE);

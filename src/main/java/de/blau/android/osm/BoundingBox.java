@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -264,7 +265,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return a String with the bounding box values
      */
     public String toPrettyString() {
-        return String.format(Locale.US, "%1g5, %2g5, %3g5, %4g5", left / 1E7D, bottom / 1E7D, right / 1E7D, top / 1E7D);
+        return String.format(Locale.US, "%1s, %2s, %3s, %4s", new BigDecimal(left).scaleByPowerOfTen(-Node.COORDINATE_SCALE).toPlainString(),
+                new BigDecimal(bottom).scaleByPowerOfTen(-Node.COORDINATE_SCALE).toPlainString(),
+                new BigDecimal(right).scaleByPowerOfTen(-Node.COORDINATE_SCALE).toPlainString(),
+                new BigDecimal(top).scaleByPowerOfTen(-Node.COORDINATE_SCALE).toPlainString());
     }
 
     /**

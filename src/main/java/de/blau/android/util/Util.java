@@ -722,4 +722,16 @@ public final class Util {
         return null;
     }
 
+    /**
+     * Append further query arguments to an url
+     * 
+     * @param url the original url
+     * @param query the query
+     * @return the extended url
+     */
+    @NonNull
+    public static String appendQuery(@NonNull String url, @NonNull String query) {
+        url += (url.contains("?") ? (url.endsWith("?") ? "" : "&") : "?") + query;
+        return url;
+    }
 }
