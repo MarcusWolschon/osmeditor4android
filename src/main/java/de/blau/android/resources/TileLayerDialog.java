@@ -3,7 +3,6 @@ package de.blau.android.resources;
 import java.util.List;
 import java.util.Map;
 
-import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
@@ -20,10 +19,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import ch.poole.android.numberpicker.library.NumberPicker;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.OAMCatalog.Entry;
 import de.blau.android.resources.TileLayerServer.Category;
 import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
@@ -53,7 +52,7 @@ public class TileLayerDialog {
      * @param entry an entry from OAM
      * @param onUpdate call this if the DB has been updated
      */
-    public static void showLayerDialog(@NonNull FragmentActivity activity, @Nullable Entry entry, @Nullable final OnUpdateListener onUpdate) {
+    public static void showLayerDialog(@NonNull FragmentActivity activity, @Nullable LayerEntry entry, @Nullable final OnUpdateListener onUpdate) {
         showLayerDialog(activity, -1, entry, onUpdate);
     }
 
@@ -62,12 +61,13 @@ public class TileLayerDialog {
      * 
      * @param activity Android Context
      * @param id the rowid of the layer entry in the database or -1 if not saved yet
-     * @param oamEntry an entry from OAM or null
+     * @param layerEntry an entry from OAM, WMS or null
      * @param onUpdate call this if the DB has been updated
      */
-    static void showLayerDialog(@NonNull final FragmentActivity activity, final int id, @Nullable Entry oamEntry, @Nullable final OnUpdateListener onUpdate) {
+    static void showLayerDialog(@NonNull final FragmentActivity activity, final int id, @Nullable LayerEntry layerEntry,
+            @Nullable final OnUpdateListener onUpdate) {
         final boolean existing = id > 0;
-        final Preferences prefs = new Preferences(activity);
+        final Preferences prefs = App.getLogic().getPrefs();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         final View templateView = LayoutInflater.from(activity).inflate(R.layout.layer_item, null);
         alertDialog.setView(templateView);
@@ -89,10 +89,10 @@ public class TileLayerDialog {
 
         alertDialog.setTitle(R.string.add_layer_title);
 
-        if (existing || oamEntry != null) {
+        if (existing || layerEntry != null) {
             fileButton.setVisibility(View.GONE);
 
-            if (oamEntry == null) {
+            if (layerEntry == null) {
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
                     layer = TileLayerDatabase.getLayerWithRowId(activity, db, id);
                 }
@@ -112,26 +112,26 @@ public class TileLayerDialog {
                     }
                 }
             } else {
-                nameEdit.setText(oamEntry.title);
-                urlEdit.setText(oamEntry.tileUrl);
+                nameEdit.setText(layerEntry.title);
+                urlEdit.setText(layerEntry.tileUrl);
                 minZoomPicker.setValue(TileLayerServer.DEFAULT_MIN_ZOOM);
                 int maxZoom = TileLayerServer.DEFAULT_MAX_ZOOM;
-                if (oamEntry.box != null) {
-                    setBoundingBoxFields(templateView, oamEntry.box);
+                if (layerEntry.box != null) {
+                    setBoundingBoxFields(templateView, layerEntry.box);
                     try {
-                        double centerLat = (oamEntry.box.getBottom() + oamEntry.box.getHeight() / 2D) / 1E7D;
-                        maxZoom = GeoMath.resolutionToZoom(oamEntry.gsd, centerLat);
+                        double centerLat = (layerEntry.box.getBottom() + layerEntry.box.getHeight() / 2D) / 1E7D;
+                        maxZoom = GeoMath.resolutionToZoom(layerEntry.gsd, centerLat);
                     } catch (IllegalArgumentException iaex) {
                         Log.e(DEBUG_TAG, "Got " + iaex.getMessage());
                     }
                 }
                 maxZoomPicker.setValue(maxZoom);
-                startDate = oamEntry.startDate;
-                endDate = oamEntry.endDate;
-                if (oamEntry.provider != null) {
-                    attribution = oamEntry.provider;
-                    if (oamEntry.license != null) {
-                        attribution += " " + oamEntry.license;
+                startDate = layerEntry.startDate;
+                endDate = layerEntry.endDate;
+                if (layerEntry.provider != null) {
+                    attribution = layerEntry.provider;
+                    if (layerEntry.license != null) {
+                        attribution += " " + layerEntry.license;
                     }
                 }
                 alertDialog.setNeutralButton(R.string.cancel, null);
@@ -140,17 +140,14 @@ public class TileLayerDialog {
             if (existing) {
                 final TileLayerServer finalLayer = layer;
                 alertDialog.setTitle(R.string.edit_layer_title);
-                alertDialog.setNeutralButton(R.string.Delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
-                        TileLayerDatabaseView.removeLayerSelection(prefs, finalLayer);
-                        try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                            TileLayerDatabase.deleteLayerWithRowId(db, id);
-                        }
-                        if (onUpdate != null) {
-                            onUpdate.update();
-                        }
+                alertDialog.setNeutralButton(R.string.Delete, (dialog, which) -> {
+                    Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
+                    TileLayerDatabaseView.removeLayerSelection(prefs, finalLayer);
+                    try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
+                        TileLayerDatabase.deleteLayerWithRowId(db, id);
+                    }
+                    if (onUpdate != null) {
+                        onUpdate.update();
                     }
                 });
             } else {
@@ -160,80 +157,69 @@ public class TileLayerDialog {
             minZoomPicker.setValue(TileLayerServer.DEFAULT_MIN_ZOOM);
             maxZoomPicker.setValue(TileLayerServer.DEFAULT_MAX_ZOOM);
 
-            fileButton.setOnClickListener(new OnClickListener() {
+            fileButton.setOnClickListener(v -> SelectFile.read(activity, R.string.config_mbtilesPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
                 @Override
-                public void onClick(View arg0) {
-                    SelectFile.read(activity, R.string.config_mbtilesPreferredDir_key, new ReadFile() {
-                        private static final long serialVersionUID = 1L;
+                public boolean read(Uri fileUri) {
+                    try {
+                        // rewrite content: Uris
+                        fileUri = FileUtil.contentUriToFileUri(activity, fileUri);
+                        if (fileUri == null) {
+                            Snack.toastTopError(activity, R.string.not_found_title);
+                            return false;
+                        }
+                        if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
+                            throw new SQLiteException("Not a SQLite database file");
+                        }
+                        MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri, 1);
+                        Map<String, String> metadata = db.getMetadata();
+                        if (metadata == null || metadata.isEmpty()) {
+                            throw new SQLiteException("MBTiles metadata missing");
+                        }
+                        int[] zooms = db.getMinMaxZoom();
+                        db.close();
 
-                        @Override
-                        public boolean read(Uri fileUri) {
-                            try {
-                                // rewrite content: Uris
-                                fileUri = FileUtil.contentUriToFileUri(activity, fileUri);
-                                if (fileUri == null) {
-                                    Snack.toastTopError(activity, R.string.not_found_title);
-                                    return false;
-                                }
-                                if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
-                                    throw new SQLiteException("Not a SQLite database file");
-                                }
-                                MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri, 1);
-                                Map<String, String> metadata = db.getMetadata();
-                                if (metadata == null || metadata.isEmpty()) {
-                                    throw new SQLiteException("MBTiles metadata missing");
-                                }
-                                int[] zooms = db.getMinMaxZoom();
-                                db.close();
-
-                                final String format = metadata.get(MBTileConstants.FORMAT);
-                                if (!(MBTileConstants.PNG.equals(format) || MBTileConstants.JPG.equals(format))) {
-                                    Snack.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
-                                    return true;
-                                }
-                                urlEdit.setText(fileUri.toString());
-                                String name = metadata.get(MBTileConstants.NAME);
-                                if (name != null) {
-                                    nameEdit.setText(name);
-                                }
-                                overlayCheck.setChecked(MBTileConstants.OVERLAY.equals(metadata.get(MBTileConstants.TYPE)));
-                                String bounds = metadata.get(MBTileConstants.BOUNDS);
-                                if (bounds != null) {
-                                    String[] corners = bounds.split(",", 4);
-                                    if (corners.length == 4) {
-                                        setBoundingBoxFields(templateView, corners[0], corners[1], corners[2], corners[3]);
-                                    }
-                                }
-                                if (zooms != null && zooms.length == 2) {
-                                    minZoomPicker.setValue(zooms[0]);
-                                    maxZoomPicker.setValue(zooms[1]);
-                                }
-                                SelectFile.savePref(prefs, R.string.config_mbtilesPreferredDir_key, fileUri);
-                                return true;
-                            } catch (SQLiteException sqex) {
-                                Log.e(DEBUG_TAG, "Not a SQLite/MBTiles database " + fileUri + " " + sqex.getMessage());
-                                Snack.toastTopError(activity, R.string.toast_not_mbtiles);
-                                return false;
+                        final String format = metadata.get(MBTileConstants.FORMAT);
+                        if (!(MBTileConstants.PNG.equals(format) || MBTileConstants.JPG.equals(format))) {
+                            Snack.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
+                            return true;
+                        }
+                        urlEdit.setText(fileUri.toString());
+                        String name = metadata.get(MBTileConstants.NAME);
+                        if (name != null) {
+                            nameEdit.setText(name);
+                        }
+                        overlayCheck.setChecked(MBTileConstants.OVERLAY.equals(metadata.get(MBTileConstants.TYPE)));
+                        String bounds = metadata.get(MBTileConstants.BOUNDS);
+                        if (bounds != null) {
+                            String[] corners = bounds.split(",", 4);
+                            if (corners.length == 4) {
+                                setBoundingBoxFields(templateView, corners[0], corners[1], corners[2], corners[3]);
                             }
                         }
-                    });
+                        if (zooms != null && zooms.length == 2) {
+                            minZoomPicker.setValue(zooms[0]);
+                            maxZoomPicker.setValue(zooms[1]);
+                        }
+                        SelectFile.savePref(prefs, R.string.config_mbtilesPreferredDir_key, fileUri);
+                        return true;
+                    } catch (SQLiteException sqex) {
+                        Log.e(DEBUG_TAG, "Not a SQLite/MBTiles database " + fileUri + " " + sqex.getMessage());
+                        Snack.toastTopError(activity, R.string.toast_not_mbtiles);
+                        return false;
+                    }
                 }
-            });
+            }));
 
             alertDialog.setNeutralButton(R.string.cancel, null);
         }
 
-        alertDialog.setNegativeButton(R.string.save, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // dummy
-            }
+        alertDialog.setNegativeButton(R.string.save, (dialog, which) -> {
+            // dummy
         });
-        alertDialog.setPositiveButton(R.string.save_and_set, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // dummy
-            }
+        alertDialog.setPositiveButton(R.string.save_and_set, (dialog, which) -> {
+            // dummy
         });
         final TileLayerServer existingLayer = layer;
 
@@ -247,10 +233,13 @@ public class TileLayerDialog {
         class SaveListener implements View.OnClickListener {
             String  layerId   = null;
             boolean isOverlay = false;
-            boolean saved     = false;
 
-            @Override
-            public void onClick(View v) {
+            /**
+             * Actually save the layer
+             * 
+             * @return true if successful
+             */
+            boolean save() {
                 String name = nameEdit.getText().toString().trim();
                 layerId = existing ? existingLayer.getId() : TileLayerServer.nameToId(name);
                 isOverlay = overlayCheck.isChecked();
@@ -291,22 +280,32 @@ public class TileLayerDialog {
                     Snack.toastTopError(activity, R.string.toast_url_empty);
                     moan = true;
                 }
+                if (isOverlay && (tileUrl.contains(WmsCapabilities.IMAGE_JPEG) || tileUrl.contains(".jpg"))) {
+                    Snack.toastTopError(activity, R.string.toast_jpeg_not_transparent);
+                    moan = true;
+                }
                 if (minZoom > maxZoom) {
                     Snack.toastTopError(activity, R.string.toast_min_zoom);
                     moan = true;
                 }
                 if (moan) { // abort and leave the dialog intact
-                    return;
+                    return false;
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                    TileLayerServer.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category,
+                    TileLayerServer.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, null,
                             minZoom, maxZoom, isOverlay, tileUrl);
                 }
-                if (onUpdate != null) {
-                    onUpdate.update();
+                return true;
+            }
+
+            @Override
+            public void onClick(View v) {
+                if (save()) {
+                    if (onUpdate != null) {
+                        onUpdate.update();
+                    }
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
-                saved = true;
             }
         }
 
@@ -316,13 +315,16 @@ public class TileLayerDialog {
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new SaveListener() {
             @Override
             public void onClick(View v) {
-                super.onClick(v);
-                if (saved) {
+                if (save()) {
                     if (isOverlay) {
                         prefs.setOverlayLayer(layerId);
                     } else {
                         prefs.setBackGroundLayer(layerId);
                     }
+                    if (onUpdate != null) {
+                        onUpdate.update();
+                    }
+                    dialog.dismiss();
                 }
             }
         });

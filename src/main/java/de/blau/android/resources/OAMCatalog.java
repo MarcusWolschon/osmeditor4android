@@ -51,24 +51,6 @@ public class OAMCatalog {
      */
     private static final int TIMEOUT = 45 * 1000;
 
-    public class Entry {
-        String      id;
-        String      title;
-        String      tileUrl;
-        String      thumbnailUrl;
-        String      license;
-        String      provider;
-        BoundingBox box;
-        double      gsd;
-        long        startDate = -1;
-        long        endDate   = -1;
-
-        @Override
-        public String toString() {
-            return title;
-        }
-    }
-
     private int       limit        = 0;
     private String    license      = null;
     private int       found        = 0;
@@ -85,7 +67,7 @@ public class OAMCatalog {
      * @throws IOException if reading the entries fails
      */
     @Nullable
-    public List<Entry> getEntries(@Nullable Context context, @NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
+    public List<LayerEntry> getEntries(@Nullable Context context, @NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
         if (context != null) {
             String[] regexpStrings = context.getResources().getStringArray(R.array.bad_oam_title);
             if (regexpStrings != null) {
@@ -128,8 +110,8 @@ public class OAMCatalog {
      * @throws NumberFormatException if we can't parse a number
      */
     @NonNull
-    private List<Entry> parseEntries(@NonNull InputStream is) throws IOException, NumberFormatException {
-        List<Entry> result = new ArrayList<>();
+    private List<LayerEntry> parseEntries(@NonNull InputStream is) throws IOException, NumberFormatException {
+        List<LayerEntry> result = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(is));
         try {
             // key object
@@ -155,7 +137,7 @@ public class OAMCatalog {
                 } else if ("results".equals(key)) {
                     reader.beginArray();
                     while (reader.hasNext()) {
-                        Entry entry = new Entry();
+                        LayerEntry entry = new LayerEntry();
                         entry.license = license; // set to default for the site
                         reader.beginObject();
                         while (reader.hasNext()) {

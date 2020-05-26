@@ -43,7 +43,7 @@ public final class OAMCatalogView {
      * @param box a BoundingBox to search in or null for the whole world
      * @param updateListener a TileLayerDialog.OnUpdateListener to execute or null
      */
-    public static void displayLayers(@NonNull final FragmentActivity activity, @NonNull final List<OAMCatalog.Entry> catalog, @Nullable final BoundingBox box,
+    public static void displayLayers(@NonNull final FragmentActivity activity, @NonNull final List<LayerEntry> catalog, @Nullable final BoundingBox box,
             @Nullable final TileLayerDialog.OnUpdateListener updateListener) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         View layerListView = LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
@@ -62,12 +62,12 @@ public final class OAMCatalogView {
             }
         });
         final AlertDialog dialog = dialogBuilder.create();
-        ArrayAdapter<OAMCatalog.Entry> layerAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, catalog);
+        ArrayAdapter<LayerEntry> layerAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, catalog);
         layerList.setAdapter(layerAdapter);
         layerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OAMCatalog.Entry entry = catalog.get(position);
+                LayerEntry entry = catalog.get(position);
                 TileLayerDialog.showLayerDialog(activity, entry, new TileLayerDialog.OnUpdateListener() {
                     @Override
                     public void update() {
@@ -94,16 +94,16 @@ public final class OAMCatalogView {
      */
     public static void queryAndSelectLayers(@NonNull FragmentActivity activity, @Nullable final BoundingBox box,
             @Nullable final TileLayerDialog.OnUpdateListener updateListener) {
-        new AsyncTask<Void, Void, List<OAMCatalog.Entry>>() {
+        new AsyncTask<Void, Void, List<LayerEntry>>() {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(activity, Progress.PROGRESS_QUERY_OAM);
             }
 
             @Override
-            protected List<OAMCatalog.Entry> doInBackground(Void... params) {
+            protected List<LayerEntry> doInBackground(Void... params) {
                 OAMCatalog catalog = new OAMCatalog();
-                List<OAMCatalog.Entry> list = null;
+                List<LayerEntry> list = null;
                 try {
                     list = catalog.getEntries(activity, Urls.OAM_SERVER, box);
                     final int found = catalog.getFound();
@@ -124,7 +124,7 @@ public final class OAMCatalogView {
             }
 
             @Override
-            protected void onPostExecute(List<OAMCatalog.Entry> catalog) {
+            protected void onPostExecute(List<LayerEntry> catalog) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_QUERY_OAM);
                 if (catalog != null && !catalog.isEmpty()) {
                     OAMCatalogView.displayLayers(activity, catalog, box, updateListener);

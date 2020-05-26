@@ -89,7 +89,7 @@ public class OAMTest {
     public void oamCatalog() {
         mockServer.enqueue("oam");
         OAMCatalog catalog = new OAMCatalog();
-        List<OAMCatalog.Entry> list = null;
+        List<LayerEntry> list = null;
         try {
             list = catalog.getEntries(main, mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
         } catch (IOException e) {
@@ -98,7 +98,7 @@ public class OAMTest {
         Assert.assertNotNull(list);
         Assert.assertEquals(100, list.size());
         Assert.assertEquals(100, catalog.getLimit());
-        OAMCatalog.Entry entry = list.get(12);
+        LayerEntry entry = list.get(12);
         Assert.assertEquals("Bricenio Ecuador Earthquake", entry.title);
         Assert.assertEquals("http://tiles.openaerialmap.org/572b2552cd0663bb003c32a2/0/572b25b72b67227a79b4fbef/{z}/{x}/{y}.png", entry.tileUrl);
         Assert.assertEquals(-80.29468433281558D, entry.box.getLeft() / 1E7D, 0.0000001);
@@ -114,7 +114,7 @@ public class OAMTest {
     public void oamCatalogFiltered() {
         mockServer.enqueue("oam2");
         OAMCatalog catalog = new OAMCatalog();
-        List<OAMCatalog.Entry> list = null;
+        List<LayerEntry> list = null;
         try {
             list = catalog.getEntries(main, mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
         } catch (IOException e) {

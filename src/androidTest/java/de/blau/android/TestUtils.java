@@ -1158,7 +1158,7 @@ public class TestUtils {
         System.out.println(tileUrl); // NOSONAR
         try (TileLayerDatabase db = new TileLayerDatabase(context)) {
             TileLayerServer.addOrUpdateCustomLayer(context, db.getWritableDatabase(), "VESPUCCITEST", null, -1, -1, "Vespucci Test", new Provider(),
-                    Category.other, 0, 19, false, tileUrl);
+                    Category.other, null, 0, 19, false, tileUrl);
         }
         // allow downloading tiles here
         prefs.setBackGroundLayer("VESPUCCITEST");

@@ -250,8 +250,10 @@
     <!-- Custom imagery dialogs  -->
     <string name="custom_layer_title">Custom imagery</string>
     <string name="oam_layer_title">OAM imagery</string>
+    <string name="wms_endpoints_title">WMS Endpoints</string>
     <string name="edit_layer_title">Edit layer entry</string>
     <string name="add_layer_title">Add layer entry</string>
+    <string name="select_layer_title">Select layer</string>
     <string name="overlay">Overlay</string>
     <string name="coverage">Coverage</string>
     <string name="coverage_top">Top</string>
@@ -260,6 +262,10 @@
     <string name="coverage_bottom">Bottom</string>
     <string name="toast_invalid_box">Invalid or incomplete bounding box</string>
     <string name="delete_layer">Delete layer?</string>
+    <string name="delete_endpoint">Delete endpoint?</string>
+    <string name="add_wms_endpoint_title">Add WMS endpoint</string>
+    <string name="edit_wms_endpoint_title">Edit WMS endpoint</string>
+    <string name="add_imagery_from_wms_endpoint">Add imagery from WMS</string>
     <!--  Layer style dialog -->
     <string name="layer_style_title">Layer style</string>
     <string name="layer_style_stroke_width">Stroke width</string>
@@ -345,6 +351,7 @@ avoided by using an offline data source.</string>
     <string name="toast_url_empty">Enter a URL</string>
     <string name="toast_min_zoom">Set minimum zoom lower than maximum</string>
     <string name="toast_no_changes">You have not changed anything yet…</string>
+    <string name="toast_jpeg_not_transparent">JPEG files are not transparent and can\'t be used as an overlay</string>
     <string name="toast_unsaved_changes">Upload your unsaved changes first.</string>
     <string name="clear_anyway">Clear anyway?</string>
     <string name="toast_upload_success">Uploaded to OSM server.</string>

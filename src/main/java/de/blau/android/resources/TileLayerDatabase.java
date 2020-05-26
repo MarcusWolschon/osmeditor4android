@@ -207,7 +207,6 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         ContentValues values = getContentValuesForLayer(source, layer);
         try {
             db.insertOrThrow(LAYERS_TABLE, null, values);
-            // Log.d(DEBUG_TAG, "Added layer from " + source + ": " + layer);
             addCoverageFromLayer(db, layer);
         } catch (SQLiteConstraintException e) {
             // even when in a transaction only this insert will get rolled back
@@ -470,7 +469,19 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Get all layers of a specific type
+     * Get a Cursor for all WMS end points
+     * 
+     * @param db a readable SQLiteDatabase
+     * @return a Cursor pointing to all WMS end points
+     */
+    static Cursor getAllWmsEndPoints(@NonNull SQLiteDatabase db) {
+        return db.rawQuery("SELECT layers.rowid as _id, name FROM layers WHERE server_type='" + TileLayerServer.TYPE_WMS_ENDPOINT + "' ORDER BY name", null);
+    }
+
+    /**
+     * Get all layers of either non-overlay or overlay type
+     * 
+     * Ignores WMS endpoints
      * 
      * @param context Android Context
      * @param db a readable SQLiteDatabase
@@ -495,7 +506,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         }
         dbresult.close();
 
-        dbresult = db.query(LAYERS_TABLE, null, OVERLAY_FIELD + "=" + (overlay ? 1 : 0), null, null, null, null);
+        dbresult = db.query(LAYERS_TABLE, null,
+                OVERLAY_FIELD + "=" + (overlay ? 1 : 0) + " AND " + TYPE_FIELD + " <> '" + TileLayerServer.TYPE_WMS_ENDPOINT + "'", null, null, null, null);
         if (dbresult.getCount() >= 1) {
             boolean haveEntry = dbresult.moveToFirst();
             initLayerFieldIndices(dbresult);
@@ -522,6 +534,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     static int idLayerFieldIndex          = -1;
     static int nameFieldIndex             = -1;
     static int typeFieldIndex             = -1;
+    static int sourceFieldIndex           = -1;
     static int categoryFieldIndex         = -1;
     static int tileUrlFieldIndex          = -1;
     static int touUrlFieldIndex           = -1;
@@ -555,6 +568,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param cursor the Cursor
      * @return a TileLayerServer instance
      */
+    @NonNull
     private static TileLayerServer getLayerFromCursor(@NonNull Context context, @NonNull Provider provider, @NonNull Cursor cursor) {
         if (idLayerFieldIndex == -1) {
             throw new IllegalStateException("Layer field indices not initialized");
@@ -562,6 +576,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         String id = cursor.getString(idLayerFieldIndex);
         String name = cursor.getString(nameFieldIndex);
         String type = cursor.getString(typeFieldIndex);
+        String source = cursor.getString(sourceFieldIndex);
         String categoryString = cursor.getString(categoryFieldIndex);
         Category category = null;
         if (categoryString != null) {
@@ -593,9 +608,11 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         String description = cursor.getString(descriptionFieldIndex);
         String privacyPolicyUrl = cursor.getString(privacyPolicyUrlFieldIndex);
 
-        return new TileLayerServer(context, id, name, tileUrl, type, category, overlay, defaultLayer, provider, touUri, null, logoUrl, logoBytes, zoomLevelMin,
-                zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
-                privacyPolicyUrl, true);
+        TileLayerServer layer = new TileLayerServer(context, id, name, tileUrl, type, category, overlay, defaultLayer, provider, touUri, null, logoUrl,
+                logoBytes, zoomLevelMin, zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues,
+                description, privacyPolicyUrl, true);
+        layer.setSource(source);
+        return layer;
     }
 
     /**
@@ -607,6 +624,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         idLayerFieldIndex = cursor.getColumnIndex(ID_FIELD);
         nameFieldIndex = cursor.getColumnIndex(NAME_FIELD);
         typeFieldIndex = cursor.getColumnIndex(TYPE_FIELD);
+        sourceFieldIndex = cursor.getColumnIndex(SOURCE_FIELD);
         categoryFieldIndex = cursor.getColumnIndex(CATEGORY_FIELD);
         tileUrlFieldIndex = cursor.getColumnIndex(TILE_URL_FIELD);
         touUrlFieldIndex = cursor.getColumnIndex(TOU_URI_FIELD);
@@ -650,7 +668,6 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             values.put(RIGHT_FIELD, box.getRight());
             values.put(TOP_FIELD, box.getTop());
             db.insert(COVERAGES_TABLE, null, values);
-            // Log.d(DEBUG_TAG, "Added box for " + layerId + ": " + box.toApiString());
         }
     }
 
