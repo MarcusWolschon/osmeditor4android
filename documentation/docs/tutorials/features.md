@@ -108,3 +108,5 @@ This list is likely not really complete, but gives some idea of the supported fu
 |                           | OLC support                                              |
 |                           | Validate URLs from property editor                       |
 |                           | Search for objects in loaded data (JOSM syntax)          |
+|                           | Barometer support                                        |
+|                           | On-device help                                           |
