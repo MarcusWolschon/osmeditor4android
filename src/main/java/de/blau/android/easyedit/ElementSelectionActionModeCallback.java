@@ -25,11 +25,13 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.search.Search;
+import de.blau.android.services.TrackerService;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -55,13 +57,14 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final int    MENUITEM_EXTEND_SELECTION = 8;
     private static final int    MENUITEM_ELEMENT_INFO     = 9;
 
-    private static final int   MENUITEM_UPLOAD            = 31;
-    protected static final int MENUITEM_SHARE_POSITION    = 32;
-    private static final int   MENUITEM_TAG_LAST          = 33;
-    private static final int   MENUITEM_ZOOM_TO_SELECTION = 34;
-    private static final int   MENUITEM_SEARCH_OBJECTS    = 35;
-    static final int           MENUITEM_PREFERENCES       = 36;
-    static final int           MENUITEM_JS_CONSOLE        = 37;
+    private static final int   MENUITEM_UPLOAD              = 31;
+    protected static final int MENUITEM_SHARE_POSITION      = 32;
+    private static final int   MENUITEM_TAG_LAST            = 33;
+    private static final int   MENUITEM_ZOOM_TO_SELECTION   = 34;
+    private static final int   MENUITEM_SEARCH_OBJECTS      = 35;
+    private static final int   MENUITEM_CALIBRATE_BAROMETER = 36;
+    static final int           MENUITEM_PREFERENCES         = 37;
+    static final int           MENUITEM_JS_CONSOLE          = 38;
 
     OsmElement element = null;
 
@@ -71,6 +74,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private MenuItem undoItem;
     private MenuItem uploadItem;
     private MenuItem pasteItem;
+    private MenuItem calibrateItem;
 
     /**
      * Construct a new ActionModeCallback
@@ -129,6 +133,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         uploadItem = menu.add(GROUP_BASE, MENUITEM_UPLOAD, Menu.CATEGORY_SYSTEM | 10, R.string.menu_upload_element);
 
         menu.add(GROUP_BASE, MENUITEM_SHARE_POSITION, Menu.CATEGORY_SYSTEM | 10, R.string.share_position);
+        if (prefs.useBarometricHeight()) {
+            menu.add(GROUP_BASE, MENUITEM_CALIBRATE_BAROMETER, Menu.CATEGORY_SYSTEM | 10, R.string.menu_tools_calibrate_height);
+        }
         menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
 
@@ -181,7 +188,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         updated |= setItemVisibility(!element.isUnchanged(), uploadItem, true);
         updated |= setItemVisibility(!App.getTagClipboard(main).isEmpty(), pasteItem, true);
+        if (calibrateItem != null) {
+            String ele = element.getTagWithKey(Tags.KEY_ELE);
+            updated |= setItemVisibility(ele != null && !"".equals(ele), calibrateItem, true);
+        }
         return updated;
+
     }
 
     /**
@@ -283,6 +295,16 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             break;
         case MENUITEM_SEARCH_OBJECTS:
             Search.search(main);
+            break;
+        case MENUITEM_CALIBRATE_BAROMETER:
+            Intent intent = new Intent(main, TrackerService.class);
+            intent.putExtra(TrackerService.CALIBRATE_KEY, true);
+            try {
+                intent.putExtra(TrackerService.CALIBRATE_HEIGHT_KEY, Integer.parseInt(element.getTagWithKey(Tags.KEY_ELE)));
+                main.startService(intent);
+            } catch (NumberFormatException nfex) {
+                Snack.toastTopError(main, main.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
+            }
             break;
         case MENUITEM_JS_CONSOLE:
             Main.showJsConsole(main);

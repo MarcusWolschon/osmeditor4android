@@ -1,7 +1,6 @@
 package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -86,28 +85,24 @@ public class BarometerCalibration extends ImmersiveDialogFragment {
         final Spinner calibrationMethod = (Spinner) layout.findViewById(R.id.barometer_calibration_method);
         dialogBuilder.setNegativeButton(R.string.cancel, null);
 
-        dialogBuilder.setPositiveButton(R.string.barometer_calibration_calibrate, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Intent intent = new Intent(getActivity(), TrackerService.class);
-                intent.putExtra(TrackerService.CALIBRATE_KEY, true);
-                String calibrationValue = valueEdit.getText().toString().trim();
-                try {
-                    switch (calibrationMethod.getSelectedItemPosition()) {
-                    case 0: // height
-                        intent.putExtra(TrackerService.CALIBRATE_HEIGHT_KEY, Integer.parseInt(calibrationValue));
-                        break;
-                    case 1: // reference pressure
-                        intent.putExtra(TrackerService.CALIBRATE_P0_KEY, Float.parseFloat(calibrationValue.substring(0, calibrationValue.length() - 2).trim()));
-                        break;
-                    default: // GNSS
-                        // this is the defaukt
-                    }
-                    getActivity().startService(intent);
-                } catch (NumberFormatException nfex) {
-                    Snack.toastTopError(getActivity(), getString(R.string.toast_invalid_number_format, nfex.getMessage()));
+        dialogBuilder.setPositiveButton(R.string.barometer_calibration_calibrate, (dialog, which) -> {
+            Intent intent = new Intent(getActivity(), TrackerService.class);
+            intent.putExtra(TrackerService.CALIBRATE_KEY, true);
+            String calibrationValue = valueEdit.getText().toString().trim();
+            try {
+                switch (calibrationMethod.getSelectedItemPosition()) {
+                case 0: // height
+                    intent.putExtra(TrackerService.CALIBRATE_HEIGHT_KEY, Integer.parseInt(calibrationValue));
+                    break;
+                case 1: // reference pressure
+                    intent.putExtra(TrackerService.CALIBRATE_P0_KEY, Float.parseFloat(calibrationValue.substring(0, calibrationValue.length() - 2).trim()));
+                    break;
+                default: // GNSS
+                    // this is the default
                 }
+                getActivity().startService(intent);
+            } catch (NumberFormatException nfex) {
+                Snack.toastTopError(getActivity(), getString(R.string.toast_invalid_number_format, nfex.getMessage()));
             }
         });
 
