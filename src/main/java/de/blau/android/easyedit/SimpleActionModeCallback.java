@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +22,6 @@ import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 public class SimpleActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
     private static final String DEBUG_TAG = "SimpleActionMode...";
@@ -44,76 +42,53 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a node without merging with nearby elements, start the PropertyEditor with the Preset tab
          */
-        NODE_TAGS(R.string.menu_add_node_tags, R.string.simple_add_node, new SimpleActionCallback() {
-
-            @Override
-            public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                de.blau.android.Map map = main.getMap();
-                ViewBox box = map.getViewBox();
-                int width = map.getWidth();
-                int height = map.getHeight();
-                Node node = App.getLogic().performAddNode(main, GeoMath.xToLonE7(width, box, x), GeoMath.yToLatE7(height, width, box, y));
-                main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
-                main.performTagEdit(node, null, false, true);
-            }
+        NODE_TAGS(R.string.menu_add_node_tags, R.string.simple_add_node, (main, manager, x, y) -> {
+            de.blau.android.Map map = main.getMap();
+            ViewBox box = map.getViewBox();
+            int width = map.getWidth();
+            int height = map.getHeight();
+            Node node = App.getLogic().performAddNode(main, GeoMath.xToLonE7(width, box, x), GeoMath.yToLatE7(height, width, box, y));
+            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+            main.performTagEdit(node, null, false, true);
         }),
         /**
          * Add a way starting the normal path creation mode
          */
-        WAY(R.string.menu_add_way, R.string.simple_add_way, new SimpleActionCallback() {
-
-            @Override
-            public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y));
-            }
+        WAY(R.string.menu_add_way, R.string.simple_add_way, (main, manager, x, y) -> {
+            main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y));
         }),
         /**
          * Add a note
          */
-        NOTE(R.string.menu_add_map_note, R.string.simple_add_note, new SimpleActionCallback() {
-
-            @Override
-            public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                manager.finish();
-                de.blau.android.layer.tasks.MapOverlay layer = main.getMap().getTaskLayer();
-                if (layer == null) { // turn it on, this is supposed to be "simple"
-                    Preferences prefs = new Preferences(main);
-                    prefs.setBugsEnabled(true);
-                    main.updatePrefs(prefs);
-                    App.getLogic().getMap().setPrefs(main, prefs);
-                    layer = main.getMap().getTaskLayer();
-                    if (layer == null) {
-                        Snack.toastTopError(main, R.string.toast_unable_to_create_task_layer);
-                        return;
-                    }
-                    main.getMap().invalidate();
+        NOTE(R.string.menu_add_map_note, R.string.simple_add_note, (main, manager, x, y) -> {
+            manager.finish();
+            de.blau.android.layer.tasks.MapOverlay layer = main.getMap().getTaskLayer();
+            if (layer == null) { // turn it on, this is supposed to be "simple"
+                Preferences prefs = new Preferences(main);
+                prefs.setBugsEnabled(true);
+                main.updatePrefs(prefs);
+                App.getLogic().getMap().setPrefs(main, prefs);
+                layer = main.getMap().getTaskLayer();
+                if (layer == null) {
+                    Snack.toastTopError(main, R.string.toast_unable_to_create_task_layer);
+                    return;
                 }
-                Note note = App.getLogic().makeNewNote(x, y);
-                TaskFragment.showDialog(main, note);
+                main.getMap().invalidate();
             }
+            Note note = App.getLogic().makeNewNote(x, y);
+            TaskFragment.showDialog(main, note);
         }),
         /**
          * Add a node merging with nearby elements
          */
-        NODE(R.string.menu_add_node, R.string.simple_add_node, new SimpleActionCallback() {
-
-            @Override
-            public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                App.getLogic().performAdd(main, x, y);
-                main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, App.getLogic().getSelectedNode()));
-            }
+        NODE(R.string.menu_add_node, R.string.simple_add_node, (main, manager, x, y) -> {
+            App.getLogic().performAdd(main, x, y);
+            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, App.getLogic().getSelectedNode()));
         }),
         /**
          * Paste an object from the clipboard
          */
-        PASTE(R.string.menu_paste_object, R.string.simple_paste, new SimpleActionCallback() {
-
-            @Override
-            public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                paste(main, manager, x, y);
-            }
-
-        }) {
+        PASTE(R.string.menu_paste_object, R.string.simple_paste, (main, manager, x, y) -> paste(main, manager, x, y)) {
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty();
@@ -122,14 +97,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Paste an object from the clipboard, without exiting the action mode
          */
-        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.simple_paste_multiple, new SimpleActionCallback() {
-
-            @Override
-            public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                App.getLogic().pasteFromClipboard(main, x, y);
-            }
-
-        }) {
+        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.simple_paste_multiple, (main, manager, x, y) -> App.getLogic().pasteFromClipboard(main, x, y)) {
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty() && !App.getDelegator().clipboardContentWasCut();
@@ -221,8 +189,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         super.onPrepareActionMode(mode, menu);
         menu.clear();
         menuUtil.reset();
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return true;
     }
@@ -260,12 +227,9 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         for (SimpleAction simpleMode : SimpleAction.values()) {
             if (simpleMode.isEnabled()) {
                 MenuItem item = popup.getMenu().add(simpleMode.getMenuTextId());
-                item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem arg0) {
-                        main.startSupportActionMode(new SimpleActionModeCallback(main.getEasyEditManager(), simpleMode));
-                        return true;
-                    }
+                item.setOnMenuItemClickListener((arg0) -> {
+                    main.startSupportActionMode(new SimpleActionModeCallback(main.getEasyEditManager(), simpleMode));
+                    return true;
                 });
             }
         }

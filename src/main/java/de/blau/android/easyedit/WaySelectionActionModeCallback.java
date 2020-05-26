@@ -3,7 +3,6 @@ package de.blau.android.easyedit;
 import java.util.List;
 import java.util.Set;
 
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -185,13 +184,10 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         final Way way = (Way) element;
         if (way.notReversable()) {
             new AlertDialog.Builder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
-                    .setPositiveButton(R.string.reverse_anyway, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (logic.performReverse(main, way)) { // true if it had oneway tag
-                                Snack.barWarning(main, R.string.toast_oneway_reversed);
-                                main.performTagEdit(way, null, false, false);
-                            }
+                    .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> {
+                        if (logic.performReverse(main, way)) { // true if it had oneway tag
+                            Snack.barWarning(main, R.string.toast_oneway_reversed);
+                            main.performTagEdit(way, null, false, false);
                         }
                     }).show();
         } else if (logic.performReverse(main, way)) { // true if it had oneway tag
@@ -268,16 +264,13 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         if (allNodesDownloaded) {
             if (isRelationMember) {
                 new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_relation_description)
-                        .setPositiveButton(R.string.deleteway_wayandnodes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteWay(mode);
-                            }
-                        }).setNeutralButton(R.string.cancel, null).show();
+                        .setPositiveButton(R.string.deleteway_wayandnodes, (dialog, which) -> deleteWay(mode)).setNeutralButton(R.string.cancel, null).show();
             } else {
                 deleteWay(mode);
             }
-        } else {
+        } else
+
+        {
             new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_nodesnotdownloaded_description)
                     .setPositiveButton(R.string.okay, null).show();
         }

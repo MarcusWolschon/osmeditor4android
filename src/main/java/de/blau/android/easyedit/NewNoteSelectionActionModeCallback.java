@@ -1,7 +1,6 @@
 package de.blau.android.easyedit;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,10 +57,9 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
         super.onPrepareActionMode(mode, menu);
         menu.clear();
         menuUtil.reset();
-        menu.add(Menu.NONE, MENUITEM_VIEW, Menu.NONE, R.string.menu_view).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit));
+        menu.add(Menu.NONE, MENUITEM_VIEW, Menu.NONE, R.string.menu_view);
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete);
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help)
-                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help);
         return true;
     }
 
@@ -73,22 +71,26 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
             TaskFragment.showDialog(main, note);
             break;
         case MENUITEM_DELETE:
-            new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.delete_note_description)
-                    .setPositiveButton(R.string.delete_note, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            App.getTaskStorage().delete(note);
-                            main.getMap().invalidate();
-                            if (mode != null) {
-                                mode.finish();
-                            }
-                        }
-                    }).show();
+            menuDelete();
             break;
         default:
             Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return true;
+    }
+
+    /**
+     * Delete the Note after showing a Dialog fr confirmation
+     */
+    private void menuDelete() {
+        new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.delete_note_description)
+                .setPositiveButton(R.string.delete_note, (dialog, which) -> {
+                    App.getTaskStorage().delete(note);
+                    main.getMap().invalidate();
+                    if (mode != null) {
+                        mode.finish();
+                    }
+                }).show();
     }
 
     @Override
@@ -109,5 +111,14 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean processShortcut(Character c) {
+        if (c == Util.getShortCut(main, R.string.shortcut_remove)) {
+            menuDelete();
+            return true;
+        }
+        return super.processShortcut(c);
     }
 }

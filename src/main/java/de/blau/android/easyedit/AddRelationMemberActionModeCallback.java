@@ -14,7 +14,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 /**
  * Callback for adding new members to a Relation
@@ -103,9 +102,8 @@ public class AddRelationMemberActionModeCallback extends NonSimpleActionModeCall
         // menu setup
         menu = replaceMenu(menu, mode, this);
         revertItem = menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert)
-                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help)
-                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help));
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help);
         arrangeMenu(menu); // needed at least once
         setClickableElements();
         return true;

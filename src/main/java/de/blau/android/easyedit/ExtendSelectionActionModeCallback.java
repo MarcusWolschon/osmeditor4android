@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -161,9 +160,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         if (!selectionContainsRelation()) {
             menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy)
-                    .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
             menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut)
-                    .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
         }
 
         mergeItem = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
@@ -187,8 +186,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
         menu.add(GROUP_BASE, ElementSelectionActionModeCallback.MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console)
                 .setEnabled(logic.getPrefs().isJsConsoleEnabled());
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         return true;
     }
 
@@ -200,7 +198,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
             if (!undoItem.isVisible()) {
                 undoItem.setVisible(true);
-                undoItem.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
                 updated = true;
             }
         } else if (undoItem.isVisible()) {
@@ -400,12 +397,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             for (OsmElement e : selection) {
                 if (e.hasParentRelations()) {
                     new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.delete_from_relation_description)
-                            .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    menuDelete(true);
-                                }
-                            }).show();
+                            .setPositiveButton(R.string.delete, (dialog, which) -> menuDelete(true)).show();
                     return;
                 }
             }

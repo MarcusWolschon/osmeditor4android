@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.SortedMap;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -82,8 +81,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
         appendItem = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
 
-        joinItem = menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_merge))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
+        joinItem = menu.add(Menu.NONE, MENUITEM_JOIN, Menu.NONE, R.string.menu_join).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
 
         unjoinItem = menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_unjoin));
 
@@ -239,13 +237,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     protected void menuDelete(final ActionMode mode) {
         if (element.hasParentRelations()) {
             new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deletenode_relation_description)
-                    .setPositiveButton(R.string.deletenode, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            logic.performEraseNode(main, (Node) element, true);
-                            if (mode != null) {
-                                mode.finish();
-                            }
+                    .setPositiveButton(R.string.deletenode, (dialog, which) -> {
+                        logic.performEraseNode(main, (Node) element, true);
+                        if (mode != null) {
+                            mode.finish();
                         }
                     }).show();
         } else {
@@ -329,22 +324,19 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      * @return the OnClickListnener
      */
     private OnClickListener createSetButtonListener(final EditText lonField, final EditText latField, final Node node) {
-        return new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                double lon = Double.parseDouble(lonField.getText().toString());
-                double lat = Double.parseDouble(latField.getText().toString());
-                if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
-                    try {
-                        logic.performSetPosition(main, node, lon, lat);
-                    } catch (OsmIllegalOperationException ex) {
-                        Snack.barError(main, ex.getLocalizedMessage()); // this "can't" happen
-                    }
-                    manager.invalidate();
-                } else {
-                    createSetPositionDialog((int) (lon * 1E7), (int) (lat * 1E7)).show();
-                    Snack.barWarning(main, R.string.coordinates_out_of_range);
+        return (dialog, which) -> {
+            double lon = Double.parseDouble(lonField.getText().toString());
+            double lat = Double.parseDouble(latField.getText().toString());
+            if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
+                try {
+                    logic.performSetPosition(main, node, lon, lat);
+                } catch (OsmIllegalOperationException ex) {
+                    Snack.barError(main, ex.getLocalizedMessage()); // this "can't" happen
                 }
+                manager.invalidate();
+            } else {
+                createSetPositionDialog((int) (lon * 1E7), (int) (lat * 1E7)).show();
+                Snack.barWarning(main, R.string.coordinates_out_of_range);
             }
         };
     }

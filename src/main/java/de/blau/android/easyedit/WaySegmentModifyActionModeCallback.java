@@ -51,7 +51,7 @@ public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallb
         super.onPrepareActionMode(mode, menu);
         Log.d(DEBUG_TAG, "onPrepareActionMode");
         menu.add(Menu.NONE, ElementSelectionActionModeCallback.MENUITEM_TAG, Menu.NONE, R.string.menu_tags)
-                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
         if (way.hasTagKey(Tags.KEY_HIGHWAY)) {
             menu.add(Menu.NONE, MENUITEM_BRIDGE, Menu.NONE, R.string.bridge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_bridge));
             menu.add(Menu.NONE, MENUITEM_TUNNEL, Menu.NONE, R.string.tunnel).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tunnel));

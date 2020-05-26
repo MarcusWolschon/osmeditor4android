@@ -93,6 +93,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         logic.setSelectedRelationNodes(null);
         main.getMap().deselectObjects();
 
+        Preferences prefs = logic.getPrefs();
         // setup menu
         menu = replaceMenu(menu, mode, this);
         menu.clear();
@@ -104,17 +105,13 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
 
-        menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_tagedit))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
+        menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
         menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         if (!(element instanceof Relation)) {
-            menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy)
-                    .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_copy)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
-            menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut))
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
+            menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
+            menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
         }
-        pasteItem = menu.add(Menu.NONE, MENUITEM_PASTE_TAGS, Menu.CATEGORY_SECONDARY, R.string.menu_paste_tags)
-                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste_tags));
+        pasteItem = menu.add(Menu.NONE, MENUITEM_PASTE_TAGS, Menu.CATEGORY_SECONDARY, R.string.menu_paste_tags);
 
         menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_multi_select));
@@ -125,7 +122,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
         }
         menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information)
-                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_info)).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));
         menu.add(GROUP_BASE, MENUITEM_ZOOM_TO_SELECTION, Menu.CATEGORY_SYSTEM | 10, R.string.menu_zoom_to_selection);
         menu.add(GROUP_BASE, MENUITEM_SEARCH_OBJECTS, Menu.CATEGORY_SYSTEM | 10, R.string.search_objects_title);
 
@@ -134,10 +131,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         menu.add(GROUP_BASE, MENUITEM_SHARE_POSITION, Menu.CATEGORY_SYSTEM | 10, R.string.share_position);
         menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
-        Preferences prefs = new Preferences(main);
+
         menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         return true;
     }
 
@@ -176,7 +172,6 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
             if (!undoItem.isVisible()) {
                 undoItem.setVisible(true);
-                undoItem.setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo));
                 updated = true;
             }
         } else if (undoItem.isVisible()) {

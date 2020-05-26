@@ -154,11 +154,9 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
         menu = replaceMenu(menu, mode, this);
         menu.clear();
         menuUtil.reset();
-        menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_undo))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
+        menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
         menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return true;
     }
@@ -242,17 +240,21 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
      * @param way the way that we want to enable validation on
      */
     private void delayedResetHasProblem(@NonNull final Way way) {
-        Runnable run = new Runnable() {
-            @Override
-            public void run() {
+        Map map = main.getMap();
+        if (map != null) {
+            map.postDelayed(() -> {
                 if (way != null) {
                     way.resetHasProblem(); // remove Validator.OK
                 }
-            }
-        };
-        Map map = main.getMap();
-        if (map != null) {
-            map.postDelayed(run, 1000);
+            }, 1000);
         }
+    }
+
+    @Override
+    public boolean processShortcut(Character c) {
+        if (c == Util.getShortCut(main, R.string.shortcut_copy)) {
+            handleUndo();
+        }
+        return super.processShortcut(c);
     }
 }

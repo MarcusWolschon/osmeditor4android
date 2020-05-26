@@ -118,15 +118,13 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         menu.add(Menu.NONE, MENUITEM_NEWNODEWAY, Menu.NONE, R.string.openstreetbug_new_nodeway)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
         if (!logic.clipboardIsEmpty()) {
-            menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste))
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_paste));
+            menu.add(Menu.NONE, MENUITEM_PASTE, Menu.NONE, R.string.menu_paste).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_paste));
         }
         // check if GPS is enabled
         if (((LocationManager) main.getSystemService(android.content.Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             menu.add(Menu.NONE, MENUITEM_NEWNODE_GPS, Menu.NONE, R.string.menu_newnode_gps).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_gps));
         }
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_help))
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         arrangeMenu(menu);
         return true;
     }
