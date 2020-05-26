@@ -118,7 +118,6 @@ import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
-import de.blau.android.javascript.EvalCallback;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.listener.UpdateViewListener;
@@ -524,12 +523,7 @@ public class Main extends FullScreenAppCompatActivity
         // follow GPS button setup
         follow = (FloatingActionButton) mapLayout.findViewById(R.id.follow);
 
-        follow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFollowGPS(true);
-            }
-        });
+        follow.setOnClickListener(v -> setFollowGPS(true));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // currently can't be set in layout
             ColorStateList followTint = ContextCompat.getColorStateList(this, R.color.follow);
@@ -540,21 +534,15 @@ public class Main extends FullScreenAppCompatActivity
         // Set up the zoom in/out controls
         zoomControls = mapLayout.findViewById(R.id.zoom_controls);
 
-        zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                App.getLogic().zoom(Logic.ZOOM_IN);
-                setFollowGPS(followGPS);
-                updateZoomControls();
-            }
+        zoomControls.setOnZoomInClickListener(v -> {
+            App.getLogic().zoom(Logic.ZOOM_IN);
+            setFollowGPS(followGPS);
+            updateZoomControls();
         });
-        zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                App.getLogic().zoom(Logic.ZOOM_OUT);
-                setFollowGPS(followGPS);
-                updateZoomControls();
-            }
+        zoomControls.setOnZoomOutClickListener(v -> {
+            App.getLogic().zoom(Logic.ZOOM_OUT);
+            setFollowGPS(followGPS);
+            updateZoomControls();
         });
 
         // simple actions mode button
@@ -571,28 +559,22 @@ public class Main extends FullScreenAppCompatActivity
             hideSimpleActionsButton();
         }
         mapLayout.addView(simpleActionsButton, rlp);
-        simpleActionsButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logic logic = App.getLogic();
-                if (!logic.isInEditZoomRange()) {
-                    Snack.barInfoShort(Main.this, R.string.toast_not_in_edit_range);
-                } else {
-                    PopupMenu popup = SimpleActionModeCallback.getMenu(Main.this, simpleActionsButton);
-                    popup.show();
-                }
+        simpleActionsButton.setOnClickListener(v -> {
+            Logic logic = App.getLogic();
+            if (!logic.isInEditZoomRange()) {
+                Snack.barInfoShort(Main.this, R.string.toast_not_in_edit_range);
+            } else {
+                PopupMenu popup = SimpleActionModeCallback.getMenu(Main.this, simpleActionsButton);
+                popup.show();
             }
         });
 
         // layers button setup
         layers = (FloatingActionButton) mapLayout.findViewById(R.id.layers);
 
-        layers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                descheduleAutoLock();
-                Layers.showDialog(Main.this);
-            }
+        layers.setOnClickListener(v -> {
+            descheduleAutoLock();
+            Layers.showDialog(Main.this);
         });
 
         DataStyle.getStylesFromFiles(this); // needs to happen before
@@ -811,12 +793,9 @@ public class Main extends FullScreenAppCompatActivity
                                                 // changed
                 setupLockButton();
                 if (logic.getFilter() != null) {
-                    logic.getFilter().addControls(mapLayout, new Filter.Update() {
-                        @Override
-                        public void execute() {
-                            map.invalidate();
-                            scheduleAutoLock();
-                        }
+                    logic.getFilter().addControls(mapLayout, () -> {
+                        map.invalidate();
+                        scheduleAutoLock();
                     });
                     logic.getFilter().showControls();
                 }
@@ -875,29 +854,25 @@ public class Main extends FullScreenAppCompatActivity
 
                 logic.loadStateFromFile(this, postLoadData);
 
-                checkPermissions(new Runnable() {
-                    @Override
-                    public void run() {
-                        logic.loadLayerState(Main.this, new PostAsyncActionHandler() {
-
-                            @Override
-                            public void onSuccess() {
-                                logic.loadTasksFromFile(Main.this, postLoadTasks);
-                                setupFollowButton();
-                            }
-
-                            @Override
-                            public void onError() {
-                                Log.d(DEBUG_TAG, "error loading layers");
-                                // always try to load tasks
-                                onSuccess();
-                            }
-                        });
-                        if (newVersion) {
-                            Log.d(DEBUG_TAG, "post load state new version");
-                            newVersion = false;
-                            NewVersion.showDialog(Main.this);
+                checkPermissions(() -> {
+                    logic.loadLayerState(Main.this, new PostAsyncActionHandler() {
+                        @Override
+                        public void onSuccess() {
+                            logic.loadTasksFromFile(Main.this, postLoadTasks);
+                            setupFollowButton();
                         }
+
+                        @Override
+                        public void onError() {
+                            Log.d(DEBUG_TAG, "error loading layers");
+                            // always try to load tasks
+                            onSuccess();
+                        }
+                    });
+                    if (newVersion) {
+                        Log.d(DEBUG_TAG, "post load state new version");
+                        newVersion = false;
+                        NewVersion.showDialog(Main.this);
                     }
                 });
             } else {
@@ -907,20 +882,17 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 logic.loadLayerState(this, postLoadTasks);
                 map.invalidate();
-                checkPermissions(new Runnable() {
-                    @Override
-                    public void run() {
-                        postLoadData.onSuccess();
-                        if (newInstall) {
-                            // newbie, display welcome dialog
-                            Log.d(DEBUG_TAG, "showing welcome dialog");
-                            newInstall = false;
-                            Newbie.showDialog(Main.this);
-                        } else if (newVersion) {
-                            Log.d(DEBUG_TAG, "new version");
-                            newVersion = false;
-                            NewVersion.showDialog(Main.this);
-                        }
+                checkPermissions(() -> {
+                    postLoadData.onSuccess();
+                    if (newInstall) {
+                        // newbie, display welcome dialog
+                        Log.d(DEBUG_TAG, "showing welcome dialog");
+                        newInstall = false;
+                        Newbie.showDialog(Main.this);
+                    } else if (newVersion) {
+                        Log.d(DEBUG_TAG, "new version");
+                        newVersion = false;
+                        NewVersion.showDialog(Main.this);
                     }
                 });
             }
@@ -940,15 +912,11 @@ public class Main extends FullScreenAppCompatActivity
         scheduleAutoLock();
 
         if (prefs.getEnableTagFilter() && logic.getMode() != Mode.MODE_INDOOR) {
-            Filter.Update updater = new Filter.Update() {
-                @Override
-                public void execute() {
-                    map.invalidate();
-                    scheduleAutoLock();
-                }
-            };
             logic.setFilter(new TagFilter(this));
-            logic.getFilter().addControls(getMapLayout(), updater);
+            logic.getFilter().addControls(getMapLayout(), () -> {
+                map.invalidate();
+                scheduleAutoLock();
+            });
         }
     }
 
@@ -1560,51 +1528,45 @@ public class Main extends FullScreenAppCompatActivity
             }
         });
         lock.setLongClickable(true);
-        lock.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(final View b) {
-                Log.d(DEBUG_TAG, "Lock long pressed " + b.getClass().getName());
-                final Logic logic = App.getLogic();
+        lock.setOnLongClickListener(b -> {
+            Log.d(DEBUG_TAG, "Lock long pressed " + b.getClass().getName());
+            final Logic l = App.getLogic();
 
-                Mode mode = logic.getMode();
+            Mode m = l.getMode();
 
-                PopupMenu popup = new PopupMenu(Main.this, lock);
+            PopupMenu popup = new PopupMenu(Main.this, lock);
 
-                // per mode menu items
-                ArrayList<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
-                // add menu entries for all proper modes
-                for (final Mode newMode : allModes) {
-                    if (newMode.isSubModeOf() == null && newMode.isEnabled()) {
-                        SpannableString s = new SpannableString(newMode.getName(Main.this));
-                        if (mode == newMode) {
-                            s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
-                        }
-                        MenuItem item = popup.getMenu().add(s);
-                        item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                logic.setMode(Main.this, newMode);
-                                b.setTag(newMode.tag());
-                                StateListDrawable states = new StateListDrawable();
-                                states.addState(new int[] { android.R.attr.state_pressed }, ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
-                                states.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
-                                lock.setImageDrawable(states);
-                                lock.hide(); // workaround https://issuetracker.google.com/issues/117476935
-                                lock.show();
-                                if (logic.isLocked()) {
-                                    ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
-                                } else {
-                                    ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
-                                }
-                                updateActionbarEditMode();
-                                return true;
-                            }
-                        });
+            // per mode menu items
+            ArrayList<Mode> allModes = new ArrayList<>(Arrays.asList(Mode.values()));
+            // add menu entries for all proper modes
+            for (final Mode newMode : allModes) {
+                if (newMode.isSubModeOf() == null && newMode.isEnabled()) {
+                    SpannableString s = new SpannableString(newMode.getName(Main.this));
+                    if (m == newMode) {
+                        s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
                     }
+                    MenuItem item = popup.getMenu().add(s);
+                    item.setOnMenuItemClickListener(menuitem -> {
+                        l.setMode(Main.this, newMode);
+                        b.setTag(newMode.tag());
+                        StateListDrawable mStates = new StateListDrawable();
+                        mStates.addState(new int[] { android.R.attr.state_pressed }, ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
+                        mStates.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
+                        lock.setImageDrawable(mStates);
+                        lock.hide(); // workaround https://issuetracker.google.com/issues/117476935
+                        lock.show();
+                        if (l.isLocked()) {
+                            ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
+                        } else {
+                            ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
+                        }
+                        updateActionbarEditMode();
+                        return true;
+                    });
                 }
-                popup.show();
-                return true;
             }
+            popup.show();
+            return true;
         });
     }
 
@@ -1914,15 +1876,11 @@ public class Main extends FullScreenAppCompatActivity
                 logic.setFilter(null);
             }
             if (newFilter != null) {
-                Filter.Update updater = new Filter.Update() {
-                    @Override
-                    public void execute() {
-                        map.invalidate();
-                        scheduleAutoLock();
-                    }
-                };
                 logic.setFilter(newFilter);
-                logic.getFilter().addControls(getMapLayout(), updater);
+                logic.getFilter().addControls(getMapLayout(), () -> {
+                    map.invalidate();
+                    scheduleAutoLock();
+                });
                 logic.getFilter().showControls();
             }
             triggerMenuInvalidation();
@@ -1982,26 +1940,18 @@ public class Main extends FullScreenAppCompatActivity
             CoordinatesOrOLC.get(this, new CoordinatesOrOLC.HandleResult() {
                 @Override
                 public void onSuccess(LatLon ll) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
-                            setFollowGPS(false);
-                            map.setFollowGPS(false);
-                            map.getViewBox().moveTo(map, (int) (ll.getLon() * 1E7d), (int) (ll.getLat() * 1E7d));
-                            map.invalidate();
-                        }
+                    runOnUiThread(() -> {
+                        logic.setZoom(getMap(), Ui.ZOOM_FOR_ZOOMTO);
+                        setFollowGPS(false);
+                        map.setFollowGPS(false);
+                        map.getViewBox().moveTo(map, (int) (ll.getLon() * 1E7d), (int) (ll.getLat() * 1E7d));
+                        map.invalidate();
                     });
                 }
 
                 @Override
                 public void onError(String message) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Snack.toastTopError(Main.this, message);
-                        }
-                    });
+                    runOnUiThread(() -> Snack.toastTopError(Main.this, message));
                 }
             });
             return true;
@@ -2037,16 +1987,12 @@ public class Main extends FullScreenAppCompatActivity
             if (getTracker() != null) {
                 if (!getTracker().isEmpty()) {
                     new AlertDialog.Builder(this).setTitle(R.string.menu_gps_clear).setMessage(R.string.clear_track_description)
-                            .setPositiveButton(R.string.clear_anyway, new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (getTracker() != null) {
-                                        getTracker().stopTracking(true);
-                                    }
-                                    triggerMenuInvalidation();
-                                    map.invalidate();
+                            .setPositiveButton(R.string.clear_anyway, (dialog, which) -> {
+                                if (getTracker() != null) {
+                                    getTracker().stopTracking(true);
                                 }
+                                triggerMenuInvalidation();
+                                map.invalidate();
                             }).setNeutralButton(R.string.cancel, null).show();
                 } else {
                     getTracker().stopTracking(true);
@@ -2228,12 +2174,8 @@ public class Main extends FullScreenAppCompatActivity
                 builder.setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.alert_dialog));
                 builder.setTitle(R.string.unsaved_data_title);
                 builder.setMessage(R.string.unsaved_data_message);
-                builder.setPositiveButton(R.string.unsaved_data_proceed, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SelectFile.read(Main.this, R.string.config_osmPreferredDir_key, readFile);
-                    }
-                });
+                builder.setPositiveButton(R.string.unsaved_data_proceed,
+                        (dialog, which) -> SelectFile.read(Main.this, R.string.config_osmPreferredDir_key, readFile));
                 builder.setNegativeButton(R.string.cancel, null);
                 builder.show();
             } else {
@@ -2271,12 +2213,9 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_bugs_clear:
             if (App.getTaskStorage().hasChanges()) { // FIXME show a dialog and
                                                      // allow override
-                Snack.barError(this, R.string.toast_unsaved_changes, R.string.clear_anyway, new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        App.getTaskStorage().reset();
-                        map.invalidate();
-                    }
+                Snack.barError(this, R.string.toast_unsaved_changes, R.string.clear_anyway, (v) -> {
+                    App.getTaskStorage().reset();
+                    map.invalidate();
                 });
                 return true;
             }
@@ -2334,15 +2273,12 @@ public class Main extends FullScreenAppCompatActivity
             undoListener.onClick(null);
             return true;
         case R.id.menu_tools_flush_all_tile_caches:
-            Snack.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    MapTilesLayer backgroundLayer = map.getBackgroundLayer();
-                    if (backgroundLayer != null) {
-                        backgroundLayer.flushTileCache(Main.this, null);
-                    }
-                    map.invalidate();
+            Snack.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, v -> {
+                MapTilesLayer backgroundLayer = map.getBackgroundLayer();
+                if (backgroundLayer != null) {
+                    backgroundLayer.flushTileCache(Main.this, null);
                 }
+                map.invalidate();
             });
             return true;
         case R.id.menu_tools_background_align:
@@ -2512,19 +2448,13 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static void showJsConsole(final Main main) {
         main.descheduleAutoLock();
-        de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, new EvalCallback() {
-            @Override
-            public String eval(String input) {
-                String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
-                main.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        main.getMap().invalidate();
-                        main.scheduleAutoLock();
-                    }
-                });
-                return result;
-            }
+        de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, input -> {
+            String result = de.blau.android.javascript.Utils.evalString(main, "JS Console", input, App.getLogic());
+            main.runOnUiThread(() -> {
+                main.getMap().invalidate();
+                main.scheduleAutoLock();
+            });
+            return result;
         });
     }
 
@@ -3256,22 +3186,19 @@ public class Main extends FullScreenAppCompatActivity
     private void exit() {
         new AlertDialog.Builder(this).setTitle(R.string.exit_title)
                 .setMessage(getTracker() != null && getTracker().isTracking() ? R.string.pause_exit_text : R.string.exit_text)
-                .setNegativeButton(R.string.no, null).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // if we actually exit, stop the auto downloads, for now
-                        // allow GPS tracks to carry on
-                        if (getTracker() != null) {
-                            getTracker().stopAutoDownload();
-                            getTracker().stopBugAutoDownload();
-                            getTracker().stopTracking(false);
-                        }
-                        try {
-                            saveSync = true;
-                            Main.super.onBackPressed();
-                        } catch (Exception e) {
-                            // silently ignore .. might be Android confusion
-                        }
+                .setNegativeButton(R.string.no, null).setPositiveButton(R.string.yes, (dialog, which) -> {
+                    // if we actually exit, stop the auto downloads, for now
+                    // allow GPS tracks to carry on
+                    if (getTracker() != null) {
+                        getTracker().stopAutoDownload();
+                        getTracker().stopBugAutoDownload();
+                        getTracker().stopTracking(false);
+                    }
+                    try {
+                        saveSync = true;
+                        Main.super.onBackPressed();
+                    } catch (Exception e) {
+                        // silently ignore .. might be Android confusion
                     }
                 }).create().show();
     }
@@ -3315,12 +3242,9 @@ public class Main extends FullScreenAppCompatActivity
                             public void onClick(DialogInterface arg0, int arg1) {
                                 undo(logic);
                             }
-                        }).setPositiveButton(R.string.undo_location_zoom, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                map.getViewBox().fitToBoundingBox(map, undoBox);
-                                undo(logic);
-                            }
+                        }).setPositiveButton(R.string.undo_location_zoom, (dialog, which) -> {
+                            map.getViewBox().fitToBoundingBox(map, undoBox);
+                            undo(logic);
                         }).create().show();
                 return;
             }
@@ -3409,9 +3333,7 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public boolean onTouch(final View v, final MotionEvent m) {
             descheduleAutoLock();
-            // Log.d("MapTouchListener", "onTouch");
             if (m.getAction() == MotionEvent.ACTION_DOWN) {
-                // Log.d("MapTouchListener", "onTouch ACTION_DOWN");
                 clickedObjects.clear();
                 clickedNodesAndWays = null;
                 App.getLogic().handleTouchEventDown(Main.this, m.getX(), m.getY());
@@ -3543,7 +3465,6 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onDrag(View v, float x, float y, float dx, float dy) {
-            // Log.d("MapTouchListener", "onDrag dx " + dx + " dy " + dy );
             try {
                 App.getLogic().handleTouchEventMove(Main.this, x, y, -dx, dy);
             } catch (OsmIllegalOperationException ex) {
@@ -3894,6 +3815,7 @@ public class Main extends FullScreenAppCompatActivity
                         // ignore
                         return true;
                     case KeyEvent.KEYCODE_ESCAPE:
+                    case KeyEvent.KEYCODE_BACK:
                         // default handling
                         return false;
                     default:
@@ -4307,9 +4229,9 @@ public class Main extends FullScreenAppCompatActivity
      * Display the "center on GPS position" button, checks if GPS is actually on
      */
     private void showFollowButton() {
-        FloatingActionButton follow = getFollowButton();
-        if (follow != null && getEnabledLocationProviders() != null && locationPermissionGranted && !"NONE".equals(prefs.followGPSbuttonPosition())) {
-            follow.show();
+        FloatingActionButton button = getFollowButton();
+        if (button != null && getEnabledLocationProviders() != null && locationPermissionGranted && !"NONE".equals(prefs.followGPSbuttonPosition())) {
+            button.show();
         }
     }
 
@@ -4416,7 +4338,7 @@ public class Main extends FullScreenAppCompatActivity
         boolean hasRelations = relations != null && !relations.isEmpty();
         if (e instanceof Node) {
             List<Way> ways = App.getLogic().getWaysForNode((Node) e);
-            boolean hasWays = ways != null && !ways.isEmpty();
+            boolean hasWays = !ways.isEmpty();
             if (hasRelations) {
                 description.append(" (");
                 for (Relation r : relations) {
