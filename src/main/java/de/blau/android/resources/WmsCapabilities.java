@@ -149,7 +149,7 @@ public class WmsCapabilities {
 
     final List<Layer> layers = new ArrayList<>();
 
-    private String  format;
+    private String  tileFormat;
     private String  getMapUrl;
     private Version wmsVersion;
 
@@ -305,6 +305,7 @@ public class WmsCapabilities {
                     default:
                         // ignored
                     }
+                    break;
                 case GET:
                     if ("OnlineResource".equals(name)) {
                         getMapUrl = attr.getValue("xlink:href");
@@ -453,8 +454,8 @@ public class WmsCapabilities {
                     case FORMAT:
                         String tempFormat = buffer.toString();
                         int preference = FORMAT_PREFERENCE.indexOf(tempFormat);
-                        if (preference >= 0 && (format == null || preference < FORMAT_PREFERENCE.indexOf(format))) {
-                            format = tempFormat;
+                        if (preference >= 0 && (tileFormat == null || preference < FORMAT_PREFERENCE.indexOf(tileFormat))) {
+                            tileFormat = tempFormat;
                         }
                         buffer = null;
                         break;
@@ -482,7 +483,7 @@ public class WmsCapabilities {
     Layer constructLayer(@NonNull Deque<LayerTemp> stack) {
         Layer layer = new Layer();
         layer.wmsVersion = wmsVersion;
-        layer.format = format;
+        layer.format = tileFormat;
         StringBuilder resultTitle = new StringBuilder();
         boolean first = true;
         Iterator<LayerTemp> it = stack.descendingIterator();
