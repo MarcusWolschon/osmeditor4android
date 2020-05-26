@@ -22,7 +22,7 @@ The styles are for a major part not much more than an external representation of
 |                           | zoom           | Used with icon_zoom_limit, minimum zoom level at which POI icons are still displayed
 |__&lt;feature&gt;__        |                | Feature elements can be nested and each feature can contain one or more other feature elements. Nested elements inherit attributes from their parents. 
 |                           | type           | "way" or "relation" to match the corresponding OSM elements, or a name
-|                           | tags           | Tags to use for matching, ignored for named styles, in the format _key_=_value_ or _key_=_*_ for any value. Multiple tags can be added using __|__ as a separator.
+|                           | tags           | Tags to use for matching, ignored for named styles, in the format _key_=_value_ or _key_=_*_ for any value. Multiple tags can be added using __&vert;__ as a separator.
 |                           | closed         | If not present will match all ways, if present will match closed ways if true, or if false open ways, ignored for relations
 |                           | area           | Use area semantics for rendering if true
 |                           | dontrender     | Don't render the matching element
