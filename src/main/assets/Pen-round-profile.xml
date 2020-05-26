@@ -150,7 +150,16 @@
         <feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=pedestrian" widthFactor="0.8" color="ff888888" />
-        <feature type="way" tags="highway=path" widthFactor="0.6" color="ffc69c49" />
+        <feature type="way" tags="highway=path|surface=asphalt" widthFactor="0.6" color="ffc69c49" />
+        <feature type="way" tags="highway=path|surface=paved" widthFactor="0.6" color="ffc69c49" />
+        <feature type="way" tags="highway=path" widthFactor="0.6" color="ffc69c49" >
+            <dash phase="1.0">
+                <interval length="5.0" />
+                <interval length="1.0" />
+                <interval length="1.0" />
+                <interval length="1.0" />
+            </dash>
+        </feature>
         <feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" />
         <feature type="way" tags="highway=footway" widthFactor="0.6" color="ffff4500" />
         <feature type="way" tags="highway=steps"  widthFactor="0.6" color="ffff4500" >
@@ -159,7 +168,30 @@
     	       <interval length="1.0" />
             </dash>
         </feature>
-        <feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49" />
+        <feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49">
+            <feature type="way" tags="tracktype=grade3">
+                <dash phase="1.0">
+                    <interval length="5.0" />
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+            <feature type="way" tags="tracktype=grade4">
+                <dash phase="1.0">
+                    <interval length="2.0" />
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+            <feature type="way" tags="tracktype=grade5">
+                <dash phase="1.0">
+                    <interval length="1.0" />
+                    <interval length="1.0" />
+                </dash>
+            </feature>
+        </feature>
         <feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" casingStyle="motorway_casing" >
             <feature type="way" tags="bridge=yes" casingStyle="motorway_bridge_casing" />
             <feature type="way" tags="tunnel=yes" casingStyle="">
