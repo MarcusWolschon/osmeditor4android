@@ -18,7 +18,6 @@ import java.util.TreeSet;
 import com.google.openlocationcode.OpenLocationCode;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -196,20 +195,16 @@ public class ElementInfo extends ImmersiveDialogFragment {
         BoundingBox tempBox = element != null ? element.getBounds() : null;
         final ViewBox box = tempBox != null ? new ViewBox(tempBox) : null;
         if (getArguments().getBoolean(SHOW_JUMP_TO_KEY) && activity instanceof Main) {
-            builder.setNeutralButton(R.string.goto_element, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    de.blau.android.dialogs.Util.dismissDialog(activity, ConfirmUpload.TAG);
-                    if (box != null) {
-                        double[] center = box.getCenter();
-                        ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
-                    } else {
-                        ((Main) activity).edit(element);
-                        Snack.toastTopWarning(activity, R.string.toast_no_geometry);
-                    }
+            builder.setNeutralButton(R.string.goto_element, (dialog, which) -> {
+                de.blau.android.dialogs.Util.dismissDialog(activity, ConfirmUpload.TAG);
+                if (box != null) {
+                    double[] center = box.getCenter();
+                    ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
+                } else {
+                    ((Main) activity).edit(element);
+                    Snack.toastTopWarning(activity, R.string.toast_no_geometry);
                 }
             });
-
         }
         builder.setTitle(R.string.element_information);
         builder.setView(createView(null));

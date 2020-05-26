@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -96,27 +94,22 @@ public class EmptyRelation extends ImmersiveDialogFragment {
         builder.setTitle(R.string.empty_relation_title);
         builder.setMessage(getString(R.string.empty_relation_message, r != null ? r.getDescription() : Long.toString(relationId)));
         if (activity instanceof Main) {
-            builder.setPositiveButton(R.string.add_members, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    logic.setSelectedNode(null);
-                    logic.setSelectedWay(null);
-                    logic.setSelectedRelation(null);
-                    ((Main) activity).startSupportActionMode(((Main) activity).getEasyEditManager().addRelationMembersMode(r));
-                }
+            builder.setPositiveButton(R.string.add_members, (dialog, which) -> {
+                logic.setSelectedNode(null);
+                logic.setSelectedWay(null);
+                logic.setSelectedRelation(null);
+                ((Main) activity).startSupportActionMode(((Main) activity).getEasyEditManager().addRelationMembersMode(r));
             });
         }
         builder.setNeutralButton(R.string.leave_empty, null);
-        builder.setNegativeButton(R.string.Delete, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setNegativeButton(R.string.Delete, (dialog, which) -> {
                 if (r != null) {
                     logic.performEraseRelation(activity, r, true);
                 } else {
                     Log.e(DEBUG_TAG, "Relation not in memory: " + relationId);
                 }
             }
-        });
+        );
 
         return builder.create();
     }

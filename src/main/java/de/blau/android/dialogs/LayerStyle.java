@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -159,27 +158,24 @@ public class LayerStyle extends ImmersiveDialogFragment {
                 labelContainer.setVisibility(View.GONE);
             }
             colorView.setBackgroundColor(layer.getColor());
-            colorView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    ChromaDialog chromaDialog = new ChromaDialog.Builder().initialColor(layer.getColor()).colorMode(ColorMode.ARGB)
-                            .indicatorMode(IndicatorMode.HEX).create();
-                    chromaDialog.setOnColorSelectedListener(new OnColorSelectedListener() {
+            colorView.setOnClickListener(v -> {
+                ChromaDialog chromaDialog = new ChromaDialog.Builder().initialColor(layer.getColor()).colorMode(ColorMode.ARGB).indicatorMode(IndicatorMode.HEX)
+                        .create();
+                chromaDialog.setOnColorSelectedListener(new OnColorSelectedListener() {
 
-                        @Override
-                        public void onNegativeButtonClick(int color) {
-                            // do nothing
-                        }
+                    @Override
+                    public void onNegativeButtonClick(int color) {
+                        // do nothing
+                    }
 
-                        @Override
-                        public void onPositiveButtonClick(int color) {
-                            layer.setColor(color);
-                            colorView.setBackgroundColor(color);
-                            map.invalidate();
-                        }
-                    });
-                    chromaDialog.show(getChildFragmentManager(), "ChromaDialog");
-                }
+                    @Override
+                    public void onPositiveButtonClick(int color) {
+                        layer.setColor(color);
+                        colorView.setBackgroundColor(color);
+                        map.invalidate();
+                    }
+                });
+                chromaDialog.show(getChildFragmentManager(), "ChromaDialog");
             });
 
             lineWidthView.setBackgroundColor(Color.BLACK);

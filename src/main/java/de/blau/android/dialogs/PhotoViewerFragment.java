@@ -9,7 +9,6 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -162,11 +161,13 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         }
         menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         if (multiple) {
-            menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (Uri.parse(photoList.get(startPos)).getAuthority().equals(getString(R.string.content_provider))) {
             // we can only delete stuff that is provided by our provider
-            menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
         if (multiple) {
             itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
@@ -278,43 +279,40 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                 break;
             case MENUITEM_DELETE:
                 new AlertDialog.Builder(getContext()).setTitle(R.string.photo_viewer_delete_title)
-                        .setPositiveButton(R.string.photo_viewer_delete_button, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int pos = viewPager.getCurrentItem();
-                                if (pos >= 0) { // avoid crashes from bouncing
-                                    Uri photoUri = Uri.parse(photoList.get(pos));
-                                    try {
-                                        // delete from in memory and on device index
-                                        try (PhotoIndex index = new PhotoIndex(getContext())) {
-                                            index.deletePhoto(getContext(), photoUri);
-                                        }
-                                        // as the Photo was selected before calling this it will still have a
-                                        // reference in the layer
-                                        if (overlay != null) {
-                                            overlay.setSelected(null);
-                                            overlay.invalidate();
-                                        }
-                                        // actually delete
-                                        if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {
-                                            photoList.remove(pos);
-                                            pos = Math.min(pos, size - 1); // this will set pos to -1 if empty,
-                                                                           // but we will exit in that case in any case
-                                            if (getShowsDialog() && photoList.isEmpty()) { // in fragment mode we want
-                                                                                           // to do something else
-                                                getDialog().dismiss();
-                                            } else {
-                                                photoPagerAdapter.notifyDataSetChanged();
-                                                viewPager.setCurrentItem(pos);
-                                                if (photoList.size() == 1 && itemBack != null && itemForward != null) {
-                                                    itemBack.setEnabled(false);
-                                                    itemForward.setEnabled(false);
-                                                }
+                        .setPositiveButton(R.string.photo_viewer_delete_button, (dialog, which) -> {
+                            int position = viewPager.getCurrentItem();
+                            if (position >= 0) { // avoid crashes from bouncing
+                                Uri photoUri = Uri.parse(photoList.get(position));
+                                try {
+                                    // delete from in memory and on device index
+                                    try (PhotoIndex index = new PhotoIndex(getContext())) {
+                                        index.deletePhoto(getContext(), photoUri);
+                                    }
+                                    // as the Photo was selected before calling this it will still have a
+                                    // reference in the layer
+                                    if (overlay != null) {
+                                        overlay.setSelected(null);
+                                        overlay.invalidate();
+                                    }
+                                    // actually delete
+                                    if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {
+                                        photoList.remove(position);
+                                        position = Math.min(position, size - 1); // this will set pos to -1 if empty,
+                                                                       // but we will exit in that case in any case
+                                        if (getShowsDialog() && photoList.isEmpty()) { // in fragment mode we want
+                                                                                       // to do something else
+                                            getDialog().dismiss();
+                                        } else {
+                                            photoPagerAdapter.notifyDataSetChanged();
+                                            viewPager.setCurrentItem(position);
+                                            if (photoList.size() == 1 && itemBack != null && itemForward != null) {
+                                                itemBack.setEnabled(false);
+                                                itemForward.setEnabled(false);
                                             }
                                         }
-                                    } catch (java.lang.SecurityException sex) {
-                                        Snack.toastTopError(getContext(), getString(R.string.toast_permission_denied, sex.getMessage()));
                                     }
+                                } catch (java.lang.SecurityException sex) {
+                                    Snack.toastTopError(getContext(), getString(R.string.toast_permission_denied, sex.getMessage()));
                                 }
                             }
                         }).setNeutralButton(R.string.cancel, null).show();

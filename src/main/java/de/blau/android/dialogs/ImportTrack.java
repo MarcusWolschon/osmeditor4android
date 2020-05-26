@@ -2,8 +2,6 @@ package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -100,24 +98,18 @@ public class ImportTrack extends ImmersiveDialogFragment {
         builder.setTitle(R.string.existing_track_title);
         builder.setMessage(R.string.existing_track_message);
 
-        builder.setPositiveButton(R.string.replace, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Main main = (Main) getActivity();
-                if (main != null) {
-                    main.getTracker().stopTracking(true);
-                    LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
-                }
+        builder.setPositiveButton(R.string.replace, (dialog, which) -> {
+            Main main = (Main) getActivity();
+            if (main != null) {
+                main.getTracker().stopTracking(true);
+                LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
             }
         });
-        builder.setNeutralButton(R.string.keep, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Main main = (Main) getActivity();
-                if (main != null) {
-                    main.getTracker().stopTracking(false);
-                    LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
-                }
+        builder.setNeutralButton(R.string.keep, (dialog, which) -> {
+            Main main = (Main) getActivity();
+            if (main != null) {
+                main.getTracker().stopTracking(false);
+                LoadTrack.fromFile(main, uri, main.getTracker().getTrack(), null);
             }
         });
         builder.setNegativeButton(R.string.cancel, null);

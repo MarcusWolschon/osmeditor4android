@@ -2,10 +2,8 @@ package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,12 +13,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -30,7 +25,6 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.R;
 import de.blau.android.geocode.Search;
-import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.geocode.SearchItemSelectedCallback;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -167,53 +161,28 @@ public class SearchForm extends ImmersiveDialogFragment {
                     // empty
                 }
             });
-            limitSearch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    prefs.setGeocoderLimit(isChecked);
-                }
-
-            });
+            limitSearch.setOnCheckedChangeListener((buttonView, isChecked) -> prefs.setGeocoderLimit(isChecked));
             searchBuilder.setPositiveButton(R.string.search, null);
             searchBuilder.setNegativeButton(R.string.cancel, null);
 
             final AppCompatDialog searchDialog = searchBuilder.create();
 
-            /*
-             * NOTE this is slightly hackish but needed to ensure the original dialog (this) gets dismissed
-             */
-            final SearchItemSelectedCallback realCallback = new SearchItemSelectedCallback() {
-
-                @Override
-                public void onItemSelected(SearchResult sr) {
-                    searchDialog.dismiss();
-                    callback.onItemSelected(sr);
-                }
-            };
-            Search search = new Search((AppCompatActivity) getActivity(), searchDialog, realCallback);
-
-            searchDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                    positive.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            search.find(geocoders[searchGeocoder.getSelectedItemPosition()], searchEdit.getText().toString(), bbox, limitSearch.isChecked());
-                        }
-                    });
-                }
+            Search search = new Search((AppCompatActivity) getActivity(), searchDialog, sr -> {
+                searchDialog.dismiss();
+                callback.onItemSelected(sr);
             });
 
-            searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                        search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), bbox, limitSearch.isChecked());
-                    }
-                    return false;
+            searchDialog.setOnShowListener(dialog -> {
+                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                positive.setOnClickListener(view -> search.find(geocoders[searchGeocoder.getSelectedItemPosition()], searchEdit.getText().toString(), bbox,
+                        limitSearch.isChecked()));
+            });
+
+            searchEdit.setOnEditorActionListener((v, actionId, event) -> {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), bbox, limitSearch.isChecked());
                 }
+                return false;
             });
 
             return searchDialog;

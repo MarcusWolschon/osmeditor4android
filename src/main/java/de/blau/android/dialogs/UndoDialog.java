@@ -163,26 +163,20 @@ public class UndoDialog extends ImmersiveDialogFragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle(item.isRedo ? R.string.redo : R.string.undo);
                 builder.setNeutralButton(R.string.cancel, null);
-                builder.setNegativeButton(R.string.undo_redo_one, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        int checkpointIndex = actions.length - item.index;
-                        if (item.isRedo) {
-                            logic.redo(checkpointIndex);
-                        } else {
-                            logic.undo(checkpointIndex);
-                        }
-                        dismissAndInvalidate(activity, logic, dialog);
+                builder.setNegativeButton(R.string.undo_redo_one, (dialog, which) -> {
+                    int checkpointIndex = actions.length - item.index;
+                    if (item.isRedo) {
+                        logic.redo(checkpointIndex);
+                    } else {
+                        logic.undo(checkpointIndex);
                     }
+                    dismissAndInvalidate(activity, logic, dialog);
                 });
-                builder.setPositiveButton(item.isRedo ? R.string.redo_all : R.string.undo_all, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        for (int i = 0; i < item.index; i++) {
-                            undoRedoLast(logic, item.isRedo);
-                        }
-                        dismissAndInvalidate(activity, logic, dialog);
+                builder.setPositiveButton(item.isRedo ? R.string.redo_all : R.string.undo_all, (dialog, which) -> {
+                    for (int i = 0; i < item.index; i++) {
+                        undoRedoLast(logic, item.isRedo);
                     }
+                    dismissAndInvalidate(activity, logic, dialog);
                 });
                 builder.create().show();
             } else { // just undo/redo top item without asking

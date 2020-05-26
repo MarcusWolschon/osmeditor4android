@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -133,12 +131,7 @@ public class Tip extends ImmersiveDialogFragment {
 
         if (optional) {
             CheckBox check = (CheckBox) layout.findViewById(R.id.tip_check);
-            check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    prefs.edit().putBoolean(getString(R.string.tip_show_key), isChecked).commit();
-                }
-            });
+            check.setOnCheckedChangeListener((buttonView, isChecked) -> prefs.edit().putBoolean(getString(R.string.tip_show_key), isChecked).commit());
         } else {
             View checkContainer = layout.findViewById(R.id.tip_check_container);
             checkContainer.setVisibility(View.GONE);

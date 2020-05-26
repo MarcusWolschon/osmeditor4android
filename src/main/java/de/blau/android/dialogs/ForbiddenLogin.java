@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -98,12 +96,8 @@ public class ForbiddenLogin extends ImmersiveDialogFragment {
         }
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setNegativeButton(R.string.dismiss, doNothingListener);
-        builder.setPositiveButton(R.string.go_to_openstreetmap, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Urls.OSM)));
-            }
-        });
+        builder.setPositiveButton(R.string.go_to_openstreetmap, (dialog, which) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Urls.OSM))));
+
         return builder.create();
     }
 }

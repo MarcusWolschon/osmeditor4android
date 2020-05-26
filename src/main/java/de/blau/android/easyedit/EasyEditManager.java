@@ -314,13 +314,10 @@ public class EasyEditManager {
         }
     }
 
-    private Runnable invalidateMode = new Runnable() {
-        @Override
-        public void run() {
-            synchronized (actionModeCallbackLock) {
-                if (currentActionMode != null) {
-                    currentActionMode.invalidate();
-                }
+    private Runnable invalidateMode = () -> {
+        synchronized (actionModeCallbackLock) {
+            if (currentActionMode != null) {
+                currentActionMode.invalidate();
             }
         }
     };

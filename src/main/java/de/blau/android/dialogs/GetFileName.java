@@ -1,8 +1,6 @@
 package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -86,12 +84,7 @@ public class GetFileName extends ImmersiveDialogFragment {
         builder.setView(searchLayout);
         final EditText saveFileEdit = (EditText) searchLayout.findViewById(R.id.save_file_edit);
         builder.setNegativeButton(R.string.cancel, null);
-        builder.setPositiveButton(R.string.save, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                callback.save(Uri.fromParts("", "", saveFileEdit.getText().toString()));
-            }
-        });
+        builder.setPositiveButton(R.string.save, (dialog, which) -> callback.save(Uri.fromParts("", "", saveFileEdit.getText().toString())));
         return builder.create();
     }
 }

@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -77,12 +75,7 @@ public class InvalidLogin extends ImmersiveDialogFragment {
                                                                        // used
         final Server server = new Preferences(getActivity()).getServer();
         if (server.getOAuth()) {
-            builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Authorize.startForResult(getActivity(), null);
-                }
-            });
+            builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, (dialog, which) -> Authorize.startForResult(getActivity(), null));
         }
         return builder.create();
     }

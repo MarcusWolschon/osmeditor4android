@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -73,12 +71,7 @@ public class NewVersion extends ImmersiveDialogFragment {
         builder.setMessage(R.string.upgrade_message);
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setNegativeButton(R.string.cancel, doNothingListener);
-        builder.setNeutralButton(R.string.read_upgrade, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                HelpViewer.start(getActivity(), R.string.help_upgrade);
-            }
-        });
+        builder.setNeutralButton(R.string.read_upgrade, (dialog, which) -> HelpViewer.start(getActivity(), R.string.help_upgrade));
         return builder.create();
     }
 }

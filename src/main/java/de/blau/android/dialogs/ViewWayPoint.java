@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -155,18 +153,8 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
         }
         builder.setView(sv);
         builder.setTitle(R.string.waypoint_title);
-        builder.setPositiveButton(R.string.create_osm_object, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                createObjectFromWayPoint(wp, false);
-            }
-        });
-        builder.setNegativeButton(R.string.create_osm_object_search, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                createObjectFromWayPoint(wp, true);
-            }
-        });
+        builder.setPositiveButton(R.string.create_osm_object, (dialog, which) -> createObjectFromWayPoint(wp, false));
+        builder.setNegativeButton(R.string.create_osm_object_search, (dialog, which) -> createObjectFromWayPoint(wp, true));
         builder.setNeutralButton(R.string.cancel, null);
 
         return builder.create();

@@ -5,7 +5,6 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.TreeMap;
 
-import android.content.DialogInterface;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -33,8 +32,8 @@ import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.util.ExtendedLocation;
-import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -152,76 +151,69 @@ public class GnssPositionInfo extends InfoDialogFragment {
             nf.setRoundingMode(RoundingMode.HALF_UP);
             final double lon = Double.parseDouble(nf.format(location.getLongitude()));
             final double lat = Double.parseDouble(nf.format(location.getLatitude()));
-            builder.setNeutralButton(R.string.share_position, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    double[] lonLat = new double[2];
-                    lonLat[0] = lon;
-                    lonLat[1] = lat;
-                    Util.sharePosition(getActivity(), lonLat, null);
-                }
+            builder.setNeutralButton(R.string.share_position, (dialog, which) -> {
+                double[] lonLat = new double[2];
+                lonLat[0] = lon;
+                lonLat[1] = lat;
+                Util.sharePosition(getActivity(), lonLat, null);
             });
 
-            builder.setNegativeButton(R.string.menu_newnode_gps, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    if (Util.notZero(lon) || Util.notZero(lat)) {
-                        if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
-                            try {
-                                Logic logic = App.getLogic();
-                                Node node = logic.performAddNode(getActivity(), lon, lat);
-                                TreeMap<String, String> tags = new TreeMap<>(node.getTags());
+            builder.setNegativeButton(R.string.menu_newnode_gps, (dialog, which) -> {
+                if (Util.notZero(lon) || Util.notZero(lat)) {
+                    if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
+                        try {
+                            Logic logic = App.getLogic();
+                            Node node = logic.performAddNode(getActivity(), lon, lat);
+                            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
 
-                                if (location instanceof ExtendedLocation) {
-                                    ExtendedLocation loc = (ExtendedLocation) location;
-                                    Preferences prefs = logic.getPrefs();
-                                    if (loc.hasBarometricHeight()) {
-                                        if (prefs.useBarometricHeight()) {
-                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
-                                            tags.put(Tags.KEY_SOURCE_ELE, "barometer");
-                                        }
-                                        tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
+                            if (location instanceof ExtendedLocation) {
+                                ExtendedLocation loc = (ExtendedLocation) location;
+                                Preferences prefs = logic.getPrefs();
+                                if (loc.hasBarometricHeight()) {
+                                    if (prefs.useBarometricHeight()) {
+                                        tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
+                                        tags.put(Tags.KEY_SOURCE_ELE, "barometer");
                                     }
-                                    if (loc.hasGeoidHeight()) {
-                                        if (!prefs.useBarometricHeight()) {
-                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
-                                            tags.put(Tags.KEY_SOURCE, "gnss");
-                                        }
-                                        tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
-                                    }
-                                    if (loc.hasGeoidCorrection()) {
-                                        tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.1f", loc.getGeoidCorrection()));
-                                    }
-                                    if (loc.hasHdop()) {
-                                        tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
-                                    }
+                                    tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
                                 }
-                                if (location.hasAltitude()) {
-                                    tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.1f", location.getAltitude()));
+                                if (loc.hasGeoidHeight()) {
+                                    if (!prefs.useBarometricHeight()) {
+                                        tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
+                                        tags.put(Tags.KEY_SOURCE, "gnss");
+                                    }
+                                    tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
                                 }
-
-                                logic.setTags(getActivity(), node, tags);
-                                if (getActivity() instanceof Main) {
-                                    ((Main) getActivity()).edit(node);
+                                if (loc.hasGeoidCorrection()) {
+                                    tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.1f", loc.getGeoidCorrection()));
                                 }
-                            } catch (OsmIllegalOperationException e) {
-                                Snack.barError(getActivity(), e.getLocalizedMessage());
-                                Log.d(DEBUG_TAG, "Caught exception " + e);
+                                if (loc.hasHdop()) {
+                                    tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
+                                }
                             }
-                        } else {
-                            Snack.barError(getActivity(), R.string.toast_null_island);
+                            if (location.hasAltitude()) {
+                                tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.1f", location.getAltitude()));
+                            }
+
+                            logic.setTags(getActivity(), node, tags);
+                            if (getActivity() instanceof Main) {
+                                ((Main) getActivity()).edit(node);
+                            }
+                        } catch (OsmIllegalOperationException e) {
+                            Snack.barError(getActivity(), e.getLocalizedMessage());
+                            Log.d(DEBUG_TAG, "Caught exception " + e);
                         }
+                    } else {
+                        Snack.barError(getActivity(), R.string.toast_null_island);
                     }
                 }
             });
-
         }
         builder.setTitle(R.string.position_info_title);
         builder.setView(createView(null));
         return builder.create();
     }
 
-    Runnable update = new Runnable() {
+    Runnable update = new Runnable() { // NOSONAR
 
         @Override
         public void run() {

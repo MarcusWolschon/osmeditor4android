@@ -9,7 +9,6 @@ import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Spanned;
 import android.util.Log;
@@ -28,8 +27,8 @@ import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.GeoJSONConstants;
+import de.blau.android.util.InfoDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -110,32 +109,26 @@ public class FeatureInfo extends InfoDialogFragment {
         if (feature != null) {
             Geometry geometry = feature.geometry();
             if (geometry != null && GeoJSONConstants.POINT.equals(geometry.type())) {
-                builder.setNeutralButton(R.string.share_position, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        Point p = ((Point) geometry);
-                        double[] lonLat = new double[2];
-                        lonLat[0] = p.longitude();
-                        lonLat[1] = p.latitude();
-                        Util.sharePosition(getActivity(), lonLat, null);
-                    }
+                builder.setNeutralButton(R.string.share_position, (dialog, which) -> {
+                    Point p = ((Point) geometry);
+                    double[] lonLat = new double[2];
+                    lonLat[0] = p.longitude();
+                    lonLat[1] = p.latitude();
+                    Util.sharePosition(getActivity(), lonLat, null);
                 });
             }
             final JsonObject properties = feature.properties();
             if (properties != null) {
-                builder.setNegativeButton(R.string.copy_properties, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        Map<String, String> tags = new LinkedHashMap<>();
-                        for (String key : properties.keySet()) {
-                            JsonElement e = properties.get(key);
-                            if (!e.isJsonNull() && e.isJsonPrimitive()) {
-                                tags.put(key, e.getAsString());
-                            }
+                builder.setNegativeButton(R.string.copy_properties, (dialog, which) -> {
+                    Map<String, String> tags = new LinkedHashMap<>();
+                    for (String key : properties.keySet()) {
+                        JsonElement e = properties.get(key);
+                        if (!e.isJsonNull() && e.isJsonPrimitive()) {
+                            tags.put(key, e.getAsString());
                         }
-                        App.getTagClipboard(getContext()).copy(tags);
-                        Snack.toastTopInfo(getContext(), R.string.toast_properties_copied);
                     }
+                    App.getTagClipboard(getContext()).copy(tags);
+                    Snack.toastTopInfo(getContext(), R.string.toast_properties_copied);
                 });
             }
         }

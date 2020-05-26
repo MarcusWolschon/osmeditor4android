@@ -1,8 +1,6 @@
 package de.blau.android.dialogs;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -87,26 +85,20 @@ public class Newbie extends ImmersiveDialogFragment {
             message = message + getString(R.string.welcome_message_fullscreen);
         }
         builder.setMessage(Util.fromHtml(message));
-        builder.setPositiveButton(R.string.okay, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FragmentActivity activity = getActivity();
-                if (activity instanceof Main) {
-                    ((Main) activity).gotoBoxPicker(R.string.boxpicker_firsttimetitle);
-                } else {
-                    Log.e(DEBUG_TAG, "getActivity returned null in onClick");
-                }
+        builder.setPositiveButton(R.string.okay, (dialog, which) -> {
+            FragmentActivity activity = getActivity();
+            if (activity instanceof Main) {
+                ((Main) activity).gotoBoxPicker(R.string.boxpicker_firsttimetitle);
+            } else {
+                Log.e(DEBUG_TAG, "getActivity returned null in onClick");
             }
         });
-        builder.setNeutralButton(R.string.read_introduction, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FragmentActivity activity = getActivity();
-                if (activity != null) {
-                    HelpViewer.start(activity, R.string.help_introduction);
-                } else {
-                    Log.e(DEBUG_TAG, "getActivity returned null in onClick");
-                }
+        builder.setNeutralButton(R.string.read_introduction, (dialog, which) -> {
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                HelpViewer.start(activity, R.string.help_introduction);
+            } else {
+                Log.e(DEBUG_TAG, "getActivity returned null in onClick");
             }
         });
 

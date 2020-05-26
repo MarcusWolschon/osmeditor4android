@@ -3,7 +3,6 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -85,7 +84,7 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
         boolean updated = super.onPrepareActionMode(mode, menu);
 
         updated |= setItemVisibility(((Relation) element).getMembers() != null, selectMembersItem, false);
-        
+
         if (updated) {
             arrangeMenu(menu);
         }
@@ -135,13 +134,10 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
         final Relation r = (Relation) element;
         if (r.hasParentRelations()) {
             new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleterelation_relation_description)
-                    .setPositiveButton(R.string.deleterelation, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            logic.performEraseRelation(main, r, true);
-                            if (mode != null) {
-                                mode.finish();
-                            }
+                    .setPositiveButton(R.string.deleterelation, (dialog, which) -> {
+                        logic.performEraseRelation(main, r, true);
+                        if (mode != null) {
+                            mode.finish();
                         }
                     }).show();
         } else {

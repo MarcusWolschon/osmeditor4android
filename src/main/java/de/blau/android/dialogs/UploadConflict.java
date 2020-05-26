@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -116,12 +114,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 if (elementLocal.getState() == OsmElement.STATE_DELETED) {
                     builder.setMessage(res.getString(R.string.upload_conflict_message_already_deleted, elementLocal.getDescription(true)));
                     App.getDelegator().removeFromUpload(elementLocal);
-                    builder.setPositiveButton(R.string.retry, new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ConfirmUpload.showDialog(getActivity(), null);
-                        }
-                    });
+                    builder.setPositiveButton(R.string.retry, (dialog, which) -> ConfirmUpload.showDialog(getActivity(), null));
                     return builder.create();
                 } else {
                     builder.setMessage(
@@ -130,27 +123,21 @@ public class UploadConflict extends ImmersiveDialogFragment {
                 newVersion = elementLocal.getOsmVersion() + 1;
             }
             if (!useServerOnly) {
-                builder.setPositiveButton(R.string.use_local_version, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logic.fixElementWithConflict(getActivity(), newVersion, elementLocal, elementOnServer);
-                        ConfirmUpload.showDialog(getActivity(), null);
-                    }
+                builder.setPositiveButton(R.string.use_local_version, (dialog, which) -> {
+                    logic.fixElementWithConflict(getActivity(), newVersion, elementLocal, elementOnServer);
+                    ConfirmUpload.showDialog(getActivity(), null);
                 });
             }
-            builder.setNeutralButton(R.string.use_server_version, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    StorageDelegator storageDelegator = App.getDelegator();
-                    storageDelegator.removeFromUpload(elementLocal);
-                    if (elementOnServer != null) {
-                        logic.downloadElement(getActivity(), elementLocal.getName(), elementLocal.getOsmId(), false, true, null);
-                    } else { // delete local element
-                        logic.updateToDeleted(getActivity(), elementLocal);
-                    }
-                    if (!storageDelegator.hasChanges()) {
-                        ConfirmUpload.showDialog(getActivity(), null);
-                    }
+            builder.setNeutralButton(R.string.use_server_version, (dialog, which) -> {
+                StorageDelegator storageDelegator = App.getDelegator();
+                storageDelegator.removeFromUpload(elementLocal);
+                if (elementOnServer != null) {
+                    logic.downloadElement(getActivity(), elementLocal.getName(), elementLocal.getOsmId(), false, true, null);
+                } else { // delete local element
+                    logic.updateToDeleted(getActivity(), elementLocal);
+                }
+                if (!storageDelegator.hasChanges()) {
+                    ConfirmUpload.showDialog(getActivity(), null);
                 }
             });
         } catch (Exception e) {

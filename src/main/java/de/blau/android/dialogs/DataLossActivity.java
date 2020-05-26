@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -94,14 +92,8 @@ public class DataLossActivity extends ImmersiveDialogFragment {
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.unsaved_data_title);
         builder.setMessage(R.string.unsaved_data_message);
-        builder.setPositiveButton(R.string.unsaved_data_proceed, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getActivity().startActivityForResult(intent, requestCode);
-            }
-        });
+        builder.setPositiveButton(R.string.unsaved_data_proceed, (dialog, which) -> getActivity().startActivityForResult(intent, requestCode));
         builder.setNegativeButton(R.string.cancel, null);
-
         return builder.create();
     }
 }

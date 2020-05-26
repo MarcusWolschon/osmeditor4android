@@ -3,10 +3,8 @@ package de.blau.android.dialogs;
 import java.util.List;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -98,15 +96,11 @@ public class TextLineDialog {
             } else {
                 input.setAdapter(new ArrayAdapter<String>(ctx, R.layout.autocomplete_row, prevText));
                 input.setThreshold(0);
-                OnClickListener autocompleteOnClick = new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (v.hasFocus()) {
-                            ((AutoCompleteTextView) v).showDropDown();
-                        }
+                input.setOnClickListener(v -> {
+                    if (v.hasFocus()) {
+                        ((AutoCompleteTextView) v).showDropDown();
                     }
-                };
-                input.setOnClickListener(autocompleteOnClick);
+                });
             }
         }
         builder.setView(layout);
@@ -118,20 +112,14 @@ public class TextLineDialog {
         }
 
         final AlertDialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (dismiss) {
-                            dialog.dismiss();
-                        }
-                        listener.processLine(input);
-                    }
-                });
-            }
+        dialog.setOnShowListener(d -> {
+            Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+            positive.setOnClickListener(view -> {
+                if (dismiss) {
+                    d.dismiss();
+                }
+                listener.processLine(input);
+            });
         });
 
         return dialog;
