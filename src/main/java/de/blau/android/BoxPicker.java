@@ -203,17 +203,14 @@ public class BoxPicker extends AppCompatActivity implements LocationListener, Se
                 }
             });
 
-            searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH
-                            || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                        Search search = new Search(BoxPicker.this, null, BoxPicker.this);
-                        search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), null, false);
-                        return true;
-                    }
-                    return false;
+            searchEdit.setOnEditorActionListener((v, actionId, event) -> {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    Search search = new Search(BoxPicker.this, null, BoxPicker.this);
+                    search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), null, false);
+                    return true;
                 }
+                return false;
             });
 
             ActionBar actionbar = getSupportActionBar();
@@ -378,13 +375,10 @@ public class BoxPicker extends AppCompatActivity implements LocationListener, Se
      * @return the OnClickListener
      */
     private OnClickListener createButtonListener(@NonNull final RadioGroup radioGroup, @NonNull final EditText latEdit, @NonNull final EditText lonEdit) {
-        return new OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                String lat = latEdit.getText().toString();
-                String lon = lonEdit.getText().toString();
-                performClick(view.getId(), radioGroup.getCheckedRadioButtonId(), lat, lon);
-            }
+        return view -> {
+            String lat = latEdit.getText().toString();
+            String lon = lonEdit.getText().toString();
+            performClick(view.getId(), radioGroup.getCheckedRadioButtonId(), lat, lon);
         };
     }
 

@@ -1,8 +1,6 @@
 package de.blau.android.dialogs;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -94,24 +92,11 @@ public class AttachedObjectWarning extends DialogFragment {
         builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
         builder.setTitle(R.string.attached_object_warning_title);
         builder.setMessage(R.string.attached_object_warning_message);
-        builder.setPositiveButton(R.string.attached_object_warning_continue, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                // simple continue
-            }
+        builder.setPositiveButton(R.string.attached_object_warning_continue, (dialog, which) -> {
+            // simple continue
         });
-        builder.setNeutralButton(R.string.attached_object_warning_stop, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                App.getLogic().setAttachedObjectWarning(false);
-            }
-        });
-        builder.setNegativeButton(R.string.undo, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                main.getUndoListener().onClick(null);
-            }
-        });
+        builder.setNeutralButton(R.string.attached_object_warning_stop, (dialog, which) -> App.getLogic().setAttachedObjectWarning(false));
+        builder.setNegativeButton(R.string.undo, (dialog, which) -> main.getUndoListener().onClick(null));
 
         return builder.create();
     }

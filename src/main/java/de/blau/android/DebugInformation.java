@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -49,12 +48,9 @@ public class DebugInformation extends AppCompatActivity {
         TextView textFull = (TextView) container.findViewById(R.id.debugText);
 
         Button send = (Button) container.findViewById(R.id.sendDebug);
-        send.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                ACRA.getErrorReporter().putCustomData("DEBUGINFO", getDebugText("<BR>"));
-                ACRA.getErrorReporter().handleException(null);
-            }
+        send.setOnClickListener(v -> {
+            ACRA.getErrorReporter().putCustomData("DEBUGINFO", getDebugText("<BR>"));
+            ACRA.getErrorReporter().handleException(null);
         });
 
         textFull.setAutoLinkMask(0);

@@ -17,7 +17,6 @@ import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -1506,26 +1505,22 @@ public class Main extends FullScreenAppCompatActivity
         lock.show();
 
         //
-        lock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View b) {
-                Log.d(DEBUG_TAG, "Lock pressed " + b.getClass().getName());
-                int[] drawableState = ((FloatingActionButton) b).getDrawableState();
-                Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length == 1 ? Integer.toHexString(drawableState[0]) : ""));
-                if (drawableState.length == 0 || drawableState[0] != android.R.attr.state_pressed) {
-                    Mode mode = Mode.modeForTag((String) b.getTag());
-                    logic.setMode(Main.this, mode);
-                    ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
-                    logic.setLocked(false);
-                    enableSimpleActionsButton();
-                } else {
-                    logic.setLocked(true);
-                    ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
-                    disableSimpleActionsButton();
-                }
-                updateActionbarEditMode();
-                map.invalidate();
+        lock.setOnClickListener(b -> {
+            Log.d(DEBUG_TAG, "Lock pressed " + b.getClass().getName());
+            int[] drawableState = ((FloatingActionButton) b).getDrawableState();
+            Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length == 1 ? Integer.toHexString(drawableState[0]) : ""));
+            if (drawableState.length == 0 || drawableState[0] != android.R.attr.state_pressed) {
+                logic.setMode(Main.this, Mode.modeForTag((String) b.getTag()));
+                ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
+                logic.setLocked(false);
+                enableSimpleActionsButton();
+            } else {
+                logic.setLocked(true);
+                ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
+                disableSimpleActionsButton();
             }
+            updateActionbarEditMode();
+            map.invalidate();
         });
         lock.setLongClickable(true);
         lock.setOnLongClickListener(b -> {
@@ -3237,12 +3232,8 @@ public class Main extends FullScreenAppCompatActivity
             if (undoBox != null && !map.getViewBox().intersects(undoBox)) {
                 // undo location is not in view
                 new AlertDialog.Builder(Main.this).setTitle(R.string.undo_location_title).setMessage(R.string.undo_location_text)
-                        .setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.undo_location_undo_anyway, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                undo(logic);
-                            }
-                        }).setPositiveButton(R.string.undo_location_zoom, (dialog, which) -> {
+                        .setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.undo_location_undo_anyway, (dialog, which) -> undo(logic))
+                        .setPositiveButton(R.string.undo_location_zoom, (dialog, which) -> {
                             map.getViewBox().fitToBoundingBox(map, undoBox);
                             undo(logic);
                         }).create().show();
@@ -3600,13 +3591,10 @@ public class Main extends FullScreenAppCompatActivity
             if (!clickedObjects.isEmpty()) {
                 for (final ClickedObject co : clickedObjects) {
                     final ClickableInterface layer = co.layer;
-                    menu.add(Menu.NONE, id++, Menu.NONE, layer.getDescription(co.object)).setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem arg0) {
-                            descheduleAutoLock();
-                            layer.onSelected(Main.this, co.object);
-                            return true;
-                        }
+                    menu.add(Menu.NONE, id++, Menu.NONE, layer.getDescription(co.object)).setOnMenuItemClickListener(item -> {
+                        descheduleAutoLock();
+                        layer.onSelected(Main.this, co.object);
+                        return true;
                     });
                 }
             }
@@ -4238,7 +4226,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Lock screen if we are in a mode in which that can reasonably be done
      */
-    private Runnable autoLock = new Runnable() {
+    private Runnable autoLock = new Runnable() { // NOSONAR 
         @Override
         public void run() {
             if (!App.getLogic().isLocked()) {

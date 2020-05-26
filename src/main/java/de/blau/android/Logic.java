@@ -42,7 +42,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -4040,15 +4039,12 @@ public class Logic {
                     try {
                         if (activity != null) {
                             Snack.barInfo(activity, activity.getResources().getQuantityString(R.plurals.toast_unread_mail, result, result), R.string.read_mail,
-                                    new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            try {
-                                                activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Urls.OSM_LOGIN)));
-                                            } catch (Exception ex) {
-                                                // never crash
-                                                Log.e(DEBUG_TAG, "Linking to the OSM login page failed " + ex.getMessage());
-                                            }
+                                    v -> {
+                                        try {
+                                            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Urls.OSM_LOGIN)));
+                                        } catch (Exception ex) {
+                                            // never crash
+                                            Log.e(DEBUG_TAG, "Linking to the OSM login page failed " + ex.getMessage());
                                         }
                                     });
                         }
@@ -4638,20 +4634,17 @@ public class Logic {
 
     /** Helper class for ordering nodes/ways by distance from a click */
     private static class DistanceSorter<OUTTYPE extends OsmElement, T extends OUTTYPE> {
-        private Comparator<Entry<T, Double>> comparator = new Comparator<Entry<T, Double>>() {
-            @Override
-            public int compare(Entry<T, Double> lhs, Entry<T, Double> rhs) {
-                if (lhs == rhs) {
-                    return 0;
-                }
-                if (lhs.getValue() > rhs.getValue()) {
-                    return 1;
-                }
-                if (lhs.getValue() < rhs.getValue()) {
-                    return -1;
-                }
+        private Comparator<Entry<T, Double>> comparator = (lhs, rhs) -> {
+            if (lhs == rhs) {
                 return 0;
             }
+            if (lhs.getValue() > rhs.getValue()) {
+                return 1;
+            }
+            if (lhs.getValue() < rhs.getValue()) {
+                return -1;
+            }
+            return 0;
         };
 
         /**

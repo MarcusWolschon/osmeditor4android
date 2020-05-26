@@ -18,8 +18,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -163,17 +161,12 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
             buttonSend.setEnabled(Server.checkOsmAuthentication(Feedback.this, server, action));
         }
 
-        anonymous.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton button, boolean checked) {
-                if (checked && Server.checkOsmAuthentication(Feedback.this, server, action)) {
-                    action.onSuccess();
-                } else if (!checked) {
-                    buttonSend.setEnabled(true);
-                }
+        anonymous.setOnCheckedChangeListener((button, checked) -> {
+            if (checked && Server.checkOsmAuthentication(Feedback.this, server, action)) {
+                action.onSuccess();
+            } else if (!checked) {
+                buttonSend.setEnabled(true);
             }
-
         });
         anonymous.setText(R.string.feedback_with_displayname);
 

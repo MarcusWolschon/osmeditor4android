@@ -3,7 +3,6 @@ package de.blau.android.dialogs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -22,8 +21,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -186,18 +183,15 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
         final ChangedElement[] changes = getPendingChanges(elements == null ? App.getLogic().getPendingChangedElements() : elements);
         changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, App.getDefaultValidator(getContext())));
-        changesView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ChangedElement clicked = changes[position];
-                OsmElement element = clicked.element;
-                byte elemenState = element.getState();
-                boolean deleted = elemenState == OsmElement.STATE_DELETED;
-                if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
-                    ElementInfo.showDialog(getActivity(), App.getDelegator().getUndo().getOriginal(element), element, !deleted);
-                } else {
-                    ElementInfo.showDialog(getActivity(), element, !deleted);
-                }
+        changesView.setOnItemClickListener((parent, view, position, id) -> {
+            ChangedElement clicked = changes[position];
+            OsmElement element = clicked.element;
+            byte elemenState = element.getState();
+            boolean deleted = elemenState == OsmElement.STATE_DELETED;
+            if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
+                ElementInfo.showDialog(getActivity(), App.getDelegator().getUndo().getOriginal(element), element, !deleted);
+            } else {
+                ElementInfo.showDialog(getActivity(), element, !deleted);
             }
         });
 
@@ -220,24 +214,16 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         comment.setAdapter(commentAdapter);
         String lastComment = App.getLogic().getLastComment();
         comment.setText(lastComment == null ? "" : lastComment);
-        OnClickListener autocompleteOnClick = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.hasFocus()) {
-                    ((AutoCompleteTextView) v).showDropDown();
-                }
+        OnClickListener autocompleteOnClick = v -> {
+            if (v.hasFocus()) {
+                ((AutoCompleteTextView) v).showDropDown();
             }
         };
         comment.setOnClickListener(autocompleteOnClick);
         comment.setThreshold(1);
         comment.setOnKeyListener(new MyKeyListener());
         ImageButton clearComment = (ImageButton) layout.findViewById(R.id.upload_comment_clear);
-        clearComment.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                comment.setText("");
-            }
-        });
+        clearComment.setOnClickListener(v -> comment.setText(""));
 
         source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
         List<String> sources = new ArrayList<>(App.getLogic().getLastSources());
@@ -249,12 +235,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         source.setThreshold(1);
         source.setOnKeyListener(new MyKeyListener());
         ImageButton clearSource = (ImageButton) layout.findViewById(R.id.upload_source_clear);
-        clearSource.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                source.setText("");
-            }
-        });
+        clearSource.setOnClickListener(v -> source.setText(""));
 
         FormValidation commentValidator = new NotEmptyValidator(comment, getString(R.string.upload_validation_error_empty_comment));
         FormValidation sourceValidator = new NotEmptyValidator(source, getString(R.string.upload_validation_error_empty_source));
@@ -262,12 +243,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
 
         builder.setPositiveButton(R.string.transfer_download_current_upload, null);
 
-        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                saveCommentAndSource(comment, source);
-            }
-        });
+        builder.setNegativeButton(R.string.no, (dialog, which) -> saveCommentAndSource(comment, source));
 
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(
@@ -361,46 +337,43 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
         for (OsmElement e : changedElements) {
             result.add(new ChangedElement(e));
         }
-        Collections.sort(result, new Comparator<ChangedElement>() {
-            @Override
-            public int compare(ChangedElement ce0, ChangedElement ce1) {
+        Collections.sort(result, (ce0, ce1) -> {
 
-                if (ce0.element.isTagged() && !ce1.element.isTagged()) {
-                    return -1;
-                }
-                if (!ce0.element.isTagged() && ce1.element.isTagged()) {
-                    return 1;
-                }
-                byte ce0State = ce0.element.getState();
-                byte ce1State = ce1.element.getState();
-                if (ce0State == OsmElement.STATE_CREATED && ce1State != OsmElement.STATE_CREATED) {
-                    return -1;
-                }
-                if (ce0State != OsmElement.STATE_CREATED && ce1State == OsmElement.STATE_CREATED) {
-                    return 1;
-                }
-                if (ce0State == OsmElement.STATE_MODIFIED && ce1State == OsmElement.STATE_DELETED) {
-                    return -1;
-                }
-                if (ce0State == OsmElement.STATE_DELETED && ce1State == OsmElement.STATE_MODIFIED) {
-                    return 1;
-                }
-                String ce0Type = ce0.element.getName();
-                String ce1Type = ce1.element.getName();
-                if (Node.NAME.equals(ce0Type) && !Node.NAME.equals(ce1Type)) {
-                    return -1;
-                }
-                if (Way.NAME.equals(ce0Type) && Relation.NAME.equals(ce1Type)) {
-                    return -1;
-                }
-                if (Way.NAME.equals(ce0Type) && Node.NAME.equals(ce1Type)) {
-                    return 1;
-                }
-                if (Relation.NAME.equals(ce0Type) && !Relation.NAME.equals(ce1Type)) {
-                    return 1;
-                }
-                return 0;
+            if (ce0.element.isTagged() && !ce1.element.isTagged()) {
+                return -1;
             }
+            if (!ce0.element.isTagged() && ce1.element.isTagged()) {
+                return 1;
+            }
+            byte ce0State = ce0.element.getState();
+            byte ce1State = ce1.element.getState();
+            if (ce0State == OsmElement.STATE_CREATED && ce1State != OsmElement.STATE_CREATED) {
+                return -1;
+            }
+            if (ce0State != OsmElement.STATE_CREATED && ce1State == OsmElement.STATE_CREATED) {
+                return 1;
+            }
+            if (ce0State == OsmElement.STATE_MODIFIED && ce1State == OsmElement.STATE_DELETED) {
+                return -1;
+            }
+            if (ce0State == OsmElement.STATE_DELETED && ce1State == OsmElement.STATE_MODIFIED) {
+                return 1;
+            }
+            String ce0Type = ce0.element.getName();
+            String ce1Type = ce1.element.getName();
+            if (Node.NAME.equals(ce0Type) && !Node.NAME.equals(ce1Type)) {
+                return -1;
+            }
+            if (Way.NAME.equals(ce0Type) && Relation.NAME.equals(ce1Type)) {
+                return -1;
+            }
+            if (Way.NAME.equals(ce0Type) && Node.NAME.equals(ce1Type)) {
+                return 1;
+            }
+            if (Relation.NAME.equals(ce0Type) && !Relation.NAME.equals(ce1Type)) {
+                return 1;
+            }
+            return 0;
         });
         return result.toArray(new ChangedElement[result.size()]);
     }

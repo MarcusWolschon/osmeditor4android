@@ -150,14 +150,6 @@ public enum Mode {
 
         @Override
         public void teardown(final Main main, final Logic logic) {
-            Filter.Update updater = new Filter.Update() {
-                @Override
-                public void execute() {
-                    logic.invalidateMap();
-                    main.scheduleAutoLock();
-                }
-            };
-
             // indoor mode is a special case of a filter
             // needs to be removed here and previous filter, if any, restored
             Filter filter = logic.getFilter();
@@ -169,7 +161,10 @@ public enum Mode {
                     filter = filter.getSavedFilter();
                     logic.setFilter(filter);
                     if (filter != null) {
-                        filter.addControls(main.getMapLayout(), updater);
+                        filter.addControls(main.getMapLayout(), () -> {
+                            logic.invalidateMap();
+                            main.scheduleAutoLock();
+                        });
                         filter.showControls();
                     }
                 }

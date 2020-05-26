@@ -127,12 +127,7 @@ public class Authorize extends FullScreenAppCompatActivity {
             class OAuthWebViewClient extends WebViewClient {
                 Object   progressLock  = new Object();
                 boolean  progressShown = false;
-                Runnable dismiss       = new Runnable() {
-                                           @Override
-                                           public void run() {
-                                               Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
-                                           }
-                                       };
+                Runnable dismiss       = () -> Progress.dismissDialog(Authorize.this, Progress.PROGRESS_OAUTH);
 
                 /**
                  * @deprecated since API 24
@@ -188,19 +183,16 @@ public class Authorize extends FullScreenAppCompatActivity {
                     onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
                 }
             }
-            oAuthWebView.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        if (oAuthWebView != null && oAuthWebView.canGoBack()) {
-                            oAuthWebView.goBack();
-                        } else {
-                            finishOAuth();
-                        }
-                        return true;
+            oAuthWebView.setOnKeyListener((v, keyCode, event) -> {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (oAuthWebView != null && oAuthWebView.canGoBack()) {
+                        oAuthWebView.goBack();
+                    } else {
+                        finishOAuth();
                     }
-                    return false;
+                    return true;
                 }
+                return false;
             });
             oAuthWebView.setWebViewClient(new OAuthWebViewClient());
             oAuthWebView.loadUrl(authUrl);

@@ -7,7 +7,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -204,25 +203,22 @@ public class HelpViewer extends AppCompatActivity {
             fileRes.recycle();
 
             List<HelpItem> items = new ArrayList<>(tocList.values());
-            Collections.sort(items, new Comparator<HelpItem>() {
-                @Override
-                public int compare(HelpItem one, HelpItem two) {
-                    if (one.order < Integer.MAX_VALUE) {
-                        if (one.order > two.order) {
-                            return 1;
-                        } else if (one.order < two.order) {
-                            return -1;
-                        }
+            Collections.sort(items, (one, two) -> {
+                if (one.order < Integer.MAX_VALUE) {
+                    if (one.order > two.order) {
+                        return 1;
+                    } else if (one.order < two.order) {
+                        return -1;
                     }
-                    if (one.topic == null) {
-                        if (two.topic == null) {
-                            return 0;
-                        } else {
-                            return -1;
-                        }
-                    }
-                    return one.topic.compareTo(two.topic); // sort the rest alphabetically
                 }
+                if (one.topic == null) {
+                    if (two.topic == null) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+                return one.topic.compareTo(two.topic); // sort the rest alphabetically
             });
             toc = new HelpItem[items.size()];
             items.toArray(toc);
