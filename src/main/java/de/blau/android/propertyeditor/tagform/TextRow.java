@@ -10,10 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -215,57 +212,51 @@ public class TextRow extends LinearLayout implements KeyValueRow {
         } else {
             ourValueView.setHint(R.string.tag_autocomplete_value_hint);
         }
-        ourValueView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                Log.d(DEBUG_TAG, "onFocusChange");
-                String rowValue = row.getValue();
-                if (!hasFocus && !rowValue.equals(value)) {
-                    caller.tagListener.updateSingleValue(key, rowValue);
-                    if (rowLayout instanceof EditableLayout) {
-                        ((EditableLayout) rowLayout).putTag(key, rowValue);
-                    }
-                } else if (hasFocus) {
-                    ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags);
-                    if (adapter != null && !adapter.isEmpty()) {
-                        ourValueView.setAdapter(adapter);
-                    }
-                    if (isMPHSpeed) {
-                        TagEditorFragment.initMPHSpeed(rowLayout.getContext(), ourValueView, caller.propertyEditorListener);
-                    } else if (row.getValueType() == null) {
-                        InputTypeUtil.enableTextSuggestions(ourValueView);
-                    }
-                    InputTypeUtil.setInputTypeFromValueType(ourValueView, row.getValueType());
+        ourValueView.setOnFocusChangeListener((v, hasFocus) -> {
+            Log.d(DEBUG_TAG, "onFocusChange");
+            String rowValue = row.getValue();
+            if (!hasFocus && !rowValue.equals(value)) {
+                caller.tagListener.updateSingleValue(key, rowValue);
+                if (rowLayout instanceof EditableLayout) {
+                    ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
+            } else if (hasFocus) {
+                ArrayAdapter<?> adapter = caller.getValueAutocompleteAdapter(key, values, preset, null, allTags);
+                if (adapter != null && !adapter.isEmpty()) {
+                    ourValueView.setAdapter(adapter);
+                }
+                if (isMPHSpeed) {
+                    TagEditorFragment.initMPHSpeed(rowLayout.getContext(), ourValueView, caller.propertyEditorListener);
+                } else if (row.getValueType() == null) {
+                    InputTypeUtil.enableTextSuggestions(ourValueView);
+                }
+                InputTypeUtil.setInputTypeFromValueType(ourValueView, row.getValueType());
             }
         });
-        ourValueView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(DEBUG_TAG, "onItemClicked value");
-                Object o = parent.getItemAtPosition(position);
-                if (o instanceof Names.NameAndTags) {
-                    ourValueView.setOrReplaceText(((NameAndTags) o).getName());
-                    caller.tagListener.applyTagSuggestions(((NameAndTags) o).getTags(), new Runnable() {
-                        @Override
-                        public void run() {
-                            caller.update();
-                        }
+        ourValueView.setOnItemClickListener((parent, view, position, id) -> {
+            Log.d(DEBUG_TAG, "onItemClicked value");
+            Object o = parent.getItemAtPosition(position);
+            if (o instanceof Names.NameAndTags) {
+                ourValueView.setOrReplaceText(((NameAndTags) o).getName());
+                caller.tagListener.applyTagSuggestions(((NameAndTags) o).getTags(), new Runnable() {
+                    @Override
+                    public void run() {
+                        caller.update();
+                    }
 
-                    });
-                    caller.update();
-                    return;
-                } else if (o instanceof ValueWithCount) {
-                    ourValueView.setOrReplaceText(((ValueWithCount) o).getValue());
-                } else if (o instanceof StringWithDescription) {
-                    ourValueView.setOrReplaceText(((StringWithDescription) o).getValue());
-                } else if (o instanceof String) {
-                    ourValueView.setOrReplaceText((String) o);
-                }
-                caller.tagListener.updateSingleValue(key, row.getValue());
-                if (rowLayout instanceof EditableLayout) {
-                    ((EditableLayout) rowLayout).putTag(key, row.getValue());
-                }
+                });
+                caller.update();
+                return;
+            } else if (o instanceof ValueWithCount) {
+                ourValueView.setOrReplaceText(((ValueWithCount) o).getValue());
+            } else if (o instanceof StringWithDescription) {
+                ourValueView.setOrReplaceText(((StringWithDescription) o).getValue());
+            } else if (o instanceof String) {
+                ourValueView.setOrReplaceText((String) o);
+            }
+            caller.tagListener.updateSingleValue(key, row.getValue());
+            if (rowLayout instanceof EditableLayout) {
+                ((EditableLayout) rowLayout).putTag(key, row.getValue());
             }
         });
         ourValueView.addTextChangedListener(new SanitizeTextWatcher(caller.getActivity(), caller.maxStringLength));

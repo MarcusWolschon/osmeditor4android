@@ -13,11 +13,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import com.buildware.widget.indeterm.IndeterminateCheckBox;
-import com.buildware.widget.indeterm.IndeterminateCheckBox.OnStateChangedListener;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,7 +25,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -913,14 +909,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                     checkBox.setChecked(valueOn != null && valueOn.equals(value));
                                 }
                                 rowLayout.addView(row);
-                                checkBox.setOnStateChangedListener(new OnStateChangedListener() {
-                                    @Override
-                                    public void onStateChanged(IndeterminateCheckBox check, Boolean state) {
-                                        String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR
-                                        tagListener.updateSingleValue(key, checkValue);
-                                        if (rowLayout instanceof EditableLayout) {
-                                            ((EditableLayout) rowLayout).putTag(key, checkValue);
-                                        }
+                                checkBox.setOnStateChangedListener((check, state) -> {
+                                    String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR
+                                    tagListener.updateSingleValue(key, checkValue);
+                                    if (rowLayout instanceof EditableLayout) {
+                                        ((EditableLayout) rowLayout).putTag(key, checkValue);
                                     }
                                 });
                             } else {
@@ -1010,15 +1003,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             ohTemplates.add(s.getValue());
         }
         row.valueView.setHint(R.string.tag_tap_to_edit_hint);
-        row.setOnClickListener(new OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getChildFragmentManager();
-                de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_CONDITIONAL_RESTRICTION_TAG);
-                ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key, value, templates, ohTemplates);
-                conditionalRestrictionDialog.show(fm, FRAGMENT_CONDITIONAL_RESTRICTION_TAG);
-            }
+        row.setOnClickListener(v -> {
+            FragmentManager fm = getChildFragmentManager();
+            de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_CONDITIONAL_RESTRICTION_TAG);
+            ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key, value, templates, ohTemplates);
+            conditionalRestrictionDialog.show(fm, FRAGMENT_CONDITIONAL_RESTRICTION_TAG);
         });
         return row;
     }
@@ -1149,59 +1138,41 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          */
         public void setListeners(final EditorUpdate editorListener, final FormUpdate formListener) {
             Log.d(DEBUG_TAG, "setting listeners");
-            applyPresetButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editorListener.applyPreset(preset, false);
-                    formListener.tagsUpdated();
-                }
+            applyPresetButton.setOnClickListener(v -> {
+                editorListener.applyPreset(preset, false);
+                formListener.tagsUpdated();
             });
-            applyPresetWithOptionalButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editorListener.applyPreset(preset, true);
-                    formListener.tagsUpdated();
-                }
+            applyPresetWithOptionalButton.setOnClickListener(v -> {
+                editorListener.applyPreset(preset, true);
+                formListener.tagsUpdated();
             });
-            copyButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    formListener.updateEditorFromText();
-                    App.getTagClipboard(getContext()).copy(tags);
-                    Snack.toastTopInfo(getContext(), R.string.toast_tags_copied);
-                }
+            copyButton.setOnClickListener(v -> {
+                formListener.updateEditorFromText();
+                App.getTagClipboard(getContext()).copy(tags);
+                Snack.toastTopInfo(getContext(), R.string.toast_tags_copied);
             });
-            cutButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    formListener.updateEditorFromText();
-                    App.getTagClipboard(getContext()).copy(tags);
+            cutButton.setOnClickListener(v -> {
+                formListener.updateEditorFromText();
+                App.getTagClipboard(getContext()).copy(tags);
+                for (String key : tags.keySet()) {
+                    editorListener.deleteTag(key);
+                }
+                editorListener.updatePresets();
+                formListener.tagsUpdated();
+                Snack.toastTopInfo(getContext(), R.string.toast_tags_cut);
+            });
+            deleteButton.setOnClickListener(v -> {
+                Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setMessage(v.getContext().getString(R.string.delete_tags, headerTitleView.getText()));
+                builder.setNegativeButton(R.string.cancel, null);
+                builder.setPositiveButton(R.string.okay, (dialog, which) -> {
                     for (String key : tags.keySet()) {
                         editorListener.deleteTag(key);
                     }
                     editorListener.updatePresets();
                     formListener.tagsUpdated();
-                    Snack.toastTopInfo(getContext(), R.string.toast_tags_cut);
-                }
-            });
-            deleteButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Builder builder = new AlertDialog.Builder(v.getContext());
-                    builder.setMessage(v.getContext().getString(R.string.delete_tags, headerTitleView.getText()));
-                    builder.setNegativeButton(R.string.cancel, null);
-                    builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            for (String key : tags.keySet()) {
-                                editorListener.deleteTag(key);
-                            }
-                            editorListener.updatePresets();
-                            formListener.tagsUpdated();
-                        }
-                    });
-                    builder.show();
-                }
+                });
+                builder.show();
             });
         }
 

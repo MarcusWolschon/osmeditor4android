@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -221,29 +220,23 @@ public class MultiselectDialogRow extends DialogRow {
                 addCheck(caller.getActivity(), valueGroup, swd, values != null && values.contains(v), icon, buttonLayoutParams);
             }
         }
-        builder.setNeutralButton(R.string.clear, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // do nothing
-            }
+        builder.setNeutralButton(R.string.clear, (dialog, iwhich) -> {
+            // do nothing
         });
-        builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                List<StringWithDescription> values = new ArrayList<>();
-                for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
-                    View c = valueGroup.getChildAt(pos);
-                    if (c instanceof AppCompatCheckBox) {
-                        AppCompatCheckBox checkBox = (AppCompatCheckBox) c;
-                        if (checkBox.isChecked()) {
-                            values.add((StringWithDescription) checkBox.getTag());
-                        }
+        builder.setPositiveButton(R.string.save, (dialog, which) -> {
+            List<StringWithDescription> valueList = new ArrayList<>();
+            for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
+                View c = valueGroup.getChildAt(pos);
+                if (c instanceof AppCompatCheckBox) {
+                    AppCompatCheckBox checkBox = (AppCompatCheckBox) c;
+                    if (checkBox.isChecked()) {
+                        valueList.add((StringWithDescription) checkBox.getTag());
                     }
                 }
-                row.setValue(values);
-                caller.tagListener.updateSingleValue((String) layout.getTag(), row.getValue());
-                row.setChanged(true);
             }
+            row.setValue(valueList);
+            caller.tagListener.updateSingleValue((String) layout.getTag(), row.getValue());
+            row.setChanged(true);
         });
         builder.setNegativeButton(R.string.cancel, null);
         return builder.create();

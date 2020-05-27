@@ -15,7 +15,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
@@ -29,13 +28,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -53,7 +48,6 @@ import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
-import de.blau.android.javascript.EvalCallback;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
@@ -379,14 +373,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         CheckBox headerCheckBox = (CheckBox) rowLayout.findViewById(R.id.header_tag_selected);
-        headerCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    selectAllRows();
-                } else {
-                    deselectAllRows();
-                }
+        headerCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                selectAllRows();
+            } else {
+                deselectAllRows();
             }
         });
 
@@ -1052,38 +1043,35 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         row.setValues(aTagKey, tagValues, same);
 
         // If the user selects addr:street from the menu, auto-fill a suggestion
-        row.keyEdit.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (Tags.KEY_ADDR_STREET.equals(parent.getItemAtPosition(position)) && row.getValue().length() == 0) {
-                    ArrayAdapter<ValueWithCount> adapter = nameAdapters.getStreetNameAdapter(tagValues);
-                    if (adapter != null && adapter.getCount() > 0) {
-                        row.valueEdit.setText(adapter.getItem(0).getValue());
-                    }
-                } else if (Tags.KEY_ADDR_PLACE.equals(parent.getItemAtPosition(position)) && row.getValue().length() == 0) {
-                    ArrayAdapter<ValueWithCount> adapter = nameAdapters.getPlaceNameAdapter(tagValues);
-                    if (adapter != null && adapter.getCount() > 0) {
-                        row.valueEdit.setText(adapter.getItem(0).getValue());
-                    }
-                } else {
-                    if (primaryPresetItem != null) {
-                        String hint = primaryPresetItem.getHint(parent.getItemAtPosition(position).toString());
-                        if (hint != null) { //
-                            row.valueEdit.setHint(hint);
-                        } else if (!primaryPresetItem.getFields().isEmpty()) { // FIXME check if fixed fields don't
-                                                                               // cause an issue here
-                            row.valueEdit.setHint(R.string.tag_value_hint);
-                        }
-                        if (applyDefault && row.getValue().length() == 0) {
-                            String defaultValue = primaryPresetItem.getDefault(parent.getItemAtPosition(position).toString());
-                            if (defaultValue != null) { //
-                                row.valueEdit.setText(defaultValue);
-                            }
-                        }
-                    }
-                    // set focus on value
-                    row.valueEdit.requestFocus();
+        row.keyEdit.setOnItemClickListener((parent, view, pos, id) -> {
+            if (Tags.KEY_ADDR_STREET.equals(parent.getItemAtPosition(pos)) && row.getValue().length() == 0) {
+                ArrayAdapter<ValueWithCount> adapter = nameAdapters.getStreetNameAdapter(tagValues);
+                if (adapter != null && adapter.getCount() > 0) {
+                    row.valueEdit.setText(adapter.getItem(0).getValue());
                 }
+            } else if (Tags.KEY_ADDR_PLACE.equals(parent.getItemAtPosition(pos)) && row.getValue().length() == 0) {
+                ArrayAdapter<ValueWithCount> adapter = nameAdapters.getPlaceNameAdapter(tagValues);
+                if (adapter != null && adapter.getCount() > 0) {
+                    row.valueEdit.setText(adapter.getItem(0).getValue());
+                }
+            } else {
+                if (primaryPresetItem != null) {
+                    String hint = primaryPresetItem.getHint(parent.getItemAtPosition(pos).toString());
+                    if (hint != null) { //
+                        row.valueEdit.setHint(hint);
+                    } else if (!primaryPresetItem.getFields().isEmpty()) { // FIXME check if fixed fields don't
+                                                                           // cause an issue here
+                        row.valueEdit.setHint(R.string.tag_value_hint);
+                    }
+                    if (applyDefault && row.getValue().length() == 0) {
+                        String defaultValue = primaryPresetItem.getDefault(parent.getItemAtPosition(pos).toString());
+                        if (defaultValue != null) { //
+                            row.valueEdit.setText(defaultValue);
+                        }
+                    }
+                }
+                // set focus on value
+                row.valueEdit.requestFocus();
             }
         });
         row.keyEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -1123,7 +1111,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     final PresetKeyType keyType = preset != null ? preset.getKeyType(key) : null;
                     row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row));
                     if (preset != null && keyType == PresetKeyType.MULTISELECT) {
-                        // FIXME this should be somewhere better obvious since it creates a non obvious side effect
+                        // FIXME this should be somewhere more obvious since it creates a non obvious side effect
                         row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
                     }
                     if (Tags.isSpeedKey(key)) {
@@ -1189,37 +1177,31 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         row.keyEdit.addTextChangedListener(textWatcher);
         row.valueEdit.addTextChangedListener(textWatcher);
 
-        row.valueEdit.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("TagEdit", "onItemClicked value");
-                Object o = parent.getItemAtPosition(position);
-                if (o instanceof Names.NameAndTags) {
-                    row.valueEdit.setOrReplaceText(((NameAndTags) o).getName());
-                    applyTagSuggestions(((NameAndTags) o).getTags(), null);
-                } else if (o instanceof ValueWithCount) {
-                    row.valueEdit.setOrReplaceText(((ValueWithCount) o).getValue());
-                } else if (o instanceof StringWithDescription) {
-                    row.valueEdit.setOrReplaceText(((StringWithDescription) o).getValue());
-                } else if (o instanceof String) {
-                    row.valueEdit.setOrReplaceText((String) o);
-                }
+        row.valueEdit.setOnItemClickListener((parent, view, pos, id) -> {
+            Log.d("TagEdit", "onItemClicked value");
+            Object o = parent.getItemAtPosition(pos);
+            if (o instanceof Names.NameAndTags) {
+                row.valueEdit.setOrReplaceText(((NameAndTags) o).getName());
+                applyTagSuggestions(((NameAndTags) o).getTags(), null);
+            } else if (o instanceof ValueWithCount) {
+                row.valueEdit.setOrReplaceText(((ValueWithCount) o).getValue());
+            } else if (o instanceof StringWithDescription) {
+                row.valueEdit.setOrReplaceText(((StringWithDescription) o).getValue());
+            } else if (o instanceof String) {
+                row.valueEdit.setOrReplaceText((String) o);
             }
         });
 
-        row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!row.isEmpty()) {
-                    if (isChecked) {
-                        tagSelected();
-                    } else {
-                        deselectRow();
-                    }
+        row.selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!row.isEmpty()) {
+                if (isChecked) {
+                    tagSelected();
+                } else {
+                    deselectRow();
                 }
-                if (row.isEmpty()) {
-                    row.deselect();
-                }
+            }
+            if (row.isEmpty()) {
+                row.deselect();
             }
         });
 
@@ -1291,12 +1273,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
             selected = (CheckBox) findViewById(R.id.tagSelected);
 
-            OnClickListener autocompleteOnClick = new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.hasFocus()) {
-                        ((AutoCompleteTextView) v).showDropDown();
-                    }
+            OnClickListener autocompleteOnClick = v -> {
+                if (v.hasFocus()) {
+                    ((AutoCompleteTextView) v).showDropDown();
                 }
             };
             // set an empty adapter on both views to be on the safe side
@@ -1449,13 +1428,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Builder dialog = new AlertDialog.Builder(getActivity());
             dialog.setTitle(R.string.tag_editor_name_suggestion);
             dialog.setMessage(R.string.tag_editor_name_suggestion_overwrite_message);
-            dialog.setPositiveButton(R.string.replace, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    loadEdits(currentValues, false);// FIXME
-                    if (afterApply != null) {
-                        afterApply.run();
-                    }
+            dialog.setPositiveButton(R.string.replace, (d, which) -> {
+                loadEdits(currentValues, false);// FIXME
+                if (afterApply != null) {
+                    afterApply.run();
                 }
             });
             dialog.setNegativeButton(R.string.cancel, null);
@@ -1956,12 +1932,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Address.resetLastAddresses(getActivity());
             return true;
         case R.id.tag_menu_js_console:
-            de.blau.android.javascript.Utils.jsConsoleDialog(getActivity(), R.string.js_console_msg_debug, new EvalCallback() {
-                @Override
-                public String eval(String input) {
-                    return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test",
-                            tags2Preset, App.getCurrentPresets(getActivity()));
-                }
+            de.blau.android.javascript.Utils.jsConsoleDialog(getActivity(), R.string.js_console_msg_debug, (input) -> {
+                return de.blau.android.javascript.Utils.evalString(getActivity(), "JS Preset Test", input, buildEdits(), getKeyValueMap(true), "test",
+                        tags2Preset, App.getCurrentPresets(getActivity()));
             });
             return true;
         case R.id.tag_menu_select_all:
@@ -2002,23 +1975,20 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         if (rowLayout != null) {
-            processKeyValues(rowLayout, new KeyValueHandler() {
-                @Override
-                public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final List<String> tagValues) {
-                    String key = keyEdit.getText().toString().trim();
-                    String value = valueEdit.getText().toString().trim();
-                    boolean keyBlank = "".equals(key);
-                    boolean valueBlank = "".equals(value);
-                    boolean bothBlank = keyBlank && valueBlank;
-                    boolean neitherBlank = !keyBlank && !valueBlank;
-                    if (!bothBlank) {
-                        // both blank is never acceptable
-                        if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty())) {
-                            if (valueBlank) {
-                                tags.put(key, tagValues.size() == 1 ? Util.wrapInList("") : tagValues);
-                            } else {
-                                tags.put(key, Util.wrapInList(value));
-                            }
+            processKeyValues(rowLayout, (keyEdit, valueEdit, tagValues) -> {
+                String key = keyEdit.getText().toString().trim();
+                String value = valueEdit.getText().toString().trim();
+                boolean keyBlank = "".equals(key);
+                boolean valueBlank = "".equals(value);
+                boolean bothBlank = keyBlank && valueBlank;
+                boolean neitherBlank = !keyBlank && !valueBlank;
+                if (!bothBlank) {
+                    // both blank is never acceptable
+                    if (neitherBlank || allowBlanks || (valueBlank && tagValues != null && !tagValues.isEmpty())) {
+                        if (valueBlank) {
+                            tags.put(key, tagValues.size() == 1 ? Util.wrapInList("") : tagValues);
+                        } else {
+                            tags.put(key, Util.wrapInList(value));
                         }
                     }
                 }
@@ -2051,7 +2021,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @return a LinkedHashMap of the current tags
      */
     @NonNull
-    private LinkedHashMap<String, String> getKeyValueMapSingle(LinearLayout rowLayout, final boolean allowBlanks) {
+    private LinkedHashMap<String, String> getKeyValueMapSingle(@Nullable LinearLayout rowLayout, final boolean allowBlanks) {
         final LinkedHashMap<String, String> tags = new LinkedHashMap<>();
         if (rowLayout == null && savedTags != null) {
             for (Entry<String, List<String>> entry : savedTags.entrySet()) {
@@ -2065,9 +2035,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     // both blank is never acceptable
                     if (neitherBlank || allowBlanks || valueBlank) {
                         if (valueBlank) {
-                            tags.put(key, tagValues == null || tagValues.size() == 1 ? "" : tagValues.get(0)); // FIXME
-                                                                                                               // if
-                                                                                                               // multi-select
+                            // FIXME if multi-select
+                            tags.put(key, tagValues == null || tagValues.size() == 1 ? "" : tagValues.get(0));
                         } else {
                             tags.put(key, value);
                         }
@@ -2076,23 +2045,20 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         }
         if (rowLayout != null) {
-            processKeyValues(rowLayout, new KeyValueHandler() {
-                @Override
-                public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final List<String> tagValues) {
-                    String key = keyEdit.getText().toString().trim();
-                    String value = valueEdit.getText().toString().trim();
-                    boolean valueBlank = "".equals(value);
-                    boolean bothBlank = "".equals(key) && valueBlank;
-                    boolean neitherBlank = !"".equals(key) && !valueBlank;
-                    if (!bothBlank) {
-                        // both blank is never acceptable
-                        boolean hasValues = tagValues != null && !tagValues.isEmpty();
-                        if (neitherBlank || allowBlanks || (valueBlank && hasValues)) {
-                            if (valueBlank) {
-                                tags.put(key, "");
-                            } else {
-                                tags.put(key, value);
-                            }
+            processKeyValues(rowLayout, (keyEdit, valueEdit, tagValues) -> {
+                String key = keyEdit.getText().toString().trim();
+                String value = valueEdit.getText().toString().trim();
+                boolean valueBlank = "".equals(value);
+                boolean bothBlank = "".equals(key) && valueBlank;
+                boolean neitherBlank = !"".equals(key) && !valueBlank;
+                if (!bothBlank) {
+                    // both blank is never acceptable
+                    boolean hasValues = tagValues != null && !tagValues.isEmpty();
+                    if (neitherBlank || allowBlanks || (valueBlank && hasValues)) {
+                        if (valueBlank) {
+                            tags.put(key, "");
+                        } else {
+                            tags.put(key, value);
                         }
                     }
                 }
@@ -2133,32 +2099,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private void doSourceSurvey() { // FIXME
         // determine the key (if any) that has the current focus in the key or its value
         final String[] focusedKey = new String[] { null }; // array to work around unsettable final
-        processKeyValues(new KeyValueHandler() {
-            @Override
-            public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final List<String> tagValues) {
-                if (keyEdit.isFocused() || valueEdit.isFocused()) {
-                    focusedKey[0] = keyEdit.getText().toString().trim();
-                }
+        processKeyValues((keyEdit, valueEdit, tagValues) -> {
+            if (keyEdit.isFocused() || valueEdit.isFocused()) {
+                focusedKey[0] = keyEdit.getText().toString().trim();
             }
         });
         // ensure source(:key)=survey is tagged
         final String sourceKey = sourceForKey(focusedKey[0]);
         final boolean[] sourceSet = new boolean[] { false }; // array to work around unsettable final
-        processKeyValues(new KeyValueHandler() {
-            @Override
-            public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final List<String> tagValues) {
-                if (!sourceSet[0]) {
-                    String key = keyEdit.getText().toString().trim();
-                    String value = valueEdit.getText().toString().trim();
-                    // if there's a blank row - use them
-                    if (key.equals("") && value.equals("")) {
-                        key = sourceKey;
-                        keyEdit.setText(key);
-                    }
-                    if (key.equals(sourceKey)) {
-                        valueEdit.setText(Tags.VALUE_SURVEY);
-                        sourceSet[0] = true;
-                    }
+        processKeyValues((keyEdit, valueEdit, tagValues) -> {
+            if (!sourceSet[0]) {
+                String key = keyEdit.getText().toString().trim();
+                String value = valueEdit.getText().toString().trim();
+                // if there's a blank row - use them
+                if (key.equals("") && value.equals("")) {
+                    key = sourceKey;
+                    keyEdit.setText(key);
+                }
+                if (key.equals(sourceKey)) {
+                    valueEdit.setText(Tags.VALUE_SURVEY);
+                    sourceSet[0] = true;
                 }
             }
         });
@@ -2245,14 +2205,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private Set<String> getUsedKeys(LinearLayout rowLayout, final EditText ignoreEdit) {
         final HashSet<String> keys = new HashSet<>();
-        processKeyValues(rowLayout, new KeyValueHandler() {
-            @Override
-            public void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final List<String> tagValues) {
-                if (!keyEdit.equals(ignoreEdit)) {
-                    String key = keyEdit.getText().toString().trim();
-                    if (key.length() > 0) {
-                        keys.add(key);
-                    }
+        processKeyValues(rowLayout, (keyEdit, valueEdit, tagValues) -> {
+            if (!keyEdit.equals(ignoreEdit)) {
+                String key = keyEdit.getText().toString().trim();
+                if (key.length() > 0) {
+                    keys.add(key);
                 }
             }
         });

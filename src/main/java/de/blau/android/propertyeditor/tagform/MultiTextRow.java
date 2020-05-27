@@ -17,8 +17,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -139,11 +137,11 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
     }
 
     class MyTextWatcher implements TextWatcher {
-        private boolean                     wasEmpty;
-        private final EditText              editText;
-        private final OnFocusChangeListener listener;
-        private final ValueType             valueType;
-        private ArrayAdapter<?>             adapter;
+        private boolean               wasEmpty;
+        private EditText              editText  = null;
+        private OnFocusChangeListener listener  = null;
+        private ValueType             valueType = null;
+        private ArrayAdapter<?>       adapter;
 
         /**
          * Construct a new TextWatcher
@@ -173,47 +171,39 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             wasEmpty = s.length() == 0;
         }
 
-        Runnable splitText = new Runnable() {
-
-            @Override
-            public void run() {
-                editText.removeTextChangedListener(MyTextWatcher.this);
-                ViewParent parent = editText.getParent();
-                if (parent instanceof ViewGroup) {
-                    int pos = ((ViewGroup) parent).indexOfChild(editText);
-                    List<String> bits = Preset.splitValues(Util.wrapInList(editText.getText().toString()), MultiTextRow.this.delimiter);
-                    int size = bits.size();
-                    if (size > 0) {
-                        View last = editText;
-                        editText.setText(bits.get(0));
-                        for (int i = 1; i < size; i++) {
-                            last = addEditText(bits.get(i), listener, valueType, adapter, pos + i);
-                        }
-                        if (size == 1) { // delimiter must have been at the end
-                            last = addEditText("", listener, valueType, adapter, pos + 1);
-                        }
-                        last.requestFocus();
-                    } else {
-                        editText.setText("");
+        private Runnable splitText = () -> {
+            editText.removeTextChangedListener(MyTextWatcher.this);
+            ViewParent parent = editText.getParent();
+            if (parent instanceof ViewGroup) {
+                int pos = ((ViewGroup) parent).indexOfChild(editText);
+                List<String> bits = Preset.splitValues(Util.wrapInList(editText.getText().toString()), MultiTextRow.this.delimiter);
+                int size = bits.size();
+                if (size > 0) {
+                    View last = editText;
+                    editText.setText(bits.get(0));
+                    for (int i = 1; i < size; i++) {
+                        last = addEditText(bits.get(i), listener, valueType, adapter, pos + i);
                     }
+                    if (size == 1) { // delimiter must have been at the end
+                        last = addEditText("", listener, valueType, adapter, pos + 1);
+                    }
+                    last.requestFocus();
                 } else {
-                    Log.e(DEBUG_TAG, "Parent is not a ViewGroup");
+                    editText.setText("");
                 }
-                editText.addTextChangedListener(MyTextWatcher.this);
+            } else {
+                Log.e(DEBUG_TAG, "Parent is not a ViewGroup");
             }
+            editText.addTextChangedListener(MyTextWatcher.this);
         };
 
-        Runnable formatPhoneNumber = new Runnable() {
-
-            @Override
-            public void run() {
-                editText.removeTextChangedListener(MyTextWatcher.this);
-                if (editText.getSelectionStart() == editText.length()) {
-                    editText.setText(formatPhoneNumber(editText.getText().toString()));
-                    editText.setSelection(editText.length());
-                }
-                editText.addTextChangedListener(MyTextWatcher.this);
+        private Runnable formatPhoneNumber = () -> {
+            editText.removeTextChangedListener(MyTextWatcher.this);
+            if (editText.getSelectionStart() == editText.length()) {
+                editText.setText(formatPhoneNumber(editText.getText().toString()));
+                editText.setSelection(editText.length());
             }
+            editText.addTextChangedListener(MyTextWatcher.this);
         };
 
         @Override
@@ -270,43 +260,37 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
         InputTypeUtil.setInputTypeFromValueType(editText, valueType);
         editText.setHint(R.string.tag_value_hint);
         editText.setOnFocusChangeListener(listener);
-        editText.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Drawable icon = editText.getCompoundDrawables()[DRAWABLE_RIGHT];
-                    int[] screenPos = new int[2];
-                    editText.getLocationOnScreen(screenPos);
-                    if (icon != null && event.getRawX() >= (screenPos[0] + editText.getRight() - icon.getBounds().width())) {
-                        int index = valueLayout.indexOfChild(editText);
-                        int count = valueLayout.getChildCount();
-                        if (count > 1 && index != (count - 1)) {
-                            valueLayout.removeView(editText);
-                        } else { // don't delete last one
-                            editText.removeTextChangedListener(textWatcher);
-                            editText.setText("");
-                            editText.addTextChangedListener(textWatcher);
-                        }
-                        listener.onFocusChange(editText, false);
-                        return true;
+        editText.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_RIGHT = 2;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                Drawable icon = editText.getCompoundDrawables()[DRAWABLE_RIGHT];
+                int[] screenPos = new int[2];
+                editText.getLocationOnScreen(screenPos);
+                if (icon != null && event.getRawX() >= (screenPos[0] + editText.getRight() - icon.getBounds().width())) {
+                    int index = valueLayout.indexOfChild(editText);
+                    int count = valueLayout.getChildCount();
+                    if (count > 1 && index != (count - 1)) {
+                        valueLayout.removeView(editText);
+                    } else { // don't delete last one
+                        editText.removeTextChangedListener(textWatcher);
+                        editText.setText("");
+                        editText.addTextChangedListener(textWatcher);
                     }
+                    listener.onFocusChange(editText, false);
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
-        editText.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(DEBUG_TAG, "onItemClicked value");
-                Object o = parent.getItemAtPosition(position);
-                if (o instanceof StringWithDescription) {
-                    editText.setText(((StringWithDescription) o).getValue());
-                } else if (o instanceof String) {
-                    editText.setText((String) o);
-                }
-                listener.onFocusChange(editText, false);
+        editText.setOnItemClickListener((parent, view, pos, id) -> {
+            Log.d(DEBUG_TAG, "onItemClicked value");
+            Object o = parent.getItemAtPosition(pos);
+            if (o instanceof StringWithDescription) {
+                editText.setText(((StringWithDescription) o).getValue());
+            } else if (o instanceof String) {
+                editText.setText((String) o);
             }
+            listener.onFocusChange(editText, false);
         });
         editText.addTextChangedListener(textWatcher);
         if (adapter != null) {
@@ -397,16 +381,13 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
         List<String> splitValues = Preset.splitValues(values, row.delimiter);
         row.valueType = preset.getValueType(key);
         final String finalValue = value;
-        row.listener = new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                Log.d(DEBUG_TAG, "onFocusChange");
-                String rowValue = row.getValue();
-                if (!hasFocus && !rowValue.equals(finalValue)) {
-                    caller.tagListener.updateSingleValue(key, rowValue);
-                    if (rowLayout instanceof EditableLayout) {
-                        ((EditableLayout) rowLayout).putTag(key, rowValue);
-                    }
+        row.listener = (v, hasFocus) -> {
+            Log.d(DEBUG_TAG, "onFocusChange");
+            String rowValue = row.getValue();
+            if (!hasFocus && !rowValue.equals(finalValue)) {
+                caller.tagListener.updateSingleValue(key, rowValue);
+                if (rowLayout instanceof EditableLayout) {
+                    ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
             }
         };
@@ -424,12 +405,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             }
             if (phoneNumberReformatted > 0) {
                 caller.tagListener.updateSingleValue(key, row.getValue());
-                rowLayout.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Snack.barWarning(rowLayout, R.string.toast_phone_number_reformatted, Snackbar.LENGTH_LONG);
-                    }
-                });
+                rowLayout.post(() -> Snack.barWarning(rowLayout, R.string.toast_phone_number_reformatted, Snackbar.LENGTH_LONG));
             }
         }
         row.addEditText("", row.listener, row.valueType, row.adapter, -1);

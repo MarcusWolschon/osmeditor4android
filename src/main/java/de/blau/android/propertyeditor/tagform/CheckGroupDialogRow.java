@@ -4,11 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.buildware.widget.indeterm.IndeterminateCheckBox;
 import com.buildware.widget.indeterm.IndeterminateCheckBox.OnStateChangedListener;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -169,28 +167,25 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                     final CheckGroupRow row = (CheckGroupRow) inflater.inflate(R.layout.tag_form_checkgroup_row, rowLayout, false);
                     row.getKeyView().setText(hint);
                     row.getKeyView().setTag(key);
-                    OnStateChangedListener onStateChangeListener = new OnStateChangedListener() {
-                        @Override
-                        public void onStateChanged(IndeterminateCheckBox checkBox, Boolean state) {
-                            PresetCheckField check = (PresetCheckField) checkBox.getTag();
-                            String checkKey = check.getKey();
-                            if (state == null) {
-                                caller.tagListener.updateSingleValue(checkKey, "");
-                                keyValues.put(checkKey, "");
-                            } else if (!checkBox.isEnabled()) {
-                                // unknown stuff
-                                keyValues.put(checkKey, keyValues.get(checkKey));
-                            } else if (state) { // NOSONAR state can't be null here
-                                caller.tagListener.updateSingleValue(checkKey, check.getOnValue().getValue());
-                                keyValues.put(checkKey, check.getOnValue().getValue());
-                            } else {
-                                StringWithDescription offValue = check.getOffValue();
-                                caller.tagListener.updateSingleValue(checkKey, offValue == null ? "" : offValue.getValue());
-                                keyValues.put(checkKey, offValue == null ? "" : offValue.getValue());
-                            }
-                            if (rowLayout instanceof EditableLayout) {
-                                ((EditableLayout) rowLayout).putTag(checkKey, keyValues.get(checkKey));
-                            }
+                    OnStateChangedListener onStateChangeListener = (checkBox, state) -> {
+                        PresetCheckField check = (PresetCheckField) checkBox.getTag();
+                        String checkKey = check.getKey();
+                        if (state == null) {
+                            caller.tagListener.updateSingleValue(checkKey, "");
+                            keyValues.put(checkKey, "");
+                        } else if (!checkBox.isEnabled()) {
+                            // unknown stuff
+                            keyValues.put(checkKey, keyValues.get(checkKey));
+                        } else if (state) { // NOSONAR state can't be null here
+                            caller.tagListener.updateSingleValue(checkKey, check.getOnValue().getValue());
+                            keyValues.put(checkKey, check.getOnValue().getValue());
+                        } else {
+                            StringWithDescription offValue = check.getOffValue();
+                            caller.tagListener.updateSingleValue(checkKey, offValue == null ? "" : offValue.getValue());
+                            keyValues.put(checkKey, offValue == null ? "" : offValue.getValue());
+                        }
+                        if (rowLayout instanceof EditableLayout) {
+                            ((EditableLayout) rowLayout).putTag(checkKey, keyValues.get(checkKey));
                         }
                     };
 
@@ -286,40 +281,34 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
             }
         }
 
-        builder.setNeutralButton(R.string.clear, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // do nothing
-            }
+        builder.setNeutralButton(R.string.clear, (dialog, which) -> {
+            // do nothing
         });
-        builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Map<String, String> ourKeyValues = new HashMap<>();
-                for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
-                    View c = valueGroup.getChildAt(pos);
-                    if (c instanceof TriStateCheckBox) {
-                        TriStateCheckBox checkBox = (TriStateCheckBox) c;
-                        String k = ((StringWithDescription) checkBox.getTag()).getValue();
-                        PresetCheckField check = field.getCheckField(k);
-                        Boolean state = checkBox.getState();
-                        if (state == null) {
-                            ourKeyValues.put(k, "");
-                        } else if (!checkBox.isEnabled()) {
-                            // unknown stuff
-                            ourKeyValues.put(k, row.keyValues.get(k));
-                        } else if (state) { // NOSONAR state can't be null here
-                            ourKeyValues.put(k, check.getOnValue().getValue());
-                        } else {
-                            StringWithDescription offValue = check.getOffValue();
-                            ourKeyValues.put(k, offValue == null ? "" : offValue.getValue());
-                        }
+        builder.setPositiveButton(R.string.save, (dialog, which) -> {
+            Map<String, String> ourKeyValues = new HashMap<>();
+            for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
+                View c = valueGroup.getChildAt(pos);
+                if (c instanceof TriStateCheckBox) {
+                    TriStateCheckBox checkBox = (TriStateCheckBox) c;
+                    String k = ((StringWithDescription) checkBox.getTag()).getValue();
+                    PresetCheckField check = field.getCheckField(k);
+                    Boolean state = checkBox.getState();
+                    if (state == null) {
+                        ourKeyValues.put(k, "");
+                    } else if (!checkBox.isEnabled()) {
+                        // unknown stuff
+                        ourKeyValues.put(k, row.keyValues.get(k));
+                    } else if (state) { // NOSONAR state can't be null here
+                        ourKeyValues.put(k, check.getOnValue().getValue());
+                    } else {
+                        StringWithDescription offValue = check.getOffValue();
+                        ourKeyValues.put(k, offValue == null ? "" : offValue.getValue());
                     }
                 }
-                caller.tagListener.updateTags(ourKeyValues, false); // batch update
-                row.setSelectedValues(ourKeyValues);
-                row.setChanged(true);
             }
+            caller.tagListener.updateTags(ourKeyValues, false); // batch update
+            row.setSelectedValues(ourKeyValues);
+            row.setChanged(true);
         });
         builder.setNegativeButton(R.string.cancel, null);
         return builder.create();

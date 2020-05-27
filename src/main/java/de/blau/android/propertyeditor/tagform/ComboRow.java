@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -143,16 +142,13 @@ public class ComboRow extends LinearLayout {
         if (selected) {
             setValue(value);
         }
-        button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(DEBUG_TAG, "radio button clicked " + getValue() + " " + button.getTag());
-                if (!changed) {
-                    RadioGroup g = (RadioGroup) v.getParent();
-                    g.clearCheck();
-                } else {
-                    changed = false;
-                }
+        button.setOnClickListener(v -> {
+            Log.d(DEBUG_TAG, "radio button clicked " + getValue() + " " + button.getTag());
+            if (!changed) {
+                RadioGroup g = (RadioGroup) v.getParent();
+                g.clearCheck();
+            } else {
+                changed = false;
             }
         });
     }
@@ -209,23 +205,21 @@ public class ComboRow extends LinearLayout {
                 row.addButton(description, v, v.equals(value), icon);
             }
 
-            row.getRadioGroup().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
+            row.getRadioGroup().setOnCheckedChangeListener((group, checkedId) -> {
                     Log.d(DEBUG_TAG, "radio group onCheckedChanged");
-                    String value = "";
+                    String v = "";
                     if (checkedId != -1) {
                         RadioButton button = (RadioButton) group.findViewById(checkedId);
-                        value = (String) button.getTag();
+                        v = (String) button.getTag();
                     }
-                    caller.tagListener.updateSingleValue(key, value);
+                    caller.tagListener.updateSingleValue(key, v);
                     if (rowLayout instanceof EditableLayout) {
-                        ((EditableLayout) rowLayout).putTag(key, value);
+                        ((EditableLayout) rowLayout).putTag(key, v);
                     }
-                    row.setValue(value);
+                    row.setValue(v);
                     row.setChanged(true);
                 }
-            });
+            );
         }
         return row;
     }

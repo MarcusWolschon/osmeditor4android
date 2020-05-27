@@ -7,11 +7,9 @@ import java.util.Map;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -165,75 +163,60 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
 
         if (value != null && !"".equals(value)) {
             if (!strictSucceeded && lenientSucceeded) {
-                rowLayout.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Snack.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_autocorrected, row.keyView.getText().toString()),
-                                Snackbar.LENGTH_LONG);
-                    }
-                });
+                rowLayout.post(() -> Snack.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_autocorrected, row.keyView.getText().toString()),
+                        Snackbar.LENGTH_LONG));
             } else if (!strictSucceeded && adapter == null) {
                 // only warn if the value should be an OH string
-                rowLayout.post(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        Snack.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_invalid, row.keyView.getText().toString()),
-                                Snackbar.LENGTH_LONG);
-                    }
-                });
+                rowLayout.post(() -> Snack.barWarning(rowLayout, caller.getString(R.string.toast_openinghours_invalid, row.keyView.getText().toString()),
+                        Snackbar.LENGTH_LONG));
             }
         }
 
         row.valueView.setHint(R.string.tag_tap_to_edit_hint);
         final String finalValue = value;
-        row.setOnClickListener(new OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = caller.getChildFragmentManager();
-                de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_OPENING_HOURS_TAG);
-                ValueWithDescription keyWithDescription = new ValueWithDescription(key, hint);
-                ArrayList<ValueWithDescription> textValues = null;
-                if (adapter != null) {
-                    textValues = new ArrayList<>();
-                    int count = adapter.getCount();
-                    for (int i = 0; i < count; i++) {
-                        Object o = adapter.getItem(i);
-                        String val = null;
-                        String des = null;
+        row.setOnClickListener(v -> {
+            FragmentManager fm = caller.getChildFragmentManager();
+            de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_OPENING_HOURS_TAG);
+            ValueWithDescription keyWithDescription = new ValueWithDescription(key, hint);
+            ArrayList<ValueWithDescription> textValues = null;
+            if (adapter != null) {
+                textValues = new ArrayList<>();
+                int count = adapter.getCount();
+                for (int i = 0; i < count; i++) {
+                    Object o = adapter.getItem(i);
+                    String val = null;
+                    String des = null;
 
-                        if (o instanceof String) {
-                            val = (String) o;
-                        } else if (o instanceof ValueWithCount) {
-                            val = ((ValueWithCount) o).getValue();
-                            des = ((ValueWithCount) o).getDescription();
-                        } else if (o instanceof StringWithDescription) {
-                            val = ((StringWithDescription) o).getValue();
-                            des = ((StringWithDescription) o).getDescription();
-                        }
-                        // this is expensive, but we need a way so stripping out OH values
-                        if (val != null) {
-                            OpeningHoursParser parser = new OpeningHoursParser(new ByteArrayInputStream(val.getBytes()));
-                            try {
-                                @SuppressWarnings("unused")
-                                List<Rule> rules = parser.rules(false);
-                                continue;
-                            } catch (Exception e1) {
-                                // not an OH value ... add
-                                textValues.add(new ValueWithDescription(val, des));
-                            }
+                    if (o instanceof String) {
+                        val = (String) o;
+                    } else if (o instanceof ValueWithCount) {
+                        val = ((ValueWithCount) o).getValue();
+                        des = ((ValueWithCount) o).getDescription();
+                    } else if (o instanceof StringWithDescription) {
+                        val = ((StringWithDescription) o).getValue();
+                        des = ((StringWithDescription) o).getDescription();
+                    }
+                    // this is expensive, but we need a way so stripping out OH values
+                    if (val != null) {
+                        OpeningHoursParser p = new OpeningHoursParser(new ByteArrayInputStream(val.getBytes()));
+                        try {
+                            @SuppressWarnings("unused")
+                            List<Rule> r = p.rules(false);
+                            continue;
+                        } catch (Exception e1) {
+                            // not an OH value ... add
+                            textValues.add(new ValueWithDescription(val, des));
                         }
                     }
                 }
-                List<String> isoCodes = caller.propertyEditorListener.getIsoCodes();
-                OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(keyWithDescription,
-                        isoCodes != null && !isoCodes.isEmpty() ? isoCodes.get(0) : null,
-                        preset != null ? preset.getObjectTag(App.getCurrentPresets(caller.getContext()), caller.tagListener.getKeyValueMapSingle(false)) : null,
-                        finalValue, caller.prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1,
-                        true, textValues);
-                openingHoursDialog.show(fm, FRAGMENT_OPENING_HOURS_TAG);
             }
+            List<String> isoCodes = caller.propertyEditorListener.getIsoCodes();
+            OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(keyWithDescription,
+                    isoCodes != null && !isoCodes.isEmpty() ? isoCodes.get(0) : null,
+                    preset != null ? preset.getObjectTag(App.getCurrentPresets(caller.getContext()), caller.tagListener.getKeyValueMapSingle(false)) : null,
+                    finalValue, caller.prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1, true,
+                    textValues);
+            openingHoursDialog.show(fm, FRAGMENT_OPENING_HOURS_TAG);
         });
         return row;
     }

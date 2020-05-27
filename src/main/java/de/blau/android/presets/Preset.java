@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -55,8 +54,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -1009,7 +1006,7 @@ public class Preset implements Serializable {
                     }
                     javaScript = attr.getValue(JAVASCRIPT);
                     if (javaScript != null) {
-                        ((PresetTextField) field).setScript(javaScript);
+                        ((PresetComboField) field).setScript(javaScript);
                     }
                     break;
                 case ROLES:
@@ -1273,11 +1270,8 @@ public class Preset implements Serializable {
      */
     public PresetMRUInfo initMRU(File directory, String hashValue) {
         PresetMRUInfo tmpMRU;
-        ObjectInputStream mruReader = null;
-        FileInputStream fout = null;
-        try {
-            fout = new FileInputStream(new File(directory, MRUFILE));
-            mruReader = new ObjectInputStream(fout);
+
+        try (FileInputStream fout = new FileInputStream(new File(directory, MRUFILE)); ObjectInputStream mruReader = new ObjectInputStream(fout)) {
             tmpMRU = (PresetMRUInfo) mruReader.readObject();
             if (!tmpMRU.presetHash.equals(hashValue)) {
                 throw new InvalidObjectException("hash mismatch");
@@ -1286,9 +1280,6 @@ public class Preset implements Serializable {
             tmpMRU = new PresetMRUInfo(hashValue);
             // Deserialization failed for whatever reason (missing file, wrong version, ...) - use empty list
             Log.i(DEBUG_TAG, "No usable old MRU list, creating new one (" + e.toString() + ")");
-        } finally {
-            SavingHelper.close(mruReader);
-            SavingHelper.close(fout);
         }
         return tmpMRU;
     }
@@ -1488,12 +1479,9 @@ public class Preset implements Serializable {
      * Remove all generated icons from the Preset
      */
     public void clearIcons() {
-        processElements(getRootGroup(), new PresetElementHandler() {
-            @Override
-            public void handle(PresetElement element) {
-                element.icon = null;
-                element.mapIcon = null;
-            }
+        processElements(getRootGroup(), element -> {
+            element.icon = null;
+            element.mapIcon = null;
         });
     }
 
@@ -2448,17 +2436,9 @@ public class Preset implements Serializable {
             TextView v = super.getBaseView(ctx, selected);
             v.setTypeface(null, Typeface.BOLD);
             if (handler != null) {
-                v.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        handler.onGroupClick(PresetGroup.this);
-                    }
-                });
-                v.setOnLongClickListener(new OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        return handler.onGroupLongClick(PresetGroup.this);
-                    }
+                v.setOnClickListener(view -> handler.onGroupClick(PresetGroup.this));
+                v.setOnLongClickListener(view -> {
+                    return handler.onGroupLongClick(PresetGroup.this);
                 });
             }
             v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_200 : R.color.dark_grey));
@@ -2576,16 +2556,10 @@ public class Preset implements Serializable {
          * @param temp temp List
          */
         private <T extends PresetElement> void sortAndAddElements(@NonNull List<PresetElement> target, @NonNull List<T> temp) {
-
-            final Comparator<PresetElement> itemComparator = new Comparator<PresetElement>() {
-                @Override
-                public int compare(@NonNull PresetElement pe1, @NonNull PresetElement pe2) {
-                    return pe1.getTranslatedName().compareTo(pe2.getTranslatedName());
-                }
-            };
-
             if (!temp.isEmpty()) {
-                Collections.sort(temp, itemComparator);
+                Collections.sort(temp, (pe1, pe2) -> {
+                    return pe1.getTranslatedName().compareTo(pe2.getTranslatedName());
+                });
                 target.addAll(temp);
                 temp.clear();
             }
@@ -3720,18 +3694,9 @@ public class Preset implements Serializable {
         public View getView(Context ctx, final PresetClickHandler handler, boolean selected) {
             View v = super.getBaseView(ctx, selected);
             if (handler != null) {
-                v.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        handler.onItemClick(PresetItem.this);
-                    }
-
-                });
-                v.setOnLongClickListener(new OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        return handler.onItemLongClick(PresetItem.this);
-                    }
+                v.setOnClickListener(view -> handler.onItemClick(PresetItem.this));
+                v.setOnLongClickListener(view -> {
+                    return handler.onItemLongClick(PresetItem.this);
                 });
             }
             v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));

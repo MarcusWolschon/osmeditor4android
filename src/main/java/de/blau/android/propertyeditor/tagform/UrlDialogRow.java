@@ -1,8 +1,6 @@
 package de.blau.android.propertyeditor.tagform;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -71,21 +69,12 @@ public class UrlDialogRow extends DialogRow {
         row.setPreset(preset);
         row.setValue(value);
         row.valueView.setHint(R.string.tag_tap_to_edit_hint);
-        row.setOnClickListener(new OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View v) {
-                final View finalView = v;
-                finalView.setEnabled(false); // debounce
-                final AlertDialog dialog = buildUrlDialog(caller, hint != null ? hint : key, key, row, preset);
-                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        finalView.setEnabled(true);
-                    }
-                });
-                dialog.show();
-            }
+        row.setOnClickListener(v -> {
+            final View finalView = v;
+            finalView.setEnabled(false); // debounce
+            final AlertDialog dialog = buildUrlDialog(caller, hint != null ? hint : key, key, row, preset);
+            dialog.setOnDismissListener(d -> finalView.setEnabled(true));
+            dialog.show();
         });
         return row;
     }
@@ -114,14 +103,11 @@ public class UrlDialogRow extends DialogRow {
         input.setText(value);
         builder.setView(layout);
 
-        builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String ourValue = input.getText().toString();
-                caller.tagListener.updateSingleValue((String) layout.getTag(), ourValue);
-                row.setValue(ourValue);
-                row.setChanged(true);
-            }
+        builder.setPositiveButton(R.string.save, (dialog, which) -> {
+            String ourValue = input.getText().toString();
+            caller.tagListener.updateSingleValue((String) layout.getTag(), ourValue);
+            row.setValue(ourValue);
+            row.setChanged(true);
         });
         builder.setNegativeButton(R.string.cancel, null);
         builder.setNeutralButton(R.string.check, null);
@@ -129,48 +115,42 @@ public class UrlDialogRow extends DialogRow {
         final AlertDialog dialog = builder.create();
         layout.setTag(key);
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button neutral = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-                if (caller.getActivity() instanceof PropertyEditorListener) {
-                    neutral.setEnabled(((PropertyEditorListener) caller.getActivity()).isConnected());
-                }
-                neutral.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        AsyncTask<String, Void, UrlCheck.Result> loader = new AsyncTask<String, Void, UrlCheck.Result>() {
-
-                            @Override
-                            protected void onPreExecute() {
-                                progress.show();
-                            }
-
-                            @Override
-                            protected UrlCheck.Result doInBackground(String... url) {
-                                return UrlCheck.check(caller.getContext(), url[0]);
-                            }
-
-                            @Override
-                            protected void onPostExecute(UrlCheck.Result result) {
-                                Log.d(DEBUG_TAG, "onPostExecute");
-                                try {
-                                    progress.dismiss();
-                                } catch (Exception ex) {
-                                    Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
-                                }
-                                input.setText(result.getUrl());
-                                CheckStatus status = result.getStatus();
-                                if (status != CheckStatus.HTTP && status != CheckStatus.HTTPS) {
-                                    String[] statusStrings = caller.getActivity().getResources().getStringArray(R.array.checkstatus_entries);
-                                    Snack.toastTopError(caller.getActivity(), statusStrings[status.ordinal()]);
-                                }
-                            }
-                        };
-                        loader.execute(input.getText().toString());
-                    }
-                });
+        dialog.setOnShowListener(d -> {
+            Button neutral = ((AlertDialog) d).getButton(AlertDialog.BUTTON_NEUTRAL);
+            if (caller.getActivity() instanceof PropertyEditorListener) {
+                neutral.setEnabled(((PropertyEditorListener) caller.getActivity()).isConnected());
             }
+            neutral.setOnClickListener(view -> {
+                AsyncTask<String, Void, UrlCheck.Result> loader = new AsyncTask<String, Void, UrlCheck.Result>() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        progress.show();
+                    }
+
+                    @Override
+                    protected UrlCheck.Result doInBackground(String... url) {
+                        return UrlCheck.check(caller.getContext(), url[0]);
+                    }
+
+                    @Override
+                    protected void onPostExecute(UrlCheck.Result result) {
+                        Log.d(DEBUG_TAG, "onPostExecute");
+                        try {
+                            progress.dismiss();
+                        } catch (Exception ex) {
+                            Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
+                        }
+                        input.setText(result.getUrl());
+                        CheckStatus status = result.getStatus();
+                        if (status != CheckStatus.HTTP && status != CheckStatus.HTTPS) {
+                            String[] statusStrings = caller.getActivity().getResources().getStringArray(R.array.checkstatus_entries);
+                            Snack.toastTopError(caller.getActivity(), statusStrings[status.ordinal()]);
+                        }
+                    }
+                };
+                loader.execute(input.getText().toString());
+            });
         });
         return dialog;
     }

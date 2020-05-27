@@ -1,9 +1,6 @@
 package de.blau.android.propertyeditor.tagform;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnShowListener;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -135,29 +132,17 @@ public class ComboDialogRow extends DialogRow {
             } else {
                 finalSelectedValue = null;
             }
-            row.setOnClickListener(new OnClickListener() {
-                @SuppressLint("NewApi")
-                @Override
-                public void onClick(View v) {
-                    final View finalView = v;
-                    finalView.setEnabled(false); // debounce
-                    final AlertDialog dialog = buildComboDialog(caller, hint != null ? hint : key, key, adapter, row, preset);
-                    dialog.setOnShowListener(new OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface d) {
-                            if (finalSelectedValue != null) {
-                                ComboDialogRow.scrollDialogToValue(finalSelectedValue, dialog, R.id.valueGroup);
-                            }
-                        }
-                    });
-                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            finalView.setEnabled(true);
-                        }
-                    });
-                    dialog.show();
-                }
+            row.setOnClickListener(v -> {
+                final View finalView = v;
+                finalView.setEnabled(false); // debounce
+                final AlertDialog dialog = buildComboDialog(caller, hint != null ? hint : key, key, adapter, row, preset);
+                dialog.setOnShowListener(d -> {
+                    if (finalSelectedValue != null) {
+                        ComboDialogRow.scrollDialogToValue(finalSelectedValue, dialog, R.id.valueGroup);
+                    }
+                });
+                dialog.setOnDismissListener(d -> finalView.setEnabled(true));
+                dialog.show();
             });
         }
         return row;
@@ -185,16 +170,13 @@ public class ComboDialogRow extends DialogRow {
         RadioGroup valueGroup = (RadioGroup) layout.findViewById(R.id.valueGroup);
         builder.setView(layout);
 
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(DEBUG_TAG, "radio button clicked " + row.getValue() + " " + v.getTag());
-                if (!row.hasChanged()) {
-                    RadioGroup g = (RadioGroup) v.getParent();
-                    g.clearCheck();
-                } else {
-                    row.setChanged(false);
-                }
+        View.OnClickListener listener = v -> {
+            Log.d(DEBUG_TAG, "radio button clicked " + row.getValue() + " " + v.getTag());
+            if (!row.hasChanged()) {
+                RadioGroup g = (RadioGroup) v.getParent();
+                g.clearCheck();
+            } else {
+                row.setChanged(false);
             }
         };
 
@@ -225,45 +207,28 @@ public class ComboDialogRow extends DialogRow {
             }
         }
         final Handler handler = new Handler();
-        builder.setPositiveButton(R.string.clear, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                caller.tagListener.updateSingleValue((String) layout.getTag(), "");
-                row.setValue("", "");
-                row.setChanged(true);
-                final DialogInterface finalDialog = dialog;
-                // allow a tiny bit of time to see that the action actually worked
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finalDialog.dismiss();
-                    }
-                }, 100);
-            }
+        builder.setPositiveButton(R.string.clear, (dialog, which) -> {
+            caller.tagListener.updateSingleValue((String) layout.getTag(), "");
+            row.setValue("", "");
+            row.setChanged(true);
+            // allow a tiny bit of time to see that the action actually worked
+            handler.postDelayed(dialog::dismiss, 100);
         });
         builder.setNegativeButton(R.string.cancel, null);
         final AlertDialog dialog = builder.create();
         layout.setTag(key);
-        valueGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.d(DEBUG_TAG, "radio group onCheckedChanged");
-                StringWithDescription ourValue = null;
-                if (checkedId != -1) {
-                    RadioButton button = (RadioButton) group.findViewById(checkedId);
-                    ourValue = (StringWithDescription) button.getTag();
-                    caller.tagListener.updateSingleValue((String) layout.getTag(), ourValue.getValue());
-                    row.setValue(ourValue);
-                    row.setChanged(true);
-                }
-                // allow a tiny bit of time to see that the action actually worked
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                    }
-                }, 100);
+        valueGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            Log.d(DEBUG_TAG, "radio group onCheckedChanged");
+            StringWithDescription ourValue = null;
+            if (checkedId != -1) {
+                RadioButton button = (RadioButton) group.findViewById(checkedId);
+                ourValue = (StringWithDescription) button.getTag();
+                caller.tagListener.updateSingleValue((String) layout.getTag(), ourValue.getValue());
+                row.setValue(ourValue);
+                row.setChanged(true);
             }
+            // allow a tiny bit of time to see that the action actually worked
+            handler.postDelayed(dialog::dismiss, 100);
         });
 
         return dialog;
