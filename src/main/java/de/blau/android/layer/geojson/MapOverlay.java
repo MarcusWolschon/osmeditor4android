@@ -114,85 +114,14 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             if (box == null) {
                 JsonArray bbox = (JsonArray) feature.properties().get(GeoJSONConstants.BBOX);
                 if (bbox == null || bbox.size() != 4) {
-                    box = getBounds(feature.geometry());
+                    box = GeoJson.getBounds(feature.geometry());
                 } else { // the geojson contains a bbox, use that
                     box = new BoundingBox(bbox.get(0).getAsDouble(), bbox.get(1).getAsDouble(), bbox.get(2).getAsDouble(), bbox.get(3).getAsDouble());
                 }
             }
             return box;
         }
-
-        /**
-         * Determine the bounding box for GeoJSON geometries
-         * 
-         * @param g the GeoJSON Geometry
-         * @return the bounding box
-         */
-        public BoundingBox getBounds(@NonNull Geometry g) {
-            BoundingBox result = null;
-            String type = g.type();
-            switch (type) {
-            case GeoJSONConstants.POINT:
-                Point p = (Point) g;
-                result = new BoundingBox(p.longitude(), p.latitude());
-                break;
-            case GeoJSONConstants.LINESTRING:
-            case GeoJSONConstants.MULTIPOINT:
-                @SuppressWarnings("unchecked")
-                List<Point> coordinates = ((CoordinateContainer<List<Point>>) g).coordinates();
-                for (Point q : coordinates) {
-                    if (result == null) {
-                        result = new BoundingBox(q.longitude(), q.latitude());
-                    } else {
-                        result.union(q.longitude(), q.latitude());
-                    }
-                }
-                break;
-            case GeoJSONConstants.MULTIPOLYGON:
-                @SuppressWarnings("unchecked")
-                List<List<List<Point>>> polygons = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
-                for (List<List<Point>> polygon : polygons) {
-                    for (List<Point> l : polygon) {
-                        for (Point r : l) {
-                            if (result == null) {
-                                result = new BoundingBox(r.longitude(), r.latitude());
-                            } else {
-                                result.union(r.longitude(), r.latitude());
-                            }
-                        }
-                    }
-                }
-                break;
-            case GeoJSONConstants.GEOMETRYCOLLECTION:
-                List<Geometry> geometries = ((GeometryCollection) g).geometries();
-                for (Geometry geometry : geometries) {
-                    if (result == null) {
-                        result = getBounds(geometry);
-                    } else {
-                        result.union(getBounds(geometry));
-                    }
-                }
-                break;
-            case GeoJSONConstants.MULTILINESTRING:
-            case GeoJSONConstants.POLYGON:
-                @SuppressWarnings("unchecked")
-                List<List<Point>> linesOrRings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
-                for (List<Point> l : linesOrRings) {
-                    for (Point s : l) {
-                        if (result == null) {
-                            result = new BoundingBox(s.longitude(), s.latitude());
-                        } else {
-                            result.union(s.longitude(), s.latitude());
-                        }
-                    }
-                }
-                break;
-            default:
-                Log.e(DEBUG_TAG, "getBounds unknown GeoJSON geometry " + g.type());
-            }
-            return result;
-        }
-
+ 
         /**
          * Get the wrapped Feature object
          * 
@@ -322,9 +251,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             break;
         case GeoJSONConstants.MULTIPOINT:
             @SuppressWarnings("unchecked")
-            List<Point> points = ((CoordinateContainer<List<Point>>) g).coordinates();
+            List<Point> pointList = ((CoordinateContainer<List<Point>>) g).coordinates();
             paint.setStyle(Paint.Style.STROKE);
-            for (Point q : points) {
+            for (Point q : pointList) {
                 drawPoint(canvas, bb, width, height, q, paint, label);
             }
             break;
@@ -788,13 +717,13 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public Path getPointSymbol() {
-        // TODO Auto-generated method stub
+        // Does nothing for now
         return null;
     }
 
     @Override
     public void setPointSymbol(Path symbol) {
-        // TODO Auto-generated method stub
+        // TODO support multiple point symbols
     }
 
     @Override
