@@ -13,7 +13,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -1713,29 +1712,26 @@ public class TileLayerServer implements Serializable {
             list.add(osmts);
         }
         // sort according to preference, end date and default layer flag, bb size and name
-        Collections.sort(list, new Comparator<TileLayerServer>() {
-            @Override
-            public int compare(TileLayerServer t1, TileLayerServer t2) {
-                if (t1.preference < t2.preference) {
-                    return 1;
-                } else if (t1.preference > t2.preference) {
-                    return -1;
+        Collections.sort(list, (t1, t2) -> {
+            if (t1.preference < t2.preference) {
+                return 1;
+            } else if (t1.preference > t2.preference) {
+                return -1;
+            }
+            if (t1.endDate == t2.endDate) {
+                if (t1.defaultLayer != t2.defaultLayer) {
+                    return t2.defaultLayer ? 1 : -1;
                 }
-                if (t1.endDate == t2.endDate) {
-                    if (t1.defaultLayer != t2.defaultLayer) {
-                        return t2.defaultLayer ? 1 : -1;
-                    }
-                    double t1Size = coverageSize(t1.getCoverage());
-                    double t2Size = coverageSize(t2.getCoverage());
-                    if (t1Size != t2Size) {
-                        return t1Size < t2Size ? -1 : 1;
-                    } else {
-                        return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
-                    }
+                double t1Size = coverageSize(t1.getCoverage());
+                double t2Size = coverageSize(t2.getCoverage());
+                if (t1Size != t2Size) {
+                    return t1Size < t2Size ? -1 : 1;
                 } else {
-                    // assumption no end date == ongoing
-                    return t1.endDate < t2.endDate ? 1 : -1;
+                    return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
                 }
+            } else {
+                // assumption no end date == ongoing
+                return t1.endDate < t2.endDate ? 1 : -1;
             }
         });
         // add NONE
@@ -1753,15 +1749,10 @@ public class TileLayerServer implements Serializable {
      */
     private static double coverageSize(List<CoverageArea> areas) {
         double result = GeoMath.MAX_LON * GeoMath.MAX_COMPAT_LAT * 4;
-        boolean firstNonEmpty = true;
         if (areas != null) {
             for (CoverageArea area : areas) {
                 BoundingBox box = area.getBoundingBox();
                 if (box != null) {
-                    if (firstNonEmpty) {
-                        result = 0;
-                        firstNonEmpty = false;
-                    }
                     result = +box.getWidth() / 1E7D * box.getHeight() / 1E7D;
                 }
             }
