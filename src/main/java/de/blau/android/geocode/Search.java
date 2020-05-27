@@ -12,10 +12,8 @@ import android.content.Context;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
@@ -169,14 +167,11 @@ public class Search {
         lv.setAdapter(new ArrayAdapter<>(activity, itemLayout, ar));
         lv.setSelection(0);
         builder.setNegativeButton(R.string.cancel, null);
-        final AppCompatDialog dialog = builder.create();
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                callback.onItemSelected(searchResults.get(position));
-                dialog.dismiss();
-            }
+        final AppCompatDialog resultsDialog = builder.create();
+        lv.setOnItemClickListener((parent, v, position, id) -> {
+            callback.onItemSelected(searchResults.get(position));
+            resultsDialog.dismiss();
         });
-        return dialog;
+        return resultsDialog;
     }
 }

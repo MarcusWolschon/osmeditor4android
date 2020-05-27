@@ -16,7 +16,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -144,13 +143,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         if (cabBottomBar != null) {
             menu = cabBottomBar.getMenu();
             final ActionMode actionMode = mode;
-            androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener listener = new androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    return onActionItemClicked(actionMode, item);
-                }
-            };
-            cabBottomBar.setOnMenuItemClickListener(listener);
+            cabBottomBar.setOnMenuItemClickListener(item -> onActionItemClicked(actionMode, item));
             MenuUtil.setupBottomBar(main, cabBottomBar, main.isFullScreen(), prefs.lightThemeEnabled());
         }
         menu.clear();
@@ -445,14 +438,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         // first try for our view box
         final ViewBox bbox = map.getViewBox();
         final double centerLat = bbox.getCenterLat();
-        final double centerLon = (bbox.getLeft() + bbox.getWidth() / 2) / 1E7d;
-        final Comparator<ImageryOffset> cmp = new Comparator<ImageryOffset>() {
-            @Override
-            public int compare(ImageryOffset offset1, ImageryOffset offset2) {
-                double d1 = GeoMath.haversineDistance(centerLon, centerLat, offset1.getLon(), offset1.getLat());
-                double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.getLon(), offset2.getLat());
-                return Double.valueOf(d1).compareTo(d2);
-            }
+        final double centerLon = (bbox.getLeft() + bbox.getWidth() / 2D) / 1E7d;
+        final Comparator<ImageryOffset> cmp = (offset1, offset2) -> {
+            double d1 = GeoMath.haversineDistance(centerLon, centerLat, offset1.getLon(), offset1.getLat());
+            double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.getLon(), offset2.getLat());
+            return Double.valueOf(d1).compareTo(d2);
         };
         PostAsyncActionHandler handler = new PostAsyncActionHandler() {
             @Override
@@ -680,12 +670,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         if (index == (saveOffsetList.size() - 1)) {
             dialog.setNegativeButton(R.string.cancel, null);
         } else {
-            dialog.setNegativeButton(R.string.next, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    AppCompatDialog d = createSaveOffsetDialog(index + 1, saveOffsetList);
-                    d.show();
-                }
+            dialog.setNegativeButton(R.string.next, (dia, which) -> {
+                AppCompatDialog d = createSaveOffsetDialog(index + 1, saveOffsetList);
+                d.show();
             });
         }
         return dialog.create();
@@ -703,43 +690,39 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      */
     private OnClickListener createSaveButtonListener(final EditText description, final EditText author, final int index,
             final List<ImageryOffset> saveOffsetList) {
+        return (dialog, which) -> {
+            String error = null;
+            ImageryOffset offset = saveOffsetList.get(index);
+            if (offset == null) {
+                return;
+            }
+            offset.description = description.getText().toString();
+            offset.author = author.getText().toString();
+            offset.imageryId = osmts.getImageryOffsetId();
+            Log.d("Background...", offset.toSaveUrl(offsetServerUri));
+            OffsetSaver saver = new OffsetSaver();
+            saver.execute(offset);
+            try {
+                int result = saver.get();
+                if (result < 0) {
+                    error = saver.getError();
+                }
+            } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
+                                                                    // question
+                saver.cancel(true);
+                error = e.getMessage();
+            }
+            if (error != null) {
+                displayError(error);
+                return; // don't continue is something went wrong
+            }
 
-        return new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String error = null;
-                ImageryOffset offset = saveOffsetList.get(index);
-                if (offset == null) {
-                    return;
-                }
-                offset.description = description.getText().toString();
-                offset.author = author.getText().toString();
-                offset.imageryId = osmts.getImageryOffsetId();
-                Log.d("Background...", offset.toSaveUrl(offsetServerUri));
-                OffsetSaver saver = new OffsetSaver();
-                saver.execute(offset);
-                try {
-                    int result = saver.get();
-                    if (result < 0) {
-                        error = saver.getError();
-                    }
-                } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
-                                                                        // question
-                    saver.cancel(true);
-                    error = e.getMessage();
-                }
-                if (error != null) {
-                    displayError(error);
-                    return; // don't continue is something went wrong
-                }
-
-                if (index < (saveOffsetList.size() - 1)) {
-                    // save retyping if it stays the same
-                    saveOffsetList.get(index + 1).description = offset.description;
-                    saveOffsetList.get(index + 1).author = offset.author;
-                    AppCompatDialog d = createSaveOffsetDialog(index + 1, saveOffsetList);
-                    d.show();
-                }
+            if (index < (saveOffsetList.size() - 1)) {
+                // save retyping if it stays the same
+                saveOffsetList.get(index + 1).description = offset.description;
+                saveOffsetList.get(index + 1).author = offset.author;
+                AppCompatDialog d = createSaveOffsetDialog(index + 1, saveOffsetList);
+                d.show();
             }
         };
     }
@@ -781,29 +764,20 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         TextView distance = (TextView) layout.findViewById(R.id.imagery_offset_distance);
         distance.setText(main.getString(R.string.distance_km,
                 GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth() / 2D) / 1E7d, bbox.getCenterLat(), offset.getLon(), offset.getLat()) / 1000));
-        dialog.setPositiveButton(R.string.apply, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                osmts.setOffset(map.getZoomLevel(), offset.getLon() - offset.getImageryLon(), offset.getLat() - offset.getImageryLat());
-                map.invalidate();
-            }
+        dialog.setPositiveButton(R.string.apply, (d, which) -> {
+            osmts.setOffset(map.getZoomLevel(), offset.getLon() - offset.getImageryLon(), offset.getLat() - offset.getImageryLat());
+            map.invalidate();
         });
-        dialog.setNeutralButton(R.string.menu_tools_background_align_apply2all, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                osmts.setOffset(offset.getMinZoom(), offset.getMaxZoom(), offset.getLon() - offset.getImageryLon(), offset.getLat() - offset.getImageryLat());
-                map.invalidate();
-            }
+        dialog.setNeutralButton(R.string.menu_tools_background_align_apply2all, (d, which) -> {
+            osmts.setOffset(offset.getMinZoom(), offset.getMaxZoom(), offset.getLon() - offset.getImageryLon(), offset.getLat() - offset.getImageryLat());
+            map.invalidate();
         });
         if (index == (offsetList.size() - 1)) {
             dialog.setNegativeButton(R.string.cancel, null);
         } else {
-            dialog.setNegativeButton(R.string.next, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    AppCompatDialog d = createDisplayOffsetDialog(index + 1);
-                    d.show();
-                }
+            dialog.setNegativeButton(R.string.next, (dia, which) -> {
+                AppCompatDialog d = createDisplayOffsetDialog(index + 1);
+                d.show();
             });
         }
         return dialog.create();

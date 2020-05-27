@@ -17,8 +17,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
@@ -148,7 +146,8 @@ public class TagFilter extends CommonFilter {
         try (TagFilterDatabaseHelper tfDb = new TagFilterDatabaseHelper(context); SQLiteDatabase mDatabase = tfDb.getReadableDatabase()) {
             //
             filter.clear();
-            // filter, include INTEGER DEFAULT 0, type TEXT DEFAULT '*', key TEXT DEFAULT '*', value DEFAULT '*', active INTEGER ;
+            // filter, include INTEGER DEFAULT 0, type TEXT DEFAULT '*', key TEXT DEFAULT '*', value DEFAULT '*', active
+            // INTEGER ;
             Cursor dbresult = mDatabase.query("filterentries", new String[] { "include", "type", "key", "value", "active" }, "filter = ?",
                     new String[] { DEFAULT_FILTER }, null, null, null);
             dbresult.moveToFirst();
@@ -239,13 +238,7 @@ public class TagFilter extends CommonFilter {
         }
 
         tagFilterButton.setClickable(true);
-        tagFilterButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View b) {
-                Log.d(DEBUG_TAG, "Button clicked");
-                TagFilterActivity.start(context, DEFAULT_FILTER);
-            }
-        });
+        tagFilterButton.setOnClickListener(b -> TagFilterActivity.start(context, DEFAULT_FILTER));
         tagFilterButton.setAlpha(Main.FABALPHA);
         setupControls(false);
     }

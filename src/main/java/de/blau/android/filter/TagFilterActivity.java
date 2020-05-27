@@ -17,13 +17,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -113,17 +110,14 @@ public class TagFilterActivity extends ListActivity {
 
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
         if (add != null) {
-            add.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    updateDatabaseFromList();
-                    insertRow(filter, true, true, 0, "", "");
-                    tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
-                    Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
-                    oldCursor.close();
-                    filterAdapter.notifyDataSetChanged();
-                    Log.d(DEBUG_TAG, "button clicked");
-                }
+            add.setOnClickListener(v -> {
+                updateDatabaseFromList();
+                insertRow(filter, true, true, 0, "", "");
+                tagFilterCursor = db.rawQuery(QUERY + filter + "'", null);
+                Cursor oldCursor = filterAdapter.swapCursor(tagFilterCursor);
+                oldCursor.close();
+                filterAdapter.notifyDataSetChanged();
+                Log.d(DEBUG_TAG, "button clicked");
             });
             add.show();
         }
@@ -328,12 +322,9 @@ public class TagFilterActivity extends ListActivity {
             //
             vh.active.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow(ACTIVE_COLUMN)) == 1);
             vh.active.setTag(id);
-            vh.active.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton button, boolean isChecked) {
-                    vh.modified = true;
-                    Log.d(DEBUG_TAG, "marked view as modified");
-                }
+            vh.active.setOnCheckedChangeListener((button, isChecked) -> {
+                vh.modified = true;
+                Log.d(DEBUG_TAG, "marked view as modified");
             });
             vh.mode.setSelection(cursor.getInt(cursor.getColumnIndexOrThrow(INCLUDE_COLUMN)) == 1 ? 1 : 0);
             OnItemSelectedListener listener = new OnItemSelectedListener() {
@@ -376,22 +367,14 @@ public class TagFilterActivity extends ListActivity {
             String value = cursor.getString(cursor.getColumnIndexOrThrow(VALUE_COLUMN));
             vh.valueView.setText(value);
             vh.valueView.addTextChangedListener(watcher);
-            vh.valueView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    v.requestFocus();
-                }
-            });
+            vh.valueView.setOnClickListener(View::requestFocus);
 
             ImageButton delete = (ImageButton) view.findViewById(R.id.delete);
-            delete.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    updateDatabaseFromList();
-                    db.delete(FILTERENTRIES_TABLE, "rowid=" + id, null);
-                    newCursor();
-                    Log.d(DEBUG_TAG, "delete clicked");
-                }
+            delete.setOnClickListener(v -> {
+                updateDatabaseFromList();
+                db.delete(FILTERENTRIES_TABLE, "rowid=" + id, null);
+                newCursor();
+                Log.d(DEBUG_TAG, "delete clicked");
             });
         }
 

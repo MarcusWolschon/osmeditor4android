@@ -66,11 +66,6 @@ class Query extends AsyncTask<String, Void, List<SearchResult>> {
      * @param message message to display
      */
     void connectionError(@NonNull final String message) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Snack.toastTopError(activity, activity.getString(R.string.toast_server_connection_failed, message));
-            }
-        });
+        activity.runOnUiThread(() -> Snack.toastTopError(activity, activity.getString(R.string.toast_server_connection_failed, message)));
     }
 }

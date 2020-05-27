@@ -3,7 +3,6 @@ package de.blau.android.easyedit;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -227,13 +226,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected Menu replaceMenu(Menu menu, final ActionMode actionMode, final ActionMode.Callback callback) {
         if (cabBottomBar != null) {
             menu = cabBottomBar.getMenu();
-            androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener listener = new androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    return callback.onActionItemClicked(actionMode, item);
-                }
-            };
-            cabBottomBar.setOnMenuItemClickListener(listener);
+            cabBottomBar.setOnMenuItemClickListener(item -> callback.onActionItemClicked(actionMode, item));
         }
         return menu;
     }
@@ -344,12 +337,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         AlertDialog.Builder builder = new AlertDialog.Builder(main);
         builder.setMessage(R.string.toast_merge_tag_conflict);
         builder.setNegativeButton(R.string.cancel, null);
-        builder.setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                main.performTagEdit(result.getElement(), null, false, false);
-            }
-        });
+        builder.setPositiveButton(R.string.edit, (dialog, which) -> main.performTagEdit(result.getElement(), null, false, false));
         builder.show();
     }
 }

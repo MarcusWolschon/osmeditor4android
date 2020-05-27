@@ -9,7 +9,6 @@ import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -328,34 +327,25 @@ public class IndoorFilter extends InvertableFilter {
         }
 
         // indoor controls
-        levelUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int level = getLevel();
-                Log.d(DEBUG_TAG, "Current level " + level);
-                updateLevel(level + 1);
-                update.execute();
-            }
+        levelUp.setOnClickListener(v -> {
+            int currentLevel = getLevel();
+            Log.d(DEBUG_TAG, "Current level " + currentLevel);
+            updateLevel(currentLevel + 1);
+            update.execute();
         });
         levelUp.setAlpha(Main.FABALPHA);
         levelText.setText(Integer.toString(getLevel()));
         levelTextButton.setClickable(true);
-        levelTextButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View b) {
-                Log.d(DEBUG_TAG, "Level clicked");
-                setupControls(true);
-            }
+        levelTextButton.setOnClickListener(b -> {
+            Log.d(DEBUG_TAG, "Level clicked");
+            setupControls(true);
         });
         levelTextButton.setAlpha(Main.FABALPHA);
-        levelDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int level = getLevel();
-                Log.d(DEBUG_TAG, "Current level " + level);
-                updateLevel(level - 1);
-                update.execute();
-            }
+        levelDown.setOnClickListener(v -> {
+            int currentLevel = getLevel();
+            Log.d(DEBUG_TAG, "Current level " + currentLevel);
+            updateLevel(currentLevel - 1);
+            update.execute();
         });
         levelDown.setAlpha(Main.FABALPHA);
         setupControls(false);

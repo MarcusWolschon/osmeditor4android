@@ -9,8 +9,6 @@ import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
@@ -181,11 +179,11 @@ public class PresetFilter extends CommonFilter {
         this.parent = layout;
         this.update = update;
         presetFilterButton = (FloatingActionButton) parent.findViewById(R.id.tagFilterButton);
-        final Context context = layout.getContext();
+        final Context ctx = layout.getContext();
         // we weren't already added ...
         if (presetFilterButton == null) {
-            Preferences prefs = new Preferences(context);
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            Preferences prefs = App.getLogic().getPrefs();
+            LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             String buttonPos = layout.getContext().getString(R.string.follow_GPS_left);
             controls = (RelativeLayout) inflater
                     .inflate(prefs.followGPSbuttonPosition().equals(buttonPos) ? R.layout.tagfilter_controls_right : R.layout.tagfilter_controls_left, layout);
@@ -193,13 +191,7 @@ public class PresetFilter extends CommonFilter {
         }
         setIcon();
         presetFilterButton.setClickable(true);
-        presetFilterButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View b) {
-                Log.d(DEBUG_TAG, "Button clicked");
-                PresetFilterActivity.start(context);
-            }
-        });
+        presetFilterButton.setOnClickListener(b -> PresetFilterActivity.start(ctx));
         presetFilterButton.setAlpha(Main.FABALPHA);
         setupControls(false);
     }
