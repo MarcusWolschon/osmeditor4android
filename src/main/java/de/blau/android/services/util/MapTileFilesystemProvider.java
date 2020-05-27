@@ -160,7 +160,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
      */
     private void cutCurrentCacheBy(final int bytesToCut) {
         synchronized (this) {
-            mDatabase.deleteOldest(Integer.MAX_VALUE); // Delete all
+            mDatabase.deleteOldest(bytesToCut);
         }
         mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
     }

@@ -94,28 +94,14 @@ public class MapTileDownloader extends MapAsyncTileProvider {
     }
 
     // ===========================================================
-    // Methods org.andnav.osm.services
-    // ===========================================================
-
-    /**
-     * Get the url for a tile
-     * 
-     * @param renderer a TileLayerServer instance
-     * @param tile the tile
-     * @return an url as a String
-     */
-    @NonNull
-    private String buildURL(@NonNull TileLayerServer renderer, @NonNull final MapTile tile) {
-        return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
-    }
-
-    // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
 
     private class TileLoader extends MapAsyncTileProvider.TileLoader {
 
         private static final String TILE_NOT_AVAILABLE = "tile not available";
+
+        private static final int BINDER_SIZE_LIMIT = 300000; // determined experimentally
 
         /**
          * Construct a new TileLoader
@@ -125,6 +111,18 @@ public class MapTileDownloader extends MapAsyncTileProvider {
          */
         public TileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback) {
             super(aTile, aCallback);
+        }
+
+        /**
+         * Get the url for a tile
+         * 
+         * @param renderer a TileLayerServer instance
+         * @param tile the tile
+         * @return an url as a String
+         */
+        @NonNull
+        private String buildURL(@NonNull TileLayerServer renderer, @NonNull final MapTile tile) {
+            return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
         }
 
         @Override
@@ -199,12 +197,14 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         }
                         // check format
                         if (format != null) {
-                            if ("BMP".equalsIgnoreCase(format.subtype())) {
+                            if (data.length > BINDER_SIZE_LIMIT && "PNG".equalsIgnoreCase(format.subtype())) {
+                                // attempt to save the day by compressing too large PNGs
+                                if (!renderer.isOverlay()) {
+                                    data = compressBitmap(CompressFormat.JPEG, dataStream, data);
+                                }
+                            } else if ("BMP".equalsIgnoreCase(format.subtype())) {
                                 // if tile is in BMP format, compress
-                                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
-                                dataStream.reset();
-                                bitmap.compress(CompressFormat.PNG, 100, dataStream);
-                                data = dataStream.toByteArray();
+                                data = compressBitmap(CompressFormat.PNG, dataStream, data);
                             } else if ("TEXT".equalsIgnoreCase(format.type())) {
                                 // this can't be a tile and is likely an error message
                                 Log.e(DEBUGTAG, responseBody.string());
@@ -249,6 +249,22 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     finished();
                 }
             }
+        }
+
+        /**
+         * Compress bitmap
+         * 
+         * @param compressFormat destination format
+         * @param dataStream preallocated datastream for conversion
+         * @param data input data
+         * @return the compressed data
+         */
+        private byte[] compressBitmap(@NonNull CompressFormat compressFormat, @NonNull final ByteArrayOutputStream dataStream, @NonNull byte[] data) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
+            dataStream.reset();
+            bitmap.compress(compressFormat, 100, dataStream);
+            bitmap.recycle();
+            return dataStream.toByteArray();
         }
     }
 }
