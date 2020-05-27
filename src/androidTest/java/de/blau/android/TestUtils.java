@@ -999,8 +999,7 @@ public class TestUtils {
         UiObject2 layerName = device.wait(Until.findObject(bySelector), 500);
         UiObject2 tableRow = layerName.getParent();
         List<UiObject2> tableCells = tableRow.getChildren();
-        UiObject2 extentButton = tableCells.get(buttonIndex);
-        return extentButton;
+        return tableCells.get(buttonIndex);
     }
 
     /**

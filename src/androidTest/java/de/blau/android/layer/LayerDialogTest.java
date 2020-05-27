@@ -199,7 +199,7 @@ public class LayerDialogTest {
     }
 
     /**
-     * Load geojson file and check if we can zoom to extent
+     * Load geojson file and check if we can zoom to extent, style, discard
      */
     @Test
     public void geoJsonLayer() {
@@ -212,7 +212,13 @@ public class LayerDialogTest {
         }
         UiObject2 extentButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), EXTENT_BUTTON);
         extentButton.click();
+        // TODO check that the zooming worked
+        
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_change_style), true, false));
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.okay), true, false));
+        TestUtils.sleep();
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
         Assert.assertFalse(map.getGeojsonLayer().isEnabled());
