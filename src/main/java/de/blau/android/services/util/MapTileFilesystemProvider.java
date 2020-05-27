@@ -173,6 +173,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     public void flushCache(@Nullable String rendererID) {
         try {
             mDatabase.flushCache(rendererID);
+            mCurrentCacheByteSize = mDatabase.getCurrentFSCacheByteSize();
         } catch (EmptyCacheException e) {
             if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                 Log.d(DEBUG_TAG, "Flushing tile cache failed", e);
@@ -268,12 +269,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     // something is seriously wrong with the database, show a toast once
                     final String message = mCtx.getString(R.string.toast_tile_database_issue, e.getLocalizedMessage());
                     Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Snack.toastTopError(mCtx, message);
-                        }
-                    });
+                    handler.post(() -> Snack.toastTopError(mCtx, message));
                     NotificationCompat.Builder builder = Notifications.builder(mCtx).setSmallIcon(R.drawable.logo_simplified)
                             .setContentTitle(mCtx.getString(R.string.toast_tile_database_issue_short));
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
