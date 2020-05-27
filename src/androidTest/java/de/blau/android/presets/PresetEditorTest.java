@@ -33,7 +33,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.PresetEditorActivity;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okio.Buffer;
@@ -63,8 +63,8 @@ public class PresetEditorTest {
         monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
         main = (Main) mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         TestUtils.grantPermissons(device);

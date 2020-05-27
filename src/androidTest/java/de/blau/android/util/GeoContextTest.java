@@ -28,7 +28,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 
 /**
  *
@@ -58,8 +58,8 @@ public class GeoContextTest {
         delegator = App.getDelegator();
         delegator.reset(false);
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         TestUtils.grantPermissons(device);

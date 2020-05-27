@@ -22,7 +22,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.util.NetworkStatus;
 import okhttp3.Call;
@@ -121,7 +121,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
          * @return an url as a String
          */
         @NonNull
-        private String buildURL(@NonNull TileLayerServer renderer, @NonNull final MapTile tile) {
+        private String buildURL(@NonNull TileLayerSource renderer, @NonNull final MapTile tile) {
             return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
         }
 
@@ -144,7 +144,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
             MediaType format = null;
             InputStream inputStream = null;
             Response tileCallResponse = null;
-            TileLayerServer renderer = TileLayerServer.get(mCtx, mTile.rendererID, false);
+            TileLayerSource renderer = TileLayerSource.get(mCtx, mTile.rendererID, false);
             if (renderer != null) {
                 final String tileURLString = buildURL(renderer, mTile);
                 try {

@@ -19,7 +19,7 @@ import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.services.util.MapTileProviderDataBase;
@@ -106,7 +106,7 @@ public class MapTileProviderService extends Service {
             try {
                 mFileSystemProvider = new MapTileFilesystemProvider(this, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
                 // try to get BING layer early so the meta-data is already loaded
-                TileLayerServer.get(this, TileLayerServer.LAYER_BING, false);
+                TileLayerSource.get(this, TileLayerSource.LAYER_BING, false);
                 return;
             } catch (SQLiteException slex) {
                 Log.d(DEBUG_TAG, "Opening DB hit " + slex);
@@ -180,7 +180,7 @@ public class MapTileProviderService extends Service {
          */
         public void update() {
             try (TileLayerDatabase tlDb = new TileLayerDatabase(MapTileProviderService.this); SQLiteDatabase db = tlDb.getReadableDatabase()) {
-                TileLayerServer.getListsLocked(MapTileProviderService.this, db, false);
+                TileLayerSource.getListsLocked(MapTileProviderService.this, db, false);
             }
         }
     };

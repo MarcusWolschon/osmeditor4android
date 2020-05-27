@@ -41,7 +41,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.FileUtil;
 import okhttp3.HttpUrl;
 
@@ -69,8 +69,8 @@ public class ReadSaveTasks {
         UiDevice device = UiDevice.getInstance(instrumentation);
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);

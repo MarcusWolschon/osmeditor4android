@@ -141,7 +141,7 @@ import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerDatabaseView;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
@@ -2303,7 +2303,7 @@ public class Main extends FullScreenAppCompatActivity
                 @Override
                 protected Void doInBackground(Void... params) {
                     try {
-                        TileLayerServer.updateFromJOSMImagery(Main.this, db.getWritableDatabase());
+                        TileLayerSource.updateFromJOSMImagery(Main.this, db.getWritableDatabase());
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Update imagery conf. " + e.getMessage());
                         Util.toastDowloadError(Main.this, e);

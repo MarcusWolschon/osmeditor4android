@@ -23,7 +23,7 @@ import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.net.UrlCheck.CheckStatus;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -51,8 +51,8 @@ public class UrlCheckTest {
         mockServer = new MockWebServerPlus();
         mockBaseUrl = mockServer.server().url("/");
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock url " + mockBaseUrl.toString()); // NOSONAR
         TestUtils.grantPermissons(device);

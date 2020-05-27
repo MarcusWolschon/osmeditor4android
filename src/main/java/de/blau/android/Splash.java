@@ -19,7 +19,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.TileLayerDatabase;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 
 /**
  * Taken from https://www.bignerdranch.com/blog/splash-screens-the-right-way/
@@ -92,9 +92,9 @@ public class Splash extends AppCompatActivity {
                 }
                 try {
                     if (!isCancelled()) {
-                        TileLayerServer.createOrUpdateCustomSource(Splash.this, db.getWritableDatabase(), true);
+                        TileLayerSource.createOrUpdateCustomSource(Splash.this, db.getWritableDatabase(), true);
                         if (newInstall || newConfig) {
-                            TileLayerServer.createOrUpdateFromAssetsSource(Splash.this, db.getWritableDatabase(), newConfig, true);
+                            TileLayerSource.createOrUpdateFromAssetsSource(Splash.this, db.getWritableDatabase(), newConfig, true);
                         }
                     }
                 } finally {

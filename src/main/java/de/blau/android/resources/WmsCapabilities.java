@@ -219,8 +219,8 @@ public class WmsCapabilities {
                         break;
                     case BOUNDING_BOX:
                         String tempCrs = attr.getValue(is130(wmsVersion) ? CRS : SRS);
-                        if (TileLayerServer.EPSG_4326.equals(tempCrs)
-                                || (TileLayerServer.EPSG_3857.equals(tempCrs) && !TileLayerServer.EPSG_4326.equals(current.boxCrs))) {
+                        if (TileLayerSource.EPSG_4326.equals(tempCrs)
+                                || (TileLayerSource.EPSG_3857.equals(tempCrs) && !TileLayerSource.EPSG_4326.equals(current.boxCrs))) {
                             try {
                                 current.minx = new BigDecimal(attr.getValue("minx"));
                                 current.miny = new BigDecimal(attr.getValue("miny"));
@@ -343,8 +343,8 @@ public class WmsCapabilities {
                     case CRS:
                     case SRS:
                         String tempCrs = buffer.toString();
-                        if (TileLayerServer.EPSG_4326.equals(tempCrs)
-                                || (TileLayerServer.EPSG_3857.equals(tempCrs) && !TileLayerServer.EPSG_4326.equals(current.crs))) {
+                        if (TileLayerSource.EPSG_4326.equals(tempCrs)
+                                || (TileLayerSource.EPSG_3857.equals(tempCrs) && !TileLayerSource.EPSG_4326.equals(current.crs))) {
                             current.crs = tempCrs;
                         }
                         buffer = null;
@@ -401,7 +401,7 @@ public class WmsCapabilities {
 
                         break;
                     case EX_GEOGRAPHIC_BOUNDING_BOX:
-                        current.boxCrs = TileLayerServer.EPSG_4326;
+                        current.boxCrs = TileLayerSource.EPSG_4326;
                         if (is130(wmsVersion)) {// switch things around
                             BigDecimal temp = current.minx;
                             current.minx = current.miny;
@@ -506,7 +506,7 @@ public class WmsCapabilities {
             }
             if (t.boxCrs != null) {
                 try {
-                    if (TileLayerServer.EPSG_4326.equals(t.boxCrs)) {
+                    if (TileLayerSource.EPSG_4326.equals(t.boxCrs)) {
                         if (is130(wmsVersion)) {
                             layer.extent = new BoundingBox(scaledDecimal(t.miny), scaledDecimal(t.minx), scaledDecimal(t.maxy), scaledDecimal(t.maxx));
                         } else {

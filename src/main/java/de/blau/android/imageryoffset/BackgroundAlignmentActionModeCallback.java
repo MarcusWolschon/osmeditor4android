@@ -49,7 +49,7 @@ import de.blau.android.imageryoffset.ImageryOffset.DeprecationNote;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.SavingHelper;
@@ -88,7 +88,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
 
     private Offset[] oldOffsets;
 
-    private TileLayerServer osmts;
+    private TileLayerSource osmts;
     private final Map       map;
     private final Main      main;
 

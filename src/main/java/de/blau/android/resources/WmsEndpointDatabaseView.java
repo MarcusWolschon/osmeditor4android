@@ -118,7 +118,7 @@ public class WmsEndpointDatabaseView {
             view.setLongClickable(true);
             view.setOnClickListener(v -> {
                 Integer idTag = (Integer) view.getTag();
-                final TileLayerServer endpoint = TileLayerDatabase.getLayerWithRowId(activity, db, idTag);
+                final TileLayerSource endpoint = TileLayerDatabase.getLayerWithRowId(activity, db, idTag);
                 new AsyncTask<Void, Integer, WmsCapabilities>() {
                     @Override
                     protected void onPreExecute() {

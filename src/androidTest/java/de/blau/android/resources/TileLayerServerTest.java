@@ -99,7 +99,7 @@ public class TileLayerServerTest {
         prefs.setBackGroundLayer("BING");
         main.getMap().setPrefs(main, prefs);
 
-        final TileLayerServer t = map.getBackgroundLayer().getTileLayerConfiguration();
+        final TileLayerSource t = map.getBackgroundLayer().getTileLayerConfiguration();
         Assert.assertNotNull(t);
         if (!t.isMetadataLoaded()) {
             final CountDownLatch signal = new CountDownLatch(1);
@@ -139,10 +139,10 @@ public class TileLayerServerTest {
         System.out.println("Quadkey " + t.quadTree(mapTile));
         Assert.assertTrue(s.contains(t.quadTree(mapTile)));
 
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
+        prefs.setBackGroundLayer(TileLayerSource.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
 
-        TileLayerServer t2 = map.getBackgroundLayer().getTileLayerConfiguration();
+        TileLayerSource t2 = map.getBackgroundLayer().getTileLayerConfiguration();
         System.out.println(t2.toString());
 
         s = t2.getTileURLString(mapTile);
@@ -163,13 +163,13 @@ public class TileLayerServerTest {
         InputStream is = loader.getResourceAsStream("imagery_test.geojson");
         try {
             TileLayerDatabase db = new TileLayerDatabase(main);
-            TileLayerServer.parseImageryFile(main, db.getWritableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, false);
-            TileLayerServer.getListsLocked(main, db.getReadableDatabase(), true);
+            TileLayerSource.parseImageryFile(main, db.getWritableDatabase(), TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, false);
+            TileLayerSource.getListsLocked(main, db.getReadableDatabase(), true);
             db.close();
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        List<String> names = Arrays.asList(TileLayerServer.getNames(null, false));
+        List<String> names = Arrays.asList(TileLayerSource.getNames(null, false));
 
         int iA = names.indexOf("A imagery");
         Assert.assertNotEquals(-1, iA);
@@ -184,8 +184,8 @@ public class TileLayerServerTest {
 
         Assert.assertTrue(iAnoDate < iBnoDate); // alphabetic
 
-        TileLayerServer a = TileLayerServer.get(main, "A", false);
-        TileLayerServer b = TileLayerServer.get(main, "B", false);
+        TileLayerSource a = TileLayerSource.get(main, "A", false);
+        TileLayerSource b = TileLayerSource.get(main, "B", false);
         Assert.assertTrue(a.getEndDate() < b.getEndDate());
         Assert.assertTrue(iA > iB); // date
 

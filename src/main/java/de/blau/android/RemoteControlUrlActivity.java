@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.DateFormatter;
 
 /**
@@ -181,32 +181,32 @@ public class RemoteControlUrlActivity extends UrlActivity {
                             return false;
                         }
                     }
-                    List<String> ids = Arrays.asList(TileLayerServer.getIds(null, false, null));
-                    String id = TileLayerServer.nameToId(title);
-                    TileLayerServer existing = null;
+                    List<String> ids = Arrays.asList(TileLayerSource.getIds(null, false, null));
+                    String id = TileLayerSource.nameToId(title);
+                    TileLayerSource existing = null;
                     if (ids.contains(id)) {
-                        existing = TileLayerServer.get(this, id, false);
+                        existing = TileLayerSource.get(this, id, false);
                     }
                     String type = data.getQueryParameter("type");
-                    if (!TileLayerServer.TYPE_TMS.equals(type) && !TileLayerServer.TYPE_WMS.equals(type)) {
+                    if (!TileLayerSource.TYPE_TMS.equals(type) && !TileLayerSource.TYPE_WMS.equals(type)) {
                         Log.e(DEBUG_TAG, "Unsupported type " + type);
                         return false;
                     }
                     // unused and undocumented String cookies = data.getQueryParameter("cookies");
-                    int minZoom = TileLayerServer.DEFAULT_MIN_ZOOM;
+                    int minZoom = TileLayerSource.DEFAULT_MIN_ZOOM;
                     try {
                         minZoom = Integer.parseInt(data.getQueryParameter("min_zoom"));
                     } catch (Exception e) {
                         // ignore
                     }
-                    int maxZoom = TileLayerServer.DEFAULT_MAX_ZOOM;
+                    int maxZoom = TileLayerSource.DEFAULT_MAX_ZOOM;
                     try {
                         maxZoom = Integer.parseInt(data.getQueryParameter("max_zoom"));
                     } catch (Exception e) {
                         // ignore
                     }
                     try (TileLayerDatabase tlDb = new TileLayerDatabase(this); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                        TileLayerServer.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerServer.Provider(), null, null, minZoom,
+                        TileLayerSource.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerSource.Provider(), null, null, minZoom,
                                 maxZoom, false, url);
                     }
                     prefs.setBackGroundLayer(id);

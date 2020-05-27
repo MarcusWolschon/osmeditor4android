@@ -39,7 +39,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
@@ -80,7 +80,7 @@ public class LayerDialogTest {
         TestUtils.grantPermissons(device);
         Preferences prefs = new Preferences(main);
         tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
-        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
 
@@ -235,6 +235,6 @@ public class LayerDialogTest {
         TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // for the tip alert
         TestUtils.clickText(device, true, main.getString(R.string.none), true, false);
         Preferences prefs = new Preferences(main);
-        Assert.assertEquals(TileLayerServer.LAYER_NONE, prefs.backgroundLayer());
+        Assert.assertEquals(TileLayerSource.LAYER_NONE, prefs.backgroundLayer());
     }
 }

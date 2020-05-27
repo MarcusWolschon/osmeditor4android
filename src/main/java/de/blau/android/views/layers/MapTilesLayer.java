@@ -34,7 +34,7 @@ import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoMath;
@@ -82,7 +82,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     /**
      * The tile-server to load a rendered map from.
      */
-    private TileLayerServer myRendererInfo;
+    private TileLayerSource myRendererInfo;
 
     /** Current renderer */
     private final MapTileProvider mTileProvider;
@@ -106,7 +106,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * @param aRendererInfo The tile-server to load a rendered map from.
      * @param aTileProvider the MapTileProvider if null a new one will be allocated
      */
-    public MapTilesLayer(final View aView, final TileLayerServer aRendererInfo, final MapTileProvider aTileProvider) {
+    public MapTilesLayer(final View aView, final TileLayerSource aRendererInfo, final MapTileProvider aTileProvider) {
         myView = aView;
         Context ctx = myView.getContext();
         setRendererInfo(aRendererInfo);
@@ -197,7 +197,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * @return a TileLayerServer object
      */
     @Nullable
-    public TileLayerServer getTileLayerConfiguration() {
+    public TileLayerSource getTileLayerConfiguration() {
         return myRendererInfo;
     }
 
@@ -208,7 +208,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * 
      * @param tileLayer layer to use
      */
-    public void setRendererInfo(@Nullable final TileLayerServer tileLayer) {
+    public void setRendererInfo(@Nullable final TileLayerSource tileLayer) {
         if (tileLayer == null) {
             Log.w(DEBUG_TAG, "Trying to set null layer");
             return;

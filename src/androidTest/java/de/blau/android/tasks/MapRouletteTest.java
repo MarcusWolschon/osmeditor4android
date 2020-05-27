@@ -40,7 +40,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -71,8 +71,8 @@ public class MapRouletteTest {
         Set<String> filter = new HashSet<>();
         filter.add("MAPROULETTE");
         prefs.setTaskFilter(filter);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
 
         mockServerMapRoulette = new MockWebServerPlus();

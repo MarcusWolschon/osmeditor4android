@@ -34,7 +34,7 @@ import de.blau.android.Map;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.GeoJSONConstants;
 
 @RunWith(AndroidJUnit4.class)
@@ -66,7 +66,7 @@ public class GeoJSONTest {
         TestUtils.dismissStartUpDialogs(device, main);
         Preferences prefs = new Preferences(context);
         // allow downloading tiles here
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
+        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE);
     }
 
     /**

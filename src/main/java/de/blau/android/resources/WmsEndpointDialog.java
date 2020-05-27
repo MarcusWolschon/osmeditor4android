@@ -53,7 +53,7 @@ public class WmsEndpointDialog {
         final EditText nameEdit = (EditText) templateView.findViewById(R.id.name);
         final EditText urlEdit = (EditText) templateView.findViewById(R.id.url);
 
-        TileLayerServer endpoint = null;
+        TileLayerSource endpoint = null;
 
         if (existing) {
             try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
@@ -83,7 +83,7 @@ public class WmsEndpointDialog {
             // dummy
         });
 
-        final TileLayerServer existingEndpoint = endpoint;
+        final TileLayerSource existingEndpoint = endpoint;
 
         final AlertDialog dialog = builder.create();
 
@@ -94,7 +94,7 @@ public class WmsEndpointDialog {
             @Override
             public void onClick(View v) {
                 String name = nameEdit.getText().toString().trim();
-                endpointId = existing ? existingEndpoint.getId() : TileLayerServer.nameToId(name);
+                endpointId = existing ? existingEndpoint.getId() : TileLayerSource.nameToId(name);
 
                 String endpointUrl = urlEdit.getText().toString().trim();
                 if ("".equals(endpointUrl)) {
@@ -102,8 +102,8 @@ public class WmsEndpointDialog {
                     return;
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                    TileLayerServer.addOrUpdateCustomLayer(activity, db, endpointId, existingEndpoint, -1, -1, name, null, null,
-                            TileLayerServer.TYPE_WMS_ENDPOINT, -1, -1, false, endpointUrl);
+                    TileLayerSource.addOrUpdateCustomLayer(activity, db, endpointId, existingEndpoint, -1, -1, name, null, null,
+                            TileLayerSource.TYPE_WMS_ENDPOINT, -1, -1, false, endpointUrl);
                 }
                 if (onUpdate != null) {
                     onUpdate.update();

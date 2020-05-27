@@ -23,9 +23,9 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer.Category;
-import de.blau.android.resources.TileLayerServer.Provider;
-import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
+import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.Provider;
+import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.FileUtil;
@@ -81,7 +81,7 @@ public class TileLayerDialog {
         final NumberPicker minZoomPicker = (NumberPicker) templateView.findViewById(R.id.zoom_min);
         final NumberPicker maxZoomPicker = (NumberPicker) templateView.findViewById(R.id.zoom_max);
 
-        TileLayerServer layer = null;
+        TileLayerSource layer = null;
         String attribution = null;
 
         long startDate = -1;
@@ -114,8 +114,8 @@ public class TileLayerDialog {
             } else {
                 nameEdit.setText(layerEntry.title);
                 urlEdit.setText(layerEntry.tileUrl);
-                minZoomPicker.setValue(TileLayerServer.DEFAULT_MIN_ZOOM);
-                int maxZoom = TileLayerServer.DEFAULT_MAX_ZOOM;
+                minZoomPicker.setValue(TileLayerSource.DEFAULT_MIN_ZOOM);
+                int maxZoom = TileLayerSource.DEFAULT_MAX_ZOOM;
                 if (layerEntry.box != null) {
                     setBoundingBoxFields(templateView, layerEntry.box);
                     try {
@@ -138,7 +138,7 @@ public class TileLayerDialog {
             }
 
             if (existing) {
-                final TileLayerServer finalLayer = layer;
+                final TileLayerSource finalLayer = layer;
                 alertDialog.setTitle(R.string.edit_layer_title);
                 alertDialog.setNeutralButton(R.string.Delete, (dialog, which) -> {
                     Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
@@ -154,8 +154,8 @@ public class TileLayerDialog {
                 alertDialog.setNeutralButton(R.string.cancel, null);
             }
         } else {
-            minZoomPicker.setValue(TileLayerServer.DEFAULT_MIN_ZOOM);
-            maxZoomPicker.setValue(TileLayerServer.DEFAULT_MAX_ZOOM);
+            minZoomPicker.setValue(TileLayerSource.DEFAULT_MIN_ZOOM);
+            maxZoomPicker.setValue(TileLayerSource.DEFAULT_MAX_ZOOM);
 
             fileButton.setOnClickListener(v -> SelectFile.read(activity, R.string.config_mbtilesPreferredDir_key, new ReadFile() {
                 private static final long serialVersionUID = 1L;
@@ -221,7 +221,7 @@ public class TileLayerDialog {
         alertDialog.setPositiveButton(R.string.save_and_set, (dialog, which) -> {
             // dummy
         });
-        final TileLayerServer existingLayer = layer;
+        final TileLayerSource existingLayer = layer;
 
         final long finalStartDate = startDate;
         final long finalEndDate = endDate;
@@ -241,7 +241,7 @@ public class TileLayerDialog {
              */
             boolean save() {
                 String name = nameEdit.getText().toString().trim();
-                layerId = existing ? existingLayer.getId() : TileLayerServer.nameToId(name);
+                layerId = existing ? existingLayer.getId() : TileLayerSource.nameToId(name);
                 isOverlay = overlayCheck.isChecked();
                 Category category = Category.values()[categorySpinner.getSelectedItemPosition()];
                 Provider provider = new Provider();
@@ -292,7 +292,7 @@ public class TileLayerDialog {
                     return false;
                 }
                 try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
-                    TileLayerServer.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, null,
+                    TileLayerSource.addOrUpdateCustomLayer(activity, db, layerId, existingLayer, finalStartDate, finalEndDate, name, provider, category, null,
                             minZoom, maxZoom, isOverlay, tileUrl);
                 }
                 return true;

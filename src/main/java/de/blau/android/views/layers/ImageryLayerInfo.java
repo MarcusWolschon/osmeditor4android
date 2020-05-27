@@ -17,8 +17,8 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.TableLayoutUtils;
-import de.blau.android.resources.TileLayerServer;
-import de.blau.android.resources.TileLayerServer.Provider;
+import de.blau.android.resources.TileLayerSource;
+import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Util;
 
@@ -29,12 +29,12 @@ public class ImageryLayerInfo extends LayerInfo {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
-    TileLayerServer layer = null;
+    TileLayerSource layer = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        layer = (TileLayerServer) getArguments().getSerializable(LAYER_KEY);
+        layer = (TileLayerSource) getArguments().getSerializable(LAYER_KEY);
     }
 
     @Override

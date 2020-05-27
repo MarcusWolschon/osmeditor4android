@@ -79,7 +79,7 @@ public class TileLayerDatabaseView {
 
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        TileLayerServer tileServer = TileLayerDatabase.getLayerWithRowId(activity, writableDb, id);
+                        TileLayerSource tileServer = TileLayerDatabase.getLayerWithRowId(activity, writableDb, id);
                         final Preferences prefs = App.getLogic().getPrefs();
                         removeLayerSelection(prefs, tileServer);
                         TileLayerDatabase.deleteLayerWithRowId(writableDb, id);
@@ -177,7 +177,7 @@ public class TileLayerDatabaseView {
      * @param db a readable DB
      */
     protected static void resetLayer(@NonNull Context context, @NonNull SQLiteDatabase db) {
-        TileLayerServer.getListsLocked(context, db, true);
+        TileLayerSource.getListsLocked(context, db, true);
         Logic logic = App.getLogic();
         if (logic != null) {
             Preferences prefs = logic.getPrefs();
@@ -202,19 +202,19 @@ public class TileLayerDatabaseView {
     public static void updateLayerConfig(@NonNull Context context, @NonNull Preferences prefs, @Nullable MapTilesLayer layer) {
         if (layer != null) {
             Log.d(DEBUG_TAG, "updating layer " + layer.getName());
-            TileLayerServer config = layer.getTileLayerConfiguration();
+            TileLayerSource config = layer.getTileLayerConfiguration();
             if (config != null) {
-                TileLayerServer newConfig = TileLayerServer.get(context, config.getId(), false);
+                TileLayerSource newConfig = TileLayerSource.get(context, config.getId(), false);
                 if (newConfig != null) { // if null the layer has been deleted
                     boolean isOverlay = layer instanceof MapTilesOverlayLayer;
                     if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
                         // not good overlay as background or the other way around
                         if (!isOverlay) {
-                            prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
-                            layer.setRendererInfo(TileLayerServer.get(context, TileLayerServer.LAYER_NONE, false));
+                            prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE);
+                            layer.setRendererInfo(TileLayerSource.get(context, TileLayerSource.LAYER_NONE, false));
                         } else {
-                            prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
-                            layer.setRendererInfo(TileLayerServer.get(context, TileLayerServer.LAYER_NOOVERLAY, false));
+                            prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+                            layer.setRendererInfo(TileLayerSource.get(context, TileLayerSource.LAYER_NOOVERLAY, false));
                         }
                     } else {
                         layer.setRendererInfo(newConfig);
@@ -222,7 +222,7 @@ public class TileLayerDatabaseView {
                 }
             }
             layer.getTileProvider().update();
-            checkMru(layer, TileLayerServer.getIds(null, false, null));
+            checkMru(layer, TileLayerSource.getIds(null, false, null));
         }
     }
 
@@ -248,13 +248,13 @@ public class TileLayerDatabaseView {
      * @param prefs a Preference object
      * @param layerConfig the layer
      */
-    protected static void removeLayerSelection(@NonNull final Preferences prefs, @Nullable final TileLayerServer layerConfig) {
+    protected static void removeLayerSelection(@NonNull final Preferences prefs, @Nullable final TileLayerSource layerConfig) {
         if (layerConfig != null) {
             if (layerConfig.getId().equals(prefs.overlayLayer())) {
-                prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+                prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
             }
             if (layerConfig.getId().equals(prefs.backgroundLayer())) {
-                prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
+                prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE);
             }
         } else {
             Log.e(DEBUG_TAG, "layerConfig should not be null here");

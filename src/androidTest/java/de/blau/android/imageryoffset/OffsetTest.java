@@ -28,7 +28,7 @@ import de.blau.android.Splash;
 import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
@@ -115,7 +115,7 @@ public class OffsetTest {
         }
         final Map map = main.getMap();
         ImageryOffset offset = new ImageryOffset();
-        TileLayerServer osmts = map.getBackgroundLayer().getTileLayerConfiguration();
+        TileLayerSource osmts = map.getBackgroundLayer().getTileLayerConfiguration();
         offset.imageryId = osmts.getImageryOffsetId();
         offset.setLon(8.21598D);
         offset.setLat(47.40804D);

@@ -60,7 +60,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 
 public final class Util {
 
@@ -571,7 +571,7 @@ public final class Util {
                 }
             }
         }
-        TileLayerServer.clearLogos();
+        TileLayerSource.clearLogos();
     }
 
     /**

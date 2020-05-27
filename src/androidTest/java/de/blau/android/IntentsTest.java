@@ -25,7 +25,7 @@ import androidx.test.uiautomator.UiDevice;
 import de.blau.android.osm.Node;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.Task;
 import okhttp3.HttpUrl;
 
@@ -60,8 +60,8 @@ public class IntentsTest {
         App.getDelegator().reset(false);
         App.getTaskStorage().reset();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
+        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
@@ -215,7 +215,7 @@ public class IntentsTest {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e1) {
         }
-        TileLayerServer tileServer = TileLayerServer.get(context, TileLayerServer.nameToId("osmtest"), false);
+        TileLayerSource tileServer = TileLayerSource.get(context, TileLayerSource.nameToId("osmtest"), false);
         Assert.assertEquals("osmtest", tileServer.getName());
         Assert.assertEquals(2, tileServer.getMinZoomLevel());
         Assert.assertEquals(19, tileServer.getMaxZoomLevel());

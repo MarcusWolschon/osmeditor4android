@@ -17,9 +17,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.resources.TileLayerServer.Category;
-import de.blau.android.resources.TileLayerServer.Provider;
-import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
+import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.Provider;
+import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class TileLayerDatabase extends SQLiteOpenHelper {
@@ -203,7 +203,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param source source the layer comes from
      * @param layer a TileLayerServer object
      */
-    public static void addLayer(@NonNull SQLiteDatabase db, @NonNull String source, @NonNull TileLayerServer layer) {
+    public static void addLayer(@NonNull SQLiteDatabase db, @NonNull String source, @NonNull TileLayerSource layer) {
         ContentValues values = getContentValuesForLayer(source, layer);
         try {
             db.insertOrThrow(LAYERS_TABLE, null, values);
@@ -220,7 +220,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param db writable database
      * @param layer a TileLayerServer instance
      */
-    private static void addCoverageFromLayer(@NonNull SQLiteDatabase db, @NonNull TileLayerServer layer) {
+    private static void addCoverageFromLayer(@NonNull SQLiteDatabase db, @NonNull TileLayerSource layer) {
         // insert coverage areas
         List<CoverageArea> coverages = layer.getCoverage();
         if (coverages != null) {
@@ -237,7 +237,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param layer TileLayerServer object holding the valuse
      * @return a ContentValues object
      */
-    private static ContentValues getContentValuesForLayer(@Nullable String source, @NonNull TileLayerServer layer) {
+    private static ContentValues getContentValuesForLayer(@Nullable String source, @NonNull TileLayerSource layer) {
         ContentValues values = new ContentValues();
         values.put(ID_FIELD, layer.getId());
         values.put(NAME_FIELD, layer.getName());
@@ -255,7 +255,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         values.put(ATTRIBUTION_FIELD, layer.getAttribution());
         values.put(OVERLAY_FIELD, layer.isOverlay() ? 1 : 0);
         values.put(DEFAULTLAYER_FIELD, layer.isDefaultLayer() ? 1 : 0);
-        if (!TileLayerServer.TYPE_BING.equals(layer.getType())) { // bing layer gets these values dynamically
+        if (!TileLayerSource.TYPE_BING.equals(layer.getType())) { // bing layer gets these values dynamically
             values.put(ZOOM_MIN_FIELD, layer.getMinZoomLevel());
             values.put(ZOOM_MAX_FIELD, layer.getMaxZoomLevel());
             values.put(TILE_WIDTH_FIELD, layer.getTileWidth());
@@ -312,8 +312,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param id the layer id
      * @return a TileLayerServer instance of null if none could be found
      */
-    public static TileLayerServer getLayer(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String id) {
-        TileLayerServer layer = null;
+    public static TileLayerSource getLayer(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull String id) {
+        TileLayerSource layer = null;
         Cursor dbresult = db.query(COVERAGES_TABLE, null, ID_FIELD + "='" + id + "'", null, null, null, null);
         Provider provider = getProviderFromCursor(dbresult);
 
@@ -337,8 +337,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param rowId the mysql rowid
      * @return a TileLayerServer instance of null if none could be found
      */
-    public static TileLayerServer getLayerWithRowId(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull int rowId) {
-        TileLayerServer layer = null;
+    public static TileLayerSource getLayerWithRowId(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull int rowId) {
+        TileLayerSource layer = null;
         Cursor dbresult = db.rawQuery(
                 "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE layers.rowid=? AND layers.id=coverages.id",
                 new String[] { Integer.toString(rowId) });
@@ -384,7 +384,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param db a writable SQLiteDatabase
      * @param layer the layer to write to the database
      */
-    public static void updateLayer(@NonNull SQLiteDatabase db, @NonNull TileLayerServer layer) {
+    public static void updateLayer(@NonNull SQLiteDatabase db, @NonNull TileLayerSource layer) {
         String id = layer.getId();
         Log.d(DEBUG_TAG, "Updating layer " + id);
         deleteCoverage(db, id);
@@ -475,7 +475,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @return a Cursor pointing to all WMS end points
      */
     static Cursor getAllWmsEndPoints(@NonNull SQLiteDatabase db) {
-        return db.rawQuery("SELECT layers.rowid as _id, name FROM layers WHERE server_type='" + TileLayerServer.TYPE_WMS_ENDPOINT + "' ORDER BY name", null);
+        return db.rawQuery("SELECT layers.rowid as _id, name FROM layers WHERE server_type='" + TileLayerSource.TYPE_WMS_ENDPOINT + "' ORDER BY name", null);
     }
 
     /**
@@ -488,8 +488,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param overlay if true only overlay layers will be returned
      * @return a Map containing the selected layers
      */
-    public static Map<String, TileLayerServer> getAllLayers(@NonNull Context context, @NonNull SQLiteDatabase db, boolean overlay) {
-        Map<String, TileLayerServer> layers = new HashMap<>();
+    public static Map<String, TileLayerSource> getAllLayers(@NonNull Context context, @NonNull SQLiteDatabase db, boolean overlay) {
+        Map<String, TileLayerSource> layers = new HashMap<>();
         MultiHashMap<String, CoverageArea> coverages = new MultiHashMap<>();
         Cursor dbresult = db.rawQuery(
                 "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE coverages.id=layers.id AND overlay=?",
@@ -507,7 +507,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         dbresult.close();
 
         dbresult = db.query(LAYERS_TABLE, null,
-                OVERLAY_FIELD + "=" + (overlay ? 1 : 0) + " AND " + TYPE_FIELD + " <> '" + TileLayerServer.TYPE_WMS_ENDPOINT + "'", null, null, null, null);
+                OVERLAY_FIELD + "=" + (overlay ? 1 : 0) + " AND " + TYPE_FIELD + " <> '" + TileLayerSource.TYPE_WMS_ENDPOINT + "'", null, null, null, null);
         if (dbresult.getCount() >= 1) {
             boolean haveEntry = dbresult.moveToFirst();
             initLayerFieldIndices(dbresult);
@@ -517,7 +517,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 for (CoverageArea ca : coverages.get(id)) {
                     provider.addCoverageArea(ca);
                 }
-                TileLayerServer layer = getLayerFromCursor(context, provider, dbresult);
+                TileLayerSource layer = getLayerFromCursor(context, provider, dbresult);
                 if (layer.replaceApiKey(context)) { // if we have an apikey parameter and can't replace it, don't add
                     layers.put(id, layer);
                 } else {
@@ -569,7 +569,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @return a TileLayerServer instance
      */
     @NonNull
-    private static TileLayerServer getLayerFromCursor(@NonNull Context context, @NonNull Provider provider, @NonNull Cursor cursor) {
+    private static TileLayerSource getLayerFromCursor(@NonNull Context context, @NonNull Provider provider, @NonNull Cursor cursor) {
         if (idLayerFieldIndex == -1) {
             throw new IllegalStateException("Layer field indices not initialized");
         }
@@ -608,7 +608,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         String description = cursor.getString(descriptionFieldIndex);
         String privacyPolicyUrl = cursor.getString(privacyPolicyUrlFieldIndex);
 
-        TileLayerServer layer = new TileLayerServer(context, id, name, tileUrl, type, category, overlay, defaultLayer, provider, touUri, null, logoUrl,
+        TileLayerSource layer = new TileLayerSource(context, id, name, tileUrl, type, category, overlay, defaultLayer, provider, touUri, null, logoUrl,
                 logoBytes, zoomLevelMin, zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues,
                 description, privacyPolicyUrl, true);
         layer.setSource(source);

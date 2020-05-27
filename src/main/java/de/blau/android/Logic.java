@@ -92,7 +92,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.util.ACRAHelper;
@@ -1558,7 +1558,7 @@ public class Logic {
         int lat = yToLatE7(height - screenTransY);
         int relativeLon = lon - viewBox.getLeft();
         int relativeLat = lat - viewBox.getBottom();
-        TileLayerServer osmts = map.getBackgroundLayer().getTileLayerConfiguration();
+        TileLayerSource osmts = map.getBackgroundLayer().getTileLayerConfiguration();
         double lonOffset = 0d;
         double latOffset = 0d;
         Offset o = osmts.getOffset(map.getZoomLevel());

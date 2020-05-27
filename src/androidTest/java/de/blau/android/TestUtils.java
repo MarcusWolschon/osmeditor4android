@@ -45,9 +45,9 @@ import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
-import de.blau.android.resources.TileLayerServer;
-import de.blau.android.resources.TileLayerServer.Category;
-import de.blau.android.resources.TileLayerServer.Provider;
+import de.blau.android.resources.TileLayerSource;
+import de.blau.android.resources.TileLayerSource.Category;
+import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.layers.MapTilesLayer;
@@ -1126,7 +1126,7 @@ public class TestUtils {
     public static void resetOffsets(@NonNull Map map) {
         MapTilesLayer layer = map.getBackgroundLayer();
         if (layer != null) {
-            TileLayerServer osmts = layer.getTileLayerConfiguration();
+            TileLayerSource osmts = layer.getTileLayerConfiguration();
             if (osmts != null) {
                 osmts.setOffsets(new Offset[osmts.getMaxZoom() - osmts.getMinZoom() + 1]);
             } else {
@@ -1156,7 +1156,7 @@ public class TestUtils {
         String tileUrl = tileServer.url("/").toString() + "{zoom}/{x}/{y}";
         System.out.println(tileUrl); // NOSONAR
         try (TileLayerDatabase db = new TileLayerDatabase(context)) {
-            TileLayerServer.addOrUpdateCustomLayer(context, db.getWritableDatabase(), "VESPUCCITEST", null, -1, -1, "Vespucci Test", new Provider(),
+            TileLayerSource.addOrUpdateCustomLayer(context, db.getWritableDatabase(), "VESPUCCITEST", null, -1, -1, "Vespucci Test", new Provider(),
                     Category.other, null, 0, 19, false, tileUrl);
         }
         // allow downloading tiles here

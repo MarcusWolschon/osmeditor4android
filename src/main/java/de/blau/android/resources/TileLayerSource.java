@@ -65,7 +65,7 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
+import de.blau.android.resources.TileLayerSource.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileDownloader;
 import de.blau.android.util.DateFormatter;
@@ -92,7 +92,9 @@ import okhttp3.ResponseBody;
  * @author Marcus Wolschon Marcus@Wolschon.biz
  *
  */
-public class TileLayerServer implements Serializable {
+public class TileLayerSource implements Serializable {
+    private static final String DEBUG_TAG         = TileLayerSource.class.getSimpleName();
+    
     private static final long serialVersionUID = 2L;
 
     static final String         EPSG_900913       = "EPSG:900913";
@@ -103,7 +105,6 @@ public class TileLayerServer implements Serializable {
     public static final String  TYPE_WMS          = "wms";
     static final String         TYPE_WMS_ENDPOINT = "wms_endpoint";
     static final String         TYPE_SCANEX       = "scanex";
-    private static final String DEBUG_TAG         = "TileLayerServer";
     public static final String  LAYER_MAPNIK      = "MAPNIK";
     public static final String  LAYER_NONE        = "NONE";
     public static final String  LAYER_NOOVERLAY   = "NOOVERLAY";
@@ -483,8 +484,8 @@ public class TileLayerServer implements Serializable {
     private String   imageryOffsetId; // cached id for offset DB
     private Offset[] offsets;
 
-    private static Map<String, TileLayerServer> backgroundServerList = null;
-    private static Map<String, TileLayerServer> overlayServerList    = null;
+    private static Map<String, TileLayerSource> backgroundServerList = null;
+    private static Map<String, TileLayerSource> overlayServerList    = null;
     private static Object                       serverListLock       = new Object();
     private static boolean                      ready                = false;
     private static List<String>                 imageryBlacklist     = null;
@@ -681,7 +682,7 @@ public class TileLayerServer implements Serializable {
      * @param privacyPolicyUrl a link to a privacy policy or null
      * @param async run loadInfo in a AsyncTask needed for main process
      */
-    TileLayerServer(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, final String url, final String type, Category category,
+    TileLayerSource(@NonNull final Context ctx, @Nullable final String id, @NonNull final String name, final String url, final String type, Category category,
             final boolean overlay, final boolean defaultLayer, @Nullable final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl,
             byte[] logoBytes, final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj,
             final int preference, final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues,
@@ -815,7 +816,7 @@ public class TileLayerServer implements Serializable {
      * @param async retrieve meta-data async if true
      * @return The default tile layer.
      */
-    public static TileLayerServer getDefault(final Context ctx, final boolean async) {
+    public static TileLayerSource getDefault(final Context ctx, final boolean async) {
         // ask for an invalid renderer, so we'll get the fallback default
         return get(ctx, "", async);
     }
@@ -841,7 +842,7 @@ public class TileLayerServer implements Serializable {
         try {
             FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
             for (Feature f : fc.features()) {
-                TileLayerServer osmts = geojsonToServer(ctx, f, async);
+                TileLayerSource osmts = geojsonToServer(ctx, f, async);
                 if (osmts != null) {
                     TileLayerDatabase.addLayer(writeableDb, source, osmts);
                 } else {
@@ -948,8 +949,8 @@ public class TileLayerServer implements Serializable {
      * @return a TileLayerServer instance of null if it couldn't be created
      */
     @Nullable
-    private static TileLayerServer geojsonToServer(@NonNull Context ctx, @NonNull Feature f, boolean async) {
-        TileLayerServer osmts = null;
+    private static TileLayerSource geojsonToServer(@NonNull Context ctx, @NonNull Feature f, boolean async) {
+        TileLayerSource osmts = null;
 
         try {
 
@@ -1053,7 +1054,7 @@ public class TileLayerServer implements Serializable {
                 }
                 return null;
             }
-            osmts = new TileLayerServer(ctx, id, name, url, type, category, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
+            osmts = new TileLayerSource(ctx, id, name, url, type, category, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
                     DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
                     privacyPolicyUrl, async);
         } catch (UnsupportedOperationException uoex) {
@@ -1092,7 +1093,7 @@ public class TileLayerServer implements Serializable {
      * @return the selected TileLayerServer
      */
     @Nullable
-    public static TileLayerServer get(@NonNull final Context ctx, @NonNull final String id, final boolean async) {
+    public static TileLayerSource get(@NonNull final Context ctx, @NonNull final String id, final boolean async) {
         synchronized (serverListLock) {
             if (!ready) {
                 TileLayerDatabase db = new TileLayerDatabase(ctx);
@@ -1109,11 +1110,11 @@ public class TileLayerServer implements Serializable {
             return backgroundServerList.get(LAYER_NONE); // nothing works for all layers :-)
         }
 
-        TileLayerServer overlay = overlayServerList.get(id);
+        TileLayerSource overlay = overlayServerList.get(id);
         if (overlay != null) {
             return overlay;
         } else {
-            TileLayerServer background = backgroundServerList.get(id);
+            TileLayerSource background = backgroundServerList.get(id);
             if (background != null) {
                 return background;
             }
@@ -1122,7 +1123,7 @@ public class TileLayerServer implements Serializable {
             // layer couldn't be found in memory, check database
             Log.d(DEBUG_TAG, "Getting layer " + id + " from database");
             TileLayerDatabase db = new TileLayerDatabase(ctx);
-            TileLayerServer layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
+            TileLayerSource layer = TileLayerDatabase.getLayer(ctx, db.getReadableDatabase(), id);
             db.close();
             if (layer != null && layer.replaceApiKey(ctx)) {
                 if (layer.isOverlay()) {
@@ -1291,9 +1292,9 @@ public class TileLayerServer implements Serializable {
             overlayServerList = new HashMap<>();
             backgroundServerList = new HashMap<>();
             // these three layers have to exist or else we are borked
-            TileLayerServer overlay = TileLayerDatabase.getLayer(ctx, db, LAYER_NOOVERLAY);
+            TileLayerSource overlay = TileLayerDatabase.getLayer(ctx, db, LAYER_NOOVERLAY);
             overlayServerList.put(LAYER_NOOVERLAY, overlay);
-            TileLayerServer background = TileLayerDatabase.getLayer(ctx, db, LAYER_NONE);
+            TileLayerSource background = TileLayerDatabase.getLayer(ctx, db, LAYER_NONE);
             overlayServerList.put(LAYER_NONE, background);
             background = TileLayerDatabase.getLayer(ctx, db, LAYER_MAPNIK);
             overlayServerList.put(LAYER_MAPNIK, background);
@@ -1452,7 +1453,7 @@ public class TileLayerServer implements Serializable {
                 new AsyncTask<String, Void, Void>() {
                     @Override
                     protected Void doInBackground(String... params) {
-                        synchronized (TileLayerServer.this) {
+                        synchronized (TileLayerSource.this) {
                             Drawable cached = logoCache.get(logoUrl);
                             if (cached != NOLOGO && logoUrl != null) { // recheck logoURl
                                 if (cached != null) {
@@ -1489,14 +1490,14 @@ public class TileLayerServer implements Serializable {
      */
     public static void clearLogos() {
         if (backgroundServerList != null) {
-            for (TileLayerServer tls : backgroundServerList.values()) {
+            for (TileLayerSource tls : backgroundServerList.values()) {
                 if (tls != null) {
                     tls.clearLogoDrawable();
                 }
             }
         }
         if (overlayServerList != null) {
-            for (TileLayerServer tls : overlayServerList.values()) {
+            for (TileLayerSource tls : overlayServerList.values()) {
                 if (tls != null) {
                     tls.clearLogoDrawable();
                 }
@@ -1686,11 +1687,11 @@ public class TileLayerServer implements Serializable {
      * @return list of tile servers
      */
     @NonNull
-    private static List<TileLayerServer> getServersFilteredSorted(boolean filtered, @NonNull Map<String, TileLayerServer> servers, @Nullable Category category,
+    private static List<TileLayerSource> getServersFilteredSorted(boolean filtered, @NonNull Map<String, TileLayerSource> servers, @Nullable Category category,
             @Nullable BoundingBox box) {
-        TileLayerServer noneLayer = null;
-        List<TileLayerServer> list = new ArrayList<>();
-        for (TileLayerServer osmts : servers.values()) {
+        TileLayerSource noneLayer = null;
+        List<TileLayerSource> list = new ArrayList<>();
+        for (TileLayerSource osmts : servers.values()) {
             if (filtered) {
                 if (category != null) {
                     if (!category.equals(osmts.getCategory())) {
@@ -1820,12 +1821,12 @@ public class TileLayerServer implements Serializable {
      * @param category category of layer that should be returned or null for all
      * @return available tile layer IDs.
      */
-    private static String[] getIds(@NonNull Map<String, TileLayerServer> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable Category category) {
+    private static String[] getIds(@NonNull Map<String, TileLayerSource> serverList, @Nullable BoundingBox box, boolean filtered, @Nullable Category category) {
         List<String> ids = new ArrayList<>();
         synchronized (serverListLock) {
             if (backgroundServerList != null) {
-                List<TileLayerServer> list = getServersFilteredSorted(filtered, serverList, category, box);
-                for (TileLayerServer t : list) {
+                List<TileLayerSource> list = getServersFilteredSorted(filtered, serverList, category, box);
+                for (TileLayerSource t : list) {
                     ids.add(t.id);
                 }
             }
@@ -1856,11 +1857,11 @@ public class TileLayerServer implements Serializable {
      * @return available tile layer names.
      */
     @NonNull
-    public static String[] getNames(@Nullable Map<String, TileLayerServer> map, @Nullable BoundingBox box, boolean filtered) {
+    public static String[] getNames(@Nullable Map<String, TileLayerSource> map, @Nullable BoundingBox box, boolean filtered) {
         ArrayList<String> names = new ArrayList<>();
         if (map != null) {
             for (String key : getIds(box, filtered, null)) {
-                TileLayerServer osmts = map.get(key);
+                TileLayerSource osmts = map.get(key);
                 names.add(osmts.name);
             }
         }
@@ -1886,11 +1887,11 @@ public class TileLayerServer implements Serializable {
      * @return array containing the names
      */
     @NonNull
-    public static String[] getNames(@Nullable Map<String, TileLayerServer> map, @NonNull String[] ids) {
+    public static String[] getNames(@Nullable Map<String, TileLayerSource> map, @NonNull String[] ids) {
         List<String> names = new ArrayList<>();
         if (map != null) {
             for (String key : ids) {
-                TileLayerServer osmts = map.get(key);
+                TileLayerSource osmts = map.get(key);
                 names.add(osmts.name + (TYPE_WMS.equals(osmts.type) ? " [wms]" : ""));
             }
         }
@@ -2279,7 +2280,7 @@ public class TileLayerServer implements Serializable {
             for (Pattern p : patterns) {
                 if (backgroundServerList != null) {
                     for (String key : new TreeSet<>(backgroundServerList.keySet())) { // shallow copy
-                        TileLayerServer osmts = backgroundServerList.get(key);
+                        TileLayerSource osmts = backgroundServerList.get(key);
                         Matcher m = p.matcher(osmts.tileUrl.toLowerCase(Locale.US));
                         if (m.find()) {
                             backgroundServerList.remove(key);
@@ -2289,7 +2290,7 @@ public class TileLayerServer implements Serializable {
                 }
                 if (overlayServerList != null) {
                     for (String key : new TreeSet<>(overlayServerList.keySet())) { // shallow copy
-                        TileLayerServer osmts = overlayServerList.get(key);
+                        TileLayerSource osmts = overlayServerList.get(key);
                         Matcher m = p.matcher(osmts.tileUrl.toLowerCase(Locale.US));
                         if (m.find()) {
                             overlayServerList.remove(key);
@@ -2635,7 +2636,7 @@ public class TileLayerServer implements Serializable {
      * @param tileUrl the url for the tiles
      */
     public static void addOrUpdateCustomLayer(@NonNull final Context ctx, @NonNull final SQLiteDatabase db, @NonNull final String layerId,
-            @Nullable final TileLayerServer existingTileServer, final long startDate, final long endDate, @NonNull String name, @Nullable Provider provider,
+            @Nullable final TileLayerSource existingTileServer, final long startDate, final long endDate, @NonNull String name, @Nullable Provider provider,
             Category category, @Nullable String type, int minZoom, int maxZoom, boolean isOverlay, @NonNull String tileUrl) {
         int tileSize = DEFAULT_TILE_SIZE;
         String proj = null;
@@ -2650,8 +2651,8 @@ public class TileLayerServer implements Serializable {
             type = proj == null ? TYPE_TMS : TYPE_WMS; // heuristic
         }
         if (existingTileServer == null) {
-            TileLayerServer layer = new TileLayerServer(ctx, layerId, name, tileUrl, type, category, isOverlay, false, provider, null, null, null, null,
-                    minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null, null, true);
+            TileLayerSource layer = new TileLayerSource(ctx, layerId, name, tileUrl, type, category, isOverlay, false, provider, null, null, null, null,
+                    minZoom, maxZoom, TileLayerSource.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, startDate, endDate, null, null, null, null, true);
             TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
         } else {
             existingTileServer.setProvider(provider);

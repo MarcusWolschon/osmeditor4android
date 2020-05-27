@@ -3,7 +3,7 @@ package de.blau.android.views.layers;
 import android.graphics.Canvas;
 import android.view.View;
 import de.blau.android.Map;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.views.IMapView;
 
 public class MapTilesOverlayLayer extends MapTilesLayer {
@@ -16,17 +16,17 @@ public class MapTilesOverlayLayer extends MapTilesLayer {
      * @param aView the view we are displaying in
      */
     public MapTilesOverlayLayer(final View aView) {
-        super(aView, TileLayerServer.get(aView.getContext(), ((Map) aView).getPrefs().overlayLayer(), true), null);
+        super(aView, TileLayerSource.get(aView.getContext(), ((Map) aView).getPrefs().overlayLayer(), true), null);
     }
 
     @Override
     public boolean isReadyToDraw() {
-        TileLayerServer layer = getTileLayerConfiguration();
+        TileLayerSource layer = getTileLayerConfiguration();
         if (layer == null) {
             enabled = false;
         } else {
             String id = layer.getId();
-            enabled = !(id == null || TileLayerServer.LAYER_NOOVERLAY.equals(id) || TileLayerServer.LAYER_NONE.equals(id) || "".equals(id));
+            enabled = !(id == null || TileLayerSource.LAYER_NOOVERLAY.equals(id) || TileLayerSource.LAYER_NONE.equals(id) || "".equals(id));
         }
         return enabled && super.isReadyToDraw();
     }

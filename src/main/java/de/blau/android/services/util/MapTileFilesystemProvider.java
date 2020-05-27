@@ -22,7 +22,7 @@ import androidx.core.app.NotificationCompat;
 import de.blau.android.R;
 import de.blau.android.exception.InvalidTileException;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
@@ -212,7 +212,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
              */
             boolean download = false;
             try {
-                TileLayerServer renderer = TileLayerServer.get(mCtx, mTile.rendererID, false);
+                TileLayerSource renderer = TileLayerSource.get(mCtx, mTile.rendererID, false);
                 if (renderer == null || !renderer.isMetadataLoaded()) {
                     mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, RETRY);
                     return;

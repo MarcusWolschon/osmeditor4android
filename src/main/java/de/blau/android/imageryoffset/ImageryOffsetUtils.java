@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
@@ -35,7 +35,7 @@ public final class ImageryOffsetUtils {
      * @param tileServerConfig a TileLayerServer object
      * @param bbox the current ViewBox if null the offsets will be applied unconditionally
      */
-    public static void applyImageryOffsets(@NonNull Context ctx, @NonNull final TileLayerServer tileServerConfig, @Nullable ViewBox bbox) {
+    public static void applyImageryOffsets(@NonNull Context ctx, @NonNull final TileLayerSource tileServerConfig, @Nullable ViewBox bbox) {
         Log.d(DEBUG_TAG, "applyImageryOffsets");
         if (tileServerConfig == null) {
             Log.d(DEBUG_TAG, "applyImageryOffsets tileServerConfig is null");
@@ -91,7 +91,7 @@ public final class ImageryOffsetUtils {
      * @return a List of ImageryOffset
      */
     @NonNull
-    public static List<ImageryOffset> offsets2ImageryOffset(@NonNull final TileLayerServer osmts, @NonNull final ViewBox bbox, @Nullable final String author) {
+    public static List<ImageryOffset> offsets2ImageryOffset(@NonNull final TileLayerSource osmts, @NonNull final ViewBox bbox, @Nullable final String author) {
         Offset[] offsets = osmts.getOffsets(); // current offset
         String imageryId = osmts.getImageryOffsetId();
         List<ImageryOffset> offsetList = new ArrayList<>();

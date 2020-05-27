@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.exception.StorageException;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.IMapTileProviderService;
 import de.blau.android.services.util.MapAsyncTileProvider;
@@ -360,7 +360,7 @@ public class MapTileProvider implements ServiceConnection {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             if (reason == MapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting
                                                               // the proper one
-                TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, true);
+                TileLayerSource osmts = TileLayerSource.get(mCtx, rendererID, true);
                 if (zoomLevel < Math.max(0, osmts.getMinZoomLevel() - 1)) {
                     try {
                         Long l = pending.get(t.toId());

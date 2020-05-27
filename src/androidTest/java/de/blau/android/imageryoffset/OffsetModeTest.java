@@ -29,7 +29,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.GeoMath;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockWebServer;
@@ -117,7 +117,7 @@ public class OffsetModeTest {
         startMode();
         Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
-        TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
+        TileLayerSource tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
         tileLayerConfiguration.setOffset(0, 0);
         TestUtils.zoomToLevel(device, main, tileLayerConfiguration.getMaxZoom());
         int zoomLevel = map.getZoomLevel();
@@ -187,7 +187,7 @@ public class OffsetModeTest {
         startMode();
         Assert.assertTrue(TestUtils.clickText(device, false, "Align background", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Align background"));
-        TileLayerServer tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
+        TileLayerSource tileLayerConfiguration = map.getBackgroundLayer().getTileLayerConfiguration();
         TestUtils.zoomToLevel(device, main, tileLayerConfiguration.getMaxZoom());
         int zoomLevel = map.getZoomLevel();
         TestUtils.clickMenuButton(device, "From database", false, true);

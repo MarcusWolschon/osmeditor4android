@@ -43,7 +43,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
-import de.blau.android.resources.TileLayerServer;
+import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
@@ -205,9 +205,9 @@ public class Map extends View implements IMapView {
     public void setUpLayers(@NonNull Context ctx) {
         synchronized (mLayers) {
             List<MapViewLayer> tempLayers = new ArrayList<>();
-            TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
+            TileLayerSource backgroundTS = TileLayerSource.get(ctx, prefs.backgroundLayer(), true);
             if (backgroundTS == null) {
-                backgroundTS = TileLayerServer.getDefault(ctx, true);
+                backgroundTS = TileLayerSource.getDefault(ctx, true);
             }
             if (backgroundTS != null) {
                 if (backgroundLayer != null) {
@@ -224,7 +224,7 @@ public class Map extends View implements IMapView {
                 }
             }
 
-            final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
+            final TileLayerSource overlayTS = TileLayerSource.get(ctx, prefs.overlayLayer(), true);
             if (overlayTS != null) {
                 if (overlayLayer != null) {
                     if (activeOverlay(overlayTS.getId())) {
@@ -917,7 +917,7 @@ public class Map extends View implements IMapView {
      */
     public void setPrefs(@NonNull Context ctx, @NonNull final Preferences aPreference) {
         prefs = aPreference;
-        TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
+        TileLayerSource.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         setUpLayers(ctx);
         alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
         timeToStale = prefs.getGnssTimeToStale() * ONE_SECOND_IN_NS;
@@ -937,7 +937,7 @@ public class Map extends View implements IMapView {
      * @return true if we should allocate a layer
      */
     public static boolean activeOverlay(@NonNull String layerId) {
-        return !(TileLayerServer.LAYER_NONE.equals(layerId) || TileLayerServer.LAYER_NOOVERLAY.equals(layerId));
+        return !(TileLayerSource.LAYER_NONE.equals(layerId) || TileLayerSource.LAYER_NOOVERLAY.equals(layerId));
     }
 
     /**
@@ -1045,14 +1045,14 @@ public class Map extends View implements IMapView {
      * @return the tile zoom level
      */
     private int calcZoomLevel(@NonNull Canvas canvas) { // NOSONAR
-        int tileWidth = TileLayerServer.DEFAULT_TILE_SIZE;
-        int tileHeight = TileLayerServer.DEFAULT_TILE_SIZE;
+        int tileWidth = TileLayerSource.DEFAULT_TILE_SIZE;
+        int tileHeight = TileLayerSource.DEFAULT_TILE_SIZE;
         MapTilesLayer tileLayer = getBackgroundLayer();
         if (tileLayer == null) {
             tileLayer = getOverlayLayer();
         }
         if (tileLayer != null) {
-            TileLayerServer s = tileLayer.getTileLayerConfiguration();
+            TileLayerSource s = tileLayer.getTileLayerConfiguration();
             if (s == null || !s.isMetadataLoaded()) {// protection on startup
                 return 0;
             } else {

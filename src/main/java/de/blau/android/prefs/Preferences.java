@@ -20,7 +20,7 @@ import de.blau.android.contract.Urls;
 import de.blau.android.osm.Server;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.resources.TileLayerServer.Category;
+import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.util.BrokenAndroid;
 
 /**
