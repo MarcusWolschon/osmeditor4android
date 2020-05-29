@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,10 +14,10 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -60,13 +58,6 @@ public class BasicStuffTest {
     }
 
     /**
-     * Post-test teardown
-     */
-    @After
-    public void teardown() {
-    }
-
-    /**
      * Test if setting tags work
      */
     @Test
@@ -84,7 +75,7 @@ public class BasicStuffTest {
         }
         Node n = logic.getSelectedNode();
         Assert.assertNotNull(n);
-        System.out.println(n);
+        System.out.println(n); // NOSONAR
         Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
         OsmElementFactory factory = App.getDelegator().getFactory();
         Node n2 = factory.createNodeWithNewId(0, 0);
@@ -97,7 +88,7 @@ public class BasicStuffTest {
         }
         Way w = logic.getSelectedWay();
         Assert.assertNotNull(w);
-        System.out.println(w);
+        System.out.println(w); // NOSONAR
         Assert.assertEquals(1, App.getDelegator().getApiWayCount());
         Way w2 = factory.createWayWithNewId(); // node-less way!
         setTagsElement(logic, w, w2);
@@ -117,7 +108,7 @@ public class BasicStuffTest {
         String key2 = "key2";
         String value2 = "value2";
         Assert.assertFalse(eInStorage.hasTags());
-        Map<String, String> tags = new HashMap<String, String>();
+        Map<String, String> tags = new HashMap<>();
 
         tags.put(key1, value1);
         // new form
@@ -182,7 +173,7 @@ public class BasicStuffTest {
         } catch (OsmIllegalOperationException e) {
             // carry on
         }
-        try {
+        try { // NOSONAR
             logic.setTags(main, eNotInStorage.getName(), eNotInStorage.getOsmId(), tags);
             Assert.fail("Element not in storage should fail");
         } catch (OsmIllegalOperationException e) {
@@ -202,11 +193,7 @@ public class BasicStuffTest {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("closedways.osm");
             logic.readOsmFile(main, is, false, new SignalHandler(signal));
-            try {
-                signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                Assert.fail(e.getMessage());
-            }
+            TestUtils.sleep(ApiTest.TIMEOUT);
             StorageDelegator delegator = App.getDelegator();
             // 2 node closed way, 1 node will silently get deleted when parsing
             Way way0 = (Way) delegator.getOsmElement(Way.NAME, 1547L);
@@ -234,11 +221,7 @@ public class BasicStuffTest {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("closedways.osm");
             logic.readOsmFile(main, is, false, new SignalHandler(signal));
-            try {
-                signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                Assert.fail(e.getMessage());
-            }
+            TestUtils.sleep(ApiTest.TIMEOUT);
             StorageDelegator delegator = App.getDelegator();
             // 2 node closed way, 1 node will silently get deleted when parsing
             Way way0 = (Way) delegator.getOsmElement(Way.NAME, 1544L);
@@ -291,11 +274,7 @@ public class BasicStuffTest {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("relationloop.osm");
             logic.readOsmFile(main, is, false, new SignalHandler(signal));
-            try {
-                signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                Assert.fail(e.getMessage());
-            }
+            TestUtils.sleep(ApiTest.TIMEOUT);
             StorageDelegator delegator = App.getDelegator();
             //
             Relation r = (Relation) delegator.getOsmElement(Relation.NAME, 6490362L);
