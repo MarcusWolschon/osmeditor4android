@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -193,7 +194,11 @@ public class BasicStuffTest {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("closedways.osm");
             logic.readOsmFile(main, is, false, new SignalHandler(signal));
-            TestUtils.sleep(ApiTest.TIMEOUT);
+            try {
+                signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            } catch (InterruptedException e) { // NOSONAR
+                Assert.fail(e.getMessage());
+            }
             StorageDelegator delegator = App.getDelegator();
             // 2 node closed way, 1 node will silently get deleted when parsing
             Way way0 = (Way) delegator.getOsmElement(Way.NAME, 1547L);
@@ -221,7 +226,11 @@ public class BasicStuffTest {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("closedways.osm");
             logic.readOsmFile(main, is, false, new SignalHandler(signal));
-            TestUtils.sleep(ApiTest.TIMEOUT);
+            try {
+                signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            } catch (InterruptedException e) { // NOSONAR
+                Assert.fail(e.getMessage());
+            }
             StorageDelegator delegator = App.getDelegator();
             // 2 node closed way, 1 node will silently get deleted when parsing
             Way way0 = (Way) delegator.getOsmElement(Way.NAME, 1544L);
@@ -274,7 +283,11 @@ public class BasicStuffTest {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream is = loader.getResourceAsStream("relationloop.osm");
             logic.readOsmFile(main, is, false, new SignalHandler(signal));
-            TestUtils.sleep(ApiTest.TIMEOUT);
+            try {
+                signal.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            } catch (InterruptedException e) { // NOSONAR
+                Assert.fail(e.getMessage());
+            }
             StorageDelegator delegator = App.getDelegator();
             //
             Relation r = (Relation) delegator.getOsmElement(Relation.NAME, 6490362L);
