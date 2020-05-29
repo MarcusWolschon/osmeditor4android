@@ -238,13 +238,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
             Object o = parent.getItemAtPosition(position);
             if (o instanceof Names.NameAndTags) {
                 ourValueView.setOrReplaceText(((NameAndTags) o).getName());
-                caller.tagListener.applyTagSuggestions(((NameAndTags) o).getTags(), new Runnable() {
-                    @Override
-                    public void run() {
-                        caller.update();
-                    }
-
-                });
+                caller.tagListener.applyTagSuggestions(((NameAndTags) o).getTags(), caller::update);
                 caller.update();
                 return;
             } else if (o instanceof ValueWithCount) {
