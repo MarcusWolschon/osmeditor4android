@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,11 +17,11 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -67,13 +66,6 @@ public class ReadSaveData {
     }
 
     /**
-     * Post-test teardown
-     */
-    @After
-    public void teardown() {
-    }
-
-    /**
      * Read a file in OSM/JOSM XML format, then write it and check if the contents are the same
      */
     @Test
@@ -86,20 +78,21 @@ public class ReadSaveData {
         Assert.assertNotNull(is);
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
         try {
             is.close();
         } catch (IOException e1) {
+            // Ignored
         }
 
         final CountDownLatch signal2 = new CountDownLatch(1);
         logic.writeOsmFile(main, TEST_OSM, new SignalHandler(signal2));
         try {
-            signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+            signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
 
@@ -116,7 +109,7 @@ public class ReadSaveData {
     /**
      * Read a file in OSM/JOSM XML format, then write it and check if the contents are the same
      */
-    @SdkSuppress(minSdkVersion=26)
+    @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dataReadModifySave() {
         final CountDownLatch signal1 = new CountDownLatch(1);
@@ -128,13 +121,14 @@ public class ReadSaveData {
         Assert.assertNotNull(is);
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
         try {
             is.close();
         } catch (IOException e1) {
+            // Ignored
         }
 
         // modify, for now just deletions
@@ -157,8 +151,8 @@ public class ReadSaveData {
         final CountDownLatch signal2 = new CountDownLatch(1);
         logic.writeOsmFile(main, TEST_MODIFY_OSM, new SignalHandler(signal2));
         try {
-            signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+            signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
 
@@ -167,13 +161,14 @@ public class ReadSaveData {
             is = new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSM));
             Assert.assertNotNull(is);
             logic.readOsmFile(main, is, false, new SignalHandler(signal1));
-            try {
-                signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
+            try { // NOSONAR
+                signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            } catch (InterruptedException e) { // NOSONAR
                 Assert.fail(e.getMessage());
             }
             is.close();
         } catch (IOException e1) {
+            // Ignored
         }
         // check that modifications are present
         Assert.assertNull(delegator.getCurrentStorage().getNode(2522882577L));
@@ -197,13 +192,13 @@ public class ReadSaveData {
         if (correctContent.length == testContent.length - offset) { // this will fail if more than the build changes
             for (int i = 77 + offset; i < correctContent.length + offset; i++) {
                 if (correctContent[i - offset] != testContent[i]) {
-                    System.out.println("Files differ at position " + i + " offset " + offset);
+                    System.out.println("Files differ at position " + i + " offset " + offset); // NOSONAR
                     return false;
                 }
             }
             return true;
         }
-        System.out.println("Files lengths differ by " + (correctContent.length - (testContent.length - offset)));
+        System.out.println("Files lengths differ by " + (correctContent.length - (testContent.length - offset))); // NOSONAR
         return false;
     }
 
@@ -220,13 +215,14 @@ public class ReadSaveData {
         Assert.assertNotNull(is);
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
         try {
             is.close();
         } catch (IOException e1) {
+            // Ignored
         }
         Assert.assertEquals(57, App.getDelegator().getCurrentStorage().getNodes().size());
         Assert.assertEquals(1, App.getDelegator().getBoundingBoxes().size());

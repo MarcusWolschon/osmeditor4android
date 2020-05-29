@@ -15,10 +15,10 @@ import org.junit.runner.RunWith;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -75,13 +75,14 @@ public class ApplyOSCTest {
         InputStream is = loader.getResourceAsStream("osctest1.osm");
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+        } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
         try {
             is.close();
         } catch (IOException e1) {
+            // Ignored
         }
     }
 
@@ -163,10 +164,7 @@ public class ApplyOSCTest {
         TestUtils.unlock(device);
         Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
         TestUtils.clickText(device, false, "OK", true, false);
-        try {
-            Thread.sleep(5000); // NOSONAR
-        } catch (InterruptedException e) {
-        }
+        TestUtils.sleep(5000);
         checkInitialState(delegator);
     }
 
@@ -192,7 +190,7 @@ public class ApplyOSCTest {
         Node n = (Node) delegator.getOsmElement(Node.NAME, 416426220L);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
-        System.out.println("Lat " + n.getLat());
+        System.out.println("Lat " + n.getLat()); // NOSONAR
         Assert.assertEquals(47.3898033D, n.getLat() / 1E7D, 0.00000001);
         Assert.assertEquals(8.3888382D, n.getLon() / 1E7D, 0.00000001);
 

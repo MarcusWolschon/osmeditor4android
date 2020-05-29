@@ -962,7 +962,7 @@ public class GeometryEditsTest {
             delegator.moveNode(node, oldLat + (int) (10 * 1E7), oldLon + (int) (5 * 1E7));
             assertEquals(oldLat + (int) (10 * 1E7), node.getLat());
             assertEquals(oldLon + (int) (5 * 1E7), node.getLon());
-            try {
+            try { // NOSONAR
                 delegator.moveNode(node, (int) (90 * 1E7), (int) (5 * 1E7));
                 fail("should have got an exception here");
             } catch (OsmIllegalOperationException ex) {

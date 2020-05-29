@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 import org.junit.After;
@@ -77,7 +78,7 @@ public class IndoorFilterTest {
      */
     @Test
     public void indoorFilterNode() {
-        TreeMap<String, String> tags = new TreeMap<String, String>();
+        TreeMap<String, String> tags = new TreeMap<>();
         tags.put(Tags.KEY_LEVEL, "" + 1);
         tags.put(Tags.KEY_REPEAT_ON, "" + 11);
         Logic logic = App.getLogic();
@@ -99,7 +100,7 @@ public class IndoorFilterTest {
         f.clear();
         f.setLevel(11);
         Assert.assertTrue(f.include(n, false));
-        ArrayList<OsmElement> members = new ArrayList<OsmElement>();
+        List<OsmElement> members = new ArrayList<>();
         members.add(n);
         Relation r = logic.createRelation(main, "", members);
         f.clear();
@@ -117,7 +118,7 @@ public class IndoorFilterTest {
      */
     @Test
     public void indoorFilterNodeInverted() {
-        TreeMap<String, String> tags = new TreeMap<String, String>();
+        TreeMap<String, String> tags = new TreeMap<>();
         tags.put(Tags.KEY_ENTRANCE, "yes");
         Logic logic = App.getLogic();
         Node n = logic.performAddNode(main, 1.0D, 1.0D);
@@ -135,7 +136,7 @@ public class IndoorFilterTest {
     @Test
     public void indoorFilterWay() {
         try {
-            TreeMap<String, String> tags = new TreeMap<String, String>();
+            TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_LEVEL, "" + 1);
             tags.put(Tags.KEY_REPEAT_ON, "" + 11);
             Logic logic = App.getLogic();
@@ -159,7 +160,7 @@ public class IndoorFilterTest {
             f.clear();
             f.setLevel(11);
             Assert.assertTrue(f.include(w, false));
-            ArrayList<OsmElement> members = new ArrayList<OsmElement>();
+            List<OsmElement> members = new ArrayList<>();
             members.add(w);
             Relation r = logic.createRelation(main, "", members);
             f.clear();
@@ -184,7 +185,7 @@ public class IndoorFilterTest {
     @Test
     public void indoorFilterWayInverted() {
         try {
-            TreeMap<String, String> tags = new TreeMap<String, String>();
+            TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_ENTRANCE, "yes");
             Logic logic = App.getLogic();
             logic.performAdd(main, 100.0f, 100.0f);
@@ -215,7 +216,7 @@ public class IndoorFilterTest {
     @Test
     public void indoorFilterRelation() {
         try {
-            TreeMap<String, String> tags = new TreeMap<String, String>();
+            TreeMap<String, String> tags = new TreeMap<>();
             Logic logic = App.getLogic();
 
             logic.performAdd(main, 100.0f, 100.0f);
@@ -232,7 +233,7 @@ public class IndoorFilterTest {
             w2.addTags(tags);
 
             IndoorFilter f = new IndoorFilter();
-            ArrayList<OsmElement> members = new ArrayList<OsmElement>();
+            List<OsmElement> members = new ArrayList<>();
             members.add(w);
             members.add(w2);
             Relation r = logic.createRelation(main, "", members);
