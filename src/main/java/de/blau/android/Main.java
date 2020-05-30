@@ -1997,25 +1997,23 @@ public class Main extends FullScreenAppCompatActivity
             }
             return true;
         case R.id.menu_gps_upload:
-            if (server != null) {
-                descheduleAutoLock();
-                PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+            descheduleAutoLock();
+            PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
 
-                    private static final long serialVersionUID = 1L;
+                private static final long serialVersionUID = 1L;
 
-                    @Override
-                    public void onSuccess() {
-                        GpxUpload.showDialog(Main.this);
-                    }
-
-                    @Override
-                    public void onError() {
-                        // Ignore
-                    }
-                };
-                if (Server.checkOsmAuthentication(this, server, restartAction)) {
-                    GpxUpload.showDialog(this);
+                @Override
+                public void onSuccess() {
+                    GpxUpload.showDialog(Main.this);
                 }
+
+                @Override
+                public void onError() {
+                    // Ignore
+                }
+            };
+            if (Server.checkOsmAuthentication(this, server, restartAction)) {
+                GpxUpload.showDialog(this);
             }
             return true;
         case R.id.menu_gps_export:
@@ -2206,9 +2204,8 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_transfer_bugs_clear:
-            if (App.getTaskStorage().hasChanges()) { // FIXME show a dialog and
-                                                     // allow override
-                Snack.barError(this, R.string.toast_unsaved_changes, R.string.clear_anyway, (v) -> {
+            if (App.getTaskStorage().hasChanges()) {
+                Snack.barError(this, R.string.toast_unsaved_changes, R.string.clear_anyway, v -> {
                     App.getTaskStorage().reset();
                     map.invalidate();
                 });
@@ -2386,7 +2383,6 @@ public class Main extends FullScreenAppCompatActivity
             Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
         }
         return false;
-
     }
 
     /**
@@ -2576,7 +2572,6 @@ public class Main extends FullScreenAppCompatActivity
      * @param follow if true center on current location
      */
     public synchronized void setFollowGPS(boolean follow) {
-        // Log.d(DEBUG_TAG,"setFollowGPS from " + followGPS + " to " + follow);
         if (followGPS != follow) {
             followGPS = follow;
             if (follow) {
@@ -2757,7 +2752,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param data An Intent, which can return result data to the caller (various data can be attached to Intent
      *            "extras").
      */
-    private void handlePropertyEditorResult(final Intent data) {
+    private void handlePropertyEditorResult(@NonNull final Intent data) {
         final Logic logic = App.getLogic();
         Bundle b = data.getExtras();
         if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
@@ -2894,12 +2889,12 @@ public class Main extends FullScreenAppCompatActivity
      * @param tags OSM GPX API tags
      * @param visibility OSM GPX API visibility value
      */
-    public void performTrackUpload(final String description, final String tags, final Visibility visibility) {
+    public void performTrackUpload(@NonNull final String description, @NonNull final String tags, final Visibility visibility) {
 
         final Logic logic = App.getLogic();
         final Server server = prefs.getServer();
 
-        if (server != null && server.isLoginSet()) {
+        if (server.isLoginSet()) {
             logic.uploadTrack(this, getTracker().getTrack(), description, tags, visibility);
             logic.checkForMail(this, server);
         } else {
@@ -3222,7 +3217,7 @@ public class Main extends FullScreenAppCompatActivity
 
     public class UndoListener implements OnClickListener, OnLongClickListener {
 
-        private final String DEBUG_TAG = UndoListener.class.getName();
+        private static final String DEBUG_TAG = "UndoListener";
 
         @Override
         public void onClick(View view) {
@@ -3295,29 +3290,46 @@ public class Main extends FullScreenAppCompatActivity
      * A TouchListener for all gestures made on the touchscreen.
      * 
      * @author mb
+     * @author simon
      */
     private class MapTouchListener
             implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
 
-        class ClickedObject {
-            final ClickableInterface layer;
-            final Object             object;
+        class ClickedObject<V> {
+            private final ClickableInterface<V> layer;
+            private final V                     object;
 
             /**
-             * Consrtuct a new container for objects that were clicked on a layer
+             * Construct a new container for objects that were clicked on a layer
              * 
              * @param layer the layer the object is on
              * @param object the object
              */
-            ClickedObject(@NonNull ClickableInterface layer, @NonNull Object object) {
+            ClickedObject(@NonNull ClickableInterface<V> layer, @NonNull V object) {
                 this.layer = layer;
                 this.object = object;
+            }
+
+            /**
+             * Do something when this is selected
+             */
+            void onSelected() {
+                layer.onSelected(Main.this, object);
+            }
+
+            /**
+             * Get a description of the object
+             *
+             * @return the description
+             */
+            String getDescription() {
+                return layer.getDescription(object);
             }
         }
 
         private List<OsmElement> clickedNodesAndWays;
 
-        private List<ClickedObject> clickedObjects = new ArrayList<>();
+        private List<ClickedObject<?>> clickedObjects = new ArrayList<>();
 
         private boolean doubleTap = false;
 
@@ -3373,14 +3385,13 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 switch (clickedObjects.size()) {
                 case 0:
-                    if (!isInEditZoomRange && !logic.isLocked()) {
+                    if (!logic.isLocked()) {
                         Snack.barInfoShort(v, R.string.toast_not_in_edit_range);
                     }
                     break;
                 case 1:
                     descheduleAutoLock();
-                    ClickedObject co = clickedObjects.get(0);
-                    co.layer.onSelected(Main.this, co.object);
+                    clickedObjects.get(0).onSelected();
                     break;
                 default:
                     v.showContextMenu();
@@ -3409,8 +3420,7 @@ public class Main extends FullScreenAppCompatActivity
                 int itemCount = elementCount + clickedObjectsCount;
                 if (itemCount == 1) {
                     if (clickedObjectsCount == 1) {
-                        ClickedObject co = clickedObjects.get(0);
-                        co.layer.onSelected(Main.this, co.object);
+                        clickedObjects.get(0).onSelected();
                     } else if (elementCount == 1) {
                         ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                     }
@@ -3442,12 +3452,12 @@ public class Main extends FullScreenAppCompatActivity
          * @param x screen x coordinate of click position
          * @param y screen y coordinate of click position
          */
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         private void getClickedObjects(final float x, final float y) {
             ViewBox viewBox = map.getViewBox();
             for (MapViewLayer layer : map.getLayers()) {
                 if (layer instanceof ClickableInterface && layer.isVisible()) {
-                    List<?> objects = ((ClickableInterface) layer).getClicked(x, y, viewBox);
-                    for (Object o : objects) {
+                    for (Object o : ((ClickableInterface<?>) layer).getClicked(x, y, viewBox)) {
                         clickedObjects.add(new ClickedObject((ClickableInterface) layer, o));
                     }
                 }
@@ -3523,8 +3533,7 @@ public class Main extends FullScreenAppCompatActivity
                     // exactly one element touched
                     if (clickedObjects.size() == 1) {
                         descheduleAutoLock();
-                        ClickedObject co = clickedObjects.get(0);
-                        co.layer.onSelected(Main.this, co.object);
+                        clickedObjects.get(0).onSelected();
                     } else if (clickedNodesAndWays.size() == 1) {
                         if (inEasyEditMode) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
@@ -3589,11 +3598,10 @@ public class Main extends FullScreenAppCompatActivity
         public void onCreateDefaultContextMenu(final ContextMenu menu) {
             int id = 0;
             if (!clickedObjects.isEmpty()) {
-                for (final ClickedObject co : clickedObjects) {
-                    final ClickableInterface layer = co.layer;
-                    menu.add(Menu.NONE, id++, Menu.NONE, layer.getDescription(co.object)).setOnMenuItemClickListener(item -> {
+                for (final ClickedObject<?> co : clickedObjects) {
+                    menu.add(Menu.NONE, id++, Menu.NONE, co.getDescription()).setOnMenuItemClickListener(item -> {
                         descheduleAutoLock();
-                        layer.onSelected(Main.this, co.object);
+                        co.onSelected();
                         return true;
                     });
                 }
@@ -4226,7 +4234,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Lock screen if we are in a mode in which that can reasonably be done
      */
-    private Runnable autoLock = new Runnable() { // NOSONAR 
+    private Runnable autoLock = new Runnable() { // NOSONAR
         @Override
         public void run() {
             if (!App.getLogic().isLocked()) {

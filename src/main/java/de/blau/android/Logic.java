@@ -3943,7 +3943,7 @@ public class Logic {
      * @param tags the tags to apply to the GPS track (comma delimeted)
      * @param visibility the track visibility, one of the following: private, public, trackable, identifiable
      */
-    public void uploadTrack(@NonNull final FragmentActivity activity, @NonNull final Track track, final String description, final String tags,
+    public void uploadTrack(@NonNull final FragmentActivity activity, @NonNull final Track track, @NonNull final String description, @NonNull final String tags,
             final Visibility visibility) {
         final Server server = prefs.getServer();
         new AsyncTask<Void, Void, Integer>() {

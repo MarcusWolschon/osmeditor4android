@@ -17,7 +17,7 @@ public interface ClickableInterface<V> {
      * @param viewBox current ViewBox
      * @return a List of the objects
      */
-    List<?> getClicked(float x, float y, @NonNull ViewBox viewBox);
+    List<V> getClicked(float x, float y, @NonNull ViewBox viewBox);
 
     /**
      * Do whatever should be done on the object if it is selected
