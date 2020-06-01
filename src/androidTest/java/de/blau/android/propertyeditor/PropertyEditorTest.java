@@ -2,8 +2,10 @@ package de.blau.android.propertyeditor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -160,7 +162,7 @@ public class PropertyEditorTest {
     }
 
     /**
-     * Add a tag to a new node
+     * Add a tag and relation membership to a new node
      */
     @Test
     public void newNode() {
@@ -169,6 +171,12 @@ public class PropertyEditorTest {
         logic.setZoom(map, 20);
         float tolerance = DataStyle.getCurrent().getWayToleranceValue();
         System.out.println("Tolerance " + tolerance);
+
+        // create a relation for testing
+        Relation r = logic.createRelation(main, Tags.VALUE_ROUTE, new ArrayList<>());
+        java.util.Map<String, String> tags = new TreeMap<>(r.getTags());
+        tags.put(Tags.KEY_NAME, "test");
+        logic.setTags(main, r, tags);
 
         logic.setSelectedWay(null);
         logic.setSelectedNode(null);
@@ -199,8 +207,18 @@ public class PropertyEditorTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
+
+        Assert.assertTrue(TestUtils.clickText(device, true, main.getString(R.string.relations), false, false));
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Add to relation", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "test", true));
+
         TestUtils.clickHome(device, true);
         Assert.assertTrue(n.hasTag("key", "value"));
+        List<Relation> parents = n.getParentRelations();
+        Assert.assertNotNull(parents);
+        Assert.assertEquals(1, parents.size());
+        Assert.assertEquals(r, parents.get(0));
     }
 
     /**
