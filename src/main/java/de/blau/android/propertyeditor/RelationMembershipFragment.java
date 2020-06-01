@@ -228,8 +228,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * @param showSpinner show the role spinner on insert
      * @return the new RelationMembershipRow
      */
-    private RelationMembershipRow insertNewMembership(LinearLayout membershipVerticalLayout, final String role, final Relation r, @NonNull String elementType,
-            int memberPos, final int position, boolean showSpinner) {
+    private RelationMembershipRow insertNewMembership(@NonNull LinearLayout membershipVerticalLayout, final String role, @Nullable final Relation r,
+            @NonNull String elementType, int memberPos, final int position, boolean showSpinner) {
         RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
 
         if (r != null) {
@@ -265,14 +265,14 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          * @param ctx an Android Context
          * @param relation the Relation
          */
-        RelationHolder(@NonNull Context ctx, @NonNull Relation relation) {
+        RelationHolder(@NonNull Context ctx, @Nullable Relation relation) {
             this.ctx = ctx;
             this.relation = relation;
         }
 
         @Override
         public String toString() {
-            return relation.getDescription(ctx);
+            return relation == null ? "" : relation.getDescription(ctx);
         }
     }
 
@@ -281,8 +281,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      */
     public static class RelationMembershipRow extends LinearLayout implements SelectedRowsActionModeCallback.Row {
 
+        private static final int     UNSET          = -1;    // relations never get id -1
         private PropertyEditor       owner;
-        private long                 relationId     = -1;   // flag value for new relation memberships
+        private long                 relationId     = UNSET; // flag value for new relation memberships
         private CheckBox             selected;
         private AutoCompleteTextView roleEdit;
         private Spinner              parentEdit;
@@ -435,8 +436,10 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         ArrayAdapter<RelationHolder> getRelationSpinnerAdapter() {
             //
             List<RelationHolder> result = new ArrayList<>();
+            final Context context = getContext();
+            result.add(new RelationHolder(context, null));
             for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
-                result.add(new RelationHolder(getContext(), r));
+                result.add(new RelationHolder(context, r));
             }
             return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
         }
@@ -450,10 +453,10 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          * @param position the position in the list of members
          * @return the RelationMembershipRow object for convenience
          */
-        public RelationMembershipRow setValues(String role, Relation r, String elementType, int position) {
+        public RelationMembershipRow setValues(@NonNull String role, @NonNull Relation r, @NonNull String elementType, int position) {
             relationId = r.getOsmId();
             roleEdit.setText(role);
-            parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r));
+            parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r) + 1);
             this.elementType = elementType;
             this.position = position;
             return this;
@@ -465,11 +468,15 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          * @param r the Relation to set for this row
          * @return the RelationMembershipRow object for convenience
          */
-        public RelationMembershipRow setRelation(Relation r) {
-            relationId = r.getOsmId();
-            parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r));
-            position = r.getMembers().size(); // last position
-            Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
+        public RelationMembershipRow setRelation(@Nullable Relation r) {
+            if (r != null) {
+                relationId = r.getOsmId();
+                parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r) + 1);
+                position = r.getMembers().size(); // last position
+                Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
+            } else {
+                relationId = UNSET;
+            }
             relationPreset = null; // zap to force it to be re-calculated
             roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter()); // update
             return this;
@@ -627,32 +634,34 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     /**
      * Collect all interesting values from the parent relation view value
      * 
-     * @return a MultiHashMap¬&lt;Long,RelationMemberDescription&gt; of relation and role with position in that relation,
-     *         pairs.
+     * @return a MultiHashMap¬&lt;Long,RelationMemberDescription&gt; of relation and role with position in that
+     *         relation, pairs.
      */
     MultiHashMap<Long, RelationMemberPosition> getParentRelationMap() {
         final MultiHashMap<Long, RelationMemberPosition> parents = new MultiHashMap<>(false, true);
         processParentRelations(new ParentRelationHandler() {
             @Override
             public void handleParentRelation(final RelationMembershipRow row) {
-                String role = row.roleEdit.getText().toString().trim();
-                RelationMemberPosition rmp = new RelationMemberPosition(
-                        new RelationMember(row.elementType, propertyEditorListener.getElement().getOsmId(), role), row.position);
-                parents.add(row.relationId, rmp);
-                Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, row.relationId);
-                if (r == null) {
-                    Log.e(DEBUG_TAG, "Inconsistent state: parent relation " + row.relationId + " not in storage");
-                    return;
-                }
-                RelationMember rm = r.getMember(propertyEditorListener.getElement());
-                PresetItem presetItem = row.getRelationPreset();
-                if (rm != null) { // can't really happen
-                    if (!"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
-                        // only add if the role actually differs
-                        if (presetItem != null) {
-                            App.getMruTags().putRole(presetItem, role);
-                        } else {
-                            App.getMruTags().putRole(role);
+                if (row.relationId != -1) {
+                    String role = row.roleEdit.getText().toString().trim();
+                    RelationMemberPosition rmp = new RelationMemberPosition(
+                            new RelationMember(row.elementType, propertyEditorListener.getElement().getOsmId(), role), row.position);
+                    parents.add(row.relationId, rmp);
+                    Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, row.relationId);
+                    if (r == null) {
+                        Log.e(DEBUG_TAG, "Inconsistent state: parent relation " + row.relationId + " not in storage");
+                        return;
+                    }
+                    RelationMember rm = r.getMember(propertyEditorListener.getElement());
+                    PresetItem presetItem = row.getRelationPreset();
+                    if (rm != null) { // can't really happen
+                        if (!"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
+                            // only add if the role actually differs
+                            if (presetItem != null) {
+                                App.getMruTags().putRole(presetItem, role);
+                            } else {
+                                App.getMruTags().putRole(role);
+                            }
                         }
                     }
                 }
@@ -666,8 +675,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         Relation relation = ((RelationHolder) parent.getItemAtPosition(pos)).relation;
-        Log.d(DEBUG_TAG, relation.getDescription());
         if (view != null) {
+            Log.d(DEBUG_TAG, relation != null ? relation.getDescription() : "no selection");
             ViewParent pv = view.getParent();
             while (!(pv instanceof RelationMembershipRow)) {
                 pv = pv.getParent();
