@@ -1631,17 +1631,10 @@ public class Preset implements Serializable {
     /** Saves the current MRU data to a file */
     public void saveMRU() {
         if (mru != null && mru.isChanged()) {
-            ObjectOutputStream out = null;
-            FileOutputStream fout = null;
-            try {
-                fout = new FileOutputStream(new File(directory, MRUFILE));
-                out = new ObjectOutputStream(fout);
+            try (FileOutputStream fout = new FileOutputStream(new File(directory, MRUFILE)); ObjectOutputStream out = new ObjectOutputStream(fout)) {
                 out.writeObject(mru);
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "MRU saving failed", e);
-            } finally {
-                SavingHelper.close(out);
-                SavingHelper.close(fout);
             }
         }
     }
@@ -2437,9 +2430,7 @@ public class Preset implements Serializable {
             v.setTypeface(null, Typeface.BOLD);
             if (handler != null) {
                 v.setOnClickListener(view -> handler.onGroupClick(PresetGroup.this));
-                v.setOnLongClickListener(view -> {
-                    return handler.onGroupLongClick(PresetGroup.this);
-                });
+                v.setOnLongClickListener(view -> handler.onGroupLongClick(PresetGroup.this));
             }
             v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_200 : R.color.dark_grey));
             v.setTag("G" + this.getGroupIndex());
@@ -2557,9 +2548,7 @@ public class Preset implements Serializable {
          */
         private <T extends PresetElement> void sortAndAddElements(@NonNull List<PresetElement> target, @NonNull List<T> temp) {
             if (!temp.isEmpty()) {
-                Collections.sort(temp, (pe1, pe2) -> {
-                    return pe1.getTranslatedName().compareTo(pe2.getTranslatedName());
-                });
+                Collections.sort(temp, (pe1, pe2) -> pe1.getTranslatedName().compareTo(pe2.getTranslatedName()));
                 target.addAll(temp);
                 temp.clear();
             }
@@ -3695,9 +3684,7 @@ public class Preset implements Serializable {
             View v = super.getBaseView(ctx, selected);
             if (handler != null) {
                 v.setOnClickListener(view -> handler.onItemClick(PresetItem.this));
-                v.setOnLongClickListener(view -> {
-                    return handler.onItemLongClick(PresetItem.this);
-                });
+                v.setOnLongClickListener(view -> handler.onItemLongClick(PresetItem.this));
             }
             v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
             v.setTag(Integer.toString(this.getItemIndex()));
@@ -4279,16 +4266,11 @@ public class Preset implements Serializable {
      * @param filename the filename to save to
      * @return true if things worked
      */
-    public static boolean generateTaginfoJson(Context ctx, String filename) {
+    public static boolean generateTaginfoJson(@NonNull Context ctx, @NonNull String filename) {
         Preset[] presets = App.getCurrentPresets(ctx);
 
-        PrintStream outputStream = null;
-        FileOutputStream fout = null;
-        try {
-            File outfile = new File(FileUtil.getPublicDirectory(), filename);
-            fout = new FileOutputStream(outfile);
-            outputStream = new PrintStream(new BufferedOutputStream(fout));
-
+        try (FileOutputStream fout = new FileOutputStream(new File(FileUtil.getPublicDirectory(), filename));
+                PrintStream outputStream = new PrintStream(new BufferedOutputStream(fout));) {
             outputStream.println("{");
             outputStream.println("\"data_format\":1,");
             outputStream.println("\"data_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/taginfo.json\",");
@@ -4317,9 +4299,6 @@ public class Preset implements Serializable {
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Export failed - " + filename + " exception " + e);
             return false;
-        } finally {
-            SavingHelper.close(outputStream);
-            SavingHelper.close(fout);
         }
         return true;
     }
