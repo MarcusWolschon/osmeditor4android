@@ -346,10 +346,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
                     @Override
                     public void run() {
-                        App.getLogic().download(context, prefs.getServer(), b, postMerge, new PostAsyncActionHandler() {
+                        final Logic logic = App.getLogic();
+                        logic.download(context, prefs.getServer(), b, postMerge, new PostAsyncActionHandler() {
 
                             @Override
                             public void onSuccess() {
+                                logic.reselectRelationMembers();
                                 map.postInvalidate();
                             }
 

@@ -4902,6 +4902,24 @@ public class Logic {
     }
 
     /**
+     * If currently Relations are selected we may need to update the member highlighting
+     */
+    public synchronized void reselectRelationMembers() {
+        List<Relation> selected = getSelectedRelations();
+        if (selected != null && !selected.isEmpty()) {
+            if (selectedRelationNodes != null) {
+                selectedRelationNodes.clear();
+            }
+            if (selectedRelationWays != null) {
+                selectedRelationWays.clear();
+            }
+            for (Relation r : selected) {
+                setSelectedRelationMembers(r);
+            }
+        }
+    }
+
+    /**
      * De-select all OsmElements
      * 
      * Note: does not de-select a selected Task

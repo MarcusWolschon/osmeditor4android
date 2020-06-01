@@ -39,7 +39,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.gpx.Track;
@@ -861,7 +863,19 @@ public class TrackerService extends Service implements Exportable {
                                                             // once download is
                                                             // complete
                         Log.d(DEBUG_TAG, "getNextCenter loading " + b.toString());
-                        App.getLogic().autoDownloadBox(this, prefs.getServer(), validator, b, null);
+                        final Logic logic = App.getLogic();
+                        logic.autoDownloadBox(this, prefs.getServer(), validator, b, new PostAsyncActionHandler() {
+
+                            @Override
+                            public void onSuccess() {
+                                logic.reselectRelationMembers();
+                            }
+
+                            @Override
+                            public void onError() {
+                                // Ignore
+                            }                           
+                        });
                     }
                 }
                 previousLocation = location;
