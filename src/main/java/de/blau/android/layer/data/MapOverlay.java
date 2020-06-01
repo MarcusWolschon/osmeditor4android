@@ -342,38 +342,27 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     continue;
                 }
                 delegator.addBoundingBox(b);
-                mThreadPool.execute(new Runnable() {
+                mThreadPool.execute(() -> {
+                    final Logic logic = App.getLogic();
+                    logic.download(context, prefs.getServer(), b, postMerge, new PostAsyncActionHandler() {
 
-                    @Override
-                    public void run() {
-                        final Logic logic = App.getLogic();
-                        logic.download(context, prefs.getServer(), b, postMerge, new PostAsyncActionHandler() {
+                        @Override
+                        public void onSuccess() {
+                            logic.reselectRelationMembers();
+                            map.postInvalidate();
+                        }
 
-                            @Override
-                            public void onSuccess() {
-                                logic.reselectRelationMembers();
-                                map.postInvalidate();
-                            }
+                        @Override
+                        public void onError() {
+                            // do nothing
+                        }
 
-                            @Override
-                            public void onError() {
-                                // do nothing
-                            }
-
-                        }, true, true);
-                    }
+                    }, true, true);
                 });
             }
             if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit
                     && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVALL * 1000) {
-                mThreadPool.execute(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        prune();
-                    }
-
-                });
+                mThreadPool.execute(() -> prune());
                 lastAutoPrune = System.currentTimeMillis();
             }
         }
@@ -577,34 +566,31 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     /**
      * For ordering according to layer value and draw lines on top of areas in the same layer
      */
-    private Comparator<Way> layerComparator = new Comparator<Way>() {
-        @Override
-        public int compare(Way w1, Way w2) {
-            int layer1 = 0;
-            int layer2 = 0;
-            String layer1Str = w1.getTagWithKey(Tags.KEY_LAYER);
-            if (layer1Str != null) {
-                try {
-                    layer1 = Integer.parseInt(layer1Str);
-                } catch (NumberFormatException e) {
-                    // FIXME should validate here
-                }
+    private Comparator<Way> layerComparator = (w1, w2) -> {
+        int layer1 = 0;
+        int layer2 = 0;
+        String layer1Str = w1.getTagWithKey(Tags.KEY_LAYER);
+        if (layer1Str != null) {
+            try {
+                layer1 = Integer.parseInt(layer1Str);
+            } catch (NumberFormatException e) {
+                // FIXME should validate here
             }
-            String layer2Str = w2.getTagWithKey(Tags.KEY_LAYER);
-            if (layer2Str != null) {
-                try {
-                    layer2 = Integer.parseInt(layer2Str);
-                } catch (NumberFormatException e) {
-                    // FIXME should validate here
-                }
-            }
-            int result = layer2 == layer1 ? 0 : layer2 > layer1 ? -1 : +1;
-            if (result == 0) {
-                boolean w2closed = w2.isClosed();
-                return w1.isClosed() == w2closed ? 0 : w2closed ? 1 : -1;
-            }
-            return result;
         }
+        String layer2Str = w2.getTagWithKey(Tags.KEY_LAYER);
+        if (layer2Str != null) {
+            try {
+                layer2 = Integer.parseInt(layer2Str);
+            } catch (NumberFormatException e) {
+                // FIXME should validate here
+            }
+        }
+        int result = layer2 == layer1 ? 0 : layer2 > layer1 ? -1 : +1;
+        if (result == 0) {
+            boolean w2closed = w2.isClosed();
+            return w1.isClosed() == w2closed ? 0 : w2closed ? 1 : -1;
+        }
+        return result;
     };
 
     /**
