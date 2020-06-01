@@ -20,13 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -147,14 +144,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         loadParents(membershipVerticalLayout, parents, elementType);
 
         CheckBox headerCheckBox = (CheckBox) parentRelationsLayout.findViewById(R.id.header_membership_selected);
-        headerCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    selectAllRows();
-                } else {
-                    deselectAllRows();
-                }
+        headerCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                selectAllRows();
+            } else {
+                deselectAllRows();
             }
         });
 
@@ -240,15 +234,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
         row.roleEdit.addTextChangedListener(new SanitizeTextWatcher(getActivity(), maxStringLength));
 
-        row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked) {
-                    parentSelected();
-                } else {
-                    deselectRow();
-                }
+        row.selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                parentSelected();
+            } else {
+                deselectRow();
             }
         });
 
@@ -331,41 +321,30 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             parentEdit.setAdapter(a);
             parentEdit.setOnItemSelectedListener(owner.relationMembershipFragment);
 
-            roleEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter());
-                        if (/* running && */roleEdit.getText().length() == 0) {
-                            roleEdit.showDropDown();
-                        }
+            roleEdit.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter());
+                    if (/* running && */roleEdit.getText().length() == 0) {
+                        roleEdit.showDropDown();
                     }
                 }
             });
 
-            OnClickListener autocompleteOnClick = new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.hasFocus()) {
-                        ((AutoCompleteTextView) v).showDropDown();
-                    }
+            roleEdit.setOnClickListener(v -> {
+                if (v.hasFocus()) {
+                    ((AutoCompleteTextView) v).showDropDown();
                 }
-            };
+            });
 
-            roleEdit.setOnClickListener(autocompleteOnClick);
-
-            roleEdit.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d(DEBUG_TAG, "onItemClicked value");
-                    Object o = parent.getItemAtPosition(position);
-                    if (o instanceof StringWithDescription) {
-                        roleEdit.setText(((StringWithDescription) o).getValue());
-                    } else if (o instanceof String) {
-                        roleEdit.setText((String) o);
-                    } else if (o instanceof PresetRole) {
-                        roleEdit.setText(((PresetRole) o).getRole());
-                    }
+            roleEdit.setOnItemClickListener((parent, view, position, id) -> {
+                Log.d(DEBUG_TAG, "onItemClicked value");
+                Object o = parent.getItemAtPosition(position);
+                if (o instanceof StringWithDescription) {
+                    roleEdit.setText(((StringWithDescription) o).getValue());
+                } else if (o instanceof String) {
+                    roleEdit.setText((String) o);
+                } else if (o instanceof PresetRole) {
+                    roleEdit.setText(((PresetRole) o).getRole());
                 }
             });
         }
@@ -396,12 +375,12 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             PresetItem presetItem = getRelationPreset();
             if (presetItem != null) {
                 Map<String, Integer> counter = new HashMap<>();
-                int position = 0;
+                int pos = 0;
                 List<String> tempRoles = App.getMruTags().getRoles(presetItem);
                 if (tempRoles != null) {
                     for (String role : tempRoles) {
                         result.add(new PresetRole(role, null, elementType));
-                        counter.put(role, position++);
+                        counter.put(role, pos++);
                     }
                 }
                 List<PresetRole> tempPresetRoles = presetItem.getRoles(getContext(), owner.getElement(), owner.getKeyValueMapSingle(true));
@@ -639,29 +618,26 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      */
     MultiHashMap<Long, RelationMemberPosition> getParentRelationMap() {
         final MultiHashMap<Long, RelationMemberPosition> parents = new MultiHashMap<>(false, true);
-        processParentRelations(new ParentRelationHandler() {
-            @Override
-            public void handleParentRelation(final RelationMembershipRow row) {
-                if (row.relationId != -1) {
-                    String role = row.roleEdit.getText().toString().trim();
-                    RelationMemberPosition rmp = new RelationMemberPosition(
-                            new RelationMember(row.elementType, propertyEditorListener.getElement().getOsmId(), role), row.position);
-                    parents.add(row.relationId, rmp);
-                    Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, row.relationId);
-                    if (r == null) {
-                        Log.e(DEBUG_TAG, "Inconsistent state: parent relation " + row.relationId + " not in storage");
-                        return;
-                    }
-                    RelationMember rm = r.getMember(propertyEditorListener.getElement());
-                    PresetItem presetItem = row.getRelationPreset();
-                    if (rm != null) { // can't really happen
-                        if (!"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
-                            // only add if the role actually differs
-                            if (presetItem != null) {
-                                App.getMruTags().putRole(presetItem, role);
-                            } else {
-                                App.getMruTags().putRole(role);
-                            }
+        processParentRelations(row -> {
+            if (row.relationId != -1) {
+                String role = row.roleEdit.getText().toString().trim();
+                RelationMemberPosition rmp = new RelationMemberPosition(
+                        new RelationMember(row.elementType, propertyEditorListener.getElement().getOsmId(), role), row.position);
+                parents.add(row.relationId, rmp);
+                Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, row.relationId);
+                if (r == null) {
+                    Log.e(DEBUG_TAG, "Inconsistent state: parent relation " + row.relationId + " not in storage");
+                    return;
+                }
+                RelationMember rm = r.getMember(propertyEditorListener.getElement());
+                PresetItem presetItem = row.getRelationPreset();
+                if (rm != null) { // can't really happen
+                    if (!"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
+                        // only add if the role actually differs
+                        if (presetItem != null) {
+                            App.getMruTags().putRole(presetItem, role);
+                        } else {
+                            App.getMruTags().putRole(role);
                         }
                     }
                 }
