@@ -171,17 +171,17 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                         PresetCheckField check = (PresetCheckField) checkBox.getTag();
                         String checkKey = check.getKey();
                         if (state == null) {
-                            caller.tagListener.updateSingleValue(checkKey, "");
+                            caller.updateSingleValue(checkKey, "");
                             keyValues.put(checkKey, "");
                         } else if (!checkBox.isEnabled()) {
                             // unknown stuff
                             keyValues.put(checkKey, keyValues.get(checkKey));
                         } else if (state) { // NOSONAR state can't be null here
-                            caller.tagListener.updateSingleValue(checkKey, check.getOnValue().getValue());
+                            caller.updateSingleValue(checkKey, check.getOnValue().getValue());
                             keyValues.put(checkKey, check.getOnValue().getValue());
                         } else {
                             StringWithDescription offValue = check.getOffValue();
-                            caller.tagListener.updateSingleValue(checkKey, offValue == null ? "" : offValue.getValue());
+                            caller.updateSingleValue(checkKey, offValue == null ? "" : offValue.getValue());
                             keyValues.put(checkKey, offValue == null ? "" : offValue.getValue());
                         }
                         if (rowLayout instanceof EditableLayout) {
@@ -306,7 +306,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                     }
                 }
             }
-            caller.tagListener.updateTags(ourKeyValues, false); // batch update
+            caller.updateTags(ourKeyValues, false); // batch update
             row.setSelectedValues(ourKeyValues);
             row.setChanged(true);
         });

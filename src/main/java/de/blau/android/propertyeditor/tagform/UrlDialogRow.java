@@ -105,7 +105,7 @@ public class UrlDialogRow extends DialogRow {
 
         builder.setPositiveButton(R.string.save, (dialog, which) -> {
             String ourValue = input.getText().toString();
-            caller.tagListener.updateSingleValue((String) layout.getTag(), ourValue);
+            caller.updateSingleValue((String) layout.getTag(), ourValue);
             row.setValue(ourValue);
             row.setChanged(true);
         });

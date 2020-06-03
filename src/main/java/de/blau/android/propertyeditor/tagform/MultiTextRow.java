@@ -5,10 +5,13 @@ import java.util.List;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,10 +35,12 @@ import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
 import de.blau.android.propertyeditor.InputTypeUtil;
+import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
 import io.michaelrocks.libphonenumber.android.NumberParseException;
@@ -51,7 +56,7 @@ import io.michaelrocks.libphonenumber.android.Phonenumber.PhoneNumber;
  * @author simon
  *
  */
-public class MultiTextRow extends LinearLayout implements KeyValueRow {
+public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChanged {
 
     protected static final String DEBUG_TAG = "MultiTextRow";
 
@@ -63,12 +68,18 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
     protected LinearLayout        valueLayout;
     protected final Context       context;
     private Preferences           prefs;
-    private char                  delimiter = ';';
+    private char                  delimiter  = ';';
     private String                country;
     private LayoutInflater        inflater;
     private ArrayAdapter<?>       adapter;
     private ValueType             valueType;
     private OnFocusChangeListener listener;
+    private String                valueCountKey;
+    private int                   valueCount = 0;
+
+    private List<String> values;
+
+    private TagFormFragment caller;
 
     /**
      * Construct a row that will multiple values to be selected
@@ -126,7 +137,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
         for (int i = 0; i < valueLayout.getChildCount(); i++) {
             EditText editText = (EditText) valueLayout.getChildAt(i);
             String text = editText.getText().toString();
-            if (text != null && !"".equals(text)) {
+            if (text != null && (!"".equals(text) || valueCount > 0)) {
                 if (result.length() > 0) { // not the first entry
                     result.append(delimiter);
                 }
@@ -187,6 +198,11 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                     if (size == 1) { // delimiter must have been at the end
                         last = addEditText("", listener, valueType, adapter, pos + 1);
                     }
+                    if (valueCount > 0) {
+                        for (int i = size; i < valueCount; i++) {
+                            last = addEditText("", listener, valueType, adapter, -1);
+                        }
+                    }
                     last.requestFocus();
                 } else {
                     editText.setText("");
@@ -211,7 +227,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             int length = s.length();
             int index = valueLayout.indexOfChild(editText);
             int count = valueLayout.getChildCount();
-            if (wasEmpty == (length > 0) && (index == count - 1)) {
+            if (valueCount <= 0 && wasEmpty == (length > 0) && (index == count - 1)) {
                 addEditText("", listener, valueType, adapter, -1);
             }
             // format and split text if necessary
@@ -269,12 +285,10 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                 if (icon != null && event.getRawX() >= (screenPos[0] + editText.getRight() - icon.getBounds().width())) {
                     int index = valueLayout.indexOfChild(editText);
                     int count = valueLayout.getChildCount();
-                    if (count > 1 && index != (count - 1)) {
-                        valueLayout.removeView(editText);
-                    } else { // don't delete last one
-                        editText.removeTextChangedListener(textWatcher);
-                        editText.setText("");
-                        editText.addTextChangedListener(textWatcher);
+                    if (valueCount == 0) {
+                        removeValue(count > 1 && index != (count - 1), valueLayout, editText, textWatcher);
+                    } else {
+                        removeValue(count > valueCount, valueLayout, editText, textWatcher);
                     }
                     listener.onFocusChange(editText, false);
                     return true;
@@ -303,6 +317,24 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             valueLayout.addView(editText, position);
         }
         return editText;
+    }
+
+    /**
+     * Remove the EditTExt for a value
+     * 
+     * @param condition if true completely remove the value EditText, else just remove the content
+     * @param layout the layout holding the EditText
+     * @param editText the EditTExt
+     * @param textWatcher the TextWatcher
+     */
+    void removeValue(boolean condition, @NonNull LinearLayout layout, @NonNull EditText editText, @NonNull TextWatcher textWatcher) {
+        if (condition) {
+            valueLayout.removeView(editText);
+        } else { // don't delete last one
+            editText.removeTextChangedListener(textWatcher);
+            editText.setText("");
+            editText.addTextChangedListener(textWatcher);
+        }
     }
 
     /**
@@ -356,16 +388,21 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
      * @param key the key
      * @param values existing values for the tag
      * @param delimiter non-standard value delimiter (default is ;)
+     * @param valueCountKey the key holding the value count or null
+     * @param valueCountKey the value for valueCountKey or null
      * @param adapter an optional adapter for values
      * @return a TagMultiselectRow instance
      */
     static MultiTextRow getRow(@NonNull final TagFormFragment caller, @NonNull final LayoutInflater inflater, @NonNull final LinearLayout rowLayout,
             @NonNull final PresetItem preset, @Nullable final String hint, final String key, @Nullable final List<String> values, @Nullable String delimiter,
-            @Nullable final ArrayAdapter<?> adapter) {
+            @Nullable String valueCountKey, @Nullable String valueCountValue, @Nullable final ArrayAdapter<?> adapter) {
         final MultiTextRow row = (MultiTextRow) inflater.inflate(R.layout.tag_form_multitext_row, rowLayout, false);
         row.inflater = inflater;
         row.adapter = adapter;
         row.prefs = caller.prefs;
+        row.values = values;
+        row.caller = caller;
+
         PresetField field = preset.getField(key);
         if (field instanceof PresetComboField) {
             row.delimiter = preset.getDelimiter(key);
@@ -385,14 +422,42 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
             Log.d(DEBUG_TAG, "onFocusChange");
             String rowValue = row.getValue();
             if (!hasFocus && !rowValue.equals(finalValue)) {
-                caller.tagListener.updateSingleValue(key, rowValue);
+                caller.updateSingleValue(key, rowValue);
                 if (rowLayout instanceof EditableLayout) {
                     ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
             }
         };
+        row.valueCountKey = valueCountKey;
+        if (valueCountValue != null && !"".equals(valueCountValue)) {
+            try {
+                row.valueCount = Integer.parseInt(valueCountValue);
+            } catch (NumberFormatException nfex) {
+                Snack.toastTopError(caller.getContext(), caller.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
+            }
+        } else {
+            row.valueCount = 0;
+        }
+        addValues(caller, key, adapter, row, value, splitValues);
+
+        return row;
+    }
+
+    /**
+     * Add values to the MultiTextRow
+     * 
+     * @param caller the calling fragment
+     * @param key the key
+     * @param adapter the adapter holding the values
+     * @param row the MultiTestRow itself
+     * @param value the value
+     * @param splitValues a list of the split values
+     */
+    static void addValues(@NonNull final TagFormFragment caller, @NonNull final String key, @Nullable final ArrayAdapter<?> adapter,
+            @NonNull final MultiTextRow row, @Nullable String value, @Nullable List<String> splitValues) {
         if (splitValues != null && !"".equals(value)) {
             int phoneNumberReformatted = 0;
+            int count = 1;
             for (String v : splitValues) {
                 String orig = v;
                 if (row.valueType == ValueType.PHONE) {
@@ -401,16 +466,23 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                         phoneNumberReformatted++;
                     }
                 }
-                row.addEditText(v, row.listener, row.valueType, adapter, -1);
+                TextView tv = row.addEditText(v, row.listener, row.valueType, adapter, -1);
+                if (row.valueCount > 0 && row.valueCount < count) {
+                    SpannableString s = new SpannableString(tv.getText());
+                    s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(caller.getContext(), R.color.error_text, Color.RED)), 0, s.length(),
+                            0);
+                    tv.setText(s);
+                }
+                count++;
             }
             if (phoneNumberReformatted > 0) {
-                caller.tagListener.updateSingleValue(key, row.getValue());
-                rowLayout.post(() -> Snack.barWarning(rowLayout, R.string.toast_phone_number_reformatted, Snackbar.LENGTH_LONG));
+                caller.updateSingleValue(key, row.getValue());
+                row.post(() -> Snack.barWarning(row, R.string.toast_phone_number_reformatted, Snackbar.LENGTH_LONG));
             }
         }
-        row.addEditText("", row.listener, row.valueType, row.adapter, -1);
-
-        return row;
+        for (int i = (splitValues != null ? splitValues.size() : 0); i < (row.valueCount > 0 ? row.valueCount : 1); i++) {
+            row.addEditText("", row.listener, row.valueType, row.adapter, -1);
+        }
     }
 
     /**
@@ -430,6 +502,25 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow {
                 }
             }
             return false;
+        }
+    }
+
+    @Override
+    public void changed(String key, String value) {
+        if (key != null && key.equals(valueCountKey)) {
+            if (value != null && !"".equals(value)) {
+                try {
+                    valueCount = Integer.parseInt(value);
+                    valueLayout.removeAllViews();
+                    String v = values != null && !values.isEmpty() ? values.get(0) : null;
+                    List<String> splitValues = Preset.splitValues(values, delimiter);
+                    addValues(caller, key, adapter, this, v, splitValues);
+                } catch (NumberFormatException nfex) {
+                    Snack.toastTopError(context, context.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
+                }
+            } else {
+                valueCount = 0;
+            }
         }
     }
 }

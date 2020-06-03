@@ -216,7 +216,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
             Log.d(DEBUG_TAG, "onFocusChange");
             String rowValue = row.getValue();
             if (!hasFocus && !rowValue.equals(value)) {
-                caller.tagListener.updateSingleValue(key, rowValue);
+                caller.updateSingleValue(key, rowValue);
                 if (rowLayout instanceof EditableLayout) {
                     ((EditableLayout) rowLayout).putTag(key, rowValue);
                 }
@@ -238,7 +238,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
             Object o = parent.getItemAtPosition(position);
             if (o instanceof Names.NameAndTags) {
                 ourValueView.setOrReplaceText(((NameAndTags) o).getName());
-                caller.tagListener.applyTagSuggestions(((NameAndTags) o).getTags(), caller::update);
+                caller.applyTagSuggestions(((NameAndTags) o).getTags(), caller::update);
                 caller.update();
                 return;
             } else if (o instanceof ValueWithCount) {
@@ -248,7 +248,7 @@ public class TextRow extends LinearLayout implements KeyValueRow {
             } else if (o instanceof String) {
                 ourValueView.setOrReplaceText((String) o);
             }
-            caller.tagListener.updateSingleValue(key, row.getValue());
+            caller.updateSingleValue(key, row.getValue());
             if (rowLayout instanceof EditableLayout) {
                 ((EditableLayout) rowLayout).putTag(key, row.getValue());
             }

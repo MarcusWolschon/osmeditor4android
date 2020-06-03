@@ -160,7 +160,7 @@ public class MultiselectRow extends LinearLayout {
         if (adapter != null) {
             row.setDelimiter(preset.getDelimiter(key));
             CompoundButton.OnCheckedChangeListener onCheckedChangeListener = (buttonView, isChecked) -> {
-                caller.tagListener.updateSingleValue(key, row.getValue());
+                caller.updateSingleValue(key, row.getValue());
                 if (rowLayout instanceof EditableLayout) {
                     ((EditableLayout) rowLayout).putTag(key, row.getValue());
                 }

@@ -69,6 +69,7 @@ import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.RecentPresetsFragment;
+import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.GeoContext.Properties;
@@ -99,7 +100,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
     OnPresetSelectedListener presetSelectedListener;
 
-    EditorUpdate tagListener = null;
+    private EditorUpdate tagListener = null;
 
     private NameAdapters nameAdapters = null;
 
@@ -518,7 +519,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 if (row != null) {
                     String rowKey = ((KeyValueRow) row).getKey();
                     String rowValue = ((KeyValueRow) row).getValue();
-                    tagListener.updateSingleValue(rowKey, rowValue);
+                    updateSingleValue(rowKey, rowValue);
                     if (row.getParent() instanceof EditableLayout) {
                         ((EditableLayout) row.getParent()).putTag(rowKey, rowValue);
                     }
@@ -780,12 +781,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     private List<String> getI18nKeys(@Nullable PresetItem preset) {
         List<String> i18nKeys = new ArrayList<>();
         if (preset != null) {
-            Set<String> presetI18nKeys = preset.getI18nKeys();
-            if (presetI18nKeys != null) {
-                i18nKeys.addAll(presetI18nKeys);
-            }
-            i18nKeys.addAll(Tags.I18N_NAME_KEYS);
+            i18nKeys.addAll(preset.getI18nKeys());
         }
+        i18nKeys.addAll(Tags.I18N_NAME_KEYS);
         return i18nKeys;
     }
 
@@ -811,7 +809,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     preset.addTag(optional, key, PresetKeyType.TEXT, null);
                     String hint = preset.getHint(tag);
                     if (hint != null) {
-                        // FIXME RTL
                         preset.setHint(key, getActivity().getString(R.string.internationalized_hint, hint, i18nPart));
                     }
                     editableMap.put(field, value);
@@ -858,7 +855,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         } else if (isOpeningHours(key, valueType)) {
                             rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value, null));
                         } else if (ValueType.PHONE == valueType) {
-                            rowLayout.addView(MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, null));
+                            rowLayout.addView(MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, null, null, null));
                         } else if (ValueType.WEBSITE == valueType || Tags.isWebsiteKey(key)) {
                             rowLayout.addView(UrlDialogRow.getRow(this, inflater, rowLayout, preset, hint, key, value));
                         } else {
@@ -882,7 +879,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             }
                         } else if (isMultiSelectField) {
                             if (((PresetComboField) field).isEditable()) {
-                                rowLayout.addView(MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, adapter));
+                                String valueCountKey = ((PresetComboField) field).getValueCountKey();
+                                String valueCountValue = valueCountKey != null ? allTags.get(valueCountKey) : null;
+                                MultiTextRow row = MultiTextRow.getRow(this, inflater, rowLayout, preset, hint, key, values, null, valueCountKey,
+                                        valueCountValue, adapter);
+                                row.changed(valueCountKey, valueCountValue);
+                                rowLayout.addView(row);
                             } else {
                                 if (count <= maxInlineValues) {
                                     rowLayout.addView(MultiselectRow.getRow(this, inflater, rowLayout, preset, hint, key, values, adapter));
@@ -911,7 +913,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                 rowLayout.addView(row);
                                 checkBox.setOnStateChangedListener((check, state) -> {
                                     String checkValue = state != null ? (state ? valueOn : valueOff) : ""; // NOSONAR
-                                    tagListener.updateSingleValue(key, checkValue);
+                                    updateSingleValue(key, checkValue);
                                     if (rowLayout instanceof EditableLayout) {
                                         ((EditableLayout) rowLayout).putTag(key, checkValue);
                                     }
@@ -1136,7 +1138,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * @param editorListener the Listener called when we change the data
          * @param formListener Listener to call after changes to update the form
          */
-        public void setListeners(final EditorUpdate editorListener, final FormUpdate formListener) {
+        public void setListeners(@NonNull final EditorUpdate editorListener, @NonNull final FormUpdate formListener) {
             Log.d(DEBUG_TAG, "setting listeners");
             applyPresetButton.setOnClickListener(v -> {
                 editorListener.applyPreset(preset, false);
@@ -1223,5 +1225,66 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     @Override
     public void tagsUpdated() {
         update();
+    }
+
+    /*
+     * The following methods allow us to intercept calls to the tag editor
+     */
+
+    /**
+     * Update or add a single key value pair in the tag editor
+     * 
+     * @param key the key
+     * @param value the value
+     */
+    void updateSingleValue(@NonNull final String key, @NonNull final String value) {
+        tagListener.updateSingleValue(key, value);
+        LinearLayout ll = (LinearLayout) getView().findViewById(R.id.form_container_layout);
+        if (ll != null) {
+            int childCount = ll.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View v = ll.getChildAt(i);
+                if (v instanceof EditableLayout) {
+                    int editableChildCount = ((LinearLayout) v).getChildCount();
+                    for (int j = 0; j < editableChildCount; j++) {
+                        View w = ((LinearLayout) v).getChildAt(j);
+                        if (w instanceof TagChanged) {
+                            ((TagChanged) w).changed(key, value);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Update or add multiple keys
+     * 
+     * @param tags map containing the new key - value pairs
+     * @param flush if true delete all existing tags before applying the update
+     */
+    void updateTags(@NonNull final Map<String, String> tags, final boolean flush) {
+        tagListener.updateTags(tags, flush);
+    }
+
+    /**
+     * Get tags from tag editor
+     * 
+     * @param allowBlanks allow blank values
+     * @return a LinkedHashMap of the tags
+     */
+    @Nullable
+    LinkedHashMap<String, String> getKeyValueMapSingle(final boolean allowBlanks) {
+        return tagListener.getKeyValueMapSingle(allowBlanks);
+    }
+
+    /**
+     * Apply tag suggestion from name index
+     * 
+     * @param tags a map with the tags
+     * @param afterApply run this after applying additional tags
+     */
+    void applyTagSuggestions(@NonNull Names.TagMap tags, @Nullable Runnable afterApply) {
+        tagListener.applyTagSuggestions(tags, afterApply);
     }
 }

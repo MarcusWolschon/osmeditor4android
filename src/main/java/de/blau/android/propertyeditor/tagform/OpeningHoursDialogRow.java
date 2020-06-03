@@ -152,7 +152,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
             try {
                 rules = parser.rules(false);
                 value = ch.poole.openinghoursparser.Util.rulesToOpeningHoursString(rules);
-                caller.tagListener.updateSingleValue(key, value);
+                caller.updateSingleValue(key, value);
                 lenientSucceeded = true;
             } catch (Exception e1) {
                 // failed
@@ -213,7 +213,7 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
             List<String> isoCodes = caller.propertyEditorListener.getIsoCodes();
             OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(keyWithDescription,
                     isoCodes != null && !isoCodes.isEmpty() ? isoCodes.get(0) : null,
-                    preset != null ? preset.getObjectTag(App.getCurrentPresets(caller.getContext()), caller.tagListener.getKeyValueMapSingle(false)) : null,
+                    preset != null ? preset.getObjectTag(App.getCurrentPresets(caller.getContext()), caller.getKeyValueMapSingle(false)) : null,
                     finalValue, caller.prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1, true,
                     textValues);
             openingHoursDialog.show(fm, FRAGMENT_OPENING_HOURS_TAG);

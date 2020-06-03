@@ -49,6 +49,11 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
     private String valuesContext = null;
 
     /**
+     * Reference to key of tag holding the number of values this field should hold
+     */
+    private String valueCountKey;
+
+    /**
      * Constructor
      * 
      * @param key the key for this PresetCheckField
@@ -241,6 +246,25 @@ public class PresetComboField extends PresetField implements PresetFieldJavaScri
      */
     void setValuesSearchable(boolean valuesSearchable) {
         this.valuesSearchable = valuesSearchable;
+    }
+
+    /**
+     * Name of a key that contains the number of values this field should have
+     * 
+     * @param valueCountKey the key name
+     */
+    void setValueCountKey(@Nullable String valueCountKey) {
+        this.valueCountKey = valueCountKey;
+    }
+
+    /**
+     * Get the name of a key containing the number of values this field should have
+     * 
+     * @return the name of the key with count or null
+     */
+    @Nullable
+    public String getValueCountKey() {
+        return valueCountKey;
     }
 
     @Override
