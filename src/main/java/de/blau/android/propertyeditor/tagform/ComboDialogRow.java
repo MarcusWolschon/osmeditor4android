@@ -208,7 +208,7 @@ public class ComboDialogRow extends DialogRow {
         }
         final Handler handler = new Handler();
         builder.setPositiveButton(R.string.clear, (dialog, which) -> {
-            caller.tagListener.updateSingleValue((String) layout.getTag(), "");
+            caller.updateSingleValue((String) layout.getTag(), "");
             row.setValue("", "");
             row.setChanged(true);
             // allow a tiny bit of time to see that the action actually worked
@@ -223,7 +223,7 @@ public class ComboDialogRow extends DialogRow {
             if (checkedId != -1) {
                 RadioButton button = (RadioButton) group.findViewById(checkedId);
                 ourValue = (StringWithDescription) button.getTag();
-                caller.tagListener.updateSingleValue((String) layout.getTag(), ourValue.getValue());
+                caller.updateSingleValue((String) layout.getTag(), ourValue.getValue());
                 row.setValue(ourValue);
                 row.setChanged(true);
             }

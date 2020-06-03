@@ -235,7 +235,7 @@ public class MultiselectDialogRow extends DialogRow {
                 }
             }
             row.setValue(valueList);
-            caller.tagListener.updateSingleValue((String) layout.getTag(), row.getValue());
+            caller.updateSingleValue((String) layout.getTag(), row.getValue());
             row.setChanged(true);
         });
         builder.setNegativeButton(R.string.cancel, null);

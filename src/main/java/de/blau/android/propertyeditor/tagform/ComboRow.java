@@ -212,7 +212,7 @@ public class ComboRow extends LinearLayout {
                         RadioButton button = (RadioButton) group.findViewById(checkedId);
                         v = (String) button.getTag();
                     }
-                    caller.tagListener.updateSingleValue(key, v);
+                    caller.updateSingleValue(key, v);
                     if (rowLayout instanceof EditableLayout) {
                         ((EditableLayout) rowLayout).putTag(key, v);
                     }

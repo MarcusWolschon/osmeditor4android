@@ -192,6 +192,8 @@ public class Preset implements Serializable {
     private static final String COUNT                      = "count";
     private static final String REQUISITE                  = "requisite";
     private static final String MEMBER_EXPRESSION          = "member_expression";
+    private static final String REF                        = "ref";
+    private static final String VALUE_COUNT_KEY            = "value_count_key";
     /**
      * 
      */
@@ -1008,6 +1010,10 @@ public class Preset implements Serializable {
                     if (javaScript != null) {
                         ((PresetComboField) field).setScript(javaScript);
                     }
+                    String valueCountKey = attr.getValue(VALUE_COUNT_KEY);
+                    if (valueCountKey != null) {
+                        ((PresetComboField) field).setValueCountKey(valueCountKey);
+                    }
                     break;
                 case ROLES:
                     break;
@@ -1023,8 +1029,8 @@ public class Preset implements Serializable {
                     currentItem.addRole(role);
                     break;
                 case REFERENCE:
-                    PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no
-                                                                         // forward references
+                    PresetItem chunk = chunks.get(attr.getValue(REF)); // note this assumes that there are no
+                                                                       // forward references
                     if (chunk != null) {
                         if (inOptionalSection) {
                             // fixed tags don't make sense in an optional section, and doesn't seem to happen in
@@ -1041,7 +1047,7 @@ public class Preset implements Serializable {
                                     copy.setOptional(true);
                                     currentItem.fields.put(copy.getKey(), copy);
                                 } else {
-                                    Log.e(DEBUG_TAG, "Error in PresetItem " + currentItem.getName() + " chunk " + attr.getValue("ref") + " field " + key
+                                    Log.e(DEBUG_TAG, "Error in PresetItem " + currentItem.getName() + " chunk " + attr.getValue(REF) + " field " + key
                                             + " overwrites existing field");
                                 }
                             }

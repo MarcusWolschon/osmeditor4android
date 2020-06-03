@@ -67,6 +67,7 @@ import de.blau.android.presets.Preset.UseLastAsDefault;
 import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
+import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFieldJavaScript;
@@ -2440,11 +2441,37 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (pi != null) {
             PresetField field = pi.getField(key);
             boolean useLastAsDefault = field != null && field.getUseLastAsDefault() != UseLastAsDefault.FALSE;
-            if (pi.getKeyType(key) == PresetKeyType.MULTISELECT) {
-                // trim potential trailing separators
-                char delimter = pi.getDelimiter(key);
-                if (value.endsWith(String.valueOf(delimter))) {
-                    value = value.substring(0, value.length() - 1);
+            if (field instanceof PresetComboField && ((PresetComboField) field).isMultiSelect()) {
+                // trim potential trailing separators, or ensure that we have as many fields as we are supposed to
+                char delimiter = pi.getDelimiter(key);
+                String valueCountKey = ((PresetComboField) field).getValueCountKey();
+                String valueCountValue = valueCountKey != null ? result.get(valueCountKey) : null;
+                if (valueCountValue != null) {
+                    // this will fill up any missing fields
+                    try {
+                        int valueCount = Integer.parseInt(valueCountValue);
+                        long currentCount = Util.countChar(value, delimiter) + 1;
+                        if (currentCount < valueCount) {
+                            for (long i = currentCount; i < valueCount; i++) {
+                                value += delimiter; // NOSONAR
+                            }
+                        } else if (currentCount > valueCount) {
+                            // only remove trailing delimiters
+                            for (int i = valueCount; i < currentCount; i++) {
+                                if (value.endsWith(String.valueOf(delimiter))) {
+                                    value = value.substring(0, value.length() - 1);
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    } catch (NumberFormatException nfex) {
+                        // something is wrong, don't touch value
+                    }
+                } else {
+                    if (value.endsWith(String.valueOf(delimiter))) {
+                        value = value.substring(0, value.length() - 1);
+                    }
                 }
                 List<String> values = Preset.splitValues(Util.wrapInList(value), pi, key);
                 if (values != null) {

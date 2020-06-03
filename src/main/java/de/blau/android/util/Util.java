@@ -734,4 +734,21 @@ public final class Util {
         url += (url.contains("?") ? (url.endsWith("?") ? "" : "&") : "?") + query;
         return url;
     }
+
+    /**
+     * Naive counting of how many times a char is present in a string
+     * 
+     * @param string the String
+     * @param c the char
+     * @return the count
+     */
+    public static int countChar(@NonNull String string, char c) {
+        int count = 0;
+        for (int i = 0; i < string.length(); i++) {
+            if (c == string.charAt(i)) {
+                count++;
+            }
+        }
+        return count;
+    }
 }

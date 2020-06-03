@@ -24,7 +24,7 @@ public interface EditorUpdate {
     /**
      * Update or add multiple keys
      * 
-     * @param tags map containing the new key - value pais
+     * @param tags map containing the new key - value pairs
      * @param flush if true delete all existing tags before applying the update
      */
     void updateTags(@NonNull final Map<String, String> tags, final boolean flush);
