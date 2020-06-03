@@ -103,6 +103,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | values_no_i18n                | ignored   |
 |                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
 |                   | rows                          | ignored   |
+|                   | values_count_key              | extension | reference to a tag that will hold the number of values this multiselect should contain
 |__&lt;list_entry&gt;__       |                     | supported |  
 |                   | value                         | supported | required 
 |                   | display_value                 | supported |
@@ -173,3 +174,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _exclude_regions_ if true, invert the meaning of regions 
 * _autoapply_ if true (default), allow auto-applying of the item
 * _min_match_ modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match 
+* _values_count_key_ reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be values_count_key="lanes"
