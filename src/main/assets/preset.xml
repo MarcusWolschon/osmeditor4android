@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.8.19" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.9.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -1273,7 +1273,7 @@
         <list_entry value="trash" short_description="Trash"/>    
         <list_entry value="organic" short_description="Organic"/>
         <list_entry value="plastic" short_description="Plastic"/>
-        <list_entry value="excrements" short_description="Excerements"/>
+        <list_entry value="excrements" short_description="Excrements"/>
         <list_entry value="grey_water" short_description="Grey water"/>
     </multiselect>
   </chunk>
@@ -1615,7 +1615,7 @@
             <item name="Single direction roads" icon="icons/png/spurpfeile1.png" type="way,closedway" preset_name_label="true">
             	<link wiki="Lanes"/>
             	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" value_type="integer" />
-                <multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" editable="true">
+                <multiselect key="turn:lanes" text="Turning lanes" delimiter="|" match="key" editable="true" value_count_key="lanes">
                     <list_entry value="none" short_description="None"/>
                     <list_entry value="reverse" short_description="Reverse"/>
                     <list_entry value="sharp_left" short_description="Sharp left"/>
@@ -1630,16 +1630,16 @@
                     <list_entry value="right" short_description="Right"/>
                     <list_entry value="sharp_right" short_description="Sharp right"/>
                </multiselect>
-               <multiselect key="destination:lanes" text="Destinations per lane" delimiter="|" match="key" editable="true" />
-			   <multiselect key="destination:ref:lanes" text="Refs per lane" delimiter="|" match="key" editable="true" />
-			   <multiselect key="maxspeed:lanes" text="Maxspeed per lane" delimiter="|" match="key" editable="true"/>
+               <multiselect key="destination:lanes" text="Destinations per lane" delimiter="|" match="key" editable="true" value_count_key="lanes" />
+			   <multiselect key="destination:ref:lanes" text="Refs per lane" delimiter="|" match="key" editable="true" value_count_key="lanes" />
+			   <multiselect key="maxspeed:lanes" text="Maxspeed per lane" delimiter="|" match="key" editable="true" value_count_key="lanes" />
             </item> <!-- Single direction roads -->
             <item name="Bi-directional roads" icon="icons/png/spurpfeile2.png" type="way,closedway" preset_name_label="true">
             	<link wiki="Lanes"/>
             	<combo key="lanes" values="1,2,3,4,5,6,7,8" description="Total number of full width lanes" value_type="integer" />
             	<combo key="lanes:forward" values="1,2,3,4,5,6,7,8" description="# full width lanes in way direction" value_type="integer" />
             	<combo key="lanes:backward" values="1,2,3,4,5,6,7,8" description="# full width lanes opposite to way direction" value_type="integer" />
-                <multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" editable="true">
+                <multiselect key="turn:lanes:forward" text="Turning lanes in way direction" delimiter="|" match="key" editable="true" value_count_key="lanes:forward">
                 	<list_entry value="none" short_description="None"/>
                 	<list_entry value="reverse" short_description="Reverse"/>
             	    <list_entry value="sharp_left" short_description="Sharp left"/>
@@ -1654,10 +1654,10 @@
             	    <list_entry value="right" short_description="Right"/>
             	    <list_entry value="sharp_right" short_description="Sharp right"/>
                 </multiselect>
-                <multiselect key="destination:lanes:forward" text="Destinations per lane in way direction" delimiter="|" match="key" editable="true" />
-				<multiselect key="destination:ref:lanes:forward" text="Refs per lane in way direction" delimiter="|" match="key" editable="true" />
-				<multiselect key="maxspeed:lanes:forward" text="Maxspeed per lane in way direction" delimiter="|" match="key" editable="true"/>
-                <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" editable="true">
+                <multiselect key="destination:lanes:forward" text="Destinations per lane in way direction" delimiter="|" match="key" editable="true" value_count_key="lanes:forward" />
+				<multiselect key="destination:ref:lanes:forward" text="Refs per lane in way direction" delimiter="|" match="key" editable="true" value_count_key="lanes:forward" />
+				<multiselect key="maxspeed:lanes:forward" text="Maxspeed per lane in way direction" delimiter="|" match="key" editable="true" value_count_key="lanes:forward" />
+                <multiselect key="turn:lanes:backward" text="Turning lanes opposite to way direction" delimiter="|" match="key" editable="true" value_count_key="lanes:backward" >
             	    <list_entry value="none" short_description="None"/>
             	    <list_entry value="reverse" short_description="Reverse"/>
             	    <list_entry value="sharp_left" short_description="Sharp left"/>
@@ -1672,9 +1672,9 @@
             	    <list_entry value="right" short_description="Right"/>
             	    <list_entry value="sharp_right" short_description="Sharp right"/>
                 </multiselect>
-                <multiselect key="destination:lanes:backward" text="Destinations per lane opposite to way direction" delimiter="|" match="key" editable="true" />
-				<multiselect key="destination:ref:lanes:backward" text="Refs per lane opposite to way direction" delimiter="|" match="key" editable="true" />
-				<multiselect key="maxspeed:lanes:backward" text="Maxspeed per lane opposite to way direction" delimiter="|" match="key" editable="true" />
+                <multiselect key="destination:lanes:backward" text="Destinations per lane opposite to way direction" delimiter="|" match="key" editable="true" value_count_key="lanes:backward" />
+				<multiselect key="destination:ref:lanes:backward" text="Refs per lane opposite to way direction" delimiter="|" match="key" editable="true" value_count_key="lanes:backward" />
+				<multiselect key="maxspeed:lanes:backward" text="Maxspeed per lane opposite to way direction" delimiter="|" match="key" editable="true" value_count_key="lanes:backward" />
         	</item> <!-- Bi-directional roads -->
             <item name="Public transport lanes" icon="icons/png/bus-lane.png" type="way,closedway" preset_name_label="true">
                 <link wiki="http://Lanes"/>
@@ -6940,7 +6940,7 @@
 			<space/>
 			<combo key="building:part" text="Building part" 
                 values="bakehouse,barn,college,commercial,construction,cowshed,farm_auxiliary,garage,garages,greenhouse,hangar,hospital,industrial,office,parking,retail,roof,ruins,school,shed,supermarket,toilets,transportation,university,warehouse,yes" 
-                display_values="Bakehouse,Barn,College,Commercial,Construction,Cowshed,Farm auxiliary,Garage,Garages,Greenhouse,Hangar,Hospital,Industrial,Office,Parking,Retail,Roof,Ruins,School,Shed,Supermarket,ToiletsTransportation,University,Warehouse,Yes" 
+                display_values="Bakehouse,Barn,College,Commercial,Construction,Cowshed,Farm auxiliary,Garage,Garages,Greenhouse,Hangar,Hospital,Industrial,Office,Parking,Retail,Roof,Ruins,School,Shed,Supermarket,Toilets,Transportation,University,Warehouse,Yes" 
                 values_context="building" default="yes" match="key" values_searchable="true"/>
 			<reference ref="additional_building_tags"/>
 			<combo key="building:min_level" text="Skipped Levels" values="1,2,3,4,5,6,7,8,9,10" editable="true" text_context="building"/>
@@ -7058,7 +7058,7 @@
             <text key="width" text="Width (Meters)" />
             <text key="maxwidth" text="Max. width (Meters)" />
             <text key="height" text="Height (Meters)"  />
-            <text key="maxheight" text="Max. heeight (Meters)" />
+            <text key="maxheight" text="Max. height (Meters)" />
             <check key="automatic_door" text="Automatic door" />
         </item> <!-- Loading dock -->  
 	</group> <!-- Buildings -->
