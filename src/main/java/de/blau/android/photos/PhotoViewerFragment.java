@@ -1,4 +1,4 @@
-package de.blau.android.dialogs;
+package de.blau.android.photos;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,8 +34,6 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.contract.Ui;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.photos.Photo;
-import de.blau.android.photos.PhotoIndex;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
