@@ -479,6 +479,7 @@ avoided by using an offline data source.</string>
     <string name="toast_members_not_downloaded">Some relation members are not downloaded</string>
     <string name="toast_restart_required">You need to restart Vespucci for the change to take effect</string>
     <string name="toast_unable_to_open_offline_data">Unable to open offline data %1$s %2$s</string>
+    <string name="toast_no_usable_location">No usable location</string>
     <plurals name="added_required_elements">
         <item quantity="one">Added required element</item>
         <item quantity="other">Added %1$d required elements</item>

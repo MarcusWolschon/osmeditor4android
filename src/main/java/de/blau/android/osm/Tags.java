@@ -227,6 +227,8 @@ public final class Tags {
     public static final String KEY_ELE_GEOID      = "ele:geoid";
     public static final String KEY_ELE_BAROMETRIC = "ele:barometric";
     public static final String KEY_SOURCE_ELE     = "ele:source";
+    public static final String VALUE_BAROMETER    = "barometer";
+    public static final String VALUE_GNSS         = "gnss";
     public static final String KEY_GNSS_HDOP      = "gnss:hdop";
 
     //

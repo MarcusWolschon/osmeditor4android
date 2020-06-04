@@ -103,6 +103,8 @@ public class GnssPositionInfo extends InfoDialogFragment {
         }
         if (location != null) {
             GnssPositionInfo.showDialog(activity, location);
+        } else {
+            Snack.toastTopError(activity, R.string.toast_no_usable_location);
         }
     }
 
@@ -172,14 +174,14 @@ public class GnssPositionInfo extends InfoDialogFragment {
                                 if (loc.hasBarometricHeight()) {
                                     if (prefs.useBarometricHeight()) {
                                         tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
-                                        tags.put(Tags.KEY_SOURCE_ELE, "barometer");
+                                        tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_BAROMETER);
                                     }
                                     tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
                                 }
                                 if (loc.hasGeoidHeight()) {
                                     if (!prefs.useBarometricHeight()) {
                                         tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
-                                        tags.put(Tags.KEY_SOURCE, "gnss");
+                                        tags.put(Tags.KEY_SOURCE, Tags.VALUE_GNSS);
                                     }
                                     tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
                                 }
