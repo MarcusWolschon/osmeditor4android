@@ -151,6 +151,7 @@ public class HelpViewer extends AppCompatActivity {
         WebSettings helpSettings = helpView.getSettings();
         helpSettings.setDefaultFontSize(12);
         helpSettings.setSupportZoom(true);
+        helpSettings.setBuiltInZoomControls(true);
         helpSettings.setDisplayZoomControls(false); // don't display +-
         helpView.setWebViewClient(new HelpViewWebViewClient());
         fl.addView(helpView);
