@@ -93,22 +93,22 @@ import okhttp3.ResponseBody;
  *
  */
 public class TileLayerSource implements Serializable {
-    private static final String DEBUG_TAG         = TileLayerSource.class.getSimpleName();
-    
+    private static final String DEBUG_TAG = TileLayerSource.class.getSimpleName();
+
     private static final long serialVersionUID = 2L;
 
-    static final String         EPSG_900913       = "EPSG:900913";
-    static final String         EPSG_3857         = "EPSG:3857";
-    static final String         EPSG_4326         = "EPSG:4326";
-    static final String         TYPE_BING         = "bing";
-    public static final String  TYPE_TMS          = "tms";
-    public static final String  TYPE_WMS          = "wms";
-    static final String         TYPE_WMS_ENDPOINT = "wms_endpoint";
-    static final String         TYPE_SCANEX       = "scanex";
-    public static final String  LAYER_MAPNIK      = "MAPNIK";
-    public static final String  LAYER_NONE        = "NONE";
-    public static final String  LAYER_NOOVERLAY   = "NOOVERLAY";
-    public static final String  LAYER_BING        = "BING";
+    static final String        EPSG_900913       = "EPSG:900913";
+    static final String        EPSG_3857         = "EPSG:3857";
+    static final String        EPSG_4326         = "EPSG:4326";
+    static final String        TYPE_BING         = "bing";
+    public static final String TYPE_TMS          = "tms";
+    public static final String TYPE_WMS          = "wms";
+    static final String        TYPE_WMS_ENDPOINT = "wms_endpoint";
+    static final String        TYPE_SCANEX       = "scanex";
+    public static final String LAYER_MAPNIK      = "MAPNIK";
+    public static final String LAYER_NONE        = "NONE";
+    public static final String LAYER_NOOVERLAY   = "NOOVERLAY";
+    public static final String LAYER_BING        = "BING";
 
     /**
      * A tile layer provide has some attribution text, and one or more coverage areas.
@@ -1215,31 +1215,35 @@ public class TileLayerSource implements Serializable {
     }
 
     /**
-     * Read a file from the JOSM Imagery Sources containing layer configurations and update the database with them
+     * Read a file from either JOSM or ELI sources containing layer configurations and update the database with them
      * 
      * @param ctx Android Context
      * @param writeableDb a writable SQLiteDatabase
+     * @param eli if true use ELI
      * @throws IOException if there was an IO error
      */
-    public static void updateFromJOSMImagery(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) throws IOException {
-        Log.d(DEBUG_TAG, "Updating from JOSM Imagery Sources");
+    public static void updateImagery(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb, boolean eli) throws IOException {
+        Log.d(DEBUG_TAG, "Updating from imagery sources");
         AssetManager assetManager = ctx.getAssets();
         try {
             writeableDb.beginTransaction();
             // delete old
+            TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
             TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
-            TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY);
 
-            // still need to read out base config first
+            String source = eli ? TileLayerDatabase.SOURCE_ELI : TileLayerDatabase.SOURCE_JOSM_IMAGERY;
+            TileLayerDatabase.addSource(writeableDb, source);
+
+            // still need to read our base config first
             try {
                 InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY);
-                parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, true);
+                parseImageryFile(ctx, writeableDb, source, is, true);
             } catch (IOException e) {
                 Log.e(DEBUG_TAG, "reading conf files got " + e.getMessage());
             }
             InputStream is = null;
             try {
-                Request request = new Request.Builder().url(Urls.JOSM_IMAGERY).build();
+                Request request = new Request.Builder().url(eli ? Urls.ELI : Urls.JOSM_IMAGERY).build();
                 OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
                         .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
                 Call josmImageryCall = client.newCall(request);
@@ -1247,7 +1251,7 @@ public class TileLayerSource implements Serializable {
                 if (josmImageryCallResponse.isSuccessful()) {
                     ResponseBody responseBody = josmImageryCallResponse.body();
                     is = responseBody.byteStream();
-                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_JOSM_IMAGERY, is, true);
+                    parseImageryFile(ctx, writeableDb, source, is, true);
                     writeableDb.setTransactionSuccessful();
                     getListsLocked(ctx, writeableDb, true);
                 } else {

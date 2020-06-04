@@ -179,6 +179,9 @@
                 android:id="@+id/menu_tools_update_imagery_configuration"
                 android:title="@string/menu_tools_update_imagery_configuration" />
             <item
+                android:id="@+id/menu_tools_update_imagery_configuration_eli"
+                android:title="@string/menu_tools_update_imagery_configuration_eli" />
+            <item
                 android:id="@+id/menu_tools_flush_all_tile_caches"
                 android:title="@string/menu_tools_flush_all_tile_caches" />
             <item

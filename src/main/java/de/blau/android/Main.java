@@ -2289,6 +2289,7 @@ public class Main extends FullScreenAppCompatActivity
             ImageryOffsetUtils.applyImageryOffsets(this, map.getBackgroundLayer().getTileLayerConfiguration(), null);
             return true;
         case R.id.menu_tools_update_imagery_configuration:
+        case R.id.menu_tools_update_imagery_configuration_eli:
             new AsyncTask<Void, Void, Void>() {
                 TileLayerDatabase db = new TileLayerDatabase(Main.this);
 
@@ -2300,7 +2301,8 @@ public class Main extends FullScreenAppCompatActivity
                 @Override
                 protected Void doInBackground(Void... params) {
                     try {
-                        TileLayerSource.updateFromJOSMImagery(Main.this, db.getWritableDatabase());
+                        TileLayerSource.updateImagery(Main.this, db.getWritableDatabase(),
+                                item.getItemId() == R.id.menu_tools_update_imagery_configuration_eli);
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Update imagery conf. " + e.getMessage());
                         Util.toastDowloadError(Main.this, e);
