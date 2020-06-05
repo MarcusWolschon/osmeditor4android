@@ -200,8 +200,16 @@
             android:theme="@style/Theme.customHelpViewer" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".photos.PhotoViewerActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=".PhotoViewerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity

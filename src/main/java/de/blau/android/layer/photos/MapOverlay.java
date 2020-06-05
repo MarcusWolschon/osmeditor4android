@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.AsyncTask.Status;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
+import de.blau.android.photos.PhotoViewerActivity;
 import de.blau.android.photos.PhotoViewerFragment;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
@@ -62,7 +64,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     private final Drawable icon;
 
     /** selected icon */
-    private final Drawable icon_selected;
+    private final Drawable selectedIcon;
 
     /** icon dimensions */
     private int h2;
@@ -131,7 +133,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
         this.map = map;
         photos = new ArrayList<>();
         icon = ContextCompat.getDrawable(context, R.drawable.camera_red);
-        icon_selected = ContextCompat.getDrawable(context, R.drawable.camera_green);
+        selectedIcon = ContextCompat.getDrawable(context, R.drawable.camera_green);
         // note this assumes the icons are the same size
         w2 = icon.getIntrinsicWidth() / 2;
         h2 = icon.getIntrinsicHeight() / 2;
@@ -149,7 +151,6 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     protected void onDraw(Canvas c, IMapView osmv) {
         if (isVisible && enabled) {
             ViewBox bb = osmv.getViewBox();
-
             if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
                 return;
             }
@@ -176,12 +177,12 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
             int h = map.getHeight();
             photos = pi.getPhotos(bb);
             for (Photo p : photos) {
-                if (p != selected) {
+                if (!p.equals(selected)) {
                     drawIcon(c, bb, w, h, p, icon);
                 }
             }
             if (selected != null) {
-                drawIcon(c, bb, w, h, selected, icon_selected);
+                drawIcon(c, bb, w, h, selected, selectedIcon);
             }
         }
     }
@@ -217,20 +218,15 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     @Override
     public List<Photo> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Photo> result = new ArrayList<>();
-        Log.d("photos.MapOverlay", "getClickedPhotos");
         if (map.getPrefs().isPhotoLayerEnabled()) {
             final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
             for (Photo p : photos) {
-                int lat = p.getLat();
-                int lon = p.getLon();
-                float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-                float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
-                if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-                    if (Math.hypot(differenceX, differenceY) <= tolerance) {
-                        Uri photoUri = p.getRefUri(map.getContext());
-                        if (photoUri != null) { // only return valid entries
-                            result.add(p);
-                        }
+                float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, p.getLon()) - x);
+                float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, p.getLat()) - y);
+                if ((differenceX <= tolerance) && (differenceY <= tolerance) && Math.hypot(differenceX, differenceY) <= tolerance) {
+                    Uri photoUri = p.getRefUri(map.getContext());
+                    if (photoUri != null) { // only return valid entries
+                        result.add(p);
                     }
                 }
             }
@@ -278,7 +274,11 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
                             Log.e(DEBUG_TAG, "Null URI at position " + i);
                         }
                     }
-                    PhotoViewerFragment.showDialog(activity, uris, position);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        PhotoViewerFragment.showDialog(activity, uris, position);
+                    } else {
+                        PhotoViewerActivity.start(activity, uris, position);
+                    }
                 } else {
                     Util.startExternalPhotoViewer(context, photoUri);
                 }

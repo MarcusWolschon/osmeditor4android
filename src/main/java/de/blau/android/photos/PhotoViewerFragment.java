@@ -9,6 +9,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,8 +50,8 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
 
     public static final String TAG = "fragment_photo_viewer";
 
-    private static final String PHOTO_LIST_KEY = "photo_list";
-    private static final String START_POS_KEY  = "start_pos";
+    static final String PHOTO_LIST_KEY = "photo_list";
+    static final String START_POS_KEY  = "start_pos";
 
     private static final int MENUITEM_BACK    = 0;
     private static final int MENUITEM_SHARE   = 1;
@@ -66,8 +67,8 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
 
     private ViewPager viewPager;
 
-    private MenuItem itemBack    = null;
-    private MenuItem itemForward = null;
+    private MenuItem itemBackward = null;
+    private MenuItem itemForward  = null;
 
     /**
      * Show an info dialog for the supplied OsmElement
@@ -109,7 +110,6 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         Bundle args = new Bundle();
         args.putStringArrayList(PHOTO_LIST_KEY, photoList);
         args.putInt(START_POS_KEY, startPos);
-
         f.setArguments(args);
 
         return f;
@@ -120,14 +120,14 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         Builder builder = new AlertDialog.Builder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
-        builder.setView(createView());
+        builder.setView(createView(savedInstanceState));
         return builder.create();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (!getShowsDialog()) {
-            return createView();
+            return createView(savedInstanceState);
         }
         return null;
     }
@@ -138,11 +138,18 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
      * @return the View
      */
     @SuppressWarnings("deprecation")
-    private View createView() {
+    private View createView(@Nullable Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
         LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
-        photoList = getArguments().getStringArrayList(PHOTO_LIST_KEY);
-        int startPos = getArguments().getInt(START_POS_KEY);
+        int startPos = 0;
+        if (savedInstanceState == null) {
+            photoList = getArguments().getStringArrayList(PHOTO_LIST_KEY);
+            startPos = getArguments().getInt(START_POS_KEY);
+        } else {
+            photoList = savedInstanceState.getStringArrayList(PHOTO_LIST_KEY);
+            startPos = savedInstanceState.getInt(START_POS_KEY);
+        }
+
         View layout = themedInflater.inflate(R.layout.photo_viewer, null);
         photoPagerAdapter = new PhotoPagerAdapter(activity);
 
@@ -152,27 +159,28 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         viewPager.setCurrentItem(startPos);
         ActionMenuView menuView = (ActionMenuView) layout.findViewById(R.id.photoMenuView);
         Menu menu = menuView.getMenu();
-        boolean multiple = photoList.size() > 1;
-        if (multiple) {
-            itemBack = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp);
-            itemBack.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
+        itemBackward = menu.add(Menu.NONE, MENUITEM_BACK, Menu.NONE, R.string.back).setIcon(R.drawable.ic_arrow_back_white_36dp);
+        itemBackward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(Menu.NONE, MENUITEM_SHARE, Menu.NONE, R.string.share).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        if (multiple) {
-            menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
+        menu.add(Menu.NONE, MENUITEM_GOTO, Menu.NONE, R.string.photo_viewer_goto).setIcon(R.drawable.ic_map_white_36dp)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         if (Uri.parse(photoList.get(startPos)).getAuthority().equals(getString(R.string.content_provider))) {
             // we can only delete stuff that is provided by our provider
             menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, R.string.delete).setIcon(R.drawable.ic_delete_forever_white_36dp)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-        if (multiple) {
-            itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
-            itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
+        itemForward = menu.add(Menu.NONE, MENUITEM_FORWARD, Menu.NONE, R.string.forward).setIcon(R.drawable.ic_arrow_forward_white_36dp);
+        itemForward.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menuView.setOnMenuItemClickListener(this);
         return layout;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        boolean multiple = photoList.size() > 1;
+        itemForward.setEnabled(multiple);
+        itemBackward.setEnabled(multiple);
     }
 
     class PhotoPagerAdapter extends PagerAdapter {
@@ -256,14 +264,18 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
             case MENUITEM_GOTO:
                 try {
                     Photo p = new Photo(caller, Uri.parse(photoList.get(pos)));
-                    if (map != null && overlay != null) {
-                        App.getLogic().setZoom(map, Ui.ZOOM_FOR_ZOOMTO);
-                        map.getViewBox().moveTo(map, p.getLon(), p.getLat());
-                        overlay.setSelected(p); // this isn't the same instance as in the layer but should work
-                        map.invalidate();
-                    }
                     if (getShowsDialog()) {
+                        if (map != null && overlay != null) {
+                            App.getLogic().setZoom(map, Ui.ZOOM_FOR_ZOOMTO);
+                            map.getViewBox().moveTo(map, p.getLon(), p.getLat());
+                            overlay.setSelected(p); // this isn't the same instance as in the layer but should work
+                            map.invalidate();
+                        }
                         getDialog().dismiss();
+                    } else {
+                        Intent intent = new Intent(getContext(), Main.class);
+                        intent.setData(p.getRefUri(getContext()));
+                        getContext().startActivity(intent);
                     }
                 } catch (NumberFormatException | IOException e) {
                     Log.e(DEBUG_TAG, "Invalid photo for " + photoList.get(pos));
@@ -286,25 +298,30 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                     try (PhotoIndex index = new PhotoIndex(getContext())) {
                                         index.deletePhoto(getContext(), photoUri);
                                     }
-                                    // as the Photo was selected before calling this it will still have a
-                                    // reference in the layer
-                                    if (overlay != null) {
+                                    if (getShowsDialog() && overlay != null) {
+                                        // as the Photo was selected before calling this it will still have a
+                                        // reference in the layer
                                         overlay.setSelected(null);
                                         overlay.invalidate();
+                                    } else {
+                                        Intent intent = new Intent(getContext(), Main.class);
+                                        intent.setAction(Main.ACTION_DELETE_PHOTO);
+                                        intent.setData(photoUri);
+                                        getContext().startActivity(intent);
                                     }
                                     // actually delete
                                     if (getContext().getContentResolver().delete(photoUri, null, null) >= 1) {
                                         photoList.remove(position);
                                         position = Math.min(position, size - 1); // this will set pos to -1 if empty,
-                                                                       // but we will exit in that case in any case
+                                        // but we will exit in that case in any case
                                         if (getShowsDialog() && photoList.isEmpty()) { // in fragment mode we want
                                                                                        // to do something else
                                             getDialog().dismiss();
                                         } else {
                                             photoPagerAdapter.notifyDataSetChanged();
                                             viewPager.setCurrentItem(position);
-                                            if (photoList.size() == 1 && itemBack != null && itemForward != null) {
-                                                itemBack.setEnabled(false);
+                                            if (photoList.size() == 1 && itemBackward != null && itemForward != null) {
+                                                itemBackward.setEnabled(false);
                                                 itemForward.setEnabled(false);
                                             }
                                         }
@@ -320,5 +337,55 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
             }
         }
         return false;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
+        outState.putStringArrayList(PHOTO_LIST_KEY, (ArrayList<String>) photoList);
+        outState.putInt(START_POS_KEY, viewPager.getCurrentItem());
+    }
+
+    /**
+     * Get the current position of the ViewPager
+     * 
+     * @return the current position
+     */
+    int getCurrentPosition() {
+        return viewPager.getCurrentItem();
+    }
+
+    /**
+     * Set the ViewPager to the this position
+     * 
+     * @param pos the new position
+     */
+    void setCurrentPosition(int pos) {
+        viewPager.setCurrentItem(pos);
+    }
+
+    /**
+     * Add a photo at the end of the list and switch to it
+     * 
+     * @param photo the photo Uri as a String
+     */
+    void addPhoto(@NonNull String photo) {
+        photoList.add(photo);
+        photoPagerAdapter.notifyDataSetChanged();
+        setCurrentPosition(photoList.size() - 1);
+    }
+
+    /**
+     * Replace the existing list of photos
+     * 
+     * @param list the new list
+     * @param pos the new position in list
+     */
+    void replacePhotos(@NonNull ArrayList<String> list, int pos) {
+        photoList.clear();
+        photoList.addAll(list);
+        photoPagerAdapter.notifyDataSetChanged();
+        setCurrentPosition(pos);
     }
 }

@@ -208,8 +208,9 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 
-    public static final String ACTION_EXIT   = "de.blau.android.EXIT";
-    public static final String ACTION_UPDATE = "de.blau.android.UPDATE";
+    public static final String ACTION_EXIT         = "de.blau.android.EXIT";
+    public static final String ACTION_UPDATE       = "de.blau.android.UPDATE";
+    public static final String ACTION_DELETE_PHOTO = "de.blau.android.DELETE_PHOTO";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -283,19 +284,13 @@ public class Main extends FullScreenAppCompatActivity
                 if (event.values.length > 4) {
                     // See
                     // https://groups.google.com/forum/#!topic/android-developers/U3N9eL5BcJk
-                    // for more information
-                    // on this
+                    // for more information on this
                     //
                     // On some Samsung devices
                     // SensorManager.getRotationMatrixFromVector
-                    // appears to throw an exception if rotation vector
-                    // has
-                    // length > 4.
-                    // For the purposes of this class the first 4 values
-                    // of the
-                    // rotation vector are sufficient (see
-                    // crbug.com/335298 for
-                    // details).
+                    // appears to throw an exception if rotation vector has length > 4.
+                    // For the purposes of this class the first 4 values of the
+                    // rotation vector are sufficient (see crbug.com/335298 for details).
                     if (truncatedRotationVector == null) {
                         truncatedRotationVector = new float[4];
                     }
@@ -718,6 +713,16 @@ public class Main extends FullScreenAppCompatActivity
                     map.invalidate();
                 }
                 return;
+            case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
+                try (PhotoIndex index = new PhotoIndex(this)) {
+                    index.deletePhoto(this, intent.getData());
+                }
+                final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
+                if (overlay != null) {
+                    overlay.setSelected(null);
+                    overlay.invalidate();
+                }
+                return;
             default:
                 // carry on
                 Log.d(DEBUG_TAG, "Intent action " + action);
@@ -996,6 +1001,7 @@ public class Main extends FullScreenAppCompatActivity
      * Process geo and JOSM remote control intents
      */
     private void processIntents() {
+        Log.d(DEBUG_TAG, "processIntents");
         final Logic logic = App.getLogic();
         synchronized (geoDataLock) {
             if (geoData != null) {
@@ -1113,18 +1119,7 @@ public class Main extends FullScreenAppCompatActivity
                     Log.d(DEBUG_TAG, "contentUriType " + contentUriType);
                     if (contentUriType != null) {
                         if (MimeTypes.JPEG.equals(contentUriType) || MimeTypes.ALL_IMAGE_FORMATS.equals(contentUriType)) {
-                            if (!prefs.isPhotoLayerEnabled()) {
-                                prefs.setPhotoLayerEnabled(true);
-                                map.setPrefs(this, prefs); // sets up layers too
-                                de.blau.android.layer.photos.MapOverlay photoLayer = map.getPhotoLayer();
-                                if (photoLayer != null) {
-                                    photoLayer.createIndex(new PhotoUriHandler(this, contentUri));
-                                } else {
-                                    Snack.toastTopError(this, getString(R.string.toast_error_accessing_photo, contentUri));
-                                }
-                            } else {
-                                (new PhotoUriHandler(this, contentUri)).onSuccess();
-                            }
+                            handlePhotoUri();
                         }
                     } else {
                         switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
@@ -1154,14 +1149,36 @@ public class Main extends FullScreenAppCompatActivity
                                 }
                             }
                             break;
+                        case FileExtensions.JPG:
+                            handlePhotoUri();
+                            break;
                         default:
                             Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
                         }
                     }
                 } finally {
                     contentUri = null;
+                    contentUriType = null;
                 }
             }
+        }
+    }
+
+    /**
+     * Handle a content uri that refers to a photo, turning on the photo layer if necessary
+     */
+    private void handlePhotoUri() {
+        if (!prefs.isPhotoLayerEnabled()) {
+            prefs.setPhotoLayerEnabled(true);
+            map.setPrefs(this, prefs); // sets up layers too
+            de.blau.android.layer.photos.MapOverlay photoLayer = map.getPhotoLayer();
+            if (photoLayer != null) {
+                photoLayer.createIndex(new PhotoUriHandler(this, contentUri));
+            } else {
+                Snack.toastTopError(this, getString(R.string.toast_error_accessing_photo, contentUri));
+            }
+        } else {
+            (new PhotoUriHandler(this, contentUri)).onSuccess();
         }
     }
 
