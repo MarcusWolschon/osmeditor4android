@@ -275,6 +275,7 @@
     <string name="json_array_not_displayed">JSON array (not displayed)</string>
     <!--  Layer dialog -->
     <string name="layer_geojson">GeoJSON</string>
+    <string name="layer_mapillary">Mapillary</string>
     <string name="layer_grid">Grid</string>
     <string name="layer_gpx">GPX</string>
     <string name="layer_photos">Photos</string>
@@ -303,6 +304,8 @@
     <string name="photo_viewer_delete_title">Delete photo</string>
     <string name="photo_viewer_delete_button">Delete permamently</string>
     <string name="photo_viewer_goto">Go to photo</string>
+    <string name="photo_viewer_label">Photo Viewer</string>
+    <string name="mapillary_viewer_label">Mapillary Viewer</string>
     <!--  API info dialog -->
     <string name="api_info_bounds">Bounding box</string>
     <string name="api_info_latest_date">Last included date</string>
@@ -487,6 +490,8 @@ avoided by using an offline data source.</string>
     <string name="toast_out_of_memory">OUT OF MEMORY!</string>
     <string name="toast_egm_installed">EGM downloaded and installed</string>
     <string name="toast_invalid_number_format">Invalid number format %1$s</string>
+    <string name="toast_error_downloading_mapillary_image">Error downloading mapillary image %1$s</string>
+    <string name="toast_error_downloading_mapillary_sequences">Error downloading mapillary sequences %1$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

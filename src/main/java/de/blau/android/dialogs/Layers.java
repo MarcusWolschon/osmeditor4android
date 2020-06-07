@@ -234,6 +234,15 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         return true;
                     });
                 }
+                
+                de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map.getMapillaryLayer();
+                if (mapillaryLayer != null && !mapillaryLayer.isEnabled()) {
+                    item = popup.getMenu().add("Enable mapillary layer");
+                    item.setOnMenuItemClickListener(unused -> {
+                        // Todo
+                        return true;
+                    });
+                }
                 popup.show();
             }
         });

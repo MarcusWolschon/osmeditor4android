@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -24,8 +25,10 @@ public class PhotoViewerActivity extends AppCompatActivity {
 
     private static final String DEBUG_TAG = PhotoViewerActivity.class.getSimpleName();
 
-    ArrayList<String> photoList = null;
-    int               startPos  = 0;
+    ArrayList<String> photoList   = null;
+    int               startPos    = 0;
+    PhotoLoader       photoLoader = null;
+    boolean           wrap        = true;
 
     /**
      * Start a new activity with the PhotoViewer as the contents
@@ -36,8 +39,28 @@ public class PhotoViewerActivity extends AppCompatActivity {
      */
     public static void start(@NonNull Context context, @NonNull ArrayList<String> photoList, int startPos) {
         Intent intent = new Intent(context, PhotoViewerActivity.class);
+        intent.putExtra(PhotoViewerFragment.WRAP_KEY, true);
+        setExtrasAndStart(context, photoList, startPos, intent);
+    }
+
+    /**
+     * Set standard extras on the Intent and then send it
+     * 
+     * @param context Android Context
+     * @param photoList list of photos
+     * @param startPos the starting position in the list
+     * @param intent the Intent to use
+     */
+    protected static void setExtrasAndStart(@NonNull Context context, @NonNull ArrayList<String> photoList, int startPos, @NonNull Intent intent) {
         intent.putExtra(PhotoViewerFragment.PHOTO_LIST_KEY, photoList);
         intent.putExtra(PhotoViewerFragment.START_POS_KEY, startPos);
+        int flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT;
+        } else {
+            flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK;
+        }
+        intent.setFlags(flags);
         context.startActivity(intent);
     }
 
@@ -54,12 +77,21 @@ public class PhotoViewerActivity extends AppCompatActivity {
             Log.d(DEBUG_TAG, "Initializing from intent");
             photoList = (ArrayList) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LIST_KEY);
             startPos = (int) getIntent().getSerializableExtra(PhotoViewerFragment.START_POS_KEY);
+            photoLoader = (PhotoLoader) getIntent().getSerializableExtra(PhotoViewerFragment.PHOTO_LOADER_KEY);
+            wrap = (boolean) getIntent().getSerializableExtra(PhotoViewerFragment.WRAP_KEY);
         } else {
+            Log.d(DEBUG_TAG, "Initializing from saved state");
             photoList = savedInstanceState.getStringArrayList(PhotoViewerFragment.PHOTO_LIST_KEY);
             startPos = savedInstanceState.getInt(PhotoViewerFragment.START_POS_KEY);
+            photoLoader = (PhotoLoader) savedInstanceState.getSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY);
+            wrap = savedInstanceState.getBoolean(PhotoViewerFragment.WRAP_KEY);
         }
-        Fragment f = PhotoViewerFragment.newInstance(photoList, startPos);
-        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, f).commit();
+        String tag = PhotoViewerFragment.class.getName() + this.getClass().getName();
+        Fragment f = getSupportFragmentManager().findFragmentByTag(tag);
+        if (f == null) {
+            f = PhotoViewerFragment.newInstance(photoList, startPos, photoLoader, wrap);
+            getSupportFragmentManager().beginTransaction().replace(android.R.id.content, f, tag).commit();
+        }
     }
 
     @Override
@@ -94,5 +126,7 @@ public class PhotoViewerActivity extends AppCompatActivity {
         outState.putStringArrayList(PhotoViewerFragment.PHOTO_LIST_KEY, photoList);
         Fragment f = getSupportFragmentManager().findFragmentById(android.R.id.content);
         outState.putInt(PhotoViewerFragment.START_POS_KEY, f != null ? ((PhotoViewerFragment) f).getCurrentPosition() : startPos);
+        outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
+        outState.putBoolean(PhotoViewerFragment.WRAP_KEY, wrap);
     }
 }

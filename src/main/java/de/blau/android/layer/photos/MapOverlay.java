@@ -275,7 +275,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
                         }
                     }
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                        PhotoViewerFragment.showDialog(activity, uris, position);
+                        PhotoViewerFragment.showDialog(activity, uris, position, null);
                     } else {
                         PhotoViewerActivity.start(activity, uris, position);
                     }
