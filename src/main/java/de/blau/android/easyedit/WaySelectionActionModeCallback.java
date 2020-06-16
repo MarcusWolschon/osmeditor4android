@@ -268,9 +268,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
             } else {
                 deleteWay(mode);
             }
-        } else
-
-        {
+        } else {
             new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_nodesnotdownloaded_description)
                     .setPositiveButton(R.string.okay, null).show();
         }

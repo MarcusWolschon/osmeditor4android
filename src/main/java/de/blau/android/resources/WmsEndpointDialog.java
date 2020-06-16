@@ -10,16 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
-import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDialog.OnUpdateListener;
 import de.blau.android.util.Snack;
 
-public class WmsEndpointDialog {
+public final class WmsEndpointDialog {
     
     /**
-     * Private constuctor to preven instantation
+     * Private constructor to prevent instantiation
      */
     private WmsEndpointDialog() {
         // private
