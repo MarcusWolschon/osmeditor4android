@@ -14,11 +14,12 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 
 class PhotoUriHandler extends PostAsyncActionHandler {
+    private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = "PhotoIndexHandler";
+    private static final String DEBUG_TAG = "PhotoUriHandler";
 
-    final Main main;
-    final Uri  uri;
+    private final Main main;
+    private final Uri  uri;
 
     /**
      * Construct a new handler

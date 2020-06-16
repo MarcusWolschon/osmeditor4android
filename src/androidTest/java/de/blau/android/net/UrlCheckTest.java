@@ -14,16 +14,15 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.app.Instrumentation;
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.net.UrlCheck.CheckStatus;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -51,8 +50,7 @@ public class UrlCheckTest {
         mockServer = new MockWebServerPlus();
         mockBaseUrl = mockServer.server().url("/");
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock url " + mockBaseUrl.toString()); // NOSONAR
         TestUtils.grantPermissons(device);

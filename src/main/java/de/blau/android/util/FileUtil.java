@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -24,7 +27,7 @@ public abstract class FileUtil {
     private FileUtil() {
         // private
     }
-    
+
     /**
      * Get our public directory, creating it if it doesn't exist
      * 
@@ -138,5 +141,35 @@ public abstract class FileUtil {
             return "";
         }
         return path.substring(path.lastIndexOf('.') + 1);
+    }
+
+    /**
+     * Check if a directory has more that the maxCacheSize contents and reduce that to 90% by deleting oldest files
+     * 
+     * @param dir the cache directory
+     * @param maxCacheSize the maximum cache size
+     */
+    public static void pruneCache(@NonNull File dir, long maxCacheSize) {
+        long result = 0;
+
+        List<File> fileList = Arrays.asList(dir.listFiles());
+        for (File f : fileList) {
+            result += f.length();
+        }
+        if (result > maxCacheSize) {
+            maxCacheSize = (long) (0.9 * maxCacheSize); // make 10% free
+            Collections.sort(fileList, (f0, f1) -> {
+                return Long.compare(f0.lastModified(), f1.lastModified());
+            });
+            for (File f : fileList) {
+                long len = f.length();
+                if (f.delete()) { // NOSONAR
+                    result -= len;
+                }
+                if (result < maxCacheSize) {
+                    break;
+                }
+            }
+        }
     }
 }

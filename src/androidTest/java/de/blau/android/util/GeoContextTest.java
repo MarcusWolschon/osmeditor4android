@@ -12,12 +12,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.uiautomator.UiDevice;
 import android.view.View;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -28,7 +28,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 
 /**
  *
@@ -49,7 +48,7 @@ public class GeoContextTest {
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
     /**
-     * Pre-teset setup
+     * Pre-test setup
      */
     @Before
     public void setup() {
@@ -58,8 +57,7 @@ public class GeoContextTest {
         delegator = App.getDelegator();
         delegator.reset(false);
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         TestUtils.grantPermissons(device);

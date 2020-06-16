@@ -29,7 +29,6 @@ import de.blau.android.TestUtils;
 import de.blau.android.prefs.API;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -54,8 +53,7 @@ public class ApplyOSCTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         prefDB = new AdvancedPrefDatabase(context);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);

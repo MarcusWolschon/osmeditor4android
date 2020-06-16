@@ -1591,7 +1591,7 @@ public class TileLayerSource implements Serializable {
      * @param offsetLat offset in lat direction in WGS84
      */
     public void setOffset(int zoomLevel, double offsetLon, double offsetLat) {
-        Log.d("OpenStreetMapTileServer", "setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
+        Log.d(DEBUG_TAG, "setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
         zoomLevel = Math.max(zoomLevel, zoomLevelMin); // clamp to min/max values
         zoomLevel = Math.min(zoomLevel, getMaxZoom());
         if (offsets[zoomLevel - zoomLevelMin] == null) {

@@ -52,6 +52,7 @@ import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
@@ -121,7 +122,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             }
             return box;
         }
- 
+
         /**
          * Get the wrapped Feature object
          * 
@@ -393,6 +394,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     @Override
     public void onDestroy() {
         data = null;
+    }
+
+    @Override
+    public String getContentId() {
+        return uri;
     }
 
     /**
@@ -821,11 +827,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public boolean isEnabled() {
-        return data != null && data.count() > 0;
-    }
-
-    @Override
     public void discard(Context context) {
         if (readingLock.tryLock()) {
             try {
@@ -927,5 +928,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         args.putSerializable(GeoJsonLayerInfo.LAYER_INFO_KEY, info);
         f.setArguments(args);
         GeoJsonLayerInfo.showDialog(activity, f);
+    }
+
+    @Override
+    public LayerType getType() {
+        return LayerType.GEOJSON;
     }
 }

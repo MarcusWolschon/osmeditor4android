@@ -16,16 +16,15 @@ import org.mozilla.javascript.EvaluatorException;
 
 import android.app.Instrumentation;
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.javascript.Utils;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.resources.TileLayerSource;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -47,8 +46,7 @@ public class ScriptingTest {
         context = instrumentation.getTargetContext();
         device = UiDevice.getInstance(instrumentation);
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         main = mActivityRule.getActivity();
         main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);

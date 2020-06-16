@@ -15,11 +15,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.Until;
@@ -36,7 +36,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.Coordinates;
 
 @RunWith(AndroidJUnit4.class)
@@ -62,8 +61,7 @@ public class WayActionsTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
         main.runOnUiThread(new Runnable() {
             @Override

@@ -68,8 +68,8 @@ public class OffsetTest {
         TestUtils.grantPermissons(device);
 
         prefs = new Preferences(main);
+        TestUtils.removeImageryLayers(main);
         tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
-
         main.getMap().setPrefs(main, prefs);
         TestUtils.resetOffsets(main.getMap());
         TestUtils.dismissStartUpDialogs(device, main);
@@ -89,7 +89,7 @@ public class OffsetTest {
         }
         try {
             tileServer.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             // ignore
         }
         instrumentation.removeMonitor(monitor);
@@ -102,12 +102,7 @@ public class OffsetTest {
     @Test
     public void saveAndApplyOffset() {
         final CountDownLatch signal = new CountDownLatch(1);
-        instrumentation.waitForIdle(new Runnable() {
-            @Override
-            public void run() {
-                (new SignalHandler(signal)).onSuccess();
-            }
-        });
+        instrumentation.waitForIdle(() -> (new SignalHandler(signal)).onSuccess());
         try {
             signal.await(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -126,23 +121,13 @@ public class OffsetTest {
         ImageryOffsetDatabase db = new ImageryOffsetDatabase(main);
         ImageryOffsetDatabase.addOffset(db.getWritableDatabase(), offset);
         db.close();
-        App.getLogic().setZoom(map, 18);
+        App.getLogic().setZoom(map, 19);
         map.getViewBox().moveTo(map, (int) (offset.getLon() * 1E7D), (int) (offset.getLat() * 1E7D));
-        final CountDownLatch signal2 = new CountDownLatch(1);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                map.invalidate();
-                map.setPrefs(main, prefs);
-                (new SignalHandler(signal2)).onSuccess();
-            }
-        });
-        try {
-            signal2.await(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
-        }
+        map.invalidate();
+        TestUtils.sleep();
+        map.setPrefs(main, prefs);
         Offset[] tlo = osmts.getOffsets();
+        Assert.assertEquals(20, tlo.length);
         List<ImageryOffset> appliedOffsets = ImageryOffsetUtils.offsets2ImageryOffset(osmts, map.getViewBox(), null);
         Assert.assertEquals(1, appliedOffsets.size());
         Assert.assertEquals(16, appliedOffsets.get(0).getMinZoom());

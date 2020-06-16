@@ -4,13 +4,14 @@ import java.io.IOException;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.Map;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.views.IMapView;
 
@@ -27,7 +28,6 @@ import de.blau.android.views.IMapView;
  * @author Simon Poole
  */
 public abstract class MapViewLayer {
-    private static final String VISIBLE_KEY = "visible";
     /**
      * Tag used for Android-logging.
      */
@@ -213,8 +213,9 @@ public abstract class MapViewLayer {
      * @throws IOException if saving state to device failed
      */
     public void onSaveState(@NonNull Context ctx) throws IOException {
-        SharedPreferences prefs = ctx.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
-        prefs.edit().putBoolean(VISIBLE_KEY, isVisible).commit();
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctx)) {
+            db.setLayerVisibility(getIndex(), isVisible);
+        }
     }
 
     /**
@@ -226,8 +227,7 @@ public abstract class MapViewLayer {
      * @return true if successful
      */
     public boolean onRestoreState(@NonNull Context ctx) {
-        SharedPreferences prefs = ctx.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
-        isVisible = prefs.getBoolean(VISIBLE_KEY, true);
+        // visibility state should be restored in Map
         return true;
     }
 
@@ -292,20 +292,30 @@ public abstract class MapViewLayer {
      */
     @NonNull
     public abstract String getName();
+    
+    /**
+     * Return the type of this layer
+     * 
+     * @return a LayerType
+     */
+    @NonNull 
+    public abstract LayerType getType();
 
+    /**
+     * Get an unique id for the contents of this layer
+     * 
+     * @return an id or null if not supported
+     */
+    @Nullable
+    public String getContentId() {
+        return null;
+    }
+    
     /**
      * Invalidate this layer
      */
     public abstract void invalidate();
 
-    /**
-     * Is this layer turned on
-     *
-     * @return true if layer is enabled
-     */
-    public boolean isEnabled() {
-        return true;
-    }
 
     /**
      * Preferences have changed, set any thing we want to cache

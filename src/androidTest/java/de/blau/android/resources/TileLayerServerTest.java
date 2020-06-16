@@ -18,17 +18,18 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
 import android.os.AsyncTask;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.uiautomator.UiDevice;
 import android.view.View;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.MapTile;
 
@@ -96,7 +97,8 @@ public class TileLayerServerTest {
         MapTile mapTile = new MapTile("", 20, 1111, 2222);
         Preferences prefs = new Preferences(main);
 
-        prefs.setBackGroundLayer("BING");
+        TestUtils.removeImageryLayers(main);
+        de.blau.android.layer.Util.addLayer(main, LayerType.IMAGERY, TileLayerSource.LAYER_BING);
         main.getMap().setPrefs(main, prefs);
 
         final TileLayerSource t = map.getBackgroundLayer().getTileLayerConfiguration();
@@ -139,7 +141,8 @@ public class TileLayerServerTest {
         System.out.println("Quadkey " + t.quadTree(mapTile));
         Assert.assertTrue(s.contains(t.quadTree(mapTile)));
 
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_MAPNIK);
+        TestUtils.removeImageryLayers(main);
+        de.blau.android.layer.Util.addLayer(main, LayerType.IMAGERY, TileLayerSource.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
 
         TileLayerSource t2 = map.getBackgroundLayer().getTileLayerConfiguration();

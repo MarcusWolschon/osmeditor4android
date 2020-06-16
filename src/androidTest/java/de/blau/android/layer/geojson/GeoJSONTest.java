@@ -22,19 +22,18 @@ import com.mapbox.geojson.Point;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.GeoJSONConstants;
 
 @RunWith(AndroidJUnit4.class)
@@ -64,18 +63,21 @@ public class GeoJSONTest {
         map = main.getMap();
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
-        Preferences prefs = new Preferences(context);
-        // allow downloading tiles here
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE);
+        TestUtils.removeImageryLayers(context);
+        de.blau.android.layer.Util.addLayer(context, LayerType.GEOJSON);
+        map.setUpLayers(context);
     }
 
     /**
-     * Post test teardown
+     * Post-test teardown
      */
     @After
     public void teardown() {
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+            db.deleteLayer(LayerType.GEOJSON, null);
+        }
     }
-
+    
     /**
      * Import a FeatureCollection
      */

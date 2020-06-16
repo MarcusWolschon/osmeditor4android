@@ -3,15 +3,11 @@ package de.blau.android.resources;
 import java.io.IOException;
 import java.util.List;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
@@ -53,34 +49,25 @@ public final class OAMCatalogView {
 
         dialogBuilder.setNeutralButton(R.string.done, null);
 
-        dialogBuilder.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface arg0) {
-                try (final TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
-                    TileLayerDatabaseView.resetLayer(activity, db);
-                }
+        dialogBuilder.setOnDismissListener(d -> {
+            try (final TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                TileLayerDatabaseView.resetLayer(activity, db);
             }
         });
         final AlertDialog dialog = dialogBuilder.create();
         ArrayAdapter<LayerEntry> layerAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, catalog);
         layerList.setAdapter(layerAdapter);
-        layerList.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LayerEntry entry = catalog.get(position);
-                TileLayerDialog.showLayerDialog(activity, entry, new TileLayerDialog.OnUpdateListener() {
-                    @Override
-                    public void update() {
-                        dialog.dismiss();
-                        try (final TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
-                            TileLayerDatabaseView.resetLayer(activity, db);
-                        }
-                        if (updateListener != null) {
-                            updateListener.update();
-                        }
-                    }
-                });
-            }
+        layerList.setOnItemClickListener((parent, view, position, id) -> {
+            LayerEntry entry = catalog.get(position);
+            TileLayerDialog.showLayerDialog(activity, entry, () -> {
+                dialog.dismiss();
+                try (final TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getReadableDatabase()) {
+                    TileLayerDatabaseView.resetLayer(activity, db);
+                }
+                if (updateListener != null) {
+                    updateListener.update();
+                }
+            });
         });
         dialog.show();
     }
@@ -109,12 +96,8 @@ public final class OAMCatalogView {
                     final int found = catalog.getFound();
                     final int limit = catalog.getLimit();
                     if (found > limit) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Snack.toastTopWarning(activity, activity.getString(R.string.toast_returning_less_than_found, limit, found));
-                            }
-                        });
+                        activity.runOnUiThread(
+                                () -> Snack.toastTopWarning(activity, activity.getString(R.string.toast_returning_less_than_found, limit, found)));
                     }
                 } catch (final IOException iox) {
                     Log.e(DEBUG_TAG, "Add imagery from oam " + iox.getMessage());

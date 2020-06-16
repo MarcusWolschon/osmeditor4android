@@ -372,7 +372,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                     new AlertDialog.Builder(getContext()).setTitle(R.string.photo_viewer_delete_title)
                             .setPositiveButton(R.string.photo_viewer_delete_button, (dialog, which) -> {
                                 int position = viewPager.getCurrentItem();
-                                if (position >= 0) { // avoid crashes from bouncing
+                                if (position >= 0 && position < photoList.size()) { // avoid crashes from bouncing
                                     Uri photoUri = Uri.parse(photoList.get(position));
                                     try {
                                         // delete from in memory and on device index
@@ -396,8 +396,8 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                             position = Math.min(position, size - 1); // this will set pos to -1 if
                                                                                      // empty,
                                             // but we will exit in that case in any case
-                                            if (getShowsDialog() && photoList.isEmpty()) { // in fragment mode we want
-                                                                                           // to do something else
+                                            if (getShowsDialog() && photoList.isEmpty()) {
+                                                // in fragment mode we want to stay around
                                                 getDialog().dismiss();
                                             } else {
                                                 photoPagerAdapter.notifyDataSetChanged();
@@ -409,6 +409,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
                                             }
                                         }
                                     } catch (java.lang.SecurityException sex) {
+                                        Log.e(DEBUG_TAG, "Error deleting: " + sex.getMessage() + " " + sex.getClass().getName());
                                         Snack.toastTopError(getContext(), getString(R.string.toast_permission_denied, sex.getMessage()));
                                     }
                                 }
@@ -431,7 +432,9 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         outState.putStringArrayList(PHOTO_LIST_KEY, (ArrayList<String>) photoList);
         outState.putInt(START_POS_KEY, viewPager.getCurrentItem());
-        outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
+        if (!photoLoader.equals(defaultLoader)) {
+            outState.putSerializable(PhotoViewerFragment.PHOTO_LOADER_KEY, photoLoader);
+        }
         outState.putBoolean(WRAP_KEY, wrap);
     }
 

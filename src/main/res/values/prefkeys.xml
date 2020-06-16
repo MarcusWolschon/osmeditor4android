@@ -100,6 +100,7 @@
     <string name="config_uploadOk_key">uploadOkLimit</string>
     <string name="config_uploadWarn_key">uploadWarnLimit</string>
     <string name="config_dataWarn_key">dataWarnLimit</string>
+    <string name="config_mapillaryCacheSize_key">mapillaryCacheSize</string>
 
     <string name="gps_source_internal">internal</string>
     <string name="gps_source_nmea">nmea</string>

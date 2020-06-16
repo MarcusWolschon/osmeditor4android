@@ -42,8 +42,10 @@ import de.blau.android.Map;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.services.util.ExtendedLocation;
@@ -90,6 +92,7 @@ public class GpxTest {
 
         prefs = new Preferences(main);
         tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
+        de.blau.android.layer.Util.addLayer(main, LayerType.GPX);
         App.getLogic().setPrefs(prefs);
         main.getMap().setPrefs(main, prefs);
 
@@ -103,6 +106,9 @@ public class GpxTest {
     @After
     public void teardown() {
         if (main != null) {
+            try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
+                db.deleteLayer(LayerType.GPX, null);
+            }
             TestUtils.stopEasyEdit(main);
             main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
             main.finish();
@@ -239,7 +245,7 @@ public class GpxTest {
         Map map = main.getMap();
         ViewBox viewBox = map.getViewBox();
         App.getLogic().setZoom(map, 19);
-        viewBox.moveTo(map, foundWp.getLon(), foundWp.getLat());
+        viewBox.moveTo(map, foundWp.getLon(), foundWp.getLat()); // NOSONAR
         map.invalidate();
 
         TestUtils.unlock(device);

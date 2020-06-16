@@ -21,7 +21,8 @@ import de.blau.android.Map;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.layer.ClickableInterface;
-import de.blau.android.layer.DisableInterface;
+import de.blau.android.layer.DiscardInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.photos.Photo;
@@ -41,7 +42,7 @@ import de.blau.android.views.IMapView;
  * @author simon
  *
  */
-public class MapOverlay extends MapViewLayer implements DisableInterface, ClickableInterface<Photo> {
+public class MapOverlay extends MapViewLayer implements DiscardInterface, ClickableInterface<Photo> {
 
     private static final String DEBUG_TAG = "PhotoOverlay";
 
@@ -74,11 +75,6 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
      * Index disk/in-memory of photos
      */
     private PhotoIndex pi = null;
-
-    /**
-     * Pref for this layer enabled
-     */
-    private boolean enabled = false;
 
     /** last selected photo, may not be still displayed */
     private Photo selected = null;
@@ -143,13 +139,12 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
 
     @Override
     public boolean isReadyToDraw() {
-        enabled = map.getPrefs().isPhotoLayerEnabled();
-        return enabled;
+        return true;
     }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        if (isVisible && enabled) {
+        if (isVisible) {
             ViewBox bb = osmv.getViewBox();
             if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
                 return;
@@ -157,6 +152,8 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
 
             if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
                 indexPhotos.execute(new PostAsyncActionHandler() {
+                    private static final long serialVersionUID = 1L;
+
                     @Override
                     public void onSuccess() {
                         if (indexed) {
@@ -218,16 +215,14 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     @Override
     public List<Photo> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Photo> result = new ArrayList<>();
-        if (map.getPrefs().isPhotoLayerEnabled()) {
-            final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
-            for (Photo p : photos) {
-                float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, p.getLon()) - x);
-                float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, p.getLat()) - y);
-                if ((differenceX <= tolerance) && (differenceY <= tolerance) && Math.hypot(differenceX, differenceY) <= tolerance) {
-                    Uri photoUri = p.getRefUri(map.getContext());
-                    if (photoUri != null) { // only return valid entries
-                        result.add(p);
-                    }
+        final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
+        for (Photo p : photos) {
+            float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, p.getLon()) - x);
+            float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, p.getLat()) - y);
+            if ((differenceX <= tolerance) && (differenceY <= tolerance) && Math.hypot(differenceX, differenceY) <= tolerance) {
+                Uri photoUri = p.getRefUri(map.getContext());
+                if (photoUri != null) { // only return valid entries
+                    result.add(p);
                 }
             }
         }
@@ -243,12 +238,6 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     @Override
     public void invalidate() {
         map.invalidate();
-    }
-
-    @Override
-    public void disable(Context ctx) {
-        Preferences prefs = new Preferences(ctx);
-        prefs.setPhotoLayerEnabled(false);
     }
 
     @Override
@@ -285,14 +274,15 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
                 selected = photo;
                 invalidate();
             } else {
+                Log.d(DEBUG_TAG, "onSelected null Uri");
                 Snack.toastTopError(context, resources.getString(R.string.toast_error_accessing_photo, photo.getRef()));
             }
         } catch (SecurityException ex) {
-            Log.d(DEBUG_TAG, "viewPhoto security exception starting intent: " + ex);
+            Log.d(DEBUG_TAG, "onSelected security exception starting intent: " + ex);
             Snack.toastTopError(context, resources.getString(R.string.toast_security_error_accessing_photo, photo.getRef()));
         } catch (Exception ex) {
-            Log.d(DEBUG_TAG, "viewPhoto exception starting intent: " + ex);
-            ACRAHelper.nocrashReport(ex, "viewPhoto exception starting intent");
+            Log.d(DEBUG_TAG, "onSelected exception starting intent: " + ex);
+            ACRAHelper.nocrashReport(ex, "onSelected exception starting intent");
         }
     }
 
@@ -329,5 +319,15 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
         if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
             indexPhotos.execute(handler);
         }
+    }
+
+    @Override
+    public LayerType getType() {
+        return LayerType.PHOTO;
+    }
+
+    @Override
+    public void discard(Context context) {
+        onDestroy();
     }
 }

@@ -120,6 +120,8 @@ import de.blau.android.gpx.WayPoint;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.DownloadInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
@@ -994,7 +996,11 @@ public class Main extends FullScreenAppCompatActivity
                         continue;
                     case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
                         try (PhotoIndex index = new PhotoIndex(this)) {
-                            index.deletePhoto(this, intent.getData());
+                            Uri uri = intent.getData();
+                            index.deletePhoto(this, uri);
+                            if (uri.equals(contentUri)) {
+                                contentUri = null;
+                            }
                         }
                         final de.blau.android.layer.photos.MapOverlay photoLayer = map != null ? map.getPhotoLayer() : null;
                         if (photoLayer != null) {
@@ -1003,7 +1009,9 @@ public class Main extends FullScreenAppCompatActivity
                         }
                         continue;
                     case ACTION_MAPILLARY_SELECT:
-                        final de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map != null ? map.getMapillaryLayer() : null;
+                        final de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map != null
+                                ? (de.blau.android.layer.mapillary.MapOverlay) map.getLayer(LayerType.MAPILLARY)
+                                : null;
                         if (mapillaryLayer != null) {
                             mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapOverlay.SET_POSITION_KEY, 0));
                         }
@@ -1172,7 +1180,7 @@ public class Main extends FullScreenAppCompatActivity
                 };
                 if (bboxes != null && !bboxes.isEmpty()) {
                     logic.downloadBox(this, bbox, true, handler);
-                    if (prefs.areBugsEnabled()) {
+                    if (map.getTaskLayer() != null) {
                         // always add bugs for now
                         downLoadBugs(bbox);
                     }
@@ -1196,9 +1204,9 @@ public class Main extends FullScreenAppCompatActivity
      * Handle a content uri that refers to a photo, turning on the photo layer if necessary
      */
     private void handlePhotoUri() {
-        if (!prefs.isPhotoLayerEnabled()) {
-            prefs.setPhotoLayerEnabled(true);
-            map.setPrefs(this, prefs); // sets up layers too
+        if (map.getPhotoLayer() == null) {
+            de.blau.android.layer.Util.addLayer(this, LayerType.PHOTO);
+            getMap().setUpLayers(this);
             de.blau.android.layer.photos.MapOverlay photoLayer = map.getPhotoLayer();
             if (photoLayer != null) {
                 photoLayer.createIndex(new PhotoUriHandler(this, contentUri));
@@ -1218,6 +1226,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param uri the Uri
      */
     private void loadGPXFile(@NonNull final Uri uri) {
+        addGpxLayer();
         if (!getTracker().getTrackPoints().isEmpty()) {
             ImportTrack.showDialog(Main.this, uri);
         } else {
@@ -2016,6 +2025,7 @@ public class Main extends FullScreenAppCompatActivity
                 getTracker().startTracking();
                 setFollowGPS(true);
             }
+            addGpxLayer();
             return true;
         case R.id.menu_gps_pause:
             if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
@@ -2433,6 +2443,16 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Add a GPX layer in none exists
+     */
+    private void addGpxLayer() {
+        if (map.getLayer(LayerType.GPX) == null) {
+            de.blau.android.layer.Util.addLayer(this, LayerType.GPX);
+            map.setUpLayers(this);
+        }
+    }
+
+    /**
      * Pan and zoom to the current location if any
      */
     private void gotoCurrentLocation() {
@@ -2719,9 +2739,10 @@ public class Main extends FullScreenAppCompatActivity
         } else {
             performCurrentViewHttpLoad(add);
         }
-        de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map.getMapillaryLayer();
-        if (mapillaryLayer != null) {
-            mapillaryLayer.downloadBox(this, map.getViewBox(), null);
+        for (MapViewLayer l : map.getLayers()) {
+            if (l instanceof DownloadInterface) {
+                ((DownloadInterface) l).downloadBox(this, map.getViewBox(), null);
+            }
         }
     }
 
@@ -2737,7 +2758,7 @@ public class Main extends FullScreenAppCompatActivity
                 try (PhotoIndex pi = new PhotoIndex(this)) {
                     pi.addPhoto(imageFile);
                 }
-                if (prefs.isPhotoLayerEnabled()) {
+                if (map.getPhotoLayer() != null) {
                     map.invalidate();
                 }
             } else {
@@ -2928,7 +2949,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         App.getLogic().downloadBox(this, map.getViewBox().copy(), add, null);
-        if (prefs.areBugsEnabled()) { // always adds bugs for now
+        if (map.getTaskLayer() != null) { // always adds bugs for now
             downLoadBugs(map.getViewBox().copy());
         }
     }

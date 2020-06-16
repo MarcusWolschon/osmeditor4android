@@ -13,10 +13,10 @@ import androidx.appcompat.widget.PopupMenu;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.layer.LayerType;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.ViewBox;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.GeoMath;
@@ -54,9 +54,8 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Add a way starting the normal path creation mode
          */
-        WAY(R.string.menu_add_way, R.string.simple_add_way, (main, manager, x, y) -> {
-            main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y));
-        }),
+        WAY(R.string.menu_add_way, R.string.simple_add_way,
+                (main, manager, x, y) -> main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y))),
         /**
          * Add a note
          */
@@ -64,10 +63,8 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             manager.finish();
             de.blau.android.layer.tasks.MapOverlay layer = main.getMap().getTaskLayer();
             if (layer == null) { // turn it on, this is supposed to be "simple"
-                Preferences prefs = new Preferences(main);
-                prefs.setBugsEnabled(true);
-                main.updatePrefs(prefs);
-                App.getLogic().getMap().setPrefs(main, prefs);
+                de.blau.android.layer.Util.addLayer(main, LayerType.TASKS);
+                main.getMap().setUpLayers(main);
                 layer = main.getMap().getTaskLayer();
                 if (layer == null) {
                     Snack.toastTopError(main, R.string.toast_unable_to_create_task_layer);
@@ -88,7 +85,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         /**
          * Paste an object from the clipboard
          */
-        PASTE(R.string.menu_paste_object, R.string.simple_paste, (main, manager, x, y) -> paste(main, manager, x, y)) {
+        PASTE(R.string.menu_paste_object, R.string.simple_paste, SimpleActionModeCallback::paste) {
             @Override
             public boolean isEnabled() {
                 return !App.getLogic().clipboardIsEmpty();
@@ -227,7 +224,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         for (SimpleAction simpleMode : SimpleAction.values()) {
             if (simpleMode.isEnabled()) {
                 MenuItem item = popup.getMenu().add(simpleMode.getMenuTextId());
-                item.setOnMenuItemClickListener((arg0) -> {
+                item.setOnMenuItemClickListener(arg0 -> {
                     main.startSupportActionMode(new SimpleActionModeCallback(main.getEasyEditManager(), simpleMode));
                     return true;
                 });

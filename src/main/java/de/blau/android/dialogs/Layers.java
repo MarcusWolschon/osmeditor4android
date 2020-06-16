@@ -8,6 +8,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
@@ -48,16 +48,19 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.layer.ConfigureInterface;
-import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.LayerInfoInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.KeyDatabaseHelper;
 import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.resources.TileLayerSource.Category;
@@ -140,111 +143,113 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         // ideally the following code would be included in the layer classes, but no brilliant ideas on how to do this
         // right now
         final FloatingActionButton add = (FloatingActionButton) layout.findViewById(R.id.add);
-        add.setOnClickListener(new OnClickListener() {
+        add.setOnClickListener(v -> {
+            final FragmentActivity activity = getActivity();
+            final Preferences prefs = App.getLogic().getPrefs();
+            PopupMenu popup = new PopupMenu(getActivity(), add);
+            // menu items for adding layers
+            MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
+            final Map map = App.getLogic().getMap();
+            item.setOnMenuItemClickListener(unused -> {
+                SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
+                    private static final long serialVersionUID = 1L;
 
-            /**
-             * Update the dialog and set the prefs
-             * 
-             * @param activity calling FragmentActivity
-             * @param prefs Preference instance to set
-             */
-            private void updateDialogAndPrefs(final FragmentActivity activity, final Preferences prefs) {
-                setPrefs(activity, prefs);
-                tl.removeAllViews();
-                addRows(activity);
+                    @Override
+                    public boolean read(Uri fileUri) {
+                        de.blau.android.layer.geojson.MapOverlay geojsonLayer = (de.blau.android.layer.geojson.MapOverlay) map.getLayer(LayerType.GEOJSON,
+                                fileUri.toString());
+                        if (geojsonLayer == null) {
+                            de.blau.android.layer.Util.addLayer(activity, LayerType.GEOJSON, fileUri.toString());
+                            map.setUpLayers(activity);
+                            geojsonLayer = (de.blau.android.layer.geojson.MapOverlay) map.getLayer(LayerType.GEOJSON, fileUri.toString());
+                        }
+                        if (geojsonLayer != null) { // if null setUpLayers will have toasted
+                            geojsonLayer.resetStyling();
+                            LayerStyle.showDialog(activity, geojsonLayer.getIndex());
+                            SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                            geojsonLayer.invalidate();
+                            tl.removeAllViews();
+                            addRows(activity);
+                        }
+                        return true;
+                    }
+                });
+                return false;
+            });
+
+            item = popup.getMenu().add(R.string.menu_layers_add_backgroundlayer);
+            item.setOnMenuItemClickListener(unused -> {
+                buildImagerySelectDialog(null, null, false).show();
+                Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
+                return true;
+            });
+
+            item = popup.getMenu().add(R.string.menu_layers_add_overlaylayer);
+            item.setOnMenuItemClickListener(unused -> {
+                buildImagerySelectDialog(null, null, true).show();
+                Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
+                return true;
+            });
+
+            if (map.getTaskLayer() == null) {
+                item = popup.getMenu().add(R.string.menu_layers_add_tasklayer);
+                item.setOnMenuItemClickListener(unused -> {
+                    de.blau.android.layer.Util.addLayer(activity, LayerType.TASKS);
+                    updateDialogAndPrefs(activity, prefs, map);
+                    return true;
+                });
             }
 
-            @Override
-            public void onClick(View v) {
-                final FragmentActivity activity = getActivity();
-                final Preferences prefs = App.getLogic().getPrefs();
-                PopupMenu popup = new PopupMenu(getActivity(), add);
-                // menu items for adding layers
-                MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
-                final Map map = App.getLogic().getMap();
+            if (map.getPhotoLayer() == null) {
+                item = popup.getMenu().add(R.string.menu_layers_add_photolayer);
                 item.setOnMenuItemClickListener(unused -> {
-                    SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public boolean read(Uri fileUri) {
-                            de.blau.android.layer.geojson.MapOverlay geojsonLayer = map.getGeojsonLayer();
-                            if (geojsonLayer != null) {
-                                try {
-                                    geojsonLayer.resetStyling();
-                                    if (geojsonLayer.loadGeoJsonFile(activity, fileUri)) {
-                                        SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                                        geojsonLayer.invalidate();
-                                        LayerStyle.showDialog(activity, geojsonLayer.getIndex());
-                                        tl.removeAllViews();
-                                        addRows(activity);
-                                    }
-                                } catch (IOException e) {
-                                    // display a toast?
-                                }
-                            }
-                            return true;
-                        }
-                    });
-                    return false;
+                    de.blau.android.layer.Util.addLayer(activity, LayerType.PHOTO);
+                    updateDialogAndPrefs(activity, prefs, map);
+                    return true;
                 });
+            }
 
-                if (map.getBackgroundLayer() == null) {
-                    item = popup.getMenu().add(R.string.menu_layers_add_backgroundlayer);
-                    item.setOnMenuItemClickListener(unused -> {
-                        buildImagerySelectDialog(null, null, false).show();
-                        Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
-                        return true;
-                    });
-                }
-
-                if (map.getOverlayLayer() == null || !Map.activeOverlay(prefs.overlayLayer())) {
-                    item = popup.getMenu().add(R.string.menu_layers_add_overlaylayer);
-                    item.setOnMenuItemClickListener(unused -> {
-                        buildImagerySelectDialog(null, null, true).show();
-                        Tip.showDialog(activity, R.string.tip_imagery_privacy_key, R.string.tip_imagery_privacy);
-                        return true;
-                    });
-                }
-
-                if (!prefs.areBugsEnabled()) {
-                    item = popup.getMenu().add(R.string.menu_layers_add_tasklayer);
-                    item.setOnMenuItemClickListener(unused -> {
-                        prefs.setBugsEnabled(true);
-                        updateDialogAndPrefs(activity, prefs);
-                        return true;
-                    });
-                }
-
-                if (!prefs.isPhotoLayerEnabled()) {
-                    item = popup.getMenu().add(R.string.menu_layers_add_photolayer);
-                    item.setOnMenuItemClickListener(unused -> {
-                        prefs.setPhotoLayerEnabled(true);
-                        updateDialogAndPrefs(activity, prefs);
-                        return true;
-                    });
-                }
-
+            if (map.getLayer(LayerType.SCALE) == null) {
                 String[] scaleValues = activity.getResources().getStringArray(R.array.scale_values);
-                if (scaleValues != null && scaleValues.length > 0 && prefs.scaleLayer().equals(scaleValues[0])) {
+                if (scaleValues != null && scaleValues.length > 0) {
                     item = popup.getMenu().add(R.string.menu_layers_add_grid);
                     item.setOnMenuItemClickListener(unused -> {
+                        de.blau.android.layer.Util.addLayer(activity, LayerType.SCALE);
                         prefs.setScaleLayer(scaleValues[1]);
-                        updateDialogAndPrefs(activity, prefs);
+                        updateDialogAndPrefs(activity, prefs, map);
                         return true;
                     });
                 }
-                
-                de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map.getMapillaryLayer();
-                if (mapillaryLayer != null && !mapillaryLayer.isEnabled()) {
-                    item = popup.getMenu().add("Enable mapillary layer");
-                    item.setOnMenuItemClickListener(unused -> {
-                        // Todo
-                        return true;
-                    });
-                }
-                popup.show();
             }
+
+            if (map.getLayer(LayerType.MAPILLARY) == null) {
+                try (KeyDatabaseHelper keys = new KeyDatabaseHelper(activity); SQLiteDatabase db = keys.getReadableDatabase()) {
+                    if (KeyDatabaseHelper.getKey(db, de.blau.android.layer.mapillary.MapOverlay.APIKEY_KEY) != null) {
+                        item = popup.getMenu().add(R.string.menu_layers_enable_mapillary_layer);
+                        item.setOnMenuItemClickListener(unused -> {
+                            de.blau.android.layer.Util.addLayer(activity, LayerType.MAPILLARY);
+                            updateDialogAndPrefs(activity, prefs, map);
+                            return true;
+                        });
+                    }
+                }
+            }
+
+            item = popup.getMenu().add(R.string.menu_tools_add_imagery_from_oam);
+            item.setOnMenuItemClickListener(unused -> {
+                OAMCatalogView.queryAndSelectLayers(getActivity(), activity instanceof Main ? ((Main) activity).getMap().getViewBox() : null,
+                        () -> updateDialogAndPrefs(activity, prefs, map));
+                return true;
+            });
+
+            item = popup.getMenu().add(R.string.add_imagery_from_wms_endpoint);
+            item.setOnMenuItemClickListener(unused -> {
+                WmsEndpointDatabaseView ui = new WmsEndpointDatabaseView();
+                ui.manageEndpoints(getActivity(), () -> updateDialogAndPrefs(activity, prefs, map));
+                return true;
+            });
+
+            popup.show();
         });
 
         Button done = (Button) layout.findViewById(R.id.done);
@@ -262,6 +267,20 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         window.setAttributes(wlp);
 
         return dialog;
+    }
+
+    /**
+     * Update the dialog and set the prefs
+     * 
+     * @param activity calling FragmentActivity
+     * @param prefs Preference instance to set
+     * @param map the curren Map instance
+     */
+    private void updateDialogAndPrefs(@NonNull final FragmentActivity activity, @NonNull final Preferences prefs, @NonNull final Map map) {
+        setPrefs(activity, prefs);
+        tl.removeAllViews();
+        addRows(activity);
+        map.invalidate();
     }
 
     /**
@@ -330,10 +349,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         List<MapViewLayer> layers = App.getLogic().getMap().getLayers();
         Collections.reverse(layers);
         for (MapViewLayer layer : layers) {
-            if (layer.isEnabled()) {
-                tl.addView(createRow(context, layer, tp));
-                tl.addView(divider(context));
-            }
+            tl.addView(createRow(context, layer, tp));
+            tl.addView(divider(context));
         }
     }
 
@@ -350,9 +367,8 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         TableRow tr = new TableRow(context);
         final ImageButton visible = new ImageButton(context);
         String name = null;
-        boolean isVisible = false;
         name = layer.getName();
-        isVisible = layer.isVisible();
+        boolean isVisible = layer.isVisible();
         visible.setImageResource(isVisible ? visibleId : invisibleId);
         visible.setBackgroundColor(Color.TRANSPARENT);
         visible.setPadding(0, 0, Density.dpToPx(context, 5), 0);
@@ -451,6 +467,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             final FragmentActivity activity = getActivity();
             PopupMenu popup = new PopupMenu(activity, button);
             Menu menu = popup.getMenu();
+            final Map map = App.getLogic().getMap();
 
             if (layer instanceof MapTilesLayer) { // maybe we should use an interface here
                 // get MRU list from layer
@@ -521,28 +538,17 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 });
             }
 
-            if (layer instanceof DisableInterface) {
-                MenuItem item = menu.add(R.string.disable);
-                item.setOnMenuItemClickListener(unused -> {
-                    if (layer != null) {
-                        Context context = getContext();
-                        ((DisableInterface) layer).disable(context);
-                        setPrefs(activity, new Preferences(context));
-                        tl.removeAllViews();
-                        addRows(context);
-                        App.getLogic().getMap().invalidate();
-                    }
-                    return true;
-                });
-            }
-
             if (layer instanceof DiscardInterface) {
                 MenuItem item = menu.add(R.string.discard);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
-                        ((DiscardInterface) layer).discard(getContext());
-                        TableRow row = (TableRow) button.getTag();
-                        tl.removeView(row);
+                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                            db.deleteLayer(layer.getIndex(), layer.getType());
+                            map.setUpLayers(activity);
+                            map.invalidate();
+                            ((DiscardInterface) layer).discard(getContext());
+                            updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
+                        }
                     }
                     return true;
                 });
@@ -584,35 +590,6 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     return true;
                 });
 
-                if (!(layer instanceof MapTilesOverlayLayer)) {
-                    item = menu.add(R.string.menu_tools_add_imagery_from_oam);
-                    item.setOnMenuItemClickListener(unused -> {
-                        OAMCatalogView.queryAndSelectLayers(getActivity(), activity instanceof Main ? ((Main) activity).getMap().getViewBox() : null, () -> {
-                            TableRow row = (TableRow) button.getTag();
-                            setNewImagery(activity, row, (MapTilesLayer) layer, null);
-                            if (layer != null) {
-                                layer.invalidate();
-                                dismissDialog();
-                            }
-                        });
-                        return true;
-                    });
-                }
-
-                item = menu.add(R.string.add_imagery_from_wms_endpoint);
-                item.setOnMenuItemClickListener(unused -> {
-                    WmsEndpointDatabaseView ui = new WmsEndpointDatabaseView();
-                    ui.manageEndpoints(getActivity(), () -> {
-                        TableRow row = (TableRow) button.getTag();
-                        setNewImagery(activity, row, (MapTilesLayer) layer, null);
-                        if (layer != null) {
-                            layer.invalidate();
-                            dismissDialog();
-                        }
-                    });
-                    return true;
-                });
-
                 item = menu.add(R.string.menu_tools_background_properties);
                 item.setOnMenuItemClickListener(unused -> {
                     if (layer != null) {
@@ -621,6 +598,32 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     return true;
                 });
             }
+            MenuItem item = menu.add(R.string.move_up);
+            item.setOnMenuItemClickListener(unused -> {
+                if (layer != null) {
+                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                        db.moveLayer(layer.getIndex(), Math.min(layer.getIndex() + 1, db.layerCount() - 1));
+                        updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
+                        map.invalidate();
+                    }
+                }
+                return true;
+            });
+            try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                item.setEnabled(layer.getIndex() < db.layerCount() - 1);
+            }
+            item = menu.add(R.string.move_down);
+            item.setOnMenuItemClickListener(unused -> {
+                if (layer != null) {
+                    try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+                        db.moveLayer(layer.getIndex(), Math.max(layer.getIndex() - 1, 0));
+                        updateDialogAndPrefs(activity, App.getLogic().getPrefs(), map);
+                        map.invalidate();
+                    }
+                }
+                return true;
+            });
+            item.setEnabled(layer.getIndex() > 0);
             popup.show();
         }
     }
@@ -748,38 +751,56 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     private void setNewImagery(@NonNull FragmentActivity activity, @Nullable TableRow row, @Nullable MapTilesLayer layer,
             @Nullable TileLayerSource tileServer) {
         Preferences prefs = App.getLogic().getPrefs();
-        if (tileServer != null) {
-            if (tileServer.isOverlay()) {
-                prefs.setOverlayLayer(tileServer.getId());
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(activity)) {
+            if (layer != null) {
+                if (tileServer != null) {
+                    db.setLayerContentId(layer.getIndex(), tileServer.getId());
+                } else {
+                    LayerConfig[] layerConfigs = db.getLayers();
+                    if (layer.getIndex() < layerConfigs.length) {
+                        tileServer = TileLayerSource.get(activity, layerConfigs[layer.getIndex()].getContentId(), true);
+                    }
+                }
+                if (tileServer != null) {
+                    App.getDelegator().setImageryRecorded(false);
+                    if (row != null) {
+                        TextView name = (TextView) row.getChildAt(2);
+                        name.setText(tileServer.getName());
+                        layer.setRendererInfo(tileServer);
+                    }
+                    try {
+                        layer.onSaveState(activity);
+                    } catch (IOException e) {
+                        Log.e(DEBUG_TAG, "setNewImagery save of imagery layer state failed");
+                    }
+                    layer.invalidate();
+                } else {
+                    Log.e(DEBUG_TAG, "setNewImagery tile source null");
+                }
+            } else if (tileServer != null) {
+                LayerConfig[] layerConfigs = db.getLayers();
+                // determine the position to insert the layer at,
+                // essentially on top of the latest layer of the same type
+                final boolean isOverlay = tileServer.isOverlay();
+                int position = 0;
+                for (LayerConfig config : layerConfigs) {
+                    if (LayerType.IMAGERY.equals(config.getType()) && config.getPosition() >= position) {
+                        position = config.getPosition() + 1;
+                    }
+                    if (isOverlay && LayerType.OVERLAYIMAGERY.equals(config.getType()) && config.getPosition() >= position) {
+                        position = config.getPosition() + 1;
+                    }
+                }
+                db.insertLayer(position, isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, true, tileServer.getId());
+                App.getLogic().getMap().invalidate();
             } else {
-                prefs.setBackGroundLayer(tileServer.getId());
+                Log.e(DEBUG_TAG, "setNewImagery both layer and tile source null");
             }
-        } else {
-            String layerId = prefs.backgroundLayer();
-            if (layer instanceof MapTilesOverlayLayer) {
-                layerId = prefs.overlayLayer();
+            if (activity instanceof Main) {
+                ((Main) activity).invalidateOptionsMenu();
             }
-            tileServer = TileLayerSource.get(activity, layerId, true);
         }
-        App.getDelegator().setImageryRecorded(false);
-        if (layer != null) {
-            if (row != null) {
-                TextView name = (TextView) row.getChildAt(2);
-                name.setText(tileServer.getName());
-                layer.setRendererInfo(tileServer);
-            }
-            try {
-                layer.onSaveState(activity);
-            } catch (IOException e) {
-                Log.e(DEBUG_TAG, "save of imagery layer state failed");
-            }
-            layer.invalidate();
-        } else {
-            App.getLogic().getMap().invalidate();
-        }
-        if (activity instanceof Main) {
-            ((Main) activity).invalidateOptionsMenu();
-        }
+
         setPrefs(activity, prefs);
     }
 
