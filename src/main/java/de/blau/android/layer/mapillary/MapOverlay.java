@@ -48,6 +48,7 @@ import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.DownloadInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerType;
+import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmXml;
@@ -58,6 +59,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.resources.KeyDatabaseHelper;
+import de.blau.android.util.DataStorage;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
@@ -74,7 +76,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class MapOverlay extends StyleableLayer
-        implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<MapillaryImage>, DownloadInterface {
+        implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<MapillaryImage>, DownloadInterface, PruneableInterface, DataStorage {
 
     private static final long serialVersionUID = 1L;
 
@@ -156,9 +158,7 @@ public class MapOverlay extends StyleableLayer
                 Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
                 continue;
             }
-            synchronized (boxes) {
-                boxes.add(b);
-            }
+            addBoundingBox(b);
             mThreadPool.execute(() -> downloadBox(map.getContext(), b, new PostAsyncActionHandler() {
                 private static final long serialVersionUID = 1L;
 
@@ -169,9 +169,7 @@ public class MapOverlay extends StyleableLayer
 
                 @Override
                 public void onError() {
-                    synchronized (boxes) {
-                        boxes.remove(b);
-                    }
+                    deleteBoundingBox(b);
                 }
             }));
         }
@@ -726,5 +724,47 @@ public class MapOverlay extends StyleableLayer
     @Override
     public LayerType getType() {
         return LayerType.MAPILLARY;
+    }
+
+    @Override
+    public void prune() {
+        ViewBox pruneBox = new ViewBox(map.getViewBox());
+        pruneBox.scale(1.2);
+        prune(pruneBox);
+    }
+
+    @Override
+    public List<BoundingBox> getBoundingBoxes() {
+        return boxes;
+    }
+
+    @Override
+    public void addBoundingBox(BoundingBox box) {
+        synchronized (boxes) {
+            boxes.add(box);
+        }
+
+    }
+
+    @Override
+    public void deleteBoundingBox(BoundingBox box) {
+        synchronized (boxes) {
+            boxes.remove(box);
+        }
+    }
+
+    @Override
+    public void prune(BoundingBox box) {
+        synchronized (data) {
+            Collection<MapillarySequence> queryResult = new ArrayList<>();
+            data.query(queryResult);
+            for (MapillarySequence s : queryResult) {
+                if (!box.intersects(s.getBounds())) {
+                    data.remove(s);
+                }
+            }
+            BoundingBox.prune(this, box);
+            saved = false;
+        }
     }
 }
