@@ -1093,7 +1093,7 @@ public class TileLayerSource implements Serializable {
      * @return the selected TileLayerServer
      */
     @Nullable
-    public static TileLayerSource get(@NonNull final Context ctx, @NonNull final String id, final boolean async) {
+    public static TileLayerSource get(@NonNull final Context ctx, @Nullable final String id, final boolean async) {
         synchronized (serverListLock) {
             if (!ready) {
                 TileLayerDatabase db = new TileLayerDatabase(ctx);
