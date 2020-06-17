@@ -402,7 +402,6 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
         row.prefs = caller.prefs;
         row.values = values;
         row.caller = caller;
-
         PresetField field = preset.getField(key);
         if (field instanceof PresetComboField) {
             row.delimiter = preset.getDelimiter(key);
@@ -455,7 +454,8 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
      */
     static void addValues(@NonNull final TagFormFragment caller, @NonNull final String key, @Nullable final ArrayAdapter<?> adapter,
             @NonNull final MultiTextRow row, @Nullable String value, @Nullable List<String> splitValues) {
-        if (splitValues != null && !"".equals(value)) {
+        final boolean notEmpty = splitValues != null && !"".equals(value);
+        if (notEmpty) {
             int phoneNumberReformatted = 0;
             int count = 1;
             for (String v : splitValues) {
@@ -480,7 +480,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
                 row.post(() -> Snack.barWarning(row, R.string.toast_phone_number_reformatted, Snackbar.LENGTH_LONG));
             }
         }
-        for (int i = (splitValues != null ? splitValues.size() : 0); i < (row.valueCount > 0 ? row.valueCount : 1); i++) {
+        for (int i = (notEmpty ? splitValues.size() : 0); i < (row.valueCount > 0 ? row.valueCount : 1); i++) {
             row.addEditText("", row.listener, row.valueType, row.adapter, -1);
         }
     }
