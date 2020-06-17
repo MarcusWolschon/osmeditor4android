@@ -2450,9 +2450,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     // this will fill up any missing fields
                     try {
                         int valueCount = Integer.parseInt(valueCountValue);
-                        long currentCount = Util.countChar(value, delimiter) + 1;
+                        int currentCount = Util.countChar(value, delimiter) + 1;
                         if (currentCount < valueCount) {
-                            for (long i = currentCount; i < valueCount; i++) {
+                            for (int i = currentCount; i < valueCount; i++) {
                                 value += delimiter; // NOSONAR
                             }
                         } else if (currentCount > valueCount) {
