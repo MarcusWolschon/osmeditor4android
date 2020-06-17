@@ -66,7 +66,7 @@ Vespucci utilizes a number of independent, separately maintained, projects. The 
 * [OpeningHoursFragment](https://github.com/simonpoole/OpeningHoursFragment) opening hours user interface
 * [Name Suggestion Index](https://github.com/osmlab/name-suggestion-index) name/brand-related tag suggestions database
 
-## License
+## License and trademarks
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -84,5 +84,10 @@ Vespucci utilizes a number of independent, separately maintained, projects. The 
 [openstreetmap]: http://www.openstreetmap.org
 [android]: http://developer.android.com
 [mailinglist]: http://groups.google.de/group/osmeditor4android
-[josm]: http://wiki.openstreetmap.org/wiki/JOSM
+[josm]: http://wiki.openstreetmap.org/wiki/JOSM 
+
+__OpenStreetMap__ and the magnifying glass logo are trademarks of the OpenStreetMap Foundation. The Vespucci app is not endorsed by or affiliated with the OpenStreetMap Foundation.
+
+__Mapillary_ is a trademark of Mapillary AB, Sweden. The Vespucci app is not endorsed by or affiliated with Mapillary AB. 
+
 

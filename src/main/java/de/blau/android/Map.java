@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,6 +20,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
@@ -32,6 +34,8 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.LayerConfig;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
@@ -40,6 +44,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
@@ -47,6 +52,7 @@ import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
@@ -99,14 +105,6 @@ public class Map extends View implements IMapView {
      * Copy of the above for use during onDraw
      */
     private final List<MapViewLayer> renderLayers = new ArrayList<>();
-    /* currently the layers setup is very static and we provide methods to access them */
-    private MapTilesLayer                            backgroundLayer = null;
-    private MapTilesOverlayLayer                     overlayLayer    = null;
-    private de.blau.android.layer.photos.MapOverlay  photoLayer      = null;
-    private de.blau.android.layer.tasks.MapOverlay   taskLayer       = null;
-    private de.blau.android.layer.gpx.MapOverlay     gpxLayer        = null;
-    private de.blau.android.layer.geojson.MapOverlay geojsonLayer    = null;
-    private de.blau.android.layer.data.MapOverlay    dataLayer       = null;
 
     /**
      * The visible area in decimal-degree (WGS84) -space.
@@ -198,95 +196,87 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * Setup layers from preferences
+     * Setup layers from layer db
      * 
      * @param ctx Android context
      */
     public void setUpLayers(@NonNull Context ctx) {
         synchronized (mLayers) {
             List<MapViewLayer> tempLayers = new ArrayList<>();
-            TileLayerSource backgroundTS = TileLayerSource.get(ctx, prefs.backgroundLayer(), true);
-            if (backgroundTS == null) {
-                backgroundTS = TileLayerSource.getDefault(ctx, true);
-            }
-            if (backgroundTS != null) {
-                if (backgroundLayer != null) {
-                    backgroundLayer.setRendererInfo(backgroundTS);
-                    tempLayers.add(backgroundLayer);
-                    backgroundLayer.setIndex(tempLayers.size() - 1);
-                    ImageryOffsetUtils.applyImageryOffsets(ctx, backgroundTS, getViewBox());
-                } else if (activeOverlay(backgroundTS.getId())) {
-                    backgroundLayer = new MapTilesLayer(this, backgroundTS, null);
-                    tempLayers.add(backgroundLayer);
-                    backgroundLayer.setIndex(tempLayers.size() - 1);
-                    ImageryOffsetUtils.applyImageryOffsets(ctx, backgroundTS, getViewBox());
-                    backgroundLayer.setContrast(prefs.getContrastValue());
-                }
-            }
-
-            final TileLayerSource overlayTS = TileLayerSource.get(ctx, prefs.overlayLayer(), true);
-            if (overlayTS != null) {
-                if (overlayLayer != null) {
-                    if (activeOverlay(overlayTS.getId())) {
-                        overlayLayer.setRendererInfo(overlayTS);
-                        tempLayers.add(overlayLayer);
-                        overlayLayer.setIndex(tempLayers.size() - 1);
-                        ImageryOffsetUtils.applyImageryOffsets(ctx, overlayTS, getViewBox());
+            try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(ctx)) {
+                final LayerConfig[] layerConfigs = db.getLayers();
+                for (LayerConfig config : layerConfigs) {
+                    MapViewLayer layer = null;
+                    final String contentId = config.getContentId();
+                    final LayerType type = config.getType();
+                    List<MapViewLayer> existingLayers = getLayers(type, contentId);
+                    if (existingLayers.isEmpty()) {
+                        switch (type) { // NOSONAR
+                        case IMAGERY:
+                            TileLayerSource backgroundSource = TileLayerSource.get(ctx, contentId, true);
+                            if (backgroundSource != null) {
+                                layer = new MapTilesLayer(this, backgroundSource, null);
+                            }
+                            break;
+                        case OVERLAYIMAGERY:
+                            TileLayerSource overlaySource = TileLayerSource.get(ctx, contentId, true);
+                            if (overlaySource != null) {
+                                layer = new MapTilesOverlayLayer(this);
+                                ((MapTilesOverlayLayer) layer).setRendererInfo(overlaySource);
+                            }
+                            break;
+                        case PHOTO:
+                            layer = new de.blau.android.layer.photos.MapOverlay(this);
+                            break;
+                        case SCALE:
+                            layer = new de.blau.android.layer.grid.MapOverlay(this);
+                            break;
+                        case OSMDATA:
+                            layer = new de.blau.android.layer.data.MapOverlay(this);
+                            break;
+                        case GPX:
+                            layer = new de.blau.android.layer.gpx.MapOverlay(this);
+                            break;
+                        case TASKS:
+                            layer = new de.blau.android.layer.tasks.MapOverlay(this);
+                            break;
+                        case GEOJSON:
+                            layer = new de.blau.android.layer.geojson.MapOverlay(this);
+                            if (contentId != null) {
+                                try {
+                                    ((de.blau.android.layer.geojson.MapOverlay) layer).loadGeoJsonFile(ctx, Uri.parse(contentId));
+                                } catch (IOException e) {
+                                    if (context instanceof Main) {
+                                        Snack.toastTopError(context, context.getString(R.string.toast_error_reading, contentId));
+                                    }
+                                    continue; // skip
+                                }
+                            }
+                            break;
+                        case MAPILLARY:
+                            layer = new de.blau.android.layer.mapillary.MapOverlay(this);
+                            break;
+                        }
                     } else {
-                        overlayLayer.onDestroy();
-                        overlayLayer = null; // entry removed in setUpLayers
+                        layer = existingLayers.get(0);
                     }
-                } else if (activeOverlay(overlayTS.getId())) {
-                    overlayLayer = new MapTilesOverlayLayer(this);
-                    overlayLayer.setRendererInfo(overlayTS);
-                    tempLayers.add(overlayLayer);
-                    overlayLayer.setIndex(tempLayers.size() - 1);
-                    ImageryOffsetUtils.applyImageryOffsets(ctx, overlayTS, getViewBox());
+                    if (layer != null) {
+                        tempLayers.add(layer);
+                        layer.setIndex(tempLayers.size() - 1);
+                        layer.setVisible(config.isVisible());
+                        if (LayerType.IMAGERY.equals(layer.getType()) || LayerType.OVERLAYIMAGERY.equals(layer.getType())) {
+                            ImageryOffsetUtils.applyImageryOffsets(ctx, ((MapTilesLayer) layer).getTileLayerConfiguration(), getViewBox());
+                        }
+                    }
                 }
             }
-            if (prefs.isPhotoLayerEnabled()) {
-                if (photoLayer == null) {
-                    photoLayer = new de.blau.android.layer.photos.MapOverlay(this);
+            // save, then destroy any unused layers
+            for (MapViewLayer oldLayer : mLayers) {
+                if (!tempLayers.contains(oldLayer)) {
+                    saveLayerState(ctx, oldLayer);
+                    oldLayer.onDestroy();
                 }
-                tempLayers.add(photoLayer);
-                photoLayer.setIndex(tempLayers.size() - 1);
-            } else if (photoLayer != null) {
-                saveLayerState(ctx, photoLayer);
-                photoLayer.onDestroy();
-                photoLayer = null;
             }
-            String[] scaleValues = ctx.getResources().getStringArray(R.array.scale_values);
-            if (scaleValues != null && scaleValues.length > 0 && !scaleValues[0].contentEquals(prefs.scaleLayer())) {
-                de.blau.android.layer.grid.MapOverlay grid = new de.blau.android.layer.grid.MapOverlay(this);
-                tempLayers.add(grid);
-                grid.setIndex(tempLayers.size() - 1);
-            }
-            if (dataLayer == null) {
-                dataLayer = new de.blau.android.layer.data.MapOverlay(this);
-            }
-            tempLayers.add(dataLayer);
-            dataLayer.setIndex(tempLayers.size() - 1);
-            if (gpxLayer == null) {
-                gpxLayer = new de.blau.android.layer.gpx.MapOverlay(this);
-            }
-            tempLayers.add(gpxLayer);
-            gpxLayer.setIndex(tempLayers.size() - 1);
-            if (prefs.areBugsEnabled()) {
-                if (taskLayer == null) {
-                    taskLayer = new de.blau.android.layer.tasks.MapOverlay(this);
-                }
-                tempLayers.add(taskLayer);
-                taskLayer.setIndex(mLayers.size() - 1);
-            } else if (taskLayer != null) {
-                saveLayerState(ctx, taskLayer);
-                taskLayer.onDestroy();
-                taskLayer = null;
-            }
-            if (geojsonLayer == null) {
-                geojsonLayer = new de.blau.android.layer.geojson.MapOverlay(this);
-            }
-            tempLayers.add(geojsonLayer);
-            geojsonLayer.setIndex(tempLayers.size() - 1);
             mLayers.clear();
             mLayers.addAll(tempLayers);
         }
@@ -329,6 +319,24 @@ public class Map extends View implements IMapView {
     }
 
     /**
+     * Get layers of a specific type and potentially with a specific content
+     * 
+     * @param type the type
+     * @param contentId the content id
+     * @return a List of layers
+     */
+    @NonNull
+    private List<MapViewLayer> getLayers(@NonNull LayerType type, @Nullable String contentId) {
+        List<MapViewLayer> result = new ArrayList<>();
+        for (MapViewLayer l : mLayers) {
+            if (l.getType().equals(type) && (contentId == null || contentId.equals(l.getContentId()))) {
+                result.add(l);
+            }
+        }
+        return result;
+    }
+
+    /**
      * Get the list of configured layers
      * 
      * @return a shallow copy of the List of MapViewLayers
@@ -358,13 +366,31 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * Return the current background layer
+     * Get the top visible imager layer for a type
      * 
-     * @return the current background layer or null if none is configured
+     * @param type the type (typically LayerType.Imagery or OVERLAYIMAGERY)
+     * @return the layer or null
+     */
+    @Nullable
+    public MapTilesLayer getTopImageryLayer(@NonNull LayerType type) {
+        List<MapViewLayer> imageryLayers = getLayers(type, null);
+        Collections.reverse(imageryLayers);
+        for (MapViewLayer layer : imageryLayers) {
+            if (layer.isVisible()) {
+                return (MapTilesLayer) layer;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Return the current (that is top visible) background layer
+     * 
+     * @return the current background layer or null
      */
     @Nullable
     public MapTilesLayer getBackgroundLayer() {
-        return backgroundLayer;
+        return getTopImageryLayer(LayerType.IMAGERY);
     }
 
     /**
@@ -374,7 +400,33 @@ public class Map extends View implements IMapView {
      */
     @Nullable
     public MapTilesOverlayLayer getOverlayLayer() {
-        return overlayLayer;
+        return (MapTilesOverlayLayer) getTopImageryLayer(LayerType.OVERLAYIMAGERY);
+    }
+
+    /**
+     * Get a layer of a specific type
+     * 
+     * Assumes there is only one
+     * 
+     * @param type the LayerType
+     * @return the layer or null
+     */
+    public MapViewLayer getLayer(@NonNull LayerType type) {
+        return getLayer(type, null);
+    }
+
+    /**
+     * Get a layer of a specific type
+     * 
+     * Assumes there is only one
+     * 
+     * @param type the LayerType
+     * @param contentId the id or null for any layer of the type
+     * @return the layer or null
+     */
+    public MapViewLayer getLayer(@NonNull LayerType type, @Nullable String contentId) {
+        List<MapViewLayer> layers = getLayers(type, contentId);
+        return layers.isEmpty() ? null : layers.get(0);
     }
 
     /**
@@ -384,7 +436,7 @@ public class Map extends View implements IMapView {
      */
     @Nullable
     public de.blau.android.layer.tasks.MapOverlay getTaskLayer() {
-        return taskLayer;
+        return (de.blau.android.layer.tasks.MapOverlay) getLayer(LayerType.TASKS);
     }
 
     /**
@@ -394,7 +446,7 @@ public class Map extends View implements IMapView {
      */
     @Nullable
     public de.blau.android.layer.photos.MapOverlay getPhotoLayer() {
-        return photoLayer;
+        return (de.blau.android.layer.photos.MapOverlay) getLayer(LayerType.PHOTO);
     }
 
     /**
@@ -404,7 +456,7 @@ public class Map extends View implements IMapView {
      */
     @Nullable
     public de.blau.android.layer.geojson.MapOverlay getGeojsonLayer() {
-        return geojsonLayer;
+        return (de.blau.android.layer.geojson.MapOverlay) getLayer(LayerType.GEOJSON);
     }
 
     /**
@@ -414,7 +466,7 @@ public class Map extends View implements IMapView {
      */
     @Nullable
     public de.blau.android.layer.data.MapOverlay getDataLayer() {
-        return dataLayer;
+        return (de.blau.android.layer.data.MapOverlay) getLayer(LayerType.OSMDATA);
     }
 
     /**
@@ -460,7 +512,6 @@ public class Map extends View implements IMapView {
 
         zoomLevel = calcZoomLevel(canvas);
 
-        // set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
         final Logic logic = App.getLogic();
         final Mode tmpDrawingEditMode = logic.getMode();
         tmpLocked = logic.isLocked();
@@ -885,6 +936,7 @@ public class Map extends View implements IMapView {
      * @param aSelectedNodes the currently selected nodes to edit.
      */
     void setSelectedNodes(@Nullable final List<Node> aSelectedNodes) {
+        de.blau.android.layer.data.MapOverlay dataLayer = getDataLayer();
         if (dataLayer != null) {
             dataLayer.setSelectedNodes(aSelectedNodes);
         }
@@ -895,6 +947,7 @@ public class Map extends View implements IMapView {
      * @param aSelectedWays the currently selected ways to edit.
      */
     void setSelectedWays(@Nullable final List<Way> aSelectedWays) {
+        de.blau.android.layer.data.MapOverlay dataLayer = getDataLayer();
         if (dataLayer != null) {
             dataLayer.setSelectedWays(aSelectedWays);
         }
@@ -954,8 +1007,8 @@ public class Map extends View implements IMapView {
         gpsPosPaintStale = DataStyle.getInternal(DataStyle.GPS_POS_STALE).getPaint();
         gpsAccuracyPaint = DataStyle.getInternal(DataStyle.GPS_ACCURACY).getPaint();
         boxPaint = DataStyle.getInternal(DataStyle.VIEWBOX).getPaint();
-        if (dataLayer != null) {
-            dataLayer.updateStyle();
+        for (MapViewLayer layer : getLayers(LayerType.OSMDATA, null)) {
+            ((de.blau.android.layer.data.MapOverlay) layer).updateStyle();
         }
     }
 

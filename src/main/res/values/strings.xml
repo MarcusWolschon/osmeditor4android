@@ -275,6 +275,7 @@
     <string name="json_array_not_displayed">JSON array (not displayed)</string>
     <!--  Layer dialog -->
     <string name="layer_geojson">GeoJSON</string>
+    <string name="layer_mapillary">Mapillary</string>
     <string name="layer_grid">Grid</string>
     <string name="layer_gpx">GPX</string>
     <string name="layer_photos">Photos</string>
@@ -303,6 +304,8 @@
     <string name="photo_viewer_delete_title">Delete photo</string>
     <string name="photo_viewer_delete_button">Delete permamently</string>
     <string name="photo_viewer_goto">Go to photo</string>
+    <string name="photo_viewer_label">Photo Viewer</string>
+    <string name="mapillary_viewer_label">Mapillary Viewer</string>
     <!--  API info dialog -->
     <string name="api_info_bounds">Bounding box</string>
     <string name="api_info_latest_date">Last included date</string>
@@ -469,6 +472,7 @@ avoided by using an offline data source.</string>
     <string name="toast_device_not_found_for">Device not found for %1$s</string>
     <string name="toast_file_already_exists">File %1$s already exists</string>
     <string name="toast_file_error_for">File error for %1$s</string>
+    <string name="toast_error_reading">Error reading %1$s</string>
     <string name="toast_http_data_error_for">HTTP data error for %1$s</string>
     <string name="toast_error_insufficient_space_for">Not enough space on device for %1$s</string>
     <string name="toast_error_too_many_redirects_for">Too many redirects for %1$s</string>
@@ -487,6 +491,8 @@ avoided by using an offline data source.</string>
     <string name="toast_out_of_memory">OUT OF MEMORY!</string>
     <string name="toast_egm_installed">EGM downloaded and installed</string>
     <string name="toast_invalid_number_format">Invalid number format %1$s</string>
+    <string name="toast_error_downloading_mapillary_image">Error downloading mapillary image %1$s</string>
+    <string name="toast_error_downloading_mapillary_sequences">Error downloading mapillary sequences %1$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -758,12 +764,13 @@ avoided by using an offline data source.</string>
     <string name="distance_km">%1$.3f km</string>
     <!--  Menus in layers dialog -->
     <string name="menu_layers">Layers…</string>
-    <string name="menu_layers_load_geojson">Load GeoJSON layer</string>
+    <string name="menu_layers_load_geojson">Add GeoJSON layer</string>
     <string name="menu_layers_add_backgroundlayer">Add background imagery layer</string>
     <string name="menu_layers_add_overlaylayer">Add overlay imagery layer</string>
-    <string name="menu_layers_add_tasklayer">Add task layer</string>
-    <string name="menu_layers_add_grid">Add grid</string>
-    <string name="menu_layers_add_photolayer">Add photo layer</string>
+    <string name="menu_layers_add_tasklayer">Enable task layer</string>
+    <string name="menu_layers_add_grid">Enable grid</string>
+    <string name="menu_layers_add_photolayer">Enable photo layer</string>
+    <string name="menu_layers_enable_mapillary_layer">Enable Mapillary layer</string>
     <string name="menu_layers_configure">Configure…</string>
     <!--  -->
     <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
@@ -1019,6 +1026,8 @@ avoided by using an offline data source.</string>
     <string name="config_tileCacheSize_title">Tile cache size</string>
     <string name="config_tileCacheSize_summary">Total storage used for caching tiles, in MB.</string>
     <string name="config_tileCache_current">%1$d MB</string>
+    <string name="config_mapillaryCacheSize_title">Mapillary cache size</string>
+    <string name="config_mapillaryCacheSize_summary">Total storage used for caching Mapillary images, im MB</string>
     <!-- Miscellaneous -->
     <string name="config_category_misc">Miscellaneous</string>
     <string name="pref_enable_acra">Report app crashes</string>

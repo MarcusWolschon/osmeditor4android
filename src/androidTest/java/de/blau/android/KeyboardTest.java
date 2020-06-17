@@ -31,7 +31,6 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.propertyeditor.PropertyEditor;
-import de.blau.android.resources.TileLayerSource;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -63,8 +62,7 @@ public class KeyboardTest {
         prefDB.addAPI("Test", "Test", "", null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);

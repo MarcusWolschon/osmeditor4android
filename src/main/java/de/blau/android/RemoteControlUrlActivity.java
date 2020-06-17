@@ -11,8 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 import androidx.annotation.Nullable;
+import de.blau.android.layer.LayerType;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.DateFormatter;
@@ -171,7 +171,6 @@ public class RemoteControlUrlActivity extends UrlActivity {
             case "imagery":
                 String url = data.getQueryParameter("url");
                 if (url != null) {
-                    Preferences prefs = new Preferences(this);
                     String title = data.getQueryParameter("title");
                     if (title == null) {
                         try {
@@ -209,7 +208,7 @@ public class RemoteControlUrlActivity extends UrlActivity {
                         TileLayerSource.addOrUpdateCustomLayer(this, db, title, existing, -1, -1, title, new TileLayerSource.Provider(), null, null, minZoom,
                                 maxZoom, false, url);
                     }
-                    prefs.setBackGroundLayer(id);
+                    de.blau.android.layer.Util.addLayer(this, LayerType.IMAGERY, id);
                     intent.setAction(Main.ACTION_UPDATE);
                     return true;
                 }

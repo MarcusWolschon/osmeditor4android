@@ -19,11 +19,11 @@ import org.junit.runner.RunWith;
 
 import android.content.Context;
 import android.util.Log;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObject2;
@@ -36,12 +36,12 @@ import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerType;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 
@@ -68,8 +68,7 @@ public class LongClickTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
@@ -184,6 +183,7 @@ public class LongClickTest {
     @SdkSuppress(minSdkVersion = 26)
     @Test
     public void newBug() {
+        TestUtils.addTaskLayer(main);
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.unlock(device);
@@ -204,5 +204,6 @@ public class LongClickTest {
         Task t = tasks.get(0);
         assertTrue(t instanceof Note);
         assertEquals("test", ((Note) t).getComment());
+        TestUtils.removeTaskLayer(main);
     }
 }

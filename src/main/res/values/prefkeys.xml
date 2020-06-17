@@ -45,6 +45,8 @@
     <string name="config_osmoseServer_key">osmoseServer2</string>
     <string name="config_maprouletteServer_key">maprouletteServer</string>
     <string name="config_taginfoServer_key">taginfoServer</string>
+    <string name="config_mapillaryApi_key">mapillaryApi</string>
+    <string name="config_mapillaryImages_key">mapillaryImages</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_useInternalPhotoViewer_key">useInternalPhotoViewer</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
@@ -100,6 +102,7 @@
     <string name="config_uploadOk_key">uploadOkLimit</string>
     <string name="config_uploadWarn_key">uploadWarnLimit</string>
     <string name="config_dataWarn_key">dataWarnLimit</string>
+    <string name="config_mapillaryCacheSize_key">mapillaryCacheSize</string>
 
     <string name="gps_source_internal">internal</string>
     <string name="gps_source_nmea">nmea</string>

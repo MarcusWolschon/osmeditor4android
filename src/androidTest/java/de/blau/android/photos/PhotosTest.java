@@ -2,7 +2,6 @@ package de.blau.android.photos;
 
 import java.io.IOException;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -10,18 +9,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -46,27 +45,20 @@ public class PhotosTest {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
-        prefs.setPhotoLayerEnabled(true);
-        main.getMap().setPrefs(main, prefs);
         try {
             TestUtils.copyFileFromResources(main, PHOTO_FILE, "Pictures", true);
             TestUtils.copyFileFromResources(main, PHOTO_FILE2, "Pictures", true);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-    }
-
-    /**
-     * Post-test teardown
-     */
-    @After
-    public void teardown() {
-
+        if (main.getMap().getPhotoLayer() == null) {
+            de.blau.android.layer.Util.addLayer(main, LayerType.PHOTO);
+        }
+        main.getMap().setPrefs(main, prefs);
     }
 
     /**
@@ -83,8 +75,9 @@ public class PhotosTest {
 
         TestUtils.clickMenuButton(device, "delete", false, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Delete permamently", false, false));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Done", true, false));
-        TestUtils.clickMenuButton(device, "Go to photo", false, true);
+        // Assert.assertTrue(TestUtils.clickText(device, false, "Done", true, false));
+        // TestUtils.clickMenuButton(device, "Go to photo", false, true);
+        // device.pressBack();
         Assert.assertEquals(1, App.getPhotoIndex().count());
     }
 }

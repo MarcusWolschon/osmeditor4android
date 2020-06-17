@@ -36,15 +36,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
+import android.view.KeyEvent;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
-import android.view.KeyEvent;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -55,7 +55,6 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
@@ -99,8 +98,7 @@ public class ApiTest {
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         System.out.println("mock api url " + mockBaseUrl.toString()); // NOSONAR
         TestUtils.grantPermissons(device);

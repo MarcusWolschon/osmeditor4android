@@ -235,6 +235,10 @@ Maximum number of simultaneous download threads. Default: _4_.
 
 Total on device size for caching imagery tiles. Default: _100MB_.
 
+### Mapillary cache size
+
+Total on device size for caching Mapillary images. Default: _100MB_.
+
 ## Miscellaneous
 
 ### Report app crashes

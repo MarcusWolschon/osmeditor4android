@@ -22,8 +22,9 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ConfigureInterface;
-import de.blau.android.layer.DisableInterface;
+import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.osm.BoundingBox;
@@ -41,7 +42,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface<Task>, ConfigureInterface, PruneableInterface {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, DiscardInterface, ClickableInterface<Task>, ConfigureInterface, PruneableInterface {
 
     private static final String DEBUG_TAG = "tasks";
 
@@ -49,17 +50,15 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     private static final int SHOW_TASKS_LIMIT = 13;
 
-    private boolean enabled = false;
-
     /** Map this is an overlay of. */
-    private final Map map;
+    private Map map = null;
 
     /** Bugs visible on the overlay. */
     private TaskStorage tasks = App.getTaskStorage();
 
-    private transient ReentrantLock readingLock = new ReentrantLock();
+    private ReentrantLock readingLock = new ReentrantLock();
 
-    private transient SavingHelper<Task> savingHelper = new SavingHelper<>();
+    private SavingHelper<Task> savingHelper = new SavingHelper<>();
 
     private Task selected = null;
 
@@ -74,7 +73,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     private Server server;
 
-    private final Context context;
+    private Context context = null;
 
     /**
      * Construct a new task layer
@@ -89,8 +88,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     @Override
     public boolean isReadyToDraw() {
-        enabled = map.getPrefs().areBugsEnabled();
-        return enabled;
+        return true;
     }
 
     /**
@@ -98,44 +96,35 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
      * 
      * There is some code duplication here, however attempts to merge this didn't work out
      */
-    Runnable download = new Runnable() {
-
-        @Override
-        public void run() {
-            if (mThreadPool == null) {
-                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+    Runnable download = () -> {
+        if (mThreadPool == null) {
+            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+        }
+        List<BoundingBox> bbList = new ArrayList<>(tasks.getBoundingBoxes());
+        ViewBox box = new ViewBox(map.getViewBox());
+        box.scale(1.2); // make sides 20% larger
+        box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
+        List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
+        for (BoundingBox b : bboxes) {
+            if (b.getWidth() <= 1 || b.getHeight() <= 1) {
+                Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
+                continue;
             }
-            List<BoundingBox> bbList = new ArrayList<>(tasks.getBoundingBoxes());
-            ViewBox box = new ViewBox(map.getViewBox());
-            box.scale(1.2); // make sides 20% larger
-            box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
-            List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
-            for (BoundingBox b : bboxes) {
-                if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                    Log.w(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
-                    continue;
+            tasks.addBoundingBox(b);
+            mThreadPool.execute(() -> TransferTasks.downloadBox(context, server, b, true, new PostAsyncActionHandler() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void onSuccess() {
+                    map.postInvalidate();
                 }
-                tasks.addBoundingBox(b);
-                mThreadPool.execute(new Runnable() {
 
-                    @Override
-                    public void run() {
-                        TransferTasks.downloadBox(context, server, b, true, new PostAsyncActionHandler() {
+                @Override
+                public void onError() {
+                    // do nothing
+                }
 
-                            @Override
-                            public void onSuccess() {
-                                map.postInvalidate();
-                            }
-
-                            @Override
-                            public void onError() {
-                                // do nothing
-                            }
-
-                        });
-                    }
-                });
-            }
+            }));
         }
     };
 
@@ -144,7 +133,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
         int zoomLevel = map.getZoomLevel();
 
-        if (isVisible && enabled && zoomLevel >= SHOW_TASKS_LIMIT) {
+        if (isVisible && zoomLevel >= SHOW_TASKS_LIMIT) {
 
             ViewBox bb = osmv.getViewBox();
 
@@ -198,25 +187,21 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     @Override
     public List<Task> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Task> result = new ArrayList<>();
-        if (map.getPrefs().areBugsEnabled()) {
-            final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
-            List<Task> taskList = tasks.getTasks(viewBox);
-            if (taskList != null) {
-                Set<String> taskFilter = map.getPrefs().taskFilter();
-                for (Task t : taskList) {
-                    // filter
-                    if (!taskFilter.contains(t.bugFilterKey())) {
-                        continue;
-                    }
-                    int lat = t.getLat();
-                    int lon = t.getLon();
-                    float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-                    float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
-                    if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-                        if (Math.hypot(differenceX, differenceY) <= tolerance) {
-                            result.add(t);
-                        }
-                    }
+        final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
+        List<Task> taskList = tasks.getTasks(viewBox);
+        Set<String> taskFilter = map.getPrefs().taskFilter();
+        for (Task t : taskList) {
+            // filter
+            if (!taskFilter.contains(t.bugFilterKey())) {
+                continue;
+            }
+            int lat = t.getLat();
+            int lon = t.getLon();
+            float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
+            float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
+            if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
+                if (Math.hypot(differenceX, differenceY) <= tolerance) {
+                    result.add(t);
                 }
             }
         }
@@ -235,17 +220,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     @Override
     public BoundingBox getExtent() {
-        List<BoundingBox> boxes = App.getTaskStorage().getBoundingBoxes();
-        if (boxes != null) {
-            return BoundingBox.union(new ArrayList<>(boxes));
-        }
-        return null;
-    }
-
-    @Override
-    public void disable(Context context) {
-        Preferences prefs = new Preferences(context);
-        prefs.setBugsEnabled(false);
+        return BoundingBox.union(new ArrayList<>(App.getTaskStorage().getBoundingBoxes()));
     }
 
     @Override
@@ -323,7 +298,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
         super.onRestoreState(context);
         try {
             readingLock.lock();
-
             Task restoredTask = savingHelper.load(context, FILENAME, true);
             if (restoredTask != null) {
                 Log.d(DEBUG_TAG, "read saved state");
@@ -356,11 +330,20 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     @Override
     public void setPrefs(Preferences prefs) {
-        enabled = prefs.areBugsEnabled();
         panAndZoomDownLoad = prefs.getPanAndZoomAutoDownload();
         minDownloadSize = prefs.getBugDownloadRadius() * 2;
         server = prefs.getServer();
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
+    }
+
+    @Override
+    public LayerType getType() {
+        return LayerType.TASKS;
+    }
+
+    @Override
+    public void discard(Context context) {
+        onDestroy();
     }
 }

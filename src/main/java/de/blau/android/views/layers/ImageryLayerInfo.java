@@ -46,6 +46,7 @@ public class ImageryLayerInfo extends LayerInfo {
         TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT);
         tp.setMargins(10, 2, 10, 2);
         tableLayout.setColumnShrinkable(1, false);
+        tableLayout.setColumnStretchable(2, true);
         if (layer != null) {
             tableLayout.addView(TableLayoutUtils.createFullRowTitle(activity, layer.getName(), tp));
             tableLayout.addView(TableLayoutUtils.divider(activity));
@@ -55,6 +56,9 @@ public class ImageryLayerInfo extends LayerInfo {
                 tableLayout.addView(TableLayoutUtils.divider(activity));
             }
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.type, null, layer.getType(), tp));
+            if (TileLayerSource.TYPE_WMS.equals(layer.getType())) {
+                tableLayout.addView(TableLayoutUtils.createRow(activity, "Projection", null, layer.getProj(), tp));
+            }
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.layer_info_min_zoom, null, Integer.toString(layer.getMinZoomLevel()), tp));
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.layer_info_max_zoom, null, Integer.toString(layer.getMaxZoomLevel()), tp));
             long startDate = layer.getStartDate();

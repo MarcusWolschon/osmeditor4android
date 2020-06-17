@@ -40,6 +40,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.osm.BoundingBox;
@@ -346,6 +347,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                     final Logic logic = App.getLogic();
                     logic.download(context, prefs.getServer(), b, postMerge, new PostAsyncActionHandler() {
 
+                        private static final long serialVersionUID = 1L;
+
                         @Override
                         public void onSuccess() {
                             logic.reselectRelationMembers();
@@ -362,7 +365,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             }
             if (delegator.getCurrentStorage().getNodeCount() > autoPruneNodeLimit
                     && (System.currentTimeMillis() - lastAutoPrune) > AUTOPRUNE_MIN_INTERVALL * 1000) {
-                mThreadPool.execute(() -> prune());
+                mThreadPool.execute(MapOverlay.this::prune);
                 lastAutoPrune = System.currentTimeMillis();
             }
         }
@@ -1578,5 +1581,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         ViewBox pruneBox = new ViewBox(map.getViewBox());
         pruneBox.scale(1.6);
         delegator.prune(pruneBox);
+    }
+
+    @Override
+    public LayerType getType() {
+        return LayerType.OSMDATA;
     }
 }

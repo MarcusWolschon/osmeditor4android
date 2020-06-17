@@ -21,11 +21,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
@@ -37,12 +37,12 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.tasks.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.GeoMath;
 import okhttp3.HttpUrl;
 
@@ -69,10 +69,9 @@ public class OsmoseTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBugsEnabled(true);
         prefs.setTaskFilter(null);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
+        TestUtils.addTaskLayer(main);
         main.getMap().setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/en/api/0.2/");
@@ -96,6 +95,7 @@ public class OsmoseTest {
     @After
     public void teardown() {
         App.getTaskStorage().reset();
+        TestUtils.removeTaskLayer(main);
         try {
             mockServer.server().shutdown();
         } catch (IOException ioex) {

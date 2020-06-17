@@ -7,17 +7,12 @@ import java.util.List;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -28,6 +23,8 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.layer.LayerType;
+import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
@@ -58,53 +55,33 @@ public class TileLayerDatabaseView {
         layerAdapter = new LayerAdapter(writableDb, activity, layerCursor);
         layerList.setAdapter(layerAdapter);
         alertDialog.setNeutralButton(R.string.done, null);
-        alertDialog.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                layerCursor.close();
-                writableDb.close();
-                tlDb.close();
-            }
+        alertDialog.setOnDismissListener(dialog -> {
+            layerCursor.close();
+            writableDb.close();
+            tlDb.close();
         });
 
-        layerList.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long _id) {
-                final Integer id = (Integer) view.getTag();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-                alertDialog.setTitle(R.string.delete_layer);
-                alertDialog.setNeutralButton(R.string.cancel, null);
-                alertDialog.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        TileLayerSource tileServer = TileLayerDatabase.getLayerWithRowId(activity, writableDb, id);
-                        final Preferences prefs = App.getLogic().getPrefs();
-                        removeLayerSelection(prefs, tileServer);
-                        TileLayerDatabase.deleteLayerWithRowId(writableDb, id);
-                        newLayerCursor(writableDb);
-                        resetLayer(activity, writableDb);
-                    }
-
-                });
-                alertDialog.show();
-                return true;
-            }
+        layerList.setOnItemLongClickListener((parent, view, position, _id) -> {
+            final Integer id = (Integer) view.getTag();
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+            dialog.setTitle(R.string.delete_layer);
+            dialog.setNeutralButton(R.string.cancel, null);
+            dialog.setPositiveButton(R.string.delete, (d, which) -> {
+                TileLayerSource tileServer = TileLayerDatabase.getLayerWithRowId(activity, writableDb, id);
+                final Preferences prefs = App.getLogic().getPrefs();
+                removeLayerSelection(activity, prefs, tileServer);
+                TileLayerDatabase.deleteLayerWithRowId(writableDb, id);
+                newLayerCursor(writableDb);
+                resetLayer(activity, writableDb);
+            });
+            dialog.show();
+            return true;
         });
         final FloatingActionButton fab = (FloatingActionButton) layerListView.findViewById(R.id.add);
-        fab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TileLayerDialog.showLayerDialog(activity, -1, null, new TileLayerDialog.OnUpdateListener() {
-                    @Override
-                    public void update() {
-                        newLayerCursor(writableDb);
-                        resetLayer(activity, writableDb);
-                    }
-                });
-            }
-        });
+        fab.setOnClickListener(v -> TileLayerDialog.showLayerDialog(activity, -1, null, () -> {
+            newLayerCursor(writableDb);
+            resetLayer(activity, writableDb);
+        }));
         alertDialog.show();
     }
 
@@ -142,20 +119,15 @@ public class TileLayerDatabaseView {
             TextView nameView = (TextView) view.findViewById(R.id.name);
             nameView.setText(name);
             view.setLongClickable(true);
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Integer id = (Integer) view.getTag();
-                    TileLayerDialog.showLayerDialog(activity, id != null ? id : -1, null, new TileLayerDialog.OnUpdateListener() {
-                        @Override
-                        public void update() {
-                            newLayerCursor(db);
-                            resetLayer(activity, db);
-                        }
-                    });
-                }
+            view.setOnClickListener(v -> {
+                Integer tag = (Integer) view.getTag();
+                TileLayerDialog.showLayerDialog(activity, tag != null ? tag : -1, null, () -> {
+                    newLayerCursor(db);
+                    resetLayer(activity, db);
+                });
             });
         }
+
     }
 
     /**
@@ -209,12 +181,8 @@ public class TileLayerDatabaseView {
                     boolean isOverlay = layer instanceof MapTilesOverlayLayer;
                     if ((isOverlay && !newConfig.isOverlay()) || (!isOverlay && newConfig.isOverlay())) {
                         // not good overlay as background or the other way around
-                        if (!isOverlay) {
-                            prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE);
-                            layer.setRendererInfo(TileLayerSource.get(context, TileLayerSource.LAYER_NONE, false));
-                        } else {
-                            prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
-                            layer.setRendererInfo(TileLayerSource.get(context, TileLayerSource.LAYER_NOOVERLAY, false));
+                        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+                            db.deleteLayer(isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, newConfig.getId());
                         }
                     } else {
                         layer.setRendererInfo(newConfig);
@@ -245,16 +213,14 @@ public class TileLayerDatabaseView {
     /**
      * If the current layer is deleted zap the respective prefs
      * 
+     * @param context an Android Context
      * @param prefs a Preference object
      * @param layerConfig the layer
      */
-    protected static void removeLayerSelection(@NonNull final Preferences prefs, @Nullable final TileLayerSource layerConfig) {
+    protected static void removeLayerSelection(@NonNull Context context, @NonNull final Preferences prefs, @Nullable final TileLayerSource layerConfig) {
         if (layerConfig != null) {
-            if (layerConfig.getId().equals(prefs.overlayLayer())) {
-                prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
-            }
-            if (layerConfig.getId().equals(prefs.backgroundLayer())) {
-                prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE);
+            try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+                db.deleteLayer(layerConfig.isOverlay() ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, layerConfig.getId());
             }
         } else {
             Log.e(DEBUG_TAG, "layerConfig should not be null here");

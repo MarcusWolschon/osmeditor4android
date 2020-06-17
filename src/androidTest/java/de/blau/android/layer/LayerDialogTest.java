@@ -15,11 +15,11 @@ import org.junit.runner.RunWith;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Intent;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.Until;
@@ -40,6 +40,7 @@ import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.views.layers.MapTilesLayer;
 import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
@@ -79,8 +80,8 @@ public class LayerDialogTest {
         Assert.assertNotNull(main);
         TestUtils.grantPermissons(device);
         Preferences prefs = new Preferences(main);
+        TestUtils.removeImageryLayers(main);
         tileServer = TestUtils.setupTileServer(main, prefs, "ersatz_background.mbt");
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
         map = main.getMap();
         map.setPrefs(main, prefs);
 
@@ -186,16 +187,16 @@ public class LayerDialogTest {
     }
 
     /**
-     * Find task layer and disable
+     * Find task layer and enable
      */
     @Test
     public void taskLayer() {
+        TestUtils.addTaskLayer(main);
+        Assert.assertNotNull(main.getMap().getTaskLayer());
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_tasks), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
-        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.disable), true, false));
-        Preferences prefs = new Preferences(main);
-        Assert.assertFalse(prefs.areBugsEnabled());
-        prefs.setBugsEnabled(true);
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
+        Assert.assertNull(main.getMap().getTaskLayer());
     }
 
     /**
@@ -203,6 +204,8 @@ public class LayerDialogTest {
      */
     @Test
     public void geoJsonLayer() {
+        de.blau.android.layer.Util.addLayer(main, LayerType.GEOJSON);
+        map.setUpLayers(main);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("geojson/multiPoint.geojson");
         try {
@@ -213,7 +216,7 @@ public class LayerDialogTest {
         UiObject2 extentButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), EXTENT_BUTTON);
         extentButton.click();
         // TODO check that the zooming worked
-        
+
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_geojson), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_change_style), true, false));
@@ -221,11 +224,14 @@ public class LayerDialogTest {
         TestUtils.sleep();
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
-        Assert.assertFalse(map.getGeojsonLayer().isEnabled());
+        Assert.assertFalse(map.getGeojsonLayer() != null);
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
+            db.deleteLayer(LayerType.GEOJSON, null);
+        }
     }
 
     /**
-     * Set the background layer to none
+     * Set to None
      */
     @Test
     public void backgroundLayer() {
@@ -234,7 +240,9 @@ public class LayerDialogTest {
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.layer_select_imagery), true, false));
         TestUtils.clickText(device, true, main.getString(R.string.okay), true, false); // for the tip alert
         TestUtils.clickText(device, true, main.getString(R.string.none), true, false);
-        Preferences prefs = new Preferences(main);
-        Assert.assertEquals(TileLayerSource.LAYER_NONE, prefs.backgroundLayer());
+        TestUtils.sleep();
+        MapTilesLayer layer = main.getMap().getBackgroundLayer();
+        Assert.assertNotNull(layer);
+        Assert.assertEquals(TileLayerSource.LAYER_NONE, layer.getTileLayerConfiguration().getId());
     }
 }

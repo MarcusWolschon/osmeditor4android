@@ -97,7 +97,7 @@ public class CustomImageryTest {
             Assert.fail(e.getMessage());
         }
         Preferences prefs = new Preferences(main);
-        prefs.setBackGroundLayer("NONE");
+        TestUtils.removeImageryLayers(main);
         main.getMap().setPrefs(main, prefs);
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));
@@ -129,7 +129,7 @@ public class CustomImageryTest {
             Assert.fail(e.getMessage());
         }
         Preferences prefs = new Preferences(main);
-        prefs.setBackGroundLayer("NONE");
+        TestUtils.removeImageryLayers(main);
         main.getMap().setPrefs(main, prefs);
         monitor = instrumentation.addMonitor(PrefEditor.class.getName(), null, false);
         Assert.assertTrue(TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/menu_config", true));

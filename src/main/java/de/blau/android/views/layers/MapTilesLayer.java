@@ -28,8 +28,10 @@ import de.blau.android.Map;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
@@ -55,7 +57,7 @@ import de.blau.android.views.util.MapTileProvider;
  * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
-public class MapTilesLayer extends MapViewLayer implements ExtentInterface, LayerInfoInterface {
+public class MapTilesLayer extends MapViewLayer implements ExtentInterface, LayerInfoInterface, DiscardInterface {
 
     private static final String DEBUG_TAG          = MapTilesLayer.class.getSimpleName();
     /** Define a minimum active area for taps on the tile attribution data. */
@@ -92,9 +94,9 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     /**
      * MRU of last servers
      */
-    private static final int                        MRU_SIZE        = 5;
-    private final MRUList<String>                   lastServers     = new MRUList<>(MRU_SIZE);
-    private transient SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
+    private static final int              MRU_SIZE        = 5;
+    private static final MRUList<String>  lastServers     = new MRUList<>(MRU_SIZE);
+    private SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
 
     private int     prevZoomLevel = -1;  // zoom level from previous draw
     private boolean saved         = true;
@@ -106,7 +108,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * @param aRendererInfo The tile-server to load a rendered map from.
      * @param aTileProvider the MapTileProvider if null a new one will be allocated
      */
-    public MapTilesLayer(final View aView, final TileLayerSource aRendererInfo, final MapTileProvider aTileProvider) {
+    public MapTilesLayer(@NonNull final View aView, @Nullable final TileLayerSource aRendererInfo, @Nullable final MapTileProvider aTileProvider) {
         myView = aView;
         Context ctx = myView.getContext();
         setRendererInfo(aRendererInfo);
@@ -178,7 +180,8 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mTileProvider.clear();
+        // todo determine if there are no more layers bound to the service
+        // mTileProvider.clear();
     }
 
     /**
@@ -222,8 +225,10 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
             coverageWarningDisplayed = false;
             if (myRendererInfo != null) { // 1st invocation this is null
                 mTileProvider.flushQueue(myRendererInfo.getId(), MapAsyncTileProvider.ALLZOOMS);
-                saved = false;
-                lastServers.push(myRendererInfo.getId());
+                synchronized (lastServers) {
+                    saved = false;
+                    lastServers.push(myRendererInfo.getId());
+                }
             }
         }
         myRendererInfo = tileLayer;
@@ -660,6 +665,11 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     }
 
     @Override
+    public String getContentId() {
+        return myRendererInfo.getId();
+    }
+
+    @Override
     public void invalidate() {
         myView.invalidate();
     }
@@ -679,7 +689,9 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      */
     @NonNull
     public String[] getMRU() {
-        return lastServers.toArray(new String[lastServers.size()]);
+        synchronized (lastServers) {
+            return lastServers.toArray(new String[lastServers.size()]);
+        }
     }
 
     /**
@@ -688,15 +700,19 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * @param id the id of the layer
      */
     public void removeServerFromMRU(@NonNull String id) {
-        lastServers.remove(id);
+        synchronized (lastServers) {
+            lastServers.remove(id);
+        }
     }
 
     @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
         Log.d(DEBUG_TAG, "Saving MRU size " + lastServers.size());
         super.onSaveState(ctx);
-        saved = true;
-        mruSavingHelper.save(ctx, getClass().getName() + "lastServers", lastServers, true);
+        synchronized (lastServers) {
+            saved = true;
+            mruSavingHelper.save(ctx, getClass().getName() + "lastServers", lastServers, true);
+        }
     }
 
     @Override
@@ -704,11 +720,13 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         Log.d(DEBUG_TAG, "Restoring MRU");
         super.onRestoreState(ctx);
         if (saved) {
-            MRUList<String> tempLastServers = mruSavingHelper.load(ctx, getClass().getName() + "lastServers", true);
-            Log.d(DEBUG_TAG, "MRU size " + tempLastServers.size());
-            lastServers.clear();
-            lastServers.addAll(tempLastServers);
-            lastServers.ensureCapacity(MRU_SIZE);
+            synchronized (lastServers) {
+                MRUList<String> tempLastServers = mruSavingHelper.load(ctx, getClass().getName() + "lastServers", true);
+                Log.d(DEBUG_TAG, "MRU size " + tempLastServers.size());
+                lastServers.clear();
+                lastServers.addAll(tempLastServers);
+                lastServers.ensureCapacity(MRU_SIZE);
+            }
         }
         return true;
     }
@@ -721,5 +739,15 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         args.putSerializable(ImageryLayerInfo.LAYER_KEY, myRendererInfo);
         f.setArguments(args);
         LayerInfo.showDialog(activity, f);
+    }
+
+    @Override
+    public LayerType getType() {
+        return LayerType.IMAGERY;
+    }
+
+    @Override
+    public void discard(Context context) {
+        onDestroy();
     }
 }

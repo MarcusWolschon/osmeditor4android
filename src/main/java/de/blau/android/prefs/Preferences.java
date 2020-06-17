@@ -36,14 +36,10 @@ public class Preferences {
     private final boolean isStatsVisible;
     private final boolean isToleranceVisible;
     private final boolean isAntiAliasingEnabled;
-    private boolean       isOpenStreetBugsEnabled;
-    private boolean       isPhotoLayerEnabled;
     private final boolean isKeepScreenOnEnabled;
     private final boolean useBackForUndo;
     private final boolean largeDragArea;
     private final boolean tagFormEnabled;
-    private String        backgroundLayer;
-    private String        overlayLayer;
     private String        scaleLayer;
     private final String  mapProfile;
     private final String  followGPSbutton;
@@ -53,6 +49,7 @@ public class Preferences {
     private float         gpsDistance;
     private float         maxStrokeWidth;
     private int           tileCacheSize;                 // in MB
+    private int           mapillaryCacheSize;            // in MB
     private int           downloadRadius;                // in m
     private float         maxDownloadSpeed;              // in km/h
     private final int     autoPruneNodeLimit;
@@ -72,6 +69,8 @@ public class Preferences {
     private final String  osmoseServer;
     private final String  mapRouletteServer;
     private String        taginfoServer;
+    private String        mapillaryApi;
+    private String        mapillaryImages;
     private final boolean showCameraAction;
     private final boolean useInternalPhotoViewer;
     private final boolean generateAlerts;
@@ -135,6 +134,7 @@ public class Preferences {
         maxStrokeWidth = getIntPref(R.string.config_maxStrokeWidth_key, 16);
 
         tileCacheSize = getIntPref(R.string.config_tileCacheSize_key, 100);
+        mapillaryCacheSize = getIntPref(R.string.config_mapillaryCacheSize_key, 100);
 
         downloadRadius = getIntPref(R.string.config_extTriggeredDownloadRadius_key, 50);
         maxDownloadSpeed = getIntPref(R.string.config_maxDownloadSpeed_key, 10);
@@ -150,8 +150,6 @@ public class Preferences {
         isStatsVisible = prefs.getBoolean(r.getString(R.string.config_showStats_key), false);
         isToleranceVisible = prefs.getBoolean(r.getString(R.string.config_showTolerance_key), true);
         isAntiAliasingEnabled = prefs.getBoolean(r.getString(R.string.config_enableAntiAliasing_key), true);
-        isOpenStreetBugsEnabled = prefs.getBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), true);
-        isPhotoLayerEnabled = prefs.getBoolean(r.getString(R.string.config_enablePhotoLayer_key), false);
         tagFormEnabled = prefs.getBoolean(r.getString(R.string.config_tagFormEnabled_key), true);
         isKeepScreenOnEnabled = prefs.getBoolean(r.getString(R.string.config_enableKeepScreenOn_key), false);
         useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
@@ -161,8 +159,6 @@ public class Preferences {
         autoApplyPreset = prefs.getBoolean(r.getString(R.string.config_autoApplyPreset_key), true);
         closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
-        backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), "MAPNIK");
-        overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), "NOOVERLAY");
         scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), "SCALE_METRIC");
         String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
         // check if we actually still have the profile
@@ -188,6 +184,8 @@ public class Preferences {
         osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
         mapRouletteServer = prefs.getString(r.getString(R.string.config_maprouletteServer_key), Urls.DEFAULT_MAPROULETTE_SERVER);
         taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
+        mapillaryApi = prefs.getString(r.getString(R.string.config_mapillaryApi_key), Urls.DEFAULT_MAPILLARY_API_V3);
+        mapillaryImages = prefs.getString(r.getString(R.string.config_mapillaryImages_key), Urls.DEFAULT_MAPILLARY_IMAGES);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         useInternalPhotoViewer = prefs.getBoolean(r.getString(R.string.config_useInternalPhotoViewer_key), true);
@@ -287,6 +285,13 @@ public class Preferences {
     }
 
     /**
+     * @return the size of the tile cache in MB
+     */
+    public int getMapillaryCacheSize() {
+        return mapillaryCacheSize;
+    }
+
+    /**
      * Check if some debugging stats should be shown on screen
      * 
      * @return true if turned on
@@ -323,44 +328,6 @@ public class Preferences {
     }
 
     /**
-     * Check if the task layer is anabled
-     * 
-     * @return true if enabled
-     */
-    public boolean areBugsEnabled() {
-        return isOpenStreetBugsEnabled;
-    }
-
-    /**
-     * Set the enabled status of the tasks/bugs layer
-     * 
-     * @param on if true enable layer
-     */
-    public void setBugsEnabled(boolean on) {
-        isOpenStreetBugsEnabled = on;
-        prefs.edit().putBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), on).commit();
-    }
-
-    /**
-     * Check if the photo layer is enabled
-     * 
-     * @return true if enabled
-     */
-    public boolean isPhotoLayerEnabled() {
-        return isPhotoLayerEnabled;
-    }
-
-    /**
-     * Set the enabled status of the photo layer
-     * 
-     * @param enabled if true enable layer
-     */
-    public void setPhotoLayerEnabled(boolean enabled) {
-        isPhotoLayerEnabled = enabled;
-        prefs.edit().putBoolean(r.getString(R.string.config_enablePhotoLayer_key), enabled).commit();
-    }
-
-    /**
      * Check if the form based tag editor should be shown in the property editor
      * 
      * @return true if the form based editor should be used
@@ -394,40 +361,6 @@ public class Preferences {
      */
     public boolean largeDragArea() {
         return largeDragArea;
-    }
-
-    /**
-     * @return the id of the current background layer
-     */
-    public String backgroundLayer() {
-        return backgroundLayer;
-    }
-
-    /**
-     * Set the id of the background layer
-     * 
-     * @param id id to set
-     */
-    public void setBackGroundLayer(String id) {
-        backgroundLayer = id;
-        prefs.edit().putString(r.getString(R.string.config_backgroundLayer_key), id).commit();
-    }
-
-    /**
-     * @return the id of the current overlay layer
-     */
-    public String overlayLayer() {
-        return overlayLayer;
-    }
-
-    /**
-     * Set the id of the overlay layer
-     * 
-     * @param id id to set
-     */
-    public void setOverlayLayer(String id) {
-        overlayLayer = id;
-        prefs.edit().putString(r.getString(R.string.config_overlayLayer_key), id).commit();
     }
 
     /**
@@ -752,13 +685,51 @@ public class Preferences {
     }
 
     /**
-     * set the configured taginfo server
+     * Set the configured taginfo server
      * 
      * @param url base url for the server
      */
     public void setTaginfoServer(@NonNull String url) {
         this.taginfoServer = url;
         prefs.edit().putString(r.getString(R.string.config_taginfoServer_key), url).commit();
+    }
+
+    /**
+     * Get the configured mapillary API server
+     * 
+     * @return base url (including version) for the server
+     */
+    public String getMapillaryApiUrl() {
+        return mapillaryApi;
+    }
+
+    /**
+     * Set the configured mapillary API server
+     * 
+     * @param url base url (with version) for the server
+     */
+    public void setMapillaryApiUrl(@NonNull String url) {
+        this.mapillaryApi = url;
+        prefs.edit().putString(r.getString(R.string.config_mapillaryApi_key), url).commit();
+    }
+
+    /**
+     * Get the configured mapillary images server
+     * 
+     * @return base url for the server
+     */
+    public String getMapillaryImagesUrl() {
+        return mapillaryImages;
+    }
+
+    /**
+     * Set the configured mapillary images server
+     * 
+     * @param url base url for the server
+     */
+    public void setMapillaryImagesUrl(@NonNull String url) {
+        this.mapillaryImages = url;
+        prefs.edit().putString(r.getString(R.string.config_mapillaryImages_key), url).commit();
     }
 
     /**

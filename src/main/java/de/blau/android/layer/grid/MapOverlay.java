@@ -12,7 +12,8 @@ import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
 import de.blau.android.layer.ConfigureInterface;
-import de.blau.android.layer.DisableInterface;
+import de.blau.android.layer.DiscardInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
@@ -21,10 +22,11 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements DisableInterface, ConfigureInterface {
+public class MapOverlay extends MapViewLayer implements DiscardInterface, ConfigureInterface {
 
-    private static final String SCALE_NONE       = "SCALE_NONE";
-    private static final String DEBUG_TAG        = MapOverlay.class.getName();
+    private static final String DEBUG_TAG = MapOverlay.class.getName();
+
+    public static final String  SCALE_NONE       = "SCALE_NONE";
     private static final float  DISTANCE2SIDE_DP = 4f;
     private static final float  SHORTTICKS_DP    = 12f;
     public static final float   LONGTICKS_DP     = 20f;
@@ -46,9 +48,9 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Config
     private final float textHeight;
     private final Main  main;
     private final int   actionBarHeight;
-    private String      mode    = SCALE_NONE;
-    private boolean     enabled = false;
-    private Preferences prefs   = null;
+    private boolean     splitActionBar = false;
+    private boolean     metric;
+    private boolean     grid;
 
     /**
      * Construct a new grid overlay
@@ -68,32 +70,26 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Config
         oneDP = Density.dpToPx(map.getContext(), 1);
         main = map.getContext() instanceof Main ? (Main) map.getContext() : null;
         actionBarHeight = ThemeUtils.getActionBarHeight(map.getContext());
-        prefs = map.getPrefs();
+        setPrefs(map.getPrefs());
     }
 
     @Override
     public boolean isReadyToDraw() {
-        mode = prefs.scaleLayer();
-        enabled = !SCALE_NONE.equals(mode);
-        return enabled;
+        return true;
     }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        if (isVisible && enabled && map.getViewBox().getWidth() < 200000000L) { // testing for < 20°
+        if (isVisible && map.getViewBox().getWidth() < 200000000L) { // testing for < 20°
             int w = map.getWidth();
             int h = map.getHeight();
-            boolean metric = mode.equals("SCALE_METRIC") || mode.equals("SCALE_GRID_METRIC");
-            boolean grid = mode.equals("SCALE_GRID_METRIC") || mode.equals("SCALE_GRID_IMPERIAL");
             double centerLat = map.getViewBox().getCenterLat();
             double widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft() / 1E7D, centerLat, map.getViewBox().getRight() / 1E7D, centerLat);
-            // Log.d(DEBUG_TAG,"distance to side " + distance2side + " tick length long " + longTicks + " short " +
-            // shortTicks);
             if (widthInMeters < 1000000 && widthInMeters > 0) { // don't show zoomed out
                 float topOffset = 0f;
                 // avoid drawing behind the action bar
                 if (App.getLogic().getMode() == Mode.MODE_ALIGN_BACKGROUND
-                        || (main != null && main.getEasyEditManager().isProcessingAction() && prefs.splitActionBarEnabled())) {
+                        || (main != null && main.getEasyEditManager().isProcessingAction() && splitActionBar)) {
                     topOffset = actionBarHeight;
                 }
                 c.drawLine(distance2side, distance2side + topOffset, w - distance2side, distance2side + topOffset, fullLine);
@@ -106,7 +102,6 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Config
                     double metersPerPixel = widthInMeters / w;
                     double log10 = Math.log10(widthInMeters);
                     double tickDistance = Math.pow(10, Math.floor(log10) - 1);
-                    // Log.d(DEBUG_TAG,"log10 " + log10 + " tick distance " + Math.pow(10,Math.floor(log10)-1));
                     if (widthInMeters / tickDistance <= 20) { // heuristic to make the visual effect a bit nicer
                         tickDistance = tickDistance / 10;
                     }
@@ -253,15 +248,6 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Config
     }
 
     @Override
-    public void disable(Context ctx) {
-        Preferences prefs = new Preferences(ctx);
-        String[] scaleValues = ctx.getResources().getStringArray(R.array.scale_values);
-        if (scaleValues != null && scaleValues.length > 0) {
-            prefs.setScaleLayer(scaleValues[0]);
-        }
-    }
-
-    @Override
     public boolean enableConfiguration() {
         return true;
     }
@@ -269,5 +255,23 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Config
     @Override
     public void configure(FragmentActivity activity) {
         ConfigurationDialog.showDialog(activity);
+    }
+
+    @Override
+    public LayerType getType() {
+        return LayerType.SCALE;
+    }
+
+    @Override
+    public void discard(Context context) {
+        onDestroy();
+    }
+
+    @Override
+    public void setPrefs(Preferences prefs) {
+        String mode = prefs.scaleLayer();
+        splitActionBar = prefs.splitActionBarEnabled();
+        metric = "SCALE_METRIC".equals(mode) || "SCALE_GRID_METRIC".equals(mode);
+        grid = "SCALE_GRID_METRIC".equals(mode) || "SCALE_GRID_IMPERIAL".equals(mode);
     }
 }

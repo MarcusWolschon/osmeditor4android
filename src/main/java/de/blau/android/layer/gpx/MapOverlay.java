@@ -21,6 +21,7 @@ import de.blau.android.gpx.TrackPoint;
 import de.blau.android.gpx.WayPoint;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
@@ -49,7 +50,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public static final String FILENAME = "gpxlayer.res";
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
-    // private transient boolean saved = false;
 
     private int             iconRadius;
     private transient Paint trackPaint;
@@ -94,8 +94,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
             Paint paint = fs.getPaint();
             Paint labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-            float strokeWidth = paint.getStrokeWidth();
-            float yOffset = 2 * strokeWidth + iconRadius;
+            float pointStrokeWidth = paint.getStrokeWidth();
+            float yOffset = 2 * pointStrokeWidth + iconRadius;
             for (WayPoint wp : wayPoints) {
                 if (viewBox.contains(wp.getLongitude(), wp.getLatitude())) {
                     float x = GeoMath.lonE7ToX(width, viewBox, wp.getLon());
@@ -187,16 +187,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public boolean isEnabled() {
-        if (tracker != null) {
-            List<TrackPoint> trackPoints = tracker.getTrack().getTrackPoints();
-            WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
-            return tracker.isTracking() || !trackPoints.isEmpty() || wayPoints.length != 0;
-        }
-        return false;
-    }
-
-    @Override
     public void onSelected(FragmentActivity activity, WayPoint wp) {
         ViewWayPoint.showDialog(activity, wp);
     }
@@ -232,13 +222,12 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public Path getPointSymbol() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void setPointSymbol(Path symbol) {
-        // TODO Auto-generated method stub
+        // Unused
     }
 
     @Override
@@ -308,5 +297,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     @Override
     public void setSelected(WayPoint o) {
         // not used
+    }
+
+    @Override
+    public LayerType getType() {
+        return LayerType.GPX;
     }
 }

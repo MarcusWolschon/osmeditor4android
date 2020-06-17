@@ -6,7 +6,7 @@ package de.blau.android.contract;
  */
 public final class Urls {
     /**
-     * Private constructor to avoid instantation
+     * Private constructor to avoid instantiation
      */
     private Urls() {
         // empty
@@ -28,6 +28,10 @@ public final class Urls {
     public static final String DEFAULT_OFFSET_SERVER = "http://offsets.textual.ru/";
 
     public static final String DEFAULT_TAGINFO_SERVER = "https://taginfo.openstreetmap.org/";
+
+    // this are only configurable for testing
+    public static final String DEFAULT_MAPILLARY_API_V3 = "https://a.mapillary.com/v3/";
+    public static final String DEFAULT_MAPILLARY_IMAGES = "https://images.mapillary.com/";
 
     // currently not configurable
     public static final String WIKIPEDIA = "https://en.wikipedia.org/wiki/";

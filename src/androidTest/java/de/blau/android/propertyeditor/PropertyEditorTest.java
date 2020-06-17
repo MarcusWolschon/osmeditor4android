@@ -22,12 +22,13 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.view.KeyEvent;
 import androidx.annotation.NonNull;
-import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.SdkSuppress;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.UiDevice;
@@ -36,7 +37,6 @@ import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
-import android.view.KeyEvent;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -61,7 +61,6 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.resources.TileLayerSource;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -91,8 +90,7 @@ public class PropertyEditorTest {
         monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
         main = (Main) mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
-        prefs.setBackGroundLayer(TileLayerSource.LAYER_NONE); // try to avoid downloading tiles
-        prefs.setOverlayLayer(TileLayerSource.LAYER_NOOVERLAY);
+        TestUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");

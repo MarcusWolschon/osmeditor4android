@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentActivity;
 import ch.poole.android.numberpicker.library.NumberPicker;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.layer.LayerType;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource.Category;
@@ -142,7 +143,7 @@ public class TileLayerDialog {
                 alertDialog.setTitle(R.string.edit_layer_title);
                 alertDialog.setNeutralButton(R.string.Delete, (dialog, which) -> {
                     Log.d(DEBUG_TAG, "deleting layer " + Integer.toString(id));
-                    TileLayerDatabaseView.removeLayerSelection(prefs, finalLayer);
+                    TileLayerDatabaseView.removeLayerSelection(activity, prefs, finalLayer);
                     try (TileLayerDatabase tlDb = new TileLayerDatabase(activity); SQLiteDatabase db = tlDb.getWritableDatabase()) {
                         TileLayerDatabase.deleteLayerWithRowId(db, id);
                     }
@@ -316,11 +317,7 @@ public class TileLayerDialog {
             @Override
             public void onClick(View v) {
                 if (save()) {
-                    if (isOverlay) {
-                        prefs.setOverlayLayer(layerId);
-                    } else {
-                        prefs.setBackGroundLayer(layerId);
-                    }
+                    de.blau.android.layer.Util.addLayer(activity, isOverlay ? LayerType.OVERLAYIMAGERY : LayerType.IMAGERY, layerId);
                     if (onUpdate != null) {
                         onUpdate.update();
                     }

@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -118,6 +120,8 @@ import de.blau.android.gpx.WayPoint;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.DownloadInterface;
+import de.blau.android.layer.LayerType;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
@@ -208,9 +212,10 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 
-    public static final String ACTION_EXIT         = "de.blau.android.EXIT";
-    public static final String ACTION_UPDATE       = "de.blau.android.UPDATE";
-    public static final String ACTION_DELETE_PHOTO = "de.blau.android.DELETE_PHOTO";
+    public static final String ACTION_EXIT             = "de.blau.android.EXIT";
+    public static final String ACTION_UPDATE           = "de.blau.android.UPDATE";
+    public static final String ACTION_DELETE_PHOTO     = "de.blau.android.DELETE_PHOTO";
+    public static final String ACTION_MAPILLARY_SELECT = "de.blau.android.ACTION_MAPILLARY_SELECT";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -369,13 +374,12 @@ public class Main extends FullScreenAppCompatActivity
      */
     private boolean wantLocationUpdates = false;
 
+    private Queue<Intent>        newIntents     = new LinkedList<>();
+    private final Object         newIntentsLock = new Object();
     private GeoUrlData           geoData        = null;
-    private final Object         geoDataLock    = new Object();
     private RemoteControlUrlData rcData         = null;
-    private final Object         rcDataLock     = new Object();
     private Uri                  contentUri     = null;
     private String               contentUriType = null;
-    private final Object         contentUriLock = new Object();
 
     /**
      * Optional bottom toolbar
@@ -699,69 +703,11 @@ public class Main extends FullScreenAppCompatActivity
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d(DEBUG_TAG, "onNewIntent storage dirty " + App.getDelegator().isDirty());
-        String action = intent.getAction();
-        if (action != null) {
-            switch (action) {
-            case ACTION_EXIT:
-                exit();
-                return;
-            case ACTION_UPDATE:
-                updatePrefs(new Preferences(this));
-                App.getLogic().setPrefs(prefs);
-                if (map != null) {
-                    map.setPrefs(this, prefs);
-                    map.invalidate();
-                }
-                return;
-            case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
-                try (PhotoIndex index = new PhotoIndex(this)) {
-                    index.deletePhoto(this, intent.getData());
-                }
-                final de.blau.android.layer.photos.MapOverlay overlay = map != null ? map.getPhotoLayer() : null;
-                if (overlay != null) {
-                    overlay.setSelected(null);
-                    overlay.invalidate();
-                }
-                return;
-            default:
-                // carry on
-                Log.d(DEBUG_TAG, "Intent action " + action);
-            }
+        synchronized (newIntentsLock) {
+            newIntents.add(intent);
         }
         setIntent(intent);
-        getIntentData();
-    }
-
-    /**
-     * Get the relevant data from any intents we were started with
-     */
-    private void getIntentData() {
-        synchronized (geoDataLock) {
-            geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
-        }
-        synchronized (rcDataLock) {
-            rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
-        }
-        synchronized (contentUriLock) {
-            Uri uri = getIntent().getData();
-            if (uri != null && ("content".equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && "file".equals(uri.getScheme())))) {
-                contentUri = uri;
-            } else {
-                Bundle extras = getIntent().getExtras();
-                if (extras != null) {
-                    try {
-                        Uri streamUri = (Uri) extras.getParcelable(Intent.EXTRA_STREAM);
-                        Log.d(DEBUG_TAG, "getIntentData EXTRA_STREAM " + streamUri);
-                        if (streamUri != null) {
-                            contentUri = streamUri;
-                            contentUriType = getIntent().getType();
-                        }
-                    } catch (ClassCastException e) {
-                        Log.e(DEBUG_TAG, "getIntentData " + e.getMessage());
-                    }
-                }
-            }
-        }
+        getIntentData(); // uses getIntent so needs to be after setIntent
     }
 
     @Override
@@ -784,7 +730,8 @@ public class Main extends FullScreenAppCompatActivity
 
             @Override
             public void onSuccess() {
-                if (rcData != null || geoData != null || contentUri != null) {
+                Intent intent = getIntent();
+                if (rcData != null || geoData != null || contentUri != null || (intent != null && ACTION_MAPILLARY_SELECT.equals(intent.getAction()))) {
                     setShowGPS(false);
                     processIntents();
                 } else {
@@ -998,169 +945,258 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Process geo and JOSM remote control intents
+     * Get the relevant data from any intents we were started with
+     */
+    private void getIntentData() {
+        synchronized (newIntentsLock) {
+            geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+            rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+            Uri uri = getIntent().getData();
+            if (uri != null && ("content".equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && "file".equals(uri.getScheme())))) {
+                contentUri = uri;
+            } else {
+                Bundle extras = getIntent().getExtras();
+                if (extras != null) {
+                    try {
+                        Uri streamUri = (Uri) extras.getParcelable(Intent.EXTRA_STREAM);
+                        Log.d(DEBUG_TAG, "getIntentData EXTRA_STREAM " + streamUri);
+                        if (streamUri != null) {
+                            contentUri = streamUri;
+                            contentUriType = getIntent().getType();
+                        }
+                    } catch (ClassCastException e) {
+                        Log.e(DEBUG_TAG, "getIntentData " + e.getMessage());
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Process geo, JOSM remote control, and action intents of which there might be multiple
      */
     private void processIntents() {
         Log.d(DEBUG_TAG, "processIntents");
-        final Logic logic = App.getLogic();
-        synchronized (geoDataLock) {
+        Intent intent = null;
+        synchronized (newIntentsLock) {
+            while ((intent = newIntents.poll()) != null) {
+                String action = intent.getAction();
+                if (action != null) {
+                    switch (action) {
+                    case ACTION_EXIT:
+                        exit();
+                        return;
+                    case ACTION_UPDATE:
+                        updatePrefs(new Preferences(this));
+                        App.getLogic().setPrefs(prefs);
+                        if (map != null) {
+                            map.setPrefs(this, prefs);
+                            map.invalidate();
+                        }
+                        continue;
+                    case ACTION_DELETE_PHOTO: // harmless as this just deletes from the index
+                        try (PhotoIndex index = new PhotoIndex(this)) {
+                            Uri uri = intent.getData();
+                            index.deletePhoto(this, uri);
+                            if (uri.equals(contentUri)) {
+                                contentUri = null;
+                            }
+                        }
+                        final de.blau.android.layer.photos.MapOverlay photoLayer = map != null ? map.getPhotoLayer() : null;
+                        if (photoLayer != null) {
+                            photoLayer.deselectObjects();
+                            photoLayer.invalidate();
+                        }
+                        continue;
+                    case ACTION_MAPILLARY_SELECT:
+                        final de.blau.android.layer.mapillary.MapOverlay mapillaryLayer = map != null
+                                ? (de.blau.android.layer.mapillary.MapOverlay) map.getLayer(LayerType.MAPILLARY)
+                                : null;
+                        if (mapillaryLayer != null) {
+                            mapillaryLayer.select(intent.getIntExtra(de.blau.android.layer.mapillary.MapOverlay.SET_POSITION_KEY, 0));
+                        }
+                        continue;
+                    default:
+                        // carry on
+                        Log.d(DEBUG_TAG, "Intent action " + action);
+                    }
+                }
+            }
             if (geoData != null) {
-                final double lon = geoData.getLon();
-                final double lat = geoData.getLat();
-                final int lonE7 = geoData.getLonE7();
-                final int latE7 = geoData.getLatE7();
-                final boolean hasZoom = geoData.hasZoom();
-                final int zoom = geoData.getZoom();
-                geoData = null; // zap so that we don't re-download
-                Log.d(DEBUG_TAG, "got position from geo: url " + geoData + " storage dirty is " + App.getDelegator().isDirty());
-                if (prefs.getDownloadRadius() != 0) { // download
-                    BoundingBox bbox;
-                    try {
-                        bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, prefs.getDownloadRadius(), true);
-                        List<BoundingBox> bbList = new ArrayList<>(App.getDelegator().getBoundingBoxes());
-                        List<BoundingBox> bboxes = null;
-                        if (App.getDelegator().isEmpty()) {
-                            bboxes = new ArrayList<>();
-                            bboxes.add(bbox);
-                        } else {
-                            bboxes = BoundingBox.newBoxes(bbList, bbox);
-                        }
-
-                        PostAsyncActionHandler handler = new PostAsyncActionHandler() {
-                            @Override
-                            public void onSuccess() {
-                                if (hasZoom) {
-                                    getMap().getViewBox().setZoom(getMap(), zoom);
-                                    getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
-                                } else {
-                                    logic.getViewBox().fitToBoundingBox(getMap(), bbox);
-                                }
-                                map.invalidate();
-                            }
-
-                            @Override
-                            public void onError() {
-                                // Ignore
-                            }
-                        };
-                        if (bboxes != null && !bboxes.isEmpty()) {
-                            logic.downloadBox(this, bbox, true, handler);
-                            if (prefs.areBugsEnabled()) {
-                                // always add bugs for now
-                                downLoadBugs(bbox);
-                            }
-                        } else {
-                            handler.onSuccess();
-                        }
-                    } catch (OsmException e) {
-                        Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
-                    }
-                } else {
-                    Log.d(DEBUG_TAG, "moving to position");
-                    if (hasZoom) {
-                        getMap().getViewBox().setZoom(getMap(), zoom);
-                    }
-                    getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
-                    getMap().invalidate();
-                }
+                processGeoIntent();
             }
-        }
-        synchronized (rcDataLock) {
             if (rcData != null) {
-                Log.d(DEBUG_TAG, "got data from remote control url " + rcData.getBox() + " load " + rcData.load());
-                StorageDelegator delegator = App.getDelegator();
-                ArrayList<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
-                BoundingBox loadBox = rcData.getBox();
-                if (loadBox != null) {
-                    if (rcData.load()) { // download
-                        List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox);
-                        if (bboxes != null && (!bboxes.isEmpty() || delegator.isEmpty())) {
-                            // only download if we haven't yet
-                            logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler() {
-
-                                private static final long serialVersionUID = 1L;
-
-                                @Override
-                                public void onSuccess() {
-                                    synchronized (rcDataLock) {
-                                        if (rcData != null) {
-                                            rcDataEdit(rcData);
-                                            rcData = null; // zap to stop repeated/ downloads
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onError() {
-                                    // Ignore
-                                }
-                            });
-                        } else {
-                            rcDataEdit(rcData);
-                            rcData = null; // zap to stop repeated downloads
-                        }
-                    } else { // zoom
-                        map.getViewBox().fitToBoundingBox(getMap(), rcData.getBox());
-                        map.invalidate();
-                        rcData = null; // zap to stop repeated/
-                                       // downloads
-                    }
-                } else {
-                    Log.d(DEBUG_TAG, "RC box is null");
-                    rcDataEdit(rcData);
-                    rcData = null; // zap to stop repeated/ downloads
-                }
+                processJosmRc();
+            }
+            if (contentUri != null) {
+                processContentUri();
             }
         }
-        synchronized (contentUriLock) {
-            Log.d(DEBUG_TAG, "Processing content uri");
-            if (contentUri != null) {
-                try {
-                    Log.d(DEBUG_TAG, "contentUriType " + contentUriType);
-                    if (contentUriType != null) {
-                        if (MimeTypes.JPEG.equals(contentUriType) || MimeTypes.ALL_IMAGE_FORMATS.equals(contentUriType)) {
-                            handlePhotoUri();
-                        }
-                    } else {
-                        switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
-                        case FileExtensions.GPX:
-                            if (getTracker() != null) {
-                                // load now
-                                loadGPXFile(contentUri);
-                            }
-                            break;
-                        case FileExtensions.JSON:
-                        case FileExtensions.GEOJSON:
-                            de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
-                            if (geojsonLayer != null) {
-                                try {
-                                    geojsonLayer.resetStyling();
-                                    if (geojsonLayer.loadGeoJsonFile(this, contentUri)) {
-                                        BoundingBox extent = geojsonLayer.getExtent();
-                                        if (extent != null) {
-                                            map.getViewBox().fitToBoundingBox(map, extent);
-                                            setFollowGPS(false);
-                                            map.setFollowGPS(false);
-                                        }
-                                        geojsonLayer.invalidate();
-                                    }
-                                } catch (IOException e) {
-                                    // display a toast?
+    }
+
+    /**
+     * Process an incoming content url
+     */
+    void processContentUri() {
+        Log.d(DEBUG_TAG, "Processing content uri");
+        try {
+            Log.d(DEBUG_TAG, "contentUriType " + contentUriType);
+            if (contentUriType != null) {
+                if (MimeTypes.JPEG.equals(contentUriType) || MimeTypes.ALL_IMAGE_FORMATS.equals(contentUriType)) {
+                    handlePhotoUri();
+                }
+            } else {
+                switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
+                case FileExtensions.GPX:
+                    if (getTracker() != null) {
+                        // load now
+                        loadGPXFile(contentUri);
+                    }
+                    break;
+                case FileExtensions.JSON:
+                case FileExtensions.GEOJSON:
+                    de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
+                    if (geojsonLayer != null) {
+                        try {
+                            geojsonLayer.resetStyling();
+                            if (geojsonLayer.loadGeoJsonFile(this, contentUri)) {
+                                BoundingBox extent = geojsonLayer.getExtent();
+                                if (extent != null) {
+                                    map.getViewBox().fitToBoundingBox(map, extent);
+                                    setFollowGPS(false);
+                                    map.setFollowGPS(false);
                                 }
+                                geojsonLayer.invalidate();
                             }
-                            break;
-                        case FileExtensions.JPG:
-                            handlePhotoUri();
-                            break;
-                        default:
-                            Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
+                        } catch (IOException e) {
+                            // display a toast?
                         }
                     }
-                } finally {
-                    contentUri = null;
-                    contentUriType = null;
+                    break;
+                case FileExtensions.JPG:
+                    handlePhotoUri();
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
                 }
             }
+        } finally {
+            contentUri = null;
+            contentUriType = null;
+        }
+    }
+
+    /**
+     * Process JOSM remote control Urls
+     */
+    void processJosmRc() {
+        Log.d(DEBUG_TAG, "got data from remote control url " + rcData.getBox() + " load " + rcData.load());
+        Logic logic = App.getLogic();
+        StorageDelegator delegator = App.getDelegator();
+        ArrayList<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
+        BoundingBox loadBox = rcData.getBox();
+        if (loadBox != null) {
+            if (rcData.load()) { // download
+                List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox);
+                if (bboxes != null && (!bboxes.isEmpty() || delegator.isEmpty())) {
+                    // only download if we haven't yet
+                    logic.downloadBox(this, rcData.getBox(), true, new PostAsyncActionHandler() {
+                        private static final long serialVersionUID = 1L;
+
+                        @Override
+                        public void onSuccess() {
+                            synchronized (newIntentsLock) {
+                                if (rcData != null) {
+                                    rcDataEdit(rcData);
+                                    rcData = null; // zap to stop repeated/ downloads
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onError() {
+                            // Ignore
+                        }
+                    });
+                } else {
+                    rcDataEdit(rcData);
+                    rcData = null; // zap to stop repeated downloads
+                }
+            } else { // zoom
+                map.getViewBox().fitToBoundingBox(getMap(), rcData.getBox());
+                map.invalidate();
+                rcData = null; // zap to stop repeated/
+                               // downloads
+            }
+        } else {
+            Log.d(DEBUG_TAG, "RC box is null");
+            rcDataEdit(rcData);
+            rcData = null; // zap to stop repeated/ downloads
+        }
+    }
+
+    /**
+     * Process Geo Urls
+     */
+    void processGeoIntent() {
+        Logic logic = App.getLogic();
+        final double lon = geoData.getLon();
+        final double lat = geoData.getLat();
+        final int lonE7 = geoData.getLonE7();
+        final int latE7 = geoData.getLatE7();
+        final boolean hasZoom = geoData.hasZoom();
+        final int zoom = geoData.getZoom();
+        geoData = null; // zap so that we don't re-download
+        Log.d(DEBUG_TAG, "got position from geo: url " + geoData + " storage dirty is " + App.getDelegator().isDirty());
+        if (prefs.getDownloadRadius() != 0) { // download
+            BoundingBox bbox;
+            try {
+                bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, prefs.getDownloadRadius(), true);
+                List<BoundingBox> bbList = new ArrayList<>(App.getDelegator().getBoundingBoxes());
+                List<BoundingBox> bboxes = null;
+                if (App.getDelegator().isEmpty()) {
+                    bboxes = new ArrayList<>();
+                    bboxes.add(bbox);
+                } else {
+                    bboxes = BoundingBox.newBoxes(bbList, bbox);
+                }
+
+                PostAsyncActionHandler handler = new PostAsyncActionHandler() {
+                    @Override
+                    public void onSuccess() {
+                        if (hasZoom) {
+                            getMap().getViewBox().setZoom(getMap(), zoom);
+                            getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
+                        } else {
+                            logic.getViewBox().fitToBoundingBox(getMap(), bbox);
+                        }
+                        map.invalidate();
+                    }
+
+                    @Override
+                    public void onError() {
+                        // Ignore
+                    }
+                };
+                if (bboxes != null && !bboxes.isEmpty()) {
+                    logic.downloadBox(this, bbox, true, handler);
+                    if (map.getTaskLayer() != null) {
+                        // always add bugs for now
+                        downLoadBugs(bbox);
+                    }
+                } else {
+                    handler.onSuccess();
+                }
+            } catch (OsmException e) {
+                Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
+            }
+        } else {
+            Log.d(DEBUG_TAG, "moving to position");
+            if (hasZoom) {
+                getMap().getViewBox().setZoom(getMap(), zoom);
+            }
+            getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
+            getMap().invalidate();
         }
     }
 
@@ -1168,9 +1204,9 @@ public class Main extends FullScreenAppCompatActivity
      * Handle a content uri that refers to a photo, turning on the photo layer if necessary
      */
     private void handlePhotoUri() {
-        if (!prefs.isPhotoLayerEnabled()) {
-            prefs.setPhotoLayerEnabled(true);
-            map.setPrefs(this, prefs); // sets up layers too
+        if (map.getPhotoLayer() == null) {
+            de.blau.android.layer.Util.addLayer(this, LayerType.PHOTO);
+            getMap().setUpLayers(this);
             de.blau.android.layer.photos.MapOverlay photoLayer = map.getPhotoLayer();
             if (photoLayer != null) {
                 photoLayer.createIndex(new PhotoUriHandler(this, contentUri));
@@ -1190,6 +1226,7 @@ public class Main extends FullScreenAppCompatActivity
      * @param uri the Uri
      */
     private void loadGPXFile(@NonNull final Uri uri) {
+        addGpxLayer();
         if (!getTracker().getTrackPoints().isEmpty()) {
             ImportTrack.showDialog(Main.this, uri);
         } else {
@@ -1988,6 +2025,7 @@ public class Main extends FullScreenAppCompatActivity
                 getTracker().startTracking();
                 setFollowGPS(true);
             }
+            addGpxLayer();
             return true;
         case R.id.menu_gps_pause:
             if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
@@ -2405,6 +2443,16 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Add a GPX layer in none exists
+     */
+    private void addGpxLayer() {
+        if (map.getLayer(LayerType.GPX) == null) {
+            de.blau.android.layer.Util.addLayer(this, LayerType.GPX);
+            map.setUpLayers(this);
+        }
+    }
+
+    /**
      * Pan and zoom to the current location if any
      */
     private void gotoCurrentLocation() {
@@ -2678,9 +2726,9 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Handles the menu click on "download current view".<br>
-     * When no {@link #delegator} is set, the user will be redirected to AreaPicker.<br>
+     * 
      * When the user made some changes, {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
-     * Otherwise the current viewBox will be re-downloaded from the server.
+     * Otherwise the current viewBox will be downloaded from the server.
      * 
      * @param add Boolean flag indicating to handle changes (true) or not (false).
      */
@@ -2690,6 +2738,11 @@ public class Main extends FullScreenAppCompatActivity
             DownloadCurrentWithChanges.showDialog(this);
         } else {
             performCurrentViewHttpLoad(add);
+        }
+        for (MapViewLayer l : map.getLayers()) {
+            if (l instanceof DownloadInterface) {
+                ((DownloadInterface) l).downloadBox(this, map.getViewBox(), null);
+            }
         }
     }
 
@@ -2705,7 +2758,7 @@ public class Main extends FullScreenAppCompatActivity
                 try (PhotoIndex pi = new PhotoIndex(this)) {
                     pi.addPhoto(imageFile);
                 }
-                if (prefs.isPhotoLayerEnabled()) {
+                if (map.getPhotoLayer() != null) {
                     map.invalidate();
                 }
             } else {
@@ -2896,7 +2949,7 @@ public class Main extends FullScreenAppCompatActivity
             return;
         }
         App.getLogic().downloadBox(this, map.getViewBox().copy(), add, null);
-        if (prefs.areBugsEnabled()) { // always adds bugs for now
+        if (map.getTaskLayer() != null) { // always adds bugs for now
             downLoadBugs(map.getViewBox().copy());
         }
     }
@@ -3614,7 +3667,7 @@ public class Main extends FullScreenAppCompatActivity
          * 
          * @param menu Menu object to add our entries to
          */
-        public void onCreateDefaultContextMenu(final ContextMenu menu) {
+        public void onCreateDefaultContextMenu(@NonNull final ContextMenu menu) {
             int id = 0;
             if (!clickedObjects.isEmpty()) {
                 for (final ClickedObject<?> co : clickedObjects) {
@@ -3990,7 +4043,7 @@ public class Main extends FullScreenAppCompatActivity
             startStopAutoDownload();
             startStopBugAutoDownload();
             triggerMenuInvalidation();
-            synchronized (contentUriLock) {
+            synchronized (newIntentsLock) {
                 if (contentUri != null) {
                     Log.d(DEBUG_TAG, "Processing content uri for a gpx file");
                     if (FileExtensions.GPX.equals(FileUtil.getExtension(contentUri.getLastPathSegment()))) {

@@ -205,8 +205,19 @@
         </activity>
         <activity
             android:name=".photos.PhotoViewerActivity"
+            android:label="@string/photo_viewer_label"
             android:launchMode="singleTask"
             android:taskAffinity=".PhotoViewerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".photos.MapillaryViewerActivity"
+            android:label="@string/mapillary_viewer_label"
+            android:launchMode="singleTask"
+            android:taskAffinity=".MapillaryViewerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
