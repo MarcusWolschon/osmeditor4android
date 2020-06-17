@@ -123,6 +123,8 @@ public class MapOverlay extends StyleableLayer
     private int     minDownloadSize    = 50;
     private float   maxDownloadSpeed   = 30;
     private long    cacheSize          = 100000000L;
+    private String  mapillaryApiUrl    = Urls.DEFAULT_MAPILLARY_API_V3;
+    private String  mapillaryImagesUrl = Urls.DEFAULT_MAPILLARY_IMAGES;
 
     private transient ThreadPoolExecutor mThreadPool;
 
@@ -196,6 +198,7 @@ public class MapOverlay extends StyleableLayer
         try (KeyDatabaseHelper keys = new KeyDatabaseHelper(context); SQLiteDatabase db = keys.getReadableDatabase()) {
             apiKey = KeyDatabaseHelper.getKey(db, APIKEY_KEY);
         }
+        setPrefs(map.getPrefs());
     }
 
     @Override
@@ -523,9 +526,9 @@ public class MapOverlay extends StyleableLayer
                     keys.add(imageKeys.get(i).getAsString());
                 }
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                    PhotoViewerFragment.showDialog(activity, keys, image.index, new MapillaryLoader(cacheDir, cacheSize));
+                    PhotoViewerFragment.showDialog(activity, keys, image.index, new MapillaryLoader(cacheDir, cacheSize, mapillaryImagesUrl));
                 } else {
-                    MapillaryViewerActivity.start(activity, keys, image.index, new MapillaryLoader(cacheDir, cacheSize));
+                    MapillaryViewerActivity.start(activity, keys, image.index, new MapillaryLoader(cacheDir, cacheSize, mapillaryImagesUrl));
                 }
                 map.invalidate();
             }
@@ -563,8 +566,8 @@ public class MapOverlay extends StyleableLayer
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    URL url = new URL(Urls.MAPILLARY_API_V3 + "sequences?client_id=" + apiKey + "&bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d
-                            + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d);
+                    URL url = new URL(mapillaryApiUrl + "sequences?client_id=" + apiKey + "&bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + ","
+                            + box.getRight() / 1E7d + "," + box.getTop() / 1E7d);
                     Log.d(DEBUG_TAG, "query: " + url.toString());
 
                     Request request = new Request.Builder().url(url).build();
@@ -719,6 +722,8 @@ public class MapOverlay extends StyleableLayer
         maxDownloadSpeed = prefs.getMaxBugDownloadSpeed() / 3.6f;
         panAndZoomLimit = prefs.getPanAndZoomLimit();
         cacheSize = prefs.getMapillaryCacheSize() * 1000000L;
+        mapillaryApiUrl = prefs.getMapillaryApiUrl();
+        mapillaryImagesUrl = prefs.getMapillaryImagesUrl();
     }
 
     @Override

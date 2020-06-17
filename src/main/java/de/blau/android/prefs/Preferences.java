@@ -69,6 +69,8 @@ public class Preferences {
     private final String  osmoseServer;
     private final String  mapRouletteServer;
     private String        taginfoServer;
+    private String        mapillaryApi;
+    private String        mapillaryImages;
     private final boolean showCameraAction;
     private final boolean useInternalPhotoViewer;
     private final boolean generateAlerts;
@@ -182,6 +184,8 @@ public class Preferences {
         osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
         mapRouletteServer = prefs.getString(r.getString(R.string.config_maprouletteServer_key), Urls.DEFAULT_MAPROULETTE_SERVER);
         taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
+        mapillaryApi = prefs.getString(r.getString(R.string.config_mapillaryApi_key), Urls.DEFAULT_MAPILLARY_API_V3);
+        mapillaryImages = prefs.getString(r.getString(R.string.config_mapillaryImages_key), Urls.DEFAULT_MAPILLARY_IMAGES);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
         useInternalPhotoViewer = prefs.getBoolean(r.getString(R.string.config_useInternalPhotoViewer_key), true);
@@ -681,13 +685,51 @@ public class Preferences {
     }
 
     /**
-     * set the configured taginfo server
+     * Set the configured taginfo server
      * 
      * @param url base url for the server
      */
     public void setTaginfoServer(@NonNull String url) {
         this.taginfoServer = url;
         prefs.edit().putString(r.getString(R.string.config_taginfoServer_key), url).commit();
+    }
+
+    /**
+     * Get the configured mapillary API server
+     * 
+     * @return base url (including version) for the server
+     */
+    public String getMapillaryApiUrl() {
+        return mapillaryApi;
+    }
+
+    /**
+     * Set the configured mapillary API server
+     * 
+     * @param url base url (with version) for the server
+     */
+    public void setMapillaryApiUrl(@NonNull String url) {
+        this.mapillaryApi = url;
+        prefs.edit().putString(r.getString(R.string.config_mapillaryApi_key), url).commit();
+    }
+
+    /**
+     * Get the configured mapillary images server
+     * 
+     * @return base url for the server
+     */
+    public String getMapillaryImagesUrl() {
+        return mapillaryImages;
+    }
+
+    /**
+     * Set the configured mapillary images server
+     * 
+     * @param url base url for the server
+     */
+    public void setMapillaryImagesUrl(@NonNull String url) {
+        this.mapillaryImages = url;
+        prefs.edit().putString(r.getString(R.string.config_mapillaryImages_key), url).commit();
     }
 
     /**

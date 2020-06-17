@@ -191,7 +191,6 @@ public class LayerDialogTest {
      */
     @Test
     public void taskLayer() {
-        de.blau.android.layer.tasks.MapOverlay layer = main.getMap().getTaskLayer();
         TestUtils.addTaskLayer(main);
         Assert.assertNotNull(main.getMap().getTaskLayer());
         UiObject2 menuButton = TestUtils.getLayerButton(device, main.getString(R.string.layer_tasks), MENU_BUTTON);

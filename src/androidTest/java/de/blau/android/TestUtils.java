@@ -53,7 +53,9 @@ import de.blau.android.resources.TileLayerSource.Provider;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.layers.MapTilesLayer;
+import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import okio.Buffer;
 
 /**
  * Various methods to support testing
@@ -1207,7 +1209,7 @@ public class TestUtils {
             Assert.fail(e.getMessage());
         }
     }
-    
+
     /**
      * Wait a second
      */
@@ -1229,7 +1231,7 @@ public class TestUtils {
             // do nothing
         }
     }
-    
+
     /**
      * Remove imagery layers
      * 
@@ -1241,7 +1243,7 @@ public class TestUtils {
             db.deleteLayer(LayerType.OVERLAYIMAGERY, null);
         }
     }
-    
+
     /**
      * Remove task layer
      * 
@@ -1252,7 +1254,7 @@ public class TestUtils {
             db.deleteLayer(LayerType.TASKS, null);
         }
     }
-    
+
     /**
      * If not present add the task layer
      * 
@@ -1263,5 +1265,27 @@ public class TestUtils {
             de.blau.android.layer.Util.addLayer(main, LayerType.TASKS);
             main.getMap().setUpLayers(main);
         }
+    }
+
+    /**
+     * Create a MockResponse for a binary file
+     * 
+     * MockWebServerPlus currently doesn't handle non-text bodies properly so we do this manually
+     *
+     * @return a MockResponse
+     */
+    public static MockResponse createBinaryReponse(@NonNull String contentType, @NonNull String fixture) {
+        MockResponse response = new MockResponse();
+        response.setHeader("Content-type", contentType);
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream inputStream = loader.getResourceAsStream(fixture);
+        Buffer buffer = new Buffer();
+        try {
+            buffer.readFrom(inputStream);
+        } catch (IOException e1) {
+            Assert.fail(e1.getMessage());
+        }
+        response.setBody(buffer);
+        return response;
     }
 }

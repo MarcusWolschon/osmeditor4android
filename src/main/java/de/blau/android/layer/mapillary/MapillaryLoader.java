@@ -20,7 +20,6 @@ import androidx.core.content.FileProvider;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.contract.Urls;
 import de.blau.android.photos.PhotoLoader;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Snack;
@@ -35,8 +34,9 @@ class MapillaryLoader implements PhotoLoader {
 
     private static final long serialVersionUID = 1L;
 
-    final File cacheDir;
-    final long cacheSize;
+    final File   cacheDir;
+    final long   cacheSize;
+    final String imageUrl;
 
     /**
      * Construct a new loader
@@ -44,9 +44,10 @@ class MapillaryLoader implements PhotoLoader {
      * @param cacheDir the cacheDir that should be used as a destination for the images
      * @param cacheSize max size of the cache
      */
-    MapillaryLoader(@NonNull File cacheDir, long cacheSize) {
+    MapillaryLoader(@NonNull File cacheDir, long cacheSize, @NonNull String imageUrl) {
         this.cacheDir = cacheDir;
         this.cacheSize = cacheSize;
+        this.imageUrl = imageUrl;
     }
 
     @Override
@@ -58,7 +59,7 @@ class MapillaryLoader implements PhotoLoader {
                 protected Void doInBackground(Void... params) {
                     Log.d(DEBUG_TAG, "querying server for " + key);
                     try {
-                        URL url = new URL(Urls.MAPILLARY_IMAGES + key + "/thumb-2048.jpg");
+                        URL url = new URL(imageUrl + key + "/thumb-2048.jpg");
                         Log.d(DEBUG_TAG, "query: " + url.toString());
 
                         Request request = new Request.Builder().url(url).build();

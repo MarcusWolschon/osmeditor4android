@@ -6,7 +6,7 @@ package de.blau.android.contract;
  */
 public final class Urls {
     /**
-     * Private constructor to avoid instantation
+     * Private constructor to avoid instantiation
      */
     private Urls() {
         // empty
@@ -29,6 +29,10 @@ public final class Urls {
 
     public static final String DEFAULT_TAGINFO_SERVER = "https://taginfo.openstreetmap.org/";
 
+    // this are only configurable for testing
+    public static final String DEFAULT_MAPILLARY_API_V3 = "https://a.mapillary.com/v3/";
+    public static final String DEFAULT_MAPILLARY_IMAGES = "https://images.mapillary.com/";
+
     // currently not configurable
     public static final String WIKIPEDIA = "https://en.wikipedia.org/wiki/";
     public static final String WIKIDATA  = "https://wikidata.org/wiki/";
@@ -45,7 +49,4 @@ public final class Urls {
     public static final String MSF_SERVER = "https://mapsplit.poole.ch/";
 
     public static final String EGM96 = "https://github.com/simonpoole/egm96/raw/master/src/main/resources/EGM96.dat";
-
-    public static final String MAPILLARY_API_V3 = "https://a.mapillary.com/v3/";
-    public static final String MAPILLARY_IMAGES = "https://images.mapillary.com/";
 }

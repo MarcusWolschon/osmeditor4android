@@ -87,20 +87,7 @@ public class PresetEditorTest {
         Assert.assertTrue(presetEditor instanceof PresetEditorActivity);
         mockServer = new MockWebServerPlus();
         HttpUrl url = mockServer.server().url("military.zip");
-        // MockWebServerPLus currently doesn't handle non-text bodies properly
-        // so we do this manually
-        MockResponse response = new MockResponse();
-        response.setHeader("Content-type", "application/zip");
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = loader.getResourceAsStream("fixtures/military.zip");
-        Buffer buffer = new Buffer();
-        try {
-            buffer.readFrom(inputStream);
-        } catch (IOException e1) {
-            Assert.fail(e1.getMessage());
-        }
-        response.setBody(buffer);
-        mockServer.server().enqueue(response);
+        mockServer.server().enqueue(TestUtils.createBinaryReponse("application/zip", "fixtures/military.zip"));
         TestUtils.clickText(device, false, main.getString(R.string.urldialog_add_preset), false, false);
         device.wait(Until.findObject(By.clickable(true).res(device.getCurrentPackageName() + ":id/listedit_editName")), 500);
         UiObject name = device.findObject(new UiSelector().clickable(true).resourceId(device.getCurrentPackageName() + ":id/listedit_editName"));
