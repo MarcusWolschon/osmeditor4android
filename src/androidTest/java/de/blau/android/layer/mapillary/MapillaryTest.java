@@ -159,13 +159,13 @@ public class MapillaryTest {
             viewer = (MapillaryViewerActivity) instrumentation.waitForMonitorWithTimeout(monitor, 30000);
             Assert.assertNotNull(viewer);
             try {
-                RecordedRequest recorded = mockImagesServer.server().takeRequest(2000, TimeUnit.SECONDS);
+                RecordedRequest recorded = mockImagesServer.server().takeRequest(10, TimeUnit.SECONDS);
                 Assert.assertNotNull(recorded);
                 System.out.println(recorded.getPath());
-                mockImagesServer.server().takeRequest(2000, TimeUnit.SECONDS);
-                mockImagesServer.server().takeRequest(2000, TimeUnit.SECONDS);
-                mockImagesServer.server().takeRequest(2000, TimeUnit.SECONDS);
-                mockImagesServer.server().takeRequest(2000, TimeUnit.SECONDS);
+                mockImagesServer.server().takeRequest(10, TimeUnit.SECONDS);
+                mockImagesServer.server().takeRequest(10, TimeUnit.SECONDS);
+                mockImagesServer.server().takeRequest(10, TimeUnit.SECONDS);
+                mockImagesServer.server().takeRequest(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 Assert.fail(e.getMessage());
             }
