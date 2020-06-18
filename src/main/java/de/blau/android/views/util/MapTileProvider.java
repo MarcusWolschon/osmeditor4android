@@ -66,7 +66,7 @@ public class MapTileProvider implements ServiceConnection {
     private final Map<String, Long> pending = Collections.synchronizedMap(new HashMap<String, Long>());
 
     private IMapTileProviderService mTileService;
-    private Handler                 mDownloadFinishedHandler;
+    private final Handler           mDownloadFinishedHandler;
 
     /**
      * Set to true if we have less than 64 MB heap or have other caching issues
@@ -89,12 +89,12 @@ public class MapTileProvider implements ServiceConnection {
 
         smallHeap = Util.smallHeap();
 
+        mDownloadFinishedHandler = aDownloadFinishedListener;
+        
         Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
         if (explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
             Log.e(DEBUG_TAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
         }
-
-        mDownloadFinishedHandler = aDownloadFinishedListener;
     }
 
     // ===========================================================
@@ -376,24 +376,24 @@ public class MapTileProvider implements ServiceConnection {
             pending.remove(t.toId());
             // don't send when we fail mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
         }
-    };
-
-    /**
-     * Get the "No Tiles" tile, creating it if necessary
-     * 
-     * @return a Bitmap with the tile
-     */
-    private Bitmap getNoTilesTile() {
-        synchronized (staticTilesLock) {
-            if (mNoTilesTile == null) {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.RGB_565;
-                mNoTilesTile = BitmapFactory.decodeResource(mCtx.getResources(), R.drawable.no_tiles, options);
-                Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
+        
+        /**
+         * Get the "No Tiles" tile, creating it if necessary
+         * 
+         * @return a Bitmap with the tile
+         */
+        private Bitmap getNoTilesTile() {
+            synchronized (staticTilesLock) {
+                if (mNoTilesTile == null) {
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inPreferredConfig = Bitmap.Config.RGB_565;
+                    mNoTilesTile = BitmapFactory.decodeResource(mCtx.getResources(), R.drawable.no_tiles, options);
+                    Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
+                }
             }
+            return mNoTilesTile;
         }
-        return mNoTilesTile;
-    }
+    };
 
     /**
      * Get some information on cache usage
