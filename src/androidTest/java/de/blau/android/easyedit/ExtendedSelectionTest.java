@@ -97,13 +97,24 @@ public class ExtendedSelectionTest {
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
+        int origLon = node.getLon();
+        int origLat = node.getLat();
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-
-        TestUtils.doubleClickAtCoordinates(device, map, 8.3877977, 47.3897371, true);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Excrement", false, false));
-
+        Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Extend selection", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
-
+        // double clicking doesn't currently work reliably in tests TestUtils.doubleClickAtCoordinates(device, map, 8.3877977, 47.3897371, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3877977, 47.3897371, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Excrement", false, false));
+        Assert.assertEquals(2, logic.getSelectedNodes().size());
+        TestUtils.zoomToLevel(device, main, 22);
+        TestUtils.drag(device, map, 8.3877977, 47.3897371, 8.3879, 47.38967, true, 100);
+        
+        int deltaLon = node.getLon() - origLon;
+        int deltaLat = node.getLat() - origLat;
+ 
+        Assert.assertEquals(8.3879 - 8.3877977, deltaLon/1E7D, 0.00001);
+        Assert.assertEquals(47.38967 - 47.3897371, deltaLat/1E7D, 0.00001);
         TestUtils.clickUp(device);
     }
 }
