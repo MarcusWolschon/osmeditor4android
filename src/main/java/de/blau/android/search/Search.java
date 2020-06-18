@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.AsyncTask;
-import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.FragmentActivity;
@@ -58,98 +57,95 @@ public final class Search {
         final List<Relation> relationResult = new ArrayList<>();
 
         dialog = TextLineDialog.get(activity, R.string.search_objects_title, R.string.search_objects_hint, lastSearches, activity.getString(R.string.search),
-                new TextLineDialog.TextLineInterface() {
-                    @Override
-                    public void processLine(EditText input) {
-                        final String text = input.getText().toString();
-                        if ("".equals(text)) {
-                            return;
-                        }
-                        new AsyncTask<Void, Void, String>() {
-
-                            @Override
-                            protected void onPreExecute() {
-                                Progress.showDialog(activity, Progress.PROGRESS_SEARCHING);
-                            }
-
-                            @Override
-                            protected String doInBackground(Void... params) {
-                                Condition condition = null;
-                                try {
-                                    JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(text.getBytes()));
-                                    condition = parser.condition();
-                                } catch (ParseException pex) {
-                                    return pex.getMessage();
-                                } catch (Error err) { // NOSONAR
-                                    return err.getMessage();
-                                }
-
-                                nodeResult.clear();
-                                wayResult.clear();
-                                relationResult.clear();
-
-                                Wrapper wrapper = new Wrapper(activity);
-                                StorageDelegator delegator = App.getDelegator();
-                                try {
-                                    for (Node n : delegator.getCurrentStorage().getNodes()) {
-                                        wrapper.setElement(n);
-                                        if (condition.eval(Type.NODE, wrapper, n.getTags())) {
-                                            nodeResult.add(n);
-                                        }
-                                    }
-                                    for (Way w : delegator.getCurrentStorage().getWays()) {
-                                        wrapper.setElement(w);
-                                        if (condition.eval(Type.WAY, wrapper, w.getTags())) {
-                                            wayResult.add(w);
-                                        }
-                                    }
-                                    for (Relation r : delegator.getCurrentStorage().getRelations()) {
-                                        wrapper.setElement(r);
-                                        if (condition.eval(Type.RELATION, wrapper, r.getTags())) {
-                                            relationResult.add(r);
-                                        }
-                                    }
-                                } catch (Exception e) {
-                                    return e.getMessage();
-                                }
-                                if (nodeResult.isEmpty() && wayResult.isEmpty() && relationResult.isEmpty()) {
-                                    return activity.getString(R.string.toast_nothing_found);
-                                }
-                                return null;
-                            }
-
-                            @Override
-                            protected void onPostExecute(String errorMsg) {
-                                Progress.dismissDialog(activity, Progress.PROGRESS_SEARCHING);
-                                if (errorMsg == null) {
-                                    logic.pushObjectSearch(text);
-                                    if (activity instanceof Main) {
-                                        Main main = (Main) activity;
-                                        EasyEditManager easyEditManager = main.getEasyEditManager();
-                                        if (easyEditManager.inElementSelectedMode()) {
-                                            easyEditManager.finish();
-                                        }
-                                        logic.deselectAll();
-                                        for (Node n : nodeResult) {
-                                            logic.addSelectedNode(n);
-                                        }
-                                        for (Way w : wayResult) {
-                                            logic.addSelectedWay(w);
-                                        }
-                                        for (Relation r : relationResult) {
-                                            logic.addSelectedRelation(r);
-                                        }
-                                        easyEditManager.editElements();
-                                        main.zoomTo(logic.getSelectedElements());
-                                        main.invalidateMap();
-                                    }
-                                    dismiss();
-                                } else {
-                                    Snack.toastTopError(activity, errorMsg);
-                                }
-                            }
-                        }.execute();
+                input -> {
+                    final String text = input.getText().toString();
+                    if ("".equals(text)) {
+                        return;
                     }
+                    new AsyncTask<Void, Void, String>() {
+
+                        @Override
+                        protected void onPreExecute() {
+                            Progress.showDialog(activity, Progress.PROGRESS_SEARCHING);
+                        }
+
+                        @Override
+                        protected String doInBackground(Void... params) {
+                            Condition condition = null;
+                            try {
+                                JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream(text.getBytes()));
+                                condition = parser.condition();
+                            } catch (ParseException pex) {
+                                return pex.getMessage();
+                            } catch (Error err) { // NOSONAR
+                                return err.getMessage();
+                            }
+
+                            nodeResult.clear();
+                            wayResult.clear();
+                            relationResult.clear();
+
+                            Wrapper wrapper = new Wrapper(activity);
+                            StorageDelegator delegator = App.getDelegator();
+                            try {
+                                for (Node n : delegator.getCurrentStorage().getNodes()) {
+                                    wrapper.setElement(n);
+                                    if (condition.eval(Type.NODE, wrapper, n.getTags())) {
+                                        nodeResult.add(n);
+                                    }
+                                }
+                                for (Way w : delegator.getCurrentStorage().getWays()) {
+                                    wrapper.setElement(w);
+                                    if (condition.eval(Type.WAY, wrapper, w.getTags())) {
+                                        wayResult.add(w);
+                                    }
+                                }
+                                for (Relation r : delegator.getCurrentStorage().getRelations()) {
+                                    wrapper.setElement(r);
+                                    if (condition.eval(Type.RELATION, wrapper, r.getTags())) {
+                                        relationResult.add(r);
+                                    }
+                                }
+                            } catch (Exception e) {
+                                return e.getMessage();
+                            }
+                            if (nodeResult.isEmpty() && wayResult.isEmpty() && relationResult.isEmpty()) {
+                                return activity.getString(R.string.toast_nothing_found);
+                            }
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(String errorMsg) {
+                            Progress.dismissDialog(activity, Progress.PROGRESS_SEARCHING);
+                            if (errorMsg == null) {
+                                logic.pushObjectSearch(text);
+                                if (activity instanceof Main) {
+                                    Main main = (Main) activity;
+                                    EasyEditManager easyEditManager = main.getEasyEditManager();
+                                    if (easyEditManager.inElementSelectedMode()) {
+                                        easyEditManager.finish();
+                                    }
+                                    logic.deselectAll();
+                                    for (Node n : nodeResult) {
+                                        logic.addSelectedNode(n);
+                                    }
+                                    for (Way w : wayResult) {
+                                        logic.addSelectedWay(w);
+                                    }
+                                    for (Relation r : relationResult) {
+                                        logic.addSelectedRelation(r);
+                                    }
+                                    easyEditManager.editElements();
+                                    main.zoomTo(logic.getSelectedElements());
+                                    main.invalidateMap();
+                                }
+                                dismiss();
+                            } else {
+                                Snack.toastTopError(activity, errorMsg);
+                            }
+                        }
+                    }.execute();
                 }, false);
 
         dialog.show();

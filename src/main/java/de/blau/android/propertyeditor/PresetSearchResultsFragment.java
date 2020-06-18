@@ -6,7 +6,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -111,13 +110,10 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         if (!getShowsDialog()) {
             searchOnline = (AppCompatButton) presetsLayout.findViewById(R.id.search_online);
             searchOnline.setEnabled(propertyEditorListener.isConnected());
-            searchOnline.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    OnlineQuery query = new OnlineQuery(getActivity());
-                    query.execute();
-                    view.setEnabled(false);
-                }
+            searchOnline.setOnClickListener(view -> {
+                OnlineQuery query = new OnlineQuery(getActivity());
+                query.execute();
+                view.setEnabled(false);
             });
             return getResultsView(presetsLayout, presets, false);
         }
@@ -140,20 +136,15 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         builder.setNeutralButton(R.string.Done, null);
         builder.setPositiveButton(R.string.search_online, null);
         AlertDialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                positive.setEnabled(propertyEditorListener.isConnected() && container != null);
-                positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        OnlineQuery query = new OnlineQuery(getActivity());
-                        query.execute();
-                        view.setEnabled(false);
-                    }
-                });
-            }
+        dialog.setOnShowListener(d -> {
+            Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+            positive.setEnabled(propertyEditorListener.isConnected() && container != null);
+            positive.setOnClickListener(view -> {
+                    OnlineQuery query = new OnlineQuery(getActivity());
+                    query.execute();
+                    view.setEnabled(false);
+                }
+            );
         });
         return dialog;
     }

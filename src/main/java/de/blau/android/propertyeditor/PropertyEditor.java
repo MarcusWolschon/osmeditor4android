@@ -9,7 +9,6 @@ import java.util.Map;
 import org.acra.ACRA;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -836,18 +835,8 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
                                                                                                                // changed
                 || (getElement() != null && getElement().getName().equals(Relation.NAME)
                         && (currentMembers != null && !sameMembers(currentMembers, originalMembers)))) {
-            new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null)
-                    .setNegativeButton(R.string.tag_menu_revert, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            doRevert();
-                        }
-                    }).setPositiveButton(R.string.tag_menu_exit_no_save, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            PropertyEditor.super.onBackPressed();
-                        }
-                    }).create().show();
+            new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null).setNegativeButton(R.string.tag_menu_revert, (dialog, which) -> doRevert())
+                    .setPositiveButton(R.string.tag_menu_exit_no_save, (dialog, which) -> PropertyEditor.super.onBackPressed()).create().show();
         } else {
             PropertyEditor.super.onBackPressed();
         }
@@ -999,12 +988,10 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
     @Override
     protected void onPause() {
         running = false;
-        Preset[] presets = App.getCurrentPresets(this);
-        if (presets != null) {
-            for (Preset p : presets) {
-                if (p != null) {
-                    p.saveMRU();
-                }
+        Preset[] currentPresets = App.getCurrentPresets(this);
+        for (Preset p : currentPresets) {
+            if (p != null) {
+                p.saveMRU();
             }
         }
         Address.saveLastAddresses(this);

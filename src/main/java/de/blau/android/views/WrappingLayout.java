@@ -211,12 +211,9 @@ public class WrappingLayout extends LinearLayout {
         isWrapped = true;
 
         relayoutInProgress = false;
-        post(new Runnable() {
-            @Override
-            public void run() {
-                requestLayout();
-                invalidate();
-            }
+        post(() -> {
+            requestLayout();
+            invalidate();
         });
     }
 

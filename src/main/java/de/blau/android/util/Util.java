@@ -341,32 +341,25 @@ public final class Util {
         }
         if (row == null) {
             Log.d(DEBUG_TAG, "scrollToRow scrolling to top or bottom");
-            sv.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (sv instanceof ScrollView) {
-                        ((ScrollView) sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
-                    } else if (sv instanceof NestedScrollView) {
-                        ((NestedScrollView) sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
-                    } else {
-                        Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
-                    }
+            sv.post(() -> {
+                if (sv instanceof ScrollView) {
+                    ((ScrollView) sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
+                } else if (sv instanceof NestedScrollView) {
+                    ((NestedScrollView) sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
+                } else {
+                    Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
                 }
             });
         } else {
             Log.d(DEBUG_TAG, "scrollToRow scrolling to row");
-            sv.post(new Runnable() {
-                @SuppressLint("NewApi")
-                @Override
-                public void run() {
-                    final int target = up ? row.getTop() : row.getBottom();
-                    if (sv instanceof ScrollView) {
-                        ((ScrollView) sv).smoothScrollTo(0, target);
-                    } else if (sv instanceof NestedScrollView) {
-                        ((NestedScrollView) sv).smoothScrollTo(0, target);
-                    } else {
-                        Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
-                    }
+            sv.post(() -> {
+                final int target = up ? row.getTop() : row.getBottom();
+                if (sv instanceof ScrollView) {
+                    ((ScrollView) sv).smoothScrollTo(0, target);
+                } else if (sv instanceof NestedScrollView) {
+                    ((NestedScrollView) sv).smoothScrollTo(0, target);
+                } else {
+                    Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
                 }
             });
         }
@@ -671,15 +664,12 @@ public final class Util {
      * @param iox the IOException
      */
     public static void toastDowloadError(@NonNull final FragmentActivity activity, @NonNull final IOException iox) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (iox instanceof OsmServerException) {
-                    Snack.toastTopWarning(activity,
-                            activity.getString(R.string.toast_download_failed, ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
-                } else {
-                    Snack.toastTopWarning(activity, activity.getString(R.string.toast_server_connection_failed, iox.getMessage()));
-                }
+        activity.runOnUiThread(() -> {
+            if (iox instanceof OsmServerException) {
+                Snack.toastTopWarning(activity,
+                        activity.getString(R.string.toast_download_failed, ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
+            } else {
+                Snack.toastTopWarning(activity, activity.getString(R.string.toast_server_connection_failed, iox.getMessage()));
             }
         });
     }

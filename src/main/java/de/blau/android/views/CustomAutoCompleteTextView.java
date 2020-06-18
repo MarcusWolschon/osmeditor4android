@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.text.method.QwertyKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.Filter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
@@ -64,13 +63,10 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
     public CustomAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         // set a default onClickListener that displays the dropdown
-        OnClickListener autocompleteOnClick = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.hasFocus()) {
-                    Log.d(DEBUG_TAG, "onClick");
-                    ((CustomAutoCompleteTextView) v).showDropDown();
-                }
+        OnClickListener autocompleteOnClick = v -> {
+            if (v.hasFocus()) {
+                Log.d(DEBUG_TAG, "onClick");
+                ((CustomAutoCompleteTextView) v).showDropDown();
             }
         };
         setOnClickListener(autocompleteOnClick);

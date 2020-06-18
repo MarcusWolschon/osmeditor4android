@@ -20,7 +20,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -140,14 +139,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
     }
 
-    Runnable displaySearchResults = new Runnable() {
-
-        @Override
-        public void run() {
-            getAndShowSearchResults(presetSearch);
-        }
-
-    };
+    Runnable displaySearchResults = () -> getAndShowSearchResults(presetSearch);
 
     @SuppressLint("InflateParams")
     @Override
@@ -201,47 +193,41 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 }
             }
 
-            presetSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    Log.d(DEBUG_TAG, "action id " + actionId + " event " + event);
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH
-                            || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                        return getAndShowSearchResults(presetSearch);
-                    }
-                    return false;
+            presetSearch.setOnEditorActionListener((v, actionId, event) -> {
+                Log.d(DEBUG_TAG, "action id " + actionId + " event " + event);
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    return getAndShowSearchResults(presetSearch);
                 }
+                return false;
             });
 
             // https://stackoverflow.com/questions/13135447/setting-onclicklistner-for-the-drawable-right-of-an-edittext/26269435#26269435
             // for the following
-            presetSearch.setOnTouchListener(new OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    final int DRAWABLE_LEFT = 0;
-                    // final int DRAWABLE_TOP = 1;
-                    final int DRAWABLE_RIGHT = 2;
-                    // final int DRAWABLE_BOTTOM = 3;
+            presetSearch.setOnTouchListener((v, event) -> {
+                final int DRAWABLE_LEFT = 0;
+                // final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                // final int DRAWABLE_BOTTOM = 3;
 
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        boolean rtlLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-                                && presetSearch.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-                        Drawable icon = presetSearch.getCompoundDrawables()[rtlLayout ? DRAWABLE_LEFT : DRAWABLE_RIGHT];
-                        if (icon != null) {
-                            int[] outLocation = new int[2];
-                            presetSearch.getLocationOnScreen(outLocation);
-                            float rawX = event.getRawX();
-                            int iconWidth = icon.getBounds().width();
-                            if ((rtlLayout && rawX <= outLocation[0] + iconWidth) || (rawX >= outLocation[0] + presetSearch.getWidth() - iconWidth)) {
-                                presetSearch.setText("");
-                                final FragmentManager fm = getChildFragmentManager();
-                                de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-                                return true;
-                            }
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    boolean rtlLayout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+                            && presetSearch.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+                    Drawable icon = presetSearch.getCompoundDrawables()[rtlLayout ? DRAWABLE_LEFT : DRAWABLE_RIGHT];
+                    if (icon != null) {
+                        int[] outLocation = new int[2];
+                        presetSearch.getLocationOnScreen(outLocation);
+                        float rawX = event.getRawX();
+                        int iconWidth = icon.getBounds().width();
+                        if ((rtlLayout && rawX <= outLocation[0] + iconWidth) || (rawX >= outLocation[0] + presetSearch.getWidth() - iconWidth)) {
+                            presetSearch.setText("");
+                            final FragmentManager fm = getChildFragmentManager();
+                            de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                            return true;
                         }
                     }
-                    return false;
                 }
+                return false;
             });
 
             presetSearch.addTextChangedListener(new TextWatcher() {
@@ -404,10 +390,9 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      */
     @Override
     public boolean onItemLongClick(PresetItem item) {
-        if (!enabled) {
-            return true;
+        if (enabled) {
+            mListener.onPresetSelected(item);
         }
-        mListener.onPresetSelected(item);
         return true;
     }
 
@@ -439,13 +424,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         boolean enablePresetFeedback = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.FLAVOR.equals(Flavors.CURRENT);
         if (paneMode) {
             getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
-            androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener listener = new androidx.appcompat.widget.ActionMenuView.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    return onOptionsItemSelected(item);
-                }
-            };
-            menuView.setOnMenuItemClickListener(listener);
+            menuView.setOnMenuItemClickListener(item -> onOptionsItemSelected(item));
             if (enablePresetFeedback) {
                 // this adds the item as the last one
                 menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback).setEnabled(propertyEditorListener.isConnected());

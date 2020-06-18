@@ -20,13 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -173,14 +169,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         loadMembers(membersVerticalLayout, members);
         setIcons(membersVerticalLayout);
         CheckBox headerCheckBox = (CheckBox) relationMembersLayout.findViewById(R.id.header_member_selected);
-        headerCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    selectAllRows();
-                } else {
-                    deselectAllRows();
-                }
+        headerCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                selectAllRows();
+            } else {
+                deselectAllRows();
             }
         });
 
@@ -513,15 +506,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
         membersVerticalLayout.addView(row, (position == -1) ? membersVerticalLayout.getChildCount() : position);
 
-        row.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked) {
-                    memberSelected(membersVerticalLayout);
-                } else {
-                    deselectRow();
-                }
+        row.selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                memberSelected(membersVerticalLayout);
+            } else {
+                deselectRow();
             }
         });
 
@@ -587,41 +576,30 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
             elementView = (TextView) findViewById(R.id.memberObject);
 
-            roleEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        roleEdit.setAdapter(getMemberRoleAutocompleteAdapter());
-                        if (/* running && */ roleEdit.getText().length() == 0) {
-                            roleEdit.showDropDown();
-                        }
+            roleEdit.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    roleEdit.setAdapter(getMemberRoleAutocompleteAdapter());
+                    if (/* running && */ roleEdit.getText().length() == 0) {
+                        roleEdit.showDropDown();
                     }
                 }
             });
 
-            OnClickListener autocompleteOnClick = new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.hasFocus()) {
-                        ((AutoCompleteTextView) v).showDropDown();
-                    }
+            roleEdit.setOnClickListener(v -> {
+                if (v.hasFocus()) {
+                    ((AutoCompleteTextView) v).showDropDown();
                 }
-            };
+            });
 
-            roleEdit.setOnClickListener(autocompleteOnClick);
-
-            roleEdit.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d(DEBUG_TAG, "onItemClicked role");
-                    Object o = parent.getItemAtPosition(position);
-                    if (o instanceof StringWithDescription) {
-                        roleEdit.setText(((StringWithDescription) o).getValue());
-                    } else if (o instanceof String) {
-                        roleEdit.setText((String) o);
-                    } else if (o instanceof PresetRole) {
-                        roleEdit.setText(((PresetRole) o).getRole());
-                    }
+            roleEdit.setOnItemClickListener((parent, view, position, id) -> {
+                Log.d(DEBUG_TAG, "onItemClicked role");
+                Object o = parent.getItemAtPosition(position);
+                if (o instanceof StringWithDescription) {
+                    roleEdit.setText(((StringWithDescription) o).getValue());
+                } else if (o instanceof String) {
+                    roleEdit.setText((String) o);
+                } else if (o instanceof PresetRole) {
+                    roleEdit.setText(((PresetRole) o).getRole());
                 }
             });
         }
@@ -925,35 +903,31 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     @Override
     public void selectAllRows() { // selects all members
         final LinearLayout rowLayout = (LinearLayout) getOurView();
-        rowLayout.post(new Runnable() { // as there can be a very large number of rows don't do it here
-            @Override
-            public void run() {
-                int i = rowLayout.getChildCount();
-                while (--i >= 0) {
-                    RelationMemberRow row = (RelationMemberRow) rowLayout.getChildAt(i);
-                    if (row.selected.isEnabled()) {
-                        row.selected.setChecked(true);
+        rowLayout.post( // as there can be a very large number of rows don't do it here
+                () -> {
+                    int i = rowLayout.getChildCount();
+                    while (--i >= 0) {
+                        RelationMemberRow row = (RelationMemberRow) rowLayout.getChildAt(i);
+                        if (row.selected.isEnabled()) {
+                            row.selected.setChecked(true);
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     @Override
     public void deselectAllRows() { // deselects all members
         final LinearLayout rowLayout = (LinearLayout) getOurView();
-        rowLayout.post(new Runnable() { // as there can be a very large number of rows don't do it here
-            @Override
-            public void run() {
-                int i = rowLayout.getChildCount();
-                while (--i >= 0) {
-                    RelationMemberRow row = (RelationMemberRow) rowLayout.getChildAt(i);
-                    if (row.selected.isEnabled()) {
-                        row.selected.setChecked(false);
+        rowLayout.post( // as there can be a very large number of rows don't do it here
+                () -> {
+                    int i = rowLayout.getChildCount();
+                    while (--i >= 0) {
+                        RelationMemberRow row = (RelationMemberRow) rowLayout.getChildAt(i);
+                        if (row.selected.isEnabled()) {
+                            row.selected.setChecked(false);
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     /**
@@ -1012,24 +986,21 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             }
         }
 
-        processRelationMembers(new RelationMemberHandler() {
-            @Override
-            public void handleRelationMember(final RelationMemberRow row) {
-                String type = ((String) row.typeView.getTag()).trim();
-                String role = row.roleEdit.getText().toString().trim();
-                String desc = row.elementView.getText().toString().trim();
-                RelationMemberDescription rmd = new RelationMemberDescription(type, row.rmd.getRef(), role, desc);
-                members.add(rmd);
+        processRelationMembers(row -> {
+            String type = ((String) row.typeView.getTag()).trim();
+            String role = row.roleEdit.getText().toString().trim();
+            String desc = row.elementView.getText().toString().trim();
+            RelationMemberDescription rmd = new RelationMemberDescription(type, row.rmd.getRef(), role, desc);
+            members.add(rmd);
 
-                Set<String> originalRoles = originalMembesRoles.get(type + row.rmd.getRef());
-                if (originalRoles != null) {
-                    if (!"".equals(role) && !originalRoles.contains(role)) {
-                        // only add if the role wasn't in use before
-                        if (presetItem != null) {
-                            App.getMruTags().putRole(presetItem, role);
-                        } else {
-                            App.getMruTags().putRole(role);
-                        }
+            Set<String> originalRoles = originalMembesRoles.get(type + row.rmd.getRef());
+            if (originalRoles != null) {
+                if (!"".equals(role) && !originalRoles.contains(role)) {
+                    // only add if the role wasn't in use before
+                    if (presetItem != null) {
+                        App.getMruTags().putRole(presetItem, role);
+                    } else {
+                        App.getMruTags().putRole(role);
                     }
                 }
             }
@@ -1039,7 +1010,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        // final MenuInflater inflater = getSupportMenuInflater();
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.members_menu, menu);
     }

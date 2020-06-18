@@ -3,16 +3,12 @@ package de.blau.android.validation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -73,39 +69,27 @@ public class ValidatorRulesUI {
         checkAdapter = new CheckAdapter(writableDb, context, checkCursor);
         checkList.setAdapter(checkAdapter);
         alertDialog.setNeutralButton(R.string.done, null);
-        alertDialog.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                resurveyCursor.close();
-                writableDb.close();
-                vrDb.close();
-            }
+        alertDialog.setOnDismissListener(dialog -> {
+            resurveyCursor.close();
+            writableDb.close();
+            vrDb.close();
         });
         final FloatingActionButton fab = (FloatingActionButton) rulesetView.findViewById(R.id.add);
-        fab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(context, fab);
+        fab.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(context, fab);
 
-                // menu items for adding rules
-                MenuItem addResurveyEntry = popup.getMenu().add(R.string.add_resurvey_entry);
-                addResurveyEntry.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        showResurveyDialog(context, writableDb, false, -1);
-                        return true;
-                    }
-                });
-                MenuItem addCheckEntry = popup.getMenu().add(R.string.add_check_entry);
-                addCheckEntry.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        showCheckDialog(context, writableDb, false, -1);
-                        return true;
-                    }
-                });
-                popup.show();// showing popup menu
-            }
+            // menu items for adding rules
+            MenuItem addResurveyEntry = popup.getMenu().add(R.string.add_resurvey_entry);
+            addResurveyEntry.setOnMenuItemClickListener(item -> {
+                showResurveyDialog(context, writableDb, false, -1);
+                return true;
+            });
+            MenuItem addCheckEntry = popup.getMenu().add(R.string.add_check_entry);
+            addCheckEntry.setOnMenuItemClickListener(item -> {
+                showCheckDialog(context, writableDb, false, -1);
+                return true;
+            });
+            popup.show();// showing popup menu
         });
         alertDialog.show();
     }
@@ -146,12 +130,9 @@ public class ValidatorRulesUI {
             keyView.setText(key);
             TextView daysView = (TextView) view.findViewById(R.id.days);
             daysView.setText(Integer.toString(days));
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Integer id = (Integer) view.getTag();
-                    showResurveyDialog(context, db, true, id != null ? id : -1);
-                }
+            view.setOnClickListener(v -> {
+                Integer tag = (Integer) view.getTag();
+                showResurveyDialog(context, db, true, tag != null ? tag : -1);
             });
         }
     }
@@ -202,14 +183,11 @@ public class ValidatorRulesUI {
             cursor.close();
 
             alertDialog.setTitle(R.string.edit_resurvey_title);
-            alertDialog.setNeutralButton(R.string.Delete, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d(DEBUG_TAG, "deleting template " + Integer.toString(id));
-                    ValidatorRulesDatabase.deleteResurvey(db, id);
-                    newResurveyCursor(db);
-                    resetValidator(context);
-                }
+            alertDialog.setNeutralButton(R.string.Delete, (dialog, which) -> {
+                Log.d(DEBUG_TAG, "deleting template " + Integer.toString(id));
+                ValidatorRulesDatabase.deleteResurvey(db, id);
+                newResurveyCursor(db);
+                resetValidator(context);
             });
         } else {
             alertDialog.setTitle(R.string.add_resurvey_title);
@@ -217,19 +195,16 @@ public class ValidatorRulesUI {
         }
         alertDialog.setNegativeButton(R.string.cancel, null);
 
-        alertDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (!existing) {
-                    ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(),
-                            daysPicker.getValue());
-                } else {
-                    ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(),
-                            daysPicker.getValue());
-                }
-                newResurveyCursor(db);
-                resetValidator(context);
+        alertDialog.setPositiveButton(R.string.save, (dialog, which) -> {
+            if (!existing) {
+                ValidatorRulesDatabase.addResurvey(db, 0, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(),
+                        daysPicker.getValue());
+            } else {
+                ValidatorRulesDatabase.updateResurvey(db, id, keyEdit.getText().toString(), valueEdit.getText().toString(), regexpCheck.isChecked(),
+                        daysPicker.getValue());
             }
+            newResurveyCursor(db);
+            resetValidator(context);
         });
         alertDialog.show();
     }
@@ -282,12 +257,9 @@ public class ValidatorRulesUI {
             keyView.setText(key);
             ImageView optionalView = (ImageView) view.findViewById(R.id.optional);
             optionalView.setVisibility(optional ? View.VISIBLE : View.GONE);
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Integer id = (Integer) view.getTag();
-                    showCheckDialog(context, db, true, id != null ? id : -1);
-                }
+            view.setOnClickListener(v -> {
+                Integer tag = (Integer) view.getTag();
+                showCheckDialog(context, db, true, tag != null ? tag : -1);
             });
         }
     }
@@ -333,31 +305,25 @@ public class ValidatorRulesUI {
             cursor.close();
 
             alertDialog.setTitle(R.string.edit_check_title);
-            alertDialog.setNeutralButton(R.string.Delete, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.d(DEBUG_TAG, "deleting template " + Integer.toString(id));
-                    ValidatorRulesDatabase.deleteCheck(db, id);
-                    newCheckCursor(db);
-                    resetValidator(context);
-                }
+            alertDialog.setNeutralButton(R.string.Delete, (dialog, which) -> {
+                Log.d(DEBUG_TAG, "deleting template " + Integer.toString(id));
+                ValidatorRulesDatabase.deleteCheck(db, id);
+                newCheckCursor(db);
+                resetValidator(context);
             });
         } else {
             alertDialog.setTitle(R.string.add_check_title);
         }
         alertDialog.setNegativeButton(R.string.cancel, null);
 
-        alertDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (!existing) {
-                    ValidatorRulesDatabase.addCheck(db, 0, keyEdit.getText().toString(), optionalEdit.isChecked());
-                } else {
-                    ValidatorRulesDatabase.updateCheck(db, id, keyEdit.getText().toString(), optionalEdit.isChecked());
-                }
-                newCheckCursor(db);
-                resetValidator(context);
+        alertDialog.setPositiveButton(R.string.save, (dialog, which) -> {
+            if (!existing) {
+                ValidatorRulesDatabase.addCheck(db, 0, keyEdit.getText().toString(), optionalEdit.isChecked());
+            } else {
+                ValidatorRulesDatabase.updateCheck(db, id, keyEdit.getText().toString(), optionalEdit.isChecked());
             }
+            newCheckCursor(db);
+            resetValidator(context);
         });
         alertDialog.show();
     }

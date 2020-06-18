@@ -594,7 +594,7 @@ public final class DataStyle extends DefaultHandler {
      * GPS arrow
      */
     private Path orientationPath = new Path();
-    
+
     /**
      * Mapillary image marker
      */
@@ -1026,12 +1026,7 @@ public final class DataStyle extends DefaultHandler {
      * @param aa the boolean value to set
      */
     public static void setAntiAliasing(final boolean aa) {
-        processCurrentStyle(new ProcessStyle() {
-            @Override
-            public void process(FeatureStyle style) {
-                style.getPaint().setAntiAlias(aa);
-            }
-        });
+        processCurrentStyle(style -> style.getPaint().setAntiAlias(aa));
     }
 
     interface ProcessStyle {
@@ -1091,12 +1086,9 @@ public final class DataStyle extends DefaultHandler {
      * @param newStrokeWidth the new width to set
      */
     public static void updateStrokes(final float newStrokeWidth) {
-        processCurrentStyle(new ProcessStyle() {
-            @Override
-            public void process(FeatureStyle style) {
-                if (style.updateWidth) {
-                    style.setStrokeWidth(newStrokeWidth);
-                }
+        processCurrentStyle(style -> {
+            if (style.updateWidth) {
+                style.setStrokeWidth(newStrokeWidth);
             }
         });
 
@@ -1523,7 +1515,7 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * Create a path for the "GPS" arrow 
+     * Create a path for the "GPS" arrow
      * 
      * @param scale scaling factor
      */
@@ -1535,9 +1527,9 @@ public final class DataStyle extends DefaultHandler {
         orientationPath.lineTo(Density.dpToPx(ctx, -15) * scale, Density.dpToPx(ctx, 20) * scale);
         orientationPath.lineTo(0, Density.dpToPx(ctx, -20) * scale);
     }
-    
+
     /**
-     * Create a path for the mapillary image marker 
+     * Create a path for the mapillary image marker
      * 
      * @param scale scaling factor
      */
@@ -1716,7 +1708,7 @@ public final class DataStyle extends DefaultHandler {
     public Path getOrientationPath() {
         return orientationPath;
     }
-    
+
     /**
      * @return the orientation_path
      */

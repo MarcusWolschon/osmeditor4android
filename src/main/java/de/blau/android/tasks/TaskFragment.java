@@ -3,7 +3,6 @@ package de.blau.android.tasks;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnShowListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,7 +12,6 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -121,59 +119,52 @@ public class TaskFragment extends ImmersiveDialogFragment {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final View v = inflater.inflate(R.layout.openstreetbug_edit, null);
-        builder.setView(v).setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                saveTask(v, task);
-                cancelAlert(task);
-                updateMenu(getActivity());
-            }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                // unused
-            }
+        builder.setView(v).setPositiveButton(R.string.save, (dialog, id) -> {
+            saveTask(v, task);
+            cancelAlert(task);
+            updateMenu(getActivity());
+        }).setNegativeButton(R.string.cancel, (dialog, id) -> {
+            // unused
         });
 
         if (task.canBeUploaded()) {
-            builder.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    saveTask(v, task);
-                    final FragmentActivity activity = getActivity();
-                    if (activity == null || !isAdded()) {
-                        Log.e(DEBUG_TAG, "Activity vanished");
-                        return;
-                    }
-                    (new AsyncTask<Void, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(Void... arg0) {
-                            PostAsyncActionHandler handler = new PostAsyncActionHandler() {
-                                @Override
-                                public void onSuccess() {
-                                    updateMenu(activity);
-                                }
-
-                                @Override
-                                public void onError() {
-                                    updateMenu(activity);
-                                }
-                            };
-                            if (task instanceof Note) {
-                                Note n = (Note) task;
-                                NoteComment nc = n.getLastComment();
-                                TransferTasks.uploadNote(activity, prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
-                                        n.getState() == State.CLOSED, false, handler);
-                            } else if (task instanceof OsmoseBug) {
-                                TransferTasks.updateOsmoseBug(activity, (OsmoseBug) task, false, handler);
-                            } else if (task instanceof MapRouletteTask) {
-                                TransferTasks.updateMapRouletteTask(activity, prefs.getServer(), (MapRouletteTask) task, false, handler);
-                            }
-                            return null;
-                        }
-                    }).execute();
-                    cancelAlert(task);
+            builder.setNeutralButton(R.string.transfer_download_current_upload, (dialog, id) -> {
+                saveTask(v, task);
+                final FragmentActivity activity = getActivity();
+                if (activity == null || !isAdded()) {
+                    Log.e(DEBUG_TAG, "Activity vanished");
+                    return;
                 }
+                (new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... arg0) {
+                        PostAsyncActionHandler handler = new PostAsyncActionHandler() {
+                            private static final long serialVersionUID = 1L;
+
+                            @Override
+                            public void onSuccess() {
+                                updateMenu(activity);
+                            }
+
+                            @Override
+                            public void onError() {
+                                updateMenu(activity);
+                            }
+                        };
+                        if (task instanceof Note) {
+                            Note n = (Note) task;
+                            NoteComment nc = n.getLastComment();
+                            TransferTasks.uploadNote(activity, prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
+                                    n.getState() == State.CLOSED, false, handler);
+                        } else if (task instanceof OsmoseBug) {
+                            TransferTasks.updateOsmoseBug(activity, (OsmoseBug) task, false, handler);
+                        } else if (task instanceof MapRouletteTask) {
+                            TransferTasks.updateMapRouletteTask(activity, prefs.getServer(), (MapRouletteTask) task, false, handler);
+                        }
+                        return null;
+                    }
+                }).execute();
+                cancelAlert(task);
             });
         }
 
@@ -223,36 +214,35 @@ public class TaskFragment extends ImmersiveDialogFragment {
                     }
                     TextView tv = new TextView(getActivity());
                     tv.setClickable(true);
-                    tv.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) { // FIXME assumption that we are being called from Main
-                            dismiss();
-                            final FragmentActivity activity = getActivity();
-                            final int lonE7 = task.getLon();
-                            final int latE7 = task.getLat();
-                            if (e.getOsmVersion() < 0) { // fake element
-                                try {
-                                    BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
-                                    App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
-                                        @Override
-                                        public void onSuccess() {
-                                            OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
-                                            if (osm != null && activity != null && activity instanceof Main) {
-                                                ((Main) activity).zoomToAndEdit(lonE7, latE7, osm);
-                                            }
-                                        }
+                    tv.setOnClickListener(unused -> { // FIXME assumption that we are being called from Main
+                        dismiss();
+                        final FragmentActivity activity = getActivity();
+                        final int lonE7 = task.getLon();
+                        final int latE7 = task.getLat();
+                        if (e.getOsmVersion() < 0) { // fake element
+                            try {
+                                BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
+                                App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
+                                    private static final long serialVersionUID = 1L;
 
-                                        @Override
-                                        public void onError() {
-                                            // Ignore
+                                    @Override
+                                    public void onSuccess() {
+                                        OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
+                                        if (osm != null && activity != null && activity instanceof Main) {
+                                            ((Main) activity).zoomToAndEdit(lonE7, latE7, osm);
                                         }
-                                    });
-                                } catch (OsmException e1) {
-                                    Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
-                                }
-                            } else if (activity instanceof Main) { // real
-                                ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        // Ignore
+                                    }
+                                });
+                            } catch (OsmException e1) {
+                                Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
                             }
+                        } else if (activity instanceof Main) { // real
+                            ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
                         }
                     });
                     tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
@@ -285,14 +275,11 @@ public class TaskFragment extends ImmersiveDialogFragment {
                     if (explanationsBuilder.length() > 0) {
                         TextView instructionText = new TextView(getActivity());
                         instructionText.setClickable(true);
-                        instructionText.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                final FragmentActivity activity = getActivity();
-                                Builder builder = new AlertDialog.Builder(activity);
-                                builder.setMessage(Util.fromHtml(explanationsBuilder.toString()));
-                                builder.show();
-                            }
+                        instructionText.setOnClickListener(unused -> {
+                            final FragmentActivity activity = getActivity();
+                            Builder b = new AlertDialog.Builder(activity);
+                            b.setMessage(Util.fromHtml(explanationsBuilder.toString()));
+                            b.show();
                         });
                         instructionText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
                         instructionText.setText(R.string.maproulette_task_explanations);
@@ -304,29 +291,28 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 locationText.setClickable(true);
                 final double lon = task.getLon() / 1E7D;
                 final double lat = task.getLat() / 1E7D;
-                locationText.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) { // FIXME assumption that we are being called from Main
-                        dismiss();
-                        final FragmentActivity activity = getActivity();
-                        try {
-                            final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50, true);
-                            App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
-                                @Override
-                                public void onSuccess() {
-                                    Logic logic = App.getLogic();
-                                    logic.getViewBox().fitToBoundingBox(logic.getMap(), b);
-                                    logic.getMap().invalidate();
-                                }
+                locationText.setOnClickListener(unused -> { // FIXME assumption that we are being called from Main
+                    dismiss();
+                    final FragmentActivity activity = getActivity();
+                    try {
+                        final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50, true);
+                        App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
+                            private static final long serialVersionUID = 1L;
 
-                                @Override
-                                public void onError() {
-                                    // unused
-                                }
-                            });
-                        } catch (OsmException e1) {
-                            Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
-                        }
+                            @Override
+                            public void onSuccess() {
+                                Logic logic = App.getLogic();
+                                logic.getViewBox().fitToBoundingBox(logic.getMap(), b);
+                                logic.getMap().invalidate();
+                            }
+
+                            @Override
+                            public void onError() {
+                                // unused
+                            }
+                        });
+                    } catch (OsmException e1) {
+                        Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
                     }
                 });
                 locationText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
@@ -337,11 +323,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.openstreetbug_unknown_task_type)
                         .setMessage(getString(R.string.openstreetbug_not_supported, task.getClass().getCanonicalName()))
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                // not used
-                            }
+                        .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                            // not used
                         });
                 return builder.create();
             }
@@ -363,50 +346,48 @@ public class TaskFragment extends ImmersiveDialogFragment {
         state.setEnabled(!task.isNew() && !uploadedOsmoseBug); // new bugs always open and OSMOSE bugs can't be reopened
                                                                // once uploaded
         AppCompatDialog d = builder.create();
-        d.setOnShowListener(new OnShowListener() { // old API, buttons are enabled by default
-            @Override
-            public void onShow(DialogInterface dialog) { //
-                final Button save = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
-                    save.setEnabled(false);
-                }
-                final Button upload = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-                if (!task.hasBeenChanged()) {
-                    upload.setEnabled(false);
-                }
-                state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                        save.setEnabled(true);
-                        upload.setEnabled(true);
+        d.setOnShowListener( // old API, buttons are enabled by default
+                dialog -> { //
+                    final Button save = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                    if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
+                        save.setEnabled(false);
                     }
+                    final Button upload = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
+                    if (!task.hasBeenChanged()) {
+                        upload.setEnabled(false);
+                    }
+                    state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                            save.setEnabled(true);
+                            upload.setEnabled(true);
+                        }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> arg0) {
-                        // required, but not used
-                    }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> arg0) {
+                            // required, but not used
+                        }
+                    });
+                    EditText commentText = (EditText) v.findViewById(R.id.openstreetbug_comment);
+                    commentText.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void afterTextChanged(Editable arg0) {
+                            // required, but not used
+                        }
+
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            // required, but not used
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            save.setEnabled(true);
+                            upload.setEnabled(true);
+                            state.setSelection(State.OPEN.ordinal());
+                        }
+                    });
                 });
-                EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
-                comment.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void afterTextChanged(Editable arg0) {
-                        // required, but not used
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        // required, but not used
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        save.setEnabled(true);
-                        upload.setEnabled(true);
-                        state.setSelection(State.OPEN.ordinal());
-                    }
-                });
-            }
-        });
         return d;
     }
 

@@ -54,12 +54,9 @@ public class TriStateCheckBox extends IndeterminateCheckBox {
         ColorStateList colorStateList = ContextCompat.getColorStateList(getContext(), R.color.control_checkable_material);
         setSupportButtonTintList(colorStateList);
         setLongClickable(true);
-        setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View arg0) {
-                setIndeterminate(!isIndeterminate());
-                return true;
-            }
+        setOnLongClickListener(unused -> {
+            setIndeterminate(!isIndeterminate());
+            return true;
         });
     }
 }

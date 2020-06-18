@@ -22,8 +22,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentActivity;
@@ -105,12 +103,9 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
         downloadWebView = (WebView) findViewById(R.id.downloadSiteWebView);
 
         CheckBox networks = (CheckBox) findViewById(R.id.allowAllNetworks);
-        networks.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                allNetworks = isChecked;
-                prefs.setAllowAllNetworks(isChecked);
-            }
+        networks.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            allNetworks = isChecked;
+            prefs.setAllowAllNetworks(isChecked);
         });
         networks.setChecked(prefs.allowAllNetworks());
 
@@ -155,12 +150,7 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
                         }
                         lastDownload = mgr.enqueue(request);
-                        downloadWebView.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                checkStatus(mgr, lastDownload, filename);
-                            }
-                        }, 5000);
+                        downloadWebView.postDelayed(() -> checkStatus(mgr, lastDownload, filename), 5000);
 
                         Log.i(DEBUG_TAG, "Download id: " + lastDownload);
                         return true;
@@ -183,19 +173,16 @@ public class DownloadActivity extends FullScreenAppCompatActivity {
                     onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
                 }
             }
-            downloadWebView.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        if (downloadWebView != null && downloadWebView.canGoBack()) {
-                            downloadWebView.goBack();
-                        } else {
-                            finishSelection();
-                        }
-                        return true;
+            downloadWebView.setOnKeyListener((v, keyCode, event) -> {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (downloadWebView != null && downloadWebView.canGoBack()) {
+                        downloadWebView.goBack();
+                    } else {
+                        finishSelection();
                     }
-                    return false;
+                    return true;
                 }
+                return false;
             });
             downloadWebView.setWebViewClient(new DownloadWebViewClient());
             downloadWebView.loadUrl(url);

@@ -155,17 +155,13 @@ public final class SelectFile {
         if (code == SAVE_FILE) {
             File file = new File(uri.getPath());
             if (file.exists()) {
-                Snack.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                synchronized (saveCallbackLock) {
-                                    if (saveCallback != null) {
-                                        saveCallback.save(uri);
-                                    }
-                                }
-                            }
-                        });
+                Snack.barWarning(activity, activity.getResources().getString(R.string.toast_file_exists, file.getName()), R.string.overwrite, v -> {
+                    synchronized (saveCallbackLock) {
+                        if (saveCallback != null) {
+                            saveCallback.save(uri);
+                        }
+                    }
+                });
             }
             synchronized (saveCallbackLock) {
                 if (saveCallback != null) {

@@ -201,6 +201,8 @@ public final class TransferTasks {
         for (Task b : queryResult) {
             if (b.hasBeenChanged() && b instanceof Note && bugFilter.contains(activity.getString(R.string.bugfilter_notes))) {
                 PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+                    private static final long serialVersionUID = 1L;
+
                     @Override
                     public void onSuccess() {
                         Preferences prefs = new Preferences(activity);
@@ -337,6 +339,8 @@ public final class TransferTasks {
             final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
         PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void onSuccess() {
                 Preferences prefs = new Preferences(activity); // need to re-get this post authentication
@@ -438,6 +442,7 @@ public final class TransferTasks {
             final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
         PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+            private static final long serialVersionUID = 1L;
 
             @Override
             public void onSuccess() {
@@ -463,12 +468,7 @@ public final class TransferTasks {
         }
         String apiKey = server.getUserPreferences().get(MAPROULETTE_APIKEY_V2);
         if (apiKey == null) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    MapRouletteApiKey.set(activity, server, true);
-                }
-            });
+            activity.runOnUiThread(() -> MapRouletteApiKey.set(activity, server, true));
             return false;
         }
 

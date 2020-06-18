@@ -1,8 +1,6 @@
 package de.blau.android.propertyeditor.tagform;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnShowListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -26,30 +24,19 @@ abstract class ShowDialogOnClickListener implements OnClickListener {
         View finalView = v;
         finalView.setEnabled(false); // debounce
         final Object tag = finalView.getTag();
-        dialog.setOnShowListener(new OnShowListener() {
-            @Override
-            public void onShow(DialogInterface d) {
-                if (tag instanceof String) {
-                    ComboDialogRow.scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
-                }
+        dialog.setOnShowListener(d -> {
+            if (tag instanceof String) {
+                ComboDialogRow.scrollDialogToValue((String) tag, dialog, R.id.valueGroup);
             }
         });
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                finalView.setEnabled(true);
-            }
-        });
+        dialog.setOnDismissListener(d -> finalView.setEnabled(true));
         dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinearLayout valueGroup = (LinearLayout) dialog.findViewById(R.id.valueGroup);
-                for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
-                    View c = valueGroup.getChildAt(pos);
-                    if (c instanceof AppCompatCheckBox) {
-                        ((AppCompatCheckBox) c).setChecked(false);
-                    }
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(unused -> {
+            LinearLayout valueGroup = (LinearLayout) dialog.findViewById(R.id.valueGroup);
+            for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
+                View c = valueGroup.getChildAt(pos);
+                if (c instanceof AppCompatCheckBox) {
+                    ((AppCompatCheckBox) c).setChecked(false);
                 }
             }
         });

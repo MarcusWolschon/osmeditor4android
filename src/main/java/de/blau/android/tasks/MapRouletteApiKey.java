@@ -9,9 +9,6 @@ import java.util.concurrent.TimeoutException;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialog;
@@ -34,6 +31,7 @@ public final class MapRouletteApiKey {
     private MapRouletteApiKey() {
         // empty
     }
+
     /**
      * Set a MapRoulette API key by asking the user for it
      * 
@@ -47,74 +45,53 @@ public final class MapRouletteApiKey {
 
         final String apiKey = retrieveKey ? get(server) : null;
 
-        final AppCompatDialog dialog = TextLineDialog.get(activity, R.string.maproulette_task_set_apikey, -1, apiKey, new TextLineDialog.TextLineInterface() {
-            @Override
-            public void processLine(EditText input) {
+        final AppCompatDialog dialog = TextLineDialog.get(activity, R.string.maproulette_task_set_apikey, -1, apiKey, input -> {
 
-                final String newApiKey = input.getText().toString().trim();
-                new AsyncTask<Void, Void, Void>() {
+            final String newApiKey = input.getText().toString().trim();
+            new AsyncTask<Void, Void, Void>() {
 
-                    @Override
-                    protected Void doInBackground(Void... params) {
-                        try {
-                            if (newApiKey.length() > 0) {
-                                server.setUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2, newApiKey);
-                                activity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Snack.toastTopInfo(activity, R.string.maproulette_task_apikey_set);
-                                    }
-                                });
-                            } else {
-                                if (apiKey != null) {
-                                    try {
-                                        server.deleteUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2);
-                                    } catch (OsmException oex) {
-                                        Log.e(DEBUG_TAG, "Unable to delete maproulette key " + oex.getMessage());
-                                    }
-                                }
-                                if (activity instanceof Main) {
-                                    Preferences prefs = ((Main) activity).getMap().getPrefs();
-                                    final Set<String> bugFilter = prefs.taskFilter();
-                                    if (bugFilter.contains(activity.getString(R.string.bugfilter_maproulette))) {
-                                        activity.runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Snack.barError(activity, R.string.maproulette_task_no_apikey, R.string.maproulette_task_disable,
-                                                        new OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View v) {
-                                                                bugFilter.remove(activity.getString(R.string.bugfilter_maproulette));
-                                                                prefs.setTaskFilter(bugFilter);
-                                                                TaskStorage taskStorage = App.getTaskStorage();
-                                                                final List<Task> queryResult = App.getTaskStorage().getTasks();
-                                                                for (Task t : queryResult) {
-                                                                    if (t instanceof MapRouletteTask) {
-                                                                        taskStorage.delete(t);
-                                                                    }
-                                                                }
-                                                                ((Main) activity).getMap().invalidate();
-                                                            }
-                                                        });
-                                            }
-                                        });
-                                    }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        if (newApiKey.length() > 0) {
+                            server.setUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2, newApiKey);
+                            activity.runOnUiThread(() -> Snack.toastTopInfo(activity, R.string.maproulette_task_apikey_set));
+                        } else {
+                            if (apiKey != null) {
+                                try {
+                                    server.deleteUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2);
+                                } catch (OsmException oex) {
+                                    Log.e(DEBUG_TAG, "Unable to delete maproulette key " + oex.getMessage());
                                 }
                             }
-                        } catch (OsmException oex) {
-                            Log.e(DEBUG_TAG, "Unable to set maproulette key " + oex.getMessage());
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Snack.toastTopError(activity, R.string.maproulette_task_apikey_not_set);
+                            if (activity instanceof Main) {
+                                Preferences prefs = ((Main) activity).getMap().getPrefs();
+                                final Set<String> bugFilter = prefs.taskFilter();
+                                if (bugFilter.contains(activity.getString(R.string.bugfilter_maproulette))) {
+                                    activity.runOnUiThread(
+                                            () -> Snack.barError(activity, R.string.maproulette_task_no_apikey, R.string.maproulette_task_disable, v -> {
+                                                bugFilter.remove(activity.getString(R.string.bugfilter_maproulette));
+                                                prefs.setTaskFilter(bugFilter);
+                                                TaskStorage taskStorage = App.getTaskStorage();
+                                                final List<Task> queryResult = App.getTaskStorage().getTasks();
+                                                for (Task t : queryResult) {
+                                                    if (t instanceof MapRouletteTask) {
+                                                        taskStorage.delete(t);
+                                                    }
+                                                }
+                                                ((Main) activity).getMap().invalidate();
+                                            }));
                                 }
-                            });
+                            }
                         }
-                        return null;
+                    } catch (OsmException oex) {
+                        Log.e(DEBUG_TAG, "Unable to set maproulette key " + oex.getMessage());
+                        activity.runOnUiThread(() -> Snack.toastTopError(activity, R.string.maproulette_task_apikey_not_set));
                     }
-                }.execute();
+                    return null;
+                }
+            }.execute();
 
-            }
         });
         dialog.show();
     }

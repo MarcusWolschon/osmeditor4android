@@ -32,26 +32,23 @@ public abstract class FullScreenAppCompatActivity extends AppCompatActivity {
         super.onResume();
 
         View decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int visibility) {
-                Log.d(DEBUG_TAG, "onSystemUiVisibilityChange " + Integer.toHexString(visibility));
-                if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-                    if (fullScreen) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            // in immersive mode directly hiding seems to work
-                            hideSystemUI();
-                        } else {
-                            // this likely, if a all, only works if you use the top bar
-                            synchronized (handler) {
-                                handler.removeCallbacks(navHider);
-                                handler.postDelayed(navHider, 1500);
-                            }
+        decorView.setOnSystemUiVisibilityChangeListener(visibility -> {
+            Log.d(DEBUG_TAG, "onSystemUiVisibilityChange " + Integer.toHexString(visibility));
+            if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+                if (fullScreen) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        // in immersive mode directly hiding seems to work
+                        hideSystemUI();
+                    } else {
+                        // this likely, if a all, only works if you use the top bar
+                        synchronized (handler) {
+                            handler.removeCallbacks(navHider);
+                            handler.postDelayed(navHider, 1500);
                         }
                     }
-                } else {
-                    // no UI changes for now
                 }
+            } else {
+                // no UI changes for now
             }
         });
         if (fullScreen) {
@@ -74,12 +71,7 @@ public abstract class FullScreenAppCompatActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
     }
 
-    private Runnable navHider = new Runnable() {
-        @Override
-        public void run() {
-            hideSystemUI();
-        }
-    };
+    private Runnable navHider = this::hideSystemUI;
 
     /**
      * Return true if we are in full screen mode

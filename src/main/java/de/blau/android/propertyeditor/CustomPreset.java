@@ -7,13 +7,11 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.EditText;
 import androidx.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.TextLineDialog;
-import de.blau.android.dialogs.TextLineDialog.TextLineInterface;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
@@ -58,65 +56,61 @@ public final class CustomPreset {
         Context ctx = caller.getContext();
         final PresetItem bestPreset = caller.getBestPreset();
         TextLineDialog.get(ctx, R.string.create_preset_title, -1,
-                caller.getString(R.string.create_preset_default_name, bestPreset != null ? bestPreset.getName() : ""), new TextLineInterface() {
-
-                    @Override
-                    public void processLine(EditText input) {
-                        Preset preset = Preset.dummyInstance();
-                        try {
-                            preset.setIconManager(new PresetIconManager(ctx,
-                                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
-                        } catch (IOException e) {
-                            Log.e(DEBUG_TAG, "Setting icon manager failed " + e.getMessage());
+                caller.getString(R.string.create_preset_default_name, bestPreset != null ? bestPreset.getName() : ""), input -> {
+                    Preset preset = Preset.dummyInstance();
+                    try {
+                        preset.setIconManager(new PresetIconManager(ctx,
+                                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
+                    } catch (IOException e) {
+                        Log.e(DEBUG_TAG, "Setting icon manager failed " + e.getMessage());
+                    }
+                    PresetGroup group = preset.getRootGroup();
+                    Preset.PresetItem customItem = preset.new PresetItem(group, input.getText().toString(), ICON, null);
+                    // add linked presets
+                    if (bestPreset != null) {
+                        List<String> linkedPresetNames = bestPreset.getLinkedPresetNames();
+                        if (linkedPresetNames != null) {
+                            customItem.addAllLinkedPresetNames(new LinkedList<>(bestPreset.getLinkedPresetNames()));
                         }
-                        PresetGroup group = preset.getRootGroup();
-                        Preset.PresetItem customItem = preset.new PresetItem(group, input.getText().toString(), ICON, null);
-                        // add linked presets
-                        if (bestPreset != null) {
-                            List<String> linkedPresetNames = bestPreset.getLinkedPresetNames();
-                            if (linkedPresetNames != null) {
-                                customItem.addAllLinkedPresetNames(new LinkedList<>(bestPreset.getLinkedPresetNames()));
-                            }
-                        }
-                        // add fields
-                        for (TagEditRow row : selected) {
-                            String key = row.getKey();
-                            String value = row.getValue();
-                            boolean notEmpty = value != null && !"".equals(value);
-                            PresetItem item = caller.getPreset(key);
-                            if (item == null) {
-                                if (notEmpty) {
-                                    customItem.addField(new PresetFixedField(key, new StringWithDescription(value)));
-                                } else {
-                                    customItem.addField(new PresetTextField(key));
-                                }
+                    }
+                    // add fields
+                    for (TagEditRow row : selected) {
+                        String key = row.getKey();
+                        String value = row.getValue();
+                        boolean notEmpty = value != null && !"".equals(value);
+                        PresetItem item = caller.getPreset(key);
+                        if (item == null) {
+                            if (notEmpty) {
+                                customItem.addField(new PresetFixedField(key, new StringWithDescription(value)));
                             } else {
-                                PresetField field = item.getField(key).copy();
-                                if (notEmpty && !isLikeAName(key)) {
-                                    field.setDefaultValue(value);
-                                }
-                                field.setOptional(false);
-                                customItem.addField(field);
-                            }
-                        }
-                        Preset[] configuredPresets = App.getCurrentPresets(ctx);
-                        Preset autoPreset = configuredPresets[configuredPresets.length - 1];
-                        if (autoPreset != null) {
-                            PresetGroup autoGroup = autoPreset.getGroupByName(ctx.getString(R.string.preset_autopreset));
-                            if (group != null) {
-                                @SuppressWarnings("unused")
-                                PresetItem copy = autoPreset.new PresetItem(autoGroup, customItem);
-                            } else {
-                                Log.e(DEBUG_TAG, "Couldn't find preset group");
+                                customItem.addField(new PresetTextField(key));
                             }
                         } else {
-                            Log.e(DEBUG_TAG, "Preset null");
-                            return;
+                            PresetField field = item.getField(key).copy();
+                            if (notEmpty && !isLikeAName(key)) {
+                                field.setDefaultValue(value);
+                            }
+                            field.setOptional(false);
+                            customItem.addField(field);
                         }
-                        AutoPreset.save(autoPreset);
-                        caller.deselectAllRows();
-                        caller.presetSelectedListener.onPresetSelected(customItem);
                     }
+                    Preset[] configuredPresets = App.getCurrentPresets(ctx);
+                    Preset autoPreset = configuredPresets[configuredPresets.length - 1];
+                    if (autoPreset != null) {
+                        PresetGroup autoGroup = autoPreset.getGroupByName(ctx.getString(R.string.preset_autopreset));
+                        if (group != null) {
+                            @SuppressWarnings("unused")
+                            PresetItem copy = autoPreset.new PresetItem(autoGroup, customItem);
+                        } else {
+                            Log.e(DEBUG_TAG, "Couldn't find preset group");
+                        }
+                    } else {
+                        Log.e(DEBUG_TAG, "Preset null");
+                        return;
+                    }
+                    AutoPreset.save(autoPreset);
+                    caller.deselectAllRows();
+                    caller.presetSelectedListener.onPresetSelected(customItem);
                 }).show();
     }
 
