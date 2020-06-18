@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.locks.ReentrantLock;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -32,7 +31,6 @@ import com.mapbox.geojson.gson.PointDeserializer;
 import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -72,22 +70,13 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature>, LayerInfoInterface {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 2L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
-    /**
-     * when reading state lockout writing/reading
-     */
-    private transient ReentrantLock readingLock = new ReentrantLock();
-
     public static final String FILENAME = "geojson.res";
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
-    private transient boolean                  saved        = false;
 
     /**
      * Wrapper around mapboxes Feature class makes the object serializable and usable in an RTree
@@ -160,7 +149,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     private RTree<BoundedFeature>        data;
     private final transient Path         path   = new Path();
-    private transient Paint              paint;
     private transient FloatPrimitiveList points = new FloatPrimitiveList();
 
     /** Map this is an overlay of. */
@@ -169,9 +157,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     /**
      * Styling parameters
      */
-    private int    iconRadius;
-    private int    color;
-    private float  strokeWidth;
     private String labelKey;
 
     transient Paint        labelPaint;
@@ -180,14 +165,14 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     transient FeatureStyle labelFs;
 
     /**
-     * Name for this layer (typically the file name)
-     */
-    private String name;
-
-    /**
      * The uri for the layer source
      */
     private String uri;
+
+    /**
+     * State file file name
+     */
+    private String stateFileName = FILENAME;
 
     /**
      * Construct this layer
@@ -417,11 +402,23 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             if (name == null) {
                 name = uri.getLastPathSegment();
             }
+            setFileName(uri.getEncodedPath().replace('/', '-'));
             this.uri = uri.toString();
             return loadGeoJsonFile(ctx, is);
         } finally {
             readingLock.unlock();
         }
+    }
+
+    /**
+     * Set the name of the state file
+     * 
+     * This needs to be unique across all instances so best an encoded uri
+     * 
+     * @param baseName the base name for this specific instance
+     */
+    private void setFileName(@NonNull String baseName) {
+        stateFileName = baseName + ".res";
     }
 
     /**
@@ -475,7 +472,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             }
             setVisible(true); // enable too
             successful = true;
-            saved = false;
+            dirty();
         } catch (com.google.gson.JsonSyntaxException jsex) {
             data = null;
             Snack.toastTopError(ctx, jsex.getLocalizedMessage());
@@ -505,64 +502,20 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public synchronized void onSaveState(@NonNull Context context) throws IOException {
-        super.onSaveState(context);
-        if (saved) {
-            Log.i(DEBUG_TAG, "state not dirty, skipping save");
-            return;
-        }
-        if (readingLock.tryLock()) {
-            try {
-                // TODO this doesn't really help with error conditions need to throw exception
-                if (savingHelper.save(context, FILENAME, this, true)) {
-                    saved = true;
-                } else {
-                    // this is essentially catastrophic and can only happen if something went really wrong
-                    // running out of memory or disk, or HW failure
-                    if (context instanceof Activity) {
-                        Snack.barError((Activity) context, R.string.toast_statesave_failed);
-                    }
-                }
-            } finally {
-                readingLock.unlock();
-            }
-        } else {
-            Log.i(DEBUG_TAG, "bug state being read, skipping save");
-        }
+    protected synchronized boolean save(@NonNull Context context) throws IOException {
+        Log.d(DEBUG_TAG, "Saving state to " + stateFileName);
+        return savingHelper.save(context, stateFileName, this, true);
     }
 
     @Override
-    public synchronized boolean onRestoreState(@NonNull Context context) {
-        super.onRestoreState(context);
-        try {
-            readingLock.lock();
-            if (data != null && data.count() > 0) {
-                // don't restore over existing data
-                return true;
-            }
-            // disable drawing
-            setVisible(false);
-            MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
-            if (restoredOverlay != null) {
-                Log.d(DEBUG_TAG, "read saved state");
-                data = restoredOverlay.data;
-                iconRadius = restoredOverlay.iconRadius;
-                color = restoredOverlay.color;
-                paint.setColor(color);
-                strokeWidth = restoredOverlay.strokeWidth;
-                paint.setStrokeWidth(strokeWidth);
-                labelKey = restoredOverlay.labelKey;
-                name = restoredOverlay.name;
-                return true;
-            } else {
-                Log.d(DEBUG_TAG, "saved state null");
-                return false;
-            }
-        } finally {
-            // re-enable drawing
-            setVisible(true);
-            readingLock.unlock();
+    protected synchronized StyleableLayer load(@NonNull Context context) {
+        Log.d(DEBUG_TAG, "Loading state from " + stateFileName);
+        MapOverlay restoredOverlay = savingHelper.load(context, stateFileName, true);
+        if (restoredOverlay != null) {
+            labelKey = restoredOverlay.labelKey;
+            stateFileName = restoredOverlay.stateFileName;
         }
+        return restoredOverlay;
     }
 
     /**
@@ -722,17 +675,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public Path getPointSymbol() {
-        // Does nothing for now
-        return null;
-    }
-
-    @Override
-    public void setPointSymbol(Path symbol) {
-        // TODO support multiple point symbols
-    }
-
-    @Override
     public void resetStyling() {
         paint = new Paint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         color = paint.getColor();
@@ -763,7 +705,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             }
             return new ArrayList<>(result);
         }
-        return null;
+        return super.getLabelList();
     }
 
     @Override
@@ -827,17 +769,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public void discard(Context context) {
-        if (readingLock.tryLock()) {
-            try {
-                data = null;
-                File originalFile = context.getFileStreamPath(FILENAME);
-                if (!originalFile.delete()) {
-                    Log.e(DEBUG_TAG, "Failed to delete state file " + FILENAME);
-                }
-            } finally {
-                readingLock.unlock();
-            }
+    public void discardLayer(Context context) {
+        data = null;
+        File originalFile = context.getFileStreamPath(stateFileName);
+        if (!originalFile.delete()) {
+            Log.e(DEBUG_TAG, "Failed to delete state file " + stateFileName);
         }
         map.invalidate();
     }

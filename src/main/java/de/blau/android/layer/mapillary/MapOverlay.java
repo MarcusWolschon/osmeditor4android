@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -24,7 +23,6 @@ import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
@@ -44,7 +42,6 @@ import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.layer.ClickableInterface;
-import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.DownloadInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerType;
@@ -65,7 +62,6 @@ import de.blau.android.util.GeoJSONConstants;
 import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
@@ -76,7 +72,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class MapOverlay extends StyleableLayer
-        implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<MapillaryImage>, DownloadInterface, PruneableInterface, DataStorage {
+        implements Serializable, ExtentInterface, ClickableInterface<MapillaryImage>, DownloadInterface, PruneableInterface, DataStorage {
 
     private static final long serialVersionUID = 1L;
 
@@ -85,9 +81,7 @@ public class MapOverlay extends StyleableLayer
     /**
      * when reading state lockout writing/reading
      */
-    private transient ReentrantLock            readingLock  = new ReentrantLock();
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
-    private transient boolean                  saved        = false;
 
     public static final String APIKEY_KEY = "MAPILLARY_APIKEY";
 
@@ -99,7 +93,6 @@ public class MapOverlay extends StyleableLayer
     private List<BoundingBox>            boxes            = new ArrayList<>();
     private MapillarySequence            selectedSequence = null;
     private int                          selectedImage    = 0;
-    private transient Paint              paint;
     private transient Paint              selectedPaint;
     private final transient Path         path             = new Path();
     private transient FloatPrimitiveList points           = new FloatPrimitiveList();
@@ -107,13 +100,6 @@ public class MapOverlay extends StyleableLayer
 
     /** Map this is an overlay of. */
     private transient Map map = null;
-
-    /**
-     * Styling parameters
-     */
-    private int   iconRadius;
-    private int   color;
-    private float strokeWidth;
 
     /**
      * Download related stuff
@@ -127,11 +113,6 @@ public class MapOverlay extends StyleableLayer
     private String  mapillaryImagesUrl = Urls.DEFAULT_MAPILLARY_IMAGES;
 
     private transient ThreadPoolExecutor mThreadPool;
-
-    /**
-     * Name for this layer (typically the file name)
-     */
-    private String name;
 
     /**
      * Directory for caching mapillary images
@@ -323,79 +304,19 @@ public class MapOverlay extends StyleableLayer
         data = null;
     }
 
-    /**
-     * Stores the current state to the default storage file
-     * 
-     * @param context Android Context
-     * @throws IOException on errors writing the file
-     */
     @Override
-    public synchronized void onSaveState(@NonNull Context context) throws IOException {
-        super.onSaveState(context);
-        if (saved) {
-            Log.i(DEBUG_TAG, "state not dirty, skipping save");
-            return;
-        }
-        if (readingLock.tryLock()) {
-            try {
-                // TODO this doesn't really help with error conditions need to throw exception
-                if (savingHelper.save(context, FILENAME, this, true)) {
-                    saved = true;
-                } else {
-                    // this is essentially catastrophic and can only happen if something went really wrong
-                    // running out of memory or disk, or HW failure
-                    if (context instanceof Activity) {
-                        Snack.barError((Activity) context, R.string.toast_statesave_failed);
-                    }
-                }
-            } finally {
-                readingLock.unlock();
-            }
-        } else {
-            Log.i(DEBUG_TAG, "bug state being read, skipping save");
-        }
+    public synchronized boolean save(Context context) throws IOException {
+        return savingHelper.save(context, FILENAME, this, true);
     }
 
-    /**
-     * Loads any saved state from the default storage file
-     * 
-     * 
-     * @param context Android context
-     * @return true if the saved state was successfully read
-     */
     @Override
-    public synchronized boolean onRestoreState(@NonNull Context context) {
-        super.onRestoreState(context);
-        try {
-            readingLock.lock();
-            if (data != null && data.count() > 0) {
-                // don't restore over existing data
-                return true;
-            }
-            // disable drawing
-            setVisible(false);
-            MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
-            if (restoredOverlay != null) {
-                Log.d(DEBUG_TAG, "read saved state");
-                data = restoredOverlay.data;
-                iconRadius = restoredOverlay.iconRadius;
-                color = restoredOverlay.color;
-                paint.setColor(color);
-                strokeWidth = restoredOverlay.strokeWidth;
-                paint.setStrokeWidth(strokeWidth);
-                name = restoredOverlay.name;
-                selectedSequence = restoredOverlay.selectedSequence;
-                selectedImage = restoredOverlay.selectedImage;
-                return true;
-            } else {
-                Log.d(DEBUG_TAG, "saved state null");
-                return false;
-            }
-        } finally {
-            // re-enable drawing
-            setVisible(true);
-            readingLock.unlock();
+    public synchronized StyleableLayer load(Context context) {
+        MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
+        if (restoredOverlay != null) {
+            selectedSequence = restoredOverlay.selectedSequence;
+            selectedImage = restoredOverlay.selectedImage;
         }
+        return restoredOverlay;
     }
 
     /**
@@ -495,22 +416,6 @@ public class MapOverlay extends StyleableLayer
             return extent;
         }
         return null;
-    }
-
-    @Override
-    public void discard(Context context) {
-        if (readingLock.tryLock()) {
-            try {
-                data = null;
-                File originalFile = context.getFileStreamPath(FILENAME);
-                if (!originalFile.delete()) { // NOSONAR
-                    Log.e(DEBUG_TAG, "Failed to delete state file " + FILENAME);
-                }
-            } finally {
-                readingLock.unlock();
-            }
-        }
-        map.invalidate();
     }
 
     @Override
@@ -688,31 +593,11 @@ public class MapOverlay extends StyleableLayer
     }
 
     @Override
-    public Path getPointSymbol() {
-        return null;
-    }
-
-    @Override
-    public void setPointSymbol(Path symbol) {
-        // Do nothing
-    }
-
-    @Override
     public void resetStyling() {
         paint = new Paint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         color = paint.getColor();
         strokeWidth = paint.getStrokeWidth();
         iconRadius = map.getIconRadius();
-    }
-
-    @Override
-    public List<String> getLabelList() {
-        return null;
-    }
-
-    @Override
-    public void setLabel(String key) {
-        // Do nothing
     }
 
     @Override
@@ -769,7 +654,17 @@ public class MapOverlay extends StyleableLayer
                 }
             }
             BoundingBox.prune(this, box);
-            saved = false;
+            dirty();
         }
+    }
+
+    @Override
+    protected void discardLayer(Context context) {
+        data = null;
+        File originalFile = context.getFileStreamPath(FILENAME);
+        if (!originalFile.delete()) { // NOSONAR
+            Log.e(DEBUG_TAG, "Failed to delete state file " + FILENAME);
+        }
+        map.invalidate();
     }
 }

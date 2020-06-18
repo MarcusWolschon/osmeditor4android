@@ -127,7 +127,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
             builder.setTitle(tempLayer.getName());
             layer = (StyleableLayer) tempLayer;
             final List<String> labelKeys = layer.getLabelList();
-            if (labelKeys != null && !labelKeys.isEmpty()) {
+            if (!labelKeys.isEmpty()) {
                 final Spinner labelSpinner = (Spinner) layout.findViewById(R.id.layer_style_label);
                 labelKeys.add(0, getString(R.string.none));
                 String[] labelArray = new String[labelKeys.size()];

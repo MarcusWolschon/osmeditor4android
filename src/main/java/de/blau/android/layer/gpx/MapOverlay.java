@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -30,7 +29,6 @@ import de.blau.android.resources.DataStyle.FeatureStyle;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
-import de.blau.android.util.Snack;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
@@ -51,11 +49,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
 
-    private int             iconRadius;
-    private transient Paint trackPaint;
     private transient Paint wayPointPaint;
-    private int             color;
-    private float           strokeWidth;
     private String          labelKey;
 
     /**
@@ -83,7 +77,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         List<TrackPoint> trackPoints = tracker.getTrackPoints();
         if (!trackPoints.isEmpty()) {
             map.pointListToLinePointsArray(linePoints, trackPoints);
-            canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), trackPaint);
+            canvas.drawLines(linePoints.getArray(), 0, linePoints.size(), paint);
         }
         WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
         if (wayPoints.length != 0) {
@@ -198,51 +192,36 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public int getColor() {
-        return trackPaint.getColor();
+        return paint.getColor();
     }
 
     @Override
     public void setColor(int color) {
-        trackPaint.setColor(color);
+        paint.setColor(color);
         wayPointPaint.setColor(color);
         this.color = color;
     }
 
     @Override
     public float getStrokeWidth() {
-        return trackPaint.getStrokeWidth();
+        return paint.getStrokeWidth();
     }
 
     @Override
     public void setStrokeWidth(float width) {
-        trackPaint.setStrokeWidth(width);
+        paint.setStrokeWidth(width);
         wayPointPaint.setStrokeWidth(width);
         strokeWidth = width;
     }
 
     @Override
-    public Path getPointSymbol() {
-        return null;
-    }
-
-    @Override
-    public void setPointSymbol(Path symbol) {
-        // Unused
-    }
-
-    @Override
     public void resetStyling() {
-        trackPaint = new Paint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
+        paint = new Paint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
         wayPointPaint = new Paint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
-        color = trackPaint.getColor();
-        strokeWidth = trackPaint.getStrokeWidth();
+        color = paint.getColor();
+        strokeWidth = paint.getStrokeWidth();
         labelKey = "";
         iconRadius = map.getIconRadius();
-    }
-
-    @Override
-    public List<String> getLabelList() {
-        return null;
     }
 
     @Override
@@ -251,37 +230,20 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public synchronized void onSaveState(@NonNull Context context) throws IOException {
-        super.onSaveState(context);
-        // TODO this doesn't really help with error conditions need to throw exception
-        if (!savingHelper.save(context, FILENAME, this, true)) {
-            // this is essentially catastrophic and can only happen if something went really wrong
-            // running out of memory or disk, or HW failure
-            if (context instanceof Activity) {
-                Snack.barError((Activity) context, R.string.toast_statesave_failed);
-            }
-        }
+    public synchronized boolean save(@NonNull Context context) throws IOException {
+        return savingHelper.save(context, FILENAME, this, true);
     }
 
     @Override
-    public synchronized boolean onRestoreState(@NonNull Context context) {
-        super.onRestoreState(context);
+    public synchronized StyleableLayer load(@NonNull Context context) {
         MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
         if (restoredOverlay != null) {
             Log.d(DEBUG_TAG, "read saved state");
-            iconRadius = restoredOverlay.iconRadius;
-            color = restoredOverlay.color;
-            trackPaint.setColor(color);
             wayPointPaint.setColor(color);
-            strokeWidth = restoredOverlay.strokeWidth;
-            trackPaint.setStrokeWidth(strokeWidth);
             wayPointPaint.setStrokeWidth(strokeWidth);
             labelKey = restoredOverlay.labelKey;
-            return true;
-        } else {
-            Log.d(DEBUG_TAG, "saved state null");
-            return false;
         }
+        return restoredOverlay;
     }
 
     @Override
@@ -302,5 +264,13 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     @Override
     public LayerType getType() {
         return LayerType.GPX;
+    }
+
+    @Override
+    protected void discardLayer(Context context) {
+        if (tracker != null) {
+            // FIXME this might not be what the user wants
+            tracker.stopTracking(false);
+        }
     }
 }
