@@ -80,7 +80,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     /**
      * The view we are a part of.
      */
-    private View            myView;
+    private final View      myView;
     /**
      * The tile-server to load a rendered map from.
      */

@@ -224,10 +224,7 @@ public class LayerDialogTest {
         TestUtils.sleep();
         menuButton.clickAndWait(Until.newWindow(), 1000);
         Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.discard), true, false));
-        Assert.assertNotNull(map.getGeojsonLayer());
-        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(main)) {
-            db.deleteLayer(LayerType.GEOJSON, null);
-        }
+        Assert.assertNull(map.getGeojsonLayer());
     }
 
     /**
