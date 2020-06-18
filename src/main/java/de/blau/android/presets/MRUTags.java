@@ -119,12 +119,12 @@ public class MRUTags {
      * @param value the value
      */
     private void putValue(@NonNull PresetItem item, @NonNull String key, @Nullable String value) {
-        Map<String, MRUList<String>> keyMap = valueStore.get(item);
+        Map<String, MRUList<String>> keyMap = valueStore.get(item); // NOSONAR needs Android 24
         if (keyMap == null) {
             keyMap = new HashMap<>();
             valueStore.put(item, keyMap);
         }
-        MRUList<String> mru = keyMap.get(key);
+        MRUList<String> mru = keyMap.get(key); // NOSONAR needs Android 24
         if (mru == null) {
             mru = new MRUList<>(VALUE_MRU_SIZE);
             keyMap.put(key, mru);
@@ -151,7 +151,7 @@ public class MRUTags {
      * @param key the key
      */
     private void putKey(@NonNull ElementType elementType, @NonNull String key) {
-        MRUList<String> mru = keyStore.get(elementType);
+        MRUList<String> mru = keyStore.get(elementType); // NOSONAR needs Android 24
         if (mru == null) {
             mru = new MRUList<>(KEY_MRU_SIZE);
             keyStore.put(elementType, mru);
@@ -166,7 +166,7 @@ public class MRUTags {
      * @param role the role
      */
     public synchronized void putRole(@NonNull PresetItem item, @NonNull String role) {
-        MRUList<String> mru = roleStore.get(item);
+        MRUList<String> mru = roleStore.get(item); // NOSONAR needs Android 24
         if (mru == null) {
             mru = new MRUList<>(ROLE_MRU_SIZE);
             roleStore.put(item, mru);
@@ -390,7 +390,7 @@ public class MRUTags {
      */
     private void writePathXML(Context ctx, Map<PresetItem, PresetElementPath> pathCache, XmlSerializer serializer, PresetItem item) throws IOException {
         serializer.startTag("", PRESET_TAG);
-        PresetElementPath path = pathCache.get(item);
+        PresetElementPath path = pathCache.get(item); // NOSONAR needs Android 24
         if (path == null) {
             path = item.getPath(App.getCurrentRootPreset(ctx).getRootGroup());
             pathCache.put(item, path);

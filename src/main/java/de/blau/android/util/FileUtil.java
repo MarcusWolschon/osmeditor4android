@@ -158,9 +158,7 @@ public abstract class FileUtil {
         }
         if (result > maxCacheSize) {
             maxCacheSize = (long) (0.9 * maxCacheSize); // make 10% free
-            Collections.sort(fileList, (f0, f1) -> {
-                return Long.compare(f0.lastModified(), f1.lastModified());
-            });
+            Collections.sort(fileList, (f0, f1) -> Long.compare(f0.lastModified(), f1.lastModified()));
             for (File f : fileList) {
                 long len = f.length();
                 if (f.delete()) { // NOSONAR

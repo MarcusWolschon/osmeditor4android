@@ -10,7 +10,6 @@ import de.blau.android.R;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 
 public class WaySegmentModifyActionModeCallback extends NonSimpleActionModeCallback {
     private static final String DEBUG_TAG = "WaySegmentModify...";

@@ -68,7 +68,7 @@ public class CoordinatesOrOLC {
      * @param handler a handler for the results
      */
     public static void get(@NonNull final FragmentActivity activity, @NonNull final HandleResult handler) {
-        dialog = TextLineDialog.get(activity, R.string.go_to_coordinates_title, R.string.go_to_coordinates_hint, (input) -> {
+        dialog = TextLineDialog.get(activity, R.string.go_to_coordinates_title, R.string.go_to_coordinates_hint, input -> {
             String text = input.getText().toString();
             if ("".equals(text)) {
                 return;
