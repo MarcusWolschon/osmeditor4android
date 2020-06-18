@@ -154,18 +154,26 @@ public class MapillaryTest {
         TestUtils.sleep();
         ActivityMonitor monitor = instrumentation.addMonitor(MapillaryViewerActivity.class.getName(), null, false);
         TestUtils.clickAtCoordinates(device, map, 8.3886805, 47.3893802, true);
-        Assert.assertNotNull(instrumentation.waitForMonitorWithTimeout(monitor, 30000));
-        instrumentation.removeMonitor(monitor);
+        MapillaryViewerActivity viewer = null;
         try {
-            RecordedRequest recorded = mockImagesServer.server().takeRequest(10000, TimeUnit.SECONDS);
-            System.out.println(recorded.getPath());
-            mockImagesServer.server().takeRequest(10000, TimeUnit.SECONDS);
-            mockImagesServer.server().takeRequest(10000, TimeUnit.SECONDS);
-            mockImagesServer.server().takeRequest(10000, TimeUnit.SECONDS);
-            mockImagesServer.server().takeRequest(10000, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
+            viewer = (MapillaryViewerActivity) instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+            Assert.assertNotNull(viewer);
+            try {
+                RecordedRequest recorded = mockImagesServer.server().takeRequest(1000, TimeUnit.SECONDS);
+                System.out.println(recorded.getPath());
+                mockImagesServer.server().takeRequest(1000, TimeUnit.SECONDS);
+                mockImagesServer.server().takeRequest(1000, TimeUnit.SECONDS);
+                mockImagesServer.server().takeRequest(1000, TimeUnit.SECONDS);
+                mockImagesServer.server().takeRequest(1000, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Assert.fail(e.getMessage());
+            }
+            device.pressBack();
+        } finally {
+            instrumentation.removeMonitor(monitor);
+            if (viewer != null) {
+                viewer.finish();
+            }
         }
-        device.pressBack();
     }
 }
