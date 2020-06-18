@@ -12,14 +12,12 @@ import org.mozilla.javascript.ScriptableObject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +27,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.PopupMenu.OnMenuItemClickListener;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.BuildConfig;
@@ -201,104 +198,91 @@ public final class Utils {
         builder.setNegativeButton(R.string.dismiss, null);
         builder.setNeutralButton(R.string.share, null);
         AlertDialog dialog = builder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                positive.setOnClickListener(new View.OnClickListener() {
+        dialog.setOnShowListener(d -> {
+            Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+            positive.setOnClickListener(view -> {
+                final AsyncTask<String, Void, String> runner = new AsyncTask<String, Void, String>() {
+                    final AlertDialog progress = ProgressDialog.get(activity, Progress.PROGRESS_RUNNING);
+
                     @Override
-                    public void onClick(View view) {
-                        final AsyncTask<String, Void, String> runner = new AsyncTask<String, Void, String>() {
-                            final AlertDialog progress = ProgressDialog.get(activity, Progress.PROGRESS_RUNNING);
-
-                            @Override
-                            protected void onPreExecute() {
-                                progress.show();
-                            }
-
-                            @Override
-                            protected String doInBackground(String... js) {
-                                try {
-                                    return callback.eval(js[0]);
-                                } catch (Exception ex) {
-                                    Log.e(DEBUG_TAG, "dialog failed with " + ex);
-                                    return ex.getMessage();
-                                }
-                            }
-
-                            @Override
-                            protected void onPostExecute(final String result) {
-                                try {
-                                    progress.dismiss();
-                                } catch (Exception ex) {
-                                    Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
-                                }
-                                output.setText(result);
-                            }
-                        };
-                        runner.execute(input.getText().toString());
+                    protected void onPreExecute() {
+                        progress.show();
                     }
-                });
-                Button neutral = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-                Drawable more = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_36dp, R.attr.colorAccent);
-                neutral.setCompoundDrawablesWithIntrinsicBounds(more, null, null, null);
-                neutral.setText("");
-                neutral.setOnClickListener(new View.OnClickListener() {
+
                     @Override
-                    public void onClick(View view) {
-                        PopupMenu popupMenu = new PopupMenu(activity, view);
-                        popupMenu.inflate(R.menu.js_popup);
-                        popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    protected String doInBackground(String... js) {
+                        try {
+                            return callback.eval(js[0]);
+                        } catch (Exception ex) {
+                            Log.e(DEBUG_TAG, "dialog failed with " + ex);
+                            return ex.getMessage();
+                        }
+                    }
+
+                    @Override
+                    protected void onPostExecute(final String result) {
+                        try {
+                            progress.dismiss();
+                        } catch (Exception ex) {
+                            Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
+                        }
+                        output.setText(result);
+                    }
+                };
+                runner.execute(input.getText().toString());
+            });
+            Button neutral = ((AlertDialog) d).getButton(AlertDialog.BUTTON_NEUTRAL);
+            Drawable more = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_36dp, R.attr.colorAccent);
+            neutral.setCompoundDrawablesWithIntrinsicBounds(more, null, null, null);
+            neutral.setText("");
+            neutral.setOnClickListener(view -> {
+                PopupMenu popupMenu = new PopupMenu(activity, view);
+                popupMenu.inflate(R.menu.js_popup);
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()) {
+                    case R.id.js_menu_share:
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, input.getText().toString());
+                        sendIntent.setType("text/plain");
+                        activity.startActivity(sendIntent);
+                        break;
+                    case R.id.js_menu_save:
+                        SelectFile.save(activity, R.string.config_scriptsPreferredDir_key, new SaveFile() {
+                            private static final long serialVersionUID = 1L;
+
                             @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId()) {
-                                case R.id.js_menu_share:
-                                    Intent sendIntent = new Intent();
-                                    sendIntent.setAction(Intent.ACTION_SEND);
-                                    sendIntent.putExtra(Intent.EXTRA_TEXT, input.getText().toString());
-                                    sendIntent.setType("text/plain");
-                                    activity.startActivity(sendIntent);
-                                    break;
-                                case R.id.js_menu_save:
-                                    SelectFile.save(activity, R.string.config_scriptsPreferredDir_key, new SaveFile() {
-                                        private static final long serialVersionUID = 1L;
-
-                                        @Override
-                                        public boolean save(Uri fileUri) {
-                                            fileUri = FileUtil.contentUriToFileUri(activity, fileUri);
-                                            if (fileUri == null) {
-                                                Log.e(DEBUG_TAG, "Couldn't convert " + fileUri);
-                                                return false;
-                                            }
-                                            writeScriptFile(activity, fileUri, input.getText().toString(), null);
-                                            SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
-                                            return true;
-                                        }
-                                    });
-                                    break;
-                                case R.id.js_menu_read:
-                                    SelectFile.read(activity, R.string.config_scriptsPreferredDir_key, new ReadFile() {
-                                        private static final long serialVersionUID = 1L;
-
-                                        @Override
-                                        public boolean read(Uri fileUri) {
-                                            readScriptFile(activity, fileUri, input, null);
-                                            SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
-                                            return true;
-                                        }
-                                    });
-                                    break;
-                                default:
-                                    Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
+                            public boolean save(Uri fileUri) {
+                                fileUri = FileUtil.contentUriToFileUri(activity, fileUri);
+                                if (fileUri == null) {
+                                    Log.e(DEBUG_TAG, "Couldn't convert " + fileUri);
+                                    return false;
                                 }
+                                writeScriptFile(activity, fileUri, input.getText().toString(), null);
+                                SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
                                 return true;
                             }
-
                         });
-                        popupMenu.show();
+                        break;
+                    case R.id.js_menu_read:
+                        SelectFile.read(activity, R.string.config_scriptsPreferredDir_key, new ReadFile() {
+                            private static final long serialVersionUID = 1L;
+
+                            @Override
+                            public boolean read(Uri fileUri) {
+                                readScriptFile(activity, fileUri, input, null);
+                                SelectFile.savePref(prefs, R.string.config_scriptsPreferredDir_key, fileUri);
+                                return true;
+                            }
+                        });
+                        break;
+                    default:
+                        Log.w(DEBUG_TAG, "Unknown menu item " + item.getItemId());
                     }
+                    return true;
                 });
-            }
+                popupMenu.show();
+            });
         });
         dialog.show();
     }

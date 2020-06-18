@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -146,42 +144,30 @@ public class GeocoderEditorActivity extends URLListEditActivity {
 
         builder.setView(mainView);
 
-        builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                String name = editName.getText().toString();
-                String value = ((GeocoderType) geocoderType.getSelectedItem()).name();
-                String value_2 = url.getText().toString();
+        builder.setPositiveButton(R.string.okay, (dialog, whichButton) -> {
+            String name = editName.getText().toString();
+            String value = ((GeocoderType) geocoderType.getSelectedItem()).name();
+            String value_2 = url.getText().toString();
 
-                if (item == null) {
-                    // new item
-                    if (!"".equals(value)) {
-                        finishCreateItem(new ListEditItem(name, value, !"".equals(value_2) ? value_2 : null, null, false));
-                    }
-                } else {
-                    item.name = name;
-                    item.value = value;
-                    item.value_2 = !"".equals(value_2) ? value_2 : null;
-                    finishEditItem(item);
+            if (item == null) {
+                // new item
+                if (!"".equals(value)) {
+                    finishCreateItem(new ListEditItem(name, value, !"".equals(value_2) ? value_2 : null, null, false));
                 }
+            } else {
+                item.name = name;
+                item.value = value;
+                item.value_2 = !"".equals(value_2) ? value_2 : null;
+                finishEditItem(item);
             }
         });
 
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton(R.string.cancel, (dialog, whichButton) -> dialog.cancel());
 
-        builder.setOnCancelListener(new OnCancelListener() {
-
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (isAddingViaIntent()) {
-                    setResult(RESULT_CANCELED);
-                    finish();
-                }
+        builder.setOnCancelListener(dialog -> {
+            if (isAddingViaIntent()) {
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
 

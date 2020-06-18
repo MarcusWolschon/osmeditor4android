@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -150,12 +149,7 @@ public final class Util {
                 }
             }
         }
-        Collections.sort(temp, new Comparator<Entry<PresetField, V>>() {
-            @Override
-            public int compare(Entry<PresetField, V> arg0, Entry<PresetField, V> arg1) {
-                return Tags.ADDRESS_SORT_ORDER.get(arg0.getValue()).compareTo(Tags.ADDRESS_SORT_ORDER.get(arg1.getValue()));
-            }
-        });
+        Collections.sort(temp, (e0, e1) -> Tags.ADDRESS_SORT_ORDER.get(e0.getValue()).compareTo(Tags.ADDRESS_SORT_ORDER.get(e1.getValue())));
         for (Entry<PresetField, V> entry : temp) {
             map.put(entry.getKey(), entry.getValue());
         }

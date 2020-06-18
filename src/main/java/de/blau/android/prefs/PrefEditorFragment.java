@@ -57,19 +57,16 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             final String[] styleListTranslated = DataStyle.getStyleListTranslated(getActivity(), styleList);
             mapProfilePref.setEntryValues(styleList);
             mapProfilePref.setEntries(styleListTranslated);
-            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Log.d(DEBUG_TAG, "onPreferenceChange mapProfile");
-                    String id = (String) newValue;
-                    for (int i = 0; i < styleList.length; i++) {
-                        if (id.equals(styleList[i])) {
-                            preference.setSummary(styleListTranslated[i]);
-                            break;
-                        }
+            OnPreferenceChangeListener p = (preference, newValue) -> {
+                Log.d(DEBUG_TAG, "onPreferenceChange mapProfile");
+                String id = (String) newValue;
+                for (int i = 0; i < styleList.length; i++) {
+                    if (id.equals(styleList[i])) {
+                        preference.setSummary(styleListTranslated[i]);
+                        break;
                     }
-                    return true;
                 }
+                return true;
             };
             mapProfilePref.setOnPreferenceChangeListener(p);
             p.onPreferenceChange(mapProfilePref, prefs.getMapProfile());
@@ -77,78 +74,60 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
 
         Preference customLayersPref = getPreferenceScreen().findPreference(r.getString(R.string.config_customlayers_key));
         if (customLayersPref != null) {
-            customLayersPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick custom layers");
-                    TileLayerDatabaseView ui = new TileLayerDatabaseView();
-                    ui.manageLayers(getActivity());
-                    return true;
-                }
+            customLayersPref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick custom layers");
+                TileLayerDatabaseView ui = new TileLayerDatabaseView();
+                ui.manageLayers(getActivity());
+                return true;
             });
         }
 
         Preference presetPref = getPreferenceScreen().findPreference(r.getString(R.string.config_presetbutton_key));
         if (presetPref != null) {
-            presetPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick");
-                    PresetEditorActivity.start(getActivity());
-                    return true;
-                }
+            presetPref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick");
+                PresetEditorActivity.start(getActivity());
+                return true;
             });
         }
 
         Preference advPrefs = getPreferenceScreen().findPreference(r.getString(R.string.config_advancedprefs_key));
         if (advPrefs != null) {
-            advPrefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick advanced");
-                    startActivity(new Intent(getActivity(), AdvancedPrefEditor.class));
-                    return true;
-                }
+            advPrefs.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick advanced");
+                startActivity(new Intent(getActivity(), AdvancedPrefEditor.class));
+                return true;
             });
         }
 
         Preference validatorPref = getPreferenceScreen().findPreference(r.getString(R.string.config_validatorprefs_key));
         if (validatorPref != null) {
-            validatorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick validator");
-                    ValidatorRulesUI ui = new ValidatorRulesUI();
-                    ui.manageRulesetContents(getContext());
-                    return true;
-                }
+            validatorPref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick validator");
+                ValidatorRulesUI ui = new ValidatorRulesUI();
+                ui.manageRulesetContents(getContext());
+                return true;
             });
         }
 
         Preference connectedPref = getPreferenceScreen().findPreference(r.getString(R.string.config_connectedNodeTolerance_key));
         if (connectedPref != null) {
-            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Log.d(DEBUG_TAG, "onPreferenceChange connected tolerance");
-                    Context context = PrefEditorFragment.this.getContext();
-                    App.getDefaultValidator(context).reset(context);
-                    App.getDelegator().resetProblems();
-                    return true;
-                }
+            OnPreferenceChangeListener p = (preference, newValue) -> {
+                Log.d(DEBUG_TAG, "onPreferenceChange connected tolerance");
+                Context context = PrefEditorFragment.this.getContext();
+                App.getDefaultValidator(context).reset(context);
+                App.getDelegator().resetProblems();
+                return true;
             };
             connectedPref.setOnPreferenceChangeListener(p);
         }
 
         Preference openingHoursPref = getPreferenceScreen().findPreference(r.getString(R.string.config_opening_hours_key));
         if (openingHoursPref != null) {
-            openingHoursPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick opening hours");
-                    TemplateMangementDialog.showDialog(PrefEditorFragment.this, true, null, null, null, "");
-                    return true;
-                }
+            openingHoursPref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick opening hours");
+                TemplateMangementDialog.showDialog(PrefEditorFragment.this, true, null, null, null, "");
+                return true;
             });
         }
     }

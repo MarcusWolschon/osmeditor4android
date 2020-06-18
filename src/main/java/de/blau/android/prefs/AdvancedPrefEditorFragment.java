@@ -60,25 +60,19 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
     private void setOnPreferenceClickListeners() {
         Preference apiPref = getPreferenceScreen().findPreference(KEY_PREFAPI);
         if (apiPref != null) {
-            apiPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick 2");
-                    APIEditorActivity.start(getActivity());
-                    return true;
-                }
+            apiPref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick 2");
+                APIEditorActivity.start(getActivity());
+                return true;
             });
         }
 
         Preference geocoderPref = getPreferenceScreen().findPreference(r.getString(R.string.config_geocoder_button_key));
         if (geocoderPref != null) {
-            geocoderPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick");
-                    GeocoderEditorActivity.start(getActivity());
-                    return true;
-                }
+            geocoderPref.setOnPreferenceClickListener(preference -> {
+                Log.d(DEBUG_TAG, "onPreferenceClick");
+                GeocoderEditorActivity.start(getActivity());
+                return true;
             });
         }
     }

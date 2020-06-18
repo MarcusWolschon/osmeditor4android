@@ -139,17 +139,14 @@ public final class OsmXml {
                 }
             }
         }
-        Comparator<Relation> relationOrder = new Comparator<Relation>() {
-            @Override
-            public int compare(Relation r1, Relation r2) {
-                if (r1.hasParentRelation(r2)) {
-                    return -1;
-                }
-                if (r2.hasParentRelation(r1)) {
-                    return 1;
-                }
-                return 0;
+        Comparator<Relation> relationOrder = (r1, r2) -> {
+            if (r1.hasParentRelation(r2)) {
+                return -1;
             }
+            if (r2.hasParentRelation(r1)) {
+                return 1;
+            }
+            return 0;
         };
         if (!createdRelations.isEmpty()) {
             // sort the relations so that childs come first, will not handle loops and similar brokenness
@@ -161,17 +158,14 @@ public final class OsmXml {
         }
         if (!deletedRelations.isEmpty()) {
             // sort the relations so that parents come first, will not handle loops and similar brokenness
-            Collections.sort(deletedRelations, new Comparator<Relation>() {
-                @Override
-                public int compare(Relation r1, Relation r2) {
-                    if (r1.hasParentRelation(r2)) {
-                        return 1;
-                    }
-                    if (r2.hasParentRelation(r1)) {
-                        return -1;
-                    }
-                    return 0;
+            Collections.sort(deletedRelations, (r1, r2) -> {
+                if (r1.hasParentRelation(r2)) {
+                    return 1;
                 }
+                if (r2.hasParentRelation(r1)) {
+                    return -1;
+                }
+                return 0;
             });
         }
 
@@ -249,16 +243,13 @@ public final class OsmXml {
         /**
          * Comparator to avoid unpleasant surprises when processing unsorted OSM data with osmium and tools based on it
          */
-        final Comparator<OsmElement> sortItLikeJochen = new Comparator<OsmElement>() {
-            @Override
-            public int compare(OsmElement e1, OsmElement e2) {
-                long id1 = e1.getOsmId();
-                long id2 = e2.getOsmId();
-                if ((id1 < 0 && id2 > 0) || (id1 > 0 && id2 < 0)) { // signs different
-                    return Util.longCompare(id1, id2);
-                }
-                return Util.longCompare(Math.abs(id1), Math.abs(id2));
+        final Comparator<OsmElement> sortItLikeJochen = (e1, e2) -> {
+            long id1 = e1.getOsmId();
+            long id2 = e2.getOsmId();
+            if ((id1 < 0 && id2 > 0) || (id1 > 0 && id2 < 0)) { // signs different
+                return Util.longCompare(id1, id2);
             }
+            return Util.longCompare(Math.abs(id1), Math.abs(id2));
         };
 
         List<Node> saveNodes = new ArrayList<>(current.getNodes());

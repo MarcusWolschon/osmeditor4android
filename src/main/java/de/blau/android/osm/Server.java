@@ -29,7 +29,6 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.util.Log;
@@ -53,7 +52,6 @@ import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
-import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
@@ -690,12 +688,8 @@ public class Server {
                     final int responseCode = readCallResponse.code();
                     final String responseMessage = readCallResponse.message();
                     if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
-                        ((Activity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage));
-                            }
-                        });
+                        ((Activity) context).runOnUiThread(
+                                () -> Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage)));
                     } else {
                         ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, responseMessage));
                     }
@@ -2117,22 +2111,14 @@ public class Server {
             @NonNull PostAsyncActionHandler restartAction) {
         if (server.isLoginSet()) {
             if (server.needOAuthHandshake()) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Authorize.startForResult(activity, new ActivityResultHandler.Listener() {
-                            @Override
-                            public void processResult(int resultCode, Intent result) {
-                                if (Activity.RESULT_OK == resultCode) {
-                                    restartAction.onSuccess();
-                                } else {
-                                    Log.w(DEBUG_TAG, "Authorized returned with " + resultCode);
-                                    restartAction.onError();
-                                }
-                            }
-                        });
+                activity.runOnUiThread(() -> Authorize.startForResult(activity, (resultCode, result) -> {
+                    if (Activity.RESULT_OK == resultCode) {
+                        restartAction.onSuccess();
+                    } else {
+                        Log.w(DEBUG_TAG, "Authorized returned with " + resultCode);
+                        restartAction.onError();
                     }
-                });
+                }));
                 if (server.getOAuth()) { // if still set
                     Snack.barError(activity, R.string.toast_oauth);
                 }

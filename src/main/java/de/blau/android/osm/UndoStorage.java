@@ -53,41 +53,38 @@ public class UndoStorage implements Serializable {
     private final LinkedList<Checkpoint> undoCheckpoints = new LinkedList<>();
     private final LinkedList<Checkpoint> redoCheckpoints = new LinkedList<>();
 
-    static final Comparator<UndoElement> elementOrder = new Comparator<UndoElement>() {
-        @Override
-        public int compare(UndoElement ue1, UndoElement ue2) {
-            OsmElement e1 = ue1.element;
-            OsmElement e2 = ue2.element;
-            if ((e1 instanceof Node && e2 instanceof Node) || ((e1 instanceof Way) && (e2 instanceof Way))) {
-                return 0;
-            }
-            if (!(e1 instanceof Node) && e2 instanceof Node) {
-                return 1;
-            }
-            if ((e1 instanceof Node) && !(e2 instanceof Node)) {
-                return -1;
-            }
-            if (e1 instanceof Relation && e2 instanceof Way) {
-                return 1;
-            }
-            if (e1 instanceof Way && e2 instanceof Relation) {
-                return -1;
-            }
-            if (e1 instanceof Relation && e2 instanceof Relation) {
-                if (e1.getOsmId() == e2.getOsmId()) {
-                    return 0;
-                }
-                Relation r1 = (Relation) e1;
-                Relation r2 = (Relation) e2;
-                if (r1.hasParentRelation(r2)) {
-                    return -1;
-                }
-                if (r2.hasParentRelation(r1)) {
-                    return 1;
-                }
-            }
+    static final Comparator<UndoElement> elementOrder = (ue1, ue2) -> {
+        OsmElement e1 = ue1.element;
+        OsmElement e2 = ue2.element;
+        if ((e1 instanceof Node && e2 instanceof Node) || ((e1 instanceof Way) && (e2 instanceof Way))) {
             return 0;
         }
+        if (!(e1 instanceof Node) && e2 instanceof Node) {
+            return 1;
+        }
+        if ((e1 instanceof Node) && !(e2 instanceof Node)) {
+            return -1;
+        }
+        if (e1 instanceof Relation && e2 instanceof Way) {
+            return 1;
+        }
+        if (e1 instanceof Way && e2 instanceof Relation) {
+            return -1;
+        }
+        if (e1 instanceof Relation && e2 instanceof Relation) {
+            if (e1.getOsmId() == e2.getOsmId()) {
+                return 0;
+            }
+            Relation r1 = (Relation) e1;
+            Relation r2 = (Relation) e2;
+            if (r1.hasParentRelation(r2)) {
+                return -1;
+            }
+            if (r2.hasParentRelation(r1)) {
+                return 1;
+            }
+        }
+        return 0;
     };
 
     /**
@@ -825,7 +822,7 @@ public class UndoStorage implements Serializable {
                     boolean nodeNotNull = wayNode != null;
                     if (nodeNotNull || deleted) {
                         ((Way) restored).nodes.add(nodeNotNull ? wayNode : n); // only add undeleted way nodes
-                                                                                   // except if we are deleted
+                                                                               // except if we are deleted
                         if (nodeNotNull) {
                             wayNode.resetHasProblem();
                         }

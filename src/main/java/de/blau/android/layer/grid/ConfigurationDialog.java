@@ -1,7 +1,5 @@
 package de.blau.android.layer.grid;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -94,25 +92,16 @@ public class ConfigurationDialog extends SizedFixedImmersiveDialogFragment {
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.config_scale_title);
 
-        builder.setSingleChoiceItems(R.array.scale_entries, selected[0], new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                selected[0] = which;
-            }
-        });
+        builder.setSingleChoiceItems(R.array.scale_entries, selected[0], (dialog, which) -> selected[0] = which);
 
-        builder.setPositiveButton(R.string.okay, new OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                prefs.edit().putString(prefKey, prefValues[selected[0]]).commit();
-                Preferences p = new Preferences(activity);
-                if (activity instanceof Main) {
-                    ((Main) activity).updatePrefs(p);
-                }
-                App.getLogic().getMap().setPrefs(getContext(), p);
-                App.getLogic().getMap().invalidate();
+        builder.setPositiveButton(R.string.okay, (dialog, which) -> {
+            prefs.edit().putString(prefKey, prefValues[selected[0]]).commit();
+            Preferences p = new Preferences(activity);
+            if (activity instanceof Main) {
+                ((Main) activity).updatePrefs(p);
             }
+            App.getLogic().getMap().setPrefs(getContext(), p);
+            App.getLogic().getMap().invalidate();
         });
 
         return builder.create();

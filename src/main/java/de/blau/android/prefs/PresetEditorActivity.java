@@ -19,9 +19,6 @@ import java.util.zip.ZipInputStream;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -445,18 +442,10 @@ public class PresetEditorActivity extends URLListEditActivity {
             private void msgbox(int msgResID) {
                 AlertDialog.Builder box = new AlertDialog.Builder(PresetEditorActivity.this);
                 box.setMessage(getResources().getString(msgResID));
-                box.setOnCancelListener(new OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        PresetEditorActivity.super.sendResultIfApplicable(item);
-                    }
-                });
-                box.setPositiveButton(R.string.okay, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        PresetEditorActivity.super.sendResultIfApplicable(item);
-                    }
+                box.setOnCancelListener(dialog -> PresetEditorActivity.super.sendResultIfApplicable(item));
+                box.setPositiveButton(R.string.okay, (dialog, which) -> {
+                    dialog.dismiss();
+                    PresetEditorActivity.super.sendResultIfApplicable(item);
                 });
                 box.show();
             }
@@ -574,98 +563,76 @@ public class PresetEditorActivity extends URLListEditActivity {
         }
 
         builder.setView(mainView);
-        builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing here because we override this button later to change the close behaviour.
-                // However, we still need this because on older versions of Android unless we
-                // pass a handler the button doesn't get instantiated
+        builder.setPositiveButton(R.string.okay, (dialog, which) -> {
+            // Do nothing here because we override this button later to change the close behaviour.
+            // However, we still need this because on older versions of Android unless we
+            // pass a handler the button doesn't get instantiated
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
+            // leave empty
+        });
+        builder.setOnCancelListener(dialog -> {
+            if (isAddingViaIntent()) {
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+        fileButton.setOnClickListener(v -> SelectFile.read(PresetEditorActivity.this, R.string.config_presetsPreferredDir_key, new ReadFile() {
+            private static final long serialVersionUID = 1L;
+
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // leave empty
-            }
-        });
-        builder.setOnCancelListener(new OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (isAddingViaIntent()) {
-                    setResult(RESULT_CANCELED);
-                    finish();
+            public boolean read(Uri fileUri) {
+                fileUri = FileUtil.contentUriToFileUri(PresetEditorActivity.this, fileUri);
+                if (fileUri == null) {
+                    Snack.toastTopError(PresetEditorActivity.this, R.string.not_found_title);
+                    return false;
                 }
+                editValue.setText(fileUri.toString());
+                SelectFile.savePref(new Preferences(PresetEditorActivity.this), R.string.config_presetsPreferredDir_key, fileUri);
+                return true;
             }
-        });
-
-        fileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                SelectFile.read(PresetEditorActivity.this, R.string.config_presetsPreferredDir_key, new ReadFile() {
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public boolean read(Uri fileUri) {
-                        fileUri = FileUtil.contentUriToFileUri(PresetEditorActivity.this, fileUri);
-                        if (fileUri == null) {
-                            Snack.toastTopError(PresetEditorActivity.this, R.string.not_found_title);
-                            return false;
-                        }
-                        editValue.setText(fileUri.toString());
-                        SelectFile.savePref(new Preferences(PresetEditorActivity.this), R.string.config_presetsPreferredDir_key, fileUri);
-                        return true;
-                    }
-                });
-            }
-        });
+        }));
 
         final AlertDialog dialog = builder.create();
         dialog.setView(mainView);
         dialog.show();
 
         // overriding the handlers
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = editName.getText().toString().trim();
-                String presetURL = editValue.getText().toString().trim();
-                boolean useTranslationsEnabled = useTranslations.isChecked();
-                changeBackgroundColor(editValue, VALID_COLOR);
-                // validate entries
-                boolean validPresetURL = Patterns.WEB_URL.matcher(presetURL).matches();
-                URL url = null;
-                try {
-                    url = new URL(presetURL);
-                } catch (MalformedURLException e) {
-                    validPresetURL = false;
-                }
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String name = editName.getText().toString().trim();
+            String presetURL = editValue.getText().toString().trim();
+            boolean useTranslationsEnabled = useTranslations.isChecked();
+            changeBackgroundColor(editValue, VALID_COLOR);
+            // validate entries
+            boolean validPresetURL = Patterns.WEB_URL.matcher(presetURL).matches();
+            URL url = null;
+            try {
+                url = new URL(presetURL);
+            } catch (MalformedURLException e) {
+                validPresetURL = false;
+            }
 
-                // save or display toast, exception for localhost is needed for testing
-                if (validPresetURL || presetURL.startsWith(FileUtil.FILE_SCHEME_PREFIX) || (url != null && "localhost".equals(url.getHost()))
-                        || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
-                    if (item == null) {
-                        // new item
-                        finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));
-                    } else {
-                        item.name = name;
-                        item.value = presetURL;
-                        item.boolean_0 = useTranslationsEnabled;
-                        finishEditItem(item);
-                    }
-                    dialog.dismiss();
+            // save or display toast, exception for localhost is needed for testing
+            if (validPresetURL || presetURL.startsWith(FileUtil.FILE_SCHEME_PREFIX) || (url != null && "localhost".equals(url.getHost()))
+                    || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
+                if (item == null) {
+                    // new item
+                    finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));
                 } else {
-                    // if garbage value entered show toasts
-                    Snack.barError(PresetEditorActivity.this, R.string.toast_invalid_preseturl);
-                    changeBackgroundColor(editValue, ERROR_COLOR);
+                    item.name = name;
+                    item.value = presetURL;
+                    item.boolean_0 = useTranslationsEnabled;
+                    finishEditItem(item);
                 }
+                dialog.dismiss();
+            } else {
+                // if garbage value entered show toasts
+                Snack.barError(PresetEditorActivity.this, R.string.toast_invalid_preseturl);
+                changeBackgroundColor(editValue, ERROR_COLOR);
             }
         });
 
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
     }
 }

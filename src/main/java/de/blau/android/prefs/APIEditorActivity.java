@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
@@ -19,7 +17,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -217,129 +214,107 @@ public class APIEditorActivity extends URLListEditActivity {
         }
 
         builder.setView(mainView);
-        builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing here because we override this button later to change the close behaviour.
-                // However, we still need this because on older versions of Android unless we
-                // pass a handler the button doesn't get instantiated
+        builder.setPositiveButton(R.string.okay, (dialog, which) -> {
+            // Do nothing here because we override this button later to change the close behaviour.
+            // However, we still need this because on older versions of Android unless we
+            // pass a handler the button doesn't get instantiated
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
+            // leave empty
+        });
+        builder.setOnCancelListener(dialog -> {
+            if (isAddingViaIntent()) {
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+        fileButton.setOnClickListener(view -> SelectFile.read(APIEditorActivity.this, R.string.config_msfPreferredDir_key, new ReadFile() {
+            private static final long serialVersionUID = 1L;
+
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // leave empty
-            }
-        });
-        builder.setOnCancelListener(new OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (isAddingViaIntent()) {
-                    setResult(RESULT_CANCELED);
-                    finish();
+            public boolean read(Uri uri) {
+                Uri fileUri = FileUtil.contentUriToFileUri(APIEditorActivity.this, uri);
+                if (fileUri == null) {
+                    Snack.toastTopError(APIEditorActivity.this, R.string.not_found_title);
+                    return false;
+                }
+                try {
+                    if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
+                        throw new SQLiteException("Not a SQLite database file");
+                    }
+                    editValue_2.setText(fileUri.toString());
+                    SelectFile.savePref(new Preferences(APIEditorActivity.this), R.string.config_msfPreferredDir_key, fileUri);
+                    return true;
+                } catch (SQLiteException sqex) {
+                    Snack.toastTopError(APIEditorActivity.this, R.string.toast_not_mbtiles);
+                    return false;
                 }
             }
-        });
-
-        fileButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                SelectFile.read(APIEditorActivity.this, R.string.config_msfPreferredDir_key, new ReadFile() {
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public boolean read(Uri uri) {
-                        Uri fileUri = FileUtil.contentUriToFileUri(APIEditorActivity.this, uri);
-                        if (fileUri == null) {
-                            Snack.toastTopError(APIEditorActivity.this, R.string.not_found_title);
-                            return false;
-                        }
-                        try {
-                            if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
-                                throw new SQLiteException("Not a SQLite database file");
-                            }
-                            editValue_2.setText(fileUri.toString());
-                            SelectFile.savePref(new Preferences(APIEditorActivity.this), R.string.config_msfPreferredDir_key, fileUri);
-                            return true;
-                        } catch (SQLiteException sqex) {
-                            Snack.toastTopError(APIEditorActivity.this, R.string.toast_not_mbtiles);
-                            return false;
-                        }
-                    }
-                });
-            }
-        });
+        }));
 
         final AlertDialog dialog = builder.create();
         dialog.setView(mainView);
         dialog.show();
 
         // overriding the handlers
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean validAPIURL = true;
-                boolean validReadOnlyAPIURL = true;
-                boolean validNotesAPIURL = true;
-                String name = editName.getText().toString().trim();
-                String apiURL = editValue.getText().toString().trim();
-                String readOnlyAPIURL = editValue_2.getText().toString().trim();
-                String notesAPIURL = editValue_3.getText().toString().trim();
-                boolean enabled = oauth.isChecked();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            boolean validAPIURL = true;
+            boolean validReadOnlyAPIURL = true;
+            boolean validNotesAPIURL = true;
+            String name = editName.getText().toString().trim();
+            String apiURL = editValue.getText().toString().trim();
+            String readOnlyAPIURL = editValue_2.getText().toString().trim();
+            String notesAPIURL = editValue_3.getText().toString().trim();
+            boolean enabled = oauth.isChecked();
 
-                // (re-)set to black
-                changeBackgroundColor(editValue, VALID_COLOR);
-                changeBackgroundColor(editValue_2, VALID_COLOR);
-                changeBackgroundColor(editValue_3, VALID_COLOR);
+            // (re-)set to black
+            changeBackgroundColor(editValue, VALID_COLOR);
+            changeBackgroundColor(editValue_2, VALID_COLOR);
+            changeBackgroundColor(editValue_3, VALID_COLOR);
 
-                // validate entries
-                validAPIURL = Patterns.WEB_URL.matcher(apiURL).matches();
-                if (!"".equals(readOnlyAPIURL)) {
-                    validReadOnlyAPIURL = Patterns.WEB_URL.matcher(readOnlyAPIURL).matches() || readOnlyAPIURL.startsWith(FileUtil.FILE_SCHEME_PREFIX);
-                } else {
-                    readOnlyAPIURL = null;
-                }
-                if (!"".equals(notesAPIURL)) {
-                    validNotesAPIURL = Patterns.WEB_URL.matcher(notesAPIURL).matches();
-                } else {
-                    notesAPIURL = null;
-                }
+            // validate entries
+            validAPIURL = Patterns.WEB_URL.matcher(apiURL).matches();
+            if (!"".equals(readOnlyAPIURL)) {
+                validReadOnlyAPIURL = Patterns.WEB_URL.matcher(readOnlyAPIURL).matches() || readOnlyAPIURL.startsWith(FileUtil.FILE_SCHEME_PREFIX);
+            } else {
+                readOnlyAPIURL = null;
+            }
+            if (!"".equals(notesAPIURL)) {
+                validNotesAPIURL = Patterns.WEB_URL.matcher(notesAPIURL).matches();
+            } else {
+                notesAPIURL = null;
+            }
 
-                // save or display toast
-                if (validAPIURL && validNotesAPIURL && validReadOnlyAPIURL) { // check if fields valid, optional ones
-                                                                              // checked if values entered
-                    if (!"".equals(apiURL)) {
-                        if (item == null) {
-                            // new item
-                            finishCreateItem(new ListEditItem(name, apiURL, readOnlyAPIURL, notesAPIURL, enabled));
-                        } else {
-                            item.name = name;
-                            item.value = apiURL;
-                            item.value_2 = readOnlyAPIURL;
-                            item.value_3 = notesAPIURL;
-                            item.boolean_0 = enabled;
-                            finishEditItem(item);
-                        }
+            // save or display toast
+            if (validAPIURL && validNotesAPIURL && validReadOnlyAPIURL) { // check if fields valid, optional ones
+                                                                          // checked if values entered
+                if (!"".equals(apiURL)) {
+                    if (item == null) {
+                        // new item
+                        finishCreateItem(new ListEditItem(name, apiURL, readOnlyAPIURL, notesAPIURL, enabled));
+                    } else {
+                        item.name = name;
+                        item.value = apiURL;
+                        item.value_2 = readOnlyAPIURL;
+                        item.value_3 = notesAPIURL;
+                        item.boolean_0 = enabled;
+                        finishEditItem(item);
                     }
-                    dialog.dismiss();
-                } else if (!validAPIURL) { // if garbage value entered show toasts
-                    Snack.barError(APIEditorActivity.this, R.string.toast_invalid_apiurl);
-                    changeBackgroundColor(editValue, ERROR_COLOR);
-                } else if (!validReadOnlyAPIURL) {
-                    Snack.barError(APIEditorActivity.this, R.string.toast_invalid_readonlyurl);
-                    changeBackgroundColor(editValue_2, ERROR_COLOR);
-                } else if (!validNotesAPIURL) {
-                    Snack.barError(APIEditorActivity.this, R.string.toast_invalid_notesurl);
-                    changeBackgroundColor(editValue_3, ERROR_COLOR);
                 }
+                dialog.dismiss();
+            } else if (!validAPIURL) { // if garbage value entered show toasts
+                Snack.barError(APIEditorActivity.this, R.string.toast_invalid_apiurl);
+                changeBackgroundColor(editValue, ERROR_COLOR);
+            } else if (!validReadOnlyAPIURL) {
+                Snack.barError(APIEditorActivity.this, R.string.toast_invalid_readonlyurl);
+                changeBackgroundColor(editValue_2, ERROR_COLOR);
+            } else if (!validNotesAPIURL) {
+                Snack.barError(APIEditorActivity.this, R.string.toast_invalid_notesurl);
+                changeBackgroundColor(editValue_3, ERROR_COLOR);
             }
         });
 
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
     }
 }

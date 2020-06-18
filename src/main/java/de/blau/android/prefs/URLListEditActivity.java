@@ -19,7 +19,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -499,14 +498,11 @@ public abstract class URLListEditActivity extends ListActivity
             v.setText1(getItem(position).name);
             v.setText2(getItem(position).value);
             v.setChecked(getItem(position).active);
-            v.setMenuButtonListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        v.showContextMenu(0, 0);
-                    } else {
-                        v.getParent().showContextMenuForChild(v);
-                    }
+            v.setMenuButtonListener(view -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    view.showContextMenu(0, 0);
+                } else {
+                    view.getParent().showContextMenuForChild(view);
                 }
             });
             return v;

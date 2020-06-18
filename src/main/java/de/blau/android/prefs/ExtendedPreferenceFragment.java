@@ -8,7 +8,6 @@ import androidx.preference.ListPreference;
 import androidx.preference.MultiSelectListPreference;
 import androidx.preference.MultiSelectListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
-import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.PreferenceFragmentCompat;
 import ch.poole.android.numberpickerpreference.NumberPickerPreference;
 import ch.poole.android.numberpickerpreference.NumberPickerPreferenceFragment;
@@ -65,25 +64,21 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
             if (currentEntry != null) {
                 listPref.setSummary(currentEntry);
             }
-            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    try {
-                        int i = ((ListPreference) preference).findIndexOfValue((String) newValue);
-                        CharSequence currentEntry = ((ListPreference) preference).getEntries()[i];
-                        if (currentEntry != null) {
-                            preference.setSummary(currentEntry);
-                        }
-                    } catch (Exception ex) {
-                        Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
+            listPref.setOnPreferenceChangeListener((preference, newValue) -> {
+                try {
+                    int i = ((ListPreference) preference).findIndexOfValue((String) newValue);
+                    CharSequence entry = ((ListPreference) preference).getEntries()[i];
+                    if (entry != null) {
+                        preference.setSummary(entry);
                     }
-                    if (restart) {
-                        Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
-                    }
-                    return true;
+                } catch (Exception ex) {
+                    Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
                 }
-            };
-            listPref.setOnPreferenceChangeListener(p);
+                if (restart) {
+                    Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
+                }
+                return true;
+            });
         }
     }
 
@@ -100,23 +95,19 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
             if (currentValue != null && !"".equals(currentValue)) {
                 editTextPref.setSummary(currentValue);
             }
-            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    try {
-                        if (newValue != null) {
-                            preference.setSummary((CharSequence) newValue);
-                        }
-                    } catch (Exception ex) {
-                        Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
+            editTextPref.setOnPreferenceChangeListener((preference, newValue) -> {
+                try {
+                    if (newValue != null) {
+                        preference.setSummary((CharSequence) newValue);
                     }
-                    if (restart) {
-                        Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
-                    }
-                    return true;
+                } catch (Exception ex) {
+                    Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
                 }
-            };
-            editTextPref.setOnPreferenceChangeListener(p);
+                if (restart) {
+                    Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
+                }
+                return true;
+            });
         }
     }
 
@@ -128,14 +119,10 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
     public void setRestartRequiredMessage(int keyResource) {
         Preference pref = getPreferenceScreen().findPreference(getString(keyResource));
         if (pref != null) {
-            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
-                    return true;
-                }
-            };
-            pref.setOnPreferenceChangeListener(p);
+            pref.setOnPreferenceChangeListener((preference, newValue) -> {
+                Snack.toastTopInfo(getContext(), R.string.toast_restart_required);
+                return true;
+            });
         }
     }
 }
