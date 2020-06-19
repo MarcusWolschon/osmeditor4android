@@ -653,28 +653,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public int getColor() {
-        return paint.getColor();
-    }
-
-    @Override
-    public void setColor(int color) {
-        paint.setColor(color);
-        this.color = color;
-    }
-
-    @Override
-    public float getStrokeWidth() {
-        return paint.getStrokeWidth();
-    }
-
-    @Override
-    public void setStrokeWidth(float width) {
-        paint.setStrokeWidth(width);
-        strokeWidth = width;
-    }
-
-    @Override
     public void resetStyling() {
         paint = new Paint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         color = paint.getColor();

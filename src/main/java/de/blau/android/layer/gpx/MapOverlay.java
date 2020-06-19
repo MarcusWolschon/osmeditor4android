@@ -9,7 +9,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
-import android.graphics.Path;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -191,27 +190,15 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public int getColor() {
-        return paint.getColor();
-    }
-
-    @Override
     public void setColor(int color) {
-        paint.setColor(color);
+        super.setColor(color);
         wayPointPaint.setColor(color);
-        this.color = color;
-    }
-
-    @Override
-    public float getStrokeWidth() {
-        return paint.getStrokeWidth();
     }
 
     @Override
     public void setStrokeWidth(float width) {
-        paint.setStrokeWidth(width);
+        super.setStrokeWidth(width);
         wayPointPaint.setStrokeWidth(width);
-        strokeWidth = width;
     }
 
     @Override

@@ -47,28 +47,38 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
      * 
      * @return the color as an int
      */
-    public abstract int getColor();
+    public int getColor() {
+        return paint.getColor();
+    }
 
     /**
      * Set the color for the layer
      * 
      * @param color color to use
      */
-    public abstract void setColor(int color);
+    public void setColor(int color) {
+        paint.setColor(color);
+        this.color = color;
+    }
 
     /**
      * Get the stroke width for drawing lines
      * 
      * @return the stroke width in pixels
      */
-    public abstract float getStrokeWidth();
+    public float getStrokeWidth() {
+        return paint.getStrokeWidth();
+    }
 
     /**
      * Set the stroke width for lines
      * 
      * @param width stroke width in pixels
      */
-    public abstract void setStrokeWidth(float width);
+    public void setStrokeWidth(float width) {
+        paint.setStrokeWidth(width);
+        strokeWidth = width;
+    }
 
     /**
      * Symbol for points
