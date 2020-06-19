@@ -118,7 +118,7 @@ public final class ValidatorRulesDatabase {
      * @param ruleSetId id of the rule set we are using
      * @param key key of objects that should be age checked
      * @param value value of objects that should be age checked
-     * @param isRegexp TODO
+     * @param isRegexp if true the value is a regexp
      * @param days how man days old the object should max be
      */
     public static void addResurvey(@NonNull SQLiteDatabase db, int ruleSetId, @NonNull String key, @Nullable String value, boolean isRegexp, int days) {
@@ -138,7 +138,7 @@ public final class ValidatorRulesDatabase {
      * @param id rowid of the resurvey entry
      * @param key key of objects that should be age checked
      * @param value value of objects that should be age checked
-     * @param isRegexp TODO
+     * @param isRegexp if true the value is a regexp
      * @param days how man days old the object should max be
      */
     public static void updateResurvey(@NonNull SQLiteDatabase db, int id, @NonNull String key, @Nullable String value, boolean isRegexp, int days) {

@@ -888,7 +888,7 @@ public class PropertyEditorTest {
      * Get the value field for a specific key, assuming the values are one level deep in a layout
      * 
      * @param text the text display for the key
-     * @param fieldIndex TODO
+     * @param fieldIndex the index of the field
      * @return an UiObject2 for the value field
      * @throws UiObjectNotFoundException if we couldn't find the object with text
      */
