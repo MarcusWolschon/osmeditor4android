@@ -51,6 +51,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected final Logic           logic;
     protected final EasyEditManager manager;
     ActionMode                      mode;
+    private boolean                 created   = true;
 
     public static final int GROUP_MODE = 0;
     public static final int GROUP_BASE = 1;
@@ -142,6 +143,11 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         menuUtil.reset();
+        // we should return true on the first invocation
+        if (created) {
+            created = false;
+            return true;
+        }
         return false;
     }
 

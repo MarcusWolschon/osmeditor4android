@@ -194,7 +194,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     @Override
     public boolean onPrepareActionMode(@NonNull ActionMode mode, @NonNull Menu menu) {
         menu = replaceMenu(menu, mode, this);
-        boolean updated = false;
+        boolean updated = super.onPrepareActionMode(mode, menu);
         if (logic.getUndo().canUndo() || logic.getUndo().canRedo()) {
             if (!undoItem.isVisible()) {
                 undoItem.setVisible(true);
