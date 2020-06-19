@@ -865,16 +865,10 @@ public class TrackerService extends Service implements Exportable {
                         Log.d(DEBUG_TAG, "getNextCenter loading " + b.toString());
                         final Logic logic = App.getLogic();
                         logic.autoDownloadBox(this, prefs.getServer(), validator, b, new PostAsyncActionHandler() {
-
                             @Override
                             public void onSuccess() {
                                 logic.reselectRelationMembers();
-                            }
-
-                            @Override
-                            public void onError() {
-                                // Ignore
-                            }                           
+                            }     
                         });
                     }
                 }

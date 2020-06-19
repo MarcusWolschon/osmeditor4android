@@ -201,17 +201,10 @@ public final class TransferTasks {
         for (Task b : queryResult) {
             if (b.hasBeenChanged() && b instanceof Note && bugFilter.contains(activity.getString(R.string.bugfilter_notes))) {
                 PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-                    private static final long serialVersionUID = 1L;
-
                     @Override
                     public void onSuccess() {
                         Preferences prefs = new Preferences(activity);
                         upload(activity, prefs.getServer(), postUploadHandler);
-                    }
-
-                    @Override
-                    public void onError() {
-                        // Ignore
                     }
                 };
                 if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
@@ -339,17 +332,10 @@ public final class TransferTasks {
             final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
         PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void onSuccess() {
                 Preferences prefs = new Preferences(activity); // need to re-get this post authentication
                 uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
-            }
-
-            @Override
-            public void onError() {
-                // Ignore
             }
         };
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
@@ -442,8 +428,6 @@ public final class TransferTasks {
             final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
         PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void onSuccess() {
                 Log.d(DEBUG_TAG, "--- restarting");
@@ -455,11 +439,6 @@ public final class TransferTasks {
                         return null;
                     }
                 }.execute();
-            }
-
-            @Override
-            public void onError() {
-                // Ignore
             }
         };
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {

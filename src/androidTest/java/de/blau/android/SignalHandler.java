@@ -4,7 +4,7 @@ import java.util.concurrent.CountDownLatch;
 
 import androidx.annotation.NonNull;
 
-public class SignalHandler extends PostAsyncActionHandler {
+public class SignalHandler implements PostAsyncActionHandler {
     final CountDownLatch signal;
 
     /**

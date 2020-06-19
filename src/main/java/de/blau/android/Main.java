@@ -726,8 +726,6 @@ public class Main extends FullScreenAppCompatActivity
         haveCamera = checkForCamera();
 
         PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void onSuccess() {
                 Intent intent = getIntent();
@@ -762,15 +760,8 @@ public class Main extends FullScreenAppCompatActivity
                     logic.deselectAll();
                 }
             }
-
-            @Override
-            public void onError() {
-                // unused
-            }
         };
         PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void onSuccess() {
                 Log.d(DEBUG_TAG, "postLoadTasks onSuccess");
@@ -786,12 +777,6 @@ public class Main extends FullScreenAppCompatActivity
                     }
                 }
                 map.invalidate();
-            }
-
-            @Override
-            public void onError() {
-                // unused
-                Log.d(DEBUG_TAG, "postLoadTasks onError");
             }
         };
         synchronized (loadOnResumeLock) {
@@ -1172,11 +1157,6 @@ public class Main extends FullScreenAppCompatActivity
                         }
                         map.invalidate();
                     }
-
-                    @Override
-                    public void onError() {
-                        // Ignore
-                    }
                 };
                 if (bboxes != null && !bboxes.isEmpty()) {
                     logic.downloadBox(this, bbox, true, handler);
@@ -1236,11 +1216,6 @@ public class Main extends FullScreenAppCompatActivity
                 public void onSuccess() {
                     gotoFirstTrackPoint();
                 }
-
-                @Override
-                public void onError() {
-                    // do nothing
-                }
             });
             map.invalidate();
         }
@@ -1255,8 +1230,6 @@ public class Main extends FullScreenAppCompatActivity
         if (isConnected()) { // don't try if we are not connected
             Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD);
             TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onSuccess() {
                     Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
@@ -2054,17 +2027,9 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_gps_upload:
             descheduleAutoLock();
             PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onSuccess() {
                     GpxUpload.showDialog(Main.this);
-                }
-
-                @Override
-                public void onError() {
-                    // Ignore
                 }
             };
             if (Server.checkOsmAuthentication(this, server, restartAction)) {
@@ -2981,16 +2946,9 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void confirmUpload(@Nullable List<OsmElement> elements) {
         PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void onSuccess() {
                 ConfirmUpload.showDialog(Main.this, elements);
-            }
-
-            @Override
-            public void onError() {
-                // Ignore
             }
         };
         final Server server = prefs.getServer();

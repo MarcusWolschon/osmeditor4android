@@ -152,18 +152,11 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
 
             if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
                 indexPhotos.execute(new PostAsyncActionHandler() {
-                    private static final long serialVersionUID = 1L;
-
                     @Override
                     public void onSuccess() {
                         if (indexed) {
                             map.invalidate();
                         }
-                    }
-
-                    @Override
-                    public void onError() {
-                        // Nothing
                     }
                 });
                 return;

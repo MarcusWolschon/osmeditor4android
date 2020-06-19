@@ -1,20 +1,16 @@
 package de.blau.android;
 
-import java.io.Serializable;
-
-public abstract class PostAsyncActionHandler implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 2L;
+public interface PostAsyncActionHandler {
 
     /**
      * call this on success
      */
-    public abstract void onSuccess();
+    public void onSuccess();
 
     /**
      * method for error handling
      */
-    public abstract void onError();
+    default void onError() {
+        // do nothing
+    }
 }

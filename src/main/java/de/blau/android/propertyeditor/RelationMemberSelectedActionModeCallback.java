@@ -244,11 +244,6 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
                         ((RelationMembersFragment) caller).setIcons();
                     }
                 }
-
-                @Override
-                public void onError() {
-                    // Ignore
-                }
             };
             final Logic logic = App.getLogic();
             if (selectedCount < size) {

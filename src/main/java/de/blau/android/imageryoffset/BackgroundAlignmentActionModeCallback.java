@@ -455,11 +455,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     displayError(main.getString(R.string.imagery_offset_not_found));
                 }
             }
-
-            @Override
-            public void onError() {
-                // Ignore
-            }
         };
         OffsetLoader loader = new OffsetLoader(handler);
 

@@ -13,8 +13,7 @@ import de.blau.android.photos.PhotoIndex;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 
-class PhotoUriHandler extends PostAsyncActionHandler {
-    private static final long serialVersionUID = 1L;
+class PhotoUriHandler implements PostAsyncActionHandler {
 
     private static final String DEBUG_TAG = "PhotoUriHandler";
 
@@ -75,10 +74,5 @@ class PhotoUriHandler extends PostAsyncActionHandler {
             Log.e(DEBUG_TAG, e.getMessage());
             Snack.toastTopError(main, main.getString(R.string.toast_error_accessing_photo, uri));
         }
-    }
-
-    @Override
-    public void onError() {
-        // Nothing
     }
 }
