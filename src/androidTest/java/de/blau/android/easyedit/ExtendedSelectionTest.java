@@ -90,6 +90,7 @@ public class ExtendedSelectionTest {
      */
     @Test
     public void selectNodes() {
+        TestUtils.zoomToLevel(device, main, 18); // if we are zoomed in too far we might not get the selection popups
         map.getDataLayer().setVisible(true);
         TestUtils.unlock(device);
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
