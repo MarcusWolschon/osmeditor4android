@@ -200,12 +200,9 @@ public final class TransferTasks {
         // check if we need to oAuth first
         for (Task b : queryResult) {
             if (b.hasBeenChanged() && b instanceof Note && bugFilter.contains(activity.getString(R.string.bugfilter_notes))) {
-                PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-                    @Override
-                    public void onSuccess() {
-                        Preferences prefs = new Preferences(activity);
-                        upload(activity, prefs.getServer(), postUploadHandler);
-                    }
+                PostAsyncActionHandler restartAction = () -> {
+                    Preferences prefs = new Preferences(activity);
+                    upload(activity, prefs.getServer(), postUploadHandler);
                 };
                 if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
                     return;
@@ -331,12 +328,9 @@ public final class TransferTasks {
     public static boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note, final String comment,
             final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
-        PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-            @Override
-            public void onSuccess() {
-                Preferences prefs = new Preferences(activity); // need to re-get this post authentication
-                uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
-            }
+        PostAsyncActionHandler restartAction = () -> {
+            Preferences prefs = new Preferences(activity); // need to re-get this post authentication
+            uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
         };
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
             return false;
@@ -427,19 +421,16 @@ public final class TransferTasks {
     public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull final MapRouletteTask task,
             final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
-        PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-            @Override
-            public void onSuccess() {
-                Log.d(DEBUG_TAG, "--- restarting");
-                new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... params) {
-                        Preferences prefs = new Preferences(activity);
-                        updateMapRouletteTask(activity, prefs.getServer(), task, quiet, postUploadHandler);
-                        return null;
-                    }
-                }.execute();
-            }
+        PostAsyncActionHandler restartAction = () -> {
+            Log.d(DEBUG_TAG, "--- restarting");
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    Preferences prefs = new Preferences(activity);
+                    updateMapRouletteTask(activity, prefs.getServer(), task, quiet, postUploadHandler);
+                    return null;
+                }
+            }.execute();
         };
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
             Log.d(DEBUG_TAG, "not authenticated");
@@ -711,7 +702,7 @@ public final class TransferTasks {
      * 
      * @param activity activity that called this
      * @param fileName file to write to
-     * @param postWrite TODO
+     * @param postWrite call this when finished
      */
     public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
@@ -735,7 +726,7 @@ public final class TransferTasks {
      * 
      * @param activity activity that called this
      * @param uri uri to write to
-     * @param postWrite TODO
+     * @param postWrite call this when finished
      */
     public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postWrite) {
         try {
@@ -756,7 +747,7 @@ public final class TransferTasks {
      * 
      * @param activity activity that called this
      * @param fileOut OutputStream to write to
-     * @param postWrite TODO
+     * @param postWrite call this when finished
      */
     private static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fileOut,
             @Nullable final PostAsyncActionHandler postWrite) {

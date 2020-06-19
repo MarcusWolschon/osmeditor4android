@@ -228,21 +228,18 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             return true;
         case MENU_ITEM_DOWNLOAD:
             Progress.showDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
-            PostAsyncActionHandler handler = new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
-                    if (currentAction != null) {
-                        for (int i = 0; i < selectedCount; i++) {
-                            RelationMemberRow row = selected.get(i);
-                            if (!row.getRelationMemberDescription().downloaded()) {
-                                updateRow(row, selectedPos.get(i));
-                                selected.set(i, row);
-                            }
+            PostAsyncActionHandler handler = () -> {
+                if (currentAction != null) {
+                    for (int i = 0; i < selectedCount; i++) {
+                        RelationMemberRow row = selected.get(i);
+                        if (!row.getRelationMemberDescription().downloaded()) {
+                            updateRow(row, selectedPos.get(i));
+                            selected.set(i, row);
                         }
-                        currentAction.finish();
-                        Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
-                        ((RelationMembersFragment) caller).setIcons();
                     }
+                    currentAction.finish();
+                    Progress.dismissDialog(caller.getActivity(), Progress.PROGRESS_DOWNLOAD);
+                    ((RelationMembersFragment) caller).setIcons();
                 }
             };
             final Logic logic = App.getLogic();

@@ -20,8 +20,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.media.MediaScannerConnection;
-import android.media.MediaScannerConnection.OnScanCompletedListener;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -420,12 +418,8 @@ public class SavingHelper<T extends Serializable> {
         try {
             String path = scanfile.getCanonicalPath();
             Log.i(DEBUG_TAG, "Triggering media scan for " + path);
-            MediaScannerConnection.scanFile(context, new String[] { path }, null, new OnScanCompletedListener() {
-                @Override
-                public void onScanCompleted(String path, Uri uri) {
-                    Log.i(DEBUG_TAG, "Media scan completed for " + path + " URI " + uri);
-                }
-            });
+            MediaScannerConnection.scanFile(context, new String[] { path }, null,
+                    (p, uri) -> Log.i(DEBUG_TAG, "Media scan completed for " + p + " URI " + uri));
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Exception when triggering media scanner", e);
         }

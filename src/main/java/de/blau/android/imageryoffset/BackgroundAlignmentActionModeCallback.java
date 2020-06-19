@@ -444,19 +444,15 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             double d2 = GeoMath.haversineDistance(centerLon, centerLat, offset2.getLon(), offset2.getLat());
             return Double.valueOf(d1).compareTo(d2);
         };
-        PostAsyncActionHandler handler = new PostAsyncActionHandler() {
-            @Override
-            public void onSuccess() {
-                if (offsetList != null && !offsetList.isEmpty()) {
-                    Collections.sort(offsetList, cmp);
-                    AppCompatDialog d = createDisplayOffsetDialog(0);
-                    d.show();
-                } else {
-                    displayError(main.getString(R.string.imagery_offset_not_found));
-                }
+        OffsetLoader loader = new OffsetLoader(() -> {
+            if (offsetList != null && !offsetList.isEmpty()) {
+                Collections.sort(offsetList, cmp);
+                AppCompatDialog d = createDisplayOffsetDialog(0);
+                d.show();
+            } else {
+                displayError(main.getString(R.string.imagery_offset_not_found));
             }
-        };
-        OffsetLoader loader = new OffsetLoader(handler);
+        });
 
         double hm = GeoMath.haversineDistance(centerLon, bbox.getBottom() / 1E7d, centerLon, bbox.getTop() / 1E7d);
         double wm = GeoMath.haversineDistance(bbox.getLeft() / 1E7d, centerLat, bbox.getRight() / 1E7d, centerLat);

@@ -725,59 +725,53 @@ public class Main extends FullScreenAppCompatActivity
 
         haveCamera = checkForCamera();
 
-        PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
-            @Override
-            public void onSuccess() {
-                Intent intent = getIntent();
-                if (rcData != null || geoData != null || contentUri != null || (intent != null && ACTION_MAPILLARY_SELECT.equals(intent.getAction()))) {
-                    setShowGPS(false);
-                    processIntents();
-                } else {
-                    if (getTracker() != null) {
-                        lastLocation = getTracker().getLastLocation();
-                    }
-                    setShowGPS(prefs.getShowGPS());
+        PostAsyncActionHandler postLoadData = () -> {
+            Intent intent = getIntent();
+            if (rcData != null || geoData != null || contentUri != null || (intent != null && ACTION_MAPILLARY_SELECT.equals(intent.getAction()))) {
+                setShowGPS(false);
+                processIntents();
+            } else {
+                if (getTracker() != null) {
+                    lastLocation = getTracker().getLastLocation();
                 }
-                map.setPrefs(Main.this, prefs); // set again as ViewBox may have
-                                                // changed
-                setupLockButton();
-                if (logic.getFilter() != null) {
-                    logic.getFilter().addControls(mapLayout, () -> {
-                        map.invalidate();
-                        scheduleAutoLock();
-                    });
-                    logic.getFilter().showControls();
-                }
-                updateActionbarEditMode();
-                Mode mode = logic.getMode();
-                if (easyEditManager != null && mode.elementsGeomEditiable() && (logic.getSelectedNode() != null || logic.getSelectedWay() != null
-                        || (logic.getSelectedRelations() != null && !logic.getSelectedRelations().isEmpty()))) {
-                    // need to restart whatever we were doing
-                    Log.d(DEBUG_TAG, "restarting element action mode");
-                    easyEditManager.editElements();
-                } else if (mode.elementsEditable()) {
-                    // de-select everything
-                    logic.deselectAll();
-                }
+                setShowGPS(prefs.getShowGPS());
+            }
+            map.setPrefs(Main.this, prefs); // set again as ViewBox may have
+                                            // changed
+            setupLockButton();
+            if (logic.getFilter() != null) {
+                logic.getFilter().addControls(mapLayout, () -> {
+                    map.invalidate();
+                    scheduleAutoLock();
+                });
+                logic.getFilter().showControls();
+            }
+            updateActionbarEditMode();
+            Mode mode = logic.getMode();
+            if (easyEditManager != null && mode.elementsGeomEditiable() && (logic.getSelectedNode() != null || logic.getSelectedWay() != null
+                    || (logic.getSelectedRelations() != null && !logic.getSelectedRelations().isEmpty()))) {
+                // need to restart whatever we were doing
+                Log.d(DEBUG_TAG, "restarting element action mode");
+                easyEditManager.editElements();
+            } else if (mode.elementsEditable()) {
+                // de-select everything
+                logic.deselectAll();
             }
         };
-        PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
-            @Override
-            public void onSuccess() {
-                Log.d(DEBUG_TAG, "postLoadTasks onSuccess");
-                Mode mode = logic.getMode();
-                de.blau.android.layer.tasks.MapOverlay layer = map.getTaskLayer();
-                if (layer != null) {
-                    Task t = layer.getSelected();
-                    if (mode.elementsGeomEditiable() && t != null && map.getTaskLayer() != null) {
-                        Log.d(DEBUG_TAG, "restarting task action mode");
-                        layer.onSelected(Main.this, t);
-                    } else {
-                        layer.deselectObjects();
-                    }
+        PostAsyncActionHandler postLoadTasks = () -> {
+            Log.d(DEBUG_TAG, "postLoadTasks onSuccess");
+            Mode mode = logic.getMode();
+            de.blau.android.layer.tasks.MapOverlay layer = map.getTaskLayer();
+            if (layer != null) {
+                Task t = layer.getSelected();
+                if (mode.elementsGeomEditiable() && t != null && map.getTaskLayer() != null) {
+                    Log.d(DEBUG_TAG, "restarting task action mode");
+                    layer.onSelected(Main.this, t);
+                } else {
+                    layer.deselectObjects();
                 }
-                map.invalidate();
             }
+            map.invalidate();
         };
         synchronized (loadOnResumeLock) {
             if (redownloadOnResume) { // if true replaces anything downloaded FIXME this probably doesn't make sense
@@ -1146,17 +1140,14 @@ public class Main extends FullScreenAppCompatActivity
                     bboxes = BoundingBox.newBoxes(bbList, bbox);
                 }
 
-                PostAsyncActionHandler handler = new PostAsyncActionHandler() {
-                    @Override
-                    public void onSuccess() {
-                        if (hasZoom) {
-                            getMap().getViewBox().setZoom(getMap(), zoom);
-                            getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
-                        } else {
-                            logic.getViewBox().fitToBoundingBox(getMap(), bbox);
-                        }
-                        map.invalidate();
+                PostAsyncActionHandler handler = () -> {
+                    if (hasZoom) {
+                        getMap().getViewBox().setZoom(getMap(), zoom);
+                        getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
+                    } else {
+                        logic.getViewBox().fitToBoundingBox(getMap(), bbox);
                     }
+                    map.invalidate();
                 };
                 if (bboxes != null && !bboxes.isEmpty()) {
                     logic.downloadBox(this, bbox, true, handler);
@@ -1211,12 +1202,7 @@ public class Main extends FullScreenAppCompatActivity
             ImportTrack.showDialog(Main.this, uri);
         } else {
             getTracker().stopTracking(false);
-            LoadTrack.fromFile(Main.this, uri, getTracker().getTrack(), new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
-                    gotoFirstTrackPoint();
-                }
-            });
+            LoadTrack.fromFile(Main.this, uri, getTracker().getTrack(), () -> gotoFirstTrackPoint());
             map.invalidate();
         }
     }
@@ -2026,13 +2012,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_gps_upload:
             descheduleAutoLock();
-            PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
-                    GpxUpload.showDialog(Main.this);
-                }
-            };
-            if (Server.checkOsmAuthentication(this, server, restartAction)) {
+            if (Server.checkOsmAuthentication(this, server, () -> GpxUpload.showDialog(Main.this))) {
                 GpxUpload.showDialog(this);
             }
             return true;
@@ -2945,15 +2925,9 @@ public class Main extends FullScreenAppCompatActivity
      * @param elements List of OsmElements to upload, if null all changes are uploaded
      */
     public void confirmUpload(@Nullable List<OsmElement> elements) {
-        PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-            @Override
-            public void onSuccess() {
-                ConfirmUpload.showDialog(Main.this, elements);
-            }
-        };
         final Server server = prefs.getServer();
         if (App.getLogic().hasChanges()) {
-            if (Server.checkOsmAuthentication(this, server, restartAction)) {
+            if (Server.checkOsmAuthentication(this, server, () -> ConfirmUpload.showDialog(Main.this, elements))) {
                 ConfirmUpload.showDialog(this, elements);
             }
         } else {

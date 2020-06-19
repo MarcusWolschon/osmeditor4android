@@ -10,8 +10,8 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.AsyncTask.Status;
+import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -151,12 +151,9 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
             }
 
             if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
-                indexPhotos.execute(new PostAsyncActionHandler() {
-                    @Override
-                    public void onSuccess() {
-                        if (indexed) {
-                            map.invalidate();
-                        }
+                indexPhotos.execute(() -> {
+                    if (indexed) {
+                        map.invalidate();
                     }
                 });
                 return;

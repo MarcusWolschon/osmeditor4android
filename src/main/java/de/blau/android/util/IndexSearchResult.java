@@ -41,16 +41,12 @@ public class IndexSearchResult {
         return result;
     }
 
-    public static final Comparator<IndexSearchResult> weightComparator = new Comparator<IndexSearchResult>() {
-
-        @Override
-        public int compare(IndexSearchResult isr1, IndexSearchResult isr2) {
-            if (isr2.weight > isr1.weight) {
-                return -1;
-            } else if (isr2.weight < isr1.weight) {
-                return +1;
-            }
-            return 0;
+    public static final Comparator<IndexSearchResult> weightComparator = (isr1, isr2) -> {
+        if (isr2.weight > isr1.weight) {
+            return -1;
+        } else if (isr2.weight < isr1.weight) {
+            return +1;
         }
+        return 0;
     };
 }

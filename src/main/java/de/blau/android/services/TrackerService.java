@@ -41,7 +41,6 @@ import androidx.core.content.ContextCompat;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.FileExtensions;
 import de.blau.android.gpx.Track;
@@ -864,12 +863,7 @@ public class TrackerService extends Service implements Exportable {
                                                             // complete
                         Log.d(DEBUG_TAG, "getNextCenter loading " + b.toString());
                         final Logic logic = App.getLogic();
-                        logic.autoDownloadBox(this, prefs.getServer(), validator, b, new PostAsyncActionHandler() {
-                            @Override
-                            public void onSuccess() {
-                                logic.reselectRelationMembers();
-                            }     
-                        });
+                        logic.autoDownloadBox(this, prefs.getServer(), validator, b, () -> logic.reselectRelationMembers());
                     }
                 }
                 previousLocation = location;
