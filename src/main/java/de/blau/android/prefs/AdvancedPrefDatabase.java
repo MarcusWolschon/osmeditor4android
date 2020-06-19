@@ -754,35 +754,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param newPos index of new position
      */
     public synchronized void movePreset(int oldPos, int newPos) {
-        if (oldPos == newPos) {
-            return;
-        }
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_COL }, null, null, null, null, POSITION_COL);
-        dbresult.moveToFirst();
-        int count = dbresult.getCount();
-        for (int i = 0; i < count; i++) {
-            ContentValues values = new ContentValues();
-            if (i == oldPos) {
-                values.put(POSITION_COL, newPos);
-            } else if (oldPos < newPos) { // moving down
-                if (i < oldPos || i > newPos) {
-                    dbresult.moveToNext();
-                    continue;
-                }
-                values.put(POSITION_COL, i - 1); // move everything in between up
-            } else {
-                if (i > oldPos || i < newPos) {
-                    dbresult.moveToNext();
-                    continue;
-                }
-                values.put(POSITION_COL, i + 1); // move everything in between down
-            }
-            db.update(PRESETS_TABLE, values, WHERE_ID, new String[] { dbresult.getString(0) });
-            dbresult.moveToNext();
-        }
-        dbresult.close();
-        db.close();
+        moveRow(PRESETS_TABLE, ID_COL, WHERE_ID, oldPos, newPos);
     }
 
     /**
@@ -1232,11 +1204,23 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param newPos index of new position
      */
     public synchronized void moveLayer(int oldPos, int newPos) {
+        moveRow(LAYERS_TABLE, ROWID, WHERE_ROWID, oldPos, newPos);
+    }
+
+    /**
+     * Move a table row to a new position, renumbering at the same time
+     * 
+     * @param table the table holding the row
+     * @param rowId the column holding the row id
+     * @param whereId the query for the above
+     * @param oldPos index of old position
+     * @param newPos index of new position
+     */
+    private void moveRow(@NonNull String table, @NonNull String rowId, @NonNull String whereId, int oldPos, int newPos) {
         if (oldPos == newPos) {
             return;
         }
-        try (SQLiteDatabase db = getWritableDatabase();
-                Cursor dbresult = db.query(LAYERS_TABLE, new String[] { ROWID }, null, null, null, null, POSITION_COL)) {
+        try (SQLiteDatabase db = getWritableDatabase(); Cursor dbresult = db.query(table, new String[] { rowId }, null, null, null, null, POSITION_COL)) {
             dbresult.moveToFirst();
             int count = dbresult.getCount();
             for (int i = 0; i < count; i++) {
@@ -1256,7 +1240,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                     }
                     values.put(POSITION_COL, i + 1); // move everything in between down
                 }
-                db.update(LAYERS_TABLE, values, WHERE_ROWID, new String[] { dbresult.getString(0) });
+                db.update(table, values, whereId, new String[] { dbresult.getString(0) });
                 dbresult.moveToNext();
             }
         }
