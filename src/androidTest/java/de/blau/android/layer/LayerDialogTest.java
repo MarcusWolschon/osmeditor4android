@@ -6,6 +6,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,6 +32,7 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.Splash;
 import de.blau.android.TestUtils;
+import de.blau.android.layer.data.MapOverlay;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -52,7 +54,7 @@ public class LayerDialogTest {
     private static final int MENU_BUTTON    = 3;
 
     AdvancedPrefDatabase prefDB          = null;
-    Main                 main            = null;
+    static Main          main            = null;
     UiDevice             device          = null;
     Map                  map             = null;
     Logic                logic           = null;
@@ -109,12 +111,6 @@ public class LayerDialogTest {
      */
     @After
     public void teardown() {
-        if (main != null) {
-            main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
-            main.finish();
-        } else {
-            System.out.println("main is null");
-        }
         try {
             tileServer.close();
         } catch (IOException e) {
@@ -122,6 +118,19 @@ public class LayerDialogTest {
         }
         instrumentation.removeMonitor(monitor);
         instrumentation.waitForIdleSync();
+    }
+
+    /**
+     * Delete tile DB after all tests have run
+     */
+    @AfterClass
+    public static void teardownClass() {
+        if (main != null) {
+            main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+            main.finish();
+        } else {
+            System.out.println("main is null");
+        }
     }
 
     /**
@@ -184,6 +193,27 @@ public class LayerDialogTest {
         Assert.assertEquals(387, delegator.getCurrentStorage().getNodeCount());
         Assert.assertEquals(14, delegator.getCurrentStorage().getWayCount());
         Assert.assertEquals(5, delegator.getCurrentStorage().getRelationCount());
+    }
+
+    /**
+     * Show dialog, move data layer up one and then down
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void layerMove() {
+        final MapOverlay dataLayer = map.getDataLayer();
+        String dataLayerName = dataLayer.getName();
+        UiObject2 menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        int origPos = dataLayer.getIndex();
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.move_up), true, false));
+        Assert.assertEquals(origPos + 1, dataLayer.getIndex());
+        TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
+        menuButton = TestUtils.getLayerButton(device, dataLayerName, MENU_BUTTON);
+        menuButton.clickAndWait(Until.newWindow(), 1000);
+        Assert.assertTrue(TestUtils.clickText(device, false, main.getString(R.string.move_down), true, false));
+        Assert.assertEquals(origPos, dataLayer.getIndex());
+        TestUtils.clickText(device, true, main.getString(R.string.done), false, false);
     }
 
     /**
