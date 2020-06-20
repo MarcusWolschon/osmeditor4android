@@ -143,8 +143,6 @@ public class MapOverlay extends StyleableLayer
             }
             addBoundingBox(b);
             mThreadPool.execute(() -> downloadBox(map.getContext(), b, new PostAsyncActionHandler() {
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onSuccess() {
                     map.postInvalidate();
@@ -248,6 +246,7 @@ public class MapOverlay extends StyleableLayer
         if (withMarker) {
             JsonArray imageKeys = coordinateProperties.get(MapillarySequence.IMAGE_KEYS_KEY).getAsJsonArray();
             if (imageKeys != null) {
+                boolean sequenceIsSelected = selectedSequence != null && selectedSequence.getFeature().equals(f);
                 try {
                     for (int i = 0; i < imageKeys.size(); i++) {
                         Point p = line.get(i);
@@ -256,7 +255,7 @@ public class MapOverlay extends StyleableLayer
                         if (bb.contains(longitude, latitude)) {
                             float x = GeoMath.lonToX(width, bb, longitude);
                             float y = GeoMath.latToY(height, width, bb, latitude);
-                            if (selectedImage == i) {
+                            if (selectedImage == i && sequenceIsSelected) {
                                 drawMarker(canvas, x, y, cas.get(i).getAsInt(), selectedPaint, mapillaryPath);
                             }
                             drawMarker(canvas, x, y, cas.get(i).getAsInt(), paint, mapillaryPath);
