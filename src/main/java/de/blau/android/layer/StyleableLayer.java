@@ -14,19 +14,18 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.R;
-import de.blau.android.layer.geojson.MapOverlay;
 import de.blau.android.util.Snack;
 
 public abstract class StyleableLayer extends MapViewLayer implements DiscardInterface, Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static final String DEBUG_TAG = MapOverlay.class.getName();
+    private static final String DEBUG_TAG = StyleableLayer.class.getSimpleName();
 
     /**
      * when reading state lockout writing/reading
      */
     protected transient ReentrantLock readingLock = new ReentrantLock();
-    private transient boolean         saved       = false;
+    private transient boolean         saved       = true;
 
     /**
      * Styling parameters
@@ -142,6 +141,7 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
         }
         if (readingLock.tryLock()) {
             try {
+                Log.i(DEBUG_TAG, "saving state");
                 // TODO this doesn't really help with error conditions need to throw exception
                 if (save(context)) {
                     saved = true;
@@ -173,21 +173,26 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
         super.onRestoreState(context);
         try {
             readingLock.lock();
-            // disable drawing
-            setVisible(false);
-            StyleableLayer restoredOverlay = load(context);
-            if (restoredOverlay != null) {
-                Log.d(DEBUG_TAG, "read saved state");
-                iconRadius = restoredOverlay.iconRadius;
-                color = restoredOverlay.color;
-                paint.setColor(color);
-                strokeWidth = restoredOverlay.strokeWidth;
-                paint.setStrokeWidth(strokeWidth);
-                name = restoredOverlay.name;
-                return true;
+            if (saved) { // don't overwrite new state
+                // disable drawing
+                setVisible(false);
+                StyleableLayer restoredOverlay = load(context);
+                if (restoredOverlay != null) {
+                    Log.d(DEBUG_TAG, "read saved state");
+                    iconRadius = restoredOverlay.iconRadius;
+                    color = restoredOverlay.color;
+                    paint.setColor(color);
+                    strokeWidth = restoredOverlay.strokeWidth;
+                    paint.setStrokeWidth(strokeWidth);
+                    name = restoredOverlay.name;
+                    return true;
+                } else {
+                    Log.d(DEBUG_TAG, "saved state null");
+                    return false;
+                }
             } else {
-                Log.d(DEBUG_TAG, "saved state null");
-                return false;
+                Log.d(DEBUG_TAG, "dirty state not loading saved");
+                return true;
             }
         } finally {
             // re-enable drawing

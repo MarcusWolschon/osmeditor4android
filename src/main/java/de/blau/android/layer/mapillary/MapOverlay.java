@@ -130,10 +130,7 @@ public class MapOverlay extends StyleableLayer
         }
         List<BoundingBox> bbList = new ArrayList<>(boxes);
         ViewBox box = new ViewBox(map.getViewBox());
-        box.scale(1.2); // make
-                        // sides
-                        // 20%
-                        // larger
+        box.scale(1.2); // make sides 20% larger
         box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
         List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
         for (BoundingBox b : bboxes) {
@@ -142,7 +139,7 @@ public class MapOverlay extends StyleableLayer
                 continue;
             }
             addBoundingBox(b);
-            mThreadPool.execute(() -> downloadBox(map.getContext(), b, new PostAsyncActionHandler() {
+            mThreadPool.execute(() -> internalDownloadBox(map.getContext(), b, new PostAsyncActionHandler() {
                 @Override
                 public void onSuccess() {
                     map.postInvalidate();
@@ -305,13 +302,17 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public synchronized boolean save(Context context) throws IOException {
+        Log.e(DEBUG_TAG, "saving state");
         return savingHelper.save(context, FILENAME, this, true);
     }
 
     @Override
     public synchronized StyleableLayer load(Context context) {
+        Log.e(DEBUG_TAG, "loading state");
         MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
         if (restoredOverlay != null) {
+            data = restoredOverlay.data;
+            boxes = restoredOverlay.boxes;
             selectedSequence = restoredOverlay.selectedSequence;
             selectedImage = restoredOverlay.selectedImage;
         }
@@ -329,12 +330,10 @@ public class MapOverlay extends StyleableLayer
     @Override
     public List<MapillaryImage> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<MapillaryImage> result = new ArrayList<>();
-        Log.d(DEBUG_TAG, "getClicked");
         if (data != null) {
             final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
             Collection<MapillarySequence> queryResult = new ArrayList<>();
             data.query(queryResult, viewBox);
-            Log.d(DEBUG_TAG, "features result count " + queryResult.size());
             for (MapillarySequence sequence : queryResult) {
                 Feature f = sequence.getFeature();
                 Geometry g = f.geometry();
@@ -423,6 +422,7 @@ public class MapOverlay extends StyleableLayer
             MapillarySequence sequence = get(image);
             selectedSequence = sequence;
             selectedImage = image.index;
+            dirty();
             if (sequence != null) {
                 ArrayList<String> keys = new ArrayList<>();
                 JsonArray imageKeys = sequence.getImageKeys();
@@ -453,22 +453,48 @@ public class MapOverlay extends StyleableLayer
     public void deselectObjects() {
         selectedSequence = null;
         selectedImage = 0;
+        dirty();
     }
 
     @Override
     public void setSelected(MapillaryImage image) {
         selectedSequence = get(image);
         selectedImage = image.index;
+        dirty();
     }
 
     @Override
     public void downloadBox(@NonNull final Context context, @NonNull final BoundingBox box, @Nullable final PostAsyncActionHandler handler) {
+        addBoundingBox(box);
+        internalDownloadBox(context, box, new PostAsyncActionHandler() {
+            @Override
+            public void onSuccess() {
+                if (handler != null) {
+                    handler.onSuccess();
+                }
+            }
 
+            @Override
+            public void onError() {
+                deleteBoundingBox(box);
+                handler.onError();
+            }
+        });
+    }
+
+    /**
+     * Internal version of downloadBox to allow chaining of handlers
+     * 
+     * @param context an Android Context
+     * @param box the BoundingBox to download
+     * @param handler a callback to use after the download has completed
+     */
+    public void internalDownloadBox(@NonNull final Context context, @NonNull final BoundingBox box, @Nullable final PostAsyncActionHandler handler) {
         box.makeValidForApi();
 
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, Boolean>() {
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Boolean doInBackground(Void... params) {
                 try {
                     URL url = new URL(mapillaryApiUrl + "sequences?client_id=" + apiKey + "&bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + ","
                             + box.getRight() / 1E7d + "," + box.getTop() / 1E7d);
@@ -481,7 +507,6 @@ public class MapOverlay extends StyleableLayer
                     Response mapillaryCallResponse = mapillaryCall.execute();
                     if (mapillaryCallResponse.isSuccessful()) {
                         ResponseBody responseBody = mapillaryCallResponse.body();
-
                         StringBuilder sb = new StringBuilder();
                         try (InputStream inputStream = responseBody.byteStream();
                                 BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)))) {
@@ -491,26 +516,37 @@ public class MapOverlay extends StyleableLayer
                             }
                         }
                         FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
-                        for (Feature f : fc.features()) {
-                            MapillarySequence mo = new MapillarySequence(f);
-                            if (!contains(mo)) {
-                                data.insert(mo);
+                        synchronized (MapOverlay.this) {
+                            boolean inserted = false;
+                            for (Feature f : fc.features()) {
+                                MapillarySequence mo = new MapillarySequence(f);
+                                if (!contains(mo)) {
+                                    data.insert(mo);
+                                    inserted = true;
+                                }
+                            }
+                            if (inserted) {
+                                dirty();
                             }
                         }
+                        return true;
                     } else {
                         Log.e(DEBUG_TAG, "Sequence download failed " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
-                        return null;
                     }
                 } catch (Exception ex) {
                     Log.e(DEBUG_TAG, ex.getMessage());
                 }
-                return null;
+                return false;
             }
 
             @Override
-            protected void onPostExecute(Void param) {
+            protected void onPostExecute(Boolean param) {
                 if (handler != null) {
-                    handler.onSuccess();
+                    if (Boolean.TRUE.equals(param)) {
+                        handler.onSuccess();
+                    } else {
+                        handler.onError();
+                    }
                 }
             }
         }.execute();
@@ -525,7 +561,6 @@ public class MapOverlay extends StyleableLayer
     public boolean contains(@NonNull MapillarySequence sequence) {
         Collection<MapillarySequence> queryResult = new ArrayList<>();
         data.query(queryResult, sequence.getBounds());
-        Log.d(DEBUG_TAG, "candidates for contain " + queryResult.size());
         for (MapillarySequence mo2 : queryResult) {
             if (sequence.key.equals(mo2.key)) {
                 return true;
@@ -557,11 +592,12 @@ public class MapOverlay extends StyleableLayer
      * 
      * @param pos the position in the sequence
      */
-    public void select(int pos) {
+    public synchronized void select(int pos) {
         if (selectedSequence != null) {
             JsonArray imageKeys = selectedSequence.getImageKeys();
             if (pos < imageKeys.size()) {
                 selectedImage = pos;
+                dirty(); // need to save the new position
                 List<Point> line = selectedSequence.getPoints();
                 map.getViewBox().moveTo(map, (int) (line.get(pos).longitude() * 1E7), (int) (line.get(pos).latitude() * 1E7));
                 map.invalidate();
@@ -610,7 +646,6 @@ public class MapOverlay extends StyleableLayer
         synchronized (boxes) {
             boxes.add(box);
         }
-
     }
 
     @Override

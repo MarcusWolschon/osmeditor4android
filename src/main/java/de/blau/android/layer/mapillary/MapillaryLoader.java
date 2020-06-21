@@ -43,6 +43,7 @@ class MapillaryLoader implements PhotoLoader {
      * 
      * @param cacheDir the cacheDir that should be used as a destination for the images
      * @param cacheSize max size of the cache
+     * @param imageUrl base url for retrieving the image
      */
     MapillaryLoader(@NonNull File cacheDir, long cacheSize, @NonNull String imageUrl) {
         this.cacheDir = cacheDir;
