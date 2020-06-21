@@ -130,7 +130,10 @@ public class MapOverlay extends StyleableLayer
         }
         List<BoundingBox> bbList = new ArrayList<>(getBoundingBoxes());
         ViewBox box = new ViewBox(map.getViewBox());
-        box.scale(1.2); // make sides 20% larger
+        box.scale(1.2); // make
+                        // sides
+                        // 20%
+                        // larger
         box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
         List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
         for (BoundingBox b : bboxes) {
@@ -642,32 +645,39 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void addBoundingBox(BoundingBox box) {
-        synchronized (boxes) {
-            boxes.add(box);
-            dirty();
+        if (boxes != null) {
+            synchronized (boxes) {
+                boxes.add(box);
+                dirty();
+            }
         }
     }
 
     @Override
     public void deleteBoundingBox(BoundingBox box) {
-        synchronized (boxes) {
-            boxes.remove(box);
-            dirty();
+        if (boxes != null) {
+            synchronized (boxes) {
+                boxes.remove(box);
+                dirty();
+            }
         }
+
     }
 
     @Override
     public void prune(BoundingBox box) {
-        synchronized (data) {
-            Collection<MapillarySequence> queryResult = new ArrayList<>();
-            data.query(queryResult);
-            for (MapillarySequence s : queryResult) {
-                if (!box.intersects(s.getBounds())) {
-                    data.remove(s);
+        if (data != null) {
+            synchronized (data) {
+                Collection<MapillarySequence> queryResult = new ArrayList<>();
+                data.query(queryResult);
+                for (MapillarySequence s : queryResult) {
+                    if (!box.intersects(s.getBounds())) {
+                        data.remove(s);
+                    }
                 }
+                BoundingBox.prune(this, box);
+                dirty();
             }
-            BoundingBox.prune(this, box);
-            dirty();
         }
     }
 
