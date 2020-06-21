@@ -481,7 +481,9 @@ public class MapOverlay extends StyleableLayer
             @Override
             public void onError() {
                 deleteBoundingBox(box);
-                handler.onError();
+                if (handler != null) {
+                    handler.onError();
+                }
             }
         });
     }
