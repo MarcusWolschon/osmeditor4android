@@ -128,7 +128,7 @@ public class MapOverlay extends StyleableLayer
         if (mThreadPool == null) {
             mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
         }
-        List<BoundingBox> bbList = new ArrayList<>(boxes);
+        List<BoundingBox> bbList = new ArrayList<>(getBoundingBoxes());
         ViewBox box = new ViewBox(map.getViewBox());
         box.scale(1.2); // make sides 20% larger
         box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
@@ -298,6 +298,7 @@ public class MapOverlay extends StyleableLayer
     @Override
     public void onDestroy() {
         data = null;
+        boxes = null;
     }
 
     @Override
@@ -465,7 +466,7 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     public void downloadBox(@NonNull final Context context, @NonNull final BoundingBox box, @Nullable final PostAsyncActionHandler handler) {
-        addBoundingBox(box);
+        addBoundingBox(new BoundingBox(box)); // need to copy box as it might be changed elsewhere
         internalDownloadBox(context, box, new PostAsyncActionHandler() {
             @Override
             public void onSuccess() {
@@ -490,8 +491,6 @@ public class MapOverlay extends StyleableLayer
      * @param handler a callback to use after the download has completed
      */
     public void internalDownloadBox(@NonNull final Context context, @NonNull final BoundingBox box, @Nullable final PostAsyncActionHandler handler) {
-        box.makeValidForApi();
-
         new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... params) {
@@ -645,6 +644,7 @@ public class MapOverlay extends StyleableLayer
     public void addBoundingBox(BoundingBox box) {
         synchronized (boxes) {
             boxes.add(box);
+            dirty();
         }
     }
 
@@ -652,6 +652,7 @@ public class MapOverlay extends StyleableLayer
     public void deleteBoundingBox(BoundingBox box) {
         synchronized (boxes) {
             boxes.remove(box);
+            dirty();
         }
     }
 
@@ -672,7 +673,6 @@ public class MapOverlay extends StyleableLayer
 
     @Override
     protected void discardLayer(Context context) {
-        data = null;
         File originalFile = context.getFileStreamPath(FILENAME);
         if (!originalFile.delete()) { // NOSONAR
             Log.e(DEBUG_TAG, "Failed to delete state file " + FILENAME);

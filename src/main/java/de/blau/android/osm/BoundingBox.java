@@ -692,6 +692,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
                 List<BoundingBox> temp = new ArrayList<>();
                 for (BoundingBox rb : result) {
                     if (b.intersects(rb)) {
+                        if (b.contains(rb)) {
+                            // discard
+                            continue;
+                        }
                         // higher than b
                         if (rb.top > b.top) {
                             temp.add(new BoundingBox(rb.left, b.top, rb.right, rb.top));
