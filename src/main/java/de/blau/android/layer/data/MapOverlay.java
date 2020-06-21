@@ -33,7 +33,6 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.Mode;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.filter.Filter;
@@ -345,21 +344,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 delegator.addBoundingBox(b);
                 mThreadPool.execute(() -> {
                     final Logic logic = App.getLogic();
-                    logic.download(context, prefs.getServer(), b, postMerge, new PostAsyncActionHandler() {
-
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public void onSuccess() {
-                            logic.reselectRelationMembers();
-                            map.postInvalidate();
-                        }
-
-                        @Override
-                        public void onError() {
-                            // do nothing
-                        }
-
+                    logic.download(context, prefs.getServer(), b, postMerge, () -> {
+                        logic.reselectRelationMembers();
+                        map.postInvalidate();
                     }, true, true);
                 });
             }
