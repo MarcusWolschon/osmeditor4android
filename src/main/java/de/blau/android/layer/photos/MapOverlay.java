@@ -145,17 +145,17 @@ public class MapOverlay extends MapViewLayer implements DiscardInterface, Clicka
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
         if (isVisible) {
-            ViewBox bb = osmv.getViewBox();
-            if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
-                return;
-            }
-
             if (!indexed && !indexing && indexPhotos.getStatus() != Status.RUNNING) {
-                indexPhotos.execute(() -> {
+                indexPhotos.execute((PostAsyncActionHandler) () -> {
                     if (indexed) {
                         map.invalidate();
                     }
                 });
+                return;
+            }
+
+            ViewBox bb = osmv.getViewBox();
+            if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
                 return;
             }
 

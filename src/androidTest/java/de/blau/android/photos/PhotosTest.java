@@ -17,6 +17,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.R;
 import de.blau.android.TestUtils;
 import de.blau.android.layer.LayerType;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -67,6 +68,8 @@ public class PhotosTest {
     @SdkSuppress(minSdkVersion = 26)
     @Test
     public void selectDisplayDelete() {
+        TestUtils.findText(device, false, context.getString(R.string.toast_photo_indexing_finished), 10000);
+        TestUtils.textGone(device, context.getString(R.string.toast_photo_indexing_finished), 10000);
         TestUtils.zoomToLevel(device, main, 20);
         TestUtils.unlock(device);
         Assert.assertEquals(2, App.getPhotoIndex().count());
