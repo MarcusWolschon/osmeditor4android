@@ -51,6 +51,7 @@
 <h1>Upgrading from previous versions</h1>
 <ul>
 <li>The format of the saved state including data has changed, you should upload any changes before updating.</li>
+<li>Default tile size for some WMS servers has changed, this will lead to distorted imagery for any such tile source for which you already have tiles in the cache. Flush the corresponding tile cache to fix this.</li>
 </ul>
 <h1>Known problems</h1>
 <ul>
