@@ -56,6 +56,7 @@
   <string name="invalid_data_read_message">Zapoznaj się z dokumentacją dotyczącą obsługiwanych formatów plików i wymaganych pól danych.</string>
   <string name="file_write_failed_title">Nie można zapisać do pliku</string>
   <string name="file_write_failed_message">Vespucci nie może zmienić ani zapisać pliku.</string>
+  <string name="applying_osc_failed_title">Stosowanie zmian z pliku OSC niepowiodło się</string>
   <!---->
   <string name="welcome_title">Witaj</string>
   <string name="welcome_message">Dziękujemy za zainstalowanie Vespucci.\n&lt;br&gt;&lt;br&gt;Przed rozpoczęciem powinieneś wiedzieć trzy rzeczy:\n&lt;ul&gt;&lt;li&gt;dotknięcie ikony kłódki w lewym górnym rogu przełącza pomiędzy trybem zablokowanym (brak edycji) i odblokowanym,&lt;/li&gt;&lt;li&gt;aby edytować OpenStreetMap potrzebujesz najpierw pobrać dane dla obszaru, w którym chcesz coś zmienić (na początek przybliż mapę),&lt;/li&gt;&lt;li&gt;aby dodać nowy obiekt: przytrzymaj duży zielony przycisk i wybierz, co chcesz dodać, a następnie dotknij pozycję, w której chcesz umieścić ten obiekt.&lt;/li&gt;&lt;/ul&gt;\nTeraz jesteś już gotowy. Zacznij mapować i baw się dobrze!</string>
@@ -608,6 +609,8 @@
   <string name="menu_gps_import">Importuj ślad GPX</string>
   <string name="menu_gps_goto_start">Przejdź do początku śladu GPX</string>
   <string name="menu_gps_goto_first_waypoint">Przejdź do pierwszego punktu</string>
+  <string name="menu_enable_gps_autodownload">Autopobieranie - śledź lokalizację</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Autopobieranie - śledź kamerę</string>
   <string name="menu_transfer">Transfer…</string>
   <string name="menu_transfer_download_current">Pobierz bieżący widok</string>
   <string name="menu_transfer_download_replace">Wyczyść i pobierz bieżący widok</string>
@@ -892,6 +895,8 @@
   <string name="config_leaveGpsDisabled_summary">Nie pytaj o włączenie GPS/GNSS jeśli jest wyłączony.</string>
   <string name="config_gps_network_title">Przełączanie na lokalizację na podstawie sieci</string>
   <string name="config_gps_network_summary">Jeżeli GPS/GNSS jest niedostępny lub wyłączony, przełącz na lokalizację na bazie sieci.</string>
+  <string name="config_gnssTimeToStale_title">Przedawniona lokalizacja po</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_category_server">Ustawienia serwera</string>
   <string name="config_category_server_summary">Konfiguracja OSM API i innych serwerów.</string>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Vespucci\nsúgó</string>
+    <string name="help_title">Súgó: %1$s</string>
     <string name="help_introduction">Bevezetés</string>
     <string name="help_main">Fő térképmegjelenítő</string>
     <string name="help_simple_actions">Egyszerű műveletek</string>
@@ -23,6 +25,8 @@
     <string name="help_opening_hours">Nyitva tartás</string>
     <string name="help_newnoteselection">Új jegyzet kiválasztás</string>
     <string name="help_voice_commands">Hangutasítások</string>
+    <string name="help_upgrade">14.1 kiadási megjegyzések</string>
+    <string name="help_upgrade_140">14.0 kiadási megjegyzések</string>
     <string name="help_upgrade_131">13.1 kiadási megjegyzések</string>
     <string name="help_upgrade_130">13.0 kiadási megjegyzések</string>
     <string name="help_upgrade_121">12.1 kiadási megjegyzések</string>

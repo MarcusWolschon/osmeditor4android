@@ -25,8 +25,11 @@
   <string name="wrong_login_data_message">Om du använder OAuth, autentisera om och försök igen. Om du använder inloggning och lösenord (rekommenderas inte), vänligen kontrollera att de är korrekt inmatade.</string>
   <string name="wrong_login_data_re_authenticate">Autentisera igen</string>
   <string name="forbidden_login_title">Inloggning förbjuden</string>
+  <string name="not_found_title">Element hittades inte</string>
   <string name="unknown_error_title">Okänt fel</string>
+  <string name="no_data_title">Ingen data</string>
   <string name="go_to_openstreetmap">Gå till openstreetmap.org</string>
+  <string name="data_conflict_title">Versionskonflikt</string>
   <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
   <string name="api_offline_title">API frånkopplad</string>
   <string name="api_offline_message">API:n är för närvarande frånkopplad, ingen data kan hämtas eller skrivas.</string>
@@ -51,6 +54,7 @@
   <string name="progress_uploading_message">Läser in upp...</string>
   <string name="progress_preset_message">Hämta förinställning...</string>
   <string name="progress_running_message">Körs...</string>
+  <string name="progress_building_imagery_database">Bygger bild-databas...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" raderad</string>
   <string name="changes_changed">\"%1$s\" ändrad</string>

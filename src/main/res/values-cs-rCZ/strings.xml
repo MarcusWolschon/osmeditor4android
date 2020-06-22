@@ -56,6 +56,8 @@
   <string name="invalid_data_read_message">Podporované formáty souborů a vyžadované položky formátu naleznete v dokumentaci.</string>
   <string name="file_write_failed_title">Soubor nelze zapsat</string>
   <string name="file_write_failed_message">Do vybraného souboru nelze zapisovat.</string>
+  <string name="applying_osc_failed_title">Použití souboru OSC se nezdařilo</string>
+  <string name="applying_osc_failed_message">Pravděpodobně jste nenačetli všechna původní data, která jsou nutná k provedení změn.</string>
   <!---->
   <string name="welcome_title">Vítejte</string>
   <string name="welcome_message">Děkujeme, že používáte Vespucci.\n&lt;br&gt;&lt;br&gt;Pro začátek potřebujete znát tři věci:\n&lt;ul&gt;&lt;li&gt;klepnutí na ikonu zámku v levém horním rohu přepnete mezi uzamčeným režimem (bez možnosti úprav) a odemčeným režimem,&lt;/li&gt;&lt;li&gt;pro úpravu OpenStreetMap potřebujete stáhnout oblast, kterou plánujete upravovat (mapu si před tím dostatečně přibližte),&lt;/li&gt;&lt;li&gt;pro přidání nového objektu: klepněte na velké zelené tlačítko a zvolte, co chcete přidat, poté klepnutím určete pozici na mapě.&lt;/li&gt;&lt;/ul&gt;\nNyní jste připraveni začít mapovat. Příjemnou zábavu!</string>
@@ -154,6 +156,9 @@
   <string name="geocoder_prompt">pomocí</string>
   <string name="geocoder_limit_label">aktuální pohled</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Hledejte objekty</string>
+  <string name="search_objects_hint">Zadejte výraz filtru / vyhledávání JOSM</string>
+  <string name="search_objects_unsupported">Nepodporovaný výraz  \"%1$s\"</string>
   <!---->
   <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
   <string name="preset_autopreset">Auto-předvolby</string>
@@ -268,11 +273,12 @@
   <string name="layer_change_style">Změnit styl</string>
   <string name="layer_select_imagery">Zvolit snímky</string>
   <string name="layer_category_all">Vše</string>
+  <string name="layer_category_photo">Letecké snímky</string>
   <string name="layer_category_historicphoto">Zastaralé letecké foto</string>
   <string name="layer_category_map">Mapa</string>
   <string name="layer_category_historicmap">Zastaralá mapa</string>
   <string name="layer_category_osmbasedmap">Mapa na základě OSM</string>
-  <string name="layer_category_qa">Otázky a odpovědi</string>
+  <string name="layer_category_qa">QA</string>
   <string name="layer_category_other">Jiné</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Min. zoom</string>
@@ -297,6 +303,10 @@
   <string name="undo_all">Vrátit i novější body (bezpečné)</string>
   <string name="redo_all">Obnovit i předchozí body (bezpečné)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">Zrušení polohy není v pořádku</string>
+  <string name="undo_location_text">Místo, které bude vrácením ovlivněno, není vidět.</string>
+  <string name="undo_location_undo_anyway">Přesto vrátit</string>
+  <string name="undo_location_zoom">Přiblížit na místo a poté vrátit zpět</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Poslat vaší OpenStreetMap přezdívkou</string>
   <string name="feedback_displayname_hint">OpenStreetMap zobrazované jméno zatím nezjištěno</string>
@@ -312,6 +322,7 @@
   <string name="tip_imagery_privacy">Pozadí a překryvné vrstvy poskytují třetí strany. Používáním vrstvy získá poskytovatel vaši síťovou adresu a přibližný údaj o oblasti, kterou prohlížíte.&lt;p&gt;Pokud poskytovatel poskytl informace o zásadách ochrany osobních údajů, můžete je zobrazit pomocí položky nabídky „Informace“ v dialogu vrstvy.</string>
   <string name="tip_pan_and_zoom_auto_download">Automatické stahování při posunu a přibližování by mělo být používáno obezřetně, neboť může zatěžovat OpenStreetMap API i vaše zařízení.&lt;p&gt;Zatížení API lze
  předejít používáním offline zdroje dat.</string>
+  <string name="tip_locked_mode">V uzamčeném režimu nemůžete upravovat, ale dlouhým stiskem na objekt se otevře obrazovka s podrobnými informacemi.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -319,8 +330,8 @@
   <!--NotificationChannels-->
   <string name="default_channel_name">Výchozí</string>
   <string name="default_channel_description">Výchozí kanál notifikací</string>
-  <string name="qa_channel_name">Vespucci Otázky a odpovědi</string>
-  <string name="qa_channel_description">Kanál výstrah Otázek a Odpovědí na problémy s daty a úkoly</string>
+  <string name="qa_channel_name">Vespucci QA</string>
+  <string name="qa_channel_description">QA výstrahy problémů s daty a úkoly</string>
   <!--Toaster-->
   <string name="toast_permission_denied">Přístup odepřen %1$s</string>
   <string name="toast_name_empty">Zvolte název</string>
@@ -430,6 +441,8 @@
   <string name="toast_using_network_location">Použita poloha ze sítě</string>
   <string name="toast_using_gps_location">Použita GPS/GNSS poloha</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS poloha vypnuta, GPX trasování zastaveno</string>
+  <string name="toast_remote_nmea_connection">Vzdálené připojení NMEA z / do %1$s</string>
+  <string name="toast_remote_nmea_connection_closed">Vzdálené připojení NMEA bylo ukončeno</string>
   <string name="toast_tags_copied">Tagy zkopírovány do schránky</string>
   <string name="toast_tags_cut">Tagy vyjmuty do schránky</string>
   <string name="toast_properties_copied">Vlastnosti zkopírovány do schránky</string>
@@ -456,6 +469,7 @@
   <string name="toast_phone_number_reformatted">Telefonní číslo bylo přeformátováno</string>
   <string name="toast_members_not_downloaded">Někteří členové relace nejsou staženi</string>
   <string name="toast_restart_required">Aby se změna projevila, musíte restartovat Vespucci</string>
+  <string name="toast_unable_to_open_offline_data">Nelze otevřít data offline %1$s%2$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Zdroje MapSplit musí mít nastaveno minimální a maximální zvětšení</string>
   <string name="error_pbf_no_version">V souboru PBF chybí informace o verzi</string>
@@ -483,6 +497,7 @@
   <string name="discard">Zahodit</string>
   <string name="retry">Zkusit znovu</string>
   <string name="prune">Ořezat</string>
+  <string name="check">Zkontrolovat</string>
   <!--Read a file-->
   <string name="read">Načíst</string>
   <string name="overwrite">Přepsat</string>
@@ -556,6 +571,7 @@
   <string name="tag_restriction_value_hint">Podmíněné omezení</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
+  <string name="tag_form_untagged_element">Neoznačený prvek</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">Vytvořit vlastní předvolbu</string>
   <string name="create_preset_title">Název vlastní předvolby</string>
@@ -928,6 +944,9 @@
   <string name="config_leaveGpsDisabled_summary">Nežádat zapnutí GPS/GNSS, pokud je vypnutá.</string>
   <string name="config_gps_network_title">Použít polohu ze sítě</string>
   <string name="config_gps_network_summary">Pokud není GPS/GNSS povolené nebo aktuální, použít umístění ze sítě.</string>
+  <string name="config_gnssTimeToStale_title">Zastaralé umístění po</string>
+  <string name="config_gnssTimeToStale_summary">Stáří (v sekundách), p kterém musí být místo považováno za zastaralé.</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_category_server">Nastavení serveru</string>
   <string name="config_category_server_summary">OSM API a nastavení dalších serverů</string>

@@ -568,6 +568,7 @@
   <string name="tag_restriction_value_hint">הגבלה מותנית</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">רכיב לא ידוע (לא נמצאה ערכה מוגדרת)</string>
+  <string name="tag_form_untagged_element">רכיב ללא תיוג</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">יצירת ערכה מוגדרת בהתאמתך</string>
   <string name="create_preset_title">שם מותאם אישית לערכה מוגדרת</string>

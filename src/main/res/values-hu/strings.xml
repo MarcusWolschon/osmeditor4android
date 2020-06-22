@@ -4,7 +4,7 @@
   <string name="mode_easy">Normál</string>
   <string name="mode_tag_only">Csak címkézés</string>
   <string name="mode_indoor">Beltéri</string>
-  <string name="mode_correct">C-mód</string>
+  <string name="mode_correct">Javító mód</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Vigyázat!</string>
   <string name="transfer_download_current_dialog_message">Módosításai vannak. Feltölti azokat az eldobásuk helyett?</string>

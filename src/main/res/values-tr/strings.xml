@@ -48,9 +48,9 @@
   <string name="applying_osc_failed_title">Osc dosyası uygulamada başarısız oldu</string>
   <string name="applying_osc_failed_message">Büyük olasılıkla değişiklikleri uygulamak için gereken tüm özgün verileri yüklemediniz.</string>
   <!---->
-  <string name="welcome_title">Hoşgeldiniz!</string>
-  <string name="read_introduction">Tanıtım okuyun</string>
-  <string name="upgrade_title">Bu Vespucci\'nin yeni bir versiyon</string>
+  <string name="welcome_title">Hoş geldin</string>
+  <string name="read_introduction">Tanıtımı okuyun</string>
+  <string name="upgrade_title">Bu yeni bir Vespucci sürümü</string>
   <string name="upgrade_message">Yeni özellikler ve davranış sürüm notlarında ayrıntılı olarak açıklanmıştır.</string>
   <string name="read_upgrade">Yeni sürüm hakkında bilgi edinin</string>
   <string name="progress_title">Yükleniyor</string>
@@ -60,9 +60,9 @@
   <string name="progress_deleting_message">Siliniyor...</string>
   <string name="progress_searching_message">Aranıyor...</string>
   <string name="progress_saving_message">Kaydediliyor...</string>
-  <string name="progress_uploading_message">Yükle</string>
+  <string name="progress_uploading_message">Yükleniyor...</string>
   <string name="progress_preset_message">Ön ayarları indiriliyor...</string>
-  <string name="progress_running_message">İşletiliyor...</string>
+  <string name="progress_running_message">Çalıştırılıyor...</string>
   <string name="progress_oauth">OAuth yetkilendirmesi için hesabınız openstreetmap.org\'a yükleniyor…</string>
   <string name="progress_building_imagery_database">Görüntü veritabanı oluşturuluyor…</string>
   <string name="progress_query_oam">OAM sorgulanıyor</string>
@@ -71,6 +71,10 @@
   <string name="changes_changed">\"%1$s\" değiştirildi</string>
   <string name="changes_created">\"%1$s\" oluşturuldu</string>
   <string name="confirm_upload_title">Değişiklikleri yükle</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Bu değişiklik yüklensin mi?</item>
+    <item quantity="other">Bu %1$d değişiklik yüklensin mi?</item>
+  </plurals>
   <string name="confirm_upload_edits_page">Değişiklikler</string>
   <string name="upload_comment_label">Yorum:</string>
   <string name="upload_source_label">Kaynak:</string>
@@ -93,13 +97,15 @@
   <string name="openstreetbug_commit_ok">Görev-değişikliği kaydedildi</string>
   <string name="openstreetbug_commit_fail">Görev-değişikliği kaydedilemiyor</string>
   <string name="openstreetbug_unknown_task_type">Bilinmeyen görev türü</string>
+  <string name="openstreetbug_not_supported">%1$s desteklenmiyor.</string>
   <string name="note_description">Not: %1$s - %2$s</string>
   <string name="bug_description">%1$s: %2$s - %3$s</string>
   <string name="bug_description_2">%1$s: %2$s %3$s - %4$s</string>
   <string name="generic_bug">Hata</string>
-  <string name="osmose_bug">Osmose</string>
+  <string name="osmose_bug">Ozmos</string>
   <string name="custom_bug">Özel</string>
   <string name="bug_element_1">%1$s (indirilemedi) #%2$d</string>
+  <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">MapRoulette Görevi</string>
   <string name="maproulette_task_coords">Enlem %1$4g, Boylam %2$4g</string>
   <string name="maproulette_task_explanations">Açıklamalar</string>
@@ -160,6 +166,7 @@
   <string name="copy_properties">Özellikleri kopyala</string>
   <!--API/Data layer info dialog-->
   <string name="data_in_memory">Hafızadaki veri</string>
+  <string name="total">Toplam</string>
   <string name="changed">Değiştirildi</string>
   <string name="ways">Yollar</string>
   <!--Tile layer info dialog-->
@@ -187,6 +194,7 @@
   <string name="check_entries">Denetle</string>
   <string name="edit_check_title">Girdi denetimi düzelt</string>
   <string name="add_check_title">Girdi denetimi ekle</string>
+  <string name="max_age">Maks. yaş</string>
   <string name="age">Yaş</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Boş ilişki</string>
@@ -199,22 +207,42 @@
   <string name="altitude">Rakım</string>
   <!--Custom imagery dialogs-->
   <string name="add_layer_title">Katman girdisi ekle</string>
+  <string name="coverage_top">Üst</string>
+  <string name="coverage_left">Sol</string>
+  <string name="coverage_right">Sağ</string>
+  <string name="coverage_bottom">Alt</string>
+  <string name="delete_layer">Katman silinsin mi?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Katman stili</string>
+  <string name="layer_style_color">Renk</string>
+  <string name="layer_style_label">Etiket</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_data">OSM verisi</string>
+  <string name="layer_category_all">Hepsi</string>
+  <string name="layer_category_map">Harita</string>
+  <string name="layer_category_other">Diğer</string>
   <!--Layer info dialog-->
   <string name="layer_info_start_date">Başlangıç ​​tarihi</string>
   <string name="layer_info_end_date">Bitiş tarihi</string>
   <string name="layer_info_terms">Koşullar</string>
   <string name="layer_info_privacy_policy">Gizlilik Politikası</string>
   <!--Photo viewer-->
+  <string name="photo_viewer_delete_button">Kalıcı olarak sil</string>
+  <string name="photo_viewer_goto">Fotoğrafa git</string>
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
   <!--Undo location not in view dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">OpenStreetMap verisini indir</string>
   <!--Clear/Reset GPX Track-->
   <!--Tips-->
+  <string name="tip_title">Biliyor musun?</string>
   <!--NumberPicker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Henüz bir değişiklik yapmadınız...</string>
@@ -222,6 +250,7 @@
   <string name="toast_save_done">Kaydedildi</string>
   <string name="toast_export_success">%1$s aktarıldı</string>
   <string name="toast_state_file_failed">Bozuk ya da okunamaz durum dosyası</string>
+  <string name="read_mail">Oku</string>
   <string name="toast_photo_indexing_started">Jeo-referanslı fotoğraf taraması başladı</string>
   <string name="toast_photo_indexing_finished">Jeo-referanslı fotoğraf taraması bitti</string>
   <string name="toast_download_failed">İndirme başarısız hata kodu %1$d, mesaj %2$s</string>
@@ -231,12 +260,16 @@
   <!---->
   <string name="toast_oauth">Lütfen OAuth\'un OSM hesabınıza erişmesine izin verin.</string>
   <string name="toast_no_oauth">Şu andaki API için OAuth yapılandırması yok, lütfen giriş ve parolayı ayarlayın.</string>
+  <string name="toast_timeout">Sunucudan zaman aşımı</string>
   <string name="coordinates_out_of_range">Boylam -180°/+180°, enlem -85°/85° arasında olmalıdır</string>
   <string name="toast_nothing_found">Hiç bir şey bulunamadı</string>
+  <string name="toast_missing_filemanager">Lütfen bir dosya yöneticisi yükleyin.</string>
   <string name="toast_file_not_found">%1$s bulunamadı.</string>
   <string name="toast_no_voice">Herhangi bir ses tanıma özelliği mevcut değil</string>
   <string name="toast_min_one_preset">En az bir tane önceden belirlenmiş seçilmelidir!</string>
+  <string name="toast_invalid_apiurl">Geçersiz API URL\'si</string>
   <string name="toast_invalid_object">Geçersiz nesne</string>
+  <string name="toast_using_gps_location">GPS/GNSS konumu kullanılıyor</string>
   <string name="toast_tags_copied">Etiket notpanosuna kopyalandı</string>
   <string name="toast_tags_cut">Etiket notpanosuna kesildi.</string>
   <!--Error messages-->
@@ -254,8 +287,15 @@
   <string name="back">Geri</string>
   <string name="forward">İleri</string>
   <string name="keep">Sakla</string>
+  <string name="enable">Etkinleştir</string>
   <string name="clear">Temizle</string>
   <!--Read a file-->
+  <string name="share">Paylaş</string>
+  <string name="share_on_openstreetmap">OpenStreetMap\'de paylaş</string>
+  <string name="min">Min.</string>
+  <string name="max">Maks.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">Hiçbiri</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vespucci\'den çıkış</string>
   <string name="exit_text">Gerçekten çıkmak istiyor musunuz?</string>
@@ -273,16 +313,22 @@
   <string name="tag_menu_reset_address_prediction">Adres tahminini sıfırla</string>
   <string name="tag_menu_exit_no_save">Kaydetmeden\nçık</string>
   <string name="tag_menu_delete_unassociated_tags">Atanmamış etiketler silindi</string>
+  <string name="tag_tap_to_edit_hint">Düzenlemek için dokun</string>
   <string name="tag_multi_value_hint">Çoklu değer</string>
   <string name="tag_dialog_value_hint">Değer için dokunun</string>
   <string name="tag_action_tag_title">Yafta(lar) seçildi</string>
+  <string name="tag_action_members_title">Üye(ler) seçildi</string>
+  <string name="tag_action_parents_title">İlişki(ler) seçildi</string>
   <string name="tag_details">Detaylar</string>
+  <string name="tag_menu_download">İndir</string>
   <string name="menu_up">Yukarı</string>
   <string name="menu_top">En üst</string>
   <string name="menu_preset_help">Öntanımlı yardımı</string>
   <string name="tag_menu_i18n">Dil etiketleri ekle</string>
   <string name="tag_restriction_header">Değer</string>
+  <string name="tag_restriction_and">ve</string>
   <string name="tag_restriction_add_restriction">Kısıtlama ekle</string>
+  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_untagged_element">Etiketsiz öğe</string>
   <!--Custom preset creation-->
   <!--Strings in Box/LocationPicker-->
@@ -324,13 +370,16 @@
   <string name="menu_openstreetbug">Not ekle</string>
   <string name="menu_easyedit">KolayDüzenle</string>
   <string name="menu_camera">Kamera</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Konumu göster</string>
   <string name="menu_gps_follow">Konumu takip et</string>
   <string name="menu_gps_goto_coordinates">Koordinatlara git…</string>
+  <string name="menu_gps_goto_last_edit">Son düzenlemeye git</string>
   <string name="menu_transfer">Aktarma...</string>
   <string name="menu_transfer_download_current">Şimdiki görünümü indir</string>
   <string name="menu_transfer_load_current">Geçerli görünümü yükle</string>
   <string name="menu_transfer_upload">Verileri OSM sunucusuna yükle</string>
+  <string name="menu_transfer_file">Dosya...</string>
   <string name="menu_transfer_bugs_upload">Tümünü yükle</string>
   <string name="menu_transfer_bugs_clear">Temizle</string>
   <string name="menu_save">Dosya olarak kaydet</string>
@@ -342,18 +391,28 @@
   <string name="menu_paste_tags">Etiketleri yapıştır</string>
   <string name="menu_paste_from_clipboard">Panodan yapıştır</string>
   <string name="menu_rotate">Döndür</string>
+  <string name="menu_orthogonalize">Kare</string>
   <string name="menu_circulize">Daire şeklinde düzenle</string>
   <string name="menu_split_polygon">Çokgenlere böl</string>
   <string name="menu_extend_selection">Seçimi uzat</string>
   <string name="menu_information">Bilgi</string>
   <string name="menu_voice_commands">Sesli komutlar</string>
+  <string name="menu_tools">Araçlar...</string>
   <string name="menu_tools_background_properties">Arka plan özellkleri</string>
   <!---->
   <string name="menu_simple_actions">Basit kip</string>
+  <string name="menu_privacy">Gizlilik</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Arka planı hizala</string>
   <string name="menu_tools_background_align_reset">Sıfırla</string>
   <string name="menu_tools_background_align_zero">Sıfır</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Veritabanından</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Cihazdan</string>
+  <string name="menu_tools_background_align_save_db">Veritabanına kaydet</string>
+  <string name="menu_tools_background_align_save_device">Cihaza kaydet</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f metre</string>
+  <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <!---->
   <string name="menu_tools_background_contrast">Karşıtlık</string>
@@ -367,12 +426,14 @@
   <string name="reverse_anyway">Yine de döndür</string>
   <string name="deletenode">Düğümü sil</string>
   <!--EasyEdit context menus-->
+  <string name="delete_note">Notu sil</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Yol seçildi</string>
   <string name="actionmode_nodeselect">Düğüm seçildi</string>
   <string name="actionmode_relationselect">İlişki seçildi</string>
   <string name="actionmode_createpath">Yol oluştur</string>
   <string name="actionmode_multiselect">Çoklu seçim</string>
+  <string name="actionmode_newnoteselect">Yeni Not seçildi</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">1.düğüm, bölünmüş kapalı yol</string>
   <string name="actionmode_closed_way_split_2">2. düğüm, Bölünmüş kapalı yol</string>
@@ -394,6 +455,7 @@
   <!--opening hours templates-->
   <string name="config_opening_hours_title">Açılış saatleri şablonları</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Yazarlar ve lisanslar</string>
   <string name="config_category_info">Hakkında</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
@@ -405,6 +467,7 @@
   <string name="config_map_orientation_title">Harita ekranı yönü</string>
   <string name="config_showTolerance_title">Toleransı göster</string>
   <string name="config_splitActionBarEnabled_title">Bölme eylem çubuğunu etkinleştir</string>
+  <string name="config_maxInlineValues_current">%1$d Değer</string>
   <string name="config_enableAntiAliasing_summary">Çizgileri pürüzsüz yapar.</string>
   <string name="config_maxStrokeWidth_title">Maks çizgi genişliği</string>
   <!--Data and Editing Settings-->
@@ -412,14 +475,21 @@
   <string name="config_enableNameSuggestions_title">İsim tavsiyelerini etkinleştir</string>
   <string name="config_generateAlerts_title">Uyarılar oluştur</string>
   <string name="config_generateAlerts_summary">Sorunlu ya da notlu veriler için bildirim oluştur</string>
+  <string name="config_groupAlertsOnly_title">Sadece grup alarmları</string>
+  <string name="config_notificationCacheSize_current">%1$d Bildirim</string>
   <string name="config_maxAlertDistance_title">Uyarılar için maks mesafe</string>
+  <string name="config_maxAlertDistance_current">%1$d metre</string>
   <string name="config_autoformatPhoneNumbers_summary">Telefon numaralarının otomatik biçimlendirilmesini etkinleştir</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Yarıçapı indir</string>
+  <string name="config_downloadRadius_current">%1$d metre</string>
   <string name="config_maxDownloadSpeed_title">Maksimum otomatik indirme hızı</string>
+  <string name="config_downloadSpeed_current">%1$d km/sa</string>
   <string name="config_panAndZoomLimit_title">Yakınlaştırma sınırı</string>
+  <string name="config_panAndZoomLimit_current">%1$d</string>
   <string name="config_bugFilter_title">Görev süzgeci</string>
   <!--Location Settings-->
+  <string name="config_gps_source_title">GPS/GNSS kaynağı</string>
   <string name="config_gps_source_tcp_title">NMEA ağ kaynağı</string>
   <!--Server Settings-->
   <string name="config_category_server">Sunucu ayarları</string>
@@ -427,13 +497,25 @@
   <string name="config_loginbutton_title">Kullanıcı hesabı</string>
   <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Karo önbellek boyutu</string>
+  <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Çeşitli</string>
+  <string name="pref_enable_acra">Uygulama çökmelerini bildir</string>
+  <string name="pref_acra_enabled">Çökme raporlaması açıldı</string>
+  <string name="pref_acra_disabled">Çökme raporlaması kapatıldı</string>
   <string name="config_showStats_title">İstatistikleri göster</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Deneysel</string>
+  <string name="config_js_console_title">JS konsolunu etkinleştir</string>
   <string name="config_voiceCommandsEnabled_title">Sesli komutları etkinleştir</string>
+  <string name="config_voiceCommandsEnabled_summary">Sesli komut desteğini etkinleştir.</string>
   <!---->
+  <string name="manage_apis">API\'leri yönet</string>
   <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">OAuth kullan</string>
+  <string name="listedit_enable_oauth">OAuth\'u etkinleştir</string>
+  <string name="config_username_title">OSM kullanıcı adı</string>
+  <string name="config_password_title">OSM şifresi</string>
   <string name="listedit_use_translations">Çevirileri kullan</string>
   <!--preset downloader messages-->
   <string name="preset_update">Öntanımlıyı güncelle</string>
@@ -514,6 +596,12 @@
   <string name="alert_data_issue">OSM veri hatası tespit edildi</string>
   <string name="alert_note">Yakın OSM notu tespit edildi</string>
   <string name="alert_bug">Yakın OSM böcek\'i tespit edildi</string>
+  <string name="bearing_ne">NE ↗</string>
+  <string name="bearing_e">E →</string>
+  <string name="bearing_se">SE ↘</string>
+  <string name="bearing_w">W ←</string>
+  <string name="bearing_nw">NW ↖</string>
+  <string name="bearing_n">N ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">Görev</string>
   <string name="role_lc">Görev</string>
@@ -528,6 +616,30 @@
   <string name="delete_from_relation_description">İlişkiden bir unsur silmek üzeresiniz.</string>
   <string name="unset_relation_type">Kurulmamış ilişki türü</string>
   <!--time and distance-->
+  <plurals name="days">
+    <item quantity="one">1 gün</item>
+    <item quantity="other">%1$d gün</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 saat</item>
+    <item quantity="other">%1$d saat</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 dakika</item>
+    <item quantity="other">%1$d dakika</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 saniye</item>
+    <item quantity="other">%1$d saniye</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 km</item>
+    <item quantity="other">%1$d km</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 metre</item>
+    <item quantity="other">%1$d metre</item>
+  </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Burada yardım yok</string>
   <!--Arrays-->
@@ -551,6 +663,20 @@
   <string-array name="note_state">
     <item>Açık</item>
     <item>Kapalı</item>
+  </string-array>
+  <string-array name="maproulette_state">
+    <item>Açık</item>
+    <item>Kapalı</item>
+    <item>Yanlış pozitif</item>
+    <item>Atlandı</item>
+    <item>Silindi</item>
+    <item>Zaten çözüldü</item>
+    <item>Çok zor</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Sol</item>
+    <item>Sağ</item>
+    <item>Hiçbiri</item>
   </string-array>
   <!--The entries need to match the order of the CheckStatus enum-->
 </resources>
