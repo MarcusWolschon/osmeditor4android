@@ -6,7 +6,14 @@ file_filter = src/main/res/values-<lang>/strings.xml
 lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw 
 source_file = src/main/res/values/strings.xml
 source_lang = en
-minimum_perc = 5
+minimum_perc = 50
+
+[vespucci.string-arraysxml]
+file_filter = src/main/res/values-<lang>/string-arrays.xml
+lang_map = cs: cs-rCZ, zh_TW: zh-rTW, zh_HK: zh-rHK, pt_BR: pt-rBR, zh_CN: zh-rCN, sv_SE: sv-rSE, id: in, he: iw 
+source_file = src/main/res/values/string-arrays.xml
+source_lang = en
+minimum_perc = 100
 
 [vespucci.addresstagsxml]
 file_filter = src/main/res/values-<lang>/addresstags.xml
