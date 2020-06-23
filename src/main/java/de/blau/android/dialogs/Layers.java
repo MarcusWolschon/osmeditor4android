@@ -374,7 +374,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         visible.setPadding(0, 0, Density.dpToPx(context, 5), 0);
         visible.setOnClickListener(v -> {
             if (layer != null) {
-                layer.setVisible(!layer.isVisible());
+                setVisibility(context, layer, !layer.isVisible());
                 visible.setImageResource(layer.isVisible() ? visibleId : invisibleId);
                 layer.invalidate();
             }
@@ -400,7 +400,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         ((Main) getActivity()).setFollowGPS(false);
                     }
                     logic.updateStyle();
-                    layer.setVisible(true);
+                    setVisibility(context, layer, true);
                     visible.setImageResource(visibleId);
                     map.invalidate();
                 }
@@ -802,6 +802,20 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         }
 
         setPrefs(activity, prefs);
+    }
+
+    /**
+     * Set layer visibility
+     * 
+     * @param context an Android Context
+     * @param layer the layer
+     * @param visible the value to set
+     */
+    private void setVisibility(@NonNull Context context, @NonNull MapViewLayer layer, boolean visible) {
+        try (AdvancedPrefDatabase db = new AdvancedPrefDatabase(context)) {
+            layer.setVisible(visible);
+            db.setLayerVisibility(layer.getIndex(), visible);
+        }
     }
 
     /**
