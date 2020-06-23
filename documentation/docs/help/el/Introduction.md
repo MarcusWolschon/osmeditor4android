@@ -1,10 +1,10 @@
 # Εισαγωγή στο Vespucci
 
-Το Vespucci είναι ένας πλήρως εξοπλισμένος επεξεργαστής OpenStreetMap που υποστηρίζει τις περισσότερες λειτουργίες που παρέχουν οι επεξεργαστές στους επιτραπέζιους υπολογιστές. Έχει δοκιμαστεί με επιτυχία στο Android 2.3 έως 7.0 της Google και διάφορες παραλλαγές που βασίζονται στο AOSP. Προσοχή: ενώ οι δυνατότητες των κινητών συσκευών έχουν φτάσει τους ανταγωνιστές τους, τους επιτραπέζιους υπολογιστές, οι παλαιότερες συσκευές έχουν πολύ περιορισμένη μνήμη και τείνουν να είναι κάπως αργές. Θα πρέπει να το λάβετε αυτό στο λογαριασμό όταν χρησιμοποιείτε το Vespucci και να κρατήσετε, για παράδειγμα, τις περιοχές που επεξεργάζεστε σε ένα λογικό μέγεθος. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Πρώτη χρήση
 
-Κατά την εκκίνηση το Vespucci σας εμφανίζει το παράθυρο διαλόγου "Λήψη άλλης τοποθεσίας"/"Φόρτωση Περιοχής". Αν προβάλλετε τις συντεταγμένες και θέλετε να κατεβάσετε απευθείας, μπορείτε να κάνετε την κατάλληλη επιλογή και να ρυθμίσετε την ακτίνα γύρω από την τοποθεσία που θέλετε να κατεβάσετε. Μην επιλέγετε μεγάλες περιοχές σε αργές συσκευές. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 Εναλλακτικα μπορείτε να κλείσετε το παράθυρο πατώντας το κουμπί "Μετάβαση στον χάρτη" και να μετακινήσετε και να εστιάσετε σε μια τοποθεσία που θέλετε να επεξεργαστείτε και να κατεβάσετε τότε τα δεδομένα (δείτε παρακάτω: "Επεξεργασία με το Vespucci").
 
@@ -21,7 +21,8 @@
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -213,12 +214,14 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 
 Οι εισαγωγές επανεξέτασης έχουν τις εξής ιδιότητες:
 
-* **Κλειδί** - Το κλειδί της ετικέτας ενδιαφέροντος.
-* **Τιμή** - Η τιμή της ετικέτας ενδιαφέροντος που θα πρέπει να έχει, αν είναι άδεια η τιμή της ετικέτας τότε θα αγνοηθεί.
-* **Ηλικία** - πόσες ημέρες μετά την τελευταία αλλαγή του στοιχείου, θα πρέπει το στοιχείο να επανεξεταστεί, αν υπάρχει πεδίο έλεγχος_ημερομηνίας αυτό θα χρησιμοποιηθεί, αλλιώς θα χρειαστεί να δημιουργηθεί η ημερομηνία της τρέχουσας έκδοσης. Ο ορισμός της τιμής στο μηδέν θα οδηγήσει στον έλεγχο που ταιριάζει απλά με το κλειδί και την τιμή.
-* **Κανονική έκφραση** - αν είναι επιλεγμένη η **Τιμή** θεωρείται κανονική έκφραση JAVA.
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **Κλειδί** και **Τιμή** ελέγχονται έναντι των _υπαρχόντων_ ετικετών του αντικειμένου στην ερώτηση.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Έλεγχος καταχωρήσεων
 

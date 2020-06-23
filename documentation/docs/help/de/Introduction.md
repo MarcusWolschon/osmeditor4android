@@ -4,9 +4,9 @@ Vespucci ist ein vollwertiger OpenStreetMap-Editor, der die meisten Funktionen v
 
 ## Erstmaliger Gebrauch
 
-Beim Start Vespucci prüft die notwendigen Rechte, sendet eine Begrüßungsmeldung  und zeigt ein Dialog zum "Download andere Orte"/"Load Region" an. Wenn Koordinate angezeigt sind und du möchtest sofort herunterladen, du kannst die passende Option selektieren und das gewünschte eingeben vom Ort, aus dem du herunterladen willst. Auf langsamen Geräten sollte keine große Region selektiert werden.   
+Beim ersten Start zeigt Vespucci den Dialog "Herunterladen einer anderen Position"/"Bereich laden" an, nachdem eine Begrüßung angezeigt und die notwendigen Rechte abgefragt wurden. Wenn Koordinaten angezeigt werden und Sie den Download sofort beginnen wollen, können Sie die passende Option wählen und den Radius rund um den Ort festlegen, der heruntergeladen werden soll. Auf langsamen Geräten sollte kein großer Bereich ausgewählt werden.   
 
-Alternativ kann das Formular mit "Zur Karte" geschlossen und direkt zur Karte gewechselt werden, hier das Gebiet, das bearbeitet werden soll, herangezoomt und dann die Daten dazu geladen werden (siehe unten "Mit Vespucci OSM-Daten bearbeiten").
+Alternativ kann der Dialog mit "Zur Karte" geschlossen und direkt zur Karte gewechselt werden, hier das Gebiet, das bearbeitet werden soll, herangezoomt und dann die Daten dazu geladen werden (siehe unten "Mit Vespucci OSM-Daten bearbeiten").
 
 ## Mit Vespucci OSM-Daten bearbeiten
 
@@ -18,13 +18,13 @@ Abhängig von der Bildschirmgröße und dem Alter des Gerätes sind die Bearbeit
 
 Entweder das Icon zur Übertragung ![Transfer](../images/menu_transfer.png) oder den Menüeintrag "Übertragen" wählen. Danach werden sieben Optionen zur Auswahl angezeigt:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Aktuelle Ansicht herunterladen** - Gebiet der aktuellen Bildschirmansicht herunterladen und mit den existierenden Daten zusammenführen *(erfordert Netzwerkverbindung)*
+* **Löschen und aktuelle Ansicht herunterladen** - Alle Daten im Speicher löschen und dann die aktuelle Bildschirmansicht herunterladen *(erfordert Netzwerkverbindung)*
+* **Daten zum OSM-Server hochladen** - Bearbeitungen an OpenStreetMap übertragen *(erfordert Authentifikation)* *(erfordert Netzwerkverbindung)*
+* **Auto-Download nach Standort** - Automatisch ein Gebiet rund um den aktuellen geographischen Standort herunterladen *(erfordert Netzwerkverbindung oder Offline-Daten)* *(erfordert GPS)*
+* **Auto-Download nach aktueller Ansicht** - Automatisch das momentan auf dem Bildschirm angezeigte Gebiet herunterladen *(erfordert Netzwerkverbindung oder Offline-Daten)* *(erfordert GPS)*
+* **Datei...** - OSM-Daten aus Gerätedateien laden oder in sie speichern.
+* **Notiz/Fehler...** - OSM-Hinweise und "Fehler" aus der Qualitätssicherung (momentan OSMOSE) herunterladen (automatisch oder manuell) *(erfordert Netzwerkverbindung)*
 
 Um Daten auf dem Gerät zu öffnen, ist es am einfachsten, mit Gesten den Bildschirm auf das gewünschte Gebiet zu zentrieren und dann im Menü "Aktuelle Ansicht herunterladen" anzuwählen. Der Zoom kann mit Gesten, den Zoom-Schaltflächen oder den Lautstärketasten bedient werden. Vespucci sollte dann das Gebiet herunterladen. Um Daten herunterzuladen, muss man nicht angemeldet sein.
 

@@ -1,10 +1,10 @@
 # Vespucci bevezetés
 
-A Vespucci egy teljes körű OpenStreetMap-szerkesztő, amely támogatja a legtöbb olyan műveletet, amelyet asztali gépen futó szerkesztőkkel el lehet végezni. Sikeresen tesztelték a Google Android 2.3–7.0 verzióin és különféle AOSP változatokon. Egy kis figyelmeztetés: a mobileszközök képességei ugyan utolérték az asztali versenytársaikéit, ám elsősorban a régebbi eszközök rendelkezésre álló memóriája korlátozott, ezért előfordulhat, hogy lassúak. A Vespucci használatánál ezt figyelembe kell venni, és például célszerű a szerkesztendő területet észszerű méretek között tartani. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Első használat
 
-Indításkor a Vespucci a „Más helyszín letöltése” / „Terület betöltése” párbeszédet mutatja. Ha megjelentek a koordináták, és azonnal szeretné letölteni, kiválaszthatja a megfelelő opciót, és kijelölheti a helyszín körüli letöltendő terület sugarát. Lassú eszközön ne jelöljön ki nagy területet. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 Másrészt be is zárhatja a párbeszédet az „Ugrás a térképre” gomb megnyomásával, majd a térképen a szerkesztendő területre nagyíthat, és letöltheti az adatokat (lásd lejjebb: „Szerkesztés a Vespuccival”).
 
@@ -21,7 +21,8 @@ Jelölje ki vagy az átvitel ikont ![Transfer](../images/menu_transfer.png) vagy
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -123,11 +124,11 @@ Másolhatja és kivághatja a kiválasztott pontokat és vonalakat, aztán egysz
 
 #### Címek hatékony hozzáadása
 
-Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
+A Vespucci rendelkezik egy ![Address](../images/address.png) „címcímkék hozzáadása” funkcióval, amely az adott házszám kitalálásával megpróbálja hatékonyabbá tenni a címek felmérést. Így jelölhető ki:
 
-* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* hosszú nyomás után (_egyszerű módban nem): a Vespucci elhelyez egy pontot az adott helyen, megpróbálja a lehető legjobban kitalálni a házszámot, és hozzáadja az utóbbi időben használ címcímkéket. Ha a pont egy épület kontúrján van, akkor automatikusan kap egy „entrance=yes” címkét is. Megnyílik a címkeszerkesztő és így lehetővé válik a további módosítások elvégzése.
+* a kijelölt pont/vonal módban: a Vespucci a fent leírt módon hozzáadja a címcímkéket és elindítja a címkeszerkesztőt
+* a tulajdonságszerkesztőben.
 
 A házszámok becslésének működéséhez jellemzően legalább két házszám szükséges az út két oldalán, minél több szám szerepel az adatokban, annál jobb.
 
@@ -205,7 +206,7 @@ A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiv�
 
 ### Ellenőrzések beállítása
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+Jelenleg két konfigurálható ellenőrzés van (nem konfigurálható a FIXME címkék ellenőrzése és a kapcsolatokról hiányzó type címkék ellenőrzése), mindkettő a Beállítások > Érvényesítő beállításai menöben állítható be. 
 
 A bejegyzések listája két részre van osztva, a felső része az „újbóli felmérési” bejegyzéseket tartalmazza, az alsó rész pedig az „ellenőrzési bejegyzéseket”. A bejegyzések koppintással szerkeszthetőek, és a zöld menügombbal adhatóak hozzá új bejegyzések.
 
@@ -213,12 +214,14 @@ A bejegyzések listája két részre van osztva, a felső része az „újbóli 
 
 Az újbóli felmérési bejegyzések a következő tulajdonságokkal rendelkeznek:
 
-* **Kulcs** – A kérdéses címke kulcs.
-* **Érték** – Az érték, amellyel a kérdéses címkének rendelkeznie kell, ha üres, akkor figyelmen kívül lesz hagyva.
-* **Kor** – az elem hány napi változatlansága esetén kell újra felmérni, ha a check_date mező meg van adva, akkor az lesz használva, egyébként a jelenlegi verzió létrehozási dátuma. Az érték nullára állítása esetén egy egyszerű kulcs és érték összehasonlítást eredményez.
-* **Reguláris kifejezés** – ha be van kapcsolva, akkor az **Érték** JAVA reguláris kifejezésnek lesz tekintve.
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 A **Kulcs** és az **Érték** a _meglévő_ címkékkel lesz összehasonlítva a kérdéses objektumon.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Bejegyzések ellenőrzése
 

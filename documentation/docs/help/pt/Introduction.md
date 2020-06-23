@@ -1,10 +1,10 @@
 # Introdução ao Vespucci
 
-O Vespucci é um editor dedicado ao OpenStreetMap que suporta a maioria das operações que os editores de computadores proporcionam. Foi testado com sucesso nas versões Android 2.3 até à 7.0 e várias outras variantes do Android Open Source Project. A ter em conta: apesar das capacidades dos dispositivos móveis se terem aproximado aos computadores, os dispositivos mais antigos possuem uma capacidade de memória limitada e tendem a ser lentos. Deve ter isto em conta quando está a utilizar o Vespucci e deve ter em atenção a dimensão da área que está a editar, para que seja uma área com uma dimensão razoável e não demasiado grande. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Primeira Utilização
 
-Ao iniciar o Vespucci, é mostrada a janela "Descarregar outra localização"/"Carregar Área". Se tiver as coordenadas a serem mostradas e quiser descarregar de imediato, pode selecionar a opção apropriada e selecionar o raio à volta da localização que quer descarregar. Não é recomendável descarregar áreas grandes em dispositivos lentos/antigos. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 Como alternativa, pode fechar a janela tocando no botão "Ir para o mapa", deslocar e aproximar numa localização que quer editar e descarregar os dados (ver abaixo"Editar no Vespucci").
 
@@ -21,7 +21,8 @@ Selecione o ícone de transferir  ![Transferir](../images/menu_transfer.png) ou 
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -215,12 +216,14 @@ A lista de entradas está dividida em duas, a primeira metade mostra entradas de
 
 O levantamento possui as seguintes propriedades:
 
-* **Chave** - Chave da etiqueta de interesse.
-* **Valor** - Valor que a etiqueta de interesse deve ter, se estiver vazia o valor da chave será ignorado.
-* **Idade** - quantos dias, após a última alteração ao elemento, devem passar para que o elemento seja novamente verificado no terreno. Se estiver presente o campo check_date este será utilizado, caso contrário será a data da versão atual. Definir o valor a zero irá levar a que a verificação simplesmente corresponda com a chave e o valor.
-* **Expressão regular** - se **Valor** estiver ativo, é asumido que seja uma expressão regular em JAVA.
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **Chave** e **Valor** são verificados de acordo com as etiquetas _existentes_ do objeto em questão.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Verificar entradas
 

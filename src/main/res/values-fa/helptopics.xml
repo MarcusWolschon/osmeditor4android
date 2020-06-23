@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="help_app_label">Vespucci\nراهنما</string>
+    <string name="help_app_label">راهنمای\nVespucci</string>
     <string name="help_title">راهنما: %1$s</string>
     <string name="help_introduction">معرفی</string>
     <string name="help_main">نمای اصلی نقشه</string>
-    <string name="help_simple_actions">کنش‌های آسان</string>
+    <string name="help_simple_actions">کنش‌های ساده</string>
     <string name="help_addrelationmember">انتخاب رابطه</string>
-    <string name="help_multiselect">انتخاب چندگانه</string>
+    <string name="help_multiselect">انتخاب چندتایی</string>
     <string name="help_longclick">ایجاد اشیاء جدید</string>
     <string name="help_nodeselection">انتخاب گره</string>
     <string name="help_pathcreation">ایجاد اشیاء جدید</string>
@@ -20,8 +20,8 @@
     <string name="help_conflictresolution">حل تداخل</string>
     <string name="help_gpssources">منابع GPS</string>
     <string name="help_keyboard">صفحه‌کلید</string>
-    <string name="help_tagfilter">پالایش تگ</string>
-    <string name="help_presetfilter">پالایش پیش‌تنظیم</string>
+    <string name="help_tagfilter">پالایش با تگ</string>
+    <string name="help_presetfilter">پالایش با پیش‌تنظیم</string>
     <string name="help_opening_hours">ساعت‌های کاری</string>
     <string name="help_newnoteselection">انتخاب یادداشت تازه</string>
     <string name="help_voice_commands">فرمان‌های صوتی</string>

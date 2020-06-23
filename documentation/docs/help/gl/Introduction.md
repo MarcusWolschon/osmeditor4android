@@ -1,10 +1,10 @@
 # Introdución ó Vespucci
 
-O Vespucci é un editor do OpenStreetMap con tódalas funcións que admite a maioría das operacións que fornecen os editores de escritorio. Foi probado con éxito no Android de Google 2.3 a 7.0 e varias variantes baseadas na AOSP. Un consello: mentres que as capacidades do dispositivo móbil atópanse cos seus rivais de escritorio, de xeito especial os dispositivos máis antigos teñen a memoria moi limitada dispoñíbel e adoitan ser moi lentos. Debe ter en conta isto cando empregue o Vespucci e manteña, por exemplo, as áreas que estás a editar nun tamaño razoábel. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Empregar por primeira vez
 
-No inicio do Vespucci amosa o cadro do diálogo "Baixar noutra localización"/"Carregar área". Se vostede ten as coordenadas que se amosan e desexa baixar de xeito inmediato, pode escolle-la opción axeitada e inseri-lo raio ó redor da localización que desexa baixar. Non escolla unha área ampla nos dispositivos máis lentos. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 De xeito alternativo, pode pecha-lo diálogo premendo o botón "Ir ó mapa" e afastar ou achegar cara unha localización onde desexe editar e baixa-los datos (ollar máis adiante: "Edición co Vespucci").
 
@@ -21,7 +21,8 @@ Selecciona a icona de transferencia! [Transfer](../images/menu_transfer.png) ou 
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -215,10 +216,12 @@ Re-survey entries have the following properties:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
 * **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Comprobar entradas
 

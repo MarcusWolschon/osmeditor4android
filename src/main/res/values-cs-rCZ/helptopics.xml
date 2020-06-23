@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Nápověda\nVespucci</string>
+    <string name="help_title">Nápověda: %1$s</string>
     <string name="help_introduction">Úvod</string>
     <string name="help_main">Hlavní obrazovka s mapou</string>
     <string name="help_simple_actions">Jednoduché akce</string>
@@ -23,6 +25,8 @@
     <string name="help_opening_hours">Otevírací hodiny</string>
     <string name="help_newnoteselection">Nová poznámka vybrána</string>
     <string name="help_voice_commands">Hlasové povely</string>
+    <string name="help_upgrade">14.1 Poznámky k vydání</string>
+    <string name="help_upgrade_140">14.0 Poznámky k vydání</string>
     <string name="help_upgrade_131">13.1 Poznámky k vydání</string>
     <string name="help_upgrade_130">13.0 Poznámky k vydání</string>
     <string name="help_upgrade_121">12.1 Poznámky k vydání</string>

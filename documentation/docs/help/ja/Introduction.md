@@ -1,10 +1,10 @@
 # Vespucci の導入
 
-Vespucci は、デスクトップエディタが提供する大半の機能をサポートする、フル機能の OpenStreetMap エディタです。Google の Android 2.3 から 7.0 と AOSP ベースの派生物でうまくテストされています。注意事項：モバイルデバイスの性能はデスクトップに追いついていますが、特に古いデバイスではメモリが限られており、かなり遅くなる傾向にあります。Vespucci を使用する際にはこれを念頭に置き、編集するエリアを適切なサイズに保つなどしてください。 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## 初回の使用
 
-Vespucci 起動時に、Download other location"/"Load Area"ダイアログを表示します。表示された座標をすぐにダウンロードする場合は、適切なオプションを選択し、ダウンロードする場所の半径を設定します。遅いデバイスでは広いエリアを選択しないでください。 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 または「地図を表示」ボタンを押してダイアログを無視し、パンしたりズームして編集・ダウンロードしたい位置に移動できます(下記参照: 「Vespucciでの編集」).
 
@@ -21,7 +21,8 @@ Vespucci 起動時に、Download other location"/"Load Area"ダイアログを�
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -216,10 +217,12 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
 * **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### エントリーのチェック
 

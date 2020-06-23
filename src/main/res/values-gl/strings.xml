@@ -7,14 +7,14 @@
   <string name="mode_correct">Modo-C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Coidado!</string>
-  <string name="transfer_download_current_dialog_message">Fixeches unhas mudanzas. Queres subilas en troques de desbotalas?</string>
+  <string name="transfer_download_current_dialog_message">Fixeches unhas modificacións. Queres subilas no canto de desbotalas?</string>
   <string name="transfer_download_current_upload">Subir</string>
   <string name="transfer_download_current_download">Desbotar e baixar</string>
   <string name="transfer_download_current_back">Voltar (non fagas ren)</string>
   <string name="upload_problem_title">Non se puido subir</string>
   <string name="upload_problem_message">Algúns ou todos os datos non foron subidos. Téntao de novo máis tarde.</string>
   <string name="bad_request_message">A API respostou cun erro, garde os seus datos e informe do problema:\n\n</string>
-  <string name="upload_conflict_title">Conflito en subida</string>
+  <string name="upload_conflict_title">Conflito na subida</string>
   <string name="upload_conflict_message_version">%1$s \nten a versión local %2$d \ne o servidor %3$d</string>
   <string name="upload_conflict_message_deleted">%1$s \nten unha versión en local %2$d \ne foi eliminado no servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfoi eliminado de xeito local \nmais ten referencias no servidor</string>
@@ -31,12 +31,13 @@
   <string name="wrong_login_data_re_authenticate">Autenticar de novo</string>
   <string name="forbidden_login_title">Acceso prohibido</string>
   <string name="not_found_title">Elemento non atopado</string>
-  <string name="not_found_message">A API non conseguiu atopar o elemento ou conxunto de mudanzas existente co ID especificado.&lt;br&gt;&lt;br&gt;</string>
+  <string name="not_found_message">A API non conseguiu atopar o elemento ou conxunto de modificacións existente co ID especificado.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Erro descoñecido</string>
   <string name="unknown_error_message">A mensaxe ou código de erro fornecido pola API non puideron ser procesados.&lt;br&gt;&lt;br&gt;</string>
   <string name="no_data_title">Sen datos</string>
   <string name="no_data_message">A fonte de datos configurada non ten datos nesta localización.</string>
   <string name="required_feature_missing_title">Compoñente descoñecido ou desactivado</string>
+  <string name="required_feature_missing_message">Esta funcionalidade depende dun compoñente do sistema faltante ou desactivado.</string>
   <string name="go_to_openstreetmap">Ir ó openstreetmap.org</string>
   <string name="data_conflict_title">Conflito de versión</string>
   <string name="data_conflict_message">Os datos baixados entrarían en conflito coas túas edicións. Por favor sube os teus datos antes de tentalo de novo.</string>
@@ -80,16 +81,16 @@
   <string name="changes_deleted">\"%1$s\" eliminado</string>
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
-  <string name="confirm_upload_title">Subir mudanzas</string>
+  <string name="confirm_upload_title">Subir modificacións</string>
   <plurals name="confirm_upload_text">
-    <item quantity="one">Enviar esta mudanza?</item>
-    <item quantity="other">Enviar estas %1$d mudanzas?</item>
+    <item quantity="one">Subir esta modificación?</item>
+    <item quantity="other">Subir estas %1$d modificacións?</item>
   </plurals>
-  <string name="confirm_upload_edits_page">Mudanzas</string>
+  <string name="confirm_upload_edits_page">Modificacións</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fonte:</string>
-  <string name="upload_close_open_changeset_label">Pecha primeiro o conxunto de mudanzas aberto:</string>
-  <string name="upload_close_changeset_label">Pechar conxunto de mudanzas:</string>
+  <string name="upload_close_open_changeset_label">Pecha primeiro o conxunto de modificacións aberto:</string>
+  <string name="upload_close_changeset_label">Pechar conxunto de modificacións:</string>
   <string name="upload_request_review_label">Pedir para revisión:</string>
   <!---->
   <string name="upload_gpx_description_label">Descrición</string>
@@ -104,8 +105,8 @@
   <string name="openstreetbug_new_nodeway">Crear nó/vía</string>
   <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
-  <string name="openstreetbug_commit_ok">Mudanzas da tarefa gardadas</string>
-  <string name="openstreetbug_commit_fail">Non foi posíbel gardar as mudanzas da tarefa</string>
+  <string name="openstreetbug_commit_ok">Modificacións da tarefa gardadas</string>
+  <string name="openstreetbug_commit_fail">Non foi posíbel gardar as modificacións da tarefa</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarefa descoñecida</string>
   <string name="openstreetbug_not_supported">%1$s non está suportado.</string>
   <string name="note_description">Nota: %1$s - %2$s</string>
@@ -128,7 +129,7 @@
   <string name="maproulette_task_no_apikey">Sen chave da API do MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Coidado!</string>
-  <string name="unsaved_data_message">As túas mudanzas non guardadas serán desbotadas se continúas.</string>
+  <string name="unsaved_data_message">As túas modificacións non gardadas serán desbotadas se continúas.</string>
   <string name="unsaved_data_proceed">Desbotar e continuar</string>
   <!--Imagery offset dialog-->
   <string name="imagery_offset_title">Desprazamento das imaxes</string>
@@ -147,10 +148,12 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Esta suxestión pode substituír algúns valores de etiquetas por outras máis populares.</string>
   <string name="search_results_title">Resultados da procura</string>
   <string name="search_online">Procurar en liña</string>
-  <string name="find_message">Insira a cadea de procura</string>
+  <string name="find_message">Insire a cadea de procura</string>
   <string name="geocoder_prompt">con</string>
   <string name="geocoder_limit_label">na vista</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Procurar por obxectos</string>
+  <string name="search_objects_hint">Insire unha expresión de filtro/procura do JOSM</string>
   <!---->
   <string name="preset_search_hint">Cadea de procura predefinida</string>
   <string name="preset_autopreset">Predefinido automático</string>
@@ -180,7 +183,11 @@
   <string name="feature_information">Información de elementos GeoJSON</string>
   <string name="copy_properties">Copiar propriedades</string>
   <!--API/Data layer info dialog-->
+  <string name="total">Total</string>
+  <string name="changed">Mudado</string>
+  <string name="ways">Vías</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Atribución</string>
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Advertencia</string>
@@ -197,8 +204,8 @@
   <string name="send_debug_information">Enviar información de depuración</string>
   <!--JS console dialog-->
   <string name="evaluate">Avaliar</string>
-  <string name="js_console_msg_live">Modo en directo!</string>
-  <string name="js_console_msg_debug">Modo correxir erros!</string>
+  <string name="js_console_msg_live">Modo ao vivo!</string>
+  <string name="js_console_msg_debug">Modo de depuración!</string>
   <string name="js_console_input_hint">Insire o JavaScript aquí</string>
   <string name="js_console_output_hint">A saída aparecerá aquí</string>
   <!--Validator dialogs-->
@@ -259,6 +266,14 @@
   <string name="layer_flush_tile_cache">Limpa-la caché das teselas</string>
   <string name="layer_change_style">Mudar estilo</string>
   <string name="layer_select_imagery">Escoller imaxes</string>
+  <string name="layer_category_all">Todo</string>
+  <string name="layer_category_photo">Imaxes aéreas</string>
+  <string name="layer_category_historicphoto">Imaxes aéreas desactualizadas</string>
+  <string name="layer_category_map">Mapa</string>
+  <string name="layer_category_historicmap">Mapa desactualizado</string>
+  <string name="layer_category_osmbasedmap">Mapa baseado no OSM</string>
+  <string name="layer_category_qa">Cuestións e respostas</string>
+  <string name="layer_category_other">Outros</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Achegamento mín.</string>
   <string name="layer_info_max_zoom">Achegamento máx.</string>
@@ -278,10 +293,14 @@
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
   <string name="undo_redo_title">Desfacer - refacer</string>
-  <string name="undo_redo_one">Só a mudanza selecionada (non seguro)</string>
+  <string name="undo_redo_one">Só a modificación selecionada (non seguro)</string>
   <string name="undo_all">Desfacer tódolos puntos de control posteriores (seguro)</string>
   <string name="redo_all">Refacer tódolos puntos de control anteriores (seguro)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_title">A localización que se quere desfacer non está á vista</string>
+  <string name="undo_location_text">A localización que se verá afectada polo proceso de desfacer non está á vista.</string>
+  <string name="undo_location_undo_anyway">Desfacer de todos xeitos</string>
+  <string name="undo_location_zoom">Achegar á localización e entón desfacer</string>
   <!--Feedback activity-->
   <string name="feedback_with_displayname">Enviar co teu nome visíbel do OpenStreetMap</string>
   <string name="feedback_displayname_hint">O teu nome visíbel do OpenStreetMap aínda non foi obtido</string>
@@ -292,19 +311,26 @@
   <string name="clear_track_description">Deter a gravación e eliminar puntos da pista. Isto non pode ser desfeito.</string>
   <!--Tips-->
   <string name="tip_title">Sabías que?</string>
+  <string name="tip_check_label">Deixar de amosar consellos opcionais</string>
+  <string name="tip_pan_and_zoom_auto_download">A descarga automática co movemento ten que empregarse con coidado, xa que pode danar de xeito severo tanto as API do OpenStreetMap coma o teu dispositivo.&lt;p&gt;A carga nos servidores da API pode ser
+evitada empregando unha fonte de datos sen conexión.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">Predeterminado do Vespucci</string>
+  <string name="default_channel_description">Canle de notificación predeterminada</string>
   <string name="qa_channel_name">Vespucci QA</string>
+  <string name="qa_channel_description">Canle de cuestións e respostas para problemas cos datos e tarefas</string>
   <!--Toaster-->
+  <string name="toast_permission_denied">Permiso denegado %1$s</string>
   <string name="toast_name_empty">Escolle un nome</string>
   <string name="toast_url_empty">Insire unha URL</string>
   <string name="toast_min_zoom">Estabelecer o achegamento mínimo máis baixo que o máximo</string>
   <string name="toast_no_changes">Aínda non mudou ren...</string>
-  <string name="toast_unsaved_changes">Envia primeiro as túas mudanzas sen gardar.</string>
-  <string name="clear_anyway">Eliminar de todos xeitos?</string>
+  <string name="toast_unsaved_changes">Sube primeiro as túas modificacións sen gardar.</string>
+  <string name="clear_anyway">Limpar de todos xeitos?</string>
   <string name="toast_upload_success">Subido ó servidor do OSM.</string>
   <string name="toast_not_in_edit_range">Por favor, achega o mapa para editar (Volume ↑/↓ ou lens/shift)</string>
   <string name="toast_unlock_to_edit">Desbloquear a edición</string>
@@ -335,7 +361,7 @@
   <string name="toast_unconnected_end_node">O nó está preto dun elemento ó cal podería estar conectado.</string>
   <string name="toast_degenerate_way">Degenerar vía</string>
   <!---->
-  <string name="toast_oauth_retry">Proba a subir novamente após autorizar o acesso OAuth á túa conta no OpenStreetMap.</string>
+  <string name="toast_oauth_retry">Proba a subir novamente após autorizar o acesso OAuth á túa conta do OpenStreetMap.</string>
   <string name="toast_oauth">Por favor permite o acceso de OAuth á túa conta de OSM.</string>
   <string name="toast_no_oauth">Non hai dispoñibilidade de configuración OAuth para a API actual, por favor, configure o inicio de sesión e o contrasinal.</string>
   <string name="toast_oauth_not_enabled">OAuth non está habilitado para a API actual.</string>
@@ -357,32 +383,45 @@
   <string name="toast_inconsistent_state">Detectado un estado inconsistente. Por favor envia un reporte do erro.</string>
   <string name="toast_camera_error">Non foi posíbel iniciar a aplicación da cámara: %1$s</string>
   <string name="toast_no_voice">Sen aplicación de recoñecemento de voz</string>
+  <string name="toast_storage_error">%1$s non pode ser gravado polo Vespucci.\nIsto pode ser un problema de permisos ou un problema técnico do teu dispositivo.</string>
   <string name="toast_no_suitable_storage">O sistema non devolveu unha localización axeitada para a base de datos das teselas.</string>
   <string name="toast_min_one_preset">Ten que escollerse polo menos un predefinido!</string>
   <string name="toast_min_one_geocoder">Hai que seleccionar polo menos un geocoder!</string>
+  <string name="toast_used_backup">O ficheiro de estado está danado, empregada unha copia de seguranza.</string>
+  <string name="toast_used_bug_backup">O ficheiro de estado de erro está danado, empregada unha copia de seguranza.</string>
   <string name="toast_split_from">Dividir \"dende\" vía</string>
   <string name="toast_split_via">Dividir \"via\" camiño</string>
   <string name="toast_split_from_and_via">Dividir \"dende\" a \"via\" camiños</string>
   <string name="toast_split_to">Dividir \"a\" vía</string>
   <string name="toast_tile_database_issue_short">Problema ca base de datos das teselas</string>
+  <string name="toast_tile_database_issue">Ocorreu un erro grave na base de datos das teselas do mapa\n\"%1$s\"\nPor favor consulta as cuestións frecuentes en https://vespucci.io/</string>
   <string name="toast_invalid_apiurl">Inválida API URL</string>
   <string name="toast_invalid_readonlyurl">Invalida só lectura API URL</string>
+  <string name="toast_invalid_notesurl">URL da API das notas non válida</string>
+  <string name="toast_invalid_preseturl">URL dos modelos de etiquetas non válida</string>
   <string name="toast_invalid_filter_regexp">Invalid regular expression in filter with key=\"%1$s\" value=\"%2$s\"</string>
+  <string name="toast_error_accessing_photo">Non foi posíbel acceder á imaxe %1$s</string>
+  <string name="toast_security_error_accessing_photo">Non permitido acceder á imaxe %1$s</string>
   <string name="toast_no_coverage">%1$s non ten cobertura aquí</string>
+  <string name="toast_file_exists">O ficheiro %1$s existe.</string>
   <string name="toast_needs_resurvey">O obxecto pode estar desactualizado</string>
+  <string name="toast_missing_key">A chave %1$s non se atopa</string>
   <string name="toast_invalid_object">Obxecto non válido</string>
   <string name="toast_openinghours_invalid">Valor de horas de apertura non válido para %1$s</string>
-  <string name="toast_null_island">Non engada elementos a 0°/0° (Null Island)</string>
-  <string name="toast_string_too_long">Cadea demasiado longa (%1$d caracteres), truncados!</string>
+  <string name="toast_openinghours_autocorrected">O horario para %1$s foi autocorrixido</string>
+  <string name="toast_null_island">Non engadas elementos en 0°/0° (Illa nula)</string>
+  <string name="toast_string_too_long">Cadea demasiado longa (%1$d caracteres), truncada!</string>
   <string name="toast_illegal_operation">Operación non legal: %1$s</string>
   <string name="toast_imperial_units">Unidades imperiais non atopadas</string>
   <string name="toast_flus_all_caches">Isto limpará tódalas cachés das teselas!</string>
   <string name="toast_unsupported_format">Formato non admitido: %1$s</string>
-  <string name="toast_using_network_location">Estase a emprega-la ubicación pola rede</string>
+  <string name="toast_not_mbtiles">Non é un ficheiro en formato MBTiles</string>
+  <string name="toast_using_network_location">Estase a empregar a localización por rede</string>
   <string name="toast_tags_copied">Etiquetas copiadas ó portapapeis</string>
   <string name="toast_tags_cut">Etiquetas cortadas ó portapapeis</string>
   <string name="toast_properties_copied">Propiedades copiadas ó portapapeis</string>
   <string name="toast_merged">Fusionado</string>
+  <string name="toast_updated">Actualizado %1$s</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Si</string>
@@ -406,6 +445,7 @@
   <string name="clear">Limpar</string>
   <string name="discard">Rexeitar</string>
   <string name="retry">Tentar outra</string>
+  <string name="check">Comprobar</string>
   <!--Read a file-->
   <string name="read">Ler</string>
   <string name="overwrite">Sobre escribir</string>
@@ -430,6 +470,7 @@
   <string name="tag_menu_address">Engadir etiquetas de enderezo</string>
   <string name="tag_menu_sourcesurvey">Analizado</string>
   <string name="tag_menu_preset">Predefinidos</string>
+  <string name="tag_menu_apply_preset">Aplicar predefinido</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_mapfeatures">Wiki dos elementos do mapa</string>
   <string name="tag_menu_addtorelation">Engadir á relación</string>
@@ -465,6 +506,7 @@
   <string name="menu_deselect_all">Non seleccionar ningún</string>
   <string name="menu_preset_help">Axuda dos predefinidos</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Engadir etiquetas de lingua</string>
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">cando</string>
   <string name="tag_restriction_and">e</string>
@@ -472,9 +514,14 @@
   <string name="tag_restriction_add_simple_condition">Engadir condición sinxela</string>
   <string name="tag_restriction_add_expression">Engadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Engadir horas abertas</string>
+  <string name="tag_restriction_value_hint">Restrición condicional</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Elemento descoñecido (sen predefinido atopado)</string>
+  <string name="tag_form_untagged_element">Elemento sen etiquetar</string>
   <!--Custom preset creation-->
+  <string name="tag_menu_create_preset">Crear predefinido personalizado</string>
+  <string name="create_preset_title">Nome do predefinido personalizado</string>
+  <string name="create_preset_default_name">Personalizado %1$s</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Elixe o raio:</string>
   <string name="location_default_radius">300m</string>
@@ -496,7 +543,12 @@
   <string name="location_nan_title">Datos de entrada erróneos!</string>
   <string name="location_nan_message">Por favor insire as coordenadas no formato decimal (p.ex. \"52.333572\",\"8.741185\"). Lat. ten que estar entre -85.0 e +85.0, e Lon. ten que estar entre -175.0 e +175.0.</string>
   <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Baixar ficheiros</string>
+  <string name="allow_all_networks">Permitir todas as redes</string>
   <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Ir ás coordenadas</string>
+  <string name="no_nominatim_server">Non foi posíbel atopar un servidor Nominatim configurado</string>
+  <string name="no_nominatim_result">Servidor Nominatim non atopado %1$s</string>
   <!--Menu-->
   <string name="menu_move">Mover</string>
   <string name="menu_edit">Editar</string>
@@ -508,6 +560,7 @@
   <string name="menu_erase">Eliminar nó</string>
   <string name="menu_set_position">Posición</string>
   <string name="menu_split">Dividir</string>
+  <string name="menu_remove_node_from_way">Eliminar nó da vía</string>
   <string name="menu_extract">Extraer nó</string>
   <string name="menu_append">Engadir</string>
   <string name="menu_relation">Facer relación</string>
@@ -522,6 +575,8 @@
   <string name="menu_gps_show">Amosar localización</string>
   <string name="menu_gps_follow">Seguer ubicación</string>
   <string name="menu_gps_goto">Ir á localización actual</string>
+  <string name="menu_gps_goto_coordinates">Ir ás coordenadas…</string>
+  <string name="menu_gps_goto_last_edit">Ir á última edición</string>
   <string name="menu_gps_start">Comezar pista GPX</string>
   <string name="menu_gps_pause">Deter pista GPX</string>
   <string name="menu_gps_clear">Limpar pistas e puntos de pasaxe GPX</string>
@@ -529,18 +584,25 @@
   <string name="menu_gps_upload">Subir pista GPX</string>
   <string name="menu_gps_export">Exportar pista GPX</string>
   <string name="menu_gps_import">Importar pista GPX</string>
+  <string name="menu_enable_gps_autodownload">Descarga automática baseada na localización</string>
+  <string name="menu_enable_pan_and_zoom_auto_download">Descarga automática co movemento</string>
   <string name="menu_transfer">Transferir...</string>
-  <string name="menu_transfer_download_current">Baixar vista actual</string>
-  <string name="menu_transfer_upload">Subir datos ao servidor OSM</string>
-  <string name="menu_transfer_close_changeset">Pecha-lo conxunto de mudanzas actual</string>
+  <string name="menu_transfer_download_current">Baixar a vista actual</string>
+  <string name="menu_transfer_download_replace">Limpar e baixar a vista actual</string>
+  <string name="menu_transfer_load_current">Cargar vista actual</string>
+  <string name="menu_transfer_load_replace">Limpar e cargar a vista actual</string>
+  <string name="menu_transfer_upload">Subir datos ó servidor OSM</string>
+  <string name="menu_transfer_close_changeset">Pechar o conxunto de modificacións actual</string>
   <string name="menu_transfer_file">Ficheiro…</string>
-  <string name="menu_transfer_export">Exportar mudanzas cara un fichero OSC</string>
+  <string name="menu_transfer_export">Exportar modificacións a un fichero OSC</string>
   <string name="menu_transfer_save_file">Gardar nun ficheiro JOSM...</string>
   <string name="menu_transfer_bugs">Tarefas…</string>
+  <string name="menu_transfer_bugs_download_current">Baixar tarefas para a vista actual</string>
   <string name="menu_transfer_bugs_upload">Subir todo</string>
-  <string name="menu_transfer_bugs_upload_long">Subir tódalas tarefas</string>
+  <string name="menu_transfer_bugs_upload_long">Subir todas as tarefas</string>
   <string name="menu_transfer_bugs_clear">Limpar</string>
   <string name="menu_transfer_bugs_clear_long">Limpar tarefas</string>
+  <string name="menu_transfer_autodownload_long">Baixar tarefas de xeito automático</string>
   <string name="menu_transfer_save_notes_all">Gardar tódalas notas...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Gardar notas novas ou modificadas…</string>
   <string name="menu_transfer_read_custom_bugs">Cargar tarefas personalizadas...</string>
@@ -550,11 +612,13 @@
   <string name="menu_unjoin">Separar</string>
   <string name="menu_copy">Copiar</string>
   <string name="menu_cut">Cortar</string>
-  <string name="menu_paste">Colar ou pegar</string>
-  <string name="menu_paste_tags">Colar ou pegar etiquetas</string>
-  <string name="menu_paste_from_clipboard">Colar ou pegar dende o portaretallos</string>
+  <string name="menu_paste">Pegar</string>
+  <string name="menu_paste_tags">Pegar etiquetas</string>
+  <string name="menu_paste_from_clipboard">Pegar dende o portaretallos</string>
   <string name="menu_zoom_to_selection">Achegar á selección</string>
   <string name="menu_rotate">Rotar</string>
+  <string name="menu_orthogonalize">Encadrar</string>
+  <string name="menu_straighten">Endereitar</string>
   <string name="menu_circulize">Organizar nun círculo</string>
   <string name="menu_split_polygon">Dividir en polígonos</string>
   <string name="menu_extend_selection">Extender selección</string>
@@ -570,7 +634,7 @@
   <string name="menu_tools_clear_clipboard">Limpar portapapeis</string>
   <!---->
   <string name="menu_simple_actions">Modo sinxelo</string>
-  <string name="menu_feedback">Fornecer unha opinión</string>
+  <string name="menu_feedback">Facer unha suxestión</string>
   <string name="menu_preset_feedback">Fornecer unha opinión ó predefinido</string>
   <string name="menu_privacy">Privacidade</string>
   <!--Background alignment-->
@@ -581,6 +645,7 @@
   <string name="menu_tools_background_align_retrieve_from_device">Do dispositivo</string>
   <string name="menu_tools_background_align_save_db">Gardar na base de datos</string>
   <string name="menu_tools_background_align_save_device">Gardar no dispositivo</string>
+  <string name="menu_tools_background_align_apply2all">Aplicar (en todos os achegamentos)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f metros</string>
   <string name="distance_km">%1$.3f km</string>
@@ -612,6 +677,12 @@
   <string name="deleteway_wayandnodes">Eliminar vía</string>
   <string name="deletenode">Eliminar nó</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">Dividir...</string>
+  <string name="split_all_ways">…todas as vías</string>
+  <string name="merge_context_title">Unir con…</string>
+  <string name="merge_with_all_ways">…todas as vías preto de ti</string>
+  <string name="merge_with_all_nodes">…todos os nós preto de ti</string>
+  <string name="delete_note_description">Eliminar a nota non poderá ser revertido!</string>
   <string name="delete_note">Eliminar nota</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vía seleccionada</string>
@@ -619,15 +690,19 @@
   <string name="actionmode_relationselect">Relación seleccionada</string>
   <string name="actionmode_createpath">Creando camiño</string>
   <string name="actionmode_multiselect">Multiselección</string>
+  <string name="actionmode_newnoteselect">Nova nota seleccionada</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Dividir vía pechada, 1º nó</string>
   <string name="actionmode_closed_way_split_2">Dividir vía pechada, 2º nó</string>
   <string name="actionmode_restriction">Engadir restricción de xiro</string>
   <string name="actionmode_restriction_restart_from">Re-seleccionar o segmento \"dende\"</string>
+  <string name="actionmode_restriction_select_from">Dividir \"até\" o segmento</string>
   <string name="actionmode_restriction_via">Engadir \"via\" segmento/elemento</string>
   <string name="actionmode_restriction_restart_via">Volver a escolle-lo segmento \"via\"</string>
   <string name="actionmode_restriction_to">Engadir \"a\" segmento</string>
   <string name="actionmode_restriction_restart_to">Volver a selecciona-lo segmento \"a\"</string>
+  <string name="actionmode_restriction_split_from">Dividir \"dende\" o segmento</string>
+  <string name="actionmode_restriction_split_via">Dividir segmento de \"vía\"</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 obxecto</item>
     <item quantity="other">%1$d obxectos</item>
@@ -635,11 +710,16 @@
   <string name="actionmode_rotateway">Rotar vía</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Engadir nó</string>
+  <string name="simple_add_node">Preme na posición da pantalla</string>
   <string name="menu_add_node_tags">Engadir nó con etiquetas</string>
   <string name="menu_add_way">Engadir vía</string>
+  <string name="simple_add_way">Preme na posición da pantalla</string>
   <string name="menu_add_map_note">Engadir unha nota ó mapa</string>
-  <string name="menu_paste_object">Colar ou pegar obxecto</string>
-  <string name="menu_paste_multiple">Colar ou pegar moitas veces</string>
+  <string name="simple_add_note">Preme na posición da pantalla</string>
+  <string name="menu_paste_object">Pegar obxecto</string>
+  <string name="simple_paste">Preme na posición da pantalla</string>
+  <string name="menu_paste_multiple">Pegar moitas veces</string>
+  <string name="simple_paste_multiple">Preme na posición da pantalla</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Fondo de mapa</string>
   <string name="config_backgroundLayer_summary">O fondo do mapa está baseado en teselas</string>
@@ -662,6 +742,7 @@
   <string name="config_validatorprefs_title">Axustes do validador</string>
   <!--opening hours templates-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autores e licenzas</string>
   <string name="config_debugbutton_title">Depurar</string>
   <string name="config_category_info">Acerca de</string>
   <!--Advanced preferences-->
@@ -672,6 +753,7 @@
   <string name="config_showWayIcons_title">Amosar iconas PDI nos edificios</string>
   <string name="config_showWayIcons_summary">Amosar a icona predefinida que mellor corresponda ós edificios de enriba.</string>
   <string name="config_tagFormEnabled_title">Amosar formulario da etiqueta</string>
+  <string name="config_tagFormEnabled_summary">Amosar formulario da etiqueta para a edición.</string>
   <string name="config_showCameraAction_title">Amosa-la acción da cámara</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Escurecer sempre as áreas non baixadas</string>
   <string name="config_fullscreenMode_title">Modo pantalla completa</string>
@@ -679,6 +761,7 @@
   <string name="config_map_orientation_title">Orientación do mapa</string>
   <string name="config_showTolerance_title">Amosar tolerancia</string>
   <string name="config_use_back_for_undo_title">Preme a tecla ← para desfacer</string>
+  <string name="config_enableLightTheme_title">Tema claro</string>
   <string name="config_splitActionBarEnabled_title">Activar barra acción dividir</string>
   <string name="config_maxInlineValues_title">Max. número de valores en liña</string>
   <string name="config_maxInlineValues_current">%1$d Valores</string>
@@ -698,12 +781,14 @@
   <string name="config_notificationCacheSize_current">%1$d Notificacións</string>
   <string name="config_maxAlertDistance_title">Distancia máx. de notificacións</string>
   <string name="config_maxAlertDistance_current">%1$d metro(s)</string>
-  <string name="config_closeChangesetOnSave_title">Pechar conxuntos de mudanzas</string>
+  <string name="config_closeChangesetOnSave_title">Pechar conxuntos de modificacións</string>
+  <string name="config_closeChangesetOnSave_summary">Pechar os conxuntos de modificacións por defecto ó gardar.</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Raio da baixada</string>
   <string name="config_downloadRadius_current">%1$d metro(s)</string>
   <string name="config_maxDownloadSpeed_title">Velocidade máxima de auto baixada</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_panAndZoomLimit_summary">Nivel mínimo de achegamento para baixar de xeito automático co movemento</string>
   <!--Location Settings-->
   <string name="config_gps_source_tcp_title">NMEA fonte da rede</string>
   <string name="config_gps_interval_current">%1$d ms</string>
@@ -715,6 +800,7 @@
   <string name="config_offsetServer_title">Desprazamento do servidor</string>
   <string name="config_osmoseServer_title">Servidor do OSMOSE</string>
   <string name="config_geocoderbutton_title">Configurar geocoders</string>
+  <string name="config_geocoderbutton_summary">Engade, edita, elimina xeocodificadores para a funcionalidade de procura.</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Baixada de capas e almacenaxe</string>
   <string name="config_maxTileDownloadThreads_title">Máx. número de fontes de baixadas</string>
@@ -783,7 +869,7 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_update_relations">Actualización da relación</string>
   <string name="undo_action_cut">Cortar</string>
-  <string name="undo_action_paste">Colar ou pegar</string>
+  <string name="undo_action_paste">Pegar</string>
   <string name="undo_action_rotateway">Rotación da vía</string>
   <string name="undo_action_orthogonalize">Vía encadrada</string>
   <!--ACRA-->
@@ -792,8 +878,8 @@
   <string name="exception_too_many_nodes">Esta operación poidera crear vías con demasiados nós.</string>
   <!--Notifications-->
   <string name="alert_data_issue">OSM impresión de información detectada</string>
-  <string name="alert_note">Nota OSM detectada preto</string>
-  <string name="alert_bug">Bug OSM detectado preto</string>
+  <string name="alert_note">Nota do OSM detectada preto de ti</string>
+  <string name="alert_bug">Erro do OSM detectado preto de ti</string>
   <string name="alert_distance_direction">en %1$d m %2$s</string>
   <string name="bearing_ne">NL ↗</string>
   <string name="bearing_e">L →</string>
@@ -812,8 +898,10 @@
   <string name="position">Posición</string>
   <string name="type">Tipo</string>
   <string name="object">Obxecto</string>
+  <string name="deleterelation_relation_description">Estás a piques de eliminar unha relación que é parte dunha ou máis relacións. Isto pode ocasionar renderizados erróneos.</string>
   <string name="deleterelation">Eliminar relación</string>
   <string name="delete_from_relation_description">Está a piques de eliminar este elemento dunha relación.</string>
+  <string name="unset_relation_type">Tipo de relación sen estabelecer</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 día</item>

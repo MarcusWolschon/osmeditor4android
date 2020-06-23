@@ -1,10 +1,10 @@
 # Introducción a Vespucci
 
-Vespucci es un completo editor de OpenStreetMap que soporta la mayoría de operaciones que proveen los editores de escritorio. Ha sido probado con éxito en Android 2.3 a 7.0 de Google y varias variantes basadas en AOSP. Un aviso: aunque las capacidades de los dispositivos móviles han alcanzado a sus rivales de escritorio, particularmente los dispositivos más antiguos tienen memoria disponible muy limitada y tienden a ser bastante lentos. Debería tener esto en cuenta cuando utilice Vespucci y mantenga, por ejemplo, el tamaño de las áreas que está editando en un tamaño razonable. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Utilizar por primera vez
 
-Al iniciarse Vespucci le muestra el diálogo "Descargar otra ubicación"/"Cargar área". Si usted tiene coordenadas expuestas y quiere descargar inmediatamente, puede seleccionar la opción apropiada e introducir el radio de alrededor de la ubicación que quiera descargar. No seleccione un área amplia en dispositivos lentos. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 Como alternativa, puede cerrar el diálogo pulsando el botón «Ir al mapa» y alejar o acercar a una ubicación que quiera editar y descargar los datos a continuación (vea más adelante: «Editando con Vespucci»).
 
@@ -21,7 +21,8 @@ Seleccione el ícono de transferencia ![Transferir](../images/menu_transfer.png)
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -78,11 +79,11 @@ Tenga en cuenta que para superponer objetos (como un nodo en un camino) el menú
 
 Una vez que haya seleccionado un objeto, puede moverlo. Tenga en cuenta que los objetos sólo se pueden arrastrar/mover cuando se seleccionan. Simplemente arrastre cerca (es decir, dentro de su zona de tolerancia) el objeto seleccionado para moverlo. Si selecciona el área de arrastre grande en las preferencias, obtiene un área grande alrededor del nodo seleccionado que facilita la colocación del objeto. 
 
-#### Adding a new Node/Point or Way 
+#### Añadiendo un nuevo Nodo/Punto o Vía 
 
 On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
 
-##### Simple mode
+##### Modo simple
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
@@ -215,10 +216,12 @@ Re-survey entries have the following properties:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
 * **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Check entries
 

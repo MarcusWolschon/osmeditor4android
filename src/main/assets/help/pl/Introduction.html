@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>Wprowadzenie do Vespucci</h1>
-<p>Vespucci jest wszechstronnym edytorem OpenStreetMap, który pozwala na wykonanie większości działań możliwych do wykonania w edytorach na komputerach stacjonarnych. Pozytywnie przeszedł testy na platformie Android firmy Google - wersje od 2.3 do 7.0 - oraz wielu wariantach systemów AOSP. Uwaga dla użytkowników: o ile współczesne urządzenia mobilne dorównały możliwościami komputerom stacjonarnym, to szczególnie starsze urządzenia posiadające ograniczoną ilość pamięci na ogól są wolniejsze. Należy brać to pod uwagę podczas korzystania z Vespucci i, dla przykładu, utrzymywać wielkości obszarów edytowanych w rozsądnych ramach.</p>
+<p>Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size.</p>
 <h2>Pierwsze kroki</h2>
-<p>Po włączeniu Vespucci pokazuje panel &quot;Pobierz inny obszar&quot;/&quot;Wczytaj obszar&quot;. Jeśli widzisz współrzędne na ekranie i chcesz pobrać dane od razu, możesz wybrać odpowiednią opcję i ustawić promień wokół miejsca z którego chcesz pobierać dane. Nie wybieraj zbyt dużych obszarów używając słabszych urządzeń.</p>
+<p>On startup Vespucci shows you the &quot;Download other location&quot;/&quot;Load Area&quot; dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices.</p>
 <p>Alternatywą dla powyższego jest wyłączenie panelu przez naciśnięcie &quot;Pokaż mapę&quot;, a następnie przesunięcie i ustawienie przybliżenia do miejsca którego dane chcesz pbrać by je edytować. (zobacz: &quot;Edycja z Vesspuci&quot;)</p>
 <h2>Edycja z Vespucci</h2>
 <p>W zależności od wielkości ekranu oraz wieku twojego urządzenia opcje edycji mogą być dostępne bezpośrednio jako ikony na górnym pasku, przez rozwijalne menu po prawej stronie górnego paska, przez ikony dolnego paska (jeśli jest wyświetlany) lub przez klawisz menu.</p>
@@ -19,7 +19,8 @@
 <li><strong>Download current view</strong> - download the area visible on the screen and merge it with existing data <em>(requires network connectivity)</em></li>
 <li><strong>Clear and download current view</strong> - clear any data in memory and then download the area visible on the screen <em>(requires network connectivity)</em></li>
 <li><strong>Upload data to OSM server</strong> - upload edits to OpenStreetMap <em>(requires authentication)</em> <em>(requires network connectivity)</em></li>
-<li><strong>Auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Location based auto download</strong> - download an area around the current geographic location automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
+<li><strong>Pan and zoom auto download</strong> - download data for the currently displayed map area automatically <em>(requires network connectivity or offline data)</em> <em>(requires GPS)</em></li>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.</li>
 <li><strong>Note/Bugs...</strong> - download (automatically and manually) OSM Notes and &quot;Bugs&quot; from QA tools (currently OSMOSE) <em>(requires network connectivity)</em></li>
 </ul>
@@ -149,12 +150,13 @@
 <h4>Wpisy do ponownego przeglądu</h4>
 <p>Wpisy do ponownego przeglądu mają następujące właściwości:</p>
 <ul>
-<li><strong>Klucz</strong> - Klucz tagu.</li>
-<li><strong>Wartość</strong> - Wartość, którą powinien mieć tag, jeżeli pozostanie pusta, to będzie ignorowana.</li>
-<li><strong>Wiek</strong> - ile dni po ostatnim sprawdzeniu elementu powinien on być ponownie przejrzany, jeżeli jest obecne pole check_date, to zostanie ono użyte, w przeciwnym wypadku będzie to data utworzenia bieżącej wersji. Ustawienie wartości na zero spowoduje, że sprawdzenie po prostu dopasuje klucz i wartość.</li>
-<li><strong>Wyrażenie regularne</strong> - jeżeli jest zaznaczone, to przyjmuje się, że <strong>Wartość</strong> jest wyrażeniem regularnym JAVA.</li>
+<li><strong>Key</strong> - Key of the tag of interest.</li>
+<li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
+<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a <em>check_date</em> tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
+<li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
 </ul>
 <p><strong>Klucz</strong> i <strong>Wartość</strong> są sprawdzane pod kątem <em>istniejących</em> tagów obiektów w zapytaniu.</p>
+<p>The <em>Annotations</em> group in the standard presets contain an item that will automatically add a <em>check_date</em> tag with the current date.</p>
 <h4>Sprawdź wpisy</h4>
 <p>Sprawdzenie wpisów ma następujące dwie właściwości:</p>
 <ul>

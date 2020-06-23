@@ -1,11 +1,10 @@
 # Introduzione a Vespucci
 
-Vespucci è un completo editor per OpenStreetMap, che supporta la maggior parte delle funzionalità disponibili con gli editor desktop.  È stato testato su Android nelle versioni dalla 2.3 alla 7.0, oltre che su alcune varianti di AOSP.
-Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desktop, alcuni dispositivi particolarmente vecchi tendono ad avere poca memoria disponibile e ad essere piuttosto lenti. Dovresti tenerne conto quando usi Vespucci e agire di conseguenza, ad esempio riducendo l'area che stai modificando. 
+Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 10.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
 
 ## Primo utilizzo
 
-All'avvio Vespucci mostra la schermata "Scarica altra posizione"/"Carica area". Se sono visibili le coordinate e vuoi scaricare i dati immediatamente, puoi selezionare l'opzione corrispondente e impostare il raggio dell'area che vuoi ottenere. Non scegliere un'area troppo grande se hai un dispositivo lento. 
+On startup Vespucci shows you the "Download other location"/"Load Area" dialog after asking for the required permissions and displaying a welcome message. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
 
 Altrimenti puoi chiudere la schermata premendo il pulsante "Vai alla mappa". Puoi quindi spostare la mappa, ingrandire sull'area che vuoi modificare e scaricarne i dati (vedi più avanti: "Modificare con Vespucci").
 
@@ -22,7 +21,8 @@ Seleziona l'icona di trasferimento ![Transfer](../images/menu_transfer.png) oppu
 * **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
 * **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
 * **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+* **Location based auto download** - download an area around the current geographic location automatically *(requires network connectivity or offline data)* *(requires GPS)*
+* **Pan and zoom auto download** - download data for the currently displayed map area automatically *(requires network connectivity or offline data)* *(requires GPS)*
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
@@ -214,12 +214,14 @@ The list of entries is split in to two, the top half lists "re-survey" entries, 
 
 Le voci da ricontrollare hanno le seguenti proprietà:
 
-* **Chiave** - Chiave dell’etichetta scelta.
-* **Valore** - Valore dell’etichetta scelta dovrebbe avere, se vuoto il valore dell’etichetta verrà ignorato.
-* **Età** - quanti giorni devono passare dall’ultima modifica dell’oggetto per richieder un altro controllo sul campo, se presente ‘controlla_data’ allora per la verifica verrà usato quel campo, altrimenti verrà presa in considerazione la data in cui la versione attuale è stata creata. Se impostato a zero, il controllo verrà effettuato solo su chiavi e valori corrispondenti.
-* **Espressione regolare** - se spuntato **Valore** sarà considerato come una espressione regolare di tipo JAVA.
+* **Key** - Key of the tag of interest.
+* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
+* **Age** - how many days after the element was last changed the element should be re-surveyed, if a _check_date_ tag is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
+* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
 **Chiave** e **Valore** sono confrontate con le etichette _esistenti_ dell’oggetto in questione.
+
+The _Annotations_ group in the standard presets contain an item that will automatically add a _check_date_ tag with the current date.
 
 #### Verifica elementi
 

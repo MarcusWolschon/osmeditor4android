@@ -1,10 +1,10 @@
 # Úvod do Vespucci
 
-Vespucci je plně vybavený editor OpenStreetMap, podporující většinu operací, které poskytují desktopové editory. Aplikace byla otestována pro Android 2.3 až 7.0 a také pro různé varianty založené na AOSP. Jedno upozornění: zatímco schopnosti mobilních zařízení dostihly desktopové stroje, zejména starší zařízení mají velmi omezenou dostupnou paměť a bývají spíše pomalejší. Měli byste to při používání Vespucci vzít v potaz a pamatovat, že například oblasti, které upravujete, by měli být rozumného rozsahu. 
+Vespucci je plně vybavený editor OpenStreetMap, který podporuje většinu operací, které poskytují editory na stolních počítačích. Byl úspěšně testován na platformách Android 2.3 až 10.0 a různých variantách AOSP od společnosti Google. Upozornění: zatímco funkce mobilních zařízení dohnaly své soupeře ve stolních počítačích, zejména starší zařízení mají k dispozici velmi omezenou paměť a bývají spíše pomalé. Měli byste to vzít v úvahu při používání Vespucci a ponechat například oblasti, které upravujete, v přiměřené velikosti. 
 
 ## První použití
 
-Po spuštění Vespucci se zobrazí dialog "Stáhnout jinou oblast"/"Načíst oblast". Pokud se vám zobrazují souřadnice a chcete zahájit stahování okamžitě, můžete zvolit odpovídající možnost a vybrat poloměr oblasti, kterou chcete stáhnout. Na pomalých zařízeních nevolte rozsáhlé oblasti. 
+Při spuštění Vespucci zobrazí dialogové okno "Stáhnout jiné umístění" / "Načíst oblast" po vyžádání požadovaných oprávnění a zobrazení uvítací zprávy. Pokud máte zobrazeny souřadnice a chcete je stáhnout okamžitě, můžete vybrat příslušnou možnost a nastavit poloměr kolem místa, které chcete stáhnout. Nevybírejte velkou oblast na pomalých zařízeních. 
 
 Alternativně lze dialog zrušit stiskem tlačítka "Zobrazit mapu", požadovanou oblast najít na mapě a poté data stáhnout (viz níže "Editování s Vespucci").
 
@@ -18,12 +18,13 @@ V závislosti na velikosti obrazovky a stáří vašeho zařízení mohou být m
 
 Zvolte buď ikonu ![Přenos](../images/menu_transfer.png) nebo položku "Přenos" z menu. Zobrazí se sedm možností:
 
-* **Download current view** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Clear and download current view** - clear any data in memory and then download the area visible on the screen *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* ** Stáhnout aktuální zobrazení ** - stáhnout oblast viditelnou na obrazovce a sloučit ji s existujícími daty * (vyžaduje připojení k síti) *
+* ** Vymazat a stáhnout aktuální zobrazení ** - vymazat všechna data v paměti a poté stáhnout oblast viditelnou na obrazovce * (vyžaduje připojení k síti) *
+* ** Nahrát data na server OSM ** - nahrát úpravy do OpenStreetMap * (vyžaduje ověření) * * (vyžaduje připojení k síti) *
+* ** Automatické stahování podle polohy ** - automatické stahování oblasti kolem aktuální geografické polohy * (vyžaduje připojení k síti nebo offline data) * * (vyžaduje GPS) *
+* ** Automatické stahování a přibližování ** - automatické stahování dat pro aktuálně zobrazenou oblast mapy * (vyžaduje připojení k síti nebo offline data) * * (vyžaduje GPS) *
+* ** File ... ** - ukládání a načítání dat OSM do / z souborů zařízení.
+* ** Poznámka / chyby ... ** - stáhnout (automaticky a ručně) poznámky OSM a „chyby“ z nástrojů QA (aktuálně OSMOSE) * (vyžaduje připojení k síti) *
 
 Nejjednodušším způsobem stahování dat je najít požadovanou oblast, kterou chcete editovat, na mapě a poté zvolit "Stáhnout aktuální pohled". Přibližovat můžete pomocí gest, tlačítek přiblížení nebo pomocí tlačítek pro ovládání hlasitosti vašeho zařízení. Vespucci by poté měl stáhnout data pro aktuální pohled. Pro stahování dat do vašeho zařízení není zapotřebí žádného ověření.
 
@@ -121,11 +122,11 @@ Můžete kopírovat nebo odstranit vybrané uzly a cesty a potom je vložit jedn
 
 #### Efektivně přidávat adresy
 
-Vespucci has an ![Address](../images/address.png) "add address tags" function that tries to make surveying addresses more efficient by predicting the current house number. It can be selected:
+Vespucci má funkci ![Address](../images/address.png) "přidat číslo domu" , která se snaží předpovědět aktuální číslo domu a zefektivnit mapování adres. Lze vybrat:
 
-* after a long press (_non-simple mode only:): Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the property editor.
+* po dlouhém stisknutí (pouze v pokročilém režimu :): Vespucci přidá na místě uzel a nejlépe odhadne číslo domu a přidá adresy, které jste v poslední době používali. Pokud je uzel na obrysu budovy, automaticky přidá na uzel značku „entrance=yes“. Editor tagů se otevře pro dotyčný objekt a umožní vám provést další potřebné změny.
+* ve vybraných režimech uzel / cesta: Vespucci přidá tagy adres, jak je uvedeno výše, a spustí editor tagů.
+* v editoru vlastností.
 
 Předpověď čísla domu obvykle vyžaduje, aby byly na každé straně silnice zadány alespoň dvě čísla domů, čím je více dat v data, tím lépe.
 
@@ -203,7 +204,7 @@ Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz [Zamknout, odem
 
 ### Konfigurace kontrol
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator settings" in the "Preferences". 
+V současné době existují dvě konfigurovatelné kontroly (existuje kontrola pro značky FIXME a test na chybějící typové značky ve vztazích, které momentálně nelze konfigurovat), oba lze nakonfigurovat výběrem "Nastavení ověřovatele" v "Předvolbách". 
 
 Seznam záznamů je rozdělen na dvě části, políčka nahoře vypisují "ověřit záznamy", dolní polovina "zkontrolované záznamy". Záznamy lze editovat kliknutím na ně, zelené tlačítko nabídky umožňuje přidání položek.
 
@@ -211,12 +212,14 @@ Seznam záznamů je rozdělen na dvě části, políčka nahoře vypisují "ově
 
 Položky opětovného Ověření mají následující vlastnosti:
 
-* **Klíč** - Klíč značky, která vás zajímá. 
-* **Hodnota** - Hodnota, kterou má mít značka, která by měla mít, pokud bude prázdná hodnota značky ignorována. 
-* **Stáří** kolik dní poté, co byl prvek naposledy změněn, by měl  být prvek opětovně prozkoumán, pokud je k dispozici pole check_date, které bude použito, jinak bude datum vytvoření aktuální verze. Nastavení hodnoty na nulu vede ke kontrole, která se jednoduše shoduje s klíčem a hodnotou. 
-* **Regulární výraz** - je-li zaškrtnuto, pak **Hodnota** se považuje za JAVA regulární výraz.
+* **Key** - Klíč značky zájmu.
+* **Hodnota** - Hodnota, kterou by měla mít požadovaná značka, pokud bude prázdná, bude ignorována.
+* **Čas** - kolik dní po poslední změně prvku by měl být prvek znovu prozkoumán, pokud je použita značka _check_date_, která bude použita, jinak datum vytvoření aktuální verze. Nastavení hodnoty na nulu povede ke kontrole, která se jednoduše shoduje s klíčem a hodnotou.
+* **Regulární výraz** - pokud je zaškrtnuto **Hodnota** se považuje za regulární výraz jazyka JAVA.
 
 **Klíč** a **Hodnota** jsou kontrolovány proti značkám _existing_ daného objektu.
+
+Skupina _Annotations_ ve standardních předvolbách obsahuje položku, která automaticky přidá značku _check_date_ s aktuálním datem.
 
 #### Kontrola položek
 
@@ -239,31 +242,31 @@ Alternativou k výše uvedeným objektům jsou objekty filtrovány buď na zákl
 
 ## Přizpůsobení Vespucci
 
-Many aspects of the app can be customized, if you are looking for something specific and can't find it, [the Vespucci website](https://vespucci.io/) is searchable and contains additional information over what is available on device.
+Mnoho aspektů aplikace lze přizpůsobit, pokud hledáte něco konkrétního a nemůžete jej najít, [web Vespucci](https://vespucci.io/) je prohledávatelný a obsahuje další informace o tom, co je k dispozici na zařízení.
 
-### Layer settings
+### nastavení vrstev
 
-Layer settings can be changed via the layer control (upper right corner), all other setting are reachable via the main menu preferences button.
+Nastavení vrstev lze měnit pomocí ovládání vrstev (pravý horní roh), všechna ostatní nastavení jsou dosažitelná pomocí tlačítka předvoleb hlavní nabídky.
 
-* Background layer - there is a wide range of aerial and satellite background imagery available, , the default value for this is the "standard style" map from openstreetmap.org.
-* Overlay layer - these are semi-transparent layers with additional information, for example GPX tracks. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
+* Vrstva pozadí - k dispozici je široká škála leteckých a satelitních snímků na pozadí, výchozí hodnota pro tuto mapu je „standardní styl“ mapy z openstreetmap.org.
+* Překryvná vrstva - jedná se o poloprůhledné vrstvy s dalšími informacemi, například stopy GPX. Přidání překryvu může způsobit problémy se staršími zařízeními a například s omezenou pamětí. Výchozí: žádné.
+* Zobrazení poznámek / chyb. Otevřené poznámky a chyby se zobrazí jako žlutá ikona chyby, ty uzavřené zelené. Výchozí: zapnuto.
+* Foto vrstva. Zobrazuje georeferenční fotografie jako červené ikony fotoaparátu, pokud jsou k dispozici informace o směru, ikona se otočí. Výchozí: vypnuto.
 
-#### Preferences
+#### Předvolby
 
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Nechte obrazovku zapnutou. Výchozí: vypnuto.
+* Velká oblast přetažení uzlu. Přesunutí uzlů na zařízení s dotykovým vstupem je problematické, protože vaše prsty zakrývají aktuální polohu na displeji. Zapnutím této funkce získáte velkou oblast, kterou lze použít pro přetažení mimo střed (výběr a další operace stále používají normální oblast tolerance dotyku). Výchozí: vypnuto.
 
-The full description can be found here [Preferences](Preferences.md)
+Úplný popis naleznete zde [Preferences](Preferences.md)
 
 #### Rozšířené předvolby
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent. 
+* Ikony uzel. Výchozí: zapnuto.
+* Vždy zobrazovat kontextové menu. Když je zapnutý, každý proces výběru zobrazí kontextové menu, vypnuté menu se zobrazí, pouze pokud nelze určit jednoznačný výběr. Výchozí: vypnuto (dříve zapnuto).
+* Povolit odlehčený styl. U moderních zařízení je ve výchozím nastavení zapnuto. I když ji můžete povolit pro starší verze Android, styl bude pravděpodobně nekonzistentní. 
 
-The full description can be found here [Advanced preferences](Advanced%20preferences.md)
+Úplný popis naleznete zde [Advanced preferences](Advanced%20preferences.md)
 
 ## Nahlašování problémů
 

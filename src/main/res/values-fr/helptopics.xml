@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Vespucci\nAide</string>
+    <string name="help_title">Aide: %1$s</string>
     <string name="help_introduction">Introduction</string>
     <string name="help_main">Affichage de la carte principale</string>
     <string name="help_simple_actions">Actions simples</string>
@@ -23,6 +25,8 @@
     <string name="help_opening_hours">Horaires d\'ouverture</string>
     <string name="help_newnoteselection">Sélection d\'une nouvelle note</string>
     <string name="help_voice_commands">Commandes vocales</string>
+    <string name="help_upgrade">Notes de publication de la version 14.1</string>
+    <string name="help_upgrade_140">Notes de publication de la version 14.0</string>
     <string name="help_upgrade_131">Notes de publication de la version 13.1</string>
     <string name="help_upgrade_130">Notes de publication de la version 13.0</string>
     <string name="help_upgrade_121">Notes de publication de la version 12.1</string>

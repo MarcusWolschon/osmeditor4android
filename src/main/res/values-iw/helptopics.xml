@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">וספוצ׳י\nעזרה</string>
+    <string name="help_title">עזרה: %1$s</string>
     <string name="help_introduction">היכרות</string>
     <string name="help_main">תצוגת מפה ראשית</string>
     <string name="help_simple_actions">פעולות פשוטות</string>
@@ -23,6 +25,8 @@
     <string name="help_opening_hours">שעות פתיחה</string>
     <string name="help_newnoteselection">בחירה בהערות חדשות</string>
     <string name="help_voice_commands">פקודות קוליות</string>
+    <string name="help_upgrade">הערות הוצאה לאור של 14.1</string>
+    <string name="help_upgrade_140">הערות הוצאה לאור של 14.0</string>
     <string name="help_upgrade_131">הערות הוצאה לאור של 13.1</string>
     <string name="help_upgrade_130">הערות הוצאה לאור של 13.0</string>
     <string name="help_upgrade_121">הערות הוצאה לאור של 12.1</string>

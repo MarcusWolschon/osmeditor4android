@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Vespucci\nAyuda</string>
+    <string name="help_title">Ayuda: %1$s</string>
     <string name="help_introduction">Introducción</string>
     <string name="help_main">Pantalla principal del mapa</string>
+    <string name="help_simple_actions">Acciones simples</string>
     <string name="help_addrelationmember">Relación seleccionada</string>
     <string name="help_multiselect">Multiselección</string>
     <string name="help_longclick">Crear nuevos objetos</string>
@@ -20,7 +23,16 @@
     <string name="help_tagfilter">Filtro de etiquetas</string>
     <string name="help_presetfilter">Filtro de predeterminados</string>
     <string name="help_opening_hours">Horarios de apertura</string>
+    <string name="help_newnoteselection">Nueva selección de nota</string>
     <string name="help_voice_commands">Comandos de voz</string>
+    <string name="help_upgrade">14.1 Notas de versión</string>
+    <string name="help_upgrade_140">14.0 Notas de versión</string>
+    <string name="help_upgrade_131">13.1 Notas de versión</string>
+    <string name="help_upgrade_130">13.0 Notas de versión</string>
+    <string name="help_upgrade_121">12.1 Notas de versión</string>
+    <string name="help_upgrade_120">12.0 Notas de versión</string>
+    <string name="help_upgrade_112">11.2 Notas de versión</string>
+    <string name="help_upgrade_111">11.1 Notas de versión</string>
     <string name="help_upgrade_110">11.0 Notas de versión</string>
     <string name="help_upgrade_102">10.2 Notas de versión</string>
     <string name="help_upgrade_101">10.1 Notas de versión</string>
