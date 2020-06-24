@@ -128,7 +128,12 @@ public class MapOverlay extends StyleableLayer
         if (mThreadPool == null) {
             mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
         }
-        List<BoundingBox> bbList = new ArrayList<>(getBoundingBoxes());
+        List<BoundingBox> currentBoxes = getBoundingBoxes();
+        if (currentBoxes == null) {
+            Log.e(DEBUG_TAG, "Bounding box list null");
+            return;
+        }
+        List<BoundingBox> bbList = new ArrayList<>(currentBoxes);
         ViewBox box = new ViewBox(map.getViewBox());
         box.scale(1.2); // make
                         // sides
