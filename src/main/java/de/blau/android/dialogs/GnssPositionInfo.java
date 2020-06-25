@@ -148,17 +148,21 @@ public class GnssPositionInfo extends InfoDialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         if (location != null) {
-            NumberFormat nf = NumberFormat.getNumberInstance();
+            NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
             nf.setMaximumFractionDigits(7);
             nf.setRoundingMode(RoundingMode.HALF_UP);
-            final double lon = Double.parseDouble(nf.format(location.getLongitude()));
-            final double lat = Double.parseDouble(nf.format(location.getLatitude()));
-            builder.setNeutralButton(R.string.share_position, (dialog, which) -> {
-                double[] lonLat = new double[2];
-                lonLat[0] = lon;
-                lonLat[1] = lat;
-                Util.sharePosition(getActivity(), lonLat, null);
-            });
+            try {
+                final double lon = Double.parseDouble(nf.format(location.getLongitude()));
+                final double lat = Double.parseDouble(nf.format(location.getLatitude()));
+                builder.setNeutralButton(R.string.share_position, (dialog, which) -> {
+                    double[] lonLat = new double[2];
+                    lonLat[0] = lon;
+                    lonLat[1] = lat;
+                    Util.sharePosition(getActivity(), lonLat, null);
+                });
+            } catch (NumberFormatException nfex) {
+                Log.e(DEBUG_TAG, nfex.getMessage());
+            }
 
             builder.setNegativeButton(R.string.menu_newnode_gps, (dialog, which) -> {
                 if (Util.notZero(lon) || Util.notZero(lat)) {
