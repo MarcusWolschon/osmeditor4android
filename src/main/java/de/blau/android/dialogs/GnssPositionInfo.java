@@ -154,65 +154,66 @@ public class GnssPositionInfo extends InfoDialogFragment {
             try {
                 final double lon = Double.parseDouble(nf.format(location.getLongitude()));
                 final double lat = Double.parseDouble(nf.format(location.getLatitude()));
+             
                 builder.setNeutralButton(R.string.share_position, (dialog, which) -> {
                     double[] lonLat = new double[2];
                     lonLat[0] = lon;
                     lonLat[1] = lat;
                     Util.sharePosition(getActivity(), lonLat, null);
                 });
+
+                builder.setNegativeButton(R.string.menu_newnode_gps, (dialog, which) -> {
+                    if (Util.notZero(lon) || Util.notZero(lat)) {
+                        if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
+                            try {
+                                Logic logic = App.getLogic();
+                                Node node = logic.performAddNode(getActivity(), lon, lat);
+                                TreeMap<String, String> tags = new TreeMap<>(node.getTags());
+
+                                if (location instanceof ExtendedLocation) {
+                                    ExtendedLocation loc = (ExtendedLocation) location;
+                                    Preferences prefs = logic.getPrefs();
+                                    if (loc.hasBarometricHeight()) {
+                                        if (prefs.useBarometricHeight()) {
+                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
+                                            tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_BAROMETER);
+                                        }
+                                        tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
+                                    }
+                                    if (loc.hasGeoidHeight()) {
+                                        if (!prefs.useBarometricHeight()) {
+                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
+                                            tags.put(Tags.KEY_SOURCE, Tags.VALUE_GNSS);
+                                        }
+                                        tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
+                                    }
+                                    if (loc.hasGeoidCorrection()) {
+                                        tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.1f", loc.getGeoidCorrection()));
+                                    }
+                                    if (loc.hasHdop()) {
+                                        tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
+                                    }
+                                }
+                                if (location.hasAltitude()) {
+                                    tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.1f", location.getAltitude()));
+                                }
+
+                                logic.setTags(getActivity(), node, tags);
+                                if (getActivity() instanceof Main) {
+                                    ((Main) getActivity()).edit(node);
+                                }
+                            } catch (OsmIllegalOperationException e) {
+                                Snack.barError(getActivity(), e.getLocalizedMessage());
+                                Log.d(DEBUG_TAG, "Caught exception " + e);
+                            }
+                        } else {
+                            Snack.barError(getActivity(), R.string.toast_null_island);
+                        }
+                    }
+                });
             } catch (NumberFormatException nfex) {
                 Log.e(DEBUG_TAG, nfex.getMessage());
             }
-
-            builder.setNegativeButton(R.string.menu_newnode_gps, (dialog, which) -> {
-                if (Util.notZero(lon) || Util.notZero(lat)) {
-                    if (GeoMath.coordinatesInCompatibleRange(lon, lat)) {
-                        try {
-                            Logic logic = App.getLogic();
-                            Node node = logic.performAddNode(getActivity(), lon, lat);
-                            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-
-                            if (location instanceof ExtendedLocation) {
-                                ExtendedLocation loc = (ExtendedLocation) location;
-                                Preferences prefs = logic.getPrefs();
-                                if (loc.hasBarometricHeight()) {
-                                    if (prefs.useBarometricHeight()) {
-                                        tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
-                                        tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_BAROMETER);
-                                    }
-                                    tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
-                                }
-                                if (loc.hasGeoidHeight()) {
-                                    if (!prefs.useBarometricHeight()) {
-                                        tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
-                                        tags.put(Tags.KEY_SOURCE, Tags.VALUE_GNSS);
-                                    }
-                                    tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
-                                }
-                                if (loc.hasGeoidCorrection()) {
-                                    tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.1f", loc.getGeoidCorrection()));
-                                }
-                                if (loc.hasHdop()) {
-                                    tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
-                                }
-                            }
-                            if (location.hasAltitude()) {
-                                tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.1f", location.getAltitude()));
-                            }
-
-                            logic.setTags(getActivity(), node, tags);
-                            if (getActivity() instanceof Main) {
-                                ((Main) getActivity()).edit(node);
-                            }
-                        } catch (OsmIllegalOperationException e) {
-                            Snack.barError(getActivity(), e.getLocalizedMessage());
-                            Log.d(DEBUG_TAG, "Caught exception " + e);
-                        }
-                    } else {
-                        Snack.barError(getActivity(), R.string.toast_null_island);
-                    }
-                }
-            });
         }
         builder.setTitle(R.string.position_info_title);
         builder.setView(createView(null));
@@ -226,7 +227,9 @@ public class GnssPositionInfo extends InfoDialogFragment {
             FragmentActivity activity = getActivity();
             if (activity instanceof Main && ((Main) activity).getTracker() != null) {
                 location = ((Main) activity).getTracker().getLastLocation();
-                updateView(activity, tl, tp);
+                if (location != null) {
+                    updateView(activity, tl, tp);
+                }
                 tl.postDelayed(update, 1000);
             }
         }
