@@ -92,6 +92,9 @@ public class HelpViewer extends AppCompatActivity {
     private List<String> enList;
     private HelpItem[]   toc;
 
+    private int unselectedItemBackground;
+    private int selectedItemBackground;
+
     /**
      * Start this Activity
      * 
@@ -115,6 +118,8 @@ public class HelpViewer extends AppCompatActivity {
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customHelpViewer_Light);
         }
+        unselectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.unselected_item_background, R.color.light_grey);
+        selectedItemBackground = ThemeUtils.getStyleAttribColorValue(this, R.attr.selected_item_background, R.color.dark_grey);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             Configuration config = getResources().getConfiguration();
             rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
@@ -317,9 +322,9 @@ public class HelpViewer extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
             if (position == selected) {
-                view.setBackgroundResource(R.color.dark_grey);
+                view.setBackgroundColor(selectedItemBackground);
             } else {
-                view.setBackgroundResource(R.color.light_grey);
+                view.setBackgroundColor(unselectedItemBackground);
             }
             return view;
         }
