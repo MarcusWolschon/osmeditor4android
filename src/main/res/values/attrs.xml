@@ -47,7 +47,6 @@
 	<attr name="menu_download" format="reference" />
 	<attr name="alert_dialog" format="reference" />
     <attr name="lightbulb_dialog" format="reference" />
-	<attr name="drawer" format="reference" />
 	<attr name="undolist_undo" format="reference" />
 	<attr name="undolist_redo" format="reference" />
 	<attr name="lock" format="reference" />
@@ -92,6 +91,8 @@
 	<attr name="snack_warning" format="reference|color" />
 	<attr name="snack_error" format="reference|color" />
     <attr name="error" format="reference|color" />
+    <attr name="selected_item_background" format="reference|color" />
+    <attr name="unselected_item_background" format="reference|color" />
 	<!--  -->
     <declare-styleable name="SplitPaneLayout">
         <attr name="orientation">
@@ -110,7 +111,6 @@
 		<attr name="RadioGroup" format="reference" />
 		<attr name="PagerTabStrip" format="reference" />
 		<attr name="ListPopupWindowStyle" format="reference" />
-		<attr name="Drawer" format="reference" />
 		<attr name="ActionButton" format="reference" />
 		<attr name="DownloadedMember" format="reference" />
 		<attr name="NotDownloadedMember" format="reference" />
