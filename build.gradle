@@ -490,7 +490,7 @@ spoon {
     ignoreFailures = true
     clearAppDataBeforeEachTest = true
     // set these for individual text execution
-    className = "de.blau.android.layer.LayerDialogTest"
-    methodName = "dataLayerPrune"
+    // className = "de.blau.android.layer.LayerDialogTest"
+    // methodName = "dataLayerPrune"
 }
 
