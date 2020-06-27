@@ -192,7 +192,7 @@ public class LayerDialogTest {
 
         Assert.assertEquals(387, delegator.getCurrentStorage().getNodeCount());
         Assert.assertEquals(14, delegator.getCurrentStorage().getWayCount());
-        Assert.assertEquals(5, delegator.getCurrentStorage().getRelationCount());
+        Assert.assertEquals(1, delegator.getCurrentStorage().getRelationCount());
     }
 
     /**
