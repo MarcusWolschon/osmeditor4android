@@ -463,7 +463,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     description = "Generate Jacoco coverage reports"
 
     classDirectories = fileTree(
-            dir: 'build/intermediates/app_classes/currentDebug/',
+            dir: 'build/intermediates/javac/currentDebug/classes/',
             excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*'])
 
     additionalSourceDirs = files(coverageSourceDirs)
@@ -485,12 +485,12 @@ spoon {
     noAnimations = false
     adbTimeout = 5
     codeCoverage = true
-    shard = true
+    shard = false
     singleInstrumentationCall = true
     ignoreFailures = true
     clearAppDataBeforeEachTest = true
     // set these for individual text execution
-    // className = "de.blau.android.imageryoffset.OffsetModeTest"
-    // methodName = "..."
+    className = "de.blau.android.layer.LayerDialogTest"
+    methodName = "dataLayerPrune"
 }
 

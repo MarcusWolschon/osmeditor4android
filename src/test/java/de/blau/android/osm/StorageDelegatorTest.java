@@ -154,6 +154,64 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Load some data modify a way and a node, then prune
+     */
+    @Test
+    public void prune() {
+        StorageDelegator d = new StorageDelegator();
+        d.setCurrentStorage(PbfTest.read());
+        assertEquals(0, d.getApiElementCount());
+        assertEquals(258905, d.getCurrentStorage().getNodeCount());
+        assertEquals(26454, d.getCurrentStorage().getWayCount());
+        assertEquals(751, d.getCurrentStorage().getRelationCount());
+        Way w = (Way) d.getOsmElement(Way.NAME, 571067343L);
+
+        assertNotNull(w);
+        int parentCount = w.getParentRelations().size();
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put("test", "prunBox");
+        d.getUndo().createCheckpoint("pruneBox");
+        d.setTags(w, tags);
+        assertEquals(1, d.getApiElementCount());
+        Node n = (Node) d.getOsmElement(Node.NAME, 761534749L);
+        assertNotNull(n);
+        n.setLat(toE7(47.1187142));
+        n.setLon(toE7(9.5430107));
+        d.insertElementSafe(n);
+        d.prune(null, new BoundingBox(9.52077, 47.13829, 9.52248, 47.14087));
+        assertNotNull(d.getOsmElement(Way.NAME, 571067343L));
+        assertNotNull(d.getOsmElement(Node.NAME, 761534749L));
+        assertNotNull(d.getOsmElement(Relation.NAME, 30544L));
+        assertNotNull(d.getOsmElement(Relation.NAME, 8130924L));
+        assertNotNull(d.getOsmElement(Relation.NAME, 8134437L));
+        assertNull(d.getOsmElement(Relation.NAME, 6907800L));
+        assertEquals(1989, d.getCurrentStorage().getNodeCount());
+        assertEquals(103, d.getCurrentStorage().getWayCount());
+        assertEquals(74, d.getCurrentStorage().getRelationCount());
+        d.prune(null, new BoundingBox(9.52077, 47.13829, 9.52248, 47.14087));
+        assertEquals(56, d.getCurrentStorage().getRelationCount());
+        assertNotNull(d.getOsmElement(Relation.NAME, 30544L));
+        assertNull(d.getOsmElement(Relation.NAME, 8130924L));
+        assertNotNull(d.getOsmElement(Relation.NAME, 8134437L));
+        assertEquals(parentCount, d.getOsmElement(Way.NAME, 571067343L).getParentRelations().size());
+        List<OsmElement> downloaded = new ArrayList<>();
+        for (RelationMember rm : ((Relation) d.getOsmElement(Relation.NAME, 8134437L)).getMembers()) {
+            if (rm.getElement() != null) {
+                downloaded.add(rm.getElement());
+            }
+        }
+        // 5484325404 1107468615
+        assertTrue(downloaded.contains(d.getOsmElement(Node.NAME, 5484325404L)));
+        assertTrue(downloaded.contains(d.getOsmElement(Node.NAME, 1107468615L)));
+        // 571067336 571067343 571452863 529794576 140309501
+        assertTrue(downloaded.contains(d.getOsmElement(Way.NAME, 571067336L)));
+        assertTrue(downloaded.contains(d.getOsmElement(Way.NAME, 571067343L)));
+        assertTrue(downloaded.contains(d.getOsmElement(Way.NAME, 571452863L)));
+        assertTrue(downloaded.contains(d.getOsmElement(Way.NAME, 529794576L)));
+        assertTrue(downloaded.contains(d.getOsmElement(Way.NAME, 140309501L)));
+    }
+
+    /**
      * Load some data modify a way and a node, then merge some data
      */
     @Test

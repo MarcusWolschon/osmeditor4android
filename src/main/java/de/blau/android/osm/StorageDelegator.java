@@ -3207,7 +3207,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Safely remove data that is not in/intersects with the provided BoundingBox
      * 
-     * Doesn't bother with relations, skips selected elements, removes BoundingBoxes
+     * Skips selected elements, removes BoundingBoxes
      * 
      * FIXME to determine if an element is selected this uses the current Logic instance
      * 
@@ -3215,11 +3215,23 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      */
     @Override
     public synchronized void prune(@NonNull BoundingBox box) {
-        Logic logic = App.getLogic();
+        prune(App.getLogic(), box);
+    }
+
+    /**
+     * Safely remove data that is not in/intersects with the provided BoundingBox
+     * 
+     * Skips selected elements, removes BoundingBoxes
+     * 
+     * @param logic the current Logic instance if null element selection will not be tested
+     * @param box the BoundingBox
+     */
+    protected void prune(@Nullable Logic logic, @NonNull BoundingBox box) {
         LongHashSet keepNodes = new LongHashSet();
+        boolean noLogic = logic == null;
 
         for (Way w : currentStorage.getWays()) {
-            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds()) && !logic.isSelected(w)) {
+            if (apiStorage.getWay(w.getOsmId()) == null && !box.intersects(w.getBounds()) && (noLogic || !logic.isSelected(w))) {
                 currentStorage.removeWay(w);
                 removeReferenceFromParents(logic, w);
             } else { // keeping so we need to keep the nodes
@@ -3230,9 +3242,19 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         for (Node n : currentStorage.getNodes()) {
             long nodeId = n.getOsmId();
-            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId) && !logic.isSelected(n)) {
+            if (apiStorage.getNode(nodeId) == null && !box.contains(n.getLon(), n.getLat()) && !keepNodes.contains(nodeId)
+                    && (noLogic || !logic.isSelected(n))) {
                 currentStorage.removeNode(n);
                 removeReferenceFromParents(logic, n);
+            }
+        }
+        for (Relation r : currentStorage.getRelations()) {
+            long relationId = r.getOsmId();
+            if (apiStorage.getRelation(relationId) == null && (noLogic || !logic.isSelected(r)) && !r.hasDownloadedMembers()) {
+                // Note: this will not remove already processed relations that had this as a member however further
+                // prune passes will eventually delete them, which is good enough and so we don't rerun this explicitly here
+                currentStorage.removeRelation(r);
+                removeReferenceFromParents(logic, r);
             }
         }
         BoundingBox.prune(this, box);
@@ -3242,24 +3264,29 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove the references to downloaded elements from parent Relations
      * 
-     * @param logic the current Logic instance FIXME this is an architectural wart
+     * @param logic the current Logic instance or null, this is required because elements may be members of selected
+     *            relations
      * @param e the OsmElement we want to remove references for
      */
-    private void removeReferenceFromParents(@NonNull Logic logic, @NonNull OsmElement e) {
+    private void removeReferenceFromParents(@Nullable Logic logic, @NonNull OsmElement e) {
         List<Relation> parents = e.getParentRelations();
         if (parents != null) {
             for (Relation parent : parents) { // remove link from parent relations
-                List<RelationMember> members = parent.getAllMembers(parent);
+                List<RelationMember> members = parent.getAllMembers(e);
                 for (RelationMember member : members) {
                     member.setElement(null);
                 }
             }
-            logic.removeSelectedRelationElement(e);
+            if (logic != null) {
+                logic.removeSelectedRelationElement(e);
+            }
         }
     }
 
     /**
      * Remove all unchanged elements, retaining parent Relations for changed ones
+     * 
+     * Note this doesn't handle selected elements and should only be called when nothing is selected
      */
     public synchronized void pruneAll() {
         LongHashSet keepNodes = new LongHashSet();

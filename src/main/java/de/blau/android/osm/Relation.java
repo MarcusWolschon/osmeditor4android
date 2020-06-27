@@ -468,6 +468,21 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
         return true;
     }
 
+
+    /**
+     * Check if the Relation has any downloaded members
+     * 
+     * @return true if any members are present 
+     */
+    public boolean hasDownloadedMembers() {
+        for (RelationMember rm:getMembers()) {
+            if (rm.getElement() != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     @Override
     public BoundingBox getBounds() {
         return getBounds(1);
