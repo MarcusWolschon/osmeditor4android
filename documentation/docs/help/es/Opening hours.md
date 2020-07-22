@@ -23,9 +23,9 @@ Si se carga un valor existente, se intentará autocorregir para ajustarlo a las 
 * __Añadir regla para 24/7__: añada una regla para un objeto que siempre está abierto, la especificación de horas de apertura no admite ningún otro valor secundario para 24/7 sin embargo, sí permitimos añadir selectores de mayor nivel (por ejemplo, rangos de año).
 * __Cargar plantilla__: cargue una plantilla existente.
 * __Guardar a plantilla__: guarde el valor actual de las horas de apertura como una plantilla para uso futuro.
-* __Manage templates__: edit, for example change the name, and delete existing templates.
+* __Administrar plantillas__: editar, por ejemplo cambiar el nombre, y borrar las plantillas existentes.
 * __Refrescar__: volver a analizar el valor de la hora de apertura.
-* __Delete all__: remove all rules.
+* __Eliminar todo__: remover todas las reglas.
 
 ### Reglas
 
@@ -37,7 +37,7 @@ Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anular
 * __Añadir vacaciones__: añadir un selector para vacaciones públicas o escolares.
 * __Añadir período de tiempo...__
     * __Hora - tiempo__: una hora de inicio para una hora de finalización en el mismo día.
-    * __Time - extended time__: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).
+    * __Hora - tiempo prolongado__: una hora de inicio hasta un tiempo de finalización al día siguiente (ejemplo 26:00 es 02:00 (am) el día siguiente).
     * __Var. hora - hora__: desde una hora variable de inicio (amanecer, atardecer, amanecer y atardecer) a una hora de finalización en el mismo día.
     * __Var. hora - tiempo prolongado__: desde una hora variable de inicio hasta una hora de finalización al día siguiente.
     * __Hora - var. tiempo__: una hora de inicio a una hora variable final.
@@ -57,13 +57,13 @@ Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anular
     * __Fecha - ocurrencia en mes__: desde una fecha de inicio hasta una ocurrencia de fin de día de la semana en un mes.
     * __Ocurrencia en mes - fecha variable__: desde una ocurrencia de un día laborable de inicio en un mes a una fecha variable final.
     * __Fecha variable - ocurrencia en mes__: desde una fecha variable de inicio hasta el final de un a ocurrencia de día de la semana en un mes.
-    * __Date - open end__: from a start date onwards.
+    * __Fecha - sin plazo definido__: desde una fecha de inicio en adelante.
     * __Fecha variable - final abierto__: desde una fecha de inicio variable en adelante.
     * __Ocurrencia en mes - final abierto__: a partir de una ocurrencia de un día de la semana en un mes en adelante.
     * __Con compensaciones...__: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).
 * __Añadir rango de año__: añadir un selector basado en el año.
 * __Añadir rango de semana__: agregar un selector basado en el número de la semana.
-* __Duplicate__: create a copy of this rule and insert it after the current position.
+* __Duplicar__: crear una copia de esta regla y insertarla después de la posición actual.
 * __Mostrar tipo de regla__: mostrar y permitir el cambio del tipo de regla _normal_, _additive_ y _fallback_ (no disponible en la primera regla).
 * __Ascender__: subir esta regla una posición (no disponible en la primera regla).
 * __Bajar__: bajar esta regla una posición.
@@ -77,7 +77,7 @@ Clicking (not on the pins) the time bar will open the large time picker, when us
 
 #### Menú de lapso de tiempo
 
-* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
+* __Mostrar el selector de tiempo__: mostrar un selector de tiempo para seleccionar la hora de inicio y finalización, en pantallas muy pequeñas esta es la forma preferida de cambiar los horarios.
 * __Cambiar a marcas de 15 minutos__: use una granularidad de 15 minutos para la barra de rango.
 * __Cambiar a ticks de 5 minutos__: use una granularidad de 5 minutos para la barra de rango.
 * __Cambiar a marcas de 1 minuto__: use una granularidad de 1 minuto para la barra de rango, muy difícil de usar en un teléfono.

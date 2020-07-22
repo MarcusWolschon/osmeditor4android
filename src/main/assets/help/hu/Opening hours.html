@@ -7,7 +7,7 @@
 <body>
 <h1>OpenStreetMap nyitvatartás-szerkesztő</h1>
 <p>Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.</p>
-<p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkcióka,t és az esetek többségében lecsökkenteni az általános használatot az előre definiált sablonok testreszabására.</p>
+<p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkciókat, és az esetek többségében lecsökkenteni az általános használatot az előre definiált sablonok testreszabására.</p>
 <p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
 <h2>A nyitvatartás-szerkesztő használata</h2>
 <p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
@@ -73,10 +73,10 @@
 </ul>
 <h3>Időtartamok</h3>
 <p>Szeretnénk a lehető legkönnyebbé tenni az időtartamok szerkesztését. A meglévő értékek betöltésénél ezért megpróbáltuk kiválasztani az optimális időtartamot és a tartománysáv finomságát. Új időtartam megadásánál a tartománysáv reggel 6:00 órakor indul és 15 perces a lépésköze. Ez menüben változtatható.</p>
-<p>Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.</p>
+<p>Az idősáv használata olykor túl nehézkes. Ha ilyenkor az idősávra (nem a kijelölőkre) kattintunk, akkor megjelenik egy nagy időválasztó. Az időválasztók a következő napra is kiterjednek, így egyszerűen kiterjeszthető az időtartam anélkül, hogy törölni kellene majd újra megadni.</p>
 <h4>Időtartam menü</h4>
 <ul>
-<li><strong>Display time picker</strong>: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
+<li><strong>Időválasztó megjelenítése</strong>: megjelenít egy nagy időválasztót a kezdő és záró időpontok kijelöléséhez. Nagyon kicsi kijelzőkön ez az idő módosításának előnyben részesített módja.</li>
 <li><strong>Váltás 15 perces lépésközre</strong>: 15 perces finomságúra változtatja a tartománysávot.</li>
 <li><strong>Váltás 5 perces lépésközre</strong>: 5 perces finomságúra változtatja a tartománysávot.</li>
 <li><strong>Váltás 1 perces lépésközre</strong>: 1 perces finomságúra változtatja a tartománysávot; telefonon nagyon nehezen használható.</li>

@@ -73,11 +73,11 @@ _這份文件是初步的並且正在進展_
 
 要讓編輯時間刻度變得更簡單可行，我們嘗試選擇最佳時間範圍，加載現有值時範圍欄的刻度。對新的時間刻度來說，欄從6:00(am)開始，然後每15分鐘增加。上述的設定可以在選單更改。
 
-Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+當你直接用時間軸太困難時，點 (不是在別針上) 在時間軸上，會打開比較大的時間檢取器。時間檢取器會延伸到下一天，所有簡單的方式延長時間區間，但不用刪除再加區間。
 
 #### 時間跨度選單
 
-* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
+* __顯示時間檢取器__：顯示更大的時間檢取器來開始和結束時間，在非常小的裝置上，則有更好的方式改變時間。
 * __切換到15分鐘刻度__：對範圍欄使用15分鐘刻度。
 * __切換到5分鐘刻度__：對範圍欄使用5分鐘的刻度。
 * __切換到1分鐘刻度__：對範圍欄使用1分鐘的刻度，很難在手機上使用。

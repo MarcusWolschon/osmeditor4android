@@ -73,11 +73,11 @@ _תיעוד זה הוא ראשוני בלבד וכרגע מתבצעות עליו
 
 כדי להקל על עריכת טווי שעות עד כמה שניתן, אנו מנסים לבחור טווח שעות מיטבי ויכולת בחירה מוגדרת עבור סרגלי הטווח בעת טעינת ערכים קיימים. לטווחי שעות חדשים, הסרגלים מתחילים ב־6:00 בבוקר וניתן להגדיל ב־15 דקות בכל צעד, ניתן לשנות זאת דרך התפריט.
 
-Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+לחיצה (לא על הנעצים) על סרגל הזמן פותחת את בורר הזמן הגדול, כאשר השימוש הישיר בסרגלים הוא מסובך מדי. בוררי הזמן מתרחבים ליום הבא, לכן הם מעניקים דרך פשוטה להרחיב טווח זמן מבלי למחוק ולהוסיף את הטווח מחדש.
 
 #### תפריט טווחי שעות
 
-* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
+* __הצגת בורר זמן__: הצגת בורר זמן גדול לבחירת זמן התחלה וסיום, בתצוגות קטנות מאוד זו הדרך המועדפת לעריכת זמנים.
 * __מעבר לפעימות של 15 דקות__: להשתמש בדיוק של 15 דקות עבור סרגל הטווח.
 * __מעבר לפעימות של 5 דקות__: להשתמש בדיוק של 5 דקות עבור סרגל הטווח.
 * __מעבר לפעימות של דקה__: להשתמש בדיוק של דקה עבור סרגל הטווח, לא נוח לשימוש בטלפון.

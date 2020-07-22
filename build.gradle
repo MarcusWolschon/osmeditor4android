@@ -131,8 +131,8 @@ update3rdPartyDocs.description = 'Update markdown help files for 3rd party libra
     def name="updateOpeningHoursDoc${lang.capitalize()}"
     task (name,type: Download) {
         acceptAnyCertificate true
-        src "https://raw.githubusercontent.com/simonpoole/OpeningHoursFragment/master/lib/documentation/docs/help-rtl/${lang}/Opening%20hours.md"
-        dest new File(projectDir.getPath() + "/documentation/docs/help/${lang}/Opening hours.md")
+        src "https://raw.githubusercontent.com/simonpoole/OpeningHoursFragment/master/lib/documentation/docs/help/${lang}/Opening%20hours.md"
+        dest new File(projectDir.getPath() + "/documentation/docs/help-rtl/${lang}/Opening hours.md")
     }
     update3rdPartyDocs.dependsOn name
 }
@@ -399,9 +399,9 @@ dependencies {
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
     implementation 'com.github.Kunzisoft:AndroidClearChroma:2.3'
     implementation "ch.poole:PoParser:0.7.2"
-    implementation "ch.poole:OpeningHoursParser:0.21.2"
+    implementation "ch.poole:OpeningHoursParser:0.22.0"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
-    implementation "ch.poole:OpeningHoursFragment:0.8.1"
+    implementation "ch.poole:OpeningHoursFragment:0.8.2"
     implementation 'ch.poole.android:numberpicker:1.0.9'
     implementation 'ch.poole.android:numberpickerpreference:2.0.0'
     implementation "ch.poole.osm:JosmFilterParser:0.2.0"
