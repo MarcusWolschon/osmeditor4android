@@ -931,6 +931,7 @@ public class Main extends FullScreenAppCompatActivity
             geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
             rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
             Uri uri = getIntent().getData();
+            contentUriType = getIntent().getType();
             if (uri != null && ("content".equals(uri.getScheme()) || (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT && "file".equals(uri.getScheme())))) {
                 contentUri = uri;
             } else {
@@ -941,7 +942,6 @@ public class Main extends FullScreenAppCompatActivity
                         Log.d(DEBUG_TAG, "getIntentData EXTRA_STREAM " + streamUri);
                         if (streamUri != null) {
                             contentUri = streamUri;
-                            contentUriType = getIntent().getType();
                         }
                     } catch (ClassCastException e) {
                         Log.e(DEBUG_TAG, "getIntentData " + e.getMessage());
@@ -1018,50 +1018,71 @@ public class Main extends FullScreenAppCompatActivity
      */
     void processContentUri() {
         Log.d(DEBUG_TAG, "Processing content uri");
-        try {
-            Log.d(DEBUG_TAG, "contentUriType " + contentUriType);
-            if (contentUriType != null) {
-                if (MimeTypes.JPEG.equals(contentUriType) || MimeTypes.ALL_IMAGE_FORMATS.equals(contentUriType)) {
-                    handlePhotoUri();
+        Log.d(DEBUG_TAG, "contentUriType " + contentUriType);
+        if (contentUriType != null) {
+            switch (contentUriType) {
+            case MimeTypes.JPEG:
+            case MimeTypes.ALL_IMAGE_FORMATS:
+                handlePhotoUri();
+                break;
+            case MimeTypes.GPX:
+                if (getTracker() != null) {
+                    loadGPXFile(contentUri);
+                } else {
+                    return; // will be loaded when tracker is connected
                 }
-            } else {
-                switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
-                case FileExtensions.GPX:
-                    if (getTracker() != null) {
-                        // load now
-                        loadGPXFile(contentUri);
-                    }
-                    break;
-                case FileExtensions.JSON:
-                case FileExtensions.GEOJSON:
-                    de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
-                    if (geojsonLayer != null) {
-                        try {
-                            geojsonLayer.resetStyling();
-                            if (geojsonLayer.loadGeoJsonFile(this, contentUri)) {
-                                BoundingBox extent = geojsonLayer.getExtent();
-                                if (extent != null) {
-                                    map.getViewBox().fitToBoundingBox(map, extent);
-                                    setFollowGPS(false);
-                                    map.setFollowGPS(false);
-                                }
-                                geojsonLayer.invalidate();
-                            }
-                        } catch (IOException e) {
-                            // display a toast?
-                        }
-                    }
-                    break;
-                case FileExtensions.JPG:
-                    handlePhotoUri();
-                    break;
-                default:
-                    Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
-                }
+                break;
+            case MimeTypes.GEOJSON:
+                loadGeoJson();
+                break;
+            default:
+                Log.e(DEBUG_TAG, "Unknown content type");
             }
-        } finally {
-            contentUri = null;
-            contentUriType = null;
+        } else {
+            Log.d(DEBUG_TAG, "contentUri " + contentUri);
+            switch (FileUtil.getExtension(contentUri.getLastPathSegment())) {
+            case FileExtensions.GPX:
+                if (getTracker() != null) {
+                    loadGPXFile(contentUri);
+                } else {
+                    return; // will be loaded when tracker is connected
+                }
+                break;
+            case FileExtensions.JSON:
+            case FileExtensions.GEOJSON:
+                loadGeoJson();
+                break;
+            case FileExtensions.JPG:
+                handlePhotoUri();
+                break;
+            default:
+                Log.e(DEBUG_TAG, "Unknown uri " + contentUri);
+            }
+        }
+        contentUri = null;
+        contentUriType = null;
+    }
+
+    /**
+     * Load geojson from intent
+     */
+    private void loadGeoJson() {
+        de.blau.android.layer.geojson.MapOverlay geojsonLayer = App.getLogic().getMap().getGeojsonLayer();
+        if (geojsonLayer != null) {
+            try {
+                geojsonLayer.resetStyling();
+                if (geojsonLayer.loadGeoJsonFile(this, contentUri)) {
+                    BoundingBox extent = geojsonLayer.getExtent();
+                    if (extent != null) {
+                        map.getViewBox().fitToBoundingBox(map, extent);
+                        setFollowGPS(false);
+                        map.setFollowGPS(false);
+                    }
+                    geojsonLayer.invalidate();
+                }
+            } catch (IOException e) {
+                // display a toast?
+            }
         }
     }
 
@@ -3978,7 +3999,7 @@ public class Main extends FullScreenAppCompatActivity
             synchronized (newIntentsLock) {
                 if (contentUri != null) {
                     Log.d(DEBUG_TAG, "Processing content uri for a gpx file");
-                    if (FileExtensions.GPX.equals(FileUtil.getExtension(contentUri.getLastPathSegment()))) {
+                    if (MimeTypes.GPX.equals(contentUriType) || FileExtensions.GPX.equals(FileUtil.getExtension(contentUri.getLastPathSegment()))) {
                         loadGPXFile(contentUri);
                         contentUri = null;
                     }
@@ -4042,6 +4063,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * @return the tracker
      */
+    @Nullable
     public TrackerService getTracker() {
         return tracker;
     }
@@ -4049,7 +4071,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * @param tracker the tracker to set
      */
-    private void setTracker(TrackerService tracker) {
+    private void setTracker(@Nullable TrackerService tracker) {
         this.tracker = tracker;
     }
 
