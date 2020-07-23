@@ -3100,57 +3100,67 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             @NonNull LongOsmElementMap<Relation> relationIndex) {
         // zap all existing backlinks for our "old" relations
         for (Relation r : currentStorage.getRelations()) {
-            for (RelationMember rm : r.getMembers()) {
-                if (rm.getType().equals(Node.NAME)) {
-                    Node n = nodeIndex.get(rm.getRef());
-                    if (n != null) {
-                        n.clearParentRelations();
-                    }
-                } else if (rm.getType().equals(Way.NAME)) {
-                    Way w = wayIndex.get(rm.getRef());
-                    if (w != null) {
-                        w.clearParentRelations();
-                    }
-                } else if (rm.getType().equals(Relation.NAME)) {
-                    Relation r2 = relationIndex.get(rm.getRef());
-                    if (r2 != null) {
-                        r2.clearParentRelations();
+            final List<RelationMember> members = r.getMembers();
+            if (members != null) {
+                for (RelationMember rm : members) {
+                    if (rm.getType().equals(Node.NAME)) {
+                        Node n = nodeIndex.get(rm.getRef());
+                        if (n != null) {
+                            n.clearParentRelations();
+                        }
+                    } else if (rm.getType().equals(Way.NAME)) {
+                        Way w = wayIndex.get(rm.getRef());
+                        if (w != null) {
+                            w.clearParentRelations();
+                        }
+                    } else if (rm.getType().equals(Relation.NAME)) {
+                        Relation r2 = relationIndex.get(rm.getRef());
+                        if (r2 != null) {
+                            r2.clearParentRelations();
+                        }
                     }
                 }
+            } else {
+                Log.e(DEBUG_TAG, "Relation has no members " + r.getOsmId());
             }
         }
 
         // add backlinks for all "new" relations
         for (Relation r : tempCurrent.getRelations()) {
-            for (RelationMember rm : r.getMembers()) {
-                if (rm.getType().equals(Node.NAME)) {
-                    Node n = nodeIndex.get(rm.getRef());
-                    if (n != null) { // if node is downloaded always re-set it
-                        rm.setElement(n);
-                        n.addParentRelation(r);
-                    } else if (memberIsDeleted(r, rm)) {
-                        Log.e(DEBUG_TAG, "redoBacklinks node " + rm.getRef() + " missing");
-                        return false;
-                    }
-                } else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
-                    Way w = wayIndex.get(rm.getRef());
-                    if (w != null) {
-                        rm.setElement(w);
-                        w.addParentRelation(r);
-                    } else if (memberIsDeleted(r, rm)) {
-                        Log.e(DEBUG_TAG, "redoBacklinks way " + rm.getRef() + " missing");
-                        return false;
-                    }
-                } else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
-                    Relation r2 = relationIndex.get(rm.getRef());
-                    if (r2 != null) {
-                        rm.setElement(r2);
-                        r2.addParentRelation(r);
-                    } else if (memberIsDeleted(r, rm)) {
-                        Log.e(DEBUG_TAG, "redoBacklinks relation " + rm.getRef() + " missing");
-                        return false;
+            final List<RelationMember> members = r.getMembers();
+            if (members != null) {
+                for (RelationMember rm : members) {
+                    if (rm.getType().equals(Node.NAME)) {
+                        Node n = nodeIndex.get(rm.getRef());
+                        if (n != null) { // if node is downloaded always re-set it
+                            rm.setElement(n);
+                            n.addParentRelation(r);
+                        } else if (memberIsDeleted(r, rm)) {
+                            Log.e(DEBUG_TAG, "redoBacklinks node " + rm.getRef() + " missing");
+                            return false;
+                        }
+                    } else if (rm.getType().equals(Way.NAME)) { // same logic as for nodes
+                        Way w = wayIndex.get(rm.getRef());
+                        if (w != null) {
+                            rm.setElement(w);
+                            w.addParentRelation(r);
+                        } else if (memberIsDeleted(r, rm)) {
+                            Log.e(DEBUG_TAG, "redoBacklinks way " + rm.getRef() + " missing");
+                            return false;
+                        }
+                    } else if (rm.getType().equals(Relation.NAME)) { // same logic as for nodes
+                        Relation r2 = relationIndex.get(rm.getRef());
+                        if (r2 != null) {
+                            rm.setElement(r2);
+                            r2.addParentRelation(r);
+                        } else if (memberIsDeleted(r, rm)) {
+                            Log.e(DEBUG_TAG, "redoBacklinks relation " + rm.getRef() + " missing");
+                            return false;
+                        }
                     }
                 }
+            } else {
+                Log.e(DEBUG_TAG, "Relation has no members " + r.getOsmId());
             }
         }
         return true; // sucessful
@@ -3252,7 +3262,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             long relationId = r.getOsmId();
             if (apiStorage.getRelation(relationId) == null && (noLogic || !logic.isSelected(r)) && !r.hasDownloadedMembers()) {
                 // Note: this will not remove already processed relations that had this as a member however further
-                // prune passes will eventually delete them, which is good enough and so we don't rerun this explicitly here
+                // prune passes will eventually delete them, which is good enough and so we don't rerun this explicitly
+                // here
                 currentStorage.removeRelation(r);
                 removeReferenceFromParents(logic, r);
             }
