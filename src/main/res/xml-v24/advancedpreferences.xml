@@ -343,7 +343,7 @@
             android:summary="@string/config_gps_interval_summary"
             android:title="@string/config_gps_interval_title"
             app:spt_maxValue="30000"
-            app:spt_minValue="200"
+            app:spt_minValue="0"
             app:spt_increment="200"
             app:spt_currentValueText="@string/config_gps_interval_current"
             app:spt_setWrapSelectorWheel="false" />
@@ -355,7 +355,7 @@
             android:summary="@string/config_gps_distance_summary"
             android:title="@string/config_gps_distance_title"
             app:spt_maxValue="50"
-            app:spt_minValue="1"
+            app:spt_minValue="0"
             app:spt_currentValueText="@string/config_gps_distance_current"
             app:spt_setWrapSelectorWheel="false" />
         <androidx.preference.CheckBoxPreference
