@@ -71,13 +71,13 @@ Oletussäännöt lisätään _tavallisina_ sääntöinä, mikä tarkoittaa sitä
 
 ### Ajanjaksot
 
-Jotta ajanjaksojen muokkaaminen olisi mahdollisimman helppoa, säätöpalkkien laajuus ja tarkkuus yritetään optimoida, kun olemassa oleva arvo ladataan. Uusien ajanjaksojen säätimissä alkuaika on 6:00, ja niissä on 15 minuutin jaotus. Asetuksia voi muuttaa valikon kautta.
+Jotta ajanjaksojen muokkaaminen olisi mahdollisimman helppoa, valmiita arvoja ladattaessa säätöasteikolle koetetaan antaa paras mahdollinen laajuus ja jaottelu. Uusien ajanjaksojen säätimissä alkuaika on 6:00, ja niissä on 15 minuutin jaotus. Asetuksia voi muuttaa valikon kautta.
 
-Clicking (not on the pins) the time bar will open the large time picker, when using the bars directly is too difficult. The time pickers extend in to the next day, so they are a simple way to extend a time range without having to delete and re-add the the range.
+Aikapalkin (ei jakomerkkien) klikkaaminen avaa ison aikavalitsimen, kun palkin käyttö suoraan on liian vaikeaa. Aikavalitsin ulottuu seuraavaan päivään, joten se on helppo tapa laajentaa aikaväliä tarvitsematta poistaa ja lisätä aikaväliä uudelleen.
 
 #### Ajanjaksovalikko
 
-* __Display time picker__: show a large time picker for selecting start and end time, on very small displays this is the preferred way of changing times.
+* __Näytä aikavalitsin__: näytä iso valitsin, josta voi asettaa alku- ja loppuajan; pienille näytöille tämä on suositeltava tapa aikojen asettamiseen.
 * __15 minuutin jaotus__: käytä säätöpalkissa 15 minuutin tarkkuutta.
 * __5 minuutin jaotus__: käytä säätöpalkissa 5 minuutin tarkkuutta.
 * __1 minuutin jaotus__: käytä säätöpalkissa 1 minuutin tarkkuutta – todella vaikeaa puhelimessa.
