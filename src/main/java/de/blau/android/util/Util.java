@@ -41,6 +41,7 @@ import android.view.View;
 import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.text.HtmlCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentActivity;
@@ -486,18 +487,13 @@ public final class Util {
     }
 
     /**
-     * Backwards compatible version of Html.fromHtml
+     * Compatibility wrapper for Html.fromHtml
      * 
      * @param html string with HTML markup to convert
      * @return a Spanned formated as the markup required
      */
-    @SuppressWarnings("deprecation")
     public static Spanned fromHtml(@NonNull String html) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, null, new UlTagHandler());
-        } else {
-            return Html.fromHtml(html, null, new UlTagHandler());
-        }
+        return HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY, null, new UlTagHandler());
     }
 
     /**
