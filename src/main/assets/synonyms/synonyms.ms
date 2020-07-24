@@ -5,14 +5,8 @@
 "advertising/billboard":[
 "Papan Iklan"
 ],
-"aerialway":[
-"Jalan Udara"
-],
 "aerialway/cable_car":[
 "Kereta Kabel"
-],
-"aerialway/gondola":[
-"Gondola"
 ],
 "amenity/cafe":[
 "Kafe"
@@ -96,9 +90,6 @@
 "amenity/recycling_centre":[
 "Pusat Kitar Semula"
 ],
-"amenity/register_office":[
-"Pejabat Pendaftar"
-],
 "amenity/restaurant":[
 "Restoran"
 ],
@@ -107,9 +98,6 @@
 ],
 "amenity/studio":[
 "Studio"
-],
-"amenity/swimming_pool":[
-"Kolam Renang"
 ],
 "amenity/taxi":[
 "Tempat Menunggu Teksi"
@@ -447,35 +435,14 @@
 "railway/disused":[
 "Jalan Kereta Api yang Tidak Diguna"
 ],
-"railway/funicular":[
-"Funikulus"
-],
 "railway/level_crossing":[
 "Lintasan Kereta Api (Jalan)"
-],
-"railway/light_rail":[
-"Rel Ringan"
-],
-"railway/monorail":[
-"Monorel"
-],
-"railway/narrow_gauge":[
-"Rel Landasan Sempit"
-],
-"railway/rail":[
-"Kereta Api"
 ],
 "railway/signal":[
 "Isyarat Kereta Api"
 ],
 "railway/station":[
 "Stesen Kereta Api"
-],
-"railway/subway":[
-"Kereta Api Bawah Tanah"
-],
-"railway/tram":[
-"Tram"
 ],
 "shop":[
 "Kedai"

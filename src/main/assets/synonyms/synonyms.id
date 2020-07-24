@@ -5,21 +5,10 @@
 "aerialway/cable_car":[
 "Kereta Gantung"
 ],
-"aerialway/gondola":[
-"Gondola"
-],
-"aeroway":[
-"Aeroway"
-],
 "aeroway/aerodrome":[
 "Bandara",
 "Bandar udara",
 "Lapangan Terbang"
-],
-"aeroway/apron":[
-"Pelataran pesawat",
-"Parkir Pesawat",
-"Apron"
 ],
 "aeroway/hangar":[
 "Hanggar"
@@ -178,9 +167,6 @@
 "amenity/pub":[
 "Pub"
 ],
-"amenity/register_office":[
-"Dinas Catatan Sipil"
-],
 "amenity/restaurant":[
 "Rumah Makan",
 "Restoran"
@@ -199,9 +185,6 @@
 ],
 "amenity/studio":[
 "Studio"
-],
-"amenity/swimming_pool":[
-"Kolam Renang"
 ],
 "amenity/taxi":[
 "Tempat Tunggu Taksi"
@@ -395,12 +378,6 @@
 "craft/gardener":[
 "Tukang Kebun"
 ],
-"craft/handicraft":[
-"Kerajinan Tangan"
-],
-"craft/hvac":[
-"HVAC"
-],
 "craft/insulator":[
 "Isolator"
 ],
@@ -409,9 +386,6 @@
 ],
 "craft/locksmith":[
 "Ahli Kunci"
-],
-"craft/metal_construction":[
-"Konstruksi Metal"
 ],
 "craft/painter":[
 "Tukang Cat"
@@ -965,27 +939,8 @@
 "railway/disused":[
 "Rel Tidak Terpakai"
 ],
-"railway/monorail":[
-"Monorel"
-],
-"railway/narrow_gauge":[
-"Trek",
-"Lebar Jalur Kereta Api",
-"Sepur Sempit",
-"Narrow Gauge Rail",
-"Trak"
-],
-"railway/rail":[
-"Rel Kereta"
-],
-"railway/subway":[
-"Jalur Bawah Tanah"
-],
 "railway/subway_entrance":[
 "Pintu Terowongan"
-],
-"railway/tram":[
-"Tram"
 ],
 "relation":[
 "Relasi"
@@ -1115,9 +1070,6 @@
 "shop/fashion":[
 "Toko Mode"
 ],
-"shop/fishmonger":[
-"Penjual Ikan"
-],
 "shop/florist":[
 "Toko Bunga"
 ],
@@ -1126,9 +1078,6 @@
 ],
 "shop/funeral_directors":[
 "Rumah Pemakaman"
-],
-"shop/furnace":[
-"Toko Perapian"
 ],
 "shop/furniture":[
 "Toko Furnitur"
@@ -1219,9 +1168,6 @@
 "shop/optician":[
 "Mata",
 "Optik"
-],
-"shop/organic":[
-"Toko Barang Organik"
 ],
 "shop/outdoor":[
 "Toko Perlengkapan Outdoor"
@@ -1438,6 +1384,12 @@
 "type/route/tram":[
 "Rute Trem"
 ],
+"type/waterway":[
+"Jalur Air"
+],
+"waterway":[
+"Fitur Jalur Air"
+],
 "waterway/canal":[
 "Kanal"
 ],
@@ -1459,6 +1411,9 @@
 ],
 "waterway/stream":[
 "Aliran"
+],
+"waterway/waterfall":[
+"Air terjun"
 ],
 "waterway/weir":[
 "Sungai",

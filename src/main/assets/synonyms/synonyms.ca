@@ -14,9 +14,6 @@
 "cartell",
 "Columna publicitària"
 ],
-"aerialway":[
-"Transport per cable"
-],
 "aerialway/cable_car":[
 "Telefèric"
 ],
@@ -30,10 +27,6 @@
 "remunta pendents",
 "telesquí",
 "esquí"
-],
-"aerialway/gondola":[
-"Telecabina",
-"Góndola"
 ],
 "aerialway/goods":[
 "càrrega",
@@ -57,17 +50,9 @@
 "aerialway/rope_tow":[
 "Corda remuntadora"
 ],
-"aeroway":[
-"Infraestructura aeroportuària"
-],
 "aeroway/aerodrome":[
 "Aeroport",
 "Aeròdrom"
-],
-"aeroway/apron":[
-"Àrea d'embarcament d'avions",
-"Àrea d'aparcament",
-"Àrea d'aparcament d'avions"
 ],
 "aeroway/gate":[
 "Porta d'aeroport"
@@ -263,9 +248,6 @@
 "servei de menjar ràpid",
 "Menjar ràpid"
 ],
-"amenity/ferry_terminal":[
-"Moll per Ferry"
-],
 "amenity/fire_station":[
 "Base de Bombers",
 "Caserna de bombers",
@@ -352,6 +334,12 @@
 "amenity/parking_space":[
 "Espai d'aparcament"
 ],
+"amenity/pharmacy":[
+"dispensari farmacèutic",
+"medicaments",
+"fórmules magistrals",
+"Farmàcia"
+],
 "amenity/place_of_worship":[
 "temple de la fe",
 "Punt de trobada religiós",
@@ -432,9 +420,6 @@
 "amenity/recycling_centre":[
 "Centre de Reciclatge"
 ],
-"amenity/register_office":[
-"Oficina de registre"
-],
 "amenity/restaurant":[
 "Restaurant",
 "Trattoria",
@@ -495,9 +480,6 @@
 "IES",
 "Escola"
 ],
-"amenity/scrapyard":[
-"Escorxador"
-],
 "amenity/shelter":[
 "Refugi"
 ],
@@ -526,9 +508,6 @@
 ],
 "amenity/studio":[
 "Estudi"
-],
-"amenity/swimming_pool":[
-"Piscina"
 ],
 "amenity/taxi":[
 "Parada de Taxi",
@@ -989,12 +968,6 @@
 "craft/glaziery":[
 "Vidrieria"
 ],
-"craft/handicraft":[
-"Botiga d'artesà"
-],
-"craft/hvac":[
-"Empresa d'instal·lacions climàtiques"
-],
 "craft/insulator":[
 "Aïllador"
 ],
@@ -1003,9 +976,6 @@
 ],
 "craft/locksmith":[
 "Copisteria de claus"
-],
-"craft/metal_construction":[
-"Construccions metàliques"
 ],
 "craft/painter":[
 "Pintor"
@@ -1359,9 +1329,6 @@
 "junction":[
 "Encreuament"
 ],
-"landuse/allotments":[
-"Jardí comunitari"
-],
 "landuse/basin":[
 "Bassa"
 ],
@@ -1623,9 +1590,6 @@
 "man_made/gasometer":[
 "Gasòmetre"
 ],
-"man_made/groyne":[
-"Dic"
-],
 "man_made/lighthouse":[
 "Far"
 ],
@@ -1679,6 +1643,9 @@
 ],
 "man_made/water_works":[
 "Planta potabilitzadora"
+],
+"man_made/watermill":[
+"Molí d'aigua"
 ],
 "man_made/works":[
 "Fàbrica",
@@ -1933,38 +1900,16 @@
 "Via fèrria fora d'ús",
 "Via de tren abandonada"
 ],
-"railway/funicular":[
-"Funicular"
-],
 "railway/level_crossing":[
 "Pas a nivell (carretera)"
 ],
-"railway/monorail":[
-"Monocarril",
-"Monoraíl"
-],
-"railway/narrow_gauge":[
-"Ferrocarril de via estreta"
-],
-"railway/rail":[
-"Via fèrria"
-],
 "railway/station":[
 "Estació de ferrocarril"
-],
-"railway/subway":[
-"Metro",
-"Transport metropolità"
 ],
 "railway/subway_entrance":[
 "Boca de metro",
 "Boca de Metro",
 "Entrada de metro"
-],
-"railway/tram":[
-"Tramvia ",
-"Tranvia",
-"Tram"
 ],
 "relation":[
 "Relació"
@@ -2153,9 +2098,6 @@
 "shop/fashion":[
 "Botiga de roba"
 ],
-"shop/fishmonger":[
-"Peixateria"
-],
 "shop/florist":[
 "Botiga de jardineria",
 "Floristeria",
@@ -2166,9 +2108,6 @@
 ],
 "shop/funeral_directors":[
 "Tanatori"
-],
-"shop/furnace":[
-"Botiga de forns i calderes"
 ],
 "shop/furniture":[
 "Botiga de mobles",
@@ -2188,7 +2127,7 @@
 "Perruqueria"
 ],
 "shop/hardware":[
-"Drogueria"
+"Ferreteria"
 ],
 "shop/hearing_aids":[
 "Centre d'audició"
@@ -2255,9 +2194,6 @@
 ],
 "shop/optician":[
 "Òptica"
-],
-"shop/organic":[
-"Botiga de menjar orgànic"
 ],
 "shop/outdoor":[
 "Botiga per a activitats a l'aire lliure"
@@ -2389,6 +2325,12 @@
 ],
 "tourism/artwork":[
 "Obra d'art"
+],
+"tourism/artwork/sculpture":[
+"Escultura"
+],
+"tourism/artwork/statue":[
+"Estàtua"
 ],
 "tourism/attraction":[
 "Atracció turística"

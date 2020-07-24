@@ -10,9 +10,6 @@
 "anunciu",
 "cartelera"
 ],
-"aerialway":[
-"Tendíu aéreu"
-],
 "aerialway/cable_car":[
 "Teleféricu",
 "teleféricu"
@@ -25,10 +22,6 @@
 "Telesquí",
 "remonte",
 "arrastre"
-],
-"aerialway/gondola":[
-"Telecabina",
-"cabina"
 ],
 "aerialway/magic_carpet":[
 "Alfombra máxica",
@@ -46,9 +39,6 @@
 "aerialway/rope_tow":[
 "Cuerda de remolque"
 ],
-"aeroway":[
-"Via d'aviación"
-],
 "aeroway/aerodrome":[
 "Aeroclub",
 "Aerotaxi",
@@ -56,9 +46,6 @@
 "Aeródromu",
 "Aereotresporte",
 "Aeropuertu"
-],
-"aeroway/apron":[
-"Aparcamientu d'aviones"
 ],
 "aeroway/gate":[
 "Puerta de terminal"
@@ -239,9 +226,6 @@
 "Comida rápida",
 "Comida basoria"
 ],
-"amenity/ferry_terminal":[
-"Estación / Terminal de ferry"
-],
 "amenity/fire_station":[
 "Bomberos",
 "Parque de bomberos",
@@ -357,9 +341,6 @@
 "amenity/recycling_centre":[
 "Centru de reciclax"
 ],
-"amenity/register_office":[
-"Oficina de rexistru"
-],
 "amenity/restaurant":[
 "Restaurante",
 "Chigre",
@@ -374,9 +355,6 @@
 "zona escolar",
 "Antoxana d'escuela",
 "Terrén d'escuela"
-],
-"amenity/scrapyard":[
-"Chatarrería"
 ],
 "amenity/shelter":[
 "Abellugu"
@@ -404,9 +382,6 @@
 "Televisión",
 "Radio",
 "Música"
-],
-"amenity/swimming_pool":[
-"Piscina"
 ],
 "amenity/taxi":[
 "Parada de taxis"
@@ -778,12 +753,6 @@
 "craft/glaziery":[
 "Cristalería"
 ],
-"craft/handicraft":[
-"Manualidaes"
-],
-"craft/hvac":[
-"Calefactor"
-],
 "craft/insulator":[
 "Aislamientos"
 ],
@@ -793,11 +762,6 @@
 ],
 "craft/locksmith":[
 "Cerraxería"
-],
-"craft/metal_construction":[
-"Construcciones metáliques",
-"ferreru",
-"Forxa"
 ],
 "craft/painter":[
 "Pintor"
@@ -1172,9 +1136,6 @@
 "junction":[
 "Crucie"
 ],
-"landuse/allotments":[
-"Xardín acomuñáu"
-],
 "landuse/aquaculture":[
 "Acuacultura"
 ],
@@ -1401,9 +1362,6 @@
 ],
 "man_made/gasometer":[
 "Gasómetru"
-],
-"man_made/groyne":[
-"Espigón"
 ],
 "man_made/lighthouse":[
 "Faru"
@@ -1686,9 +1644,6 @@
 "public_transport/station_bus":[
 "Estación / Terminal d'autobuses"
 ],
-"public_transport/station_ferry":[
-"Estación / Terminal de ferry"
-],
 "public_transport/station_light_rail":[
 "Estación de tren llixeru"
 ],
@@ -1716,24 +1671,8 @@
 "railway/disused":[
 "Ferrocarril ensin usu"
 ],
-"railway/funicular":[
-"Cremallera",
-"Cable",
-"Funicular"
-],
 "railway/level_crossing":[
 "Pasu a nivel (estrada)"
-],
-"railway/monorail":[
-"Monocarril"
-],
-"railway/narrow_gauge":[
-"Ferrocarril de vía estrecha",
-"Vía estrecha",
-"FEVE"
-],
-"railway/rail":[
-"Carril"
 ],
 "railway/signal":[
 "Señal de ferrocarril"
@@ -1741,16 +1680,8 @@
 "railway/station":[
 "Estación de tren"
 ],
-"railway/subway":[
-"Metro"
-],
 "railway/subway_entrance":[
 "Boca del metro"
-],
-"railway/tram":[
-"Tranvía",
-"tresporte",
-"trole"
 ],
 "relation":[
 "Rellación"
@@ -1868,9 +1799,6 @@
 "shop/fashion":[
 "Tienda de moda"
 ],
-"shop/fishmonger":[
-"Pescadería"
-],
 "shop/florist":[
 "flores",
 "Floristería",
@@ -1884,9 +1812,6 @@
 "Tanatoriu",
 "Funeraria",
 "Velatoriu"
-],
-"shop/furnace":[
-"Fornos"
 ],
 "shop/furniture":[
 "Mueblería"
@@ -1982,9 +1907,6 @@
 "ópticu",
 "optometrista",
 "Óptica"
-],
-"shop/organic":[
-"Tienda de productos ecolóxicos"
 ],
 "shop/outdoor":[
 "Equipamientu d'aire llibre"

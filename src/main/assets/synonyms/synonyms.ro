@@ -5,14 +5,8 @@
 "advertising/billboard":[
 "Billboard"
 ],
-"aerialway/gondola":[
-"Gondolă"
-],
 "aerialway/mixed_lift":[
 "Lift Mixat"
-],
-"aeroway":[
-"Aeroway"
 ],
 "aeroway/aerodrome":[
 "Aeroport"
@@ -179,9 +173,6 @@
 "amenity/recycling_centre":[
 "Centru de Reciclare"
 ],
-"amenity/register_office":[
-"Oficiu de Registrare"
-],
 "amenity/restaurant":[
 "Restaurant"
 ],
@@ -193,9 +184,6 @@
 ],
 "amenity/studio":[
 "Studio"
-],
-"amenity/swimming_pool":[
-"Piscină"
 ],
 "amenity/taxi":[
 "Stand de Taxi"
@@ -353,14 +341,8 @@
 "craft/gardener":[
 "Grădinar"
 ],
-"craft/handicraft":[
-"Manufactură"
-],
 "craft/insulator":[
 "Insulator"
-],
-"craft/metal_construction":[
-"Construcție de Metal"
 ],
 "craft/painter":[
 "Pictor"
@@ -520,9 +502,6 @@
 ],
 "junction":[
 "Juncție"
-],
-"landuse/allotments":[
-"Grădină Comunitară"
 ],
 "landuse/aquaculture":[
 "Acvacultură"
@@ -899,29 +878,11 @@
 "railway/disused":[
 "Cale Ferată Învechită"
 ],
-"railway/funicular":[
-"Frânghie"
-],
 "railway/level_crossing":[
 "Traversare de Cale Ferată (Stradă)"
 ],
-"railway/monorail":[
-"Monoșină"
-],
-"railway/narrow_gauge":[
-"Cale Ferată Îngustă"
-],
-"railway/rail":[
-"Șină"
-],
-"railway/subway":[
-"Metrou"
-],
 "railway/subway_entrance":[
 "Intrare Metrou"
-],
-"railway/tram":[
-"Tranvai"
 ],
 "relation":[
 "Relație"
@@ -1124,9 +1085,6 @@
 ],
 "shop/optician":[
 "Optician"
-],
-"shop/organic":[
-"Magazin de Bunuri Organice"
 ],
 "shop/outdoor":[
 "Magazin în Aer Liber"

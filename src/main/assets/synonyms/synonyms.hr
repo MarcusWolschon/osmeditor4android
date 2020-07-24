@@ -5,9 +5,6 @@
 "adresa",
 "kućni broj"
 ],
-"aerialway":[
-"Žičara"
-],
 "aerialway/cable_car":[
 "uspinjača",
 "Skijaški vlak"
@@ -15,10 +12,6 @@
 "aerialway/chair_lift":[
 "sedežnica",
 "Sjedežnica"
-],
-"aerialway/gondola":[
-"Gondola",
-"Kabinska žičara"
 ],
 "aerialway/magic_carpet":[
 "Skijaški tepih"
@@ -32,23 +25,10 @@
 "aerialway/rope_tow":[
 "Konop za vuču skijaša"
 ],
-"aeroway":[
-"Zračni promet"
-],
 "aeroway/aerodrome":[
 "aerodrom",
 "Zračna luka",
 "zračna luka"
-],
-"aeroway/apron":[
-"platforma",
-"Pristanišna platforma",
-"zrakoplovna platforma",
-"pristanišna platforma",
-"avionska platforma",
-"zrakoplovna pristanišna platforma",
-"stajanka",
-"avionska pristanišna platforma"
 ],
 "aeroway/hangar":[
 "hangar",
@@ -287,6 +267,11 @@
 "amenity/hunting_stand":[
 "Lovačka čeka"
 ],
+"amenity/kindergarten":[
+"dječji vrtić",
+"vrtić",
+"Zemljište dječjeg vrtića"
+],
 "amenity/library":[
 "knjižnica",
 "čitaonica",
@@ -312,6 +297,9 @@
 "parking",
 "kamione",
 "Parkiralište za automobile"
+],
+"amenity/parking_entrance":[
+"Ulaz/izlaz iz garaže za automobile"
 ],
 "amenity/parking_space":[
 "Parkirališno mjesto"
@@ -394,9 +382,6 @@
 "amenity/recycling_container":[
 "Kontejner za reciklažu"
 ],
-"amenity/register_office":[
-"Matični ured"
-],
 "amenity/restaurant":[
 "zdravljak",
 "buffet",
@@ -471,9 +456,6 @@
 ],
 "amenity/studio":[
 "Studio"
-],
-"amenity/swimming_pool":[
-"Sportski bazen"
 ],
 "amenity/taxi":[
 "taksi stajalište",
@@ -740,6 +722,9 @@
 "building/industrial":[
 "Industrijska zgrada"
 ],
+"building/kindergarten":[
+"Zgrada vrtića"
+],
 "building/mosque":[
 "Zgrada džamije"
 ],
@@ -849,19 +834,6 @@
 "craft/glaziery":[
 "Staklarna"
 ],
-"craft/handicraft":[
-"Ručni rad"
-],
-"craft/hvac":[
-"HVAC",
-"klimatizacija",
-"ventilacija",
-"klimatizacijsko grijaći sustav",
-"vanjski sustav za grijanje",
-"klima",
-"rashladni sustav",
-"vanjski rashladni sustav"
-],
 "craft/insulator":[
 "Izolator"
 ],
@@ -870,9 +842,6 @@
 ],
 "craft/locksmith":[
 "Bravar"
-],
-"craft/metal_construction":[
-"Željezar"
 ],
 "craft/painter":[
 "Slikar"
@@ -958,6 +927,10 @@
 ],
 "emergency/phone":[
 "Telefon za nuždu"
+],
+"entrance":[
+"vrata",
+"Ulaz / izlaz"
 ],
 "ford":[
 "Prijelaz preko potoka"
@@ -1298,6 +1271,11 @@
 "landuse/vineyard":[
 "Vinograd"
 ],
+"leisure/beach_resort":[
+"plaža",
+"Kupalište",
+"sunčanje"
+],
 "leisure/bowling_alley":[
 "Kuglalište"
 ],
@@ -1362,6 +1340,11 @@
 "Košarkaški teren",
 "košarkaško igralište"
 ],
+"leisure/pitch/beachvolleyball":[
+"Odbojka na pijesku",
+"odbojka na pjesku",
+"odbojka na plaži"
+],
 "leisure/pitch/skateboard":[
 "skejt",
 "park za ekstremne sportove",
@@ -1406,9 +1389,6 @@
 "Sportski bazen"
 ],
 "leisure/track/running":[
-"Staza za trčanje"
-],
-"leisure/track/running_point":[
 "Staza za trčanje"
 ],
 "leisure/water_park":[
@@ -1941,6 +1921,9 @@
 "public_transport/platform/bus_point":[
 "Autobusno stajalište"
 ],
+"public_transport/platform/ferry":[
+"Stajalište za trajekt"
+],
 "public_transport/platform/train_point":[
 "Željezničko stajalište"
 ],
@@ -1961,9 +1944,6 @@
 ],
 "public_transport/station_bus":[
 "Autobusna stanica"
-],
-"public_transport/station_ferry":[
-"Trajektna stanica"
 ],
 "public_transport/station_light_rail":[
 "Stanica lake željeznice"
@@ -2035,51 +2015,17 @@
 "nekorištena željeznička pruga",
 "željeznička pruga izvan uporabe"
 ],
-"railway/funicular":[
-"Uspinjača"
-],
 "railway/halt":[
 "Željeznička postaja"
 ],
 "railway/level_crossing":[
 "Cestovni prijelaz preko pruge"
 ],
-"railway/light_rail":[
-"Laka željeznica"
-],
-"railway/miniature":[
-"Minijaturna željeznica"
-],
-"railway/monorail":[
-"pruga sa jednim kolosjekom",
-"Jednotračna željeznička pruga",
-"monorail željeznička pruga"
-],
-"railway/narrow_gauge":[
-"Uskotračna željeznica"
-],
 "railway/platform":[
 "Željezničko stajalište"
 ],
-"railway/rail":[
-"željeznička pruga",
-"pruga pune širine",
-"Željeznička pruga",
-"željeznica pune veličine"
-],
-"railway/rail/highspeed":[
-"Brza željeznica"
-],
 "railway/station":[
 "Željeznička stanica"
-],
-"railway/subway":[
-"gradska željeznica",
-"metro",
-"podzemna željeznica",
-"gradska podzemna željeznica",
-"Podzemna željeznica",
-"željeznica ispod zemlje"
 ],
 "railway/subway_entrance":[
 "Ulaz u podzemnu željeznicu",
@@ -2089,13 +2035,6 @@
 ],
 "railway/train_wash":[
 "Praonica vagona"
-],
-"railway/tram":[
-"tramvaj",
-"električni tramvaj",
-"pruga za tramvaj",
-"tramvajska pruga",
-"Tramvaj"
 ],
 "railway/tram_stop":[
 "Mjesto stajanja tramvaja"
@@ -2115,6 +2054,9 @@
 ],
 "seamark":[
 "Morska oznaka"
+],
+"seamark/mooring":[
+"Brodski vez"
 ],
 "shop":[
 "Prodavaonica",
@@ -2240,6 +2182,9 @@
 "Prodavaonica odjeće",
 "dućan sa odjećom"
 ],
+"shop/coffee":[
+"Prodavaonica za kavu"
+],
 "shop/computer":[
 "Prodavaonica računala",
 "trgovina računalne opreme"
@@ -2320,9 +2265,6 @@
 ],
 "shop/fishing":[
 "Prodavaonica ribolovne opreme"
-],
-"shop/fishmonger":[
-"Ribarnica"
 ],
 "shop/florist":[
 "trgovina cvijećem",
@@ -2453,9 +2395,6 @@
 "shop/optician":[
 "optičar",
 "Optičar"
-],
-"shop/organic":[
-"Trgovina za organsku hranu"
 ],
 "shop/outdoor":[
 "trčanje",

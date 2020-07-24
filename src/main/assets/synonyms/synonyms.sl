@@ -13,9 +13,6 @@
 "Oglasni pano",
 "oglasniki"
 ],
-"aerialway":[
-"Žičnica"
-],
 "aerialway/cable_car":[
 "kabinska žičnica",
 "Nihalka",
@@ -38,10 +35,6 @@
 "Vlečnica",
 "krožci",
 "sidro"
-],
-"aerialway/gondola":[
-"Kabinska žičnica",
-"gondola"
 ],
 "aerialway/goods":[
 "žičnica",
@@ -76,19 +69,11 @@
 "vlečnica",
 "Vlečna vrv"
 ],
-"aeroway":[
-"Letalstvo"
-],
 "aeroway/aerodrome":[
 "Letališče",
 "letališče",
 "aerodrom",
 "vzletišče"
-],
-"aeroway/apron":[
-"parkirišče letal",
-"ploščad splošnega letalstva",
-"Letališka ploščad"
 ],
 "aeroway/gate":[
 "letališče",
@@ -439,15 +424,27 @@
 "parkirni prostor",
 "parkirišče"
 ],
+"amenity/payment_centre":[
+"Plačilni center"
+],
+"amenity/payment_terminal":[
+"Plačilni terminal"
+],
+"amenity/pharmacy":[
+"Lekarna"
+],
 "amenity/place_of_worship":[
-"Verski hram",
 "kraj čaščenja",
 "sakralni objekt",
+"Verski objekt",
 "verski objekt"
 ],
 "amenity/place_of_worship/buddhist":[
 "Budistični center",
 "Budistični tempelj"
+],
+"amenity/place_of_worship/christian":[
+"Krščanska cerkev"
 ],
 "amenity/place_of_worship/hindu":[
 "Hindujski tempel"
@@ -478,6 +475,9 @@
 "Pivnica",
 "pijača"
 ],
+"amenity/pub/lgbtq":[
+"LGBTQ+ pivnica"
+],
 "amenity/public_bath":[
 "kopališče",
 "bazen",
@@ -500,16 +500,28 @@
 "nadzornik parka",
 "Čuvaj parka"
 ],
+"amenity/recycling":[
+"Recikliranje"
+],
 "amenity/recycling_centre":[
 "Center za recikliranje"
 ],
-"amenity/register_office":[
-"Prijavi urad"
+"amenity/recycling_container":[
+"Ekološki otok"
 ],
 "amenity/restaurant":[
 "gostilna",
 "Restavracija",
 "gostinski obrat"
+],
+"amenity/restaurant/american":[
+"Ameriška restavracija"
+],
+"amenity/restaurant/asian":[
+"Azijska restavracija"
+],
+"amenity/restaurant/chinese":[
+"Kitajska restavracija"
 ],
 "amenity/sanitary_dump_station":[
 "Odlaganje fekalij za avtodome"
@@ -571,9 +583,6 @@
 "televizijski studio",
 "snemalni studio",
 "Studio"
-],
-"amenity/swimming_pool":[
-"Plavalni bazen"
 ],
 "amenity/taxi":[
 "Postajališče za taksi",
@@ -1024,15 +1033,6 @@
 "okna",
 "Steklarstvo"
 ],
-"craft/handicraft":[
-"Rokodelstvo",
-"izdelano ročno"
-],
-"craft/hvac":[
-"centralne naprave za klimatizacijo",
-"ogrevanje in hlajenje",
-"KGH"
-],
 "craft/insulator":[
 "Izolacije",
 "izolacija"
@@ -1043,11 +1043,6 @@
 ],
 "craft/locksmith":[
 "Ključavničarstvo"
-],
-"craft/metal_construction":[
-"Izdelava kovinskih konstrukcij",
-"kovinske konstrukcije",
-"kovinar"
 ],
 "craft/painter":[
 "slikopleskar",
@@ -1860,9 +1855,6 @@
 "man_made/gasometer":[
 "Plinski rezervoar"
 ],
-"man_made/groyne":[
-"Leseni valolom"
-],
 "man_made/lighthouse":[
 "svetilničar",
 "Svetilnik"
@@ -2243,33 +2235,11 @@
 "zapuščena železnica",
 "Opuščena železnica"
 ],
-"railway/funicular":[
-"tirna vzpenjača",
-"Vzpenjača"
-],
 "railway/level_crossing":[
 "Železniški prehod (cesta)"
 ],
-"railway/monorail":[
-"Enotirna železnica",
-"monorail"
-],
-"railway/narrow_gauge":[
-"Ozkotirna železnica",
-"železnica z ozkimi tiri"
-],
-"railway/rail":[
-"Železniški tir",
-"železnica",
-"železniški tir",
-"tirnica"
-],
 "railway/station":[
 "Železniška postaja"
-],
-"railway/subway":[
-"metro",
-"Podzemna železnica"
 ],
 "railway/subway_entrance":[
 "Vhod podzemne železnice",
@@ -2277,10 +2247,6 @@
 ],
 "railway/switch":[
 "Kretnica"
-],
-"railway/tram":[
-"tramvaj",
-"Tramvaj"
 ],
 "relation":[
 "odnos",
@@ -2499,9 +2465,6 @@
 "shop/fashion":[
 "Trgovina z modnimi oblačili"
 ],
-"shop/fishmonger":[
-"Ribarnica"
-],
 "shop/florist":[
 "cvetličarstvo",
 "cvetlice",
@@ -2510,9 +2473,6 @@
 "shop/funeral_directors":[
 "pogrebni zavod",
 "Pogrebne storitve"
-],
-"shop/furnace":[
-"Trgovina s pečmi"
 ],
 "shop/furniture":[
 "pohištvo",
@@ -2613,9 +2573,6 @@
 "optika",
 "Optik",
 "očala"
-],
-"shop/organic":[
-"Trgovina z organski hrano"
 ],
 "shop/outdoor":[
 "Trgovina za dejavosti na prostem"

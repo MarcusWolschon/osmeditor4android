@@ -9,16 +9,10 @@
 "advertising/column":[
 "Reklaminis stovas"
 ],
-"aerialway":[
-"Oro transporto kelias"
-],
 "aerialway/cable_car":[
 "funikulierius",
 "Funikulierius",
 "keltuvas"
-],
-"aerialway/gondola":[
-"Gondola"
 ],
 "aeroway/aerodrome":[
 "Oro uostas"
@@ -267,18 +261,12 @@
 "amenity/recycling_centre":[
 "Rūšiavimo centras"
 ],
-"amenity/register_office":[
-"Registravimo biūras"
-],
 "amenity/restaurant":[
 "rastoranas",
 "Restoranas"
 ],
 "amenity/school":[
 "Mokyklos kiemas"
-],
-"amenity/scrapyard":[
-"Metalo laužas"
 ],
 "amenity/shelter":[
 "pastogė",
@@ -302,9 +290,6 @@
 "amenity/studio":[
 "Studija",
 "studija"
-],
-"amenity/swimming_pool":[
-"Baseinas"
 ],
 "amenity/taxi":[
 "Taksi stendas",
@@ -659,13 +644,6 @@
 "craft/glaziery":[
 "Stiklintojas"
 ],
-"craft/handicraft":[
-"Rankdarbių meistras"
-],
-"craft/hvac":[
-"hvac",
-"HVAC"
-],
 "craft/key_cutter":[
 "Raktininkas"
 ],
@@ -955,9 +933,6 @@
 "jungtis",
 "sankryža",
 "Jungtis"
-],
-"landuse/allotments":[
-"Bendruomenės sodas"
 ],
 "landuse/aquaculture":[
 "Akvakultūra"
@@ -1430,31 +1405,11 @@
 "nenaudojami bėgiai",
 "Nebenaudojamas geležinkelis"
 ],
-"railway/funicular":[
-"Funikulierius",
-"Keltuvas"
-],
 "railway/level_crossing":[
 "Geležinkelio Pervaža (Kelias)"
 ],
-"railway/monorail":[
-"Vienbėgis geležinkelis"
-],
-"railway/narrow_gauge":[
-"siaurukas",
-"Siaurukas"
-],
-"railway/rail":[
-"gelžkelis",
-"geležinkelis",
-"Gelžkelis"
-],
 "railway/station":[
 "Traukinių stotis"
-],
-"railway/subway":[
-"Metro",
-"metro"
 ],
 "railway/subway_entrance":[
 "Metro įėjimas",
@@ -1462,10 +1417,6 @@
 ],
 "railway/train_wash":[
 "Traukinių plovykla"
-],
-"railway/tram":[
-"Tramvajus",
-"tramvajus"
 ],
 "relation":[
 "ryšys",
@@ -1615,9 +1566,6 @@
 "shop/fashion":[
 "Mados parduotuvė"
 ],
-"shop/fishmonger":[
-"Žuvų pardavėjas"
-],
 "shop/florist":[
 "Gėlės"
 ],
@@ -1626,9 +1574,6 @@
 ],
 "shop/funeral_directors":[
 "Laidojimo namai"
-],
-"shop/furnace":[
-"Krosnių parduotuvė"
 ],
 "shop/furniture":[
 "Baldų parduotuvė"
@@ -1717,10 +1662,6 @@
 ],
 "shop/optician":[
 "Optika"
-],
-"shop/organic":[
-"Organinių prekių parduotuvė",
-"Ekologiškų prekių parduotuvė"
 ],
 "shop/outdoor":[
 "Laisvalaikio parduotuvė"

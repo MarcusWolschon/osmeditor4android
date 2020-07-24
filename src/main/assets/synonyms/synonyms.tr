@@ -6,9 +6,6 @@
 "Reklam Panosu",
 "Bilbord"
 ],
-"aerialway":[
-"Teleferik Yolu"
-],
 "aerialway/cable_car":[
 "Teleferik"
 ],
@@ -17,9 +14,6 @@
 ],
 "aerialway/drag_lift":[
 "Kayak Teleferiği"
-],
-"aerialway/gondola":[
-"Gondol Teleferik"
 ],
 "aerialway/goods":[
 "Mal Teleferiği",
@@ -41,15 +35,8 @@
 "aerialway/rope_tow":[
 "Çekme Halat Teleferik"
 ],
-"aeroway":[
-"Hava Yolu"
-],
 "aeroway/aerodrome":[
 "Havaalanı"
-],
-"aeroway/apron":[
-"Hangar Önü",
-"Uçak Park Alanı"
 ],
 "aeroway/gate":[
 "Kapı"
@@ -217,9 +204,6 @@
 "Fast Food",
 "Hazır Yiyecek"
 ],
-"amenity/ferry_terminal":[
-"Feribot Terminali"
-],
 "amenity/fire_station":[
 "İtfaiye"
 ],
@@ -369,9 +353,6 @@
 "amenity/recycling_centre":[
 "Geri Dönüşüm Merkezi"
 ],
-"amenity/register_office":[
-"Nüfus Dairesi"
-],
 "amenity/restaurant":[
 "Lokanta",
 "Restoran"
@@ -434,9 +415,6 @@
 "Okul Bahçesi",
 "Okul"
 ],
-"amenity/scrapyard":[
-"Hurdalık"
-],
 "amenity/shelter":[
 "Barınak"
 ],
@@ -465,9 +443,6 @@
 ],
 "amenity/studio":[
 "Stüdyo"
-],
-"amenity/swimming_pool":[
-"Yüzme Havuzu"
 ],
 "amenity/taxi":[
 "Taksi Durağı"
@@ -865,12 +840,6 @@
 "craft/glaziery":[
 "Camcı"
 ],
-"craft/handicraft":[
-"El Sanatı"
-],
-"craft/hvac":[
-"Isıtma - Soğutma"
-],
 "craft/insulator":[
 "Kaloriferci"
 ],
@@ -879,9 +848,6 @@
 ],
 "craft/locksmith":[
 "Anahtarcı"
-],
-"craft/metal_construction":[
-"Metal Yapı"
 ],
 "craft/painter":[
 "Boyacı"
@@ -1347,9 +1313,6 @@
 "landuse":[
 "Arazi Kullanım Özelliği"
 ],
-"landuse/allotments":[
-"Hobi Bahçesi"
-],
 "landuse/aquaculture":[
 "Su Kültürü"
 ],
@@ -1626,9 +1589,6 @@
 ],
 "man_made/gasometer":[
 "Gazölçer"
-],
-"man_made/groyne":[
-"Kıyı Koruyucu Direk Şeridi"
 ],
 "man_made/lighthouse":[
 "Fener",
@@ -2070,10 +2030,6 @@
 "Otobüs İstasyonu",
 "Otobüs Terminali"
 ],
-"public_transport/station_ferry":[
-"Feribot Terminali",
-"Feribot İstasyonu"
-],
 "public_transport/station_light_rail":[
 "Hafif Raylı Taşıma İstasyonu",
 "Raybüs Terminali",
@@ -2157,25 +2113,11 @@
 "railway/disused":[
 "Kullanılmayan Demiryolu"
 ],
-"railway/funicular":[
-"Füniküler",
-"Kablolu Tren"
-],
 "railway/level_crossing":[
 "Hemzemin Geçit (Yol ile Kesişim)"
 ],
-"railway/monorail":[
-"Tekray",
-"Monoray"
-],
-"railway/narrow_gauge":[
-"Dar Demiryolu Geçidi"
-],
 "railway/platform":[
 "Tren Platformu"
-],
-"railway/rail":[
-"Demiryolu"
 ],
 "railway/signal":[
 "Demiryolu Sinyali"
@@ -2183,17 +2125,11 @@
 "railway/station":[
 "Tren İstasyonu"
 ],
-"railway/subway":[
-"Metro"
-],
 "railway/subway_entrance":[
 "Metro Girişi"
 ],
 "railway/train_wash":[
 "Tren Yıkama"
-],
-"railway/tram":[
-"Tramvay"
 ],
 "railway/yard":[
 "Demir Yolu Sahası"
@@ -2349,9 +2285,6 @@
 "shop/fashion":[
 "Giyim Mağazası"
 ],
-"shop/fishmonger":[
-"Balıkçı"
-],
 "shop/florist":[
 "Çiçekçi"
 ],
@@ -2360,9 +2293,6 @@
 ],
 "shop/funeral_directors":[
 "Cenaze Koordinatörü"
-],
-"shop/furnace":[
-"Soba Mağazası"
 ],
 "shop/furniture":[
 "Mobilya Mağazası"
@@ -2454,9 +2384,6 @@
 "shop/optician":[
 "Gözlükçü",
 "Optik"
-],
-"shop/organic":[
-"Organik Ürün Mağazası"
 ],
 "shop/outdoor":[
 "Kamp Malzemeleri Mağazası"

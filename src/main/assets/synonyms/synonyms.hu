@@ -23,9 +23,6 @@
 "advertising/totem":[
 "Reklámoszlop"
 ],
-"aerialway":[
-"Drótkötélpálya"
-],
 "aerialway/cable_car":[
 "sífelvonó",
 "Kabinos felvonó",
@@ -41,11 +38,6 @@
 "csákányos",
 "tányéros",
 "Húzólift"
-],
-"aerialway/gondola":[
-"gondolakabinos felvonó",
-"kabinos felvonó",
-"Gondola"
 ],
 "aerialway/goods":[
 "Teherfelvonó",
@@ -79,18 +71,10 @@
 "aerialway/zip_line":[
 "Kötélcsúszda"
 ],
-"aeroway":[
-"Légi közeledés"
-],
 "aeroway/aerodrome":[
 "repülőtér",
 "Repülőtér",
 "reptér"
-],
-"aeroway/apron":[
-"előtér",
-"Forgalmi előtér",
-"repülő parkoló"
 ],
 "aeroway/gate":[
 "Repülőtéri kapu",
@@ -474,9 +458,6 @@
 "amenity/fast_food/sandwich":[
 "Szendvics gyorsétterem"
 ],
-"amenity/ferry_terminal":[
-"Kompállomás / Terminál"
-],
 "amenity/fire_station":[
 "tűzoltólaktanya",
 "Tűzoltóállomás",
@@ -773,9 +754,6 @@
 "amenity/recycling_container":[
 "Szelektív hulladékgyűjtő konténer"
 ],
-"amenity/register_office":[
-"Anyakönyvi hivatal"
-],
 "amenity/restaurant":[
 "csárda",
 "ebédlő",
@@ -861,9 +839,6 @@
 "Iskola",
 "tanítás"
 ],
-"amenity/scrapyard":[
-"Szeméttelep"
-],
 "amenity/shelter":[
 "fedél",
 "esőkunyhó",
@@ -947,9 +922,6 @@
 ],
 "amenity/studio/video":[
 "Filmstúdió"
-],
-"amenity/swimming_pool":[
-"Úszómedence"
 ],
 "amenity/taxi":[
 "taxibeálló",
@@ -1687,9 +1659,6 @@
 "Műhely",
 "műhely"
 ],
-"craft/agricultural_engines":[
-"Mezőgazdasági-gép szerelő"
-],
 "craft/basket_maker":[
 "Kosárfonó"
 ],
@@ -1781,17 +1750,6 @@
 "üvegjáték",
 "öblösüveggyártás"
 ],
-"craft/handicraft":[
-"Kézművestermék-készítő",
-"iparművész"
-],
-"craft/hvac":[
-"Fűtés",
-"épületgépészet",
-"Fűtés-, szellőztetés- és légkondicionálás-szerelő",
-"szellőzés",
-"légkondicionálás"
-],
 "craft/insulator":[
 "Szigetelő",
 "Épület-hőszigetelő"
@@ -1808,15 +1766,6 @@
 ],
 "craft/locksmith":[
 "Lakatos"
-],
-"craft/metal_construction":[
-"csavar gyártása",
-"Fémiparos",
-"Huzaltermék gyártása",
-"fémmegmunkálás",
-"szerszámgyártás",
-"acél tárolóeszköz gyártása",
-"kötőelem"
 ],
 "craft/painter":[
 "Festő",
@@ -2166,9 +2115,6 @@
 "highway/bus_stop":[
 "Buszmegálló"
 ],
-"highway/construction":[
-"Lezárt út"
-],
 "highway/corridor":[
 "Beltéri folyosó",
 "beltéri folyosó"
@@ -2414,9 +2360,9 @@
 "Bekötőút felhajtó"
 ],
 "highway/track":[
-"Nem karbantartott mezőgazdasági/erdészeti út",
 "tanyasi út",
 "földút",
+"Mezőgazdasági/erdészeti út",
 "erdészeti út",
 "mezőgazdasági út"
 ],
@@ -2561,10 +2507,6 @@
 "útkereszteződés",
 "Elágazás",
 "csomópont"
-],
-"landuse/allotments":[
-"közösségi kert",
-"Közpark"
 ],
 "landuse/aquaculture":[
 "halgazdaság",
@@ -3020,19 +2962,10 @@
 "leisure/track/cycling":[
 "Kerékpárpálya"
 ],
-"leisure/track/cycling_point":[
-"Kerékpárpálya"
-],
 "leisure/track/horse_racing":[
 "Lóversenypálya"
 ],
-"leisure/track/horse_racing_point":[
-"Lóversenypálya"
-],
 "leisure/track/running":[
-"Futópálya"
-],
-"leisure/track/running_point":[
 "Futópálya"
 ],
 "leisure/water_park":[
@@ -3086,9 +3019,6 @@
 "teher",
 "daru"
 ],
-"man_made/cross":[
-"Hegycsúcson lévő kereszt"
-],
 "man_made/cutline":[
 "Irtás",
 "Nyiladék"
@@ -3106,11 +3036,6 @@
 "man_made/gasometer":[
 "Gáztartály",
 "gazométer"
-],
-"man_made/groyne":[
-"Keresztgát",
-"hullámtörő",
-"védőgát"
 ],
 "man_made/lighthouse":[
 "jelzőfény",
@@ -3246,8 +3171,8 @@
 "Telefonpózna"
 ],
 "man_made/wastewater_plant":[
-"Szennyvíztelep",
-"Szennyvíztisztító üzem"
+"Szennyvíztisztító üzem",
+"Szennyvíztisztító telep"
 ],
 "man_made/water_tower":[
 "Víztorony"
@@ -3637,9 +3562,10 @@
 "helynév"
 ],
 "place/neighbourhood":[
+"lakópark",
 "Környék",
-"környék",
-"negyed"
+"szomszédság",
+"környék"
 ],
 "place/plot":[
 "Parcella"
@@ -3678,11 +3604,6 @@
 "kosár",
 "Kosárhinta"
 ],
-"playground/climbing_frame":[
-"játék",
-"mászóka",
-"Mászóka"
-],
 "playground/cushion":[
 "párna",
 "felfúj",
@@ -3694,11 +3615,6 @@
 "játék",
 "körforgó",
 "körhinta"
-],
-"playground/sandpit":[
-"Homokozó",
-"játék",
-"homok"
 ],
 "playground/seesaw":[
 "hinta",
@@ -3720,11 +3636,6 @@
 "playground/swing":[
 "hinta",
 "Hinta"
-],
-"playground/zipwire":[
-"csúszda",
-"kötél",
-"Kötélcsúszda"
 ],
 "point":[
 "Pont"
@@ -3866,11 +3777,6 @@
 "Buszvégállomás",
 "Buszpályaudvar"
 ],
-"public_transport/station_ferry":[
-"komp",
-"kompkikötő",
-"Kompállomás / pályaudvar"
-],
 "public_transport/station_light_rail":[
 "HÉV megálló",
 "HÉV állomás"
@@ -3957,11 +3863,6 @@
 "megszűnt vasútvonal",
 "Használaton kívüli vasút"
 ],
-"railway/funicular":[
-"Siklóvasút",
-"kötélvasút",
-"Sikló"
-],
 "railway/halt":[
 "Vasúti megálló (feltételes)"
 ],
@@ -3971,37 +3872,14 @@
 "átkelő",
 "Vasúti átjáró (közút)"
 ],
-"railway/light_rail":[
-"HÉV",
-"helyiérdekű vasút"
-],
 "railway/milestone":[
 "kilométerkő",
 "Vasúti mérföldkő",
 "mérföldkő",
 "vasút"
 ],
-"railway/miniature":[
-"Miniatűrvasút"
-],
-"railway/monorail":[
-"Egysínű vasút",
-"mágnesvasút",
-"nyeregvasút"
-],
-"railway/narrow_gauge":[
-"Keskeny nyomtávú vasút",
-"Kisvasút"
-],
 "railway/platform":[
 "Vasúti peron"
-],
-"railway/rail":[
-"Vasúti pálya",
-"Vasútvonal"
-],
-"railway/rail/highspeed":[
-"Nagysebességű vasút"
 ],
 "railway/signal":[
 "jelzés",
@@ -4011,10 +3889,6 @@
 ],
 "railway/station":[
 "Vasútállomás"
-],
-"railway/subway":[
-"Metró",
-"földalatti"
 ],
 "railway/subway_entrance":[
 "Metrólejáró",
@@ -4033,9 +3907,6 @@
 "vonat",
 "kocsimosó",
 "vasút"
-],
-"railway/tram":[
-"Villamos"
 ],
 "railway/tram_stop":[
 "Villamosmegállási pont"
@@ -4383,9 +4254,6 @@
 "shop/fishing":[
 "Horgászbolt"
 ],
-"shop/fishmonger":[
-"Halbolt"
-],
 "shop/florist":[
 "bonsai",
 "Virágárus",
@@ -4398,10 +4266,6 @@
 "Képkeretes",
 "Képkeretező"
 ],
-"shop/frozen_food":[
-"mirelit",
-"Fagyasztott élelmiszer"
-],
 "shop/fuel":[
 "Üzemanyagot árusító bolt"
 ],
@@ -4410,9 +4274,6 @@
 "temetkezési intézet",
 "temetkezési és hamvasztási ügyintézés",
 "Temetkezési iroda"
-],
-"shop/furnace":[
-"Kazánbolt (elavult)"
 ],
 "shop/furniture":[
 "bútor",
@@ -4630,14 +4491,6 @@
 "kontaktlencse",
 "optikus",
 "Szemüveg"
-],
-"shop/organic":[
-"biominőségű és egészséges táplálékok boltja",
-"bio és organikus ételek és áruk boltja",
-"Natura reformtáplálkozási szaküzlet",
-"Natura bolt",
-"Bio és natúr élelmiszer bolt",
-"Biobolt"
 ],
 "shop/outdoor":[
 "outdoor",

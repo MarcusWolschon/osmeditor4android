@@ -71,9 +71,6 @@
 "amenity/shelter":[
 "ಅಡೆ"
 ],
-"amenity/swimming_pool":[
-"ಈಜುಕೊಳ"
-],
 "amenity/taxi":[
 "‍ಕಾರು ನಿಲ್ಡಾಣ "
 ],
@@ -167,9 +164,6 @@
 ],
 "craft/gardener":[
 "ತೋಟದ ಮಾಲಿ"
-],
-"craft/handicraft":[
-"ಕರಕುಶಲ ವಸ್ತು"
 ],
 "craft/shoemaker":[
 "ಚಮ್ಮಾರ"

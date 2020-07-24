@@ -2,14 +2,8 @@
 "address":[
 "Адрес"
 ],
-"aeroway":[
-"Въздухоплаване"
-],
 "aeroway/aerodrome":[
 "Летище"
-],
-"aeroway/apron":[
-"Стоянка за самолети"
 ],
 "aeroway/hangar":[
 "Хангар"
@@ -103,9 +97,6 @@
 ],
 "amenity/restaurant":[
 "Ресторант"
-],
-"amenity/swimming_pool":[
-"Плувен басейн"
 ],
 "amenity/taxi":[
 "Такси стоянка"
@@ -497,20 +488,8 @@
 "railway/disused":[
 "Закрита железопътна линия"
 ],
-"railway/monorail":[
-"Монорелсов път"
-],
-"railway/rail":[
-"ЖП линия"
-],
-"railway/subway":[
-"Метро"
-],
 "railway/subway_entrance":[
 "Вход на метростанция"
-],
-"railway/tram":[
-"Трамвайни релси"
 ],
 "relation":[
 "Релация"
@@ -577,9 +556,6 @@
 ],
 "shop/farm":[
 "Щанд за плодове и зеленчуци"
-],
-"shop/fishmonger":[
-"Магазин за риба"
 ],
 "shop/florist":[
 "Магазин за цветя"

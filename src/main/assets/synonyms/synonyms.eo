@@ -16,9 +16,16 @@
 "anonctabulego",
 "reklamo",
 "reklamtabulego",
-"Reklam‑tabulego",
+"Reklam-tabulego",
 "anonctabulo",
 "spamo"
+],
+"advertising/board":[
+"afiŝejo",
+"reklamtabulo",
+"afiŝtabulo",
+"Tabulo de reklamoj/anoncoj",
+"anonctabulo"
 ],
 "advertising/column":[
 "afiŝkolono",
@@ -26,13 +33,29 @@
 "kolumno",
 "reklamkolono"
 ],
+"advertising/poster_box":[
+"afiŝejo",
+"afisxejo",
+"reklamafiŝo",
+"Reklam-panelo",
+"citylight",
+"afishejo"
+],
+"advertising/totem":[
+"reklamtabulo",
+"totemo",
+"Reklam-tabulo staranta",
+"reklamtotemo"
+],
 "aerialway":[
-"Kablotransporto"
+"Kablovoja objekto"
 ],
 "aerialway/cable_car":[
 "kablovojo",
 "Telfero unu-vagoneta (alterna)",
 "telfero",
+"vagoneta telfero",
+"nacela telfero",
 "aertelfero"
 ],
 "aerialway/chair_lift":[
@@ -55,11 +78,10 @@
 "aertelfero"
 ],
 "aerialway/gondola":[
-"kablovojo",
+"plurvagoneta telfero",
 "Telfero plur-vagoneta",
-"telfero",
-"gondolo",
-"aertelfero"
+"vagoneta telfero",
+"nacela telfero"
 ],
 "aerialway/goods":[
 "ŝarĝolifto",
@@ -67,6 +89,14 @@
 "kablotransporto",
 "sxargxolifto",
 "shargholifto"
+],
+"aerialway/j-bar":[
+"seĝa telfero",
+"segxa telfero",
+"segha telfero",
+"telfero",
+"aertelfero",
+"Skitelfero unu-persona (J-forma)"
 ],
 "aerialway/magic_carpet":[
 "skitelfero tapiŝa",
@@ -106,13 +136,20 @@
 "skilifto ŝnur-tira",
 "shnurtira skitelfero"
 ],
+"aerialway/t-bar":[
+"seĝa telfero",
+"segxa telfero",
+"segha telfero",
+"Skitelfero du-persona (T-forma)",
+"aertelfero"
+],
 "aerialway/zip_line":[
 "ŝnura kurso",
 "tirola kablotransporto",
 "Ŝnurega deglitejo"
 ],
 "aeroway":[
-"Aertransporto"
+"Aertransporta objekto"
 ],
 "aeroway/aerodrome":[
 "aviejo",
@@ -148,15 +185,37 @@
 "helipad",
 "surterigxejo helikoptera"
 ],
+"aeroway/holding_position":[
+"Aviadila atendejo",
+"aŭtokurejo"
+],
 "aeroway/jet_bridge":[
 "aerponto",
 "pasaĝera enferdekiĝa ponto",
 "Ponto flugstacio - aviadilo"
 ],
-"aeroway/runway":[
+"aeroway/parking_position":[
+"Aviadil-parkumejo (detala pozicio)",
+"surteriĝejo",
+"autokurejo",
+"auxtokurejo",
 "dromo",
-"Avia dromo",
+"aŭtokurejo",
+"aerodromo",
+"flugkampo"
+],
+"aeroway/runway":[
+"Aviokurejo",
+"dromo",
+"avikurejo",
+"aviakurejo",
 "kurejo"
+],
+"aeroway/spaceport":[
+"raketo",
+"spacoŝippafejo",
+"kosmoŝipo",
+"Kosmodromo"
 ],
 "aeroway/taxiway":[
 "autokurejo",
@@ -338,6 +397,28 @@
 "kafo",
 "teo"
 ],
+"amenity/cafe/bubble_tea":[
+"boba",
+"Kafejo (bobelteo)",
+"aerveziketteo",
+"bubble tea",
+"aervezikteo"
+],
+"amenity/cafe/coffee_shop":[
+"Kafejo (precipe kafo)",
+"espreso",
+"mokao",
+"mokha",
+"moretta",
+"kaftrinkaĵoj",
+"kapuĉino"
+],
+"amenity/car_pooling":[
+"Haltejo aŭtomobila (carpooling)",
+"kunveturado",
+"petveturado",
+"carpooling"
+],
 "amenity/car_rental":[
 "auxtopruntejo",
 "aŭtopruntejo",
@@ -349,11 +430,19 @@
 "autoluigadejo",
 "Aŭtomobil-pruntejo"
 ],
+"amenity/car_sharing":[
+"carsharing",
+"aŭtopruntejo",
+"car-sharing",
+"automobilpruntejo",
+"auxtumobilpruntejo",
+"Aŭtomobil-pruntejo komunuma (organizita kunveturado)"
+],
 "amenity/car_wash":[
 "lavejo",
 "purigejo",
 "auxtopurigejo",
-"Aŭtopurigejo",
+"Aŭtomobil-purigejo",
 "autopurigejo",
 "aŭtolavejo",
 "aŭtomobilpurigejo"
@@ -546,6 +635,15 @@
 "edziĝfestoj",
 "okazaĵoj"
 ],
+"amenity/exhibition_centre":[
+"eksponejo",
+"Centro de ekspozicioj kaj foiroj",
+"konferencejo",
+"kongresejo",
+"ekspozicia centro",
+"ekspona centro",
+"ekspoziciejo"
+],
 "amenity/fast_food":[
 "sandviĉejo",
 "hamburgero",
@@ -585,6 +683,13 @@
 "fiŝaĵo",
 "fritbudo"
 ],
+"amenity/fast_food/hot_dog":[
+"hotdogo",
+"kolbasobulko",
+"kolbasbulko",
+"sandviĉo",
+"Rapidmanĝejo (kolbasbulkoj)"
+],
 "amenity/fast_food/ice_cream":[
 "Rapidmanĝejo (glaciaĵoj)"
 ],
@@ -622,7 +727,7 @@
 "Rapidmanĝejo (sandviĉoj)"
 ],
 "amenity/ferry_terminal":[
-"Pram-stacio"
+"Pramstacio"
 ],
 "amenity/fire_station":[
 "fajrosoldatejo",
@@ -657,6 +762,30 @@
 "Benzinejo",
 "benzino",
 "benzinvendejo"
+],
+"amenity/gambling":[
+"enĵetmaŝinoj",
+"ludsalono",
+"pachinko",
+"salono de ludoj",
+"paĉinko",
+"loterio",
+"enjhetmashinoj",
+"pokero",
+"Hazardludejo",
+"enjxetmasxinoj",
+"unubrakaj banditoj"
+],
+"amenity/give_box":[
+"publika libroŝranko",
+"intershanghejo",
+"brokantaĵoj",
+"givebox",
+"senpaga interŝanĝo",
+"Kesto de senpaga interŝanĝo",
+"intersxangxejo",
+"freebox",
+"interŝanĝejo"
 ],
 "amenity/grave_yard":[
 "mortintejo",
@@ -702,9 +831,40 @@
 "Retkafejo",
 "interreta kafejo"
 ],
+"amenity/karaoke_box":[
+"kantado",
+"karaokeo",
+"Karaokeejo"
+],
+"amenity/kindergarten":[
+"kindergarteno",
+"Infanvartejo (ISCED 0)",
+"infanghardeno",
+"antaŭlernejo",
+"infanvartejo",
+"infanogxardeno",
+"infanĝardeno",
+"infanoghardeno",
+"lernludejo",
+"infangxardeno"
+],
+"amenity/kneipp_water_cure":[
+"piedbano",
+"nagxejeto",
+"nahgejeto",
+"baseneto",
+"banejo",
+"Naĝejeto"
+],
 "amenity/language_school":[
 "lingvolernejo",
 "Lingva lernejo"
+],
+"amenity/lavoir":[
+"lavejo",
+"vestaĵlavejo",
+"eksterdoma lavejo",
+"Vestaĵ-lavejo (ĉe rivero)"
 ],
 "amenity/letter_box":[
 "leterskatolo",
@@ -718,6 +878,19 @@
 "libropruntejo",
 "Biblioteko",
 "librarejo"
+],
+"amenity/loading_dock":[
+"sharghkajo",
+"doko",
+"ŝarĝadkajo",
+"magazena kajo",
+"pordego",
+"sxargxkajo",
+"kargadkajo",
+"Ŝarĝ-kajo",
+"kamionoj",
+"ŝarĝkajo",
+"kargokajo"
 ],
 "amenity/love_hotel":[
 "amorhotelo",
@@ -797,9 +970,22 @@
 "Parkumejo subtera",
 "subtera parkumejo"
 ],
+"amenity/parking_entrance":[
+"Parkumeja en-/el-veturejo",
+"enveturejo",
+"parkejo",
+"parkumejo",
+"elveturejo"
+],
 "amenity/parking_space":[
 "Parkumeja loko (detala)",
 "parkumejo"
+],
+"amenity/parking_space/disabled":[
+"Parkumeja loko por malkapabluloj",
+"malkapabluloj",
+"rulseĝo",
+"handikakuloj"
 ],
 "amenity/payment_centre":[
 "pagejo",
@@ -934,6 +1120,22 @@
 "baloto",
 "Balotejo (neŝanĝanta loko)"
 ],
+"amenity/post_box":[
+"posxtkesto",
+"poshtkesto",
+"leterskatolo",
+"leterkesto",
+"leterujo",
+"Poŝtkesto (senda)"
+],
+"amenity/post_depot":[
+"disordigejo",
+"Poŝta disspecigejo",
+"laŭspecigejo",
+"poŝto",
+"disspecigejo",
+"ordigejo"
+],
 "amenity/post_office":[
 "poshtoficejo",
 "poŝtejo",
@@ -1010,6 +1212,18 @@
 "amenity/recycling":[
 "Recikligejo"
 ],
+"amenity/recycling/container/electrical_items":[
+"elektronika rubo",
+"rubujo",
+"Rubujego (por elektronikaĵoj)"
+],
+"amenity/recycling/container/green_waste":[
+"komposto",
+"bioruboj",
+"rubujo",
+"mulĉo",
+"Rubujego (por bioruboj)"
+],
 "amenity/recycling_centre":[
 "balaaĵejo",
 "recikligejo",
@@ -1021,11 +1235,22 @@
 "balaaĵujo",
 "recikligujo",
 "rubujego",
-"Centro de recikligo",
+"Rubujego (recikligo)",
 "rubujo"
 ],
-"amenity/register_office":[
-"Oficejo de civila stato"
+"amenity/refugee_site":[
+"rifughantoj",
+"Kampadejo por rifuĝantoj",
+"rifuĝantoj",
+"rifugxantoj",
+"enmigrantoj"
+],
+"amenity/research_institute":[
+"esplorado",
+"patentoj",
+"Esplorada instituto",
+"laboratorio",
+"scienco"
 ],
 "amenity/restaurant":[
 "Restoracio",
@@ -1036,25 +1261,25 @@
 ],
 "amenity/restaurant/american":[
 "amerika restoracio",
-"Restoracio (Amerika kuirarto)",
+"Restoracio (amerika kuirarto)",
 "usona restoracio"
 ],
 "amenity/restaurant/asian":[
-"Restoracio (Azia kuirarto)",
-"azia restoracio"
+"azia restoracio",
+"Restoracio (azia kuirarto)"
 ],
 "amenity/restaurant/chinese":[
 "cxina restoracio",
+"Restoracio (ĉina kuirarto)",
 "china restoracio",
-"Restoracio (Ĉina kuirarto)",
 "ĉina restoracio"
 ],
 "amenity/restaurant/french":[
-"Restoracio (Franca kuirarto)",
+"Restoracio (franca kuirarto)",
 "franca restoracio"
 ],
 "amenity/restaurant/german":[
-"Restoracio (Germana kuirarto)",
+"Restoracio (germana kuirarto)",
 "germana restoracio"
 ],
 "amenity/restaurant/greek":[
@@ -1062,21 +1287,21 @@
 "Restoracio (greka kuirarto)"
 ],
 "amenity/restaurant/indian":[
-"Restoracio (Barata kuirarto)",
+"Restoracio (hinda kuirarto)",
 "hinda restoracio",
 "barata restoracio"
 ],
 "amenity/restaurant/italian":[
-"itala restoracio",
-"Restoracio (Itala kuirarto)"
+"Restoracio iItala kuirarto)",
+"itala restoracio"
 ],
 "amenity/restaurant/japanese":[
-"Restoracio (Japana kuirarto)",
-"japana restoracio"
+"japana restoracio",
+"Restoracio (japana kuirarto)"
 ],
 "amenity/restaurant/mexican":[
 "meksika restoracio",
-"Restoracio (Meksika kuirarto)"
+"Restoracio (meksika kuirarto)"
 ],
 "amenity/restaurant/noodle":[
 "mihun",
@@ -1117,30 +1342,27 @@
 ],
 "amenity/restaurant/thai":[
 "taja restoracio",
-"Restoracio (Taja kuirarto)",
-"tajlanda restoracio"
+"tajlanda restoracio",
+"Restoracio (taja kuirarto)"
 ],
 "amenity/restaurant/turkish":[
-"turka kuirarto",
-"Restoracio (Turka kuirarto)"
+"Restoracio (turka kuirarto)",
+"turka kuirarto"
 ],
 "amenity/restaurant/vietnamese":[
-"Restoracio (Vjetnama kuirarto)",
+"Restoracio (vjetnama kuirarto)",
 "vjetnama restoracio"
 ],
 "amenity/sanitary_dump_station":[
 "malpruaĵo",
-"Stacio de forigado de fekaĵoj (kampado)",
-"kampadejo"
+"kampadejo",
+"Stacio de forigo de fekaĵoj (kampado)"
 ],
 "amenity/school":[
 "lernejo",
 "edukejo",
 "Lernejo (ISCED 1-3)",
 "instruejo"
-],
-"amenity/scrapyard":[
-"Ferrubejo"
 ],
 "amenity/shelter":[
 "budo",
@@ -1236,8 +1458,33 @@
 "radiostudio",
 "Studio"
 ],
-"amenity/swimming_pool":[
-"Naĝejo"
+"amenity/studio/audio":[
+"muzikstudio",
+"studio muzika",
+"sonregistrejo",
+"Muzik-studio"
+],
+"amenity/studio/radio":[
+"studio",
+"Radi-studio",
+"radistudio",
+"sonregistrejo",
+"radiostudio"
+],
+"amenity/studio/television":[
+"studio",
+"filmostudio",
+"Televid-studio",
+"televidstudio",
+"filmstudio"
+],
+"amenity/studio/video":[
+"filmfarejo",
+"filmostudio",
+"Film-studio",
+"filmejo",
+"filmstudio",
+"televidstudio"
 ],
 "amenity/taxi":[
 "taksio",
@@ -1289,6 +1536,13 @@
 "Urbodomo",
 "magistrato"
 ],
+"amenity/townhall/city":[
+"urba registaro",
+"magistratejo",
+"urbdomo",
+"Urbodomo",
+"magistrato"
+],
 "amenity/toy_library":[
 "amuzila biblioteko",
 "ludila biblioteko",
@@ -1304,6 +1558,13 @@
 "Altgrada lernejo (ISCED 5-7)",
 "instruejo"
 ],
+"amenity/vacuum_cleaner":[
+"polvosucxilo",
+"senpolvigilo",
+"polvosuchilo",
+"polvsuĉilo",
+"Polvosuĉilo"
+],
 "amenity/vehicle_inspection":[
 "inspektejo",
 "kontrolstacio",
@@ -1314,6 +1575,17 @@
 "vendmasxino",
 "Vendilo",
 "vendmashino"
+],
+"amenity/vending_machine/bottle_return":[
+"Aŭtomato por kolekti botelojn",
+"boteloj",
+"reciklado"
+],
+"amenity/vending_machine/bread":[
+"panoj",
+"bulkoj",
+"Vendilo de panoj",
+"bakaĵo"
 ],
 "amenity/vending_machine/cigarettes":[
 "vendmaŝino",
@@ -1336,6 +1608,10 @@
 "trinkaĵoj",
 "vendilo de trinkajxoj",
 "Vendilo de trinkaĵoj"
+],
+"amenity/vending_machine/eggs":[
+"ovoj",
+"Vendilo de ovoj"
 ],
 "amenity/vending_machine/electronics":[
 "kabloj",
@@ -1384,6 +1660,11 @@
 "amenity/vending_machine/ice_cream":[
 "Vendilo de glaciaĵoj",
 "glaciaĵo"
+],
+"amenity/vending_machine/ice_cubes":[
+"glacikuboj",
+"glacikloketoj",
+"Vendilo de glacikuboj"
 ],
 "amenity/vending_machine/newspapers":[
 "gazeto",
@@ -1462,9 +1743,9 @@
 "balaaĵujo",
 "forĵetaĵujo",
 "rubo",
+"Rubujego (miksita)",
 "rubejo",
-"rubujo",
-"Rubujego"
+"rubujo"
 ],
 "amenity/waste_transfer_station":[
 "recikligejo",
@@ -1483,9 +1764,23 @@
 "bestotrinkejo",
 "Akvotrinkejo por bestoj"
 ],
+"amenity/weighbridge":[
+"pezilo",
+"kamiona pesilo",
+"aŭtomobila pesilo",
+"Pesilo por aŭtomobiloj"
+],
 "area":[
 "Areo",
 "areo"
+],
+"area/highway":[
+"vojareo",
+"veturejo",
+"ŝoseo",
+"Areo de vojo",
+"pavimo",
+"randŝtono"
 ],
 "attraction":[
 "Amuzo"
@@ -1514,6 +1809,12 @@
 "radego de Ferris",
 "granda radego"
 ],
+"attraction/bumper_car":[
+"aŭtetoj",
+"Karambolaj aŭtetoj (allogaĵo)",
+"dodgem",
+"koliziaj aŭtetoj"
+],
 "attraction/bungee_jumping":[
 "bungee",
 "ŝnursaltado",
@@ -1530,10 +1831,46 @@
 "promenveturo",
 "timiga trajno"
 ],
+"attraction/drop_tower":[
+"turo",
+"Defala turo (allogaĵo)",
+"libera falo",
+"drop tower"
+],
+"attraction/kiddie_ride":[
+"rajdo",
+"Infana rajdeto",
+"rajdeto",
+"ĉevaleto",
+"aŭteto",
+"balancilo"
+],
+"attraction/log_flume":[
+"tobogano",
+"defluigo",
+"shtipo",
+"deglitejo",
+"sxtipo",
+"Deglito sur ŝtipo (allogaĵo)",
+"ŝtipo"
+],
 "attraction/maze":[
 "vojenigmo",
 "enigmo",
 "Labirinto"
+],
+"attraction/pirate_ship":[
+"pirata ŝipo",
+"balancilo",
+"Balancilego pirata ŝipo"
+],
+"attraction/river_rafting":[
+"flosoj",
+"rapidakva sporto",
+"raftoj",
+"Deglito sur flosoj (allogaĵo)",
+"pontonoj",
+"ŝvelboatoj"
 ],
 "attraction/roller_coaster":[
 "Onda fervojo",
@@ -1545,6 +1882,15 @@
 "deglitejo",
 "Somera tobogano",
 "skeletonado"
+],
+"attraction/swing_carousel":[
+"rotacia balancilo",
+"karuselo",
+"flugantaj seĝoj",
+"ĉena karuselo",
+"cxena karuselo",
+"Karuselo ĉenseĝa",
+"chena karuselo"
 ],
 "attraction/train":[
 "turisma trajno",
@@ -1581,9 +1927,16 @@
 "barrier/bollard":[
 "fosto",
 "fosteto",
-"Paliseto",
+"Paliso",
 "stango",
 "barilo"
+],
+"barrier/bollard_line":[
+"palisaro",
+"palisoj",
+"fostoj",
+"palisetoj",
+"Vico de palisoj"
 ],
 "barrier/border_control":[
 "kontrolo",
@@ -1741,11 +2094,25 @@
 "muro",
 "enmura pordego"
 ],
+"barrier/spikes":[
+"kontraŭveturila",
+"erinaco",
+"dornoj",
+"polico trafika",
+"Pikila strio",
+"kontraŭaŭtomobila",
+"pikiloj"
+],
 "barrier/stile":[
 "barilpordo",
 "trabarilejo",
 "Transbarilejo (sen moveblaj partoj)",
 "trairejo"
+],
+"barrier/swing_gate":[
+"vojbarilo",
+"Bariero turnebla",
+"movebla barilo"
 ],
 "barrier/toll_booth":[
 "pagejo",
@@ -1760,6 +2127,15 @@
 "barrier/wall":[
 "Muro",
 "murego"
+],
+"barrier/wall/noise_barrier":[
+"kontraŭbrua",
+"srusxirmilo",
+"sonŝirmilo",
+"bruŝirmilo",
+"Bru-ŝirmilo",
+"kontraŭsona",
+"brushirmilo"
 ],
 "boundary":[
 "Limo"
@@ -1874,12 +2250,22 @@
 "building/commercial":[
 "oficejo",
 "administrejo",
-"Oficeja konstruaĵo"
+"Oficeja/komerca konstruaĵo"
 ],
 "building/construction":[
 "konstruado",
 "Konstruaĵo dum konstruado",
 "konstruanta"
+],
+"building/cowshed":[
+"Bov-stalo",
+"bovostalo",
+"bovinoj",
+"bovstalo",
+"stalo",
+"brutejo",
+"bovdomo",
+"bovejo"
 ],
 "building/detached":[
 "Domo unufamilia",
@@ -1944,13 +2330,13 @@
 ],
 "building/hangar":[
 "hangaro",
-"Hangara konstruaĵo",
 "aviadilejo",
-"aeroplanejo"
+"aeroplanejo",
+"Konstruaĵo de hangaro"
 ],
 "building/hospital":[
-"Malsanuleja konstruaĵo",
 "malsanulejo",
+"Konstruaĵo de malsanulejo",
 "hospitalo"
 ],
 "building/hotel":[
@@ -1981,11 +2367,26 @@
 "Industria konstruaĵo",
 "fabriko"
 ],
+"building/kindergarten":[
+"infanoĝardeno",
+"kindergarteno",
+"infanghardeno",
+"antaŭlernejo",
+"infanvartejo",
+"Konstruaĵo de infanvartejo",
+"infanĝardeno",
+"infangxardeno"
+],
 "building/mosque":[
 "islamo",
 "minareto",
 "moskeo",
-"Moskea konstruaĵo"
+"Konstruaĵo de moskeo"
+],
+"building/office":[
+"Oficeja konstruaĵo",
+"oficejoj",
+"ĉielskrapanto"
 ],
 "building/pavilion":[
 "sportejo",
@@ -1995,8 +2396,8 @@
 "pavilono"
 ],
 "building/public":[
-"administrejo",
-"Publika konstruaĵo (ofica)"
+"Publika konstruaĵo",
+"administrejo"
 ],
 "building/residential":[
 "apartamentaro",
@@ -2051,13 +2452,14 @@
 "chevalejo",
 "ĉevaldomo",
 "cxevalejo",
-"Ĉevalejo",
-"stalo"
+"stalo",
+"ĉevalstalo",
+"Ĉeval-stalo"
 ],
 "building/stadium":[
 "sportejo",
-"Stadiona konstruaĵo",
-"stadiono"
+"stadiono",
+"Konstruaĵo de stadiono"
 ],
 "building/static_caravan":[
 "movebla domo",
@@ -2065,10 +2467,17 @@
 "kampveturilo statika",
 "kampadveturilo statika"
 ],
+"building/sty":[
+"porkstalo",
+"stalo",
+"Pork-stalo",
+"porkejo",
+"porkostalo"
+],
 "building/temple":[
-"Templa konstruaĵo",
 "templo",
-"sanktejo"
+"sanktejo",
+"Konstruaĵo de templo"
 ],
 "building/terrace":[
 "Envicaj domoj",
@@ -2132,10 +2541,10 @@
 "fakulo"
 ],
 "craft/agricultural_engines":[
-"kombajnoj",
+"terkulturaj maŝinoj",
 "Laborejo de agrokulturaj maŝinoj",
-"traktoroj",
-"agrokulturaj maŝinoj"
+"agrikulturaj maŝinoj",
+"agrokultural maŝinoj"
 ],
 "craft/basket_maker":[
 "korbfarado",
@@ -2204,6 +2613,11 @@
 "Oficejo de kamenpurigisto",
 "kamenpurigisto"
 ],
+"craft/cleaning":[
+"Oficejo de balaisto",
+"balaisto",
+"purigisto"
+],
 "craft/clockmaker":[
 "horloĝisto",
 "horlogxisto",
@@ -2264,12 +2678,13 @@
 "manufakturo",
 "manlaboristo",
 "braklaboristo",
-"Manmetistejo"
+"manmetisto",
+"Laborejo de manmetisto"
 ],
 "craft/hvac":[
 "klimatizado",
 "varmigado",
-"Specialisto pri hejtado, aerumado kaj klimatizado",
+"Oficejo de isto pri hejtado, aerumado, klimatizado",
 "aerumado",
 "hejtado",
 "hejtilo",
@@ -2293,13 +2708,13 @@
 "Ŝlosil-kopiejo"
 ],
 "craft/locksmith":[
-"Serurejo"
+"Laborejo de seruristo"
 ],
 "craft/metal_construction":[
-"Metal-konstruaĵista laborejo",
 "metalkonstruaĵo",
 "metalkonstruajxo",
-"metalkonstruajho"
+"metalkonstruajho",
+"Laborejo de metal-konstruaĵisto"
 ],
 "craft/painter":[
 "farbisto",
@@ -2337,11 +2752,17 @@
 "hidraŭlikisto",
 "plumbisto"
 ],
+"craft/pottery":[
+"Laborejo de potfaristo",
+"portfarado",
+"potfaristo",
+"ceramikado"
+],
 "craft/rigger":[
 "rigilaristo",
-"Rigilarista laborejo",
 "rigisto",
 "veloj",
+"Laborejo de rigisto",
 "rigo",
 "mastoj",
 "ŝnuregoj"
@@ -2447,6 +2868,22 @@
 "Vinejo",
 "vinvendejo"
 ],
+"cycleway/asl":[
+"bicikla kluzo",
+"haltlinio",
+"haltzono",
+"Etendita haltzono por biciklistoj",
+"kluzo"
+],
+"demolished/building":[
+"Antaŭnelonge malkonstruita konstruaĵo"
+],
+"disused/railway":[
+"Neuzata relvoja objekto"
+],
+"disused/shop":[
+"Neuzata vendejo"
+],
 "embankment":[
 "Surŝutaĵo"
 ],
@@ -2498,6 +2935,12 @@
 "manapoteko",
 "bandaĝo"
 ],
+"emergency/landing_site":[
+"helikopterejo",
+"surterigxejo",
+"surterighejo",
+"Surteriĝejo kriokaza"
+],
 "emergency/life_ring":[
 "ringo",
 "Savoringo",
@@ -2510,6 +2953,13 @@
 "naghsavanto",
 "savisto",
 "savanto"
+],
+"emergency/mountain_rescue":[
+"Stacio de montara savservo",
+"vivsavisto",
+"savisto",
+"savanto",
+"montara savservo"
 ],
 "emergency/no":[
 "Vivsav-serva aliro: ne"
@@ -2540,6 +2990,24 @@
 ],
 "emergency/yes":[
 "Vivsav-serva aliro: jes"
+],
+"entrance":[
+"pordo",
+"Enirejo/elirejo",
+"eliro",
+"eniro"
+],
+"entrance/emergency":[
+"pordo",
+"Elirejo je danĝero",
+"evakua eliro",
+"eliro"
+],
+"entrance/emergency_ward_entrance":[
+"savservo",
+"kriokazoj",
+"Enirejo al kriokaza sekcio de malsanulejo",
+"urĝaj okazoj"
 ],
 "ford":[
 "vadejo",
@@ -2647,6 +3115,15 @@
 "sankonsultejo",
 "konsilejo"
 ],
+"healthcare/dentist/orthodontics":[
+"dentĝustigisto",
+"Kabineto de dent-ĝustigisto",
+"dentghustigisto",
+"dentisto",
+"dentortopedio",
+"dentgxustigisto",
+"ortodencio"
+],
 "healthcare/hospice":[
 "Hospico",
 "flegejo",
@@ -2701,6 +3178,9 @@
 "ortofona kuracisto",
 "Logopediisto"
 ],
+"highway":[
+"Vojo / privoja objekto"
+],
 "highway/bridleway":[
 "ĉevalo",
 "rajdado",
@@ -2717,8 +3197,10 @@
 "Haltejo aŭtobusa"
 ],
 "highway/construction":[
-"Vojo fermita (dum konstruado)",
-"farmita vojo"
+"dumkonstruado",
+"Fermita vojo",
+"riparata vojo",
+"vojo fermita"
 ],
 "highway/corridor":[
 "koridoro",
@@ -2779,6 +3261,13 @@
 "highway/cycleway/crossing":[
 "Stratpasejo bicikla"
 ],
+"highway/cycleway/crossing/bicycle_foot":[
+"zebro",
+"pasejo",
+"biciklovojo",
+"Stratpasejo por biciklistoj k piedirantoj",
+"biciklvojo"
+],
 "highway/cycleway/crossing/marked":[
 "zebro",
 "pasejo",
@@ -2812,6 +3301,14 @@
 "Trotuaro",
 "pavimo",
 "piedirejo",
+"irejo"
+],
+"highway/footway/access_aisle":[
+"stratpasejo",
+"pasejo",
+"Trotuaro en parkumejo",
+"parkumejo",
+"trotuaro",
 "irejo"
 ],
 "highway/footway/conveying":[
@@ -2922,6 +3419,22 @@
 "vojo",
 "irejo"
 ],
+"highway/path/boardwalk":[
+"lignotabula irejo",
+"ponteto",
+"Trotuaro ligna tra malsekejo/sablo",
+"ligna irejo",
+"tabula irejo",
+"tramalsekejo",
+"irejo"
+],
+"highway/path/informal":[
+"piedvojeto",
+"Vojeto neoficiala",
+"vojeto",
+"pado",
+"irejo"
+],
 "highway/pedestrian_area":[
 "promenvojo",
 "Piedirada areo",
@@ -2955,6 +3468,35 @@
 "nodo",
 "elveturejo"
 ],
+"highway/raceway":[
+"aŭtodromo",
+"Vojo aŭtokonkursada",
+"aŭtokonkursejo",
+"dromo",
+"formulo 1",
+"nascar",
+"kurejo"
+],
+"highway/raceway/karting":[
+"aŭtodromo",
+"aŭtokonkursejo",
+"gokartoj",
+"dromo",
+"karting",
+"Vojo aŭtokonkursada (karting)",
+"kurejo"
+],
+"highway/raceway/motocross":[
+"speedway",
+"aŭtodromo",
+"aŭtokonkursejo",
+"dromo",
+"motocross",
+"spidvejo",
+"motokroso",
+"Vojo aŭtokonkursada (motokroso)",
+"kurejo"
+],
 "highway/residential":[
 "logxeja vojo",
 "loĝeja vojo",
@@ -2971,8 +3513,12 @@
 "ripozejo"
 ],
 "highway/road":[
-"nekonata vojo",
-"Nekonata vojo"
+"Nekonatspeca vojo",
+"nekonata vojo"
+],
+"highway/road/bridge":[
+"Ponto sur nekonatspeca vojo",
+"nekonata vojo"
 ],
 "highway/secondary":[
 "duaranga",
@@ -3002,10 +3548,11 @@
 "alirvojo"
 ],
 "highway/service/drive-through":[
+"senelaŭtiĝa servo",
+"Strateto por sen-elaŭtiĝa servo",
+"transveturejo",
 "drivethrough",
-"drive-through",
-"Sen-elaŭtiga servo (drive-through)",
-"senelaŭtiga servo"
+"drive-through"
 ],
 "highway/service/driveway":[
 "privata vojo",
@@ -3047,7 +3594,9 @@
 ],
 "highway/steps/conveying":[
 "rulshtuparo",
+"ŝtuparlifto",
 "Rulŝtuparo",
+"lifto",
 "movŝtuparo",
 "eskalatoro",
 "rulsxtuparo"
@@ -3158,6 +3707,12 @@
 "Limŝtono",
 "limshtono"
 ],
+"historic/building":[
+"antikvaĵo",
+"historia konstruaĵo",
+"memorigaĵo",
+"Konstruaĵo historia"
+],
 "historic/castle":[
 "Kastelo",
 "fortikaĵo",
@@ -3214,6 +3769,13 @@
 "monumento",
 "Monumento (masiva objekto)"
 ],
+"historic/pillory":[
+"pilorio",
+"punpilorio",
+"punkolono",
+"Kolono malhonora",
+"malhonora kolono"
+],
 "historic/ruins":[
 "Ruinoj historiaj",
 "ruino"
@@ -3267,6 +3829,13 @@
 "endoma pordo",
 "Enkonstruaĵa pordo"
 ],
+"indoor/elevator":[
+"ŝakto",
+"Ŝakto de lifto (enkonstruaĵa)",
+"levmaŝino",
+"levmasxino",
+"levmashino"
+],
 "indoor/room":[
 "chambro",
 "Enkostruaĵa ĉambro (kun muroj)",
@@ -3274,6 +3843,12 @@
 "areo",
 "interna ĉambro",
 "endoma ĉambro"
+],
+"indoor/stairs":[
+"ŝtuparejo",
+"sxtuparejo",
+"shtuparejo",
+"Enkonstruaĵa ŝtuparejo"
 ],
 "indoor/wall":[
 "endoma muro",
@@ -3293,6 +3868,9 @@
 "vojkrucigxo",
 "krucigo",
 "vojnodo"
+],
+"landuse":[
+"Utilkampo"
 ],
 "landuse/allotments":[
 "etĝardeno",
@@ -3338,6 +3916,11 @@
 "komercparko",
 "komercejo"
 ],
+"landuse/construction":[
+"Konstruejo",
+"konstruado",
+"buldozoj"
+],
 "landuse/farm":[
 "Farmejo"
 ],
@@ -3356,11 +3939,18 @@
 "farmkonstruaĵo",
 "farmejo"
 ],
+"landuse/flowerbed":[
+"Florbedo",
+"florejo",
+"herbejo",
+"florĝardeno"
+],
 "landuse/forest":[
+"kulturarbaro",
 "kultivarbaro",
 "forsto",
 "arbaro",
-"Kultiv-arbaro"
+"Arbaro (kultivata)"
 ],
 "landuse/garages":[
 "garaĝejo",
@@ -3499,6 +4089,9 @@
 "Vintrosporta centro",
 "vintrosportoj"
 ],
+"leisure":[
+"Ripozejo"
+],
 "leisure/adult_gaming_centre":[
 "kazino",
 "monludejo",
@@ -3578,6 +4171,12 @@
 "Ĉambro de enigmoj",
 "cxambro de enigmoj",
 "chambro de enigmoj"
+],
+"leisure/firepit":[
+"Lignofajrejo",
+"lignfajrejo",
+"tendarfajro",
+"fajrejo"
 ],
 "leisure/fishing":[
 "Loko por fiŝhokado",
@@ -3666,6 +4265,19 @@
 "ghardeno",
 "Ĝardeno"
 ],
+"leisure/garden/botanical":[
+"plantejo",
+"gxardeno",
+"ghardeno",
+"Botanika ĝardeno"
+],
+"leisure/garden/community":[
+"gxardeno",
+"ghardeno",
+"ĝardeno",
+"najbara ĝardeno",
+"Komuna ĝardeno"
+],
 "leisure/golf_course":[
 "Golfludejo",
 "golfejo",
@@ -3731,8 +4343,9 @@
 "pikniktablo"
 ],
 "leisure/picnic_table/chess":[
+"tablo ŝakluda",
+"Ŝaktabulo",
 "ŝakludejo",
-"Tablo ŝakluda",
 "sxakludejo",
 "shakludejo"
 ],
@@ -3794,6 +4407,14 @@
 "Globlud-herbeja (bowls) ludkampo",
 "globludo",
 "bowls"
+],
+"leisure/pitch/chess":[
+"sxktabulo",
+"ŝakludejo",
+"ŝaktabulo",
+"Grandega ŝaktabulo",
+"shaktabulo",
+"ĝardenaj ŝakoj"
 ],
 "leisure/pitch/cricket":[
 "Kriketa ludkampo",
@@ -3969,21 +4590,7 @@
 "Kurejo bicikla",
 "konkursejo"
 ],
-"leisure/track/cycling_point":[
-"biciklkonkursejo",
-"biciklado",
-"dromo",
-"Kurejo bicikla",
-"konkursejo"
-],
 "leisure/track/horse_racing":[
-"hipodromo",
-"chevalkurejo",
-"Kurejo ĉevala",
-"ĉevalkurejo",
-"cxevalkurejo"
-],
-"leisure/track/horse_racing_point":[
 "hipodromo",
 "chevalkurejo",
 "Kurejo ĉevala",
@@ -3995,11 +4602,12 @@
 "dromo",
 "kurado"
 ],
-"leisure/track/running_point":[
-"Kurejo",
-"dromo",
-"kurado",
-"konkursejo"
+"leisure/trampoline_park":[
+"saltotabuloj",
+"Parko de saltadtukoj",
+"saltadotukoj",
+"trampolinoj",
+"saltadtukoj"
 ],
 "leisure/water_park":[
 "Akvoparko",
@@ -4008,6 +4616,9 @@
 "line":[
 "linio",
 "Linio"
+],
+"man_made":[
+"Artefarita objekto"
 ],
 "man_made/adit":[
 "minejkoridoro",
@@ -4040,6 +4651,10 @@
 "ondorompilo",
 "ondrompilo"
 ],
+"man_made/bridge":[
+"viadukto",
+"Ponto"
+],
 "man_made/bunker_silo":[
 "stokturo",
 "magazeno",
@@ -4067,6 +4682,11 @@
 "senarba areo",
 "Hakita arbaro"
 ],
+"man_made/courtyard":[
+"interkonstruaĵo",
+"interdomejo",
+"Korto"
+],
 "man_made/crane":[
 "argano",
 "levmaŝino",
@@ -4074,10 +4694,11 @@
 "Gruo"
 ],
 "man_made/cross":[
+"Kruco (nereligia)",
 "montopinto",
 "kruco",
 "monto",
-"Kruco montpinta"
+"montpinto"
 ],
 "man_made/cutline":[
 "malarbigita strio",
@@ -4111,6 +4732,13 @@
 "gasometro",
 "Gasujo (atmosfera premo)"
 ],
+"man_made/goods_conveyor":[
+"rultapiŝo",
+"rultapisho",
+"rultapisxo",
+"Transporta bendo",
+"ruliĝanta transportilo"
+],
 "man_made/groyne":[
 "ĝeto",
 "digo",
@@ -4121,6 +4749,66 @@
 "man_made/lighthouse":[
 "Lumturo",
 "lanternego"
+],
+"man_made/manhole":[
+"stratkanalo",
+"Stratkanala kovrilo",
+"pluvkanalo",
+"kovrilo",
+"homtruo",
+"kloako",
+"kablokanalo",
+"kanalo"
+],
+"man_made/manhole/drain":[
+"stratkanalo",
+"homtruo",
+"pluvakvo",
+"Stratkanala (pluvakvo) kovrilo",
+"kloako",
+"kanalo"
+],
+"man_made/manhole/gas":[
+"stratkanalo",
+"metano",
+"tergaso",
+"gaso",
+"homtruo",
+"Stratkanala (gaso) kovrilo"
+],
+"man_made/manhole/power":[
+"kabloj",
+"Stratkanala (elektrokabloj) kovrilo",
+"stratkanalo",
+"homtruo",
+"kurentkabloj",
+"elektrokabloj"
+],
+"man_made/manhole/sewer":[
+"stratkanalo",
+"fekaĵoj",
+"tuboj",
+"homtruo",
+"Stratkanala (kloakakvo) kovrilo",
+"malpura akvo",
+"kloako",
+"kloakakvo"
+],
+"man_made/manhole/telecom":[
+"kabloj",
+"stratkanalo",
+"homtruo",
+"Stratkanala (telekomunikado) kovrilo"
+],
+"man_made/manhole/water":[
+"stratkanalo",
+"Stratkanala (trinkakvo) kovrilo",
+"tuboj",
+"homtruo",
+"trinkakvo",
+"pura akvo",
+"tubokondukiloj",
+"tubaro"
 ],
 "man_made/mast":[
 "Masto",
@@ -4171,6 +4859,10 @@
 "veterstacio",
 "meteostacio",
 "medikvalit-mezuro"
+],
+"man_made/obelisk":[
+"Obelisko",
+"kolono"
 ],
 "man_made/observatory":[
 "Observejo",
@@ -4228,6 +4920,13 @@
 "Pump-stacio",
 "pumpstacio"
 ],
+"man_made/reservoir_covered":[
+"akvorezervujo",
+"trinkakvujo",
+"rezervujo",
+"Kovrita rezervujo de trinkakvo",
+"akvujo"
+],
 "man_made/silo":[
 "stokejo",
 "stokturo",
@@ -4243,6 +4942,7 @@
 "naftujo"
 ],
 "man_made/storage_tank/water":[
+"trinkakvujo",
 "cisterno",
 "Rezervujo (akvo)",
 "akvujo"
@@ -4310,10 +5010,26 @@
 "vidturo",
 "Turo observada"
 ],
+"man_made/tunnel":[
+"Tunelo",
+"subtera vojo"
+],
+"man_made/utility_pole":[
+"paliso",
+"masto",
+"Fosto",
+"elektrofosto"
+],
 "man_made/wastewater_plant":[
 "purigejo",
 "Akvopurigejo",
 "akvpurigejo"
+],
+"man_made/water_tap":[
+"fonto",
+"krano",
+"trinkakvo",
+"Akvokrano"
 ],
 "man_made/water_tower":[
 "Akvoturo",
@@ -4350,6 +5066,44 @@
 "Fabriko",
 "uzino",
 "produktejo"
+],
+"marker":[
+"Signo",
+"tabulo",
+"tabuleto",
+"markilo",
+"indikilo",
+"plato"
+],
+"marker/utility":[
+"kabloj",
+"indikilo",
+"telekomunikadaj kabloj",
+"subtera hidranto",
+"akvokundukilo",
+"tabulo",
+"hidranto",
+"tabuleto",
+"akvotuboj",
+"kloakaro",
+"elektrokabloj",
+"markilo",
+"plato",
+"Signo pri tubo/kablo/hidranto"
+],
+"marker/utility/power":[
+"kabloj",
+"tabulo",
+"tabuleto",
+"kurentkabloj",
+"elektrokabloj",
+"markilo",
+"indikilo",
+"plato",
+"Signo pri elektrokabloj"
+],
+"natural":[
+"Natura objekto"
 ],
 "natural/bare_rock":[
 "tundro",
@@ -4400,6 +5154,13 @@
 "Alpa herbejo",
 "montara herbejo"
 ],
+"natural/geyser":[
+"varmakvo",
+"varma akvo",
+"Gejsero",
+"akvofonto",
+"varmfonto"
+],
 "natural/glacier":[
 "Glacirivero",
 "glacifluo",
@@ -4429,8 +5190,10 @@
 "montopinto",
 "monto",
 "supraĵo",
+"Monto (pinto)",
+"montpinto",
 "kulmino",
-"Montpinto"
+"monteto"
 ],
 "natural/reef":[
 "submara roko",
@@ -4483,6 +5246,11 @@
 "rulŝtonoj",
 "gruzo",
 "sablego"
+],
+"natural/shrub":[
+"Arbusto",
+"arbeto",
+"arbedo"
 ],
 "natural/spring":[
 "fonto",
@@ -4539,6 +5307,13 @@
 "akvujo",
 "lago"
 ],
+"natural/water/canal":[
+"akvvojo",
+"Akvovojo (fluejo)",
+"rivero artefarita",
+"kanalo",
+"akvovojo"
+],
 "natural/water/lake":[
 "akvujo.akvejo",
 "laguno",
@@ -4564,6 +5339,22 @@
 "Lago artefarita",
 "akvujo"
 ],
+"natural/water/river":[
+"rivervojo",
+"riverfluejo",
+"estuaro",
+"riverdelto",
+"delto",
+"valo",
+"Rivero (fluejo)"
+],
+"natural/water/stream":[
+"rivereto",
+"torento",
+"valo",
+"fluejo",
+"Rivereto (fluejo)"
+],
 "natural/water/wastewater":[
 "akvopurigejo",
 "Baseno de akvopurigejo"
@@ -4575,6 +5366,16 @@
 "torfejo",
 "marĉo",
 "Malsekejo"
+],
+"natural/wood":[
+"praarbaro",
+"forsto",
+"arbaro",
+"Arbaro (natura)"
+],
+"network/type/node_network":[
+"Nodo de ripoza kurso",
+"ripoza kurso"
 ],
 "noexit/yes":[
 "Senelirejo",
@@ -4623,6 +5424,14 @@
 "neregistara organizaĵo",
 "neprofitcela organizaĵo"
 ],
+"office/bail_bond_agent":[
+"Oficejo de kaŭci-leĝisto",
+"kaŭcio",
+"kauxcio",
+"garantianto",
+"kaucio",
+"bejlo"
+],
 "office/charity":[
 "Oficejo de almoza organizaĵo",
 "almoza organizaĵo",
@@ -4637,13 +5446,19 @@
 "Oficejo de firmao",
 "firmo"
 ],
+"office/consulting":[
+"konsultado",
+"Oficejo de konsilado",
+"konsulto",
+"konsiliĝo"
+],
 "office/coworking":[
 "samloka laborado",
 "libera profesiulo",
 "coworking",
 "freelance",
 "liberlaboristo",
-"Ejo por samloka laborado (coworking)"
+"Oficejo por samloka laborado (coworking)"
 ],
 "office/diplomatic":[
 "diplomatia oficejo",
@@ -4659,6 +5474,12 @@
 "ambasado",
 "Ambasadejo",
 "ambasadorejo"
+],
+"office/diplomatic/liaison":[
+"konsulejo",
+"ambasado",
+"ambasadejo",
+"Kvazaŭ-ambasadejo"
 ],
 "office/educational_institution":[
 "edukada institucio",
@@ -4714,6 +5535,13 @@
 "ministrejo",
 "civilstato",
 "prezidanto"
+],
+"office/government/prosecutor":[
+"Prokurorejo",
+"prokuroro",
+"akuzisto",
+"ĉefakuzisto",
+"juĝisto"
 ],
 "office/government/register_office":[
 "Oficejo de civila stato",
@@ -4786,6 +5614,10 @@
 "office/physician":[
 "Kabineto de kuracisto"
 ],
+"office/political_party":[
+"Oficejo de partio politika",
+"politika partio"
+],
 "office/private_investigator":[
 "Oficejo de detektivo",
 "detektivo"
@@ -4835,12 +5667,65 @@
 "akvokondukto",
 "akvoprovizo"
 ],
+"piste/downhill":[
+"skitrako",
+"alpa skiado",
+"malsuprenveturo",
+"Skivojo alpa (malsuprenira)",
+"downhill",
+"skivojo"
+],
+"piste/downhill/halfpipe":[
+"Duontubo (neĝtabulado)",
+"halfpipe",
+"duontubo"
+],
+"piste/hike":[
+"Skivojo marŝada",
+"bastonmarŝado",
+"skiŝuado",
+"rakedoj",
+"marŝado",
+"vintra marŝado"
+],
+"piste/ice_skate":[
+"glitkurado",
+"Skivojo glitkurada",
+"glitado",
+"sketado"
+],
+"piste/nordic":[
+"skitrako",
+"skiado",
+"Skivojo nordia (skikurada)"
+],
+"piste/piste":[
+"skitrako",
+"Skivojo",
+"neĝtabulado",
+"skiado",
+"skikurso",
+"sketado",
+"vintrosportoj"
+],
 "piste/skitour":[
 "bastonmarŝado",
 "skiŝuado",
 "Skivojo ski-ekskursuma",
 "marŝado",
 "vintra marŝado"
+],
+"piste/sled":[
+"tobogano",
+"sledado",
+"glitveturilado",
+"Skivojo glitveturila"
+],
+"piste/sleigh":[
+"sledado",
+"glitveturilado",
+"hundosledado",
+"Skivojo glitveturila (tirata de hundoj)"
 ],
 "place":[
 "Ejo"
@@ -5002,7 +5887,9 @@
 "playground/zipwire":[
 "ŝnurparko",
 "ŝnura kurso",
+"shnurega deglitejo",
 "ŝnurĝardeno",
+"sxnurega deglitejo",
 "Ŝnurega deglitejo (infanludilo)"
 ],
 "point":[
@@ -5015,7 +5902,15 @@
 "baloto",
 "Balotejo (portempa loko)"
 ],
+"power":[
+"Elektr-energia objekto"
+],
+"power/cable":[
+"Elektra kondukilo"
+],
 "power/cable/underground":[
+"elektrokablo",
+"kurentkablo",
 "Elektra kondukilo subtera",
 "lineo",
 "kondukilo",
@@ -5065,12 +5960,59 @@
 "kablo"
 ],
 "power/plant":[
+"Elektrocentralo",
 "elektroproduktejo",
 "elektrocentralo",
-"Elektrocentrala tereno",
 "centralo",
 "elektrejo",
 "elektrofabriko"
+],
+"power/plant/source/coal":[
+"karbobruliganta elektrejo",
+"elektrocentralo karba",
+"centralo",
+"lignito",
+"elektrejo",
+"terkarbo",
+"karbono",
+"Karb-bruliganta elektrocentralo"
+],
+"power/plant/source/gas":[
+"biogaso",
+"metano",
+"Gas-bruliganta elektrocentralo",
+"tergaso",
+"centralo",
+"elektrejo"
+],
+"power/plant/source/hydro":[
+"hidroelektra",
+"Akvoenergia elektrocentralo",
+"centralo",
+"elektrejo",
+"akvobarilo"
+],
+"power/plant/source/nuclear":[
+"atomkerna",
+"centralo",
+"elektrejo",
+"Nuklea elektrocentralo"
+],
+"power/plant/source/solar":[
+"sunĉelo",
+"Sunenergia elektrocentralo",
+"sunpanelo",
+"centralo",
+"elektrejo",
+"suncentralo",
+"sunkolektroro",
+"fotovoltaiko"
+],
+"power/plant/source/wind":[
+"ventoturbino",
+"ventgenerilo",
+"ventturbino",
+"Ventenergia elektrocentralo"
 ],
 "power/pole":[
 "fosto",
@@ -5191,7 +6133,8 @@
 "tramhaltejo"
 ],
 "public_transport/platform/tram_point":[
-"Haltejo trama (atendejo)"
+"Haltejo trama (atendejo)",
+"tramhaltejo"
 ],
 "public_transport/platform/trolleybus":[
 "Haltejo trolebusa (atendejo)",
@@ -5281,6 +6224,7 @@
 "haltloko"
 ],
 "public_transport/stop_position_aerialway":[
+"skitelfero",
 "telfero",
 "Haltejo kablovoja (haltloko)"
 ],
@@ -5322,6 +6266,9 @@
 "public_transport/stop_position_trolleybus":[
 "troleo",
 "Haltejo trolebusa (haltloko - ŝoseo)"
+],
+"railway":[
+"Fervoja objekto"
 ],
 "railway/abandoned":[
 "trako",
@@ -5365,7 +6312,9 @@
 "railway/funicular":[
 "kablovojo",
 "kablotramo",
-"Funikularo",
+"trako",
+"Relvojo de funikularo",
+"funikularo",
 "trajneto",
 "fervojeto",
 "telfero"
@@ -5382,8 +6331,9 @@
 ],
 "railway/light_rail":[
 "malpeza fervojo",
+"trako",
 "tramo",
-"Fervojo malpeza",
+"Relvojo de malpeza fervojo",
 "malpeza trajno",
 "suburba fervojo"
 ],
@@ -5393,43 +6343,59 @@
 "mejloŝtono"
 ],
 "railway/miniature":[
+"miniatura fervojo",
 "maketo",
+"trako",
 "vagonareto",
 "trajneto",
 "fervojeto",
-"Miniatura fervojo"
+"Relvojo de miniatura fervojo"
 ],
 "railway/monorail":[
+"trako",
 "unurelvojo",
-"Relvojo unurela",
-"fervojo",
-"unurela fervojo"
+"unurela fervojo",
+"Relvojo de unurela fervojo"
+],
+"railway/monorail/hanging":[
+"trako",
+"kablovojo",
+"unurelvojo",
+"pendanta unurela fervojo",
+"Relvojo de pendanta unurela fervojo"
 ],
 "railway/narrow_gauge":[
 "trako",
 "relparo",
+"Relvojo de etŝpura fervojo",
 "mallarĝŝpura fervojo",
 "etshpura fervojo",
 "etsxpura fervojo",
 "etŝpura fervojo",
-"erlvojo",
-"Relvojo etŝpura"
+"erlvojo"
 ],
 "railway/platform":[
 "Haltejo fervoja (atendejo)"
 ],
+"railway/preserved":[
+"relvojo historia",
+"vaporlokomotivo",
+"trako historia",
+"Historia fervojo",
+"lokomotivo",
+"antikva trajno"
+],
 "railway/rail":[
 "trako",
-"relparo",
-"normalŝpura",
-"larĝŝpura",
-"erlvojo",
-"Relvojo normalŝpura"
+"fervojo",
+"ŝpuro",
+"Relvojo"
 ],
 "railway/rail/highspeed":[
 "grandrapida trajno",
+"Relvojo de altrapida fervojo",
 "rapidega trajno",
-"Fervojo altrapida",
+"eksprestrajno",
 "altrapida trajno"
 ],
 "railway/signal":[
@@ -5442,8 +6408,9 @@
 "Stacio fervoja"
 ],
 "railway/subway":[
-"subtera fervojo",
-"Metroo"
+"metroo",
+"Relvojo de metroo",
+"subtera fervojo"
 ],
 "railway/subway_entrance":[
 "Metroa enirejo",
@@ -5467,13 +6434,23 @@
 "trajnolavejo"
 ],
 "railway/tram":[
+"tramveturilo",
 "tramo",
+"Relvojo de tramo",
 "tramvojo",
-"urbofervojo",
-"Relvojo trama"
+"urbofervojo"
 ],
 "railway/tram_stop":[
 "Haltejo trama (haltloko - trako)"
+],
+"railway/yard":[
+"sxargxstacio",
+"sharghstacio",
+"fervojstacio vara",
+"vara trajnstacio",
+"komercaĵa stacio",
+"ŝarĝstacio",
+"Stacio fervoja vara"
 ],
 "relation":[
 "Rilato",
@@ -5547,6 +6524,14 @@
 "trinkaĵo",
 "drinkaĵo",
 "alkoholejo"
+],
+"shop/anime":[
+"rolkostumado",
+"cosplay",
+"mangao",
+"kosplejo",
+"Anime-/manga-vendejo",
+"animeo"
 ],
 "shop/antiques":[
 "antikvaĵejo",
@@ -5658,11 +6643,31 @@
 "shop/boutique":[
 "Mod-butiko (altprezaj vestaĵoj)"
 ],
+"shop/brewing_supplies":[
+"bierhordeo",
+"fermentado",
+"lupolo",
+"Bier-/vin-farendaĵa vendejo",
+"vinfarado",
+"biergistoj",
+"gistoj",
+"malto",
+"bierfarado",
+"fermentiloj"
+],
 "shop/butcher":[
 "viandobutiko",
 "viandovendejo",
 "viandejo",
 "Vianda vendejo"
+],
+"shop/camera":[
+"fotiloj",
+"lensoj",
+"kameraoj",
+"aparatoj",
+"objektivoj",
+"Vendejo kun fotiloj kaj lensoj"
 ],
 "shop/candles":[
 "Kandela vendejo",
@@ -5679,6 +6684,17 @@
 "Aŭtomobila vendejo",
 "auxtoj",
 "salono de aŭtoj",
+"autoj",
+"aŭtomobiloj",
+"aŭtoj"
+],
+"shop/car/second_hand":[
+"uzataj aŭtoj",
+"uzitaj aŭtoj",
+"auxtoj",
+"salono de aŭtoj",
+"Aŭtomobila brokantejo",
+"eluzitaj aŭtoj",
 "autoj",
 "aŭtomobiloj",
 "aŭtoj"
@@ -5715,6 +6731,11 @@
 "tapisxoj",
 "tapiŝoj"
 ],
+"shop/catalogue":[
+"Ricevejo de aĉetaĵoj (per katalogo)",
+"kataloga vendejo",
+"ricevo de aĉetoj"
+],
 "shop/charity":[
 "Almoza vendejo",
 "almozo"
@@ -5744,6 +6765,15 @@
 "vestoj",
 "vestaĵoj"
 ],
+"shop/clothes/second_hand":[
+"uzitaj vestoj",
+"vestovendejo",
+"uzataj vestoj",
+"Vesta brokantejo",
+"vestoj",
+"vestaĵoj",
+"eluzitaj vestoj"
+],
 "shop/clothes/underwear":[
 "ŝtrumpoj",
 "vestovendejo",
@@ -5757,11 +6787,38 @@
 "duonpantalono",
 "subvestaĵoj"
 ],
+"shop/clothes/wedding":[
+"nupto",
+"edziĝo",
+"Vendejo de edziniĝaj roboj",
+"roboj",
+"edziniĝo",
+"geedziĝaj roboj",
+"vesta vendejo"
+],
 "shop/coffee":[
 "kafovendejo",
 "kafejo",
 "Kafa vendejo",
 "kafo"
+],
+"shop/collector":[
+"bildstrioj",
+"Kolektaĵa vendejo",
+"posxtmarkoj",
+"komiksoj",
+"kolektaĵoj",
+"kolektajhoj",
+"filatelio",
+"filatelo",
+"numismatiko",
+"poŝtkartoj",
+"fosilioj",
+"poshtmarkoj",
+"figuretoj",
+"poŝtmarkoj",
+"moneroj",
+"kolektajxoj"
 ],
 "shop/computer":[
 "komputoroj",
@@ -5807,6 +6864,15 @@
 "Ĝenerala vendejo",
 "ĝenerala vendejo"
 ],
+"shop/craft":[
+"artisto",
+"Vendejo de materialoj por metio",
+"manmetio",
+"plastikisto",
+"artaĵo",
+"metiado",
+"metio"
+],
 "shop/curtain":[
 "kurtenoj",
 "fenestroj",
@@ -5842,6 +6908,11 @@
 "Memfaradila vendejo",
 "iloj"
 ],
+"shop/doors":[
+"Vendejo de pordoj",
+"pordoj",
+"pordovendejo"
+],
 "shop/dry_cleaning":[
 "lavejo",
 "blankigejo",
@@ -5852,6 +6923,16 @@
 "e-cigaredoj",
 "Elektronik-cigareda vendejo",
 "ecigaredoj"
+],
+"shop/electrical":[
+"kabloj",
+"elektrajha vendejo",
+"ŝtopiloj",
+"elektrajxa vendejo",
+"kontaktingoj",
+"elektraj sekurigiloj",
+"kontaktiloj",
+"Elektraĵa vendejo"
 ],
 "shop/electronics":[
 "mastrumaparatoj",
@@ -5919,8 +7000,11 @@
 "fiŝkaptado",
 "Fiŝkaptil-vendejo"
 ],
-"shop/fishmonger":[
-"Fiŝa vendejo"
+"shop/flooring":[
+"plankoj",
+"pargetoj",
+"Plank-vendejo",
+"kaheloj"
 ],
 "shop/florist":[
 "Florvendejo",
@@ -5935,9 +7019,10 @@
 "Bild-kadra vendejo"
 ],
 "shop/frozen_food":[
-"Frostigit-manĝaĵo vendejo",
+"Frostigit-manĝaĵa vendejo",
 "fridigita manĝaĵo",
-"frostigita manĝaĵo"
+"frostigita manĝaĵo",
+"glaciigita manĝaĵo"
 ],
 "shop/fuel":[
 "gasboteloj",
@@ -5955,9 +7040,6 @@
 "enterigisto",
 "sepultisto",
 "Tombistejo"
-],
-"shop/furnace":[
-"Hejtila vendejo"
 ],
 "shop/furniture":[
 "mebloj",
@@ -6061,6 +7143,25 @@
 "stereo",
 "video",
 "Aldfidela-sona vendejo"
+],
+"shop/hobby":[
+"figuroj",
+"modelfarado",
+"hobio",
+"Hobia vendejo",
+"animeo",
+"ŝatokupo"
+],
+"shop/household_linen":[
+"tablotukoj",
+"viŝtukoj",
+"manviŝiloj",
+"sternaĵo",
+"Tuka vendejo",
+"viŝiloj",
+"tukoj",
+"litaĵo",
+"littolaĵo"
 ],
 "shop/houseware":[
 "mastrumaparatoj",
@@ -6226,11 +7327,6 @@
 "optikisto",
 "Optikbutiko"
 ],
-"shop/organic":[
-"ekologia manĝaĵo",
-"organika manĝaĵo",
-"Ekologi-manĝaĵa vendejo"
-],
 "shop/outdoor":[
 "Vojaĝila vendejo",
 "vojagxiloj",
@@ -6241,7 +7337,10 @@
 ],
 "shop/outpost":[
 "Ricevejo de aĉetaĵoj (per interreto)",
+"poŝto",
+"retbutiko",
 "reta aĉeto",
+"ricevo de aĉetaĵoj",
 "enreta aĉeto"
 ],
 "shop/paint":[
@@ -6300,12 +7399,27 @@
 "fotografarto",
 "fotografio"
 ],
+"shop/pottery":[
+"porcelano",
+"Porcelan-vendejo",
+"potoj",
+"ceramikaĵo"
+],
 "shop/printer_ink":[
 "kartoĉo",
 "presilinko",
 "inko",
 "farbopulvoro",
 "Presil-inka vendejo"
+],
+"shop/psychic":[
+"fantomisto",
+"astrologo",
+"aŭguristo",
+"spiritisto",
+"mediumo",
+"astrologiisto",
+"Laborejo de mediumo"
 ],
 "shop/pyrotechnics":[
 "piroteknikaĵoj",
@@ -6330,6 +7444,12 @@
 "devotajxoj",
 "religiaĵoj",
 "religio"
+],
+"shop/rental":[
+"lupreni",
+"pruntado",
+"luigado",
+"Pruntejo"
 ],
 "shop/scuba_diving":[
 "plonĝado",
@@ -6361,6 +7481,14 @@
 "Kudrilar-vendejo",
 "ŝtofo"
 ],
+"shop/shoe_repair":[
+"ŝuisto",
+"shuriparejo",
+"botisto",
+"ŝuriparejo",
+"Ŝu-riparejo",
+"sxuriparejo"
+],
 "shop/shoes":[
 "ŝuovendejo",
 "Ŝua vendejo",
@@ -6369,6 +7497,20 @@
 "botvendejo",
 "botoj",
 "shuoj"
+],
+"shop/spices":[
+"cinamo",
+"nuksoj",
+"aromherboj",
+"herboj",
+"kondimentoj",
+"papriko",
+"spicovendejo",
+"vasabio",
+"spicoj",
+"gustigaĵoj",
+"sekigitaj fruktoj",
+"Spica vendejo"
 ],
 "shop/sports":[
 "vestovendejo",
@@ -6388,6 +7530,12 @@
 "vendejaro",
 "Superbazaro",
 "vendejego"
+],
+"shop/supermarket/organic":[
+"ekologia manĝaĵo",
+"biologia",
+"organika",
+"Superbazaro kun ekologiaj produktaĵoj"
 ],
 "shop/swimming_pool":[
 "Vendejo de naĝej-akcesoriaĵoj",
@@ -6409,6 +7557,15 @@
 "teejo",
 "teo"
 ],
+"shop/telecommunication":[
+"provizanto de retkonekto",
+"retkonekto",
+"televidprovizanto",
+"isp",
+"interretprovizanto",
+"Oficejo de telekomunikada firmao (vendo)",
+"telefono"
+],
 "shop/ticket":[
 "biletvendejo",
 "Biletejo",
@@ -6426,6 +7583,12 @@
 "tabako",
 "Tabaka vendejo",
 "cigaredoj"
+],
+"shop/tool_hire":[
+"pruntejo",
+"Il-pruntejo",
+"ilpruntejo",
+"maŝinoj"
 ],
 "shop/toys":[
 "ludiloj",
@@ -6447,6 +7610,14 @@
 "vojaĝejo",
 "vojagha oficejo",
 "Vojaĝa oficejo"
+],
+"shop/trophy":[
+"Vendejo de pokaloj kaj premioj",
+"figuretoj",
+"pokaloj",
+"medaloj",
+"premioj",
+"statuetoj"
 ],
 "shop/tyres":[
 "pneuxoj",
@@ -6539,6 +7710,14 @@
 "datencentro",
 "datumcentro"
 ],
+"telecom/exchange":[
+"Telekomunika centralo",
+"telefoncentralo",
+"centralo telekomunika"
+],
+"tourism":[
+"Turisma objekto"
+],
 "tourism/alpine_hut":[
 "rifuĝejo",
 "ŝirmejo",
@@ -6624,7 +7803,23 @@
 "tourism/camp_site":[
 "Kampadejo",
 "bivakejo",
-"tendo"
+"tendo",
+"tendaro"
+],
+"tourism/camp_site/backcountry":[
+"kampadejo",
+"bivakejo",
+"tendo",
+"tendaro",
+"Kampadejo sovaĝa (sen oportunaĵoj)"
+],
+"tourism/camp_site/group_only":[
+"Kampadejo (nur por grupoj)",
+"kampadejo",
+"bivakejo",
+"skoltoj",
+"tendo",
+"tendaro"
 ],
 "tourism/caravan_site":[
 "kampveturilo",
@@ -6667,10 +7862,16 @@
 "turisma informejo"
 ],
 "tourism/information/board":[
+"",
+"afiŝejo",
+"afiŝtabulo",
 "Inform-tabulo",
+"afisxejo",
+"tabulo de informoj",
 "informtabulo",
 "mesaĝtabulo",
-"anonctabulo"
+"anonctabulo",
+"afishejo"
 ],
 "tourism/information/guidepost":[
 "Vojmontrilo",
@@ -6707,6 +7908,10 @@
 ],
 "tourism/museum":[
 "Muzeo",
+"muzeo"
+],
+"tourism/museum/history":[
+"Muzeo pri historio",
 "muzeo"
 ],
 "tourism/picnic_site":[
@@ -6869,6 +8074,15 @@
 "landlimo",
 "Administra limo"
 ],
+"type/connectivity":[
+"kuneco de veturkoridoroj",
+"Kunigo de vetur-koridoroj"
+],
+"type/destination_sign":[
+"Trafiksigno pri direkto",
+"celloko",
+"direkto"
+],
 "type/enforcement":[
 "fotilo",
 "kamerao",
@@ -6877,6 +8091,11 @@
 "radaro",
 "pezkontrolo",
 "pesilo"
+],
+"type/enforcement/maxspeed":[
+"Kontrolo de rapido",
+"rapidkontrolo",
+"rapidlimo"
 ],
 "type/multipolygon":[
 "Plurangularo"
@@ -6915,8 +8134,8 @@
 "prohibo",
 "Uforma",
 "malpermeso",
-"U-forma",
-"Turniĝo malantaŭen malpermesata"
+"Turno malantaŭen malpermesata",
+"U-forma"
 ],
 "type/restriction/only_left_turn":[
 "liven",
@@ -7042,6 +8261,12 @@
 "tramlinio",
 "itinero"
 ],
+"type/route/trolleybus":[
+"trolebusa linio",
+"Trolebusa kurso",
+"linio",
+"itinero"
+],
 "type/route_master":[
 "chefkurso",
 "cxefkurso",
@@ -7056,6 +8281,9 @@
 "Akvovojo",
 "kanalo",
 "akvovojo"
+],
+"waterway":[
+"Akvofluo"
 ],
 "waterway/boatyard":[
 "boatriparejo",
@@ -7100,6 +8328,17 @@
 "fosajho defluiga",
 "Fosaĵo defluiga"
 ],
+"waterway/fish_pass":[
+"transnagxajxo",
+"fiŝŝtuparo",
+"fiŝoj",
+"fiŝmigrado",
+"Transnaĝaĵo por fiŝoj",
+"transnaghajho",
+"frajado",
+"fiŝ-ŝtuparo",
+"kluzo"
+],
 "waterway/fuel":[
 "Benzinejo (por jaĥtoj)",
 "akvobenzinejo",
@@ -7127,7 +8366,7 @@
 "waterway/sanitary_dump_station":[
 "fekaĵo",
 "malpruaĵo",
-"Stacio de forigado de fekaĵoj (por jaĥtoj)"
+"Stacio de forigo de fekaĵoj (por jaĥtoj)"
 ],
 "waterway/stream":[
 "rivero",
@@ -7143,6 +8382,15 @@
 "neregula rivereto",
 "sezona rivereto",
 "Perioda rivereto"
+],
+"waterway/tidal_channel":[
+"estuaro",
+"Alflu-reflu-cikla akvofluo",
+"rivero",
+"tajdflako",
+"tajdoflako",
+"tajdujo",
+"tajdejo"
 ],
 "waterway/water_point":[
 "Trinkakvejo (por jaĥtoj)",

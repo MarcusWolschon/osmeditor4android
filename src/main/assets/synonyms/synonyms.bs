@@ -4,21 +4,10 @@
 "Adresa",
 "adresa"
 ],
-"aerialway/gondola":[
-"Gondola"
-],
-"aeroway":[
-"Avio-put"
-],
 "aeroway/aerodrome":[
 "aerodrom",
 "Aerodrom",
 "zračna luka"
-],
-"aeroway/apron":[
-"Stajanka",
-"betonirani teren aerodroma",
-"stajanka"
 ],
 "aeroway/hangar":[
 "hangar",
@@ -215,9 +204,6 @@
 "amenity/studio":[
 "Studio"
 ],
-"amenity/swimming_pool":[
-"Bazen"
-],
 "amenity/taxi":[
 "taxi štand",
 "taxi stajalište",
@@ -407,9 +393,6 @@
 "craft/gardener":[
 "Vrtlar"
 ],
-"craft/hvac":[
-"HVAC"
-],
 "craft/insulator":[
 "Izolator"
 ],
@@ -418,9 +401,6 @@
 ],
 "craft/locksmith":[
 "Bravar"
-],
-"craft/metal_construction":[
-"Metalne konstrukcije"
 ],
 "craft/photographer":[
 "Fotograf"
@@ -1119,30 +1099,10 @@
 "nekorištena željeznica",
 "nekorištena željeznička pruga"
 ],
-"railway/monorail":[
-"jednošinska pruga",
-"Pruga sa jednim kolosijekom",
-"pruga sa jednim kolosijekom"
-],
-"railway/rail":[
-"šinski put",
-"šine",
-"Šina"
-],
-"railway/subway":[
-"metro",
-"podzemna željeznica",
-"Podzemna željeznica"
-],
 "railway/subway_entrance":[
 "Ulaz u podzemnu željeznicu",
 "ulaz podzemne željeznice",
 "ulaz u podzemnu željeznicu"
-],
-"railway/tram":[
-"tramvaj",
-"električni tramvaj",
-"Tramvaj"
 ],
 "relation":[
 "Relacija",
@@ -1248,9 +1208,6 @@
 "štand proizvodnje",
 "štand proizvođača",
 "Štand proizvodnje"
-],
-"shop/fishmonger":[
-"Ribarnica"
 ],
 "shop/florist":[
 "radnja za prodaju cvijeća",
