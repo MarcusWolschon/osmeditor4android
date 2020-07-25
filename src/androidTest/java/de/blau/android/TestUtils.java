@@ -28,6 +28,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
+import android.support.test.uiautomator.Configurator;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
@@ -220,6 +221,10 @@ public class TestUtils {
     public static void clickAt(@NonNull UiDevice device, float x, float y) {
         System.out.println("clicking at " + x + " " + y);
         device.click((int) x, (int) y);
+        try {
+            Thread.sleep(100); // NOSONAR
+        } catch (InterruptedException e1) {
+        }
     }
 
     /**
