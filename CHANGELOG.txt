@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+14.1.7: Update imagery, preset, opening hours parser, fix HelpViewer styling with dark theme, fix long press in locked mode.
+
 14.1.6: Re-update translations
 
 14.1.5: Update imagery, preset and translations, numerous small fixes backported from 15.0.
