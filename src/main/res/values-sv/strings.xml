@@ -25,8 +25,11 @@
   <string name="wrong_login_data_message">Om du använder OAuth, autentisera om och försök igen. Om du använder inloggning och lösenord (rekommenderas inte), vänligen kontrollera att de är korrekt inmatade.</string>
   <string name="wrong_login_data_re_authenticate">Autentisera igen</string>
   <string name="forbidden_login_title">Inloggning förbjuden</string>
+  <string name="not_found_title">Element hittades inte</string>
   <string name="unknown_error_title">Okänt fel</string>
+  <string name="no_data_title">Ingen data</string>
   <string name="go_to_openstreetmap">Gå till openstreetmap.org</string>
+  <string name="data_conflict_title">Versionskonflikt</string>
   <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
   <string name="api_offline_title">API frånkopplad</string>
   <string name="api_offline_message">API:n är för närvarande frånkopplad, ingen data kan hämtas eller skrivas.</string>
@@ -51,6 +54,7 @@
   <string name="progress_uploading_message">Läser in upp...</string>
   <string name="progress_preset_message">Hämta förinställning...</string>
   <string name="progress_running_message">Körs...</string>
+  <string name="progress_building_imagery_database">Bygger bild-databas...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" raderad</string>
   <string name="changes_changed">\"%1$s\" ändrad</string>
@@ -89,6 +93,7 @@
   <string name="maproulette_task_title">MapRoulette-uppgift</string>
   <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
   <string name="maproulette_task_explanations">Förklaringar</string>
+  <string name="maproulette_task_disable">Inaktivera</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Försiktigt!</string>
   <string name="unsaved_data_message">Dina osparade ändringar kommer att kasseras om du fortsätter.</string>
@@ -132,7 +137,9 @@
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Kopiera egenskaper</string>
   <!--API/Data layer info dialog-->
+  <string name="ways">Vägar</string>
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
   <!---->
   <string name="error">Fel</string>
   <string name="warning">Varning</string>
@@ -175,7 +182,12 @@
   <string name="layer_photos">Foton</string>
   <string name="layer_tasks">Uppgifter</string>
   <string name="layer_change_style">Byt stil</string>
+  <string name="layer_category_all">Alla</string>
+  <string name="layer_category_map">Karta</string>
+  <string name="layer_category_other">Annat</string>
   <!--Layer info dialog-->
+  <string name="layer_info_start_date">Start datum</string>
+  <string name="layer_info_end_date">Slutdatum</string>
   <!--Photo viewer-->
   <!--API info dialog-->
   <!--Undo - Redo dialog-->
@@ -213,6 +225,7 @@
   </plurals>
   <string name="read_mail">Läs</string>
   <string name="toast_unsurveyed_road">Oklassificerad väg</string>
+  <string name="toast_untagged_relation">Otaggad relation</string>
   <!---->
   <string name="toast_oauth_handshake_failed">Kunde inte utföra OAuth-handslag: %1$s</string>
   <string name="coordinates_out_of_range">Longitud måste vara mellan -180°/+180°, latitud mellan -85°/85°</string>
@@ -234,7 +247,6 @@
   <string name="toast_tags_cut">Taggar klipptes ut till urklipp</string>
   <string name="toast_properties_copied">Egenskaper kopierade till urklipp</string>
   <string name="toast_task_conflict">%1$s har ändrats på servern, skicka först och hämta sedan</string>
-  <string name="toast_long_press_simple_mode">Lång tryckning är inte tillgänglig i enkelt läge</string>
   <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
@@ -263,6 +275,7 @@
   <string name="share">Dela</string>
   <string name="share_position">Dela position</string>
   <string name="share_on_openstreetmap">Dela på OpenStreetMap</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
   <string name="none">Inga</string>
   <!--Dialog for back button-->
   <string name="exit_title">Avsluta Vespucci</string>
@@ -335,6 +348,8 @@
   <string name="location_load_dismiss">Gå till karta</string>
   <string name="location_nan_title">Felaktig inmatning!</string>
   <string name="location_nan_message">Vänligen infoga decimal formaterade koordinater (t.ex. \"52.333572\",\"8.741185\"). Lat. måste ligga mellan -85.0 och +85.0 och Lon. måste ligga mellan -175.0 och +175.0.</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -394,6 +409,8 @@
   <string name="menu_paste_from_clipboard">Klistra in från klippbord</string>
   <string name="menu_zoom_to_selection">Zooma till markering</string>
   <string name="menu_rotate">Rotera</string>
+  <string name="menu_orthogonalize">Torg</string>
+  <string name="menu_straighten">Räta ut</string>
   <string name="menu_circulize">Arrangera i cirkel</string>
   <string name="menu_split_polygon">Dela upp i polygoner</string>
   <string name="menu_newnode_gps">Ny nod vid GPS-position</string>
@@ -518,6 +535,7 @@
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <!--Auto-download settings-->
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
+  <string name="config_downloadRadius_current">%1$d meter</string>
   <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
   <!--Location Settings-->
@@ -528,8 +546,10 @@
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Minsta GPS/GNSS-avstånd</string>
   <string name="config_gps_distance_summary">Minsta avståndet mellan GPS/GNSS-aviseringar i meter. Lägre värden dränerar mer batteri.</string>
+  <string name="config_gps_distance_current">%1$d meter</string>
   <string name="config_leaveGpsDisabled_title">Lämna GPS/GNSS avstängd</string>
   <string name="config_leaveGpsDisabled_summary">Fråga inte om att slå på GPS/GNSS om den är avstängd.</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_category_server">Serverinställningar</string>
   <string name="config_apibutton_title">OSM API URL</string>
@@ -586,6 +606,7 @@
   <string name="name">Namn</string>
   <string name="url">URL</string>
   <string name="default_">Standard</string>
+  <string name="state">Stat</string>
   <!---->
   <string name="empty_list">Inga poster</string>
   <string name="geocoder_type">Geocoder typ</string>
@@ -612,6 +633,7 @@
   <string name="undo_action_cut">Klipp ut</string>
   <string name="undo_action_paste">Klistra in</string>
   <string name="undo_action_rotateway">Vägrotation</string>
+  <string name="undo_action_fix_conflict">Lösa konflikter</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
@@ -635,55 +657,8 @@
   <string name="object">Objekt</string>
   <string name="deleterelation">Ta bort relation</string>
   <string name="delete_from_relation_description">Du håller på att ta bort detta element från en relation.</string>
+  <!--Things-->
   <!--time and distance-->
   <!--Help system-->
   <string name="toast_nohelp">Ingen hjälp här.</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>privat</item>
-    <item>allmän</item>
-    <item>spårbar</item>
-    <item>synlig</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Intern</item>
-    <item>Intern NMEA</item>
-    <item>NMEA från TCP-klient</item>
-    <item>NMEA från TCP-server</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>Öppen</item>
-    <item>Stängd</item>
-    <item>Falsk positiv</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Öppna</item>
-    <item>Stäng</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>Öppen</item>
-    <item>Stängd</item>
-    <item>Falskt positiv</item>
-    <item>Överhoppad</item>
-    <item>Borttagen</item>
-    <item>Redan rättad</item>
-    <item>För svår</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Vänster</item>
-    <item>Höger</item>
-    <item>Inget</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Automatisk</item>
-    <item>Aldrig</item>
-    <item>Tvinga</item>
-    <item>Inget statusfält</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Nyare</item>
-    <item>Tvinga</item>
-    <item>Ingen statusbar</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

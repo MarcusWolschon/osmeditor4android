@@ -79,6 +79,7 @@
   <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth-Autorisierung...</string>
   <string name="progress_building_imagery_database">Hintergrundbilderdatenbank wird erstellt…</string>
   <string name="progress_query_oam">Abfrage von OAM…</string>
+  <string name="progress_pruning">Zurück schneiden…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" gelöscht</string>
   <string name="changes_changed">\"%1$s\" verändert</string>
@@ -192,6 +193,11 @@
   <string name="ways">Wege</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Quellenhinweis</string>
+  <!--Too much data dialog-->
+  <string name="too_much_data_title">Zu viele Daten!</string>
+  <string name="too_much_data_message"> Es sind%1$d Nodes geladen, mehr als die konfigurierte Maximalwert  Dies macht die App langsam und führt möglicherweise zu Problemen beim Sichern des aktuellen Zustandes. </string>
+  <string name="upload_data_now">Änderungen hochladen</string>
+  <string name="prune_data_now">Daten zurückschneiden</string>
   <!---->
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
@@ -242,8 +248,10 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Benutzerdefinierter Hintergrund</string>
   <string name="oam_layer_title">Hintergründe von OAM</string>
+  <string name="wms_endpoints_title">WMS Server</string>
   <string name="edit_layer_title">Hintergrundeintrag bearbeiten</string>
   <string name="add_layer_title">Hintergrundeintrag hinzufügen</string>
+  <string name="select_layer_title">Ebene auswählen</string>
   <string name="overlay">Overlay</string>
   <string name="coverage">Abdeckung</string>
   <string name="coverage_top">Oben</string>
@@ -252,6 +260,10 @@
   <string name="coverage_bottom">Unten</string>
   <string name="toast_invalid_box">Ungültiges oder unvollständiges Begrenzungsrechteck</string>
   <string name="delete_layer">Hintergrundeintrag löschen?</string>
+  <string name="delete_endpoint">Server löschen?</string>
+  <string name="add_wms_endpoint_title">WMS Server hinzufügen</string>
+  <string name="edit_wms_endpoint_title">WMS Server ändern</string>
+  <string name="add_imagery_from_wms_endpoint">Ebene vom WMS hinzufügen</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Ebenenstil</string>
   <string name="layer_style_stroke_width">Strichbreite</string>
@@ -261,6 +273,7 @@
   <string name="json_array_not_displayed">JSON-Array (nicht angezeigt)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Gitternetz</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Fotos</string>
@@ -289,6 +302,8 @@
   <string name="photo_viewer_delete_title">Foto löschen</string>
   <string name="photo_viewer_delete_button">Endgültig löschen</string>
   <string name="photo_viewer_goto">Zum Foto gehen</string>
+  <string name="photo_viewer_label">Fotoanzeige</string>
+  <string name="mapillary_viewer_label">Mapillary-Anzeige</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Begrenzungsrechteck</string>
   <string name="api_info_latest_date">Letztes Einfügedatum</string>
@@ -321,6 +336,7 @@
 Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den Menüpunkt \"Info\" in der Anforderung für den Layer eingesehen werden.</string>
   <string name="tip_pan_and_zoom_auto_download">Das automatische Laden der aktuellen Ansicht sollte mit Vorsicht verwendet werden, da es das Potential hat, sowohl die OpenStreetMap API als auch dieses Gerät erheblich zu belasten.&lt;p&gt;Ersteres kann durch die Verwendung einer Offlinedatenquelle vermieden werden.</string>
   <string name="tip_locked_mode">Im gesperrten Zustand kann nicht editiert werden, aber ein langer Click auf ein Objekt zeigt Detailinformationen an.</string>
+  <string name="tip_longpress_simple_mode">Im einfachen Modus hat ein langer Klick keine Funktion. Schalte den einfachen Modus ab wenn du mit langem Klick Objekte erstellen willst.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -336,6 +352,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_url_empty">URL darf nicht leer sein</string>
   <string name="toast_min_zoom">Minimaler Zoom muss kleiner sein als der maximale Zoom</string>
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
+  <string name="toast_jpeg_not_transparent">JPEG Kacheln sind nicht transparent und können nicht als Overlay verwendet werden</string>
   <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
   <string name="clear_anyway">Trotzdem löschen?</string>
   <string name="toast_upload_success">Hochladen zum OSM-Server beendet.</string>
@@ -445,7 +462,6 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_task_layer_disabled">Aufgabenebene abgeschaltet</string>
   <string name="toast_unable_to_create_task_layer">Aufgabenebene konnte nicht erstellt werden</string>
   <string name="toast_merged">Zusammengeführt</string>
-  <string name="toast_long_press_simple_mode">Langes Drücken funktioniert im einfachen Modus nicht</string>
   <string name="toast_invalid_style_file">Ungültiges Style-file Format für %1$s</string>
   <string name="toast_no_geometry">Keine Geometrie für dieses Element bestimmbar</string>
   <string name="toast_added_api_entry_for">API-Eintrag hinzugefügt für %1$s</string>
@@ -454,6 +470,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_device_not_found_for">Gerät nicht gefunden %1$s</string>
   <string name="toast_file_already_exists">Datei %1$sexistiert bereits. </string>
   <string name="toast_file_error_for">Dateifehler für %1$s</string>
+  <string name="toast_error_reading">Fehler beim Lesen von %1$s</string>
   <string name="toast_http_data_error_for">HTTP-Datenfehler für %1$s</string>
   <string name="toast_error_insufficient_space_for">Nicht genug Speicher auf Gerät für %1$s</string>
   <string name="toast_error_too_many_redirects_for">Zu viele Weiterleitungen für %1$s</string>
@@ -464,6 +481,16 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="toast_members_not_downloaded">Einige Relationsmitglieder sind nicht heruntergeladen</string>
   <string name="toast_restart_required">Vespucci muss neu gestartet werden um diese Änderungen anzuwenden</string>
   <string name="toast_unable_to_open_offline_data">Offline Daten können nicht geöffnet werden %1$s %2$s</string>
+  <string name="toast_no_usable_location">Kein brauchbarer location-Wert</string>
+  <plurals name="added_required_elements">
+    <item quantity="one">Benötigtes Element hinzugefügt</item>
+    <item quantity="other">%1$d benötigte Elemente hinzugefügt</item>
+  </plurals>
+  <string name="toast_out_of_memory">KEIN SPEICHER MEHR!</string>
+  <string name="toast_egm_installed">EGM heruntergeladen und installiert</string>
+  <string name="toast_invalid_number_format">Ungültiges Zahlenformat %1$s</string>
+  <string name="toast_error_downloading_mapillary_image">Fehler beim Laden von Mapillary-Bild %1$s</string>
+  <string name="toast_error_downloading_mapillary_sequences">Fehler beim Laden von Mapillary-Sequenz %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Für MapSplit-Quellen müssen Zoomgrenzen festgelegt sein.</string>
   <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
@@ -591,6 +618,20 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="location_nan_title">Falsche Eingabe!</string>
   <string name="location_nan_message">Geben Sie bitte die Koordinaten als Fließkommazahlen ein (z. B. \"52.333572\",\"8.741185\"). Lat muss zwischen -85.0 und +85.0, Lon muss zwischen -175.0 und +175.0 liegen.</string>
   <string name="location_olc">OLC</string>
+  <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Verwende</string>
+  <string name="barometer_calibration_current_height">aktuelle Höhe (in Metern)</string>
+  <string name="barometer_calibration_current_reference_pressure">aktueller Referenzdruck (hPa)</string>
+  <string name="barometer_calibration_gps">GNSS</string>
+  <string name="barometer_calibration_calibrate">Kalibrieren</string>
+  <!--Strings in postition info-->
+  <string name="position_info_title">Aktuelle Ortsinformation</string>
+  <string name="position_info_hdop">HDOP</string>
+  <string name="position_info_altitude">Höhe</string>
+  <string name="position_info_geoid_height">Höhe über dem Geoid</string>
+  <string name="position_info_barometric_height">Barometrische Höhe</string>
+  <string name="position_info_geoid_correction">Geoid Körrecktur</string>
+  <string name="position_info_ellipsoid_height">Höhe über dem Ellipsoid</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Dateien herunterladen</string>
   <string name="allow_all_networks">Alle Netzwerke erlauben</string>
@@ -629,6 +670,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_gps_goto">Zum aktuellen Standort gehen</string>
   <string name="menu_gps_goto_coordinates">Zu Koordinaten gehen…</string>
   <string name="menu_gps_goto_last_edit">Zur letzten Änderung gehen</string>
+  <string name="menu_gps_position_info">Aktuelle Ortsinfo</string>
   <string name="menu_gps_start">GPX-Track starten</string>
   <string name="menu_gps_pause">GPX-Track pausieren</string>
   <string name="menu_gps_clear">GPX-Track und dessen Wegpunkte löschen</string>
@@ -646,6 +688,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_transfer_load_current">Aktuelle Ansicht laden</string>
   <string name="menu_transfer_load_replace">Löschen und aktuelle Ansicht laden</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
+  <string name="menu_transfer_update">Daten aktualisieren</string>
   <string name="menu_transfer_close_changeset">Aktuelles Changeset schließen</string>
   <string name="menu_transfer_file">Datei…</string>
   <string name="menu_transfer_export">Änderungen in eine OSC-Datei exportieren</string>
@@ -680,19 +723,26 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="menu_circulize">Im Kreis anordnen</string>
   <string name="menu_split_polygon">In 2 Polygone aufteilen</string>
   <string name="menu_unjoin_dissimilar">Von unähnlichen Wegen trennen</string>
+  <string name="menu_extract_segment">Segment extrahieren</string>
   <string name="menu_newnode_gps">Neuer Knoten an GPS-Position</string>
   <string name="menu_extend_selection">Auswahl erweitern</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Sprachbefehle</string>
+  <string name="menu_upload_element">Element hochladen</string>
+  <string name="menu_upload_elements">Elemente hochladen</string>
   <string name="menu_set_name">Namen festlegen</string>
   <string name="menu_tools">Werkzeuge…</string>
-  <string name="menu_tools_imagery">Mehr Hintergrundtools</string>
+  <string name="menu_tools_imagery">Mehr Hintergrundtools…</string>
   <string name="menu_tools_add_imagery_from_oam">Hintergrund von OAM hinzufügen</string>
   <string name="menu_tools_flush_all_tile_caches">Alle Tile-Caches leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
-  <string name="menu_tools_update_imagery_configuration">Konfiguration der Hintergrundebene aktualisieren</string>
+  <string name="menu_tools_update_imagery_configuration">Konfiguration aktualisieren</string>
+  <string name="menu_tools_update_imagery_configuration_eli">Konfiguration von ELI aktualisieren</string>
   <string name="menu_tools_zoom_to_layer_extent">Auf Abdeckung des Hintergrunds zoomen</string>
   <string name="menu_tools_clear_clipboard">Zwischenablage löschen</string>
+  <string name="menu_tools_calibrate_height">Barometer kalibrieren</string>
+  <string name="menu_tools_install_egm">EGM installieren</string>
+  <string name="menu_tools_remove_egm">EGM entfernen</string>
   <!---->
   <string name="menu_simple_actions">Einfacher Modus</string>
   <string name="menu_feedback">Rückmeldung senden</string>
@@ -712,12 +762,13 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Ebenen…</string>
-  <string name="menu_layers_load_geojson">GeoJSON Ebene laden</string>
+  <string name="menu_layers_load_geojson">GeoJSON Ebene hinzufügen</string>
   <string name="menu_layers_add_backgroundlayer">Hintergrundebene hinzufügen</string>
   <string name="menu_layers_add_overlaylayer">Overlay-Ebene hinzufügen</string>
-  <string name="menu_layers_add_tasklayer">Aufgaben-Ebene hinzufügen</string>
-  <string name="menu_layers_add_grid">Gitter/Skalenebene hinzufügen</string>
-  <string name="menu_layers_add_photolayer">Foto-Ebene hinzufügen</string>
+  <string name="menu_layers_add_tasklayer">Aufgaben-Ebene anzeigen</string>
+  <string name="menu_layers_add_grid">Gitter/Skala anzeigen</string>
+  <string name="menu_layers_add_photolayer">Foto-Ebene anzeigen</string>
+  <string name="menu_layers_enable_mapillary_layer">Mapillary-Ebene anzeigen</string>
   <string name="menu_layers_configure">Konfigurieren…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Gespeicherten Hintergrundversatz anwenden</string>
@@ -770,6 +821,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="actionmode_restriction_restart_to">\"to\" Segment nochmals auswählen</string>
   <string name="actionmode_restriction_split_from">\"from\" Weg trennen</string>
   <string name="actionmode_restriction_split_via">\"via\" Weg trennen</string>
+  <string name="actionmode_extract_segment_select">Segment auswählen</string>
+  <string name="actionmode_extract_segment_set_tags">Tags setzen</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 Objekt</item>
     <item quantity="other">%1$d Objekte</item>
@@ -866,6 +919,13 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_maxStrokeWidth_title">Maximale Linienbreite</string>
   <string name="config_maxStrokeWidth_summary">Weg nicht breiter zeichnen als:</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">Ausstehende Uploads OK</string>
+  <string name="config_uploadOk_summary">Grenze unter der ausstehende Objekt-Uploads als OK gelten</string>
+  <string name="config_upload_current">%1$d Objekte</string>
+  <string name="config_uploadWarn_title">Ausstehende Uploads Warnung</string>
+  <string name="config_uploadWarn_summary">Grenze unter der ausstehende Objekt-Uploads Warnstatus haben</string>
+  <string name="config_dataWarn_title">Zu viele Datenwarnung</string>
+  <string name="config_dataWarn_summary">Grenze (Anzahl Nodes) ab welcher wir wegen zu viele Daten warnen</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_category_editing_summary">Auto-Download-Einstellungen</string>
@@ -939,6 +999,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_gnssTimeToStale_title">Veralteter Standort nach</string>
   <string name="config_gnssTimeToStale_summary">Die Anzahl Sekunden nachdem ein Standortwert als veraltet betrachtet wird.</string>
   <string name="config_gnssTimeToStale_current">%1$d s</string>
+  <string name="config_useBarometricHeight_title">Barometrische Höhe verwenden</string>
+  <string name="config_useBarometricHeight_summary">Höhenwerte vom Barometer verwenden falls verfügbar</string>
   <!--Server Settings-->
   <string name="config_category_server">Server-Einstellungen</string>
   <string name="config_category_server_summary">Einstellungen für die OSM-API und andere Server </string>
@@ -961,6 +1023,8 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="config_tileCacheSize_title">Größe des Tile-Caches</string>
   <string name="config_tileCacheSize_summary">Gesamtgröße des Caches für Kartenkacheln in MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
+  <string name="config_mapillaryCacheSize_title">Mapillary Cache Grösse</string>
+  <string name="config_mapillaryCacheSize_summary">Speicher zum Speichern von Mapillary-Bilder in MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Verschiedenes</string>
   <string name="pref_enable_acra">Programmabstürze melden</string>
@@ -1060,6 +1124,7 @@ Falls der Anbieter eine Datenschutzerklärung bereitstellt, kann diese über den
   <string name="undo_action_extract_node">Knoten extrahieren</string>
   <string name="undo_action_apply_osc">OSC-Datei anwenden</string>
   <string name="undo_action_remove_node_from_way">Knoten aus Weg entfernen</string>
+  <string name="undo_action_extract_segment">Segment extrahieren</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci ist abgestürzt oder auf ein ernsthaftes Problem gestoßen.\n\nUnterstützen Sie uns mit einem Fehlerreport, einfach \'OK\' drücken.\n</string>
   <string name="crash_dialog_comment_prompt">Fügen Sie weitere hilfreiche Informationen hinzu und (optional) Ihren OSM-Namen, wenn Sie ein Feedback wünschen.\n\nDanke.</string>
@@ -1094,6 +1159,10 @@ in %1$d m %2$s</string>
   <string name="deleterelation">Relation löschen</string>
   <string name="delete_from_relation_description">Dieses Element wird aus der Relation gelöscht.</string>
   <string name="unset_relation_type">Kein Relationstyp</string>
+  <!--Things-->
+  <string name="bridge">Brücke</string>
+  <string name="tunnel">Tunnel</string>
+  <string name="culvert"> Durchlass</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 Tag</item>
@@ -1121,74 +1190,4 @@ in %1$d m %2$s</string>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Keine Hilfe zu diesem Thema!</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>privat</item>
-    <item>öffentlich</item>
-    <item>verfolgbar</item>
-    <item>identifizierbar</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Intern</item>
-    <item>Intern NMEA</item>
-    <item>NMEA von TCP-Client</item>
-    <item>NMEA von TCP-Server</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>Offen</item>
-    <item>Behoben</item>
-    <item>Falschmeldung</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Offen</item>
-    <item>Behoben</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>Offen</item>
-    <item>Geschlossen</item>
-    <item>Kein Fehler</item>
-    <item>Übersprungen</item>
-    <item>Gelöscht</item>
-    <item>Bereits erledigt</item>
-    <item>Zu schwer</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Links</item>
-    <item>Rechts</item>
-    <item>Kein GPS-Position Knopf</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Automatisch</item>
-    <item>Nie</item>
-    <item>Erzwingen</item>
-    <item>Keine Statuszeile</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Nie</item>
-    <item>Erzwingen</item>
-    <item>Keine Statuszeile</item>
-  </string-array>
-  <string-array name="map_orientation_entries">
-    <item>Auto</item>
-    <item>Gesperrt</item>
-    <item>Hochformat</item>
-    <item>Querformat</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>Alles</item>
-    <item>Knoten</item>
-    <item>Wege</item>
-    <item>Wege+</item>
-    <item>Relationen</item>
-    <item>Relationen+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
-  <string-array name="checkstatus_entries">
-    <item>HTTP</item>
-    <item>HTTPS</item>
-    <item>Domain existiert nicht</item>
-    <item>Domain nicht erreichbar</item>
-    <item>Ungültige URL</item>
-    <item>Ungültiges Argument</item>
-  </string-array>
 </resources>

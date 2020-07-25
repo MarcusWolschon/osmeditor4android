@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>privát</item>
+        <item>nyilvános</item>
+        <item>nyomon követhető</item>
+        <item>azonosítható</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>Belső</item>
+        <item>Belső NMEA</item>
+        <item>NMEA TCP-kliensről</item>
+        <item>NMEA TCP-szerverről</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Nyitott</item>
+        <item>Lezárt</item>
+        <item>Téves hibajelzés</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Nyitott</item>
+        <item>Lezárt</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Nyitott</item>
+        <item>Lezárt</item>
+        <item>Téves hibajegyzék</item>
+        <item>Kihagyott</item> 
+        <item>Törölt</item>
+        <item>Már javított</item>
+        <item>Túl nehéz</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Balra</item>
+        <item>Jobbra</item>
+        <item>Nincs</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Automatikus</item>
+        <item>Soha</item>
+        <item>Kényszerített</item>
+        <item>Állapotsor nélkül</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Soha</item>
+        <item>Kényszerítés</item>
+        <item>Állapotsor nélkül</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Automatikus</item>
+        <item>Zárolt</item>
+        <item>Álló</item>
+        <item>Fekvő</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Összes</item>
+        <item>Pontok</item>
+        <item>Vonalak</item>
+        <item>Vonalak +</item>
+        <item>Kapcsolatok</item>
+        <item>Kapcsolatok +</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>http</item>
+        <item>https</item>
+        <item>A domain nem létezik</item>
+        <item>A domain elérhetetlen</item>
+        <item>Hibás URL</item>
+        <item>Érvénytelen argumentum</item>
+    </string-array>
+ </resources>

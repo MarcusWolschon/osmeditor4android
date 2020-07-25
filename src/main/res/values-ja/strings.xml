@@ -20,6 +20,7 @@
   <string name="go_to_openstreetmap">openstreetmap.orgへ移動</string>
   <string name="bounding_box_too_large_title">ダウンロード範囲が大きすぎます</string>
   <!---->
+  <string name="welcome_title">ようこそ</string>
   <string name="upgrade_message">新機能や動作について詳しくはリリースノートをご覧ください</string>
   <string name="read_upgrade">新しいバージョンに関してお読みください</string>
   <string name="progress_title">ロード中</string>
@@ -57,6 +58,8 @@
   <string name="openstreetbug_unknown_task_type">不明なタスク種別</string>
   <string name="openstreetbug_not_supported">%1$s はサポートしていません。</string>
   <string name="note_description">メモ%1$s-%2$s</string>
+  <string name="custom_bug">カスタム</string>
+  <string name="maproulette_task_disable">無効化</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_proceed">破棄 &amp; 進める</string>
@@ -97,7 +100,9 @@
   <string name="copy_properties">プロパティをコピー</string>
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
   <!---->
+  <string name="error">エラー</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">この操作はフィルタリングされた添付オブジェクトに影響します！</string>
   <!--This concerns a shown message that should be shown every time-->
@@ -155,6 +160,9 @@
   <string name="layer_flush_tile_cache">タイルキャッシュを全削除</string>
   <string name="layer_change_style">スタイルを変更</string>
   <string name="layer_select_imagery">画像を選択</string>
+  <string name="layer_category_all">すべて</string>
+  <string name="layer_category_map">地図板</string>
+  <string name="layer_category_other">その他</string>
   <!--Layer info dialog-->
   <!--Photo viewer-->
   <!--API info dialog-->
@@ -183,6 +191,7 @@
   <string name="toast_oneway_reversed">一方通行もしくは方向独立タグがあるウェイを反転しようとしています。タグを確認し、必要があれば修正してください</string>
   <string name="toast_state_file_failed">状態ファイルが読み込めないか、壊れています</string>
   <string name="toast_way_nodes_moved">動かされたウェイの%1$dノード</string>
+  <string name="read_mail">読込</string>
   <string name="toast_photo_indexing_started">地理的情報が付加された写真のスキャンを開始</string>
   <string name="toast_photo_indexing_finished">地理的情報が付加された写真のスキャンが完了</string>
   <string name="toast_download_failed">ダウンロード失敗。エラーコード %1$d メッセージ %2$s</string>
@@ -234,6 +243,7 @@
   <!--Some generic labels/buttons-->
   <string name="yes">はい</string>
   <string name="no">いいえ</string>
+  <string name="okay">OK</string>
   <string name="cancel">中止</string>
   <string name="dismiss">却下</string>
   <string name="done">完了</string>
@@ -317,6 +327,7 @@
   <string name="location_radius">%1$dm</string>
   <string name="location_last_text">前回の位置:</string>
   <string name="location_current_text">現在の位置:</string>
+  <string name="location_text_unknown">不明</string>
   <string name="location_last_text_parameterized">前回の位置: %1$s</string>
   <string name="location_current_text_parameterized">現在の位置: %1$s</string>
   <string name="location_text_metadata_location">
@@ -328,6 +339,8 @@
   <string name="location_search_label">検索:</string>
   <string name="location_load_button">読み込み</string>
   <string name="location_load_dismiss">地図を表示</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -376,6 +389,8 @@
   <string name="menu_paste_from_clipboard">クリップボードから貼り付け</string>
   <string name="menu_zoom_to_selection">ズームして選択</string>
   <string name="menu_rotate">回転</string>
+  <string name="menu_orthogonalize">直角化</string>
+  <string name="menu_straighten">直線化</string>
   <string name="menu_circulize">円状に配置する</string>
   <string name="menu_split_polygon">ポリゴンに分割</string>
   <string name="menu_extend_selection">選択を拡張</string>
@@ -383,11 +398,9 @@
   <string name="menu_voice_commands">音声コマンド</string>
   <string name="menu_set_name">名前をセット</string>
   <string name="menu_tools">ツール…</string>
-  <string name="menu_tools_imagery">別の画像ツール</string>
   <string name="menu_tools_add_imagery_from_oam">OAMから画像を追加</string>
   <string name="menu_tools_flush_all_tile_caches">全タイルのキャッシュをクリア</string>
   <string name="menu_tools_background_properties">背景画像プロパティ</string>
-  <string name="menu_tools_update_imagery_configuration">画像レイヤの構成を更新</string>
   <string name="menu_tools_zoom_to_layer_extent">背景レイヤ拡張にズーム</string>
   <!---->
   <string name="menu_privacy">プライバシー</string>
@@ -400,7 +413,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">レイヤ…</string>
-  <string name="menu_layers_load_geojson">GeoJSON レイヤをロード</string>
   <!---->
   <string name="menu_tools_apply_local_offset">保存されたオフセットを画像に適用</string>
   <string name="menu_tools_background_contrast">比較</string>
@@ -513,6 +525,7 @@
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_summary">GPS/GNSS位置通知の最小距離間隔、メートル。値を小さくするとバッテリー消費を激しくします。</string>
   <string name="config_gps_network_title">ネットワークの位置にフォールバック</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_loginbutton_title">ユーザーアカウント</string>
@@ -586,7 +599,10 @@
   <string name="undo_action_create_relation">リレーションの作成</string>
   <string name="undo_action_delete_relation">リレーションの削除</string>
   <string name="undo_action_update_relations">リレーションの更新</string>
+  <string name="undo_action_cut">切り取り</string>
+  <string name="undo_action_paste">貼り付け</string>
   <string name="undo_action_rotateway">ウェイの回転</string>
+  <string name="undo_action_fix_conflict">競合解決</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">大量のノードが付与されたウェイが作成されます。</string>
@@ -600,11 +616,13 @@
   <string name="membership_relation_heading">リレーションのメンバー</string>
   <string name="relation">リレーション</string>
   <string name="relations">リレーション</string>
+  <string name="position">位置</string>
   <string name="type">タイプ</string>
   <string name="object">物体</string>
   <string name="deleterelation">リレーションを削除</string>
   <string name="delete_from_relation_description">この要素をリレーションから削除しようとしています。</string>
   <string name="unset_relation_type">リレーション種別を解除</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d日</item>
@@ -626,40 +644,4 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">ヘルプはありません</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>プライベート</item>
-    <item>パブリック</item>
-    <item>トラック可能</item>
-    <item>認識可能</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>内部</item>
-    <item>内部 NMEA</item>
-    <item>TCPクライアント経由NMEA</item>
-    <item>TCPサーバー経由NMEA</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>オープン</item>
-    <item>クローズ済</item>
-    <item>誤検知</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>開</item>
-    <item>閉</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>左</item>
-    <item>右</item>
-    <item>なし</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>全てl</item>
-    <item>ノード</item>
-    <item>ウェイ</item>
-    <item>ウェイ+</item>
-    <item>リレーション</item>
-    <item>リレーション+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

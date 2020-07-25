@@ -192,6 +192,7 @@
   <string name="ways">דרכים</string>
   <!--Tile layer info dialog-->
   <string name="attribution">ייחוס</string>
+  <!--Too much data dialog-->
   <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
@@ -448,7 +449,6 @@
   <string name="toast_task_layer_disabled">שכבת המשימות הושבתה</string>
   <string name="toast_unable_to_create_task_layer">לא ניתן ליצור שכבת משימות</string>
   <string name="toast_merged">ממוזג</string>
-  <string name="toast_long_press_simple_mode">אין לחיצה ארוכה במצב פשוט</string>
   <string name="toast_invalid_style_file">תבנית קובץ הסגנון של %1$s שגוי</string>
   <string name="toast_no_geometry">לא נמצאה גאומטריה עבור הרכיב</string>
   <string name="toast_added_api_entry_for">נוספה רשומת API עבור %1$s</string>
@@ -568,6 +568,7 @@
   <string name="tag_restriction_value_hint">הגבלה מותנית</string>
   <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">רכיב לא ידוע (לא נמצאה ערכה מוגדרת)</string>
+  <string name="tag_form_untagged_element">רכיב ללא תיוג</string>
   <!--Custom preset creation-->
   <string name="tag_menu_create_preset">יצירת ערכה מוגדרת בהתאמתך</string>
   <string name="create_preset_title">שם מותאם אישית לערכה מוגדרת</string>
@@ -593,6 +594,8 @@
   <string name="location_nan_title">קלט שגוי!</string>
   <string name="location_nan_message">נא להקליד נקודות ציון בציון עשרוני (למשל: „52.333572”,„8.741185”). קו הרוחב חייב להיות איפשהו בין ‎-85.0 ל־‎+85.0 וקו האורך חייב להיות איפשהו בין ‎-175.0 ל־‎+175.0.</string>
   <string name="location_olc">OLC</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">הורדת קבצים</string>
   <string name="allow_all_networks">לאפשר את כל הרשתות</string>
@@ -687,11 +690,9 @@
   <string name="menu_voice_commands">פקודות קוליות</string>
   <string name="menu_set_name">הגדרת שם</string>
   <string name="menu_tools">כלים…</string>
-  <string name="menu_tools_imagery">כלי תמונות רקע נוספים</string>
   <string name="menu_tools_add_imagery_from_oam">הוספת תמונות רקע מ־OAM</string>
   <string name="menu_tools_flush_all_tile_caches">פינוי כל מטמוני האריחים</string>
   <string name="menu_tools_background_properties">מאפייני רקע</string>
-  <string name="menu_tools_update_imagery_configuration">עדכון תצורת שכבת תמונות רקע</string>
   <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
   <string name="menu_tools_clear_clipboard">מחיקת לוח הגזירים</string>
   <!---->
@@ -713,12 +714,8 @@
   <string name="distance_km">%1$.3f ק״מ</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">שכבות…</string>
-  <string name="menu_layers_load_geojson">טעינת שכבת GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">הוספת שכבת תמונת רקע</string>
   <string name="menu_layers_add_overlaylayer">הוספת שכבת צילום מעל</string>
-  <string name="menu_layers_add_tasklayer">הוספת שכבת משימה</string>
-  <string name="menu_layers_add_grid">הוספת רשת</string>
-  <string name="menu_layers_add_photolayer">הוספת שכבת תמונות</string>
   <string name="menu_layers_configure">הגדרה…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">החלת היסט מאוחסן לתמונת הרקע</string>
@@ -1096,6 +1093,7 @@
   <string name="deleterelation">מחיקת יחס</string>
   <string name="delete_from_relation_description">פעולה זו תמחק את הרכיב מיחס.</string>
   <string name="unset_relation_type">ביטול הגדרת סוג יחס</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">יום</item>
@@ -1135,74 +1133,4 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">אין כאן עזרה.</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>פרטי</item>
-    <item>ציבורי</item>
-    <item>פתוח למעקב</item>
-    <item>פתוח לזיהוי</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>פנימי</item>
-    <item>NMEA פנימי</item>
-    <item>NMEA מלקוח TCP</item>
-    <item>NMEA משרת TCP</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>פתוח</item>
-    <item>סגור</item>
-    <item>חיובי שגוי</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>פתוח</item>
-    <item>סגור</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>פתוח</item>
-    <item>סגור</item>
-    <item>דיווח כוזב</item>
-    <item>דולג</item>
-    <item>נמחק</item>
-    <item>כבר תוקן</item>
-    <item>קשה מדי</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>שמאל</item>
-    <item>ימין</item>
-    <item>ללא</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>אוטומטי</item>
-    <item>לעולם לא</item>
-    <item>אילוץ</item>
-    <item>ללא סרגל מצב</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>לעולם לא</item>
-    <item>אילוץ</item>
-    <item>ללא סרגל מצב</item>
-  </string-array>
-  <string-array name="map_orientation_entries">
-    <item>אוטומטי</item>
-    <item>נעול</item>
-    <item>לאורך</item>
-    <item>לרוחב</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>הכול</item>
-    <item>מפרקים</item>
-    <item>דרכים</item>
-    <item>דרכים+</item>
-    <item>יחסים</item>
-    <item>יחסים+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
-  <string-array name="checkstatus_entries">
-    <item>HTTP</item>
-    <item>HTTPS</item>
-    <item>שם התחום לא קיים</item>
-    <item>שם התחום בלתי נגיש</item>
-    <item>כתובת שגויה</item>
-    <item>משתנה שגוי</item>
-  </string-array>
 </resources>

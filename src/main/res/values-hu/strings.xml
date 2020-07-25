@@ -4,7 +4,7 @@
   <string name="mode_easy">Normál</string>
   <string name="mode_tag_only">Csak címkézés</string>
   <string name="mode_indoor">Beltéri</string>
-  <string name="mode_correct">C-mód</string>
+  <string name="mode_correct">Javító mód</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Vigyázat!</string>
   <string name="transfer_download_current_dialog_message">Módosításai vannak. Feltölti azokat az eldobásuk helyett?</string>
@@ -190,6 +190,7 @@
   <string name="ways">Vonalak</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Attribútum</string>
+  <!--Too much data dialog-->
   <!---->
   <string name="error">Hiba</string>
   <string name="warning">Figyelmeztetés</string>
@@ -438,7 +439,6 @@ elemek megkövetelése</string>
   <string name="toast_task_layer_disabled">Feladatréteg letiltva</string>
   <string name="toast_unable_to_create_task_layer">Nem hozható létre a feladatréteg</string>
   <string name="toast_merged">Egyesítve</string>
-  <string name="toast_long_press_simple_mode">A hosszú nyomás nem érhető el egyszerű módban.</string>
   <string name="toast_invalid_style_file">Érvénytelen stílusfájlformátum ehhez: %1$s</string>
   <string name="toast_no_geometry">Nem található geometria az elemhez</string>
   <string name="toast_added_api_entry_for">API kulcs bejegyzés hozzáadása ehhez: %1$s</string>
@@ -582,6 +582,8 @@ elemek megkövetelése</string>
   <string name="location_nan_title">Hibás bemenet!</string>
   <string name="location_nan_message">Tizedesvesszővel elválasztott koordinátákat adjon meg (pl. \"52.333572\",\"8.741185\"). A Lat értékének -85.0 és +85.0 között, a Lon értékének pedig -175.0 és +175.0 között kell lennie.</string>
   <string name="location_olc">OLC</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Fájlok letöltése</string>
   <string name="allow_all_networks">Minden hálózat engedélyezése</string>
@@ -677,11 +679,9 @@ elemek megkövetelése</string>
   <string name="menu_voice_commands">Hangutasítások</string>
   <string name="menu_set_name">Név beállítása</string>
   <string name="menu_tools">Eszközök…</string>
-  <string name="menu_tools_imagery">További légifelvétel-eszközök</string>
   <string name="menu_tools_add_imagery_from_oam">Légifelvétel hozzáadása az OpenAerialMapről (OAM)</string>
   <string name="menu_tools_flush_all_tile_caches">Összes csempe-gyorsítótár ürítése</string>
   <string name="menu_tools_background_properties">Háttér tulajdonságok</string>
-  <string name="menu_tools_update_imagery_configuration">Légifelvétel-réteg beállításainak frissítése</string>
   <string name="menu_tools_zoom_to_layer_extent">Nagyítás a háttérréteg teljes kiterjedésére</string>
   <string name="menu_tools_clear_clipboard">Vágólap törlése</string>
   <!---->
@@ -703,12 +703,8 @@ elemek megkövetelése</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Rétegek…</string>
-  <string name="menu_layers_load_geojson">GeoJSON réteg betöltése</string>
   <string name="menu_layers_add_backgroundlayer">Háttér-légifelvétel réteg hozzáadása</string>
   <string name="menu_layers_add_overlaylayer">Előtér-légifelvétel hozzáadása</string>
-  <string name="menu_layers_add_tasklayer">Feladatréteg hozzáadása</string>
-  <string name="menu_layers_add_grid">Rács hozzáadása</string>
-  <string name="menu_layers_add_photolayer">Fénykép réteg hozzáadása</string>
   <string name="menu_layers_configure">Beállítás…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Tárolt eltolás alkalmazása a légifelvételekre</string>
@@ -1084,6 +1080,7 @@ elemek megkövetelése</string>
   <string name="deleterelation">Kapcsolat törlése</string>
   <string name="delete_from_relation_description">Arra készül, hogy törölje ezt az elemet egy kapcsolatból.</string>
   <string name="unset_relation_type">Kapcsolattípus eltávolítása</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 nap</item>
@@ -1111,74 +1108,4 @@ elemek megkövetelése</string>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Ehhez nincs súgó.</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>privát</item>
-    <item>publikus</item>
-    <item>követhető</item>
-    <item>azonosítható</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Belső</item>
-    <item>Belső NMEA</item>
-    <item>NMEA TCP ügyféltől</item>
-    <item>NMEA TCP kiszolgálótól</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>Nyitott</item>
-    <item>Lezárt</item>
-    <item>Téves hibajelzés</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Nyitott</item>
-    <item>Lezárt</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>Nyitott</item>
-    <item>Lezárt</item>
-    <item>Hamis pozitív</item>
-    <item>Kihagyva</item>
-    <item>Törölve</item>
-    <item>Már javítva</item>
-    <item>Túl nehéz</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Bal</item>
-    <item>Jobb</item>
-    <item>Egyik sem</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Automatikus</item>
-    <item>Soha</item>
-    <item>Erőltetés</item>
-    <item>Nincs állapotsor</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Soha</item>
-    <item>Erőltetés</item>
-    <item>Nincs állapotsor</item>
-  </string-array>
-  <string-array name="map_orientation_entries">
-    <item>Automatikus</item>
-    <item>Zárolt</item>
-    <item>Álló</item>
-    <item>Fekvő</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>Összes</item>
-    <item>Potnok</item>
-    <item>Vonalak</item>
-    <item>Vonalak+</item>
-    <item>Kapcsolatok</item>
-    <item>Kapcsolatok+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
-  <string-array name="checkstatus_entries">
-    <item>http</item>
-    <item>https</item>
-    <item>A domain nem létezik</item>
-    <item>A domain nem érhető el</item>
-    <item>Hibás URL</item>
-    <item>Érvénytelen argumentum</item>
-  </string-array>
 </resources>

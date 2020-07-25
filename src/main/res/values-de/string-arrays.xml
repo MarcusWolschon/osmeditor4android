@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>privat</item>
+        <item>öffentlich</item>
+        <item>nachverfolgbar</item>
+        <item>erkennbar</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>Intern</item>
+        <item>Internes NMEA</item>
+        <item>NMEA vom TCP-Client</item>
+        <item>NMEA vom TCP-Server</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Offen</item>
+        <item>Geschlossen</item>
+        <item>Falsch positiv</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Offen</item>
+        <item>Geschlossen</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Offen</item>
+        <item>Geschlossen</item>
+        <item>Falsch positiv</item>
+        <item>Übersprungen</item> 
+        <item>Gelöscht</item>
+        <item>Schon behoben</item>
+        <item>Zu schwierig</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Links</item>
+        <item>Rechts</item>
+        <item>Kein</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Automatisch</item>
+        <item>Nie</item>
+        <item>Erzwingen</item>
+        <item>Keine Statusleiste</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Nie</item>
+        <item>Erzwingen</item>
+        <item>Keine Statusleiste</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Automatisch</item>
+        <item>Gesperrt</item>
+        <item>Hochformat</item>
+        <item>Querformat</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Alle</item>
+        <item>Knoten</item>
+        <item>Wege</item>
+        <item>Wege+</item>
+        <item>Relationen</item>
+        <item>Relationen+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Domain nicht vorhanden</item>
+        <item>Domain nicht erreichbar</item>
+        <item>Fehlerhafte URL</item>
+        <item>Ungültiges Argument</item>
+    </string-array>
+ </resources>

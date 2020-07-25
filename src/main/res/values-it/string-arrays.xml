@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>privato</item>
+        <item>pubblico</item>
+        <item>tracciabile</item>
+        <item>identificabile</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>interno</item>
+        <item>NMEA interno</item>
+        <item>NMEA da un client TCP</item>
+        <item>NMEA da un server TCP</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Aperto</item>
+        <item>Chiuso</item>
+        <item>Falso positivo</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Aperto</item>
+        <item>Chiuso</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Aperto</item>
+        <item>Chiuso</item>
+        <item>Falso positivo</item>
+        <item>Saltato</item> 
+        <item>Cancellato</item>
+        <item>Già corretto</item>
+        <item>Troppo difficile</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Sinistra</item>
+        <item>Destra</item>
+        <item>Nessuna</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Automatico</item>
+        <item>Mai</item>
+        <item>Forzato</item>
+        <item>Nessuna barra di stato</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Mai</item>
+        <item>Forza</item>
+        <item>Nessuna barra di stato</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Automatico</item>
+        <item>Bloccato</item>
+        <item>Verticale</item>
+        <item>Orizzontale</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Tutti</item>
+        <item>Nodi</item>
+        <item>Percorsi</item>
+        <item>Percorsi+</item>
+        <item>Relazioni</item>
+        <item>Relazioni+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Il dominio non esiste</item>
+        <item>Dominio non raggiungibile</item>
+        <item>URL malformattato</item>
+        <item>Argomento non valido</item>
+    </string-array>
+ </resources>

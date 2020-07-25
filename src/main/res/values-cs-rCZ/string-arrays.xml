@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>soukromá</item>
+        <item>veřejná</item>
+        <item>stopovatelná</item>
+        <item>identifikovatelná</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>Interní</item>
+        <item>Interní NMEA</item>
+        <item>NMEA od TCP klienta</item>
+        <item>NMEA z TCP serveru</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Otevřená</item>
+        <item>Uzavřená</item>
+        <item>Není chyba</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Otevřená</item>
+        <item>Uzavřená</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Otevřená</item>
+        <item>Uzavřená</item>
+        <item>Není chyba</item>
+        <item>Přeskočená</item> 
+        <item>Smazáná</item>
+        <item>Opravená</item>
+        <item>Příliš těžká</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Vlevo</item>
+        <item>Vpravo</item>
+        <item>Žádné</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Automaticky</item>
+        <item>Nikdy</item>
+        <item>Vynutit</item>
+        <item>Bez stavové lišty</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Nikdy</item>
+        <item>Vynutit</item>
+        <item>Bez stavové lišty</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Automaticky</item>
+        <item>Uzamčeno</item>
+        <item>Na výšku</item>
+        <item>Na šířku</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Vše</item>
+        <item>Uzly</item>
+        <item>Cesty</item>
+        <item>Cesty+</item>
+        <item>Relace</item>
+        <item>Relace+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Doména neexistuje</item>
+        <item>Doména nedostupná</item>
+        <item>Špatně sestavená URL</item>
+        <item>Neplatný argument</item>
+    </string-array>
+ </resources>

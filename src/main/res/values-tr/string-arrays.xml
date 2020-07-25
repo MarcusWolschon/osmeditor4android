@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Arrays - in a separate file as these need to be 100% translated for use -->
+    <string-array name="gpx_visibility">
+        <item>özel</item>
+        <item>kamu</item>
+        <item>izlenebilir</item>
+        <item>teşhis edilebilir</item>
+    </string-array>
+    <string-array name="gps_source">
+        <item>dahili</item>
+        <item>dahili NMEA</item>
+        <item>TCP istemcisinden NMEA</item>
+        <item>TCP sunucusundan NMEA</item>
+    </string-array>
+    <string-array name="bug_state">
+        <item>Açık</item>
+        <item>Kapalı</item>
+        <item>Yanlış pozitif</item>
+    </string-array>
+    <string-array name="note_state">
+        <item>Açık</item>
+        <item>Kapalı</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Açık</item>
+        <item>Kapalı</item>
+        <item>Yanlış pozitif</item>
+        <item>Atlandı</item> 
+        <item>Silindi</item>
+        <item>Önceden ayarlanmış</item>
+        <item>Çok zor</item>
+    </string-array>
+    <string-array name="followGPSbutton_entries">
+        <item>Sol</item>
+        <item>Sağ</item>
+        <item>Hiçbiri</item>
+    </string-array>
+    <string-array name="full_screen_preference_entries">
+        <item>Otomatik</item>
+        <item>Asla</item>
+        <item>Zorla</item>
+        <item>Durum çubuğu yok</item>
+    </string-array>
+    <string-array name="full_screen_preference_no_auto_entries">
+        <item>Asla</item>
+        <item>Zorla</item>
+        <item>Durum çubuğu yok</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Otomatik</item>
+        <item>Kilitli</item>
+        <item>Portre</item>
+        <item>Peyzaj</item>
+    </string-array>
+    <string-array name="tagfilter_type_entries">
+        <item>Hepsi</item>
+        <item>Düğümler</item>
+        <item>Yollar</item>
+        <item>Yollar+</item>
+        <item>İlişkiler</item>
+        <item>İlişkiler+</item>
+    </string-array>
+    <!-- The entries need to match the order of the CheckStatus enum -->
+    <string-array name="checkstatus_entries">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+        <item>Alan adı mevcut değil</item>
+        <item>Alan adına erişilemiyor</item>
+        <item>Hatalı girilmiş URL</item>
+        <item>Geçersiz parametre</item>
+    </string-array>
+ </resources>

@@ -188,6 +188,7 @@
   <string name="ways">Vías</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Atribución</string>
+  <!--Too much data dialog-->
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Advertencia</string>
@@ -542,6 +543,8 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="location_load_dismiss">Ir ó mapa</string>
   <string name="location_nan_title">Datos de entrada erróneos!</string>
   <string name="location_nan_message">Por favor insire as coordenadas no formato decimal (p.ex. \"52.333572\",\"8.741185\"). Lat. ten que estar entre -85.0 e +85.0, e Lon. ten que estar entre -175.0 e +175.0.</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Baixar ficheiros</string>
   <string name="allow_all_networks">Permitir todas as redes</string>
@@ -626,11 +629,9 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="menu_voice_commands">Ordes de voz</string>
   <string name="menu_set_name">Estabelecer nome</string>
   <string name="menu_tools">Ferramentas...</string>
-  <string name="menu_tools_imagery">Máis ferramentas das imaxes</string>
   <string name="menu_tools_add_imagery_from_oam">Engadir imaxes dende o OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpar tódalas cachés das teselas</string>
   <string name="menu_tools_background_properties">Propiedades do escritorio</string>
-  <string name="menu_tools_update_imagery_configuration">Actualiza-los axustes da capa de imaxes</string>
   <string name="menu_tools_clear_clipboard">Limpar portapapeis</string>
   <!---->
   <string name="menu_simple_actions">Modo sinxelo</string>
@@ -651,10 +652,6 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Capas...</string>
-  <string name="menu_layers_load_geojson">Carregar capa GeoJSON</string>
-  <string name="menu_layers_add_tasklayer">Engadir capa de tarefas</string>
-  <string name="menu_layers_add_grid">Engadir grella</string>
-  <string name="menu_layers_add_photolayer">Engadir capa de imaxes</string>
   <string name="menu_layers_configure">Configurar...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar desprazamento almacenado ás imaxes</string>
@@ -793,6 +790,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="config_gps_source_tcp_title">NMEA fonte da rede</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_current">%1$d metro(s)</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_category_server">Axustes do servidor</string>
   <string name="config_apibutton_title">URL da API de OSM</string>
@@ -872,6 +870,8 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="undo_action_paste">Pegar</string>
   <string name="undo_action_rotateway">Rotación da vía</string>
   <string name="undo_action_orthogonalize">Vía encadrada</string>
+  <string name="undo_action_fix_conflict">Resolución de conflito</string>
+  <string name="undo_action_remove_node_from_way">Eliminar nó da vía</string>
   <!--ACRA-->
   <string name="report_success">Reportado.</string>
   <!--Exceptions messages-->
@@ -902,6 +902,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="deleterelation">Eliminar relación</string>
   <string name="delete_from_relation_description">Está a piques de eliminar este elemento dunha relación.</string>
   <string name="unset_relation_type">Tipo de relación sen estabelecer</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 día</item>
@@ -929,66 +930,4 @@ evitada empregando unha fonte de datos sen conexión.</string>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Non hai axuda aquí.</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>privado</item>
-    <item>público</item>
-    <item>rastrexábel</item>
-    <item>identificábel</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Interno</item>
-    <item>Interno NMEA</item>
-    <item>NMEA dende TCP cliente</item>
-    <item>NMEA dende TCP server</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>Abrir</item>
-    <item>Pechar</item>
-    <item>Falso positivo</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Abrir</item>
-    <item>Pechar</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>Aberto</item>
-    <item>Pechado</item>
-    <item>Falso positivo</item>
-    <item>Omitido</item>
-    <item>Eliminado</item>
-    <item>Xa arranxado</item>
-    <item>Moi difícil</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Esquerda</item>
-    <item>Dereita</item>
-    <item>Non</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Auto</item>
-    <item>Nunca</item>
-    <item>Forzar</item>
-    <item>Non barraestado</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Nunca</item>
-    <item>Forzar</item>
-    <item>Non barraestado</item>
-  </string-array>
-  <string-array name="map_orientation_entries">
-    <item>Automático</item>
-    <item>Bloqueado</item>
-    <item>Imaxe</item>
-    <item>Paisaxe</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>Todo</item>
-    <item>Nós</item>
-    <item>Vías</item>
-    <item>Vías+</item>
-    <item>Relacións</item>
-    <item>Relacións+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

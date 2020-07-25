@@ -118,6 +118,7 @@
   <string name="maproulette_task_explanations">解釋</string>
   <string name="maproulette_task_set_apikey">設定 MapRoulette API 鑰匙</string>
   <string name="maproulette_task_apikey_not_set">無法儲存 MapRoulette API 鑰匙</string>
+  <string name="maproulette_task_disable">失效</string>
   <string name="maproulette_task_apikey_set">MapRoulette API key 已經儲存</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
@@ -174,6 +175,7 @@
   <string name="copy_properties">複製性質</string>
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -247,6 +249,9 @@
   <string name="layer_flush_tile_cache">清理圖磚暫存檔</string>
   <string name="layer_change_style">改變樣式</string>
   <string name="layer_select_imagery">選擇影像</string>
+  <string name="layer_category_all">所有</string>
+  <string name="layer_category_map">地圖</string>
+  <string name="layer_category_other">其他</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">最小縮小</string>
   <string name="layer_info_max_zoom">最大放大</string>
@@ -385,7 +390,6 @@
   <string name="toast_task_layer_disabled">任務圖層已經取消</string>
   <string name="toast_unable_to_create_task_layer">無法新建任務圖層</string>
   <string name="toast_merged">已合併</string>
-  <string name="toast_long_press_simple_mode">簡單模式下長按無效</string>
   <string name="toast_invalid_style_file">%1$s 有無效的樣式檔案格式</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
@@ -505,6 +509,8 @@
   <string name="location_load_dismiss">前往地圖</string>
   <string name="location_nan_title">相當大的輸入！</string>
   <string name="location_nan_message">請插入十進位格式的座標 (eg. \"52.333572\",\"8.741185\")。緯度必須放置于 -85.0 和 +85.0 之間，並且經度必須放置于 -175.0 和 +175.0 之間。</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -573,6 +579,8 @@
   <string name="menu_paste_from_clipboard">從剪貼簿貼上</string>
   <string name="menu_zoom_to_selection">縮放到選擇物件</string>
   <string name="menu_rotate">旋轉</string>
+  <string name="menu_orthogonalize">廣場</string>
+  <string name="menu_straighten">拉直</string>
   <string name="menu_circulize">在圓週排列</string>
   <string name="menu_split_polygon">分割成多邊形</string>
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
@@ -581,11 +589,9 @@
   <string name="menu_voice_commands">聲音指令</string>
   <string name="menu_set_name">設定名稱</string>
   <string name="menu_tools">工具...</string>
-  <string name="menu_tools_imagery">更多影像工具</string>
   <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>
   <string name="menu_tools_flush_all_tile_caches">更新所有圖磚暫存檔</string>
   <string name="menu_tools_background_properties">背景屬性</string>
-  <string name="menu_tools_update_imagery_configuration">更新影像圖層設定</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
   <string name="menu_tools_clear_clipboard">清除剪貼簿</string>
   <!---->
@@ -607,12 +613,8 @@
   <string name="distance_km">%1$.3f 公里</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">圖層...</string>
-  <string name="menu_layers_load_geojson">載入 GeoJSON 圖層</string>
   <string name="menu_layers_add_backgroundlayer">增加背景影像圖層</string>
   <string name="menu_layers_add_overlaylayer">增加重疊影像圖層</string>
-  <string name="menu_layers_add_tasklayer">增加任務圖層</string>
-  <string name="menu_layers_add_grid">增加網格</string>
-  <string name="menu_layers_add_photolayer">增加圖片圖層</string>
   <string name="menu_layers_configure">設定...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
@@ -804,6 +806,7 @@
   <string name="config_leaveGpsDisabled_summary">不再問 GPS/GNSS 被關閉時是否打開。</string>
   <string name="config_gps_network_title">回退到網路位置</string>
   <string name="config_gps_network_summary">如果沒有開或是沒有偵測 GPS/GNSS 的話，回退到網路提供者。</string>
+  <string name="config_gnssTimeToStale_current">%1$d 秒</string>
   <!--Server Settings-->
   <string name="config_category_server">伺服器設定</string>
   <string name="config_category_server_summary">OSM API 和其他伺服器設定。</string>
@@ -957,6 +960,7 @@
   <string name="deleterelation">刪除關係</string>
   <string name="delete_from_relation_description">您即將從一個關係中刪除該元件。</string>
   <string name="unset_relation_type">未設定關係類型</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="other">%1$d天</item>
@@ -978,66 +982,4 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>私人的</item>
-    <item>公眾的</item>
-    <item>可追蹤的</item>
-    <item>可識別的</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>內部</item>
-    <item>內部 NMEA</item>
-    <item>NMEA 來自 TCP 客戶端</item>
-    <item>NMEA 來自 TCP 伺服器端</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>開啟</item>
-    <item>已關</item>
-    <item>誤報</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>開啟</item>
-    <item>已關</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>待解決</item>
-    <item>已關閉</item>
-    <item>誤報</item>
-    <item>已跳過</item>
-    <item>已刪除</item>
-    <item>已修正</item>
-    <item>難度過高</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>左</item>
-    <item>右</item>
-    <item>無</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>自動</item>
-    <item>從不</item>
-    <item>強制</item>
-    <item>沒有狀態列</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>從不</item>
-    <item>強制</item>
-    <item>沒有狀態列</item>
-  </string-array>
-  <string-array name="map_orientation_entries">
-    <item>自動</item>
-    <item>銷定</item>
-    <item>肖像</item>
-    <item>景觀</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>所有</item>
-    <item>節點</item>
-    <item>路徑</item>
-    <item>路徑+</item>
-    <item>關係</item>
-    <item>關係+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

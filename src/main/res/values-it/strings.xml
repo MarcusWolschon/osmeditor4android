@@ -155,6 +155,7 @@
   <string name="total">Totale</string>
   <string name="ways">Percorsi</string>
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
   <!---->
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
@@ -360,6 +361,7 @@
   <string name="clear">Pulisci</string>
   <string name="discard">Elimina</string>
   <string name="retry">Riprova</string>
+  <string name="check">Verifica</string>
   <!--Read a file-->
   <string name="read">Leggi</string>
   <string name="overwrite">Sovrascrivi</string>
@@ -447,6 +449,8 @@
   <string name="location_load_dismiss">Vai alla mappa</string>
   <string name="location_nan_title">Input erroneo!</string>
   <string name="location_nan_message">Per favore inserisci coordinate in formato decimale (es. \"52.333572\",\"8.741185\"). Lat. deve essere tra -85.0 e +85.0, e Lon. deve essere tra -175.0 e +175.0.</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -521,6 +525,7 @@
   <string name="menu_zoom_to_selection">Ingrandisci la selezione</string>
   <string name="menu_rotate">Ruota</string>
   <string name="menu_orthogonalize">Raddrizza</string>
+  <string name="menu_straighten">Raddrizzare</string>
   <string name="menu_circulize">Disponi in cerchio</string>
   <string name="menu_split_polygon">Dividi in poligoni</string>
   <string name="menu_extend_selection">Estendi selezione</string>
@@ -528,11 +533,9 @@
   <string name="menu_voice_commands">Comandi vocali</string>
   <string name="menu_set_name">Imposta un nome</string>
   <string name="menu_tools">Strumenti...</string>
-  <string name="menu_tools_imagery">Ulteriori strumenti per le immagini</string>
   <string name="menu_tools_add_imagery_from_oam">Aggiungi immagini da OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Cancella la cache di tutti i livelli di immagini</string>
   <string name="menu_tools_background_properties">Proprietà dello sfondo</string>
-  <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione dei livelli di immagini</string>
   <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sul livello di sfondo</string>
   <!---->
   <string name="menu_simple_actions">Modalità semplice</string>
@@ -553,9 +556,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Livelli...</string>
-  <string name="menu_layers_load_geojson">Carica livello GeoJSON</string>
-  <string name="menu_layers_add_tasklayer">Aggiungi un livello per i compiti</string>
-  <string name="menu_layers_add_grid">Aggiungi griglia</string>
   <string name="menu_layers_configure">Configura...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
@@ -705,7 +705,9 @@
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Distanza GPS/GNSS minima</string>
   <string name="config_gps_distance_summary">La distanza minima per la notifica GPS/GNSS, espressa in metri. Valori più bassi scaricano la batteria più velocemente</string>
+  <string name="config_gps_distance_current">%1$d metro(i)</string>
   <string name="config_gps_network_title">Ritorna alla localizzazione di rete</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_category_server">Impostazioni server</string>
   <string name="config_apibutton_title">OSM API URL</string>
@@ -815,6 +817,7 @@
   <string name="undo_action_fix_conflict">Risoluzione conflitti</string>
   <string name="undo_action_extract_node">Estrazione nodo</string>
   <string name="undo_action_apply_osc">Applica file OSC</string>
+  <string name="undo_action_remove_node_from_way">Rimuovi nodo dalla linea</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci si è interrotto o ha incontrato un problema serio l\'ultima volta.\n\nPer favore aiutaci cliccando \'Ok\' per inviare un resoconto dell\'errore.\n</string>
   <string name="report_success">Inviato</string>
@@ -847,6 +850,7 @@
   <string name="deleterelation">Cancella relazione</string>
   <string name="delete_from_relation_description">Stai per cancellare questo elemento da una relazione.</string>
   <string name="unset_relation_type">Tipo di relazione non selezionato</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 giorno</item>
@@ -873,60 +877,4 @@
     <item quantity="other">%1$dmetri</item>
   </plurals>
   <!--Help system-->
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>privato</item>
-    <item>pubblico</item>
-    <item>rintracciabile</item>
-    <item>identificabile</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Interno</item>
-    <item>Interno NMEA</item>
-    <item>NMEA da client TCP</item>
-    <item>NMEA da server TCP</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>Aperto</item>
-    <item>Chiuso</item>
-    <item>Falso positivo</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Aperto</item>
-    <item>Chiuso</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>Aperto</item>
-    <item>Chiuso</item>
-    <item>Falso positivo</item>
-    <item>Saltato</item>
-    <item>Cancellato</item>
-    <item>Già corretto</item>
-    <item>Troppo difficile</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Sinistra</item>
-    <item>Destra</item>
-    <item>Nessuno</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Automatico</item>
-    <item>Mai</item>
-    <item>Obbliga</item>
-    <item>Nessuna barra di stato</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Mai</item>
-    <item>Obbliga</item>
-    <item>Nessuna barra di stato</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>Tutto</item>
-    <item>Nodi</item>
-    <item>Percorsi</item>
-    <item>Percorsi+</item>
-    <item>Relazioni</item>
-    <item>Relazioni+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

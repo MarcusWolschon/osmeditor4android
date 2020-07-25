@@ -129,6 +129,7 @@
   <string name="ways">Leiðir</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Tileinkun</string>
+  <!--Too much data dialog-->
   <!---->
   <string name="error">Villa</string>
   <string name="warning">Aðvörun</string>
@@ -142,6 +143,7 @@
   <string name="js_console_msg_debug">Villuleitarhamur</string>
   <string name="js_console_input_hint">Settu JavaScript inn hér</string>
   <!--Validator dialogs-->
+  <string name="check_entries">Athugun</string>
   <string name="max_age">Hám. aldur</string>
   <string name="age">Aldur</string>
   <!--Empty relation dialog-->
@@ -235,6 +237,7 @@
   <string name="toast_photo_indexing_finished">Lauk leit að myndum með staðsetningu</string>
   <string name="toast_download_failed">Niðurhal mistókst með villuskilaboðum %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Óskoðaður vegur </string>
+  <string name="toast_untagged_relation">Ómerkt vensl</string>
   <!---->
   <string name="toast_oauth">Gefðu OAuth réttindi að OSM-notandaaðgangnum þínum.</string>
   <string name="toast_no_oauth">Engin OAuth stilling tiltæk fyrir fyrirliggjandi API tengingu, sláðu inn notandanafn og lykilorð.</string>
@@ -274,6 +277,7 @@
   <string name="clear">Hreinsa</string>
   <string name="discard">Henda</string>
   <string name="retry">Reyna aftur</string>
+  <string name="check">Athugun</string>
   <!--Read a file-->
   <string name="read">Lesa</string>
   <string name="overwrite">Skrifa yfir</string>
@@ -355,6 +359,8 @@
   <string name="location_load_dismiss">Skoða kort</string>
   <string name="location_nan_title">Villa í inntaki!</string>
   <string name="location_olc">OLC</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Sækja skrár</string>
   <!--Strings in Go to coordinates-->
@@ -440,15 +446,12 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Lög…</string>
-  <string name="menu_layers_load_geojson">Hlaða inn GeoJSON-lagi</string>
   <string name="menu_layers_add_backgroundlayer">Bæta við bakgrunnsmyndalagi</string>
   <string name="menu_layers_add_overlaylayer">Bæta við yfirlagsmyndalagi</string>
-  <string name="menu_layers_add_tasklayer">Bæta við verkefnalagi</string>
-  <string name="menu_layers_add_grid">Bæta við hnitaneti</string>
-  <string name="menu_layers_add_photolayer">Bæta við ljósmyndalagi</string>
   <!---->
   <string name="menu_tools_background_contrast">Birtuskil</string>
   <string name="menu_enable_tagfilter">Merkjasía</string>
+  <string name="menu_enable_presetfilter">Forstillt sía</string>
   <!--element action mode menu-->
   <string name="menu_tags">Eiginleikar</string>
   <!--Text should be as short as possible-->
@@ -469,6 +472,7 @@
   <string name="actionmode_nodeselect">Hnútur valinn</string>
   <string name="actionmode_relationselect">Vensl valin</string>
   <string name="actionmode_createpath">Búa til feril</string>
+  <string name="actionmode_multiselect">Velja margt</string>
   <string name="actionmode_newnoteselect">Nýr minnispunktur valinn</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Skipta upp leið, fyrsti hnútur</string>
@@ -497,6 +501,7 @@
   <string name="config_opening_hours_title">Sniðmát fyrir opnunartíma</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Höfundar og notkunarleyfi</string>
+  <string name="config_debugbutton_title">Villukemba</string>
   <string name="config_category_info">Um</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
@@ -628,6 +633,7 @@
   <string name="object">Hlutur</string>
   <string name="deleterelation">Eyða venslum</string>
   <string name="delete_from_relation_description">Þú ert að fara að eyða þessu úr venslum.</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dagur</item>
@@ -655,60 +661,4 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Engin hjálp hér.</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>einka</item>
-    <item>almanna</item>
-    <item>eltiferilshæft</item>
-    <item>skilgreiningarhæft</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Innri</item>
-    <item>Innri NMEA</item>
-    <item>NMEA frá TCP</item>
-    <item>NMEA frá TCP þjóni</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Opið</item>
-    <item>Lokað</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Vinstri</item>
-    <item>Hægri</item>
-    <item>Ekkert</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Sjálfvirkt</item>
-    <item>Aldrei</item>
-    <item>Þvinga</item>
-    <item>Engin stöðustika</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Aldrei</item>
-    <item>Þvinga</item>
-    <item>Engin stöðustika</item>
-  </string-array>
-  <string-array name="map_orientation_entries">
-    <item>Sjálfvirkt</item>
-    <item>Læst</item>
-    <item>Lóðrétt</item>
-    <item>Lárétt</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>Allt</item>
-    <item>Hnútar</item>
-    <item>Leiðir</item>
-    <item>Leiðir+</item>
-    <item>Vensl</item>
-    <item>Vensl+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
-  <string-array name="checkstatus_entries">
-    <item>HTTP</item>
-    <item>HTTPS</item>
-    <item>Lénið er ekki til</item>
-    <item>Ekki næst í lénið</item>
-    <item>Gölluð URL-slóð</item>
-    <item>Ógild breyta</item>
-  </string-array>
 </resources>

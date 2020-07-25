@@ -8,14 +8,14 @@
     <item>Państwo (addr:country)</item>
     <item>Pełny adres (addr:full)</item>
     <item>Miejscowość (addr:place)</item>
-    <item>Hamlet (addr:hamlet)</item>
+    <item>Przysiółek (addr:hamlet)</item>
     <item>Dzielnica (addr:suburb)</item>
     <item>Subdistrict (addr:subdistrict)</item>
-    <item>District (addr:district)</item>
+    <item>Powiat/Dystrykt (addr:district)</item>
     <item>Województwo (addr:province)</item>
-    <item>State (addr:state)</item>
-    <item>Flats (addr:flats)</item>
+    <item>Stan (addr:state)</item>
+    <item>Mieszkania (addr:flats)</item>
     <item>Mieszkanie (addr:door)</item>
-    <item>Unit (addr:unit)</item>
+    <item>Klatka (addr:unit)</item>
   </string-array>
 </resources>

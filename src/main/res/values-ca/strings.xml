@@ -119,6 +119,7 @@
   <string name="maproulette_task_explanations">Explicacions</string>
   <string name="maproulette_task_set_apikey">Establir la clau d\'API de MapRoulette</string>
   <string name="maproulette_task_apikey_not_set">No s\'ha pogut desar la clau d\'API de MapRoulette</string>
+  <string name="maproulette_task_disable">Desactiva</string>
   <string name="maproulette_task_apikey_set"> Clau d\'API de MapRoulette desada</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenció!</string>
@@ -175,6 +176,7 @@
   <string name="copy_properties">Copia les propietats</string>
   <!--API/Data layer info dialog-->
   <!--Tile layer info dialog-->
+  <!--Too much data dialog-->
   <!---->
   <string name="error">Error</string>
   <string name="warning">Avís</string>
@@ -248,6 +250,9 @@
   <string name="layer_flush_tile_cache">Alliberar la memòria cau de tessel·les</string>
   <string name="layer_change_style">Canvia l\'estil</string>
   <string name="layer_select_imagery">Seleccioneu la imatgeria</string>
+  <string name="layer_category_all">Tot</string>
+  <string name="layer_category_map">Mapa</string>
+  <string name="layer_category_other">Altre</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Ampliació mínima</string>
   <string name="layer_info_max_zoom">Ampliació màxima</string>
@@ -441,6 +446,8 @@
   <string name="location_load_button">Carrega</string>
   <string name="location_load_dismiss">Vés al mapa</string>
   <string name="location_nan_title">Entrada errònia!</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <!--Strings in Go to coordinates-->
   <!--Menu-->
@@ -498,6 +505,8 @@
   <string name="menu_paste_from_clipboard">Enganxa del porta-retalls</string>
   <string name="menu_zoom_to_selection">Escala a la selecció</string>
   <string name="menu_rotate">Gira</string>
+  <string name="menu_orthogonalize">Plaça</string>
+  <string name="menu_straighten">Fes recte</string>
   <string name="menu_split_polygon">Divideix en polígons</string>
   <string name="menu_newnode_gps">Node nou a la posició GPS</string>
   <string name="menu_extend_selection">Amplia la selecció</string>
@@ -505,7 +514,6 @@
   <string name="menu_voice_commands">Ordres de veu</string>
   <string name="menu_set_name">Estableix un nom</string>
   <string name="menu_tools">Eines...</string>
-  <string name="menu_tools_imagery">Més eines d\'imatgeria</string>
   <string name="menu_tools_add_imagery_from_oam">Afegeix imatgeria des de OAM</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
   <string name="menu_tools_clear_clipboard">Neteja el porta-retalls</string>
@@ -526,9 +534,6 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Capes...</string>
-  <string name="menu_layers_add_tasklayer">Afegeix una capa de tasques</string>
-  <string name="menu_layers_add_grid">Afegeix una graella</string>
-  <string name="menu_layers_add_photolayer">Afegeix una capa de fotos</string>
   <string name="menu_layers_configure">Configura...</string>
   <!---->
   <string name="menu_tools_background_contrast">Contrast</string>
@@ -616,6 +621,7 @@
   <!--Location Settings-->
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_current">%1$d metres</string>
+  <string name="config_gnssTimeToStale_current">%1$d s</string>
   <!--Server Settings-->
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_loginbutton_title">Compte d\'usuari</string>
@@ -743,6 +749,7 @@
   <string name="deleterelation">Suprimeix la relació</string>
   <string name="delete_from_relation_description">Estàs a punt de suprimir aquest element d\'una relació.</string>
   <string name="unset_relation_type">Esborrar el tipus de relació</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>
@@ -770,56 +777,4 @@
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">No hi ha cap ajuda.</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>privat</item>
-    <item>públic</item>
-    <item>rastrejable</item>
-    <item>identificable</item>
-  </string-array>
-  <string-array name="gps_source"/>
-  <string-array name="bug_state">
-    <item>Obert</item>
-    <item>Tancat</item>
-    <item>Fals positiu</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Oberta</item>
-    <item>Tancada</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>Oberta</item>
-    <item>Tancada</item>
-    <item>Fals positiu</item>
-    <item>Omesa</item>
-    <item>Suprimida</item>
-    <item>Ja corregida</item>
-    <item>Massa difícil</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Esquerra</item>
-    <item>Dreta</item>
-    <item>Cap</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Automàtic</item>
-    <item>Mai</item>
-    <item>Força</item>
-    <item>Sense barra d\'estat</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Mai</item>
-    <item>Força</item>
-    <item>Sense barra d\'estat</item>
-  </string-array>
-  <string-array name="map_orientation_entries"/>
-  <string-array name="tagfilter_type_entries">
-    <item>Tot</item>
-    <item>Nodes</item>
-    <item>Vies</item>
-    <item>Vies+</item>
-    <item>Relacions</item>
-    <item>Relacions+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

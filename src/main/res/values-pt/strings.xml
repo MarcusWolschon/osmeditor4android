@@ -176,7 +176,10 @@
   <string name="feature_information">Informação de elementos GeoJSON</string>
   <string name="copy_properties">Copiar propriedades</string>
   <!--API/Data layer info dialog-->
+  <string name="ways">Vias</string>
   <!--Tile layer info dialog-->
+  <string name="attribution">Atribuição</string>
+  <!--Too much data dialog-->
   <!---->
   <string name="error">Erro</string>
   <string name="warning">Aviso</string>
@@ -200,6 +203,7 @@
   <string name="validator_title">Regras de verificação %1$s</string>
   <string name="edit_resurvey_title">Editar o levantamento submetido</string>
   <string name="add_resurvey_title">Adicionar o levantamento submetido</string>
+  <string name="check_entries">Verificado</string>
   <string name="edit_check_title">Editar a verificação submetida</string>
   <string name="add_check_title">Adicionar a verificação submetida</string>
   <string name="max_age">Idade máx.</string>
@@ -252,6 +256,9 @@
   <string name="layer_flush_tile_cache">Limpar cache de mosaicos</string>
   <string name="layer_change_style">Altera estilo</string>
   <string name="layer_select_imagery">Selecionar imagens aéreas</string>
+  <string name="layer_category_all">Tudo</string>
+  <string name="layer_category_map">Mapa</string>
+  <string name="layer_category_other">Outro</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Afastamento máximo</string>
   <string name="layer_info_max_zoom">Aproximação máxima</string>
@@ -400,7 +407,6 @@
   <string name="toast_task_layer_disabled">Camada de tarefas desativada</string>
   <string name="toast_unable_to_create_task_layer">Não foi possível criar a camada de tarefas</string>
   <string name="toast_merged">Unido</string>
-  <string name="toast_long_press_simple_mode">O pressionar longo não está disponível no modo simples</string>
   <string name="toast_invalid_style_file">Formato de ficheiro de estilo inválido em %1$s</string>
   <string name="toast_no_geometry">Sem geometria para o elemento encontrado</string>
   <string name="toast_added_api_entry_for">Entrada de API adicionada de %1$s</string>
@@ -441,6 +447,7 @@
   <string name="clear">Limpar</string>
   <string name="discard">Descartar</string>
   <string name="retry">Tentar novamente</string>
+  <string name="check">Verificado</string>
   <!--Read a file-->
   <string name="read">Ler</string>
   <string name="overwrite">Sobrescrever</string>
@@ -536,6 +543,8 @@ há %3$s %4$s</string>
   <string name="location_nan_title">Entrada errónea!</string>
   <string name="location_nan_message">Por favor insira as coordenadas no formato decimal (por exemplo \"52.333572\",\"8.741185\"). A Lat deve estar entre -85.0 e +85.0 e a Lon deve estar entre -175.0 e +175.0.</string>
   <string name="location_olc">OLC</string>
+  <!--Strings in barometer calibration-->
+  <!--Strings in postition info-->
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Descarregar ficheiros</string>
   <string name="allow_all_networks">Permitir todas as redes</string>
@@ -614,6 +623,8 @@ há %3$s %4$s</string>
   <string name="menu_paste_from_clipboard">Colar da área de tranferência</string>
   <string name="menu_zoom_to_selection">Enquadrar seleção</string>
   <string name="menu_rotate">Rodar</string>
+  <string name="menu_orthogonalize">Praça ou largo</string>
+  <string name="menu_straighten">Endireitar</string>
   <string name="menu_circulize">Organizar em círculo</string>
   <string name="menu_split_polygon">Dividir em 2 polígonos</string>
   <string name="menu_newnode_gps">Novo nó na posição GPS</string>
@@ -622,11 +633,9 @@ há %3$s %4$s</string>
   <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_set_name">Definir nome</string>
   <string name="menu_tools">Ferramentas…</string>
-  <string name="menu_tools_imagery">Mais ferramentas de imagens</string>
   <string name="menu_tools_add_imagery_from_oam">Adicionar imagem de OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Limpar toda a cache de mosaicos</string>
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
-  <string name="menu_tools_update_imagery_configuration">Atualizar config. camada imagem</string>
   <string name="menu_tools_zoom_to_layer_extent">Enquadrar camada de fundo</string>
   <string name="menu_tools_clear_clipboard">Limpar área de transferência</string>
   <!---->
@@ -648,12 +657,8 @@ há %3$s %4$s</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Camadas…</string>
-  <string name="menu_layers_load_geojson">Carregar camada GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">Adicionar camada de fundo de imagens aéreas</string>
   <string name="menu_layers_add_overlaylayer">Adicionar camada de imagens aéreas por cima</string>
-  <string name="menu_layers_add_tasklayer">Adicionar camada de tarefas</string>
-  <string name="menu_layers_add_grid">Adicionar grelha</string>
-  <string name="menu_layers_add_photolayer">Adicionar camada de fotos</string>
   <string name="menu_layers_configure">Configurar…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Aplicar na camada o alinhamento guardado</string>
@@ -850,6 +855,7 @@ há %3$s %4$s</string>
   <string name="config_leaveGpsDisabled_summary">Não perguntar para ligar o GPS/GNSS se estiver desligado.</string>
   <string name="config_gps_network_title">Usar rede de telemóveis</string>
   <string name="config_gps_network_summary">Se o GPS/GNSS não existir ou estiver desativado, usar a rede de telemóveis.</string>
+  <string name="config_gnssTimeToStale_current">%1$d segundos</string>
   <!--Server Settings-->
   <string name="config_category_server">Configurações do servidor</string>
   <string name="config_category_server_summary">API do OpenStreetMap e configuração de outros servidores.</string>
@@ -1003,6 +1009,7 @@ há %3$s %4$s</string>
   <string name="deleterelation">Eliminar relação</string>
   <string name="delete_from_relation_description">Está prestes a eliminar este elemento de uma relação.</string>
   <string name="unset_relation_type">Relação indefinida</string>
+  <!--Things-->
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 dia</item>
@@ -1030,66 +1037,4 @@ há %3$s %4$s</string>
   </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Sem ajuda aqui.</string>
-  <!--Arrays-->
-  <string-array name="gpx_visibility">
-    <item>privado</item>
-    <item>público</item>
-    <item>rastreável</item>
-    <item>identificável</item>
-  </string-array>
-  <string-array name="gps_source">
-    <item>Interno</item>
-    <item>NMEA interno</item>
-    <item>NMEA a partir do cliente TCP</item>
-    <item>NMEA a partir do servidor TCP</item>
-  </string-array>
-  <string-array name="bug_state">
-    <item>Aberto</item>
-    <item>Fechado</item>
-    <item>Positivo falso</item>
-  </string-array>
-  <string-array name="note_state">
-    <item>Aberto</item>
-    <item>Fechado</item>
-  </string-array>
-  <string-array name="maproulette_state">
-    <item>Aberto</item>
-    <item>Fechado</item>
-    <item>Positivo falso</item>
-    <item>Ignorado</item>
-    <item>Eliminado</item>
-    <item>Já corrigido</item>
-    <item>Demasiado difícil</item>
-  </string-array>
-  <string-array name="followGPSbutton_entries">
-    <item>Esquerda</item>
-    <item>Direita</item>
-    <item>Nenhum</item>
-  </string-array>
-  <string-array name="full_screen_preference_entries">
-    <item>Automático</item>
-    <item>Nunca</item>
-    <item>Forçar</item>
-    <item>Sem barra de estado</item>
-  </string-array>
-  <string-array name="full_screen_preference_no_auto_entries">
-    <item>Nunca</item>
-    <item>Forçar</item>
-    <item>Sem barra de estado</item>
-  </string-array>
-  <string-array name="map_orientation_entries">
-    <item>Automático</item>
-    <item>Bloqueado</item>
-    <item>Retrato</item>
-    <item>Paisagem</item>
-  </string-array>
-  <string-array name="tagfilter_type_entries">
-    <item>Tudo</item>
-    <item>Nós</item>
-    <item>Linhas</item>
-    <item>Linhas+</item>
-    <item>Relações</item>
-    <item>Relações+</item>
-  </string-array>
-  <!--The entries need to match the order of the CheckStatus enum-->
 </resources>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_app_label">Vespucci\nPomoc</string>
+    <string name="help_title">Pomoc: %1$s</string>
     <string name="help_introduction">Wstęp</string>
     <string name="help_main">Mapa główna</string>
     <string name="help_simple_actions">Proste działania</string>
@@ -23,6 +25,9 @@
     <string name="help_opening_hours">Godziny otwarcia</string>
     <string name="help_newnoteselection">Wybór nowej uwagi</string>
     <string name="help_voice_commands">Polecenia głosowe</string>
+    <string name="help_upgrade">14.1 Zestaw zmian</string>
+    <string name="help_upgrade_140">14.0 Zestaw zmian</string>
+    <string name="help_upgrade_131">13.1 Zestaw zmian</string>
     <string name="help_upgrade_130">13.0 Zestaw zmian</string>
     <string name="help_upgrade_121">12.1 Zestaw zmian</string>
     <string name="help_upgrade_120">12.0 Zestaw zmian</string>
