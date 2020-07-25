@@ -341,14 +341,8 @@
 "craft/gardener":[
 "Grădinar"
 ],
-"craft/handicraft":[
-"Manufactură"
-],
 "craft/insulator":[
 "Insulator"
-],
-"craft/metal_construction":[
-"Construcție de Metal"
 ],
 "craft/painter":[
 "Pictor"
@@ -1091,9 +1085,6 @@
 ],
 "shop/optician":[
 "Optician"
-],
-"shop/organic":[
-"Magazin de Bunuri Organice"
 ],
 "shop/outdoor":[
 "Magazin în Aer Liber"

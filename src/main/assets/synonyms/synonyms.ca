@@ -54,11 +54,6 @@
 "Aeroport",
 "Aeròdrom"
 ],
-"aeroway/apron":[
-"Àrea d'embarcament d'avions",
-"Àrea d'aparcament",
-"Àrea d'aparcament d'avions"
-],
 "aeroway/gate":[
 "Porta d'aeroport"
 ],
@@ -252,9 +247,6 @@
 "restaurant de menjar ràpid",
 "servei de menjar ràpid",
 "Menjar ràpid"
-],
-"amenity/ferry_terminal":[
-"Moll per Ferry"
 ],
 "amenity/fire_station":[
 "Base de Bombers",
@@ -976,12 +968,6 @@
 "craft/glaziery":[
 "Vidrieria"
 ],
-"craft/handicraft":[
-"Botiga d'artesà"
-],
-"craft/hvac":[
-"Empresa d'instal·lacions climàtiques"
-],
 "craft/insulator":[
 "Aïllador"
 ],
@@ -990,9 +976,6 @@
 ],
 "craft/locksmith":[
 "Copisteria de claus"
-],
-"craft/metal_construction":[
-"Construccions metàliques"
 ],
 "craft/painter":[
 "Pintor"
@@ -2211,9 +2194,6 @@
 ],
 "shop/optician":[
 "Òptica"
-],
-"shop/organic":[
-"Botiga de menjar orgànic"
 ],
 "shop/outdoor":[
 "Botiga per a activitats a l'aire lliure"

@@ -46,9 +46,6 @@
 "aeroway/aerodrome":[
 "Flyplass"
 ],
-"aeroway/apron":[
-"Oppstillingsplass"
-],
 "aeroway/gate":[
 "Flyplassgate"
 ],
@@ -57,9 +54,6 @@
 ],
 "aeroway/helipad":[
 "Helikopterlandingsplass"
-],
-"aeroway/jet_bridge":[
-"Ombordstigningsbro"
 ],
 "aeroway/parking_position":[
 "Luftfartøy Parkering Posisjon"
@@ -234,9 +228,6 @@
 ],
 "amenity/fast_food/sandwich":[
 "Sandwich Hurtigmat"
-],
-"amenity/ferry_terminal":[
-"Fergestasjon/-terminal"
 ],
 "amenity/fire_station":[
 "Brannstasjon"
@@ -931,12 +922,6 @@
 "craft/glaziery":[
 "Glassmester"
 ],
-"craft/handicraft":[
-"Kunsthåndverk"
-],
-"craft/hvac":[
-"VVS"
-],
 "craft/insulator":[
 "Isolatør"
 ],
@@ -945,9 +930,6 @@
 ],
 "craft/locksmith":[
 "Låsesmed"
-],
-"craft/metal_construction":[
-"Metallkonstruktør"
 ],
 "craft/painter":[
 "Maler"
@@ -1942,12 +1924,6 @@
 "playground/balance_beam":[
 "Leke Balansebjelke"
 ],
-"playground/climbing_frame":[
-"Klatrestativ"
-],
-"playground/sandpit":[
-"Sandkasse"
-],
 "playground/seesaw":[
 "Vippehuske"
 ],
@@ -2324,9 +2300,6 @@
 ],
 "shop/optician":[
 "Optiker"
-],
-"shop/organic":[
-"Økologisk matbutikk"
 ],
 "shop/outdoor":[
 "Villmarksbutikk"

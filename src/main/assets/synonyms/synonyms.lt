@@ -644,13 +644,6 @@
 "craft/glaziery":[
 "Stiklintojas"
 ],
-"craft/handicraft":[
-"Rankdarbių meistras"
-],
-"craft/hvac":[
-"hvac",
-"HVAC"
-],
 "craft/key_cutter":[
 "Raktininkas"
 ],
@@ -1669,10 +1662,6 @@
 ],
 "shop/optician":[
 "Optika"
-],
-"shop/organic":[
-"Organinių prekių parduotuvė",
-"Ekologiškų prekių parduotuvė"
 ],
 "shop/outdoor":[
 "Laisvalaikio parduotuvė"

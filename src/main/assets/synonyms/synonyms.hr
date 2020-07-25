@@ -30,16 +30,6 @@
 "Zračna luka",
 "zračna luka"
 ],
-"aeroway/apron":[
-"platforma",
-"Pristanišna platforma",
-"zrakoplovna platforma",
-"pristanišna platforma",
-"avionska platforma",
-"zrakoplovna pristanišna platforma",
-"stajanka",
-"avionska pristanišna platforma"
-],
 "aeroway/hangar":[
 "hangar",
 "garaža za avione",
@@ -844,19 +834,6 @@
 "craft/glaziery":[
 "Staklarna"
 ],
-"craft/handicraft":[
-"Ručni rad"
-],
-"craft/hvac":[
-"HVAC",
-"klimatizacija",
-"ventilacija",
-"klimatizacijsko grijaći sustav",
-"vanjski sustav za grijanje",
-"klima",
-"rashladni sustav",
-"vanjski rashladni sustav"
-],
 "craft/insulator":[
 "Izolator"
 ],
@@ -865,9 +842,6 @@
 ],
 "craft/locksmith":[
 "Bravar"
-],
-"craft/metal_construction":[
-"Željezar"
 ],
 "craft/painter":[
 "Slikar"
@@ -1297,6 +1271,11 @@
 "landuse/vineyard":[
 "Vinograd"
 ],
+"leisure/beach_resort":[
+"plaža",
+"Kupalište",
+"sunčanje"
+],
 "leisure/bowling_alley":[
 "Kuglalište"
 ],
@@ -1360,6 +1339,11 @@
 "leisure/pitch/basketball":[
 "Košarkaški teren",
 "košarkaško igralište"
+],
+"leisure/pitch/beachvolleyball":[
+"Odbojka na pijesku",
+"odbojka na pjesku",
+"odbojka na plaži"
 ],
 "leisure/pitch/skateboard":[
 "skejt",
@@ -1937,6 +1921,9 @@
 "public_transport/platform/bus_point":[
 "Autobusno stajalište"
 ],
+"public_transport/platform/ferry":[
+"Stajalište za trajekt"
+],
 "public_transport/platform/train_point":[
 "Željezničko stajalište"
 ],
@@ -1957,9 +1944,6 @@
 ],
 "public_transport/station_bus":[
 "Autobusna stanica"
-],
-"public_transport/station_ferry":[
-"Trajektna stanica"
 ],
 "public_transport/station_light_rail":[
 "Stanica lake željeznice"
@@ -2198,6 +2182,9 @@
 "Prodavaonica odjeće",
 "dućan sa odjećom"
 ],
+"shop/coffee":[
+"Prodavaonica za kavu"
+],
 "shop/computer":[
 "Prodavaonica računala",
 "trgovina računalne opreme"
@@ -2408,9 +2395,6 @@
 "shop/optician":[
 "optičar",
 "Optičar"
-],
-"shop/organic":[
-"Trgovina za organsku hranu"
 ],
 "shop/outdoor":[
 "trčanje",

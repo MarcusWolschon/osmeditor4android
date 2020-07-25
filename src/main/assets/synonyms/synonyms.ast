@@ -47,9 +47,6 @@
 "Aereotresporte",
 "Aeropuertu"
 ],
-"aeroway/apron":[
-"Aparcamientu d'aviones"
-],
 "aeroway/gate":[
 "Puerta de terminal"
 ],
@@ -228,9 +225,6 @@
 "amenity/fast_food":[
 "Comida rápida",
 "Comida basoria"
-],
-"amenity/ferry_terminal":[
-"Estación / Terminal de ferry"
 ],
 "amenity/fire_station":[
 "Bomberos",
@@ -759,12 +753,6 @@
 "craft/glaziery":[
 "Cristalería"
 ],
-"craft/handicraft":[
-"Manualidaes"
-],
-"craft/hvac":[
-"Calefactor"
-],
 "craft/insulator":[
 "Aislamientos"
 ],
@@ -774,11 +762,6 @@
 ],
 "craft/locksmith":[
 "Cerraxería"
-],
-"craft/metal_construction":[
-"Construcciones metáliques",
-"ferreru",
-"Forxa"
 ],
 "craft/painter":[
 "Pintor"
@@ -1661,9 +1644,6 @@
 "public_transport/station_bus":[
 "Estación / Terminal d'autobuses"
 ],
-"public_transport/station_ferry":[
-"Estación / Terminal de ferry"
-],
 "public_transport/station_light_rail":[
 "Estación de tren llixeru"
 ],
@@ -1927,9 +1907,6 @@
 "ópticu",
 "optometrista",
 "Óptica"
-],
-"shop/organic":[
-"Tienda de productos ecolóxicos"
 ],
 "shop/outdoor":[
 "Equipamientu d'aire llibre"

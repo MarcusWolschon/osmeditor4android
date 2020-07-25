@@ -167,9 +167,14 @@
 "terminal aerea"
 ],
 "aeroway/apron":[
-"vía de estacionamiento",
-"plataforma",
-"Plataforma de estacionamiento"
+"aeropuerto",
+"Plataforma de estacionamiento de aeronaves",
+"calle de rodaje",
+"estacionamiento de aeronaves",
+"rampa",
+"aeronave",
+"pista",
+"asfalto"
 ],
 "aeroway/gate":[
 "puerta",
@@ -206,14 +211,17 @@
 "posición"
 ],
 "aeroway/jet_bridge":[
+"finger",
 "puente de embarque de pasajeros",
+"jetway",
 "PBB",
-"Manga de aeropuerto",
-"puente avión",
+"tubo de aire",
+"aerobridge",
+"manga",
+"embarcadero aéreo",
 "puente aéreo",
-"puente aereo",
 "conector de puerta de terminal",
-"portal",
+"Pasarela de acceso a aeronaves",
 "pasarela"
 ],
 "aeroway/parking_position":[
@@ -486,6 +494,32 @@
 "té",
 "Cafetería",
 "casa de te"
+],
+"amenity/cafe/bubble_tea":[
+"boba",
+"tapioca",
+"té con leche de burbujas",
+"té de perlas",
+"Té de burbujas",
+"bebida de té taiwanés",
+"té con leche de perla",
+"té de burbujas"
+],
+"amenity/cafe/coffee_shop":[
+"café con leche",
+"espresso",
+"cerveza",
+"bebidas calientes",
+"cafetería",
+"goteo",
+"americano",
+"café",
+"capuchino",
+"latte",
+"cacao",
+"té",
+"Cafetería",
+"macchiato"
 ],
 "amenity/car_pooling":[
 "Vehículo compartido",
@@ -917,7 +951,7 @@
 "Comida rápida de sandwich"
 ],
 "amenity/ferry_terminal":[
-"Estación / Terminal de ferry"
+"Terminal de ferry"
 ],
 "amenity/fire_station":[
 "Bomberos",
@@ -964,6 +998,18 @@
 "tragamonedas",
 "bingo",
 "juegos de azar"
+],
+"amenity/give_box":[
+"Caja libre",
+"caja libre",
+"caja con regalos",
+"estante con regalos",
+"donaciones",
+"caja de regalo",
+"biblioteca",
+"estante de regalo",
+"mesa libre",
+"give box"
 ],
 "amenity/grave_yard":[
 "cementerio",
@@ -1683,6 +1729,14 @@
 "botella",
 "papelera"
 ],
+"amenity/refugee_site":[
+"ONG",
+"personas desplazadas",
+"evacuados",
+"migrantes",
+"Campamento de refugiados",
+"sitio de refugiados"
+],
 "amenity/research_institute":[
 "experimentación",
 "i+d",
@@ -2242,6 +2296,13 @@
 "Terreno de universidad",
 "universitario",
 "facultad"
+],
+"amenity/vacuum_cleaner":[
+"aspiradora de automóviles",
+"succión",
+"carvac",
+"Estación de limpieza con aspiradora",
+"lavado de automóviles"
 ],
 "amenity/vehicle_inspection":[
 "automóvil",
@@ -3136,6 +3197,13 @@
 "edificio en obras",
 "construcción"
 ],
+"building/cowshed":[
+"establo de ordeño",
+"Establo",
+"vacas",
+"establo lechero",
+"establo"
+],
 "building/detached":[
 "chalet",
 "Casa independiente"
@@ -3252,6 +3320,11 @@
 "Edificio de la mezquita",
 "mezquita"
 ],
+"building/office":[
+"bloque de oficinas",
+"Edificio de oficinas",
+"centro de negocios"
+],
 "building/pavilion":[
 "Edificio Pavilion"
 ],
@@ -3334,6 +3407,19 @@
 "autocaravana",
 "caravana",
 "roulotte"
+],
+"building/sty":[
+"corral de cerdos",
+"establo de cerdos",
+"cobertizos de cerdos",
+"Pocilga",
+"refugios de cerdos",
+"sala de cerdos",
+"corrales de cerdos",
+"corrales de cerdo",
+"pocilga",
+"cerdos",
+"arca de cerdos"
 ],
 "building/temple":[
 "templo",
@@ -3425,14 +3511,10 @@
 "oficio"
 ],
 "craft/agricultural_engines":[
-"motor",
 "Mecánico de motores agrícolas",
-"agrícola",
-"mecánico",
-"máquina",
-"agricola",
-"agricultura",
-"agro"
+"maquinaria agrícola",
+"cosechadoras",
+"tractores"
 ],
 "craft/basket_maker":[
 "artesanía",
@@ -3631,16 +3713,16 @@
 ],
 "craft/handicraft":[
 "artesanía",
-"Artesano",
 "destreza manual",
 "trabajos manuales",
+"Taller de artesano",
 "artesano"
 ],
 "craft/hvac":[
+"Taller de climatización",
 "aire acondicionado",
 "climatización",
 "ventilación",
-"Climatización",
 "calefacción"
 ],
 "craft/insulator":[
@@ -3663,8 +3745,8 @@
 "craft/metal_construction":[
 "taller metálico",
 "calderería",
-"Construcción metálica",
 "construcciones de metal",
+"Obrero metalúrgico",
 "metalúrgica"
 ],
 "craft/painter":[
@@ -3949,6 +4031,20 @@
 "salida de emergencia",
 "evacuación"
 ],
+"entrance/emergency_ward_entrance":[
+"departamento de emergencias",
+"departamento de accidentes y emergencias",
+"sala de emergencias",
+"ew",
+"auxilio",
+"guardia",
+"departamento de víctimas",
+"er",
+"accidente",
+"ed",
+"emergencia",
+"Entrada a la sala de emergencias"
+],
 "ford":[
 "cruce",
 "paso",
@@ -4120,6 +4216,15 @@
 "Consultor Psicológico",
 "Counselling"
 ],
+"healthcare/dentist/orthodontics":[
+"odontología",
+"alineación de la mandíbula",
+"diente",
+"ortopedia dentofacial",
+"Ortodoncista",
+"dientes",
+"aparatos ortopédicos"
+],
 "healthcare/hospice":[
 "enfermedad",
 "Hospicio",
@@ -4219,12 +4324,13 @@
 ],
 "highway/construction":[
 "cierre",
-"cerrada",
-"construccion",
-"cerrado",
+"carretera cerrada",
 "Vía cerrada",
-"obras",
-"construcción"
+"ruta cerrada",
+"calle cerrada",
+"construcción",
+"obras viales",
+"vía cerrada"
 ],
 "highway/corridor":[
 "Pasillo interior",
@@ -4618,6 +4724,13 @@
 "vía",
 "senda",
 "temporal"
+],
+"highway/road/bridge":[
+"puente",
+"carretera desconocida",
+"calle desconocida",
+"camino desconocido",
+"Puente de carretera desconocida"
 ],
 "highway/secondary":[
 "Carretera secundaria",
@@ -5904,13 +6017,19 @@
 "cricket"
 ],
 "leisure/pitch/equestrian":[
+"equino",
+"ecuestre",
+"arena",
+"picadero de caballos",
+"monta",
+"adiestramiento de caballos",
+"conducción de equinos",
 "equitación",
+"doma",
 "picadero",
 "caballos",
 "Arena de equitación",
-"arena",
-"picadero de caballos",
-"monta"
+"montar a caballo"
 ],
 "leisure/pitch/field_hockey":[
 "hockey",
@@ -6217,6 +6336,12 @@
 "desmonte",
 "árbol"
 ],
+"man_made/courtyard":[
+"patio",
+"aire libre cerrado",
+"Patio",
+"cuadrilátero"
+],
 "man_made/crane":[
 "pluma",
 "Grúa",
@@ -6226,8 +6351,9 @@
 "trucha"
 ],
 "man_made/cross":[
-"Cruz de cumbre",
-"cumbre",
+"religioso",
+"Cruz",
+"cruces",
 "cruz"
 ],
 "man_made/cutline":[
@@ -6262,6 +6388,14 @@
 "tanque",
 "Gasómetro",
 "gasómetro"
+],
+"man_made/goods_conveyor":[
+"cadena transportadora",
+"cinta transportadora",
+"transportador de rodillos",
+"mercadería",
+"mercancías",
+"Transportador de mercancías"
 ],
 "man_made/groyne":[
 "escollera",
@@ -6505,6 +6639,12 @@
 "aguas servidas",
 "aguas riego",
 "agua de lluvia"
+],
+"man_made/reservoir_covered":[
+"depósito subterráneo",
+"reservorio subterráneo",
+"Embalse cubierto",
+"tanque de agua"
 ],
 "man_made/silo":[
 "maíz",
@@ -7718,8 +7858,10 @@
 "columpio"
 ],
 "playground/climbing_frame":[
-"trepar",
-"Estructura para trepar"
+"arco",
+"Juego de trepar barras",
+"barras de mono",
+"barras"
 ],
 "playground/cushion":[
 "saltar",
@@ -7752,11 +7894,8 @@
 "Carrusel / Calesita"
 ],
 "playground/sandpit":[
-"cajón",
-"Arenero",
-"Cajón de arena / Arenero",
-"cajon",
-"arena"
+"Juego de arenero",
+"arenero"
 ],
 "playground/seesaw":[
 "Subibaja",
@@ -7784,10 +7923,13 @@
 "Columpio"
 ],
 "playground/zipwire":[
-"Tirolesa",
-"soga",
-"colgarse",
-"cable"
+"canopy",
+"canopi",
+"tirolesa",
+"dosel",
+"Juego de tirolesa",
+"cable",
+"tirolina"
 ],
 "point":[
 "Punto"
@@ -8184,7 +8326,7 @@
 "tránsito",
 "terminal",
 "barco",
-"Estación / Terminal de ferry"
+"Terminal del ferry"
 ],
 "public_transport/station_light_rail":[
 "tren ligero",
@@ -9090,6 +9232,19 @@
 "negocio",
 "café"
 ],
+"shop/collector":[
+"monedas",
+"filatelia",
+"Tienda de coleccionables",
+"antigüedades",
+"muñecas",
+"coleccionistas",
+"sellos",
+"colección",
+"numismática",
+"figuritas",
+"cómics"
+],
 "shop/computer":[
 "computador",
 "Tienda de informática",
@@ -9582,6 +9737,7 @@
 "cerradura"
 ],
 "shop/lottery":[
+"quiniela",
 "sorteo",
 "Lotería",
 "juego",
@@ -9634,6 +9790,15 @@
 "telefonía móvil",
 "celular",
 "Tienda de telefonía móvil"
+],
+"shop/model":[
+"juegos",
+"modelismo",
+"Juguetes",
+"Tienda de modelismo",
+"modelos a escala",
+"escala",
+"manualidades"
 ],
 "shop/money_lender":[
 "prestadora",
@@ -9703,14 +9868,6 @@
 "óptica",
 "optica",
 "Óptica"
-],
-"shop/organic":[
-"natural",
-"orgánica",
-"ecológico",
-"orgánico",
-"Tienda de productos orgánicos",
-"orgánicas"
 ],
 "shop/outdoor":[
 "fuera de casa",
@@ -9876,6 +10033,12 @@
 "mercería",
 "Tienda de suministros de costura"
 ],
+"shop/shoe_repair":[
+"zapatero",
+"tienda de reparación de calzado",
+"Taller de reparación de calzado",
+"taller de reparación de calzado"
+],
 "shop/shoes":[
 "sandalia",
 "zapatilla",
@@ -9937,6 +10100,10 @@
 "supermercado",
 "supermercados",
 "cadena de supermercados"
+],
+"shop/supermarket/organic":[
+"alimentos naturales",
+"Supermercado orgánico"
 ],
 "shop/swimming_pool":[
 "cuidado de jacuzzis",
@@ -10043,6 +10210,15 @@
 "viajes",
 "turismo",
 "Agencia de viajes"
+],
+"shop/trophy":[
+"tienda de trofeos",
+"trofeos",
+"medallas",
+"Tienda de trofeos",
+"premios",
+"grabados",
+"placas"
 ],
 "shop/tyres":[
 "llanta",
@@ -10691,6 +10867,12 @@
 "camino",
 "calle",
 "carril"
+],
+"type/destination_sign":[
+"Señal de destino",
+"Señal de salida",
+"destino",
+"salida"
 ],
 "type/enforcement":[
 "ley",

@@ -38,9 +38,6 @@
 "aeroway/aerodrome":[
 "Airport"
 ],
-"aeroway/apron":[
-"Apron"
-],
 "aeroway/gate":[
 "Airport Gate"
 ],
@@ -184,9 +181,6 @@
 ],
 "amenity/fast_food":[
 "Fast Food"
-],
-"amenity/ferry_terminal":[
-"Ferry Station / Terminal"
 ],
 "amenity/fire_station":[
 "Fire Station"
@@ -723,12 +717,6 @@
 "craft/glaziery":[
 "Glaziery"
 ],
-"craft/handicraft":[
-"Handicraft"
-],
-"craft/hvac":[
-"HVAC"
-],
 "craft/insulator":[
 "Insulator"
 ],
@@ -737,9 +725,6 @@
 ],
 "craft/locksmith":[
 "Locksmith"
-],
-"craft/metal_construction":[
-"Metal Construction"
 ],
 "craft/painter":[
 "Painter"
@@ -1779,9 +1764,6 @@
 "playground/basket_swing":[
 "Basket Swing"
 ],
-"playground/climbing_frame":[
-"Climbing Frame"
-],
 "playground/cushion":[
 "Bouncy Cushion"
 ],
@@ -1794,9 +1776,6 @@
 "playground/roundabout":[
 "Play Roundabout"
 ],
-"playground/sandpit":[
-"Sandpit"
-],
 "playground/seesaw":[
 "Seesaw"
 ],
@@ -1808,9 +1787,6 @@
 ],
 "playground/swing":[
 "Swing"
-],
-"playground/zipwire":[
-"Zip Wire"
 ],
 "point":[
 "Point"
@@ -1850,9 +1826,6 @@
 ],
 "public_transport/station_bus":[
 "Bus Station / Terminal"
-],
-"public_transport/station_ferry":[
-"Ferry Station / Terminal"
 ],
 "public_transport/station_light_rail":[
 "Light Rail Station"
@@ -2028,6 +2001,9 @@
 "shop/carpet":[
 "Carpet Shop"
 ],
+"shop/catalogue":[
+"Catalogue Shop"
+],
 "shop/charity":[
 "Charity Shop"
 ],
@@ -2199,9 +2175,6 @@
 ],
 "shop/optician":[
 "Optician"
-],
-"shop/organic":[
-"Organic Goods Store"
 ],
 "shop/outdoor":[
 "Outdoors Shop"

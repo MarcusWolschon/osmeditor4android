@@ -9,11 +9,6 @@
 "Aerodrom",
 "zračna luka"
 ],
-"aeroway/apron":[
-"Stajanka",
-"betonirani teren aerodroma",
-"stajanka"
-],
 "aeroway/hangar":[
 "hangar",
 "Hangar"
@@ -398,9 +393,6 @@
 "craft/gardener":[
 "Vrtlar"
 ],
-"craft/hvac":[
-"HVAC"
-],
 "craft/insulator":[
 "Izolator"
 ],
@@ -409,9 +401,6 @@
 ],
 "craft/locksmith":[
 "Bravar"
-],
-"craft/metal_construction":[
-"Metalne konstrukcije"
 ],
 "craft/photographer":[
 "Fotograf"

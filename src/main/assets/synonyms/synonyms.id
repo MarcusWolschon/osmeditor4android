@@ -10,11 +10,6 @@
 "Bandar udara",
 "Lapangan Terbang"
 ],
-"aeroway/apron":[
-"Pelataran pesawat",
-"Parkir Pesawat",
-"Apron"
-],
 "aeroway/hangar":[
 "Hanggar"
 ],
@@ -383,12 +378,6 @@
 "craft/gardener":[
 "Tukang Kebun"
 ],
-"craft/handicraft":[
-"Kerajinan Tangan"
-],
-"craft/hvac":[
-"HVAC"
-],
 "craft/insulator":[
 "Isolator"
 ],
@@ -397,9 +386,6 @@
 ],
 "craft/locksmith":[
 "Ahli Kunci"
-],
-"craft/metal_construction":[
-"Konstruksi Metal"
 ],
 "craft/painter":[
 "Tukang Cat"
@@ -1182,9 +1168,6 @@
 "shop/optician":[
 "Mata",
 "Optik"
-],
-"shop/organic":[
-"Toko Barang Organik"
 ],
 "shop/outdoor":[
 "Toko Perlengkapan Outdoor"

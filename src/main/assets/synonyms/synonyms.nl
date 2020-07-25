@@ -67,12 +67,6 @@
 "vliegveld",
 "Luchthaven"
 ],
-"aeroway/apron":[
-"Platform",
-"taxibaan",
-"vliegveld",
-"apron"
-],
 "aeroway/gate":[
 "passagiers",
 "Luchthaven-gate",
@@ -447,9 +441,6 @@
 ],
 "amenity/fast_food/sandwich":[
 "Broodjesfastfoodzaak"
-],
-"amenity/ferry_terminal":[
-"Veerbootterminal"
 ],
 "amenity/fire_station":[
 "brandweerstation",
@@ -1738,25 +1729,6 @@
 "vensters",
 "ruiten"
 ],
-"craft/handicraft":[
-"nijverheidsatelier",
-"artisanaal atelier",
-"handvaardigheid",
-"Handwerkatelier",
-"brei-atelier",
-"handgemaakt",
-"handenarbeid"
-],
-"craft/hvac":[
-"koeling",
-"HVAC",
-"cv",
-"airconditioning",
-"loodgieter",
-"ventilatie",
-"airco",
-"verwarming"
-],
 "craft/insulator":[
 "Isolatie"
 ],
@@ -1766,14 +1738,6 @@
 ],
 "craft/locksmith":[
 "Slotenmaker"
-],
-"craft/metal_construction":[
-"smid",
-"lassers",
-"lassen",
-"metaalbewerking",
-"staalbewerking",
-"Metaalbewerker"
 ],
 "craft/painter":[
 "Schilder",
@@ -2133,9 +2097,6 @@
 ],
 "highway/bus_stop":[
 "Bushalte"
-],
-"highway/construction":[
-"Weg gesloten"
 ],
 "highway/corridor":[
 "Gang in gebouw",
@@ -3864,9 +3825,6 @@
 "schommel",
 "Mandschommel"
 ],
-"playground/climbing_frame":[
-"Klimrek"
-],
 "playground/cushion":[
 "Springkussen"
 ],
@@ -3886,9 +3844,6 @@
 "zwierder",
 "molentje"
 ],
-"playground/sandpit":[
-"Zandbak"
-],
 "playground/seesaw":[
 "Wip"
 ],
@@ -3901,9 +3856,6 @@
 ],
 "playground/swing":[
 "Schommel"
-],
-"playground/zipwire":[
-"Tokkelbaan"
 ],
 "point":[
 "algemeen",
@@ -4065,10 +4017,6 @@
 ],
 "public_transport/station_bus":[
 "Busstation"
-],
-"public_transport/station_ferry":[
-"ferrystation",
-"Veerbootstation"
 ],
 "public_transport/station_light_rail":[
 "lichtgewichttreinstation",
@@ -4823,9 +4771,6 @@
 "Opticien",
 "zonnebril",
 "bril"
-],
-"shop/organic":[
-"Winkel met Organische Koopwaar"
 ],
 "shop/outdoor":[
 "tent",

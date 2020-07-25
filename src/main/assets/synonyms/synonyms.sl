@@ -75,11 +75,6 @@
 "aerodrom",
 "vzletišče"
 ],
-"aeroway/apron":[
-"parkirišče letal",
-"ploščad splošnega letalstva",
-"Letališka ploščad"
-],
 "aeroway/gate":[
 "letališče",
 "Letališka vrata",
@@ -429,15 +424,27 @@
 "parkirni prostor",
 "parkirišče"
 ],
+"amenity/payment_centre":[
+"Plačilni center"
+],
+"amenity/payment_terminal":[
+"Plačilni terminal"
+],
+"amenity/pharmacy":[
+"Lekarna"
+],
 "amenity/place_of_worship":[
-"Verski hram",
 "kraj čaščenja",
 "sakralni objekt",
+"Verski objekt",
 "verski objekt"
 ],
 "amenity/place_of_worship/buddhist":[
 "Budistični center",
 "Budistični tempelj"
+],
+"amenity/place_of_worship/christian":[
+"Krščanska cerkev"
 ],
 "amenity/place_of_worship/hindu":[
 "Hindujski tempel"
@@ -468,6 +475,9 @@
 "Pivnica",
 "pijača"
 ],
+"amenity/pub/lgbtq":[
+"LGBTQ+ pivnica"
+],
 "amenity/public_bath":[
 "kopališče",
 "bazen",
@@ -490,13 +500,28 @@
 "nadzornik parka",
 "Čuvaj parka"
 ],
+"amenity/recycling":[
+"Recikliranje"
+],
 "amenity/recycling_centre":[
 "Center za recikliranje"
+],
+"amenity/recycling_container":[
+"Ekološki otok"
 ],
 "amenity/restaurant":[
 "gostilna",
 "Restavracija",
 "gostinski obrat"
+],
+"amenity/restaurant/american":[
+"Ameriška restavracija"
+],
+"amenity/restaurant/asian":[
+"Azijska restavracija"
+],
+"amenity/restaurant/chinese":[
+"Kitajska restavracija"
 ],
 "amenity/sanitary_dump_station":[
 "Odlaganje fekalij za avtodome"
@@ -1008,15 +1033,6 @@
 "okna",
 "Steklarstvo"
 ],
-"craft/handicraft":[
-"Rokodelstvo",
-"izdelano ročno"
-],
-"craft/hvac":[
-"centralne naprave za klimatizacijo",
-"ogrevanje in hlajenje",
-"KGH"
-],
 "craft/insulator":[
 "Izolacije",
 "izolacija"
@@ -1027,11 +1043,6 @@
 ],
 "craft/locksmith":[
 "Ključavničarstvo"
-],
-"craft/metal_construction":[
-"Izdelava kovinskih konstrukcij",
-"kovinske konstrukcije",
-"kovinar"
 ],
 "craft/painter":[
 "slikopleskar",
@@ -2562,9 +2573,6 @@
 "optika",
 "Optik",
 "očala"
-],
-"shop/organic":[
-"Trgovina z organski hrano"
 ],
 "shop/outdoor":[
 "Trgovina za dejavosti na prostem"

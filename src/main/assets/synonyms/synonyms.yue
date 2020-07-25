@@ -33,10 +33,6 @@
 "機場",
 "飛機場"
 ],
-"aeroway/apron":[
-"Apron",
-"停機坪"
-],
 "aeroway/hangar":[
 "機庫",
 "Hangar",
@@ -1183,9 +1179,6 @@
 "村",
 "村莊",
 "Village"
-],
-"playground/sandpit":[
-"砂池"
 ],
 "point":[
 "Point",

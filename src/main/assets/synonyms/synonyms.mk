@@ -69,7 +69,7 @@
 "Аеродром"
 ],
 "aeroway/apron":[
-"Воздухпловен перон"
+"Авионска постојка"
 ],
 "aeroway/gate":[
 "Аеродромска порта"
@@ -84,7 +84,7 @@
 "Чекална положба на леталото"
 ],
 "aeroway/jet_bridge":[
-"Авионски пристапен мост"
+"Авионски мост"
 ],
 "aeroway/parking_position":[
 "Паркирна положба на леталото"
@@ -172,6 +172,12 @@
 ],
 "amenity/cafe":[
 "Кафетерија"
+],
+"amenity/cafe/bubble_tea":[
+"Кафуле за чај со топчиња"
+],
+"amenity/cafe/coffee_shop":[
+"Кафеџилница"
 ],
 "amenity/car_pooling":[
 "Станица за заедничко автомобилско возење"
@@ -300,7 +306,7 @@
 "Сендвичарница"
 ],
 "amenity/ferry_terminal":[
-"Траектна станица / терминал"
+"Траектен терминал"
 ],
 "amenity/fire_station":[
 "Противпожарна станица"
@@ -316,6 +322,9 @@
 ],
 "amenity/gambling":[
 "Сала за коцкање"
+],
+"amenity/give_box":[
+"Даровница"
 ],
 "amenity/grave_yard":[
 "Гробишта"
@@ -512,6 +521,9 @@
 "amenity/recycling_container":[
 "Рециклажен контејнер"
 ],
+"amenity/refugee_site":[
+"Бегалски камп"
+],
 "amenity/research_institute":[
 "Истражувачки институт"
 ],
@@ -667,6 +679,9 @@
 ],
 "amenity/university":[
 "Универзитетски двор"
+],
+"amenity/vacuum_cleaner":[
+"Постројка за правосмукање"
 ],
 "amenity/vehicle_inspection":[
 "Преглед на возила"
@@ -983,6 +998,9 @@
 "building/construction":[
 "Градилиште"
 ],
+"building/cowshed":[
+"Краварник"
+],
 "building/detached":[
 "Самостојна куќа"
 ],
@@ -1037,6 +1055,9 @@
 "building/mosque":[
 "Џамија"
 ],
+"building/office":[
+"Деловна зграда"
+],
 "building/pavilion":[
 "Павилјонска градба"
 ],
@@ -1075,6 +1096,9 @@
 ],
 "building/static_caravan":[
 "Недвижечки подвижен дом"
+],
+"building/sty":[
+"Кочина"
 ],
 "building/temple":[
 "Храмовска градба"
@@ -1173,10 +1197,10 @@
 "Стаклар"
 ],
 "craft/handicraft":[
-"Ракотворби"
+"Работилница за ракотворби"
 ],
 "craft/hvac":[
-"Климатизација и вентилација"
+"Работилница за климатизација"
 ],
 "craft/insulator":[
 "Изолатор"
@@ -1191,7 +1215,7 @@
 "Бравар"
 ],
 "craft/metal_construction":[
-"Металоградител"
+"Металец"
 ],
 "craft/painter":[
 "Молерофарбар"
@@ -1349,6 +1373,9 @@
 "entrance/emergency":[
 "Итен излез"
 ],
+"entrance/emergency_ward_entrance":[
+"Влез за ургентно"
+],
 "ford":[
 "Брод"
 ],
@@ -1408,6 +1435,9 @@
 ],
 "healthcare/counselling":[
 "Центар за советување"
+],
+"healthcare/dentist/orthodontics":[
+"Ортодонт"
 ],
 "healthcare/hospice":[
 "Дом за изнемоштени лица"
@@ -1563,6 +1593,9 @@
 "highway/path":[
 "Патека"
 ],
+"highway/path/boardwalk":[
+"Патека од даски"
+],
 "highway/path/informal":[
 "Неформална патека"
 ],
@@ -1595,6 +1628,9 @@
 ],
 "highway/road":[
 "Непознат пат"
+],
+"highway/road/bridge":[
+"Непознат патен мост"
 ],
 "highway/secondary":[
 "Второстепен пат"
@@ -2124,6 +2160,9 @@
 "leisure/track/running":[
 "Патека за трчање"
 ],
+"leisure/trampoline_park":[
+"Трамбулински парк"
+],
 "leisure/water_park":[
 "Воден парк"
 ],
@@ -2163,11 +2202,14 @@
 "man_made/clearcut":[
 "Сосечена шума"
 ],
+"man_made/courtyard":[
+"Двориште"
+],
 "man_made/crane":[
 "Дигалка"
 ],
 "man_made/cross":[
-"Крстовар"
+"Крст"
 ],
 "man_made/cutline":[
 "Засечена линија"
@@ -2183,6 +2225,9 @@
 ],
 "man_made/gasometer":[
 "Гасомер"
+],
+"man_made/goods_conveyor":[
+"Превозна лента за стоки"
 ],
 "man_made/groyne":[
 "Брегова препрека"
@@ -2258,6 +2303,9 @@
 ],
 "man_made/pumping_station":[
 "Црпна станица"
+],
+"man_made/reservoir_covered":[
+"Покриен водозборник"
 ],
 "man_made/silo":[
 "Силос"
@@ -2737,7 +2785,7 @@
 "Лулашка"
 ],
 "playground/zipwire":[
-"Жичена спушталка"
+"Детска жичена спушталка"
 ],
 "point":[
 "Точка"
@@ -2881,7 +2929,7 @@
 "Автобуска станица / терминал"
 ],
 "public_transport/station_ferry":[
-"Траектна станица / терминал"
+"Траектен терминал"
 ],
 "public_transport/station_light_rail":[
 "Лесножелезничка станица"
@@ -3177,6 +3225,9 @@
 "shop/coffee":[
 "Продавница за кафе"
 ],
+"shop/collector":[
+"Колекционерска продавница"
+],
 "shop/computer":[
 "Продавница за сметачи"
 ],
@@ -3315,6 +3366,9 @@
 "shop/hobby":[
 "Хобистичка продавница"
 ],
+"shop/household_linen":[
+"Продавница за постелнини"
+],
 "shop/houseware":[
 "Продавница за домот"
 ],
@@ -3366,6 +3420,9 @@
 "shop/mobile_phone":[
 "Мобилара"
 ],
+"shop/model":[
+"Моделарска продавница"
+],
 "shop/money_lender":[
 "Зајмување пари"
 ],
@@ -3389,9 +3446,6 @@
 ],
 "shop/optician":[
 "Оптичар"
-],
-"shop/organic":[
-"Продавница за органски производи"
 ],
 "shop/outdoor":[
 "Продавница за рекреативна опрема"
@@ -3456,6 +3510,9 @@
 "shop/sewing":[
 "Шивачки набавки"
 ],
+"shop/shoe_repair":[
+"Чевлар"
+],
 "shop/shoes":[
 "Продавница за обувки"
 ],
@@ -3473,6 +3530,9 @@
 ],
 "shop/supermarket":[
 "Супермаркет"
+],
+"shop/supermarket/organic":[
+"Органски супермаркет"
 ],
 "shop/swimming_pool":[
 "Базенски залихи"
@@ -3509,6 +3569,9 @@
 ],
 "shop/travel_agency":[
 "Туристичка агенција"
+],
+"shop/trophy":[
+"Продавница за трофеи"
 ],
 "shop/tyres":[
 "Продавница за автогуми"
@@ -3734,6 +3797,9 @@
 ],
 "type/connectivity":[
 "Поврзливост на лентите"
+],
+"type/destination_sign":[
+"Знак за одредиште"
 ],
 "type/enforcement":[
 "Прекршочен надзор"

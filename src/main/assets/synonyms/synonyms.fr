@@ -143,11 +143,6 @@
 "Aérodrome",
 "airport"
 ],
-"aeroway/apron":[
-"tarmac",
-"Aire de manœuvre",
-"Aire de stationnement"
-],
 "aeroway/gate":[
 "Porte d'embarquement",
 "Porte de départ",
@@ -171,14 +166,6 @@
 "attente",
 "arret",
 "avion"
-],
-"aeroway/jet_bridge":[
-"aéroport",
-"embarquement",
-"passerelle d'embarquement",
-"terminal",
-"Passerelle aéroportuaire",
-"passerelle aéroportuaire"
 ],
 "aeroway/parking_position":[
 "Zone de Stationnement",
@@ -839,7 +826,7 @@
 "panini"
 ],
 "amenity/ferry_terminal":[
-"Terminal ferry"
+"Terminal de ferry"
 ],
 "amenity/fire_station":[
 "maison des pompes",
@@ -1073,6 +1060,9 @@
 "Zone de stationnement",
 "Place de parking",
 "Parking"
+],
+"amenity/parking_space/disabled":[
+"Place de parking accessible PMR"
 ],
 "amenity/payment_centre":[
 "paiement",
@@ -2963,6 +2953,9 @@
 "mosquée",
 "religion"
 ],
+"building/office":[
+"Bâtiment de bureaux"
+],
 "building/pavilion":[
 "Pavillon",
 "pavillon",
@@ -3132,13 +3125,6 @@
 "craft":[
 "Artisanat"
 ],
-"craft/agricultural_engines":[
-"agriculture",
-"tracteur",
-"mécanicien pour engins agricoles",
-"Mécaniciens pour engins agricoles",
-"engins agricoles"
-],
 "craft/basket_maker":[
 "Vannier"
 ],
@@ -3246,17 +3232,6 @@
 "Vitrerie",
 "Vitrier"
 ],
-"craft/handicraft":[
-"Artisan",
-"Artisanat manuel"
-],
-"craft/hvac":[
-"CVC",
-"Chauffage",
-"Climatisation",
-"Ventilation",
-"Chauffagistes"
-],
 "craft/insulator":[
 "Isolation thermique de bâtiments",
 "Technicien thermicien"
@@ -3271,10 +3246,6 @@
 ],
 "craft/locksmith":[
 "Serrurier"
-],
-"craft/metal_construction":[
-"Constructions métalliques",
-"Construction métallique"
 ],
 "craft/painter":[
 "Peintre"
@@ -3379,6 +3350,9 @@
 ],
 "demolished/building":[
 "Bâtiment détruit récemment"
+],
+"disused/shop":[
+"Magasin fermé"
 ],
 "embankment":[
 "Terre-plein"
@@ -3605,6 +3579,9 @@
 "sexe",
 "régime"
 ],
+"healthcare/dentist/orthodontics":[
+"Orthodontiste"
+],
 "healthcare/hospice":[
 "Hôpital",
 "chu",
@@ -3652,7 +3629,7 @@
 "Orthophoniste"
 ],
 "highway":[
-"Équipement autoroutier"
+"Équipement pour toutes les voies"
 ],
 "highway/bridleway":[
 "Sentier équestre",
@@ -3668,10 +3645,7 @@
 "Arrêt de bus"
 ],
 "highway/construction":[
-"route fermée",
-"fermeture",
-"construction",
-"Route fermée"
+"Route barrée"
 ],
 "highway/corridor":[
 "Corridor intérieur",
@@ -4175,6 +4149,12 @@
 "Jonction",
 "Jonction routière"
 ],
+"landuse":[
+"Occupation du sol"
+],
+"landuse/allotments":[
+"Jardins familiaux"
+],
 "landuse/aquaculture":[
 "pisciculture",
 "mariculture",
@@ -4498,6 +4478,9 @@
 "leisure/garden":[
 "Jardin"
 ],
+"leisure/garden/botanical":[
+"Jardin botanique"
+],
 "leisure/golf_course":[
 "Terrain de golf",
 "Parcours de golf",
@@ -4755,6 +4738,9 @@
 "Piste de course à pied",
 "athlétisme"
 ],
+"leisure/trampoline_park":[
+"Parc à trampolines"
+],
 "leisure/water_park":[
 "Parc d'attractions aquatiques",
 "Parc à thème aquatique"
@@ -4815,11 +4801,6 @@
 ],
 "man_made/crane":[
 "Grue"
-],
-"man_made/cross":[
-"croix sommitale",
-"Croix sommitale",
-"croix de sommet"
 ],
 "man_made/cutline":[
 "ligne de coupe forestière",
@@ -5691,13 +5672,6 @@
 "balançoire",
 "jeux pour enfants"
 ],
-"playground/climbing_frame":[
-"Cage à poules ",
-"portique",
-"portique de jeux",
-"jeux",
-"jeux pour enfants"
-],
 "playground/cushion":[
 "trampoline à eau",
 "Jeu gonflable",
@@ -5717,11 +5691,6 @@
 "playground/roundabout":[
 "Tourniquet",
 "jeux pour enfant"
-],
-"playground/sandpit":[
-"Bac à sable",
-"jeux pour enfants",
-"sable"
 ],
 "playground/seesaw":[
 "tape-fesses",
@@ -5744,9 +5713,6 @@
 "Balançoire",
 "balancelles",
 "jeux pour enfants"
-],
-"playground/zipwire":[
-"Tyrolienne"
 ],
 "point":[
 "Point"
@@ -6076,16 +6042,7 @@
 "station routière"
 ],
 "public_transport/station_ferry":[
-"Terminal ferry",
-"stop",
-"gare de ferry",
-"station de ferry",
-"arrêt",
-"ferry",
-"station",
-"bateau",
-"gare",
-"terminal de ferry"
+"Terminal de ferry"
 ],
 "public_transport/station_light_rail":[
 "station de tramway",
@@ -6268,6 +6225,9 @@
 "Voie ferrée non utilisée",
 "Voie ferrée désaffectée"
 ],
+"railway/funicular":[
+"Rail pour funiculaire"
+],
 "railway/halt":[
 "Gare ferroviaire (arrêt à la demande)"
 ],
@@ -6279,8 +6239,20 @@
 "borne kilométrique ferroviaire",
 "Borne kilométrique ferroviaire"
 ],
+"railway/miniature":[
+"Rail pour train miniature"
+],
+"railway/monorail":[
+"Rail pour monorail"
+],
 "railway/platform":[
 "Quai de gare ferroviaire"
+],
+"railway/rail":[
+"Rail pour train"
+],
+"railway/rail/highspeed":[
+"Rail pour train à grande vitesse"
 ],
 "railway/signal":[
 "signalisation ferroviaire",
@@ -6289,6 +6261,9 @@
 ],
 "railway/station":[
 "Gare ferroviaire"
+],
+"railway/subway":[
+"Rail pour métro"
 ],
 "railway/subway_entrance":[
 "Entrée de métro",
@@ -6302,6 +6277,9 @@
 "nettoyage de train",
 "lavage de train",
 "Lavage de Train"
+],
+"railway/tram":[
+"Rail pour tramway"
 ],
 "railway/tram_stop":[
 "Emplacement où s'arrête le tram"
@@ -6743,6 +6721,9 @@
 "Vente de cadres",
 "Magasin d'encadrements"
 ],
+"shop/frozen_food":[
+"Magasin de produits surgelés"
+],
 "shop/fuel":[
 "diesel",
 "Revendeur de carburant",
@@ -6960,10 +6941,6 @@
 "Marchand de lunettes",
 "Opticien"
 ],
-"shop/organic":[
-"Vente de produits biologiques",
-"Magasin de produits biologiques"
-],
 "shop/outdoor":[
 "Magasin de matériel de sports de plein air"
 ],
@@ -7069,6 +7046,11 @@
 "shop/sewing":[
 "Magasin de matériel de couture",
 "Magasin de couture"
+],
+"shop/shoe_repair":[
+"Cordonnier",
+"cordonnerie",
+"cordonnier réparation de chaussures"
 ],
 "shop/shoes":[
 "Magasin de chaussures"
@@ -7635,7 +7617,7 @@
 "Itinéraire ferroviaire"
 ],
 "type/route/tram":[
-"Route de tramway",
+"Voie de tramway",
 "Itinéraire de tramway"
 ],
 "type/route_master":[

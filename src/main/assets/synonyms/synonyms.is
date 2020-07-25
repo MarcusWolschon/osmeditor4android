@@ -35,9 +35,6 @@
 "aeroway/aerodrome":[
 "Flugvöllur"
 ],
-"aeroway/apron":[
-"Flughlað"
-],
 "aeroway/gate":[
 "Flugvallarhlið"
 ],
@@ -211,9 +208,6 @@
 ],
 "amenity/fast_food/sandwich":[
 "Skyndibiti, samlokur"
-],
-"amenity/ferry_terminal":[
-"Ferjustöð / Umferðarmiðstöð"
 ],
 "amenity/fire_station":[
 "Slökkvistöð"
@@ -829,12 +823,6 @@
 "craft/glaziery":[
 "Glerskurður"
 ],
-"craft/handicraft":[
-"Handverk"
-],
-"craft/hvac":[
-"Loftræsting, upphitun og loftkæling"
-],
 "craft/insulator":[
 "Einangrun"
 ],
@@ -843,9 +831,6 @@
 ],
 "craft/locksmith":[
 "Lyklasmiður"
-],
-"craft/metal_construction":[
-"Málmsmíði (byggingar)"
 ],
 "craft/painter":[
 "Málari"
@@ -1933,9 +1918,6 @@
 "playground/basket_swing":[
 "Körfuróla"
 ],
-"playground/climbing_frame":[
-"Klifurgrind"
-],
 "playground/cushion":[
 "Hoppkoddi"
 ],
@@ -1948,9 +1930,6 @@
 "playground/roundabout":[
 "Leikhringekja"
 ],
-"playground/sandpit":[
-"Sandkassi"
-],
 "playground/seesaw":[
 "Vegasalt"
 ],
@@ -1962,9 +1941,6 @@
 ],
 "playground/swing":[
 "Róla"
-],
-"playground/zipwire":[
-"Aparóla"
 ],
 "point":[
 "Punktur"
@@ -2024,9 +2000,6 @@
 ],
 "public_transport/station_bus":[
 "Strætisvagnastöð / Umferðarmiðstöð"
-],
-"public_transport/station_ferry":[
-"Ferjustöð / Umferðarmiðstöð"
 ],
 "public_transport/station_light_rail":[
 "Léttlestarstöð"
@@ -2403,9 +2376,6 @@
 ],
 "shop/optician":[
 "Gleraugnaverslun"
-],
-"shop/organic":[
-"Verslun með lífrænar vörur"
 ],
 "shop/outdoor":[
 "Útivistarbúð"

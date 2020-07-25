@@ -210,8 +210,13 @@
 "airport"
 ],
 "aeroway/apron":[
+"flight line",
+"aircraft parking",
+"tarmac",
+"taxiway",
 "ramp",
-"Apron"
+"Airport Apron",
+"hardstand"
 ],
 "aeroway/gate":[
 "Airport Gate"
@@ -230,17 +235,20 @@
 ],
 "aeroway/jet_bridge":[
 "finger",
+"airtube",
 "jet way",
 "skybridge",
 "passenger boarding bridge",
+"jetbridge",
 "airbridge",
 "jetway",
 "PBB",
-"Jet Bridge",
 "aerobridge",
 "terminal gate connector",
 "air jetty",
 "gangway",
+"Jetway",
+"jet bridge",
 "portal"
 ],
 "aeroway/parking_position":[
@@ -283,7 +291,7 @@
 "Embassy"
 ],
 "amenity/ferry_terminal":[
-"Ferry Station / Terminal"
+"Ferry Terminal"
 ],
 "amenity/nursing_home":[
 "Nursing Home"
@@ -456,6 +464,32 @@
 "Cafe",
 "coffee",
 "bistro"
+],
+"amenity/cafe/bubble_tea":[
+"boba",
+"tapioca",
+"taiwanese tea drink",
+"bubble milk tea",
+"pearl milk tea",
+"Bubble Tea Cafe"
+],
+"amenity/cafe/coffee_shop":[
+"hot drinks",
+"espresso",
+"coffee shop",
+"caffe",
+"cappuccino",
+"caffè",
+"brew",
+"americano",
+"cocoa",
+"café",
+"latte",
+"tea",
+"cafe",
+"drip",
+"macchiato",
+"Coffeehouse"
 ],
 "amenity/car_pooling":[
 "car sharing",
@@ -813,6 +847,18 @@
 "roulette",
 "bingo",
 "craps"
+],
+"amenity/give_box":[
+"free box",
+"library",
+"donations",
+"give shelf",
+"share shelf",
+"givebox",
+"Free Box",
+"free table",
+"freebox",
+"give box"
 ],
 "amenity/grave_yard":[
 "burial ground",
@@ -1384,6 +1430,14 @@
 "organic",
 "garbage bin"
 ],
+"amenity/refugee_site":[
+"refugee site",
+"evacuees",
+"migrants",
+"ngo",
+"displaced people",
+"Refugee Camp"
+],
 "amenity/research_institute":[
 "r&d",
 "applied research",
@@ -1948,6 +2002,13 @@
 "University Grounds",
 "master's degree program"
 ],
+"amenity/vacuum_cleaner":[
+"car wash",
+"carvac",
+"suction",
+"car vacuum cleaner",
+"Vacuum Cleaning Station"
+],
 "amenity/vehicle_inspection":[
 "Vehicle Inspection",
 "car inspection"
@@ -2379,7 +2440,11 @@
 "Hedge"
 ],
 "barrier/height_restrictor":[
-"Height Restrictor"
+"height barrier",
+"maxheight",
+"Height Restrictor",
+"height restriction barrier",
+"maximum height measurer"
 ],
 "barrier/kerb":[
 "Curb"
@@ -2409,6 +2474,11 @@
 "Kissing Gate"
 ],
 "barrier/lift_gate":[
+"boom barrier",
+"pivoted pole",
+"hinged bar",
+"boom gate",
+"boom lift",
 "Lift Gate"
 ],
 "barrier/retaining_wall":[
@@ -2528,6 +2598,17 @@
 "building/construction":[
 "Building Under Construction"
 ],
+"building/cowshed":[
+"Cowshed",
+"cowhouse",
+"dairy barn",
+"byre",
+"milking barn",
+"cow shed",
+"cow barn",
+"cowbarn",
+"cow house"
+],
 "building/detached":[
 "single",
 "Detached House",
@@ -2604,6 +2685,11 @@
 "building/mosque":[
 "Mosque Building"
 ],
+"building/office":[
+"business center",
+"Office Building",
+"office block"
+],
 "building/pavilion":[
 "sports",
 "Pavilion Building"
@@ -2665,6 +2751,22 @@
 "mobile home",
 "house trailer"
 ],
+"building/sty":[
+"pig-cote",
+"hog parlor",
+"pig pen",
+"pig ark",
+"pigshed",
+"pig barn",
+"pig shed",
+"pig shelter",
+"piggery",
+"Pigsty",
+"hog pen",
+"sty",
+"pigpen",
+"pig parlor"
+],
 "building/temple":[
 "Temple Building"
 ],
@@ -2708,7 +2810,11 @@
 "Tailor"
 ],
 "craft/agricultural_engines":[
-"Argricultural Engines Mechanic"
+"harvesters",
+"farm equipment",
+"tractors",
+"Agricultural Engines Mechanic",
+"combines"
 ],
 "craft/basket_maker":[
 "Basket Maker"
@@ -2807,11 +2913,11 @@
 "window"
 ],
 "craft/handicraft":[
-"Handicraft"
+"Handicraft Workspace"
 ],
 "craft/hvac":[
+"HVAC Workplace",
 "heat*",
-"HVAC",
 "air conditioning",
 "vent*"
 ],
@@ -2826,7 +2932,7 @@
 "Key Cutter"
 ],
 "craft/metal_construction":[
-"Metal Construction"
+"Metalworker"
 ],
 "craft/painter":[
 "Painter"
@@ -3026,6 +3132,17 @@
 "Entrance / Exit",
 "entrance"
 ],
+"entrance/emergency_ward_entrance":[
+"casualty department",
+"ew",
+"Emergency Room Entrance",
+"emergency ward",
+"emergency room",
+"emergency department",
+"er",
+"accident & emergency department",
+"ed"
+],
 "entrance/emergency":[
 "door",
 "fire exit",
@@ -3135,6 +3252,16 @@
 "healthcare/counselling":[
 "Counselling Center"
 ],
+"healthcare/dentist/orthodontics":[
+"dentofacial orthopedics",
+"dentistry",
+"headgear",
+"teeth",
+"Orthodontist",
+"braces",
+"jaw alignment",
+"tooth"
+],
 "healthcare/hospice":[
 "Hospice",
 "terminal",
@@ -3221,9 +3348,11 @@
 "Bus Guideway"
 ],
 "highway/construction":[
-"Road Closed",
-"closed",
+"road work",
 "construction",
+"roadwork",
+"Closed Road",
+"road closed",
 "closure"
 ],
 "highway/corridor":[
@@ -3282,8 +3411,10 @@
 "mixed-use trail",
 "multi-use trail",
 "segregated trail",
+"shared use path",
 "Cycle & Foot Path",
 "greenway",
+"shared path",
 "green way",
 "rail trail"
 ],
@@ -3552,6 +3683,9 @@
 "road",
 "street",
 "Unknown Road"
+],
+"highway/road/bridge":[
+"Unknown Road Bridge"
 ],
 "highway/secondary_link":[
 "on ramp",
@@ -4363,7 +4497,12 @@
 "curling"
 ],
 "leisure/marina":[
-"boat",
+"harbour",
+"moorings",
+"yachts",
+"docks",
+"harbor",
+"boats",
 "Marina"
 ],
 "leisure/miniature_golf":[
@@ -4703,11 +4842,18 @@
 "tree",
 "wood"
 ],
+"man_made/courtyard":[
+"yard",
+"enclosed open air",
+"court",
+"quadrangle",
+"Courtyard"
+],
 "man_made/crane":[
 "Crane"
 ],
 "man_made/cross":[
-"Summit Cross"
+"Cross"
 ],
 "man_made/cutline":[
 "Cut line"
@@ -4728,6 +4874,13 @@
 "man_made/gasometer":[
 "Gasometer",
 "gas holder"
+],
+"man_made/goods_conveyor":[
+"roller conveyor",
+"Goods Conveyor",
+"belt conveyor",
+"conveyor belt",
+"chain conveyor"
 ],
 "man_made/groyne":[
 "Groin"
@@ -4950,6 +5103,11 @@
 ],
 "man_made/pumping_station":[
 "Pumping Station"
+],
+"man_made/reservoir_covered":[
+"water tank",
+"Covered Reservoir",
+"underground reservoir"
 ],
 "man_made/silo":[
 "corn",
@@ -5885,7 +6043,9 @@
 "Basket Swing"
 ],
 "playground/climbing_frame":[
-"Climbing Frame"
+"monkey bars",
+"Play Climbing Frame",
+"jungle gym"
 ],
 "playground/cushion":[
 "Bouncy Cushion"
@@ -5906,8 +6066,9 @@
 "merry-go-round"
 ],
 "playground/sandpit":[
+"Play Sandbox",
 "sandbox",
-"Sandpit"
+"sandpit"
 ],
 "playground/seesaw":[
 "Seesaw"
@@ -5923,7 +6084,10 @@
 "Swing"
 ],
 "playground/zipwire":[
-"Zip Wire"
+"zipwire",
+"Play Zip Line",
+"zip wire",
+"zipline"
 ],
 "point":[
 "node",
@@ -6272,10 +6436,10 @@
 ],
 "public_transport/station_ferry":[
 "pier",
+"Ferry Terminal",
 "public transit",
 "transit",
 "ferry",
-"Ferry Station / Terminal",
 "station",
 "terminal",
 "dock",
@@ -7002,6 +7166,20 @@
 "shop/coffee":[
 "Coffee Store"
 ],
+"shop/collector":[
+"collectors",
+"figurines",
+"coins",
+"philately",
+"Collectibles Shop",
+"comics",
+"numismatics",
+"thrift",
+"antiques",
+"collection",
+"dolls",
+"stamps"
+],
 "shop/computer":[
 "desktop",
 "software",
@@ -7034,7 +7212,8 @@
 "Arts & Crafts Store",
 "art*",
 "paint*",
-"frame"
+"frame",
+"hobby"
 ],
 "shop/curtain":[
 "Curtain Store",
@@ -7377,6 +7556,15 @@
 "shop/mobile_phone":[
 "Mobile Phone Store"
 ],
+"shop/model":[
+"model figures",
+"model kits",
+"model building",
+"scale models",
+"model store",
+"Model Shop",
+"hobby"
+],
 "shop/money_lender":[
 "Money Lender"
 ],
@@ -7417,9 +7605,6 @@
 "eye",
 "glasses",
 "Optician"
-],
-"shop/organic":[
-"Organic Goods Store"
 ],
 "shop/outdoor":[
 "camping",
@@ -7541,6 +7726,10 @@
 "Sewing Supply Shop",
 "haberdashery"
 ],
+"shop/shoe_repair":[
+"Shoe Repair Shop",
+"cobbler"
+],
 "shop/shoes":[
 "cleats",
 "oxfords",
@@ -7577,13 +7766,23 @@
 ],
 "shop/storage_rental":[
 "garages",
-"Storage Rental"
+"self-service storage",
+"device storage",
+"storage lockers",
+"Storage Rental",
+"self storage",
+"storage rental",
+"storage units"
 ],
 "shop/supermarket":[
 "shop",
 "Supermarket",
 "grocery",
 "store"
+],
+"shop/supermarket/organic":[
+"natural foods",
+"Organic Supermarket"
 ],
 "shop/swimming_pool":[
 "hot tub maintenance store",
@@ -7647,6 +7846,14 @@
 "Travel Agency",
 "cruises",
 "travel packages"
+],
+"shop/trophy":[
+"trophy store",
+"medals",
+"awards",
+"plaques",
+"engravings",
+"Trophy Shop"
 ],
 "shop/tyres":[
 "Tire Store"
@@ -8085,6 +8292,10 @@
 ],
 "type/connectivity":[
 "Lane Connectivity"
+],
+"type/destination_sign":[
+"exit sign",
+"Destination Sign"
 ],
 "type/enforcement":[
 "Enforcement"

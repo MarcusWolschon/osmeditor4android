@@ -19,6 +19,15 @@
 "reklam",
 "Annonstavla"
 ],
+"advertising/board":[
+"tillkännagivanden",
+"Anslagstavla",
+"reklam",
+"reklamblad",
+"korktavla",
+"whiteboard",
+"flygblad"
+],
 "advertising/column":[
 "annonstavla",
 "reklamplats",
@@ -32,6 +41,25 @@
 "marknadsföring",
 "annonspelare",
 "annonsering"
+],
+"advertising/poster_box":[
+"affischtavla",
+"reklamyta",
+"reklamlåda",
+"reklambox",
+"reklampelare",
+"Reklamtavla"
+],
+"advertising/totem":[
+"skyltpylon",
+"Skyltpylon",
+"skylttavla på stolpe",
+"reklam på stolpe",
+"reklampelare",
+"stolpskylt"
+],
+"aerialway":[
+"Linbaneobjekt"
 ],
 "aerialway/cable_car":[
 "Kabinbana",
@@ -52,6 +80,14 @@
 "lift",
 "linbana",
 "skidlift"
+],
+"aerialway/gondola":[
+"Gondolbana",
+"lift",
+"linbana",
+"Gondol",
+"skidlift",
+"Gondollinbana"
 ],
 "aerialway/goods":[
 "gruvlift",
@@ -139,6 +175,9 @@
 "travers",
 "Zipline"
 ],
+"aeroway":[
+"Flygtrafiksobjekt"
+],
 "aeroway/aerodrome":[
 "flyghamn",
 "flyg",
@@ -152,13 +191,16 @@
 ],
 "aeroway/apron":[
 "Parkering för flygplan (Apron)",
+"tamac",
+"ramp",
 "flygparkering",
 "Flygplansparkering",
 "parkering av flygplan",
 "apron",
 "parkering av plan",
 "flygplansplatta",
-"flygplatsplatta"
+"flygplatsplatta",
+"taxibana"
 ],
 "aeroway/gate":[
 "flyggate",
@@ -216,6 +258,18 @@
 "landning",
 "landningsfällt",
 "rullbana"
+],
+"aeroway/spaceport":[
+"raketuppsättningssida",
+"rymdport",
+"avfyrningsplats. raketramp",
+"raketuppskjutningscenter",
+"raketuppskattningskomplex",
+"raketuppskjutning",
+"kosmodrom",
+"raketområde",
+"Rymdbas",
+"raket"
 ],
 "aeroway/taxiway":[
 "flygplansväg",
@@ -479,12 +533,51 @@
 "kaffe",
 "Café"
 ],
+"amenity/cafe/bubble_tea":[
+"bubbelte",
+"taiwanesiskt te",
+"boba",
+"Bubble tea-café",
+"café. Bubble tea"
+],
+"amenity/cafe/coffee_shop":[
+"espresso",
+"cappuccino",
+"americano",
+"café",
+"varma drycker",
+"latte",
+"te",
+"kakao",
+"kaffeaffär",
+"Kaffehus",
+"bryggkaffe",
+"kaffe",
+"kaffeshop",
+"macchiato"
+],
+"amenity/car_pooling":[
+"bilpoolstation",
+"bildelning",
+"lånebil",
+"hyrbil",
+"bilpool",
+"Bilpoolstation"
+],
 "amenity/car_rental":[
 "Biluthyrning",
 "lånebil",
 "hyrbil",
 "billån",
 "billeasing"
+],
+"amenity/car_sharing":[
+"Bildelningsstation",
+"bildelning",
+"lånebil",
+"hyrbil",
+"bilpool",
+"bildelningsstation"
 ],
 "amenity/car_wash":[
 "biltvättanläggning",
@@ -740,6 +833,13 @@
 "födelsedag",
 "evenemangslokal"
 ],
+"amenity/exhibition_centre":[
+"mässa",
+"utställning",
+"utställningscenter",
+"expo",
+"Utställningscenter/Mässa"
+],
 "amenity/fast_food":[
 "skräpmat",
 "Snabbmat",
@@ -926,7 +1026,7 @@
 "grill"
 ],
 "amenity/ferry_terminal":[
-"Färjeterminal / Färjehållplats / Färjestation"
+"Färjeterminal"
 ],
 "amenity/fire_station":[
 "brandstång",
@@ -2781,6 +2881,13 @@
 "isglass",
 "varumaskin"
 ],
+"amenity/vending_machine/ice_cubes":[
+"Ismaskin",
+"varuautomat",
+"is",
+"varumaskin",
+"iskuber"
+],
 "amenity/vending_machine/newspapers":[
 "Tidningsautomat",
 "tidning",
@@ -3708,6 +3815,14 @@
 "moské",
 "minaret"
 ],
+"building/office":[
+"affärscenter",
+"arbetsplats",
+"Kontorsbyggnad",
+"kontor",
+"arbetsplatser",
+"kontorsområde"
+],
 "building/pavilion":[
 "Klubbhus",
 "Sport",
@@ -4116,43 +4231,6 @@
 "glaskonst",
 "målat glas"
 ],
-"craft/handicraft":[
-"snickeri",
-"hantverk",
-"konsthantverk",
-"textil",
-"Hantverkare",
-"vävstuga",
-"Hantverk",
-"handarbete",
-"sömnad",
-"slöjd",
-"snideri",
-"hemslöjd",
-"vävning"
-],
-"craft/hvac":[
-"inomhusklimat",
-"energiförsörjning",
-"ventilation",
-"sanitet",
-"avlopp",
-"kyla",
-"VVS",
-"värme",
-"air condition",
-"rörmokare",
-"övervakningssystem",
-"styrsystem",
-"gas",
-"vattenförsörjning",
-"uppvärmning",
-"luftkonditionering",
-"tryckluft",
-"vatten",
-"sprinkler",
-"installationsteknik"
-],
 "craft/insulator":[
 "Isolering",
 "ljudisolering",
@@ -4171,15 +4249,6 @@
 ],
 "craft/locksmith":[
 "Låssmed"
-],
-"craft/metal_construction":[
-"Metallarbete",
-"metallarbetare",
-"metallindustri",
-"kallbearbetning",
-"svets",
-"svetsare",
-"svetsning"
 ],
 "craft/painter":[
 "Målare",
@@ -4808,14 +4877,6 @@
 "highway/bus_stop":[
 "Busshållplats"
 ],
-"highway/construction":[
-"stängd",
-"Väg avstängd",
-"avstängd",
-"väg under konstruktion",
-"vägbygge",
-"vägbyggnad"
-],
 "highway/corridor":[
 "inomhus",
 "inomhuskorridor",
@@ -4891,23 +4952,25 @@
 ],
 "highway/cycleway":[
 "cykelled",
-"gång- och cykelväg",
 "cykelväg",
 "gc-väg",
 "Cykelväg",
 "cykel"
 ],
 "highway/cycleway/bicycle_foot":[
-"Cykel- och gångväg",
-"cykelbanda",
+"gång- och cykelväg",
+"gång och cykelväg",
 "cykelväg",
-"gångbana",
 "gångväg",
 "gående",
 "gång",
 "GC-väg",
+"Cykel- och gångväg",
+"gångbana",
+"cykelbana",
 "cykel",
-"cyklande"
+"cyklande",
+"GCM-väg"
 ],
 "highway/cycleway/crossing":[
 "Cykelkorsning"
@@ -4929,12 +4992,9 @@
 "Hiss"
 ],
 "highway/footway":[
-"gång- och cykelväg",
-"vandring",
+"gångbana",
 "gångväg",
 "gc-väg",
-"vandra",
-"stig",
 "Gångväg",
 "löparbana",
 "motionsspår",
@@ -5081,7 +5141,6 @@
 ],
 "highway/path":[
 "vandring",
-"gångväg",
 "gång",
 "vandra",
 "vandringsled",
@@ -5091,6 +5150,11 @@
 "löparbana",
 "motionsspår",
 "promenad"
+],
+"highway/path/informal":[
+"viltstig",
+"kostig",
+"genväg"
 ],
 "highway/pedestrian_area":[
 "plaza",
@@ -6873,8 +6937,7 @@
 ],
 "man_made/flagpole":[
 "Flaggstång",
-"flagga",
-"Flaggstolpe"
+"flagga"
 ],
 "man_made/gasometer":[
 "Gasklocka",
@@ -8142,15 +8205,6 @@
 "gungställning",
 "lekpark"
 ],
-"playground/climbing_frame":[
-"Klätterställning",
-"klättring",
-"lek",
-"lekplats",
-"lekområde",
-"klättra",
-"lekpark"
-],
 "playground/cushion":[
 "Hoppkudde",
 "lek",
@@ -8182,15 +8236,6 @@
 "lekplats",
 "lekområde",
 "Karusell (lekplats)",
-"lekpark"
-],
-"playground/sandpit":[
-"sand",
-"Sandlåda",
-"lek",
-"sandlåda",
-"lekplats",
-"lekområde",
 "lekpark"
 ],
 "playground/seesaw":[
@@ -8226,14 +8271,6 @@
 "lekplats",
 "lekområde",
 "Gungställning",
-"lekpark"
-],
-"playground/zipwire":[
-"lek",
-"lekplats",
-"lekområde",
-"Linbana (lekplats)",
-"linbana",
 "lekpark"
 ],
 "point":[
@@ -8605,23 +8642,6 @@
 "Busstation / Bussterminal",
 "Busstation",
 "buss"
-],
-"public_transport/station_ferry":[
-"brygga",
-"Färjeterminal",
-"båthållplats",
-"Färjestation",
-"terminal",
-"transport",
-"färja",
-"båt",
-"kollektivtrafik",
-"Färjeterminal / Färjehållplats / Färjestation",
-"båtterminal",
-"transit",
-"pir",
-"station",
-"Färjehållplats"
 ],
 "public_transport/station_light_rail":[
 "light rail",
@@ -9946,11 +9966,6 @@
 "synundersökning",
 "linser",
 "Optiker"
-],
-"shop/organic":[
-"ekologiskt",
-"Ekologiska livsmedel",
-"miljövänligt"
 ],
 "shop/outdoor":[
 "tält",

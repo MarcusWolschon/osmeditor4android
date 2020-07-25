@@ -82,6 +82,7 @@
 "飛機場"
 ],
 "aeroway/apron":[
+"機場停機坪",
 "停機坪"
 ],
 "aeroway/gate":[
@@ -222,6 +223,12 @@
 "amenity/cafe":[
 "咖啡廳",
 "咖啡店"
+],
+"amenity/cafe/bubble_tea":[
+"珍珠奶茶店"
+],
+"amenity/cafe/coffee_shop":[
+"咖啡廳"
 ],
 "amenity/car_pooling":[
 "汽車共乘站"
@@ -399,7 +406,7 @@
 "三明治快餐廳"
 ],
 "amenity/ferry_terminal":[
-"水運碼頭"
+"渡輪碼頭"
 ],
 "amenity/fire_station":[
 "救火隊",
@@ -420,6 +427,9 @@
 ],
 "amenity/gambling":[
 "賭博場所"
+],
+"amenity/give_box":[
+"禮物盒"
 ],
 "amenity/grave_yard":[
 "墓地",
@@ -453,7 +463,8 @@
 ],
 "amenity/kindergarten":[
 "幼兒園",
-"幼稚園"
+"幼稚園",
+"幼兒園範圍"
 ],
 "amenity/kneipp_water_cure":[
 "Kneipp 水療"
@@ -693,6 +704,9 @@
 "回收筒",
 "回收箱"
 ],
+"amenity/refugee_site":[
+"難民營"
+],
 "amenity/research_institute":[
 "研究機構場地"
 ],
@@ -919,6 +933,9 @@
 "University Grounds",
 "大學",
 "大專"
+],
+"amenity/vacuum_cleaner":[
+"吸塵器站"
 ],
 "amenity/vehicle_inspection":[
 "車輛檢查肖",
@@ -1316,6 +1333,10 @@
 "施工中建築",
 "施工中屋宇"
 ],
+"building/cowshed":[
+"牛棚",
+"牛舍"
+],
 "building/detached":[
 "獨立式房屋",
 "獨立式房子",
@@ -1385,6 +1406,10 @@
 "清真寺建築",
 "清真寺大廈"
 ],
+"building/office":[
+"辦公大樓",
+"辦公室建築物"
+],
 "building/pavilion":[
 "亭樓"
 ],
@@ -1438,6 +1463,9 @@
 ],
 "building/static_caravan":[
 "固定的拖掛式房車"
+],
+"building/sty":[
+"豬圈"
 ],
 "building/temple":[
 "寺廟建築物",
@@ -1567,10 +1595,10 @@
 "吹玻璃"
 ],
 "craft/handicraft":[
-"手工藝"
+"手工藝品工作區"
 ],
 "craft/hvac":[
-"空調工程"
+"暖通空調工作區"
 ],
 "craft/insulator":[
 "隔熱工程"
@@ -1586,7 +1614,7 @@
 "鎖匠"
 ],
 "craft/metal_construction":[
-"鐵工工程"
+"金工"
 ],
 "craft/painter":[
 "油漆工程"
@@ -1758,6 +1786,9 @@
 "entrance/emergency":[
 "緊急出口"
 ],
+"entrance/emergency_ward_entrance":[
+"急診室入口"
+],
 "ford":[
 "淺灘"
 ],
@@ -1824,6 +1855,10 @@
 "healthcare/counselling":[
 "諮詢中心"
 ],
+"healthcare/dentist/orthodontics":[
+"齒顎矯正師",
+"齒顎矯正醫生"
+],
 "healthcare/hospice":[
 "安養院"
 ],
@@ -1869,7 +1904,7 @@
 "公車站"
 ],
 "highway/construction":[
-"道路封閉"
+"封閉道路"
 ],
 "highway/corridor":[
 "室內走廊",
@@ -2044,6 +2079,9 @@
 ],
 "highway/road":[
 "未知種類的道路"
+],
+"highway/road/bridge":[
+"未知路橋"
 ],
 "highway/secondary":[
 "二級道路",
@@ -2707,6 +2745,9 @@
 "leisure/track/running":[
 "跑道"
 ],
+"leisure/trampoline_park":[
+"彈簧床公園"
+],
 "leisure/water_park":[
 "水上公園",
 "水上樂園",
@@ -2757,11 +2798,15 @@
 "伐木林",
 "人工林"
 ],
+"man_made/courtyard":[
+"天井",
+"庭院"
+],
 "man_made/crane":[
 "起重機"
 ],
 "man_made/cross":[
-"峰頂十字架"
+"十字架"
 ],
 "man_made/cutline":[
 "山林分界線"
@@ -2780,6 +2825,9 @@
 "man_made/gasometer":[
 "煤氣鼓",
 "煤氣筒"
+],
+"man_made/goods_conveyor":[
+"貨物輸送機"
 ],
 "man_made/groyne":[
 "防波堤"
@@ -2865,6 +2913,9 @@
 ],
 "man_made/pumping_station":[
 "抽水站"
+],
+"man_made/reservoir_covered":[
+"有蓋水庫"
 ],
 "man_made/silo":[
 "筒倉",
@@ -3428,7 +3479,8 @@
 "籃子鞦韆"
 ],
 "playground/climbing_frame":[
-"攀爬架"
+"攀爬架",
+"玩攀爬架"
 ],
 "playground/cushion":[
 "彈力靠墊"
@@ -3443,7 +3495,10 @@
 "旋轉輪"
 ],
 "playground/sandpit":[
-"沙坑"
+"沙盒",
+"沙箱",
+"玩沙盒",
+"玩沙箱"
 ],
 "playground/seesaw":[
 "蹺蹺板"
@@ -3458,7 +3513,8 @@
 "鞦韆"
 ],
 "playground/zipwire":[
-"Zip Wire"
+"玩拉鍊線",
+"拉鍊線"
 ],
 "point":[
 "點"
@@ -3620,8 +3676,7 @@
 "轉運站"
 ],
 "public_transport/station_ferry":[
-"船運站",
-"渡輪站"
+"渡輪碼頭"
 ],
 "public_transport/station_light_rail":[
 "輕軌車站",
@@ -3989,6 +4044,9 @@
 "咖啡店",
 "咖啡館"
 ],
+"shop/collector":[
+"收藏品商店"
+],
 "shop/computer":[
 "電腦店"
 ],
@@ -4158,6 +4216,9 @@
 "shop/hobby":[
 "嗜好商店"
 ],
+"shop/household_linen":[
+"家用亞麻布商店"
+],
 "shop/houseware":[
 "家居用品店",
 "家庭用品店"
@@ -4227,6 +4288,9 @@
 "手機店",
 "行動通訊店"
 ],
+"shop/model":[
+"模型店"
+],
 "shop/money_lender":[
 "放款人",
 "地下錢莊",
@@ -4263,10 +4327,6 @@
 ],
 "shop/optician":[
 "眼鏡行"
-],
-"shop/organic":[
-"有機產品店",
-"有機食品店"
 ],
 "shop/outdoor":[
 "戶外用具店",
@@ -4344,6 +4404,9 @@
 "shop/sewing":[
 "縫紉用品店"
 ],
+"shop/shoe_repair":[
+"修鞋店"
+],
 "shop/shoes":[
 "鞋店"
 ],
@@ -4363,6 +4426,9 @@
 "shop/supermarket":[
 "超級市場",
 "超市"
+],
+"shop/supermarket/organic":[
+"有機超市"
 ],
 "shop/swimming_pool":[
 "泳池用品商店"
@@ -4412,6 +4478,9 @@
 ],
 "shop/travel_agency":[
 "旅行社"
+],
+"shop/trophy":[
+"獎盃商店"
 ],
 "shop/tyres":[
 "輪胎店"
@@ -4689,6 +4758,9 @@
 ],
 "type/connectivity":[
 "車道連通"
+],
+"type/destination_sign":[
+"目的地標誌"
 ],
 "type/enforcement":[
 "強制"

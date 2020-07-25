@@ -38,10 +38,6 @@
 "aeroway/aerodrome":[
 "Havaalanı"
 ],
-"aeroway/apron":[
-"Hangar Önü",
-"Uçak Park Alanı"
-],
 "aeroway/gate":[
 "Kapı"
 ],
@@ -207,9 +203,6 @@
 "amenity/fast_food":[
 "Fast Food",
 "Hazır Yiyecek"
-],
-"amenity/ferry_terminal":[
-"Feribot Terminali"
 ],
 "amenity/fire_station":[
 "İtfaiye"
@@ -847,12 +840,6 @@
 "craft/glaziery":[
 "Camcı"
 ],
-"craft/handicraft":[
-"El Sanatı"
-],
-"craft/hvac":[
-"Isıtma - Soğutma"
-],
 "craft/insulator":[
 "Kaloriferci"
 ],
@@ -861,9 +848,6 @@
 ],
 "craft/locksmith":[
 "Anahtarcı"
-],
-"craft/metal_construction":[
-"Metal Yapı"
 ],
 "craft/painter":[
 "Boyacı"
@@ -2046,10 +2030,6 @@
 "Otobüs İstasyonu",
 "Otobüs Terminali"
 ],
-"public_transport/station_ferry":[
-"Feribot Terminali",
-"Feribot İstasyonu"
-],
 "public_transport/station_light_rail":[
 "Hafif Raylı Taşıma İstasyonu",
 "Raybüs Terminali",
@@ -2404,9 +2384,6 @@
 "shop/optician":[
 "Gözlükçü",
 "Optik"
-],
-"shop/organic":[
-"Organik Ürün Mağazası"
 ],
 "shop/outdoor":[
 "Kamp Malzemeleri Mağazası"

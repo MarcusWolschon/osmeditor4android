@@ -76,11 +76,6 @@
 "Repülőtér",
 "reptér"
 ],
-"aeroway/apron":[
-"előtér",
-"Forgalmi előtér",
-"repülő parkoló"
-],
 "aeroway/gate":[
 "Repülőtéri kapu",
 "reptérkapu",
@@ -462,9 +457,6 @@
 ],
 "amenity/fast_food/sandwich":[
 "Szendvics gyorsétterem"
-],
-"amenity/ferry_terminal":[
-"Kompállomás / Terminál"
 ],
 "amenity/fire_station":[
 "tűzoltólaktanya",
@@ -1667,9 +1659,6 @@
 "Műhely",
 "műhely"
 ],
-"craft/agricultural_engines":[
-"Mezőgazdasági-gép szerelő"
-],
 "craft/basket_maker":[
 "Kosárfonó"
 ],
@@ -1761,17 +1750,6 @@
 "üvegjáték",
 "öblösüveggyártás"
 ],
-"craft/handicraft":[
-"Kézművestermék-készítő",
-"iparművész"
-],
-"craft/hvac":[
-"Fűtés",
-"épületgépészet",
-"Fűtés-, szellőztetés- és légkondicionálás-szerelő",
-"szellőzés",
-"légkondicionálás"
-],
 "craft/insulator":[
 "Szigetelő",
 "Épület-hőszigetelő"
@@ -1788,15 +1766,6 @@
 ],
 "craft/locksmith":[
 "Lakatos"
-],
-"craft/metal_construction":[
-"csavar gyártása",
-"Fémiparos",
-"Huzaltermék gyártása",
-"fémmegmunkálás",
-"szerszámgyártás",
-"acél tárolóeszköz gyártása",
-"kötőelem"
 ],
 "craft/painter":[
 "Festő",
@@ -2146,9 +2115,6 @@
 "highway/bus_stop":[
 "Buszmegálló"
 ],
-"highway/construction":[
-"Lezárt út"
-],
 "highway/corridor":[
 "Beltéri folyosó",
 "beltéri folyosó"
@@ -2394,9 +2360,9 @@
 "Bekötőút felhajtó"
 ],
 "highway/track":[
-"Nem karbantartott mezőgazdasági/erdészeti út",
 "tanyasi út",
 "földút",
+"Mezőgazdasági/erdészeti út",
 "erdészeti út",
 "mezőgazdasági út"
 ],
@@ -3053,9 +3019,6 @@
 "teher",
 "daru"
 ],
-"man_made/cross":[
-"Hegycsúcson lévő kereszt"
-],
 "man_made/cutline":[
 "Irtás",
 "Nyiladék"
@@ -3208,8 +3171,8 @@
 "Telefonpózna"
 ],
 "man_made/wastewater_plant":[
-"Szennyvíztelep",
-"Szennyvíztisztító üzem"
+"Szennyvíztisztító üzem",
+"Szennyvíztisztító telep"
 ],
 "man_made/water_tower":[
 "Víztorony"
@@ -3599,9 +3562,10 @@
 "helynév"
 ],
 "place/neighbourhood":[
+"lakópark",
 "Környék",
-"környék",
-"negyed"
+"szomszédság",
+"környék"
 ],
 "place/plot":[
 "Parcella"
@@ -3640,11 +3604,6 @@
 "kosár",
 "Kosárhinta"
 ],
-"playground/climbing_frame":[
-"játék",
-"mászóka",
-"Mászóka"
-],
 "playground/cushion":[
 "párna",
 "felfúj",
@@ -3656,11 +3615,6 @@
 "játék",
 "körforgó",
 "körhinta"
-],
-"playground/sandpit":[
-"Homokozó",
-"játék",
-"homok"
 ],
 "playground/seesaw":[
 "hinta",
@@ -3682,11 +3636,6 @@
 "playground/swing":[
 "hinta",
 "Hinta"
-],
-"playground/zipwire":[
-"csúszda",
-"kötél",
-"Kötélcsúszda"
 ],
 "point":[
 "Pont"
@@ -3827,11 +3776,6 @@
 "public_transport/station_bus":[
 "Buszvégállomás",
 "Buszpályaudvar"
-],
-"public_transport/station_ferry":[
-"komp",
-"kompkikötő",
-"Kompállomás / pályaudvar"
 ],
 "public_transport/station_light_rail":[
 "HÉV megálló",
@@ -4547,14 +4491,6 @@
 "kontaktlencse",
 "optikus",
 "Szemüveg"
-],
-"shop/organic":[
-"biominőségű és egészséges táplálékok boltja",
-"bio és organikus ételek és áruk boltja",
-"Natura reformtáplálkozási szaküzlet",
-"Natura bolt",
-"Bio és natúr élelmiszer bolt",
-"Biobolt"
 ],
 "shop/outdoor":[
 "outdoor",

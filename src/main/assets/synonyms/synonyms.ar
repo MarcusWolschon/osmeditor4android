@@ -34,9 +34,6 @@
 "aeroway/aerodrome":[
 "مطار"
 ],
-"aeroway/apron":[
-"ساحة المطار"
-],
 "aeroway/gate":[
 "بوابة المطار"
 ],
@@ -270,9 +267,6 @@
 "مقصف",
 "عشاء",
 "طعام"
-],
-"amenity/ferry_terminal":[
-"المحطة البحرية"
 ],
 "amenity/fire_station":[
 "محطة إطفاء",
@@ -936,14 +930,8 @@
 "craft/gardener":[
 "بستاني"
 ],
-"craft/handicraft":[
-"حرفي"
-],
 "craft/locksmith":[
 "قفال - صانع أقفال"
-],
-"craft/metal_construction":[
-"البناء المعدني"
 ],
 "craft/painter":[
 "دهّان"
@@ -2034,9 +2022,6 @@
 "public_transport/station_bus":[
 "محطة الحافلات"
 ],
-"public_transport/station_ferry":[
-"محطة عبّارة"
-],
 "public_transport/station_light_rail":[
 "محطة سكة حديد خفيفة"
 ],
@@ -2440,10 +2425,6 @@
 "shop/optician":[
 "محل بيع نظارات",
 "متجر نظارات"
-],
-"shop/organic":[
-"منتجات عضوية",
-"متجر المنتجات العضوية"
 ],
 "shop/outdoor":[
 "متجر ملابس ومعدات الأنشطة في الهواء الطلق"

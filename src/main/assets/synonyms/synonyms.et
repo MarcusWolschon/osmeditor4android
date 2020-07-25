@@ -15,6 +15,10 @@
 "reklaamsilt",
 "reklaamisammas"
 ],
+"aerialway/gondola":[
+"Gondeltõstuk",
+"suusalift"
+],
 "aeroway/aerodrome":[
 "Lennujaam"
 ],
@@ -793,15 +797,6 @@
 "Klaasissepp",
 "klaasimesiter"
 ],
-"craft/handicraft":[
-"Käsitöö"
-],
-"craft/hvac":[
-"Ventilatsioon",
-"sisekliima",
-"kliima",
-"kütteseadmed"
-],
 "craft/insulator":[
 "isolatsioon",
 "isoleerija",
@@ -814,10 +809,6 @@
 ],
 "craft/locksmith":[
 "Lukuabi"
-],
-"craft/metal_construction":[
-"Metallikoda",
-"metallitööd"
 ],
 "craft/painter":[
 "värvija",
@@ -953,11 +944,6 @@
 "highway/bus_stop":[
 "Bussipeatus"
 ],
-"highway/construction":[
-"teesulg",
-"teeehitus",
-"Suletud tee"
-],
 "highway/corridor":[
 "koridor",
 "Sisekoridor"
@@ -1027,6 +1013,10 @@
 ],
 "highway/path":[
 "Rada"
+],
+"highway/path/boardwalk":[
+"puidust tee",
+"Laudtee"
 ],
 "highway/primary":[
 "maantee",
@@ -1403,6 +1393,15 @@
 "leisure/garden":[
 "Aed"
 ],
+"leisure/garden/botanical":[
+"Botaanikaaed"
+],
+"leisure/garden/community":[
+"linnaaed",
+"Kogukondlik aed",
+"ühiskasutatav aed",
+"ühisaed"
+],
 "leisure/golf_course":[
 "Golfiväljak"
 ],
@@ -1752,6 +1751,10 @@
 "kivid",
 "klibu"
 ],
+"natural/shrub":[
+"Põõsas",
+"puhmas"
+],
 "natural/spring":[
 "vesi",
 "veeallikas",
@@ -1866,6 +1869,9 @@
 "sõlm",
 "Punkt"
 ],
+"power/cable":[
+"Elektrikaabel"
+],
 "power/generator":[
 "Elektrigeneraator",
 "generaator"
@@ -1923,15 +1929,42 @@
 "Kasutusest väljasolev raudtee",
 "raudtee"
 ],
+"railway/funicular":[
+"Köisraudtee",
+"furnikulaar",
+"funikulöör"
+],
 "railway/level_crossing":[
 "ülesõit",
 "ristumine",
 "rongi",
 "Raudtee-ülesõidukoht"
 ],
+"railway/light_rail":[
+"Kergraudtee"
+],
+"railway/monorail":[
+"Monorelss"
+],
+"railway/narrow_gauge":[
+"Kitsarööpaline raudtee"
+],
+"railway/rail":[
+"Raudtee",
+"rööpad",
+"rongitee",
+"rööbastee"
+],
+"railway/subway":[
+"Metrootee",
+"maaalune raudtee"
+],
 "railway/subway_entrance":[
 "Metroo sissepääs",
 "sissepääs"
+],
+"railway/tram":[
+"Trammitee"
 ],
 "relation":[
 "seos",
@@ -2356,12 +2389,6 @@
 "prillid",
 "läätsed"
 ],
-"shop/organic":[
-"Mahetoodete kauplus",
-"mahekaup",
-"mahepõllunduskaup",
-"ökoloogiline"
-],
 "shop/outdoor":[
 "matkamine",
 "Matkatarvete kauplus",
@@ -2547,6 +2574,11 @@
 "Andmekeskus",
 "serveri",
 "datacenter"
+],
+"telecom/exchange":[
+"Telekomisõlmpunkt",
+"telefonisõlm",
+"sidesõlm"
 ],
 "tourism/alpine_hut":[
 "Alpimaja"
@@ -2822,6 +2854,9 @@
 ],
 "type/route/tram":[
 "Trammimarsruut"
+],
+"type/route/trolleybus":[
+"Trollimarsruut"
 ],
 "type/route_master":[
 "koondmarsruut",

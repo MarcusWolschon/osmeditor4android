@@ -173,9 +173,6 @@
 "Ātrās ēdināšanas iestāde",
 "restorāns"
 ],
-"amenity/ferry_terminal":[
-"Prāmju stacija / Terminālis"
-],
 "amenity/fire_station":[
 "Ugunsdzēsēju stacija",
 "pažarnieki",
@@ -1297,9 +1294,6 @@
 ],
 "place/village":[
 "Ciems"
-],
-"playground/sandpit":[
-"Smilšukaste"
 ],
 "playground/slide":[
 "Slidkalniņš"
