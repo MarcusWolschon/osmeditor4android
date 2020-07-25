@@ -288,7 +288,7 @@ enableFreeform.group = 'emulators'
 enableFreeform.description = 'turn on free form window support'
 
 task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
-    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
+    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/androidx.test.runner.AndroidJUnitRunner'
 }
 
 task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
@@ -325,7 +325,7 @@ afterEvaluate{
             description = "Run a single test method on device (configuration needs to be edited) for the ${flavor.name} flavor"
             def toRun = "de.blau.android.services.MapTileProviderServiceTest"
             // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
-            commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
+            commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/androidx.test.runner.AndroidJUnitRunner"
             finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
         }
     }
@@ -353,7 +353,7 @@ afterEvaluate{
                         }
                         description = "Run test " + toRun
                         // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
-                        commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
+                        commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/androidx.test.runner.AndroidJUnitRunner"
                         finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
                     }
                 }
