@@ -38,9 +38,9 @@ public class CoordinatesOrOLC {
     protected static final String DEBUG_TAG = "CoordinatesOrOLC";
 
     private static final Pattern OLC_SHORT = Pattern.compile("(^|\\s)([23456789CFGHJMPQRVWX]{4,6}\\+[23456789CFGHJMPQRVWX]{2,3})\\s*(.*)$",
-            Pattern.CASE_INSENSITIVE);
+            Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
     private static final Pattern OLC_FULL  = Pattern
-            .compile("(^|\\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\\+[23456789CFGHJMPQRVWX]{2,3})(\\s|$)", Pattern.CASE_INSENSITIVE);
+            .compile("(^|\\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\\+[23456789CFGHJMPQRVWX]{2,3})(\\s|$)", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
     private static AppCompatDialog dialog;
 
