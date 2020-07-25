@@ -226,6 +226,7 @@ public class TestUtils {
     public static void clickAt(@NonNull UiDevice device, float x, float y) {
         System.out.println("clicking at " + x + " " + y);
         device.click((int) x, (int) y);
+        sleep(100);
     }
 
     /**
