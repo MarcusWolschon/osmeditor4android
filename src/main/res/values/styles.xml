@@ -106,6 +106,7 @@
 		<item name="menu_save">@drawable/ic_action_save_holo_dark</item>
 		<item name="menu_rotate">@drawable/ic_action_rotate_right_holo_dark</item>
 		<item name="menu_transfer">@drawable/ic_action_import_export_holo_dark</item>
+        <item name="upload">@drawable/upload_dark</item>
 		<item name="menu_merge">@drawable/ic_action_merge_holo_dark</item>
         <item name="menu_unjoin">@drawable/ic_action_split_holo_dark</item>
 		<item name="menu_split">@drawable/ic_content_cut_dark_36px</item>
@@ -175,6 +176,7 @@
 		<item name="menu_save">@drawable/ic_action_save_holo_light</item>
 		<item name="menu_rotate">@drawable/ic_action_rotate_right_holo_light</item>
 		<item name="menu_transfer">@drawable/ic_action_import_export_holo_light</item>
+        <item name="upload">@drawable/upload_light</item>
 		<item name="menu_merge">@drawable/ic_action_merge_holo_light</item>
         <item name="menu_unjoin">@drawable/ic_action_split_holo_light</item>
 		<item name="menu_split">@drawable/ic_content_cut_light_36px</item>

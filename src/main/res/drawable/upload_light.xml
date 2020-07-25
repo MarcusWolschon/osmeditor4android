@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="?attr/menu_transfer"
+        android:drawable="@drawable/ic_action_import_export_holo_light"
         android:gravity="center" />
     
     <!-- set a place holder Drawable so android:drawable isn't null -->
     <item
-        android:id="@+id/ic_badge"
-        android:drawable="@drawable/ic_action_download_holo_dark" />
+        android:drawable="@drawable/ic_action_download_holo_dark"
+        android:id="@+id/ic_badge" />
 </layer-list>
