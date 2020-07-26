@@ -14,12 +14,12 @@ import androidx.annotation.Nullable;
  *
  */
 public class RelationMember implements Serializable {
+    private static final long serialVersionUID = 6L;
 
-    private static final long serialVersionUID = 4L;
-    String                    type             = null;
-    long                      ref              = Long.MIN_VALUE;
-    String                    role             = null;
-    private OsmElement        element          = null;
+    final String       type;
+    long               ref;
+    String             role    = null;
+    private OsmElement element = null;
 
     /**
      * Constructor for members that have not been downloaded
@@ -43,6 +43,8 @@ public class RelationMember implements Serializable {
     public RelationMember(@Nullable final String r, @NonNull final OsmElement e) {
         role = r;
         element = e;
+        type = e.getName();
+        ref = e.getOsmId();
     }
 
     /**
@@ -51,12 +53,10 @@ public class RelationMember implements Serializable {
      * @param rm a RelationMember instance
      */
     public RelationMember(@NonNull final RelationMember rm) {
-        if (rm.element == null) {
-            type = rm.type;
-            ref = rm.ref;
-            role = rm.role;
-        } else {
-            role = rm.role;
+        type = rm.type;
+        ref = rm.ref;
+        role = rm.role;
+        if (rm.element != null) {
             element = rm.element;
         }
     }
@@ -67,10 +67,7 @@ public class RelationMember implements Serializable {
      * @return the type (NODE, WAY, RELATION) as a String
      */
     @NonNull
-    public synchronized String getType() {
-        if (element != null) {
-            return element.getName();
-        }
+    public String getType() {
         return type;
     }
 
@@ -79,10 +76,7 @@ public class RelationMember implements Serializable {
      * 
      * @return the OSM id
      */
-    public synchronized long getRef() {
-        if (element != null) {
-            return element.getOsmId();
-        }
+    public long getRef() {
         return ref;
     }
 

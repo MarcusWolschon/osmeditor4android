@@ -3103,21 +3103,29 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             final List<RelationMember> members = r.getMembers();
             if (members != null) {
                 for (RelationMember rm : members) {
-                    if (rm.getType().equals(Node.NAME)) {
-                        Node n = nodeIndex.get(rm.getRef());
+                    String type = rm.getType();
+                    final long ref = rm.getRef();
+                    switch (type) {
+                    case Node.NAME:
+                        Node n = nodeIndex.get(ref);
                         if (n != null) {
                             n.clearParentRelations();
                         }
-                    } else if (rm.getType().equals(Way.NAME)) {
-                        Way w = wayIndex.get(rm.getRef());
+                        break;
+                    case Way.NAME:
+                        Way w = wayIndex.get(ref);
                         if (w != null) {
                             w.clearParentRelations();
                         }
-                    } else if (rm.getType().equals(Relation.NAME)) {
-                        Relation r2 = relationIndex.get(rm.getRef());
+                        break;
+                    case Relation.NAME:
+                        Relation r2 = relationIndex.get(ref);
                         if (r2 != null) {
                             r2.clearParentRelations();
                         }
+                        break;
+                    default:
+                        Log.e(DEBUG_TAG, "Unknown member type " + type + " for relation " + r.getOsmId());
                     }
                 }
             } else {
