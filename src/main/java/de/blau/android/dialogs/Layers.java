@@ -138,6 +138,15 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
 
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+        // potentially the imagery layer lists don't exist yet, force create them now
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                TileLayerSource.get(getContext(), TileLayerSource.LAYER_MAPNIK, true);
+                return null;
+            }
+        }.execute();
+
         AppCompatDialog dialog = new AppCompatDialog(getActivity());
         View layout = createView(null);
         // ideally the following code would be included in the layer classes, but no brilliant ideas on how to do this
