@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.0.0-4: Make relation pruning more robust against race conditions.
+
 15.0.0-3: Force create imagery lists in layer dialog as they might not exist yet.
 
 15.0.0-2: Update translations, imagery, presets, and synonyms, fix long click in locked mode, data style name translations, prune relations when pruning, update opening hours parser and fragment, add gpx and geojson intent filter based on mime type, allow setting 0 for GPS interval and distance, fix styling of HelpViewer in dark mode, various other bug fixes.
