@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
@@ -30,13 +32,18 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 class MapillaryLoader implements PhotoLoader {
+
     protected static final String DEBUG_TAG = MapillaryLoader.class.getSimpleName();
 
     private static final long serialVersionUID = 1L;
 
+    private static final int IMAGERY_LOAD_THREADS = 3;
+
     final File   cacheDir;
     final long   cacheSize;
     final String imageUrl;
+
+    private transient ThreadPoolExecutor mThreadPool;
 
     /**
      * Construct a new loader
@@ -55,53 +62,50 @@ class MapillaryLoader implements PhotoLoader {
     public void load(SubsamplingScaleImageView view, String key) {
         File imageFile = new File(cacheDir, key + ".jpg");
         if (!imageFile.exists()) { // download
-            new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    Log.d(DEBUG_TAG, "querying server for " + key);
-                    try {
-                        URL url = new URL(imageUrl + key + "/thumb-2048.jpg");
-                        Log.d(DEBUG_TAG, "query: " + url.toString());
+            if (mThreadPool == null) {
+                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(IMAGERY_LOAD_THREADS);
+            }
+            mThreadPool.execute(() -> {
+                Log.d(DEBUG_TAG, "querying server for " + key);
+                try {
+                    URL url = new URL(imageUrl + key + "/thumb-2048.jpg");
+                    Log.d(DEBUG_TAG, "query: " + url.toString());
 
-                        Request request = new Request.Builder().url(url).build();
-                        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
-                                .readTimeout(20000, TimeUnit.MILLISECONDS).build();
-                        Call mapillaryCall = client.newCall(request);
-                        Response mapillaryCallResponse = mapillaryCall.execute();
-                        if (mapillaryCallResponse.isSuccessful()) {
-                            ResponseBody responseBody = mapillaryCallResponse.body();
-                            try (InputStream inputStream = responseBody.byteStream()) {
-                                if (inputStream != null) {
-                                    try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
-                                        byte[] buffer = new byte[1024];
-                                        int bufferLength = 0;
-                                        while ((bufferLength = inputStream.read(buffer)) > 0) {
-                                            fileOutput.write(buffer, 0, bufferLength);
-                                        }
+                    Request request = new Request.Builder().url(url).build();
+                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
+                            .readTimeout(20000, TimeUnit.MILLISECONDS).build();
+                    Call mapillaryCall = client.newCall(request);
+                    Response mapillaryCallResponse = mapillaryCall.execute();
+                    if (mapillaryCallResponse.isSuccessful()) {
+                        ResponseBody responseBody = mapillaryCallResponse.body();
+                        try (InputStream inputStream = responseBody.byteStream()) {
+                            if (inputStream != null) {
+                                try (FileOutputStream fileOutput = new FileOutputStream(imageFile)) {
+                                    byte[] buffer = new byte[1024];
+                                    int bufferLength = 0;
+                                    while ((bufferLength = inputStream.read(buffer)) > 0) {
+                                        fileOutput.write(buffer, 0, bufferLength);
                                     }
                                 }
                             }
-                        } else {
-                            Log.e(DEBUG_TAG, "Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
                         }
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, e.getMessage());
+                    } else {
+                        Log.e(DEBUG_TAG, "Download of " + key + " failed with " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
                     }
-                    return null;
+                } catch (IOException e) {
+                    Log.e(DEBUG_TAG, e.getMessage());
+                    return;
                 }
 
-                @Override
-                protected void onPostExecute(Void param) {
-                    setImage(view, imageFile);
-                    new AsyncTask<Void, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(Void... arg0) {
-                            FileUtil.pruneCache(cacheDir, cacheSize);
-                            return null;
-                        }
-                    }.execute();
-                }
-            }.execute();
+                setImage(view, imageFile);
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... arg0) {
+                        FileUtil.pruneCache(cacheDir, cacheSize);
+                        return null;
+                    }
+                }.execute();
+            });
         } else {
             setImage(view, imageFile);
         }
@@ -114,9 +118,11 @@ class MapillaryLoader implements PhotoLoader {
      * @param imageFile the file
      */
     void setImage(@NonNull SubsamplingScaleImageView view, @NonNull File imageFile) {
-        view.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_INSIDE);
-        view.setOrientation(SubsamplingScaleImageView.ORIENTATION_USE_EXIF);
-        view.setImage(ImageSource.uri(Uri.parse("file:" + imageFile.getAbsolutePath())));
+        view.post(() -> { // needs to run on the ui thread
+            view.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_INSIDE);
+            view.setOrientation(SubsamplingScaleImageView.ORIENTATION_USE_EXIF);
+            view.setImage(ImageSource.uri(Uri.parse("file:" + imageFile.getAbsolutePath())));
+        });
     }
 
     @Override

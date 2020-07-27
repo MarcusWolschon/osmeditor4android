@@ -78,6 +78,8 @@ public class MapOverlay extends StyleableLayer
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
+    private static final int SEQUENCE_LOAD_THREADS = 3;
+
     /**
      * when reading state lockout writing/reading
      */
@@ -126,7 +128,7 @@ public class MapOverlay extends StyleableLayer
      */
     private transient Runnable download = () -> {
         if (mThreadPool == null) {
-            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(SEQUENCE_LOAD_THREADS);
         }
         List<BoundingBox> currentBoxes = getBoundingBoxes();
         if (currentBoxes == null) {
