@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,6 +48,7 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.photos.MapillaryViewerActivity;
 import de.blau.android.photos.PhotoViewerFragment;
@@ -512,7 +513,7 @@ public class MapOverlay extends StyleableLayer
                 ResponseBody responseBody = mapillaryCallResponse.body();
                 StringBuilder sb = new StringBuilder();
                 try (InputStream inputStream = responseBody.byteStream();
-                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)))) {
                     int cp;
                     while ((cp = rd.read()) != -1) {
                         sb.append((char) cp);
