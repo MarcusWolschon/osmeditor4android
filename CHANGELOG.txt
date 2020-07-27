@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.0.0-5: Revert upgrade to signpost 2.0.0 as this is incompatible with pre Android 26 and will crash on signing, use Threads instead of AsyncTask for Mapillary performance improvement.
+
 15.0.0-4: Make relation pruning more robust against race conditions.
 
 15.0.0-3: Force create imagery lists in layer dialog as they might not exist yet.
