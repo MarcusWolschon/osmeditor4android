@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,7 +48,6 @@ import de.blau.android.layer.LayerType;
 import de.blau.android.layer.PruneableInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.photos.MapillaryViewerActivity;
 import de.blau.android.photos.PhotoViewerFragment;
@@ -137,10 +136,7 @@ public class MapOverlay extends StyleableLayer
         }
         List<BoundingBox> bbList = new ArrayList<>(currentBoxes);
         ViewBox box = new ViewBox(map.getViewBox());
-        box.scale(1.2); // make
-                        // sides
-                        // 20%
-                        // larger
+        box.scale(1.2); // make sides 20% larger
         box.ensureMinumumSize(minDownloadSize); // enforce a minimum size
         List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, box);
         for (BoundingBox b : bboxes) {
@@ -149,17 +145,13 @@ public class MapOverlay extends StyleableLayer
                 continue;
             }
             addBoundingBox(b);
-            mThreadPool.execute(() -> internalDownloadBox(map.getContext(), b, new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
+            mThreadPool.execute(() -> {
+                if (internalDownloadBox(b)) {
                     map.postInvalidate();
-                }
-
-                @Override
-                public void onError() {
+                } else {
                     deleteBoundingBox(b);
                 }
-            }));
+            });
         }
     };
 
@@ -477,90 +469,77 @@ public class MapOverlay extends StyleableLayer
     @Override
     public void downloadBox(@NonNull final Context context, @NonNull final BoundingBox box, @Nullable final PostAsyncActionHandler handler) {
         addBoundingBox(new BoundingBox(box)); // need to copy box as it might be changed elsewhere
-        internalDownloadBox(context, box, new PostAsyncActionHandler() {
-            @Override
-            public void onSuccess() {
-                if (handler != null) {
-                    handler.onSuccess();
-                }
-            }
-
-            @Override
-            public void onError() {
-                deleteBoundingBox(box);
-                if (handler != null) {
-                    handler.onError();
-                }
-            }
-        });
-    }
-
-    /**
-     * Internal version of downloadBox to allow chaining of handlers
-     * 
-     * @param context an Android Context
-     * @param box the BoundingBox to download
-     * @param handler a callback to use after the download has completed
-     */
-    public void internalDownloadBox(@NonNull final Context context, @NonNull final BoundingBox box, @Nullable final PostAsyncActionHandler handler) {
         new AsyncTask<Void, Void, Boolean>() {
+
             @Override
             protected Boolean doInBackground(Void... params) {
-                try {
-                    URL url = new URL(mapillaryApiUrl + "sequences?client_id=" + apiKey + "&bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + ","
-                            + box.getRight() / 1E7d + "," + box.getTop() / 1E7d);
-                    Log.d(DEBUG_TAG, "query: " + url.toString());
-
-                    Request request = new Request.Builder().url(url).build();
-                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
-                            .readTimeout(20000, TimeUnit.MILLISECONDS).build();
-                    Call mapillaryCall = client.newCall(request);
-                    Response mapillaryCallResponse = mapillaryCall.execute();
-                    if (mapillaryCallResponse.isSuccessful()) {
-                        ResponseBody responseBody = mapillaryCallResponse.body();
-                        StringBuilder sb = new StringBuilder();
-                        try (InputStream inputStream = responseBody.byteStream();
-                                BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)))) {
-                            int cp;
-                            while ((cp = rd.read()) != -1) {
-                                sb.append((char) cp);
-                            }
-                        }
-                        FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
-                        synchronized (MapOverlay.this) {
-                            boolean inserted = false;
-                            for (Feature f : fc.features()) {
-                                MapillarySequence mo = new MapillarySequence(f);
-                                if (!contains(mo)) {
-                                    data.insert(mo);
-                                    inserted = true;
-                                }
-                            }
-                            if (inserted) {
-                                dirty();
-                            }
-                        }
-                        return true;
-                    } else {
-                        Log.e(DEBUG_TAG, "Sequence download failed " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
-                    }
-                } catch (Exception ex) {
-                    Log.e(DEBUG_TAG, ex.getMessage());
-                }
-                return false;
+                return internalDownloadBox(box);
             }
 
             @Override
             protected void onPostExecute(Boolean param) {
-                if (handler != null) {
-                    if (Boolean.TRUE.equals(param)) {
+                if (Boolean.TRUE.equals(param)) {
+                    if (handler != null) {
                         handler.onSuccess();
-                    } else {
+                    }
+                } else {
+                    if (handler != null) {
                         handler.onError();
                     }
+                    deleteBoundingBox(box);
                 }
             }
         }.execute();
+    }
+
+    /**
+     * Internal version of downloadBox
+     * 
+     * @param box the BoundingBox to download
+     */
+    private boolean internalDownloadBox(@NonNull final BoundingBox box) {
+        try {
+            URL url = new URL(mapillaryApiUrl + "sequences?client_id=" + apiKey + "&bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + ","
+                    + box.getRight() / 1E7d + "," + box.getTop() / 1E7d);
+            Log.d(DEBUG_TAG, "query: " + url.toString());
+
+            Request request = new Request.Builder().url(url).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(10000, TimeUnit.MILLISECONDS).readTimeout(20000, TimeUnit.MILLISECONDS)
+                    .build();
+            Call mapillaryCall = client.newCall(request);
+            Response mapillaryCallResponse = mapillaryCall.execute();
+            if (mapillaryCallResponse.isSuccessful()) {
+                ResponseBody responseBody = mapillaryCallResponse.body();
+                StringBuilder sb = new StringBuilder();
+                try (InputStream inputStream = responseBody.byteStream();
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                    int cp;
+                    while ((cp = rd.read()) != -1) {
+                        sb.append((char) cp);
+                    }
+                }
+                FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
+                synchronized (MapOverlay.this) {
+                    boolean inserted = false;
+                    for (Feature f : fc.features()) {
+                        MapillarySequence mo = new MapillarySequence(f);
+                        if (!contains(mo)) {
+                            data.insert(mo);
+                            inserted = true;
+                        }
+                    }
+                    if (inserted) {
+                        dirty();
+                    }
+                }
+                return true;
+            } else {
+                Log.e(DEBUG_TAG, "Sequence download failed " + mapillaryCallResponse.code() + " " + mapillaryCallResponse.message());
+            }
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "Got exception " + ex.getMessage());
+        }
+        return false;
     }
 
     /**
