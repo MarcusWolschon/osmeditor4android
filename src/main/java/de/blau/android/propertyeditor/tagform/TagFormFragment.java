@@ -219,38 +219,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     @Override
-    public void onDestroyView() {
-        // remove onFocusChangeListeners or else bad things might happen (at least with API 23)
-        ViewGroup v = (ViewGroup) getView();
-        if (v != null) {
-            loopViews(v);
-        }
-        super.onDestroyView();
-        Log.d(DEBUG_TAG, "onDestroyView");
-    }
-
-    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Log.d(DEBUG_TAG, "onConfigurationChanged");
         updateEditorFromText();
-    }
-
-    /**
-     * Recursively loop over the child Views of the ViewGroup and remove onFocusChangeListeners, might be worth it to
-     * make this more generic
-     * 
-     * @param viewGroup the ViewGroup
-     */
-    private void loopViews(@NonNull ViewGroup viewGroup) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View v = viewGroup.getChildAt(i);
-            if (v instanceof ViewGroup) {
-                this.loopViews((ViewGroup) v);
-            } else {
-                viewGroup.setOnFocusChangeListener(null);
-            }
-        }
     }
 
     /**

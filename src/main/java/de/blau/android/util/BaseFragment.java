@@ -6,11 +6,14 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 /**
  * Workaround deprecation of onAttach(Activity activity) See https://code.google.com/p/android/issues/detail?id=183358
+ * and some other issues
  * 
  * @author simon
  *
@@ -42,6 +45,34 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract void onAttachToContext(@NonNull Context context);
 
+    @Override
+    public void onDestroyView() {
+        // remove onFocusChangeListeners or else bad things might happen (at least with API 23)
+        ViewGroup v = (ViewGroup) getView();
+        if (v != null) {
+            loopViews(v);
+        }
+        super.onDestroyView();
+        Log.d(DEBUG_TAG, "onDestroyView");
+    }
+
+    /**
+     * Recursively loop over the child Views of the ViewGroup and remove onFocusChangeListeners, might be worth it to
+     * make this more generic
+     * 
+     * @param viewGroup the ViewGroup
+     */
+    private void loopViews(@NonNull ViewGroup viewGroup) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View v = viewGroup.getChildAt(i);
+            if (v instanceof ViewGroup) {
+                this.loopViews((ViewGroup) v);
+            } else {
+                viewGroup.setOnFocusChangeListener(null);
+            }
+        }
+    }
+  
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
