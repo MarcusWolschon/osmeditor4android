@@ -245,6 +245,7 @@
   <string name="oam_layer_title">תמונות רקע OAM</string>
   <string name="edit_layer_title">עריכת רשומת שכבה</string>
   <string name="add_layer_title">הוספת רשומת שכבה</string>
+  <string name="select_layer_title">בחירת שכבה</string>
   <string name="overlay">שכבה</string>
   <string name="coverage">כיסוי</string>
   <string name="coverage_top">עליון</string>
@@ -253,6 +254,10 @@
   <string name="coverage_bottom">תחתון</string>
   <string name="toast_invalid_box">תיבה תוחמת שגויה או חלקית</string>
   <string name="delete_layer">למחוק שכבה</string>
+  <string name="delete_endpoint">למחוק נקודת גישה?</string>
+  <string name="add_wms_endpoint_title">הוספת נקודת גישה WMS</string>
+  <string name="edit_wms_endpoint_title">עריכת נקודת גישה WMS</string>
+  <string name="add_imagery_from_wms_endpoint">הוספת תמונות רקע מ־WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">סגנון שכבה</string>
   <string name="layer_style_stroke_width">עובי קו מתאר</string>
@@ -262,6 +267,7 @@
   <string name="json_array_not_displayed">מערך JSON (לא מוצג)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">רשת</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">תמונות</string>
@@ -290,6 +296,8 @@
   <string name="photo_viewer_delete_title">מחיקת תמונה</string>
   <string name="photo_viewer_delete_button">מחיקה לצמיתות</string>
   <string name="photo_viewer_goto">מעבר לתמונה</string>
+  <string name="photo_viewer_label">מציג תמונות</string>
+  <string name="mapillary_viewer_label">מציג Mapillary</string>
   <!--API info dialog-->
   <string name="api_info_bounds">תיבה תוחמת</string>
   <string name="api_info_latest_date">תאריך ההכללה האחרון</string>
@@ -467,6 +475,8 @@
   <string name="toast_members_not_downloaded">חלק מהחברים ביחס לא התקבלו</string>
   <string name="toast_restart_required">עליך להפעיל את וספוצ׳י מחדש כדי שהשינויים ייכנסו לתוקף</string>
   <string name="toast_unable_to_open_offline_data">לא ניתן לפתוח את הנתונים הבלתי מקוונים %1$s%2$s</string>
+  <string name="toast_no_usable_location">אין מיקום שמיש</string>
+  <string name="toast_out_of_memory">נגמר הזיכרון!</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
   <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>
@@ -651,6 +661,7 @@
   <string name="menu_transfer_load_current">טעינת התצוגה הנוכחית</string>
   <string name="menu_transfer_load_replace">פינוי וטעינת התצוגה הנוכחית</string>
   <string name="menu_transfer_upload">העלאת נתונים לשרת OSM</string>
+  <string name="menu_transfer_update">עדכון נתונים</string>
   <string name="menu_transfer_close_changeset">סגירת ערכת השינויים הנוכחית</string>
   <string name="menu_transfer_file">קובץ…</string>
   <string name="menu_transfer_export">ייצוא שינויים לקובץ OSC</string>
@@ -684,17 +695,24 @@
   <string name="menu_straighten">יישור</string>
   <string name="menu_circulize">סידור במעגל</string>
   <string name="menu_split_polygon">פיצול למצולעים</string>
+  <string name="menu_extract_segment">חילוץ מקטע</string>
   <string name="menu_newnode_gps">מפרק חדש במיקום ה־GPS</string>
   <string name="menu_extend_selection">הרחבת הבחירה</string>
   <string name="menu_information">מידע</string>
   <string name="menu_voice_commands">פקודות קוליות</string>
+  <string name="menu_upload_element">העלאת רכיב</string>
+  <string name="menu_upload_elements">העלאת רכיבים</string>
   <string name="menu_set_name">הגדרת שם</string>
   <string name="menu_tools">כלים…</string>
+  <string name="menu_tools_imagery">כלי תמונות רקע נוספים…</string>
   <string name="menu_tools_add_imagery_from_oam">הוספת תמונות רקע מ־OAM</string>
   <string name="menu_tools_flush_all_tile_caches">פינוי כל מטמוני האריחים</string>
   <string name="menu_tools_background_properties">מאפייני רקע</string>
+  <string name="menu_tools_update_imagery_configuration">עדכון הגדרות</string>
+  <string name="menu_tools_update_imagery_configuration_eli">עדכון הגדרות מ־ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
   <string name="menu_tools_clear_clipboard">מחיקת לוח הגזירים</string>
+  <string name="menu_tools_calibrate_height">כיול חיישן לחץ</string>
   <!---->
   <string name="menu_simple_actions">מצב פשוט</string>
   <string name="menu_feedback">שליחת משוב</string>
