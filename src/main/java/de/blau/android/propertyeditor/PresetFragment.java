@@ -339,10 +339,13 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             this.type = type;
         }
         rootPreset.addToRootGroup(App.getCurrentPresets(getContext()));
-        LinearLayout presetLayout = (LinearLayout) getOurView().getParent();
-        if (presetLayout != null) {
-            presetLayout.removeAllViews();
-            presetLayout.addView(getPresetView());
+        View view = getOurView();
+        if (view != null) {
+            LinearLayout presetLayout = (LinearLayout) view.getParent();
+            if (presetLayout != null) {
+                presetLayout.removeAllViews();
+                presetLayout.addView(getPresetView());
+            }
         }
     }
 
@@ -402,12 +405,14 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     @Override
     public void onGroupClick(PresetGroup group) {
         ScrollView scrollView = (ScrollView) getOurView();
-        currentGroup = group;
-        currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
-        scrollView.invalidate();
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            activity.invalidateOptionsMenu();
+        if (scrollView != null) {
+            currentGroup = group;
+            currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
+            scrollView.invalidate();
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                activity.invalidateOptionsMenu();
+            }
         }
     }
 
@@ -459,7 +464,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             ((PropertyEditor) getActivity()).sendResultAndFinish();
             return true;
         case R.id.preset_menu_top:
-            if (rootGroup != null) {
+            if (rootGroup != null && scrollView != null) {
                 currentGroup = rootGroup;
                 currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
                 scrollView.invalidate();
@@ -469,7 +474,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         case R.id.preset_menu_up:
             if (currentGroup != null && currentGroup != rootGroup) {
                 PresetGroup group = currentGroup.getParent();
-                if (group != null) {
+                if (group != null && scrollView != null) {
                     currentGroup = group;
                     currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
                     scrollView.invalidate();
@@ -498,7 +503,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * 
      * @return the view containing what we added
      */
-
+    @Nullable
     private View getOurView() {
         // android.support.v4.app.NoSaveStateFrameLayout
         View v = getView();
@@ -516,11 +521,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 }
                 return v;
             }
-        } else {
-            // given that this is always fatal might as well throw the exception here
-            Log.d(DEBUG_TAG, "got null view in getView");
-            throw new UiStateException("got null view in getView");
         }
+        return v;
     }
 
     /**

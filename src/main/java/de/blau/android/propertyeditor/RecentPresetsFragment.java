@@ -178,7 +178,10 @@ public class RecentPresetsFragment extends BaseFragment {
      * Recreate the MRU view
      */
     public void recreateRecentPresetView() {
-        recreateRecentPresetView((LinearLayout) getOurView());
+        View view = getOurView();
+        if (view != null) {
+            recreateRecentPresetView((LinearLayout) view);
+        }
     }
 
     /**
@@ -202,7 +205,7 @@ public class RecentPresetsFragment extends BaseFragment {
      * 
      * @return the row container view
      */
-    @NonNull
+    @Nullable
     private View getOurView() {
         // android.support.v4.app.NoSaveStateFrameLayout
         View v = getView();
@@ -220,11 +223,8 @@ public class RecentPresetsFragment extends BaseFragment {
                 }
                 return v;
             }
-        } else {
-            // given that this is always fatal might as well throw the exception here
-            Log.d(DEBUG_TAG, "got null view in getView");
-            throw new UiStateException("got null view in getView");
         }
+        return null;
     }
 
     /**
