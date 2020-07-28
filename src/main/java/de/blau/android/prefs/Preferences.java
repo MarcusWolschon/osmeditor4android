@@ -231,7 +231,7 @@ public class Preferences {
 
         maxTileDownloadThreads = getIntPref(R.string.config_maxTileDownloadThreads_key, 4);
 
-        alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
+        alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), false);
 
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
 
