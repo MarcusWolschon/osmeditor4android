@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.9.4" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.9.5" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -2956,6 +2956,14 @@
             <link wiki="Tag:waterway=sanitary_dump_station"/>
             <key key="waterway" value="sanitary_dump_station"/>
         </item> <!-- Water point -->
+        <item name="Boat shop" icon="icons/png/shopping_boat.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link wiki="Tag:shop=boat"/>
+            <space/>
+            <key key="shop" value="boat"/>
+            <reference ref="name_operator_oh_wheelchair"/>
+            <combo key="second_hand" text="Second hand" text_context="transport" values="only,yes,no" display_values="Only,Yes,No"/>
+            <reference ref="link_contact_address_payment"/>
+        </item> <!-- Boat shop -->
         <item name="Boat rental" icon="icons/png/transport_boat_rental.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=boat_rental"/>
             <space/>
@@ -3974,6 +3982,11 @@
             <key key="aeroway" value="parking_position"/>
             <text key="ref" text="Reference"/>
         </item> <!-- Plane Parking Position -->
+        <item name="Jet bridge" icon="icons/png/transport_empty.png" type="way,closedway" preset_name_label="true">
+            <link wiki="Tag:aeroway=jet_bridge"/>
+            <key key="aeroway" value="jet_bridge"/>
+            <text key="ref" text="Reference"/>
+        </item> <!-- Jet bridge -->
         <item name="Hangar" icon="icons/png/transport_hangar_11004.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:aeroway=hangar"/>
             <key key="aeroway" value="hangar"/>
