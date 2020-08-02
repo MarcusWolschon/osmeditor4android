@@ -3891,6 +3891,7 @@ public class Main extends FullScreenAppCompatActivity
                         }
                         // short cut not found
                         Util.beep();
+                        Log.w(DEBUG_TAG, "Unknown key key code " + keyCode + " key event " + event);
                     }
                 }
                 break;
