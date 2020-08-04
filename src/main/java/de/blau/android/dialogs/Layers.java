@@ -28,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -42,6 +43,8 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -676,67 +679,29 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             allButton.setChecked(true);
         }
 
-        RadioGroup valueGroup = (RadioGroup) layout.findViewById(R.id.valueGroup);
-
         builder.setView(layout);
-
-        ViewBox viewBox = App.getLogic().getMap().getViewBox();
         builder.setTitle(isOverlay ? R.string.config_overlayLayer_title : R.string.config_backgroundLayer_title);
-        final String[] ids = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, overlayCategory)
-                : TileLayerSource.getIds(viewBox, true, prefs.getBackgroundCategory());
-
         builder.setNegativeButton(R.string.cancel, null);
+
         final AlertDialog dialog = builder.create();
 
-        addButtons(activity, dialog, row, layer, isOverlay, valueGroup, ids);
+        ViewBox viewBox = App.getLogic().getMap().getViewBox();
+        final String[] ids = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, overlayCategory)
+                : TileLayerSource.getIds(viewBox, true, backgroundCategory);
 
-        categoryGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            Category category = checkedId >= 0 ? (Category) group.findViewById(checkedId).getTag() : null;
-            valueGroup.removeAllViews();
-            final String[] idsForButtons = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, category) : TileLayerSource.getIds(viewBox, true, category);
-            if (isOverlay) {
-                prefs.setOverlayCategory(category);
-            } else {
-                prefs.setBackgroundCategory(category);
-            }
-            addButtons(activity, dialog, row, layer, isOverlay, valueGroup, idsForButtons);
-        });
-
-        return dialog;
-    }
-
-    /**
-     * Add the per layer RadioButtons
-     * 
-     * @param activity calling Activity
-     * @param dialog the Dialog
-     * @param row the row in the layers dialog or null
-     * @param layer the current layer
-     * @param isOverlay true if an overlay
-     * @param valueGroup the RadioGroup
-     * @param ids the list of layer ids
-     */
-    private void addButtons(@NonNull FragmentActivity activity, @NonNull Dialog dialog, @Nullable final TableRow row, @Nullable final MapTilesLayer layer,
-            boolean isOverlay, @NonNull RadioGroup valueGroup, @NonNull final String[] ids) {
-        LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
+        RecyclerView imageryList = (RecyclerView) layout.findViewById(R.id.imageryList);
+        LayoutParams buttonLayoutParams = imageryList.getLayoutParams();
         buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
-        String[] names = isOverlay ? TileLayerSource.getOverlayNames(ids) : TileLayerSource.getNames(ids);
+
         String currentId = layer == null ? TileLayerSource.LAYER_NONE : layer.getTileLayerConfiguration().getId();
-        valueGroup.setOnCheckedChangeListener(null); // remove any existing listener
-        for (int i = 0; i < ids.length; i++) {
-            String id = ids[i];
-            final AppCompatRadioButton button = new AppCompatRadioButton(activity);
-            button.setText(names[i]);
-            button.setTag(id);
-            button.setChecked(id.equals(currentId));
-            button.setLayoutParams(buttonLayoutParams);
-            button.setId(i);
-            valueGroup.addView(button);
-        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        imageryList.setLayoutManager(layoutManager);
+
         final Handler handler = new Handler();
-        valueGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId != -1) {
-                final TileLayerSource tileServer = TileLayerSource.get(getActivity(), ids[checkedId], true);
+        OnCheckedChangeListener onCheckedChangeListener = (group, position) -> {
+            if (position != -1) {
+                final TileLayerSource tileServer = TileLayerSource.get(getActivity(), ids[position], true);
                 if (tileServer != null) {
                     setNewImagery(activity, row, layer, tileServer);
                 }
@@ -746,7 +711,24 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 dialog.dismiss(); // dismiss this
                 dismissDialog(); // and then the caller
             }, 100);
+        };
+
+        ImageryListAdapter adapter = new ImageryListAdapter(ids, currentId, isOverlay, buttonLayoutParams, onCheckedChangeListener);
+        imageryList.setAdapter(adapter);
+
+        categoryGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            Category category = checkedId >= 0 ? (Category) group.findViewById(checkedId).getTag() : null;
+            imageryList.removeAllViews();
+            final String[] idsForButtons = isOverlay ? TileLayerSource.getOverlayIds(viewBox, true, category) : TileLayerSource.getIds(viewBox, true, category);
+            if (isOverlay) {
+                prefs.setOverlayCategory(category);
+            } else {
+                prefs.setBackgroundCategory(category);
+            }
+            adapter.setIds(idsForButtons, isOverlay, true);
         });
+
+        return dialog;
     }
 
     /**
