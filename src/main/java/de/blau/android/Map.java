@@ -1150,16 +1150,22 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * Return a list of the names of the currently used layers
+     * Return a list of the names of the currently used (and visible) layers
      * 
      * @return a List containing the currently in use imagery names
      */
     @NonNull
     public List<String> getImageryNames() {
         List<String> result = new ArrayList<>();
-        for (MapViewLayer osmvo : getLayers()) {
-            if (osmvo instanceof MapTilesLayer) {
+        List<MapViewLayer> imageryLayers = getLayers();
+        Collections.reverse(imageryLayers);
+        for (MapViewLayer osmvo : imageryLayers) {
+            if (osmvo instanceof MapTilesLayer && osmvo.isVisible()) {
                 result.add(((MapTilesLayer) osmvo).getTileLayerConfiguration().getName());
+                if (!(osmvo instanceof MapTilesOverlayLayer)) {
+                    // not an overlay -> not transparent so nothing below it is visible
+                    break;
+                }
             }
         }
         return result;
