@@ -233,4 +233,13 @@ There is no completely satisfactory solution to this, but if you don't want to d
 * turn off __Enable split action bar__, this will move the menu bar to the top of the screen.
 * set __Fullscreen mode__ to _never_
 
-Currently it isn't possible to programmatically detect if navigation gestures are turned on or off (due to the version of Android that Vespucci is built against), in upcoming versions this will be possible and the corresponding settings will be made automatically.
+Vespucci 15.0 and higher will detect that gestures have been enabled and will try to configure itself appropriately.
+
+#### Can't (re-)authenticate - TLS 1.0 / 1.1 issues
+
+Many sites have turned off support for TLS 1.0 / 1.1 secured connections, this includes the API on openstreetmap.org. This renders Vespucci on devices with an Android version older than 4.1 essentially useless. 
+
+On Android versions between 4.1 and 4.4 the app can be used without issues, except that authorization with OAuth will potentially not work. If you are unable to use OAuth you can still simply authenticate with login and password. To enable this:
+
+* go to _Preferences_ -> _Advanced preferences_ -> _Server settings _ and set login and password under the _User account_ entry.
+* in the layer control select the _Configure_ menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   
