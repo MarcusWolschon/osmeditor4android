@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../help/en/15.0.0 Release notes/">15.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../help/en/14.1.0 Release notes/">14.1.0 Release notes</a>
 </li>
                                         
@@ -306,7 +310,8 @@ i-->
         <li class="main active"><a href="#vespucci-data-styling">Vespucci Data Styling</a></li>
             <li><a href="#style-elements-and-attributes">Style Elements and Attributes</a></li>
             <li><a href="#internal-features">Internal features</a></li>
-            <li><a href="#example">Example</a></li>
+            <li><a href="#validation-styling">Validation styling</a></li>
+            <li><a href="#complete-example">Complete Example</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -388,7 +393,7 @@ i-->
 <tr>
 <td></td>
 <td>tags</td>
-<td>Tags to use for matching, ignored for named styles</td>
+<td>Tags to use for matching, ignored for named styles, in the format <em>key</em>=<em>value</em> or <em>key</em>=<em>*</em> for any value. Multiple tags can be added using <strong>&vert;</strong> as a separator.</td>
 </tr>
 <tr>
 <td></td>
@@ -710,7 +715,68 @@ i-->
 </tr>
 </tbody>
 </table>
-<h3 id="example">Example</h3>
+<h3 id="validation-styling">Validation styling</h3>
+<p>In a limited fashion the default validation styling can be overridden, by adding <strong>feature</strong> elements with <strong>type</strong> set to <strong>validation</strong> and <strong>code</strong> set to the error value that should be styled. Nodes will only use the colour specified.</p>
+<h4 id="error-codes">Error codes</h4>
+<p>These are individual bits that are combined for the final value:</p>
+<table>
+<thead>
+<tr>
+<th>Validation check</th>
+<th>Error value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AGE</td>
+<td>0x00000002</td>
+</tr>
+<tr>
+<td>FIXME</td>
+<td>0x00000004</td>
+</tr>
+<tr>
+<td>MISSING_TAG</td>
+<td>0x00000008</td>
+</tr>
+<tr>
+<td>HIGHWAY_NAME</td>
+<td>0x00000010</td>
+</tr>
+<tr>
+<td>HIGHWAY_ROAD</td>
+<td>0x00000020</td>
+</tr>
+<tr>
+<td>NO_TYPE</td>
+<td>0x00000040</td>
+</tr>
+<tr>
+<td>IMPERIAL_UNITS</td>
+<td>0x00000080</td>
+</tr>
+<tr>
+<td>INVALID_OBJECT</td>
+<td>0x00000100</td>
+</tr>
+<tr>
+<td>UNTAGGED</td>
+<td>0x00000200</td>
+</tr>
+<tr>
+<td>UNCONNECTED_END_NODE</td>
+<td>0x00000400</td>
+</tr>
+<tr>
+<td>DEGENERATE_WAY</td>
+<td>0x00000800</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example">Example</h4>
+<pre><code> &lt;feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" /&gt;
+</code></pre>
+<h3 id="complete-example">Complete Example</h3>
 <pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
 &lt;profile name="Color Round Nodes" format="0.2.0"&gt;
     &lt;!-- Assorted config --&gt;
@@ -1020,7 +1086,8 @@ i-->
         <li class="main active"><a href="#vespucci-data-styling">Vespucci Data Styling</a></li>
             <li><a href="#style-elements-and-attributes">Style Elements and Attributes</a></li>
             <li><a href="#internal-features">Internal features</a></li>
-            <li><a href="#example">Example</a></li>
+            <li><a href="#validation-styling">Validation styling</a></li>
+            <li><a href="#complete-example">Complete Example</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
@@ -1102,7 +1169,7 @@ i-->
 <tr>
 <td></td>
 <td>tags</td>
-<td>Tags to use for matching, ignored for named styles</td>
+<td>Tags to use for matching, ignored for named styles, in the format <em>key</em>=<em>value</em> or <em>key</em>=<em>*</em> for any value. Multiple tags can be added using <strong>&vert;</strong> as a separator.</td>
 </tr>
 <tr>
 <td></td>
@@ -1424,7 +1491,68 @@ i-->
 </tr>
 </tbody>
 </table>
-<h3 id="example">Example</h3>
+<h3 id="validation-styling">Validation styling</h3>
+<p>In a limited fashion the default validation styling can be overridden, by adding <strong>feature</strong> elements with <strong>type</strong> set to <strong>validation</strong> and <strong>code</strong> set to the error value that should be styled. Nodes will only use the colour specified.</p>
+<h4 id="error-codes">Error codes</h4>
+<p>These are individual bits that are combined for the final value:</p>
+<table>
+<thead>
+<tr>
+<th>Validation check</th>
+<th>Error value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AGE</td>
+<td>0x00000002</td>
+</tr>
+<tr>
+<td>FIXME</td>
+<td>0x00000004</td>
+</tr>
+<tr>
+<td>MISSING_TAG</td>
+<td>0x00000008</td>
+</tr>
+<tr>
+<td>HIGHWAY_NAME</td>
+<td>0x00000010</td>
+</tr>
+<tr>
+<td>HIGHWAY_ROAD</td>
+<td>0x00000020</td>
+</tr>
+<tr>
+<td>NO_TYPE</td>
+<td>0x00000040</td>
+</tr>
+<tr>
+<td>IMPERIAL_UNITS</td>
+<td>0x00000080</td>
+</tr>
+<tr>
+<td>INVALID_OBJECT</td>
+<td>0x00000100</td>
+</tr>
+<tr>
+<td>UNTAGGED</td>
+<td>0x00000200</td>
+</tr>
+<tr>
+<td>UNCONNECTED_END_NODE</td>
+<td>0x00000400</td>
+</tr>
+<tr>
+<td>DEGENERATE_WAY</td>
+<td>0x00000800</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example">Example</h4>
+<pre><code> &lt;feature type="validation" code="2" updateWidth="true" widthFactor="1.5" color="ffffe000" style="STROKE" cap="BUTT" join="MITER" /&gt;
+</code></pre>
+<h3 id="complete-example">Complete Example</h3>
 <pre><code>&lt;?xml version='1.0' encoding='UTF-8' ?&gt;
 &lt;profile name="Color Round Nodes" format="0.2.0"&gt;
     &lt;!-- Assorted config --&gt;
@@ -1734,7 +1862,7 @@ i-->
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 14.1.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.0.0 </p>
         </footer>
         <script>
             var base_url = "../..",

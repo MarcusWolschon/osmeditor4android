@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>15.0.0 Release notes - Vespucci</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+<!--
+                    <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                                <li >
+                                    
+                                        <a href="../../.."><img src="/vespucci_logo_small.png"></a>
+                                </li>
+                                <li class="dropdown active">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../Introduction/">Introduction</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/features/">Features</a>
+</li>
+                                        
+<li class="active">
+    <a href="./">15.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../14.1.0 Release notes/">14.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../14.0.0 Release notes/">14.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../13.1.0 Release notes/">13.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../13.0.0 Release notes/">13.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../12.1.0 Release notes/">12.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../12.0.0 Release notes/">12.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../11.2.0 Release notes/">11.2.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../11.1.0 Release notes/">11.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../11.0.0 Release notes/">11.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../10.2.0 Release notes/">10.2.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../10.1.0 Release notes/">10.1.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../10.0.0 Release notes/">10.0.0 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../0.9.9 Release notes/">0.9.9 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../0.9.8 Release notes/">0.9.8 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../0.9.7 Release notes/">0.9.7 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../0.9.6 Release notes/">0.9.6 Release notes</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../Main map display/">Main map display</a>
+</li>
+                                        
+<li >
+    <a href="../Simple actions/">Simple actions</a>
+</li>
+                                        
+<li >
+    <a href="../Creating new objects/">Creating new objects</a>
+</li>
+                                        
+<li >
+    <a href="../Node selected/">Node selected</a>
+</li>
+                                        
+<li >
+    <a href="../Way selected/">Way selected</a>
+</li>
+                                        
+<li >
+    <a href="../Relation selected/">Relation selected</a>
+</li>
+                                        
+<li >
+    <a href="../New Note selected/">New note selected</a>
+</li>
+                                        
+<li >
+    <a href="../Property editor/">Property editor</a>
+</li>
+                                        
+<li >
+    <a href="../Multiselect/">Multiselect</a>
+</li>
+                                        
+<li >
+    <a href="../Conflict resolution/">Conflict resolution</a>
+</li>
+                                        
+<li >
+    <a href="../Presets/">Presets</a>
+</li>
+                                        
+<li >
+    <a href="../Aligning background imagery/">Aligning background imagery</a>
+</li>
+                                        
+<li >
+    <a href="../Keyboard/">Keyboard and mouse</a>
+</li>
+                                        
+<li >
+    <a href="../GPS sources/">GPS sources</a>
+</li>
+                                        
+<li >
+    <a href="../Tag filter/">Tag based filter</a>
+</li>
+                                        
+<li >
+    <a href="../Preset filter/">Preset based filter</a>
+</li>
+                                        
+<li >
+    <a href="../Opening hours/">Opening hours</a>
+</li>
+                                        
+<li >
+    <a href="../Preferences/">Preferences</a>
+</li>
+                                        
+<li >
+    <a href="../Advanced preferences/">Advanced preferences</a>
+</li>
+                                        
+<li >
+    <a href="../Voice commands/">Voice commands</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        
+<li >
+    <a href="../../../tutorials/network_location/">"network" Location Provider Support</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/custom_imagery/">Custom imagery</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/custom_imagery_mbtiles/">Generating MBTiles files with custom imagery</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/tag_only/">Tag-only editing</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/presets/">Vespucci presets</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/data_styling/">Vespucci data styling</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
+</li>
+                                        
+<li >
+    <a href="../../../tutorials/object_search/">Object search</a>
+</li>
+                                    </ul>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../../../tutorials/screenshots/">Screenshots</a>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../../../tutorials/faq/">FAQ</a>
+                                </li>
+                                <li >
+                                    
+                                        <a href="../Privacy/">Privacy</a>
+                                </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+<!--- Remove Prev - Next
+                            <li >
+                                <a rel="next" href="../../../tutorials/features/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../14.1.0 Release notes/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+i-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+<!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#vespucci-150-beta-highlights">Vespucci 15.0 BETA Highlights</a></li>
+            <li><a href="#end-of-support-for-pre-android-40-devices">End of support for pre Android 4.0 devices</a></li>
+            <li><a href="#support-for-array-like-semantics-for-multi-selects">Support for array like semantics for multi-selects</a></li>
+            <li><a href="#switch-to-josm-imagery-configuration-as-default">Switch to JOSM imagery configuration as default</a></li>
+            <li><a href="#improved-layer-support">Improved layer support</a></li>
+            <li><a href="#mapillary-support">Mapillary support</a></li>
+            <li><a href="#support-for-wms-endpoints">Support for WMS endpoints</a></li>
+            <li><a href="#support-for-barometric-sensor-and-improved-elevation-support-experimental">Support for barometric sensor and improved elevation support (experimental)</a></li>
+            <li><a href="#show-current-position-information">Show current position information</a></li>
+            <li><a href="#styling-for-validation-errors">Styling for validation errors</a></li>
+            <li><a href="#upload-selection-and-update-data-functions">Upload selection and update data functions</a></li>
+            <li><a href="#improvements-built-in-photo-viewer">Improvements built-in photo viewer</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+        <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
+        <li class="main "><a href="#known-problems">Known problems</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="vespucci-150-beta-highlights">Vespucci 15.0 BETA Highlights</h1>
+<h3 id="end-of-support-for-pre-android-40-devices">End of support for pre Android 4.0 devices</h3>
+<p>Version 15 no longer supports devices with Android versions older than 4.0 / API 14. We've now migrated the Vespucci code base to use the "androidx" libraries to provide backwards compatibility over multiple Android versions and there is no feasible way to continue to use the old support libraries that would be necessary for older Android versions.  </p>
+<h3 id="support-for-array-like-semantics-for-multi-selects">Support for array like semantics for multi-selects</h3>
+<p>In some circumstances, tags with multiple objects have array-like semantics (that is a fixed number of elements) contrary to being variable length lists. A typical example are lane related tags, which contain the number of elements in the <em>lanes</em> (or <em>lanes:forward</em> and <em>lanes:backward</em>) tag. There is no practical difference for tags that need to have a value for every element, but in the case of tags that have free form, potentially empty values, for example <em>destination:lanes</em>, there was previously no way of indicating this in the preset.</p>
+<p>The current support will add empty fields if the number of elements is lower than the required number, and highlight surplus ones if there are more than the relevant tag requires.  </p>
+<h3 id="switch-to-josm-imagery-configuration-as-default">Switch to JOSM imagery configuration as default</h3>
+<p>As you may know, Vespucci has used the "Editor Layer Index" as the source of imagery configuration since version 0.9.4 released in March 2014. ELI was one of the few, if not the only, successful, cross editor projects that reduced the amount of work duplicated across editor development, not to mention reducing the effort by community members to contribute. It was used directly by a number of projects and there was even a degree of synchronisation with JOSM.</p>
+<p>Unluckily the iD developers, with an amazing lack of consideration, have forked their own branch of ELI and literally showed everybody else engaged in the project the finger, making ELI longer term untenable. However JOSMs imagery configuration has come a long way since 2014 and now has feature parity with ELI and the JOSM developers have been kind enough to provide their data in an ELI compatible format.             </p>
+<p>Starting with version 15 we now use JOSMs background layer configuration as the default, manual updates can be pulled from the JOSM repository or you can continue use ELI. As updates replace the whole configuration with the exception of custom layers, this means you can effectively switch back to using ELI if necessary.</p>
+<h3 id="improved-layer-support">Improved layer support</h3>
+<p>The internal layer support has been rewritten to allow multiple layers of the same kind for layers that support this functionality (background and overlay imagery layers, geojson layer). Layers can be moved up and down in the layer stack. It should be pointed out that adding imagery layers uses a lot of resources and should be used sparingly.</p>
+<h3 id="mapillary-support">Mapillary support</h3>
+<p>A Mapillary layer can now be added to the layer configuration. Clicking on a Mapillary image marker will open the sequence at that marker in a viewer, the forward - backward buttons will navigate along the sequence. On devices with Android 7.0 the viewer starts in a separate activity that can be shown at the same time as the map display if you add them to a multi/split window view. </p>
+<p>Mapillary images are cached on device, the size of the cache (default 100MB) can be set in the advanced preferences.</p>
+<h3 id="support-for-wms-endpoints">Support for WMS endpoints</h3>
+<p>Vespucci now has support for querying WMS servers and adding layers as custom imagery (similar to how this works in JOSM). Additional WMS servers over the pre-configured ones can be added manually. The functionality can be accessed via the layer dialog menus for the background and overlay layers.</p>
+<p>Note: WMS support continues to be limited to services that provide their layers in either EPSG:3957 or EPSG:4326 projections. </p>
+<h3 id="support-for-barometric-sensor-and-improved-elevation-support-experimental">Support for barometric sensor and improved elevation support (experimental)</h3>
+<p>Many Android phones support a pressure sensor that can be used instead of GPS data for determining the current elevation. Support can be turned on in the <em>Advanced preferences / Location settings</em>. This will enable using the barometric height in recorded tracks and when creating nodes from the current GPS location.</p>
+<p>Android reports elevation as the height about the WGS94 ellipsoid, this is very different (up to many dozens of meters) from what you typically would expect, that is a height above mean sea level. For this reason starting with this release we no longer record the default Android height information in GPX tracks, to get roughly correct data you can either:</p>
+<ul>
+<li>switch to using Android NMEA output (can be selected in the_Advanced preferences / Location settings_, unluckily this has the tendency to be broken and to be more expensive to process,</li>
+<li>or download correction model data to your device (<em>Install EGM</em> from the tools menu),</li>
+</ul>
+<p>in both cases elevation data will then be included in your GPX tracks.</p>
+<h3 id="show-current-position-information">Show current position information</h3>
+<p>The current WGS84 and related information can now be displayed from the "GPS" menu, the displayed information will automatically update once a second as long as the dialog is shown. As a replacement for the old "create node at current location" functionality such a node can now be created from the dialog.</p>
+<h3 id="styling-for-validation-errors">Styling for validation errors</h3>
+<p>Every Vespucci user has seen the violet highlighting that indicates that an object may have an issue. Starting with this release the highlighting style can be configured in a limited fashion, see https://github.com/MarcusWolschon/osmeditor4android/blob/master/documentation/docs/tutorials/data_styling.md The default styles use this to highlight potentially out of date objects in orange.</p>
+<h3 id="upload-selection-and-update-data-functions">Upload selection and update data functions</h3>
+<p>It is now possible to upload only the currently selected objects, useful for example if you want to save part of an ongoing larger editing session. Further you can now update already downloaded data in place without effecting unsaved edits.</p>
+<h3 id="improvements-built-in-photo-viewer">Improvements built-in photo viewer</h3>
+<p>On Android 7.0 and later devices the view is run as a separate Android activity, this allows it to be used in split screen or popup window mode together with the main app without having to use an external photo viewer.</p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>Allow copy/pasting over data loads</li>
+<li>Support for translated data style names</li>
+<li>More consistent keyboard support</li>
+<li>Show number of pending edits to upload on menu button </li>
+<li>Don't use full screen mode if Android 10 gestures are enabled</li>
+<li>Show warning when so much data has been loaded that the app is unlikely to work correctly</li>
+<li>The snackbar shown on an erroneous long press in simple mode has been replaced by a one time tip display and a beep.</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<ul>
+<li>The format of the saved state including data has changed, you should upload any changes before updating.</li>
+<li>Default tile size for some WMS servers has changed, this will lead to distorted imagery for any such tile source for which you already have tiles in the cache. Flush the corresponding tile cache to fix this.</li>
+</ul>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
+                
+                    <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#vespucci-150-beta-highlights">Vespucci 15.0 BETA Highlights</a></li>
+            <li><a href="#end-of-support-for-pre-android-40-devices">End of support for pre Android 4.0 devices</a></li>
+            <li><a href="#support-for-array-like-semantics-for-multi-selects">Support for array like semantics for multi-selects</a></li>
+            <li><a href="#switch-to-josm-imagery-configuration-as-default">Switch to JOSM imagery configuration as default</a></li>
+            <li><a href="#improved-layer-support">Improved layer support</a></li>
+            <li><a href="#mapillary-support">Mapillary support</a></li>
+            <li><a href="#support-for-wms-endpoints">Support for WMS endpoints</a></li>
+            <li><a href="#support-for-barometric-sensor-and-improved-elevation-support-experimental">Support for barometric sensor and improved elevation support (experimental)</a></li>
+            <li><a href="#show-current-position-information">Show current position information</a></li>
+            <li><a href="#styling-for-validation-errors">Styling for validation errors</a></li>
+            <li><a href="#upload-selection-and-update-data-functions">Upload selection and update data functions</a></li>
+            <li><a href="#improvements-built-in-photo-viewer">Improvements built-in photo viewer</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+        <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
+        <li class="main "><a href="#known-problems">Known problems</a></li>
+    </ul>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="vespucci-150-beta-highlights">Vespucci 15.0 BETA Highlights</h1>
+<h3 id="end-of-support-for-pre-android-40-devices">End of support for pre Android 4.0 devices</h3>
+<p>Version 15 no longer supports devices with Android versions older than 4.0 / API 14. We've now migrated the Vespucci code base to use the "androidx" libraries to provide backwards compatibility over multiple Android versions and there is no feasible way to continue to use the old support libraries that would be necessary for older Android versions.  </p>
+<h3 id="support-for-array-like-semantics-for-multi-selects">Support for array like semantics for multi-selects</h3>
+<p>In some circumstances, tags with multiple objects have array-like semantics (that is a fixed number of elements) contrary to being variable length lists. A typical example are lane related tags, which contain the number of elements in the <em>lanes</em> (or <em>lanes:forward</em> and <em>lanes:backward</em>) tag. There is no practical difference for tags that need to have a value for every element, but in the case of tags that have free form, potentially empty values, for example <em>destination:lanes</em>, there was previously no way of indicating this in the preset.</p>
+<p>The current support will add empty fields if the number of elements is lower than the required number, and highlight surplus ones if there are more than the relevant tag requires.  </p>
+<h3 id="switch-to-josm-imagery-configuration-as-default">Switch to JOSM imagery configuration as default</h3>
+<p>As you may know, Vespucci has used the "Editor Layer Index" as the source of imagery configuration since version 0.9.4 released in March 2014. ELI was one of the few, if not the only, successful, cross editor projects that reduced the amount of work duplicated across editor development, not to mention reducing the effort by community members to contribute. It was used directly by a number of projects and there was even a degree of synchronisation with JOSM.</p>
+<p>Unluckily the iD developers, with an amazing lack of consideration, have forked their own branch of ELI and literally showed everybody else engaged in the project the finger, making ELI longer term untenable. However JOSMs imagery configuration has come a long way since 2014 and now has feature parity with ELI and the JOSM developers have been kind enough to provide their data in an ELI compatible format.             </p>
+<p>Starting with version 15 we now use JOSMs background layer configuration as the default, manual updates can be pulled from the JOSM repository or you can continue use ELI. As updates replace the whole configuration with the exception of custom layers, this means you can effectively switch back to using ELI if necessary.</p>
+<h3 id="improved-layer-support">Improved layer support</h3>
+<p>The internal layer support has been rewritten to allow multiple layers of the same kind for layers that support this functionality (background and overlay imagery layers, geojson layer). Layers can be moved up and down in the layer stack. It should be pointed out that adding imagery layers uses a lot of resources and should be used sparingly.</p>
+<h3 id="mapillary-support">Mapillary support</h3>
+<p>A Mapillary layer can now be added to the layer configuration. Clicking on a Mapillary image marker will open the sequence at that marker in a viewer, the forward - backward buttons will navigate along the sequence. On devices with Android 7.0 the viewer starts in a separate activity that can be shown at the same time as the map display if you add them to a multi/split window view. </p>
+<p>Mapillary images are cached on device, the size of the cache (default 100MB) can be set in the advanced preferences.</p>
+<h3 id="support-for-wms-endpoints">Support for WMS endpoints</h3>
+<p>Vespucci now has support for querying WMS servers and adding layers as custom imagery (similar to how this works in JOSM). Additional WMS servers over the pre-configured ones can be added manually. The functionality can be accessed via the layer dialog menus for the background and overlay layers.</p>
+<p>Note: WMS support continues to be limited to services that provide their layers in either EPSG:3957 or EPSG:4326 projections. </p>
+<h3 id="support-for-barometric-sensor-and-improved-elevation-support-experimental">Support for barometric sensor and improved elevation support (experimental)</h3>
+<p>Many Android phones support a pressure sensor that can be used instead of GPS data for determining the current elevation. Support can be turned on in the <em>Advanced preferences / Location settings</em>. This will enable using the barometric height in recorded tracks and when creating nodes from the current GPS location.</p>
+<p>Android reports elevation as the height about the WGS94 ellipsoid, this is very different (up to many dozens of meters) from what you typically would expect, that is a height above mean sea level. For this reason starting with this release we no longer record the default Android height information in GPX tracks, to get roughly correct data you can either:</p>
+<ul>
+<li>switch to using Android NMEA output (can be selected in the_Advanced preferences / Location settings_, unluckily this has the tendency to be broken and to be more expensive to process,</li>
+<li>or download correction model data to your device (<em>Install EGM</em> from the tools menu),</li>
+</ul>
+<p>in both cases elevation data will then be included in your GPX tracks.</p>
+<h3 id="show-current-position-information">Show current position information</h3>
+<p>The current WGS84 and related information can now be displayed from the "GPS" menu, the displayed information will automatically update once a second as long as the dialog is shown. As a replacement for the old "create node at current location" functionality such a node can now be created from the dialog.</p>
+<h3 id="styling-for-validation-errors">Styling for validation errors</h3>
+<p>Every Vespucci user has seen the violet highlighting that indicates that an object may have an issue. Starting with this release the highlighting style can be configured in a limited fashion, see https://github.com/MarcusWolschon/osmeditor4android/blob/master/documentation/docs/tutorials/data_styling.md The default styles use this to highlight potentially out of date objects in orange.</p>
+<h3 id="upload-selection-and-update-data-functions">Upload selection and update data functions</h3>
+<p>It is now possible to upload only the currently selected objects, useful for example if you want to save part of an ongoing larger editing session. Further you can now update already downloaded data in place without effecting unsaved edits.</p>
+<h3 id="improvements-built-in-photo-viewer">Improvements built-in photo viewer</h3>
+<p>On Android 7.0 and later devices the view is run as a separate Android activity, this allows it to be used in split screen or popup window mode together with the main app without having to use an external photo viewer.</p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>Allow copy/pasting over data loads</li>
+<li>Support for translated data style names</li>
+<li>More consistent keyboard support</li>
+<li>Show number of pending edits to upload on menu button </li>
+<li>Don't use full screen mode if Android 10 gestures are enabled</li>
+<li>Show warning when so much data has been loaded that the app is unlikely to work correctly</li>
+<li>The snackbar shown on an erroneous long press in simple mode has been replaced by a one time tip display and a beep.</li>
+</ul>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<ul>
+<li>The format of the saved state including data has changed, you should upload any changes before updating.</li>
+<li>Default tile size for some WMS servers has changed, this will lead to distorted imagery for any such tile source for which you already have tiles in the cache. Flush the corresponding tile cache to fix this.</li>
+</ul>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>The documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div>
+                
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 15.0.0 </p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
