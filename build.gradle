@@ -364,7 +364,7 @@ afterEvaluate{
 
 ext {
     okHttpVersion = "3.12.2" // don't change to higher than 3.12 as later versions break android 5 and earlier builds
-    signpostVersion = "1.2.1.2"
+    signpostVersion = "2.1.1"
     acraVersion = "5.4.0"
     mapboxVersion = "4.5.0"
 }
