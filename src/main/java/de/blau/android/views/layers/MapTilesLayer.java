@@ -94,7 +94,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     /**
      * MRU of last servers
      */
-    private static final int              MRU_SIZE        = 5;
+    protected static final int            MRU_SIZE        = 5;
     private static final MRUList<String>  lastServers     = new MRUList<>(MRU_SIZE);
     private SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
 
@@ -225,9 +225,9 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
             coverageWarningDisplayed = false;
             if (myRendererInfo != null) { // 1st invocation this is null
                 mTileProvider.flushQueue(myRendererInfo.getId(), MapAsyncTileProvider.ALLZOOMS);
-                synchronized (lastServers) {
+                synchronized (getLastServers()) {
                     saved = false;
-                    lastServers.push(myRendererInfo.getId());
+                    getLastServers().push(myRendererInfo.getId());
                 }
             }
         }
@@ -689,8 +689,8 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      */
     @NonNull
     public String[] getMRU() {
-        synchronized (lastServers) {
-            return lastServers.toArray(new String[lastServers.size()]);
+        synchronized (getLastServers()) {
+            return getLastServers().toArray(new String[getLastServers().size()]);
         }
     }
 
@@ -700,18 +700,18 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * @param id the id of the layer
      */
     public void removeServerFromMRU(@NonNull String id) {
-        synchronized (lastServers) {
-            lastServers.remove(id);
+        synchronized (getLastServers()) {
+            getLastServers().remove(id);
         }
     }
 
     @Override
     public void onSaveState(@NonNull Context ctx) throws IOException {
-        Log.d(DEBUG_TAG, "Saving MRU size " + lastServers.size());
+        Log.d(DEBUG_TAG, "Saving MRU size " + getLastServers().size());
         super.onSaveState(ctx);
-        synchronized (lastServers) {
+        synchronized (getLastServers()) {
             saved = true;
-            mruSavingHelper.save(ctx, getClass().getName() + "lastServers", lastServers, true);
+            mruSavingHelper.save(ctx, getClass().getName() + "lastServers", getLastServers(), true);
         }
     }
 
@@ -720,12 +720,12 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         Log.d(DEBUG_TAG, "Restoring MRU");
         super.onRestoreState(ctx);
         if (saved) {
-            synchronized (lastServers) {
+            synchronized (getLastServers()) {
                 MRUList<String> tempLastServers = mruSavingHelper.load(ctx, getClass().getName() + "lastServers", true);
                 Log.d(DEBUG_TAG, "MRU size " + tempLastServers.size());
-                lastServers.clear();
-                lastServers.addAll(tempLastServers);
-                lastServers.ensureCapacity(MRU_SIZE);
+                getLastServers().clear();
+                getLastServers().addAll(tempLastServers);
+                getLastServers().ensureCapacity(MRU_SIZE);
             }
         }
         return true;
@@ -749,5 +749,14 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     @Override
     public void discard(Context context) {
         onDestroy();
+    }
+
+    /**
+     * Hack so that we can have two different MRUList singletons
+     * 
+     * @return the MRUList with the last used sources
+     */
+    MRUList<String> getLastServers() {
+        return lastServers;
     }
 }

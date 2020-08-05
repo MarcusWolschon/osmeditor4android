@@ -4,9 +4,12 @@ import android.graphics.Canvas;
 import android.view.View;
 import de.blau.android.layer.LayerType;
 import de.blau.android.resources.TileLayerSource;
+import de.blau.android.util.collections.MRUList;
 import de.blau.android.views.IMapView;
 
 public class MapTilesOverlayLayer extends MapTilesLayer {
+
+    private static final MRUList<String> lastServers = new MRUList<>(MRU_SIZE);
 
     private boolean enabled = false;
 
@@ -37,9 +40,14 @@ public class MapTilesOverlayLayer extends MapTilesLayer {
             super.onDraw(c, osmv);
         }
     }
-    
+
     @Override
     public LayerType getType() {
-       return LayerType.OVERLAYIMAGERY;
+        return LayerType.OVERLAYIMAGERY;
+    }
+
+    @Override
+    MRUList<String> getLastServers() {
+        return lastServers;
     }
 }
