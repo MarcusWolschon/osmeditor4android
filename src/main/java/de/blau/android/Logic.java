@@ -122,6 +122,8 @@ import de.blau.android.validation.Validator;
  */
 public class Logic {
 
+    private static final String METHOD_UPLOAD = "upload";
+
     private static final String DEBUG_TAG = Logic.class.getSimpleName();
 
     /**
@@ -3889,13 +3891,17 @@ public class Logic {
                         break;
                     // TODO: implement other state handling
                     default:
-                        Log.e(DEBUG_TAG, "", e);
+                        Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                         result.setError(ErrorCodes.UNKNOWN_ERROR);
                         result.setMessage(e.getMessage());
                         break;
                     }
-                } catch (final IOException | NullPointerException e) {
-                    Log.e(DEBUG_TAG, "", e);
+                } catch (final IOException e) {
+                    Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
+                    result.setError(ErrorCodes.UPLOAD_PROBLEM);
+                    result.setMessage(e.getLocalizedMessage());
+                } catch (final NullPointerException e) {
+                    Log.e(DEBUG_TAG, METHOD_UPLOAD, e);
                     ACRAHelper.nocrashReport(e, e.getMessage());
                 }
                 return result;
@@ -3904,7 +3910,8 @@ public class Logic {
             @Override
             protected void onPostExecute(UploadResult result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-                if (result.getError() == 0) {
+                final int error = result.getError();
+                if (error == 0) {
                     save(activity); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
                     Snack.barInfo(activity, R.string.toast_upload_success);
                     getDelegator().clearUndo(); // only clear on successful upload
@@ -3912,22 +3919,22 @@ public class Logic {
                 }
                 activity.getCurrentFocus().invalidate();
                 if (!activity.isFinishing()) {
-                    if (result.getError() == ErrorCodes.UPLOAD_CONFLICT) {
+                    if (error == ErrorCodes.UPLOAD_CONFLICT) {
                         if (result.getOsmId() > 0) {
                             UploadConflict.showDialog(activity, result);
                         } else {
                             Log.e(DEBUG_TAG, "No OSM element found for conflict");
                             ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM);
                         }
-                    } else if (result.getError() == ErrorCodes.INVALID_LOGIN) {
+                    } else if (error == ErrorCodes.INVALID_LOGIN) {
                         InvalidLogin.showDialog(activity);
-                    } else if (result.getError() == ErrorCodes.FORBIDDEN) {
+                    } else if (error == ErrorCodes.FORBIDDEN) {
                         ForbiddenLogin.showDialog(activity, result.getMessage());
-                    } else if (result.getError() == ErrorCodes.BAD_REQUEST || result.getError() == ErrorCodes.NOT_FOUND
-                            || result.getError() == ErrorCodes.UNKNOWN_ERROR) {
-                        ErrorAlert.showDialog(activity, result.getError(), result.getMessage());
-                    } else if (result.getError() != 0) {
-                        ErrorAlert.showDialog(activity, result.getError());
+                    } else if (error == ErrorCodes.BAD_REQUEST || error == ErrorCodes.NOT_FOUND || error == ErrorCodes.UNKNOWN_ERROR
+                            || error == ErrorCodes.UPLOAD_PROBLEM) {
+                        ErrorAlert.showDialog(activity, error, result.getMessage());
+                    } else if (error != 0) {
+                        ErrorAlert.showDialog(activity, error);
                     }
                 }
             }
@@ -3940,7 +3947,7 @@ public class Logic {
      * @param activity he calling FragementActivity
      * @param track the track to upload
      * @param description a description of the track sent to the server
-     * @param tags the tags to apply to the GPS track (comma delimeted)
+     * @param tags the tags to apply to the GPS track (comma delimited)
      * @param visibility the track visibility, one of the following: private, public, trackable, identifiable
      */
     public void uploadTrack(@NonNull final FragmentActivity activity, @NonNull final Track track, @NonNull final String description, @NonNull final String tags,
