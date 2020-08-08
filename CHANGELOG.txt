@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.0.0: Update imagery and translations, update privacy policy, fix issue with imagery selection on older devices, fix beeping due to under screen fingerprint sensor generating key presses, fix another race condition in the property editor.
+
 15.0.0-6: Update translation and preset, workaround androidx issue with calling onFocusChanged listeners after View has been destroyed. 
 
 15.0.0-5: Revert upgrade to signpost 2.0.0 as this is incompatible with pre Android 26 and will crash on signing, use Threads instead of AsyncTask for Mapillary performance improvement.
