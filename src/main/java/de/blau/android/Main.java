@@ -3466,7 +3466,6 @@ public class Main extends FullScreenAppCompatActivity
                 }
             } else {
                 Tip.showDialog(Main.this, R.string.tip_longpress_simple_mode_key, R.string.tip_longpress_simple_mode);
-                Util.beep();
             }
 
             return true; // long click handled
