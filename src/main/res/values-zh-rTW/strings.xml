@@ -79,6 +79,7 @@
   <string name="progress_oauth">在 openstreetmap.org 載入您的帳號，為 OAuth 授權...</string>
   <string name="progress_building_imagery_database">建構圖像資料庫...</string>
   <string name="progress_query_oam">正在查詢 OAM ...</string>
+  <string name="progress_pruning">剪裁中...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" 已刪除</string>
   <string name="changes_changed">\"%1$s\" 已變更</string>
@@ -192,6 +193,10 @@
   <!--Tile layer info dialog-->
   <string name="attribution">署名</string>
   <!--Too much data dialog-->
+  <string name="too_much_data_title">載入太多資料了！</string>
+  <string name="too_much_data_message">你載入 %1$d個節點而且已經超過設定限制，這會導致執行速度變慢，而且如果載入更多資料，有可能造成儲存時的可能問題。</string>
+  <string name="upload_data_now">上傳變動</string>
+  <string name="prune_data_now">剪裁資料</string>
   <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
@@ -242,8 +247,10 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">客製化影像</string>
   <string name="oam_layer_title">OAM 影像</string>
+  <string name="wms_endpoints_title">WMS 端點</string>
   <string name="edit_layer_title">編輯圖層選項</string>
   <string name="add_layer_title">新增圖層選項</string>
+  <string name="select_layer_title">選擇圖層</string>
   <string name="overlay">疊合</string>
   <string name="coverage">覆蓋範圍</string>
   <string name="coverage_top">頂端</string>
@@ -252,6 +259,10 @@
   <string name="coverage_bottom">底部</string>
   <string name="toast_invalid_box">無效或不完整的邊界框</string>
   <string name="delete_layer">刪除圖層？</string>
+  <string name="delete_endpoint">刪除端點？</string>
+  <string name="add_wms_endpoint_title">新增 WMS 端點</string>
+  <string name="edit_wms_endpoint_title">編輯 WMS 端點</string>
+  <string name="add_imagery_from_wms_endpoint">從 WMS 新增影像</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">圖層樣式</string>
   <string name="layer_style_stroke_width">粗體寬度</string>
@@ -261,6 +272,7 @@
   <string name="json_array_not_displayed">JSON 陣列 (未顯示)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">網格</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">照片</string>
@@ -289,6 +301,8 @@
   <string name="photo_viewer_delete_title">刪除圖片</string>
   <string name="photo_viewer_delete_button">永久刪除</string>
   <string name="photo_viewer_goto">到圖片</string>
+  <string name="photo_viewer_label">照片觀看器</string>
+  <string name="mapillary_viewer_label">Mapillary 觀看器</string>
   <!--API info dialog-->
   <string name="api_info_bounds">邊界框</string>
   <string name="api_info_latest_date">最後包括的日期</string>
@@ -590,7 +604,19 @@
   <string name="location_nan_message">請插入十進位格式的座標 (eg. \"52.333572\",\"8.741185\")。緯度必須放置于 -85.0 和 +85.0 之間，並且經度必須放置于 -175.0 和 +175.0 之間。</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">使用</string>
+  <string name="barometer_calibration_current_height">目前高度 (公尺)</string>
+  <string name="barometer_calibration_current_reference_pressure">目前相對氣壓 (hPa)</string>
+  <string name="barometer_calibration_gps">GNSS</string>
+  <string name="barometer_calibration_calibrate">校準</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">目前位置資訊</string>
+  <string name="position_info_hdop">HDOP</string>
+  <string name="position_info_altitude">海拔</string>
+  <string name="position_info_geoid_height">大地水準面上方的高度</string>
+  <string name="position_info_barometric_height">氣壓高度</string>
+  <string name="position_info_geoid_correction">大地水準面校正</string>
+  <string name="position_info_ellipsoid_height">橢圓體上方的高度</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">下載檔案</string>
   <string name="allow_all_networks">允許所有網路</string>
@@ -629,6 +655,7 @@
   <string name="menu_gps_goto">前往目前位置</string>
   <string name="menu_gps_goto_coordinates">到座標...</string>
   <string name="menu_gps_goto_last_edit">到最後一次編輯</string>
+  <string name="menu_gps_position_info">目前位置資訊</string>
   <string name="menu_gps_start">開始 GPS 軌跡記錄</string>
   <string name="menu_gps_pause">暫停 GPS 軌跡記錄</string>
   <string name="menu_gps_clear">清除 GPS 軌跡和航點</string>
@@ -646,6 +673,7 @@
   <string name="menu_transfer_load_current">載入目前檢視</string>
   <string name="menu_transfer_load_replace">清除和載入目前檢視</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
+  <string name="menu_transfer_update">更新資料</string>
   <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
   <string name="menu_transfer_file">檔案...</string>
   <string name="menu_transfer_export">匯出變更到 OSC 檔案</string>
@@ -680,17 +708,26 @@
   <string name="menu_circulize">在圓週排列</string>
   <string name="menu_split_polygon">分割成多邊形</string>
   <string name="menu_unjoin_dissimilar">未連結相異物</string>
+  <string name="menu_extract_segment">抽出片段</string>
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
   <string name="menu_extend_selection">擴大選擇</string>
   <string name="menu_information">資訊</string>
   <string name="menu_voice_commands">聲音指令</string>
+  <string name="menu_upload_element">上傳片段</string>
+  <string name="menu_upload_elements">上傳片段</string>
   <string name="menu_set_name">設定名稱</string>
   <string name="menu_tools">工具...</string>
+  <string name="menu_tools_imagery">更多影像工具...</string>
   <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>
   <string name="menu_tools_flush_all_tile_caches">更新所有圖磚暫存檔</string>
   <string name="menu_tools_background_properties">背景屬性</string>
+  <string name="menu_tools_update_imagery_configuration">更新設定</string>
+  <string name="menu_tools_update_imagery_configuration_eli">從 ELI 更新設定</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
   <string name="menu_tools_clear_clipboard">清除剪貼簿</string>
+  <string name="menu_tools_calibrate_height">校正氣壓計</string>
+  <string name="menu_tools_install_egm">安裝 EGM</string>
+  <string name="menu_tools_remove_egm">移除 EGM</string>
   <!---->
   <string name="menu_simple_actions">簡易模式</string>
   <string name="menu_feedback">提供反饋</string>
@@ -710,8 +747,13 @@
   <string name="distance_km">%1$.3f 公里</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">圖層...</string>
+  <string name="menu_layers_load_geojson">新增 GeoJSON 圖層</string>
   <string name="menu_layers_add_backgroundlayer">增加背景影像圖層</string>
   <string name="menu_layers_add_overlaylayer">增加重疊影像圖層</string>
+  <string name="menu_layers_add_tasklayer">啟用任務圖層</string>
+  <string name="menu_layers_add_grid">啟用網格</string>
+  <string name="menu_layers_add_photolayer">啟用照片圖層</string>
+  <string name="menu_layers_enable_mapillary_layer">啟用 Mapillary 圖層</string>
   <string name="menu_layers_configure">設定...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
@@ -764,6 +806,8 @@
   <string name="actionmode_restriction_restart_to">重新選擇\"到\"片段</string>
   <string name="actionmode_restriction_split_from">分割 \"from\" 片段</string>
   <string name="actionmode_restriction_split_via">分割 \"via\" 片段</string>
+  <string name="actionmode_extract_segment_select">選擇片段</string>
+  <string name="actionmode_extract_segment_set_tags">設定標籤</string>
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 物件</item>
   </plurals>
@@ -859,6 +903,7 @@
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_title">待上傳確定</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
