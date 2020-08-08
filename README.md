@@ -38,7 +38,7 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
     * Show the user's GPS track with accuracy
     * Upload to OSM and local saving of GPS tracks
     * Display the raw data
-    * Display geo-referenced photographs
+    * Display geo-referenced photographs and Mapillary images
     
 Detailed documentation can be found on the [Vespucci Website](https://vespucci.io/)
 
@@ -88,6 +88,6 @@ Vespucci utilizes a number of independent, separately maintained, projects. The 
 
 __OpenStreetMap__ and the magnifying glass logo are trademarks of the OpenStreetMap Foundation. The Vespucci app is not endorsed by or affiliated with the OpenStreetMap Foundation.
 
-__Mapillary_ is a trademark of Mapillary AB, Sweden. The Vespucci app is not endorsed by or affiliated with Mapillary AB. 
+__Mapillary__ is a trademark of Mapillary AB, Sweden. The Vespucci app is not endorsed by or affiliated with Mapillary AB. 
 
 

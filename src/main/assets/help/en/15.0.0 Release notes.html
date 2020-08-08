@@ -5,15 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Vespucci 15.0 BETA Highlights</h1>
+<h1>Vespucci 15.0 Highlights</h1>
 <h3>End of support for pre Android 4.0 devices</h3>
 <p>Version 15 no longer supports devices with Android versions older than 4.0 / API 14. We've now migrated the Vespucci code base to use the &quot;androidx&quot; libraries to provide backwards compatibility over multiple Android versions and there is no feasible way to continue to use the old support libraries that would be necessary for older Android versions.</p>
+<p>Import note: even though the app will work on Android 4.0 devices, devices with Android version prior to 4.1 do not have TLS 1.2 support that is required for accessing the OpenStreetMap API since August 2nd 2020. If you are experiencing authorization issues on Android versions between 4.1 and 4.4 see <a href="http://vespucci.io/tutorials/faq/#cant-re-authenticate-tls-10-11-issues">Can't (re-)authenticate - TLS 1.0 / 1.1 issues</a>.</p>
 <h3>Support for array like semantics for multi-selects</h3>
 <p>In some circumstances, tags with multiple objects have array-like semantics (that is a fixed number of elements) contrary to being variable length lists. A typical example are lane related tags, which contain the number of elements in the <em>lanes</em> (or <em>lanes:forward</em> and <em>lanes:backward</em>) tag. There is no practical difference for tags that need to have a value for every element, but in the case of tags that have free form, potentially empty values, for example <em>destination:lanes</em>, there was previously no way of indicating this in the preset.</p>
 <p>The current support will add empty fields if the number of elements is lower than the required number, and highlight surplus ones if there are more than the relevant tag requires.</p>
 <h3>Switch to JOSM imagery configuration as default</h3>
 <p>As you may know, Vespucci has used the &quot;Editor Layer Index&quot; as the source of imagery configuration since version 0.9.4 released in March 2014. ELI was one of the few, if not the only, successful, cross editor projects that reduced the amount of work duplicated across editor development, not to mention reducing the effort by community members to contribute. It was used directly by a number of projects and there was even a degree of synchronisation with JOSM.</p>
-<p>Unluckily the iD developers, with an amazing lack of consideration, have forked their own branch of ELI and literally showed everybody else engaged in the project the finger, making ELI longer term untenable. However JOSMs imagery configuration has come a long way since 2014 and now has feature parity with ELI and the JOSM developers have been kind enough to provide their data in an ELI compatible format.</p>
+<p>Unluckily the iD developers have forked their own branch of ELI potentially making ELI longer term untenable. However JOSMs imagery configuration has come a long way since 2014 and now has feature parity with ELI and the JOSM developers have been kind enough to provide their data in an ELI compatible format.</p>
 <p>Starting with version 15 we now use JOSMs background layer configuration as the default, manual updates can be pulled from the JOSM repository or you can continue use ELI. As updates replace the whole configuration with the exception of custom layers, this means you can effectively switch back to using ELI if necessary.</p>
 <h3>Improved layer support</h3>
 <p>The internal layer support has been rewritten to allow multiple layers of the same kind for layers that support this functionality (background and overlay imagery layers, geojson layer). Layers can be moved up and down in the layer stack. It should be pointed out that adding imagery layers uses a lot of resources and should be used sparingly.</p>
@@ -22,7 +23,11 @@
 <p>Mapillary images are cached on device, the size of the cache (default 100MB) can be set in the advanced preferences.</p>
 <h3>Support for WMS endpoints</h3>
 <p>Vespucci now has support for querying WMS servers and adding layers as custom imagery (similar to how this works in JOSM). Additional WMS servers over the pre-configured ones can be added manually. The functionality can be accessed via the layer dialog menus for the background and overlay layers.</p>
-<p>Note: WMS support continues to be limited to services that provide their layers in either EPSG:3957 or EPSG:4326 projections.</p>
+<p>Notes:</p>
+<ul>
+<li>WMS support continues to be limited to services that provide their layers in either EPSG:3957 or EPSG:4326 projections.</li>
+<li>You need to make your own determination, just as with custom imagery sources, if the layer you are using is licensed on terms that are compatible with OpenStreetMap.</li>
+</ul>
 <h3>Support for barometric sensor and improved elevation support (experimental)</h3>
 <p>Many Android phones support a pressure sensor that can be used instead of GPS data for determining the current elevation. Support can be turned on in the <em>Advanced preferences / Location settings</em>. This will enable using the barometric height in recorded tracks and when creating nodes from the current GPS location.</p>
 <p>Android reports elevation as the height about the WGS94 ellipsoid, this is very different (up to many dozens of meters) from what you typically would expect, that is a height above mean sea level. For this reason starting with this release we no longer record the default Android height information in GPX tracks, to get roughly correct data you can either:</p>
@@ -53,6 +58,7 @@
 <ul>
 <li>The format of the saved state including data has changed, you should upload any changes before updating.</li>
 <li>Default tile size for some WMS servers has changed, this will lead to distorted imagery for any such tile source for which you already have tiles in the cache. Flush the corresponding tile cache to fix this.</li>
+<li>If you previously had Beta 1 of 15.0 installed you may experience crashes on startup after installing the release version, removing the app specific data via your devices app management user interface  should fix this.</li>
 </ul>
 <h1>Known problems</h1>
 <ul>

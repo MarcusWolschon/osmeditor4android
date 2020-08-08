@@ -15,7 +15,7 @@ Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, c
 
 Editing is supported by rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast "on the go" surveying is easy with address prediction and [name based POI creation](markdown/tutorials/name_suggestions.md).
 
-Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to more exotic or unusual hardware, for example on an Amazon Fire TV Stick. Vespucci currently works on all Android versions since 4.0 (access to openstreetmap.org requires at least Android 4.1).  It can also be used in a Google-free environment.
+Vespucci has been tested and is known to work on a wide range of devices, from small phones, tablets to more exotic or unusual hardware, for example on an Amazon Fire TV Stick. Vespucci currently works on all Android versions since 4.0 (access to openstreetmap.org requires at least Android 4.1, see [Can't (re-)authenticate - TLS 1.0 / 1.1 issues](http://vespucci.io/tutorials/faq/#cant-re-authenticate-tls-10-11-issues)).  It can also be used in a Google-free environment.
 
 #### Obtaining Vespucci:
 
@@ -47,4 +47,6 @@ If you're interested in this project, you're welcome to help improving it. We ne
 #### Legal 
 
 __OpenStreetMap__ and the magnifying glass logo are trademarks of the OpenStreetMap Foundation. The Vespucci app is not endorsed by or affiliated with the OpenStreetMap Foundation. 
+
+__Mapillary__ is a trademark of Mapillary AB, Sweden. The Vespucci app is not endorsed by or affiliated with Mapillary AB.
 
