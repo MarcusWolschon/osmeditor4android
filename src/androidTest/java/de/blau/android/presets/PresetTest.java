@@ -46,7 +46,7 @@ public class PresetTest {
     @Before
     public void setup() {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        main = (Main) mActivityRule.getActivity();
+        main = mActivityRule.getActivity();
         presets = App.getCurrentPresets(main);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
@@ -58,7 +58,7 @@ public class PresetTest {
     @Test
     public void matching() {
         //
-        HashMap<String, String> tags = new HashMap<String, String>();
+        HashMap<String, String> tags = new HashMap<>();
         tags.put("amenity", "restaurant");
         PresetItem restaurant = Preset.findBestMatch(presets, tags);
         Assert.assertEquals("Restaurant", restaurant.getName());
