@@ -19,6 +19,7 @@ import java.util.zip.ZipInputStream;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -150,9 +151,9 @@ public class PresetEditorActivity extends URLListEditActivity {
             menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
             if (!selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
                 menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
-                for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet()) {
-                    menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE, r.getString(entry.getValue())).setOnMenuItemClickListener(this);
-                }
+            }
+            for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet()) {
+                menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE, r.getString(entry.getValue())).setOnMenuItemClickListener(this);
             }
         }
     }
@@ -231,7 +232,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             break;
         case MENU_DOWN:
             oldPos = items.indexOf(clickedItem);
-            if (oldPos < items.size() - 2) {
+            if (oldPos < items.size() - 1) {
                 db.movePreset(oldPos, oldPos + 1);
                 reloadItems();
             }
@@ -243,7 +244,7 @@ public class PresetEditorActivity extends URLListEditActivity {
     }
 
     /**
-     * Relaoad the ListView and invalidate the global preset var
+     * Reload the ListView and invalidate the global preset var
      */
     private void reloadItems() {
         items.clear();
@@ -468,12 +469,9 @@ public class PresetEditorActivity extends URLListEditActivity {
      * @return true if successful
      */
     private boolean unpackZip(String presetDir, String zipname) {
-        InputStream is = null;
-        ZipInputStream zis = null;
-        try {
+        try (InputStream is = new FileInputStream(presetDir + zipname); ZipInputStream zis = new ZipInputStream(new BufferedInputStream(is))) {
             String filename;
-            is = new FileInputStream(presetDir + zipname);
-            zis = new ZipInputStream(new BufferedInputStream(is));
+
             ZipEntry ze;
             byte[] buffer = new byte[1024];
             int count;
@@ -502,24 +500,17 @@ public class PresetEditorActivity extends URLListEditActivity {
                     continue;
                 }
 
-                FileOutputStream fout = null;
-                try {
-                    fout = new FileOutputStream(presetDir + filename);
+                try (FileOutputStream fout = new FileOutputStream(presetDir + filename)) {
                     // cteni zipu a zapis
                     while ((count = zis.read(buffer)) != -1) {
                         fout.write(buffer, 0, count);
                     }
-                } finally {
-                    SavingHelper.close(fout);
                 }
                 zis.closeEntry();
             }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Unzipping failed with " + e.getMessage());
             return false;
-        } finally {
-            SavingHelper.close(zis);
-            SavingHelper.close(is);
         }
 
         return true;
@@ -599,7 +590,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         dialog.show();
 
         // overriding the handlers
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
             String name = editName.getText().toString().trim();
             String presetURL = editValue.getText().toString().trim();
             boolean useTranslationsEnabled = useTranslations.isChecked();
@@ -633,6 +624,6 @@ public class PresetEditorActivity extends URLListEditActivity {
             }
         });
 
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
     }
 }
