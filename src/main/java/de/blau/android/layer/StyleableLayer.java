@@ -171,6 +171,7 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
     @Override
     public synchronized boolean onRestoreState(@NonNull Context context) {
         super.onRestoreState(context);
+        boolean tempVisible = isVisible();
         try {
             readingLock.lock();
             if (saved) { // don't overwrite new state
@@ -196,7 +197,7 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
             }
         } finally {
             // re-enable drawing
-            setVisible(true);
+            setVisible(tempVisible);
             readingLock.unlock();
         }
     }
