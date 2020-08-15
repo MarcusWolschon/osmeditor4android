@@ -127,5 +127,17 @@ public class PresetEditorTest {
         presets = App.getCurrentPresets(main);
         match = Preset.findBestMatch(presets, tags);
         Assert.assertEquals("Military landuse", match.getName());
+        
+        // delete the test preset
+        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
+        PresetEditorActivity.start(main);
+        presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        Assert.assertTrue(presetEditor instanceof PresetEditorActivity);
+        entry = TestUtils.findObjectWithText(device, false, "Test", 100);
+        menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
+        menu.click();
+        TestUtils.clickText(device, false, "Delete", true);
+        TestUtils.clickHome(device, true);
+        App.resetPresets();
     }
 }

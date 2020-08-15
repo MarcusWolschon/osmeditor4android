@@ -25,7 +25,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.SearchIndexUtils;
 
 /**
- * This is just a convenient way of generating the default preset dump
+ * NOTE These tests assumes the default test is at position 0
  * 
  * @author simon
  *
@@ -63,7 +63,7 @@ public class PresetTest {
         PresetItem restaurant = Preset.findBestMatch(presets, tags);
         Assert.assertEquals("Restaurant", restaurant.getName());
         // Splitting
-        ArrayList<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<>();
         values.add("chinese;fondue");
         values.add("japenese,steak");
         List<String> result = Preset.splitValues(values, restaurant, "cuisine");
