@@ -466,7 +466,7 @@ public class Preset implements Serializable {
      * @throws NoSuchAlgorithmException
      * @throws Exception
      */
-    public Preset(Context ctx, File directory, String externalPackage, boolean useTranslations)
+    public Preset(@NonNull Context ctx, @NonNull File directory, @Nullable String externalPackage, boolean useTranslations)
             throws ParserConfigurationException, SAXException, IOException, NoSuchAlgorithmException {
         this.directory = directory;
         this.externalPackage = externalPackage;
@@ -1794,7 +1794,7 @@ public class Preset implements Serializable {
      * @return set of presets
      */
     private static Set<PresetItem> buildPossibleMatches(Preset[] presets, Map<String, String> tags, boolean useAddressKeys) {
-        HashSet<PresetItem> possibleMatches = new HashSet<>();
+        Set<PresetItem> possibleMatches = new LinkedHashSet<>();
         for (Preset p : presets) {
             if (p != null) {
                 for (Entry<String, String> tag : tags.entrySet()) {

@@ -1,7 +1,6 @@
 package de.blau.android.presets;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -23,6 +22,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 import androidx.test.uiautomator.Until;
@@ -33,9 +33,8 @@ import de.blau.android.TestUtils;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.presets.Preset.PresetItem;
 import okhttp3.HttpUrl;
-import okhttp3.mockwebserver.MockResponse;
-import okio.Buffer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -60,7 +59,7 @@ public class PresetEditorTest {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         context = instrumentation.getTargetContext();
         monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
-        main = (Main) mActivityRule.getActivity();
+        main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         TestUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
@@ -78,7 +77,7 @@ public class PresetEditorTest {
     }
 
     /**
-     * Download a preset and activate
+     * Download a preset, activate test matching
      */
     @Test
     public void downloadPreset() {
@@ -108,5 +107,25 @@ public class PresetEditorTest {
         App.resetPresets();
         Preset[] presets = App.getCurrentPresets(main);
         Assert.assertEquals(3, presets.length);
+
+        HashMap<String, String> tags = new HashMap<>();
+        tags.put("landuse", "military");
+        PresetItem match = Preset.findBestMatch(presets, tags);
+        Assert.assertEquals("Military", match.getName());
+
+        // move military preset up
+        monitor = instrumentation.addMonitor(PresetEditorActivity.class.getName(), null, false);
+        PresetEditorActivity.start(main);
+        presetEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        Assert.assertTrue(presetEditor instanceof PresetEditorActivity);
+        UiObject2 entry = TestUtils.findObjectWithText(device, false, "Test", 100);
+        UiObject2 menu = entry.getParent().getParent().findObject(By.res(device.getCurrentPackageName() + ":id/listItemMenu"));
+        menu.click();
+        TestUtils.clickText(device, false, "Move up", true);
+        TestUtils.clickHome(device, true);
+        App.resetPresets();
+        presets = App.getCurrentPresets(main);
+        match = Preset.findBestMatch(presets, tags);
+        Assert.assertEquals("Military landuse", match.getName());
     }
 }
