@@ -60,7 +60,7 @@ public class StreetPlaceNamesAdapter extends ArrayAdapter<ValueWithCount> {
         Map<String, Integer> counter = new HashMap<>();
         if (extraValues != null && !extraValues.isEmpty()) {
             for (String t : extraValues) {
-                if (t.equals("")) {
+                if ("".equals(t)) {
                     continue;
                 }
                 if (counter.containsKey(t)) {

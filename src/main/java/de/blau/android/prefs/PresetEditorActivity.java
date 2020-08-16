@@ -351,7 +351,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                         ResponseBody responseBody = presetCallResponse.body();
                         downloadStream = responseBody.byteStream();
                         String contentType = responseBody.contentType().toString();
-                        zip = (contentType != null && contentType.equalsIgnoreCase("application/zip")) || url.toLowerCase(Locale.US).endsWith(".zip");
+                        zip = (contentType != null && "application/zip".equalsIgnoreCase(contentType)) || url.toLowerCase(Locale.US).endsWith(".zip");
                         if (zip) {
                             Log.d(DEBUG_TAG, "detected zip file");
                             filename = FILE_NAME_TEMPORARY_ARCHIVE;

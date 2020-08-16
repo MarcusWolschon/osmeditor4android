@@ -805,7 +805,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      */
     @NonNull
     public File getPresetDirectory(@Nullable String id) {
-        if (id == null || id.equals("")) {
+        if (id == null || "".equals(id)) {
             throw new IllegalOperationException("Attempted to get folder for null or empty id!");
         }
         File rootDir = context.getFilesDir();

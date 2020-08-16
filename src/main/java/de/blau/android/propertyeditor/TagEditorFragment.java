@@ -694,7 +694,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private void setHint(TagEditRow row) {
         String aTagKey = row.getKey();
         PresetItem preset = getPreset(aTagKey);
-        if (preset != null && !aTagKey.equals("")) { // set hints even if value isen't empty
+        if (preset != null && !"".equals(aTagKey)) { // set hints even if value isn't empty
             String hint = preset.getHint(aTagKey);
             if (hint != null) {
                 row.valueEdit.setHint(hint);
@@ -948,7 +948,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
                 if (hasTagValues) {
                     for (String t : row.tagValues) {
-                        if (t.equals("")) {
+                        if ("".equals(t)) {
                             continue;
                         }
                         if (counter.containsKey(t)) {
@@ -1385,7 +1385,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * @return true if both fields are empty, false if at least one is filled
          */
         public boolean isEmpty() {
-            return keyEdit.getText().toString().trim().equals("") && valueEdit.getText().toString().trim().equals("");
+            return "".equals(keyEdit.getText().toString().trim()) && "".equals(valueEdit.getText().toString().trim());
         }
 
         @Override
@@ -1556,7 +1556,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         boolean found = false;
         for (int i = 0; i < rowLayout.getChildCount(); i++) {
             TagEditRow ter = (TagEditRow) rowLayout.getChildAt(i);
-            if (ter.getKey() != null && !ter.getKey().equals("") && ter.getValue().equals("")) {
+            if (ter != null && !"".equals(ter.getKey()) && "".equals(ter.getValue())) {
                 focusRowValue(rowLayout, rowIndex(rowLayout, ter));
                 found = true;
                 break;
@@ -2078,7 +2078,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private static String sourceForKey(final String key) {
         String result = "source";
-        if (key != null && !key.equals("") && !key.equals("source")) {
+        if (key != null && !"".equals(key) && !"source".equals(key)) {
             // key is neither blank nor "source"
             // check if it's namespaced
             int i = key.indexOf(':');
@@ -2112,7 +2112,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 String key = keyEdit.getText().toString().trim();
                 String value = valueEdit.getText().toString().trim();
                 // if there's a blank row - use them
-                if (key.equals("") && value.equals("")) {
+                if ("".equals(key) && "".equals(value)) {
                     key = sourceKey;
                     keyEdit.setText(key);
                 }

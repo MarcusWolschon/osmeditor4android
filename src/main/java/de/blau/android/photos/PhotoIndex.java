@@ -191,7 +191,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
             }
             // check if we shouldn't process this directory, not the most efficient way likely
             for (File f : list) {
-                if (f.getName().equals(".novespucci")) {
+                if (".novespucci".equals(f.getName())) {
                     return;
                 }
             }

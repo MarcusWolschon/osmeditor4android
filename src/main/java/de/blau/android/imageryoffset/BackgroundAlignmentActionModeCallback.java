@@ -300,7 +300,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                             reader.beginObject();
                             while (reader.hasNext()) {
                                 String jsonName = reader.nextName();
-                                if (jsonName.equals("error")) {
+                                if ("error".equals(jsonName)) {
                                     error = reader.nextString();
                                     Log.d(DEBUG_TAG, "search error " + error);
                                 } else {

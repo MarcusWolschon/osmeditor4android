@@ -81,14 +81,14 @@ public class Photo implements BoundedObject {
         float lonf = convertToDegree(lonStr);
 
         String lonRef = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
-        if (lonRef != null && !lonRef.equals("E")) { // deal with the negative degrees
+        if (lonRef != null && !"E".equals(lonRef)) { // deal with the negative degrees
             lonf = -lonf;
         }
 
         float latf = convertToDegree(exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE));
 
         String latRef = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
-        if (latRef != null && !latRef.equals("N")) {
+        if (latRef != null && !"N".equals(latRef)) {
             latf = -latf;
         }
         lat = (int) (latf * 1E7d);

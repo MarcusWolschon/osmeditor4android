@@ -35,7 +35,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
             if (current.id.equals(AdvancedPrefDatabase.ID_DEFAULT)) {
                 apipref.setSummary(R.string.config_apibutton_summary);
             } else {
-                apipref.setSummary(current.name.equals("") ? current.url : current.name);
+                apipref.setSummary("".equals(current.name) ? current.url : current.name);
             }
             Preference loginpref = getPreferenceScreen().findPreference(r.getString(R.string.config_loginbutton_key));
             if (loginpref != null) {

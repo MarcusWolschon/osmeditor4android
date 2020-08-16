@@ -306,7 +306,7 @@ public class IndoorFilter extends InvertableFilter {
             Preferences prefs = new Preferences(context);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             controls = (RelativeLayout) inflater
-                    .inflate(prefs.followGPSbuttonPosition().equals("LEFT") ? R.layout.indoor_controls_right : R.layout.indoor_controls_left, layout);
+                    .inflate("LEFT".equals(prefs.followGPSbuttonPosition()) ? R.layout.indoor_controls_right : R.layout.indoor_controls_left, layout);
             levelUp = (FloatingActionButton) controls.findViewById(R.id.levelUp);
             levelDisplay = (FrameLayout) controls.findViewById(R.id.level);
             levelText = (TextView) controls.findViewById(R.id.levelText);

@@ -2211,7 +2211,7 @@ public class TileLayerSource implements Serializable {
             return "scanex_irs";
         }
 
-        if (id.equalsIgnoreCase("Mapbox")) {
+        if ("Mapbox".equalsIgnoreCase(id)) {
             return "mapbox";
         }
 
@@ -2236,7 +2236,7 @@ public class TileLayerSource implements Serializable {
             String[] kv = param.split("=");
             kv[0] = kv[0].toLowerCase(Locale.US);
             // TMS: skip parameters with variable values and Mapbox's access token
-            if ((kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0) || kv[0].equals("access_token")) {
+            if ((kv.length > 1 && kv[1].indexOf('{') >= 0 && kv[1].indexOf('}') > 0) || "access_token".equals(kv[0])) {
                 continue;
             }
             qparams.put(kv[0].toLowerCase(Locale.US), kv.length > 1 ? kv[1] : null);

@@ -195,7 +195,7 @@ public class Server {
      */
     public Server(@NonNull Context context, @NonNull final API api, @NonNull final String generator) {
         Log.d(DEBUG_TAG, "constructor");
-        if (api.url != null && !api.url.equals("")) {
+        if (api.url != null && !"".equals(api.url)) {
             this.serverURL = api.url;
         } else {
             this.serverURL = Urls.DEFAULT_API_NO_HTTPS; // probably not needed anymore
@@ -749,7 +749,7 @@ public class Server {
      * @return true if either oauth is set or we have login information
      */
     public boolean isLoginSet() {
-        return (username != null && (password != null && !username.equals("") && !password.equals(""))) || oauth;
+        return (username != null && (password != null && !"".equals(username) && !"".equals(password))) || oauth;
     }
 
     /**

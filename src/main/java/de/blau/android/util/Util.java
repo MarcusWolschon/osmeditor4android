@@ -477,10 +477,10 @@ public final class Util {
     private static class UlTagHandler implements Html.TagHandler {
         @Override
         public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
-            if (tag.equals("ul") && !opening) {
+            if ("ul".equals(tag) && !opening) {
                 output.append("\n");
             }
-            if (tag.equals("li") && opening) {
+            if ("li".equals(tag) && opening) {
                 output.append("\n\t•");
             }
         }
@@ -615,7 +615,7 @@ public final class Util {
 
         // special case for Norwegian Nynorsk since "NY" cannot be a variant as per BCP 47
         // this goes before the string matching since "NY" wont pass the variant checks
-        if (language.equals("no") && region.equals("NO") && variant.equals("NY")) {
+        if ("no".equals(language) && "NO".equals(region) && "NY".equals(variant)) {
             language = "nn";
             region = "NO";
             variant = "";
@@ -624,11 +624,11 @@ public final class Util {
         if (language.isEmpty() || !language.matches("\\p{Alpha}{2,8}")) {
             language = "und"; // Follow the Locale#toLanguageTag() implementation
             // which says to return "und" for Undetermined
-        } else if (language.equals("iw")) {
+        } else if ("iw".equals(language)) {
             language = "he"; // correct deprecated "Hebrew"
-        } else if (language.equals("in")) {
+        } else if ("in".equals(language)) {
             language = "id"; // correct deprecated "Indonesian"
-        } else if (language.equals("ji")) {
+        } else if ("ji".equals(language)) {
             language = "yi"; // correct deprecated "Yiddish"
         }
 

@@ -291,7 +291,7 @@ public final class Address implements Serializable {
                 if (!hasPlace) {
                     List<String> addrStreetValues = tags.get(Tags.KEY_ADDR_STREET);
                     int rank = -1;
-                    boolean hasAddrStreet = addrStreetValues != null && !addrStreetValues.isEmpty() && !addrStreetValues.get(0).equals("");
+                    boolean hasAddrStreet = addrStreetValues != null && !addrStreetValues.isEmpty() && !"".equals(addrStreetValues.get(0));
                     if (hasAddrStreet) {
                         rank = streetNames.indexOf(addrStreetValues.get(0)); // FIXME this and the following could
                                                                              // consider other values in multi select
@@ -602,7 +602,7 @@ public final class Address implements Serializable {
                 sb.append(c);
             }
         }
-        if (sb.toString().equals("")) {
+        if ("".equals(sb.toString())) {
             return 0;
         } else {
             return Integer.parseInt(sb.toString());

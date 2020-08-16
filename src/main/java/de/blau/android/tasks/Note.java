@@ -107,7 +107,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
                         id = Long.parseLong(parser.getText().trim());
                     }
                     if ("status".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
-                        if (parser.getText().trim().equalsIgnoreCase("closed")) {
+                        if ("closed".equalsIgnoreCase(parser.getText().trim())) {
                             close();
                             originalState = State.CLOSED;
                         } else {

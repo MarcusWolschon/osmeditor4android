@@ -791,7 +791,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          * @return true if both fields are empty, false if at least one is filled
          */
         public boolean isEmpty() {
-            return roleEdit.getText().toString().trim().equals("");
+            return "".equals(roleEdit.getText().toString().trim());
         }
 
         // return the status of the checkbox
