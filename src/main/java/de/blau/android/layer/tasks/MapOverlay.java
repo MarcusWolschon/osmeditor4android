@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentActivity;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
-import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.ConfigureInterface;
@@ -111,19 +110,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
                 continue;
             }
             tasks.addBoundingBox(b);
-            mThreadPool.execute(() -> TransferTasks.downloadBox(context, server, b, true, new PostAsyncActionHandler() {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public void onSuccess() {
-                    map.postInvalidate();
-                }
-
-                @Override
-                public void onError() {
-                    // do nothing
-                }
-
+            mThreadPool.execute(() -> TransferTasks.downloadBox(context, server, b, true, () -> {
+                map.postInvalidate();
             }));
         }
     };
@@ -225,14 +213,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
 
     @Override
     public void onSelected(FragmentActivity activity, Task t) {
-        selected = t;
         if (t instanceof Note && ((Note) t).isNew() && activity instanceof Main) {
-            ((Main) activity).getEasyEditManager().editNote((Note) t, this);
+            if (((Main) activity).getEasyEditManager().editNote((Note) t, this)) {
+                selected = t;
+            }
         } else {
             if (((Main) activity).getEasyEditManager().inNewNoteSelectedMode()) {
                 // Keeping this mode running while showing the dialog for something else is too confusing
                 ((Main) activity).getEasyEditManager().finish();
             }
+            selected = t;
             TaskFragment.showDialog(activity, t);
         }
     }

@@ -427,13 +427,16 @@ public class EasyEditManager {
      * 
      * @param note the Note to edit
      * @param layer the current task layer
+     * @return true if the Note editing mode could be started
      */
-    public void editNote(@NonNull Note note, @NonNull de.blau.android.layer.tasks.MapOverlay layer) {
+    public boolean editNote(@NonNull Note note, @NonNull de.blau.android.layer.tasks.MapOverlay layer) {
         synchronized (actionModeCallbackLock) {
-            if (currentActionModeCallback == null || (currentActionModeCallback instanceof NewNoteSelectionActionModeCallback
+            if (currentActionModeCallback == null || inElementSelectedMode() || (currentActionModeCallback instanceof NewNoteSelectionActionModeCallback
                     && !((NewNoteSelectionActionModeCallback) currentActionModeCallback).handleNoteClick(note))) {
                 getMain().startSupportActionMode(new NewNoteSelectionActionModeCallback(this, note, layer));
+                return true;
             }
         }
+        return false;
     }
 }
