@@ -429,7 +429,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         boolean enablePresetFeedback = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.FLAVOR.equals(Flavors.CURRENT);
         if (paneMode) {
             getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
-            menuView.setOnMenuItemClickListener(item -> onOptionsItemSelected(item));
+            menuView.setOnMenuItemClickListener(this::onOptionsItemSelected);
             if (enablePresetFeedback) {
                 // this adds the item as the last one
                 menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback).setEnabled(propertyEditorListener.isConnected());
