@@ -1223,7 +1223,7 @@ public class Main extends FullScreenAppCompatActivity
             ImportTrack.showDialog(Main.this, uri);
         } else {
             getTracker().stopTracking(false);
-            LoadTrack.fromFile(Main.this, uri, getTracker().getTrack(), () -> gotoFirstTrackPoint());
+            LoadTrack.fromFile(this, uri, getTracker().getTrack(), this::gotoFirstTrackPoint);
             map.invalidate();
         }
     }
