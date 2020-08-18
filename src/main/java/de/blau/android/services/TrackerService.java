@@ -863,7 +863,7 @@ public class TrackerService extends Service implements Exportable {
                                                             // complete
                         Log.d(DEBUG_TAG, "getNextCenter loading " + b.toString());
                         final Logic logic = App.getLogic();
-                        logic.autoDownloadBox(this, prefs.getServer(), validator, b, () -> logic.reselectRelationMembers());
+                        logic.autoDownloadBox(this, prefs.getServer(), validator, b, logic::reselectRelationMembers);
                     }
                 }
                 previousLocation = location;
