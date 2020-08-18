@@ -110,9 +110,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
                 continue;
             }
             tasks.addBoundingBox(b);
-            mThreadPool.execute(() -> TransferTasks.downloadBox(context, server, b, true, () -> {
-                map.postInvalidate();
-            }));
+            mThreadPool.execute(() -> TransferTasks.downloadBox(context, server, b, true, () -> map.postInvalidate()));
         }
     };
 
