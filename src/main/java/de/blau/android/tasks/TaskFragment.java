@@ -139,8 +139,6 @@ public class TaskFragment extends ImmersiveDialogFragment {
                     @Override
                     protected Void doInBackground(Void... arg0) {
                         PostAsyncActionHandler handler = new PostAsyncActionHandler() {
-                            private static final long serialVersionUID = 1L;
-
                             @Override
                             public void onSuccess() {
                                 updateMenu(activity);
@@ -223,8 +221,6 @@ public class TaskFragment extends ImmersiveDialogFragment {
                             try {
                                 BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
                                 App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
-                                    private static final long serialVersionUID = 1L;
-
                                     @Override
                                     public void onSuccess() {
                                         OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
@@ -296,20 +292,10 @@ public class TaskFragment extends ImmersiveDialogFragment {
                     final FragmentActivity activity = getActivity();
                     try {
                         final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50, true);
-                        App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
-                            private static final long serialVersionUID = 1L;
-
-                            @Override
-                            public void onSuccess() {
-                                Logic logic = App.getLogic();
-                                logic.getViewBox().fitToBoundingBox(logic.getMap(), b);
-                                logic.getMap().invalidate();
-                            }
-
-                            @Override
-                            public void onError() {
-                                // unused
-                            }
+                        App.getLogic().downloadBox(activity, b, true, () -> {
+                            Logic logic = App.getLogic();
+                            logic.getViewBox().fitToBoundingBox(logic.getMap(), b);
+                            logic.getMap().invalidate();
                         });
                     } catch (OsmException e1) {
                         Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
@@ -348,11 +334,11 @@ public class TaskFragment extends ImmersiveDialogFragment {
         AppCompatDialog d = builder.create();
         d.setOnShowListener( // old API, buttons are enabled by default
                 dialog -> { //
-                    final Button save = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                    final Button save = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
                     if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
                         save.setEnabled(false);
                     }
-                    final Button upload = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
+                    final Button upload = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEUTRAL);
                     if (!task.hasBeenChanged()) {
                         upload.setEnabled(false);
                     }
