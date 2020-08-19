@@ -484,6 +484,7 @@ avoided by using an offline data source.</string>
     <string name="toast_restart_required">You need to restart Vespucci for the change to take effect</string>
     <string name="toast_unable_to_open_offline_data">Unable to open offline data %1$s %2$s</string>
     <string name="toast_no_usable_location">No usable location</string>
+    <string name="toast_default_channel_needs_to_be_enabled">Default notification channel needs to be enabled to start recording</string>
     <plurals name="added_required_elements">
         <item quantity="one">Added required element</item>
         <item quantity="other">Added %1$d required elements</item>

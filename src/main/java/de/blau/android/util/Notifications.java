@@ -17,7 +17,7 @@ import de.blau.android.prefs.Preferences;
  */
 public final class Notifications {
 
-    private static final String DEFAULT_CHANNEL = "default";
+    public static final String DEFAULT_CHANNEL = "default";
 
     /**
      * Private constructor
@@ -67,7 +67,7 @@ public final class Notifications {
     }
 
     /**
-     * Create a default notification channel Does nothing if run on a pre-NofiticationChannel OS
+     * Create a default notification channel Does nothing if run on a pre-NotificationChannel OS
      * 
      * @param context Android Context
      * @param channelId the id we will to use to refer to this channel
@@ -83,6 +83,27 @@ public final class Notifications {
                 notificationManager.createNotificationChannel(channel);
             }
         }
+    }
+
+    /**
+     * Check if a specific channel is enabled (and present) or not
+     * 
+     * On pre-NofiticationChannel OS version this will always return true
+     * 
+     * @param context Android Context
+     * @param channelId the channel id
+     * @return true if enabled (or running on a pre-channel OS)
+     */
+    public static boolean channelEnabled(@NonNull Context context, @NonNull String channelId) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
+            if (channel != null) {
+                return channel.getImportance() != NotificationManager.IMPORTANCE_NONE;
+            }
+            return true; // channel doesn't exist yet
+        }
+        return true;
     }
 
     /**

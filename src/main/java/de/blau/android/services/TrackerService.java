@@ -320,12 +320,13 @@ public class TrackerService extends Service implements Exportable {
             track.markNewSegment();
             return;
         }
-        startInternal();
-        tracking = true;
-        track.markNewSegment();
-        init();
-        if (externalListener != null) {
-            externalListener.onStateChanged();
+        if (startInternal()) {
+            tracking = true;
+            track.markNewSegment();
+            init();
+            if (externalListener != null) {
+                externalListener.onStateChanged();
+            }
         }
     }
 
@@ -338,11 +339,12 @@ public class TrackerService extends Service implements Exportable {
         if (downloading) {
             return;
         }
-        startInternal();
-        downloading = true;
-        init();
-        if (externalListener != null) {
-            externalListener.onStateChanged();
+        if (startInternal()) {
+            downloading = true;
+            init();
+            if (externalListener != null) {
+                externalListener.onStateChanged();
+            }
         }
     }
 
@@ -354,11 +356,12 @@ public class TrackerService extends Service implements Exportable {
         if (downloadingBugs) {
             return;
         }
-        startInternal();
-        downloadingBugs = true;
-        init();
-        if (externalListener != null) {
-            externalListener.onStateChanged();
+        if (startInternal()) {
+            downloadingBugs = true;
+            init();
+            if (externalListener != null) {
+                externalListener.onStateChanged();
+            }
         }
     }
 
@@ -366,10 +369,16 @@ public class TrackerService extends Service implements Exportable {
      * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
      * 
      * See {@link #startTracking()} for the public method to call when tracking should be started.
+     * 
+     * @return true if tracking could be started
      */
-    private void startInternal() {
+    private boolean startInternal() {
         if (tracking || downloading || downloadingBugs) {
-            return; // all ready running
+            return true; // already running
+        }
+        if (!Notifications.channelEnabled(this, Notifications.DEFAULT_CHANNEL)) {
+            Snack.toastTopError(TrackerService.this, R.string.toast_default_channel_needs_to_be_enabled);
+            return false;
         }
         NotificationCompat.Builder notificationBuilder = Notifications.builder(this);
 
@@ -390,6 +399,7 @@ public class TrackerService extends Service implements Exportable {
                 .setColor(ContextCompat.getColor(this, R.color.osm_green))
                 .addAction(R.drawable.logo_simplified, getString(R.string.exit_title), pendingExitIntent);
         startForeground(R.id.notification_tracker, notificationBuilder.build());
+        return true;
     }
 
     /**
