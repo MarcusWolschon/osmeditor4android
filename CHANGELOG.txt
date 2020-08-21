@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.0.2: Fix issue with GPX recording on Android 10, fix issue with visible state being overwritten on styleable layers, select Note properly if in an element selection mode, maintain preset order when matching, update translations, update OH fragment, update imagery.
+
 15.0.1: Explicitly use our OkHttp client with TLS 1.2 support
 
 15.0.0: Update imagery and translations, update privacy policy, fix issue with imagery selection on older devices, fix beeping due to under screen fingerprint sensor generating key presses, fix another race condition in the property editor.
