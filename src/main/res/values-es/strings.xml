@@ -7,7 +7,7 @@
   <string name="mode_correct">Modo-C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">¡Precaución!</string>
-  <string name="transfer_download_current_dialog_message">Introduciste cambios. Quieres subirlos? De otra manera, se descartarán.</string>
+  <string name="transfer_download_current_dialog_message">Introdujiste cambios. ¿Quieres subirlos? De otra manera, se descartarán.</string>
   <string name="transfer_download_current_upload">Subir</string>
   <string name="transfer_download_current_download">Descartar &amp; descargar</string>
   <string name="transfer_download_current_back">Atrás (no hacer nada)</string>
@@ -79,6 +79,7 @@
   <string name="progress_oauth">Cargando su cuenta en openstreetmap.org para la autorización OAuth...</string>
   <string name="progress_building_imagery_database">Construyendo base de datos de imágenes ...</string>
   <string name="progress_query_oam">Consultando OAM ...</string>
+  <string name="progress_pruning">Podando...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" borrado</string>
   <string name="changes_changed">\"%1$s\" modificado</string>
@@ -193,6 +194,9 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Atribución</string>
   <!--Too much data dialog-->
+  <string name="too_much_data_title">¡Demasiados datos cargados!</string>
+  <string name="too_much_data_message">Tiene %1$d nodos cargados y han sobrepasado el límite configurado. Esto hará que la aplicación vaya más despacio. Si añade más datos,  pueden aparecer problemas al guardar el estado.</string>
+  <string name="upload_data_now">Subir cambios</string>
   <!---->
   <string name="error">Error</string>
   <string name="warning">Advertencia</string>
@@ -245,6 +249,7 @@
   <string name="oam_layer_title">Imágenes OAM</string>
   <string name="edit_layer_title">Editar entrada de capa</string>
   <string name="add_layer_title">Añadir entrada de capa</string>
+  <string name="select_layer_title">Seleccionar capa</string>
   <string name="overlay">Superposición</string>
   <string name="coverage">Cobertura</string>
   <string name="coverage_top">Arriba</string>
@@ -253,6 +258,7 @@
   <string name="coverage_bottom">Abajo</string>
   <string name="toast_invalid_box">Cuadro delimitador no válido o incompleto</string>
   <string name="delete_layer">¿Borrar capa?</string>
+  <string name="delete_endpoint">¿Eliminar endpoint?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Estilo de capa</string>
   <string name="layer_style_stroke_width">Anchura del trazo</string>
@@ -262,6 +268,7 @@
   <string name="json_array_not_displayed">Tabla JSON (no mostrada)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Rejilla</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Fotos</string>
@@ -321,6 +328,7 @@
   <string name="tip_imagery_privacy">El fondo y las capas superpuestas son proporcionadas por terceros. El uso de una capa transmite su dirección de red y una indicación aproximada del área que está mirando al proveedor.&lt;p&gt;Si el proveedor ha proporcionado información de política de privacidad, puede verla con el elemento de menú \"Información\" en el diálogo de capa .</string>
   <string name="tip_pan_and_zoom_auto_download">La descarga automática de desplazamiento y acercamiento debe usarse con precaución ya que tiene el potencial de sobrecargar severamente tanto las API de OpenStreetMap como su dispositivo.&amp;Lt;p&amp;gt; Eso se puede evitar usando una fuente de datos fuera de línea.</string>
   <string name="tip_locked_mode">En el modo bloqueado no puede editar, pero al presionar un objeto durante mucho tiempo se abrirá una pantalla con información detallada.</string>
+  <string name="tip_longpress_simple_mode">En modo simple, una pulsación larga no hará nada. Desactive el modo simple en el menú principal si desea utilizar clicks largos para crear objetos.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -463,6 +471,9 @@
   <string name="toast_members_not_downloaded">Algunos miembros de la relación no se descargan</string>
   <string name="toast_restart_required">Debe reiniciar Vespucci para que el cambio surta efecto</string>
   <string name="toast_unable_to_open_offline_data">No se pueden abrir los datos sin conexión %1$s %2$s</string>
+  <string name="toast_out_of_memory">¡MEMORIA INSUFICIENTE!</string>
+  <string name="toast_egm_installed">EGM descargado e instalado</string>
+  <string name="toast_error_downloading_mapillary_image">Error descargando la imagen %1$s de Mapillary </string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Las fuentes de MapSplit deben tener el zoom mínimo y máximo establecido</string>
   <string name="error_pbf_no_version">Falta información de versión en el archivo PBF</string>
@@ -592,7 +603,12 @@
   <string name="location_nan_message">Inserte coordenadas con formato decimal (por ejemplo, \"52.333572\", \"8.741185\"). Lat. tiene que estar entre -85.0 y +85.0, y Lon. tiene que estar entre -175.0 y +175.0.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_current_height">Altura actual (metros)</string>
+  <string name="barometer_calibration_current_reference_pressure">presión de referencia actual (hPa)</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">información de la posición actual.</string>
+  <string name="position_info_altitude">Altitud</string>
+  <string name="position_info_barometric_height">altura barométrica</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Descargar archivos</string>
   <string name="allow_all_networks">Permitir todas las redes</string>

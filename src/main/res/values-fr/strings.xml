@@ -262,6 +262,7 @@
   <string name="json_array_not_displayed">Tableau JSON (non affiché)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Grille</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Photos</string>
@@ -463,6 +464,7 @@
   <string name="toast_members_not_downloaded">Certains membres de la relation n\'ont pas été chargés</string>
   <string name="toast_restart_required">Vous devez redémarrer Vespucci pour que les changements prennent effet</string>
   <string name="toast_unable_to_open_offline_data">Impossible d\'ouvrir les données hors-ligne %1$s %2$s</string>
+  <string name="toast_out_of_memory">MÉMOIRE INSUFFISANTE!</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Les sources MapSplit doivent avoir un niveau de zoom min et max</string>
   <string name="error_pbf_no_version">Informations de version manquantes dans le fichier PBF</string>
@@ -593,6 +595,7 @@
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
   <!--Strings in postition info-->
+  <string name="position_info_altitude">Altitude</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Télécharger des fichiers</string>
   <string name="allow_all_networks">Permettre tous les réseaux</string>
@@ -957,6 +960,7 @@
   <string name="config_tileCacheSize_title">Taille du cache de tuiles</string>
   <string name="config_tileCacheSize_summary">Taille totale du cache des tuiles, en Mo.</string>
   <string name="config_tileCache_current">%1$d Mo</string>
+  <string name="config_mapillaryCacheSize_title">Taille du cache Mapillary</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Divers</string>
   <string name="pref_enable_acra">Signaler les plantages de l\'application</string>
@@ -1090,6 +1094,7 @@
   <string name="delete_from_relation_description">Vous êtes sur le point de supprimer cet élément d\'une relation.</string>
   <string name="unset_relation_type">Supprimer le type de relation</string>
   <!--Things-->
+  <string name="bridge">Pont</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 jour</item>

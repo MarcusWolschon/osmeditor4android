@@ -79,6 +79,7 @@
   <string name="progress_oauth">بارکردن حساب شما در openstreetmap.org برای احراز هویت OAuth...</string>
   <string name="progress_building_imagery_database">ساخت پایگاه‌دادهٔ تصاویر...</string>
   <string name="progress_query_oam">پرس‌وجو از OAM...</string>
+  <string name="progress_pruning">در حال هرس...</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">‏«%1$s» حذف شد</string>
   <string name="changes_changed">‏«%1$s» تغییر کرد</string>
@@ -193,6 +194,10 @@
   <!--Tile layer info dialog-->
   <string name="attribution">انتساب</string>
   <!--Too much data dialog-->
+  <string name="too_much_data_title">دادهٔ خیلی زیادی بار شده!</string>
+  <string name="too_much_data_message">شما %1$d گره بار کرده‌اید که از محدودیت پیکربندی‌شده فراتر رفته‌است. این مسئله سبب کُندی خواهد شد و اگر دادهٔ بیشتری بیفزایید احتمال دارد برای ذخیره‌سازی وضعیت با مشکلاتی مواجه شوید.</string>
+  <string name="upload_data_now">آپلود تغییرات</string>
+  <string name="prune_data_now">هرس داده</string>
   <!---->
   <string name="error">خطا</string>
   <string name="warning">هشدار</string>
@@ -243,8 +248,10 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">تصویر سفارشی</string>
   <string name="oam_layer_title">تصویر OAM </string>
+  <string name="wms_endpoints_title">WMS Endpoints</string>
   <string name="edit_layer_title">ویرایش مدخل لایه</string>
   <string name="add_layer_title">افزودن مدخل لایه</string>
+  <string name="select_layer_title">انتخاب لایه</string>
   <string name="overlay">رولایه</string>
   <string name="coverage">پوشش</string>
   <string name="coverage_top">بالا</string>
@@ -253,6 +260,10 @@
   <string name="coverage_bottom">پایین</string>
   <string name="toast_invalid_box">کادر نامعتبر یا ناقص</string>
   <string name="delete_layer">لایه حذف شود؟</string>
+  <string name="delete_endpoint">‏endpoint حذف شود؟</string>
+  <string name="add_wms_endpoint_title">افزودن WMS endpoint</string>
+  <string name="edit_wms_endpoint_title">اصلاح WMS endpoint</string>
+  <string name="add_imagery_from_wms_endpoint">افزودن تصویر از WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">سبک لایه</string>
   <string name="layer_style_stroke_width">پهنای خط دور</string>
@@ -262,6 +273,7 @@
   <string name="json_array_not_displayed">آرایهٔ JSON (نمایش نیافته)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">مپیلاری</string>
   <string name="layer_grid">شبکه</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">عکس‌ها</string>
@@ -290,6 +302,8 @@
   <string name="photo_viewer_delete_title">حذف عکس</string>
   <string name="photo_viewer_delete_button">حذف همیشگی</string>
   <string name="photo_viewer_goto">برو به عکس</string>
+  <string name="photo_viewer_label">نمایشگر عکس</string>
+  <string name="mapillary_viewer_label">نمایشگر مپیلاری</string>
   <!--API info dialog-->
   <string name="api_info_bounds">کادر محصورکننده</string>
   <string name="api_info_latest_date">آخرین تاریخ شامل شده</string>
@@ -321,6 +335,7 @@
   <string name="tip_imagery_privacy">لایه‌های پس‌زمینه و رولایه از منابع ثالث فراهم شده. با استفاده از هر لایه، آدرس شبکهٔ شما و اطلاعات تقریبی از منطقه‌ای که مشاهده می‌کنید برای ارائه‌دهنده ارسال می‌شود.&lt;p&gt;اگر ارائه‌دهنده دربارهٔ سیاست حریم خصوصی‌اش چیزی فراهم کرده باشد، می‌توانید آن را در کادر لایه » اطلاعات مشاهده کنید.</string>
   <string name="tip_pan_and_zoom_auto_download">قابلیت «دانلود خودکار همزمان با جابه‌جایی و زوم» را باید با احتیاط به کار برد زیرا به‌طور بالقوه می‌تواند به API اوپن‌استریت‌مپ و نیز  به دستگاه شما فشار زیادی وارد کند. &lt;p&gt; می‌توان با استفاده از منبع دادهٔ آفلاین از واردآمدن فشار بر کارسازهای API پیشگیری کرد.</string>
   <string name="tip_locked_mode">در حالت قفل نمی‌توانید ویرایش کنید، اما با لمس طولانی یک شیء، جزئیاتی از آن نمایش می‌یابد.</string>
+  <string name="tip_longpress_simple_mode">در حالت آسان لمس طولانی کاری نمی‌کند. اگر می‌خواهید با لمس طولانی چیزهایی ایجاد کنید، حالت آسان را در منوی اصلی خاموش نمایید.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -336,6 +351,7 @@
   <string name="toast_url_empty">یک URL وارد کنید</string>
   <string name="toast_min_zoom">زوم کمینه را کمتر از بیشینه تنظیم کنید</string>
   <string name="toast_no_changes">هنوز چیزی را تغییر نداده‌اید‏...</string>
+  <string name="toast_jpeg_not_transparent">فایل‌های JPEG شفاف نیستند و نمی‌شود برای رولایه استفاده شوند.</string>
   <string name="toast_unsaved_changes">ابتدا تغییرات ذخیره‌نشدهٔ خود را آپلود کنید.</string>
   <string name="clear_anyway">در هر صورت پاک شود؟</string>
   <string name="toast_upload_success">در کارساز OSM آپلود شد.</string>
@@ -394,8 +410,8 @@
   <string name="toast_no_voice">امکاناتی برای تشخیص گفتار وجود ندارد</string>
   <string name="toast_storage_error">وسپوچی نمی‌تواند %1$s را بنویسد.\n ممکن است به‌سبب مجوزهای ناکافی یا مسئله‌ای فنی در دستگاهتان باشد.</string>
   <string name="toast_no_suitable_storage">سیستم مکان مناسبی برای پایگاه‌دادهٔ کاشی برنگرداند.</string>
-  <string name="toast_min_one_preset">دست‌کم باید یک پیش‌تنظیم انتخاب شود!</string>
-  <string name="toast_min_one_geocoder">دست‌کم یک زمین‌کدیاب (geocoder) باید انتخاب شود!</string>
+  <string name="toast_min_one_preset">دست‌کم باید یک پیش‌تنظیم انتخاب شده باشد!</string>
+  <string name="toast_min_one_geocoder">دست‌کم باید یک زمین‌کدیاب (geocoder) انتخاب شده باشد!</string>
   <string name="toast_used_backup">پروندهٔ وضعیت خراب است. درعوض، پروندهٔ پشتیبان به کار رفت.</string>
   <string name="toast_used_bug_backup">پروندهٔ وضعیت باگ خراب است. درعوض، پروندهٔ پشتیبان به کار رفت.</string>
   <string name="toast_split_from">راه from دو نیم شد</string>
@@ -454,6 +470,7 @@
   <string name="toast_device_not_found_for">دستگاه برای %1$s یافت نشد</string>
   <string name="toast_file_already_exists">پروندهٔ %1$s وجود دارد</string>
   <string name="toast_file_error_for">خطای پرونده برای %1$s</string>
+  <string name="toast_error_reading">خطا هنگام خوانش %1$s</string>
   <string name="toast_http_data_error_for">خطای دادهٔ HTTP برای %1$s</string>
   <string name="toast_error_insufficient_space_for">برای %1$s فضای دستگاه کافی نیست</string>
   <string name="toast_error_too_many_redirects_for">تغییرمسیرهای خیلی زیاد برای %1$s</string>
@@ -464,6 +481,16 @@
   <string name="toast_members_not_downloaded">برخی از عضوهای رابطه دانلود نشده‌ است</string>
   <string name="toast_restart_required">برای به‌کارگیری تغییرات باید وسپوچی را مجدداً شروع کنید</string>
   <string name="toast_unable_to_open_offline_data">ناتوان از بازکردن دادهٔ آفلاین  ‎%1$s %2$s</string>
+  <string name="toast_no_usable_location">هیچ مکانی قابل استفاده نیست</string>
+  <plurals name="added_required_elements">
+    <item quantity="one">عنصر ضروری افزوده شد</item>
+    <item quantity="other">%1$d عنصر ضروری افزوده شد</item>
+  </plurals>
+  <string name="toast_out_of_memory">حافظه پر شد!</string>
+  <string name="toast_egm_installed">‏EGM دانلود و نصب شد</string>
+  <string name="toast_invalid_number_format">قالب نامعتبر عدد %1$s</string>
+  <string name="toast_error_downloading_mapillary_image">خطا هنگام دانلود تصویر مپیلاری %1$s</string>
+  <string name="toast_error_downloading_mapillary_sequences">خطا هنگام دانلود دنباله‌های مپیلاری %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">برای منابع MapSplit باید زوم کمینه و بیشینه تنظیم شده باشد</string>
   <string name="error_pbf_no_version">پروندهٔ PBF اطلاعات نسخه ندارد</string>
@@ -592,7 +619,19 @@
   <string name="location_nan_message">لطفاً مختصات را در قالب اعشاری وارد کنید ( مثال: 52.333572,8.741185 ). عرض باید بین ‎-85.0 و ‎+85.0 باشد، طول بین ‎-175.0 و ‎+175.0.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">استفاده</string>
+  <string name="barometer_calibration_current_height">ارتفاع کنونی (متر)</string>
+  <string name="barometer_calibration_current_reference_pressure">فشار مرجع کنونی (hPa)</string>
+  <string name="barometer_calibration_gps">GNSS</string>
+  <string name="barometer_calibration_calibrate">کالیبره‌‌کردن</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">اطلاعات موقعیت کنونی</string>
+  <string name="position_info_hdop">HDOP</string>
+  <string name="position_info_altitude">ارتفاع</string>
+  <string name="position_info_geoid_height">ارتفاع بر فراز زمین‌وار (ژئوئید)</string>
+  <string name="position_info_barometric_height">ارتفاع فشارسنجشی</string>
+  <string name="position_info_geoid_correction">تصحیح ژئوئید</string>
+  <string name="position_info_ellipsoid_height">ارتفاع بر فراز بیضی‌وار</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">دانلود پرونده‌ها</string>
   <string name="allow_all_networks">اجازه به همهٔ شبکه‌ها</string>
@@ -631,6 +670,7 @@
   <string name="menu_gps_goto">برو به مکان کنونی</string>
   <string name="menu_gps_goto_coordinates">برو به مختصات...</string>
   <string name="menu_gps_goto_last_edit">برو به آخرین ویرایش</string>
+  <string name="menu_gps_position_info">اطلاعات موقعیت کنونی</string>
   <string name="menu_gps_start">آغاز رد GPX</string>
   <string name="menu_gps_pause">نگه‌داشتن رد GPX</string>
   <string name="menu_gps_clear">پاک‌سازی رد GPX و نقاط بین‌راهی آن</string>
@@ -648,6 +688,7 @@
   <string name="menu_transfer_load_current">بارکردن نمای کنونی</string>
   <string name="menu_transfer_load_replace">پاک‌سازی و بارکردن نمای کنونی</string>
   <string name="menu_transfer_upload">آپلود داده در کارساز OSM</string>
+  <string name="menu_transfer_update">به‌روزرسانی داده</string>
   <string name="menu_transfer_close_changeset">بستن بستهٔ تغییر جاری</string>
   <string name="menu_transfer_file">پرونده...</string>
   <string name="menu_transfer_export">برون‌برد تغییرات به پروندهٔ OSC</string>
@@ -682,17 +723,26 @@
   <string name="menu_circulize">چیدن روی دایره</string>
   <string name="menu_split_polygon">تقسیم به دو چندضلعی</string>
   <string name="menu_unjoin_dissimilar">جداسازی ناهمسان‌ها</string>
+  <string name="menu_extract_segment">استخراج پاره</string>
   <string name="menu_newnode_gps">گره جدید در موقعیت GPS</string>
   <string name="menu_extend_selection">گسترش انتخاب</string>
   <string name="menu_information">اطلاعات</string>
   <string name="menu_voice_commands">فرمان‌های صوتی</string>
+  <string name="menu_upload_element">آپلود عنصر</string>
+  <string name="menu_upload_elements">آپلود عنصرها</string>
   <string name="menu_set_name">تنظیم نام</string>
   <string name="menu_tools">ابزارها...</string>
+  <string name="menu_tools_imagery">دیگر ابزارهای تصویر...</string>
   <string name="menu_tools_add_imagery_from_oam">افزودن تصویر از OAM</string>
   <string name="menu_tools_flush_all_tile_caches">پاک‌سازی همهٔ نهان‌گاه‌های کاشی</string>
   <string name="menu_tools_background_properties">خصوصیات پس‌زمینه</string>
+  <string name="menu_tools_update_imagery_configuration">به‌روزرسانی پیکربندی</string>
+  <string name="menu_tools_update_imagery_configuration_eli">به‌روزرسانی پیکربندی از ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">زوم به گسترهٔ لایهٔ پس‌زمینه</string>
   <string name="menu_tools_clear_clipboard">پاک‌سازی بریده‌دان</string>
+  <string name="menu_tools_calibrate_height">حسگر فشار را واسنجی کنید</string>
+  <string name="menu_tools_install_egm">نصب EGM</string>
+  <string name="menu_tools_remove_egm">حذف EGM</string>
   <!---->
   <string name="menu_simple_actions">حالت ساده</string>
   <string name="menu_feedback">بازخورد</string>
@@ -712,8 +762,13 @@
   <string name="distance_km">%1$.3f کیلومتر</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">لایه‌ها...</string>
+  <string name="menu_layers_load_geojson">افزودن لایهٔ GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">افزودن لایهٔ تصویر پس‌زمینه</string>
   <string name="menu_layers_add_overlaylayer">افزودن لایهٔ تصویر رو</string>
+  <string name="menu_layers_add_tasklayer">فعال‌سازی لایهٔ وظیفه</string>
+  <string name="menu_layers_add_grid">فعال‌سازی شبکه</string>
+  <string name="menu_layers_add_photolayer">فعال‌سازی لایهٔ عکس</string>
+  <string name="menu_layers_enable_mapillary_layer">فعال‌سازی لایهٔ مپیلاری</string>
   <string name="menu_layers_configure">پیکربندی...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">به‌کارگیری آفست ذخیره‌شده بر تصویر</string>
@@ -766,6 +821,8 @@
   <string name="actionmode_restriction_restart_to">پارهٔ to را دوباره انتخاب کنید</string>
   <string name="actionmode_restriction_split_from">پارهٔ from را دو نیم کنید</string>
   <string name="actionmode_restriction_split_via">پارهٔ via را دو نیم کنید</string>
+  <string name="actionmode_extract_segment_select">انتخاب پاره</string>
+  <string name="actionmode_extract_segment_set_tags">تنظیم تگ‌ها</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 شیء</item>
     <item quantity="other">%1$d شیء</item>
@@ -862,6 +919,13 @@
   <string name="config_maxStrokeWidth_title">بیشینهٔ پهنای خط</string>
   <string name="config_maxStrokeWidth_summary">راهی را ضخیم‌تر از این رسم نکن.</string>
   <string name="config_maxStrokeWidth_current">%1$d پیکسل</string>
+  <string name="config_uploadOk_title">آپلود در انتظار - مناسب</string>
+  <string name="config_uploadOk_summary">در محدودیت زیر مشخص کنید کدام آپلودهای در انتظار، مناسب دانسته شود</string>
+  <string name="config_upload_current">%1$d شیء</string>
+  <string name="config_uploadWarn_title">آپلود در انتظار - هشدار</string>
+  <string name="config_uploadWarn_summary">در محدودیت زیر مشخص کنید برای کدام آپلودهای در انتظار، هشدار داده شود</string>
+  <string name="config_dataWarn_title">هشدار دادهٔ خیلی زیاد</string>
+  <string name="config_dataWarn_summary">محدودیتی (بر حسب تعداد گره) تعیین کنید که از آنجا به بعد دربارهٔ بارشدن دادهٔ بسیار زیاد هشدار دهیم.</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">تنظیمات داده و ویرایش</string>
   <string name="config_category_editing_summary">دانلود خودکار، ذخیره‌سازی و تنظیمات اعلان.</string>
@@ -935,6 +999,8 @@
   <string name="config_gnssTimeToStale_title">کهنه‌شدن مکان پس از</string>
   <string name="config_gnssTimeToStale_summary">عمری (به ثانیه) که از یک موقعیت مکانی باید بگذرد تا کهنه تلقی شود.</string>
   <string name="config_gnssTimeToStale_current">%1$d ثانیه</string>
+  <string name="config_useBarometricHeight_title">استفاده از ارتفاع فشارسنجشی</string>
+  <string name="config_useBarometricHeight_summary">برای مقادیر ارتفاع در ردها از حسگر فشار هوا (در صورت وجود) استفاده می‌کند.</string>
   <!--Server Settings-->
   <string name="config_category_server">تنظیمات کارساز</string>
   <string name="config_category_server_summary">‏OSM API و پیکربندی سایر کارسازها.</string>
@@ -957,6 +1023,8 @@
   <string name="config_tileCacheSize_title">اندازهٔ نهان‌گاه کاشی</string>
   <string name="config_tileCacheSize_summary">فضای ذخیرهٔ کل که برای نگه‌داشتن کاشی‌ها در حافظهٔ نهان مصرف شده، به مگابایت.</string>
   <string name="config_tileCache_current">%1$d MB</string>
+  <string name="config_mapillaryCacheSize_title">اندازهٔ نهان‌گاه مپیلاری</string>
+  <string name="config_mapillaryCacheSize_summary">فضای ذخیرهٔ کل که برای نگه‌داشتن تصاویر مپیلاری در حافظهٔ نهان مصرف شده، به مگابایت.</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">سایر</string>
   <string name="pref_enable_acra">گزارش فروپاشی‌های برنامه</string>
@@ -1056,6 +1124,7 @@
   <string name="undo_action_extract_node">استخراج گره</string>
   <string name="undo_action_apply_osc">به‌کارگیری پروندهٔ OSC</string>
   <string name="undo_action_remove_node_from_way">حذف گره از راه</string>
+  <string name="undo_action_extract_segment">استخراج پاره</string>
   <!--ACRA-->
   <string name="crash_dialog_text">وسپوچی در آخرین اجرای خود فروپاشید یا با مسئله‌ای جدی مواجه شد.\n\nلطفاْ با زدن روی «تأیید» و فرستادن گزارش خطا کمک کنید.\n</string>
   <string name="crash_dialog_comment_prompt">اگر فکر می‌کنید اطلاعات دیگری نیز کمک‌کننده است، آن را بنویسید و اگر بازخورد ما را می‌خواهید نام کاربری خود در OSM را بنویسید (اختیاری).\n\nسپاس.</string>
@@ -1090,6 +1159,8 @@
   <string name="delete_from_relation_description">در حال حذف این عنصر از یک رابطه هستید.</string>
   <string name="unset_relation_type">رابطهٔ بدون نوع</string>
   <!--Things-->
+  <string name="bridge">پل</string>
+  <string name="tunnel">تونل</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 روز</item>
