@@ -401,7 +401,7 @@ dependencies {
     implementation "ch.poole:PoParser:0.7.2"
     implementation "ch.poole:OpeningHoursParser:0.22.0"
     implementation "ch.poole:ConditionalRestrictionParser:0.3.0"
-    implementation "ch.poole:OpeningHoursFragment:0.8.2"
+    implementation "ch.poole:OpeningHoursFragment:0.8.3"
     implementation 'ch.poole.android:numberpicker:1.0.9'
     implementation 'ch.poole.android:numberpickerpreference:2.0.0'
     implementation "ch.poole.osm:JosmFilterParser:0.2.0"
