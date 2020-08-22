@@ -992,16 +992,13 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             String desc = row.elementView.getText().toString().trim();
             RelationMemberDescription rmd = new RelationMemberDescription(type, row.rmd.getRef(), role, desc);
             members.add(rmd);
-
             Set<String> originalRoles = originalMembesRoles.get(type + row.rmd.getRef());
-            if (originalRoles != null) {
-                if (!"".equals(role) && !originalRoles.contains(role)) {
-                    // only add if the role wasn't in use before
-                    if (presetItem != null) {
-                        App.getMruTags().putRole(presetItem, role);
-                    } else {
-                        App.getMruTags().putRole(role);
-                    }
+            if (!"".equals(role) && !originalRoles.contains(role)) {
+                // only add if the role wasn't in use before
+                if (presetItem != null) {
+                    App.getMruTags().putRole(presetItem, role);
+                } else {
+                    App.getMruTags().putRole(role);
                 }
             }
         });
