@@ -29,7 +29,7 @@ import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.AutoPresetItem;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetClickHandler;
+import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
@@ -140,11 +140,10 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
             Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
             positive.setEnabled(propertyEditorListener.isConnected() && container != null);
             positive.setOnClickListener(view -> {
-                    OnlineQuery query = new OnlineQuery(getActivity());
-                    query.execute();
-                    view.setEnabled(false);
-                }
-            );
+                OnlineQuery query = new OnlineQuery(getActivity());
+                query.execute();
+                view.setEnabled(false);
+            });
         });
         return dialog;
     }

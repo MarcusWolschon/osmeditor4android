@@ -18,7 +18,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.Preset.PresetClickHandler;
+import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
