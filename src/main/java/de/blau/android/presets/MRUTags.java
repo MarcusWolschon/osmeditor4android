@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -39,7 +40,6 @@ import de.blau.android.osm.OsmXml;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.collections.MRUList;
 
 /**
@@ -68,10 +68,10 @@ public class MRUTags {
     private static final int ROLE_MRU_SIZE  = 10;
 
     Map<PresetItem, Map<String, MRUList<String>>> valueStore = new HashMap<>();
-    Map<ElementType, MRUList<String>>             keyStore   = new HashMap<>();
+    Map<ElementType, MRUList<String>>             keyStore   = new EnumMap<>(ElementType.class);
     Map<PresetItem, MRUList<String>>              roleStore  = new HashMap<>();
     final PresetItem                              dummyItem;
-    transient boolean                             dirty      = false;
+    boolean                                       dirty      = false;
 
     /**
      * Construct a new container for most recently used tags
@@ -151,7 +151,7 @@ public class MRUTags {
      * @param key the key
      */
     private void putKey(@NonNull ElementType elementType, @NonNull String key) {
-        MRUList<String> mru = keyStore.get(elementType); // NOSONAR needs Android 24
+        MRUList<String> mru = keyStore.get(elementType); // NOSONAR computeIfAbsent needs Android 24
         if (mru == null) {
             mru = new MRUList<>(KEY_MRU_SIZE);
             keyStore.put(elementType, mru);
@@ -166,7 +166,7 @@ public class MRUTags {
      * @param role the role
      */
     public synchronized void putRole(@NonNull PresetItem item, @NonNull String role) {
-        MRUList<String> mru = roleStore.get(item); // NOSONAR needs Android 24
+        MRUList<String> mru = roleStore.get(item); // NOSONAR computeIfAbsent needs Android 24
         if (mru == null) {
             mru = new MRUList<>(ROLE_MRU_SIZE);
             roleStore.put(item, mru);
@@ -289,23 +289,18 @@ public class MRUTags {
         AsyncTask<Void, Void, Void> save = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                FileOutputStream fout = null;
-                OutputStream out = null;
                 try {
                     File outfile = FileUtil.openFileForWriting(FileUtil.getPublicDirectory() + "/" + Files.FILE_NAME_MRUTAGS);
                     Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-
-                    fout = new FileOutputStream(outfile);
-                    out = new BufferedOutputStream(fout);
-                    writeXml(ctx, out);
-                    dirty = false;
-                } catch (IllegalArgumentException | IllegalStateException | IOException | XmlPullParserException e) {
-                    Log.e(DEBUG_TAG, "Saving failed with " + e.getMessage());
-                } finally {
-                    SavingHelper.close(out);
-                    SavingHelper.close(fout);
+                    try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream out = new BufferedOutputStream(fout);) {
+                        writeXml(ctx, out);
+                        dirty = false;
+                    } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
+                        Log.e(DEBUG_TAG, "Writing XML failed with " + e.getMessage());
+                    }
+                } catch (IOException ioex) {
+                    Log.e(DEBUG_TAG, "Saving failed with " + ioex.getMessage());
                 }
-
                 return null;
             }
         };
@@ -321,13 +316,10 @@ public class MRUTags {
      * 
      * @param ctx an Android Context
      * @param outputStream the OutputStream to write to
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws IOException
-     * @throws XmlPullParserException
+     * @throws IOException if writing fails
+     * @throws XmlPullParserException if generating XML output fails
      */
-    private synchronized void writeXml(@NonNull Context ctx, @NonNull OutputStream outputStream)
-            throws IllegalArgumentException, IllegalStateException, IOException, XmlPullParserException {
+    private synchronized void writeXml(@NonNull Context ctx, @NonNull OutputStream outputStream) throws IOException, XmlPullParserException {
         Log.d(DEBUG_TAG, "writing MRUTags to xml");
         Map<PresetItem, PresetElementPath> pathCache = new HashMap<>();
 
@@ -414,20 +406,16 @@ public class MRUTags {
         AsyncTask<Void, Void, Void> load = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                FileInputStream fin = null;
-                InputStream in = null;
                 try {
                     File infile = FileUtil.openFileForWriting(FileUtil.getPublicDirectory() + "/" + Files.FILE_NAME_MRUTAGS);
                     Log.d(DEBUG_TAG, "Loading from " + infile.getPath());
-
-                    fin = new FileInputStream(infile);
-                    in = new BufferedInputStream(fin);
-                    readXml(ctx, in);
-                } catch (ParserConfigurationException | IOException | SAXException e) {
-                    Log.e(DEBUG_TAG, "Saving failed with " + e.getMessage());
-                } finally {
-                    SavingHelper.close(in);
-                    SavingHelper.close(fin);
+                    try (FileInputStream fin = new FileInputStream(infile); InputStream in = new BufferedInputStream(fin);) { // NOSONAR
+                        readXml(ctx, in);
+                    } catch (ParserConfigurationException | SAXException e) {
+                        Log.e(DEBUG_TAG, "Reading XML failed with " + e.getMessage());
+                    }
+                } catch (IOException ioex) {
+                    Log.e(DEBUG_TAG, "Reading failed with " + ioex.getMessage());
                 }
                 return null;
             }
@@ -444,9 +432,9 @@ public class MRUTags {
      * 
      * @param ctx an Android Context
      * @param input the InputStream to read from
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws IOException
+     * @throws ParserConfigurationException if parsing the XML failed
+     * @throws SAXException if parsing the XML failed
+     * @throws IOException if reading the file failed
      */
     private void readXml(@NonNull Context ctx, @NonNull InputStream input) throws ParserConfigurationException, SAXException, IOException {
 
@@ -536,7 +524,6 @@ public class MRUTags {
                     inRoles = false;
                     break;
                 default:
-
                 }
             }
         });
