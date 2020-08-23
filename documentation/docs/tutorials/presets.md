@@ -52,8 +52,8 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |__&lt;key&gt;__    |                               | supported |
 |                   | value                         | supported | required
 |                   | match                         | partial   | "none" is supported
-|                   | text		                   | extension | Something to display 
-|                   | values_context				   | extension | Translation context
+|                   | text		                    | extension | Something to display 
+|                   | values_context				| extension | Translation context
 |__&lt;text&gt;__   |                               | supported |
 |                   | key                           | supported | required
 |                   | text                          | supported |
@@ -143,6 +143,9 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | type                          | supported |
 |                   | member_expression             | supported | See [search language documentation](object_search.md)
 |                   | regexp                        | ignored   | 
+|__&lt;preset_link&gt;__ |                          | supported | Used for tag matching and added to preset MRU list for easy access
+|                        | text                     | ignored   |
+|                        | text_context             | ignored   |
 
 
                  

@@ -20,6 +20,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetIconManager;
+import de.blau.android.presets.PresetLink;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
 import de.blau.android.util.FileUtil;
@@ -68,9 +69,9 @@ public final class CustomPreset {
                     Preset.PresetItem customItem = preset.new PresetItem(group, input.getText().toString(), ICON, null);
                     // add linked presets
                     if (bestPreset != null) {
-                        List<String> linkedPresetNames = bestPreset.getLinkedPresetNames();
-                        if (linkedPresetNames != null) {
-                            customItem.addAllLinkedPresetNames(new LinkedList<>(bestPreset.getLinkedPresetNames()));
+                        List<PresetLink> linkedPresets = bestPreset.getLinkedPresets();
+                        if (linkedPresets != null) {
+                            customItem.addAllLinkedPresets(new LinkedList<>(bestPreset.getLinkedPresets()));
                         }
                     }
                     // add fields

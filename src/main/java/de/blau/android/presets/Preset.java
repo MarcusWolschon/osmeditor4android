@@ -1067,7 +1067,7 @@ public class Preset implements Serializable {
                         }
                         addToTagItems(currentItem, chunk.getFields());
                         currentItem.addAllRoles(chunk.roles);
-                        currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
+                        currentItem.addAllLinkedPresets(chunk.linkedPresets);
                     }
                     break;
                 case LIST_ENTRY:
@@ -1090,7 +1090,7 @@ public class Preset implements Serializable {
                 case PRESET_LINK:
                     String presetName = attr.getValue(PRESET_NAME);
                     if (presetName != null) {
-                        currentItem.addLinkedPresetName(presetName);
+                        currentItem.addLinkedPreset(new PresetLink(presetName, attr.getValue(TEXT), attr.getValue(TEXT_CONTEXT)));
                     }
                     break;
                 case SPACE:
@@ -1509,12 +1509,10 @@ public class Preset implements Serializable {
                 if (segment.equals(e.getName())) {
                     if (size == 1) {
                         return e;
-                    } else {
-                        if (e instanceof PresetGroup) {
-                            PresetElementPath newPath = new PresetElementPath(path);
-                            newPath.getPath().remove(0);
-                            return getElementByPath((PresetGroup) e, newPath);
-                        }
+                    } else if (e instanceof PresetGroup) {
+                        PresetElementPath newPath = new PresetElementPath(path);
+                        newPath.getPath().remove(0);
+                        return getElementByPath((PresetGroup) e, newPath);
                     }
                 }
             }
@@ -1587,12 +1585,12 @@ public class Preset implements Serializable {
                                              // not the i-th item
             // preset is not in the list, add linked presets first
             PresetItem pi = allItems.get(id);
-            if (pi.getLinkedPresetNames() != null) {
-                LinkedList<String> linkedPresetNames = new LinkedList<>(pi.getLinkedPresetNames());
-                Collections.reverse(linkedPresetNames);
-                for (String n : linkedPresetNames) {
+            if (pi.getLinkedPresets() != null) {
+                LinkedList<PresetLink> linkedPresets = new LinkedList<>(pi.getLinkedPresets());
+                Collections.reverse(linkedPresets);
+                for (PresetLink pl : linkedPresets) {
                     if (!mru.recentPresets.contains(id)) {
-                        Integer presetIndex = getItemIndexByName(n);
+                        Integer presetIndex = getItemIndexByName(pl.getPresetName());
                         if (presetIndex != null) { // null if the link wasn't found
                             if (!mru.recentPresets.contains(presetIndex)) { // only add if not already present
                                 mru.recentPresets.addFirst(presetIndex);
@@ -1601,7 +1599,7 @@ public class Preset implements Serializable {
                                 }
                             }
                         } else {
-                            Log.e(DEBUG_TAG, "linked preset not found for " + n + " in preset " + pi.getName());
+                            Log.e(DEBUG_TAG, "linked preset not found for " + pl.getPresetName() + " in preset " + pi.getName());
                         }
                     }
                 }
@@ -1833,6 +1831,28 @@ public class Preset implements Serializable {
             }
         }
         return filteredElements;
+    }
+
+    /**
+     * Get the top level tag if any
+     * 
+     * @param presets the currently configured presets
+     * @param tags the current tags
+     * @return the object tag in the form key=value or null if there is none
+     */
+    @Nullable
+    public static String getObjectTag(@NonNull Preset[] presets, @NonNull Map<String, String> tags) {
+        for (Preset p : presets) {
+            if (p != null) {
+                for (Entry<String, String> tag : tags.entrySet()) {
+                    String key = tag.getKey();
+                    if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key)) {
+                        return key + "=" + tag.getValue();
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -2363,14 +2383,14 @@ public class Preset implements Serializable {
         /**
          * 
          */
-        private static final long serialVersionUID = 3L;
+        private static final long serialVersionUID = 4L;
 
         private final int groupIndex;
 
         private boolean itemSort = true;
 
         /** Elements in this group */
-        private ArrayList<PresetElement> elements = new ArrayList<>();
+        private List<PresetElement> elements = new ArrayList<>();
 
         /**
          * Construct a new PresetGroup
@@ -2580,12 +2600,9 @@ public class Preset implements Serializable {
     /** Represents a preset item (e.g. "footpath", "grocery store") */
     public class PresetItem extends PresetElement {
 
-        private static final String HTTP = "http";
+        private static final long serialVersionUID = 16L;
 
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 15L;
+        private static final String HTTP = "http";
 
         /**
          * All fields in the order they are in the Preset file
@@ -2603,7 +2620,7 @@ public class Preset implements Serializable {
         /**
          * Linked names of presets
          */
-        private LinkedList<String> linkedPresetNames = null;
+        private LinkedList<PresetLink> linkedPresets = null;
 
         /**
          * true if a chunk
@@ -2684,7 +2701,7 @@ public class Preset implements Serializable {
             this.fields = item.fields;
             this.fixedTags = item.fixedTags;
             this.roles = item.roles;
-            this.linkedPresetNames = item.linkedPresetNames;
+            this.linkedPresets = item.linkedPresets;
             this.minMatch = item.minMatch;
 
             if (!chunk) {
@@ -3281,25 +3298,25 @@ public class Preset implements Serializable {
          * 
          * @param presetName name of the PresetItem to link to
          */
-        public void addLinkedPresetName(String presetName) {
-            if (linkedPresetNames == null) {
-                linkedPresetNames = new LinkedList<>();
+        public void addLinkedPreset(@NonNull PresetLink presetLink) {
+            if (linkedPresets == null) {
+                linkedPresets = new LinkedList<>();
             }
-            linkedPresetNames.add(presetName);
+            linkedPresets.add(presetLink);
         }
 
         /**
          * Add a LinkedList containing linked presets to the PresetItem
          * 
-         * @param newLinkedPresetNames the LinkedList of PresetITem names
+         * @param newLinkedPresets the LinkedList of PresetITem names
          */
-        public void addAllLinkedPresetNames(LinkedList<String> newLinkedPresetNames) {
-            if (linkedPresetNames == null) {
-                linkedPresetNames = newLinkedPresetNames; // doesn't matter if newLinkedPresetNames is null
-            } else if (newLinkedPresetNames != null) {
-                for (String linkedPresetName : newLinkedPresetNames) {
-                    if (!linkedPresetNames.contains(linkedPresetName)) {
-                        linkedPresetNames.add(linkedPresetName);
+        public void addAllLinkedPresets(@Nullable LinkedList<PresetLink> newLinkedPresets) { // NOSONAR
+            if (linkedPresets == null) {
+                linkedPresets = newLinkedPresets; // doesn't matter if newLinkedPresetNames is null
+            } else if (newLinkedPresets != null) {
+                for (PresetLink linkedPresetName : newLinkedPresets) {
+                    if (!linkedPresets.contains(linkedPresetName)) {
+                        linkedPresets.add(linkedPresetName);
                     }
                 }
             }
@@ -3311,19 +3328,8 @@ public class Preset implements Serializable {
          * @return a list of all linked presets or null if none
          */
         @Nullable
-        public List<String> getLinkedPresetNames() {
-            return linkedPresetNames;
-        }
-
-        /**
-         * Returns a list of linked preset items
-         * 
-         * @param noPrimary if true only items will be returned that doen't correspond to primary OSM objects
-         * @return list of PresetItems
-         */
-        @NonNull
-        public List<PresetItem> getLinkedPresets(boolean noPrimary) {
-            return getLinkedPresets(noPrimary, null);
+        public List<PresetLink> getLinkedPresets() {
+            return linkedPresets;
         }
 
         /**
@@ -3343,34 +3349,45 @@ public class Preset implements Serializable {
                 presets.remove(Preset.this);
             }
             presets.add(0, Preset.this); // move this Preset to front
-            if (linkedPresetNames != null) {
-                linkedLoop: for (String n : linkedPresetNames) {
+            if (linkedPresets != null) {
+                for (PresetLink pl : linkedPresets) {
                     for (Preset preset : presets) {
                         if (preset != null) {
-                            Integer index = preset.getItemIndexByName(n); // FIXME this involves a sequential search
+                            Integer index = preset.getItemIndexByName(pl.getPresetName()); // FIXME this involves a
+                                                                                           // sequential search
                             if (index != null) {
                                 PresetItem candidateItem = preset.allItems.get(index);
-                                if (noPrimary) { // remove primary objects
-                                    Set<String> linkedPresetTags = candidateItem.getFixedTags().keySet();
-                                    if (linkedPresetTags.isEmpty()) {
-                                        linkedPresetTags = candidateItem.getFields().keySet();
-                                    }
-                                    for (String k : linkedPresetTags) {
-                                        if (Tags.IMPORTANT_TAGS.contains(k) || preset.isObjectKey(k)) {
-                                            continue linkedLoop;
-                                        }
-                                    }
+                                if (!noPrimary || !candidateItem.isObject(preset)) { // remove primary objects
+                                    result.add(candidateItem);
                                 }
-                                result.add(candidateItem);
                                 break;
                             } else {
-                                Log.e(DEBUG_TAG, "Couldn't find linked preset " + n);
+                                Log.e(DEBUG_TAG, "Couldn't find linked preset " + pl.getPresetName());
                             }
                         }
                     }
                 }
             }
             return result;
+        }
+
+        /**
+         * Check if this PresetItem represents an irl object
+         * 
+         * @param preset the Preset to
+         * @return true if a rw object
+         */
+        private boolean isObject(@NonNull Preset preset) {
+            Set<String> linkedPresetTags = getFixedTags().keySet();
+            if (linkedPresetTags.isEmpty()) {
+                linkedPresetTags = getFields().keySet();
+            }
+            for (String k : linkedPresetTags) {
+                if (Tags.IMPORTANT_TAGS.contains(k) || preset.isObjectKey(k)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /**
@@ -3746,28 +3763,6 @@ public class Preset implements Serializable {
             return itemIndex;
         }
 
-        /**
-         * Get the top level tag if any
-         * 
-         * @param presets the currently configured presets
-         * @param tags the current tags
-         * @return the object tag in the form key=value or null if there is none
-         */
-        @Nullable
-        public String getObjectTag(@NonNull Preset[] presets, @NonNull Map<String, String> tags) {
-            for (Preset p : presets) {
-                if (p != null) {
-                    for (Entry<String, String> tag : tags.entrySet()) {
-                        String key = tag.getKey();
-                        if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key)) {
-                            return key + "=" + tag.getValue();
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
         @Override
         public String toString() {
             StringBuilder tagStrings = new StringBuilder(" ");
@@ -3954,10 +3949,16 @@ public class Preset implements Serializable {
                 field.toXml(s);
             }
             fieldsToXml(s, fields);
-            if (linkedPresetNames != null) {
-                for (String linkedPresetName : linkedPresetNames) {
+            if (linkedPresets != null) {
+                for (PresetLink linkedPreset : linkedPresets) {
                     s.startTag("", PRESET_LINK);
-                    s.attribute("", PRESET_NAME, linkedPresetName);
+                    s.attribute("", PRESET_NAME, linkedPreset.getPresetName());
+                    if (linkedPreset.getText() != null) {
+                        s.attribute("", TEXT, linkedPreset.getText());
+                    }
+                    if (linkedPreset.getTextContext() != null) {
+                        s.attribute("", TEXT_CONTEXT, linkedPreset.getTextContext());
+                    }
                     s.endTag("", PRESET_LINK);
                 }
             }

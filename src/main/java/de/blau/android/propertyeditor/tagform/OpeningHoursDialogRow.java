@@ -23,6 +23,7 @@ import ch.poole.openinghoursparser.OpeningHoursParser;
 import ch.poole.openinghoursparser.Rule;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.PresetComboField;
@@ -213,9 +214,8 @@ public class OpeningHoursDialogRow extends MultiselectDialogRow {
             List<String> isoCodes = caller.propertyEditorListener.getIsoCodes();
             OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(keyWithDescription,
                     isoCodes != null && !isoCodes.isEmpty() ? isoCodes.get(0) : null,
-                    preset != null ? preset.getObjectTag(App.getCurrentPresets(caller.getContext()), caller.getKeyValueMapSingle(false)) : null,
-                    finalValue, caller.prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1, true,
-                    textValues);
+                    preset != null ? Preset.getObjectTag(App.getCurrentPresets(caller.getContext()), caller.getKeyValueMapSingle(false)) : null, finalValue,
+                    caller.prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1, true, textValues);
             openingHoursDialog.show(fm, FRAGMENT_OPENING_HOURS_TAG);
         });
         return row;
