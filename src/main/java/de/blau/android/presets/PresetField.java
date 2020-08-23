@@ -7,9 +7,6 @@ import org.xmlpull.v1.XmlSerializer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ch.poole.poparser.Po;
-import de.blau.android.presets.Preset.MatchType;
-import de.blau.android.presets.Preset.UseLastAsDefault;
-import de.blau.android.presets.Preset.ValueType;
 
 public abstract class PresetField {
 
@@ -57,7 +54,7 @@ public abstract class PresetField {
     /**
      * Use last as default
      */
-    private UseLastAsDefault useLastAsDefault = UseLastAsDefault.FALSE;
+    private UseLastAsDefaultType useLastAsDefault = UseLastAsDefaultType.FALSE;
 
     /**
      * Construct a new PresetField
@@ -217,7 +214,7 @@ public abstract class PresetField {
      * 
      * @param useLastAsDefault the value to set
      */
-    public void setUseLastAsDefault(@NonNull UseLastAsDefault useLastAsDefault) {
+    public void setUseLastAsDefault(@NonNull UseLastAsDefaultType useLastAsDefault) {
         this.useLastAsDefault = useLastAsDefault;
     }
 
@@ -227,7 +224,7 @@ public abstract class PresetField {
      * @param useLastAsDefault the value to set as a String
      */
     public void setUseLastAsDefault(@NonNull String useLastAsDefault) {
-        this.useLastAsDefault = UseLastAsDefault.fromString(useLastAsDefault);
+        this.useLastAsDefault = UseLastAsDefaultType.fromString(useLastAsDefault);
     }
 
     /**
@@ -235,7 +232,7 @@ public abstract class PresetField {
      * 
      * @return and indication if we should use the last value as default for this field
      */
-    public UseLastAsDefault getUseLastAsDefault() {
+    public UseLastAsDefaultType getUseLastAsDefault() {
         return useLastAsDefault;
     }
 

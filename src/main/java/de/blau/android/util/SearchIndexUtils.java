@@ -26,7 +26,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.presets.PresetKeyType;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.util.collections.MultiHashMap;

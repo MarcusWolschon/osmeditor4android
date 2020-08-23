@@ -62,9 +62,9 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.Preset.PresetKeyType;
-import de.blau.android.presets.Preset.UseLastAsDefault;
-import de.blau.android.presets.Preset.ValueType;
+import de.blau.android.presets.PresetKeyType;
+import de.blau.android.presets.UseLastAsDefaultType;
+import de.blau.android.presets.ValueType;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
 import de.blau.android.presets.PresetComboField;
@@ -1779,8 +1779,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (defaultValue != null) {
                     value = defaultValue;
                 }
-                UseLastAsDefault useLastAsDefault = field.getUseLastAsDefault();
-                if (useLastAsDefault == UseLastAsDefault.TRUE || useLastAsDefault == UseLastAsDefault.FORCE) {
+                UseLastAsDefaultType useLastAsDefault = field.getUseLastAsDefault();
+                if (useLastAsDefault == UseLastAsDefaultType.TRUE || useLastAsDefault == UseLastAsDefaultType.FORCE) {
                     MRUTags mruTags = App.getMruTags();
                     String topValue = mruTags.getTopValue(item, key);
                     if (topValue != null) {
@@ -2439,7 +2439,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         boolean nonEmptyValue = !"".equals(value);
         if (pi != null) {
             PresetField field = pi.getField(key);
-            boolean useLastAsDefault = field != null && field.getUseLastAsDefault() != UseLastAsDefault.FALSE;
+            boolean useLastAsDefault = field != null && field.getUseLastAsDefault() != UseLastAsDefaultType.FALSE;
             if (field instanceof PresetComboField && ((PresetComboField) field).isMultiSelect()) {
                 // trim potential trailing separators, or ensure that we have as many fields as we are supposed to
                 char delimiter = pi.getDelimiter(key);

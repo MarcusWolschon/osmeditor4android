@@ -31,7 +31,7 @@ import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.Preset.ValueType;
+import de.blau.android.presets.ValueType;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
 import de.blau.android.propertyeditor.InputTypeUtil;
