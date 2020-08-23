@@ -41,7 +41,6 @@ import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.SearchResult;
 import de.blau.android.taginfo.TaginfoServer.WikiPageResult;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.collections.MultiHashMap;
 
@@ -315,24 +314,21 @@ public class AutoPreset {
         AsyncTask<Void, Void, Void> save = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                FileOutputStream fout = null;
-                OutputStream out = null;
                 try {
                     File outfile = FileUtil
                             .openFileForWriting(FileUtil.getPublicDirectory() + "/" + Paths.DIRECTORY_PATH_AUTOPRESET + "/" + Files.FILE_NAME_AUTOPRESET);
-                    Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-                    XmlSerializer s = XmlPullParserFactory.newInstance().newSerializer();
-                    s.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
-                    fout = new FileOutputStream(outfile);
-                    out = new BufferedOutputStream(fout);
-                    s.setOutput(out, OsmXml.UTF_8);
-                    preset.toXml(s);
-                    s.flush();
-                } catch (IllegalArgumentException | IllegalStateException | IOException | XmlPullParserException e) {
-                    Log.e(DEBUG_TAG, "Saving failed with " + e.getMessage());
-                } finally {
-                    SavingHelper.close(out);
-                    SavingHelper.close(fout);
+                    try (FileOutputStream fout = new FileOutputStream(outfile); OutputStream out = new BufferedOutputStream(fout);) { // NOSONAR
+                        Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
+                        XmlSerializer s = XmlPullParserFactory.newInstance().newSerializer();
+                        s.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
+                        s.setOutput(out, OsmXml.UTF_8);
+                        preset.toXml(s);
+                        s.flush();
+                    } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
+                        Log.e(DEBUG_TAG, "Parsing failed with " + e.getMessage());
+                    }
+                } catch (IOException ioex) {
+                    Log.e(DEBUG_TAG, "Saving failed with " + ioex.getMessage());
                 }
 
                 return null;
