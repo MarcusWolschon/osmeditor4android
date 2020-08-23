@@ -15,7 +15,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import de.blau.android.App;
 import de.blau.android.util.Density;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -127,7 +126,7 @@ public class PresetIconManager {
             }
 
             // resources used only for density
-            BitmapDrawable drawable = new BitmapDrawable(App.resources(), BitmapFactory.decodeStream(pngStream));
+            BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream));
             drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
             int pxsize = Density.dpToPx(size);
             Log.e(DEBUG_TAG, "icon " + url + " size " + size + " pxsize " + pxsize);

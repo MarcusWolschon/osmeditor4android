@@ -232,7 +232,10 @@ public class App extends android.app.Application {
     @Deprecated
     @Nullable
     public static Resources resources() {
-        return currentInstance.getResources();
+        if (currentInstance != null) {
+            return currentInstance.getResources();
+        }
+        return null;
     }
 
     /**

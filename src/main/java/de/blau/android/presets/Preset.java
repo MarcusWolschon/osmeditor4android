@@ -311,7 +311,7 @@ public class Preset implements Serializable {
     }
 
     /**
-     * Create a dumyy Preset instance with an empty root PresetGroup
+     * Create a dummy Preset instance with an empty root PresetGroup
      * 
      * @return a dummy Preset instance
      */
@@ -494,26 +494,6 @@ public class Preset implements Serializable {
                     }
                 }
             }
-        }
-    }
-
-    /**
-     * Get the PresetIconManager for this Preset
-     * 
-     * @param ctx Android Context
-     * @return the PresetIconManager instance
-     */
-    private PresetIconManager getIconManager(Context ctx) {
-        if (directory != null) {
-            if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-                return new PresetIconManager(ctx, null, null);
-            } else if (externalPackage != null) {
-                return new PresetIconManager(ctx, directory.toString(), externalPackage);
-            } else {
-                return new PresetIconManager(ctx, directory.toString(), null);
-            }
-        } else {
-            return new PresetIconManager(ctx, null, null);
         }
     }
 
@@ -1893,6 +1873,26 @@ public class Preset implements Serializable {
                 mapIcon = iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
             }
             return mapIcon;
+        }
+
+        /**
+         * Get the PresetIconManager for this Preset
+         * 
+         * @param ctx Android Context
+         * @return the PresetIconManager instance
+         */
+        private PresetIconManager getIconManager(@NonNull Context ctx) {
+            if (directory != null) {
+                if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+                    return new PresetIconManager(ctx, null, null);
+                } else if (externalPackage != null) {
+                    return new PresetIconManager(ctx, directory.toString(), externalPackage);
+                } else {
+                    return new PresetIconManager(ctx, directory.toString(), null);
+                }
+            } else {
+                return new PresetIconManager(ctx, null, null);
+            }
         }
 
         /**

@@ -531,9 +531,12 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @throws OsmIllegalOperationException if the count is larger than the maximum supported
      */
     private void validateWayNodeCount(final int newCount) {
-        Preferences prefs = new Preferences(App.getCurrentInstance());
-        if (newCount > prefs.getServer().getCachedCapabilities().getMaxWayNodes()) {
-            throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
+        Logic logic = App.getLogic();
+        if (logic != null) {
+            Preferences prefs = logic.getPrefs();
+            if (prefs != null && newCount > prefs.getServer().getCachedCapabilities().getMaxWayNodes()) {
+                throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
+            }
         }
     }
 

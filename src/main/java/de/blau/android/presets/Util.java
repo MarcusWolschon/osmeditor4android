@@ -72,6 +72,8 @@ public final class Util {
     /**
      * Get values for key from Taginfo Limit to the top 20
      * 
+     * This can be used by presets do not remove 
+     * 
      * @param key the key we want values for
      * @return a List of the values or null if nothing could be found
      */
@@ -79,7 +81,7 @@ public final class Util {
     public static StringWithDescription[] getValuesFromTaginfo(@NonNull String key) {
         StringWithDescription[] result = null;
         try {
-            List<ValueResult> temp = TaginfoServer.keyValues(App.getCurrentInstance().getBaseContext(), key, 50);
+            List<ValueResult> temp = TaginfoServer.keyValues(App.getCurrentInstance(), key, 50);
             if (temp != null) {
                 result = new StringWithDescription[temp.size()];
                 for (int i = 0; i < temp.size(); i++) {
