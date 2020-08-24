@@ -161,7 +161,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
                 if (preset != null) {
                     PresetGroup group = preset.getGroupByName(getContext().getString(R.string.preset_autopreset));
                     if (group != null) {
-                        PresetItem copy = preset.new PresetItem(group, item);
+                        item = preset.new PresetItem(group, item);
                     } else {
                         Log.e(DEBUG_TAG, "Couldn't find preset group");
                     }
@@ -169,7 +169,6 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
                     Log.e(DEBUG_TAG, "Preset null");
                     return;
                 }
-                // fixme update preset fragment
                 AutoPreset.save(preset);
                 mPresetUpdateListener.update(null);
             }
