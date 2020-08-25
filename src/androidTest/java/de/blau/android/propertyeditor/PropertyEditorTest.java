@@ -667,8 +667,10 @@ public class PropertyEditorTest {
         instrumentation.sendCharacterSync(KeyEvent.KEYCODE_N);
         Assert.assertTrue(TestUtils.textGone(device, "MCB", 5000));
         Assert.assertTrue(TestUtils.findText(device, false, "McDonald's", 1000));
-        Assert.assertTrue(TestUtils.clickText(device, false, "McDonald's", true));
-        Assert.assertTrue(TestUtils.findText(device, false, main.getString(R.string.toast_preset_overwrote_tags), 1000));
+        Assert.assertTrue(TestUtils.clickText(device, false, "McDonald's", true, true));
+        Assert.assertTrue(TestUtils.findText(device, false, main.getString(R.string.menu_tags), 5000));
+        TestUtils.clickHome(device, true); // close the PropertEditor and save
+        Assert.assertEquals("McDonald's", n.getTagWithKey(Tags.KEY_NAME));
     }
 
     /**
