@@ -337,7 +337,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
                 if (values != null) { // add in any non-standard non-empty values
                     for (String value : values) {
-                        if (!"".equals(value) && !counter.containsKey(value)) {
+                        if (value != null && !"".equals(value) && !counter.containsKey(value)) {
                             StringWithDescription s = new StringWithDescription(value);
                             // FIXME determine description in some way
                             // ValueWithCount v = new ValueWithCount(value, 1);
