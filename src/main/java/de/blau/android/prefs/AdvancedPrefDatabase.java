@@ -547,20 +547,30 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Failed to find auto-preset, creating", e);
-            try {
-                FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
-                AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
-            } catch (Exception e1) {
-                Log.e(DEBUG_TAG, "Failed to create auto-preset", e1);
-                activePresets[autopresetPosition] = null;
-            }
+            createEmptyAutoPreset(context, activePresets, autopresetPosition);
         }
         Log.d(DEBUG_TAG, "Elapsed time to read presets " + (System.currentTimeMillis() - start) / 1000);
         if (activePresets.length >= 1) {
             return activePresets;
         }
         return null;
+    }
+
+    /**
+     * Create an empty AutoPreset from template
+     * 
+     * @param activePresets an array holding the current active presets
+     * @param autopresetPosition the position where the new preset should go
+     */
+    public static void createEmptyAutoPreset(Context context, Preset[] activePresets, int autopresetPosition) {
+        try {
+            FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
+                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
+            AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
+        } catch (Exception e1) {
+            Log.e(DEBUG_TAG, "Failed to create auto-preset", e1);
+            activePresets[autopresetPosition] = null;
+        }
     }
 
     /**
