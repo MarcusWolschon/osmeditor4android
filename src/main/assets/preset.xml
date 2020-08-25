@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.9.5" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.9.7" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -249,37 +249,6 @@
         <combo key="tracks" text="Tracks" text_context="railway" values="1,2,3,4" length="4"/>
         <combo key="gauge" text="Gauge (mm)" values="1668,1676,1674,1600,1524,1520,1495,1435,1067,1000,914,762,760,750" length="4"/>
         <reference ref="railway_electrified"/>
-    </chunk>
-    <chunk id="check_access_nomotor">
-        <optional text="Non-motorized traffic:">
-            <checkgroup columns="3">
-                <check key="foot" text="Foot" />
-                <check key="bicycle" text="Bicycle" />
-                <check key="horse" text="Horse" />
-            </checkgroup>
-            <space />
-            <reference ref="wheelchair" />
-        </optional>
-    </chunk>
-    <chunk id="vehicle_access">
-        <combo key="vehicle" text="All vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no" 
-            display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
-    </chunk>
-    <chunk id="motor_vehicle_access">
-        <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no" 
-            display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
-    </chunk>
-    <chunk id="check_access_motor">
-        <optional text="Motor vehicle traffic:">
-            <reference ref="motor_vehicle_access" />
-            <space />
-            <checkgroup columns="2">
-                <check key="motorcar" text="Motorcar" />
-                <check key="motorcycle" text="Motorcycle" />
-                <check key="moped" text="Moped" />
-                <check key="mofa" text="Mofa" />
-            </checkgroup>
-        </optional>
     </chunk>
     <chunk id="traffic_signals_direction">
         <combo key="direction" text="For traffic direction" values="N,E,S,W,0,90,180,270,forward,backward" 
@@ -534,6 +503,27 @@
         <reference ref="level"/>
         <preset_link preset_name="No name"/>
     </chunk>
+    <chunk id="optional_name">
+        <optional>
+            <text key="name" text="Name"/>
+        </optional>
+        <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="optional_name_operator">
+        <optional>
+            <text key="name" text="Name"/>
+            <text key="operator" text="Operator"/>
+         </optional>
+         <preset_link preset_name="No name"/>
+    </chunk>
+    <chunk id="optional_name_wikipedia">
+        <optional>
+            <text key="name" text="Name"/>
+            <text key="wikipedia" text="Wikipedia" value_type="wikipedia"/>
+            <text key="wikidata" text="Wikidata" value_type="wikidata"/>
+        </optional>
+        <preset_link preset_name="No name"/>
+    </chunk>
     <chunk id="organic">
     	<combo key="organic" text="Organic" values="only,yes,no" display_values="Only,Yes,No"/>
     </chunk>
@@ -575,6 +565,37 @@
         <reference ref="internet"/>
         <combo key="smoking" text="Smoking" values="yes,dedicated,separated,isolated,outside,no" display_values="Yes,Dedicated,Separated,Isolated,Outside,No" values_sort="false"/>
     </chunk>
+        <chunk id="check_access_nomotor">
+        <optional text="Non-motorized traffic:">
+            <checkgroup text="Non-motorized traffic" columns="3">
+                <check key="foot" text="Foot" />
+                <check key="bicycle" text="Bicycle" />
+                <check key="horse" text="Horse" />
+            </checkgroup>
+            <space />
+            <reference ref="wheelchair" />
+        </optional>
+    </chunk>
+    <chunk id="vehicle_access">
+        <combo key="vehicle" text="All vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no" 
+            display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
+    </chunk>
+    <chunk id="motor_vehicle_access">
+        <combo key="motor_vehicle" text="Motor vehicles" values="yes,destination,delivery,permissive,private,agricultural,forestry,permit,no" 
+            display_values="General access,Destination,Delivery,Permissive,Private,Agricultural,Forestry,Permit required,No access" values_context="access" values_sort="false" match="key"/>
+    </chunk>
+    <chunk id="check_access_motor">
+        <optional text="Motor vehicle traffic:">
+            <reference ref="motor_vehicle_access" />
+            <space />
+            <checkgroup text="Exceptions" columns="2">
+                <check key="motorcar" text="Motorcar" />
+                <check key="motorcycle" text="Motorcycle" />
+                <check key="moped" text="Moped" />
+                <check key="mofa" text="Mofa" />
+            </checkgroup>
+        </optional>
+    </chunk>
     <chunk id="optional_height">
         <optional>
             <text key="height" text="Height (meters)" length="7"/>
@@ -593,27 +614,6 @@
         <optional>
             <reference ref="maxheight_maxwidth" />
         </optional>
-    </chunk>
-    <chunk id="optional_name">
-        <optional>
-            <text key="name" text="Name"/>
-        </optional>
-        <preset_link preset_name="No name"/>
-    </chunk>
-    <chunk id="optional_name_operator">
-        <optional>
-            <text key="name" text="Name"/>
-            <text key="operator" text="Operator"/>
-         </optional>
-         <preset_link preset_name="No name"/>
-    </chunk>
-    <chunk id="optional_name_wikipedia">
-        <optional>
-            <text key="name" text="Name"/>
-            <text key="wikipedia" text="Wikipedia" value_type="wikipedia"/>
-            <text key="wikidata" text="Wikidata" value_type="wikidata"/>
-        </optional>
-        <preset_link preset_name="No name"/>
     </chunk>
     <chunk id="sport_facility">
     	<combo key="leisure" text="Type" values="pitch,sports_centre,stadium" display_values="Pitch,Sports centre,Stadium" values_context="sport"/>
@@ -2179,7 +2179,7 @@
             </optional>
             <reference ref="vehicle_access" />
             <optional text="Non-motorized traffic:">
-                <checkgroup columns="2">
+                <checkgroup text="Non-motorized traffic" columns="2">
                     <check key="foot" text="Foot" icon="icons/png/no_walking.png" />
                     <check key="horse" text="Horse" icon="icons/png/no_riding.png" />
                 </checkgroup>
@@ -3602,7 +3602,7 @@
                 <list_entry value="rack" display_value="Rack" />
                 <list_entry value="shed" display_value="Shed" />
                 <list_entry value="stands" display_value="Stands" />
-                <list_entry value="wall_loops" display_value="Wall loops" short_description="&quot;Wheel benders&quot;" />
+                <list_entry value="wall_loops" display_value="Wall loops" short_description="Wheel benders" />
             </combo>
             <reference ref="optional_name"/>
             <text key="capacity" text="Capacity" value_type="integer"/>
@@ -4514,7 +4514,7 @@
             <optional>
                 <reference ref="name_ref_operator" />
                 <text key="ele" text="Elevation (meters)" length="10" />
-                <checkgroup text="Routes shown for:">
+                <checkgroup text="Routes shown for">
                     <check key="hiking" text="Hiking" />
                     <check key="bicycle" text="Cycling" />
                     <check key="mtb" text="Mountainbiking" />
@@ -5204,6 +5204,7 @@
                     display_values="Building,Glass cabinet,Metal cabinet,Movable cabinet,Phone booth,Reading box,Sculpture,Shelf,Shelter,Wooden cabinet"/>
                 <reference ref="facility_access" />
             </optional>
+            <preset_link preset_name="Contact"/>
         </item> <!-- Public bookcase -->
         <item name="Planetarium" icon="icons/png/amenity_planetarium.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=planetarium"/>
