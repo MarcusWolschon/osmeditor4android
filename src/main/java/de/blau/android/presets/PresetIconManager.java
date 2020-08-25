@@ -129,7 +129,7 @@ public class PresetIconManager {
             BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream));
             drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
             int pxsize = Density.dpToPx(size);
-            Log.e(DEBUG_TAG, "icon " + url + " size " + size + " pxsize " + pxsize);
+            Log.d(DEBUG_TAG, "icon " + url + " size " + size + " pxsize " + pxsize);
             drawable.setBounds(0, 0, pxsize, pxsize);
             return drawable;
         } catch (Exception e) {
