@@ -892,7 +892,6 @@ public class Preset implements Serializable {
                         checkGroup.setHint(text);
                     } else if (currentLabel != null) {
                         checkGroup.setHint(currentLabel);
-                        currentLabel = null;
                     }
                     checkGroup.setOptional(inOptionalSection);
                     break;
@@ -1099,6 +1098,10 @@ public class Preset implements Serializable {
                     break;
                 default:
                     Log.e(DEBUG_TAG, "Unknown start tag in preset item " + name);
+                }
+                // always zap label after next element
+                if (!LABEL.equals(name)) {
+                    currentLabel = null;
                 }
             }
 
