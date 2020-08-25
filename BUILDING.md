@@ -13,6 +13,8 @@ All builds now require proguard to be enabled as we have gone over the limit for
 
 Due to the forced upgrade policy from google from November 1st 2018 onwards we are now supporting two build flavors: _current_ that will target a recent Android SDK and support library and _legacy_ that will support old Android versions as long as practical.
 
+For version 15.0 the legacy flavour has been removed as androidx doesn't support version older than Android 4 and as versions older than 4.1 do not support TLS 1.2 in any case, they would be largely non-functional in any case, however this may be reactivated if necessary.
+
 See [https://commonsware.com/blog/2018/01/08/android-version-ratchet.html](https://commonsware.com/blog/2018/01/08/android-version-ratchet.html) for some more information on this.
 
 Currently the split is as follows:
@@ -56,7 +58,7 @@ Name suggestion index https://github.com/osmlab/name-suggestion-index
 
 Imagery index https://github.com/simonpoole/osm-layer-index (which is a fork of https://github.com/osmlab/editor-imagery-index).
 
-The gradle task ``updateImagery`` will update the imagery.json file in the asset directory from the github repo.
+The gradle task ``updateImagery`` will update the imagery.json file in the asset directory from the JOSM wiki.
 
 Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discarded.json
 

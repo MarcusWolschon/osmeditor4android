@@ -192,7 +192,7 @@ Recommended practice, if you no longer need the previously loaded data and have 
 
 #### The aerial or satellite imagery is out of date
 
-Vespucci uses the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps) for configuring the available backgrounds, just as the browser embedded editor iD and other applications do. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps), or [open an issue on the JOSM issue tracker](https://josm.openstreetmap.de/newticket?component=Wiki%20content&keywords=imagery)
+Vespucci uses the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps) for configuring the available backgrounds, or you can switch to using the "editor layer index" (ELI) that is very similar. The contents cover essentially all imagery that can legitimately be used for OpenStreetMap purposes. If you believe the imagery for a specific region is out of date or there are better sources you should preferably update the [JOSM Imagery Sources](https://josm.openstreetmap.de/wiki/Maps), or [open an issue on the JOSM issue tracker](https://josm.openstreetmap.de/newticket?component=Wiki%20content&keywords=imagery).
 
 #### How can I add a custom (aerial/satellite) imagery layer
 
@@ -241,5 +241,5 @@ Many sites have turned off support for TLS 1.0 / 1.1 secured connections, this i
 
 On Android versions between 4.1 and 4.4 the app can be used without issues, except that authorization with OAuth will potentially not work. If you are unable to use OAuth you can still simply authenticate with login and password. To enable this:
 
-* go to _Preferences_ -> _Advanced preferences_ -> _Server settings _ and set login and password under the _User account_ entry.
+* go to _Preferences_ -> _Advanced preferences_ -> _Server settings_ and set login and password under the _User account_ entry.
 * in the layer control select the _Configure_ menu entry for the data layer entry, edit the active entry, and uncheck OAuth support.   
