@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Vespucci 15.0 Highlights</h1>
+<p>2020-08-06</p>
 <h3>End of support for pre Android 4.0 devices</h3>
 <p>Version 15 no longer supports devices with Android versions older than 4.0 / API 14. We've now migrated the Vespucci code base to use the &quot;androidx&quot; libraries to provide backwards compatibility over multiple Android versions and there is no feasible way to continue to use the old support libraries that would be necessary for older Android versions.</p>
 <p>Import note: even though the app will work on Android 4.0 devices, devices with Android version prior to 4.1 do not have TLS 1.2 support that is required for accessing the OpenStreetMap API since August 2nd 2020. If you are experiencing authorization issues on Android versions between 4.1 and 4.4 see <a href="http://vespucci.io/tutorials/faq/#cant-re-authenticate-tls-10-11-issues">Can't (re-)authenticate - TLS 1.0 / 1.1 issues</a>.</p>
@@ -58,11 +59,12 @@
 <ul>
 <li>The format of the saved state including data has changed, you should upload any changes before updating.</li>
 <li>Default tile size for some WMS servers has changed, this will lead to distorted imagery for any such tile source for which you already have tiles in the cache. Flush the corresponding tile cache to fix this.</li>
-<li>If you previously had Beta 1 of 15.0 installed you may experience crashes on startup after installing the release version, removing the app specific data via your devices app management user interface  should fix this.</li>
+<li>If you previously had Beta 1 of 15.0 installed you may experience crashes on startup after installing the release version, removing the app specific data via your devices app management user interface  should fix this. Even if you can start the app you should replace any downloaded data with the <strong>Clear and download current view</strong> function or you may experience a crash later on.</li>
 </ul>
 <h1>Known problems</h1>
 <ul>
 <li>The documentation is out of date.</li>
+<li>Creating issues on github from the app with login / password no longer works. use the pseudo-anonymous issue submission feature.</li>
 <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul>
 
