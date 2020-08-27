@@ -549,6 +549,7 @@ avoided by using an offline data source.</string>
     <string name="tag_menu_preset">Presets</string>
     <string name="tag_menu_apply_preset">Apply preset</string>
     <string name="tag_menu_apply_preset_with_optional">Apply preset with optional</string>
+    <string name="tag_menu_show_alternatives">Show alternative tagging</string>
     <string name="tag_menu_revert">Revert</string>
     <string name="tag_menu_mapfeatures">Map feature wiki</string>
     <string name="tag_menu_addtorelation">Add to relation</string>

@@ -62,6 +62,7 @@ import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.PresetTextField;
 import de.blau.android.propertyeditor.Address;
+import de.blau.android.propertyeditor.AlternativePresetItemsFragment;
 import de.blau.android.propertyeditor.EditorUpdate;
 import de.blau.android.propertyeditor.FormUpdate;
 import de.blau.android.propertyeditor.NameAdapters;
@@ -369,6 +370,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     @Override
+    public void onPrepareOptionsMenu(final Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        PresetItem best = tagListener.getBestPreset();
+        menu.findItem(R.id.tag_menu_show_alternatives).setEnabled(best != null && best.getAlternativePresetItems() != null);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
@@ -414,6 +422,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             }
             ((PropertyEditor) getActivity()).recreateRecentPresetView();
+            return true;
+        case R.id.tag_menu_show_alternatives:
+            AlternativePresetItemsFragment.showDialog(getActivity(),
+                    tagListener.getBestPreset().getPath(App.getCurrentRootPreset(getActivity()).getRootGroup()));
             return true;
         case R.id.tag_menu_reset_address_prediction:
             // simply overwrite with an empty file
@@ -902,7 +914,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 if (key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
                     rowLayout.addView(getConditionalRestrictionDialogRow(rowLayout, null, null, key, value, null, allTags));
                 } else if (Tags.OPENING_HOURS_SYNTAX.contains(key)) {
-                    // FIXME need at least SDK 12 for now
                     rowLayout.addView(OpeningHoursDialogRow.getRow(this, inflater, rowLayout, null, null, key, value, null));
                 } else {
                     PresetTextField textField = new PresetTextField(key);

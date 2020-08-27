@@ -119,6 +119,7 @@ import de.blau.android.views.WrappingLayout;
  */
 public class Preset implements Serializable {
 
+    private static final String ALTERNATIVE                = "alternative";
     private static final String USE_LAST_AS_DEFAULT        = "use_last_as_default";
     private static final String DEFAULT_PRESET_TRANSLATION = "preset_";
     static final String         NO                         = "no";
@@ -918,7 +919,8 @@ public class Preset implements Serializable {
                         }
                         addToTagItems(currentItem, chunk.getFields());
                         currentItem.addAllRoles(chunk.roles);
-                        currentItem.addAllLinkedPresets(chunk.linkedPresets);
+                        currentItem.addAllLinkedPresetItems(chunk.linkedPresetItems);
+                        currentItem.addAllAlternativePresetItems(chunk.alternativePresetItems);
                     }
                     break;
                 case LIST_ENTRY:
@@ -941,7 +943,12 @@ public class Preset implements Serializable {
                 case PRESET_LINK:
                     String presetName = attr.getValue(PRESET_NAME);
                     if (presetName != null) {
-                        currentItem.addLinkedPreset(new PresetLink(presetName, attr.getValue(TEXT), attr.getValue(TEXT_CONTEXT)));
+                        PresetItemLink link = new PresetItemLink(presetName, attr.getValue(TEXT), attr.getValue(TEXT_CONTEXT));
+                        if (TRUE.equals(attr.getValue(ALTERNATIVE))) {
+                            currentItem.addAlternativePresetItem(link);
+                        } else {
+                            currentItem.addLinkedPresetItem(link);
+                        }
                     }
                     break;
                 case SPACE:
@@ -1436,10 +1443,10 @@ public class Preset implements Serializable {
                                              // not the i-th item
             // preset is not in the list, add linked presets first
             PresetItem pi = allItems.get(id);
-            if (pi.getLinkedPresets() != null) {
-                LinkedList<PresetLink> linkedPresets = new LinkedList<>(pi.getLinkedPresets());
+            if (pi.getLinkedPresetItems() != null) {
+                LinkedList<PresetItemLink> linkedPresets = new LinkedList<>(pi.getLinkedPresetItems());
                 Collections.reverse(linkedPresets);
-                for (PresetLink pl : linkedPresets) {
+                for (PresetItemLink pl : linkedPresets) {
                     if (!mru.recentPresets.contains(id)) {
                         Integer presetIndex = getItemIndexByName(pl.getPresetName());
                         if (presetIndex != null) { // null if the link wasn't found
@@ -2355,6 +2362,7 @@ public class Preset implements Serializable {
          * @param region region in question
          * @return a view showing the content (nodes, subgroups) of this group
          */
+        @NonNull
         public View getGroupView(@NonNull Context ctx, @Nullable PresetClickHandler handler, @Nullable ElementType type,
                 @Nullable PresetElement selectedElement, @Nullable String region) {
             ScrollView scrollView = new ScrollView(ctx);
@@ -2374,6 +2382,7 @@ public class Preset implements Serializable {
          * @param country country in question
          * @return the supplied ScrollView
          */
+        @NonNull
         public View getGroupView(@NonNull Context ctx, @NonNull ScrollView scrollView, @Nullable PresetClickHandler handler, @Nullable ElementType type,
                 @Nullable PresetElement selectedElement, @Nullable String country) {
             scrollView.removeAllViews();
@@ -2471,7 +2480,7 @@ public class Preset implements Serializable {
     /** Represents a preset item (e.g. "footpath", "grocery store") */
     public class PresetItem extends PresetElement {
 
-        private static final long serialVersionUID = 16L;
+        private static final long serialVersionUID = 17L;
 
         private static final String HTTP = "http";
 
@@ -2491,7 +2500,12 @@ public class Preset implements Serializable {
         /**
          * Linked names of presets
          */
-        private LinkedList<PresetLink> linkedPresets = null;
+        private LinkedList<PresetItemLink> linkedPresetItems = null;
+
+        /**
+         * Linked names of alternative presets
+         */
+        private LinkedList<PresetItemLink> alternativePresetItems = null;
 
         /**
          * true if a chunk
@@ -2572,7 +2586,7 @@ public class Preset implements Serializable {
             this.fields = item.fields;
             this.fixedTags = item.fixedTags;
             this.roles = item.roles;
-            this.linkedPresets = item.linkedPresets;
+            this.linkedPresetItems = item.linkedPresetItems;
             this.minMatch = item.minMatch;
 
             if (!chunk) {
@@ -3169,38 +3183,77 @@ public class Preset implements Serializable {
          * 
          * @param presetName name of the PresetItem to link to
          */
-        public void addLinkedPreset(@NonNull PresetLink presetLink) {
-            if (linkedPresets == null) {
-                linkedPresets = new LinkedList<>();
+        public void addLinkedPresetItem(@NonNull PresetItemLink presetLink) {
+            if (linkedPresetItems == null) {
+                linkedPresetItems = new LinkedList<>();
             }
-            linkedPresets.add(presetLink);
+            linkedPresetItems.add(presetLink);
         }
 
         /**
-         * Add a LinkedList containing linked presets to the PresetItem
+         * Add a linked alternative preset to the PresetItem
          * 
-         * @param newLinkedPresets the LinkedList of PresetITem names
+         * @param presetName name of the PresetItem to link to
          */
-        public void addAllLinkedPresets(@Nullable LinkedList<PresetLink> newLinkedPresets) { // NOSONAR
-            if (linkedPresets == null) {
-                linkedPresets = newLinkedPresets; // doesn't matter if newLinkedPresetNames is null
-            } else if (newLinkedPresets != null) {
-                for (PresetLink linkedPresetName : newLinkedPresets) {
-                    if (!linkedPresets.contains(linkedPresetName)) {
-                        linkedPresets.add(linkedPresetName);
+        public void addAlternativePresetItem(@NonNull PresetItemLink presetLink) {
+            if (alternativePresetItems == null) {
+                alternativePresetItems = new LinkedList<>();
+            }
+            alternativePresetItems.add(presetLink);
+        }
+
+        /**
+         * Add a LinkedList containing linked PresetItems to this PresetItem
+         * 
+         * @param newLinkedPresetItems the LinkedList of PresetLinks
+         */
+        public void addAllLinkedPresetItems(@Nullable LinkedList<PresetItemLink> newLinkedPresetItems) { // NOSONAR
+            if (linkedPresetItems == null) {
+                linkedPresetItems = newLinkedPresetItems; // doesn't matter if newLinkedPresetNames is null
+            } else if (newLinkedPresetItems != null) {
+                for (PresetItemLink linkedPreset : newLinkedPresetItems) {
+                    if (!linkedPresetItems.contains(linkedPreset)) {
+                        linkedPresetItems.add(linkedPreset);
                     }
                 }
             }
         }
 
         /**
-         * Get all linked preset names
+         * Add a LinkedList containing alternative PresetItems to this PresetItem
          * 
-         * @return a list of all linked presets or null if none
+         * @param newalternativePresetItems the LinkedList of PresetLinks
+         */
+        public void addAllAlternativePresetItems(@Nullable LinkedList<PresetItemLink> newalternativePresetItems) { // NOSONAR
+            if (alternativePresetItems == null) {
+                alternativePresetItems = newalternativePresetItems; // doesn't matter if newLinkedPresetNames is null
+            } else if (newalternativePresetItems != null) {
+                for (PresetItemLink linkedPreset : newalternativePresetItems) {
+                    if (!linkedPresetItems.contains(linkedPreset)) {
+                        linkedPresetItems.add(linkedPreset);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Get all linked PresetItems
+         * 
+         * @return a list of all linked PresetItems or null if none
          */
         @Nullable
-        public List<PresetLink> getLinkedPresets() {
-            return linkedPresets;
+        public List<PresetItemLink> getLinkedPresetItems() {
+            return linkedPresetItems;
+        }
+
+        /**
+         * Get all alternative PresetItems
+         * 
+         * @return a list of all alternative PresetItems or null if none
+         */
+        @Nullable
+        public List<PresetItemLink> getAlternativePresetItems() {
+            return alternativePresetItems;
         }
 
         /**
@@ -3220,8 +3273,8 @@ public class Preset implements Serializable {
                 presets.remove(Preset.this);
             }
             presets.add(0, Preset.this); // move this Preset to front
-            if (linkedPresets != null) {
-                for (PresetLink pl : linkedPresets) {
+            if (linkedPresetItems != null) {
+                for (PresetItemLink pl : linkedPresetItems) {
                     for (Preset preset : presets) {
                         if (preset != null) {
                             Integer index = preset.getItemIndexByName(pl.getPresetName()); // FIXME this involves a
@@ -3246,7 +3299,7 @@ public class Preset implements Serializable {
          * Check if this PresetItem represents an irl object
          * 
          * @param preset the Preset to
-         * @return true if a rw object
+         * @return true if a irl object
          */
         private boolean isObject(@NonNull Preset preset) {
             Set<String> linkedPresetTags = getFixedTags().keySet();
@@ -3820,8 +3873,8 @@ public class Preset implements Serializable {
                 field.toXml(s);
             }
             fieldsToXml(s, fields);
-            if (linkedPresets != null) {
-                for (PresetLink linkedPreset : linkedPresets) {
+            if (linkedPresetItems != null) {
+                for (PresetItemLink linkedPreset : linkedPresetItems) {
                     s.startTag("", PRESET_LINK);
                     s.attribute("", PRESET_NAME, linkedPreset.getPresetName());
                     if (linkedPreset.getText() != null) {

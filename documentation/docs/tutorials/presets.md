@@ -124,7 +124,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | default                       | supported |
 |                   | match                         | supported |
 |                   | use_last_as_default           | extension | "force" has the same effect as "true" 
-|__&lt;label&gt;__  |                               | ignored   |
+|__&lt;label&gt;__  |                               | ignored   | 
 |__&lt;space/&gt;__ |                               | ignored   |
 |__&lt;optional&gt;__ |                             | supported | doesn't display anything
 |                   | text                          | ignored   |
@@ -146,6 +146,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |__&lt;preset_link&gt;__ |                          | supported | Used for tag matching and added to preset MRU list for easy access
 |                        | text                     | ignored   |
 |                        | text_context             | ignored   |
+|                        | alternative              | extension | If "true", the linked to preset is an alternative tagging for the object in question
 
 
                  
@@ -178,3 +179,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _autoapply_ if true (default), allow auto-applying of the item
 * _min_match_ modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match 
 * _value_count_key_ reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes"
+* _alternative_ indicates that the preset_link points to an alternative tagging of the object

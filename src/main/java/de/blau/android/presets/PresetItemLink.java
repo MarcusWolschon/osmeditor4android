@@ -3,7 +3,7 @@ package de.blau.android.presets;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class PresetLink {
+public class PresetItemLink {
 
     private final String presetName;
     private final String text;
@@ -16,7 +16,7 @@ public class PresetLink {
      * @param text an optional text to display for the link
      * @param textContext the translation context for the text
      */
-    public PresetLink(@NonNull String presetName, @Nullable String text, @Nullable String textContext) {
+    public PresetItemLink(@NonNull String presetName, @Nullable String text, @Nullable String textContext) {
         this.presetName = presetName;
         this.text = text;
         this.textContext = textContext;
@@ -26,7 +26,7 @@ public class PresetLink {
      * @return the presetName
      */
     @NonNull
-    String getPresetName() {
+    public String getPresetName() {
         return presetName;
     }
 
@@ -45,7 +45,7 @@ public class PresetLink {
     String getTextContext() {
         return textContext;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -61,10 +61,10 @@ public class PresetLink {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof PresetLink)) {
+        if (!(obj instanceof PresetItemLink)) {
             return false;
         }
-        PresetLink other = (PresetLink) obj;
+        PresetItemLink other = (PresetItemLink) obj;
         if (presetName == null) {
             if (other.presetName != null) {
                 return false;
