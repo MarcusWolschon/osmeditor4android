@@ -78,7 +78,7 @@ public class PhotoViewerFragment extends ImmersiveDialogFragment implements OnMe
     ActionMenuView   menuView;
 
     /**
-     * Show an info dialog for the supplied OsmElement
+     * Show a dialog containing a view for the list of photos
      * 
      * @param activity the calling Activity
      * @param photoList list of Uris
