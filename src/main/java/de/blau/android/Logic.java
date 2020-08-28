@@ -4640,7 +4640,7 @@ public class Logic {
     }
 
     /** Helper class for ordering nodes/ways by distance from a click */
-    private static class DistanceSorter<OUTTYPE extends OsmElement, T extends OUTTYPE> {
+    private static class DistanceSorter<O extends OsmElement, T extends O> {
         private Comparator<Entry<T, Double>> comparator = (lhs, rhs) -> {
             if (lhs == rhs) {
                 return 0;
@@ -4660,11 +4660,11 @@ public class Logic {
          * @param input Map with the element and distance
          * @return a sorted List of the input
          */
-        public List<OUTTYPE> sort(java.util.Map<T, Double> input) {
+        public List<O> sort(java.util.Map<T, Double> input) {
             ArrayList<Entry<T, Double>> entries = new ArrayList<>(input.entrySet());
             Collections.sort(entries, comparator);
 
-            ArrayList<OUTTYPE> result = new ArrayList<>(entries.size());
+            ArrayList<O> result = new ArrayList<>(entries.size());
             for (Entry<T, Double> entry : entries) {
                 result.add(entry.getKey());
             }
