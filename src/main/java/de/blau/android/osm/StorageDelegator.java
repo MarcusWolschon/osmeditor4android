@@ -1719,6 +1719,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param node The node to be replaced.
      * @return null if node was not member of a way, the replacement node if it was
      */
+    @Nullable
     public Node replaceNode(@NonNull final Node node) {
         List<Way> ways = currentStorage.getWays(node);
         if (!ways.isEmpty()) {

@@ -2110,6 +2110,7 @@ public class Logic {
      * @param node node to extract from any ways it is a member of
      * @return the new way node or null if the node was not a way node
      */
+    @Nullable
     public synchronized Node performExtract(@Nullable FragmentActivity activity, final Node node) {
         if (node != null) {
             createCheckpoint(activity, R.string.undo_action_extract_node);
