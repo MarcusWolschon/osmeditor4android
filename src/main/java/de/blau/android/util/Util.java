@@ -679,7 +679,7 @@ public final class Util {
      * @return true if the system has a WebView implementation
      */
     public static boolean supportsWebView(@NonNull Context ctx) {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH ? true : ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WEBVIEW);
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH || ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WEBVIEW);
     }
 
     /**

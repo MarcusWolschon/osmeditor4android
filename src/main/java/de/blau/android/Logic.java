@@ -2592,7 +2592,7 @@ public class Logic {
 
             @Override
             protected ReadAsyncResult doInBackground(Boolean... arg) {
-                boolean merge = arg != null && arg[0] != null ? arg[0].booleanValue() : false;
+                boolean merge = arg != null && arg[0] != null && arg[0].booleanValue();
                 return download(activity, prefs.getServer(), mapBox, postMerge, null, merge, false);
             }
 

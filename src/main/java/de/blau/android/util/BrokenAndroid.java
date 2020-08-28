@@ -51,7 +51,7 @@ public class BrokenAndroid {
      */
     public boolean isFullScreenBroken() {
         Properties prop = getProperties(Build.MANUFACTURER, Build.HARDWARE);
-        return prop == null ? false : prop.fullScreen;
+        return prop != null && prop.fullScreen;
     }
 
     /**
