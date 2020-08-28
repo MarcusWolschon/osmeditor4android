@@ -24,8 +24,6 @@ public class Photo implements BoundedObject {
     private static final String DEBUG_TAG    = "Photo";
     /**  */
     private final String        ref;
-    /**  */
-    private final String        name;
     /** Latitude *1E7. */
     private final int           lat;
     /** Longitude *1E7. */
@@ -68,7 +66,6 @@ public class Photo implements BoundedObject {
      * @throws IOException if location information is missing
      */
     private Photo(@NonNull ExtendedExifInterface exif, @NonNull String ref) throws IOException {
-        this.name = exif.getAttribute(ExifInterface.TAG_FILE_SOURCE);
         this.ref = ref;
 
         /**
@@ -115,7 +112,6 @@ public class Photo implements BoundedObject {
         this.lat = lat;
         this.lon = lon;
         this.ref = ref;
-        this.name = name;
     }
 
     /**
@@ -133,7 +129,6 @@ public class Photo implements BoundedObject {
         this.direction = direction;
         this.directionRef = "M"; // magnetic north
         this.ref = ref;
-        this.name = name;
     }
 
     /**
@@ -243,7 +238,6 @@ public class Photo implements BoundedObject {
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
     }
-    
 
     @Override
     public int hashCode() {
