@@ -1213,7 +1213,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
              * after the old way
              */
             for (Relation r : relations) {
-                Log.d(DEBUG_TAG, "addSplitWayToRelations processing relation (#" + r.getOsmId() + "/" + relations.size() + ") " + r.getDescription());
+                Log.d(DEBUG_TAG, "addSplitWayToRelations processing relation (#" + r.getOsmId() + "/" + relations.size() + ")");
                 List<RelationMember> members = r.getAllMembers(way);
                 if (members.isEmpty()) {
                     Log.d(DEBUG_TAG, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
