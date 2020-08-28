@@ -16,6 +16,8 @@ import org.junit.Test;
 
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmException;
+import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osm.MergeResult.Issue;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
@@ -116,6 +118,11 @@ public class StorageDelegatorTest {
             w.addNode(n0); // close
         }
         d.insertElementSafe(w);
+        Relation r = factory.createRelationWithNewId();
+        RelationMember member = new RelationMember("test", w);
+        r.addMember(member);
+        d.insertElementSafe(r);
+        w.addParentRelation(r);
         return w;
     }
 
@@ -147,7 +154,7 @@ public class StorageDelegatorTest {
         d.pruneAll();
         assertNotNull(d.getOsmElement(Way.NAME, 571067343L));
         assertNotNull(d.getOsmElement(Node.NAME, 761534749L));
-        assertEquals(wayNodeCount + 1, d.getCurrentStorage().getNodeCount());
+        assertEquals(wayNodeCount + 1L, d.getCurrentStorage().getNodeCount());
         assertEquals(1, d.getCurrentStorage().getWayCount());
         assertEquals(32, d.getCurrentStorage().getRelationCount());
         assertEquals(parentCount, d.getOsmElement(Way.NAME, 571067343L).getParentRelations().size());
@@ -215,7 +222,7 @@ public class StorageDelegatorTest {
      * Load some data modify a way and a node, then merge some data
      */
     @Test
-    public void merge() {
+    public void mergeData() {
         StorageDelegator d = new StorageDelegator();
         d.setCurrentStorage(PbfTest.read());
         assertEquals(0, d.getApiElementCount());
@@ -245,8 +252,91 @@ public class StorageDelegatorTest {
         assertNotNull(d.getOsmElement(Way.NAME, 571067343L));
         assertNotNull(d.getOsmElement(Way.NAME, w2.getOsmId()));
         assertNotNull(d.getOsmElement(Node.NAME, 761534749L));
-        assertEquals(nodeCount + 4, d.getCurrentStorage().getNodeCount());
-        assertEquals(wayCount + 1, d.getCurrentStorage().getWayCount());
+        assertEquals(nodeCount + 4L, d.getCurrentStorage().getNodeCount());
+        assertEquals(wayCount + 1L, d.getCurrentStorage().getWayCount());
+    }
+
+    /**
+     * Split way then merge in various ways
+     */
+    @Test
+    public void merge() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        SortedMap<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put(Tags.KEY_HIGHWAY, "residential");
+        w.setTags(tags);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n = w.getNodes().get(2);
+        Node first = w.getFirstNode();
+        Node last = w.getLastNode();
+        Way newWay = d.splitAtNode(w, n);
+        // all things the same the 1st way remains after merger
+        MergeResult result = d.mergeWays(w, newWay);
+        assertNull(result.getIssues());
+        assertEquals(4, w.getNodes().size());
+        assertNull(d.getOsmElement(Way.NAME, newWay.getOsmId()));
+        newWay = d.splitAtNode(w, n);
+        result = d.mergeWays(newWay, w);
+        assertNull(result.getIssues());
+        assertEquals(4, newWay.getNodes().size());
+        assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
+        //
+        w = d.splitAtNode(newWay, n);
+        d.reverseWay(w);
+        result = d.mergeWays(w, newWay);
+        assertNull(result.getIssues());
+        assertEquals(4, w.getNodes().size());
+        assertEquals(last, w.getFirstNode());
+        assertEquals(first, w.getLastNode());
+        //
+        newWay = d.splitAtNode(w, n);
+        d.reverseWay(w);
+        result = d.mergeWays(w, newWay);
+        assertNull(result.getIssues());
+        assertEquals(4, w.getNodes().size());
+        assertEquals(first, w.getFirstNode());
+        assertEquals(last, w.getLastNode());
+        // conflicting tags should allow merge but create non null result
+        newWay = d.splitAtNode(w, n);
+        tags.clear();
+        tags.put(Tags.KEY_HIGHWAY, "service");
+        newWay.setTags(tags);
+        result = d.mergeWays(w, newWay);
+        assertEquals(4, w.getNodes().size());
+        assertNotNull(result.getIssues());
+        assertEquals(1, result.getIssues().size());
+        assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
+        tags.clear();
+        w.setTags(tags);
+        // conflicting roles should allow merge but create non null result
+        newWay = d.splitAtNode(w, n);
+        assertNotNull(newWay.getParentRelations());
+        Relation r = newWay.getParentRelations().get(0);
+        r.getMember(newWay).setRole("test2");
+        result = d.mergeWays(w, newWay);
+        assertEquals(4, w.getNodes().size());
+        assertNotNull(result.getIssues());
+        assertEquals(1, result.getIssues().size());
+        assertTrue(result.getIssues().contains(Issue.ROLECONFLICT));
+        // way with pos id should remain
+        newWay = d.splitAtNode(w, n);
+        newWay.setOsmId(1234L);
+        result = d.mergeWays(w, newWay);
+        assertNull(result.getIssues());
+        assertEquals(4, newWay.getNodes().size());
+        assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertNotNull(d.getOsmElement(Way.NAME, 1234L));
+        // unjoin ways
+        w = d.splitAtNode(newWay, n);
+        d.unjoinWays(n);
+        try {
+            d.mergeWays(w, newWay);
+            fail("Should have thrown an OsmIllegalOperationException");
+        } catch (OsmIllegalOperationException ex) {
+            // expected
+        }
     }
 
     /**
