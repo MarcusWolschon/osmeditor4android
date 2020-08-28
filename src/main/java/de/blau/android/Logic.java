@@ -3256,8 +3256,7 @@ public class Logic {
                     try {
                         final OsmParser osmParser = new OsmParser();
                         osmParser.clearBoundingBoxes(); // this removes the default bounding box
-                        final InputStream in = new BufferedInputStream(is);
-                        try {
+                        try (final InputStream in = new BufferedInputStream(is)) {
                             osmParser.start(in);
                             StorageDelegator sd = getDelegator();
                             sd.reset(false);
@@ -3270,8 +3269,6 @@ public class Logic {
                             if (map != null) {
                                 viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                             }
-                        } finally {
-                            SavingHelper.close(in);
                         }
                     } catch (SAXException e) {
                         Log.e(DEBUG_TAG, "Problem parsing", e);
@@ -3306,8 +3303,10 @@ public class Logic {
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
         try {
             File outfile = FileUtil.openFileForWriting(fileName);
-            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-            writeOsmFile(activity, new FileOutputStream(outfile), postSaveHandler);
+            try (OutputStream out = new FileOutputStream(outfile)) {
+                Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
+                writeOsmFile(activity, out, postSaveHandler);
+            }
         } catch (IOException e) {
             if (!activity.isFinishing()) {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
@@ -3326,8 +3325,8 @@ public class Logic {
      * @param postSaveHandler if not null executes code after saving
      */
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postSaveHandler) {
-        try {
-            writeOsmFile(activity, activity.getContentResolver().openOutputStream(uri), postSaveHandler);
+        try (OutputStream out = activity.getContentResolver().openOutputStream(uri)) {
+            writeOsmFile(activity, out, postSaveHandler);
         } catch (IOException e) {
             if (!activity.isFinishing()) {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
@@ -3360,16 +3359,11 @@ public class Logic {
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
                 try {
-                    OutputStream out = null;
-                    try {
-                        out = new BufferedOutputStream(fout);
+                    try (OutputStream out = new BufferedOutputStream(fout)) {
                         OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                         result = ErrorCodes.FILE_WRITE_FAILED;
                         Log.e(DEBUG_TAG, "Problem writing", e);
-                    } finally {
-                        SavingHelper.close(out);
-                        SavingHelper.close(fout);
                     }
                 } catch (IOException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;

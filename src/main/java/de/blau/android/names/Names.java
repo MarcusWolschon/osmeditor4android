@@ -185,10 +185,7 @@ public class Names {
 
                 AssetManager assetManager = ctx.getAssets();
                 try {
-                    InputStream is = assetManager.open(NSI_FILE);
-                    JsonReader reader = new JsonReader(new InputStreamReader(is));
-
-                    try {
+                    try (InputStream is = assetManager.open(NSI_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
                         try {
                             // key object
                             String key = null;
@@ -262,37 +259,29 @@ public class Names {
                         } catch (IOException | IllegalStateException e) {
                             Log.e(DEBUG_TAG, "Got exception reading " + NSI_FILE + " " + e.getMessage());
                         }
-                    } finally {
-                        SavingHelper.close(reader);
-                        SavingHelper.close(is);
                     }
-                    try {
-                        is = assetManager.open(CATEGORIES_FILE); // NOSONAR
-                        reader = new JsonReader(new InputStreamReader(is));
-                        try {
-                            String category = null;
+
+                    try (InputStream is = assetManager.open(CATEGORIES_FILE); JsonReader reader = new JsonReader(new InputStreamReader(is));) {
+                        String category = null;
+                        reader.beginObject();
+                        while (reader.hasNext()) {
+                            category = reader.nextName();
+                            String poiType = null;
                             reader.beginObject();
                             while (reader.hasNext()) {
-                                category = reader.nextName();
-                                String poiType = null;
-                                reader.beginObject();
+                                poiType = reader.nextName();
+                                reader.beginArray();
                                 while (reader.hasNext()) {
-                                    poiType = reader.nextName();
-                                    reader.beginArray();
-                                    while (reader.hasNext()) {
-                                        categories.add(category, poiType + "=" + reader.nextString());
-                                    }
-                                    reader.endArray();
+                                    categories.add(category, poiType + "=" + reader.nextString());
                                 }
-                                reader.endObject();
+                                reader.endArray();
                             }
                             reader.endObject();
-                        } catch (IOException e) {
-                            Log.d(DEBUG_TAG, "Got exception reading " + CATEGORIES_FILE + " " + e.getMessage());
                         }
-                    } finally {
-                        SavingHelper.close(reader);
-                        SavingHelper.close(is);
+                        reader.endObject();
+
+                    } catch (IOException e) {
+                        Log.d(DEBUG_TAG, "Got exception reading " + CATEGORIES_FILE + " " + e.getMessage());
                     }
                 } catch (IOException | IllegalStateException e) {
                     Log.d(DEBUG_TAG, "Got exception " + e.getMessage());

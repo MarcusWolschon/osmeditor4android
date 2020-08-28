@@ -281,9 +281,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     Server.throwOsmServerException(offestListCallResponse);
                 }
 
-                JsonReader reader = null;
-                try {
-                    reader = new JsonReader(new InputStreamReader(inputStream));
+                try (JsonReader reader = new JsonReader(new InputStreamReader(inputStream))) {
                     List<ImageryOffset> result = new ArrayList<>();
                     try {
                         JsonToken token = reader.peek();
@@ -316,8 +314,6 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                         Log.d(DEBUG_TAG, "search error " + error);
                     }
                     return result;
-                } finally {
-                    SavingHelper.close(reader);
                 }
             } catch (IOException e) {
                 error = e.getMessage();
