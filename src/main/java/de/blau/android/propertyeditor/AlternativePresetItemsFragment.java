@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.exception.UiStateException;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;

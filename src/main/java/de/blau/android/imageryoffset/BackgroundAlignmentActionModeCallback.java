@@ -51,7 +51,6 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.MapTilesLayer;

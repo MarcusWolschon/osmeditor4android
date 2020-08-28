@@ -21,7 +21,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.osm.Tags;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.collections.MultiHashMap;
 
