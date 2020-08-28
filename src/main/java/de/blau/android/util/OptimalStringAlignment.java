@@ -25,7 +25,7 @@ import androidx.annotation.NonNull;
  */
 public final class OptimalStringAlignment {
 
-    private static final int threadLocalBufferSize = 64;
+    private static final int THREAD_LOCAL_BUFFER_SIZE = 64;
 
     /**
      * Private constructor to stop instantiation
@@ -37,21 +37,21 @@ public final class OptimalStringAlignment {
     private static final ThreadLocal<short[]> costLocal = new ThreadLocal<short[]>() { // NOSONAR
         @Override
         protected short[] initialValue() {
-            return new short[threadLocalBufferSize];
+            return new short[THREAD_LOCAL_BUFFER_SIZE];
         }
     };
 
     private static final ThreadLocal<short[]> back1Local = new ThreadLocal<short[]>() { // NOSONAR
         @Override
         protected short[] initialValue() {
-            return new short[threadLocalBufferSize];
+            return new short[THREAD_LOCAL_BUFFER_SIZE];
         }
     };
 
     private static final ThreadLocal<short[]> back2Local = new ThreadLocal<short[]>() { // NOSONAR
         @Override
         protected short[] initialValue() {
-            return new short[threadLocalBufferSize];
+            return new short[THREAD_LOCAL_BUFFER_SIZE];
         }
     };
 
@@ -67,7 +67,7 @@ public final class OptimalStringAlignment {
      */
     public static int editDistance(CharSequence s, CharSequence t, int threshold) {
 
-        if (s.length() + 1 > threadLocalBufferSize || t.length() + 1 > threadLocalBufferSize) {
+        if (s.length() + 1 > THREAD_LOCAL_BUFFER_SIZE || t.length() + 1 > THREAD_LOCAL_BUFFER_SIZE) {
             return editDistanceWithNewBuffers(s, t, (short) threshold);
         }
 
