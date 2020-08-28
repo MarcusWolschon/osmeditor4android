@@ -210,33 +210,6 @@ public class AlternativePresetItemsFragment extends ImmersiveDialogFragment {
     }
 
     /**
-     * Return the view we have our rows in and work around some android craziness
-     * 
-     * @return the row container view
-     */
-    @Nullable
-    private View getOurView() {
-        // android.support.v4.app.NoSaveStateFrameLayout
-        View v = getView();
-        if (v != null) {
-            if (v.getId() == R.id.recentpresets_layout) {
-                Log.d(DEBUG_TAG, "got correct view in getView");
-                return v;
-            } else {
-                v = v.findViewById(R.id.recentpresets_layout);
-                if (v == null) {
-                    Log.d(DEBUG_TAG, "didn't find R.id.recentpresets_layout");
-                    throw new UiStateException("didn't find R.id.recentpresets_layoutt");
-                } else {
-                    Log.d(DEBUG_TAG, "Found R.id.recentpresets_layout");
-                }
-                return v;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Enable selection of presets
      */
     void enable() {
