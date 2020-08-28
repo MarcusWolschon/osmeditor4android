@@ -121,7 +121,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
                 Log.d(LOGTAG, dbresult.getString(0) + " " + dbresult.getLong(1));
                 // loop over all possible mount points
                 for (String m : mountPoints) {
-                    File indir = new File(m + "/" + dir);
+                    File indir = new File(m, dir);
                     Log.d(LOGTAG, "Scanning directory " + indir.getAbsolutePath());
                     if (indir.exists()) {
                         Cursor dbresult2 = db.query(PHOTOS_TABLE, new String[] { "distinct dir" }, "dir LIKE '" + indir.getAbsolutePath() + "%'", null, null,
