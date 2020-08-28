@@ -340,6 +340,23 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Replace a Node in Ways it is a member of
+     */
+    @Test
+    public void repplaceNodeInWays() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n = w.getNodes().get(2);
+        d.splitAtNode(w, n);
+        assertEquals(2, d.getCurrentStorage().getWays(n).size());
+        Node newNode = d.replaceNode(n);
+        assertEquals(2, d.getCurrentStorage().getWays(newNode).size());
+        assertEquals(0, d.getCurrentStorage().getWays(n).size());
+    }
+    
+    /**
      * Split way at node
      */
     @Test
