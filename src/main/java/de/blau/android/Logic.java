@@ -3303,10 +3303,8 @@ public class Logic {
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @Nullable final PostAsyncActionHandler postSaveHandler) {
         try {
             File outfile = FileUtil.openFileForWriting(fileName);
-            try (OutputStream out = new FileOutputStream(outfile)) {
-                Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
-                writeOsmFile(activity, out, postSaveHandler);
-            }
+            Log.d(DEBUG_TAG, "Saving to " + outfile.getPath());
+            writeOsmFile(activity, new FileOutputStream(outfile), postSaveHandler);
         } catch (IOException e) {
             if (!activity.isFinishing()) {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
@@ -3325,8 +3323,8 @@ public class Logic {
      * @param postSaveHandler if not null executes code after saving
      */
     public void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final Uri uri, @Nullable final PostAsyncActionHandler postSaveHandler) {
-        try (OutputStream out = activity.getContentResolver().openOutputStream(uri)) {
-            writeOsmFile(activity, out, postSaveHandler);
+        try {
+            writeOsmFile(activity, activity.getContentResolver().openOutputStream(uri), postSaveHandler);
         } catch (IOException e) {
             if (!activity.isFinishing()) {
                 ErrorAlert.showDialog(activity, ErrorCodes.FILE_WRITE_FAILED);
@@ -3338,11 +3336,11 @@ public class Logic {
     }
 
     /**
-     * Write data to an OutputStream in (J)OSM compatible format, if fileName contains directories these are created,
-     * otherwise it is stored in the standard public dir
+     * Asynchronously write data to an OutputStream in (J)OSM compatible format, if fileName contains directories these
+     * are created, otherwise it is stored in the standard public dir
      * 
      * @param activity the calling FragmentActivity
-     * @param fout OutputStream to write to
+     * @param fout OutputStream to write to, note: do not close in caller
      * @param postSaveHandler if not null executes code after saving
      */
     private void writeOsmFile(@NonNull final FragmentActivity activity, @NonNull final OutputStream fout,
@@ -3358,16 +3356,13 @@ public class Logic {
             @Override
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
-                try {
-                    try (OutputStream out = new BufferedOutputStream(fout)) {
-                        OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
-                    } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
-                        result = ErrorCodes.FILE_WRITE_FAILED;
-                        Log.e(DEBUG_TAG, "Problem writing", e);
-                    }
-                } catch (IOException e) {
+                try (OutputStream out = new BufferedOutputStream(fout)) {
+                    OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
+                } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException | IOException e) {
                     result = ErrorCodes.FILE_WRITE_FAILED;
                     Log.e(DEBUG_TAG, "Problem writing", e);
+                } finally {
+                    SavingHelper.close(fout);
                 }
                 return result;
             }
