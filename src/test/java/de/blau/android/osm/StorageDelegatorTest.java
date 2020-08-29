@@ -98,7 +98,7 @@ public class StorageDelegatorTest {
      * @param close if true close the way
      * @return the way
      */
-    Way addWayToStorage(@NonNull StorageDelegator d, boolean close) {
+    static Way addWayToStorage(@NonNull StorageDelegator d, boolean close) {
         d.getUndo().createCheckpoint("add test way");
         OsmElementFactory factory = d.getFactory();
         Way w = factory.createWayWithNewId();
@@ -355,7 +355,7 @@ public class StorageDelegatorTest {
         assertEquals(2, d.getCurrentStorage().getWays(newNode).size());
         assertEquals(0, d.getCurrentStorage().getWays(n).size());
     }
-    
+
     /**
      * Split way at node
      */
@@ -422,7 +422,7 @@ public class StorageDelegatorTest {
      * @param d double coordinate value
      * @return a scaled int
      */
-    int toE7(double d) {
+    static int toE7(double d) {
         return (int) (d * 1E7);
     }
 }
