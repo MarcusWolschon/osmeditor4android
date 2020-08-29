@@ -1,4 +1,4 @@
-package de.blau.android.osm;
+package de.blau.android.filter;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -26,8 +26,11 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.filter.TagFilter;
-import de.blau.android.filter.TagFilterDatabaseHelper;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
@@ -82,7 +85,7 @@ public class TagFilterTest {
     @Test
     public void tagFilterNode() {
         try {
-            TreeMap<String, String> tags = new TreeMap<String, String>();
+            TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BARRIER, Tags.VALUE_KERB);
             Logic logic = App.getLogic();
 
@@ -92,7 +95,7 @@ public class TagFilterTest {
 
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            n1.setTags(tags);
+            logic.setTags(main, n1, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "node", Tags.KEY_BUILDING, null);
 
@@ -115,7 +118,7 @@ public class TagFilterTest {
     @Test
     public void tagFilterWay() {
         try {
-            TreeMap<String, String> tags = new TreeMap<String, String>();
+            TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();
 
@@ -127,7 +130,7 @@ public class TagFilterTest {
             Way w = logic.getSelectedWay();
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            w.setTags(tags);
+            logic.setTags(main, w, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "way", Tags.KEY_BUILDING, null);
 
@@ -146,7 +149,7 @@ public class TagFilterTest {
     @Test
     public void tagFilterWayWithNodes() {
         try {
-            TreeMap<String, String> tags = new TreeMap<String, String>();
+            TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();
 
@@ -158,7 +161,7 @@ public class TagFilterTest {
             Way w = logic.getSelectedWay();
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            w.setTags(tags);
+            logic.setTags(main, w, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "way+", Tags.KEY_BUILDING, null);
 
@@ -177,8 +180,8 @@ public class TagFilterTest {
     @Test
     public void tagFilterWayInRelation() {
         try {
-            TreeMap<String, String> tags = new TreeMap<String, String>();
-            tags.put(Tags.KEY_BUILDING, "yes");
+            TreeMap<String, String> tags = new TreeMap<>();
+            tags.put(Tags.KEY_BUILDING, Tags.VALUE_YES);
             Logic logic = App.getLogic();
 
             logic.performAdd(main, 100.0f, 100.0f);
@@ -190,12 +193,12 @@ public class TagFilterTest {
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
 
-            ArrayList<OsmElement> members = new ArrayList<OsmElement>();
+            ArrayList<OsmElement> members = new ArrayList<>();
             members.add(w);
             Relation r = logic.createRelation(main, "", members);
-            r.setTags(tags);
+            logic.setTags(main, r, tags);
 
-            insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "relation", Tags.KEY_BUILDING, null);
+            insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, Relation.NAME, Tags.KEY_BUILDING, null);
 
             TagFilter f = new TagFilter(context);
             Assert.assertTrue(f.include(w, false));
@@ -212,7 +215,7 @@ public class TagFilterTest {
     @Test
     public void tagFilterWayInRelationWithNodes() {
         try {
-            TreeMap<String, String> tags = new TreeMap<String, String>();
+            TreeMap<String, String> tags = new TreeMap<>();
             tags.put(Tags.KEY_BUILDING, "yes");
             Logic logic = App.getLogic();
 
@@ -228,7 +231,7 @@ public class TagFilterTest {
             ArrayList<OsmElement> members = new ArrayList<OsmElement>();
             members.add(w);
             Relation r = logic.createRelation(main, "", members);
-            r.setTags(tags);
+            logic.setTags(main, r, tags);
 
             insertTagFilterRow(db, TagFilter.DEFAULT_FILTER, true, true, "relation+", Tags.KEY_BUILDING, null);
 

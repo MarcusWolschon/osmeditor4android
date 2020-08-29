@@ -1,4 +1,4 @@
-package de.blau.android.osm;
+package de.blau.android.filter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,11 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.filter.IndoorFilter;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 
@@ -84,12 +88,12 @@ public class IndoorFilterTest {
         IndoorFilter f = new IndoorFilter();
         Assert.assertTrue(!f.include(n, false));
         f.clear();
-        n.setTags(tags);
+        logic.setTags(main, n, tags);
         f.setLevel(9);
         Assert.assertTrue(f.include(n, true));
         logic.setSelectedNode(null);
         f.clear();
-        n.setTags(tags);
+        logic.setTags(main, n, tags);
         f.setLevel(9);
         Assert.assertTrue(!f.include(n, false));
         f.clear();
@@ -106,7 +110,7 @@ public class IndoorFilterTest {
         tags.put(Tags.KEY_MIN_LEVEL, "" + 8);
         tags.put(Tags.KEY_MAX_LEVEL, "" + 10);
         tags.put(Tags.KEY_BUILDING, "yes");
-        r.addTags(tags);
+        logic.setTags(main, r, tags);
         f.setLevel(9);
         Assert.assertTrue(f.include(n, false));
     }
@@ -120,7 +124,7 @@ public class IndoorFilterTest {
         tags.put(Tags.KEY_ENTRANCE, "yes");
         Logic logic = App.getLogic();
         Node n = logic.performAddNode(main, 1.0D, 1.0D);
-        n.setTags(tags);
+        logic.setTags(main, n, tags);
 
         IndoorFilter f = new IndoorFilter();
         f.setInverted(true);
@@ -147,7 +151,7 @@ public class IndoorFilterTest {
             Way w = logic.getSelectedWay();
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            w.setTags(tags);
+            logic.setTags(main, w, tags);
 
             IndoorFilter f = new IndoorFilter();
             f.setLevel(9);
@@ -166,7 +170,7 @@ public class IndoorFilterTest {
             tags.put(Tags.KEY_MIN_LEVEL, "" + 8);
             tags.put(Tags.KEY_MAX_LEVEL, "" + 10);
             tags.put(Tags.KEY_BUILDING, "yes");
-            r.addTags(tags);
+            logic.setTags(main, r, tags);
             f.setLevel(9);
             Assert.assertTrue(f.include(w, false));
             // check way nodes
@@ -194,7 +198,7 @@ public class IndoorFilterTest {
             Way w = logic.getSelectedWay();
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
-            w.setTags(tags);
+            logic.setTags(main, w, tags);
 
             IndoorFilter f = new IndoorFilter();
             f.setInverted(true);
@@ -228,7 +232,7 @@ public class IndoorFilterTest {
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
             tags.put(Tags.KEY_LEVEL, "" + 1);
-            w2.addTags(tags);
+            logic.setTags(main, w2, tags);
 
             IndoorFilter f = new IndoorFilter();
             List<OsmElement> members = new ArrayList<>();
@@ -247,7 +251,7 @@ public class IndoorFilterTest {
             tags.put(Tags.KEY_MIN_LEVEL, "" + 8);
             tags.put(Tags.KEY_MAX_LEVEL, "" + 10);
             tags.put(Tags.KEY_BUILDING, "yes");
-            r.addTags(tags);
+            logic.setTags(main, r, tags);
             f.setLevel(9);
             Assert.assertTrue(f.include(r, false));
             Assert.assertTrue(f.include(w, false));
