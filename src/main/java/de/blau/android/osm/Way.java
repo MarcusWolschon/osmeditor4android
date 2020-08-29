@@ -26,7 +26,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      */
     private static final long serialVersionUID = 1104911642016294269L;
 
-    final List<Node> nodes;
+    private final List<Node> nodes;
 
     /**
      * Cache of bounding box
@@ -62,7 +62,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * 
      * @param node Node to add
      */
-    void addNode(final Node node) {
+    void addNode(@NonNull final Node node) {
         int size = nodes.size();
         if ((size > 0) && (nodes.get(size - 1) == node)) {
             Log.i(DEBUG_TAG, "addNode attempt to add same node " + node.getOsmId() + " to " + getOsmId());
@@ -86,6 +86,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      * 
      * @return list of nodes allowing {@link Iterator#remove()}.
      */
+    @NonNull
     Iterator<Node> getRemovableNodes() {
         return nodes.iterator();
     }
@@ -214,6 +215,15 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
         if (count > 1) {
             Log.i(DEBUG_TAG, "removeNode removed " + (count - 1) + " duplicate node(s)");
         }
+    }
+    
+    /**
+     * Remove all nodes from the Way
+     * 
+     * Only use if you are intending to add nodes immediately
+     */
+    public void removeAllNodes() {
+        nodes.clear();
     }
 
     /**
@@ -368,9 +378,9 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     public int getOneway() {
         String oneway = getTagWithKey(Tags.KEY_ONEWAY);
         if (oneway != null) {
-            if ("yes".equalsIgnoreCase(oneway) || "true".equalsIgnoreCase(oneway) || "1".equals(oneway)) {
+            if (Tags.VALUE_YES.equalsIgnoreCase(oneway) || Tags.VALUE_TRUE.equalsIgnoreCase(oneway) || "1".equals(oneway)) {
                 return 1;
-            } else if ("-1".equals(oneway) || "reverse".equalsIgnoreCase(oneway)) {
+            } else if ("-1".equals(oneway) || Tags.VALUE_REVERSE.equalsIgnoreCase(oneway)) {
                 return -1;
             }
         }
@@ -402,10 +412,8 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
         }
 
         String highway = getTagWithKey(Tags.KEY_HIGHWAY);
-        if (highway != null) {
-            if (Tags.VALUE_MOTORWAY.equals(highway)) {
-                return true;
-            }
+        if (highway != null && Tags.VALUE_MOTORWAY.equals(highway)) {
+            return true;
         }
 
         String barrier = getTagWithKey(Tags.KEY_BARRIER);

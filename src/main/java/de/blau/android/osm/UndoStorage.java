@@ -794,7 +794,7 @@ public class UndoStorage implements Serializable {
          */
         public UndoWay(@NonNull Way originalWay, boolean inCurrentStorage, boolean inApiStorage) {
             super(originalWay, inCurrentStorage, inApiStorage);
-            nodes = new ArrayList<>(originalWay.nodes);
+            nodes = new ArrayList<>(originalWay.getNodes());
         }
 
         @Override
@@ -816,13 +816,13 @@ public class UndoStorage implements Serializable {
             }
             // now we can restore with confidence
             if (restored != null) {
-                ((Way) restored).nodes.clear();
+                ((Way) restored).removeAllNodes();
                 for (Node n : nodes) {
                     Node wayNode = currentStorage.getNode(n.getOsmId());
                     boolean nodeNotNull = wayNode != null;
                     if (nodeNotNull || deleted) {
-                        ((Way) restored).nodes.add(nodeNotNull ? wayNode : n); // only add undeleted way nodes
-                                                                               // except if we are deleted
+                        // only add undeleted way nodes except if we are deleted
+                        ((Way) restored).addNode(nodeNotNull ? wayNode : n);
                         if (nodeNotNull) {
                             wayNode.resetHasProblem();
                         }
