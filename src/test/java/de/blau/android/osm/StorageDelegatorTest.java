@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -340,6 +341,97 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Merge two nodes
+     */
+    @Test
+    public void mergeNodes() {
+        StorageDelegator d = new StorageDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+        MergeResult result = d.mergeNodes(n1, n2);
+        assertNull(result.getIssues());
+        assertNotNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
+        assertNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
+
+        d = new StorageDelegator();
+        factory = d.getFactory();
+        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+        n2.setOsmId(1234L);
+        result = d.mergeNodes(n1, n2);
+        assertNull(result.getIssues());
+        assertNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
+        assertNotNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
+
+        d = new StorageDelegator();
+        factory = d.getFactory();
+        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        result = d.mergeNodes(n1, n1);
+        assertNotNull(result.getIssues());
+        assertEquals(1, result.getIssues().size());
+        assertTrue(result.getIssues().contains(Issue.SAMEOBJECT));
+
+        d = new StorageDelegator();
+        factory = d.getFactory();
+        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+
+        SortedMap<String, String> tags1 = new TreeMap<>();
+        tags1.put(Tags.KEY_HIGHWAY, "a");
+        n1.setTags(tags1);
+        SortedMap<String, String> tags2 = new TreeMap<>();
+        tags2.put(Tags.KEY_HIGHWAY, "b");
+        n2.setTags(tags2);
+        result = d.mergeNodes(n1, n2);
+        assertNotNull(result.getIssues());
+        assertEquals(1, result.getIssues().size());
+        assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
+
+        // create two ways with common node
+        Way w = addWayToStorage(d, false);
+        Node n = w.getNodes().get(2);
+        Way newWay = d.splitAtNode(w, n);
+        d.unjoinWays(n);
+        n1 = w.getLastNode();
+        n2 = newWay.getFirstNode();
+        assertNotEquals(n1, n2);
+        result = d.mergeNodes(n1, n2);
+        assertNull(result.getIssues());
+        assertTrue(w.hasNode(n1));
+        assertTrue(newWay.hasNode(n1));
+        assertFalse(newWay.hasNode(n2));
+
+        // role conflict
+        d = new StorageDelegator();
+        factory = d.getFactory();
+        n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+
+        Relation r = factory.createRelationWithNewId();
+        RelationMember member1 = new RelationMember("test1", n1);
+        r.addMember(member1);
+        d.insertElementSafe(r);
+        n1.addParentRelation(r);
+        RelationMember member2 = new RelationMember("test2", n2);
+        r.addMember(member2);
+        n2.addParentRelation(r);
+        result = d.mergeNodes(n1, n2);
+        assertNotNull(result.getIssues());
+        assertEquals(1, result.getIssues().size());
+        assertTrue(result.getIssues().contains(Issue.ROLECONFLICT));
+    }
+
+    /**
      * Replace a Node in Ways it is a member of
      */
     @Test
@@ -354,6 +446,35 @@ public class StorageDelegatorTest {
         Node newNode = d.replaceNode(n);
         assertEquals(2, d.getCurrentStorage().getWays(newNode).size());
         assertEquals(0, d.getCurrentStorage().getWays(n).size());
+    }
+
+    /**
+     * Test removeWayNode method, by invoking removeNode on a node that is member of a way(s)
+     */
+    @Test
+    public void removeWayNode() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n = w.getNodes().get(2);
+        Way newWay = d.splitAtNode(w, n);
+        assertEquals(n, w.getLastNode());
+        assertEquals(n, newWay.getFirstNode());
+        assertEquals(2, newWay.nodeCount());
+        //
+        d.removeNode(n);
+        assertNotNull(d.getOsmElement(Way.NAME, w.getOsmId()));
+        assertNull(d.getOsmElement(Way.NAME, newWay.getOsmId()));
+        assertFalse(w.hasNode(n));
+
+        // remove closing node of a closed way
+        d = new StorageDelegator();
+        w = addWayToStorage(d, true);
+        n = w.getFirstNode();
+        d.removeNode(n);
+        assertTrue(w.isClosed());
+        assertFalse(w.hasNode(n));
     }
 
     /**
