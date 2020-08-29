@@ -30,6 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.test.uiautomator.By;
 import androidx.test.uiautomator.BySelector;
 import androidx.test.uiautomator.Configurator;
@@ -44,6 +45,7 @@ import de.blau.android.contract.Paths;
 import de.blau.android.gpx.TrackPoint;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.LayerType;
+import de.blau.android.osm.ApiTest;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerDatabase;
@@ -1288,5 +1290,25 @@ public class TestUtils {
         }
         response.setBody(buffer);
         return response;
+    }
+    
+
+    /**
+     * Load test data
+     */
+    public static void loadTestData(@NonNull FragmentActivity activity, @NonNull String fileName) {
+        final CountDownLatch signal1 = new CountDownLatch(1);
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream(fileName);
+        App.getLogic().readOsmFile(activity, is, false, new SignalHandler(signal1));
+        try {
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        try {
+            is.close();
+        } catch (IOException e1) {
+        }
     }
 }

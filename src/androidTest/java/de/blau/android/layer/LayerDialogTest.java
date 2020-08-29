@@ -88,20 +88,7 @@ public class LayerDialogTest {
         map.setPrefs(main, prefs);
 
         TestUtils.dismissStartUpDialogs(device, main);
-        final CountDownLatch signal1 = new CountDownLatch(1);
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("test2.osm");
-        logic = App.getLogic();
-        logic.readOsmFile(main, is, false, new SignalHandler(signal1));
-        try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
-        }
-        try {
-            is.close();
-        } catch (IOException e1) {
-        }
+        TestUtils.loadTestData(main, "test2.osm");
         map.getDataLayer().setVisible(true);
         TestUtils.stopEasyEdit(main);
     }

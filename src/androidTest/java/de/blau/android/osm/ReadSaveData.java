@@ -110,24 +110,10 @@ public class ReadSaveData {
     @SdkSuppress(minSdkVersion = 26)
     @Test
     public void dataReadModifySave() {
-        final CountDownLatch signal1 = new CountDownLatch(1);
         Logic logic = App.getLogic();
         StorageDelegator delegator = App.getDelegator();
 
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("test2.osm");
-        Assert.assertNotNull(is);
-        logic.readOsmFile(main, is, false, new SignalHandler(signal1));
-        try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
-        } catch (InterruptedException e) { // NOSONAR
-            Assert.fail(e.getMessage());
-        }
-        try {
-            is.close();
-        } catch (IOException e1) {
-            // Ignored
-        }
+        TestUtils.loadTestData(main, "test2.osm");
 
         // modify, for now just deletions
         Node node = delegator.getCurrentStorage().getNode(2522882577L);
@@ -146,17 +132,17 @@ public class ReadSaveData {
         Assert.assertNotNull(delegator.getApiStorage().getRelation(6490362L));
 
         // write out
-        final CountDownLatch signal2 = new CountDownLatch(1);
-        logic.writeOsmFile(main, TEST_MODIFY_OSM, new SignalHandler(signal2));
+        final CountDownLatch signal1 = new CountDownLatch(1);
+        logic.writeOsmFile(main, TEST_MODIFY_OSM, new SignalHandler(signal1));
         try {
-            signal2.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
+            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
         } catch (InterruptedException e) { // NOSONAR
             Assert.fail(e.getMessage());
         }
 
         // read back
         try {
-            is = new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSM));
+            InputStream is = new FileInputStream(new File(FileUtil.getPublicDirectory(), TEST_OSM));
             Assert.assertNotNull(is);
             logic.readOsmFile(main, is, false, new SignalHandler(signal1));
             try { // NOSONAR

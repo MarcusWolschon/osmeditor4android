@@ -58,21 +58,9 @@ public class UndoRedoTest {
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
-        final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("test2.osm");
-        logic.readOsmFile(main, is, false, new SignalHandler(signal1));
-        try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
-        }
-        try {
-            is.close();
-        } catch (IOException e1) {
-        }
+        TestUtils.loadTestData(main, "test2.osm");
         TestUtils.stopEasyEdit(main);
         map.getViewBox().fitToBoundingBox(map, map.getDataLayer().getExtent());
         logic.updateStyle();
@@ -99,6 +87,7 @@ public class UndoRedoTest {
     public void dialog() {
         TestUtils.clickAtCoordinates(device, map, 8.38782, 47.390339, true);
         TestUtils.clickText(device, false, "Toilets", false, false);
+        TestUtils.sleep();
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());

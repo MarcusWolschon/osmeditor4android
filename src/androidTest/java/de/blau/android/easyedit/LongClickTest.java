@@ -73,22 +73,9 @@ public class LongClickTest {
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
-        final CountDownLatch signal1 = new CountDownLatch(1);
         logic = App.getLogic();
         logic.deselectAll();
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("test2.osm");
-        logic.readOsmFile(main, is, false, new SignalHandler(signal1));
-        try {
-            signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS); // NOSONAR
-        } catch (InterruptedException e) { // NOSONAR
-            fail(e.getMessage());
-        }
-        try {
-            is.close();
-        } catch (IOException e1) {
-            // IGNORE
-        }
+        TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
         TestUtils.stopEasyEdit(main);
         switchSimpleMode(false);
