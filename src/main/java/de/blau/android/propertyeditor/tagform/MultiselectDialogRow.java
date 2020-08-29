@@ -204,7 +204,7 @@ public class MultiselectDialogRow extends DialogRow {
                 StringWithDescription swd;
                 Drawable icon = null;
                 if (o instanceof StringWithDescriptionAndIcon) {
-                    icon = ((StringWithDescriptionAndIcon) o).getIcon(preset);
+                    icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
                     if (icon != null) {
                         swd = new StringWithDescriptionAndIcon(o);
                     } else {

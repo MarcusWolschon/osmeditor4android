@@ -252,7 +252,7 @@ public class UndoDialog extends ImmersiveDialogFragment {
             super(ctx);
             Resources r = ctx.getResources();
             setText(de.blau.android.util.Util.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
-            int pad = Density.dpToPx(15);
+            int pad = Density.dpToPx(ctx, 15);
             setPadding(pad, pad, pad, pad);
             setCompoundDrawablePadding(pad);
             setCompoundDrawablesWithIntrinsicBounds(

@@ -178,8 +178,8 @@ public class MultiselectRow extends LinearLayout {
                     description = v;
                 }
                 Drawable icon = null;
-                if (o instanceof StringWithDescriptionAndIcon && ((StringWithDescriptionAndIcon) o).getIcon(preset) != null) {
-                    icon = ((StringWithDescriptionAndIcon) o).getIcon(preset);
+                if (o instanceof StringWithDescriptionAndIcon) {
+                    icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
                 }
                 row.addCheck(description, v, values != null && values.contains(v), icon, onCheckedChangeListener);
             }

@@ -190,7 +190,7 @@ public class Map extends View implements IMapView {
         setBackgroundColor(ContextCompat.getColor(context, R.color.ccc_white));
         setDrawingCacheEnabled(false);
 
-        iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
+        iconRadius = Density.dpToPx(context, ICON_SIZE_DP / 2);
 
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }

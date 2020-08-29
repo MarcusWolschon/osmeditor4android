@@ -201,7 +201,7 @@ public class PresetFilter extends CommonFilter {
      */
     private void setIcon() {
         if (element != null && presetFilterButton != null) {
-            BitmapDrawable icon = element.getMapIcon();
+            BitmapDrawable icon = element.getMapIcon(context);
             if (icon != null && icon.getBitmap() != null) {
                 BitmapDrawable buttonIcon = new BitmapDrawable(context.getResources(), icon.getBitmap());
                 presetFilterButton.setImageDrawable(buttonIcon);

@@ -1,7 +1,6 @@
 package de.blau.android.util;
 
 import android.content.Context;
-import de.blau.android.App;
 
 public final class Density {
 
@@ -10,26 +9,6 @@ public final class Density {
      */
     private Density() {
         // private
-    }
-
-    /**
-     * Converts a size in dp to pixels
-     * 
-     * @param dp size in density independent pixels
-     * @return size in pixels (for the current display metrics)
-     */
-    public static int dpToPx(int dp) {
-        return Math.round(dp * App.resources().getDisplayMetrics().density);
-    }
-
-    /**
-     * Converts a size in dp to pixels
-     * 
-     * @param dp size in density independent pixels
-     * @return size in pixels (for the current display metrics)
-     */
-    public static float dpToPx(float dp) {
-        return Math.round(dp * App.resources().getDisplayMetrics().density);
     }
 
     /**

@@ -199,27 +199,26 @@ public class ComboRow extends LinearLayout {
                     description = v;
                 }
                 Drawable icon = null;
-                if (o instanceof StringWithDescriptionAndIcon && ((StringWithDescriptionAndIcon) o).getIcon(preset) != null) {
-                    icon = ((StringWithDescriptionAndIcon) o).getIcon(preset);
+                if (o instanceof StringWithDescriptionAndIcon) {
+                    icon = ((StringWithDescriptionAndIcon) o).getIcon(caller.getContext(), preset);
                 }
                 row.addButton(description, v, v.equals(value), icon);
             }
 
             row.getRadioGroup().setOnCheckedChangeListener((group, checkedId) -> {
-                    Log.d(DEBUG_TAG, "radio group onCheckedChanged");
-                    String v = "";
-                    if (checkedId != -1) {
-                        RadioButton button = (RadioButton) group.findViewById(checkedId);
-                        v = (String) button.getTag();
-                    }
-                    caller.updateSingleValue(key, v);
-                    if (rowLayout instanceof EditableLayout) {
-                        ((EditableLayout) rowLayout).putTag(key, v);
-                    }
-                    row.setValue(v);
-                    row.setChanged(true);
+                Log.d(DEBUG_TAG, "radio group onCheckedChanged");
+                String v = "";
+                if (checkedId != -1) {
+                    RadioButton button = (RadioButton) group.findViewById(checkedId);
+                    v = (String) button.getTag();
                 }
-            );
+                caller.updateSingleValue(key, v);
+                if (rowLayout instanceof EditableLayout) {
+                    ((EditableLayout) rowLayout).putTag(key, v);
+                }
+                row.setValue(v);
+                row.setChanged(true);
+            });
         }
         return row;
     }

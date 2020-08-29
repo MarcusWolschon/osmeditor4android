@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
@@ -21,13 +22,13 @@ import de.blau.android.util.rtree.BoundedObject;
  *
  */
 public abstract class Task implements Serializable, BoundedObject, GeoPoint {
-
     /**
      * 
      */
     private static final long serialVersionUID = 7L;
 
-    private static int iconSelectedBorder = Density.dpToPx(2);
+    private static final int ICON_SELECTED_BORDER = 2;
+    private static int       iconSelectedBorder;
 
     class BitmapWithOffset {
         Bitmap icon = null;
@@ -239,12 +240,13 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
      * @param y y position on the canvas
      * @param selected true if selected and highlighting should be applied
      */
-    void drawIcon(Context context, BitmapWithOffset cache, Canvas c, int icon, float x, float y, boolean selected) {
+    void drawIcon(@NonNull Context context, @Nullable BitmapWithOffset cache, @NonNull Canvas c, int icon, float x, float y, boolean selected) {
         if (cache == null) {
             cache = new BitmapWithOffset();
             cache.icon = BitmapFactory.decodeResource(context.getResources(), icon);
             cache.w2 = cache.icon.getWidth() / 2f;
             cache.h2 = cache.icon.getHeight() / 2f;
+            iconSelectedBorder = Density.dpToPx(context, ICON_SELECTED_BORDER);
         }
         if (selected) {
             RectF r = new RectF(x - cache.w2 - iconSelectedBorder, y - cache.h2 - iconSelectedBorder, x + cache.w2 + iconSelectedBorder,

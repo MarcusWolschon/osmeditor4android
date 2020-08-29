@@ -1169,7 +1169,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          */
         public void setTitle(@Nullable PresetItem preset, boolean untagged) {
             if (preset != null) {
-                Drawable icon = preset.getIconIfExists(preset.getIconpath());
+                Drawable icon = preset.getIconIfExists(getContext(), preset.getIconpath());
                 this.preset = preset;
                 if (icon != null) {
                     headerIconView.setVisibility(View.VISIBLE);

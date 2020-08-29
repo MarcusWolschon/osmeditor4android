@@ -115,7 +115,7 @@ public class DialogRow extends LinearLayout {
         Drawable icon = null;
         Log.d(DEBUG_TAG, "got swd but no swdai");
         if (swd instanceof StringWithDescriptionAndIcon) {
-            icon = ((StringWithDescriptionAndIcon) swd).getIcon(preset);
+            icon = ((StringWithDescriptionAndIcon) swd).getIcon(getContext(), preset);
         }
         valueView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
     }

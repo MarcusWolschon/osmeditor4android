@@ -87,6 +87,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private static final int HOUSE_NUMBER_RADIUS = 10;
 
+    private static final int ICON_SELECTED_BORDER = 2;
+
     /**
      * zoom level from which on we display icons and house numbers
      */
@@ -280,10 +282,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         context = map.getContext();
         prefs = map.getPrefs();
 
-        iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
-        houseNumberRadius = Density.dpToPx(HOUSE_NUMBER_RADIUS);
-        verticalNumberOffset = Density.dpToPx(HOUSE_NUMBER_RADIUS / 2);
-        iconSelectedBorder = Density.dpToPx(2);
+        iconRadius = Density.dpToPx(context, ICON_SIZE_DP / 2);
+        houseNumberRadius = Density.dpToPx(context, HOUSE_NUMBER_RADIUS);
+        verticalNumberOffset = Density.dpToPx(context, HOUSE_NUMBER_RADIUS / 2);
+        iconSelectedBorder = Density.dpToPx(context, ICON_SELECTED_BORDER);
 
         validator = App.getDefaultValidator(context);
 
@@ -1099,7 +1101,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                 match = Preset.findBestMatch(tmpPresets, tags);
             }
             if (match != null) {
-                Drawable iconDrawable = match.getMapIcon();
+                Drawable iconDrawable = match.getMapIcon(context);
                 if (iconDrawable != null) {
                     icon = Bitmap.createBitmap(iconRadius * 2, iconRadius * 2, Config.ARGB_8888);
                     // icon.eraseColor(Color.WHITE); // replace nothing with white?

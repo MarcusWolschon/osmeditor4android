@@ -428,10 +428,10 @@ public class BaseValidator implements Validator {
      * @param highway the value of the highway tag
      * @return a List containing the problem descriptions
      */
-    List<String> describeProblemHighway(Context ctx, Way w, String highway) {
+    List<String> describeProblemHighway(@NonNull Context ctx, @NonNull Way w, @NonNull String highway) {
         List<String> wayProblems = new ArrayList<>();
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
-            wayProblems.add(App.resources().getString(R.string.toast_unsurveyed_road));
+            wayProblems.add(ctx.getString(R.string.toast_unsurveyed_road));
         }
         //
         if ((w.getCachedProblems() & Validator.IMPERIAL_UNITS) != 0) {
@@ -552,7 +552,7 @@ public class BaseValidator implements Validator {
             result.add(ctx.getString(R.string.toast_untagged_relation));
         }
         if (noType(relation)) {
-            result.add(App.resources().getString(R.string.toast_notype));
+            result.add(ctx.getString(R.string.toast_notype));
         }
         return result.toArray(new String[result.size()]);
     }

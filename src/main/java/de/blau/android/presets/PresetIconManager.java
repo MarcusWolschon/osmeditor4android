@@ -128,7 +128,7 @@ public class PresetIconManager {
             // resources used only for density
             BitmapDrawable drawable = new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(pngStream));
             drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
-            int pxsize = Density.dpToPx(size);
+            int pxsize = Density.dpToPx(context, size);
             Log.d(DEBUG_TAG, "icon " + url + " size " + size + " pxsize " + pxsize);
             drawable.setBounds(0, 0, pxsize, pxsize);
             return drawable;
@@ -165,7 +165,7 @@ public class PresetIconManager {
      */
     public Drawable getPlaceHolder(int size) {
         Drawable placeholder = new ColorDrawable(ContextCompat.getColor(context, android.R.color.transparent));
-        int pxsize = Density.dpToPx(size);
+        int pxsize = Density.dpToPx(context, size);
         placeholder.setBounds(0, 0, pxsize, pxsize);
         return placeholder;
     }

@@ -1820,12 +1820,13 @@ public class Preset implements Serializable {
         /**
          * Return the icon for the preset or a place holder
          * 
+         * @param context an Android Context
          * @return a Drawable with the icon or a place holder for it
          */
         @NonNull
-        public Drawable getIcon() {
+        public Drawable getIcon(@NonNull Context context) {
             if (icon == null) {
-                icon = getIcon(iconpath, (int) (ICON_SIZE_DP * App.getConfiguration().fontScale));
+                icon = getIcon(context, iconpath, (int) (ICON_SIZE_DP * App.getConfiguration().fontScale));
             }
             return icon;
         }
@@ -1833,14 +1834,15 @@ public class Preset implements Serializable {
         /**
          * Return the icon from the preset or a place holder
          * 
+         * @param context an Android Context
          * @param path path to the icon
          * @param iconSize size of the sides of the icon in DP
          * @return a Drawable with the icon or a place holder for it
          */
         @NonNull
-        public Drawable getIcon(@Nullable String path, int iconSize) {
+        private Drawable getIcon(@NonNull Context context, @Nullable String path, int iconSize) {
             if (iconManager == null) {
-                iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
+                iconManager = getIconManager(context);
             }
             if (path != null) {
                 return iconManager.getDrawableOrPlaceholder(path, iconSize);
@@ -1852,13 +1854,14 @@ public class Preset implements Serializable {
         /**
          * Return the icon from the preset if it exists
          * 
+         * @param context an Android Context
          * @param path path to the icon
          * @return a Drawable with the icon or or null if it can't be found
          */
         @Nullable
-        public Drawable getIconIfExists(@Nullable String path) {
+        public Drawable getIconIfExists(@NonNull Context context, @Nullable String path) {
             if (iconManager == null) {
-                iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
+                iconManager = getIconManager(context);
             }
             if (path != null) {
                 return iconManager.getDrawable(path, ICON_SIZE_DP);
@@ -1869,13 +1872,14 @@ public class Preset implements Serializable {
         /**
          * Get an icon suitable for drawing on the map
          * 
+         * @param context an Android Context
          * @return a small icon
          */
         @Nullable
-        public BitmapDrawable getMapIcon() {
+        public BitmapDrawable getMapIcon(@NonNull Context context) {
             if (mapIcon == null && iconpath != null) {
                 if (iconManager == null) {
-                    iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
+                    iconManager = getIconManager(context);
                 }
                 mapIcon = iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
             }
@@ -1941,7 +1945,7 @@ public class Preset implements Serializable {
             float scale = App.getConfiguration().fontScale * density;
             float padding = VIEW_PADDING * scale;
             v.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
-            Drawable viewIcon = getIcon();
+            Drawable viewIcon = getIcon(ctx);
             v.setCompoundDrawables(null, viewIcon, null, null);
             // this seems to be necessary to work around
             // https://issuetracker.google.com/issues/37003658
