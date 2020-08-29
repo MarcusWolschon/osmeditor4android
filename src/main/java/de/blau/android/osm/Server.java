@@ -40,6 +40,7 @@ import de.blau.android.Authorize;
 import de.blau.android.ErrorCodes;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
@@ -55,7 +56,6 @@ import de.blau.android.tasks.NoteComment;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -84,7 +84,7 @@ public class Server {
     private static final String HTTP_GET    = "GET";
     private static final String HTTP_DELETE = "DELETE";
 
-    private static final MediaType TEXTXML = MediaType.parse("text/xml");
+    private static final MediaType TEXTXML = MediaType.parse(MimeTypes.TEXTXML);
 
     /**
      * Timeout for connections in milliseconds.
@@ -249,23 +249,23 @@ public class Server {
      *
      */
     public class UserDetails {
-        private String display_name = "unknown";
-        private int    received     = 0;
-        private int    unread       = 0;
-        private int    sent         = 0;
+        private String displayName = "unknown";
+        private int    received    = 0;
+        private int    unread      = 0;
+        private int    sent        = 0;
 
         /**
          * @return the display_name
          */
         public String getDisplayName() {
-            return display_name;
+            return displayName;
         }
 
         /**
          * @param display_name the display_name to set
          */
         public void setDisplayName(String display_name) {
-            this.display_name = display_name;
+            this.displayName = display_name;
         }
 
         /**
@@ -702,6 +702,13 @@ public class Server {
         throw new IOException("openCOnnection this can't happen"); // this is actually unreachable
     }
 
+    abstract class XmlRequestBody extends RequestBody {
+        @Override
+        public MediaType contentType() {
+            return TEXTXML;
+        }
+    }
+
     /**
      * Sends an delete-request to the server.
      * 
@@ -715,12 +722,7 @@ public class Server {
      */
     public boolean deleteElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
         Log.d(DEBUG_TAG, "Deleting " + elem.getName() + " #" + elem.getOsmId());
-        RequestBody body = new RequestBody() {
-            @Override
-            public MediaType contentType() {
-                return TEXTXML;
-            }
-
+        RequestBody body = new XmlRequestBody() {
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
                 try {
@@ -753,61 +755,6 @@ public class Server {
     }
 
     /**
-     * Update an individual element on the server
-     * 
-     * @param elem the OsmElement to update
-     * @return the new version number
-     * @throws MalformedURLException if the URL can't be constructed properly
-     * @throws ProtocolException
-     * @throws IOException
-     */
-    public long updateElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
-        long osmVersion = -1;
-        InputStream in = null;
-        try {
-            URL updateElementUrl = getUpdateElementUrl(elem);
-            Log.d(DEBUG_TAG, "Updating " + elem.getName() + " #" + elem.getOsmId() + " " + updateElementUrl);
-
-            // remove redundant tags
-            discardedTags.remove(elem);
-
-            RequestBody body = new RequestBody() {
-                @Override
-                public MediaType contentType() {
-                    return TEXTXML;
-                }
-
-                @Override
-                public void writeTo(BufferedSink sink) throws IOException {
-                    try {
-                        sendPayload(sink.outputStream(), new XmlSerializable() {
-                            @Override
-                            public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                                startXml(serializer, generator);
-                                elem.toXml(serializer, changeSetId);
-                                endXml(serializer);
-                            }
-                        }, changesetId);
-                    } catch (IllegalArgumentException | IllegalStateException e) {
-                        throw new IOException(e);
-                    }
-                }
-            };
-            Response response = openConnectionForAuthenticatedAccess(updateElementUrl, HTTP_PUT, body);
-            checkResponseCode(response, elem);
-            in = response.body().byteStream();
-            try {
-                osmVersion = Long.parseLong(readLine(in));
-            } catch (NumberFormatException e) {
-                throw new OsmServerException(-1, "Server returned illegal element version " + e.getMessage());
-            }
-        } finally {
-            SavingHelper.close(in);
-        }
-        return osmVersion;
-    }
-
-    /**
      * Send a XmlSerializable Object over a HttpUrlConnection
      * 
      * @param outputStream OutputStream to write to
@@ -816,10 +763,8 @@ public class Server {
      * @throws OsmIOException thrown if a write or other error occurs
      */
     private void sendPayload(@NonNull final OutputStream outputStream, @NonNull final XmlSerializable xmlSerializable, long changeSetId) throws OsmIOException {
-        OutputStreamWriter out = null;
-        try {
+        try (OutputStreamWriter out = new OutputStreamWriter(outputStream, Charset.defaultCharset())){
             XmlSerializer xmlSerializer = getXmlSerializer();
-            out = new OutputStreamWriter(outputStream, Charset.defaultCharset());
             xmlSerializer.setOutput(out);
             xmlSerializable.toXml(xmlSerializer, changeSetId);
         } catch (IOException e) {
@@ -828,8 +773,6 @@ public class Server {
             throw new OsmIOException("Sending illegal format object failed", e);
         } catch (IllegalStateException | XmlPullParserException e) {
             throw new OsmIOException("Sending failed due to serialization error", e);
-        } finally {
-            SavingHelper.close(out);
         }
     }
 
@@ -888,56 +831,6 @@ public class Server {
         Call call = client.newCall(request);
 
         return call.execute();
-    }
-
-    /**
-     * Create a new element on the server
-     * 
-     * @param elem the OsmELement to create
-     * @return the OSM id of the new element
-     * @throws MalformedURLException if the URL can't be constructed properly
-     * @throws ProtocolException
-     * @throws IOException
-     */
-    public long createElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
-        long osmId = -1;
-        InputStream in = null;
-
-        try {
-            RequestBody body = new RequestBody() {
-                @Override
-                public MediaType contentType() {
-                    return TEXTXML;
-                }
-
-                @Override
-                public void writeTo(BufferedSink sink) throws IOException {
-                    try {
-                        sendPayload(sink.outputStream(), new XmlSerializable() {
-                            @Override
-                            public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                                startXml(serializer, generator);
-                                elem.toXml(serializer, changeSetId);
-                                endXml(serializer);
-                            }
-                        }, changesetId);
-                    } catch (IllegalArgumentException | IllegalStateException e) {
-                        throw new IOException(e);
-                    }
-                }
-            };
-            Response response = openConnectionForAuthenticatedAccess(getCreateElementUrl(elem), HTTP_PUT, body);
-            checkResponseCode(response);
-            in = response.body().byteStream();
-            try {
-                osmId = Long.parseLong(readLine(in));
-            } catch (NumberFormatException e) {
-                throw new OsmServerException(-1, "Server returned illegal element id " + e.getMessage());
-            }
-        } finally {
-            SavingHelper.close(in);
-        }
-        return osmId;
     }
 
     /**
@@ -1012,12 +905,7 @@ public class Server {
         }
 
         final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
-        RequestBody body = new RequestBody() {
-            @Override
-            public MediaType contentType() {
-                return TEXTXML;
-            }
-
+        RequestBody body = new XmlRequestBody() {
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
                 sendPayload(sink.outputStream(), xmlData, changesetId);
@@ -1087,12 +975,7 @@ public class Server {
     private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
             @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, IOException {
         final XmlSerializable xmlData = new Changeset(generator, comment, source, imagery, extraTags).tagsToXml();
-        RequestBody body = new RequestBody() {
-            @Override
-            public MediaType contentType() {
-                return TEXTXML;
-            }
-
+        RequestBody body = new XmlRequestBody() {
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
                 sendPayload(sink.outputStream(), xmlData, changesetId);
@@ -1157,12 +1040,7 @@ public class Server {
                     discardedTags.remove(elem);
                 }
             }
-            RequestBody body = new RequestBody() {
-                @Override
-                public MediaType contentType() {
-                    return TEXTXML;
-                }
-
+            RequestBody body = new XmlRequestBody() {
                 @Override
                 public void writeTo(BufferedSink sink) throws IOException {
                     try {
@@ -1524,29 +1402,6 @@ public class Server {
      */
     private URL getChangesetUrl(long changesetId) throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId);
-    }
-
-    /**
-     * Get the URL for creating an osm element
-     * 
-     * @param elem the OSM element
-     * @return the URL
-     * @throws MalformedURLException if the URL we tried to create was malformed
-     */
-    private URL getCreateElementUrl(@NonNull final OsmElement elem) throws MalformedURLException {
-        return new URL(getReadWriteUrl() + elem.getName() + "/create");
-    }
-
-    /**
-     * Get the URL for updating an osm element
-     * 
-     * @param elem the OSM element
-     * @return the URL
-     * @throws MalformedURLException if the URL we tried to create was malformed
-     */
-    @NonNull
-    private URL getUpdateElementUrl(@NonNull final OsmElement elem) throws MalformedURLException {
-        return new URL(getReadWriteUrl() + elem.getName() + "/" + elem.getOsmId());
     }
 
     /**
@@ -2052,7 +1907,7 @@ public class Server {
         RequestBody gpxBody = new RequestBody() {
             @Override
             public MediaType contentType() {
-                return MediaType.parse("application/gpx+xm");
+                return MediaType.parse(MimeTypes.GPX);
             }
 
             @Override
