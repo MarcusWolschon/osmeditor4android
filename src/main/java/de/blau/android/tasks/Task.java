@@ -28,7 +28,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
     private static final long serialVersionUID = 7L;
 
     private static final int ICON_SELECTED_BORDER = 2;
-    private static int       iconSelectedBorder;
+    private int              iconSelectedBorder;
 
     class BitmapWithOffset {
         Bitmap icon = null;
