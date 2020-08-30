@@ -607,8 +607,12 @@ public class ElementInfo extends ImmersiveDialogFragment {
      * @param role the role
      * @return role or a String indicating that it is empty
      */
+    @NonNull
     private SpannableString getPrettyRole(@Nullable String role) {
-        return role == null || "".equals(role) ? emptyRole : new SpannableString(role);
+        if (role != null) {
+            return "".equals(role) ? emptyRole : new SpannableString(role);
+        }
+        return new SpannableString("");
     }
 
     /**
