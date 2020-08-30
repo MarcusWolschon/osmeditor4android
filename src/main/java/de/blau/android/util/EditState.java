@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -16,6 +17,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.filter.Filter;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle;
@@ -27,12 +29,12 @@ import de.blau.android.resources.DataStyle;
  *
  */
 public class EditState implements Serializable {
-    private static final long       serialVersionUID = 24L;
+    private static final long       serialVersionUID = 25L;
     private final boolean           savedLocked;
     private final Mode              savedMode;
-    private final List<Node>        savedNodes;
-    private final List<Way>         savedWays;
-    private final List<Relation>    savedRelations;
+    private final List<Long>        savedNodes;
+    private final List<Long>        savedWays;
+    private final List<Long>        savedRelations;
     private final String            savedImageFileName;
     private final BoundingBox       savedBox;
     private final List<String>      savedLastComments;
@@ -60,9 +62,9 @@ public class EditState implements Serializable {
             long changesetId) {
         savedLocked = logic.isLocked();
         savedMode = logic.getMode();
-        savedNodes = logic.getSelectedNodes();
-        savedWays = logic.getSelectedWays();
-        savedRelations = logic.getSelectedRelations();
+        savedNodes = getIdList(logic.getSelectedNodes());
+        savedWays = getIdList(logic.getSelectedWays());
+        savedRelations = getIdList(logic.getSelectedRelations());
         savedImageFileName = imageFileName;
         savedBox = box;
         savedLastComments = logic.getLastComments();
@@ -78,6 +80,25 @@ public class EditState implements Serializable {
     }
 
     /**
+     * Create a list of OSM ids from a list of OsmElements
+     * 
+     * @param <T> OsmElement type
+     * @param elements List of OsmElements
+     * @return a List of Longs or null
+     */
+    @Nullable
+    private <T extends OsmElement> List<Long> getIdList(@Nullable List<T> elements) {
+        if (elements != null) {
+            List<Long> result = new ArrayList<>();
+            for (OsmElement e : elements) {
+                result.add(e.getOsmId());
+            }
+            return result;
+        }
+        return null;
+    }
+
+    /**
      * Set selected elements and tasks from this EditState instance
      * 
      * @param main the current Main instance
@@ -88,24 +109,24 @@ public class EditState implements Serializable {
         logic.setMode(main, savedMode);
         Log.d("EditState", "savedMode " + savedMode);
         if (savedNodes != null) {
-            for (Node n : savedNodes) {
-                Node nodeInStorage = (Node) App.getDelegator().getOsmElement(Node.NAME, n.getOsmId());
+            for (Long id : savedNodes) {
+                Node nodeInStorage = (Node) App.getDelegator().getOsmElement(Node.NAME, id);
                 if (nodeInStorage != null) {
                     logic.addSelectedNode(nodeInStorage);
                 }
             }
         }
         if (savedWays != null) {
-            for (Way w : savedWays) {
-                Way wayInStorage = (Way) App.getDelegator().getOsmElement(Way.NAME, w.getOsmId());
+            for (Long id : savedWays) {
+                Way wayInStorage = (Way) App.getDelegator().getOsmElement(Way.NAME, id);
                 if (wayInStorage != null) {
                     logic.addSelectedWay(wayInStorage);
                 }
             }
         }
         if (savedRelations != null) {
-            for (Relation r : savedRelations) {
-                Relation relationInStorage = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r.getOsmId());
+            for (Long id : savedRelations) {
+                Relation relationInStorage = (Relation) App.getDelegator().getOsmElement(Relation.NAME, id);
                 if (relationInStorage != null) {
                     logic.addSelectedRelation(relationInStorage);
                 }
