@@ -73,6 +73,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     private static final Object                   actionModeCallbackLock           = new Object();
 
     private ArrayAdapter<RelationHolder> relationAdapter;
+    private List<RelationHolder>         relationHolderList;
 
     /**
      * Create a new RelationMembershipFragment instance
@@ -123,7 +124,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         this.inflater = inflater;
         parentRelationsLayout = (ScrollView) inflater.inflate(R.layout.membership_view, container, false);
         membershipVerticalLayout = (LinearLayout) parentRelationsLayout.findViewById(R.id.membership_vertical_layout);
-        // membershipVerticalLayout.setSaveFromParentEnabled(false);
         membershipVerticalLayout.setSaveEnabled(false);
 
         MultiHashMap<Long, RelationMemberPosition> parents;
@@ -143,8 +143,18 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         Server server = prefs.getServer();
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
+        // generate a list and an ArrayAdapter of all Relations in Storage
+        // this can, naturally be fairly long and the question is if we could do
+        // something else
+        relationHolderList = new ArrayList<>();
+        final Context context = getContext();
+
+        relationHolderList.add(new RelationHolder(context, null));
+        for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
+            relationHolderList.add(new RelationHolder(context, r));
+        }
         // Adapter containing all Relations
-        relationAdapter = getRelationSpinnerAdapter();
+        relationAdapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, relationHolderList);
 
         loadParents(membershipVerticalLayout, parents, elementType);
 
@@ -157,23 +167,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             }
         });
         return parentRelationsLayout;
-    }
-
-    /**
-     * Get an ArrayAdapter containing all the Relations currently downloaded
-     * 
-     * @return an ArrayAdapter holding the Relations
-     */
-    @NonNull
-    ArrayAdapter<RelationHolder> getRelationSpinnerAdapter() {
-        //
-        List<RelationHolder> result = new ArrayList<>();
-        final Context context = getContext();
-        result.add(new RelationHolder(context, null));
-        for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
-            result.add(new RelationHolder(context, r));
-        }
-        return new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, result);
     }
 
     /**
@@ -248,7 +241,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
 
         if (r != null) {
-            row.setValues(role, r, elementType, memberPos, relationAdapter);
+            row.setValues(role, r, elementType, memberPos, relationAdapter, relationHolderList);
+        } else {
+            row.setRelationAdapter(relationAdapter);
         }
         membershipVerticalLayout.addView(row, (position == -1) ? membershipVerticalLayout.getChildCount() : position);
         row.setShowSpinner(showSpinner);
@@ -432,30 +427,58 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          * @param role the role of this element in the Relation
          * @param r the Relation it is a member of
          * @param elementType the type of the element
-         * @param position the position in the list of members
+         * @param position the the selected elements position in the list of members
          * @return the RelationMembershipRow object for convenience
          */
         public RelationMembershipRow setValues(@NonNull String role, @NonNull Relation r, @NonNull String elementType, int position,
-                @NonNull ArrayAdapter<RelationHolder> relationAdapter) {
+                @NonNull ArrayAdapter<RelationHolder> relationAdapter, @NonNull List<RelationHolder> relationHolderList) {
             relationId = r.getOsmId();
             roleEdit.setText(role);
             parentEdit.setAdapter(relationAdapter);
-            parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r) + 1);
+            parentEdit.setSelection(getRelationIndex(relationHolderList, r));
             this.elementType = elementType;
             this.position = position;
             return this;
         }
 
         /**
+         * Get the index of the specified Relation
+         * 
+         * @param relationHolderList the list of relations
+         * @param r the Relation
+         * @return the index
+         */
+        private int getRelationIndex(@NonNull List<RelationHolder> relationHolderList, @NonNull Relation r) {
+            int i = 0;
+            for (RelationHolder rh : relationHolderList) {
+                if (r.equals(rh.relation)) {
+                    return i;
+                }
+                i++;
+            }
+            return 0;
+        }
+
+        /**
+         * Set the adapter containing all Relations
+         * 
+         * @param relationAdapter the adapter
+         */
+        public void setRelationAdapter(@NonNull ArrayAdapter<RelationHolder> relationAdapter) {
+            parentEdit.setAdapter(relationAdapter);
+        }
+
+        /**
          * Sets the Relation for this row
          * 
+         * @param relationPos the position in the adapter
          * @param r the Relation to set for this row
          * @return the RelationMembershipRow object for convenience
          */
-        public RelationMembershipRow setRelation(@Nullable Relation r) {
+        public RelationMembershipRow setRelation(int relationPos, @Nullable Relation r) {
             if (r != null) {
                 relationId = r.getOsmId();
-                parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r) + 1);
+                parentEdit.setSelection(relationPos);
                 position = r.getMembers().size(); // last position
                 Log.d(DEBUG_TAG, "Set parent relation to " + relationId + " " + r.getDescription());
             } else {
@@ -662,7 +685,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             while (!(pv instanceof RelationMembershipRow)) {
                 pv = pv.getParent();
             }
-            ((RelationMembershipRow) pv).setRelation(relation);
+            ((RelationMembershipRow) pv).setRelation(pos, relation);
         } else {
             Log.d(DEBUG_TAG, "onItemselected view is null");
         }
