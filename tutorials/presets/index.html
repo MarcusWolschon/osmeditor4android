@@ -1096,6 +1096,30 @@ i-->
 <td>ignored</td>
 <td></td>
 </tr>
+<tr>
+<td><strong>&lt;preset_link&gt;</strong></td>
+<td></td>
+<td>supported</td>
+<td>Used for tag matching and added to preset MRU list for easy access</td>
+</tr>
+<tr>
+<td></td>
+<td>text</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>text_context</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>alternative</td>
+<td>extension</td>
+<td>If "true", the linked to preset is an alternative tagging for the object in question</td>
+</tr>
 </tbody>
 </table>
 <h3 id="translation">Translation <a name="Translation"></a></h3>
@@ -1128,6 +1152,7 @@ i-->
 <li><em>autoapply</em> if true (default), allow auto-applying of the item</li>
 <li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match </li>
 <li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes"</li>
+<li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object</li>
 </ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
@@ -1921,6 +1946,30 @@ i-->
 <td>ignored</td>
 <td></td>
 </tr>
+<tr>
+<td><strong>&lt;preset_link&gt;</strong></td>
+<td></td>
+<td>supported</td>
+<td>Used for tag matching and added to preset MRU list for easy access</td>
+</tr>
+<tr>
+<td></td>
+<td>text</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>text_context</td>
+<td>ignored</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>alternative</td>
+<td>extension</td>
+<td>If "true", the linked to preset is an alternative tagging for the object in question</td>
+</tr>
 </tbody>
 </table>
 <h3 id="translation">Translation <a name="Translation"></a></h3>
@@ -1953,6 +2002,7 @@ i-->
 <li><em>autoapply</em> if true (default), allow auto-applying of the item</li>
 <li><em>min_match</em> modifies Vespuccis matching algorithm to use the specified number of fixed tag matches instead of expecting all to match </li>
 <li><em>value_count_key</em> reference to a tag that will hold the number of values this multiselect should contain. Example for the destination:lanes tag this would be value_count_key="lanes"</li>
+<li><em>alternative</em> indicates that the preset_link points to an alternative tagging of the object</li>
 </ul></div>
                 
         </div>
