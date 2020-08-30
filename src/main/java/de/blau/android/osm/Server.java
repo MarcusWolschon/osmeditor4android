@@ -2052,7 +2052,7 @@ public class Server {
         RequestBody gpxBody = new RequestBody() {
             @Override
             public MediaType contentType() {
-                return MediaType.parse("application/gpx+xm");
+                return MediaType.parse("application/gpx+xml");
             }
 
             @Override
