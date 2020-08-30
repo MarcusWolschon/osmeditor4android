@@ -2001,6 +2001,9 @@ public class Main extends FullScreenAppCompatActivity
             GnssPositionInfo.showDialog(Main.this, getTracker());
             return true;
         case R.id.menu_gps_start:
+            if (prefs.getEgmFile() == null && getString(R.string.gps_source_internal).equals(prefs.getGpsSource())) {
+                Tip.showDialog(Main.this, R.string.tip_gpx_no_elevation_key, R.string.tip_gpx_no_elevation);
+            }
             if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().startTracking();
                 setFollowGPS(true);
