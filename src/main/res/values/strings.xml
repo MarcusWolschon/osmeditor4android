@@ -339,6 +339,7 @@
 avoided by using an offline data source.</string>
     <string name="tip_locked_mode">In locked mode you can\'t edit, but a long press on an object will open a display with detailed information.</string>
     <string name="tip_longpress_simple_mode">In simple mode a long press will not do anything. Turn simple mode off in the main menu if you want to use long clicks to create objects.</string>
+    <string name="tip_gpx_no_elevation">Starting with version 15, GPX tracks no longer contain elevation information by default.&lt;p&gt;To enable elevation recording, install a Geoid model with &lt;i&gt;Install EGM&lt;/i&gt; from the Tools menu, or switch to NMEA input.</string>
     <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
