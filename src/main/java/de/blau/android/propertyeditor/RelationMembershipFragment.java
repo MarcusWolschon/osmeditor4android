@@ -72,6 +72,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     private static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
     private static final Object                   actionModeCallbackLock           = new Object();
 
+    private ArrayAdapter<RelationHolder> relationAdapter;
+
     /**
      * Create a new RelationMembershipFragment instance
      * 
@@ -141,6 +143,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         Server server = prefs.getServer();
         maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
+        // Adapter containing all Relations
+        relationAdapter = getRelationSpinnerAdapter();
+
         loadParents(membershipVerticalLayout, parents, elementType);
 
         CheckBox headerCheckBox = (CheckBox) parentRelationsLayout.findViewById(R.id.header_membership_selected);
@@ -151,8 +156,24 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 deselectAllRows();
             }
         });
-
         return parentRelationsLayout;
+    }
+
+    /**
+     * Get an ArrayAdapter containing all the Relations currently downloaded
+     * 
+     * @return an ArrayAdapter holding the Relations
+     */
+    @NonNull
+    ArrayAdapter<RelationHolder> getRelationSpinnerAdapter() {
+        //
+        List<RelationHolder> result = new ArrayList<>();
+        final Context context = getContext();
+        result.add(new RelationHolder(context, null));
+        for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
+            result.add(new RelationHolder(context, r));
+        }
+        return new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, result);
     }
 
     /**
@@ -227,7 +248,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         RelationMembershipRow row = (RelationMembershipRow) inflater.inflate(R.layout.relation_membership_row, membershipVerticalLayout, false);
 
         if (r != null) {
-            row.setValues(role, r, elementType, memberPos);
+            row.setValues(role, r, elementType, memberPos, relationAdapter);
         }
         membershipVerticalLayout.addView(row, (position == -1) ? membershipVerticalLayout.getChildCount() : position);
         row.setShowSpinner(showSpinner);
@@ -283,7 +304,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         private int                  position;
 
         /**
-         * Construct a roe
+         * Construct a row
          * 
          * @param context an Android Context
          */
@@ -294,7 +315,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         }
 
         /**
-         * Construct a roe
+         * Construct a row
          * 
          * @param context an Android Context
          * @param attrs an AttributeSet
@@ -317,8 +338,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             roleEdit.setOnKeyListener(PropertyEditor.myKeyListener);
 
             parentEdit = (Spinner) findViewById(R.id.editParent);
-            ArrayAdapter<RelationHolder> a = getRelationSpinnerAdapter();
-            parentEdit.setAdapter(a);
+
             parentEdit.setOnItemSelectedListener(owner.relationMembershipFragment);
 
             roleEdit.setOnFocusChangeListener((v, hasFocus) -> {
@@ -407,23 +427,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         }
 
         /**
-         * Get an ArrayAdapter containing all the Relations currently downloaded
-         * 
-         * @return an ArrayAdapter holding the Relations
-         */
-        @NonNull
-        ArrayAdapter<RelationHolder> getRelationSpinnerAdapter() {
-            //
-            List<RelationHolder> result = new ArrayList<>();
-            final Context context = getContext();
-            result.add(new RelationHolder(context, null));
-            for (Relation r : App.getDelegator().getCurrentStorage().getRelations()) {
-                result.add(new RelationHolder(context, r));
-            }
-            return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
-        }
-
-        /**
          * Set the role and relation for this row
          * 
          * @param role the role of this element in the Relation
@@ -432,9 +435,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          * @param position the position in the list of members
          * @return the RelationMembershipRow object for convenience
          */
-        public RelationMembershipRow setValues(@NonNull String role, @NonNull Relation r, @NonNull String elementType, int position) {
+        public RelationMembershipRow setValues(@NonNull String role, @NonNull Relation r, @NonNull String elementType, int position,
+                @NonNull ArrayAdapter<RelationHolder> relationAdapter) {
             relationId = r.getOsmId();
             roleEdit.setText(role);
+            parentEdit.setAdapter(relationAdapter);
             parentEdit.setSelection(App.getDelegator().getCurrentStorage().getRelations().indexOf(r) + 1);
             this.elementType = elementType;
             this.position = position;
