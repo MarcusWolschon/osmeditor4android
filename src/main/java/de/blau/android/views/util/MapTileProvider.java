@@ -54,8 +54,7 @@ public class MapTileProvider implements ServiceConnection {
     /**
      * place holder if tile not available
      */
-    final Object          staticTilesLock = new Object();
-    private static Bitmap mLoadingMapTile;
+    private final Object  staticTilesLock = new Object();
     private static Bitmap mNoTilesTile;
 
     private Context                 mCtx;
@@ -90,7 +89,7 @@ public class MapTileProvider implements ServiceConnection {
         smallHeap = Util.smallHeap();
 
         mDownloadFinishedHandler = aDownloadFinishedListener;
-        
+
         Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
         if (explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
             Log.e(DEBUG_TAG, "Could not bind to " + IMapTileProviderService.class.getName() + " in package " + ctx.getPackageName());
@@ -316,7 +315,6 @@ public class MapTileProvider implements ServiceConnection {
                     mTileCache.putTile(t, tileBitmap, l);
                 } // else wasn't in pending queue just ignore
                 mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
-                // Log.d(DEBUGTAG, "Sending tile success message");
             } catch (StorageException | OutOfMemoryError e) {
                 // unable to cache tile
                 Log.w(DEBUG_TAG, "mapTileLoaded got " + e.getMessage());
@@ -374,9 +372,9 @@ public class MapTileProvider implements ServiceConnection {
                 }
             }
             pending.remove(t.toId());
-            // don't send when we fail mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
+            mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_FAIL_ID);
         }
-        
+
         /**
          * Get the "No Tiles" tile, creating it if necessary
          * 

@@ -25,16 +25,19 @@ import de.blau.android.util.Util;
 public class ImageryLayerInfo extends LayerInfo {
     private static final String DEBUG_TAG = ImageryLayerInfo.class.getName();
 
-    public static final String LAYER_KEY = "layer";
+    public static final String LAYER_KEY       = "layer";
+    public static final String ERROR_COUNT_KEY = "tileErrorCount";
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
-    TileLayerSource layer = null;
+    TileLayerSource layer          = null;
+    long            tileErrorCount = 0L;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         layer = (TileLayerSource) getArguments().getSerializable(LAYER_KEY);
+        tileErrorCount = getArguments().getLong(ERROR_COUNT_KEY, 0);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class ImageryLayerInfo extends LayerInfo {
         ScrollView sv = createEmptyView(container);
         FragmentActivity activity = getActivity();
         TableLayout tableLayout = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT);
+        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         tp.setMargins(10, 2, 10, 2);
         tableLayout.setColumnShrinkable(1, false);
         tableLayout.setColumnStretchable(2, true);
@@ -57,7 +60,7 @@ public class ImageryLayerInfo extends LayerInfo {
             }
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.type, null, layer.getType(), tp));
             if (TileLayerSource.TYPE_WMS.equals(layer.getType())) {
-                tableLayout.addView(TableLayoutUtils.createRow(activity, "Projection", null, layer.getProj(), tp));
+                tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.projection, null, layer.getProj(), tp));
             }
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.layer_info_min_zoom, null, Integer.toString(layer.getMinZoomLevel()), tp));
             tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.layer_info_max_zoom, null, Integer.toString(layer.getMaxZoomLevel()), tp));
@@ -71,6 +74,7 @@ public class ImageryLayerInfo extends LayerInfo {
                 tableLayout.addView(
                         TableLayoutUtils.createRow(activity, R.string.layer_info_end_date, null, DateFormatter.getUtcFormat(DATE_FORMAT).format(endDate), tp));
             }
+            tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.errors, null, Long.toString(tileErrorCount), tp));
             String tou = layer.getTouUri();
             if (tou != null) {
                 tableLayout.addView(TableLayoutUtils.createRow(activity, R.string.layer_info_terms, null, tou, true, tp));

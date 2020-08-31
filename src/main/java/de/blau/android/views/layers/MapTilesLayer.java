@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.imageryoffset.Offset;
@@ -100,6 +101,10 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
 
     private int     prevZoomLevel = -1;  // zoom level from previous draw
     private boolean saved         = true;
+
+    private static final long TILE_ERROR_LIMIT = 50;
+    private boolean           tileErrorShown   = false;
+    private long              tileErrorCount   = 0;
 
     /**
      * Construct a new tile layer
@@ -218,7 +223,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         }
         if (myRendererInfo != tileLayer) {
             try {
-                coverageWarningMessage = myView.getResources().getString(de.blau.android.R.string.toast_no_coverage, tileLayer.getName());
+                coverageWarningMessage = myView.getResources().getString(R.string.toast_no_coverage, tileLayer.getName());
             } catch (Exception ex) {
                 coverageWarningMessage = "";
             }
@@ -232,6 +237,9 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
             }
         }
         myRendererInfo = tileLayer;
+        // reset error counter
+        tileErrorShown = false;
+        tileErrorCount = 0;
     }
 
     /**
@@ -293,6 +301,11 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
             return; // no point, return immediately
         }
         coverageWarningDisplayed = false;
+
+        if (tileErrorCount > TILE_ERROR_LIMIT && !tileErrorShown) {
+            tileErrorShown = true;
+            Snack.toastTopWarning(myView.getContext(), R.string.toast_tile_layer_errors);
+        }
 
         long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which
                                                               // invocation of onDraw the tile belongs too
@@ -624,7 +637,9 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     /**
      * Invalidate myView when a new tile got downloaded.
      */
-    private static class SimpleInvalidationHandler extends Handler {
+    private class SimpleInvalidationHandler extends Handler {
+        private static final String DEBUG_TAG_1 = "SimpleInvalidationHandler";
+
         private View        v;
         private int         viewInvalidates = 0;
         private Handler     handler         = new Handler(Looper.getMainLooper());
@@ -655,6 +670,10 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
                     handler.postDelayed(invalidator, 100); // wait 1/10th of a second
                 }
                 viewInvalidates++;
+            } else if (msg.what == MapTile.MAPTILE_FAIL_ID) {
+                MapTilesLayer.this.incErrorCount();
+            } else {
+                Log.e(DEBUG_TAG_1, "Unknown message " + msg);
             }
         }
     }
@@ -662,6 +681,10 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     @Override
     public String getName() {
         return myRendererInfo.getName();
+    }
+
+    public void incErrorCount() {
+        tileErrorCount++;
     }
 
     @Override
@@ -737,6 +760,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         f.setShowsDialog(true);
         Bundle args = new Bundle();
         args.putSerializable(ImageryLayerInfo.LAYER_KEY, myRendererInfo);
+        args.putSerializable(ImageryLayerInfo.ERROR_COUNT_KEY, tileErrorCount);
         f.setArguments(args);
         LayerInfo.showDialog(activity, f);
     }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +22,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import de.blau.android.App;
+import de.blau.android.contract.MimeTypes;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.IMapTileProviderCallback;
@@ -49,7 +51,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
     // Constants
     // ===========================================================
 
-    private static final String DEBUGTAG = "OSM_DOWNLOADER";
+    private static final String DEBUGTAG = "MapTileDownloader";
 
     public static final long TIMEOUT = 5000;
 
@@ -127,7 +129,6 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
         @Override
         public void run() {
-
             if (!networkStatus.isConnected()) { // fail immediately
                 try {
                     Log.e(DEBUGTAG, "No network");
@@ -197,17 +198,37 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         }
                         // check format
                         if (format != null) {
-                            if (data.length > BINDER_SIZE_LIMIT && "PNG".equalsIgnoreCase(format.subtype())) {
-                                // attempt to save the day by compressing too large PNGs
-                                if (!renderer.isOverlay()) {
-                                    data = compressBitmap(CompressFormat.JPEG, dataStream, data);
+                            switch (format.type().toLowerCase(Locale.US)) {
+                            case MimeTypes.IMAGE_TYPE:
+                                switch (format.subtype().toLowerCase()) {
+                                case MimeTypes.PNG_SUBTYPE:
+                                    if (data.length > BINDER_SIZE_LIMIT && !renderer.isOverlay()) {
+                                        // attempt to save the day by compressing too large PNGs
+                                        data = compressBitmap(CompressFormat.JPEG, dataStream, data);
+                                    }
+                                    break;
+                                case MimeTypes.BMP_SUBTYPE:// if tile is in BMP format, compress
+                                    data = compressBitmap(CompressFormat.PNG, dataStream, data);
+                                    break;
+                                default: // everything OK
                                 }
-                            } else if ("BMP".equalsIgnoreCase(format.subtype())) {
-                                // if tile is in BMP format, compress
-                                data = compressBitmap(CompressFormat.PNG, dataStream, data);
-                            } else if ("TEXT".equalsIgnoreCase(format.type())) {
+                                break;
+                            case MimeTypes.TEXT_TYPE:
                                 // this can't be a tile and is likely an error message
                                 Log.e(DEBUGTAG, responseBody.string());
+                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                            case MimeTypes.APPLICATION_TYPE: // WMS errors
+                                switch (format.subtype().toLowerCase()) {
+                                case MimeTypes.WMS_EXCEPTION_XML_SUBTYPE:
+                                case MimeTypes.JSON_SUBTYPE:
+                                    Log.e(DEBUGTAG, responseBody.string());
+                                    break;
+                                default:
+                                    Log.e(DEBUGTAG, "Application sub type " + format.subtype());
+                                }
+                                throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                            default:
+                                Log.e(DEBUGTAG, "Unexpected response format " + format + " tile url " + tileURLString);
                                 throw new FileNotFoundException(TILE_NOT_AVAILABLE);
                             }
                         }
@@ -216,28 +237,20 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     }
                 } catch (IOException ioe) {
                     try {
-                        int reason = ioe instanceof FileNotFoundException ? DOESNOTEXIST : IOERR;
+                        int reason = ioe instanceof FileNotFoundException ? DOESNOTEXIST : IOERR; // NOSONAR
                         if (reason == DOESNOTEXIST) {
                             MapTileDownloader.this.mMapTileFSProvider.markAsInvalid(mTile);
+                        } else { // FileNotFound is an expected exception, any other IOException should be logged, and
+                                 // reported a an error
+                            Log.e(DEBUGTAG,
+                                    "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString + " " + ioe.getMessage());
+                            mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, reason);
                         }
-                        mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, reason);
                     } catch (RemoteException | NullPointerException | IOException e) {
                         Log.e(DEBUGTAG,
                                 "Error calling mCallback for MapTile. Exception: " + ioe.getClass().getSimpleName() + " further mapTileFailed failed " + e,
                                 ioe);
                     }
-                    if (!(ioe instanceof FileNotFoundException)) {
-                        // FileNotFound is an expected exception, any other IOException should be logged
-                        if (Log.isLoggable(DEBUGTAG, Log.ERROR)) {
-                            Log.e(DEBUGTAG,
-                                    "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString + " " + ioe.getMessage());
-                        }
-                    }
-                    /*
-                     * TODO What to do when downloading tile caused an error? Also remove it from the mPending? Doing
-                     * not blocks it for the whole existence of this TileDownloader. -> we remove it and the application
-                     * has to re-request it.
-                     */
                 } catch (RemoteException | NullPointerException | IllegalArgumentException e) {
                     Log.e(DEBUGTAG, "Error in TileLoader. Url " + tileURLString + " Exception: " + e);
                 } finally {
@@ -246,6 +259,11 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     if (tileCallResponse != null) {
                         tileCallResponse.close();
                     }
+                    /*
+                     * What to do when downloading tile caused an error? Also remove it from the mPending? Not doing so
+                     * blocks it for the whole existence of this TileDownloader. -> we remove it and the application has
+                     * to re-request it.
+                     */
                     finished();
                 }
             }
