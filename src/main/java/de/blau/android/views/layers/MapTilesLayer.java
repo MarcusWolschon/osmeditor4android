@@ -683,6 +683,9 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         return myRendererInfo.getName();
     }
 
+    /**
+     * Increment the tile error count
+     */
     public void incErrorCount() {
         tileErrorCount++;
     }
