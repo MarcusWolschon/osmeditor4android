@@ -638,7 +638,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * Invalidate myView when a new tile got downloaded.
      */
     private class SimpleInvalidationHandler extends Handler {
-        private static final String DEBUG_TAG_1 = "SimpleInvalidationHandler";
+        private static final String DEBUG_TAG_1 = "SimpleInvalidationH...";
 
         private View        v;
         private int         viewInvalidates = 0;
