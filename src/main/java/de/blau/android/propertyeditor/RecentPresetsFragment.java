@@ -99,11 +99,9 @@ public class RecentPresetsFragment extends BaseFragment {
             // check if any of the presets has a MRU
             boolean mruFound = false;
             for (Preset p : presets) {
-                if (p != null) {
-                    if (p.hasMRU()) {
-                        mruFound = true;
-                        break;
-                    }
+                if (p != null && p.hasMRU()) {
+                    mruFound = true;
+                    break;
                 }
             }
             if (mruFound) {
@@ -111,21 +109,19 @@ public class RecentPresetsFragment extends BaseFragment {
                 final PresetClickHandler presetClickHandler = new PresetClickHandler() {
                     @Override
                     public void onItemClick(PresetItem item) {
-                        if (!enabled) {
-                            return;
-                        }
                         Log.d(DEBUG_TAG, "normal click");
-                        presetSelectedListener.onPresetSelected(item);
-                        recreateRecentPresetView(presetLayout);
+                        if (enabled) {
+                            presetSelectedListener.onPresetSelected(item);
+                            recreateRecentPresetView(presetLayout);
+                        }
                     }
 
                     @Override
                     public boolean onItemLongClick(PresetItem item) {
-                        if (!enabled) {
-                            return true;
-                        }
                         Log.d(DEBUG_TAG, "long click");
-                        removePresetFromMRU(presetLayout, item);
+                        if (enabled) {
+                            removePresetFromMRU(presetLayout, item);
+                        }
                         return true;
                     }
 

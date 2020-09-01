@@ -310,6 +310,7 @@ public class WmsCapabilities {
                     if ("OnlineResource".equals(name)) {
                         getMapUrl = attr.getValue("xlink:href");
                     }
+                    break;
                 default:
                     // ignored
                 }
