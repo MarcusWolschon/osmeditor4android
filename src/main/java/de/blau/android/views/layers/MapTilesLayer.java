@@ -1,6 +1,7 @@
 package de.blau.android.views.layers;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -317,7 +318,6 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
 
         // Do some calculations and drag attributes to local variables to save
         // some performance.
-        final Rect viewPort = c.getClipBounds();
         final int zoomLevel = Math.min(osmv.getZoomLevel(), maxZoom); // clamp to max zoom here
         if (zoomLevel != prevZoomLevel && prevZoomLevel != -1) {
             mTileProvider.flushQueue(myRendererInfo.getId(), prevZoomLevel);
@@ -457,8 +457,9 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * @return next offset
      */
     private int drawAttribution(Canvas c, ViewBox viewBox, final int zoomLevel, final int offset) {
+        final Rect viewPort = c.getClipBounds();
+        Collection<String> attributions = myRendererInfo.getAttributions(zoomLevel, viewBox);
         // Draw the tile layer branding logo (if it exists)
-        Rect viewPort = c.getClipBounds();
         resetAttributionArea(viewPort, offset);
         Drawable brandLogo = myRendererInfo.getLogoDrawable();
         int logoWidth = -1; // misuse this a flag
@@ -474,9 +475,11 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
             logoRect.bottom = tapArea.top + logoHeight;
             brandLogo.setBounds(logoRect);
             brandLogo.draw(c);
+        } else if (attributions.isEmpty()) {
+            return offset; // nothing to display
         }
         // Draw the attributions (if any)
-        for (String attr : myRendererInfo.getAttributions(zoomLevel, viewBox)) {
+        for (String attr : attributions) {
             float textSize = textPaint.getTextSize();
             if (logoWidth != -1) {
                 c.drawText(attr, tapArea.left + (float) logoWidth, tapArea.top + (logoHeight + textSize) / 2F, textPaint);
