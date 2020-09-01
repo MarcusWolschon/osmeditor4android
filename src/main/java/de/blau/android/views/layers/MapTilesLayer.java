@@ -29,6 +29,7 @@ import de.blau.android.R;
 import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.layer.AttributionInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.LayerInfoInterface;
@@ -58,7 +59,7 @@ import de.blau.android.views.util.MapTileProvider;
  * @author Marcus Wolschon &lt;Marcus@Wolschon.biz&gt;
  * @author Simon Poole
  */
-public class MapTilesLayer extends MapViewLayer implements ExtentInterface, LayerInfoInterface, DiscardInterface {
+public class MapTilesLayer extends MapViewLayer implements ExtentInterface, LayerInfoInterface, DiscardInterface, AttributionInterface {
 
     private static final String DEBUG_TAG          = MapTilesLayer.class.getSimpleName();
     /** Define a minimum active area for taps on the tile attribution data. */
@@ -438,8 +439,11 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
             xPos = 0;
             yPos += destIncY;
         }
+    }
 
-        drawAttribution(c, osmv.getViewBox(), viewPort, zoomLevel);
+    @Override
+    public int onDrawAttribution(Canvas c, IMapView osmv, int offset) {
+        return drawAttribution(c, osmv.getViewBox(), osmv.getZoomLevel(), offset);
     }
 
     /**
@@ -449,10 +453,13 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * @param viewBox the ViewBox with the currently displayed area
      * @param viewPort the screen size in screen coordinates
      * @param zoomLevel the current tile zoom level
+     * @param offset starting offset
+     * @return next offset
      */
-    private void drawAttribution(Canvas c, ViewBox viewBox, final Rect viewPort, final int zoomLevel) {
+    private int drawAttribution(Canvas c, ViewBox viewBox, final int zoomLevel, final int offset) {
         // Draw the tile layer branding logo (if it exists)
-        resetAttributionArea(viewPort, attributionOffset);
+        Rect viewPort = c.getClipBounds();
+        resetAttributionArea(viewPort, offset);
         Drawable brandLogo = myRendererInfo.getLogoDrawable();
         int logoWidth = -1; // misuse this a flag
         int logoHeight = -1;
@@ -490,7 +497,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         }
 
         // set offset for potential next layer
-        attributionOffset = viewPort.bottom - tapArea.top;
+        return viewPort.bottom - tapArea.top;
     }
 
     /**
@@ -611,11 +618,14 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         case MotionEvent.ACTION_MOVE:
             moved |= (Math.abs(event.getX() - downX) > 20 || Math.abs(event.getY() - downY) > 20);
             if (done && !moved && (tapArea != null) && tapArea.contains((int) event.getX(), (int) event.getY())) {
-                String touUri = myRendererInfo.getTouUri();
-                if (touUri != null) {
+                String attributionUri = myRendererInfo.getTouUri();
+                if (attributionUri == null) {
+                    attributionUri = myRendererInfo.getAttributionUrl();
+                }
+                if (attributionUri != null) {
                     // Display the End User Terms Of Use (in the browser)
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(touUri));
+                    intent.setData(Uri.parse(attributionUri));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     Context context = myView.getContext();
                     try {

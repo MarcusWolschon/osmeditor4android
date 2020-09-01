@@ -33,6 +33,7 @@ import androidx.core.content.ContextCompat;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.layer.AttributionInterface;
 import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.LayerConfig;
 import de.blau.android.layer.LayerType;
@@ -82,6 +83,10 @@ public class Map extends View implements IMapView {
     private static final int SHOW_ICONS_LIMIT = 15;
 
     public static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
+
+    private static final int STORAGE_BOX_LIMIT = 10;
+
+    private static final int INITIAL_ATTRIBUTION_OFFSET = 2;
 
     private static final long ONE_SECOND_IN_NS = 1000000000L;
 
@@ -519,21 +524,30 @@ public class Map extends View implements IMapView {
         // Draw our Overlays.
         canvas.getClipBounds(canvasBounds);
 
-        int attributionOffset = 2;
-
         synchronized (mLayers) {
             // use a copy here, avoids locking over a longer time
             // using a temp List avoids creating a new object
             renderLayers.clear();
-            renderLayers.addAll(mLayers);
+            for (int i = mLayers.size() - 1; i >= 0; i--) {
+                MapViewLayer layer = mLayers.get(i);
+                renderLayers.add(layer);
+                if (layer.isVisible() && LayerType.IMAGERY == layer.getType()) {
+                    break; // nothing below this is visible
+                }
+            }
+            Collections.reverse(renderLayers);
         }
         for (MapViewLayer osmvo : renderLayers) {
-            osmvo.setAttributionOffset(attributionOffset);
             osmvo.onManagedDraw(canvas, this);
-            attributionOffset = osmvo.getAttributionOffset();
+        }
+        int attributionOffset = INITIAL_ATTRIBUTION_OFFSET;
+        for (MapViewLayer osmvo : renderLayers) {
+            if (osmvo instanceof AttributionInterface && osmvo.isVisible()) {
+                attributionOffset = ((AttributionInterface) osmvo).onDrawAttribution(canvas, this, attributionOffset);
+            }
         }
 
-        if (zoomLevel > 10) {
+        if (zoomLevel > STORAGE_BOX_LIMIT) {
             if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND) {
                 // shallow copy to avoid modification issues
                 boundingBoxes.clear();
@@ -575,7 +589,7 @@ public class Map extends View implements IMapView {
                 return true;
             }
         }
-        return super.onTouchEvent(event);
+        return false;
     }
 
     @Override
@@ -585,7 +599,7 @@ public class Map extends View implements IMapView {
                 return true;
             }
         }
-        return super.onKeyDown(keyCode, event);
+        return false;
     }
 
     @Override
@@ -595,7 +609,7 @@ public class Map extends View implements IMapView {
                 return true;
             }
         }
-        return super.onKeyUp(keyCode, event);
+        return false;
     }
 
     @Override
@@ -605,7 +619,7 @@ public class Map extends View implements IMapView {
                 return true;
             }
         }
-        return super.onTrackballEvent(event);
+        return false;
     }
 
     /**

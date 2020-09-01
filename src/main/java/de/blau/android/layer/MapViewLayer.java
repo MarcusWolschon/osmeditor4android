@@ -31,11 +31,10 @@ public abstract class MapViewLayer {
     /**
      * Tag used for Android-logging.
      */
-    private static final String DEBUG_TAG   = MapViewLayer.class.getName();
+    private static final String DEBUG_TAG = MapViewLayer.class.getName();
 
-    protected int         attributionOffset = 0;
-    private transient int index             = -1;
-    protected boolean     isVisible         = true;
+    private transient int index     = -1;
+    protected boolean     isVisible = true;
 
     // ===========================================================
     // Constants
@@ -127,7 +126,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onKeyDown(final int keyCode, KeyEvent event, final IMapView mapView) {
+    public boolean onKeyDown(final int keyCode, KeyEvent event, final IMapView mapView) { // NOSONAR
         return false;
     }
 
@@ -141,7 +140,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onKeyUp(final int keyCode, KeyEvent event, final IMapView mapView) {
+    public boolean onKeyUp(final int keyCode, KeyEvent event, final IMapView mapView) { // NOSONAR
         return false;
     }
 
@@ -156,7 +155,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onTouchEvent(final MotionEvent event, final IMapView mapView) {
+    public boolean onTouchEvent(final MotionEvent event, final IMapView mapView) { // NOSONAR
         return false;
     }
 
@@ -174,7 +173,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onTrackballEvent(final MotionEvent event, final IMapView mapView) {
+    public boolean onTrackballEvent(final MotionEvent event, final IMapView mapView) { // NOSONAR
         return false;
     }
 
@@ -187,7 +186,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onSingleTapUp(MotionEvent e, IMapView mapView) {
+    public boolean onSingleTapUp(MotionEvent e, IMapView mapView) { // NOSONAR
         return false;
     }
 
@@ -200,7 +199,7 @@ public abstract class MapViewLayer {
      * @param mapView the view that got the event
      * @return true if event was handled
      */
-    public boolean onLongPress(MotionEvent e, IMapView mapView) {
+    public boolean onLongPress(MotionEvent e, IMapView mapView) { // NOSONAR
         return false;
     }
 
@@ -229,24 +228,6 @@ public abstract class MapViewLayer {
     public boolean onRestoreState(@NonNull Context ctx) {
         // visibility state should be restored in Map
         return true;
-    }
-
-    /**
-     * Set the vertical position for attribution
-     * 
-     * @param attributionOffset the vertical offset in pixels
-     */
-    public void setAttributionOffset(int attributionOffset) {
-        this.attributionOffset = attributionOffset;
-    }
-
-    /**
-     * Get the vertical attribution offset
-     * 
-     * @return vertical offset in pixels
-     */
-    public int getAttributionOffset() {
-        return attributionOffset;
     }
 
     /**
@@ -292,13 +273,13 @@ public abstract class MapViewLayer {
      */
     @NonNull
     public abstract String getName();
-    
+
     /**
      * Return the type of this layer
      * 
      * @return a LayerType
      */
-    @NonNull 
+    @NonNull
     public abstract LayerType getType();
 
     /**
@@ -310,12 +291,11 @@ public abstract class MapViewLayer {
     public String getContentId() {
         return null;
     }
-    
+
     /**
      * Invalidate this layer
      */
     public abstract void invalidate();
-
 
     /**
      * Preferences have changed, set any thing we want to cache

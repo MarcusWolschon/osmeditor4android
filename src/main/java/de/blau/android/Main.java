@@ -3373,8 +3373,8 @@ public class Main extends FullScreenAppCompatActivity
                 App.getLogic().handleTouchEventUp(m.getX(), m.getY());
                 scheduleAutoLock();
             }
-            if (!mDetector.onTouchEvent(v, m)) {
-                return v.onTouchEvent(m);
+            if (!v.onTouchEvent(m)) { // give any layer specific handles a chance
+                mDetector.onTouchEvent(v, m);
             }
             return true;
         }
