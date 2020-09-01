@@ -3732,7 +3732,7 @@ public class Logic {
                             result = result && layerResult;
                         } catch (Exception e) {
                             // Never crash
-                            Log.e(DEBUG_TAG, "loadLayerState failed for " + layer.getName());
+                            Log.e(DEBUG_TAG, "loadLayerState failed for " + layer.getName() + " " + e.getMessage());
                             result = false;
                         }
                     }

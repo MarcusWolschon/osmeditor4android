@@ -56,6 +56,7 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
      * @param color color to use
      */
     public void setColor(int color) {
+        dirty();
         paint.setColor(color);
         this.color = color;
     }
@@ -75,6 +76,7 @@ public abstract class StyleableLayer extends MapViewLayer implements DiscardInte
      * @param width stroke width in pixels
      */
     public void setStrokeWidth(float width) {
+        dirty();
         paint.setStrokeWidth(width);
         strokeWidth = width;
     }
