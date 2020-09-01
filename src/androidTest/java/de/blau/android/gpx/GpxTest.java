@@ -170,6 +170,7 @@ public class GpxTest {
 
         assertTrue(TestUtils.clickResource(device, true, device.getCurrentPackageName() + ":id/menu_gps", true));
         assertTrue(TestUtils.clickText(device, false, "Start GPX track", false, false));
+        TestUtils.clickText(device, false, "OK", false); // Tip
 
         final CountDownLatch signal = new CountDownLatch(1);
         main.getTracker().getTrack().reset(); // clear out anything saved
