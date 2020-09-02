@@ -96,6 +96,7 @@
     </feature>
     <feature type="way" tags="man_made" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" >
         <feature type="way" tags="man_made=embankment" color="ff996633" pathPattern="triangle_right" />
+        <feature type="way" tags="man_made=bridge" color="aa585c63" closed="true" area="true" pathPattern="border_right" />
     </feature>
     <feature type="way" tags="building" updateWidth="true" widthFactor="1.0" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" />
     <feature type="way" tags="building:part" updateWidth="true" widthFactor="0.8" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
