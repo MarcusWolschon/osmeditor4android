@@ -1,3 +1,11 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
+
+---
 <!--
 When reporting issues, please use this template, if you are asking for an enhancement you can delete the text.
 
