@@ -1,31 +1,42 @@
 package de.blau.android;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.heinrichreimersoftware.androidissuereporter.IssueReporterActivity;
+import com.heinrichreimersoftware.androidissuereporter.model.DeviceInfo;
+import com.heinrichreimersoftware.androidissuereporter.model.Report;
 import com.heinrichreimersoftware.androidissuereporter.model.github.ExtraInfo;
 import com.heinrichreimersoftware.androidissuereporter.model.github.GithubTarget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import de.blau.android.contract.Github;
+import de.blau.android.contract.Urls;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ActivityResultHandler;
+import de.blau.android.util.Util;
 
 /**
  * Open an issue on github, an anonymous submission requires the current OSM display name
@@ -39,14 +50,15 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
     private static final String DEBUG_TAG = "Feedback";
 
-    private static final String REPO_USER = "repo_user";
-    private static final String REPO_NAME = "repo_name";
+    private static final String REPO_USER_KEY = "repo_user";
+    private static final String REPO_NAME_KEY = "repo_name";
+
+    private static final String EMPTY_BUG_REPORT = "bug_report_empty.md";
 
     java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
 
-    RadioButton anonymous;
-    String      displayName = null;
-    Server      server      = null;
+    String displayName = null;
+    Server server      = null;
 
     String repoUser = Github.CODE_REPO_USER;
     String repoName = Github.CODE_REPO_NAME;
@@ -55,24 +67,49 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
      * Start this Activity
      * 
      * @param context Android Context
+     * @param useUrl if true don't use the builtin reporter, if the github app is installed this is ignored
      */
-    public static void start(@NonNull Context context) {
-        Intent intent = new Intent(context, Feedback.class);
-        context.startActivity(intent);
+    public static void start(@NonNull Context context, boolean useUrl) {
+        start(context, Github.CODE_REPO_USER, Github.CODE_REPO_NAME, useUrl);
     }
 
     /**
-     * Start this Activity
+     * Start this Activity or alternatively an external app via Url
      * 
      * @param context Android Context
      * @param repoUser github repository user
-     * @param repoName githun repository name
+     * @param repoName github repository name
+     * @param useUrl if true don't use the builtin reporter, if the github app is installed this is ignored
      */
-    public static void start(@NonNull Context context, @NonNull String repoUser, @NonNull String repoName) {
-        Intent intent = new Intent(context, Feedback.class);
-        intent.putExtra(REPO_USER, repoUser);
-        intent.putExtra(REPO_NAME, repoName);
-        context.startActivity(intent);
+    public static void start(@NonNull Context context, @NonNull String repoUser, @NonNull String repoName, boolean useUrl) {
+        if (useUrl || Util.isPackageInstalled(Github.APP, context.getPackageManager())) {
+            reportViaUrl(context, repoUser, repoName);
+        } else {
+            Intent intent = new Intent(context, Feedback.class);
+            intent.putExtra(REPO_USER_KEY, repoUser);
+            intent.putExtra(REPO_NAME_KEY, repoName);
+            context.startActivity(intent);
+        }
+    }
+
+    /**
+     * Simply use an URL instead of the builtin reporter
+     * 
+     * This makes sense when the user has a github account, note that it assumes that there is a template called
+     * "bug_report_empty.md"
+     * 
+     * @param context an Android Context
+     * @param repoUser the owner of the target repo
+     * @param repoName the target repo
+     */
+    private static void reportViaUrl(Context context, String repoUser, String repoName) {
+        Report report = new Report("", "", new DeviceInfo(context), new ExtraInfo(), "");
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Urls.GITHUB + repoUser + "/" + repoName + "/issues/new?template=" + EMPTY_BUG_REPORT
+                    + "&body=" + URLEncoder.encode(report.getDescription(), OsmXml.UTF_8))));
+        } catch (UnsupportedEncodingException e) {
+            Log.e(DEBUG_TAG, "Unsupported encoding " + e.getMessage());
+        }
     }
 
     @Override
@@ -90,11 +127,11 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
         super.onCreate(savedInstanceState);
 
-        Serializable s = getIntent().getSerializableExtra(REPO_USER);
+        Serializable s = getIntent().getSerializableExtra(REPO_USER_KEY);
         if (s != null) {
             repoUser = s.toString();
         }
-        s = getIntent().getSerializableExtra(REPO_NAME);
+        s = getIntent().getSerializableExtra(REPO_NAME_KEY);
         if (s != null) {
             repoName = s.toString();
         }
@@ -111,7 +148,13 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
         }
 
         // two line for the description is not enough
-        ((TextInputEditText) findViewById(R.id.air_inputDescription)).setMaxLines(4);
+        final TextInputEditText description = (TextInputEditText) findViewById(R.id.air_inputDescription);
+        description.setLines(10);
+        description.setMaxLines(10);
+        description.setGravity(Gravity.TOP);
+
+        // make device info selectable
+        ((TextView) findViewById(R.id.air_textDeviceInfo)).setTextIsSelectable(true);
 
         // as as side effect this disables e-mail validation
         setGuestEmailRequired(false);
@@ -127,7 +170,12 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
         final FloatingActionButton buttonSend = findViewById(R.id.air_buttonSend);
 
         server = prefs.getServer();
-        anonymous = findViewById(R.id.air_optionAnonymous);
+
+        // hack so that the login layout isn't displayed
+        ((View) findViewById(R.id.air_layoutLogin).getParent().getParent()).setVisibility(View.GONE);
+        // but set anonymous to true
+        ((RadioButton) findViewById(R.id.air_optionAnonymous)).setChecked(true);
+
         final PostAsyncActionHandler action = new PostAsyncActionHandler() {
             @Override
             public void onSuccess() {
@@ -157,26 +205,15 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
             }
         };
 
-        if (anonymous.isChecked()) { // button shoudn't be checked anyway
-            buttonSend.setEnabled(Server.checkOsmAuthentication(Feedback.this, server, action));
-        }
-
-        anonymous.setOnCheckedChangeListener((button, checked) -> {
-            if (checked && Server.checkOsmAuthentication(Feedback.this, server, action)) {
-                action.onSuccess();
-            } else if (!checked) {
-                buttonSend.setEnabled(true);
-            }
-        });
-        anonymous.setText(R.string.feedback_with_displayname);
-
+        action.onSuccess(); // if we are already authenticated checkOsmAuthentication won't do anything
+        buttonSend.setEnabled(Server.checkOsmAuthentication(Feedback.this, server, action));
         setMinimumDescriptionLength(20);
     }
 
     @Override
     public void onSaveExtraInfo(ExtraInfo extraInfo) {
-        if (displayName != null && anonymous.isChecked()) {
-            extraInfo.put("OSM display name", displayName);
+        if (displayName != null) {
+            extraInfo.put("OSM display name", "<A href=\"" + Urls.OSM + "/user/" + displayName + "\"/>" + displayName + "</A>");
         }
     }
 

@@ -78,6 +78,7 @@
     <string name="config_enableHwAcceleration_key">hwAcceleration</string>
     <string name="config_autoformatPhoneNumbers_key">autoformatPhoneNumbers</string>
     <string name="config_useBarometricHeight_key">useBarometricHeight</string>
+    <string name="config_useUrlForFeedback_key">useUrlForFeedback</string>
     
 	<!-- Preference keys used in the pref editor(s) int prefs -->
 	<string name="config_maxInlineValues_key">maxInlineValuesInt</string>

@@ -483,7 +483,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             }
             return true;
         case R.id.menu_preset_feedback:
-            Feedback.start(getContext(), Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME);
+            Feedback.start(getContext(), Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME, App.getLogic().getPrefs().useUrlForFeedback());
             return true;
         case R.id.preset_menu_help:
             HelpViewer.start(getActivity(), R.string.help_presets);

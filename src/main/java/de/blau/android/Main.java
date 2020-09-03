@@ -2400,7 +2400,7 @@ public class Main extends FullScreenAppCompatActivity
             HelpViewer.start(this, R.string.help_privacy);
             return true;
         case R.id.menu_feedback:
-            Feedback.start(this);
+            Feedback.start(this, prefs.useUrlForFeedback());
             return true;
         case R.id.menu_debug:
             startActivity(new Intent(this, DebugInformation.class));

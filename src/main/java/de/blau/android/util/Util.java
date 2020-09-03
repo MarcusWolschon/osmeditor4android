@@ -17,6 +17,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -682,6 +683,22 @@ public final class Util {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH || ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WEBVIEW);
     }
 
+    /**
+     * Check if a specific package is installed
+     * 
+     * @param packageName the name of the package
+     * @param packageManager a PackageManager instance
+     * @return true if the package is installed
+     */
+    public static boolean isPackageInstalled(@NonNull String packageName, @NonNull PackageManager packageManager) {
+        try {
+            packageManager.getPackageInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+    
     /**
      * Beep
      */

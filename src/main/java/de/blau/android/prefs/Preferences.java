@@ -98,6 +98,7 @@ public class Preferences {
     private final int     uploadWarnLimit;
     private final int     dataWarnLimit;
     private final boolean useBarometricHeight;
+    private final boolean useUrlForFeedback;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -251,6 +252,8 @@ public class Preferences {
         dataWarnLimit = getIntPref(R.string.config_dataWarn_key, 50000);
 
         useBarometricHeight = prefs.getBoolean(r.getString(R.string.config_useBarometricHeight_key), false);
+
+        useUrlForFeedback = prefs.getBoolean(r.getString(R.string.config_useUrlForFeedback_key), false);
     }
 
     /**
@@ -1307,6 +1310,15 @@ public class Preferences {
      */
     public boolean useBarometricHeight() {
         return useBarometricHeight;
+    }
+
+    /**
+     * Get f we should use an Url instead of the builtin reporter activity
+     * 
+     * @return if we should use an Url instead of the builtin reporter activity
+     */
+    public boolean useUrlForFeedback() {
+        return useUrlForFeedback;
     }
 
     /**

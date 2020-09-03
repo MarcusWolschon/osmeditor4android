@@ -427,7 +427,7 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
             return true;
         }
         if (item.getItemId() == R.id.menu_preset_feedback) { // only used in pane mode
-            Feedback.start(this, Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME);
+            Feedback.start(this, Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME, prefs.useUrlForFeedback());
             return true;
         }
         if (item.getItemId() == R.id.menu_config) {

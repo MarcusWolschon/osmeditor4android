@@ -76,6 +76,10 @@ Limit below which pending object uploads will be considered OK. Default: _50 obj
 
 Limit below which pending object uploads will have warning status. Default: _200 objects_.
 
+### Disable feedback activity
+
+Disable the feedback activity and use an URL instead. Default. _false_.
+
 ## Data and Editing Settings
 
 Settings related to editing.
