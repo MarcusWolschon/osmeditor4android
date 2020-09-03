@@ -345,8 +345,12 @@ public final class DataStyle extends DefaultHandler {
                 }
                 DashPathEffect dp = new DashPathEffect(intervals, dashPath.phase);
                 paint.setPathEffect(dp);
-            } else if (pathPattern != null) {
-                getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(newWidth), pathPattern.advance(newWidth), 0f, pathPattern.style()));
+            } else {
+                if (pathPattern != null) {
+                    getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(newWidth), pathPattern.advance(newWidth), 0f, pathPattern.style()));
+                } else {
+                    getPaint().setPathEffect(null);
+                }
             }
         }
 
@@ -411,10 +415,12 @@ public final class DataStyle extends DefaultHandler {
          * @param pathPattern the pattern
          */
         void setPathPattern(@Nullable PathPattern pathPattern) {
+            this.pathPattern = pathPattern;
             if (pathPattern != null) {
-                this.pathPattern = pathPattern;
                 float width = getPaint().getStrokeWidth();
                 getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(width), pathPattern.advance(width), 0f, pathPattern.style()));
+            } else {
+                getPaint().setPathEffect(null);
             }
         }
 
@@ -545,6 +551,9 @@ public final class DataStyle extends DefaultHandler {
             if (tf != null) {
                 s.attribute("", TYPEFACESTYLE_ATTR, Integer.toString(tf.getStyle()));
                 s.attribute("", TEXTSIZE_ATTR, Float.toString(getPaint().getTextSize()));
+            }
+            if (pathPattern != null) {
+                s.attribute("", PATH_PATTERN_ATTR, pathPattern.toString());
             }
             DashPath dp = getDashPath();
             if (dp != null) {
