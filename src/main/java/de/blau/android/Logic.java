@@ -2664,13 +2664,15 @@ public class Logic {
     /**
      * Loads the area defined by mapBox from the OSM-Server.
      * 
+     * Will prune storage if the node count goes too high
+     * 
      * @param context android context
      * @param server the Server object we are using
      * @param validator the Validator to apply to downloaded data
      * @param mapBox Box defining the area to be loaded.
      * @param handler listener to call when the download is completed
      */
-    public synchronized void autoDownloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final Validator validator,
+    public void autoDownloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final Validator validator,
             @NonNull final BoundingBox mapBox, @Nullable PostAsyncActionHandler handler) {
 
         mapBox.makeValidForApi();
@@ -2685,7 +2687,13 @@ public class Logic {
         new AsyncTask<Void, Void, ReadAsyncResult>() {
             @Override
             protected ReadAsyncResult doInBackground(Void... arg) {
-                return download(context, prefs.getServer(), mapBox, postMerge, handler, true, true);
+                ReadAsyncResult result = download(context, prefs.getServer(), mapBox, postMerge, handler, true, true);
+                if (getDelegator().getCurrentStorage().getNodeCount() > prefs.getAutoPruneNodeLimit()) {
+                    ViewBox pruneBox = new ViewBox(map.getViewBox());
+                    pruneBox.scale(1.6);
+                    getDelegator().prune(pruneBox);
+                }
+                return result;
             }
         }.execute();
     }
@@ -2763,6 +2771,7 @@ public class Logic {
                     getDelegator().setOriginalBox(mapBox);
                 }
             }
+
             if (!background) {
                 // Main maybe not available and by extension there may be no valid Map object
                 Map currentMap = ctx instanceof Main ? ((Main) ctx).getMap() : null;
