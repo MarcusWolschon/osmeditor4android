@@ -80,6 +80,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
+    private static final int THREAD_POOL_SIZE = 2;
+    
     private static final String OUTER = "outer";
     private static final String INNER = "inner";
 
@@ -330,8 +332,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         @Override
         public void run() {
             if (mThreadPool == null) {
-                // NOTE increasing this over 1 thread will deadlock the app
-                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+                mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
             }
             List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
             ViewBox box = new ViewBox(map.getViewBox());

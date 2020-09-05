@@ -47,6 +47,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
 
     public static final String FILENAME = "selectedtask.res";
 
+    private static final int THREAD_POOL_SIZE = 1;
+
     private static final int SHOW_TASKS_LIMIT = 13;
 
     /** Map this is an overlay of. */
@@ -97,7 +99,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Discard
      */
     Runnable download = () -> {
         if (mThreadPool == null) {
-            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+            mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         }
         List<BoundingBox> bbList = new ArrayList<>(tasks.getBoundingBoxes());
         ViewBox box = new ViewBox(map.getViewBox());
