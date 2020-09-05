@@ -39,6 +39,7 @@ Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/
 |                   | icon                          | supported | you really should add one for Vespucci
 |                   | type                          | supported |
 |                   | name_template                 | ignored   |
+|                   | name_template_filter          | ignored   |
 |                   | preset_name_label             | ignored   |
 |                   | deprecated                    | extension | only use the preset for matching and map icon display 
 |                   | regions                       | extension | comma separated list of countries this preset item is applicable for
