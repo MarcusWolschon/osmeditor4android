@@ -1,10 +1,17 @@
 package de.blau.android.presets;
 
+import java.io.Serializable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class PresetItemLink {
+public class PresetItemLink implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
     private final String presetName;
     private final String text;
     private final String textContext;
