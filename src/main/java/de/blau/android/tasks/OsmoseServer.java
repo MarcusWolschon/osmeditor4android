@@ -28,13 +28,14 @@ final class OsmoseServer {
 
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 
-    private static final String apiPath = "/api/0.2/"; // NOSONAR
+    private static final String API02PATH = "/api/0.2/"; 
+    private static final String API03PATH = "/api/0.3/"; 
 
     /**
      * the list of supported languages was simply generated from the list of .po in the osmose repo and tested against
      * the API
      */
-    private static final List<String> supportedLanguages = Arrays.asList("ca", "cs", "en", "da", "de", "el", "es", "fr", "hu", "it", "ja", "lt", "nl", "pl",
+    private static final List<String> SUPPORTED_LANGUAGES = Arrays.asList("ca", "cs", "en", "da", "de", "el", "es", "fr", "hu", "it", "ja", "lt", "nl", "pl",
             "pt", "ro", "ru", "sw", "uk");
 
     /**
@@ -104,8 +105,7 @@ final class OsmoseServer {
             return false; // open is the default state and we shouldn't actually get here
         }
         try {
-            URL url;
-            url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false"));
+            URL url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false"));
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -132,6 +132,42 @@ final class OsmoseServer {
     }
 
     /**
+     * Get meta information on a specific Osmose item / class
+     * 
+     * @param context an Android Context
+     * @param itemId the item id
+     * @param classId the class id
+     */
+    public static void getMeta(@NonNull Context context, int itemId, int classId) {
+        try {
+            // http://osmose.openstreetmap.fr/api/0.3/items/3130/class/31301?langs=en
+            Preferences prefs = new Preferences(context);
+            String lang = Locale.getDefault().getLanguage();
+            if (!SUPPORTED_LANGUAGES.contains(lang)) {
+                lang = "en";
+            }
+            URL url = new URL(prefs.getOsmoseServer() + API03PATH + "items/" + Integer.toString(itemId) + "/class/" + Integer.toString(classId) + "?langs=" + lang);
+            Log.d(DEBUG_TAG, "getMeta " + url.toString());
+            Request request = new Request.Builder().url(url).build();
+              OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .build();
+            Call osmoseCall = client.newCall(request);
+            Response osmoseCallResponse = osmoseCall.execute();
+            if (osmoseCallResponse.isSuccessful()) {
+                ResponseBody responseBody = osmoseCallResponse.body();
+                InputStream inputStream = responseBody.byteStream();
+                App.getTaskStorage().getOsmoseMeta().parse(inputStream);
+            } else {
+                Log.e(DEBUG_TAG, "getMeta failes");
+            }
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "getMeta got exception " + e.getMessage());
+            return;
+        }
+        Log.d(DEBUG_TAG, "getMeta sucess");
+    }
+    
+    /**
      * Get the OSMOSE server from preferences
      *
      * @param context the Android context
@@ -140,9 +176,24 @@ final class OsmoseServer {
     private static String getServerURL(@NonNull Context context) {
         Preferences prefs = new Preferences(context);
         String lang = Locale.getDefault().getLanguage();
-        if (!supportedLanguages.contains(lang)) {
+        if (!SUPPORTED_LANGUAGES.contains(lang)) {
             lang = "en";
         }
-        return prefs.getOsmoseServer() + lang + apiPath;
+        return prefs.getOsmoseServer() + lang + API02PATH;
+    }
+    
+    /**
+     * Get the OSMOSE server from preferences
+     *
+     * @param context the Android context
+     * @return the server URL
+     */
+    private static String getServerURL03(@NonNull Context context) {
+        Preferences prefs = new Preferences(context);
+        String lang = Locale.getDefault().getLanguage();
+        if (!SUPPORTED_LANGUAGES.contains(lang)) {
+            lang = "en";
+        }
+        return prefs.getOsmoseServer() + lang + API03PATH;
     }
 }

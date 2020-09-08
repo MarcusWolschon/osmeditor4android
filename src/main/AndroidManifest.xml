@@ -6,7 +6,7 @@
     android:versionCode="1504"
     android:versionName="@string/app_version" >
 
-    <uses-sdk tools:overrideLibrary="com.heinrichreimersoftware.androidissuereporter,com.buildware.widget.indeterm" />
+    <uses-sdk tools:overrideLibrary="com.heinrichreimersoftware.androidissuereporter,com.buildware.widget.indeterm,io.noties.markwon" />
 
     <uses-feature
         android:name="android.hardware.sensor.compass"

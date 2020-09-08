@@ -29,12 +29,13 @@ import de.blau.android.util.rtree.RTree;
  *
  */
 public class TaskStorage implements Serializable, DataStorage {
-    private static final long               serialVersionUID = 6L;
+    private static final long               serialVersionUID = 7L;
     private static final String             DEBUG_TAG        = TaskStorage.class.getSimpleName();
     private int                             newId            = -1;
     private RTree<Task>                     tasks;
     private RTree<BoundingBox>              boxes;
     private Map<Long, MapRouletteChallenge> challenges;
+    private OsmoseMeta                      osmoseMeta;
     private transient boolean               dirty            = true;
 
     /**
@@ -335,6 +336,18 @@ public class TaskStorage implements Serializable, DataStorage {
         }
     }
 
+    /**
+     * Get Osmose meta information on its issues
+     * 
+     * @return an OsmoseMeta object
+     */
+    public synchronized OsmoseMeta getOsmoseMeta() {
+        if (osmoseMeta == null) {
+            osmoseMeta = new OsmoseMeta();
+        }
+        return osmoseMeta;
+    }
+    
     @Override
     public String toString() {
         return "task r-tree: " + tasks.count() + " boxes r-tree " + boxes.count();
