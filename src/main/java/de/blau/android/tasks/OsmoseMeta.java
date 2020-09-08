@@ -78,10 +78,10 @@ public class OsmoseMeta implements Serializable {
          */
         private static final long serialVersionUID = 1L;
         int                       id;
-        Map<Integer, OsmoseClass> classes          = new HashMap<>();
+        private Map<Integer, OsmoseClass> classes          = new HashMap<>();
     }
 
-    Map<Integer, Item> items = new HashMap<>();
+    private Map<Integer, Item> items = new HashMap<>();
 
     /**
      * Parse an InputStream containing Osmose task data
