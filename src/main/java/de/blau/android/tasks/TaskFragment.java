@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -20,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,16 +41,20 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.tasks.OsmoseMeta.OsmoseClass;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.util.Util;
+import io.noties.markwon.Markwon;
 
 /**
- * Very simple dialog fragment to display bug or notes
+ * Very simple dialog fragment to display bug or notes etc
  * 
- * @author simon
+ * This started off simple, but is now far too complex and should be split up in to separate classes
+ * 
+ * @author Simon
  *
  */
 public class TaskFragment extends ImmersiveDialogFragment {
@@ -127,6 +134,10 @@ public class TaskFragment extends ImmersiveDialogFragment {
             // unused
         });
 
+        final boolean isOsmoseBug = task instanceof OsmoseBug;
+        final boolean isCustomBug = task instanceof CustomBug;
+        final boolean isMapRouletteTask = task instanceof MapRouletteTask;
+        final boolean isNote = task instanceof Note;
         if (task.canBeUploaded()) {
             builder.setNeutralButton(R.string.transfer_download_current_upload, (dialog, id) -> {
                 saveTask(v, task);
@@ -149,14 +160,14 @@ public class TaskFragment extends ImmersiveDialogFragment {
                                 updateMenu(activity);
                             }
                         };
-                        if (task instanceof Note) {
+                        if (isNote) {
                             Note n = (Note) task;
                             NoteComment nc = n.getLastComment();
                             TransferTasks.uploadNote(activity, prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
                                     n.getState() == State.CLOSED, false, handler);
-                        } else if (task instanceof OsmoseBug) {
+                        } else if (isOsmoseBug) {
                             TransferTasks.updateOsmoseBug(activity, (OsmoseBug) task, false, handler);
-                        } else if (task instanceof MapRouletteTask) {
+                        } else if (isMapRouletteTask) {
                             TransferTasks.updateMapRouletteTask(activity, prefs.getServer(), (MapRouletteTask) task, false, handler);
                         }
                         return null;
@@ -174,7 +185,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
         EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
         TextView commentLabel = (TextView) v.findViewById(R.id.openstreetbug_comment_label);
         LinearLayout elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
-        if (task instanceof Note) {
+        if (isNote) {
             title.setText(getString((task.isNew() && ((Note) task).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
             comments.setText(Util.fromHtml(((Note) task).getComment())); // ugly
             comments.setAutoLinkMask(Linkify.WEB_URLS);
@@ -199,9 +210,51 @@ public class TaskFragment extends ImmersiveDialogFragment {
             commentLabel.setVisibility(View.GONE);
             comment.setVisibility(View.GONE);
             //
-            if (task instanceof OsmoseBug || task instanceof CustomBug) {
+            if (isOsmoseBug || isCustomBug) {
                 title.setText(R.string.openstreetbug_bug_title);
                 comments.setText(Util.fromHtml(((Bug) task).getLongDescription(getActivity(), false)));
+                if (!isCustomBug && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    // provide dialog with some additional text
+                    TextView instructionText = new TextView(getActivity());
+                    instructionText.setClickable(true);
+                    instructionText.setOnClickListener(unused -> {
+                        final FragmentActivity activity = getActivity();
+                        final Markwon markwon = Markwon.create(activity);
+                        OsmoseMeta meta = App.getTaskStorage().getOsmoseMeta();
+                        final int itemId = ((OsmoseBug) task).getOsmoseItem();
+                        final int classId = ((OsmoseBug) task).getOsmoseClass();
+                        OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
+                        if (osmoseClass == null) {
+                            new AsyncTask<Void, Void, Void>() {
+                                @Override
+                                protected Void doInBackground(Void... arg0) {
+                                    OsmoseServer.getMeta(getContext(), itemId, classId);
+                                    return null;
+                                }
+
+                                @Override
+                                protected void onPostExecute(Void arg0) {
+                                    OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
+                                    if (osmoseClass != null) {
+                                        String text = osmoseClass.getText();
+                                        if (text != null) {
+                                            showAdditionalText(activity, markwon.toMarkdown(text));
+                                        }
+                                    }
+                                }
+
+                            }.execute();
+                        } else {
+                            String text = osmoseClass.getText();
+                            if (text != null) {
+                                showAdditionalText(activity, markwon.toMarkdown(text));
+                            }
+                        }
+                    });
+                    instructionText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
+                    instructionText.setText(R.string.maproulette_task_explanations);
+                    elementLayout.addView(instructionText);
+                }
                 final StorageDelegator storageDelegator = App.getDelegator();
                 for (final OsmElement e : ((Bug) task).getElements()) {
                     String text;
@@ -211,43 +264,37 @@ public class TaskFragment extends ImmersiveDialogFragment {
                         text = getString(R.string.bug_element_2, e.getName(), e.getDescription(false));
                     }
                     TextView tv = new TextView(getActivity());
-                    tv.setClickable(true);
-                    tv.setOnClickListener(unused -> { // FIXME assumption that we are being called from Main
-                        dismiss();
-                        final FragmentActivity activity = getActivity();
-                        final int lonE7 = task.getLon();
-                        final int latE7 = task.getLat();
-                        if (e.getOsmVersion() < 0) { // fake element
-                            try {
-                                BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
-                                App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
-                                    @Override
-                                    public void onSuccess() {
+                    if (getActivity() instanceof Main) { // only make clickable if in Main
+                        tv.setClickable(true);
+                        tv.setOnClickListener(unused -> {
+                            dismiss();
+                            final FragmentActivity activity = getActivity();
+                            final int lonE7 = task.getLon();
+                            final int latE7 = task.getLat();
+                            if (e.getOsmVersion() < 0) { // fake element
+                                try {
+                                    BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
+                                    App.getLogic().downloadBox(activity, b, true, () -> {
                                         OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
                                         if (osm != null && activity != null && activity instanceof Main) {
                                             ((Main) activity).zoomToAndEdit(lonE7, latE7, osm);
                                         }
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                        // Ignore
-                                    }
-                                });
-                            } catch (OsmException e1) {
-                                Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
+                                    });
+                                } catch (OsmException e1) {
+                                    Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
+                                }
+                            } else { // real
+                                ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
                             }
-                        } else if (activity instanceof Main) { // real
-                            ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
-                        }
-                    });
-                    tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
+                        });
+                        tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
+                    }
                     tv.setText(text);
                     elementLayout.addView(tv);
                 }
                 //
                 adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bug_state, android.R.layout.simple_spinner_item);
-            } else if (task instanceof MapRouletteTask) {
+            } else if (isMapRouletteTask) {
                 title.setText(R.string.maproulette_task_title);
                 comments.setText(Util.fromHtml(((MapRouletteTask) task).getDescription()));
                 adapter = ArrayAdapter.createFromResource(getActivity(), R.array.maproulette_state, android.R.layout.simple_spinner_item);
@@ -271,12 +318,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                     if (explanationsBuilder.length() > 0) {
                         TextView instructionText = new TextView(getActivity());
                         instructionText.setClickable(true);
-                        instructionText.setOnClickListener(unused -> {
-                            final FragmentActivity activity = getActivity();
-                            Builder b = new AlertDialog.Builder(activity);
-                            b.setMessage(Util.fromHtml(explanationsBuilder.toString()));
-                            b.show();
-                        });
+                        instructionText.setOnClickListener(unused -> showAdditionalText(getActivity(), Util.fromHtml(explanationsBuilder.toString())));
                         instructionText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
                         instructionText.setText(R.string.maproulette_task_explanations);
                         elementLayout.addView(instructionText);
@@ -284,23 +326,24 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 }
                 // add a clickable link to the location
                 TextView locationText = new TextView(getActivity());
-                locationText.setClickable(true);
                 final double lon = task.getLon() / 1E7D;
                 final double lat = task.getLat() / 1E7D;
-                locationText.setOnClickListener(unused -> { // FIXME assumption that we are being called from Main
-                    dismiss();
-                    final FragmentActivity activity = getActivity();
-                    try {
-                        final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50, true);
-                        App.getLogic().downloadBox(activity, b, true, () -> {
-                            Logic logic = App.getLogic();
-                            logic.getViewBox().fitToBoundingBox(logic.getMap(), b);
-                            logic.getMap().invalidate();
-                        });
-                    } catch (OsmException e1) {
-                        Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
-                    }
-                });
+                if (getActivity() instanceof Main) {
+                    locationText.setClickable(true);
+                    locationText.setOnClickListener(unused -> {
+                        dismiss();
+                        try {
+                            final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50, true);
+                            App.getLogic().downloadBox(getActivity(), b, true, () -> {
+                                Logic logic = App.getLogic();
+                                logic.getViewBox().fitToBoundingBox(logic.getMap(), b);
+                                logic.getMap().invalidate();
+                            });
+                        } catch (OsmException e1) {
+                            Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
+                        }
+                    });
+                }
                 locationText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
                 locationText.setText(getString(R.string.maproulette_task_coords, lon, lat));
                 elementLayout.addView(locationText);
@@ -328,7 +371,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
             Log.e(DEBUG_TAG, "ArrayAdapter too short state " + stateOrdinal + " adapter " + adapter.getCount());
         }
 
-        boolean uploadedOsmoseBug = task instanceof OsmoseBug && task.isClosed() && !task.hasBeenChanged();
+        boolean uploadedOsmoseBug = isOsmoseBug && task.isClosed() && !task.hasBeenChanged();
         state.setEnabled(!task.isNew() && !uploadedOsmoseBug); // new bugs always open and OSMOSE bugs can't be reopened
                                                                // once uploaded
         AppCompatDialog d = builder.create();
@@ -378,11 +421,29 @@ public class TaskFragment extends ImmersiveDialogFragment {
     }
 
     /**
+     * Show some additional text in a dialog
+     * 
+     * @param context an Android context
+     * @param text the text to display
+     */
+    private void showAdditionalText(@NonNull Context context, @NonNull Spanned text) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.task_help, null);
+        TextView message = layout.findViewById(R.id.message);
+        message.setMovementMethod(LinkMovementMethod.getInstance());
+        message.setText(text);
+        Builder b = new AlertDialog.Builder(context);
+        b.setView(layout);
+        b.setPositiveButton(R.string.dismiss, null);
+        b.show();
+    }
+
+    /**
      * Invalidate the menu and map if we are called from Main
      * 
      * @param activity the calling FragmentActivity
      */
-    private void updateMenu(@NonNull final FragmentActivity activity) {
+    private void updateMenu(@Nullable final FragmentActivity activity) {
         if (activity != null) {
             if (activity instanceof AppCompatActivity) {
                 ((AppCompatActivity) activity).invalidateOptionsMenu();
@@ -400,7 +461,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
         try {
             mListener = (UpdateViewListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
+            throw new ClassCastException(context.toString() + " must implement UpdateViewListener");
         }
     }
 

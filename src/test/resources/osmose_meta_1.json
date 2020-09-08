@@ -1,0 +1,55 @@
+{
+    "categories": [
+        {
+            "title": {
+                "auto": "Bad tag"
+            },
+            "items": [
+                {
+                    "title": {
+                        "auto": "brand in name"
+                    },
+                    "tags": [
+                        "brand"
+                    ],
+                    "categorie_id": 30,
+                    "class": [
+                        {
+                            "title": {
+                                "auto": "This name is very common, is this store part of the brand network?"
+                            },
+                            "fix": {
+                                "auto": "If this is indeed a brand, add `brand` and `brand:wikidata` tags.\nIf not, see if you can improve the [name-suggestion-index project](https://github.com/osmlab/name-suggestion-index/blob/master/CONTRIBUTING.md) which is used to link frequent names to brands and their tags."
+                            },
+                            "example": null,
+                            "class": 31301,
+                            "resource": "https://nsi.guide/",
+                            "tags": [
+                                "brand"
+                            ],
+                            "detail": {
+                                "auto": "This object has a very common name that probably corresponds to a brand name. All objects of the same brand should be tagged the same way."
+                            },
+                            "level": 3,
+                            "trap": null,
+                            "item": 3130,
+                            "source": "https://github.com/osm-fr/osmose-backend/blob/master/plugins/TagFix_Brand.py#L39"
+                        }
+                    ],
+                    "number": [
+                        429852
+                    ],
+                    "color": "#339966",
+                    "levels": [
+                        {
+                            "count": 429852,
+                            "level": 3
+                        }
+                    ],
+                    "item": 3130
+                }
+            ],
+            "id": 30
+        }
+    ]
+}

@@ -1,5 +1,8 @@
 package de.blau.android;
 
+import java.io.IOException;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,6 +21,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.uiautomator.UiDevice;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -42,12 +46,31 @@ public class FeedbackTest {
         device = UiDevice.getInstance(instrumentation);
         context = instrumentation.getTargetContext();
         main = (Main) mActivityRule.getActivity();
+        mockServer = new MockWebServerPlus();
+        HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
+        prefDB = new AdvancedPrefDatabase(context);
+        prefDB.deleteAPI("Test");
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
+        prefDB.selectAPI("Test");
+        prefDB.resetCurrentServer();
         Preferences prefs = new Preferences(context);
         TestUtils.removeImageryLayers(context);
         main.getMap().setPrefs(main, prefs);
-
         TestUtils.grantPermissons(device);
         TestUtils.dismissStartUpDialogs(device, main);
+    }
+
+    /**
+     * Post-test teardown
+     */
+    @After
+    public void teardown() {
+        try {
+            mockServer.server().shutdown();
+        } catch (IOException ioex) {
+            System.out.println("Stopping mock webserver exception " + ioex); // NOSONAR
+        }
+        prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
     }
 
     /**
@@ -55,6 +78,7 @@ public class FeedbackTest {
      */
     @Test
     public void startFeedback() {
+        mockServer.enqueue("userdetails");
         TestUtils.clickOverflowButton(device);
         ActivityMonitor monitor = instrumentation.addMonitor(Feedback.class.getName(), null, false);
         TestUtils.clickText(device, false, "Provide feedback", true, false);

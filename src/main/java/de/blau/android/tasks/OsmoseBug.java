@@ -129,4 +129,18 @@ public final class OsmoseBug extends Bug implements Serializable {
             return "?";
         }
     }
+
+    /**
+     * @return the item
+     */
+    public int getOsmoseItem() {
+        return item;
+    }
+
+    /**
+     * @return the bugclass
+     */
+    public int getOsmoseClass() {
+        return bugclass;
+    }
 }
