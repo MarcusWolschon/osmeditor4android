@@ -46,6 +46,8 @@ import de.blau.android.tasks.Task.State;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.util.NetworkStatus;
+import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import io.noties.markwon.Markwon;
 
@@ -225,25 +227,29 @@ public class TaskFragment extends ImmersiveDialogFragment {
                         final int classId = ((OsmoseBug) task).getOsmoseClass();
                         OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
                         if (osmoseClass == null) {
-                            new AsyncTask<Void, Void, Void>() {
-                                @Override
-                                protected Void doInBackground(Void... arg0) {
-                                    OsmoseServer.getMeta(getContext(), itemId, classId);
-                                    return null;
-                                }
+                            if (new NetworkStatus(activity).isConnected()) {
+                                new AsyncTask<Void, Void, Void>() {
+                                    @Override
+                                    protected Void doInBackground(Void... arg0) {
+                                        OsmoseServer.getMeta(getContext(), itemId, classId);
+                                        return null;
+                                    }
 
-                                @Override
-                                protected void onPostExecute(Void arg0) {
-                                    OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
-                                    if (osmoseClass != null) {
-                                        String text = osmoseClass.getText();
-                                        if (text != null) {
-                                            showAdditionalText(activity, markwon.toMarkdown(text));
+                                    @Override
+                                    protected void onPostExecute(Void arg0) {
+                                        OsmoseClass osmoseClass = meta.getOsmoseClass(itemId, classId);
+                                        if (osmoseClass != null) {
+                                            String text = osmoseClass.getText();
+                                            if (text != null) {
+                                                showAdditionalText(activity, markwon.toMarkdown(text));
+                                            }
                                         }
                                     }
-                                }
 
-                            }.execute();
+                                }.execute();
+                            } else {
+                                Snack.toastTopWarning(getContext(), R.string.network_required);
+                            }
                         } else {
                             String text = osmoseClass.getText();
                             if (text != null) {
