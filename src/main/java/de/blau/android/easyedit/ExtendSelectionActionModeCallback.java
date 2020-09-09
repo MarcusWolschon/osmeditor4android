@@ -17,10 +17,11 @@ import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.osm.MergeResult;
+import de.blau.android.osm.MergeIssue;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.search.Search;
@@ -352,7 +353,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             main.performTagEdit(selection, false, false);
         } else {
             try {
-                MergeResult result = logic.performMerge(main, sortedWays);
+                Result<MergeIssue> result = logic.performMerge(main, sortedWays);
                 main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) result.getElement()));
                 if (result.hasIssue()) {
                     showConflictAlert(result);
