@@ -8,24 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
- * Small container for results of merge operation
+ * Small container for results of operations that can result in multiple errors that need to be reported
  * 
- * @author simon
+ * @author Simon
  *
  */
-public class MergeResult {
-
-    enum Issue {
-        ROLECONFLICT, MERGEDTAGS, NOTREVERSABLE, SAMEOBJECT
-    }
+public class Result<T> {
 
     private OsmElement element;
-    Set<Issue>         issues = null;
+    Set<T>             issues = null;
 
     /**
      * Empty default constructor
      */
-    public MergeResult() {
+    public Result() {
     }
 
     /**
@@ -33,7 +29,7 @@ public class MergeResult {
      * 
      * @param element the OsmElement we are returning
      */
-    public MergeResult(@NonNull OsmElement element) {
+    public Result(@NonNull OsmElement element) {
         this.element = element;
     }
 
@@ -42,7 +38,7 @@ public class MergeResult {
      * 
      * @param issue the MergeIssue to add
      */
-    public void addIssue(@NonNull Issue issue) {
+    public void addIssue(@NonNull T issue) {
         if (issues == null) {
             issues = new HashSet<>();
         }
@@ -54,7 +50,7 @@ public class MergeResult {
      * 
      * @param issues a Collection containing Issues
      */
-    public void addAllIssues(@NonNull Collection<Issue> issues) {
+    public void addAllIssues(@NonNull Collection<T> issues) {
         if (this.issues == null) {
             this.issues = new HashSet<>();
         }
@@ -76,7 +72,7 @@ public class MergeResult {
      * @return a Collection of Issues
      */
     @Nullable
-    public Collection<Issue> getIssues() {
+    public Collection<T> getIssues() {
         return issues;
     }
 

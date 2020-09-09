@@ -19,9 +19,9 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
@@ -338,7 +338,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * 
      * @param result a MergeResult object from the operation
      */
-    protected void showConflictAlert(@NonNull MergeResult result) {
+    protected void showConflictAlert(@NonNull Result<?> result) {
         // TODO detailed message
         AlertDialog.Builder builder = new AlertDialog.Builder(main);
         builder.setMessage(R.string.toast_merge_tag_conflict);

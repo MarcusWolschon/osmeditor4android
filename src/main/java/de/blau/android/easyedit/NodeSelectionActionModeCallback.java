@@ -24,9 +24,10 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.osm.MergeResult;
+import de.blau.android.osm.MergeIssue;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.GeoMath;
@@ -189,7 +190,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      */
     private void mergeNodeWith(@NonNull List<OsmElement> target) {
         try {
-            MergeResult result = target.get(0) instanceof Way ? logic.performJoinNodeToWays(main, target, (Node) element)
+            Result<MergeIssue> result = target.get(0) instanceof Way ? logic.performJoinNodeToWays(main, target, (Node) element)
                     : logic.performMergeNodes(main, target, (Node) element);
             if (result != null) {
                 manager.invalidate(); // button will remain enabled

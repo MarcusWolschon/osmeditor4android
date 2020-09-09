@@ -18,7 +18,6 @@ import org.junit.Test;
 import androidx.annotation.NonNull;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.osm.MergeResult.Issue;
 import de.blau.android.util.Coordinates;
 import de.blau.android.util.Geometry;
 import de.blau.android.util.Util;
@@ -274,7 +273,7 @@ public class StorageDelegatorTest {
         Node last = w.getLastNode();
         Way newWay = d.splitAtNode(w, n);
         // all things the same the 1st way remains after merger
-        MergeResult result = d.mergeWays(w, newWay);
+        Result<MergeIssue> result = d.mergeWays(w, newWay);
         assertNull(result.getIssues());
         assertEquals(4, w.getNodes().size());
         assertNull(d.getOsmElement(Way.NAME, newWay.getOsmId()));
@@ -308,7 +307,7 @@ public class StorageDelegatorTest {
         assertEquals(4, w.getNodes().size());
         assertNotNull(result.getIssues());
         assertEquals(1, result.getIssues().size());
-        assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
+        assertTrue(result.getIssues().contains(MergeIssue.MERGEDTAGS));
         tags.clear();
         w.setTags(tags);
         // conflicting roles should allow merge but create non null result
@@ -320,7 +319,7 @@ public class StorageDelegatorTest {
         assertEquals(4, w.getNodes().size());
         assertNotNull(result.getIssues());
         assertEquals(1, result.getIssues().size());
-        assertTrue(result.getIssues().contains(Issue.ROLECONFLICT));
+        assertTrue(result.getIssues().contains(MergeIssue.ROLECONFLICT));
         // way with pos id should remain
         newWay = d.splitAtNode(w, n);
         newWay.setOsmId(1234L);
@@ -351,7 +350,7 @@ public class StorageDelegatorTest {
         d.insertElementSafe(n1);
         Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
         d.insertElementSafe(n2);
-        MergeResult result = d.mergeNodes(n1, n2);
+        Result<MergeIssue> result = d.mergeNodes(n1, n2);
         assertNull(result.getIssues());
         assertNotNull(d.getOsmElement(Node.NAME, n1.getOsmId()));
         assertNull(d.getOsmElement(Node.NAME, n2.getOsmId()));
@@ -375,7 +374,7 @@ public class StorageDelegatorTest {
         result = d.mergeNodes(n1, n1);
         assertNotNull(result.getIssues());
         assertEquals(1, result.getIssues().size());
-        assertTrue(result.getIssues().contains(Issue.SAMEOBJECT));
+        assertTrue(result.getIssues().contains(MergeIssue.SAMEOBJECT));
 
         d = new StorageDelegator();
         factory = d.getFactory();
@@ -393,7 +392,7 @@ public class StorageDelegatorTest {
         result = d.mergeNodes(n1, n2);
         assertNotNull(result.getIssues());
         assertEquals(1, result.getIssues().size());
-        assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
+        assertTrue(result.getIssues().contains(MergeIssue.MERGEDTAGS));
 
         // create two ways with common node
         Way w = addWayToStorage(d, false);
@@ -428,7 +427,7 @@ public class StorageDelegatorTest {
         result = d.mergeNodes(n1, n2);
         assertNotNull(result.getIssues());
         assertEquals(1, result.getIssues().size());
-        assertTrue(result.getIssues().contains(Issue.ROLECONFLICT));
+        assertTrue(result.getIssues().contains(MergeIssue.ROLECONFLICT));
     }
 
     /**

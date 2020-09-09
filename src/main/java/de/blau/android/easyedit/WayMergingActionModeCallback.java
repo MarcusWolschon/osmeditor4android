@@ -9,8 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.osm.MergeResult;
+import de.blau.android.osm.MergeIssue;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
 
@@ -55,7 +56,7 @@ public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
             return false;
         }
         try {
-            MergeResult result = logic.performMerge(main, way, (Way) element);
+            Result<MergeIssue> result = logic.performMerge(main, way, (Way) element);
             main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) result.getElement()));
             if (result.hasIssue()) {
                 showConflictAlert(result);

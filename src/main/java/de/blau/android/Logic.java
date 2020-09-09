@@ -69,7 +69,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.MapSplitSource;
-import de.blau.android.osm.MergeResult;
+import de.blau.android.osm.MergeIssue;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmChangeParser;
 import de.blau.android.osm.OsmElement;
@@ -81,6 +81,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.RelationMemberPosition;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.Server.Visibility;
@@ -1986,12 +1987,12 @@ public class Logic {
      * @return a MergeResult with the merged OsmElement and a list of issues if any
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
-    public synchronized MergeResult performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom)
+    public synchronized Result<MergeIssue> performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom)
             throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         try {
             displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
-            MergeResult result = getDelegator().mergeWays(mergeInto, mergeFrom);
+            Result<MergeIssue> result = getDelegator().mergeWays(mergeInto, mergeFrom);
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException e) {
@@ -2010,7 +2011,7 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     @NonNull
-    public synchronized MergeResult performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays)
+    public synchronized Result<MergeIssue> performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays)
             throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
@@ -2023,9 +2024,9 @@ public class Logic {
             }
         }
         try {
-            MergeResult result = new MergeResult();
+            Result<MergeIssue> result = new Result<>();
             Way previousWay = (Way) sortedWays.get(0);
-            MergeResult tempResult = new MergeResult();
+            Result<MergeIssue> tempResult = new Result<>();
             tempResult.setElement(previousWay);
             for (int i = 1; i < sortedWays.size(); i++) {
                 Way nextWay = (Way) sortedWays.get(i);
@@ -2180,9 +2181,9 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     @Nullable
-    public synchronized MergeResult performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin)
+    public synchronized Result<MergeIssue> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin)
             throws OsmIllegalOperationException {
-        MergeResult result = null;
+        Result<MergeIssue> result = null;
         if (!elements.isEmpty()) {
             createCheckpoint(activity, R.string.undo_action_join);
             for (OsmElement element : elements) {
@@ -2191,7 +2192,7 @@ public class Logic {
                     throw new OsmIllegalOperationException("Trying to join node to itself");
                 }
                 displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-                MergeResult tempResult = getDelegator().mergeNodes((Node) element, nodeToJoin);
+                Result<MergeIssue> tempResult = getDelegator().mergeNodes((Node) element, nodeToJoin);
                 if (result == null) {
                     result = tempResult;
                 } else {
@@ -2216,9 +2217,9 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     @Nullable
-    public synchronized MergeResult performJoinNodeToWays(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin)
-            throws OsmIllegalOperationException {
-        MergeResult result = null;
+    public synchronized Result<MergeIssue> performJoinNodeToWays(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements,
+            @NonNull Node nodeToJoin) throws OsmIllegalOperationException {
+        Result<MergeIssue> result = null;
         if (!elements.isEmpty()) {
             createCheckpoint(activity, R.string.undo_action_join);
             for (OsmElement element : elements) {
@@ -2228,7 +2229,7 @@ public class Logic {
                 if (wayNodes.contains(nodeToJoin)) {
                     throw new OsmIllegalOperationException("Trying to join node to itself in way");
                 }
-                MergeResult tempResult = null;
+                Result<MergeIssue> tempResult = null;
                 float x = lonE7ToX(nodeToJoin.getLon());
                 float y = latE7ToY(nodeToJoin.getLat());
                 Node node1 = wayNodes.get(0);
@@ -2256,7 +2257,7 @@ public class Logic {
                             try {
                                 getDelegator().moveNode(nodeToJoin, lat, lon);
                                 getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
-                                tempResult = new MergeResult(nodeToJoin);
+                                tempResult = new Result<>(nodeToJoin);
                             } catch (OsmIllegalOperationException e) {
                                 dismissAttachedObjectWarning(activity); // doesn't make sense to show
                                 rollback();

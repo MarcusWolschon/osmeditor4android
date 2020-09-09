@@ -32,7 +32,6 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.osm.MergeResult.Issue;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
@@ -537,7 +536,7 @@ public class GeometryEditsTest {
             int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 500.0f);
             Node n1 = logic.performAddNode(main, lon, lat);
             assertEquals(0, logic.getWaysForNode(n1).size());
-            MergeResult result = logic.performJoinNodeToWays(main, Util.wrapInList(w1), n1);
+            Result<MergeIssue> result = logic.performJoinNodeToWays(main, Util.wrapInList(w1), n1);
             assertTrue(w1.hasNode(n1));
             assertFalse(result.hasIssue());
         } catch (Exception igit) {
@@ -564,7 +563,7 @@ public class GeometryEditsTest {
             int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
             Node n2 = logic.performAddNode(main, lon, lat);
             assertEquals(2, App.getDelegator().getApiNodeCount());
-            MergeResult result = logic.performMergeNodes(main, Util.wrapInList(n1), n2);
+            Result<MergeIssue> result = logic.performMergeNodes(main, Util.wrapInList(n1), n2);
             assertEquals(1, App.getDelegator().getApiNodeCount());
             assertFalse(result.hasIssue());
             logic.undo();
@@ -578,7 +577,7 @@ public class GeometryEditsTest {
             result = logic.performMergeNodes(main, Util.wrapInList(n1), n2);
             assertTrue(result.hasIssue());
             assertEquals(1, result.getIssues().size());
-            assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
+            assertTrue(result.getIssues().contains(MergeIssue.MERGEDTAGS));
         } catch (Exception igit) {
             fail(igit.getMessage());
         }
