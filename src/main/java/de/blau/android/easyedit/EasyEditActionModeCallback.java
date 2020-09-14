@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewStub;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.ActionMenuView;
 import de.blau.android.App;
@@ -21,7 +20,6 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
@@ -331,19 +329,5 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             }
         }
         return result;
-    }
-
-    /**
-     * Show an AlertDialog when we've had a merge conflict
-     * 
-     * @param result a MergeResult object from the operation
-     */
-    protected void showConflictAlert(@NonNull Result<?> result) {
-        // TODO detailed message
-        AlertDialog.Builder builder = new AlertDialog.Builder(main);
-        builder.setMessage(R.string.toast_merge_tag_conflict);
-        builder.setNegativeButton(R.string.cancel, null);
-        builder.setPositiveButton(R.string.edit, (dialog, which) -> main.performTagEdit(result.getElement(), null, false, false));
-        builder.show();
     }
 }

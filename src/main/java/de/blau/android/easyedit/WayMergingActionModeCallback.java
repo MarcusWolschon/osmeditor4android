@@ -1,5 +1,6 @@
 package de.blau.android.easyedit;
 
+import java.util.List;
 import java.util.Set;
 
 import android.content.res.Resources.NotFoundException;
@@ -8,8 +9,8 @@ import android.view.Menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
+import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.osm.MergeIssue;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
@@ -56,10 +57,12 @@ public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
             return false;
         }
         try {
-            Result<MergeIssue> result = logic.performMerge(main, way, (Way) element);
-            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) result.getElement()));
-            if (result.hasIssue()) {
-                showConflictAlert(result);
+            List<Result> result = logic.performMerge(main, way, (Way) element);
+            Result r = result.get(0);
+            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) r.getElement()));
+            if (result.size() > 1 || r.hasIssue()) {
+                main.descheduleAutoLock();
+                TagConflictDialog.showDialog(main, result);
             }
         } catch (OsmIllegalOperationException e) {
             Snack.barError(main, e.getLocalizedMessage());

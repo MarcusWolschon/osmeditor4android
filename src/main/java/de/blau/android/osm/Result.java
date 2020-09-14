@@ -1,7 +1,9 @@
 package de.blau.android.osm;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
@@ -13,10 +15,18 @@ import androidx.annotation.Nullable;
  * @author Simon
  *
  */
-public class Result<T> {
+public class Result implements Serializable {
 
-    private OsmElement element;
-    Set<T>             issues = null;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2L;
+
+    private OsmElement          element;
+    private Set<Issue>          issues = null;
+    private Map<String, String> tags   = null;
+    private String              elementType;
+    private long                elementId;
 
     /**
      * Empty default constructor
@@ -38,7 +48,7 @@ public class Result<T> {
      * 
      * @param issue the MergeIssue to add
      */
-    public void addIssue(@NonNull T issue) {
+    public void addIssue(@NonNull Issue issue) {
         if (issues == null) {
             issues = new HashSet<>();
         }
@@ -50,7 +60,7 @@ public class Result<T> {
      * 
      * @param issues a Collection containing Issues
      */
-    public void addAllIssues(@NonNull Collection<T> issues) {
+    public void addAllIssues(@NonNull Collection<Issue> issues) {
         if (this.issues == null) {
             this.issues = new HashSet<>();
         }
@@ -72,7 +82,7 @@ public class Result<T> {
      * @return a Collection of Issues
      */
     @Nullable
-    public Collection<T> getIssues() {
+    public Collection<Issue> getIssues() {
         return issues;
     }
 
@@ -92,5 +102,58 @@ public class Result<T> {
      */
     public void setElement(OsmElement element) {
         this.element = element;
+    }
+
+    /**
+     * Get any relevant tags or null
+     * 
+     * @return the tags
+     */
+    @Nullable
+    public Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * Add relevant tags for the result
+     * 
+     * @param tags the tags to add
+     */
+    public void addTags(@NonNull Map<String, String> tags) {
+        if (this.tags == null) {
+            this.tags = tags;
+        } else {
+            this.tags.putAll(tags);
+        }
+    }
+
+    /**
+     * Save type and id of element, and zap element
+     */
+    public void saveElement() {
+        elementType = element.getName();
+        elementId = element.getOsmId();
+        element = null;
+    }
+
+    /**
+     * Restore the element from the saved values
+     * 
+     * @param delegator the current StorageDelegator element
+     */
+    public void restoreElement(@NonNull StorageDelegator delegator) {
+        element = delegator.getOsmElement(elementType, elementId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder b = new StringBuilder(element.getDescription());
+        if (hasIssue()) {
+            for (Issue issue : issues) {
+                b.append(" ");
+                b.append(issue.toString());
+            }
+        }
+        return b.toString();
     }
 }

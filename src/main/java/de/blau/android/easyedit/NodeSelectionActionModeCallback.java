@@ -22,9 +22,9 @@ import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
+import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.easyedit.turnrestriction.FromElementWithViaNodeActionModeCallback;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.osm.MergeIssue;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Result;
@@ -190,20 +190,21 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
      */
     private void mergeNodeWith(@NonNull List<OsmElement> target) {
         try {
-            Result<MergeIssue> result = target.get(0) instanceof Way ? logic.performJoinNodeToWays(main, target, (Node) element)
+            List<Result> result = target.get(0) instanceof Way ? logic.performJoinNodeToWays(main, target, (Node) element)
                     : logic.performMergeNodes(main, target, (Node) element);
-            if (result != null) {
+            if (!result.isEmpty()) {
                 manager.invalidate(); // button will remain enabled
-                if (!result.getElement().equals(element)) { // only re-select if not already selected
-                    manager.editElement(result.getElement());
+                OsmElement newElement = result.get(0).getElement();
+                if (!newElement.equals(element)) { // only re-select if not already selected
+                    manager.editElement(newElement);
                 }
-                if (result.hasIssue()) {
-                    showConflictAlert(result);
+                if (result.size() > 1 || result.get(0).hasIssue()) {
+                    TagConflictDialog.showDialog(main, result);
                 } else {
                     Snack.toastTopInfo(main, R.string.toast_merged);
                 }
             }
-        } catch (OsmIllegalOperationException e) {
+        } catch (OsmIllegalOperationException | IllegalStateException e) {
             Snack.barError(main, e.getLocalizedMessage());
         }
     }

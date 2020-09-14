@@ -121,7 +121,6 @@ final class Reverse {
                     }
                     if (rm.role != null && Tags.ROLE_BACKWARD.equals(rm.role)) {
                         rm.setRole(Tags.ROLE_FORWARD);
-                        continue;
                     }
                 }
             }

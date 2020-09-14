@@ -69,7 +69,6 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.MapSplitSource;
-import de.blau.android.osm.MergeIssue;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmChangeParser;
 import de.blau.android.osm.OsmElement;
@@ -1984,15 +1983,14 @@ public class Logic {
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param mergeInto Way to merge the other way into. This way will be kept.
      * @param mergeFrom Way to merge into the other. This way will be deleted.
-     * @return a MergeResult with the merged OsmElement and a list of issues if any
+     * @return a List of Result with the merged OsmElement and a list of issues if any
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
-    public synchronized Result<MergeIssue> performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom)
-            throws OsmIllegalOperationException {
+    public synchronized List<Result> performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom) {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         try {
             displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
-            Result<MergeIssue> result = getDelegator().mergeWays(mergeInto, mergeFrom);
+            List<Result> result = getDelegator().mergeWays(mergeInto, mergeFrom);
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException e) {
@@ -2007,12 +2005,10 @@ public class Logic {
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param sortedWays list of ways to be merged
-     * @return false if there were tag conflicts
-     * @throws OsmIllegalOperationException if the operation couldn't be performed
+     * @return a List of Result, empty if nothing went wrong
      */
     @NonNull
-    public synchronized Result<MergeIssue> performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays)
-            throws OsmIllegalOperationException {
+    public synchronized List<Result> performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays) {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
         if (sortedWays.isEmpty()) {
@@ -2024,23 +2020,29 @@ public class Logic {
             }
         }
         try {
-            Result<MergeIssue> result = new Result<>();
+            List<Result> overallResult = new ArrayList<>();
+            Result result = new Result();
+            overallResult.add(result);
             Way previousWay = (Way) sortedWays.get(0);
-            Result<MergeIssue> tempResult = new Result<>();
-            tempResult.setElement(previousWay);
+            result.setElement(previousWay);
             for (int i = 1; i < sortedWays.size(); i++) {
                 Way nextWay = (Way) sortedWays.get(i);
-                tempResult = getDelegator().mergeWays(previousWay, nextWay);
-                if (tempResult.hasIssue()) {
-                    Log.d(DEBUG_TAG, "ways " + previousWay.getDescription() + " and " + nextWay + " caused a merge conflict");
-                    result.addAllIssues(tempResult.getIssues());
+                List<Result> tempResult = getDelegator().mergeWays(previousWay, nextWay);
+                final Result newMergeResult = tempResult.get(0);
+                if (!(newMergeResult.getElement() instanceof Way)) {
+                    throw new IllegalStateException("mergeWays didn't return a Way");
                 }
+                if (newMergeResult.hasIssue()) {
+                    Log.d(DEBUG_TAG, "ways " + previousWay.getDescription() + " and " + nextWay + " caused a merge conflict");
+                    result.addAllIssues(newMergeResult.getIssues());
+                }
+                result.setElement(newMergeResult.getElement());
+                overallResult.addAll(tempResult.subList(1, tempResult.size()));
                 if (previousWay.getState() == OsmElement.STATE_DELETED) {
                     previousWay = nextWay;
                 }
             }
-            result.setElement(tempResult.getElement());
-            return result;
+            return overallResult;
         } catch (OsmIllegalOperationException e) {
             dismissAttachedObjectWarning(activity);
             rollback();
@@ -2172,39 +2174,42 @@ public class Logic {
     }
 
     /**
-     * Merge a node to with other Nodes.
+     * Merge a node with other Nodes.
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param elements List of Node that the Node will be merged to.
      * @param nodeToJoin Node to be merged
-     * @return a MergeResult object containing the result of the merge and if the result was successful
-     * @throws OsmIllegalOperationException if the operation couldn't be performed
+     * @return a List of MergeResult objects containing the result of the merge
      */
-    @Nullable
-    public synchronized Result<MergeIssue> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin)
-            throws OsmIllegalOperationException {
-        Result<MergeIssue> result = null;
+    @NonNull
+    public synchronized List<Result> performMergeNodes(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
+        List<Result> overallResult = new ArrayList<>();
         if (!elements.isEmpty()) {
             createCheckpoint(activity, R.string.undo_action_join);
+            Result result = null;
             for (OsmElement element : elements) {
-                nodeToJoin = (Node) (result != null ? result.getElement() : nodeToJoin);
+                nodeToJoin = (Node) (!overallResult.isEmpty() ? overallResult.get(0).getElement() : nodeToJoin);
                 if (element.equals(nodeToJoin)) {
                     throw new OsmIllegalOperationException("Trying to join node to itself");
                 }
                 displayAttachedObjectWarning(activity, element, nodeToJoin); // needs to be done before join
-                Result<MergeIssue> tempResult = getDelegator().mergeNodes((Node) element, nodeToJoin);
-                if (result == null) {
-                    result = tempResult;
+                List<Result> tempResult = getDelegator().mergeNodes((Node) element, nodeToJoin);
+                if (overallResult.isEmpty()) {
+                    overallResult = tempResult;
+                    result = overallResult.get(0);
                 } else {
-                    result.setElement(tempResult.getElement());
-                    if (tempResult.hasIssue()) {
-                        result.addAllIssues(tempResult.getIssues());
-                    }
+                    final Result newMergeResult = tempResult.get(0);
+                    result.setElement(newMergeResult.getElement()); // NOSONAR potential new result element
+                    result.addAllIssues(newMergeResult.getIssues());
+                    overallResult.addAll(tempResult.subList(1, tempResult.size()));
+                }
+                if (!(result.getElement() instanceof Node)) {
+                    throw new IllegalStateException("mergeNodes didn't return a Node");
                 }
             }
             invalidateMap();
         }
-        return result;
+        return overallResult;
     }
 
     /**
@@ -2213,23 +2218,21 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param elements List of Node that the Node will be merged to.
      * @param nodeToJoin Node to be merged
-     * @return a MergeResult object containing the result of the merge and if the result was successful
-     * @throws OsmIllegalOperationException if the operation couldn't be performed
+     * @return a List of Results object containing the result of the merge and if the result was successful
      */
-    @Nullable
-    public synchronized Result<MergeIssue> performJoinNodeToWays(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements,
-            @NonNull Node nodeToJoin) throws OsmIllegalOperationException {
-        Result<MergeIssue> result = null;
+    @NonNull
+    public synchronized List<Result> performJoinNodeToWays(@Nullable FragmentActivity activity, @NonNull List<OsmElement> elements, @NonNull Node nodeToJoin) {
+        List<Result> result = null;
         if (!elements.isEmpty()) {
             createCheckpoint(activity, R.string.undo_action_join);
             for (OsmElement element : elements) {
-                nodeToJoin = (Node) (result != null ? result.getElement() : nodeToJoin);
+                nodeToJoin = (Node) (result != null ? result.get(0).getElement() : nodeToJoin);
                 Way way = (Way) element;
                 List<Node> wayNodes = way.getNodes();
                 if (wayNodes.contains(nodeToJoin)) {
                     throw new OsmIllegalOperationException("Trying to join node to itself in way");
                 }
-                Result<MergeIssue> tempResult = null;
+                List<Result> tempResult = null;
                 float x = lonE7ToX(nodeToJoin.getLon());
                 float y = latE7ToY(nodeToJoin.getLat());
                 Node node1 = wayNodes.get(0);
@@ -2257,7 +2260,7 @@ public class Logic {
                             try {
                                 getDelegator().moveNode(nodeToJoin, lat, lon);
                                 getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
-                                tempResult = new Result<>(nodeToJoin);
+                                tempResult = Util.wrapInList(new Result(nodeToJoin));
                             } catch (OsmIllegalOperationException e) {
                                 dismissAttachedObjectWarning(activity); // doesn't make sense to show
                                 rollback();
@@ -2276,11 +2279,14 @@ public class Logic {
                 }
                 if (result == null) {
                     result = tempResult;
-                } else if (tempResult != null) { // if null we didn't actually merge anything
-                    result.setElement(tempResult.getElement());
-                    if (tempResult.hasIssue()) {
-                        result.addAllIssues(tempResult.getIssues());
+                } else if (tempResult != null && !tempResult.isEmpty()) { // if null we didn't actually merge anything
+                    final Result newMergeResult = tempResult.get(0);
+                    final Result mergeResult = result.get(0);
+                    mergeResult.setElement(newMergeResult.getElement());
+                    if (newMergeResult.hasIssue()) {
+                        mergeResult.addAllIssues(newMergeResult.getIssues());
                     }
+                    result.addAll(tempResult.subList(1, tempResult.size()));
                 }
             }
             invalidateMap();
@@ -2325,11 +2331,12 @@ public class Logic {
      * @param way the way to reverse
      * @return true if reverseWay returned true, implying that tags had to be reversed
      */
-    public synchronized boolean performReverse(@Nullable Activity activity, @NonNull Way way) {
+    @NonNull
+    public synchronized List<Result> performReverse(@Nullable Activity activity, @NonNull Way way) {
         createCheckpoint(activity, R.string.undo_action_reverse_way);
-        boolean hadToReverse = getDelegator().reverseWay(way);
+        List<Result> result = getDelegator().reverseWay(way);
         invalidateMap();
-        return hadToReverse;
+        return result;
     }
 
     /**

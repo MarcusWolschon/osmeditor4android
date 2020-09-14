@@ -2,7 +2,6 @@ package de.blau.android.easyedit;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -16,8 +15,8 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
+import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
-import de.blau.android.osm.MergeIssue;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -337,30 +336,18 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     /**
-     * 
+     * Actually merge the ways
      */
     void mergeWays() {
-        // check if the tags are the same for all ways first ... ignores direction dependent stuff
-        Map<String, String> firstTags = selection.get(0).getTags();
-        boolean ok = true;
-        for (int i = 1; i < selection.size(); i++) {
-            if ((firstTags.isEmpty() && !selection.get(i).getTags().isEmpty()) || !firstTags.entrySet().equals(selection.get(i).getTags().entrySet())) {
-                ok = false;
+        try {
+            List<Result> result = logic.performMerge(main, sortedWays);
+            final Result r = result.get(0);
+            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) r.getElement()));
+            if (result.size() > 1 || r.hasIssue()) {
+                TagConflictDialog.showDialog(main, result);
             }
-        }
-        if (!ok) {
-            Snack.barWarning(main, R.string.toast_potential_merge_tag_conflict);
-            main.performTagEdit(selection, false, false);
-        } else {
-            try {
-                Result<MergeIssue> result = logic.performMerge(main, sortedWays);
-                main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) result.getElement()));
-                if (result.hasIssue()) {
-                    showConflictAlert(result);
-                }
-            } catch (OsmIllegalOperationException e) {
-                Snack.barError(main, e.getLocalizedMessage());
-            }
+        } catch (OsmIllegalOperationException | IllegalStateException e) {
+            Snack.barError(main, e.getLocalizedMessage());
         }
     }
 

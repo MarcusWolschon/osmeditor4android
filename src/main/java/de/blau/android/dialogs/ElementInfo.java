@@ -72,13 +72,12 @@ import de.blau.android.validation.Validator;
  */
 public class ElementInfo extends ImmersiveDialogFragment {
 
-    private static final int    DISPLAY_LIMIT    = 10;
-    private static final String ELEMENT_KEY      = "element";
-    private static final String UNDOELEMENT_KEY  = "undoelement";
-    private static final String SHOW_JUMP_TO_KEY = "showJumpTo";
-    private static final String ELEMENT_ID_KEY   = "elementId";
-    private static final String ELEMENT_TYPE_KEY = "elementType";
-    private static final String COMPARE_KEY      = "compare";
+    private static final int    DISPLAY_LIMIT         = 10;
+    private static final String ELEMENT_KEY           = "element";
+    private static final String UNDOELEMENT_INDEX_KEY = "undoelement_index";
+    private static final String SHOW_JUMP_TO_KEY      = "showJumpTo";
+    private static final String ELEMENT_ID_KEY        = "elementId";
+    private static final String ELEMENT_TYPE_KEY      = "elementType";
 
     private static final String DEBUG_TAG = ElementInfo.class.getName();
 
@@ -88,6 +87,7 @@ public class ElementInfo extends ImmersiveDialogFragment {
 
     private OsmElement  element;
     private UndoElement ue;
+    private int         ueIndex = -1;
 
     /**
      * Show an info dialog for the supplied OsmElement
@@ -96,7 +96,7 @@ public class ElementInfo extends ImmersiveDialogFragment {
      * @param e the OsmElement
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e) {
-        showDialog(activity, null, e, false);
+        showDialog(activity, -1, e, false);
     }
 
     /**
@@ -107,22 +107,22 @@ public class ElementInfo extends ImmersiveDialogFragment {
      * @param showJumpTo display button to jump to object
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e, boolean showJumpTo) {
-        showDialog(activity, null, e, showJumpTo);
+        showDialog(activity, -1, e, showJumpTo);
     }
 
     /**
      * Show an info dialog for the supplied OsmElement
      * 
      * @param activity the calling Activity
-     * @param ue an UndoElement to compare with (currently this will only work with the original state)
+     * @param ueIndex index of an UndoElement to compare with (0 is the original element)
      * @param e the OsmElement
      * @param showJumpTo display button to jump to object
      */
-    public static void showDialog(@NonNull FragmentActivity activity, @Nullable UndoElement ue, @NonNull OsmElement e, boolean showJumpTo) {
+    public static void showDialog(@NonNull FragmentActivity activity, int ueIndex, @NonNull OsmElement e, boolean showJumpTo) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            ElementInfo elementInfoFragment = newInstance(ue, e, showJumpTo);
+            ElementInfo elementInfoFragment = newInstance(ueIndex, e, showJumpTo);
             elementInfoFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -141,16 +141,16 @@ public class ElementInfo extends ImmersiveDialogFragment {
     /**
      * Create a new instance of the ElementInfo dialog
      * 
-     * @param ue an UndoElement to compare with
+     * @param ueIndex index of an UndoElement to compare with
      * @param e OSMElement to display the info on
      * @return an instance of ElementInfo
      * @param showJumpTo display button to jump to object
      */
-    private static ElementInfo newInstance(@Nullable UndoElement ue, @NonNull OsmElement e, boolean showJumpTo) {
+    private static ElementInfo newInstance(int ueIndex, @NonNull OsmElement e, boolean showJumpTo) {
         ElementInfo f = new ElementInfo();
 
         Bundle args = new Bundle();
-        args.putSerializable(UNDOELEMENT_KEY, ue);
+        args.putSerializable(UNDOELEMENT_INDEX_KEY, ueIndex);
         args.putSerializable(ELEMENT_KEY, e);
         args.putSerializable(SHOW_JUMP_TO_KEY, showJumpTo);
 
@@ -170,19 +170,23 @@ public class ElementInfo extends ImmersiveDialogFragment {
             Log.d(DEBUG_TAG, "Restoring from saved state");
             // this will only work if the saved data is already loaded
             element = App.getDelegator().getOsmElement(savedInstanceState.getString(ELEMENT_TYPE_KEY), savedInstanceState.getLong(ELEMENT_ID_KEY));
-            if (savedInstanceState.getBoolean(COMPARE_KEY)) {
-                ue = App.getDelegator().getUndo().getOriginal(element);
-            }
+            ueIndex = savedInstanceState.getInt(UNDOELEMENT_INDEX_KEY, -1);
         } else {
             // always do this first
             element = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
-            ue = (UndoElement) getArguments().getSerializable(UNDOELEMENT_KEY);
+            ueIndex = getArguments().getInt(UNDOELEMENT_INDEX_KEY, -1);
             /*
              * Saving the arguments (done by the FragmentManager) can exceed the 1MB transaction size limit and cause a
              * android.os.TransactionTooLargeException
              */
             getArguments().remove(ELEMENT_KEY);
-            getArguments().remove(UNDOELEMENT_KEY);
+            getArguments().remove(UNDOELEMENT_INDEX_KEY);
+        }
+        if (ueIndex >= 0) {
+            List<UndoElement> undoElements = App.getDelegator().getUndo().getUndoElements(element);
+            if (undoElements.size() > ueIndex) {
+                ue = undoElements.get(ueIndex);
+            }
         }
     }
 
@@ -194,17 +198,20 @@ public class ElementInfo extends ImmersiveDialogFragment {
         final FragmentActivity activity = getActivity();
         BoundingBox tempBox = element != null ? element.getBounds() : null;
         final ViewBox box = tempBox != null ? new ViewBox(tempBox) : null;
-        if (getArguments().getBoolean(SHOW_JUMP_TO_KEY) && activity instanceof Main) {
-            builder.setNeutralButton(R.string.goto_element, (dialog, which) -> {
-                de.blau.android.dialogs.Util.dismissDialog(activity, ConfirmUpload.TAG);
-                if (box != null) {
-                    double[] center = box.getCenter();
-                    ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
-                } else {
-                    ((Main) activity).edit(element);
-                    Snack.toastTopWarning(activity, R.string.toast_no_geometry);
-                }
-            });
+        if (activity instanceof Main) {
+            if (getArguments().getBoolean(SHOW_JUMP_TO_KEY)) {
+                builder.setNeutralButton(R.string.goto_element, (dialog, which) -> {
+                    de.blau.android.dialogs.Util.dismissDialog(activity, ConfirmUpload.TAG);
+                    if (box != null) {
+                        double[] center = box.getCenter();
+                        ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
+                    } else {
+                        ((Main) activity).edit(element);
+                        Snack.toastTopWarning(activity, R.string.toast_no_geometry);
+                    }
+                });
+            }
+            builder.setNegativeButton(R.string.edit_properties, (dialog, which) -> ((Main) activity).performTagEdit(element, null, false, false));
         }
         builder.setTitle(R.string.element_information);
         builder.setView(createView(null));
@@ -243,7 +250,7 @@ public class ElementInfo extends ImmersiveDialogFragment {
 
         boolean compare = ue != null;
 
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tp.setMargins(10, 2, 10, 2);
         if (element != null) {
             boolean deleted = element.getState() == OsmElement.STATE_DELETED;
@@ -263,8 +270,9 @@ public class ElementInfo extends ImmersiveDialogFragment {
             }
 
             tl.addView(TableLayoutUtils.divider(activity));
+            String ueHeader = getString(ueIndex == 0 ? R.string.original : R.string.previous);
             if (compare) {
-                tl.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.original), deleted ? null : getString(R.string.current), tp));
+                tl.addView(TableLayoutUtils.createRow(activity, "", ueHeader, deleted ? null : getString(R.string.current), tp));
             }
             if (element.getName().equals(Node.NAME)) {
                 String oldLon = null;
@@ -367,16 +375,17 @@ public class ElementInfo extends ImmersiveDialogFragment {
                         }
                     }
                     // special handling for some stuff
+                    final CharSequence compareEmpty = compare ? "" : null;
                     if (k.equals(Tags.KEY_WIKIPEDIA)) {
                         Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
-                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : (compare ? "" : null),
+                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : compareEmpty,
                                 !deleted ? encodeUrl(Urls.WIKIPEDIA, currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
                     } else if (k.equals(Tags.KEY_WIKIDATA)) {
-                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : (compare ? "" : null),
+                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : compareEmpty,
                                 !deleted ? encodeUrl(Urls.WIKIDATA, currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
                     } else if (Tags.isWebsiteKey(k)) {
                         try {
-                            tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(oldValue) : (compare ? "" : null),
+                            tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(oldValue) : compareEmpty,
                                     !deleted ? encodeUrl(currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
                         } catch (MalformedURLException | URISyntaxException e1) {
                             Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + element);
@@ -399,7 +408,7 @@ public class ElementInfo extends ImmersiveDialogFragment {
                     List<RelationMember> origMembers = null;
                     boolean changesPrevious = false;
                     if (compare) {
-                        t2.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.original), deleted ? null : getString(R.string.current), tp));
+                        t2.addView(TableLayoutUtils.createRow(activity, "", ueHeader, deleted ? null : getString(R.string.current), tp));
                         origMembers = new ArrayList<>(((UndoRelation) ue).getMembers());
                     }
                     int memberCount = members.size();
@@ -693,7 +702,7 @@ public class ElementInfo extends ImmersiveDialogFragment {
         super.onSaveInstanceState(outState);
         outState.putString(ELEMENT_TYPE_KEY, element.getName());
         outState.putLong(ELEMENT_ID_KEY, element.getOsmId());
-        outState.putBoolean(COMPARE_KEY, ue != null);
+        outState.putInt(UNDOELEMENT_INDEX_KEY, ueIndex);
     }
 
     /**

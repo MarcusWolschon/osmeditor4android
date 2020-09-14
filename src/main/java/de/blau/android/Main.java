@@ -4298,7 +4298,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Schedule automatic locking of the screen in a configurable time in the future
      */
-    void scheduleAutoLock() {
+    public void scheduleAutoLock() {
         map.removeCallbacks(autoLock);
         if (prefs != null) {
             int delay = prefs.getAutolockDelay();
