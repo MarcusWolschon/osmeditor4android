@@ -1019,15 +1019,28 @@ public class UndoStorage implements Serializable {
      */
     @Nullable
     public UndoElement getOriginal(@NonNull OsmElement element) {
-        UndoElement result = null;
+        List<UndoElement> undoElements = getUndoElements(element);
+        if (!undoElements.isEmpty()) {
+            return undoElements.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * Get a list of all UndoElements for a specific element
+     * 
+     * @param element the OsmElement
+     * @return a List of UndoElement empty if nothing found
+     */
+    @NonNull
+    public List<UndoElement> getUndoElements(@NonNull OsmElement element) {
+        List<UndoElement> result = new ArrayList<>();
         String name = element.getName();
         long osmId = element.getOsmId();
-        int checkpointCount = undoCheckpoints.size();
-        // loop over most recent to oldest checkpoint
-        for (int i = checkpointCount - 1; i >= 0; i--) {
-            for (UndoElement undoElement : undoCheckpoints.get(i).elements.values()) {
+        for (Checkpoint checkpoint : undoCheckpoints) {
+            for (UndoElement undoElement : checkpoint.elements.values()) {
                 if (undoElement.element.getName().equals(name) && undoElement.osmId == osmId) {
-                    result = undoElement;
+                    result.add(undoElement);
                     break;
                 }
             }

@@ -10,13 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
+import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Geometry;
-import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -178,23 +179,12 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     }
 
     /**
-     * Reverse a way showing a confirmation dialog if it is not reversible without changing semantics
+     * Reverse a way displaying any serious issues
      */
-    private void reverseWay() {
-        final Way way = (Way) element;
-        if (way.notReversable()) {
-            new AlertDialog.Builder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
-                    .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> {
-                        if (logic.performReverse(main, way)) { // true if it had oneway tag
-                            Snack.barWarning(main, R.string.toast_oneway_reversed);
-                            main.performTagEdit(way, null, false, false);
-                        }
-                    }).show();
-        } else if (logic.performReverse(main, way)) { // true if it had oneway tag
-            Snack.barWarning(main, R.string.toast_oneway_reversed);
-            main.performTagEdit(way, null, false, false);
-        } else {
-            manager.invalidate(); // successful reversal update menubar
+    private void reverseWay(@NonNull final Way way) {
+        List<Result> result = logic.performReverse(main, way);
+        if (!result.isEmpty()) {
+            TagConflictDialog.showDialog(main, result);
         }
     }
 
@@ -210,7 +200,15 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 main.startSupportActionMode(new WayMergingActionModeCallback(manager, way, cachedMergeableWays));
                 break;
             case MENUITEM_REVERSE:
-                reverseWay();
+                if (way.notReversable()) {
+                    new AlertDialog.Builder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
+                            .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> {
+                                reverseWay(way);
+                            }).show();
+                } else {
+                    reverseWay(way);
+                }
+                manager.invalidate();
                 findConnectedWays(way);
                 break;
             case MENUITEM_APPEND:

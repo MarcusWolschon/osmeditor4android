@@ -189,7 +189,7 @@ public class ConfirmUpload extends ImmersiveDialogFragment {
             byte elemenState = element.getState();
             boolean deleted = elemenState == OsmElement.STATE_DELETED;
             if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
-                ElementInfo.showDialog(getActivity(), App.getDelegator().getUndo().getOriginal(element), element, !deleted);
+                ElementInfo.showDialog(getActivity(), 0, element, !deleted);
             } else {
                 ElementInfo.showDialog(getActivity(), element, !deleted);
             }
