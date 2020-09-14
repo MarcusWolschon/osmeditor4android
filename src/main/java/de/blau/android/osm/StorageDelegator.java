@@ -1570,8 +1570,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * 
      * @param o1 the first OsmElement
      * @param o2 the second OsmElement
-     * @return true if elements have different roles in the same relation
+     * @return a List (potentially empty) of issues if elements have different roles in the same relation
      */
+    @NonNull
     private List<Result> roleConflict(OsmElement o1, OsmElement o2) {
         List<Result> result = new ArrayList<>();
         List<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<>();
