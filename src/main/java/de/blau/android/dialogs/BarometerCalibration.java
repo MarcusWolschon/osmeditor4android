@@ -31,17 +31,16 @@ public class BarometerCalibration extends ImmersiveDialogFragment {
     private static final String TAG = "fragment_calibration_form";
 
     /**
-     * Display a dialog asking for a search term and allowing selection of geocoers
+     * Display a dialog allowing barometer calibration
      * 
      * @param activity the calling FragmentActivity
-     * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
      */
     public static void showDialog(@NonNull AppCompatActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            BarometerCalibration searchFormFragment = newInstance();
-            searchFormFragment.show(fm, TAG);
+            BarometerCalibration calibrationFragment = newInstance();
+            calibrationFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
         }
@@ -59,8 +58,7 @@ public class BarometerCalibration extends ImmersiveDialogFragment {
     /**
      * Create new instance of this object
      * 
-     * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
-     * @return a SearchForm instance
+     * @return a BarometerCallibration instance
      */
     private static BarometerCalibration newInstance() {
         BarometerCalibration f = new BarometerCalibration();
