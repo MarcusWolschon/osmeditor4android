@@ -727,7 +727,7 @@ public class Main extends FullScreenAppCompatActivity
 
         PostAsyncActionHandler postLoadData = () -> {
             Intent intent = getIntent();
-            if (rcData != null || geoData != null || contentUri != null || (intent != null && ACTION_MAPILLARY_SELECT.equals(intent.getAction()))) {
+            if (rcData != null || geoData != null || contentUri != null || (intent != null && intent.getAction() != null)) {
                 setShowGPS(false);
                 processIntents();
             } else {
