@@ -1093,29 +1093,19 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "got data from remote control url " + rcData.getBox() + " load " + rcData.load());
         Logic logic = App.getLogic();
         StorageDelegator delegator = App.getDelegator();
-        ArrayList<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
+        List<BoundingBox> bbList = new ArrayList<>(delegator.getBoundingBoxes());
         BoundingBox loadBox = rcData.getBox();
         if (loadBox != null) {
             if (rcData.load()) { // download
                 List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox);
                 if (bboxes != null && (!bboxes.isEmpty() || delegator.isEmpty())) {
                     // only download if we haven't yet
-                    logic.downloadBox(this, rcData.getBox(), true, new PostAsyncActionHandler() {
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public void onSuccess() {
-                            synchronized (newIntentsLock) {
-                                if (rcData != null) {
-                                    rcDataEdit(rcData);
-                                    rcData = null; // zap to stop repeated/ downloads
-                                }
+                    logic.downloadBox(this, rcData.getBox(), true, () -> {
+                        synchronized (newIntentsLock) {
+                            if (rcData != null) {
+                                rcDataEdit(rcData);
+                                rcData = null; // zap to stop repeated/ downloads
                             }
-                        }
-
-                        @Override
-                        public void onError() {
-                            // Ignore
                         }
                     });
                 } else {
