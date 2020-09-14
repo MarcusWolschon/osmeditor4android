@@ -202,9 +202,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
             case MENUITEM_REVERSE:
                 if (way.notReversable()) {
                     new AlertDialog.Builder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
-                            .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> {
-                                reverseWay(way);
-                            }).show();
+                            .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> reverseWay(way)).show();
                 } else {
                     reverseWay(way);
                 }
