@@ -973,7 +973,7 @@ avoided by using an offline data source.</string>
     <string name="config_orthogonalizeThreshold_summary">The threshold in ° over which angles are ignored</string>
     <string name="config_orthogonalizeThreshold_current">%1$d°</string>
     <string name="config_autoformatPhoneNumbers_title">Auto-format phone numbers</string>
-    <string name="config_autoformatPhoneNumbers_summary">Enable automaic formatting of phone numbers</string>
+    <string name="config_autoformatPhoneNumbers_summary">Enable automatic formatting of phone numbers</string>
     <!-- Auto-download settings -->
     <string name="config_category_auto_download">Auto-download settings</string>
     <string name="config_category_auto_download_summary">Settings for data and task auto downloading</string>
