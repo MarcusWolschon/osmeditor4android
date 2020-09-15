@@ -155,6 +155,7 @@
   <string name="geocoder_prompt">z</string>
   <string name="geocoder_limit_label">w widoku</string>
   <!--Search objects dialog-->
+  <string name="search_objects_title">Szukaj obiektów.</string>
   <!---->
   <string name="preset_search_hint">Wpisz nazwę szablonu</string>
   <string name="preset_autopreset">Automatyczny szablon</string>
@@ -184,10 +185,12 @@
   <string name="feature_information">Informacja o obiekcie GeoJSON</string>
   <string name="copy_properties">Kopiuj właściwości</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Dane w pamięci.</string>
   <string name="ways">Drogi</string>
   <!--Tile layer info dialog-->
   <string name="attribution">Przypisanie</string>
   <!--Too much data dialog-->
+  <string name="upload_data_now">Prześlij zmiany</string>
   <!---->
   <string name="error">Błąd</string>
   <string name="warning">Ostrzeżenie</string>
@@ -239,6 +242,7 @@
   <string name="oam_layer_title">Zdjęcia OAM</string>
   <string name="edit_layer_title">Edytuj warstwę</string>
   <string name="add_layer_title">Dodaj warstwę</string>
+  <string name="select_layer_title">Wybierz warstwę.</string>
   <string name="overlay">Nakładka</string>
   <string name="coverage">Zasięg</string>
   <string name="coverage_top">Góra</string>
@@ -267,6 +271,7 @@
   <string name="layer_select_imagery">Wybierz podkład</string>
   <string name="layer_category_all">Wszystkie</string>
   <string name="layer_category_map">Mapa</string>
+  <string name="layer_category_historicmap">Przestarzała mapa</string>
   <string name="layer_category_other">Inna</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Minimalne powiększenie</string>
@@ -569,7 +574,9 @@
   <string name="location_nan_message">Wprowadź współrzędne w formacie dziesiętnym (np. \"52.333572\",\"8.741185\"). Szer. musi być z zakresu od −85.0 do +85.0, a dł. od −175.0 do +175.0.</string>
   <string name="location_olc">OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Użyj</string>
   <!--Strings in postition info-->
+  <string name="position_info_altitude">Wysokość</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Pobierz pliki</string>
   <string name="allow_all_networks">Pozwól na wszystkie sieci</string>
@@ -625,6 +632,7 @@
   <string name="menu_transfer_load_current">Wczytaj bieżący widok</string>
   <string name="menu_transfer_load_replace">Wyczyść i wczytaj bieżący widok</string>
   <string name="menu_transfer_upload">Wyślij zmiany</string>
+  <string name="menu_transfer_update">Uaktualnij dane</string>
   <string name="menu_transfer_close_changeset">Zamknij zestaw zmian</string>
   <string name="menu_transfer_file">Plik…</string>
   <string name="menu_transfer_export">Eksportuj zmiany do pliku OSC</string>
@@ -662,13 +670,18 @@
   <string name="menu_extend_selection">Dodaj do zaznaczenia</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Polecenia głosowe</string>
+  <string name="menu_upload_element">Wyślij element</string>
+  <string name="menu_upload_elements">Wyślij elementy</string>
   <string name="menu_set_name">Nazwij</string>
   <string name="menu_tools">Narzędzia...</string>
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
   <string name="menu_tools_background_properties">Właściwości podkładu</string>
+  <string name="menu_tools_update_imagery_configuration">Aktualizuj konfigurację</string>
   <string name="menu_tools_zoom_to_layer_extent">Pokaż cały obszar objęty warstwą wyświetlaną w tle</string>
   <string name="menu_tools_clear_clipboard">Wyczyść schowek</string>
+  <string name="menu_tools_install_egm">Instaluj EGM</string>
+  <string name="menu_tools_remove_egm">Usuń EGM</string>
   <!---->
   <string name="menu_simple_actions">Tryb prosty</string>
   <string name="menu_feedback">Przekaż opinię</string>
@@ -688,8 +701,12 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Warstwy...</string>
+  <string name="menu_layers_load_geojson">Dodaj warstwę GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">Dodaj warstwę podkładu tła</string>
   <string name="menu_layers_add_overlaylayer">Dodaj nakładkę warstwy podkładu</string>
+  <string name="menu_layers_add_tasklayer">Włącz warstwę zadań</string>
+  <string name="menu_layers_add_grid">Włącz siatkę</string>
+  <string name="menu_layers_add_photolayer">Włącz warstwę zdjęć</string>
   <string name="menu_layers_configure">Konfiguracja…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Zastosuj zapamiętaną poprawkę położenia tła</string>
@@ -742,6 +759,8 @@
   <string name="actionmode_restriction_restart_to">Ponownie wybierz segment \"to\"</string>
   <string name="actionmode_restriction_split_from">Podziel segment \"z\"</string>
   <string name="actionmode_restriction_split_via">Podziel segment \"przez\"</string>
+  <string name="actionmode_extract_segment_select">Wybierz segment</string>
+  <string name="actionmode_extract_segment_set_tags">Ustaw znacznik</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 obiekt</item>
     <item quantity="few">%1$d obiekty</item>
@@ -838,6 +857,7 @@
   <string name="config_maxStrokeWidth_title">Maksymalna szerokość linii</string>
   <string name="config_maxStrokeWidth_summary">Nie wyświetlaj linii grubszych niż.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_upload_current">%1$d obiektów</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dane i ustawienia edycji</string>
   <string name="config_category_editing_summary">Opcje automatycznego pobierania, zapisywania i powiadomień.</string>

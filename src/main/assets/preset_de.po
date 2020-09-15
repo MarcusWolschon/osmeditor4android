@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-08-12 22:21+0200\n"
-"PO-Revision-Date: 2020-08-20 20:58+0000\n"
+"PO-Revision-Date: 2020-09-07 15:42+0000\n"
 "Last-Translator: kjon kjon <kjon@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -253,7 +253,7 @@ msgstr "Ein tieferes Gebiet zwischen zwei Hügeln."
 
 #: master_preset.xml:4510(label:text|group:Tourism|preset:Route_marker)
 msgid "A marker along a route."
-msgstr ""
+msgstr "Wegweiser entlang einer Route."
 
 #: master_preset.xml:9921(label:text|group:Geography|preset:Ridge)
 msgid "A mountain or hill ridge."
@@ -5032,7 +5032,7 @@ msgstr "Gesundheit"
 
 #: master_preset.xml:8714(item:name|group:Food|preset:Health_food)
 msgid "Health food"
-msgstr ""
+msgstr "Naturkostladen"
 
 #: master_preset.xml:11544(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Healthcare"
@@ -5152,7 +5152,7 @@ msgstr "Hochgeschwindigkeit"
 
 #: master_preset.xml:7367(item:name|group:Indoor_elements|preset:Highway_corridor)
 msgid "Highway corridor"
-msgstr ""
+msgstr "Flur"
 
 #: master_preset.xml:2092(item:name|preset:Highway_milestone)
 msgid "Highway milestone"
@@ -5698,7 +5698,7 @@ msgstr "Betonbarriere"
 
 #: master_preset.xml:3985(item:name|group:Airport|preset:Jet_bridge)
 msgid "Jet bridge"
-msgstr ""
+msgstr "Fluggastbrücke"
 
 #: master_preset.xml:2978(check:text|group:Shipping|preset:Boat_rental|key:jetski_rental)
 msgid "Jetskis"
@@ -5731,11 +5731,11 @@ msgstr "Kreuzung"
 
 #: master_preset.xml:1894(check:text|group:Waypoints|preset:Motorway_Junction|key:noname)
 msgid "Junction has no name"
-msgstr ""
+msgstr "Ausfahrt ohne Namen"
 
 #: master_preset.xml:1896(check:text|group:Waypoints|preset:Motorway_Junction|key:noref)
 msgid "Junction has no reference"
-msgstr ""
+msgstr "Ausfahrt ohne Nummer"
 
 #: master_preset.xml:1399(text:text|group:Streets|preset:Primary_Link|key:junction:ref)
 #: master_preset.xml:203(text:text|key:junction:ref)
@@ -13555,11 +13555,11 @@ msgstr "Zulu"
 
 #: master_preset.xml:2167(label:text|group:Barriers|preset:Bollard)
 msgid "`access=no`, `foot=yes` and `bicycle=yes`"
-msgstr ""
+msgstr "`access=no`, `foot=yes` und `bicycle=yes`"
 
 #: master_preset.xml:2206(label:text|group:Barriers|preset:Bus_Trap)
 msgid "`motor_vehicle=no`, `psv=yes`, `foot=yes` and `bicycle=yes`"
-msgstr ""
+msgstr "`motor_vehicle=no`, `psv=yes`, `foot=yes` und `bicycle=yes`"
 
 #: master_preset.xml:10926(role:text|preset:Street|key:address)
 msgid "addresses belonging to the street"
@@ -18719,7 +18719,7 @@ msgstr "Öffentlicher Verkehr"
 #: master_preset.xml:6342(list_entry:short_description|group:Facilities|preset:Shelter|value:rock_shelter)
 msgctxt "shelter"
 msgid "Rock shelter"
-msgstr ""
+msgstr "Felsvorsprung"
 
 #: master_preset.xml:6343(list_entry:short_description|group:Facilities|preset:Shelter|value:sun_shelter)
 msgctxt "shelter"
@@ -19385,7 +19385,7 @@ msgstr "Kriegsmahnmal"
 #: master_preset.xml:8776(item:name|group:Clothes|preset:Shoe_repair)
 msgctxt "shop"
 msgid "Shoe repair"
-msgstr ""
+msgstr "Schuhreparatur"
 
 #: master_preset.xml:8766(item:name|group:Clothes|preset:Shoes)
 msgctxt "shop"

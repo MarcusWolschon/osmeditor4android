@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-08-12 22:21+0200\n"
-"PO-Revision-Date: 2020-08-18 13:32+0000\n"
-"Last-Translator: Alex Af <afanasovich@gmail.com>\n"
+"PO-Revision-Date: 2020-08-31 07:37+0000\n"
+"Last-Translator: Андрей Коваленко\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5431,7 +5431,7 @@ msgstr ""
 #: master_preset.xml:10439(text:text|group:Addresses_and_Contact|preset:Contact|key:image)
 #: master_preset.xml:10452(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:image)
 msgid "Image"
-msgstr ""
+msgstr "Фотография"
 
 #: master_preset.xml:1225(check:text|key:diplomatic:services:immigrant_visas)
 msgid "Immigrant visas"
@@ -5603,7 +5603,7 @@ msgstr ""
 
 #: master_preset.xml:6206(item:name|group:Facilities|preset:Internet_Access)
 msgid "Internet Access"
-msgstr ""
+msgstr "Доступ в интернет"
 
 #: master_preset.xml:6199(item:name|group:Facilities|preset:Internet_Cafe)
 msgid "Internet Cafe"
@@ -9675,7 +9675,7 @@ msgstr ""
 
 #: master_preset.xml:1234(combo:display_values|key:reservation)
 msgid "Recommended"
-msgstr ""
+msgstr "Рекомендуется"
 
 #: master_preset.xml:7757(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -9934,7 +9934,7 @@ msgstr ""
 
 #: master_preset.xml:1234(combo:display_values|key:reservation)
 msgid "Required"
-msgstr ""
+msgstr "Обязательно"
 
 #: master_preset.xml:5742(combo:display_values|group:Emergency|preset:Emergency_ward_entrance|key:emergency_ward_entrance)
 msgid "Rescue service"
@@ -11732,7 +11732,7 @@ msgstr ""
 
 #: master_preset.xml:1222(text:text|key:target)
 msgid "Target"
-msgstr ""
+msgstr "Цель"
 
 #: master_preset.xml:60(combo:display_values|key:surface)
 msgid "Tartan"
@@ -14416,7 +14416,7 @@ msgstr ""
 #: master_preset.xml:153(list_entry:short_description|value:free)
 msgctxt "parking"
 msgid "Free"
-msgstr ""
+msgstr "Бесплатно"
 
 #: master_preset.xml:647(combo:display_values|key:parking)
 msgctxt "parking"
@@ -15103,7 +15103,7 @@ msgstr ""
 #: master_preset.xml:2609(combo:display_values|group:Access_Restrictions|preset:Other_mode_restrictions|key:4wd_only)
 msgctxt "access"
 msgid "Recommended"
-msgstr ""
+msgstr "Рекомендуется"
 
 #: master_preset.xml:890(combo:text|key:ship)
 msgctxt "access"
@@ -19172,7 +19172,7 @@ msgstr ""
 #: master_preset.xml:7806(item:name|group:Man_Made|preset:Beehive)
 msgctxt "man_made"
 msgid "Beehive"
-msgstr ""
+msgstr "Улей"
 
 #: master_preset.xml:7707(item:name|group:Man_Made|preset:Dolphin)
 msgctxt "man_made"

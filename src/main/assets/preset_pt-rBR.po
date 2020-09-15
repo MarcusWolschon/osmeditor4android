@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-08-12 22:21+0200\n"
-"PO-Revision-Date: 2020-08-18 03:20+0000\n"
+"PO-Revision-Date: 2020-09-01 15:07+0000\n"
 "Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -14536,7 +14536,7 @@ msgstr "Tipo"
 #: master_preset.xml:647(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "Subterrâneo"
 
 #: master_preset.xml:174(combo:display_values|key:overtaking)
 msgctxt "overtaking"

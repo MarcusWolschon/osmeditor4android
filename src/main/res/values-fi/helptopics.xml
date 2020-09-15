@@ -23,6 +23,12 @@
     <string name="help_opening_hours">Aukioloajat</string>
     <string name="help_newnoteselection">Uuden huomion valinta</string>
     <string name="help_voice_commands">Äänikomennot</string>
+    <string name="help_upgrade">14.1 Julkaisutiedot</string>
+    <string name="help_upgrade_140">14.0 Julkaisutiedot</string>
+    <string name="help_upgrade_131">13.1 Julkaisutiedot</string>
+    <string name="help_upgrade_130">13.0 Julkaisutiedot</string>
+    <string name="help_upgrade_121">12.1 Julkaisutiedot</string>
+    <string name="help_upgrade_120">12.0 Julkaisutiedot</string>
     <string name="help_upgrade_112">11.2 Julkaisutiedot</string>
     <string name="help_upgrade_111">11.1 Julkaisutiedot</string>
     <string name="help_upgrade_110">11.0 Julkaisutiedot</string>

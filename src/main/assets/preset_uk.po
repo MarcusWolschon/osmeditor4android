@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-08-12 22:21+0200\n"
-"PO-Revision-Date: 2020-08-12 20:22+0000\n"
+"PO-Revision-Date: 2020-09-03 09:27+0000\n"
 "Last-Translator: Andrey Golovin\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openstreetmap/presets/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -14534,7 +14534,7 @@ msgstr "Тип"
 #: master_preset.xml:647(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "Підземна"
 
 #: master_preset.xml:174(combo:display_values|key:overtaking)
 msgctxt "overtaking"

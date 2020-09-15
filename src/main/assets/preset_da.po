@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-08-12 22:21+0200\n"
-"PO-Revision-Date: 2020-08-21 09:18+0000\n"
+"PO-Revision-Date: 2020-09-02 22:11+0000\n"
 "Last-Translator: Mikkel Kirkgaard Nielsen <memb_transifex@mikini.dk>\n"
 "Language-Team: Danish (http://www.transifex.com/openstreetmap/presets/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -941,7 +941,7 @@ msgstr ""
 
 #: master_preset.xml:7758(check:text|group:Man_Made|preset:Monitoring_Station|key:recording:automated)
 msgid "Automated"
-msgstr ""
+msgstr "Automatiseret"
 
 #: master_preset.xml:5745(item:name|group:Emergency|preset:Automated_Defibrillator)
 msgid "Automated Defibrillator"
@@ -1096,7 +1096,7 @@ msgstr ""
 
 #: master_preset.xml:4540(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
-msgstr ""
+msgstr "Musikpavillon"
 
 #: master_preset.xml:7782(combo:display_values|group:Man_Made|preset:Surveillance|key:surveillance:zone)
 #: master_preset.xml:9640(item:name|group:Money|preset:Bank)
@@ -1428,7 +1428,7 @@ msgstr ""
 
 #: master_preset.xml:6311(item:name|group:Facilities|preset:Bleachers)
 msgid "Bleachers"
-msgstr ""
+msgstr "Lægtepladser"
 
 #: master_preset.xml:1922(combo:display_values|group:Waypoints|preset:Traffic_Signal|key:traffic_signals)
 msgid "Blink mode"
@@ -3222,7 +3222,7 @@ msgstr "Udpeget til netop dette formål"
 #: master_preset.xml:1434(text:text|group:Streets|preset:Secondary_Link|key:destination)
 #: master_preset.xml:201(text:text|key:destination)
 msgid "Destination"
-msgstr ""
+msgstr "Endepunkt"
 
 #: master_preset.xml:10931(item:name|preset:Destination_Sign)
 msgid "Destination Sign"
@@ -14863,7 +14863,7 @@ msgstr "Bestemt netop til dette formål"
 #: master_preset.xml:677(combo:display_values|key:access)
 msgctxt "access"
 msgid "Destination"
-msgstr ""
+msgstr "Endepunkt"
 
 #: master_preset.xml:2188(combo:display_values|group:Barriers|preset:Cycle_Barrier|key:bicycle)
 msgctxt "access"
@@ -17805,7 +17805,7 @@ msgstr ""
 #: master_preset.xml:3461(check:text|group:Car|preset:Wash|key:automated)
 msgctxt "car_wash"
 msgid "Automated"
-msgstr ""
+msgstr "Automatiseret"
 
 #: master_preset.xml:3483(multiselect:text|group:Car|preset:Repair|key:service)
 #: master_preset.xml:3505(multiselect:text|group:Car|preset:Caravan_Dealer|key:service)

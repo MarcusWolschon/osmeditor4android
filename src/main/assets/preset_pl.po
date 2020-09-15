@@ -11,12 +11,13 @@
 # Right Path, 2018-2019
 # Ryszard Mikke <Ryszard.Mikke@gmail.com>, 2016
 # steelman <stlman@poczta.fm>, 2017
+# Cristoffs <wzbartczak@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-08-12 22:21+0200\n"
-"PO-Revision-Date: 2020-08-12 20:22+0000\n"
-"Last-Translator: Teiron\n"
+"PO-Revision-Date: 2020-08-24 22:06+0000\n"
+"Last-Translator: Cristoffs <wzbartczak@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -301,7 +302,7 @@ msgstr "Pojedynczy godny uwagi głaz, mogący się różnić względem terenu na
 
 #: master_preset.xml:10140(label:text|group:Nature|preset:Shrub)
 msgid "A single shrub."
-msgstr ""
+msgstr "Pojedynczy krzak "
 
 #: master_preset.xml:9984(label:text|group:Nature|preset:Tree)
 msgid "A single tree."
@@ -2292,7 +2293,7 @@ msgstr "Wiśnie"
 
 #: master_preset.xml:6908(item:name|group:Sport|preset:Chess)
 msgid "Chess"
-msgstr ""
+msgstr "Szachy"
 
 #: master_preset.xml:6916(check:text|group:Sport|preset:Chess|key:playground)
 msgid "Chess table"
@@ -15330,7 +15331,7 @@ msgstr "Kajak"
 #: master_preset.xml:632(multiselect:display_values|key:sport)
 msgctxt "sport"
 msgid "Chess"
-msgstr ""
+msgstr "Szachy"
 
 #: master_preset.xml:632(multiselect:display_values|key:sport)
 msgctxt "sport"

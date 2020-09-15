@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-08-12 22:21+0200\n"
-"PO-Revision-Date: 2020-08-12 20:22+0000\n"
+"PO-Revision-Date: 2020-09-14 14:04+0000\n"
 "Last-Translator: Magnus Österlund\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -609,7 +609,7 @@ msgstr "Ambulansstation"
 
 #: master_preset.xml:5929(item:name|group:Social_Facilities|preset:Ambulatory_Care)
 msgid "Ambulatory Care"
-msgstr ""
+msgstr "Öppenvård"
 
 #: master_preset.xml:543(multiselect:display_values|key:cuisine)
 msgid "American"
@@ -5989,7 +5989,7 @@ msgstr ""
 
 #: master_preset.xml:6296(item:name|group:Facilities|preset:Lavoir)
 msgid "Lavoir"
-msgstr ""
+msgstr "Tvättbrygga"
 
 #: master_preset.xml:7039(item:name|group:Sport_(Ball)|preset:Lawn_Bowling)
 msgid "Lawn Bowling"

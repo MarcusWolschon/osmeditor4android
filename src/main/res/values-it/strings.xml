@@ -63,6 +63,7 @@
   <string name="progress_preset_message">Scaricamento dei predefiniti in corso...</string>
   <string name="progress_running_message">In esecuzione...</string>
   <string name="progress_oauth">Caricamento del tuo account da openstreetmap.org per l\'autorizzazione OAuth...</string>
+  <string name="progress_building_imagery_database">Generazione del database delle immagini…</string>
   <!--Confirm upload dialog-->
   <string name="changes_deleted">\"%1$s\" cancellato</string>
   <string name="changes_changed">\"%1$s\" modificato</string>
@@ -100,7 +101,13 @@
   <string name="bug_element_1">%1$s (non scaricato) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">Compiti MapRoulette</string>
+  <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
+  <string name="maproulette_task_explanations">Spiegazioni</string>
+  <string name="maproulette_task_set_apikey">Imposta chiave API MapRoulette</string>
+  <string name="maproulette_task_apikey_not_set">Impossibile salvare chiave API MapRoulette</string>
   <string name="maproulette_task_disable">Disabilita</string>
+  <string name="maproulette_task_apikey_set">Chiave API di MapRoulette salvata</string>
+  <string name="maproulette_task_no_apikey">Nessuna chiave API di MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Le tuoi modifiche non salvare verranno eliminate se procedi.</string>
@@ -136,6 +143,7 @@
   <string name="delete_tags">Cancellare tutte le etichette dell\'oggetto\" %1$s\"?</string>
   <!--element information dialog-->
   <string name="element_information">Informazioni elemento</string>
+  <string name="id">ID</string>
   <string name="nodes">Nodi</string>
   <string name="relation_membership">Membri della relazione</string>
   <string name="problem">Problema</string>
@@ -152,10 +160,15 @@
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Copia proprietà</string>
   <!--API/Data layer info dialog-->
+  <string name="data_in_memory">Dati in memoria</string>
   <string name="total">Totale</string>
+  <string name="changed">Modificato</string>
   <string name="ways">Percorsi</string>
   <!--Tile layer info dialog-->
   <!--Too much data dialog-->
+  <string name="too_much_data_title">Caricati troppi dati!</string>
+  <string name="too_much_data_message">Hai caricato %1$d nodi e sei andato oltre il limite impostato. Questo causerà un rallentamento e, se carichi più dati, un potenziale problema con il salvataggio.</string>
+  <string name="upload_data_now">Carica modifiche</string>
   <!---->
   <string name="error">Errore</string>
   <string name="warning">Attenzione</string>
@@ -166,6 +179,7 @@
   <!--This concerns a shown message that should be shown every time-->
   <string name="attached_object_warning_continue">Ok, continua a mostrare</string>
   <!--This concerns a shown message that should only be shown once-->
+  <string name="attached_object_warning_stop">OK, ignora</string>
   <!--debug dialog-->
   <string name="send_debug_information">Invia informazioni di debug</string>
   <!--JS console dialog-->
@@ -175,6 +189,7 @@
   <string name="js_console_input_hint">Inserisci codice JavaScript</string>
   <!--Validator dialogs-->
   <string name="validator_title">Insieme di regole di validazione %1$s</string>
+  <string name="resurvey_entries">Controlla di nuovo</string>
   <string name="edit_resurvey_title">Modifica dati sopralluogo</string>
   <string name="add_resurvey_title">Aggiungi dati sopralluogo</string>
   <string name="check_entries">Verifica</string>
@@ -182,10 +197,13 @@
   <string name="add_check_title">Aggiungi controllo inserimenti</string>
   <string name="max_age">Età massima</string>
   <string name="age">Età</string>
+  <string name="check_opt">Richiedi se\nopzionale</string>
+  <string name="check_optional">Richiedi se opzionale</string>
   <string name="add_resurvey_entry">Aggiungi dati sopralluogo</string>
   <string name="add_check_entry">Aggiungi controllo inserimenti</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relazione vuota</string>
+  <string name="empty_relation_message">La relazione %1$s non ha membri.\n\nSe la lasci così non potrai modificarla con Vespucci.</string>
   <string name="add_members">Aggiungi membri</string>
   <string name="leave_empty">Lascia vuoto</string>
   <!--GPX waypoint dialog-->
@@ -199,6 +217,7 @@
   <string name="oam_layer_title">Immagini OAM</string>
   <string name="edit_layer_title">Modifica livello</string>
   <string name="add_layer_title">Aggiungi livello</string>
+  <string name="select_layer_title">Seleziona livello</string>
   <string name="overlay">Sovraimpresso</string>
   <string name="coverage">Copertura</string>
   <string name="coverage_top">In alto</string>
@@ -207,6 +226,10 @@
   <string name="coverage_bottom">In basso</string>
   <string name="toast_invalid_box">Riquadro di selezione non valido</string>
   <string name="delete_layer">Eliminare il livello?</string>
+  <string name="delete_endpoint">Cancellare punto?</string>
+  <string name="add_wms_endpoint_title">Aggiungi nodo WMS</string>
+  <string name="edit_wms_endpoint_title">Modifica punto WMS</string>
+  <string name="add_imagery_from_wms_endpoint">Aggiunti immagini da WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Stile livello</string>
   <string name="layer_style_stroke_width">Larghezza linee</string>
@@ -216,6 +239,7 @@
   <string name="json_array_not_displayed">Array JSON (non visibile)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Griglia</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Foto</string>
@@ -229,6 +253,7 @@
   <string name="layer_category_photo">Immagini aeree</string>
   <string name="layer_category_historicphoto">Immagini aeree vecchie</string>
   <string name="layer_category_map">Mappa</string>
+  <string name="layer_category_osmbasedmap">Mappa basata su OSM</string>
   <string name="layer_category_other">Altro</string>
   <!--Layer info dialog-->
   <string name="layer_info_min_zoom">Zoom minimo</string>
@@ -239,21 +264,34 @@
   <string name="layer_info_privacy_policy">Privacy policy</string>
   <!--Photo viewer-->
   <string name="photo_viewer_delete_title">Cancella foto</string>
+  <string name="photo_viewer_delete_button">Cancella definitvamente</string>
+  <string name="photo_viewer_goto">Vai alla foto</string>
+  <string name="photo_viewer_label">Photo Viewer</string>
+  <string name="mapillary_viewer_label">Mapillary Viewer</string>
   <!--API info dialog-->
   <string name="api_info_bounds">Riquadro di selezione</string>
+  <string name="api_info_latest_date">Ultima data inclusa</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punti di controllo</string>
   <string name="undo_redo_title">Annulla</string>
+  <string name="undo_redo_one">Solo il punto di controllo selezionato (rischioso)</string>
   <string name="undo_all">Annulla tutti i punti di controllo successivi (sicuro)</string>
   <string name="redo_all">Ripeti tutti i punti di controllo precedenti (sicuro)</string>
   <!--Undo location not in view dialog-->
+  <string name="undo_location_undo_anyway">Annulla comunque</string>
+  <string name="undo_location_zoom">Ingrandisci sulla posizione poi annulla</string>
   <!--Feedback activity-->
+  <string name="feedback_with_displayname">Invia insieme al tuo nome utente di OpenStreetMap</string>
+  <string name="feedback_displayname_hint">Nome utente di OpenStreetMap non ancora recuperato</string>
   <string name="feedback_title">Feedback per gli sviluppatori</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
   <!--Clear/Reset GPX Track-->
   <string name="clear_track_description">Smetti di tracciare e cancella tutti i punti registrati. Questa azione non può essere annullata.</string>
   <!--Tips-->
+  <string name="tip_title">Lo sapevi?</string>
+  <string name="tip_check_label">Non mostrare più suggerimenti opzionali</string>
+  <string name="tip_undo">Premendo a lungo il tasto annulla vengono mostrati tutti i punti di controllo per annulla e rifai.</string>
   <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -265,6 +303,7 @@
   <string name="toast_name_empty">Scegli un nome</string>
   <string name="toast_url_empty">Inserisci URL</string>
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
+  <string name="toast_jpeg_not_transparent">I file JPEG non sono trasparenti e non possono essere utilizzati come overlay</string>
   <string name="clear_anyway">Cancella comunque?</string>
   <string name="toast_upload_success">Caricate sul server OSM.</string>
   <string name="toast_not_in_edit_range">Per favore ingrandisci per modificare (Volume ↑/↓ o lens/shift)</string>
@@ -313,11 +352,17 @@
   <string name="toast_invalid_apiurl">URL dell\'API non valida</string>
   <string name="toast_invalid_readonlyurl">URL invalido per le API in sola lettura</string>
   <string name="toast_invalid_filter_regexp">Espressione regolare non valida nel filtro con key=\"%1$s\" value=\"%2$s\"</string>
+  <string name="toast_error_accessing_photo">Impossibile accedere alla foto %1$s</string>
+  <string name="toast_security_error_accessing_photo">Non autorizzato ad accedere alla foto %1$s</string>
   <string name="toast_no_coverage">%1$s non ha copertura qua</string>
+  <string name="toast_file_exists">Il file %1$s esiste.</string>
   <string name="toast_needs_resurvey">L\'oggetto potrebbe non essere aggiornato</string>
   <string name="toast_missing_key">%1$s chiave mancante</string>
   <string name="toast_invalid_object">Oggetto non valido</string>
   <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
+  <string name="toast_exit_multiselect">Per uscire tocca due volte in uno spazio vuoto oppure usa il tasto ←</string>
+  <string name="toast_exit_actionmode">Usa il tasto ← per salvare e uscire</string>
+  <string name="toast_abort_actionmode">Usa il tasto ← per interrompere</string>
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
   <string name="toast_illegal_operation">Operazione non consentita: %1$s</string>
@@ -334,7 +379,17 @@
   <string name="toast_unable_to_create_task_layer">Impossibile creare un livello per i compiti</string>
   <string name="toast_merged">Unito</string>
   <string name="toast_invalid_style_file">Formato dei file invalido per %1$s</string>
+  <string name="toast_updated">Aggiornato%1$s</string>
+  <string name="toast_error_reading">Errore nella lettura di %1$s</string>
+  <string name="toast_download_started">Iniziato download di %1$s</string>
+  <string name="toast_phone_number_reformatted">Numero di telefono riformattato</string>
   <string name="toast_members_not_downloaded">Alcuni membri della relazione non sono stati scaricati</string>
+  <plurals name="added_required_elements">
+    <item quantity="one">Aggiunto l\'elemento richiesto</item>
+    <item quantity="other">Aggiunti %1$d elementi richiesti</item>
+  </plurals>
+  <string name="toast_out_of_memory">MEMORIA ESAURITA!</string>
+  <string name="toast_error_downloading_mapillary_image">Errore nel caricamento dell\'immagine mapillary %1$s</string>
   <!--Error messages-->
   <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom massimo e minimo</string>
   <string name="error_pbf_no_version">Informazione sulla versione mancante nel file PBF</string>
@@ -375,11 +430,14 @@
   <!--Dialog for back button-->
   <string name="exit_title">Esci Vespucci</string>
   <string name="exit_text">Sei sicuro di voler uscire?</string>
+  <string name="pause_exit_text">Vuoi davvero mettere in pausa il tracking e uscire?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">chiave</string>
   <string name="Key">Chiave</string>
   <string name="value">valore</string>
   <string name="Value">Valore</string>
+  <string name="multiselect_header_short">Valori (%1$d)</string>
+  <string name="multiselect_header_long">Valori (per %1$d elementi)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Aggiungi le etichette dell\'indirizzo civico</string>
   <string name="tag_menu_sourcesurvey">Da rilevamento</string>
@@ -412,12 +470,14 @@
   <string name="tag_menu_sort">Ordina</string>
   <string name="tag_menu_reverse_order">Ordine inverso</string>
   <string name="tag_menu_download">Scarica</string>
+  <string name="tag_menu_js_console">Console JS</string>
   <string name="menu_up">Su</string>
   <string name="menu_top">In alto</string>
   <string name="menu_select_all">Seleziona tutto</string>
   <string name="menu_deselect_all">Deseleziona tutto</string>
   <string name="menu_preset_help">Guida preset</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
+  <string name="tag_menu_i18n">Aggiungi etichette della lingua</string>
   <string name="tag_restriction_header">Valore</string>
   <string name="tag_restriction_when">quando</string>
   <string name="tag_restriction_and">e</string>
@@ -425,7 +485,10 @@
   <string name="tag_restriction_add_simple_condition">Aggiungi una semplice condizione</string>
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
+  <string name="tag_restriction_value_hint">Restrizione condizionale</string>
+  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <string name="tag_form_unknown_element">Elemento sconosciuto (nessun predefinito trovato)</string>
+  <string name="tag_form_untagged_element">Elementi senza etichette</string>
   <!--Custom preset creation-->
   <string name="create_preset_default_name">%1$spersonalizzato</string>
   <!--Strings in Box/LocationPicker-->
@@ -450,9 +513,24 @@
   <string name="location_nan_title">Input erroneo!</string>
   <string name="location_nan_message">Per favore inserisci coordinate in formato decimale (es. \"52.333572\",\"8.741185\"). Lat. deve essere tra -85.0 e +85.0, e Lon. deve essere tra -175.0 e +175.0.</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_label">Usa</string>
+  <string name="barometer_calibration_current_height">altezza corrente (metri)</string>
+  <string name="barometer_calibration_current_reference_pressure">pressione di riferimento corrente (hPa)</string>
+  <string name="barometer_calibration_gps">GNSS</string>
+  <string name="barometer_calibration_calibrate">Calibra</string>
   <!--Strings in postition info-->
+  <string name="position_info_title">Informazioni sulla posizione corrente</string>
+  <string name="position_info_hdop">HDOP</string>
+  <string name="position_info_altitude">Altitudine</string>
+  <string name="position_info_geoid_height">Altezza sul geoide</string>
+  <string name="position_info_barometric_height">Altezza barometrica</string>
+  <string name="position_info_geoid_correction">Correzione geoide</string>
+  <string name="position_info_ellipsoid_height">Altezza sull\'elissoide</string>
   <!--Strings in DownloadActivity-->
+  <string name="download_files_title">Scarica i file</string>
+  <string name="allow_all_networks">Permetti tutte le reti</string>
   <!--Strings in Go to coordinates-->
+  <string name="go_to_coordinates_title">Vai alle coordinate</string>
   <!--Menu-->
   <string name="menu_move">Sposta</string>
   <string name="menu_edit">Modifica</string>
@@ -480,6 +558,8 @@
   <string name="menu_gps_follow">Segui la posizione</string>
   <string name="menu_gps_goto">Spostati alla posizione attuale</string>
   <string name="menu_gps_goto_coordinates">Vai alle coordinate...</string>
+  <string name="menu_gps_goto_last_edit">Vai all\'ultima modifica</string>
+  <string name="menu_gps_position_info">Informazioni sulla posizione corrente</string>
   <string name="menu_gps_start">Inizia traccia GPX</string>
   <string name="menu_gps_pause">Metti in pausa la traccia GPX</string>
   <string name="menu_gps_clear">Cancella la traccia GPX e le tappe intermedie</string>
@@ -493,8 +573,11 @@
   <string name="menu_enable_pan_and_zoom_auto_download">Scarica automaticamente dopo zoom o spostamento schermata</string>
   <string name="menu_transfer">Trasferimento…</string>
   <string name="menu_transfer_download_current">Scarica vista corrente</string>
+  <string name="menu_transfer_download_replace">Cancella e scarica vista corrente</string>
   <string name="menu_transfer_load_current">Carica la vista corrente</string>
+  <string name="menu_transfer_load_replace">Cancella e carica vista corrente</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
+  <string name="menu_transfer_update">Aggiorna dati</string>
   <string name="menu_transfer_close_changeset">Chiudi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
   <string name="menu_transfer_export">Esporta modifiche su un file OSC</string>
@@ -528,15 +611,25 @@
   <string name="menu_straighten">Raddrizzare</string>
   <string name="menu_circulize">Disponi in cerchio</string>
   <string name="menu_split_polygon">Dividi in poligoni</string>
+  <string name="menu_extract_segment">Estrai segmento</string>
+  <string name="menu_newnode_gps">Nuovo nodo alla posizione GPS</string>
   <string name="menu_extend_selection">Estendi selezione</string>
   <string name="menu_information">Informazioni</string>
   <string name="menu_voice_commands">Comandi vocali</string>
+  <string name="menu_upload_element">Carica elemento</string>
+  <string name="menu_upload_elements">Carica elementi sul server</string>
   <string name="menu_set_name">Imposta un nome</string>
   <string name="menu_tools">Strumenti...</string>
+  <string name="menu_tools_imagery">Più strumenti satellitari...</string>
   <string name="menu_tools_add_imagery_from_oam">Aggiungi immagini da OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Cancella la cache di tutti i livelli di immagini</string>
   <string name="menu_tools_background_properties">Proprietà dello sfondo</string>
+  <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione</string>
   <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sul livello di sfondo</string>
+  <string name="menu_tools_clear_clipboard">Cancella gli appunti</string>
+  <string name="menu_tools_calibrate_height">Calibra sensore di pressione</string>
+  <string name="menu_tools_install_egm">Installa EGM</string>
+  <string name="menu_tools_remove_egm">Rimuovi EGM</string>
   <!---->
   <string name="menu_simple_actions">Modalità semplice</string>
   <string name="menu_feedback">Fornisci feedback</string>
@@ -556,6 +649,11 @@
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Livelli...</string>
+  <string name="menu_layers_load_geojson">Aggiungi livello GeoJSON</string>
+  <string name="menu_layers_add_tasklayer">Abilita il livello compiti</string>
+  <string name="menu_layers_add_grid">Abilita griglia</string>
+  <string name="menu_layers_add_photolayer">Abilita il livello foto</string>
+  <string name="menu_layers_enable_mapillary_layer">Abilita livello Mapillary</string>
   <string name="menu_layers_configure">Configura...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
@@ -581,7 +679,11 @@
   <string name="deletenode_relation_description">Stai per cancellare un nodo che è membro di una o più relazioni. Rimuovendo un nodo che è parte di una relazione potrebbe renderla inutile.</string>
   <string name="deletenode">Cancella nodo</string>
   <!--EasyEdit context menus-->
+  <string name="split_context_title">Dividi…</string>
+  <string name="split_all_ways">…tutte i percorsi</string>
   <string name="merge_context_title">Unisci con...</string>
+  <string name="merge_with_all_ways">…tutti i percorsi vicino</string>
+  <string name="merge_with_all_nodes">…tutti i nodi vicino</string>
   <string name="delete_note_description">Cancellare una nota è un\'operazione non annullabile!</string>
   <string name="delete_note">Cancella nota</string>
   <!--EasyEdit action mode titles-->
@@ -601,6 +703,12 @@
   <string name="actionmode_restriction_restart_via">Seleziona di nuovo un segmento \"via\"</string>
   <string name="actionmode_restriction_to">Aggiungi un segmento \"verso\"</string>
   <string name="actionmode_restriction_restart_to">Seleziona di nuovo un segmento \"verso\"</string>
+  <string name="actionmode_extract_segment_select">Seleziona segmento</string>
+  <string name="actionmode_extract_segment_set_tags">Imposta etichette</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 oggetto</item>
+    <item quantity="other">%1$d oggetti</item>
+  </plurals>
   <string name="actionmode_rotateway">Ruota percorso</string>
   <!--Simple Action Mode-->
   <string name="menu_add_node">Aggiungi punto</string>
@@ -626,6 +734,7 @@
   <string name="config_largeDragArea_title">Area di trascinamento dei nodi estesa</string>
   <string name="config_largeDragArea_summary">Fornisci un\'area grande per poter spostare i nodi.</string>
   <string name="config_advancedprefs">Preferenze avanzate</string>
+  <string name="config_moreprefs">Altre impostazioni…</string>
   <string name="config_presetbutton_title">Predefiniti</string>
   <string name="config_presetbutton_summary">Aggiungi e abilita le preimpostazioni compatibili con JOSM</string>
   <!--Validator preferences-->
@@ -653,9 +762,10 @@
   <string name="config_map_orientation_summary">Comportamento della mappa quando cambia la rotazione dello schermo.</string>
   <string name="config_showTolerance_title">Mostra tolleranza</string>
   <string name="config_showTolerance_summary">Mostra l\'area all\'interno della quale l\'elemento può essere selezionato.</string>
-  <string name="config_use_back_for_undo_title">Usa ← per annullare</string>
+  <string name="config_use_back_for_undo_title">Usa il tasto ← per annullare</string>
   <string name="config_use_back_for_undo_summary">Utilizza il tasto ← per annullare nella vista principale.</string>
   <string name="config_enableLightTheme_title">Tema chiaro</string>
+  <string name="config_enableLightTheme_summary">Sfondi chiari e bianchi.</string>
   <string name="config_splitActionBarEnabled_title">Abilita la split action bar</string>
   <string name="config_maxInlineValues_title">Numero massimo di valori in linea</string>
   <string name="config_maxInlineValues_current">%1$d valori</string>
@@ -667,6 +777,11 @@
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Non disegnare una strada più larga di così.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <string name="config_uploadOk_summary">Limite sotto il quale gli oggetti che devono essere caricati saranno considerati validi</string>
+  <string name="config_uploadWarn_title">Avviso di caricamenti pendenti</string>
+  <string name="config_uploadWarn_summary">Limite sotto il quale il caricamento degli elementi pendenti avrà un allerta di stato</string>
+  <string name="config_dataWarn_title">Avviso di troppi dati</string>
+  <string name="config_dataWarn_summary">Limite (nel numero di nodi) in cui iniziamo ad avvisarti che troppi dati sono da caricare</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dati e impostazioni di modifica</string>
   <string name="config_category_editing_summary">Impostazioni di download automatico, salvataggio e notifiche</string>
@@ -708,6 +823,7 @@
   <string name="config_gps_distance_current">%1$d metro(i)</string>
   <string name="config_gps_network_title">Ritorna alla localizzazione di rete</string>
   <string name="config_gnssTimeToStale_current">%1$d s</string>
+  <string name="config_useBarometricHeight_summary">Usa valori di altezza nelle tracce se il sensore di pressione dell\'aria è disponibile</string>
   <!--Server Settings-->
   <string name="config_category_server">Impostazioni server</string>
   <string name="config_apibutton_title">OSM API URL</string>
@@ -851,6 +967,8 @@
   <string name="delete_from_relation_description">Stai per cancellare questo elemento da una relazione.</string>
   <string name="unset_relation_type">Tipo di relazione non selezionato</string>
   <!--Things-->
+  <string name="bridge">Ponte</string>
+  <string name="tunnel">Tunnel</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 giorno</item>

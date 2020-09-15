@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2020-08-12 22:21+0200\n"
-"PO-Revision-Date: 2020-08-12 20:22+0000\n"
-"Last-Translator: Mika Laari <laari@iki.fi>\n"
+"PO-Revision-Date: 2020-09-13 09:37+0000\n"
+"Last-Translator: Nikolay Korotkiy <sikmir@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/openstreetmap/presets/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2251,7 +2251,7 @@ msgstr ""
 
 #: master_preset.xml:10648(combo:display_values|preset:Enforcement|key:enforcement)
 msgid "Check"
-msgstr ""
+msgstr "Tarkista"
 
 #: master_preset.xml:1007(combo:display_values|key:cash_withdrawal:type)
 msgid "Checkout"
@@ -13102,7 +13102,7 @@ msgstr ""
 
 #: master_preset.xml:1738(group:name|group:Ways)
 msgid "Ways"
-msgstr ""
+msgstr "Viivat"
 
 #: master_preset.xml:8456(item:name|group:Historic_Places_&_Objects|preset:Wayside_Cross)
 msgid "Wayside Cross"
