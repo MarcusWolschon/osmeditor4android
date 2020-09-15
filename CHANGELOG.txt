@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.0.4: Update imagery from ELI, update translations, update preset, fix typo in GPX mime type, don't serialze whole elements, just the id when saving edit state, fix display of relation membership changes in info dialog, show a tip when starting GPX recording and no geoid model is installed, handle cascaded path patterns correctly, fix intent handling regression.
+
 15.0.3: Fix crash when checkboxes in checkgroups are selected in certain combinations, fix nonsense label display in tag form for some checkgroups, update preset.
 
 15.0.2: Fix issue with GPX recording on Android 10, fix issue with visible state being overwritten on styleable layers, select Note properly if in an element selection mode, maintain preset order when matching, update translations, update OH fragment, update imagery.
