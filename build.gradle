@@ -95,13 +95,21 @@ task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"
 updatePreset.group = 'vespucci'
 updatePreset.description = 'Update the default preset from http://simonpoole.github.io/beautified-JOSM-preset/'
 
-task updateImagery(type: Download) {
+task updateImageryFromJosm(type: Download) {
     acceptAnyCertificate true
     src 'https://josm.openstreetmap.de/maps?format=geojson'
     dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
 }
-updateImagery.group = 'vespucci'
-updateImagery.description = 'Update the background layer configuration from https://josm.openstreetmap.de/wiki/Maps'
+updateImageryFromJosm.group = 'vespucci'
+updateImageryFromJosm.description = 'Update the background layer configuration from https://josm.openstreetmap.de/wiki/Maps'
+
+task updateImageryFromELI(type: Download) {
+    acceptAnyCertificate true
+    src 'https://osmlab.github.io/editor-layer-index/imagery.geojson'
+    dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
+}
+updateImageryFromELI.group = 'vespucci'
+updateImageryFromELI.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/imagery.geojson'
 
 task updateGeocontext(type: Download) {
     acceptAnyCertificate true
