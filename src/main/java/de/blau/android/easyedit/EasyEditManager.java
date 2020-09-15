@@ -15,6 +15,8 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.easyedit.route.RestartRouteSegmentActionModeCallback;
+import de.blau.android.easyedit.route.RouteSegmentActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.RestartFromElementActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.ToElementActionModeCallback;
@@ -138,7 +140,8 @@ public class EasyEditManager {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_multiselect));
             return; // don't deselect all just because we didn't hit anything
         }
-        if (currentActionModeCallback instanceof AddRelationMemberActionModeCallback) {
+        if (currentActionModeCallback instanceof AddRelationMemberActionModeCallback || currentActionModeCallback instanceof RouteSegmentActionModeCallback
+                || currentActionModeCallback instanceof RestartRouteSegmentActionModeCallback) {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_actionmode));
             return; // don't deselect all just because we didn't hit anything
         }

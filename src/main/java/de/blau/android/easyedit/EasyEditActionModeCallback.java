@@ -199,7 +199,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * 
      * @param menu the Menu to arrange
      */
-    void arrangeMenu(@NonNull Menu menu) {
+    protected void arrangeMenu(@NonNull Menu menu) {
         menuUtil.setShowAlways(menu);
     }
 
@@ -292,13 +292,25 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @return a list of all applicable objects
      */
     protected Set<OsmElement> findViaElements(@NonNull Way way) {
+        return findViaElements(way, true);
+    }
 
+    /**
+     * Finds which ways or nodes can be used as a via element in a restriction relation
+     * 
+     * @param way the from way
+     * @param includeNodes if true include via nodes
+     * @return a list of all applicable objects
+     */
+    protected Set<OsmElement> findViaElements(@NonNull Way way, boolean includeNodes) {
         Set<OsmElement> result = new HashSet<>();
         for (Node n : way.getNodes()) {
             for (Way w : logic.getWaysForNode(n)) {
                 if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
                     result.add(w);
-                    result.add(n); // result is a set so we wont get dups
+                    if (includeNodes) {
+                        result.add(n); // result is a set so we wont get dups
+                    }
                 }
             }
         }

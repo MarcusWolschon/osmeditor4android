@@ -1486,6 +1486,7 @@ public class Logic {
                 performBackgroundOffset(relativeX, relativeY);
             } else {
                 performTranslation(map, relativeX, relativeY);
+                main.getEasyEditManager().invalidate(); // FIXME only do this is the mode requires it
             }
         }
         invalidateMap();

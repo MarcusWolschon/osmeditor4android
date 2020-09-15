@@ -1,5 +1,6 @@
 package de.blau.android.easyedit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,30 +11,48 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.RadioGroup;
+import android.widget.TableRow;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.AppCompatRadioButton;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
+import de.blau.android.dialogs.ImageryListAdapter;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerSource;
+import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * This action mode handles element selection. When a node or way should be selected, just start this mode. The element
@@ -428,4 +447,61 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         }
         return elements;
     }
+    
+    interface OnRelationSelectedListener {
+        void selected(long id);
+    }
+    
+    protected AlertDialog buildRelationSelectDialog(@NonNull OnRelationSelectedListener onRelationSelectedListener, long currentId) {
+        
+        final Preferences prefs = App.getLogic().getPrefs();
+
+        Builder builder = new AlertDialog.Builder(main);
+
+        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(main);
+
+        final View layout = themedInflater.inflate(R.layout.relation_selection_dialog, null);
+
+        builder.setView(layout);
+        builder.setTitle("Select route/relation");
+        builder.setNegativeButton(R.string.cancel, null);
+
+        final AlertDialog dialog = builder.create();
+
+        ViewBox viewBox = App.getLogic().getMap().getViewBox();
+        
+        RecyclerView relationList = (RecyclerView) layout.findViewById(R.id.relationList);
+        LayoutParams buttonLayoutParams = relationList.getLayoutParams();
+        buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(main);
+        relationList.setLayoutManager(layoutManager);
+
+        List<Relation> allRelations = App.getDelegator().getCurrentStorage().getRelations();
+        List<Long> ids = new ArrayList<>();
+        // filter
+        for (Relation r: allRelations) {
+            if (r.hasTag(Tags.KEY_TYPE, Tags.VALUE_ROUTE)) {
+                ids.add(r.getOsmId());
+            }
+        }
+        
+        final Handler handler = new Handler();
+        OnCheckedChangeListener onCheckedChangeListener = (group, position) -> {
+            if (position != -1) {
+                onRelationSelectedListener.selected(ids.get(position));
+            }
+            // allow a tiny bit of time to see that the action actually worked
+            handler.postDelayed(() -> {
+                dialog.dismiss(); // dismiss this
+                // dismissDialog(); // and then the caller
+            }, 100);
+        };
+
+        RelationListAdapter adapter = new RelationListAdapter(main, ids, currentId, buttonLayoutParams, onCheckedChangeListener);
+        relationList.setAdapter(adapter);
+
+        return dialog;
+    }
+
 }
