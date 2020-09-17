@@ -14,7 +14,10 @@ import androidx.annotation.Nullable;
 /**
  * Key and value constants for tags that are used in the code
  * 
- * @author simon
+ * Some of this duplicates information that in principal is available in the standard preset too, however having it here
+ * makes some key thins possible without having to rely on a preset being present and matched correctly
+ * 
+ * @author Simon
  *
  */
 public final class Tags {
@@ -247,7 +250,7 @@ public final class Tags {
 
     public static final String KEY_CONDITIONAL_SUFFIX = ":conditional";
 
-    // keys were the values are URLs
+    // keys where the values are URLs
     private static final String KEY_WEBSITE         = "website";
     private static final String KEY_CONTACT_WEBSITE = "contact:website";
     public static final String  HTTP_PREFIX         = "http://";
@@ -259,8 +262,38 @@ public final class Tags {
      * @param key the key to check
      * @return true if it expects an URL
      */
-    public static boolean isWebsiteKey(final String key) {
+    public static boolean isWebsiteKey(@Nullable final String key) {
         return Tags.KEY_WEBSITE.equals(key) || Tags.KEY_CONTACT_WEBSITE.equals(key);
+    }
+
+    // keys where the values are phone numbers
+    private static final String KEY_PHONE         = "phone";
+    private static final String KEY_CONTACT_PHONE = "contact:phone";
+    private static final String KEY_FAX           = "fax";
+    private static final String KEY_CONTACT_FAX   = "contact:fax";
+
+    /**
+     * Check if this is a key that expects a phone number
+     * 
+     * @param key the key to check
+     * @return true if it expects a phone number
+     */
+    public static boolean isPhoneKey(@Nullable final String key) {
+        return Tags.KEY_PHONE.equals(key) || Tags.KEY_CONTACT_PHONE.equals(key) || Tags.KEY_FAX.equals(key) || Tags.KEY_CONTACT_FAX.equals(key);
+    }
+
+    // keys where the values are e-mail addresses
+    private static final String KEY_EMAIL         = "email";
+    private static final String KEY_CONTACT_EMAIL = "contact:email";
+
+    /**
+     * Check if this is a key that expects an e-mail address
+     * 
+     * @param key the key to check
+     * @return true if it expects an e-mail address
+     */
+    public static boolean isEmailKey(@Nullable final String key) {
+        return Tags.KEY_EMAIL.equals(key) || Tags.KEY_CONTACT_EMAIL.equals(key);
     }
 
     // Indoor keys

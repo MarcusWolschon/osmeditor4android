@@ -71,6 +71,7 @@ import de.blau.android.validation.Validator;
  *
  */
 public class ElementInfo extends ImmersiveDialogFragment {
+    private static final String DEBUG_TAG = ElementInfo.class.getName();
 
     private static final int    DISPLAY_LIMIT         = 10;
     private static final String ELEMENT_KEY           = "element";
@@ -79,9 +80,10 @@ public class ElementInfo extends ImmersiveDialogFragment {
     private static final String ELEMENT_ID_KEY        = "elementId";
     private static final String ELEMENT_TYPE_KEY      = "elementType";
 
-    private static final String DEBUG_TAG = ElementInfo.class.getName();
-
     private static final String TAG = "fragment_element_info";
+
+    private static final String TEL    = "tel:";
+    private static final String MAILTO = "mailto:";
 
     private SpannableString emptyRole;
 
@@ -391,6 +393,10 @@ public class ElementInfo extends ImmersiveDialogFragment {
                             Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + element);
                             tl.addView(TableLayoutUtils.createRow(activity, k, currentValue, tp));
                         }
+                    } else if (Tags.isPhoneKey(k) || Tags.isEmailKey(k)) {
+                        final String url = Tags.isEmailKey(k) ? MAILTO : TEL;
+                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(url, oldValue) : compareEmpty,
+                                !deleted ? encodeUrl(url, currentValue) : null, true, tp, R.attr.colorAccent, Color.GREEN));
                     } else {
                         tl.addView(
                                 TableLayoutUtils.createRow(activity, k, oldValue, !deleted ? currentValue : null, false, tp, R.attr.colorAccent, Color.GREEN));

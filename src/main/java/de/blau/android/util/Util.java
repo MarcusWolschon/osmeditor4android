@@ -493,6 +493,7 @@ public final class Util {
      * @param html string with HTML markup to convert
      * @return a Spanned formated as the markup required
      */
+    @NonNull
     public static Spanned fromHtml(@NonNull String html) {
         return HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY, null, new UlTagHandler());
     }
