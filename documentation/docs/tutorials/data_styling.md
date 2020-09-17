@@ -3,6 +3,10 @@ _Documentation for Vespucci 14.1_
 
 The data styling configuration is not a work of art, it was created ad hoc (in other words it is an awful hack) to allow slightly more flexible configuration of the rendering.
 
+### Using custom style files in Vespucci
+
+Files need to have an unique _name_ attribute and a filename in the format _name_-profile.xml and be stored in the _Vespucci_ directory. 
+
 ### Style Elements and Attributes
 
 The styles are for a major part not much more than an external representation of the [Android Paint](https://developer.android.com/reference/android/graphics/Paint) objects. In particular color, style, cap, join and strokeWidth attributes map directly to the Paint fields.
