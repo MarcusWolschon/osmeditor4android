@@ -1651,16 +1651,15 @@ public class Preset implements Serializable {
      * @param useAddressKeys use address keys
      * @return set of presets
      */
-    private static Set<PresetItem> buildPossibleMatches(Preset[] presets, Map<String, String> tags, boolean useAddressKeys) {
+    @NonNull
+    private static Set<PresetItem> buildPossibleMatches(@NonNull Preset[] presets, @NonNull Map<String, String> tags, boolean useAddressKeys) {
         Set<PresetItem> possibleMatches = new LinkedHashSet<>();
         for (Preset p : presets) {
             if (p != null) {
                 for (Entry<String, String> tag : tags.entrySet()) {
                     String key = tag.getKey();
                     if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
-                        String tagString = key + "\t";
-                        possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
-                        possibleMatches.addAll(p.tagItems.get(tagString + tag.getValue()));
+                        possibleMatches.addAll(p.tagItems.get(key + "\t" + tag.getValue()));
                     }
                 }
             }
@@ -1675,15 +1674,14 @@ public class Preset implements Serializable {
      * @param type the type to allow
      * @return a filtered list containing only elements of the specified type
      */
+    @NonNull
     private static List<PresetElement> filterElements(@NonNull List<PresetElement> originalElements, @NonNull ElementType type) {
         List<PresetElement> filteredElements = new ArrayList<>();
         for (PresetElement e : originalElements) {
             if (!e.isDeprecated()) {
-                if (e.appliesTo(type)) {
-                    filteredElements.add(e);
-                } else if ((e instanceof PresetSeparator) && !filteredElements.isEmpty()
-                        && !(filteredElements.get(filteredElements.size() - 1) instanceof PresetSeparator)) {
-                    // add separators if there is a non-separator element above them
+                if (e.appliesTo(type) || ((e instanceof PresetSeparator) && !filteredElements.isEmpty()
+                        && !(filteredElements.get(filteredElements.size() - 1) instanceof PresetSeparator))) {
+                    // only add separators if there is a non-separator element above them
                     filteredElements.add(e);
                 }
             }
