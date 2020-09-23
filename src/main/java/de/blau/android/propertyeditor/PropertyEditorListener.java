@@ -63,9 +63,9 @@ public interface PropertyEditorListener {
     /**
      * Get the current set of Presets
      * 
-     * @return an array of Preset or null
+     * @return an array of Preset
      */
-    @Nullable
+    @NonNull
     Preset[] getPresets();
 
     /**
@@ -75,4 +75,9 @@ public interface PropertyEditorListener {
      */
     @Nullable
     public List<LinkedHashMap<String, String>> getUpdatedTags();
+
+    /**
+     * Re-create the RecentPrestsFragement view
+     */
+    public void updateRecentPresets();
 }

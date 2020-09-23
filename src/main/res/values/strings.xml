@@ -202,6 +202,8 @@
     <string name="too_much_data_message">You have %1$d Nodes loaded and have exceeded the configured limit. This will lead to slowdown, and if you add more data, to potential issues saving state.</string>
     <string name="upload_data_now">Upload changes</string>
     <string name="prune_data_now">Prune data</string>
+    <!-- Delete custom preset dialog -->
+    <string name="delete_custom_preset_title">Delete custom preset?</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>

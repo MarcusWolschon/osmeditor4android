@@ -53,14 +53,14 @@ import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.PresetKeyType;
-import de.blau.android.presets.ValueType;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
 import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetKeyType;
 import de.blau.android.presets.PresetTextField;
+import de.blau.android.presets.ValueType;
 import de.blau.android.propertyeditor.Address;
 import de.blau.android.propertyeditor.AlternativePresetItemsFragment;
 import de.blau.android.propertyeditor.EditorUpdate;
@@ -72,6 +72,7 @@ import de.blau.android.propertyeditor.PropertyEditorListener;
 import de.blau.android.propertyeditor.RecentPresetsFragment;
 import de.blau.android.propertyeditor.TagChanged;
 import de.blau.android.propertyeditor.TagEditorFragment;
+import de.blau.android.propertyeditor.tagform.TagFormFragment.EditableLayout;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Snack;
@@ -421,7 +422,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     p.resetRecentlyUsed();
                 }
             }
-            ((PropertyEditor) getActivity()).recreateRecentPresetView();
+            propertyEditorListener.updateRecentPresets();
             return true;
         case R.id.tag_menu_show_alternatives:
             AlternativePresetItemsFragment.showDialog(getActivity(),

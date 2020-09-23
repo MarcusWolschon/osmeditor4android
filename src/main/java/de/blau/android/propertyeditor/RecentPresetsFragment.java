@@ -155,16 +155,10 @@ public class RecentPresetsFragment extends BaseFragment {
      * @param item the preset to apply
      */
     private void removePresetFromMRU(@NonNull LinearLayout presetLayout, @NonNull PresetItem item) {
-        //
-        Preset[] presets = App.getCurrentPresets(getActivity());
-        if (presets != null) {
-            for (Preset p : presets) {
-                if (p != null) {
-                    if (p.contains(item)) {
-                        p.removeRecentlyUsed(item);
-                        break;
-                    }
-                }
+        for (Preset p : propertyEditorListener.getPresets()) {
+            if (p != null && p.contains(item)) {
+                p.removeRecentlyUsed(item);
+                break;
             }
         }
         recreateRecentPresetView(presetLayout);

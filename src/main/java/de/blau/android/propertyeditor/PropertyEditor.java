@@ -778,36 +778,32 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
     }
 
     /**
-     * Removes an old RecentPresetView and replaces it by a new one (to update it)
+     * Get the current RecentPresetsFragment
+     * 
+     * @return the current RecentPresetsFragment or null if it can't be found
      */
-    public void recreateRecentPresetView() {
+    @Nullable
+    RecentPresetsFragment getRecentPresetsFragment() {
+        FragmentManager fm;
         if (usePaneLayout) {
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
-            if (recentPresetsFragment != null) {
-                ((RecentPresetsFragment) recentPresetsFragment).recreateRecentPresetView();
-            }
+            fm = getSupportFragmentManager();
         } else {
-            FragmentManager fm;
             if (tagFormFragment != null) {
                 fm = tagFormFragment.getChildFragmentManager();
             } else {
                 fm = tagEditorFragment.getChildFragmentManager();
             }
-            recreateRecentPresetView(fm);
         }
+        return (RecentPresetsFragment) fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
     }
 
-    /**
-     * Recreate the MRU list of Presets
-     * 
-     * @param fm the child fragment manager for the fragment
-     */
-    void recreateRecentPresetView(@NonNull FragmentManager fm) {
-        Log.d(DEBUG_TAG, "Updating MRU prests");
-        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
+    @Override
+    public void updateRecentPresets() {
+        RecentPresetsFragment recentPresetsFragment = getRecentPresetsFragment();
         if (recentPresetsFragment != null) {
-            ((RecentPresetsFragment) recentPresetsFragment).recreateRecentPresetView();
+            recentPresetsFragment.recreateRecentPresetView();
+        } else {
+            Log.e(DEBUG_TAG, "RecentPresetsFragment not found");
         }
     }
 
@@ -1053,7 +1049,7 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
             // utility presets need to be explicitly added, while this duplicates adding item in other cases
             // it has the nice side effect of moving item to the top
             tagEditorFragment.addToMru(presets, item);
-            recreateRecentPresetView();
+            updateRecentPresets();
         }
     }
 
@@ -1075,30 +1071,31 @@ public class PropertyEditor extends AppCompatActivity implements PropertyEditorL
      * Allow presets to be applied
      */
     public void enablePresets() {
-        if (usePaneLayout) {
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
-            if (recentPresetsFragment != null) {
-                ((RecentPresetsFragment) recentPresetsFragment).enable();
-            }
-        } else {
-            tagEditorFragment.enableRecentPresets();
-        }
+        enablePresets(true);
     }
 
     /**
      * Disallow presets to be applied
      */
     public void disablePresets() {
-        if (usePaneLayout) {
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment recentPresetsFragment = fm.findFragmentByTag(RECENTPRESETS_FRAGMENT);
-            if (recentPresetsFragment != null) {
-                ((RecentPresetsFragment) recentPresetsFragment).disable();
+        enablePresets(false);
+    }
+
+    /**
+     * Allow presets to be applied or not
+     * 
+     * @param enable if true presets can be applied
+     */
+    private void enablePresets(boolean enable) {
+        RecentPresetsFragment recentPresetsFragment = getRecentPresetsFragment();
+        if (recentPresetsFragment != null) {
+            if (enable) {
+                recentPresetsFragment.enable();
+            } else {
+                recentPresetsFragment.disable();
             }
-            presetFragment.disable();
         } else {
-            tagEditorFragment.disableRecentPresets();
+            Log.e(DEBUG_TAG, "RecentPresetsFragment not found");
         }
     }
 
