@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.ActionMode;
-import androidx.fragment.app.Fragment;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -37,7 +36,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
      * @param caller the calling Fragment
      * @param rows the Layout holding the rows
      */
-    public TagSelectedActionModeCallback(Fragment caller, LinearLayout rows) {
+    public TagSelectedActionModeCallback(@NonNull TagEditorFragment caller, @NonNull LinearLayout rows) {
         super(caller, rows);
     }
 
@@ -109,10 +108,10 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
      * Perform whatever was selected on the menu
      * 
      * @param action the action id
-     * @return true
+     * @return true if the action was consumed
      */
     private boolean performAction(int action) {
-
+        TagEditorFragment tagEditorFragment = (TagEditorFragment) caller;
         final int size = rows.getChildCount();
         List<TagEditRow> selected = new ArrayList<>();
         for (int i = 0; i < size; ++i) {
@@ -128,7 +127,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
                 for (TagEditRow r : selected) {
                     r.delete();
                 }
-                ((TagEditorFragment) caller).updateAutocompletePresetItem(null);
+                tagEditorFragment.updateAutocompletePresetItem(null);
             }
             if (currentAction != null) {
                 currentAction.finish();
@@ -136,7 +135,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
             break;
         case MENU_ITEM_COPY:
             copyTags(selected, false);
-            ((TagEditorFragment) caller).updateAutocompletePresetItem(null);
+            tagEditorFragment.updateAutocompletePresetItem(null);
             if (currentAction != null) {
                 currentAction.finish();
             }
@@ -148,7 +147,8 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
             }
             break;
         case MENU_ITEM_CREATE_PRESET:
-            CustomPreset.create((TagEditorFragment) caller, selected);
+            CustomPreset.create(tagEditorFragment, selected);
+            tagEditorFragment.presetFilterUpdate.update(null);
             break;
         case MENU_ITEM_SELECT_ALL:
             ((PropertyRows) caller).selectAllRows();

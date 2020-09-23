@@ -344,6 +344,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         View view = getOurView();
         if (view != null) { // all of this requires onCreateView to have run
             rootPreset.addToRootGroup(App.getCurrentPresets(getContext()));
+            currentGroup = rootGroup;
             LinearLayout presetLayout = (LinearLayout) view.getParent();
             if (presetLayout != null) {
                 presetLayout.removeAllViews();
