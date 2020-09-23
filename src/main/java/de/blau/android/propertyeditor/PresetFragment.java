@@ -365,23 +365,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     }
 
     /**
-     * If this is not the root group, back goes one group up, otherwise, the default is triggered (canceling the dialog)
-     */
-    // @Override
-    // public boolean onKey(View v, int keyCode, KeyEvent event) {
-    // if (keyCode == KeyEvent.KEYCODE_BACK) {
-    // PresetGroup group = currentGroup.getParent();
-    // if (group != null) {
-    // currentGroup = group;
-    // currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
-    // view.invalidate();
-    // return true;
-    // }
-    // }
-    // return false;
-    // }
-
-    /**
      * Handle clicks on icons representing an item
      */
     @Override
