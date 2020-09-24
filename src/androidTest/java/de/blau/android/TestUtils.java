@@ -324,10 +324,7 @@ public class TestUtils {
     public static void longClick(@NonNull UiDevice device, @NonNull UiObject o) throws UiObjectNotFoundException {
         Rect rect = o.getBounds();
         device.swipe(rect.centerX(), rect.centerY(), rect.centerX(), rect.centerY(), 200);
-        try {
-            Thread.sleep(2000); // NOSONAR
-        } catch (InterruptedException e1) {
-        }
+        sleep(2000);
     }
 
     /**

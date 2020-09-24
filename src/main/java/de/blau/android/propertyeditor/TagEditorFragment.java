@@ -62,9 +62,6 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
-import de.blau.android.presets.PresetKeyType;
-import de.blau.android.presets.UseLastAsDefaultType;
-import de.blau.android.presets.ValueType;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
 import de.blau.android.presets.PresetComboField;
@@ -72,6 +69,9 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFieldJavaScript;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetKeyType;
+import de.blau.android.presets.UseLastAsDefaultType;
+import de.blau.android.presets.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
@@ -147,7 +147,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     private FormUpdate formUpdate;
 
-    private PresetUpdate presetFilterUpdate;
+    PresetUpdate presetFilterUpdate;
 
     private PropertyEditorListener propertyEditorListener;
 
@@ -619,7 +619,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     for (PresetItem item : items) {
                         addToMru(presets, item);
                     }
-                    ((PropertyEditor) getActivity()).recreateRecentPresetView();
+                    propertyEditorListener.updateRecentPresets();
                 }
             }
         } else if (rowLayout != null) { // this might be too expensive
@@ -1665,7 +1665,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     void applyPreset(@NonNull LinearLayout rowLayout, @NonNull PresetItem item, boolean addOptional, boolean addToMRU, boolean useDefaults) {
         LinkedHashMap<String, List<String>> currentValues = getKeyValueMap(rowLayout, true);
-        boolean wasEmpty = currentValues.size() == 0;
         boolean replacedValue = false;
 
         Log.d(DEBUG_TAG, "applying preset " + item.getName());
@@ -1921,12 +1920,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Wiki.displayMapFeatures(getActivity(), prefs, getBestPreset());
             return true;
         case R.id.tag_menu_resetMRU:
-            for (Preset p : ((PropertyEditor) getActivity()).presets) {
+            for (Preset p : propertyEditorListener.getPresets()) {
                 if (p != null) {
                     p.resetRecentlyUsed();
                 }
             }
-            ((PropertyEditor) getActivity()).recreateRecentPresetView();
+            propertyEditorListener.updateRecentPresets();
             return true;
         case R.id.tag_menu_reset_address_prediction:
             // simply overwrite with an empty file
@@ -2249,28 +2248,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             // given that this is always fatal might as well throw the exception here
             Log.d(DEBUG_TAG, "got null view in getView");
             throw new UiStateException("got null view in getView");
-        }
-    }
-
-    /**
-     * Enable the MRU list of Presets
-     */
-    public void enableRecentPresets() {
-        FragmentManager fm = getChildFragmentManager();
-        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
-        if (recentPresetsFragment != null) {
-            ((RecentPresetsFragment) recentPresetsFragment).enable();
-        }
-    }
-
-    /**
-     * Disable the MRU list of Presets
-     */
-    public void disableRecentPresets() {
-        FragmentManager fm = getChildFragmentManager();
-        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
-        if (recentPresetsFragment != null) {
-            ((RecentPresetsFragment) recentPresetsFragment).disable();
         }
     }
 

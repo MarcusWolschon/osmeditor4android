@@ -1222,8 +1222,8 @@ public class Preset implements Serializable {
      * @param tag tag in the format: key \t value
      * @return a Set containing the PresetItems or null if none found
      */
-    @Nullable
-    Set<PresetItem> getItemByTag(@NonNull String tag) {
+    @NonNull
+    public Set<PresetItem> getItemByTag(@NonNull String tag) {
         return tagItems.get(tag);
     }
 
@@ -2202,6 +2202,16 @@ public class Preset implements Serializable {
             return iconpath;
         }
 
+        /**
+         * Get the Preset object this is an element of
+         * 
+         * @return the Preset
+         */
+        @NonNull
+        public Preset getPreset() {
+            return Preset.this;
+        }
+
         @Override
         public String toString() {
             return name + " " + iconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation + " " + appliesToArea;
@@ -2299,7 +2309,7 @@ public class Preset implements Serializable {
          * 
          * @param element the PresetElement to add
          */
-        public void addElement(PresetElement element) {
+        public void addElement(@NonNull PresetElement element) {
             addElement(element, true);
         }
 
@@ -2309,11 +2319,20 @@ public class Preset implements Serializable {
          * @param element the PresetElement to add
          * @param setParent if true set the elements parent to this
          */
-        public void addElement(PresetElement element, boolean setParent) {
+        public void addElement(@NonNull PresetElement element, boolean setParent) {
             elements.add(element);
             if (setParent) {
                 element.setParent(this);
             }
+        }
+
+        /**
+         * Remove a PresetELement from this group
+         * 
+         * @param element the PresetElement
+         */
+        public void removeElement(@NonNull PresetElement element) {
+            elements.remove(element);
         }
 
         /**
@@ -2934,6 +2953,24 @@ public class Preset implements Serializable {
                     addToAutosuggest(key, new StringWithDescription(""));
                 }
             }
+        }
+
+        /**
+         * Remove this PresetItem as far as possible
+         */
+        public void delete() {
+            for (String key : searchIndex.getKeys()) {
+                searchIndex.removeItem(key, this);
+            }
+            for (String key : translatedSearchIndex.getKeys()) {
+                searchIndex.removeItem(key, this);
+            }
+            for (String key : tagItems.getKeys()) {
+                tagItems.removeItem(key, this);
+            }
+            removeRecentlyUsed(this);
+            getParent().removeElement(this);
+            setParent(null);
         }
 
         /**

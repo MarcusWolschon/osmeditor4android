@@ -143,6 +143,8 @@ Start the on device help browser.
 
 Find, select and apply a [preset](Presets.md). Groups of presets have a light background, presets a dark one. The on device presets can be searched for terms, if enabled and network connectivity is available you can try and construct additional presets by querying the Taginfo service, when the results from the internal search are displayed.
 
+Presets in the "Auto-presets" group, that is such generated from taginfo or custom presets, can be removed from the configuration by long-pressing the respective icon.
+
 ### Top
 
 Go to the top of the preset hierarchy.

@@ -28,6 +28,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.ActionMenuView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -42,11 +43,12 @@ import de.blau.android.contract.Github;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
-import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetClickHandler;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
@@ -87,8 +89,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     }
 
     private OnPresetSelectedListener mListener;
-
-    private PropertyEditorListener propertyEditorListener;
+    private PropertyEditorListener   propertyEditorListener;
+    private EditorUpdate             editorUpdate;
 
     /** The type of OSM element to which the preset will be applied (used for filtering) */
     private ElementType type;
@@ -134,6 +136,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         try {
             mListener = (OnPresetSelectedListener) context;
             propertyEditorListener = (PropertyEditorListener) context;
+            editorUpdate = (EditorUpdate) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
         }
@@ -161,7 +164,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
         LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
         final LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
-        if (presets == null || presets.length == 0 || presets[0] == null) {
+        if (presets.length == 0 || presets[0] == null) {
             TextView warning = new TextView(getActivity());
             warning.setText(R.string.no_valid_preset);
             presetLayout.addView(warning);
@@ -341,6 +344,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         View view = getOurView();
         if (view != null) { // all of this requires onCreateView to have run
             rootPreset.addToRootGroup(App.getCurrentPresets(getContext()));
+            currentGroup = rootGroup;
             LinearLayout presetLayout = (LinearLayout) view.getParent();
             if (presetLayout != null) {
                 presetLayout.removeAllViews();
@@ -361,31 +365,13 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     }
 
     /**
-     * If this is not the root group, back goes one group up, otherwise, the default is triggered (canceling the dialog)
-     */
-    // @Override
-    // public boolean onKey(View v, int keyCode, KeyEvent event) {
-    // if (keyCode == KeyEvent.KEYCODE_BACK) {
-    // PresetGroup group = currentGroup.getParent();
-    // if (group != null) {
-    // currentGroup = group;
-    // currentGroup.getGroupView(getActivity(), (ScrollView) view, this, element.getType());
-    // view.invalidate();
-    // return true;
-    // }
-    // }
-    // return false;
-    // }
-
-    /**
      * Handle clicks on icons representing an item
      */
     @Override
     public void onItemClick(PresetItem item) {
-        if (!enabled) {
-            return;
+        if (enabled) {
+            mListener.onPresetSelected(item);
         }
-        mListener.onPresetSelected(item);
     }
 
     /**
@@ -394,7 +380,23 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     @Override
     public boolean onItemLongClick(PresetItem item) {
         if (enabled) {
-            mListener.onPresetSelected(item);
+            Preset preset = item.getPreset();
+            Preset[] presets = propertyEditorListener.getPresets();
+            if (preset.equals(presets[presets.length - 1])) {
+                new AlertDialog.Builder(getContext()).setTitle(R.string.delete_custom_preset_title).setPositiveButton(R.string.Delete, (dialog, which) -> {
+                    item.delete();
+                    AutoPreset.save(preset);
+                    editorUpdate.updatePresets();
+                    propertyEditorListener.updateRecentPresets();
+                    ScrollView scrollView = (ScrollView) getOurView();
+                    if (scrollView != null) {
+                        currentGroup.getGroupView(getActivity(), scrollView, this, type, null, propertyEditorListener.getCountryIsoCode());
+                        scrollView.invalidate();
+                    }
+                }).setNeutralButton(R.string.cancel, null).show();
+            } else {
+                Util.beep();
+            }
         }
         return true;
     }
