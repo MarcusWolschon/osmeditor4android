@@ -1222,8 +1222,8 @@ public class Preset implements Serializable {
      * @param tag tag in the format: key \t value
      * @return a Set containing the PresetItems or null if none found
      */
-    @Nullable
-    Set<PresetItem> getItemByTag(@NonNull String tag) {
+    @NonNull
+    public Set<PresetItem> getItemByTag(@NonNull String tag) {
         return tagItems.get(tag);
     }
 
