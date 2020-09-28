@@ -43,30 +43,32 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private static final int    MENUITEM_REMOVE_NODE       = 24;
     private static final int    MENUITEM_EXTRACT_SEGMENT   = 25;
 
-    private Set<OsmElement> cachedMergeableWays;
-    private Set<OsmElement> cachedAppendableNodes;
-    private Set<OsmElement> cachedViaElements;
-    private MenuItem        addressItem;
-    private MenuItem        splitItem;
-    private MenuItem        mergeItem;
-    private MenuItem        appendItem;
-    private MenuItem        restrictionItem;
-    private MenuItem        routeItem;
-    private MenuItem        addToRouteItem;
-    private MenuItem        orthogonalizeItem;
-    private MenuItem        circulizeItem;
-    private MenuItem        splitPolygonItem;
-    private MenuItem        removeNodeItem;
-    private MenuItem        unjoinItem;
-    private MenuItem        unjoinDissimilarItem;
-    private MenuItem        extractSegmentItem;
-    private String          orthogonalizeTitle;
+    private Set<OsmElement>     cachedMergeableWays;
+    private Set<OsmElement>     cachedAppendableNodes;
+    private Set<OsmElement>     cachedViaElements;
+    private MenuItem            addressItem;
+    private MenuItem            splitItem;
+    private MenuItem            mergeItem;
+    private MenuItem            appendItem;
+    private MenuItem            restrictionItem;
+    private MenuItem            routeItem;
+    private MenuItem            addToRouteItem;
+    private MenuItem            orthogonalizeItem;
+    private MenuItem            circulizeItem;
+    private MenuItem            splitPolygonItem;
+    private MenuItem            removeNodeItem;
+    private MenuItem            unjoinItem;
+    private MenuItem            unjoinDissimilarItem;
+    private MenuItem            extractSegmentItem;
+    private String              orthogonalizeTitle;
 
     /**
      * Construct a new ActionModeCallback
      * 
-     * @param manager the EasyEditManager instance
-     * @param way the selected Way
+     * @param manager
+     *            the EasyEditManager instance
+     * @param way
+     *            the selected Way
      */
     WaySelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way) {
         super(manager, way);
@@ -77,7 +79,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     /**
      * Find the Ways in different categories that are connected to this Way
      * 
-     * @param way the selected Way
+     * @param way
+     *            the selected Way
      */
     private void findConnectedWays(@NonNull Way way) {
         cachedMergeableWays = findMergeableWays(way);
@@ -100,25 +103,30 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         addressItem = menu.add(Menu.NONE, MENUITEM_ADDRESS, Menu.NONE, R.string.tag_menu_address)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_address));
 
-        menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_reverse));
+        menu.add(Menu.NONE, MENUITEM_REVERSE, Menu.NONE, R.string.menu_reverse)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_reverse));
 
-        splitItem = menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
+        splitItem = menu.add(Menu.NONE, MENUITEM_SPLIT, Menu.NONE, R.string.menu_split)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
 
-        mergeItem = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
+        mergeItem = menu.add(Menu.NONE, MENUITEM_MERGE, Menu.NONE, R.string.menu_merge)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_merge));
 
-        appendItem = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
+        appendItem = menu.add(Menu.NONE, MENUITEM_APPEND, Menu.NONE, R.string.menu_append)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_append));
 
         restrictionItem = menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_add_restriction));
 
-        routeItem = menu.add(Menu.NONE, MENUITEM_ROUTE, Menu.NONE, "Create route");
-        addToRouteItem = menu.add(Menu.NONE, MENUITEM_ADD_TO_ROUTE, Menu.NONE, "Add to route");
+        routeItem = menu.add(Menu.NONE, MENUITEM_ROUTE, Menu.NONE, R.string.menu_create_route);
+        addToRouteItem = menu.add(Menu.NONE, MENUITEM_ADD_TO_ROUTE, Menu.NONE, R.string.menu_add_to_route);
 
         orthogonalizeTitle = main.getString(R.string.menu_orthogonalize);
         orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, orthogonalizeTitle)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
 
-        menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
+        menu.add(Menu.NONE, MENUITEM_ROTATE, Menu.NONE, R.string.menu_rotate)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_rotate));
 
         circulizeItem = menu.add(Menu.NONE, MENUITEM_CIRCULIZE, Menu.NONE, R.string.menu_circulize);
 
@@ -127,7 +135,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         removeNodeItem = menu.add(Menu.NONE, MENUITEM_REMOVE_NODE, Menu.NONE, R.string.menu_remove_node_from_way);
 
         unjoinItem = menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin);
-        unjoinDissimilarItem = menu.add(Menu.NONE, MENUITEM_UNJOIN_DISSIMILAR, Menu.NONE, R.string.menu_unjoin_dissimilar);
+        unjoinDissimilarItem = menu.add(Menu.NONE, MENUITEM_UNJOIN_DISSIMILAR, Menu.NONE,
+                R.string.menu_unjoin_dissimilar);
 
         extractSegmentItem = menu.add(Menu.NONE, MENUITEM_EXTRACT_SEGMENT, Menu.NONE, R.string.menu_extract_segment);
 
@@ -144,7 +153,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         int size = way.getNodes().size();
         boolean closed = way.isClosed();
 
-        updated |= setItemVisibility(way.hasTagKey(Tags.KEY_BUILDING) && !way.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER), addressItem, false);
+        updated |= setItemVisibility(way.hasTagKey(Tags.KEY_BUILDING) && !way.hasTagKey(Tags.KEY_ADDR_HOUSENUMBER),
+                addressItem, false);
 
         updated |= setItemVisibility(size > 2, splitItem, false);
 
@@ -152,7 +162,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
         updated |= setItemVisibility(!cachedAppendableNodes.isEmpty(), appendItem, false);
 
-        updated |= setItemVisibility(way.getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty(), restrictionItem, false);
+        updated |= setItemVisibility(way.getTagWithKey(Tags.KEY_HIGHWAY) != null && !cachedViaElements.isEmpty(),
+                restrictionItem, false);
 
         updated |= setItemVisibility(size > 2, orthogonalizeItem, false);
         if (orthogonalizeItem.isVisible()) {
@@ -211,7 +222,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 break;
             case MENUITEM_REVERSE:
                 if (way.notReversable()) {
-                    new AlertDialog.Builder(main).setTitle(R.string.menu_reverse).setMessage(R.string.notreversable_description)
+                    new AlertDialog.Builder(main).setTitle(R.string.menu_reverse)
+                            .setMessage(R.string.notreversable_description)
                             .setPositiveButton(R.string.reverse_anyway, (dialog, which) -> reverseWay(way)).show();
                 } else {
                     reverseWay(way);
@@ -226,15 +238,17 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 main.startSupportActionMode(new FromElementActionModeCallback(manager, way, cachedViaElements));
                 break;
             case MENUITEM_ROUTE:
-                main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, findViaElements(way, false)));
+                main.startSupportActionMode(
+                        new RouteSegmentActionModeCallback(manager, way, findViaElements(way, false)));
                 break;
             case MENUITEM_ADD_TO_ROUTE:
                 buildRelationSelectDialog(r -> {
                     Relation route = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
                     if (route != null) {
-                        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false)));
+                        main.startSupportActionMode(
+                                new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false)));
                     }
-                }, -1).show();
+                }, -1, R.string.select_route_title).show();
                 break;
             case MENUITEM_ROTATE:
                 deselect = false;
@@ -280,13 +294,16 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         boolean allNodesDownloaded = logic.isInDownload((Way) element);
         if (allNodesDownloaded) {
             if (isRelationMember) {
-                new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_relation_description)
-                        .setPositiveButton(R.string.deleteway_wayandnodes, (dialog, which) -> deleteWay(mode)).setNeutralButton(R.string.cancel, null).show();
+                new AlertDialog.Builder(main).setTitle(R.string.delete)
+                        .setMessage(R.string.deleteway_relation_description)
+                        .setPositiveButton(R.string.deleteway_wayandnodes, (dialog, which) -> deleteWay(mode))
+                        .setNeutralButton(R.string.cancel, null).show();
             } else {
                 deleteWay(mode);
             }
         } else {
-            new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_nodesnotdownloaded_description)
+            new AlertDialog.Builder(main).setTitle(R.string.delete)
+                    .setMessage(R.string.deleteway_nodesnotdownloaded_description)
                     .setPositiveButton(R.string.okay, null).show();
         }
     }
@@ -294,7 +311,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     /**
      * Delete way including orphan nodes and finish this mode
      * 
-     * @param mode the current ActionMode
+     * @param mode
+     *            the current ActionMode
      */
     private void deleteWay(final ActionMode mode) {
         logic.performEraseWay(main, (Way) element, true, true);
@@ -306,7 +324,8 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     /**
      * Check for at least one Node that is shared with another Way
      * 
-     * @param way the way
+     * @param way
+     *            the way
      * @return true if there is at least one shared node
      */
     private boolean isJoined(@NonNull Way way) {

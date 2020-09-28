@@ -12,16 +12,19 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 
 public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String   DEBUG_TAG    = "RestartFrom...";
+    private static final String   DEBUG_TAG       = "RestartRoute...";
     private final Set<OsmElement> segmentWays;
     private boolean               segmentSelected = false;
 
     /**
      * Construct a new callback for determining the from element of a turn restriction from multiple Ways
      * 
-     * @param manager the current EasyEditManager instance
-     * @param segments potential "from" role Ways
-     * @param vias potential "via" role elements
+     * @param manager
+     *            the current EasyEditManager instance
+     * @param segments
+     *            potential "from" role Ways
+     * @param vias
+     *            potential "via" role elements
      */
     public RestartRouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> segments) {
         super(manager);
@@ -30,8 +33,8 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        helpTopic = R.string.help_addingrestriction;
-        mode.setTitle("Re-select first segment");
+        helpTopic = R.string.help_add_route_segment;
+        mode.setTitle(R.string.actionmode_reselect_first_segment);
         logic.setClickableElements(segmentWays);
         logic.setReturnRelations(false);
         logic.setSelectedRelationWays(null);
@@ -46,7 +49,8 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
                                                             // clicked
         super.handleElementClick(element);
         segmentSelected = true;
-        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, (Way) element, findViaElements((Way) element, true)));
+        main.startSupportActionMode(
+                new RouteSegmentActionModeCallback(manager, (Way) element, findViaElements((Way) element, true)));
         return true;
     }
 

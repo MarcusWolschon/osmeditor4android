@@ -204,6 +204,10 @@
     <string name="prune_data_now">Prune data</string>
     <!-- Delete custom preset dialog -->
     <string name="delete_custom_preset_title">Delete custom preset?</string>
+    <!-- Duplicate route segment dialog -->
+    <string name="duplicate_route_segment_title">Add route segment</string>
+    <string name="duplicate_route_segment_message">This way is already a member of the route.</string>
+    <string name="duplicate_route_segment_button">Add anyway</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>
@@ -320,6 +324,9 @@
     <!-- Tag conflict dialog -->
     <string name="tag_conflict_title">Tags changed</string>
     <string name="tag_conflict_message">The operation required changing tags on the elements involved.</string>
+    <!-- Relation selection dialog -->
+    <string name="no_suitable_relations_message">No suitable relations in downloaded data</string>
+    <string name="select_route_title">Select route</string>
     <!--  Undo - Redo dialog -->
     <string name="checkpoints">Checkpoints</string>
     <string name="undo_redo_title">Undo - redo</string>
@@ -505,6 +512,9 @@ avoided by using an offline data source.</string>
     <string name="toast_invalid_number_format">Invalid number format %1$s</string>
     <string name="toast_error_downloading_mapillary_image">Error downloading mapillary image %1$s</string>
     <string name="toast_error_downloading_mapillary_sequences">Error downloading mapillary sequences %1$s</string>
+    <string name="toast_split_first_segment">Split first segment</string>
+    <string name="toast_split_first_and_next_segment">Split first and next segment</string>
+    <string name="toast_split_next_segment">Split next segment</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
@@ -671,6 +681,8 @@ avoided by using an offline data source.</string>
     <string name="menu_remove_node_from_way">Remove node from way</string>
     <string name="menu_extract">Extract node</string>
     <string name="menu_append">Append</string>
+    <string name="menu_create_route">Create route</string>
+    <string name="menu_add_to_route">Add to route</string>
     <string name="menu_relation">Create relation</string>
     <string name="menu_edit_relation">Edit relation</string>
     <string name="menu_add_relation_member">Add member</string>
@@ -824,6 +836,8 @@ avoided by using an offline data source.</string>
     <string name="actionmode_createpath">Creating path</string>
     <string name="actionmode_multiselect">Multiselect</string>
     <string name="actionmode_newnoteselect">New Note selected</string>
+    <string name="actionmode_add_segment">Add segment</string>
+    <string name="actionmode_reselect_first_segment">Re-select first segment</string>
     <!-- EasyEdit action mode sub-titles -->
     <string name="actionmode_closed_way_split_1">Split closed way, 1st node</string>
     <string name="actionmode_closed_way_split_2">Split closed way, 2nd node</string>

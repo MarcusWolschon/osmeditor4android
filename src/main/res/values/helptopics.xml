@@ -31,6 +31,7 @@
     <string name="help_opening_hours">Opening hours</string>
     <string name="help_newnoteselection">New Note selection</string>
     <string name="help_voice_commands">Voice commands</string>
+    <string name="help_add_route_segment">Add route segment</string>
     <string name="help_upgrade">15.0 Release notes</string>
     <string name="help_upgrade_141">14.1 Release notes</string>
     <string name="help_upgrade_140">14.0 Release notes</string>
