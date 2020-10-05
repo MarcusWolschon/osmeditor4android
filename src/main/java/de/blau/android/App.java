@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.filter.PresetFilter;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.net.OkHttpTlsCompat;
@@ -273,6 +274,11 @@ public class App extends android.app.Application {
                 }
                 mruTags = new MRUTags();
                 mruTags.load(ctx);
+                if (logic != null && logic.getFilter() instanceof PresetFilter) {
+                    // getCurrentPresets will be called if the presets have been
+                    // changed and the preset need to be re-referenced
+                    logic.getFilter().init(ctx); 
+                }
             }
             return currentPresets;
         }

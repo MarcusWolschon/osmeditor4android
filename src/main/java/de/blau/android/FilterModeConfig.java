@@ -46,8 +46,11 @@ public class FilterModeConfig implements ModeConfig {
             if (presetElement instanceof PresetItem || presetElement instanceof PresetGroup) {
                 Preset preset = App.getCurrentRootPreset(ctx);
                 ArrayList<PresetElementPath> result = new ArrayList<>();
-                result.add(presetElement.getPath(preset.getRootGroup()));
-                return result;
+                PresetElementPath path = presetElement.getPath(preset.getRootGroup());
+                if (path != null) {
+                    result.add(path);
+                    return result;
+                }
             }
         }
         return null;

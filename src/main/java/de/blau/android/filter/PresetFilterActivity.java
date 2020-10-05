@@ -19,6 +19,7 @@ import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetClickHandler;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
@@ -246,8 +247,11 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         Filter tempFilter = App.getLogic().getFilter();
         if (tempFilter instanceof PresetFilter) {
             filter = (PresetFilter) tempFilter;
-            filter.setPresetElement(element.getPath(rootGroup));
-            currentGroup.getGroupView(this, presetView, this, null, element, null);
+            final PresetElementPath path = element.getPath(rootGroup);
+            if (path != null) {
+                filter.setPresetElement(path);
+                currentGroup.getGroupView(this, presetView, this, null, element, null);
+            }
             presetView.invalidate();
         }
         finish();
