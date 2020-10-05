@@ -246,8 +246,11 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         Filter tempFilter = App.getLogic().getFilter();
         if (tempFilter instanceof PresetFilter) {
             filter = (PresetFilter) tempFilter;
-            filter.setPresetElement(element.getPath(rootGroup));
-            currentGroup.getGroupView(this, presetView, this, null, element, null);
+            final PresetElementPath path = element.getPath(rootGroup);
+            if (path != null) {
+                filter.setPresetElement(path);
+                currentGroup.getGroupView(this, presetView, this, null, element, null);
+            }
             presetView.invalidate();
         }
         finish();

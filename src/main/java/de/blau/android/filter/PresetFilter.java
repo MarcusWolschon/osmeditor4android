@@ -71,24 +71,26 @@ public class PresetFilter extends CommonFilter {
      */
     void setPresetElement(@NonNull PresetElementPath path) {
         clear();
-        if (path != null) {
-            this.path = path;
-            Preset[] presets = App.getCurrentPresets(context);
-            Preset searchPreset = App.getCurrentRootPreset(context);
-            element = Preset.getElementByPath(searchPreset.getRootGroup(), path);
-            if (element == null) {
-                Log.e(DEBUG_TAG, path.toString() + " not found");
-                return;
+        this.path = path;
+        Preset[] presets = App.getCurrentPresets(context);
+        Preset searchPreset = App.getCurrentRootPreset(context);
+        element = Preset.getElementByPath(searchPreset.getRootGroup(), path);
+        if (element == null) {
+            if (presetFilterButton != null) {
+                presetFilterButton.setImageResource(R.drawable.ic_filter_list_black_36dp);
             }
-            Log.d(DEBUG_TAG, "Setting preset to " + element.getName() + " parent " + element.getParent());
-            Preset filterPreset = new Preset(Arrays.asList(element));
-            for (Preset p : presets) {
-                if (p != null) {
-                    filterPreset.addObjectKeys(p.getObjectKeys());
-                }
-            }
-            preset = new Preset[] { filterPreset };
+            preset = null;
+            Log.e(DEBUG_TAG, path.toString() + " not found");
+            return;
         }
+        Log.d(DEBUG_TAG, "Setting preset to " + element.getName() + " parent " + element.getParent());
+        Preset filterPreset = new Preset(Arrays.asList(element));
+        for (Preset p : presets) {
+            if (p != null) {
+                filterPreset.addObjectKeys(p.getObjectKeys());
+            }
+        }
+        preset = new Preset[] { filterPreset };
         if (update != null) {
             update.execute();
         }
