@@ -211,6 +211,7 @@ public final class Nmea {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                                 nmeaLocation.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
                             }
+                            nmeaLocation.setTime(System.currentTimeMillis());
                             return nmeaLocation;
                         }
                     }
