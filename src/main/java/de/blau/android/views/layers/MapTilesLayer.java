@@ -398,34 +398,33 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
                 if (tile.zoomLevel >= minZoom && tile.zoomLevel <= maxZoom) {
                     tileBitmap = mTileProvider.getMapTile(tile, owner);
                 }
-                if (tileBitmap == null) {
-                    // OVERZOOM
-                    // Preferred tile is not available - request it
-                    // mTileProvider.preCacheTile(tile); already done in getMapTile
-                    // See if there are any alternative tiles available - try
-                    // using larger tiles
-                    // maximum maxOverZoom zoom levels up, with standard tiles this reduces the width to 64 bits
-                    while ((tileBitmap == null) && (zoomLevel - tile.zoomLevel) <= maxOverZoom && tile.zoomLevel > minZoom) {
-                        tile.reinit();
-                        // As we zoom out to larger-scale tiles, we want to
-                        // draw smaller and smaller sections of them
-                        sw >>= 1; // smaller size
-                        sh >>= 1;
-                        tx >>= 1; // smaller offsets
-                        ty >>= 1;
-                        // select the correct quarter
-                        if ((tile.x & 1) != 0) {
-                            tx += (myRendererInfo.getTileWidth() >> 1);
-                        }
-                        if ((tile.y & 1) != 0) {
-                            ty += (myRendererInfo.getTileHeight() >> 1);
-                        }
-                        // zoom out to next level
-                        tile.x >>= 1;
-                        tile.y >>= 1;
-                        --tile.zoomLevel;
-                        tileBitmap = mTileProvider.getMapTile(tile, owner);
+
+                // OVERZOOM
+                // Preferred tile is not available - request it
+                // mTileProvider.preCacheTile(tile); already done in getMapTile
+                // See if there are any alternative tiles available - try
+                // using larger tiles
+                // maximum maxOverZoom zoom levels up, with standard tiles this reduces the width to 64 bits
+                while (tileBitmap == null && (zoomLevel - tile.zoomLevel) <= maxOverZoom && tile.zoomLevel > minZoom) {
+                    tile.reinit();
+                    // As we zoom out to larger-scale tiles, we want to
+                    // draw smaller and smaller sections of them
+                    sw >>= 1; // smaller size
+                    sh >>= 1;
+                    tx >>= 1; // smaller offsets
+                    ty >>= 1;
+                    // select the correct quarter
+                    if ((tile.x & 1) != 0) {
+                        tx += (myRendererInfo.getTileWidth() >> 1);
                     }
+                    if ((tile.y & 1) != 0) {
+                        ty += (myRendererInfo.getTileHeight() >> 1);
+                    }
+                    // zoom out to next level
+                    tile.x >>= 1;
+                    tile.y >>= 1;
+                    --tile.zoomLevel;
+                    tileBitmap = mTileProvider.getMapTile(tile, owner);
                 }
 
                 if (tileBitmap != null) {
