@@ -693,7 +693,7 @@
   <string name="menu_paste_from_clipboard">Pegar desde el portapapeles</string>
   <string name="menu_zoom_to_selection">Acercar para seleccionar</string>
   <string name="menu_rotate">Girar</string>
-  <string name="menu_orthogonalize">Plaza cívica</string>
+  <string name="menu_orthogonalize">Escuadrar</string>
   <string name="menu_straighten">Enderezar</string>
   <string name="menu_circulize">Organizar en círculo</string>
   <string name="menu_split_polygon">Dividir en polígonos</string>

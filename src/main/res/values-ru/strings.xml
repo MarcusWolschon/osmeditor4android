@@ -56,6 +56,8 @@
   <string name="invalid_data_read_message">Пожалуйста, обратитесь к документации о поддерживаемых форматах файлов и обязательных полях данных.</string>
   <string name="file_write_failed_title">Не удалось записать в файл.</string>
   <string name="file_write_failed_message">Vespucci не смог изменить или сохранить файл.</string>
+  <string name="applying_osc_failed_title">Ошибка при обработке OSC файла</string>
+  <string name="applying_osc_failed_message">Скорее всего вы загрузили не все исходные объекты, необходимые для применения изменений</string>
   <!---->
   <string name="welcome_title">Добро пожаловать</string>
   <string name="welcome_message">Спасибо за установку Vespucci.\n&lt;br&gt;&lt;br&gt;Для начала достаточно знать эти три вещи:\n&lt;ul&gt;&lt;li&gt;Нажатие на значке замка в левом верхнем углу переключает между режимами редактирования (замок открыт) и блокировки правок;&lt;/li&gt;&lt;li&gt;Для редактирования OpenStreetMap вам нужно сперва загрузить данные для области, где вы хотите что-либо изменить (выберите нужный масштаб перед этим);&lt;/li&gt;&lt;li&gt;Для добавления объекта нажмите на большую зелёную кнопку и выберите, что вы хотите добавить, а затем нажмите на место, где хотите его установить.&lt;/li&gt;&lt;/ul&gt;\nЭто все, что вам необходимо знать для начала. Успехов!</string>
@@ -193,6 +195,9 @@
   <!--Tile layer info dialog-->
   <string name="attribution">Атрибуция</string>
   <!--Too much data dialog-->
+  <string name="too_much_data_title">Загруженно слишком много данных!</string>
+  <string name="too_much_data_message">Вы загрузили %1$d точек и превысили лимит, указанный в настройках. Это приведет к замедлению работы и, возможно, к проблемам при сохранениии данных.</string>
+  <string name="upload_data_now">Передача изменений</string>
   <!---->
   <string name="error">Ошибка</string>
   <string name="warning">Предупреждение</string>
@@ -251,6 +256,7 @@
   <string name="coverage_bottom">Снизу</string>
   <string name="toast_invalid_box">Недопустимые или неполные границы</string>
   <string name="delete_layer">Удалить слой?</string>
+  <string name="add_imagery_from_wms_endpoint">Добавить слой из WMS</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Стиль слоя</string>
   <string name="layer_style_stroke_width">Ширина линий</string>
@@ -260,6 +266,7 @@
   <string name="json_array_not_displayed">Массив JSON (не отображается)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_mapillary">Mapillary</string>
   <string name="layer_grid">Сетка</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Фотографии</string>
@@ -329,6 +336,7 @@
   <string name="toast_url_empty">Введите URL</string>
   <string name="toast_min_zoom">Установите минимальный масштаб меньше максимального</string>
   <string name="toast_no_changes">Вы ничего не изменили…</string>
+  <string name="toast_jpeg_not_transparent">JPEG файлы не бывают прозрачными — их нельзя использовать в наложении</string>
   <string name="toast_unsaved_changes">Сначала передайте ваши несохранённые изменения.</string>
   <string name="clear_anyway">Очистить все равно?</string>
   <string name="toast_upload_success">Передано на сервер OSM.</string>
@@ -458,6 +466,8 @@
   <string name="toast_phone_number_reformatted">Номер телефона отформатирован</string>
   <string name="toast_members_not_downloaded">Некоторые участники отношения не загружены</string>
   <string name="toast_restart_required">Вам нужно перезапустить Vespucci для применения изменений</string>
+  <string name="toast_out_of_memory">НЕДОСТАТОЧНО ПАМЯТИ!</string>
+  <string name="toast_egm_installed">EGM загружен и установлен</string>
   <!--Error messages-->
   <string name="error_pbf_no_version">В PBF-файле нет информации о версии</string>
   <string name="error_pbf_unknown_relation_member_type">Неизвестный тип участника отношения %1$s</string>
@@ -586,7 +596,10 @@
   <string name="location_nan_message">Пожалуйста, укажите координаты в десятичном формате (\"52.333572\",\"8.741185\"). Широта должна быть от -85.0 и до +85.0, долгота от -175.0 и до +175.0.</string>
   <string name="location_olc">Код места OLC</string>
   <!--Strings in barometer calibration-->
+  <string name="barometer_calibration_gps">GNSS</string>
   <!--Strings in postition info-->
+  <string name="position_info_hdop">HDOP</string>
+  <string name="position_info_altitude">Высота</string>
   <!--Strings in DownloadActivity-->
   <string name="download_files_title">Загрузить файлы</string>
   <string name="allow_all_networks">Разрешить для всех сетей</string>
@@ -685,8 +698,12 @@
   <string name="menu_tools_add_imagery_from_oam">Добавить снимки из OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Очистить все базы для карты</string>
   <string name="menu_tools_background_properties">Свойства фона</string>
+  <string name="menu_tools_update_imagery_configuration">Обновить настройки</string>
+  <string name="menu_tools_update_imagery_configuration_eli">Обновить настройки из ELI</string>
   <string name="menu_tools_zoom_to_layer_extent">Приблизить к нижнему слою</string>
   <string name="menu_tools_clear_clipboard">Очистить буфер обмена</string>
+  <string name="menu_tools_install_egm">Установить EGM</string>
+  <string name="menu_tools_remove_egm">Удалить EGM</string>
   <!---->
   <string name="menu_simple_actions">Простой режим</string>
   <string name="menu_feedback">Написать отзыв</string>
@@ -706,8 +723,11 @@
   <string name="distance_km">%1$.3f км</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Слои…</string>
+  <string name="menu_layers_load_geojson">Добавить слой GeoJSON</string>
   <string name="menu_layers_add_backgroundlayer">Добавить слой фоновых аэроснимков</string>
   <string name="menu_layers_add_overlaylayer">Добавить слой изображений поверх фона карты</string>
+  <string name="menu_layers_add_photolayer">Показать фото с устройства</string>
+  <string name="menu_layers_enable_mapillary_layer">Показать слой Mapillary</string>
   <string name="menu_layers_configure">Настройка...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
@@ -792,7 +812,7 @@
   <string name="config_mapProfile_summary">Выберите стиль для слоя данных.</string>
   <string name="config_enableOpenStreetBugs_title">Задачи</string>
   <string name="config_enableOpenStreetBugs_summary">Показывать заметки, ошибки и задачи, разрешить их создавать и редактировать.</string>
-  <string name="config_enablePhotoLayer_title">Слой фотоснимков</string>
+  <string name="config_enablePhotoLayer_title">Показать фото с устройства</string>
   <string name="config_enablePhotoLayer_summary">Показывать гео-привязанные фото</string>
   <string name="config_enableKeepScreenOn_title">Блокировка экрана</string>
   <string name="config_enableKeepScreenOn_summary">Не отключать экран для сохранения заряда.</string>
@@ -951,6 +971,8 @@
   <string name="config_tileCacheSize_title">Размер базы</string>
   <string name="config_tileCacheSize_summary">Общий размер базы подложки карты в МБ.</string>
   <string name="config_tileCache_current">%1$d МБ</string>
+  <string name="config_mapillaryCacheSize_title">Размер кэша Mapillary</string>
+  <string name="config_mapillaryCacheSize_summary">Место на диске, используемое кэшем Mapillary, мегабайт</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Разное</string>
   <string name="pref_enable_acra">Отчёт об ошибках</string>
@@ -1084,6 +1106,9 @@
   <string name="delete_from_relation_description">Вы собираетесь удалить этот элемент из отношения.</string>
   <string name="unset_relation_type">Удалить тип отношения</string>
   <!--Things-->
+  <string name="bridge">Мост</string>
+  <string name="tunnel">Тоннель</string>
+  <string name="culvert">Водопропускная труба</string>
   <!--time and distance-->
   <plurals name="days">
     <item quantity="one">1 день</item>

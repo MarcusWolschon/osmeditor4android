@@ -759,6 +759,7 @@ evitada empregando unha fonte de datos sen conexión.</string>
   <string name="config_showTolerance_title">Amosar tolerancia</string>
   <string name="config_use_back_for_undo_title">Preme a tecla ← para desfacer</string>
   <string name="config_enableLightTheme_title">Tema claro</string>
+  <string name="config_enableLightTheme_summary">Fondos claros e brancos.</string>
   <string name="config_splitActionBarEnabled_title">Activar barra acción dividir</string>
   <string name="config_maxInlineValues_title">Max. número de valores en liña</string>
   <string name="config_maxInlineValues_current">%1$d Valores</string>
