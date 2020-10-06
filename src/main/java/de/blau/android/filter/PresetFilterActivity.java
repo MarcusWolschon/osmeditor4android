@@ -22,6 +22,7 @@ import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.Snack;
 
 /**
