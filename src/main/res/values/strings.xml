@@ -441,7 +441,7 @@ avoided by using an offline data source.</string>
     <string name="toast_security_error_accessing_photo">Not allowed to access photo %1$s</string>
     <string name="toast_no_voice_recognition">Voice recognition facility missing</string>
     <string name="toast_no_coverage">%1$s has no coverage here</string>
-    <string name="toast_tile_layer_errors">The imagery source is erroring</string>
+    <string name="toast_tile_layer_errors">The imagery source \'%1$s\' is erroring</string>
     <string name="toast_file_exists">%1$s file exists.</string>
     <string name="toast_needs_resurvey">Object may be out of date</string>
     <string name="toast_missing_key">%1$s key missing</string>

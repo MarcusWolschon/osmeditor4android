@@ -108,6 +108,8 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
     private boolean           tileErrorShown   = false;
     private long              tileErrorCount   = 0;
 
+    private final Context ctx;
+
     /**
      * Construct a new tile layer
      * 
@@ -117,7 +119,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      */
     public MapTilesLayer(@NonNull final View aView, @Nullable final TileLayerSource aRendererInfo, @Nullable final MapTileProvider aTileProvider) {
         myView = aView;
-        Context ctx = myView.getContext();
+        ctx = myView.getContext();
         setRendererInfo(aRendererInfo);
         if (aTileProvider == null) {
             mTileProvider = new MapTileProvider(ctx, new SimpleInvalidationHandler(myView));
@@ -298,7 +300,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         if (!myRendererInfo.covers(viewBox)) {
             if (!coverageWarningDisplayed) {
                 coverageWarningDisplayed = true;
-                Snack.toastTopWarning(myView.getContext(), coverageWarningMessage);
+                Snack.toastTopWarning(ctx, coverageWarningMessage);
             }
             return; // no point, return immediately
         }
@@ -306,7 +308,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
 
         if (tileErrorCount > TILE_ERROR_LIMIT && !tileErrorShown) {
             tileErrorShown = true;
-            Snack.toastTopWarning(myView.getContext(), R.string.toast_tile_layer_errors);
+            Snack.toastTopWarning(ctx, ctx.getString(R.string.toast_tile_layer_errors, myRendererInfo.getName()));
         }
 
         long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which
@@ -630,12 +632,11 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(attributionUri));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    Context context = myView.getContext();
                     try {
-                        context.startActivity(intent);
+                        ctx.startActivity(intent);
                     } catch (ActivityNotFoundException anfe) {
                         Log.e(DEBUG_TAG, "Activity not found " + anfe.getMessage());
-                        Snack.toastTopError(context, anfe.getLocalizedMessage());
+                        Snack.toastTopError(ctx, anfe.getLocalizedMessage());
                     }
                     return true;
                 }
