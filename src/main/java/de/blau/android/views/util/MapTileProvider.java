@@ -13,13 +13,12 @@ import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import de.blau.android.R;
 import de.blau.android.exception.StorageException;
-import de.blau.android.resources.TileLayerSource;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.IMapTileProviderService;
 import de.blau.android.services.util.MapAsyncTileProvider;
@@ -50,12 +49,6 @@ public class MapTileProvider implements ServiceConnection {
     // ===========================================================
     // Fields
     // ===========================================================
-
-    /**
-     * place holder if tile not available
-     */
-    private final Object  staticTilesLock = new Object();
-    private static Bitmap mNoTilesTile;
 
     private Context                 mCtx;
     /**
@@ -356,40 +349,8 @@ public class MapTileProvider implements ServiceConnection {
         public void mapTileFailed(@NonNull final String rendererID, final int zoomLevel, final int tileX, final int tileY, final int reason)
                 throws RemoteException {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
-            if (reason == MapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting
-                                                              // the proper one
-                TileLayerSource osmts = TileLayerSource.get(mCtx, rendererID, true);
-                if (zoomLevel < Math.max(0, osmts.getMinZoomLevel() - 1)) {
-                    try {
-                        Long l = pending.get(t.toId());
-                        if (l != null) {
-                            mTileCache.putTile(t, getNoTilesTile(), false, l);
-                        }
-                    } catch (StorageException e) {
-                        Log.w(DEBUG_TAG, "mapTileFailed got " + e.getMessage());
-                        setSmallHeapMode();
-                    }
-                }
-            }
             pending.remove(t.toId());
-            mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_FAIL_ID);
-        }
-
-        /**
-         * Get the "No Tiles" tile, creating it if necessary
-         * 
-         * @return a Bitmap with the tile
-         */
-        private Bitmap getNoTilesTile() {
-            synchronized (staticTilesLock) {
-                if (mNoTilesTile == null) {
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inPreferredConfig = Bitmap.Config.RGB_565;
-                    mNoTilesTile = BitmapFactory.decodeResource(mCtx.getResources(), R.drawable.no_tiles, options);
-                    Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
-                }
-            }
-            return mNoTilesTile;
+            mDownloadFinishedHandler.sendMessage(Message.obtain(mDownloadFinishedHandler, MapTile.MAPTILE_FAIL_ID, reason, 0));
         }
     };
 

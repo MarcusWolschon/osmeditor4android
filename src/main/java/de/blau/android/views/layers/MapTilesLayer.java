@@ -242,8 +242,8 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
         }
         myRendererInfo = tileLayer;
         // reset error counter
-        tileErrorShown = false;
         tileErrorCount = 0;
+        tileErrorShown = false;
     }
 
     /**
@@ -684,7 +684,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
                     handler.postDelayed(invalidator, 100); // wait 1/10th of a second
                 }
                 viewInvalidates++;
-            } else if (msg.what == MapTile.MAPTILE_FAIL_ID) {
+            } else if (msg.what == MapTile.MAPTILE_FAIL_ID && msg.arg1 != MapAsyncTileProvider.RETRY) {
                 MapTilesLayer.this.incErrorCount();
             } else {
                 Log.e(DEBUG_TAG_1, "Unknown message " + msg);
