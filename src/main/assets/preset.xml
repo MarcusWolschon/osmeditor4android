@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets version="1.12.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
+<presets version="1.14.0" xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version" 
     object_keys="attraction,public_transport,traffic_calming,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford,club,traffic_calming,cemetery,indoor,police,disused:amenity,disused:leisure,disused:shop,disused:man_made">
 <!--
@@ -22,15 +22,15 @@
     </chunk>
     <chunk id="surface">
         <combo key="surface" text="Surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud" 
-                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface"/>
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
     </chunk>
     <chunk id="footway_surface">
         <combo key="footway:surface" text="Segregated footway surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud" 
-                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface"/>
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
     </chunk>
     <chunk id="cycleway_surface">
         <combo key="cycleway:surface" text="Segregated cycleway surface" values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud" 
-                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface"/>
+                                    display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud" values_sort="false" values_context="surface" match="none" />
     </chunk>
     <chunk id="surface_smoothness">
         <reference ref="surface"/>
@@ -57,15 +57,15 @@
         </combo>
     </chunk>
     <chunk id="sport_surface">
-        <combo key="surface" text="Surface" values="artificial_turf,asphalt,clay,concrete,decoturf,grass,sand,tartan,ground" display_values="Artificial turf,Asphalt,Clay,Concrete,DecoTurf,Grass,Sand,Tartan,Ground" />
+        <combo key="surface" text="Surface" values="artificial_turf,asphalt,clay,concrete,decoturf,grass,sand,tartan,ground" display_values="Artificial turf,Asphalt,Clay,Concrete,DecoTurf,Grass,Sand,Tartan,Ground" match="none" />
     </chunk>
     <chunk id="motorsport_surface">
-        <combo key="surface" text="Surface" values="asphalt,concrete,ground" display_values="Asphalt,Concrete,Ground" />
+        <combo key="surface" text="Surface" values="asphalt,concrete,ground" display_values="Asphalt,Concrete,Ground" match="none" />
     </chunk>
     <chunk id="riding_surface">
         <combo key="leisure" text="Type" values="horse_riding,pitch,sports_centre,stadium,track" display_values="Horse riding,Pitch,Sports centre,Stadium,Track" values_context="riding"/>
         <combo key="surface" text="Surface" values="grass,sand,clay,dirt,fine_gravel,ground,mud,unpaved,compacted" 
-                                    display_values="Grass,Sand,Clay,Dirt,Fine gravel,Ground,Mud,Unpaved,Compacted"/>
+                                    display_values="Grass,Sand,Clay,Dirt,Fine gravel,Ground,Mud,Unpaved,Compacted" match="none" />
     </chunk>
     <chunk id="lanes">
         <combo key="lanes" text="Lanes" values="1,2,3,4,5,6" length="3" match="none" value_type="integer"/>
@@ -809,15 +809,15 @@
     </chunk>
     <chunk id="power_output">
         <optional text="Output forms of energy:">
-            <combo key="generator:output:biogas" text="biogas" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
-            <combo key="generator:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
-            <combo key="generator:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
-            <combo key="generator:output:hot_air" text="hot air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
-            <combo key="generator:output:cold_water" text="cold water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
-            <combo key="generator:output:cold_air" text="cold air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
-            <combo key="generator:output:compressed_air" text="compressed air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
-            <combo key="generator:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
-            <combo key="generator:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false"/>
+            <combo key="generator:output:biogas" text="biogas" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:hot_air" text="hot air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:cold_water" text="cold water" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:cold_air" text="cold air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:compressed_air" text="compressed air" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
+            <combo key="generator:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW" values_sort="false" editable="true"/>
             <space/>
             <reference ref="voltage_frequency"/>
         </optional>
@@ -1639,9 +1639,8 @@
             <reference ref="highway_types" />
             <optional>
                 <reference ref="name_layer"/>
-                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" value_type="integer" match="none" values_sort="false" />
-                <reference ref="highway_additional_oneway"/>
-                <text key="width" text="Width (meters)"/>
+                <reference ref="highway_base"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
             </optional>
             <reference ref="road_access_restrictions"/>
             <reference ref="cycle_lanes"/>
@@ -1655,9 +1654,8 @@
             <reference ref="highway_types" />
             <optional>
                 <reference ref="name_layer" />
-                <combo key="lanes" text="Lanes" values="1,2,3,4,5" length="3" value_type="integer" match="none" values_sort="false" />
-                <reference ref="highway_additional_oneway"/>
-                <text key="width" text="Width (meters)"/>
+                <reference ref="highway_base"/>
+                <reference ref="highway_additional_oneway_lit_width_sidewalk"/>
             </optional>
             <reference ref="road_access_restrictions" />
             <reference ref="cycle_lanes"/>
@@ -4466,7 +4464,7 @@
             <key key="tourism" value="information"/>
             <key key="information" value="board"/>
             <reference ref="optional_name"/>
-            <combo key="board_type" text="Board Content" values="notice,history,nature,wildlife,plants,geology"/>
+            <combo key="board_type" text="Board Content" values="notice,history,nature,wildlife,plants,geology" display_values="Notice,History,Nature,Wildlife,Plants,Geology" />
             <text key="description" text="Detailed description" length="255"/>
         </item> <!-- Information Board -->
         <item name="Guidepost" icon="icons/png/tourist_guidepost.png" type="node" preset_name_label="true">
@@ -5650,7 +5648,7 @@
             <space/>
             <key key="amenity" value="dentist" match="keyvalue"/>
             <key key="healthcare" value="dentist" match="keyvalue"/>
-            <combo key="healthcare:speciality" text="Speciality" values_searchable="true">
+            <combo key="healthcare:speciality" text="Speciality" text_context="healthcare" values_searchable="true">
                 <list_entry value="dental_oral_maxillo_facial_surgery" display_value="Oral and maxillofacial surgery" />
                 <list_entry value="endodontics" display_value="Endodontics" />
                 <list_entry value="implantology" display_value="Implantology" />
@@ -5741,7 +5739,7 @@
             <link wiki="Key:healthcare"/>
             <space/>
             <key key="healthcare" value="laboratory"/>
-            <combo key="healthcare:speciality" text="Speciality" values="biology,blood_check,clinical_pathology" display_values="Biology,Blood check,Clinical pathology" values_context="healthcare" />
+            <combo key="healthcare:speciality" text="Speciality" text_context="healthcare" values="biology,blood_check,clinical_pathology" display_values="Biology,Blood check,Clinical pathology" values_context="healthcare" />
             <reference ref="name_oh_wheelchair"/>
             <reference ref="link_contact_address_payment"/>
         </item> <!-- Laboratory -->
@@ -6267,7 +6265,7 @@
             <link wiki="Tag:amenity=clock"/>
             <key key="amenity" value="clock"/>
             <optional>
-                <combo key="display" text="Display" values="analog,digital,sundial,unorthodox"/>
+                <combo key="display" text="Display" values="analog,digital,sundial,unorthodox" display_values="Analog,Digital,Sundial,Unorthodox"/>
                 <reference ref="support"/>
                 <combo key="faces" text="Faces" text_context="clock" values="1,2,3,4"/>
                 <combo key="visibility" text="Visibility/readability" values="house,street,area" display_values="house (up to 5m),street (up to 20m),area (more than 20m)"/>
@@ -7195,7 +7193,7 @@
             <key key="sport" value="model_aerodrome"/>
             <text key="name" text="Name"/>
             <reference ref="sport_facility"/>
-            <combo key="surface" text="Surface" values="asphalt,concrete,grass,ground" display_values="Asphalt,Concrete,Grass,Ground" />
+            <combo key="surface" text="Surface" values="asphalt,concrete,grass,ground" display_values="Asphalt,Concrete,Grass,Ground" match="none" />
         </item> <!-- Model Aerodrome -->
         <item name="RC Car" icon="icons/png/sport_rc_car_21075.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:sport=rc_car"/>
@@ -7948,14 +7946,14 @@
             <reference ref="name_ref_operator"/>
             <text key="start_date" text="Start date"/>
             <optional text="Output forms of energy (optional):">
-                <combo key="plant:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW"/>
-                <combo key="plant:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW"/>
-                <combo key="plant:output:hot_air" text="hot air" values="yes,2 W,3 kW,5 MW,7 GW"/>
-                <combo key="plant:output:cold_water" text="cold water" values="yes,2 W,3 kW,5 MW,7 GW"/>
-                <combo key="plant:output:cold_air" text="cold air" values="yes,2 W,3 kW,5 MW,7 GW"/>
-                <combo key="plant:output:compressed_air" text="compressed air" values="yes,2 W,3 kW,5 MW,7 GW"/>
-                <combo key="plant:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW"/>
-                <combo key="plant:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW"/>
+                <combo key="plant:output:electricity" text="electricity" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
+                <combo key="plant:output:hot_water" text="hot water" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
+                <combo key="plant:output:hot_air" text="hot air" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
+                <combo key="plant:output:cold_water" text="cold water" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
+                <combo key="plant:output:cold_air" text="cold air" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
+                <combo key="plant:output:compressed_air" text="compressed air" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
+                <combo key="plant:output:steam" text="steam" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
+                <combo key="plant:output:vacuum" text="vacuum" values="yes,2 W,3 kW,5 MW,7 GW" editable="true"/>
                 <space/>
                 <reference ref="voltage_frequency"/>
             </optional>
@@ -8614,7 +8612,7 @@
             <space/>
             <key key="shop" value="butcher"/>
             <combo text="Speciality" key="butcher" values="beef,horse,lamb,pork,poultry,game" 
-                display_values="Beef,Horse,Lamb,Pork,Poultry,Game" match="key"/>
+                display_values="Beef,Horse,Lamb,Pork,Poultry,Game" match="key" />
             <combo key="diet:halal" text="Halal" values="yes,no,only" display_values="Yes,No,Only" />
             <combo key="diet:kosher" text="Kosher" values="yes,no,only" display_values="Yes,No,Only" />
             <reference ref="name_oh_wheelchair_level"/>
