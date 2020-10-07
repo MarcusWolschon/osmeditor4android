@@ -208,6 +208,8 @@
     <string name="duplicate_route_segment_title">Add route segment</string>
     <string name="duplicate_route_segment_message">This way is already a member of the route.</string>
     <string name="duplicate_route_segment_button">Add anyway</string>
+    <!-- Abort action mode dialog -->
+    <string name="abort_action_title">Abort action</string>
     <!--  -->
     <string name="error">Error</string>
     <string name="warning">Warning</string>
