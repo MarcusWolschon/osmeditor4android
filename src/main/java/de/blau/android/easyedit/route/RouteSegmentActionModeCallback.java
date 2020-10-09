@@ -219,11 +219,12 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             fromElements.add(newCurrentSegment);
             Snack.barInfo(main, newNextSegment == null ? R.string.toast_split_first_segment : R.string.toast_split_first_and_next_segment);
             main.startSupportActionMode(new RestartRouteSegmentActionModeCallback(manager, fromElements));
-            return true;
+            return false;
         }
         if (newNextSegment != null) {
             Snack.barInfo(main, R.string.toast_split_next_segment);
             logic.setClickableElements(findViaElements(currentSegment, false));
+            return false;
         }
         return true;
     }

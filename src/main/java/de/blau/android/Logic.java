@@ -4746,10 +4746,12 @@ public class Logic {
      * Sets the set of ways that belong to a relation and should be highlighted. If set to null, the map will use
      * default behaviour. If set to a non-null value, the map will highlight only elements in the list.
      * 
+     * This will make a shallow copy of the list passed to avoid unexpected behaviour when adding further ways
+     * 
      * @param ways set of elements to which highlighting should be limited, or null to remove the limitation
      */
     public void setSelectedRelationWays(@Nullable List<Way> ways) {
-        selectedRelationWays = ways;
+        selectedRelationWays = ways == null ? null : new ArrayList<>(ways);
     }
 
     /**
