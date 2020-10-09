@@ -44,6 +44,14 @@ Append to the current selected way. Touch areas will be visible around nodes tha
 
 Start creating a turn restriction with this way as "from" member. This action is only available if the way in question has a "highway" tag. Ways will be split automatically during the process.
 
+### Create route
+
+Start creating a route relation with the current way as the first route segment. See [Add route segment](Add%20route%20segment.md).
+
+### Add to route
+
+Add the current way to an existing route (the route needs to be present in the downloaded data). See [Add route segment](Add%20route%20segment.md).
+
 ### ![Orthogonalize](../images/menu_ortho.png) Square
 
 For closed ways (polygons). Change angles that are near 90° or 180° to 90° or 180° respectively. The threshold over which angles are not changed can be set in the [Advanced preferences](Advanced%20preferences.md).

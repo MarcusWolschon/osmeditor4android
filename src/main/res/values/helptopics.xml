@@ -12,6 +12,7 @@
     <string name="help_pathcreation">Adding way nodes</string>
     <string name="help_relationselection">Relation selected</string>
     <string name="help_addingrestriction" translatable="false">@string/help_wayselection</string>
+    <string name='help_add_route_segmement'>Add route segment</string>
     <string name="help_appendtoway" translatable="false">@string/help_wayselection</string>
     <string name="help_mergingways" translatable="false">@string/help_wayselection</string>
     <string name="help_extractsegment" translatable="false">@string/help_wayselection</string>
