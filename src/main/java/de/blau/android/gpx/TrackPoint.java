@@ -225,10 +225,10 @@ public class TrackPoint implements InterruptibleGeoPoint, Serializable {
      */
     public synchronized void toXml(@NonNull XmlSerializer serializer, @NonNull GpxTimeFormater gtf) throws IOException {
         serializer.startTag(null, TRKPT_ELEMENT);
-        serializer.attribute(null, "lat", String.format(Locale.US, "%f", latitude));
-        serializer.attribute(null, "lon", String.format(Locale.US, "%f", longitude));
+        serializer.attribute(null, "lat", String.format(Locale.US, "%.8f", latitude));
+        serializer.attribute(null, "lon", String.format(Locale.US, "%.8f", longitude));
         if (hasAltitude()) {
-            serializer.startTag(null, ELE_ELEMENT).text(String.format(Locale.US, "%f", altitude)).endTag(null, ELE_ELEMENT);
+            serializer.startTag(null, ELE_ELEMENT).text(String.format(Locale.US, "%.3f", altitude)).endTag(null, ELE_ELEMENT);
         }
         serializer.startTag(null, TIME_ELEMENT).text(gtf.format(time)).endTag(null, TIME_ELEMENT);
         serializer.endTag(null, TRKPT_ELEMENT);
