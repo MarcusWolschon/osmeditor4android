@@ -49,7 +49,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected final Main            main;
     protected final Logic           logic;
     protected final EasyEditManager manager;
-    ActionMode                      mode;
+    protected ActionMode            mode;
     private boolean                 created   = true;
 
     public static final int GROUP_MODE = 0;

@@ -45,52 +45,50 @@ import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
- * This action mode handles element selection. When a node or way should be selected, just start this mode. The element will be automatically selected, and a
- * second click on the same element will open the tag editor.
+ * This action mode handles element selection. When a node or way should be selected, just start this mode. The element
+ * will be automatically selected, and a second click on the same element will open the tag editor.
  * 
  * @author Jan
  *
  */
 public abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
 
-    private static final String DEBUG_TAG                    = "ElementSelectionActi...";
-    private static final int    MENUITEM_UNDO                = 0;
-    static final int            MENUITEM_TAG                 = 1;
-    static final int            MENUITEM_DELETE              = 2;
-    private static final int    MENUITEM_HISTORY             = 3;
-    static final int            MENUITEM_COPY                = 4;
-    static final int            MENUITEM_CUT                 = 5;
-    private static final int    MENUITEM_PASTE_TAGS          = 6;
-    private static final int    MENUITEM_RELATION            = 7;
-    private static final int    MENUITEM_EXTEND_SELECTION    = 8;
-    private static final int    MENUITEM_ELEMENT_INFO        = 9;
+    private static final String DEBUG_TAG                 = "ElementSelectionActi...";
+    private static final int    MENUITEM_UNDO             = 0;
+    static final int            MENUITEM_TAG              = 1;
+    static final int            MENUITEM_DELETE           = 2;
+    private static final int    MENUITEM_HISTORY          = 3;
+    static final int            MENUITEM_COPY             = 4;
+    static final int            MENUITEM_CUT              = 5;
+    private static final int    MENUITEM_PASTE_TAGS       = 6;
+    private static final int    MENUITEM_RELATION         = 7;
+    private static final int    MENUITEM_EXTEND_SELECTION = 8;
+    private static final int    MENUITEM_ELEMENT_INFO     = 9;
 
-    private static final int    MENUITEM_UPLOAD              = 31;
-    protected static final int  MENUITEM_SHARE_POSITION      = 32;
-    private static final int    MENUITEM_TAG_LAST            = 33;
-    private static final int    MENUITEM_ZOOM_TO_SELECTION   = 34;
-    private static final int    MENUITEM_SEARCH_OBJECTS      = 35;
-    private static final int    MENUITEM_CALIBRATE_BAROMETER = 36;
-    static final int            MENUITEM_PREFERENCES         = 37;
-    static final int            MENUITEM_JS_CONSOLE          = 38;
+    private static final int   MENUITEM_UPLOAD              = 31;
+    protected static final int MENUITEM_SHARE_POSITION      = 32;
+    private static final int   MENUITEM_TAG_LAST            = 33;
+    private static final int   MENUITEM_ZOOM_TO_SELECTION   = 34;
+    private static final int   MENUITEM_SEARCH_OBJECTS      = 35;
+    private static final int   MENUITEM_CALIBRATE_BAROMETER = 36;
+    static final int           MENUITEM_PREFERENCES         = 37;
+    static final int           MENUITEM_JS_CONSOLE          = 38;
 
-    OsmElement                  element                      = null;
+    OsmElement element = null;
 
-    boolean                     deselect                     = true;
+    boolean deselect = true;
 
-    UndoListener                undoListener;
-    private MenuItem            undoItem;
-    private MenuItem            uploadItem;
-    private MenuItem            pasteItem;
-    private MenuItem            calibrateItem;
+    UndoListener     undoListener;
+    private MenuItem undoItem;
+    private MenuItem uploadItem;
+    private MenuItem pasteItem;
+    private MenuItem calibrateItem;
 
     /**
      * Construct a new ActionModeCallback
      * 
-     * @param manager
-     *            the EasyEditManager instance
-     * @param element
-     *            the selected OsmElement
+     * @param manager the EasyEditManager instance
+     * @param element the selected OsmElement
      */
     public ElementSelectionActionModeCallback(EasyEditManager manager, OsmElement element) {
         super(manager);
@@ -119,15 +117,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
 
-        menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
-        menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
+        menu.add(Menu.NONE, MENUITEM_TAG, Menu.NONE, R.string.menu_tags).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_tags));
+        menu.add(Menu.NONE, MENUITEM_DELETE, Menu.CATEGORY_SYSTEM, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_delete));
         if (!(element instanceof Relation)) {
-            menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
-            menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
+            menu.add(Menu.NONE, MENUITEM_COPY, Menu.CATEGORY_SECONDARY, R.string.menu_copy).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_copy));
+            menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
         }
         pasteItem = menu.add(Menu.NONE, MENUITEM_PASTE_TAGS, Menu.CATEGORY_SECONDARY, R.string.menu_paste_tags);
 
@@ -137,8 +131,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
         if (element.getOsmId() > 0) {
             menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
-                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history))
-                    .setEnabled(main.isConnectedOrConnecting());
+                    .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
         }
         menu.add(GROUP_BASE, MENUITEM_ELEMENT_INFO, Menu.CATEGORY_SYSTEM, R.string.menu_information)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_information));
@@ -149,24 +142,20 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         menu.add(GROUP_BASE, MENUITEM_SHARE_POSITION, Menu.CATEGORY_SYSTEM | 10, R.string.share_position);
         if (prefs.useBarometricHeight()) {
-            menu.add(GROUP_BASE, MENUITEM_CALIBRATE_BAROMETER, Menu.CATEGORY_SYSTEM | 10,
-                    R.string.menu_tools_calibrate_height);
+            menu.add(GROUP_BASE, MENUITEM_CALIBRATE_BAROMETER, Menu.CATEGORY_SYSTEM | 10, R.string.menu_tools_calibrate_height);
         }
         menu.add(GROUP_BASE, MENUITEM_PREFERENCES, Menu.CATEGORY_SYSTEM | 10, R.string.menu_config)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_config));
 
-        menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console)
-                .setEnabled(prefs.isJsConsoleEnabled());
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        menu.add(GROUP_BASE, MENUITEM_JS_CONSOLE, Menu.CATEGORY_SYSTEM | 10, R.string.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         return true;
     }
 
     /**
      * Internal helper to avoid duplicate code in {@link #handleElementClick(OsmElement)}}.
      * 
-     * @param element
-     *            clicked element
+     * @param element clicked element
      * @return true if handled, false if default handling should apply
      */
     @Override
@@ -218,15 +207,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     /**
      * Set a menus visibility or enabled status
      * 
-     * @param condition
-     *            the condition visibility depends on
-     * @param item
-     *            the MenuItem
-     * @param setEnabled
-     *            set enabled status instead of visibility
+     * @param condition the condition visibility depends on
+     * @param item the MenuItem
+     * @param setEnabled set enabled status instead of visibility
      * @return true if the visibility was changed
      */
-    static boolean setItemVisibility(boolean condition, @NonNull MenuItem item, boolean setEnabled) {
+    public static boolean setItemVisibility(boolean condition, @NonNull MenuItem item, boolean setEnabled) {
         if (condition) {
             if (setEnabled) {
                 if (!item.isEnabled()) {
@@ -317,8 +303,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             Intent intent = new Intent(main, TrackerService.class);
             intent.putExtra(TrackerService.CALIBRATE_KEY, true);
             try {
-                intent.putExtra(TrackerService.CALIBRATE_HEIGHT_KEY,
-                        Integer.parseInt(element.getTagWithKey(Tags.KEY_ELE)));
+                intent.putExtra(TrackerService.CALIBRATE_HEIGHT_KEY, Integer.parseInt(element.getTagWithKey(Tags.KEY_ELE)));
                 main.startService(intent);
             } catch (NumberFormatException nfex) {
                 Snack.toastTopError(main, main.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
@@ -341,8 +326,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     /**
      * Element specific delete action
      * 
-     * @param mode
-     *            the ActionMode
+     * @param mode the ActionMode
      */
     protected abstract void menuDelete(ActionMode mode);
 
@@ -352,8 +336,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private void showHistory() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Preferences prefs = new Preferences(main);
-        intent.setData(Uri.parse(
-                prefs.getServer().getWebsiteBaseUrl() + element.getName() + "/" + element.getOsmId() + "/history"));
+        intent.setData(Uri.parse(prefs.getServer().getWebsiteBaseUrl() + element.getName() + "/" + element.getOsmId() + "/history"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         main.startActivity(intent);
     }
@@ -407,8 +390,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     /**
      * Finds which nodes can be append targets.
      * 
-     * @param way
-     *            The way that will be appended to.
+     * @param way The way that will be appended to.
      * @return The set of nodes suitable for appending.
      */
     protected Set<OsmElement> findAppendableNodes(@NonNull Way way) {
@@ -428,14 +410,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     /**
      * Add any required referenced elements to upload
      * 
-     * @param context
-     *            and Android Context
-     * @param elements
-     *            the List of elements
+     * @param context and Android Context
+     * @param elements the List of elements
      * @return the List of elements for convenience
      */
-    static List<OsmElement> addRequiredElements(@NonNull final Context context,
-            @NonNull final List<OsmElement> elements) {
+    static List<OsmElement> addRequiredElements(@NonNull final Context context, @NonNull final List<OsmElement> elements) {
         int originalSize = elements.size();
         for (OsmElement e : elements) {
             if (e instanceof Way) {
@@ -454,30 +433,30 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         }
         int added = elements.size() - originalSize;
         if (added > 0) {
-            Snack.toastTopWarning(context,
-                    context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
+            Snack.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
         }
         return elements;
     }
 
     interface OnRelationSelectedListener {
+        /**
+         * Call back for when a Relation has been selected
+         * 
+         * @param id the OSM id of the Relation
+         */
         void selected(long id);
     }
 
     /**
      * Create a dialog allowing a relation to be selected
      * 
-     * @param onRelationSelectedListener
-     *            called when a relation has been selected
-     * @param currentId
-     *            a potentially pre-selected relation or -1
-     * @param titleId
-     *            string resource id to the title
+     * @param onRelationSelectedListener called when a relation has been selected
+     * @param currentId a potentially pre-selected relation or -1
+     * @param titleId string resource id to the title
      * @return a dialog
      */
     @NonNull
-    protected AlertDialog buildRelationSelectDialog(@NonNull OnRelationSelectedListener onRelationSelectedListener,
-            long currentId, int titleId) {
+    protected AlertDialog buildRelationSelectDialog(@NonNull OnRelationSelectedListener onRelationSelectedListener, long currentId, int titleId) {
         Builder builder = new AlertDialog.Builder(main);
 
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(main);
@@ -516,16 +495,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
                 onRelationSelectedListener.selected(ids.get(position));
             }
             // allow a tiny bit of time to see that the action actually worked
-            handler.postDelayed(() -> {
-                dialog.dismiss(); // dismiss this
-            }, 100);
+            handler.postDelayed(dialog::dismiss, 100);
         };
 
-        RelationListAdapter adapter = new RelationListAdapter(main, ids, currentId, buttonLayoutParams,
-                onCheckedChangeListener);
+        RelationListAdapter adapter = new RelationListAdapter(main, ids, currentId, buttonLayoutParams, onCheckedChangeListener);
         relationList.setAdapter(adapter);
 
         return dialog;
     }
-
 }

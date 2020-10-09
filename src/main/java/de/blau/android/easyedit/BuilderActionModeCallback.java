@@ -37,6 +37,11 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         super.onCreateActionMode(mode, menu);
+        // setup menu
+        menu = replaceMenu(menu, mode, this);
+        menu.clear();
+        menuUtil.reset();
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
         FloatingActionButton button = main.getSimpleActionsButton();
         button.setOnClickListener(v -> finishBuilding());
         savedButton = button.getDrawable();
@@ -49,11 +54,7 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-        menu = replaceMenu(menu, mode, this);
         super.onPrepareActionMode(mode, menu);
-        menu.clear();
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
-        arrangeMenu(menu);
         return true;
     }
 

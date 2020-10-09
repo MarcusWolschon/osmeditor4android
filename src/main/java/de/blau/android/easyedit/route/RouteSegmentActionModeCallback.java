@@ -14,6 +14,7 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.BuilderActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.ElementSelectionActionModeCallback;
 import de.blau.android.easyedit.RelationSelectionActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -31,55 +32,56 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
 
     private MenuItem revertItem = null;
 
-    private final List<Way>       segments        = new ArrayList<>();
-    private final Set<OsmElement> viaElements;
-    private boolean               segmentSelected = true;
-    private int                   titleId         = R.string.actionmode_restriction_via;
-    private Relation              route           = null;
+    private final List<Way>       segments = new ArrayList<>();
+    private final Set<OsmElement> potentialSegments;
+    private int                   titleId  = R.string.actionmode_add_segment;
+    private Relation              route    = null;
 
     /**
-     * Construct a new callback for determining the from element of a turn restriction
+     * Construct a new callback for adding segments to a route
      * 
      * @param manager the current EasyEditManager instance
      * @param way the "from" role Way
-     * @param vias potential "via" role elements
+     * @param potentialSegments potential further segments
+     * 
      */
-    public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Set<OsmElement> vias) {
+    public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Set<OsmElement> potentialSegments) {
         super(manager);
         segments.add(way);
-        viaElements = vias;
+        this.potentialSegments = potentialSegments;
     }
 
     /**
-     * Construct a new callback for determining the from element of a turn restriction
+     * Construct a new callback for adding segments to a route
      * 
      * @param manager the current EasyEditManager instance
      * @param titleId the resource id for an alternative title
      * @param way the "from" role Way
-     * @param vias potential "via" role elements
+     * @param potentialSegments potential further segments
      */
-    public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, int titleId, @NonNull Way way, @NonNull Set<OsmElement> vias) {
-        this(manager, way, vias);
+    public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, int titleId, @NonNull Way way, @NonNull Set<OsmElement> potentialSegments) {
+        this(manager, way, potentialSegments);
         this.titleId = titleId;
     }
 
     /**
-     * Construct a new callback for determining the from element of a turn restriction
+     * Construct a new callback for adding segments to a route
      * 
      * @param manager the current EasyEditManager instance
      * @param way the "from" role Way
-     * @param vias potential "via" role elements
+     * @param potentialSegments potential further segments
      */
-    public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Relation route, @NonNull Set<OsmElement> vias) {
-        this(manager, way, vias);
+    public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Relation route,
+            @NonNull Set<OsmElement> potentialSegments) {
+        this(manager, way, potentialSegments);
         this.route = route;
     }
 
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         helpTopic = R.string.help_add_route_segment;
-        mode.setTitle(R.string.actionmode_add_segment);
-        logic.setClickableElements(viaElements);
+        mode.setTitle(titleId);
+        logic.setClickableElements(potentialSegments);
         logic.setReturnRelations(false);
         logic.setSelectedRelationWays(null); // just to be safe
         if (route != null) {
@@ -94,12 +96,12 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         logic.setSelectedWay(null);
 
         // menu setup
+        super.onCreateActionMode(mode, menu);
         menu = replaceMenu(menu, mode, this);
         revertItem = menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
-        super.onCreateActionMode(mode, menu);
-        arrangeMenu(menu); // needed at least once
 
+        arrangeMenu(menu); // needed at least once
         return true;
     }
 
@@ -120,28 +122,25 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         // menu setup
         menu = replaceMenu(menu, mode, this);
         boolean updated = super.onPrepareActionMode(mode, menu);
-        revertItem.setEnabled(segments.size() > 1);
+        updated |= ElementSelectionActionModeCallback.setItemVisibility(segments.size() > 1, revertItem, false);
+        if (updated) {
+            arrangeMenu(menu);
+        }
         return updated;
     }
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        if (!super.onActionItemClicked(mode, item)) {
-            switch (item.getItemId()) {
-            case MENUITEM_REVERT: // remove last item in list
-                if (segments.size() > 1) {
-                    Way lastSegment = segments.remove(segments.size() - 1);
-                    logic.removeSelectedRelationWay(lastSegment);
-                    logic.setClickableElements(findViaElements(segments.get(segments.size() - 1), true));
-                    main.invalidateMap();
-                    item.setEnabled(segments.size() > 1);
-                }
-                break;
-            default:
-                return false;
-            }
+        if (!super.onActionItemClicked(mode, item) && MENUITEM_REVERT == item.getItemId() && segments.size() > 1) {
+            Log.d(DEBUG_TAG, "Reverting last segment addition");
+            Way lastSegment = segments.remove(segments.size() - 1);
+            logic.removeSelectedRelationWay(lastSegment);
+            logic.setClickableElements(findViaElements(segments.get(segments.size() - 1), true));
+            main.invalidateMap();
+            manager.invalidate();
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -154,7 +153,9 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
                     .setPositiveButton(R.string.duplicate_route_segment_button, (dialog, which) -> addSegment(element)).setNeutralButton(R.string.cancel, null)
                     .show();
         } else {
-            addSegment(element);
+            if (addSegment(element)) {
+                manager.invalidate();
+            }
         }
         return true;
     }
@@ -166,6 +167,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
      * and restarts the process.
      * 
      * @param element the clicked OSM element
+     * @return true is a segment was added
      */
     private boolean addSegment(@NonNull OsmElement element) {
         // check if we have to split from or via
@@ -177,9 +179,9 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             nextSegment = (Way) element;
             commonNode = currentSegment.getCommonNode(nextSegment);
         } else {
-            // FIXME show a warning
+            // This shouldn't happen
             Log.e(DEBUG_TAG, element.getName() + " clicked");
-            return true;
+            return false;
         }
 
         Way newCurrentSegment = null;
@@ -215,7 +217,6 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             Set<OsmElement> fromElements = new HashSet<>();
             fromElements.add(currentSegment);
             fromElements.add(newCurrentSegment);
-            segmentSelected = false;
             Snack.barInfo(main, newNextSegment == null ? R.string.toast_split_first_segment : R.string.toast_split_first_and_next_segment);
             main.startSupportActionMode(new RestartRouteSegmentActionModeCallback(manager, fromElements));
             return true;
