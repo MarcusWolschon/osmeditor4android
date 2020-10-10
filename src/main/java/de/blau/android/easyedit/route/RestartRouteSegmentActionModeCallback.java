@@ -4,31 +4,32 @@ import java.util.Set;
 
 import android.view.Menu;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 
 public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCallback {
     private static final String   DEBUG_TAG       = "RestartRoute...";
     private final Set<OsmElement> segmentWays;
     private boolean               segmentSelected = false;
+    private final Relation        route;
 
     /**
      * Construct a new callback for determining the from element of a turn restriction from multiple Ways
      * 
-     * @param manager
-     *            the current EasyEditManager instance
-     * @param segments
-     *            potential "from" role Ways
-     * @param vias
-     *            potential "via" role elements
+     * @param manager the current EasyEditManager instance
+     * @param segments potential initial segments Ways
+     * @param route if not null the route to add too
      */
-    public RestartRouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> segments) {
+    public RestartRouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> segments, @Nullable Relation route) {
         super(manager);
         segmentWays = segments;
+        this.route = route;
     }
 
     @Override
@@ -49,8 +50,7 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
                                                             // clicked
         super.handleElementClick(element);
         segmentSelected = true;
-        main.startSupportActionMode(
-                new RouteSegmentActionModeCallback(manager, (Way) element, findViaElements((Way) element, true)));
+        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, (Way) element, route, findViaElements((Way) element, true)));
         return true;
     }
 
