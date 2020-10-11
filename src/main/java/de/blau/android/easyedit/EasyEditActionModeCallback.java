@@ -25,6 +25,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.MenuUtil;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
@@ -404,5 +405,13 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             Log.e(DEBUG_TAG, "getActionCloseView mode is null");
         }
         return null;
+    }
+    
+    /**
+     * Save any state that is needed to restart
+     * 
+     * @param state object to store state in
+     */
+    public void saveState(@NonNull SerializableState state) {        
     }
 }

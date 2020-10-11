@@ -740,11 +740,10 @@ public class Main extends FullScreenAppCompatActivity
             }
             updateActionbarEditMode();
             Mode mode = logic.getMode();
-            if (easyEditManager != null && mode.elementsGeomEditiable() && (logic.getSelectedNode() != null || logic.getSelectedWay() != null
-                    || (logic.getSelectedRelations() != null && !logic.getSelectedRelations().isEmpty()))) {
+            if (easyEditManager != null && mode.elementsGeomEditiable()) {
                 // need to restart whatever we were doing
                 Log.d(DEBUG_TAG, "restarting element action mode");
-                easyEditManager.editElements();
+                easyEditManager.restart();
             } else if (mode.elementsEditable()) {
                 // de-select everything
                 logic.deselectAll();

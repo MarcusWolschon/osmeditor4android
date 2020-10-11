@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.easyedit.BuilderActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
@@ -20,13 +21,19 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
+
     private static final String DEBUG_TAG = "RouteSegment...";
+
+    static final String SEGMENT_IDS = "segment ids";
+    static final String ROUTE_ID    = "route id";
 
     private static final int MENUITEM_REVERT = 1;
 
@@ -38,6 +45,31 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
     private Relation              route    = null;
 
     /**
+     * Construct a new callback from saved state
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param state the saved state
+     */
+    public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
+        super(manager);
+        List<Long> ids = state.getList(SEGMENT_IDS);
+        StorageDelegator delegator = App.getDelegator();
+        for (Long id : ids) {
+            Way segment = (Way) delegator.getOsmElement(Way.NAME, id);
+            if (segment != null) {
+                segments.add(segment);
+            } else {
+                throw new IllegalStateException("Failed to find segment " + id);
+            }
+        }
+        potentialSegments = findViaElements(segments.get(segments.size() - 1));
+        Long routeId = state.getLong(ROUTE_ID);
+        if (routeId != null) {
+            route = (Relation) delegator.getOsmElement(Relation.NAME, routeId);
+        }
+    }
+
+    /**
      * Construct a new callback for adding segments to a route
      * 
      * @param manager the current EasyEditManager instance
@@ -47,6 +79,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
      */
     public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Set<OsmElement> potentialSegments) {
         super(manager);
+        Log.d(DEBUG_TAG, "Restarting");
         segments.add(way);
         this.potentialSegments = potentialSegments;
     }
@@ -91,7 +124,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
                 }
             }
         }
-        logic.addSelectedRelationWay(segments.get(0));
+        logic.addSelectedRelationWay(segments.get(segments.size() - 1));
         logic.setSelectedNode(null);
         logic.setSelectedWay(null);
 
@@ -214,7 +247,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         }
 
         if (newCurrentSegment != null) {
-            Set<OsmElement> fromElements = new HashSet<>();
+            Set<Way> fromElements = new HashSet<>();
             fromElements.add(currentSegment);
             fromElements.add(newCurrentSegment);
             Snack.barInfo(main, newNextSegment == null ? R.string.toast_split_first_segment : R.string.toast_split_first_and_next_segment);
@@ -271,5 +304,17 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         segments.clear();
         main.performTagEdit(route, Tags.VALUE_ROUTE, false, false);
         main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, route));
+    }
+
+    @Override
+    public void saveState(SerializableState state) {
+        List<Long> segmentIds = new ArrayList<>();
+        for (Way w : segments) {
+            segmentIds.add(w.getOsmId());
+        }
+        state.putList(SEGMENT_IDS, segmentIds);
+        if (route != null) {
+            state.putLong(ROUTE_ID, route.getOsmId());
+        }
     }
 }

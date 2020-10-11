@@ -1,13 +1,21 @@
 package de.blau.android.easyedit;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.view.ActionMode.Callback;
 import de.blau.android.App;
@@ -26,6 +34,8 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.tasks.Note;
+import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
 import de.blau.android.validation.Validator;
 
@@ -42,15 +52,22 @@ public class EasyEditManager {
 
     private static final int INVALIDATION_DELAY = 100; // minimum delay before action mode will be invalidated
 
-    private final Main                 main;
-    private final Logic                logic;
-    /** the touch listener from Main */
+    private final Main  main;
+    private final Logic logic;
 
     private ActionMode                 currentActionMode         = null;
     private EasyEditActionModeCallback currentActionModeCallback = null;
     private final Object               actionModeCallbackLock    = new Object();
 
+    private String restartActionModeCallbackName = null;
+
     private boolean contextMenuEnabled;
+
+    private static final List<String> restartable = Collections.unmodifiableList(
+            Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(), RestartRouteSegmentActionModeCallback.class.getCanonicalName()));
+
+    public static final String               FILENAME     = "easyeditmanager.res";
+    private SavingHelper<SerializableState> savingHelper = new SavingHelper<>();
 
     /**
      * Construct a new instance of the manager
@@ -97,11 +114,17 @@ public class EasyEditManager {
     }
 
     /**
-     * call if you need to abort the current action mode
+     * Call if you need to abort the current action mode
      */
     public void finish() {
         if (currentActionMode != null) {
             currentActionMode.finish();
+            // remove any saved state
+            try {
+                new File(FILENAME).delete(); // NOSONAR
+            } catch (SecurityException e) {
+                Log.e(DEBUG_TAG, "Deleting " + FILENAME + " raised " + e.getMessage());
+            }
         }
     }
 
@@ -130,6 +153,29 @@ public class EasyEditManager {
     }
 
     /**
+     * Get the name of the current callback class as a string
+     * 
+     * @return the class name of the current callback or null
+     */
+    @Nullable
+    public String getActionModeCallbackName() {
+        return currentActionModeCallback == null ? null : currentActionModeCallback.getClass().getCanonicalName();
+    }
+
+    /**
+     * Set the name of the callback to use when we are restarting
+     * 
+     * @param restartActionModeCallbackName the name
+     */
+    public void setRestartActionModeCallbackName(@NonNull String restartActionModeCallbackName) {
+        synchronized (actionModeCallbackLock) {
+            if (currentActionModeCallback == null) {
+                this.restartActionModeCallbackName = restartActionModeCallbackName;
+            }
+        }
+    }
+
+    /**
      * Handle case where nothing is touched .
      * 
      * @param doubleTap action was a double tap if true
@@ -140,8 +186,7 @@ public class EasyEditManager {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_multiselect));
             return; // don't deselect all just because we didn't hit anything
         }
-        if (currentActionModeCallback instanceof AddRelationMemberActionModeCallback || currentActionModeCallback instanceof RouteSegmentActionModeCallback
-                || currentActionModeCallback instanceof RestartRouteSegmentActionModeCallback) {
+        if (currentActionModeCallback instanceof AddRelationMemberActionModeCallback || currentActionModeCallback instanceof BuilderActionModeCallback) {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_actionmode));
             return; // don't deselect all just because we didn't hit anything
         }
@@ -213,47 +258,109 @@ public class EasyEditManager {
     }
 
     /**
-     * Edit currently selected elements.
+     * Edit currently selected elements, tries to restart a previous mode if it has been saved
+     */
+    public void restart() {
+        synchronized (actionModeCallbackLock) {
+            if (currentActionModeCallback == null) {
+                Log.d(DEBUG_TAG, "Trying to restart " + restartActionModeCallbackName);
+                if (isRestartable(restartActionModeCallbackName)) {
+                    new AsyncTask<Void, Void, SerializableState>() {
+                        @Override
+                        protected SerializableState doInBackground(Void... params) {
+                            return savingHelper.load(main, FILENAME, false, true, true);
+                        }
+
+                        @Override
+                        protected void onPostExecute(SerializableState state) {
+                            try {
+                                if (state != null) {
+                                    try {
+                                        Class<?> clazz = Class.forName(restartActionModeCallbackName);
+                                        Constructor<?> constructor = clazz.getConstructor(EasyEditManager.class, SerializableState.class);
+                                        ActionMode.Callback cb = (ActionMode.Callback) constructor.newInstance(EasyEditManager.this, state);
+                                        if (cb != null) {
+                                            getMain().startSupportActionMode(cb);
+                                            return;
+                                        }
+                                    } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
+                                            | IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
+                                        Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getMessage());
+                                    }
+                                }
+                                Log.e(DEBUG_TAG, "restart, saved state is null");
+                                startElementSelectionMode();
+                            } finally {
+                                restartActionModeCallbackName = null;
+                            }
+                        }
+                    }.execute();
+                } else {
+                    startElementSelectionMode();
+                }
+            }
+
+        }
+    }
+
+    /**
+     * Edit currently selected elements, tries to restart a previous mode if it has been saved
      */
     public void editElements() {
         synchronized (actionModeCallbackLock) {
             if (currentActionModeCallback == null) {
-                // No callback or didn't handle the click, perform default (select element)
-                ActionMode.Callback cb = null;
-                OsmElement e = null;
-                if (logic.getSelectedNodes() != null && logic.getSelectedNodes().size() == 1 && logic.getSelectedWays() == null
-                        && logic.getSelectedRelations() == null) {
-                    e = logic.getSelectedNode();
-                    cb = new NodeSelectionActionModeCallback(this, (Node) e);
-                } else if (logic.getSelectedNodes() == null && logic.getSelectedWays() != null && logic.getSelectedWays().size() == 1
-                        && logic.getSelectedRelations() == null) {
-                    e = logic.getSelectedWay();
-                    cb = new WaySelectionActionModeCallback(this, (Way) e);
-                } else if (logic.getSelectedNodes() == null && logic.getSelectedWays() == null && logic.getSelectedRelations() != null
-                        && logic.getSelectedRelations().size() == 1) {
-                    e = logic.getSelectedRelations().get(0);
-                    cb = new RelationSelectionActionModeCallback(this, (Relation) e);
-                } else if (logic.getSelectedNodes() != null || logic.getSelectedWays() != null || logic.getSelectedRelations() != null) {
-                    ArrayList<OsmElement> selection = new ArrayList<>();
-                    if (logic.getSelectedNodes() != null) {
-                        selection.addAll(logic.getSelectedNodes());
-                    }
-                    if (logic.getSelectedWays() != null) {
-                        selection.addAll(logic.getSelectedWays());
-                    }
-                    if (logic.getSelectedRelations() != null) {
-                        selection.addAll(logic.getSelectedRelations());
-                    }
-                    cb = new ExtendSelectionActionModeCallback(this, selection);
-                }
-                if (cb != null) {
-                    getMain().startSupportActionMode(cb);
-                    if (e != null) {
-                        elementToast(e);
-                    }
-                }
+                startElementSelectionMode();
             }
         }
+    }
+
+    /**
+     * Start an element selection mode based on selected elements
+     */
+    public void startElementSelectionMode() {
+        ActionMode.Callback cb = null;
+        OsmElement e = null;
+        if (logic.getSelectedNodes() != null && logic.getSelectedNodes().size() == 1 && logic.getSelectedWays() == null
+                && logic.getSelectedRelations() == null) {
+            e = logic.getSelectedNode();
+            cb = new NodeSelectionActionModeCallback(this, (Node) e);
+        } else if (logic.getSelectedNodes() == null && logic.getSelectedWays() != null && logic.getSelectedWays().size() == 1
+                && logic.getSelectedRelations() == null) {
+            e = logic.getSelectedWay();
+            cb = new WaySelectionActionModeCallback(this, (Way) e);
+        } else if (logic.getSelectedNodes() == null && logic.getSelectedWays() == null && logic.getSelectedRelations() != null
+                && logic.getSelectedRelations().size() == 1) {
+            e = logic.getSelectedRelations().get(0);
+            cb = new RelationSelectionActionModeCallback(this, (Relation) e);
+        } else if (logic.getSelectedNodes() != null || logic.getSelectedWays() != null || logic.getSelectedRelations() != null) {
+            ArrayList<OsmElement> selection = new ArrayList<>();
+            if (logic.getSelectedNodes() != null) {
+                selection.addAll(logic.getSelectedNodes());
+            }
+            if (logic.getSelectedWays() != null) {
+                selection.addAll(logic.getSelectedWays());
+            }
+            if (logic.getSelectedRelations() != null) {
+                selection.addAll(logic.getSelectedRelations());
+            }
+            cb = new ExtendSelectionActionModeCallback(this, selection);
+        }
+        if (cb != null) {
+            getMain().startSupportActionMode(cb);
+            if (e != null) {
+                elementToast(e);
+            }
+        }
+    }
+
+    /**
+     * Check if the saved ActionModeCallback cab be restarted or not
+     * 
+     * @param restartActionModeCallbackName the name of the callback
+     * @return true if the callback can be restarted
+     */
+    private boolean isRestartable(@NonNull String actionModeCallbackName) {
+        return restartable.contains(actionModeCallbackName);
     }
 
     /**
@@ -304,7 +411,7 @@ public class EasyEditManager {
                                                                                                    // visually selected
                 getMain().startSupportActionMode(
                         new ExtendSelectionActionModeCallback(this, ((ElementSelectionActionModeCallback) currentActionModeCallback).element));
-                // add 2nd element FIXME may need some checks
+                // add 2nd element
                 ((ExtendSelectionActionModeCallback) currentActionModeCallback).handleElementClick(osmElement);
             } else if (currentActionModeCallback instanceof ExtendSelectionActionModeCallback) {
                 // ignore for now
@@ -441,5 +548,19 @@ public class EasyEditManager {
             }
         }
         return false;
+    }
+
+    /**
+     * Save the state of the current ActionMode.Callback
+     */
+    public void saveState() {
+        synchronized (actionModeCallbackLock) {
+            if (currentActionModeCallback != null) {
+                SerializableState state = new SerializableState();
+                currentActionModeCallback.saveState(state);
+                // FISME wrap in an async task?
+                savingHelper.save(main, FILENAME, state, false, true);
+            }
+        }
     }
 }

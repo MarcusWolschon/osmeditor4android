@@ -3559,6 +3559,7 @@ public class Logic {
     synchronized void saveEditingState(@NonNull Main main) {
         EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
+        main.getEasyEditManager().saveState();
     }
 
     /**
@@ -4592,8 +4593,9 @@ public class Logic {
      * 
      * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
      */
-    public synchronized void setClickableElements(Set<OsmElement> clickable) {
-        clickableElements = clickable;
+    @SuppressWarnings("unchecked")
+    public synchronized <T extends OsmElement> void setClickableElements(Set<T> clickable) {
+        clickableElements = (Set<OsmElement>) clickable;
     }
 
     /**

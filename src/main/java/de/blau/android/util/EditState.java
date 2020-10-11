@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +28,7 @@ import de.blau.android.resources.DataStyle;
  *
  */
 public class EditState implements Serializable {
-    private static final long       serialVersionUID = 25L;
+    private static final long       serialVersionUID = 26L;
     private final boolean           savedLocked;
     private final Mode              savedMode;
     private final List<Long>        savedNodes;
@@ -47,19 +46,19 @@ public class EditState implements Serializable {
     private final Filter            savedFilter;
     private final long              savedChangesetId;
     private final List<String>      savedLastObjectSearches;
+    private final String            savedEasyEditActionModeCallback;
 
     /**
      * Construct a new EditState instance
      * 
-     * @param context Android Context
+     * @param main Android Context
      * @param logic the current Logic instance
      * @param imageFileName a image filename is any
      * @param box the current BoundingBox
      * @param followGPS true if the map is following the current location
      * @param changesetId the current changeset id (or -1)
      */
-    public EditState(@NonNull Context context, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS,
-            long changesetId) {
+    public EditState(@NonNull Main main, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS, long changesetId) {
         savedLocked = logic.isLocked();
         savedMode = logic.getMode();
         savedNodes = getIdList(logic.getSelectedNodes());
@@ -71,12 +70,13 @@ public class EditState implements Serializable {
         savedCommentDraft = logic.getDraftComment();
         savedLastSources = logic.getLastSources();
         savedSourceCommentDraft = logic.getDraftSourceComment();
-        savedTaskNotifications = App.getTaskNotifications(context);
-        savedOsmDataNotifications = App.getOsmDataNotifications(context);
+        savedTaskNotifications = App.getTaskNotifications(main);
+        savedOsmDataNotifications = App.getOsmDataNotifications(main);
         savedFollowGPS = followGPS;
         savedFilter = logic.getFilter();
         savedChangesetId = changesetId;
         savedLastObjectSearches = logic.getLastObjectSearches();
+        savedEasyEditActionModeCallback = main.getEasyEditManager().getActionModeCallbackName();
     }
 
     /**
@@ -132,6 +132,7 @@ public class EditState implements Serializable {
                 }
             }
         }
+        main.getEasyEditManager().setRestartActionModeCallbackName(savedEasyEditActionModeCallback);
     }
 
     /**
