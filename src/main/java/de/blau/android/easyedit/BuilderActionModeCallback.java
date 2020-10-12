@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
@@ -77,5 +78,29 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
     /**
      * This will be called when the "done" FAB is clicked
      */
-    public abstract void finishBuilding();
+    protected abstract void finishBuilding();
+    
+    @Override
+    public boolean onBackPressed() {
+        if (hasData()) {
+            new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> super.onBackPressed())
+                    .setNeutralButton(R.string.cancel, null).show();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onCloseClicked() {
+        if (onBackPressed()) {
+            super.onCloseClicked();
+        }
+    }
+    
+    /**
+     * Check if the callback has data that could be lost
+     * 
+     * @return true if data could be lost
+     */
+    protected abstract boolean hasData();
 }

@@ -63,10 +63,10 @@ public class EasyEditManager {
 
     private boolean contextMenuEnabled;
 
-    private static final List<String> restartable = Collections.unmodifiableList(
-            Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(), RestartRouteSegmentActionModeCallback.class.getCanonicalName()));
+    private static final List<String> restartable = Collections.unmodifiableList(Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(),
+            RestartRouteSegmentActionModeCallback.class.getCanonicalName(), AddRelationMemberActionModeCallback.class.getCanonicalName()));
 
-    public static final String               FILENAME     = "easyeditmanager.res";
+    public static final String              FILENAME     = "easyeditmanager.res";
     private SavingHelper<SerializableState> savingHelper = new SavingHelper<>();
 
     /**
@@ -458,7 +458,7 @@ public class EasyEditManager {
             invalidate();
         }
     }
-    
+
     /**
      * call the onBackPressed method for the currently active action mode
      * 

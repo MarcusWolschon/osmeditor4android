@@ -459,16 +459,15 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Create empty relation
+     * Create relation with a list of OsmElements as members
      * 
      * @param members members to add without role
      * @return the new relation
      */
     @NonNull
     public Relation createAndInsertRelation(@Nullable List<OsmElement> members) {
-        // undo - nothing done here, way gets saved/marked on insert
+        // undo - nothing done here, relation gets saved/marked on insert
         dirty = true;
-
         Relation relation = factory.createRelationWithNewId();
         insertElementUnsafe(relation);
         if (members != null) {
@@ -478,6 +477,32 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 relation.addMember(rm);
                 e.addParentRelation(relation);
                 onParentRelationChanged(e);
+            }
+        }
+        return relation;
+    }
+
+    /**
+     * Create relation with a list of RelationMembers as members
+     * 
+     * @param members members to add without role
+     * @return the new relation
+     */
+    @NonNull
+    public Relation createAndInsertRelationFromMembers(@NonNull List<RelationMember> members) {
+        // undo - nothing done here, relation gets saved/marked on insert
+        dirty = true;
+        Relation relation = factory.createRelationWithNewId();
+        insertElementUnsafe(relation);
+        for (RelationMember member : members) {
+            if (member.downloaded()) {
+                OsmElement e = member.getElement();
+                undo.save(e);
+                relation.addMember(member);
+                e.addParentRelation(relation);
+                onParentRelationChanged(e);
+            } else {
+                relation.addMember(member);
             }
         }
         return relation;
@@ -2295,6 +2320,30 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             relation.addMember(rm);
             e.addParentRelation(relation);
             onParentRelationChanged(e);
+        }
+        relation.updateState(OsmElement.STATE_MODIFIED);
+        insertElementSafe(relation);
+    }
+
+    /**
+     * Add further RelationMembers to an existing relation
+     * 
+     * @param relation existing relation
+     * @param members list of new RelationMembers
+     */
+    public void addRelationMembersToRelation(@NonNull Relation relation, @NonNull List<RelationMember> members) {
+        dirty = true;
+        undo.save(relation);
+        for (RelationMember member : members) {
+            if (member.downloaded()) {
+                OsmElement e = member.getElement();
+                undo.save(e);
+                relation.addMember(member);
+                e.addParentRelation(relation);
+                onParentRelationChanged(e);
+            } else {
+                relation.addMember(member);
+            }
         }
         relation.updateState(OsmElement.STATE_MODIFIED);
         insertElementSafe(relation);
