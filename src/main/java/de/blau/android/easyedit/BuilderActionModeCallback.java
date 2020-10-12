@@ -29,7 +29,7 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
      * 
      * @param manager the EasyEditManager instance
      */
-    public BuilderActionModeCallback(@NonNull EasyEditManager manager) {
+    protected BuilderActionModeCallback(@NonNull EasyEditManager manager) {
         super(manager);
         prefs = new Preferences(main);
     }

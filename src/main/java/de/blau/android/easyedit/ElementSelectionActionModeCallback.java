@@ -90,7 +90,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @param manager the EasyEditManager instance
      * @param element the selected OsmElement
      */
-    public ElementSelectionActionModeCallback(EasyEditManager manager, OsmElement element) {
+    protected ElementSelectionActionModeCallback(EasyEditManager manager, OsmElement element) {
         super(manager);
         this.element = element;
         undoListener = main.new UndoListener();
