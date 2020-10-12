@@ -9,11 +9,14 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.TagConflictDialog;
+import de.blau.android.easyedit.route.RouteSegmentActionModeCallback;
 import de.blau.android.easyedit.turnrestriction.FromElementActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -28,15 +31,17 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private static final int    MENUITEM_REVERSE           = 12;
     private static final int    MENUITEM_APPEND            = 13;
     private static final int    MENUITEM_RESTRICTION       = 14;
-    private static final int    MENUITEM_ROTATE            = 15;
-    private static final int    MENUITEM_ORTHOGONALIZE     = 16;
-    private static final int    MENUITEM_CIRCULIZE         = 17;
-    private static final int    MENUITEM_SPLIT_POLYGON     = 18;
-    private static final int    MENUITEM_ADDRESS           = 19;
-    private static final int    MENUITEM_UNJOIN            = 20;
-    private static final int    MENUITEM_UNJOIN_DISSIMILAR = 21;
-    private static final int    MENUITEM_REMOVE_NODE       = 22;
-    private static final int    MENUITEM_EXTRACT_SEGMENT   = 23;
+    private static final int    MENUITEM_ROUTE             = 15;
+    private static final int    MENUITEM_ADD_TO_ROUTE      = 16;
+    private static final int    MENUITEM_ROTATE            = 17;
+    private static final int    MENUITEM_ORTHOGONALIZE     = 18;
+    private static final int    MENUITEM_CIRCULIZE         = 19;
+    private static final int    MENUITEM_SPLIT_POLYGON     = 20;
+    private static final int    MENUITEM_ADDRESS           = 21;
+    private static final int    MENUITEM_UNJOIN            = 22;
+    private static final int    MENUITEM_UNJOIN_DISSIMILAR = 23;
+    private static final int    MENUITEM_REMOVE_NODE       = 24;
+    private static final int    MENUITEM_EXTRACT_SEGMENT   = 25;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
@@ -75,7 +80,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     private void findConnectedWays(@NonNull Way way) {
         cachedMergeableWays = findMergeableWays(way);
         cachedAppendableNodes = findAppendableNodes(way);
-        cachedViaElements = findViaElements(way);
+        cachedViaElements = findViaElements(way, true);
     }
 
     @Override
@@ -103,6 +108,9 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
 
         restrictionItem = menu.add(Menu.NONE, MENUITEM_RESTRICTION, Menu.NONE, R.string.actionmode_restriction)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_add_restriction));
+
+        menu.add(Menu.NONE, MENUITEM_ROUTE, Menu.NONE, R.string.menu_create_route);
+        menu.add(Menu.NONE, MENUITEM_ADD_TO_ROUTE, Menu.NONE, R.string.menu_add_to_route);
 
         orthogonalizeTitle = main.getString(R.string.menu_orthogonalize);
         orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, orthogonalizeTitle)
@@ -214,6 +222,17 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 break;
             case MENUITEM_RESTRICTION:
                 main.startSupportActionMode(new FromElementActionModeCallback(manager, way, cachedViaElements));
+                break;
+            case MENUITEM_ROUTE:
+                main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, findViaElements(way, false)));
+                break;
+            case MENUITEM_ADD_TO_ROUTE:
+                buildRelationSelectDialog(r -> {
+                    Relation route = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
+                    if (route != null) {
+                        main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false)));
+                    }
+                }, -1, R.string.select_route_title).show();
                 break;
             case MENUITEM_ROTATE:
                 deselect = false;

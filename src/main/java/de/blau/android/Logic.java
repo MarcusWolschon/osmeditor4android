@@ -1486,6 +1486,7 @@ public class Logic {
                 performBackgroundOffset(relativeX, relativeY);
             } else {
                 performTranslation(map, relativeX, relativeY);
+                main.getEasyEditManager().invalidateOnDownload();
             }
         }
         invalidateMap();
@@ -3558,6 +3559,7 @@ public class Logic {
     synchronized void saveEditingState(@NonNull Main main) {
         EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS(), prefs.getServer().getOpenChangeset());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false, true);
+        main.getEasyEditManager().saveState();
     }
 
     /**
@@ -4591,8 +4593,9 @@ public class Logic {
      * 
      * @param clickable a set of elements to which highlighting should be limited, or null to remove the limitation
      */
-    public synchronized void setClickableElements(Set<OsmElement> clickable) {
-        clickableElements = clickable;
+    @SuppressWarnings("unchecked")
+    public synchronized <T extends OsmElement> void setClickableElements(Set<T> clickable) {
+        clickableElements = (Set<OsmElement>) clickable;
     }
 
     /**
@@ -4745,10 +4748,12 @@ public class Logic {
      * Sets the set of ways that belong to a relation and should be highlighted. If set to null, the map will use
      * default behaviour. If set to a non-null value, the map will highlight only elements in the list.
      * 
+     * This will make a shallow copy of the list passed to avoid unexpected behaviour when adding further ways
+     * 
      * @param ways set of elements to which highlighting should be limited, or null to remove the limitation
      */
     public void setSelectedRelationWays(@Nullable List<Way> ways) {
-        selectedRelationWays = ways;
+        selectedRelationWays = ways == null ? null : new ArrayList<>(ways);
     }
 
     /**

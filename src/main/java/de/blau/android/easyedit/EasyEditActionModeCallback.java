@@ -1,5 +1,6 @@
 package de.blau.android.easyedit;
 
+import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.MenuUtil;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 
@@ -48,7 +50,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     protected final Main            main;
     protected final Logic           logic;
     protected final EasyEditManager manager;
-    ActionMode                      mode;
+    protected ActionMode            mode;
     private boolean                 created   = true;
 
     public static final int GROUP_MODE = 0;
@@ -146,6 +148,15 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             created = false;
             return true;
         }
+        /*
+         * This is a hack around google not providing a way to handle clicking on the "done"/"close" button as it uses
+         * reflection it is dependent on the code in the androidx libs. THis further cannot be called in
+         * onCreateActionMode as the Views don't seem to have been inflated yet.
+         */
+        View close = getActionCloseView();
+        if (close != null) {
+            close.setOnClickListener(v -> onCloseClicked());
+        }
         return false;
     }
 
@@ -171,13 +182,21 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     }
 
     /**
-     * modify behavior of back button in action mode
+     * Modify behavior of back button in action mode
      * 
      * @return true
      */
     public boolean onBackPressed() {
         mode.finish();
         return true;
+    }
+
+    /**
+     * Modify the behaviour of the "done"/"close" button
+     */
+    protected void onCloseClicked() {
+        Log.d(DEBUG_TAG, "onCloseClicked");
+        mode.finish();
     }
 
     /**
@@ -199,7 +218,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * 
      * @param menu the Menu to arrange
      */
-    void arrangeMenu(@NonNull Menu menu) {
+    protected void arrangeMenu(@NonNull Menu menu) {
         menuUtil.setShowAlways(menu);
     }
 
@@ -292,13 +311,25 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @return a list of all applicable objects
      */
     protected Set<OsmElement> findViaElements(@NonNull Way way) {
+        return findViaElements(way, true);
+    }
 
+    /**
+     * Finds which ways or nodes can be used as a via element in a restriction relation
+     * 
+     * @param way the from way
+     * @param includeNodes if true include via nodes
+     * @return a list of all applicable objects
+     */
+    protected Set<OsmElement> findViaElements(@NonNull Way way, boolean includeNodes) {
         Set<OsmElement> result = new HashSet<>();
         for (Node n : way.getNodes()) {
             for (Way w : logic.getWaysForNode(n)) {
                 if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
                     result.add(w);
-                    result.add(n); // result is a set so we wont get dups
+                    if (includeNodes) {
+                        result.add(n); // result is a set so we wont get dups
+                    }
                 }
             }
         }
@@ -329,5 +360,58 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             }
         }
         return result;
+    }
+
+    /**
+     * Attempts to retrieve the ActionMode close button using reflection.
+     *
+     * From:
+     * https://stackoverflow.com/questions/27438644/how-do-we-show-a-back-button-instead-of-donecheckmark-button-in-the-contextual
+     *
+     * @return the View or null if not found
+     */
+    private View getActionCloseView() {
+        if (mode != null) {
+            try {
+                Object modeObject = mode;
+                try {
+                    final Field wrappedObjectField = modeObject.getClass().getDeclaredField("mWrappedObject");
+                    wrappedObjectField.setAccessible(true); // NOSONAR
+                    modeObject = wrappedObjectField.get(mode);
+                } catch (Exception ex) {
+                    // ignore
+                }
+
+                final Field contextViewField = modeObject.getClass().getDeclaredField("mContextView");
+                contextViewField.setAccessible(true); // NOSONAR
+                Object mContextView = contextViewField.get(modeObject);
+
+                final Field closeField = mContextView.getClass().getDeclaredField("mClose");
+                closeField.setAccessible(true); // NOSONAR
+                final Object mClose = closeField.get(mContextView);
+                if (mClose instanceof View) {
+                    View closeButton = ((View) mClose).findViewById(R.id.action_mode_close_button);
+                    if (closeButton == null) {
+                        Log.e(DEBUG_TAG, "action_mode_close_button not found");
+                    }
+                    return closeButton;
+                } else {
+                    Log.e(DEBUG_TAG, "mClose has an unexpected type " + (mClose != null ? mClose.getClass().getCanonicalName() : " null"));
+                }
+            } catch (Exception ex) {
+                Log.e(DEBUG_TAG, ex.getClass().getSimpleName() + " in #getActionCloseView: " + ex.getLocalizedMessage());
+            }
+        } else {
+            Log.e(DEBUG_TAG, "getActionCloseView mode is null");
+        }
+        return null;
+    }
+    
+    /**
+     * Save any state that is needed to restart
+     * 
+     * @param state object to store state in
+     */
+    public void saveState(@NonNull SerializableState state) {        
     }
 }

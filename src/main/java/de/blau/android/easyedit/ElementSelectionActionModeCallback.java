@@ -1,5 +1,6 @@
 package de.blau.android.easyedit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,12 +11,20 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
@@ -81,7 +90,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @param manager the EasyEditManager instance
      * @param element the selected OsmElement
      */
-    public ElementSelectionActionModeCallback(EasyEditManager manager, OsmElement element) {
+    protected ElementSelectionActionModeCallback(EasyEditManager manager, OsmElement element) {
         super(manager);
         this.element = element;
         undoListener = main.new UndoListener();
@@ -203,7 +212,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @param setEnabled set enabled status instead of visibility
      * @return true if the visibility was changed
      */
-    static boolean setItemVisibility(boolean condition, @NonNull MenuItem item, boolean setEnabled) {
+    public static boolean setItemVisibility(boolean condition, @NonNull MenuItem item, boolean setEnabled) {
         if (condition) {
             if (setEnabled) {
                 if (!item.isEnabled()) {
@@ -427,5 +436,71 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             Snack.toastTopWarning(context, context.getResources().getQuantityString(R.plurals.added_required_elements, added, added));
         }
         return elements;
+    }
+
+    interface OnRelationSelectedListener {
+        /**
+         * Call back for when a Relation has been selected
+         * 
+         * @param id the OSM id of the Relation
+         */
+        void selected(long id);
+    }
+
+    /**
+     * Create a dialog allowing a relation to be selected
+     * 
+     * @param onRelationSelectedListener called when a relation has been selected
+     * @param currentId a potentially pre-selected relation or -1
+     * @param titleId string resource id to the title
+     * @return a dialog
+     */
+    @NonNull
+    protected AlertDialog buildRelationSelectDialog(@NonNull OnRelationSelectedListener onRelationSelectedListener, long currentId, int titleId) {
+        Builder builder = new AlertDialog.Builder(main);
+
+        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(main);
+
+        final View layout = themedInflater.inflate(R.layout.relation_selection_dialog, null);
+
+        builder.setView(layout);
+        builder.setTitle(titleId);
+        builder.setNegativeButton(R.string.cancel, null);
+
+        RecyclerView relationList = (RecyclerView) layout.findViewById(R.id.relationList);
+        LayoutParams buttonLayoutParams = relationList.getLayoutParams();
+        buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(main);
+        relationList.setLayoutManager(layoutManager);
+
+        List<Relation> allRelations = App.getDelegator().getCurrentStorage().getRelations();
+        List<Long> ids = new ArrayList<>();
+        // filter
+        for (Relation r : allRelations) {
+            if (r.hasTag(Tags.KEY_TYPE, Tags.VALUE_ROUTE)) {
+                ids.add(r.getOsmId());
+            }
+        }
+
+        if (ids.isEmpty()) {
+            builder.setMessage(R.string.no_suitable_relations_message);
+        }
+
+        final AlertDialog dialog = builder.create();
+
+        final Handler handler = new Handler();
+        OnCheckedChangeListener onCheckedChangeListener = (group, position) -> {
+            if (position != -1) {
+                onRelationSelectedListener.selected(ids.get(position));
+            }
+            // allow a tiny bit of time to see that the action actually worked
+            handler.postDelayed(dialog::dismiss, 100);
+        };
+
+        RelationListAdapter adapter = new RelationListAdapter(main, ids, currentId, buttonLayoutParams, onCheckedChangeListener);
+        relationList.setAdapter(adapter);
+
+        return dialog;
     }
 }

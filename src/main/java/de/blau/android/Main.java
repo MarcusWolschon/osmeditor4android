@@ -557,15 +557,7 @@ public class Main extends FullScreenAppCompatActivity
             hideSimpleActionsButton();
         }
         mapLayout.addView(simpleActionsButton, rlp);
-        simpleActionsButton.setOnClickListener(v -> {
-            Logic logic = App.getLogic();
-            if (!logic.isInEditZoomRange()) {
-                Snack.barInfoShort(Main.this, R.string.toast_not_in_edit_range);
-            } else {
-                PopupMenu popup = SimpleActionModeCallback.getMenu(Main.this, simpleActionsButton);
-                popup.show();
-            }
-        });
+        setSimpleActionsButtonListener();
 
         // layers button setup
         layers = (FloatingActionButton) mapLayout.findViewById(R.id.layers);
@@ -748,11 +740,10 @@ public class Main extends FullScreenAppCompatActivity
             }
             updateActionbarEditMode();
             Mode mode = logic.getMode();
-            if (easyEditManager != null && mode.elementsGeomEditiable() && (logic.getSelectedNode() != null || logic.getSelectedWay() != null
-                    || (logic.getSelectedRelations() != null && !logic.getSelectedRelations().isEmpty()))) {
+            if (easyEditManager != null && mode.elementsGeomEditiable()) {
                 // need to restart whatever we were doing
                 Log.d(DEBUG_TAG, "restarting element action mode");
-                easyEditManager.editElements();
+                easyEditManager.restart();
             } else if (mode.elementsEditable()) {
                 // de-select everything
                 logic.deselectAll();
@@ -3026,6 +3017,16 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Get the SimpleActions FAB
+     * 
+     * @return the FAB or null
+     */
+    @Nullable
+    public FloatingActionButton getSimpleActionsButton() {
+        return simpleActionsButton;
+    }
+
+    /**
      * Enable the simple actions button and change color to the normal value
      */
     public void enableSimpleActionsButton() {
@@ -3063,6 +3064,21 @@ public class Main extends FullScreenAppCompatActivity
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Util.setBackgroundTintList(simpleActionsButton, stateList);
         }
+    }
+
+    /**
+     * Set the standard on click listener for the simple actions button
+     */
+    public void setSimpleActionsButtonListener() {
+        simpleActionsButton.setOnClickListener(v -> {
+            Logic logic = App.getLogic();
+            if (!logic.isInEditZoomRange()) {
+                Snack.barInfoShort(Main.this, R.string.toast_not_in_edit_range);
+            } else {
+                PopupMenu popup = SimpleActionModeCallback.getMenu(Main.this, simpleActionsButton);
+                popup.show();
+            }
+        });
     }
 
     /**

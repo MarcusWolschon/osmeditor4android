@@ -134,6 +134,7 @@ public class RelationTest {
         //
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo("Create relation");
         Assert.assertTrue(TestUtils.clickText(device, false, "Create relation", true, false));
         Assert.assertTrue(TestUtils.findText(device, false, "Add member"));
         TestUtils.clickUp(device);
@@ -145,7 +146,7 @@ public class RelationTest {
             Assert.fail();
         }
         Assert.assertNotNull(relationType);
-        relationType.click();
+        relationType.click(); // NOSONAR
         relationType.setText(Tags.VALUE_MULTIPOLYGON); // can't find text in drop downs
         TestUtils.clickHome(device, true);
         List<Relation> relations = App.getLogic().getSelectedRelations();
