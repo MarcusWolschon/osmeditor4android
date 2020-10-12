@@ -451,6 +451,15 @@ public class EasyEditManager {
     }
 
     /**
+     * Invalidate if needed when new data is present
+     */
+    public void invalidateOnDownload() {
+        if (currentActionModeCallback instanceof BuilderActionModeCallback) {
+            invalidate();
+        }
+    }
+    
+    /**
      * call the onBackPressed method for the currently active action mode
      * 
      * @return true if the press was consumed
