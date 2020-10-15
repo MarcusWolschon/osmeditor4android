@@ -13,7 +13,7 @@ import de.blau.android.App;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 
-public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapter.ImageryViewHolder> {
+public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapter.RadioButtonViewHolder> {
     private String[]                                          descriptions;
     private List<Long>                                        ids;
     private long                                              currentId;
@@ -22,7 +22,7 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
 
     private int selected = -1;
 
-    public static class ImageryViewHolder extends RecyclerView.ViewHolder {
+    public static class RadioButtonViewHolder extends RecyclerView.ViewHolder {
         AppCompatRadioButton button;
 
         /**
@@ -30,7 +30,7 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
          * 
          * @param v the RadioButton that will be displayed
          */
-        public ImageryViewHolder(@NonNull AppCompatRadioButton v) {
+        public RadioButtonViewHolder(@NonNull AppCompatRadioButton v) {
             super(v);
             button = v;
         }
@@ -39,9 +39,9 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
     /**
      * Create a new adapter
      * 
-     * @param descriptions an array with relation desc
-     * @param currentId an array with imagery ids
-     * @param isOverlay the current imagery id
+     * @param context an Android Context
+     * @param ids a list of relation ids
+     * @param currentId the current id
      * @param buttonLayoutParams layout params for the RadioButtons
      * @param groupChangeListener a listener to call when a RadioButton has been selected
      */
@@ -64,14 +64,14 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
     };
 
     @Override
-    public RelationListAdapter.ImageryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RelationListAdapter.RadioButtonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final AppCompatRadioButton button = new AppCompatRadioButton(parent.getContext());
         button.setLayoutParams(buttonLayoutParams);
-        return new ImageryViewHolder(button);
+        return new RadioButtonViewHolder(button);
     }
 
     @Override
-    public void onBindViewHolder(ImageryViewHolder holder, int position) {
+    public void onBindViewHolder(RadioButtonViewHolder holder, int position) {
         holder.button.setText(descriptions[position]);
         holder.button.setTag(position);
         holder.button.setOnCheckedChangeListener(null);
@@ -92,8 +92,7 @@ public class RelationListAdapter extends RecyclerView.Adapter<RelationListAdapte
     /**
      * Set the ids and name arrays that are going to be display
      * 
-     * @param ids the array of imagery ids
-     * @param true if this is for overlay selection
+     * @param ids the array of ids
      * @param update if true this is an update of an existing adapter
      */
     void setIds(@NonNull Context context, @NonNull List<Long> ids, boolean update) {
