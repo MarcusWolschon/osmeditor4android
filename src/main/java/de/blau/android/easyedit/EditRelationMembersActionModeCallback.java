@@ -102,10 +102,11 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath,
             @NonNull List<OsmElement> selection) {
         super(manager);
+        this.presetPath = presetPath;
+        determineRelationPreset();
         for (OsmElement e : selection) {
             addElement(e);
         }
-        this.presetPath = presetPath;
     }
 
     /**
@@ -116,8 +117,9 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @Nullable PresetElementPath presetPath, @NonNull OsmElement element) {
         super(manager);
-        addElement(element);
         this.presetPath = presetPath;
+        determineRelationPreset();
+        addElement(element);
     }
 
     /**
@@ -130,10 +132,11 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @Nullable OsmElement element) {
         super(manager);
+        this.relation = relation;
+        determineRelationPreset();
         if (element != null) {
             addElement(element);
         }
-        this.relation = relation;
     }
 
     /**
@@ -145,8 +148,12 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      * @param selection a List containing OsmElements
      */
     public EditRelationMembersActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @NonNull List<OsmElement> selection) {
-        this(manager, (PresetElementPath) null, selection);
+        super(manager);
         this.relation = relation;
+        determineRelationPreset();
+        for (OsmElement e : selection) {
+            addElement(e);
+        }
     }
 
     /**
@@ -170,7 +177,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             if (roles != null) {
                 if (roles.size() == 1) {
                     // exactly one match
-                    member.setRole(roles.get(1).getRole());
+                    member.setRole(roles.get(0).getRole());
                 } else {
                     // TODO ask user
                 }
@@ -219,12 +226,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         super.onCreateActionMode(mode, menu);
         logic.setReturnRelations(false); // no relations, setClickabl might override this
 
-        // determine the Preset for the relation
-        if (relation != null) {
-            relationPreset = Preset.findBestMatch(App.getCurrentPresets(main), relation.getTags());
-        } else if (presetPath != null) {
-            relationPreset = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(main).getRootGroup(), presetPath);
-        }
+        determineRelationPreset();
 
         // menu setup
         menu = replaceMenu(menu, mode, this);
@@ -234,6 +236,18 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         highlightAll();
         setClickableElements();
         return true;
+    }
+
+    /**
+     * If possible set the relation preset item
+     */
+    public void determineRelationPreset() {
+        // determine the Preset for the relation
+        if (relation != null) {
+            relationPreset = Preset.findBestMatch(App.getCurrentPresets(main), relation.getTags());
+        } else if (presetPath != null) {
+            relationPreset = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(main).getRootGroup(), presetPath);
+        }
     }
 
     /**
