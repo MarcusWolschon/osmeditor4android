@@ -1123,6 +1123,20 @@ public class TestUtils {
     }
 
     /**
+     * Scroll to end
+     * 
+     * @throws UiObjectNotFoundException if the UiScrollable couldn't be found
+     */
+    public static void scrollToEnd() {
+        UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
+        try {
+            appView.scrollToEnd(100);
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail("UiScrollable not found");
+        }
+    }
+
+    /**
      * Zap all offsets for the background layer
      * 
      * @param map the current Map object
@@ -1288,7 +1302,6 @@ public class TestUtils {
         response.setBody(buffer);
         return response;
     }
-    
 
     /**
      * Load test data

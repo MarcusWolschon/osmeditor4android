@@ -1163,14 +1163,15 @@ public class Logic {
      * Returns a Set of all the clickable OSM elements in storage (does not restrict to the current screen). Before
      * returning the list is "pruned" to remove any elements on the exclude list.
      * 
+     * @param viewBox the BoundingBox currently displayed
      * @param excludes The list of OSM elements to exclude from the results.
      * @return a Set of the clickable OsmElements
      */
     @NonNull
-    public Set<OsmElement> findClickableElements(@NonNull List<OsmElement> excludes) {
+    public Set<OsmElement> findClickableElements(@NonNull BoundingBox viewBox, @NonNull List<OsmElement> excludes) {
         Set<OsmElement> result = new HashSet<>();
-        result.addAll(getDelegator().getCurrentStorage().getNodes());
-        result.addAll(getDelegator().getCurrentStorage().getWays());
+        result.addAll(getDelegator().getCurrentStorage().getNodes(viewBox));
+        result.addAll(getDelegator().getCurrentStorage().getWays(viewBox));
         for (OsmElement e : excludes) {
             result.remove(e);
         }
@@ -4692,8 +4693,8 @@ public class Logic {
      * @param restrictionType the kind of turn which is restricted
      * @return a relation element for the turn restriction
      */
-    public Relation createRestriction(@Nullable Activity activity, Way fromWay, OsmElement viaElement, Way toWay, String restrictionType) {
-
+    public Relation createRestriction(@Nullable Activity activity, @NonNull Way fromWay, @NonNull OsmElement viaElement, @NonNull Way toWay,
+            @NonNull String restrictionType) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation restriction = getDelegator().createAndInsertRelation(null);
         SortedMap<String, String> tags = new TreeMap<>();
@@ -4719,17 +4720,41 @@ public class Logic {
      * @return the new relation
      */
     public Relation createRelation(@Nullable Activity activity, String type, List<OsmElement> members) {
-
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation relation = getDelegator().createAndInsertRelation(members);
-        SortedMap<String, String> tags = new TreeMap<>();
+        setRelationType(type, relation);
+        return relation;
+    }
+
+    /**
+     * Creates a new relation containing the given members.
+     * 
+     * @param activity activity we were called from
+     * @param type the 'type=*' tag to set on the relation itself
+     * @param members the osm elements to include in the relation
+     * @return the new relation
+     */
+    public Relation createRelationFromMembers(@Nullable Activity activity, String type, List<RelationMember> members) {
+        createCheckpoint(activity, R.string.undo_action_create_relation);
+        Relation relation = getDelegator().createAndInsertRelationFromMembers(members);
+        setRelationType(type, relation);
+        return relation;
+    }
+
+    /**
+     * Set the type tag for a Relation
+     * 
+     * @param type the type or null
+     * @param relation the Relation
+     */
+    private void setRelationType(@Nullable String type, @NonNull Relation relation) {
+        SortedMap<String, String> tags = new TreeMap<>(relation.getTags());
         if (type != null) {
             tags.put(Tags.KEY_TYPE, type);
         } else {
             tags.put(Tags.KEY_TYPE, "");
         }
         getDelegator().setTags(relation, tags);
-        return relation;
     }
 
     /**
@@ -4742,6 +4767,33 @@ public class Logic {
     public void addMembers(@Nullable Activity activity, @NonNull Relation relation, @NonNull List<OsmElement> members) {
         createCheckpoint(activity, R.string.undo_action_update_relations);
         getDelegator().addMembersToRelation(relation, members);
+    }
+
+    /**
+     * Adds the list of RelationMembers to the given relation
+     * 
+     * @param activity activity we were called from
+     * @param relation Relation we want to add the members to
+     * @param members List of RelationMembers to add
+     */
+    public void addRelationMembers(@Nullable Activity activity, @NonNull Relation relation, @NonNull List<RelationMember> members) {
+        createCheckpoint(activity, R.string.undo_action_update_relations);
+        getDelegator().addRelationMembersToRelation(relation, members);
+    }
+
+    /**
+     * Adds the list of RelationMembers to the given relation
+     * 
+     * @param activity activity we were called from
+     * @param relation Relation we want to update
+     * @param removeMembers List of RelationMembers to remove
+     * @param addMembers List of RelationMembers to add
+     */
+    public void updateRelationMembers(@Nullable Activity activity, @NonNull Relation relation, @NonNull List<RelationMember> removeMembers,
+            @NonNull List<RelationMember> addMembers) {
+        createCheckpoint(activity, R.string.undo_action_update_relations);
+        getDelegator().removeRelationMembersFromRelation(relation, removeMembers);
+        getDelegator().addRelationMembersToRelation(relation, addMembers);
     }
 
     /**

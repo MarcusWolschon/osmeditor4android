@@ -1,5 +1,7 @@
 package de.blau.android.easyedit;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -13,6 +15,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -37,18 +42,20 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorTest;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class RelationTest {
 
-    Context              context = null;
-    AdvancedPrefDatabase prefDB  = null;
-    Main                 main    = null;
-    UiDevice             device  = null;
-    Map                  map     = null;
-    Logic                logic   = null;
+    Context              context         = null;
+    AdvancedPrefDatabase prefDB          = null;
+    Main                 main            = null;
+    UiDevice             device          = null;
+    Map                  map             = null;
+    Logic                logic           = null;
+    Instrumentation      instrumentation = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -58,8 +65,9 @@ public class RelationTest {
      */
     @Before
     public void setup() {
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        instrumentation = InstrumentationRegistry.getInstrumentation();
+        device = UiDevice.getInstance(instrumentation);
+        context = instrumentation.getTargetContext();
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         TestUtils.removeImageryLayers(context);
@@ -127,6 +135,7 @@ public class RelationTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
+        Assert.assertTrue(TestUtils.findText(device, false, "Path", 2000));
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false, false));
         Way way = App.getLogic().getSelectedWay();
         Assert.assertNotNull(way);
@@ -134,10 +143,18 @@ public class RelationTest {
         //
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton(device));
-        TestUtils.scrollTo("Create relation");
-        Assert.assertTrue(TestUtils.clickText(device, false, "Create relation", true, false));
-        Assert.assertTrue(TestUtils.findText(device, false, "Add member"));
-        TestUtils.clickUp(device);
+        TestUtils.scrollTo(context.getString(R.string.menu_relation));
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_relation), true, false));
+        TestUtils.scrollToEnd();
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.select_relation_type_other), true, false));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add_relation_member)));
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        // finish
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertNotNull(propertyEditor);
+        TestUtils.sleep(5000);
+
         Assert.assertTrue(TestUtils.findText(device, false, "Relation type"));
         UiObject2 relationType = null;
         try {

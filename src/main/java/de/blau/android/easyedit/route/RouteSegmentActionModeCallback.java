@@ -32,8 +32,8 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
 
     private static final String DEBUG_TAG = "RouteSegment...";
 
-    static final String SEGMENT_IDS = "segment ids";
-    static final String ROUTE_ID    = "route id";
+    static final String SEGMENT_IDS_KEY = "segment ids";
+    static final String ROUTE_ID_KEY    = "route id";
 
     private static final int MENUITEM_REVERT = 1;
 
@@ -52,7 +52,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
      */
     public RouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
         super(manager);
-        List<Long> ids = state.getList(SEGMENT_IDS);
+        List<Long> ids = state.getList(SEGMENT_IDS_KEY);
         StorageDelegator delegator = App.getDelegator();
         for (Long id : ids) {
             Way segment = (Way) delegator.getOsmElement(Way.NAME, id);
@@ -63,7 +63,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             }
         }
         potentialSegments = findViaElements(segments.get(segments.size() - 1));
-        Long routeId = state.getLong(ROUTE_ID);
+        Long routeId = state.getLong(ROUTE_ID_KEY);
         if (routeId != null) {
             route = (Relation) delegator.getOsmElement(Relation.NAME, routeId);
         }
@@ -146,7 +146,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             for (RelationMember rm : route.getMembers()) {
                 if (Way.NAME.equals(rm.getType()) && rm.downloaded()) {
                     List<Way> relationWays = logic.getSelectedRelationWays();
-                    if (relationWays != null && rm.downloaded() && !relationWays.contains(rm.getElement())) {
+                    if (relationWays != null && !relationWays.contains(rm.getElement())) {
                         logic.addSelectedRelationWay((Way) rm.getElement());
                     }
                 }
@@ -274,23 +274,6 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
     }
 
     @Override
-    public boolean onBackPressed() {
-        if (!segments.isEmpty()) {
-            new AlertDialog.Builder(main).setTitle(R.string.abort_action_title).setPositiveButton(R.string.yes, (dialog, which) -> super.onBackPressed())
-                    .setNeutralButton(R.string.cancel, null).show();
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected void onCloseClicked() {
-        if (onBackPressed()) {
-            super.onCloseClicked();
-        }
-    }
-
-    @Override
     public void finishBuilding() {
         List<OsmElement> elements = new ArrayList<>();
         for (Way w : segments) {
@@ -312,9 +295,14 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         for (Way w : segments) {
             segmentIds.add(w.getOsmId());
         }
-        state.putList(SEGMENT_IDS, segmentIds);
+        state.putList(SEGMENT_IDS_KEY, segmentIds);
         if (route != null) {
-            state.putLong(ROUTE_ID, route.getOsmId());
+            state.putLong(ROUTE_ID_KEY, route.getOsmId());
         }
+    }
+
+    @Override
+    protected boolean hasData() {
+        return !segments.isEmpty();
     }
 }

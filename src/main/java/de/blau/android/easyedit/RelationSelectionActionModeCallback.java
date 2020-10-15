@@ -22,8 +22,7 @@ import de.blau.android.util.Util;
 public class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
     private static final String DEBUG_TAG = "RelationSelectionAct...";
 
-    private static final int MENUITEM_ADD_RELATION_MEMBERS    = 10;
-    private static final int MENUITEM_SELECT_RELATION_MEMBERS = 11;
+    private static final int MENUITEM_SELECT_RELATION_MEMBERS = LAST_REGULAR_MENUITEM + 1;
 
     private MenuItem selectMembersItem;
 
@@ -52,8 +51,6 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
 
         // menu setup
         menu = replaceMenu(menu, mode, this);
-        menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.NONE, R.string.menu_add_relation_member)
-                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_add_member));
         selectMembersItem = menu.add(Menu.NONE, MENUITEM_SELECT_RELATION_MEMBERS, Menu.NONE, R.string.menu_select_relation_members)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_members));
 
@@ -95,9 +92,6 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         if (!super.onActionItemClicked(mode, item)) {
             switch (item.getItemId()) {
-            case MENUITEM_ADD_RELATION_MEMBERS:
-                main.startSupportActionMode(new AddRelationMemberActionModeCallback(manager, (Relation) element, null));
-                break;
             case MENUITEM_SELECT_RELATION_MEMBERS:
                 List<OsmElement> selection = new ArrayList<>();
                 List<RelationMember> members = ((Relation) element).getMembers();

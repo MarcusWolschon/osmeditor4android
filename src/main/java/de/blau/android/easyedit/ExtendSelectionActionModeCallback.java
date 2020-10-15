@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
@@ -21,8 +22,11 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.PrefEditor;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.search.Search;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -31,13 +35,14 @@ import de.blau.android.util.Util;
 public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallback {
     private static final String DEBUG_TAG = "ExtendSelectionAct...";
 
-    private static final int MENUITEM_MERGE             = 6;
-    private static final int MENUITEM_RELATION          = 7;
-    private static final int MENUITEM_ORTHOGONALIZE     = 8;
-    private static final int MENUITEM_MERGE_POLYGONS    = 9;
-    private static final int MENUITEM_UPLOAD            = 31;
-    private static final int MENUITEM_ZOOM_TO_SELECTION = 34;
-    private static final int MENUITEM_SEARCH_OBJECTS    = 35;
+    private static final int MENUITEM_MERGE                = 6;
+    private static final int MENUITEM_RELATION             = 7;
+    private static final int MENUITEM_ADD_RELATION_MEMBERS = 8;
+    private static final int MENUITEM_ORTHOGONALIZE        = 9;
+    private static final int MENUITEM_MERGE_POLYGONS       = 10;
+    private static final int MENUITEM_UPLOAD               = 31;
+    private static final int MENUITEM_ZOOM_TO_SELECTION    = 34;
+    private static final int MENUITEM_SEARCH_OBJECTS       = 35;
 
     private List<OsmElement> selection;
     private List<OsmElement> sortedWays;
@@ -170,6 +175,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
 
+        menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.CATEGORY_SYSTEM, R.string.tag_menu_addtorelation)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_add_member));
+
         orthogonalizeItem = menu.add(Menu.NONE, MENUITEM_ORTHOGONALIZE, Menu.NONE, R.string.menu_orthogonalize)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_ortho));
 
@@ -288,7 +296,18 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 mode.finish();
                 break;
             case MENUITEM_RELATION:
-                main.startSupportActionMode(new AddRelationMemberActionModeCallback(manager, selection));
+                ElementSelectionActionModeCallback.buildPresetSelectDialog(main, p -> {
+                    main.startSupportActionMode(
+                            new EditRelationMembersActionModeCallback(manager, p.getPath(App.getCurrentRootPreset(main).getRootGroup()), selection));
+                }, ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
+                break;
+            case MENUITEM_ADD_RELATION_MEMBERS:
+                ElementSelectionActionModeCallback.buildRelationSelectDialog(main, r -> {
+                    Relation relation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
+                    if (relation != null) {
+                        main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, selection));
+                    }
+                }, -1, R.string.select_relation_title, null, null).show();
                 break;
             case MENUITEM_ORTHOGONALIZE:
                 orthogonalizeWays();

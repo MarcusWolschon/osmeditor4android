@@ -259,7 +259,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
      * 
      * @param member the RelationMember to remove
      */
-    void removeMember(final RelationMember member) {
+    void removeMember(@NonNull final RelationMember member) {
         while (members.remove(member)) {
             // LOOP
         }

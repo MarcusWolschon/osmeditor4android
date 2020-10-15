@@ -20,10 +20,11 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.SerializableState;
 
 public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG       = "RestartRoute...";
-    private final Set<Way>      segmentWays;
-    private boolean             segmentSelected = false;
-    private final Relation      route;
+    private static final String DEBUG_TAG = "RestartRoute...";
+
+    private final Set<Way> segmentWays;
+    private boolean        segmentSelected = false;
+    private final Relation route;
 
     /**
      * Construct a new callback from saved state
@@ -34,7 +35,7 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
     public RestartRouteSegmentActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
         super(manager);
         segmentWays = new HashSet<>();
-        List<Long> ids = state.getList(RouteSegmentActionModeCallback.SEGMENT_IDS);
+        List<Long> ids = state.getList(RouteSegmentActionModeCallback.SEGMENT_IDS_KEY);
         StorageDelegator delegator = App.getDelegator();
         for (Long id : ids) {
             Way segment = (Way) delegator.getOsmElement(Way.NAME, id);
@@ -44,7 +45,7 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
                 throw new IllegalStateException("Failed to find segment " + id);
             }
         }
-        Long routeId = state.getLong(RouteSegmentActionModeCallback.ROUTE_ID);
+        Long routeId = state.getLong(RouteSegmentActionModeCallback.ROUTE_ID_KEY);
         route = routeId != null ? (Relation) delegator.getOsmElement(Relation.NAME, routeId) : null;
     }
 
@@ -101,9 +102,9 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
         for (Way w : segmentWays) {
             segmentIds.add(w.getOsmId());
         }
-        state.putList(RouteSegmentActionModeCallback.SEGMENT_IDS, segmentIds);
+        state.putList(RouteSegmentActionModeCallback.SEGMENT_IDS_KEY, segmentIds);
         if (route != null) {
-            state.putLong(RouteSegmentActionModeCallback.ROUTE_ID, route.getOsmId());
+            state.putLong(RouteSegmentActionModeCallback.ROUTE_ID_KEY, route.getOsmId());
         }
         // Note segmentSelected doesn't need to be save as it is only set on exiting
     }

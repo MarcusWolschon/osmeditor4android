@@ -546,6 +546,43 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Add and remove some members to a Relation
+     */
+    @Test
+    public void relationMembers() {
+        StorageDelegator d = new StorageDelegator();
+        OsmElementFactory factory = d.getFactory();
+        Node n1 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n1);
+        Node n2 = factory.createNodeWithNewId(StorageDelegatorTest.toE7(51.476), StorageDelegatorTest.toE7(0.006));
+        d.insertElementSafe(n2);
+
+        Relation r = factory.createRelationWithNewId();
+        RelationMember member1 = new RelationMember("test1", n1);
+        RelationMember member2 = new RelationMember("test2", n2);
+        RelationMember member3 = new RelationMember(Way.NAME, 1234567L, "test3");
+
+        List<RelationMember> addMembers = new ArrayList<>();
+        addMembers.add(member1);
+        addMembers.add(member2);
+        addMembers.add(member3);
+        d.addRelationMembersToRelation(r, addMembers);
+
+        assertTrue(d.getApiStorage().contains(r));
+        assertEquals(member1, r.getMember(n1));
+        assertEquals(member2, r.getMember(n2));
+        assertEquals(member3, r.getMember(Way.NAME, 1234567L));
+
+        List<RelationMember> removeMembers = new ArrayList<>();
+        removeMembers.add(member2);
+        removeMembers.add(member3);
+        d.removeRelationMembersFromRelation(r, removeMembers);
+        assertEquals(member1, r.getMember(n1));
+        assertNull(r.getMember(n2));
+        assertNull(r.getMember(Way.NAME, 1234567L));
+    }
+
+    /**
      * Convert to scaled int representation
      * 
      * @param d double coordinate value

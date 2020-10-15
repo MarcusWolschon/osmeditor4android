@@ -1,10 +1,12 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
@@ -18,8 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.appcompat.view.ActionMode;
@@ -32,12 +36,17 @@ import de.blau.android.R;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetFixedField;
 import de.blau.android.search.Search;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Snack;
@@ -53,17 +62,19 @@ import de.blau.android.util.Util;
  */
 public abstract class ElementSelectionActionModeCallback extends EasyEditActionModeCallback {
 
-    private static final String DEBUG_TAG                 = "ElementSelectionActi...";
-    private static final int    MENUITEM_UNDO             = 0;
-    static final int            MENUITEM_TAG              = 1;
-    static final int            MENUITEM_DELETE           = 2;
-    private static final int    MENUITEM_HISTORY          = 3;
-    static final int            MENUITEM_COPY             = 4;
-    static final int            MENUITEM_CUT              = 5;
-    private static final int    MENUITEM_PASTE_TAGS       = 6;
-    private static final int    MENUITEM_RELATION         = 7;
-    private static final int    MENUITEM_EXTEND_SELECTION = 8;
-    private static final int    MENUITEM_ELEMENT_INFO     = 9;
+    private static final String DEBUG_TAG                     = "ElementSelectionActi...";
+    private static final int    MENUITEM_UNDO                 = 0;
+    static final int            MENUITEM_TAG                  = 1;
+    static final int            MENUITEM_DELETE               = 2;
+    private static final int    MENUITEM_HISTORY              = 3;
+    static final int            MENUITEM_COPY                 = 4;
+    static final int            MENUITEM_CUT                  = 5;
+    private static final int    MENUITEM_PASTE_TAGS           = 6;
+    private static final int    MENUITEM_CREATE_RELATION      = 7;
+    private static final int    MENUITEM_ADD_RELATION_MEMBERS = 8;
+    private static final int    MENUITEM_EXTEND_SELECTION     = 9;
+    private static final int    MENUITEM_ELEMENT_INFO         = 10;
+    protected static final int  LAST_REGULAR_MENUITEM         = MENUITEM_ELEMENT_INFO;
 
     private static final int   MENUITEM_UPLOAD              = 31;
     protected static final int MENUITEM_SHARE_POSITION      = 32;
@@ -127,8 +138,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
         menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_multi_select));
-        menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
+        menu.add(Menu.NONE, MENUITEM_CREATE_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation));
+        menu.add(Menu.NONE, MENUITEM_ADD_RELATION_MEMBERS, Menu.CATEGORY_SYSTEM,
+                element instanceof Relation ? R.string.menu_add_relation_member : R.string.tag_menu_addtorelation)
+                .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_relation_add_member));
         if (element.getOsmId() > 0) {
             menu.add(GROUP_BASE, MENUITEM_HISTORY, Menu.CATEGORY_SYSTEM, R.string.menu_history)
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_history)).setEnabled(main.isConnectedOrConnecting());
@@ -162,7 +176,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     public boolean handleElementClick(OsmElement element) {
         super.handleElementClick(element);
         if (element.equals(this.element)) {
-            // remove any empty undo checkpoint from potentially starting a move
+            // remove any empty move undo checkpoint
             switch (element.getName()) {
             case Node.NAME:
                 App.getLogic().removeCheckpoint(main, R.string.undo_action_movenode);
@@ -268,12 +282,27 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         case MENUITEM_PASTE_TAGS:
             main.performTagEdit(element, null, new HashMap<>(App.getTagClipboard(main).paste()), false);
             break;
-        case MENUITEM_RELATION:
-            deselect = false;
-            logic.setSelectedNode(null);
-            logic.setSelectedWay(null);
-            logic.setSelectedRelation(null);
-            main.startSupportActionMode(new AddRelationMemberActionModeCallback(manager, element));
+        case MENUITEM_CREATE_RELATION:
+            buildPresetSelectDialog(main, p -> {
+                deselect = false;
+                logic.setSelectedNode(null);
+                logic.setSelectedWay(null);
+                logic.setSelectedRelation(null);
+                main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager,
+                        p == null ? null : p.getPath(App.getCurrentRootPreset(main).getRootGroup()), element));
+            }, ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
+            break;
+        case MENUITEM_ADD_RELATION_MEMBERS:
+            if (element instanceof Relation) {
+                main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, (Relation) element, (OsmElement) null));
+            } else {
+                buildRelationSelectDialog(main, r -> {
+                    Relation relation = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
+                    if (relation != null) {
+                        main.startSupportActionMode(new EditRelationMembersActionModeCallback(manager, relation, element));
+                    }
+                }, -1, R.string.select_relation_title, null, null).show();
+            }
             break;
         case MENUITEM_EXTEND_SELECTION:
             deselect = false;
@@ -453,13 +482,16 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
      * @param onRelationSelectedListener called when a relation has been selected
      * @param currentId a potentially pre-selected relation or -1
      * @param titleId string resource id to the title
+     * @param filterKey key to use for filtering
+     * @param filterValue value to use for filtering (filterKey must not be null)
      * @return a dialog
      */
     @NonNull
-    protected AlertDialog buildRelationSelectDialog(@NonNull OnRelationSelectedListener onRelationSelectedListener, long currentId, int titleId) {
-        Builder builder = new AlertDialog.Builder(main);
+    static AlertDialog buildRelationSelectDialog(@NonNull Context context, @NonNull OnRelationSelectedListener onRelationSelectedListener, long currentId,
+            int titleId, @Nullable String filterKey, @Nullable String filterValue) {
+        Builder builder = new AlertDialog.Builder(context);
 
-        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(main);
+        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(context);
 
         final View layout = themedInflater.inflate(R.layout.relation_selection_dialog, null);
 
@@ -471,14 +503,21 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         LayoutParams buttonLayoutParams = relationList.getLayoutParams();
         buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(main);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         relationList.setLayoutManager(layoutManager);
 
         List<Relation> allRelations = App.getDelegator().getCurrentStorage().getRelations();
         List<Long> ids = new ArrayList<>();
         // filter
-        for (Relation r : allRelations) {
-            if (r.hasTag(Tags.KEY_TYPE, Tags.VALUE_ROUTE)) {
+        if (filterKey != null) {
+            for (Relation r : allRelations) {
+                String value = r.getTagWithKey(filterKey);
+                if (value != null && (filterValue == null || filterValue.equals(value))) {
+                    ids.add(r.getOsmId());
+                }
+            }
+        } else {
+            for (Relation r : allRelations) {
                 ids.add(r.getOsmId());
             }
         }
@@ -498,9 +537,69 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             handler.postDelayed(dialog::dismiss, 100);
         };
 
-        RelationListAdapter adapter = new RelationListAdapter(main, ids, currentId, buttonLayoutParams, onCheckedChangeListener);
+        RelationListAdapter adapter = new RelationListAdapter(context, ids, currentId, buttonLayoutParams, onCheckedChangeListener);
         relationList.setAdapter(adapter);
 
         return dialog;
+    }
+
+    interface OnPresetSelectedListener {
+        /**
+         * Call back for when a Relation has been selected
+         * 
+         * @param id the OSM id of the Relation
+         */
+        void selected(@Nullable PresetItem item);
+    }
+
+    /**
+     * Create a dialog allowing a relation to be selected
+     * 
+     * @param onRelationSelectedListener called when a relation has been selected
+     * @param currentId a potentially pre-selected relation or -1
+     * @param titleId string resource id to the title
+     * @param filterKey key to use for filtering
+     * @param filterValue value to use for filtering (filterKey must not be null)
+     * @return a dialog
+     */
+    @NonNull
+    static AlertDialog buildPresetSelectDialog(@NonNull Context context, @NonNull final OnPresetSelectedListener onPresetSelectedListener, ElementType type,
+            int titleId, @Nullable String filterKey, @Nullable String filterValue) {
+        Builder builder = new AlertDialog.Builder(context);
+
+        builder.setTitle(titleId);
+        builder.setNegativeButton(R.string.cancel, null);
+
+        final Map<String, PresetItem> items = new HashMap<>();
+        for (Preset preset : App.getCurrentPresets(context)) {
+            if (preset != null) {
+                for (Entry<String, PresetItem> entry : preset.getItemsForType(type).entrySet()) {
+                    String key = entry.getKey();
+                    PresetItem item = entry.getValue();
+                    if (filterKey != null) {
+                        PresetField field = item.getField(filterKey);
+                        if (field != null && (filterValue == null
+                                || (field instanceof PresetFixedField && filterValue.equals(((PresetFixedField) field).getValue().getValue())))) {
+                            items.put(key, item);
+                        }
+                    } else {
+                        items.put(key, item);
+                    }
+                }
+
+            }
+        }
+        List<String> itemNames = new ArrayList<>(items.keySet());
+        Collections.sort(itemNames);
+        itemNames.add(context.getString(R.string.select_relation_type_other));
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.search_results_item, itemNames);
+
+        builder.setAdapter(adapter, (dialog, which) -> {
+            String key = adapter.getItem(which);
+            onPresetSelectedListener.selected(items.get(key));
+        });
+
+        return builder.create();
     }
 }
