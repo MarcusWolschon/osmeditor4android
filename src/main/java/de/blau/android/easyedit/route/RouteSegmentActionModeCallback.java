@@ -146,7 +146,7 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
             for (RelationMember rm : route.getMembers()) {
                 if (Way.NAME.equals(rm.getType()) && rm.downloaded()) {
                     List<Way> relationWays = logic.getSelectedRelationWays();
-                    if (relationWays != null && rm.downloaded() && !relationWays.contains(rm.getElement())) {
+                    if (relationWays != null && !relationWays.contains(rm.getElement())) {
                         logic.addSelectedRelationWay((Way) rm.getElement());
                     }
                 }

@@ -37,14 +37,14 @@ import de.blau.android.util.Util;
 
 public class NodeSelectionActionModeCallback extends ElementSelectionActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
     private static final String DEBUG_TAG             = "NodeSelectionAction...";
-    private static final int    MENUITEM_APPEND       = 10;
-    private static final int    MENUITEM_JOIN         = 11;
-    private static final int    MENUITEM_UNJOIN       = 12;
-    private static final int    MENUITEM_EXTRACT      = 13;
-    private static final int    MENUITEM_RESTRICTION  = 14;
+    private static final int    MENUITEM_APPEND       = LAST_REGULAR_MENUITEM + 1;
+    private static final int    MENUITEM_JOIN         = LAST_REGULAR_MENUITEM + 2;
+    private static final int    MENUITEM_UNJOIN       = LAST_REGULAR_MENUITEM + 3;
+    private static final int    MENUITEM_EXTRACT      = LAST_REGULAR_MENUITEM + 4;
+    private static final int    MENUITEM_RESTRICTION  = LAST_REGULAR_MENUITEM + 5;
     /** */
-    private static final int    MENUITEM_SET_POSITION = 16;
-    private static final int    MENUITEM_ADDRESS      = 17;
+    private static final int    MENUITEM_SET_POSITION = LAST_REGULAR_MENUITEM + 6;
+    private static final int    MENUITEM_ADDRESS      = LAST_REGULAR_MENUITEM + 7;
 
     private List<OsmElement> joinableElements = null;
     private List<Way>        highways         = new ArrayList<>();

@@ -64,7 +64,7 @@ public class EasyEditManager {
     private boolean contextMenuEnabled;
 
     private static final List<String> restartable = Collections.unmodifiableList(Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(),
-            RestartRouteSegmentActionModeCallback.class.getCanonicalName(), AddRelationMemberActionModeCallback.class.getCanonicalName()));
+            RestartRouteSegmentActionModeCallback.class.getCanonicalName(), EditRelationMembersActionModeCallback.class.getCanonicalName()));
 
     public static final String              FILENAME     = "easyeditmanager.res";
     private SavingHelper<SerializableState> savingHelper = new SavingHelper<>();
@@ -186,11 +186,8 @@ public class EasyEditManager {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_multiselect));
             return; // don't deselect all just because we didn't hit anything
         }
-        if (currentActionModeCallback instanceof AddRelationMemberActionModeCallback || currentActionModeCallback instanceof BuilderActionModeCallback) {
-            Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_actionmode));
-            return; // don't deselect all just because we didn't hit anything
-        }
-        if (currentActionModeCallback instanceof ViaElementActionModeCallback || currentActionModeCallback instanceof ToElementActionModeCallback
+        if (currentActionModeCallback instanceof EditRelationMembersActionModeCallback || currentActionModeCallback instanceof BuilderActionModeCallback
+                || currentActionModeCallback instanceof ViaElementActionModeCallback || currentActionModeCallback instanceof ToElementActionModeCallback
                 || currentActionModeCallback instanceof FromElementActionModeCallback
                 || currentActionModeCallback instanceof RestartFromElementActionModeCallback) {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_abort_actionmode));
@@ -370,7 +367,7 @@ public class EasyEditManager {
      * @return the ActionMode.Callback
      */
     public Callback addRelationMembersMode(@NonNull Relation r) {
-        return new AddRelationMemberActionModeCallback(this, r, null);
+        return new EditRelationMembersActionModeCallback(this, r, (OsmElement) null);
     }
 
     /**

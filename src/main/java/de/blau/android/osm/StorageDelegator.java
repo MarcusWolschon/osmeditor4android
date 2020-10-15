@@ -2025,6 +2025,39 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
+     * Remove members from a relation
+     * 
+     * Note the potentially present elements do not need to have their state changed or be stored in the API storage
+     * since the parent relation back link is just internal.
+     * 
+     * @param member member to remove
+     * @param r relation to remove the element from
+     */
+    public void removeRelationMembersFromRelation(@NonNull Relation r, @NonNull List<RelationMember> members) {
+        dirty = true;
+        undo.save(r);
+        try {
+            for (RelationMember member : members) {
+                Log.i(DEBUG_TAG, "removing " + member.getType() + " #" + member.getRef() + " from relation #" + r.getOsmId());
+                r.removeMember(member);
+                if (member.downloaded()) {
+                    OsmElement element = member.getElement();
+                    undo.save(element);
+                    element.removeParentRelation(r);
+                    onParentRelationChanged(element);
+                }
+            }
+            r.updateState(OsmElement.STATE_MODIFIED);
+            apiStorage.insertElementSafe(r);
+            onElementChanged(null, r);
+            Log.i(DEBUG_TAG, "... done");
+        } catch (StorageException e) {
+            // TODO handle OOM
+            Log.e(DEBUG_TAG, "removeMemberFromRelation got " + e.getMessage());
+        }
+    }
+
+    /**
      * Remove downloaded element from a relation
      * 
      * Note the element does not need to have its state changed or be stored in the API storage since the parent
@@ -2043,37 +2076,13 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             apiStorage.insertElementSafe(r);
             undo.save(element);
             element.removeParentRelation(r);
-            Log.i(DEBUG_TAG, "... done");
             onElementChanged(null, r);
             onParentRelationChanged(element);
+            Log.i(DEBUG_TAG, "... done");
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "removeElementFromRelation got " + e.getMessage());
         }
-    }
-
-    /**
-     * Remove non-downloaded element from relation
-     * 
-     * @param type type (node, way, relation) of element
-     * @param elementId id of the element
-     * @param r relation to remove the element from
-     */
-    public void removeElementFromRelation(@NonNull String type, final Long elementId, @NonNull final Relation r) {
-        Log.i(DEBUG_TAG, "removing  #" + elementId + " from relation #" + r.getOsmId());
-        dirty = true;
-        undo.save(r);
-        r.removeMember(r.getMember(type, elementId));
-        r.updateState(OsmElement.STATE_MODIFIED);
-        try {
-            apiStorage.insertElementSafe(r);
-            onElementChanged(null, r);
-        } catch (StorageException e) {
-            // TODO handle OOM
-            Log.e(DEBUG_TAG, "removeElementFromRelation got " + e.getMessage());
-        }
-        //
-        Log.i(DEBUG_TAG, "... done");
     }
 
     /**
@@ -2165,7 +2174,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     }
 
     /**
-     * Stuff to do if an OsmELement Relation membership has changed
+     * Stuff to do if an OsmElement Relation membership has changed
      * 
      * @param e the OsmElement
      */

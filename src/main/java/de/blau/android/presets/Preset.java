@@ -1290,6 +1290,23 @@ public class Preset implements Serializable {
     }
 
     /**
+     * Get all PresetItems that are applicable for a specific ElementType
+     * 
+     * @param type the ElementType (null for all)
+     * @return a Map with the PresetItems
+     */
+    @NonNull
+    public Map<String, PresetItem> getItemsForType(@Nullable ElementType type) {
+        Map<String, PresetItem> result = new HashMap<>();
+        for (PresetItem item:allItems) {
+            if (!item.isChunk() && (type == null || item.appliesTo(type))) {
+                result.put(item.getName(), item);
+            }
+        }
+        return result;
+    }
+    
+    /**
      * Find a preset group by name
      * 
      * Has to traverse the whole preset tree.

@@ -26,22 +26,22 @@ import de.blau.android.util.Util;
 
 public class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
     private static final String DEBUG_TAG                  = "WaySelectionAction...";
-    private static final int    MENUITEM_SPLIT             = 10;
-    private static final int    MENUITEM_MERGE             = 11;
-    private static final int    MENUITEM_REVERSE           = 12;
-    private static final int    MENUITEM_APPEND            = 13;
-    private static final int    MENUITEM_RESTRICTION       = 14;
-    private static final int    MENUITEM_ROUTE             = 15;
-    private static final int    MENUITEM_ADD_TO_ROUTE      = 16;
-    private static final int    MENUITEM_ROTATE            = 17;
-    private static final int    MENUITEM_ORTHOGONALIZE     = 18;
-    private static final int    MENUITEM_CIRCULIZE         = 19;
-    private static final int    MENUITEM_SPLIT_POLYGON     = 20;
-    private static final int    MENUITEM_ADDRESS           = 21;
-    private static final int    MENUITEM_UNJOIN            = 22;
-    private static final int    MENUITEM_UNJOIN_DISSIMILAR = 23;
-    private static final int    MENUITEM_REMOVE_NODE       = 24;
-    private static final int    MENUITEM_EXTRACT_SEGMENT   = 25;
+    private static final int    MENUITEM_SPLIT             = LAST_REGULAR_MENUITEM + 1;
+    private static final int    MENUITEM_MERGE             = LAST_REGULAR_MENUITEM + 2;
+    private static final int    MENUITEM_REVERSE           = LAST_REGULAR_MENUITEM + 3;
+    private static final int    MENUITEM_APPEND            = LAST_REGULAR_MENUITEM + 4;
+    private static final int    MENUITEM_RESTRICTION       = LAST_REGULAR_MENUITEM + 5;
+    private static final int    MENUITEM_ROUTE             = LAST_REGULAR_MENUITEM + 6;
+    private static final int    MENUITEM_ADD_TO_ROUTE      = LAST_REGULAR_MENUITEM + 7;
+    private static final int    MENUITEM_ROTATE            = LAST_REGULAR_MENUITEM + 8;
+    private static final int    MENUITEM_ORTHOGONALIZE     = LAST_REGULAR_MENUITEM + 9;
+    private static final int    MENUITEM_CIRCULIZE         = LAST_REGULAR_MENUITEM + 10;
+    private static final int    MENUITEM_SPLIT_POLYGON     = LAST_REGULAR_MENUITEM + 11;
+    private static final int    MENUITEM_ADDRESS           = LAST_REGULAR_MENUITEM + 12;
+    private static final int    MENUITEM_UNJOIN            = LAST_REGULAR_MENUITEM + 13;
+    private static final int    MENUITEM_UNJOIN_DISSIMILAR = LAST_REGULAR_MENUITEM + 14;
+    private static final int    MENUITEM_REMOVE_NODE       = LAST_REGULAR_MENUITEM + 15;
+    private static final int    MENUITEM_EXTRACT_SEGMENT   = LAST_REGULAR_MENUITEM + 16;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
@@ -227,12 +227,12 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, findViaElements(way, false)));
                 break;
             case MENUITEM_ADD_TO_ROUTE:
-                buildRelationSelectDialog(r -> {
+                buildRelationSelectDialog(main, r -> {
                     Relation route = (Relation) App.getDelegator().getOsmElement(Relation.NAME, r);
                     if (route != null) {
                         main.startSupportActionMode(new RouteSegmentActionModeCallback(manager, way, route, findViaElements(way, false)));
                     }
-                }, -1, R.string.select_route_title).show();
+                }, -1, R.string.select_route_title, Tags.KEY_TYPE, Tags.VALUE_ROUTE).show();
                 break;
             case MENUITEM_ROTATE:
                 deselect = false;
