@@ -721,7 +721,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             HelpViewer.start(getActivity(), R.string.help_propertyeditor);
             return true;
         default:
-            return true;
+            return false;
         }
     }
 
