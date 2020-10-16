@@ -427,7 +427,6 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                                     conditionCache.put(memberExpression, condition);
                                 } catch (ch.poole.osm.josmfilterparser.ParseException | IllegalArgumentException ex) {
                                     Log.e(DEBUG_TAG, "member_expression " + memberExpression + " caused " + ex.getMessage());
-                                    ex.printStackTrace();
                                     try {
                                         JosmFilterParser parser = new JosmFilterParser(new ByteArrayInputStream("".getBytes()));
                                         condition = parser.condition();
