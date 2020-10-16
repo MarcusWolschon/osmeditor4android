@@ -351,7 +351,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      * @param context Android context
      */
     private void addRows(@NonNull Context context) {
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tp.setMargins(2, 0, 2, 0);
 
         visibleId = ThemeUtils.getResIdFromAttribute(context, R.attr.layer_visible);
@@ -450,7 +450,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
     public static TableRow divider(@NonNull Context context) {
         TableRow tr = new TableRow(context);
         View v = new View(context);
-        TableRow.LayoutParams trp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1);
+        TableRow.LayoutParams trp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
         trp.span = 4;
         v.setLayoutParams(trp);
         v.setBackgroundColor(Color.rgb(204, 204, 204));

@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
@@ -379,7 +380,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             int c = pex.currentToken.next.beginColumn - 1; // starts at 1
             int pos = text.getSelectionStart();
             Spannable spannable = new SpannableString(text.getText());
-            spannable.setSpan(new ForegroundColorSpan(Color.RED), c, Math.max(c, Math.min(c + 1, spannable.length())), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new ForegroundColorSpan(Color.RED), c, Math.max(c, Math.min(c + 1, spannable.length())), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             text.setText(spannable, TextView.BufferType.SPANNABLE);
             text.setSelection(Math.min(pos, spannable.length()));
             Snack.toastTopError(getActivity(), pex.getLocalizedMessage());

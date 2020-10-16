@@ -32,7 +32,7 @@ public class GeoJsonLayerInfo extends LayerInfo {
         ScrollView sv = createEmptyView(container);
         FragmentActivity activity = getActivity();
         TableLayout tableLayout = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT);
+        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         tp.setMargins(10, 2, 10, 2);
         tableLayout.setColumnShrinkable(1, false);
         if (layerInfo != null) {

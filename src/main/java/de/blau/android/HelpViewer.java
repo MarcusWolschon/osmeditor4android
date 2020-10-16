@@ -402,7 +402,7 @@ public class HelpViewer extends AppCompatActivity {
         helpView.saveState(outState);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+    private class DrawerItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             HelpItem helpItem = tocAdapter.getItem(position);

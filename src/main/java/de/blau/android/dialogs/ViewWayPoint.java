@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import androidx.annotation.NonNull;
@@ -123,7 +124,7 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
 
         final WayPoint wp = (WayPoint) getArguments().getSerializable(WAYPOINT);
 
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tp.setMargins(10, 2, 10, 2);
 
         if (wp != null) {
@@ -175,7 +176,7 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
             if (useSearch && wp.getType() != null) {
                 List<PresetElement> searchResults = new ArrayList<>(
                         SearchIndexUtils.searchInPresets(getActivity(), wp.getType(), ElementType.NODE, 1, 1, null));
-                if (searchResults != null && !searchResults.isEmpty()) {
+                if (!searchResults.isEmpty()) {
                     Preset[] presets = App.getCurrentPresets(activity);
                     PresetGroup rootGroup = presets[0].getRootGroup();
                     presetPath = searchResults.get(0).getPath(rootGroup);

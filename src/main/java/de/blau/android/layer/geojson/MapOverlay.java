@@ -841,7 +841,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         }
         args.putSerializable(GeoJsonLayerInfo.LAYER_INFO_KEY, info);
         f.setArguments(args);
-        GeoJsonLayerInfo.showDialog(activity, f);
+        LayerInfo.showDialog(activity, f);
     }
 
     @Override

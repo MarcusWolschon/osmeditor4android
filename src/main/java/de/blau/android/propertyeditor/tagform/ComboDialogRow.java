@@ -181,7 +181,7 @@ public class ComboDialogRow extends DialogRow {
         };
 
         android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
-        buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
+        buttonLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         if (adapter != null) {
             for (int i = 0; i < adapter.getCount(); i++) {

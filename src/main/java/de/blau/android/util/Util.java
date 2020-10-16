@@ -17,7 +17,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -345,9 +344,9 @@ public final class Util {
             Log.d(DEBUG_TAG, "scrollToRow scrolling to top or bottom");
             sv.post(() -> {
                 if (sv instanceof ScrollView) {
-                    ((ScrollView) sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
+                    ((ScrollView) sv).fullScroll(up ? View.FOCUS_UP : View.FOCUS_DOWN);
                 } else if (sv instanceof NestedScrollView) {
-                    ((NestedScrollView) sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
+                    ((NestedScrollView) sv).fullScroll(up ? View.FOCUS_UP : View.FOCUS_DOWN);
                 } else {
                     Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
                 }
@@ -699,7 +698,7 @@ public final class Util {
             return false;
         }
     }
-    
+
     /**
      * Beep
      */

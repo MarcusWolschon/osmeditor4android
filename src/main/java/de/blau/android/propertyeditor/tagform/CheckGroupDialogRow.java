@@ -261,7 +261,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
         builder.setView(layout);
 
         android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
-        buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
+        buttonLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         layout.setTag(key);
         PresetCheckGroupField field = (PresetCheckGroupField) preset.getField(key);

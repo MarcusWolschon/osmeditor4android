@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -298,7 +299,7 @@ public final class TableLayoutUtils {
         cell.setEllipsize(TruncateAt.MARQUEE);
         cell.setTextIsSelectable(true);
         tr.addView(cell);
-        TableRow.LayoutParams trp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams trp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (cell2 == null) {
             trp.span = 2;
         }
@@ -350,7 +351,7 @@ public final class TableLayoutUtils {
     public static View divider(@NonNull FragmentActivity activity) {
         TableRow tr = new TableRow(activity);
         View v = new View(activity);
-        TableRow.LayoutParams trp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1);
+        TableRow.LayoutParams trp = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
         trp.span = 3;
         v.setLayoutParams(trp);
         v.setBackgroundColor(Color.rgb(204, 204, 204));

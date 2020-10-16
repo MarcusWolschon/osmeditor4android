@@ -193,7 +193,7 @@ public class MultiselectDialogRow extends DialogRow {
         builder.setView(layout);
 
         android.view.ViewGroup.LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
-        buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
+        buttonLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
         layout.setTag(key);
         List<String> values = Preset.splitValues(Util.wrapInList(row.getValue()), preset, key);

@@ -123,7 +123,7 @@ public class TagFilterActivity extends ListActivity {
         }
         // this makes fields in the items focusable
         getListView().setFocusable(false);
-        getListView().setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
+        getListView().setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         getListView().setItemsCanFocus(true);
         // Attach cursor adapter to the ListView
         getListView().setAdapter(filterAdapter);

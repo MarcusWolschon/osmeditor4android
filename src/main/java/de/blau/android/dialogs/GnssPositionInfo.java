@@ -154,7 +154,7 @@ public class GnssPositionInfo extends InfoDialogFragment {
             try {
                 final double lon = Double.parseDouble(nf.format(location.getLongitude()));
                 final double lat = Double.parseDouble(nf.format(location.getLatitude()));
-             
+
                 builder.setNeutralButton(R.string.share_position, (dialog, which) -> {
                     double[] lonLat = new double[2];
                     lonLat[0] = lon;
@@ -243,7 +243,7 @@ public class GnssPositionInfo extends InfoDialogFragment {
         ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
         tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
 
-        tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        tp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tp.setMargins(10, 2, 10, 2);
 
         if (location != null) {
