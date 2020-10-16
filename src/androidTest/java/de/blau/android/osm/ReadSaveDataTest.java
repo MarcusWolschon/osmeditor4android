@@ -35,7 +35,7 @@ import de.blau.android.util.FileUtil;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ReadSaveData {
+public class ReadSaveDataTest {
 
     private static final String TEST_OSM        = "test.osm";
     private static final String TEST_MODIFY_OSM = "test_modify.osm";

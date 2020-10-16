@@ -46,7 +46,7 @@ import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ReadSaveTasks {
+public class ReadSaveTasksTest {
 
     private static final String TEST_OSN   = "test.osn";
     MockWebServerPlus           mockServer = null;

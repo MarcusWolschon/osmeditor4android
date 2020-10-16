@@ -22,7 +22,7 @@ import de.blau.android.prefs.Preferences;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ReadPbf {
+public class ReadPbfTest {
 
     private static final String PBF_FILE = "vaduz.pbf";
     Context                     context  = null;
