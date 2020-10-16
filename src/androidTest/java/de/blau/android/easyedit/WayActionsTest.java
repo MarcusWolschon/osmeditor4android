@@ -351,6 +351,6 @@ public class WayActionsTest {
         assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_VIA).size());
         assertEquals(633468409L, restriction.getMembersWithRole(Tags.ROLE_VIA).get(0).getElement().getOsmId());
         assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_TO).size());
-        assertEquals(49855525L, restriction.getMembersWithRole(Tags.ROLE_VIA).get(0).getElement().getOsmId());
+        assertEquals(49855525L, restriction.getMembersWithRole(Tags.ROLE_TO).get(0).getElement().getOsmId());
     }
 }
