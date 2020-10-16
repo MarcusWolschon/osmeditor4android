@@ -4694,7 +4694,7 @@ public class Logic {
      * @return a relation element for the turn restriction
      */
     public Relation createRestriction(@Nullable Activity activity, @NonNull Way fromWay, @NonNull OsmElement viaElement, @NonNull Way toWay,
-            @NonNull String restrictionType) {
+            @Nullable String restrictionType) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation restriction = getDelegator().createAndInsertRelation(null);
         SortedMap<String, String> tags = new TreeMap<>();

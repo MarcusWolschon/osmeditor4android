@@ -1344,7 +1344,7 @@ public class Preferences {
      * @param prefKey preference key as a string resource
      * @param s string value to save
      */
-    public void putString(int prefKey, @NonNull String s) {
+    public void putString(int prefKey, @Nullable String s) {
         try {
             String key = r.getString(prefKey);
             if (key != null) {

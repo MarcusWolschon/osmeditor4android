@@ -822,7 +822,8 @@ public class Map extends View implements IMapView {
             Bitmap b = null;
             // Clipping with Op.DIFFERENCE is not supported when a device uses hardware acceleration
             // drawing to a bitmap however will currently not be accelerated
-            if (!hasFullClippingSupport(canvas)) {
+            final boolean fullClipping = !hasFullClippingSupport(canvas);
+            if (fullClipping) {
                 b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
                 c = new Canvas(b);
             } else {
@@ -848,7 +849,7 @@ public class Map extends View implements IMapView {
             c.clipPath(path, Region.Op.DIFFERENCE);
             c.drawRect(screen, boxPaint);
 
-            if (!hasFullClippingSupport(canvas)) {
+            if (fullClipping) {
                 canvas.drawBitmap(b, 0, 0, null);
             } else {
                 c.restore();
