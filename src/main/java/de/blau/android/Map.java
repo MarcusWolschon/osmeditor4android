@@ -850,7 +850,7 @@ public class Map extends View implements IMapView {
             c.drawRect(screen, boxPaint);
 
             if (fullClipping) {
-                canvas.drawBitmap(b, 0, 0, null);
+                canvas.drawBitmap(b, 0, 0, null); // NOSONAR
             } else {
                 c.restore();
             }

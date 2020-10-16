@@ -1347,11 +1347,7 @@ public class Preferences {
     public void putString(int prefKey, @Nullable String s) {
         try {
             String key = r.getString(prefKey);
-            if (key != null) {
-                prefs.edit().putString(key, s).commit();
-            } else {
-                Log.e(DEBUG_TAG, Integer.toString(prefKey) + " is not a valid string resource");
-            }
+            prefs.edit().putString(key, s).commit();
         } catch (Exception ex) {
             Log.e(DEBUG_TAG, "putString " + ex.getMessage());
         }
