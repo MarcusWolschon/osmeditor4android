@@ -35,6 +35,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -45,17 +46,16 @@ import de.blau.android.util.Coordinates;
 @LargeTest
 public class WayActionsTest {
 
-    Context              context = null;
-    AdvancedPrefDatabase prefDB  = null;
-    Main                 main    = null;
-    UiDevice             device  = null;
-    Map                  map     = null;
-    Logic                logic   = null;
+    Context                 context = null;
+    AdvancedPrefDatabase    prefDB  = null;
+    Main                    main    = null;
+    UiDevice                device  = null;
+    Map                     map     = null;
+    Logic                   logic   = null;
     private Instrumentation instrumentation;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
- 
 
     /**
      * Pre-test setup
@@ -111,7 +111,7 @@ public class WayActionsTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
         TestUtils.clickAtCoordinates(device, map, 8.3886384, 47.3892752, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
- 
+
         TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
         try {
             Thread.sleep(1000); // NOSONAR
@@ -190,7 +190,7 @@ public class WayActionsTest {
         assertEquals(3, ways.size());
         assertFalse(ways.contains(way));
     }
-    
+
     /**
      * Select way, create route, add a further segment
      */
@@ -210,7 +210,7 @@ public class WayActionsTest {
         assertTrue(TestUtils.clickOverflowButton(device));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_create_route), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_add_segment)));
-        
+
         // add 50059937
         Way way2 = (Way) App.getDelegator().getOsmElement(Way.NAME, 50059937L);
         assertNotNull(way2);
@@ -218,10 +218,10 @@ public class WayActionsTest {
         TestUtils.clickAtCoordinates(device, map, way2Node.getLon(), way2Node.getLat(), true);
         TestUtils.sleep();
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_add_segment)));
-        
+
         TestUtils.clickUp(device);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false));
-        
+
         ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
         // finish
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
@@ -230,16 +230,16 @@ public class WayActionsTest {
         TestUtils.sleep(5000);
         assertTrue(TestUtils.clickHome(device, true));
         instrumentation.removeMonitor(monitor);
-        
+
         List<Relation> rels = logic.getSelectedRelations();
         assertNotNull(rels);
         assertEquals(1, rels.size());
         final Relation route = rels.get(0);
-        assertEquals(2,route.getMembers().size());
+        assertEquals(2, route.getMembers().size());
         assertNotNull(route.getMember(Way.NAME, 104148456L));
-        assertNotNull(route.getMember(Way.NAME, 50059937L));        
+        assertNotNull(route.getMember(Way.NAME, 50059937L));
     }
-    
+
     /**
      * Select way, select route, add a further segment, re-select first segment, add 2nd segment
      */
@@ -260,7 +260,7 @@ public class WayActionsTest {
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_to_route), true, false));
         assertTrue(TestUtils.clickText(device, false, "Bus 305", true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_add_segment)));
-        
+
         // add 47001849
         Way way2 = (Way) App.getDelegator().getOsmElement(Way.NAME, 47001849L);
         assertNotNull(way2);
@@ -268,13 +268,13 @@ public class WayActionsTest {
         TestUtils.clickAtCoordinates(device, map, way2Node.getLon(), way2Node.getLat(), true);
         TestUtils.sleep();
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_reselect_first_segment)));
-        
+
         // reselect 119104094 and then 47001849
         TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_add_segment)));
         TestUtils.clickAtCoordinates(device, map, way2Node.getLon(), way2Node.getLat(), true);
         TestUtils.sleep();
-        
+
         ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
         // finish
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
@@ -284,13 +284,73 @@ public class WayActionsTest {
         TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);
         assertTrue(TestUtils.clickHome(device, true));
         instrumentation.removeMonitor(monitor);
-        
+
         List<Relation> rels = logic.getSelectedRelations();
         assertNotNull(rels);
         assertEquals(1, rels.size());
         final Relation route = rels.get(0);
-        assertEquals(2807173L,route.getOsmId());       
+        assertEquals(2807173L, route.getOsmId());
         assertNotNull(route.getMember(Way.NAME, 119104094L));
-        assertNotNull(route.getMember(Way.NAME, 47001849L));        
+        assertNotNull(route.getMember(Way.NAME, 47001849L));
+    }
+
+    /**
+     * Select from way, select via node, re-select from, select to way
+     */
+    @SdkSuppress(minSdkVersion = 26)
+    @Test
+    public void createTurnRestriction() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock(device);
+        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
+        assertTrue(TestUtils.clickText(device, false, "Bergstrasse", false, false));
+        Way way = App.getLogic().getSelectedWay();
+        assertNotNull(way);
+        assertEquals(119104094L, way.getOsmId());
+        //
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+
+        if (!TestUtils.clickMenuButton(device, context.getString(R.string.actionmode_restriction), false, true)) {
+            assertTrue(TestUtils.clickOverflowButton(device));
+            assertTrue(TestUtils.clickText(device, false, context.getString(R.string.actionmode_restriction), true, false));
+        }
+
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_restriction_via)));
+
+        // add via node 633468409
+        Node via = (Node) App.getDelegator().getOsmElement(Node.NAME, 633468409L);
+        assertNotNull(via);
+        TestUtils.clickAtCoordinates(device, map, via.getLon(), via.getLat(), true);
+        TestUtils.sleep();
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_restriction_restart_from)));
+
+        // reselect 119104094 and then 47001849
+        TestUtils.clickAtCoordinates(device, map, 8.3884403, 47.3884988, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_restriction_to)));
+
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        // click to way 49855525
+        TestUtils.clickAtCoordinates(device, map, 8.3879168, 47.3883856, true);
+
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        assertNotNull(propertyEditor);
+        TestUtils.sleep(5000);
+        assertTrue(TestUtils.clickText(device, false, "No left turn", true, false));
+        assertTrue(TestUtils.findText(device, false, "No left turn"));
+        assertTrue(TestUtils.clickHome(device, true));
+        instrumentation.removeMonitor(monitor);
+
+        List<Relation> rels = logic.getSelectedRelations();
+        assertNotNull(rels);
+        assertEquals(1, rels.size());
+        final Relation restriction = rels.get(0);
+        assertEquals(3, restriction.getMembers().size());
+        assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_FROM).size());
+        // from will have a different id as it has been split assertEquals(119104094L, restriction.getMembersWithRole(Tags.ROLE_FROM).get(0).getElement().getOsmId());
+        assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_VIA).size());
+        assertEquals(633468409L, restriction.getMembersWithRole(Tags.ROLE_VIA).get(0).getElement().getOsmId());
+        assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_TO).size());
+        assertEquals(49855525L, restriction.getMembersWithRole(Tags.ROLE_VIA).get(0).getElement().getOsmId());
     }
 }
