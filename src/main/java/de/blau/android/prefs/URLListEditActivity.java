@@ -91,7 +91,7 @@ public abstract class URLListEditActivity extends ListActivity
      * 
      * @param items a List of ListEditItems to display
      */
-    public URLListEditActivity(@NonNull List<ListEditItem> items) {
+    protected URLListEditActivity(@NonNull List<ListEditItem> items) {
         ctx = this;
         this.items = items;
     }

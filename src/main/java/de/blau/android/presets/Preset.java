@@ -1298,14 +1298,14 @@ public class Preset implements Serializable {
     @NonNull
     public Map<String, PresetItem> getItemsForType(@Nullable ElementType type) {
         Map<String, PresetItem> result = new HashMap<>();
-        for (PresetItem item:allItems) {
+        for (PresetItem item : allItems) {
             if (!item.isChunk() && (type == null || item.appliesTo(type))) {
                 result.put(item.getName(), item);
             }
         }
         return result;
     }
-    
+
     /**
      * Find a preset group by name
      * 
@@ -1763,7 +1763,7 @@ public class Preset implements Serializable {
          * @param name name of the element or null
          * @param iconpath the icon path (either "http://" URL or "presets/" local image reference) or null
          */
-        public PresetElement(@Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath) {
+        protected PresetElement(@Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath) {
             this.parent = parent;
             this.name = name;
             this.iconpath = iconpath;
@@ -1780,7 +1780,7 @@ public class Preset implements Serializable {
          * @param group PresetGroup this should be added, null if none
          * @param item the PresetElement to copy
          */
-        public PresetElement(@Nullable PresetGroup group, @NonNull PresetElement item) {
+        protected PresetElement(@Nullable PresetGroup group, @NonNull PresetElement item) {
             this.name = item.name;
             if (group != null) {
                 group.addElement(this);

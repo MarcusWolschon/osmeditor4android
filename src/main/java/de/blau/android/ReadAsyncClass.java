@@ -38,7 +38,7 @@ public abstract class ReadAsyncClass extends AsyncTask<Boolean, Void, ReadAsyncR
      * @param add if true add to exiting data (not always used)
      * @param postLoad a handler to call afte the load has completed
      */
-    public ReadAsyncClass(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+    protected ReadAsyncClass(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
         this.activity = activity;
         this.is = is;

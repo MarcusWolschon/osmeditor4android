@@ -111,7 +111,7 @@ public abstract class MapAsyncTileProvider {
          * @param aTile the tile descriptor
          * @param aCallback callback to the TileProvider
          */
-        public TileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback) {
+        protected TileLoader(@NonNull final MapTile aTile, @NonNull final IMapTileProviderCallback aCallback) {
             mTile = aTile;
             mCallback = aCallback;
         }

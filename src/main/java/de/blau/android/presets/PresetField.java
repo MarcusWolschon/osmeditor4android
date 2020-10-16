@@ -61,7 +61,7 @@ public abstract class PresetField {
      * 
      * @param key the key
      */
-    public PresetField(@NonNull String key) {
+    protected PresetField(@NonNull String key) {
         this.key = key;
     }
 
@@ -70,7 +70,7 @@ public abstract class PresetField {
      * 
      * @param field PresetField to copy
      */
-    public PresetField(PresetField field) {
+    protected PresetField(PresetField field) {
         this.key = field.key;
         this.hint = field.hint;
         this.defaultValue = field.defaultValue;

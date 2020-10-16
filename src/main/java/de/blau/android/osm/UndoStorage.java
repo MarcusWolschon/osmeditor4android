@@ -572,7 +572,7 @@ public class UndoStorage implements Serializable {
          * @param inCurrentStorage true if the element is in the current storage
          * @param inApiStorage true if the element is in the api storage
          */
-        public UndoElement(@NonNull OsmElement originalElement, boolean inCurrentStorage, boolean inApiStorage) {
+        protected UndoElement(@NonNull OsmElement originalElement, boolean inCurrentStorage, boolean inApiStorage) {
             this.inCurrentStorage = inCurrentStorage;
             this.inApiStorage = inApiStorage;
 
