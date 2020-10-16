@@ -5,11 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,9 +28,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -67,13 +61,7 @@ public class SimpleActionsTest {
         Preferences prefs = new Preferences(context);
         TestUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                main.showSimpleActionsButton();
-            }
-        });
-
+        main.runOnUiThread(()->main.showSimpleActionsButton());
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
