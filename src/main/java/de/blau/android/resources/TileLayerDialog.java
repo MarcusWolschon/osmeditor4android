@@ -3,6 +3,7 @@ package de.blau.android.resources;
 import java.util.List;
 import java.util.Map;
 
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
@@ -312,8 +313,8 @@ public class TileLayerDialog {
 
         final OnClickListener saveListener = new SaveListener();
         dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(saveListener);
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new SaveListener() {
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(saveListener);
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new SaveListener() {
             @Override
             public void onClick(View v) {
                 if (save()) {

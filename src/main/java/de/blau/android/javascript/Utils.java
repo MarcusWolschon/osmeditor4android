@@ -12,6 +12,7 @@ import org.mozilla.javascript.ScriptableObject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -199,7 +200,7 @@ public final class Utils {
         builder.setNeutralButton(R.string.share, null);
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(d -> {
-            Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+            Button positive = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setOnClickListener(view -> {
                 final AsyncTask<String, Void, String> runner = new AsyncTask<String, Void, String>() {
                     final AlertDialog progress = ProgressDialog.get(activity, Progress.PROGRESS_RUNNING);
@@ -231,7 +232,7 @@ public final class Utils {
                 };
                 runner.execute(input.getText().toString());
             });
-            Button neutral = ((AlertDialog) d).getButton(AlertDialog.BUTTON_NEUTRAL);
+            Button neutral = ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL);
             Drawable more = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_36dp, R.attr.colorAccent);
             neutral.setCompoundDrawablesWithIntrinsicBounds(more, null, null, null);
             neutral.setText("");

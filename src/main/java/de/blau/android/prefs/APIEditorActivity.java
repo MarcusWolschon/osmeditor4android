@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
@@ -258,7 +259,7 @@ public class APIEditorActivity extends URLListEditActivity {
         dialog.show();
 
         // overriding the handlers
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
             boolean validAPIURL = true;
             boolean validReadOnlyAPIURL = true;
             boolean validNotesAPIURL = true;
@@ -315,6 +316,6 @@ public class APIEditorActivity extends URLListEditActivity {
             }
         });
 
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener(v -> dialog.dismiss());
     }
 }

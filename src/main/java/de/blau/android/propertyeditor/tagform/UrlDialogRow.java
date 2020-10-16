@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor.tagform;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -116,7 +117,7 @@ public class UrlDialogRow extends DialogRow {
         layout.setTag(key);
 
         dialog.setOnShowListener(d -> {
-            Button neutral = ((AlertDialog) d).getButton(AlertDialog.BUTTON_NEUTRAL);
+            Button neutral = ((AlertDialog) d).getButton(DialogInterface.BUTTON_NEUTRAL);
             if (caller.getActivity() instanceof PropertyEditorListener) {
                 neutral.setEnabled(((PropertyEditorListener) caller.getActivity()).isConnected());
             }

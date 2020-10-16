@@ -3,6 +3,7 @@ package de.blau.android.dialogs;
 import java.util.List;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -113,7 +114,7 @@ public class TextLineDialog {
 
         final AlertDialog dialog = builder.create();
         dialog.setOnShowListener(d -> {
-            Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+            Button positive = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setOnClickListener(view -> {
                 if (dismiss) {
                     d.dismiss();

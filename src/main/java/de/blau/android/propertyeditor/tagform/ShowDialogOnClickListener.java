@@ -1,6 +1,7 @@
 package de.blau.android.propertyeditor.tagform;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -31,7 +32,7 @@ abstract class ShowDialogOnClickListener implements OnClickListener {
         });
         dialog.setOnDismissListener(d -> finalView.setEnabled(true));
         dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(unused -> {
+        dialog.getButton(DialogInterface.BUTTON_NEUTRAL).setOnClickListener(unused -> {
             LinearLayout valueGroup = (LinearLayout) dialog.findViewById(R.id.valueGroup);
             for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
                 View c = valueGroup.getChildAt(pos);

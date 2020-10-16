@@ -2,6 +2,7 @@ package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -173,7 +174,7 @@ public class SearchForm extends ImmersiveDialogFragment {
             });
 
             searchDialog.setOnShowListener(dialog -> {
-                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                Button positive = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
                 positive.setOnClickListener(view -> search.find(geocoders[searchGeocoder.getSelectedItemPosition()], searchEdit.getText().toString(), bbox,
                         limitSearch.isChecked()));
             });

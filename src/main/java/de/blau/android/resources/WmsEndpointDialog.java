@@ -1,5 +1,6 @@
 package de.blau.android.resources;
 
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -113,6 +114,6 @@ public final class WmsEndpointDialog {
 
         final OnClickListener saveListener = new SaveListener();
         dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(saveListener);
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(saveListener);
     }
 }

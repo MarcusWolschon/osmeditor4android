@@ -6,6 +6,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -130,15 +131,13 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
         builder.setTitle(R.string.search_results_title);
 
         final View container = getResultsView(presetsLayout, presets, true);
-        if (container != null) {
-            builder.setView(container);
-        }
+        builder.setView(container);
 
         builder.setNeutralButton(R.string.Done, null);
         builder.setPositiveButton(R.string.search_online, null);
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(d -> {
-            Button positive = ((AlertDialog) d).getButton(AlertDialog.BUTTON_POSITIVE);
+            Button positive = ((AlertDialog) d).getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setEnabled(propertyEditorListener.isConnected() && container != null);
             positive.setOnClickListener(view -> {
                 OnlineQuery query = new OnlineQuery(getActivity());
@@ -272,7 +271,7 @@ public class PresetSearchResultsFragment extends DialogFragment implements Updat
      * @param setPadding apply padding if true
      * @return the View or null
      */
-    @Nullable
+    @NonNull
     private View getResultsView(@NonNull final LinearLayout layout, @Nullable final List<PresetElement> displayPresets, boolean setPadding) {
         View v = null;
         PresetGroup results = Preset.dummyInstance().new PresetGroup(null, "search results", null);
