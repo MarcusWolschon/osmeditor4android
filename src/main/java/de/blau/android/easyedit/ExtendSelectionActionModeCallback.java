@@ -20,13 +20,12 @@ import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
-import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.prefs.PrefEditor;
-import de.blau.android.presets.PresetElementPath;
 import de.blau.android.search.Search;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -82,7 +81,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
      * @param manager the current EasEditManager instance
      * @param element the OsmElement
      */
-    public ExtendSelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull OsmElement element) {
+    public ExtendSelectionActionModeCallback(@NonNull EasyEditManager manager, @Nullable OsmElement element) {
         super(manager);
         Log.d(DEBUG_TAG, "Multi-Select create mode with " + element);
         selection = new ArrayList<>();
@@ -296,10 +295,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                 mode.finish();
                 break;
             case MENUITEM_RELATION:
-                ElementSelectionActionModeCallback.buildPresetSelectDialog(main, p -> {
-                    main.startSupportActionMode(
-                            new EditRelationMembersActionModeCallback(manager, p.getPath(App.getCurrentRootPreset(main).getRootGroup()), selection));
-                }, ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
+                ElementSelectionActionModeCallback.buildPresetSelectDialog(main,
+                        p -> main.startSupportActionMode(
+                                new EditRelationMembersActionModeCallback(manager, p.getPath(App.getCurrentRootPreset(main).getRootGroup()), selection)),
+                        ElementType.RELATION, R.string.select_relation_type_title, Tags.KEY_TYPE, null).show();
                 break;
             case MENUITEM_ADD_RELATION_MEMBERS:
                 ElementSelectionActionModeCallback.buildRelationSelectDialog(main, r -> {
