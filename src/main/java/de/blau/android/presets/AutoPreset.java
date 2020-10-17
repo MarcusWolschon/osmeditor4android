@@ -181,14 +181,14 @@ public class AutoPreset {
                                 String key = entry.getKey();
                                 String value = entry.getValue();
                                 if (value != null) {
-                                    PresetComboField field = (PresetComboField) item.addTag(false, key, PresetKeyType.COMBO, value);
+                                    PresetComboField field = (PresetComboField) item.addTag(false, key, PresetKeyType.COMBO, value, MatchType.KEY_VALUE);
                                     field.setEditable(true);
                                     field.setMatchType(MatchType.NONE);
                                 } else {
                                     String[] s = key.split(":", 2);
                                     if (Tags.I18N_NAME_KEYS.contains(key) || (s.length == 2 && Tags.I18N_NAME_KEYS.contains(s[0]))) {
                                         // if a name key add without value
-                                        item.addTag(false, key, PresetKeyType.TEXT, null);
+                                        item.addTag(false, key, PresetKeyType.TEXT, null, MatchType.NONE);
                                     } else if (!item.hasKey(key)) {
                                         // while we could add values from taginfo here, unluckily the results don't make
                                         // a lot of sense, using what we already have in the presets is likely the
@@ -198,7 +198,7 @@ public class AutoPreset {
                                         // item.addTag(false, key, PresetKeyType.COMBO, result.toArray(new
                                         // ValueResult[result.size()]), Preset.COMBO_DELIMITER);
                                         PresetComboField field = (PresetComboField) item.addTag(false, key, PresetKeyType.COMBO,
-                                                Preset.getAutocompleteValues(presets, null, key), Preset.COMBO_DELIMITER);
+                                                Preset.getAutocompleteValues(presets, null, key), Preset.COMBO_DELIMITER, MatchType.KEY_VALUE);
                                         field.setEditable(true);
                                     }
                                 }
@@ -210,7 +210,8 @@ public class AutoPreset {
                                 for (StringWithDescription swd : hardwiredKeys) {
                                     String key = swd.getValue();
                                     String description = swd.getDescription();
-                                    item.addTag(false, key, PresetKeyType.TEXT, Preset.getAutocompleteValues(presets, null, key), Preset.COMBO_DELIMITER);
+                                    item.addTag(false, key, PresetKeyType.TEXT, Preset.getAutocompleteValues(presets, null, key), Preset.COMBO_DELIMITER,
+                                            MatchType.NONE);
                                     if (description != null) {
                                         item.setHint(key, description);
                                     }
@@ -299,7 +300,7 @@ public class AutoPreset {
         for (Preset preset : presets) {
             if (preset != null) {
                 Set<PresetItem> existingPresets = preset.getItemByTag(tag);
-                if (existingPresets != null && !existingPresets.isEmpty()) {
+                if (!existingPresets.isEmpty()) {
                     Log.d(DEBUG_TAG, sr.toString() + " exists in Presets");
                     return true;
                 }

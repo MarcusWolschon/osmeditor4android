@@ -801,13 +801,13 @@ public class Preset implements Serializable {
                     PresetField field = null;
                     if (!inOptionalSection) {
                         if (NONE.equals(match)) {// don't include in fixed tags if not used for matching
-                            field = currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue(VALUE));
+                            field = currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue(VALUE), MatchType.fromString(match));
                         } else {
                             field = currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue(VALUE), attr.getValue(TEXT));
                         }
                     } else {
                         // Optional fixed tags should not happen, their values will NOT be automatically inserted.
-                        field = currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue(VALUE));
+                        field = currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue(VALUE), MatchType.fromString(match));
                     }
                     if (match != null) {
                         field.setMatchType(match);
@@ -823,7 +823,8 @@ public class Preset implements Serializable {
                         Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " key must be present  in text field");
                         throw new SAXException("key must be present in text field");
                     }
-                    field = currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String) null);
+                    match = attr.getValue(MATCH);
+                    field = currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String) null, match == null ? null : MatchType.fromString(match));
                     if (!(field instanceof PresetTextField)) {
                         break;
                     }
@@ -838,10 +839,6 @@ public class Preset implements Serializable {
                     textContext = attr.getValue(TEXT_CONTEXT);
                     if (textContext != null) {
                         field.setTextContext(textContext);
-                    }
-                    match = attr.getValue(MATCH);
-                    if (match != null) {
-                        field.setMatchType(match);
                     }
                     String javaScript = attr.getValue(JAVASCRIPT);
                     if (javaScript != null) {
@@ -933,7 +930,8 @@ public class Preset implements Serializable {
                     } else {
                         currentItem.fields.put(key, checkField);
                     }
-                    currentItem.addValues(key, valueOff == null ? new StringWithDescription[] { valueOn } : new StringWithDescription[] { valueOn, valueOff });
+                    currentItem.addValues(key, valueOff == null ? new StringWithDescription[] { valueOn } : new StringWithDescription[] { valueOn, valueOff },
+                            null);
                     break;
                 case COMBO_FIELD:
                 case MULTISELECT_FIELD:
@@ -951,13 +949,16 @@ public class Preset implements Serializable {
                     String displayValues = attr.getValue(DISPLAY_VALUES);
                     String shortDescriptions = attr.getValue(SHORT_DESCRIPTIONS);
                     String valuesFrom = attr.getValue(VALUES_FROM);
+                    match = attr.getValue(MATCH);
                     final PresetKeyType keyType = multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO;
                     if (values != null) {
-                        currentItem.addTag(inOptionalSection, key, keyType, values, displayValues, shortDescriptions, delimiter);
+                        currentItem.addTag(inOptionalSection, key, keyType, values, displayValues, shortDescriptions, delimiter,
+                                match == null ? null : MatchType.fromString(match));
                     } else if (valuesFrom != null) {
                         setValuesFromMethod(key, valuesFrom, keyType, currentItem, inOptionalSection, delimiter);
                     } else {
-                        currentItem.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter);
+                        currentItem.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter,
+                                match == null ? null : MatchType.fromString(match));
                         listKey = key;
                         listValues = new ArrayList<>();
                     }
@@ -980,10 +981,7 @@ public class Preset implements Serializable {
                     if (textContext != null) {
                         field.setTextContext(textContext);
                     }
-                    match = attr.getValue(MATCH);
-                    if (match != null) {
-                        field.setMatchType(match);
-                    }
+
                     String sort = attr.getValue(VALUES_SORT);
                     if (sort != null) {
                         // normally this will not be set because true is the default
@@ -1121,7 +1119,7 @@ public class Preset implements Serializable {
              */
             private void setValuesFromMethod(final String key, final String valuesFrom, final PresetKeyType keyType, final PresetItem item,
                     final boolean inOptionalSection, final String delimiter) {
-                item.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter);
+                item.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter, MatchType.KEY_VALUE);
                 (new AsyncTask<Void, Void, Object>() {
                     @Override
                     protected Object doInBackground(Void... params) {
@@ -1136,10 +1134,10 @@ public class Preset implements Serializable {
                                     valueArray[i] = swd;
                                 }
                                 field.setValues(valueArray);
-                                item.addValues(key, valueArray);
+                                item.addValues(key, valueArray, null);
                             } else if (result instanceof StringWithDescription[]) {
                                 field.setValues((StringWithDescription[]) result);
-                                item.addValues(key, (StringWithDescription[]) result);
+                                item.addValues(key, (StringWithDescription[]) result, null);
                             }
                         }
                         return null;
@@ -1222,7 +1220,7 @@ public class Preset implements Serializable {
                         PresetComboField field = (PresetComboField) currentItem.getField(listKey);
                         if (field != null) {
                             field.setValues(listValues.toArray(v));
-                            currentItem.addValues(listKey, listValues.toArray(v));
+                            currentItem.addValues(listKey, listValues.toArray(v), null);
                         }
                     }
                     listKey = null;
@@ -1804,7 +1802,9 @@ public class Preset implements Serializable {
                 for (Entry<String, String> tag : tags.entrySet()) {
                     String key = tag.getKey();
                     if (Tags.IMPORTANT_TAGS.contains(key) || p.isObjectKey(key) || (key.startsWith(Tags.KEY_ADDR_BASE) && useAddressKeys)) {
-                        possibleMatches.addAll(p.tagItems.get(key + "\t" + tag.getValue()));
+                        String tagString = key + "\t";
+                        possibleMatches.addAll(p.tagItems.get(tagString)); // for stuff that doesn't have fixed values
+                        possibleMatches.addAll(p.tagItems.get(tagString + tag.getValue()));
                     }
                 }
             }
@@ -2920,11 +2920,12 @@ public class Preset implements Serializable {
          * @param key key name of the tag
          * @param type type of preset field
          * @param value value string from the XML (comma-separated list if more than one possible values)
+         * @param matchType the applicable MatchType
          * @return the allocated PresetField
          */
         @NonNull
-        public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, String value) {
-            return addTag(optional, key, type, value, null, null, COMBO_DELIMITER);
+        public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, String value, MatchType matchType) {
+            return addTag(optional, key, type, value, null, null, COMBO_DELIMITER, matchType);
         }
 
         /**
@@ -2937,11 +2938,12 @@ public class Preset implements Serializable {
          * @param displayValue matching display value for value (same format for more than one)
          * @param shortDescriptions matching short description for value (same format for more than one)
          * @param delimiter the delimiter if more than one value is present
+         * @param matchType the applicable MatchType
          * @return the allocated PresetField
          */
         @NonNull
         public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, String value, String displayValue, String shortDescriptions,
-                final String delimiter) {
+                final String delimiter, MatchType matchType) {
             String[] valueArray = (value == null) ? new String[0] : value.split(Pattern.quote(delimiter));
             String[] displayValueArray = (displayValue == null) ? new String[0] : displayValue.split(Pattern.quote(delimiter));
             String[] shortDescriptionArray = (shortDescriptions == null) ? new String[0] : shortDescriptions.split(Pattern.quote(delimiter));
@@ -2957,7 +2959,7 @@ public class Preset implements Serializable {
                 }
                 valuesWithDesc[i] = new StringWithDescription(valueArray[i], description);
             }
-            return addTag(optional, key, type, valuesWithDesc, delimiter);
+            return addTag(optional, key, type, valuesWithDesc, delimiter, matchType);
         }
 
         /**
@@ -2968,12 +2970,13 @@ public class Preset implements Serializable {
          * @param type type of preset field
          * @param valueCollection Collection with the values
          * @param delimiter the delimiter if more than one value is present
+         * @param matchType the applicable MatchType
          * @return the allocated PresetField
          */
         @NonNull
         public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, Collection<StringWithDescription> valueCollection,
-                final String delimiter) {
-            return addTag(optional, key, type, valueCollection.toArray(new StringWithDescription[valueCollection.size()]), delimiter);
+                final String delimiter, MatchType matchType) {
+            return addTag(optional, key, type, valueCollection.toArray(new StringWithDescription[valueCollection.size()]), delimiter, matchType);
         }
 
         /**
@@ -2984,11 +2987,13 @@ public class Preset implements Serializable {
          * @param type type of preset field
          * @param valueArray array with the values
          * @param delimiter the delimiter if more than one value is present
+         * @param matchType the applicable MatchType
          * @return the allocated PresetField
          */
         @NonNull
-        public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter) { // NOSONAR
-            addValues(key, valueArray);
+        public PresetField addTag(boolean optional, @NonNull String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter,
+                MatchType matchType) { // NOSONAR
+            addValues(key, valueArray, matchType);
             PresetField field = null;
             switch (type) {
             case COMBO:
@@ -3006,6 +3011,7 @@ public class Preset implements Serializable {
                 Log.e(DEBUG_TAG, "check fields should not be handled here");
                 throw new IllegalArgumentException("check fields should not be handled here");
             }
+            field.setMatchType(matchType);
             field.setOptional(optional); // NOSONAR field can't be null here
             fields.put(key, field);
             return field;
@@ -3016,10 +3022,13 @@ public class Preset implements Serializable {
          * 
          * @param key the key
          * @param valueArray the suggested values
+         * @param matchType type of match
          */
-        private synchronized void addValues(String key, StringWithDescription[] valueArray) {
+        private synchronized void addValues(String key, StringWithDescription[] valueArray, @Nullable MatchType matchType) {
             if (!chunk) {
-                tagItems.add(key + "\t", this);
+                if (MatchType.KEY == matchType) {
+                    tagItems.add(key + "\t", this);
+                }
                 if (valueArray != null && valueArray.length > 0) {
                     for (StringWithDescription v : valueArray) {
                         tagItems.add(key + "\t" + v.getValue(), this);
