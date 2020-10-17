@@ -51,6 +51,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.MatchType;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetCheckField;
@@ -791,7 +792,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     String i18nPart = key.substring(tag.length() + 1);
                     boolean optional = preset.isOptionalTag(tag);
                     PresetTextField field = new PresetTextField(key);
-                    preset.addTag(optional, key, PresetKeyType.TEXT, null);
+                    preset.addTag(optional, key, PresetKeyType.TEXT, null, MatchType.NONE);
                     String hint = preset.getHint(tag);
                     if (hint != null) {
                         preset.setHint(key, getActivity().getString(R.string.internationalized_hint, hint, i18nPart));
