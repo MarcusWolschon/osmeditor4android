@@ -3011,7 +3011,7 @@ public class Preset implements Serializable {
                 Log.e(DEBUG_TAG, "check fields should not be handled here");
                 throw new IllegalArgumentException("check fields should not be handled here");
             }
-            field.setMatchType(matchType);
+            field.setMatchType(matchType); // NOSONAR field can't be null here
             field.setOptional(optional); // NOSONAR field can't be null here
             fields.put(key, field);
             return field;
