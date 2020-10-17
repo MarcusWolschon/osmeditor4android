@@ -3,6 +3,7 @@ package de.blau.android.presets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -58,7 +59,7 @@ public class PresetTest {
     @Test
     public void matching() {
         //
-        HashMap<String, String> tags = new HashMap<>();
+        Map<String, String> tags = new HashMap<>();
         tags.put("amenity", "restaurant");
         PresetItem restaurant = Preset.findBestMatch(presets, tags);
         Assert.assertEquals("Restaurant", restaurant.getName());
@@ -85,6 +86,17 @@ public class PresetTest {
         Assert.assertTrue(result.contains("right"));
     }
 
+    /**
+     * A random value on a top level tag shouldn't match
+     */
+    @Test
+    public void noMatch() {
+        Map<String, String> tags = new HashMap<>();
+        tags.put("leisure", "123456789");
+        PresetItem match = Preset.findBestMatch(presets, tags);
+        Assert.assertNull(match);
+    }
+    
     /**
      * Deprecated items should not be in the search index
      */

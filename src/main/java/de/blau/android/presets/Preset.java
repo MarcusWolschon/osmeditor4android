@@ -1570,6 +1570,7 @@ public class Preset implements Serializable {
      * @param tags tags to check against (i.e. tags of a map element)
      * @return null, or the "best" matching item for the given tag set
      */
+    @Nullable
     public static PresetItem findBestMatch(Preset[] presets, Map<String, String> tags) {
         return findBestMatch(presets, tags, false);
     }
@@ -2952,7 +2953,7 @@ public class Preset implements Serializable {
                 Log.e(DEBUG_TAG, "check fields should not be handled here");
                 throw new IllegalArgumentException("check fields should not be handled here");
             }
-            field.setMatchType(matchType);
+            field.setMatchType(matchType); // NOSONAR field can't be null here
             field.setOptional(optional); // NOSONAR field can't be null here
             fields.put(key, field);
             return field;
