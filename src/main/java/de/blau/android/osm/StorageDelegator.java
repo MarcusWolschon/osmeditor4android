@@ -15,6 +15,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -1057,7 +1058,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @param createPolygons split in to two polygons
      * @return null if split failed or wasn't possible, the two resulting ways otherwise
      */
-    public Way[] splitAtNodes(Way way, Node node1, Node node2, boolean createPolygons) {
+    public Way[] splitAtNodes(@NonNull Way way, @NonNull Node node1, @NonNull Node node2, boolean createPolygons) {
         Log.d(DEBUG_TAG, "splitAtNodes way " + way.getOsmId() + " node1 " + node1.getOsmId() + " node2 " + node2.getOsmId());
         // undo - old way is saved here, new way is saved at insert
         dirty = true;
@@ -1531,10 +1532,27 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
 
         // merge tags (after any reversal has been done)
-        setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom));
-        // if merging the tags creates multiple-value tags, mergeOK should be set to false
+        Map<String, String> mergedTags = OsmElement.mergedTags(mergeInto, mergeFrom);
+        // special handling for metric tags
+        for (Entry<String, String> entry : mergedTags.entrySet()) {
+            String k = entry.getKey();
+            if (Tags.isWayMetric(k)) {
+                mergeResult.addIssue(MergeIssue.MERGEDMETRIC);
+                String[] s = entry.getValue().split("\\" + Tags.OSM_VALUE_SEPARATOR);
+                if (s.length >= 2) {
+                    try {
+                        mergedTags.put(k, Tags.KEY_DURATION.equals(k) ? Duration.toString(Duration.parse(s[0]) + Duration.parse(s[1]))
+                                : Integer.toString(Integer.parseInt(s[0]) + Integer.parseInt(s[1])));
+                    } catch (NumberFormatException nfe) {
+                        // ignore issue will be set below
+                    }
+                }
+            }
+        }
+        setTags(mergeInto, mergedTags);
+        // if merging the tags creates multiple-value tags this will add a warning
         for (String v : mergeInto.getTags().values()) {
-            if (v.indexOf(';') >= 0) {
+            if (v.indexOf(Tags.OSM_VALUE_SEPARATOR) >= 0) {
                 mergeResult.addIssue(MergeIssue.MERGEDTAGS);
                 break;
             }

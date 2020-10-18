@@ -1212,6 +1212,7 @@ avoided by using an offline data source.</string>
     <string name="issue_role_conflict">Role conflict</string>
     <string name="issue_merged_tags">Merged tags</string>
     <string name="issue_same_object">Same object</string>
+    <string name="issue_merged_metric">Metric value was merged</string>
     <!-- time and distance -->
     <plurals name="days">
         <item quantity="one">1 day</item>

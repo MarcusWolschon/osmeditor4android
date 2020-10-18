@@ -21,6 +21,8 @@ import androidx.annotation.Nullable;
  *
  */
 public final class Tags {
+    public static final String OSM_VALUE_SEPARATOR = ";";
+    
     // Karlsruher schema
     public static final String KEY_ADDR_BASE        = "addr:";
     public static final String KEY_ADDR_HOUSENUMBER = "addr:housenumber";
@@ -294,6 +296,32 @@ public final class Tags {
      */
     public static boolean isEmailKey(@Nullable final String key) {
         return Tags.KEY_EMAIL.equals(key) || Tags.KEY_CONTACT_EMAIL.equals(key);
+    }
+
+    // keys that are a way metric and need special handling when splitting/merging
+    public static final String KEY_STEP_COUNT                           = "step_count";
+    public static final String KEY_DURATION                             = "duration";
+    public static final String KEY_PARKING_LANE_BOTH_CAPACITY           = "parking:lane:both:capacity";
+    public static final String KEY_PARKING_LANE_LEFT_CAPACITY           = "parking:lane:left:capacity";
+    public static final String KEY_PARKING_LANE_RIGHT_CAPACITY          = "parking:lane:right:capacity";
+    public static final String KEY_PARKING_LANE_BOTH_CAPACITY_DISABLED  = "parking:lane:both:capacity:disabled";
+    public static final String KEY_PARKING_LANE_LEFT_CAPACITY_DISABLED  = "parking:lane:left:capacity:disabled";
+    public static final String KEY_PARKING_LANE_RIGHT_CAPACITY_DISABLED = "parking:lane:right:capacitydisabled";
+
+    private static final List<String> WAY_METRIC_KEYS = Collections.unmodifiableList(
+            Arrays.asList(KEY_STEP_COUNT, KEY_DURATION, KEY_PARKING_LANE_BOTH_CAPACITY, KEY_PARKING_LANE_LEFT_CAPACITY, KEY_PARKING_LANE_RIGHT_CAPACITY,
+                    KEY_PARKING_LANE_BOTH_CAPACITY_DISABLED, KEY_PARKING_LANE_LEFT_CAPACITY_DISABLED, KEY_PARKING_LANE_RIGHT_CAPACITY_DISABLED));
+
+    /**
+     * Check if the key is a way metric
+     * 
+     * That is: depends on the length of the way and needs to be handled specially on splitting and merging
+     * 
+     * @param key the key
+     * @return true if a way metric
+     */
+    public static boolean isWayMetric(@Nullable final String key) {
+        return WAY_METRIC_KEYS.contains(key);
     }
 
     // Indoor keys

@@ -4,7 +4,7 @@ import android.content.Context;
 import de.blau.android.R;
 
 public enum MergeIssue implements Issue {
-    ROLECONFLICT, MERGEDTAGS, NOTREVERSABLE, SAMEOBJECT;
+    ROLECONFLICT, MERGEDTAGS, NOTREVERSABLE, SAMEOBJECT, MERGEDMETRIC;
 
     @Override
     public String toTranslatedString(Context context) {
@@ -17,6 +17,8 @@ public enum MergeIssue implements Issue {
             return context.getString(R.string.issue_not_reversable);
         case SAMEOBJECT:
             return context.getString(R.string.issue_same_object);
+        case MERGEDMETRIC:
+            return context.getString(R.string.issue_merged_metric);
         default:
             return "";
         }

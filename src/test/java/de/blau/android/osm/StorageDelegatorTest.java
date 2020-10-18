@@ -272,6 +272,7 @@ public class StorageDelegatorTest {
         Node first = w.getFirstNode();
         Node last = w.getLastNode();
         Way newWay = d.splitAtNode(w, n);
+
         // all things the same the 1st way remains after merger
         List<Result> result = d.mergeWays(w, newWay);
         assertFalse(result.isEmpty());
@@ -302,6 +303,7 @@ public class StorageDelegatorTest {
         assertEquals(4, w.getNodes().size());
         assertEquals(first, w.getFirstNode());
         assertEquals(last, w.getLastNode());
+
         // conflicting tags should allow merge but create non null result
         newWay = d.splitAtNode(w, n);
         tags.clear();
@@ -314,6 +316,70 @@ public class StorageDelegatorTest {
         assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDTAGS));
         tags.clear();
         w.setTags(tags);
+
+        // metric tags should allow merge but create non null result
+        newWay = d.splitAtNode(w, n);
+        tags.clear();
+        tags.put(Tags.KEY_STEP_COUNT, "3");
+        newWay.setTags(tags);
+        tags.put(Tags.KEY_STEP_COUNT, "4");
+        w.setTags(tags);
+        result = d.mergeWays(w, newWay);
+        assertEquals(4, w.getNodes().size());
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDMETRIC));
+        assertEquals("7", w.getTagWithKey(Tags.KEY_STEP_COUNT));
+        tags.clear();
+        w.setTags(tags);
+
+        // metric tags should allow merge but create non null result
+        // just one way with tag
+        newWay = d.splitAtNode(w, n);
+        tags.clear();
+        tags.put(Tags.KEY_STEP_COUNT, "3");
+        newWay.setTags(tags);
+        result = d.mergeWays(w, newWay);
+        assertEquals(4, w.getNodes().size());
+        assertFalse(result.isEmpty());
+        assertNotNull(result.get(0).getIssues());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDMETRIC));
+        assertEquals("3", w.getTagWithKey(Tags.KEY_STEP_COUNT));
+        tags.clear();
+        w.setTags(tags);
+
+        // metric tags should allow merge but create non null result
+        // invalid tag value
+        newWay = d.splitAtNode(w, n);
+        tags.clear();
+        tags.put(Tags.KEY_STEP_COUNT, "ABC");
+        newWay.setTags(tags);
+        result = d.mergeWays(w, newWay);
+        assertEquals(4, w.getNodes().size());
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDMETRIC));
+        assertEquals("ABC", w.getTagWithKey(Tags.KEY_STEP_COUNT));
+        tags.clear();
+        w.setTags(tags);
+
+        // duration tags should allow merge but create non null result
+        newWay = d.splitAtNode(w, n);
+        tags.clear();
+        tags.put(Tags.KEY_DURATION, "00:32");
+        newWay.setTags(tags);
+        tags.put(Tags.KEY_DURATION, "5");
+        w.setTags(tags);
+        result = d.mergeWays(w, newWay);
+        assertEquals(4, w.getNodes().size());
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.get(0).getIssues().size());
+        assertTrue(result.get(0).getIssues().contains(MergeIssue.MERGEDMETRIC));
+        assertEquals("37", w.getTagWithKey(Tags.KEY_DURATION));
+        tags.clear();
+        w.setTags(tags);
+
         // conflicting roles should allow merge but create non null result
         newWay = d.splitAtNode(w, n);
         assertNotNull(newWay.getParentRelations());
@@ -324,6 +390,7 @@ public class StorageDelegatorTest {
         assertFalse(result.isEmpty());
         assertEquals(1, result.get(1).getIssues().size());
         assertTrue(result.get(1).getIssues().contains(MergeIssue.ROLECONFLICT));
+
         // way with pos id should remain
         newWay = d.splitAtNode(w, n);
         newWay.setOsmId(1234L);
@@ -333,6 +400,7 @@ public class StorageDelegatorTest {
         assertEquals(4, newWay.getNodes().size());
         assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
         assertNotNull(d.getOsmElement(Way.NAME, 1234L));
+
         // unjoin ways
         w = d.splitAtNode(newWay, n);
         d.unjoinWays(n);

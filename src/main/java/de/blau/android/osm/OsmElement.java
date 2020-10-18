@@ -286,19 +286,20 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param e2 second element
      * @return Map containing the merged tags
      */
+    @NonNull
     public static Map<String, String> mergedTags(@NonNull OsmElement e1, @NonNull OsmElement e2) {
         Map<String, String> merged = new TreeMap<>(e1.getTags());
         Map<String, String> fromTags = e2.getTags();
         for (Entry<String, String> entry : fromTags.entrySet()) {
             String key = entry.getKey();
-            Set<String> values = new HashSet<>(Arrays.asList(entry.getValue().split("\\;")));
+            Set<String> values = new HashSet<>(Arrays.asList(entry.getValue().split("\\" + Tags.OSM_VALUE_SEPARATOR)));
             if (merged.containsKey(key)) {
-                values.addAll(Arrays.asList(merged.get(key).split("\\;")));
+                values.addAll(Arrays.asList(merged.get(key).split("\\" + Tags.OSM_VALUE_SEPARATOR)));
             }
             StringBuilder b = new StringBuilder();
             for (String v : values) {
                 if (b.length() > 0) {
-                    b.append(';');
+                    b.append(Tags.OSM_VALUE_SEPARATOR);
                 }
                 b.append(v);
             }
