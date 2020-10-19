@@ -35,7 +35,7 @@ public class Result implements Serializable {
     }
 
     /**
-     * Construct a new MergeResult
+     * Construct a new Result
      * 
      * @param element the OsmElement we are returning
      */
@@ -46,7 +46,7 @@ public class Result implements Serializable {
     /**
      * Add an issue to the list of issues
      * 
-     * @param issue the MergeIssue to add
+     * @param issue the Issue to add
      */
     public void addIssue(@NonNull Issue issue) {
         if (issues == null) {
@@ -60,11 +60,13 @@ public class Result implements Serializable {
      * 
      * @param issues a Collection containing Issues
      */
-    public void addAllIssues(@NonNull Collection<Issue> issues) {
-        if (this.issues == null) {
-            this.issues = new HashSet<>();
+    public void addAllIssues(@Nullable Collection<Issue> issues) {
+        if (issues != null) {
+            if (this.issues == null) {
+                this.issues = new HashSet<>();
+            }
+            this.issues.addAll(issues);
         }
-        this.issues.addAll(issues);
     }
 
     /**
