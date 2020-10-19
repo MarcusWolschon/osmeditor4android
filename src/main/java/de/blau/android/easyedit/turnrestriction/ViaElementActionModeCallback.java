@@ -117,7 +117,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
         }
 
         toSelected = true;
-        main.startSupportActionMode(new ToElementActionModeCallback(manager, fromWay, viaElement, (Way) element));
+        main.startSupportActionMode(new ToElementActionModeCallback(manager, fromWay, viaElement, (Way) element)); // NOSONAR viaElement can't actually be null
         return true;
     }
 
