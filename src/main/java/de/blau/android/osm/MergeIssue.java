@@ -26,6 +26,6 @@ public enum MergeIssue implements Issue {
 
     @Override
     public boolean isError() {
-        return true;
+        return !MERGEDMETRIC.equals(this);
     }
 }
