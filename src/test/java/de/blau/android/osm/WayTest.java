@@ -43,7 +43,7 @@ public class WayTest {
         w.addNodeAfter(w.getFirstNode(), n);
         assertEquals(n, w.getNodes().get(1));
     }
-    
+
     /**
      * Test the appenNode method
      */
@@ -71,13 +71,13 @@ public class WayTest {
         Way w = StorageDelegatorTest.addWayToStorage(d, true);
         assertTrue(w.isClosed());
         assertEquals(ElementType.CLOSEDWAY, w.getType());
-        
+
         d = new StorageDelegator();
         w = StorageDelegatorTest.addWayToStorage(d, false);
         assertFalse(w.isClosed());
         assertEquals(ElementType.WAY, w.getType());
     }
-    
+
     /**
      * Test the removeNode and removeAllNodes methods work
      */
@@ -92,7 +92,7 @@ public class WayTest {
         assertEquals(4, w.getNodes().size());
         assertTrue(w.isClosed());
         assertEquals(ElementType.CLOSEDWAY, w.getType());
-        
+
         // the same but this time the closing node
         d = new StorageDelegator();
         w = StorageDelegatorTest.addWayToStorage(d, true);
@@ -103,19 +103,19 @@ public class WayTest {
         assertEquals(4, w.getNodes().size());
         assertTrue(w.isClosed());
         assertEquals(ElementType.CLOSEDWAY, w.getType());
-        
+
         d = new StorageDelegator();
         w = StorageDelegatorTest.addWayToStorage(d, false);
         w.removeNode(w.getNodes().get(1));
         assertEquals(3, w.getNodes().size());
-        
+
         d = new StorageDelegator();
         w = StorageDelegatorTest.addWayToStorage(d, false);
         w.removeAllNodes();
         assertEquals(0, w.getNodes().size());
         assertFalse(w.isClosed());
     }
-    
+
     /**
      * Test the hasCommonNode and getCommonNode methods
      */
@@ -124,17 +124,18 @@ public class WayTest {
         StorageDelegator d = new StorageDelegator();
         Way w = StorageDelegatorTest.addWayToStorage(d, false);
         Node n = w.getNodes().get(2);
-        Way w2 = d.splitAtNode(w, n);
-        
+        Result splitResult = d.splitAtNode(w, n);
+        Way w2 = (Way) splitResult.getElement();
+
         assertTrue(w.hasCommonNode(w2));
         assertEquals(n, w.getCommonNode(w2));
-        
+
         d.unjoinWays(n);
-        
+
         assertFalse(w.hasCommonNode(w2));
         assertNull(w.getCommonNode(w2));
     }
-    
+
     /**
      * Test getOneway behaviour
      */
@@ -143,40 +144,40 @@ public class WayTest {
         StorageDelegator d = new StorageDelegator();
         Way w = StorageDelegatorTest.addWayToStorage(d, false);
         assertEquals(0, w.getOneway());
-        
+
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
-        
+
         tags.clear();
         tags.put(Tags.KEY_HIGHWAY, "residential");
         tags.put(Tags.KEY_ONEWAY, Tags.VALUE_YES);
         w.setTags(tags);
         assertEquals(1, w.getOneway());
-        
+
         tags.clear();
         tags.put(Tags.KEY_HIGHWAY, "residential");
         tags.put(Tags.KEY_ONEWAY, Tags.VALUE_TRUE);
         w.setTags(tags);
         assertEquals(1, w.getOneway());
-        
+
         tags.clear();
         tags.put(Tags.KEY_HIGHWAY, "residential");
         tags.put(Tags.KEY_ONEWAY, "1");
         w.setTags(tags);
         assertEquals(1, w.getOneway());
-        
+
         tags.clear();
         tags.put(Tags.KEY_HIGHWAY, "residential");
         tags.put(Tags.KEY_ONEWAY, Tags.VALUE_REVERSE);
         w.setTags(tags);
         assertEquals(-1, w.getOneway());
-        
+
         tags.clear();
         tags.put(Tags.KEY_HIGHWAY, "residential");
         tags.put(Tags.KEY_ONEWAY, "-1");
         w.setTags(tags);
         assertEquals(-1, w.getOneway());
     }
-    
+
     /**
      * Test the notReversible method
      */
@@ -185,76 +186,76 @@ public class WayTest {
         StorageDelegator d = new StorageDelegator();
         Way w = StorageDelegatorTest.addWayToStorage(d, false);
         assertEquals(0, w.getOneway());
-        
+
         SortedMap<String, String> tags = new TreeMap<>(w.getTags());
-        
+
         tags.clear();
         tags.put(Tags.KEY_HIGHWAY, Tags.VALUE_MOTORWAY);
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_WATERWAY, "anything");
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_WATERWAY, Tags.VALUE_RIVERBANK);
         w.setTags(tags);
         assertFalse(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_NATURAL, "anything");
         w.setTags(tags);
         assertFalse(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_NATURAL, Tags.VALUE_CLIFF);
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_NATURAL, Tags.VALUE_COASTLINE);
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_MAN_MADE, "anything");
         w.setTags(tags);
         assertFalse(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_MAN_MADE, Tags.VALUE_EMBANKMENT);
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_BARRIER, "anything");
         w.setTags(tags);
         assertFalse(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_BARRIER, Tags.VALUE_RETAINING_WALL);
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_BARRIER, Tags.VALUE_KERB);
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_BARRIER, Tags.VALUE_GUARD_RAIL);
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.clear();
         tags.put(Tags.KEY_BARRIER, Tags.VALUE_CITY_WALL);
         w.setTags(tags);
         assertTrue(w.notReversable());
-        
+
         tags.put(Tags.KEY_TWO_SIDED, Tags.VALUE_YES);
         w.setTags(tags);
-        assertFalse(w.notReversable());        
+        assertFalse(w.notReversable());
     }
 }

@@ -21,6 +21,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -220,7 +221,9 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         Way newCurrentSegment = null;
         if (!currentSegment.isClosed() && !currentSegment.getFirstNode().equals(commonNode) && !currentSegment.getLastNode().equals(commonNode)) {
             // split from at node
-            newCurrentSegment = logic.performSplit(main, currentSegment, commonNode);
+            Result result = logic.performSplit(main, currentSegment, commonNode);
+            newCurrentSegment = result != null ? (Way) result.getElement() : null;
+            checkSplitResult(currentSegment, result);
             if (size > 1) { // not the first segment
                 // keep the bit that connects to previous segment
                 Way prevSegment = segments.get(size - 2);
@@ -237,7 +240,9 @@ public class RouteSegmentActionModeCallback extends BuilderActionModeCallback {
         }
         Way newNextSegment = null;
         if (!nextSegment.isClosed() && !nextSegment.getFirstNode().equals(commonNode) && !nextSegment.getLastNode().equals(commonNode)) {
-            newNextSegment = logic.performSplit(main, nextSegment, commonNode);
+            Result result = logic.performSplit(main, nextSegment, commonNode);
+            newNextSegment = result != null ? (Way) result.getElement() : null;
+            checkSplitResult(nextSegment, result);
         } else if (newCurrentSegment == null) {
             segments.add(nextSegment);
             logic.setSelectedRelationWays(segments);

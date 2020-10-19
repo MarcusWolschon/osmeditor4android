@@ -12,6 +12,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
 
@@ -81,10 +82,16 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
             viaNode = ((Way) viaElement).getCommonNode(toWay);
             if (!viaWay.getFirstNode().equals(viaNode) && !viaWay.getLastNode().equals(viaNode)) {
                 // split via way and use appropriate segment
-                Way newViaWay = logic.performSplit(main, viaWay, viaNode);
-                Snack.barInfo(main, R.string.toast_split_via);
-                if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
-                    viaElement = newViaWay;
+                Result result = logic.performSplit(main, viaWay, viaNode);
+                Way newViaWay = result != null ? (Way) result.getElement() : null;
+                if (newViaWay != null) {
+                    checkSplitResult(viaWay, result);
+                    Snack.barInfo(main, R.string.toast_split_via);
+                    if (fromWay.hasNode(newViaWay.getFirstNode()) || fromWay.hasNode(newViaWay.getLastNode())) {
+                        viaElement = newViaWay;
+                    }
+                } else {
+                    Log.e(DEBUG_TAG, "newViaWay is null");
                 }
             }
         } else {
@@ -98,7 +105,9 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
         }
         // now check if we need to split the toWay
         if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode) && !toWay.isClosed()) {
-            Way newToWay = logic.performSplit(main, toWay, viaNode);
+            Result result = logic.performSplit(main, toWay, viaNode);
+            Way newToWay = result != null ? (Way) result.getElement() : null;
+            checkSplitResult(toWay, result);
             Snack.barInfo(main, R.string.toast_split_to);
             Set<OsmElement> toCandidates = new HashSet<>();
             toCandidates.add(toWay);

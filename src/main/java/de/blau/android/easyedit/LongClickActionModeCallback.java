@@ -27,6 +27,7 @@ import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
@@ -170,7 +171,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             if (splitPosition != null) {
                 for (Way way : ways) {
                     if (way.hasNode(splitPosition)) {
-                        logic.performSplit(main, way, logic.getSelectedNode());
+                        Result result = logic.performSplit(main, way, logic.getSelectedNode());
+                        checkSplitResult(way, result);
                     }
                 }
             }
@@ -211,7 +213,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                 try {
                     Node node = logic.performAddOnWay(main, ways, startX, startY, false);
                     if (node != null) {
-                        logic.performSplit(main, way, node);
+                        Result result = logic.performSplit(main, way, node);
+                        checkSplitResult(way, result);
                     }
                 } catch (OsmIllegalOperationException e) {
                     Snack.barError(main, e.getLocalizedMessage());

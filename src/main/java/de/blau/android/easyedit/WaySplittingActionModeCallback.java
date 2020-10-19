@@ -10,6 +10,7 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 
 public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback {
@@ -63,7 +64,8 @@ public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback 
         if (way.isClosed()) {
             main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, (Node) element, createPolygons));
         } else {
-            logic.performSplit(main, way, (Node) element);
+            Result result = logic.performSplit(main, way, (Node) element);
+            checkSplitResult(way, result);
             manager.finish();
         }
         return true;

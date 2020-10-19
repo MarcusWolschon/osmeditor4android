@@ -12,6 +12,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
 
@@ -71,7 +72,9 @@ public class FromElementWithViaNodeActionModeCallback extends NonSimpleActionMod
         Way newFromWay = null;
         if (!fromWay.getFirstNode().equals(viaNode) && !fromWay.getLastNode().equals(viaNode)) {
             // split from at node
-            newFromWay = logic.performSplit(main, fromWay, viaNode);
+            Result result = logic.performSplit(main, fromWay, viaNode);
+            newFromWay = result != null ? (Way) result.getElement() : null;
+            checkSplitResult(fromWay, result);
         }
 
         if (newFromWay != null) {

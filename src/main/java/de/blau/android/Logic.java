@@ -1871,7 +1871,9 @@ public class Logic {
      * 
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param node node to split at
+     * @deprecated Only used for testing
      */
+    @Deprecated
     public synchronized void performSplit(@Nullable final FragmentActivity activity, @NonNull final Node node) {
         try {
             createCheckpoint(activity, R.string.undo_action_split_ways);
@@ -1889,13 +1891,13 @@ public class Logic {
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param way the way to split
      * @param node the node at which the way should be split
-     * @return the new way or null if failed
+     * @return a Result object containing the new Way or null if failed
      */
     @Nullable
-    public synchronized Way performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
+    public synchronized Result performSplit(@Nullable final FragmentActivity activity, @NonNull final Way way, @NonNull final Node node) {
         createCheckpoint(activity, R.string.undo_action_split_way);
         try {
-            Way result = getDelegator().splitAtNode(way, node);
+            Result result = getDelegator().splitAtNode(way, node);
             invalidateMap();
             return result;
         } catch (OsmIllegalOperationException | StorageException ex) {
@@ -1939,26 +1941,34 @@ public class Logic {
      * @return null if the split fails, the segment otherwise
      */
     @Nullable
-    public synchronized Way performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
+    public synchronized Result performExtractSegment(@Nullable FragmentActivity activity, @NonNull Way way, @NonNull Node node1, @NonNull Node node2) {
         createCheckpoint(activity, R.string.undo_action_extract_segment);
         try {
             displayAttachedObjectWarning(activity, way);
+            Result result = null;
             if (way.isEndNode(node1)) {
-                Way newWay = getDelegator().splitAtNode(way, node2);
-                invalidateMap();
-                return newWay.isEndNode(node1) ? newWay : way;
+                result = getDelegator().splitAtNode(way, node2);
+                Way newWay = (Way) result.getElement();
+                result.setElement(newWay.isEndNode(node1) ? newWay : way);
             } else if (way.isEndNode(node2)) {
-                Way newWay = getDelegator().splitAtNode(way, node1);
-                invalidateMap();
-                return newWay.isEndNode(node2) ? newWay : way;
+                result = getDelegator().splitAtNode(way, node1);
+                Way newWay = (Way) result.getElement();
+                result.setElement(newWay.isEndNode(node2) ? newWay : way);
             } else {
-                Way newWay = getDelegator().splitAtNode(way, node1);
+                Result result1 = getDelegator().splitAtNode(way, node1);
                 boolean splitOriginal = way.hasNode(node2);
-                Way newWay2 = getDelegator().splitAtNode(way.hasNode(node2) ? way : newWay, node2);
-                invalidateMap();
-                return newWay2.hasNode(node1) && newWay2.hasNode(node2) ? newWay2 : (splitOriginal ? way : newWay);
+                Way newWay = (Way) result1.getElement();
+                Result result2 = getDelegator().splitAtNode(way.hasNode(node2) ? way : newWay, node2);
+                Way newWay2 = (Way) result2.getElement();
+                result = new Result();
+                result.addAllIssues(result1.getIssues());
+                result.setElement(newWay2.hasNode(node1) && newWay2.hasNode(node2) ? newWay2 : (splitOriginal ? way : newWay));
             }
-        } catch (OsmIllegalOperationException | StorageException ex) {
+            invalidateMap();
+            return result;
+        } catch (OsmIllegalOperationException |
+
+                StorageException ex) {
             handleDelegatorException(activity, ex);
             return null;
         }

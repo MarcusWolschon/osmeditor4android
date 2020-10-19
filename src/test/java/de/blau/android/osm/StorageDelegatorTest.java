@@ -10,6 +10,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -271,7 +272,8 @@ public class StorageDelegatorTest {
         Node n = w.getNodes().get(2);
         Node first = w.getFirstNode();
         Node last = w.getLastNode();
-        Way newWay = d.splitAtNode(w, n);
+        Result splitResult = d.splitAtNode(w, n);
+        Way newWay = (Way) splitResult.getElement();
 
         // all things the same the 1st way remains after merger
         List<Result> result = d.mergeWays(w, newWay);
@@ -279,14 +281,16 @@ public class StorageDelegatorTest {
         assertFalse(result.get(0).hasIssue());
         assertEquals(4, w.getNodes().size());
         assertNull(d.getOsmElement(Way.NAME, newWay.getOsmId()));
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         result = d.mergeWays(newWay, w);
         assertFalse(result.isEmpty());
         assertFalse(result.get(0).hasIssue());
         assertEquals(4, newWay.getNodes().size());
         assertNull(d.getOsmElement(Way.NAME, w.getOsmId()));
         //
-        w = d.splitAtNode(newWay, n);
+        splitResult = d.splitAtNode(newWay, n);
+        w = (Way) splitResult.getElement();
         d.reverseWay(w);
         result = d.mergeWays(w, newWay);
         assertFalse(result.isEmpty());
@@ -295,7 +299,8 @@ public class StorageDelegatorTest {
         assertEquals(last, w.getFirstNode());
         assertEquals(first, w.getLastNode());
         //
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         d.reverseWay(w);
         result = d.mergeWays(w, newWay);
         assertFalse(result.isEmpty());
@@ -305,7 +310,8 @@ public class StorageDelegatorTest {
         assertEquals(last, w.getLastNode());
 
         // conflicting tags should allow merge but create non null result
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         tags.clear();
         tags.put(Tags.KEY_HIGHWAY, "service");
         newWay.setTags(tags);
@@ -318,7 +324,8 @@ public class StorageDelegatorTest {
         w.setTags(tags);
 
         // metric tags should allow merge but create non null result
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         tags.clear();
         tags.put(Tags.KEY_STEP_COUNT, "3");
         newWay.setTags(tags);
@@ -335,7 +342,8 @@ public class StorageDelegatorTest {
 
         // metric tags should allow merge but create non null result
         // just one way with tag
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         tags.clear();
         tags.put(Tags.KEY_STEP_COUNT, "3");
         newWay.setTags(tags);
@@ -351,7 +359,8 @@ public class StorageDelegatorTest {
 
         // metric tags should allow merge but create non null result
         // invalid tag value
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         tags.clear();
         tags.put(Tags.KEY_STEP_COUNT, "ABC");
         newWay.setTags(tags);
@@ -365,7 +374,8 @@ public class StorageDelegatorTest {
         w.setTags(tags);
 
         // duration tags should allow merge but create non null result
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         tags.clear();
         tags.put(Tags.KEY_DURATION, "00:32");
         newWay.setTags(tags);
@@ -381,7 +391,8 @@ public class StorageDelegatorTest {
         w.setTags(tags);
 
         // conflicting roles should allow merge but create non null result
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         assertNotNull(newWay.getParentRelations());
         Relation r = newWay.getParentRelations().get(0);
         r.getMember(newWay).setRole("test2");
@@ -392,7 +403,8 @@ public class StorageDelegatorTest {
         assertTrue(result.get(1).getIssues().contains(MergeIssue.ROLECONFLICT));
 
         // way with pos id should remain
-        newWay = d.splitAtNode(w, n);
+        splitResult = d.splitAtNode(w, n);
+        newWay = (Way) splitResult.getElement();
         newWay.setOsmId(1234L);
         result = d.mergeWays(w, newWay);
         assertFalse(result.isEmpty());
@@ -402,7 +414,8 @@ public class StorageDelegatorTest {
         assertNotNull(d.getOsmElement(Way.NAME, 1234L));
 
         // unjoin ways
-        w = d.splitAtNode(newWay, n);
+        splitResult = d.splitAtNode(newWay, n);
+        w = (Way) splitResult.getElement();
         d.unjoinWays(n);
         try {
             d.mergeWays(w, newWay);
@@ -473,7 +486,8 @@ public class StorageDelegatorTest {
         // create two ways with common node
         Way w = addWayToStorage(d, false);
         Node n = w.getNodes().get(2);
-        Way newWay = d.splitAtNode(w, n);
+        Result splitResult = d.splitAtNode(w, n);
+        Way newWay = (Way) splitResult.getElement();
         d.unjoinWays(n);
         n1 = w.getLastNode();
         n2 = newWay.getFirstNode();
@@ -534,7 +548,8 @@ public class StorageDelegatorTest {
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
-        Way newWay = d.splitAtNode(w, n);
+        Result splitResult = d.splitAtNode(w, n);
+        Way newWay = (Way) splitResult.getElement();
         assertEquals(n, w.getLastNode());
         assertEquals(n, newWay.getFirstNode());
         assertEquals(2, newWay.nodeCount());
@@ -563,10 +578,49 @@ public class StorageDelegatorTest {
         Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
         assertNotNull(temp);
         Node n = w.getNodes().get(2);
-        Way newWay = d.splitAtNode(w, n);
+        Result splitResult = d.splitAtNode(w, n);
+        Way newWay = (Way) splitResult.getElement();
         assertEquals(n, w.getLastNode());
         assertEquals(n, newWay.getFirstNode());
         assertEquals(2, newWay.nodeCount());
+    }
+
+    /**
+     * Split / merge way with metric tag
+     */
+    @Test
+    public void splitMergeWithMetric() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node n = w.getNodes().get(2);
+        Map<String, String> tags = new TreeMap<>(w.getTags());
+        tags.put(Tags.KEY_STEP_COUNT, "7");
+        tags.put(Tags.KEY_DURATION, "15");
+        w.setTags(tags);
+
+        // split
+        Result splitResult = d.splitAtNode(w, n);
+        assertNotNull(splitResult);
+        assertNotNull(splitResult.getIssues());
+        assertEquals(1, splitResult.getIssues().size());
+        assertTrue(splitResult.getIssues().contains(SplitIssue.SPLITMETRIC));
+        Way newWay = (Way) splitResult.getElement();
+        assertEquals("5", w.getTagWithKey(Tags.KEY_STEP_COUNT));
+        assertEquals("2", newWay.getTagWithKey(Tags.KEY_STEP_COUNT));
+        assertEquals("00:10:07", w.getTagWithKey(Tags.KEY_DURATION));
+        assertEquals("00:04:53", newWay.getTagWithKey(Tags.KEY_DURATION));
+
+        // merge
+        List<Result> results = d.mergeWays(newWay, w);
+        assertNotNull(results);
+        assertEquals(1, results.size());
+        assertNotNull(results.get(0).getIssues());
+        assertTrue(results.get(0).getIssues().contains(MergeIssue.MERGEDMETRIC));
+        w = (Way) results.get(0).getElement();
+        assertEquals("7", w.getTagWithKey(Tags.KEY_STEP_COUNT));
+        assertEquals("15", w.getTagWithKey(Tags.KEY_DURATION));
     }
 
     /**

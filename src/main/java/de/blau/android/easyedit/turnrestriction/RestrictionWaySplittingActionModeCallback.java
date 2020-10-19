@@ -14,6 +14,7 @@ import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Way;
 
 public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionModeCallback {
@@ -65,18 +66,22 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
         if (way.isClosed()) {
             main.startSupportActionMode(new RestrictionClosedWaySplittingActionModeCallback(manager, way, (Node) element, fromWay));
         } else {
-            Way newWay = logic.performSplit(main, way, (Node) element);
-            if (fromWay == null) {
-                Set<OsmElement> candidates = new HashSet<>();
-                candidates.add(way);
-                candidates.add(newWay);
-                main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates));
-            } else {
-                Way viaWay = newWay;
-                if (fromWay.hasCommonNode(way)) {
-                    viaWay = way;
+            Result result = logic.performSplit(main, way, (Node) element);
+            Way newWay = result != null ? (Way) result.getElement() : null;
+            if (newWay != null) {
+                checkSplitResult(way, result);
+                if (fromWay == null) {
+                    Set<OsmElement> candidates = new HashSet<>();
+                    candidates.add(way);
+                    candidates.add(newWay);
+                    main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates));
+                } else {
+                    Way viaWay = newWay;
+                    if (fromWay.hasCommonNode(way)) {
+                        viaWay = way;
+                    }
+                    main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay));
                 }
-                main.startSupportActionMode(new ViaElementActionModeCallback(manager, fromWay, viaWay));
             }
         }
         return true;

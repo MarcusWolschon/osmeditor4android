@@ -9,6 +9,7 @@ import androidx.appcompat.view.ActionMode;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Geometry;
@@ -85,8 +86,10 @@ public class WaySegmentActionModeCallback extends NonSimpleActionModeCallback {
         }
 
         if (distance >= 0 && node1 != null && node2 != null) {
-            Way segment = logic.performExtractSegment(main, way, node1, node2);
-            if (segment != null) {
+            Result result = logic.performExtractSegment(main, way, node1, node2);
+            if (result != null) {
+                checkSplitResult(way, result);
+                Way segment = (Way) result.getElement();
                 if (segment.hasTagKey(Tags.KEY_HIGHWAY) || segment.hasTagKey(Tags.KEY_WATERWAY)) {
                     main.startSupportActionMode(new WaySegmentModifyActionModeCallback(manager, segment));
                 } else {

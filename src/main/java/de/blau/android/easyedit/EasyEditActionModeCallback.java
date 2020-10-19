@@ -1,7 +1,9 @@
 package de.blau.android.easyedit;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import android.util.Log;
@@ -19,8 +21,10 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.dialogs.TagConflictDialog;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Result;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
@@ -321,17 +325,21 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param includeNodes if true include via nodes
      * @return a list of all applicable objects
      */
-    protected Set<OsmElement> findViaElements(@NonNull Way way, boolean includeNodes) {
+    protected Set<OsmElement> findViaElements(@Nullable Way way, boolean includeNodes) {
         Set<OsmElement> result = new HashSet<>();
-        for (Node n : way.getNodes()) {
-            for (Way w : logic.getWaysForNode(n)) {
-                if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
-                    result.add(w);
-                    if (includeNodes) {
-                        result.add(n); // result is a set so we wont get dups
+        if (way != null) {
+            for (Node n : way.getNodes()) {
+                for (Way w : logic.getWaysForNode(n)) {
+                    if (w.getTagWithKey(Tags.KEY_HIGHWAY) != null) {
+                        result.add(w);
+                        if (includeNodes) {
+                            result.add(n); // result is a set so we wont get dups
+                        }
                     }
                 }
             }
+        } else {
+            Log.d(DEBUG_TAG, "Null way passed to findViaELements");
         }
         return result;
     }
@@ -406,12 +414,31 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
         }
         return null;
     }
-    
+
     /**
      * Save any state that is needed to restart
      * 
      * @param state object to store state in
      */
-    public void saveState(@NonNull SerializableState state) {        
+    public void saveState(@NonNull SerializableState state) {
+    }
+
+    /**
+     * Check the result of a way split operation, and if there was an error display a dialog
+     * 
+     * @param originalWay the original Way
+     * @param result the Result of the split
+     */
+    protected void checkSplitResult(@NonNull Way originalWay, @Nullable Result result) {
+        if (result != null && result.hasIssue()) {
+            List<Result> resultList = new ArrayList<>();
+            resultList.add(result);
+            Result orig = new Result();
+            orig.setElement(originalWay);
+            orig.addAllIssues(result.getIssues());
+            resultList.add(orig);
+            main.descheduleAutoLock();
+            TagConflictDialog.showDialog(main, resultList);
+        }
     }
 }

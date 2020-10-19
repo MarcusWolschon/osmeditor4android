@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
@@ -1038,7 +1039,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * Split all Ways that contain the Node
      * 
      * @param node Node to split at
+     * @deprecated This is only used in testing
      */
+    @Deprecated
     public void splitAtNode(@NonNull final Node node) {
         Log.d(DEBUG_TAG, "splitAtNode for all ways");
         // undo - nothing done here, everything done in splitAtNode
@@ -1162,8 +1165,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
      * @return the new Way
      */
     @NonNull
-    public Way splitAtNode(@NonNull final Way way, @NonNull final Node node) {
+    public Result splitAtNode(@NonNull final Way way, @NonNull final Node node) {
         Log.d(DEBUG_TAG, "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
+        Result result = new Result();
         // undo - old way is saved here, new way is saved at insert
         dirty = true;
         undo.save(way);
@@ -1178,6 +1182,20 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Log.d(DEBUG_TAG, msg);
             throw new OsmIllegalOperationException(msg);
         }
+
+        // check tags for problematic keys
+        List<String> metricKeys = new ArrayList<>();
+        for (String key : way.getTags().keySet()) {
+            if (Tags.isWayMetric(key)) {
+                metricKeys.add(key);
+            }
+        }
+        // determine the length before we remove nodes
+        double originalLength = 1D;
+        if (!metricKeys.isEmpty()) {
+            originalLength = way.length();
+        }
+
         // we assume this node is only contained in the way once.
         // else the user needs to split the remaining way again.
         List<Node> nodesForNewWay = new LinkedList<>();
@@ -1201,22 +1219,57 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         ArrayList<OsmElement> changedElements = new ArrayList<>();
         try {
+            // update original way
             way.updateState(OsmElement.STATE_MODIFIED);
             apiStorage.insertElementSafe(way);
             changedElements.add(way);
 
             // create the new way
             Way newWay = factory.createWayWithNewId();
-            newWay.addTags(way.getTags());
             newWay.addNodes(nodesForNewWay, false);
+            newWay.addTags(way.getTags());
             insertElementUnsafe(newWay);
+
+            if (!metricKeys.isEmpty() && originalLength != 0) {
+                result.addIssue(SplitIssue.SPLITMETRIC);
+                for (String key : metricKeys) {
+                    distributeMetric(key, originalLength, way);
+                    distributeMetric(key, originalLength, newWay);
+                }
+            }
 
             addSplitWayToRelations(way, false, newWay, changedElements);
             onElementChanged(null, changedElements);
-            return newWay;
+            result.setElement(newWay);
+            return result;
         } catch (StorageException e) {
             Log.e(DEBUG_TAG, "splitAtNode got " + e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Change the value of the tag with key proportionally to the length of the way relative to originalLength
+     * 
+     * @param key the tag key
+     * @param originalLength the original length of the way
+     * @param way the way
+     */
+    private void distributeMetric(@NonNull String key, double originalLength, @NonNull Way way) {
+        String value = way.getTagWithKey(key);
+        if (value != null && !"".equals(value)) {
+            try {
+                int metric = Tags.KEY_DURATION.equals(key) ? Duration.parse(value) : Integer.parseInt(value);
+                double newLength = way.length();
+                int newMetric = (int) Math.round(metric * newLength / originalLength);
+                Map<String, String> tags = new TreeMap<>(way.getTags());
+                tags.put(key, Tags.KEY_DURATION.equals(key) ? Duration.toString(newMetric) : Integer.toString(newMetric));
+                way.setTags(tags);
+            } catch (NumberFormatException nfex) {
+                // ignore issue has been set in any case
+            }
+        } else {
+            Log.e(DEBUG_TAG, "Unable to retrieve value for " + key);
         }
     }
 
