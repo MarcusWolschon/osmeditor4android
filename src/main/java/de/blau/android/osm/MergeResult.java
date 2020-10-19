@@ -54,11 +54,13 @@ public class MergeResult {
      * 
      * @param issues a Collection containing Issues
      */
-    public void addAllIssues(@NonNull Collection<Issue> issues) {
-        if (this.issues == null) {
-            this.issues = new HashSet<>();
+    public void addAllIssues(@Nullable Collection<Issue> issues) {
+        if (issues != null) {
+            if (this.issues == null) {
+                this.issues = new HashSet<>();
+            }
+            this.issues.addAll(issues);
         }
-        this.issues.addAll(issues);
     }
 
     /**
