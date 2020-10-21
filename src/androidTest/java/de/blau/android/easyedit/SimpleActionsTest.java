@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -129,6 +130,12 @@ public class SimpleActionsTest {
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3897000, 47.3903500, true);
+        TestUtils.sleep();
+        // undo last addition
+        Assert.assertTrue(TestUtils.clickMenuButton(device, context.getString(R.string.undo), false, false));
+        TestUtils.sleep();
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device, true);
