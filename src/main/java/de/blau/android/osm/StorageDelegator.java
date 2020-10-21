@@ -1127,7 +1127,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         ArrayList<OsmElement> changedElements = new ArrayList<>();
         try {
-            if (createPolygons && way.length() > 2) { // close the original way now
+            if (createPolygons && way.nodeCount() > 2) { // close the original way now
                 way.addNode(way.getFirstNode());
             }
             way.updateState(OsmElement.STATE_MODIFIED);
@@ -1138,7 +1138,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Way newWay = factory.createWayWithNewId();
             newWay.addTags(way.getTags());
             newWay.addNodes(nodesForNewWay, false);
-            if (createPolygons && newWay.length() > 2) { // close the new way now
+            if (createPolygons && newWay.nodeCount() > 2) { // close the new way now
                 newWay.addNode(newWay.getFirstNode());
             }
             insertElementUnsafe(newWay);
