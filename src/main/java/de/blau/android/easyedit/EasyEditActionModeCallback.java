@@ -259,33 +259,6 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     }
 
     /**
-     * Takes a parameter for a node and one for a way. If the way is not null, opens a tag editor for the way.
-     * Otherwise, opens a tag editor for the node (unless the node is also null, then nothing happens).
-     * 
-     * @param possibleNode a node that was edited, or null
-     * @param possibleWay a way that was edited, or null
-     * @param select select the element before starting the PropertyEditor
-     */
-    void tagApplicable(@Nullable final Node possibleNode, @Nullable final Way possibleWay, final boolean select) {
-        if (possibleWay == null) {
-            // Single node was added
-            if (possibleNode != null) { // null-check to be sure
-                if (select) {
-                    main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, possibleNode));
-                }
-                main.performTagEdit(possibleNode, null, false, false);
-            } else {
-                Log.e(DEBUG_TAG, "tagApplicable called with null arguments");
-            }
-        } else { // way was added
-            if (select) {
-                main.startSupportActionMode(new WaySelectionActionModeCallback(manager, possibleWay));
-            }
-            main.performTagEdit(possibleWay, null, false, false);
-        }
-    }
-
-    /**
      * Finds which ways can be merged with a way. For this, the ways must not be equal, need to share at least one end
      * node, and either at least one of them must not have tags, or the tags on both ways must be equal.
      * 

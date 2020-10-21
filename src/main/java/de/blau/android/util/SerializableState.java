@@ -52,6 +52,16 @@ public class SerializableState implements Serializable {
     }
 
     /**
+     * Store a String
+     * 
+     * @param key the key
+     * @param s the String
+     */
+    public void putString(@NonNull String key, @Nullable String s) {
+        state.put(key, s);
+    }
+    
+    /**
      * Get a serializable object
      * 
      * @param key the key
@@ -72,6 +82,21 @@ public class SerializableState implements Serializable {
     public Long getLong(@NonNull String key) {
         try {
             return (Long) state.get(key);
+        } catch (ClassCastException e) {
+            return null;
+        }
+    }
+    
+    /**
+     * Get a String
+     * 
+     * @param key the key
+     * @return a String or null if not found or not a String
+     */
+    @Nullable
+    public String getString(@NonNull String key) {
+        try {
+            return (String) state.get(key);
         } catch (ClassCastException e) {
             return null;
         }

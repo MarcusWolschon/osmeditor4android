@@ -37,8 +37,10 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     private int top;
 
     public static final String NAME = "way";
-
     public static final String NODE = "nd";
+
+    public static final int MINIMUM_NODES_IN_WAY        = 2;
+    public static final int MINIMUM_NODES_IN_CLOSED_WAY = 3;
 
     private transient FeatureStyle style = null; // FeatureProfile is currently not serializable
 
@@ -216,7 +218,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
             Log.i(DEBUG_TAG, "removeNode removed " + (count - 1) + " duplicate node(s)");
         }
     }
-    
+
     /**
      * Remove all nodes from the Way
      * 
@@ -491,6 +493,22 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      */
     public int nodeCount() {
         return nodes == null ? 0 : nodes.size();
+    }
+
+    /**
+     * Count the occurrences of node
+     * 
+     * @param node the Node
+     * @return the number of times node is present
+     */
+    public int count(@NonNull Node node) {
+        int result = 0;
+        for (Node n : nodes) {
+            if (node.equals(n)) {
+                result++;
+            }
+        }
+        return result;
     }
 
     /**

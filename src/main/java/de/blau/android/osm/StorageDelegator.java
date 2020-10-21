@@ -1127,7 +1127,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         ArrayList<OsmElement> changedElements = new ArrayList<>();
         try {
-            if (createPolygons && way.nodeCount() > 2) { // close the original way now
+            if (createPolygons && way.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the original way now
                 way.addNode(way.getFirstNode());
             }
             way.updateState(OsmElement.STATE_MODIFIED);
@@ -1138,7 +1138,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             Way newWay = factory.createWayWithNewId();
             newWay.addTags(way.getTags());
             newWay.addNodes(nodesForNewWay, false);
-            if (createPolygons && newWay.nodeCount() > 2) { // close the new way now
+            if (createPolygons && newWay.nodeCount() > Way.MINIMUM_NODES_IN_WAY) { // close the new way now
                 newWay.addNode(newWay.getFirstNode());
             }
             insertElementUnsafe(newWay);
@@ -1423,7 +1423,8 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     /**
      * Remove node from specified way
      * 
-     * If the node is untagged and not a member of any other node it will be deleted.
+     * If the node is untagged and not a member of any other node it will be deleted. If the way is closed and the end
+     * node is being removed it will try to re-close.
      * 
      * @param way the Way
      * @param node the Node
@@ -1431,7 +1432,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
     public void removeNodeFromWay(@NonNull Way way, @NonNull Node node) {
         boolean closed = way.isClosed();
         int size = way.getNodes().size();
-        if (size < 3 || (closed && size < 4)) {
+        int occurences = way.count(node);
+        int targetSize = size - occurences;
+        if (targetSize < Way.MINIMUM_NODES_IN_WAY || (closed && targetSize < Way.MINIMUM_NODES_IN_CLOSED_WAY)) {
             throw new OsmIllegalOperationException("No Nodes can be removed from this Way. This is a bug.");
         }
         dirty = true;
@@ -1442,6 +1445,33 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
             way.addNode(way.getFirstNode());
         } else {
             way.removeNode(node);
+        }
+        onElementChanged(null, way);
+        if (!node.hasTags() && getCurrentStorage().getWays(node).isEmpty()) {
+            removeNode(node);
+        }
+    }
+
+    /**
+     * Remove last node from specified way
+     * 
+     * If the node is untagged and not a member of any other node it will be deleted. If the result Way has less than 2
+     * Nodes it will be deleted.
+     * 
+     * @param way the Way
+     */
+    public void removeLastNodeFromWay(@NonNull Way way) {
+        dirty = true;
+        undo.save(way);
+        List<Node> nodes = way.getNodes();
+        int size = nodes.size();
+        final int lastNodeIndex = size - 1;
+        Node node = nodes.get(lastNodeIndex);
+        if (size <= Way.MINIMUM_NODES_IN_WAY) {
+            Log.w(DEBUG_TAG, "removeWayNode removing degenerate way " + way.getOsmId());
+            removeWay(way);
+        } else {
+            nodes.remove(lastNodeIndex);
         }
         onElementChanged(null, way);
         if (!node.hasTags() && getCurrentStorage().getWays(node).isEmpty()) {
@@ -1925,7 +1955,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         way.updateState(OsmElement.STATE_MODIFIED);
         try {
             int size = way.nodeCount();
-            if (size < 2 || (way.isClosed() && size == 2)) {
+            if (size < Way.MINIMUM_NODES_IN_WAY || (way.isClosed() && size < Way.MINIMUM_NODES_IN_CLOSED_WAY)) {
                 Log.w(DEBUG_TAG, "replaceNodeInWay removing degenerate way " + way.getOsmId());
                 removeWay(way);
             } else {
@@ -1971,7 +2001,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
                 // or only the same node twice
                 // NOTE this will not remove ways with three and more times the same node
                 int size = way.getNodes().size();
-                if (size < 2 || (way.isClosed() && size == 2)) {
+                if (size < Way.MINIMUM_NODES_IN_WAY || (way.isClosed() && size < Way.MINIMUM_NODES_IN_CLOSED_WAY)) {
                     Log.w(DEBUG_TAG, "removeWayNode removing degenerate way " + way.getOsmId());
                     removeWay(way);
                 } else {
