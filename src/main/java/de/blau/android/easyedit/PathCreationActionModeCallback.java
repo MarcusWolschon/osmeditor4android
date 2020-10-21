@@ -1,31 +1,39 @@
 package de.blau.android.easyedit;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.view.ActionMode;
+import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Way;
+import de.blau.android.util.SerializableState;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
- * This callback handles path creation. It is started after a long-press. During this action mode, clicks are handled by
- * custom code. The node and way click handlers are thus never called.
+ * This callback handles path creation.
  */
-public class PathCreationActionModeCallback extends NonSimpleActionModeCallback {
-    private static final String DEBUG_TAG              = "PathCreationAction...";
-    private static final int    MENUITEM_UNDO          = 1;
-    private static final int    MENUITEM_NEWWAY_PRESET = 2;
+public class PathCreationActionModeCallback extends BuilderActionModeCallback {
+    private static final String DEBUG_TAG = "PathCreationAction...";
+
+    private static final int MENUITEM_UNDO          = 1;
+    private static final int MENUITEM_NEWWAY_PRESET = 2;
+
+    private static final String NODE_IDS_KEY = "way ids";
+    private static final String WAY_ID_KEY   = "node id";
+    private static final String TITLE_KEY    = "title";
 
     /** x coordinate of first node */
     private float   x;
@@ -42,6 +50,37 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
     private Way        createdWay   = null;
     /** contains a list of created nodes. used to fix selection after undo. */
     private List<Node> createdNodes = new ArrayList<>();
+
+    private String savedTitle = null;
+
+    /**
+     * Construct a new callback from saved state
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param state the saved state
+     */
+    public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull SerializableState state) {
+        super(manager);
+        List<Long> ids = state.getList(NODE_IDS_KEY);
+        StorageDelegator delegator = App.getDelegator();
+        for (Long id : ids) {
+            Node node = (Node) delegator.getOsmElement(Node.NAME, id);
+            if (node != null) {
+                createdNodes.add(node);
+            } else {
+                throw new IllegalStateException("Failed to find node " + id);
+            }
+        }
+        if (!createdNodes.isEmpty()) {
+            appendTargetNode = createdNodes.get(createdNodes.size() - 1);
+        }
+        Long wayId = state.getLong(WAY_ID_KEY);
+        if (wayId != null) {
+            createdWay = (Way) delegator.getOsmElement(Way.NAME, wayId);
+            appendTargetWay = createdWay;
+        }
+        savedTitle = state.getString(TITLE_KEY);
+    }
 
     /**
      * Construct a new PathCreationActionModeCallback starting with screen coordinates
@@ -75,7 +114,7 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
      * 
      * @param manager the current EasyEditManager instance
      * @param way the exiting Way
-     * @param node the existign Node to add
+     * @param node the existing Node to add
      */
     public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node) {
         super(manager);
@@ -87,6 +126,9 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         helpTopic = R.string.help_pathcreation;
         super.onCreateActionMode(mode, menu);
+        if (savedTitle != null) {
+            mode.setTitle(savedTitle);
+        }
         mode.setSubtitle(R.string.actionmode_createpath);
         logic.setSelectedWay(null);
         logic.setSelectedNode(appendTargetNode);
@@ -105,6 +147,19 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
         }
         logic.hideCrosshairs();
         return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        menu = replaceMenu(menu, mode, this);
+        menu.clear();
+        menuUtil.reset();
+        menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
+        menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
+        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
+        arrangeMenu(menu);
+
+        return super.onPrepareActionMode(mode, menu);
     }
 
     @Override
@@ -127,15 +182,18 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
     private synchronized void pathCreateNode(float x, float y) {
         Node lastSelectedNode = logic.getSelectedNode();
         Way lastSelectedWay = logic.getSelectedWay();
+        final boolean firstNode = createdNodes.isEmpty();
         if (appendTargetNode != null) {
-            logic.performAppendAppend(main, x, y);
+            logic.performAppendAppend(main, x, y, firstNode);
         } else {
-            logic.performAdd(main, x, y);
+            logic.performAdd(main, x, y, firstNode);
         }
         if (logic.getSelectedNode() == null) {
             // user clicked last node again -> finish adding
             delayedResetHasProblem(lastSelectedWay);
             manager.finish();
+            // remove spurious checkpoint created by touching again
+            App.getLogic().removeCheckpoint(main, createdWay != null ? R.string.undo_action_moveobjects : R.string.undo_action_movenode);
             tagApplicable(lastSelectedNode, lastSelectedWay, true);
         } else { // update cache for undo
             createdWay = logic.getSelectedWay();
@@ -147,18 +205,6 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
             createdNodes.add(logic.getSelectedNode());
         }
         main.invalidateMap();
-    }
-
-    @Override
-    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-        menu = replaceMenu(menu, mode, this);
-        menu.clear();
-        menuUtil.reset();
-        menu.add(Menu.NONE, MENUITEM_UNDO, Menu.NONE, R.string.undo).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
-        menu.add(Menu.NONE, MENUITEM_NEWWAY_PRESET, Menu.NONE, R.string.tag_menu_preset).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_preset));
-        menu.add(GROUP_BASE, MENUITEM_HELP, Menu.CATEGORY_SYSTEM | 10, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_help));
-        arrangeMenu(menu);
-        return true;
     }
 
     @Override
@@ -189,17 +235,14 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
      * non-saved nodes one by one
      */
     private synchronized void handleUndo() {
-        logic.undo();
-        if (logic.getSelectedNode() == null) { // should always happen when we added a new node and removed it
-            Iterator<Node> nodeIterator = createdNodes.iterator();
-            while (nodeIterator.hasNext()) { // remove nodes that do not exist anymore
-                if (!logic.exists(nodeIterator.next())) {
-                    nodeIterator.remove();
-                }
+        Node removedNode = createdNodes.remove(createdNodes.size() - 1);
+        if (createdWay != null) {
+            logic.performRemoveLastNodeFromWay(main, createdWay, false);
+            if (OsmElement.STATE_DELETED == createdWay.getState()) {
+                createdWay = null;
             }
         } else {
-            // remove existing node from list
-            createdNodes.remove(logic.getSelectedNode());
+            logic.performEraseNode(main, removedNode, false);
         }
         // exit or select the previous node
         if (createdNodes.isEmpty()) {
@@ -220,16 +263,9 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
      */
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-        final Node lastSelectedNode = logic.getSelectedNode();
-        final Way lastSelectedWay = logic.getSelectedWay();
         logic.setSelectedWay(null);
         logic.setSelectedNode(null);
         super.onDestroyActionMode(mode);
-        if (appendTargetNode == null && !dontTag) { // doesn't work as intended element selected modes get zapped,
-                                                    // don't try to select because of this
-            tagApplicable(lastSelectedNode, lastSelectedWay, false);
-            delayedResetHasProblem(lastSelectedWay);
-        }
     }
 
     /**
@@ -256,5 +292,70 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
             handleUndo();
         }
         return super.processShortcut(c);
+    }
+
+    @Override
+    protected void finishBuilding() {
+        if (appendTargetNode == null && !dontTag) { // doesn't work as intended element selected modes get zapped,
+            final Way lastSelectedWay = logic.getSelectedWay();
+            final Node lastSelectedNode = logic.getSelectedNode();
+            manager.finish();
+            tagApplicable(lastSelectedNode, lastSelectedWay, false);
+            delayedResetHasProblem(lastSelectedWay);
+        }
+    }
+
+    @Override
+    public void saveState(SerializableState state) {
+        List<Long> nodeIds = new ArrayList<>();
+        for (Node n : createdNodes) {
+            nodeIds.add(n.getOsmId());
+        }
+        state.putList(NODE_IDS_KEY, nodeIds);
+        if (createdWay != null) {
+            state.putLong(WAY_ID_KEY, createdWay.getOsmId());
+        }
+        state.putString(TITLE_KEY, mode.getTitle().toString());
+    }
+
+    @Override
+    protected boolean hasData() {
+        return true;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        Way lastSelectedWay = logic.getSelectedWay();
+        if (lastSelectedWay != null) {
+            lastSelectedWay.resetHasProblem();
+        }
+        return super.onBackPressed();
+    }
+
+    /**
+     * Takes a parameter for a node and one for a way. If the way is not null, opens a tag editor for the way.
+     * Otherwise, opens a tag editor for the node (unless the node is also null, then nothing happens).
+     * 
+     * @param possibleNode a node that was edited, or null
+     * @param possibleWay a way that was edited, or null
+     * @param select select the element before starting the PropertyEditor
+     */
+    private void tagApplicable(@Nullable final Node possibleNode, @Nullable final Way possibleWay, final boolean select) {
+        if (possibleWay == null) {
+            // Single node was added
+            if (possibleNode != null) { // null-check to be sure
+                if (select) {
+                    main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, possibleNode));
+                }
+                main.performTagEdit(possibleNode, null, false, false);
+            } else {
+                Log.e(DEBUG_TAG, "tagApplicable called with null arguments");
+            }
+        } else { // way was added
+            if (select) {
+                main.startSupportActionMode(new WaySelectionActionModeCallback(manager, possibleWay));
+            }
+            main.performTagEdit(possibleWay, null, false, false);
+        }
     }
 }

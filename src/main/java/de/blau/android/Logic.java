@@ -1585,8 +1585,27 @@ public class Logic {
      * @throws OsmIllegalOperationException if the operation coudn't be performed
      */
     public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
+        performAdd(activity, x, y, true);
+    }
+
+    /**
+     * Executes an add-command for x,y. Adds new nodes and ways to storage. When more than one Node were
+     * created/selected then a new way will be created.
+     * 
+     * Set selected Node and Way appropriately
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param x screen-coordinate
+     * @param y screen-coordinate
+     * @param createCheckpoint create a new undo checkpoint, always set to true except if part of a composite operation
+     * @throws OsmIllegalOperationException if the operation coudn't be performed
+     */
+    public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint)
+            throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAdd");
-        createCheckpoint(activity, R.string.undo_action_add);
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_add);
+        }
         Node nextNode;
         Node lSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
         Way lSelectedWay = selectedWays != null && !selectedWays.isEmpty() ? selectedWays.get(0) : null;
@@ -1985,6 +2004,23 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
         displayAttachedObjectWarning(activity, node);
         getDelegator().removeNodeFromWay(way, node);
+        invalidateMap();
+    }
+
+    /**
+     * Remove the last Node from a specific Way, if the Node is untagged and not a member of a further Way it will be
+     * deleted, if the 2nd last node is removed the Way will be deleted.
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param way the Way
+     * @param createCheckpoint if true create an undo checkpoint
+     */
+    public synchronized void performRemoveLastNodeFromWay(@Nullable FragmentActivity activity, @NonNull Way way, boolean createCheckPoint) {
+        if (createCheckPoint) {
+            createCheckpoint(activity, R.string.undo_action_remove_node_from_way);
+        }
+        displayAttachedObjectWarning(activity, way.getLastNode());
+        getDelegator().removeLastNodeFromWay(way);
         invalidateMap();
     }
 
@@ -2393,11 +2429,16 @@ public class Logic {
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param x screen x coordinate
      * @param y screen y coordinate
+     * @param createCheckpoint normally true, only set to false in a multi-step operation, for which the checkpoint has
+     *            already been created
      * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
-    public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
+    public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y, boolean createCheckpoint)
+            throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAppendAppend");
-        createCheckpoint(activity, R.string.undo_action_append);
+        if (createCheckpoint) {
+            createCheckpoint(activity, R.string.undo_action_append);
+        }
         Node lSelectedNode = getSelectedNode();
         Way lSelectedWay = getSelectedWay();
         try {

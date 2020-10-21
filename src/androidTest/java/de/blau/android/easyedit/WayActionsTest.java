@@ -118,7 +118,7 @@ public class WayActionsTest {
         } catch (InterruptedException e) {
         }
         TestUtils.clickAtCoordinates(device, map, 8.38877, 47.389202, true);
-        TestUtils.clickUp(device);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device, true);
         Way way = App.getLogic().getSelectedWay();

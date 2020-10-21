@@ -63,8 +63,9 @@ public class EasyEditManager {
 
     private boolean contextMenuEnabled;
 
-    private static final List<String> restartable = Collections.unmodifiableList(Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(),
-            RestartRouteSegmentActionModeCallback.class.getCanonicalName(), EditRelationMembersActionModeCallback.class.getCanonicalName()));
+    private static final List<String> restartable = Collections.unmodifiableList(
+            Arrays.asList(RouteSegmentActionModeCallback.class.getCanonicalName(), RestartRouteSegmentActionModeCallback.class.getCanonicalName(),
+                    EditRelationMembersActionModeCallback.class.getCanonicalName(), PathCreationActionModeCallback.class.getCanonicalName()));
 
     public static final String              FILENAME     = "easyeditmanager.res";
     private SavingHelper<SerializableState> savingHelper = new SavingHelper<>();
@@ -282,7 +283,7 @@ public class EasyEditManager {
                                         }
                                     } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
                                             | IllegalAccessException | IllegalArgumentException | InvocationTargetException exception) {
-                                        Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getMessage());
+                                        Log.e(DEBUG_TAG, "Restarting " + restartActionModeCallbackName + " received " + exception.getClass().getCanonicalName() + " "+ exception.getMessage());
                                     }
                                 }
                                 Log.e(DEBUG_TAG, "restart, saved state is null");

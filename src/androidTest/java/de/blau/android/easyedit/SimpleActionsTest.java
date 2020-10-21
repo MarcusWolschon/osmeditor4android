@@ -61,7 +61,7 @@ public class SimpleActionsTest {
         Preferences prefs = new Preferences(context);
         TestUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
-        main.runOnUiThread(()->main.showSimpleActionsButton());
+        main.runOnUiThread(() -> main.showSimpleActionsButton());
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons(device);
@@ -129,7 +129,7 @@ public class SimpleActionsTest {
         TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
         TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
-        TestUtils.clickUp(device);
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
         TestUtils.clickHome(device, true);
         Way way = App.getLogic().getSelectedWay();
