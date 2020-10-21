@@ -569,6 +569,54 @@ public class StorageDelegatorTest {
     }
 
     /**
+     * Test removeNodeFromWay closes Way is closing Node is removed
+     */
+    @Test
+    public void removeNodeFromWay() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, true);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        assertTrue(w.isClosed());
+        Node lastNode = w.getLastNode();
+        assertEquals(2, w.count(lastNode));
+        d.removeNodeFromWay(w, lastNode);
+        assertFalse(w.hasNode(lastNode));
+        assertTrue(w.isClosed());
+    }
+    
+    /**
+     * Test removeLastNodeFromWay method
+     */
+    @Test
+    public void removeLastNodeFromWay() {
+        StorageDelegator d = new StorageDelegator();
+        Way w = addWayToStorage(d, false);
+        Way temp = (Way) d.getOsmElement(Way.NAME, w.getOsmId());
+        assertNotNull(temp);
+        Node tempNode = temp.getNodes().get(2);
+        Map<String, String> tags = new TreeMap<>();
+        tags.put("test","test");
+        tempNode.setTags(tags);
+        
+        int count = temp.nodeCount();
+        assertEquals(4, count);
+        for (int i = 0; i < 2; i++) {
+            Node n = temp.getLastNode();
+            d.removeLastNodeFromWay(temp);
+            assertFalse(temp.hasNode(n));
+            assertEquals(count - (i + 1), temp.nodeCount());
+        }
+        // removing the 2nd last node should delete the way
+        d.removeLastNodeFromWay(temp);
+        assertEquals(OsmElement.STATE_DELETED, temp.getState());
+        assertNull(d.getApiStorage().getOsmElement(Way.NAME, temp.getOsmId()));
+        
+        // check that the tagged node is still here
+        assertEquals(OsmElement.STATE_CREATED, tempNode.getState());
+    }
+
+    /**
      * Split way at node
      */
     @Test
