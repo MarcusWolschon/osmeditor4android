@@ -50,6 +50,9 @@
                 <!-- harmless addition for samsung multi window support -->
                 <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
             </intent-filter>
+            <meta-data android:name="android.app.shortcuts"
+                 android:resource="@xml/shortcuts" /> 
+            
         </activity>
         <activity
             android:name=".Main"
@@ -205,14 +208,11 @@
             android:theme="@style/Theme.custom" />
         <activity
             android:name="HelpViewer"
-            android:icon="@drawable/vespucci_help_logo_foreground"
-            android:label="@string/help_app_label"
             android:launchMode="singleTask"
             android:taskAffinity=".HelpViewer"
             android:theme="@style/Theme.customHelpViewer" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
