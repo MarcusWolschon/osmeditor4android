@@ -233,7 +233,9 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         revertItem = menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
         arrangeMenu(menu); // needed at least once
-        
+        if (relation != null && !relation.allDownloaded()) {
+            Snack.toastTopWarning(main, R.string.toast_members_not_downloaded);
+        }
         highlightAll();
         setClickableElements();
         return true;
