@@ -233,6 +233,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         revertItem = menu.add(Menu.NONE, MENUITEM_REVERT, Menu.NONE, R.string.tag_menu_revert)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_undo));
         arrangeMenu(menu); // needed at least once
+        
         highlightAll();
         setClickableElements();
         return true;
@@ -260,7 +261,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
         if (relation != null) {
             for (RelationMember member : relation.getMembers()) {
                 Set<RelationMember> toRemove = removeMembers.get(member.getRef());
-                if (toRemove.isEmpty() || !contains(toRemove, member)) {
+                if (member.downloaded() && (toRemove.isEmpty() || !contains(toRemove, member))) {
                     highlight(member.getElement());
                 }
             }
