@@ -192,8 +192,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             // user clicked last node again -> finish adding
             delayedResetHasProblem(lastSelectedWay);
             manager.finish();
-            // remove spurious checkpoint created by touching again
-            App.getLogic().removeCheckpoint(main, createdWay != null ? R.string.undo_action_moveobjects : R.string.undo_action_movenode);
+            removeCheckpoint();
             tagApplicable(lastSelectedNode, lastSelectedWay, true);
         } else { // update cache for undo
             createdWay = logic.getSelectedWay();
@@ -205,6 +204,13 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             createdNodes.add(logic.getSelectedNode());
         }
         main.invalidateMap();
+    }
+
+    /**
+     * Remove spurious empty checkpoint created by touching again
+     */
+    private void removeCheckpoint() {
+        App.getLogic().removeCheckpoint(main, createdWay != null ? R.string.undo_action_moveobjects : R.string.undo_action_movenode);
     }
 
     @Override
@@ -238,6 +244,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
         Node removedNode = createdNodes.remove(createdNodes.size() - 1);
         if (createdWay != null) {
             logic.performRemoveLastNodeFromWay(main, createdWay, false);
+            createdWay.dontValidate();
             if (OsmElement.STATE_DELETED == createdWay.getState()) {
                 createdWay = null;
             }
@@ -300,6 +307,7 @@ public class PathCreationActionModeCallback extends BuilderActionModeCallback {
             final Way lastSelectedWay = logic.getSelectedWay();
             final Node lastSelectedNode = logic.getSelectedNode();
             manager.finish();
+            removeCheckpoint();
             tagApplicable(lastSelectedNode, lastSelectedWay, false);
             delayedResetHasProblem(lastSelectedWay);
         }
