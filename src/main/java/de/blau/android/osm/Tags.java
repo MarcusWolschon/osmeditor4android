@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
  */
 public final class Tags {
     public static final String OSM_VALUE_SEPARATOR = ";";
-    
+
     // Karlsruher schema
     public static final String KEY_ADDR_BASE        = "addr:";
     public static final String KEY_ADDR_HOUSENUMBER = "addr:housenumber";
@@ -158,6 +158,8 @@ public final class Tags {
     public static final String VALUE_MULTIPOLYGON     = "multipolygon";
     public static final String VALUE_BOUNDARY         = "boundary";
     public static final String KEY_BOUNDARY           = "boundary";
+    public static final String ROLE_OUTER             = "outer";
+    public static final String ROLE_INNER             = "inner";
 
     /**
      * Check if a relation member element should be treated as a via element

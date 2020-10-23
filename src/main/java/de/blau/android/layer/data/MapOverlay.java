@@ -81,9 +81,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
     private static final int THREAD_POOL_SIZE = 2;
-    
-    private static final String OUTER = "outer";
-    private static final String INNER = "inner";
 
     public static final int ICON_SIZE_DP = 20;
 
@@ -719,13 +716,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      */
     private void addRing(@NonNull String role, @NonNull List<Node> ring) {
         switch (role) {
-        case OUTER:
+        case Tags.ROLE_OUTER:
             if (!clockwise(ring)) {
                 Collections.reverse(ring);
             }
             outerRings.add(ring);
             break;
-        case INNER:
+        case Tags.ROLE_INNER:
             if (clockwise(ring)) {
                 Collections.reverse(ring);
             }
