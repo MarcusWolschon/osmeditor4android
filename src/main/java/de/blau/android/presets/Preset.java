@@ -195,6 +195,7 @@ public class Preset implements Serializable {
     private static final String MEMBER_EXPRESSION          = "member_expression";
     private static final String REF                        = "ref";
     private static final String VALUE_COUNT_KEY            = "value_count_key";
+    private static final String ON                         = "on";
     /**
      * 
      */
@@ -755,7 +756,7 @@ public class Preset implements Serializable {
                         valueOff = new StringWithDescription(valueOffAttr, de.blau.android.util.Util.capitalize(valueOffAttr));
                         checkField.setOffValue(valueOff);
                     }
-                    defaultValue = attr.getValue(DEFAULT) == null ? null : ("on".equals(attr.getValue(DEFAULT)) ? valueOnAttr : valueOffAttr);
+                    defaultValue = attr.getValue(DEFAULT) == null ? null : (ON.equals(attr.getValue(DEFAULT)) ? valueOnAttr : valueOffAttr);
                     if (defaultValue != null) {
                         checkField.setDefaultValue(defaultValue);
                     }
