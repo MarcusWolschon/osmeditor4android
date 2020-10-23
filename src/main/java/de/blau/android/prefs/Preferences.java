@@ -421,7 +421,7 @@ public class Preferences {
      * 
      * @return an array holding the Presets
      */
-    @Nullable
+    @NonNull
     public Preset[] getPreset() {
         return advancedPrefs.getCurrentPresetObject();
     }

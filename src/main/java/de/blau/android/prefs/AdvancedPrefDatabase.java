@@ -30,6 +30,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.propertyeditor.CustomPreset;
 import de.blau.android.resources.TileLayerSource;
 import de.blau.android.util.FileUtil;
+import de.blau.android.util.Snack;
 
 /**
  * This class provides access to complex settings like OSM APIs which consist of complex/relational data. WARNING: It
@@ -518,13 +519,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * 
      * @return an array of preset objects, or null if no valid preset is selected or the preset cannot be created
      */
-    @Nullable
+    @NonNull
     public Preset[] getCurrentPresetObject() {
         long start = System.currentTimeMillis();
         PresetInfo[] presetInfos = getActivePresets();
-        if (presetInfos.length == 0) {
-            return null;
-        }
 
         Preset[] activePresets = new Preset[presetInfos.length + 1];
         for (int i = 0; i < presetInfos.length; i++) {
@@ -539,6 +537,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                 }
             } catch (Exception e) {
                 Log.e(DEBUG_TAG, "Failed to create preset", e);
+                Snack.toastTopError(context, context.getString(R.string.toast_preset_failed, pi.name, e.getLocalizedMessage()));
                 activePresets[i] = null;
             }
         }
@@ -550,10 +549,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             createEmptyAutoPreset(context, activePresets, autopresetPosition);
         }
         Log.d(DEBUG_TAG, "Elapsed time to read presets " + (System.currentTimeMillis() - start) / 1000);
-        if (activePresets.length >= 1) {
-            return activePresets;
-        }
-        return null;
+        return activePresets;
     }
 
     /**

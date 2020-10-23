@@ -40,7 +40,6 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.contract.Flavors;
 import de.blau.android.contract.Github;
-import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.AutoPreset;
@@ -164,10 +163,11 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
         LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
         final LinearLayout presetLayout = (LinearLayout) presetPaneLayout.findViewById(R.id.preset_presets);
-        if (presets.length == 0 || presets[0] == null) {
+        if (!hasValidPreset(presets)) {
             TextView warning = new TextView(getActivity());
             warning.setText(R.string.no_valid_preset);
             presetLayout.addView(warning);
+            Snack.toastTopError(getContext(), R.string.no_valid_preset);
             return presetPaneLayout;
         }
 
@@ -257,6 +257,24 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
 
         return presetPaneLayout;
+    }
+
+    /**
+     * Check if we have at least one valid preset
+     * 
+     * @param presets the currently configured presets
+     * @return true if we have at least one valid preset
+     */
+    private boolean hasValidPreset(@NonNull Preset[] presets) {
+        if (presets.length == 0) {
+            return false;
+        }
+        for (Preset p : presets) {
+            if (p != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -448,13 +466,14 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        boolean enableNavigation = getOurView() != null && currentGroup != rootGroup;
         MenuItem item = menu.findItem(R.id.preset_menu_top);
         if (item != null) {
-            item.setEnabled(currentGroup != rootGroup);
+            item.setEnabled(enableNavigation);
         }
         item = menu.findItem(R.id.preset_menu_up);
         if (item != null) {
-            item.setEnabled(currentGroup != rootGroup);
+            item.setEnabled(enableNavigation);
         }
     }
 
@@ -517,7 +536,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 v = v.findViewById(R.id.preset_view);
                 if (v == null) {
                     Log.d(DEBUG_TAG, "didn't find VIEW_ID");
-                    throw new UiStateException("didn't find VIEW_ID");
                 } else {
                     Log.d(DEBUG_TAG, "Found VIEW_ID");
                 }

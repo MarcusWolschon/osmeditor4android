@@ -18,7 +18,6 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import de.blau.android.filter.PresetFilter;
@@ -268,10 +267,6 @@ public class App extends android.app.Application {
             if (currentPresets == null) {
                 Preferences prefs = new Preferences(ctx); // FIXME get instance held by logic
                 currentPresets = prefs.getPreset();
-                if (currentPresets == null) {
-                    Log.e(DEBUG_TAG, "getCurrentPresets currentPreset is null");
-                    currentPresets = new Preset[0];
-                }
                 mruTags = new MRUTags();
                 mruTags.load(ctx);
                 if (logic != null && logic.getFilter() instanceof PresetFilter) {

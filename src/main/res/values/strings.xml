@@ -525,6 +525,7 @@ avoided by using an offline data source.</string>
     <string name="toast_split_first_and_next_segment">Split first and next segment</string>
     <string name="toast_split_next_segment">Split next segment</string>
     <string name="toast_nothing_changed">Nothing changed</string>
+    <string name="toast_preset_failed">Failed to create preset %1$s\nError %2$s</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>
