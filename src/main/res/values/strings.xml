@@ -1162,7 +1162,7 @@ avoided by using an offline data source.</string>
     <string name="undo_action_paste">Paste</string>
     <string name="undo_action_rotateway">Way rotation</string>
     <string name="undo_action_orthogonalize">Way squaring</string>
-    <string name="undo_action_circulize">Arrange in circule</string>
+    <string name="undo_action_circulize">Arrange in circle</string>
     <string name="undo_action_fix_conflict">Conflict resolution</string>
     <string name="undo_action_extract_node">Node extraction</string>
     <string name="undo_action_apply_osc">Apply OSC file</string>
