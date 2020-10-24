@@ -1,5 +1,9 @@
 package de.blau.android.layer.data;
 
+import static de.blau.android.util.Winding.CLOCKWISE;
+import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
+import static de.blau.android.util.Winding.winding;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -717,13 +721,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     private void addRing(@NonNull String role, @NonNull List<Node> ring) {
         switch (role) {
         case Tags.ROLE_OUTER:
-            if (!clockwise(ring)) {
+            if (winding(ring) == COUNTERCLOCKWISE) {
                 Collections.reverse(ring);
             }
             outerRings.add(ring);
             break;
         case Tags.ROLE_INNER:
-            if (clockwise(ring)) {
+            if (winding(ring) == CLOCKWISE) {
                 Collections.reverse(ring);
             }
             innerRings.add(ring);
@@ -731,30 +735,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         default:
             unknownRings.add(ring);
         }
-    }
-
-    /**
-     * Determine winding of a List of Nodes
-     * 
-     * @param nodes the List of Nodes
-     * @return true if the winding is clockwise
-     */
-    private boolean clockwise(@NonNull List<Node> nodes) {
-        long area = 0;
-        int s = nodes.size();
-        Node n1 = nodes.get(0);
-        int lat1 = n1.getLat();
-        int lon1 = n1.getLon();
-        int size = nodes.size();
-        for (int i = 0; i < size; i++) {
-            Node n2 = nodes.get((i + 1) % s);
-            int lat2 = n2.getLat();
-            int lon2 = n2.getLon();
-            area = area + (long) (lat2 - lat1) * (long) (lon2 + lon1);
-            lat1 = lat2;
-            lon1 = lon2;
-        }
-        return area < 0;
     }
 
     /**
@@ -1196,7 +1176,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
 
         List<Node> nodes = way.getNodes();
         boolean reversed = false; // way arrows need to be drawn reversed if we reverse the direction of the way
-        if (style.isArea() && !clockwise(nodes)) {
+        if (style.isArea() && winding(nodes) == COUNTERCLOCKWISE) {
             areaNodes.clear();
             areaNodes.addAll(nodes);
             Collections.reverse(areaNodes);

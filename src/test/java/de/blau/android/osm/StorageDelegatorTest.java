@@ -758,7 +758,7 @@ public class StorageDelegatorTest {
      * @param d double coordinate value
      * @return a scaled int
      */
-    static int toE7(double d) {
+    public static int toE7(double d) {
         return (int) (d * 1E7);
     }
 }
