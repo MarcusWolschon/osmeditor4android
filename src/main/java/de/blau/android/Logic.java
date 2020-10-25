@@ -4770,6 +4770,7 @@ public class Logic {
      * @param members the osm elements to include in the relation
      * @return the new relation
      */
+    @NonNull
     public Relation createRelation(@Nullable Activity activity, String type, List<OsmElement> members) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation relation = getDelegator().createAndInsertRelation(members);
@@ -4785,6 +4786,7 @@ public class Logic {
      * @param members the osm elements to include in the relation
      * @return the new relation
      */
+    @NonNull
     public Relation createRelationFromMembers(@Nullable Activity activity, String type, List<RelationMember> members) {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation relation = getDelegator().createAndInsertRelationFromMembers(members);
