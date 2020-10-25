@@ -212,6 +212,11 @@
     <string name="duplicate_relation_member_title">Add relation member</string>
     <string name="duplicate_relation_member_message">This element is already a member of the relation.</string>
     <string name="duplicate_relation_member_remove_button">Remove member</string>
+    <!-- Mode multi-polygon outer element tags to relation -->
+    <string name="move_outer_tags_title">Move tags from outer rings to multi-polygon</string>
+    <string name="move_outer_tags_message">Object defining tags should only be present on the multi-polygon</string>
+    <string name="move">Move</string>
+    <string name="leave_as_is">Leave as is</string>
     <!-- Abort action mode dialog -->
     <string name="abort_action_title">Abort action</string>
     <!--  -->
@@ -526,6 +531,8 @@ avoided by using an offline data source.</string>
     <string name="toast_split_next_segment">Split next segment</string>
     <string name="toast_nothing_changed">Nothing changed</string>
     <string name="toast_preset_failed">Failed to create preset %1$s\nError %2$s</string>
+    <string name="toast_outer_rings_differing_tags">Outer rings have differing tags</string>
+    <string name="toast_multipolygon_has_incomplete_rings">Multi-polygon has incomplete rings</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

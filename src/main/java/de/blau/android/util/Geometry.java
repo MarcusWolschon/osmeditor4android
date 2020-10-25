@@ -1,9 +1,13 @@
 package de.blau.android.util;
 
+import static de.blau.android.util.Winding.COLINEAR;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import de.blau.android.App;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -188,5 +192,110 @@ public final class Geometry {
             return distance < tolerance ? distance : -1D;
         }
         return -1D;
+    }
+
+    /**
+     * Get the winding direction of three Nodes
+     * 
+     * @param n1 1st Node
+     * @param n2 2nd Node
+     * @param n3 3rd Node
+     * @return an int indication winding
+     */
+    private static int winding(@NonNull Node n1, @NonNull Node n2, @NonNull Node n3) {
+        List<Node> list = new ArrayList<>();
+        list.add(n1);
+        list.add(n2);
+        list.add(n3);
+        return Winding.winding(list);
+    }
+
+    /**
+     * Given three colinear Nodes start, intermediate, end, the function checks if the intermediate Node lies on line
+     * segment
+     * 
+     * Note assumes planar geometry
+     * 
+     * @param start segment start Node
+     * @param intermediate intermediate Node
+     * @param end segment end Node
+     * @return true if q lies on the segment
+     */
+    private static boolean onSegment(@NonNull Node start, @NonNull Node intermediate, @NonNull Node end) {
+        return intermediate.getLon() <= Math.max(start.getLon(), end.getLon()) && intermediate.getLon() >= Math.min(start.getLon(), end.getLon())
+                && intermediate.getLat() <= Math.max(start.getLat(), end.getLat()) && intermediate.getLat() >= Math.min(start.getLat(), end.getLat());
+    }
+
+    /**
+     * Check if the segments/lines between p1-q1 and p2-q2 intersect
+     * 
+     * Note assumes planar geometry
+     * 
+     * @param start1 start Node segment 1
+     * @param end1 end Node segment 1
+     * @param start2 start Node segment 2
+     * @param end2 end Node segment 2
+     * @return true if the lines intersect
+     */
+    private static boolean intersect(@NonNull Node start1, @NonNull Node end1, @NonNull Node start2, @NonNull Node end2) {
+        int w1 = winding(start1, end1, start2);
+        int w2 = winding(start1, end1, end2);
+        int w3 = winding(start2, end2, start1);
+        int w4 = winding(start2, end2, end1);
+
+        // General case
+        if (w1 != w2 && w3 != w4) {
+            return true;
+        }
+
+        // Handle cases in which the intersection is on one of the ways
+        if (w1 == COLINEAR && onSegment(start1, start2, end1)) {
+            return true;
+        }
+
+        if (w2 == COLINEAR && onSegment(start1, end2, end1)) {
+            return true;
+        }
+
+        if (w3 == COLINEAR && onSegment(start2, start1, end2)) {
+            return true;
+        }
+
+        return w4 == COLINEAR && onSegment(start2, end1, end2);
+    }
+
+    /**
+     * Check if Node lies inside a polygon
+     * 
+     * Based on the code and algorithm from
+     * https://www.geeksforgeeks.org/how-to-check-if-a-given-point-lies-inside-a-polygon/
+     *
+     * Note: assumes planar geometry
+     * 
+     * @param polygon a Array of Node defining the polygon
+     * @param node the Node
+     * @return true if the Node is in the polygon
+     */
+    public static boolean isInside(@NonNull Node[] polygon, @NonNull Node node) {
+        int n = polygon.length;
+        if (n < 3) {
+            throw new IllegalArgumentException("There must be at least 3 vertices in polygon");
+        }
+
+        Node extreme = App.getDelegator().getFactory().createNodeWithNewId(node.getLat(), (int) (200 * 1E7));
+        int intersections = 0;
+        int i = 0;
+        do {
+            int next = (i + 1) % n;
+            if (intersect(polygon[i], polygon[next], node, extreme)) {
+                if (winding(polygon[i], node, polygon[next]) == 0) {
+                    return onSegment(polygon[i], node, polygon[next]);
+                }
+                intersections++;
+            }
+            i = next;
+        } while (i != 0);
+
+        return (intersections % 2 == 1);
     }
 }
