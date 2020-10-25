@@ -719,15 +719,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
      * @param ring the ring
      */
     private void addRing(@NonNull String role, @NonNull List<Node> ring) {
+        final int winding = winding(ring);
         switch (role) {
         case Tags.ROLE_OUTER:
-            if (winding(ring) == COUNTERCLOCKWISE) {
+            if (winding == COUNTERCLOCKWISE) {
                 Collections.reverse(ring);
             }
             outerRings.add(ring);
             break;
         case Tags.ROLE_INNER:
-            if (winding(ring) == CLOCKWISE) {
+            if (winding == CLOCKWISE) {
                 Collections.reverse(ring);
             }
             innerRings.add(ring);
