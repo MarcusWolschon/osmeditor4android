@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
-import java.util.TreeMap;
 
 import org.junit.After;
 import org.junit.Before;
@@ -182,6 +181,17 @@ public class RelationTest {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(device, main, 22);
         TestUtils.unlock(device);
+        // split building first
+        TestUtils.clickAtCoordinates(device, map, 8.3882060, 47.3885768, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickMenuButton(device, "Split", false, true));
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_1)));
+        TestUtils.clickAtCoordinates(device, map, 8.3881251, 47.3885077, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_closed_way_split_2)));
+        TestUtils.clickAtCoordinates(device, map, 8.3881577, 47.3886924, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_multiselect)));
+        TestUtils.clickUp(device);
+        //
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
@@ -206,6 +216,9 @@ public class RelationTest {
         assertTrue(TestUtils.clickText(device, false, "Multipolygon", true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add_relation_member)));
         TestUtils.clickAtCoordinates(device, map, 8.3882060, 47.3885768, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3880720, 47.3886182, true);
+        TestUtils.sleep();
         // finish
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
@@ -225,11 +238,11 @@ public class RelationTest {
         assertTrue(relation.hasTag(Tags.KEY_BUILDING, "residential"));
         List<RelationMember> members = relation.getMembers();
         assertNotNull(members);
-        assertEquals(2, members.size());
+        assertEquals(3, members.size());
         RelationMember innerMember = relation.getMember(inner);
         assertEquals(Tags.ROLE_INNER, innerMember.getRole());
         List<RelationMember> outerMembers = relation.getMembersWithRole(Tags.ROLE_OUTER);
-        assertEquals(1, outerMembers.size());
+        assertEquals(2, outerMembers.size());
         RelationMember outer = outerMembers.get(0);
         assertTrue(outer.getElement().getTags().isEmpty()); // tags have been moved
         // select another building add add it to the MP
@@ -249,8 +262,8 @@ public class RelationTest {
         TestUtils.sleep(2000);
         TestUtils.clickHome(device, true); // exit property editor
         outerMembers = relation.getMembersWithRole(Tags.ROLE_OUTER);
-        assertEquals(2, outerMembers.size());
-        outer = outerMembers.get(1);
+        assertEquals(3, outerMembers.size());
+        outer = outerMembers.get(2);
         assertEquals(1, outer.getElement().getTags().size());
         assertTrue(outer.getElement().hasTagWithValue(Tags.KEY_ADDR_HOUSENUMBER, "38"));
     }
