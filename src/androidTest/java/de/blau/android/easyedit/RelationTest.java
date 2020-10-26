@@ -174,41 +174,45 @@ public class RelationTest {
     }
 
     /**
-     * Create way set it to platform, create stop_area relation, check role of way in relation
+     * Create way, create multipolygon, check roles
      */
     @SdkSuppress(minSdkVersion = 26)
     @Test
-    public void createRelationAssignRole() {
+    public void createAndAddToMultiPolygon() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(device, main, 21);
+        TestUtils.zoomToLevel(device, main, 22);
         TestUtils.unlock(device);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
-        TestUtils.clickAtCoordinates(device, map, 8.3893454, 47.3901898, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3880883, 47.3885877, true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
-        TestUtils.clickAtCoordinates(device, map, 8.3895763, 47.3901374, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3881994, 47.3886178, true);
         TestUtils.sleep();
-        TestUtils.clickAtCoordinates(device, map, 8.3896274, 47.3902424, true);
+        TestUtils.clickAtCoordinates(device, map, 8.3881408, 47.3886491, true);
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3880883, 47.3885877, true);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
-        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
-        TestUtils.clickHome(device, true);
-        Way way = App.getLogic().getSelectedWay();
-        assertNotNull(way);
-        java.util.Map<String, String> tags = new TreeMap<>();
-        tags.put("public_transport", "platform");
-        logic.setTags(main, way, tags);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element), 5000));
+        TestUtils.clickHome(device, true); // exit property editor
+        Way inner = App.getLogic().getSelectedWay();
+        assertNotNull(inner);
         //
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         assertTrue(TestUtils.clickOverflowButton(device));
         TestUtils.scrollTo(context.getString(R.string.menu_relation));
         assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_relation), true, false));
-        TestUtils.scrollTo("Stop Area");
-        assertTrue(TestUtils.clickText(device, false, "Stop Area", true, false));
+        TestUtils.scrollTo("Multipolygon");
+        assertTrue(TestUtils.clickText(device, false, "Multipolygon", true, false));
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add_relation_member)));
-        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        TestUtils.clickAtCoordinates(device, map, 8.3882060, 47.3885768, true);
         // finish
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        ActivityMonitor monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
+        // assertTrue(TestUtils.findText(device, false, context.getString(R.string.move), 5000));
+        // assertTrue(TestUtils.clickText(device, false, context.getString(R.string.move), true, false));
+        TestUtils.sleep(2000);
+        TestUtils.clickButton(device, "android:id/button1", true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
         TestUtils.sleep(5000);
@@ -217,13 +221,37 @@ public class RelationTest {
         assertEquals(1, relations.size());
         Relation relation = relations.get(0);
         assertTrue(relation.getOsmId() < 0);
-        assertTrue(relation.hasTag(Tags.KEY_TYPE, "public_transport"));
-        assertTrue(relation.hasTag("public_transport", "stop_area"));
+        assertTrue(relation.hasTag(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON));
+        assertTrue(relation.hasTag(Tags.KEY_BUILDING, "residential"));
         List<RelationMember> members = relation.getMembers();
         assertNotNull(members);
-        assertEquals(1, members.size());
-        RelationMember member = members.get(0);
-        assertEquals("platform", member.getRole());
-        assertEquals(way, member.getElement());
+        assertEquals(2, members.size());
+        RelationMember innerMember = relation.getMember(inner);
+        assertEquals(Tags.ROLE_INNER, innerMember.getRole());
+        List<RelationMember> outerMembers = relation.getMembersWithRole(Tags.ROLE_OUTER);
+        assertEquals(1, outerMembers.size());
+        RelationMember outer = outerMembers.get(0);
+        assertTrue(outer.getElement().getTags().isEmpty()); // tags have been moved
+        // select another building add add it to the MP
+        TestUtils.sleep();
+        TestUtils.clickAtCoordinates(device, map, 8.3884429, 47.3887624, true);
+        assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+        assertTrue(TestUtils.clickOverflowButton(device));
+        TestUtils.scrollTo(context.getString(R.string.tag_menu_addtorelation));
+        assertTrue(TestUtils.clickText(device, false, context.getString(R.string.tag_menu_addtorelation), true, false));
+        assertTrue(TestUtils.clickText(device, false, "Multipolygon Building", true, false));
+        // finish again
+        TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
+        // assertTrue(TestUtils.findText(device, false, context.getString(R.string.remove), 5000));
+        // assertTrue(TestUtils.clickText(device, false, context.getString(R.string.remove), true, false));
+        TestUtils.sleep(2000);
+        TestUtils.clickButton(device, "android:id/button1", true);
+        TestUtils.sleep(2000);
+        TestUtils.clickHome(device, true); // exit property editor
+        outerMembers = relation.getMembersWithRole(Tags.ROLE_OUTER);
+        assertEquals(2, outerMembers.size());
+        outer = outerMembers.get(1);
+        assertEquals(1, outer.getElement().getTags().size());
+        assertTrue(outer.getElement().hasTagWithValue(Tags.KEY_ADDR_HOUSENUMBER, "38"));
     }
 }

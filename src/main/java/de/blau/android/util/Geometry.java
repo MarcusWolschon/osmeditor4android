@@ -288,14 +288,13 @@ public final class Geometry {
         do {
             int next = (i + 1) % n;
             if (intersect(polygon[i], polygon[next], node, extreme)) {
-                if (winding(polygon[i], node, polygon[next]) == 0) {
+                if (winding(polygon[i], node, polygon[next]) == COLINEAR) {
                     return onSegment(polygon[i], node, polygon[next]);
                 }
                 intersections++;
             }
             i = next;
         } while (i != 0);
-
         return (intersections % 2 == 1);
     }
 }
