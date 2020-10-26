@@ -50,6 +50,7 @@ public abstract class BuilderActionModeCallback extends EasyEditActionModeCallba
         if (!prefs.areSimpleActionsEnabled()) {
             main.showSimpleActionsButton();
         }
+        main.descheduleAutoLock();
         return true;
     }
 

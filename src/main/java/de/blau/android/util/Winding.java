@@ -24,7 +24,7 @@ public final class Winding {
      * @return an int indicating winding direction
      */
     public static int winding(@NonNull List<Node> nodes) {
-        long area = 0;
+        double area = 0;
         int s = nodes.size();
         Node n1 = nodes.get(0);
         int lat1 = n1.getLat();
@@ -34,7 +34,7 @@ public final class Winding {
             Node n2 = nodes.get((i + 1) % s);
             int lat2 = n2.getLat();
             int lon2 = n2.getLon();
-            area = area + (long) (lat2 - lat1) * (long) (lon2 + lon1);
+            area = area + (double) (lat2 - lat1) * (double) (lon2 + lon1);
             lat1 = lat2;
             lon1 = lon2;
         }

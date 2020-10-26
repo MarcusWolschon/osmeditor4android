@@ -76,6 +76,7 @@ public class AddressTest {
         logic.deselectAll();
         TestUtils.loadTestData(main, "test2.osm");
         App.getTaskStorage().reset();
+        Address.resetLastAddresses(main);
         TestUtils.stopEasyEdit(main);
     }
 

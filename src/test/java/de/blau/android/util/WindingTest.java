@@ -1,13 +1,11 @@
 package de.blau.android.util;
 
 import static de.blau.android.osm.StorageDelegatorTest.toE7;
-import static de.blau.android.util.Winding.winding;
-import static de.blau.android.util.Winding.COLINEAR;
 import static de.blau.android.util.Winding.CLOCKWISE;
+import static de.blau.android.util.Winding.COLINEAR;
 import static de.blau.android.util.Winding.COUNTERCLOCKWISE;
-
+import static de.blau.android.util.Winding.winding;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;

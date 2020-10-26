@@ -622,7 +622,7 @@ public class Logic {
      * 
      * @param activity activity we were called from
      * @param e element to change the tags on
-     * @param tags Tag-List to be set.
+     * @param tags Tags to be set
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
     public synchronized void setTags(@Nullable Activity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags)
@@ -634,19 +634,36 @@ public class Logic {
      * Delegates the setting of the Tag-list to {@link StorageDelegator}. All existing tags will be replaced.
      * 
      * @param activity activity we were called from
-     * @param type type of the element for the Tag-list.
-     * @param osmId OSM-ID of the element.
-     * @param tags Tag-List to be set.
+     * @param type type of the element
+     * @param osmId OSM-ID of the element
+     * @param tags Tags to be set
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
     public synchronized void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags)
             throws OsmIllegalOperationException {
+        setTags(activity, type, osmId, tags, true);
+    }
+
+    /**
+     * Delegates the setting of the Tag-list to {@link StorageDelegator}. All existing tags will be replaced.
+     * 
+     * @param activity activity we were called from
+     * @param type type of the element
+     * @param osmId OSM-ID of the element
+     * @param tags Tags to be set
+     * @param createCheckpoint create a checkpoint, except in composite operations this should always be true
+     * @throws OsmIllegalOperationException if the e isn't in storage
+     */
+    public synchronized void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags,
+            boolean createCheckpoint) throws OsmIllegalOperationException {
         OsmElement osmElement = getDelegator().getOsmElement(type, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to setTags on a non-existing element " + type + " #" + osmId);
             throw new OsmIllegalOperationException(type + " #" + osmId + " not in storage");
         } else {
-            createCheckpoint(activity, R.string.undo_action_set_tags);
+            if (createCheckpoint) {
+                createCheckpoint(activity, R.string.undo_action_set_tags);
+            }
             getDelegator().setTags(osmElement, tags);
         }
     }
