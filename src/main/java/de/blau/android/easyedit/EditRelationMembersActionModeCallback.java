@@ -10,8 +10,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -483,7 +485,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             if (relation == null) {
                 if (relationPreset != null && (relationPreset.hasKeyValue(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON)
                         || relationPreset.hasKeyValue(Tags.KEY_TYPE, Tags.VALUE_BOUNDARY))) {
-                    List<RelationMember> multipolygonMembers = setMultipolygonRoles(newMembers);
+                    List<RelationMember> multipolygonMembers = setMultipolygonRoles(main, newMembers, true);
                     newMembers.clear();
                     newMembers.addAll(multipolygonMembers);
                     if (outersHaveSameTags(newMembers)) {
@@ -504,6 +506,12 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                     }
                 }
                 logic.updateRelationMembers(main, relation, toRemove, newMembers);
+                final List<RelationMember> members = relation.getMembers();
+                setMultipolygonRoles(main, members, false); // update roles
+                if (outersHaveTags(relation.getTags(), members)) {
+                    removeTagsFromMembers(relation.getTags(), relation.getMembersWithRole(Tags.ROLE_OUTER));
+                    return;
+                }
                 main.performTagEdit(relation, null, false, false);
             }
         } else {
@@ -549,12 +557,39 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     }
 
     /**
+     * Remove duplicate tags from the outer members, asking for confirmation first
+     */
+    private void removeTagsFromMembers(@NonNull Map<String, String> tags, @NonNull List<RelationMember> outers) {
+        AlertDialog alertDialog = new AlertDialog.Builder(main).setTitle(R.string.remove_duplicate_outer_tags_title)
+                .setMessage(R.string.remove_duplicate_outer_tags_message).setPositiveButton(R.string.remove, (dialog, which) -> {
+                    for (RelationMember outer : outers) {
+                        if (outer.downloaded()) {
+                            Map<String, String> outerTags = new HashMap<>(outer.getElement().getTags());
+                            for (Entry<String, String> tag : tags.entrySet()) {
+                                final String key = tag.getKey();
+                                final String outerValue = outerTags.get(key);
+                                if (outerValue != null && outerValue.equals(tag.getValue())) {
+                                    outerTags.remove(key);
+                                }
+                            }
+                            App.getLogic().setTags(main, outer.getType(), outer.getRef(), outerTags, false);
+                        }
+                    }
+                }).setNeutralButton(R.string.leave_as_is, null).create();
+        alertDialog.setOnDismissListener(dialog -> {
+            main.performTagEdit(relation, null, false, false);
+            main.startSupportActionMode(new RelationSelectionActionModeCallback(manager, relation));
+        });
+        alertDialog.show();
+    }
+
+    /**
      * Check if all outer members of a multi-polygon have the same tags
      * 
      * @param members a List of the members
      * @return true if all outer members have the same tags
      */
-    private boolean outersHaveSameTags(List<RelationMember> members) {
+    private boolean outersHaveSameTags(@NonNull List<RelationMember> members) {
         Map<String, String> tags = null;
         for (RelationMember member : members) {
             if (Tags.ROLE_OUTER.equals(member.getRole())) {
@@ -569,14 +604,36 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     }
 
     /**
+     * Check if any of the outer members has some specific tags
+     * 
+     * @param members a List of the members
+     * @return true if at least one of the members has some of these tags
+     */
+    private boolean outersHaveTags(@NonNull Map<String, String> tags, @NonNull List<RelationMember> members) {
+        for (RelationMember member : members) {
+            if (Tags.ROLE_OUTER.equals(member.getRole()) && member.downloaded()) {
+                for (Entry<String, String> tag : tags.entrySet()) {
+                    if (member.getElement().hasTagWithValue(tag.getKey(), tag.getValue())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Try to determine if rings are outer or inner rings
      * 
-     * This simply tests one node from a ring if it is inside an other ring, this can go wrong in multiple ways.
+     * This simply tests one node from a ring if it is inside another ring, this can go wrong in multiple ways.
      * 
+     * @param context (optional) Android Context for error messages
      * @param origMembers List of RelationMembers
+     * @param force overwrite existing roles
+     * 
      * @return a List of RelationMembers with inner / outer role set as far as could be determined
      */
-    List<RelationMember> setMultipolygonRoles(@NonNull List<RelationMember> origMembers) {
+    static List<RelationMember> setMultipolygonRoles(@Nullable Context context, @NonNull List<RelationMember> origMembers, boolean force) {
         List<RelationMember> sortedMembers = Util.sortRelationMembers(origMembers);
         List<RelationMember> other = new ArrayList<>();
         List<List<RelationMember>> rings = new ArrayList<>();
@@ -641,15 +698,15 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                 Node ring2Node = ((Way) ring2.get(0).getElement()).getFirstNode();
                 try {
                     if (isInside(getNodesForRing(ring).toArray(new Node[ring.size()]), ring2Node)) {
-                        setRole(Tags.ROLE_OUTER, ring);
-                        setRole(Tags.ROLE_INNER, ring2);
+                        setRole(Tags.ROLE_OUTER, ring, force);
+                        setRole(Tags.ROLE_INNER, ring2, force);
                         rings2.remove(ring);
                         rings2.remove(ring2);
                     } else {
                         Node ringNode = ((Way) ring.get(0).getElement()).getFirstNode();
                         if (isInside(getNodesForRing(ring2).toArray(new Node[ring2.size()]), ringNode)) {
-                            setRole(Tags.ROLE_INNER, ring);
-                            setRole(Tags.ROLE_OUTER, ring2);
+                            setRole(Tags.ROLE_INNER, ring, force);
+                            setRole(Tags.ROLE_OUTER, ring2, force);
                             rings2.remove(ring);
                             rings2.remove(ring2);
                         }
@@ -660,7 +717,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             }
             final String role = ring.get(0).getRole();
             if (role == null || "".equals(role)) {
-                setRole(Tags.ROLE_OUTER, ring);
+                setRole(Tags.ROLE_OUTER, ring, true);
                 rings2.remove(ring);
             }
         }
@@ -672,7 +729,10 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             result.addAll(ring);
         }
         if (!partialRings.isEmpty()) {
-            Snack.toastTopWarning(main, R.string.toast_multipolygon_has_incomplete_rings);
+            if (context != null) {
+                Snack.toastTopWarning(context, R.string.toast_multipolygon_has_incomplete_rings);
+            }
+            Log.w(DEBUG_TAG, "Incomplete multi-polgon rings");
         }
         result.addAll(other);
         return result;
@@ -682,13 +742,18 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      * Set a role value for all members in a List
      * 
      * @param role the role value to set
-     * @param members the
+     * @param members the List
+     * @param force if true overwrite existing roles
      */
-    private void setRole(@NonNull String role, @NonNull List<RelationMember> members) {
+    private static void setRole(@NonNull String role, @NonNull List<RelationMember> members, boolean force) {
         for (RelationMember member : members) {
             String current = member.getRole();
             if (current != null && !"".equals(current) && !role.equals(current)) {
-                Log.w(DEBUG_TAG, "Changing role from " + current + " to " + role);
+                if (force) {
+                    Log.w(DEBUG_TAG, "Changing role from " + current + " to " + role);
+                } else {
+                    continue; // skip this one
+                }
             }
             member.setRole(role);
         }
@@ -700,7 +765,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
      * @param ring the input ring
      * @return a List of Nodes
      */
-    private List<Node> getNodesForRing(@NonNull List<RelationMember> ring) {
+    private static List<Node> getNodesForRing(@NonNull List<RelationMember> ring) {
         final Way firstRingWay = (Way) ring.get(0).getElement();
         if (firstRingWay.isClosed()) {
             List<Node> nodes = firstRingWay.getNodes();

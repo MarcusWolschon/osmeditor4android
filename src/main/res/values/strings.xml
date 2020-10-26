@@ -212,11 +212,15 @@
     <string name="duplicate_relation_member_title">Add relation member</string>
     <string name="duplicate_relation_member_message">This element is already a member of the relation.</string>
     <string name="duplicate_relation_member_remove_button">Remove member</string>
-    <!-- Mode multi-polygon outer element tags to relation -->
+    <!-- Move multi-polygon outer element tags to relation -->
     <string name="move_outer_tags_title">Move tags from outer rings to multi-polygon</string>
     <string name="move_outer_tags_message">Object defining tags should only be present on the multi-polygon</string>
     <string name="move">Move</string>
     <string name="leave_as_is">Leave as is</string>
+    <!-- Remove duplicate tags from multi-polygon outer element -->
+    <string name="remove_duplicate_outer_tags_title">Remove duplicate tags on outer rings</string>
+    <string name="remove_duplicate_outer_tags_message">Remove tags from outer rings that are set on the multi-polygon</string>
+    <string name="remove">Remove</string>
     <!-- Abort action mode dialog -->
     <string name="abort_action_title">Abort action</string>
     <!--  -->
