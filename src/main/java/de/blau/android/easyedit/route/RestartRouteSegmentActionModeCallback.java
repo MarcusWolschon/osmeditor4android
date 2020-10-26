@@ -72,6 +72,7 @@ public class RestartRouteSegmentActionModeCallback extends NonSimpleActionModeCa
         logic.setSelectedNode(null);
         logic.setSelectedWay(null);
         super.onCreateActionMode(mode, menu);
+        main.descheduleAutoLock();
         return true;
     }
 
