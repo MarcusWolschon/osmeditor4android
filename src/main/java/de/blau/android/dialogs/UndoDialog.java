@@ -137,7 +137,7 @@ public class UndoDialog extends ImmersiveDialogFragment {
     private class UndoItemClickListener implements OnItemClickListener {
         final FragmentActivity activity;
         final Logic            logic;
-        final AlertDialog      dialog;
+        final AlertDialog      undoDialog;
         final String[]         actions;
 
         /**
@@ -148,11 +148,11 @@ public class UndoDialog extends ImmersiveDialogFragment {
          * @param dialog the current AlertDialog
          * @param actions an array holding the list of items
          */
-        UndoItemClickListener(@NonNull final FragmentActivity activity, @NonNull final Logic logic, @NonNull final AlertDialog dialog,
+        UndoItemClickListener(@NonNull final FragmentActivity activity, @NonNull final Logic logic, @NonNull final AlertDialog undoDialog,
                 @NonNull String[] actions) {
             this.activity = activity;
             this.logic = logic;
-            this.dialog = dialog;
+            this.undoDialog = undoDialog;
             this.actions = actions;
         }
 
@@ -170,18 +170,18 @@ public class UndoDialog extends ImmersiveDialogFragment {
                     } else {
                         logic.undo(checkpointIndex);
                     }
-                    dismissAndInvalidate(activity, logic, dialog);
+                    dismissAndInvalidate(activity, logic, undoDialog);
                 });
                 builder.setPositiveButton(item.isRedo ? R.string.redo_all : R.string.undo_all, (dialog, which) -> {
                     for (int i = 0; i < item.index; i++) {
                         undoRedoLast(logic, item.isRedo);
                     }
-                    dismissAndInvalidate(activity, logic, dialog);
+                    dismissAndInvalidate(activity, logic, undoDialog);
                 });
                 builder.create().show();
             } else { // just undo/redo top item without asking
                 undoRedoLast(logic, item.isRedo);
-                dismissAndInvalidate(activity, logic, dialog);
+                dismissAndInvalidate(activity, logic, undoDialog);
             }
         }
 
