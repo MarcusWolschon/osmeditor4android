@@ -6,7 +6,10 @@ import java.util.List;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -251,7 +254,13 @@ public class UndoDialog extends ImmersiveDialogFragment {
         private UndoDialogItem(@NonNull Context ctx, int index, boolean isRedo, @NonNull String name) {
             super(ctx);
             Resources r = ctx.getResources();
-            setText(de.blau.android.util.Util.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name));
+            CharSequence text = de.blau.android.util.Util.fromHtml(r.getString(isRedo ? R.string.redo : R.string.undo) + ": " + name);
+            if (index == 1) {
+                SpannableString latest = new SpannableString(r.getString(R.string.undo_latest));
+                ThemeUtils.setSpanColor(ctx, latest, R.attr.colorAccent, Color.GREEN);
+                text = TextUtils.concat(latest, de.blau.android.util.Util.fromHtml("<BR>"), text);
+            }
+            setText(text);
             int pad = Density.dpToPx(ctx, 15);
             setPadding(pad, pad, pad, pad);
             setCompoundDrawablePadding(pad);

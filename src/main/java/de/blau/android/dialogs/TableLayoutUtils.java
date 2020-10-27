@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
 import android.view.View;
@@ -217,15 +216,15 @@ public final class TableLayoutUtils {
         if (cell3 != null) {
             span3 = new SpannableString(cell3);
         }
-        boolean isTitle = cell1 != null && cell2 == null && cell3 == null;
+        boolean isTitle = cell2 == null && cell3 == null;
         if (isTitle) { // heading
             span.setSpan(new StyleSpan(Typeface.BOLD), 0, span.length(), 0);
         } else if (highlightColorAttr != -1 && (cell2 != null && (cell3 == null || !cell2.toString().equals(cell3.toString())))) {
             // note a CharSequence doesn't necessarily have a content aware equals, so we need to convert to String
             // first
-            setSpanColor(activity, span, highlightColorAttr, highlightColorFallback);
-            setSpanColor(activity, span2, highlightColorAttr, highlightColorFallback);
-            setSpanColor(activity, span3, highlightColorAttr, highlightColorFallback);
+            ThemeUtils.setSpanColor(activity, span, highlightColorAttr, highlightColorFallback);
+            ThemeUtils.setSpanColor(activity, span2, highlightColorAttr, highlightColorFallback);
+            ThemeUtils.setSpanColor(activity, span3, highlightColorAttr, highlightColorFallback);
         }
         cell.setText(span);
         cell.setEllipsize(TruncateAt.MARQUEE);
@@ -242,20 +241,6 @@ public final class TableLayoutUtils {
         }
         tr.setLayoutParams(tp);
         return tr;
-    }
-
-    /**
-     * Set a color for a span
-     * 
-     * @param activity calling activity
-     * @param span the span
-     * @param colorAttr the color attribute resource id
-     * @param colorFallback a fallback color
-     */
-    private static void setSpanColor(@NonNull FragmentActivity activity, @Nullable SpannableString span, int colorAttr, int colorFallback) {
-        if (span != null) {
-            span.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(activity, colorAttr, colorFallback)), 0, span.length(), 0);
-        }
     }
 
     /**

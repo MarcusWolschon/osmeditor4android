@@ -5,11 +5,14 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import de.blau.android.R;
@@ -164,5 +167,19 @@ public final class ThemeUtils {
         ColorStateList tint = ContextCompat.getColorStateList(ctx, ThemeUtils.getResIdFromAttribute(ctx, attr));
         DrawableCompat.setTintList(drawable, tint);
         return drawable;
+    }
+
+    /**
+     * Set a color for a span
+     * 
+     * @param context an Android context
+     * @param span the span
+     * @param colorAttr the color attribute resource id
+     * @param colorFallback a fallback color
+     */
+    public static void setSpanColor(@NonNull Context context, @Nullable SpannableString span, int colorAttr, int colorFallback) {
+        if (span != null) {
+            span.setSpan(new ForegroundColorSpan(getStyleAttribColorValue(context, colorAttr, colorFallback)), 0, span.length(), 0);
+        }
     }
 }

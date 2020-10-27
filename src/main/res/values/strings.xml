@@ -352,6 +352,7 @@
     <string name="undo_redo_one">Just selected checkpoint (unsafe)</string>
     <string name="undo_all">Undo all later checkpoints (safe)</string>
     <string name="redo_all">Redo all earlier checkpoints (safe)</string>
+    <string name="undo_latest">Latest</string>
     <!-- Undo location not in view dialog -->
     <string name="undo_location_title">Undo location is not in view</string>
     <string name="undo_location_text">The location that will be affected by the undo is not in view.</string>
