@@ -538,6 +538,7 @@ avoided by using an offline data source.</string>
     <string name="toast_preset_failed">Failed to create preset %1$s\nError %2$s</string>
     <string name="toast_outer_rings_differing_tags">Outer rings have differing tags</string>
     <string name="toast_multipolygon_has_incomplete_rings">Multi-polygon has incomplete rings</string>
+    <string name="toast_multipolygon_inconsistent_roles">Multi-polygon has inconsistent role values for a ring</string>
     <!-- Error messages -->
     <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
     <string name="error_pbf_no_version">Version information missing in PBF file</string>

@@ -698,15 +698,15 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
                 Node ring2Node = ((Way) ring2.get(0).getElement()).getFirstNode();
                 try {
                     if (isInside(getNodesForRing(ring).toArray(new Node[ring.size()]), ring2Node)) {
-                        setRole(Tags.ROLE_OUTER, ring, force);
-                        setRole(Tags.ROLE_INNER, ring2, force);
+                        setRole(context, Tags.ROLE_OUTER, ring, force);
+                        setRole(context, Tags.ROLE_INNER, ring2, force);
                         rings2.remove(ring);
                         rings2.remove(ring2);
                     } else {
                         Node ringNode = ((Way) ring.get(0).getElement()).getFirstNode();
                         if (isInside(getNodesForRing(ring2).toArray(new Node[ring2.size()]), ringNode)) {
-                            setRole(Tags.ROLE_INNER, ring, force);
-                            setRole(Tags.ROLE_OUTER, ring2, force);
+                            setRole(context, Tags.ROLE_INNER, ring, force);
+                            setRole(context, Tags.ROLE_OUTER, ring2, force);
                             rings2.remove(ring);
                             rings2.remove(ring2);
                         }
@@ -717,7 +717,7 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
             }
             final String role = ring.get(0).getRole();
             if (role == null || "".equals(role)) {
-                setRole(Tags.ROLE_OUTER, ring, true);
+                setRole(context, Tags.ROLE_OUTER, ring, true);
                 rings2.remove(ring);
             }
         }
@@ -741,17 +741,23 @@ public class EditRelationMembersActionModeCallback extends BuilderActionModeCall
     /**
      * Set a role value for all members in a List
      * 
+     * @param context an Android Context or null
      * @param role the role value to set
      * @param members the List
      * @param force if true overwrite existing roles
      */
-    private static void setRole(@NonNull String role, @NonNull List<RelationMember> members, boolean force) {
+    private static void setRole(@Nullable Context context, @NonNull String role, @NonNull List<RelationMember> members, boolean force) {
+        boolean warningShown = false;
         for (RelationMember member : members) {
             String current = member.getRole();
             if (current != null && !"".equals(current) && !role.equals(current)) {
                 if (force) {
                     Log.w(DEBUG_TAG, "Changing role from " + current + " to " + role);
                 } else {
+                    if (context != null && !warningShown) {
+                        warningShown = true;
+                        Snack.toastTopWarning(context, R.string.toast_multipolygon_inconsistent_roles);
+                    }
                     continue; // skip this one
                 }
             }
