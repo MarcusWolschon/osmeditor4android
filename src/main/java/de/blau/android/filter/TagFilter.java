@@ -188,7 +188,6 @@ public class TagFilter extends CommonFilter {
                 }
                 if (match != Include.DONT) {
                     // we have a match
-                    // Log.d(DEBUG_TAG,e.getDescription(true) + " matched " + f.toString());
                     include = f.include ? match : Include.DONT; // FIXME should relation membership be able to override
                                                                 // this?
                     break;
@@ -208,7 +207,6 @@ public class TagFilter extends CommonFilter {
                 }
             }
         }
-        // Log.d(DEBUG_TAG,e.getDescription() + " include: " + include);
         return include;
     }
 

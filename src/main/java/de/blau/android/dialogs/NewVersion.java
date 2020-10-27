@@ -66,7 +66,6 @@ public class NewVersion extends ImmersiveDialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Builder builder = new AlertDialog.Builder(getActivity());
-        // builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(),R.attr.alert_dialog));
         builder.setTitle(R.string.upgrade_title);
         builder.setMessage(R.string.upgrade_message);
         DoNothingListener doNothingListener = new DoNothingListener();

@@ -128,7 +128,6 @@ public class ViewWayPoint extends ImmersiveDialogFragment {
         tp.setMargins(10, 2, 10, 2);
 
         if (wp != null) {
-            // tl.setShrinkAllColumns(true);
             tl.setColumnShrinkable(1, true);
             if (wp.getName() != null) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.name, wp.getName(), tp));

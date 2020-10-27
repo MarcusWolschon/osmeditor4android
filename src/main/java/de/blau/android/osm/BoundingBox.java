@@ -410,7 +410,6 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
             bottom = t;
         }
         height = top - bottom;
-        // Log.d(DEBUG_TAG, "calcdimensions width " + width + " height " + height);
     }
 
     /**

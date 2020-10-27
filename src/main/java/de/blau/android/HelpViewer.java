@@ -181,9 +181,7 @@ public class HelpViewer extends AppCompatActivity {
 
             for (int i = 0; i < tocRes.length(); i++) {
                 String fileName = fileRes.getString(i);
-                // Log.d("HelpViewer", "TOC " + tocTopic);
                 if (defaultList.contains(fileName + HTML_SUFFIX)) {
-                    // Log.d("HelpViewer", "TOC " + locale + " " + tocTopic);
                     HelpItem h = new HelpItem();
                     h.language = defaultLanguage;
                     h.topic = tocRes.getString(i);
@@ -193,7 +191,6 @@ public class HelpViewer extends AppCompatActivity {
                         tocList.put(h.topic, h);
                     }
                 } else if (enList.contains(fileName + HTML_SUFFIX)) {
-                    // Log.d("HelpViewer", "TOC en " + tocTopic);
                     HelpItem h = new HelpItem();
                     h.language = "en";
                     h.displayLanguage = true;

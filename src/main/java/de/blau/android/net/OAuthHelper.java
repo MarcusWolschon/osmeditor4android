@@ -33,6 +33,12 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
  *
  */
 public class OAuthHelper {
+    private static final String AUTHORIZE_PATH = "oauth/authorize";
+
+    private static final String ACCESS_TOKEN_PATH = "oauth/access_token";
+
+    private static final String REQUEST_TOKEN_PATH = "oauth/request_token";
+
     private static final String DEBUG_TAG = "OAuthHelper";
 
     private static final Object  lock = new Object();
@@ -51,17 +57,17 @@ public class OAuthHelper {
         String[] urls = r.getStringArray(R.array.api_urls);
         String[] keys = r.getStringArray(R.array.api_consumer_keys);
         String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
-        String[] oauth_urls = r.getStringArray(R.array.api_oauth_urls);
+        String[] oauthUrls = r.getStringArray(R.array.api_oauth_urls);
         synchronized (lock) {
             for (int i = 0; i < urls.length; i++) {
                 if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
                     mConsumer = new OkHttpOAuthConsumer(keys[i], secrets[i]);
-                    Log.d(DEBUG_TAG, "Using " + osmBaseUrl + "oauth/request_token " + osmBaseUrl + "oauth/access_token " + osmBaseUrl + "oauth/authorize");
+                    Log.d(DEBUG_TAG, "Using " + osmBaseUrl + REQUEST_TOKEN_PATH + " " + osmBaseUrl + ACCESS_TOKEN_PATH + " " + osmBaseUrl + AUTHORIZE_PATH);
                     Log.d(DEBUG_TAG, "With key " + keys[i] + " secret " + secrets[i]);
-                    mProvider = new OkHttpOAuthProvider(oauth_urls[i] + "oauth/request_token", oauth_urls[i] + "oauth/access_token",
-                            oauth_urls[i] + "oauth/authorize", App.getHttpClient());
+                    mProvider = new OkHttpOAuthProvider(oauthUrls[i] + "oauth/request_token", oauthUrls[i] + ACCESS_TOKEN_PATH, oauthUrls[i] + AUTHORIZE_PATH,
+                            App.getHttpClient());
                     mProvider.setOAuth10a(true);
-                    mCallbackUrl = "vespucci:/oauth/"; // OAuth.OUT_OF_BAND; //
+                    mCallbackUrl = "vespucci:/oauth/";
                     return;
                 }
             }
@@ -82,7 +88,7 @@ public class OAuthHelper {
     public OAuthHelper(String osmBaseUrl, String consumerKey, String consumerSecret, @Nullable String callbackUrl) throws UnsupportedEncodingException {
         synchronized (lock) {
             mConsumer = new OkHttpOAuthConsumer(consumerKey, consumerSecret);
-            mProvider = new OkHttpOAuthProvider(osmBaseUrl + "oauth/request_token", osmBaseUrl + "oauth/access_token", osmBaseUrl + "oauth/authorize",
+            mProvider = new OkHttpOAuthProvider(osmBaseUrl + REQUEST_TOKEN_PATH, osmBaseUrl + ACCESS_TOKEN_PATH, osmBaseUrl + AUTHORIZE_PATH,
                     App.getHttpClient());
             mProvider.setOAuth10a(true);
             mCallbackUrl = (callbackUrl == null ? OAuth.OUT_OF_BAND : callbackUrl);

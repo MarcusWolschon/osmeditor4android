@@ -97,7 +97,6 @@ public class LRUMapTileCache {
      */
     public LRUMapTileCache(final long maxCacheSize) {
         super();
-        // Log.d("LRUMapTileCache","created");
         this.maxCacheSize = maxCacheSize;
         cache = new HashMap<>();
         list = new ArrayList<>(); // using a LinkedList doesn't have any real advantages
@@ -140,7 +139,6 @@ public class LRUMapTileCache {
             limit = 0;
         }
         while (cacheSize > limit && !list.isEmpty()) {
-            // Log.d(DEBUG_TAG,"removing bitmap from in memory cache " + cacheSize);
             CacheElement ce = list.remove(list.size() - 1);
             if (ce.owner == owner && owner != 0) {
                 // cache is being thrashed because it is too small, fail
@@ -221,7 +219,6 @@ public class LRUMapTileCache {
      * @throws StorageException if we can't expand the cache anymore
      */
     public synchronized Bitmap put(@NonNull final String key, @NonNull final Bitmap value, boolean recycleable, long owner) throws StorageException {
-        // Log.d("LRUMapTileCache","put " + key + " " + recycleable);
         if (maxCacheSize == 0 || value == null) {
             return null;
         }
@@ -255,7 +252,6 @@ public class LRUMapTileCache {
             update(prev);
         }
 
-        // Log.d("LRUMapTileCache","put done");
         return value;
     }
 
@@ -268,12 +264,10 @@ public class LRUMapTileCache {
      */
     public synchronized Bitmap get(final String key) {
         final CacheElement value = cache.get(key);
-        // Log.d("LRUMapTileCache","get " + key);
         if (value != null) {
             update(value);
             return value.bitmap;
         }
-        // Log.d("LRUMapTileCache","get done");
         return null;
     }
 

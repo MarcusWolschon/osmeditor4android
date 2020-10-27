@@ -86,15 +86,12 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         super.onCreateActionMode(mode, menu);
         mode.setTitle(R.string.menu_add);
         mode.setSubtitle(null);
-        // mode.setTitleOptionalHint(true);
         // show crosshairs
         logic.showCrosshairs(x, y);
         startX = x;
         startY = y;
         startLon = logic.xToLonE7(x);
         startLat = logic.yToLatE7(y);
-        // return isNeeded();
-        // always required for paste
         return true;
     }
 
@@ -386,28 +383,25 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
      */
     @Nullable
     Node addNode(@NonNull Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic, @NonNull String original) {
-        if (node != null) {
-            try {
-                Snack.barInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
-                TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-                for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
-                    PresetFixedField field = tag.getValue();
-                    tags.put(tag.getKey(), field.getValue().getValue());
-                }
-                if (name != null) {
-                    tags.put(Tags.KEY_NAME, name);
-                }
-                tags.put(Commands.SOURCE_ORIGINAL_TEXT, original);
-                logic.setTags(main, node, tags);
-                logic.setSelectedNode(node);
-                return node;
-            } catch (OsmIllegalOperationException e) {
-                Log.e(DEBUG_TAG, "addNode got exception " + e.getMessage());
-                Snack.barError(main, e.getLocalizedMessage());
-                return null;
+        try {
+            Snack.barInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
+            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
+            for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
+                PresetFixedField field = tag.getValue();
+                tags.put(tag.getKey(), field.getValue().getValue());
             }
+            if (name != null) {
+                tags.put(Tags.KEY_NAME, name);
+            }
+            tags.put(Commands.SOURCE_ORIGINAL_TEXT, original);
+            logic.setTags(main, node, tags);
+            logic.setSelectedNode(node);
+            return node;
+        } catch (OsmIllegalOperationException e) {
+            Log.e(DEBUG_TAG, "addNode got exception " + e.getMessage());
+            Snack.barError(main, e.getLocalizedMessage());
+            return null;
         }
-        return null;
     }
 
     @Override

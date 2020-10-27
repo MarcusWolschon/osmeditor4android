@@ -57,16 +57,13 @@ public class ElementSearch {
                 double distance = -1D;
                 long iD = way.getOsmId();
                 for (String tag : nameTags) {
-                    // Log.d("StreetTagValueAutocompletionAdapter","Search for " + tag);
                     String name = way.getTagWithKey(tag);
                     if (name != null) {
-                        // Log.d("StreetTagValueAutocompletionAdapter","Name " + name);
                         if (distance == -1D) { // only calc once
                             distance = way.getMinDistance(location);
                             if (distanceFilter && distance > MAX_DISTANCE) {
                                 break;
                             }
-                            // Log.d("ElementSearch","distance " + distance);
                         }
                         if (distancesByNames.containsKey(name)) {
                             // way already in list - keep shortest distance
