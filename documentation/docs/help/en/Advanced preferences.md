@@ -78,7 +78,11 @@ Limit below which pending object uploads will have warning status. Default: _200
 
 ### Disable feedback activity
 
-Disable the feedback activity and use an URL instead. Default. _false_.
+Disable the feedback activity and use an URL instead. Default: _false_.
+
+### Beep volume
+
+Set how load the beep is Vespucci uses when you are pressing unsupported short cut keys on a connected real keyboard. Default: _50_
 
 ## Data and Editing Settings
 

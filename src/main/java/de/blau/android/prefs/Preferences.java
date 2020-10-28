@@ -22,6 +22,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerSource.Category;
 import de.blau.android.util.BrokenAndroid;
+import de.blau.android.util.Sound;
 
 /**
  * Convenience class for parsing and holding the application's SharedPreferences.
@@ -99,6 +100,7 @@ public class Preferences {
     private final int     dataWarnLimit;
     private final boolean useBarometricHeight;
     private final boolean useUrlForFeedback;
+    private final int beepVolume;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -254,6 +256,8 @@ public class Preferences {
         useBarometricHeight = prefs.getBoolean(r.getString(R.string.config_useBarometricHeight_key), false);
 
         useUrlForFeedback = prefs.getBoolean(r.getString(R.string.config_useUrlForFeedback_key), false);
+        
+        beepVolume = getIntPref(R.string.config_beepVolume_key, Sound.BEEP_DEFAULT_VOLUME);
     }
 
     /**
@@ -1321,6 +1325,15 @@ public class Preferences {
         return useUrlForFeedback;
     }
 
+    /**
+     * Get the volume for beeping
+     * 
+     * @return an int between 0 and 100
+     */
+    public int getBeepVolume() {
+        return beepVolume;
+    }
+    
     /**
      * Get a string from shared preferences
      * 

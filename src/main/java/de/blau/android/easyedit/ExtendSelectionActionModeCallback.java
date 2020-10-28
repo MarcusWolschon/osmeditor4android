@@ -28,6 +28,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.search.Search;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -441,7 +442,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
             if (sortedWays != null) {
                 mergeWays();
             } else {
-                Util.beep();
+                Sound.beep();
             }
             return true;
         } else if (c == Util.getShortCut(main, R.string.shortcut_square)) {

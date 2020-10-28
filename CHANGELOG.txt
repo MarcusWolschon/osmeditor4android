@@ -35,6 +35,7 @@
 - Show a tip when starting GPX recording and no geoid model is installed
 - Support display of links to alternative presets
 - Use ui for online preset search and preset creation
+- Avoid crash on excessive beeping and make volume configurable
 
 15.0.3: Fix crash when checkboxes in checkgroups are selected in certain combinations, fix nonsense label display in tag form for some checkgroups, update preset.
 

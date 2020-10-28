@@ -171,6 +171,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Screen;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.util.Version;
@@ -3475,7 +3476,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
             } else {
                 Tip.showDialog(Main.this, R.string.tip_longpress_simple_mode_key, R.string.tip_longpress_simple_mode);
-                Util.beep();
+                Sound.beep();
             }
 
             return true; // long click handled
@@ -3898,7 +3899,7 @@ public class Main extends FullScreenAppCompatActivity
                                 }
                             }
                             // short cut not found
-                            Util.beep();
+                            Sound.beep();
                         }
                         Log.w(DEBUG_TAG, "Unknown short cut key code " + keyCode + " key event " + event);
                     }

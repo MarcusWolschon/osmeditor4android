@@ -52,6 +52,7 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Sound;
 import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
@@ -413,7 +414,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     }
                 }).setNeutralButton(R.string.cancel, null).show();
             } else {
-                Util.beep();
+                Sound.beep();
             }
         }
         return true;

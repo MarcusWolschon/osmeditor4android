@@ -32,6 +32,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Sound;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -258,7 +259,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             if (count > 0) {
                 mergeNode(count);
             } else {
-                Util.beep();
+                Sound.beep();
             }
             return true;
         }
