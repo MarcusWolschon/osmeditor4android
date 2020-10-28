@@ -80,6 +80,10 @@ Available if the way shares nodes with other ways. This function replaces all sh
 
 As __Unjoin__ with the difference that nodes that are shared with ways that have the same "top level" key will be replaced in those ways effectively maintaining the connections to similar ways.
 
+### Extract segment
+
+Extracts a single node to node way segment from the selected way, after clicking on it and offers appropriate tagging via buttons. For example a highway segment can be extracted and given bridge or tunnel attributes with a small number of actions.
+
 ### ![Copy](../images/ic_menu_copy_holo_light.png) Copy
 
 Copy the way to the internal copy and paste buffer.
