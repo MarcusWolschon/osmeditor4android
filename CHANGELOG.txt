@@ -1,5 +1,41 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.1.0-1: 
+- Show a toast if we create inconsistent MP role values
+- Add indication of top of undo/redo stack
+- Fix regression with UndoDialog not being dismissed on click
+- Add specific MP support when adding element to existing relations
+- Add specific support for creating multi-polygons
+- Improve handling and messaging around preset parsing failures
+- Provide a short cut for the help view in place of an launcher icon
+- Re-factor PathCreationActionModeCallback
+- Support splitting ways with length dependent tags
+- Handle length dependent way tags on merging
+- Fix preset matching regression for tags with MatchType.KEY
+- Improve relation creation and member editing
+- Add action mode with fab to complete action
+- Initial implementation route creation and extension
+- Indicate which imagery layer has errors
+- Adjust GPX coordinate precision
+- Handle preset configuration changes while a preset filter is active
+- Set time in NMEA derived locations
+- Update OH parser version
+- Allow deleting PresetItems from the custom preset
+- Add back task to update imagery from ELI
+- Merge and reverse operations issue reporting re-factoring
+- Generalize error / warning reporting mechanism
+- Support displaying OSMOSE API 0.3 detail and fix information
+- Increase threads for pan and zoom download to two
+- Handle cascaded path patterns correctly
+- Partial re-factoring of feedback functionality
+- Add specific rendering for man_made=bridge
+- Make scale / grid styleable
+- Fix attribution display for new layer management
+- Improve feedback on error tile sources and better WMS error handling
+- Show a tip when starting GPX recording and no geoid model is installed
+- Support display of links to alternative presets
+- Use ui for online preset search and preset creation
+
 15.0.3: Fix crash when checkboxes in checkgroups are selected in certain combinations, fix nonsense label display in tag form for some checkgroups, update preset.
 
 15.0.2: Fix issue with GPX recording on Android 10, fix issue with visible state being overwritten on styleable layers, select Note properly if in an element selection mode, maintain preset order when matching, update translations, update OH fragment, update imagery.
