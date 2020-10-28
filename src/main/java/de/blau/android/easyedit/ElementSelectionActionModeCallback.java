@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import android.annotation.SuppressLint;
@@ -573,20 +572,17 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         final Map<String, PresetItem> items = new HashMap<>();
         for (Preset preset : App.getCurrentPresets(context)) {
             if (preset != null) {
-                for (Entry<String, PresetItem> entry : preset.getItemsForType(type).entrySet()) {
-                    String key = entry.getKey();
-                    PresetItem item = entry.getValue();
+                for (PresetItem item : preset.getItemsForType(type).values()) {
                     if (filterKey != null) {
                         PresetField field = item.getField(filterKey);
                         if (field != null && (filterValue == null
                                 || (field instanceof PresetFixedField && filterValue.equals(((PresetFixedField) field).getValue().getValue())))) {
-                            items.put(key, item);
+                            items.put(item.getTranslatedName(), item);
                         }
                     } else {
-                        items.put(key, item);
+                        items.put(item.getTranslatedName(), item);
                     }
                 }
-
             }
         }
         List<String> itemNames = new ArrayList<>(items.keySet());
