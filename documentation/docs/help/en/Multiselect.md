@@ -30,7 +30,11 @@ Merge multiple selected ways resulting in a single way. Ways will be reversed if
 
 ### ![Relation](../images/relation.png) Create relation
 
-Create a relation starting with the current selected elements. Further objects can be added until "Done" is selected, then the tag editor will be started on the new relation. 
+Create a relation starting with the current selected elements. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. 
+
+### Add to relation
+
+Select a relation and add the selected objects as members. Further objects can be added until the check button is clicked, then the tag editor will be started on the relation. 
 
 ### Zoom to selection
 

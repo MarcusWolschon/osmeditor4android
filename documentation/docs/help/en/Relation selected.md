@@ -36,7 +36,11 @@ Start Multi-Select mode with the current selected element.
 
 ### ![Relation](../images/relation.png) Create relation
 
-Create a relation and add this object as the first element. Further objects can be added until "Done" is selected, then the tag editor will be started on the new relation. 
+Create a relation and add this object as the first element. The relation type can be selected from a list generated from the available presets. Further objects can be added until the check button is clicked, then the tag editor will be started on the new relation. 
+
+### Add / remove member
+
+Objects can be added to or removed from the relation until the check button is clicked, then the property editor will be started on the relation. 
 
 ### ![Info](../images/tag_menu_mapfeatures.png) Info
 
