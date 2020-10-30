@@ -219,7 +219,7 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                 String tempHint = preset.getHint(key);
                 if (tempHint == null) {
                     // fudge something
-                    tempHint = caller.getString(R.string.ugly_checkgroup_hint, field.getCheckFields().get(0).getHint());
+                    tempHint = caller.getString(R.string.default_checkgroup_hint);
                 }
                 final String hint = tempHint;
                 row.keyView.setText(hint);
