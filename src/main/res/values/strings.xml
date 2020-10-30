@@ -639,7 +639,7 @@ avoided by using an offline data source.</string>
     <string name="tag_restriction_add_expression">Add expression</string>
     <string name="tag_restriction_add_opening_hours">Add opening hours</string>
     <string name="tag_restriction_value_hint">Conditional restriction</string>
-    <string name="ugly_checkgroup_hint">%1$s, …</string>
+    <string name="ugly_checkgroup_hint">Additional attributes</string>
     <string name="tag_form_unknown_element">Unknown element (no preset found)</string>
     <string name="tag_form_untagged_element">Untagged element</string>
     <!-- Custom preset creation -->
