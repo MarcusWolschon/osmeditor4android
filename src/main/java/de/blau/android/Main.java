@@ -3839,6 +3839,7 @@ public class Main extends FullScreenAppCompatActivity
                         logic.zoom(Logic.ZOOM_OUT);
                         updateZoomControls();
                         return true;
+                    case KeyEvent.KEYCODE_MOVE_HOME:
                     case KeyEvent.KEYCODE_CTRL_LEFT:
                     case KeyEvent.KEYCODE_CTRL_RIGHT:
                     case KeyEvent.KEYCODE_SHIFT_LEFT:
