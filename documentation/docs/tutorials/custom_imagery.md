@@ -1,8 +1,8 @@
 # Custom imagery
-_by Simon Poole_
+_by Simon Poole, updated 2020-10-31_
 
 For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
-OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913), support for layers from [OAM](https://openaerialmap.org/) and support for imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) format.
+OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913, later Vespucci versions support EPSG:4326 for WMS servers too), support for layers from [OAM](https://openaerialmap.org/) and support for imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) format.
 
 ## Adding a custom imagery source
 
@@ -47,7 +47,7 @@ __{bbox}__ bounding box in _proj_ coordinates for WMS servers. _JOSM_, _Vespucci
 __{subdomain}__ reserved, used internally by _Vespucci_
 
 * A valid normal (non-Bing) URL for a tile server must contain at least at least __{zoom}__, __{x}__ and one of __{y}__, __{-y}__ or __{ty}__.
-* A valid WMS server entry must contain at least __{width}__, __{height}__ and __{bbox}__ placeholders. Note: do not add a __{proj}__ placeholder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files).
+* A valid WMS server entry must contain at least __{width}__, __{height}__ and __{bbox}__ placeholders. Note: do not add a __{proj}__ placeholder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files), simply leave the SRS or CRS attribute in the URL as is with the desired projection value.
 
 ### Examples
 
