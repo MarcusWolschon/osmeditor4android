@@ -826,12 +826,23 @@
 
     <issue
         id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="            if (e instanceof SocketException &amp;&amp; message != null &amp;&amp; message.toLowerCase().contains(CLOSED)) {"
+        errorLine2="                                                                           ~~~~~~~~~~~">
+        <location
+            file="src\main\java\de\blau\android\services\util\NmeaTcpClientServer.java"
+            line="120"
+            column="76"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toUpperCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
         errorLine1="                    this.regions.add(r.trim().toUpperCase());"
         errorLine2="                                              ~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\presets\Preset.java"
-            line="2155"
+            line="2154"
             column="47"/>
     </issue>
 
@@ -857,56 +868,56 @@
         id="InvalidPackage"
         message="Invalid package reference in org.mozilla:rhino; not included in Android: `java.awt.event`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.13\e6b2e12dc79fbdc58d8bf62a583705a551ec37d6\rhino-1.7.13.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.mozilla:rhino; not included in Android: `java.awt`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.13\e6b2e12dc79fbdc58d8bf62a583705a551ec37d6\rhino-1.7.13.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.event`. Referenced from `org.mozilla.javascript.tools.debugger.EvalTextArea`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.13\e6b2e12dc79fbdc58d8bf62a583705a551ec37d6\rhino-1.7.13.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.filechooser`. Referenced from `org.mozilla.javascript.tools.debugger.SwingGui.1`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.13\e6b2e12dc79fbdc58d8bf62a583705a551ec37d6\rhino-1.7.13.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.table`. Referenced from `org.mozilla.javascript.tools.debugger.MyTableModel`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.13\e6b2e12dc79fbdc58d8bf62a583705a551ec37d6\rhino-1.7.13.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.text`. Referenced from `org.mozilla.javascript.tools.debugger.EvalTextArea`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.13\e6b2e12dc79fbdc58d8bf62a583705a551ec37d6\rhino-1.7.13.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing.tree`. Referenced from `org.mozilla.javascript.tools.debugger.MyTreeTable`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.13\e6b2e12dc79fbdc58d8bf62a583705a551ec37d6\rhino-1.7.13.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.mozilla:rhino; not included in Android: `javax.swing`. Referenced from `org.mozilla.javascript.tools.debugger.ContextWindow`.">
         <location
-            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.13\e6b2e12dc79fbdc58d8bf62a583705a551ec37d6\rhino-1.7.13.jar"/>
+            file="..\..\.gradle\caches\modules-2\files-2.1\org.mozilla\rhino\1.7.11\cf04bfb7dcf7bacbf93ab7727d842f3ab5a66f0d\rhino-1.7.11.jar"/>
     </issue>
 
     <issue
@@ -1136,7 +1147,7 @@
         errorLine2="                                                                                     ~~~~">
         <location
             file="src\main\java\de\blau\android\propertyeditor\tagform\CheckGroupDialogRow.java"
-            line="259"
+            line="265"
             column="86"/>
     </issue>
 
@@ -1202,7 +1213,7 @@
         errorLine2="                                                                                       ~~~~">
         <location
             file="src\main\java\de\blau\android\easyedit\ElementSelectionActionModeCallback.java"
-            line="496"
+            line="495"
             column="88"/>
     </issue>
 
@@ -1549,6 +1560,17 @@
 
     <issue
         id="GradleDependency"
+        message="A newer version of org.mozilla:rhino than 1.7.11 is available: 1.7.13"
+        errorLine1="    implementation &quot;org.mozilla:rhino:1.7.11&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="405"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
         message="A newer version of androidx.test.ext:junit than 1.1.1 is available: 1.1.2"
         errorLine1="    androidTestImplementation &apos;androidx.test.ext:junit:1.1.1&apos;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -1598,7 +1620,7 @@
         errorLine2="                                                                                ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\presets\Preset.java"
-            line="2381"
+            line="2380"
             column="81"/>
     </issue>
 
@@ -1609,7 +1631,7 @@
         errorLine2="                                                                                ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\presets\Preset.java"
-            line="3705"
+            line="3703"
             column="81"/>
     </issue>
 
@@ -4033,7 +4055,7 @@
         errorLine2="          ~~~~~~~~~~~~~~">
         <location
             file="src\main\java\de\blau\android\services\TrackerService.java"
-            line="659"
+            line="672"
             column="11"/>
     </issue>
 
@@ -5325,6 +5347,89 @@
         <location
             file="src\main\res\values-zh-rTW\strings.xml"
             line="387"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.ugly_checkgroup_hint` appears to be unused"
+        errorLine1="  &lt;string name=&quot;ugly_checkgroup_hint&quot;>%1$s, …&lt;/string>"
+        errorLine2="          ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src\main\res\values-ca\strings.xml"
+            line="429"
+            column="11"/>
+        <location
+            file="src\main\res\values-cs-rCZ\strings.xml"
+            line="572"
+            column="11"/>
+        <location
+            file="src\main\res\values-de\strings.xml"
+            line="593"
+            column="11"/>
+        <location
+            file="src\main\res\values-es\strings.xml"
+            line="576"
+            column="11"/>
+        <location
+            file="src\main\res\values-fa\strings.xml"
+            line="593"
+            column="11"/>
+        <location
+            file="src\main\res\values-fi\strings.xml"
+            line="470"
+            column="11"/>
+        <location
+            file="src\main\res\values-fr\strings.xml"
+            line="567"
+            column="11"/>
+        <location
+            file="src\main\res\values-gl\strings.xml"
+            line="519"
+            column="11"/>
+        <location
+            file="src\main\res\values-hu\strings.xml"
+            line="558"
+            column="11"/>
+        <location
+            file="src\main\res\values-is\strings.xml"
+            line="337"
+            column="11"/>
+        <location
+            file="src\main\res\values-iw\strings.xml"
+            line="579"
+            column="11"/>
+        <location
+            file="src\main\res\values-pl\strings.xml"
+            line="544"
+            column="11"/>
+        <location
+            file="src\main\res\values-pt\strings.xml"
+            line="520"
+            column="11"/>
+        <location
+            file="src\main\res\values-ru\strings.xml"
+            line="558"
+            column="11"/>
+        <location
+            file="src\main\res\values-sv\strings.xml"
+            line="329"
+            column="11"/>
+        <location
+            file="src\main\res\values-tr\strings.xml"
+            line="342"
+            column="11"/>
+        <location
+            file="src\main\res\values-uk\strings.xml"
+            line="371"
+            column="11"/>
+        <location
+            file="src\main\res\values-zh-rHK\strings.xml"
+            line="488"
+            column="11"/>
+        <location
+            file="src\main\res\values-zh-rTW\strings.xml"
+            line="589"
             column="11"/>
     </issue>
 
@@ -14789,7 +14894,7 @@
         errorLine2="        ^">
         <location
             file="src\main\java\de\blau\android\propertyeditor\tagform\MultiTextRow.java"
-            line="279"
+            line="280"
             column="9"/>
     </issue>
 
@@ -14800,7 +14905,7 @@
         errorLine2="                                    ^">
         <location
             file="src\main\java\de\blau\android\propertyeditor\tagform\MultiTextRow.java"
-            line="279"
+            line="280"
             column="37"/>
     </issue>
 
@@ -16164,7 +16269,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\layout\form_dialog_multitext_value.xml"
-            line="17"
+            line="18"
             column="5"/>
     </issue>
 
@@ -16175,7 +16280,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\layout\form_dialog_multitext_value.xml"
-            line="18"
+            line="19"
             column="5"/>
     </issue>
 
@@ -16406,7 +16511,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\layout\tag_form_checkgroup_dialog_row.xml"
-            line="58"
+            line="57"
             column="17"/>
     </issue>
 
@@ -16417,7 +16522,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src\main\res\layout\tag_form_checkgroup_dialog_row.xml"
-            line="59"
+            line="58"
             column="17"/>
     </issue>
 
