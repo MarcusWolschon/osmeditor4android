@@ -1740,10 +1740,9 @@ public class Preset implements Serializable {
                 continue; // isn't going to help
             }
             int matches = 0;
-            if (fixedTagCount > 0) { // has required tags
-                if (possibleMatch.matches(tags)) {
-                    matches = fixedTagCount;
-                }
+            if (fixedTagCount > 0 && possibleMatch.matches(tags)) {
+                // has all required tags
+                matches = fixedTagCount;
             }
             if (recommendedTagCount > 0) {
                 matches = matches + possibleMatch.matchesRecommended(tags);
@@ -3344,7 +3343,6 @@ public class Preset implements Serializable {
         @NonNull
         public List<PresetItem> getLinkedPresets(boolean noPrimary, @Nullable Preset[] otherPresets) {
             List<PresetItem> result = new ArrayList<>();
-            Log.e(DEBUG_TAG, "Linked presets for " + getName());
             List<Preset> presets = new ArrayList<>();
             if (otherPresets != null) {
                 presets.addAll(Arrays.asList(otherPresets));
@@ -3635,7 +3633,7 @@ public class Preset implements Serializable {
          * @param tagMap Map containing the tags
          * @return number of matches
          */
-        public int matchesRecommended(@NonNull Map<String, String> tagMap) {
+        int matchesRecommended(@NonNull Map<String, String> tagMap) {
             int matches = 0;
 
             List<PresetField> allFields = new ArrayList<>();
@@ -3659,7 +3657,7 @@ public class Preset implements Serializable {
                         // don't count this
                         continue;
                     }
-                    if (type == MatchType.KEY) {
+                    if (type == MatchType.KEY || type == MatchType.KEY_NEG) {
                         matches++;
                         continue;
                     }
