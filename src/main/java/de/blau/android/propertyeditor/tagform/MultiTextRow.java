@@ -137,10 +137,11 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
         for (int i = 0; i < valueLayout.getChildCount(); i++) {
             EditText editText = (EditText) valueLayout.getChildAt(i);
             String text = editText.getText().toString();
-            if (text != null && (!"".equals(text) || valueCount > 0)) {
-                if (result.length() > 0) { // not the first entry
-                    result.append(delimiter);
-                }
+            boolean notEmpty = text != null && !"".equals(text);
+            if ((valueCount > 0 && i > 0) || (result.length() > 0 && notEmpty)) {
+                result.append(delimiter);
+            }
+            if (notEmpty) {
                 result.append(text);
             }
         }
@@ -437,7 +438,7 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
         } else {
             row.valueCount = 0;
         }
-        addValues(caller, key, adapter, row, value, splitValues);
+        addValues(caller, key, adapter, row, splitValues);
 
         return row;
     }
@@ -453,8 +454,8 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
      * @param splitValues a list of the split values
      */
     static void addValues(@NonNull final TagFormFragment caller, @NonNull final String key, @Nullable final ArrayAdapter<?> adapter,
-            @NonNull final MultiTextRow row, @Nullable String value, @Nullable List<String> splitValues) {
-        final boolean notEmpty = splitValues != null && !"".equals(value);
+            @NonNull final MultiTextRow row, @Nullable List<String> splitValues) {
+        final boolean notEmpty = splitValues != null;
         if (notEmpty) {
             int phoneNumberReformatted = 0;
             int count = 1;
@@ -511,10 +512,9 @@ public class MultiTextRow extends LinearLayout implements KeyValueRow, TagChange
             if (value != null && !"".equals(value)) {
                 try {
                     valueCount = Integer.parseInt(value);
+                    values = Preset.splitValues(Util.wrapInList(getValue()), delimiter);
                     valueLayout.removeAllViews();
-                    String v = values != null && !values.isEmpty() ? values.get(0) : null;
-                    List<String> splitValues = Preset.splitValues(values, delimiter);
-                    addValues(caller, key, adapter, this, v, splitValues);
+                    addValues(caller, key, adapter, this, values);
                 } catch (NumberFormatException nfex) {
                     Snack.toastTopError(context, context.getString(R.string.toast_invalid_number_format, nfex.getMessage()));
                 }
