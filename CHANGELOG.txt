@@ -36,6 +36,9 @@
 - Support display of links to alternative presets
 - Use ui for online preset search and preset creation
 - Avoid crash on excessive beeping and make volume configurable
+- Fix issues retaining existing values when changing the value count in multi-text fields
+- Fix issue with key! match value in presets
+- Avoid socket in use errors in the NEMA receiver server
 
 15.0.3: Fix crash when checkboxes in checkgroups are selected in certain combinations, fix nonsense label display in tag form for some checkgroups, update preset.
 
