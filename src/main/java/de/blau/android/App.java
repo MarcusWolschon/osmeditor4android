@@ -272,7 +272,7 @@ public class App extends android.app.Application {
                 if (logic != null && logic.getFilter() instanceof PresetFilter) {
                     // getCurrentPresets will be called if the presets have been
                     // changed and the preset need to be re-referenced
-                    logic.getFilter().init(ctx); 
+                    logic.getFilter().init(ctx);
                 }
             }
             return currentPresets;
@@ -581,7 +581,7 @@ public class App extends android.app.Application {
      * @param ctx android context
      * @return a RhinoAndroidHelper
      */
-    public static RhinoAndroidHelper getRhinoHelper(Context ctx) {
+    public static RhinoAndroidHelper getRhinoHelper(@NonNull Context ctx) {
         synchronized (rhinoLock) {
             if (rhinoHelper == null) {
                 rhinoHelper = new RhinoAndroidHelper(ctx);
@@ -599,7 +599,7 @@ public class App extends android.app.Application {
      * @param ctx android context
      * @return rhino scope
      */
-    public static org.mozilla.javascript.Scriptable getRestrictedRhinoScope(Context ctx) {
+    public static org.mozilla.javascript.Scriptable getRestrictedRhinoScope(@NonNull Context ctx) {
         synchronized (rhinoLock) {
             if (rhinoScope == null) {
                 org.mozilla.javascript.Context c = rhinoHelper.enterContext();
