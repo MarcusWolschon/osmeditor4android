@@ -52,7 +52,7 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
 
     private static final String DEBUG_TAG = "StorageDelegator";
 
-    private static final long serialVersionUID = 9L;
+    private static final long serialVersionUID = 10L;
 
     private Storage currentStorage;
 
