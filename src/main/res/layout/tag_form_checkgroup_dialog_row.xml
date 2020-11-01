@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- inner classes must be specified using <view class="classname" /> due to dollar sign -->
-<view xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- inner classes must be specified using <view class="classname" /> due 
+    to dollar sign -->
+<view
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     class="de.blau.android.propertyeditor.tagform.CheckGroupDialogRow"
-    android:orientation="horizontal" >
-
+    android:orientation="horizontal">
     <LinearLayout
         style="?attr/Layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:saveEnabled="false" >
-
+        android:saveEnabled="false">
         <TextView
             android:id="@+id/textKey"
             style="?attr/StaticText"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:minHeight="34dp"
             android:layout_marginBottom="1dp"
             android:layout_marginRight="1dp"
             android:layout_marginEnd="1dp"
             android:layout_weight="3"
-            android:gravity="center_vertical"
+            android:gravity="top"
             android:maxLines="3"
-            android:paddingTop="7dp"
+            android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:saveEnabled="false" />
-
         <LinearLayout
             android:id="@+id/valueList"
             style="?attr/Layout"
@@ -39,28 +38,27 @@
             android:layout_weight="2"
             android:baselineAligned="false"
             android:orientation="vertical"
-            android:saveEnabled="false" >
-
+            android:saveEnabled="false">
             <TextView
                 android:id="@+id/textValue"
                 style="?attr/StaticText"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:minHeight="34dp"
                 android:layout_marginBottom="1dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
-                android:gravity="center_vertical"
+                android:gravity="top"
                 android:drawableEnd="?attr/edit"
                 android:drawableRight="?attr/edit"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:paddingTop="5dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="3dp"
-                android:saveEnabled="false" 
+                android:saveEnabled="false"
                 android:singleLine="true"
                 android:ellipsize="none" />
         </LinearLayout>
     </LinearLayout>
-
 </view>

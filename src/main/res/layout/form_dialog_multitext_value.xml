@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<de.blau.android.views.CustomAutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<de.blau.android.views.CustomAutoCompleteTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textValue"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:layout_marginBottom="1dp"
     android:layout_marginLeft="0dp"
@@ -16,6 +17,6 @@
     android:minHeight="34dp"
     android:paddingLeft="5dp"
     android:paddingRight="0dp"
-    android:saveEnabled="false" 
+    android:saveEnabled="false"
     android:singleLine="true"
     android:ellipsize="none" />

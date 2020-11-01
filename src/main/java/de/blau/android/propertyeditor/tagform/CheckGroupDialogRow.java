@@ -123,6 +123,12 @@ public class CheckGroupDialogRow extends MultiselectDialogRow {
                 }
             }
         }
+
+        // this is a hack around ugly layouts if there is only one value and the key text wraps
+        ViewGroup.LayoutParams layoutParams = getValueView().getLayoutParams();
+        layoutParams.height = valueList.getChildCount() <= 1 ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT;
+        getValueView().setLayoutParams(layoutParams);
+
         setOnClickListener(listener);
     }
 
