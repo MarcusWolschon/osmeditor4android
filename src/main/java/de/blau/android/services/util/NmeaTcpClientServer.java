@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 import android.annotation.TargetApi;
 import android.location.GpsStatus.NmeaListener;
@@ -21,15 +22,17 @@ import androidx.annotation.NonNull;
  */
 @SuppressWarnings("deprecation")
 public class NmeaTcpClientServer implements Runnable {
-
     private static final String DEBUG_TAG = "NmeaTcpClientServer";
 
-    boolean                     canceled = false;
-    int                         port     = 1959;
-    final NmeaListener          oldListener;
-    final OnNmeaMessageListener newListener;
-    final Handler               handler;
-    Socket                      socket;
+    private static final String CLOSED = "closed";
+
+    private boolean                     canceled = false;
+    private int                         port     = 1959;
+    private final NmeaListener          oldListener;
+    private final OnNmeaMessageListener newListener;
+    private final Handler               handler;
+    private Socket                      socket;
+    private ServerSocket                listenSocket;
 
     /**
      * Create an instance of a server that will read lines from a socket until it is stopped
@@ -80,12 +83,17 @@ public class NmeaTcpClientServer implements Runnable {
     /**
      * Stop reading input and exit
      */
-    public void cancel() {
+    public synchronized void cancel() {
         Log.w(DEBUG_TAG, "Stopping server");
         canceled = true;
         try {
             if (socket != null) {
                 socket.close();
+                socket = null;
+            }
+            if (listenSocket != null) {
+                listenSocket.close();
+                listenSocket = null;
             }
         } catch (Exception ex) {
             // Ignore
@@ -94,7 +102,10 @@ public class NmeaTcpClientServer implements Runnable {
 
     @Override
     public void run() {
+        Log.w(DEBUG_TAG, "Starting server");
         try (ServerSocket serverSocket = new ServerSocket(port)) {
+            serverSocket.setReuseAddress(true);
+            listenSocket = serverSocket;
             while (!canceled) {
                 Log.d(DEBUG_TAG, "Listening for incoming connection on " + port);
                 socket = serverSocket.accept();
@@ -104,6 +115,11 @@ public class NmeaTcpClientServer implements Runnable {
             }
         } catch (Throwable e) { // NOSONAR
             Log.w(DEBUG_TAG, "Exception  " + e);
+            String message = ((SocketException) e).getMessage();
+            // there is no good way to avoid this
+            if (e instanceof SocketException && message != null && message.toLowerCase().contains(CLOSED)) {
+                return; // don't show message as it is expected
+            }
             NmeaTcpClient.reportError(handler, e);
         }
     }

@@ -290,7 +290,8 @@
         <service
             android:name=".services.TrackerService"
             android:label="TrackerService" 
-            android:foregroundServiceType="location"/>
+            android:foregroundServiceType="location"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode|fontScale" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

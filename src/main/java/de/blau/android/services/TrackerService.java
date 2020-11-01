@@ -218,16 +218,47 @@ public class TrackerService extends Service implements Exportable {
     }
 
     /**
+     * Start one of the NMEA clients
+     * 
+     * @param useTcpClient start the tcp reader
+     * @param useTcpServer start the tcp server
+     */
+    private void startNmeaClients(boolean useTcpClient, boolean useTcpServer) {
+        Log.d(DEBUG_TAG, "Starting Nmea Clients");
+        source = GpsSource.TCP;
+        if (useTcpClient && tcpClient == null) {
+            if (useOldNmea) {
+                tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
+            } else {
+                tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), newNmeaListener, mHandler);
+            }
+            Thread t = new Thread(null, tcpClient, "TcpClient");
+            t.start();
+        } else if (useTcpServer && tcpServer == null) {
+            if (useOldNmea) {
+                tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
+            } else {
+                tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource(), newNmeaListener, mHandler);
+            }
+            Thread t = new Thread(null, tcpServer, "TcpClientServer");
+            t.start();
+        }
+    }
+
+    /**
      * Stop the NMEA clients from running
      */
     private void cancelNmeaClients() {
+        Log.d(DEBUG_TAG, "Canceling Nmea Clients");
         if (tcpClient != null) {
             tcpClient.cancel();
             tcpClient = null;
+            gpsEnabled = false;
         }
         if (tcpServer != null) {
             tcpServer.cancel();
             tcpServer = null;
+            gpsEnabled = false;
         }
     }
 
@@ -316,17 +347,10 @@ public class TrackerService extends Service implements Exportable {
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startTrackingInternal() {
-        if (tracking) {
-            track.markNewSegment();
-            return;
-        }
+        Log.d(DEBUG_TAG, "Start tracking");
         if (startInternal()) {
             tracking = true;
             track.markNewSegment();
-            init();
-            if (externalListener != null) {
-                externalListener.onStateChanged();
-            }
         }
     }
 
@@ -336,15 +360,8 @@ public class TrackerService extends Service implements Exportable {
      */
     private void startAutoDownloadInternal() {
         Log.d(DEBUG_TAG, "Start auto download");
-        if (downloading) {
-            return;
-        }
         if (startInternal()) {
             downloading = true;
-            init();
-            if (externalListener != null) {
-                externalListener.onStateChanged();
-            }
         }
     }
 
@@ -353,15 +370,9 @@ public class TrackerService extends Service implements Exportable {
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startBugAutoDownloadInternal() {
-        if (downloadingBugs) {
-            return;
-        }
+        Log.d(DEBUG_TAG, "Start bug auto download");
         if (startInternal()) {
             downloadingBugs = true;
-            init();
-            if (externalListener != null) {
-                externalListener.onStateChanged();
-            }
         }
     }
 
@@ -399,6 +410,10 @@ public class TrackerService extends Service implements Exportable {
                 .setColor(ContextCompat.getColor(this, R.color.osm_green))
                 .addAction(R.drawable.logo_simplified, getString(R.string.exit_title), pendingExitIntent);
         startForeground(R.id.notification_tracker, notificationBuilder.build());
+        init();
+        if (externalListener != null) {
+            externalListener.onStateChanged();
+        }
         return true;
     }
 
@@ -449,7 +464,7 @@ public class TrackerService extends Service implements Exportable {
     private void stop() {
         if (!tracking && !downloading && !downloadingBugs) {
             Log.d(DEBUG_TAG, "Stopping auto-service");
-            init();
+            cancelNmeaClients();
             stopForeground(true);
             stopSelf();
         }
@@ -598,8 +613,7 @@ public class TrackerService extends Service implements Exportable {
         @Override
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
-                return; // ignore
-                        // updates
+                return; // ignore updates
             }
             if (lastLocation != null) {
                 boolean lastIsGpsLocation = LocationManager.GPS_PROVIDER.equals(lastLocation.getProvider());
@@ -611,8 +625,7 @@ public class TrackerService extends Service implements Exportable {
                         }
                     } else {
                         if (location.getTime() - lastLocation.getTime() < staleGPSMilli) {
-                            return; // this is not as reliable as the
-                                    // above
+                            return; // this is not as reliable as the above
                                     // but likely still OK
                         }
                     }
@@ -695,15 +708,16 @@ public class TrackerService extends Service implements Exportable {
     private void init() {
         prefs = new Preferences(this);
         String gpsSource = prefs.getGpsSource();
-        boolean useTcpClient = gpsSource.equals(prefTcpClient);
-        boolean useTcpServer = gpsSource.equals(prefTcpServer);
+        final boolean useTcpClient = gpsSource.equals(prefTcpClient);
+        final boolean useTcpServer = gpsSource.equals(prefTcpServer);
+        final boolean useTcp = useTcpClient || useTcpServer;
 
         useBarometricHeight = pressureListener != null && prefs.useBarometricHeight();
 
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
+
         // update configuration
-        if ((needed && !gpsEnabled) || (gpsEnabled && ((useTcpClient || useTcpServer) && source != GpsSource.TCP)
-                || (!(useTcpClient || useTcpServer) && source == GpsSource.TCP))) {
+        if ((needed && !gpsEnabled) || (gpsEnabled && (useTcp && source != GpsSource.TCP) || (!useTcp && source == GpsSource.TCP))) {
             Log.d(DEBUG_TAG, "Enabling GPS updates");
             nmeaLocation.removeSpeed(); // NOSONAR be sure that these are not set
             nmeaLocation.removeBearing(); // NOSONAR
@@ -723,25 +737,8 @@ public class TrackerService extends Service implements Exportable {
             }
             try {
                 mHandler = new MessageHandler();
-                if (useTcpClient || useTcpServer) {
-                    source = GpsSource.TCP;
-                    if (useTcpClient && tcpClient == null) {
-                        if (useOldNmea) {
-                            tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
-                        } else {
-                            tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), newNmeaListener, mHandler);
-                        }
-                        Thread t = new Thread(null, tcpClient, "TcpClient");
-                        t.start();
-                    } else if (tcpServer == null) {
-                        if (useOldNmea) {
-                            tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
-                        } else {
-                            tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource(), newNmeaListener, mHandler);
-                        }
-                        Thread t = new Thread(null, tcpServer, "TcpClientServer");
-                        t.start();
-                    }
+                if (useTcp) {
+                    startNmeaClients(useTcpClient, useTcpServer);
                 } else {
                     cancelNmeaClients(); // not needed any more
                     boolean useNema = gpsSource.equals(prefNmea);
@@ -749,7 +746,7 @@ public class TrackerService extends Service implements Exportable {
                         source = GpsSource.INTERNAL;
                         staleGPSMilli = prefs.getGpsInterval() * 20L; // 20 times the intended interval
                         staleGPSNano = staleGPSMilli * 1000; // convert to nanoseconds
-                        if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) { // just
+                        if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
                             // internal NMEA resource only works if normal updates are turned on
                             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(), gpsListener);
                             if (useNema) {
