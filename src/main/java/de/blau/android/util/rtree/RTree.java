@@ -27,12 +27,12 @@ public class RTree<T extends BoundedObject> implements Serializable {
     private QuadraticNodeSplitter splitter;
 
     private class Node<T extends BoundedObject> implements BoundedObject, Serializable {
-        private static final long serialVersionUID = 1L;
-        private final String      DEBUG_TAG        = Node.class.getName();
-        Node<T>                   parent;
-        BoundingBox               box;
-        ArrayList<Node<T>>        children;
-        ArrayList<T>              data;
+        private static final long  serialVersionUID = 1L;
+        private final String       DEBUG_TAG        = Node.class.getName();
+        private Node<T>            parent;
+        private BoundingBox        box;
+        private ArrayList<Node<T>> children;
+        private ArrayList<T>       data;
 
         /**
          * Construct a new tree Node
@@ -71,7 +71,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
          * @param parent the parent
          */
         public void addTo(@NonNull Node<T> parent) {
-            // assert(parent.children != null);
             parent.children.add(this);
             this.parent = parent;
             computeMBR();
@@ -129,7 +128,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
          */
         public void remove() {
             if (parent == null) {
-                // assert(root == this);
                 root = null;
                 return;
             }
@@ -160,7 +158,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
          */
         @Nullable
         public BoundingBox getBounds() {
-            // Log.d(DEBUG_TAG, "box is " + box);
             return box;
         }
 
@@ -245,11 +242,11 @@ public class RTree<T extends BoundedObject> implements Serializable {
             double maxD = -Double.MAX_VALUE;
             for (int i = 0; i < list.length; i++) {
                 for (int j = 0; j < list.length; j++) {
-                    // Log.d(DEBUG_TAG," i " + i + " j " + j);
                     if (i == j) {
                         continue;
                     }
-                    BoundingBox box1 = cachedBox.get(i), box2 = cachedBox.get(j);
+                    BoundingBox box1 = cachedBox.get(i);
+                    BoundingBox box2 = cachedBox.get(j);
 
                     box.set(box1);
                     double d;
@@ -277,12 +274,10 @@ public class RTree<T extends BoundedObject> implements Serializable {
                         maxD = d;
                         seed1Box = box1;
                         seed2Box = box2;
-                        // Log.d(DEBUG_TAG,"seed1 " + seed1 + " seed2 " + seed2);
                     }
                 }
             }
-            // assert(seed1 != null && seed2 != null);
-            // Log.d(DEBUG_TAG,"seed1 " + seed1 + " seed2 " + seed2);
+
             // Distribute
             Node<T> group1 = new Node<>(isleaf);
             group1.box = new BoundingBox(seed1Box);
@@ -320,12 +315,11 @@ public class RTree<T extends BoundedObject> implements Serializable {
          * @param g2 new node 2
          */
         private void distributeBranches(@NonNull Node<T> n, @NonNull Node<T> g1, @NonNull Node<T> g2) {
-            // assert(!(n.isLeaf() || g1.isLeaf() || g2.isLeaf()));
 
             while (!n.children.isEmpty() && g1.children.size() < maxSize - minSize + 1 && g2.children.size() < maxSize - minSize + 1) {
                 // Pick next
                 long difmax = Long.MIN_VALUE;
-                int nmax_index = -1;
+                int nmaxIndex = -1;
                 long overlap1 = -1;
                 long overlap2 = -1;
                 for (int i = 0; i < n.children.size(); i++) {
@@ -335,15 +329,14 @@ public class RTree<T extends BoundedObject> implements Serializable {
                     long dif = Math.abs(expansion1 - expansion2);
                     if (dif > difmax) {
                         difmax = dif;
-                        nmax_index = i;
+                        nmaxIndex = i;
                         overlap1 = expansion1;
                         overlap2 = expansion2;
                     }
                 }
-                // assert(nmax_index != -1);
 
                 // Distribute Entry
-                Node<T> nmax = n.children.remove(nmax_index);
+                Node<T> nmax = n.children.remove(nmaxIndex);
                 Node<T> parent = null;
 
                 // ... to the one with the least expansion
@@ -368,7 +361,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
                         }
                     }
                 }
-                // assert(parent != null);
                 parent.children.add(nmax);
                 nmax.parent = parent;
             }
@@ -398,34 +390,29 @@ public class RTree<T extends BoundedObject> implements Serializable {
          */
         private void distributeLeaves(@NonNull Node<T> n, @NonNull List<BoundingBox> cache, @NonNull Node<T> g1, @NonNull Node<T> g2) {
             // Same process as above; just different types.
-            // assert(n.isLeaf() && g1.isLeaf() && g2.isLeaf());
 
             while (!n.data.isEmpty() && g1.data.size() < maxSize - minSize + 1 && g2.data.size() < maxSize - minSize + 1) {
                 // Pick next
                 long difmax = Long.MIN_VALUE;
-                int nmax_index = -1;
+                int nmaxIndex = -1;
                 long overlap1 = -1;
                 long overlap2 = -1;
                 for (int i = 0; i < n.data.size(); i++) {
-                    // BoundedObject node = n.data.get(i);
-                    // BoundingBox b = node.getBounds();
                     BoundingBox b = cache.get(i);
                     long d1 = expansionNeeded(b, g1.box);
                     long d2 = expansionNeeded(b, g2.box);
                     long dif = Math.abs(d1 - d2);
                     if (dif > difmax) {
                         difmax = dif;
-                        nmax_index = i;
+                        nmaxIndex = i;
                     }
                 }
-                // assert(nmax_index != -1);
 
                 // Distribute Entry
-                T nmax = n.data.remove(nmax_index);
+                T nmax = n.data.remove(nmaxIndex);
 
                 // ... to the one with the least expansion
-                // BoundingBox b = nmax.getBounds();
-                cache.remove(nmax_index);
+                cache.remove(nmaxIndex);
 
                 if (overlap1 > overlap2) {
                     g1.data.add(nmax);
@@ -504,12 +491,10 @@ public class RTree<T extends BoundedObject> implements Serializable {
      * @param node the Node to start at
      */
     private void query(@NonNull Collection<T> results, @NonNull BoundingBox box, @Nullable Node<T> node) {
-        // Log.d(DEBUG_TAG,"query called");
         if (node == null) {
             return;
         }
         if (node.isLeaf()) {
-            // Log.d(DEBUG_TAG,"leaf");
             for (int i = 0; i < node.data.size(); i++) {
                 T bo = node.data.get(i);
                 BoundingBox box2 = bo.getBounds();
@@ -518,7 +503,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
                 }
             }
         } else {
-            // Log.d(DEBUG_TAG,"not leaf");
             for (int i = 0; i < node.children.size(); i++) {
                 if (BoundingBox.intersects(node.children.get(i).box, box)) {
                     query(results, box, node.children.get(i));
@@ -676,7 +660,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
         }
         boolean result = false;
         Node<T> n = getLeaf(o, root);
-        // assert(n.isLeaf());
         if (n != null) {
             result = n.data.remove(o);
             n.computeMBR();
@@ -712,7 +695,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
             root = new Node<>(true);
         }
         Node<T> n = chooseLeaf(o.getBounds(), root);
-        // assert(n.isLeaf());
         if (n == null) {
             throw new NullPointerException("No node found for object");
         }
@@ -740,7 +722,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
      * @return the item count
      */
     private int count(@NonNull Node<T> n) {
-        // assert(n != null);
         if (n.isLeaf()) {
             return n.data.size();
         } else {
@@ -761,7 +742,6 @@ public class RTree<T extends BoundedObject> implements Serializable {
      */
     @Nullable
     private Node<T> chooseLeaf(@NonNull BoundingBox box, @NonNull Node<T> n) {
-        // assert(n != null);
         if (n.isLeaf()) {
             return n;
         } else {
@@ -864,7 +844,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
      * @param o the object
      */
     public void debug(@NonNull BoundedObject o) {
-        System.out.println("debug: target bounding box " + o.getBounds());
+        System.out.println("debug: target bounding box " + o.getBounds()); // NOSONAR
         debug(o, root, 0);
     }
 
@@ -878,7 +858,7 @@ public class RTree<T extends BoundedObject> implements Serializable {
      */
     private boolean debug(@NonNull BoundedObject o, @Nullable Node<T> node, int level) {
         if (node == null) {
-            System.out.println(level + " debug: node is null");
+            System.out.println(level + " debug: node is null"); // NOSONAR
             return false;
         }
         BoundingBox box = o.getBounds();
@@ -886,35 +866,33 @@ public class RTree<T extends BoundedObject> implements Serializable {
             for (int i = 0; i < node.data.size(); i++) {
                 if (node.data.get(i) == o) {
                     BoundingBox box2 = node.data.get(i).getBounds();
-                    System.out.println(level + " debug: found object parent box " + node.box);
-                    System.out.println(level + " debug: would have matched correctly: 1: " + box2.contains(box.getRight(), box.getTop()));
+                    System.out.println(level + " debug: found object parent box " + node.box); // NOSONAR
+                    System.out.println(level + " debug: would have matched correctly: 1: " + box2.contains(box.getRight(), box.getTop())); // NOSONAR
                     if (!box2.isEmpty()) {
-                        System.out.println(level + " debug: would have matched correctly: 2: " + BoundingBox.intersects(box2, box));
+                        System.out.println(level + " debug: would have matched correctly: 2: " + BoundingBox.intersects(box2, box));// NOSONAR
                     } else {
-                        System.out.println(level + " debug: would have matched correctly: 3: " + box.contains(box2.getLeft(), box2.getTop()));
+                        System.out.println(level + " debug: would have matched correctly: 3: " + box.contains(box2.getLeft(), box2.getTop()));// NOSONAR
                     }
                     return true;
                 }
             }
         } else {
             for (int i = 0; i < node.children.size(); i++) { // this is what should normally happen
-                if (BoundingBox.intersects(node.children.get(i).box, box)) {
-                    if (debug(o, node.children.get(i), level + 1)) {
-                        System.out.println(level + " debug: target box intersects with node box");
-                        return true;
-                    }
+                if (BoundingBox.intersects(node.children.get(i).box, box) && debug(o, node.children.get(i), level + 1)) {
+                    System.out.println(level + " debug: target box intersects with node box");// NOSONAR
+                    return true;
                 }
             }
             for (int i = 0; i < node.children.size(); i++) {
                 if (!BoundingBox.intersects(node.children.get(i).box, o.getBounds())) {
                     if (node.children.get(i).box.contains(box.getLeft(), box.getBottom())) {
                         if (debug(o, node.children.get(i), level + 1)) {
-                            System.out.println(level + " debug: target point contained in node box, didn't intersect with " + node.children.get(i).box);
+                            System.out.println(level + " debug: target point contained in node box, didn't intersect with " + node.children.get(i).box);// NOSONAR
                             return true;
                         }
                     } else {
                         if (debug(o, node.children.get(i), level + 1)) {
-                            System.out.println(level + " debug: target box doesn't intersect with node box " + node.children.get(i).box);
+                            System.out.println(level + " debug: target box doesn't intersect with node box " + node.children.get(i).box);// NOSONAR
                             return true;
                         }
                     }
