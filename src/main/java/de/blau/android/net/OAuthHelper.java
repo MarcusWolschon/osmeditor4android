@@ -1,6 +1,5 @@
 package de.blau.android.net;
 
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -17,7 +16,6 @@ import de.blau.android.exception.OsmException;
 import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
-import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
@@ -64,7 +62,7 @@ public class OAuthHelper {
                     mConsumer = new OkHttpOAuthConsumer(keys[i], secrets[i]);
                     Log.d(DEBUG_TAG, "Using " + osmBaseUrl + REQUEST_TOKEN_PATH + " " + osmBaseUrl + ACCESS_TOKEN_PATH + " " + osmBaseUrl + AUTHORIZE_PATH);
                     Log.d(DEBUG_TAG, "With key " + keys[i] + " secret " + secrets[i]);
-                    mProvider = new OkHttpOAuthProvider(oauthUrls[i] + "oauth/request_token", oauthUrls[i] + ACCESS_TOKEN_PATH, oauthUrls[i] + AUTHORIZE_PATH,
+                    mProvider = new OkHttpOAuthProvider(oauthUrls[i] + REQUEST_TOKEN_PATH, oauthUrls[i] + ACCESS_TOKEN_PATH, oauthUrls[i] + AUTHORIZE_PATH,
                             App.getHttpClient());
                     mProvider.setOAuth10a(true);
                     mCallbackUrl = "vespucci:/oauth/";
@@ -72,7 +70,7 @@ public class OAuthHelper {
                 }
             }
         }
-        Log.d(DEBUG_TAG, "No matching API for " + osmBaseUrl + "found");
+        logMissingApi(osmBaseUrl);
         throw new OsmException("No matching OAuth configuration found for this API");
     }
 
@@ -83,9 +81,8 @@ public class OAuthHelper {
      * @param consumerKey the consumer key
      * @param consumerSecret the consumer secret
      * @param callbackUrl the URL to call back to or null
-     * @throws UnsupportedEncodingException
      */
-    public OAuthHelper(String osmBaseUrl, String consumerKey, String consumerSecret, @Nullable String callbackUrl) throws UnsupportedEncodingException {
+    public OAuthHelper(@NonNull String osmBaseUrl, @NonNull String consumerKey, @NonNull String consumerSecret, @Nullable String callbackUrl) {
         synchronized (lock) {
             mConsumer = new OkHttpOAuthConsumer(consumerKey, consumerSecret);
             mProvider = new OkHttpOAuthProvider(osmBaseUrl + REQUEST_TOKEN_PATH, osmBaseUrl + ACCESS_TOKEN_PATH, osmBaseUrl + AUTHORIZE_PATH,
@@ -105,31 +102,10 @@ public class OAuthHelper {
      * Returns an OAuthConsumer initialized with the consumer keys for the API in question
      * 
      * @param osmBaseUrl the base URL for the API instance
-     * @return an initialized OAuthConsumer
+     * @return an initialized OAuthConsumer or null if something blows up
      */
-    public OAuthConsumer getConsumer(String osmBaseUrl) {
-        Resources r = App.resources();
-
-        String[] urls = r.getStringArray(R.array.api_urls);
-        String[] keys = r.getStringArray(R.array.api_consumer_keys);
-        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
-        for (int i = 0; i < urls.length; i++) {
-            if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
-                return new DefaultOAuthConsumer(keys[i], secrets[i]);
-            }
-        }
-        Log.d(DEBUG_TAG, "No matching API for " + osmBaseUrl + "found");
-        // TODO protect against failure
-        return null;
-    }
-
-    /**
-     * Returns an OAuthConsumer initialized with the consumer keys for the API in question
-     * 
-     * @param osmBaseUrl the base URL for the API instance
-     * @return an initialized OAuthConsumer
-     */
-    public OkHttpOAuthConsumer getOkHttpConsumer(String osmBaseUrl) {
+    @Nullable
+    public OkHttpOAuthConsumer getOkHttpConsumer(@NonNull String osmBaseUrl) {
         Resources r = App.resources();
 
         String[] urls = r.getStringArray(R.array.api_urls);
@@ -140,9 +116,17 @@ public class OAuthHelper {
                 return new OkHttpOAuthConsumer(keys[i], secrets[i]);
             }
         }
-        Log.d(DEBUG_TAG, "No matching API for " + osmBaseUrl + "found");
-        // TODO protect against failure
+        logMissingApi(osmBaseUrl);
         return null;
+    }
+
+    /**
+     * Create a log message for an unmatched api
+     * 
+     * @param osmBaseUrl the api url
+     */
+    private void logMissingApi(@Nullable String osmBaseUrl) {
+        Log.d(DEBUG_TAG, "No matching API for " + osmBaseUrl + "found");
     }
 
     /**
@@ -229,5 +213,4 @@ public class OAuthHelper {
         }
         return context.getString(R.string.toast_oauth_handshake_failed, e.getMessage());
     }
-
 }
