@@ -207,10 +207,18 @@
 "屋外花園酒店",
 "啤酒花園"
 ],
+"amenity/binoculars":[
+"固定式雙筒望遠鏡"
+],
 "amenity/boat_rental":[
 "小艇出租",
 "租船處",
 "小艇租賃"
+],
+"amenity/boat_storage":[
+"般隻存放處",
+"般隻倉庫",
+"般隻停放處"
 ],
 "amenity/bureau_de_change":[
 "貨幣兌換",
@@ -390,6 +398,9 @@
 "amenity/fast_food/ice_cream":[
 "冰淇淋速食"
 ],
+"amenity/fast_food/juice":[
+"果汁速食"
+],
 "amenity/fast_food/kebab":[
 "炸肉串速食店",
 "炸肉串店"
@@ -488,6 +499,10 @@
 "amenity/loading_dock":[
 "裝卸碼頭"
 ],
+"amenity/lounger":[
+"躺椅區",
+"躺椅"
+],
 "amenity/love_hotel":[
 "愛情旅館",
 "情人旅館",
@@ -505,6 +520,9 @@
 "amenity/money_transfer":[
 "匯款處",
 "匯款站"
+],
+"amenity/mortuary":[
+"太平間"
 ],
 "amenity/motorcycle_parking":[
 "摩托車停車場",
@@ -659,6 +677,9 @@
 "amenity/pub":[
 "酒館",
 "Pub"
+],
+"amenity/pub/irish":[
+"愛爾蘭酒吧"
 ],
 "amenity/pub/lgbtq":[
 "LGBTQ+ Pub"
@@ -914,6 +935,9 @@
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "旱廁"
+],
+"amenity/toilets/portable":[
+"流動廁所"
 ],
 "amenity/townhall":[
 "鄉公所、鎮公所、市公所、區公所、市政廳",
@@ -1701,6 +1725,9 @@
 "demolished/building":[
 "最近拆除的建築物"
 ],
+"disused/amenity":[
+"廢棄設施"
+],
 "disused/railway":[
 "廢棄鐵軌圖徽"
 ],
@@ -1800,6 +1827,9 @@
 ],
 "golf/cartpath":[
 "高爾夫球車道"
+],
+"golf/clubhouse":[
+"高爾夫俱樂部"
 ],
 "golf/driving_range":[
 "高爾夫球練習場",
@@ -2150,6 +2180,10 @@
 "highway/tertiary_link":[
 "三級道路連接路",
 "三級道路連接道"
+],
+"highway/toll_gantry":[
+"開放道路收費",
+"收費門架"
 ],
 "highway/track":[
 "農路、林道",
@@ -2721,6 +2755,9 @@
 "游泳池設施",
 "游池設施"
 ],
+"leisure/sports_hall":[
+"體育館"
+],
 "leisure/stadium":[
 "體育場"
 ],
@@ -2810,6 +2847,9 @@
 ],
 "man_made/cutline":[
 "山林分界線"
+],
+"man_made/dovecote":[
+"鴿舍"
 ],
 "man_made/dyke":[
 "堤防",
@@ -2964,6 +3004,9 @@
 "通訊塔",
 "無線通訊塔"
 ],
+"man_made/tower/cooling":[
+"冷卻塔"
+],
 "man_made/tower/defensive":[
 "衛塔",
 "守衛塔",
@@ -3063,6 +3106,9 @@
 ],
 "natural/heath":[
 "矮灌木叢"
+],
+"natural/hot_spring":[
+"溫泉"
 ],
 "natural/mud":[
 "泥地"
@@ -3617,6 +3663,9 @@
 "public_transport/platform/bus_point":[
 "公車站"
 ],
+"public_transport/platform/bus_tram_point":[
+"電車與公車站"
+],
 "public_transport/platform/ferry":[
 "渡輪月台"
 ],
@@ -3764,9 +3813,7 @@
 "施工中的鐵路"
 ],
 "railway/crossing":[
-"鐵路平交道",
-"鐵路平交道（路徑）",
-"平交道"
+"行人鐵路平交道"
 ],
 "railway/derail":[
 "鐵路脫軌器"
@@ -3783,9 +3830,7 @@
 "火車站 (小站/招呼)"
 ],
 "railway/level_crossing":[
-"鐵路平交道（道路）",
-"鐵路平交道",
-"平交道"
+"鐵路平交道"
 ],
 "railway/light_rail":[
 "輕軌軌道"
@@ -3817,6 +3862,9 @@
 "railway/rail/highspeed":[
 "高鐵軌道"
 ],
+"railway/railway_crossing":[
+"鐵路交叉"
+],
 "railway/signal":[
 "鐵道信號"
 ],
@@ -3842,6 +3890,12 @@
 ],
 "railway/tram":[
 "路面電車軌道"
+],
+"railway/tram_crossing":[
+"行人電車平交道"
+],
+"railway/tram_level_crossing":[
+"電車平交道"
 ],
 "railway/tram_stop":[
 "街車停靠點"
@@ -4525,6 +4579,10 @@
 "批發商",
 "批發店"
 ],
+"shop/wigs":[
+"假髮店",
+"假髮專賣店"
+],
 "shop/window_blind":[
 "窗廉商店",
 "窗廉店"
@@ -4532,6 +4590,9 @@
 "shop/wine":[
 "酒店",
 "販酒店"
+],
+"telecom":[
+"電信圖徽"
 ],
 "telecom/data_center":[
 "資料中心"
@@ -4629,6 +4690,9 @@
 "看版",
 "告示牌"
 ],
+"tourism/information/board/welcome_sign":[
+"歡迎標誌"
+],
 "tourism/information/guidepost":[
 "指示牌",
 "方向指引牌"
@@ -4641,7 +4705,6 @@
 "地圖"
 ],
 "tourism/information/office":[
-"旅遊服務中心",
 "遊客中心"
 ],
 "tourism/information/route_marker":[
@@ -4734,19 +4797,9 @@
 "traffic_sign/city_limit":[
 "城市限制標誌"
 ],
-"traffic_sign/city_limit_vertex":[
-"城市限制標誌"
-],
 "traffic_sign/maxspeed":[
 "速限",
 "速限指標"
-],
-"traffic_sign/maxspeed_vertex":[
-"速限",
-"速限指標"
-],
-"traffic_sign_vertex":[
-"交通號誌"
 ],
 "type/boundary":[
 "界線",

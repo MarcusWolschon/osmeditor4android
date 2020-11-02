@@ -52,7 +52,7 @@
 ],
 "aerialway/cable_car":[
 "kablovojo",
-"Telfero unu-vagoneta (alterna)",
+"Telfero unu/du-vagoneta (alterna)",
 "telfero",
 "vagoneta telfero",
 "nacela telfero",
@@ -373,12 +373,25 @@
 "drinkejo",
 "gastejo"
 ],
+"amenity/binoculars":[
+"Lorno",
+"teleskopo",
+"vidpunkto",
+"binoklo",
+"belvidejo"
+],
 "amenity/boat_rental":[
 "ŝipopruntejo",
 "pruntejo boata",
 "jaĥtopruntejo",
 "Boat-pruntejo",
 "boatopruntejo"
+],
+"amenity/boat_storage":[
+"boatkonservejo",
+"boatgaraĝo",
+"Boat-garaĝo seka",
+"seka boatgaraĝo"
 ],
 "amenity/bureau_de_change":[
 "monsxangxejo",
@@ -693,6 +706,14 @@
 "amenity/fast_food/ice_cream":[
 "Rapidmanĝejo (glaciaĵoj)"
 ],
+"amenity/fast_food/juice":[
+"smuzio",
+"kafejo",
+"fruktosukoj",
+"fruktsukoj",
+"Rapidmanĝejo (sukoj)",
+"sukoj"
+],
 "amenity/fast_food/kebab":[
 "kebap",
 "kebabo",
@@ -892,6 +913,13 @@
 "ŝarĝkajo",
 "kargokajo"
 ],
+"amenity/lounger":[
+"kushsegho",
+"Kuŝseĝo",
+"kuŝoseĝo",
+"sunbruno",
+"kusxsegxo"
+],
 "amenity/love_hotel":[
 "amorhotelo",
 "Amor-hotelo",
@@ -915,6 +943,12 @@
 "monsendo",
 "montransigo",
 "Centro de mon-transigo"
+],
+"amenity/mortuary":[
+"korpoj",
+"motrintejo",
+"Kadavrejo",
+"krematorio"
 ],
 "amenity/motorcycle_parking":[
 "Motorcikla parkumejo",
@@ -1165,6 +1199,10 @@
 "pub",
 "gastejo",
 "alkoholejo"
+],
+"amenity/pub/irish":[
+"taverno",
+"Irlanda taverno"
 ],
 "amenity/pub/lgbtq":[
 "geja",
@@ -1528,6 +1566,12 @@
 "latrino",
 "wc",
 "pisejo"
+],
+"amenity/toilets/portable":[
+"Movebla necesejo",
+"urinejo",
+"latrino",
+"portebla necesejo"
 ],
 "amenity/townhall":[
 "urba registaro",
@@ -2268,8 +2312,8 @@
 "bovejo"
 ],
 "building/detached":[
-"Domo unufamilia",
-"liberstaranta domo"
+"unufamilia domo",
+"Domo liberstaranta"
 ],
 "building/dormitory":[
 "studantejo",
@@ -2463,9 +2507,9 @@
 ],
 "building/static_caravan":[
 "movebla domo",
-"Movdomo",
 "kampveturilo statika",
-"kampadveturilo statika"
+"kampadveturilo statika",
+"Movdomo (nemovata)"
 ],
 "building/sty":[
 "porkstalo",
@@ -2878,6 +2922,9 @@
 "demolished/building":[
 "Antaŭnelonge malkonstruita konstruaĵo"
 ],
+"disused/amenity":[
+"Neuzata servejo"
+],
 "disused/railway":[
 "Neuzata relvoja objekto"
 ],
@@ -2977,7 +3024,8 @@
 "Vivsav-serva aliro: privata"
 ],
 "emergency/siren":[
-"Sireno",
+"sireno",
+"Alarmsireno",
 "alarmo",
 "avertilo"
 ],
@@ -3030,6 +3078,12 @@
 "golfĉaro",
 "golfcharo"
 ],
+"golf/clubhouse":[
+"pro shop",
+"golfejo",
+"Ĉefkonstruaĵo en golfludejo",
+"golfludejo"
+],
 "golf/driving_range":[
 "driving range",
 "ekzercejo",
@@ -3079,6 +3133,7 @@
 "homeopatio",
 "tradicia medicino",
 "rejkio",
+"pseŭdomedicino",
 "Kontraŭscienca medicino",
 "akupunkturo",
 "fuŝmedicino",
@@ -3204,7 +3259,10 @@
 ],
 "highway/corridor":[
 "koridoro",
-"Koridoro endoma"
+"Enkonstruaĵa koridoro (linio)",
+"ena koridoro",
+"interna koridoro",
+"endoma koridoro"
 ],
 "highway/crossing":[
 "Trapasejo"
@@ -3624,6 +3682,13 @@
 "nodo",
 "elveturejo"
 ],
+"highway/toll_gantry":[
+"elektronika vojpagejo",
+"pagejo",
+"impostejo",
+"Televojpagejo",
+"vojpagejo"
+],
 "highway/track":[
 "malpavima",
 "Vojo kampa",
@@ -3816,7 +3881,7 @@
 "koridoro",
 "ena koridoro",
 "interna koridoro",
-"Enkonstruaĵa koridoro",
+"Enkonstruaĵa koridoro (areo)",
 "endoma koridoro"
 ],
 "indoor/corridor_line":[
@@ -4551,6 +4616,11 @@
 "naghejo",
 "banejo"
 ],
+"leisure/sports_hall":[
+"halo sporta",
+"sportejo",
+"Sporthalo"
+],
 "leisure/stadium":[
 "sportejo",
 "dromo",
@@ -4704,6 +4774,11 @@
 "malarbigita strio",
 "kontraŭbrula strio",
 "Senarba strio"
+],
+"man_made/dovecote":[
+"birdoj",
+"Kolombejo",
+"kolomboj"
 ],
 "man_made/dyke":[
 "akvoŝtopilo",
@@ -4997,6 +5072,11 @@
 "komunikada turo",
 "Turo telekomunikada"
 ],
+"man_made/tower/cooling":[
+"Malvarmiga turo",
+"fumtubo",
+"kameno"
+],
 "man_made/tower/defensive":[
 "Turo defenda",
 "defendturo"
@@ -5060,6 +5140,11 @@
 "ventmuelejo",
 "grenmuelejo",
 "Muelejo venta"
+],
+"man_made/windpump":[
+"ventoturbino",
+"ventturbino",
+"Venta pumpilo"
 ],
 "man_made/works":[
 "manufakturo",
@@ -5180,6 +5265,12 @@
 "arbustaro",
 "herbejo",
 "Erikejo"
+],
+"natural/hot_spring":[
+"termofonto",
+"hidroterma akvo",
+"geovarma akvo",
+"Tervarma akvofonto"
 ],
 "natural/mud":[
 "koto;malsekejo;ŝlimejo",
@@ -5448,7 +5539,7 @@
 ],
 "office/consulting":[
 "konsultado",
-"Oficejo de konsilado",
+"Oficejo de konsilado por firmaoj",
 "konsulto",
 "konsiliĝo"
 ],
@@ -6075,6 +6166,14 @@
 "autobushaltejo",
 "auxtobushaltejo"
 ],
+"public_transport/platform/bus_tram_point":[
+"trama haltejo",
+"tramaŭtobusa haltejo",
+"autobusa haltejo",
+"busa haltejo",
+"auxtobusa haltejo",
+"Haltejo trama kaj aŭtobusa"
+],
 "public_transport/platform/ferry":[
 "Haltejo prama (atendejo)",
 "pramstacio",
@@ -6290,9 +6389,10 @@
 ],
 "railway/crossing":[
 "pasejo",
+"traknivela pasejo",
 "trajnpasejo",
 "nivelpasejo",
-"Traknivela pasejo (por piedirantoj)",
+"Kruciĝo relvojo-piedvojeto",
 "trenpasejo",
 "trairejo"
 ],
@@ -6323,8 +6423,9 @@
 "Stacio fervoja (laŭpete)"
 ],
 "railway/level_crossing":[
+"Kruciĝo relvojo-veturejo",
 "pasejo",
-"Traknivela pasejo (por aŭtoj)",
+"traknivela pasejo",
 "trajnpasejo",
 "nivelpasejo",
 "trenpasejo"
@@ -6398,6 +6499,15 @@
 "eksprestrajno",
 "altrapida trajno"
 ],
+"railway/railway_crossing":[
+"trakokruciĝo",
+"nivelpasejo",
+"relŝanĝilo",
+"trakforko",
+"Kruciĝo relvojo-relvojo",
+"trakkruciĝo",
+"relvojkruciĝo"
+],
 "railway/signal":[
 "haltmontrilo",
 "Fervojaj trafiklumoj",
@@ -6439,6 +6549,22 @@
 "Relvojo de tramo",
 "tramvojo",
 "urbofervojo"
+],
+"railway/tram_crossing":[
+"vojkruciĝo",
+"pasejo",
+"traknivela pasejo",
+"nivelpasejo",
+"Kruciĝo tramrelvojo-piedvojeto",
+"trairejo"
+],
+"railway/tram_level_crossing":[
+"traveturejo",
+"vojkruciĝo",
+"pasejo",
+"traknivela pasejo",
+"nivelpasejo",
+"Kruciĝo tramrelvojo-veturejo"
 ],
 "railway/tram_stop":[
 "Haltejo trama (haltloko - trako)"
@@ -7094,6 +7220,7 @@
 "Frizejo",
 "frizisto",
 "tondisto",
+"razisto",
 "hartondisto",
 "haristo",
 "barbisto",
@@ -7238,7 +7365,9 @@
 "prilimigado"
 ],
 "shop/locksmith":[
-"Serurejo",
+"ŝlosilkopiado",
+"serurejo",
+"Laborejo de seruristo",
 "seruristo"
 ],
 "shop/lottery":[
@@ -7274,6 +7403,17 @@
 "telefonoj",
 "posxtelefonoj",
 "poŝtelefonoj"
+],
+"shop/model":[
+"modeloj",
+"Vendejo de modelfarado",
+"aviadiloj",
+"telestirataj aŭtetoj",
+"modelfarado",
+"aerplanoj",
+"kartonmodeloj",
+"hobia vendejo",
+"aeroplanoj"
 ],
 "shop/money_lender":[
 "Mon-pruntejo",
@@ -7317,6 +7457,7 @@
 ],
 "shop/nutrition_supplements":[
 "Diet-suplementa vendejo",
+"suplementoj",
 "nutraĵoj",
 "dietsuplementoj"
 ],
@@ -7388,9 +7529,10 @@
 ],
 "shop/pet_grooming":[
 "hundoj",
+"dombestoj",
+"Hejmbesta beligejo",
 "hartondisto",
 "hejmbestoj",
-"Dombesta beligejo",
 "katoj",
 "frizejo"
 ],
@@ -7639,6 +7781,7 @@
 "senpolvigiloj"
 ],
 "shop/variety_store":[
+"ĉio po unu",
 "eŭrovendejo",
 "ĉiopounuspesmilo",
 "euroshop",
@@ -7690,6 +7833,12 @@
 "magazeno",
 "staplo"
 ],
+"shop/wigs":[
+"hararo",
+"haroj artefaritaj",
+"Vendejo de perukoj",
+"perukoj"
+],
 "shop/window_blind":[
 "rulkurtenoj",
 "fenestrokovriloj",
@@ -7704,6 +7853,9 @@
 "vinovendejo",
 "vindejo",
 "Vina vendejo"
+],
+"telecom":[
+"Telekomunikada objekto"
 ],
 "telecom/data_center":[
 "Datum-centro",
@@ -7873,6 +8025,12 @@
 "anonctabulo",
 "afishejo"
 ],
+"tourism/information/board/welcome_sign":[
+"anonctabulego",
+"Inform-tabulo “bonvenon”",
+"informtabulo",
+"bonvenon al"
+],
 "tourism/information/guidepost":[
 "Vojmontrilo",
 "vojmontrilo"
@@ -7882,6 +8040,7 @@
 "Mapo"
 ],
 "tourism/information/office":[
+"informejo",
 "Turism-informa oficejo",
 "turisminformejo"
 ],
@@ -7968,8 +8127,8 @@
 "sovaĝbesta parko"
 ],
 "traffic_calming":[
-"Trafik-trankviligejo",
-"trafiktrankviligejo",
+"trafiktrankviligilo",
+"Trafik-trankviligilo",
 "malrapidigilo"
 ],
 "traffic_calming/bump":[
@@ -8038,28 +8197,11 @@
 "limo",
 "Trafiksigno pri urba/vilaĝa rapidlimo"
 ],
-"traffic_sign/city_limit_vertex":[
-"trafiksigno",
-"vilaĝo",
-"rapidlimo",
-"Trafiksigno pri urba/vilaĝa rapidlimo"
-],
 "traffic_sign/maxspeed":[
 "maksimuma rapido",
 "trafiksigno",
 "rapidlimo",
 "Trafiksigno pri rapidlimo"
-],
-"traffic_sign/maxspeed_vertex":[
-"maksimuma rapido",
-"trafiksigno",
-"rapidlimo",
-"Trafiksigno pri rapidlimo"
-],
-"traffic_sign_vertex":[
-"Trafiksigno",
-"signo",
-"trafiksignalo"
 ],
 "type/boundary":[
 "limito",

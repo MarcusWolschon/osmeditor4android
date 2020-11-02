@@ -720,9 +720,6 @@
 "type/route/ferry":[
 "Veerbootroete"
 ],
-"type/route/foot":[
-"Voetslaanroete"
-],
 "type/route/pipeline":[
 "Pyplynroete"
 ],

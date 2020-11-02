@@ -1662,17 +1662,11 @@
 "railway/buffer_stop":[
 "Topera"
 ],
-"railway/crossing":[
-"Pasu a nivel (camín)"
-],
 "railway/derail":[
 "Descarrilador de ferrocarril"
 ],
 "railway/disused":[
 "Ferrocarril ensin usu"
-],
-"railway/level_crossing":[
-"Pasu a nivel (estrada)"
 ],
 "railway/signal":[
 "Señal de ferrocarril"
@@ -2081,9 +2075,6 @@
 "tourism/information/map":[
 "Mapa"
 ],
-"tourism/information/office":[
-"Oficina d'información turística"
-],
 "tourism/motel":[
 "Motel"
 ],
@@ -2170,13 +2161,6 @@
 ],
 "type/route/ferry":[
 "Ruta de ferry"
-],
-"type/route/foot":[
-"PR",
-"ruta",
-"sienda",
-"GR",
-"Ruta a pie"
 ],
 "type/route/hiking":[
 "Escursionismu",

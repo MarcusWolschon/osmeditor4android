@@ -15,6 +15,9 @@
 "bilboardy",
 "pútač"
 ],
+"aerialway":[
+"Objekt lanovky"
+],
 "aerialway/cable_car":[
 "kyvadlova lanovka",
 "kabínka",
@@ -61,6 +64,9 @@
 "Lanový vlek",
 "lanovy vlek"
 ],
+"aerialway/t-bar":[
+"Vlek s dvojmiestnou kotvou"
+],
 "aeroway/aerodrome":[
 "príletová hala",
 "pristávacia plocha",
@@ -91,6 +97,9 @@
 "vrtuľník",
 "helipad"
 ],
+"aeroway/jet_bridge":[
+"Nástupný tunel"
+],
 "aeroway/runway":[
 "pristavacia draha",
 "pristávací pruh",
@@ -113,6 +122,9 @@
 "letiskovy terminal",
 "terminal",
 "terminál"
+],
+"aeroway/windsock":[
+"Veterný rukáv"
 ],
 "amenity":[
 "Občianska vybavenosť"
@@ -524,6 +536,9 @@
 "amenity/language_school":[
 "Jazyková škola"
 ],
+"amenity/letter_box":[
+"Poštová schránka"
+],
 "amenity/library":[
 "Kniznica",
 "bibliotéka",
@@ -531,6 +546,12 @@
 "skriptáren",
 "biblioteka",
 "Knižnica"
+],
+"amenity/lounger":[
+"Ležadlo"
+],
+"amenity/love_hotel":[
+"Hodinový hotel"
 ],
 "amenity/marketplace":[
 "trznica",
@@ -541,6 +562,9 @@
 "burza",
 "bazár",
 "bazar"
+],
+"amenity/mortuary":[
+"Márnica"
 ],
 "amenity/motorcycle_parking":[
 "babeta",
@@ -561,6 +585,15 @@
 ],
 "amenity/nursing_home":[
 "Ošetrovateľské centum"
+],
+"amenity/parking":[
+"Parkovisko"
+],
+"amenity/parking/underground":[
+"Podzemné parkovisko"
+],
+"amenity/parking_entrance":[
+"Vchod / východ do garáže"
 ],
 "amenity/parking_space":[
 "parkovisko",
@@ -620,6 +653,9 @@
 "amenity/place_of_worship/jewish":[
 "Židovská synagóga"
 ],
+"amenity/place_of_worship/muslim":[
+"Mešita"
+],
 "amenity/place_of_worship/shinto":[
 "Šintoistická svätyňa ",
 "sintoisticka svatyna"
@@ -651,6 +687,9 @@
 "mestska policia",
 "polisi"
 ],
+"amenity/post_box":[
+"Poštová schránka"
+],
 "amenity/post_office":[
 "slovenská pošta",
 "Pošta",
@@ -677,6 +716,12 @@
 "senk",
 "piváreň"
 ],
+"amenity/pub/irish":[
+"Írska krčma"
+],
+"amenity/pub/microbrewery":[
+"Pivovarská krčma"
+],
 "amenity/public_bath":[
 "Verejné sprchy",
 "verejne sprchy"
@@ -699,6 +744,9 @@
 ],
 "amenity/recycling/container/electrical_items":[
 "Koš na elektroodpad"
+],
+"amenity/recycling/container/green_waste":[
+"Kontajner na zelený odpad"
 ],
 "amenity/recycling_centre":[
 "Recyklačné centrum",
@@ -884,6 +932,9 @@
 "amenity/toilets/disposal/pitlatrine":[
 "Latrína"
 ],
+"amenity/toilets/portable":[
+"Prenosné WC"
+],
 "amenity/townhall":[
 "primátor",
 "primater",
@@ -909,9 +960,18 @@
 "Výdajný automat",
 "vydajny automat"
 ],
+"amenity/vending_machine/bottle_return":[
+"Automat na vrátenie fliaš"
+],
+"amenity/vending_machine/bread":[
+"Automat na výdaj chleba"
+],
 "amenity/vending_machine/cigarettes":[
 "cigarety",
 "Automat na cigarety"
+],
+"amenity/vending_machine/coffee":[
+"Automat na kávu"
 ],
 "amenity/vending_machine/condoms":[
 "automat na kondomy",
@@ -937,10 +997,22 @@
 "vlozky",
 "prezervativ"
 ],
+"amenity/vending_machine/fuel":[
+"Čerpacia stanica"
+],
+"amenity/vending_machine/ice_cream":[
+"Automat na nanuky"
+],
+"amenity/vending_machine/ice_cubes":[
+"Automat na ľad"
+],
 "amenity/vending_machine/newspapers":[
 "noviny",
 "casopisy",
 "Automat na noviny"
+],
+"amenity/vending_machine/parcel_pickup":[
+"Skrinka na vyzdvihnutie balíkov"
 ],
 "amenity/vending_machine/parking_tickets":[
 "automat na parkovacie listky",
@@ -983,10 +1055,28 @@
 "Pitná voda pre karavany",
 "pitna voda pre karavany"
 ],
+"amenity/weighbridge":[
+"Váha pre nákladné vozidlá"
+],
 "area":[
 "Plocha",
 "uzemie",
 "územie"
+],
+"attraction/big_wheel":[
+"Ruské kolo"
+],
+"attraction/bumper_car":[
+"Autodrom"
+],
+"attraction/carousel":[
+"Kolotoč"
+],
+"attraction/roller_coaster":[
+"Húsenková dráha"
+],
+"attraction/train":[
+"Turistický vláčik"
 ],
 "barrier":[
 "blokada",
@@ -1017,6 +1107,12 @@
 "stlptyč",
 "Stĺpik",
 "tyc"
+],
+"barrier/bollard_line":[
+"Rad stĺpikov"
+],
+"barrier/border_control":[
+"Hraničná kontrola"
 ],
 "barrier/cattle_grid":[
 "mreza",
@@ -1078,6 +1174,12 @@
 "okrasný plot",
 "kríky"
 ],
+"barrier/kerb":[
+"Obrubník"
+],
+"barrier/kerb/raised":[
+"Zvýšený obrubník"
+],
 "barrier/kissing_gate":[
 "kravy",
 "Zábrana pre dobytok",
@@ -1123,10 +1225,16 @@
 "poplatok",
 "vstupne"
 ],
+"barrier/turnstile":[
+"Turniket"
+],
 "barrier/wall":[
 "Múr",
 "mur",
 "stena"
+],
+"barrier/wall/noise_barrier":[
+"Protihluková bariéra"
 ],
 "boundary":[
 "Hranica"
@@ -1772,14 +1880,41 @@
 "healthcare/alternative/chiropractic":[
 "Chiropraktik"
 ],
+"healthcare/audiologist":[
+"Ušný lekár"
+],
+"healthcare/birthing_center":[
+"Pôrodnica"
+],
 "healthcare/blood_donation":[
 "Centrum darovania krvi"
+],
+"healthcare/counselling":[
+"Poradňa"
+],
+"healthcare/dentist/orthodontics":[
+"Stomatológ"
 ],
 "healthcare/hospice":[
 "Hospic"
 ],
+"healthcare/laboratory":[
+"Medicínske laboratórium"
+],
+"healthcare/midwife":[
+"Pôrodná asistentka"
+],
+"healthcare/occupational_therapist":[
+"Ergoterapeut"
+],
+"healthcare/optometrist":[
+"Očný lekár"
+],
 "healthcare/physiotherapist":[
 "Fyzioterapeut"
+],
+"healthcare/podiatrist":[
+"Detský lekár"
 ],
 "healthcare/psychotherapist":[
 "Psychoterapeut"
@@ -1789,6 +1924,9 @@
 ],
 "healthcare/speech_therapist":[
 "Logopéd"
+],
+"highway":[
+"Cestný objekt"
 ],
 "highway/bridleway":[
 "jazdecka trat",
@@ -1803,6 +1941,9 @@
 "highway/bus_stop":[
 "Autobusová zastávka"
 ],
+"highway/construction":[
+"Uzavretá cesta"
+],
 "highway/corridor":[
 "chodba",
 "Chodba v budove",
@@ -1814,11 +1955,20 @@
 "highway/crossing/marked":[
 "Značený prechod"
 ],
+"highway/crossing/marked-raised":[
+"Vyznačený priechod pre chodcov (vyvýšený)"
+],
 "highway/crossing/unmarked":[
 "Neznačený prechod"
 ],
+"highway/crossing/unmarked-raised":[
+"Nevyznačený priechod pre chodcov (vyvýšený)"
+],
 "highway/crossing/zebra":[
 "Značený prechod"
+],
+"highway/crossing/zebra-raised":[
+"Vyznačený priechod pre chodcov (vyvýšený)"
 ],
 "highway/cycleway":[
 "cestička",
@@ -1827,6 +1977,9 @@
 "cesticka",
 "Cyklocesta",
 "cyklocesta"
+],
+"highway/cycleway/bicycle_foot":[
+"Cyklistický a peší chodník"
 ],
 "highway/cycleway/crossing":[
 "Prechod pre cyklistov"
@@ -1843,6 +1996,9 @@
 "highway/elevator":[
 "Výťah"
 ],
+"highway/emergency_bay":[
+"Núdzová odstavná plocha"
+],
 "highway/footway":[
 "cestička",
 "horská cesta",
@@ -1858,8 +2014,14 @@
 "chodníček",
 "chodník"
 ],
+"highway/footway/access_aisle":[
+"Prístupová ulička"
+],
 "highway/footway/crossing":[
 "Prechod pre chodcov"
+],
+"highway/footway/marked-raised":[
+"Vyznačený priechod pre chodcov (vyvýšený)"
 ],
 "highway/footway/sidewalk":[
 "Chodník"
@@ -1867,8 +2029,14 @@
 "highway/footway/unmarked":[
 "Neznačený prechod"
 ],
+"highway/footway/unmarked-raised":[
+"Nevyznačený priechod pre chodcov (vyvýšený)"
+],
 "highway/footway/zebra":[
 "Značený prechod"
+],
+"highway/footway/zebra-raised":[
+"Vyznačený priechod pre chodcov (vyvýšený)"
 ],
 "highway/give_way":[
 "Značka daj prednosť",
@@ -1880,6 +2048,9 @@
 "obytná ulica",
 "Obytná zóna",
 "obytna ulica"
+],
+"highway/milestone":[
+"Kilometrovník"
 ],
 "highway/mini_roundabout":[
 "mini",
@@ -1927,6 +2098,9 @@
 "highway/path/informal":[
 "Neformálna cestička"
 ],
+"highway/pedestrian_area":[
+"Pešia zóna"
+],
 "highway/pedestrian_line":[
 "Pešia zóna"
 ],
@@ -1948,6 +2122,9 @@
 "nájazd",
 "pripojovací pruh",
 "Privádzač na cestu 1. triedy"
+],
+"highway/raceway/karting":[
+"Motokárová dráha"
 ],
 "highway/raceway/motocross":[
 "Motokorosová pretekárska dráha"
@@ -2185,6 +2362,9 @@
 "historic/castle/palace":[
 "Palác"
 ],
+"historic/castle/stately":[
+"Zámok"
+],
 "historic/city_gate":[
 "Mestská brána"
 ],
@@ -2205,6 +2385,9 @@
 "Pamätník",
 "hrdina"
 ],
+"historic/memorial/plaque":[
+"Pamätná tabuľa"
+],
 "historic/monument":[
 "pomník",
 "pamätník",
@@ -2214,6 +2397,9 @@
 "pomnik",
 "pamatihodnost",
 "hrdina"
+],
+"historic/pillory":[
+"Historický pranier"
 ],
 "historic/ruins":[
 "zrúcaniny",
@@ -2243,6 +2429,9 @@
 "Prícestný svätostánok",
 "svatostanok"
 ],
+"historic/wreck":[
+"Vrak lode"
+],
 "indoor":[
 "Objekt v budove"
 ],
@@ -2264,12 +2453,24 @@
 "indoor/room":[
 "Miestnosť"
 ],
+"indoor/stairs":[
+"Vnútorné schodisko"
+],
 "indoor/wall":[
 "Vnútorna stena"
+],
+"internet_access/wlan":[
+"Wi-Fi Hotspot"
 ],
 "junction":[
 "Križovatka",
 "krizovatka"
+],
+"landuse":[
+"Objekt využitia územia"
+],
+"landuse/allotments":[
+"Záhradkárska osada"
 ],
 "landuse/basin":[
 "Zadržiavacia nádrž"
@@ -2417,6 +2618,9 @@
 "dedina",
 "rezidenčná oblast"
 ],
+"landuse/residential/apartments":[
+"Bytový komplex"
+],
 "landuse/retail":[
 "obchod",
 "predajňa",
@@ -2438,13 +2642,25 @@
 "landuse/winter_sports":[
 "Areál pre zimné športy"
 ],
+"leisure":[
+"Voľnočasové aktivity"
+],
 "leisure/adult_gaming_centre":[
 "hracie automaty",
 "Výherné automaty",
 "vyherne automaty"
 ],
+"leisure/bandstand":[
+"Hudobný pavilón"
+],
+"leisure/beach_resort":[
+"Plážový rezort"
+],
 "leisure/bird_hide":[
 "Pozorovateľňa vtáctva"
+],
+"leisure/bleachers":[
+"Tribúny"
 ],
 "leisure/bowling_alley":[
 "Bowlingová hala",
@@ -2464,6 +2680,9 @@
 "leisure/dancing_school":[
 "Tanečná škola"
 ],
+"leisure/disc_golf_course":[
+"Ihrisko na frisbee golf"
+],
 "leisure/dog_park":[
 "psi park",
 "park pre psy",
@@ -2471,6 +2690,9 @@
 ],
 "leisure/firepit":[
 "Ohnisko"
+],
+"leisure/fishing":[
+"Rybárske miesto"
 ],
 "leisure/fitness_centre/yoga":[
 "Štúdio jogy"
@@ -2522,6 +2744,9 @@
 "narodny park",
 "park"
 ],
+"leisure/outdoor_seating":[
+"Vonkajšie sedenie"
+],
 "leisure/park":[
 "zahrada",
 "hora",
@@ -2566,6 +2791,9 @@
 "leisure/pitch/badminton":[
 "Bedmintonový kurt"
 ],
+"leisure/pitch/baseball":[
+"Baseballové ihrisko"
+],
 "leisure/pitch/basketball":[
 "basketbalove ihrisko",
 "basket",
@@ -2575,6 +2803,12 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Kurt plážoveho volejbalu"
+],
+"leisure/pitch/cricket":[
+"Kriketové ihrisko"
+],
+"leisure/pitch/equestrian":[
+"Jazdecká aréna"
 ],
 "leisure/pitch/rugby_league":[
 "Ihrisko ragby league",
@@ -2641,6 +2875,12 @@
 "leisure/slipway_point":[
 "Lodný sklz"
 ],
+"leisure/sports_centre":[
+"Športové centrum / Komplex"
+],
+"leisure/sports_centre/climbing":[
+"Lezecká stena"
+],
 "leisure/sports_centre/swimming":[
 "plaváreň",
 "Zariadenie s plavárňou",
@@ -2653,6 +2893,9 @@
 "futbalovy stadion",
 "futbal",
 "ihrisko"
+],
+"leisure/swimming_area":[
+"Prírodný plavecký areál"
 ],
 "leisure/swimming_pool":[
 "kupalisko",
@@ -2838,6 +3081,9 @@
 "man_made/pipeline/underground":[
 "Podzemné potrubie"
 ],
+"man_made/pipeline/valve":[
+"Ventil potrubia"
+],
 "man_made/pumping_station":[
 "Čerpacia stanica"
 ],
@@ -2895,6 +3141,9 @@
 ],
 "man_made/tower/communication":[
 "Komunikačná veža"
+],
+"man_made/tower/cooling":[
+"Chladiaca veža"
 ],
 "man_made/tower/defensive":[
 "Opevnená veža"
@@ -2980,6 +3229,9 @@
 "kúpalisko",
 "Pláž"
 ],
+"natural/cape":[
+"Mys"
+],
 "natural/cave_entrance":[
 "jaskyňa",
 "jaskyna",
@@ -3022,6 +3274,9 @@
 "vresovec",
 "vres",
 "Vresovisko"
+],
+"natural/hot_spring":[
+"Termálna kúpeľ"
 ],
 "natural/mud":[
 "Blato"
@@ -3181,11 +3436,17 @@
 "office/charity":[
 "Charita"
 ],
+"office/diplomatic":[
+"Diplomatický úrad"
+],
 "office/diplomatic/consulate":[
 "Konzulát"
 ],
 "office/diplomatic/embassy":[
 "Veľvyslanectvo"
+],
+"office/diplomatic/liaison":[
+"Úrad pre spoluprácu"
 ],
 "office/educational_institution":[
 "univerzita",
@@ -3422,6 +3683,9 @@
 "vedlajsie elektricke vedenie",
 "Vedľajšie elektrické vedenie"
 ],
+"power/plant":[
+"Areál elektrárne"
+],
 "power/plant/source/coal":[
 "Uhoľná elektráreň"
 ],
@@ -3433,6 +3697,9 @@
 ],
 "power/plant/source/nuclear":[
 "Jadrová elektráreň"
+],
+"power/plant/source/solar":[
+"Solárna elektráreň"
 ],
 "power/plant/source/wind":[
 "Veterná elektráreň"
@@ -3474,6 +3741,9 @@
 "public_transport/platform/bus_point":[
 "Autobusová zastávka"
 ],
+"public_transport/platform/bus_tram_point":[
+"Elektičková a autobusová zastávka"
+],
 "public_transport/platform/ferry":[
 "Nástupište na kompu"
 ],
@@ -3498,19 +3768,58 @@
 "public_transport/station_aerialway":[
 "Stanica lanovky"
 ],
+"public_transport/station_bus":[
+"Autobusová zastávka / Terminál"
+],
+"public_transport/station_ferry":[
+"Trajektový terminál"
+],
+"public_transport/station_train":[
+"Vlaková stanica"
+],
+"public_transport/station_train_halt":[
+"Vlaková stanica (perón / na znamenie)"
+],
+"public_transport/station_tram":[
+"Električková stanica"
+],
+"railway":[
+"Železničný objekt"
+],
 "railway/abandoned":[
 "opustená trať",
 "Nepoužívaná trať",
 "nepouzivana trat",
 "opustena trat"
 ],
+"railway/construction":[
+"Železničná trať vo výstavbe"
+],
 "railway/disused":[
 "mimo prevadzky",
 "zeleznica mimo prevadzky",
 "Železnica mimo prevádzky"
 ],
+"railway/level_crossing":[
+"Železničné priecestie"
+],
+"railway/monorail":[
+"Jednokoľajnicová dráha"
+],
+"railway/platform":[
+"Nástupište na vlak"
+],
+"railway/rail":[
+"Vlaková trať"
+],
+"railway/railway_crossing":[
+"Železničné priecestie"
+],
 "railway/station":[
 "Vlaková stanica"
+],
+"railway/subway":[
+"Trať metra"
 ],
 "railway/subway_entrance":[
 "Vstup do metra",
@@ -3518,6 +3827,9 @@
 "metro",
 "stanica metra",
 "podchod"
+],
+"railway/tram":[
+"Električková trať"
 ],
 "relation":[
 "Relácia",
@@ -3600,6 +3912,12 @@
 "nahrdelniky",
 "sperky"
 ],
+"shop/beauty/nails":[
+"Nechtové štúdio"
+],
+"shop/beauty/tanning":[
+"Solárium"
+],
 "shop/bed":[
 "postele",
 "matrace",
@@ -3626,6 +3944,9 @@
 "bicykle",
 "horske bicykle",
 "Cykloobchod"
+],
+"shop/boat":[
+"Obchod predávajúci lode"
 ],
 "shop/bookmaker":[
 "kurz",
@@ -3726,6 +4047,9 @@
 "oblečenie",
 "obchod s oblečením"
 ],
+"shop/clothes/underwear":[
+"Obchod so spodnou bielizňou"
+],
 "shop/coffee":[
 "Kaviareň"
 ],
@@ -3809,6 +4133,9 @@
 "suche cistenie",
 "suché čistenie"
 ],
+"shop/e-cigarette":[
+"Obchod s elektronickými cigaretami"
+],
 "shop/electronics":[
 "elektro",
 "Elektro obchod",
@@ -3863,6 +4190,9 @@
 "nabytok",
 "Obchod s nábytkom",
 "obchod s nabytkom"
+],
+"shop/games":[
+"Obchod so stolovými hrami"
 ],
 "shop/garden_centre":[
 "záhradkarske centrum",
@@ -4315,6 +4645,9 @@
 "shop/wholesale":[
 "Veľkoobchod"
 ],
+"shop/wigs":[
+"Obchod s parochňami"
+],
 "shop/window_blind":[
 "zaluzie",
 "žalúzie",
@@ -4427,6 +4760,9 @@
 "tourism/information/board":[
 "Informačná tabuľa"
 ],
+"tourism/information/board/welcome_sign":[
+"Tabuľa Vitajte"
+],
 "tourism/information/guidepost":[
 "Smerovník"
 ],
@@ -4434,7 +4770,7 @@
 "Mapa"
 ],
 "tourism/information/office":[
-"Turistické informačné centrum"
+"Návštevnícke centrum"
 ],
 "tourism/information/route_marker":[
 "Turistická značka"
@@ -4493,6 +4829,9 @@
 "zoologicka zahrada",
 "Zoo"
 ],
+"traffic_calming":[
+"Upokojovač dopravy"
+],
 "traffic_calming/bump":[
 "retardér",
 "Spomalovcí prah",
@@ -4502,6 +4841,9 @@
 "traffic_calming/hump":[
 "Spomalovací hrb",
 "spomalovaci hrb"
+],
+"traffic_calming/island":[
+"Dopravný ostrovček"
 ],
 "traffic_calming/rumble_strip":[
 "nizky spomalovaci prah",
@@ -4513,17 +4855,8 @@
 "traffic_sign/city_limit":[
 "Značka začiatku/konca obce"
 ],
-"traffic_sign/city_limit_vertex":[
-"Značka začiatku/konca obce"
-],
 "traffic_sign/maxspeed":[
 "Značka obmedzenia rýchlosti"
-],
-"traffic_sign/maxspeed_vertex":[
-"Značka obmedzenia rýchlosti"
-],
-"traffic_sign_vertex":[
-"Dopravná značka"
 ],
 "type/boundary":[
 "kraj",
@@ -4614,12 +4947,6 @@
 "trajekt",
 "linka",
 "trasa kompy"
-],
-"type/route/foot":[
-"pesia trasa",
-"turisticka trasa",
-"pešia trasa",
-"Turistická trasa"
 ],
 "type/route/hiking":[
 "trek",

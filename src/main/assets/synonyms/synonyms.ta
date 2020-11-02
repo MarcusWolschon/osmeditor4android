@@ -163,6 +163,57 @@
 "amenity/restaurant":[
 "உணவகம்"
 ],
+"amenity/restaurant/american":[
+"அமெரிக்க உணவுவிடுதி"
+],
+"amenity/restaurant/asian":[
+"ஆசிய உணவுவிடுதி"
+],
+"amenity/restaurant/chinese":[
+"சீன உணவுவிடுதி"
+],
+"amenity/restaurant/french":[
+"பிரஞ்சு உணவுவிடுதி"
+],
+"amenity/restaurant/german":[
+"செர்மன் உணவுவிடுதி"
+],
+"amenity/restaurant/greek":[
+"கிரேக்க உணவுவிடுதி"
+],
+"amenity/restaurant/indian":[
+"இந்திய உணவு விடுதி"
+],
+"amenity/restaurant/italian":[
+"இத்தாலிய உணவுவிடுதி"
+],
+"amenity/restaurant/japanese":[
+"சப்பானியர் உணவுவிடுதி"
+],
+"amenity/restaurant/mexican":[
+"மெக்சிகர் உணவுவிடுதி"
+],
+"amenity/restaurant/noodle":[
+"நூடுல் உணவுவிடுதி"
+],
+"amenity/restaurant/pizza":[
+"பிட்சா உணவுவிடுதி"
+],
+"amenity/restaurant/seafood":[
+"கடலுணவு உணவுவிடுதி"
+],
+"amenity/restaurant/sushi":[
+"சுசி உணவுவிடுதி"
+],
+"amenity/restaurant/thai":[
+"தாய் உணவுவிடுதி"
+],
+"amenity/restaurant/turkish":[
+"துருக்கியர் உணவுவிடுதி"
+],
+"amenity/restaurant/vietnamese":[
+"வியட்நாமியர் உணவுவிடுதி"
+],
 "amenity/school":[
 "பள்ளி மைதானம்"
 ],
@@ -581,6 +632,15 @@
 "point":[
 "புள்ளி"
 ],
+"power/generator/source/hydro":[
+"நீர்மின் நிலையம்"
+],
+"power/generator/source/nuclear":[
+"அணுமின் நிலையம்"
+],
+"power/generator/source/wind":[
+"காற்றாழை"
+],
 "power/line":[
 "மின் கம்பி"
 ],
@@ -728,14 +788,17 @@
 "tourism/information/map":[
 "வரைபடம்"
 ],
-"tourism/information/office":[
-"சுற்றுலாத் தகவல் அலுவலகம்"
-],
 "tourism/museum":[
 "அருங்காட்சியகம்"
 ],
 "tourism/zoo":[
 "உயிரியல் பூங்கா"
+],
+"tourism/zoo/wildlife":[
+"காடுவாழ் பூங்கா"
+],
+"traffic_calming/bump":[
+"வேகத்தடை"
 ],
 "traffic_calming/hump":[
 "வேகத்தடை"
@@ -766,9 +829,6 @@
 ],
 "type/route/bus":[
 "பேருந்து தடம்"
-],
-"type/route/foot":[
-"நடைப் பாதை"
 ],
 "type/route/light_rail":[
 "இலகு இரயில் பாதை"

@@ -435,9 +435,6 @@
 "railway/disused":[
 "Jalan Kereta Api yang Tidak Diguna"
 ],
-"railway/level_crossing":[
-"Lintasan Kereta Api (Jalan)"
-],
 "railway/signal":[
 "Isyarat Kereta Api"
 ],

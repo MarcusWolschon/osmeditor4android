@@ -321,6 +321,9 @@
 "amenity/fast_food/ice_cream":[
 "아이스크림 패스트푸드"
 ],
+"amenity/fast_food/juice":[
+"주스 패스트푸드"
+],
 "amenity/fast_food/kebab":[
 "케밥 패스트푸드"
 ],
@@ -722,6 +725,9 @@
 ],
 "amenity/toilets/disposal/flush":[
 "수세식 화장실"
+],
+"amenity/toilets/disposal/pitlatrine":[
+"재래식 화장실"
 ],
 "amenity/townhall":[
 "동사무소",
@@ -1246,6 +1252,15 @@
 "유리 시공",
 "유리장이"
 ],
+"craft/handicraft":[
+"수공예 작업장"
+],
+"craft/hvac":[
+"환기",
+"난방",
+"에어컨",
+"HVAC 작업장"
+],
 "craft/insulator":[
 "절연체"
 ],
@@ -1341,6 +1356,9 @@
 ],
 "disused/railway":[
 "폐선된 철도 지물"
+],
+"disused/shop":[
+"폐점한 가게"
 ],
 "embankment":[
 "둑"
@@ -2091,7 +2109,8 @@
 "정원"
 ],
 "leisure/golf_course":[
-"골프장"
+"골프장",
+"골프 코스"
 ],
 "leisure/hackerspace":[
 "해커스페이스",
@@ -2141,9 +2160,12 @@
 "오스트레일리아식 축구장"
 ],
 "leisure/pitch/badminton":[
-"배드민턴 코트"
+"배드민턴 코트",
+"배드민턴장"
 ],
 "leisure/pitch/baseball":[
+"스타디움",
+"경기장",
 "야구장"
 ],
 "leisure/pitch/basketball":[
@@ -2173,7 +2195,10 @@
 "승마 경기장"
 ],
 "leisure/pitch/field_hockey":[
-"필드하키장"
+"필드 하키장"
+],
+"leisure/pitch/horseshoes":[
+"말굽 구덩이"
 ],
 "leisure/pitch/netball":[
 "네트볼 코트"
@@ -2192,7 +2217,9 @@
 "스케이트 공원"
 ],
 "leisure/pitch/soccer":[
-"축구장"
+"축구장",
+"스타디움",
+"경기장"
 ],
 "leisure/pitch/softball":[
 "소프트볼 경기장"
@@ -2222,6 +2249,9 @@
 "선양장",
 "선가대",
 "슬립웨이"
+],
+"leisure/slipway_point":[
+"선가대"
 ],
 "leisure/sports_centre":[
 "스포츠 센터/복합 시설",
@@ -2294,6 +2324,9 @@
 "man_made/clearcut":[
 "개벌지"
 ],
+"man_made/courtyard":[
+"안뜰"
+],
 "man_made/crane":[
 "기중기",
 "크레인"
@@ -2303,6 +2336,9 @@
 ],
 "man_made/cutline":[
 "숲 경계선"
+],
+"man_made/dovecote":[
+"비둘기장"
 ],
 "man_made/dyke":[
 "제방"
@@ -2501,6 +2537,8 @@
 "간헐천"
 ],
 "natural/glacier":[
+"얼음",
+"눈",
 "빙하"
 ],
 "natural/grassland":[
@@ -2566,6 +2604,7 @@
 "나무 열"
 ],
 "natural/valley":[
+"협곡",
 "골짜기"
 ],
 "natural/volcano":[
@@ -2617,6 +2656,7 @@
 "사무소"
 ],
 "office/accountant":[
+"회계사 사무실",
 "회계사 사무소"
 ],
 "office/administrative":[
@@ -2632,6 +2672,7 @@
 "마케팅"
 ],
 "office/architect":[
+"건축가 사무실",
 "건축가 사무소"
 ],
 "office/association":[
@@ -2640,12 +2681,15 @@
 "비영리기관"
 ],
 "office/charity":[
+"자선 단체 사무실",
 "자선 단체 사무소"
 ],
 "office/company":[
-"기업 사무소"
+"기업 사무소",
+"기업 사무실"
 ],
 "office/consulting":[
+"컨설팅 사무실",
 "컨설팅 사무소"
 ],
 "office/coworking":[
@@ -2687,6 +2731,7 @@
 "레인저"
 ],
 "office/foundation":[
+"재단 사무실",
 "재단 사무소"
 ],
 "office/government":[
@@ -2704,6 +2749,7 @@
 "세무서"
 ],
 "office/guide":[
+"여행 가이드 사무실",
 "여행 가이드 사무소"
 ],
 "office/insurance":[
@@ -2729,7 +2775,8 @@
 "이삿짐센터"
 ],
 "office/newspaper":[
-"신문사 사무소"
+"신문사 사무소",
+"신문사 사무실"
 ],
 "office/ngo":[
 "NGO 사무소",
@@ -2743,6 +2790,7 @@
 "내과의원"
 ],
 "office/political_party":[
+"정당 사무실",
 "정당 사무소"
 ],
 "office/private_investigator":[
@@ -2750,9 +2798,11 @@
 "사설탐정 사무소"
 ],
 "office/quango":[
-"준정부조직 사무소"
+"준정부조직 사무소",
+"준정부조직 사무실"
 ],
 "office/religion":[
+"종교 사무실",
 "종교 사무소"
 ],
 "office/research":[
@@ -2760,7 +2810,8 @@
 "연구 사무소"
 ],
 "office/surveyor":[
-"측량기사 사무소"
+"측량기사 사무소",
+"측량기사 사무실"
 ],
 "office/tax_advisor":[
 "조세",
@@ -2773,6 +2824,7 @@
 "통신 사무소"
 ],
 "office/therapist":[
+"치료사 사무실",
 "치료사 사무소"
 ],
 "office/travel_agent":[
@@ -3186,9 +3238,6 @@
 "railway/construction":[
 "공사 중인 철도"
 ],
-"railway/crossing":[
-"철도 건널목 (인도)"
-],
 "railway/derail":[
 "탈선기"
 ],
@@ -3200,9 +3249,6 @@
 ],
 "railway/halt":[
 "기차역 (간이역)"
-],
-"railway/level_crossing":[
-"철도 건널목 (도로)"
 ],
 "railway/light_rail":[
 "경전철 선로"
@@ -3988,6 +4034,10 @@
 "shop/wholesale":[
 "도매상"
 ],
+"shop/wigs":[
+"가발 가게",
+"가발 상점"
+],
 "shop/window_blind":[
 "창문 블라인드 가게",
 "창문 블라인드 상점"
@@ -4088,9 +4138,6 @@
 "tourism/information/map":[
 "지도"
 ],
-"tourism/information/office":[
-"관광안내소"
-],
 "tourism/information/terminal":[
 "안내 단말기"
 ],
@@ -4161,17 +4208,8 @@
 "traffic_sign/city_limit":[
 "시 경계 표지판"
 ],
-"traffic_sign/city_limit_vertex":[
-"시 경계 표지판"
-],
 "traffic_sign/maxspeed":[
 "제한 속도 표지판"
-],
-"traffic_sign/maxspeed_vertex":[
-"제한 속도 표지판"
-],
-"traffic_sign_vertex":[
-"교통 표지판"
 ],
 "type/boundary":[
 "경계"
@@ -4230,9 +4268,6 @@
 ],
 "type/route/ferry":[
 "페리 노선"
-],
-"type/route/foot":[
-"도보 노선"
 ],
 "type/route/hiking":[
 "하이킹 노선"

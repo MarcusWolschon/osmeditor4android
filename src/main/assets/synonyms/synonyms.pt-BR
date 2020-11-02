@@ -72,7 +72,7 @@
 "Telesqui de prato"
 ],
 "aerialway/pylon":[
-"Torre de Suporte de Teleférico"
+"Torre de suporte de teleférico"
 ],
 "aerialway/rope_tow":[
 "Telecorda"
@@ -103,6 +103,7 @@
 "Portão de desembarque",
 "Portão de Embarque",
 "desembarque",
+"Portão de embarque",
 "aeroporto"
 ],
 "aeroway/hangar":[
@@ -123,23 +124,22 @@
 "Posição de estacionamento de aeronaves"
 ],
 "aeroway/runway":[
-"Pista de Pouso e Decolagem",
 "Pista de pouso e decolagem"
 ],
 "aeroway/spaceport":[
 "Base de lançamento espacial"
 ],
 "aeroway/taxiway":[
-"Taxiway",
-"Pista de Taxiamento"
+"Pista de taxiamento",
+"Taxiway"
 ],
 "aeroway/terminal":[
 "viagem",
 "embarque",
+"Terminal de aeroporto",
 "edifício",
 "terminal aeroportuário",
 "desembarque",
-"Terminal de Aeroporto",
 "helicóptero",
 "turismo",
 "aeroporto",
@@ -151,7 +151,7 @@
 "indicador de direção do vento"
 ],
 "allotments/plot":[
-"Parcela de Jardim Comunitário"
+"Parcela de jardim comunitário"
 ],
 "amenity":[
 "Serviço"
@@ -180,11 +180,11 @@
 "cão"
 ],
 "amenity/animal_shelter":[
+"Abrigo de animais",
 "canil",
 "gato",
 "cachorro",
-"pet",
-"Abrigo de Animais"
+"pet"
 ],
 "amenity/arts_centre":[
 "Espetáculo",
@@ -197,10 +197,10 @@
 "Espaço Cultural",
 "Teatro",
 "Galeria",
+"Centro cultural",
 "Artes",
 "Cultura",
-"Cinema",
-"Centro Cultural"
+"Cinema"
 ],
 "amenity/atm":[
 "terminal bancário",
@@ -209,7 +209,7 @@
 "caixa eletrônico",
 "ATM",
 "terminal",
-"Caixa Eletrônico"
+"Caixa eletrônico"
 ],
 "amenity/bank":[
 "Banco"
@@ -255,6 +255,7 @@
 ],
 "amenity/bicycle_rental":[
 "bicicletas livres",
+"Estação de bicicletas públicas",
 "Estação de Bicicletas Públicas",
 "Compartilhamento de Bicicletas",
 "bicicletas compartilhadas",
@@ -264,9 +265,9 @@
 "amenity/bicycle_repair_station":[
 "Reparo",
 "Oficina de Bicicletas",
+"Estação de reparo de bicicletas",
 "Bicicleta",
-"Ciclismo",
-"Estação de Reparo de Bicicletas"
+"Ciclismo"
 ],
 "amenity/biergarten":[
 "Biergarten",
@@ -275,18 +276,24 @@
 "birra",
 "cervejaria"
 ],
+"amenity/binoculars":[
+"Binóculos montados"
+],
 "amenity/boat_rental":[
-"Aluguel de Barcos",
-"Aluguel de Embarcações"
+"Aluguel de barcos",
+"Aluguel de embarcações"
+],
+"amenity/boat_storage":[
+"Armazenamento de barco"
 ],
 "amenity/bureau_de_change":[
 "Câmbio",
 "Moedas",
-"Casa de Câmbio",
+"Casa de câmbio",
 "Troca de valores"
 ],
 "amenity/bus_station":[
-"Terminal / Estação de Ônibus"
+"Terminal / Estação de ônibus"
 ],
 "amenity/cafe":[
 "Cafeteria",
@@ -315,7 +322,7 @@
 ],
 "amenity/car_wash":[
 "lava rápido",
-"Lava a Jato",
+"Lava a jato",
 "Lavagem de Veículos",
 "lava-a-jato",
 "lava-jato",
@@ -336,13 +343,13 @@
 "amenity/childcare":[
 "Creche",
 "Maternal",
+"Berçário ou creche",
 "Berçário",
-"Berçário ou Creche",
 "Jardim de infância",
 "Cuidados infantis"
 ],
 "amenity/cinema":[
-"Sala de Cinema",
+"Sala de cinema",
 "Cinema"
 ],
 "amenity/clinic":[
@@ -354,7 +361,7 @@
 "unidade de saúde",
 "médico",
 "pronto atendimento",
-"Clínica ou Posto de Saúde",
+"Clínica ou posto de saúde",
 "atendimento médico especializado",
 "doutor",
 "hospital",
@@ -362,14 +369,14 @@
 ],
 "amenity/clinic/abortion":[
 "aborto",
-"Clínica de Aborto",
+"Clínica de aborto",
 "interrupção da gravidez"
 ],
 "amenity/clinic/fertility":[
-"Clínica de Fertilidade",
 "congelamento de esperma",
 "inseminação artificial",
 "fertilidade",
+"Clínica de fertilidade",
 "fertilização in-vitro"
 ],
 "amenity/clock":[
@@ -387,11 +394,11 @@
 "amenity/community_centre":[
 "centro social",
 "Salão de festas e eventos",
-"Centro Comunitário",
 "associação de moradores",
 "Centro comunitário"
 ],
 "amenity/community_centre/lgbtq":[
+"Centro comunitário LGBTQ+",
 "Centro Comunitário LGBTQ+"
 ],
 "amenity/compressed_air":[
@@ -403,6 +410,7 @@
 "calibrar"
 ],
 "amenity/conference_centre":[
+"Centro de convenções",
 "Centro de Convenções"
 ],
 "amenity/courthouse":[
@@ -424,7 +432,8 @@
 "Odontologista"
 ],
 "amenity/dive_centre":[
-"Centro de Mergulho"
+"Centro de Mergulho",
+"Centro de mergulho"
 ],
 "amenity/doctors":[
 "Clínica",
@@ -459,22 +468,23 @@
 "provador"
 ],
 "amenity/drinking_water":[
+"Água potável",
 "fonte",
-"Bebedouro",
-"Água Potável"
+"Bebedouro"
 ],
 "amenity/driving_school":[
 "Escola de direção",
+"Auto escola",
 "escola de motoristas",
 "autoescola",
-"auto-escola",
-"Auto Escola"
+"auto-escola"
 ],
 "amenity/embassy":[
 "Embaixada"
 ],
 "amenity/events_venue":[
-"Local de Eventos"
+"Local de Eventos",
+"Local de eventos"
 ],
 "amenity/exhibition_centre":[
 "Centro de exposições"
@@ -501,7 +511,7 @@
 "frango",
 "fast food",
 "comida rápida",
-"Frango Frito",
+"Frango frito",
 "chicken fry"
 ],
 "amenity/fast_food/donut":[
@@ -518,8 +528,8 @@
 "fast food",
 "comida rápida",
 "restaurante",
-"Peixe e Batatas Fritas",
 "peixe",
+"Peixe e batatas fritas",
 "alimentação",
 "fritas"
 ],
@@ -528,6 +538,16 @@
 ],
 "amenity/fast_food/ice_cream":[
 "Comida rápida de gelados"
+],
+"amenity/fast_food/juice":[
+"lanchonete",
+"sumo",
+"fast food",
+"frutas",
+"Casa de Sucos",
+"sucos",
+"bebidas",
+"suqueria"
 ],
 "amenity/fast_food/kebab":[
 "shawarma",
@@ -570,16 +590,17 @@
 "amenity/fire_station":[
 "Central de Bombeiros",
 "Posto de Bombeiros",
+"Posto de bombeiros",
 "Bombeiros",
 "corpo de bombeiros"
 ],
 "amenity/food_court":[
-"Praça de Alimentação",
 "lanchonete",
 "fast food",
 "comida rápida",
 "área de alimentação",
 "comida",
+"Praça de alimentação",
 "praça de alimentação",
 "alimentação",
 "restaurantes"
@@ -592,6 +613,7 @@
 "amenity/fuel":[
 "Posto de Gasolina",
 "Etanol",
+"Posto de combustível",
 "Combustível",
 "Diesel",
 "Gasolina",
@@ -599,8 +621,7 @@
 "Carro",
 "Posto de Combustíveis",
 "GNV",
-"Abastecimento",
-"Posto de Combustível"
+"Abastecimento"
 ],
 "amenity/gambling":[
 "Sala de jogos"
@@ -680,6 +701,9 @@
 "amenity/loading_dock":[
 "Doca de carregamento"
 ],
+"amenity/lounger":[
+"Espreguiçadeira"
+],
 "amenity/love_hotel":[
 "hotel de beira de estrada",
 "amor",
@@ -701,6 +725,9 @@
 ],
 "amenity/money_transfer":[
 "Estação de transferência de dinheiro"
+],
+"amenity/mortuary":[
+"Necrotério"
 ],
 "amenity/motorcycle_parking":[
 "estacionamento",
@@ -778,6 +805,7 @@
 "amenity/place_of_worship":[
 "Abadia",
 "Santuário",
+"Local de prática religiosa",
 "Oratório",
 "Sinagoga",
 "Capela",
@@ -793,35 +821,35 @@
 "Aprisco",
 "Local de Culto",
 "Catedral",
-"Local de Prática Religiosa",
 "Paróquia",
 "Igreja",
 "Tabernáculo"
 ],
 "amenity/place_of_worship/buddhist":[
-"Templo Budista"
+"Templo Budista",
+"Templo budista"
 ],
 "amenity/place_of_worship/christian":[
 "cristianismo",
-"Igreja Cristã",
 "Igreja cristã"
 ],
 "amenity/place_of_worship/christian/jehovahs_witness":[
+"Salão do reino das testemunhas de jeová",
 "Salão do Reino das Testemunhas de Jeová"
 ],
 "amenity/place_of_worship/christian/la_luz_del_mundo":[
 "A luz do templo mundial"
 ],
 "amenity/place_of_worship/christian/quaker":[
-"Casa de Reunião dos Amigos ",
+"Casa de reunião dos amigos ",
 "Casa de Reunião dos Amigos"
 ],
 "amenity/place_of_worship/hindu":[
 "garbhargriha",
 "santuário",
 "templo",
-"Templo Hindu",
 "mandu",
+"Templo hindu",
 "puja",
 "mandir",
 "hinduísmo"
@@ -829,12 +857,10 @@
 "amenity/place_of_worship/jewish":[
 "Sinagoga judaica",
 "judeus",
-"Sinagoga Judaica",
 "judaísmo"
 ],
 "amenity/place_of_worship/muslim":[
 "mosque",
-"Mesquita Muçulmana",
 "Mesquita muçulmana",
 "islamismo"
 ],
@@ -842,26 +868,26 @@
 "kami",
 "torii",
 "templo",
+"Santuário xintoísta",
 "xintoísmo",
 "japonês",
-"Santuário Xintoísta",
 "portal"
 ],
 "amenity/place_of_worship/sikh":[
 "religião",
 "sikhi",
 "sikhismo",
-"Templo Sique",
+"Templo sique",
 "siquismo",
 "templo sikhi"
 ],
 "amenity/place_of_worship/taoist":[
 "Taoismo",
+"Templo taoísta",
 "templo taoista",
 "daoista",
 "daoismo",
 "templo tauista",
-"Templo Taoísta",
 "tauismo",
 "monastério"
 ],
@@ -893,10 +919,10 @@
 ],
 "amenity/post_office":[
 "Transporte",
+"Agência de correios",
 "Correios",
 "Log",
 "Cargas",
-"Agência de Correios",
 "Encomendas"
 ],
 "amenity/prep_school":[
@@ -924,6 +950,14 @@
 "butequim",
 "Bar / Boteco"
 ],
+"amenity/pub/irish":[
+"Pub Irlândês",
+"bar",
+"irlandês",
+"irlanda",
+"pub",
+"bebida"
+],
 "amenity/pub/lgbtq":[
 "Pub LGBTQ+"
 ],
@@ -934,18 +968,19 @@
 "onsen",
 "águas termais",
 "fonte termal",
+"Banho público",
 "banho turco",
 "banho japonês",
-"chuveiro público",
-"Banho Público"
+"chuveiro público"
 ],
 "amenity/public_bookcase":[
+"Biblioteca ao ar livre",
 "Biblioteca ao Ar Livre",
 "Biblioteca Pública"
 ],
 "amenity/ranger_station":[
-"Estação de Patrulha",
-"Patrulha"
+"Patrulha",
+"Estação de patrulha"
 ],
 "amenity/recycling":[
 "Reciclagem"
@@ -962,16 +997,16 @@
 "lixo",
 "Material sólido",
 "Reciclagem",
+"Centro de reciclagem",
 "Dejetos",
-"Centro de Reciclagem",
 "Resíduos",
 "vidro",
 "Material Reciclável"
 ],
 "amenity/recycling_container":[
+"Container para reciclagem",
 "resíduos",
 "dejetos",
-"Container para Reciclagem",
 "material reciclável",
 "reciclagem",
 "lixo",
@@ -983,6 +1018,7 @@
 "Campo de refugiados"
 ],
 "amenity/research_institute":[
+"Área do instituto de pesquisa",
 "Área do Instituto de Pesquisa"
 ],
 "amenity/restaurant":[
@@ -992,17 +1028,18 @@
 "Alimentação"
 ],
 "amenity/restaurant/american":[
-"Restaurante Americano"
+"Restaurante Americano",
+"Restaurante americano"
 ],
 "amenity/restaurant/asian":[
-"Restaurante Asiático",
 "ásia",
 "Asiático",
 "restaurante",
+"Restaurante asiático",
 "comida asiática"
 ],
 "amenity/restaurant/chinese":[
-"Restaurante Chinês",
+"Restaurante chinês",
 "comida chinesa",
 "lamen",
 "yakisoba"
@@ -1012,31 +1049,31 @@
 "frança",
 "comida mediterrânea",
 "restaurante mediterrâneo",
-"comida francesa"
+"comida francesa",
+"Restaurante francês"
 ],
 "amenity/restaurant/german":[
+"Restaurante alemão",
 "alemanha",
 "cerveja",
 "Comida Alemã",
 "restaurante",
-"Restaurante Alemão",
 "salsicha"
 ],
 "amenity/restaurant/greek":[
 "comida mediterrânea",
+"Restaurante grego",
 "restaurante mediterrâneo",
-"comida grega",
-"Restaurante Grego"
+"comida grega"
 ],
 "amenity/restaurant/indian":[
 "restaurante asiático",
-"Restaurante Indiano",
 "índia",
 "comida Indiana",
+"Restaurante indiano",
 "comida asiática"
 ],
 "amenity/restaurant/italian":[
-"Restaurante Italiano",
 "pizza",
 "comida italiana",
 "macarrão",
@@ -1046,22 +1083,22 @@
 "amenity/restaurant/japanese":[
 "comida Japonesa",
 "teriaki",
+"Restaurante japonês",
 "temaki",
-"sushi",
-"Restaurante Japonês"
+"sushi"
 ],
 "amenity/restaurant/mexican":[
 "guacamole",
+"Restaurante mexicano",
 "nachos",
 "tex-mex",
 "tortillas",
-"comida Mexicana",
-"Restaurante Mexicano"
+"comida Mexicana"
 ],
 "amenity/restaurant/noodle":[
 "ramen",
+"Restaurante de lámen",
 "noodle",
-"Restaurante de Lámen",
 "lamen"
 ],
 "amenity/restaurant/pizza":[
@@ -1095,17 +1132,17 @@
 "amenity/restaurant/thai":[
 "restaurante asiático",
 "tailândia",
-"Restaurante Tailandês",
+"Restaurante tailandês",
 "comida tailandesa",
 "comida asiática"
 ],
 "amenity/restaurant/turkish":[
 "Restaurante",
 "shawarma",
+"Restaurante turco",
 "turquia",
 "homus",
 "kebab",
-"Restaurante Turco",
 "falafel",
 "tahine",
 "comida turca"
@@ -1113,19 +1150,19 @@
 "amenity/restaurant/vietnamese":[
 "Restaurante",
 "restaurante asiático",
-"Restaurante Vietnamita",
 "vietnã",
+"Restaurante vietnamita",
 "comida asiática",
 "alimentação"
 ],
 "amenity/sanitary_dump_station":[
 "trailer",
 "despejo sanitário",
-"Ponto de Descarga de Dejetos (para trailers)",
 "depósito de banheiro de trailers",
 "depósito sanitário",
 "despejo de banheiro",
-"Depósito de Toaletes de Trailers"
+"Depósito de Toaletes de Trailers",
+"Ponto de descarga de dejetos (para trailers)"
 ],
 "amenity/school":[
 "educação",
@@ -1141,8 +1178,8 @@
 "amenity/shelter":[
 "abrigo",
 "abrigo contra intempéries",
-"Abrigo contra Intempéries",
-"proteção da chuva"
+"proteção da chuva",
+"Abrigo contra intempéries"
 ],
 "amenity/shelter/gazebo":[
 "Mirante",
@@ -1174,8 +1211,8 @@
 ],
 "amenity/social_facility":[
 "assistente social",
+"Unidade de assistência social",
 "Serviço Social",
-"Unidade de Assistência Social",
 "Assistência Social"
 ],
 "amenity/social_facility/ambulatory_care":[
@@ -1204,13 +1241,13 @@
 "mendigo"
 ],
 "amenity/social_facility/nursing_home":[
-"Casa de Repouso",
 "casa de saúde",
 "casa de velhinhos",
 "asilo",
 "Enfermagem",
 "lar de saúde",
 "lar de idosos",
+"Casa de repouso",
 "lar de repouso",
 "lar de vida assistida"
 ],
@@ -1246,8 +1283,8 @@
 "Ponto de Táxi"
 ],
 "amenity/telephone":[
-"Telefone Público",
 "Telefone",
+"Telefone público",
 "Orelhão"
 ],
 "amenity/theatre":[
@@ -1263,25 +1300,29 @@
 ],
 "amenity/toilets":[
 "Lavabo",
-"Banheiros Públicos",
 "Sanitário",
 "Banheiros",
+"Banheiros públicos",
 "WC",
 "Toalete"
 ],
 "amenity/toilets/disposal/flush":[
 "Banheiro",
-"Banheiros com Descarga"
+"Banheiros com descarga"
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "Latrina de fossa"
 ],
+"amenity/toilets/portable":[
+"Banheiro portátil"
+],
 "amenity/townhall":[
 "Prefeitura",
-"Paço Municipal ou Prefeitura"
+"Paço municipal ou prefeitura"
 ],
 "amenity/townhall/city":[
-"Câmara Municipal"
+"Câmara Municipal",
+"Câmara municipal"
 ],
 "amenity/toy_library":[
 "Biblioteca de brinquedos"
@@ -1290,7 +1331,7 @@
 "Centro Universitário",
 "Faculdade",
 "Área de Faculdade",
-"Universidade ou Faculdade",
+"Universidade ou faculdade",
 "Área de Universidade"
 ],
 "amenity/vacuum_cleaner":[
@@ -1304,7 +1345,7 @@
 "Totem de vendas",
 "Máquina Automática de Vendas",
 "Máquina de Venda Automática",
-"Máquina de Venda"
+"Máquina de venda"
 ],
 "amenity/vending_machine/bottle_return":[
 "Máquina de retorno de garrafas",
@@ -1316,14 +1357,14 @@
 "amenity/vending_machine/cigarettes":[
 "cigarro",
 "venda de cigarro",
-"Máquina de Venda de Cigarros"
+"Máquina de venda de cigarros"
 ],
 "amenity/vending_machine/coffee":[
-"Máquina de Venda de Café"
+"Máquina de venda de café"
 ],
 "amenity/vending_machine/condoms":[
-"Máquina de Venda de Preservativos",
 "camisinha",
+"Máquina de venda de preservativos",
 "máquina de venda de camisinhas",
 "preservativos"
 ],
@@ -1332,18 +1373,20 @@
 "Máquina de Venda de Bebidas",
 "refrigerante",
 "latinha",
-"máquina de refrigerante"
+"máquina de refrigerante",
+"Máquina de venda de bebidas"
 ],
 "amenity/vending_machine/eggs":[
+"Máquina de venda de ovos",
 "Máquina de venda automática de ovos"
 ],
 "amenity/vending_machine/electronics":[
-"Máquina de Venda de Eletrônicos",
+"Máquina de venda de eletrônicos",
 "Máquina de venda automática de eletrônicos"
 ],
 "amenity/vending_machine/elongated_coin":[
 "Máquina de venda automática de moedas",
-"Máquina de Venda de Moedas Achatadas"
+"Máquina de venda de moedas achatadas"
 ],
 "amenity/vending_machine/excrement_bags":[
 "Dispensador de saco de excrementos"
@@ -1352,21 +1395,21 @@
 "tampão",
 "mulher",
 "absorvente",
+"Máquina de vendas de higiene feminina",
 "camisinha",
 "cuidados pessoais",
 "higiene",
 "produtos de higiene feminina",
-"preservativo",
-"Máquina de Vendas - Higiene Feminina"
+"preservativo"
 ],
 "amenity/vending_machine/food":[
 "Máquina de venda automática de alimentos",
-"Máquina de Venda de Comida"
+"Máquina de venda de comida"
 ],
 "amenity/vending_machine/fuel":[
 "diesel",
 "combustível",
-"Bomba de Gasolina",
+"Bomba de gasolina",
 "bomba de gasolina",
 "bomba de diesel",
 "gasolina",
@@ -1375,10 +1418,11 @@
 "biodiesel"
 ],
 "amenity/vending_machine/ice_cream":[
-"Máquina de Venda de Sorvete",
+"Máquina de venda de sorvete",
 "Máquina de venda automática de sorvetes"
 ],
 "amenity/vending_machine/ice_cubes":[
+"Máquina de venda de gelo",
 "Máquina de venda automática de gelo"
 ],
 "amenity/vending_machine/newspapers":[
@@ -1386,8 +1430,8 @@
 "jornais",
 "banca de jornal",
 "notícia",
-"Máquina de Venda de Jornais",
 "periódicos",
+"Máquina de venda de jornais",
 "revistas",
 "tabloides"
 ],
@@ -1409,23 +1453,23 @@
 "Trem",
 "Ticket",
 "Metrô",
-"Máquina de Vendas de Bilhete de Transporte",
+"Máquina de vendas de bilhete de transporte",
 "Bilhete",
 "ônibus"
 ],
 "amenity/vending_machine/stamps":[
-"Máquina de Venda de Selos",
+"Máquina de venda de selos",
 "Máquina de venda automática de postagem"
 ],
 "amenity/vending_machine/sweets":[
 "biscoitos",
-"Máquina de Venda de Lanches",
 "doces",
 "petiscos",
 "salgados",
 "chicletes",
 "snacks",
 "balas",
+"Máquina de venda de lanches",
 "salgadinhos"
 ],
 "amenity/veterinary":[
@@ -1466,11 +1510,11 @@
 "amenity/waste_transfer_station":[
 "Transferência de lixo",
 "Dejetos",
-"Estação de Transferência de Resíduos"
+"Estação de transferência de resíduos"
 ],
 "amenity/water_point":[
-"Torneira de Água Potável",
 "Água potável",
+"Torneira de água potável",
 "Abastecimento"
 ],
 "amenity/watering_place":[
@@ -1510,10 +1554,10 @@
 "Cerca de animal"
 ],
 "attraction/big_wheel":[
+"Roda gigante",
 "parque de diversões",
 "roda panorâmica",
 "parque temático",
-"Roda Gigante",
 "brinquedo"
 ],
 "attraction/bumper_car":[
@@ -1541,14 +1585,14 @@
 ],
 "attraction/dark_ride":[
 "medo",
+"Trem fantasma",
 "parque de diversões",
 "terror",
-"Trem Fantasma",
 "brinquedo"
 ],
 "attraction/drop_tower":[
 "1",
-"Torre de Queda Livre"
+"Torre de queda livre"
 ],
 "attraction/kiddie_ride":[
 "Kiddie Ride"
@@ -1571,9 +1615,9 @@
 "parque de diversões",
 "parque de diversão",
 "parque temático",
+"Montanha russa",
 "brinquedo",
-"trilhos",
-"Montanha Russa"
+"trilhos"
 ],
 "attraction/summer_toboggan":[
 "Tobogã de verão"
@@ -1584,8 +1628,8 @@
 "attraction/train":[
 "caminhão trem",
 "trem para turismo",
-"Trem Turístico",
 "trem da alegria",
+"Trem turístico",
 "parque temático",
 "trem de passeio"
 ],
@@ -1653,8 +1697,8 @@
 "parede"
 ],
 "barrier/cycle_barrier":[
+"Barreira para bicicletas",
 "barreira para bicicletas",
-"Barreira para Bicicletas",
 "bloqueio para bicicletas"
 ],
 "barrier/ditch":[
@@ -1670,7 +1714,7 @@
 "barrier/fence":[
 "grade",
 "cerca",
-"Cerca ou Grade"
+"Cerca ou grade"
 ],
 "barrier/fence/railing":[
 "Corrimão"
@@ -1682,8 +1726,7 @@
 "Mureta"
 ],
 "barrier/hedge":[
-"Cerca viva",
-"Cerca Viva"
+"Cerca viva"
 ],
 "barrier/height_restrictor":[
 "restrição de altura",
@@ -1722,13 +1765,13 @@
 "quebra cabeça"
 ],
 "barrier/lift_gate":[
-"Cancela Elevatória",
 "barreira elevatória",
-"cancela"
+"cancela",
+"Cancela elevatória"
 ],
 "barrier/retaining_wall":[
 "parede de retenção",
-"Muro de Contenção",
+"Muro de contenção",
 "barreira de retenção"
 ],
 "barrier/sally_port":[
@@ -1752,14 +1795,14 @@
 "Ferrões"
 ],
 "barrier/stile":[
-"Passagem Fixa por Barreira",
-"Travessia em Cerca/Muro"
+"Passagem fixa por barreira",
+"Travessia em cerca/muro"
 ],
 "barrier/swing_gate":[
 "Balanço de portão"
 ],
 "barrier/toll_booth":[
-"Cabine de Pedágio",
+"Cabine de pedágio",
 "Pedágio"
 ],
 "barrier/turnstile":[
@@ -1778,6 +1821,7 @@
 ],
 "boundary/administrative":[
 "Limite Administrativo",
+"Limite administrativo",
 "Fronteira Administrativa",
 "Divisa"
 ],
@@ -1845,6 +1889,7 @@
 "igreja",
 "lugar de adoração",
 "prédio de igreja",
+"Edifício de igreja",
 "catedral"
 ],
 "building/civic":[
@@ -1853,7 +1898,7 @@
 ],
 "building/college":[
 "prédio de escola técnica",
-"Edifício de Escola Técnica",
+"Edifício de escola técnica",
 "Ensino profissionalizante",
 "Educação profissional",
 "Colégio técnico"
@@ -1879,7 +1924,7 @@
 ],
 "building/detached":[
 "Casa Isolada",
-"Casa Separada",
+"Casa separada",
 "Moradia Isolada"
 ],
 "building/dormitory":[
@@ -1894,7 +1939,8 @@
 "Casa de fazenda"
 ],
 "building/farm_auxiliary":[
-"Edifício da Fazenda"
+"Edifício da Fazenda",
+"Edifício de fazenda"
 ],
 "building/garage":[
 "Garagem"
@@ -1918,7 +1964,7 @@
 "prédio hospitalar"
 ],
 "building/hotel":[
-"Edifício de Hotel",
+"Edifício de hotel",
 "prédio de hotel",
 "Hotel"
 ],
@@ -1934,7 +1980,8 @@
 ],
 "building/industrial":[
 "Edifício Industrial",
-"prédio industrial"
+"prédio industrial",
+"Edifício industrial"
 ],
 "building/kindergarten":[
 "Educação infantil"
@@ -1958,6 +2005,7 @@
 "prédio residencial",
 "Edifício Residencial",
 "apartamentos",
+"Edifício residencial",
 "condomínio"
 ],
 "building/retail":[
@@ -1977,7 +2025,7 @@
 "building/ruins":[
 "ruínas",
 "edifício abandonado",
-"Edifício em Ruínas"
+"Edifício em ruínas"
 ],
 "building/school":[
 "escola",
@@ -1987,8 +2035,8 @@
 "Edifício escolar"
 ],
 "building/semidetached_house":[
-"Casa Geminada",
-"Casa irmanada"
+"Casa irmanada",
+"Casa geminada"
 ],
 "building/service":[
 "máquinas",
@@ -2007,25 +2055,27 @@
 "building/stadium":[
 "estádio",
 "ginásio de esportes",
-"Edifício de Estádio",
-"esportes"
+"esportes",
+"Edifício de estádio"
 ],
 "building/static_caravan":[
+"Casa transportável",
 "Casa Transportável"
 ],
 "building/sty":[
 "Chiqueiro"
 ],
 "building/temple":[
+"Edifício de templo",
 "capela",
 "local sagrado",
 "igreja",
 "lugar de adoração",
-"Edifício de Templo",
 "Templo"
 ],
 "building/terrace":[
-"Fileira de Casas"
+"Fileira de Casas",
+"Fileira de casas"
 ],
 "building/train_station":[
 "Edifício de estação de trem"
@@ -2040,6 +2090,7 @@
 "Edifício de Faculdade",
 "bloco universitário",
 "Edifício Universitário",
+"Edifício universitário",
 "prédio de faculdade",
 "edifício de universidade"
 ],
@@ -2108,8 +2159,8 @@
 "craft/boatbuilder":[
 "Estaleiro",
 "Barcos",
-"Fabricante de Barcos",
-"Veleiro"
+"Veleiro",
+"Fabricante de barcos"
 ],
 "craft/bookbinder":[
 "Encadernador"
@@ -2127,8 +2178,8 @@
 ],
 "craft/carpet_layer":[
 "Colocador de Carpete",
-"Instalador de Carpete",
-"instalação"
+"instalação",
+"Instalador de carpete"
 ],
 "craft/caterer":[
 "refeição",
@@ -2143,7 +2194,7 @@
 "craft/chimney_sweeper":[
 "limpeza de chaminés",
 "chaminés",
-"Limpador de Chaminé",
+"Limpador de chaminé",
 "limpador de chaminés"
 ],
 "craft/cleaning":[
@@ -2171,7 +2222,7 @@
 "Eletricista"
 ],
 "craft/electronics_repair":[
-"Oficina de Eletrônicos"
+"Oficina de eletrônicos"
 ],
 "craft/floorer":[
 "pavimento",
@@ -2228,6 +2279,7 @@
 "Fotógrafo"
 ],
 "craft/photographic_laboratory":[
+"Laboratório fotográfico",
 "Laboratório Fotográfico"
 ],
 "craft/plasterer":[
@@ -2247,20 +2299,21 @@
 ],
 "craft/roofer":[
 "Telheiro",
-"Reparador de Telhados"
+"Reparador de telhados"
 ],
 "craft/saddler":[
 "Seleiro"
 ],
 "craft/sailmaker":[
-"Fabricante de Velas Náuticas",
+"Fabricante de velas náuticas",
 "Veleiro"
 ],
 "craft/sawmill":[
 "Serraria"
 ],
 "craft/scaffolder":[
-"Montador de Andaimes"
+"Montador de Andaimes",
+"Montador de andaimes"
 ],
 "craft/sculptor":[
 "escultura",
@@ -2299,8 +2352,8 @@
 "Reparos de relógios"
 ],
 "craft/window_construction":[
-"Fabricante de Janelas",
-"Janeleiro"
+"Janeleiro",
+"Fabricante de janelas"
 ],
 "craft/winery":[
 "Vinícola",
@@ -2312,6 +2365,9 @@
 "demolished/building":[
 "Edifício recentemente demolido"
 ],
+"disused/amenity":[
+"Amenidade em desuso"
+],
 "disused/railway":[
 "Recurso ferroviário em desuso"
 ],
@@ -2322,11 +2378,11 @@
 "Aterro Elevado"
 ],
 "emergency":[
-"Recurso de Emergência"
+"Recurso de emergência"
 ],
 "emergency/ambulance_station":[
 "Garagem de Ambulâncias",
-"Posto de Ambulâncias",
+"Posto de ambulâncias",
 "Primeiros socorros",
 "Parada de Ambulâncias"
 ],
@@ -2339,7 +2395,7 @@
 "Acesso de Emergência Designado"
 ],
 "emergency/destination":[
-"Acesso de Emergência como Destino"
+"Acesso de emergência como destino"
 ],
 "emergency/fire_alarm":[
 "Caixa de chamada de alarme de incêndio"
@@ -2387,10 +2443,11 @@
 "Acesso de Emergência Não Permitido"
 ],
 "emergency/official":[
-"Acesso de Emergência Oficial"
+"Acesso de emergência oficial"
 ],
 "emergency/phone":[
-"Telefone de Emergência"
+"Telefone de Emergência",
+"Telefone de emergência"
 ],
 "emergency/private":[
 "Acesso de Emergência Privado"
@@ -2424,6 +2481,7 @@
 "golf/bunker":[
 "Obstáculo de Areia",
 "Poça de Areia",
+"Banco de areia",
 "Bunker",
 "Banca de Areia",
 "Banco de Areia"
@@ -2506,8 +2564,8 @@
 "reflexologia",
 "shiatsu",
 "osteopatia",
-"Medicina Alternativa",
 "antroposofia",
+"Medicina alternativa",
 "acupuntura"
 ],
 "healthcare/alternative/chiropractic":[
@@ -2526,9 +2584,9 @@
 "healthcare/birthing_center":[
 "Centro de Parto Normal",
 "nascimento",
-"Casa de Parto",
 "obstetrícia",
 "bebê",
+"Casa de parto",
 "infantil",
 "Parto normal",
 "saúde",
@@ -2970,6 +3028,11 @@
 "Acesso a Via Terciária",
 "Acesso Terciário"
 ],
+"highway/toll_gantry":[
+" Pedágio de fluxo livre",
+"pedágio de fluxo livre",
+"pedágio sem dinheiro"
+],
 "highway/track":[
 "Estrada Agrícola",
 "Fazenda",
@@ -2980,11 +3043,11 @@
 "highway/traffic_mirror":[
 "convexo",
 "Espelho",
+"Espelho de tráfego",
 "côncavo",
 "segurança",
 "retrovisor",
-"visão",
-"Espelho de Tráfego"
+"visão"
 ],
 "highway/traffic_signals":[
 "Semáforo",
@@ -2995,7 +3058,7 @@
 "farol"
 ],
 "highway/trailhead":[
-"Trailhead"
+"Parada de trilha"
 ],
 "highway/trunk":[
 "Via Troncal"
@@ -3332,8 +3395,8 @@
 "Frutas"
 ],
 "landuse/plant_nursery":[
-"Berçário de Plantas",
-"Viveiro de Plantas"
+"Viveiro de plantas",
+"Berçário de Plantas"
 ],
 "landuse/pond":[
 "Lagoa"
@@ -3444,8 +3507,8 @@
 "esporte"
 ],
 "leisure/bowling_alley":[
-"Pista de Boliche",
-"Boliche"
+"Boliche",
+"Pista de boliche"
 ],
 "leisure/common":[
 "Frequente",
@@ -3846,6 +3909,9 @@
 "centro de natação",
 "nado"
 ],
+"leisure/sports_hall":[
+"Ginásio"
+],
 "leisure/stadium":[
 "Esportes",
 "Ginásio",
@@ -3961,6 +4027,9 @@
 ],
 "man_made/cutline":[
 "Linha de Corte em Floresta"
+],
+"man_made/dovecote":[
+"Pombal"
 ],
 "man_made/dyke":[
 "Açude"
@@ -4159,6 +4228,9 @@
 "man_made/tower/communication":[
 "Torre de comunicação"
 ],
+"man_made/tower/cooling":[
+"Torre de refrigeração"
+],
 "man_made/tower/defensive":[
 "Torre fortificada"
 ],
@@ -4217,6 +4289,9 @@
 "moinho",
 "eólico",
 "catavento"
+],
+"man_made/windpump":[
+"Moinho de vento"
 ],
 "man_made/works":[
 "chão de fábrica",
@@ -4313,6 +4388,9 @@
 "vegetação",
 "charneca",
 "Urzal"
+],
+"natural/hot_spring":[
+"Fonte termal"
 ],
 "natural/mud":[
 "mangue",
@@ -5077,6 +5155,9 @@
 "Ponto de Ônibus",
 "Parada de Ônibus"
 ],
+"public_transport/platform/bus_tram_point":[
+"Ponto de bonde e ônibus"
+],
 "public_transport/platform/ferry":[
 "Plataforma de Balsa"
 ],
@@ -5280,8 +5361,8 @@
 "Ferrovia em construção"
 ],
 "railway/crossing":[
-"Cruzamento de ferrovia (pedestre)",
-"Passagem de Nível (Pedestre)"
+"Cruzamento de ferrovia-pedestre",
+"Cruzamento de ferrovia-pedestre "
 ],
 "railway/derail":[
 "trem",
@@ -5301,8 +5382,7 @@
 "Estação de trem (parada / pedido)"
 ],
 "railway/level_crossing":[
-"Passagem de Nível (Estrada)",
-"Cruzamento de Ferrovia (Estrada)"
+"Cruzamento de ferrovia-estrada"
 ],
 "railway/light_rail":[
 "Veículo Leve sobre Trilhos (VLT)"
@@ -5338,6 +5418,9 @@
 ],
 "railway/rail/highspeed":[
 "Trilho de alta velocidade"
+],
+"railway/railway_crossing":[
+"Travessia ferroviária-ferroviária"
 ],
 "railway/signal":[
 "trânsito",
@@ -5377,6 +5460,12 @@
 ],
 "railway/tram":[
 "Trilho de bonde"
+],
+"railway/tram_crossing":[
+"Cruzamento de bonde"
+],
+"railway/tram_level_crossing":[
+"Cruzamento de estrada de bonde"
 ],
 "railway/tram_stop":[
 "Posição de parada do bonde"
@@ -5655,6 +5744,7 @@
 "Doceria"
 ],
 "shop/convenience":[
+"Mercadinho",
 "Posto de combustíveis",
 "Mercearia",
 "Mercado",
@@ -5713,10 +5803,10 @@
 "Lavanderia a seco"
 ],
 "shop/e-cigarette":[
-"Loja de Cigarro Eletrônico",
 "E-Cigarette",
 "E-Cig",
-"E-Cigarro"
+"E-Cigarro",
+"Loja de cigarro eletrônico"
 ],
 "shop/electrical":[
 "Loja de equipamentos elétricos"
@@ -5946,6 +6036,9 @@
 "Telefones Móveis",
 "Loja de Telefones Celulares"
 ],
+"shop/model":[
+"Loja de modelos"
+],
 "shop/money_lender":[
 "Financiadora",
 "Casa de Empréstimos",
@@ -5956,8 +6049,8 @@
 "Concessionária de Motos"
 ],
 "shop/motorcycle_repair":[
-"Loja de conserto de motocicletas",
-"Oficina de Motocicletas"
+"Oficina de motocicletas",
+"Loja de conserto de motocicletas"
 ],
 "shop/music":[
 "Loja de Discos Musicais",
@@ -6243,6 +6336,9 @@
 "Atacadista",
 "atacadão"
 ],
+"shop/wigs":[
+"Loja de perucas"
+],
 "shop/window_blind":[
 "Loja de Persianas",
 "Loja de Vidros Blindados",
@@ -6252,6 +6348,9 @@
 "Vinícola",
 "Loja de Vinhos",
 "Adega"
+],
+"telecom":[
+"Recurso de telecomunicações"
 ],
 "telecom/data_center":[
 "Centro de dados"
@@ -6372,6 +6471,9 @@
 "Painel de Informações",
 "Painel de Informações Turísticas"
 ],
+"tourism/information/board/welcome_sign":[
+"Placa de boas vindas"
+],
 "tourism/information/guidepost":[
 "Poste de Sinalização",
 "Poste de Informações Turísticas"
@@ -6381,10 +6483,7 @@
 "Mapa Turístico"
 ],
 "tourism/information/office":[
-"Ponto de Informações turísticas",
-"Escritório de Informações Turísticas",
-"Balcão de Informações Turísticas",
-"Posto de Informações Turísticas"
+"Centro de visitantes"
 ],
 "tourism/information/route_marker":[
 "Marcador de trilha"
@@ -6415,7 +6514,7 @@
 "Mirante"
 ],
 "tourism/wilderness_hut":[
-"Abrigo Isolado"
+"Abrigo isolado"
 ],
 "tourism/zoo":[
 "Parque Zoológico",
@@ -6496,17 +6595,8 @@
 "traffic_sign/city_limit":[
 "Sinal de limite de cidade"
 ],
-"traffic_sign/city_limit_vertex":[
-"Sinal de limite de cidade"
-],
 "traffic_sign/maxspeed":[
 "Sinal de limite de velocidade"
-],
-"traffic_sign/maxspeed_vertex":[
-"Sinal de limite de velocidade"
-],
-"traffic_sign_vertex":[
-"Sinal de trânsito"
 ],
 "type/boundary":[
 "Fronteira"
@@ -6594,8 +6684,7 @@
 "Ferry Boat"
 ],
 "type/route/foot":[
-"Rota de Caminhada",
-"Rota de Pedestres"
+"Percurso de pedestre"
 ],
 "type/route/hiking":[
 "Rota de Caminhada",

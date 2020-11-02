@@ -242,7 +242,7 @@
 "Bensinstasjon"
 ],
 "amenity/grave_yard":[
-"Gravlund"
+"Kirkegård"
 ],
 "amenity/grit_bin":[
 "Strøkasse"
@@ -628,14 +628,26 @@
 "attraction/carousel":[
 "Karusell"
 ],
+"attraction/dark_ride":[
+"Spøkelsetog"
+],
 "attraction/log_flume":[
 "Tømmerrenne"
 ],
 "attraction/maze":[
 "Labyrint"
 ],
+"attraction/river_rafting":[
+"Vannbane"
+],
 "attraction/roller_coaster":[
 "Berg-og-dal-bane"
+],
+"attraction/summer_toboggan":[
+"Sommerkjelke"
+],
+"attraction/swing_carousel":[
+"Svingkarusell"
 ],
 "attraction/train":[
 "Turisttog"
@@ -646,8 +658,20 @@
 "barrier":[
 "Hinder"
 ],
+"barrier/block":[
+"Barriereblokk"
+],
+"barrier/bollard":[
+"Pullert"
+],
+"barrier/bollard_line":[
+"Pullertrekke"
+],
 "barrier/border_control":[
 "Grensekontroll"
+],
+"barrier/cattle_grid":[
+"Fanghekk"
 ],
 "barrier/chain":[
 "Kjede"
@@ -685,8 +709,23 @@
 "barrier/retaining_wall":[
 "Støttemur"
 ],
+"barrier/sally_port":[
+"Sortiport"
+],
+"barrier/spikes":[
+"Spikermatte"
+],
+"barrier/stile":[
+"Stente"
+],
+"barrier/swing_gate":[
+"Svingport"
+],
 "barrier/toll_booth":[
 "Bomstasjon"
+],
+"barrier/turnstile":[
+"Rotasjonsport"
 ],
 "barrier/wall":[
 "Mur"
@@ -1000,6 +1039,18 @@
 "craft/winery":[
 "Vingård"
 ],
+"demolished/building":[
+"Nylig Revet Bygning"
+],
+"disused/amenity":[
+"Nedlagt Bekvemmelighet"
+],
+"disused/railway":[
+"Nedlagt Jernbane Funksjon"
+],
+"disused/shop":[
+"Nedlagt Butikk"
+],
 "embankment":[
 "Dike"
 ],
@@ -1011,6 +1062,12 @@
 ],
 "emergency/defibrillator":[
 "Defibrillator"
+],
+"emergency/designated":[
+"Dedikert Nødtilgang "
+],
+"emergency/fire_alarm":[
+"Brannalarm Telefonboks"
 ],
 "emergency/fire_extinguisher":[
 "Brannslukningsapparat"
@@ -1030,6 +1087,12 @@
 "emergency/lifeguard":[
 "Livvakt"
 ],
+"emergency/no":[
+"Nødtilgang Nei"
+],
+"emergency/official":[
+"Offisiell Nødadgang"
+],
 "emergency/phone":[
 "Nødtelefon"
 ],
@@ -1044,6 +1107,9 @@
 ],
 "entrance/emergency":[
 "Nødutgang"
+],
+"entrance/emergency_ward_entrance":[
+"Inngang til legevakt"
 ],
 "ford":[
 "Vadested"
@@ -1193,7 +1259,7 @@
 "Sti"
 ],
 "highway/path/informal":[
-"Uformell bane"
+"Uformell sti"
 ],
 "highway/pedestrian_area":[
 "Fotgjengerområde"
@@ -1334,7 +1400,7 @@
 "Basseng"
 ],
 "landuse/cemetery":[
-"Kirkegård"
+"Gravlund"
 ],
 "landuse/churchyard":[
 "Kirkegård"
@@ -2001,9 +2067,6 @@
 "railway/abandoned":[
 "Nedlagt jernbane"
 ],
-"railway/crossing":[
-"Jernbaneovergang"
-],
 "railway/disused":[
 "Ubrukt jernbane"
 ],
@@ -2463,9 +2526,6 @@
 "tourism/information/map":[
 "Kart"
 ],
-"tourism/information/office":[
-"Turistkontor"
-],
 "tourism/information/route_marker":[
 "Stimarkør"
 ],
@@ -2523,12 +2583,6 @@
 "traffic_sign/maxspeed":[
 "Fartsgrenseskilt"
 ],
-"traffic_sign/maxspeed_vertex":[
-"Fartsgrenseskilt"
-],
-"traffic_sign_vertex":[
-"Trafikkskilt"
-],
 "type/boundary":[
 "Grense"
 ],
@@ -2579,9 +2633,6 @@
 ],
 "type/route/ferry":[
 "Fergerute"
-],
-"type/route/foot":[
-"Gangrute"
 ],
 "type/route/hiking":[
 "Oppmerket sti"

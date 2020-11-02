@@ -1891,17 +1891,11 @@
 "railway/abandoned":[
 "Via fèrria abandonada"
 ],
-"railway/crossing":[
-"Pas a nivell (camí)"
-],
 "railway/disused":[
 "Via de tren fora d'ús",
 "Via fèrria abandonada",
 "Via fèrria fora d'ús",
 "Via de tren abandonada"
-],
-"railway/level_crossing":[
-"Pas a nivell (carretera)"
 ],
 "railway/station":[
 "Estació de ferrocarril"
@@ -2372,9 +2366,6 @@
 "tourism/information/map":[
 "Mapa"
 ],
-"tourism/information/office":[
-"Oficina d'informació turística"
-],
 "tourism/motel":[
 "Motel"
 ],
@@ -2490,9 +2481,6 @@
 ],
 "type/route/ferry":[
 "Ruta de ferri"
-],
-"type/route/foot":[
-"Ruta a peu"
 ],
 "type/route/hiking":[
 "Ruta senderista"

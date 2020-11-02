@@ -451,6 +451,19 @@
 "Jardim da Cerveja",
 "Jardim de cerveja"
 ],
+"amenity/binoculars":[
+"viewpoint",
+"telescópio",
+"observação",
+"paisagem",
+"óculo",
+"Binóculo panorâmico",
+"miradouro",
+"mirante",
+"panorâmica",
+"binóculos",
+"vista"
+],
 "amenity/boat_rental":[
 "aluguer de barcos",
 "barcos",
@@ -461,6 +474,13 @@
 "barco",
 "aluga",
 "locação"
+],
+"amenity/boat_storage":[
+"doca seca",
+"embarcações",
+"Depósito de barcos",
+"barco",
+"embarcação"
 ],
 "amenity/bureau_de_change":[
 "troca de dinheiro",
@@ -585,14 +605,15 @@
 "amenity/clinic":[
 "Posto de Saúde",
 "UBS",
-"Posto médico",
 "USF",
 "Unidade Básica de Saúde",
 "Unidade de Saúde Familiar",
 "Agrupamento de Centros de Saúde",
 "Unidade Local de Saúde",
+"Centro de saúde / Clínica",
 "Clinic",
 "Unidade de Saúde",
+"posto médico",
 "Clínica",
 "ASF",
 "Centro de Saúde",
@@ -878,6 +899,15 @@
 "amenity/fast_food/ice_cream":[
 "Geladaria"
 ],
+"amenity/fast_food/juice":[
+"smoothies",
+"cocktails",
+"Sumos",
+"batidos",
+"shakes",
+"sucos",
+"bebidas"
+],
 "amenity/fast_food/kebab":[
 "fast food",
 "Kebab",
@@ -1126,6 +1156,14 @@
 "descargas",
 "Cais de carga"
 ],
+"amenity/lounger":[
+"Espreguiçadeira",
+"lounger",
+"recosto",
+"camilha",
+"cama",
+"preguiceira"
+],
 "amenity/love_hotel":[
 "Motel",
 "Motel para casais"
@@ -1157,6 +1195,11 @@
 "MoneyGram",
 "transferência de dinheiro",
 "transferir dinheiro"
+],
+"amenity/mortuary":[
+"Morgue",
+"médico-legista",
+"necrotério"
 ],
 "amenity/motorcycle_parking":[
 "estacionamento",
@@ -1516,6 +1559,12 @@
 "botequim",
 "pub",
 "tasquinha"
+],
+"amenity/pub/irish":[
+"irish",
+"irlanda",
+"pub",
+"Pub irlandês"
 ],
 "amenity/pub/lgbtq":[
 "homossexual",
@@ -2060,6 +2109,12 @@
 "retrete de poço",
 "latrina de fosso",
 "latrina de fossa simples"
+],
+"amenity/toilets/portable":[
+"urinol",
+"banheiro químico",
+"casa de banho química",
+"Casa de banho portátil"
 ],
 "amenity/townhall":[
 "Centro Administrativo",
@@ -2929,9 +2984,9 @@
 "Colégio"
 ],
 "building/commercial":[
+"Edifício empresarial",
 "negócios",
 "prédio comercial",
-"Edifício comercial",
 "edifício comercial",
 "escritórios",
 "comércio"
@@ -3308,6 +3363,7 @@
 "Edifício"
 ],
 "club":[
+"grupo",
 "astronomia",
 "clube",
 "escutismo",
@@ -3318,19 +3374,23 @@
 "fã-clube",
 "caça",
 "club",
+"desportivo",
+"recreativo",
 "maçom",
 "templo maçónico",
 "maçonaria",
 "moto clube",
 "filatelia",
 "radioamador",
+"social",
 "xadrez",
 "automobilismo",
 "aeromodelismo",
 "escuteiros",
-"Clube",
 "fotografia",
+"cultural",
 "associação",
+"Clube/Associação",
 "fã",
 "hobby"
 ],
@@ -4293,13 +4353,14 @@
 "travessia"
 ],
 "highway/crossing/unmarked":[
-"Travessia sem marcas",
 "passadeira sem marcas",
 "peões",
+"faixa de segurança",
 "passagem de pedestres não marcada",
 "pedestre",
 "passadeira não marcada",
 "passadeira",
+"Travessia sem marcações",
 "atravessamento"
 ],
 "highway/crossing/unmarked-raised":[
@@ -4864,6 +4925,16 @@
 "Ligação a estrada terciária",
 "Ligação Rodovia Municipal"
 ],
+"highway/toll_gantry":[
+"pórtico",
+"taxa",
+"portagens",
+"cobrança eletrónica",
+"autoestrada",
+"Portagem eletrónica",
+"auto-estrada",
+"toll"
+],
 "highway/track":[
 "Rural",
 "macadame",
@@ -5272,7 +5343,7 @@
 "landuse/commercial":[
 "pavilhões",
 "armazéns",
-"Área comercial",
+"Área empresarial",
 "Baixa Comercial",
 "logística",
 "pavilhão",
@@ -5585,8 +5656,8 @@
 "Retail",
 "Vendas",
 "Compras",
+"Área comercial",
 "Retalho",
-"Área de retalho",
 "Varejo",
 "comércio"
 ],
@@ -6434,6 +6505,17 @@
 "Complexo de piscinas",
 "Esportes Aquáticos"
 ],
+"leisure/sports_hall":[
+"pavilhões",
+"exercícios",
+"Pavilhão desportivo",
+"educação física",
+"polidesportivo",
+"Ginásio",
+"desporto",
+"gym",
+"ginástica"
+],
 "leisure/stadium":[
 "edifício",
 "campo de futebol",
@@ -6708,6 +6790,14 @@
 "Cut line",
 "incêndios",
 "Aceiro"
+],
+"man_made/dovecote":[
+"criação",
+"pombos",
+"pombas",
+"rolas",
+"Pombal",
+"aves"
 ],
 "man_made/dyke":[
 "represa",
@@ -7207,6 +7297,19 @@
 "mastro de transmissão",
 "transmissão"
 ],
+"man_made/tower/cooling":[
+"calor",
+"central",
+"vapor",
+"esfriar",
+"energia",
+"esfriamento",
+"arrefecimento",
+"nuclear",
+"Torre de refrigeração",
+"arrefecer",
+"elétrica"
+],
 "man_made/tower/defensive":[
 "torre de atalaia",
 "castelo",
@@ -7327,6 +7430,21 @@
 "Windmill",
 "cereais"
 ],
+"man_made/windpump":[
+"moinho de vento",
+"bomba de água",
+"aerotor",
+"moinho eólico",
+"bombear",
+"poço",
+"vento",
+"bombeamento",
+"petróleo",
+"gás",
+"Bomba eólica",
+"torre",
+"catavento"
+],
 "man_made/works":[
 "fabricar",
 "estrutura",
@@ -7421,6 +7539,7 @@
 "Penhasco",
 "escarpa",
 "arriba",
+"costa alta",
 "falésia",
 "precipício"
 ],
@@ -7504,6 +7623,14 @@
 "magoriça",
 "Charneca",
 "urze"
+],
+"natural/hot_spring":[
+"nascente",
+"geotermal",
+"água termal",
+"geotérmica",
+"Fonte termal",
+"geotermismo"
 ],
 "natural/mud":[
 "lamacenta",
@@ -8051,6 +8178,7 @@
 "estado",
 "dgv",
 "governo",
+"loja do cidadão",
 "instituto do emprego",
 "instituto de emprego",
 "government office",
@@ -8058,8 +8186,7 @@
 "direcção-geral",
 "Escritório governamental",
 "segurança social",
-"direção-geral",
-"çoja do cidadão"
+"direção-geral"
 ],
 "office/government/prosecutor":[
 "julgamento",
@@ -8995,6 +9122,15 @@
 "Paragem de autocarro",
 "carreira"
 ],
+"public_transport/platform/bus_tram_point":[
+"autocarro",
+"parada",
+"transporte",
+"Paragem de autocarro e elétrico",
+"bonde",
+"ônibus",
+"carreira"
+],
 "public_transport/platform/ferry":[
 "atracar",
 "Plataforma de ferry",
@@ -9458,20 +9594,17 @@
 "comboios"
 ],
 "railway/crossing":[
-"railway crossing",
+"passagem",
 "caminho-de-ferro",
-"nível",
-"ferrovia",
-"atravessamento",
-"travessia",
 "pedestres",
+"peões",
+"peão",
 "Passagem de nível (peões)",
+"atravessamente",
+"pé",
 "caminho de ferro",
-"atravessar",
 "ferroviária",
-"caminhos-de-ferro",
-"passadeira",
-"comboios"
+"caminhos-de-ferro"
 ],
 "railway/derail":[
 "feroviárias",
@@ -9515,12 +9648,12 @@
 ],
 "railway/level_crossing":[
 "railway crossing",
+"passagem",
 "caminho-de-ferro",
 "nível",
 "ferrovia",
 "atravessamento",
 "travessia",
-"pedestres",
 "Passagem de nível (veículos)",
 "caminho de ferro",
 "atravessar",
@@ -9642,6 +9775,15 @@
 "caminhos-de-ferro",
 "comboio bala"
 ],
+"railway/railway_crossing":[
+"caminho-de-ferro",
+"travessia diamante",
+"junção ferroviária",
+"caminho de ferro",
+"Atravessamento oblíquo ferroviário",
+"ferrovia",
+"comboios"
+],
 "railway/signal":[
 "semáforo ferroviário",
 "Railway Signal",
@@ -9658,13 +9800,13 @@
 ],
 "railway/subway":[
 "metropolitano",
-"Metropolitano",
 "subterrâneo",
 "subway",
 "caminhos de ferro",
 "carris",
 "metro",
 "transportes públicos",
+"Linha de metro",
 "caminhos-de-ferro",
 "linha férrea",
 "ferrovia"
@@ -9732,6 +9874,39 @@
 "caminhos-de-ferro",
 "tram",
 "elétrico"
+],
+"railway/tram_crossing":[
+"passagem",
+"caminho-de-ferro",
+"pedestres",
+"peões",
+"peão",
+"Passagem de nível (peões)",
+"atravessamente",
+"pé",
+"caminho de ferro",
+"ferroviária",
+"caminhos-de-ferro",
+"bonde",
+"elétrico"
+],
+"railway/tram_level_crossing":[
+"railway crossing",
+"passagem",
+"caminho-de-ferro",
+"nível",
+"ferrovia",
+"atravessamento",
+"travessia",
+"Passagem de nível (veículos)",
+"caminho de ferro",
+"atravessar",
+"ferroviária",
+"caminhos-de-ferro",
+"bonde",
+"elétrico",
+"comboios",
+"linha férrea"
 ],
 "railway/tram_stop":[
 "Local de paragem de elétrico"
@@ -11239,16 +11414,19 @@
 ],
 "shop/seafood":[
 "seafood",
-"camarão",
-"Loja de marisco",
+"sardinhas",
+"Peixaria",
 "lagosta",
-"caranguejo",
-"polvo",
 "mexilhões",
 "ameijoas",
 "peixes",
-"lulas",
 "peixe fresco",
+"camarão",
+"carapau",
+"caranguejo",
+"peixe",
+"polvo",
+"lulas",
 "congelados"
 ],
 "shop/second_hand":[
@@ -11598,6 +11776,15 @@
 "grossista",
 "comércio"
 ],
+"shop/wigs":[
+"cabelo",
+"extensões",
+"postiças",
+"cabeleiras",
+"perucas",
+"Loja de perucas",
+"postiço"
+],
 "shop/window_blind":[
 "persianas",
 "estor",
@@ -11621,6 +11808,9 @@
 "xampanhe",
 "loja de licor",
 "bebidas"
+],
+"telecom":[
+"Telecomunicações"
 ],
 "telecom/data_center":[
 "nuvem",
@@ -11862,6 +12052,16 @@
 "placard",
 "placa"
 ],
+"tourism/information/board/welcome_sign":[
+"outdoor",
+"boas-vindas",
+"Placa de boas-vindas",
+"recepção",
+"receção",
+"bem-vindos",
+"board",
+"placard"
+],
 "tourism/information/guidepost":[
 "poste de direções",
 "destinos",
@@ -11880,11 +12080,16 @@
 "planta"
 ],
 "tourism/information/office":[
+"posto turístico",
 "Posto de turismo",
-"Posto de Informação",
-"Posto de Informações",
-"Posto de Turismo",
-"Posto Turístico"
+"viajantes",
+"visitantes",
+"informações",
+"centro de informações",
+"recepção",
+"receção",
+"posto de informação",
+"turistas"
 ],
 "tourism/information/route_marker":[
 "marcador de trilho",
@@ -12009,9 +12214,9 @@
 "traffic_calming":[
 "Acalmia de tráfego",
 "baixa velocidade",
+"acalmia de trânsito",
 "diminuir velocidade",
 "redutor de velocidade",
-"acalmia",
 "redução de velocidade"
 ],
 "traffic_calming/bump":[
@@ -12111,37 +12316,12 @@
 "borda",
 "fim da cidade"
 ],
-"traffic_sign/city_limit_vertex":[
-"rodoviária",
-"cidade",
-"aldeia",
-"início da cidade",
-"Placa de limite de povoação",
-"limite da cidade",
-"estrada",
-"borda",
-"fim da cidade"
-],
 "traffic_sign/maxspeed":[
 "rodoviária",
 "Sinal de limite de velocidade",
 "estrada",
 "velocidade máxima",
 "limite de velocidade"
-],
-"traffic_sign/maxspeed_vertex":[
-"rodoviária",
-"Sinal de limite de velocidade",
-"estrada",
-"velocidade máxima",
-"limite de velocidade"
-],
-"traffic_sign_vertex":[
-"Sinal de trânsito",
-"sinais de trânsito",
-"sinal rodoviário",
-"sinalização",
-"sinal de estrada"
 ],
 "type/boundary":[
 "divisão",
@@ -12311,11 +12491,16 @@
 ],
 "type/route/foot":[
 "percurso pedestre",
+"trail",
+"percurso recomendado",
+"circuito pedestre",
 "Rota pedestre",
-"peão",
+"trekking",
 "percurso pedonal",
 "circuito pedonal",
-"rota pedonal"
+"grande rota",
+"rota pedonal",
+"pequena rota"
 ],
 "type/route/hiking":[
 "percurso recomendado",
