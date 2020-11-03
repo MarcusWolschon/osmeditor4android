@@ -2004,9 +2004,6 @@
 "bik",
 "Blokada vlaka na kraju pruge"
 ],
-"railway/crossing":[
-"Pješački prijelaz preko pruge"
-],
 "railway/disused":[
 "Željeznička pruga izvan uporabe",
 "nekorištena željeznica",
@@ -2017,9 +2014,6 @@
 ],
 "railway/halt":[
 "Željeznička postaja"
-],
-"railway/level_crossing":[
-"Cestovni prijelaz preko pruge"
 ],
 "railway/platform":[
 "Željezničko stajalište"
@@ -2700,11 +2694,6 @@
 "tourism/information/map":[
 "Karta"
 ],
-"tourism/information/office":[
-"Ured za turističke informacije",
-"Turistička zajednica",
-"Turistički informativni centar"
-],
 "tourism/motel":[
 "Motel",
 "hotel",
@@ -2846,14 +2835,6 @@
 "Brodska linija",
 "trajektna ruta",
 "trajektna linija"
-],
-"type/route/foot":[
-"pješački put",
-"put za pješake",
-"pješačka putanja",
-"Pješačka ruta",
-"pješačka ruta",
-"pješačka linija"
 ],
 "type/route/hiking":[
 "planinarski put",

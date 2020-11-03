@@ -1461,11 +1461,6 @@
 "trajektna trasa",
 "Trajektna ruta"
 ],
-"type/route/foot":[
-"pješačka trasa",
-"Pješačka ruta",
-"pješačka ruta"
-],
 "type/route/hiking":[
 "planinarska ruta",
 "ruta za šetnju",

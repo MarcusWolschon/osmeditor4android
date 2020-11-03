@@ -1405,9 +1405,6 @@
 "nenaudojami bėgiai",
 "Nebenaudojamas geležinkelis"
 ],
-"railway/level_crossing":[
-"Geležinkelio Pervaža (Kelias)"
-],
 "railway/station":[
 "Traukinių stotis"
 ],
@@ -1874,9 +1871,6 @@
 ],
 "type/route/ferry":[
 "Kelto maršrutas"
-],
-"type/route/foot":[
-"Pėsčiųjų maršrutas"
 ],
 "type/route/hiking":[
 "Žygių maršrutas"

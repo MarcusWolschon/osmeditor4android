@@ -2228,15 +2228,9 @@
 "trasa železnice",
 "bivša železnica"
 ],
-"railway/crossing":[
-"Železniški prehod (pot)"
-],
 "railway/disused":[
 "zapuščena železnica",
 "Opuščena železnica"
-],
-"railway/level_crossing":[
-"Železniški prehod (cesta)"
 ],
 "railway/station":[
 "Železniška postaja"
@@ -2768,9 +2762,6 @@
 "tourism/information/map":[
 "Zemljevid"
 ],
-"tourism/information/office":[
-"Turistične informacije"
-],
 "tourism/motel":[
 "Motel",
 "motel"
@@ -2895,10 +2886,6 @@
 "type/route/ferry":[
 "trajektna povezava",
 "Trajektna linija"
-],
-"type/route/foot":[
-"pot za pešce",
-"Pešpot"
 ],
 "type/route/hiking":[
 "pot za pohodnike",

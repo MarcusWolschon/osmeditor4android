@@ -300,7 +300,8 @@
 ],
 "amenity/bicycle_rental":[
 "Wypożyczalnia rowerów",
-"wypożyczalnia"
+"wypożyczalnia",
+"rowery"
 ],
 "amenity/bicycle_repair_station":[
 "serwis",
@@ -315,9 +316,23 @@
 "bar plażowy",
 "beach bar"
 ],
+"amenity/binoculars":[
+"punkt obserwacyjny",
+"luneta",
+"Lornetka",
+"punkt widokowy",
+"lornetka"
+],
 "amenity/boat_rental":[
 "wynajem łodzi",
 "Wypożyczalnia łodzi"
+],
+"amenity/boat_storage":[
+"przechowalnia łodzi",
+"marina",
+"łódź",
+"łodzie",
+"Przechowalnia łodzi"
 ],
 "amenity/bureau_de_change":[
 "wymiana walut",
@@ -352,7 +367,8 @@
 ],
 "amenity/car_rental":[
 "Wypożyczalnia samochodów",
-"wypożyczalnia samochodów"
+"wypożyczalnia samochodów",
+"samochody"
 ],
 "amenity/car_sharing":[
 "wspólne użytkowanie samochodów",
@@ -437,7 +453,8 @@
 "amenity/community_centre":[
 "świetlica wiejska",
 "Centrum społeczności",
-"dom kultury"
+"dom kultury",
+"centrum społeczności"
 ],
 "amenity/community_centre/lgbtq":[
 "centrum społeczności lgbt",
@@ -536,8 +553,11 @@
 "poidło"
 ],
 "amenity/driving_school":[
+"szkoła nauki jazdy",
+"szkolenia kierowców",
 "prawo jazdy",
-"Szkoła nauki jazdy"
+"Szkoła nauki jazdy",
+"nauka jazdy"
 ],
 "amenity/embassy":[
 "Ambasada/konsulat"
@@ -613,6 +633,15 @@
 ],
 "amenity/fast_food/ice_cream":[
 "Bar z lodami"
+],
+"amenity/fast_food/juice":[
+"bar",
+"świeżo wyciskane soki",
+"kawiarnia",
+"smoothies",
+"koktajle",
+"Bar z sokami/koktajlami",
+"napoje"
 ],
 "amenity/fast_food/kebab":[
 "gyros",
@@ -783,6 +812,10 @@
 "Dok załadunkowy",
 "dok załadunkowy"
 ],
+"amenity/lounger":[
+"leżaki",
+"Leżak"
+],
 "amenity/love_hotel":[
 "krótki pobyt",
 "Love hotel",
@@ -807,6 +840,11 @@
 "pieniądze",
 "gotówka",
 "Placówka przekazów pieniężnych"
+],
+"amenity/mortuary":[
+"Kostnica",
+"krematorium",
+"kostnica"
 ],
 "amenity/motorcycle_parking":[
 "Parking dla motocykli",
@@ -913,6 +951,10 @@
 "amenity/pharmacy":[
 "apteka",
 "leki",
+"suplementy diety",
+"kosmetyki",
+"zioła",
+"lekarstwa",
 "Apteka"
 ],
 "amenity/photo_booth":[
@@ -1088,6 +1130,10 @@
 "pub",
 "Pub"
 ],
+"amenity/pub/irish":[
+"Irlandzki pub",
+"irlandzki pub"
+],
 "amenity/pub/lgbtq":[
 "pub dla homoseksualistów",
 "lesbijek",
@@ -1120,6 +1166,7 @@
 "Publiczna wymiana książek"
 ],
 "amenity/ranger_station":[
+"leśniczówka",
 "straż parku narodowego",
 "Baza strażników rezerwatu/parku",
 "straż rezerwatu"
@@ -1464,6 +1511,10 @@
 "latryna",
 "wychodek",
 "Latryna"
+],
+"amenity/toilets/portable":[
+"Przenośna toaleta",
+"przenośna toaleta"
 ],
 "amenity/townhall":[
 "władze miasta",
@@ -2546,8 +2597,10 @@
 "rzemiosło",
 "kładzenie posadzek",
 "rzemieślnicy",
+"parkiety",
 "rzemieślnik",
 "posadzki",
+"podłogi",
 "Kładzenie posadzek"
 ],
 "craft/gardener":[
@@ -2741,7 +2794,7 @@
 ],
 "craft/shoemaker":[
 "rzemiosło",
-"Szewc",
+"Szewc (wyrób i naprawa obuwia)",
 "rzemieślnicy",
 "buty",
 "szewc",
@@ -2758,6 +2811,7 @@
 "craft/stonemason":[
 "rzemiosło",
 "rzemieślnicy",
+"nagrobki",
 "zakład kamieniarski",
 "rzemieślnik",
 "Zakład kamieniarski",
@@ -2830,6 +2884,9 @@
 ],
 "demolished/building":[
 "Niedawno wyburzony budynek"
+],
+"disused/amenity":[
+"Nieużywany obiekt/udogodnienie"
 ],
 "disused/railway":[
 "Nieużywany obiekt kolejowy"
@@ -2936,11 +2993,10 @@
 "ostrzeżenie"
 ],
 "emergency/water_tank":[
-"Zbiornik wody",
-"zapasowy",
-"pożarowy",
-"zbiornik",
-"arwaryjny"
+"zbiornik wody dla straży pożarnej",
+"zbiornik pożarowy",
+"Zbiornik wody dla straży pożarnej",
+"zbiornik przeciwpożarowy"
 ],
 "emergency/yes":[
 "Istniejący dojazd dla służb ratowniczych"
@@ -2978,6 +3034,10 @@
 "Ścieżka dla wózka golfowego",
 "droga",
 "wózek golfowy"
+],
+"golf/clubhouse":[
+"Klub golfowy",
+"klub golfowy"
 ],
 "golf/driving_range":[
 "strzelnica golfowa",
@@ -3324,7 +3384,7 @@
 "highway/path":[
 "dróżka",
 "ścieżka",
-"Ścieżka/droga "
+"Ścieżka/droga dla rowerów/chodnik"
 ],
 "highway/path/boardwalk":[
 "drewniany chodnik",
@@ -3334,8 +3394,9 @@
 "ścieżka dla pieszych"
 ],
 "highway/path/informal":[
-"nieoficjalna droga",
-"Nieoficjalna droga"
+"nieoficjalna ścieżka",
+"wydeptana ścieżka",
+"Nieoficjalna ścieżka"
 ],
 "highway/pedestrian_area":[
 "deptak",
@@ -3402,8 +3463,8 @@
 ],
 "highway/road":[
 "nieznana",
-"Nieokreślona droga",
 "niewiadoma",
+"Nieokreślony typ drogi",
 "droga"
 ],
 "highway/road/bridge":[
@@ -3492,8 +3553,14 @@
 "wyjazd",
 "rampa"
 ],
+"highway/toll_gantry":[
+"bramownica poboru opłat",
+"viatoll",
+"Bramownica poboru opłat",
+"pobór opłat"
+],
 "highway/track":[
-"Droga polna lub leśna",
+"Droga prowadząca na pola lub do lasu",
 "trakt leśny"
 ],
 "highway/traffic_mirror":[
@@ -4001,10 +4068,16 @@
 "rzeczywistość wirtualna"
 ],
 "leisure/bandstand":[
-"Estrada",
 "występy",
+"trybuna",
+"Muszla koncertowa / estrada",
+"podium",
+"amfiteatr",
 "estrada",
-"scena"
+"muszla koncertowa",
+"scena",
+"arena",
+"trybuny"
 ],
 "leisure/beach_resort":[
 "Resort nadmorski",
@@ -4061,7 +4134,10 @@
 ],
 "leisure/firepit":[
 "miejsce na ognisko",
-"Miejsce na ognisko"
+"watra",
+"Miejsce na ognisko",
+"krąg na ognisko",
+"palenisko"
 ],
 "leisure/fishing":[
 "połowy",
@@ -4375,6 +4451,7 @@
 "Pochylnia okrętowa"
 ],
 "leisure/sports_centre":[
+"klub sportowy",
 "Centrum sportowe",
 "centrum sportowe",
 "ośrodek sportów",
@@ -4392,6 +4469,11 @@
 "leisure/sports_centre/swimming":[
 "Pływalnia",
 "basen"
+],
+"leisure/sports_hall":[
+"sala sportowa",
+"hala sportowa",
+"Sala sportowa"
 ],
 "leisure/stadium":[
 "stadion",
@@ -4537,6 +4619,12 @@
 "Przecinka leśna",
 "przecinka"
 ],
+"man_made/dovecote":[
+"gołąb",
+"gołębnik",
+"Gołębnik",
+"gołębie"
+],
 "man_made/dyke":[
 "Grobla",
 "wał",
@@ -4674,6 +4762,7 @@
 "maszt transmisyjny"
 ],
 "man_made/mast/communication/mobile_phone":[
+"bts",
 "Maszt telefonii komórkowej",
 "maszt telefonii komórkowej",
 "wieża transmisyjna",
@@ -4846,6 +4935,7 @@
 "campanila"
 ],
 "man_made/tower/communication":[
+"bts",
 "wieża tv",
 "wieża telewizyjna",
 "wieża transmisyjna",
@@ -4860,6 +4950,12 @@
 "wieża komunikacyjna",
 "antena",
 "maszt transmisyjny"
+],
+"man_made/tower/cooling":[
+"wieża chłodnicza",
+"fabryka",
+"Chłodnia kominowa",
+"chłodnia kominowa"
 ],
 "man_made/tower/defensive":[
 "donżon",
@@ -4922,6 +5018,12 @@
 "man_made/windmill":[
 "wiatrak",
 "Wiatrak"
+],
+"man_made/windpump":[
+"Pompa wiatrowa",
+"wiatrak",
+"pompa wodna",
+"pompa wiatrowa"
 ],
 "man_made/works":[
 "Fabryka",
@@ -5025,6 +5127,16 @@
 "krzewinki",
 "Wrzosowisko",
 "wrzosowisko"
+],
+"natural/hot_spring":[
+"gorące źródło",
+"gorące źródła",
+"źródło ciepłe",
+"cieplica",
+"cieplice",
+"źródło gorące",
+"źródło termalne",
+"Źródło termalne"
 ],
 "natural/mud":[
 "błotne",
@@ -5234,7 +5346,10 @@
 "rekreacyjna trasa ponumerowanych węzłów"
 ],
 "noexit/yes":[
-"Brak przejścia/przejazdu"
+"brak przejazdu",
+"brak przejścia",
+"Brak przejścia/przejazdu",
+"koniec drogi"
 ],
 "office":[
 "Biuro",
@@ -5488,7 +5603,11 @@
 ],
 "office/research":[
 "instytut badawczy",
-"Biuro badawcze"
+"nauka",
+"Biuro badawcze",
+"biuro badawcze",
+"instytut badań",
+"badania"
 ],
 "office/surveyor":[
 "Biuro geodety",
@@ -5961,6 +6080,14 @@
 "Przystanek autobusowy",
 "autobus"
 ],
+"public_transport/platform/bus_tram_point":[
+"przystanek autobusowy",
+"przystanek tramwajowy",
+"tramwaj",
+"przystanek tramwajowo-autobusowy",
+"autobus",
+"Przystanek tramwajowo-autobusowy"
+],
 "public_transport/platform/ferry":[
 "łódka",
 "dok",
@@ -6294,6 +6421,7 @@
 "Kolej w budowie"
 ],
 "railway/crossing":[
+"przejazd kolejowy",
 "Przejście kolejowe (ścieżka)",
 "przejście kolejowe"
 ],
@@ -6414,6 +6542,12 @@
 "pociąg",
 "kolej dużych prędkości"
 ],
+"railway/railway_crossing":[
+"skrzyżowanie torów kolejowych",
+"Skrzyżowanie torów kolejowych",
+"rozjazd",
+"krzyżownica"
+],
 "railway/signal":[
 "semafor",
 "Semafor"
@@ -6450,6 +6584,15 @@
 "tor kolejowy",
 "torowisko",
 "Tor tramwajowy"
+],
+"railway/tram_crossing":[
+"przejście przez tory tramwajowe",
+"Przejście przez tory tramwajowe"
+],
+"railway/tram_level_crossing":[
+"przejazd przez tory tramwajowe",
+"przejazd tramwajowy",
+"Przejazd przez tory tramwajowe"
 ],
 "railway/tram_stop":[
 "Przystanek tramwajowy – miejsce zatrzymania tramwaju"
@@ -6536,6 +6679,7 @@
 "piwo",
 "sklep monopolowy",
 "alkohol",
+"sklep z alkoholem",
 "Sklep monopolowy"
 ],
 "shop/anime":[
@@ -6550,15 +6694,22 @@
 "antyki"
 ],
 "shop/appliance":[
+"odkurzacze",
 "roboty kuchenne",
-"zamrażarki",
 "mikrofalówki",
 "miksery",
-"kuchenki",
-"suszarki",
+"zamrażarki",
+"klimatyzatory",
 "zmywarki",
+"artykuły gospodarstwa domowego",
+"sklep z agd",
+"kuchenki",
+"pralki",
+"suszarki",
 "Sklep z AGD",
-"lodówki"
+"agd",
+"lodówki",
+"wentylatory"
 ],
 "shop/art":[
 "desa",
@@ -6570,6 +6721,7 @@
 "rzeźby",
 "Sklep z dziełami sztuki",
 "wyroby artystyczne",
+"galeria",
 "sklep z dziełami sztuki"
 ],
 "shop/baby_goods":[
@@ -6636,39 +6788,56 @@
 "Solarium"
 ],
 "shop/bed":[
+"sypialnia",
 "materace",
-"Sklep z łóżkami/materacami"
+"pościel",
+"poduszki",
+"Sklep z łóżkami/materacami",
+"łóżka",
+"sypialnie"
 ],
 "shop/beverages":[
 "Sklep z napojami",
+"sklep z napojami",
 "napoje",
-"picie"
+"picie",
+"soki"
 ],
 "shop/bicycle":[
 "sklep rowerowy",
 "Sklep rowerowy",
-"rowery"
+"rowery",
+"serwis rowerowy"
 ],
 "shop/boat":[
-"łódź",
 "jachtów",
 "skutery wodne",
-"Sklep z łodziami",
+"Sklep żeglarski",
 "jachty",
 "motorówek",
+"sklep z łodziami",
+"sklep motorowodny",
+"sklep żeglarsko-motorowodny",
+"łódź",
+"sklep żeglarski",
 "żeglarski",
 "żeglarstwo",
 "sprzedaż łodzi",
 "łodzie"
 ],
 "shop/bookmaker":[
-"Bukmacher",
+"bukmacher",
+"Zakład bukmacherski",
 "hazard",
-"zakłady sportowe"
+"zakłady sportowe",
+"zakład bukmacherski"
 ],
 "shop/books":[
 "antykwariat",
-"Księgarnia"
+"księgarnia",
+"Księgarnia",
+"komiksy",
+"książki"
 ],
 "shop/boutique":[
 "Butik"
@@ -6780,11 +6949,13 @@
 "katalog",
 "catalog shop",
 "Argos",
-"Sklep Argos"
+"Catalog Shop"
 ],
 "shop/charity":[
 "charytatywne",
-"Sklep charytatywny"
+"Sklep charytatywny",
+"sklep charytatywny",
+"rzeczy używane"
 ],
 "shop/cheese":[
 "Sklep z serami",
@@ -6802,16 +6973,24 @@
 ],
 "shop/chocolate":[
 "czekoladziarnia",
+"czekolada",
+"czekoladki",
+"sklep z czekoladą",
+"czekolady",
 "Sklep z czekoladą"
 ],
 "shop/clothes":[
 "Sklep odzieżowy",
 "ubrania",
+"odzież robocza",
 "butik",
 "ciuchy",
+"odzież ochronna",
+"odzież medyczna",
 "odzież",
 "suknie ślubne",
-"garnitury"
+"garnitury",
+"odzież służbowa"
 ],
 "shop/clothes/second_hand":[
 "ubrania",
@@ -6854,12 +7033,18 @@
 "sklep filatelistyczny"
 ],
 "shop/computer":[
+"serwis komputerowy",
 "Sklep komputerowy",
-"sklep komputerowy"
+"sklep komputerowy",
+"naprawa komputerów",
+"komputery"
 ],
 "shop/confectionery":[
 "cukierki",
-"Sklep ze słodyczami"
+"czekoladki",
+"słodycze",
+"Sklep ze słodyczami",
+"żelki"
 ],
 "shop/convenience":[
 "sklepik osiedlowy",
@@ -6870,6 +7055,7 @@
 "żabka",
 "Sklep ogólnospożywczy",
 "sklep ogólnospożywczy",
+"żywność",
 "sklep spożywczy",
 "spożywczak"
 ],
@@ -6891,8 +7077,8 @@
 "Inglot"
 ],
 "shop/country_store":[
-"sklep wiejski",
-"Sklep wiejski"
+"country store",
+"Country Store"
 ],
 "shop/craft":[
 "sztalugi",
@@ -6926,8 +7112,10 @@
 "Sklep z nabiałem"
 ],
 "shop/deli":[
+"rarytasy",
 "wyroby delikatesowe",
-"żywność delikatesowa",
+"specjały",
+"wykwintne artykuły spożywcze",
 "Ekskluzywne delikatesy"
 ],
 "shop/department_store":[
@@ -6937,13 +7125,19 @@
 "dom towarowy"
 ],
 "shop/doityourself":[
+"praktiker",
+"castorama",
+"Market budowlany / sklep dla majsterkowiczów",
+"bricomarché",
+"merkury market",
+"psb mrówka",
+"jula",
 "leroy merlin",
 "market budowlany",
 "diy",
 "materiały budowlane",
 "obi",
-"Market budowlany/sklep dla majsterkowiczów",
-"praktiker",
+"bricoman",
 "sklep dla majsterkowiczów"
 ],
 "shop/doors":[
@@ -7035,10 +7229,12 @@
 "shop/farm":[
 "stragan świeżych produktów",
 "sklep wiejski",
+"świeże płody rolne",
 "świeża żywność",
 "Stragan świeżych produktów",
 "warzywa",
-"owoce"
+"owoce",
+"jajka"
 ],
 "shop/fashion":[
 "Sklep odzieżowy"
@@ -7063,6 +7259,8 @@
 ],
 "shop/fireplace":[
 "kominek",
+"grzejniki",
+"piece",
 "Sklep z kominkami",
 "kominki"
 ],
@@ -7076,7 +7274,9 @@
 "shop/flooring":[
 "Sklep z posadzkami",
 "sklep z posadzkami",
-"posadzki"
+"parkiety",
+"posadzki",
+"podłogi"
 ],
 "shop/florist":[
 "Kwiaciarnia",
@@ -7099,13 +7299,17 @@
 "pellet",
 "olej opałowy",
 "brykiety",
+"skład węgla",
 "groszek",
 "paliwo",
+"skład opału",
 "paliwa",
 "Sklep z paliwami",
 "węgiel",
 "gaz w butlach",
 "węgiel drzewny",
+"ekogroszek",
+"drewno",
 "butle gazowe",
 "koks",
 "benzyna",
@@ -7145,6 +7349,7 @@
 "lpg",
 "Sklep z butlami gazowymi",
 "propan",
+"butle gazowe",
 "cng"
 ],
 "shop/general":[
@@ -7153,9 +7358,14 @@
 ],
 "shop/gift":[
 "sklep z prezentami",
+"figurki",
 "Sklep z pamiątkami",
 "pamiątki",
-"prezenty"
+"sklep z pamiątkami",
+"magnesy",
+"pocztówki",
+"prezenty",
+"gadżety"
 ],
 "shop/greengrocer":[
 "sklep z warzywami",
@@ -7176,10 +7386,18 @@
 "fryzjer"
 ],
 "shop/hairdresser_supply":[
-"odżywka",
+"artykuły fryzjerskie",
+"prostownice",
+"suszarki do włosów",
+"maszynki do włosów",
+"lokówki",
+"szampony",
+"odżywki",
 "Sklep z artykułami fryzjerskimi",
-"szampon",
-"fryzjer"
+"szczotki",
+"farby do włosów",
+"fryzjer",
+"nożyczki"
 ],
 "shop/hardware":[
 "Sklep z narzędziami",
@@ -7193,7 +7411,6 @@
 ],
 "shop/health_food":[
 "zdrowa żywność",
-"żywność organiczna",
 "żywność regionalna",
 "żywność ekologiczna",
 "Sklep ze zdrową żywnością",
@@ -7205,9 +7422,10 @@
 ],
 "shop/herbalist":[
 "zielarz",
-"Herbaciarnia",
 "zioła",
-"Zielarz"
+"sklep zielarski",
+"Sklep zielarski",
+"sklep zielarsko-medyczny"
 ],
 "shop/hifi":[
 "amplitunery",
@@ -7249,10 +7467,14 @@
 ],
 "shop/houseware":[
 "małe agd",
+"patelnie",
 "Sklep z małymi artykułami gospodarstwa domowego",
 "sztućce",
+"naczynia",
+"artykuły kuchenne",
 "garnki",
-"artykuły kuchenne"
+"talerze",
+"przybory kuchenne"
 ],
 "shop/hunting":[
 "myśliwy",
@@ -7268,7 +7490,10 @@
 ],
 "shop/interior_decoration":[
 "Sklep z dekoracją wnętrz",
-"dekoracja wnętrz"
+"wyposażenie wnętrz",
+"dekoracja wnętrz",
+"meble",
+"dekoracje wnętrz"
 ],
 "shop/jewelry":[
 "złotnik",
@@ -7287,9 +7512,12 @@
 "biżuteria"
 ],
 "shop/kiosk":[
+"papierosy",
+"słodycze",
 "gazety",
 "Kiosk",
-"kiosk"
+"kiosk",
+"napoje"
 ],
 "shop/kitchen":[
 "meble kuchenne",
@@ -7330,11 +7558,12 @@
 "zamki",
 "rzemiosło",
 "rzemieślnicy",
-"Ślusarz",
 "klucze",
 "kłódki",
+"dorabianie kluczy",
 "rzemieślnik",
-"ślusarz"
+"ślusarz",
+"Dorabianie kluczy / Ślusarz"
 ],
 "shop/lottery":[
 "hazard",
@@ -7351,8 +7580,9 @@
 "centrum handlowe"
 ],
 "shop/massage":[
-"Masaż",
-"masażysta"
+"Salon masażu",
+"masażysta",
+"salon masażu"
 ],
 "shop/medical_supply":[
 "sprzęt rehabilitacyjny",
@@ -7400,31 +7630,47 @@
 "gry"
 ],
 "shop/money_lender":[
-"Pożyczki",
-"kredyt"
+"pożyczki",
+"Firma pożyczkowa",
+"kredyty"
 ],
 "shop/motorcycle":[
-"diler",
+"serwis motocyklowy",
 "Sklep motocyklowy",
-"dealer motocyklowy"
+"sprzedaż motocykli",
+"odzież motocyklowa",
+"warsztat motocyklowy",
+"naprawa motocykli",
+"sklep motocyklowy",
+"dealer motocyklowy",
+"wypożyczalnia motocykli",
+"motory",
+"części motocyklowe",
+"akcesoria motocyklowe",
+"wynajem motocykli",
+"motocykle"
 ],
 "shop/motorcycle_repair":[
 "mechanik",
 "motor",
-"auto",
 "serwis",
 "motocykl",
 "naprawa",
 "warsztat motocyklowy",
-"samochód",
 "garaż",
 "naprawy",
-"rower",
 "Warsztat motocyklowy"
 ],
 "shop/music":[
 "Sklep muzyczny",
-"sklep muzyczny"
+"dvd",
+"nagrania muzyczne",
+"kasety magnetofonowe",
+"płyty kompaktowe",
+"winyle",
+"sklep muzyczny",
+"płyty cd",
+"płyty winylowe"
 ],
 "shop/musical_instrument":[
 "sklep muzyczny",
@@ -7444,6 +7690,7 @@
 "inmedio"
 ],
 "shop/nutrition_supplements":[
+"odżywki dla sportowców",
 "Sklep z suplementami diety",
 "suplementy diety"
 ],
@@ -7487,6 +7734,8 @@
 "dekoracje",
 "zaproszenia",
 "balony",
+"artykuły imprezowe",
+"przebrania",
 "kostiumy",
 "Sklep z artykułami imprezowymi"
 ],
@@ -7507,7 +7756,7 @@
 "Lombard"
 ],
 "shop/perfumery":[
-"zapachy",
+"perfumy",
 "Perfumeria",
 "sklep z perfumami"
 ],
@@ -7523,7 +7772,11 @@
 "Salon fryzjerski dla zwierząt"
 ],
 "shop/photo":[
+"filmy do aparatów",
+"aparaty fotograficzne",
+"ramki na zdjęcia",
 "fotografia",
+"wywoływanie zdjęć",
 "Sklep fotograficzny"
 ],
 "shop/pottery":[
@@ -7548,7 +7801,9 @@
 "wróżenie"
 ],
 "shop/pyrotechnics":[
-"Sklep z ogniami sztucznymi",
+"sztuczne ognie",
+"petardy",
+"Sklep ze sztucznymi ogniami",
 "fajerwerki"
 ],
 "shop/radiotechnics":[
@@ -7569,23 +7824,28 @@
 "dewocjonalia"
 ],
 "shop/rental":[
+"wypożyczalnia sprzętu sportowego",
 "wynajem",
 "wypożyczalnia",
+"wypożyczalnia pojazdów",
 "Wypożyczalnia"
 ],
 "shop/scuba_diving":[
 "sprzęt do nurkowania",
-"Sklep nurkowy"
+"Sklep nurkowy",
+"nurkowanie"
 ],
 "shop/seafood":[
 "owoce morza",
-"Sklep z owocami morza",
-"ryby"
+"Sklep z rybami i owocami morza",
+"ryby",
+"sklep rybny"
 ],
 "shop/second_hand":[
 "komis",
 "Sklep z rzeczami używanymi",
 "używane rzeczy",
+"rzeczy używane",
 "second hand"
 ],
 "shop/sewing":[
@@ -7597,9 +7857,10 @@
 ],
 "shop/shoe_repair":[
 "naprawa obuwia",
+"Szewc (naprawa obuwia)",
+"obuwie",
 "buty",
-"szewc",
-"Naprawa obuwia"
+"szewc"
 ],
 "shop/shoes":[
 "obuwie",
@@ -7623,19 +7884,37 @@
 ],
 "shop/storage_rental":[
 "Przechowalnia rzeczy (długoterminowa)",
-"magazyn",
-"przechowalnia pojazdów",
+"magazyny samoobsługowe",
+"magazyny do wynajęcia",
+"wynajem magazynów",
+"komórki do wynajęcia",
 "przechowalnia rzeczy"
 ],
 "shop/supermarket":[
-"supermarket",
-"market",
+"piotr i paweł",
+"auchan",
 "biedronka",
+"kaufland",
+"intermarché",
 "netto",
 "Supermarket",
 "dino",
+"chata polska",
+"supermarket",
+"market",
+"lewiatan",
+"polomarket",
+"delikatesy centrum",
+"lidl",
+"dyskont",
 "hipermarket",
-"sklep spożywczy"
+"carrefour",
+"stokrotka",
+"żywność",
+"tesco",
+"sklep spożywczy",
+"aldi",
+"e.leclerc"
 ],
 "shop/supermarket/organic":[
 "ekologiczna żywność",
@@ -7645,6 +7924,7 @@
 ],
 "shop/swimming_pool":[
 "akcesoria do basenów",
+"sklep z akcesoriami do basenów",
 "baseny",
 "materiały do basenów",
 "Sklep z akcesoriami do basenów"
@@ -7652,17 +7932,19 @@
 "shop/tailor":[
 "szycie na miarę",
 "rzemiosło",
-"Krawiec",
 "rzemieślnicy",
 "krawcowa",
 "rzemieślnik",
 "krawiec",
+"Krawiec / usługi krawieckie",
 "odzież na miarę"
 ],
 "shop/tattoo":[
 "tatuażysta",
 "Studio tatuażu",
-"tatuaż"
+"salon tatuażu",
+"studio tatuażu",
+"tatuaże"
 ],
 "shop/tea":[
 "Sklep z herbatą",
@@ -7688,18 +7970,34 @@
 ],
 "shop/tiles":[
 "Sklep z płytkami ceramicznymi",
+"płytki ceramiczne",
+"kafelki",
 "gres",
-"płytki"
+"płytki",
+"glazura",
+"terakota",
+"ceramika"
 ],
 "shop/tobacco":[
+"papierosy",
+"fajki wodne",
 "Sklep z tytoniem",
-"Sklep tytoniowy"
+"zapalniczki",
+"cygara",
+"fajki",
+"popielniczki",
+"bibułki",
+"filtry",
+"cygaretki",
+"sklep tytoniowy",
+"tytoń"
 ],
 "shop/tool_hire":[
 "Wypożyczalnia narzędzi",
 "wypożyczanie narzędzi",
 "wypożyczalnia narzędzi",
-"narzędzia"
+"narzędzia",
+"wypożyczalnia sprzętu"
 ],
 "shop/toys":[
 "sklep zabawkarski",
@@ -7708,9 +8006,9 @@
 ],
 "shop/trade":[
 "hurtownia budowlana",
-"Skład branżowy",
 "skład drewna",
 "skład budowlany",
+"Skład materiałów budowlanych",
 "skład opału"
 ],
 "shop/travel_agency":[
@@ -7731,7 +8029,9 @@
 "wulkanizator",
 "Sklep z oponami",
 "wulkanizacja",
-"opony"
+"wymiana opon",
+"opony",
+"samochody"
 ],
 "shop/vacant":[
 "Pusty lokal sklepowy"
@@ -7741,7 +8041,13 @@
 "Sklep z odkurzaczami"
 ],
 "shop/variety_store":[
-"Sklep z różnościami"
+"różności",
+"sklep z różnościami",
+"Sklep z różnościami",
+"pamiątki",
+"bibeloty",
+"prezenty",
+"gadżety"
 ],
 "shop/video":[
 "vhs",
@@ -7777,7 +8083,11 @@
 ],
 "shop/weapons":[
 "Sklep z bronią",
-"militaria"
+"militaria",
+"amunicja",
+"noże",
+"pistolety",
+"broń"
 ],
 "shop/wholesale":[
 "selgros",
@@ -7785,6 +8095,14 @@
 "makro",
 "Hurtownia",
 "hurtownia"
+],
+"shop/wigs":[
+"cosplay",
+"Sklep z perukami",
+"peruki",
+"włosy",
+"fryzjer",
+"sklep z perukami"
 ],
 "shop/window_blind":[
 "Sklep z żaluzjami/roletami",
@@ -7795,6 +8113,9 @@
 "wina",
 "Sklep z winami",
 "wino"
+],
+"telecom":[
+"Obiekt telekomunikacyjny"
 ],
 "telecom/data_center":[
 "serwery",
@@ -7955,6 +8276,11 @@
 "obwieszczenia",
 "Tablica informacyjna"
 ],
+"tourism/information/board/welcome_sign":[
+"Tablica powitalna (miasta)",
+"tablica powitalna miasta",
+"witamy w mieście"
+],
 "tourism/information/guidepost":[
 "Drogowskaz",
 "drogowskaz"
@@ -7966,8 +8292,11 @@
 ],
 "tourism/information/office":[
 "turystyka",
-"informacja turystyka",
-"Informacja turystyczna"
+"biuro turystyczne",
+"Biuro informacji turystycznej",
+"biuro informacji turystycznej",
+"centrum informacji turystycznej",
+"informacja turystyczna"
 ],
 "tourism/information/route_marker":[
 "znacznik szlaku",
@@ -8102,32 +8431,12 @@
 "granica miejscowości",
 "znak drogowy"
 ],
-"traffic_sign/city_limit_vertex":[
-"granica miasta",
-"Znak granicy miasta",
-"znak granicy miasta",
-"granica miejscowości",
-"znak drogowy"
-],
 "traffic_sign/maxspeed":[
 "ograniczenie prędkości",
 "maksymalna prędkość",
 "znak ograniczenia prędkości",
 "znak drogowy",
 "Znak ograniczenia prędkości"
-],
-"traffic_sign/maxspeed_vertex":[
-"ograniczenie prędkości",
-"maksymalna prędkość",
-"znak ograniczenia prędkości",
-"znak drogowy",
-"Znak ograniczenia prędkości"
-],
-"traffic_sign_vertex":[
-"ulica",
-"Znak drogowy",
-"znak drogowy",
-"droga"
 ],
 "type/boundary":[
 "Granica",
@@ -8234,6 +8543,7 @@
 "trasa promowa"
 ],
 "type/route/foot":[
+"szlak pieszy",
 "trasa piesza",
 "Trasa piesza"
 ],

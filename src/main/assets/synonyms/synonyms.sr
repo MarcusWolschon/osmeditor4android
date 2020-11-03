@@ -2867,9 +2867,6 @@
 "tourism/information/map":[
 "Мапа"
 ],
-"tourism/information/office":[
-"Туристички информативни центар"
-],
 "tourism/information/route_marker":[
 "Ознака стазе"
 ],
@@ -2926,17 +2923,8 @@
 "traffic_sign/city_limit":[
 "Знак за ограничење брзине у насељу"
 ],
-"traffic_sign/city_limit_vertex":[
-"Знак за ограничење брзине у насељу"
-],
 "traffic_sign/maxspeed":[
 "Знак за ограничење брзине"
-],
-"traffic_sign/maxspeed_vertex":[
-"Знак за ограничење брзине"
-],
-"traffic_sign_vertex":[
-"Саобраћајни знак"
 ],
 "type/boundary":[
 "Граница"
@@ -2996,9 +2984,6 @@
 ],
 "type/route/ferry":[
 "Трајектна путања"
-],
-"type/route/foot":[
-"Пешачка путања"
 ],
 "type/route/hiking":[
 "Планинарска путања"

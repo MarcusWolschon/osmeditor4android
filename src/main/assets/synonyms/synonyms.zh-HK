@@ -2755,10 +2755,6 @@
 "止衝擋",
 "Buffer Stop"
 ],
-"railway/crossing":[
-"鐵路交滙處 (路徑)",
-"Railway Crossing (Path)"
-],
 "railway/derail":[
 "鐵路脫軌器",
 "Railway Derailer",
@@ -2768,10 +2764,6 @@
 "停用鐵路",
 "Disused Railway",
 "廢棄的鐵路"
-],
-"railway/level_crossing":[
-"Railway Crossing (Road)",
-"鐵路交滙處 (道路)"
 ],
 "railway/milestone":[
 "鐵道里程碑",
@@ -3485,12 +3477,6 @@
 "地圖",
 "Map"
 ],
-"tourism/information/office":[
-"遊客中心",
-"旅客中心",
-"旅客諮詢中心",
-"Tourist Information Office"
-],
 "tourism/motel":[
 "汽車旅館",
 "Motel",
@@ -3632,13 +3618,6 @@
 "渡輪航線",
 "航綫",
 "Ferry Route"
-],
-"type/route/foot":[
-"步行路線",
-"步行路綫",
-"行人路綫",
-"行人路線",
-"Foot Route"
 ],
 "type/route/hiking":[
 "行山路綫",

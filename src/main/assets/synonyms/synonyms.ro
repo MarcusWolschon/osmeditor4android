@@ -872,14 +872,8 @@
 "railway/abandoned":[
 "Cale Ferată Abandonată"
 ],
-"railway/crossing":[
-"Traversare de Căi Ferate (Potecă)"
-],
 "railway/disused":[
 "Cale Ferată Învechită"
-],
-"railway/level_crossing":[
-"Traversare de Cale Ferată (Stradă)"
 ],
 "railway/subway_entrance":[
 "Intrare Metrou"
@@ -1206,9 +1200,6 @@
 "tourism/information/map":[
 "Hartă"
 ],
-"tourism/information/office":[
-"Oficiu de Informare Turistică"
-],
 "tourism/motel":[
 "Motel"
 ],
@@ -1277,9 +1268,6 @@
 ],
 "type/route/ferry":[
 "Rută de Bac"
-],
-"type/route/foot":[
-"Rută pe Jos"
 ],
 "type/route/hiking":[
 "Rută de Drumeție"

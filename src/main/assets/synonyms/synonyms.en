@@ -59,6 +59,9 @@
 "seamark":[
 "Seamark"
 ],
+"telecom":[
+"Telecom Feature"
+],
 "tourism":[
 "Tourism Feature"
 ],
@@ -451,8 +454,26 @@
 "bier",
 "beer"
 ],
+"amenity/binoculars":[
+"spotting scope",
+"tower viewer",
+"observation viewer",
+"Mounted Binoculars",
+"sight",
+"spyglass",
+"viewing stand",
+"optical ranger",
+"viewfinder",
+"telescope"
+],
 "amenity/boat_rental":[
 "Boat Rental"
+],
+"amenity/boat_storage":[
+"dry dock",
+"boathouse",
+"Boat Storage",
+"marina"
 ],
 "amenity/bureau_de_change":[
 "money changer",
@@ -469,9 +490,11 @@
 "boba",
 "tapioca",
 "taiwanese tea drink",
+"pearl tea",
 "bubble milk tea",
 "pearl milk tea",
-"Bubble Tea Cafe"
+"Bubble Tea Cafe",
+"boba drink"
 ],
 "amenity/cafe/coffee_shop":[
 "hot drinks",
@@ -742,6 +765,16 @@
 "sausage",
 "wiener"
 ],
+"amenity/fast_food/juice":[
+"beverages",
+"cafe",
+"smoothies",
+"shakes",
+"fruit drinks",
+"Juice Fast Food",
+"café",
+"juice bar"
+],
 "amenity/fast_food/kebab":[
 "lunch",
 "dining",
@@ -927,6 +960,7 @@
 "karaoke room"
 ],
 "amenity/kindergarten":[
+"kindergarten",
 "kindergarden",
 "pre-school",
 "Preschool / Kindergarten Grounds"
@@ -976,6 +1010,12 @@
 "unloading",
 "warehouse"
 ],
+"amenity/lounger":[
+"seat",
+"bench",
+"chair",
+"Lounger"
+],
 "amenity/love_hotel":[
 "Love Hotel"
 ],
@@ -1021,6 +1061,15 @@
 "check",
 "cable",
 "finance"
+],
+"amenity/mortuary":[
+"crematorium",
+"Morgue",
+"mortuary",
+"funeral home",
+"morgue",
+"memorial home",
+"undertaker"
 ],
 "amenity/motorcycle_parking":[
 "Motorcycle Parking"
@@ -1345,6 +1394,11 @@
 "Pub",
 "drink",
 "beer"
+],
+"amenity/pub/irish":[
+"irish bar",
+"Irish Pub",
+"irish pub"
 ],
 "amenity/pub/lgbtq":[
 "lesbian pub",
@@ -1973,6 +2027,15 @@
 "long drop",
 "outhouse",
 "Pit Latrine"
+],
+"amenity/toilets/portable":[
+"porta potty",
+"privy",
+"portapot",
+"Portable Toilet",
+"porta john",
+"chemical toilet",
+"restroom"
 ],
 "amenity/townhall":[
 "Town Hall",
@@ -2623,6 +2686,7 @@
 "building/farm_auxiliary":[
 "agriculture",
 "chicken coop",
+"auxiliary",
 "sty",
 "auxilary",
 "pigsty",
@@ -2678,6 +2742,7 @@
 "Industrial Building"
 ],
 "building/kindergarten":[
+"kindergarten",
 "Preschool / Kindergarten Building",
 "kindergarden",
 "pre-school"
@@ -3026,6 +3091,9 @@
 "demolished/building":[
 "Recently Demolished Building"
 ],
+"disused/amenity":[
+"Disused Amenity"
+],
 "disused/railway":[
 "Disused Railway Feature"
 ],
@@ -3158,6 +3226,13 @@
 ],
 "golf/cartpath":[
 "Golf Cartpath"
+],
+"golf/clubhouse":[
+"pro shop",
+"Golf Clubhouse",
+"club house",
+"golf clubhouse",
+"golf house"
 ],
 "golf/driving_range":[
 "Driving Range"
@@ -3768,6 +3843,15 @@
 "street",
 "Tertiary Road"
 ],
+"highway/toll_gantry":[
+"toll gantry",
+"Open Road Toll",
+"license plate camera toll",
+"cashless toll",
+"transponder toll",
+"free-flow toll",
+"electronic toll"
+],
 "highway/track":[
 "ranch road",
 "4wd",
@@ -4180,7 +4264,13 @@
 "flower"
 ],
 "landuse/quarry":[
-"Quarry"
+"sand pit",
+"open pit mine",
+"sand mine",
+"sandpit",
+"Quarry",
+"sand quarry",
+"aggregate quarry"
 ],
 "landuse/railway":[
 "Railway Corridor",
@@ -4714,6 +4804,13 @@
 "dive",
 "water"
 ],
+"leisure/sports_hall":[
+"sports venue",
+"athletic courts",
+"sports hall",
+"gym",
+"Gymnasium"
+],
 "leisure/stadium":[
 "Stadium"
 ],
@@ -4857,6 +4954,15 @@
 ],
 "man_made/cutline":[
 "Cut line"
+],
+"man_made/dovecote":[
+"doocot",
+"dovecot",
+"Dovecote",
+"birds",
+"doves",
+"pigeons",
+"pigeonholes"
 ],
 "man_made/dyke":[
 "Levee",
@@ -5204,6 +5310,10 @@
 "radio mast",
 "communication mast"
 ],
+"man_made/tower/cooling":[
+"Cooling Tower",
+"power plant"
+],
 "man_made/tower/defensive":[
 "Fortified Tower",
 "Castle Tower",
@@ -5271,6 +5381,13 @@
 "Windmill",
 "wind",
 "mill"
+],
+"man_made/windpump":[
+"wind pump",
+"aerorotor",
+"windmill",
+"water pump",
+"Windpump"
 ],
 "man_made/works":[
 "refinery",
@@ -5382,6 +5499,11 @@
 ],
 "natural/heath":[
 "Heath"
+],
+"natural/hot_spring":[
+"geothermal spring",
+"Hot Spring",
+"thermal pool"
 ],
 "natural/mud":[
 "wetland",
@@ -6286,6 +6408,21 @@
 "public transportation",
 "transportation"
 ],
+"public_transport/platform/bus_tram_point":[
+"bus",
+"light rail",
+"rail",
+"platform",
+"public transportation",
+"transportation",
+"trolley",
+"public transit",
+"transit",
+"Tram & Bus Stop",
+"streetcar",
+"track",
+"tram"
+],
 "public_transport/platform/bus":[
 "bus",
 "public transit",
@@ -6687,11 +6824,13 @@
 ],
 "railway/crossing":[
 "level crossing",
+"Railway-Path Crossing",
+"path railway crossing",
+"railway path crossing",
 "path through railroad",
 "grade crossing",
 "train crossing",
 "crossing",
-"Railway Crossing (Path)",
 "pedestrian crossing",
 "railroad crossing"
 ],
@@ -6711,11 +6850,13 @@
 "funicular railway"
 ],
 "railway/level_crossing":[
-"Railway Crossing (Road)",
+"road railway crossing",
 "road through railroad",
+"railway road crossing",
 "level crossing",
 "grade crossing",
 "train crossing",
+"Railway-Road Crossing",
 "crossing",
 "railroad crossing"
 ],
@@ -6772,6 +6913,13 @@
 "highspeed rail",
 "High-Speed Train Track"
 ],
+"railway/railway_crossing":[
+"railway railway crossing",
+"diamond crossing",
+"flat crossing",
+"Railway-Railway Crossing",
+"level junction"
+],
 "railway/signal":[
 "Railway Signal",
 "signal",
@@ -6797,6 +6945,30 @@
 "Train Wash",
 "wash",
 "clean"
+],
+"railway/tram_crossing":[
+"streetcar crossing",
+"trolley crossing",
+"path tram crossing",
+"level crossing",
+"tram path crossing",
+"grade crossing",
+"Tram-Path Crossing",
+"crossing",
+"tramway crossing",
+"pedestrian crossing"
+],
+"railway/tram_level_crossing":[
+"Tram-Road Crossing",
+"tram road crossing",
+"streetcar crossing",
+"trolley crossing",
+"level crossing",
+"grade crossing",
+"crossing",
+"tramway crossing",
+"pedestrian crossing",
+"road tram crossing"
 ],
 "railway/tram":[
 "tramway",
@@ -7236,7 +7408,13 @@
 "Department Store"
 ],
 "shop/doityourself":[
-"DIY Store"
+"home improvement",
+"do it yourself",
+"diy",
+"DIY Store",
+"craft",
+"tools",
+"hardware"
 ],
 "shop/doors":[
 "Door Shop"
@@ -7415,7 +7593,13 @@
 "barber"
 ],
 "shop/hardware":[
-"Hardware Store"
+"home improvement",
+"do it yourself",
+"diy",
+"craft",
+"tools",
+"Hardware Store",
+"hardware"
 ],
 "shop/health_food":[
 "vitamins",
@@ -7582,11 +7766,14 @@
 "bike"
 ],
 "shop/music":[
+"casette store",
 "CDs",
-"tape casettes",
+"casette",
 "compact discs",
 "vinyl records",
-"Music Store"
+"tape cassettes",
+"Music Store",
+"CD store"
 ],
 "shop/musical_instrument":[
 "Musical Instrument Store",
@@ -7708,6 +7895,7 @@
 "shop/scuba_diving":[
 "diving",
 "scuba",
+"snorkel",
 "Scuba Diving Shop"
 ],
 "shop/seafood":[
@@ -7775,10 +7963,13 @@
 "storage units"
 ],
 "shop/supermarket":[
+"market",
+"food market",
 "shop",
 "Supermarket",
 "grocery",
-"store"
+"store",
+"grocery store"
 ],
 "shop/supermarket/organic":[
 "natural foods",
@@ -7871,7 +8062,8 @@
 "VHS",
 "Video Store",
 "DVD",
-"video casette"
+"video casette",
+"video cassette"
 ],
 "shop/watches":[
 "Watches Shop"
@@ -7893,6 +8085,11 @@
 "warehouse club",
 "Wholesale Store",
 "cash and carry"
+],
+"shop/wigs":[
+"hair extensions",
+"Wig Shop",
+"hair extentions"
 ],
 "shop/window_blind":[
 "Window Blind Store"
@@ -7951,6 +8148,7 @@
 "Street Artwork",
 "Guerilla Artwork",
 "Graffiti",
+"Guerrilla Artwork",
 "Graffiti Artwork"
 ],
 "tourism/artwork/installation":[
@@ -8077,6 +8275,10 @@
 "tourism/information/board":[
 "Information Board"
 ],
+"tourism/information/board/welcome_sign":[
+"Welcome Sign",
+"new location"
+],
 "tourism/information/guidepost":[
 "signpost",
 "Guidepost"
@@ -8085,7 +8287,14 @@
 "Map"
 ],
 "tourism/information/office":[
-"Tourist Information Office"
+"tourism office",
+"tour guide",
+"tourist information center",
+"Visitor Center",
+"visitors center",
+"visitors information center",
+"welcome center",
+"information office"
 ],
 "tourism/information/route_marker":[
 "route marker",
@@ -8235,26 +8444,10 @@
 "speed",
 "flat top"
 ],
-"traffic_sign_vertex":[
-"road",
-"Traffic Sign",
-"highway"
-],
 "traffic_sign":[
 "road",
 "Traffic Sign",
 "highway"
-],
-"traffic_sign/city_limit_vertex":[
-"boundary",
-"border",
-"edge",
-"town",
-"hamlet",
-"road",
-"village",
-"highway",
-"City Limit Sign"
 ],
 "traffic_sign/city_limit":[
 "boundary",
@@ -8266,13 +8459,6 @@
 "village",
 "highway",
 "City Limit Sign"
-],
-"traffic_sign/maxspeed_vertex":[
-"maximum speed",
-"road",
-"Speed Limit Sign",
-"highway",
-"max speed"
 ],
 "traffic_sign/maxspeed":[
 "maximum speed",
@@ -8355,7 +8541,7 @@
 "Ferry Route"
 ],
 "type/route/foot":[
-"Foot Route"
+"Walking Route"
 ],
 "type/route/hiking":[
 "Hiking Route"

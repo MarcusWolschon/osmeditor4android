@@ -2061,9 +2061,6 @@
 "railway/buffer_stop":[
 "Járnbrautarstuðpúði"
 ],
-"railway/crossing":[
-"Þverun járnbrautar (stígur)"
-],
 "railway/derail":[
 "til að setja út af spori",
 "Járnbrautarsporsþvinga"
@@ -2073,9 +2070,6 @@
 ],
 "railway/halt":[
 "Lestarstöð (stöðvun / beiðni)"
-],
-"railway/level_crossing":[
-"Þverun járnbrautar (vegur)"
 ],
 "railway/milestone":[
 "Vegalengdarmerki járnbrautar"
@@ -2558,9 +2552,6 @@
 "tourism/information/map":[
 "Kort"
 ],
-"tourism/information/office":[
-"Upplýsingaskrifstofa ferðamanna"
-],
 "tourism/motel":[
 "Mótel"
 ],
@@ -2618,12 +2609,6 @@
 "traffic_sign/city_limit":[
 "Þéttbýlis skilti"
 ],
-"traffic_sign/city_limit_vertex":[
-"Þéttbýlis skilti"
-],
-"traffic_sign_vertex":[
-"Umferðarskilti"
-],
 "type/boundary":[
 "Svæðamörk"
 ],
@@ -2674,9 +2659,6 @@
 ],
 "type/route/ferry":[
 "Ferjuleið"
-],
-"type/route/foot":[
-"Leið fyrir fótgangandi"
 ],
 "type/route/hiking":[
 "Gönguleið"

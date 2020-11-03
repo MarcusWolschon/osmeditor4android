@@ -1035,6 +1035,27 @@
 "amenity/fast_food/ice_cream":[
 "Tiệm Ăn nhanh Kem"
 ],
+"amenity/fast_food/juice":[
+"nuoc sinh to",
+"tiem nuoc ep",
+"sinh to trai cay",
+"nuoc mia",
+"cam vat",
+"cam vắt",
+"nước mía",
+"Quán Nước ép",
+"sinh tố trái cây",
+"tiệm sinh tố",
+"quan nuoc ep",
+"quán nước ép",
+"quan sinh to",
+"sinh tố",
+"nước sinh tố",
+"sinh to",
+"tiệm nước ép",
+"quán sinh tố",
+"tinh sinh to"
+],
 "amenity/fast_food/kebab":[
 "Tiệm Ăn nhanh Kebab",
 "nhà hàng kebab",
@@ -1374,6 +1395,21 @@
 "Khu Bốc dỡ Hàng hóa",
 "khu bốc dỡ hàng"
 ],
+"amenity/lounger":[
+"giuong gap",
+"ghe gap",
+"ghế tắm nắng",
+"ghe tam nang",
+"Ghế Tắm nắng",
+"giường xếp",
+"giường gắp",
+"ghế gắp",
+"giuong xep",
+"ghế xếp",
+"giuong tam nang",
+"giường tắm nắng",
+"ghe xep"
+],
 "amenity/love_hotel":[
 "khach san tinh yeu",
 "Khách sạn Tình yêu",
@@ -1417,6 +1453,13 @@
 "tiệm gởi tiền",
 "tiem goi tien",
 "cửa hàng gửi tiền"
+],
+"amenity/mortuary":[
+"nhà quàn",
+"Nhà xác",
+"nhà xác",
+"nha xac",
+"nha quan"
 ],
 "amenity/motorcycle_parking":[
 "cho dau xe may",
@@ -4960,6 +5003,9 @@
 "demolished/building":[
 "Tòa nhà Mới Phá"
 ],
+"disused/amenity":[
+"Tiện nghi Đóng cửa"
+],
 "disused/railway":[
 "Đường sắt Không hoạt động"
 ],
@@ -5189,6 +5235,29 @@
 "boongke",
 "ho cat",
 "bẫy cát"
+],
+"golf/clubhouse":[
+"toà nhà clb golf",
+"nha clb golf",
+"tòa nhà câu lạc bộ gôn",
+"toa nha clb gon",
+"toà nhà câu lạc bộ gôn",
+"nha cau lac bo gon",
+"nhà clb gôn",
+"toa nha cau lac bo gon",
+"tòa nhà câu lạc bộ golf",
+"Nhà Câu lạc bộ Golf",
+"nhà clb golf",
+"nha clb gon",
+"toà nhà câu lạc bộ golf",
+"toa nha clb golf",
+"nhà câu lạc bộ golf",
+"nhà câu lạc bộ gôn",
+"nha cau lac bo golf",
+"tòa nhà clb gôn",
+"toa nha cau lac bo golf",
+"toà nhà clb gôn",
+"tòa nhà clb golf"
 ],
 "golf/fairway":[
 "đường bóng lăn",
@@ -8235,6 +8304,11 @@
 "tháp giao thông",
 "thap giao thong"
 ],
+"man_made/tower/cooling":[
+"thap giai nhiet",
+"tháp giải nhiệt",
+"Tháp Giải nhiệt"
+],
 "man_made/tower/minaret":[
 "tháp giáo đường hồi giáo",
 "thap thanh duong hoi giao",
@@ -8300,6 +8374,13 @@
 "máy xay gió",
 "cối xay gió",
 "may xay gio"
+],
+"man_made/windpump":[
+"cối xay gió bơm nước",
+"quat gio bom nuoc",
+"coi xay gio bom nuoc",
+"Quạt gió Bơm nước",
+"quạt gió bơm nước"
 ],
 "man_made/works":[
 "nha may",
@@ -8394,6 +8475,13 @@
 "bai hoang",
 "Bãi hoang",
 "bãi hoang"
+],
+"natural/hot_spring":[
+"suối địa nhiệt",
+"suối nước nóng",
+"suoi dia nhiet",
+"suoi nuoc nong",
+"Suối nước Nóng"
 ],
 "natural/mud":[
 "bùn",
@@ -8590,8 +8678,10 @@
 "nước suối",
 "mat song nhanh",
 "nuoc dong suoi",
+"mặt dòng chảy",
 "nuoc suoi",
 "Mặt Dòng suối",
+"mat dong chay",
 "nước sông nhánh",
 "mặt sông nhánh",
 "mat dong suoi",
@@ -9501,6 +9591,25 @@
 "tram dung xe buyt",
 "trạm dừng xe bus"
 ],
+"public_transport/platform/bus_tram_point":[
+"diem dung xe buyt va tau dien",
+"diem dung xe buyt va xe dien",
+"diem dung xe bus va xe dien",
+"diem dung xe bus va tau dien",
+"tram dung xe bus va tau dien",
+"tram dung xe bus va xe dien",
+"trạm dừng xe bus và tàu điện",
+"tram dung xe buyt va tau dien",
+"trạm dừng xe buýt và tàu điện",
+"Trạm dừng Xe buýt & Tàu điện",
+"trạm dừng xe bus và xe điện",
+"điểm dừng xe buýt và xe điện",
+"điểm dừng xe bus và tàu điện",
+"trạm dừng xe buýt và xe điện",
+"tram dung xe buyt va xe dien",
+"điểm dừng xe bus và xe điện",
+"điểm dừng xe buýt và tàu điện"
+],
 "public_transport/platform/ferry":[
 "Bến Phà",
 "ke phà",
@@ -9905,27 +10014,6 @@
 "duong tau hoa dang xay dung",
 "đường ray đang xây dựng"
 ],
-"railway/crossing":[
-"lối đi bộ qua đường sắt",
-"lối qua đường sắt",
-"lối qua đường tàu hỏa",
-"Lối Đi bộ qua Đường sắt",
-"loi qua duong ray",
-"lối đi bộ qua đường tàu hoả",
-"loi di bo qua duong xe lua",
-"lối qua đường xe lửa",
-"loi qua duong sat",
-"lối qua đường tàu hoả",
-"lối đi bộ qua đường ray",
-"lối đi bộ qua đường xe lửa",
-"lối qua đường ray",
-"loi qua duong tau hoa",
-"loi di bo qua duong sat",
-"loi di bo qua duong ray",
-"loi qua duong xe lua",
-"lối đi bộ qua đường tàu hỏa",
-"loi di bo qua duong tau hoa"
-],
 "railway/derail":[
 "thiet bi chuyen duong",
 "thiết bị chuyển đường",
@@ -9947,13 +10035,13 @@
 "Gà xép"
 ],
 "railway/level_crossing":[
-"nút giao đường sắt",
-"nut giao duong sat",
-"Điểm giao Đường sắt",
-"giao lo duong ray",
-"giao lộ đường sắt",
-"giao lộ đường ray",
-"giao lo duong sat"
+"Điểm giao Đường sắt & Đường xe hơi",
+"giao lo duong sat va duong xe hoi",
+"giao lộ đường sắt và đường xe hơi",
+"giao lộ đường ray và đường xe hơi",
+"giao lo duong ray va duong xe hoi",
+"nut giao duong sat voi duong xe hoi",
+"nút giao đường sắt với đường xe hơi"
 ],
 "railway/light_rail":[
 "Đường sắt Nhẹ",
@@ -12680,17 +12768,20 @@
 "Bản đồ"
 ],
 "tourism/information/office":[
-"van phong huong dan du lich",
-"văn phòng du khách",
-"van phong huong dan tham quan",
-"văn phòng hướng dẫn du lịch",
-"van phong du lich",
-"văn phòng hướng dẫn du khách",
-"van phong du khach",
-"van phong huong dan du khach",
-"văn phòng du lịch",
-"văn phòng hướng dẫn tham quan",
-"Văn phòng Hướng dẫn Du lịch"
+"trạm hỗ trợ du khách",
+"trung tâm hỗ trợ du khách",
+"trạm hỗ trợ khách du lịch",
+"tram ho tro khach du lich",
+"van phong ho tro du khach",
+"trung tâm hỗ trợ khách du lịch",
+"Trung tâm Hỗ trợ Du khách",
+"văn phòng hỗ trợ du khách",
+"van phong ho tro khach du lich",
+"tthtdk",
+"trung tam ho tro khach du lich",
+"văn phòng hỗ trợ khách du lịch",
+"trung tam ho tro du khach",
+"tram ho tro du khach"
 ],
 "tourism/motel":[
 "Khách sạn Dọc đường",
@@ -12871,21 +12962,6 @@
 "bảng báo chào mừng thành phố",
 "biển báo chào mừng thành phố"
 ],
-"traffic_sign/city_limit_vertex":[
-"bang bao chao mung thanh pho",
-"bang chao mung thanh pho",
-"Bảng Chào mừng Thành phố",
-"biển ranh giới thành phố",
-"bảng ranh giới thành phố",
-"bang ranh gioi thanh pho",
-"bien ranh gioi thanh pho",
-"biển chào mừng thành phố",
-"bien chao mung thanh pho",
-"bieng bao chao mung thanh pho",
-"bảng chào mừng thành phố",
-"bảng báo chào mừng thành phố",
-"biển báo chào mừng thành phố"
-],
 "traffic_sign/maxspeed":[
 "biển tốc độ tối đa",
 "bảng giới hạn tốc độ",
@@ -12896,32 +12972,6 @@
 "bien gioi han toc do",
 "bang gioi han toc do",
 "bảng tốc độ tối đa"
-],
-"traffic_sign/maxspeed_vertex":[
-"biển tốc độ tối đa",
-"bảng giới hạn tốc độ",
-"bien toc do toi da",
-"Bảng Tốc độ Tối đa",
-"biển giới hạn tốc độ",
-"bang toc do toi da",
-"bien gioi han toc do",
-"bang gioi han toc do",
-"bảng tốc độ tối đa"
-],
-"traffic_sign_vertex":[
-"Bảng Giao thông",
-"bảng báo giao thông",
-"bảng giao thông",
-"bang bao giao thong",
-"bang bao hieu",
-"bien bao giao thong",
-"biển giao thông",
-"bien giao thong",
-"biển báo giao thông",
-"bảng báo hiệu",
-"bien bao hieu",
-"biển báo hiệu",
-"bang giao thong"
 ],
 "type/boundary":[
 "ranh giới",

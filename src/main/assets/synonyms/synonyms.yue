@@ -420,6 +420,9 @@
 "屋宇",
 "建築物"
 ],
+"building/apartments":[
+"公寓"
+],
 "building/commercial":[
 "Commercial Building",
 "商業樓宇",
@@ -748,7 +751,7 @@
 "水產"
 ],
 "landuse/basin":[
-"盆地"
+"人工池"
 ],
 "landuse/cemetery":[
 "墓地",
@@ -768,6 +771,9 @@
 "地堂",
 "農莊",
 "Farmyard"
+],
+"landuse/forest":[
+"治林"
 ],
 "landuse/grass":[
 "草地",
@@ -1037,6 +1043,9 @@
 "Water",
 "水"
 ],
+"natural/water/basin":[
+"人工池"
+],
 "natural/water/lake":[
 "湖",
 "湖泊",
@@ -1054,11 +1063,43 @@
 "水塘",
 "水庫"
 ],
+"natural/water/river":[
+"brook",
+"河面",
+"rill",
+"beck",
+"runnel",
+"河岸",
+"riverbank",
+"run",
+"tributary",
+"branch",
+"rivulet",
+"江面",
+"江岸",
+"creek",
+"estuary",
+"stream",
+"course"
+],
 "natural/wetland":[
 "澤",
 "潮間帶",
 "濕地",
 "Wetland"
+],
+"natural/wood":[
+"woodlands",
+"forest",
+"樹林",
+"taiga",
+"天然林",
+"boreal",
+"woods",
+"林",
+"tree",
+"forrest",
+"trees"
 ],
 "office":[
 "Office",
@@ -1225,14 +1266,44 @@
 "Disused Railway",
 "廢棄的鐵路"
 ],
-"railway/level_crossing":[
-"鐵道口（車道）"
+"railway/monorail":[
+"單軌"
+],
+"railway/rail":[
+"railway track",
+"火車",
+"火車路",
+"rail line",
+"火車軌",
+"railroad track",
+"track",
+"train track",
+"permanent way"
+],
+"railway/subway":[
+"metro",
+"transit",
+"地下鐵路",
+"地下鐵路軌",
+"地鐵",
+"地鐵軌",
+"underground railway"
 ],
 "railway/subway_entrance":[
 "地鐵口",
 "Subway Entrance",
 "地下鐵路入口",
 "地鐵入口"
+],
+"railway/tram":[
+"tramway",
+"electric street railway",
+"light rail",
+"電車軌",
+"電車路",
+"streetcar",
+"電車",
+"trolley"
 ],
 "relation":[
 "Relation",
@@ -1661,12 +1732,6 @@
 "渡輪航線",
 "航綫",
 "Ferry Route"
-],
-"type/route/foot":[
-"步行路線",
-"行人路綫",
-"行人路線",
-"Foot Route"
 ],
 "type/route/hiking":[
 "行山路綫",

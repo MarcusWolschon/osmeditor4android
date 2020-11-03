@@ -328,7 +328,7 @@
 "Food Bank"
 ],
 "amenity/social_facility/group_home":[
-"Elderly Group Home"
+"Retirement Home"
 ],
 "amenity/social_facility/homeless_shelter":[
 "Homeless Shelter"
@@ -1887,9 +1887,6 @@
 "railway/buffer_stop":[
 "Buffer Stop"
 ],
-"railway/crossing":[
-"Level Crossing (Path)"
-],
 "railway/derail":[
 "Railway Derailer"
 ],
@@ -1898,9 +1895,6 @@
 ],
 "railway/halt":[
 "Train Station (Halt / Request)"
-],
-"railway/level_crossing":[
-"Level Crossing (Road)"
 ],
 "railway/milestone":[
 "Railway Milestone"
@@ -2344,9 +2338,6 @@
 "tourism/information/map":[
 "Map"
 ],
-"tourism/information/office":[
-"Tourist Information Office"
-],
 "tourism/motel":[
 "Motel"
 ],
@@ -2451,9 +2442,6 @@
 ],
 "type/route/ferry":[
 "Ferry Route"
-],
-"type/route/foot":[
-"Foot Route"
 ],
 "type/route/hiking":[
 "Hiking Route"

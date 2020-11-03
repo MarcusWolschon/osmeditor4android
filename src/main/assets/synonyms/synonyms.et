@@ -354,6 +354,9 @@
 "Kõrts",
 "Pubi"
 ],
+"amenity/pub/irish":[
+"Iiri pubi"
+],
 "amenity/public_bookcase":[
 "Avalik raamaturiiul",
 "raamaturiiul"
@@ -378,6 +381,9 @@
 "Varjualune",
 "räästaalune",
 "peavari"
+],
+"amenity/shower":[
+"Dušš"
 ],
 "amenity/smoking_area":[
 "Suitsetamise koht"
@@ -898,6 +904,10 @@
 "ford":[
 "Koole",
 "Koolmekoht"
+],
+"golf/clubhouse":[
+"klubihoone",
+"Golfi klubihoone"
 ],
 "healthcare":[
 "kliinik",
@@ -1498,6 +1508,11 @@
 "leisure/sports_centre/swimming":[
 "Ujula"
 ],
+"leisure/sports_hall":[
+"Spordisaal",
+"Spordihall",
+"spordikeskus"
+],
 "leisure/stadium":[
 "Staadion"
 ],
@@ -1557,6 +1572,9 @@
 "Siht",
 "metsasiht",
 "soosiht"
+],
+"man_made/dovecote":[
+"Tuvimaja"
 ],
 "man_made/embankment":[
 "Tamm"
@@ -1622,6 +1640,11 @@
 "man_made/pier":[
 "Kai"
 ],
+"man_made/pier/floating":[
+"kai",
+"dokk",
+"Ujuvkai"
+],
 "man_made/pipeline":[
 "Torujuhe"
 ],
@@ -1635,6 +1658,11 @@
 ],
 "man_made/tower":[
 "Torn"
+],
+"man_made/tower/cooling":[
+"gradiir",
+"elektri",
+"Jahutustorn"
 ],
 "man_made/tower/defensive":[
 "torn",
@@ -1701,6 +1729,10 @@
 ],
 "natural/heath":[
 "Nõmm"
+],
+"natural/hot_spring":[
+"Kuumaveeallikas",
+"geotermiline"
 ],
 "natural/mud":[
 "Muda",
@@ -1913,16 +1945,11 @@
 "public_transport/platform/bus_point":[
 "Bussipeatus"
 ],
+"public_transport/platform/bus_tram_point":[
+"Bussi- ja trammipeatus"
+],
 "railway/abandoned":[
 "Mahajäetud raudtee"
-],
-"railway/crossing":[
-"ülekäik",
-"jalakäija ületus",
-"raudteega",
-"ületuskoht",
-"ületustee",
-"Raudtee ülekäik"
 ],
 "railway/disused":[
 "Mittekasutatav raudtee",
@@ -1933,12 +1960,6 @@
 "Köisraudtee",
 "furnikulaar",
 "funikulöör"
-],
-"railway/level_crossing":[
-"ülesõit",
-"ristumine",
-"rongi",
-"Raudtee-ülesõidukoht"
 ],
 "railway/light_rail":[
 "Kergraudtee"
@@ -2576,9 +2597,9 @@
 "datacenter"
 ],
 "telecom/exchange":[
-"Telekomisõlmpunkt",
 "telefonisõlm",
-"sidesõlm"
+"sidesõlm",
+"Sidejaam"
 ],
 "tourism/alpine_hut":[
 "Alpimaja"
@@ -2657,7 +2678,9 @@
 ],
 "tourism/information/office":[
 "infokeskus",
-"Turismiinfokeskus"
+"turistiinfo",
+"turismikeskus",
+"Külastuskeskus"
 ],
 "tourism/information/route_marker":[
 "post",
@@ -2832,7 +2855,9 @@
 "Praamlaeva marsruut"
 ],
 "type/route/foot":[
-"Jalgmarsruut"
+"Jalgsimarsruut",
+"kõndimine",
+"jala"
 ],
 "type/route/hiking":[
 "Matkamarsruut"

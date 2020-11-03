@@ -3849,11 +3849,6 @@
 "Vasút építés alatt",
 "épülő vasút"
 ],
-"railway/crossing":[
-"vasúti kereszteződés",
-"átkelő",
-"Vasúti átjáró (gyalogos)"
-],
 "railway/derail":[
 "kitérő",
 "vasút",
@@ -3865,12 +3860,6 @@
 ],
 "railway/halt":[
 "Vasúti megálló (feltételes)"
-],
-"railway/level_crossing":[
-"vasúti kereszteződés",
-"átjáró",
-"átkelő",
-"Vasúti átjáró (közút)"
 ],
 "railway/milestone":[
 "kilométerkő",
@@ -4881,12 +4870,6 @@
 "Térkép",
 "térkép"
 ],
-"tourism/information/office":[
-"idegenforgalom",
-"turistainformáció",
-"Tourinform iroda",
-"turistairoda"
-],
 "tourism/information/route_marker":[
 "Turistajelzés"
 ],
@@ -4980,17 +4963,8 @@
 "traffic_sign/city_limit":[
 "Lakott terület határát jelző tábla"
 ],
-"traffic_sign/city_limit_vertex":[
-"Lakott terület határát jelző tábla"
-],
 "traffic_sign/maxspeed":[
 "Sebességkorlátozást jelző tábla"
-],
-"traffic_sign/maxspeed_vertex":[
-"Sebességkorlátozást jelző tábla"
-],
-"traffic_sign_vertex":[
-"Jelzőtábla"
 ],
 "type/boundary":[
 "Határvonal",
@@ -5069,10 +5043,6 @@
 "type/route/ferry":[
 "Kompjárat útvonal",
 "Kompútvonal"
-],
-"type/route/foot":[
-"Gyalogos útvonal",
-"Gyalog útvonal"
 ],
 "type/route/hiking":[
 "Túraút",
@@ -5194,7 +5164,7 @@
 ],
 "waterway/lock_gate":[
 "csatorna",
-"Zsilip"
+"Zsilipkapu"
 ],
 "waterway/milestone":[
 "Vízi mérföldkő",

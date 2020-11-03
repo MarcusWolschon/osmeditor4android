@@ -6,6 +6,9 @@
 "Reklam Panosu",
 "Bilbord"
 ],
+"aerialway":[
+"Havayolu Özelliği"
+],
 "aerialway/cable_car":[
 "Teleferik"
 ],
@@ -14,6 +17,9 @@
 ],
 "aerialway/drag_lift":[
 "Kayak Teleferiği"
+],
+"aerialway/gondola":[
+"Gondol Kalkışı"
 ],
 "aerialway/goods":[
 "Mal Teleferiği",
@@ -35,8 +41,14 @@
 "aerialway/rope_tow":[
 "Çekme Halat Teleferik"
 ],
+"aerialway/t-bar":[
+"T-Bar Kalkışı"
+],
 "aeroway/aerodrome":[
 "Havaalanı"
+],
+"aeroway/apron":[
+"Havaalanı Apronu"
 ],
 "aeroway/gate":[
 "Kapı"
@@ -204,6 +216,9 @@
 "Fast Food",
 "Hazır Yiyecek"
 ],
+"amenity/ferry_terminal":[
+"Feribot Terminali"
+],
 "amenity/fire_station":[
 "İtfaiye"
 ],
@@ -242,6 +257,9 @@
 "amenity/internet_cafe":[
 "İnternet Kafe"
 ],
+"amenity/kindergarten":[
+"Anaokulu Sahası"
+],
 "amenity/library":[
 "Kütüphane"
 ],
@@ -279,6 +297,9 @@
 ],
 "amenity/parking/underground":[
 "Yeraltı Park Yeri"
+],
+"amenity/parking_entrance":[
+"Kapalı Otopark Giriş / Çıkış"
 ],
 "amenity/parking_space":[
 "Park Yeri"
@@ -477,6 +498,9 @@
 "amenity/vending_machine/drinks":[
 "İçecek Otomatı"
 ],
+"amenity/vending_machine/excrement_bags":[
+"Dışkı Torbası Dağıtıcı"
+],
 "amenity/vending_machine/feminine_hygiene":[
 "Kadın Sağlık Otomatı",
 "Kadın Sağlık Otomatik Satış Makinası"
@@ -484,6 +508,9 @@
 "amenity/vending_machine/newspapers":[
 "Gazete Satış Makinası",
 "Gazete Otomatı"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"Paket Alma / Bırakma Dolabı"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Park Fişi Otomatı"
@@ -521,6 +548,9 @@
 "Bölge",
 "Alan"
 ],
+"area/highway":[
+"Yol Alanı"
+],
 "attraction/amusement_ride":[
 "Eğlence Yolculuğu"
 ],
@@ -529,6 +559,9 @@
 ],
 "attraction/big_wheel":[
 "Dönme Dolap"
+],
+"attraction/bumper_car":[
+"Çarpışan Arabalar"
 ],
 "attraction/bungee_jumping":[
 "Bungee Jumping"
@@ -703,6 +736,9 @@
 "Endüstriyel Bina",
 "Sanayi Binası"
 ],
+"building/kindergarten":[
+"Anaokulu Bina"
+],
 "building/mosque":[
 "Cami"
 ],
@@ -840,6 +876,12 @@
 "craft/glaziery":[
 "Camcı"
 ],
+"craft/handicraft":[
+"El Sanatları Çalışma Alanı"
+],
+"craft/hvac":[
+"ISH Çalışma Alanı"
+],
 "craft/insulator":[
 "Kaloriferci"
 ],
@@ -848,6 +890,9 @@
 ],
 "craft/locksmith":[
 "Anahtarcı"
+],
+"craft/metal_construction":[
+"Dökümcü"
 ],
 "craft/painter":[
 "Boyacı"
@@ -866,6 +911,9 @@
 "Su Tesisatçısı",
 "Sıhhi Tesisatçı",
 "Tesisatçı"
+],
+"craft/pottery":[
+"Çömlekçi"
 ],
 "craft/rigger":[
 "Kablocu"
@@ -945,6 +993,9 @@
 "emergency/life_ring":[
 "Can Simidi"
 ],
+"emergency/mountain_rescue":[
+"Dağ Arama Kurtarma"
+],
 "emergency/no":[
 "Acil Erişim Yok"
 ],
@@ -962,6 +1013,9 @@
 ],
 "emergency/yes":[
 "Acil Erişim"
+],
+"entrance":[
+"Giriş / Çıkış"
 ],
 "ford":[
 "Sığ Yer",
@@ -1093,6 +1147,9 @@
 "highway/footway":[
 "Yürüyüş Yolu",
 "Yaya Yolu"
+],
+"highway/footway/conveying":[
+"Yürüyen Bant"
 ],
 "highway/footway/crossing":[
 "Yaya Geçidi"
@@ -1313,11 +1370,17 @@
 "landuse":[
 "Arazi Kullanım Özelliği"
 ],
+"landuse/allotments":[
+"Bahçe Tahsisleri"
+],
 "landuse/aquaculture":[
 "Su Kültürü"
 ],
 "landuse/basin":[
 "Havza"
+],
+"landuse/brownfield":[
+"Kahverengi Alan"
 ],
 "landuse/cemetery":[
 "Mezarlık"
@@ -1342,6 +1405,9 @@
 ],
 "landuse/forest":[
 "Düzenlenmiş Orman"
+],
+"landuse/garages":[
+"Garaj Arazisi Kullanımı"
 ],
 "landuse/grass":[
 "Çimenlik",
@@ -1440,6 +1506,33 @@
 "leisure/fitness_station":[
 "Açıkhava Spor Yeri"
 ],
+"leisure/fitness_station/box":[
+"Egzersiz Kutusu"
+],
+"leisure/fitness_station/horizontal_bar":[
+"Egzersiz Yatay Bar"
+],
+"leisure/fitness_station/hyperextension":[
+"Hiperekstansiyon İstasyonu"
+],
+"leisure/fitness_station/parallel_bars":[
+"Paralel Çubuklar"
+],
+"leisure/fitness_station/push-up":[
+"Push-Up İstasyonu"
+],
+"leisure/fitness_station/rings":[
+"Egzersiz Halkaları"
+],
+"leisure/fitness_station/sign":[
+"Egzersiz Talimatı İşareti"
+],
+"leisure/fitness_station/sit-up":[
+"Sit-Up İstasyonu"
+],
+"leisure/fitness_station/stairs":[
+"Egzersiz Merdivenleri"
+],
 "leisure/garden":[
 "Bahçe",
 "Bostan",
@@ -1447,6 +1540,9 @@
 ],
 "leisure/golf_course":[
 "Golf Sahası"
+],
+"leisure/hackerspace":[
+"Bilgisayar Korsanı Alanı"
 ],
 "leisure/horse_riding":[
 "At Binicilik Spor Kulübü",
@@ -1491,6 +1587,9 @@
 ],
 "leisure/pitch/beachvolleyball":[
 "Sahil Voleybolu Sahası"
+],
+"leisure/pitch/boules":[
+"Boules/Bocce Kortu"
 ],
 "leisure/pitch/bowls":[
 "Açıkhava Top Oyun Sahası"
@@ -1559,6 +1658,9 @@
 "line":[
 "Çizgi"
 ],
+"man_made":[
+"İnsan Yapımı Özellik"
+],
 "man_made/adit":[
 "Tünel Girişi",
 "Maden Girişi"
@@ -1575,11 +1677,17 @@
 "man_made/chimney":[
 "Baca"
 ],
+"man_made/courtyard":[
+"Avlu"
+],
 "man_made/crane":[
 "Vinç"
 ],
 "man_made/cutline":[
 "Yangın Durduma Hattı"
+],
+"man_made/dovecote":[
+"Güvercinlik"
 ],
 "man_made/embankment":[
 "Toprak Dolgu"
@@ -1589,6 +1697,9 @@
 ],
 "man_made/gasometer":[
 "Gazölçer"
+],
+"man_made/groyne":[
+"Kemer Pervazı"
 ],
 "man_made/lighthouse":[
 "Fener",
@@ -1659,6 +1770,9 @@
 "man_made/works":[
 "Fabrika",
 "Sanayi"
+],
+"natural":[
+"Doğal Özellik"
 ],
 "natural/bare_rock":[
 "Kayalık Bölge",
@@ -1758,6 +1872,9 @@
 "natural/wetland":[
 "Sulak Arazi",
 "Sulak Alan"
+],
+"natural/wood":[
+"Doğal Odun"
 ],
 "noexit/yes":[
 "Çıkış Yok"
@@ -1887,6 +2004,9 @@
 "office/physician":[
 "Hekim"
 ],
+"office/political_party":[
+"Siyasi Parti Ofisi"
+],
 "office/private_investigator":[
 "Dedektif Şubesi",
 "Dedektif"
@@ -1939,6 +2059,9 @@
 "place/island":[
 "Ada"
 ],
+"place/islet":[
+"Adacık"
+],
 "place/isolated_dwelling":[
 "Mesken"
 ],
@@ -1948,6 +2071,9 @@
 ],
 "place/neighbourhood":[
 "Mahalle"
+],
+"place/plot":[
+"Arsa"
 ],
 "place/quarter":[
 "Mahalle",
@@ -1968,12 +2094,45 @@
 "place/village":[
 "Köy"
 ],
+"playground/balance_beam":[
+"Denge Aleti"
+],
+"playground/basket_swing":[
+"Sepet Salıncak"
+],
+"playground/climbing_frame":[
+"Tırmanma Çerçevesi"
+],
+"playground/cushion":[
+"Zıplayan Minder"
+],
+"playground/horizontal_bar":[
+"Barfiks Bar"
+],
+"playground/rocker":[
+"Oyuncak At Binici"
+],
+"playground/sandpit":[
+"Kum Havuzu"
+],
+"playground/seesaw":[
+"Tahterevalli"
+],
 "playground/slide":[
 "Kaydırak"
+],
+"playground/structure":[
+"Yapı"
+],
+"playground/swing":[
+"Salıncak"
 ],
 "point":[
 "Konum",
 "Nokta"
+],
+"power":[
+"Güç Özelliği"
 ],
 "power/cable/underground":[
 "Yeraltı Enerji Kablosu"
@@ -1999,11 +2158,17 @@
 "power/substation":[
 "Trafo"
 ],
+"power/switch":[
+"Güç Düğmesi"
+],
 "power/tower":[
 "Yüksek Gerilim Direği"
 ],
 "power/transformer":[
 "Transformatör"
+],
+"public_transport/platform":[
+"Taşıma Platformu"
 ],
 "public_transport/platform/bus":[
 "Otobüs Platformu"
@@ -2104,20 +2269,41 @@
 "Troleybüs Yolcu İndirme/Bindirme Noktası",
 "Raysız Tramvay Yol Üstü İndirme/Bindirme Noktası"
 ],
+"railway":[
+"Demiryolu Özelliği"
+],
 "railway/abandoned":[
 "Terk Edilmiş Demiryolu"
 ],
 "railway/crossing":[
-"Demiryolu Kavşağı (Patika ile Kesişim)"
+"Demiryolu-Yol Geçişi"
 ],
 "railway/disused":[
 "Kullanılmayan Demiryolu"
 ],
+"railway/funicular":[
+"Füniküler Yolu"
+],
+"railway/halt":[
+"Tren İstasyonu (Dur / İstek)"
+],
 "railway/level_crossing":[
-"Hemzemin Geçit (Yol ile Kesişim)"
+"Demiryolu-Karayolu Geçişi"
+],
+"railway/milestone":[
+"Demiryolu Kilometre Taşı"
+],
+"railway/monorail":[
+"Tek Raylı Yol"
+],
+"railway/narrow_gauge":[
+"Dar Demiryolu"
 ],
 "railway/platform":[
 "Tren Platformu"
+],
+"railway/rail":[
+"Tren Yolu"
 ],
 "railway/signal":[
 "Demiryolu Sinyali"
@@ -2125,11 +2311,23 @@
 "railway/station":[
 "Tren İstasyonu"
 ],
+"railway/subway":[
+"Metro Yolu"
+],
 "railway/subway_entrance":[
 "Metro Girişi"
 ],
+"railway/switch":[
+"Demiryolu Makası"
+],
 "railway/train_wash":[
 "Tren Yıkama"
+],
+"railway/tram":[
+"Tramvay Yolu"
+],
+"railway/tram_stop":[
+"Tramvay Durma Yeri"
 ],
 "railway/yard":[
 "Demir Yolu Sahası"
@@ -2145,8 +2343,14 @@
 "Mağaza",
 "Dükkan"
 ],
+"shop/agrarian":[
+"Çiftlik Malzemeleri Dükkanı"
+],
 "shop/alcohol":[
 "İçki Dükkanı"
+],
+"shop/anime":[
+"Anime / Manga Dükkanı"
 ],
 "shop/antiques":[
 "Antika Dükkanı"
@@ -2249,6 +2453,9 @@
 "shop/cosmetics":[
 "Kozmetik Mağazası"
 ],
+"shop/craft":[
+"El Sanatları Mağazası"
+],
 "shop/curtain":[
 "Perde Mağazası"
 ],
@@ -2334,6 +2541,9 @@
 ],
 "shop/jewelry":[
 "Kuyumcu"
+],
+"shop/kiosk":[
+"Büfe"
 ],
 "shop/kitchen":[
 "Mutfak Eşyaları Mağazası"
@@ -2455,11 +2665,17 @@
 "Bilet Satıcısı",
 "Biletçi"
 ],
+"shop/tiles":[
+"Karo Dükkanı"
+],
 "shop/tobacco":[
 "Tütüncü"
 ],
 "shop/toys":[
 "Oyuncak Mağazası"
+],
+"shop/trade":[
+"Ticaret Mağazası"
 ],
 "shop/travel_agency":[
 "Turizm Acentası"
@@ -2498,6 +2714,9 @@
 "shop/wine":[
 "Şarap Mağazası"
 ],
+"tourism":[
+"Turizm Özelliği"
+],
 "tourism/alpine_hut":[
 "Dağ Evi",
 "Dağ Kulübesi",
@@ -2529,6 +2748,9 @@
 "tourism/caravan_site":[
 "Karavan Parkı"
 ],
+"tourism/chalet":[
+"Tatil Kulübesi"
+],
 "tourism/gallery":[
 "Sanat Galerisi"
 ],
@@ -2556,7 +2778,7 @@
 "Harita"
 ],
 "tourism/information/office":[
-"Turist Bilgi Ofisi"
+"Misafir Merkezi"
 ],
 "tourism/motel":[
 "Motel"
@@ -2573,6 +2795,9 @@
 "tourism/viewpoint":[
 "Görüş Noktası",
 "Bakış Noktası"
+],
+"tourism/wilderness_hut":[
+"Dağ kulübesi"
 ],
 "tourism/zoo":[
 "Hayvanat Bahçesi"
@@ -2605,23 +2830,17 @@
 "traffic_calming/rumble_strip":[
 "Hız Şeridi"
 ],
+"traffic_calming/table":[
+"Hız Tabelası"
+],
 "traffic_sign":[
 "Trafik Tabelası"
 ],
 "traffic_sign/city_limit":[
 "Şehir Sınırı Tabelası"
 ],
-"traffic_sign/city_limit_vertex":[
-"Şehir Sınırı Tabelası"
-],
 "traffic_sign/maxspeed":[
 "Hız Sınırı Tabelası"
-],
-"traffic_sign/maxspeed_vertex":[
-"Hız Sınırı Tabelası"
-],
-"traffic_sign_vertex":[
-"Trafik Tabelası"
 ],
 "type/boundary":[
 "Sınır"
@@ -2681,8 +2900,7 @@
 "Feribot Rotası"
 ],
 "type/route/foot":[
-"Yürüyüş Rotası",
-"Yürüyüş Güzergahı"
+"Yürüyüş Rotası"
 ],
 "type/route/hiking":[
 "Yürüyüş Rotası",
@@ -2696,12 +2914,18 @@
 "Boru Hattı Güzergahı",
 "Boru Hattı Rotası"
 ],
+"type/route/piste":[
+"Pist/Kayak Rotası"
+],
 "type/route/power":[
 "Elektrik Hattı Güzergahı",
 "Elektrik Hattı Rotası"
 ],
 "type/route/road":[
 "Yol Güzergahı"
+],
+"type/route/subway":[
+"Metro Rotası"
 ],
 "type/route/train":[
 "Tren Yolu Güzergahı",
@@ -2724,6 +2948,9 @@
 "type/waterway":[
 "Akarsu",
 "Su Yolu"
+],
+"waterway":[
+"Suyolu Özelliği"
 ],
 "waterway/boatyard":[
 "Bot İskelesi",

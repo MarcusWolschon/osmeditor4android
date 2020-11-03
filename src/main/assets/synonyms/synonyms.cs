@@ -372,11 +372,29 @@
 "amenity/biergarten":[
 "Pivní zahrada"
 ],
+"amenity/binoculars":[
+"výhled",
+"Namontovaný dalekohled",
+"vyhlídka",
+"rozhled",
+"veřejný dalekohled",
+"dalekohled",
+"teleskop"
+],
 "amenity/boat_rental":[
 "půjčovna loděk",
 "půjčovna člunů",
 "půjčovna lodí",
 "Půjčovna lodí"
+],
+"amenity/boat_storage":[
+"uložení lodí mimo vodu",
+"Místo pro uložení lodí",
+"prostor pro úschovu lodí",
+"na souši",
+"úschova lodí",
+"břeh",
+"parkování na souši"
 ],
 "amenity/bureau_de_change":[
 "valuta",
@@ -638,6 +656,15 @@
 "amenity/fast_food/ice_cream":[
 "zmrzlina"
 ],
+"amenity/fast_food/juice":[
+"pití",
+"Čerstvé ovocné šťávy",
+"ovocné nápoje",
+"rychlé občerstvení",
+"džusárna",
+"džus",
+"šťáva"
+],
 "amenity/fast_food/kebab":[
 "Kebab rychlé občerstvení"
 ],
@@ -786,6 +813,17 @@
 "amenity/loading_dock":[
 "nakládací rampa"
 ],
+"amenity/lounger":[
+"odpočinek",
+"lehátka",
+"sezení",
+"lehátko",
+"křeslo",
+"veřejné sezení",
+"sedadlo",
+"Lehátka",
+"veřejná lehátka"
+],
 "amenity/love_hotel":[
 "Hodinový hotel"
 ],
@@ -799,6 +837,17 @@
 ],
 "amenity/money_transfer":[
 "místo pro peněžní převody"
+],
+"amenity/mortuary":[
+"místo pro zemřelé",
+"pohřeb",
+"mrtví",
+"hrobník",
+"hřbitov",
+"Márnice",
+"márnice",
+"pohřbívání",
+"zemřelí"
 ],
 "amenity/motorcycle_parking":[
 "parking",
@@ -1075,6 +1124,18 @@
 "výčep",
 "lokál",
 "Hospoda"
+],
+"amenity/pub/irish":[
+"bar",
+"Irský pub",
+"hospoda",
+"Irsko",
+"Irský bar",
+"Irská hospoda",
+"pivo",
+"Irský",
+"Irský klub",
+"Irská"
 ],
 "amenity/pub/lgbtq":[
 "hospoda pro sexuální menšiny"
@@ -1417,6 +1478,22 @@
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "Latrína"
+],
+"amenity/toilets/portable":[
+"kadibudky",
+"plastové budky",
+"záchod",
+"toalety",
+"toiky",
+"mobilní toalety",
+"mobilní záchod",
+"toitoiky",
+"mobilní budka",
+"toi-toi",
+"Johnny servis",
+"Mobilní toalety",
+"plastové toalety",
+"toitoi"
 ],
 "amenity/townhall":[
 "místní správa",
@@ -1876,7 +1953,13 @@
 "okres"
 ],
 "bridge/support":[
-"opěra mostu"
+"pilíř",
+"podpěry mostu",
+"podepření mostu",
+"podpěra mostu",
+"Podpěra mostu",
+"pilíře",
+"konstrukce mostu"
 ],
 "bridge/support/pier":[
 "Mostní pilíř"
@@ -2626,6 +2709,9 @@
 "demolished/building":[
 "čerstvě zbouraná budova"
 ],
+"disused/amenity":[
+"Nepoužívané zařízení"
+],
 "disused/railway":[
 "nepoužívaný železniční prvek"
 ],
@@ -2754,6 +2840,14 @@
 ],
 "golf/cartpath":[
 "cesta pro golfová vozítka"
+],
+"golf/clubhouse":[
+"golfový areál",
+"základna",
+"golf",
+"budova",
+"Golfová klubovna",
+"golfový klub"
 ],
 "golf/driving_range":[
 "Dojezd"
@@ -2954,9 +3048,24 @@
 "přechod"
 ],
 "highway/crossing/unmarked":[
-"Neoznačený přechod"
+"místo pro přecházení",
+"neoznačený přechod",
+"neoznačený přechod pro chodce",
+"přechod pro chodce",
+"Neoznačený přechod",
+"přechod",
+"přechod přes ulici"
 ],
 "highway/crossing/unmarked-raised":[
+"místo pro přecházení",
+"neoznačený přechod",
+"vyvýšený pás",
+"zvýšený přechod",
+"přechod pro chodce",
+"zpomalovací pás",
+"zklidňování dopravy",
+"vyvýšený přechod",
+"přechod přes ulici",
 "Neoznačený přechod (zvýšený)"
 ],
 "highway/crossing/zebra":[
@@ -3119,9 +3228,24 @@
 "chodník"
 ],
 "highway/footway/unmarked":[
-"Neoznačený přechod"
+"místo pro přecházení",
+"neoznačený přechod",
+"neoznačený přechod pro chodce",
+"přechod pro chodce",
+"Neoznačený přechod",
+"přechod",
+"přechod přes ulici"
 ],
 "highway/footway/unmarked-raised":[
+"místo pro přecházení",
+"neoznačený přechod",
+"vyvýšený pás",
+"zvýšený přechod",
+"přechod pro chodce",
+"zpomalovací pás",
+"zklidňování dopravy",
+"vyvýšený přechod",
+"přechod přes ulici",
 "Neoznačený přechod (zvýšený)"
 ],
 "highway/footway/zebra":[
@@ -3368,6 +3492,23 @@
 "rampa",
 "Silnice 3. třídy - nájezd",
 "sjezd"
+],
+"highway/toll_gantry":[
+"automatická mýtná brána",
+"dálniční portál",
+"placená dálnice",
+"Mýtná brána",
+"sledování průjezdu",
+"čtečka SPZ",
+"radar",
+"kamery",
+"placená silnice",
+"výběr mýta",
+"průjezdná mýtná brána",
+"čtecí zařízení",
+"SPZ",
+"kamera",
+"mýto"
 ],
 "highway/track":[
 "lesní cesta",
@@ -4175,6 +4316,17 @@
 "plavání",
 "plavecký bazén"
 ],
+"leisure/sports_hall":[
+"všesportovní hala",
+"Tělocvična",
+"tělocvična",
+"sportovní hala",
+"hřiště",
+"hala pro sport",
+"sportoviště",
+"sport",
+"kryté sportoviště"
+],
 "leisure/stadium":[
 "stadion",
 "fotbal",
@@ -4313,6 +4465,16 @@
 "holina",
 "lesní průsek",
 "Průsek"
+],
+"man_made/dovecote":[
+"holuby",
+"holub domácí",
+"ptáci",
+"holubník",
+"ptactvo",
+"Holubník",
+"voliéra",
+"chov holubů"
 ],
 "man_made/dyke":[
 "protipovodňová hráz"
@@ -4526,6 +4688,14 @@
 "man_made/tower/communication":[
 "Komunikační věž"
 ],
+"man_made/tower/cooling":[
+"Chladící věž",
+"chlazení",
+"elektrárna",
+"jaderná elektrárna",
+"JE",
+"chladící věž"
+],
 "man_made/tower/defensive":[
 "opevněná věž"
 ],
@@ -4578,6 +4748,18 @@
 ],
 "man_made/windmill":[
 "Větrný mlýn"
+],
+"man_made/windpump":[
+"čerpání vody",
+"Větrný mlýn (pumpa)",
+"větrná pumpa",
+"pumpování vody",
+"čerpání ropy",
+"poháněné větrem",
+"pumpování ropy",
+"čerpadlo",
+"větrný mlýn",
+"pumpa poháněná větrem"
 ],
 "man_made/works":[
 "auto",
@@ -4663,6 +4845,13 @@
 "Vřesoviště",
 "vřesoviště",
 "vřes"
+],
+"natural/hot_spring":[
+"geotermální",
+"Termální pramen",
+"termální jezero",
+"horký pramen",
+"termální pramen"
 ],
 "natural/mud":[
 "Bahno"
@@ -5389,6 +5578,25 @@
 "HD",
 "hromadná doprava"
 ],
+"public_transport/platform/bus_tram_point":[
+"zastávka",
+"bus",
+"tramvajová a autobusová zastávka",
+"mhd",
+"zastávka tramvaje a autobusu",
+"stanoviště",
+"autobus",
+"Zastávka tramvaje a autobusu",
+"tramvaj",
+"veřejná doprava",
+"veřejná hromadná doprava",
+"VHD",
+"šalina",
+"nástupiště",
+"tram",
+"zastavení",
+"hromadná doprava"
+],
 "public_transport/platform/ferry":[
 "nástupní hrana přívozu"
 ],
@@ -5785,12 +5993,15 @@
 "Železnice ve výstavbě"
 ],
 "railway/crossing":[
-"Železniční přejezd (přes cestu)",
+"pěší přechod",
 "přejezd",
 "železniční přejezd",
 "železniční přechod",
 "přechod",
-"železnice"
+"pěší přejezd",
+"železnice",
+"chodník",
+"Přechod přes železnici"
 ],
 "railway/derail":[
 "Výkolejka"
@@ -5817,10 +6028,12 @@
 "railway/level_crossing":[
 "přejezd",
 "železniční přejezd",
+"Železniční přejezd",
 "železniční přechod",
 "přechod",
-"Železniční přejezd (přes silnici)",
-"železnice"
+"železnice",
+"křížení se železnicí",
+"závory"
 ],
 "railway/light_rail":[
 "tramvaj",
@@ -5924,6 +6137,14 @@
 "vysokorychlostní železnice",
 "rychlodráha"
 ],
+"railway/railway_crossing":[
+"kžížení železnice",
+"křížení tratí",
+"Kolejové křížení",
+"úrovňové křížení",
+"křížící se koleje",
+"křížení kolejí"
+],
 "railway/signal":[
 "semafor",
 "Proměnné návěstidlo",
@@ -5984,6 +6205,29 @@
 "kolej",
 "tramvaje",
 "tram"
+],
+"railway/tram_crossing":[
+"tramvaj",
+"přejezd přes koleje",
+"přejezd",
+"tramvajová trať",
+"přechod",
+"přechod přes koleje",
+"Přechod přes tramvajovou trať",
+"křížení tratě",
+"úrovňové křížení",
+"tramvajový přechod",
+"tramvajový přejezd"
+],
+"railway/tram_level_crossing":[
+"tramvaj",
+"přejezd přes koleje",
+"přejezd",
+"tramvajová trať",
+"křížení tratě",
+"Přejezd přes tramvajovou trať",
+"úrovňové křížení",
+"tramvajový přejezd"
 ],
 "railway/tram_stop":[
 "Zastávka tramvaje"
@@ -6736,6 +6980,24 @@
 "obchod s mobilními telefony",
 "přenosné telefony"
 ],
+"shop/model":[
+"modelářský obchod",
+"modelářství",
+"stavebnice modelů",
+"modely budov",
+"mašinky",
+"modely aut",
+"koníček",
+"stavebnice",
+"miniatury",
+"modelová železnice",
+"modely letadel",
+"Modelářský obchod",
+"modelářské potřeby",
+"modely",
+"modely v měřítku",
+"hobby"
+],
 "shop/money_lender":[
 "úvěr",
 "úžera",
@@ -7221,6 +7483,18 @@
 "shop/wholesale":[
 "Velkoobchodní sklad"
 ],
+"shop/wigs":[
+"vlasy",
+"paruka",
+"příčesky",
+"obchod s parukami",
+"Paruky",
+"vlásenkář",
+"paruky",
+"příčesek",
+"tupé",
+"vlásenkáři"
+],
 "shop/window_blind":[
 "žaluzie",
 "roleta",
@@ -7235,6 +7509,9 @@
 "vinařství",
 "vinotéka",
 "vinárna"
+],
+"telecom":[
+"Telekomunikační prvek"
 ],
 "telecom/data_center":[
 "Datové centrum"
@@ -7380,6 +7657,16 @@
 "tourism/information/board":[
 "Informační tabule"
 ],
+"tourism/information/board/welcome_sign":[
+"cedule",
+"vítající značka",
+"uvítací",
+"Uvítací tabule",
+"vítající tabule",
+"značka",
+"vítající",
+"tabule"
+],
 "tourism/information/guidepost":[
 "Rozcestník"
 ],
@@ -7388,7 +7675,14 @@
 ],
 "tourism/information/office":[
 "Turistické informační centrum",
-"Kancelář turistických informací"
+"turismus",
+"turista",
+"Návštěvnické centrum",
+"informace",
+"návštěvníci",
+"návštěvnické středisko",
+"turistické středisko",
+"návštěvník"
 ],
 "tourism/information/route_marker":[
 "turistická značka"
@@ -7564,23 +7858,6 @@
 "značka začátku obce",
 "začátek města"
 ],
-"traffic_sign/city_limit_vertex":[
-"značka konce obce",
-"vesnice",
-"obec",
-"město",
-"začátek vesnice",
-"konec města",
-"Značka začátek/konec obce",
-"začátek území obce",
-"konec vesnice",
-"dopravní značka",
-"DZ",
-"konec obce",
-"začátek obce",
-"značka začátku obce",
-"začátek města"
-],
 "traffic_sign/maxspeed":[
 "silniční značení",
 "dopravní značení",
@@ -7598,35 +7875,6 @@
 "značka",
 "dopravní značka omezení rychlosti",
 "maximální povolená rychlost"
-],
-"traffic_sign/maxspeed_vertex":[
-"silniční značení",
-"dopravní značení",
-"cedule",
-"rychlostní limit",
-"dopravní značka maximální rychlosti",
-"rychlostní omezení",
-"doprava",
-"omezení rychlosti",
-"značka rychlosti",
-"dopravní cedule",
-"Značka omezení rychlosti",
-"DZ",
-"maximální rychlost",
-"značka",
-"dopravní značka omezení rychlosti",
-"maximální povolená rychlost"
-],
-"traffic_sign_vertex":[
-"silniční značení",
-"dopravní značení",
-"cedule",
-"Dopravní značka",
-"dopravní značka",
-"DZ",
-"doprava",
-"značka",
-"dopravní cedule"
 ],
 "type/boundary":[
 "hraniční",
@@ -7764,10 +8012,12 @@
 "kčt",
 "pěší trasa",
 "klub českých turistů",
-"Pěší trasa",
 "turistická značka",
 "turistická trasa",
-"trasa pro pěší"
+"turistická stezka",
+"trasa pro pěší",
+"stezka pro pěší",
+"Turistická trasa"
 ],
 "type/route/hiking":[
 "značka pro pěší",

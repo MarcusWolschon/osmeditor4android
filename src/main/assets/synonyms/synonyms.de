@@ -270,9 +270,33 @@
 "amenity/biergarten":[
 "Biergarten"
 ],
+"amenity/binoculars":[
+"Refraktor",
+"Stationäres Aussichtsfernrohr",
+"Doppelfernrohr",
+"Teleskop",
+"Fernblick",
+"Feldstecher",
+"Aussichtsfernrohr",
+"Münzfernrohr",
+"Fernrohr",
+"Aussicht",
+"Landschaftsbeobachtung",
+"Aussichtsplatform",
+"Aussichtswarte",
+"Spektiv",
+"Fernglas",
+"Naturbeobachtung"
+],
 "amenity/boat_rental":[
 "Bootsvermietung",
 "Bootsverleih"
+],
+"amenity/boat_storage":[
+"Trockendock",
+"Bootslagerplatz",
+"Bootshaus",
+"Marina"
 ],
 "amenity/bureau_de_change":[
 "Wechselstube",
@@ -297,9 +321,9 @@
 "Perlenmilchtee",
 "Bubble Milch Tee",
 "taiwanesisches Teegetränk",
+"Bubble-Tea-Café",
 "Boba",
-"Tapioca",
-"Bubble Tea Cafe"
+"Tapioca"
 ],
 "amenity/cafe/coffee_shop":[
 "Brauner",
@@ -320,7 +344,7 @@
 ],
 "amenity/car_pooling":[
 "Car Pooling",
-"Car Pooling Station",
+"Car-Pooling-Station",
 "Car Sharing",
 "Mitfahren"
 ],
@@ -356,8 +380,8 @@
 "Ladestation für Elektrofahrzeuge"
 ],
 "amenity/childcare":[
-"Kindergrippenbetreuung, Kindertagesstätte",
 "Kindergarten",
+"Kinderkrippenbetreuung, Kindertagesstätte",
 "Kinderkrippe"
 ],
 "amenity/cinema":[
@@ -509,11 +533,22 @@
 "Wiener",
 "Würstel",
 "Frankfurter",
-"Hot Dog Stand",
+"Hot-Dog-Stand",
 "Hotdog Stand"
 ],
 "amenity/fast_food/ice_cream":[
 "Eisdiele"
+],
+"amenity/fast_food/juice":[
+"Shakes",
+"Smoothies",
+"Saftbar",
+"Getränke",
+"Juicebar",
+"Säfte",
+"Juice Fast Food",
+"Café",
+"Fruchtgetränke"
 ],
 "amenity/fast_food/kebab":[
 "Kebapstand",
@@ -661,6 +696,13 @@
 "entladen",
 "Tür"
 ],
+"amenity/lounger":[
+"Stuhl",
+"Bank",
+"Liege",
+"Sessel",
+"Sitzbank"
+],
 "amenity/love_hotel":[
 "Liebeshotel",
 "Stundenhotel"
@@ -677,12 +719,26 @@
 "Bargeldtransfer",
 "Geldtransferstation"
 ],
+"amenity/mortuary":[
+"Leichenhaus",
+"Parentationshalle",
+"Leichenbestatter",
+"Leichenhalle",
+"Krematorium",
+"Bestattung",
+"Leichenschauhaus"
+],
 "amenity/motorcycle_parking":[
 "Motorradparkplatz",
 "Motorrad-Parkplatz"
 ],
 "amenity/music_school":[
-"Musikschule"
+"Gitarre",
+"Geige",
+"Schlagzeug",
+"Musikschule",
+"Klavier",
+"Musikunterricht"
 ],
 "amenity/nightclub":[
 "Nachtlokal",
@@ -709,12 +765,12 @@
 "Mehrstöckige Parkgarage"
 ],
 "amenity/parking/park_ride":[
-"Park & Ride Platz",
 "P+R",
 "Park&Pool",
 "U-Bahn",
 "öffentlicher Verkehr",
 "Eisenbahnparkplatz",
+"Park & Ride-Platz",
 "Park&Ride",
 "Pendlerparkplatz"
 ],
@@ -759,6 +815,9 @@
 "Einzahlstelle"
 ],
 "amenity/payment_terminal":[
+"Kiosksystem",
+"Münzwechsel",
+"Selbstbedienung",
 "Zahlungsterminal"
 ],
 "amenity/pharmacy":[
@@ -891,7 +950,14 @@
 "Postamt"
 ],
 "amenity/prep_school":[
-"Vorbereitungsschule"
+"Nachhilfeanbieter",
+"Schülerhilfe",
+"Studienkreis",
+"Nachhilfe",
+"Vorbereitungsschule",
+"Hausaufgaben",
+"Repetitorium",
+"Lernhilfe"
 ],
 "amenity/prison":[
 "JVA",
@@ -903,6 +969,13 @@
 "amenity/pub":[
 "Kneipe",
 "Pub"
+],
+"amenity/pub/irish":[
+"Bar",
+"Irische Kneipe",
+"Pub",
+"Irish Pub",
+"Irland"
 ],
 "amenity/pub/lgbtq":[
 "LGBTQ+ Kneipe"
@@ -933,6 +1006,7 @@
 ],
 "amenity/recycling/container/electrical_items":[
 "Elektromüllconainer",
+"Elektroschrottcontainer",
 "E-Schrott-Container"
 ],
 "amenity/recycling/container/green_waste":[
@@ -1029,15 +1103,18 @@
 "Nudel-Restaurant"
 ],
 "amenity/restaurant/pizza":[
-"Pizza Restaurant"
+"Pizza Restaurant",
+"Pizzeria"
 ],
 "amenity/restaurant/seafood":[
+"Meeresfrüchte-Restaurant",
 "Meeresfrüchte Restaurant"
 ],
 "amenity/restaurant/steakhouse":[
 "Steakhouse"
 ],
 "amenity/restaurant/sushi":[
+"Sushi-Restaurant",
 "Sushi Restaurant"
 ],
 "amenity/restaurant/thai":[
@@ -1194,6 +1271,13 @@
 "Grubenlatrine",
 "Toilette"
 ],
+"amenity/toilets/portable":[
+"chemische Toilette",
+"Toilette",
+"Mobile Toilette",
+"Töpfchen",
+"Porta John"
+],
 "amenity/townhall":[
 "Gemeindezentrum",
 "Rathaus",
@@ -1281,7 +1365,7 @@
 "Frauenhygiene-Automat"
 ],
 "amenity/vending_machine/food":[
-"Lebensmittel-Verkaufs-Automat ",
+"Lebensmittel-Verkaufsautomat ",
 "Lebensmittel-Verkaufs-Automat"
 ],
 "amenity/vending_machine/fuel":[
@@ -1819,7 +1903,10 @@
 ],
 "building/service":[
 "Maschinenhaus",
-"Dienstleistungsgebäude"
+"Dienstleistungsgebäude",
+"Technikgebäude",
+"Versorgungsgebäude",
+"Betriebsgebäude"
 ],
 "building/shed":[
 "Gartenhaus",
@@ -2153,6 +2240,9 @@
 "demolished/building":[
 "kürzlich abgerissenes Gebäude"
 ],
+"disused/amenity":[
+"nicht benutzte Einrichtung"
+],
 "disused/railway":[
 "Stillgelegte Eisenbahnstrecken..."
 ],
@@ -2304,6 +2394,13 @@
 "golf/cartpath":[
 "Golfwagenweg"
 ],
+"golf/clubhouse":[
+"Klubhaus",
+"Goldklubhaus",
+"Golfclub",
+"Golfhaus",
+"Golf Klubhaus"
+],
 "golf/driving_range":[
 "Golf Driving Range"
 ],
@@ -2420,7 +2517,7 @@
 "Sprachtherapeutin"
 ],
 "highway":[
-"Größere Straßen..."
+"Straßen/Wege..."
 ],
 "highway/bridleway":[
 "Reiterweg",
@@ -2685,8 +2782,8 @@
 ],
 "highway/raceway":[
 "Auto",
+"Motorsport-Rennbahn",
 "Formel 1",
-"Motorsport Rennbahn",
 "Kart",
 "Rennbahn",
 "Motorsport"
@@ -2694,7 +2791,7 @@
 "highway/raceway/karting":[
 "Auto",
 "Gokart",
-"Kartsport Rennbahn",
+"Kartsport-Rennbahn",
 "Kart",
 "Kartsport",
 "Rennen",
@@ -2703,7 +2800,7 @@
 ],
 "highway/raceway/motocross":[
 "Offroad",
-"Motocross Rennbahn",
+"Motocross-Rennbahn",
 "Motorrrad",
 "Motorrennen",
 "Rennen",
@@ -2843,9 +2940,21 @@
 "Kreisstraßenauffahrt",
 "Kreisstraßenanschluss"
 ],
+"highway/toll_gantry":[
+"Schilderbrücke",
+"Mautbrücke",
+"Nummernschilderkennung",
+"Mauterfassung",
+"Kennzeichenerfassung",
+"Kontrollbrücke"
+],
 "highway/track":[
+"Quad",
 "Waldweg",
+"Offroad",
+"Jeep",
 "Feld-/Waldweg",
+"Vierradantrieb",
 "Forststraße",
 "Feldweg",
 "Wirtschaftsweg"
@@ -3329,8 +3438,8 @@
 "ultimative",
 "Discgolf",
 "Frisbee Golf",
-"fliegendes Scheibengolf",
-"Discgolf Anlage"
+"Discgolfanlage",
+"fliegendes Scheibengolf"
 ],
 "leisure/dog_park":[
 "Hundeauslaufzone",
@@ -3499,6 +3608,7 @@
 ],
 "leisure/pitch/australian_football":[
 "Australischer Football Feld",
+"Australian-Football-Feld",
 "Australian Football Feld"
 ],
 "leisure/pitch/badminton":[
@@ -3548,6 +3658,7 @@
 "Hufeisenwurfplatz"
 ],
 "leisure/pitch/netball":[
+"Korbball-Platz",
 "Korbball Platz"
 ],
 "leisure/pitch/rugby_league":[
@@ -3623,6 +3734,20 @@
 "Hallenbad",
 "Schwimmbad"
 ],
+"leisure/sports_hall":[
+"Zweifelsfalle",
+"Sportstätte",
+"Fitnessstudio",
+"Ballsporthalle",
+"Mehrfeldhalle",
+"Dreifeldhalle",
+"Sporthalle",
+"Schulsport",
+"Sportplätze",
+"Turnsaal",
+"Einfeldhalle",
+"Turnhalle"
+],
 "leisure/stadium":[
 "Stadion",
 "Arena"
@@ -3671,7 +3796,7 @@
 "Künstliches..."
 ],
 "man_made/adit":[
-"Bergwerk - Stolleneingang",
+"Bergwerk-Stolleneingang",
 "Stollen (horizontaler Tunnel im Bergbau)",
 "Stollenmundloch"
 ],
@@ -3749,6 +3874,12 @@
 "Schneise",
 "Lücke"
 ],
+"man_made/dovecote":[
+"Taubenlöcher",
+"Vögel",
+"Tauben",
+"Taubenschlag"
+],
 "man_made/dyke":[
 "Deich"
 ],
@@ -3800,7 +3931,7 @@
 "Hitze",
 "Deckel",
 "Gas",
-"Wartungszugang zu Gas-Leitungen",
+"Wartungszugang zu Gasleitungen",
 "Loch"
 ],
 "man_made/manhole/power":[
@@ -3819,7 +3950,7 @@
 "Loch"
 ],
 "man_made/manhole/telecom":[
-"Wartungszugang zu Telekomunikationskabeln",
+"Wartungszugang zu Telekommunikationskabeln",
 "Wartung",
 "Deckel",
 "Telekom",
@@ -3915,8 +4046,8 @@
 "Unterirdische Pipeline"
 ],
 "man_made/pipeline/valve":[
-"Pipeline Ventil",
 "Abwasser",
+"Pipeline-Ventil",
 "Wasser",
 "Öl",
 "Abwasserkanal",
@@ -4001,6 +4132,10 @@
 "Antenne",
 "verankerter Mast"
 ],
+"man_made/tower/cooling":[
+"Kraftwerk",
+"Kühlturm"
+],
 "man_made/tower/defensive":[
 "Befestigter Turm"
 ],
@@ -4052,6 +4187,12 @@
 "Wassermühle"
 ],
 "man_made/windmill":[
+"Windmühle"
+],
+"man_made/windpump":[
+"Windpumpe",
+"Wasserpumpe",
+"Aerorotor",
 "Windmühle"
 ],
 "man_made/works":[
@@ -4140,6 +4281,11 @@
 "natural/heath":[
 "Heidelandschaft",
 "Strauchheiden"
+],
+"natural/hot_spring":[
+"Heißwasserpool",
+"Thermalquelle",
+"Geothermiequelle"
 ],
 "natural/mud":[
 "Morast",
@@ -4454,14 +4600,15 @@
 "Versicherung"
 ],
 "office/it":[
-"Informations-Technologie-Firma"
+"Informations-Technologie-Firma",
+"Informationstechnologie-Firma"
 ],
 "office/lawyer":[
 "Rechtsanwalt",
+"Rechtsanwaltsbüro",
 "Notar",
 "Advokat",
-"Jurist",
-"Anwalt"
+"Jurist"
 ],
 "office/lawyer/notary":[
 "Notariat"
@@ -4955,6 +5102,17 @@
 "public_transport/platform/bus_point":[
 "Bushaltestelle (Wartebereich)"
 ],
+"public_transport/platform/bus_tram_point":[
+"Bus",
+"Straßenbahn und Bus Haltestelle",
+"Straßenbahn",
+"Haltestelle",
+"Bim",
+"öffentlicher Verkehr",
+"Schienen",
+"Transport",
+"Tram"
+],
 "public_transport/platform/ferry":[
 "Fährterminal (Wartebereich)"
 ],
@@ -4986,7 +5144,15 @@
 "Bahnsteig (Wartebereich)"
 ],
 "public_transport/platform/tram":[
-"Straßen-Haltestelle (Wartebereich)"
+"Straßenbahn-Haltestelle",
+"Bim",
+"Wartebereich",
+"öffentlicher Verkehr",
+"Schienen",
+"Transport",
+"Tram",
+"Oberleitungsbus",
+"Straßenbahn-Haltestelle (Wartebereich)"
 ],
 "public_transport/platform/tram_point":[
 "Eisenbahn",
@@ -5097,8 +5263,7 @@
 "railway/abandoned":[
 "Abgebaute Eisenbahnstrecke",
 "Aufgegebene Bahnstrecke",
-"Verfallene Eisenbahn",
-" Abgebaute Eisenbahnstrecke "
+"Verfallene Eisenbahn"
 ],
 "railway/buffer_stop":[
 "Gleisabschlussbock",
@@ -5110,10 +5275,11 @@
 "Eisenbahn im Bau"
 ],
 "railway/crossing":[
-"Bahnübergang (Weg)",
-"Eisenbahnübergang (Fußgänger)",
-"Eisenbahnfußgängerübergang",
-"Eisenbahnfussgängerkreuzung"
+"Bahnübergang",
+"Fußgängerüberweg",
+"Eisenbahn-Fußweg-Kreuzung",
+"Kreuzung",
+"Bahnweg"
 ],
 "railway/derail":[
 "Gleissicherung",
@@ -5134,9 +5300,11 @@
 "Eisenbahn-Haltepunkt"
 ],
 "railway/level_crossing":[
-"Eisenbahnstraßenkreuzung",
-"Eisenbahnkreuzung (Straße)",
-"Bahnübergang (Straße)"
+"Eisenbahn-Straßen-Kreuzung",
+"Bahnübergang",
+"Fußgängerüberweg",
+"Kreuzung",
+"Bahnweg"
 ],
 "railway/light_rail":[
 "Trolleygleis",
@@ -5194,6 +5362,11 @@
 "HSR",
 "Hochgeschwindigkeitseisenbahngleis"
 ],
+"railway/railway_crossing":[
+"ebene Eisenbahn-Eisenbahn-Kreuzung",
+"Eisenbahn-Diamant-Kreuzung",
+"Eisenbahn-Eisenbahn-Kreuzung"
+],
 "railway/signal":[
 "Eisenbahnsignal"
 ],
@@ -5223,6 +5396,17 @@
 "elektrifiziertes Straßenbahngleis",
 "Straßenbahngleis",
 "Stadtbahngleis"
+],
+"railway/tram_crossing":[
+"Straßenbahnübergang",
+"Fußgängerüberweg",
+"Straßenbahn-Fußweg-Kreuzung",
+"Kreuzung"
+],
+"railway/tram_level_crossing":[
+"Straßenbahnkreuzung",
+"Kreuzung",
+"Straßenbahn-Straßen-Kreuzung"
 ],
 "railway/tram_stop":[
 "Straßenbahn-Halteplatz"
@@ -5255,10 +5439,12 @@
 "Gefahrenleuchtfeuer"
 ],
 "seamark/beacon_lateral":[
-"Kanalleuchtfeuer"
+"Seitliche Tonne",
+"Laterales Seezeichen",
+"Lateraltonne"
 ],
 "seamark/buoy_lateral":[
-"Kanalboje"
+"Seitliche Tonne"
 ],
 "seamark/buoy_lateral/green":[
 "Grüne Boje"
@@ -5414,7 +5600,6 @@
 "Gebrauchtwagenhändler",
 "Autohaus",
 "Occasion",
-"Gerbrauchtwagenhandlung",
 "Gebrauchtwagenmarkt",
 "Second Hand",
 "Gebrauchtwagenzentrum",
@@ -5424,7 +5609,8 @@
 "Werkstatt",
 "Gebrauchtwagenverkauf",
 "PKW",
-"KFZ"
+"KFZ",
+"Gebrauchtwagenhandlung"
 ],
 "shop/car_parts":[
 "Autoteilehandel",
@@ -5477,12 +5663,12 @@
 "zweite Hand",
 "Altkleider",
 "Klamotten",
-"Second-Hand Bekleidungsgeschäft",
 "Kleider",
 "Gebrauchtwaren",
 "Gebrauchtkleidung",
 "Kleidung",
 "Mode",
+"Second-Hand-Bekleidungsgeschäft",
 "Vintage",
 "secondhand"
 ],
@@ -5883,13 +6069,22 @@
 "Motorradwerkstatt"
 ],
 "shop/music":[
+"CD",
 "Musikladen",
+"Vinyl",
 "Musikgeschäft",
-"Plattenladen"
+"LP",
+"Kassetten",
+"Plattenladen",
+"Schallplatten"
 ],
 "shop/musical_instrument":[
+"Gitarre",
 "Instrumentenladen",
+"Noten",
 "Musikinstrumentegeschäft",
+"Schlagzeug",
+"Partitur",
 "Musikinstrumentengeschäft"
 ],
 "shop/newsagent":[
@@ -6203,6 +6398,14 @@
 "Großhandelsgeschäft",
 "Großhandel"
 ],
+"shop/wigs":[
+"Perückenladen",
+"Haarersatz",
+"Zweitfrisur",
+"Perücken",
+"Haarverlängerung",
+"Kunsthaar"
+],
 "shop/window_blind":[
 "Fensterladengeschäft",
 "Rolladengeschäft"
@@ -6214,6 +6417,9 @@
 "Weinhandel",
 "Weinhaus",
 "Weinladen"
+],
+"telecom":[
+"Telekommunikationsfirma"
 ],
 "telecom/data_center":[
 "Datencenter",
@@ -6287,8 +6493,8 @@
 "tourism/camp_site/backcountry":[
 "informelles Camping",
 "primitives Camping",
-"Wildnis Campingplatz",
 "Waldcamping",
+"Wildnis-Campingplatz",
 "Alpines Camping",
 "Backpacker Camping"
 ],
@@ -6337,6 +6543,10 @@
 "Informationstafel",
 "Infotafel"
 ],
+"tourism/information/board/welcome_sign":[
+"Willkommensschild",
+"Neuer Ort"
+],
 "tourism/information/guidepost":[
 "Wegweiser",
 "Beschilderung",
@@ -6350,9 +6560,13 @@
 "Touristeninformationskarte"
 ],
 "tourism/information/office":[
-"Touristeninformationsbüro",
+"Besucherinformationszentrum",
+"Besucherzentrum",
+"Begrüßungszentrum",
+"Informationsbüro",
 "Tourismusbüro",
-"Tourist-Info"
+"Reiseleiter",
+"Touristeninformationszentrum"
 ],
 "tourism/information/route_marker":[
 "Wegerkennungsmarker",
@@ -6481,18 +6695,8 @@
 "traffic_sign/city_limit":[
 "Ortsschild"
 ],
-"traffic_sign/city_limit_vertex":[
-"Ortsschild"
-],
 "traffic_sign/maxspeed":[
 "Höchstgeschwindigkeits-Schild"
-],
-"traffic_sign/maxspeed_vertex":[
-"Höchstgeschwindigkeits-Schild"
-],
-"traffic_sign_vertex":[
-"Verkehrsschild",
-"Verkehrszeichen"
 ],
 "type/boundary":[
 "Grenze"
@@ -6610,8 +6814,7 @@
 "Fährstrecke"
 ],
 "type/route/foot":[
-"Fußweg",
-"Spazierweg"
+"Fußwegroute"
 ],
 "type/route/hiking":[
 "Trekking",
@@ -6628,8 +6831,8 @@
 "Stadtbahnlinie"
 ],
 "type/route/monorail":[
-"Monorail Route",
-"Monorail Linie"
+"Einschienenbahn-Linie",
+"Monorail Route"
 ],
 "type/route/pipeline":[
 "Pipelinenetz"
@@ -6682,16 +6885,16 @@
 "Standort"
 ],
 "type/waterway":[
-"Wasserweg",
 "Wehr",
 "Fluss",
 "Strom",
+"Wasserstraße",
 "Graben",
 "Bach",
 "Damm"
 ],
 "waterway":[
-"Wasserwege..."
+"Wasserstraßen..."
 ],
 "waterway/boatyard":[
 "Werft",

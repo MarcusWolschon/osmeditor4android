@@ -102,6 +102,9 @@
 "Naruhissi",
 "laskettelu"
 ],
+"aeroway":[
+"Ilmailukohde"
+],
 "aeroway/aerodrome":[
 "lentoasema",
 "lentokenttä",
@@ -139,6 +142,9 @@
 ],
 "aeroway/holding_position":[
 "Lentokoneen pysähtymiskohta"
+],
+"aeroway/jet_bridge":[
+"Matkustajasilta"
 ],
 "aeroway/parking_position":[
 "Lentokoneen pysäköintikohta"
@@ -617,6 +623,9 @@
 "amenity/fast_food/sandwich":[
 "Kerrosvoileipäpikaruokaravintola"
 ],
+"amenity/ferry_terminal":[
+"Laivaterminaali"
+],
 "amenity/fire_station":[
 "vpk",
 "vapaapalokunta",
@@ -743,6 +752,9 @@
 ],
 "amenity/money_transfer":[
 "Rahansiirtopiste"
+],
+"amenity/mortuary":[
+"Ruumishuone"
 ],
 "amenity/motorcycle_parking":[
 "Moottoripyöräpysäköinti"
@@ -1292,6 +1304,12 @@
 "amenity/toilets/disposal/flush":[
 "Vesivessa"
 ],
+"amenity/toilets/disposal/pitlatrine":[
+"Huussi"
+],
+"amenity/toilets/portable":[
+"Siirrettävä WC"
+],
 "amenity/townhall":[
 "Kunnantalo",
 "kunnantalo",
@@ -1764,6 +1782,9 @@
 "rakennus",
 "rakennustyömaa"
 ],
+"building/cowshed":[
+"Navetta"
+],
 "building/detached":[
 "Omakotitalo"
 ],
@@ -1910,6 +1931,9 @@
 "building/static_caravan":[
 "Paikallaan pysyvä siirrettävä talo"
 ],
+"building/sty":[
+"Sikala"
+],
 "building/temple":[
 "Temppelirakennus"
 ],
@@ -1949,6 +1973,9 @@
 ],
 "craft":[
 "Kädentaitoja vaativa kohde"
+],
+"craft/agricultural_engines":[
+"Maatalousmekaanikko"
 ],
 "craft/basket_maker":[
 "pajukori",
@@ -1998,6 +2025,9 @@
 ],
 "craft/chimney_sweeper":[
 "Nuohooja"
+],
+"craft/cleaning":[
+"Siivouspalvelu"
 ],
 "craft/clockmaker":[
 "Kelloseppä"
@@ -2062,6 +2092,9 @@
 ],
 "craft/locksmith":[
 "Lukkoseppä"
+],
+"craft/metal_construction":[
+"Metallityöntekijä"
 ],
 "craft/painter":[
 "maalaaja",
@@ -2173,6 +2206,9 @@
 ],
 "demolished/building":[
 "Äskettäin purettu rakennus"
+],
+"disused/amenity":[
+"Poistunut palvelu"
 ],
 "disused/railway":[
 "Käytöstä poistettu rautatiekohde"
@@ -2293,6 +2329,9 @@
 ],
 "entrance/emergency":[
 "Hätäuloskäynti"
+],
+"entrance/emergency_ward_entrance":[
+"Päivystyssisäänkäynti"
 ],
 "ford":[
 "Kahlauspaikka"
@@ -2709,6 +2748,9 @@
 ],
 "highway/tertiary_link":[
 "Yhdystien ramppi"
+],
+"highway/toll_gantry":[
+"Avoin tietulli"
 ],
 "highway/track":[
 "metsäkone",
@@ -3142,14 +3184,17 @@
 "paikka"
 ],
 "leisure/fitness_station":[
+"ulkona",
+"ulkokuntoiluvälineet",
+"ulko",
+"Ulkokuntoilulaitteet",
 "kuntolaite",
 "liikunta",
 "kuntoilu",
 "urheilu",
-"ulkona",
-"Ulkokuntosali",
+"ulkokuntosali",
 "lihaskunto",
-"ulko",
+"kuntoiluvälineet",
 "kuntoilulaite",
 "sali"
 ],
@@ -3175,12 +3220,12 @@
 "Golfkenttä"
 ],
 "leisure/hackerspace":[
+"Hacklab",
 "hackspace",
 "teknologia",
 "labra",
 "verstas",
 "koodaus",
-"Koodausnurkkaus",
 "värkkäys",
 "ohjelmointi",
 "julkinen",
@@ -3424,6 +3469,9 @@
 "uinti",
 "uimahalli"
 ],
+"leisure/sports_hall":[
+"Liikuntasali"
+],
 "leisure/stadium":[
 "Stadion"
 ],
@@ -3497,8 +3545,14 @@
 "man_made/clearcut":[
 "Avohakattu metsä"
 ],
+"man_made/courtyard":[
+"Sisäpiha"
+],
 "man_made/crane":[
 "Nosturi"
+],
+"man_made/cross":[
+"Risti"
 ],
 "man_made/cutline":[
 "hakkuuraja",
@@ -3521,6 +3575,9 @@
 ],
 "man_made/gasometer":[
 "Kaasusäiliö"
+],
+"man_made/goods_conveyor":[
+"Tavaraliukuhihna"
 ],
 "man_made/lighthouse":[
 "Majakka"
@@ -3582,6 +3639,9 @@
 "man_made/pumping_station":[
 "Pumppaamo"
 ],
+"man_made/reservoir_covered":[
+"Peitetty tekojärvi"
+],
 "man_made/silo":[
 "Siilo"
 ],
@@ -3623,6 +3683,9 @@
 ],
 "man_made/tower/communication":[
 "Viestintätorni"
+],
+"man_made/tower/cooling":[
+"Jäähdytystorni"
 ],
 "man_made/tower/defensive":[
 "Vartiotorni"
@@ -3716,6 +3779,9 @@
 ],
 "natural/heath":[
 "Nummi"
+],
+"natural/hot_spring":[
+"Kuuma lähde"
 ],
 "natural/mud":[
 "Muta"
@@ -4399,6 +4465,9 @@
 "bussikatos",
 "pysäkki"
 ],
+"public_transport/platform/bus_tram_point":[
+"Raitiotie- ja linja-autopysäkki"
+],
 "public_transport/platform/ferry":[
 "Laivalaituri"
 ],
@@ -4560,22 +4629,7 @@
 "Keskeneräinen rautatie"
 ],
 "railway/crossing":[
-"jalan",
-"suojatie",
-"polkupyörien",
-"rautatie",
-"Kävelyn ja pyöräilyn tasoristeys",
-"jalankulku",
-"pyörällä",
-"tasoristeys",
-"polkupyörän",
-"pyörän",
-"ylityspaikka",
-"pyörien",
-"pyöräily",
-"pyörä",
-"polkupyörä",
-"radanylitys"
+"Tasoristeys (kevyt liikenne)"
 ],
 "railway/derail":[
 "Raiteensulku"
@@ -4590,16 +4644,7 @@
 "Seisake"
 ],
 "railway/level_crossing":[
-"tie",
-"auto",
-"rautatie",
-"katu",
-"ylityspaikka",
-"Moottoriajoneuvoliikenteen tasoristeys",
-"tasoristeys",
-"radanylitys",
-"moottoriajoneuvo",
-"ajoneuvo"
+"Tasoristeys (moottoriliikenne)"
 ],
 "railway/light_rail":[
 "Pikaraitiotie"
@@ -4630,6 +4675,9 @@
 ],
 "railway/rail/highspeed":[
 "Suurnopeusrata"
+],
+"railway/railway_crossing":[
+"Raiteiden risteyskohta"
 ],
 "railway/signal":[
 "Rautatieopastin",
@@ -4663,6 +4711,12 @@
 "railway/tram":[
 "Katuraitiotie"
 ],
+"railway/tram_crossing":[
+"Raitiotien ja polun tasoristeys"
+],
+"railway/tram_level_crossing":[
+"Raitiotien ja kadun tasoristeys"
+],
 "railway/tram_stop":[
 "Katuraitiovaunun pysähtymiskohta"
 ],
@@ -4679,6 +4733,9 @@
 ],
 "seamark":[
 "Merimerkintä"
+],
+"seamark/buoy_lateral":[
+"Kanavapoiju"
 ],
 "seamark/buoy_lateral/green":[
 "Vihreä poiju"
@@ -5476,6 +5533,9 @@
 "shop/supermarket":[
 "Supermarketti"
 ],
+"shop/supermarket/organic":[
+"Luomusupermarketti"
+],
 "shop/swimming_pool":[
 "Uima-allasliike"
 ],
@@ -5765,14 +5825,6 @@
 "karttataulu",
 "maastokartta"
 ],
-"tourism/information/office":[
-"turisti",
-"neuvonta",
-"turismi",
-"Matkailuneuvonta",
-"matkailu",
-"info"
-],
 "tourism/information/terminal":[
 "Opastuspääte"
 ],
@@ -5881,17 +5933,8 @@
 "traffic_sign/city_limit":[
 "Taajamaliikennemerkki"
 ],
-"traffic_sign/city_limit_vertex":[
-"Taajamaliikennemerkki"
-],
 "traffic_sign/maxspeed":[
 "Nopeusrajoitusliikennemerkki"
-],
-"traffic_sign/maxspeed_vertex":[
-"Nopeusrajoitusliikennemerkki"
-],
-"traffic_sign_vertex":[
-"Liikennemerkki"
 ],
 "type/boundary":[
 "Raja"
@@ -5901,6 +5944,12 @@
 ],
 "type/connectivity":[
 "Ajokaistajatkuvuus"
+],
+"type/destination_sign":[
+"Määränpääkyltti"
+],
+"type/enforcement":[
+"Valvonta"
 ],
 "type/enforcement/maxspeed":[
 "Nopeuskamera"
@@ -6050,10 +6099,10 @@
 "laivanrakennus",
 "teollisuus",
 "rakentaminen",
+"Telakka-allas",
 "laivatelakka",
 "laivateollisuus",
-"kuivatelakka",
-"Telakka"
+"kuivatelakka"
 ],
 "waterway/drain":[
 "Viemäri"

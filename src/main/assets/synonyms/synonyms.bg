@@ -713,9 +713,6 @@
 "type/route/ferry":[
 "Фериботна връзка"
 ],
-"type/route/foot":[
-"Пешеходен маршрут"
-],
 "type/route/pipeline":[
 "Трасе на тръбопровод"
 ],

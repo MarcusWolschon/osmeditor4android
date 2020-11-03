@@ -161,8 +161,14 @@
 "amenity/biergarten":[
 "Пивска градина"
 ],
+"amenity/binoculars":[
+"Прицврстен двоглед"
+],
 "amenity/boat_rental":[
 "Изнајмување чамци"
+],
+"amenity/boat_storage":[
+"Склад за чамци"
 ],
 "amenity/bureau_de_change":[
 "Менувачница"
@@ -293,6 +299,9 @@
 "amenity/fast_food/ice_cream":[
 "Сладоледарница"
 ],
+"amenity/fast_food/juice":[
+"Соковница"
+],
 "amenity/fast_food/kebab":[
 "Донер-ќебап"
 ],
@@ -368,6 +377,9 @@
 "amenity/loading_dock":[
 "Товарна рампа"
 ],
+"amenity/lounger":[
+"Лежалка"
+],
 "amenity/love_hotel":[
 "Љубовен хотел"
 ],
@@ -379,6 +391,9 @@
 ],
 "amenity/money_transfer":[
 "Испраќање на пари"
+],
+"amenity/mortuary":[
+"Мртовечница"
 ],
 "amenity/motorcycle_parking":[
 "Паркиралиште за мотоцикли"
@@ -490,6 +505,9 @@
 ],
 "amenity/pub":[
 "Паб"
+],
+"amenity/pub/irish":[
+"Ирски паб"
 ],
 "amenity/pub/lgbtq":[
 "Пивница за ЛГБТК+"
@@ -667,6 +685,9 @@
 ],
 "amenity/toilets/disposal/pitlatrine":[
 "Полски нужник"
+],
+"amenity/toilets/portable":[
+"Пренослив тоалет"
 ],
 "amenity/townhall":[
 "Градски дом"
@@ -1295,6 +1316,9 @@
 "demolished/building":[
 "Неодамна срушена градба"
 ],
+"disused/amenity":[
+"Услужна постројка вон употреба"
+],
 "disused/railway":[
 "Неупотребуван железнички елемент"
 ],
@@ -1387,6 +1411,9 @@
 ],
 "golf/cartpath":[
 "Патека за голферски колички"
+],
+"golf/clubhouse":[
+"Голф-клуб"
 ],
 "golf/driving_range":[
 "Удирачница"
@@ -1679,6 +1706,9 @@
 ],
 "highway/tertiary_link":[
 "Третостепен приод"
+],
+"highway/toll_gantry":[
+"Отворена патарина"
 ],
 "highway/track":[
 "Неодржуван неасфалтиран пат"
@@ -2139,6 +2169,9 @@
 "leisure/sports_centre/swimming":[
 "Базенски објект"
 ],
+"leisure/sports_hall":[
+"Фискултурна сала"
+],
 "leisure/stadium":[
 "Стадион"
 ],
@@ -2213,6 +2246,9 @@
 ],
 "man_made/cutline":[
 "Засечена линија"
+],
+"man_made/dovecote":[
+"Гулабарник"
 ],
 "man_made/dyke":[
 "Насип"
@@ -2340,6 +2376,9 @@
 "man_made/tower/communication":[
 "Примопредавателска кула"
 ],
+"man_made/tower/cooling":[
+"Разладна кула"
+],
 "man_made/tower/defensive":[
 "Кула — утврдена"
 ],
@@ -2375,6 +2414,9 @@
 ],
 "man_made/windmill":[
 "Ветерница"
+],
+"man_made/windpump":[
+"Црпна ветерница"
 ],
 "man_made/works":[
 "Фабрика"
@@ -2426,6 +2468,9 @@
 ],
 "natural/heath":[
 "Вресиште"
+],
+"natural/hot_spring":[
+"Топол извор"
 ],
 "natural/mud":[
 "Кал"
@@ -2874,6 +2919,9 @@
 "public_transport/platform/bus_point":[
 "Автобуска постојка"
 ],
+"public_transport/platform/bus_tram_point":[
+"Трамвајско-автобуска станица"
+],
 "public_transport/platform/ferry":[
 "Траектен перон"
 ],
@@ -2998,7 +3046,7 @@
 "Пруга во изградба"
 ],
 "railway/crossing":[
-"Премин преку пруга (патека)"
+"Пешачки премин преку пруга"
 ],
 "railway/derail":[
 "Безбедносна шинска пречка"
@@ -3013,7 +3061,7 @@
 "Железничка станица (постојка / по барање)"
 ],
 "railway/level_crossing":[
-"Премин преку пруга (пат)"
+"Патен премин преку пруга"
 ],
 "railway/light_rail":[
 "Лесножелезничка пруга"
@@ -3045,6 +3093,9 @@
 "railway/rail/highspeed":[
 "Големобрзинска пруга"
 ],
+"railway/railway_crossing":[
+"Железнички премин преку пруга"
+],
 "railway/signal":[
 "Железнички сигнал"
 ],
@@ -3065,6 +3116,12 @@
 ],
 "railway/tram":[
 "Трамвајска пруга"
+],
+"railway/tram_crossing":[
+"Пешачки премин преку трамвајска пруга"
+],
+"railway/tram_level_crossing":[
+"Патен премин преку трамвајска пруга"
 ],
 "railway/tram_stop":[
 "Сопирна положба на трамвајот"
@@ -3526,7 +3583,7 @@
 "Канцелариски материјали"
 ],
 "shop/storage_rental":[
-"Изнамјување складишен простор"
+"Изнамјување складиштен простор"
 ],
 "shop/supermarket":[
 "Супермаркет"
@@ -3606,11 +3663,17 @@
 "shop/wholesale":[
 "Големопродажен центар"
 ],
+"shop/wigs":[
+"Продавница за перики"
+],
 "shop/window_blind":[
 "Продавница за завеси и ролетни"
 ],
 "shop/wine":[
 "Винотека"
+],
+"telecom":[
+"Телекомуникациски елемент"
 ],
 "telecom/data_center":[
 "Центар за податоци"
@@ -3690,6 +3753,9 @@
 "tourism/information/board":[
 "Информативна табла"
 ],
+"tourism/information/board/welcome_sign":[
+"Знак за добредојде"
+],
 "tourism/information/guidepost":[
 "Патоказ"
 ],
@@ -3697,7 +3763,7 @@
 "Карта"
 ],
 "tourism/information/office":[
-"Туристичко биро"
+"Посетителски центар"
 ],
 "tourism/information/route_marker":[
 "Обележувач на патека"
@@ -3777,17 +3843,8 @@
 "traffic_sign/city_limit":[
 "Знак за влез во/излез од град"
 ],
-"traffic_sign/city_limit_vertex":[
-"Знак за влез во/излез од град"
-],
 "traffic_sign/maxspeed":[
 "Знак за дозволена брзина"
-],
-"traffic_sign/maxspeed_vertex":[
-"Знак за дозволена брзина"
-],
-"traffic_sign_vertex":[
-"Сообраќаен знак"
 ],
 "type/boundary":[
 "Граница"
@@ -3856,7 +3913,7 @@
 "Траектен патен правец"
 ],
 "type/route/foot":[
-"Пешачки патен правец"
+"Пешачки правец"
 ],
 "type/route/hiking":[
 "Планинарски равец"
