@@ -141,7 +141,8 @@ public class SaveResumeTest {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
-        TestUtils.sleep(5000);
+        TestUtils.sleep(2000);
+        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);   
         assertTrue(TestUtils.clickHome(device, true));
         instrumentation.removeMonitor(monitor);
 
@@ -164,8 +165,7 @@ public class SaveResumeTest {
         TestUtils.unlock(device);
         TestUtils.zoomToLevel(device, main, 21);
         TestUtils.clickAtCoordinates(device, map, 8.3893820, 47.3895626, true);
-        assertTrue(TestUtils.findText(device, false, "Path", 2000));
-        assertTrue(TestUtils.clickText(device, false, "Path", false, false));
+        TestUtils.clickText(device, false, "Path", false, false);
         Way way = App.getLogic().getSelectedWay();
         assertNotNull(way);
         assertEquals(104148456L, way.getOsmId());
@@ -185,7 +185,8 @@ public class SaveResumeTest {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
-        TestUtils.sleep(5000);
+        TestUtils.sleep(2000);
+        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);   
         TestUtils.clickHome(device, true);
         List<Relation> relations = App.getLogic().getSelectedRelations();
         assertEquals(1, relations.size());
