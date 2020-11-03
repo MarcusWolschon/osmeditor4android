@@ -69,12 +69,7 @@ public class WayActionsTest {
         Preferences prefs = new Preferences(context);
         TestUtils.removeImageryLayers(context);
         prefs.enableSimpleActions(true);
-        main.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                main.showSimpleActionsButton();
-            }
-        });
+        main.runOnUiThread(() -> main.showSimpleActionsButton());
 
         map = main.getMap();
         map.setPrefs(main, prefs);
@@ -113,10 +108,7 @@ public class WayActionsTest {
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath), 1000));
 
         TestUtils.clickAtCoordinates(device, map, 8.3887655, 47.3892752, true);
-        try {
-            Thread.sleep(1000); // NOSONAR
-        } catch (InterruptedException e) {
-        }
+        TestUtils.sleep();
         TestUtils.clickAtCoordinates(device, map, 8.38877, 47.389202, true);
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_untagged_element)));
@@ -227,7 +219,8 @@ public class WayActionsTest {
         TestUtils.clickButton(device, device.getCurrentPackageName() + ":id/simpleButton", true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         assertNotNull(propertyEditor);
-        TestUtils.sleep(5000);
+        TestUtils.sleep(2000);
+        TestUtils.clickText(device, false, context.getString(R.string.cancel), true, false);   
         assertTrue(TestUtils.clickHome(device, true));
         instrumentation.removeMonitor(monitor);
 
@@ -347,7 +340,8 @@ public class WayActionsTest {
         final Relation restriction = rels.get(0);
         assertEquals(3, restriction.getMembers().size());
         assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_FROM).size());
-        // from will have a different id as it has been split assertEquals(119104094L, restriction.getMembersWithRole(Tags.ROLE_FROM).get(0).getElement().getOsmId());
+        // from will have a different id as it has been split assertEquals(119104094L,
+        // restriction.getMembersWithRole(Tags.ROLE_FROM).get(0).getElement().getOsmId());
         assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_VIA).size());
         assertEquals(633468409L, restriction.getMembersWithRole(Tags.ROLE_VIA).get(0).getElement().getOsmId());
         assertEquals(1, restriction.getMembersWithRole(Tags.ROLE_TO).size());
