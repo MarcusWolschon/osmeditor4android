@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+15.0.6: Update imagery from ELI, update translations, update preset, count key matches for match value "key!", fix issues with retaining existing values when changing value count, ignore KEYCODE_MOVE_HOME, fix regression with UndoDialog not being dismissed on click, use nodeCount and not length, fix preset matching regression for tags with MatchType.KEY.
+
 15.0.5: Update imagery from ELI, update translations, update preset, update OH parser (fixes holiday issue), improve preset matching, set time in NMEA derived locations, handle preset configuration changes while a preset filter is active. 
 
 15.0.4: Update imagery from ELI, update translations, update preset, fix typo in GPX mime type, don't serialze whole elements, just the id when saving edit state, fix display of relation membership changes in info dialog, show a tip when starting GPX recording and no geoid model is installed, handle cascaded path patterns correctly, fix intent handling regression.
