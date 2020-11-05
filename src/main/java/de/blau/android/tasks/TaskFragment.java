@@ -14,6 +14,7 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -423,6 +424,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
                         }
                     });
                 });
+        // this should keep the buttons visible 
+        d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return d;
     }
 
