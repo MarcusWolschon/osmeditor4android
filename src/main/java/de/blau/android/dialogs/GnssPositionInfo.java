@@ -149,7 +149,7 @@ public class GnssPositionInfo extends InfoDialogFragment {
         builder.setPositiveButton(R.string.done, doNothingListener);
         if (location != null) {
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
-            nf.setMaximumFractionDigits(7);
+            nf.setMaximumFractionDigits(8);
             nf.setRoundingMode(RoundingMode.HALF_UP);
             try {
                 final double lon = Double.parseDouble(nf.format(location.getLongitude()));
@@ -175,27 +175,27 @@ public class GnssPositionInfo extends InfoDialogFragment {
                                     Preferences prefs = logic.getPrefs();
                                     if (loc.hasBarometricHeight()) {
                                         if (prefs.useBarometricHeight()) {
-                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
+                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
                                             tags.put(Tags.KEY_SOURCE_ELE, Tags.VALUE_BAROMETER);
                                         }
-                                        tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.1f", loc.getBarometricHeight()));
+                                        tags.put(Tags.KEY_ELE_BAROMETRIC, String.format(Locale.US, "%.3f", loc.getBarometricHeight()));
                                     }
                                     if (loc.hasGeoidHeight()) {
                                         if (!prefs.useBarometricHeight()) {
-                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
+                                            tags.put(Tags.KEY_ELE, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
                                             tags.put(Tags.KEY_SOURCE, Tags.VALUE_GNSS);
                                         }
-                                        tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.1f", loc.getGeoidHeight()));
+                                        tags.put(Tags.KEY_ELE_GEOID, String.format(Locale.US, "%.3f", loc.getGeoidHeight()));
                                     }
                                     if (loc.hasGeoidCorrection()) {
-                                        tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.1f", loc.getGeoidCorrection()));
+                                        tags.put("note:ele", "geoid correction " + String.format(Locale.US, "%.3f", loc.getGeoidCorrection()));
                                     }
                                     if (loc.hasHdop()) {
                                         tags.put(Tags.KEY_GNSS_HDOP, String.format(Locale.US, "%.1f", loc.getHdop()));
                                     }
                                 }
                                 if (location.hasAltitude()) {
-                                    tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.1f", location.getAltitude()));
+                                    tags.put(Tags.KEY_ELE_ELLIPSOID, String.format(Locale.US, "%.3f", location.getAltitude()));
                                 }
 
                                 logic.setTags(getActivity(), node, tags);
@@ -263,8 +263,8 @@ public class GnssPositionInfo extends InfoDialogFragment {
      */
     private void updateView(@NonNull FragmentActivity activity, @NonNull TableLayout tl, @NonNull TableLayout.LayoutParams tp) {
         tl.removeAllViews();
-        tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.7f", location.getLatitude()), tp));
-        tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", location.getLongitude()), tp));
+        tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.8f", location.getLatitude()), tp));
+        tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.8f", location.getLongitude()), tp));
         tl.addView(TableLayoutUtils.divider(activity));
 
         if (location instanceof ExtendedLocation) {
@@ -275,19 +275,19 @@ public class GnssPositionInfo extends InfoDialogFragment {
             tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_altitude, null, tp));
             if (loc.hasGeoidHeight()) {
                 tl.addView(
-                        TableLayoutUtils.createRow(activity, R.string.position_info_geoid_height, String.format(Locale.US, "%.1f", loc.getGeoidHeight()), tp));
+                        TableLayoutUtils.createRow(activity, R.string.position_info_geoid_height, String.format(Locale.US, "%.3f", loc.getGeoidHeight()), tp));
             }
             if (loc.hasBarometricHeight()) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_barometric_height,
-                        String.format(Locale.US, "%.1f", loc.getBarometricHeight()), tp));
+                        String.format(Locale.US, "%.3f", loc.getBarometricHeight()), tp));
             }
             if (loc.hasGeoidCorrection()) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_geoid_correction,
-                        String.format(Locale.US, "%.1f", loc.getGeoidCorrection()), tp));
+                        String.format(Locale.US, "%.3f", loc.getGeoidCorrection()), tp));
             }
         }
         if (location.hasAltitude()) {
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_ellipsoid_height, String.format(Locale.US, "%.1f", location.getAltitude()),
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.position_info_ellipsoid_height, String.format(Locale.US, "%.3f", location.getAltitude()),
                     tp));
         }
     }
