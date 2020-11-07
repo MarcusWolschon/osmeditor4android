@@ -3284,8 +3284,9 @@ public class StorageDelegator implements Serializable, Exportable, DataStorage {
         }
         // no need to do this in the synchronized block
         if (postMerge != null) {
-            for (OsmElement e : newElements)
+            for (OsmElement e : newElements) {
                 postMerge.handler(e);
+            }
         }
 
         return true; // Success
